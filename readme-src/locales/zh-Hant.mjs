@@ -85,7 +85,7 @@ bun run dist:win     # 在受支援的主機上打包 Windows 目標
 export const zhHant = {
   icon_alt: "Arroxy 吉祥物",
   title:
-    "Arroxy — 內建 YouTube 瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工具，支援 Windows、macOS 和 Linux",
+    "Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工具，支援 Windows、macOS 和 Linux",
   read_in_label: "閱讀語言：",
   badge_release_alt: "釋出",
   badge_build_alt: "建置",
@@ -96,7 +96,7 @@ export const zhHant = {
   discord_badge_text: "加入 Discord 社群",
   discord_badge_encoded: "%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4",
   hero_desc:
-    "從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、音樂、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube**，下載你正在看的影片、播放清單或頻道；在那裡登入後，還能下載你的帳號可觀看的私人、會員專屬和年齡限制影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**",
+    "從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、音樂、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube 或任何其他網站**，下載你正在看的影片、播放清單或頻道；在那裡登入後，還能下載你的帳號可觀看的私人、會員專屬和年齡限制影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**",
   cta_latest: "↓ 下載最新版本",
   cta_website: "官網",
   star_cta: "如果 Arroxy 幫你節省了時間，點個 ⭐ 讓更多人發現它。",
@@ -117,7 +117,7 @@ export const zhHant = {
   why_r5: "無使用上限",
   why_r6: "跨平台桌面應用程式",
   why_r7: "字幕 + SponsorBlock",
-  why_r8: "內建 YouTube 瀏覽器（瀏覽、登入、下載）",
+  why_r8: "內建瀏覽器（瀏覽、登入、下載）",
   why_r9: "不必匯出 Cookie 即可下載私人、會員專屬與年齡限制影片",
   why_table_note:
     "⚠️ = 部分支援，或僅限付費版。4K Video Downloader 用於私人影片的應用程式內登入是付費功能；多數免費的 yt-dlp 圖形介面只接受 Cookie 檔案，或讀取你網頁瀏覽器中的 Cookie。",
@@ -125,29 +125,29 @@ export const zhHant = {
     "Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到影片，都能取得乾淨的本機檔案。無付費推銷、無資料收集。",
   why_explore_h3: "單純的 yt-dlp 包裝程式做不到的事：Explore 分頁",
   why_explore_intro:
-    "多數免費的 YouTube 下載器只是在 yt-dlp 之上加一個網址輸入框。Arroxy 同樣使用 yt-dlp，但它還有 **Explore**，一個內建於應用程式中的 YouTube 瀏覽器。Explore 能繞過單靠網址輸入框無法應付的 YouTube 限制：",
+    "多數免費的 YouTube 下載器只是在 yt-dlp 之上加一個網址輸入框。Arroxy 同樣使用 yt-dlp，但它還有 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站。Explore 能繞過單靠網址輸入框無法應付的限制：",
   why_explore_1:
-    "**需要帳號的影片，不必匯出 Cookie** — 私人、會員專屬與年齡限制影片（需使用已通過年齡驗證的帳號），以及你的「稍後觀看」和「喜歡的影片」清單。單純的包裝程式需要你匯出 cookies.txt，或讀取你網頁瀏覽器中的 Cookie，而 Windows 上的 Chrome 現在會封鎖這種讀取。在 Arroxy 中，你只要在 Explore 登入一次，其餘的都交給它處理",
+    "**需要帳號的影片，不必匯出 Cookie** — 私人、會員專屬與年齡限制影片（需使用已通過年齡驗證的帳號），以及你的「稍後觀看」和「喜歡的影片」清單，以及其他網站上需要登入才能觀看的影片。單純的包裝程式需要你匯出 cookies.txt，或讀取你網頁瀏覽器中的 Cookie，而 Windows 上的 Chrome 現在會封鎖這種讀取。在 Arroxy 中，你只要在 Explore 登入一次，其餘的都交給它處理",
   why_explore_2:
     "**「登入以確認你不是機器人」** — 當 YouTube 提出這項要求時，Arroxy 會改用你在 Explore 的登入重試下載，而不是直接失敗",
   why_explore_3:
     "**YouTube 的下載權杖** — Arroxy 的內建瀏覽器會在下載前取得 YouTube 所要求的權杖。少了它，YouTube 可能只提供較少的格式，畫質也會低於你的要求",
   why_explore_4: "**不必複製連結** — 在 Explore 中找到影片、播放清單或頻道，一鍵即可下載，或對頁面上的任何連結按右鍵",
-  why_explore_5: "**瀏覽時攔截廣告** — Explore 會攔截自身頁面上的廣告和追蹤器",
-  feat_explore_h3: "Explore：在 Arroxy 內瀏覽 YouTube",
+  why_explore_5: "**需要時再開啟廣告攔截** — 點一下盾牌，Explore 就會攔截其頁面上的廣告和追蹤器",
+  feat_explore_h3: "Explore：在 Arroxy 內瀏覽網頁",
   feat_explore_1:
-    "**Explore 分頁** — 在 Arroxy 內瀏覽 YouTube，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等",
+    "**Explore 分頁** — 在 Arroxy 內瀏覽 YouTube 或任何其他網站，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等",
   feat_explore_6: "**按右鍵下載** — 在 Explore 中對任何影片、播放清單或頻道連結按右鍵，即可用你的設定下載、從 **使用設定檔下載** 選擇其他設定、開啟逐步下載，或複製連結。不必先逐一開啟影片",
   feat_explore_7:
     "**精簡版面** — 在 Explore 工具列按一下，就會把 Arroxy 的分頁移進去，讓頁面有更多空間",
   feat_explore_2:
-    "**位址列** — 輸入文字即可搜尋 YouTube，或貼上 YouTube 連結。Explore 只瀏覽 YouTube，其他網站的連結不會在其中開啟，但你可以一鍵下載",
+    "**位址列** — 輸入文字即可搜尋 YouTube，或輸入任何網址開啟該網站",
   feat_explore_3:
-    "**需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。Arroxy 仍以未登入狀態下載，只有在下載因帳號可解決的原因失敗時，才會使用你在 Explore 的登入。當 YouTube 要求確認你不是機器人時，Arroxy 也會嘗試使用你在 Explore 的登入",
+    "**需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。Arroxy 仍會先以未登入狀態下載，只有在下載因帳號可解決的原因失敗時，才會使用你在 Explore 的登入。當 YouTube 要求確認你不是機器人時，Arroxy 也會嘗試使用你在 Explore 的登入",
   feat_explore_4:
-    "**建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除登入時，隨時可在設定中登出 Explore",
+    "**建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除所有登入時，隨時可在設定中登出 Explore",
   feat_explore_5:
-    "**廣告攔截** — Explore 會攔截自身頁面上的廣告和追蹤器，不影響下載。預設開啟，點一下 Explore 工具列上的盾牌即可關閉，且不會作用於 Google 的登入頁面。對已登入的帳號，YouTube 可能會抵制廣告攔截",
+    "**廣告攔截** — 預設關閉。點一下 Explore 工具列上的盾牌，即可攔截其頁面上的廣告和追蹤器，不影響下載。對已登入的帳號，YouTube 可能會抵制廣告攔截",
   feat_quality_h3: "畫質與格式",
   feat_quality_1: "最高 **8K（4320p）**、4K UHD（2160p）、1440p、1080p、720p、480p、360p",
   feat_quality_2: "**高影格率與 HDR**依原樣保留 — 60 fps、HDR10",
@@ -229,7 +229,7 @@ export const zhHant = {
   hotkey_fig_alt: "Arroxy 全域下載快速鍵 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把複製的連結直接送入下載佇列",
   hotkey_fig_cap: "<b>全域下載快速鍵</b><br/>隨處複製連結，按一次——立即進入佇列並開始下載",
   shot7_cap: "<b>播放清單逐項設定</b><br/>為每個影片指定各自的設定——部分存為 4K，其餘轉成 MP3",
-  shot8_cap: "<b>Explore</b><br/>在 Arroxy 內瀏覽 YouTube，用目前設定下載你正在看的頁面",
+  shot8_cap: "<b>Explore</b><br/>在 Arroxy 內瀏覽 YouTube 或任何其他網站，用目前設定下載你正在看的頁面",
   shot9_cap: "<b>Explore 首屏</b><br/>快速了解 Explore，以及為什麼用備用帳號登入更安全",
   shot10_cap: "<b>「下載」告訴你哪些需要處理</b><br/>連結在背景準備；失敗的會提供解決辦法，較長的播放清單則等你選擇",
   shot11_cap: "<b>只下載影片的一部分</b><br/>選擇開始與結束時間，或某個章節 — Arroxy 只會儲存該範圍",

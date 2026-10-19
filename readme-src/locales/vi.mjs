@@ -85,7 +85,7 @@ bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ 
 export const vi = {
   icon_alt: "Linh vật Arroxy",
   title:
-    "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt YouTube tích hợp, cho Windows, macOS & Linux",
+    "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt tích hợp, cho Windows, macOS & Linux",
   read_in_label: "Đọc bằng:",
   badge_release_alt: "Phiên bản",
   badge_build_alt: "Build",
@@ -97,7 +97,7 @@ export const vi = {
   discord_badge_encoded:
     "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
   hero_desc:
-    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
+    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
   cta_website: "Trang web",
   star_cta:
@@ -118,7 +118,7 @@ export const vi = {
   why_r5: "Không giới hạn sử dụng",
   why_r6: "Ứng dụng máy tính để bàn đa nền tảng",
   why_r7: "Phụ đề + SponsorBlock",
-  why_r8: "Trình duyệt YouTube tích hợp (duyệt, đăng nhập, tải xuống)",
+  why_r8: "Trình duyệt tích hợp (duyệt, đăng nhập, tải xuống)",
   why_r9:
     "Video riêng tư, dành cho thành viên và giới hạn độ tuổi mà không cần xuất cookie",
   why_table_note:
@@ -128,9 +128,9 @@ export const vi = {
   why_explore_h3:
     "Điều mà một trình bao yt-dlp đơn thuần không làm được: tab Explore",
   why_explore_intro:
-    "Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL đặt trên yt-dlp. Arroxy cũng dùng yt-dlp, nhưng còn có **Explore**, một trình duyệt YouTube tích hợp sẵn trong ứng dụng. Explore vượt qua những giới hạn của YouTube mà một ô nhập URL không làm được:",
+    "Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL đặt trên yt-dlp. Arroxy cũng dùng yt-dlp, nhưng còn có **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác. Explore vượt qua những giới hạn mà một ô nhập URL không làm được:",
   why_explore_1:
-    "**Video cần tài khoản, không cần xuất cookie** — video riêng tư, video dành cho thành viên và video giới hạn độ tuổi (với tài khoản đã xác minh tuổi), cùng danh sách Xem sau và Video đã thích của bạn. Một trình bao đơn thuần cần bạn xuất cookies.txt hoặc phải đọc cookie từ trình duyệt web của bạn, điều mà Chrome trên Windows hiện đã chặn. Với Arroxy, bạn chỉ cần đăng nhập một lần trong Explore và nó lo phần còn lại",
+    "**Video cần tài khoản, không cần xuất cookie** — video riêng tư, video dành cho thành viên và video giới hạn độ tuổi (với tài khoản đã xác minh tuổi), cùng danh sách Xem sau và Video đã thích của bạn, cùng video cần đăng nhập trên các trang khác. Một trình bao đơn thuần cần bạn xuất cookies.txt hoặc phải đọc cookie từ trình duyệt web của bạn, điều mà Chrome trên Windows hiện đã chặn. Với Arroxy, bạn chỉ cần đăng nhập một lần trong Explore và nó lo phần còn lại",
   why_explore_2:
     "**\"Đăng nhập để xác nhận bạn không phải là bot\"** — khi YouTube yêu cầu điều này, Arroxy thử tải lại bằng đăng nhập Explore của bạn thay vì báo thất bại",
   why_explore_3:
@@ -138,21 +138,21 @@ export const vi = {
   why_explore_4:
     "**Không cần sao chép liên kết** — tìm video, danh sách phát hoặc kênh trong Explore rồi tải chỉ với một cú nhấp, hoặc nhấp chuột phải vào bất kỳ liên kết nào trên trang",
   why_explore_5:
-    "**Chặn quảng cáo khi duyệt** — Explore chặn quảng cáo và trình theo dõi trên các trang của chính nó",
-  feat_explore_h3: "Explore: duyệt YouTube ngay trong Arroxy",
+    "**Trình chặn quảng cáo khi bạn cần** — chỉ một cú nhấp vào biểu tượng khiên là Explore chặn quảng cáo và trình theo dõi trên các trang của nó",
+  feat_explore_h3: "Explore: duyệt web ngay trong Arroxy",
   feat_explore_1:
-    "**Tab Explore** — duyệt YouTube ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.",
+    "**Tab Explore** — duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.",
   feat_explore_6: "**Nhấp chuột phải để tải** — nhấp chuột phải vào bất kỳ liên kết video, danh sách phát hoặc kênh nào trong Explore để tải bằng hồ sơ của bạn, chọn hồ sơ khác trong **Tải xuống với**, mở trình tải từng bước hoặc sao chép liên kết. Không cần mở từng video trước",
   feat_explore_7:
     "**Bố cục thu gọn** — một cú nhấp trên thanh công cụ của Explore chuyển các tab của Arroxy vào đó và cho trang thêm không gian",
   feat_explore_2:
-    "**Thanh địa chỉ** — gõ để tìm kiếm trên YouTube hoặc dán một liên kết YouTube. Explore chỉ duyệt YouTube nên liên kết từ trang khác sẽ không mở ở đó, nhưng bạn có thể tải nó chỉ với một cú nhấp",
+    "**Thanh địa chỉ** — gõ để tìm kiếm trên YouTube, hoặc nhập bất kỳ địa chỉ web nào để mở trang đó",
   feat_explore_3:
-    "**Tải video cần tài khoản** — đăng nhập một lần trong Explore là Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy vẫn tải khi chưa đăng nhập và chỉ dùng đăng nhập Explore của bạn khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore của bạn",
+    "**Tải video cần tài khoản** — đăng nhập một lần trong Explore là Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy vẫn tải trước tiên khi chưa đăng nhập và chỉ dùng đăng nhập Explore của bạn khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore của bạn",
   feat_explore_4:
-    "**Dùng tài khoản phụ** — màn hình đầu tiên của Explore giải thích lý do: tải bằng tài khoản có một chút rủi ro tài khoản đó bị hạn chế. Hãy đăng xuất khỏi Explore trong Cài đặt bất cứ khi nào bạn muốn xóa thông tin đăng nhập",
+    "**Dùng tài khoản phụ** — màn hình đầu tiên của Explore giải thích lý do: tải bằng tài khoản có một chút rủi ro tài khoản đó bị hạn chế. Hãy đăng xuất khỏi Explore trong Cài đặt bất cứ khi nào bạn muốn xóa các thông tin đăng nhập",
   feat_explore_5:
-    "**Trình chặn quảng cáo** — Explore chặn quảng cáo và trình theo dõi trên các trang của chính nó; việc tải xuống không bị ảnh hưởng. Bật sẵn, một cú nhấp vào biểu tượng khiên trên thanh công cụ của Explore là tắt, và nó không bao giờ hoạt động trên trang đăng nhập của Google. YouTube có thể phản ứng với trình chặn quảng cáo đối với tài khoản đã đăng nhập",
+    "**Trình chặn quảng cáo** — tắt theo mặc định. Một cú nhấp vào biểu tượng khiên trên thanh công cụ của Explore sẽ chặn quảng cáo và trình theo dõi trên các trang của nó mà không ảnh hưởng đến việc tải xuống. YouTube có thể phản ứng với trình chặn quảng cáo đối với tài khoản đã đăng nhập",
   feat_quality_h3: "Chất lượng & định dạng",
   feat_quality_1: "Lên tới **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
@@ -247,7 +247,7 @@ export const vi = {
   hotkey_fig_cap: "<b>Phím tắt tải xuống toàn cục</b><br/>Sao chép liên kết ở bất cứ đâu, nhấn một lần — nó vào hàng đợi và bắt đầu tải",
   shot7_cap: "<b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3",
   shot8_cap:
-    "<b>Explore</b><br/>Duyệt YouTube ngay trong Arroxy và tải trang bạn đang xem bằng hồ sơ đang dùng",
+    "<b>Explore</b><br/>Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy và tải trang bạn đang xem bằng hồ sơ đang dùng",
   shot9_cap:
     "<b>Màn hình đầu tiên của Explore</b><br/>Giới thiệu nhanh về Explore, và lý do tài khoản phụ là cách đăng nhập an toàn hơn",
   shot10_cap:

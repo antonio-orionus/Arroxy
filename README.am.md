@@ -1,15 +1,15 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="የ Arroxy መሸፈኛ" width="180" />
 
-# Arroxy — አብሮ የተሰራ YouTube አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
+# Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
 
-**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **አንብብ በ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · **አማርኛ** · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![ስሪት](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ግንባታ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ድር ጣቢያ](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![ፈቃድ](https://img.shields.io/badge/license-MIT-green) ![ሥርዓቶች](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ቋንቋዎች](https://img.shields.io/badge/i18n-31_languages-blue)
 
-ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 8K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
+ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 8K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
 
 [**↓ የቅርብ ጊዜ ስሪት አውርድ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch) · [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch) · [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
 
@@ -23,7 +23,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-19._
 
@@ -51,7 +51,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTubeን በArroxy ውስጥ ያስሱ እና ያሉበትን ገጽ በንቁ መገለጫዎ ያውርዱ</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ እና ያሉበትን ገጽ በንቁ መገለጫዎ ያውርዱ</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>የExplore የመጀመሪያ ማያ</b><br/>ስለ Explore አጭር እይታ፣ እና ሁለተኛ ሒሳብ ለምን ደህንነቱ የተጠበቀ መግቢያ እንደሆነ</sub></td>
@@ -87,15 +87,15 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 </table>
 
 <details open>
-<summary><strong>🧭 Explore: YouTubeን በArroxy ውስጥ ያስሱ</strong></summary>
+<summary><strong>🧭 Explore: ድሩን በArroxy ውስጥ ያስሱ</strong></summary>
 
-- **Explore ትር** — YouTubeን በArroxy ውስጥ ያስሱ እና ያገኙትን ሊንክ ሳይገለብጡ ያውርዱ። **አውርድ · *መገለጫዎ*** እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel በወረፋ ያስገባል፤ ከጎኑ ያለው ቀስት መገለጫዎችን ይቀይራል፣ የአስማት ዘንግ ደግሞ ቅርጸቶችን፣ ንዑስ ርዕሶችን እና ሌሎችን ለመምረጥ ደረጃ በደረጃ ማውረድን ይከፍታል
+- **Explore ትር** — YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ እና ያገኙትን ሊንክ ሳይገለብጡ ያውርዱ። **አውርድ · *መገለጫዎ*** እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel በወረፋ ያስገባል፤ ከጎኑ ያለው ቀስት መገለጫዎችን ይቀይራል፣ የአስማት ዘንግ ደግሞ ቅርጸቶችን፣ ንዑስ ርዕሶችን እና ሌሎችን ለመምረጥ ደረጃ በደረጃ ማውረድን ይከፍታል
 - **ለማውረድ በቀኝ ጠቅ ያድርጉ** — በExplore ውስጥ ማንኛውንም የቪዲዮ፣ playlist ወይም channel ሊንክ በቀኝ ጠቅ አድርገው በመገለጫዎ ያውርዱ፣ ከ**በመገለጫ አውርድ** ሌላ መገለጫ ይምረጡ፣ ደረጃ በደረጃ ማውረድን ይክፈቱ ወይም ሊንኩን ይቅዱ። እያንዳንዱን ቪዲዮ አስቀድሞ መክፈት አያስፈልግም
 - **የታመቀ አቀማመጥ** — በExplore የመሳሪያ አሞሌ ውስጥ በአንድ ጠቅታ የArroxy ትሮችን ወደዚያ ያንቀሳቅሳል እና ገጹ ተጨማሪ ቦታ ያገኛል
-- **የአድራሻ አሞሌ** — YouTube ለመፈለግ ይተይቡ ወይም የYouTube ሊንክ ይለጥፉ። Explore YouTubeን ብቻ ያስሳል፣ ስለዚህ ከሌላ ጣቢያ የሆነ ሊንክ እዚያ አይከፈትም፣ ግን በአንድ ጠቅታ ማውረድ ይችላሉ
-- **ሒሳብ የሚፈልጉ ማውረዶች** — በExplore ውስጥ አንድ ጊዜ ይግቡ እና Arroxy ሒሳብዎ ማየት የሚችላቸውን የግል እና የአባላት-ብቻ ቪዲዮዎች፣ ሒሳቡ በዕድሜ ከተረጋገጠ ዕድሜ-የተገደቡ ቪዲዮዎች፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ማውረድ ይችላል። Arroxy አሁንም ሳይገባ ያወርዳል፣ እና የExplore መግቢያዎን የሚጠቀመው ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ ነው። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ፣ Arroxy የExplore መግቢያዎን ደግሞ ይሞክራል
-- **ሁለተኛ ሒሳብ ይጠቀሙ** — የExplore የመጀመሪያ ማያ ለምን እንደሆነ ያብራራል፡ በሒሳብ ማውረድ ያ ሒሳብ የመገደብ የተወሰነ አደጋ አለው። መግቢያውን ለመርሳት በፈለጉት ጊዜ ከSettings ከExplore ይውጡ
-- **የማስታወቂያ ማገጃ** — Explore በራሱ ገጾች ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል፤ ማውረዶች አይነኩም። በነባሪ በርቷል፣ በExplore የመሳሪያ አሞሌ ላይ ባለው ጋሻ ላይ አንድ ጠቅታ ያጠፋዋል፣ እና በGoogle የመግቢያ ገጾች ላይ ፈጽሞ አይሠራም። YouTube ለገቡ ሒሳቦች የማስታወቂያ ማገጃዎችን ሊቋቋም ይችላል
+- **የአድራሻ አሞሌ** — YouTube ለመፈለግ ይተይቡ፣ ወይም ማንኛውንም የድር አድራሻ አስገብተው ያንን ጣቢያ ይክፈቱ
+- **ሒሳብ የሚፈልጉ ማውረዶች** — በExplore ውስጥ አንድ ጊዜ ይግቡ እና Arroxy ሒሳብዎ ማየት የሚችላቸውን የግል እና የአባላት-ብቻ ቪዲዮዎች፣ ሒሳቡ በዕድሜ ከተረጋገጠ ዕድሜ-የተገደቡ ቪዲዮዎች፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ማውረድ ይችላል። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። Arroxy አሁንም መጀመሪያ ሳይገባ ያወርዳል፣ እና የExplore መግቢያዎን የሚጠቀመው ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ ነው። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ፣ Arroxy የExplore መግቢያዎን ደግሞ ይሞክራል
+- **ሁለተኛ ሒሳብ ይጠቀሙ** — የExplore የመጀመሪያ ማያ ለምን እንደሆነ ያብራራል፡ በሒሳብ ማውረድ ያ ሒሳብ የመገደብ የተወሰነ አደጋ አለው። መግቢያዎችዎን ለመርሳት በፈለጉት ጊዜ ከSettings ከExplore ይውጡ
+- **የማስታወቂያ ማገጃ** — በነባሪ ጠፍቷል። በExplore የመሳሪያ አሞሌ ላይ ባለው ጋሻ ላይ አንድ ጠቅታ በገጾቹ ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል፣ ማውረዶችን ሳይነካ። YouTube ለገቡ ሒሳቦች የማስታወቂያ ማገጃዎችን ሊቋቋም ይችላል
 
 </details>
 
@@ -354,7 +354,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| አብሮ የተሠራ የYouTube browser (ያስሱ፣ ይግቡ፣ ያውርዱ) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| አብሮ የተሠራ browser (ያስሱ፣ ይግቡ፣ ያውርዱ) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ኩኪዎችን ወደ ውጭ ሳይልኩ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | ነፃ፣ ምንም ፕሪሚየም ደረጃ የለም |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | ምን ኮድ ያለው |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
@@ -369,13 +369,13 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ቢለጥፉም ሆነ
 
 ### <a id="why-explore"></a>🧭 ቀላል የyt-dlp መጠቅለያ የማይችለው: የExplore ትር
 
-አብዛኞቹ ነፃ የYouTube አውራጆች በyt-dlp ላይ የተቀመጠ የURL ሳጥን ብቻ ናቸው። Arroxy ደግሞ yt-dlp ይጠቀማል፣ ግን **Explore**ም አለው፣ በአፑ ውስጥ አብሮ የተሠራ የYouTube browser። Explore የURL ሳጥን ሊያልፋቸው የማይችላቸውን የYouTube ገደቦች ያልፋል:
+አብዛኞቹ ነፃ የYouTube አውራጆች በyt-dlp ላይ የተቀመጠ የURL ሳጥን ብቻ ናቸው። Arroxy ደግሞ yt-dlp ይጠቀማል፣ ግን **Explore**ም አለው፣ በአፑ ውስጥ አብሮ የተሠራ፣ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ የሚከፍት browser። Explore የURL ሳጥን ሊያልፋቸው የማይችላቸውን ገደቦች ያልፋል:
 
-- **ሒሳብ የሚፈልጉ ቪዲዮዎች፣ ኩኪዎችን ወደ ውጭ ሳይልኩ** — የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች (በዕድሜ በተረጋገጠ ሒሳብ)፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎ። ቀላል መጠቅለያ cookies.txt ወደ ውጭ መላክ ይፈልጋል ወይም የድር browserዎን ኩኪዎች ማንበብ አለበት፣ ይህን ደግሞ Chrome በWindows ላይ አሁን ያግዳል። በArroxy ውስጥ በExplore አንድ ጊዜ ይገባሉ፣ ቀሪውን ራሱ ይሠራል
+- **ሒሳብ የሚፈልጉ ቪዲዮዎች፣ ኩኪዎችን ወደ ውጭ ሳይልኩ** — የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች (በዕድሜ በተረጋገጠ ሒሳብ)፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎ፣ እንዲሁም በሌሎች ጣቢያዎች ላይ ከመግቢያ ጀርባ ያሉ ቪዲዮዎች። ቀላል መጠቅለያ cookies.txt ወደ ውጭ መላክ ይፈልጋል ወይም የድር browserዎን ኩኪዎች ማንበብ አለበት፣ ይህን ደግሞ Chrome በWindows ላይ አሁን ያግዳል። በArroxy ውስጥ በExplore አንድ ጊዜ ይገባሉ፣ ቀሪውን ራሱ ይሠራል
 - **«ቦት አለመሆንዎን ለማረጋገጥ ይግቡ»** — YouTube ይህን ሲጠይቅ፣ Arroxy ከመውደቅ ይልቅ በExplore መግቢያዎ ማውረዱን እንደገና ይሞክራል
 - **የYouTube የማውረጃ ቶከን** — የArroxy አብሮ የተሠራ browser YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል። ያለ እሱ YouTube ከጠየቁት ያነሱ ቅርጸቶችን እና ዝቅተኛ ጥራት ሊያቀርብ ይችላል
 - **ሊንክ መገልበጥ አያስፈልግም** — በExplore ውስጥ ቪዲዮ፣ playlist ወይም channel ያግኙ እና በአንድ ጠቅታ ያውርዱ፣ ወይም በገጹ ላይ ማንኛውንም ሊንክ በቀኝ ጠቅ ያድርጉ
-- **ሲያስሱ ማስታወቂያዎች ይታገዳሉ** — Explore በራሱ ገጾች ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል
+- **ማስታወቂያ ማገጃ ሲፈልጉ** — በጋሻው ላይ አንድ ጠቅታ በExplore ገጾች ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል
 
 ---
 

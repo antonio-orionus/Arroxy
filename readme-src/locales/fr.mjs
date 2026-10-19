@@ -85,7 +85,7 @@ bun run dist:win     # paquet Windows sur un hôte compatible
 export const fr = {
   icon_alt: "Mascotte Arroxy",
   title:
-    "Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source avec navigateur YouTube intégré pour Windows, macOS & Linux",
+    "Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source avec navigateur intégré pour Windows, macOS & Linux",
   read_in_label: "Lire en :",
   badge_release_alt: "Version",
   badge_build_alt: "Build",
@@ -96,7 +96,7 @@ export const fr = {
   discord_badge_text: "Rejoindre la communauté Discord",
   discord_badge_encoded: "Rejoindre%20la%20communaut%C3%A9%20Discord",
   hero_desc:
-    "Télécharge des vidéos, Shorts, musiques, chaînes, podcasts ou pistes audio depuis **YouTube et plus de 2000 sites supportés** — jusqu'à 8K HDR à 60 fps, en MP3 / AAC / Opus, ou seulement le passage dont tu as besoin. **Parcours YouTube dans Arroxy** depuis l'onglet Explore et télécharge la vidéo, la playlist ou la chaîne que tu regardes ; connecte-toi là pour télécharger les vidéos privées, réservées aux membres et soumises à une limite d'âge que ton compte peut voir. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de superflu, pas d'upsell.**",
+    "Télécharge des vidéos, Shorts, musiques, chaînes, podcasts ou pistes audio depuis **YouTube et plus de 2000 sites supportés** — jusqu'à 8K HDR à 60 fps, en MP3 / AAC / Opus, ou seulement le passage dont tu as besoin. **Parcours YouTube ou n'importe quel autre site dans Arroxy** depuis l'onglet Explore et télécharge la vidéo, la playlist ou la chaîne que tu regardes ; connecte-toi là pour télécharger les vidéos privées, réservées aux membres et soumises à une limite d'âge que ton compte peut voir. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de superflu, pas d'upsell.**",
   cta_latest: "↓ Télécharger la dernière version",
   cta_website: "Site web",
   star_cta:
@@ -119,7 +119,7 @@ export const fr = {
   why_r5: "Pas de limites d'utilisation",
   why_r6: "Application de bureau multiplateforme",
   why_r7: "Sous-titres + SponsorBlock",
-  why_r8: "Navigateur YouTube intégré (parcourir, se connecter, télécharger)",
+  why_r8: "Navigateur intégré (parcourir, se connecter, télécharger)",
   why_r9:
     "Vidéos privées, réservées aux membres et soumises à une limite d'âge sans exporter de cookies",
   why_table_note:
@@ -129,9 +129,9 @@ export const fr = {
   why_explore_h3:
     "Ce qu'un simple wrapper yt-dlp ne sait pas faire : l'onglet Explore",
   why_explore_intro:
-    "La plupart des téléchargeurs YouTube gratuits ne sont qu'un champ d'URL posé sur yt-dlp. Arroxy utilise aussi yt-dlp, mais il a en plus **Explore**, un navigateur YouTube intégré à l'application. Explore franchit des limites de YouTube qu'un simple champ d'URL ne peut pas franchir :",
+    "La plupart des téléchargeurs YouTube gratuits ne sont qu'un champ d'URL posé sur yt-dlp. Arroxy utilise aussi yt-dlp, mais il a en plus **Explore**, un navigateur intégré à l'application qui ouvre YouTube ou n'importe quel autre site. Explore franchit des limites qu'un simple champ d'URL ne peut pas franchir :",
   why_explore_1:
-    "**Les vidéos qui demandent un compte, sans exporter de cookies** — vidéos privées, réservées aux membres et soumises à une limite d'âge (avec un compte dont l'âge est vérifié), ainsi que tes listes À regarder plus tard et J'aime. Un simple wrapper a besoin d'un export cookies.txt ou doit lire les cookies de ton navigateur web, ce que Chrome sous Windows bloque désormais. Dans Arroxy, tu te connectes une fois dans Explore et il s'occupe du reste",
+    "**Les vidéos qui demandent un compte, sans exporter de cookies** — vidéos privées, réservées aux membres et soumises à une limite d'âge (avec un compte dont l'âge est vérifié), ainsi que tes listes À regarder plus tard et J'aime, et les vidéos protégées par une connexion sur d'autres sites. Un simple wrapper a besoin d'un export cookies.txt ou doit lire les cookies de ton navigateur web, ce que Chrome sous Windows bloque désormais. Dans Arroxy, tu te connectes une fois dans Explore et il s'occupe du reste",
   why_explore_2:
     "**« Connectez-vous pour confirmer que vous n'êtes pas un robot »** — quand YouTube affiche ce message, Arroxy relance le téléchargement avec ta connexion Explore au lieu d'échouer",
   why_explore_3:
@@ -139,15 +139,15 @@ export const fr = {
   why_explore_4:
     "**Pas de liens à copier** — trouve une vidéo, une playlist ou une chaîne dans Explore et télécharge-la en un clic, ou fais un clic droit sur n'importe quel lien de la page",
   why_explore_5:
-    "**Publicités bloquées pendant la navigation** — Explore bloque les publicités et les traqueurs sur ses propres pages",
-  feat_explore_h3: "Explore : parcours YouTube dans Arroxy",
-  feat_explore_1: "**Onglet Explore** — parcours YouTube dans Arroxy et télécharge ce que tu trouves sans copier de liens. **Télécharger · *ton profil*** met en file la vidéo, la playlist ou la chaîne que tu regardes ; la flèche à côté change de profil, et la baguette ouvre le téléchargement pas à pas pour choisir les formats, les sous-titres, etc.",
+    "**Bloqueur de publicités quand tu veux** — un clic sur le bouclier et Explore bloque les publicités et les traqueurs sur ses pages",
+  feat_explore_h3: "Explore : parcours le web dans Arroxy",
+  feat_explore_1: "**Onglet Explore** — parcours YouTube ou n'importe quel autre site dans Arroxy et télécharge ce que tu trouves sans copier de liens. **Télécharger · *ton profil*** met en file la vidéo, la playlist ou la chaîne que tu regardes ; la flèche à côté change de profil, et la baguette ouvre le téléchargement pas à pas pour choisir les formats, les sous-titres, etc.",
   feat_explore_6: "**Clic droit pour télécharger** — fais un clic droit sur n'importe quel lien de vidéo, de playlist ou de chaîne dans Explore pour le télécharger avec ton profil, choisir un autre profil dans **Télécharger avec**, ouvrir le téléchargement pas à pas ou copier le lien. Inutile d'ouvrir chaque vidéo d'abord",
   feat_explore_7: "**Disposition compacte** — un clic dans la barre d'outils d'Explore y déplace les onglets d'Arroxy et donne plus de place à la page",
-  feat_explore_2: "**Barre d'adresse** — tape pour chercher sur YouTube ou colle un lien YouTube. Explore ne parcourt que YouTube : un lien d'un autre site ne s'y ouvre pas, mais tu peux le télécharger en un clic",
-  feat_explore_3: "**Téléchargements qui demandent un compte** — connecte-toi une fois dans Explore et Arroxy pourra télécharger les vidéos privées et réservées aux membres que ton compte peut voir, les vidéos soumises à une limite d'âge si l'âge du compte est vérifié, ainsi que tes listes À regarder plus tard et J'aime. Arroxy télécharge toujours sans connexion et n'utilise ta connexion Explore que lorsqu'un téléchargement échoue d'une manière qu'un compte peut corriger. Quand YouTube demande de confirmer que tu n'es pas un robot, Arroxy essaie aussi ta connexion Explore",
-  feat_explore_4: "**Utilise un compte secondaire** — le premier écran d'Explore explique pourquoi : télécharger avec un compte comporte un certain risque que ce compte soit restreint. Déconnecte-toi d'Explore depuis les Paramètres quand tu veux oublier la connexion",
-  feat_explore_5: "**Bloqueur de publicités** — Explore bloque les publicités et les traqueurs sur ses propres pages ; les téléchargements ne sont pas touchés. Activé par défaut, un clic sur le bouclier dans la barre d'outils d'Explore le désactive, et il n'agit jamais sur les pages de connexion de Google. YouTube peut résister aux bloqueurs de publicités pour les comptes connectés",
+  feat_explore_2: "**Barre d'adresse** — tape pour chercher sur YouTube, ou saisis n'importe quelle adresse web pour ouvrir ce site",
+  feat_explore_3: "**Téléchargements qui demandent un compte** — connecte-toi une fois dans Explore et Arroxy pourra télécharger les vidéos privées et réservées aux membres que ton compte peut voir, les vidéos soumises à une limite d'âge si l'âge du compte est vérifié, ainsi que tes listes À regarder plus tard et J'aime. Connecte-toi aussi aux autres sites là-bas : leurs téléchargements utilisent cette connexion quand ils en ont besoin. Arroxy télécharge toujours d'abord sans connexion et n'utilise ta connexion Explore que lorsqu'un téléchargement échoue d'une manière qu'un compte peut corriger. Quand YouTube demande de confirmer que tu n'es pas un robot, Arroxy essaie aussi ta connexion Explore",
+  feat_explore_4: "**Utilise un compte secondaire** — le premier écran d'Explore explique pourquoi : télécharger avec un compte comporte un certain risque que ce compte soit restreint. Déconnecte-toi d'Explore depuis les Paramètres quand tu veux oublier tes connexions",
+  feat_explore_5: "**Bloqueur de publicités** — désactivé par défaut. Un clic sur le bouclier dans la barre d'outils d'Explore bloque les publicités et les traqueurs sur ses pages, sans toucher aux téléchargements. YouTube peut résister aux bloqueurs de publicités pour les comptes connectés",
   feat_quality_h3: "Qualité & formats",
   feat_quality_1: "Jusqu'à **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**Haut framerate et HDR** préservés tels quels — 60 fps, HDR10",
@@ -237,7 +237,7 @@ export const fr = {
   hotkey_fig_alt: "Raccourci de téléchargement global d'Arroxy — Ctrl+Shift+D sur Windows et Linux, Cmd+Shift+D sur macOS, qui envoie le lien copié directement dans la file de téléchargement",
   hotkey_fig_cap: "<b>Raccourci de téléchargement global</b><br/>Copie un lien n'importe où, appuie une fois — il rejoint la file et le téléchargement démarre",
   shot7_cap: "<b>Profils par élément de playlist</b><br/>Donnez à chaque vidéo son propre profil — certaines en 4K, le reste en MP3",
-  shot8_cap: "<b>Explore</b><br/>Parcours YouTube dans Arroxy et télécharge la page où tu es avec ton profil actif",
+  shot8_cap: "<b>Explore</b><br/>Parcours YouTube ou n'importe quel autre site dans Arroxy et télécharge la page où tu es avec ton profil actif",
   shot9_cap: "<b>Le premier écran d'Explore</b><br/>Un coup d'œil rapide à Explore, et pourquoi un compte secondaire est la connexion la plus sûre",
   shot10_cap: "<b>Téléchargements te dit ce qui a besoin de toi</b><br/>Les liens se préparent en arrière-plan ; un lien en échec propose sa solution, une longue playlist attend ton choix",
   shot11_cap:

@@ -85,7 +85,7 @@ bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketl
 export const tr = {
   icon_alt: "Arroxy maskotu",
   title:
-    "Arroxy — Windows, macOS ve Linux için Dahili YouTube Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici",
+    "Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici",
   read_in_label: "Şu dilde oku:",
   badge_release_alt: "Sürüm",
   badge_build_alt: "Derleme",
@@ -96,7 +96,7 @@ export const tr = {
   discord_badge_text: "Discord Topluluğuna Katıl",
   discord_badge_encoded: "Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l",
   hero_desc:
-    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
+    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
   star_cta:
@@ -118,7 +118,7 @@ export const tr = {
   why_r5: "Kullanım sınırı yok",
   why_r6: "Platformlar arası masaüstü uygulaması",
   why_r7: "Altyazılar + SponsorBlock",
-  why_r8: "Yerleşik YouTube tarayıcısı (göz at, giriş yap, indir)",
+  why_r8: "Yerleşik tarayıcı (göz at, giriş yap, indir)",
   why_r9:
     "Çerez dışa aktarmadan özel, üyelere özel ve yaş kısıtlamalı videolar",
   why_table_note:
@@ -128,9 +128,9 @@ export const tr = {
   why_explore_h3:
     "Sıradan bir yt-dlp sarmalayıcısının yapamadığı: Explore sekmesi",
   why_explore_intro:
-    "Ücretsiz YouTube indiricilerinin çoğu, yt-dlp'nin üstüne konmuş bir URL kutusundan ibarettir. Arroxy de yt-dlp kullanır, ama bir de **Explore**'u vardır: uygulamaya yerleşik bir YouTube tarayıcısı. Explore, bir URL kutusunun aşamadığı YouTube sınırlarını aşar:",
+    "Ücretsiz YouTube indiricilerinin çoğu, yt-dlp'nin üstüne konmuş bir URL kutusundan ibarettir. Arroxy de yt-dlp kullanır, ama bir de **Explore**'u vardır: YouTube'u ya da başka herhangi bir siteyi açan, uygulamaya yerleşik bir tarayıcı. Explore, bir URL kutusunun aşamadığı sınırları aşar:",
   why_explore_1:
-    "**Çerez dışa aktarmadan hesap gerektiren videolar** — özel, üyelere özel ve yaş kısıtlamalı videolar (yaşı doğrulanmış bir hesapta), ayrıca Daha Sonra İzle ve Beğenilenler listelerin. Sıradan bir sarmalayıcı, dışa aktarılmış bir cookies.txt ister ya da web tarayıcının çerezlerini okumak zorundadır; Windows'taki Chrome ise artık bunu engelliyor. Arroxy'de Explore'da bir kez giriş yaparsın, gerisini o halleder",
+    "**Çerez dışa aktarmadan hesap gerektiren videolar** — özel, üyelere özel ve yaş kısıtlamalı videolar (yaşı doğrulanmış bir hesapta), ayrıca Daha Sonra İzle ve Beğenilenler listelerin ve diğer sitelerde girişin arkasındaki videolar. Sıradan bir sarmalayıcı, dışa aktarılmış bir cookies.txt ister ya da web tarayıcının çerezlerini okumak zorundadır; Windows'taki Chrome ise artık bunu engelliyor. Arroxy'de Explore'da bir kez giriş yaparsın, gerisini o halleder",
   why_explore_2:
     "**“Robot olmadığını doğrulamak için giriş yap”** — YouTube bunu istediğinde Arroxy başarısız olmak yerine indirmeyi Explore girişinle yeniden dener",
   why_explore_3:
@@ -138,16 +138,16 @@ export const tr = {
   why_explore_4:
     "**Bağlantı kopyalamak yok** — Explore'da bir video, oynatma listesi veya kanal bul ve tek tıkla indir ya da sayfadaki herhangi bir bağlantıya sağ tıkla",
   why_explore_5:
-    "**Gezinirken reklamlar engellenir** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller",
-  feat_explore_h3: "Explore: YouTube'a Arroxy içinden göz at",
-  feat_explore_1: "**Explore sekmesi** — YouTube'a Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar",
+    "**İstediğinde reklam engelleyici** — kalkana tek tıklama, Explore sayfalarındaki reklamları ve izleyicileri engeller",
+  feat_explore_h3: "Explore: Web'de Arroxy içinden gez",
+  feat_explore_1: "**Explore sekmesi** — YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar",
   feat_explore_6: "**Sağ tıklayarak indir** — Explore'da herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayıp profilinle indir, **Profille indir** menüsünden başka bir profil seç, adım adım indirmeyi aç ya da bağlantıyı kopyala. Her videoyu önce açman gerekmez",
   feat_explore_7:
     "**Kompakt düzen** — Explore araç çubuğundaki tek bir tıklama Arroxy'nin sekmelerini oraya taşır ve sayfaya daha fazla yer açar",
-  feat_explore_2: "**Adres çubuğu** — YouTube'da aramak için yaz ya da bir YouTube bağlantısı yapıştır. Explore yalnızca YouTube'a göz atar, bu yüzden başka bir siteden gelen bağlantı orada açılmaz ama tek tıkla indirebilirsin",
-  feat_explore_3: "**Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Arroxy yine de oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. YouTube robot olmadığını doğrulamanı istediğinde Arroxy Explore girişini de dener",
-  feat_explore_4: "**İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişi unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap",
-  feat_explore_5: "**Reklam engelleyici** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller; indirmeler etkilenmez. Varsayılan olarak açık, Explore araç çubuğundaki kalkana tek tıklama onu kapatır ve Google'ın giriş sayfalarında asla devreye girmez. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir",
+  feat_explore_2: "**Adres çubuğu** — YouTube'da aramak için yaz ya da herhangi bir web adresi gir, o site açılsın",
+  feat_explore_3: "**Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Arroxy yine de önce oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. YouTube robot olmadığını doğrulamanı istediğinde Arroxy Explore girişini de dener",
+  feat_explore_4: "**İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişlerini unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap",
+  feat_explore_5: "**Reklam engelleyici** — varsayılan olarak kapalı. Explore araç çubuğundaki kalkana tek tıklama, sayfalarındaki reklamları ve izleyicileri indirmeleri etkilemeden engeller. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir",
   feat_quality_h3: "Kalite ve biçimler",
   feat_quality_1: "**8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p'ye kadar",
   feat_quality_2:
@@ -237,7 +237,7 @@ export const tr = {
   hotkey_fig_alt: "Arroxy genel indirme kısayolu — Windows ve Linux'ta Ctrl+Shift+D, macOS'ta Cmd+Shift+D, kopyalanan bağlantıyı doğrudan indirme kuyruğuna gönderir",
   hotkey_fig_cap: "<b>Genel indirme kısayolu</b><br/>Bağlantıyı nerede olursan ol kopyala, bir kez bas — kuyruğa girer ve inmeye başlar",
   shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al",
-  shot8_cap: "<b>Explore</b><br/>YouTube'a Arroxy içinden göz at ve bulunduğun sayfayı aktif profilinle indir",
+  shot8_cap: "<b>Explore</b><br/>YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at ve bulunduğun sayfayı aktif profilinle indir",
   shot9_cap: "<b>Explore'un ilk ekranı</b><br/>Explore'a kısa bir bakış ve ikincil hesabın neden daha güvenli giriş olduğu",
   shot10_cap: "<b>İndirmeler sana neye ihtiyaç olduğunu söyler</b><br/>Bağlantılar arka planda hazırlanır; başarısız olan çözümünü sunar, uzun bir oynatma listesi seçimini bekler",
   shot11_cap: "<b>Videonun yalnızca bir bölümünü indirin</b><br/>Başlangıç ve bitiş ya da bir bölüm seçin — Arroxy yalnızca o aralığı kaydeder",

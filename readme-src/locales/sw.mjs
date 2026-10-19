@@ -85,7 +85,7 @@ bun run dist:win     # funga malengo ya Windows kwenye host inayotumika
 export const sw = {
   icon_alt: "Nembo ya Arroxy",
   title:
-    "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari cha YouTube Ndani, kwa Windows, macOS na Linux",
+    "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari Ndani, kwa Windows, macOS na Linux",
   read_in_label: "Soma kwa:",
   badge_release_alt: "Toleo",
   badge_build_alt: "Ujenzi",
@@ -96,7 +96,7 @@ export const sw = {
   discord_badge_text: "Jiunge na jumuiya ya Discord",
   discord_badge_encoded: "Jiunge%20na%20jumuiya%20ya%20Discord",
   hero_desc:
-    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
+    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
@@ -116,7 +116,7 @@ export const sw = {
   why_r5: "Hakuna vikwazo vya matumizi",
   why_r6: "Programu ya mezani inayofanya kazi kwenye mifumo yote",
   why_r7: "Manukuu + SponsorBlock",
-  why_r8: "Kivinjari cha YouTube kilichojengewa ndani (vinjari, ingia, pakua)",
+  why_r8: "Kivinjari kilichojengewa ndani (vinjari, ingia, pakua)",
   why_r9:
     "Video za faragha, za wanachama pekee na zenye kikomo cha umri bila kuhamisha vidakuzi",
   why_table_note:
@@ -126,9 +126,9 @@ export const sw = {
   why_explore_h3:
     "Kile ambacho kifuniko cha kawaida cha yt-dlp hakiwezi: kichupo cha Explore",
   why_explore_intro:
-    "Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Explore** pia, kivinjari cha YouTube kilichojengwa ndani ya programu. Explore hupita vikwazo vya YouTube ambavyo kisanduku cha URL hakiwezi kupita:",
+    "Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Explore** pia, kivinjari kilichojengwa ndani ya programu kinachofungua YouTube au tovuti nyingine yoyote. Explore hupita vikwazo ambavyo kisanduku cha URL hakiwezi kupita:",
   why_explore_1:
-    "**Video zinazohitaji akaunti, bila kuhamisha vidakuzi** — video za faragha, za wanachama pekee, na zenye kikomo cha umri (kwenye akaunti iliyothibitishwa umri), pamoja na orodha zako za Tazama Baadaye na Zilizopendwa. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au lazima kisome vidakuzi vya kivinjari chako cha wavuti, jambo ambalo Chrome kwenye Windows sasa huzuia. Katika Arroxy unaingia mara moja katika Explore na inashughulikia mengine yote",
+    "**Video zinazohitaji akaunti, bila kuhamisha vidakuzi** — video za faragha, za wanachama pekee, na zenye kikomo cha umri (kwenye akaunti iliyothibitishwa umri), pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, na video zilizo nyuma ya kuingia kwenye tovuti nyingine. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au lazima kisome vidakuzi vya kivinjari chako cha wavuti, jambo ambalo Chrome kwenye Windows sasa huzuia. Katika Arroxy unaingia mara moja katika Explore na inashughulikia mengine yote",
   why_explore_2:
     "**\"Ingia ili uthibitishe kuwa wewe si roboti\"** — YouTube inapouliza hivi, Arroxy hujaribu upakuaji tena kwa kuingia kwako kwa Explore badala ya kushindwa",
   why_explore_3:
@@ -136,16 +136,16 @@ export const sw = {
   why_explore_4:
     "**Hakuna kunakili viungo** — tafuta video, playlist, au channel katika Explore na uipakue kwa kubofya mara moja, au bofya kulia kiungo chochote kwenye ukurasa",
   why_explore_5:
-    "**Matangazo huzuiwa unapovinjari** — Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake yenyewe",
-  feat_explore_h3: "Explore: vinjari YouTube ndani ya Arroxy",
-  feat_explore_1: "**Kichupo cha Explore** — vinjari YouTube ndani ya Arroxy na upakue unachopata bila kunakili viungo. **Pakua · *wasifu wako*** huweka kwenye foleni video, playlist, au channel unayotazama; mshale ulio kando hubadilisha wasifu, na kijiti cha uchawi hufungua upakuaji wa hatua kwa hatua wa kuchagua fomati, manukuu, na zaidi",
+    "**Kizuia matangazo ukitaka** — kubofya ngao mara moja huzuia matangazo na vifuatiliaji kwenye kurasa za Explore",
+  feat_explore_h3: "Explore: vinjari wavuti ndani ya Arroxy",
+  feat_explore_1: "**Kichupo cha Explore** — vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy na upakue unachopata bila kunakili viungo. **Pakua · *wasifu wako*** huweka kwenye foleni video, playlist, au channel unayotazama; mshale ulio kando hubadilisha wasifu, na kijiti cha uchawi hufungua upakuaji wa hatua kwa hatua wa kuchagua fomati, manukuu, na zaidi",
   feat_explore_6: "**Bofya kulia ili kupakua** — bofya kulia kiungo chochote cha video, playlist au channel katika Explore ili kukipakua kwa wasifu wako, kuchagua wasifu mwingine kutoka **Pakua kwa**, kufungua upakuaji wa hatua kwa hatua, au kunakili kiungo. Hakuna haja ya kufungua kila video kwanza",
   feat_explore_7:
     "**Mpangilio mshikamano** — kubofya mara moja kwenye upau wa zana wa Explore huhamishia vichupo vya Arroxy ndani yake na kuipa ukurasa nafasi zaidi",
-  feat_explore_2: "**Upau wa anwani** — andika kutafuta YouTube au bandika kiungo cha YouTube. Explore hutumika kuvinjari YouTube pekee, kwa hiyo kiungo cha tovuti nyingine hakifunguliwi hapo, lakini unaweza kukipakua kwa kubofya mara moja",
-  feat_explore_3: "**Upakuaji unaohitaji akaunti** — ingia mara moja katika Explore na Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Arroxy bado hupakua bila kuingia na hutumia kuingia kwako kwa Explore tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore",
-  feat_explore_4: "**Tumia akaunti ya pili** — skrini ya kwanza ya Explore inaeleza sababu: kupakua kwa akaunti kuna hatari fulani ya akaunti hiyo kuwekewa vikwazo. Toka kwenye Explore kupitia Mipangilio wakati wowote unapotaka kusahau kuingia",
-  feat_explore_5: "**Kizuia matangazo** — Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake yenyewe; upakuaji haubadiliki. Kimewashwa kwa chaguomsingi, kubofya ngao mara moja kwenye upau wa zana wa Explore kunakizima, na hakifanyi kazi kamwe kwenye kurasa za kuingia za Google. YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia",
+  feat_explore_2: "**Upau wa anwani** — andika kutafuta YouTube au andika anwani yoyote ya wavuti kufungua tovuti hiyo",
+  feat_explore_3: "**Upakuaji unaohitaji akaunti** — ingia mara moja katika Explore na Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Arroxy bado hupakua kwanza bila kuingia na hutumia kuingia kwako kwa Explore tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore",
+  feat_explore_4: "**Tumia akaunti ya pili** — skrini ya kwanza ya Explore inaeleza sababu: kupakua kwa akaunti kuna hatari fulani ya akaunti hiyo kuwekewa vikwazo. Toka kwenye Explore kupitia Mipangilio wakati wowote unapotaka kusahau kuingia kwako kote",
+  feat_explore_5: "**Kizuia matangazo** — kimezimwa kwa chaguomsingi. Kubofya ngao mara moja kwenye upau wa zana wa Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake, bila kuathiri upakuaji. YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia",
   feat_quality_h3: "Ubora na fomati",
   feat_quality_1: "Hadi **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
@@ -236,7 +236,7 @@ export const sw = {
   hotkey_fig_alt: "Njia ya mkato ya kupakua kwa mfumo mzima ya Arroxy — Ctrl+Shift+D kwenye Windows na Linux, Cmd+Shift+D kwenye macOS, hupeleka kiungo kilichonakiliwa moja kwa moja kwenye foleni ya upakuaji",
   hotkey_fig_cap: "<b>Njia ya mkato ya kupakua kwa mfumo mzima</b><br/>Nakili kiungo popote, bonyeza mara moja — huingia kwenye foleni na upakuaji huanza",
   shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3",
-  shot8_cap: "<b>Explore</b><br/>Vinjari YouTube ndani ya Arroxy na upakue ukurasa ulioko kwa wasifu wako unaotumika",
+  shot8_cap: "<b>Explore</b><br/>Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy na upakue ukurasa ulioko kwa wasifu wako unaotumika",
   shot9_cap: "<b>Skrini ya kwanza ya Explore</b><br/>Mtazamo wa haraka wa Explore, na kwa nini akaunti ya pili ndiyo njia salama zaidi ya kuingia",
   shot10_cap: "<b>Vipakuliwa hukuambia kinachokuhitaji</b><br/>Viungo huandaliwa chinichini; kilichoshindwa hutoa suluhisho lake, playlist ndefu husubiri chaguo lako",
   shot11_cap: "<b>Pakua sehemu tu ya video</b><br/>Chagua mwanzo na mwisho, au sura — Arroxy huhifadhi sehemu hiyo pekee",

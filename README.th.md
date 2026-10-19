@@ -1,15 +1,15 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="มาสคอต Arroxy" width="180" />
 
-# Arroxy — โปรแกรมดาวน์โหลด YouTube (+ 2000 เว็บไซต์) ฟรีและโอเพนซอร์ส พร้อมเบราว์เซอร์ YouTube ในตัว สำหรับ Windows, macOS และ Linux
+# Arroxy — โปรแกรมดาวน์โหลด YouTube (+ 2000 เว็บไซต์) ฟรีและโอเพนซอร์ส พร้อมเบราว์เซอร์ในตัว สำหรับ Windows, macOS และ Linux
 
-**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **อ่านในภาษา:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **ไทย** · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![รุ่น](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![บิลด์](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![เว็บไซต์](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![สัญญาอนุญาต](https://img.shields.io/badge/license-MIT-green) ![แพลตฟอร์ม](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ภาษา](https://img.shields.io/badge/i18n-31_languages-blue)
 
-ดาวน์โหลดวิดีโอ Shorts เพลง ช่อง พอดแคสต์ หรือแทร็กเสียงจาก **YouTube และเว็บไซต์ที่รองรับกว่า 2000 แห่ง** — สูงสุด 8K HDR ที่ 60 fps เป็น MP3 / AAC / Opus หรือเฉพาะช่วงที่ต้องการ **เรียกดู YouTube ใน Arroxy** ผ่านแท็บ Explore แล้วดาวน์โหลดวิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ เข้าสู่ระบบที่นั่นเพื่อดาวน์โหลดวิดีโอส่วนตัว วิดีโอเฉพาะสมาชิก และวิดีโอจำกัดอายุที่บัญชีของคุณดูได้ ทำงานภายในเครื่องบน Windows, macOS และ Linux **ไม่มีโฆษณา ไม่มีส่วนเกิน และไม่มีการขายเพิ่ม**
+ดาวน์โหลดวิดีโอ Shorts เพลง ช่อง พอดแคสต์ หรือแทร็กเสียงจาก **YouTube และเว็บไซต์ที่รองรับกว่า 2000 แห่ง** — สูงสุด 8K HDR ที่ 60 fps เป็น MP3 / AAC / Opus หรือเฉพาะช่วงที่ต้องการ **เรียกดู YouTube หรือเว็บไซต์อื่นใดใน Arroxy** ผ่านแท็บ Explore แล้วดาวน์โหลดวิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ เข้าสู่ระบบที่นั่นเพื่อดาวน์โหลดวิดีโอส่วนตัว วิดีโอเฉพาะสมาชิก และวิดีโอจำกัดอายุที่บัญชีของคุณดูได้ ทำงานภายในเครื่องบน Windows, macOS และ Linux **ไม่มีโฆษณา ไม่มีส่วนเกิน และไม่มีการขายเพิ่ม**
 
 [**↓ ติดตั้งรุ่นล่าสุด**](#install) &nbsp;·&nbsp; [**เว็บไซต์**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [การเปิดครั้งแรกบน Windows](#windows-first-launch) · [การเปิดครั้งแรกบน macOS](#macos-first-launch) · [การเปิดครั้งแรกบน Linux](#linux-first-launch)
 
@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-19._
 
@@ -53,7 +53,7 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube ใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube หรือเว็บไซต์อื่นใดใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>หน้าแรกของ Explore</b><br/>แนะนำ Explore สั้น ๆ และเหตุผลที่บัญชีสำรองปลอดภัยกว่าสำหรับการเข้าสู่ระบบ</sub></td>
@@ -89,15 +89,15 @@
 </table>
 
 <details open>
-<summary><strong>🧭 Explore: เรียกดู YouTube ใน Arroxy</strong></summary>
+<summary><strong>🧭 Explore: เรียกดูเว็บใน Arroxy</strong></summary>
 
-- **แท็บ Explore** — เรียกดู YouTube ภายใน Arroxy และดาวน์โหลดสิ่งที่พบโดยไม่ต้องคัดลอกลิงก์ **ดาวน์โหลด · *โปรไฟล์ของคุณ*** จะเข้าคิววิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ ลูกศรข้างปุ่มใช้สลับโปรไฟล์ ส่วนไม้กายสิทธิ์เปิดการดาวน์โหลดทีละขั้นเพื่อเลือกรูปแบบ คำบรรยาย และอื่น ๆ
+- **แท็บ Explore** — เรียกดู YouTube หรือเว็บไซต์อื่นใดภายใน Arroxy และดาวน์โหลดสิ่งที่พบโดยไม่ต้องคัดลอกลิงก์ **ดาวน์โหลด · *โปรไฟล์ของคุณ*** จะเข้าคิววิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ ลูกศรข้างปุ่มใช้สลับโปรไฟล์ ส่วนไม้กายสิทธิ์เปิดการดาวน์โหลดทีละขั้นเพื่อเลือกรูปแบบ คำบรรยาย และอื่น ๆ
 - **คลิกขวาเพื่อดาวน์โหลด** — คลิกขวาที่ลิงก์วิดีโอ เพลย์ลิสต์ หรือช่องใดก็ได้ใน Explore เพื่อดาวน์โหลดด้วยโปรไฟล์ของคุณ เลือกโปรไฟล์อื่นจาก **ดาวน์โหลดด้วย** เปิดการดาวน์โหลดทีละขั้น หรือคัดลอกลิงก์ ไม่ต้องเปิดวิดีโอทีละรายการก่อน
 - **เลย์เอาต์แบบกะทัดรัด** — คลิกครั้งเดียวบนแถบเครื่องมือของ Explore เพื่อย้ายแท็บของ Arroxy เข้าไปอยู่ในนั้น และให้หน้ามีพื้นที่มากขึ้น
-- **แถบที่อยู่** — พิมพ์เพื่อค้นหาใน YouTube หรือวางลิงก์ YouTube Explore เรียกดูได้เฉพาะ YouTube จึงไม่เปิดลิงก์จากเว็บไซต์อื่นที่นั่น แต่คุณดาวน์โหลดลิงก์นั้นได้ด้วยการคลิกครั้งเดียว
-- **ดาวน์โหลดที่ต้องใช้บัญชี** — เข้าสู่ระบบใน Explore เพียงครั้งเดียว Arroxy ก็ดาวน์โหลดวิดีโอส่วนตัวและวิดีโอเฉพาะสมาชิกที่บัญชีของคุณดูได้ วิดีโอจำกัดอายุหากบัญชียืนยันอายุแล้ว รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณได้ โดย Arroxy ยังคงดาวน์โหลดแบบไม่เข้าสู่ระบบ และใช้การเข้าสู่ระบบ Explore ของคุณเฉพาะเมื่อการดาวน์โหลดล้มเหลวด้วยเหตุที่บัญชีแก้ได้ เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต Arroxy ก็จะลองใช้การเข้าสู่ระบบ Explore ของคุณด้วย
-- **ใช้บัญชีสำรอง** — หน้าแรกของ Explore อธิบายเหตุผลไว้ การดาวน์โหลดด้วยบัญชีมีความเสี่ยงอยู่บ้างที่บัญชีนั้นจะถูกจำกัด ออกจากระบบ Explore ได้จากการตั้งค่าทุกเมื่อที่ต้องการให้ลืมการเข้าสู่ระบบ
-- **ตัวบล็อกโฆษณา** — Explore บล็อกโฆษณาและตัวติดตามบนหน้าของตัวเอง การดาวน์โหลดไม่ได้รับผลกระทบ เปิดไว้โดยค่าเริ่มต้น คลิกที่โล่บนแถบเครื่องมือของ Explore ครั้งเดียวก็ปิดได้ และจะไม่ทำงานบนหน้าเข้าสู่ระบบของ Google YouTube อาจตอบโต้ตัวบล็อกโฆษณากับบัญชีที่เข้าสู่ระบบอยู่
+- **แถบที่อยู่** — พิมพ์เพื่อค้นหาใน YouTube หรือพิมพ์ที่อยู่เว็บใดก็ได้เพื่อเปิดเว็บไซต์นั้น
+- **ดาวน์โหลดที่ต้องใช้บัญชี** — เข้าสู่ระบบใน Explore เพียงครั้งเดียว Arroxy ก็ดาวน์โหลดวิดีโอส่วนตัวและวิดีโอเฉพาะสมาชิกที่บัญชีของคุณดูได้ วิดีโอจำกัดอายุหากบัญชียืนยันอายุแล้ว รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณได้ เข้าสู่ระบบเว็บไซต์อื่นที่นั่นได้เช่นกัน และการดาวน์โหลดจากเว็บไซต์เหล่านั้นจะใช้การเข้าสู่ระบบนี้เมื่อจำเป็น โดย Arroxy ยังคงดาวน์โหลดแบบไม่เข้าสู่ระบบก่อน และใช้การเข้าสู่ระบบ Explore ของคุณเฉพาะเมื่อการดาวน์โหลดล้มเหลวด้วยเหตุที่บัญชีแก้ได้ เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต Arroxy ก็จะลองใช้การเข้าสู่ระบบ Explore ของคุณด้วย
+- **ใช้บัญชีสำรอง** — หน้าแรกของ Explore อธิบายเหตุผลไว้ การดาวน์โหลดด้วยบัญชีมีความเสี่ยงอยู่บ้างที่บัญชีนั้นจะถูกจำกัด ออกจากระบบ Explore ได้จากการตั้งค่าทุกเมื่อที่ต้องการให้ลืมการเข้าสู่ระบบทั้งหมด
+- **ตัวบล็อกโฆษณา** — ปิดไว้โดยค่าเริ่มต้น คลิกที่โล่บนแถบเครื่องมือของ Explore ครั้งเดียวก็บล็อกโฆษณาและตัวติดตามบนหน้าของ Explore โดยไม่กระทบการดาวน์โหลด YouTube อาจตอบโต้ตัวบล็อกโฆษณากับบัญชีที่เข้าสู่ระบบอยู่
 
 </details>
 
@@ -356,7 +356,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| เบราว์เซอร์ YouTube ในตัว (เรียกดู เข้าสู่ระบบ ดาวน์โหลด) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| เบราว์เซอร์ในตัว (เรียกดู เข้าสู่ระบบ ดาวน์โหลด) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | วิดีโอส่วนตัว เฉพาะสมาชิก และจำกัดอายุ โดยไม่ต้องส่งออกคุกกี้ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | ฟรี ไม่มีระดับพรีเมียม |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | โอเพนซอร์ส |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
@@ -371,13 +371,13 @@ Arroxy ถูกสร้างมาเพื่อสิ่งเดียว:
 
 ### <a id="why-explore"></a>🧭 สิ่งที่ตัวครอบ yt-dlp ธรรมดาทำไม่ได้: แท็บ Explore
 
-โปรแกรมดาวน์โหลด YouTube แบบฟรีส่วนใหญ่เป็นแค่ช่องใส่ URL ที่ครอบ yt-dlp ไว้ Arroxy ก็ใช้ yt-dlp เช่นกัน แต่ยังมี **Explore** ซึ่งเป็นเบราว์เซอร์ YouTube ที่สร้างไว้ในแอป Explore ผ่านข้อจำกัดของ YouTube ที่ช่องใส่ URL ผ่านไม่ได้:
+โปรแกรมดาวน์โหลด YouTube แบบฟรีส่วนใหญ่เป็นแค่ช่องใส่ URL ที่ครอบ yt-dlp ไว้ Arroxy ก็ใช้ yt-dlp เช่นกัน แต่ยังมี **Explore** ซึ่งเป็นเบราว์เซอร์ที่สร้างไว้ในแอปและเปิด YouTube หรือเว็บไซต์อื่นใดก็ได้ Explore ผ่านข้อจำกัดที่ช่องใส่ URL ผ่านไม่ได้:
 
-- **วิดีโอที่ต้องใช้บัญชี โดยไม่ต้องส่งออกคุกกี้** — วิดีโอส่วนตัว เฉพาะสมาชิก และจำกัดอายุ (กับบัญชีที่ยืนยันอายุแล้ว) รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณ ตัวครอบธรรมดาต้องใช้ไฟล์ cookies.txt ที่ส่งออกมา หรือต้องอ่านคุกกี้จากเว็บเบราว์เซอร์ของคุณ ซึ่งตอนนี้ Chrome บน Windows บล็อกไว้แล้ว ใน Arroxy คุณแค่เข้าสู่ระบบใน Explore ครั้งเดียว ที่เหลือแอปจัดการให้
+- **วิดีโอที่ต้องใช้บัญชี โดยไม่ต้องส่งออกคุกกี้** — วิดีโอส่วนตัว เฉพาะสมาชิก และจำกัดอายุ (กับบัญชีที่ยืนยันอายุแล้ว) รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณ และวิดีโอที่ต้องเข้าสู่ระบบบนเว็บไซต์อื่น ตัวครอบธรรมดาต้องใช้ไฟล์ cookies.txt ที่ส่งออกมา หรือต้องอ่านคุกกี้จากเว็บเบราว์เซอร์ของคุณ ซึ่งตอนนี้ Chrome บน Windows บล็อกไว้แล้ว ใน Arroxy คุณแค่เข้าสู่ระบบใน Explore ครั้งเดียว ที่เหลือแอปจัดการให้
 - **"ลงชื่อเข้าใช้เพื่อยืนยันว่าคุณไม่ใช่บอต"** — เมื่อ YouTube ถามแบบนี้ Arroxy จะลองดาวน์โหลดอีกครั้งด้วยการเข้าสู่ระบบ Explore ของคุณ แทนที่จะล้มเหลว
 - **โทเค็นดาวน์โหลดของ YouTube** — เบราว์เซอร์ในตัวของ Arroxy รับโทเค็นที่ YouTube ต้องการก่อนการดาวน์โหลด หากไม่มีโทเค็นนี้ YouTube อาจให้รูปแบบน้อยลงและคุณภาพต่ำกว่าที่คุณขอ
 - **ไม่ต้องคัดลอกลิงก์** — หาวิดีโอ เพลย์ลิสต์ หรือช่องใน Explore แล้วดาวน์โหลดได้ด้วยคลิกเดียว หรือคลิกขวาที่ลิงก์ใดก็ได้บนหน้า
-- **บล็อกโฆษณาขณะเรียกดู** — Explore บล็อกโฆษณาและตัวติดตามบนหน้าของตัวเอง
+- **ตัวบล็อกโฆษณาเมื่อคุณต้องการ** — คลิกที่โล่ครั้งเดียวก็บล็อกโฆษณาและตัวติดตามบนหน้าของ Explore
 
 ---
 

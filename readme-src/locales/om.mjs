@@ -85,7 +85,7 @@ bun run dist:win     # supported host irratti Windows targets package godhi
 export const om = {
   icon_alt: "Arroxy mascot",
   title:
-    "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa YouTube Keessaa Qabu, Windows, macOS & Linux",
+    "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa Keessaa Qabu, Windows, macOS & Linux",
   read_in_label: "Afaan:",
   badge_release_alt: "Baasii",
   badge_build_alt: "Ijaarsaa",
@@ -96,7 +96,7 @@ export const om = {
   discord_badge_text: "Hawaasa Discord itti makami",
   discord_badge_encoded: "Hawaasa%20Discord%20itti%20makami",
   hero_desc:
-    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
+    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube ykn marsariitii biraa Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
   cta_latest: "↓ Baasii Haaraa Buusi",
   cta_website: "Marsariitii",
   star_cta:
@@ -118,7 +118,7 @@ export const om = {
   why_r5: "Daangaa fayyadama hin qabu",
   why_r6: "App desktop platformoota hundaaf",
   why_r7: "Subtitle + SponsorBlock",
-  why_r8: "Biraawzara YouTube app keessatti ijaarame (ilaali, seeni, buusi)",
+  why_r8: "Biraawzara app keessatti ijaarame (ilaali, seeni, buusi)",
   why_r9: "Viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman kuukkii utuu hin baasin",
   why_table_note:
     "⚠️ = gartokkeen, ykn sadarkaa kafaltii qofa irratti. 4K Video Downloader keessatti seensi app keessaa viidiyoowwan dhuunfaaf amala kafaltiiti; GUI yt-dlp bilisaa baay'een faayila kuukkii qofa fudhatu ykn kuukkii biraawzara weebii keetii dubbisu.",
@@ -126,9 +126,9 @@ export const om = {
     "Arroxy waan tokko qofaaf ijaarame: faayila naannoo qulqulluu, URL maxxansitees ykn viidiyoo Explore keessatti argattees. Gurgurtaa dabalataa hin jiru, odeeffannoo walitti qabuu hin jiru.",
   why_explore_h3: "Waan wraapperiin yt-dlp salphaan hin dandeenye: tabii Explore",
   why_explore_intro:
-    "Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Explore** illee qaba, biraawzara YouTube app keessatti ijaarame. Explore daangaa YouTube kan saanduqni URL darbuu hin dandeenye ni darba:",
+    "Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Explore** illee qaba, biraawzara app keessatti ijaarame kan YouTube ykn marsariitii biraa banu. Explore daangaa kan saanduqni URL darbuu hin dandeenye ni darba:",
   why_explore_1:
-    "**Viidiyoowwan akkaawuntii barbaadan, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman (akkaawuntii umuriin isaa mirkanaa'e irratti), akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisuu qaba, kunis amma Windows irratti Chrome'n ni dhorka. Arroxy keessatti Explore keessatti altokko seenta, kan hafe isatu hojjeta",
+    "**Viidiyoowwan akkaawuntii barbaadan, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman (akkaawuntii umuriin isaa mirkanaa'e irratti), akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan marsariitiiwwan biraa irratti seensa duubatti jiran. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisuu qaba, kunis amma Windows irratti Chrome'n ni dhorka. Arroxy keessatti Explore keessatti altokko seenta, kan hafe isatu hojjeta",
   why_explore_2:
     "**\"Bot akka hin taane mirkaneessuuf seeni\"** — YouTube yeroo kana gaafatu, Arroxy kufuu mannaa seensa Explore keetiin buufannaa irra deebi'ee yaala",
   why_explore_3:
@@ -136,15 +136,15 @@ export const om = {
   why_explore_4:
     "**Hidhaa garagalchuun hin barbaachisu** — Explore keessatti viidiyoo, playlist, ykn channel barbaadiitii tuqaa tokkoon buusi, ykn fuula irratti hidhaa kamiyyuu mirgaan cuqaasi",
   why_explore_5:
-    "**Yeroo ilaaltu beeksisni ni dhorkama** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka",
-  feat_explore_h3: "Explore: YouTube Arroxy keessatti ilaali",
-  feat_explore_1: "**Tabii Explore** — YouTube Arroxy keessatti ilaaluudhaan waan argatte hidhaa waraabuu malee buufadhu. **Buusi · *piroofaayilii kee*** viidiyoo, playlist, ykn channel ati ilaaltu tarree keessa galcha; xiyyi isa cinaa piroofaayilii jijjiira, ulee falfalaa immoo buufannaa tarkaanfii-tarkaanfiidhaan formaata, barruu jalaa fi kkf filachuuf bana",
+    "**Yeroo barbaaddu dhorkaa beeksisaa** — gaachana tuquun fuula Explore irratti beeksisaa fi hordoftoota ni dhorka",
+  feat_explore_h3: "Explore: Weebii Arroxy keessatti ilaali",
+  feat_explore_1: "**Tabii Explore** — YouTube ykn marsariitii biraa Arroxy keessatti ilaaluudhaan waan argatte hidhaa waraabuu malee buufadhu. **Buusi · *piroofaayilii kee*** viidiyoo, playlist, ykn channel ati ilaaltu tarree keessa galcha; xiyyi isa cinaa piroofaayilii jijjiira, ulee falfalaa immoo buufannaa tarkaanfii-tarkaanfiidhaan formaata, barruu jalaa fi kkf filachuuf bana",
   feat_explore_6: "**Buusuuf mirgaan cuqaasi** — Explore keessatti hidhaa viidiyoo, playlist ykn channel kamiyyuu mirgaan cuqaasiitii piroofaayilii keetiin buusi, **Profaayiliin buusi** irraa piroofaayilii biraa filadhu, buufata tarkaanfii tarkaanfiin bani, ykn hidhaa garagalchi. Tokkoon tokkoon viidiyoo dursa banuun hin barbaachisu",
   feat_explore_7: "**Qindaa'ina gabaabaa** — Explore keessatti baarii meeshaalee irratti tuqaa tokkoon sabbata Arroxy achitti geessee fuula sanaaf bakka dabalataa kenna",
-  feat_explore_2: "**Bar teessoo** — YouTube barbaaduuf barreessi ykn hidhaa YouTube maxxansi. Explore YouTube qofa ilaala; kanaaf hidhaan marsariitii biraa achi hin banamu, garuu tuqaa tokkoon buufachuu ni dandeessa",
-  feat_explore_3: "**Buufannaa akkaawuntii barbaadu** — Explore keessatti altokko seeni, Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Arroxy ammas utuu hin seenin buufata; yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa Explore kee fayyadama. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy seensa Explore kee illee ni yaala",
-  feat_explore_4: "**Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensa irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi",
-  feat_explore_5: "**Dhorkaa beeksisaa** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka; buufannaan hin tuqamu. Durtiidhaan banaa, Explore kaaba meeshaa irratti gaachana tuquun ni cufa, fuulota seensa Google irrattis gonkumaa hin hojjetu. YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a",
+  feat_explore_2: "**Bar teessoo** — YouTube barbaaduuf barreessi, ykn teessoo weebii kamiyyuu galchiitii marsariitii sana bani",
+  feat_explore_3: "**Buufannaa akkaawuntii barbaadu** — Explore keessatti altokko seeni, Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Marsariitiiwwan biraa irrattis achitti seenuu ni dandeessa, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Arroxy ammas dura utuu hin seenin buufata; yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa Explore kee fayyadama. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy seensa Explore kee illee ni yaala",
+  feat_explore_4: "**Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensawwan hunda irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi",
+  feat_explore_5: "**Dhorkaa beeksisaa** — Durtiidhaan cufaadha. Explore kaaba meeshaa irratti gaachana tokko tuquun fuula isaa irratti beeksisaa fi hordoftoota ni dhorka; buufannaan hin tuqamu. YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a",
   feat_quality_h3: "Qulqullina & formatoota",
   feat_quality_1: "Hanga **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
@@ -235,7 +235,7 @@ export const om = {
   hotkey_fig_alt: "Qabduu ariifachiisaa buufannaa waliigalaa Arroxy — Windows fi Linux irratti Ctrl+Shift+D, macOS irratti Cmd+Shift+D, hidhaa waraabame kallattiin tarree buufannaatti erga",
   hotkey_fig_cap: "<b>Qabduu ariifachiisaa buufannaa waliigalaa</b><br/>Bakka kamiyyuu hidhaa waraabi, altokko tuqi — tarree seenee buufamuu jalqaba",
   shot7_cap: "<b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu",
-  shot8_cap: "<b>Explore</b><br/>YouTube Arroxy keessatti ilaali, fuula irra jirtu piroofaayilii hojiirra jiruun buufadhu",
+  shot8_cap: "<b>Explore</b><br/>YouTube ykn marsariitii biraa Arroxy keessatti ilaali, fuula irra jirtu piroofaayilii hojiirra jiruun buufadhu",
   shot9_cap: "<b>Fuula jalqabaa Explore</b><br/>Explore ilaalcha gabaabaa, akkasumas maaliif akkaawuntiin lammaffaan seensa nageenya qabeessa ta'e",
   shot10_cap: "<b>Buufata maal akka si barbaaduu sitti hima</b><br/>Hidhaawwan duubatti qophaa'u; kan hin milkoofne furmaata dhiyeessa, playlist dheeraan filannoo kee eega",
   shot11_cap: "<b>Kutaa viidiyoo tokko qofa buusi</b><br/>Jalqabaa fi dhumaa, yookaan boqonnaa filadhu — Arroxy kutaa sana qofa kuusa",

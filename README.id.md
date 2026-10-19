@@ -1,15 +1,15 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Maskot Arroxy" width="180" />
 
-# Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban YouTube Bawaan untuk Windows, macOS & Linux
+# Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
 
-**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Baca di:** [Afaan Oromoo](README.om.md) · **Bahasa Indonesia** · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![Rilis](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Situs web](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Lisensi](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Bahasa](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 8K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
+Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 8K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube atau situs lain di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
 
 [**↓ Instal Rilis Terbaru**](#install) &nbsp;·&nbsp; [**Situs web**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows peluncuran pertama](#windows-first-launch) · [macOS peluncuran pertama](#macos-first-launch) · [Linux peluncuran pertama](#linux-first-launch)
 
@@ -23,7 +23,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-19._
 
@@ -53,7 +53,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Jelajahi YouTube di dalam Arroxy dan unduh halaman yang sedang Anda buka dengan profil aktif</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Jelajahi YouTube atau situs lain di dalam Arroxy dan unduh halaman yang sedang Anda buka dengan profil aktif</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Layar pertama Explore</b><br/>Sekilas tentang Explore, dan alasan akun sekunder adalah login yang lebih aman</sub></td>
@@ -89,15 +89,15 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 </table>
 
 <details open>
-<summary><strong>🧭 Explore: jelajahi YouTube di dalam Arroxy</strong></summary>
+<summary><strong>🧭 Explore: jelajahi web di dalam Arroxy</strong></summary>
 
-- **Tab Explore** — jelajahi YouTube di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya
+- **Tab Explore** — jelajahi YouTube atau situs lain di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya
 - **Klik kanan untuk mengunduh** — klik kanan tautan video, daftar putar, atau saluran mana pun di Explore untuk mengunduhnya dengan profil Anda, memilih profil lain dari **Unduh dengan**, membuka unduhan langkah demi langkah, atau menyalin tautan. Anda tidak perlu membuka setiap video terlebih dahulu
 - **Tata letak ringkas** — satu klik di bilah alat Explore memindahkan tab Arroxy ke sana dan memberi halaman lebih banyak ruang
-- **Bilah alamat** — ketik untuk mencari di YouTube atau tempel tautan YouTube. Explore hanya menjelajahi YouTube, jadi tautan dari situs lain tidak dibuka di sana, tetapi Anda bisa mengunduhnya dengan satu klik
-- **Unduhan yang memerlukan akun** — masuk sekali di Explore dan Arroxy dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Arroxy tetap mengunduh tanpa masuk dan hanya memakai login Explore Anda saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda
-- **Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan login
-- **Pemblokir iklan** — Explore memblokir iklan dan pelacak di halamannya sendiri; unduhan tidak terpengaruh. Aktif secara bawaan, satu klik pada ikon perisai di bilah alat Explore menonaktifkannya, dan ia tidak pernah bekerja di halaman login Google. YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk
+- **Bilah alamat** — ketik untuk mencari di YouTube, atau masukkan alamat web mana pun untuk membuka situs itu
+- **Unduhan yang memerlukan akun** — masuk sekali di Explore dan Arroxy dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Masuk juga ke situs lain di sana, dan unduhan dari situs itu memakai login tersebut saat memerlukannya. Arroxy tetap mengunduh tanpa masuk terlebih dahulu dan hanya memakai login Explore Anda saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda
+- **Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan semua login Anda
+- **Pemblokir iklan** — nonaktif secara bawaan. Satu klik pada ikon perisai di bilah alat Explore memblokir iklan dan pelacak di halamannya, tanpa memengaruhi unduhan. YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk
 
 </details>
 
@@ -356,7 +356,7 @@ Perbandingan berdampingan dengan alternatif yang paling umum:
 
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Browser YouTube bawaan (jelajahi, masuk, unduh) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| Browser bawaan (jelajahi, masuk, unduh) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Video privat, khusus anggota & dengan batasan usia tanpa mengekspor cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Gratis, tidak ada tingkat premium |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Sumber terbuka |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
@@ -371,13 +371,13 @@ Arroxy dibuat untuk satu hal: file lokal yang bersih, baik Anda menempelkan URL 
 
 ### <a id="why-explore"></a>🧭 Yang tidak bisa dilakukan pembungkus yt-dlp biasa: tab Explore
 
-Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arroxy juga memakai yt-dlp, tetapi juga punya **Explore**, browser YouTube yang terpasang di dalam aplikasi. Explore menembus batasan YouTube yang tidak bisa diatasi oleh kotak URL:
+Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arroxy juga memakai yt-dlp, tetapi juga punya **Explore**, browser yang terpasang di dalam aplikasi dan membuka YouTube atau situs lain mana pun. Explore menembus batasan yang tidak bisa diatasi oleh kotak URL:
 
-- **Video yang memerlukan akun, tanpa mengekspor cookie** — video privat, khusus anggota, dan dengan batasan usia (dengan akun yang usianya terverifikasi), serta daftar Tonton Nanti dan Disukai Anda. Pembungkus biasa memerlukan ekspor cookies.txt atau harus membaca cookie dari browser web Anda, yang kini diblokir oleh Chrome di Windows. Di Arroxy, Anda cukup masuk sekali di Explore dan sisanya beres
+- **Video yang memerlukan akun, tanpa mengekspor cookie** — video privat, khusus anggota, dan dengan batasan usia (dengan akun yang usianya terverifikasi), serta daftar Tonton Nanti dan Disukai Anda, dan video yang memerlukan login di situs lain. Pembungkus biasa memerlukan ekspor cookies.txt atau harus membaca cookie dari browser web Anda, yang kini diblokir oleh Chrome di Windows. Di Arroxy, Anda cukup masuk sekali di Explore dan sisanya beres
 - **"Login untuk mengonfirmasi bahwa Anda bukan bot"** — saat YouTube meminta ini, Arroxy mencoba mengunduh lagi dengan login Explore Anda alih-alih gagal
 - **Token unduhan YouTube** — browser bawaan Arroxy mendapatkan token yang diharapkan YouTube sebelum unduhan dimulai. Tanpanya, YouTube bisa menyajikan lebih sedikit format dan kualitas yang lebih rendah dari yang Anda minta
 - **Tanpa menyalin tautan** — temukan video, daftar putar, atau saluran di Explore lalu unduh dengan satu klik, atau klik kanan tautan mana pun di halaman
-- **Iklan diblokir selama menjelajah** — Explore memblokir iklan dan pelacak di halamannya sendiri
+- **Pemblokir iklan saat Anda mau** — satu klik pada ikon perisai membuat Explore memblokir iklan dan pelacak di halamannya sendiri
 
 ---
 

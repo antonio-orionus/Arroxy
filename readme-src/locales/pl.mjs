@@ -84,7 +84,7 @@ bun run dist:win     # pakiety Windows na obsługiwanym hoście
 
 export const pl = {
   icon_alt: "Maskotka Arroxy",
-  title: "Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie z wbudowaną przeglądarką YouTube na Windows, macOS i Linux",
+  title: "Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie z wbudowaną przeglądarką na Windows, macOS i Linux",
   read_in_label: "Przeczytaj w języku:",
   badge_release_alt: "Wydanie",
   badge_build_alt: "Kompilacja",
@@ -94,7 +94,7 @@ export const pl = {
   badge_website_alt: "Witryna",
   discord_badge_text: "Dołącz do społeczności Discord",
   discord_badge_encoded: "Do%C5%82%C4%85cz%20do%20spo%C5%82eczno%C5%9Bci%20Discord",
-  hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 8K HDR przy 60 kl./s, jako MP3 / AAC / Opus albo tylko potrzebny fragment. **Przeglądaj YouTube w Arroxy** na karcie Explore i pobieraj oglądany film, playlistę lub kanał; zaloguj się tam, aby pobierać filmy prywatne, tylko dla członków i z ograniczeniem wieku, które może oglądać Twoje konto. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
+  hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 8K HDR przy 60 kl./s, jako MP3 / AAC / Opus albo tylko potrzebny fragment. **Przeglądaj YouTube lub dowolną inną stronę w Arroxy** na karcie Explore i pobieraj oglądany film, playlistę lub kanał; zaloguj się tam, aby pobierać filmy prywatne, tylko dla członków i z ograniczeniem wieku, które może oglądać Twoje konto. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
   cta_latest: "↓ Zainstaluj najnowsze wydanie",
   cta_website: "Witryna",
   star_cta: "Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.",
@@ -115,7 +115,7 @@ export const pl = {
   why_r6: "Wieloplatformowa aplikacja komputerowa",
   why_r7: "Napisy + SponsorBlock",
   why_r8:
-    "Wbudowana przeglądarka YouTube (przeglądanie, logowanie, pobieranie)",
+    "Wbudowana przeglądarka (przeglądanie, logowanie, pobieranie)",
   why_r9:
     "Filmy prywatne, tylko dla członków i z ograniczeniem wieku bez eksportowania plików cookie",
   why_table_note:
@@ -124,9 +124,9 @@ export const pl = {
     "Arroxy ma jedno zadanie: czysty plik lokalny, niezależnie od tego, czy wklejasz adres URL, czy znajdujesz film w Explore. Bez płatnych zachęt i zbierania danych.",
   why_explore_h3: "Czego nie potrafi zwykła nakładka na yt-dlp: karta Explore",
   why_explore_intro:
-    "Większość darmowych programów do pobierania z YouTube to pole na adres URL nałożone na yt-dlp. Arroxy też korzysta z yt-dlp, ale ma dodatkowo **Explore** — przeglądarkę YouTube wbudowaną w aplikację. Explore omija ograniczenia YouTube, z którymi samo pole na URL sobie nie poradzi:",
+    "Większość darmowych programów do pobierania z YouTube to pole na adres URL nałożone na yt-dlp. Arroxy też korzysta z yt-dlp, ale ma dodatkowo **Explore** — przeglądarkę wbudowaną w aplikację, która otwiera YouTube lub dowolną inną stronę. Explore omija ograniczenia, z którymi samo pole na URL sobie nie poradzi:",
   why_explore_1:
-    "**Filmy wymagające konta, bez eksportowania plików cookie** — filmy prywatne, tylko dla członków i z ograniczeniem wieku (na koncie ze zweryfikowanym wiekiem), a także listy Do obejrzenia i Polubione. Zwykła nakładka potrzebuje wyeksportowanego pliku cookies.txt albo musi odczytać pliki cookie z Twojej przeglądarki internetowej, co Chrome w Windows obecnie blokuje. W Arroxy logujesz się raz w Explore, a resztą zajmuje się aplikacja",
+    "**Filmy wymagające konta, bez eksportowania plików cookie** — filmy prywatne, tylko dla członków i z ograniczeniem wieku (na koncie ze zweryfikowanym wiekiem), listy Do obejrzenia i Polubione oraz filmy za logowaniem na innych stronach. Zwykła nakładka potrzebuje wyeksportowanego pliku cookies.txt albo musi odczytać pliki cookie z Twojej przeglądarki internetowej, co Chrome w Windows obecnie blokuje. W Arroxy logujesz się raz w Explore, a resztą zajmuje się aplikacja",
   why_explore_2:
     "**„Zaloguj się, aby potwierdzić, że nie jesteś botem”** — gdy YouTube o to prosi, Arroxy ponawia pobieranie z Twoim logowaniem w Explore, zamiast kończyć je błędem",
   why_explore_3:
@@ -134,15 +134,15 @@ export const pl = {
   why_explore_4:
     "**Bez kopiowania linków** — znajdź film, playlistę lub kanał w Explore i pobierz go jednym kliknięciem albo kliknij prawym przyciskiem dowolny link na stronie",
   why_explore_5:
-    "**Reklamy zablokowane podczas przeglądania** — Explore blokuje reklamy i trackery na własnych stronach",
-  feat_explore_h3: "Explore: przeglądaj YouTube w Arroxy",
-  feat_explore_1: "**Karta Explore** — przeglądaj YouTube w Arroxy i pobieraj znalezione filmy bez kopiowania linków. **Pobierz · *Twój profil*** dodaje do kolejki oglądany film, playlistę lub kanał; strzałka obok przełącza profile, a różdżka otwiera pobieranie krok po kroku, gdzie wybierzesz formaty, napisy i więcej",
+    "**Blokowanie reklam, gdy tego chcesz** — jedno kliknięcie tarczy blokuje reklamy i trackery na stronach Explore",
+  feat_explore_h3: "Explore: przeglądaj sieć w Arroxy",
+  feat_explore_1: "**Karta Explore** — przeglądaj YouTube lub dowolną inną stronę w Arroxy i pobieraj znalezione filmy bez kopiowania linków. **Pobierz · *Twój profil*** dodaje do kolejki oglądany film, playlistę lub kanał; strzałka obok przełącza profile, a różdżka otwiera pobieranie krok po kroku, gdzie wybierzesz formaty, napisy i więcej",
   feat_explore_6: "**Pobieranie prawym przyciskiem** — kliknij prawym przyciskiem dowolny link do filmu, playlisty lub kanału w Explore, aby pobrać go ze swoim profilem, wybrać inny profil w **Pobierz z profilem**, otworzyć pobieranie krok po kroku lub skopiować link. Nie trzeba najpierw otwierać każdego filmu",
   feat_explore_7: "**Układ kompaktowy** — jedno kliknięcie na pasku narzędzi Explore przenosi do niego karty Arroxy i daje stronie więcej miejsca",
-  feat_explore_2: "**Pasek adresu** — wpisz frazę, aby wyszukać w YouTube, albo wklej link do YouTube. Explore przegląda tylko YouTube, więc link z innej witryny nie zostanie tam otwarty, ale możesz go pobrać jednym kliknięciem",
-  feat_explore_3: "**Pobieranie wymagające konta** — zaloguj się raz w Explore, a Arroxy pobierze prywatne filmy i filmy tylko dla członków, które może oglądać Twoje konto, filmy z ograniczeniem wieku (jeśli wiek konta jest zweryfikowany) oraz listy Do obejrzenia i Polubione. Arroxy nadal pobiera bez logowania i używa Twojego logowania w Explore tylko wtedy, gdy pobieranie kończy się błędem, który może naprawić konto. Gdy YouTube prosi o potwierdzenie, że nie jesteś botem, Arroxy próbuje też użyć Twojego logowania w Explore",
-  feat_explore_4: "**Użyj dodatkowego konta** — pierwszy ekran Explore wyjaśnia dlaczego: pobieranie z użyciem konta niesie pewne ryzyko, że konto zostanie ograniczone. Wyloguj się z Explore w Ustawieniach, kiedy tylko chcesz, aby logowanie zostało zapomniane",
-  feat_explore_5: "**Blokowanie reklam** — Explore blokuje reklamy i trackery na własnych stronach; pobieranie pozostaje bez zmian. Domyślnie włączone — jedno kliknięcie tarczy na pasku narzędzi Explore je wyłącza, a na stronach logowania Google nigdy nie działa. YouTube może utrudniać korzystanie z blokad reklam na zalogowanych kontach",
+  feat_explore_2: "**Pasek adresu** — wpisz frazę, aby wyszukać w YouTube, albo wpisz dowolny adres internetowy, aby otworzyć tę stronę",
+  feat_explore_3: "**Pobieranie wymagające konta** — zaloguj się raz w Explore, a Arroxy pobierze prywatne filmy i filmy tylko dla członków, które może oglądać Twoje konto, filmy z ograniczeniem wieku (jeśli wiek konta jest zweryfikowany) oraz listy Do obejrzenia i Polubione. Zaloguj się tam także na innych stronach, a ich pobieranie użyje tego logowania, gdy będzie potrzebne. Arroxy nadal najpierw pobiera bez logowania i używa Twojego logowania w Explore tylko wtedy, gdy pobieranie kończy się błędem, który może naprawić konto. Gdy YouTube prosi o potwierdzenie, że nie jesteś botem, Arroxy próbuje też użyć Twojego logowania w Explore",
+  feat_explore_4: "**Użyj dodatkowego konta** — pierwszy ekran Explore wyjaśnia dlaczego: pobieranie z użyciem konta niesie pewne ryzyko, że konto zostanie ograniczone. Wyloguj się z Explore w Ustawieniach, kiedy tylko chcesz, aby logowania zostały zapomniane",
+  feat_explore_5: "**Blokowanie reklam** — domyślnie wyłączone. Jedno kliknięcie tarczy na pasku narzędzi Explore blokuje reklamy i trackery na jego stronach, bez wpływu na pobieranie. YouTube może utrudniać korzystanie z blokad reklam na zalogowanych kontach",
   feat_quality_h3: "Jakość i formaty",
   feat_quality_1: "Do **8K (4320p)**, a także 4K UHD (2160p), 1440p, 1080p, 720p, 480p i 360p",
   feat_quality_2: "**Wysoka liczba klatek i HDR** zachowane bez zmian — 60 kl./s, HDR10",
@@ -201,7 +201,7 @@ export const pl = {
   hotkey_fig_alt: "Globalny skrót pobierania Arroxy — Ctrl+Shift+D w Windows i Linux oraz Cmd+Shift+D w macOS, wysyłający skopiowany link prosto do kolejki",
   hotkey_fig_cap: "<b>Globalny skrót pobierania</b><br/>Skopiuj link gdziekolwiek i naciśnij raz — trafi do kolejki i zacznie się pobierać",
   shot7_cap: "<b>Profile osobne dla elementów playlisty</b><br/>Nadaj każdemu filmowi własny profil — część archiwizuj w 4K, resztę pobieraj jako MP3",
-  shot8_cap: "<b>Explore</b><br/>Przeglądaj YouTube w Arroxy i pobieraj bieżącą stronę z aktywnym profilem",
+  shot8_cap: "<b>Explore</b><br/>Przeglądaj YouTube lub dowolną inną stronę w Arroxy i pobieraj bieżącą stronę z aktywnym profilem",
   shot9_cap: "<b>Pierwszy ekran Explore</b><br/>Krótkie wprowadzenie do Explore i powód, dla którego dodatkowe konto to bezpieczniejsze logowanie",
   shot10_cap: "<b>Pobieranie pokazuje, co wymaga Twojej uwagi</b><br/>Linki przygotowują się w tle; nieudany proponuje rozwiązanie, a długa playlista czeka na Twój wybór",
   shot11_cap: "<b>Pobierz tylko fragment wideo</b><br/>Wybierz początek i koniec albo rozdział — Arroxy zapisze tylko ten zakres",

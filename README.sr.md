@@ -1,15 +1,15 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy маскота" width="180" />
 
-# Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним YouTube прегледачем за Windows, macOS и Linux
+# Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux
 
-**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Читај на:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Веб-сајт](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Лиценца](https://img.shields.io/badge/license-MIT-green) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Преузимајте видео снимке, Shorts, музику, канале, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 8K HDR при 60 fps, у MP3 / AAC / Opus формату или само део који вам треба. **Прегледајте YouTube унутар Arroxy-ја** на картици Explore и преузмите видео, плејлисту или канал који гледате; пријавите се ту да бисте преузимали приватна видеа, видеа само за чланове и видеа са старосним ограничењем која ваш налог може да гледа. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
+Преузимајте видео снимке, Shorts, музику, канале, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 8K HDR при 60 fps, у MP3 / AAC / Opus формату или само део који вам треба. **Прегледајте YouTube или било који други сајт унутар Arroxy-ја** на картици Explore и преузмите видео, плејлисту или канал који гледате; пријавите се ту да бисте преузимали приватна видеа, видеа само за чланове и видеа са старосним ограничењем која ваш налог може да гледа. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
 
 [**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows: прво покретање](#windows-first-launch) · [macOS: прво покретање](#macos-first-launch) · [Linux: прво покретање](#linux-first-launch)
 
@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-19._
 
@@ -51,7 +51,7 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Прегледајте YouTube унутар Arroxy-ја и преузмите страницу на којој сте са активним профилом</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Прегледајте YouTube или било који други сајт унутар Arroxy-ја и преузмите страницу на којој сте са активним профилом</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Први екран Explore-а</b><br/>Кратак поглед на Explore и зашто је помоћни налог безбеднија пријава</sub></td>
@@ -87,15 +87,15 @@
 </table>
 
 <details open>
-<summary><strong>🧭 Explore: прегледајте YouTube унутар Arroxy-ја</strong></summary>
+<summary><strong>🧭 Explore: прегледајте веб унутар Arroxy-ја</strong></summary>
 
-- **Explore картица** — прегледајте YouTube унутар Arroxy-ја и преузимајте шта нађете без копирања линкова. **Преузми · *ваш профил*** ставља у ред видео, плејлисту или канал који гледате; стрелица поред мења профиле, а чаробни штапић отвара вођено преузимање корак по корак за избор формата, титлова и још тога
+- **Explore картица** — прегледајте YouTube или било који други сајт унутар Arroxy-ја и преузимајте шта нађете без копирања линкова. **Преузми · *ваш профил*** ставља у ред видео, плејлисту или канал који гледате; стрелица поред мења профиле, а чаробни штапић отвара вођено преузимање корак по корак за избор формата, титлова и још тога
 - **Преузимање десним кликом** — кликните десним тастером на било који линк видеа, плејлисте или канала у Explore-у да бисте га преузели са својим профилом, изабрали други профил у **Преузми са профилом**, отворили преузимање корак по корак или копирали линк. Не морате прво да отварате сваки видео
 - **Компактан распоред** — један клик у траци са алаткама Explore-а премешта Arroxy-јеве картице у њу и даје страници више простора
-- **Адресна трака** — унесите упит да претражите YouTube или налепите YouTube линк. Explore прегледа само YouTube, па се линк са другог сајта тамо не отвара, али га можете преузети једним кликом
-- **Преузимања која захтевају налог** — пријавите се једном у Explore и Arroxy може да преузима приватна видеа и видеа само за чланове које ваш налог може да гледа, видеа са старосним ограничењем ако је налог верификован по узрасту, као и ваше листе „Гледај касније“ и „Свиђа ми се“. Arroxy и даље преузима без пријаве и користи вашу Explore пријаву само када преузимање не успе из разлога који налог може да реши. Када YouTube затражи да потврдите да нисте бот, Arroxy покушава и са вашом Explore пријавом
-- **Користите помоћни налог** — први екран Explore-а објашњава зашто: преузимање преко налога носи извесан ризик да тај налог буде ограничен. Одјавите се из Explore-а у Подешавањима кад год желите да заборавите пријаву
-- **Блокатор огласа** — Explore блокира огласе и трекере на својим страницама; преузимања нису погођена. Подразумевано је укључен, један клик на штит у траци са алаткама Explore-а га искључује, и никада не делује на Google страницама за пријаву. YouTube се може опирати блокаторима огласа за пријављене налоге
+- **Адресна трака** — унесите упит да претражите YouTube или било коју веб адресу да отворите тај сајт
+- **Преузимања која захтевају налог** — пријавите се једном у Explore и Arroxy може да преузима приватна видеа и видеа само за чланове које ваш налог може да гледа, видеа са старосним ограничењем ако је налог верификован по узрасту, као и ваше листе „Гледај касније“ и „Свиђа ми се“. Пријавите се и на другим сајтовима, а њихова преузимања користе ту пријаву када им затреба. Arroxy и даље прво преузима без пријаве и користи вашу Explore пријаву само када преузимање не успе из разлога који налог може да реши. Када YouTube затражи да потврдите да нисте бот, Arroxy покушава и са вашом Explore пријавом
+- **Користите помоћни налог** — први екран Explore-а објашњава зашто: преузимање преко налога носи извесан ризик да тај налог буде ограничен. Одјавите се из Explore-а у Подешавањима кад год желите да заборавите пријаве
+- **Блокатор огласа** — подразумевано је искључен. Један клик на штит у траци са алаткама Explore-а блокира огласе и трекере на његовим страницама, без утицаја на преузимања. YouTube се може опирати блокаторима огласа за пријављене налоге
 
 </details>
 
@@ -354,7 +354,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| Уграђени YouTube прегледач (прегледање, пријава, преузимање) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| Уграђени прегледач (прегледање, пријава, преузимање) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Приватна видеа, видеа само за чланове и са старосним ограничењем без извоза колачића |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Бесплатно, без премијум нивоа |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Отворени код |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
@@ -369,13 +369,13 @@ Arroxy је направљен за једну ствар: чист локалн
 
 ### <a id="why-explore"></a>🧭 Шта обичан омотач за yt-dlp не може: картица Explore
 
-Већина бесплатних YouTube преузимача је само поље за URL изнад yt-dlp-а. Arroxy такође користи yt-dlp, али има и **Explore**, YouTube прегледач уграђен у апликацију. Explore заобилази YouTube ограничења са којима поље за URL не може да изађе на крај:
+Већина бесплатних YouTube преузимача је само поље за URL изнад yt-dlp-а. Arroxy такође користи yt-dlp, али има и **Explore**, прегледач уграђен у апликацију који отвара YouTube или било који други сајт. Explore заобилази ограничења са којима поље за URL не може да изађе на крај:
 
-- **Видеа која захтевају налог, без извоза колачића** — приватна видеа, видеа само за чланове и видеа са старосним ограничењем (на налогу верификованом по узрасту), као и ваше листе „Гледај касније“ и „Свиђа ми се“. Обичном омотачу треба извезени cookies.txt или мора да чита колачиће из вашег веб претраживача, што Chrome на Windows-у сада блокира. У Arroxy-ју се пријавите једном у Explore и он ради остало
+- **Видеа која захтевају налог, без извоза колачића** — приватна видеа, видеа само за чланове и видеа са старосним ограничењем (на налогу верификованом по узрасту), као и ваше листе „Гледај касније“ и „Свиђа ми се“, и видеа иза пријаве на другим сајтовима. Обичном омотачу треба извезени cookies.txt или мора да чита колачиће из вашег веб претраживача, што Chrome на Windows-у сада блокира. У Arroxy-ју се пријавите једном у Explore и он ради остало
 - **„Пријавите се да потврдите да нисте бот“** — када YouTube ово затражи, Arroxy поново покушава преузимање са вашом Explore пријавом уместо да пријави грешку
 - **YouTube-ов токен за преузимање** — уграђени прегледач у Arroxy-ју добија токен који YouTube очекује пре преузимања. Без њега YouTube може да понуди мање формата и нижи квалитет од траженог
 - **Без копирања линкова** — пронађите видео, плејлисту или канал у Explore-у и преузмите га једним кликом, или кликните десним тастером на било који линк на страници
-- **Огласи блокирани док прегледате** — Explore блокира огласе и трекере на својим страницама
+- **Блокатор огласа када вам затреба** — један клик на штит блокира огласе и трекере на страницама Explore-а
 
 ---
 

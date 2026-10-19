@@ -85,7 +85,7 @@ bun run dist:win     # package Windows targets when run on a supported host
 export const en = {
   icon_alt: "Arroxy mascot",
   title:
-    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in YouTube Browser, for Windows, macOS & Linux",
+    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in Browser, for Windows, macOS & Linux",
   read_in_label: "Read in:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",
@@ -96,7 +96,7 @@ export const en = {
   discord_badge_text: "Join the Discord Community",
   discord_badge_encoded: "Join%20the%20Discord%20Community",
   hero_desc:
-    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
+    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
   cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
   star_cta: "If Arroxy saves you time, a ⭐ helps others find it.",
@@ -116,7 +116,7 @@ export const en = {
   why_r5: "No usage caps",
   why_r6: "Cross-platform desktop app",
   why_r7: "Subtitles + SponsorBlock",
-  why_r8: "Built-in YouTube browser (browse, sign in, download)",
+  why_r8: "Built-in browser (browse, sign in, download)",
   why_r9: "Private, members-only & age-restricted videos without exporting cookies",
   why_table_note:
     "⚠️ = partly, or only on a paid tier. 4K Video Downloader's in-app sign-in for private videos is a paid feature; most free yt-dlp GUIs only accept a cookies file or read your web browser's cookies.",
@@ -124,9 +124,9 @@ export const en = {
     "Arroxy is built for one thing: a clean local file, whether you paste a URL or find the video in Explore. No upsells, no data collection.",
   why_explore_h3: "What a plain yt-dlp wrapper can't do: the Explore tab",
   why_explore_intro:
-    "Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a YouTube browser built into the app. Explore gets past YouTube limits that a URL box can't:",
+    "Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a browser built into the app that opens YouTube or any other site. Explore gets past limits that a URL box can't:",
   why_explore_1:
-    "**Videos that need an account, without exporting cookies** — private, members-only, and age-restricted videos (on an age-verified account), plus your Watch Later and Liked lists. A plain wrapper needs a cookies.txt export or must read your web browser's cookies, which Chrome on Windows now blocks. In Arroxy you sign in once in Explore and it does the rest",
+    "**Videos that need an account, without exporting cookies** — private, members-only, and age-restricted videos (on an age-verified account), plus your Watch Later and Liked lists, and videos behind a sign-in on other sites. A plain wrapper needs a cookies.txt export or must read your web browser's cookies, which Chrome on Windows now blocks. In Arroxy you sign in once in Explore and it does the rest",
   why_explore_2:
     "**\"Sign in to confirm you're not a bot\"** — when YouTube asks this, Arroxy tries the download again with your Explore sign-in instead of failing",
   why_explore_3:
@@ -134,22 +134,22 @@ export const en = {
   why_explore_4:
     "**No copying links** — find a video, playlist, or channel in Explore and download it with one click, or right-click any link on the page",
   why_explore_5:
-    "**Ads blocked while you browse** — Explore blocks ads and trackers on its own pages",
-  feat_explore_h3: "Explore: browse YouTube inside Arroxy",
+    "**Ad blocker when you want it** — one click on the shield blocks ads and trackers on Explore's pages",
+  feat_explore_h3: "Explore: browse the web inside Arroxy",
   feat_explore_1:
-    "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
+    "**Explore tab** — browse YouTube or any other site inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
   feat_explore_6:
     "**Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first",
   feat_explore_7:
     "**Compact layout** — one click in Explore's toolbar moves Arroxy's tabs into it and gives the page more room",
   feat_explore_2:
-    "**Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click",
+    "**Address bar** — type to search YouTube, or enter any web address to open that site",
   feat_explore_3:
-    "**Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Arroxy still downloads signed out and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in",
+    "**Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Sign in to other sites there too, and their downloads use that sign-in when they need it. Arroxy still downloads signed out first and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in",
   feat_explore_4:
-    "**Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget the sign-in",
+    "**Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget your sign-ins",
   feat_explore_5:
-    "**Ad blocker** — Explore blocks ads and trackers on its own pages; downloads are unaffected. On by default, one click on the shield in Explore's toolbar turns it off, and it never acts on Google's sign-in pages. YouTube may push back on ad blockers for signed-in accounts",
+    "**Ad blocker** — off by default. One click on the shield in Explore's toolbar blocks ads and trackers on its pages, without affecting downloads. YouTube may push back on ad blockers for signed-in accounts",
   feat_quality_h3: "Quality & formats",
   feat_quality_1: "Up to **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**High frame rate and HDR** preserved as-is — 60 fps, HDR10",
@@ -245,7 +245,7 @@ export const en = {
     "<b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading",
   shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
   shot8_cap:
-    "<b>Explore</b><br/>Browse YouTube inside Arroxy and download the page you're on with your active profile",
+    "<b>Explore</b><br/>Browse YouTube or any other site inside Arroxy and download the page you're on with your active profile",
   shot9_cap:
     "<b>Explore's first screen</b><br/>A quick look at Explore, and why a secondary account is the safer sign-in",
   shot10_cap:

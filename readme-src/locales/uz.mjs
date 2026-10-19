@@ -85,7 +85,7 @@ bun run dist:win     # supported host'da Windows targets paketlash
 export const uz = {
   icon_alt: "Arroxy maskoti",
   title:
-    "Arroxy — Windows, macOS va Linux uchun o'rnatilgan YouTube brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
+    "Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
   read_in_label: "O'qing:",
   badge_release_alt: "Reliz",
   badge_build_alt: "Qurish",
@@ -96,7 +96,7 @@ export const uz = {
   discord_badge_text: "Discord hamjamiyatiga qo'shiling",
   discord_badge_encoded: "Discord%20hamjamiyatiga%20qo%27shiling",
   hero_desc:
-    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
+    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
   star_cta:
@@ -118,7 +118,7 @@ export const uz = {
   why_r6: "Platformalararo desktop ilovasi",
   why_r7: "Subtitrlar + SponsorBlock",
   why_r8:
-    "O'rnatilgan YouTube brauzeri (ko'rib chiqish, tizimga kirish, yuklab olish)",
+    "O'rnatilgan brauzer (ko'rib chiqish, tizimga kirish, yuklab olish)",
   why_r9:
     "Kukilarni eksport qilmasdan yopiq, faqat a'zolar uchun va yosh chegarali videolar",
   why_table_note:
@@ -127,9 +127,9 @@ export const uz = {
     "Arroxy bir narsa uchun yaratilgan: URL'ni joylaysizmi yoki videoni Explore'da topasizmi — natijada toza mahalliy fayl. Qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.",
   why_explore_h3: "Oddiy yt-dlp qobig'i qila olmaydigan narsa: Explore bo'limi",
   why_explore_intro:
-    "Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Arroxy ham yt-dlp'dan foydalanadi, lekin unda **Explore** ham bor — ilovaga o'rnatilgan YouTube brauzeri. Explore URL maydoni yengib o'ta olmaydigan YouTube cheklovlarini chetlab o'tadi:",
+    "Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Arroxy ham yt-dlp'dan foydalanadi, lekin unda **Explore** ham bor — ilovaga o'rnatilgan, YouTube yoki boshqa istalgan saytni ochadigan brauzer. Explore URL maydoni yengib o'ta olmaydigan cheklovlarni chetlab o'tadi:",
   why_explore_1:
-    "**Hisob talab qiladigan videolar, kukilarni eksport qilmasdan** — yopiq, faqat a'zolar uchun va yosh chegarali videolar (yoshi tasdiqlangan hisobda), shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz. Oddiy qobiqqa eksport qilingan cookies.txt kerak yoki u veb-brauzeringizdagi kukilarni o'qishi shart, Windows'dagi Chrome esa endi buni bloklaydi. Arroxy'da Explore'da bir marta tizimga kirasiz, qolganini u o'zi bajaradi",
+    "**Hisob talab qiladigan videolar, kukilarni eksport qilmasdan** — yopiq, faqat a'zolar uchun va yosh chegarali videolar (yoshi tasdiqlangan hisobda), shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda boshqa saytlarda tizimga kirishni talab qiladigan videolar. Oddiy qobiqqa eksport qilingan cookies.txt kerak yoki u veb-brauzeringizdagi kukilarni o'qishi shart, Windows'dagi Chrome esa endi buni bloklaydi. Arroxy'da Explore'da bir marta tizimga kirasiz, qolganini u o'zi bajaradi",
   why_explore_2:
     "**“Robot emasligingizni tasdiqlash uchun tizimga kiring”** — YouTube buni so'raganda Arroxy xato bilan to'xtamaydi, balki Explore orqali kirishingiz bilan yuklab olishni qayta urinadi",
   why_explore_3:
@@ -137,16 +137,16 @@ export const uz = {
   why_explore_4:
     "**Havola nusxalash shart emas** — Explore'da video, pleylist yoki kanalni toping va bir bosishda yuklab oling yoki sahifadagi istalgan havolani o'ng tugma bilan bosing",
   why_explore_5:
-    "**Ko'rib chiqayotganda reklamalar bloklanadi** — Explore o'z sahifalarida reklama va kuzatuvchilarni bloklaydi",
-  feat_explore_h3: "Explore: YouTube'ni Arroxy ichida ko'rib chiqing",
-  feat_explore_1: "**Explore bo'limi** — YouTube'ni Arroxy ichida ko'rib chiqing va topganingizni havola nusxalamasdan yuklab oling. **Yuklab olish · *profilingiz*** siz ko'rayotgan video, pleylist yoki kanalni navbatga qo'yadi; yonidagi o'q profilni almashtiradi, sehrli tayoqcha esa format, subtitr va boshqalarni tanlash uchun bosqichma-bosqich yuklab olishni ochadi",
+    "**Kerak bo'lganda reklama blokeri** — qalqonni bir bossangiz, Explore sahifalarida reklama va kuzatuvchilar bloklanadi",
+  feat_explore_h3: "Explore: veb-saytlarni Arroxy ichida ko'rib chiqing",
+  feat_explore_1: "**Explore bo'limi** — YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing va topganingizni havola nusxalamasdan yuklab oling. **Yuklab olish · *profilingiz*** siz ko'rayotgan video, pleylist yoki kanalni navbatga qo'yadi; yonidagi o'q profilni almashtiradi, sehrli tayoqcha esa format, subtitr va boshqalarni tanlash uchun bosqichma-bosqich yuklab olishni ochadi",
   feat_explore_6: "**O'ng tugma bilan yuklab olish** — Explore'dagi istalgan video, pleylist yoki kanal havolasini o'ng tugma bilan bosib, uni profilingiz bilan yuklab oling, **Profil bilan yuklab olish** orqali boshqa profilni tanlang, bosqichma-bosqich yuklab olishni oching yoki havolani nusxalang. Har bir videoni avval ochish shart emas",
   feat_explore_7:
     "**Ixcham ko'rinish** — Explore asboblar panelidagi bir bosish Arroxy'ning yorliqlarini unga ko'chiradi va sahifaga ko'proq joy beradi",
-  feat_explore_2: "**Manzil satri** — YouTube'da qidirish uchun yozing yoki YouTube havolasini joylang. Explore faqat YouTube'ni ko'rsatadi, shuning uchun boshqa saytdan olingan havola u yerda ochilmaydi, lekin uni bir bosishda yuklab olishingiz mumkin",
-  feat_explore_3: "**Hisob talab qiladigan yuklamalar** — Explore'da bir marta tizimga kiring, shunda Arroxy hisobingiz ko'ra oladigan yopiq va faqat a'zolar uchun videolarni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni yuklab oladi. Arroxy baribir tizimga kirmasdan yuklaydi va Explore orqali kirishingizdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy Explore orqali kirishingizni ham sinab ko'radi",
-  feat_explore_4: "**Qo'shimcha hisobdan foydalaning** — Explore'ning birinchi ekrani sababini tushuntiradi: hisob bilan yuklab olish o'sha hisob cheklanishi xavfini keltiradi. Kirishni unutmoqchi bo'lsangiz, istalgan payt Sozlamalardan Explore'dan chiqing",
-  feat_explore_5: "**Reklama blokeri** — Explore o'z sahifalarida reklama va kuzatuvchilarni bloklaydi; yuklab olishlarga ta'sir qilmaydi. Sukut bo'yicha yoqilgan, Explore asboblar panelidagi qalqonni bir bossangiz o'chadi va Google'ning kirish sahifalarida u hech qachon ishlamaydi. YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin",
+  feat_explore_2: "**Manzil satri** — YouTube'da qidirish uchun yozing yoki istalgan veb-manzilni kiriting, shu sayt ochiladi",
+  feat_explore_3: "**Hisob talab qiladigan yuklamalar** — Explore'da bir marta tizimga kiring, shunda Arroxy hisobingiz ko'ra oladigan yopiq va faqat a'zolar uchun videolarni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni yuklab oladi. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Arroxy baribir avval tizimga kirmasdan yuklaydi va Explore orqali kirishingizdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy Explore orqali kirishingizni ham sinab ko'radi",
+  feat_explore_4: "**Qo'shimcha hisobdan foydalaning** — Explore'ning birinchi ekrani sababini tushuntiradi: hisob bilan yuklab olish o'sha hisob cheklanishi xavfini keltiradi. Kirishlaringizni unutmoqchi bo'lsangiz, istalgan payt Sozlamalardan Explore'dan chiqing",
+  feat_explore_5: "**Reklama blokeri** — sukut bo'yicha o'chiq. Explore asboblar panelidagi qalqonni bir bossangiz, uning sahifalarida reklama va kuzatuvchilar bloklanadi, yuklab olishlarga ta'sir qilmaydi. YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin",
   feat_quality_h3: "Sifat va formatlar",
   feat_quality_1: "**8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p gacha",
   feat_quality_2:
@@ -236,7 +236,7 @@ export const uz = {
   hotkey_fig_alt: "Arroxy global yuklab olish tezkor tugmasi — Windows va Linux'da Ctrl+Shift+D, macOS'da Cmd+Shift+D, nusxalangan havolani to'g'ridan-to'g'ri yuklab olish navbatiga yuboradi",
   hotkey_fig_cap: "<b>Global yuklab olish tezkor tugmasi</b><br/>Istalgan joyda havolani nusxalang, bir marta bosing — u navbatga tushadi va yuklab olina boshlaydi",
   shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling",
-  shot8_cap: "<b>Explore</b><br/>YouTube'ni Arroxy ichida ko'ring va turgan sahifangizni faol profilingiz bilan yuklab oling",
+  shot8_cap: "<b>Explore</b><br/>YouTube yoki boshqa istalgan saytni Arroxy ichida ko'ring va turgan sahifangizni faol profilingiz bilan yuklab oling",
   shot9_cap: "<b>Explore'ning birinchi ekrani</b><br/>Explore'ga qisqa nazar va nega qo'shimcha hisob xavfsizroq kirish ekani",
   shot10_cap: "<b>Yuklamalar nimaga e'tibor kerakligini aytadi</b><br/>Havolalar fonda tayyorlanadi; muvaffaqiyatsizi yechimini taklif qiladi, uzun pleylist esa tanlovingizni kutadi",
   shot11_cap: "<b>Videoning faqat bir qismini yuklab oling</b><br/>Boshlanish va tugash yoki bobni tanlang — Arroxy faqat shu oraliqni saqlaydi",

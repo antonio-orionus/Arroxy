@@ -1,15 +1,15 @@
 <div align="center">
   <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy ماسکٹ" width="180" />
 
-# Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن YouTube براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر
+# Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر
 
-**Built-in YouTube browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **زبان:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · **اردو** · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
 [![ریلیز](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![بلڈ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ویب سائٹ](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![لائسنس](https://img.shields.io/badge/license-MIT-green) ![پلیٹ فارمز](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![زبانیں](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، موسیقی، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 8K HDR تک، MP3 / AAC / Opus کے طور پر، یا صرف وہ حصہ جو آپ کو چاہیے۔ Explore ٹیب میں **Arroxy کے اندر YouTube براؤز کریں** اور جو ویڈیو، پلے لسٹ یا چینل آپ دیکھ رہے ہیں اسے ڈاؤن لوڈ کریں؛ وہاں سائن ان کر کے وہ نجی، صرف ممبران والے اور عمر کی پابندی والے ویڈیوز ڈاؤن لوڈ کریں جو آپ کا اکاؤنٹ دیکھ سکتا ہے۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**
+**YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، موسیقی، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 8K HDR تک، MP3 / AAC / Opus کے طور پر، یا صرف وہ حصہ جو آپ کو چاہیے۔ Explore ٹیب میں **Arroxy کے اندر YouTube یا کوئی بھی دوسری سائٹ براؤز کریں** اور جو ویڈیو، پلے لسٹ یا چینل آپ دیکھ رہے ہیں اسے ڈاؤن لوڈ کریں؛ وہاں سائن ان کر کے وہ نجی، صرف ممبران والے اور عمر کی پابندی والے ویڈیوز ڈاؤن لوڈ کریں جو آپ کا اکاؤنٹ دیکھ سکتا ہے۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**
 
 [**↓ تازہ ترین ریلیز ڈاؤن لوڈ کریں**](#install) &nbsp;·&nbsp; [**ویب سائٹ**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows پر پہلی بار لانچ](#windows-first-launch) · [macOS پر پہلی بار لانچ](#macos-first-launch) · [Linux پر پہلی بار لانچ](#linux-first-launch)
 
@@ -23,7 +23,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-19._
 
@@ -53,7 +53,7 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy کے اندر YouTube براؤز کریں اور اپنے فعال پروفائل کے ساتھ موجودہ صفحہ ڈاؤن لوڈ کریں</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy کے اندر YouTube یا کوئی بھی دوسری سائٹ براؤز کریں اور اپنے فعال پروفائل کے ساتھ موجودہ صفحہ ڈاؤن لوڈ کریں</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore کی پہلی اسکرین</b><br/>Explore پر ایک نظر، اور ثانوی اکاؤنٹ محفوظ سائن ان کیوں ہے</sub></td>
@@ -89,15 +89,15 @@
 </table>
 
 <details open>
-<summary><strong>🧭 Explore: Arroxy کے اندر YouTube براؤز کریں</strong></summary>
+<summary><strong>🧭 Explore: Arroxy کے اندر ویب براؤز کریں</strong></summary>
 
-- **Explore ٹیب** — Arroxy کے اندر YouTube براؤز کریں اور جو ملے اسے لنک کاپی کیے بغیر ڈاؤن لوڈ کریں۔ **ڈاؤن لوڈ · *آپ کا پروفائل*** وہ ویڈیو، پلے لسٹ یا چینل قطار میں لگاتا ہے جو آپ دیکھ رہے ہیں؛ اس کے ساتھ والا تیر پروفائل بدلتا ہے، اور جادوئی چھڑی فارمیٹس، سب ٹائٹلز اور مزید چننے کے لیے مرحلہ وار ڈاؤن لوڈ کھولتی ہے
+- **Explore ٹیب** — Arroxy کے اندر YouTube یا کوئی بھی دوسری سائٹ براؤز کریں اور جو ملے اسے لنک کاپی کیے بغیر ڈاؤن لوڈ کریں۔ **ڈاؤن لوڈ · *آپ کا پروفائل*** وہ ویڈیو، پلے لسٹ یا چینل قطار میں لگاتا ہے جو آپ دیکھ رہے ہیں؛ اس کے ساتھ والا تیر پروفائل بدلتا ہے، اور جادوئی چھڑی فارمیٹس، سب ٹائٹلز اور مزید چننے کے لیے مرحلہ وار ڈاؤن لوڈ کھولتی ہے
 - **رائٹ کلک سے ڈاؤن لوڈ** — Explore میں کسی بھی ویڈیو، پلے لسٹ یا چینل کے لنک پر رائٹ کلک کریں اور اسے اپنے پروفائل سے ڈاؤن لوڈ کریں، **پروفائل سے ڈاؤن لوڈ** سے کوئی اور پروفائل چنیں، مرحلہ وار ڈاؤن لوڈ کھولیں، یا لنک کاپی کریں۔ ہر ویڈیو پہلے کھولنے کی ضرورت نہیں
 - **مختصر لے آؤٹ** — Explore کے ٹول بار میں ایک کلک Arroxy کے ٹیبز کو اس میں لے آتا ہے اور صفحے کو زیادہ جگہ دیتا ہے
-- **ایڈریس بار** — YouTube پر تلاش کے لیے ٹائپ کریں یا YouTube کا لنک پیسٹ کریں۔ Explore صرف YouTube براؤز کرتا ہے، اس لیے کسی دوسری سائٹ کا لنک وہاں نہیں کھلتا، لیکن آپ اسے ایک کلک میں ڈاؤن لوڈ کر سکتے ہیں
-- **وہ ڈاؤن لوڈز جنہیں اکاؤنٹ چاہیے** — Explore میں ایک بار سائن ان کریں اور Arroxy وہ نجی اور صرف ممبران کے ویڈیوز ڈاؤن لوڈ کر سکتا ہے جو آپ کا اکاؤنٹ دیکھ سکتا ہے، عمر کی پابندی والے ویڈیوز اگر اکاؤنٹ کی عمر کی توثیق ہو چکی ہو، اور آپ کی Watch Later اور Liked فہرستیں۔ Arroxy اب بھی سائن آؤٹ حالت میں ڈاؤن لوڈ کرتا ہے اور آپ کا Explore سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ ایسی وجہ سے ناکام ہو جسے اکاؤنٹ ٹھیک کر سکے۔ جب YouTube تصدیق مانگے کہ آپ بوٹ نہیں ہیں، تو Arroxy آپ کا Explore سائن ان بھی آزماتا ہے
-- **ثانوی اکاؤنٹ استعمال کریں** — Explore کی پہلی اسکرین وجہ بتاتی ہے: اکاؤنٹ کے ساتھ ڈاؤن لوڈ کرنے میں اس اکاؤنٹ پر پابندی لگنے کا کچھ خطرہ ہوتا ہے۔ سائن ان بھلانا چاہیں تو جب چاہیں Settings سے Explore سے سائن آؤٹ کر لیں
-- **اشتہار بلاکر** — Explore اپنے صفحات پر اشتہارات اور ٹریکرز بلاک کرتا ہے؛ ڈاؤن لوڈز متاثر نہیں ہوتے۔ بطور ڈیفالٹ آن ہے، Explore کے ٹول بار میں شیلڈ پر ایک کلک اسے بند کر دیتا ہے، اور یہ Google کے سائن ان صفحات پر کبھی کام نہیں کرتا۔ YouTube سائن ان اکاؤنٹس کے لیے اشتہار بلاکرز کی مزاحمت کر سکتا ہے
+- **ایڈریس بار** — YouTube پر تلاش کے لیے ٹائپ کریں، یا کوئی بھی ویب ایڈریس درج کر کے وہ سائٹ کھولیں
+- **وہ ڈاؤن لوڈز جنہیں اکاؤنٹ چاہیے** — Explore میں ایک بار سائن ان کریں اور Arroxy وہ نجی اور صرف ممبران کے ویڈیوز ڈاؤن لوڈ کر سکتا ہے جو آپ کا اکاؤنٹ دیکھ سکتا ہے، عمر کی پابندی والے ویڈیوز اگر اکاؤنٹ کی عمر کی توثیق ہو چکی ہو، اور آپ کی Watch Later اور Liked فہرستیں۔ وہاں دوسری سائٹس پر بھی سائن ان کریں، اور ان کے ڈاؤن لوڈز ضرورت پڑنے پر وہی سائن ان استعمال کرتے ہیں۔ Arroxy اب بھی پہلے سائن آؤٹ حالت میں ڈاؤن لوڈ کرتا ہے اور آپ کا Explore سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ ایسی وجہ سے ناکام ہو جسے اکاؤنٹ ٹھیک کر سکے۔ جب YouTube تصدیق مانگے کہ آپ بوٹ نہیں ہیں، تو Arroxy آپ کا Explore سائن ان بھی آزماتا ہے
+- **ثانوی اکاؤنٹ استعمال کریں** — Explore کی پہلی اسکرین وجہ بتاتی ہے: اکاؤنٹ کے ساتھ ڈاؤن لوڈ کرنے میں اس اکاؤنٹ پر پابندی لگنے کا کچھ خطرہ ہوتا ہے۔ اپنے سائن ان بھلانا چاہیں تو جب چاہیں Settings سے Explore سے سائن آؤٹ کر لیں
+- **اشتہار بلاکر** — بطور ڈیفالٹ بند ہے۔ Explore کے ٹول بار میں شیلڈ پر ایک کلک اس کے صفحات پر اشتہارات اور ٹریکرز بلاک کر دیتا ہے، اور ڈاؤن لوڈز متاثر نہیں ہوتے۔ YouTube سائن ان اکاؤنٹس کے لیے اشتہار بلاکرز کی مزاحمت کر سکتا ہے
 
 </details>
 
@@ -356,7 +356,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
-| بلٹ ان YouTube براؤزر (براؤز کریں، سائن ان کریں، ڈاؤن لوڈ کریں) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
+| بلٹ ان براؤزر (براؤز کریں، سائن ان کریں، ڈاؤن لوڈ کریں) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | نجی، صرف ممبران کے اور عمر کی پابندی والے ویڈیوز، کوکیز ایکسپورٹ کیے بغیر |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | مفت، کوئی پریمیم سطح نہیں |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | اوپن سورس |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
@@ -371,13 +371,13 @@ Arroxy ایک ہی کام کے لیے بنایا گیا ہے: ایک صاف ست
 
 ### <a id="why-explore"></a>🧭 جو ایک سادہ yt-dlp ریپر نہیں کر سکتا: Explore ٹیب
 
-زیادہ تر مفت YouTube ڈاؤن لوڈرز yt-dlp کے اوپر بس ایک URL باکس ہوتے ہیں۔ Arroxy بھی yt-dlp استعمال کرتا ہے، لیکن اس میں **Explore** بھی ہے، ایپ کے اندر بنا ہوا YouTube براؤزر۔ Explore YouTube کی ان پابندیوں سے آگے نکل جاتا ہے جن سے ایک URL باکس نہیں نکل سکتا:
+زیادہ تر مفت YouTube ڈاؤن لوڈرز yt-dlp کے اوپر بس ایک URL باکس ہوتے ہیں۔ Arroxy بھی yt-dlp استعمال کرتا ہے، لیکن اس میں **Explore** بھی ہے، ایپ کے اندر بنا ہوا براؤزر جو YouTube یا کوئی بھی دوسری سائٹ کھولتا ہے۔ Explore ان پابندیوں سے آگے نکل جاتا ہے جن سے ایک URL باکس نہیں نکل سکتا:
 
-- **وہ ویڈیوز جنہیں اکاؤنٹ چاہیے، کوکیز ایکسپورٹ کیے بغیر** — نجی، صرف ممبران کے، اور عمر کی پابندی والے ویڈیوز (عمر کی توثیق شدہ اکاؤنٹ پر)، ساتھ ہی آپ کی Watch Later اور Liked فہرستیں۔ ایک سادہ ریپر کو cookies.txt ایکسپورٹ چاہیے یا اسے آپ کے ویب براؤزر کی کوکیز پڑھنی پڑتی ہیں، جسے Windows پر Chrome اب بلاک کرتا ہے۔ Arroxy میں آپ Explore میں ایک بار سائن ان کرتے ہیں اور باقی کام وہ خود کر لیتا ہے
+- **وہ ویڈیوز جنہیں اکاؤنٹ چاہیے، کوکیز ایکسپورٹ کیے بغیر** — نجی، صرف ممبران کے، اور عمر کی پابندی والے ویڈیوز (عمر کی توثیق شدہ اکاؤنٹ پر)، ساتھ ہی آپ کی Watch Later اور Liked فہرستیں، اور دوسری سائٹس پر سائن ان کے پیچھے موجود ویڈیوز۔ ایک سادہ ریپر کو cookies.txt ایکسپورٹ چاہیے یا اسے آپ کے ویب براؤزر کی کوکیز پڑھنی پڑتی ہیں، جسے Windows پر Chrome اب بلاک کرتا ہے۔ Arroxy میں آپ Explore میں ایک بار سائن ان کرتے ہیں اور باقی کام وہ خود کر لیتا ہے
 - **"تصدیق کے لیے سائن ان کریں کہ آپ بوٹ نہیں ہیں"** — جب YouTube یہ پوچھتا ہے تو Arroxy ناکام ہونے کے بجائے آپ کے Explore سائن ان کے ساتھ ڈاؤن لوڈ دوبارہ آزماتا ہے
 - **YouTube کا ڈاؤن لوڈ ٹوکن** — Arroxy کا بلٹ ان براؤزر وہ ٹوکن حاصل کرتا ہے جس کی YouTube ڈاؤن لوڈ سے پہلے توقع کرتا ہے۔ اس کے بغیر YouTube آپ کی مانگی ہوئی کوالٹی سے کم فارمیٹس اور کم کوالٹی دے سکتا ہے
 - **لنک کاپی کرنے کی ضرورت نہیں** — Explore میں کوئی ویڈیو، پلے لسٹ یا چینل ڈھونڈیں اور ایک کلک میں ڈاؤن لوڈ کریں، یا صفحے پر کسی بھی لنک پر رائٹ کلک کریں
-- **براؤز کرتے وقت اشتہارات بلاک** — Explore اپنے صفحات پر اشتہارات اور ٹریکرز بلاک کرتا ہے
+- **ضرورت ہو تو اشتہار بلاکر** — شیلڈ پر ایک کلک سے Explore کے صفحات پر اشتہارات اور ٹریکرز بلاک ہو جاتے ہیں
 
 ---
 
