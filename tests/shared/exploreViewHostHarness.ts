@@ -16,7 +16,7 @@ export interface NavEvent {
 	preventDefault: ReturnType<typeof vi.fn>
 }
 
-export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackaged?: boolean; homeUrlOverride?: string} = {}) {
+export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackaged?: boolean; homeUrlOverride?: string; idleUnloadDelayMs?: number} = {}) {
 	const cookieListeners = new Set<(...args: unknown[]) => void>()
 	const fakeSession = {cookies: {on: vi.fn((_event: string, listener: (...args: unknown[]) => void) => cookieListeners.add(listener)), off: vi.fn((_event: string, listener: (...args: unknown[]) => void) => cookieListeners.delete(listener))}}
 	const closedListeners: Array<() => void> = []
@@ -60,7 +60,20 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 	const saveLastPage = vi.fn((url: string | undefined) => {
 		settings = {...settings, exploreLastUrl: url}
 	})
-	const deps: ExploreViewHostDeps = {window: window as unknown as BrowserWindow, session, settings: () => settings, saveLastPage, adBlock, isPackaged: opts.isPackaged ?? false, openExternal, emit, pointerEntered, linkMenu, ...(opts.homeUrlOverride === undefined ? {} : {homeUrlOverride: opts.homeUrlOverride})}
+	const deps: ExploreViewHostDeps = {
+		window: window as unknown as BrowserWindow,
+		session,
+		settings: () => settings,
+		saveLastPage,
+		adBlock,
+		isPackaged: opts.isPackaged ?? false,
+		openExternal,
+		emit,
+		pointerEntered,
+		linkMenu,
+		...(opts.homeUrlOverride === undefined ? {} : {homeUrlOverride: opts.homeUrlOverride}),
+		...(opts.idleUnloadDelayMs === undefined ? {} : {idleUnloadDelayMs: opts.idleUnloadDelayMs})
+	}
 	const host = new ExploreViewHost(deps)
 	return {
 		host,

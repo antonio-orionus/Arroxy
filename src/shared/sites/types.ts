@@ -49,6 +49,9 @@ export interface SiteExplore {
 	isSignedIn(cookies: readonly ExploreCookie[]): boolean
 	// The site's own search page for text typed in the address bar.
 	searchUrl(query: string): string
+	// Paths of the pages a while away from the tab may release (idle unload):
+	// nothing on them is typed in that their URL does not keep.
+	readonly idleUnloadPaths: readonly string[]
 	// A typed link on a site host in the form the site serves it (a short
 	// link as its full page, say); absent when every form loads as it is.
 	canonicalAddress?(url: URL): URL

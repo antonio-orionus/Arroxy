@@ -34,6 +34,9 @@ export interface E2eHarnessMode {
 	// lists (ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS), so tests never fetch them.
 	// Never in a packaged build, even with the harness enabled there.
 	exploreAdBlockFilters?: string
+	// How long Explore waits after the user leaves the tab before releasing the
+	// page (ARROXY_E2E_EXPLORE_IDLE_MS), so a test does not wait minutes.
+	exploreIdleUnloadMs?: number
 }
 
 const E2E_COMMAND_LINE_SWITCHES = ['disable-background-networking', 'disable-component-update', 'disable-domain-reliability', 'no-pings'] as const
@@ -128,6 +131,15 @@ function readExploreAdBlockFilters(file: string | undefined, gate: HarnessGate):
 	}
 }
 
+const EXPLORE_IDLE_MS_VAR = 'ARROXY_E2E_EXPLORE_IDLE_MS'
+
+// A positive whole number of milliseconds, or the launch fails.
+function readExploreIdleUnloadMs(value: string | undefined): number | undefined {
+	if (value === undefined) return undefined
+	if (!/^[1-9]\d*$/.test(value)) throw new Error(`${EXPLORE_IDLE_MS_VAR} must be a positive whole number of milliseconds`)
+	return Number(value)
+}
+
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
 		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
@@ -142,6 +154,7 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 	const exploreCookies = readExploreCookies(env[EXPLORE_COOKIES_VAR])
 	const exploreHomeUrl = readExploreHome(env[EXPLORE_HOME_VAR])
 	const exploreAdBlockFilters = readExploreAdBlockFilters(env[EXPLORE_ADBLOCK_FILTERS_VAR], gate)
+	const exploreIdleUnloadMs = readExploreIdleUnloadMs(env[EXPLORE_IDLE_MS_VAR])
 
 	return {
 		enabled: true,
@@ -162,6 +175,7 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 		// The fixture site is local: pacing protects a real account, and here it only slows the suite.
 		exploreSpawnSpacingMs: 0,
 		exploreHomeUrl,
-		exploreAdBlockFilters
+		exploreAdBlockFilters,
+		exploreIdleUnloadMs
 	}
 }

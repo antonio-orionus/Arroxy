@@ -419,6 +419,7 @@ if (hasSingleInstanceLock) {
 			saveLastPage: url => void settingsStore.update({common: {exploreLastUrl: url}}),
 			adBlock: exploreAdBlocker,
 			homeUrlOverride: e2eMode.exploreHomeUrl,
+			idleUnloadDelayMs: e2eMode.exploreIdleUnloadMs,
 			isPackaged: app.isPackaged,
 			openExternal: url => shell.openExternal(url),
 			emit: state => exploreEvents.emit(state),
