@@ -8,7 +8,6 @@
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — triggers are a scarce shared quota (2/hour, 100 files/PR, auto reviews off): run Codex and the gates first, trigger once on a final head, never push mid-review ("Head commit changed" burns the trigger); poll `issues/<N>/comments` for all three outcomes.
 - [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never Radix `asChild`; `@testing-library/user-event` is not installed, use `fireEvent`.
-- [Donation rails are crypto-only](donation-rails-are-crypto-only.md) — Ukraine residency rules out GitHub Sponsors/Ko-fi/BMAC; never suggest a fiat option.
 - [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint restricted-import globs need `**`.
 - [Windows VM testing](windows-vm-testing.md) — ssh into the local Win11 ARM64 VM to run `dist:win:dir` + `verify:startup` directly; gotchas: bash on PATH, x64-only inherited asset, node-not-bun for `_electron.launch`.
 - [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent/editor shells can carry `ELECTRON_RUN_AS_NODE=1`; hand-launched Electron then crashes with "no export named 'BrowserWindow'". Strip it or use `bun run smoke:download`.

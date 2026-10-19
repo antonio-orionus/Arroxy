@@ -1,6 +1,6 @@
 # One recovery policy for yt-dlp runs
 
-Status: proposed, 2026-10-19. Plan and evidence: [download-recovery-plan.md](../../dev-docs/download-recovery-plan.md).
+Status: proposed, 2026-10-19. The implementation plan and field evidence are maintainer-only.
 
 Five places decide independently what to do when a yt-dlp run fails or comes back
 limited: the token ladder, the probe's timeout and degradation retries, the media
