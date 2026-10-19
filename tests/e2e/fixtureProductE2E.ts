@@ -2,9 +2,12 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
+import {DEFAULT_DOWNLOAD_PROFILES_PREFS, resolveActiveDownloadProfile, resolveDownloadProfile} from '../../src/shared/downloadProfiles.js'
+import {DEFAULT_FILENAME_TEMPLATE} from '../../src/shared/filenameTemplate.js'
+import {prepareJob} from '../../src/shared/prepareJob.js'
 import {queueArraySchema} from '../../src/shared/queueItemSchema.js'
 import type {ExploreCookie} from '../../src/shared/sites/types.js'
-import type {AppSettings, QueueItem} from '../../src/shared/types.js'
+import type {AppSettings, JobAuth, QueueItem} from '../../src/shared/types.js'
 import {
 	assertNoExternalRequests,
 	buildFixtureElectronEnv,
@@ -115,6 +118,49 @@ async function attemptCleanup(cleanup: () => Promise<void> | void): Promise<void
 // dropped at load as a corrupted queue and the scenario would wait for nothing.
 function writeRestoredQueue(userDataDir: string, items: QueueItem[]): void {
 	fs.writeFileSync(path.join(userDataDir, 'queue.json'), JSON.stringify({items: queueArraySchema.parse(items)}), 'utf8')
+}
+
+/**
+ * A queue item as Quick Download builds it with the default profile, left
+ * pending by a previous session. Restored at startup, it downloads with a fresh
+ * extraction and no probe in between.
+ */
+export function restoredQueueItem(id: string, videoId: string, title: string, outputDir: string, auth?: JobAuth): QueueItem {
+	const {profile, ref} = resolveActiveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS)
+	const resolved = resolveDownloadProfile(profile, ref)
+	if (!resolved.intent) throw new Error('the default download profile has no media intent')
+	const job = prepareJob({
+		mode: 'playlist',
+		extractor: 'youtube',
+		extractorKey: 'Youtube',
+		mediaIntent: resolved.intent,
+		filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
+		subtitles: resolved.subtitles,
+		sponsorBlockMode: resolved.sponsorBlock.mode,
+		sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
+		embed: resolved.embed
+	})
+	return {
+		id,
+		url: fixtureUrl(videoId),
+		title,
+		thumbnail: '',
+		outputDir,
+		formatLabel: profile.name,
+		status: 'pending',
+		lane: 'normal',
+		progressPercent: 0,
+		progressDetail: null,
+		lastStatus: null,
+		error: null,
+		addedAt: new Date().toISOString(),
+		finishedAt: null,
+		writeM3u: false,
+		retryCount: 0,
+		artifacts: [],
+		...(auth ? {auth} : {}),
+		job
+	}
 }
 
 /** The queue as the app last persisted it, parsed with the app's own schema. */

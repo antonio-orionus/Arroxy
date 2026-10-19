@@ -47,6 +47,36 @@ def _fixture_title(catalog, video_id):
     return video.get('title') or f"Fixture Video {video['number']}"
 
 
+def _parsed_extractor_args(extractor):
+    # What yt-dlp parsed from --extractor-args, read the way the real YouTube
+    # extractor reads it. Presence only for the token and visitor data: the
+    # harness proves the options reached yt-dlp, never what they held.
+    po_token = extractor._configuration_arg('po_token', ie_key='youtube', casesense=True)
+    visitor_data = extractor._configuration_arg('visitor_data', ie_key='youtube', casesense=True)
+    player_client = extractor._configuration_arg('player_client', None, ie_key='youtube')
+    query = {'poToken': '1' if po_token else '0', 'visitorData': '1' if visitor_data else '0'}
+    if player_client is not None:
+        query['playerClient'] = ','.join(player_client)
+    return query
+
+
+def _notify_extraction(extractor, base_url, item_id, query):
+    # Records the extraction with the fixture server and returns its scripted
+    # step for this attempt, if any: warnings to print, or an error to raise.
+    query = {**query, **_parsed_extractor_args(extractor)}
+    try:
+        request = urllib.request.Request(f'{base_url}/probe/{item_id}?{urllib.parse.urlencode(query)}', headers={'User-Agent': 'arroxy-fixture-e2e'})
+        with urllib.request.urlopen(request, timeout=60) as response:
+            body = response.read()
+    except Exception as err:
+        raise ExtractorError(f'Fixture metadata failed for {item_id}: {err}')
+    step = json.loads(body) if body else {}
+    for warning in step.get('warnings', []):
+        extractor.report_warning(warning, item_id)
+    if step.get('error'):
+        raise ExtractorError(step['error'], video_id=item_id, expected=True)
+
+
 def _session_limited(video, signed_in):
     # `limitedWithCookiesOnly` mimics an account YouTube limits while the same
     # video downloads at full quality signed out.
@@ -99,17 +129,12 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         return sorted({cookie.domain for cookie in self._downloader.cookiejar})
 
     def _notify_fixture_probe(self, base_url, video_id, signed_in, marker):
-        try:
-            query = {'domains': ','.join(self._cookie_domains())}
-            if signed_in:
-                query['signedIn'] = '1'
-            if marker:
-                query['marker'] = marker
-            request = urllib.request.Request(f'{base_url}/probe/{video_id}?{urllib.parse.urlencode(query)}', headers={'User-Agent': 'arroxy-fixture-e2e'})
-            with urllib.request.urlopen(request, timeout=60):
-                return
-        except Exception as err:
-            raise ExtractorError(f'Fixture metadata failed for {video_id}: {err}')
+        query = {'domains': ','.join(self._cookie_domains())}
+        if signed_in:
+            query['signedIn'] = '1'
+        if marker:
+            query['marker'] = marker
+        _notify_extraction(self, base_url, video_id, query)
 
     def _real_extract(self, url):
         video_id = self._match_id(url)
@@ -193,6 +218,9 @@ class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
         base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL', '').rstrip('/')
         if not base_url:
             raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
+        # Recorded like a video extraction, under the playlist id, so the harness
+        # sees what a collection probe handed yt-dlp.
+        _notify_extraction(self, base_url, playlist_id, {})
 
         entries = []
         for index, video_id in enumerate(playlist['videoIds'], start=1):

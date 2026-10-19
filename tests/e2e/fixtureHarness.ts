@@ -52,13 +52,33 @@ export interface FixtureServerBehavior {
 	mediaFormatFailuresBeforeSuccess?: Record<string, number>
 	mediaFormatTruncateIds?: readonly string[]
 	subtitleFailureIds?: readonly string[]
+	// Per video, what each successive extraction reports, in order; once the
+	// list runs out, extractions behave normally. Lets a scenario reproduce
+	// YouTube's warnings and refusals with yt-dlp's own wording.
+	extractionScript?: Record<string, readonly FixtureExtractionStep[]>
+}
+
+export interface FixtureExtractionStep {
+	// Printed as yt-dlp warnings; the extraction still succeeds.
+	warnings?: readonly string[]
+	// Raised as an expected ExtractorError: yt-dlp prints `ERROR: [youtube] <id>: <error>`.
+	error?: string
+}
+
+// What yt-dlp actually parsed from --extractor-args for the youtube extractor,
+// read inside the extraction. Presence only for the token and visitor data:
+// the values never leave the extractor.
+export interface FixtureParsedExtractorArgs {
+	poToken: boolean
+	visitorData: boolean
+	playerClient: string[] | null
 }
 
 export type FixtureServerRequest =
 	// signedIn: whether yt-dlp ran this extraction with cookies. marker: the
 	// seeded Explore session's fixture cookie, null for any other run.
 	// cookieDomains: the domains of every cookie yt-dlp held (never values).
-	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean; marker: string | null; cookieDomains: string[]}
+	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean; marker: string | null; cookieDomains: string[]; extractorArgs: FixtureParsedExtractorArgs}
 	| {kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number}
 	| {kind: 'media'; videoId: string; formatId: string; method: string; at: number; status: number}
 	| {kind: 'subtitle'; videoId: string; lang: string; track: 'manual' | 'auto'; at: number; status: number}
@@ -80,6 +100,12 @@ interface NormalizedFixtureBehavior {
 	mediaFormatFailuresBeforeSuccess: Map<string, number>
 	mediaFormatTruncateIds: Set<string>
 	subtitleFailureIds: Set<string>
+	extractionScript: Map<string, FixtureExtractionStep[]>
+}
+
+function parsedExtractorArgs(query: URLSearchParams): FixtureParsedExtractorArgs {
+	const clients = query.get('playerClient')
+	return {poToken: query.get('poToken') === '1', visitorData: query.get('visitorData') === '1', playerClient: clients === null ? null : clients.split(',')}
 }
 
 export interface DenyProxy {
@@ -295,7 +321,8 @@ function normalizeBehavior(input: FixtureServerBehavior = {}): NormalizedFixture
 		mediaFailuresBeforeSuccess: new Map(Object.entries(input.mediaFailuresBeforeSuccess ?? {})),
 		mediaFormatFailuresBeforeSuccess: new Map(Object.entries(input.mediaFormatFailuresBeforeSuccess ?? {})),
 		mediaFormatTruncateIds: new Set(input.mediaFormatTruncateIds ?? []),
-		subtitleFailureIds: new Set(input.subtitleFailureIds ?? [])
+		subtitleFailureIds: new Set(input.subtitleFailureIds ?? []),
+		extractionScript: new Map(Object.entries(input.extractionScript ?? {}).map(([videoId, steps]) => [videoId, [...steps]]))
 	}
 }
 
@@ -318,12 +345,18 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		activeProbes += 1
 		maxActiveProbes = Math.max(maxActiveProbes, activeProbes)
 		const cookieDomains = (query.get('domains') ?? '').split(',').filter(domain => domain !== '')
-		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn: query.get('signedIn') === '1', marker: query.get('marker'), cookieDomains, at: Date.now()})
+		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn: query.get('signedIn') === '1', marker: query.get('marker'), cookieDomains, extractorArgs: parsedExtractorArgs(query), at: Date.now()})
 		const delayMs = metadataDelayFor(behavior, videoId)
 		if (delayMs > 0) await delay(delayMs)
-		const status = behavior.metadataFailureIds.has(videoId) ? 503 : 204
-		res.writeHead(status, {'Content-Type': 'text/plain; charset=utf-8'})
-		res.end(status >= 400 ? `metadata failure for ${videoId}` : '')
+		const step = behavior.extractionScript.get(videoId)?.shift()
+		const status = behavior.metadataFailureIds.has(videoId) ? 503 : step ? 200 : 204
+		if (status === 200) {
+			res.writeHead(status, {'Content-Type': 'application/json; charset=utf-8'})
+			res.end(JSON.stringify(step))
+		} else {
+			res.writeHead(status, {'Content-Type': 'text/plain; charset=utf-8'})
+			res.end(status >= 400 ? `metadata failure for ${videoId}` : '')
+		}
 		activeProbes -= 1
 		record({kind: 'probe-end', videoId, activeProbeCount: activeProbes, status, at: Date.now()})
 	}

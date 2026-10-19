@@ -2,14 +2,11 @@ import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
 import {expect, test, type ElectronApplication, type Page} from '@playwright/test'
-import {DEFAULT_FILENAME_TEMPLATE} from '../../src/shared/filenameTemplate.js'
-import {resolveActiveDownloadProfile, resolveDownloadProfile, DEFAULT_DOWNLOAD_PROFILES_PREFS} from '../../src/shared/downloadProfiles.js'
-import {prepareJob} from '../../src/shared/prepareJob.js'
 import type {ExploreCookie} from '../../src/shared/sites/types.js'
 import type {AppSettings, JobAuth, QueueItem} from '../../src/shared/types.js'
-import {FIXTURE_VIDEO_IDS, fixtureUrl, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
+import {FIXTURE_VIDEO_IDS, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
 import {COOKIE_LIMITED_VIDEO_ID, SIGN_IN_VIDEO_ID} from './fixtureMediaCatalog.js'
-import {readPersistedQueue, withFixtureProductApp} from './fixtureProductE2E.js'
+import {readPersistedQueue, restoredQueueItem, withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, queueCardByTitle, startBulkFromClipboard} from './fixtureWorkflow.js'
 
 // Explore escalation risk group: a download that needs an account must reach
@@ -70,46 +67,6 @@ async function persistedAuthOnceDone(userDataDir: string, url: string): Promise<
 	const find = (): QueueItem | undefined => readPersistedQueue(userDataDir).find(item => item.url === url)
 	await expect.poll(() => find()?.status, {timeout: 30_000}).toBe('done')
 	return find()?.auth
-}
-
-// A queue item as Quick Download builds it with the default profile, left
-// pending by a previous session.
-function restoredItem(id: string, videoId: string, title: string, outputDir: string, auth?: JobAuth): QueueItem {
-	const {profile, ref} = resolveActiveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS)
-	const resolved = resolveDownloadProfile(profile, ref)
-	if (!resolved.intent) throw new Error('the default download profile has no media intent')
-	const job = prepareJob({
-		mode: 'playlist',
-		extractor: 'youtube',
-		extractorKey: 'Youtube',
-		mediaIntent: resolved.intent,
-		filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
-		subtitles: resolved.subtitles,
-		sponsorBlockMode: resolved.sponsorBlock.mode,
-		sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
-		embed: resolved.embed
-	})
-	return {
-		id,
-		url: fixtureUrl(videoId),
-		title,
-		thumbnail: '',
-		outputDir,
-		formatLabel: profile.name,
-		status: 'pending',
-		lane: 'normal',
-		progressPercent: 0,
-		progressDetail: null,
-		lastStatus: null,
-		error: null,
-		addedAt: new Date().toISOString(),
-		finishedAt: null,
-		writeM3u: false,
-		retryCount: 0,
-		artifacts: [],
-		...(auth ? {auth} : {}),
-		job
-	}
 }
 
 async function expectRowDone(page: Page, title: string): Promise<void> {
@@ -184,7 +141,7 @@ test('Explore escalation takes over a restored download that hits a sign-in wall
 			behavior: {metadataDelayMs: {[SIGN_IN_VIDEO_ID]: 3_000}},
 			settings: exploreMode,
 			exploreCookies: SIGNED_IN_EXPLORE_SESSION,
-			restoredQueue: outputDir => [restoredItem('restored-sign-in', SIGN_IN_VIDEO_ID, SIGN_IN_TITLE, outputDir)],
+			restoredQueue: outputDir => [restoredQueueItem('restored-sign-in', SIGN_IN_VIDEO_ID, SIGN_IN_TITLE, outputDir)],
 			userDataPrefix: 'arroxy-fixture-explore-download-user-',
 			outputPrefix: 'arroxy-fixture-explore-download-out-'
 		},
@@ -213,7 +170,7 @@ test('Explore escalated download keeps the session and reports the quality limit
 	test.setTimeout(200_000)
 
 	await withFixtureProductApp(
-		{settings: exploreMode, exploreCookies: SIGNED_IN_EXPLORE_SESSION, restoredQueue: outputDir => [restoredItem('restored-escalated', COOKIE_LIMITED_VIDEO_ID, COOKIE_LIMITED_TITLE, outputDir, 'exploreSession')], userDataPrefix: 'arroxy-fixture-explore-d4-user-', outputPrefix: 'arroxy-fixture-explore-d4-out-'},
+		{settings: exploreMode, exploreCookies: SIGNED_IN_EXPLORE_SESSION, restoredQueue: outputDir => [restoredQueueItem('restored-escalated', COOKIE_LIMITED_VIDEO_ID, COOKIE_LIMITED_TITLE, outputDir, 'exploreSession')], userDataPrefix: 'arroxy-fixture-explore-d4-user-', outputPrefix: 'arroxy-fixture-explore-d4-out-'},
 		async ({page, fixtureServer, userDataDir, urls, files}) => {
 			await expectRowDone(page, COOKIE_LIMITED_TITLE)
 			const notice = queueCardByTitle(page, COOKIE_LIMITED_TITLE).getByTestId('queue-quality-warning')
@@ -225,6 +182,8 @@ test('Explore escalated download keeps the session and reports the quality limit
 			const runs = extractions(fixtureServer, COOKIE_LIMITED_VIDEO_ID)
 			expect(runs.length).toBeGreaterThan(0)
 			expect(runs.every(run => run.marker === MARKER)).toBe(true)
+			// The anonymous token describes a signed-out visitor: never on a signed-in run.
+			expect(runs.every(run => !run.extractorArgs.poToken && !run.extractorArgs.visitorData)).toBe(true)
 			expectOnlyYouTubeCookiesReachedYtDlp(fixtureServer)
 			expect(await persistedAuthOnceDone(userDataDir, urls.video(COOKIE_LIMITED_VIDEO_ID))).toBe('exploreSession')
 			expectNoCookieJarLeft(userDataDir)
