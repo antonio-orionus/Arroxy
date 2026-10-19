@@ -40,6 +40,11 @@ updates:
       - dependency-name: oxlint
       - dependency-name: oxlint-tsgolint
       - dependency-name: "@oxlint/plugins"
+      # The root `overrides` pin js-yaml 4.x for electron-builder and
+      # electron-updater, and an override wins over the direct devDependency,
+      # so a 5.x bump of the direct pin installs nothing new.
+      - dependency-name: js-yaml
+        update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 10
 
   # GitHub Actions
