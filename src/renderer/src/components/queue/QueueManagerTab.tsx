@@ -10,8 +10,9 @@ import {Alert, AlertAction, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
+import {useWidthBreakpoint} from '../shared/useWidthBreakpoint.js'
 import {saveQueueTablePreferences, sanitizeQueueTablePreferences, type QueueTableColumnId, type QueueTablePreferences} from './queueTablePreferences.js'
-import {createQueueManagerState, currentViewportWidth, queueManagerReducer} from './queueManagerState.js'
+import {createQueueManagerState, queueManagerReducer} from './queueManagerState.js'
 import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from './queueManagerActions.js'
 import {QueueManagerToolbar} from './QueueManagerToolbar.js'
 import {QueueManagerTable} from './QueueManagerTable.js'
@@ -24,6 +25,7 @@ import {Card} from '../ui/card.js'
 const FOCUS_HIGHLIGHT_MS = 2_400
 
 const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, fileSize: 960, addedAt: 900, finishedAt: 900}
+const RESPONSIVE_COLUMN_BREAKPOINTS = Object.values(RESPONSIVE_COLUMN_HIDE_MAX_WIDTH).filter(width => width !== undefined)
 
 function resolveUpdater<T>(updater: Updater<T>, previous: T): T {
 	if (typeof updater !== 'function') return updater
@@ -58,7 +60,8 @@ export function QueueManagerTab(): ReactNode {
 	const clearQueueFocus = useAppStore(state => state.clearQueueFocus)
 	const [highlightedId, setHighlightedId] = useState<string | null>(null)
 	const [state, dispatch] = useReducer(queueManagerReducer, undefined, createQueueManagerState)
-	const {filter, selection, expandedIds, tablePreferences, viewportWidth} = state
+	const {filter, selection, expandedIds, tablePreferences} = state
+	const widthBreakpoint = useWidthBreakpoint(RESPONSIVE_COLUMN_BREAKPOINTS)
 	const {selectedIds, contextIds} = selection
 	const dispatchSelection = useCallback((action: ListSelectionAction): void => {
 		dispatch({type: 'selection', action})
@@ -80,16 +83,6 @@ export function QueueManagerTab(): ReactNode {
 	useEffect(() => {
 		dispatch({type: 'prune-ids', liveIds: new Set(queue.map(item => item.id))})
 	}, [queue])
-
-	useEffect(() => {
-		const updateViewportWidth = (): void => {
-			dispatch({type: 'set-viewport-width', viewportWidth: currentViewportWidth()})
-		}
-		window.addEventListener('resize', updateViewportWidth)
-		return () => {
-			window.removeEventListener('resize', updateViewportWidth)
-		}
-	}, [])
 
 	const runSelectionAction = useCallback(
 		(action: QueueSelectionAction, ids = selectedIdList): void => {
@@ -230,7 +223,7 @@ export function QueueManagerTab(): ReactNode {
 
 	const selectedCount = selectedItems.length
 	const visibleColumns = table.getVisibleLeafColumns()
-	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, viewportWidth)).length)
+	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, widthBreakpoint)).length)
 
 	return (
 		<Card variant="glass" render={<section />} className="mx-auto min-h-[28rem] w-full max-w-[92rem] gap-0 p-3" data-testid="queue-manager-tab">

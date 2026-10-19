@@ -11,6 +11,44 @@ import {makeItem} from '../shared/fixtures.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {expectHint} from '../shared/hint.js'
 
+// matchMedia over a mutable viewport width: `(max-width: Npx)` lists re-evaluate
+// on resize and notify their change listeners, as the browser does.
+const viewport = vi.hoisted(() => ({width: 1280, lists: new Set<{query: string; matches: boolean; listeners: Set<() => void>}>()}))
+
+function maxWidthMatches(query: string): boolean {
+	const match = /\(max-width:\s*(\d+)px\)/.exec(query)
+	return match ? viewport.width <= Number(match[1]) : false
+}
+
+function stubViewport(width: number): void {
+	viewport.width = width
+	viewport.lists.clear()
+	Object.defineProperty(window, 'innerWidth', {configurable: true, writable: true, value: width})
+	vi.stubGlobal('matchMedia', (query: string) => {
+		const list = {query, matches: maxWidthMatches(query), listeners: new Set<() => void>()}
+		viewport.lists.add(list)
+		return {
+			media: query,
+			get matches() {
+				return maxWidthMatches(query)
+			},
+			addEventListener: (_type: 'change', listener: () => void) => list.listeners.add(listener),
+			removeEventListener: (_type: 'change', listener: () => void) => list.listeners.delete(listener)
+		}
+	})
+}
+
+function resizeViewport(width: number): void {
+	viewport.width = width
+	Object.defineProperty(window, 'innerWidth', {configurable: true, writable: true, value: width})
+	for (const list of viewport.lists) {
+		const matches = maxWidthMatches(list.query)
+		if (matches === list.matches) continue
+		list.matches = matches
+		for (const listener of list.listeners) listener()
+	}
+}
+
 const virtualRange = vi.hoisted(() => ({start: 0, count: 12, estimateSize: 62}))
 const scrollToIndex = vi.hoisted(() => vi.fn())
 
@@ -55,7 +93,7 @@ beforeEach(() => {
 	virtualRange.start = 0
 	virtualRange.count = 12
 	virtualRange.estimateSize = 62
-	Object.defineProperty(window, 'innerWidth', {configurable: true, writable: true, value: 1280})
+	stubViewport(1280)
 	window.localStorage.clear()
 	for (const fn of Object.values(actions)) fn.mockReset()
 	actions.applyQueueSelectionAction.mockResolvedValue({ok: true, data: {action: 'pause', appliedIds: [], skipped: []}})
@@ -68,6 +106,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+	vi.unstubAllGlobals()
 	Reflect.deleteProperty(navigator, 'clipboard')
 	i18next.removeResourceBundle('en', 'translation')
 	i18next.addResourceBundle('en', 'translation', en, true, true)
@@ -530,7 +569,7 @@ describe('QueueManagerTab', () => {
 	})
 
 	it('keeps expanded artifacts aligned with visible columns at responsive widths', () => {
-		Object.defineProperty(window, 'innerWidth', {configurable: true, writable: true, value: 840})
+		stubViewport(840)
 		const longFileName = `${'What_is_happening_at_Meta_'.repeat(18)}[00CepY3H8k4].webm`
 		useAppStore.setState({queue: [makeItem({id: 'done', title: 'Finished video', status: 'done', artifacts: [{id: 'artifact:/downloads/long.webm', kind: 'media', path: `/downloads/${longFileName}`, fileName: longFileName, discoveredAt: '2026-06-18T10:00:00.000Z'}]})]})
 
@@ -539,6 +578,21 @@ describe('QueueManagerTab', () => {
 		fireEvent.click(within(row).getByRole('button', {name: /show artifacts/i}))
 
 		expect(screen.getByTestId('queue-artifacts-done').querySelector('td')).toHaveAttribute('colspan', '5')
+	})
+
+	it('re-aligns expanded artifacts when the window crosses a column breakpoint', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', title: 'Finished video', status: 'done', artifacts: [{id: 'artifact:/downloads/video.mkv', kind: 'media', path: '/downloads/video.mkv', fileName: 'video.mkv', discoveredAt: '2026-06-18T10:00:00.000Z'}]})]})
+
+		render(<QueueManagerTab />)
+		fireEvent.click(within(screen.getByTestId('queue-manager-row-done')).getByRole('button', {name: /show artifacts/i}))
+		const artifactsCell = (): Element | null => screen.getByTestId('queue-artifacts-done').querySelector('td')
+		expect(artifactsCell()).toHaveAttribute('colspan', '8')
+
+		act(() => resizeViewport(840))
+		expect(artifactsCell()).toHaveAttribute('colspan', '5')
+
+		act(() => resizeViewport(1280))
+		expect(artifactsCell()).toHaveAttribute('colspan', '8')
 	})
 
 	it('hides internal artifacts from inline artifacts', () => {

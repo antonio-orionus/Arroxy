@@ -3,7 +3,7 @@ import {queueManagerReducer, type QueueManagerState} from '@renderer/components/
 import {DEFAULT_QUEUE_TABLE_PREFERENCES} from '@renderer/components/queue/queueTablePreferences.js'
 
 function selectedState(): QueueManagerState {
-	return {filter: 'all', selection: {selectedIds: new Set(['a', 'b']), anchorId: 'b', contextIds: ['a', 'b']}, expandedIds: new Set(['a', 'b']), tablePreferences: DEFAULT_QUEUE_TABLE_PREFERENCES, viewportWidth: 1280}
+	return {filter: 'all', selection: {selectedIds: new Set(['a', 'b']), anchorId: 'b', contextIds: ['a', 'b']}, expandedIds: new Set(['a', 'b']), tablePreferences: DEFAULT_QUEUE_TABLE_PREFERENCES}
 }
 
 describe('queue manager selection cleanup', () => {
