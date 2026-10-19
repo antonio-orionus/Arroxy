@@ -261,7 +261,10 @@ describe('RuntimeBinaryMaterializer', () => {
 	})
 
 	it('extracts a stored (uncompressed) zip entry', async () => {
-		const zip = buildStoredZip([{name: 'README', body: Buffer.from('ignored')}, {name: 'bin/yt-dlp', body: Buffer.from('stored ytdlp')}])
+		const zip = buildStoredZip([
+			{name: 'README', body: Buffer.from('ignored')},
+			{name: 'bin/yt-dlp', body: Buffer.from('stored ytdlp')}
+		])
 		await withServer(zip, async url => {
 			const root = await cacheRoot()
 			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'bin/yt-dlp'})
