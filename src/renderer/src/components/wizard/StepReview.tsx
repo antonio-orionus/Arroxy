@@ -1,13 +1,12 @@
-import {useId, useState, type ReactNode} from 'react'
+import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ChevronDown, ChevronRight, TriangleAlert} from 'lucide-react'
 import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {AppState} from '../../store/types.js'
-import type {ChangedArea, ReviewRow} from '../../store/wizard/profileApplication.js'
+import type {ReviewRow} from '../../store/wizard/profileApplication.js'
 import {buildDownloadReview, conflictLabelKey, type DownloadReview} from '../../store/wizard/downloadReviewProjection.js'
 import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSummary} from '../../store/wizard/singleSettingsSummary.js'
-import {wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
 import {mp4CaveatCodec, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
 import type {Mp4Caveat} from '@shared/fileTypeFit.js'
 import {createTranslationPort} from '../../lib/translation.js'
@@ -15,7 +14,6 @@ import {cn} from '@renderer/lib/utils.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Field, FieldDescription, FieldLabel} from '../ui/field.js'
 import {Input} from '../ui/input.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
@@ -26,13 +24,10 @@ import {SponsorBlockFields} from './StepSponsorBlock.js'
 import {OutputFields} from './StepOutput.js'
 import {FolderFields} from './StepFolderConfirm.js'
 import {Hint} from '../shared/Hint.js'
+import {ReviewPageCallout} from './ReviewPageCallout.js'
+import {ProfileEditLine} from './ProfileEditLine.js'
 import {wizardVideoPart} from '../../store/wizard/videoPart.js'
 import {formatPartTime} from '@shared/videoPart.js'
-
-const AREA_LABEL_KEYS = {format: 'wizard.review.areas.format', subtitles: 'wizard.review.areas.subtitles', sponsorBlock: 'wizard.review.areas.sponsorBlock', extras: 'wizard.review.areas.extras', saveTo: 'wizard.review.areas.saveTo', fileName: 'wizard.review.areas.fileName'} as const satisfies Record<
-	ChangedArea,
-	string
->
 
 const ROW_LABEL_KEYS = {subtitles: 'wizard.review.rows.subtitles', sponsorBlock: 'wizard.review.rows.sponsorBlock', extras: 'wizard.review.rows.extras', saveTo: 'wizard.review.rows.saveTo', fileName: 'wizard.review.rows.fileName'} as const satisfies Record<ReviewRow, string>
 
@@ -86,53 +81,6 @@ function ReviewRowItem({row, value, open, onToggle, children}: ReviewRowItemProp
 	)
 }
 
-function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
-	const {t} = useTranslation()
-	const id = useId()
-	const profileName = useAppStore(state => state.wizardProfile?.name ?? '')
-	const saveWizardAsProfile = useAppStore(state => state.saveWizardAsProfile)
-	const [name, setName] = useState('')
-	const [saving, setSaving] = useState(false)
-	const value = name || t('wizard.review.nextTime.defaultName', {profile: profileName})
-
-	async function save(): Promise<void> {
-		setSaving(true)
-		let ok = false
-		try {
-			ok = await saveWizardAsProfile(value)
-		} finally {
-			setSaving(false)
-		}
-		if (ok) {
-			setName('')
-			onOpenChange(false)
-		}
-	}
-
-	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent data-testid="save-as-profile-dialog">
-				<DialogHeader>
-					<DialogTitle>{t('wizard.review.save.title')}</DialogTitle>
-					<DialogDescription>{t('wizard.review.save.description')}</DialogDescription>
-				</DialogHeader>
-				<Field className="gap-1.5">
-					<FieldLabel htmlFor={id}>{t('wizard.review.save.nameLabel')}</FieldLabel>
-					<Input id={id} type="text" value={value} maxLength={80} onChange={event => setName(event.target.value)} data-testid="save-as-profile-name" />
-				</Field>
-				<DialogFooter>
-					<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-						{t('common.cancel')}
-					</Button>
-					<Button type="button" variant="glow" onClick={() => void save()} disabled={saving || value.trim() === ''} data-testid="save-as-profile-confirm">
-						{t('wizard.review.save.action')}
-					</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
-	)
-}
-
 interface ReviewRowEntry {
 	row: ReviewRow
 	value: string
@@ -180,28 +128,6 @@ function ReviewFormatStrip({state, review}: {state: AppState; review: DownloadRe
 	)
 }
 
-interface ReviewChangedBarProps {
-	profileName: string
-	changed: readonly ChangedArea[]
-	onSaveAsProfile: () => void
-	onReset: () => void
-}
-
-function ReviewChangedBar({profileName, changed, onSaveAsProfile, onReset}: ReviewChangedBarProps): ReactNode {
-	const {t} = useTranslation()
-	return (
-		<div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-dashed border-border-strong px-3.5 py-2.5 text-sm text-muted-foreground" data-testid="review-changed-bar">
-			<span className="min-w-0 flex-1">{t('wizard.review.changed', {profile: profileName, areas: changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')})}</span>
-			<Button type="button" variant="link" size="inline" onClick={onSaveAsProfile} data-testid="review-save-as-profile">
-				{t('wizard.review.saveAsProfile')}
-			</Button>
-			<Button type="button" variant="link" size="inline" className="text-muted-foreground" onClick={onReset} data-testid="review-reset">
-				{t('wizard.review.reset')}
-			</Button>
-		</div>
-	)
-}
-
 function ReviewWarnings({caveat, conflicts}: {caveat: Mp4Caveat | null; conflicts: DownloadReview['conflictWarnings']}): ReactNode {
 	const {t} = useTranslation()
 	return (
@@ -220,40 +146,45 @@ function ReviewWarnings({caveat, conflicts}: {caveat: Mp4Caveat | null; conflict
 }
 
 // Single video, screen 2: everything besides the streams, as rows that open in
-// place, plus what changed from the profile this run started from.
+// place. The footer says what changed from the profile this run started from.
 export function StepReview(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const state = useAppStore()
-	const {wizardReviewRow, setWizardReviewRow, goToStep, resetWizardToProfile} = state
-	const [saveOpen, setSaveOpen] = useState(false)
+	const {wizardReviewRow, setWizardReviewRow, goToStep} = state
+	const reviewCalloutPending = state.settings?.common?.reviewCalloutDismissed !== true && (state.settings?.common?.successfulDownloadCount ?? 0) > 0
+
+	function toggleRow(row: ReviewRow): void {
+		setWizardReviewRow(wizardReviewRow === row ? null : row)
+		if (reviewCalloutPending) void state.dismissReviewCallout()
+	}
 	const translate = createTranslationPort(t)
 	const summary = buildSingleSettingsSummary(state, {t: translate, language: i18n.language})
 	const review = buildDownloadReview(state, {t: translate, language: i18n.language, commonPaths: state.commonPaths})
-	const changed = wizardChangedAreas(state)
 	const rows = reviewRowEntries(state, summary)
 	const caveat = mp4CaveatCodec(state)
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
+			<ReviewPageCallout />
+
 			<ReviewFormatStrip state={state} review={review} />
 
 			<div className="flex flex-col gap-1.5">
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>
 				<Card className="gap-0 overflow-hidden py-0">
 					{rows.map(({row, value, fields}) => (
-						<ReviewRowItem key={row} row={row} value={value} open={wizardReviewRow === row} onToggle={() => setWizardReviewRow(wizardReviewRow === row ? null : row)}>
+						<ReviewRowItem key={row} row={row} value={value} open={wizardReviewRow === row} onToggle={() => toggleRow(row)}>
 							{fields}
 						</ReviewRowItem>
 					))}
 				</Card>
 			</div>
 
-			{changed.length > 0 ? <ReviewChangedBar profileName={state.wizardProfile?.name ?? ''} changed={changed} onSaveAsProfile={() => setSaveOpen(true)} onReset={resetWizardToProfile} /> : null}
-
 			{review.conflictWarnings.length > 0 || caveat !== null ? <ReviewWarnings caveat={caveat} conflicts={review.conflictWarnings} /> : null}
 
 			<WizardFooter
+				extraAbove={<ProfileEditLine />}
 				info={
 					size ? (
 						<>
@@ -267,8 +198,6 @@ export function StepReview(): ReactNode {
 				</Button>
 				<SingleDownloadActions />
 			</WizardFooter>
-
-			<SaveAsProfileDialog open={saveOpen} onOpenChange={setSaveOpen} />
 		</div>
 	)
 }

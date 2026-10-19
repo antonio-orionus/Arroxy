@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Tovuti"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Ruhusu"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Mikondo iliyokuzwa kwa AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Ruka"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Maoni"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "inafaa WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Mikondo asili, si iliyokuzwa kwa AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Hadi {{tier}}p"
@@ -1520,6 +1544,14 @@ msgstr "Azimio la juu zaidi"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "hakuna kikomo kilichowekwa"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Mikondo isiyoshushwa na tovuti"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "huruka nakala zilizoharibika, zenye alama-maji na za akiba"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Chaguo zaidi za upakuaji"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Kagua na chaguo"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Chagua angalau lugha moja ya manukuu."
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "Sauti iliyojengwa ndani"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Sauti"
+msgid "Audio only"
+msgstr "Sauti pekee"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "Manukuu peke yake"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Video"
+msgid "Video + audio"
+msgstr "Video + sauti"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, bila sauti"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "Inapakia maumbo"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Tafadhali subiri hadi uchunguzi ukamilike — orodha za kuimba na utafutaji vinaweza kuchukua muda."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Imetafsiriwa na AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Imekuzwa kwa AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Maelezo kwa sauti"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Imeharibika"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bitrate iliyoboreshwa"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Sauti ya anga"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Ina alama-maji"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Hariri {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Baki na mabadiliko yangu"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Kwa upakuaji huu tu. Wasifu wako chaguomsingi unabaki kama ulivyo."
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Imechaguliwa awali kutoka"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Badilisha"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Weka upya yote"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio ya wasifu utakaochagua."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Ulibadilisha {{areas}} kwa upakuaji huu. “{{profile}}” huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Wasifu"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Tumia"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio mipya ya wasifu."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Hifadhi mabadiliko yangu"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Ulibadilisha {{areas}} kwa upakuaji huu. Wasifu uliosasishwa huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy inasubiri hadi {{time}} kabla ya kuuliza {{site}} tena, ili kizuizi kiondoke."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Azimio halijulikani"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Huhifadhiwa kama"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Natafuta maumbo bora kwako…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Pia kutoka {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Kagua yote"
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "Lugha {{count}} inapatikana, ongeza"
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "Lugha {{count}} zinapatikana, ongeza"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "manukuu yamezimwa"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Jumla"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Video"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Video peke yake"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "yenye sauti"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,8 +3444,8 @@ msgid "Caption files only"
 msgstr "Faili za manukuu pekee"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
-msgstr "Manukuu pekee"
+msgid "Subtitles only"
+msgstr "Manukuu peke yake"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "manukuu"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Manukuu, SponsorBlock, vya ziada kama picha ndogo, folda na jina la faili zamani zilikuwa hatua tofauti. Bofya safu ili kuibadilisha."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Mipangilio mingine yote sasa iko kwenye ukurasa huu"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Imebadilishwa kutoka {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Upakuaji huu ulitumia mipangilio iliyohaririwa. Itumike wakati ujao?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Weka upya"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Tendua mabadiliko, rudi kwa “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "Hifadhi kama wasifu"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Hifadhi kama wasifu…"
+msgid "Save as a new profile"
+msgstr "Hifadhi kama wasifu mpya"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Sasisha wasifu"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Huu ni wasifu uliojengwa ndani. Unaweza kurejesha mipangilio yake asili kwenye kichupo cha Wasifu."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Kuanzia sasa, kila upakuaji kwa wasifu huu utatumia mipangilio mipya."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Umbizo"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Sasisha “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Wasifu “{{name}}” umesasishwa"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Sasisha “{{profile}}” kwa mabadiliko haya"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

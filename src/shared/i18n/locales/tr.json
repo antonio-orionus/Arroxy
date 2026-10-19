@@ -397,7 +397,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Giriş", "outro": "Çıkış", "selfpromo": "Öz tanıtım", "music_offtopic": "Konu dışı müzik", "preview": "Önizleme", "filler": "Dolgu"}
 		},
 		"formats": {
-			"kind": {"label": "Ne indirilsin", "video": "Video", "audio": "Ses", "subtitles": "Yalnızca altyazılar"},
+			"kind": {"label": "Ne indirilsin", "video": "Video + ses", "videoOnly": "Video, sessiz", "audio": "Yalnızca ses", "subtitles": "Yalnızca altyazılar"},
 			"profile": {
 				"calloutTitle": "Biçimler profilinle başlar",
 				"calloutBody": "Etkin profilin akışları senin için önceden seçer. Profilleri menüden değiştir ya da bu indirmeden çıkmadan bir profili ayarlamak için kalemi kullan.",
@@ -405,13 +405,12 @@
 				"tag": "Profil",
 				"closestTag": "Profile en yakın",
 				"switchTitle": "Profil değiştirilsin mi?",
-				"switchBody": "Bu indirmede yaptığınız değişiklikler, seçeceğiniz profilin ayarlarıyla değiştirilecek.",
-				"switchAction": "Değiştir",
+				"switchBody": "Bu indirme için değiştirdikleriniz: {{areas}}. “{{profile}}” her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
+				"resetAll": "Tümünü sıfırla",
 				"edit": "Düzenle: {{name}}",
 				"updatedTitle": "Güncellenen profil kullanılsın mı?",
-				"updatedBody": "Bu indirmede yaptığınız değişiklikler, profilin yeni ayarlarıyla değiştirilecek.",
-				"updatedAction": "Kullan",
-				"updatedKeep": "Değişikliklerimi koru",
+				"updatedBody": "Bu indirme için değiştirdikleriniz: {{areas}}. Güncellenen profil her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
+				"keepEdits": "Değişikliklerimi koru",
 				"menuDescription": "Yalnızca bu indirme için. Varsayılan profiliniz olduğu gibi kalır."
 			},
 			"fit": {
@@ -422,12 +421,13 @@
 				"subtitlesMissing": "Profiliniz şu dillerde altyazı istiyor: {{languages}}. Bu videoda bunlar yok.",
 				"webmUnavailable": "Profiliniz WebM istiyor. Bu videoda seçilen akışlar WebM’in barındıramadığı {{codec}} içeriyor, bu yüzden dosya türü Otomatik."
 			},
-			"summary": {"lead": "Ayrıca bu profilden ({{profile}}):", "subtitlesOff": "altyazılar kapalı", "subtitlesAdd_one": "{{count}} dil mevcut, ekle", "subtitlesAdd_other": "{{count}} dil mevcut, ekle", "reviewAll": "Tümünü gözden geçir"},
-			"footer": {"reviewOptions": "Gözden geçir ve seçenekler", "download": "İndir", "moreActions": "Diğer indirme seçenekleri", "addToQueue": "Başlatmadan kuyruğa ekle", "subtitlesRequired": "En az bir altyazı dili seçin."},
+			"footer": {"download": "İndir", "moreActions": "Diğer indirme seçenekleri", "addToQueue": "Başlatmadan kuyruğa ekle", "subtitlesRequired": "En az bir altyazı dili seçin."},
 			"video": "Video",
 			"audio": "Ses",
 			"noAudio": "Ses yok",
-			"videoOnly": "Yalnızca video",
+			"withAudio": "sesli",
+			"resolutionUnknown": "Boyut bilinmiyor",
+			"marker": {"aiUpscaled": "YZ ile büyütüldü", "aiDubbed": "YZ dublajı", "audioDescription": "Sesli betimleme", "spatialAudio": "Uzamsal ses", "vr": "360° / VR", "enhancedBitrate": "Gelişmiş bit hızı", "damaged": "Hasarlı", "watermarked": "Filigranlı"},
 			"keepAudio": "Olduğu gibi tut",
 			"keepAudioMeta": "Yerleşik ses",
 			"audioOnly": "Yalnızca ses",
@@ -520,8 +520,19 @@
 			"done": "Tamam",
 			"changed": "Değişenler ({{profile}} profiline göre): {{areas}}. Yalnızca bu indirme için geçerli.",
 			"areas": {"format": "biçim", "subtitles": "altyazılar", "sponsorBlock": "SponsorBlock", "extras": "ekstralar", "saveTo": "klasör", "fileName": "dosya adı"},
-			"saveAsProfile": "Profil olarak kaydet…",
-			"reset": "Sıfırla",
+			"updateProfile": "“{{profile}}” profilini bu değişikliklerle güncelle",
+			"saveAsProfile": "Yeni profil olarak kaydet",
+			"update": {
+				"title": "“{{profile}}” güncellensin mi?",
+				"description": "Bundan sonra bu profille yapılan her indirme yeni ayarları kullanır.",
+				"rows": {"format": "Biçim"},
+				"builtinNote": "Bu yerleşik bir profil. Orijinal ayarlarını Profiller sekmesinden geri yükleyebilirsiniz.",
+				"action": "Profili güncelle",
+				"updated": "“{{name}}” profili güncellendi"
+			},
+			"callout": {"title": "Diğer tüm ayarlar artık bu sayfada", "body": "Altyazılar, SponsorBlock, küçük resim gibi ekstralar, klasör ve dosya adı eskiden ayrı adımlardı. Değiştirmek için bir satıra tıklayın."},
+			"reset": "Değişiklikleri geri al, “{{profile}}” profiline dön",
+			"changedFrom": "Değişenler ({{profile}} profiline göre):",
 			"save": {"title": "Profil olarak kaydet", "description": "Bu ayarları bir dahaki sefere seçebileceğiniz bir profil olarak kaydeder. Hızlı İndirme profiliniz aynı kalır.", "nameLabel": "Profil adı", "action": "Profili kaydet", "saved": "“{{name}}” profili olarak kaydedildi", "failed": "Profil kaydedilemedi."},
 			"fileNameHint": "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir.",
 			"nextTime": {"title": "Bu indirme düzenlenmiş ayarları kullandı. Bir dahaki sefere de kullanılsın mı?", "action": "Profil olarak kaydet", "defaultName": "{{profile}} (düzenlendi)"}
@@ -620,7 +631,7 @@
 				"videoAudio": {"label": "Video + ses", "description": "Normal video dosyaları"},
 				"videoOnly": {"label": "Video, sessiz", "description": "Yalnızca sessiz video"},
 				"audioOnly": {"label": "Yalnızca ses", "description": "Müzik veya podcast"},
-				"subtitlesOnly": {"label": "Yalnızca altyazı", "description": "Yalnızca altyazı dosyaları"}
+				"subtitlesOnly": {"label": "Yalnızca altyazılar", "description": "Yalnızca altyazı dosyaları"}
 			},
 			"icon": {"controls": "Denetimler", "download": "İndirme", "video": "Video", "captions": "Altyazı", "audio": "Ses", "music": "Müzik", "podcast": "Podcast", "classes": "Dersler", "clip": "Klip", "archive": "Arşiv"},
 			"audioFormat": {"best": "En iyi", "wav": "WAV"},
@@ -990,6 +1001,8 @@
 			"resolutionBest": {"label": "En yüksek çözünürlük", "reason": "sınır yok"},
 			"resolution": {"label": "{{tier}}p’ye kadar", "reason": "sınırınız"},
 			"fps": {"label": "En yüksek kare hızı", "reason": "daha akıcı hareket"},
+			"sitePreference": {"label": "Sitenin geri plana atmadığı akışlar", "reason": "hasarlı, filigranlı ve yedek kopyaları atlar"},
+			"original": {"label": "YZ ile büyütülmüş değil, orijinal akışlar", "reason": "büyütülmüş kopya daha yüksektir ama gerçek ayrıntı eklemez"},
 			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
 			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
 			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},
@@ -1003,5 +1016,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
 	},
+	"aiUpscaled": {"label": "YZ ile büyütülmüş akışlar", "description": "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz.", "skip": "Atla", "allow": "İzin ver"},
 	"hdrPreference": {"label": "HDR video", "description": "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatik"}
 }

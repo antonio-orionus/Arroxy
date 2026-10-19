@@ -87,6 +87,8 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 			return codecRank(a) - codecRank(b)
 		case 'size':
 			return (b.filesize ?? 0) - (a.filesize ?? 0)
+		case 'site-preference':
+		case 'original':
 		case 'h264':
 		case 'mp4-streams':
 		case 'resolution':
@@ -111,7 +113,8 @@ function pickVideo(videos: readonly FormatOption[], order: SelectionOrder, notic
 	let pool = videos
 	const resolutionAt = order.video.findIndex(rank => rank.kind === 'resolution')
 	for (const rank of order.video.slice(0, resolutionAt)) {
-		const narrowed = pool.filter(f => (rank.kind === 'h264' ? isH264(f) : rank.kind === 'mp4-streams' ? f.ext === 'mp4' : true))
+		const topPreference = rank.kind === 'site-preference' ? Math.max(...pool.map(f => f.preference ?? 0)) : 0
+		const narrowed = pool.filter(f => (rank.kind === 'site-preference' ? (f.preference ?? 0) === topPreference : rank.kind === 'original' ? !f.markers?.includes('ai-upscaled') : rank.kind === 'h264' ? isH264(f) : rank.kind === 'mp4-streams' ? f.ext === 'mp4' : true))
 		// Without H.264 the profile can't be honoured anyway: pick by resolution
 		// across every codec so the notice can say what was chosen and why.
 		if (narrowed.length === 0 && rank.kind === 'h264') {

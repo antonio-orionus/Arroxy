@@ -18,6 +18,9 @@ const VIDEO_CODEC_NAMES: readonly (readonly [string, string])[] = [
 	['h264', 'H.264']
 ]
 
+// The codec names in yt-dlp's preference order, for listing them the same way on every row.
+export const VIDEO_CODEC_ORDER: readonly string[] = [...new Set(VIDEO_CODEC_NAMES.map(([, name]) => name))]
+
 export function videoCodecName(codec: string | undefined): string | null {
 	const lower = codec?.toLowerCase() ?? ''
 	if (lower === '' || lower === 'none') return null
@@ -29,7 +32,8 @@ export function audioCodecName(codec: string | undefined): string | null {
 	if (lower === '' || lower === 'none') return null
 	if (lower === 'opus') return 'Opus'
 	if (lower === 'vorbis') return 'Vorbis'
-	if (lower.startsWith('mp4a')) return 'AAC'
+	// TikTok and others name it plainly; YouTube names the profile (mp4a.40.2).
+	if (lower.startsWith('mp4a') || lower === 'aac') return 'AAC'
 	if (/^(?:e-?ac-?3|ec-3|ac-?3)$/.test(lower)) return 'Dolby'
 	if (lower === 'mp3') return 'MP3'
 	return null

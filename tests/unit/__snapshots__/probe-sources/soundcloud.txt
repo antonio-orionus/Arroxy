@@ -1,0 +1,18 @@
+soundcloud: Audio-only site
+Flickermood · 214 s · card says "Audio only" · 2 formats · audio-only site
+
+Video (picked for Balanced 720p •):
+(no video)
+
+Audio:
+AAC: 160 kbps 4.1 MB • | 96 kbps 2.4 MB
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: audio hls_aac_160k (audio only, m4a)
+best-quality: audio hls_aac_160k (audio only, m4a)
+mp4-1080: audio hls_aac_160k (audio only, m4a)
+audio-only: audio hls_aac_160k (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

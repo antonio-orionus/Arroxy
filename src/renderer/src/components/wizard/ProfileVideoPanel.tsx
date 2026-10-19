@@ -2,7 +2,7 @@ import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import {ChevronDown, ListOrdered} from 'lucide-react'
-import {HDR_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_FILE_TYPES, VIDEO_GOALS} from '@shared/schemas.js'
+import {AI_UPSCALED_CHOICES, HDR_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_FILE_TYPES, VIDEO_GOALS, type AiUpscaled} from '@shared/schemas.js'
 import type {HdrSetting, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
@@ -26,6 +26,7 @@ const GOAL_META = {
 const FILE_TYPE_LABEL_KEYS = {auto: 'fileType.auto', mp4: 'fileType.mp4', mkv: 'fileType.mkv', webm: 'fileType.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 const FILE_TYPE_DESCRIPTION_KEYS = {auto: 'fileType.description.auto', mp4: 'fileType.description.mp4', mkv: 'fileType.description.mkv', webm: 'fileType.description.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 
+const AI_UPSCALED_LABEL_KEYS = {skip: 'aiUpscaled.skip', allow: 'aiUpscaled.allow'} as const satisfies Record<AiUpscaled, ParseKeys>
 const HDR_LABEL_KEYS = {auto: 'hdrPreference.auto', sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrSetting, ParseKeys>
 
 const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
@@ -45,8 +46,8 @@ interface ProfileVideoPanelProps {
 // the order the profile picks streams by.
 export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdrSetting, onAction}: ProfileVideoPanelProps): ReactNode {
 	const {t} = useTranslation()
-	const {goal, resolution, fileType, nativeAudio, hdr, mediaMode} = draft
-	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default' || hdr !== 'default')
+	const {goal, resolution, fileType, nativeAudio, hdr, aiUpscaled, mediaMode} = draft
+	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default' || hdr !== 'default' || aiUpscaled !== 'skip')
 	const [orderOpen, setOrderOpen] = useState(false)
 	const order = draftSelectionOrder(draft, globalNativeAudioPreference, resolveAppHdr(globalHdrSetting))
 	const resolutionOptions = goal === 'smart-tv' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
@@ -58,6 +59,7 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 	]
 	const hdrOptions: SelectOption<DownloadProfileHdr>[] = [{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(HDR_LABEL_KEYS[globalHdrSetting])}}, ...HDR_PREFERENCES.map(value => ({value, labelKey: HDR_LABEL_KEYS[value]}))]
 	const fileTypeDescription = t(FILE_TYPE_DESCRIPTION_KEYS[fileType])
+	const aiUpscaledOptions: SelectOption<AiUpscaled>[] = AI_UPSCALED_CHOICES.map(value => ({value, labelKey: AI_UPSCALED_LABEL_KEYS[value]}))
 
 	return (
 		<Panel title={t('playlistPresets.type.video')} className="sm:col-span-2">
@@ -96,6 +98,10 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 							<div className="flex flex-col gap-1">
 								<ProfileSelect label={t('hdrPreference.label')} value={hdr} options={hdrOptions} onValueChange={next => onAction({type: 'set-hdr', hdr: next})} testId="profiles-editor-hdr" />
 								<FieldDescription>{t('hdrPreference.description')}</FieldDescription>
+							</div>
+							<div className="flex flex-col gap-1">
+								<ProfileSelect label={t('aiUpscaled.label')} value={aiUpscaled} options={aiUpscaledOptions} onValueChange={next => onAction({type: 'set-ai-upscaled', aiUpscaled: next})} testId="profiles-editor-ai-upscaled" />
+								<FieldDescription>{t('aiUpscaled.description')}</FieldDescription>
 							</div>
 							{mediaMode === 'video-audio' ? <ProfileSelect label={t('wizard.profileEditor.field.nativeAudio')} value={nativeAudio} options={nativeAudioOptions} onValueChange={next => onAction({type: 'set-native-audio', nativeAudio: next})} testId="profiles-editor-native-audio" /> : null}
 						</FieldGroup>

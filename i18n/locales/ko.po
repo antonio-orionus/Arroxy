@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "웹사이트"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "허용"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube는 일부 오래된 동영상을 AI로 만든 크기로도 제공합니다. 건너뛰기를 선택하면 원본 스트림을 유지하며, 업스케일된 스트림을 직접 고를 수도 있습니다."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AI 업스케일 스트림"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "건너뛰기"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "피드백"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM과 호환"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "AI 업스케일이 아닌 원본 스트림"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "업스케일 사본은 해상도가 높아도 실제 디테일은 늘지 않음"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "최대 {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "최고 해상도"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "한도 없음"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "사이트가 후순위로 두지 않은 스트림"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "손상, 워터마크, 대체용 사본 제외"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "다운로드 옵션 더 보기"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "검토 및 옵션"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "자막 언어를 하나 이상 선택하세요."
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "내장 오디오"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "오디오"
+msgid "Audio only"
+msgstr "오디오만"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "자막만"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "동영상"
+msgid "Video + audio"
+msgstr "동영상 + 오디오"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "동영상, 오디오 없음"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "형식 불러오는 중"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "분석이 끝날 때까지 기다려 주세요. 재생목록과 검색은 시간이 걸릴 수 있습니다."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI 더빙"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI 업스케일"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "화면 해설"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "손상됨"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "향상된 비트레이트"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "공간 음향"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "워터마크"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} 편집"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "변경 사항 유지"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "이 다운로드에만 적용됩니다. 기본 프로필은 그대로 유지됩니다."
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "미리 선택됨:"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "전환"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "모두 재설정"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "이 다운로드에서 변경한 내용은 선택한 프로필의 설정으로 바뀝니다."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "이 다운로드에서 {{areas}}을(를) 변경했습니다. 어느 쪽이든 동영상과 오디오는 “{{profile}}”이(가) 선택합니다. 다른 변경 사항을 유지할까요, 아니면 모두 프로필대로 재설정할까요?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "프로필"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "사용"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "이 다운로드에서 변경한 내용은 프로필의 새 설정으로 바뀝니다."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "변경 내용 유지"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "이 다운로드에서 {{areas}}을(를) 변경했습니다. 어느 쪽이든 동영상과 오디오는 업데이트된 프로필이 선택합니다. 다른 변경 사항을 유지할까요, 아니면 모두 프로필대로 재설정할까요?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "제한이 풀리도록 Arroxy는 {{time}}까지 기다린 뒤 {{site}}에 다시 요청합니다."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "해상도 알 수 없음"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "저장 형식"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "최적의 형식을 찾는 중…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}}의 다른 설정:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "모두 검토"
-
-#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}}개 언어 사용 가능, 추가"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "자막 끄기"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "합계"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "동영상"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "동영상만"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "오디오 포함"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "자막 파일만"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "자막만"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "자막"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "자막, SponsorBlock, 미리보기 이미지 같은 추가 항목, 폴더, 파일 이름은 원래 별도 단계였습니다. 행을 클릭하면 변경할 수 있습니다."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "다른 모든 설정이 이제 이 페이지에 있습니다"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}}에서 변경됨: {{areas}}. 이 다운로드에만 적용됩니다."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}}에서 변경됨:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "이 다운로드는 수정한 설정을 사용했습니다. 다음에도 사용할까요?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "재설정"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "변경 취소, “{{profile}}”(으)로 되돌리기"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "프로필로 저장"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "프로필로 저장…"
+msgid "Save as a new profile"
+msgstr "새 프로필로 저장"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "프로필 업데이트"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "기본 제공 프로필입니다. 프로필 탭에서 원래 설정을 복원할 수 있습니다."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "이제부터 이 프로필을 사용하는 모든 다운로드에 새 설정이 적용됩니다."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "형식"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}”을(를) 업데이트할까요?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "프로필 “{{name}}” 업데이트됨"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "이 변경 사항으로 “{{profile}}” 업데이트"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

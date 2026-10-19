@@ -1,0 +1,21 @@
+archive: No codec names: one file type per height (avi, mp4, ogv)
+Big Buck Bunny · 596 s · card says "1280x720" · 3 formats
+
+Video (picked for Balanced 720p •):
+      SDR (codec not named)
+720p  avi 316.9 MB • +audio
+360p  mp4 59.0 MB +audio
+240p  ogv 44.8 MB +audio
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: 2 (1280x720, avi) + audio none
+best-quality: 2 (1280x720, avi) + audio none
+mp4-1080: 2 (1280x720, avi) + audio none
+audio-only: audio convert-lossy
+
+Subtitles: none
+Auto captions: none

@@ -1,0 +1,19 @@
+bitchute: One stream with no resolution at all
+This is the first video on #BitChute ! · 16 s · card says "" · 1 formats
+
+Video (picked for Balanced 720p •):
+                    SDR (codec not named)
+Unknown resolution  mp4 1.1 MB • +audio
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: 0 (no resolution, mp4) + audio none
+best-quality: 0 (no resolution, mp4) + audio none
+mp4-1080: 0 (no resolution, mp4) + audio none
+audio-only: audio convert-lossy
+
+Subtitles: none
+Auto captions: none

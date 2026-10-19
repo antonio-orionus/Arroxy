@@ -620,7 +620,10 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 		return
 	}
 	if (audioConvert) {
-		args.push('-f', SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, '-x', '--audio-format', audioConvert.target)
+		// A caller's stream (one audio language of several) goes first; the
+		// source-preferred chain stays as the fallback if it is gone.
+		const formatId = input.selection?.formatId
+		args.push('-f', formatId ? `${formatId}/${SOURCE_PREFERRED_BEST_AUDIO_SELECTOR}` : SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, '-x', '--audio-format', audioConvert.target)
 		if (audioConvert.lossy && audioConvert.bitrateKbps !== undefined) args.push('--audio-quality', `${audioConvert.bitrateKbps}K`)
 		return
 	}

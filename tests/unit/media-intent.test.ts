@@ -1,3 +1,4 @@
+import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec} from '@shared/mediaIntent.js'
 import type {MediaIntent} from '@shared/schemas.js'
@@ -54,7 +55,7 @@ describe('mediaIntentSpec native audio preference', () => {
 	it('explicit m4a/aac selectors stay unchanged', () => {
 		const spec = mediaIntentSpec({kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'mp4', audio: {native: {kind: 'default'}}}, 'surround')
 
-		expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
+		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
 		expect(spec.formatSort).toBe('res,fps,hdr:sdr,acodec:m4a')
 	})
 })

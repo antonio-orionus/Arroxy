@@ -409,7 +409,7 @@
 			"cat": {"sponsor": "Patrocinio", "intro": "Intro", "outro": "Outro", "selfpromo": "Autopromoción", "music_offtopic": "Música fuera de tema", "preview": "Vista previa", "filler": "Relleno"}
 		},
 		"formats": {
-			"kind": {"label": "Qué descargar", "video": "Vídeo", "audio": "Audio", "subtitles": "Solo subtítulos"},
+			"kind": {"label": "Qué descargar", "video": "Vídeo + audio", "videoOnly": "Vídeo, sin audio", "audio": "Solo audio", "subtitles": "Solo subtítulos"},
 			"profile": {
 				"calloutTitle": "Los formatos parten de tu perfil",
 				"calloutBody": "Tu perfil activo preselecciona los streams por ti. Cambia de perfil desde el menú o usa el lápiz para ajustar uno sin salir de esta descarga.",
@@ -417,13 +417,12 @@
 				"tag": "Perfil",
 				"closestTag": "Más cercano al perfil",
 				"switchTitle": "¿Cambiar de perfil?",
-				"switchBody": "Tus cambios en esta descarga se sustituirán por los ajustes del perfil que elijas.",
-				"switchAction": "Cambiar",
+				"switchBody": "Cambiaste {{areas}} para esta descarga. «{{profile}}» elige el vídeo y el audio de todos modos. ¿Mantener tus otros cambios o restablecer todo al perfil?",
+				"resetAll": "Restablecer todo",
 				"edit": "Editar {{name}}",
 				"updatedTitle": "¿Usar el perfil actualizado?",
-				"updatedBody": "Tus cambios en esta descarga se sustituirán por los nuevos ajustes del perfil.",
-				"updatedAction": "Usarlo",
-				"updatedKeep": "Conservar mis cambios",
+				"updatedBody": "Cambiaste {{areas}} para esta descarga. El perfil actualizado elige el vídeo y el audio de todos modos. ¿Mantener tus otros cambios o restablecer todo al perfil?",
+				"keepEdits": "Mantener mis cambios",
 				"menuDescription": "Solo para esta descarga. Tu perfil predeterminado no cambia."
 			},
 			"fit": {
@@ -434,12 +433,13 @@
 				"subtitlesMissing": "Tu perfil pide subtítulos en {{languages}}. Este vídeo no los tiene.",
 				"webmUnavailable": "Tu perfil pide WebM. Los flujos elegidos de este vídeo incluyen {{codec}}, que WebM no admite, así que el tipo de archivo es Auto."
 			},
-			"summary": {"lead": "También de {{profile}}:", "subtitlesOff": "subtítulos desactivados", "subtitlesAdd_one": "{{count}} idioma disponible, añadir", "subtitlesAdd_many": "{{count}} de idiomas disponibles, añadir", "subtitlesAdd_other": "{{count}} idiomas disponibles, añadir", "reviewAll": "Revisar todo"},
-			"footer": {"reviewOptions": "Revisar y opciones", "download": "Descargar", "moreActions": "Más opciones de descarga", "addToQueue": "Añadir a la cola sin iniciar", "subtitlesRequired": "Elige al menos un idioma de subtítulos."},
+			"footer": {"download": "Descargar", "moreActions": "Más opciones de descarga", "addToQueue": "Añadir a la cola sin iniciar", "subtitlesRequired": "Elige al menos un idioma de subtítulos."},
 			"video": "Vídeo",
 			"audio": "Audio",
 			"noAudio": "Sin audio",
-			"videoOnly": "Solo vídeo",
+			"withAudio": "con audio",
+			"resolutionUnknown": "Resolución desconocida",
+			"marker": {"aiUpscaled": "Reescalado con IA", "aiDubbed": "Doblado con IA", "audioDescription": "Audiodescripción", "spatialAudio": "Audio espacial", "vr": "360° / VR", "enhancedBitrate": "Tasa de bits mejorada", "damaged": "Dañado", "watermarked": "Con marca de agua"},
 			"keepAudio": "Mantener tal cual",
 			"keepAudioMeta": "Audio integrado",
 			"audioOnly": "Solo audio",
@@ -533,8 +533,19 @@
 			"done": "Listo",
 			"changed": "Cambios respecto a {{profile}}: {{areas}}. Solo se aplican a esta descarga.",
 			"areas": {"format": "formato", "subtitles": "subtítulos", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "carpeta", "fileName": "nombre de archivo"},
-			"saveAsProfile": "Guardar como perfil…",
-			"reset": "Restablecer",
+			"updateProfile": "Actualizar «{{profile}}» con estos cambios",
+			"saveAsProfile": "Guardar como perfil nuevo",
+			"update": {
+				"title": "¿Actualizar «{{profile}}»?",
+				"description": "A partir de ahora, cada descarga con este perfil usará los nuevos ajustes.",
+				"rows": {"format": "Formato"},
+				"builtinNote": "Este es un perfil integrado. Puedes restaurar sus ajustes originales en la pestaña Perfiles.",
+				"action": "Actualizar perfil",
+				"updated": "Perfil «{{name}}» actualizado"
+			},
+			"callout": {"title": "Todos los demás ajustes están ahora en esta página", "body": "Los subtítulos, SponsorBlock, extras como la miniatura, la carpeta y el nombre de archivo antes eran pasos separados. Haz clic en una fila para cambiarla."},
+			"reset": "Deshacer cambios, volver a «{{profile}}»",
+			"changedFrom": "Cambios respecto a {{profile}}:",
 			"save": {
 				"title": "Guardar como perfil",
 				"description": "Guarda estos ajustes como un perfil que podrás elegir la próxima vez. Tu perfil de Descarga rápida no cambia.",
@@ -1051,6 +1062,8 @@
 			"resolutionBest": {"label": "Máxima resolución", "reason": "sin límite definido"},
 			"resolution": {"label": "Hasta {{tier}}p", "reason": "tu límite"},
 			"fps": {"label": "Mayor tasa de fotogramas", "reason": "movimiento más fluido"},
+			"sitePreference": {"label": "Streams que el sitio no penaliza", "reason": "omite copias dañadas, con marca de agua y de respaldo"},
+			"original": {"label": "Streams originales, no reescalados con IA", "reason": "una copia reescalada es más alta pero no añade detalle real"},
 			"codec": {"label": "AV1, luego VP9, luego H.264", "reason": "más nítido al mismo tamaño"},
 			"size": {"label": "Archivo más grande", "reason": "más detalle con los mismos ajustes"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "se reproduce en todas partes"},
@@ -1064,5 +1077,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "mejor imagen", "smartTv": "se reproduce en cualquier dispositivo"}, "fileType": {"auto": "tipo de archivo según los flujos", "explicit": "se guarda como .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Streams reescalados con IA", "description": "YouTube ofrece algunos vídeos antiguos en tamaños creados con IA. «Omitir» conserva los streams originales; aun así puedes elegir uno reescalado a mano.", "skip": "Omitir", "allow": "Permitir"},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Auto elige HDR si esta pantalla puede mostrarlo y, si no, SDR. El HDR se ve apagado en pantallas normales.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

@@ -1,0 +1,37 @@
+{
+	"source": {
+		"id": "tiktok",
+		"url": "https://www.tiktok.com/@meister12347/video/6934396727596240134",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "6934396727596240134",
+		"title": "#foryou #fyp #foru #foryoupage #foryoupageofficiall #memes #meme #viral",
+		"thumbnail": "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-p-0068/761f9caaee8241628cbb079f56d7505c_1614540092~tplv-tiktokx-origin.image?dr=10395&x-expires=1792584000&x-signature=w%2BY6UgJMv%2FP%2F%2ByDWtWygGGoRB98%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a",
+		"duration": 12,
+		"webpage_url": "https://www.tiktok.com/@meister12347/video/6934396727596240134",
+		"extractor": "TikTok",
+		"extractor_key": "TikTok",
+		"uploader": "meister12347",
+		"channel": "Meister",
+		"upload_date": "20210228",
+		"timestamp": 1614540064,
+		"formats": [
+			{"format_id":"audio","ext":"m4a","resolution":"audio only","vbr":0,"vcodec":"none","acodec":"aac","protocol":"https"},
+			{"format_id":"download","ext":"mp4","format_note":"watermarked","vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-2},
+			{"format_id":"h264_540p_186167-0","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":186,"filesize":294447,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"h264_540p_186167-1","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":186,"filesize":294447,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"h264_540p_230035-0","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":230,"filesize":363830,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"h264_540p_230035-1","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":230,"filesize":363830,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"h264_540p_344464-0","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":344,"filesize":544814,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"h264_540p_344464-1","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":344,"filesize":544814,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"bytevc1_540p_309336-0","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":309,"filesize":489255,"vcodec":"h265","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"bytevc1_540p_309336-1","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":309,"filesize":489255,"vcodec":"h265","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
+			{"format_id":"bytevc1_720p_336791-0","ext":"mp4","resolution":"720x1280","width":720,"height":1280,"tbr":336,"filesize":532678,"vcodec":"h265","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":2},
+			{"format_id":"bytevc1_720p_336791-1","ext":"mp4","resolution":"720x1280","width":720,"height":1280,"tbr":336,"filesize":532678,"vcodec":"h265","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":2}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

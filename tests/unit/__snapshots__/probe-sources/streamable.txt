@@ -1,0 +1,19 @@
+streamable: One muxed MP4 with no size or bitrate
+me irl · 12 s · card says "852x480" · 1 formats
+
+Video (picked for Balanced 720p •):
+      SDR (codec not named)
+480p  mp4 no size • +audio
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: mp4 (852x480, mp4) + audio none
+best-quality: mp4 (852x480, mp4) + audio none
+mp4-1080: mp4 (852x480, mp4) + audio none
+audio-only: audio convert-lossy
+
+Subtitles: none
+Auto captions: none

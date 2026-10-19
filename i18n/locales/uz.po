@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Veb-sayt"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Ruxsat berish"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "SI kattalashtirgan oqimlar"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "O'tkazib yuborish"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Fikr-mulohaza"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM ga mos"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Asl oqimlar, SI kattalashtirganlari emas"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "kattalashtirilgan nusxa balandroq, lekin haqiqiy tafsilot qo'shmaydi"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "{{tier}}p gacha"
@@ -1520,6 +1544,14 @@ msgstr "Eng yuqori ruxsat"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "chegara belgilanmagan"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Sayt past baholamagan oqimlar"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "shikastlangan, suv belgili va zaxira nusxalarni o'tkazib yuboradi"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Yuklab olishning boshqa variantlari"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Ko'rib chiqish va sozlamalar"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Kamida bitta subtitr tilini tanlang."
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "Ichki audio"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Audio"
+msgid "Audio only"
+msgstr "Faqat audio"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "Faqat subtitrlar"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, audiosiz"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "Formatlar yuklanmoqda"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Tekshiruv tugaguncha kuting — pleylistlar va qidiruv natijalari biroz vaqt olishi mumkin."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "SI dublyaji"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "SI kattalashtirgan"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audio tavsif"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Shikastlangan"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Yuqori bitreyt"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Fazoviy ovoz"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Suv belgili"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Tahrirlash: {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "O'zgarishlarimni saqlash"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Faqat shu yuklab olish uchun. Standart profilingiz o'zgarmaydi."
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Oldindan tanlangan:"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Almashtirish"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Hammasini tiklash"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz tanlagan profilingiz sozlamalari bilan almashtiriladi."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. “{{profile}}” baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Profil"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Foydalanish"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz profilning yangi sozlamalari bilan almashtiriladi."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "O'zgarishlarimni saqlash"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. Yangilangan profil baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Cheklov olib tashlanishi uchun Arroxy {{site}} ga qayta murojaat qilishdan oldin {{time}} gacha kutadi."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "O'lcham noma'lum"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Saqlash formati"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Siz uchun eng yaxshi formatlarni qidiryapman…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Shuningdek, {{profile}} profilidan:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Hammasini ko'rib chiqish"
-
-#. Plural form "one" for uz: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} ta til mavjud, qo'shish"
-
-#. Plural form "other" for uz: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} ta til mavjud, qo'shish"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "subtitrlar o'chiq"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Jami"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Video"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Faqat video"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "audio bilan"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,7 +3444,7 @@ msgid "Caption files only"
 msgstr "Faqat taglavha fayllari"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "Faqat subtitrlar"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "subtitrlar"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtitrlar, SponsorBlock, muqova kabi qo'shimchalar, papka va fayl nomi avval alohida qadamlar edi. O'zgartirish uchun qatorni bosing."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Qolgan barcha sozlamalar endi shu sahifada"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}} dan o'zgartirilgan:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Bu yuklab olishda tahrirlangan sozlamalar ishlatildi. Keyingi safar ham ishlatilsinmi?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Qayta tiklash"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "O'zgarishlarni bekor qilish, “{{profile}}” ga qaytish"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "Profil sifatida saqlash"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Profil sifatida saqlash…"
+msgid "Save as a new profile"
+msgstr "Yangi profil sifatida saqlash"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Profilni yangilash"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Bu o'rnatilgan profil. Uning asl sozlamalarini Profillar yorlig'ida tiklashingiz mumkin."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Bundan buyon bu profil bilan har bir yuklab olish yangi sozlamalardan foydalanadi."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}” yangilansinmi?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "“{{name}}” profili yangilandi"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "“{{profile}}” ni shu o'zgarishlar bilan yangilash"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

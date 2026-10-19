@@ -419,7 +419,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Autopromotion", "music_offtopic": "Musique hors sujet", "preview": "Aperçu", "filler": "Remplissage"}
 		},
 		"formats": {
-			"kind": {"label": "Que télécharger", "video": "Vidéo", "audio": "Audio", "subtitles": "Sous-titres uniquement"},
+			"kind": {"label": "Que télécharger", "video": "Vidéo + audio", "videoOnly": "Vidéo, sans audio", "audio": "Audio uniquement", "subtitles": "Sous-titres uniquement"},
 			"profile": {
 				"calloutTitle": "Les formats partent de votre profil",
 				"calloutBody": "Votre profil actif présélectionne les flux pour vous. Changez de profil depuis le menu, ou utilisez le crayon pour en ajuster un sans quitter ce téléchargement.",
@@ -427,13 +427,12 @@
 				"tag": "Profil",
 				"closestTag": "Le plus proche du profil",
 				"switchTitle": "Changer de profil ?",
-				"switchBody": "Vos modifications de ce téléchargement seront remplacées par les réglages du profil choisi.",
-				"switchAction": "Changer",
+				"switchBody": "Vous avez modifié {{areas}} pour ce téléchargement. « {{profile}} » choisit la vidéo et l’audio dans tous les cas. Garder vos autres modifications, ou tout réinitialiser selon le profil ?",
+				"resetAll": "Tout réinitialiser",
 				"edit": "Modifier {{name}}",
 				"updatedTitle": "Utiliser le profil mis à jour ?",
-				"updatedBody": "Vos modifications de ce téléchargement seront remplacées par les nouveaux réglages du profil.",
-				"updatedAction": "L'utiliser",
-				"updatedKeep": "Garder mes modifications",
+				"updatedBody": "Vous avez modifié {{areas}} pour ce téléchargement. Le profil mis à jour choisit la vidéo et l’audio dans tous les cas. Garder vos autres modifications, ou tout réinitialiser selon le profil ?",
+				"keepEdits": "Garder mes modifications",
 				"menuDescription": "Pour ce téléchargement uniquement. Votre profil par défaut reste inchangé."
 			},
 			"fit": {
@@ -444,12 +443,13 @@
 				"subtitlesMissing": "Votre profil demande des sous-titres en {{languages}}. Cette vidéo n’en a pas.",
 				"webmUnavailable": "Ton profil demande du WebM. Les flux choisis pour cette vidéo contiennent du {{codec}}, que WebM ne peut pas contenir, le type de fichier est donc Auto."
 			},
-			"summary": {"lead": "Aussi depuis {{profile}} :", "subtitlesOff": "sous-titres désactivés", "subtitlesAdd_one": "{{count}} langue disponible, ajouter", "subtitlesAdd_many": "{{count}} de langues disponibles, ajouter", "subtitlesAdd_other": "{{count}} langues disponibles, ajouter", "reviewAll": "Tout examiner"},
-			"footer": {"reviewOptions": "Examiner et options", "download": "Télécharger", "moreActions": "Plus d’options de téléchargement", "addToQueue": "Ajouter à la file sans démarrer", "subtitlesRequired": "Choisissez au moins une langue de sous-titres."},
+			"footer": {"download": "Télécharger", "moreActions": "Plus d’options de téléchargement", "addToQueue": "Ajouter à la file sans démarrer", "subtitlesRequired": "Choisissez au moins une langue de sous-titres."},
 			"video": "Vidéo",
 			"audio": "Audio",
 			"noAudio": "Sans audio",
-			"videoOnly": "Vidéo seule",
+			"withAudio": "avec audio",
+			"resolutionUnknown": "Résolution inconnue",
+			"marker": {"aiUpscaled": "Agrandi par IA", "aiDubbed": "Doublé par IA", "audioDescription": "Audiodescription", "spatialAudio": "Audio spatial", "vr": "360° / VR", "enhancedBitrate": "Débit amélioré", "damaged": "Endommagé", "watermarked": "Filigrané"},
 			"keepAudio": "Garder tel quel",
 			"keepAudioMeta": "Audio intégré",
 			"audioOnly": "Audio seul",
@@ -543,8 +543,19 @@
 			"done": "Terminé",
 			"changed": "Modifié par rapport à {{profile}} : {{areas}}. S’applique uniquement à ce téléchargement.",
 			"areas": {"format": "format", "subtitles": "sous-titres", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "dossier", "fileName": "nom du fichier"},
-			"saveAsProfile": "Enregistrer comme profil…",
-			"reset": "Réinitialiser",
+			"updateProfile": "Mettre à jour « {{profile}} » avec ces modifications",
+			"saveAsProfile": "Enregistrer comme nouveau profil",
+			"update": {
+				"title": "Mettre à jour « {{profile}} » ?",
+				"description": "Désormais, chaque téléchargement avec ce profil utilisera les nouveaux réglages.",
+				"rows": {"format": "Format"},
+				"builtinNote": "Ce profil est intégré. Vous pouvez restaurer ses réglages d’origine dans l’onglet Profils.",
+				"action": "Mettre à jour le profil",
+				"updated": "Profil « {{name}} » mis à jour"
+			},
+			"callout": {"title": "Tous les autres réglages sont désormais sur cette page", "body": "Les sous-titres, SponsorBlock, les extras comme la miniature, le dossier et le nom du fichier étaient auparavant des étapes séparées. Cliquez sur une ligne pour la modifier."},
+			"reset": "Annuler les modifications, revenir à « {{profile}} »",
+			"changedFrom": "Modifié par rapport à {{profile}} :",
 			"save": {
 				"title": "Enregistrer comme profil",
 				"description": "Enregistre ces réglages comme un profil à choisir la prochaine fois. Votre profil Téléchargement rapide reste inchangé.",
@@ -1069,6 +1080,8 @@
 			"resolutionBest": {"label": "Résolution maximale", "reason": "aucune limite définie"},
 			"resolution": {"label": "Jusqu'à {{tier}}p", "reason": "ta limite"},
 			"fps": {"label": "Fréquence d'images maximale", "reason": "mouvements plus fluides"},
+			"sitePreference": {"label": "Flux que le site ne déclasse pas", "reason": "ignore les copies endommagées, filigranées et de secours"},
+			"original": {"label": "Flux d’origine, pas ceux agrandis par IA", "reason": "une copie agrandie est plus haute mais n’ajoute aucun vrai détail"},
 			"codec": {"label": "AV1, puis VP9, puis H.264", "reason": "le plus net à taille égale"},
 			"size": {"label": "Fichier plus volumineux", "reason": "plus de détails avec les mêmes réglages"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "se lit partout"},
@@ -1082,5 +1095,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "meilleure image", "smartTv": "se lit sur tous les appareils"}, "fileType": {"auto": "type de fichier selon les flux", "explicit": "enregistré en .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Flux agrandis par IA", "description": "YouTube propose certaines anciennes vidéos dans des tailles créées par IA. « Ignorer » conserve les flux d’origine ; vous pouvez toujours choisir un flux agrandi manuellement.", "skip": "Ignorer", "allow": "Autoriser"},
 	"hdrPreference": {"label": "Vidéo HDR", "description": "Auto choisit HDR si cet écran peut l'afficher, sinon SDR. Le HDR paraît délavé sur les écrans classiques.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

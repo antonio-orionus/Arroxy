@@ -362,7 +362,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
 		},
 		"formats": {
-			"kind": {"label": "ምን ማውረድ ይፈልጋሉ", "video": "ቪዲዮ", "audio": "ድምጽ", "subtitles": "ንዑስ ርዕሶች ብቻ"},
+			"kind": {"label": "ምን ማውረድ ይፈልጋሉ", "video": "ቪዲዮ + ድምፅ", "videoOnly": "ቪዲዮ፣ ያለ ድምፅ", "audio": "ድምፅ ብቻ", "subtitles": "ንዑስ ርዕሶች ብቻ"},
 			"profile": {
 				"calloutTitle": "ቅርጸቶች ከመገለጫዎ ይጀምራሉ",
 				"calloutBody": "ንቁ መገለጫዎ ዥረቶችን አስቀድሞ ይመርጥልዎታል። መገለጫዎችን ከምናሌው ይቀይሩ፣ ወይም ከዚህ ማውረድ ሳይወጡ አንዱን ለማስተካከል እርሳሱን ይጠቀሙ።",
@@ -370,13 +370,12 @@
 				"tag": "መገለጫ",
 				"closestTag": "ለመገለጫው ቅርብ",
 				"switchTitle": "መገለጫ ይቀየር?",
-				"switchBody": "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በሚመርጡት መገለጫ ቅንብሮች ይተካሉ።",
-				"switchAction": "ቀይር",
+				"switchBody": "ለዚህ ማውረድ {{areas}} ቀይረዋል። “{{profile}}” በማንኛውም ሁኔታ ቪዲዮውን እና ድምፁን ይመርጣል። ሌሎች ለውጦችዎን ያቆዩ ወይስ ሁሉንም ወደ መገለጫው ዳግም ያስጀምሩ?",
+				"resetAll": "ሁሉንም ዳግም አስጀምር",
 				"edit": "{{name}} አርትዕ",
 				"updatedTitle": "የተዘመነውን መገለጫ ይጠቀሙ?",
-				"updatedBody": "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በመገለጫው አዲስ ቅንብሮች ይተካሉ።",
-				"updatedAction": "ተጠቀም",
-				"updatedKeep": "ለውጦቼን አቆይ",
+				"updatedBody": "ለዚህ ማውረድ {{areas}} ቀይረዋል። የተዘመነው መገለጫ በማንኛውም ሁኔታ ቪዲዮውን እና ድምፁን ይመርጣል። ሌሎች ለውጦችዎን ያቆዩ ወይስ ሁሉንም ወደ መገለጫው ዳግም ያስጀምሩ?",
+				"keepEdits": "ለውጦቼን አቆይ",
 				"menuDescription": "ለዚህ ማውረድ ብቻ። ነባሪ መገለጫዎ እንዳለ ይቆያል።"
 			},
 			"fit": {
@@ -387,12 +386,13 @@
 				"subtitlesMissing": "መገለጫዎ በ{{languages}} ንዑስ ርዕሶችን ይጠይቃል። ይህ ቪዲዮ የለውም።",
 				"webmUnavailable": "መገለጫዎ WebM ይጠይቃል። የዚህ ቪዲዮ የተመረጡ ዥረቶች WebM ሊይዘው የማይችለውን {{codec}} ያካትታሉ፣ ስለዚህ የፋይሉ አይነት ራስ-ሰር ነው።"
 			},
-			"summary": {"lead": "ከ{{profile}} ደግሞ፦", "subtitlesOff": "ንዑስ ርዕሶች ጠፍተዋል", "subtitlesAdd_one": "{{count}} ቋንቋ አለ፣ ጨምር", "subtitlesAdd_other": "{{count}} ቋንቋዎች አሉ፣ ጨምር", "reviewAll": "ሁሉንም ገምግም"},
-			"footer": {"reviewOptions": "ግምገማ እና አማራጮች", "download": "ማውረድ", "moreActions": "ተጨማሪ የማውረድ አማራጮች", "addToQueue": "ሳይጀምር ወደ ወረፋ ጨምር", "subtitlesRequired": "ቢያንስ አንድ የንዑስ ርዕስ ቋንቋ ይምረጡ።"},
+			"footer": {"download": "ማውረድ", "moreActions": "ተጨማሪ የማውረድ አማራጮች", "addToQueue": "ሳይጀምር ወደ ወረፋ ጨምር", "subtitlesRequired": "ቢያንስ አንድ የንዑስ ርዕስ ቋንቋ ይምረጡ።"},
 			"video": "ቪዲዮ",
 			"audio": "ድምጽ",
 			"noAudio": "ምንም ድምጽ የለም",
-			"videoOnly": "ቪዲዮ ብቻ",
+			"withAudio": "ከድምፅ ጋር",
+			"resolutionUnknown": "ጥራት መጠን አይታወቅም",
+			"marker": {"aiUpscaled": "በAI የተሰፋ", "aiDubbed": "በAI የተተረጎመ", "audioDescription": "የድምፅ መግለጫ", "spatialAudio": "ስፓሻል ድምፅ", "vr": "360° / VR", "enhancedBitrate": "የተሻሻለ ቢትሬት", "damaged": "የተበላሸ", "watermarked": "የውሃ ምልክት ያለው"},
 			"keepAudio": "እንዳለ ቀጥል",
 			"keepAudioMeta": "ቀደም ሲል የተካተተ ድምጽ",
 			"audioOnly": "ድምጽ ብቻ",
@@ -474,8 +474,12 @@
 			"done": "ተጠናቋል",
 			"changed": "ከ{{profile}} ተቀይሯል፦ {{areas}}። ለዚህ ማውረድ ብቻ ይሠራል።",
 			"areas": {"format": "ቅርጸት", "subtitles": "ንዑስ ርዕሶች", "sponsorBlock": "SponsorBlock", "extras": "ተጨማሪዎች", "saveTo": "አቃፊ", "fileName": "የፋይል ስም"},
-			"saveAsProfile": "እንደ መገለጫ አስቀምጥ…",
-			"reset": "ዳግም አስጀምር",
+			"updateProfile": "“{{profile}}”ን በእነዚህ ለውጦች አዘምን",
+			"saveAsProfile": "እንደ አዲስ መገለጫ አስቀምጥ",
+			"update": {"title": "“{{profile}}” ይዘመን?", "description": "ከአሁን ጀምሮ በዚህ መገለጫ የሚደረግ እያንዳንዱ ማውረድ አዲሶቹን ቅንብሮች ይጠቀማል።", "rows": {"format": "ቅርጸት"}, "builtinNote": "ይህ አብሮገነብ መገለጫ ነው። የመጀመሪያ ቅንብሮቹን በመገለጫዎች ትር ውስጥ መመለስ ይችላሉ።", "action": "መገለጫ አዘምን", "updated": "መገለጫ “{{name}}” ተዘምኗል"},
+			"callout": {"title": "ሌሎቹ ቅንብሮች ሁሉ አሁን በዚህ ገጽ ላይ ናቸው", "body": "ንዑስ ርዕሶች፣ SponsorBlock፣ እንደ ድንክ ምስል ያሉ ተጨማሪዎች፣ አቃፊ እና የፋይል ስም ቀደም ሲል የተለያዩ ደረጃዎች ነበሩ። ለመቀየር አንድ ረድፍ ጠቅ ያድርጉ።"},
+			"reset": "ለውጦቹን ቀልብስ፣ ወደ “{{profile}}” ተመለስ",
+			"changedFrom": "ከ{{profile}} ተቀይሯል፦",
 			"save": {"title": "እንደ መገለጫ አስቀምጥ", "description": "እነዚህን ቅንብሮች በሚቀጥለው ጊዜ መምረጥ የሚችሉት መገለጫ አድርጎ ያስቀምጣል። የፈጣን ማውረድ መገለጫዎ እንዳለ ይቆያል።", "nameLabel": "የመገለጫ ስም", "action": "መገለጫ አስቀምጥ", "saved": "እንደ መገለጫ “{{name}}” ተቀምጧል", "failed": "መገለጫውን ማስቀመጥ አልተቻለም።"},
 			"fileNameHint": "ምልክቶች፦ {title}፣ {id}፣ {uploader}፣ {date}፣ {resolution}። ቅጥያው በራስ-ሰር ይታከላል።",
 			"nextTime": {"title": "ይህ ማውረድ የተስተካከሉ ቅንብሮችን ተጠቅሟል። ለሚቀጥለው ጊዜ ይጠቀሙባቸው?", "action": "እንደ መገለጫ አስቀምጥ", "defaultName": "{{profile}} (የተስተካከለ)"}
@@ -570,7 +574,7 @@
 				"skippedForOutputType": "ለዚህ የውጤት ዓይነት ተዘሏል።"
 			},
 			"error": {"save": "የመገለጫ ቅንብሮችን ማስቀመጥ አልተቻለም።", "changeGlobalDestination": "አጠቃላይ መድረሻን መቀየር አልተቻለም።", "reset": "የመገለጫ ቅንብሮችን ዳግም ማስጀመር አልተቻለም።"},
-			"mediaMode": {"videoAudio": {"label": "ቪዲዮ + ድምፅ", "description": "መደበኛ የቪዲዮ ፋይሎች"}, "videoOnly": {"label": "ቪዲዮ፣ ያለ ድምፅ", "description": "ድምፅ የሌለው ቪዲዮ ብቻ"}, "audioOnly": {"label": "ድምፅ ብቻ", "description": "ሙዚቃ ወይም ፖድካስት"}, "subtitlesOnly": {"label": "ትርጉም ጽሑፎች ብቻ", "description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"}},
+			"mediaMode": {"videoAudio": {"label": "ቪዲዮ + ድምፅ", "description": "መደበኛ የቪዲዮ ፋይሎች"}, "videoOnly": {"label": "ቪዲዮ፣ ያለ ድምፅ", "description": "ድምፅ የሌለው ቪዲዮ ብቻ"}, "audioOnly": {"label": "ድምፅ ብቻ", "description": "ሙዚቃ ወይም ፖድካስት"}, "subtitlesOnly": {"label": "ንዑስ ርዕሶች ብቻ", "description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"}},
 			"icon": {"controls": "መቆጣጠሪያዎች", "download": "ማውረድ", "video": "ቪዲዮ", "captions": "መግለጫ ጽሑፎች", "audio": "ድምፅ", "music": "ሙዚቃ", "podcast": "ፖድካስት", "classes": "ትምህርቶች", "clip": "ቁራጭ", "archive": "መዝገብ"},
 			"audioFormat": {"best": "ምርጥ", "wav": "WAV"},
 			"audioQuality": {"128": "እስከ 128K", "192": "እስከ 192K", "320": "እስከ 320K", "best": "ምርጥ ጥራት"},
@@ -932,6 +936,8 @@
 			"resolutionBest": {"label": "ከፍተኛው ጥራት መጠን", "reason": "ገደብ አልተቀመጠም"},
 			"resolution": {"label": "እስከ {{tier}}p", "reason": "የእርስዎ ገደብ"},
 			"fps": {"label": "ከፍተኛው የፍሬም መጠን", "reason": "ይበልጥ ለስላሳ እንቅስቃሴ"},
+			"sitePreference": {"label": "ጣቢያው ዝቅ ያላደረጋቸው ዥረቶች", "reason": "የተበላሹ፣ የውሃ ምልክት ያላቸውን እና ተጠባባቂ ቅጂዎችን ይዘላል"},
+			"original": {"label": "የመጀመሪያዎቹ ዥረቶች፣ በAI የተሰፉት አይደሉም", "reason": "የተሰፋ ቅጂ ይረዝማል ግን እውነተኛ ዝርዝር አይጨምርም"},
 			"codec": {"label": "AV1፣ ከዚያ VP9፣ ከዚያ H.264", "reason": "በተመሳሳይ መጠን በጣም ጥርት ያለ"},
 			"size": {"label": "ትልቅ ፋይል", "reason": "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"},
 			"aacSmartTv": {"label": "AAC ድምጽ", "reason": "በሁሉም ቦታ ይጫወታል"},
@@ -945,5 +951,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "ምርጥ ምስል", "smartTv": "በማንኛውም መሣሪያ ይጫወታል"}, "fileType": {"auto": "የፋይል አይነት ከዥረቶቹ", "explicit": "እንደ .{{ext}} ይቀመጣል"}}
 	},
+	"aiUpscaled": {"label": "በAI የተሰፉ ዥረቶች", "description": "YouTube አንዳንድ የቆዩ ቪዲዮዎችን በAI በተሠሩ መጠኖች ያቀርባል። ዝለል የመጀመሪያዎቹን ዥረቶች ይይዛል፤ በAI የተሰፋውን ዥረት ግን አሁንም በእጅ መምረጥ ይችላሉ።", "skip": "ዝለል", "allow": "ፍቀድ"},
 	"hdrPreference": {"label": "HDR ቪዲዮ", "description": "ራስ-ሰር ይህ ስክሪን HDR ማሳየት ከቻለ HDRን ይመርጣል፣ ካልቻለ ደግሞ SDRን። HDR በተለመዱ ስክሪኖች ላይ የደበዘዘ ይመስላል።", "sdr": "SDR", "hdr": "HDR", "auto": "ራስ-ሰር"}
 }

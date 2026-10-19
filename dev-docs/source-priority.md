@@ -127,6 +127,20 @@ never in the download path.
 Built per profile, best first. `≤ tier` means the tallest stream at or
 under the tier, else the shortest above it with a fit notice (today's rule).
 
+Every order starts with two rules, before the goal's own ranks:
+
+- **Site preference.** Streams the site marks down (yt-dlp's `preference`:
+  YouTube's damaged copies at -10, its 3gp at -2, TikTok's watermarked copy)
+  come last. yt-dlp always sorts by this first, so a queued download needs
+  no `-S` token for it; the Format pick narrows to the top preference to
+  match.
+- **Original, not AI-upscaled** (unless the profile's `aiUpscaled` is
+  `allow`). YouTube offers some old uploads in AI-upscaled sizes (`-sr`
+  format ids, noted "AI-upscaled"): taller, no real detail. `-S` can't leave
+  streams out, so the queued download's selector tries every `bestvideo`
+  alternative with `[format_id!$=-sr]` first and the plain selector after,
+  so a video offered only upscaled still downloads.
+
 **Best picture:** resolution ≤ tier · fps · HDR · codec (AV1, VP9, HEVC,
 H.264) · size.
 
@@ -185,6 +199,8 @@ pinned test-first against yt-dlp, not guessed here.
 media:
   | {kind: 'video-audio'; goal: 'best-picture' | 'smart-tv'; tier: PlaylistVideoTier; fileType: 'auto' | 'mp4' | 'mkv' | 'webm'; audio: {native: {kind: 'default'} | {kind: 'custom'; preference: NativeAudioPreference}}}
   | {kind: 'video-only'; goal; tier; fileType}
+  // Both video kinds also carry optional `hdr` and `aiUpscaled: 'skip' | 'allow'`
+  // (absent: `skip`, including profiles saved before the choice existed).
   | {kind: 'audio-only'; audio: {format; bitrateKbps?}}
   | {kind: 'subtitles-only'}
 ```
@@ -228,15 +244,16 @@ This spec adds two controls and one word, nothing else.
 **Must keep**, checked against the shipped screen:
 
 1. "Pre-selected from **[profile ▾]**" stays a dropdown.
-2. The Video / Audio / Subtitles only switch.
+2. The Video + audio / Video, no audio / Audio only / Subtitles only switch.
 3. The list filter chips (`HDR10 · SDR · mp4 · webm`, `webm · m4a`).
 4. Video rows as today: `1920x1080` and `mp4 · 60fps · HDR10 · 235.9 MB`.
    Audio rows as today: quality bars, `webm · Opus · DRC · 134 kbps · 5.6 MB`.
 5. The Profile badge stays on the row the profile picked, also after a
    manual edit.
-6. The "Also from *profile*: …" summary line with Review all.
-7. The footer: Total, Back, Review & options, split Download ▾.
-8. The "Changed from *profile*" bar stays on Review, not Format.
+6. The footer: Total, Back, Download, Continue (to Review, which holds Download ▾).
+7. The "Changed from *profile*" row sits in the footer of Format and Review,
+   only once something changed. (The "Also from *profile*" summary line and
+   Review all were removed: Continue already leads to Review.)
 
 **Added:**
 
@@ -260,10 +277,10 @@ This spec adds two controls and one word, nothing else.
     type goes back to Auto with a one-line note ("WebM can't hold H.264,
     so the file type went back to Auto."). A stream pick is never changed
     behind the user's back.
-  - It is a per-download edit: listed in the Changed bar on Review, kept
-    by Save as profile.
+  - It is a per-download edit: listed in the "Changed from" row, kept by
+    updating the profile or saving a new one.
   - At the minimum window (720 px) or in long locales, if the footer can't
-    hold it next to Back, Review & options and Download, it moves into the
+    hold it next to Back, Download and Continue, it moves into the
     summary line ("… · saves as .mkv ▾"). Decided in the Scenario
     Workbench, not guessed.
 - **Why this matters today:** the `mp4` filter chip reads as "I'll get an

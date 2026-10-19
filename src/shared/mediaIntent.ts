@@ -133,11 +133,20 @@ function videoSelector(order: SelectionOrder, audio: AudioRank | undefined): str
 	return order.separateVideoStream ? pairWithBestNativeAudio('bestvideo', preference, MP4_WITH_AUDIO_SELECTOR) : pairWithBestNativeAudio('bestvideo*', preference, VIDEO_WITH_AUDIO_SELECTOR)
 }
 
+// YouTube names its AI-upscaled streams "<id>-sr". The filtered selector comes
+// first, the plain one after it, so a video offered only upscaled still downloads.
+const NOT_AI_UPSCALED = '[format_id!$=-sr]'
+
+function withoutAiUpscaled(selector: string): string {
+	return `${selector.replaceAll(/bestvideo(\*?)/g, `bestvideo$1${NOT_AI_UPSCALED}`)}/${selector}`
+}
+
 function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): MediaIntentSpec {
 	const order = selectionOrder(intent, nativeAudioPreference, hdrPreference)
 	const audio = order.audio?.[0]
 	const container = containerArgsFor(order)
-	return {formatSelector: videoSelector(order, audio), formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}
+	const selector = videoSelector(order, audio)
+	return {formatSelector: order.skipAiUpscaled ? withoutAiUpscaled(selector) : selector, formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}
 }
 
 function unreachableMediaIntent(intent: never): never {

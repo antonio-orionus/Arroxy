@@ -1,0 +1,79 @@
+{
+	"source": {
+		"id": "youtube-vr",
+		"url": "https://www.youtube.com/watch?v=dQMTPqws3Xg",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "dQMTPqws3Xg",
+		"title": "Sound Formats Trailer Compilation - 360° Binaural AmbiSonic Spatial Sound",
+		"thumbnail": "https://i.ytimg.com/vi_webp/dQMTPqws3Xg/maxresdefault.webp",
+		"duration": 68,
+		"webpage_url": "https://www.youtube.com/watch?v=dQMTPqws3Xg",
+		"extractor": "youtube",
+		"extractor_key": "Youtube",
+		"is_live": false,
+		"live_status": "not_live",
+		"availability": "public",
+		"age_limit": 0,
+		"uploader": "Cinema Synesthesia",
+		"channel": "Cinema Synesthesia",
+		"upload_date": "20210314",
+		"timestamp": 1615730329,
+		"formats": [
+			{"format_id":"sb2","ext":"mhtml","resolution":"48x27","format_note":"storyboard","width":48,"height":27,"fps":1.4705882352941178,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb1","ext":"mhtml","resolution":"80x45","format_note":"storyboard","width":80,"height":45,"fps":1.0294117647058822,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb0","ext":"mhtml","resolution":"160x90","format_note":"storyboard","width":160,"height":90,"fps":1.0294117647058822,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"233","ext":"mp4","resolution":"audio only","format_note":"Default, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"quality":-1,"has_drm":false},
+			{"format_id":"234","ext":"mp4","resolution":"audio only","format_note":"Default, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"quality":-1,"has_drm":false},
+			{"format_id":"139-drc","ext":"m4a","resolution":"audio only","format_note":"low, DRC","tbr":48.862,"vbr":0,"abr":48.862,"asr":22050,"audio_channels":2,"filesize":418660,"filesize_approx":418655,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"249-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":44.333,"vbr":0,"abr":44.333,"asr":48000,"audio_channels":2,"filesize":379392,"filesize_approx":379385,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"250-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":57.971,"vbr":0,"abr":57.971,"asr":48000,"audio_channels":2,"filesize":496102,"filesize_approx":496094,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"139","ext":"m4a","resolution":"audio only","format_note":"low","tbr":48.873,"vbr":0,"abr":48.873,"asr":22050,"audio_channels":2,"filesize":418751,"filesize_approx":418749,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"249","ext":"webm","resolution":"audio only","format_note":"low","tbr":43.068,"vbr":0,"abr":43.068,"asr":48000,"audio_channels":2,"filesize":368458,"filesize_approx":368452,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"250","ext":"webm","resolution":"audio only","format_note":"low","tbr":56.3,"vbr":0,"abr":56.3,"asr":48000,"audio_channels":2,"filesize":481660,"filesize_approx":481653,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"140-drc","ext":"m4a","resolution":"audio only","format_note":"medium, DRC","tbr":129.551,"vbr":0,"abr":129.551,"asr":44100,"audio_channels":2,"filesize":1108882,"filesize_approx":1108875,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2.5,"has_drm":false},
+			{"format_id":"251-drc","ext":"webm","resolution":"audio only","format_note":"medium, DRC","tbr":112.816,"vbr":0,"abr":112.816,"asr":48000,"audio_channels":2,"filesize":965445,"filesize_approx":965437,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2.5,"has_drm":false},
+			{"format_id":"140","ext":"m4a","resolution":"audio only","format_note":"medium","tbr":129.562,"vbr":0,"abr":129.562,"asr":44100,"audio_channels":2,"filesize":1108973,"filesize_approx":1108969,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"251","ext":"webm","resolution":"audio only","format_note":"medium","tbr":109.785,"vbr":0,"abr":109.785,"asr":48000,"audio_channels":2,"filesize":939231,"filesize_approx":939224,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"602","ext":"mp4","resolution":"256x144","width":256,"height":144,"fps":12,"tbr":77.065,"vbr":77.065,"abr":0,"vcodec":"vp09.00.10.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"269","ext":"mp4","resolution":"256x144","width":256,"height":144,"fps":24,"tbr":174.59,"vbr":174.59,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"160","ext":"mp4","resolution":"256x144","format_note":"144s, equi","width":256,"height":144,"fps":24,"tbr":111.533,"vbr":111.533,"abr":0,"filesize":953831,"filesize_approx":953830,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"603","ext":"mp4","resolution":"256x144","width":256,"height":144,"fps":24,"tbr":114.971,"vbr":114.971,"abr":0,"vcodec":"vp09.00.11.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"278","ext":"webm","resolution":"256x144","format_note":"144s, equi","width":256,"height":144,"fps":24,"tbr":43.348,"vbr":43.348,"abr":0,"filesize":370717,"filesize_approx":370712,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"229","ext":"mp4","resolution":"426x240","width":426,"height":240,"fps":24,"tbr":317.736,"vbr":317.736,"abr":0,"vcodec":"avc1.4D4015","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"133","ext":"mp4","resolution":"426x240","format_note":"240s, equi","width":426,"height":240,"fps":24,"tbr":246.275,"vbr":246.275,"abr":0,"filesize":2106147,"filesize_approx":2106143,"vcodec":"avc1.4D4015","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"604","ext":"mp4","resolution":"426x240","width":426,"height":240,"fps":24,"tbr":127.84,"vbr":127.84,"abr":0,"vcodec":"vp09.00.20.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"242","ext":"webm","resolution":"426x240","format_note":"240s, equi","width":426,"height":240,"fps":24,"tbr":47.912,"vbr":47.912,"abr":0,"filesize":409747,"filesize_approx":409743,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"230","ext":"mp4","resolution":"640x360","width":640,"height":360,"fps":24,"tbr":453.226,"vbr":453.226,"abr":0,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"134","ext":"mp4","resolution":"640x360","format_note":"360s, equi","width":640,"height":360,"fps":24,"tbr":269.024,"vbr":269.024,"abr":0,"filesize":2300696,"filesize_approx":2300693,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"605","ext":"mp4","resolution":"640x360","width":640,"height":360,"fps":24,"tbr":270.033,"vbr":270.033,"abr":0,"vcodec":"vp09.00.21.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"243","ext":"webm","resolution":"640x360","format_note":"360s, equi","width":640,"height":360,"fps":24,"tbr":81.901,"vbr":81.901,"abr":0,"filesize":700422,"filesize_approx":700417,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"231","ext":"mp4","resolution":"854x480","width":854,"height":480,"fps":24,"tbr":800.868,"vbr":800.868,"abr":0,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"135","ext":"mp4","resolution":"854x480","format_note":"480s, equi","width":854,"height":480,"fps":24,"tbr":571.728,"vbr":571.728,"abr":0,"filesize":4889425,"filesize_approx":4889417,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"606","ext":"mp4","resolution":"854x480","width":854,"height":480,"fps":24,"tbr":373.166,"vbr":373.166,"abr":0,"vcodec":"vp09.00.30.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"244","ext":"webm","resolution":"854x480","format_note":"480s, equi","width":854,"height":480,"fps":24,"tbr":134.726,"vbr":134.726,"abr":0,"filesize":1152181,"filesize_approx":1152176,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"232","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"fps":24,"tbr":1461.254,"vbr":1461.254,"abr":0,"vcodec":"avc1.4D401F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"136","ext":"mp4","resolution":"1280x720","format_note":"720s, equi","width":1280,"height":720,"fps":24,"tbr":1150.006,"vbr":1150.006,"abr":0,"filesize":9834856,"filesize_approx":9834851,"vcodec":"avc1.4D401F","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"609","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"fps":24,"tbr":604.512,"vbr":604.512,"abr":0,"vcodec":"vp09.00.31.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"247","ext":"webm","resolution":"1280x720","format_note":"720s, equi","width":1280,"height":720,"fps":24,"tbr":284.465,"vbr":284.465,"abr":0,"filesize":2432751,"filesize_approx":2432744,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"270","ext":"mp4","resolution":"1920x1080","width":1920,"height":1080,"fps":24,"tbr":2644.568,"vbr":2644.568,"abr":0,"vcodec":"avc1.640028","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"137","ext":"mp4","resolution":"1920x1080","format_note":"1080s, equi","width":1920,"height":1080,"fps":24,"tbr":2193.8,"vbr":2193.8,"abr":0,"filesize":18761380,"filesize_approx":18761377,"vcodec":"avc1.640028","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"614","ext":"mp4","resolution":"1920x1080","width":1920,"height":1080,"fps":24,"tbr":1056.243,"vbr":1056.243,"abr":0,"vcodec":"vp09.00.40.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"248","ext":"webm","resolution":"1920x1080","format_note":"1080s, equi","width":1920,"height":1080,"fps":24,"tbr":492.158,"vbr":492.158,"abr":0,"filesize":4208942,"filesize_approx":4208935,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"620","ext":"mp4","resolution":"2560x1440","width":2560,"height":1440,"fps":24,"tbr":3425.916,"vbr":3425.916,"abr":0,"vcodec":"vp09.00.50.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":10,"has_drm":false},
+			{"format_id":"271","ext":"webm","resolution":"2560x1440","format_note":"1440s, equi","width":2560,"height":1440,"fps":24,"tbr":2058.692,"vbr":2058.692,"abr":0,"filesize":17605941,"filesize_approx":17605933,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":10,"has_drm":false},
+			{"format_id":"625","ext":"mp4","resolution":"3840x2160","width":3840,"height":2160,"fps":24,"tbr":6784.968,"vbr":6784.968,"abr":0,"vcodec":"vp09.00.50.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":11,"has_drm":false},
+			{"format_id":"313","ext":"webm","resolution":"3840x2160","format_note":"2160s, equi","width":3840,"height":2160,"fps":24,"tbr":4240.836,"vbr":4240.836,"abr":0,"filesize":36267630,"filesize_approx":36267629,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":11,"has_drm":false}
+		],
+		"subtitles": {
+			"live_chat": [
+				{
+					"ext": "json"
+				}
+			]
+		},
+		"automatic_captions": {}
+	}
+}

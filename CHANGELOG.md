@@ -8,8 +8,24 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## Highlights
+
+- **A clearer path through a single-video download.** The Format screen's highlighted button is now **Continue**, to Review, where subtitles, SponsorBlock, extras like the thumbnail, the folder and the file name are, with Extras open. **Download** is still right there for anyone who doesn't need Review. If you have downloaded before, a one-time note on Review says all those settings now live on that one page.
+- **Update your profile or save a new one from any download.** Once you change something, the footer of Format and Review says what changed from your profile, with buttons to update that profile (showing exactly what will change first), save the settings as a new profile, or undo.
+- **Switching profile no longer throws away your edits.** If you changed subtitles, extras or the folder and then pick another profile, Arroxy asks whether to keep those changes or reset everything to the new profile.
+- **Video, no audio.** The Format screen's switch now matches the profile editor: Video + audio, Video, no audio, Audio only, Subtitles only. Switching to Video, no audio and back keeps the audio language you picked.
+- **Every codec at every resolution.** Each resolution now lists AV1, VP9 and H.264 side by side, in the same column on every row, so you can pick H.264 at 1080p for an older TV even when a profile prefers AV1.
+- **Arroxy tells you what a stream really is.** Streams YouTube upscaled with AI, AI-dubbed audio languages, enhanced-bitrate streams, 360° videos, damaged and watermarked copies are tagged on the Format screen.
+- **Profiles skip AI-upscaled streams.** YouTube offers some old videos in taller sizes made with AI; they add no real detail. Profiles now pick the original streams, and the profile editor's Advanced section has a setting to allow them. Profiles you already have skip them too.
+
 ## Fixes
 
+- Choosing an audio language and converting to MP3, M4A, Opus or WAV now converts that language, not the video's default one.
+- Switching from Audio only back to video no longer jumps to the largest stream: it picks what your profile would, or a 720p stream when the profile has no video.
+- Sizes are shown for sites that don't report them, estimated from the stream's bitrate, and the Format screen lists each resolution once, tallest first.
+- A slow format lookup can be cancelled after two minutes.
+- Sites whose stream list is gone (an HTTP 410 or 403) no longer make Arroxy wait for a second lookup.
+- A stream whose site gives no resolution is listed as "Unknown resolution", not under a stray note like "watermarked" or "unknown".
 - **Clipboard watch is predictable.** Copy a single link and it goes straight into the URL field, replacing what was there, with **Undo** on the toast. A link copied while Arroxy is busy (fetching formats, starting a download, the bulk dialog, another tab or step) waits and fills in once you are back on the Download tab, and the latest copy wins. Text that only contains a link, or a link to an image or document, is left alone. The **Use copied link** prompt is gone.
 
 ---

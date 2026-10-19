@@ -14,6 +14,7 @@ Fixture Product E2E is the **acceptance owner for real user workflows**, not the
 
 - **Fast logic tests** (`tests/unit`, Vitest): pure rules and closed interfaces such as `QueueEvent` transition, `ProgressNormalizer`, URL parsing, yt-dlp argument construction, extractor classification, error classification, and `WizardStepGraph`. They never prove a full user workflow.
 - **Renderer tests** (`tests/renderer`, jsdom): renderer-local state and component contracts too small to justify a full app launch. Never the acceptance test for download, probe, queue or filesystem workflows.
+- **Probe source snapshots** (`tests/unit/probe-sources.test.ts`): real yt-dlp probes of many sites and YouTube kinds (`src/renderer/src/dev/probeSources/`, re-recorded with `bun run probe-sources:capture`) replayed through the app's own format mapping. One text file per site shows what the Format screen lists and what each built-in profile picks, so a picker, grouping or mapping change shows its effect on every kind of site as a readable diff. Read the diff before updating with `-u`; add a site whenever a report shows a new format shape. Sources marked `signIn` are captured with the dev profile's Explore session (`scripts/export-explore-cookies.cjs`; each yt-dlp run gets a fresh, deleted jar, since yt-dlp writes cookies back).
 - **Scenario Workbench** (`tests/browser`, `bun run dev:mock`): browser-mock and the scenario gallery for visual inspection, layout stress, screenshots and fast review of many UI states. Proves how a state looks, not whether the workflow works.
 - **Mock Electron smoke tests** (`tests/e2e` with `MOCK_BACKEND=1`): app shell, preload bridge, context isolation, startup resilience, mocked persistence. Not for normal download acceptance.
 - **Fixture Product E2E** (`ARROXY_E2E=1`): real Electron, real IPC, real `ProbeService`, `DownloadService` and `QueueService`, real filesystem effects and spawned yt-dlp; only the video platform is deterministic, through the fixture extractor plugin, local media server and deny proxy.
@@ -25,6 +26,7 @@ Fixture Product E2E is the **acceptance owner for real user workflows**, not the
 - Found by opening the app and performing a workflow → Fixture Product E2E.
 - Pure domain rule with no UI, filesystem, process or IPC requirement → fast logic test.
 - Visual layout, responsive fit, empty/loading/error surfaces, screenshot review → Scenario Workbench.
+- How the Format screen handles a site's format list → probe source snapshot (and its "Real sites" scenario to look at it).
 - App boot, preload, context isolation → Mock Electron smoke test.
 - Whether real YouTube currently works → a tiny live smoke test outside normal acceptance.
 

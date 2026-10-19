@@ -385,7 +385,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Pendahuluan", "outro": "luar", "selfpromo": "Promosi diri", "music_offtopic": "Musik di luar topik", "preview": "Pratinjau", "filler": "Pengisi"}
 		},
 		"formats": {
-			"kind": {"label": "Yang diunduh", "video": "Video", "audio": "Audio", "subtitles": "Hanya subtitle"},
+			"kind": {"label": "Yang diunduh", "video": "Video + audio", "videoOnly": "Video, tanpa audio", "audio": "Hanya audio", "subtitles": "Hanya subtitle"},
 			"profile": {
 				"calloutTitle": "Format dimulai dari profil Anda",
 				"calloutBody": "Profil aktif Anda memilihkan stream lebih dulu. Ganti profil lewat menu, atau pakai ikon pensil untuk menyesuaikan satu profil tanpa keluar dari unduhan ini.",
@@ -393,13 +393,12 @@
 				"tag": "Profil",
 				"closestTag": "Terdekat dengan profil",
 				"switchTitle": "Ganti profil?",
-				"switchBody": "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan profil yang Anda pilih.",
-				"switchAction": "Ganti",
+				"switchBody": "Anda mengubah {{areas}} untuk unduhan ini. “{{profile}}” tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
+				"resetAll": "Atur ulang semua",
 				"edit": "Edit {{name}}",
 				"updatedTitle": "Gunakan profil yang diperbarui?",
-				"updatedBody": "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan baru profil.",
-				"updatedAction": "Gunakan",
-				"updatedKeep": "Simpan perubahan saya",
+				"updatedBody": "Anda mengubah {{areas}} untuk unduhan ini. Profil yang diperbarui tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
+				"keepEdits": "Pertahankan perubahan saya",
 				"menuDescription": "Hanya untuk unduhan ini. Profil default Anda tetap seperti semula."
 			},
 			"fit": {
@@ -410,12 +409,13 @@
 				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya.",
 				"webmUnavailable": "Profil Anda meminta WebM. Stream terpilih video ini mencakup {{codec}}, yang tidak didukung WebM, jadi jenis file diatur ke Otomatis."
 			},
-			"summary": {"lead": "Juga dari {{profile}}:", "subtitlesOff": "subtitle mati", "subtitlesAdd_other": "{{count}} bahasa tersedia, tambahkan", "reviewAll": "Tinjau semua"},
-			"footer": {"reviewOptions": "Tinjau & opsi", "download": "Unduh", "moreActions": "Opsi unduhan lainnya", "addToQueue": "Tambahkan ke antrean tanpa memulai", "subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."},
+			"footer": {"download": "Unduh", "moreActions": "Opsi unduhan lainnya", "addToQueue": "Tambahkan ke antrean tanpa memulai", "subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."},
 			"video": "Video",
 			"audio": "Audio",
 			"noAudio": "Tidak ada audio",
-			"videoOnly": "Hanya video",
+			"withAudio": "dengan audio",
+			"resolutionUnknown": "Resolusi tidak diketahui",
+			"marker": {"aiUpscaled": "Upscale AI", "aiDubbed": "Sulih suara AI", "audioDescription": "Deskripsi audio", "spatialAudio": "Audio spasial", "vr": "360° / VR", "enhancedBitrate": "Bitrate ditingkatkan", "damaged": "Rusak", "watermarked": "Bertanda air"},
 			"keepAudio": "Tetap apa adanya",
 			"keepAudioMeta": "Audio bawaan",
 			"audioOnly": "Hanya audio",
@@ -507,8 +507,19 @@
 			"done": "Selesai",
 			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
 			"areas": {"format": "format", "subtitles": "subtitle", "sponsorBlock": "SponsorBlock", "extras": "tambahan", "saveTo": "folder", "fileName": "nama file"},
-			"saveAsProfile": "Simpan sebagai profil…",
-			"reset": "Atur ulang",
+			"updateProfile": "Perbarui “{{profile}}” dengan perubahan ini",
+			"saveAsProfile": "Simpan sebagai profil baru",
+			"update": {
+				"title": "Perbarui “{{profile}}”?",
+				"description": "Mulai sekarang, setiap unduhan dengan profil ini memakai pengaturan baru.",
+				"rows": {"format": "Format"},
+				"builtinNote": "Ini profil bawaan. Anda dapat memulihkan pengaturan aslinya di tab Profil.",
+				"action": "Perbarui profil",
+				"updated": "Profil “{{name}}” diperbarui"
+			},
+			"callout": {"title": "Semua pengaturan lainnya kini ada di halaman ini", "body": "Subtitle, SponsorBlock, tambahan seperti gambar kecil, folder, dan nama file dulu merupakan langkah terpisah. Klik baris untuk mengubahnya."},
+			"reset": "Urungkan perubahan, kembali ke “{{profile}}”",
+			"changedFrom": "Diubah dari {{profile}}:",
 			"save": {
 				"title": "Simpan sebagai profil",
 				"description": "Menyimpan pengaturan ini sebagai profil yang bisa Anda pilih lain kali. Profil Unduh Cepat Anda tidak berubah.",
@@ -609,7 +620,7 @@
 				"videoAudio": {"label": "Video + audio", "description": "Berkas video biasa"},
 				"videoOnly": {"label": "Video, tanpa audio", "description": "Hanya video tanpa suara"},
 				"audioOnly": {"label": "Hanya audio", "description": "Musik atau podcast"},
-				"subtitlesOnly": {"label": "Hanya subtitel", "description": "Hanya berkas teks"}
+				"subtitlesOnly": {"label": "Hanya subtitle", "description": "Hanya berkas teks"}
 			},
 			"icon": {"controls": "Kontrol", "download": "Unduh", "video": "Video", "captions": "Teks", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kelas", "clip": "Klip", "archive": "Arsip"},
 			"audioFormat": {"best": "Terbaik", "wav": "WAV"},
@@ -977,6 +988,8 @@
 			"resolutionBest": {"label": "Resolusi tertinggi", "reason": "tanpa batas"},
 			"resolution": {"label": "Hingga {{tier}}p", "reason": "batas Anda"},
 			"fps": {"label": "Frame rate tertinggi", "reason": "gerakan lebih halus"},
+			"sitePreference": {"label": "Stream yang tidak diberi prioritas rendah oleh situs", "reason": "melewati salinan rusak, bertanda air, dan cadangan"},
+			"original": {"label": "Stream asli, bukan hasil upscale AI", "reason": "salinan upscale lebih tinggi tetapi tidak menambah detail nyata"},
 			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
 			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},
@@ -990,5 +1003,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Stream hasil upscale AI", "description": "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual.", "skip": "Lewati", "allow": "Izinkan"},
 	"hdrPreference": {"label": "Video HDR", "description": "Otomatis memilih HDR jika layar ini bisa menampilkannya, jika tidak memakai SDR. HDR tampak pucat di layar biasa.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatis"}
 }

@@ -31,3 +31,9 @@ function pairWithCompatibleNativeAudio(videoSelector: string, fallback: string):
 		.concat(fallback)
 		.join('/')
 }
+
+// A profile skips AI-upscaled streams ("-sr") by default: the selector tries
+// every video alternative without them first, then the plain selector.
+export function skippingAiUpscaled(selector: string): string {
+	return `${selector.replaceAll(/bestvideo(\*?)/g, 'bestvideo$1[format_id!$=-sr]')}/${selector}`
+}

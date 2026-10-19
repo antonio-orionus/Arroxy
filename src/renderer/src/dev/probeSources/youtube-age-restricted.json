@@ -1,0 +1,41 @@
+{
+	"source": {
+		"id": "youtube-age-restricted",
+		"url": "https://www.youtube.com/watch?v=Tq92D6wQ1mg",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.10.10.233141",
+		"signedIn": true
+	},
+	"info": {
+		"id": "Tq92D6wQ1mg",
+		"title": "[MMD] Adios - EVERGLOW [+Motion DL]",
+		"thumbnail": "https://i.ytimg.com/vi/Tq92D6wQ1mg/sddefault.jpg",
+		"duration": 106,
+		"webpage_url": "https://www.youtube.com/watch?v=Tq92D6wQ1mg",
+		"extractor": "youtube",
+		"extractor_key": "Youtube",
+		"is_live": false,
+		"live_status": "not_live",
+		"availability": "needs_auth",
+		"age_limit": 18,
+		"uploader": "Projekt Melody",
+		"channel": "Projekt Melody",
+		"upload_date": "20191228",
+		"timestamp": 1577508724,
+		"formats": [
+			{"format_id":"sb2","ext":"mhtml","resolution":"48x27","format_note":"storyboard","width":48,"height":27,"fps":0.9433962264150944,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb1","ext":"mhtml","resolution":"80x45","format_note":"storyboard","width":80,"height":45,"fps":1.009433962264151,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb0","ext":"mhtml","resolution":"160x90","format_note":"storyboard","width":160,"height":90,"fps":1.009433962264151,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"140","ext":"m4a","resolution":"audio only","format_note":"medium","tbr":129.555,"vbr":0,"abr":129.555,"asr":44100,"audio_channels":2,"filesize":1717717,"filesize_approx":1717704,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"251","ext":"webm","resolution":"audio only","format_note":"medium","tbr":128.88,"vbr":0,"abr":128.88,"asr":48000,"audio_channels":2,"filesize":1708001,"filesize_approx":1707998,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"160","ext":"mp4","resolution":"256x144","format_note":"144p","width":256,"height":144,"fps":30,"tbr":113.491,"vbr":113.491,"abr":0,"filesize":1503751,"filesize_approx":1503741,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"134","ext":"mp4","resolution":"640x360","format_note":"360p","width":640,"height":360,"fps":30,"tbr":551.167,"vbr":551.167,"abr":0,"filesize":7302905,"filesize_approx":7302893,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"18","ext":"mp4","resolution":"640x360","format_note":"360p","width":640,"height":360,"fps":30,"tbr":679.948,"asr":44100,"audio_channels":2,"filesize_approx":9015090,"vcodec":"avc1.42001E","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"243","ext":"webm","resolution":"640x360","format_note":"360p","width":640,"height":360,"fps":30,"tbr":411.9,"vbr":411.9,"abr":0,"filesize":5457628,"filesize_approx":5457623,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"136","ext":"mp4","resolution":"1280x720","format_note":"720p","width":1280,"height":720,"fps":30,"tbr":2103.892,"vbr":2103.892,"abr":0,"filesize":27876309,"filesize_approx":27876306,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"137","ext":"mp4","resolution":"1920x1080","format_note":"1080p","width":1920,"height":1080,"fps":30,"tbr":4379.978,"vbr":4379.978,"abr":0,"filesize":58034172,"filesize_approx":58034161,"vcodec":"avc1.640028","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

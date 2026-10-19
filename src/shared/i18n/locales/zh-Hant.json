@@ -350,7 +350,7 @@
 			"cat": {"sponsor": "贊助商", "intro": "開場", "outro": "片尾", "selfpromo": "自我宣傳", "music_offtopic": "離題音樂", "preview": "預覽", "filler": "填充內容"}
 		},
 		"formats": {
-			"kind": {"label": "下載內容", "video": "影片", "audio": "音訊", "subtitles": "僅字幕"},
+			"kind": {"label": "下載內容", "video": "影片 + 音訊", "videoOnly": "影片，無音訊", "audio": "僅音訊", "subtitles": "僅字幕"},
 			"profile": {
 				"calloutTitle": "格式從你的設定檔開始",
 				"calloutBody": "目前設定檔會為你預先選好串流。可從選單切換設定檔，或用鉛筆圖示在不離開這次下載的情況下調整設定檔。",
@@ -358,13 +358,12 @@
 				"tag": "設定檔",
 				"closestTag": "最接近設定檔",
 				"switchTitle": "切換設定檔？",
-				"switchBody": "你對這次下載所做的變更，將被所選設定檔的設定取代。",
-				"switchAction": "切換",
+				"switchBody": "你為這次下載變更了{{areas}}。無論如何，影片和音訊都由「{{profile}}」選擇。要保留其他變更，還是全部重設為設定檔的設定？",
+				"resetAll": "全部重設",
 				"edit": "編輯「{{name}}」",
 				"updatedTitle": "要使用更新後的設定檔嗎？",
-				"updatedBody": "你對這次下載所做的變更，將被設定檔的新設定取代。",
-				"updatedAction": "使用",
-				"updatedKeep": "保留我的變更",
+				"updatedBody": "你為這次下載變更了{{areas}}。無論如何，影片和音訊都由更新後的設定檔選擇。要保留其他變更，還是全部重設為設定檔的設定？",
+				"keepEdits": "保留我的變更",
 				"menuDescription": "只套用於這次下載。你的預設設定檔維持不變。"
 			},
 			"fit": {
@@ -375,12 +374,13 @@
 				"subtitlesMissing": "設定檔要求 {{languages}} 字幕，但此影片沒有。",
 				"webmUnavailable": "你的設定檔要求 WebM。此影片所選的串流包含 WebM 無法容納的 {{codec}}，因此檔案類型為自動。"
 			},
-			"summary": {"lead": "{{profile}} 的其他設定：", "subtitlesOff": "字幕已關閉", "subtitlesAdd_other": "有 {{count}} 種語言可用，新增", "reviewAll": "檢視全部"},
-			"footer": {"reviewOptions": "檢視與選項", "download": "下載", "moreActions": "更多下載選項", "addToQueue": "加入佇列但不開始", "subtitlesRequired": "請至少選擇一種字幕語言。"},
+			"footer": {"download": "下載", "moreActions": "更多下載選項", "addToQueue": "加入佇列但不開始", "subtitlesRequired": "請至少選擇一種字幕語言。"},
 			"video": "影片",
 			"audio": "音訊",
 			"noAudio": "無音訊",
-			"videoOnly": "僅影片",
+			"withAudio": "含音訊",
+			"resolutionUnknown": "解析度未知",
+			"marker": {"aiUpscaled": "AI 放大", "aiDubbed": "AI 配音", "audioDescription": "口述影像", "spatialAudio": "空間音訊", "vr": "360° / VR", "enhancedBitrate": "增強位元率", "damaged": "已損毀", "watermarked": "有浮水印"},
 			"keepAudio": "保持不變",
 			"keepAudioMeta": "內建音訊",
 			"audioOnly": "僅音訊",
@@ -461,8 +461,12 @@
 			"done": "完成",
 			"changed": "與 {{profile}} 相比有變更：{{areas}}。僅套用於這次下載。",
 			"areas": {"format": "格式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "額外項目", "saveTo": "資料夾", "fileName": "檔名"},
-			"saveAsProfile": "另存為設定檔…",
-			"reset": "重設",
+			"updateProfile": "以這些變更更新「{{profile}}」",
+			"saveAsProfile": "另存為新設定檔",
+			"update": {"title": "要更新「{{profile}}」嗎？", "description": "從現在起，使用此設定檔的每次下載都會使用新設定。", "rows": {"format": "格式"}, "builtinNote": "這是內建設定檔。你可以在「設定檔」分頁中還原其原始設定。", "action": "更新設定檔", "updated": "已更新設定檔「{{name}}」"},
+			"callout": {"title": "其他所有設定現在都在這個頁面", "body": "字幕、SponsorBlock、縮圖等額外項目、資料夾和檔名以前是個別的步驟。點選某一列即可變更。"},
+			"reset": "復原變更，回到「{{profile}}」",
+			"changedFrom": "與 {{profile}} 相比的變更：",
 			"save": {"title": "另存為設定檔", "description": "將這些設定儲存為設定檔，下次可直接選用。快速下載設定檔維持不變。", "nameLabel": "設定檔名稱", "action": "儲存設定檔", "saved": "已儲存為設定檔「{{name}}」", "failed": "無法儲存設定檔。"},
 			"fileNameHint": "可用權杖：{title}、{id}、{uploader}、{date}、{resolution}。副檔名會自動加上。",
 			"nextTime": {"title": "這次下載使用了編輯後的設定。下次繼續使用嗎？", "action": "另存為設定檔", "defaultName": "{{profile}}（已編輯）"}
@@ -901,6 +905,8 @@
 			"resolutionBest": {"label": "最高解析度", "reason": "未設上限"},
 			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
 			"fps": {"label": "最高影格率", "reason": "動作更流暢"},
+			"sitePreference": {"label": "網站未降級的串流", "reason": "略過損毀、有浮水印和備用的副本"},
+			"original": {"label": "原始串流，而非 AI 放大的串流", "reason": "放大版解析度較高，但沒有增加真實細節"},
 			"codec": {"label": "先 AV1，再 VP9，最後 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "較大的檔案", "reason": "相同設定下細節更多"},
 			"aacSmartTv": {"label": "AAC 音訊", "reason": "隨處都能播放"},
@@ -914,5 +920,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "最佳畫質", "smartTv": "所有裝置都能播放"}, "fileType": {"auto": "檔案類型由串流決定", "explicit": "儲存為 .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "AI 放大的串流", "description": "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。", "skip": "略過", "allow": "允許"},
 	"hdrPreference": {"label": "HDR 影片", "description": "自動模式會在此螢幕能顯示 HDR 時選擇 HDR，否則選擇 SDR。HDR 在一般螢幕上看起來會偏灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

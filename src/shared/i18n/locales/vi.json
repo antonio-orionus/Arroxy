@@ -370,7 +370,7 @@
 			"cat": {"sponsor": "Nhà tài trợ", "intro": "Mở đầu", "outro": "Kết thúc", "selfpromo": "Tự quảng cáo", "music_offtopic": "Nhạc ngoài chủ đề", "preview": "Xem trước", "filler": "Nội dung phụ"}
 		},
 		"formats": {
-			"kind": {"label": "Tải gì", "video": "Video", "audio": "Âm thanh", "subtitles": "Chỉ phụ đề"},
+			"kind": {"label": "Tải gì", "video": "Video + âm thanh", "videoOnly": "Video, không âm thanh", "audio": "Chỉ âm thanh", "subtitles": "Chỉ phụ đề"},
 			"profile": {
 				"calloutTitle": "Định dạng bắt đầu từ hồ sơ của bạn",
 				"calloutBody": "Hồ sơ đang dùng sẽ chọn sẵn các luồng cho bạn. Đổi hồ sơ từ menu, hoặc dùng biểu tượng bút chì để chỉnh một hồ sơ mà không rời khỏi lần tải này.",
@@ -378,13 +378,12 @@
 				"tag": "Hồ sơ",
 				"closestTag": "Gần nhất với hồ sơ",
 				"switchTitle": "Đổi hồ sơ?",
-				"switchBody": "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt của hồ sơ bạn chọn.",
-				"switchAction": "Đổi",
+				"switchBody": "Bạn đã thay đổi {{areas}} cho lượt tải này. Dù thế nào, “{{profile}}” vẫn chọn video và âm thanh. Giữ các thay đổi khác của bạn, hay đặt lại mọi thứ theo hồ sơ?",
+				"resetAll": "Đặt lại tất cả",
 				"edit": "Sửa {{name}}",
 				"updatedTitle": "Dùng hồ sơ đã cập nhật?",
-				"updatedBody": "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt mới của hồ sơ.",
-				"updatedAction": "Dùng",
-				"updatedKeep": "Giữ thay đổi của tôi",
+				"updatedBody": "Bạn đã thay đổi {{areas}} cho lượt tải này. Dù thế nào, hồ sơ đã cập nhật vẫn chọn video và âm thanh. Giữ các thay đổi khác của bạn, hay đặt lại mọi thứ theo hồ sơ?",
+				"keepEdits": "Giữ thay đổi của tôi",
 				"menuDescription": "Chỉ cho lượt tải này. Hồ sơ mặc định của bạn vẫn giữ nguyên."
 			},
 			"fit": {
@@ -395,12 +394,13 @@
 				"subtitlesMissing": "Hồ sơ của bạn yêu cầu phụ đề bằng: {{languages}}. Video này không có phụ đề đó.",
 				"webmUnavailable": "Hồ sơ của bạn yêu cầu WebM. Các luồng đã chọn của video này có {{codec}}, mà WebM không chứa được, nên loại tệp là Tự động."
 			},
-			"summary": {"lead": "Cũng từ {{profile}}:", "subtitlesOff": "tắt phụ đề", "subtitlesAdd_other": "Có {{count}} ngôn ngữ, thêm", "reviewAll": "Xem lại tất cả"},
-			"footer": {"reviewOptions": "Xem lại & tùy chọn", "download": "Tải xuống", "moreActions": "Thêm tùy chọn tải xuống", "addToQueue": "Thêm vào hàng đợi mà không bắt đầu", "subtitlesRequired": "Chọn ít nhất một ngôn ngữ phụ đề."},
+			"footer": {"download": "Tải xuống", "moreActions": "Thêm tùy chọn tải xuống", "addToQueue": "Thêm vào hàng đợi mà không bắt đầu", "subtitlesRequired": "Chọn ít nhất một ngôn ngữ phụ đề."},
 			"video": "Video",
 			"audio": "Âm thanh",
 			"noAudio": "Không có âm thanh",
-			"videoOnly": "Chỉ video",
+			"withAudio": "có âm thanh",
+			"resolutionUnknown": "Không rõ độ phân giải",
+			"marker": {"aiUpscaled": "Nâng cấp AI", "aiDubbed": "Lồng tiếng AI", "audioDescription": "Mô tả âm thanh", "spatialAudio": "Âm thanh không gian", "vr": "360° / VR", "enhancedBitrate": "Tốc độ bit nâng cao", "damaged": "Bị hỏng", "watermarked": "Có hình mờ"},
 			"keepAudio": "Giữ nguyên",
 			"keepAudioMeta": "Âm thanh tích hợp",
 			"audioOnly": "Chỉ âm thanh",
@@ -492,8 +492,19 @@
 			"done": "Xong",
 			"changed": "Khác với {{profile}}: {{areas}}. Chỉ áp dụng cho lượt tải này.",
 			"areas": {"format": "định dạng", "subtitles": "phụ đề", "sponsorBlock": "SponsorBlock", "extras": "bổ sung", "saveTo": "thư mục", "fileName": "tên tệp"},
-			"saveAsProfile": "Lưu thành hồ sơ…",
-			"reset": "Đặt lại",
+			"updateProfile": "Cập nhật “{{profile}}” với các thay đổi này",
+			"saveAsProfile": "Lưu thành hồ sơ mới",
+			"update": {
+				"title": "Cập nhật “{{profile}}”?",
+				"description": "Từ giờ, mọi lượt tải dùng hồ sơ này sẽ dùng cài đặt mới.",
+				"rows": {"format": "Định dạng"},
+				"builtinNote": "Đây là hồ sơ tích hợp. Bạn có thể khôi phục cài đặt gốc của nó trong thẻ Hồ sơ.",
+				"action": "Cập nhật hồ sơ",
+				"updated": "Đã cập nhật hồ sơ “{{name}}”"
+			},
+			"callout": {"title": "Mọi cài đặt khác giờ nằm trên trang này", "body": "Phụ đề, SponsorBlock, các mục bổ sung như hình thu nhỏ, thư mục và tên tệp trước đây là các bước riêng. Nhấp vào một hàng để thay đổi."},
+			"reset": "Hoàn tác thay đổi, quay lại “{{profile}}”",
+			"changedFrom": "Khác với {{profile}}:",
 			"save": {"title": "Lưu thành hồ sơ", "description": "Lưu các cài đặt này thành hồ sơ để bạn chọn lần sau. Hồ sơ Tải nhanh của bạn không thay đổi.", "nameLabel": "Tên hồ sơ", "action": "Lưu hồ sơ", "saved": "Đã lưu thành hồ sơ “{{name}}”", "failed": "Không thể lưu hồ sơ."},
 			"fileNameHint": "Mã thay thế: {title}, {id}, {uploader}, {date}, {resolution}. Phần mở rộng được thêm tự động.",
 			"nextTime": {"title": "Lượt tải này dùng cài đặt đã chỉnh sửa. Dùng chúng cho lần sau?", "action": "Lưu thành hồ sơ", "defaultName": "{{profile}} (đã sửa)"}
@@ -956,6 +967,8 @@
 			"resolutionBest": {"label": "Độ phân giải cao nhất", "reason": "không đặt giới hạn"},
 			"resolution": {"label": "Tối đa {{tier}}p", "reason": "giới hạn của bạn"},
 			"fps": {"label": "Tốc độ khung hình cao nhất", "reason": "chuyển động mượt hơn"},
+			"sitePreference": {"label": "Luồng không bị trang web hạ ưu tiên", "reason": "bỏ qua bản bị hỏng, có hình mờ và bản dự phòng"},
+			"original": {"label": "Luồng gốc, không phải luồng nâng cấp bằng AI", "reason": "bản nâng cấp có độ phân giải cao hơn nhưng không thêm chi tiết thật"},
 			"codec": {"label": "AV1, rồi VP9, rồi H.264", "reason": "nét nhất ở cùng dung lượng"},
 			"size": {"label": "Tệp lớn hơn", "reason": "nhiều chi tiết hơn với cùng cài đặt"},
 			"aacSmartTv": {"label": "Âm thanh AAC", "reason": "phát được ở mọi nơi"},
@@ -969,5 +982,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Luồng nâng cấp bằng AI", "description": "YouTube cung cấp một số video cũ ở các kích thước được tạo bằng AI. Bỏ qua sẽ giữ các luồng gốc; bạn vẫn có thể tự chọn một luồng đã nâng cấp.", "skip": "Bỏ qua", "allow": "Cho phép"},
 	"hdrPreference": {"label": "Video HDR", "description": "Tự động sẽ chọn HDR khi màn hình này hiển thị được HDR, nếu không thì chọn SDR. HDR trông bị nhạt trên màn hình thông thường.", "sdr": "SDR", "hdr": "HDR", "auto": "Tự động"}
 }

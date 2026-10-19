@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "ድረ-ገጽ"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "ፍቀድ"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube አንዳንድ የቆዩ ቪዲዮዎችን በAI በተሠሩ መጠኖች ያቀርባል። ዝለል የመጀመሪያዎቹን ዥረቶች ይይዛል፤ በAI የተሰፋውን ዥረት ግን አሁንም በእጅ መምረጥ ይችላሉ።"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "በAI የተሰፉ ዥረቶች"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "ዝለል"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "አስተያየት"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "ለWebM ተስማሚ"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "የመጀመሪያዎቹ ዥረቶች፣ በAI የተሰፉት አይደሉም"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "የተሰፋ ቅጂ ይረዝማል ግን እውነተኛ ዝርዝር አይጨምርም"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "እስከ {{tier}}p"
@@ -1520,6 +1544,14 @@ msgstr "ከፍተኛው ጥራት መጠን"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "ገደብ አልተቀመጠም"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "ጣቢያው ዝቅ ያላደረጋቸው ዥረቶች"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "የተበላሹ፣ የውሃ ምልክት ያላቸውን እና ተጠባባቂ ቅጂዎችን ይዘላል"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "ተጨማሪ የማውረድ አማራጮች"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "ግምገማ እና አማራጮች"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "ቢያንስ አንድ የንዑስ ርዕስ ቋንቋ ይምረጡ።"
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "ቀደም ሲል የተካተተ ድምጽ"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "ድምጽ"
+msgid "Audio only"
+msgstr "ድምፅ ብቻ"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "ንዑስ ርዕሶች ብቻ"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "ቪዲዮ"
+msgid "Video + audio"
+msgstr "ቪዲዮ + ድምፅ"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "ቪዲዮ፣ ያለ ድምፅ"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "ቅርጸቶችን በመጫን ላይ"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "ምርምሩ እስኪጠናቀቅ ይጠብቁ — playlist ዎች እና ፍለጋዎች ጊዜ ሊወስዱ ይችላሉ።"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "በAI የተተረጎመ"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "በAI የተሰፋ"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "የድምፅ መግለጫ"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "የተበላሸ"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "የተሻሻለ ቢትሬት"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "ስፓሻል ድምፅ"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "የውሃ ምልክት ያለው"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} አርትዕ"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "ለውጦቼን አቆይ"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "ለዚህ ማውረድ ብቻ። ነባሪ መገለጫዎ እንዳለ ይቆያል።"
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "አስቀድሞ የተመረጠ፣ ምንጭ፦"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "ቀይር"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "ሁሉንም ዳግም አስጀምር"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በሚመርጡት መገለጫ ቅንብሮች ይተካሉ።"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "ለዚህ ማውረድ {{areas}} ቀይረዋል። “{{profile}}” በማንኛውም ሁኔታ ቪዲዮውን እና ድምፁን ይመርጣል። ሌሎች ለውጦችዎን ያቆዩ ወይስ ሁሉንም ወደ መገለጫው ዳግም ያስጀምሩ?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "መገለጫ"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "ተጠቀም"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በመገለጫው አዲስ ቅንብሮች ይተካሉ።"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "ለውጦቼን አቆይ"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "ለዚህ ማውረድ {{areas}} ቀይረዋል። የተዘመነው መገለጫ በማንኛውም ሁኔታ ቪዲዮውን እና ድምፁን ይመርጣል። ሌሎች ለውጦችዎን ያቆዩ ወይስ ሁሉንም ወደ መገለጫው ዳግም ያስጀምሩ?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "ገደቡ እንዲነሳ Arroxy {{site}}ን እንደገና ከመጠየቁ በፊት እስከ {{time}} ይጠብቃል።"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "ጥራት መጠን አይታወቅም"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "የሚቀመጠው እንደ"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "ምርጥ ቅርጸቶችን ለእርስዎ እየፈለጉ…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "ከ{{profile}} ደግሞ፦"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "ሁሉንም ገምግም"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} ቋንቋ አለ፣ ጨምር"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} ቋንቋዎች አሉ፣ ጨምር"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "ንዑስ ርዕሶች ጠፍተዋል"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "ጠቅላላ"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "ቪዲዮ"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "ቪዲዮ ብቻ"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "ከድምፅ ጋር"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,8 +3444,8 @@ msgid "Caption files only"
 msgstr "የመግለጫ ጽሑፍ ፋይሎች ብቻ"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
-msgstr "ትርጉም ጽሑፎች ብቻ"
+msgid "Subtitles only"
+msgstr "ንዑስ ርዕሶች ብቻ"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "ንዑስ ርዕሶች"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "ንዑስ ርዕሶች፣ SponsorBlock፣ እንደ ድንክ ምስል ያሉ ተጨማሪዎች፣ አቃፊ እና የፋይል ስም ቀደም ሲል የተለያዩ ደረጃዎች ነበሩ። ለመቀየር አንድ ረድፍ ጠቅ ያድርጉ።"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "ሌሎቹ ቅንብሮች ሁሉ አሁን በዚህ ገጽ ላይ ናቸው"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "ከ{{profile}} ተቀይሯል፦ {{areas}}። ለዚህ ማውረድ ብቻ ይሠራል።"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "ከ{{profile}} ተቀይሯል፦"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "ይህ ማውረድ የተስተካከሉ ቅንብሮችን ተጠቅሟል። ለሚቀጥለው ጊዜ ይጠቀሙባቸው?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "ዳግም አስጀምር"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "ለውጦቹን ቀልብስ፣ ወደ “{{profile}}” ተመለስ"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "እንደ መገለጫ አስቀምጥ"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "እንደ መገለጫ አስቀምጥ…"
+msgid "Save as a new profile"
+msgstr "እንደ አዲስ መገለጫ አስቀምጥ"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "መገለጫ አዘምን"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "ይህ አብሮገነብ መገለጫ ነው። የመጀመሪያ ቅንብሮቹን በመገለጫዎች ትር ውስጥ መመለስ ይችላሉ።"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "ከአሁን ጀምሮ በዚህ መገለጫ የሚደረግ እያንዳንዱ ማውረድ አዲሶቹን ቅንብሮች ይጠቀማል።"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "ቅርጸት"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}” ይዘመን?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "መገለጫ “{{name}}” ተዘምኗል"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "“{{profile}}”ን በእነዚህ ለውጦች አዘምን"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

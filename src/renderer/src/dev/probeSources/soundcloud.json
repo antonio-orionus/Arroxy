@@ -1,0 +1,26 @@
+{
+	"source": {
+		"id": "soundcloud",
+		"url": "https://soundcloud.com/forss/flickermood",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "293",
+		"title": "Flickermood",
+		"thumbnail": "https://i1.sndcdn.com/artworks-000067273316-smsiqx-original.jpg",
+		"duration": 213.886,
+		"webpage_url": "https://soundcloud.com/forss/flickermood",
+		"extractor": "soundcloud",
+		"extractor_key": "Soundcloud",
+		"uploader": "Forss",
+		"upload_date": "20070922",
+		"timestamp": 1190472346,
+		"formats": [
+			{"format_id":"hls_aac_96k","ext":"m4a","resolution":"audio only","tbr":96,"vbr":0,"abr":96,"filesize_approx":2566632,"vcodec":"none","acodec":"mp4a.40.2","protocol":"m3u8_native","quality":-1},
+			{"format_id":"hls_aac_160k","ext":"m4a","resolution":"audio only","tbr":160,"vbr":0,"abr":160,"filesize_approx":4277720,"vcodec":"none","acodec":"mp4a.40.2","protocol":"m3u8_native","quality":0}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

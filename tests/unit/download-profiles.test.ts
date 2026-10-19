@@ -19,7 +19,7 @@ import {
 	setDownloadProfileEnabled
 } from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
-import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfile {
 	return {
@@ -107,7 +107,7 @@ describe('download profiles', () => {
 			expect(profile?.media).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: tier, fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
-			expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
 			expect(resolved.spec?.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
 			expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
 		}
@@ -118,7 +118,7 @@ describe('download profiles', () => {
 		expect(profile?.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '480', fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'small-file'})
-		expect(resolved.spec?.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
+		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
 		expect(resolved.spec?.formatSort).toBe('res:480,fps,hdr:sdr')
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
@@ -236,7 +236,7 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.intent).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
-		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
 		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
 		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})

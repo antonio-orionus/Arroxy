@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Trang web"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Cho phép"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube cung cấp một số video cũ ở các kích thước được tạo bằng AI. Bỏ qua sẽ giữ các luồng gốc; bạn vẫn có thể tự chọn một luồng đã nâng cấp."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Luồng nâng cấp bằng AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Bỏ qua"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Phản hồi"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "hợp với WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Luồng gốc, không phải luồng nâng cấp bằng AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "bản nâng cấp có độ phân giải cao hơn nhưng không thêm chi tiết thật"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Tối đa {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "Độ phân giải cao nhất"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "không đặt giới hạn"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Luồng không bị trang web hạ ưu tiên"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "bỏ qua bản bị hỏng, có hình mờ và bản dự phòng"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Thêm tùy chọn tải xuống"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Xem lại & tùy chọn"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Chọn ít nhất một ngôn ngữ phụ đề."
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "Âm thanh tích hợp"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Âm thanh"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "Chỉ phụ đề"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Video"
+msgid "Video + audio"
+msgstr "Video + âm thanh"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, không âm thanh"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "Đang tải định dạng"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Vui lòng chờ cho đến khi quá trình kiểm tra hoàn tất — playlist và tìm kiếm có thể mất một lúc."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Lồng tiếng AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Nâng cấp AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Mô tả âm thanh"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Bị hỏng"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Tốc độ bit nâng cao"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Âm thanh không gian"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Có hình mờ"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Sửa {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Giữ thay đổi của tôi"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Chỉ cho lượt tải này. Hồ sơ mặc định của bạn vẫn giữ nguyên."
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Chọn sẵn từ"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Đổi"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Đặt lại tất cả"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt của hồ sơ bạn chọn."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Bạn đã thay đổi {{areas}} cho lượt tải này. Dù thế nào, “{{profile}}” vẫn chọn video và âm thanh. Giữ các thay đổi khác của bạn, hay đặt lại mọi thứ theo hồ sơ?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Hồ sơ"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Dùng"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt mới của hồ sơ."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Giữ thay đổi của tôi"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Bạn đã thay đổi {{areas}} cho lượt tải này. Dù thế nào, hồ sơ đã cập nhật vẫn chọn video và âm thanh. Giữ các thay đổi khác của bạn, hay đặt lại mọi thứ theo hồ sơ?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy sẽ chờ đến {{time}} rồi mới hỏi lại {{site}}, để giới hạn kịp gỡ bỏ."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Không rõ độ phân giải"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Lưu thành"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Đang tìm định dạng tốt nhất cho bạn…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Cũng từ {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Xem lại tất cả"
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "Có {{count}} ngôn ngữ, thêm"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "tắt phụ đề"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Tổng cộng"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Video"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Chỉ video"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "có âm thanh"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "Chỉ tệp phụ đề"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "Chỉ phụ đề"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "phụ đề"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Phụ đề, SponsorBlock, các mục bổ sung như hình thu nhỏ, thư mục và tên tệp trước đây là các bước riêng. Nhấp vào một hàng để thay đổi."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Mọi cài đặt khác giờ nằm trên trang này"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Khác với {{profile}}: {{areas}}. Chỉ áp dụng cho lượt tải này."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Khác với {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Lượt tải này dùng cài đặt đã chỉnh sửa. Dùng chúng cho lần sau?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Đặt lại"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Hoàn tác thay đổi, quay lại “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "Lưu thành hồ sơ"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Lưu thành hồ sơ…"
+msgid "Save as a new profile"
+msgstr "Lưu thành hồ sơ mới"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Cập nhật hồ sơ"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Đây là hồ sơ tích hợp. Bạn có thể khôi phục cài đặt gốc của nó trong thẻ Hồ sơ."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Từ giờ, mọi lượt tải dùng hồ sơ này sẽ dùng cài đặt mới."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Định dạng"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Cập nhật “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Đã cập nhật hồ sơ “{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Cập nhật “{{profile}}” với các thay đổi này"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

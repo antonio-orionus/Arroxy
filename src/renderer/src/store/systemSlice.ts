@@ -672,6 +672,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'styleHintDismissed', {styleHintDismissed: true})
 		},
 
+		dismissReviewCallout: async () => {
+			await applyCommonPatchAsync(get, set, 'reviewCalloutDismissed', {reviewCalloutDismissed: true})
+		},
+
 		dismissVideoPartCallout: async () => {
 			await applyCommonPatchAsync(get, set, 'videoPartCalloutDismissed', {videoPartCalloutDismissed: true})
 		},

@@ -1,0 +1,19 @@
+vk: DASH video-only and muxed MP4s of the same height, codec named on some only
+ProtivoGunz - Хуёвая песня · 195 s · card says "320x240" · 10 formats
+
+Video (picked for Balanced 720p •):
+      SDR H.264
+240p  H.264 7.0 MB •
+144p  H.264 2.6 MB
+
+Audio:
+AAC: 53 kbps 1.2 MB • | 37 kbps 872.1 KB
+
+Profile picks:
+balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+best-quality: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+mp4-1080: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+audio-only: audio dash_sep-4 (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

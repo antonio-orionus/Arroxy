@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "وب‌سایت"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "اجازه دادن"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube برخی ویدیوهای قدیمی را در اندازه‌هایی ارائه می‌کند که با هوش مصنوعی ساخته است. «رد کردن» جریان‌های اصلی را نگه می‌دارد؛ همچنان می‌توانید یک جریان ارتقایافته را دستی انتخاب کنید."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "جریان‌های ارتقایافته با هوش مصنوعی"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "رد کردن"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "بازخورد"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "مناسب WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "جریان‌های اصلی، نه ارتقایافته با هوش مصنوعی"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "نسخهٔ ارتقایافته بلندتر است اما جزئیات واقعی اضافه نمی‌کند"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "تا {{tier}}p"
@@ -1520,6 +1544,14 @@ msgstr "بیشترین وضوح"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "بدون محدودیت"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "جریان‌هایی که سایت رتبه‌شان را پایین نمی‌آورد"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "نسخه‌های آسیب‌دیده، واترمارک‌دار و جایگزین را رد می‌کند"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "گزینه‌های بیشتر دانلود"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "مرور و گزینه‌ها"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "حداقل یک زبان زیرنویس انتخاب کنید."
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "صدای داخلی"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "صدا"
+msgid "Audio only"
+msgstr "فقط صدا"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "فقط زیرنویس"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "ویدیو"
+msgid "Video + audio"
+msgstr "ویدیو + صدا"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "ویدیو، بدون صدا"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "در حال بارگیری قالب‌ها"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "تا پایان بررسی صبر کنید — فهرست‌های پخش و جستجوها ممکن است زمان ببرند."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "دوبله با هوش مصنوعی"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "ارتقا با هوش مصنوعی"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "توصیف صوتی"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "آسیب‌دیده"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "نرخ بیت بهبودیافته"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "صدای فضایی"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "واترمارک‌دار"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "ویرایش {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "تغییراتم حفظ شود"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "فقط برای این دانلود. نمایهٔ پیش‌فرض شما همان‌طور می‌ماند."
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "پیش‌انتخاب‌شده از"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "تغییر"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "بازنشانی همه"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "تغییرات شما در این دانلود با تنظیمات نمایه‌ای که انتخاب می‌کنید جایگزین می‌شود."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "شما {{areas}} را برای این دانلود تغییر دادید. «{{profile}}» در هر صورت ویدیو و صدا را انتخاب می‌کند. تغییرات دیگرتان را نگه می‌دارید یا همه‌چیز را به نمایه بازنشانی می‌کنید؟"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "نمایه"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "استفاده شود"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "تغییرات شما در این دانلود با تنظیمات جدید نمایه جایگزین می‌شود."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "تغییراتم حفظ شود"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "شما {{areas}} را برای این دانلود تغییر دادید. نمایهٔ به‌روزشده در هر صورت ویدیو و صدا را انتخاب می‌کند. تغییرات دیگرتان را نگه می‌دارید یا همه‌چیز را به نمایه بازنشانی می‌کنید؟"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy تا {{time}} صبر می‌کند و بعد دوباره از {{site}} درخواست می‌کند تا محدودیت برداشته شود."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "وضوح نامشخص"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "ذخیره به‌صورت"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "در حال یافتن بهترین قالب‌ها برای شما…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "همچنین از {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "مرور همه"
-
-#. Plural form "one" for fa: used for counts like 0, 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} زبان موجود است، افزودن"
-
-#. Plural form "other" for fa: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} زبان موجود است، افزودن"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "زیرنویس خاموش"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "مجموع"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "ویدیو"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "فقط ویدیو"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "همراه صدا"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,7 +3444,7 @@ msgid "Caption files only"
 msgstr "فقط فایل‌های زیرنویس"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "فقط زیرنویس"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "زیرنویس‌ها"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "زیرنویس‌ها، SponsorBlock، موارد اضافی مثل تصویر بندانگشتی، پوشه و نام فایل قبلاً مرحله‌های جداگانه بودند. برای تغییر هر مورد روی ردیف آن کلیک کنید."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "همهٔ تنظیمات دیگر حالا در همین صفحه است"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "تغییر نسبت به {{profile}}: {{areas}}. فقط برای این دانلود اعمال می‌شود."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "تغییر نسبت به {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "این دانلود از تنظیمات ویرایش‌شده استفاده کرد. دفعهٔ بعد هم از آن‌ها استفاده شود؟"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "بازنشانی"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "واگرد تغییرات، بازگشت به «{{profile}}»"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "ذخیره به‌عنوان نمایه"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "ذخیره به‌عنوان نمایه…"
+msgid "Save as a new profile"
+msgstr "ذخیره به‌عنوان نمایهٔ جدید"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "به‌روزرسانی نمایه"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "این یک نمایهٔ داخلی است. می‌توانید تنظیمات اصلی آن را در زبانهٔ «نمایه‌ها» بازگردانید."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "از این به بعد، هر دانلود با این نمایه از تنظیمات جدید استفاده می‌کند."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "قالب"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "«{{profile}}» به‌روز شود؟"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "نمایهٔ «{{name}}» به‌روز شد"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "به‌روزرسانی «{{profile}}» با این تغییرات"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

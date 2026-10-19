@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "เว็บไซต์"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "อนุญาต"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube มีวิดีโอเก่าบางรายการในขนาดที่สร้างด้วย AI การข้ามจะคงสตรีมต้นฉบับไว้ และคุณยังเลือกสตรีมที่อัปสเกลเองได้"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "สตรีมที่อัปสเกลด้วย AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "ข้าม"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "ข้อเสนอแนะ"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "เข้ากับ WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "สตรีมต้นฉบับ ไม่ใช่สตรีมที่อัปสเกลด้วย AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "สำเนาที่อัปสเกลมีความละเอียดสูงกว่า แต่ไม่ได้เพิ่มรายละเอียดจริง"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "สูงสุด {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "ความละเอียดสูงสุด"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "ไม่จำกัด"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "สตรีมที่เว็บไซต์ไม่ได้ลดลำดับ"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "ข้ามสำเนาที่เสียหาย มีลายน้ำ และสำเนาสำรอง"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "ตัวเลือกดาวน์โหลดเพิ่มเติม"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "ตรวจดูและตัวเลือก"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "เลือกภาษาคำบรรยายอย่างน้อยหนึ่งภาษา"
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "เสียงในตัว"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "เสียง"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "เฉพาะคำบรรยาย"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "วิดีโอ"
+msgid "Video + audio"
+msgstr "วิดีโอ + เสียง"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "วิดีโอ ไม่มีเสียง"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "กำลังโหลดรูปแบบ"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "โปรดรอให้การตรวจสอบเสร็จ — เพลย์ลิสต์และการค้นหาอาจใช้เวลาสักครู่"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "พากย์ด้วย AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "อัปสเกลด้วย AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "เสียงบรรยายภาพ"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "เสียหาย"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "บิตเรตที่ปรับปรุงแล้ว"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "เสียงรอบทิศทาง"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "มีลายน้ำ"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "แก้ไข {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "เก็บการเปลี่ยนแปลงไว้"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "สำหรับการดาวน์โหลดนี้เท่านั้น โปรไฟล์เริ่มต้นของคุณยังคงเหมือนเดิม"
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "เลือกไว้ล่วงหน้าจาก"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "สลับ"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "รีเซ็ตทั้งหมด"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "การเปลี่ยนแปลงที่คุณทำกับการดาวน์โหลดนี้จะถูกแทนที่ด้วยการตั้งค่าของโปรไฟล์ที่คุณเลือก"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "คุณเปลี่ยน {{areas}} สำหรับการดาวน์โหลดนี้ ไม่ว่าแบบใด “{{profile}}” จะเลือกวิดีโอและเสียงให้ จะเก็บการเปลี่ยนแปลงอื่นไว้ หรือรีเซ็ตทุกอย่างตามโปรไฟล์"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "โปรไฟล์"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "ใช้"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "การเปลี่ยนแปลงที่คุณทำกับการดาวน์โหลดนี้จะถูกแทนที่ด้วยการตั้งค่าใหม่ของโปรไฟล์"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "เก็บการเปลี่ยนแปลงของฉัน"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "คุณเปลี่ยน {{areas}} สำหรับการดาวน์โหลดนี้ ไม่ว่าแบบใด โปรไฟล์ที่อัปเดตแล้วจะเลือกวิดีโอและเสียงให้ จะเก็บการเปลี่ยนแปลงอื่นไว้ หรือรีเซ็ตทุกอย่างตามโปรไฟล์"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy จะรอจนถึง {{time}} ก่อนส่งคำขอไปยัง {{site}} อีกครั้ง เพื่อให้การจำกัดคลายลง"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "ไม่ทราบความละเอียด"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "บันทึกเป็น"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "กำลังค้นหารูปแบบที่ดีที่สุดให้คุณ…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "จาก {{profile}} ด้วย:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "ตรวจดูทั้งหมด"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "มี {{count}} ภาษาให้เลือก เพิ่ม"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "ปิดคำบรรยาย"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "ทั้งหมด"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "วิดีโอ"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "เฉพาะวิดีโอ"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "มีเสียง"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "เฉพาะไฟล์คำบรรยาย"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "เฉพาะคำบรรยาย"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "คำบรรยาย"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "คำบรรยาย SponsorBlock ส่วนเสริมอย่างภาพขนาดย่อ โฟลเดอร์ และชื่อไฟล์ เคยเป็นขั้นตอนแยกกัน คลิกแถวเพื่อเปลี่ยน"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "ตอนนี้การตั้งค่าอื่นทั้งหมดอยู่ในหน้านี้แล้ว"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "เปลี่ยนจาก {{profile}}: {{areas}} ใช้กับการดาวน์โหลดนี้เท่านั้น"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "เปลี่ยนจาก {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "การดาวน์โหลดนี้ใช้การตั้งค่าที่แก้ไข ใช้ในครั้งหน้าด้วยไหม"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "รีเซ็ต"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "เลิกทำการเปลี่ยนแปลง กลับไปใช้ “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "บันทึกเป็นโปรไฟล์"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "บันทึกเป็นโปรไฟล์…"
+msgid "Save as a new profile"
+msgstr "บันทึกเป็นโปรไฟล์ใหม่"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "อัปเดตโปรไฟล์"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "นี่คือโปรไฟล์ที่มีในตัว คุณคืนค่าการตั้งค่าเดิมได้ในแท็บโปรไฟล์"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "จากนี้ไป ทุกการดาวน์โหลดที่ใช้โปรไฟล์นี้จะใช้การตั้งค่าใหม่"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "รูปแบบ"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "อัปเดต “{{profile}}” ไหม"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "อัปเดตโปรไฟล์ “{{name}}” แล้ว"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "อัปเดต “{{profile}}” ด้วยการเปลี่ยนแปลงเหล่านี้"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

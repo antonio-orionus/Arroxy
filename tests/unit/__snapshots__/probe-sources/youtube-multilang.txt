@@ -1,0 +1,25 @@
+youtube-multilang: YouTube with several audio languages, DRC twins, AV1/VP9/H.264 at most heights
+Lose 150 Lbs Together, Win $250,000 · 2596 s · card says "1280x720" · 137 formats
+
+Video (picked for Balanced 720p •):
+       SDR AV1         SDR VP9                        SDR H.264
+1080p  AV1 551.9 MB    VP9 [Enhanced bitrate] 1.8 GB  H.264 1.5 GB
+720p   AV1 331.3 MB •  VP9 1.0 GB                     H.264 813.6 MB
+480p   AV1 191.7 MB    VP9 564.7 MB                   H.264 453.3 MB
+360p   AV1 113.4 MB    VP9 317.2 MB                   H.264 250.2 MB
+240p   AV1 57.2 MB     VP9 177.7 MB                   H.264 110.1 MB
+144p   AV1 27.2 MB     VP9 297.5 MB                   H.264 59.1 MB
+
+Audio:
+tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, Chinese (Simplified), Chinese (Traditional), Vietnamese, Japanese, English original (default), German, French, Portuguese
+Opus: 128 kbps 39.6 MB | 65 kbps 20.2 MB | 50 kbps 15.5 MB
+AAC: 129 kbps 40.1 MB • | 49 kbps 22.05 kHz 15.1 MB
+
+Profile picks:
+balanced: 398 (1280x720, mp4) + audio 140-20 (audio only, m4a)
+best-quality: 399 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
+mp4-1080: 270 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
+audio-only: audio 140-20 (audio only, m4a)
+
+Subtitles: ar, bn, zh-Hans, zh-Hant, en, fr, de, hi, id, it, ja, ko, ml, mr, fa, pl, pt, pa, ru, es, ta, te, th, tr, vi
+Auto captions: en-orig

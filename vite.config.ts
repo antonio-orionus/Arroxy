@@ -86,7 +86,9 @@ export default defineConfig({
 			'**/CHANGELOG.md',
 			'**/*.html',
 			'**/*.json5',
-			'skills-lock.json'
+			'skills-lock.json',
+			// Captured yt-dlp probes (`bun run probe-sources:capture`): one format per line, as written.
+			'src/renderer/src/dev/probeSources/*.json'
 		]
 	},
 	lint: {

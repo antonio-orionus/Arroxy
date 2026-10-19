@@ -109,6 +109,20 @@ export function changedFromProfile(baseline: WizardSettingsSnapshot, current: Wi
 	return changed
 }
 
+// `target` with the settings of `areas` taken from `source`: a profile switch
+// that keeps the user's edits. The streams always come from `target`.
+export function withAreasFrom(target: WizardSettingsSnapshot, source: WizardSettingsSnapshot, areas: readonly ChangedArea[]): WizardSettingsSnapshot {
+	const keep = (area: ChangedArea): boolean => areas.includes(area)
+	return {
+		...target,
+		...(keep('subtitles') ? {subtitleLanguages: [...source.subtitleLanguages], subtitleMode: source.subtitleMode, subtitleFormat: source.subtitleFormat} : {}),
+		...(keep('sponsorBlock') ? {sponsorBlockMode: source.sponsorBlockMode, sponsorBlockCategories: [...source.sponsorBlockCategories]} : {}),
+		...(keep('extras') ? {embed: {...source.embed}} : {}),
+		...(keep('saveTo') ? {outputDir: source.outputDir, subfolderEnabled: source.subfolderEnabled, subfolderName: source.subfolderName} : {}),
+		...(keep('fileName') ? {filenameTemplate: source.filenameTemplate} : {})
+	}
+}
+
 export interface SaveProfileContext {
 	id: string
 	name: string
@@ -158,8 +172,10 @@ function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot
 	const fileType = chosenFileType === 'auto' && goal === 'best-picture' && audioChanged && pickedAac ? 'mp4' : chosenFileType
 	// A concrete pick doesn't say whether HDR was wanted, so the profile's own choice stays.
 	const hdr = baseVideo?.hdr ? {hdr: baseVideo.hdr} : {}
-	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType, ...hdr}
-	return {kind: 'video-audio', goal, tier, fileType, ...hdr, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
+	// Nor whether upscaled streams were wanted: the profile's choice stays too.
+	const aiUpscaled = baseVideo?.aiUpscaled ? {aiUpscaled: baseVideo.aiUpscaled} : {}
+	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType, ...hdr, ...aiUpscaled}
+	return {kind: 'video-audio', goal, tier, fileType, ...hdr, ...aiUpscaled, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
 }
 
 function baseLanguageCode(trackKey: string): string {

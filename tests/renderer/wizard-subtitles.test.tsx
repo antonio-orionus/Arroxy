@@ -367,6 +367,7 @@ function singleState(overrides: Record<string, unknown> = {}): void {
 		wizardSubtitleLanguages: [],
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
+		wizardPart: null,
 		...overrides
 	})
 }
@@ -440,6 +441,62 @@ describe('Format screen — Subtitles kind', () => {
 		fireEvent.click(radio(/^WAV/))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
 		expect(radio(/^WAV/).getAttribute('aria-checked')).toBe('true')
+	})
+})
+
+// Format's highlighted action is Continue to Review, so a user who keeps
+// pressing it sees every option first; Download beside it is the shortcut.
+describe('Format screen — footer', () => {
+	it('offers Continue as its primary action and the Download split as a shortcut', () => {
+		singleState({wizardStep: 'formats'})
+		render(<StepFormatSelect />)
+		expect(screen.getByTestId('btn-format-continue')).toBeTruthy()
+		expect(screen.getByTestId('btn-download')).toBeTruthy()
+		expect(screen.getByTestId('btn-download-menu')).toBeTruthy()
+		expect(screen.queryByTestId('btn-review-options')).toBeNull()
+	})
+
+	it('Download starts the download without opening Review', () => {
+		singleState({wizardStep: 'formats'})
+		const original = useAppStore.getState().addAndDownloadImmediately
+		const addAndDownloadImmediately = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({addAndDownloadImmediately})
+		try {
+			render(<StepFormatSelect />)
+			fireEvent.click(screen.getByTestId('btn-download'))
+			expect(addAndDownloadImmediately).toHaveBeenCalledOnce()
+			expect(useAppStore.getState().wizardStep).toBe('formats')
+		} finally {
+			useAppStore.setState({addAndDownloadImmediately: original})
+		}
+	})
+
+	// Extras holds the thumbnail and description switches, which a closed row hid.
+	it('Continue opens Review with Extras unfolded', () => {
+		singleState({wizardStep: 'formats', wizardReviewRow: 'subtitles'})
+		render(<StepFormatSelect />)
+		fireEvent.click(screen.getByTestId('btn-format-continue'))
+		expect(useAppStore.getState().wizardStep).toBe('confirm')
+		expect(useAppStore.getState().wizardReviewRow).toBe('extras')
+	})
+
+	it('Continue is disabled in Subtitles with no language', () => {
+		singleState({wizardStep: 'formats', wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
+		render(<StepFormatSelect />)
+		expect(screen.getByTestId('btn-format-continue')).toHaveAttribute('aria-disabled', 'true')
+	})
+
+	it('Continue is disabled while the part is invalid', () => {
+		singleState({wizardStep: 'formats', wizardDuration: 120, wizardPart: {start: '1:00', end: '0:10', exactCut: false}})
+		render(<StepFormatSelect />)
+		expect(screen.getByTestId('btn-format-continue')).toHaveAttribute('aria-disabled', 'true')
+	})
+
+	it('Continue stays enabled when only Review settings block Download', () => {
+		singleState({wizardStep: 'formats', wizardOutputDir: '', wizardFilenameTemplate: ''})
+		render(<StepFormatSelect />)
+		expect(screen.getByTestId('btn-format-continue')).not.toHaveAttribute('aria-disabled', 'true')
+		expect(screen.getByTestId('btn-download')).toHaveAttribute('aria-disabled', 'true')
 	})
 })
 

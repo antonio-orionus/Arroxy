@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'
 import {preparedJobSchema, type EmbedOptions} from '@shared/preparedJob.js'
-import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const EMBED_ALL: EmbedOptions = {chapters: true, metadata: true, thumbnail: true, description: true, thumbnailSidecar: true}
@@ -65,6 +65,13 @@ describe('prepareJob', () => {
 	})
 
 	describe('audio-convert kind', () => {
+		it('carries the stream to convert, when one audio language of several was chosen', () => {
+			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, formatId: '251-es'})
+			if (job.kind !== 'audio-convert') throw new Error('unreachable')
+			expect(job.formatId).toBe('251-es')
+			expect(preparedJobSchema.parse(job)).toEqual(job)
+		})
+
 		it('builds when audioConvert present and formatId absent', () => {
 			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, filenameTemplate: '{title} [{id}]'})
 			expect(job).toEqual({kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF})
@@ -104,7 +111,7 @@ describe('prepareJob', () => {
 				extractor: 'youtube',
 				extractorKey: 'Youtube',
 				intent: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
-				formatSelector: COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR,
+				formatSelector: skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR),
 				formatSort: 'res:1080,fps,hdr:sdr',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
@@ -143,7 +150,7 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toBe('bestvideo')
+			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo'))
 			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr')
 		})
 

@@ -94,6 +94,9 @@ export const notify = {
 	profileSaved(name: string): void {
 		emit('info', i18next.t('wizard.review.save.saved', {name}), 'profile-saved')
 	},
+	profileUpdated(name: string): void {
+		emit('info', i18next.t('wizard.review.update.updated', {name}), 'profile-saved')
+	},
 	profileSaveFailed(error: unknown): void {
 		console.error('[profiles] save failed', error)
 		emit('error', i18next.t('wizard.review.save.failed'), 'profile-saved')

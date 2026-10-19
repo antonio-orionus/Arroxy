@@ -430,7 +430,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Wstęp", "outro": "Zakończenie", "selfpromo": "Autopromocja", "music_offtopic": "Muzyka niezwiązana z tematem", "preview": "Zapowiedź", "filler": "Wypełniacz"}
 		},
 		"formats": {
-			"kind": {"label": "Co pobrać", "video": "Wideo", "audio": "Dźwięk", "subtitles": "Tylko napisy"},
+			"kind": {"label": "Co pobrać", "video": "Wideo + dźwięk", "videoOnly": "Wideo bez dźwięku", "audio": "Tylko dźwięk", "subtitles": "Tylko napisy"},
 			"profile": {
 				"calloutTitle": "Formaty zaczynają od Twojego profilu",
 				"calloutBody": "Aktywny profil wstępnie wybiera strumienie za Ciebie. Zmień profil w menu albo użyj ołówka, by dostroić jeden z nich bez opuszczania tego pobierania.",
@@ -438,13 +438,12 @@
 				"tag": "Profil",
 				"closestTag": "Najbliższy profilowi",
 				"switchTitle": "Przełączyć profil?",
-				"switchBody": "Twoje zmiany w tym pobraniu zostaną zastąpione ustawieniami wybranego profilu.",
-				"switchAction": "Przełącz",
+				"switchBody": "Zmieniono {{areas}} dla tego pobrania. „{{profile}}” i tak wybiera wideo i dźwięk. Zachować pozostałe zmiany czy przywrócić wszystko do ustawień profilu?",
+				"resetAll": "Resetuj wszystko",
 				"edit": "Edytuj {{name}}",
 				"updatedTitle": "Użyć zaktualizowanego profilu?",
-				"updatedBody": "Twoje zmiany w tym pobraniu zostaną zastąpione nowymi ustawieniami profilu.",
-				"updatedAction": "Użyj",
-				"updatedKeep": "Zachowaj moje zmiany",
+				"updatedBody": "Zmieniono {{areas}} dla tego pobrania. Zaktualizowany profil i tak wybiera wideo i dźwięk. Zachować pozostałe zmiany czy przywrócić wszystko do ustawień profilu?",
+				"keepEdits": "Zachowaj moje zmiany",
 				"menuDescription": "Tylko dla tego pobrania. Twój domyślny profil pozostaje bez zmian."
 			},
 			"fit": {
@@ -455,20 +454,13 @@
 				"subtitlesMissing": "Twój profil wymaga napisów w językach: {{languages}}. To wideo ich nie ma.",
 				"webmUnavailable": "Twój profil wymaga WebM. Wybrane strumienie tego filmu zawierają {{codec}}, którego WebM nie obsługuje, więc typ pliku to Automatycznie."
 			},
-			"summary": {
-				"lead": "Także z {{profile}}:",
-				"subtitlesOff": "napisy wyłączone",
-				"subtitlesAdd_one": "Dostępny język: {{count}}, dodaj",
-				"subtitlesAdd_few": "Dostępne języki: {{count}}, dodaj",
-				"subtitlesAdd_many": "Dostępne języki: {{count}}, dodaj",
-				"subtitlesAdd_other": "Dostępne języki: {{count}}, dodaj",
-				"reviewAll": "Sprawdź wszystko"
-			},
-			"footer": {"reviewOptions": "Sprawdź i opcje", "download": "Pobierz", "moreActions": "Więcej opcji pobierania", "addToQueue": "Dodaj do kolejki bez uruchamiania", "subtitlesRequired": "Wybierz co najmniej jeden język napisów."},
+			"footer": {"download": "Pobierz", "moreActions": "Więcej opcji pobierania", "addToQueue": "Dodaj do kolejki bez uruchamiania", "subtitlesRequired": "Wybierz co najmniej jeden język napisów."},
 			"video": "Wideo",
 			"audio": "Dźwięk",
 			"noAudio": "Bez dźwięku",
-			"videoOnly": "Tylko wideo",
+			"withAudio": "z dźwiękiem",
+			"resolutionUnknown": "Nieznana rozdzielczość",
+			"marker": {"aiUpscaled": "Przeskalowany przez AI", "aiDubbed": "Dubbing AI", "audioDescription": "Audiodeskrypcja", "spatialAudio": "Dźwięk przestrzenny", "vr": "360° / VR", "enhancedBitrate": "Wyższa przepływność", "damaged": "Uszkodzony", "watermarked": "Ze znakiem wodnym"},
 			"keepAudio": "Pozostaw bez zmian",
 			"keepAudioMeta": "Wbudowany dźwięk",
 			"audioOnly": "Tylko dźwięk",
@@ -563,8 +555,19 @@
 			"done": "Gotowe",
 			"changed": "Zmieniono względem {{profile}}: {{areas}}. Dotyczy tylko tego pobrania.",
 			"areas": {"format": "format", "subtitles": "napisy", "sponsorBlock": "SponsorBlock", "extras": "dodatki", "saveTo": "folder", "fileName": "nazwa pliku"},
-			"saveAsProfile": "Zapisz jako profil…",
-			"reset": "Resetuj",
+			"updateProfile": "Zaktualizuj „{{profile}}” tymi zmianami",
+			"saveAsProfile": "Zapisz jako nowy profil",
+			"update": {
+				"title": "Zaktualizować „{{profile}}”?",
+				"description": "Od teraz każde pobieranie z tym profilem będzie używać nowych ustawień.",
+				"rows": {"format": "Format"},
+				"builtinNote": "To jest wbudowany profil. Jego oryginalne ustawienia możesz przywrócić na karcie Profile.",
+				"action": "Zaktualizuj profil",
+				"updated": "Zaktualizowano profil „{{name}}”"
+			},
+			"callout": {"title": "Wszystkie pozostałe ustawienia są teraz na tej stronie", "body": "Napisy, SponsorBlock, dodatki takie jak miniatura, folder i nazwa pliku były wcześniej osobnymi krokami. Kliknij wiersz, aby go zmienić."},
+			"reset": "Cofnij zmiany, wróć do „{{profile}}”",
+			"changedFrom": "Zmieniono względem {{profile}}:",
 			"save": {
 				"title": "Zapisz jako profil",
 				"description": "Zapisuje te ustawienia jako profil, który możesz wybrać następnym razem. Twój profil Szybkie pobieranie pozostaje bez zmian.",
@@ -1110,6 +1113,8 @@
 			"resolutionBest": {"label": "Najwyższa rozdzielczość", "reason": "brak limitu"},
 			"resolution": {"label": "Do {{tier}}p", "reason": "twój limit"},
 			"fps": {"label": "Najwyższa liczba klatek", "reason": "płynniejszy ruch"},
+			"sitePreference": {"label": "Strumienie nieobniżone przez witrynę", "reason": "pomija kopie uszkodzone, ze znakiem wodnym i zapasowe"},
+			"original": {"label": "Oryginalne strumienie, nie przeskalowane przez AI", "reason": "przeskalowana kopia jest wyższa, ale nie dodaje prawdziwych szczegółów"},
 			"codec": {"label": "AV1, potem VP9, potem H.264", "reason": "najostrzejszy przy danym rozmiarze"},
 			"size": {"label": "Większy plik", "reason": "więcej szczegółów przy tych samych ustawieniach"},
 			"aacSmartTv": {"label": "Dźwięk AAC", "reason": "działa wszędzie"},
@@ -1123,5 +1128,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "najlepszy obraz", "smartTv": "działa na każdym urządzeniu"}, "fileType": {"auto": "typ pliku ze strumieni", "explicit": "zapis jako .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Strumienie przeskalowane przez AI", "description": "YouTube oferuje niektóre stare filmy w rozmiarach wygenerowanych przez AI. „Pomiń” zachowuje oryginalne strumienie; nadal możesz ręcznie wybrać przeskalowany.", "skip": "Pomiń", "allow": "Zezwól"},
 	"hdrPreference": {"label": "Wideo HDR", "description": "Automatycznie wybiera HDR, jeśli ten ekran potrafi go wyświetlić, a w przeciwnym razie SDR. HDR wygląda blado na zwykłych ekranach.", "sdr": "SDR", "hdr": "HDR", "auto": "Automatycznie"}
 }

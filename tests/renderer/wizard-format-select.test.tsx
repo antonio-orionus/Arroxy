@@ -1,10 +1,12 @@
 // @vitest-environment jsdom
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILES_PREFS} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings, DownloadProfile, FormatOption} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
+import {StepReview} from '@renderer/components/wizard/StepReview.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false},
@@ -111,6 +113,64 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
 	})
 })
 
+describe('wizard slice — Video, no audio', () => {
+	it('sets the picked audio aside, and brings the same pick back on Video + audio', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
+
+		useAppStore.getState().setFormatMode('video-only')
+		expect(useAppStore.getState()).toMatchObject({selectedVideoFormatId: '137', audioSelection: {kind: 'none'}})
+
+		useAppStore.getState().setFormatMode('video')
+		expect(useAppStore.getState()).toMatchObject({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
+	})
+
+	it('trades a stream with its own audio for the silent one, and stays silent on a new pick', () => {
+		useAppStore.setState({selectedVideoFormatId: '22', audioSelection: {kind: 'none'}})
+
+		useAppStore.getState().setFormatMode('video-only')
+		expect(useAppStore.getState().selectedVideoFormatId).toBe('137')
+
+		useAppStore.getState().setSelectedVideoFormatId('137')
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
+	})
+})
+
+describe('wizard slice — Audio only profile, then Video', () => {
+	it('lands on what the default profile would pick, not the tallest stream', () => {
+		useAppStore.setState(profilePatch(builtin('audio-only'), useAppStore.getState()))
+
+		useAppStore.getState().setFormatMode('video')
+
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '22'})
+	})
+})
+
+describe('wizard slice — switching profile after edits', () => {
+	function editThenSwitch(keepEdits: boolean): void {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardWriteThumbnail: true, wizardSponsorBlockMode: 'remove', selectedVideoFormatId: '22'})
+		useAppStore.setState({settings: {...SETTINGS, profiles: DEFAULT_DOWNLOAD_PROFILES_PREFS}})
+		useAppStore.getState().chooseWizardProfile({kind: 'builtin', id: 'balanced'}, keepEdits)
+	}
+
+	it('Keep my changes: the new profile picks the streams, the other edits stay and show as changed', () => {
+		editThenSwitch(true)
+
+		const state = useAppStore.getState()
+		expect(state.wizardProfile?.id).toBe('balanced')
+		expect(state).toMatchObject({wizardWriteThumbnail: true, wizardSponsorBlockMode: 'remove'})
+		expect(wizardChangedAreas(state)).toEqual(['sponsorBlock', 'extras'])
+	})
+
+	it('Reset all: everything comes from the new profile', () => {
+		editThenSwitch(false)
+
+		const state = useAppStore.getState()
+		expect(state).toMatchObject({wizardWriteThumbnail: false, wizardSponsorBlockMode: 'off'})
+		expect(wizardChangedAreas(state)).toEqual([])
+	})
+})
+
 describe('wizard slice — Video / Audio / Subtitles switch', () => {
 	it('Audio drops the video and keeps the audio track', () => {
 		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
@@ -193,6 +253,27 @@ describe('wizard slice — profiles', () => {
 		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({media: builtin('hd-1080').media}), false)
 	})
 
+	it('Update profile saves the edits into the profile the run started from, keeping its id, name and creation date', async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const base = builtin('hd-1080')
+		useAppStore.setState({...profilePatch(base, useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardWriteThumbnail: true})
+
+		await expect(useAppStore.getState().updateWizardProfile()).resolves.toBe(true)
+
+		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: base.id, name: base.name, createdAt: base.createdAt, enabled: base.enabled, embed: expect.objectContaining({thumbnailSidecar: true})}), false)
+		expect(useAppStore.getState().wizardProfile?.embed.thumbnailSidecar).toBe(true)
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual([])
+	})
+
+	it('Update profile does nothing without edits', async () => {
+		const saveDownloadProfile = vi.fn()
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+
+		await expect(useAppStore.getState().updateWizardProfile()).resolves.toBe(false)
+		expect(saveDownloadProfile).not.toHaveBeenCalled()
+	})
+
 	it('Save as profile refuses an empty name or no edits', async () => {
 		const saveDownloadProfile = vi.fn()
 		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
@@ -201,5 +282,70 @@ describe('wizard slice — profiles', () => {
 		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
 		await expect(useAppStore.getState().saveWizardAsProfile('  ')).resolves.toBe(false)
 		expect(saveDownloadProfile).not.toHaveBeenCalled()
+	})
+})
+
+describe('Review — changed from profile', () => {
+	it('offers updating the profile or saving a new one', () => {
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), selectedVideoFormatId: '137', wizardWriteThumbnail: true})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-update-profile')).toHaveAttribute('aria-label', expect.stringContaining('Full HD 1080p'))
+		expect(screen.getByTestId('review-save-as-profile')).toBeTruthy()
+	})
+
+	it('Update shows what the profile will change, then saves into it', async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardWriteThumbnail: true})
+		render(<StepReview />)
+
+		fireEvent.click(screen.getByTestId('review-update-profile'))
+		const row = screen.getByTestId('profile-diff-extras')
+		// Only what changes: the extras the profile already has are not repeated.
+		expect(row.textContent).toContain('+ Save thumbnail')
+		expect(row.textContent).not.toContain('Embed chapters')
+		expect(screen.queryByTestId('profile-diff-format')).toBeNull()
+
+		fireEvent.click(screen.getByTestId('update-profile-confirm'))
+		await waitFor(() => expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: 'hd-1080', embed: expect.objectContaining({thumbnailSidecar: true})}), false))
+		await waitFor(() => expect(screen.queryByTestId('update-profile-dialog')).toBeNull())
+	})
+})
+
+// Returning users knew Subtitles, SponsorBlock, Output and Folder as separate
+// steps; Review now holds them all on one page.
+describe('Review — one-page callout', () => {
+	function seedReview(common: Partial<AppSettings['common']>): ReturnType<typeof vi.fn> {
+		const dismissReviewCallout = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), settings: {...SETTINGS, common: {...SETTINGS.common, ...common}}, dismissReviewCallout})
+		return dismissReviewCallout
+	}
+
+	it('shows once to a user who has downloaded before', () => {
+		seedReview({successfulDownloadCount: 3})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-page-callout')).toBeTruthy()
+	})
+
+	it('stays hidden for a new user or after it was closed', () => {
+		seedReview({successfulDownloadCount: 0})
+		const {unmount} = render(<StepReview />)
+		expect(screen.queryByTestId('review-page-callout')).toBeNull()
+		unmount()
+		seedReview({successfulDownloadCount: 3, reviewCalloutDismissed: true})
+		render(<StepReview />)
+		expect(screen.queryByTestId('review-page-callout')).toBeNull()
+	})
+
+	it('retires when closed or when the user opens a row', () => {
+		const dismiss = seedReview({successfulDownloadCount: 3})
+		const {unmount} = render(<StepReview />)
+		fireEvent.click(screen.getByTestId('review-page-callout-dismiss'))
+		expect(dismiss).toHaveBeenCalledOnce()
+		unmount()
+		const dismissOnRow = seedReview({successfulDownloadCount: 3})
+		render(<StepReview />)
+		fireEvent.click(screen.getByTestId('review-row-saveTo-toggle'))
+		expect(dismissOnRow).toHaveBeenCalledOnce()
 	})
 })

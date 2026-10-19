@@ -219,7 +219,7 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	it('returns the order that made the pick, for the Why this one tip', () => {
 		const smartTv = resolve(builtin('mp4-720')).order
 		expect(smartTv?.goal).toBe('smart-tv')
-		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
 		expect(resolve(builtin('balanced')).order?.audio).toEqual([{kind: 'native'}])
 		expect(resolve(builtin('audio-only')).order).toBeNull()
 		expect(resolve(builtin('subtitles-only')).order).toBeNull()

@@ -64,8 +64,9 @@ graph TD
   BOOT[Startup queue restore] --> MAIN
 ```
 
-The dotted edge from Format is Download pressed on the Format screen, which
-skips Review. Dotted edges into Confirm are `skipToConfirm`. The dotted Profile
+The dotted edge from Format is the Download shortcut on the Format screen,
+which skips Review; the highlighted Continue goes to Review. Dotted edges into
+Confirm are `skipToConfirm`. The dotted Profile
 picker edge sets the active profile that Quick Download uses.
 
 ## Entry points
@@ -109,7 +110,8 @@ Step list: `wizardStepNameSchema` in `src/shared/schemas.ts`. Visibility:
 
 - **Single:** url → formats (the Format screen) → confirm (rendered as the
   Review screen). Format lists every stream the probe found, pre-selected from
-  the active download profile, with the Video / Audio / Subtitles switch;
+  the active download profile, with the Video + audio / Video, no audio /
+  Audio only / Subtitles only switch;
   Review holds subtitles, SponsorBlock, extras, folder and file name as rows
   that open in place. Download works from both. A part of the video (a time
   range) is picked on the Format screen and travels on the job as

@@ -407,7 +407,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
 		},
 		"formats": {
-			"kind": {"label": "Maal buufachuu barbaaddaa", "video": "Viidiyoo", "audio": "Sagalee", "subtitles": "Axxiinni qofa"},
+			"kind": {"label": "Maal buufachuu barbaaddaa", "video": "Viidiyoo + sagalee", "videoOnly": "Viidiyoo, sagalee malee", "audio": "Sagalee qofa", "subtitles": "Axxiinni qofa"},
 			"profile": {
 				"calloutTitle": "Formaatonni profaayilii keessan irraa jalqabu",
 				"calloutBody": "Profaayiliin keessan hojiirra jiru istiriimota duraan isiniif filata. Menu irraa profaayilii jijjiiraa, ykn buufata kana osoo hin dhiisin qalamiin tokko sirreessaa.",
@@ -415,13 +415,12 @@
 				"tag": "Piroofaayilii",
 				"closestTag": "Piroofaayiliitti dhiyoo",
 				"switchTitle": "Piroofaayilii jijjiiruu?",
-				"switchBody": "Jijjiirama buufata kana irratti gooteen qindaa'ina piroofaayilii filattuun bakka bu'a.",
-				"switchAction": "Jijjiiri",
+				"switchBody": "Buufata kanaaf {{areas}} jijjiirteetta. “{{profile}}” haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
+				"resetAll": "Hunda deebisi",
 				"edit": "{{name}} gulaali",
 				"updatedTitle": "Piroofaayilii haaromfame fayyadamuu?",
-				"updatedBody": "Jijjiirama buufata kana irratti gooteen qindaa'ina haaraa piroofaayilichaatiin bakka bu'a.",
-				"updatedAction": "Fayyadami",
-				"updatedKeep": "Jijjiirama koo eegi",
+				"updatedBody": "Buufata kanaaf {{areas}} jijjiirteetta. Piroofaayiliin haaromfame haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
+				"keepEdits": "Jijjiiramoota koo eegi",
 				"menuDescription": "Buufata kanaaf qofa. Piroofaayiliin kee durtii akkuma jirutti hafa."
 			},
 			"fit": {
@@ -432,12 +431,13 @@
 				"subtitlesMissing": "Piroofaayiliin kee afaan {{languages}} keessaa axxiinni gaafata. Viidiyoon kun hin qabu.",
 				"webmUnavailable": "Piroofaayiliin kee WebM gaafata. Tarreessaawwan viidiyoo kanaa filataman {{codec}} of keessaa qabu, kan WebM qabachuu hin dandeenye, kanaaf gosti faayilii Ofumaa dha."
 			},
-			"summary": {"lead": "{{profile}} irraa kanas:", "subtitlesOff": "axxiinni dhaabbateera", "subtitlesAdd_one": "Afaan {{count}} jira, dabali", "subtitlesAdd_other": "Afaanonni {{count}} jiru, dabali", "reviewAll": "Hunda sakatta'i"},
-			"footer": {"reviewOptions": "Sakatta'i fi filannoo", "download": "Buufata", "moreActions": "Filannoo buufataa dabalataa", "addToQueue": "Osoo hin jalqabin tarreetti dabali", "subtitlesRequired": "Yoo xiqqaate afaan axxiinnii tokko filadhu."},
+			"footer": {"download": "Buufata", "moreActions": "Filannoo buufataa dabalataa", "addToQueue": "Osoo hin jalqabin tarreetti dabali", "subtitlesRequired": "Yoo xiqqaate afaan axxiinnii tokko filadhu."},
 			"video": "Viidiyoo",
 			"audio": "Sagalee",
 			"noAudio": "Sagalee hin jiru",
-			"videoOnly": "Viidiyoo qofa",
+			"withAudio": "sagalee wajjin",
+			"resolutionUnknown": "Ifa bal'ina hin beekamne",
+			"marker": {"aiUpscaled": "AI'n guddifame", "aiDubbed": "AI'n hiikame", "audioDescription": "Ibsa sagaleen", "spatialAudio": "Sagalee iddoo", "vr": "360° / VR", "enhancedBitrate": "Bitrate fooyya'e", "damaged": "Miidhame", "watermarked": "Mallattoo bishaanii qaba"},
 			"keepAudio": "Akka jirutti eegi",
 			"keepAudioMeta": "Sagalee keessoo",
 			"audioOnly": "Sagalee qofa",
@@ -530,8 +530,19 @@
 			"done": "Xumurame",
 			"changed": "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola.",
 			"areas": {"format": "foormaatii", "subtitles": "axxiinni", "sponsorBlock": "SponsorBlock", "extras": "dabalataalee", "saveTo": "foldarii", "fileName": "maqaa faayilii"},
-			"saveAsProfile": "Akka piroofaayiliitti olkaa'i…",
-			"reset": "Deebisi",
+			"updateProfile": "“{{profile}}” jijjiirama kanaan fooyyessi",
+			"saveAsProfile": "Akka piroofaayilii haaraatti olkaa'i",
+			"update": {
+				"title": "“{{profile}}” fooyyessuu?",
+				"description": "Amma booda, buufanni piroofaayilii kanaan godhamu hundi qindaa'ina haaraa fayyadama.",
+				"rows": {"format": "Foormaatii"},
+				"builtinNote": "Kun piroofaayilii keessaa jiruudha. Qindaa'ina isaa jalqabaa caancala Profaayilota keessatti deebisuu dandeessa.",
+				"action": "Piroofaayilii fooyyessi",
+				"updated": "Piroofaayiliin “{{name}}” fooyyeffameera"
+			},
+			"callout": {"title": "Qindaa'inni biroo hundi amma fuula kana irra jira", "body": "Axxiinni, SponsorBlock, dabalataaleen akka thumbnail, foldarii fi maqaan faayilii kanaan dura tarkaanfii addaa turan. Jijjiiruuf sarara tokko cuqaasi."},
+			"reset": "Jijjiirama deebisi, gara “{{profile}}”tti deebi'i",
+			"changedFrom": "{{profile}} irraa jijjiirame:",
 			"save": {
 				"title": "Akka piroofaayiliitti olkaa'i",
 				"description": "Qindaa'inoota kana akka piroofaayiliitti olkaa'a, yeroo itti aanu filachuu dandeessa. Piroofaayiliin Buufata saffisaa kee hin jijjiiramu.",
@@ -637,7 +648,7 @@
 				"videoAudio": {"label": "Viidiyoo + sagalee", "description": "Faayilii viidiyoo idilee"},
 				"videoOnly": {"label": "Viidiyoo, sagalee malee", "description": "Viidiyoo sagalee hin qabne qofa"},
 				"audioOnly": {"label": "Sagalee qofa", "description": "Muuziqaa ykn poodkaastii"},
-				"subtitlesOnly": {"label": "Ergaa gadii qofa", "description": "Faayilii ergaa gadii qofa"}
+				"subtitlesOnly": {"label": "Axxiinni qofa", "description": "Faayilii ergaa gadii qofa"}
 			},
 			"icon": {"controls": "To'annoo", "download": "Buufata", "video": "Viidiyoo", "captions": "Ergaa gadii", "audio": "Sagalee", "music": "Muuziqaa", "podcast": "Poodkaastii", "classes": "Barnoota", "clip": "Muraa", "archive": "Kuusaa"},
 			"audioFormat": {"best": "Gaarii", "wav": "WAV"},
@@ -1039,6 +1050,8 @@
 			"resolutionBest": {"label": "Ifa bal'ina isa ol'aanaa", "reason": "daangaan hin kaa'amne"},
 			"resolution": {"label": "Hanga {{tier}}p", "reason": "daangaa kee"},
 			"fps": {"label": "Saffisa fireemii isa ol'aanaa", "reason": "sochii daran lallaafaa"},
+			"sitePreference": {"label": "Tarreessaawwan saayitiin gadi hin buusne", "reason": "garagalchawwan miidhaman, mallattoo bishaanii qabanii fi bakka bu'oo ni darba"},
+			"original": {"label": "Tarreessaawwan jalqabaa, kan AI'n guddifaman miti", "reason": "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"},
 			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
 			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
 			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},
@@ -1052,5 +1065,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
 	},
+	"aiUpscaled": {"label": "Tarreessaawwan AI'n guddifaman", "description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.", "skip": "Darbi", "allow": "Hayyami"},
 	"hdrPreference": {"label": "Viidiyoo HDR", "description": "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata.", "sdr": "SDR", "hdr": "HDR", "auto": "Ofumaa"}
 }

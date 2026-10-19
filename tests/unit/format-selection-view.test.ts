@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {selectView} from '@renderer/store/formatSelectionView.js'
+import {buildFormatId} from '@renderer/store/helpers.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'
 
@@ -69,15 +70,16 @@ describe('selectView — media kinds', () => {
 		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.size).toBe('~48.8 KB')
 	})
 
-	it('shows the picked stream as its resolution row even when another stream leads that group', () => {
+	it('lists every codec of a height, and the picked stream stands for its codec even when another leads it', () => {
 		const formats: FormatOption[] = [
 			{formatId: '399', label: 'av1', ext: 'mp4', resolution: '1080p', fps: 60, videoCodec: 'av01.0.09M.08', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '299', label: 'h264 60', ext: 'mp4', resolution: '1080p', fps: 60, videoCodec: 'avc1.64002a', isVideoOnly: true, isAudioOnly: false},
 			{formatId: '137', label: 'h264', ext: 'mp4', resolution: '1080p', fps: 30, videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
 			{formatId: '140', label: 'm4a', ext: 'm4a', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true}
 		]
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, profilePick: {videoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}}})
-		expect(view.video.rows.map(row => row.formatId)).toEqual(['137'])
-		expect(view.video.rows[0]?.isProfilePick).toBe(true)
+		expect(view.video.rows.map(row => row.formatId)).toEqual(['399', '137'])
+		expect(view.video.rows.find(row => row.formatId === '137')?.isProfilePick).toBe(true)
 		expect(view.currentResolutionLabel).toBe('1080p')
 	})
 
@@ -274,5 +276,40 @@ describe('selectView — video rows', () => {
 	it('puts each stream in its dynamic range column, HDR before SDR', () => {
 		expect(view().video.rows.map(row => row.range)).toEqual(['HDR10', 'SDR', 'SDR'])
 		expect(view().video.ranges).toEqual(['HDR10', 'SDR'])
+	})
+})
+
+describe('selectView — one chip per codec', () => {
+	const video = (formatId: string, resolution: string, ext: string, videoCodec: string | undefined, isVideoOnly = true): FormatOption => ({formatId, label: formatId, ext, resolution, ...(videoCodec ? {videoCodec} : {}), isVideoOnly, isAudioOnly: false})
+	const view = (formats: FormatOption[]) => selectView({selectedVideoFormatId: formats[0].formatId, audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats}).video
+
+	it('gives each codec its own column, in the same order on every line', () => {
+		const {columns, lines} = view([video('248', '1080p', 'webm', 'vp9'), video('137', '1080p', 'mp4', 'avc1.640028'), video('135', '480p', 'mp4', 'avc1.4d401e')])
+		expect(columns).toEqual([
+			{range: 'SDR', codec: 'VP9'},
+			{range: 'SDR', codec: 'H.264'}
+		])
+		expect(lines.map(line => [line.name, line.variants.map(row => row.codec)])).toEqual([
+			['1080p', ['VP9', 'H.264']],
+			['480p', ['H.264']]
+		])
+	})
+
+	it('folds a stream with no codec name into a named one at its height, so it is never a choice of its own', () => {
+		const {lines} = view([video('dash-240', '320x240', 'mp4', 'avc1.64000D'), video('url240', '320x240', 'mp4', undefined, false)])
+		expect(lines[0].variants.map(row => row.formatId)).toEqual(['dash-240'])
+	})
+
+	it('puts streams with no codec name in one shared column, labelled by file type', () => {
+		const {columns, lines} = view([video('2', '1280x720', 'avi', undefined, false), video('1', '640x360', 'mp4', undefined, false)])
+		expect(columns).toEqual([{range: 'SDR', codec: null}])
+		expect(lines.map(line => line.variants[0].chipLabel)).toEqual(['avi', 'mp4'])
+	})
+})
+
+describe('buildFormatId — conversions', () => {
+	it("names the chosen language's stream for a conversion, and nothing when the default track converts", () => {
+		expect(buildFormatId('', {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192, sourceFormatId: '251-es'})).toBe('251-es')
+		expect(buildFormatId('', {kind: 'convert-lossless', target: 'wav'})).toBeUndefined()
 	})
 })

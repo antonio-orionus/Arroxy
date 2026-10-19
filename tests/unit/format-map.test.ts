@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {mapFormats} from '@main/services/probeFormatMapping.js'
+import {mapFormats} from '@shared/ytdlp/formatMapping.js'
 
 describe('mapFormats', () => {
 	it('returns raw format_id without composing audio selector', () => {
@@ -127,5 +127,53 @@ describe('mapFormats', () => {
 		expect(mapped[0].resolution).toBe('1080p')
 		expect(mapped[1].resolution).toBe('720p')
 		expect(mapped[2].resolution).toBe('360p')
+	})
+})
+
+// Shaped like yt-dlp's own notes (its YouTube extractor's `format_note` parts).
+describe('mapFormats — stream markers', () => {
+	const video = (format_id: string, extra: Record<string, unknown> = {}) => ({format_id, ext: 'mp4', resolution: '1920x1080', width: 1920, height: 1080, vcodec: 'avc1.640028', acodec: 'none', ...extra})
+	const audio = (format_id: string, extra: Record<string, unknown> = {}) => ({format_id, ext: 'm4a', resolution: 'audio only', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128, ...extra})
+	const markersOf = (formats: Record<string, unknown>[]) => Object.fromEntries(mapFormats(formats).map(f => [f.formatId, f.markers ?? []]))
+
+	it('reads each marker from the notes yt-dlp writes', () => {
+		expect(
+			markersOf([
+				video('137-sr', {format_note: '1080p, AI-upscaled'}),
+				video('137-d', {format_note: '1080p, DAMAGED', preference: -10}),
+				video('616', {format_note: 'Premium'}),
+				video('download', {format_note: 'watermarked', acodec: 'aac'}),
+				audio('140-desc', {language: 'en-desc', format_note: 'English descriptive, medium'}),
+				audio('140-amb', {format_note: 'medium, ambisonics_5_1'})
+			])
+		).toEqual({'137-sr': ['ai-upscaled'], '137-d': ['damaged'], 616: ['enhanced-bitrate'], download: ['watermarked'], '140-desc': ['audio-description'], '140-amb': ['spatial-audio']})
+	})
+
+	it('carries an AI dub noted on one copy to every copy of that language, and 360° to every video stream', () => {
+		const markers = markersOf([audio('233-0', {language: 'es-US', format_note: 'es-US - dubbed-auto'}), audio('140-0', {language: 'es-US', format_note: 'Spanish (US), medium'}), audio('140-2', {language: 'en-US', format_note: 'English original (default)'}), video('137', {format_note: '1080s, equi'}), video('609')])
+		expect(markers['140-0']).toEqual(['ai-dubbed'])
+		expect(markers['140-2']).toEqual([])
+		expect(markers['609']).toEqual(['vr'])
+	})
+
+	it('keeps the site preference and drops streams yt-dlp cannot download for DRM', () => {
+		const formats = mapFormats([video('ok', {preference: -1}), video('drm', {has_drm: true})])
+		expect(formats.map(f => [f.formatId, f.preference])).toEqual([['ok', -1]])
+	})
+})
+
+describe('mapFormats — sizes and names the site leaves out', () => {
+	it('estimates a size from the bitrate and duration when the site gives none', () => {
+		const [format] = mapFormats([{format_id: 'hls-2958', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'mp4a.40.2', tbr: 2958}], 540)
+		expect(format.filesize).toBe(Math.round((2958 * 1000 * 540) / 8))
+	})
+
+	it('names no resolution rather than yt-dlp\'s "unknown" or a note like "watermarked"', () => {
+		const formats = mapFormats([
+			{format_id: '0', ext: 'mp4', resolution: 'unknown', vcodec: 'h264', acodec: 'aac'},
+			{format_id: 'download', ext: 'mp4', format_note: 'watermarked', vcodec: 'h264', acodec: 'aac'},
+			{format_id: 'sized', ext: 'mp4', width: 576, height: 1024, vcodec: 'h264', acodec: 'aac'}
+		])
+		expect(Object.fromEntries(formats.map(f => [f.formatId, f.resolution]))).toEqual({0: '', download: '', sized: '576x1024'})
 	})
 })

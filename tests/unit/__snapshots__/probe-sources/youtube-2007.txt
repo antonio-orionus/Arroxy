@@ -1,0 +1,25 @@
+youtube-2007: A 2007 upload: YouTube adds AI-upscaled 720p and 1080p (-sr) above the original 480p
+Charlie bit my finger - again ! · 56 s · card says "640x480" · 25 formats
+
+Video (picked for Balanced 720p •):
+       SDR AV1                   SDR VP9                   SDR H.264
+1080p  AV1 [AI upscaled] 4.7 MB  VP9 [AI upscaled] 7.3 MB  ·
+720p   AV1 [AI upscaled] 2.7 MB  VP9 [AI upscaled] 4.0 MB  ·
+480p   AV1 1.6 MB •              VP9 2.8 MB                H.264 2.0 MB
+360p   AV1 1007.2 KB             VP9 1.4 MB                H.264 1.2 MB
+240p   AV1 632.0 KB              VP9 639.3 KB              H.264 661.0 KB
+144p   AV1 415.6 KB              VP9 441.0 KB              H.264 341.0 KB
+
+Audio:
+AAC: 130 kbps 883.7 KB DRC | 130 kbps 883.7 KB •
+Opus: 127 kbps 868.5 KB DRC | 127 kbps 864.6 KB | 66 kbps 449.7 KB DRC | 66 kbps 447.9 KB | 51 kbps 348.0 KB DRC | 51 kbps 347.2 KB
+DRC switch shown
+
+Profile picks:
+balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a)
+best-quality: 397 (640x480, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 135 (640x480, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 140 (audio only, m4a)
+
+Subtitles: none
+Auto captions: en-orig

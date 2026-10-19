@@ -68,6 +68,20 @@ function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 // A single-video run points the wizard folder at its profile's folder. Leaving
 // the run puts the global download folder back, so the URL tab and the next
 // run don't inherit it.
+// Bumped by every probe start and every cancel: a probe that resolves after its
+// run was replaced or cancelled lands nowhere (no error step, no yank back).
+let wizardProbeRun = 0
+
+// Leaves a loading probe for the screen the run started from.
+function abandonProbe(set: SetState, get: GetState): void {
+	wizardProbeRun += 1
+	void window.appApi.downloads.probeCancel()
+	const state = get()
+	landOnOrigin(state.wizardOrigin)
+	set({wizardStep: 'url', formatsLoading: false, playlistProbeLoading: false, playlistProbeProgress: null, wizardOrigin: 'download', reviewSourceRowId: null, ...globalOutputDir(state)})
+	logStep('back', state.wizardStep, 'url', pickWizardSnapshot(get()))
+}
+
 function globalOutputDir(state: AppState): Partial<AppState> {
 	const dir = state.settings?.common?.defaultOutputDir
 	return state.wizardMode === 'single' && dir ? {wizardOutputDir: dir} : {}
@@ -123,6 +137,7 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 // `sameRun`: a retry inside the current run keeps the user's picks.
 function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, sameRun = false): void {
 	nextBulkMetadataRunId()
+	wizardProbeRun += 1
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode, sameRun)
 	set(startProjection.patch)
@@ -146,7 +161,9 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 
 async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean): Promise<void> {
 	const playlistScope = get().playlistScope
+	const run = wizardProbeRun
 	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
+	if (run !== wizardProbeRun) return
 	if (!result.ok) {
 		set(projectProbeFailure(result.error))
 		return
@@ -538,6 +555,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const state = get()
 			const target = nextWizardStep(buildWizardStepGraph(state), 'backward')
 			if (!target) return
+			if (target === 'url' && (state.formatsLoading || (state.wizardMode === 'playlist' && state.playlistProbeLoading))) {
+				abandonProbe(set, get)
+				return
+			}
 			if (isHydrationMode(state.wizardMode) && target === 'url' && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('back-to-url', state)
 				// cancelBulkMetadataProbes only bumps the run id and aborts the
@@ -635,6 +656,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			if (probe) landPlaylistProbe(probe, set, get, true)
 			else await finishProbe(url, playlistMode, set, get, true)
 		},
+
+		cancelWizardProbe: () => abandonProbe(set, get),
 
 		openExploreSignIn: () => {
 			// Like openCookiesSettings: the abandoned probe is cancelled and the

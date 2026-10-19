@@ -1,0 +1,21 @@
+dailymotion: Muxed HLS only, sizes estimated from bitrate
+Midnight Sun | Iceland · 87 s · card says "1280x720" · 3 formats
+
+Video (picked for Balanced 720p •):
+      SDR H.264
+720p  H.264 22.3 MB • +audio
+480p  H.264 8.7 MB +audio
+240p  H.264 4.8 MB +audio
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: hls-720 (1280x720, mp4) + audio none
+best-quality: hls-720 (1280x720, mp4) + audio none
+mp4-1080: hls-720 (1280x720, mp4) + audio none
+audio-only: audio convert-lossy
+
+Subtitles: en
+Auto captions: none

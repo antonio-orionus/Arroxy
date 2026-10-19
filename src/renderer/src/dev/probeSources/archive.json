@@ -1,0 +1,27 @@
+{
+	"source": {
+		"id": "archive",
+		"url": "https://archive.org/details/BigBuckBunny_124",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "BigBuckBunny_124",
+		"title": "Big Buck Bunny",
+		"thumbnail": "https://archive.org/download/BigBuckBunny_124/BigBuckBunny_124.thumbs/Content/big_buck_bunny_720p_surround_000585.jpg",
+		"duration": 596.46,
+		"webpage_url": "https://archive.org/details/BigBuckBunny_124",
+		"extractor": "archive.org",
+		"extractor_key": "ArchiveOrg",
+		"uploader": "jake@archive.org",
+		"upload_date": "20110701",
+		"timestamp": 1309554623,
+		"formats": [
+			{"format_id":"0","ext":"ogv","resolution":"533x300","format_note":"derivative","width":533,"height":300,"filesize":46935223,"dynamic_range":"SDR","protocol":"https","source_preference":-1},
+			{"format_id":"1","ext":"mp4","resolution":"640x360","format_note":"derivative","width":640,"height":360,"filesize":61878609,"dynamic_range":"SDR","protocol":"https","source_preference":-1},
+			{"format_id":"2","ext":"avi","resolution":"1280x720","format_note":"derivative","width":1280,"height":720,"filesize":332243668,"dynamic_range":"SDR","protocol":"https","source_preference":-1}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

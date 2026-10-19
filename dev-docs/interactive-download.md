@@ -69,7 +69,9 @@ URL ─► 1 Format ─► 2 Review
 The stepper shows URL, Format, Review. Review's Back and "Change format"
 return to Format.
 Back on Format returns to URL (or to Explore when the run started there).
-Error and loading screens stay as they are.
+Error screens stay as they are. The loading screen offers **Cancel**: at once
+in dev builds, after 120 s for users (a slow site, not a stuck app, is the
+usual reason to wait).
 
 ## Screen 1: Format
 
@@ -78,22 +80,43 @@ Top to bottom:
 1. **Video card**: thumbnail, title, site, duration, best quality, audio
    language count, chapter count. A **Whole video / Part** switch (see
    Part of video). Hidden in Subtitles mode.
-2. **Profile line**: "Pre-selected from *<profile>* · Change". Change opens
-   the profile list; picking one re-applies it to every setting, and asks
-   first when the user has edits.
-3. **Type switch: Video / Audio / Subtitles.** Replaces the preset strip,
-   the video list's "Audio only" row and the subtitles-only preset.
-   - Video: today's video list and audio list.
+2. **Profile line**: "Pre-selected from *<profile>*", a pencil that edits
+   the profile in place, and the Profile tag ("Why this one"). Picking
+   another profile re-applies it. When the user changed more than the
+   streams, a dialog names what changed ("You changed subtitles and
+   extras") and offers **Keep my changes** or **Reset all**; the new profile
+   picks the streams either way. Stream-only edits apply without asking.
+3. **Type switch: Video + audio / Video, no audio / Audio only / Subtitles
+   only**, named as in the profile editor. Replaces the preset strip, the
+   video list's "Audio only" row and the subtitles-only preset.
+   - Video + audio: the video list and audio list.
+   - Video, no audio: only streams without audio of their own, and no
+     audio list. The audio pick is set aside and comes back (language, DRC,
+     bitrate) on Video + audio.
+   - Coming back to video from Audio only or Subtitles only lands on the
+     profile's pick; a profile with no video ranks by the default profile
+     (Balanced 720p), never by "tallest first".
    - Audio: the audio list including conversions (mp3, m4a, opus, wav) and
      the bitrate strip (128/192/256/320). Conversions appear only here.
    - Subtitles: the subtitle language picker takes the place of both lists
      (selected chips, Clear all, search, uploaded vs auto-generated
      sections, SRT/VTT/ASS, in the folder vs `subtitles/` subfolder).
    - Audio-only sources (`isAudioOnlySource`) lock the switch to Audio.
-4. **Lists**: today's `VideoColumn` / `AudioColumn` behaviour is kept in
-   full: grouping by resolution, ext · fps · HDR · size, container and
-   dynamic-range chips, quality badges, the "Keep as-is / Built-in audio" row
-   for muxed video and its no-double-audio rule, "No audio / Video only".
+4. **Lists**: one video line per resolution, with a column per dynamic
+   range (HDR, then SDR) and, inside it, per codec (AV1, VP9, HEVC, H.264),
+   so H.264 or VP9 at a height stays reachable and a codec sits in the
+   same column on every line. A stream whose codec the site doesn't name
+   joins a named codec's chip at its height, else shares one last column
+   labelled by file type. Where a height has a silent and a muxed copy of a
+   codec, the silent one shows; "with audio" is said only when the list
+   mixes both kinds. Sizes the site doesn't give are estimated from bitrate
+   × duration; a stream with no size at all is named "Unknown size".
+   The audio list keeps quality badges, DRC twins, the language picker and
+   the "Keep as-is / Built-in audio" row for muxed video.
+   **Markers** say what yt-dlp's notes say about a stream: AI upscaled,
+   Enhanced bitrate, Damaged, Watermarked and Spatial audio as chip tags;
+   AI dubbed and Audio description next to the language name; 360° / VR
+   once on the video card.
 5. **Fit notices** (amber, above the lists) when the profile can't be
    honoured on this video, e.g. "Your profile asks for 1080p. This video
    only goes up to 480p, so 480p is selected." or "Your profile asks for
@@ -101,23 +124,34 @@ Top to bottom:
    "Closest to profile".
 6. **Bot-wall notice** with Retry and "Enable cookies & retry", as today
    (`BotWallNotice`). A retry keeps the user's edits.
-7. **Summary line**: everything Review holds, in one line, with links:
-   "Also from *<profile>*: subtitles off (14 available, add) · SponsorBlock
-   off · chapters, metadata · ~/Downloads/<folder> · Review all". Conflict
-   warnings that today only appear on Confirm (thumbnail can't be embedded,
-   subtitles can't go inside audio) appear here too, because Download can
-   skip Review.
-8. **Footer**: total size (video **plus** audio, scaled to the part when
-   clipping), Back, Review & options, and a split **Download ▾** button
-   whose menu holds "Add to queue without starting". Download is the
-   priority lane ("Pull it!" today), Add to queue the normal lane.
+7. **Footer warnings**: the MP4 playback caveat and conflict warnings
+   (thumbnail can't be embedded, subtitles can't go inside audio), because
+   Download can skip Review.
+8. **Changes row** (also on Review), only once the run differs from its
+   profile: "Changed from *<profile>*: subtitles, extras" with icon buttons
+   to update that profile, save a new one, or undo.
+9. **Footer**: total size (video **plus** audio, scaled to the part when
+   clipping), Back, a plain **Download** shortcut, and the highlighted
+   **Continue** to Review. A user who keeps pressing the highlighted button
+   passes Review, where the subtitles, extras (thumbnail, description),
+   folder and file name are; Review opens with Extras unfolded. Continue is
+   disabled only for what Format fixes (no stream, an invalid part,
+   Subtitles only with no language); Download also for an invalid folder
+   or file name.
+
+Review's footer holds the split **Download ▾** button whose menu holds
+"Add to queue without starting". Download is the priority lane, Add to
+queue the normal lane.
 
 ## Profile → selection
 
 A new pure resolver replaces `applyPreset` / `restoreFormatSelection`: given
 the profile and the probe, return the selection plus the fit notices.
 The ranking it follows is specified in
-[source-priority.md](source-priority.md).
+[source-priority.md](source-priority.md). It starts with the site's own
+preference (yt-dlp's `preference`: damaged, watermarked and fallback copies
+come last, as in yt-dlp's own sort) and, unless the profile allows them,
+leaves out AI-upscaled streams; both rules show in "Why this one".
 
 - Video: the highest group at or below the profile's tier; if none, the
   lowest group above it, with a fit notice. `mp4` profiles prefer
@@ -156,8 +190,12 @@ resolver's output. It drives the Review bar and the after-download toast.
     default folder (D4).
   - **File name**: the profile's filename setting, editable for this
     download.
-- **Changed bar** when the selection differs from the profile:
-  "Changed from *<profile>*: subtitles · Save as profile… · Reset".
+- **Changes row** in the footer (shared with Format): update the profile
+  (a dialog shows each changed area before and after; Extras lists only
+  what is added or removed; a built-in profile is saved as its override,
+  restorable in the Profiles tab), save as a new profile, or undo.
+- **One-time callout** for users with downloads behind them: all the other
+  settings are on this page now. Opening a row dismisses it.
 - Conflict warnings, "nothing to download", double-submit guard and the
   submit-error path stay as in today's Confirm.
 

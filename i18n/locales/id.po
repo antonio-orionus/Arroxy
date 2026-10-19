@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Situs web"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Izinkan"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Stream hasil upscale AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Lewati"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Masukan"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "cocok untuk WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Stream asli, bukan hasil upscale AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "salinan upscale lebih tinggi tetapi tidak menambah detail nyata"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Hingga {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "Resolusi tertinggi"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "tanpa batas"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Stream yang tidak diberi prioritas rendah oleh situs"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "melewati salinan rusak, bertanda air, dan cadangan"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Opsi unduhan lainnya"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Tinjau & opsi"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Pilih setidaknya satu bahasa subtitle."
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "Audio bawaan"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Audio"
+msgid "Audio only"
+msgstr "Hanya audio"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "Hanya subtitle"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, tanpa audio"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "Memuat format"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Harap tunggu hingga pemeriksaan selesai — daftar putar dan penelusuran dapat memakan waktu cukup lama."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Sulih suara AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Upscale AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Deskripsi audio"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Rusak"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bitrate ditingkatkan"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Audio spasial"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Bertanda air"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Edit {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Pertahankan perubahan saya"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Hanya untuk unduhan ini. Profil default Anda tetap seperti semula."
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Dipilih sebelumnya dari"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Ganti"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Atur ulang semua"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan profil yang Anda pilih."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Anda mengubah {{areas}} untuk unduhan ini. “{{profile}}” tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Profil"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Gunakan"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan baru profil."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Simpan perubahan saya"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Anda mengubah {{areas}} untuk unduhan ini. Profil yang diperbarui tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy menunggu sampai {{time}} sebelum menghubungi {{site}} lagi, agar batasnya sempat pulih."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Resolusi tidak diketahui"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Simpan sebagai"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Menemukan format terbaik untuk Anda…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Juga dari {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Tinjau semua"
-
-#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} bahasa tersedia, tambahkan"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "subtitle mati"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Total"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Video"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Hanya video"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "dengan audio"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,8 +3299,8 @@ msgid "Caption files only"
 msgstr "Hanya berkas teks"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
-msgstr "Hanya subtitel"
+msgid "Subtitles only"
+msgstr "Hanya subtitle"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "subtitle"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtitle, SponsorBlock, tambahan seperti gambar kecil, folder, dan nama file dulu merupakan langkah terpisah. Klik baris untuk mengubahnya."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Semua pengaturan lainnya kini ada di halaman ini"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Diubah dari {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Unduhan ini memakai pengaturan yang diedit. Pakai lagi lain kali?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Atur ulang"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Urungkan perubahan, kembali ke “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "Simpan sebagai profil"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Simpan sebagai profil…"
+msgid "Save as a new profile"
+msgstr "Simpan sebagai profil baru"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Perbarui profil"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Ini profil bawaan. Anda dapat memulihkan pengaturan aslinya di tab Profil."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Mulai sekarang, setiap unduhan dengan profil ini memakai pengaturan baru."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Perbarui “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profil “{{name}}” diperbarui"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Perbarui “{{profile}}” dengan perubahan ini"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

@@ -1,5 +1,5 @@
-// What still blocks a single-video Download, if anything. Shared by the Format
-// and Review screens, since Download works from both.
+// What still blocks a single-video Download, if anything: Review's Download,
+// and Format's Continue for the parts Format owns.
 
 import {isValidSubfolder} from '@renderer/lib/path.js'
 import type {AppState} from '../types.js'
@@ -21,4 +21,19 @@ export function singleDownloadBlocker(state: ReadinessFields): SingleDownloadBlo
 	if (folderSelectionInvalid(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)) return 'folder'
 	if (state.wizardFilenameTemplate.trim() === '') return 'fileName'
 	return null
+}
+
+// The hint on a disabled Download or Continue, for the blockers the user may
+// not see the cause of.
+export function blockerHintKey(blocker: SingleDownloadBlocker | null): 'wizard.formats.footer.subtitlesRequired' | 'wizard.part.downloadBlocked' | null {
+	if (blocker === 'subtitles') return 'wizard.formats.footer.subtitlesRequired'
+	if (blocker === 'part') return 'wizard.part.downloadBlocked'
+	return null
+}
+
+// The blockers fixed on the Format screen. Folder and file name are fixed on
+// Review, so they never hold back Continue.
+export function formatStepBlocker(state: ReadinessFields): Extract<SingleDownloadBlocker, 'media' | 'part' | 'subtitles'> | null {
+	const blocker = singleDownloadBlocker(state)
+	return blocker === 'media' || blocker === 'part' || blocker === 'subtitles' ? blocker : null
 }

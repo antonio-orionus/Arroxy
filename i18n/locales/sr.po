@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Веб-сајт"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Дозволи"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube нуди неке старе видео снимке у величинама које је направио помоћу AI. „Прескочи” задржава оригиналне токове; увећани ток и даље можете изабрати ручно."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Токови увећани помоћу AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Прескочи"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Повратна информација"
@@ -1550,6 +1566,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "одговара WebM-у"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Оригинални токови, не они увећани помоћу AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "увећана копија је виша, али не додаје праве детаље"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "До {{tier}}p"
@@ -1565,6 +1589,14 @@ msgstr "Највећа резолуција"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "без ограничења"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Токови које сајт не означава као лошије"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "прескаче оштећене, са воденим жигом и резервне копије"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2495,10 +2527,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Више опција преузимања"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Преглед и опције"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Изаберите бар један језик титлова."
@@ -2512,8 +2540,8 @@ msgid "Built-in audio"
 msgstr "Уграђени звук"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Аудио"
+msgid "Audio only"
+msgstr "Само аудио"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2524,8 +2552,12 @@ msgid "Subtitles only"
 msgstr "Само титлови"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Видео"
+msgid "Video + audio"
+msgstr "Видео + аудио"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Видео, без аудија"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2534,6 +2566,38 @@ msgstr "Учитавање формата"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Сачекајте да провера заврши — листе за репродукцију и претраге могу потрајати."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI синхронизација"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI увећано"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Аудио-опис"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Оштећено"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Повећан битрејт"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Просторни звук"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Са воденим жигом"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2555,6 +2619,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Измени {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Задржи моје измене"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Само за ово преузимање. Ваш подразумевани профил остаје исти."
@@ -2563,13 +2631,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Унапред изабрано из"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Промени"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Ресетуј све"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Ваше измене за ово преузимање биће замењене подешавањима изабраног профила."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "За ово преузимање измењено је: {{areas}}. „{{profile}}” ће у сваком случају изабрати видео и звук. Задржати остале измене или вратити све на профил?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2579,17 +2647,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Профил"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Користи"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Ваше измене за ово преузимање биће замењене новим подешавањима профила."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Задржи моје измене"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "За ово преузимање измењено је: {{areas}}. Ажурирани профил ће у сваком случају изабрати видео и звук. Задржати остале измене или вратити све на профил?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2639,6 +2699,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy чека до {{time}} пре него што поново пита {{site}}, да би ограничење прошло."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Непозната величина"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Чува се као"
@@ -2663,33 +2727,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Тражим најбоље формате за тебе…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Такође из профила {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Прегледај све"
-
-#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
-msgctxt "wizard.formats.summary.subtitlesAdd_few"
-msgid "{{count}} languages available, add"
-msgstr "Доступно језика: {{count}}, додај"
-
-#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} језик доступан, додај"
-
-#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "Доступно језика: {{count}}, додај"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "титлови искључени"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Укупно"
@@ -2698,9 +2735,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Видео"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Само видео"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "са звуком"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3552,7 +3589,7 @@ msgid "Caption files only"
 msgstr "Само датотеке титлова"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "Само титлови"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3765,9 +3802,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "титлови"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Титлови, SponsorBlock, додаци попут сличице, фасцикла и назив фајла раније су били засебни кораци. Кликните на ред да бисте га променили."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Сва остала подешавања су сада на овој страници"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Измењено у односу на {{profile}}: {{areas}}. Важи само за ово преузимање."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Измењено у односу на {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3794,8 +3843,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Ово преузимање је користило измењена подешавања. Користити их следећи пут?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Ресетуј"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Поништи измене, врати на „{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3846,8 +3895,36 @@ msgid "Save as profile"
 msgstr "Сачувај као профил"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Сачувај као профил…"
+msgid "Save as a new profile"
+msgstr "Сачувај као нови профил"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Ажурирај профил"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Ово је уграђени профил. Његова оригинална подешавања можете вратити на картици „Профили”."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Од сада свако преузимање са овим профилом користи нова подешавања."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Ажурирати „{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Профил „{{name}}” је ажуриран"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Ажурирај „{{profile}}” овим изменама"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

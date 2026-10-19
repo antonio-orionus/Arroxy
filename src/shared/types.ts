@@ -7,6 +7,7 @@ export type {PreparedJob} from './preparedJob.js'
 // (where they're z.enum schemas). Importing from `@shared/types` continues to
 // work for callers that don't care about the schema vs type distinction.
 export type {
+	FormatMarker,
 	WizardMediaKind,
 	PlaylistSelection,
 	PlaylistScope,
@@ -62,7 +63,7 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
+import type {FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
 export type {ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
@@ -182,6 +183,7 @@ export interface CommonSettings {
 	videoPartCalloutDismissed?: boolean
 	exploreLinkCalloutDismissed?: boolean
 	formatProfileCalloutDismissed?: boolean
+	reviewCalloutDismissed?: boolean
 }
 
 export interface BinaryOverrides {
@@ -231,6 +233,11 @@ export interface FormatOption {
 	isVideoOnly: boolean
 	isAudioOnly: boolean
 	dynamicRange?: string
+	// What yt-dlp's notes say about the stream (AI-upscaled, damaged, 360°...).
+	markers?: FormatMarker[]
+	// yt-dlp's `preference`: the site marks a stream down (damaged, watermarked,
+	// a fallback copy). yt-dlp ranks it above everything else; so does Arroxy.
+	preference?: number
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled'

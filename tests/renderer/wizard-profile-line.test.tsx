@@ -68,19 +68,40 @@ describe('WizardProfileLine', () => {
 		await saveFromEditor()
 
 		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: 'hd-1080'}), false)
-		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'})
+		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, false)
 	})
 
-	it('asks before an edited profile replaces changes made to this download', async () => {
-		useAppStore.setState({selectedVideoFormatId: '136'})
+	it('asks whether to keep edits beyond the streams, naming them, before an edited profile is applied', async () => {
+		useAppStore.setState({wizardWriteThumbnail: true})
 		render(<WizardProfileLine />)
 
 		await saveFromEditor()
 
 		expect(await screen.findByText('Use the updated profile?')).toBeInTheDocument()
+		expect(screen.getByTestId('wizard-profile-switch-dialog').textContent).toContain('You changed extras')
 		expect(chooseWizardProfile).not.toHaveBeenCalled()
-		fireEvent.click(screen.getByRole('button', {name: 'Keep my changes'}))
-		expect(chooseWizardProfile).not.toHaveBeenCalled()
+		fireEvent.click(screen.getByTestId('wizard-profile-switch-keep'))
+		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, true)
+	})
+
+	it('resets every edit when asked to', async () => {
+		useAppStore.setState({wizardWriteThumbnail: true})
+		render(<WizardProfileLine />)
+
+		await saveFromEditor()
+
+		fireEvent.click(await screen.findByTestId('wizard-profile-switch-reset'))
+		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, false)
+	})
+
+	it('applies a profile straight away when only the streams were changed: picking them is what a profile does', async () => {
+		useAppStore.setState({selectedVideoFormatId: '136'})
+		render(<WizardProfileLine />)
+
+		await saveFromEditor()
+
+		expect(screen.queryByTestId('wizard-profile-switch-dialog')).toBeNull()
+		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, false)
 	})
 
 	it('opens the profile menu for this download only, with no way out to the Profiles tab', async () => {
@@ -93,7 +114,7 @@ describe('WizardProfileLine', () => {
 		expect(screen.queryByRole('button', {name: 'Manage profiles'})).not.toBeInTheDocument()
 
 		fireEvent.click(screen.getByTestId('wizard-profile-option-balanced'))
-		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'balanced'})
+		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'balanced'}, false)
 	})
 })
 

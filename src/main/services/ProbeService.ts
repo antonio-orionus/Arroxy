@@ -4,10 +4,9 @@ import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
+import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
-import {LIVE_CHAT_LANG} from '@shared/constants.js'
-import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
+import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo} from '@shared/ytdlp/infoDict.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
@@ -16,11 +15,12 @@ import {PROBE_TIMEOUT_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
-import {mapFormats} from './probeFormatMapping.js'
+import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {sabrSkippedClient} from './download/formatLimitSignals.js'
-import {deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
+import {degradationIsTransient, deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
 const logger = log.scope('probe')
@@ -57,23 +57,6 @@ export interface ProbeServiceOptions {
 }
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
-
-function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefined, opts: {isAutomaticCaptions: boolean; site: Site}): SubtitleMap {
-	if (!raw) return {}
-	const result: SubtitleMap = {}
-	// Site adapter decides whether auto-caption keys must end in `-orig`. YouTube
-	// bundles real generated tracks with on-demand translation options under the
-	// same map; only `-orig` are real. Other sites emit auto-captions under bare
-	// lang codes — applying the filter would discard every track.
-	const requireOrig = opts.isAutomaticCaptions && opts.site.autoCaptionRequiresOrigSuffix
-	for (const [lang, tracks] of Object.entries(raw)) {
-		if (lang === LIVE_CHAT_LANG) continue
-		if (requireOrig && !lang.endsWith('-orig')) continue
-		const valid = tracks.flatMap(t => (typeof t.ext === 'string' && t.ext.length > 0 ? [{ext: t.ext, ...(t.name ? {name: t.name} : {})}] : []))
-		if (valid.length > 0) result[lang] = valid
-	}
-	return result
-}
 
 // `Unsupported URL` is emitted by yt-dlp before any extraction begins; it
 // doesn't match any of the post-extraction stderr patterns. Detect it here so
@@ -338,7 +321,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? []),
+		formats: mapFormats(info.formats ?? [], typeof info.duration === 'number' ? info.duration : undefined),
 		title: info.title ?? '',
 		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,
@@ -636,6 +619,12 @@ export class ProbeService extends EventEmitter {
 		// out the site's cooldown anyway (SiteRequestState). Keep what came back.
 		if (isRateLimited(initial.data.degradationSignals)) {
 			logger.info('Probe rate-limited — keeping the result, no relaunch', {url, degradationSignals: initial.data.degradationSignals})
+			return initial
+		}
+		// Every warning is a permanent HTTP error (410 Gone, 403): a second probe
+		// would get the same answer after the same wait.
+		if (!degradationIsTransient(initial.data.stderr)) {
+			logger.info('Probe degraded-success — permanent HTTP errors, not retrying', {url, degradationSignals: initial.data.degradationSignals})
 			return initial
 		}
 

@@ -363,7 +363,7 @@
 			"cat": {"sponsor": "스폰서", "intro": "인트로", "outro": "아웃트로", "selfpromo": "자기 홍보", "music_offtopic": "주제와 무관한 음악", "preview": "미리보기", "filler": "필러"}
 		},
 		"formats": {
-			"kind": {"label": "다운로드할 항목", "video": "동영상", "audio": "오디오", "subtitles": "자막만"},
+			"kind": {"label": "다운로드할 항목", "video": "동영상 + 오디오", "videoOnly": "동영상, 오디오 없음", "audio": "오디오만", "subtitles": "자막만"},
 			"profile": {
 				"calloutTitle": "형식은 내 프로필에서 시작됩니다",
 				"calloutBody": "활성 프로필이 스트림을 미리 골라 줍니다. 메뉴에서 프로필을 바꾸거나, 연필 아이콘으로 이 다운로드를 벗어나지 않고 프로필을 조정할 수 있습니다.",
@@ -371,13 +371,12 @@
 				"tag": "프로필",
 				"closestTag": "프로필과 가장 가까움",
 				"switchTitle": "프로필을 전환할까요?",
-				"switchBody": "이 다운로드에서 변경한 내용은 선택한 프로필의 설정으로 바뀝니다.",
-				"switchAction": "전환",
+				"switchBody": "이 다운로드에서 {{areas}}을(를) 변경했습니다. 어느 쪽이든 동영상과 오디오는 “{{profile}}”이(가) 선택합니다. 다른 변경 사항을 유지할까요, 아니면 모두 프로필대로 재설정할까요?",
+				"resetAll": "모두 재설정",
 				"edit": "{{name}} 편집",
 				"updatedTitle": "업데이트된 프로필을 사용할까요?",
-				"updatedBody": "이 다운로드에서 변경한 내용은 프로필의 새 설정으로 바뀝니다.",
-				"updatedAction": "사용",
-				"updatedKeep": "변경 내용 유지",
+				"updatedBody": "이 다운로드에서 {{areas}}을(를) 변경했습니다. 어느 쪽이든 동영상과 오디오는 업데이트된 프로필이 선택합니다. 다른 변경 사항을 유지할까요, 아니면 모두 프로필대로 재설정할까요?",
+				"keepEdits": "변경 사항 유지",
 				"menuDescription": "이 다운로드에만 적용됩니다. 기본 프로필은 그대로 유지됩니다."
 			},
 			"fit": {
@@ -388,12 +387,13 @@
 				"subtitlesMissing": "프로필에서 {{languages}} 자막을 요청했지만 이 동영상에는 없습니다.",
 				"webmUnavailable": "프로필이 WebM을 요청합니다. 이 영상에서 선택된 스트림에 WebM에 담을 수 없는 {{codec}}이(가) 포함되어 있어 파일 형식은 자동으로 설정됩니다."
 			},
-			"summary": {"lead": "{{profile}}의 다른 설정:", "subtitlesOff": "자막 끄기", "subtitlesAdd_other": "{{count}}개 언어 사용 가능, 추가", "reviewAll": "모두 검토"},
-			"footer": {"reviewOptions": "검토 및 옵션", "download": "다운로드", "moreActions": "다운로드 옵션 더 보기", "addToQueue": "시작하지 않고 대기열에 추가", "subtitlesRequired": "자막 언어를 하나 이상 선택하세요."},
+			"footer": {"download": "다운로드", "moreActions": "다운로드 옵션 더 보기", "addToQueue": "시작하지 않고 대기열에 추가", "subtitlesRequired": "자막 언어를 하나 이상 선택하세요."},
 			"video": "동영상",
 			"audio": "오디오",
 			"noAudio": "오디오 없음",
-			"videoOnly": "동영상만",
+			"withAudio": "오디오 포함",
+			"resolutionUnknown": "해상도 알 수 없음",
+			"marker": {"aiUpscaled": "AI 업스케일", "aiDubbed": "AI 더빙", "audioDescription": "화면 해설", "spatialAudio": "공간 음향", "vr": "360° / VR", "enhancedBitrate": "향상된 비트레이트", "damaged": "손상됨", "watermarked": "워터마크"},
 			"keepAudio": "그대로 유지",
 			"keepAudioMeta": "내장 오디오",
 			"audioOnly": "오디오만",
@@ -485,8 +485,19 @@
 			"done": "완료",
 			"changed": "{{profile}}에서 변경됨: {{areas}}. 이 다운로드에만 적용됩니다.",
 			"areas": {"format": "형식", "subtitles": "자막", "sponsorBlock": "SponsorBlock", "extras": "추가 항목", "saveTo": "폴더", "fileName": "파일 이름"},
-			"saveAsProfile": "프로필로 저장…",
-			"reset": "재설정",
+			"updateProfile": "이 변경 사항으로 “{{profile}}” 업데이트",
+			"saveAsProfile": "새 프로필로 저장",
+			"update": {
+				"title": "“{{profile}}”을(를) 업데이트할까요?",
+				"description": "이제부터 이 프로필을 사용하는 모든 다운로드에 새 설정이 적용됩니다.",
+				"rows": {"format": "형식"},
+				"builtinNote": "기본 제공 프로필입니다. 프로필 탭에서 원래 설정을 복원할 수 있습니다.",
+				"action": "프로필 업데이트",
+				"updated": "프로필 “{{name}}” 업데이트됨"
+			},
+			"callout": {"title": "다른 모든 설정이 이제 이 페이지에 있습니다", "body": "자막, SponsorBlock, 미리보기 이미지 같은 추가 항목, 폴더, 파일 이름은 원래 별도 단계였습니다. 행을 클릭하면 변경할 수 있습니다."},
+			"reset": "변경 취소, “{{profile}}”(으)로 되돌리기",
+			"changedFrom": "{{profile}}에서 변경됨:",
 			"save": {"title": "프로필로 저장", "description": "이 설정을 다음에 선택할 수 있는 프로필로 저장합니다. 빠른 다운로드 프로필은 그대로 유지됩니다.", "nameLabel": "프로필 이름", "action": "프로필 저장", "saved": "프로필 “{{name}}”(으)로 저장됨", "failed": "프로필을 저장하지 못했습니다."},
 			"fileNameHint": "사용 가능한 토큰: {title}, {id}, {uploader}, {date}, {resolution}. 확장자는 자동으로 붙습니다.",
 			"nextTime": {"title": "이 다운로드는 수정한 설정을 사용했습니다. 다음에도 사용할까요?", "action": "프로필로 저장", "defaultName": "{{profile}}(수정됨)"}
@@ -948,6 +959,8 @@
 			"resolutionBest": {"label": "최고 해상도", "reason": "한도 없음"},
 			"resolution": {"label": "최대 {{tier}}p", "reason": "설정한 한도"},
 			"fps": {"label": "가장 높은 프레임 속도", "reason": "더 부드러운 움직임"},
+			"sitePreference": {"label": "사이트가 후순위로 두지 않은 스트림", "reason": "손상, 워터마크, 대체용 사본 제외"},
+			"original": {"label": "AI 업스케일이 아닌 원본 스트림", "reason": "업스케일 사본은 해상도가 높아도 실제 디테일은 늘지 않음"},
 			"codec": {"label": "AV1, 그다음 VP9, 그다음 H.264", "reason": "같은 크기에서 가장 선명"},
 			"size": {"label": "더 큰 파일", "reason": "같은 설정에서 더 세밀함"},
 			"aacSmartTv": {"label": "AAC 오디오", "reason": "어디서나 재생"},
@@ -961,5 +974,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "최고 화질", "smartTv": "모든 기기에서 재생"}, "fileType": {"auto": "스트림에 따라 파일 형식 결정", "explicit": ".{{ext}}로 저장"}}
 	},
+	"aiUpscaled": {"label": "AI 업스케일 스트림", "description": "YouTube는 일부 오래된 동영상을 AI로 만든 크기로도 제공합니다. 건너뛰기를 선택하면 원본 스트림을 유지하며, 업스케일된 스트림을 직접 고를 수도 있습니다.", "skip": "건너뛰기", "allow": "허용"},
 	"hdrPreference": {"label": "HDR 영상", "description": "자동은 이 화면이 HDR을 표시할 수 있으면 HDR을, 아니면 SDR을 선택합니다. HDR은 일반 화면에서는 색이 바래 보입니다.", "sdr": "SDR", "hdr": "HDR", "auto": "자동"}
 }

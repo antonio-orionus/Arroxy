@@ -55,6 +55,8 @@ test('Electron downloads one chapter of a video as a suffixed part, and Retry ke
 		await expect(page.locator('[data-testid="video-part-start"]')).toHaveValue('0:03')
 		await expect(page.locator('[data-testid="video-part-end"]')).toHaveValue('0:06')
 
+		await page.locator('[data-testid="btn-format-continue"]').click()
+		await expect(page.locator('[data-testid="step-review"]')).toBeVisible()
 		await page.locator('[data-testid="btn-download"]').click()
 		await queue.expectStatus(title, 'error', 90_000)
 

@@ -12,6 +12,7 @@ import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
 import {buildExploreView, exploreProfilesPatch, exploreSettingsPatch} from './scenarios/exploreScenarios.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {PROBE_SOURCES} from './probeSources/sources.js'
 import {profilePatch} from '../store/wizard/wizardProfileState.js'
 import {notify} from '@renderer/lib/notify.js'
 
@@ -22,6 +23,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'default',
 	'single-normal',
 	'single-review-subtitles',
+	'single-review-returning',
 	'single-subtitles-kind',
 	'single-profile-misfit',
 	'single-codec-mix',
@@ -54,6 +56,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'probe-no-formats',
 	'probe-rate-limited',
 	'probe-live-stream',
+	...PROBE_SOURCES.map(source => `source-${source.id}` as const),
 	'dialog-mixed-url',
 	'dialog-cookies-issue',
 	'update-direct',
@@ -106,6 +109,10 @@ export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 // The single-video screens that need more than a probe to show.
 function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 	if (id === 'single-review-subtitles') store.openReview('subtitles')
+	if (id === 'single-review-returning') {
+		store.setState({wizardWriteThumbnail: true, wizardSponsorBlockMode: 'remove'})
+		store.openReview('extras')
+	}
 	if (id === 'single-subtitles-kind') store.setWizardMediaKind('subtitles')
 	if (id === 'single-part') store.setState({wizardPart: {start: '1:35', end: '5:52', exactCut: false}})
 	if (id === 'single-codec-mix') {
@@ -117,7 +124,7 @@ function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 		if (fullHd) store.setState(profilePatch({...fullHd, name: 'Full HD + English subs', subtitles: {...fullHd.subtitles, enabled: true, languages: ['en']}}, store.getState()))
 	}
 }
-export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics' | 'Explore'
+export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Real sites' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics' | 'Explore'
 type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state' | 'explore'
 const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
 export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
@@ -197,6 +204,7 @@ const WIN_COMMON_PATHS = {downloads: 'C:\\Users\\User\\Downloads', videos: 'C:\\
 export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'default', group: 'General', title: 'Default app', description: 'Standard mock video flow and clean queue.', kind: 'default'},
 	{id: 'single-normal', group: 'General', title: 'Single video normal', description: 'A YouTube video on the Format screen, pre-selected from the active profile; mockStep=confirm opens the Review.', kind: 'probe'},
+	{id: 'single-review-returning', group: 'General', title: 'Review: returning user, edited', description: 'Review for someone who downloaded before: the one-page callout on top, Extras unfolded, and two edits (Save thumbnail, SponsorBlock remove) so the bar offers Update profile or Save as new.', kind: 'probe'},
 	{id: 'single-review-subtitles', group: 'General', title: 'Review: subtitles row open', description: 'Review screen with the Subtitles row open in place: search, uploaded and auto-generated languages.', kind: 'probe'},
 	{id: 'single-subtitles-kind', group: 'General', title: 'Subtitles only', description: 'Format screen switched to Subtitles: the language picker replaces the stream lists.', kind: 'probe'},
 	{id: 'single-codec-mix', group: 'General', title: 'Codecs and file type', description: 'A 4K HDR video offered as AV1, VP9 and H.264: the codec in each row, the Why this one tip on the Profile badge, and the Saves as menu following the picked streams.', kind: 'probe'},
@@ -230,6 +238,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'probe-rate-limited', group: 'Probe Results', title: 'Rate-limited probe', description: 'The site rate-limited part of the probe: the formats stay, with the rate-limit notice, when Arroxy asks the site again, and Try now (which lets the next probe through).', kind: 'probe'},
 	{id: 'probe-no-formats', group: 'Probe Results', title: 'No formats', description: 'Video probe returns empty formats array - tests graceful empty state in the format picker.', kind: 'probe'},
 	{id: 'probe-live-stream', group: 'Probe Results', title: 'Live stream', description: 'isLive:true - live-stream indicator and format restrictions should show.', kind: 'probe'},
+	// Real probes kept as fixtures (`bun run probe-sources:capture`), mapped the way the app maps them.
+	...PROBE_SOURCES.map((source): BrowserMockScenario => ({id: `source-${source.id}`, group: 'Real sites', title: source.id, description: source.shows, kind: 'probe'})),
 	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'Mixed URL prompt', description: 'Opens the "You pasted multiple URLs" confirmation dialog at startup.', kind: 'dialog'},
 	{id: 'dialog-cookies-issue', group: 'Dialogs', title: 'Cookies config issue', description: 'Triggers the cookies config issue dialog (file mode, missing path).', kind: 'dialog'},
 	{id: 'update-direct', group: 'Updates', title: 'Direct update', description: 'Install & Restart action (Win/Linux direct install).', kind: 'update'},
@@ -547,6 +557,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
 			commonPaths,
 			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
+			...(scenario.id === 'single-review-returning' ? {successfulDownloadCount: 12} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
 			...(scenario.id === 'setup-media-update' ? {launchCount: 6} : {}),

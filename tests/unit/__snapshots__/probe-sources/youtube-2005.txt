@@ -1,0 +1,21 @@
+youtube-2005: The first YouTube video: 240p tops
+Me at the zoo · 19 s · card says "320x240" · 22 formats
+
+Video (picked for Balanced 720p •):
+      SDR AV1         SDR VP9       SDR H.264
+240p  AV1 218.5 KB •  VP9 460.6 KB  H.264 684.1 KB
+144p  ·               VP9 320.1 KB  H.264 323.7 KB
+
+Audio:
+AAC: 130 kbps 302.0 KB • | 130 kbps 302.0 KB DRC | 49 kbps 22.05 kHz 114.8 KB | 49 kbps 22.05 kHz 114.7 KB DRC
+Opus: 107 kbps 249.4 KB DRC | 106 kbps 246.3 KB | 64 kbps DRC 148.0 KB DRC | 60 kbps 140.4 KB | 50 kbps 116.1 KB DRC | 47 kbps 110.0 KB
+DRC switch shown
+
+Profile picks:
+balanced: 395 (320x240, mp4) + audio 140 (audio only, m4a)
+best-quality: 395 (320x240, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 230 (320x240, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 140 (audio only, m4a)
+
+Subtitles: en, de
+Auto captions: none

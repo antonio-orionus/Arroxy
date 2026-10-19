@@ -1,0 +1,24 @@
+youtube-2014: A 2014 music video: 1080p tops, low-fps storyboard-like streams
+Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars · 270 s · card says "1280x720" · 37 formats
+
+Video (picked for Balanced 720p •):
+       SDR AV1        SDR VP9                          SDR H.264
+1080p  AV1 50.2 MB    VP9 [Enhanced bitrate] 115.6 MB  H.264 150.9 MB
+720p   AV1 27.8 MB •  VP9 49.4 MB                      H.264 56.8 MB
+480p   AV1 15.6 MB    VP9 26.8 MB                      H.264 42.1 MB
+360p   AV1 8.9 MB     VP9 17.5 MB                      H.264 25.8 MB
+240p   AV1 4.2 MB     VP9 7.5 MB                       H.264 10.0 MB
+144p   AV1 2.1 MB     VP9 4.8 MB                       H.264 5.5 MB
+
+Audio:
+AAC: 129 kbps 4.2 MB • | 49 kbps 22.05 kHz 1.6 MB
+Opus: 126 kbps 4.1 MB | 64 kbps 2.1 MB | 49 kbps 1.6 MB
+
+Profile picks:
+balanced: 398 (1280x720, mp4) + audio 140 (audio only, m4a)
+best-quality: 399 (1920x1080, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 140 (audio only, m4a)
+
+Subtitles: en-nP7-2PuUl7o
+Auto captions: none

@@ -10,6 +10,11 @@ import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr, type HdrSource} f
 import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
 
 export type VideoRank =
+	// Streams the site doesn't mark down (yt-dlp's `preference`: damaged,
+	// watermarked, fallback copies). yt-dlp itself ranks this above everything.
+	| {kind: 'site-preference'}
+	// The source's own streams before ones it upscaled with AI (`AiUpscaled`).
+	| {kind: 'original'}
 	// Smart TV: H.264 before anything else, then streams already in MP4.
 	| {kind: 'h264'}
 	| {kind: 'mp4-streams'}
@@ -49,6 +54,8 @@ export interface SelectionOrder {
 	// be a stream with built-in audio). Smart TV and video-only take a separate
 	// stream so the audio rank decides the audio.
 	separateVideoStream: boolean
+	// Leave out AI-upscaled streams unless nothing else is offered.
+	skipAiUpscaled: boolean
 }
 
 export interface EffectiveNativeAudio {
@@ -80,9 +87,10 @@ export function effectiveFileType(goal: VideoGoal, fileType: VideoFileType): Vid
 
 const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'codec'}, {kind: 'size'}]
 
-function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier): VideoRank[] {
-	if (goal === 'smart-tv') return [{kind: 'h264'}, {kind: 'mp4-streams'}, {kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
-	return [{kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
+function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean): VideoRank[] {
+	const original: VideoRank[] = [{kind: 'site-preference'}, ...(skipAiUpscaled ? [{kind: 'original'} as const] : [])]
+	if (goal === 'smart-tv') return [...original, {kind: 'h264'}, {kind: 'mp4-streams'}, {kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
+	return [...original, {kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
 }
 
 function audioRank(goal: VideoGoal, fileType: VideoFileType): AudioRank {
@@ -95,15 +103,17 @@ function audioRank(goal: VideoGoal, fileType: VideoFileType): AudioRank {
 export function selectionOrder(intent: VideoMediaIntent, globalPreference: NativeAudioPreference, globalHdr: GlobalHdr = DEFAULT_HDR_PREFERENCE): SelectionOrder {
 	const fileType = effectiveFileType(intent.goal, intent.fileType)
 	const withAudio = intent.kind === 'video-audio'
+	const skipAiUpscaled = intent.aiUpscaled !== 'allow'
 	return {
 		goal: intent.goal,
 		tier: intent.tier,
 		fileType,
-		video: videoRanks(intent.goal, intent.tier),
+		video: videoRanks(intent.goal, intent.tier, skipAiUpscaled),
 		hdr: effectiveHdr(intent.hdr, globalHdr),
 		audio: withAudio ? [audioRank(intent.goal, fileType)] : null,
 		nativeAudio: withAudio ? effectiveNativeAudio(intent.audio.native, globalPreference) : null,
-		separateVideoStream: intent.kind === 'video-only' || intent.goal === 'smart-tv'
+		separateVideoStream: intent.kind === 'video-only' || intent.goal === 'smart-tv',
+		skipAiUpscaled
 	}
 }
 
@@ -117,6 +127,12 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefined {
 	const sdrFirst = order.hdr.preference === 'sdr'
 	switch (rank.kind) {
+		// yt-dlp always sorts by the site's preference first; nothing to spell out.
+		case 'site-preference':
+			return undefined
+		// `-S` can't leave streams out: the format selector filters them (mediaIntent).
+		case 'original':
+			return undefined
 		case 'h264':
 			return 'vcodec:h264'
 		case 'mp4-streams':

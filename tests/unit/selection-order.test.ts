@@ -3,6 +3,7 @@ import {canEmbedThumbnail, mediaIntentSpec} from '@shared/mediaIntent.js'
 import {containerArgsFor, effectiveFileType, effectiveNativeAudio, fileTypeAllowed, formatSortFor, selectionOrder} from '@shared/selectionOrder.js'
 import {mediaIntentSchema, type MediaIntent, type NativeAudioPreference, type VideoMediaIntent} from '@shared/schemas.js'
 import {readFileSync} from 'node:fs'
+import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 // Recorded from the code before the selection order existed: every profile
 // media combination and the yt-dlp spec it produced. Reading each old intent
@@ -21,6 +22,13 @@ function withoutNewFields(spec: Record<string, unknown>): Record<string, unknown
 	return rest
 }
 
+// New since the recording: AI-upscaled streams ("-sr") are skipped first, then
+// the recorded selector runs unchanged as the fallback.
+function withSkippedAiUpscaled(spec: Record<string, unknown>): Record<string, unknown> {
+	const selector = spec.formatSelector
+	return typeof selector === 'string' && selector.includes('bestvideo') ? {...spec, formatSelector: skippingAiUpscaled(selector)} : spec
+}
+
 describe('selection order parity with the recorded yt-dlp specs', () => {
 	it('covers every recorded combination', () => {
 		expect(CASES.length).toBe(138)
@@ -35,7 +43,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		if (folded) continue
 		it(`matches ${label}`, () => {
 			const upgraded = mediaIntentSchema.parse(intent)
-			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(legacyCase.spec)
+			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(withSkippedAiUpscaled(legacyCase.spec))
 		})
 	}
 
@@ -43,14 +51,14 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		const recordedAac = CASES.find(c => c.intent.codec === 'mp4' && c.intent.tiers?.[0] === '720' && c.intent.audio?.format === 'm4a' && c.pref === 'compatible')
-		expect(mediaIntentSpec(upgraded, 'compatible', 'hdr')).toEqual({...recordedAac?.spec, fileType: 'auto'})
+		expect(mediaIntentSpec(upgraded, 'compatible', 'hdr')).toEqual(withSkippedAiUpscaled({...recordedAac?.spec, fileType: 'auto'}))
 	})
 
 	it('reads an old native profile with AAC audio as Best picture saved as MP4', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		const spec = mediaIntentSpec(upgraded, 'compatible', 'hdr')
-		expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
+		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
 		expect(spec.formatSort).toBe('res:1080,fps,acodec:m4a')
 		expect(spec.mergeOutputFormat).toBe('mp4')
 		expect(spec.remuxVideo).toBe('mp4')
@@ -68,8 +76,9 @@ function video(goal: VideoMediaIntent['goal'], fileType: VideoMediaIntent['fileT
 
 describe('selectionOrder', () => {
 	it('ranks resolution first for Best picture and H.264 first for Smart TV', () => {
-		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['resolution', 'fps', 'hdr', 'codec', 'size'])
-		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(selectionOrder({...video('best-picture', 'auto'), aiUpscaled: 'allow'}, 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'resolution', 'fps', 'hdr', 'codec', 'size'])
 	})
 
 	it('picks the audio rank from goal and file type', () => {

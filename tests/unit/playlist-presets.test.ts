@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
-import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 function specFor(selection: PlaylistSelection) {
 	const intent = playlistSelectionToMediaIntent(selection)
@@ -13,7 +13,7 @@ describe('mediaIntentSpec', () => {
 	describe('video · best codec', () => {
 		it('tier=best → uncapped bestvideo* selector, SDR-first sort (resolution and fps named first), no merge', () => {
 			const spec = specFor({kind: 'video', tier: 'best', codec: 'best'})
-			expect(spec.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
 			expect(spec.formatSort).toBe('res,fps,hdr:sdr')
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.audioConvert).toBeUndefined()
@@ -22,7 +22,7 @@ describe('mediaIntentSpec', () => {
 
 		it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s uses yt-dlp resolution sort instead of a hard height filter', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'best'})
-			expect(spec.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
 			expect(spec.formatSelector).not.toContain('height<=')
 			expect(spec.formatSort).toBe(`res:${tier},fps,hdr:sdr`)
 			expect(spec.mergeOutputFormat).toBeUndefined()
@@ -37,7 +37,7 @@ describe('mediaIntentSpec', () => {
 			// Do not use bv*: on YouTube, old combined 360p MP4 can outrank 1080p
 			// video-only H.264 when compatibility fields sort first.
 			expect(spec.formatSelector).not.toContain('bv*')
-			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
 			expect(spec.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
@@ -50,7 +50,7 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'mp4', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
 			expect(spec.formatSort).toBe('res:1440,fps,hdr:sdr,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.remuxVideo).toBe('mp4')
@@ -63,7 +63,7 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
 			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()

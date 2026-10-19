@@ -45,7 +45,7 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 	// defense-in-depth gate as the site check.
 	const sbConfig = site.supportsSponsorBlock && job.sponsorBlock.mode !== 'off' && !videoPart ? {mode: job.sponsorBlock.mode, categories: job.sponsorBlock.categories} : undefined
 
-	const formatId = job.kind === 'single-format' ? job.formatId : undefined
+	const formatId = job.kind === 'single-format' || job.kind === 'audio-convert' ? job.formatId : undefined
 	const formatSelector = job.kind === 'ranged-format' ? job.formatSelector : undefined
 	const formatSort = job.kind === 'ranged-format' ? job.formatSort : undefined
 	const {mergeOutputFormat, remuxVideo} = job.kind === 'ranged-format' || job.kind === 'single-format' ? job : {mergeOutputFormat: undefined, remuxVideo: undefined}

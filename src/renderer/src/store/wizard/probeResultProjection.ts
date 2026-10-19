@@ -282,6 +282,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardFormatsDegraded: null,
 			selectedVideoFormatId: '',
 			audioSelection: {kind: 'none'},
+			wizardSilencedAudio: null,
 			wizardMediaKind: 'video',
 			wizardProfile: null,
 			wizardProfileBaseline: null,

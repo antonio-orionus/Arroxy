@@ -406,10 +406,10 @@ describe('YtDlp — audio convert args', () => {
 		expect(args[args.indexOf('--audio-quality') + 1]).toBe('256K')
 	})
 
-	it('audioConvert overrides any provided formatId', async () => {
-		await makeYtDlp().run(mediaRequest({formatId: 'bv+ba', audioConvert: lossyAudio('mp3', 192)}))
+	it('a conversion of a picked stream (one audio language of several) tries it first, then the source-preferred chain', async () => {
+		await makeYtDlp().run(mediaRequest({formatId: '251-es', audioConvert: lossyAudio('mp3', 192)}))
 		const args = getArgs()
-		expect(args[args.indexOf('-f') + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
+		expect(args[args.indexOf('-f') + 1]).toBe(`251-es/${SOURCE_PREFERRED_BEST_AUDIO_SELECTOR}`)
 		expect(args.filter(a => a === '-f').length).toBe(1)
 	})
 })

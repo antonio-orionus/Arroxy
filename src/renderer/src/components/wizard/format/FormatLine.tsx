@@ -1,4 +1,6 @@
 import type {ReactNode} from 'react'
+import {Gauge, Headphones, Sparkles, Stamp, TriangleAlert, type LucideIcon} from 'lucide-react'
+import type {StreamMarker, StreamMarkerView} from '../../../store/formatSelectionView.js'
 import {cn} from '@renderer/lib/utils.js'
 import {RadioGroupChip} from '../../ui/radio-group.js'
 import {Hint} from '../../shared/Hint.js'
@@ -23,6 +25,23 @@ const NARROW_CHIP = 'max-lg:h-auto max-lg:flex-col max-lg:items-start max-lg:gap
 // means it, so moving across the chips to pick one shows nothing.
 const CHIP_HINT_DELAY_MS = 5000
 const TAG = 'shrink-0 text-caption text-subtle-foreground group-data-checked/radio-chip:text-selected-foreground'
+
+// A stream marker as an icon, so a chip stays as wide as its codec and size in
+// every language; its name comes on a quick hover and is in the chip's spoken
+// name. Damaged is the one to notice without hovering, in the warning colour.
+const MARKER_ICONS = {'ai-upscaled': Sparkles, 'enhanced-bitrate': Gauge, damaged: TriangleAlert, watermarked: Stamp, 'spatial-audio': Headphones} as const satisfies Record<StreamMarker, LucideIcon>
+const MARKER_HINT_DELAY_MS = 300
+
+function MarkerIcon({marker, label}: StreamMarkerView): ReactNode {
+	const Icon = MARKER_ICONS[marker]
+	return (
+		<Hint label={label} delay={MARKER_HINT_DELAY_MS}>
+			<span aria-hidden data-marker={marker} className={cn('inline-flex shrink-0', marker === 'damaged' ? 'text-warning' : TAG)}>
+				<Icon className="size-3.5" />
+			</span>
+		</Hint>
+	)
+}
 
 // What a line or a grid row is: a resolution (with its alias) or a codec.
 export function FormatLineName({name, alias, className}: {name: string; alias?: string | null; className?: string}): ReactNode {
@@ -52,6 +71,7 @@ export function FormatChip({
 	name,
 	label,
 	tags = [],
+	markers = [],
 	size,
 	adornment,
 	profilePick = false,
@@ -63,6 +83,7 @@ export function FormatChip({
 	name: string
 	label: string
 	tags?: readonly string[]
+	markers?: readonly StreamMarkerView[]
 	size?: string | null
 	adornment?: ReactNode
 	profilePick?: boolean
@@ -76,6 +97,9 @@ export function FormatChip({
 				<span className="flex min-w-0 items-center gap-2 whitespace-nowrap">
 					{adornment}
 					<span>{label}</span>
+					{markers.map(view => (
+						<MarkerIcon key={view.marker} {...view} />
+					))}
 					{tags.map(tag => (
 						<span key={tag} className={cn(TAG, narrowStack && NARROW_HIDDEN)}>
 							{tag}

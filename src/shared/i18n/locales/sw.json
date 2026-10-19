@@ -387,7 +387,7 @@
 			"cat": {"sponsor": "Mdhamini", "intro": "Utangulizi", "outro": "Mwisho", "selfpromo": "Kujitangaza", "music_offtopic": "Music off-topic", "preview": "Muhtasari", "filler": "Kijazio"}
 		},
 		"formats": {
-			"kind": {"label": "Cha kupakua", "video": "Video", "audio": "Sauti", "subtitles": "Manukuu peke yake"},
+			"kind": {"label": "Cha kupakua", "video": "Video + sauti", "videoOnly": "Video, bila sauti", "audio": "Sauti pekee", "subtitles": "Manukuu peke yake"},
 			"profile": {
 				"calloutTitle": "Miundo huanza na wasifu wako",
 				"calloutBody": "Wasifu wako unaotumika huchagua mitiririko kwa ajili yako. Badilisha wasifu kutoka kwenye menyu, au tumia penseli kurekebisha mmoja bila kuondoka kwenye upakuaji huu.",
@@ -395,13 +395,12 @@
 				"tag": "Wasifu",
 				"closestTag": "Karibu zaidi na wasifu",
 				"switchTitle": "Badilisha wasifu?",
-				"switchBody": "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio ya wasifu utakaochagua.",
-				"switchAction": "Badilisha",
+				"switchBody": "Ulibadilisha {{areas}} kwa upakuaji huu. “{{profile}}” huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
+				"resetAll": "Weka upya yote",
 				"edit": "Hariri {{name}}",
 				"updatedTitle": "Tumia wasifu uliosasishwa?",
-				"updatedBody": "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio mipya ya wasifu.",
-				"updatedAction": "Tumia",
-				"updatedKeep": "Hifadhi mabadiliko yangu",
+				"updatedBody": "Ulibadilisha {{areas}} kwa upakuaji huu. Wasifu uliosasishwa huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
+				"keepEdits": "Baki na mabadiliko yangu",
 				"menuDescription": "Kwa upakuaji huu tu. Wasifu wako chaguomsingi unabaki kama ulivyo."
 			},
 			"fit": {
@@ -412,12 +411,13 @@
 				"subtitlesMissing": "Wasifu wako unaomba manukuu katika {{languages}}. Video hii haina.",
 				"webmUnavailable": "Wasifu wako unaomba WebM. Mikondo iliyochaguliwa ya video hii ina {{codec}}, ambayo WebM haiwezi kubeba, kwa hivyo aina ya faili ni Otomatiki."
 			},
-			"summary": {"lead": "Pia kutoka {{profile}}:", "subtitlesOff": "manukuu yamezimwa", "subtitlesAdd_one": "Lugha {{count}} inapatikana, ongeza", "subtitlesAdd_other": "Lugha {{count}} zinapatikana, ongeza", "reviewAll": "Kagua yote"},
-			"footer": {"reviewOptions": "Kagua na chaguo", "download": "Pakua", "moreActions": "Chaguo zaidi za upakuaji", "addToQueue": "Ongeza kwenye foleni bila kuanza", "subtitlesRequired": "Chagua angalau lugha moja ya manukuu."},
+			"footer": {"download": "Pakua", "moreActions": "Chaguo zaidi za upakuaji", "addToQueue": "Ongeza kwenye foleni bila kuanza", "subtitlesRequired": "Chagua angalau lugha moja ya manukuu."},
 			"video": "Video",
 			"audio": "Sauti",
 			"noAudio": "Hakuna sauti",
-			"videoOnly": "Video peke yake",
+			"withAudio": "yenye sauti",
+			"resolutionUnknown": "Azimio halijulikani",
+			"marker": {"aiUpscaled": "Imekuzwa kwa AI", "aiDubbed": "Imetafsiriwa na AI", "audioDescription": "Maelezo kwa sauti", "spatialAudio": "Sauti ya anga", "vr": "360° / VR", "enhancedBitrate": "Bitrate iliyoboreshwa", "damaged": "Imeharibika", "watermarked": "Ina alama-maji"},
 			"keepAudio": "Acha kama ilivyo",
 			"keepAudioMeta": "Sauti iliyojengwa ndani",
 			"audioOnly": "Sauti peke yake",
@@ -510,8 +510,19 @@
 			"done": "Tayari",
 			"changed": "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu.",
 			"areas": {"format": "umbizo", "subtitles": "manukuu", "sponsorBlock": "SponsorBlock", "extras": "vya ziada", "saveTo": "folda", "fileName": "jina la faili"},
-			"saveAsProfile": "Hifadhi kama wasifu…",
-			"reset": "Weka upya",
+			"updateProfile": "Sasisha “{{profile}}” kwa mabadiliko haya",
+			"saveAsProfile": "Hifadhi kama wasifu mpya",
+			"update": {
+				"title": "Sasisha “{{profile}}”?",
+				"description": "Kuanzia sasa, kila upakuaji kwa wasifu huu utatumia mipangilio mipya.",
+				"rows": {"format": "Umbizo"},
+				"builtinNote": "Huu ni wasifu uliojengwa ndani. Unaweza kurejesha mipangilio yake asili kwenye kichupo cha Wasifu.",
+				"action": "Sasisha wasifu",
+				"updated": "Wasifu “{{name}}” umesasishwa"
+			},
+			"callout": {"title": "Mipangilio mingine yote sasa iko kwenye ukurasa huu", "body": "Manukuu, SponsorBlock, vya ziada kama picha ndogo, folda na jina la faili zamani zilikuwa hatua tofauti. Bofya safu ili kuibadilisha."},
+			"reset": "Tendua mabadiliko, rudi kwa “{{profile}}”",
+			"changedFrom": "Imebadilishwa kutoka {{profile}}:",
 			"save": {
 				"title": "Hifadhi kama wasifu",
 				"description": "Huhifadhi mipangilio hii kama wasifu unaoweza kuchagua wakati ujao. Wasifu wako wa Upakuaji wa haraka hubaki vilevile.",
@@ -617,7 +628,7 @@
 				"videoAudio": {"label": "Video + sauti", "description": "Faili za kawaida za video"},
 				"videoOnly": {"label": "Video, bila sauti", "description": "Video isiyo na sauti pekee"},
 				"audioOnly": {"label": "Sauti pekee", "description": "Muziki au podikasti"},
-				"subtitlesOnly": {"label": "Manukuu pekee", "description": "Faili za manukuu pekee"}
+				"subtitlesOnly": {"label": "Manukuu peke yake", "description": "Faili za manukuu pekee"}
 			},
 			"icon": {"controls": "Vidhibiti", "download": "Pakua", "video": "Video", "captions": "Manukuu", "audio": "Sauti", "music": "Muziki", "podcast": "Podikasti", "classes": "Masomo", "clip": "Kipande", "archive": "Kumbukumbu"},
 			"audioFormat": {"best": "Bora", "wav": "WAV"},
@@ -1000,6 +1011,8 @@
 			"resolutionBest": {"label": "Azimio la juu zaidi", "reason": "hakuna kikomo kilichowekwa"},
 			"resolution": {"label": "Hadi {{tier}}p", "reason": "kikomo chako"},
 			"fps": {"label": "Kasi ya juu zaidi ya fremu", "reason": "mwendo laini zaidi"},
+			"sitePreference": {"label": "Mikondo isiyoshushwa na tovuti", "reason": "huruka nakala zilizoharibika, zenye alama-maji na za akiba"},
+			"original": {"label": "Mikondo asili, si iliyokuzwa kwa AI", "reason": "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
@@ -1013,5 +1026,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Mikondo iliyokuzwa kwa AI", "description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.", "skip": "Ruka", "allow": "Ruhusu"},
 	"hdrPreference": {"label": "Video ya HDR", "description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatiki"}
 }

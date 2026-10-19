@@ -1,0 +1,1014 @@
+{
+	"source": {
+		"id": "youtube-2010",
+		"url": "https://www.youtube.com/watch?v=OQSNhk5ICTI",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "OQSNhk5ICTI",
+		"title": "Yosemitebear Mountain Double Rainbow 1-8-10",
+		"thumbnail": "https://i.ytimg.com/vi/OQSNhk5ICTI/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-BIAC4AOKAgwIABABGHIgVSguMA8=&rs=AOn4CLBoj2Oee4SIkfG1Lrfm6UAeFPAowg",
+		"duration": 209,
+		"webpage_url": "https://www.youtube.com/watch?v=OQSNhk5ICTI",
+		"extractor": "youtube",
+		"extractor_key": "Youtube",
+		"is_live": false,
+		"live_status": "not_live",
+		"availability": "public",
+		"age_limit": 0,
+		"uploader": "Yosemitebear62",
+		"channel": "Yosemitebear62",
+		"upload_date": "20100109",
+		"timestamp": 1263003270,
+		"formats": [
+			{"format_id":"sb2","ext":"mhtml","resolution":"48x27","format_note":"storyboard","width":48,"height":27,"fps":0.4784688995215311,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb1","ext":"mhtml","resolution":"60x45","format_note":"storyboard","width":60,"height":45,"fps":0.507177033492823,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb0","ext":"mhtml","resolution":"120x90","format_note":"storyboard","width":120,"height":90,"fps":0.507177033492823,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"233","ext":"mp4","resolution":"audio only","format_note":"Default, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":0,"quality":-1,"has_drm":false},
+			{"format_id":"234","ext":"mp4","resolution":"audio only","format_note":"Default, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":1,"quality":-1,"has_drm":false},
+			{"format_id":"139-drc","ext":"m4a","resolution":"audio only","format_note":"low, DRC","tbr":48.817,"vbr":0,"abr":48.817,"asr":22050,"audio_channels":2,"filesize":1277218,"filesize_approx":1277199,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"249-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":51.242,"vbr":0,"abr":51.242,"asr":48000,"audio_channels":2,"filesize":1339873,"filesize_approx":1339856,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"250-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":63.389,"vbr":0,"abr":63.389,"asr":48000,"audio_channels":2,"filesize":1657484,"filesize_approx":1657471,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
+			{"format_id":"139","ext":"m4a","resolution":"audio only","format_note":"low","tbr":48.82,"vbr":0,"abr":48.82,"asr":22050,"audio_channels":2,"filesize":1277301,"filesize_approx":1277277,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"249","ext":"webm","resolution":"audio only","format_note":"low","tbr":50.171,"vbr":0,"abr":50.171,"asr":48000,"audio_channels":2,"filesize":1311869,"filesize_approx":1311852,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"250","ext":"webm","resolution":"audio only","format_note":"low","tbr":61.095,"vbr":0,"abr":61.095,"asr":48000,"audio_channels":2,"filesize":1597493,"filesize_approx":1597489,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"140-drc","ext":"m4a","resolution":"audio only","format_note":"medium, DRC","tbr":129.512,"vbr":0,"abr":129.512,"asr":44100,"audio_channels":2,"filesize":3386931,"filesize_approx":3386916,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":2.5,"has_drm":false},
+			{"format_id":"251-drc","ext":"webm","resolution":"audio only","format_note":"medium, DRC","tbr":106.273,"vbr":0,"abr":106.273,"asr":48000,"audio_channels":2,"filesize":2778809,"filesize_approx":2778786,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":2.5,"has_drm":false},
+			{"format_id":"140","ext":"m4a","resolution":"audio only","format_note":"medium","tbr":129.515,"vbr":0,"abr":129.515,"asr":44100,"audio_channels":2,"filesize":3387016,"filesize_approx":3386995,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"251","ext":"webm","resolution":"audio only","format_note":"medium","tbr":105.246,"vbr":0,"abr":105.246,"asr":48000,"audio_channels":2,"filesize":2751944,"filesize_approx":2751932,"vcodec":"none","acodec":"opus","protocol":"https","language":"en","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"602","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":13,"tbr":99.153,"vbr":99.153,"abr":0,"vcodec":"vp09.00.10.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"269","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":140.767,"vbr":140.767,"abr":0,"vcodec":"avc1.4D400B","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"160","ext":"mp4","resolution":"192x144","format_note":"144p","width":192,"height":144,"fps":25,"tbr":31.104,"vbr":31.104,"abr":0,"filesize":813240,"filesize_approx":813214,"vcodec":"avc1.4D400B","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"603","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":162.021,"vbr":162.021,"abr":0,"vcodec":"vp09.00.11.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"278","ext":"webm","resolution":"192x144","format_note":"144p","width":192,"height":144,"fps":25,"tbr":61.121,"vbr":61.121,"abr":0,"filesize":1598017,"filesize_approx":1598008,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"394","ext":"mp4","resolution":"192x144","format_note":"144p","width":192,"height":144,"fps":25,"tbr":47.428,"vbr":47.428,"abr":0,"filesize":1240011,"filesize_approx":1240005,"vcodec":"av01.0.00M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"229","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":248.736,"vbr":248.736,"abr":0,"vcodec":"avc1.4D400D","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"133","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":25,"tbr":66.588,"vbr":66.588,"abr":0,"filesize":1740968,"filesize_approx":1740943,"vcodec":"avc1.4D400D","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"604","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":258.121,"vbr":258.121,"abr":0,"vcodec":"vp09.00.20.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"242","ext":"webm","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":25,"tbr":58.268,"vbr":58.268,"abr":0,"filesize":1523432,"filesize_approx":1523416,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"395","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":25,"tbr":55.367,"vbr":55.367,"abr":0,"filesize":1447571,"filesize_approx":1447570,"vcodec":"av01.0.00M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"230","ext":"mp4","resolution":"480x360","width":480,"height":360,"fps":25,"tbr":636.89,"vbr":636.89,"abr":0,"vcodec":"avc1.4D4015","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"134","ext":"mp4","resolution":"480x360","format_note":"360p","width":480,"height":360,"fps":25,"tbr":142.907,"vbr":142.907,"abr":0,"filesize":3736329,"filesize_approx":3736303,"vcodec":"avc1.4D4015","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"605","ext":"mp4","resolution":"480x360","width":480,"height":360,"fps":25,"tbr":624.084,"vbr":624.084,"abr":0,"vcodec":"vp09.00.21.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"243","ext":"webm","resolution":"480x360","format_note":"360p","width":480,"height":360,"fps":25,"tbr":104.829,"vbr":104.829,"abr":0,"filesize":2740773,"filesize_approx":2740754,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"396","ext":"mp4","resolution":"480x360","format_note":"360p","width":480,"height":360,"fps":25,"tbr":96.962,"vbr":96.962,"abr":0,"filesize":2535078,"filesize_approx":2535071,"vcodec":"av01.0.01M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"231","ext":"mp4","resolution":"640x480","width":640,"height":480,"fps":25,"tbr":1048.318,"vbr":1048.318,"abr":0,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"135","ext":"mp4","resolution":"640x480","format_note":"480p","width":640,"height":480,"fps":25,"tbr":248.393,"vbr":248.393,"abr":0,"filesize":6494242,"filesize_approx":6494234,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"606","ext":"mp4","resolution":"640x480","width":640,"height":480,"fps":25,"tbr":1081.538,"vbr":1081.538,"abr":0,"vcodec":"vp09.00.30.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"244","ext":"webm","resolution":"640x480","format_note":"480p","width":640,"height":480,"fps":25,"tbr":185.587,"vbr":185.587,"abr":0,"filesize":4852194,"filesize_approx":4852172,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"397","ext":"mp4","resolution":"640x480","format_note":"480p","width":640,"height":480,"fps":25,"tbr":168.55,"vbr":168.55,"abr":0,"filesize":4406750,"filesize_approx":4406739,"vcodec":"av01.0.04M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false}
+		],
+		"subtitles": {
+			"en": [
+				{
+					"ext": "json3",
+					"name": "English"
+				}
+			]
+		},
+		"automatic_captions": {
+			"en": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"ab": [
+				{
+					"ext": "json3",
+					"name": "Abkhazian"
+				}
+			],
+			"aa": [
+				{
+					"ext": "json3",
+					"name": "Afar"
+				}
+			],
+			"af": [
+				{
+					"ext": "json3",
+					"name": "Afrikaans"
+				}
+			],
+			"ak": [
+				{
+					"ext": "json3",
+					"name": "Akan"
+				}
+			],
+			"sq": [
+				{
+					"ext": "json3",
+					"name": "Albanian"
+				}
+			],
+			"am": [
+				{
+					"ext": "json3",
+					"name": "Amharic"
+				}
+			],
+			"ar": [
+				{
+					"ext": "json3",
+					"name": "Arabic"
+				}
+			],
+			"hy": [
+				{
+					"ext": "json3",
+					"name": "Armenian"
+				}
+			],
+			"as": [
+				{
+					"ext": "json3",
+					"name": "Assamese"
+				}
+			],
+			"ay": [
+				{
+					"ext": "json3",
+					"name": "Aymara"
+				}
+			],
+			"az": [
+				{
+					"ext": "json3",
+					"name": "Azerbaijani"
+				}
+			],
+			"bn": [
+				{
+					"ext": "json3",
+					"name": "Bangla"
+				}
+			],
+			"ba": [
+				{
+					"ext": "json3",
+					"name": "Bashkir"
+				}
+			],
+			"eu": [
+				{
+					"ext": "json3",
+					"name": "Basque"
+				}
+			],
+			"be": [
+				{
+					"ext": "json3",
+					"name": "Belarusian"
+				}
+			],
+			"bho": [
+				{
+					"ext": "json3",
+					"name": "Bhojpuri"
+				}
+			],
+			"bs": [
+				{
+					"ext": "json3",
+					"name": "Bosnian"
+				}
+			],
+			"br": [
+				{
+					"ext": "json3",
+					"name": "Breton"
+				}
+			],
+			"bg": [
+				{
+					"ext": "json3",
+					"name": "Bulgarian"
+				}
+			],
+			"my": [
+				{
+					"ext": "json3",
+					"name": "Burmese"
+				}
+			],
+			"ca": [
+				{
+					"ext": "json3",
+					"name": "Catalan"
+				}
+			],
+			"ceb": [
+				{
+					"ext": "json3",
+					"name": "Cebuano"
+				}
+			],
+			"zh-Hans": [
+				{
+					"ext": "json3",
+					"name": "Chinese (Simplified)"
+				}
+			],
+			"zh-Hant": [
+				{
+					"ext": "json3",
+					"name": "Chinese (Traditional)"
+				}
+			],
+			"co": [
+				{
+					"ext": "json3",
+					"name": "Corsican"
+				}
+			],
+			"hr": [
+				{
+					"ext": "json3",
+					"name": "Croatian"
+				}
+			],
+			"cs": [
+				{
+					"ext": "json3",
+					"name": "Czech"
+				}
+			],
+			"da": [
+				{
+					"ext": "json3",
+					"name": "Danish"
+				}
+			],
+			"dv": [
+				{
+					"ext": "json3",
+					"name": "Divehi"
+				}
+			],
+			"nl": [
+				{
+					"ext": "json3",
+					"name": "Dutch"
+				}
+			],
+			"dz": [
+				{
+					"ext": "json3",
+					"name": "Dzongkha"
+				}
+			],
+			"en-orig": [
+				{
+					"ext": "json3",
+					"name": "English (Original)"
+				}
+			],
+			"eo": [
+				{
+					"ext": "json3",
+					"name": "Esperanto"
+				}
+			],
+			"et": [
+				{
+					"ext": "json3",
+					"name": "Estonian"
+				}
+			],
+			"ee": [
+				{
+					"ext": "json3",
+					"name": "Ewe"
+				}
+			],
+			"fo": [
+				{
+					"ext": "json3",
+					"name": "Faroese"
+				}
+			],
+			"fj": [
+				{
+					"ext": "json3",
+					"name": "Fijian"
+				}
+			],
+			"fil": [
+				{
+					"ext": "json3",
+					"name": "Filipino"
+				}
+			],
+			"fi": [
+				{
+					"ext": "json3",
+					"name": "Finnish"
+				}
+			],
+			"fr": [
+				{
+					"ext": "json3",
+					"name": "French"
+				}
+			],
+			"gaa": [
+				{
+					"ext": "json3",
+					"name": "Ga"
+				}
+			],
+			"gl": [
+				{
+					"ext": "json3",
+					"name": "Galician"
+				}
+			],
+			"lg": [
+				{
+					"ext": "json3",
+					"name": "Ganda"
+				}
+			],
+			"ka": [
+				{
+					"ext": "json3",
+					"name": "Georgian"
+				}
+			],
+			"de": [
+				{
+					"ext": "json3",
+					"name": "German"
+				}
+			],
+			"el": [
+				{
+					"ext": "json3",
+					"name": "Greek"
+				}
+			],
+			"gn": [
+				{
+					"ext": "json3",
+					"name": "Guarani"
+				}
+			],
+			"gu": [
+				{
+					"ext": "json3",
+					"name": "Gujarati"
+				}
+			],
+			"ht": [
+				{
+					"ext": "json3",
+					"name": "Haitian Creole"
+				}
+			],
+			"ha": [
+				{
+					"ext": "json3",
+					"name": "Hausa"
+				}
+			],
+			"haw": [
+				{
+					"ext": "json3",
+					"name": "Hawaiian"
+				}
+			],
+			"iw": [
+				{
+					"ext": "json3",
+					"name": "Hebrew"
+				}
+			],
+			"hi": [
+				{
+					"ext": "json3",
+					"name": "Hindi"
+				}
+			],
+			"hmn": [
+				{
+					"ext": "json3",
+					"name": "Hmong"
+				}
+			],
+			"hu": [
+				{
+					"ext": "json3",
+					"name": "Hungarian"
+				}
+			],
+			"is": [
+				{
+					"ext": "json3",
+					"name": "Icelandic"
+				}
+			],
+			"ig": [
+				{
+					"ext": "json3",
+					"name": "Igbo"
+				}
+			],
+			"id": [
+				{
+					"ext": "json3",
+					"name": "Indonesian"
+				}
+			],
+			"iu": [
+				{
+					"ext": "json3",
+					"name": "Inuktitut"
+				}
+			],
+			"ga": [
+				{
+					"ext": "json3",
+					"name": "Irish"
+				}
+			],
+			"it": [
+				{
+					"ext": "json3",
+					"name": "Italian"
+				}
+			],
+			"ja": [
+				{
+					"ext": "json3",
+					"name": "Japanese"
+				}
+			],
+			"jv": [
+				{
+					"ext": "json3",
+					"name": "Javanese"
+				}
+			],
+			"kl": [
+				{
+					"ext": "json3",
+					"name": "Kalaallisut"
+				}
+			],
+			"kn": [
+				{
+					"ext": "json3",
+					"name": "Kannada"
+				}
+			],
+			"kk": [
+				{
+					"ext": "json3",
+					"name": "Kazakh"
+				}
+			],
+			"kha": [
+				{
+					"ext": "json3",
+					"name": "Khasi"
+				}
+			],
+			"km": [
+				{
+					"ext": "json3",
+					"name": "Khmer"
+				}
+			],
+			"rw": [
+				{
+					"ext": "json3",
+					"name": "Kinyarwanda"
+				}
+			],
+			"ko": [
+				{
+					"ext": "json3",
+					"name": "Korean"
+				}
+			],
+			"kri": [
+				{
+					"ext": "json3",
+					"name": "Krio"
+				}
+			],
+			"ku": [
+				{
+					"ext": "json3",
+					"name": "Kurdish"
+				}
+			],
+			"ky": [
+				{
+					"ext": "json3",
+					"name": "Kyrgyz"
+				}
+			],
+			"lo": [
+				{
+					"ext": "json3",
+					"name": "Lao"
+				}
+			],
+			"la": [
+				{
+					"ext": "json3",
+					"name": "Latin"
+				}
+			],
+			"lv": [
+				{
+					"ext": "json3",
+					"name": "Latvian"
+				}
+			],
+			"ln": [
+				{
+					"ext": "json3",
+					"name": "Lingala"
+				}
+			],
+			"lt": [
+				{
+					"ext": "json3",
+					"name": "Lithuanian"
+				}
+			],
+			"lua": [
+				{
+					"ext": "json3",
+					"name": "Luba-Lulua"
+				}
+			],
+			"luo": [
+				{
+					"ext": "json3",
+					"name": "Luo"
+				}
+			],
+			"lb": [
+				{
+					"ext": "json3",
+					"name": "Luxembourgish"
+				}
+			],
+			"mk": [
+				{
+					"ext": "json3",
+					"name": "Macedonian"
+				}
+			],
+			"mg": [
+				{
+					"ext": "json3",
+					"name": "Malagasy"
+				}
+			],
+			"ms": [
+				{
+					"ext": "json3",
+					"name": "Malay"
+				}
+			],
+			"ml": [
+				{
+					"ext": "json3",
+					"name": "Malayalam"
+				}
+			],
+			"mt": [
+				{
+					"ext": "json3",
+					"name": "Maltese"
+				}
+			],
+			"gv": [
+				{
+					"ext": "json3",
+					"name": "Manx"
+				}
+			],
+			"mi": [
+				{
+					"ext": "json3",
+					"name": "Māori"
+				}
+			],
+			"mr": [
+				{
+					"ext": "json3",
+					"name": "Marathi"
+				}
+			],
+			"mn": [
+				{
+					"ext": "json3",
+					"name": "Mongolian"
+				}
+			],
+			"mfe": [
+				{
+					"ext": "json3",
+					"name": "Morisyen"
+				}
+			],
+			"ne": [
+				{
+					"ext": "json3",
+					"name": "Nepali"
+				}
+			],
+			"new": [
+				{
+					"ext": "json3",
+					"name": "Newari"
+				}
+			],
+			"nso": [
+				{
+					"ext": "json3",
+					"name": "Northern Sotho"
+				}
+			],
+			"no": [
+				{
+					"ext": "json3",
+					"name": "Norwegian"
+				}
+			],
+			"ny": [
+				{
+					"ext": "json3",
+					"name": "Nyanja"
+				}
+			],
+			"oc": [
+				{
+					"ext": "json3",
+					"name": "Occitan"
+				}
+			],
+			"or": [
+				{
+					"ext": "json3",
+					"name": "Odia"
+				}
+			],
+			"om": [
+				{
+					"ext": "json3",
+					"name": "Oromo"
+				}
+			],
+			"os": [
+				{
+					"ext": "json3",
+					"name": "Ossetic"
+				}
+			],
+			"pam": [
+				{
+					"ext": "json3",
+					"name": "Pampanga"
+				}
+			],
+			"ps": [
+				{
+					"ext": "json3",
+					"name": "Pashto"
+				}
+			],
+			"fa": [
+				{
+					"ext": "json3",
+					"name": "Persian"
+				}
+			],
+			"pl": [
+				{
+					"ext": "json3",
+					"name": "Polish"
+				}
+			],
+			"pt": [
+				{
+					"ext": "json3",
+					"name": "Portuguese"
+				}
+			],
+			"pt-PT": [
+				{
+					"ext": "json3",
+					"name": "Portuguese (Portugal)"
+				}
+			],
+			"pa": [
+				{
+					"ext": "json3",
+					"name": "Punjabi"
+				}
+			],
+			"qu": [
+				{
+					"ext": "json3",
+					"name": "Quechua"
+				}
+			],
+			"ro": [
+				{
+					"ext": "json3",
+					"name": "Romanian"
+				}
+			],
+			"rn": [
+				{
+					"ext": "json3",
+					"name": "Rundi"
+				}
+			],
+			"ru": [
+				{
+					"ext": "json3",
+					"name": "Russian"
+				}
+			],
+			"sm": [
+				{
+					"ext": "json3",
+					"name": "Samoan"
+				}
+			],
+			"sg": [
+				{
+					"ext": "json3",
+					"name": "Sango"
+				}
+			],
+			"sa": [
+				{
+					"ext": "json3",
+					"name": "Sanskrit"
+				}
+			],
+			"gd": [
+				{
+					"ext": "json3",
+					"name": "Scottish Gaelic"
+				}
+			],
+			"sr": [
+				{
+					"ext": "json3",
+					"name": "Serbian"
+				}
+			],
+			"crs": [
+				{
+					"ext": "json3",
+					"name": "Seselwa Creole French"
+				}
+			],
+			"sn": [
+				{
+					"ext": "json3",
+					"name": "Shona"
+				}
+			],
+			"sd": [
+				{
+					"ext": "json3",
+					"name": "Sindhi"
+				}
+			],
+			"si": [
+				{
+					"ext": "json3",
+					"name": "Sinhala"
+				}
+			],
+			"sk": [
+				{
+					"ext": "json3",
+					"name": "Slovak"
+				}
+			],
+			"sl": [
+				{
+					"ext": "json3",
+					"name": "Slovenian"
+				}
+			],
+			"so": [
+				{
+					"ext": "json3",
+					"name": "Somali"
+				}
+			],
+			"st": [
+				{
+					"ext": "json3",
+					"name": "Southern Sotho"
+				}
+			],
+			"es": [
+				{
+					"ext": "json3",
+					"name": "Spanish"
+				}
+			],
+			"su": [
+				{
+					"ext": "json3",
+					"name": "Sundanese"
+				}
+			],
+			"sw": [
+				{
+					"ext": "json3",
+					"name": "Swahili"
+				}
+			],
+			"ss": [
+				{
+					"ext": "json3",
+					"name": "Swati"
+				}
+			],
+			"sv": [
+				{
+					"ext": "json3",
+					"name": "Swedish"
+				}
+			],
+			"tg": [
+				{
+					"ext": "json3",
+					"name": "Tajik"
+				}
+			],
+			"ta": [
+				{
+					"ext": "json3",
+					"name": "Tamil"
+				}
+			],
+			"tt": [
+				{
+					"ext": "json3",
+					"name": "Tatar"
+				}
+			],
+			"te": [
+				{
+					"ext": "json3",
+					"name": "Telugu"
+				}
+			],
+			"th": [
+				{
+					"ext": "json3",
+					"name": "Thai"
+				}
+			],
+			"bo": [
+				{
+					"ext": "json3",
+					"name": "Tibetan"
+				}
+			],
+			"ti": [
+				{
+					"ext": "json3",
+					"name": "Tigrinya"
+				}
+			],
+			"to": [
+				{
+					"ext": "json3",
+					"name": "Tongan"
+				}
+			],
+			"ts": [
+				{
+					"ext": "json3",
+					"name": "Tsonga"
+				}
+			],
+			"tn": [
+				{
+					"ext": "json3",
+					"name": "Tswana"
+				}
+			],
+			"tum": [
+				{
+					"ext": "json3",
+					"name": "Tumbuka"
+				}
+			],
+			"tr": [
+				{
+					"ext": "json3",
+					"name": "Turkish"
+				}
+			],
+			"tk": [
+				{
+					"ext": "json3",
+					"name": "Turkmen"
+				}
+			],
+			"uk": [
+				{
+					"ext": "json3",
+					"name": "Ukrainian"
+				}
+			],
+			"ur": [
+				{
+					"ext": "json3",
+					"name": "Urdu"
+				}
+			],
+			"ug": [
+				{
+					"ext": "json3",
+					"name": "Uyghur"
+				}
+			],
+			"uz": [
+				{
+					"ext": "json3",
+					"name": "Uzbek"
+				}
+			],
+			"ve": [
+				{
+					"ext": "json3",
+					"name": "Venda"
+				}
+			],
+			"vi": [
+				{
+					"ext": "json3",
+					"name": "Vietnamese"
+				}
+			],
+			"war": [
+				{
+					"ext": "json3",
+					"name": "Waray"
+				}
+			],
+			"cy": [
+				{
+					"ext": "json3",
+					"name": "Welsh"
+				}
+			],
+			"fy": [
+				{
+					"ext": "json3",
+					"name": "Western Frisian"
+				}
+			],
+			"wo": [
+				{
+					"ext": "json3",
+					"name": "Wolof"
+				}
+			],
+			"xh": [
+				{
+					"ext": "json3",
+					"name": "Xhosa"
+				}
+			],
+			"yi": [
+				{
+					"ext": "json3",
+					"name": "Yiddish"
+				}
+			],
+			"yo": [
+				{
+					"ext": "json3",
+					"name": "Yoruba"
+				}
+			],
+			"zu": [
+				{
+					"ext": "json3",
+					"name": "Zulu"
+				}
+			]
+		}
+	}
+}

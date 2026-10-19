@@ -14,18 +14,18 @@ interface VideoColumnProps {
 // Every fact about the stream, for its spoken name and hover hint.
 function streamName(line: VideoLine, row: VideoFormatRow, profileLabel: string | null): string {
 	const resolution = line.alias ? `${line.name} ${line.alias}` : line.name
-	return [resolution, row.codec, row.ext, row.fps ? `${row.fps} fps` : null, row.range, row.size, profileLabel].flatMap(part => (part ? [part] : [])).join(' · ')
+	return [resolution, row.codec, row.ext, row.fps ? `${row.fps} fps` : null, row.range, ...row.markers.map(view => view.label), row.size, profileLabel].flatMap(part => (part ? [part] : [])).join(' · ')
 }
 
-// One row per resolution, one column per dynamic range (HDR formats, then SDR):
-// a resolution offers at most one stream of each, so every cell is one chip and
-// HDR or SDR reads down a column instead of as a tag on every chip. Columns are
-// as wide as their widest chip and pack to the start, so an SDR-only video is one
-// compact column rather than chips stretched across the screen.
+// One row per resolution; columns per dynamic range (HDR formats, then SDR) and,
+// inside each, per codec: HDR or SDR reads across the header instead of as a tag
+// on every chip, and a codec sits in the same column on every line. Columns are
+// as wide as their widest chip and pack to the start, so an SDR-only video with
+// one codec is one compact column rather than chips stretched across the screen.
 export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumnProps): ReactNode {
 	const {t} = useTranslation()
 	const profileLabel = t(view.profilePickIsFallback ? 'wizard.formats.profile.closestTag' : 'wizard.formats.profile.tag')
-	const columns = {gridTemplateColumns: `auto repeat(${view.ranges.length}, auto)`}
+	const columns = {gridTemplateColumns: `max-content repeat(${view.columns.length}, auto)`}
 
 	return (
 		<div className="flex min-w-0 flex-col">
@@ -41,16 +41,31 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 			<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="items-center justify-start gap-x-2 gap-y-1.5 pt-1 pe-1.5" style={columns}>
 				<span aria-hidden />
 				{view.ranges.map(range => (
-					<span key={range} aria-hidden className="px-3 text-caption text-subtle-foreground">
+					<span key={range} aria-hidden className="px-3 text-caption text-subtle-foreground" style={{gridColumn: `span ${view.columns.filter(column => column.range === range).length}`}}>
 						{range}
 					</span>
 				))}
 				{view.lines.map(line => (
 					<Fragment key={line.resolution}>
 						<FormatLineName name={line.name} alias={line.alias} />
-						{view.ranges.map(range => {
-							const row = line.variants.find(variant => variant.range === range)
-							return row ? <FormatChip key={range} value={row.formatId} name={streamName(line, row, row.isProfilePick ? profileLabel : null)} label={row.chipLabel} tags={row.chipTags} size={row.size} profilePick={row.isProfilePick} disabled={view.disabled} narrowStack={view.ranges.length >= 2} /> : <span key={range} />
+						{view.columns.map(({range, codec}) => {
+							const row = line.variants.find(variant => variant.range === range && variant.codec === codec)
+							return row ? (
+								<FormatChip
+									key={`${range}|${codec}`}
+									value={row.formatId}
+									name={streamName(line, row, row.isProfilePick ? profileLabel : null)}
+									label={row.chipLabel}
+									markers={row.markers}
+									tags={row.hasAudio && view.mixedAudio ? [...row.chipTags, t('wizard.formats.withAudio')] : row.chipTags}
+									size={row.size}
+									profilePick={row.isProfilePick}
+									disabled={view.disabled}
+									narrowStack={view.columns.length >= 2}
+								/>
+							) : (
+								<span key={`${range}|${codec}`} />
+							)
 						})}
 					</Fragment>
 				))}

@@ -1,5 +1,6 @@
 import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, VideoProbeResult} from '@shared/types.js'
 import type {AudioTrackQuality, YtDlpErrorKind} from '@shared/schemas.js'
+import {isProbeSourceId, probeSourceResult} from '../probeSources/index.js'
 
 interface ScenarioLike {
 	id: string
@@ -56,8 +57,10 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return normalVideoProbe({degraded: {reasons: ['rateLimit']}})
 		case 'probe-live-stream':
 			return liveStreamProbe()
-		default:
-			return null
+		default: {
+			const source = scenario.id.startsWith('source-') ? scenario.id.slice('source-'.length) : ''
+			return isProbeSourceId(source) ? probeSourceResult(source) : null
+		}
 	}
 }
 

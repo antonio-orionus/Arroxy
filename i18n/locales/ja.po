@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "公式サイト"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "許可"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube は一部の古い動画を、AI で作ったサイズでも提供しています。「スキップ」では元のストリームを使います。アップスケール版を手動で選ぶこともできます。"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AI アップスケールのストリーム"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "スキップ"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "フィードバック"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM に対応"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "AI アップスケール版ではなく元のストリーム"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "アップスケール版は解像度が高くても実際の細部は増えない"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "最大 {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "最高解像度"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "上限なし"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "サイトが優先度を下げていないストリーム"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "破損・透かし入り・代替用のコピーを除外"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "その他のダウンロードオプション"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "確認とオプション"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "字幕の言語を1つ以上選択してください。"
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "内蔵音声"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "音声"
+msgid "Audio only"
+msgstr "音声のみ"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "字幕のみ"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "動画"
+msgid "Video + audio"
+msgstr "動画 + 音声"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "動画、音声なし"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "形式を読み込み中"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "解析が完了するまでお待ちください。プレイリストや検索には時間がかかる場合があります。"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI 吹き替え"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI アップスケール"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "音声解説"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "破損"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "高ビットレート"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "空間オーディオ"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "透かし入り"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} を編集"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "変更を残す"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "このダウンロードだけに適用されます。デフォルトのプロフィールは変わりません。"
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "事前選択元:"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "切り替え"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "すべてリセット"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "このダウンロードに加えた変更は、選んだプロフィールの設定で置き換えられます。"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "このダウンロードの{{areas}}を変更しました。どちらの場合も、動画と音声は「{{profile}}」が選びます。ほかの変更を残しますか? それともすべてプロフィールの設定に戻しますか?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "プロフィール"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "使う"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "このダウンロードに加えた変更は、プロフィールの新しい設定で置き換えられます。"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "変更を残す"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "このダウンロードの{{areas}}を変更しました。どちらの場合も、動画と音声は更新したプロフィールが選びます。ほかの変更を残しますか? それともすべてプロフィールの設定に戻しますか?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "制限が解けるよう、Arroxy は {{time}} まで待ってから {{site}} に再度問い合わせます。"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "解像度不明"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "保存形式"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "あなたに最適な形式を探しています…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}} のその他の設定:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "すべて確認"
-
-#. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} 言語から追加できます"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "字幕オフ"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "合計"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "動画"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "動画のみ"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "音声付き"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "字幕ファイルのみ"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "字幕のみ"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "字幕"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "字幕、SponsorBlock、サムネイルなどの追加項目、フォルダー、ファイル名は、以前は別々のステップでした。行をクリックすると変更できます。"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "その他の設定はすべてこのページに移りました"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}} からの変更: {{areas}}。このダウンロードにのみ適用されます。"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}} からの変更:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "このダウンロードでは編集した設定を使いました。次回も使いますか?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "リセット"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "変更を取り消して「{{profile}}」に戻す"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "プロフィールとして保存"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "プロフィールとして保存…"
+msgid "Save as a new profile"
+msgstr "新しいプロフィールとして保存"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "プロフィールを更新"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "これは組み込みのプロフィールです。元の設定は「プロファイル」タブで復元できます。"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "今後、このプロフィールを使うすべてのダウンロードで新しい設定が使われます。"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "形式"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "「{{profile}}」を更新しますか?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "プロフィール「{{name}}」を更新しました"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "この変更で「{{profile}}」を更新"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

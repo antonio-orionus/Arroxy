@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "ওয়েবসাইট"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "অনুমতি দিন"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube কিছু পুরোনো ভিডিও এমন আকারে দেয় যা সে AI দিয়ে বানিয়েছে। “বাদ দিন” মূল স্ট্রিমগুলো রাখে; তবু আপনি নিজে একটি আপস্কেল করা স্ট্রিম বেছে নিতে পারেন।"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AI দিয়ে আপস্কেল করা স্ট্রিম"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "বাদ দিন"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "মতামত"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM-এ মানানসই"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "মূল স্ট্রিম, AI দিয়ে আপস্কেল করা নয়"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "আপস্কেল কপি লম্বা হলেও আসল ডিটেইল যোগ করে না"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "{{tier}}p পর্যন্ত"
@@ -1520,6 +1544,14 @@ msgstr "সর্বোচ্চ রেজোলিউশন"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "কোনো সীমা দেওয়া নেই"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "যেসব স্ট্রিমকে সাইট পিছিয়ে রাখে না"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "ক্ষতিগ্রস্ত, ওয়াটারমার্কযুক্ত ও বিকল্প কপি বাদ দেয়"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "আরও ডাউনলোড বিকল্প"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "পর্যালোচনা ও বিকল্প"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "অন্তত একটি সাবটাইটেল ভাষা বেছে নিন।"
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "বিল্ট-ইন অডিও"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "অডিও"
+msgid "Audio only"
+msgstr "শুধু অডিও"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "শুধু সাবটাইটেল"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "ভিডিও"
+msgid "Video + audio"
+msgstr "ভিডিও + অডিও"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "ভিডিও, অডিও ছাড়া"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "ফরম্যাট লোড হচ্ছে"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "প্রোবিং শেষ হওয়া পর্যন্ত অপেক্ষা করুন — প্লেলিস্ট ও অনুসন্ধানে একটু বেশি সময় লাগতে পারে।"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI ডাব করা"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI আপস্কেল"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "অডিও বর্ণনা"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "ক্ষতিগ্রস্ত"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "উন্নত বিটরেট"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "স্পেশিয়াল অডিও"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "ওয়াটারমার্কযুক্ত"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} সম্পাদনা করুন"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "আমার পরিবর্তন রাখুন"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "শুধু এই ডাউনলোডের জন্য। আপনার ডিফল্ট প্রোফাইল যেমন আছে তেমনই থাকবে।"
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "আগে থেকে বাছাই করা, উৎস:"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "বদলান"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "সব রিসেট করুন"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "এই ডাউনলোডে আপনার করা পরিবর্তনগুলো আপনার বাছাই করা প্রোফাইলের সেটিংস দিয়ে বদলে যাবে।"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "আপনি এই ডাউনলোডের জন্য {{areas}} বদলেছেন। “{{profile}}” যেভাবেই হোক ভিডিও আর অডিও বেছে নেয়। আপনার অন্য পরিবর্তনগুলো রাখবেন, নাকি সবকিছু প্রোফাইলে রিসেট করবেন?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "প্রোফাইল"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "ব্যবহার করুন"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "এই ডাউনলোডে আপনার করা পরিবর্তনগুলো প্রোফাইলের নতুন সেটিংস দিয়ে বদলে যাবে।"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "আমার পরিবর্তন রাখুন"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "আপনি এই ডাউনলোডের জন্য {{areas}} বদলেছেন। হালনাগাদ প্রোফাইল যেভাবেই হোক ভিডিও আর অডিও বেছে নেয়। আপনার অন্য পরিবর্তনগুলো রাখবেন, নাকি সবকিছু প্রোফাইলে রিসেট করবেন?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "সীমা উঠে যাওয়ার জন্য Arroxy {{site}}-এ আবার অনুরোধ করার আগে {{time}} পর্যন্ত অপেক্ষা করবে।"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "রেজোলিউশন অজানা"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "সেভ হবে"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "আপনার জন্য সেরা ফরম্যাট খুঁজছি…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}} থেকেও:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "সব পর্যালোচনা করুন"
-
-#. Plural form "one" for bn: used for counts like 0, 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}}টি ভাষা আছে, যোগ করুন"
-
-#. Plural form "other" for bn: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}}টি ভাষা আছে, যোগ করুন"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "সাবটাইটেল বন্ধ"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "মোট"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "ভিডিও"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "শুধু ভিডিও"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "অডিওসহ"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,7 +3444,7 @@ msgid "Caption files only"
 msgstr "শুধু ক্যাপশন ফাইল"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "শুধু সাবটাইটেল"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "সাবটাইটেল"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "সাবটাইটেল, SponsorBlock, থাম্বনেইলের মতো অতিরিক্ত জিনিস, ফোল্ডার আর ফাইলের নাম আগে আলাদা ধাপ ছিল। বদলাতে কোনো সারিতে ক্লিক করুন।"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "বাকি সব সেটিংস এখন এই পেজেই আছে"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}} থেকে পরিবর্তিত: {{areas}}। শুধু এই ডাউনলোডে প্রযোজ্য।"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}} থেকে পরিবর্তিত:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "এই ডাউনলোডে সম্পাদিত সেটিংস ব্যবহার হয়েছে। পরেরবার কি এগুলো ব্যবহার করবেন?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "রিসেট"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "পরিবর্তন বাতিল করে “{{profile}}”-এ ফিরুন"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "প্রোফাইল হিসেবে সংরক্ষণ"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "প্রোফাইল হিসেবে সংরক্ষণ করুন…"
+msgid "Save as a new profile"
+msgstr "নতুন প্রোফাইল হিসেবে সংরক্ষণ করুন"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "প্রোফাইল হালনাগাদ করুন"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "এটি একটি বিল্ট-ইন প্রোফাইল। আপনি “প্রোফাইল” ট্যাবে এর মূল সেটিংস ফিরিয়ে আনতে পারেন।"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "এখন থেকে এই প্রোফাইলের প্রতিটি ডাউনলোড নতুন সেটিংস ব্যবহার করবে।"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "ফরম্যাট"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}” হালনাগাদ করবেন?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "প্রোফাইল “{{name}}” হালনাগাদ হয়েছে"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "এই পরিবর্তনগুলো দিয়ে “{{profile}}” হালনাগাদ করুন"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

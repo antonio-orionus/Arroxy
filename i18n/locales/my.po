@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "ဝက်ဘ်ဆိုက်"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "ခွင့်ပြုမည်"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube သည် ဗီဒီယိုဟောင်းအချို့ကို AI ဖြင့် ချဲ့ထားသော အရွယ်အစားများဖြင့် ပေးသည်။ ကျော်မည် သည် မူရင်း stream များကို ထားသည်၊ AI ချဲ့ထားသော stream ကို ကိုယ်တိုင် ရွေးနိုင်ဆဲဖြစ်သည်။"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AI ချဲ့ထားသော stream များ"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "ကျော်မည်"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "အကြံပြုချက်"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM နှင့် ကိုက်ညီ"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "မူရင်း stream များ၊ AI ချဲ့ထားသည်များ မဟုတ်"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "ချဲ့ထားသောမိတ္တူက ပိုမြင့်သော်လည်း အသေးစိတ်အစစ် မတိုး"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "{{tier}}p အထိ"
@@ -1475,6 +1499,14 @@ msgstr "အမြင့်ဆုံး ကြည်လင်ပြတ်သာ�
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "ကန့်သတ်ချက် မသတ်မှတ်ထား"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "ဆိုက်က အဆင့်မချထားသော stream များ"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "ပျက်စီးသော၊ watermark ပါသော နှင့် အရန်မိတ္တူများကို ကျော်"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "ဒေါင်းလုဒ် ရွေးချယ်စရာများ"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "စစ်ဆေးရန်နှင့် ရွေးချယ်စရာများ"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "စာတန်းထိုးဘာသာစကား အနည်းဆုံးတစ်ခု ရွေးပါ။"
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "ပါဝင်သောအသံ"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "အသံ"
+msgid "Audio only"
+msgstr "အသံသာ"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "စာတန်းထိုးသာ"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "ဗီဒီယို"
+msgid "Video + audio"
+msgstr "ဗီဒီယို + အသံ"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "ဗီဒီယို၊ အသံမပါ"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "ဖော်မတ်များဖွင့်နေသည်"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "စစ်ဆေးမှုပြီးဆုံးသည်အထိ ကျေးဇူးပြု၍ စောင့်ပါ — playlist များနှင့် ရှာဖွေမှုများ အချိန်ယူနိုင်သည်။"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI အသံသွင်း"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI ချဲ့ထားသည်"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "အသံဖြင့် ဖော်ပြချက်"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "ပျက်စီးနေသည်"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "မြှင့်ထားသော bitrate"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Spatial အသံ"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Watermark ပါသည်"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} ကို ပြင်ဆင်ပါ"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "ကျွန်ုပ်၏ပြောင်းလဲမှုများ ထားမည်"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "ဤဒေါင်းလုဒ်အတွက်သာ။ သင်၏ မူလပရိုဖိုင်သည် မပြောင်းလဲပါ။"
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "ကြိုတင်ရွေးထားသည့်ပရိုဖိုင်"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "ပြောင်းရန်"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "အားလုံး ပြန်သတ်မှတ်မည်"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "ဤဒေါင်းလုဒ်တွင် သင်ပြုလုပ်ထားသော ပြောင်းလဲမှုများကို သင်ရွေးသည့် ပရိုဖိုင်၏ ဆက်တင်များဖြင့် အစားထိုးပါမည်။"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "ဤဒေါင်းလုဒ်အတွက် {{areas}} ကို သင်ပြောင်းထားသည်။ “{{profile}}” သည် မည်သို့ပင်ဖြစ်စေ ဗီဒီယိုနှင့် အသံကို ရွေးမည်။ သင်၏ အခြားပြောင်းလဲမှုများကို ထားမလား၊ သို့မဟုတ် အားလုံးကို ပရိုဖိုင်အတိုင်း ပြန်သတ်မှတ်မလား။"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "ပရိုဖိုင်"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "သုံးရန်"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "ဤဒေါင်းလုဒ်တွင် သင်ပြုလုပ်ထားသော ပြောင်းလဲမှုများကို ပရိုဖိုင်၏ ဆက်တင်အသစ်များဖြင့် အစားထိုးပါမည်။"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "ကျွန်ုပ်၏ ပြောင်းလဲမှုများကို ထားရန်"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "ဤဒေါင်းလုဒ်အတွက် {{areas}} ကို သင်ပြောင်းထားသည်။ အပ်ဒိတ်လုပ်ထားသော ပရိုဖိုင်သည် မည်သို့ပင်ဖြစ်စေ ဗီဒီယိုနှင့် အသံကို ရွေးမည်။ သင်၏ အခြားပြောင်းလဲမှုများကို ထားမလား၊ သို့မဟုတ် အားလုံးကို ပရိုဖိုင်အတိုင်း ပြန်သတ်မှတ်မလား။"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "ကန့်သတ်ချက် ပြေလျော့စေရန် Arroxy သည် {{site}} ကို ထပ်မံမမေးမီ {{time}} အထိ စောင့်ပါမည်။"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "ရင်းမြစ်ကြည်လင်ပြတ်သားမှု မသိ"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "သိမ်းမည့်ပုံစံ"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "သင့်အတွက် အကောင်းဆုံးဖော်မတ်များ ရှာနေသည်…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}} မှ အခြားဆက်တင်များ:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "အားလုံးစစ်ဆေးရန်"
-
-#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "စာတန်းထိုး ပိတ်ထားသည်"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "စုစုပေါင်း"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "ဗီဒီယို"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "ဗီဒီယိုသာ"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "အသံပါ"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,8 +3299,8 @@ msgid "Caption files only"
 msgstr "စာတန်းဖိုင်များသာ"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
-msgstr "စာတန်းထိုးများသာ"
+msgid "Subtitles only"
+msgstr "စာတန်းထိုးသာ"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "စာတန်းထိုး"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "စာတန်းထိုး၊ SponsorBlock၊ thumbnail ကဲ့သို့ အပိုများ၊ ဖိုလ်ဒါနှင့် ဖိုင်အမည်တို့သည် ယခင်က သီးခြားအဆင့်များ ဖြစ်ခဲ့သည်။ ပြောင်းရန် အတန်းတစ်ခုကို နှိပ်ပါ။"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "အခြားဆက်တင်အားလုံး ယခု ဤစာမျက်နှာပေါ်တွင် ရှိသည်"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}} မှ ပြောင်းလဲထားသည်: {{areas}}။ ဤဒေါင်းလုဒ်တစ်ခုတည်းတွင်သာ သက်ရောက်သည်။"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}} မှ ပြောင်းလဲထားသည်:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "ဤဒေါင်းလုဒ်သည် တည်းဖြတ်ထားသော ဆက်တင်များကို သုံးခဲ့သည်။ နောက်တစ်ကြိမ်လည်း သုံးမလား။"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "ပြန်သတ်မှတ်"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "ပြောင်းလဲမှုများ ပြန်ဖျက်ပြီး “{{profile}}” သို့ ပြန်သွားရန်"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "ပရိုဖိုင်အဖြစ် သိမ်းရန်"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "ပရိုဖိုင်အဖြစ် သိမ်းရန်…"
+msgid "Save as a new profile"
+msgstr "ပရိုဖိုင်အသစ်အဖြစ် သိမ်းရန်"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "ပရိုဖိုင် အပ်ဒိတ်လုပ်ရန်"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "ဤသည်မှာ မူလပါရှိသော ပရိုဖိုင်ဖြစ်သည်။ ၎င်း၏ မူရင်းဆက်တင်များကို ပရိုဖိုင်များ တက်ဘ်တွင် ပြန်ယူနိုင်သည်။"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "ယခုမှစ၍ ဤပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်တိုင်းသည် ဆက်တင်အသစ်များကို သုံးမည်။"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "ဖော်မတ်"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}” ကို အပ်ဒိတ်လုပ်မလား။"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "ပရိုဖိုင် “{{name}}” ကို အပ်ဒိတ်လုပ်ပြီးပြီ"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "ဤပြောင်းလဲမှုများဖြင့် “{{profile}}” ကို အပ်ဒိတ်လုပ်ရန်"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

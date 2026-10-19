@@ -403,7 +403,7 @@
 			"cat": {"sponsor": "Patrocínio", "intro": "Introdução", "outro": "Encerramento", "selfpromo": "Autopromoção", "music_offtopic": "Música fora do tópico", "preview": "Prévia", "filler": "Enrolação"}
 		},
 		"formats": {
-			"kind": {"label": "O que baixar", "video": "Vídeo", "audio": "Áudio", "subtitles": "Somente legendas"},
+			"kind": {"label": "O que baixar", "video": "Vídeo + áudio", "videoOnly": "Vídeo, sem áudio", "audio": "Apenas áudio", "subtitles": "Somente legendas"},
 			"profile": {
 				"calloutTitle": "Os formatos partem do seu perfil",
 				"calloutBody": "O seu perfil ativo pré-seleciona os streams por si. Troque de perfil no menu ou use o lápis para ajustar um sem sair deste download.",
@@ -411,13 +411,12 @@
 				"tag": "Perfil",
 				"closestTag": "Mais próximo do perfil",
 				"switchTitle": "Trocar de perfil?",
-				"switchBody": "Suas alterações neste download serão substituídas pelas configurações do perfil escolhido.",
-				"switchAction": "Trocar",
+				"switchBody": "Você alterou {{areas}} neste download. “{{profile}}” escolhe o vídeo e o áudio de qualquer forma. Manter suas outras alterações ou redefinir tudo para o perfil?",
+				"resetAll": "Redefinir tudo",
 				"edit": "Editar {{name}}",
 				"updatedTitle": "Usar o perfil atualizado?",
-				"updatedBody": "Suas alterações neste download serão substituídas pelas novas configurações do perfil.",
-				"updatedAction": "Usar",
-				"updatedKeep": "Manter minhas alterações",
+				"updatedBody": "Você alterou {{areas}} neste download. O perfil atualizado escolhe o vídeo e o áudio de qualquer forma. Manter suas outras alterações ou redefinir tudo para o perfil?",
+				"keepEdits": "Manter minhas alterações",
 				"menuDescription": "Só para este download. Seu perfil padrão continua como está."
 			},
 			"fit": {
@@ -428,12 +427,13 @@
 				"subtitlesMissing": "Seu perfil pede legendas em {{languages}}. Este vídeo não tem nenhuma.",
 				"webmUnavailable": "Seu perfil pede WebM. Os fluxos escolhidos deste vídeo incluem {{codec}}, que o WebM não aceita, então o tipo de arquivo é Automático."
 			},
-			"summary": {"lead": "Também de {{profile}}:", "subtitlesOff": "legendas desativadas", "subtitlesAdd_one": "{{count}} idioma disponível, adicionar", "subtitlesAdd_many": "{{count}} de idiomas disponíveis, adicionar", "subtitlesAdd_other": "{{count}} idiomas disponíveis, adicionar", "reviewAll": "Revisar tudo"},
-			"footer": {"reviewOptions": "Revisar e opções", "download": "Baixar", "moreActions": "Mais opções de download", "addToQueue": "Adicionar à fila sem iniciar", "subtitlesRequired": "Escolha pelo menos um idioma de legenda."},
+			"footer": {"download": "Baixar", "moreActions": "Mais opções de download", "addToQueue": "Adicionar à fila sem iniciar", "subtitlesRequired": "Escolha pelo menos um idioma de legenda."},
 			"video": "Vídeo",
 			"audio": "Áudio",
 			"noAudio": "Sem áudio",
-			"videoOnly": "Apenas vídeo",
+			"withAudio": "com áudio",
+			"resolutionUnknown": "Resolução desconhecida",
+			"marker": {"aiUpscaled": "Ampliado por IA", "aiDubbed": "Dublado por IA", "audioDescription": "Audiodescrição", "spatialAudio": "Áudio espacial", "vr": "360° / VR", "enhancedBitrate": "Taxa de bits aprimorada", "damaged": "Danificado", "watermarked": "Com marca d'água"},
 			"keepAudio": "Manter original",
 			"keepAudioMeta": "Áudio integrado",
 			"audioOnly": "Apenas áudio",
@@ -527,8 +527,19 @@
 			"done": "Concluído",
 			"changed": "Alterado em relação a {{profile}}: {{areas}}. Vale apenas para este download.",
 			"areas": {"format": "formato", "subtitles": "legendas", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "pasta", "fileName": "nome do arquivo"},
-			"saveAsProfile": "Salvar como perfil…",
-			"reset": "Redefinir",
+			"updateProfile": "Atualizar “{{profile}}” com estas alterações",
+			"saveAsProfile": "Salvar como novo perfil",
+			"update": {
+				"title": "Atualizar “{{profile}}”?",
+				"description": "De agora em diante, todo download com este perfil usará as novas configurações.",
+				"rows": {"format": "Formato"},
+				"builtinNote": "Este é um perfil integrado. Você pode restaurar as configurações originais dele na aba Perfis.",
+				"action": "Atualizar perfil",
+				"updated": "Perfil “{{name}}” atualizado"
+			},
+			"callout": {"title": "Todas as outras configurações agora estão nesta página", "body": "Legendas, SponsorBlock, extras como a miniatura, pasta e nome do arquivo eram etapas separadas. Clique em uma linha para alterá-la."},
+			"reset": "Desfazer alterações, voltar para “{{profile}}”",
+			"changedFrom": "Alterado em relação a {{profile}}:",
 			"save": {
 				"title": "Salvar como perfil",
 				"description": "Salva estas configurações como um perfil que você pode escolher na próxima vez. Seu perfil Download Rápido permanece o mesmo.",
@@ -639,7 +650,7 @@
 				"videoAudio": {"label": "Vídeo + áudio", "description": "Arquivos de vídeo normais"},
 				"videoOnly": {"label": "Vídeo, sem áudio", "description": "Apenas vídeo mudo"},
 				"audioOnly": {"label": "Apenas áudio", "description": "Música ou podcasts"},
-				"subtitlesOnly": {"label": "Apenas legendas", "description": "Apenas arquivos de legenda"}
+				"subtitlesOnly": {"label": "Somente legendas", "description": "Apenas arquivos de legenda"}
 			},
 			"icon": {"controls": "Controles", "download": "Download", "video": "Vídeo", "captions": "Legendas", "audio": "Áudio", "music": "Música", "podcast": "Podcast", "classes": "Aulas", "clip": "Clipe", "archive": "Arquivo"},
 			"audioFormat": {"best": "Melhor", "wav": "WAV"},
@@ -1040,6 +1051,8 @@
 			"resolutionBest": {"label": "Maior resolução", "reason": "nenhum limite definido"},
 			"resolution": {"label": "Até {{tier}}p", "reason": "seu limite"},
 			"fps": {"label": "Maior taxa de quadros", "reason": "movimento mais suave"},
+			"sitePreference": {"label": "Streams que o site não rebaixa", "reason": "pula cópias danificadas, com marca d'água e de reserva"},
+			"original": {"label": "Streams originais, não ampliados por IA", "reason": "uma cópia ampliada é mais alta, mas não acrescenta detalhes reais"},
 			"codec": {"label": "AV1, depois VP9, depois H.264", "reason": "mais nítido no mesmo tamanho"},
 			"size": {"label": "Arquivo maior", "reason": "mais detalhes com as mesmas configurações"},
 			"aacSmartTv": {"label": "Áudio AAC", "reason": "toca em qualquer lugar"},
@@ -1053,5 +1066,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "Streams ampliados por IA", "description": "O YouTube oferece alguns vídeos antigos em tamanhos criados com IA. “Pular” mantém os streams originais; você ainda pode escolher um ampliado manualmente.", "skip": "Pular", "allow": "Permitir"},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Automática escolhe HDR se esta tela puder exibi-lo; caso contrário, SDR. O HDR fica desbotado em telas comuns.", "sdr": "SDR", "hdr": "HDR", "auto": "Automática"}
 }

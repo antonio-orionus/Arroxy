@@ -7,6 +7,7 @@ How to look at Arroxy's UI: the browser-mock renderer, the real Electron rendere
 | `scripts/dev-env.ts` | `dev:mock`, `doctor`, per-checkout ports and paths |
 | `src/renderer/src/browserMock.ts` | `window.appApi` stub for `browser-mock` mode |
 | `src/renderer/src/dev/browserMockScenarios.ts` | Scenario Workbench states (`?scenario=<id>`) |
+| `src/renderer/src/dev/probeSources/` | Real probes of many sites; the "Real sites" group (`?scenario=source-<id>`) |
 | `src/renderer/src/components/layout/background/` | `AppBackdrop`, `CanvasSceneHost`, scene fallbacks |
 
 ## Renderer and Electron

@@ -6,13 +6,15 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolveChosenDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
-import type {AudioSelection, FormatOption, SubtitleMap, VideoFileType, WizardMediaKind} from '@shared/types.js'
+import type {AudioSelection, DownloadProfile, FormatOption, SubtitleMap, VideoFileType, WizardMediaKind} from '@shared/types.js'
 import {webmBlocker} from '@shared/fileTypeFit.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {matchesSubtitleLanguage} from '@shared/subtitleLanguages.js'
 import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
-import {editedProfileDraft, profilePatch, wizardSnapshot} from './wizardProfileState.js'
+import {formatMode} from './formatMode.js'
+import type {FormatMode} from '@shared/schemas.js'
+import {editedProfileDraft, profilePatch, profileVideoPick, switchProfilePatch, updatedProfileDraft, wizardSnapshot} from './wizardProfileState.js'
 
 function isConvert(sel: AudioSelection): boolean {
 	return sel.kind === 'convert-lossy' || sel.kind === 'convert-lossless'
@@ -77,17 +79,58 @@ function mediaKindPatch(kind: WizardMediaKind, state: AppState): Partial<AppStat
 	const videos = state.wizardFormats.filter(f => !f.isAudioOnly)
 	if (videos.length === 0) return {}
 	const baseline = state.wizardProfileBaseline
-	const videoId = baseline?.mediaKind === 'video' && hasFormat(videos, baseline.videoFormatId) ? baseline.videoFormatId : videos[0].formatId
+	// The profile's own pick, else what its ranking picks: never just the first row.
+	const ranked = baseline?.mediaKind === 'video' && hasFormat(videos, baseline.videoFormatId) ? baseline.videoFormatId : profileVideoPick(state)
+	const videoId = hasFormat(videos, ranked) ? ranked : videos[0].formatId
 	const video = videos.find(f => f.formatId === videoId)
 	const audioSelection = audioForVideo(video, state)
 	return {wizardMediaKind: kind, selectedVideoFormatId: videoId, audioSelection, ...fileTypeAfterPick(state, videoId, audioSelection)}
 }
 
+// Video, no audio: the current stream when it has no audio of its own, else
+// the silent stream at the same height, else the first silent one.
+function videoOnlyPatch(state: AppState): Partial<AppState> {
+	const silent = state.wizardFormats.filter(f => f.isVideoOnly)
+	if (silent.length === 0) return {}
+	const current = state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId)
+	const video = current?.isVideoOnly ? current : (silent.find(f => f.resolution === current?.resolution) ?? silent[0])
+	const audioSelection: AudioSelection = {kind: 'none'}
+	const silenced = state.audioSelection.kind === 'native' ? state.audioSelection : state.wizardSilencedAudio
+	return {wizardMediaKind: 'video', selectedVideoFormatId: video.formatId, audioSelection, wizardSilencedAudio: silenced, ...fileTypeAfterPick(state, video.formatId, audioSelection)}
+}
+
+function formatModePatch(mode: FormatMode, state: AppState): Partial<AppState> {
+	if (mode === 'video-only') return videoOnlyPatch(state)
+	// Back from Video, no audio: the same stream, with the audio it set aside
+	// (language, DRC and bitrate as picked), else the preferred audio.
+	if (mode === 'video' && formatMode(state) === 'video-only') {
+		const silenced = state.wizardSilencedAudio
+		const audioSelection = silenced?.kind === 'native' && hasFormat(state.wizardFormats, silenced.formatId) ? silenced : bestNativeAudio(state.wizardFormats, state)
+		return {audioSelection, wizardSilencedAudio: null, ...fileTypeAfterPick(state, state.selectedVideoFormatId, audioSelection)}
+	}
+	return mediaKindPatch(mode, state)
+}
+
 export function createFormatPickerSlice(set: SetState, get: GetState): FormatPickerSlice {
+	// Saves a profile made from the run's settings without activating it; the run
+	// then starts from it, so nothing shows as changed.
+	async function persistWizardProfile(profile: DownloadProfile): Promise<boolean> {
+		const snapshot = wizardSnapshot(get())
+		try {
+			await get().saveDownloadProfile(profile, false)
+		} catch (error) {
+			notify.profileSaveFailed(error)
+			return false
+		}
+		set({wizardProfile: profile, wizardProfileBaseline: snapshot, wizardFitNotices: []})
+		return true
+	}
+
 	return {
 		wizardFormats: [],
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
+		wizardSilencedAudio: null,
 		lastConvertBitrate: DEFAULT_AUDIO_BITRATE,
 		wizardMediaKind: 'video',
 		wizardSubtitles: {},
@@ -111,8 +154,10 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 			set(state => {
 				const video = state.wizardFormats.find(f => f.formatId === id)
 				if (!video) return {}
-				const keepAudio = !isConvert(state.audioSelection) && video.isVideoOnly
-				const audioSelection = keepAudio ? state.audioSelection : audioForVideo(video, state)
+				// Video, no audio stays silent; Video + audio keeps its audio pick, and
+				// a stream with its own audio keeps that (Keep as-is).
+				const silent = formatMode(state) === 'video-only' && video.isVideoOnly
+				const audioSelection: AudioSelection = silent ? {kind: 'none'} : audioForVideo(video, state)
 				return {wizardMediaKind: 'video', selectedVideoFormatId: id, audioSelection, ...fileTypeAfterPick(state, id, audioSelection)}
 			}),
 
@@ -132,6 +177,7 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 			}),
 
 		setWizardMediaKind: kind => set(state => mediaKindPatch(kind, state)),
+		setFormatMode: mode => set(state => formatModePatch(mode, state)),
 
 		toggleSubtitleLanguage: lang => set(state => ({wizardSubtitleLanguages: state.wizardSubtitleLanguages.includes(lang) ? state.wizardSubtitleLanguages.filter(l => l !== lang) : [...state.wizardSubtitleLanguages, lang]})),
 		clearSubtitleLanguages: () => set({wizardSubtitleLanguages: []}),
@@ -139,9 +185,9 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		setSubtitleFormat: format => set({wizardSubtitleFormat: format}),
 		setWizardFilenameTemplate: template => set({wizardFilenameTemplate: template}),
 
-		chooseWizardProfile: ref => {
+		chooseWizardProfile: (ref, keepEdits = false) => {
 			const {profile} = resolveChosenDownloadProfile(ref, get().settings?.profiles)
-			set(profilePatch(profile, get()))
+			set(switchProfilePatch(profile, get(), keepEdits))
 		},
 
 		resetWizardToProfile: () => {
@@ -150,19 +196,17 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		},
 
 		saveWizardAsProfile: async name => {
-			const state = get()
 			const trimmed = name.trim()
-			const profile = trimmed ? editedProfileDraft(state, trimmed) : null
-			if (!profile) return false
-			const snapshot = wizardSnapshot(state)
-			try {
-				await state.saveDownloadProfile(profile, false)
-			} catch (error) {
-				notify.profileSaveFailed(error)
-				return false
-			}
+			const profile = trimmed ? editedProfileDraft(get(), trimmed) : null
+			if (!profile || !(await persistWizardProfile(profile))) return false
 			notify.profileSaved(profile.name)
-			set({wizardProfile: profile, wizardProfileBaseline: snapshot, wizardFitNotices: []})
+			return true
+		},
+
+		updateWizardProfile: async () => {
+			const profile = updatedProfileDraft(get())
+			if (!profile || !(await persistWizardProfile(profile))) return false
+			notify.profileUpdated(profile.name)
 			return true
 		}
 	}

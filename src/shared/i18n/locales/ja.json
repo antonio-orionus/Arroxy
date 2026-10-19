@@ -372,7 +372,7 @@
 			"cat": {"sponsor": "スポンサー", "intro": "イントロ", "outro": "アウトロ", "selfpromo": "自己宣伝", "music_offtopic": "音楽（無関係）", "preview": "プレビュー", "filler": "フィラー"}
 		},
 		"formats": {
-			"kind": {"label": "ダウンロードする内容", "video": "動画", "audio": "音声", "subtitles": "字幕のみ"},
+			"kind": {"label": "ダウンロードする内容", "video": "動画 + 音声", "videoOnly": "動画、音声なし", "audio": "音声のみ", "subtitles": "字幕のみ"},
 			"profile": {
 				"calloutTitle": "フォーマットはプロファイルから始まります",
 				"calloutBody": "アクティブなプロファイルが、ストリームをあらかじめ選んでくれます。メニューからプロファイルを切り替えたり、鉛筆アイコンでこのダウンロードを離れずにプロファイルを調整したりできます。",
@@ -380,13 +380,12 @@
 				"tag": "プロフィール",
 				"closestTag": "プロフィールに最も近い",
 				"switchTitle": "プロフィールを切り替えますか?",
-				"switchBody": "このダウンロードに加えた変更は、選んだプロフィールの設定で置き換えられます。",
-				"switchAction": "切り替え",
+				"switchBody": "このダウンロードの{{areas}}を変更しました。どちらの場合も、動画と音声は「{{profile}}」が選びます。ほかの変更を残しますか? それともすべてプロフィールの設定に戻しますか?",
+				"resetAll": "すべてリセット",
 				"edit": "{{name}} を編集",
 				"updatedTitle": "更新したプロフィールを使いますか?",
-				"updatedBody": "このダウンロードに加えた変更は、プロフィールの新しい設定で置き換えられます。",
-				"updatedAction": "使う",
-				"updatedKeep": "変更を残す",
+				"updatedBody": "このダウンロードの{{areas}}を変更しました。どちらの場合も、動画と音声は更新したプロフィールが選びます。ほかの変更を残しますか? それともすべてプロフィールの設定に戻しますか?",
+				"keepEdits": "変更を残す",
 				"menuDescription": "このダウンロードだけに適用されます。デフォルトのプロフィールは変わりません。"
 			},
 			"fit": {
@@ -397,12 +396,13 @@
 				"subtitlesMissing": "プロフィールでは {{languages}} の字幕が指定されていますが、この動画にはありません。",
 				"webmUnavailable": "プロフィールは WebM を指定しています。この動画で選ばれたストリームには WebM に格納できない {{codec}} が含まれるため、ファイル形式は自動になります。"
 			},
-			"summary": {"lead": "{{profile}} のその他の設定:", "subtitlesOff": "字幕オフ", "subtitlesAdd_other": "{{count}} 言語から追加できます", "reviewAll": "すべて確認"},
-			"footer": {"reviewOptions": "確認とオプション", "download": "ダウンロード", "moreActions": "その他のダウンロードオプション", "addToQueue": "開始せずにキューに追加", "subtitlesRequired": "字幕の言語を1つ以上選択してください。"},
+			"footer": {"download": "ダウンロード", "moreActions": "その他のダウンロードオプション", "addToQueue": "開始せずにキューに追加", "subtitlesRequired": "字幕の言語を1つ以上選択してください。"},
 			"video": "動画",
 			"audio": "音声",
 			"noAudio": "音声なし",
-			"videoOnly": "動画のみ",
+			"withAudio": "音声付き",
+			"resolutionUnknown": "解像度不明",
+			"marker": {"aiUpscaled": "AI アップスケール", "aiDubbed": "AI 吹き替え", "audioDescription": "音声解説", "spatialAudio": "空間オーディオ", "vr": "360° / VR", "enhancedBitrate": "高ビットレート", "damaged": "破損", "watermarked": "透かし入り"},
 			"keepAudio": "そのまま保持",
 			"keepAudioMeta": "内蔵音声",
 			"audioOnly": "音声のみ",
@@ -494,8 +494,19 @@
 			"done": "完了",
 			"changed": "{{profile}} からの変更: {{areas}}。このダウンロードにのみ適用されます。",
 			"areas": {"format": "形式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "追加項目", "saveTo": "フォルダー", "fileName": "ファイル名"},
-			"saveAsProfile": "プロフィールとして保存…",
-			"reset": "リセット",
+			"updateProfile": "この変更で「{{profile}}」を更新",
+			"saveAsProfile": "新しいプロフィールとして保存",
+			"update": {
+				"title": "「{{profile}}」を更新しますか?",
+				"description": "今後、このプロフィールを使うすべてのダウンロードで新しい設定が使われます。",
+				"rows": {"format": "形式"},
+				"builtinNote": "これは組み込みのプロフィールです。元の設定は「プロファイル」タブで復元できます。",
+				"action": "プロフィールを更新",
+				"updated": "プロフィール「{{name}}」を更新しました"
+			},
+			"callout": {"title": "その他の設定はすべてこのページに移りました", "body": "字幕、SponsorBlock、サムネイルなどの追加項目、フォルダー、ファイル名は、以前は別々のステップでした。行をクリックすると変更できます。"},
+			"reset": "変更を取り消して「{{profile}}」に戻す",
+			"changedFrom": "{{profile}} からの変更:",
 			"save": {
 				"title": "プロフィールとして保存",
 				"description": "この設定を、次回選べるプロフィールとして保存します。クイックダウンロードのプロフィールは変わりません。",
@@ -970,6 +981,8 @@
 			"resolutionBest": {"label": "最高解像度", "reason": "上限なし"},
 			"resolution": {"label": "最大 {{tier}}p", "reason": "指定した上限"},
 			"fps": {"label": "最高フレームレート", "reason": "動きがなめらか"},
+			"sitePreference": {"label": "サイトが優先度を下げていないストリーム", "reason": "破損・透かし入り・代替用のコピーを除外"},
+			"original": {"label": "AI アップスケール版ではなく元のストリーム", "reason": "アップスケール版は解像度が高くても実際の細部は増えない"},
 			"codec": {"label": "AV1、次に VP9、次に H.264", "reason": "同じサイズで最も鮮明"},
 			"size": {"label": "大きいファイル", "reason": "同じ設定でより高精細"},
 			"aacSmartTv": {"label": "AAC 音声", "reason": "どこでも再生可能"},
@@ -983,5 +996,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "最高画質", "smartTv": "どの端末でも再生可能"}, "fileType": {"auto": "ファイル形式はストリームに合わせる", "explicit": ".{{ext}} で保存"}}
 	},
+	"aiUpscaled": {"label": "AI アップスケールのストリーム", "description": "YouTube は一部の古い動画を、AI で作ったサイズでも提供しています。「スキップ」では元のストリームを使います。アップスケール版を手動で選ぶこともできます。", "skip": "スキップ", "allow": "許可"},
 	"hdrPreference": {"label": "HDR 動画", "description": "「自動」は、この画面が HDR を表示できる場合は HDR、そうでなければ SDR を選びます。HDR は通常の画面では色あせて見えます。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

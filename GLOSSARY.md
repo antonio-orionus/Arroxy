@@ -114,8 +114,20 @@ _Avoid_: fetch, inspect, scan, lookup
 What a single-video download produces: video, audio, or subtitles only. Picked on the Format screen.
 _Avoid_: preset, mode, type
 
+**Format mode**:
+The Format screen's switch, named like a profile's media: Video + audio, Video, no audio, Audio only, Subtitles only. Video, no audio is the video media kind with no audio and a stream that has none of its own.
+_Avoid_: media type, tab
+
+**Stream marker**:
+What yt-dlp's notes say about one stream beyond its size and codec: AI upscaled, AI dubbed, audio description, spatial audio, 360° / VR, enhanced bitrate, damaged, watermarked. The Format screen tags each one.
+_Avoid_: flag, badge, quirk
+
+**Probe source**:
+A real probe of one site or kind of video, kept as a fixture so the Format screen can be checked against it without probing. Each has a text snapshot and a "Real sites" Scenario Workbench state.
+_Avoid_: sample, recording
+
 **Profile pick**:
-The streams and settings a download profile gives one particular video, shown pre-selected in the wizard. Changing anything is a per-download edit; keeping it is Save as profile.
+The streams and settings a download profile gives one particular video, shown pre-selected in the wizard. Changing anything is a per-download edit; keeping it means updating that profile or saving a new one.
 _Avoid_: default, preset, remembered choice
 
 **Part of video**:
@@ -169,7 +181,7 @@ A saved, reusable set of download settings the user applies in one click, withou
 _Avoid_: preset, template, config
 
 **Selection order**:
-The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: resolution limit, codec, frame rate, HDR, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
+The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: streams the site doesn't mark down, original streams before AI-upscaled ones (unless the profile allows them), resolution limit, codec, frame rate, HDR, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
 _Avoid_: priority, hierarchy, ranking, sort
 
 **Profile goal**:

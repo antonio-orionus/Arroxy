@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Ιστότοπος"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Επιτρέπεται"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "Το YouTube προσφέρει ορισμένα παλιά βίντεο σε μεγέθη που δημιούργησε με ΤΝ. Η «Παράλειψη» κρατά τις αρχικές ροές· μπορείτε ακόμη να επιλέξετε χειροκίνητα μια ροή με αναβάθμιση."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Ροές με αναβάθμιση ΤΝ"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Παράλειψη"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Σχόλια"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "ταιριάζει στο WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Αρχικές ροές, όχι με αναβάθμιση ΤΝ"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "ένα αναβαθμισμένο αντίγραφο είναι ψηλότερο αλλά δεν προσθέτει πραγματική λεπτομέρεια"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Έως {{tier}}p"
@@ -1520,6 +1544,14 @@ msgstr "Μέγιστη ανάλυση"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "χωρίς όριο"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Ροές που ο ιστότοπος δεν υποβαθμίζει"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "παραλείπει κατεστραμμένα, με υδατογράφημα και εφεδρικά αντίγραφα"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Περισσότερες επιλογές λήψης"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Επισκόπηση και επιλογές"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Επιλέξτε τουλάχιστον μία γλώσσα υποτίτλων."
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "Ενσωματωμένος ήχος"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Ήχος"
+msgid "Audio only"
+msgstr "Μόνο ήχος"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "Μόνο υπότιτλοι"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Βίντεο"
+msgid "Video + audio"
+msgstr "Βίντεο + ήχος"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Βίντεο, χωρίς ήχο"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "Φόρτωση μορφών"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Περίμενε μέχρι να ολοκληρωθεί η ανίχνευση — οι playlist και οι αναζητήσεις μπορεί να πάρουν λίγη ώρα."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Μεταγλώττιση ΤΝ"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Αναβάθμιση ΤΝ"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Ηχητική περιγραφή"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Κατεστραμμένο"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Βελτιωμένο bitrate"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Χωρικός ήχος"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Με υδατογράφημα"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Επεξεργασία: {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Διατήρηση των αλλαγών μου"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Μόνο για αυτή τη λήψη. Το προεπιλεγμένο προφίλ σας μένει ως έχει."
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Προεπιλεγμένο από"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Αλλαγή"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Επαναφορά όλων"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Οι αλλαγές σας σε αυτή τη λήψη θα αντικατασταθούν από τις ρυθμίσεις του προφίλ που θα επιλέξετε."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Αλλάξατε για αυτή τη λήψη: {{areas}}. Το «{{profile}}» επιλέγει έτσι κι αλλιώς το βίντεο και τον ήχο. Διατήρηση των υπόλοιπων αλλαγών ή επαναφορά όλων στο προφίλ;"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Προφίλ"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Χρήση"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Οι αλλαγές σας σε αυτή τη λήψη θα αντικατασταθούν από τις νέες ρυθμίσεις του προφίλ."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Διατήρηση των αλλαγών μου"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Αλλάξατε για αυτή τη λήψη: {{areas}}. Το ενημερωμένο προφίλ επιλέγει έτσι κι αλλιώς το βίντεο και τον ήχο. Διατήρηση των υπόλοιπων αλλαγών ή επαναφορά όλων στο προφίλ;"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Το Arroxy περιμένει έως τις {{time}} πριν ξαναρωτήσει το {{site}}, ώστε να αρθεί ο περιορισμός."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Άγνωστο μέγεθος"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Αποθήκευση ως"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Ανακαλύπτω τις καλύτερες μορφές για σένα…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Επίσης από το {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Επισκόπηση όλων"
-
-#. Plural form "one" for el: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} διαθέσιμη γλώσσα, προσθήκη"
-
-#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} διαθέσιμες γλώσσες, προσθήκη"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "υπότιτλοι ανενεργοί"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Σύνολο"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Βίντεο"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Μόνο βίντεο"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "με ήχο"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,7 +3444,7 @@ msgid "Caption files only"
 msgstr "Μόνο αρχεία υποτίτλων"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "Μόνο υπότιτλοι"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "υπότιτλοι"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Οι υπότιτλοι, το SponsorBlock, τα επιπλέον όπως η μικρογραφία, ο φάκελος και το όνομα αρχείου ήταν παλιότερα ξεχωριστά βήματα. Κάντε κλικ σε μια γραμμή για να την αλλάξετε."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Όλες οι άλλες ρυθμίσεις βρίσκονται τώρα σε αυτή τη σελίδα"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Αλλαγές σε σχέση με το {{profile}}: {{areas}}. Ισχύει μόνο για αυτή τη λήψη."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Αλλαγές σε σχέση με το {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Αυτή η λήψη χρησιμοποίησε τροποποιημένες ρυθμίσεις. Να χρησιμοποιηθούν την επόμενη φορά;"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Επαναφορά"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Αναίρεση αλλαγών, επιστροφή στο «{{profile}}»"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "Αποθήκευση ως προφίλ"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Αποθήκευση ως προφίλ…"
+msgid "Save as a new profile"
+msgstr "Αποθήκευση ως νέο προφίλ"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Ενημέρωση προφίλ"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Αυτό είναι ενσωματωμένο προφίλ. Μπορείτε να επαναφέρετε τις αρχικές ρυθμίσεις του στην καρτέλα «Προφίλ»."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Από εδώ και πέρα, κάθε λήψη με αυτό το προφίλ χρησιμοποιεί τις νέες ρυθμίσεις."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Μορφή"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Ενημέρωση του «{{profile}}»;"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Το προφίλ «{{name}}» ενημερώθηκε"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Ενημέρωση του «{{profile}}» με αυτές τις αλλαγές"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

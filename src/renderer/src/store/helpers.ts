@@ -1,5 +1,7 @@
+import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
+import {videoCodecName} from '@shared/fileTypeFit.js'
 import type {AudioSelection} from './types.js'
 
 export interface GroupedVideoFormat {
@@ -10,10 +12,10 @@ export interface GroupedVideoFormat {
 }
 
 // Composes the yt-dlp `-f` value for native + video selections. Convert
-// selections set `formatId: undefined` and pass `audioConvert` instead — the
-// main process then forces `-f bestaudio/best`.
+// selections pass `audioConvert` plus, with several audio languages, the
+// chosen language's stream as `formatId`; without it the default track converts.
 export function buildFormatId(videoFormatId: string, audioSelection: AudioSelection): string | undefined {
-	if (audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless') return undefined
+	if (audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless') return audioSelection.sourceFormatId
 	const audioFormatId = audioSelection.kind === 'native' ? audioSelection.formatId : null
 	if (videoFormatId === '' && audioFormatId === null) return undefined
 	if (videoFormatId === '') return audioFormatId ?? undefined
@@ -57,18 +59,38 @@ export function buildFormatLabel(videoFormatId: string, videoResolution: string,
 	return i18next.t('formatLabel.videoDot', {resolution: videoResolution, audio: audioLabel})
 }
 
-// One row per resolution and dynamic range. The first stream in quality order
-// represents its group unless one of `preferIds` (the user's pick, the
-// profile's pick) is in it: that stream must stay visible and selectable.
+// One chip per resolution, dynamic range and codec, so H.264 or VP9 at a height
+// stays reachable. A stream whose codec the site doesn't name joins a named
+// codec's chip at its height, or is the height's only other chip: an unnamed
+// codec is never a choice of its own. The first stream in quality order
+// represents its chip unless one of `preferIds` (the user's pick, the profile's
+// pick) is in it: that stream must stay visible and selectable.
 export function groupVideoFormats(formats: FormatOption[], preferIds: readonly string[] = []): GroupedVideoFormat[] {
 	const groups = new Map<string, FormatOption>()
-	for (const f of formats) {
-		if (f.isAudioOnly) continue
-		const key = `${f.resolution}|${f.dynamicRange ?? ''}`
+	function consider(key: string, f: FormatOption): void {
 		const current = groups.get(key)
-		if (!current || (preferIds.includes(f.formatId) && !preferIds.includes(current.formatId))) groups.set(key, f)
+		// A chip with both shows the video-only stream, so every chip pairs with
+		// the Audio column the same way; a stream with its own audio (YouTube's
+		// 360p MP4) shows only where it is the sole one, or the picked one.
+		const preferred = preferIds.includes(f.formatId) && !preferIds.includes(current?.formatId ?? '')
+		const silentOverMuxed = current !== undefined && !preferIds.includes(current.formatId) && !current.isVideoOnly && f.isVideoOnly
+		if (!current || preferred || silentOverMuxed) groups.set(key, f)
 	}
-	return [...groups.values()].map(f => ({resolution: f.resolution, formatId: f.formatId, label: f.label, dynamicRange: f.dynamicRange}))
+	const videos = formats.filter(f => !f.isAudioOnly)
+	// By the name the row shows: "1920x1080" and "1080p" are one 1080p row.
+	const rowKey = (f: FormatOption): string => `${resolutionLabel(f.resolution).label}|${f.dynamicRange ?? ''}|`
+	for (const f of videos) {
+		const codec = videoCodecName(f.videoCodec)
+		if (codec !== null) consider(rowKey(f) + codec, f)
+	}
+	for (const f of videos) {
+		if (videoCodecName(f.videoCodec) !== null) continue
+		const named = [...groups.keys()].find(key => key.startsWith(rowKey(f)))
+		consider(named ?? rowKey(f), f)
+	}
+	// Back in the probe's quality order: the second pass appended the unnamed ones.
+	const order = new Map(formats.map((f, index) => [f.formatId, index]))
+	return [...groups.values()].toSorted((a, b) => (order.get(a.formatId) ?? 0) - (order.get(b.formatId) ?? 0)).map(f => ({resolution: f.resolution, formatId: f.formatId, label: f.label, dynamicRange: f.dynamicRange}))
 }
 
 export function generateId(): string {

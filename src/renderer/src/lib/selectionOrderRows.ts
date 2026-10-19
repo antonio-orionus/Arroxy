@@ -13,6 +13,10 @@ export interface SelectionOrderRow {
 
 function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): SelectionOrderRow {
 	switch (rank.kind) {
+		case 'site-preference':
+			return {label: t('selectionOrder.rank.sitePreference.label'), reason: t('selectionOrder.rank.sitePreference.reason')}
+		case 'original':
+			return {label: t('selectionOrder.rank.original.label'), reason: t('selectionOrder.rank.original.reason')}
 		case 'h264':
 			return {label: t('selectionOrder.rank.h264.label'), reason: t('selectionOrder.rank.h264.reason')}
 		case 'mp4-streams':

@@ -15,7 +15,12 @@ export {YT_DLP_ERROR_KINDS}
 // Video / Audio / Subtitles switch.
 export const wizardMediaKindSchema = z.enum(['video', 'audio', 'subtitles'])
 export type WizardMediaKind = z.infer<typeof wizardMediaKindSchema>
-export const WIZARD_MEDIA_KINDS = wizardMediaKindSchema.options
+
+// The Format screen's switch: the download types a profile names. Video, no
+// audio is the Video kind with no audio picked and a stream that has none.
+export const formatModeSchema = z.enum(['video', 'video-only', 'audio', 'subtitles'])
+export type FormatMode = z.infer<typeof formatModeSchema>
+export const FORMAT_MODES = formatModeSchema.options
 
 // Single source for the wizard step list — previously duplicated by hand as
 // `WizardStep` (renderer store/types.ts), `WizardStepName` (shared/types.ts,
@@ -158,9 +163,21 @@ const downloadProfileAudioSchema = z.object({format: downloadProfileAudioFormatS
 export const hdrChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), preference: hdrPreferenceSchema})])
 export type HdrChoice = z.infer<typeof hdrChoiceSchema>
 
+// Whether a profile may pick a stream the site upscaled with AI (YouTube's
+// "-sr" formats on old uploads): taller on paper, no real detail added.
+export const aiUpscaledSchema = z.enum(['skip', 'allow'])
+
+// What yt-dlp's notes say about a single stream, beyond its size and codec.
+// The Format screen tags each one, so nothing about a stream is hidden.
+const formatMarkerSchema = z.enum(['ai-upscaled', 'ai-dubbed', 'audio-description', 'spatial-audio', 'vr', 'enhanced-bitrate', 'damaged', 'watermarked'])
+export type FormatMarker = z.infer<typeof formatMarkerSchema>
+export type AiUpscaled = z.infer<typeof aiUpscaledSchema>
+export const AI_UPSCALED_CHOICES = aiUpscaledSchema.options
+
 // `hdr` absent means `default`: profiles saved before the choice existed follow
-// the app setting, which upgrades to HDR for existing installs.
-const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema, hdr: hdrChoiceSchema.optional()}
+// the app setting, which upgrades to HDR for existing installs. `aiUpscaled`
+// absent means `skip`, for profiles saved before the choice existed too.
+const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema, hdr: hdrChoiceSchema.optional(), aiUpscaled: aiUpscaledSchema.optional()}
 const videoAudioMediaSchema = z.object({kind: z.literal('video-audio'), ...videoMediaFields, audio: z.object({native: nativeAudioChoiceSchema})})
 const videoOnlyMediaSchema = z.object({kind: z.literal('video-only'), ...videoMediaFields})
 const audioOnlyMediaSchema = z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})
@@ -246,8 +263,10 @@ export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>
 export const audioSelectionSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('none')}),
 	z.object({kind: z.literal('native'), formatId: z.string().min(1)}),
-	z.object({kind: z.literal('convert-lossless'), target: z.literal('wav')}),
-	z.object({kind: z.literal('convert-lossy'), target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema})
+	// `sourceFormatId`: the stream to convert, set when the video has several
+	// audio languages; without it yt-dlp converts the source's default track.
+	z.object({kind: z.literal('convert-lossless'), target: z.literal('wav'), sourceFormatId: z.string().min(1).optional()}),
+	z.object({kind: z.literal('convert-lossy'), target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema, sourceFormatId: z.string().min(1).optional()})
 ])
 export type AudioSelection = z.infer<typeof audioSelectionSchema>
 
@@ -584,7 +603,17 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		expectedBytes: z.number().positive().optional(),
 		videoPart: videoPartSchema.optional()
 	}),
-	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema, videoPart: videoPartSchema.optional()}),
+	z.object({
+		kind: z.literal('audio-convert'),
+		...extractorIdentitySchema,
+		audioConvert: audioConvertSchema,
+		formatId: z.string().min(1).optional(),
+		filenameTemplate: z.string().min(1).optional(),
+		subtitles: subtitleOptionsSchema.optional(),
+		sponsorBlock: sponsorBlockOptionsSchema,
+		embed: embedOptionsSchema,
+		videoPart: videoPartSchema.optional()
+	}),
 	z.object({
 		kind: z.literal('ranged-format'),
 		...extractorIdentitySchema,
@@ -707,7 +736,8 @@ const commonSettingsSchema = z.object({
 	styleHintDismissed: z.boolean().optional(),
 	videoPartCalloutDismissed: z.boolean().optional(),
 	exploreLinkCalloutDismissed: z.boolean().optional(),
-	formatProfileCalloutDismissed: z.boolean().optional()
+	formatProfileCalloutDismissed: z.boolean().optional(),
+	reviewCalloutDismissed: z.boolean().optional()
 })
 
 const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})

@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Marsariitii"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Hayyami"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Tarreessaawwan AI'n guddifaman"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Darbi"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Yaada"
@@ -1505,6 +1521,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "WebM waliin wal sima"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Tarreessaawwan jalqabaa, kan AI'n guddifaman miti"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Hanga {{tier}}p"
@@ -1520,6 +1544,14 @@ msgstr "Ifa bal'ina isa ol'aanaa"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "daangaan hin kaa'amne"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Tarreessaawwan saayitiin gadi hin buusne"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "garagalchawwan miidhaman, mallattoo bishaanii qabanii fi bakka bu'oo ni darba"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2405,10 +2437,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Filannoo buufataa dabalataa"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Sakatta'i fi filannoo"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Yoo xiqqaate afaan axxiinnii tokko filadhu."
@@ -2422,8 +2450,8 @@ msgid "Built-in audio"
 msgstr "Sagalee keessoo"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Sagalee"
+msgid "Audio only"
+msgstr "Sagalee qofa"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2434,8 +2462,12 @@ msgid "Subtitles only"
 msgstr "Axxiinni qofa"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Viidiyoo"
+msgid "Video + audio"
+msgstr "Viidiyoo + sagalee"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Viidiyoo, sagalee malee"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2444,6 +2476,38 @@ msgstr "Foormaatii fe'amaa jira"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Qorannoon xumuramuu hanga eegtu — playlist fi barbaacha yeroo fudhachuu danda'a."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI'n hiikame"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI'n guddifame"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Ibsa sagaleen"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Miidhame"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bitrate fooyya'e"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Sagalee iddoo"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Mallattoo bishaanii qaba"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2465,6 +2529,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "{{name}} gulaali"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Jijjiiramoota koo eegi"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Buufata kanaaf qofa. Piroofaayiliin kee durtii akkuma jirutti hafa."
@@ -2473,13 +2541,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Duraan filatame, madda:"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Jijjiiri"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Hunda deebisi"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Jijjiirama buufata kana irratti gooteen qindaa'ina piroofaayilii filattuun bakka bu'a."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Buufata kanaaf {{areas}} jijjiirteetta. “{{profile}}” haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2489,17 +2557,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Piroofaayilii"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Fayyadami"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Jijjiirama buufata kana irratti gooteen qindaa'ina haaraa piroofaayilichaatiin bakka bu'a."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Jijjiirama koo eegi"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Buufata kanaaf {{areas}} jijjiirteetta. Piroofaayiliin haaromfame haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2549,6 +2609,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Akka daangaan ka’uuf, Arroxy {{site}} irra deebi’ee gaafachuu dura hanga {{time}} eega."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Ifa bal'ina hin beekamne"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Akka kanaatti kuufama"
@@ -2573,28 +2637,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Foormaatii caalmaa si barbaachisu barbaaduun jira…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}} irraa kanas:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Hunda sakatta'i"
-
-#. Plural form "one" for om: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "Afaan {{count}} jira, dabali"
-
-#. Plural form "other" for om: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "Afaanonni {{count}} jiru, dabali"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "axxiinni dhaabbateera"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Waliigala"
@@ -2603,9 +2645,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Viidiyoo"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Viidiyoo qofa"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "sagalee wajjin"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3402,8 +3444,8 @@ msgid "Caption files only"
 msgstr "Faayilii ergaa gadii qofa"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
-msgstr "Ergaa gadii qofa"
+msgid "Subtitles only"
+msgstr "Axxiinni qofa"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
@@ -3605,9 +3647,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "axxiinni"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Axxiinni, SponsorBlock, dabalataaleen akka thumbnail, foldarii fi maqaan faayilii kanaan dura tarkaanfii addaa turan. Jijjiiruuf sarara tokko cuqaasi."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Qindaa'inni biroo hundi amma fuula kana irra jira"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "{{profile}} irraa jijjiirame:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3634,8 +3688,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "Buufanni kun qindaa'ina jijjiirame fayyadame. Yeroo itti aanu itti fayyadamtaa?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Deebisi"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Jijjiirama deebisi, gara “{{profile}}”tti deebi'i"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3686,8 +3740,36 @@ msgid "Save as profile"
 msgstr "Akka piroofaayiliitti olkaa'i"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Akka piroofaayiliitti olkaa'i…"
+msgid "Save as a new profile"
+msgstr "Akka piroofaayilii haaraatti olkaa'i"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Piroofaayilii fooyyessi"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Kun piroofaayilii keessaa jiruudha. Qindaa'ina isaa jalqabaa caancala Profaayilota keessatti deebisuu dandeessa."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Amma booda, buufanni piroofaayilii kanaan godhamu hundi qindaa'ina haaraa fayyadama."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Foormaatii"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "“{{profile}}” fooyyessuu?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Piroofaayiliin “{{name}}” fooyyeffameera"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "“{{profile}}” jijjiirama kanaan fooyyessi"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

@@ -350,7 +350,7 @@
 			"cat": {"sponsor": "赞助商", "intro": "片头", "outro": "片尾", "selfpromo": "自我宣传", "music_offtopic": "与音乐无关", "preview": "预览", "filler": "填充内容"}
 		},
 		"formats": {
-			"kind": {"label": "下载内容", "video": "视频", "audio": "音频", "subtitles": "仅字幕"},
+			"kind": {"label": "下载内容", "video": "视频 + 音频", "videoOnly": "视频，无音频", "audio": "仅音频", "subtitles": "仅字幕"},
 			"profile": {
 				"calloutTitle": "格式从你的配置文件开始",
 				"calloutBody": "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。",
@@ -358,13 +358,12 @@
 				"tag": "配置",
 				"closestTag": "最接近配置",
 				"switchTitle": "切换配置？",
-				"switchBody": "你对本次下载所做的更改将被所选配置的设置替换。",
-				"switchAction": "切换",
+				"switchBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由“{{profile}}”选择。保留其他更改，还是全部重置为配置的设置？",
+				"resetAll": "全部重置",
 				"edit": "编辑“{{name}}”",
 				"updatedTitle": "使用更新后的配置？",
-				"updatedBody": "你对本次下载所做的更改将被该配置的新设置替换。",
-				"updatedAction": "使用",
-				"updatedKeep": "保留我的更改",
+				"updatedBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由更新后的配置选择。保留其他更改，还是全部重置为配置的设置？",
+				"keepEdits": "保留我的更改",
 				"menuDescription": "仅用于本次下载。你的默认配置保持不变。"
 			},
 			"fit": {
@@ -375,12 +374,13 @@
 				"subtitlesMissing": "配置要求 {{languages}} 字幕，但此视频没有。",
 				"webmUnavailable": "你的配置要求 WebM。此视频所选的流包含 WebM 无法容纳的 {{codec}}，因此文件类型为自动。"
 			},
-			"summary": {"lead": "{{profile}} 的其他设置：", "subtitlesOff": "字幕已关闭", "subtitlesAdd_other": "有 {{count}} 种语言可用，添加", "reviewAll": "查看全部"},
-			"footer": {"reviewOptions": "查看与选项", "download": "下载", "moreActions": "更多下载选项", "addToQueue": "加入队列但不开始", "subtitlesRequired": "请至少选择一种字幕语言。"},
+			"footer": {"download": "下载", "moreActions": "更多下载选项", "addToQueue": "加入队列但不开始", "subtitlesRequired": "请至少选择一种字幕语言。"},
 			"video": "视频",
 			"audio": "音频",
 			"noAudio": "无音频",
-			"videoOnly": "仅视频",
+			"withAudio": "含音频",
+			"resolutionUnknown": "分辨率未知",
+			"marker": {"aiUpscaled": "AI 放大", "aiDubbed": "AI 配音", "audioDescription": "音频描述", "spatialAudio": "空间音频", "vr": "360° / VR", "enhancedBitrate": "增强比特率", "damaged": "已损坏", "watermarked": "带水印"},
 			"keepAudio": "保持原样",
 			"keepAudioMeta": "内置音频",
 			"audioOnly": "仅音频",
@@ -461,8 +461,12 @@
 			"done": "完成",
 			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
 			"areas": {"format": "格式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "附加项", "saveTo": "文件夹", "fileName": "文件名"},
-			"saveAsProfile": "另存为配置…",
-			"reset": "重置",
+			"updateProfile": "用这些更改更新“{{profile}}”",
+			"saveAsProfile": "另存为新配置",
+			"update": {"title": "更新“{{profile}}”？", "description": "从现在起，使用此配置的每次下载都将使用新设置。", "rows": {"format": "格式"}, "builtinNote": "这是内置配置。你可以在“配置”标签页中恢复其原始设置。", "action": "更新配置", "updated": "已更新配置“{{name}}”"},
+			"callout": {"title": "其他所有设置现在都在此页面", "body": "字幕、SponsorBlock、缩略图等附加项、文件夹和文件名以前是单独的步骤。点击某一行即可更改。"},
+			"reset": "撤销更改，恢复为“{{profile}}”",
+			"changedFrom": "与 {{profile}} 相比的更改：",
 			"save": {"title": "另存为配置", "description": "将这些设置保存为配置，下次可直接选择。快速下载配置保持不变。", "nameLabel": "配置名称", "action": "保存配置", "saved": "已保存为配置“{{name}}”", "failed": "无法保存配置。"},
 			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
 			"nextTime": {"title": "本次下载使用了编辑后的设置。下次继续使用吗？", "action": "另存为配置", "defaultName": "{{profile}}（已编辑）"}
@@ -888,6 +892,8 @@
 			"resolutionBest": {"label": "最高分辨率", "reason": "未设上限"},
 			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
 			"fps": {"label": "最高帧率", "reason": "动作更流畅"},
+			"sitePreference": {"label": "网站未降级的流", "reason": "跳过损坏、带水印和备用的副本"},
+			"original": {"label": "原始流，而非 AI 放大的流", "reason": "放大版分辨率更高，但没有增加真实细节"},
 			"codec": {"label": "先 AV1，再 VP9，最后 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "更大的文件", "reason": "相同设置下细节更多"},
 			"aacSmartTv": {"label": "AAC 音频", "reason": "随处可播放"},
@@ -901,5 +907,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "最佳画质", "smartTv": "所有设备都能播放"}, "fileType": {"auto": "文件类型由流决定", "explicit": "保存为 .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "AI 放大的流", "description": "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。", "skip": "跳过", "allow": "允许"},
 	"hdrPreference": {"label": "HDR 视频", "description": "自动模式会在此屏幕能显示 HDR 时选择 HDR，否则选择 SDR。HDR 在普通屏幕上看起来会发灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自动"}
 }

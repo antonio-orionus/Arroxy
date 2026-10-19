@@ -43,6 +43,17 @@ export function detectProbeDegradationSignals(stderr: string): ProbeSignal[] {
 	return [...signals.values()]
 }
 
+// A 4xx other than 429 is the site's final answer (a stream list that is Gone
+// or Forbidden): a second probe gets the same answer after the same wait.
+const PERMANENT_HTTP_ERROR = /HTTP Error 4(?!29)\d\d\b/i
+
+// Whether running the probe again could recover what the warnings lost: not
+// when every degradation warning is a permanent HTTP error.
+export function degradationIsTransient(stderr: string): boolean {
+	const degradationLines = stderr.split(/\r?\n/).filter(line => PROBE_DEGRADATION_SIGNALS.some(({pattern}) => pattern.test(line)))
+	return degradationLines.length === 0 || degradationLines.some(line => !PERMANENT_HTTP_ERROR.test(line))
+}
+
 export function isRateLimited(signals: readonly ProbeSignal[]): boolean {
 	return signals.some(signal => signal.category === 'rateLimit')
 }

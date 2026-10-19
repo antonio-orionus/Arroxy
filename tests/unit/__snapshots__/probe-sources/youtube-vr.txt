@@ -1,0 +1,27 @@
+youtube-vr: A 360° video: equirectangular projection on every stream
+Sound Formats Trailer Compilation - 360° Binaural AmbiSonic Spatial Sound · 68 s · card says "1280x720 · 360° / VR" · 39 formats
+
+Video (picked for Balanced 720p •):
+          SDR VP9       SDR H.264
+2160p 4K  VP9 55.0 MB   ·
+1440p 2K  VP9 27.8 MB   ·
+1080p     VP9 8.6 MB    H.264 21.4 MB
+720p      VP9 4.9 MB •  H.264 11.8 MB
+480p      VP9 3.0 MB    H.264 6.5 MB
+360p      VP9 2.2 MB    H.264 3.7 MB
+240p      VP9 1.0 MB    H.264 2.6 MB
+144p      VP9 954.3 KB  H.264 1.4 MB
+
+Audio:
+AAC: 130 kbps 1.1 MB • | 130 kbps 1.1 MB DRC | 49 kbps 22.05 kHz 408.9 KB | 49 kbps 22.05 kHz 408.8 KB DRC
+Opus: 113 kbps DRC 942.8 KB DRC | 110 kbps 917.2 KB | 58 kbps 484.5 KB DRC | 56 kbps 470.4 KB | 44 kbps 370.5 KB DRC | 43 kbps 359.8 KB
+DRC switch shown
+
+Profile picks:
+balanced: 609 (1280x720, mp4) + audio 140 (audio only, m4a)
+best-quality: 625 (3840x2160, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 140 (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

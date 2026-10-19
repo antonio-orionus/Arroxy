@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "موقع الويب"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "السماح"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "يعرض YouTube بعض الفيديوهات القديمة بأحجام صنعها بالذكاء الاصطناعي. يُبقي «تخطي» على التدفقات الأصلية؛ ولا يزال بإمكانك اختيار تدفق مُكبَّر يدويًا."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "تدفقات مُكبَّرة بالذكاء الاصطناعي"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "تخطي"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "ملاحظات"
@@ -1685,6 +1701,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "مناسب لـ WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "التدفقات الأصلية، لا المُكبَّرة بالذكاء الاصطناعي"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "النسخة المُكبَّرة أطول لكنها لا تضيف تفاصيل حقيقية"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "حتى {{tier}}p"
@@ -1700,6 +1724,14 @@ msgstr "أعلى دقة"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "بلا حد محدد"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "تدفقات لا يُخفّض الموقع أولويتها"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "يتخطى النسخ التالفة وذات العلامة المائية والاحتياطية"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2765,10 +2797,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "المزيد من خيارات التنزيل"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "المراجعة والخيارات"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "اختر لغة ترجمة واحدة على الأقل."
@@ -2782,8 +2810,8 @@ msgid "Built-in audio"
 msgstr "الصوت المضمّن"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "صوت"
+msgid "Audio only"
+msgstr "صوت فقط"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2794,8 +2822,12 @@ msgid "Subtitles only"
 msgstr "ترجمات فقط"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "فيديو"
+msgid "Video + audio"
+msgstr "فيديو + صوت"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "فيديو، بدون صوت"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2804,6 +2836,38 @@ msgstr "جارٍ تحميل الصيغ"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "يُرجى الانتظار حتى تنتهي عملية الفحص — قوائم التشغيل والبحث قد تستغرق بعض الوقت."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "مدبلج بالذكاء الاصطناعي"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "مُكبَّر بالذكاء الاصطناعي"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "وصف صوتي"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "تالف"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "معدل بت محسّن"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "صوت مكاني"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "بعلامة مائية"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2825,6 +2889,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "تعديل {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "الإبقاء على تغييراتي"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "لهذا التنزيل فقط. يبقى ملف التعريف الافتراضي كما هو."
@@ -2833,13 +2901,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "محدد مسبقًا من"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "تبديل"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "إعادة ضبط الكل"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "ستُستبدل تغييراتك على هذا التنزيل بإعدادات ملف التعريف الذي تختاره."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "لقد غيّرت {{areas}} لهذا التنزيل. يختار “{{profile}}” الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2849,17 +2917,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "ملف التعريف"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "استخدامه"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "ستُستبدل تغييراتك على هذا التنزيل بالإعدادات الجديدة لملف التعريف."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "الإبقاء على تغييراتي"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "لقد غيّرت {{areas}} لهذا التنزيل. يختار ملف التعريف المحدَّث الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2909,6 +2969,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "ينتظر Arroxy حتى {{time}} قبل أن يطلب من {{site}} مجددًا، حتى يزول الحد."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "دقة غير معروفة"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "يُحفظ كـ"
@@ -2933,48 +2997,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "جارٍ البحث عن أفضل الصيغ لك…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "أيضًا من {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "مراجعة الكل"
-
-#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
-msgctxt "wizard.formats.summary.subtitlesAdd_few"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} لغات متاحة، أضِف"
-
-#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
-msgctxt "wizard.formats.summary.subtitlesAdd_many"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} لغة متاحة، أضِف"
-
-#. Plural form "one" for ar: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}} لغة متاحة، أضِف"
-
-#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} لغة متاحة، أضِف"
-
-#. Plural form "two" for ar: used for counts like 2.
-msgctxt "wizard.formats.summary.subtitlesAdd_two"
-msgid "{{count}} languages available, add"
-msgstr "لغتان متاحتان، أضِف"
-
-#. Plural form "zero" for ar: used for counts like 0.
-msgctxt "wizard.formats.summary.subtitlesAdd_zero"
-msgid "{{count}} languages available, add"
-msgstr "{{count}} لغة متاحة، أضِف"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "الترجمات متوقفة"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "الإجمالي"
@@ -2983,9 +3005,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "فيديو"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "فيديو فقط"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "مع صوت"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -4002,7 +4024,7 @@ msgid "Caption files only"
 msgstr "ملفات ترجمة فقط"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "ترجمات فقط"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -4245,9 +4267,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "الترجمات"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "كانت الترجمات وSponsorBlock والإضافات مثل الصورة المصغرة والمجلد واسم الملف خطوات منفصلة. انقر على صف لتغييره."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "كل الإعدادات الأخرى موجودة في هذه الصفحة الآن"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "تغيّر عن {{profile}}: {{areas}}. ينطبق على هذا التنزيل فقط."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "تغيّر عن {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -4274,8 +4308,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "استخدم هذا التنزيل إعدادات معدّلة. هل تريد استخدامها في المرة القادمة؟"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "إعادة ضبط"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "التراجع عن التغييرات والعودة إلى “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -4326,8 +4360,36 @@ msgid "Save as profile"
 msgstr "حفظ كملف تعريف"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "حفظ كملف تعريف…"
+msgid "Save as a new profile"
+msgstr "حفظ كملف تعريف جديد"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "تحديث ملف التعريف"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "هذا ملف تعريف مدمج. يمكنك استعادة إعداداته الأصلية من تبويب «الملفات الشخصية»."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "من الآن فصاعدًا، سيستخدم كل تنزيل بملف التعريف هذا الإعدادات الجديدة."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "الصيغة"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "تحديث “{{profile}}”؟"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "تم تحديث ملف التعريف “{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "تحديث “{{profile}}” بهذه التغييرات"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

@@ -50,7 +50,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -213,6 +213,8 @@ export interface ProbeOrchestratorSlice {
 	openCookiesSettings: () => void
 	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore tab.
 	openExploreSignIn: () => void
+	// Stops the loading probe and returns to where the run started.
+	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
 	// from the row's kept probe when there is one, else from a fresh probe.
 	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult) => Promise<void>
@@ -255,6 +257,8 @@ export interface FormatPickerSlice {
 	wizardFormats: FormatOption[]
 	selectedVideoFormatId: string
 	audioSelection: AudioSelection
+	// The audio pick Video, no audio set aside, given back when audio returns.
+	wizardSilencedAudio: AudioSelection | null
 	// Preserves the user's bitrate choice when toggling between mp3/m4a/opus
 	// rows or away to wav and back. Default 192 (industry standard MP3).
 	lastConvertBitrate: AudioBitrate
@@ -286,16 +290,21 @@ export interface FormatPickerSlice {
 	setWizardFileType: (fileType: VideoFileType) => void
 	setAudioSelection: (sel: AudioSelection) => void
 	setWizardMediaKind: (kind: WizardMediaKind) => void
+	// The Format screen's switch: a media kind, or Video with no audio.
+	setFormatMode: (mode: FormatMode) => void
 	toggleSubtitleLanguage: (lang: string) => void
 	clearSubtitleLanguages: () => void
 	setSubtitleMode: (mode: SubtitleMode) => void
 	setSubtitleFormat: (format: SubtitleFormat) => void
 	setWizardFilenameTemplate: (template: string) => void
 	// Re-applies a profile to every setting; edits are dropped.
-	chooseWizardProfile: (ref: DownloadProfileRef) => void
+	// `keepEdits`: the new profile picks the streams; the user's other edits stay.
+	chooseWizardProfile: (ref: DownloadProfileRef, keepEdits?: boolean) => void
 	resetWizardToProfile: () => void
 	// Saves the current settings as a new profile. Never changes the active one.
 	saveWizardAsProfile: (name: string) => Promise<boolean>
+	// Saves the current settings into the profile the run started from. Never changes the active one.
+	updateWizardProfile: () => Promise<boolean>
 }
 
 // VideoPart — the single-video "Part of video" range on the Format screen.
@@ -530,6 +539,7 @@ export interface SystemSlice {
 	dismissVideoPartCallout: () => Promise<void>
 	dismissExploreLinkCallout: () => Promise<void>
 	dismissFormatProfileCallout: () => Promise<void>
+	dismissReviewCallout: () => Promise<void>
 	acknowledgeExploreNotice: () => Promise<void>
 	setExploreCompactChrome: (compact: boolean) => Promise<void>
 	// Marks the first Explore open done; switches `off` to `explore` only if that is the mode right now. One write.

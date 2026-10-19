@@ -2,8 +2,9 @@ import {useMemo} from 'react'
 import {i18next} from '@shared/i18n/index.js'
 import {humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
-import {audioCodecName, videoCodecName} from '@shared/fileTypeFit.js'
+import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
 import {channelLabel, sampleRateLabel} from '@shared/audioTrackMeta.js'
+import type {FormatMarker} from '@shared/types.js'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
 import type {AudioTrackQuality, WizardMediaKind} from '@shared/schemas.js'
 import type {VideoPart} from '@shared/preparedJob.js'
@@ -13,6 +14,7 @@ import {useAppStore} from './useAppStore.js'
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import {groupVideoFormats, resolveVideoResolution} from './helpers.js'
 import {wizardVideoPart} from './wizard/videoPart.js'
+import {formatMode} from './wizard/formatMode.js'
 
 // A stream with no HDR format: the probe leaves its dynamic range empty.
 const SDR = 'SDR'
@@ -36,6 +38,16 @@ export interface VideoFormatRow {
 	range: string
 	// The stream the download profile picked for this video.
 	isProfilePick: boolean
+	// Audio and video in one stream: picking it offers Keep as-is.
+	hasAudio: boolean
+	// What yt-dlp's notes say about the stream (AI upscaled, damaged...): an icon each on the chip.
+	markers: StreamMarkerView[]
+}
+
+// A stream marker and its name, for the chip's icon and its hint.
+export interface StreamMarkerView {
+	marker: StreamMarker
+	label: string
 }
 
 // One resolution, with every stream that offers it, best first.
@@ -65,6 +77,9 @@ export interface NativeAudioRow {
 	isDrc: boolean
 	// The same track without DRC (or with it): one switch picks which of the pair the list shows.
 	twinId: string | null
+	// What sets the whole track apart (AI dubbed, audio description), for the language picker.
+	trackTags: string[]
+	markers: StreamMarkerView[]
 	isProfilePick: boolean
 }
 
@@ -91,7 +106,14 @@ export interface FormatSelectionView {
 		rows: VideoFormatRow[]
 		// The columns of the Video grid: HDR formats first, then SDR.
 		ranges: string[]
+		// Inside each range, one column per codec in yt-dlp's order, so a codec
+		// sits in the same column on every line; streams whose codec the site
+		// doesn't name (null) share one last column, labelled by file type.
+		columns: {range: string; codec: string | null}[]
 		profilePickIsFallback: boolean
+		// Some streams carry their own audio and some don't (YouTube's 360p MP4):
+		// only then is "with audio" worth saying on a chip.
+		mixedAudio: boolean
 	}
 	audio: {
 		lines: AudioLine[]
@@ -101,6 +123,8 @@ export interface FormatSelectionView {
 		hasDrcTwins: boolean
 		// The named tracks (languages) to pick from, in the probe's order; empty when there is at most one.
 		tracks: string[]
+		// Per track, what sets it apart (AI dubbed, audio description).
+		trackTags: Record<string, string[]>
 		// The best native bitrate, which a lossy conversion cannot improve on.
 		sourceKbps: number | null
 		// Empty in Video mode: conversions belong to Audio mode.
@@ -136,6 +160,37 @@ function dolbyVariant(codec: string | undefined): string | null {
 	return null
 }
 
+const MARKER_LABEL_KEYS = {
+	'ai-upscaled': 'wizard.formats.marker.aiUpscaled',
+	'ai-dubbed': 'wizard.formats.marker.aiDubbed',
+	'audio-description': 'wizard.formats.marker.audioDescription',
+	'spatial-audio': 'wizard.formats.marker.spatialAudio',
+	vr: 'wizard.formats.marker.vr',
+	'enhanced-bitrate': 'wizard.formats.marker.enhancedBitrate',
+	damaged: 'wizard.formats.marker.damaged',
+	watermarked: 'wizard.formats.marker.watermarked'
+} as const satisfies Record<FormatMarker, string>
+
+// AI dubs and audio description are a whole track's, so the language picker
+// says them; 360° / VR is the whole video's, so the video card says it; the
+// rest belong to the stream, on its chip.
+const TRACK_MARKERS: readonly FormatMarker[] = ['ai-dubbed', 'audio-description']
+const VIDEO_MARKERS: readonly FormatMarker[] = ['vr']
+const STREAM_MARKERS = ['ai-upscaled', 'enhanced-bitrate', 'damaged', 'watermarked', 'spatial-audio'] as const satisfies readonly FormatMarker[]
+export type StreamMarker = (typeof STREAM_MARKERS)[number]
+
+function isStreamMarker(marker: FormatMarker): marker is StreamMarker {
+	return (STREAM_MARKERS as readonly FormatMarker[]).includes(marker)
+}
+
+function markerViews(markers: readonly FormatMarker[] | undefined): StreamMarkerView[] {
+	return (markers ?? []).filter(isStreamMarker).map(marker => ({marker, label: i18next.t(MARKER_LABEL_KEYS[marker])}))
+}
+
+function markerTags(markers: readonly FormatMarker[] | undefined, shown: readonly FormatMarker[]): string[] {
+	return (markers ?? []).filter(marker => shown.includes(marker)).map(marker => i18next.t(MARKER_LABEL_KEYS[marker]))
+}
+
 function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): BaseAudioRow {
 	const scaledSize = format.filesize ? scale.bytes(format.filesize) : undefined
 	const details = [dolbyVariant(format.audioCodec), format.isDrc ? 'DRC' : null, channelLabel(format.audioChannels), sampleRateLabel(format.sampleRateHz)].flatMap(part => (part ? [part] : []))
@@ -151,6 +206,8 @@ function nativeAudioRow(format: FormatOption, profileAudioId: string | null, sca
 		details,
 		size: scaledSize === undefined ? null : scale.text(scaledSize),
 		isDrc: format.isDrc === true,
+		trackTags: markerTags(format.markers, TRACK_MARKERS),
+		markers: markerViews(format.markers),
 		isProfilePick: format.formatId === profileAudioId
 	}
 }
@@ -224,11 +281,20 @@ export interface SelectViewInput {
 	profileVideoFallback?: boolean
 	// Part of video: sizes scale to the range. Null for the whole video.
 	videoPart?: {part: VideoPart; durationSeconds: number} | null
+	// Video, no audio: only streams without audio of their own are listed.
+	silentVideo?: boolean
 }
 
+// "1080p" → 1080; names that are not a tier sort last.
+function tierHeight(name: string): number {
+	const match = /^(\d+)p/.exec(name)
+	return match ? Number(match[1]) : 0
+}
+
+// A stream the site gives no size for still needs a line name.
 function nameOf(resolution: string): {name: string; alias: string | null} {
 	const {label, alias} = resolutionLabel(resolution)
-	return {name: label, alias}
+	return {name: label === '' ? i18next.t('wizard.formats.resolutionUnknown') : label, alias}
 }
 
 // Exported for unit-testing the gating logic (muxed-only sources, audio-only
@@ -256,7 +322,9 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 
 	const canDownload = isSubtitleOnly || (isAudioOnly ? audioSelection.kind !== 'none' : selectedVideoFormatId !== '')
 
-	const currentResolutionLabel = isSubtitleOnly ? i18next.t('wizard.formats.kind.subtitles') : isAudioOnly ? i18next.t('wizard.formats.audioOnly') : resolveVideoResolution(selectedVideoFormatId, wizardFormats, i18next.t('wizard.formats.audioOnly'))
+	const resolutionLabelText = isSubtitleOnly ? i18next.t('wizard.formats.kind.subtitles') : isAudioOnly ? i18next.t('wizard.formats.audioOnly') : resolveVideoResolution(selectedVideoFormatId, wizardFormats, i18next.t('wizard.formats.audioOnly'))
+	const videoWide = markerTags(wizardFormats.find(f => f.formatId === selectedVideoFormatId)?.markers, VIDEO_MARKERS)
+	const currentResolutionLabel = [resolutionLabelText, ...videoWide].join(' · ')
 
 	// Video plus its native audio track; a conversion's size isn't known ahead.
 	const nativeAudioId = audioSelection.kind === 'native' ? audioSelection.formatId : null
@@ -276,7 +344,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const noAudioDisabled = isAudioOnly
 	const selectedFormat = wizardFormats.find(f => f.formatId === selectedVideoFormatId)
 	const selectedVideoIsMuxed = !!selectedFormat && !selectedFormat.isVideoOnly && !selectedFormat.isAudioOnly
-	const groupedVideo = groupVideoFormats(wizardFormats, [selectedVideoFormatId, profileVideoId ?? ''])
+	const groupedVideo = groupVideoFormats(state.silentVideo ? wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly) : wizardFormats, [selectedVideoFormatId, profileVideoId ?? ''])
 	const formatById = new Map(wizardFormats.map(format => [format.formatId, format]))
 	const commonFps = usualFps(groupedVideo.flatMap(group => formatById.get(group.formatId) ?? []))
 	const videoRows = groupedVideo.map((group): VideoFormatRow => {
@@ -298,11 +366,28 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			chipLabel: codec ?? ext,
 			chipTags: compact([fps !== null && fps !== commonFps ? `${fps} fps` : null]),
 			range: dynamicRange ?? SDR,
-			isProfilePick: group.formatId === profileVideoId
+			isProfilePick: group.formatId === profileVideoId,
+			hasAudio: rawFormat !== undefined && !rawFormat.isVideoOnly,
+			markers: markerViews(rawFormat?.markers)
 		}
 	})
 	const ranges = [...new Set(videoRows.map(row => row.range))].toSorted((a, b) => Number(a === SDR) - Number(b === SDR))
-	const videoLines = groupBy(videoRows, row => row.resolution).map(([resolution, variants]): VideoLine => ({resolution, ...nameOf(resolution), variants}))
+	// One line per tier name, tallest first: sites list streams in their own order.
+	const codecRank = (row: VideoFormatRow): number => (row.codec === null ? VIDEO_CODEC_ORDER.length : VIDEO_CODEC_ORDER.indexOf(row.codec))
+	const byCodec = (a: VideoFormatRow, b: VideoFormatRow): number => codecRank(a) - codecRank(b)
+	const videoColumns = ranges.flatMap(range =>
+		[
+			...new Set(
+				videoRows
+					.filter(row => row.range === range)
+					.toSorted(byCodec)
+					.map(row => row.codec)
+			)
+		].map(codec => ({range, codec}))
+	)
+	const videoLines = groupBy(videoRows, row => nameOf(row.resolution).name)
+		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...nameOf(variants[0].resolution), variants: variants.toSorted(byCodec)}))
+		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name))
 	const audioRows = wizardFormats.flatMap(format => (format.isAudioOnly ? [nativeAudioRow(format, profileAudioId, scale)] : []))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
@@ -314,12 +399,13 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		currentResolutionLabel,
 		selectedFilesize,
 		sizesScaledToPart: scale.scaled,
-		video: {disabled: isSubtitleOnly, lines: videoLines, rows: videoRows, ranges, profilePickIsFallback: state.profileVideoFallback === true},
+		video: {disabled: isSubtitleOnly, lines: videoLines, rows: videoLines.flatMap(line => line.variants), ranges, columns: videoColumns, profilePickIsFallback: state.profileVideoFallback === true, mixedAudio: videoRows.some(row => row.hasAudio) && videoRows.some(row => !row.hasAudio)},
 		audio: {
 			lines,
 			nativeRows: lines.flatMap(line => line.variants),
 			hasDrcTwins: lines.some(line => line.variants.some(row => row.twinId !== null)),
 			tracks: namedTracks.length > 1 ? namedTracks : [],
+			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
 			convertTargets,
 			noAudioDisabled,
@@ -339,10 +425,11 @@ export function useFormatSelectionView(): FormatSelectionView {
 	const profileVideoFallback = useAppStore(s => s.wizardFitNotices.some(notice => notice.kind === 'video-tier-fallback'))
 	const wizardPart = useAppStore(s => s.wizardPart)
 	const wizardDuration = useAppStore(s => s.wizardDuration)
+	const silentVideo = useAppStore(s => formatMode(s) === 'video-only')
 
 	return useMemo(() => {
 		const part = wizardVideoPart({wizardPart, wizardDuration, wizardMediaKind: mediaKind})
 		const videoPart = part && wizardDuration !== undefined ? {part, durationSeconds: wizardDuration} : null
-		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart})
-	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration])
+		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart, silentVideo})
+	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo])
 }

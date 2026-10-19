@@ -3,10 +3,12 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {ChevronDown, PenLine} from 'lucide-react'
 import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
-import {WIZARD_MEDIA_KINDS, type WizardMediaKind} from '@shared/schemas.js'
+import {FORMAT_MODES, type FormatMode} from '@shared/schemas.js'
+import {formatMode, isFormatMode} from '../../../store/wizard/formatMode.js'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {useAppStore} from '../../../store/useAppStore.js'
-import {wizardChangedAreas} from '../../../store/wizard/wizardProfileState.js'
+import {keepableEdits} from '../../../store/wizard/wizardProfileState.js'
+import {AREA_LABEL_KEYS} from '../../../lib/changedAreaLabels.js'
 import {Button} from '../../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../../ui/dialog.js'
 import {Popover, PopoverTrigger} from '../../ui/popover.js'
@@ -18,7 +20,7 @@ import {buildDownloadProfileActionModel} from '../downloadProfileActions.js'
 import {ProfileDot} from './FormatLine.js'
 import {ProfileTag} from './ProfileTag.js'
 
-const KIND_LABEL_KEYS = {video: 'wizard.formats.kind.video', audio: 'wizard.formats.kind.audio', subtitles: 'wizard.formats.kind.subtitles'} as const satisfies Record<WizardMediaKind, string>
+const MODE_LABEL_KEYS = {video: 'wizard.formats.kind.video', 'video-only': 'wizard.formats.kind.videoOnly', audio: 'wizard.formats.kind.audio', subtitles: 'wizard.formats.kind.subtitles'} as const satisfies Record<FormatMode, string>
 
 // A profile waiting on the user's OK to replace their changes: another one, or this one after an edit.
 interface PendingProfile {
@@ -26,35 +28,34 @@ interface PendingProfile {
 	reason: 'switch' | 'updated'
 }
 
-function isMediaKind(value: string | undefined): value is WizardMediaKind {
-	return value !== undefined && (WIZARD_MEDIA_KINDS as readonly string[]).includes(value)
-}
-
 // "Pre-selected from <profile>" plus the Video / Audio / Subtitles switch.
 // The profile opens the same menu as the URL tab's profile card, and its pencil
 // edits the profile in place, so tuning a profile never leaves the download.
-// Picking another profile, or saving a change to this one, re-applies it to
-// every setting, so it asks first when the user has changed something.
+// Picking another profile, or saving a change to this one, re-applies it. When
+// the user changed more than the streams it asks first: keep those changes on
+// the new profile, or reset everything to it.
 export function WizardProfileLine(): ReactNode {
-	const {t} = useTranslation()
-	const {settings, wizardOutputDir, wizardProfile, wizardMediaKind, hasVideo, hasAudio, hasSubtitles, hasEdits, profileFallback, setWizardMediaKind, chooseWizardProfile, saveDownloadProfile, chooseWizardFolder, dismissCallout} = useAppStore(
+	const {t, i18n} = useTranslation()
+	const {settings, wizardOutputDir, wizardProfile, mode, hasSilentVideo, hasVideo, hasAudio, hasSubtitles, profileFallback, setFormatMode, chooseWizardProfile, saveDownloadProfile, chooseWizardFolder, dismissCallout} = useAppStore(
 		useShallow(state => ({
 			settings: state.settings,
 			wizardOutputDir: state.wizardOutputDir,
 			wizardProfile: state.wizardProfile,
-			wizardMediaKind: state.wizardMediaKind,
+			mode: formatMode(state),
+			hasSilentVideo: !state.wizardIsAudioOnlySource && state.wizardFormats.some(f => f.isVideoOnly),
 			hasVideo: !state.wizardIsAudioOnlySource && state.wizardFormats.some(f => !f.isAudioOnly),
 			hasAudio: state.wizardFormats.length > 0,
 			hasSubtitles: Object.keys(state.wizardSubtitles).length > 0 || Object.keys(state.wizardAutomaticCaptions).length > 0,
-			hasEdits: wizardChangedAreas(state).length > 0,
 			profileFallback: state.wizardFitNotices.some(notice => notice.kind === 'video-tier-fallback'),
-			setWizardMediaKind: state.setWizardMediaKind,
+			setFormatMode: state.setFormatMode,
 			chooseWizardProfile: state.chooseWizardProfile,
 			saveDownloadProfile: state.saveDownloadProfile,
 			chooseWizardFolder: state.chooseWizardFolder,
 			dismissCallout: state.dismissFormatProfileCallout
 		}))
 	)
+	// Its own shallow selector: a fresh array inside the object above would never compare equal.
+	const edits = useAppStore(useShallow(keepableEdits))
 	const [menuOpen, setMenuOpen] = useState(false)
 	// The profile open in the editor: an existing one, or null for a new one.
 	const [editing, setEditing] = useState<{profile: DownloadProfile | null} | null>(null)
@@ -65,13 +66,18 @@ export function WizardProfileLine(): ReactNode {
 	const globalDestination = wizardOutputDir.trim() || (settings?.common?.defaultOutputDir ?? '')
 
 	// Reads the saved profiles at call time: right after a save, this render's copy is stale.
-	function apply(profile: DownloadProfile): void {
-		chooseWizardProfile(downloadProfileRefFor(profile, useAppStore.getState().settings?.profiles))
+	function apply(profile: DownloadProfile, keepEdits = false): void {
+		chooseWizardProfile(downloadProfileRefFor(profile, useAppStore.getState().settings?.profiles), keepEdits)
 	}
 
 	function offer(next: PendingProfile): void {
-		if (hasEdits) setPending(next)
+		if (edits.length > 0) setPending(next)
 		else apply(next.profile)
+	}
+
+	function resolve(keepEdits: boolean): void {
+		if (pending) apply(pending.profile, keepEdits)
+		setPending(null)
 	}
 
 	function pick(ref: DownloadProfileRef): void {
@@ -101,7 +107,7 @@ export function WizardProfileLine(): ReactNode {
 		noticeProfileControls()
 	}
 
-	const kindEnabled: Record<WizardMediaKind, boolean> = {video: hasVideo, audio: hasAudio, subtitles: hasSubtitles}
+	const modeEnabled: Record<FormatMode, boolean> = {video: hasVideo, 'video-only': hasSilentVideo, audio: hasAudio, subtitles: hasSubtitles}
 	const editLabel = t('wizard.formats.profile.edit', {name: activeProfile.name})
 
 	return (
@@ -149,19 +155,19 @@ export function WizardProfileLine(): ReactNode {
 			<ToggleGroup
 				size="sm"
 				variant="outline"
-				value={[wizardMediaKind]}
+				value={[mode]}
 				onValueChange={values => {
 					const next = values[0]
-					if (isMediaKind(next)) setWizardMediaKind(next)
+					if (isFormatMode(next)) setFormatMode(next)
 				}}
 				aria-label={t('wizard.formats.kind.label')}
 				spacing={1}
 				className="ms-auto flex-wrap"
 				data-testid="wizard-media-kind"
 			>
-				{WIZARD_MEDIA_KINDS.map(kind => (
-					<ToggleGroupItem key={kind} value={kind} disabled={!kindEnabled[kind]} data-testid={`wizard-media-kind-${kind}`}>
-						{t(KIND_LABEL_KEYS[kind])}
+				{FORMAT_MODES.map(option => (
+					<ToggleGroupItem key={option} value={option} disabled={!modeEnabled[option]} data-testid={`wizard-media-kind-${option}`}>
+						{t(MODE_LABEL_KEYS[option])}
 					</ToggleGroupItem>
 				))}
 			</ToggleGroup>
@@ -185,21 +191,19 @@ export function WizardProfileLine(): ReactNode {
 				<DialogContent data-testid="wizard-profile-switch-dialog">
 					<DialogHeader>
 						<DialogTitle>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedTitle' : 'wizard.formats.profile.switchTitle')}</DialogTitle>
-						<DialogDescription>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody')}</DialogDescription>
+						<DialogDescription>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody', {areas: new Intl.ListFormat(i18n.language, {type: 'conjunction'}).format(edits.map(area => t(AREA_LABEL_KEYS[area]))), profile: pending?.profile.name ?? ''})}</DialogDescription>
 					</DialogHeader>
 					<DialogFooter>
-						<Button type="button" variant="outline" onClick={() => setPending(null)}>
-							{pending?.reason === 'updated' ? t('wizard.formats.profile.updatedKeep') : t('common.cancel')}
+						{pending?.reason === 'switch' ? (
+							<Button type="button" variant="ghost" onClick={() => setPending(null)} className="sm:me-auto">
+								{t('common.cancel')}
+							</Button>
+						) : null}
+						<Button type="button" variant="outline" onClick={() => resolve(false)} data-testid="wizard-profile-switch-reset">
+							{t('wizard.formats.profile.resetAll')}
 						</Button>
-						<Button
-							type="button"
-							variant="glow"
-							onClick={() => {
-								if (pending) apply(pending.profile)
-								setPending(null)
-							}}
-						>
-							{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedAction' : 'wizard.formats.profile.switchAction')}
+						<Button type="button" variant="glow" onClick={() => resolve(true)} data-testid="wizard-profile-switch-keep">
+							{t('wizard.formats.profile.keepEdits')}
 						</Button>
 					</DialogFooter>
 				</DialogContent>

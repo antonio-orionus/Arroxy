@@ -1,0 +1,20 @@
+tiktok: TikTok: bytevc1 and H.264 at the same heights, several bitrates each
+#foryou #fyp #foru #foryoupage #foryoupageofficiall #memes #meme #viral · 12 s · card says "720x1280" · 12 formats
+
+Video (picked for Balanced 720p •):
+                    SDR HEVC                SDR H.264
+720p                HEVC 520.2 KB • +audio  ·
+480p                HEVC 477.8 KB +audio    H.264 532.0 KB +audio
+Unknown resolution  ·                       H.264 [Watermarked] no size +audio
+
+Audio:
+AAC: m4a no size
+
+Profile picks:
+balanced: bytevc1_720p_336791-0 (720x1280, mp4) + audio none
+best-quality: bytevc1_720p_336791-0 (720x1280, mp4) + audio none
+mp4-1080: h264_540p_344464-0 (576x1024, mp4) + audio none
+audio-only: audio audio (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

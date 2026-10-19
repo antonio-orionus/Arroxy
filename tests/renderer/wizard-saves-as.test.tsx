@@ -4,7 +4,7 @@ import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {SavesAsControl} from '@renderer/components/wizard/format/SavesAsControl.js'
 import {ProfileTag} from '@renderer/components/wizard/format/ProfileTag.js'
 import {FitNotices} from '@renderer/components/wizard/format/FitNotices.js'
-import {ProfileSummary} from '@renderer/components/wizard/format/ProfileSummary.js'
+import {FormatFooterWarnings} from '@renderer/components/wizard/format/FormatFooterWarnings.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
@@ -186,10 +186,10 @@ describe('ProfileTag: why this one', () => {
 
 describe('MP4 playback caveat', () => {
 	function showSummary(): void {
-		render(<ProfileSummary />)
+		render(<FormatFooterWarnings />)
 	}
 
-	it('warns on the Format summary when an MP4 holds VP9 and Opus', () => {
+	it('warns in the Format footer when an MP4 holds VP9 and Opus', () => {
 		useAppStore.setState({wizardFileType: 'mp4'})
 		showSummary()
 

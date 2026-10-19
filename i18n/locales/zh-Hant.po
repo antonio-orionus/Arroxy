@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "網站"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "允許"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AI 放大的串流"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "略過"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "意見回饋"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "適用於 WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "原始串流，而非 AI 放大的串流"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "放大版解析度較高，但沒有增加真實細節"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "最高 {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "最高解析度"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "未設上限"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "網站未降級的串流"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "略過損毀、有浮水印和備用的副本"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "更多下載選項"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "檢視與選項"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "請至少選擇一種字幕語言。"
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "內建音訊"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "音訊"
+msgid "Audio only"
+msgstr "僅音訊"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "僅字幕"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "影片"
+msgid "Video + audio"
+msgstr "影片 + 音訊"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "影片，無音訊"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "正在載入格式"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "請等待探查完成——播放清單與搜尋可能需要一些時間。"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AI 配音"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AI 放大"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "口述影像"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "已損毀"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "增強位元率"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "空間音訊"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "有浮水印"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "編輯「{{name}}」"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "保留我的變更"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "只套用於這次下載。你的預設設定檔維持不變。"
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "預先選取自"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "切換"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "全部重設"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "你對這次下載所做的變更，將被所選設定檔的設定取代。"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "你為這次下載變更了{{areas}}。無論如何，影片和音訊都由「{{profile}}」選擇。要保留其他變更，還是全部重設為設定檔的設定？"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "設定檔"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "使用"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "你對這次下載所做的變更，將被設定檔的新設定取代。"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "保留我的變更"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "你為這次下載變更了{{areas}}。無論如何，影片和音訊都由更新後的設定檔選擇。要保留其他變更，還是全部重設為設定檔的設定？"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy 會等到 {{time}} 再向 {{site}} 發出請求，讓限制解除。"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "解析度未知"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "儲存為"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "正在為你尋找最佳格式…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "{{profile}} 的其他設定："
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "檢視全部"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "有 {{count}} 種語言可用，新增"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "字幕已關閉"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "總計"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "影片"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "僅影片"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "含音訊"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "僅字幕檔案"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "僅字幕"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "字幕"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "字幕、SponsorBlock、縮圖等額外項目、資料夾和檔名以前是個別的步驟。點選某一列即可變更。"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "其他所有設定現在都在這個頁面"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "與 {{profile}} 相比有變更：{{areas}}。僅套用於這次下載。"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "與 {{profile}} 相比的變更："
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "這次下載使用了編輯後的設定。下次繼續使用嗎？"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "重設"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "復原變更，回到「{{profile}}」"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "另存為設定檔"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "另存為設定檔…"
+msgid "Save as a new profile"
+msgstr "另存為新設定檔"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "更新設定檔"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "這是內建設定檔。你可以在「設定檔」分頁中還原其原始設定。"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "從現在起，使用此設定檔的每次下載都會使用新設定。"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "格式"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "要更新「{{profile}}」嗎？"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "已更新設定檔「{{name}}」"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "以這些變更更新「{{profile}}」"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

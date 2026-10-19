@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "Witryna"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Zezwól"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube oferuje niektóre stare filmy w rozmiarach wygenerowanych przez AI. „Pomiń” zachowuje oryginalne strumienie; nadal możesz ręcznie wybrać przeskalowany."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Strumienie przeskalowane przez AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Pomiń"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "Opinia"
@@ -1595,6 +1611,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "pasuje do WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Oryginalne strumienie, nie przeskalowane przez AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "przeskalowana kopia jest wyższa, ale nie dodaje prawdziwych szczegółów"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Do {{tier}}p"
@@ -1610,6 +1634,14 @@ msgstr "Najwyższa rozdzielczość"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "brak limitu"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Strumienie nieobniżone przez witrynę"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "pomija kopie uszkodzone, ze znakiem wodnym i zapasowe"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2585,10 +2617,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "Więcej opcji pobierania"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "Sprawdź i opcje"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "Wybierz co najmniej jeden język napisów."
@@ -2602,8 +2630,8 @@ msgid "Built-in audio"
 msgstr "Wbudowany dźwięk"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "Dźwięk"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2614,8 +2642,12 @@ msgid "Subtitles only"
 msgstr "Tylko napisy"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "Wideo"
+msgid "Video + audio"
+msgstr "Wideo + dźwięk"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Wideo bez dźwięku"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2624,6 +2656,38 @@ msgstr "Wczytywanie formatów"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "Poczekaj na zakończenie sprawdzania — playlisty i wyszukiwania mogą trochę potrwać."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Dubbing AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Przeskalowany przez AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audiodeskrypcja"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Uszkodzony"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Wyższa przepływność"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Dźwięk przestrzenny"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Ze znakiem wodnym"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2645,6 +2709,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "Edytuj {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Zachowaj moje zmiany"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "Tylko dla tego pobrania. Twój domyślny profil pozostaje bez zmian."
@@ -2653,13 +2721,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Wstępnie wybrano z"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "Przełącz"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Resetuj wszystko"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "Twoje zmiany w tym pobraniu zostaną zastąpione ustawieniami wybranego profilu."
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Zmieniono {{areas}} dla tego pobrania. „{{profile}}” i tak wybiera wideo i dźwięk. Zachować pozostałe zmiany czy przywrócić wszystko do ustawień profilu?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2669,17 +2737,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Profil"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "Użyj"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "Twoje zmiany w tym pobraniu zostaną zastąpione nowymi ustawieniami profilu."
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "Zachowaj moje zmiany"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Zmieniono {{areas}} dla tego pobrania. Zaktualizowany profil i tak wybiera wideo i dźwięk. Zachować pozostałe zmiany czy przywrócić wszystko do ustawień profilu?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2729,6 +2789,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy czeka do {{time}}, zanim ponownie odpyta {{site}}, aby limit zdążył minąć."
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Nieznana rozdzielczość"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Zapisz jako"
@@ -2753,38 +2817,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "Wyszukiwanie najlepszych formatów…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "Także z {{profile}}:"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "Sprawdź wszystko"
-
-#. Plural form "few" for pl: used for counts like 2, 3, 4, 22, 23, 24.
-msgctxt "wizard.formats.summary.subtitlesAdd_few"
-msgid "{{count}} languages available, add"
-msgstr "Dostępne języki: {{count}}, dodaj"
-
-#. Plural form "many" for pl: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.formats.summary.subtitlesAdd_many"
-msgid "{{count}} languages available, add"
-msgstr "Dostępne języki: {{count}}, dodaj"
-
-#. Plural form "one" for pl: used for counts like 1.
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "Dostępny język: {{count}}, dodaj"
-
-#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "Dostępne języki: {{count}}, dodaj"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "napisy wyłączone"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "Łącznie"
@@ -2793,9 +2825,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "Wideo"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "Tylko wideo"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "z dźwiękiem"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3702,7 +3734,7 @@ msgid "Caption files only"
 msgstr "Tylko pliki napisów"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "Tylko napisy"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3925,9 +3957,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "napisy"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Napisy, SponsorBlock, dodatki takie jak miniatura, folder i nazwa pliku były wcześniej osobnymi krokami. Kliknij wiersz, aby go zmienić."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Wszystkie pozostałe ustawienia są teraz na tej stronie"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "Zmieniono względem {{profile}}: {{areas}}. Dotyczy tylko tego pobrania."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Zmieniono względem {{profile}}:"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3954,8 +3998,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "To pobranie użyło zmienionych ustawień. Użyć ich następnym razem?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "Resetuj"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Cofnij zmiany, wróć do „{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -4006,8 +4050,36 @@ msgid "Save as profile"
 msgstr "Zapisz jako profil"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "Zapisz jako profil…"
+msgid "Save as a new profile"
+msgstr "Zapisz jako nowy profil"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Zaktualizuj profil"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "To jest wbudowany profil. Jego oryginalne ustawienia możesz przywrócić na karcie Profile."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Od teraz każde pobieranie z tym profilem będzie używać nowych ustawień."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Zaktualizować „{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Zaktualizowano profil „{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Zaktualizuj „{{profile}}” tymi zmianami"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

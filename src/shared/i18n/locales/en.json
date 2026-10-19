@@ -375,7 +375,7 @@
 			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
 		},
 		"formats": {
-			"kind": {"label": "What to download", "video": "Video", "audio": "Audio", "subtitles": "Subtitles only"},
+			"kind": {"label": "What to download", "video": "Video + audio", "videoOnly": "Video, no audio", "audio": "Audio only", "subtitles": "Subtitles only"},
 			"profile": {
 				"calloutTitle": "Formats start from your profile",
 				"calloutBody": "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download.",
@@ -383,13 +383,12 @@
 				"tag": "Profile",
 				"closestTag": "Closest to profile",
 				"switchTitle": "Switch profile?",
-				"switchBody": "Your changes to this download will be replaced by the settings of the profile you pick.",
-				"switchAction": "Switch",
+				"switchBody": "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?",
+				"resetAll": "Reset all",
 				"edit": "Edit {{name}}",
 				"updatedTitle": "Use the updated profile?",
-				"updatedBody": "Your changes to this download will be replaced by the profile's new settings.",
-				"updatedAction": "Use it",
-				"updatedKeep": "Keep my changes",
+				"updatedBody": "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?",
+				"keepEdits": "Keep my changes",
 				"menuDescription": "For this download only. Your default profile stays as it is."
 			},
 			"fit": {
@@ -400,12 +399,13 @@
 				"subtitlesMissing": "Your profile asks for subtitles in {{languages}}. This video doesn't have them.",
 				"webmUnavailable": "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
 			},
-			"summary": {"lead": "Also from {{profile}}:", "subtitlesOff": "subtitles off", "subtitlesAdd_one": "{{count}} language available, add", "subtitlesAdd_other": "{{count}} languages available, add", "reviewAll": "Review all"},
-			"footer": {"reviewOptions": "Review & options", "download": "Download", "moreActions": "More download options", "addToQueue": "Add to queue without starting", "subtitlesRequired": "Choose at least one subtitle language."},
+			"footer": {"download": "Download", "moreActions": "More download options", "addToQueue": "Add to queue without starting", "subtitlesRequired": "Choose at least one subtitle language."},
 			"video": "Video",
 			"audio": "Audio",
 			"noAudio": "No audio",
-			"videoOnly": "Video only",
+			"withAudio": "with audio",
+			"resolutionUnknown": "Unknown resolution",
+			"marker": {"aiUpscaled": "AI upscaled", "aiDubbed": "AI dubbed", "audioDescription": "Audio description", "spatialAudio": "Spatial audio", "vr": "360° / VR", "enhancedBitrate": "Enhanced bitrate", "damaged": "Damaged", "watermarked": "Watermarked"},
 			"keepAudio": "Keep as-is",
 			"keepAudioMeta": "Built-in audio",
 			"audioOnly": "Audio only",
@@ -498,8 +498,19 @@
 			"done": "Done",
 			"changed": "Changed from {{profile}}: {{areas}}. Applies to this download only.",
 			"areas": {"format": "format", "subtitles": "subtitles", "sponsorBlock": "SponsorBlock", "extras": "extras", "saveTo": "folder", "fileName": "file name"},
-			"saveAsProfile": "Save as profile…",
-			"reset": "Reset",
+			"updateProfile": "Update “{{profile}}” with these changes",
+			"saveAsProfile": "Save as a new profile",
+			"update": {
+				"title": "Update “{{profile}}”?",
+				"description": "From now on, every download with this profile uses the new settings.",
+				"rows": {"format": "Format"},
+				"builtinNote": "This is a built-in profile. You can restore its original settings in the Profiles tab.",
+				"action": "Update profile",
+				"updated": "Updated profile “{{name}}”"
+			},
+			"callout": {"title": "All the other settings are on this page now", "body": "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."},
+			"reset": "Undo changes, back to “{{profile}}”",
+			"changedFrom": "Changed from {{profile}}:",
 			"save": {"title": "Save as profile", "description": "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same.", "nameLabel": "Profile name", "action": "Save profile", "saved": "Saved as profile “{{name}}”", "failed": "Couldn't save the profile."},
 			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you.",
 			"nextTime": {"title": "This download used edited settings. Use them next time?", "action": "Save as profile", "defaultName": "{{profile}} (edited)"}
@@ -598,7 +609,7 @@
 				"videoAudio": {"label": "Video + audio", "description": "Normal video files"},
 				"videoOnly": {"label": "Video, no audio", "description": "Silent video only"},
 				"audioOnly": {"label": "Audio only", "description": "Music or podcasts"},
-				"subtitlesOnly": {"label": "Subs only", "description": "Caption files only"}
+				"subtitlesOnly": {"label": "Subtitles only", "description": "Caption files only"}
 			},
 			"icon": {"controls": "Controls", "download": "Download", "video": "Video", "captions": "Captions", "audio": "Audio", "music": "Music", "podcast": "Podcast", "classes": "Classes", "clip": "Clip", "archive": "Archive"},
 			"audioFormat": {"best": "Best", "wav": "WAV"},
@@ -968,6 +979,8 @@
 			"resolutionBest": {"label": "Highest resolution", "reason": "no limit set"},
 			"resolution": {"label": "Up to {{tier}}p", "reason": "your limit"},
 			"fps": {"label": "Highest frame rate", "reason": "smoother motion"},
+			"sitePreference": {"label": "Streams the site does not mark down", "reason": "skips damaged, watermarked and fallback copies"},
+			"original": {"label": "Original streams, not AI-upscaled ones", "reason": "an upscaled copy is taller but adds no real detail"},
 			"codec": {"label": "AV1, then VP9, then H.264", "reason": "sharpest at a given size"},
 			"size": {"label": "Larger file", "reason": "more detail at the same settings"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "plays everywhere"},
@@ -981,5 +994,6 @@
 		},
 		"summary": {"goal": {"bestPicture": "best picture", "smartTv": "plays on any device"}, "fileType": {"auto": "file type from the streams", "explicit": "saves as .{{ext}}"}}
 	},
+	"aiUpscaled": {"label": "AI-upscaled streams", "description": "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand.", "skip": "Skip", "allow": "Allow"},
 	"hdrPreference": {"label": "HDR video", "description": "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

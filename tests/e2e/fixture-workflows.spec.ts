@@ -132,6 +132,8 @@ test('Electron Interactive Download saves as the file type chosen on the Format 
 		await page.locator('[data-testid="saves-as-option-mkv"]').click()
 		await expect(page.locator('[data-testid="saves-as-trigger"]')).toContainText('MKV')
 
+		await page.locator('[data-testid="btn-format-continue"]').click()
+		await expect(page.locator('[data-testid="step-review"]')).toBeVisible()
 		await page.locator('[data-testid="btn-download"]').click()
 		await queue.expectStatus('Fixture Video 8', 'done', 120_000)
 

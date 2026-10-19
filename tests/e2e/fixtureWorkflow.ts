@@ -114,7 +114,7 @@ export async function prepareSingleReview(page: Page, videoId: string, subtitles
 	await page.locator('[data-testid="profiles-main-input"]').fill(fixtureUrl(videoId))
 	await page.locator('[data-testid="profiles-interactive-download"]').click()
 	await expect(page.locator('[data-testid="step-formats"]')).toBeVisible({timeout: 60_000})
-	await page.locator('[data-testid="btn-review-options"]').click()
+	await page.locator('[data-testid="btn-format-continue"]').click()
 	await expect(page.locator('[data-testid="step-review"]')).toBeVisible()
 	if (subtitles === 'english') {
 		await page.locator('[data-testid="review-row-subtitles-toggle"]').click()

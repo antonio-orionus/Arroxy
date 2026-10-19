@@ -412,7 +412,7 @@
 			"cat": {"sponsor": "Homiy", "intro": "Kirish", "outro": "Chiqish", "selfpromo": "O'z reklamasi", "music_offtopic": "Mavzudan tashqari musiqa", "preview": "Ko'rib chiqish", "filler": "To'ldiruvchi"}
 		},
 		"formats": {
-			"kind": {"label": "Nimani yuklab olish", "video": "Video", "audio": "Audio", "subtitles": "Faqat subtitrlar"},
+			"kind": {"label": "Nimani yuklab olish", "video": "Video + audio", "videoOnly": "Video, audiosiz", "audio": "Faqat audio", "subtitles": "Faqat subtitrlar"},
 			"profile": {
 				"calloutTitle": "Formatlar profilingizdan boshlanadi",
 				"calloutBody": "Faol profilingiz oqimlarni siz uchun oldindan tanlaydi. Profilni menyudan almashtiring yoki shu yuklab olishdan chiqmay qalam bilan birini sozlang.",
@@ -420,13 +420,12 @@
 				"tag": "Profil",
 				"closestTag": "Profilga eng yaqin",
 				"switchTitle": "Profil almashtirilsinmi?",
-				"switchBody": "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz tanlagan profilingiz sozlamalari bilan almashtiriladi.",
-				"switchAction": "Almashtirish",
+				"switchBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. “{{profile}}” baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
+				"resetAll": "Hammasini tiklash",
 				"edit": "Tahrirlash: {{name}}",
 				"updatedTitle": "Yangilangan profildan foydalanilsinmi?",
-				"updatedBody": "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz profilning yangi sozlamalari bilan almashtiriladi.",
-				"updatedAction": "Foydalanish",
-				"updatedKeep": "O'zgarishlarimni saqlash",
+				"updatedBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. Yangilangan profil baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
+				"keepEdits": "O'zgarishlarimni saqlash",
 				"menuDescription": "Faqat shu yuklab olish uchun. Standart profilingiz o'zgarmaydi."
 			},
 			"fit": {
@@ -437,12 +436,13 @@
 				"subtitlesMissing": "Profilingiz quyidagi tillarda subtitr so'raydi: {{languages}}. Bu videoda ular yo'q.",
 				"webmUnavailable": "Profilingiz WebM so'raydi. Bu videoning tanlangan oqimlarida {{codec}} bor, uni WebM sig'dira olmaydi, shuning uchun fayl turi Avto."
 			},
-			"summary": {"lead": "Shuningdek, {{profile}} profilidan:", "subtitlesOff": "subtitrlar o'chiq", "subtitlesAdd_one": "{{count}} ta til mavjud, qo'shish", "subtitlesAdd_other": "{{count}} ta til mavjud, qo'shish", "reviewAll": "Hammasini ko'rib chiqish"},
-			"footer": {"reviewOptions": "Ko'rib chiqish va sozlamalar", "download": "Yuklab olish", "moreActions": "Yuklab olishning boshqa variantlari", "addToQueue": "Boshlamasdan navbatga qo'shish", "subtitlesRequired": "Kamida bitta subtitr tilini tanlang."},
+			"footer": {"download": "Yuklab olish", "moreActions": "Yuklab olishning boshqa variantlari", "addToQueue": "Boshlamasdan navbatga qo'shish", "subtitlesRequired": "Kamida bitta subtitr tilini tanlang."},
 			"video": "Video",
 			"audio": "Audio",
 			"noAudio": "Audio yo'q",
-			"videoOnly": "Faqat video",
+			"withAudio": "audio bilan",
+			"resolutionUnknown": "O'lcham noma'lum",
+			"marker": {"aiUpscaled": "SI kattalashtirgan", "aiDubbed": "SI dublyaji", "audioDescription": "Audio tavsif", "spatialAudio": "Fazoviy ovoz", "vr": "360° / VR", "enhancedBitrate": "Yuqori bitreyt", "damaged": "Shikastlangan", "watermarked": "Suv belgili"},
 			"keepAudio": "O'zgartirishsiz saqlash",
 			"keepAudioMeta": "Ichki audio",
 			"audioOnly": "Faqat audio",
@@ -535,8 +535,19 @@
 			"done": "Tayyor",
 			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
 			"areas": {"format": "format", "subtitles": "subtitrlar", "sponsorBlock": "SponsorBlock", "extras": "qo'shimchalar", "saveTo": "papka", "fileName": "fayl nomi"},
-			"saveAsProfile": "Profil sifatida saqlash…",
-			"reset": "Qayta tiklash",
+			"updateProfile": "“{{profile}}” ni shu o'zgarishlar bilan yangilash",
+			"saveAsProfile": "Yangi profil sifatida saqlash",
+			"update": {
+				"title": "“{{profile}}” yangilansinmi?",
+				"description": "Bundan buyon bu profil bilan har bir yuklab olish yangi sozlamalardan foydalanadi.",
+				"rows": {"format": "Format"},
+				"builtinNote": "Bu o'rnatilgan profil. Uning asl sozlamalarini Profillar yorlig'ida tiklashingiz mumkin.",
+				"action": "Profilni yangilash",
+				"updated": "“{{name}}” profili yangilandi"
+			},
+			"callout": {"title": "Qolgan barcha sozlamalar endi shu sahifada", "body": "Subtitrlar, SponsorBlock, muqova kabi qo'shimchalar, papka va fayl nomi avval alohida qadamlar edi. O'zgartirish uchun qatorni bosing."},
+			"reset": "O'zgarishlarni bekor qilish, “{{profile}}” ga qaytish",
+			"changedFrom": "{{profile}} dan o'zgartirilgan:",
 			"save": {
 				"title": "Profil sifatida saqlash",
 				"description": "Bu sozlamalarni keyingi safar tanlash mumkin bo'lgan profil sifatida saqlaydi. Tez yuklab olish profilingiz o'zgarmaydi.",
@@ -1037,6 +1048,8 @@
 			"resolutionBest": {"label": "Eng yuqori ruxsat", "reason": "chegara belgilanmagan"},
 			"resolution": {"label": "{{tier}}p gacha", "reason": "sizning chegarangiz"},
 			"fps": {"label": "Eng yuqori kadr tezligi", "reason": "silliqroq harakat"},
+			"sitePreference": {"label": "Sayt past baholamagan oqimlar", "reason": "shikastlangan, suv belgili va zaxira nusxalarni o'tkazib yuboradi"},
+			"original": {"label": "Asl oqimlar, SI kattalashtirganlari emas", "reason": "kattalashtirilgan nusxa balandroq, lekin haqiqiy tafsilot qo'shmaydi"},
 			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
 			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
@@ -1049,6 +1062,12 @@
 			"hdrFirst": {"label": "SDR'dan oldin HDR", "reason": "HDR ekranlarda boyroq ranglar", "reasonScreen": "bu ekran HDR'ni ko'rsatadi"}
 		},
 		"summary": {"goal": {"bestPicture": "eng yaxshi tasvir", "smartTv": "har qanday qurilmada ijro etiladi"}, "fileType": {"auto": "fayl turi oqimlardan", "explicit": ".{{ext}} sifatida saqlanadi"}}
+	},
+	"aiUpscaled": {
+		"label": "SI kattalashtirgan oqimlar",
+		"description": "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin.",
+		"skip": "O'tkazib yuborish",
+		"allow": "Ruxsat berish"
 	},
 	"hdrPreference": {"label": "HDR video", "description": "Avto rejim bu ekran HDR'ni ko'rsata olsa HDR'ni, aks holda SDR'ni tanlaydi. Oddiy ekranlarda HDR xira ko'rinadi.", "sdr": "SDR", "hdr": "HDR", "auto": "Avto"}
 }

@@ -35,6 +35,22 @@ msgctxt "about.websiteLink"
 msgid "Website"
 msgstr "គេហទំព័រ"
 
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "អនុញ្ញាត"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube ផ្តល់វីដេអូចាស់ៗខ្លះក្នុងទំហំដែលបង្កើតដោយ AI។ រំលង រក្សាស្ទ្រីមដើម ប៉ុន្តែអ្នកនៅតែអាចជ្រើសស្ទ្រីមដែលពង្រីកដោយ AI ដោយដៃបាន។"
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "ស្ទ្រីមដែលពង្រីកដោយ AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "រំលង"
+
 msgctxt "app.feedback"
 msgid "Feedback"
 msgstr "មតិកែលម្អ"
@@ -1460,6 +1476,14 @@ msgctxt "selectionOrder.rank.opus.reason"
 msgid "fits WebM"
 msgstr "សមនឹង WebM"
 
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "ស្ទ្រីមដើម មិនមែនស្ទ្រីមដែលពង្រីកដោយ AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "ច្បាប់ដែលពង្រីកខ្ពស់ជាង ប៉ុន្តែមិនបន្ថែមលម្អិតពិតទេ"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "រហូតដល់ {{tier}}p"
@@ -1475,6 +1499,14 @@ msgstr "គុណភាពបង្ហាញខ្ពស់បំផុត"
 msgctxt "selectionOrder.rank.resolutionBest.reason"
 msgid "no limit set"
 msgstr "មិនបានកំណត់ដែនកំណត់"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "ស្ទ្រីមដែលគេហទំព័រមិនដាក់ចំណាត់ថ្នាក់ទាប"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "រំលងច្បាប់ខូច ច្បាប់មានវ៉ាត់ម៉ាក និងច្បាប់បម្រុង"
 
 msgctxt "selectionOrder.rank.size.label"
 msgid "Larger file"
@@ -2315,10 +2347,6 @@ msgctxt "wizard.formats.footer.moreActions"
 msgid "More download options"
 msgstr "ជម្រើសទាញយកបន្ថែម"
 
-msgctxt "wizard.formats.footer.reviewOptions"
-msgid "Review & options"
-msgstr "ពិនិត្យ និងជម្រើស"
-
 msgctxt "wizard.formats.footer.subtitlesRequired"
 msgid "Choose at least one subtitle language."
 msgstr "ជ្រើសរើសភាសាអក្សររត់យ៉ាងហោចណាស់មួយ។"
@@ -2332,8 +2360,8 @@ msgid "Built-in audio"
 msgstr "សំឡេងមានស្រាប់"
 
 msgctxt "wizard.formats.kind.audio"
-msgid "Audio"
-msgstr "សំឡេង"
+msgid "Audio only"
+msgstr "តែសំឡេង"
 
 msgctxt "wizard.formats.kind.label"
 msgid "What to download"
@@ -2344,8 +2372,12 @@ msgid "Subtitles only"
 msgstr "តែអក្សររត់"
 
 msgctxt "wizard.formats.kind.video"
-msgid "Video"
-msgstr "វីដេអូ"
+msgid "Video + audio"
+msgstr "វីដេអូ + សំឡេង"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "វីដេអូ គ្មានសំឡេង"
 
 msgctxt "wizard.formats.loadingAria"
 msgid "Loading formats"
@@ -2354,6 +2386,38 @@ msgstr "កំពុងផ្ទុកទម្រង់"
 msgctxt "wizard.formats.loadingHint"
 msgid "Please wait until probing finishes — playlists and searches can take a while."
 msgstr "សូមរង់ចាំរហូតដល់ការពិនិត្យបញ្ចប់ — បញ្ជីចាក់ និងការស្វែងរកអាចចំណាយពេលបន្តិច។"
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "បញ្ចូលសំឡេងដោយ AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "ពង្រីកដោយ AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "ការពិពណ៌នាជាសំឡេង"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "ខូច"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bitrate ប្រសើរជាង"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "សំឡេងលំហ"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "មានវ៉ាត់ម៉ាក"
 
 msgctxt "wizard.formats.noAudio"
 msgid "No audio"
@@ -2375,6 +2439,10 @@ msgctxt "wizard.formats.profile.edit"
 msgid "Edit {{name}}"
 msgstr "កែសម្រួល {{name}}"
 
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "រក្សាការផ្លាស់ប្តូររបស់ខ្ញុំ"
+
 msgctxt "wizard.formats.profile.menuDescription"
 msgid "For this download only. Your default profile stays as it is."
 msgstr "សម្រាប់តែការទាញយកនេះប៉ុណ្ណោះ។ ប្រវត្តិរូបលំនាំដើមរបស់អ្នកនៅដដែល។"
@@ -2383,13 +2451,13 @@ msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "បានជ្រើសរើសជាមុនពី"
 
-msgctxt "wizard.formats.profile.switchAction"
-msgid "Switch"
-msgstr "ប្តូរ"
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "កំណត់ទាំងអស់ឡើងវិញ"
 
 msgctxt "wizard.formats.profile.switchBody"
-msgid "Your changes to this download will be replaced by the settings of the profile you pick."
-msgstr "ការផ្លាស់ប្តូររបស់អ្នកចំពោះការទាញយកនេះនឹងត្រូវបានជំនួសដោយការកំណត់នៃប្រវត្តិរូបដែលអ្នកជ្រើសរើស។"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "អ្នកបានផ្លាស់ប្តូរ {{areas}} សម្រាប់ការទាញយកនេះ។ “{{profile}}” ជ្រើសវីដេអូ និងសំឡេងដដែលទោះយ៉ាងណាក៏ដោយ។ រក្សាការផ្លាស់ប្តូរផ្សេងទៀតរបស់អ្នក ឬកំណត់អ្វីៗទាំងអស់ឡើងវិញតាមប្រវត្តិរូប?"
 
 msgctxt "wizard.formats.profile.switchTitle"
 msgid "Switch profile?"
@@ -2399,17 +2467,9 @@ msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "ប្រវត្តិរូប"
 
-msgctxt "wizard.formats.profile.updatedAction"
-msgid "Use it"
-msgstr "ប្រើ"
-
 msgctxt "wizard.formats.profile.updatedBody"
-msgid "Your changes to this download will be replaced by the profile's new settings."
-msgstr "ការផ្លាស់ប្តូររបស់អ្នកចំពោះការទាញយកនេះនឹងត្រូវបានជំនួសដោយការកំណត់ថ្មីនៃប្រវត្តិរូប។"
-
-msgctxt "wizard.formats.profile.updatedKeep"
-msgid "Keep my changes"
-msgstr "រក្សាការផ្លាស់ប្តូររបស់ខ្ញុំ"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "អ្នកបានផ្លាស់ប្តូរ {{areas}} សម្រាប់ការទាញយកនេះ។ ប្រវត្តិរូបដែលបានធ្វើបច្ចុប្បន្នភាពជ្រើសវីដេអូ និងសំឡេងដដែលទោះយ៉ាងណាក៏ដោយ។ រក្សាការផ្លាស់ប្តូរផ្សេងទៀតរបស់អ្នក ឬកំណត់អ្វីៗទាំងអស់ឡើងវិញតាមប្រវត្តិរូប?"
 
 msgctxt "wizard.formats.profile.updatedTitle"
 msgid "Use the updated profile?"
@@ -2459,6 +2519,10 @@ msgctxt "wizard.formats.rateLimit.waitUntil"
 msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
 msgstr "Arroxy រង់ចាំរហូតដល់ {{time}} មុននឹងសួរ {{site}} ម្តងទៀត ដើម្បីឱ្យការកំណត់បានរលាយ។"
 
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "មិនដឹងគុណភាពបង្ហាញ"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "រក្សាទុកជា"
@@ -2483,23 +2547,6 @@ msgctxt "wizard.formats.sniffing"
 msgid "Sniffing out the best formats for you…"
 msgstr "កំពុងស្វែងរកទម្រង់ល្អបំផុតសម្រាប់អ្នក…"
 
-msgctxt "wizard.formats.summary.lead"
-msgid "Also from {{profile}}:"
-msgstr "ក៏មកពី {{profile}} ផងដែរ៖"
-
-msgctxt "wizard.formats.summary.reviewAll"
-msgid "Review all"
-msgstr "ពិនិត្យទាំងអស់"
-
-#. Plural form "other" for km: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.formats.summary.subtitlesAdd_other"
-msgid "{{count}} languages available, add"
-msgstr "មាន {{count}} ភាសា បន្ថែម"
-
-msgctxt "wizard.formats.summary.subtitlesOff"
-msgid "subtitles off"
-msgstr "អក្សររត់បិទ"
-
 msgctxt "wizard.formats.total"
 msgid "Total"
 msgstr "សរុប"
@@ -2508,9 +2555,9 @@ msgctxt "wizard.formats.video"
 msgid "Video"
 msgstr "វីដេអូ"
 
-msgctxt "wizard.formats.videoOnly"
-msgid "Video only"
-msgstr "តែវីដេអូ"
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "មានសំឡេង"
 
 msgctxt "wizard.mixedPrompt.body"
 msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
@@ -3252,7 +3299,7 @@ msgid "Caption files only"
 msgstr "តែឯកសារអក្សររត់"
 
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subs only"
+msgid "Subtitles only"
 msgstr "តែអក្សររត់"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
@@ -3445,9 +3492,21 @@ msgctxt "wizard.review.areas.subtitles"
 msgid "subtitles"
 msgstr "អក្សររត់"
 
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "អក្សររត់ SponsorBlock ការបន្ថែមដូចជារូបភាពតូច ថត និងឈ្មោះឯកសារ ធ្លាប់ជាជំហានដាច់ដោយឡែក។ ចុចលើជួរណាមួយដើម្បីប្តូរ។"
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "ការកំណត់ផ្សេងទៀតទាំងអស់ឥឡូវនៅលើទំព័រនេះ"
+
 msgctxt "wizard.review.changed"
 msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
 msgstr "បានផ្លាស់ប្តូរពី {{profile}}៖ {{areas}}។ អនុវត្តចំពោះការទាញយកនេះតែប៉ុណ្ណោះ។"
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "បានផ្លាស់ប្តូរពី {{profile}}៖"
 
 msgctxt "wizard.review.changeFormat"
 msgid "Change format"
@@ -3474,8 +3533,8 @@ msgid "This download used edited settings. Use them next time?"
 msgstr "ការទាញយកនេះបានប្រើការកំណត់ដែលបានកែសម្រួល។ ប្រើវានៅលើកក្រោយឬ?"
 
 msgctxt "wizard.review.reset"
-msgid "Reset"
-msgstr "កំណត់ឡើងវិញ"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "បោះបង់ការផ្លាស់ប្តូរ ត្រឡប់ទៅ “{{profile}}”"
 
 msgctxt "wizard.review.rows.extras"
 msgid "Extras"
@@ -3526,8 +3585,36 @@ msgid "Save as profile"
 msgstr "រក្សាទុកជាប្រវត្តិរូប"
 
 msgctxt "wizard.review.saveAsProfile"
-msgid "Save as profile…"
-msgstr "រក្សាទុកជាប្រវត្តិរូប…"
+msgid "Save as a new profile"
+msgstr "រក្សាទុកជាប្រវត្តិរូបថ្មី"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "ធ្វើបច្ចុប្បន្នភាពប្រវត្តិរូប"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "នេះជាប្រវត្តិរូបមានស្រាប់។ អ្នកអាចស្ដារការកំណត់ដើមរបស់វានៅក្នុងផ្ទាំង ប្រវត្តិរូប។"
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "ចាប់ពីពេលនេះ រាល់ការទាញយកដែលប្រើប្រវត្តិរូបនេះនឹងប្រើការកំណត់ថ្មី។"
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "ទម្រង់"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "ធ្វើបច្ចុប្បន្នភាព “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "បានធ្វើបច្ចុប្បន្នភាពប្រវត្តិរូប “{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "ធ្វើបច្ចុប្បន្នភាព “{{profile}}” ដោយការផ្លាស់ប្តូរទាំងនេះ"
 
 msgctxt "wizard.review.value.extrasNone"
 msgid "None"

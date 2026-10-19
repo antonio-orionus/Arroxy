@@ -1,0 +1,27 @@
+{
+	"source": {
+		"id": "bitchute",
+		"url": "https://www.bitchute.com/video/UGlrF9o9b-Q/",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.08.19"
+	},
+	"info": {
+		"id": "UGlrF9o9b-Q",
+		"title": "This is the first video on #BitChute !",
+		"thumbnail": "https://static-3.bitchute.com/live/cover_images/1VBwRfyNcKdX/UGlrF9o9b-Q_640x360.jpg",
+		"duration": 16,
+		"webpage_url": "https://www.bitchute.com/video/UGlrF9o9b-Q/",
+		"extractor": "BitChute",
+		"extractor_key": "BitChute",
+		"is_live": false,
+		"uploader": "BitChute",
+		"channel": "BitChute",
+		"upload_date": "20170103",
+		"timestamp": 1483425443,
+		"formats": [
+			{"format_id":"0","ext":"mp4","filesize":1170388,"dynamic_range":"SDR","protocol":"https"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}
