@@ -137,6 +137,9 @@ jobs:
     name: known-bad control (darwin-arm64 N-125070)
     runs-on: macos-latest
     timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
     env:
       BAD_URL: https://ffmpeg.martin-riedl.de/download/macos/arm64/1781693612_N-125070-gd69e8d0a95/ffmpeg.zip
       BAD_SHA256: 901de66570758a415e768bbbf23e535ab0524892061cc6b70505196df24a8d9d
@@ -159,6 +162,10 @@ jobs:
           unzip -q "$bad/ffmpeg.zip" -d "$bad"
           chmod +x "$bad/ffmpeg"
           root="$(bun scripts/build/ffmpegPackage.ts install --platform darwin --arch arm64 --cache-root "$RUNNER_TEMP/ffmpeg-packages" | tail -n 1)"
+          if [[ ! -x "$root/ffprobe" ]]; then
+            echo "::error::the pinned darwin-arm64 package install gave no ffprobe at '$root'"
+            exit 1
+          fi
           echo "ffmpeg=$bad/ffmpeg" >> "$GITHUB_OUTPUT"
           echo "ffprobe=$root/ffprobe" >> "$GITHUB_OUTPUT"
 

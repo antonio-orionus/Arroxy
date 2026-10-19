@@ -1,6 +1,6 @@
 ---
 name: coderabbit-review-workflow
-description: CodeRabbit reviews at most 100 files per PR (counted after path_filters) and 2 reviews per hour; automatic reviews are OFF in this repo, so every CodeRabbit review needs an explicit trigger — once at open and once after pushing review fixes; poll issues/<N>/comments for all three outcomes because pulls/<N>/reviews stays 0 on a clean review; never merge on green CI alone.
+description: CodeRabbit reviews are a scarce, repo-wide quota (2/hour, 100 files/PR) and automatic reviews are OFF, so every review needs a manual trigger; spend triggers strategically — finish all local review (Codex, gates) first, trigger once when the head is final, never push while a review runs (it aborts with "Head commit changed" and burns the trigger); poll issues/<N>/comments for all outcomes; never merge on green CI alone.
 metadata:
   type: feedback
 ---
@@ -16,6 +16,27 @@ is valid. Do not merge on a green CI alone.
 review is usually enough.** Only spend the second trigger when the commits
 pushed after the first review are substantial (new logic, not just review-fix
 tweaks). The rest of this section explains why a second trigger is ever needed.
+
+## Spend triggers strategically: they are not unlimited
+
+**Antonio (2026-10-19): be strategic with manual triggers — the quota is not
+unlimited.** Every trigger, including one that fails, spends part of the
+2-per-hour allowance shared by every PR in the repo. Plan around it:
+
+- **Trigger last, on a final head.** Run every local review first (Codex,
+  `bun run check`, self-review), fix and push what they find, and only then
+  type `@coderabbitai review`. One trigger then covers everything.
+- **Never push while a review is running.** CodeRabbit drops an in-flight
+  review when the head moves: the trigger reply edits itself to
+  "⚠️ Action not completed — Head commit changed", nothing gets reviewed, and the
+  trigger is gone. On PR #334 a Codex fix pushed two minutes after the trigger
+  threw away the whole first review. Hold commits locally (or batch them) until
+  the outcome lands, even docs or memory edits.
+- **Wait for a terminal outcome before deciding anything** (table below), then
+  batch every fix into one push.
+- **The second trigger is optional.** Spend it only when the fixes add real
+  new logic (see the next paragraph); a small review-fix tweak is not worth a
+  quota unit.
 
 **Trigger again after pushing review fixes — once.** This reverses the earlier
 rule in this file, which said a second trigger buys nothing because CodeRabbit

@@ -111,9 +111,12 @@ tracks upstream automatically.
    `scripts/build/fetch-embedded.sh`. Run `scripts/test-binaries/smoke-all.sh`.
 2. Fetch every target into a clean `build/embedded/`:
    `bash scripts/build/fetch-embedded.sh <platform> <arch>` for each row above.
-   Then run the remux matrix on each fetched build:
-   `bun scripts/ffmpeg-matrix/run.ts --ffmpeg build/embedded/<platform>-<arch>/ffmpeg`.
-   It runs every ffmpeg command yt-dlp and Arroxy issue (merge, time-range cut,
+   Then run the remux matrix on the fetched build for your own machine:
+   `bun scripts/ffmpeg-matrix/run.ts --ffmpeg build/embedded/<platform>-<arch>/ffmpeg`
+   (`ffmpeg.exe` on Windows). It runs the binary locally, so each build can
+   only be tested on a host of its own platform and architecture; the CI
+   workflow covers the other targets.
+   The matrix runs every ffmpeg command yt-dlp and Arroxy issue (merge, time-range cut,
    SponsorBlock removal, metadata and chapters, thumbnail, subtitles) against
    committed fixtures in YouTube's DASH, WebM and HLS-fMP4 shapes
    (`scripts/ffmpeg-matrix/generate-fixtures.ts`). A build that fails any case
