@@ -178,6 +178,22 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, onSignInWithExpl
 			/>
 		)
 	}
+	if (guidance.variant === 'explore-refused') {
+		return (
+			<CookiesAlertShell
+				mode={guidance.mode}
+				variant="explore-refused"
+				density={density}
+				body={
+					<>
+						<span className="font-semibold">{t('wizard.formats.cookiesError.exploreRefused.heading')}</span>
+						<span className="leading-snug">{t('wizard.formats.cookiesError.exploreRefused.body')}</span>
+					</>
+				}
+				footer={null}
+			/>
+		)
+	}
 	if (guidance.variant === 'needs-cookies') {
 		return (
 			<CookiesAlertShell

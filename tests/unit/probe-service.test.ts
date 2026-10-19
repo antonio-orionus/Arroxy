@@ -805,6 +805,28 @@ describe('ProbeService — Explore session escalation', () => {
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.auth)).toEqual(['exploreSession', 'exploreSession'])
 	})
 
+	// The renderer must not ask for a sign-in the failed run already had.
+	describe('the identity of a failure', () => {
+		it('is the Explore session when the escalated probe failed too', async () => {
+			const {service} = makeEscalationService([exitError(AGE_GATE), exitError(AGE_GATE)], async () => true)
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error).toMatchObject({kind: 'ytdlp', auth: 'exploreSession'})
+		})
+
+		it('is unset for an anonymous failure that did not escalate', async () => {
+			const {service} = makeEscalationService([exitError(AGE_GATE)], async () => false)
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
+		})
+
+		it('is unset when yt-dlp dropped the Explore cookies on the last run', async () => {
+			const rejected: YtDlpResult = {...exitError(AGE_GATE), accountCookiesRejected: true}
+			const {service} = makeEscalationService([exitError(AGE_GATE), rejected, rejected], async () => true, undefined, 'signedIn')
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
+		})
+	})
+
 	it('enumerates a bot-walled playlist signed in but leaves its items anonymous (R20)', async () => {
 		const BOT_WALL = "ERROR: [youtube:tab] PLx: Sign in to confirm you're not a bot. This helps protect our community."
 		const publicPlaylist = {...(playlistWith(['a', 'b']) as object), id: 'PLx', webpage_url: 'https://www.youtube.com/playlist?list=PLx'}

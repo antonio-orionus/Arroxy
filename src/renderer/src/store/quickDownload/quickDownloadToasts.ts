@@ -2,7 +2,7 @@
 // actions. The hotkey reports its outcomes to main instead (hotkeyTrigger).
 
 import {notify, type QuickDownloadFailureAction} from '@renderer/lib/notify.js'
-import type {CommonSettings, LocalizedError, ProbeError} from '@shared/types.js'
+import type {CommonSettings, JobAuth, LocalizedError, ProbeError} from '@shared/types.js'
 import type {GetState, InAppQuickDownloadEntry} from '../types.js'
 import {exploreSignInSiteFor} from '../exploreSignInSite.js'
 import {buildProbeErrorExperience, type ExploreSignedIn, type ProbeErrorExperience} from '../wizard/probeErrorExperience.js'
@@ -16,9 +16,11 @@ export function placeholderErrorExperience(error: ProbeError | null, url: string
 }
 
 // A row keeps only the localized error; for the guidance it reads as the
-// yt-dlp error it was (any other failure was stored as `unknown`).
-export function rowProbeError(error: LocalizedError | null): ProbeError | null {
-	return error ? {kind: 'ytdlp', error} : null
+// yt-dlp error it was (any other failure was stored as `unknown`), run as the
+// row's `auth`: a probe-error row's last probe, a download's job (sticky once escalated).
+export function rowProbeError(error: LocalizedError | null, auth?: JobAuth): ProbeError | null {
+	if (!error) return null
+	return auth === 'exploreSession' ? {kind: 'ytdlp', error, auth} : {kind: 'ytdlp', error}
 }
 
 // The toast's main action. Using the Explore sign-in already held never leaves

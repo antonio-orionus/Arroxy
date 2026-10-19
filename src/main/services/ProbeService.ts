@@ -446,7 +446,10 @@ export class ProbeService extends EventEmitter {
 				outcome = await runAs('exploreSession')
 				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), controller.signal)
 			}
-			if (outcome.kind === 'failure') return fail(outcome.error)
+			if (outcome.kind === 'failure') {
+				// Signed in only if the last run kept the Explore cookies: one yt-dlp dropped ran anonymously.
+				return fail(auth && !cookiesRejected && outcome.error.kind === 'ytdlp' ? {...outcome.error, auth} : outcome.error)
+			}
 
 			let mapped: ProbeResult
 			if (outcome.kind === 'playlist') {

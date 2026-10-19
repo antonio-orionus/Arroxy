@@ -27,13 +27,14 @@ export function QueueAttentionRow({columnsLength, item}: {columnsLength: number;
 // A download that failed for want of an account, under the off cookie mode
 // with Explore on: the same Explore offer as a failed preparation, alone (the
 // row's own Retry already downloads again). The explore mode escalates
-// downloads by itself, so it gets nothing here.
+// downloads by itself, so it gets nothing here, unless the escalated job
+// still failed: then the row says the site refused it signed in.
 export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: number; item: QueueItem}): ReactNode {
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn, retryDownloadWithCookies} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), item.url, commonSettings, exploreSignedIn)
-	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn) return null
+	const experience = placeholderErrorExperience(rowProbeError(item.error, item.auth), item.url, commonSettings, exploreSignedIn)
+	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn && experience.cookies.variant !== 'explore-refused') return null
 	const target = {kind: 'download', itemId: item.id} as const
 	return (
 		<TableRow data-testid={`queue-attention-${item.id}`} className="bg-muted/20 hover:bg-muted/20">
@@ -59,7 +60,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {retryQuickDownloadRow, retryQuickDownloadRowWithCookies, openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), item.url, commonSettings, exploreSignedIn)
+	const experience = placeholderErrorExperience(rowProbeError(item.error, item.auth), item.url, commonSettings, exploreSignedIn)
 	return (
 		<QuickDownloadErrorAlert
 			experience={experience}

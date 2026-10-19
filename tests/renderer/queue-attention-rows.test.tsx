@@ -155,6 +155,31 @@ describe('a probe-error row from another site under the explore cookie mode', ()
 	})
 })
 
+// A failure the Explore session already ran into (the row's `auth`): the
+// site refused it signed in, so the row offers its Retry and no sign-in.
+describe('a row that already failed signed in', () => {
+	const INSTAGRAM = 'https://www.instagram.com/stories/highlights/1/'
+	const LOGIN: LocalizedError = {kind: 'loginRequired', raw: 'You need to log in to access this content.'}
+
+	it.each(['explore', 'off'] as const)('says the site refused a probe signed in under the %s mode, with only Retry', mode => {
+		seed([{...errorRow(LOGIN), url: INSTAGRAM, auth: 'exploreSession'}], {cookiesMode: mode, exploreNoticeSeen: true}, true)
+		const panel = attention('failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-refused')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveTextContent('The site refused this even with your Explore sign-in')
+		expect(within(panel).queryByRole('button', {name: /sign in/i})).toBeNull()
+		expect(within(panel).queryByRole('button', {name: 'Use my Explore sign-in and retry'})).toBeNull()
+		fireEvent.click(within(panel).getByRole('button', {name: 'Retry'}))
+		expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed')
+	})
+
+	it.each(['explore', 'off'] as const)('says the same under a download that failed signed in under the %s mode', mode => {
+		seed([makeItem({id: 'download-failed', status: 'error', url: INSTAGRAM, error: LOGIN, auth: 'exploreSession'})], {cookiesMode: mode, exploreNoticeSeen: true}, true)
+		const panel = attention('download-failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-refused')
+		expect(within(panel).queryByRole('button', {name: /sign in/i})).toBeNull()
+	})
+})
+
 // P2-R51: under `off` with the Explore tab on, a failure an account can fix
 // leads with Explore; cookie settings stay the second way.
 describe('a probe-error row under the off cookie mode with Explore enabled', () => {

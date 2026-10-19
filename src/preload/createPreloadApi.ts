@@ -18,7 +18,7 @@ import type {
 	UpdateAvailablePayload,
 	WarmupProgressEvent
 } from '@shared/types.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import type {JobAuth, QueueChoice} from '@shared/schemas.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
 export interface PreloadIpcRenderer {
@@ -133,7 +133,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			cmd: {
 				add: (items: QueueItem[]) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdAdd, items),
 				getSnapshot: () => ipcRenderer.invoke(IPC_CHANNELS.queueCmdGetSnapshot),
-				probeFailed: (input: {itemId: string; error: LocalizedError}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdProbeFailed, input),
+				probeFailed: (input: {itemId: string; error: LocalizedError; auth?: JobAuth}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdProbeFailed, input),
 				needsChoice: (input: {itemId: string; choice: QueueChoice; title: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdNeedsChoice, input),
 				reprobe: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdReprobe, input),
 				start: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdStart, input),

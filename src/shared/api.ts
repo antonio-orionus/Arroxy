@@ -45,7 +45,7 @@ import type {
 	WizardStepSnapshot
 } from './types.js'
 import type {PlaylistManifest} from './playlistManifest.js'
-import type {QueueChoice} from './schemas.js'
+import type {JobAuth, QueueChoice} from './schemas.js'
 
 export interface SettingsPatch {
 	common?: Partial<CommonSettings>
@@ -102,7 +102,7 @@ export interface AppApi {
 			// `skippedAlreadyQueued`: rows left out because their video is already live.
 			add(items: QueueItem[]): Promise<Result<{ids: string[]; skippedAlreadyQueued: number}>>
 			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
-			probeFailed(input: {itemId: string; error: LocalizedError}): Promise<Result<void>>
+			probeFailed(input: {itemId: string; error: LocalizedError; auth?: JobAuth}): Promise<Result<void>>
 			// A probing placeholder waits for the user's choice (see QueueProbeLifecycle).
 			needsChoice(input: {itemId: string; choice: QueueChoice; title: string}): Promise<Result<void>>
 			// A probe-error or needs-choice placeholder goes back to probing.

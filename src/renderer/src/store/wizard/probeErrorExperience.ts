@@ -26,6 +26,9 @@ export type CookiesGuidance =
 	| {variant: 'configured'; mode: ConfiguredCookiesMode}
 	| {variant: 'dpapi'; mode: 'browser'}
 	| {variant: 'explore-sign-in'; mode: 'explore'; site: ExploreSignInSite}
+	// The failed run already used the Explore session: the site refused it signed
+	// in, so nothing asks for a sign-in again. The surface's Retry is the way on.
+	| {variant: 'explore-refused'; mode: 'off' | 'explore'}
 
 export interface BotWallGuidance {
 	variant: BotWallGuidanceVariant
@@ -122,11 +125,13 @@ function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 	const mode = effectiveCookiesMode(input.commonSettings)
 	const {site} = input
 	const signedIn = site.kind === 'youtube' && input.exploreSignedIn === true
+	const refusedSignedIn = input.error?.kind === 'ytdlp' && input.error.auth === 'exploreSession'
 	// No cookie can lift a rate limit, under any mode: YouTube limits accounts too.
 	if (input.errorKind === 'rateLimit') return {mode, variant: 'hidden'}
 	switch (mode) {
 		case 'off':
 			if (offersExplore(input.commonSettings, input.errorKind)) {
+				if (refusedSignedIn) return {mode, variant: 'explore-refused'}
 				const secondary = configuredCookiesRetryMode(input.commonSettings) ? 'enable-cookies' : 'open-settings'
 				return signedIn ? {mode, variant: 'explore-reuse', secondary} : {mode, variant: 'explore-offer', secondary, site}
 			}
@@ -134,6 +139,7 @@ function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 		case 'explore':
 			// Escalation only reaches failures an account can fix; other errors say nothing about the sign-in.
 			if (!isCookiesNeededKind(input.errorKind)) return {mode, variant: 'hidden'}
+			if (refusedSignedIn) return {mode, variant: 'explore-refused'}
 			return signedIn ? {mode, variant: 'configured'} : {mode, variant: 'explore-sign-in', site}
 		case 'browser':
 			return isDpapiCookieError(probeErrorRaw(input.error)) ? {mode, variant: 'dpapi'} : {mode, variant: 'configured'}
@@ -179,7 +185,7 @@ export function buildProbeErrorExperience({error, url = null, commonSettings = n
 		rateLimit,
 		actions: {
 			retry: error !== null,
-			openCookiesSettings: cookies.variant !== 'hidden' && !signInWithExplore && offerSecondary !== 'enable-cookies',
+			openCookiesSettings: cookies.variant !== 'hidden' && cookies.variant !== 'explore-refused' && !signInWithExplore && offerSecondary !== 'enable-cookies',
 			enableCookiesAndRetry: botWall.variant === 'disabled' || offerSecondary === 'enable-cookies',
 			signInWithExplore,
 			signInWithExploreThenRetry: cookies.variant === 'explore-offer',

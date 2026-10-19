@@ -446,6 +446,22 @@ describe('a failed probe', () => {
 		expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'})
 	})
 
+	it('records on the row that the probe failed signed in, and not otherwise', async () => {
+		const probe = deferredProbe()
+		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
+		const id = queue()[0]?.id ?? ''
+		probe.resolve(fail({kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'You need to log in'}, auth: 'exploreSession'}))
+		await vi.waitFor(() => expect(api.queue.cmd.probeFailed).toHaveBeenCalledWith({itemId: id, error: {kind: 'loginRequired', raw: 'You need to log in'}, auth: 'exploreSession'}))
+	})
+
+	it('records no identity for an anonymous probe failure', async () => {
+		const probe = deferredProbe()
+		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
+		const id = queue()[0]?.id ?? ''
+		probe.resolve(fail(BOT_BLOCK))
+		await vi.waitFor(() => expect(api.queue.cmd.probeFailed).toHaveBeenCalledWith({itemId: id, error: BOT_BLOCK.error}))
+	})
+
 	it('says nothing once the row was cancelled while its probe ran', async () => {
 		const probe = deferredProbe()
 		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})

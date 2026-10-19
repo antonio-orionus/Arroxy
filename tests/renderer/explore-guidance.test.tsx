@@ -153,3 +153,16 @@ describe('probe error step for a link on another site', () => {
 		expect(window.location.hash).toBe('#explore')
 	})
 })
+
+describe('probe error step after a signed-in probe failed', () => {
+	it('says the site refused it even signed in, keeps Retry, and asks for no sign-in', () => {
+		seed({cookiesMode: 'explore'}, true)
+		const url = 'https://www.instagram.com/stories/highlights/1/'
+		useAppStore.setState({wizardStep: 'error', wizardUrl: url, wizardError: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'You need to log in to access this content.'}, auth: 'exploreSession'}})
+		render(<StepError />)
+
+		expect(screen.getByTestId('cookies-error-alert')).toHaveTextContent('The site refused this even with your Explore sign-in')
+		expect(screen.queryByRole('button', {name: /sign in/i})).toBeNull()
+		expect(screen.getByTestId('btn-retry')).toBeInTheDocument()
+	})
+})

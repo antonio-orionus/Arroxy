@@ -310,3 +310,33 @@ describe('exploreSignInSiteFor', () => {
 		for (const url of ['https://m.youtube.com/watch?v=x', 'not a url', 'file:///tmp/a.mp4', 'ytsearch:cats', '', null]) expect(exploreSignInSiteFor(url)).toEqual({kind: 'youtube'})
 	})
 })
+
+// A run that already used the Explore session and still failed: another
+// sign-in would not help, so nothing asks for one (an upstream refusal, such
+// as Instagram's API answering 500, reads to yt-dlp as "You need to log in").
+describe('a failure the Explore session already ran into', () => {
+	function signedInError(kind: YtDlpErrorKind): ProbeError {
+		return {kind: 'ytdlp', error: {kind, raw: `ERROR: ${kind}`}, auth: 'exploreSession'}
+	}
+	const INSTAGRAM = 'https://www.instagram.com/stories/highlights/1/'
+
+	it('says the site refused it even signed in, and offers only Retry', () => {
+		for (const url of [INSTAGRAM, 'https://www.youtube.com/watch?v=x']) {
+			for (const exploreSignedIn of [true, false, null]) {
+				expect(buildProbeErrorExperience({error: signedInError('loginRequired'), url, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn})).toMatchObject({
+					cookies: {variant: 'explore-refused', mode: 'explore'},
+					actions: {retry: true, signInWithExplore: false, signInWithExploreThenRetry: false, retryWithExploreSignIn: false, openCookiesSettings: false, enableCookiesAndRetry: false}
+				})
+			}
+		}
+	})
+
+	it('never offers Sign in with Explore under the off mode either', () => {
+		expect(buildProbeErrorExperience({error: signedInError('ageRestricted'), url: INSTAGRAM, commonSettings: {cookiesMode: 'off'}, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'explore-refused', mode: 'off'}, actions: {signInWithExploreThenRetry: false, retryWithExploreSignIn: false}})
+	})
+
+	it('leaves a file or browser mode and an unrelated failure as they were', () => {
+		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), commonSettings: {cookiesMode: 'file', cookiesPath: '/tmp/c.txt'}}).cookies).toEqual({variant: 'configured', mode: 'file'})
+		expect(buildProbeErrorExperience({error: signedInError('network'), url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+	})
+})

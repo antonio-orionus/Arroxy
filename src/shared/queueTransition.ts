@@ -7,7 +7,7 @@
 // renderer-side projection can call it identically.
 
 import type {LocalizedError, QueueItem, QueueResumeContext} from './types.js'
-import {QUEUE_STATUS, type QueueChoice} from './schemas.js'
+import {QUEUE_STATUS, type JobAuth, type QueueChoice} from './schemas.js'
 
 // Closed union of state-change signals. Mapped 1:1 from DownloadService /
 // QueueService events.
@@ -22,7 +22,8 @@ export type QueueEvent =
 	| {kind: 'paused-held'}
 	| {kind: 'resumed'}
 	| {kind: 'failed'; error: LocalizedError; resumeContext?: QueueResumeContext; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>}
-	| {kind: 'probe-failed'; error: LocalizedError}
+	// `auth`: who the failed probe ran as; set only when it failed signed in.
+	| {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth}
 	| {kind: 'needs-choice'; choice: QueueChoice; title: string}
 	| {kind: 'probe-restarted'}
 	| {kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string}
@@ -31,6 +32,12 @@ export type QueueEvent =
 
 function withoutProbeInfoJsonRef(item: QueueItem): QueueItem {
 	const {probeInfoJsonRef: _probeInfoJsonRef, ...rest} = item
+	return rest
+}
+
+// A placeholder has no job yet: its `auth` is only who its last probe ran as.
+function withoutAuth(item: QueueItem): QueueItem {
+	const {auth: _auth, ...rest} = item
 	return rest
 }
 
@@ -64,7 +71,7 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 			// The probe never produced a job, so there is no retry machinery —
 			// just an error row the user can cancel or remove. The unresolved
 			// job stays: the row remains schema-valid as a terminal probe-error.
-			return {...item, status: QUEUE_STATUS.error, error: evt.error, progressPercent: 0, progressDetail: null}
+			return {...withoutAuth(item), status: QUEUE_STATUS.error, error: evt.error, progressPercent: 0, progressDetail: null, ...(evt.auth ? {auth: evt.auth} : {})}
 		case 'needs-choice':
 			return {...item, status: QUEUE_STATUS.needsChoice, choice: evt.choice, title: evt.title, progressPercent: 0, progressDetail: null}
 		case 'probe-restarted':
