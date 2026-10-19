@@ -113,18 +113,28 @@ describe('QueueManagerTab', () => {
 
 	it('formats queue dates with a shared formatter instead of per-cell locale lookups', () => {
 		const addedAt = '2026-06-19T09:00:00.000Z'
+		const nextAddedAt = '2027-01-01T09:00:00.000Z'
+		const format = (value: string): string => new Intl.DateTimeFormat(undefined, {dateStyle: 'medium', timeStyle: 'short'}).format(new Date(value))
+		const [addedLabel, nextAddedLabel] = [format(addedAt), format(nextAddedAt)]
 		const running = makeItem({id: 'running', status: 'running', progressPercent: 42, addedAt})
+		// Two spies, because each misses one regression: toLocaleString builds its
+		// formatter inside V8, out of the constructor spy's sight, and a per-cell
+		// formatter never touches toLocaleString.
 		const formatDate = vi.spyOn(Date.prototype, 'toLocaleString')
+		const buildFormatter = vi.spyOn(Intl, 'DateTimeFormat')
 		try {
 			useAppStore.setState({queue: [running]})
 			render(<QueueManagerTab />)
-			const format = (value: string): string => new Intl.DateTimeFormat(undefined, {dateStyle: 'medium', timeStyle: 'short'}).format(new Date(value))
-			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(format(addedAt))
+			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(addedLabel)
+			const builtOnMount = buildFormatter.mock.calls.length
+			expect(builtOnMount).toBeLessThanOrEqual(1)
 
-			act(() => useAppStore.setState({queue: [{...running, progressPercent: 58, addedAt: '2027-01-01T09:00:00.000Z'}]}))
-			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(format('2027-01-01T09:00:00.000Z'))
+			act(() => useAppStore.setState({queue: [{...running, progressPercent: 58, addedAt: nextAddedAt}]}))
+			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(nextAddedLabel)
+			expect(buildFormatter).toHaveBeenCalledTimes(builtOnMount)
 			expect(formatDate).not.toHaveBeenCalled()
 		} finally {
+			buildFormatter.mockRestore()
 			formatDate.mockRestore()
 		}
 	})
