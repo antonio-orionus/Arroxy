@@ -117,7 +117,7 @@
 		"react-doctor": "react-doctor"
 	},
 	"dependencies": {
-		"@base-ui/react": "1.8.0",
+		"@base-ui/react": "1.9.0",
 		"@counterscale/tracker": "3.4.1",
 		"@dnd-kit/core": "6.3.1",
 		"@dnd-kit/sortable": "10.0.0",
@@ -126,8 +126,8 @@
 		"@fontsource/noto-sans-khmer": "5.3.0",
 		"@fontsource/poppins": "5.3.0",
 		"@ghostery/adblocker-electron": "2.20.1",
-		"@tanstack/react-table": "9.2.6",
-		"@tanstack/react-virtual": "3.14.13",
+		"@tanstack/react-table": "9.3.1",
+		"@tanstack/react-virtual": "3.14.17",
 		"@url-sanitize/clearurls": "2.0.2",
 		"@url-sanitize/core": "2.0.2",
 		"cacache": "21.0.1",
@@ -139,11 +139,11 @@
 		"electron-updater": "6.8.9",
 		"electron-window-state": "5.0.3",
 		"entities": "8.1.0",
-		"i18next": "26.4.2",
+		"i18next": "26.4.4",
 		"iso-639-2": "3.0.2",
-		"lucide-react": "1.52.0",
+		"lucide-react": "1.55.0",
 		"make-fetch-happen": "16.0.1",
-		"marked": "18.1.0",
+		"marked": "18.1.1",
 		"pretty-bytes": "7.2.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
@@ -156,7 +156,7 @@
 		"yauzl": "3.4.0",
 		"yt-dlp-bridge": "workspace:*",
 		"ytdlp-errors": "workspace:*",
-		"zod": "4.6.5",
+		"zod": "4.6.7",
 		"zustand": "5.0.15"
 	},
 	"devDependencies": {
