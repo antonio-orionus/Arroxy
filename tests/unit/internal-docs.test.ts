@@ -21,8 +21,11 @@ describe('internalRepoUrl', () => {
 })
 
 describe('internalCheckoutDir', () => {
+	// Built with join so the expectation uses the platform's separators, as the
+	// returned filesystem path does.
 	it('puts the clone next to the main checkout, whichever worktree asks', () => {
-		expect(internalCheckoutDir('/code/owner/arroxy/.git')).toBe('/code/owner/arroxy-internal')
+		const owner = join(tmpdir(), 'code', 'owner')
+		expect(internalCheckoutDir(join(owner, 'arroxy', '.git'))).toBe(join(owner, 'arroxy-internal'))
 	})
 })
 
