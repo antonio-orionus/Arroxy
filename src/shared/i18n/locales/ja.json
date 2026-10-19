@@ -418,6 +418,16 @@
 				"retryCta": "再試行",
 				"enableRetryCta": "Cookieを有効にして再試行"
 			},
+			"rateLimit": {
+				"heading": "{{site}} がこの接続を制限しています",
+				"leadDegraded": "形式の一覧が不完全な可能性があります。",
+				"leadFailed": "{{site}} は今のところこのリクエストを受け付けませんでした。",
+				"waitUntil": "制限が解けるよう、Arroxy は {{time}} まで待ってから {{site}} に再度問い合わせます。",
+				"waitOver": "待機時間が終わりました。もう一度お試しください。",
+				"sessionNote": "{{site}} はこの制限を最大 1 時間続けることがあります。",
+				"tryNowCta": "今すぐ試す",
+				"retryCta": "再試行"
+			},
 			"cookiesError": {
 				"heading": "Cookieが原因かもしれません",
 				"currentModeLabel": "Cookieのソース",
@@ -776,7 +786,7 @@
 		"ytdlp": {
 			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はYouTube側の一時的な変更の可能性があります。ArroxyはYouTube起動時にyt-dlpを自動更新するため、上流が修正をリリースすれば自動的に適用されます。",
 			"ipBlock": "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。",
-			"rateLimit": "YouTubeがリクエストを制限しています。1分待ってから再試行してください。",
+			"rateLimit": "サイトがこの接続からのリクエストを制限しています。",
 			"ageRestricted": "この動画は年齢制限があり、ログインアカウントなしではダウンロードできません。",
 			"unavailable": "この動画は利用できません — 非公開、削除済み、または地域制限の可能性があります。",
 			"geoBlocked": "この動画はあなたの地域では視聴できません。",

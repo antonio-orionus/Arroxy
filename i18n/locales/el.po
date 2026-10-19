@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "Το yt-dlp ολοκλήρωσε τη λήψη αλλά η μετα-επεξεργασία (merge / mux / convert) απέτυχε. Συχνά πρόκειται για παροδικό πρόβλημα του ffmpeg — δοκίμασε ξανά και, αν επιμένει, δοκίμασε διαφορετικό συνδυασμό φορμά."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "Το YouTube περιορίζει τα αιτήματα. Περίμενε ένα λεπτό και δοκίμασε ξανά."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Ο ιστότοπος περιορίζει τα αιτήματα από αυτή τη σύνδεση."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2370,6 +2370,38 @@ msgstr "Χαμηλή ποιότητα"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Μεσαία ποιότητα"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "Το {{site}} περιορίζει αυτή τη σύνδεση"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Η λίστα μορφών μπορεί να είναι ελλιπής."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "Το {{site}} απέρριψε προς το παρόν αυτό το αίτημα."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Επανάληψη"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "Το {{site}} μπορεί να διατηρήσει αυτόν τον περιορισμό έως και μία ώρα."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Δοκιμή τώρα"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Η αναμονή τελείωσε, μπορείτε να δοκιμάσετε ξανά."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Το Arroxy περιμένει έως τις {{time}} πριν ξαναρωτήσει το {{site}}, ώστε να αρθεί ο περιορισμός."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

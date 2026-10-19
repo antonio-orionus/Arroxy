@@ -241,8 +241,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ဒေါင်းလုဒ်လုပ်ခြင်းကို ပြီးစီးခဲ့သော်လည်း post-processing (merge / mux / convert) မအောင်မြင်ပါ။ ၎င်းသည် ခဏတာ ffmpeg ပြဿနာဖြစ်တတ်ပါသည် — ထပ်ကြိုးစားကြည့်ပါ၊ ဆက်လက်ဖြစ်နေပါက ဖော်မတ်ပေါင်းစပ်မှု အခြားတစ်ခုကို စမ်းကြည့်ပါ။"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube မှ တောင်းဆိုမှုများကို နှုန်းကန့်သတ်နေသည်။ တစ်မိနစ်စောင့်ပြီး ထပ်ကြိုးစားပါ။"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "ဆိုက်သည် ဤချိတ်ဆက်မှုမှ တောင်းဆိုမှုများကို ကန့်သတ်နေသည်။"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2285,6 +2285,38 @@ msgstr "အရည်အသွေး နိမ့်"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "အရည်အသွေး အလယ်အလတ်"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} သည် ဤချိတ်ဆက်မှုကို ကန့်သတ်နေသည်"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "ဖော်မတ်စာရင်း မပြည့်စုံနိုင်ပါ။"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} သည် ဤတောင်းဆိုမှုကို ယခုအချိန်တွင် ငြင်းပယ်ထားသည်။"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "ထပ်ကြိုးစားမည်"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} သည် ဤကန့်သတ်ချက်ကို တစ်နာရီအထိ ထားနိုင်သည်။"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "ယခု စမ်းကြည့်မည်"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "စောင့်ချိန် ပြီးဆုံးပါပြီ၊ ထပ်ကြိုးစားနိုင်ပါသည်။"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "ကန့်သတ်ချက် ပြေလျော့စေရန် Arroxy သည် {{site}} ကို ထပ်မံမမေးမီ {{time}} အထိ စောင့်ပါမည်။"
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

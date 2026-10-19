@@ -251,8 +251,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp terminó la descarga, pero el post-procesado (mezcla / mux / conversión) falló. A menudo es un problema transitorio de ffmpeg — reintenta, y si persiste prueba con otra combinación de formatos."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube está limitando las solicitudes. Espera un minuto y reintenta."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "El sitio está limitando las solicitudes de esta conexión."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2455,6 +2455,38 @@ msgstr "Calidad baja"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Calidad media"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} está limitando esta conexión"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Es posible que la lista de formatos esté incompleta."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} ha rechazado esta solicitud por ahora."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Reintentar"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} puede mantener este límite hasta una hora."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Probar ahora"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "La espera ha terminado, puedes volver a intentarlo."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy espera hasta las {{time}} antes de volver a consultar {{site}}, para que el límite se levante."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

@@ -256,8 +256,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp скачал файл, но пост-обработка (склейка / mux / конвертация) завершилась ошибкой. Обычно это временная проблема ffmpeg — повтори попытку, а если ошибка не уходит, попробуй другое сочетание форматов."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube ограничивает количество запросов. Подожди минуту и повтори."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Сайт ограничивает запросы с этого подключения."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2540,6 +2540,38 @@ msgstr "Низкое качество"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Среднее качество"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ограничивает запросы с этого подключения"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Список форматов может быть неполным."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} пока отклонил этот запрос."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Повторить"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} может держать это ограничение до часа."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Попробовать сейчас"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Ожидание закончилось, можно попробовать снова."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy ждёт до {{time}}, прежде чем снова обратиться к {{site}}, чтобы ограничение успело сняться."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

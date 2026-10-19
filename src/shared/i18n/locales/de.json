@@ -444,6 +444,16 @@
 				"retryCta": "Erneut versuchen",
 				"enableRetryCta": "Cookies aktivieren und erneut versuchen"
 			},
+			"rateLimit": {
+				"heading": "{{site}} drosselt diese Verbindung",
+				"leadDegraded": "Die Formatliste ist möglicherweise unvollständig.",
+				"leadFailed": "{{site}} hat diese Anfrage vorerst abgewiesen.",
+				"waitUntil": "Arroxy wartet bis {{time}}, bevor es {{site}} erneut anfragt, damit die Drosselung abklingen kann.",
+				"waitOver": "Die Wartezeit ist vorbei, du kannst es erneut versuchen.",
+				"sessionNote": "{{site}} kann diese Drosselung bis zu einer Stunde aufrechterhalten.",
+				"tryNowCta": "Jetzt versuchen",
+				"retryCta": "Erneut versuchen"
+			},
 			"cookiesError": {
 				"heading": "Cookies könnten die Ursache sein",
 				"currentModeLabel": "Cookies-Quelle",
@@ -814,7 +824,7 @@
 		"ytdlp": {
 			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens YouTube handeln – Arroxy aktualisiert yt-dlp beim Start automatisch, sodass der Fix automatisch angewendet wird, sobald er upstream verfügbar ist.",
 			"ipBlock": "Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.",
-			"rateLimit": "YouTube drosselt die Anfragen. Warte eine Minute und versuch es dann erneut.",
+			"rateLimit": "Die Website drosselt Anfragen von dieser Verbindung.",
 			"ageRestricted": "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.",
 			"unavailable": "Dieses Video ist nicht verfügbar — möglicherweise privat, gelöscht oder regional gesperrt.",
 			"geoBlocked": "Dieses Video ist in deiner Region nicht verfügbar.",

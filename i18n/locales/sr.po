@@ -251,8 +251,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp је завршио преузимање, али је накнадна обрада (спајање / mux / конверзија) пропала. Често је ово пролазни проблем са ffmpeg-ом — покушај поново, а ако се настави, испробај другу комбинацију формата."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube ограничава захтеве. Сачекај минут па покушај поново."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Сајт ограничава захтеве са ове везе."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2455,6 +2455,38 @@ msgstr "Низак квалитет"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Средњи квалитет"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ограничава ову везу"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Списак формата можда није потпун."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} је за сада одбио овај захтев."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Покушај поново"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} може да задржи ово ограничење до једног сата."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Покушај сада"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Чекање је готово, можете покушати поново."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy чека до {{time}} пре него што поново пита {{site}}, да би ограничење прошло."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ilimaliza kupakua lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube inazuia maombi. Subiri dakika moja kisha ujaribu tena."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Tovuti inazuia maombi kutoka kwa muunganisho huu."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2370,6 +2370,38 @@ msgstr "Ubora wa chini"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Ubora wa kati"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} inazuia maombi ya muunganisho huu"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Orodha ya miundo inaweza kuwa haijakamilika."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} imekataa ombi hili kwa sasa."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Jaribu tena"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} inaweza kudumisha kizuizi hiki hadi saa moja."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Jaribu sasa"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Muda wa kusubiri umekwisha, unaweza kujaribu tena."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy inasubiri hadi {{time}} kabla ya kuuliza {{site}} tena, ili kizuizi kiondoke."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

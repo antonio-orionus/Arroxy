@@ -256,8 +256,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp zakończył pobieranie, ale przetwarzanie końcowe (łączenie/multipleksowanie/konwersja) nie powiodło się. Często jest to przejściowy problem z ffmpeg — spróbuj ponownie, a jeśli problem się powtarza, wybierz inną kombinację formatów."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "Witryna ogranicza liczbę żądań. Odczekaj minutę i spróbuj ponownie."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Witryna ogranicza żądania z tego połączenia."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2540,6 +2540,38 @@ msgstr "Niska jakość"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Średnia jakość"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ogranicza to połączenie"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Lista formatów może być niepełna."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} na razie odrzucił to żądanie."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} może utrzymywać ten limit nawet przez godzinę."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Spróbuj teraz"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Oczekiwanie dobiegło końca, możesz spróbować ponownie."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy czeka do {{time}}, zanim ponownie odpyta {{site}}, aby limit zdążył minąć."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

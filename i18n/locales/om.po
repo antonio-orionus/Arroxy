@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp buufannaa xumuree, garuu post-processing (merge / mux / convert) hin milkoofne. Kun yeroo baay'ee rakkoo ffmpeg yeroo gabaabaa ti — irra deebi'i, yoo itti fufe walitti makamuu foormaatii biraa yaali."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube gaaffii daangeessaa jira. Daqiiqaa tokko eegi achiin irra deebi'i."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Saayitiin gaaffilee walqunnamtii kana irraa dhufan daangessaa jira."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2370,6 +2370,38 @@ msgstr "Qulqullina gadi aanaa"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Qulqullina giddugaleessaa"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} walqunnamtii kana daangessaa jira"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Tarreeffamni bifaa guutuu dhiisuu danda’a."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} gaaffii kana amma fudhachuu dide."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Irra deebi'i"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} daangaa kana hanga sa’aa tokkootti turuu danda’a."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Amma yaali"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Eegumsi xumurameera, irra deebi’ee yaaluu dandeessa."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Akka daangaan ka’uuf, Arroxy {{site}} irra deebi’ee gaafachuu dura hanga {{time}} eega."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

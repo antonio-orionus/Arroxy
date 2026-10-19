@@ -241,8 +241,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp បានទាញយករួច ប៉ុន្តែការដំណើរការក្រោយ (បញ្ចូល / mux / បម្លែង) បានបរាជ័យ។ ជាញឹកញាប់នេះជាបញ្ហា ffmpeg បណ្តោះអាសន្ន — ព្យាយាមម្តងទៀត ហើយប្រសិនបើវានៅតែកើតឡើង សាកល្បងបន្សំទម្រង់ផ្សេង។"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "គេហទំព័រកំពុងកំណត់អត្រាសំណើ។ រង់ចាំមួយនាទី បន្ទាប់មកព្យាយាមម្តងទៀត។"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "គេហទំព័រកំពុងកំណត់សំណើពីការភ្ជាប់នេះ។"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2285,6 +2285,38 @@ msgstr "គុណភាពទាប"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "គុណភាពមធ្យម"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} កំពុងកំណត់ការភ្ជាប់នេះ"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "បញ្ជីទម្រង់អាចមិនពេញលេញ។"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} បានបដិសេធសំណើនេះសម្រាប់ពេលនេះ។"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "ព្យាយាមម្តងទៀត"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} អាចរក្សាការកំណត់នេះរហូតដល់មួយម៉ោង។"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "សាកឥឡូវ"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "ការរង់ចាំបានចប់ហើយ អ្នកអាចព្យាយាមម្តងទៀតបាន។"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy រង់ចាំរហូតដល់ {{time}} មុននឹងសួរ {{site}} ម្តងទៀត ដើម្បីឱ្យការកំណត់បានរលាយ។"
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

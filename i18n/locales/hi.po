@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ने डाउनलोड पूरा कर लिया लेकिन post-processing (merge / mux / convert) विफल रहा। अक्सर यह एक अस्थायी ffmpeg समस्या होती है — फिर से कोशिश करें, और अगर समस्या बनी रहे तो कोई दूसरा फॉर्मेट कॉम्बिनेशन आज़माएँ।"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube अनुरोधों को सीमित कर रहा है। एक मिनट रुककर फिर से कोशिश करें।"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "साइट इस कनेक्शन से आने वाले अनुरोधों को सीमित कर रही है।"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2370,6 +2370,38 @@ msgstr "कम गुणवत्ता"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "मध्यम गुणवत्ता"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} इस कनेक्शन के अनुरोध सीमित कर रहा है"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "फ़ॉर्मैट की सूची अधूरी हो सकती है।"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} ने फ़िलहाल यह अनुरोध लौटा दिया।"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "पुनः प्रयास"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} यह सीमा एक घंटे तक रख सकता है।"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "अभी आज़माएँ"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "इंतज़ार ख़त्म हो गया, अब आप फिर से कोशिश कर सकते हैं।"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "सीमा हटने के लिए Arroxy {{site}} से दोबारा पूछने से पहले {{time}} तक रुकता है।"
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

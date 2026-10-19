@@ -404,6 +404,16 @@
 				"retryCta": "重試",
 				"enableRetryCta": "啟用 Cookie 並重試"
 			},
+			"rateLimit": {
+				"heading": "{{site}} 正在限制此連線的請求",
+				"leadDegraded": "格式清單可能不完整。",
+				"leadFailed": "{{site}} 暫時拒絕了此請求。",
+				"waitUntil": "Arroxy 會等到 {{time}} 再向 {{site}} 發出請求，讓限制解除。",
+				"waitOver": "等待時間已過，你可以再試一次。",
+				"sessionNote": "{{site}} 可能會將此限制維持長達一小時。",
+				"tryNowCta": "立即嘗試",
+				"retryCta": "重試"
+			},
 			"cookiesError": {
 				"heading": "Cookie 可能是原因",
 				"currentModeLabel": "Cookie 來源",
@@ -733,7 +743,7 @@
 		"ytdlp": {
 			"botBlock": "已觸發機器人防護。你使用的 IP 很可能已被標記（資料中心網段或繁忙的 VPN 出口）。請更換 IP 或選擇其他 VPN 節點後重試。如果問題持續，可能是網站端的暫時變更——Arroxy 啟動時會自動更新 yt-dlp，因此上游發布修正後會自動套用。",
 			"ipBlock": "你的 IP 位址似乎已被封鎖。請稍後再試或使用 VPN。",
-			"rateLimit": "網站正在限制請求頻率。請等待一分鐘後重試。",
+			"rateLimit": "網站正在限制來自此連線的請求。",
 			"ageRestricted": "此影片有年齡限制，必須登入帳號才能下載。",
 			"unavailable": "此影片無法使用——它可能是私人影片、已刪除，或受地區限制。",
 			"geoBlocked": "此影片在你的地區無法觀看。",

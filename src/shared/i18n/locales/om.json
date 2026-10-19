@@ -447,6 +447,16 @@
 				"retryCta": "Irra deebi'i",
 				"enableRetryCta": "Cookies dandeessii achiin irra deebi'i"
 			},
+			"rateLimit": {
+				"heading": "{{site}} walqunnamtii kana daangessaa jira",
+				"leadDegraded": "Tarreeffamni bifaa guutuu dhiisuu danda’a.",
+				"leadFailed": "{{site}} gaaffii kana amma fudhachuu dide.",
+				"waitUntil": "Akka daangaan ka’uuf, Arroxy {{site}} irra deebi’ee gaafachuu dura hanga {{time}} eega.",
+				"waitOver": "Eegumsi xumurameera, irra deebi’ee yaaluu dandeessa.",
+				"sessionNote": "{{site}} daangaa kana hanga sa’aa tokkootti turuu danda’a.",
+				"tryNowCta": "Amma yaali",
+				"retryCta": "Irra deebi'i"
+			},
 			"cookiesError": {
 				"heading": "Cookies sababa ta'uu danda'a",
 				"currentModeLabel": "Madda Cookies",
@@ -817,7 +827,7 @@
 		"ytdlp": {
 			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf YouTube gama ta'uu danda'a — Arroxy jalqabbii irratti yt-dlp ofumaan haaromsa, kanaaf fooyyessaan olka'iinsa irra ga'ee booda ofumaan ni dhufaa.",
 			"ipBlock": "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",
-			"rateLimit": "YouTube gaaffii daangeessaa jira. Daqiiqaa tokko eegi achiin irra deebi'i.",
+			"rateLimit": "Saayitiin gaaffilee walqunnamtii kana irraa dhufan daangessaa jira.",
 			"ageRestricted": "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u.",
 			"unavailable": "Viidiyoon kun hin argamu — dhuunfaa, haqame, ykn naannoo-cufaa ta'uu mala.",
 			"geoBlocked": "Viidiyoon kun naanno kee keessatti hin argamu.",

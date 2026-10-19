@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ডাউনলোড শেষ করেছে কিন্তু post-processing (merge / mux / convert) ব্যর্থ হয়েছে। প্রায়ই এটি একটি সাময়িক ffmpeg সমস্যা — আবার চেষ্টা করুন, এবং সমস্যা চলতে থাকলে অন্য একটি ফরম্যাট কম্বিনেশন চেষ্টা করুন।"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube অনুরোধ সীমিত করছে। এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "সাইটটি এই সংযোগ থেকে আসা অনুরোধ সীমিত করছে।"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2370,6 +2370,38 @@ msgstr "নিম্ন মান"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "মাঝারি মান"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} এই সংযোগের অনুরোধ সীমিত করছে"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "ফরম্যাটের তালিকা অসম্পূর্ণ হতে পারে।"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} আপাতত এই অনুরোধ ফিরিয়ে দিয়েছে।"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "আবার চেষ্টা করুন"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} এই সীমা এক ঘণ্টা পর্যন্ত রাখতে পারে।"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "এখনই চেষ্টা করুন"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "অপেক্ষা শেষ, এখন আবার চেষ্টা করতে পারেন।"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "সীমা উঠে যাওয়ার জন্য Arroxy {{site}}-এ আবার অনুরোধ করার আগে {{time}} পর্যন্ত অপেক্ষা করবে।"
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"

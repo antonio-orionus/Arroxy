@@ -444,6 +444,16 @@
 				"retryCta": "Riprova",
 				"enableRetryCta": "Attiva i cookie e riprova"
 			},
+			"rateLimit": {
+				"heading": "{{site}} sta limitando questa connessione",
+				"leadDegraded": "L’elenco dei formati potrebbe essere incompleto.",
+				"leadFailed": "{{site}} ha respinto questa richiesta per ora.",
+				"waitUntil": "Arroxy attende fino alle {{time}} prima di interpellare di nuovo {{site}}, così il limite può rientrare.",
+				"waitOver": "L’attesa è finita, puoi riprovare.",
+				"sessionNote": "{{site}} può mantenere questo limite fino a un’ora.",
+				"tryNowCta": "Prova ora",
+				"retryCta": "Riprova"
+			},
 			"cookiesError": {
 				"heading": "I cookie potrebbero essere la causa",
 				"currentModeLabel": "Origine dei cookie",
@@ -826,7 +836,7 @@
 		"ytdlp": {
 			"botBlock": "È scattata la protezione anti-bot. È molto probabile che l'IP in uso sia segnalato (intervallo di data center o uscita VPN affollata). Cambia IP o scegli un altro endpoint VPN e riprova. Se il problema persiste, potrebbe trattarsi di una modifica temporanea del sito: Arroxy aggiorna automaticamente yt-dlp all'avvio, quindi la correzione arriverà appena verrà pubblicata a monte.",
 			"ipBlock": "Il tuo indirizzo IP sembra essere bloccato. Riprova più tardi o usa una VPN.",
-			"rateLimit": "Il sito sta limitando le richieste. Attendi un minuto e riprova.",
+			"rateLimit": "Il sito sta limitando le richieste da questa connessione.",
 			"ageRestricted": "Questo video ha limiti di età e non può essere scaricato senza un account connesso.",
 			"unavailable": "Questo video non è disponibile: potrebbe essere privato, eliminato o bloccato nella tua area geografica.",
 			"geoBlocked": "Questo video non è disponibile nella tua area geografica.",

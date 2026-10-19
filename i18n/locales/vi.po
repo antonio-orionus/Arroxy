@@ -241,8 +241,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube đang giới hạn tốc độ yêu cầu. Hãy đợi một phút rồi thử lại."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Trang web đang giới hạn yêu cầu từ kết nối này."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2285,6 +2285,38 @@ msgstr "Chất lượng thấp"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Chất lượng trung bình"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} đang giới hạn kết nối này"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Danh sách định dạng có thể chưa đầy đủ."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} tạm thời từ chối yêu cầu này."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} có thể duy trì giới hạn này đến một giờ."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Thử ngay"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Đã hết thời gian chờ, bạn có thể thử lại."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy sẽ chờ đến {{time}} rồi mới hỏi lại {{site}}, để giới hạn kịp gỡ bỏ."
 
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
