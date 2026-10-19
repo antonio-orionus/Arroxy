@@ -11,7 +11,7 @@ const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', e
 
 function makeService() {
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/tmp/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/tmp/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'})}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'})}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
@@ -229,7 +229,7 @@ describe('DownloadService (mock mode)', () => {
 			releaseBinaries = () => resolve('/tmp/yt-dlp')
 		})
 		const binaryManager = {ensureYtDlp: vi.fn().mockReturnValue(binaryGate), ensureFFmpeg: vi.fn().mockResolvedValue('/tmp/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
-		const tokenService = {mintTokenForUrl: vi.fn()}
+		const tokenService = {getToken: vi.fn()}
 		const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 		const settingsStore = {get: vi.fn().mockResolvedValue({})}
 		const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)

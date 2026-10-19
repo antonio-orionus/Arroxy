@@ -202,7 +202,7 @@ export async function runSmokeMode(deps: SmokeDeps): Promise<number> {
 	//    This is the canary for "YouTube renamed the symbol."
 	const mintStart = Date.now()
 	try {
-		const {token, visitorData} = await tokenService.mintTokenForUrl(url)
+		const {token, visitorData} = await tokenService.getToken()
 		const tokenLen = token.length
 		const vdLen = visitorData.length
 		if (tokenLen < 10) throw new Error(`suspiciously short token (${tokenLen} chars)`)

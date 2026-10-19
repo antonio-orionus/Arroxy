@@ -205,7 +205,7 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	let strategyExtractorArgs: ExtractorArgs = {}
 	if (strategy.kind === 'pot') {
 		if (strategy.reMint) opts.tokenService.invalidateCache()
-		const {token, visitorData, fromCache} = await opts.tokenService.mintTokenForUrl(opts.url)
+		const {token, visitorData, fromCache} = await opts.tokenService.getToken()
 		if (!fromCache) opts.signal?.onMinting?.(strategy.reMint ? 1 : 0)
 		strategyExtractorArgs = potExtractorArgs(token, visitorData)
 	} else if (strategy.kind === 'fallback') {

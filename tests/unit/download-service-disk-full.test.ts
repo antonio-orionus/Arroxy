@@ -26,7 +26,7 @@ beforeEach(() => {
  * `proc.emit('close', 1)` after `setTimeout(10)` — is CI-fragile. The timer
  * starts at construction time, but `proc.on('close', ...)` is not registered
  * until after multiple async hops inside `invokeOnce` (prepare → preflight
- * checkDiskSpace → mintTokenForUrl → spawn → attach listeners). Under Bun's
+ * checkDiskSpace → getToken → spawn → attach listeners). Under Bun's
  * JavaScriptCore runtime (the CI execution environment) something in the
  * outOfDiskSpace reclassification code path (`ok: false` from the second
  * checkDiskSpace call, triggering logger.info inside classifyYtDlpFailure)
@@ -55,7 +55,7 @@ const IP_BLOCK_RESULT: Extract<YtDlpResult, {kind: 'exit-error'}> = {
 const NETWORK_RESULT: Extract<YtDlpResult, {kind: 'exit-error'}> = {kind: 'exit-error', exitCode: 1, errorKind: 'network', rawError: 'ERROR: unable to download video data: HTTP Error 503', stdout: '', stderr: 'ERROR: unable to download video data: HTTP Error 503'}
 
 function makeService() {
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/usr/bin/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}

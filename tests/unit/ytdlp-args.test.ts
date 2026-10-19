@@ -39,10 +39,10 @@ function makeFakeProcess(exitCode = 0, stderr = '') {
 }
 
 // The token service of the most recent makeYtDlp(), for asserting on minting.
-let lastTokenService: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
+let lastTokenService: {getToken: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
 
 function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'> | null} = {}) {
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, playlist: {}})}
@@ -782,7 +782,7 @@ describe('YtDlp — extractor-args shape', () => {
 	])('a run with %s gets no anonymous token or visitor data', async (_label, settings) => {
 		const ytDlp = makeYtDlp({settings, token: 'MYTOKEN', visitorData: 'MYVISITOR'})
 		await ytDlp.run(mediaRequest({playerClient: ['default', 'web_embedded']}))
-		expect(lastTokenService.mintTokenForUrl).not.toHaveBeenCalled()
+		expect(lastTokenService.getToken).not.toHaveBeenCalled()
 		expect(youtubeArgs()).toEqual({player_client: ['default', 'web_embedded']})
 	})
 })
@@ -1019,7 +1019,7 @@ describe('YtDlp — run identity', () => {
 	it('never sends the anonymous PO token on an escalated run', async () => {
 		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()})
 		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(lastTokenService.mintTokenForUrl).not.toHaveBeenCalled()
+		expect(lastTokenService.getToken).not.toHaveBeenCalled()
 		expect(getArgs().join(' ')).not.toContain('po_token=')
 	})
 
@@ -1133,7 +1133,7 @@ describe('YtDlp — run identity', () => {
 		const withJar = vi.fn()
 		const ytDlp = new YtDlp(
 			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
-			{mintTokenForUrl: vi.fn(), invalidateCache: vi.fn()} as never,
+			{getToken: vi.fn(), invalidateCache: vi.fn()} as never,
 			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
 			{sessionJars: {withJar}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate: () => Promise.resolve(false)}}
 		)
