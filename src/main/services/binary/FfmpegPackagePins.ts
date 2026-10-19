@@ -7,7 +7,7 @@ import type {FfmpegPackageEntry} from '@shared/types.js'
 // These pins are the only place an FFmpeg version is chosen. The runtime index
 // generator copies them into every signed v2 index unchanged, and the bundled
 // fallback index ships them in the app, so a version changes only through a
-// reviewed commit to this file. To approve another build, follow
+// reviewed commit to this file (gate test). To approve another build, follow
 // dev-docs/ffmpeg-packages.md: build the packages, publish them as a new
 // non-latest release, then replace these entries.
 export const FFMPEG_PACKAGE_PINS: readonly FfmpegPackageEntry[] = [
