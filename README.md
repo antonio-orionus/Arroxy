@@ -385,7 +385,7 @@ Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) fr
 
 No telemetry — just one anonymous heartbeat a day: app version, OS, language, install channel and country, so we can count active users. No IDs, URLs, video titles, file paths or account info. You can turn it off in Settings.
 
-Explore keeps its own sign-in, separate from your browser, and Arroxy never reads or fills in the sign-in form — you type into Google's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets it.
+Explore keeps its own sign-ins, separate from your browser, and Arroxy never reads or fills in a sign-in form — you type into the site's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 
@@ -401,7 +401,7 @@ Yes — MIT licensed, no premium tier, no feature gating.
 <details>
 <summary><strong>How is Arroxy different from other yt-dlp GUIs?</strong></summary>
 
-Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a YouTube browser built into the app: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).
+Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).
 
 </details>
 

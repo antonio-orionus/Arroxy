@@ -12,6 +12,7 @@ import {PROBE_SOURCES, type ProbeSourceId} from './sources.js'
 import archive from './archive.json' with {type: 'json'}
 import bitchute from './bitchute.json' with {type: 'json'}
 import dailymotion from './dailymotion.json' with {type: 'json'}
+import instagram from './instagram.json' with {type: 'json'}
 import soundcloud from './soundcloud.json' with {type: 'json'}
 import streamable from './streamable.json' with {type: 'json'}
 import tiktok from './tiktok.json' with {type: 'json'}
@@ -56,7 +57,8 @@ const FIXTURES: Record<ProbeSourceId, {info: unknown}> = {
 	streamable,
 	bitchute,
 	soundcloud,
-	tiktok
+	tiktok,
+	instagram
 }
 
 const PROBE_SOURCE_IDS = PROBE_SOURCES.map(source => source.id)

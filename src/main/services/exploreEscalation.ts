@@ -1,6 +1,7 @@
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import type {ProbeError} from '@shared/types.js'
 import type {EscalationReason} from '@shared/schemas.js'
+import {siteForUrl} from '@shared/sites/index.js'
 
 // Decides whether a failed run should be retried with the Explore session.
 // ytdlp-errors kinds alone are not enough: a private or members-only video
@@ -25,6 +26,9 @@ const COOKIE_LOGIN_HINT = /Use --cookies, --cookies-from-browser,|Use --cookies-
 const PASSWORD_ONLY_HINT = 'Use --username and --password'
 // An extractor's own words for "cookies would let it through" (a CAPTCHA
 // solved in a browser, fresh cookies, a session to pass along).
+// yt-dlp's generic "the page was not what the extractor expected": what a login
+// wall looks like to an extractor (a Facebook reel signed out).
+const EXTRACTION_FAILED = /Cannot parse data|Unable to extract\b/
 const COOKIES_NEEDED = /--cookies\b|\bcookies\b[^.]*\bare (?:needed|required)\b|\b(?:refresh|export|provide|pass) (?:your )?cookies\b/i
 const PLAYLIST_MISSING = /the playlist does not exist/i
 // Watch Later and Liked are only reachable with the account's session.
@@ -62,7 +66,15 @@ export function escalationReason(input: EscalationInput): EscalationReason | nul
 		return error.code === 'playlist_empty' && isAccountOnlyPlaylist(url) ? 'accountOnlyPlaylist' : null
 	}
 	// A probe bot wall escalates at once: single-video probes have already run YtDlp's 3-attempt ladder (invokeWithRetry), and playlist probes have none (intended).
-	return classifiedFailureReason(error.error.kind, error.error.raw, true) ?? (PLAYLIST_MISSING.test(error.error.raw) ? 'playlistMissing' : null)
+	return classifiedFailureReason(error.error.kind, error.error.raw, true) ?? (PLAYLIST_MISSING.test(error.error.raw) ? 'playlistMissing' : null) ?? extractionFailureReason(error.error.kind, error.error.raw, url)
+}
+
+// A page the extractor could not parse, on a site other than YouTube, at probe
+// time: a login wall reads that way, and the signed-in probe settles it. Never
+// YouTube (its account is not spent on a parse failure), never a download run
+// (its probe already answered).
+function extractionFailureReason(kind: YtDlpErrorKind, raw: string, url: string): EscalationReason | null {
+	return kind === 'unknown' && EXTRACTION_FAILED.test(raw) && siteForUrl(url).explore === undefined ? 'loginRequired' : null
 }
 
 // Whether a playlist that escalated for this reason needs the account for its

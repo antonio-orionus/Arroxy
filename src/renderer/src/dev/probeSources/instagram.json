@@ -1,0 +1,32 @@
+{
+	"source": {
+		"id": "instagram",
+		"url": "https://www.instagram.com/p/DebnOR3N4hf/",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"id": "DebnOR3N4hf",
+		"title": "Video by acoolinaaa",
+		"thumbnail": "https://instagram.ftll2-1.fna.fbcdn.net/v/t51.82787-15/847269895_18444373048132909_5436840765583331600_n.jpg",
+		"webpage_url": "https://www.instagram.com/p/DebnOR3N4hf/",
+		"extractor": "Instagram",
+		"extractor_key": "Instagram",
+		"uploader": "Алина | об учёбе в топовых ВУЗах и жизни в Париже",
+		"channel": "acoolinaaa",
+		"upload_date": "20261013",
+		"timestamp": 1791888151,
+		"formats": [
+			{"format_id":"dash-1407570791574000a","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":69.999,"vbr":0,"abr":69.999,"asr":44100,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https"},
+			{"format_id":"1","ext":"mp4","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"2","ext":"mp4","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"3","ext":"mp4","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"dash-1407570974907315v","ext":"mp4","resolution":"360x640","format_note":"DASH video","width":360,"height":640,"tbr":261.285,"vbr":261.285,"abr":0,"vcodec":"vp09.00.21.08.00.01.01.01.00","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"dash-1407570971573982v","ext":"mp4","resolution":"540x960","format_note":"DASH video","width":540,"height":960,"tbr":773.011,"vbr":773.011,"abr":0,"vcodec":"vp09.00.30.08.00.01.01.01.00","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"dash-1407570978240648v","ext":"mp4","resolution":"720x1280","format_note":"DASH video","width":720,"height":1280,"tbr":1417.123,"vbr":1417.123,"abr":0,"vcodec":"vp09.00.31.08.00.01.01.01.00","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"dash-1407570984907314v","ext":"mp4","resolution":"1080x1920","format_note":"DASH video","width":1080,"height":1920,"tbr":1963.179,"vbr":1963.179,"abr":0,"vcodec":"vp09.00.40.08.00.01.01.01.00","acodec":"none","dynamic_range":"SDR","protocol":"https"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

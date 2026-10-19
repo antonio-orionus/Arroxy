@@ -34,7 +34,8 @@ export const PROBE_SOURCES = [
 	{id: 'streamable', url: 'https://streamable.com/moo', shows: 'One muxed MP4 with no size or bitrate'},
 	{id: 'bitchute', url: 'https://www.bitchute.com/video/UGlrF9o9b-Q/', shows: 'One stream with no resolution at all'},
 	{id: 'soundcloud', url: 'https://soundcloud.com/forss/flickermood', shows: 'Audio-only site'},
-	{id: 'tiktok', url: 'https://www.tiktok.com/@meister12347/video/6934396727596240134', shows: 'TikTok: bytevc1 and H.264 at the same heights, several bitrates each'}
+	{id: 'tiktok', url: 'https://www.tiktok.com/@meister12347/video/6934396727596240134', shows: 'TikTok: bytevc1 and H.264 at the same heights, several bitrates each'},
+	{id: 'instagram', url: 'https://www.instagram.com/p/DebnOR3N4hf/', shows: 'Instagram: VP9 DASH with bitrates but no duration (no size estimate), and three combined MP4s with no details at all'}
 ] as const satisfies readonly ProbeSource[]
 
 export type ProbeSourceId = (typeof PROBE_SOURCES)[number]['id']

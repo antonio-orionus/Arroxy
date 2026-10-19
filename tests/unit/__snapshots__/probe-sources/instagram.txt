@@ -1,0 +1,22 @@
+instagram: Instagram: VP9 DASH with bitrates but no duration (no size estimate), and three combined MP4s with no details at all
+Video by acoolinaaa · ? s · card says "720x1280" · 8 formats
+
+Video (picked for Balanced 720p •):
+                    SDR VP9        SDR (codec not named)
+1080p               VP9 no size    ·
+720p                VP9 no size •  ·
+480p                VP9 no size    ·
+360p                VP9 no size    ·
+Unknown resolution  ·              mp4 no size +audio
+
+Audio:
+AAC: 70 kbps no size •
+
+Profile picks:
+balanced: dash-1407570978240648v (720x1280, mp4) + audio dash-1407570791574000a (audio only, m4a)
+best-quality: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000a (audio only, m4a)
+mp4-1080: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
+audio-only: audio dash-1407570791574000a (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

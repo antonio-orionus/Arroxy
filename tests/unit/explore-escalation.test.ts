@@ -117,6 +117,19 @@ describe('escalationReason on any site', () => {
 		expect(escalationReason(downloadFailure(kind, line, false))).not.toBeNull()
 	})
 
+	// A login wall reads to the extractor as a page it cannot parse (Facebook reels
+	// signed out); signed in, the same probe succeeds. YouTube's account is never
+	// spent on a parse failure, and a download run has its probe's answer already.
+	it.each([
+		'ERROR: [facebook] 1583709809895177: Cannot parse data; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U',
+		'ERROR: [site] 123: Unable to extract video data; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template.'
+	])('escalates a probe on another site that the extractor could not parse: %s', line => {
+		const {kind} = classifyYtDlpStderr(line)
+		expect(escalationReason(probeFailure(kind, line, 'https://www.facebook.com/reel/1583709809895177/'))).toBe('loginRequired')
+		expect(escalationReason(probeFailure(kind, line, YOUTUBE_WATCH))).toBeNull()
+		expect(escalationReason(downloadFailure(kind, line))).toBeNull()
+	})
+
 	// The site takes only yt-dlp's own username and password: no cookie lets the run through.
 	it('never escalates a login that takes only a username and password', () => {
 		const line = `ERROR: [nebula] 123: This video is only available for registered users. ${PASSWORD_HINT}`
