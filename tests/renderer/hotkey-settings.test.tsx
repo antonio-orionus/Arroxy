@@ -127,6 +127,28 @@ describe('HotkeySettingsSection', () => {
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: expected}}))
 	})
 
+	// Windows (RegisterHotKey) and X11 register a letter by the layout's virtual
+	// key, macOS (RegisterEventHotKey) by the physical ANSI key position. On
+	// French AZERTY the key labelled A sits where QWERTY has Q.
+	it.each([
+		['win32', 'Ctrl+A'],
+		['linux', 'Ctrl+A'],
+		['darwin', 'Ctrl+Q']
+	] as const)('records AZERTY Ctrl+A on %s as %s', async (platform, expected) => {
+		const previous = window.platform
+		Object.defineProperty(window, 'platform', {configurable: true, writable: true, value: platform})
+		try {
+			mount({hotkeyEnabled: true})
+
+			fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
+			fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'a', code: 'KeyQ', ctrlKey: true})
+
+			await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: expected}}))
+		} finally {
+			Object.defineProperty(window, 'platform', {configurable: true, writable: true, value: previous})
+		}
+	})
+
 	it('ignores a bare modifier press and keeps recording', () => {
 		mount({hotkeyEnabled: true})
 

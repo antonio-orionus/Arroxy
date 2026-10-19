@@ -1,12 +1,17 @@
 /**
- * KeyboardEvent.code → Electron accelerator key name.
+ * KeyboardEvent → Electron accelerator key name.
  *
- * The recorder reads the physical key, not KeyboardEvent.key: the produced
- * character changes with the held modifiers (Shift+1 → "!", macOS Option+A →
- * "å") and the layout, while Electron registers the key itself plus the
- * modifiers named in the chord. Punctuation uses its unshifted US character,
- * which Electron maps to the same virtual key. "+" is the chord separator, so
- * it is never emitted as a key (Equal → "=", NumpadAdd → "numadd").
+ * The recorder starts from the physical key (KeyboardEvent.code), not the
+ * produced character: that changes with the held modifiers (Shift+1 → "!",
+ * macOS Option+A → "å"). Punctuation uses its unshifted US character, which
+ * Electron maps to the same virtual key. "+" is the chord separator, so it is
+ * never emitted as a key (Equal → "=", NumpadAdd → "numadd").
+ *
+ * Letters follow how each platform registers a global shortcut. macOS
+ * (RegisterEventHotKey) binds the physical ANSI key position, so the code is
+ * right there. Windows (RegisterHotKey) and X11 bind the layout's virtual key,
+ * so on AZERTY the key labelled A (code KeyQ) must be saved as A: there the
+ * layout's letter, when the event produced one, wins over the position.
  *
  * Names follow Electron's accelerator key list; anything else returns null.
  */
@@ -48,13 +53,13 @@ const NAMED_CODES: Readonly<Record<string, string>> = {
 	NumpadDivide: 'numdiv'
 }
 
-export function acceleratorKeyFromCode(code: string): string | null {
-	const letter = /^Key([A-Z])$/.exec(code)
-	if (letter) return letter[1]
-	const digit = /^Digit([0-9])$/.exec(code)
+export function acceleratorKeyFromEvent(event: {code: string; key: string}, platform: NodeJS.Platform): string | null {
+	const letter = /^Key([A-Z])$/.exec(event.code)
+	if (letter) return platform !== 'darwin' && /^[a-z]$/i.test(event.key) ? event.key.toUpperCase() : letter[1]
+	const digit = /^Digit([0-9])$/.exec(event.code)
 	if (digit) return digit[1]
-	const numpadDigit = /^Numpad([0-9])$/.exec(code)
+	const numpadDigit = /^Numpad([0-9])$/.exec(event.code)
 	if (numpadDigit) return `num${numpadDigit[1]}`
-	if (/^F([1-9]|1[0-9]|2[0-4])$/.test(code)) return code
-	return NAMED_CODES[code] ?? null
+	if (/^F([1-9]|1[0-9]|2[0-4])$/.test(event.code)) return event.code
+	return NAMED_CODES[event.code] ?? null
 }

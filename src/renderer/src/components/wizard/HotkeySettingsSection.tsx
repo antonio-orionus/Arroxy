@@ -5,7 +5,8 @@ import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
-import {acceleratorKeyFromCode} from '../../lib/acceleratorKey.js'
+import {acceleratorKeyFromEvent} from '../../lib/acceleratorKey.js'
+import {hostPlatform} from '../../lib/platform.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldTitle} from '../ui/field.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
@@ -121,7 +122,7 @@ function buildAccelerator(event: ReactKeyboardEvent<HTMLButtonElement>): string 
 	if (event.metaKey) modifiers.push('Super')
 	if (event.shiftKey) modifiers.push('Shift')
 	if (modifiers.length === 0) return null
-	const key = acceleratorKeyFromCode(event.code)
+	const key = acceleratorKeyFromEvent(event, hostPlatform())
 	if (!key) return null
 	return [...modifiers, key].join('+')
 }
