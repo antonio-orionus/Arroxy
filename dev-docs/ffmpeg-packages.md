@@ -80,7 +80,7 @@ tracks upstream automatically.
 4. On Windows, extract the win32 package and scan it with
    `scripts/test-binaries/scan-windows-defender.ps1 -Require ffmpeg.exe,ffprobe.exe`.
    A flagged build is not approved.
-5. Collect the license texts and the exact corresponding source for each
+5. Collect the license text, the FFmpeg source and the build recipes for each
    upstream build (see "Redistribution" below) and publish them in the same
    release.
 6. Publish the release (below), then replace the entries in
@@ -136,11 +136,21 @@ release that contains this change**.
 
 ## Redistribution
 
-FFmpeg is GPLv3 in these builds. For every package version, the release that
-holds it must also carry or link the license texts and the exact corresponding
-source of that build: FFmpeg itself and the GPL dependencies compiled into it,
-plus the build scripts. Upstream download pages alone do not establish that.
-Never publish a build whose corresponding source cannot be obtained.
+FFmpeg is GPLv3 in these builds. Every package release also carries:
+
+- `LICENSE-GPLv3.txt`, taken from the FFmpeg source.
+- The FFmpeg source each build was made from: a GitHub archive at the exact
+  commit for BtbN builds, the ffmpeg.org release tarball for Martin Riedl's.
+- The build recipe that pins every library compiled in: BtbN's
+  `FFmpeg-Builds` repository archived at the build's `autobuild-*` tag, and
+  each Martin Riedl build's published `versions.txt` (configure line and
+  library versions). His public script repository does not tag release builds,
+  so no script snapshot is attached for those.
+- Release notes linking all of the above at exact commits and tags.
+
+The libraries' own sources are not mirrored; the pinned recipes name them
+exactly. `ffmpeg-2026.10.19` is the reference release. Never publish a build
+whose FFmpeg commit or library versions cannot be named exactly.
 
 ## Size and traffic (0.6.2, Windows)
 
