@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Separator} from '../ui/separator.js'
@@ -20,7 +21,9 @@ function isSponsorBlockMode(value: string | undefined): value is SponsorBlockMod
 // The SponsorBlock controls: the batch wizard's step and a Review row.
 export function SponsorBlockFields(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardSponsorBlockMode, wizardSponsorBlockCategories, setSponsorBlockMode, toggleSponsorBlockCategory} = useAppStore()
+	const {wizardSponsorBlockMode, wizardSponsorBlockCategories, setSponsorBlockMode, toggleSponsorBlockCategory} = useAppStore(
+		useShallow(state => ({wizardSponsorBlockMode: state.wizardSponsorBlockMode, wizardSponsorBlockCategories: state.wizardSponsorBlockCategories, setSponsorBlockMode: state.setSponsorBlockMode, toggleSponsorBlockCategory: state.toggleSponsorBlockCategory}))
+	)
 
 	const showCategories = wizardSponsorBlockMode !== 'off'
 
@@ -74,7 +77,7 @@ export function SponsorBlockFields(): ReactNode {
 }
 
 export function StepSponsorBlock(): ReactNode {
-	const {advance, back} = useAppStore()
+	const {advance, back} = useAppStore(useShallow(state => ({advance: state.advance, back: state.back})))
 	return (
 		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-sponsorblock">
 			<SponsorBlockFields />

@@ -9,7 +9,7 @@
 
 [![Toleo](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ujenzi](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Tovuti](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Leseni](https://img.shields.io/badge/license-MIT-green) ![Majukwaa](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Lugha](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**
+Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**
 
 [**↓ Pakua Toleo la Hivi Karibuni**](#install) &nbsp;·&nbsp; [**Tovuti**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Uzinduzi wa kwanza wa Windows](#windows-first-launch) · [Uzinduzi wa kwanza wa macOS](#macos-first-launch) · [Uzinduzi wa kwanza wa Linux](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 <details>
 <summary><strong>🎞️ Ubora na fomati</strong></summary>
 
-- Hadi **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR
+- Hadi **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **Kiwango cha juu cha fremu na HDR** vimehifadhiwa kama vilivyo — fps 60, HDR10
 - **Sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV. Katika upakuaji wa mwingiliano, chagua nyimbo asili za surround/Dolby za chanzo (AC-3, E-AC-3, 5.1, DRC) zinapopatikana, au weka chaguo-msingi la jumla **Pendelea surround / Dolby**
 - **Wasifu wenye lengo** — *Picha bora* (AV1 · VP9) au *Runinga janja* (MP4 · H.264), huhifadhiwa kama Otomatiki, MP4, MKV, au WebM bila kusimba upya. HDR ni *Otomatiki* (tu skrini yako inapoweza kuionyesha), *SDR*, au *HDR*
+- **Kila kodeki katika kila azimio** — upakuaji wa hatua kwa hatua huorodhesha AV1, VP9 na H.264 kando kwa kando katika kila azimio, ili uchague ile ambayo TV yako au kihariri chako kinacheza
+- **Jua mtiririko ulivyo hasa** — ukubwa ambao YouTube imekuza kwa AI, lugha za sauti zilizotafsiriwa na AI, mitiririko yenye bitrate iliyoboreshwa, video za 360° na nakala zilizoharibika au zenye alama-maji huwekewa alama. Wasifu huruka mitiririko iliyokuzwa kwa AI isipokuwa uiruhusu
 
 </details>
 
@@ -124,7 +126,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 - **Njia ya mkato ya kupakua kwa mfumo mzima** — nakili kiungo katika programu yoyote kisha bonyeza `Ctrl+Shift+D` (`Cmd+Shift+D` kwenye macOS); Arroxy huikiweka kwenye foleni kwa wasifu wako unaotumika bila kufungua dirisha, na arifa huthibitisha. Imewashwa kwa chaguo-msingi, inaweza kubadilishwa
 - **Njia rahisi za kuanza** — chagua upakuaji mmoja unaoongozwa, kichagua playlist/channel, kubandika URL nyingi, Quick Download kwa mipangilio chaguomsingi iliyohifadhiwa, au vinjari na upakue kutoka Explore
 - **Foleni kuu ya upakuaji** — kazi ya single, playlist, bulk, au quick yote huingia sehemu moja kwa maendeleo, kusitisha, kuendelea, kughairi, kujaribu tena, na udhibiti wa kipaumbele
-- **Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)
+- **Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha video na kitajaza sehemu ya URL ukirudi kwenye Arroxy, pamoja na **Tendua** ikiwa hukukusudia. Arroxy ikiwa na shughuli, kiungo husubiri hadi urudi kwenye kichupo cha URL (kizime katika Mipangilio)
 - **Usafi wa URL kiotomatiki** — huondoa vigezo vya ufuatiliaji (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) na kufungua viungo vya `youtube.com/redirect`
 - **Hali ya tray** — kufunga dirisha kunaacha maudhui kuendelea kupakuliwa nyuma ya skrini
 - **Lugha 31** — hutambua locale ya mfumo kiotomatiki, unaweza kubadilisha wakati wowote
@@ -140,6 +142,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 - **Ukubwa na Haipo katika Vipakuliwa** — safu ya **Ukubwa** inayoweza kupangwa inaonyesha kila upakuaji unatumia nafasi kiasi gani, na **Haipo** huashiria faili zilizohamishwa au kufutwa nje ya Arroxy
 - **Aurora au Rahisi, giza au mwanga** — paneli za kioo juu ya anga linalosogea, au nyuso tulivu thabiti; badilisha kutoka kijachini. Kompyuta zisizo na kasi ya michoro hupata Rahisi kiotomatiki
 - **Upau wa menyu wa Mac** — kwenye macOS, fungua Mipangilio (`Cmd+,`), weka kikomo cha kasi ya kupakua, badilisha mtindo na mandhari, na fungua kumbukumbu au hifadhi faili la uchunguzi kutoka kwenye upau wa menyu
+- **Badilisha wasifu kutoka kwa upakuaji wowote** — rekebisha upakuaji, kisha sasisha wasifu ulioanzia (pamoja na onyesho la kinachobadilika) au hifadhi mipangilio kama wasifu mpya. Unapobadilisha wasifu, unaulizwa kama uhifadhi mabadiliko yako
 
 </details>
 
@@ -158,7 +161,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 <summary><strong>🌐 YouTube + Tovuti 2000</strong></summary>
 
 - **YouTube kamili** — Video, Shorts, Vituo, Orodha za Kucheza, YouTube Music na Podikasti zinashughulikiwa kama vyanzo vya daraja la kwanza
-- **Tovuti 2000+ nyingine** kupitia yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org na nyingi zaidi
+- **Tovuti 2000+ nyingine** kupitia yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable na nyingi zaidi
 - **Sauti pekee na manukuu** yanafanya kazi kwenye kila tovuti inayoungwa mkono, si YouTube peke yake
 - Tovuti ikibadilika, yt-dlp hutoa marekebisho kila wiki na Arroxy husasisha binary kiotomatiki wakati wa uzinduzi
 
@@ -405,7 +408,7 @@ GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongez
 <details>
 <summary><strong>Ninaweza kupakua ubora gani wa video?</strong></summary>
 
-Chochote YouTube kinatoa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60, fps 120, na HDR huhifadhiwa kama ulivyo.
+Chochote YouTube kinatoa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60 na HDR huhifadhiwa kama ulivyo, na upakuaji wa hatua kwa hatua hukuruhusu kuchagua AV1, VP9 au H.264 katika kila azimio.
 
 </details>
 

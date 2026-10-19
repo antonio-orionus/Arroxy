@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {Info, Layers} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -251,7 +252,27 @@ export function StepPlaylistItems(): ReactNode {
 		wizardWebpageUrl,
 		settings,
 		wizardMode
-	} = useAppStore()
+	} = useAppStore(
+		useShallow(state => ({
+			playlistItems: state.playlistItems,
+			selectedPlaylistItemIds: state.selectedPlaylistItemIds,
+			removedPlaylistItemIds: state.removedPlaylistItemIds,
+			playlistProbeLoading: state.playlistProbeLoading,
+			playlistProbeProgress: state.playlistProbeProgress,
+			playlistScopeReloading: state.playlistScopeReloading,
+			bulkMetadataStatus: state.bulkMetadataStatus,
+			bulkMetadataById: state.bulkMetadataById,
+			playlistSortMode: state.playlistSortMode,
+			setPlaylistSortMode: state.setPlaylistSortMode,
+			syncedDownloadedIds: state.syncedDownloadedIds,
+			setPlaylistItemSelected: state.setPlaylistItemSelected,
+			removePlaylistItems: state.removePlaylistItems,
+			wizardUrl: state.wizardUrl,
+			wizardWebpageUrl: state.wizardWebpageUrl,
+			settings: state.settings,
+			wizardMode: state.wizardMode
+		}))
+	)
 	const isBulk = wizardMode === 'bulk'
 
 	const folderSync = usePlaylistFolderSync()

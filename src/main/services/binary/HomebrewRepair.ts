@@ -2,6 +2,8 @@ import {execFile} from 'node:child_process'
 import path from 'node:path'
 import {promisify} from 'node:util'
 import log from 'electron-log/main.js'
+import SemVer from 'semver/classes/semver.js'
+import coerce from 'semver/functions/coerce.js'
 import {HOMEBREW_CASK} from '@shared/constants.js'
 import {firstExecutable, whereOnPath} from './BinaryProbe.js'
 import {ffmpegPairOnPath, type FfmpegPairPaths} from './ffmpegPairOnPath.js'
@@ -47,18 +49,10 @@ const ARROXY_COMMAND_HINT = 'Run the command shown in the banner in a terminal i
 // for a refresh every time.
 const FRESH_TAP_ENV = {HOMEBREW_AUTO_UPDATE_SECS: '0'}
 
-function versionParts(version: string): number[] {
-	return version.split('.').map(part => Number.parseInt(part, 10) || 0)
-}
-
-function compareVersions(a: string, b: string): number {
-	const left = versionParts(a)
-	const right = versionParts(b)
-	for (let i = 0; i < Math.max(left.length, right.length); i++) {
-		const diff = (left[i] ?? 0) - (right[i] ?? 0)
-		if (diff !== 0) return diff
-	}
-	return 0
+// Cask versions may have two or four parts. coerce maps them onto semver (a
+// fourth part is dropped), and an unreadable one counts as 0.0.0.
+function caskVersion(version: string): SemVer {
+	return coerce(version) ?? new SemVer('0.0.0')
 }
 
 // `brew list --cask --versions arroxy` prints "arroxy 0.5.3", or several
@@ -69,7 +63,7 @@ function newestInstalled(listOutput: string): string | null {
 		.split(/\s+/)
 		.slice(1)
 		.filter(token => /^\d+(\.\d+)*$/.test(token))
-	return versions.reduce<string | null>((newest, version) => (newest === null || compareVersions(version, newest) > 0 ? version : newest), null)
+	return versions.reduce<string | null>((newest, version) => (newest === null || caskVersion(version).compare(caskVersion(newest)) > 0 ? version : newest), null)
 }
 
 // A zero exit is not proof of an update: a stale tap or an already-current cask
@@ -80,7 +74,7 @@ async function runArroxyBrew(args: string[], expectedVersion: string): Promise<v
 	if (installed === null) {
 		throw new Error(`Homebrew did not report an installed Arroxy version, so ${expectedVersion} could not be confirmed. Try again, or run the command shown in the banner in a terminal.`)
 	}
-	if (compareVersions(installed, expectedVersion) < 0) {
+	if (caskVersion(installed).compare(caskVersion(expectedVersion)) < 0) {
 		throw new Error(`Homebrew has Arroxy ${installed} but ${expectedVersion} was announced. Its repository may be a few minutes behind the release: try again shortly, or download the DMG.`)
 	}
 }

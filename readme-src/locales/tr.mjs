@@ -96,7 +96,7 @@ export const tr = {
   discord_badge_text: "Discord Topluluğuna Katıl",
   discord_badge_encoded: "Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l",
   hero_desc:
-    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 4K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
+    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
   star_cta:
@@ -149,13 +149,17 @@ export const tr = {
   feat_explore_4: "**İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişi unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap",
   feat_explore_5: "**Reklam engelleyici** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller; indirmeler etkilenmez. Varsayılan olarak açık, Explore araç çubuğundaki kalkana tek tıklama onu kapatır ve Google'ın giriş sayfalarında asla devreye girmez. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir",
   feat_quality_h3: "Kalite ve biçimler",
-  feat_quality_1: "**4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p'ye kadar",
+  feat_quality_1: "**8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p'ye kadar",
   feat_quality_2:
-    "**Yüksek kare hızı** olduğu gibi korunur — 60 fps, 120 fps, HDR",
+    "**Yüksek kare hızı ve HDR** olduğu gibi korunur — 60 fps, HDR10",
   feat_quality_3:
     "**Ses** — yalnızca sesi MP3, M4A/AAC, Opus veya WAV olarak dışa aktar. Etkileşimli indirmelerde varsa kaynağın yerel surround/Dolby parçalarını (AC-3, E-AC-3, 5.1, DRC) seç veya genel **Surround / Dolby tercih et** varsayılanı ayarla",
   feat_quality_4:
     "**Hedefli profiller** — *En iyi görüntü* (AV1 · VP9) veya *Akıllı TV* (MP4 · H.264); yeniden kodlamadan Otomatik, MP4, MKV veya WebM olarak kaydedilir. HDR ise *Otomatik* (yalnızca ekranın gösterebiliyorsa), *SDR* veya *HDR*",
+  feat_quality_5:
+    "**Her çözünürlükte her codec** — adım adım indirme her çözünürlükte AV1, VP9 ve H.264'ü yan yana listeler; böylece TV'nin veya düzenleme programının oynattığını seçebilirsin",
+  feat_quality_6:
+    "**Bir akışın gerçekte ne olduğunu bil** — YouTube'un yapay zekayla büyüttüğü çözünürlükler, yapay zekayla seslendirilmiş ses dilleri, geliştirilmiş bit hızlı akışlar, 360° videolar ve hasarlı ya da filigranlı kopyalar işaretlenir. Profiller, sen izin vermedikçe yapay zekayla büyütülmüş akışları atlar",
   feat_privacy_h3: "Gizlilik ve kontrol",
   feat_privacy_1:
     "%100 yerel işleme — indirmeler doğrudan YouTube'dan diskine gider",
@@ -167,7 +171,7 @@ export const tr = {
   feat_workflow_2:
     "**Merkezi indirme kuyruğu** — her tekil, oynatma listesi, toplu veya hızlı iş; ilerleme, duraklatma, sürdürme, iptal, yeniden deneme ve öncelik kontrolü için tek yere gelir",
   feat_workflow_3:
-    "**Pano izleme** — bir YouTube bağlantısı kopyala; uygulamaya tekrar odaklandığında Arroxy URL'yi otomatik doldurur (Gelişmiş ayarlardan aç)",
+    "**Pano izleme** — bir video bağlantısı kopyala; Arroxy'ye döndüğünde URL alanını doldurur, istemediysen **Geri al** ile vazgeçebilirsin. Arroxy meşgulken bağlantı, sen URL sekmesine dönene kadar bekler (Ayarlar'dan kapatılabilir)",
   feat_workflow_4:
     "**Otomatik URL temizleme** — izleme parametrelerini (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) kaldırır ve `youtube.com/redirect` bağlantılarını çözer",
   feat_workflow_5:
@@ -196,6 +200,8 @@ export const tr = {
     "**Aurora veya Minimal, koyu veya açık** — hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler; alt bilgi çubuğundan değiştir. Grafik hızlandırması olmayan bilgisayarlar otomatik olarak Minimal'i alır",
   feat_workflow_19:
     "**Mac menü çubuğu** — macOS'ta menü çubuğundan Ayarlar'ı (`Cmd+,`) aç, indirme hızı sınırını belirle, stil ve temayı değiştir, günlükleri aç ya da tanılama dosyasını kaydet",
+  feat_workflow_20:
+    "**Herhangi bir indirmeden profili değiştir** — bir indirmede ayar yap, ardından başladığı profili güncelle (neyin değişeceğini önizleyerek) ya da ayarları yeni bir profil olarak kaydet. Profil değiştirirken düzenlemelerini koruyup korumayacağın sorulur",
   feat_post_h3: "Altyazılar ve son işleme",
   feat_post_1:
     "**Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde",
@@ -211,7 +217,7 @@ export const tr = {
   feat_sites_1:
     "**YouTube, tam kapsamlı** — Videolar, Shorts, Kanallar, Oynatma Listeleri, YouTube Music ve Podcast'ler birinci sınıf kaynak olarak ele alınır",
   feat_sites_2:
-    "**yt-dlp aracılığıyla 2000+ diğer site** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org ve daha fazlası",
+    "**yt-dlp aracılığıyla 2000+ diğer site** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ve daha fazlası",
   feat_sites_3:
     "**Yalnızca ses ve altyazılar** yalnızca YouTube'da değil, desteklenen her sitede çalışır",
   feat_sites_4:
@@ -372,7 +378,7 @@ export const tr = {
     "Ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bağlantı alan sarmalayıcılardır. Arroxy buna **Explore**'u ekler: uygulamaya yerleşik bir YouTube tarayıcısı. Bağlantı kopyalamadan göz atıp indirirsin; orada bir kez giriş yaparak özel, üyelere özel ve yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini çerez dışa aktarmadan indirebilirsin. YouTube robot olmadığını doğrulamanı istediğinde Arroxy bu girişi kullanır; yerleşik tarayıcısı da YouTube'un indirme token'ını alır, böylece indirmeler daha az biçime düşmez. Bkz. [Neden Arroxy](#why).",
   faq_q2: "Hangi video kalitelerini indirebilirim?",
   faq_a2:
-    "YouTube ne sunuyorsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps, 120 fps ve HDR akışlar olduğu gibi korunur.",
+    "YouTube ne sunuyorsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps ve HDR akışlar olduğu gibi korunur; adım adım indirme ise her çözünürlükte AV1, VP9 veya H.264 seçmeni sağlar.",
   faq_q3: "Yalnızca sesi MP3 olarak çıkarabilir miyim?",
   faq_a3:
     "Evet. Biçim menüsünde *yalnızca ses* seç ve MP3, M4A/AAC, Opus veya WAV tercih et.",

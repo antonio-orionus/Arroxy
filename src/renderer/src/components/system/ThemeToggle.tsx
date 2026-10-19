@@ -1,4 +1,5 @@
 import type React from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {Sun, Moon, Monitor} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {type UiTheme, uiThemeSchema} from '@shared/schemas.js'
@@ -28,7 +29,7 @@ function syncThemeToUrl(theme: UiTheme): void {
 
 export function ThemeToggle(): React.JSX.Element {
 	const {t} = useTranslation()
-	const {uiTheme, setUiTheme} = useAppStore()
+	const {uiTheme, setUiTheme} = useAppStore(useShallow(state => ({uiTheme: state.uiTheme, setUiTheme: state.setUiTheme})))
 	return (
 		<ToggleGroup
 			value={[uiTheme]}

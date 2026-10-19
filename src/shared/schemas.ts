@@ -277,12 +277,19 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
 export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
 
-// Electron accelerator chord for the global clipboard-download hotkey. The
-// shape is validated, not enumerated: modifiers + one key. Registered via
-// Electron's globalShortcut, which rejects malformed chords at register time.
+// Electron accelerator chord for the global clipboard-download hotkey:
+// modifiers + one key from Electron's accelerator key list (the keys the
+// recorder can emit). Registered via Electron's globalShortcut, which rejects
+// malformed chords at register time. Older recorders saved `Backquote`, which
+// is not an Electron key name and makes globalShortcut.register throw; it is
+// read as "`" instead of rejected, since a rejected field resets every common
+// setting on load.
+const HOTKEY_MODIFIER = '(?:CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta)'
+const HOTKEY_KEY = "(?:[0-9A-Z]|F(?:[1-9]|1[0-9]|2[0-4])|Space|Tab|Return|Backspace|Delete|Insert|Home|End|PageUp|PageDown|Up|Down|Left|Right|Capslock|Numlock|Scrolllock|PrintScreen|num[0-9]|numdec|numadd|numsub|nummult|numdiv|[-=\\[\\];',./\\\\`]|Backquote)"
 export const hotkeyAcceleratorSchema = z
 	.string()
-	.regex(/^(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta)(\+(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta))*\+([0-9A-Z]|F([1-9]|1[0-9])|Space|Tab|Capslock|Numlock|Scrolllock|Backquote)$/, 'Use modifiers plus one key, e.g. CommandOrControl+Shift+D')
+	.regex(new RegExp(`^${HOTKEY_MODIFIER}(?:\\+${HOTKEY_MODIFIER})*\\+${HOTKEY_KEY}$`), 'Use modifiers plus one key, e.g. CommandOrControl+Shift+D')
+	.transform(chord => chord.replace(/\+Backquote$/, '+`'))
 export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
 
 // Every hotkey trigger attempt ends in exactly one of these outcomes — no

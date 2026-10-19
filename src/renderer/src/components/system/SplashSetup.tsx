@@ -1,10 +1,7 @@
 import type {JSX} from 'react'
 import {useTranslation} from 'react-i18next'
+import {humanSize} from '@shared/format.js'
 import type {SetupProgress} from '../../store/warmupDownloads.js'
-
-function formatMegabytes(bytes: number): string {
-	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}
 
 const TITLE_KEY = {firstRun: 'splash.setup.title.firstRun', media: 'splash.setup.title.media', engine: 'splash.setup.title.engine'} as const
 const NOTE_KEY = {firstRun: 'splash.setup.note.firstRun', media: 'splash.setup.note.media', engine: 'splash.setup.note.engine'} as const
@@ -29,7 +26,7 @@ function stageKey(setup: SetupProgress): 'splash.setup.stage.connecting' | 'spla
 // The splash while Arroxy downloads its tools: one bar for everything, what is
 // happening in plain words, and that it happens once.
 export function SplashSetup({setup, secondsLeft, returning, firstCheck}: {setup: SetupProgress; secondsLeft: number | null; returning: boolean; firstCheck: boolean}): JSX.Element {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const who = audience(setup, returning)
 	const title = t(TITLE_KEY[who])
 	const determinate = setup.stage === 'downloading' && setup.percent !== null
@@ -44,7 +41,7 @@ export function SplashSetup({setup, secondsLeft, returning, firstCheck}: {setup:
 			</div>
 			{determinate && setup.total > 0 && (
 				<p className="splash-bytes" data-testid="splash-setup-bytes">
-					{t('splash.setup.bytes', {done: formatMegabytes(setup.downloaded), total: formatMegabytes(setup.total)})}
+					{t('splash.setup.bytes', {done: humanSize(setup.downloaded, i18n.language), total: humanSize(setup.total, i18n.language)})}
 					{timeLeft && ` · ${timeLeft}`}
 				</p>
 			)}

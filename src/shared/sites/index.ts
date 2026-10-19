@@ -7,15 +7,14 @@
 
 import {isYouTubeExtractor} from '../ytdlp/extractorPredicates.js'
 import {genericSite} from './generic.js'
-import {youtubeSite} from './youtube.js'
+import {isYouTubeHostname, youtubeSite} from './youtube.js'
 import type {Site, SiteId} from './types.js'
 
 export type {Site} from './types.js'
 
-function isYouTubeHost(url: string): boolean {
+function isYouTubeUrl(url: string): boolean {
 	try {
-		const host = new URL(url).hostname.toLowerCase()
-		return host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com')
+		return isYouTubeHostname(new URL(url).hostname)
 	} catch {
 		return false
 	}
@@ -31,7 +30,7 @@ export function siteById(id: SiteId): Site {
 // to avoid mis-routing — a non-YouTube CDN URL that happens to mention
 // "youtube" in a query param won't match.
 export function siteForUrl(url: string): Site {
-	return isYouTubeHost(url) ? youtubeSite : genericSite
+	return isYouTubeUrl(url) ? youtubeSite : genericSite
 }
 
 // Resolve a Site adapter from yt-dlp's extractor identity. Used during the
@@ -58,7 +57,7 @@ export function siteForJob(extractor: string | undefined | null, url: string): S
 // hosts; any other site is its hostname, so a limit from one generic site never
 // holds back another.
 export function requestSiteFor(url: string): string {
-	if (isYouTubeHost(url)) return 'youtube'
+	if (isYouTubeUrl(url)) return 'youtube'
 	try {
 		const host = new URL(url).hostname.toLowerCase()
 		return host.startsWith('www.') ? host.slice(4) : host || 'unknown'

@@ -5,7 +5,7 @@ Video (picked for Balanced 720p •):
 (no video)
 
 Audio:
-MP3: 128 kbps 3.3 MB •
+MP3: 128 kbps 3.2 MiB •
 convert: mp3, m4a, opus, wav
 
 Profile picks:

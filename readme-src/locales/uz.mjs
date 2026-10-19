@@ -96,7 +96,7 @@ export const uz = {
   discord_badge_text: "Discord hamjamiyatiga qo'shiling",
   discord_badge_encoded: "Discord%20hamjamiyatiga%20qo%27shiling",
   hero_desc:
-    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
+    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
   star_cta:
@@ -148,13 +148,17 @@ export const uz = {
   feat_explore_4: "**Qo'shimcha hisobdan foydalaning** — Explore'ning birinchi ekrani sababini tushuntiradi: hisob bilan yuklab olish o'sha hisob cheklanishi xavfini keltiradi. Kirishni unutmoqchi bo'lsangiz, istalgan payt Sozlamalardan Explore'dan chiqing",
   feat_explore_5: "**Reklama blokeri** — Explore o'z sahifalarida reklama va kuzatuvchilarni bloklaydi; yuklab olishlarga ta'sir qilmaydi. Sukut bo'yicha yoqilgan, Explore asboblar panelidagi qalqonni bir bossangiz o'chadi va Google'ning kirish sahifalarida u hech qachon ishlamaydi. YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin",
   feat_quality_h3: "Sifat va formatlar",
-  feat_quality_1: "**4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p gacha",
+  feat_quality_1: "**8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p gacha",
   feat_quality_2:
-    "**Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR",
+    "**Yuqori kadr tezligi va HDR** o'zgarmagan holda saqlanadi — 60 fps, HDR10",
   feat_quality_3:
     "**Audio** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qiling. Interaktiv yuklab olishlarda mavjud bo'lganda manbaning asl surround/Dolby treklarini (AC-3, E-AC-3, 5.1, DRC) tanlang yoki global **Surround / Dolbyni afzal ko'rish** standartini o'rnating",
   feat_quality_4:
     "**Maqsadli profillar** — *Eng yaxshi tasvir* (AV1 · VP9) yoki *Aqlli TV* (MP4 · H.264), qayta kodlashsiz Avto, MP4, MKV yoki WebM sifatida saqlanadi. HDR — *Avto* (faqat ekraningiz uni ko'rsata olsa), *SDR* yoki *HDR*",
+  feat_quality_5:
+    "**Har bir ruxsatda har bir kodek** — bosqichma-bosqich yuklab olish har bir ruxsat uchun AV1, VP9 va H.264 ni yonma-yon ko'rsatadi, shunda televizoringiz yoki video muharriringiz ijro eta oladiganini tanlaysiz",
+  feat_quality_6:
+    "**Oqim aslida qanday ekanini biling** — YouTube sun'iy intellekt yordamida kattalashtirgan o'lchamlar, sun'iy intellekt dublyaj qilgan audio tillar, yaxshilangan bitreytli oqimlar, 360° videolar hamda shikastlangan yoki suv belgili nusxalar belgilanadi. Siz ruxsat bermaguningizcha profillar sun'iy intellekt kattalashtirgan oqimlarni o'tkazib yuboradi",
   feat_privacy_h3: "Maxfiylik va nazorat",
   feat_privacy_1:
     "100% mahalliy qayta ishlash — yuklamalar YouTube'dan to'g'ridan-to'g'ri diskingizga boradi",
@@ -166,7 +170,7 @@ export const uz = {
   feat_workflow_2:
     "**Markaziy yuklab olish navbati** — bitta, playlist, bulk yoki quick ishlarning barchasi jarayon, pauza, davom ettirish, bekor qilish, qayta urinish va ustuvorlik boshqaruvi uchun bir joyga tushadi",
   feat_workflow_3:
-    "**Bufer kuzatish** — YouTube havolasini nusxalang va Arroxy ilovaga qaytganingizda URL'ni avtomatik to'ldiradi (Kengaytirilgan sozlamalarda o'chirish/yoqish mumkin)",
+    "**Bufer kuzatish** — video havolasini nusxalang, Arroxy'ga qaytganingizda u URL maydonini to'ldiradi, xohlamagan bo'lsangiz **Bekor qilish** bor. Arroxy band bo'lsa, havola siz “URL” bo'limiga qaytguningizcha kutadi (Sozlamalarda o'chiriladi)",
   feat_workflow_4:
     "**URL'larni avtomatik tozalash** — kuzatish parametrlarini olib tashlaydi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) va `youtube.com/redirect` havolalarini ochadi",
   feat_workflow_5:
@@ -195,6 +199,8 @@ export const uz = {
     "**Aurora yoki Minimalistik, qorong'i yoki yorug'** — harakatlanuvchi osmon ustidagi shisha panellar yoki sokin yaxlit sirtlar; pastki qatordan almashtiring. Grafik tezlatgichsiz kompyuterlar avtomatik ravishda Minimalistik rejimni oladi",
   feat_workflow_19:
     "**Mac menyu paneli** — macOS'da menyu panelidan Sozlamalarni (`Cmd+,`) oching, yuklab olish tezligi chegarasini belgilang, uslub va mavzuni almashtiring, jurnallarni oching yoki diagnostika faylini saqlang",
+  feat_workflow_20:
+    "**Istalgan yuklab olishdan profilni o'zgartiring** — yuklab olishni sozlang, so'ng u boshlangan profilni yangilang (nima o'zgarishini oldindan ko'rib) yoki sozlamalarni yangi profil sifatida saqlang. Profilni almashtirganda tahrirlaringizni saqlab qolish kerakmi, deb so'raladi",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",
@@ -210,7 +216,7 @@ export const uz = {
   feat_sites_1:
     "**YouTube to'liq** — Videolar, Shorts, Kanallar, Pleylistlar, YouTube Music va Podkastlar birinchi darajali manbalar sifatida ishlaydi",
   feat_sites_2:
-    "**2000+ boshqa saytlar** yt-dlp orqali — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org va boshqalar",
+    "**2000+ boshqa saytlar** yt-dlp orqali — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable va boshqalar",
   feat_sites_3:
     "**Faqat audio va subtitrlar** har qanday qo'llab-quvvatlanadigan saytda ishlaydi, nafaqat YouTube'da",
   feat_sites_4:
@@ -373,7 +379,7 @@ export const uz = {
     "Ko'pchilik bepul yt-dlp GUI'lari faqat havola qabul qiladigan qobiqlardir. Arroxy bunga **Explore**'ni qo'shadi — ilovaga o'rnatilgan YouTube brauzeri: havola nusxalamasdan ko'rib chiqasiz va yuklab olasiz, u yerda bir marta tizimga kirib, yopiq, faqat a'zolar uchun va yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab olasiz. YouTube robot emasligingizni tasdiqlashni so'raganda Arroxy shu kirishdan foydalanadi, o'rnatilgan brauzeri esa YouTube yuklab olish tokenini oladi, shuning uchun yuklab olishlar kamroq formatlarga tushib qolmaydi. [Nima uchun Arroxy](#why) bo'limiga qarang.",
   faq_q2: "Qanday video sifatlarini yuklab olishim mumkin?",
   faq_a2:
-    "YouTube uzatadigan har qanday narsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps, 120 fps va HDR oqimlari o'zgarmagan holda saqlanadi.",
+    "YouTube uzatadigan har qanday narsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps va HDR oqimlari o'zgarmagan holda saqlanadi, bosqichma-bosqich yuklab olish esa har bir ruxsatda AV1, VP9 yoki H.264 ni tanlash imkonini beradi.",
   faq_q3: "Faqat audioni MP3 sifatida chiqarib olishim mumkinmi?",
   faq_a3:
     "Ha. Format menyusidan *faqat audio* ni tanlang va MP3, M4A/AAC, Opus yoki WAV ni belgilang.",

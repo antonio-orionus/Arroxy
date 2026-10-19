@@ -62,12 +62,12 @@ describe('selectView — media kinds', () => {
 	})
 
 	it('scales every size to the part and marks them as estimates', () => {
-		const formats = SEPARATE_FORMATS.map(f => ({...f, filesize: f.formatId === '137' ? 1_000_000 : f.formatId === '140' ? 200_000 : 50_000, label: f.formatId === '140' ? 'm4a audio · 195.3 KB' : f.label}))
+		const formats = SEPARATE_FORMATS.map(f => ({...f, filesize: f.formatId === '137' ? 1_000_000 : f.formatId === '140' ? 200_000 : 50_000, label: f.formatId === '140' ? 'm4a audio · 195.3 KiB' : f.label}))
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoPart: {part: {startSeconds: 0, endSeconds: 25, exactCut: false}, durationSeconds: 100}})
 		expect(view.selectedFilesize).toBe(300_000)
 		expect(view.sizesScaledToPart).toBe(true)
-		expect(view.video.rows.find(row => row.formatId === '137')).toMatchObject({filesize: 250_000, size: '~244.1 KB'})
-		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.size).toBe('~48.8 KB')
+		expect(view.video.rows.find(row => row.formatId === '137')).toMatchObject({filesize: 250_000, size: '~244.1 KiB'})
+		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.size).toBe('~48.8 KiB')
 	})
 
 	it('lists every codec of a height, and the picked stream stands for its codec even when another leads it', () => {
@@ -259,7 +259,7 @@ describe('selectView — video rows', () => {
 
 	it('keeps each stream as fields, so the chip and its spoken name can say every fact', () => {
 		expect(view().video.rows.map(row => [row.ext, row.codec, row.fps, row.dynamicRange, row.size])).toEqual([
-			['mp4', 'AV1', 60, 'HDR10', '1.0 GB'],
+			['mp4', 'AV1', 60, 'HDR10', '1.0 GiB'],
 			['webm', 'VP9', 60, null, null],
 			['mp4', null, 30, null, null]
 		])

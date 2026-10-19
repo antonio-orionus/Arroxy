@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {formatQueueByteSize, queueItemFilesMissing, queueItemSizeBytes} from '@renderer/components/queue/queueFileSize.js'
+import {queueItemFilesMissing, queueItemSizeBytes} from '@renderer/components/queue/queueFileSize.js'
 import type {QueueArtifact} from '@shared/types.js'
 
 function artifact(overrides: Partial<QueueArtifact>): QueueArtifact {
@@ -30,14 +30,5 @@ describe('queueItemFilesMissing', () => {
 		expect(queueItemFilesMissing([artifact({missing: true}), artifact({path: '/d/_arroxy.info.json', fileName: '_arroxy.info.json', kind: 'companion'})])).toBe(true)
 		expect(queueItemFilesMissing([artifact({missing: true}), artifact({path: '/d/a.en.srt', kind: 'subtitle'})])).toBe(false)
 		expect(queueItemFilesMissing([])).toBe(false)
-	})
-})
-
-describe('formatQueueByteSize', () => {
-	it('uses binary units with one decimal below ten', () => {
-		expect(formatQueueByteSize(512)).toBe('512 B')
-		expect(formatQueueByteSize(1536)).toBe('1.5 KiB')
-		expect(formatQueueByteSize(143_250_432)).toBe('137 MiB')
-		expect(formatQueueByteSize(3 * 1024 ** 3)).toBe('3.0 GiB')
 	})
 })

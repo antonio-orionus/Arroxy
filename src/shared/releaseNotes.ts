@@ -1,4 +1,7 @@
 import {lexer, type Token, type Tokens} from 'marked'
+import compare from 'semver/functions/compare.js'
+import prerelease from 'semver/functions/prerelease.js'
+import valid from 'semver/functions/valid.js'
 
 /**
  * Inline content of one paragraph or bullet, parsed by a real Markdown lexer so
@@ -25,13 +28,6 @@ export interface ReleaseNotes {
 export interface ReleaseNotesDigest {
 	version: string
 	releases: ReleaseNotes[]
-}
-
-interface ParsedVersion {
-	major: number
-	minor: number
-	patch: number
-	pre: string[]
 }
 
 /** Matches `## 1.2.3` / `## v1.2.3` headings, not `## Unreleased` or `## Highlights`. */
@@ -201,7 +197,7 @@ export function listChangelogVersions(changelog: string): string[] {
 	for (const line of changelog.split(/\r?\n/)) {
 		const match = VERSION_HEADING.exec(line.trim())
 		const version = match?.[1] ? normalizeVersion(match[1]) : null
-		if (!version || seen.has(version) || !parseVersion(version)) continue
+		if (!version || seen.has(version) || !valid(version)) continue
 		seen.add(version)
 		versions.push(version)
 	}
@@ -251,36 +247,13 @@ function isIgnorableEdgeLine(line: string): boolean {
 }
 
 function isPreRelease(version: string): boolean {
-	return (parseVersion(version)?.pre.length ?? 0) > 0
+	return prerelease(normalizeVersion(version)) !== null
 }
 
-function parseVersion(version: string): ParsedVersion | null {
-	const match = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/.exec(normalizeVersion(version))
-	if (!match) return null
-	return {major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]), pre: match[4]?.split('.') ?? []}
-}
-
+// Invalid versions only ever equal themselves, and otherwise sort below anything.
 function compareSemver(a: string, b: string): number {
-	const left = parseVersion(a)
-	const right = parseVersion(b)
+	const left = valid(normalizeVersion(a))
+	const right = valid(normalizeVersion(b))
 	if (!left || !right) return normalizeVersion(a) === normalizeVersion(b) ? 0 : -1
-	for (const key of ['major', 'minor', 'patch'] as const) {
-		const delta = left[key] - right[key]
-		if (delta !== 0) return delta
-	}
-	if (left.pre.length === 0 && right.pre.length > 0) return 1
-	if (left.pre.length > 0 && right.pre.length === 0) return -1
-	for (let i = 0; i < Math.max(left.pre.length, right.pre.length); i++) {
-		const l = left.pre[i]
-		const r = right.pre[i]
-		if (l === undefined) return -1
-		if (r === undefined) return 1
-		const ln = /^\d+$/.test(l) ? Number(l) : null
-		const rn = /^\d+$/.test(r) ? Number(r) : null
-		if (ln !== null && rn !== null && ln !== rn) return ln - rn
-		if (ln !== null && rn === null) return -1
-		if (ln === null && rn !== null) return 1
-		if (l !== r) return l.localeCompare(r)
-	}
-	return 0
+	return compare(left, right)
 }
