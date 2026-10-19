@@ -404,7 +404,7 @@ if (hasSingleInstanceLock) {
 
 		contextMenu({window: mainWindow.webContents, showSaveImageAs: true, showCopyImageAddress: true, showInspectElement: !app.isPackaged})
 
-		// On by default (isExploreAdBlockOn); nothing is loaded or fetched before Explore first opens.
+		// Off until the user turns it on (isExploreAdBlockOn); nothing is loaded or fetched before then.
 		const {exploreAdBlockFilters} = e2eMode
 		const prebuiltLists = {session: exploreSession, cachePath: path.join(app.getPath('userData'), 'explore-adblock', 'engine.bin')}
 		const exploreAdBlocker = new ExploreAdBlocker({

@@ -1004,10 +1004,10 @@
 		"tabLabel": "Explorer",
 		"newBadge": "Nouveau",
 		"notice": {
-			"title": "Parcourez YouTube directement dans Arroxy",
-			"body": "Trouvez une vidéo, une playlist ou une chaîne et téléchargez-la d’ici, sans copier de liens. Connectez-vous à YouTube ici pour télécharger les vidéos qui nécessitent un compte.",
+			"title": "Parcourez le web directement dans Arroxy",
+			"body": "Trouvez une vidéo sur YouTube ou sur n’importe quel autre site et téléchargez-la d’ici, sans copier de liens. Connectez-vous ici à un site pour télécharger les vidéos qui nécessitent un compte.",
 			"riskTitle": "Connectez-vous avec un compte secondaire",
-			"riskBody": "YouTube peut signaler — et parfois bannir — les comptes utilisés avec des outils de téléchargement comme Arroxy. Utilisez un compte que vous pouvez vous permettre de perdre, pas votre compte principal.",
+			"riskBody": "Des sites comme YouTube peuvent signaler — et parfois bannir — les comptes utilisés avec des outils de téléchargement comme Arroxy. Utilisez un compte que vous pouvez vous permettre de perdre, pas votre compte principal.",
 			"continue": "Continuer"
 		},
 		"nudge": {
@@ -1045,15 +1045,15 @@
 		},
 		"settings": {
 			"title": "Explorer",
-			"description": "Parcourez YouTube dans Arroxy et connectez-vous pour les vidéos qui nécessitent un compte.",
+			"description": "Parcourez YouTube ou n’importe quel autre site dans Arroxy et connectez-vous pour les vidéos qui nécessitent un compte.",
 			"showTab": "Afficher l’onglet Explorer",
 			"showTabDescription": "Le désactiver empêche aussi les téléchargements d’utiliser votre connexion Explorer.",
 			"idleUnload": "Libérer la mémoire en arrière-plan",
 			"idleUnloadDescription": "Après 5 minutes sur un autre onglet, ferme la page d'accueil ou de recherche de YouTube. Au retour, elle se recharge, ce qui prend quelques secondes.",
 			"signOut": "Se déconnecter d’Explorer",
-			"signOutDescription": "Efface votre connexion YouTube et vos données de navigation dans Explorer.",
+			"signOutDescription": "Efface vos connexions et vos données de navigation dans Explorer, sur tous les sites.",
 			"signOutConfirmTitle": "Se déconnecter d’Explorer ?",
-			"signOutConfirmBody": "Cela efface votre connexion YouTube et vos données de navigation dans Explorer. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas.",
+			"signOutConfirmBody": "Cela efface vos connexions et vos données de navigation dans Explorer, sur tous les sites. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas.",
 			"signOutConfirm": "Se déconnecter"
 		},
 		"error": {"proxyTitle": "Explorer ne peut pas se connecter via votre proxy", "proxyBody": "Vérifiez le proxy dans les Réglages, puis réessayez.", "loadTitle": "Cette page ne s’est pas chargée", "loadBody": "Vérifiez votre connexion, puis réessayez.", "retry": "Réessayer", "openSettings": "Ouvrir les Réglages"}

@@ -322,24 +322,24 @@ msgid "New"
 msgstr "Haaraa"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Viidiyoo, tarree taphachiisaa ykn channel barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as YouTube seeni."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Viidiyoo YouTube irratti ykn marsariitii biraa irratti barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as marsariitii tokkotti seeni."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Itti fufi"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Marsariitiin akka YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Akkaawuntii lammaffaatiin seeni"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "YouTube Arroxy keessatti ilaali"
+msgid "Browse the web right inside Arroxy"
+msgstr "Weebii Arroxy keessatti ilaali"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "Seensa Daawwannaa fayyadami"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "YouTube ykn marsariitii biraa Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -390,16 +390,16 @@ msgid "Sign out"
 msgstr "Ba'i"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Kun seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Kun seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Daawwannaa irraa ba'uu?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa."
 
 msgctxt "explore.settings.title"
 msgid "Explore"

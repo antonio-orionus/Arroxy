@@ -834,10 +834,10 @@
 		"tabLabel": "探索",
 		"newBadge": "新",
 		"notice": {
-			"title": "在 Arroxy 中直接浏览 YouTube",
-			"body": "查找视频、播放列表或频道，无需复制链接，直接在这里下载。在这里登录 YouTube，即可下载需要账号的视频。",
+			"title": "在 Arroxy 中直接浏览网页",
+			"body": "在 YouTube 或任何其他网站上查找视频，无需复制链接，直接在这里下载。在这里登录网站，即可下载需要账号的视频。",
 			"riskTitle": "请使用备用账号登录",
-			"riskBody": "YouTube 可能会标记、有时甚至封禁用于 Arroxy 等下载工具的账号。请使用可以失去的账号，而不是你的主账号。",
+			"riskBody": "YouTube 等网站可能会标记、有时甚至封禁用于 Arroxy 等下载工具的账号。请使用可以失去的账号，而不是你的主账号。",
 			"continue": "继续"
 		},
 		"nudge": {"off": "Cookies 已关闭，因此下载不会使用你在“探索”中的登录。", "file": "下载使用的是你的 Cookies 文件，而不是你在“探索”中的登录。", "browser": "下载使用的是浏览器的 Cookies，而不是你在“探索”中的登录。", "useExplore": "使用“探索”中的登录", "notNow": "暂不"},
@@ -862,15 +862,15 @@
 		},
 		"settings": {
 			"title": "探索",
-			"description": "在 Arroxy 中浏览 YouTube，并登录以访问需要账号的视频。",
+			"description": "在 Arroxy 中浏览 YouTube 或任何其他网站，并登录以访问需要账号的视频。",
 			"showTab": "显示“探索”标签页",
 			"showTabDescription": "关闭后，下载也将不再使用你在“探索”中的登录。",
 			"idleUnload": "离开时释放内存",
 			"idleUnloadDescription": "在其他标签页停留 5 分钟后，关闭 YouTube 首页或搜索页。返回时会重新加载，需要几秒钟。",
 			"signOut": "退出“探索”登录",
-			"signOutDescription": "清除“探索”中的 YouTube 登录信息和浏览数据。",
+			"signOutDescription": "清除“探索”中所有网站的登录信息和浏览数据。",
 			"signOutConfirmTitle": "退出“探索”登录？",
-			"signOutConfirmBody": "这将清除“探索”中的 YouTube 登录信息和浏览数据。需要账号的下载将失败，直到你重新登录。",
+			"signOutConfirmBody": "这将清除“探索”中所有网站的登录信息和浏览数据。需要账号的下载将失败，直到你重新登录。",
 			"signOutConfirm": "退出登录"
 		},
 		"error": {"proxyTitle": "“探索”无法通过你的代理连接", "proxyBody": "请在设置中检查代理，然后重试。", "loadTitle": "此页面未能加载", "loadBody": "请检查网络连接，然后重试。", "retry": "重试", "openSettings": "打开设置"}

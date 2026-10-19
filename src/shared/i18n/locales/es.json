@@ -986,10 +986,10 @@
 		"tabLabel": "Explorar",
 		"newBadge": "Nuevo",
 		"notice": {
-			"title": "Explora YouTube dentro de Arroxy",
-			"body": "Encuentra un vídeo, una lista de reproducción o un canal y descárgalo desde aquí, sin copiar enlaces. Inicia sesión en YouTube aquí para descargar vídeos que requieren una cuenta.",
+			"title": "Explora la web dentro de Arroxy",
+			"body": "Encuentra un vídeo en YouTube o en cualquier otro sitio y descárgalo desde aquí, sin copiar enlaces. Inicia sesión aquí en un sitio para descargar vídeos que requieren una cuenta.",
 			"riskTitle": "Inicia sesión con una cuenta secundaria",
-			"riskBody": "YouTube puede marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como Arroxy. Usa una cuenta que puedas permitirte perder, no la principal.",
+			"riskBody": "Sitios como YouTube pueden marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como Arroxy. Usa una cuenta que puedas permitirte perder, no la principal.",
 			"continue": "Continuar"
 		},
 		"nudge": {
@@ -1027,15 +1027,15 @@
 		},
 		"settings": {
 			"title": "Explorar",
-			"description": "Navega por YouTube dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
+			"description": "Navega por YouTube o cualquier otro sitio dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
 			"showTab": "Mostrar la pestaña Explorar",
 			"showTabDescription": "Al desactivarla, las descargas también dejan de usar tu sesión de Explorar.",
 			"idleUnload": "Liberar memoria en segundo plano",
 			"idleUnloadDescription": "Tras 5 minutos en otra pestaña, cierra la página de inicio o de búsqueda de YouTube. Al volver, se recarga, lo que tarda unos segundos.",
 			"signOut": "Cerrar sesión en Explorar",
-			"signOutDescription": "Borra tu sesión de YouTube y los datos de navegación en Explorar.",
+			"signOutDescription": "Borra tus sesiones y los datos de navegación en Explorar, en todos los sitios.",
 			"signOutConfirmTitle": "¿Cerrar sesión en Explorar?",
-			"signOutConfirmBody": "Esto borra tu sesión de YouTube y los datos de navegación en Explorar. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión.",
+			"signOutConfirmBody": "Esto borra tus sesiones y los datos de navegación en Explorar, en todos los sitios. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión.",
 			"signOutConfirm": "Cerrar sesión"
 		},
 		"error": {"proxyTitle": "Explorar no puede conectarse a través de tu proxy", "proxyBody": "Revisa el proxy en Ajustes y vuelve a intentarlo.", "loadTitle": "Esta página no se cargó", "loadBody": "Comprueba tu conexión y vuelve a intentarlo.", "retry": "Reintentar", "openSettings": "Abrir Ajustes"}

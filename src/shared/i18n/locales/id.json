@@ -918,10 +918,10 @@
 		"tabLabel": "Jelajahi",
 		"newBadge": "Baru",
 		"notice": {
-			"title": "Jelajahi YouTube langsung di dalam Arroxy",
-			"body": "Temukan video, playlist, atau kanal dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke YouTube di sini untuk mengunduh video yang memerlukan akun.",
+			"title": "Jelajahi web langsung di dalam Arroxy",
+			"body": "Temukan video di YouTube atau situs lain dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke suatu situs di sini untuk mengunduh video yang memerlukan akun.",
 			"riskTitle": "Masuk dengan akun sekunder",
-			"riskBody": "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama.",
+			"riskBody": "Situs seperti YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama.",
 			"continue": "Lanjutkan"
 		},
 		"nudge": {"off": "Cookie nonaktif, jadi unduhan tidak memakai login Jelajahi Anda.", "file": "Unduhan memakai berkas cookie Anda, bukan login Jelajahi.", "browser": "Unduhan memakai cookie peramban Anda, bukan login Jelajahi.", "useExplore": "Pakai login Jelajahi", "notNow": "Nanti saja"},
@@ -953,15 +953,15 @@
 		},
 		"settings": {
 			"title": "Jelajahi",
-			"description": "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan akun.",
+			"description": "Jelajahi YouTube atau situs lain di dalam Arroxy, dan masuk untuk video yang memerlukan akun.",
 			"showTab": "Tampilkan tab Jelajahi",
 			"showTabDescription": "Menonaktifkannya juga menghentikan unduhan memakai login Jelajahi Anda.",
 			"idleUnload": "Kosongkan memori saat ditinggal",
 			"idleUnloadDescription": "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik.",
 			"signOut": "Keluar dari Jelajahi",
-			"signOutDescription": "Menghapus login YouTube dan data penjelajahan Anda di Jelajahi.",
+			"signOutDescription": "Menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs.",
 			"signOutConfirmTitle": "Keluar dari Jelajahi?",
-			"signOutConfirmBody": "Ini menghapus login YouTube dan data penjelajahan Anda di Jelajahi. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi.",
+			"signOutConfirmBody": "Ini menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi.",
 			"signOutConfirm": "Keluar"
 		},
 		"error": {"proxyTitle": "Jelajahi tidak dapat terhubung melalui proxy Anda", "proxyBody": "Periksa proxy di Pengaturan, lalu coba lagi.", "loadTitle": "Halaman ini tidak termuat", "loadBody": "Periksa koneksi Anda, lalu coba lagi.", "retry": "Mencoba kembali", "openSettings": "Buka Pengaturan"}

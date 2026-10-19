@@ -980,10 +980,10 @@
 		"tabLabel": "Explorar",
 		"newBadge": "Novo",
 		"notice": {
-			"title": "Navegue pelo YouTube dentro do Arroxy",
-			"body": "Encontre um vídeo, uma playlist ou um canal e baixe-o daqui, sem copiar links. Entre no YouTube aqui para baixar vídeos que exigem uma conta.",
+			"title": "Navegue pela web dentro do Arroxy",
+			"body": "Encontre um vídeo no YouTube ou em qualquer outro site e baixe-o daqui, sem copiar links. Entre em um site aqui para baixar vídeos que exigem uma conta.",
 			"riskTitle": "Entre com uma conta secundária",
-			"riskBody": "O YouTube pode sinalizar — e às vezes banir — contas usadas com ferramentas de download como o Arroxy. Use uma conta que você possa se dar ao luxo de perder, não a principal.",
+			"riskBody": "Sites como o YouTube podem sinalizar — e às vezes banir — contas usadas com ferramentas de download como o Arroxy. Use uma conta que você possa se dar ao luxo de perder, não a principal.",
 			"continue": "Continuar"
 		},
 		"nudge": {
@@ -1021,15 +1021,15 @@
 		},
 		"settings": {
 			"title": "Explorar",
-			"description": "Navegue pelo YouTube dentro do Arroxy e entre para vídeos que exigem uma conta.",
+			"description": "Navegue pelo YouTube ou por qualquer outro site dentro do Arroxy e entre para vídeos que exigem uma conta.",
 			"showTab": "Mostrar a aba Explorar",
 			"showTabDescription": "Desativá-la também impede que os downloads usem seu login do Explorar.",
 			"idleUnload": "Liberar memória em segundo plano",
 			"idleUnloadDescription": "Após 5 minutos em outra aba, fecha a página inicial ou de pesquisa do YouTube. Ao voltar, ela é recarregada, o que leva alguns segundos.",
 			"signOut": "Sair do Explorar",
-			"signOutDescription": "Apaga seu login do YouTube e os dados de navegação no Explorar.",
+			"signOutDescription": "Apaga seus logins e os dados de navegação no Explorar, em todos os sites.",
 			"signOutConfirmTitle": "Sair do Explorar?",
-			"signOutConfirmBody": "Isso apaga seu login do YouTube e os dados de navegação no Explorar. Downloads que exigem uma conta falharão até você entrar novamente.",
+			"signOutConfirmBody": "Isso apaga seus logins e os dados de navegação no Explorar, em todos os sites. Downloads que exigem uma conta falharão até você entrar novamente.",
 			"signOutConfirm": "Sair"
 		},
 		"error": {"proxyTitle": "O Explorar não consegue se conectar pelo seu proxy", "proxyBody": "Verifique o proxy em Configurações e tente novamente.", "loadTitle": "Esta página não carregou", "loadBody": "Verifique sua conexão e tente novamente.", "retry": "Tentar novamente", "openSettings": "Abrir Configurações"}

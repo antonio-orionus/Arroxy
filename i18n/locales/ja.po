@@ -317,24 +317,24 @@ msgid "New"
 msgstr "新着"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "動画・プレイリスト・チャンネルを見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでYouTubeにログインしてください。"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "YouTubeなどのサイトで動画を見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでサイトにログインしてください。"
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "続行"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTubeは、Arroxyなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTubeなどのサイトは、Arroxyのようなダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。"
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "サブアカウントでログインしてください"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Arroxy内でYouTubeを閲覧"
+msgid "Browse the web right inside Arroxy"
+msgstr "Arroxy内でWebを閲覧"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -357,8 +357,8 @@ msgid "Use Explore sign-in"
 msgstr "「探索」のログインを使う"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画のためにログインできます。"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Arroxy内でYouTubeなどのサイトを閲覧し、アカウントが必要な動画のためにログインできます。"
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -385,16 +385,16 @@ msgid "Sign out"
 msgstr "ログアウト"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "「探索」からログアウトしますか?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。"
 
 msgctxt "explore.settings.title"
 msgid "Explore"

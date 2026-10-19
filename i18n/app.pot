@@ -319,7 +319,7 @@ msgid "New"
 msgstr ""
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
 msgstr ""
 
 msgctxt "explore.notice.continue"
@@ -327,7 +327,7 @@ msgid "Continue"
 msgstr ""
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
 msgstr ""
 
 msgctxt "explore.notice.riskTitle"
@@ -335,7 +335,7 @@ msgid "Sign in with a secondary account"
 msgstr ""
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
+msgid "Browse the web right inside Arroxy"
 msgstr ""
 
 msgctxt "explore.nudge.browser"
@@ -359,7 +359,7 @@ msgid "Use Explore sign-in"
 msgstr ""
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
 msgstr ""
 
 msgctxt "explore.settings.idleUnload"
@@ -387,7 +387,7 @@ msgid "Sign out"
 msgstr ""
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
 msgstr ""
 
 msgctxt "explore.settings.signOutConfirmTitle"
@@ -395,7 +395,7 @@ msgid "Sign out of Explore?"
 msgstr ""
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
 msgstr ""
 
 msgctxt "explore.settings.title"

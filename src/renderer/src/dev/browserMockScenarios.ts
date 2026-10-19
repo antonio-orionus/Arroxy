@@ -99,7 +99,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'explore-long-profile',
 	'explore-nudge',
 	'explore-proxy-error',
-	'explore-adblock-off',
+	'explore-adblock-on',
 	'explore-adblock-unavailable',
 	'explore-address-refused'
 ] as const
@@ -282,7 +282,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download split truncates the name and keeps it whole in the native tooltip.', kind: 'explore'},
 	{id: 'explore-nudge', group: 'Explore', title: 'Explore mode nudge', description: 'Cookies mode is not Explore, so the mode nudge sits above the toolbar.', kind: 'explore'},
 	{id: 'explore-proxy-error', group: 'Explore', title: 'Explore proxy error', description: 'The view refuses to load because the proxy setting is invalid: the error surface replaces the page.', kind: 'explore'},
-	{id: 'explore-adblock-off', group: 'Explore', title: 'Explore ad blocker off', description: 'The user turned the ad blocker off: the shield in the toolbar is not pressed and Explore pages load unfiltered.', kind: 'explore'},
+	{id: 'explore-adblock-on', group: 'Explore', title: 'Explore ad blocker on', description: 'The user turned the ad blocker on: the shield in the toolbar is pressed and Explore pages load filtered.', kind: 'explore'},
 	{id: 'explore-adblock-unavailable', group: 'Explore', title: 'Explore ad blocker unavailable', description: "The ad blocker is on but its filter lists couldn't be downloaded: the shield warns and nothing is blocked.", kind: 'explore'},
 	{id: 'explore-address-refused', group: 'Explore', title: 'Explore refused address', description: 'An address Explore does not load (another scheme, or a sign-in page) was typed in the address bar: the hint under the toolbar says so.', kind: 'explore'}
 ] as const

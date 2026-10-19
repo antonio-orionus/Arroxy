@@ -1035,10 +1035,10 @@
 		"tabLabel": "Odkrywaj",
 		"newBadge": "Nowość",
 		"notice": {
-			"title": "Przeglądaj YouTube prosto w Arroxy",
-			"body": "Znajdź film, playlistę lub kanał i pobierz go stąd, bez kopiowania linków. Zaloguj się tu do YouTube, aby pobierać filmy wymagające konta.",
+			"title": "Przeglądaj sieć prosto w Arroxy",
+			"body": "Znajdź film na YouTube lub dowolnej innej stronie i pobierz go stąd, bez kopiowania linków. Zaloguj się tu w serwisie, aby pobierać filmy wymagające konta.",
 			"riskTitle": "Zaloguj się na konto dodatkowe",
-			"riskBody": "YouTube może oznaczać — a czasem blokować — konta używane z narzędziami do pobierania, takimi jak Arroxy. Użyj konta, które możesz stracić, a nie głównego.",
+			"riskBody": "Serwisy takie jak YouTube mogą oznaczać — a czasem blokować — konta używane z narzędziami do pobierania, takimi jak Arroxy. Użyj konta, które możesz stracić, a nie głównego.",
 			"continue": "Kontynuuj"
 		},
 		"nudge": {
@@ -1076,15 +1076,15 @@
 		},
 		"settings": {
 			"title": "Odkrywaj",
-			"description": "Przeglądaj YouTube w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
+			"description": "Przeglądaj YouTube lub dowolną inną stronę w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
 			"showTab": "Pokaż kartę Odkrywaj",
 			"showTabDescription": "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania z karty Odkrywaj.",
 			"idleUnload": "Zwalniaj pamięć w tle",
 			"idleUnloadDescription": "Po 5 minutach na innej karcie zamyka stronę główną lub stronę wyszukiwania YouTube. Po powrocie strona wczytuje się ponownie, co trwa kilka sekund.",
 			"signOut": "Wyloguj się z karty Odkrywaj",
-			"signOutDescription": "Usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj.",
+			"signOutDescription": "Usuwa logowania i dane przeglądania w karcie Odkrywaj, na wszystkich stronach.",
 			"signOutConfirmTitle": "Wylogować się z karty Odkrywaj?",
-			"signOutConfirmBody": "To usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie.",
+			"signOutConfirmBody": "To usuwa logowania i dane przeglądania w karcie Odkrywaj, na wszystkich stronach. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie.",
 			"signOutConfirm": "Wyloguj"
 		},
 		"error": {

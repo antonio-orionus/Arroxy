@@ -317,24 +317,24 @@ msgid "New"
 msgstr "အသစ်"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "ဗီဒီယို၊ ပလေးလစ် သို့မဟုတ် ချန်နယ်တစ်ခုကို ရှာပြီး ဤနေရာမှ တိုက်ရိုက်ဒေါင်းလုဒ်လုပ်ပါ — လင့်ခ်ကူးစရာမလိုပါ။ အကောင့်လိုအပ်သော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ဤနေရာတွင် YouTube သို့ ဝင်ရောက်ပါ။"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်တစ်ခုပေါ်တွင် ဗီဒီယိုတစ်ခုကို ရှာပြီး ဤနေရာမှ တိုက်ရိုက်ဒေါင်းလုဒ်လုပ်ပါ — လင့်ခ်ကူးစရာမလိုပါ။ အကောင့်လိုအပ်သော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ဤနေရာတွင် ဝဘ်ဆိုက်တစ်ခုသို့ ဝင်ရောက်ပါ။"
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "ဆက်လက်သွားမည်"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "Arroxy ကဲ့သို့ ဒေါင်းလုဒ်ကိရိယာများနှင့် သုံးသော အကောင့်များကို YouTube က အလံပြ — တစ်ခါတစ်ရံ ပိတ်ပင် — နိုင်သည်။ ဆုံးရှုံးသော်လည်း ခံနိုင်သည့် အကောင့်ကို သုံးပါ၊ သင့်အဓိကအကောင့်ကို မသုံးပါနှင့်။"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube ကဲ့သို့ ဝဘ်ဆိုက်များသည် Arroxy ကဲ့သို့ ဒေါင်းလုဒ်ကိရိယာများနှင့် သုံးသော အကောင့်များကို အလံပြ — တစ်ခါတစ်ရံ ပိတ်ပင် — နိုင်သည်။ ဆုံးရှုံးသော်လည်း ခံနိုင်သည့် အကောင့်ကို သုံးပါ၊ သင့်အဓိကအကောင့်ကို မသုံးပါနှင့်။"
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "အရန်အကောင့်ဖြင့် ဝင်ရောက်ပါ"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Arroxy ထဲမှာပင် YouTube ကို ကြည့်ရှုပါ"
+msgid "Browse the web right inside Arroxy"
+msgstr "Arroxy ထဲမှာပင် ဝဘ်ကို ကြည့်ရှုပါ"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -357,8 +357,8 @@ msgid "Use Explore sign-in"
 msgstr "“စူးစမ်းရန်” ဝင်ရောက်မှု သုံးမည်"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Arroxy ထဲတွင် YouTube ကို ကြည့်ရှုပြီး အကောင့်လိုအပ်သော ဗီဒီယိုများအတွက် ဝင်ရောက်ပါ။"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Arroxy ထဲတွင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်တစ်ခုကို ကြည့်ရှုပြီး အကောင့်လိုအပ်သော ဗီဒီယိုများအတွက် ဝင်ရောက်ပါ။"
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -385,16 +385,16 @@ msgid "Sign out"
 msgstr "ထွက်မည်"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "ဤသည်က “စူးစမ်းရန်” ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။ အကောင့်လိုအပ်သော ဒေါင်းလုဒ်များသည် ပြန်ဝင်သည်အထိ မအောင်မြင်ပါ။"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "ဤသည်က “စူးစမ်းရန်” ရှိ ဝဘ်ဆိုက်အားလုံးအတွက် သင့်ဝင်ရောက်မှုများနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။ အကောင့်လိုအပ်သော ဒေါင်းလုဒ်များသည် ပြန်ဝင်သည်အထိ မအောင်မြင်ပါ။"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "“စူးစမ်းရန်” မှ ထွက်မလား?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "“စူးစမ်းရန်” ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "“စူးစမ်းရန်” ရှိ ဝဘ်ဆိုက်အားလုံးအတွက် သင့်ဝင်ရောက်မှုများနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။"
 
 msgctxt "explore.settings.title"
 msgid "Explore"

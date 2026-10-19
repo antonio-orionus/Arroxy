@@ -967,10 +967,10 @@
 		"tabLabel": "Daawwannaa",
 		"newBadge": "Haaraa",
 		"notice": {
-			"title": "YouTube Arroxy keessatti ilaali",
-			"body": "Viidiyoo, tarree taphachiisaa ykn channel barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as YouTube seeni.",
+			"title": "Weebii Arroxy keessatti ilaali",
+			"body": "Viidiyoo YouTube irratti ykn marsariitii biraa irratti barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as marsariitii tokkotti seeni.",
 			"riskTitle": "Akkaawuntii lammaffaatiin seeni",
-			"riskBody": "YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
+			"riskBody": "Marsariitiin akka YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
 			"continue": "Itti fufi"
 		},
 		"nudge": {
@@ -1008,15 +1008,15 @@
 		},
 		"settings": {
 			"title": "Daawwannaa",
-			"description": "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
+			"description": "YouTube ykn marsariitii biraa Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
 			"showTab": "Tab Daawwannaa agarsiisi",
 			"showTabDescription": "Cufuun isaa buufannoon seensa Daawwannaa akka hin fayyadamne ni godha.",
 			"idleUnload": "Yeroo hin jirretti yaadannoo bilisa godhi",
 			"idleUnloadDescription": "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata.",
 			"signOut": "Daawwannaa irraa ba'i",
-			"signOutDescription": "Seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa.",
+			"signOutDescription": "Seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa.",
 			"signOutConfirmTitle": "Daawwannaa irraa ba'uu?",
-			"signOutConfirmBody": "Kun seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa.",
+			"signOutConfirmBody": "Kun seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa.",
 			"signOutConfirm": "Ba'i"
 		},
 		"error": {

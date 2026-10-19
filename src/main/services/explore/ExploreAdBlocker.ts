@@ -64,8 +64,8 @@ interface Hooked {
 	preloadId: string
 }
 
-// The Explore ad blocker (P2-R36, on by default since P2-R53 until the user
-// turns it off), and only ever on the Explore session. It is the only owner of that session's
+// The Explore ad blocker (P2-R36, off until the user turns it on), and only
+// ever on the Explore session. It is the only owner of that session's
 // webRequest listeners (Electron keeps one listener per event per session):
 // turning it off clears exactly the listeners it set. The library's own
 // BlockingContext is not used: its preload path is resolved from node_modules

@@ -327,24 +327,24 @@ msgid "New"
 msgstr "Ново"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Пронађи видео, плејлисту или канал и преузми их одавде — без копирања линкова. Пријави се на YouTube овде да би преузимао видео за који је потребан налог."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Пронађи видео на YouTube-у или било ком другом сајту и преузми га одавде — без копирања линкова. Пријави се на сајт овде да би преузимао видео за који је потребан налог."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Настави"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube може да означи — а понекад и забрани — налоге који се користе са алатима за преузимање као што је Arroxy. Користи налог који ти није жао да изгубиш, а не главни."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Сајтови попут YouTube-а могу да означе — а понекад и забране — налоге који се користе са алатима за преузимање као што је Arroxy. Користи налог који ти није жао да изгубиш, а не главни."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Пријави се помоћу секундарног налога"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Прегледај YouTube директно у апликацији Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Прегледај веб директно у апликацији Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -367,8 +367,8 @@ msgid "Use Explore sign-in"
 msgstr "Користи пријаву у Истраживању"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Прегледај YouTube у апликацији Arroxy и пријави се за видео за који је потребан налог."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Прегледај YouTube или било који други сајт у апликацији Arroxy и пријави се за видео за који је потребан налог."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -395,16 +395,16 @@ msgid "Sign out"
 msgstr "Одјави се"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Ово брише твоју пријаву на YouTube и податке прегледања у Истраживању. Преузимања за која је потребан налог неће успевати док се поново не пријавиш."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Ово брише твоје пријаве и податке прегледања у Истраживању, на свим сајтовима. Преузимања за која је потребан налог неће успевати док се поново не пријавиш."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Одјавити се из Истраживања?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Брише твоју пријаву на YouTube и податке прегледања у Истраживању."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Брише твоје пријаве и податке прегледања у Истраживању, на свим сајтовима."
 
 msgctxt "explore.settings.title"
 msgid "Explore"

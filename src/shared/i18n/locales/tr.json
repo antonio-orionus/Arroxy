@@ -936,10 +936,10 @@
 		"tabLabel": "Keşfet",
 		"newBadge": "Yeni",
 		"notice": {
-			"title": "YouTube'a doğrudan Arroxy içinde göz at",
-			"body": "Bir video, oynatma listesi veya kanal bul ve buradan indir — bağlantı kopyalamadan. Hesap gerektiren videoları indirmek için burada YouTube'da oturum aç.",
+			"title": "Web'de doğrudan Arroxy içinde gez",
+			"body": "YouTube'da veya başka herhangi bir sitede bir video bul ve buradan indir — bağlantı kopyalamadan. Hesap gerektiren videoları indirmek için burada bir sitede oturum aç.",
 			"riskTitle": "İkincil bir hesapla oturum aç",
-			"riskBody": "YouTube, Arroxy gibi indirme araçlarıyla kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Ana hesabını değil, kaybetmeyi göze alabileceğin bir hesap kullan.",
+			"riskBody": "YouTube gibi siteler, Arroxy gibi indirme araçlarıyla kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Ana hesabını değil, kaybetmeyi göze alabileceğin bir hesap kullan.",
 			"continue": "Devam et"
 		},
 		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz.", "file": "İndirmeler Keşfet oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Keşfet oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Keşfet oturumunu kullan", "notNow": "Şimdi değil"},
@@ -971,15 +971,15 @@
 		},
 		"settings": {
 			"title": "Keşfet",
-			"description": "YouTube'a Arroxy içinde göz at ve hesap gerektiren videolar için oturum aç.",
+			"description": "YouTube'da veya başka herhangi bir sitede Arroxy içinde gez ve hesap gerektiren videolar için oturum aç.",
 			"showTab": "Keşfet sekmesini göster",
 			"showTabDescription": "Kapatmak, indirmelerin Keşfet oturumunu kullanmasını da durdurur.",
 			"idleUnload": "Uzaktayken belleği boşalt",
 			"idleUnloadDescription": "Başka bir sekmede 5 dakika geçince YouTube ana sayfasını veya arama sayfasını kapatır. Geri döndüğünde yeniden yüklenir, bu birkaç saniye sürer.",
 			"signOut": "Keşfet'ten çıkış yap",
-			"signOutDescription": "Keşfet'teki YouTube oturumunu ve gezinme verilerini temizler.",
+			"signOutDescription": "Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler.",
 			"signOutConfirmTitle": "Keşfet'ten çıkış yapılsın mı?",
-			"signOutConfirmBody": "Bu, Keşfet'teki YouTube oturumunu ve gezinme verilerini temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur.",
+			"signOutConfirmBody": "Bu, Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur.",
 			"signOutConfirm": "Çıkış yap"
 		},
 		"error": {"proxyTitle": "Keşfet, proxy'n üzerinden bağlanamıyor", "proxyBody": "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene.", "loadTitle": "Bu sayfa yüklenmedi", "loadBody": "Bağlantını kontrol et, sonra tekrar dene.", "retry": "Tekrar dene", "openSettings": "Ayarları aç"}

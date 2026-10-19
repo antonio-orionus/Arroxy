@@ -940,10 +940,10 @@
 		"tabLabel": "Gundua",
 		"newBadge": "Mpya",
 		"notice": {
-			"title": "Vinjari YouTube ndani ya Arroxy",
-			"body": "Tafuta video, orodha ya kucheza au kituo na upakue kutoka hapa — bila kunakili viungo. Ingia kwenye YouTube hapa ili kupakua video zinazohitaji akaunti.",
+			"title": "Vinjari wavuti ndani ya Arroxy",
+			"body": "Tafuta video kwenye YouTube au tovuti nyingine yoyote na uipakue kutoka hapa — bila kunakili viungo. Ingia kwenye tovuti hapa ili kupakua video zinazohitaji akaunti.",
 			"riskTitle": "Ingia kwa akaunti ya pili",
-			"riskBody": "YouTube inaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu.",
+			"riskBody": "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu.",
 			"continue": "Endelea"
 		},
 		"nudge": {
@@ -981,15 +981,15 @@
 		},
 		"settings": {
 			"title": "Gundua",
-			"description": "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti.",
+			"description": "Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy, na uingie kwa video zinazohitaji akaunti.",
 			"showTab": "Onyesha kichupo cha Gundua",
 			"showTabDescription": "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Gundua.",
 			"idleUnload": "Achilia kumbukumbu ukiwa mbali",
 			"idleUnloadDescription": "Baada ya dakika 5 kwenye kichupo kingine, hufunga ukurasa wa mwanzo au wa utafutaji wa YouTube. Ukirudi, hupakiwa upya, jambo linalochukua sekunde chache.",
 			"signOut": "Toka kwenye Gundua",
-			"signOutDescription": "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua.",
+			"signOutDescription": "Inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti.",
 			"signOutConfirmTitle": "Utoke kwenye Gundua?",
-			"signOutConfirmBody": "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena.",
+			"signOutConfirmBody": "Hii inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena.",
 			"signOutConfirm": "Toka"
 		},
 		"error": {"proxyTitle": "Gundua haiwezi kuunganisha kupitia proksi yako", "proxyBody": "Angalia proksi katika Mipangilio, kisha jaribu tena.", "loadTitle": "Ukurasa huu haukupakia", "loadBody": "Angalia muunganisho wako, kisha jaribu tena.", "retry": "Jaribu tena", "openSettings": "Fungua Mipangilio"}

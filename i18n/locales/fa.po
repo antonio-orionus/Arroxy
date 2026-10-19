@@ -322,24 +322,24 @@ msgid "New"
 msgstr "جدید"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "ویدیو، فهرست پخش یا کانال را پیدا کنید و از همین‌جا دانلود کنید — بدون کپی کردن پیوند. برای دانلود ویدیوهایی که به حساب نیاز دارند، همین‌جا وارد YouTube شوید."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "ویدیویی را در YouTube یا هر سایت دیگری پیدا کنید و از همین‌جا دانلود کنید — بدون کپی کردن پیوند. برای دانلود ویدیوهایی که به حساب نیاز دارند، همین‌جا وارد یک سایت شوید."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "ادامه"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube ممکن است حساب‌هایی را که با ابزارهای دانلود مانند Arroxy استفاده می‌شوند علامت‌گذاری و گاهی مسدود کند. از حسابی استفاده کنید که از دست دادنش مهم نیست، نه حساب اصلی‌تان."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "سایت‌هایی مانند YouTube ممکن است حساب‌هایی را که با ابزارهای دانلود مانند Arroxy استفاده می‌شوند علامت‌گذاری و گاهی مسدود کنند. از حسابی استفاده کنید که از دست دادنش مهم نیست، نه حساب اصلی‌تان."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "با یک حساب ثانویه وارد شوید"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "YouTube را مستقیم داخل Arroxy مرور کنید"
+msgid "Browse the web right inside Arroxy"
+msgstr "وب را مستقیم داخل Arroxy مرور کنید"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "استفاده از ورود «کاوش»"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "YouTube را داخل Arroxy مرور کنید و برای ویدیوهایی که به حساب نیاز دارند وارد شوید."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "YouTube یا هر سایت دیگری را داخل Arroxy مرور کنید و برای ویدیوهایی که به حساب نیاز دارند وارد شوید."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -390,16 +390,16 @@ msgid "Sign out"
 msgstr "خروج"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "با این کار ورود شما به YouTube و داده‌های مرور در «کاوش» پاک می‌شود. دانلودهایی که به حساب نیاز دارند تا ورود دوباره ناموفق خواهند بود."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "با این کار ورودهای شما و داده‌های مرور در «کاوش»، در همهٔ سایت‌ها پاک می‌شود. دانلودهایی که به حساب نیاز دارند تا ورود دوباره ناموفق خواهند بود."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "از «کاوش» خارج می‌شوید؟"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "ورود شما به YouTube و داده‌های مرور را در «کاوش» پاک می‌کند."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "ورودهای شما و داده‌های مرور را در «کاوش»، در همهٔ سایت‌ها پاک می‌کند."
 
 msgctxt "explore.settings.title"
 msgid "Explore"

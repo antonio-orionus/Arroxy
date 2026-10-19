@@ -2,10 +2,10 @@ import http from 'node:http'
 import {expect, test, type ElectronApplication} from '@playwright/test'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
-// Explore ad blocker (P2-R36, on by default per P2-R53). The user-facing
-// risks: an ad that loads on a fresh install, a page that keeps blocking after
-// the shield is turned off, a toggle that does nothing until some later
-// navigation, and an off choice that is lost on restart.
+// Explore ad blocker (P2-R36, off until the user turns it on). The user-facing
+// risks: a page filtered on a fresh install, a page that keeps loading ads after
+// the shield is turned on, a toggle that does nothing until some later
+// navigation, and an on choice that is lost on restart.
 //
 // Fixtures: the Explore view opens a local home page that loads two scripts
 // from a second local origin — an "ad" the seeded filter list names, and plain
@@ -70,15 +70,15 @@ async function viewUrl(app: ElectronApplication): Promise<string | null> {
 const POLL = {timeout: 30_000}
 
 // Actions: open the Explore tab with the setting never written; click the
-// shield off; quit and relaunch, open the Explore tab; click it on again.
+// shield on; quit and relaunch, open the Explore tab; click it off again.
 // Milestones: each load of the home page, marked by its content script
 // reaching the second origin; the shield's state.
-// Oracles: the ad is never requested on the first load (the blocker is on by
-// default), is requested on the load after the shield goes off and on the
-// first load after a restart (the off choice persisted), and is not requested
-// again once the shield is back on; the content script loads every time; the
+// Oracles: the ad is requested on the first load (the blocker is off by
+// default), is not requested on the load after the shield goes on nor on the
+// first load after a restart (the on choice persisted), and is requested
+// again once the shield is back off; the content script loads every time; the
 // banner is hidden exactly while the shield is on.
-test('Explore ad blocker is on by default, turns off from the shield, and the off choice survives a restart', async () => {
+test('Explore ad blocker is off by default, turns on from the shield, and the on choice survives a restart', async () => {
 	test.setTimeout(150_000)
 	const ads = await startServer(path => ({type: 'text/javascript', body: `/* ${path} */`}))
 	const home = await startServer(() => ({type: 'text/html; charset=utf-8', body: `<!doctype html><title>Ad fixture</title><p>Page</p><div class="fixture-ad-banner" id="banner">Banner</div><script src="${ads.origin}${AD_PATH}"></script><script src="${ads.origin}${CONTENT_PATH}"></script>`}))
@@ -98,34 +98,34 @@ test('Explore ad blocker is on by default, turns off from the shield, and the of
 			async ({app, page, relaunch}) => {
 				await page.locator('.explore-tab-trigger').click()
 				const shield = page.getByTestId('explore-adblock')
-				await expect(shield).toHaveAttribute('data-adblock', 'on', POLL)
+				await expect(shield).toHaveAttribute('data-adblock', 'off', POLL)
 				await expect.poll(() => count(ads, CONTENT_PATH), POLL).toBe(1)
 				await expect.poll(async () => viewUrl(app), POLL).toBe(homeUrl)
-				expect(count(ads, AD_PATH)).toBe(0)
-				await expect.poll(async () => bannerHidden(app), POLL).toBe(true)
-
-				await shield.click()
-				await expect(shield).toHaveAttribute('data-adblock', 'off')
-				// The toggle reloads the page itself.
-				await expect.poll(() => count(ads, CONTENT_PATH), POLL).toBe(2)
 				await expect.poll(() => count(ads, AD_PATH), POLL).toBe(1)
 				await expect.poll(async () => bannerHidden(app), POLL).toBe(false)
+
+				await shield.click()
+				await expect(shield).toHaveAttribute('data-adblock', 'on', POLL)
+				// The toggle reloads the page itself.
+				await expect.poll(() => count(ads, CONTENT_PATH), POLL).toBe(2)
+				await expect.poll(async () => viewUrl(app), POLL).toBe(homeUrl)
+				expect(count(ads, AD_PATH)).toBe(1)
+				await expect.poll(async () => bannerHidden(app), POLL).toBe(true)
 
 				const relaunched = await relaunch()
 				await relaunched.page.locator('.explore-tab-trigger').click()
 				const relaunchedShield = relaunched.page.getByTestId('explore-adblock')
-				await expect(relaunchedShield).toHaveAttribute('data-adblock', 'off', POLL)
+				await expect(relaunchedShield).toHaveAttribute('data-adblock', 'on', POLL)
 				await expect.poll(() => count(ads, CONTENT_PATH), POLL).toBe(3)
 				await expect.poll(async () => viewUrl(relaunched.app), POLL).toBe(homeUrl)
-				expect(count(ads, AD_PATH)).toBe(2)
-				await expect.poll(async () => bannerHidden(relaunched.app), POLL).toBe(false)
+				expect(count(ads, AD_PATH)).toBe(1)
+				await expect.poll(async () => bannerHidden(relaunched.app), POLL).toBe(true)
 
 				await relaunchedShield.click()
-				await expect(relaunchedShield).toHaveAttribute('data-adblock', 'on')
+				await expect(relaunchedShield).toHaveAttribute('data-adblock', 'off')
 				await expect.poll(() => count(ads, CONTENT_PATH), POLL).toBe(4)
-				await expect.poll(async () => viewUrl(relaunched.app), POLL).toBe(homeUrl)
-				expect(count(ads, AD_PATH)).toBe(2)
-				await expect.poll(async () => bannerHidden(relaunched.app), POLL).toBe(true)
+				await expect.poll(() => count(ads, AD_PATH), POLL).toBe(2)
+				await expect.poll(async () => bannerHidden(relaunched.app), POLL).toBe(false)
 			}
 		)
 	} finally {

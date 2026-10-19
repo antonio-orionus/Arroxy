@@ -914,10 +914,10 @@
 		"tabLabel": "Explore",
 		"newBadge": "New",
 		"notice": {
-			"title": "Browse YouTube right inside Arroxy",
-			"body": "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account.",
+			"title": "Browse the web right inside Arroxy",
+			"body": "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account.",
 			"riskTitle": "Sign in with a secondary account",
-			"riskBody": "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one.",
+			"riskBody": "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one.",
 			"continue": "Continue"
 		},
 		"nudge": {"off": "Cookies are off, so downloads don't use your Explore sign-in.", "file": "Downloads use your cookies file, not your Explore sign-in.", "browser": "Downloads use your browser's cookies, not your Explore sign-in.", "useExplore": "Use Explore sign-in", "notNow": "Not now"},
@@ -949,15 +949,15 @@
 		},
 		"settings": {
 			"title": "Explore",
-			"description": "Browse YouTube inside Arroxy and sign in for videos that need an account.",
+			"description": "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account.",
 			"showTab": "Show the Explore tab",
 			"showTabDescription": "Turning it off also stops downloads from using your Explore sign-in.",
 			"idleUnload": "Free memory while away",
 			"idleUnloadDescription": "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds.",
 			"signOut": "Sign out of Explore",
-			"signOutDescription": "Clears your YouTube sign-in and browsing data in Explore.",
+			"signOutDescription": "Clears your sign-ins and browsing data in Explore, on every site.",
 			"signOutConfirmTitle": "Sign out of Explore?",
-			"signOutConfirmBody": "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again.",
+			"signOutConfirmBody": "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again.",
 			"signOutConfirm": "Sign out"
 		},
 		"error": {"proxyTitle": "Explore can't connect through your proxy", "proxyBody": "Check the proxy in Settings, then try again.", "loadTitle": "This page didn't load", "loadBody": "Check your connection, then try again.", "retry": "Retry", "openSettings": "Open Settings"}

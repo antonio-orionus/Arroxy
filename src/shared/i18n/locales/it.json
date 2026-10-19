@@ -986,10 +986,10 @@
 		"tabLabel": "Esplora",
 		"newBadge": "Nuovo",
 		"notice": {
-			"title": "Naviga su YouTube direttamente in Arroxy",
-			"body": "Trova un video, una playlist o un canale e scaricalo da qui, senza copiare link. Accedi qui a YouTube per scaricare i video che richiedono un account.",
+			"title": "Naviga sul web direttamente in Arroxy",
+			"body": "Trova un video su YouTube o su qualsiasi altro sito e scaricalo da qui, senza copiare link. Accedi qui a un sito per scaricare i video che richiedono un account.",
 			"riskTitle": "Accedi con un account secondario",
-			"riskBody": "YouTube può segnalare, e a volte bloccare, gli account usati con strumenti di download come Arroxy. Usa un account che puoi permetterti di perdere, non quello principale.",
+			"riskBody": "Siti come YouTube possono segnalare, e a volte bloccare, gli account usati con strumenti di download come Arroxy. Usa un account che puoi permetterti di perdere, non quello principale.",
 			"continue": "Continua"
 		},
 		"nudge": {
@@ -1027,15 +1027,15 @@
 		},
 		"settings": {
 			"title": "Esplora",
-			"description": "Naviga su YouTube in Arroxy e accedi per i video che richiedono un account.",
+			"description": "Naviga su YouTube o su qualsiasi altro sito in Arroxy e accedi per i video che richiedono un account.",
 			"showTab": "Mostra la scheda Esplora",
 			"showTabDescription": "Disattivandola, i download smettono di usare anche l'accesso di Esplora.",
 			"idleUnload": "Libera memoria in background",
 			"idleUnloadDescription": "Dopo 5 minuti su un'altra scheda, chiude la home o la pagina di ricerca di YouTube. Al ritorno viene ricaricata, il che richiede qualche secondo.",
 			"signOut": "Esci da Esplora",
-			"signOutDescription": "Cancella l'accesso a YouTube e i dati di navigazione in Esplora.",
+			"signOutDescription": "Cancella gli accessi e i dati di navigazione in Esplora, su tutti i siti.",
 			"signOutConfirmTitle": "Uscire da Esplora?",
-			"signOutConfirmBody": "Questo cancella l'accesso a YouTube e i dati di navigazione in Esplora. I download che richiedono un account falliranno finché non accedi di nuovo.",
+			"signOutConfirmBody": "Questo cancella gli accessi e i dati di navigazione in Esplora, su tutti i siti. I download che richiedono un account falliranno finché non accedi di nuovo.",
 			"signOutConfirm": "Esci"
 		},
 		"error": {"proxyTitle": "Esplora non riesce a connettersi tramite il tuo proxy", "proxyBody": "Controlla il proxy nelle Impostazioni, poi riprova.", "loadTitle": "Questa pagina non si è caricata", "loadBody": "Controlla la connessione, poi riprova.", "retry": "Riprova", "openSettings": "Apri Impostazioni"}

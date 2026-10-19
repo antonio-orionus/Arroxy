@@ -964,10 +964,10 @@
 		"tabLabel": "Entdecken",
 		"newBadge": "Neu",
 		"notice": {
-			"title": "YouTube direkt in Arroxy durchstöbern",
-			"body": "Finde Videos, Playlists oder Kanäle und lade sie direkt von hier herunter — ohne Links zu kopieren. Melde dich hier bei YouTube an, um Videos herunterzuladen, für die ein Konto nötig ist.",
+			"title": "Das Web direkt in Arroxy durchstöbern",
+			"body": "Finde ein Video auf YouTube oder einer anderen Website und lade es direkt von hier herunter — ohne Links zu kopieren. Melde dich hier bei einer Website an, um Videos herunterzuladen, für die ein Konto nötig ist.",
 			"riskTitle": "Mit einem Zweitkonto anmelden",
-			"riskBody": "YouTube kann Konten markieren — und manchmal sperren —, die mit Download-Tools wie Arroxy verwendet werden. Nutze ein Konto, das du verschmerzen kannst, nicht dein Hauptkonto.",
+			"riskBody": "Websites wie YouTube können Konten markieren — und manchmal sperren —, die mit Download-Tools wie Arroxy verwendet werden. Nutze ein Konto, das du verschmerzen kannst, nicht dein Hauptkonto.",
 			"continue": "Weiter"
 		},
 		"nudge": {
@@ -1005,15 +1005,15 @@
 		},
 		"settings": {
 			"title": "Entdecken",
-			"description": "Durchstöbere YouTube in Arroxy und melde dich für Videos an, die ein Konto erfordern.",
+			"description": "Durchstöbere YouTube oder jede andere Website in Arroxy und melde dich für Videos an, die ein Konto erfordern.",
 			"showTab": "Entdecken-Tab anzeigen",
 			"showTabDescription": "Wenn du ihn ausschaltest, verwenden Downloads deine Entdecken-Anmeldung ebenfalls nicht mehr.",
 			"idleUnload": "Arbeitsspeicher im Hintergrund freigeben",
 			"idleUnloadDescription": "Schließt nach 5 Minuten auf einem anderen Tab die YouTube-Startseite oder -Suchseite. Beim Zurückkehren wird sie neu geladen, was einige Sekunden dauert.",
 			"signOut": "Von Entdecken abmelden",
-			"signOutDescription": "Löscht deine YouTube-Anmeldung und die Browserdaten in Entdecken.",
+			"signOutDescription": "Löscht deine Anmeldungen und die Browserdaten in Entdecken, auf allen Websites.",
 			"signOutConfirmTitle": "Von Entdecken abmelden?",
-			"signOutConfirmBody": "Dadurch werden deine YouTube-Anmeldung und die Browserdaten in Entdecken gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest.",
+			"signOutConfirmBody": "Dadurch werden deine Anmeldungen und die Browserdaten in Entdecken auf allen Websites gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest.",
 			"signOutConfirm": "Abmelden"
 		},
 		"error": {

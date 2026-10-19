@@ -86,6 +86,60 @@ describe('escalationReason', () => {
 	})
 })
 
+// Any site: yt-dlp's extractors share one login helper whose hint says what
+// would let the run through, plus their own wording for cookies, private and
+// subscriber-only content. Lines are real yt-dlp messages, classified by the
+// production classifier, so they follow what it actually reports.
+const COOKIES_HINT = 'Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies'
+const SESSION_COOKIES_HINT = 'Use --cookies for the authentication (--cookies-from-browser might not work). See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies'
+const PASSWORD_HINT = 'Use --username and --password, --netrc-cmd, or --netrc (nebula) to provide account credentials'
+const OTHER_SITE = 'https://www.instagram.com/stories/highlights/18141219742583856/'
+
+describe('escalationReason on any site', () => {
+	it.each([
+		`ERROR: [instagram:story] 18141219742583856: You need to log in to access this content. ${COOKIES_HINT}`,
+		`ERROR: [BiliBiliWatchlater] watchlater: You need to login to access your watchlater list. ${COOKIES_HINT}`,
+		`ERROR: [boosty] 123: This post requires a subscription. ${COOKIES_HINT}`,
+		`ERROR: [site] 123: Login is required. ${SESSION_COOKIES_HINT}`,
+		'ERROR: [TikTok] 123: Fresh cookies (not necessarily logged in) are needed',
+		'ERROR: [ixigua] 123: Cookies (not necessarily logged in) are needed',
+		'ERROR: [udemy] 123: Udemy asks you to solve a CAPTCHA. Login with browser, solve CAPTCHA, then export cookies and pass cookie file to yt-dlp with --cookies.',
+		'ERROR: [fox] 123: This video is only available via cable service provider subscription. You may want to use --cookies.',
+		'ERROR: [wrestleuniverse] 123: Expired token. Refresh your cookies in browser and try again',
+		'ERROR: [afreecatv] 123: This VOD is private',
+		'ERROR: [youku] 123: Youku said: Sorry, this video is private',
+		'ERROR: [raywenderlich] 123: This content is only available for subscribers',
+		'ERROR: [cda] 123: Video requires CDA Premium - subscription needed',
+		'ERROR: [zingmp3] 123: The song is only for VIP accounts.'
+	])('escalates at probe and download stage: %s', line => {
+		const {kind} = classifyYtDlpStderr(line)
+		expect(escalationReason(probeFailure(kind, line, OTHER_SITE))).not.toBeNull()
+		expect(escalationReason(downloadFailure(kind, line, false))).not.toBeNull()
+	})
+
+	// The site takes only yt-dlp's own username and password: no cookie lets the run through.
+	it('never escalates a login that takes only a username and password', () => {
+		const line = `ERROR: [nebula] 123: This video is only available for registered users. ${PASSWORD_HINT}`
+		const {kind} = classifyYtDlpStderr(line)
+		expect(escalationReason(probeFailure(kind, line, OTHER_SITE))).toBeNull()
+		expect(escalationReason(downloadFailure(kind, line))).toBeNull()
+	})
+
+	it.each(['ERROR: [vimeo] 123: Unable to log in: bad username or password', 'ERROR: [site] 123: This video is not available from your location due to geo restriction', 'ERROR: [site] 123: Unsupported URL: https://example.com/'])('does not escalate: %s', line => {
+		const {kind} = classifyYtDlpStderr(line)
+		expect(escalationReason(probeFailure(kind, line, OTHER_SITE))).toBeNull()
+	})
+
+	// A YouTube bot wall carries the same cookies hint; it still waits for the PoT ladder.
+	it('keeps a YouTube bot wall behind the PoT ladder, cookies hint and all', () => {
+		const line = `ERROR: [youtube] abc: Sign in to confirm you’re not a bot. ${COOKIES_HINT}`
+		const {kind} = classifyYtDlpStderr(line)
+		expect(kind).toBe('botBlock')
+		expect(escalationReason(downloadFailure(kind, line, false))).toBeNull()
+		expect(escalationReason(downloadFailure(kind, line, true))).toBe('botBlock')
+	})
+})
+
 describe('escalation reasons and playlist items (R20)', () => {
 	it.each<[EscalationInput, EscalationReason]>([
 		[probeFailure('loginRequired', 'Sign in to confirm your age'), 'loginRequired'],

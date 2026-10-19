@@ -322,24 +322,24 @@ msgid "New"
 msgstr "Mpya"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Tafuta video, orodha ya kucheza au kituo na upakue kutoka hapa — bila kunakili viungo. Ingia kwenye YouTube hapa ili kupakua video zinazohitaji akaunti."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Tafuta video kwenye YouTube au tovuti nyingine yoyote na uipakue kutoka hapa — bila kunakili viungo. Ingia kwenye tovuti hapa ili kupakua video zinazohitaji akaunti."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Endelea"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube inaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Ingia kwa akaunti ya pili"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Vinjari YouTube ndani ya Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Vinjari wavuti ndani ya Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "Tumia kuingia kwenye Gundua"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy, na uingie kwa video zinazohitaji akaunti."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -390,16 +390,16 @@ msgid "Sign out"
 msgstr "Toka"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Hii inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Utoke kwenye Gundua?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti."
 
 msgctxt "explore.settings.title"
 msgid "Explore"

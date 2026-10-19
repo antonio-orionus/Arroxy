@@ -896,10 +896,10 @@
 		"tabLabel": "Khám phá",
 		"newBadge": "Mới",
 		"notice": {
-			"title": "Duyệt YouTube ngay trong Arroxy",
-			"body": "Tìm video, danh sách phát hoặc kênh và tải xuống ngay tại đây — không cần sao chép liên kết. Đăng nhập YouTube tại đây để tải các video cần tài khoản.",
+			"title": "Duyệt web ngay trong Arroxy",
+			"body": "Tìm video trên YouTube hoặc bất kỳ trang nào khác và tải xuống ngay tại đây — không cần sao chép liên kết. Đăng nhập vào trang tại đây để tải các video cần tài khoản.",
 			"riskTitle": "Đăng nhập bằng tài khoản phụ",
-			"riskBody": "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản dùng với công cụ tải xuống như Arroxy. Hãy dùng tài khoản bạn có thể chấp nhận mất, không phải tài khoản chính.",
+			"riskBody": "Các trang như YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản dùng với công cụ tải xuống như Arroxy. Hãy dùng tài khoản bạn có thể chấp nhận mất, không phải tài khoản chính.",
 			"continue": "Tiếp tục"
 		},
 		"nudge": {
@@ -937,15 +937,15 @@
 		},
 		"settings": {
 			"title": "Khám phá",
-			"description": "Duyệt YouTube trong Arroxy và đăng nhập để xem các video cần tài khoản.",
+			"description": "Duyệt YouTube hoặc bất kỳ trang nào khác trong Arroxy và đăng nhập để xem các video cần tài khoản.",
 			"showTab": "Hiện tab Khám phá",
 			"showTabDescription": "Tắt tab này cũng khiến tải xuống ngừng dùng đăng nhập Khám phá của bạn.",
 			"idleUnload": "Giải phóng bộ nhớ khi vắng mặt",
 			"idleUnloadDescription": "Sau 5 phút ở thẻ khác, đóng trang chủ hoặc trang tìm kiếm YouTube. Khi quay lại, trang sẽ tải lại, mất vài giây.",
 			"signOut": "Đăng xuất khỏi Khám phá",
-			"signOutDescription": "Xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Khám phá.",
+			"signOutDescription": "Xóa các lượt đăng nhập và dữ liệu duyệt web của bạn trong Khám phá, trên mọi trang.",
 			"signOutConfirmTitle": "Đăng xuất khỏi Khám phá?",
-			"signOutConfirmBody": "Thao tác này xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Khám phá. Các lượt tải cần tài khoản sẽ thất bại cho đến khi bạn đăng nhập lại.",
+			"signOutConfirmBody": "Thao tác này xóa các lượt đăng nhập và dữ liệu duyệt web của bạn trong Khám phá, trên mọi trang. Các lượt tải cần tài khoản sẽ thất bại cho đến khi bạn đăng nhập lại.",
 			"signOutConfirm": "Đăng xuất"
 		},
 		"error": {"proxyTitle": "Tab Khám phá không thể kết nối qua proxy của bạn", "proxyBody": "Hãy kiểm tra proxy trong Cài đặt rồi thử lại.", "loadTitle": "Trang này không tải được", "loadBody": "Hãy kiểm tra kết nối của bạn rồi thử lại.", "retry": "Thử lại", "openSettings": "Mở Cài đặt"}

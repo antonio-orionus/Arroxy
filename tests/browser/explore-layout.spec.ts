@@ -81,8 +81,8 @@ for (const surface of SCENARIO_SURFACES) {
 // P2-R36: each ad blocker scenario shows its shield state, and the mock's
 // toggle round-trips through the settings like the real one.
 for (const [id, adBlock] of [
-	['explore-browsing', 'on'],
-	['explore-adblock-off', 'off'],
+	['explore-browsing', 'off'],
+	['explore-adblock-on', 'on'],
 	['explore-adblock-unavailable', 'unavailable']
 ] as const) {
 	test(`${id} shows the ad blocker ${adBlock}`, async ({page}) => {
@@ -98,11 +98,11 @@ for (const [id, adBlock] of [
 test('the shield toggles the ad blocker', async ({page}) => {
 	await page.goto('/?scenario=explore-browsing&theme=dark')
 	const shield = page.getByTestId('explore-adblock')
-	await expect(shield).toHaveAttribute('data-adblock', 'on', {timeout: 15_000})
-	await shield.click()
-	await expect(shield).toHaveAttribute('data-adblock', 'off')
+	await expect(shield).toHaveAttribute('data-adblock', 'off', {timeout: 15_000})
 	await shield.click()
 	await expect(shield).toHaveAttribute('data-adblock', 'on')
+	await shield.click()
+	await expect(shield).toHaveAttribute('data-adblock', 'off')
 })
 
 test('the proxy error keeps the native view hidden', async ({page}) => {

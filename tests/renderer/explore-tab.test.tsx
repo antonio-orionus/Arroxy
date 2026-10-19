@@ -635,28 +635,28 @@ describe('Explore toolbar', () => {
 		expect(within(tip).getByText('YouTube may push back on ad blockers for signed-in accounts.')).toBeInTheDocument()
 	})
 
-	// P2-R53: on until turned off. Before main reports the view, an unset
-	// setting shows the shield pressed; an explicit false shows it off.
-	it('presses the shield by default, before the view reports', async () => {
+	// Off until turned on. Before main reports the view, an unset setting
+	// shows the shield off; an explicit true shows it pressed.
+	it('leaves the shield off by default, before the view reports', async () => {
 		useAppStore.setState({exploreView: null})
 		vi.mocked(window.appApi.explore.getState).mockReturnValue(new Promise(() => undefined))
 		renderExplore()
 
 		const shield = screen.getByTestId('explore-adblock')
 		expect(useAppStore.getState().settings?.common.exploreAdBlock).toBeUndefined()
-		expect(shield).toHaveAttribute('aria-pressed', 'true')
-		expect(shield).toHaveAttribute('data-adblock', 'starting')
+		expect(shield).toHaveAttribute('aria-pressed', 'false')
+		expect(shield).toHaveAttribute('data-adblock', 'off')
 	})
 
-	it('leaves the shield off when the user turned the ad blocker off', async () => {
-		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreAdBlock: false})
+	it('presses the shield when the user turned the ad blocker on', async () => {
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreAdBlock: true})
 		useAppStore.setState({exploreView: null})
 		vi.mocked(window.appApi.explore.getState).mockReturnValue(new Promise(() => undefined))
 		renderExplore()
 
 		const shield = screen.getByTestId('explore-adblock')
-		expect(shield).toHaveAttribute('aria-pressed', 'false')
-		expect(shield).toHaveAttribute('data-adblock', 'off')
+		expect(shield).toHaveAttribute('aria-pressed', 'true')
+		expect(shield).toHaveAttribute('data-adblock', 'starting')
 	})
 
 	it.each([

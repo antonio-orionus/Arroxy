@@ -1,5 +1,6 @@
-// The Explore ad blocker is on until the user turns it off (P2-R53): a setting
-// never written (undefined) means on, and only an explicit false means off.
+// The Explore ad blocker is off until the user turns it on: it breaks too many
+// sites now that Explore browses the open web. A setting never written
+// (undefined) means off; only an explicit true means on.
 export function isExploreAdBlockOn(common: {readonly exploreAdBlock?: boolean | undefined}): boolean {
-	return common.exploreAdBlock !== false
+	return common.exploreAdBlock === true
 }
