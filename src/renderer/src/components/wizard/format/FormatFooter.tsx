@@ -22,7 +22,7 @@ interface FormatFooterProps {
 // sees the subtitles, extras, folder and file name before Download. The outline
 // Download beside it is the shortcut for those who don't need Review.
 export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): ReactNode {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const continueBlocker = useAppStore(formatStepBlocker)
 	const continueHintKey = blockerHintKey(continueBlocker)
 	const total =
@@ -30,7 +30,7 @@ export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): Rea
 			t('wizard.formats.kind.subtitles')
 		) : view.selectedFilesize ? (
 			<>
-				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-title font-semibold text-foreground tabular-nums">~{humanSize(view.selectedFilesize)}</span>
+				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-title font-semibold text-foreground tabular-nums">~{humanSize(view.selectedFilesize, i18n.language)}</span>
 			</>
 		) : view.mode === 'audio-only' ? (
 			t('wizard.formats.audioOnly')

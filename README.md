@@ -9,7 +9,7 @@
 
 [![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Website](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![License](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
+Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
 
 [**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows first launch](#windows-first-launch) · [macOS first launch](#macos-first-launch) · [Linux first launch](#linux-first-launch)
 
@@ -102,10 +102,12 @@ If Arroxy saves you time, a ⭐ helps others find it.
 <details>
 <summary><strong>🎞️ Quality & formats</strong></summary>
 
-- Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **High frame rate** preserved as-is — 60 fps, 120 fps, HDR
+- Up to **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **High frame rate and HDR** preserved as-is — 60 fps, HDR10
 - **Audio** — export audio-only as MP3, M4A/AAC, Opus, or WAV. In interactive downloads, pick the source's native surround/Dolby tracks (AC-3, E-AC-3, 5.1, DRC) when available, or set a global **Prefer surround / Dolby** default
 - **Profiles with a goal** — *Best picture* (AV1 · VP9) or *Smart TV* (MP4 · H.264), saved as Auto, MP4, MKV, or WebM without re-encoding. HDR is *Auto* (only when your screen can show it), *SDR*, or *HDR*
+- **Every codec at every resolution** — the step-by-step download lists AV1, VP9 and H.264 side by side at each resolution, so you can pick the one your TV or editor plays
+- **Know what a stream really is** — sizes YouTube upscaled with AI, AI-dubbed audio languages, enhanced-bitrate streams, 360° videos and damaged or watermarked copies are marked. Profiles skip AI-upscaled streams unless you allow them
 
 </details>
 
@@ -124,7 +126,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **Global download hotkey** — copy a link in any app and press `Ctrl+Shift+D` (`Cmd+Shift+D` on macOS); Arroxy queues it with your active profile without opening the window, and a notification confirms it. On by default, rebindable
 - **Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, Quick Download with saved defaults, or browse and download from Explore
 - **Central download queue** — every single, playlist, bulk, or quick job lands in one place for progress, pause, resume, cancel, retry, and priority control
-- **Clipboard watch** — copy a YouTube link and Arroxy auto-fills the URL when you refocus the app (toggle in Advanced settings)
+- **Clipboard watch** — copy a video link and it fills the URL field when you come back to Arroxy, with **Undo** if you didn't mean it. While Arroxy is busy, the link waits until you are back on the URL tab (turn it off in Settings)
 - **Auto-clean URLs** — strips tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) and unwraps `youtube.com/redirect` links
 - **Tray mode** — closing the window keeps downloads running in the background
 - **31 languages** — auto-detects system locale, switchable any time
@@ -140,6 +142,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **Size and Missing in Downloads** — a sortable **Size** column shows how much space each download takes, and **Missing** flags files moved or deleted outside Arroxy
 - **Aurora or Minimal, dark or light** — glass panels over a moving sky, or quiet solid surfaces; switch from the footer. Computers without graphics acceleration get Minimal automatically
 - **Mac menu bar** — on macOS, open Settings (`Cmd+,`), set the download speed limit, switch style and theme, and open logs or save a diagnostics file from the menu bar
+- **Change a profile from any download** — tweak a download, then update the profile it started from (with a preview of what changes) or save the settings as a new profile. Switching profile asks whether to keep your edits
 
 </details>
 
@@ -158,7 +161,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 <summary><strong>🌐 YouTube + 2000 sites</strong></summary>
 
 - **YouTube, in full** — Videos, Shorts, Channels, Playlists, YouTube Music, and Podcasts handled as first-class sources
-- **2000+ other sites** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, and many more
+- **2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable, and many more
 - **Audio-only and subtitles** work across every supported site, not just YouTube
 - If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch
 
@@ -405,7 +408,7 @@ Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore*
 <details>
 <summary><strong>What video qualities can I download?</strong></summary>
 
-Anything YouTube serves: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps, 120 fps, and HDR streams are preserved as-is.
+Anything YouTube serves: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps and HDR streams are preserved as-is, and the step-by-step download lets you pick AV1, VP9 or H.264 at each resolution.
 
 </details>
 

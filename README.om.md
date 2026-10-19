@@ -9,7 +9,7 @@
 
 [![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Marsariitii](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Hayyama](https://img.shields.io/badge/license-MIT-green) ![Platformoota](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Afaanonni](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
+Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
 
 [**↓ Baasii Haaraa Buusi**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows yeroo jalqabaa eegaluu](#windows-first-launch) · [macOS yeroo jalqabaa eegaluu](#macos-first-launch) · [Linux yeroo jalqabaa eegaluu](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 <details>
 <summary><strong>🎞️ Qulqullina & formatoota</strong></summary>
 
-- Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR
+- Hanga **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **Frame rate ol'aanaa fi HDR** akka jiranitti eegamu — 60 fps, HDR10
 - **Sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi. Buufataalee wal-qunnamtii keessatti, yoo jiran, sirna sagalee surround/Dolby maddaa (AC-3, E-AC-3, 5.1, DRC) filadhu, yookaan durtii waliigalaa **Surround / Dolby filadhu** kaa'i
 - **Piroofaayilii kaayyoo qabu** — *Suuraa isa caalu* (AV1 · VP9) ykn *TV smart* (MP4 · H.264), Ofumaa, MP4, MKV, ykn WebM ta'ee deebi'ee koodii gochuu malee olkaa'ama. HDR *Ofumaa* (ispiriin kee yoo agarsiisuu dandeessu qofa), *SDR*, ykn *HDR* dha
+- **Koodekii hunda ifa bal'ina hunda irratti** — buufanni tarkaanfii tarkaanfiin AV1, VP9 fi H.264 ifa bal'ina tokkoon tokkoon irratti walbira tarreessa, kanaaf isa TV ykn gulaalaan kee taphachiisu filachuu dandeessa
+- **Stream tokko dhugumaan maal akka ta'e beeki** — hammoota YouTube AI'n guddise, afaanota sagalee AI'n hiikaman, streams bitrate fooyya'e qaban, viidiyoowwan 360° fi garagalchawwan miidhaman ykn mallattoo bishaanii qaban ni mallattoo'u. Piroofaayiloonni yoo ati hin heyyamne malee streams AI'n guddifaman ni darbu
 
 </details>
 
@@ -124,7 +126,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **Qabduu ariifachiisaa buufannaa waliigalaa** — appii kamiyyuu keessatti hidhaa waraabii `Ctrl+Shift+D` (macOS irratti `Cmd+Shift+D`) tuqi; Arroxy foddaa utuu hin banin piroofaayilii kee kan hojiirra jiruun tarree keessa galcha, beeksisnis ni mirkaneessa. Durtiidhaan banaa, irra deebi'anii qindeessuun ni danda'ama
 - **Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, Quick Download filannoowwan duraan kuufamaniin, ykn Explore irraa ilaaluu fi buufachuu filadhu
 - **Tarree buusuu giddugaleessaa** — hojii tokko, playlist, bulk, ykn quick hundi bakka tokkotti walitti dhufa: adeemsa, dhaabuu, itti fufsiisuu, haquu, irra deebi’uu, fi dursa to’achuuf
-- **Eegaa clipboard** — link YouTube koppiisi Arroxy URL of-hordofaa guutu yeroo app deebi'itu (Advanced settings keessatti jijjiiri)
+- **Eegaa clipboard** — hidhaa viidiyoo koppii godhi, yeroo gara Arroxy deebitu bakka URL ni guuta, yoo itti hin yaadin ta'e **Deebisi** waliin. Yeroo Arroxy hojiin qabamu, hidhaan hanga ati gara tabii URL deebitutti eega (Qindaa'inoota keessatti cufi)
 - **URL of-qulqulleessa** — params hordoffii (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) haqa fi linkiiwwan `youtube.com/redirect` bana
 - **Haala tray** — window cufuu buufannoo duubatti itti fufsisee hojechisisa
 - **Afaanota 31** — locale sirnaa ofumaan adda baasa, yeroo kamiyyuu jijjiiramuu danda’a
@@ -140,6 +142,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **Bal'ina fi Hin jiru Buufata keessatti** — gabatee **Bal'ina** tartiibaan qindeessuun buufanni tokkoon tokkoon bakka hammam fudhatu agarsiisa, **Hin jiru** immoo faayiloota Arroxy alaa sochoo'an ykn haqaman mallattoo godha
 - **Aurora ykn Salphaa, dukkana ykn ifa** — paanaala galaasaa samii socho'u irra jiru, ykn gar-fuula cimaa callisaa; gadi-fuula irraa jijjiiri. Kompiitaroonni saffisiisaa giraafiksii hin qabne ofumaan Salphaa argatu
 - **Baarii menu Mac** — macOS irratti, baarii menu irraa Qindaa'inoota (`Cmd+,`) bani, daangaa saffisa buufannaa kaa'i, taatee fi tiimii jijjiiri, galmee bani ykn faayilii qorannoo olkaa'i
+- **Buufata kamirraayyuu piroofaayilii jijjiiri** — buufata tokko sirreessi, achiis piroofaayilii inni irraa jalqabe haaromsi (wanta jijjiiramu dursitee ilaaluun) ykn qindaa'inoota akka piroofaayilii haaraatti olkaa'i. Piroofaayilii yeroo jijjiirtu, sirreeffamoota kee eeguu barbaadduu akka ta'e si gaafata
 
 </details>
 
@@ -158,7 +161,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 <summary><strong>🌐 YouTube + Saayitii 2000</strong></summary>
 
 - **YouTube guutummaatti** — Viidiyoowwan, Shorts, Chaanaalota, Playlistoota, YouTube Music fi Podkaastota madda sadarkaa jalqabaa ta'aniin hojjetamu
-- **Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org fi kanneen biroo heddu
+- **Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable fi kanneen biroo heddu
 - **Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti
 - Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa
 
@@ -405,7 +408,7 @@ GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Ex
 <details>
 <summary><strong>Qulqullina viidiyoo maal buusuu danda'a?</strong></summary>
 
-YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps, 120 fps, fi HDR streams akka jiru eegamu.
+YouTube tajaajiluu danda'u: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps fi HDR streams akka jiranitti eegamu, buufanni tarkaanfii tarkaanfiinis ifa bal'ina tokkoon tokkoon irratti AV1, VP9 ykn H.264 akka filattu si dandeessisa.
 
 </details>
 

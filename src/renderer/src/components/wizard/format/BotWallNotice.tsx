@@ -1,4 +1,5 @@
 import type {JSX} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {AlertTriangle, RefreshCw, ShieldCheck} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -63,7 +64,7 @@ export function BotWallGuidanceAlert({guidance, onEnableCookiesAndRetry, onRetry
 }
 
 export function BotWallNotice({forceShow = false}: Props): JSX.Element | null {
-	const {wizardFormatsDegraded, settings, retryFormatProbe, retryProbeWithCookies} = useAppStore()
+	const {wizardFormatsDegraded, settings, retryFormatProbe, retryProbeWithCookies} = useAppStore(useShallow(state => ({wizardFormatsDegraded: state.wizardFormatsDegraded, settings: state.settings, retryFormatProbe: state.retryFormatProbe, retryProbeWithCookies: state.retryProbeWithCookies})))
 	const experience = buildProbeErrorExperience({error: null, commonSettings: settings?.common, degradedReasons: forceShow ? ['botWall'] : wizardFormatsDegraded?.reasons})
 	return <BotWallGuidanceAlert guidance={experience.botWall} onEnableCookiesAndRetry={() => void retryProbeWithCookies()} onRetry={() => void retryFormatProbe()} />
 }

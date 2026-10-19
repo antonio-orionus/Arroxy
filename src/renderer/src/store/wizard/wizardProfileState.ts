@@ -8,9 +8,10 @@ import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/d
 import {resolveProfileSelection} from '@shared/profileSelection.js'
 import type {DownloadProfile} from '@shared/types.js'
 import type {AppState} from '../types.js'
+import type {WizardReviewState} from './wizardReviewState.js'
 import {applyProfileToWizard, changedFromProfile, profileFromWizard, withAreasFrom, type ChangedArea, type WizardSettingsSnapshot} from './profileApplication.js'
 
-export function wizardSnapshot(state: AppState): WizardSettingsSnapshot {
+export function wizardSnapshot(state: WizardReviewState): WizardSettingsSnapshot {
 	return {
 		mediaKind: state.wizardMediaKind,
 		videoFormatId: state.selectedVideoFormatId,
@@ -91,13 +92,13 @@ export function profileVideoPick(state: ProbeFields & Pick<AppState, 'wizardProf
 	return media.videoFormatId
 }
 
-export function wizardChangedAreas(state: AppState): ChangedArea[] {
+export function wizardChangedAreas(state: WizardReviewState): ChangedArea[] {
 	return state.wizardProfileBaseline ? changedFromProfile(state.wizardProfileBaseline, wizardSnapshot(state)) : []
 }
 
 // The edits a profile switch can keep: everything but the streams, which the
 // new profile always picks.
-export function keepableEdits(state: AppState): ChangedArea[] {
+export function keepableEdits(state: WizardReviewState): ChangedArea[] {
 	return wizardChangedAreas(state).filter(area => area !== 'format')
 }
 
@@ -114,7 +115,7 @@ export function switchProfilePatch(profile: DownloadProfile, state: AppState, ke
 
 // The run's settings as a profile with the given identity, or null when nothing
 // differs from the profile it started from (or this isn't a single-video run).
-function draftFromWizard(state: AppState, identity: {id: string; name: string}): DownloadProfile | null {
+function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}): DownloadProfile | null {
 	const base = state.wizardProfile
 	const baseline = state.wizardProfileBaseline
 	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0) return null
@@ -129,13 +130,13 @@ function draftFromWizard(state: AppState, identity: {id: string; name: string}):
 }
 
 // The run's settings as a new profile.
-export function editedProfileDraft(state: AppState, name: string): DownloadProfile | null {
+export function editedProfileDraft(state: WizardReviewState, name: string): DownloadProfile | null {
 	return draftFromWizard(state, {id: crypto.randomUUID(), name})
 }
 
 // The profile the run started from, with the run's settings in it. It keeps its
 // identity, so a built-in one is saved as that built-in's override.
-export function updatedProfileDraft(state: AppState): DownloadProfile | null {
+export function updatedProfileDraft(state: WizardReviewState): DownloadProfile | null {
 	const base = state.wizardProfile
 	const draft = base ? draftFromWizard(state, {id: base.id, name: base.name}) : null
 	return base && draft ? {...draft, enabled: base.enabled, createdAt: base.createdAt} : null

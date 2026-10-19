@@ -8,6 +8,7 @@
 
 import {useCallback, useEffect, useEffectEvent, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {useShallow} from 'zustand/react/shallow'
 import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
@@ -36,7 +37,24 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, removePlaylistItems, restoreRemovedPlaylistItems, saveDownloadProfile, chooseWizardFolder, exitMultiProfileMode, advance} = useAppStore()
+	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, removePlaylistItems, restoreRemovedPlaylistItems, saveDownloadProfile, chooseWizardFolder, exitMultiProfileMode, advance} = useAppStore(
+		useShallow(state => ({
+			playlistItems: state.playlistItems,
+			selectedPlaylistItemIds: state.selectedPlaylistItemIds,
+			removedPlaylistItemIds: state.removedPlaylistItemIds,
+			playlistProfileAssignments: state.playlistProfileAssignments,
+			settings: state.settings,
+			wizardOutputDir: state.wizardOutputDir,
+			assignPlaylistProfile: state.assignPlaylistProfile,
+			resetPlaylistProfile: state.resetPlaylistProfile,
+			removePlaylistItems: state.removePlaylistItems,
+			restoreRemovedPlaylistItems: state.restoreRemovedPlaylistItems,
+			saveDownloadProfile: state.saveDownloadProfile,
+			chooseWizardFolder: state.chooseWizardFolder,
+			exitMultiProfileMode: state.exitMultiProfileMode,
+			advance: state.advance
+		}))
+	)
 	// The profile open in the editor (null for a new one), and the rows a new
 	// profile is assigned to once saved: the rows its menu was acting on.
 	const [editing, setEditing] = useState<{profile: DownloadProfile | null; assignTo: string[]} | null>(null)

@@ -9,7 +9,7 @@
 
 [![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ဝဘ်ဆိုက်](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![လိုင်စင်](https://img.shields.io/badge/license-MIT-green) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ဘာသာစကားများ](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 4K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private၊ member-only နှင့် အသက်ကန့်သတ်ထားသော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
+**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 8K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private၊ member-only နှင့် အသက်ကန့်သတ်ထားသော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
 
 [**↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows ပထမဆုံး launch](#windows-first-launch) · [macOS ပထမဆုံး launch](#macos-first-launch) · [Linux ပထမဆုံး launch](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 <details>
 <summary><strong>🎞️ အရည်အသွေးနှင့် format များ</strong></summary>
 
-- **4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p
-- **High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR
+- **8K (4320p)** အထိ၊ 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **High frame rate နှင့် HDR** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, HDR10
 - **အသံ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်ပါ။ interactive downloads တွင် ရနိုင်ပါက source ၏ native surround/Dolby tracks (AC-3၊ E-AC-3၊ 5.1၊ DRC) ကို ရွေးချယ်ပါ၊ သို့မဟုတ် global default **surround / Dolby ကို ဦးစားပေးပါ** ကို သတ်မှတ်ပါ
 - **ရည်မှန်းချက်ပါသော ပရိုဖိုင်များ** — *အကောင်းဆုံး ရုပ်ထွက်* (AV1 · VP9) သို့မဟုတ် *စမတ် TV* (MP4 · H.264)၊ ပြန်လည် encode မလုပ်ဘဲ အလိုအလျောက်၊ MP4၊ MKV သို့မဟုတ် WebM အဖြစ် သိမ်းဆည်းသည်။ HDR သည် *အလိုအလျောက်* (သင့်စခရင်ပြသနိုင်မှသာ)၊ *SDR* သို့မဟုတ် *HDR* ဖြစ်သည်
+- **ကြည်လင်ပြတ်သားမှုတိုင်းတွင် codec တိုင်း** — အဆင့်ဆင့် ဒေါင်းလုဒ်သည် ကြည်လင်ပြတ်သားမှု တစ်ခုစီတွင် AV1, VP9 နှင့် H.264 ကို ဘေးချင်းယှဉ် ပြသပေးသဖြင့် သင့် TV သို့မဟုတ် editor ဖွင့်နိုင်သည့်တစ်ခုကို ရွေးနိုင်သည်
+- **Stream တစ်ခု အမှန်တကယ် ဘာလဲဆိုတာ သိပါ** — YouTube က AI ဖြင့် ချဲ့ထားသော အရွယ်အစားများ၊ AI အသံသွင်းထားသော အသံဘာသာစကားများ၊ မြှင့်ထားသော bitrate ပါသည့် streams များ၊ 360° ဗီဒီယိုများနှင့် ပျက်စီးနေသော သို့မဟုတ် watermark ပါသော မိတ္တူများကို အမှတ်အသားပြထားသည်။ သင်ခွင့်မပြုလျှင် ပရိုဖိုင်များသည် AI ချဲ့ထားသော streams များကို ကျော်သွားသည်
 
 </details>
 
@@ -124,7 +126,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်** — မည်သည့်အက်ပ်တွင်မဆို လင့်ခ်ကို ကူးယူပြီး `Ctrl+Shift+D` (macOS တွင် `Cmd+Shift+D`) ကိုနှိပ်ပါ။ Arroxy သည် ဝင်းဒိုးမဖွင့်ဘဲ သင့်လက်ရှိပရိုဖိုင်ဖြင့် စာရင်းထဲထည့်ပေးပြီး အသိပေးချက်ဖြင့် အတည်ပြုပါသည်။ မူရင်းအတိုင်း ဖွင့်ထားပြီး ပြန်သတ်မှတ်နိုင်သည်
 - **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သိမ်းထားသော defaults ဖြင့် Quick Download၊ သို့မဟုတ် Explore တွင် ကြည့်ရှုပြီး ဒေါင်းလုဒ်လုပ်ခြင်းတို့ကို ရွေးပါ
 - **ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်
-- **Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)
+- **Clipboard watch** — ဗီဒီယိုလင့်ခ်ကို copy လုပ်ပါက Arroxy သို့ ပြန်လာသောအခါ URL အကွက်ကို ဖြည့်ပေးပြီး မရည်ရွယ်ခဲ့လျှင် **ပြန်ဖျက်ရန်** ပါသည်။ Arroxy အလုပ်များနေစဉ် သင် URL tab သို့ ပြန်ရောက်သည်အထိ လင့်ခ်က စောင့်နေသည် (ဆက်တင်များတွင် ပိတ်နိုင်သည်)
 - **Auto-clean URLs** — tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ကိုဖယ်ရှားပြီး `youtube.com/redirect` links ကိုဖြေရှင်းသည်
 - **Tray mode** — window ကိုပိတ်လျှင် downloads များသည် နောက်ကွယ်တွင် ဆက်လည်ပတ်နေသည်
 - **31 ဘာသာစကား** — စနစ်ဒေသကို အလိုအလျောက်သိရှိနိုင်ပြီး အချိန်မရွေးပြောင်းနိုင်သည်
@@ -140,6 +142,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **ဒေါင်းလုဒ်များရှိ အရွယ်အစားနှင့် မရှိပါ** — စီနိုင်သော **အရွယ်အစား** ကော်လံက ဒေါင်းလုဒ်တစ်ခုစီ နေရာမည်မျှယူသည်ကို ပြပြီး **မရှိပါ** က Arroxy အပြင်ဘက်တွင် ရွှေ့ထား သို့မဟုတ် ဖျက်ထားသော ဖိုင်များကို အမှတ်အသားပြုသည်
 - **အောရိုရာ သို့မဟုတ် ရိုးရှင်း၊ အမှောင် သို့မဟုတ် အလင်း** — ရွေ့လျားနေသော ကောင်းကင်ပေါ်ရှိ ဖန်သားပြားများ သို့မဟုတ် တိတ်ဆိတ်သော အစိုင်အခဲမျက်နှာပြင်များ၊ footer မှ ပြောင်းနိုင်သည်။ ဂရပ်ဖစ်အရှိန်မြှင့်မှု မရှိသော ကွန်ပျူတာများသည် ရိုးရှင်း ကို အလိုအလျောက် ရရှိသည်
 - **Mac menu bar** — macOS တွင် menu bar မှ ဆက်တင်များ (`Cmd+,`) ကိုဖွင့်ပါ၊ ဒေါင်းလုဒ်အမြန်နှုန်းကန့်သတ်ချက်ကို သတ်မှတ်ပါ၊ စတိုင်နှင့် အသွင်အပြင်ကို ပြောင်းပါ၊ မှတ်တမ်းများကိုဖွင့်ပါ သို့မဟုတ် စစ်ဆေးချက်ဖိုင်ကို သိမ်းပါ
+- **မည်သည့်ဒေါင်းလုဒ်မှမဆို ပရိုဖိုင်ကို ပြောင်းပါ** — ဒေါင်းလုဒ်တစ်ခုကို ချိန်ညှိပြီးနောက် ၎င်းစတင်ခဲ့သော ပရိုဖိုင်ကို update လုပ်ပါ (ဘာပြောင်းမည်ကို ကြိုကြည့်နိုင်သည်) သို့မဟုတ် ဆက်တင်များကို ပရိုဖိုင်အသစ်အဖြစ် သိမ်းပါ။ ပရိုဖိုင်ပြောင်းသောအခါ သင့်ပြင်ဆင်မှုများကို ထားမလား မေးသည်
 
 </details>
 
@@ -158,7 +161,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 <summary><strong>🌐 YouTube + ၂၀၀၀ ဆိုဒ်</strong></summary>
 
 - **YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်
-- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org နှင့် အခြားအများကြီး
+- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable နှင့် အခြားအများကြီး
 - **အသံသာနှင့် subtitle များ** ထောက်ပံ့သောဆိုဒ်တိုင်းတွင် အလုပ်လုပ်သည်၊ YouTube တွင်သာမဟုတ်
 - ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
 
@@ -405,7 +408,7 @@ Explore သည် သင့် browser နှင့် သီးခြားဖ�
 <details>
 <summary><strong>မည်သည့် ဗီဒီယိုအရည်အသွေးများ ဒေါင်းလုဒ်ဆွဲနိုင်သနည်း?</strong></summary>
 
-YouTube ပေးသောအရာများအားလုံး: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p နှင့် audio-only။ 60 fps, 120 fps နှင့် HDR streams များကို မူရင်းအတိုင်း ထိန်းသိမ်းသည်။
+YouTube ပေးသောအရာများအားလုံး: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p နှင့် audio-only။ 60 fps နှင့် HDR streams များကို မူရင်းအတိုင်း ထိန်းသိမ်းပြီး အဆင့်ဆင့် ဒေါင်းလုဒ်တွင် ကြည်လင်ပြတ်သားမှု တစ်ခုစီ၌ AV1, VP9 သို့မဟုတ် H.264 ကို ရွေးနိုင်သည်။
 
 </details>
 

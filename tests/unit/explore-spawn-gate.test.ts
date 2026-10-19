@@ -66,7 +66,7 @@ describe('ExploreSpawnGate', () => {
 
 		expect(startedAt).toEqual([1_000, 6_000, 18_000])
 		expect(sleep).toHaveBeenCalledOnce()
-		expect(sleep).toHaveBeenCalledWith(5_000)
+		expect(sleep).toHaveBeenCalledWith(5_000, undefined)
 	})
 
 	it('staggers two spawns that acquire slots at the same moment', async () => {
@@ -137,6 +137,18 @@ describe('ExploreSpawnGate', () => {
 		await gate.run('a', () => Promise.resolve())
 		expect(await gate.run('b', () => Promise.resolve('never'), controller.signal)).toEqual({kind: 'cancelled'})
 		expect(await gate.run('b', () => Promise.resolve('ok'))).toBe('ok')
+	})
+
+	it('cuts the default spacing wait short when the job is cancelled', async () => {
+		const controller = new AbortController()
+		const gate = new ExploreSpawnGate({minSpacingMs: 60_000})
+		await gate.run('a', () => Promise.resolve())
+		const fn = vi.fn(() => Promise.resolve('never'))
+		const waiting = gate.run('b', fn, controller.signal)
+		setTimeout(() => controller.abort(), 20)
+
+		expect(await waiting).toEqual({kind: 'cancelled'})
+		expect(fn).not.toHaveBeenCalled()
 	})
 
 	it('returns cancelled at once for a job that is already cancelled', async () => {

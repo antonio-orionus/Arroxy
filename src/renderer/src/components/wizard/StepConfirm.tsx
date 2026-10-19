@@ -1,8 +1,10 @@
 import type {ReactNode} from 'react'
 import {AlertTriangle} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
+import {useShallow} from 'zustand/react/shallow'
 import {useAppStore} from '../../store/useAppStore.js'
 import {buildDownloadReview, conflictLabelKey, multiProfileBreakdown} from '../../store/wizard/downloadReviewProjection.js'
+import {selectWizardReviewState} from '../../store/wizard/wizardReviewState.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Table, TableBody, TableCell, TableRow} from '../ui/table.js'
@@ -17,8 +19,8 @@ import {Card} from '../ui/card.js'
 
 export function StepConfirm(): ReactNode {
 	const {t, i18n} = useTranslation()
-	const state = useAppStore()
-	const {addToQueue, addAndDownloadImmediately, back, isSubmittingToQueue} = state
+	const state = useAppStore(useShallow(selectWizardReviewState))
+	const {addToQueue, addAndDownloadImmediately, back, isSubmittingToQueue} = useAppStore(useShallow(s => ({addToQueue: s.addToQueue, addAndDownloadImmediately: s.addAndDownloadImmediately, back: s.back, isSubmittingToQueue: s.isSubmittingToQueue})))
 	const review = buildDownloadReview(state, {t: createTranslationPort(t), language: i18n.language, commonPaths: state.commonPaths})
 	// A single preset row can't represent a batch where every item may carry a
 	// different DownloadProfile — this replaces it with a per-profile grouping.

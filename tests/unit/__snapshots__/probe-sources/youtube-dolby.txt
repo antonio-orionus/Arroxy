@@ -2,20 +2,20 @@ youtube-dolby: A trailer with Dolby Digital and Dolby Digital Plus 5.1 beside st
 Trailer | Godzilla x Kong | 4K HDR | Dolby 5.1 · 171 s · card says "1280x640" · 66 formats
 
 Video (picked for Balanced 720p •):
-          HDR10 AV1     HDR10 VP9     SDR VP9        SDR H.264
-2160p 4K  AV1 335.2 MB  VP9 445.5 MB  VP9 345.1 MB   ·
-1440p 2K  AV1 158.0 MB  VP9 190.2 MB  VP9 174.8 MB   ·
-1080p     AV1 53.6 MB   VP9 71.4 MB   VP9 74.9 MB    H.264 85.3 MB
-720p      AV1 29.4 MB   VP9 42.1 MB   VP9 41.0 MB •  H.264 28.6 MB
-480p      AV1 11.5 MB   VP9 20.5 MB   VP9 22.0 MB    H.264 21.0 MB
-360p      AV1 6.1 MB    VP9 12.1 MB   VP9 13.5 MB    H.264 14.5 MB
-240p      AV1 2.8 MB    VP9 5.5 MB    VP9 6.1 MB     H.264 5.7 MB
-144p      AV1 1.6 MB    VP9 3.6 MB    VP9 3.4 MB     H.264 3.2 MB
+          HDR10 AV1      HDR10 VP9      SDR VP9         SDR H.264
+2160p 4K  AV1 335.1 MiB  VP9 445.4 MiB  VP9 345.1 MiB   ·
+1440p 2K  AV1 157.9 MiB  VP9 190.1 MiB  VP9 174.7 MiB   ·
+1080p     AV1 53.6 MiB   VP9 71.3 MiB   VP9 74.8 MiB    H.264 85.2 MiB
+720p      AV1 29.3 MiB   VP9 42.1 MiB   VP9 41.0 MiB •  H.264 28.5 MiB
+480p      AV1 11.4 MiB   VP9 20.5 MiB   VP9 21.9 MiB    H.264 20.9 MiB
+360p      AV1 6.1 MiB    VP9 12.0 MiB   VP9 13.4 MiB    H.264 14.5 MiB
+240p      AV1 2.8 MiB    VP9 5.4 MiB    VP9 6.1 MiB     H.264 5.7 MiB
+144p      AV1 1.6 MiB    VP9 3.6 MiB    VP9 3.3 MiB     H.264 3.1 MiB
 
 Audio:
-Dolby: 384 kbps E-AC-3 5.1 7.8 MB | 384 kbps AC-3 5.1 7.8 MB
-AAC: 130 kbps 2.6 MB DRC | 130 kbps 2.6 MB • | 49 kbps 22.05 kHz 1017.4 KB DRC | 49 kbps 22.05 kHz 1017.4 KB
-Opus: 105 kbps 2.1 MB DRC | 104 kbps 2.1 MB | 53 kbps 1.1 MB DRC | 53 kbps 1.1 MB | 40 kbps 841.8 KB DRC | 40 kbps 833.2 KB
+Dolby: 384 kbps E-AC-3 5.1 7.8 MiB | 384 kbps AC-3 5.1 7.8 MiB
+AAC: 130 kbps 2.6 MiB DRC | 130 kbps 2.6 MiB • | 49 kbps 22.05 kHz 1017.4 KiB DRC | 49 kbps 22.05 kHz 1017.4 KiB
+Opus: 105 kbps 2.1 MiB DRC | 104 kbps 2.1 MiB | 53 kbps 1.0 MiB DRC | 53 kbps 1.0 MiB | 40 kbps 841.7 KiB DRC | 40 kbps 833.1 KiB
 DRC switch shown
 
 Profile picks:

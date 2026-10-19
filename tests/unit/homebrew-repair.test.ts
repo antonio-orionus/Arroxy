@@ -171,6 +171,24 @@ describe.each([
 
 		await expect(run('0.5.9')).resolves.toBeUndefined()
 	})
+
+	it('takes the newest of several listed cask versions', async () => {
+		fakeBrew({installed: 'arroxy 0.5.4 0.5.2\n'})
+
+		await expect(run('0.5.3')).resolves.toBeUndefined()
+	})
+
+	it.each([
+		['0.6', '0.5.9', true],
+		['0.5', '0.5.1', false],
+		['0.5.3.1', '0.5.3', true],
+		['0.5.2.9', '0.5.3', false]
+	])('compares a cask version %s that is not three-part against %s', async (installed, expected, accepted) => {
+		fakeBrew({installed: `arroxy ${installed}\n`})
+
+		if (accepted) await expect(run(expected)).resolves.toBeUndefined()
+		else await expect(run(expected)).rejects.toThrow(`Homebrew has Arroxy ${installed} but ${expected}`)
+	})
 })
 
 describe('installFfmpegWithHomebrew', () => {

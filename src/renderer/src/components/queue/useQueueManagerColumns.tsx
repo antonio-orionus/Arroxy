@@ -5,12 +5,14 @@ import {AlertTriangle, Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clo
 import type {StatusKey} from '@shared/schemas.js'
 import type {QueueItem, QueueItemStatus} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
+import {compactSize} from '@shared/format.js'
+import {i18next} from '@shared/i18n/index.js'
 import {cn} from '@renderer/lib/utils.js'
 import {formatLocalizedError, formatStatus} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
-import {formatQueueByteSize, queueItemFilesMissing, queueItemSizeBytes} from './queueFileSize.js'
+import {queueItemFilesMissing, queueItemSizeBytes} from './queueFileSize.js'
 import {Hint} from '../shared/Hint.js'
 import {QueueDateCell} from './QueueDateCell.js'
 import {QueueProgressCell} from './QueueProgressCell.js'
@@ -200,7 +202,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 								</span>
 							)
 						}
-						return <span className="block truncate whitespace-nowrap font-mono text-caption text-muted-foreground">{sizeBytes === null ? t('queue.table.notAvailable') : formatQueueByteSize(sizeBytes)}</span>
+						return <span className="block truncate whitespace-nowrap font-mono text-caption text-muted-foreground">{sizeBytes === null ? t('queue.table.notAvailable') : compactSize(sizeBytes, i18next.language)}</span>
 					}
 				}),
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <QueueDateCell value={info.getValue()} t={t} />}),

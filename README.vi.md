@@ -9,7 +9,7 @@
 
 [![Phiên bản](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Trang web](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Giấy phép](https://img.shields.io/badge/license-MIT-green) ![Nền tảng](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Ngôn ngữ](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
+Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
 
 [**↓ Tải phiên bản mới nhất**](#install) &nbsp;·&nbsp; [**Trang web**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Lần đầu khởi động trên Windows](#windows-first-launch) · [Lần đầu khởi động trên macOS](#macos-first-launch) · [Lần đầu khởi động trên Linux](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 <details>
 <summary><strong>🎞️ Chất lượng & định dạng</strong></summary>
 
-- Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR
+- Lên tới **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **Tốc độ khung hình cao và HDR** được giữ nguyên — 60 fps, HDR10
 - **Âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV. Trong tải xuống tương tác, chọn các bản âm thanh surround/Dolby gốc của nguồn (AC-3, E-AC-3, 5.1, DRC) khi có sẵn, hoặc đặt mặc định toàn cục **Ưu tiên surround / Dolby**
 - **Hồ sơ theo mục tiêu** — *Hình ảnh đẹp nhất* (AV1 · VP9) hoặc *TV thông minh* (MP4 · H.264), lưu dưới dạng Tự động, MP4, MKV hoặc WebM mà không mã hóa lại. HDR là *Tự động* (chỉ khi màn hình của bạn hiển thị được), *SDR* hoặc *HDR*
+- **Mọi codec ở mọi độ phân giải** — trình tải từng bước liệt kê AV1, VP9 và H.264 cạnh nhau ở từng độ phân giải, để bạn chọn loại mà TV hoặc phần mềm chỉnh sửa của bạn phát được
+- **Biết một luồng thực sự là gì** — các kích thước YouTube nâng cấp bằng AI, ngôn ngữ âm thanh lồng tiếng bằng AI, luồng bitrate nâng cao, video 360° và các bản bị hỏng hoặc có hình mờ đều được đánh dấu. Hồ sơ bỏ qua luồng nâng cấp bằng AI trừ khi bạn cho phép
 
 </details>
 
@@ -124,7 +126,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Phím tắt tải xuống toàn cục** — sao chép một liên kết trong bất kỳ ứng dụng nào rồi nhấn `Ctrl+Shift+D` (`Cmd+Shift+D` trên macOS); Arroxy đưa nó vào hàng đợi với hồ sơ đang dùng mà không mở cửa sổ, và một thông báo xác nhận. Bật sẵn, có thể đổi phím
 - **Chế độ bắt đầu linh hoạt** — chọn tải một video có hướng dẫn, bộ chọn playlist/kênh, dán URL hàng loạt, Quick Download với mặc định đã lưu, hoặc duyệt và tải từ Explore
 - **Hàng đợi tải xuống trung tâm** — mọi tác vụ đơn lẻ, playlist, hàng loạt hoặc nhanh đều vào một nơi để theo dõi tiến độ, tạm dừng, tiếp tục, hủy, thử lại và điều chỉnh ưu tiên
-- **Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)
+- **Theo dõi clipboard** — sao chép liên kết video và nó được điền vào ô URL khi bạn quay lại Arroxy, kèm **Hoàn tác** nếu bạn không có ý đó. Khi Arroxy đang bận, liên kết sẽ chờ đến khi bạn quay lại tab URL (tắt trong Cài đặt)
 - **Tự làm sạch URL** — loại bỏ các tham số theo dõi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) và mở gói các liên kết `youtube.com/redirect`
 - **Chế độ khay hệ thống** — đóng cửa sổ vẫn tiếp tục tải xuống ở nền
 - **31 ngôn ngữ** — tự động phát hiện ngôn ngữ hệ thống, có thể đổi bất cứ lúc nào
@@ -140,6 +142,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Kích thước và Thiếu trong Tải xuống** — cột **Kích thước** có thể sắp xếp cho biết mỗi mục chiếm bao nhiêu dung lượng, còn **Thiếu** đánh dấu các tệp bị di chuyển hoặc xóa bên ngoài Arroxy
 - **Aurora hoặc Tối giản, tối hoặc sáng** — các bảng kính trên bầu trời chuyển động, hoặc các bề mặt đặc yên tĩnh; chuyển đổi từ chân trang. Máy tính không có tăng tốc đồ họa sẽ tự động dùng Tối giản
 - **Thanh menu Mac** — trên macOS, mở Cài đặt (`Cmd+,`), đặt giới hạn tốc độ tải, đổi kiểu và giao diện, rồi mở nhật ký hoặc lưu tệp chẩn đoán từ thanh menu
+- **Đổi hồ sơ từ bất kỳ lượt tải nào** — tinh chỉnh một lượt tải, rồi cập nhật hồ sơ ban đầu của nó (có xem trước những gì thay đổi) hoặc lưu cài đặt thành hồ sơ mới. Khi đổi hồ sơ, Arroxy hỏi bạn có giữ các chỉnh sửa không
 
 </details>
 
@@ -158,7 +161,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 <summary><strong>🌐 YouTube + 2000 trang</strong></summary>
 
 - **YouTube đầy đủ** — Video, Shorts, Kênh, Playlist, YouTube Music và Podcast được hỗ trợ như nguồn hạng nhất
-- **Hơn 2000 trang khác** qua yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org và nhiều hơn nữa
+- **Hơn 2000 trang khác** qua yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable và nhiều hơn nữa
 - **Chỉ âm thanh và phụ đề** hoạt động trên mọi trang được hỗ trợ, không chỉ YouTube
 - Nếu một trang thay đổi, yt-dlp phát hành bản sửa lỗi hàng tuần và Arroxy tự động cập nhật nhị phân khi khởi động
 
@@ -405,7 +408,7 @@ Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết.
 <details>
 <summary><strong>Tôi có thể tải xuống chất lượng video nào?</strong></summary>
 
-Bất kỳ thứ gì YouTube cung cấp: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps, 120 fps và HDR được giữ nguyên.
+Bất kỳ thứ gì YouTube cung cấp: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps và HDR được giữ nguyên, và trình tải từng bước cho phép bạn chọn AV1, VP9 hoặc H.264 ở từng độ phân giải.
 
 </details>
 

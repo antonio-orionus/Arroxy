@@ -1,5 +1,5 @@
 import type {BulkUrlKind} from './schemas.js'
-import {isYouTubeContainerId} from './sites/youtube.js'
+import {isYouTubeContainerId, isYouTubeHostname} from './sites/youtube.js'
 
 export type UrlIntent = {kind: 'obvious-single'; url: string; site: 'youtube' | 'other'} | {kind: 'obvious-collection'; url: string; collection: 'playlist' | 'channel' | 'search'} | {kind: 'mixed'; url: string; reason: 'youtube-video-with-list'} | {kind: 'unknown'; url: string}
 
@@ -11,11 +11,6 @@ function parseUrl(url: string): URL | null {
 	} catch {
 		return null
 	}
-}
-
-function isYouTubeHost(hostname: string): boolean {
-	const host = hostname.toLowerCase()
-	return host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtu.be' || host === 'youtube-nocookie.com' || host.endsWith('.youtube-nocookie.com')
 }
 
 function youtubePathSegments(parsed: URL): string[] {
@@ -69,7 +64,7 @@ function isYouTubeRadioList(searchParams: URLSearchParams): boolean {
 
 export function classifyUrlIntent(url: string): UrlIntent {
 	const parsed = parseUrl(url)
-	if (!parsed || !isYouTubeHost(parsed.hostname)) return {kind: 'unknown', url}
+	if (!parsed || !isYouTubeHostname(parsed.hostname)) return {kind: 'unknown', url}
 
 	const host = parsed.hostname.toLowerCase()
 	const segments = youtubePathSegments(parsed)
@@ -138,7 +133,7 @@ const YOUTUBE_ID_BEARING_PREFIXES = new Set(['shorts', 'live', 'embed', 'v', 'e'
 export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null {
 	if (intent.kind !== 'obvious-single' || intent.site !== 'youtube') return null
 	const parsed = parseUrl(intent.url)
-	if (!parsed || !isYouTubeHost(parsed.hostname)) return null
+	if (!parsed || !isYouTubeHostname(parsed.hostname)) return null
 
 	const host = parsed.hostname.toLowerCase()
 	const segments = youtubePathSegments(parsed)

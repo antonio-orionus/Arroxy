@@ -97,7 +97,7 @@ export const vi = {
   discord_badge_encoded:
     "Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord",
   hero_desc:
-    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 4K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
+    "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
   cta_website: "Trang web",
   star_cta:
@@ -154,13 +154,17 @@ export const vi = {
   feat_explore_5:
     "**Trình chặn quảng cáo** — Explore chặn quảng cáo và trình theo dõi trên các trang của chính nó; việc tải xuống không bị ảnh hưởng. Bật sẵn, một cú nhấp vào biểu tượng khiên trên thanh công cụ của Explore là tắt, và nó không bao giờ hoạt động trên trang đăng nhập của Google. YouTube có thể phản ứng với trình chặn quảng cáo đối với tài khoản đã đăng nhập",
   feat_quality_h3: "Chất lượng & định dạng",
-  feat_quality_1: "Lên tới **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
+  feat_quality_1: "Lên tới **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
-    "**Tốc độ khung hình cao** được giữ nguyên — 60 fps, 120 fps, HDR",
+    "**Tốc độ khung hình cao và HDR** được giữ nguyên — 60 fps, HDR10",
   feat_quality_3:
     "**Âm thanh** — xuất chỉ âm thanh thành MP3, M4A/AAC, Opus hoặc WAV. Trong tải xuống tương tác, chọn các bản âm thanh surround/Dolby gốc của nguồn (AC-3, E-AC-3, 5.1, DRC) khi có sẵn, hoặc đặt mặc định toàn cục **Ưu tiên surround / Dolby**",
   feat_quality_4:
     "**Hồ sơ theo mục tiêu** — *Hình ảnh đẹp nhất* (AV1 · VP9) hoặc *TV thông minh* (MP4 · H.264), lưu dưới dạng Tự động, MP4, MKV hoặc WebM mà không mã hóa lại. HDR là *Tự động* (chỉ khi màn hình của bạn hiển thị được), *SDR* hoặc *HDR*",
+  feat_quality_5:
+    "**Mọi codec ở mọi độ phân giải** — trình tải từng bước liệt kê AV1, VP9 và H.264 cạnh nhau ở từng độ phân giải, để bạn chọn loại mà TV hoặc phần mềm chỉnh sửa của bạn phát được",
+  feat_quality_6:
+    "**Biết một luồng thực sự là gì** — các kích thước YouTube nâng cấp bằng AI, ngôn ngữ âm thanh lồng tiếng bằng AI, luồng bitrate nâng cao, video 360° và các bản bị hỏng hoặc có hình mờ đều được đánh dấu. Hồ sơ bỏ qua luồng nâng cấp bằng AI trừ khi bạn cho phép",
   feat_privacy_h3: "Quyền riêng tư & kiểm soát",
   feat_privacy_1:
     "Xử lý 100% cục bộ — tải xuống trực tiếp từ YouTube đến ổ đĩa của bạn",
@@ -174,7 +178,7 @@ export const vi = {
   feat_workflow_2:
     "**Hàng đợi tải xuống trung tâm** — mọi tác vụ đơn lẻ, playlist, hàng loạt hoặc nhanh đều vào một nơi để theo dõi tiến độ, tạm dừng, tiếp tục, hủy, thử lại và điều chỉnh ưu tiên",
   feat_workflow_3:
-    "**Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)",
+    "**Theo dõi clipboard** — sao chép liên kết video và nó được điền vào ô URL khi bạn quay lại Arroxy, kèm **Hoàn tác** nếu bạn không có ý đó. Khi Arroxy đang bận, liên kết sẽ chờ đến khi bạn quay lại tab URL (tắt trong Cài đặt)",
   feat_workflow_4:
     "**Tự làm sạch URL** — loại bỏ các tham số theo dõi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) và mở gói các liên kết `youtube.com/redirect`",
   feat_workflow_5:
@@ -205,6 +209,8 @@ export const vi = {
     "**Aurora hoặc Tối giản, tối hoặc sáng** — các bảng kính trên bầu trời chuyển động, hoặc các bề mặt đặc yên tĩnh; chuyển đổi từ chân trang. Máy tính không có tăng tốc đồ họa sẽ tự động dùng Tối giản",
   feat_workflow_19:
     "**Thanh menu Mac** — trên macOS, mở Cài đặt (`Cmd+,`), đặt giới hạn tốc độ tải, đổi kiểu và giao diện, rồi mở nhật ký hoặc lưu tệp chẩn đoán từ thanh menu",
+  feat_workflow_20:
+    "**Đổi hồ sơ từ bất kỳ lượt tải nào** — tinh chỉnh một lượt tải, rồi cập nhật hồ sơ ban đầu của nó (có xem trước những gì thay đổi) hoặc lưu cài đặt thành hồ sơ mới. Khi đổi hồ sơ, Arroxy hỏi bạn có giữ các chỉnh sửa không",
   feat_post_h3: "Phụ đề & hậu xử lý",
   feat_post_1:
     "**Phụ đề** dạng SRT, VTT hoặc ASS — thủ công hoặc tự tạo, trong bất kỳ ngôn ngữ nào có sẵn",
@@ -220,7 +226,7 @@ export const vi = {
   feat_sites_1:
     "**YouTube đầy đủ** — Video, Shorts, Kênh, Playlist, YouTube Music và Podcast được hỗ trợ như nguồn hạng nhất",
   feat_sites_2:
-    "**Hơn 2000 trang khác** qua yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org và nhiều hơn nữa",
+    "**Hơn 2000 trang khác** qua yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable và nhiều hơn nữa",
   feat_sites_3:
     "**Chỉ âm thanh và phụ đề** hoạt động trên mọi trang được hỗ trợ, không chỉ YouTube",
   feat_sites_4:
@@ -387,7 +393,7 @@ export const vi = {
     "Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết. Arroxy bổ sung **Explore**, một trình duyệt YouTube tích hợp sẵn trong ứng dụng: bạn vừa duyệt vừa tải mà không cần sao chép liên kết, và chỉ cần đăng nhập ở đó một lần để tải video riêng tư, video dành cho thành viên, video giới hạn độ tuổi cùng danh sách Xem sau và Video đã thích của bạn, không cần xuất cookie. Arroxy dùng đăng nhập đó khi YouTube yêu cầu bạn xác nhận mình không phải robot, và trình duyệt tích hợp của nó lấy token tải xuống của YouTube để các lượt tải không bị giảm xuống còn ít định dạng hơn. Xem [Tại sao chọn Arroxy](#why).",
   faq_q2: "Tôi có thể tải xuống chất lượng video nào?",
   faq_a2:
-    "Bất kỳ thứ gì YouTube cung cấp: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps, 120 fps và HDR được giữ nguyên.",
+    "Bất kỳ thứ gì YouTube cung cấp: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, cùng với chỉ âm thanh. Các luồng 60 fps và HDR được giữ nguyên, và trình tải từng bước cho phép bạn chọn AV1, VP9 hoặc H.264 ở từng độ phân giải.",
   faq_q3: "Tôi có thể trích xuất chỉ âm thanh dạng MP3 không?",
   faq_a3:
     "Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AAC, Opus hoặc WAV.",

@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {formatProbeError, useAppStore} from '../../store/useAppStore.js'
 import {buildProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
@@ -10,7 +11,22 @@ import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 
 export function StepError(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardError, wizardUrl, settings, exploreView, retry, reset, openCookiesSettings, openExploreSignIn, retryFormatProbe, retryProbeWithCookies, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore()
+	const {wizardError, wizardUrl, settings, exploreView, retry, reset, openCookiesSettings, openExploreSignIn, retryFormatProbe, retryProbeWithCookies, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore(
+		useShallow(state => ({
+			wizardError: state.wizardError,
+			wizardUrl: state.wizardUrl,
+			settings: state.settings,
+			exploreView: state.exploreView,
+			retry: state.retry,
+			reset: state.reset,
+			openCookiesSettings: state.openCookiesSettings,
+			openExploreSignIn: state.openExploreSignIn,
+			retryFormatProbe: state.retryFormatProbe,
+			retryProbeWithCookies: state.retryProbeWithCookies,
+			signInWithExploreThenRetry: state.signInWithExploreThenRetry,
+			retryWithExploreSignIn: state.retryWithExploreSignIn
+		}))
+	)
 	// Leaving for Explore is the user's own choice here, unlike a toast's (P2-R41).
 	const target = {kind: 'wizard', url: wizardUrl.trim()} as const
 	const message = formatProbeError(wizardError)

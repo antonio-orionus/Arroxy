@@ -96,7 +96,7 @@ export const sw = {
   discord_badge_text: "Jiunge na jumuiya ya Discord",
   discord_badge_encoded: "Jiunge%20na%20jumuiya%20ya%20Discord",
   hero_desc:
-    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
+    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
@@ -147,13 +147,17 @@ export const sw = {
   feat_explore_4: "**Tumia akaunti ya pili** — skrini ya kwanza ya Explore inaeleza sababu: kupakua kwa akaunti kuna hatari fulani ya akaunti hiyo kuwekewa vikwazo. Toka kwenye Explore kupitia Mipangilio wakati wowote unapotaka kusahau kuingia",
   feat_explore_5: "**Kizuia matangazo** — Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake yenyewe; upakuaji haubadiliki. Kimewashwa kwa chaguomsingi, kubofya ngao mara moja kwenye upau wa zana wa Explore kunakizima, na hakifanyi kazi kamwe kwenye kurasa za kuingia za Google. YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia",
   feat_quality_h3: "Ubora na fomati",
-  feat_quality_1: "Hadi **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
+  feat_quality_1: "Hadi **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
-    "**Kiwango cha juu cha fremu** kimehifadhiwa kama kilivyo — fps 60, fps 120, HDR",
+    "**Kiwango cha juu cha fremu na HDR** vimehifadhiwa kama vilivyo — fps 60, HDR10",
   feat_quality_3:
     "**Sauti** — hamisha sauti pekee kama MP3, M4A/AAC, Opus au WAV. Katika upakuaji wa mwingiliano, chagua nyimbo asili za surround/Dolby za chanzo (AC-3, E-AC-3, 5.1, DRC) zinapopatikana, au weka chaguo-msingi la jumla **Pendelea surround / Dolby**",
   feat_quality_4:
     "**Wasifu wenye lengo** — *Picha bora* (AV1 · VP9) au *Runinga janja* (MP4 · H.264), huhifadhiwa kama Otomatiki, MP4, MKV, au WebM bila kusimba upya. HDR ni *Otomatiki* (tu skrini yako inapoweza kuionyesha), *SDR*, au *HDR*",
+  feat_quality_5:
+    "**Kila kodeki katika kila azimio** — upakuaji wa hatua kwa hatua huorodhesha AV1, VP9 na H.264 kando kwa kando katika kila azimio, ili uchague ile ambayo TV yako au kihariri chako kinacheza",
+  feat_quality_6:
+    "**Jua mtiririko ulivyo hasa** — ukubwa ambao YouTube imekuza kwa AI, lugha za sauti zilizotafsiriwa na AI, mitiririko yenye bitrate iliyoboreshwa, video za 360° na nakala zilizoharibika au zenye alama-maji huwekewa alama. Wasifu huruka mitiririko iliyokuzwa kwa AI isipokuwa uiruhusu",
   feat_privacy_h3: "Faragha na udhibiti",
   feat_privacy_1:
     "Usindikaji wa mahali hapo 100% — maudhui yanashuka moja kwa moja kutoka YouTube hadi kwenye diski yako",
@@ -166,7 +170,7 @@ export const sw = {
   feat_workflow_2:
     "**Foleni kuu ya upakuaji** — kazi ya single, playlist, bulk, au quick yote huingia sehemu moja kwa maendeleo, kusitisha, kuendelea, kughairi, kujaribu tena, na udhibiti wa kipaumbele",
   feat_workflow_3:
-    "**Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)",
+    "**Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha video na kitajaza sehemu ya URL ukirudi kwenye Arroxy, pamoja na **Tendua** ikiwa hukukusudia. Arroxy ikiwa na shughuli, kiungo husubiri hadi urudi kwenye kichupo cha URL (kizime katika Mipangilio)",
   feat_workflow_4:
     "**Usafi wa URL kiotomatiki** — huondoa vigezo vya ufuatiliaji (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) na kufungua viungo vya `youtube.com/redirect`",
   feat_workflow_5:
@@ -195,6 +199,8 @@ export const sw = {
     "**Aurora au Rahisi, giza au mwanga** — paneli za kioo juu ya anga linalosogea, au nyuso tulivu thabiti; badilisha kutoka kijachini. Kompyuta zisizo na kasi ya michoro hupata Rahisi kiotomatiki",
   feat_workflow_19:
     "**Upau wa menyu wa Mac** — kwenye macOS, fungua Mipangilio (`Cmd+,`), weka kikomo cha kasi ya kupakua, badilisha mtindo na mandhari, na fungua kumbukumbu au hifadhi faili la uchunguzi kutoka kwenye upau wa menyu",
+  feat_workflow_20:
+    "**Badilisha wasifu kutoka kwa upakuaji wowote** — rekebisha upakuaji, kisha sasisha wasifu ulioanzia (pamoja na onyesho la kinachobadilika) au hifadhi mipangilio kama wasifu mpya. Unapobadilisha wasifu, unaulizwa kama uhifadhi mabadiliko yako",
   feat_post_h3: "Manukuu na usindikaji wa baada ya kupakua",
   feat_post_1:
     "**Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana",
@@ -210,7 +216,7 @@ export const sw = {
   feat_sites_1:
     "**YouTube kamili** — Video, Shorts, Vituo, Orodha za Kucheza, YouTube Music na Podikasti zinashughulikiwa kama vyanzo vya daraja la kwanza",
   feat_sites_2:
-    "**Tovuti 2000+ nyingine** kupitia yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org na nyingi zaidi",
+    "**Tovuti 2000+ nyingine** kupitia yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable na nyingi zaidi",
   feat_sites_3:
     "**Sauti pekee na manukuu** yanafanya kazi kwenye kila tovuti inayoungwa mkono, si YouTube peke yake",
   feat_sites_4:
@@ -373,7 +379,7 @@ export const sw = {
     "GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongeza **Explore**, kivinjari cha YouTube kilichojengwa ndani ya programu: unavinjari na kupakua bila kunakili viungo, na unaingia humo mara moja ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Arroxy hutumia kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti, na kivinjari chake kilichojengewa ndani hupata tokeni ya upakuaji ya YouTube ili upakuaji usirudi kwenye fomati chache. Angalia [Kwa Nini Arroxy](#why).",
   faq_q2: "Ninaweza kupakua ubora gani wa video?",
   faq_a2:
-    "Chochote YouTube kinatoa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60, fps 120, na HDR huhifadhiwa kama ulivyo.",
+    "Chochote YouTube kinatoa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60 na HDR huhifadhiwa kama ulivyo, na upakuaji wa hatua kwa hatua hukuruhusu kuchagua AV1, VP9 au H.264 katika kila azimio.",
   faq_q3: "Je, ninaweza kutoa sauti pekee kama MP3?",
   faq_a3:
     "Ndiyo. Chagua *sauti pekee* kwenye menyu ya fomati kisha uchague MP3, M4A/AAC, Opus au WAV.",

@@ -9,7 +9,7 @@
 
 [![ስሪት](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ግንባታ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ድር ጣቢያ](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![ፈቃድ](https://img.shields.io/badge/license-MIT-green) ![ሥርዓቶች](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ቋንቋዎች](https://img.shields.io/badge/i18n-31_languages-blue)
 
-ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
+ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 8K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
 
 [**↓ የቅርብ ጊዜ ስሪት አውርድ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch) · [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch) · [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 <details>
 <summary><strong>🎞️ ጥራት እና ቅርጸቶች</strong></summary>
 
-- እስከ **4K UHD (2160p)**፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p
-- **ፈጣን የፍሬም ፍጥነት** እንዳለ ተጠብቆ — 60 fps፣ 120 fps፣ HDR
+- እስከ **8K (4320p)**፣ 4K UHD (2160p)፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p
+- **ፈጣን የፍሬም ፍጥነት እና HDR** እንዳሉ ተጠብቀው — 60 fps፣ HDR10
 - **ድምፅ** — ኦዲዮ ብቻን ወደ MP3፣ M4A/AAC፣ Opus ወይም WAV ማውጣት። በinteractive downloads ውስጥ ካሉ የምንጩን native surround/Dolby ትራኮች (AC-3፣ E-AC-3፣ 5.1፣ DRC) ይምረጡ፣ ወይም ዓለም አቀፍ **surround / Dolby ን ይመርጡ** ነባሪ ያቀናብሩ
 - **ግብ ያላቸው መገለጫዎች** — *ምርጥ ምስል* (AV1 · VP9) ወይም *ስማርት TV* (MP4 · H.264)፣ ዳግም ኮድ ሳይደረግ እንደ ራስ-ሰር፣ MP4፣ MKV ወይም WebM ይቀመጣሉ። HDR *ራስ-ሰር* (ማያዎ ማሳየት ሲችል ብቻ)፣ *SDR* ወይም *HDR* ነው
+- **እያንዳንዱ ኮዴክ በእያንዳንዱ ጥራት መጠን** — ደረጃ በደረጃ ማውረድ AV1፣ VP9 እና H.264ን በእያንዳንዱ ጥራት መጠን ጎን ለጎን ይዘረዝራል፣ ስለዚህ ቲቪዎ ወይም አርታኢዎ የሚያጫውተውን መምረጥ ይችላሉ
+- **ዥረቱ በእርግጥ ምን እንደሆነ ይወቁ** — YouTube በAI የሰፋቸው መጠኖች፣ በAI የተተረጎሙ የድምፅ ቋንቋዎች፣ የተሻሻለ ቢትሬት ያላቸው ዥረቶች፣ 360° ቪዲዮዎች እና የተበላሹ ወይም የውሃ ምልክት ያላቸው ቅጂዎች ምልክት ይደረግባቸዋል። እርስዎ ካልፈቀዱ በቀር መገለጫዎች በAI የተሰፉ ዥረቶችን ይዘላሉ
 
 </details>
 
@@ -124,7 +126,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - **አጠቃላይ የማውረድ አቋራጭ** — በማንኛውም መተግበሪያ ውስጥ አገናኝ ይቅዱና `Ctrl+Shift+D` (በmacOS ላይ `Cmd+Shift+D`) ይጫኑ፤ Arroxy መስኮቱን ሳይከፍት በንቁ መገለጫዎ ወደ ወረፋ ያስገባዋል፣ ማሳወቂያም ያረጋግጣል። በነባሪ የነቃ፣ እንደገና ሊመደብ የሚችል
 - **ተለዋዋጭ የመጀመሪያ ሁነታዎች** — የተመራ ነጠላ ማውረድ፣ የplaylist/channel መምረጫ፣ ብዙ URL መለጠፍ፣ በተቀመጡ ነባሪዎች Quick Download፣ ወይም ከExplore ማሰስና ማውረድ ይምረጡ
 - **ማዕከላዊ የማውረድ ወረፋ** — ነጠላ፣ playlist፣ bulk፣ ወይም quick ሥራ ሁሉ ለሂደት፣ ለማቆም፣ ለመቀጠል፣ ለመሰረዝ፣ እንደገና ለመሞከር እና ለቅድሚያ ቁጥጥር በአንድ ቦታ ይመጣል
-- **ክሊፕቦርድ ክትትል** — YouTube ሊንክ ቅዱ እና Arroxy ወደ አፕ ሲመለሱ URL ን አውቶሜቲክ ይሙላሉ (በ Advanced settings ውስጥ ያብሩ/ያጥፉ)
+- **ክሊፕቦርድ ክትትል** — የቪዲዮ ሊንክ ይቅዱ፣ ወደ Arroxy ሲመለሱም የURL መስኩን ይሞላል፤ ሳያስቡት ከሆነ **ቀልብስ** አለ። Arroxy ሥራ ላይ ሲሆን ሊንኩ ወደ URL ትር እስኪመለሱ ይጠብቃል (በቅንብሮች ውስጥ ያጥፉት)
 - **URL ን ራስ ሰር ያጥሩ** — ትራኪንግ ፓራሜትሮችን (`si`፣ `pp`፣ `utm_*`፣ `fbclid`፣ `gclid`) ያስወግዳሉ እና `youtube.com/redirect` ሊንኮችን ያሰናስሉ
 - **ትሬ ሁነታ** — መስኮቱን መዝጋት ማውረዶቹን በጀርባ ያስቀጥላሉ
 - **31 ቋንቋዎች** — የስርዓት አካባቢን በራስ-ሰር ያገኛል፣ በማንኛውም ጊዜ መቀየር ይቻላል
@@ -140,6 +142,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - **በዳውንሎዶች ውስጥ መጠን እና ጠፍቷል** — ሊደረደር የሚችል **መጠን** አምድ እያንዳንዱ ዳውንሎድ ምን ያህል ቦታ እንደሚይዝ ያሳያል፣ **ጠፍቷል** ደግሞ ከArroxy ውጭ የተንቀሳቀሱ ወይም የተሰረዙ ፋይሎችን ምልክት ያደርጋል
 - **Aurora ወይም ቀላል፣ ጨለማ ወይም ብርሃን** — በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች፣ ወይም ጸጥ ያሉ ጠጣር ገጾች፤ ከግርጌ ይቀያይሩ። የግራፊክስ ማፋጠን የሌላቸው ኮምፒውተሮች ቀላልን በራስ-ሰር ያገኛሉ
 - **የMac ሜኑ አሞሌ** — በmacOS ላይ ቅንብሮችን (`Cmd+,`) ይክፈቱ፣ የማውረድ ፍጥነት ገደብ ያዘጋጁ፣ ዘይቤና ገጽታ ይቀይሩ፣ እንዲሁም ምዝግቦችን ይክፈቱ ወይም የምርመራ ፋይል ከሜኑ አሞሌ ያስቀምጡ
+- **ከማንኛውም ማውረድ መገለጫ ይቀይሩ** — ማውረዱን ያስተካክሉ፣ ከዚያ የተጀመረበትን መገለጫ ያዘምኑ (ምን እንደሚለወጥ በቅድመ እይታ) ወይም ቅንብሮቹን እንደ አዲስ መገለጫ ያስቀምጡ። መገለጫ ሲቀይሩ ማስተካከያዎችዎን ማቆየት እንደሚፈልጉ ይጠየቃሉ
 
 </details>
 
@@ -158,7 +161,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 <summary><strong>🌐 YouTube + 2000 ጣቢያዎች</strong></summary>
 
 - **YouTube ሙሉ** — ቪዲዮዎች፣ Shorts፣ ቻናሎች፣ ፕሌይሊስቶች፣ YouTube Music እና ፖድካስቶች እንደ ቀዳሚ ምንጮች ይታሰባሉ
-- **2000+ ሌሎች ጣቢያዎች** yt-dlp አማካኝነት — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org እና ሌሎች ብዙ
+- **2000+ ሌሎች ጣቢያዎች** yt-dlp አማካኝነት — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable እና ሌሎች ብዙ
 - **ኦዲዮ ብቻ እና ጽሑፍ ርዕሶች** ሁሉም ተደጋፊ ጣቢያዎች ላይ ይሠራሉ፣ YouTube ብቻ ሳይሆን
 - ጣቢያ ሲቀይር yt-dlp በሳምንት ውስጥ ማሻሻያዎችን ይልካሉ፣ Arroxy ደግሞ ሲጀምር binary ን ራስ-ሰር ያዘምናሉ
 
@@ -405,7 +408,7 @@ Explore ከbrowserዎ የተለየ የራሱን መግቢያ ይይዛል፣ እ
 <details>
 <summary><strong>ምን ዓይነት ቪዲዮ ጥራቶች ማውረድ እችላሉ?</strong></summary>
 
-YouTube የሚሰጣቸው ሁሉ: 4K UHD (2160p)፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p፣ እና ድምፅ ብቻ። 60 fps፣ 120 fps፣ እና HDR ዥረቶች እንዳሉ ይጠበቃሉ።
+YouTube የሚሰጣቸው ሁሉ: 8K (4320p)፣ 4K UHD (2160p)፣ 1440p፣ 1080p፣ 720p፣ 480p፣ 360p፣ እና ድምፅ ብቻ። 60 fps እና HDR ዥረቶች እንዳሉ ይጠበቃሉ፤ ደረጃ በደረጃ ማውረዱም በእያንዳንዱ ጥራት መጠን AV1፣ VP9 ወይም H.264 እንዲመርጡ ያስችልዎታል።
 
 </details>
 

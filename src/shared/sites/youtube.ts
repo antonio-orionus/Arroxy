@@ -9,6 +9,14 @@
 
 import type {ExploreCookie, PlaylistEntryHint, Site} from './types.js'
 
+// The one answer to "is this a YouTube host?" for URLs. yt-dlp's YoutubeIE
+// accepts youtube-nocookie.com embeds, so they get every YouTube behavior too.
+// Cookie domains are a different question (see onYouTube below).
+export function isYouTubeHostname(hostname: string): boolean {
+	const host = hostname.toLowerCase()
+	return host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtube-nocookie.com' || host.endsWith('.youtube-nocookie.com')
+}
+
 // Returns a category-prefixed display label for an entry whose title is
 // missing. Mirrors the pre-seam `youtubeIdHint` logic exactly so the playlist
 // picker shows the same fallback strings it did before.
@@ -48,6 +56,7 @@ function youtubeIsNested(entry: PlaylistEntryHint): boolean {
 
 const YOUTUBE_AUTH_PAIR = ['SAPISID', '__Secure-1PAPISID', '__Secure-3PAPISID'] as const
 
+// Auth cookies live on youtube.com only; youtu.be and nocookie set none.
 function onYouTube(cookie: ExploreCookie): boolean {
 	const host = cookie.domain.replace(/^\./, '').toLowerCase()
 	return host === 'youtube.com' || host.endsWith('.youtube.com')

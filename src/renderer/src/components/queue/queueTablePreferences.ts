@@ -1,73 +1,46 @@
-import {QUEUE_TABLE_COLUMN_IDS, type QueueTableColumnId} from '@shared/schemas.js'
+import {z} from 'zod'
+import {QUEUE_TABLE_COLUMN_IDS, queueTableColumnIdSchema, type QueueTableColumnId} from '@shared/schemas.js'
 
 export type {QueueTableColumnId}
 
-export interface QueueTableSortingRule {
-	id: QueueTableColumnId
-	desc: boolean
-}
-
-export interface QueueTablePreferences {
-	version: 1
-	sorting: QueueTableSortingRule[]
-	columnOrder: QueueTableColumnId[]
-	columnVisibility: Record<QueueTableColumnId, boolean>
-}
-
 const STORAGE_KEY = 'arroxy.queueTablePreferences.v1'
-const COLUMN_ID_SET = new Set<string>(QUEUE_TABLE_COLUMN_IDS)
-const LOCKED_VISIBLE_COLUMNS = new Set<QueueTableColumnId>(['title', 'status'])
 
-export const DEFAULT_QUEUE_TABLE_PREFERENCES: QueueTablePreferences = {
-	version: 1,
-	sorting: [{id: 'addedAt', desc: true}],
-	columnOrder: [...QUEUE_TABLE_COLUMN_IDS],
-	columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: true, outputDir: true, artifacts: true, fileSize: true, addedAt: true, finishedAt: false}
+// Persisted lists keep their valid items: a bad item is dropped, not the list.
+function lenientList<T extends z.ZodType>(item: T): z.ZodType<Array<NonNullable<z.output<T>>>> {
+	return z
+		.array(item.nullable().catch(null))
+		.catch([])
+		.transform(items => items.filter((value): value is NonNullable<z.output<T>> => value !== null))
 }
 
-function isColumnId(value: unknown): value is QueueTableColumnId {
-	return typeof value === 'string' && COLUMN_ID_SET.has(value)
-}
+const sortingRuleSchema = z.object({id: queueTableColumnIdSchema, desc: z.boolean().catch(false)})
 
-function sanitizeColumnOrder(value: unknown): QueueTableColumnId[] {
-	const seen = new Set<QueueTableColumnId>()
-	const ordered: QueueTableColumnId[] = []
-	if (Array.isArray(value)) {
-		for (const candidate of value) {
-			if (!isColumnId(candidate) || seen.has(candidate)) continue
-			seen.add(candidate)
-			ordered.push(candidate)
-		}
-	}
-	for (const columnId of QUEUE_TABLE_COLUMN_IDS) {
-		if (!seen.has(columnId)) ordered.push(columnId)
-	}
-	return ordered
-}
+// A Set keeps first-seen order, so this dedupes and appends the columns the stored order lacks.
+const columnOrderSchema = lenientList(queueTableColumnIdSchema).transform(ids => [...new Set([...ids, ...QUEUE_TABLE_COLUMN_IDS])])
 
-function sanitizeColumnVisibility(value: unknown): Record<QueueTableColumnId, boolean> {
-	const raw = typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {}
-	const next = {...DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility}
-	for (const columnId of QUEUE_TABLE_COLUMN_IDS) {
-		if (typeof raw[columnId] === 'boolean') next[columnId] = raw[columnId]
-		if (LOCKED_VISIBLE_COLUMNS.has(columnId)) next[columnId] = true
-	}
-	return next
-}
+// Title and status cannot be hidden, whatever storage says.
+const lockedVisible = z
+	.boolean()
+	.catch(true)
+	.transform((): boolean => true)
+const shownByDefault = z.boolean().catch(true)
+const columnVisibilityFieldsSchema = z.object({title: lockedVisible, status: lockedVisible, progressPercent: shownByDefault, formatLabel: shownByDefault, outputDir: shownByDefault, artifacts: shownByDefault, fileSize: shownByDefault, addedAt: shownByDefault, finishedAt: z.boolean().catch(false)} satisfies Record<
+	QueueTableColumnId,
+	z.ZodType<boolean, unknown>
+>)
+const columnVisibilitySchema = columnVisibilityFieldsSchema.catch(() => columnVisibilityFieldsSchema.parse({}))
 
-function sanitizeSorting(value: unknown): QueueTableSortingRule[] {
-	if (!Array.isArray(value)) return []
-	return value.flatMap(candidate => {
-		if (typeof candidate !== 'object' || candidate === null) return []
-		const raw = candidate as Record<string, unknown>
-		if (!isColumnId(raw.id)) return []
-		return [{id: raw.id, desc: raw.desc === true}]
-	})
-}
+const preferenceFieldsSchema = z.object({sorting: lenientList(sortingRuleSchema), columnOrder: columnOrderSchema, columnVisibility: columnVisibilitySchema})
+
+// Never fails: storage is untrusted, so every field falls back on its own.
+const queueTablePreferencesSchema = preferenceFieldsSchema.catch(() => preferenceFieldsSchema.parse({})).transform(fields => ({version: 1 as const, ...fields}))
+
+export type QueueTablePreferences = z.output<typeof queueTablePreferencesSchema>
+
+export const DEFAULT_QUEUE_TABLE_PREFERENCES: QueueTablePreferences = {version: 1, sorting: [{id: 'addedAt', desc: true}], columnOrder: [...QUEUE_TABLE_COLUMN_IDS], columnVisibility: columnVisibilitySchema.parse({})}
 
 export function sanitizeQueueTablePreferences(value: unknown): QueueTablePreferences {
-	const raw = typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {}
-	return {version: 1, sorting: sanitizeSorting(raw.sorting), columnOrder: sanitizeColumnOrder(raw.columnOrder), columnVisibility: sanitizeColumnVisibility(raw.columnVisibility)}
+	return queueTablePreferencesSchema.parse(value)
 }
 
 export function loadQueueTablePreferences(storage: Pick<Storage, 'getItem'> = window.localStorage): QueueTablePreferences {

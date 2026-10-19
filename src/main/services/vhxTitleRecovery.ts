@@ -18,6 +18,7 @@
 // Failure is always non-fatal: any miss keeps the sentinel and the download
 // proceeds exactly as before.
 
+import {BlockList, isIP} from 'node:net'
 import {decodeHTMLAttribute} from 'entities'
 import fetch from 'make-fetch-happen'
 
@@ -27,7 +28,6 @@ const VHX_UNTITLED_SENTINEL = 'Untitled'
 const VHX_EXTRACTOR_KEYS = new Set(['VHXEmbed'])
 const VHX_EXTRACTOR_IDS = ['vhx:']
 const VHX_EMBED_HOST_RE = /(^|\.)embed\.vhx\.tv$/i
-const IPV4_RE = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
 const FETCH_TIMEOUT_MS = 10_000
 const FETCH_MAX_REDIRECTS = 5
 const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -101,27 +101,35 @@ export function smuggledRefererOf(url: string | undefined): string | null {
 	}
 }
 
-/** True when the host must not be fetched: loopback, private, or link-local ranges (name-level check only, terminal-dot aliases canonicalized). */
+// Address ranges a fetch must never reach. BlockList also matches IPv4-mapped
+// IPv6 forms (::ffff:7f00:1) against the IPv4 rules, which matters because the
+// WHATWG URL parser rewrites a dotted [::ffff:127.0.0.1] literal to hex groups.
+const BLOCKED_ADDRESSES = new BlockList()
+for (const [network, prefix] of [
+	['0.0.0.0', 8], // "this" network
+	['10.0.0.0', 8], // RFC 1918
+	['100.64.0.0', 10], // CGNAT shared space
+	['127.0.0.0', 8], // loopback
+	['169.254.0.0', 16], // link-local
+	['172.16.0.0', 12], // RFC 1918
+	['192.168.0.0', 16] // RFC 1918
+] as const)
+	BLOCKED_ADDRESSES.addSubnet(network, prefix, 'ipv4')
+BLOCKED_ADDRESSES.addAddress('::', 'ipv6') // unspecified
+BLOCKED_ADDRESSES.addAddress('::1', 'ipv6') // loopback
+BLOCKED_ADDRESSES.addSubnet('fc00::', 7, 'ipv6') // unique-local
+BLOCKED_ADDRESSES.addSubnet('fe80::', 10, 'ipv6') // link-local
+
+/** True when the host must not be fetched: loopback, private, CGNAT, or link-local ranges (name-level check only, terminal-dot aliases canonicalized). */
 export function isPrivateHostname(hostname: string): boolean {
 	const host = hostname
 		.toLowerCase()
 		.replace(/^\[|\]$/g, '')
 		.replace(/\.+$/, '')
 	if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.internal')) return true
-	if (IPV4_RE.test(host)) {
-		const parts = host.split('.').map(Number)
-		const [a, b] = [parts[0], parts[1]]
-		if (a === 0 || a === 10 || a === 127) return true
-		if (a === 169 && b === 254) return true
-		if (a === 192 && b === 168) return true
-		if (a === 172 && b >= 16 && b <= 31) return true
-		return false
-	}
-	if (host === '::' || host === '::1') return true
-	if (host.startsWith('fc') || host.startsWith('fd')) return true // fc00::/7 unique-local
-	if (host.startsWith('fe8') || host.startsWith('fe9') || host.startsWith('fea') || host.startsWith('feb')) return true // fe80::/10 link-local
-	const v4mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/i.exec(host)
-	if (v4mapped) return isPrivateHostname(v4mapped[1])
+	const family = isIP(host)
+	if (family === 4) return BLOCKED_ADDRESSES.check(host, 'ipv4')
+	if (family === 6) return BLOCKED_ADDRESSES.check(host, 'ipv6')
 	return false
 }
 

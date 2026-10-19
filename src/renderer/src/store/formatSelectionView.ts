@@ -1,4 +1,5 @@
 import {useMemo} from 'react'
+import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
 import {humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
@@ -150,9 +151,9 @@ interface SizeScale {
 	scaled: boolean
 }
 
-function sizeScale(videoPart: SelectViewInput['videoPart']): SizeScale {
-	if (!videoPart) return {bytes: bytes => bytes, text: humanSize, scaled: false}
-	return {bytes: bytes => scaleBytesToPart(bytes, videoPart.part, videoPart.durationSeconds), text: bytes => `~${humanSize(bytes)}`, scaled: true}
+function sizeScale(videoPart: SelectViewInput['videoPart'], language: string | undefined): SizeScale {
+	if (!videoPart) return {bytes: bytes => bytes, text: bytes => humanSize(bytes, language), scaled: false}
+	return {bytes: bytes => scaleBytesToPart(bytes, videoPart.part, videoPart.durationSeconds), text: bytes => `~${humanSize(bytes, language)}`, scaled: true}
 }
 
 // Dolby Digital and Dolby Digital Plus share the Dolby column; the chip says which.
@@ -291,6 +292,8 @@ export interface SelectViewInput {
 	videoPart?: {part: VideoPart; durationSeconds: number} | null
 	// Video, no audio: only streams without audio of their own are listed.
 	silentVideo?: boolean
+	// UI language for sizes; without one the digits stay plain en-US.
+	language?: string
 }
 
 // "1080p" → 1080; names that are not a tier sort last.
@@ -309,7 +312,7 @@ function nameOf(resolution: string): {name: string; alias: string | null} {
 // modes, etc.) without spinning up the zustand store.
 export function selectView(state: SelectViewInput): FormatSelectionView {
 	const {selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats} = state
-	const scale = sizeScale(state.videoPart)
+	const scale = sizeScale(state.videoPart, state.language)
 	const pickedVideo = state.profilePick?.videoFormatId
 	const profileVideoId = pickedVideo !== undefined && pickedVideo !== '' ? pickedVideo : null
 	const profileAudio = state.profilePick?.audioSelection
@@ -435,10 +438,13 @@ export function useFormatSelectionView(): FormatSelectionView {
 	const wizardPart = useAppStore(s => s.wizardPart)
 	const wizardDuration = useAppStore(s => s.wizardDuration)
 	const silentVideo = useAppStore(s => formatMode(s) === 'video-only')
+	// Re-renders on a language change, so sizes and labels follow it.
+	const {i18n} = useTranslation()
+	const language = i18n.language
 
 	return useMemo(() => {
 		const part = wizardVideoPart({wizardPart, wizardDuration, wizardMediaKind: mediaKind})
 		const videoPart = part && wizardDuration !== undefined ? {part, durationSeconds: wizardDuration} : null
-		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart, silentVideo})
-	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo])
+		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart, silentVideo, language})
+	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo, language])
 }

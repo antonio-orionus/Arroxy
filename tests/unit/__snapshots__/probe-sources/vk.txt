@@ -3,11 +3,11 @@ ProtivoGunz - Хуёвая песня · 195 s · card says "320x240" · 10 form
 
 Video (picked for Balanced 720p •):
       SDR H.264
-240p  H.264 7.0 MB •
-144p  H.264 2.6 MB
+240p  H.264 6.9 MiB •
+144p  H.264 2.6 MiB
 
 Audio:
-AAC: 53 kbps 1.2 MB • | 37 kbps 872.1 KB
+AAC: 53 kbps 1.2 MiB • | 37 kbps 872.1 KiB
 
 Profile picks:
 balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})

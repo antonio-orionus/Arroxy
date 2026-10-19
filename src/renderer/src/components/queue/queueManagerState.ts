@@ -9,7 +9,6 @@ export interface QueueManagerState {
 	selection: ListSelectionState
 	expandedIds: Set<string>
 	tablePreferences: QueueTablePreferences
-	viewportWidth: number
 }
 
 export type QueueManagerAction =
@@ -18,15 +17,10 @@ export type QueueManagerAction =
 	| {type: 'set-expanded'; ids: Set<string>}
 	| {type: 'toggle-expanded'; itemId: string}
 	| {type: 'set-table-preferences'; preferences: QueueTablePreferences}
-	| {type: 'set-viewport-width'; viewportWidth: number}
 	| {type: 'prune-ids'; liveIds: ReadonlySet<string>}
 
-export function currentViewportWidth(): number {
-	return typeof window === 'undefined' ? Number.POSITIVE_INFINITY : window.innerWidth
-}
-
 export function createQueueManagerState(): QueueManagerState {
-	return {filter: 'all', selection: createListSelectionState(), expandedIds: new Set(), tablePreferences: loadQueueTablePreferences(), viewportWidth: currentViewportWidth()}
+	return {filter: 'all', selection: createListSelectionState(), expandedIds: new Set(), tablePreferences: loadQueueTablePreferences()}
 }
 
 export function queueManagerReducer(state: QueueManagerState, action: QueueManagerAction): QueueManagerState {
@@ -43,7 +37,6 @@ export function queueManagerReducer(state: QueueManagerState, action: QueueManag
 		return {...state, expandedIds}
 	}
 	if (action.type === 'set-table-preferences') return {...state, tablePreferences: sanitizeQueueTablePreferences(action.preferences)}
-	if (action.type === 'set-viewport-width') return {...state, viewportWidth: action.viewportWidth}
 	if (action.type === 'prune-ids') {
 		const selection = listSelectionReducer(state.selection, {type: 'prune', liveIds: action.liveIds})
 		const expandedIds = pruneSet(state.expandedIds, action.liveIds).ids
