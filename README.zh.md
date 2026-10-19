@@ -9,7 +9,7 @@
 
 [![发布](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![构建](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![官网](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![许可证](https://img.shields.io/badge/license-MIT-green) ![平台](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![语言](https://img.shields.io/badge/i18n-31_languages-blue)
 
-从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，可导出为 MP3 / AAC / Opus，也可以只下载你需要的片段。在 Explore 标签页中**在 Arroxy 内浏览 YouTube**，下载你正在查看的视频、播放列表或频道；在那里登录后，还能下载你的账号可观看的私享、会员专属和年龄限制视频。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**
+从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 8K HDR 60 fps，可导出为 MP3 / AAC / Opus，也可以只下载你需要的片段。在 Explore 标签页中**在 Arroxy 内浏览 YouTube**，下载你正在查看的视频、播放列表或频道；在那里登录后，还能下载你的账号可观看的私享、会员专属和年龄限制视频。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**
 
 [**↓ 下载最新版本**](#install) &nbsp;·&nbsp; [**官网**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows 首次启动](#windows-first-launch) · [macOS 首次启动](#macos-first-launch) · [Linux 首次启动](#linux-first-launch)
 
@@ -104,10 +104,12 @@
 <details>
 <summary><strong>🎞️ 画质与格式</strong></summary>
 
-- 最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p
-- **高帧率**原样保留 — 60 fps、120 fps、HDR
+- 最高 **8K（4320p）**、4K UHD（2160p）、1440p、1080p、720p、480p、360p
+- **高帧率与 HDR**原样保留 — 60 fps、HDR10
 - **音频** — 将仅音频导出为 MP3、M4A/AAC、Opus 或 WAV。在交互式下载中，可用时选择来源的原生环绕声/Dolby 音轨（AC-3、E-AC-3、5.1、DRC），或设置全局默认 **优先环绕声 / Dolby**
 - **有目标的配置文件** — *最佳画质*（AV1 · VP9）或 *智能电视*（MP4 · H.264），无需重新编码即可保存为自动、MP4、MKV 或 WebM。HDR 可选 *自动*（仅在屏幕能显示时）、*SDR* 或 *HDR*
+- **每种分辨率都有每种编码** — 分步下载会在每个分辨率下并列显示 AV1、VP9 和 H.264，让你选择电视或剪辑软件能播放的那一种
+- **看清流的真实情况** — YouTube 用 AI 放大的尺寸、AI 配音的音频语言、增强码率的流、360° 视频，以及损坏或带水印的副本都会被标记。除非你允许，配置文件会跳过 AI 放大的流
 
 </details>
 
@@ -126,7 +128,7 @@
 - **全局下载快捷键** — 在任意应用中复制链接后按 `Ctrl+Shift+D`（macOS 为 `Cmd+Shift+D`），Arroxy 会用当前配置直接加入队列，无需打开窗口，并以通知确认。默认开启，可重新绑定
 - **灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL、使用已保存默认值的 Quick Download，或在 Explore 中浏览并下载
 - **中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级
-- **剪贴板监控** — 复制 YouTube 链接后切回应用，Arroxy 自动填入 URL（可在高级设置中切换）
+- **剪贴板监控** — 复制视频链接后，回到 Arroxy 时会自动填入 URL 输入框；如果不是你想要的，可以点 **撤销**。Arroxy 忙碌时，链接会等你回到“链接”标签页再填入（可在设置中关闭）
 - **自动清理 URL** — 剥除跟踪参数（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）并解包 `youtube.com/redirect` 跳转链接
 - **托盘模式** — 关闭窗口后下载在后台继续运行
 - **31 种语言** — 自动检测系统区域设置，可随时切换
@@ -142,6 +144,7 @@
 - **“下载”中的大小与缺失** — 可排序的 **大小** 列显示每个下载占用多少空间，**缺失** 则标示在 Arroxy 之外被移动或删除的文件
 - **Aurora 或极简，深色或浅色** — 流动天空上的玻璃面板，或安静的纯色表面；可从页脚切换。没有图形加速的电脑会自动使用极简
 - **Mac 菜单栏** — 在 macOS 上，可从菜单栏打开设置（`Cmd+,`）、设置下载速度限制、切换样式与主题，并打开日志或保存诊断文件
+- **从任意下载修改配置文件** — 调整某个下载后，可以更新它所基于的配置文件（附带改动预览），或将这些设置另存为新配置文件。切换配置文件时会询问是否保留你的修改
 
 </details>
 
@@ -160,7 +163,7 @@
 <summary><strong>🌐 YouTube + 2000 个网站</strong></summary>
 
 - **YouTube，全面支持** — 视频、Shorts、频道、播放列表、YouTube Music 和播客作为一等来源处理
-- **通过 yt-dlp 支持 2000+ 个其他网站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等众多网站
+- **通过 yt-dlp 支持 2000+ 个其他网站** — Twitch、TikTok、Dailymotion、VK、SoundCloud、Bandcamp、Bilibili、archive.org、Streamable 等众多网站
 - **仅音频和字幕**在所有支持的网站上均可使用，不限于 YouTube
 - 若某个网站发生变化，yt-dlp 每周发布修复，Arroxy 在启动时自动更新二进制文件
 
@@ -407,7 +410,7 @@ Explore 有自己独立的登录，与你的浏览器分开，Arroxy 不会读�
 <details>
 <summary><strong>能下载哪些视频画质？</strong></summary>
 
-YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps、120 fps 和 HDR 流原样保留。
+YouTube 提供的都行：8K（4320p）、4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps 和 HDR 流原样保留，分步下载还能让你在每个分辨率下选择 AV1、VP9 或 H.264。
 
 </details>
 

@@ -96,7 +96,7 @@ export const zh = {
   discord_badge_text: "加入 Discord 社群",
   discord_badge_encoded: "%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4",
   hero_desc:
-    "从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，可导出为 MP3 / AAC / Opus，也可以只下载你需要的片段。在 Explore 标签页中**在 Arroxy 内浏览 YouTube**，下载你正在查看的视频、播放列表或频道；在那里登录后，还能下载你的账号可观看的私享、会员专属和年龄限制视频。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**",
+    "从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 8K HDR 60 fps，可导出为 MP3 / AAC / Opus，也可以只下载你需要的片段。在 Explore 标签页中**在 Arroxy 内浏览 YouTube**，下载你正在查看的视频、播放列表或频道；在那里登录后，还能下载你的账号可观看的私享、会员专属和年龄限制视频。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**",
   cta_latest: "↓ 下载最新版本",
   cta_website: "官网",
   star_cta: "如果 Arroxy 帮你节省了时间，点个 ⭐ 让更多人发现它。",
@@ -149,12 +149,16 @@ export const zh = {
   feat_explore_5:
     "**广告拦截** — Explore 会拦截自身页面上的广告和跟踪器，不影响下载。默认开启，点击 Explore 工具栏上的盾牌即可关闭，并且不会作用于 Google 的登录页面。对已登录的账号，YouTube 可能会抵制广告拦截",
   feat_quality_h3: "画质与格式",
-  feat_quality_1: "最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p",
-  feat_quality_2: "**高帧率**原样保留 — 60 fps、120 fps、HDR",
+  feat_quality_1: "最高 **8K（4320p）**、4K UHD（2160p）、1440p、1080p、720p、480p、360p",
+  feat_quality_2: "**高帧率与 HDR**原样保留 — 60 fps、HDR10",
   feat_quality_3:
     "**音频** — 将仅音频导出为 MP3、M4A/AAC、Opus 或 WAV。在交互式下载中，可用时选择来源的原生环绕声/Dolby 音轨（AC-3、E-AC-3、5.1、DRC），或设置全局默认 **优先环绕声 / Dolby**",
   feat_quality_4:
     "**有目标的配置文件** — *最佳画质*（AV1 · VP9）或 *智能电视*（MP4 · H.264），无需重新编码即可保存为自动、MP4、MKV 或 WebM。HDR 可选 *自动*（仅在屏幕能显示时）、*SDR* 或 *HDR*",
+  feat_quality_5:
+    "**每种分辨率都有每种编码** — 分步下载会在每个分辨率下并列显示 AV1、VP9 和 H.264，让你选择电视或剪辑软件能播放的那一种",
+  feat_quality_6:
+    "**看清流的真实情况** — YouTube 用 AI 放大的尺寸、AI 配音的音频语言、增强码率的流、360° 视频，以及损坏或带水印的副本都会被标记。除非你允许，配置文件会跳过 AI 放大的流",
   feat_privacy_h3: "隐私与控制",
   feat_privacy_1: "100% 本地处理 — 下载直接从 YouTube 到你的硬盘",
   feat_privacy_2: "无登录、无 Cookie、无 Google 账号绑定",
@@ -166,7 +170,7 @@ export const zh = {
   feat_workflow_2:
     "**中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级",
   feat_workflow_3:
-    "**剪贴板监控** — 复制 YouTube 链接后切回应用，Arroxy 自动填入 URL（可在高级设置中切换）",
+    "**剪贴板监控** — 复制视频链接后，回到 Arroxy 时会自动填入 URL 输入框；如果不是你想要的，可以点 **撤销**。Arroxy 忙碌时，链接会等你回到“链接”标签页再填入（可在设置中关闭）",
   feat_workflow_4:
     "**自动清理 URL** — 剥除跟踪参数（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）并解包 `youtube.com/redirect` 跳转链接",
   feat_workflow_5: "**托盘模式** — 关闭窗口后下载在后台继续运行",
@@ -195,6 +199,8 @@ export const zh = {
     "**Aurora 或极简，深色或浅色** — 流动天空上的玻璃面板，或安静的纯色表面；可从页脚切换。没有图形加速的电脑会自动使用极简",
   feat_workflow_19:
     "**Mac 菜单栏** — 在 macOS 上，可从菜单栏打开设置（`Cmd+,`）、设置下载速度限制、切换样式与主题，并打开日志或保存诊断文件",
+  feat_workflow_20:
+    "**从任意下载修改配置文件** — 调整某个下载后，可以更新它所基于的配置文件（附带改动预览），或将这些设置另存为新配置文件。切换配置文件时会询问是否保留你的修改",
   feat_post_h3: "字幕与后处理",
   feat_post_1:
     "**字幕**以 SRT、VTT 或 ASS 格式下载 — 手动或自动生成，支持任意可用语言",
@@ -209,7 +215,7 @@ export const zh = {
   feat_sites_1:
     "**YouTube，全面支持** — 视频、Shorts、频道、播放列表、YouTube Music 和播客作为一等来源处理",
   feat_sites_2:
-    "**通过 yt-dlp 支持 2000+ 个其他网站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等众多网站",
+    "**通过 yt-dlp 支持 2000+ 个其他网站** — Twitch、TikTok、Dailymotion、VK、SoundCloud、Bandcamp、Bilibili、archive.org、Streamable 等众多网站",
   feat_sites_3: "**仅音频和字幕**在所有支持的网站上均可使用，不限于 YouTube",
   feat_sites_4:
     "若某个网站发生变化，yt-dlp 每周发布修复，Arroxy 在启动时自动更新二进制文件",
@@ -358,7 +364,7 @@ export const zh = {
     "大多数免费的 yt-dlp 图形界面只是接收链接的套壳工具。Arroxy 增加了 **Explore**，一个内置在应用中的 YouTube 浏览器：你可以边浏览边下载，无需复制链接；只需在其中登录一次，就能下载私享、会员专属和年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表，无需导出 Cookie。当 YouTube 要求你确认自己不是机器人时，Arroxy 会使用这一登录；它的内置浏览器还会获取 YouTube 的下载令牌，让下载不会退回到更少的格式。参见[为什么选 Arroxy](#why)。",
   faq_q2: "能下载哪些视频画质？",
   faq_a2:
-    "YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps、120 fps 和 HDR 流原样保留。",
+    "YouTube 提供的都行：8K（4320p）、4K UHD（2160p）、1440p、1080p、720p、480p、360p，以及纯音频。60 fps 和 HDR 流原样保留，分步下载还能让你在每个分辨率下选择 AV1、VP9 或 H.264。",
   faq_q3: "能将音频提取为 MP3 吗？",
   faq_a3:
     "可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。",

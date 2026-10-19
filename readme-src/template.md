@@ -108,6 +108,8 @@
 - {{feat_quality_2}}
 - {{feat_quality_3}}
 - {{feat_quality_4}}
+- {{feat_quality_5}}
+- {{feat_quality_6}}
 
 </details>
 
@@ -142,6 +144,7 @@
 - {{feat_workflow_17}}
 - {{feat_workflow_18}}
 - {{feat_workflow_19}}
+- {{feat_workflow_20}}
 
 </details>
 

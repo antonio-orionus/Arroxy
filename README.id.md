@@ -9,7 +9,7 @@
 
 [![Rilis](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Situs web](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Lisensi](https://img.shields.io/badge/license-MIT-green) ![Platform](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Bahasa](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
+Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 8K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia yang bisa ditonton akun Anda. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
 
 [**↓ Instal Rilis Terbaru**](#install) &nbsp;·&nbsp; [**Situs web**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows peluncuran pertama](#windows-first-launch) · [macOS peluncuran pertama](#macos-first-launch) · [Linux peluncuran pertama](#linux-first-launch)
 
@@ -104,10 +104,12 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 <details>
 <summary><strong>🎞️ Kualitas & format</strong></summary>
 
-- Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR
+- Hingga **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p
+- **Kecepatan frame tinggi dan HDR** dipertahankan apa adanya — 60 fps, HDR10
 - **Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default
 - **Profil dengan tujuan** — *Gambar terbaik* (AV1 · VP9) atau *TV Pintar* (MP4 · H.264), disimpan sebagai Otomatis, MP4, MKV, atau WebM tanpa encode ulang. HDR adalah *Otomatis* (hanya jika layar Anda bisa menampilkannya), *SDR*, atau *HDR*
+- **Setiap codec di setiap resolusi** — unduhan langkah demi langkah menampilkan AV1, VP9, dan H.264 berdampingan di setiap resolusi, sehingga Anda bisa memilih yang dapat diputar TV atau editor Anda
+- **Ketahui stream yang sebenarnya** — ukuran yang di-upscale YouTube dengan AI, bahasa audio hasil sulih suara AI, stream dengan bitrate yang ditingkatkan, video 360°, serta salinan yang rusak atau bertanda air diberi tanda. Profil melewati stream hasil upscale AI kecuali Anda mengizinkannya
 
 </details>
 
@@ -126,7 +128,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Pintasan unduh global** — salin tautan di aplikasi mana pun lalu tekan `Ctrl+Shift+D` (`Cmd+Shift+D` di macOS); Arroxy memasukkannya ke antrean dengan profil aktif tanpa membuka jendela, dan notifikasi mengonfirmasinya. Aktif secara bawaan, bisa diubah
 - **Mode mulai yang fleksibel** — pilih unduhan tunggal yang dipandu, pemilih daftar putar/saluran, tempel URL massal, Unduh Cepat dengan default tersimpan, atau jelajahi dan unduh dari Explore
 - **Antrian unduhan terpusat** — setiap tugas tunggal, daftar putar, massal, atau cepat berada di satu tempat untuk kemajuan, jeda, melanjutkan, membatalkan, mencoba lagi, dan kontrol prioritas
-- **Pantau clipboard** — salin tautan YouTube dan Arroxy otomatis mengisi URL saat Anda kembali fokus ke aplikasi (aktifkan di Pengaturan lanjutan)
+- **Pantau clipboard** — salin tautan video dan tautan itu mengisi kolom URL saat Anda kembali ke Arroxy, dengan **Urungkan** jika Anda tidak bermaksud begitu. Saat Arroxy sedang sibuk, tautan menunggu sampai Anda kembali ke tab URL (nonaktifkan di Pengaturan)
 - **Pembersihan otomatis URL** — menghapus parameter pelacakan (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) dan membuka tautan `youtube.com/redirect`
 - **Mode baki** — menutup jendela akan membuat unduhan tetap berjalan di latar belakang
 - **31 bahasa** — mendeteksi lokal sistem secara otomatis, dapat dialihkan kapan saja
@@ -142,6 +144,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Ukuran dan Hilang di Unduhan** — kolom **Ukuran** yang dapat diurutkan menunjukkan ruang yang dipakai tiap unduhan, dan **Hilang** menandai file yang dipindahkan atau dihapus di luar Arroxy
 - **Aurora atau Minimalis, gelap atau terang** — panel kaca di atas langit yang bergerak, atau permukaan solid yang tenang; ganti dari footer. Komputer tanpa akselerasi grafis otomatis mendapat Minimalis
 - **Bilah menu Mac** — di macOS, buka Pengaturan (`Cmd+,`), atur batas kecepatan unduh, ganti gaya dan tema, serta buka log atau simpan file diagnostik dari bilah menu
+- **Ubah profil dari unduhan mana pun** — sesuaikan sebuah unduhan, lalu perbarui profil asalnya (dengan pratinjau apa yang berubah) atau simpan pengaturannya sebagai profil baru. Saat berganti profil, Arroxy menanyakan apakah suntingan Anda dipertahankan
 
 </details>
 
@@ -160,7 +163,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 <summary><strong>🌐 YouTube + 2000 situs</strong></summary>
 
 - **YouTube, selengkapnya** — Video, Shorts, Saluran, Daftar Putar, Musik YouTube, dan Podcast ditangani sebagai sumber kelas satu
-- **2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi
+- **2000+ situs lainnya** melalui yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable, dan masih banyak lagi
 - **Khusus audio dan subtitel** berfungsi di semua situs yang didukung, tidak hanya YouTube
 - Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran
 
@@ -407,7 +410,7 @@ Sebagian besar GUI yt-dlp gratis adalah pembungkus yang hanya menerima tautan. A
 <details>
 <summary><strong>Kualitas video apa yang dapat saya unduh?</strong></summary>
 
-Apa pun yang disajikan YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio saja. Streaming 60 fps, 120 fps, dan HDR dipertahankan apa adanya.
+Apa pun yang disajikan YouTube: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio saja. Streaming 60 fps dan HDR dipertahankan apa adanya, dan unduhan langkah demi langkah memungkinkan Anda memilih AV1, VP9, atau H.264 di setiap resolusi.
 
 </details>
 
