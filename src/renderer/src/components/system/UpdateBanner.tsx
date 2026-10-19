@@ -1,4 +1,4 @@
-import {useState, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {Copy, CopyCheck, X} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import type {UpdateAvailablePayload} from '@shared/types.js'
@@ -6,6 +6,7 @@ import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Spinner} from '../ui/spinner.js'
 import {resolveAction, resolveBannerCopy} from './updateBannerAction.js'
+import {useCopyFeedback} from '../shared/useCopyFeedback.js'
 
 interface Props {
 	info: UpdateAvailablePayload
@@ -20,12 +21,11 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 	const {t} = useTranslation()
 	const action = resolveAction(info.installChannel, window.platform, info.homebrewAvailable)
 	const copy = resolveBannerCopy(info, window.platform)
-	const [copied, setCopied] = useState(false)
+	const {copied, markCopied} = useCopyFeedback(2_000)
 
 	async function handleCopy(cmd: string): Promise<void> {
 		await navigator.clipboard.writeText(cmd)
-		setCopied(true)
-		setTimeout(() => setCopied(false), 2_000)
+		markCopied(true)
 	}
 
 	// Next to a download the Run button is secondary: Download stays the primary action.

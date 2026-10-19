@@ -1,6 +1,6 @@
 import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ChevronDown, ChevronRight, TriangleAlert} from 'lucide-react'
+import {TriangleAlert} from 'lucide-react'
 import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {AppState} from '../../store/types.js'
@@ -10,7 +10,7 @@ import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSumm
 import {mp4CaveatCodec, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
 import type {Mp4Caveat} from '@shared/fileTypeFit.js'
 import {createTranslationPort} from '../../lib/translation.js'
-import {cn} from '@renderer/lib/utils.js'
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '../ui/accordion.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
@@ -48,36 +48,30 @@ function FileNameFields(): ReactNode {
 interface ReviewRowItemProps {
 	row: ReviewRow
 	value: string
-	open: boolean
-	onToggle: () => void
+	onDone: () => void
 	children: ReactNode
 }
 
 // One Review row: label and current value; opens its editor in place.
-function ReviewRowItem({row, value, open, onToggle, children}: ReviewRowItemProps): ReactNode {
+function ReviewRowItem({row, value, onDone, children}: ReviewRowItemProps): ReactNode {
 	const {t} = useTranslation()
-	const panelId = useId()
-	const Chevron = open ? ChevronDown : ChevronRight
 	return (
-		<div className={cn('border-t border-border first:border-t-0', open && 'bg-primary/5')} data-testid={`review-row-${row}`}>
-			<Button type="button" variant="ghost" className="h-auto w-full justify-start gap-3 rounded-none px-4 py-3 text-start" aria-expanded={open} aria-controls={panelId} onClick={onToggle} data-testid={`review-row-${row}-toggle`}>
-				<span className="w-28 shrink-0 text-sm font-semibold text-foreground">{t(ROW_LABEL_KEYS[row])}</span>
+		<AccordionItem value={row} className="data-open:bg-primary/5" data-testid={`review-row-${row}`}>
+			<AccordionTrigger className="items-center gap-3 rounded-none px-4 py-3 hover:bg-muted hover:no-underline focus-visible:ring-inset" data-testid={`review-row-${row}-toggle`}>
+				<span className="w-28 shrink-0 font-semibold text-foreground">{t(ROW_LABEL_KEYS[row])}</span>
 				<Hint label={value} reveal>
-					<span className="min-w-0 flex-1 truncate text-sm font-normal text-muted-foreground">{value}</span>
+					<span className="min-w-0 flex-1 truncate font-normal text-muted-foreground">{value}</span>
 				</Hint>
-				<Chevron className="shrink-0 text-subtle-foreground" aria-hidden />
-			</Button>
-			{open ? (
-				<div id={panelId} className="flex flex-col gap-3 px-4 pt-1 pb-4">
-					{children}
-					<div className="flex justify-end">
-						<Button type="button" variant="outline" size="sm" onClick={onToggle} data-testid={`review-row-${row}-done`}>
-							{t('wizard.review.done')}
-						</Button>
-					</div>
+			</AccordionTrigger>
+			<AccordionContent className="flex flex-col gap-3 px-4 pt-1 pb-4">
+				{children}
+				<div className="flex justify-end">
+					<Button type="button" variant="outline" size="sm" onClick={onDone} data-testid={`review-row-${row}-done`}>
+						{t('wizard.review.done')}
+					</Button>
 				</div>
-			) : null}
-		</div>
+			</AccordionContent>
+		</AccordionItem>
 	)
 }
 
@@ -153,8 +147,8 @@ export function StepReview(): ReactNode {
 	const {wizardReviewRow, setWizardReviewRow, goToStep} = state
 	const reviewCalloutPending = state.settings?.common?.reviewCalloutDismissed !== true && (state.settings?.common?.successfulDownloadCount ?? 0) > 0
 
-	function toggleRow(row: ReviewRow): void {
-		setWizardReviewRow(wizardReviewRow === row ? null : row)
+	function openRow(row: ReviewRow | null): void {
+		setWizardReviewRow(row)
 		if (reviewCalloutPending) void state.dismissReviewCallout()
 	}
 	const translate = createTranslationPort(t)
@@ -173,11 +167,13 @@ export function StepReview(): ReactNode {
 			<div className="flex flex-col gap-1.5">
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>
 				<Card className="gap-0 overflow-hidden py-0">
-					{rows.map(({row, value, fields}) => (
-						<ReviewRowItem key={row} row={row} value={value} open={wizardReviewRow === row} onToggle={() => toggleRow(row)}>
-							{fields}
-						</ReviewRowItem>
-					))}
+					<Accordion<ReviewRow> value={wizardReviewRow ? [wizardReviewRow] : []} onValueChange={next => openRow(next[0] ?? null)}>
+						{rows.map(({row, value, fields}) => (
+							<ReviewRowItem key={row} row={row} value={value} onDone={() => openRow(null)}>
+								{fields}
+							</ReviewRowItem>
+						))}
+					</Accordion>
 				</Card>
 			</div>
 

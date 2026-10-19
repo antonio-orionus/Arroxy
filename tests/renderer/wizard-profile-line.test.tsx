@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {FormatProfileCallout} from '@renderer/components/wizard/format/FormatProfileCallout.js'
 import {WizardProfileLine} from '@renderer/components/wizard/format/WizardProfileLine.js'
@@ -94,6 +94,21 @@ describe('WizardProfileLine', () => {
 		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, false)
 	})
 
+	// The question is an alert dialog: a stray click outside cannot answer it,
+	// and Escape leaves the profile as it is.
+	it('asks in an alert dialog that Escape dismisses without applying the profile', async () => {
+		useAppStore.setState({wizardWriteThumbnail: true})
+		render(<WizardProfileLine />)
+
+		await saveFromEditor()
+
+		const dialog = await screen.findByRole('alertdialog', {name: 'Use the updated profile?'})
+		expect(dialog).toBe(screen.getByTestId('wizard-profile-switch-dialog'))
+		fireEvent.keyDown(dialog, {key: 'Escape'})
+		await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull())
+		expect(chooseWizardProfile).not.toHaveBeenCalled()
+	})
+
 	it('applies a profile straight away when only the streams were changed: picking them is what a profile does', async () => {
 		useAppStore.setState({selectedVideoFormatId: '136'})
 		render(<WizardProfileLine />)
@@ -115,6 +130,21 @@ describe('WizardProfileLine', () => {
 
 		fireEvent.click(screen.getByTestId('wizard-profile-option-balanced'))
 		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'balanced'}, false)
+	})
+
+	it('lets Cancel back out of switching profiles', async () => {
+		useAppStore.setState({wizardWriteThumbnail: true})
+		render(<WizardProfileLine />)
+
+		fireEvent.click(screen.getByTestId('wizard-profile-trigger'))
+		fireEvent.click(await screen.findByTestId('wizard-profile-option-balanced'))
+
+		const dialog = await screen.findByRole('alertdialog')
+		const cancel = within(dialog).getByTestId('wizard-profile-switch-cancel')
+		expect(cancel).toHaveAccessibleName('Cancel')
+		fireEvent.click(cancel)
+		await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull())
+		expect(chooseWizardProfile).not.toHaveBeenCalled()
 	})
 })
 

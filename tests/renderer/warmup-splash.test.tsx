@@ -190,7 +190,17 @@ describe('WarmupSplash', () => {
 		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
 		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('3.0 MB of 12.0 MB')
 		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25')
-		expect(document.querySelector('.splash-progress-bar')).toHaveStyle({width: '25%'})
+		expect(document.querySelector('.splash-setup-bar [data-slot="progress-indicator"]')).toHaveStyle({width: '25%'})
+	})
+
+	it('keeps the setup bar indeterminate until the first bytes arrive', () => {
+		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0, totalBytes: 12 * 1024 * 1024} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
+
+		expect(screen.getByTestId('splash-setup')).toHaveAttribute('data-stage', 'connecting')
+		expect(screen.getByRole('progressbar', {name: 'First-time setup'})).not.toHaveAttribute('aria-valuenow')
+		expect(document.querySelector('.splash-setup-bar [data-slot="progress-indicator"]')).toHaveAttribute('data-indeterminate')
 	})
 
 	// The first launch after the update that stopped bundling FFmpeg: a returning

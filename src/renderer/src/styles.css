@@ -823,7 +823,8 @@ body {
 	overflow: hidden;
 	margin-top: 6px;
 }
-.splash-progress-bar {
+.splash-progress-bar,
+.splash-setup-bar [data-slot='progress-indicator'] {
 	height: 100%;
 	border-radius: 9999px;
 	background: var(--brand);
@@ -854,10 +855,15 @@ body {
 	color: var(--foreground);
 	text-wrap: balance;
 }
+/* The setup bar is the Progress primitive, dressed as the splash's bar. */
 .splash-setup-bar {
 	width: 100%;
 	height: 4px;
 	margin-top: 10px;
+}
+.splash-setup-bar [data-slot='progress-track'] {
+	height: 100%;
+	background: var(--splash-progress-track);
 }
 .splash-setup-note {
 	margin-top: 14px;
@@ -1151,7 +1157,8 @@ body {
 
 /* Warmup verification has no byte count to report, so the bar carries the fact
    that work is still happening. Static fallback under reduced motion. */
-.splash-progress-bar--indeterminate {
+.splash-progress-bar--indeterminate,
+.splash-setup-bar [data-slot='progress-indicator'][data-indeterminate] {
 	width: 40%;
 	transition: none;
 	animation: splash-indeterminate 1.4s ease-in-out infinite;
@@ -1165,7 +1172,8 @@ body {
 	}
 }
 @media (prefers-reduced-motion: reduce) {
-	.splash-progress-bar--indeterminate {
+	.splash-progress-bar--indeterminate,
+	.splash-setup-bar [data-slot='progress-indicator'][data-indeterminate] {
 		width: 100%;
 		animation: none;
 		opacity: 0.55;

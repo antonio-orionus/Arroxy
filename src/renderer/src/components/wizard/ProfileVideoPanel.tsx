@@ -9,6 +9,7 @@ import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {selectionOrderRows, selectionOrderSummary} from '@renderer/lib/selectionOrderRows.js'
 import {draftSelectionOrder, SMART_TV_MP4_BLOCKED_TIERS, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileHdr, type DownloadProfileNativeAudio} from '../../store/wizard/downloadProfileDraft.js'
 import {Button} from '../ui/button.js'
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from '../ui/collapsible.js'
 import {FieldDescription, Field, FieldGroup, FieldTitle} from '../ui/field.js'
 import {ToggleGroup} from '../ui/toggle-group.js'
 import {OptionCard} from '../shared/OptionCard.js'
@@ -84,12 +85,16 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 					<FieldDescription>{t(GOAL_META[goal].descriptionKey)}</FieldDescription>
 				</Field>
 				<ProfileSelect label={t('wizard.profileEditor.field.resolution')} value={resolution} options={resolutionOptions} onValueChange={next => onAction({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
-				<div className="flex flex-col gap-2">
-					<Button type="button" variant="ghost" size="sm" className="justify-start gap-1.5 px-1" aria-expanded={advancedOpen} onClick={() => setAdvancedOpen(open => !open)} data-testid="profiles-editor-video-advanced-toggle">
-						<ChevronDown className={cn('transition-transform', advancedOpen ? '' : '-rotate-90')} aria-hidden />
-						{t('wizard.profileEditor.advanced')}
-					</Button>
-					{advancedOpen ? (
+				<Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen} className="flex flex-col gap-2">
+					<CollapsibleTrigger
+						render={
+							<Button type="button" variant="ghost" size="sm" className="justify-start gap-1.5 px-1" data-testid="profiles-editor-video-advanced-toggle">
+								<ChevronDown className={cn('transition-transform', advancedOpen ? '' : '-rotate-90')} aria-hidden />
+								{t('wizard.profileEditor.advanced')}
+							</Button>
+						}
+					/>
+					<CollapsibleContent>
 						<FieldGroup className="gap-3" data-testid="profiles-editor-video-advanced">
 							<div className="flex flex-col gap-1">
 								<ProfileSelect label={t('wizard.profileEditor.field.fileType')} value={fileType} options={fileTypeOptions} onValueChange={next => onAction({type: 'set-file-type', fileType: next})} testId="profiles-editor-video-file-type" />
@@ -105,27 +110,29 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 							</div>
 							{mediaMode === 'video-audio' ? <ProfileSelect label={t('wizard.profileEditor.field.nativeAudio')} value={nativeAudio} options={nativeAudioOptions} onValueChange={next => onAction({type: 'set-native-audio', nativeAudio: next})} testId="profiles-editor-native-audio" /> : null}
 						</FieldGroup>
-					) : null}
-				</div>
+					</CollapsibleContent>
+				</Collapsible>
 				{order ? (
-					<div className="flex flex-col gap-1.5" data-testid="profiles-editor-selection-order">
+					<Collapsible open={orderOpen} onOpenChange={setOrderOpen} className="flex flex-col gap-1.5" data-testid="profiles-editor-selection-order">
 						<div className="flex items-center justify-between gap-2">
 							<span className="text-xs text-subtle-foreground">{selectionOrderSummary(t, order)}</span>
-							<Button type="button" variant="ghost" size="xs" className="gap-1" aria-expanded={orderOpen} onClick={() => setOrderOpen(open => !open)} data-testid="profiles-editor-selection-order-toggle">
-								<ListOrdered aria-hidden />
-								{t('selectionOrder.editorTitle')}
-							</Button>
+							<CollapsibleTrigger
+								render={
+									<Button type="button" variant="ghost" size="xs" className="gap-1" data-testid="profiles-editor-selection-order-toggle">
+										<ListOrdered aria-hidden />
+										{t('selectionOrder.editorTitle')}
+									</Button>
+								}
+							/>
 						</div>
-						{orderOpen ? (
-							<ol className="flex flex-col gap-1 ps-4 text-xs" data-testid="profiles-editor-selection-order-list">
-								{selectionOrderRows(t, order).map(row => (
-									<li key={`${row.label}-${row.reason}`}>
-										<span className="font-medium text-foreground">{row.label}</span> <span className="text-subtle-foreground">· {row.reason}</span>
-									</li>
-								))}
-							</ol>
-						) : null}
-					</div>
+						<CollapsibleContent render={<ol className="flex flex-col gap-1 ps-4 text-xs" data-testid="profiles-editor-selection-order-list" />}>
+							{selectionOrderRows(t, order).map(row => (
+								<li key={`${row.label}-${row.reason}`}>
+									<span className="font-medium text-foreground">{row.label}</span> <span className="text-subtle-foreground">· {row.reason}</span>
+								</li>
+							))}
+						</CollapsibleContent>
+					</Collapsible>
 				) : null}
 			</FieldGroup>
 		</Panel>

@@ -1,4 +1,4 @@
-import {type ComponentType, type SVGProps, useMemo, useState, type ReactNode} from 'react'
+import {type ComponentType, type SVGProps, useMemo, type ReactNode} from 'react'
 import {Copy, CopyCheck, Mail} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
@@ -31,6 +31,7 @@ import IconPocket from '~icons/simple-icons/pocket'
 import IconBuffer from '~icons/simple-icons/buffer'
 import IconDiaspora from '~icons/simple-icons/diaspora'
 import {Hint} from '../shared/Hint.js'
+import {useCopyFeedback} from '../shared/useCopyFeedback.js'
 
 // Viber dropped: viber://forward URL is rejected by shell.openExternal's
 // http(s)-only allowlist (fileHandlers.ts), so the button silently did nothing.
@@ -92,22 +93,19 @@ export function ShareDialog(): ReactNode {
 	const {t} = useTranslation()
 	const open = useAppStore(s => s.shareDialogOpen)
 	const closeShareDialog = useAppStore(s => s.closeShareDialog)
-	const [copied, setCopied] = useState(false)
+	const {copied, markCopied, reset: resetCopied} = useCopyFeedback(1500)
 
 	const sortedDestinations = useMemo(() => POPULARITY_ORDER.map(id => SOCIAL_DESTINATIONS.find(d => d.id === id)).filter((d): d is SocialDestination => d !== undefined), [])
 
 	function handleOpenChange(next: boolean): void {
 		if (!next) {
-			setCopied(false)
+			resetCopied()
 			closeShareDialog()
 		}
 	}
 
 	function handleCopy(): void {
-		void navigator.clipboard.writeText(WEBSITE_URL).then(() => {
-			setCopied(true)
-			setTimeout(() => setCopied(false), 1500)
-		})
+		void navigator.clipboard.writeText(WEBSITE_URL).then(() => markCopied(true))
 	}
 
 	function handleSocial(dest: SocialDestination): void {

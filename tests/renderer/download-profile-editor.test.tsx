@@ -154,6 +154,30 @@ describe('DownloadProfileEditor', () => {
 		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent("SDR before HDR · this screen isn't HDR")
 	})
 
+	it('opens Advanced and the pick order as disclosures that point at their panels', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		for (const [toggleId, panelId] of [
+			['profiles-editor-video-advanced-toggle', 'profiles-editor-video-advanced'],
+			['profiles-editor-selection-order-toggle', 'profiles-editor-selection-order-list']
+		] as const) {
+			const toggle = await screen.findByTestId(toggleId)
+			expect(toggle).toHaveAttribute('aria-expanded', 'false')
+			expect(screen.queryByTestId(panelId)).toBeNull()
+
+			fireEvent.click(toggle)
+			expect(toggle).toHaveAttribute('aria-expanded', 'true')
+			expect(document.getElementById(toggle.getAttribute('aria-controls') ?? '')).toContainElement(screen.getByTestId(panelId))
+
+			fireEvent.click(toggle)
+			expect(toggle).toHaveAttribute('aria-expanded', 'false')
+			await waitFor(() => expect(screen.queryByTestId(panelId)).toBeNull())
+		}
+	})
+
 	it('stores no HDR choice while the profile follows the app setting', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {ProbeResult, StatusEvent} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
@@ -395,6 +395,44 @@ describe('Review — subtitle row', () => {
 		expect(screen.getByTestId('review-row-subtitles').textContent).toContain('Off')
 		fireEvent.click(screen.getByTestId('review-row-subtitles-toggle'))
 		expect(screen.getByTestId('subtitle-fields')).toBeTruthy()
+	})
+})
+
+// The rows are one accordion: one open at a time, each row a heading with a
+// native button (Tab reaches it, Enter and Space toggle it), and Done closes it.
+describe('Review — rows', () => {
+	it('opens one row at a time, each from a heading button', async () => {
+		singleState({wizardReviewRow: null})
+		render(<StepReview />)
+		const subtitles = screen.getByTestId('review-row-subtitles-toggle')
+		const extras = screen.getByTestId('review-row-extras-toggle')
+		expect(subtitles).toHaveAttribute('aria-expanded', 'false')
+
+		fireEvent.click(subtitles)
+		expect(subtitles).toHaveAttribute('aria-expanded', 'true')
+		expect(useAppStore.getState().wizardReviewRow).toBe('subtitles')
+		expect(document.getElementById(subtitles.getAttribute('aria-controls') ?? '')).toContainElement(screen.getByTestId('subtitle-fields'))
+
+		fireEvent.click(extras)
+		expect(useAppStore.getState().wizardReviewRow).toBe('extras')
+		await waitFor(() => expect(screen.queryByTestId('subtitle-fields')).toBeNull())
+		expect(subtitles).toHaveAttribute('aria-expanded', 'false')
+
+		for (const toggle of screen.getAllByTestId(/^review-row-\w+-toggle$/)) {
+			expect(toggle.tagName).toBe('BUTTON')
+			expect(toggle).not.toHaveAttribute('tabindex', '-1')
+			expect(toggle.closest('h3')).not.toBeNull()
+		}
+	})
+
+	it('closes the open row with Done', () => {
+		singleState({wizardReviewRow: 'fileName'})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-filename-input')).toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('review-row-fileName-done'))
+		expect(useAppStore.getState().wizardReviewRow).toBeNull()
+		expect(screen.getByTestId('review-row-fileName-toggle')).toHaveAttribute('aria-expanded', 'false')
 	})
 })
 

@@ -11,12 +11,15 @@ import {SettingRow} from '../components/shared/SettingRow.js'
 import {SettingSwitch} from '../components/shared/SettingSwitch.js'
 import {SpeechBubble} from '../components/shared/SpeechBubble.js'
 import {ThemeToggle} from '../components/system/ThemeToggle.js'
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '../components/ui/accordion.js'
 import {Alert, AlertDescription, AlertTitle} from '../components/ui/alert.js'
+import {AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger} from '../components/ui/alert-dialog.js'
 import {Badge} from '../components/ui/badge.js'
 import {Button} from '../components/ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../components/ui/card.js'
 import {Checkbox} from '../components/ui/checkbox.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '../components/ui/dialog.js'
+import {DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger} from '../components/ui/dropdown-menu.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '../components/ui/empty.js'
 import {Field, FieldDescription, FieldError, FieldLabel} from '../components/ui/field.js'
 import {Input} from '../components/ui/input.js'
@@ -105,6 +108,7 @@ function DirectionToggle(): ReactNode {
 
 export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 	const [progress, setProgress] = useState(42)
+	const [menuChecked, setMenuChecked] = useState(true)
 	const [switchOn, setSwitchOn] = useState(true)
 	const [choice, setChoice] = useState('2160')
 	const [checks, setChecks] = useState<string[]>(['Sponsor'])
@@ -400,7 +404,46 @@ export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 									</DialogFooter>
 								</DialogContent>
 							</Dialog>
+							<AlertDialog>
+								<AlertDialogTrigger render={<Button variant="outline" size="sm" />}>Open alert dialog</AlertDialogTrigger>
+								<AlertDialogContent>
+									<AlertDialogHeader>
+										<AlertDialogTitle>Alert dialog title</AlertDialogTitle>
+										<AlertDialogDescription>For a question that must be answered: a click outside does not dismiss it.</AlertDialogDescription>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel>Cancel</AlertDialogCancel>
+										<Button variant="glow">Keep changes</Button>
+									</AlertDialogFooter>
+								</AlertDialogContent>
+							</AlertDialog>
+							<DropdownMenu>
+								<DropdownMenuTrigger render={<Button variant="outline" size="sm" />}>Open menu</DropdownMenuTrigger>
+								<DropdownMenuContent className="w-48">
+									<DropdownMenuItem>
+										<Download />
+										Menu item
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuCheckboxItem checked={menuChecked} onCheckedChange={setMenuChecked}>
+										Checkbox item
+									</DropdownMenuCheckboxItem>
+									<DropdownMenuCheckboxItem checked disabled>
+										Always on
+									</DropdownMenuCheckboxItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
 						</div>
+						<Accordion defaultValue={['first']} className="rounded-lg border">
+							<AccordionItem value="first" className="px-3">
+								<AccordionTrigger>Accordion row</AccordionTrigger>
+								<AccordionContent>One row open at a time; its editor opens in place.</AccordionContent>
+							</AccordionItem>
+							<AccordionItem value="second" className="px-3">
+								<AccordionTrigger>Another row</AccordionTrigger>
+								<AccordionContent>Opening this one closes the first.</AccordionContent>
+							</AccordionItem>
+						</Accordion>
 					</Section>
 
 					<Section title="Composites: settings">

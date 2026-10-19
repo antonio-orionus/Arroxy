@@ -6,10 +6,9 @@ import type {QueueItem} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
-import {Checkbox} from '../ui/checkbox.js'
 import {Label} from '../ui/label.js'
 import {Separator} from '../ui/separator.js'
-import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
+import {DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger} from '../ui/dropdown-menu.js'
 import {Switch} from '../ui/switch.js'
 import {QueueActionButton, TooltipIconButton} from './QueueManagerButtons.js'
 import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisabled, queueStatusFilterCount, type QueueSelectedAction} from './queueManagerActions.js'
@@ -91,29 +90,24 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 					))}
 				</ToggleGroup>
 				<div className="flex flex-wrap items-center gap-2">
-					<Popover>
+					<DropdownMenu>
 						<Hint label={t('queue.table.columns')}>
-							<PopoverTrigger
+							<DropdownMenuTrigger
 								render={
-									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('queue.table.columns')}>
+									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('queue.table.columns')} data-testid="queue-columns-menu">
 										<Columns3 size={13} aria-hidden />
 									</Button>
 								}
 							/>
 						</Hint>
-						<PopoverContent className="w-48 gap-1.5 p-2" align="end">
-							{columns.map(column => {
-								const columnId = column.id as QueueTableColumnId
-								const checkboxId = `queue-column-${column.id}`
-								return (
-									<label key={column.id} htmlFor={checkboxId} className={cn('flex items-center gap-2 rounded-md px-2 py-1.5 text-xs', column.getCanHide() ? 'cursor-pointer hover:bg-muted/60' : 'cursor-not-allowed text-muted-foreground')}>
-										<Checkbox id={checkboxId} checked={column.getIsVisible()} disabled={!column.getCanHide()} onCheckedChange={value => column.toggleVisibility(value === true)} />
-										{t(COLUMN_LABEL_KEYS[columnId])}
-									</label>
-								)
-							})}
-						</PopoverContent>
-					</Popover>
+						<DropdownMenuContent className="w-48" align="end">
+							{columns.map(column => (
+								<DropdownMenuCheckboxItem key={column.id} checked={column.getIsVisible()} disabled={!column.getCanHide()} onCheckedChange={checked => column.toggleVisibility(checked)} className="text-xs" data-testid={`queue-column-${column.id}`}>
+									{t(COLUMN_LABEL_KEYS[column.id as QueueTableColumnId])}
+								</DropdownMenuCheckboxItem>
+							))}
+						</DropdownMenuContent>
+					</DropdownMenu>
 					<ButtonGroup className="flex-wrap items-center gap-1 rounded-xl border border-border/60 bg-background/25 px-1 py-0.5" aria-label={t('queue.globalActionsLabel')}>
 						<SectionLabel render={<span />} className="px-1">
 							{t('queue.globalActionsLabel')}

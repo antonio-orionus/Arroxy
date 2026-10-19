@@ -1,6 +1,7 @@
 import type {JSX} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {SetupProgress} from '../../store/warmupDownloads.js'
+import {Progress} from '../ui/progress.js'
 
 function formatMegabytes(bytes: number): string {
 	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
@@ -39,9 +40,7 @@ export function SplashSetup({setup, secondsLeft, returning, firstCheck}: {setup:
 			<p className="splash-setup-title">{title}</p>
 			{/* A returning user's heading already says what is downloading. */}
 			{(who === 'firstRun' || setup.stage !== 'downloading') && <p className="splash-name">{t(stageKey(setup))}</p>}
-			<div className="splash-progress splash-setup-bar" role="progressbar" aria-label={title} aria-valuemin={0} aria-valuemax={100} aria-valuenow={determinate ? Math.round(setup.percent ?? 0) : undefined}>
-				<div className={determinate ? 'splash-progress-bar' : 'splash-progress-bar splash-progress-bar--indeterminate'} style={determinate ? {width: `${setup.percent}%`} : undefined} />
-			</div>
+			<Progress className="splash-setup-bar" aria-label={title} value={determinate ? Math.round(setup.percent ?? 0) : null} />
 			{determinate && setup.total > 0 && (
 				<p className="splash-bytes" data-testid="splash-setup-bytes">
 					{t('splash.setup.bytes', {done: formatMegabytes(setup.downloaded), total: formatMegabytes(setup.total)})}

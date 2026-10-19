@@ -10,7 +10,7 @@ import {useAppStore} from '../../../store/useAppStore.js'
 import {keepableEdits} from '../../../store/wizard/wizardProfileState.js'
 import {AREA_LABEL_KEYS} from '../../../lib/changedAreaLabels.js'
 import {Button} from '../../ui/button.js'
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../../ui/dialog.js'
+import {AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle} from '../../ui/alert-dialog.js'
 import {Popover, PopoverTrigger} from '../../ui/popover.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {Hint} from '../../shared/Hint.js'
@@ -187,17 +187,20 @@ export function WizardProfileLine(): ReactNode {
 				/>
 			) : null}
 
-			<Dialog open={pending !== null} onOpenChange={open => !open && setPending(null)}>
-				<DialogContent data-testid="wizard-profile-switch-dialog">
-					<DialogHeader>
-						<DialogTitle>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedTitle' : 'wizard.formats.profile.switchTitle')}</DialogTitle>
-						<DialogDescription>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody', {areas: new Intl.ListFormat(i18n.language, {type: 'conjunction'}).format(edits.map(area => t(AREA_LABEL_KEYS[area]))), profile: pending?.profile.name ?? ''})}</DialogDescription>
-					</DialogHeader>
-					<DialogFooter>
+			{/* An alert dialog: a click outside does not dismiss it; Escape and Cancel keep the current profile. */}
+			<AlertDialog open={pending !== null} onOpenChange={open => !open && setPending(null)}>
+				<AlertDialogContent data-testid="wizard-profile-switch-dialog">
+					<AlertDialogHeader>
+						<AlertDialogTitle>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedTitle' : 'wizard.formats.profile.switchTitle')}</AlertDialogTitle>
+						<AlertDialogDescription>
+							{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody', {areas: new Intl.ListFormat(i18n.language, {type: 'conjunction'}).format(edits.map(area => t(AREA_LABEL_KEYS[area]))), profile: pending?.profile.name ?? ''})}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
 						{pending?.reason === 'switch' ? (
-							<Button type="button" variant="ghost" onClick={() => setPending(null)} className="sm:me-auto">
+							<AlertDialogCancel variant="ghost" className="sm:me-auto" data-testid="wizard-profile-switch-cancel">
 								{t('common.cancel')}
-							</Button>
+							</AlertDialogCancel>
 						) : null}
 						<Button type="button" variant="outline" onClick={() => resolve(false)} data-testid="wizard-profile-switch-reset">
 							{t('wizard.formats.profile.resetAll')}
@@ -205,9 +208,9 @@ export function WizardProfileLine(): ReactNode {
 						<Button type="button" variant="glow" onClick={() => resolve(true)} data-testid="wizard-profile-switch-keep">
 							{t('wizard.formats.profile.keepEdits')}
 						</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</div>
 	)
 }

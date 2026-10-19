@@ -1,10 +1,11 @@
-import {useState, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {Copy, CopyCheck} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {DONATION_ADDRESSES} from '@shared/constants.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {useCopyFeedback} from '../shared/useCopyFeedback.js'
 // The same QR images DONATE.md embeds; scripts/check-donation-addresses.mjs pins their hashes.
 import btcQr from '../../../../../build/donate-btc.png'
 import usdtQr from '../../../../../build/donate-tron.png'
@@ -18,18 +19,15 @@ const COPIED_RESET_MS = 1500
 export function DonateDialog(): ReactNode {
 	const {t} = useTranslation()
 	const {donateDialogOpen, setDonateDialogOpen} = useAppStore()
-	const [copiedId, setCopiedId] = useState<DonationId | null>(null)
+	const {copied: copiedId, markCopied, reset: resetCopied} = useCopyFeedback<DonationId>(COPIED_RESET_MS)
 
 	function handleOpenChange(open: boolean): void {
-		if (!open) setCopiedId(null)
+		if (!open) resetCopied()
 		setDonateDialogOpen(open)
 	}
 
 	function handleCopy(id: DonationId, address: string): void {
-		void navigator.clipboard.writeText(address).then(() => {
-			setCopiedId(id)
-			setTimeout(() => setCopiedId(current => (current === id ? null : current)), COPIED_RESET_MS)
-		})
+		void navigator.clipboard.writeText(address).then(() => markCopied(id))
 	}
 
 	return (

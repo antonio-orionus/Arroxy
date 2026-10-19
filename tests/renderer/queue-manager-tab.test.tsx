@@ -314,7 +314,7 @@ describe('QueueManagerTab', () => {
 		fireEvent.click(screen.getByTestId('queue-manager-row-pending'))
 		fireEvent.click(screen.getByRole('button', {name: /show artifacts for waiting video/i}))
 		fireEvent.click(screen.getByRole('button', {name: /columns/i}))
-		fireEvent.click(screen.getByRole('checkbox', {name: /progress/i}))
+		fireEvent.click(screen.getByRole('menuitemcheckbox', {name: /progress/i}))
 
 		expect(screen.getByTestId('queue-manager-row-pending')).toHaveAttribute('aria-selected', 'true')
 		expect(screen.getByTestId('queue-artifacts-pending')).toHaveTextContent('pending.mkv')
@@ -671,7 +671,7 @@ describe('QueueManagerTab', () => {
 		const columnsButton = screen.getByRole('button', {name: /columns/i})
 		expect(columnsButton.textContent).toBe('')
 		fireEvent.click(columnsButton)
-		fireEvent.click(screen.getByRole('checkbox', {name: /finished/i}))
+		fireEvent.click(screen.getByRole('menuitemcheckbox', {name: /finished/i}))
 		expect(screen.getByRole('columnheader', {name: /finished/i})).toBeInTheDocument()
 
 		unmount()
@@ -690,7 +690,7 @@ describe('QueueManagerTab', () => {
 		const hiddenCellCount = cellCount()
 
 		fireEvent.click(screen.getByRole('button', {name: /columns/i}))
-		fireEvent.click(screen.getByRole('checkbox', {name: /finished/i}))
+		fireEvent.click(screen.getByRole('menuitemcheckbox', {name: /finished/i}))
 
 		expect(cellCount()).toBe(hiddenCellCount + 1)
 		expect(cellCount()).toBe(screen.getAllByRole('columnheader').length)
@@ -806,5 +806,45 @@ describe('QueueManagerTab', () => {
 			expect(useAppStore.getState().queueFocus).toBeNull()
 			expect(scrollToIndex).not.toHaveBeenCalled()
 		})
+	})
+})
+
+// The column picker is a menu of checkbox items: it stays open while columns
+// are toggled, arrows walk the list, and Escape hands focus back.
+describe('QueueManagerTab column picker', () => {
+	it('toggles columns from a keyboard-driven checkbox menu', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		render(<QueueManagerTab />)
+		const trigger = screen.getByTestId('queue-columns-menu')
+
+		trigger.focus()
+		fireEvent.keyDown(trigger, {key: 'ArrowDown'})
+		const menu = await screen.findByRole('menu')
+		const items = within(menu).getAllByRole('menuitemcheckbox')
+		await waitFor(() => expect(items).toContain(document.activeElement))
+		const focusedIndex = (): number => items.findIndex(item => item === document.activeElement)
+		const first = focusedIndex()
+		fireEvent.keyDown(menu, {key: 'ArrowDown'})
+		await waitFor(() => expect(focusedIndex()).toBeGreaterThan(first))
+
+		const finished = within(menu).getByRole('menuitemcheckbox', {name: /finished/i})
+		expect(finished).toHaveAttribute('aria-checked', 'false')
+		fireEvent.click(finished)
+		expect(await screen.findByRole('columnheader', {name: /finished/i})).toBeInTheDocument()
+		expect(screen.getByRole('menu')).toBeInTheDocument()
+		expect(within(screen.getByRole('menu')).getByRole('menuitemcheckbox', {name: /finished/i})).toHaveAttribute('aria-checked', 'true')
+
+		fireEvent.keyDown(screen.getByRole('menu'), {key: 'Escape'})
+		await waitFor(() => expect(screen.queryByRole('menu')).toBeNull())
+		await waitFor(() => expect(trigger).toHaveFocus())
+	})
+
+	it('keeps always-on columns checked and disabled', async () => {
+		render(<QueueManagerTab />)
+
+		fireEvent.click(screen.getByTestId('queue-columns-menu'))
+		const title = await screen.findByRole('menuitemcheckbox', {name: /^title$/i})
+		expect(title).toHaveAttribute('aria-checked', 'true')
+		expect(title).toHaveAttribute('aria-disabled', 'true')
 	})
 })
