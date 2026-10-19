@@ -1,0 +1,36 @@
+name: Suite gate
+description: Pass or fail a path-filtered suite's required check from its jobs' results
+
+# A required check whose job is skipped reports success, and so does every job
+# skipped because a job it needs failed. A gate job that always runs and calls
+# this action is the check branch protection should require instead: it passes
+# only when the path filter ran and, if the suite had to run, every job passed.
+
+inputs:
+  suite:
+    description: The suite's name, for the log
+    required: true
+  needs:
+    description: toJSON(needs) of the gate job, which needs the `changes` job and every suite job
+    required: true
+  run:
+    description: needs.changes.outputs.run
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        NEEDS: ${{ inputs.needs }}
+        RUN: ${{ inputs.run }}
+        SUITE: ${{ inputs.suite }}
+      run: |
+        echo "$NEEDS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+        if [[ "$RUN" == 'true' ]]; then
+          echo "$NEEDS" | jq -e 'all(.[]; .result == "success")' > /dev/null || { echo "::error::$SUITE did not pass"; exit 1; }
+          echo "$SUITE passed."
+        else
+          echo "$NEEDS" | jq -e '.changes.result == "success"' > /dev/null || { echo '::error::the path filter did not run'; exit 1; }
+          echo "No file $SUITE can run changed; it was skipped."
+        fi

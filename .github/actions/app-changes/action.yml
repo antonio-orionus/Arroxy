@@ -1,0 +1,90 @@
+name: App changes
+description: Whether a pull request changed a file that can affect a heavy app suite (E2E, browser smoke, Windows installer)
+
+# The heavy PR suites skip a pull request that only touches files they cannot
+# run: docs, agent tooling, translation sources, unit tests, the remux matrix.
+# Everything else counts, so a new top-level file or directory runs the suites
+# until someone lists it here. Pushes, tags, schedules and manual runs always
+# run. tests/scripts/app-changes-action.test.ts pins what each scope runs on.
+#
+# Callers must check out the repository first (a sparse checkout of
+# .github/actions is enough) and grant `pull-requests: read`.
+
+inputs:
+  scope:
+    description: e2e (fixture E2E, cold start), browser (dev smoke) or installer (Windows installer)
+    required: true
+
+outputs:
+  run:
+    description: "'true' when the suite has to run"
+    value: ${{ github.event_name != 'pull_request' || steps.filter.outputs[inputs.scope] == 'true' }}
+
+runs:
+  using: composite
+  steps:
+    - id: filter
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+      with:
+        predicate-quantifier: some-with-excludes
+        filters: |
+          # Cannot reach the built, packaged or running app. CHANGELOG.md is
+          # missing on purpose: the renderer imports it.
+          base: &base
+            - '**'
+            - '!.agents/**'
+            - '!.claude/**'
+            - '!.coderabbit.yaml'
+            - '!.github/CODEOWNERS'
+            - '!.github/FUNDING.yml'
+            - '!.github/ISSUE_TEMPLATE/**'
+            - '!.github/dependabot.yml'
+            - '!.github/pull_request_template.md'
+            - '!.vite-hooks/**'
+            - '!AGENTS.md'
+            - '!CLAUDE.md'
+            - '!CONTRIBUTING.md'
+            - '!DESIGN.md'
+            - '!DONATE.md'
+            - '!GLOSSARY.md'
+            - '!PRODUCT.md'
+            - '!README*.md'
+            - '!dev-docs/**'
+            - '!docs/**'
+            - '!flatpak/**'
+            - '!i18n/**'
+            - '!packages/*/CHANGELOG.md'
+            - '!packages/*/README.md'
+            - '!packages/*/tests/**'
+            - '!readme-src/**'
+            - '!scripts/ffmpeg-matrix/**'
+            - '!scripts/vm/**'
+            - '!skills-lock.json'
+            - '!tests/__mocks__/**'
+            - '!tests/fixtures/**'
+            - '!tests/helpers/**'
+            - '!tests/integration/**'
+            - '!tests/main/**'
+            - '!tests/renderer/**'
+            - '!tests/screenshots/**'
+            - '!tests/scripts/**'
+            - '!tests/setup.ts'
+            - '!tests/shared/**'
+            - '!tests/unit/**'
+            - '!tests/vitest-jest-dom.d.ts'
+            - '!workers/**'
+          e2e:
+            - *base
+            - '!playwright.browser.config.ts'
+            - '!playwright.screenshots.config.ts'
+            - '!tests/browser/**'
+          browser:
+            - *base
+            - '!playwright.config.ts'
+            - '!playwright.screenshots.config.ts'
+            - '!tests/e2e/**'
+          installer:
+            - *base
+            - '!playwright*.config.ts'
+            - '!tests/**'

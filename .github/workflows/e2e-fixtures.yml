@@ -25,8 +25,29 @@ permissions:
   contents: read
 
 jobs:
+  # Skips this suite on a pull request that cannot affect it; see
+  # .github/actions/app-changes for what counts.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ steps.changes.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - id: changes
+        uses: ./.github/actions/app-changes
+        with:
+          scope: e2e
+
   fixtures:
     name: Fixture product E2E (${{ matrix.shard }}/${{ strategy.job-total }})
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # Split across runners rather than Playwright workers: each runner gets its
@@ -80,3 +101,21 @@ jobs:
           path: test-results
           if-no-files-found: ignore
           retention-days: 7
+
+  # The required check: passes only when the filter ran and, if the suite had
+  # to run, every job above passed (see .github/actions/suite-gate).
+  gate:
+    name: E2E fixtures gate
+    needs: [changes, fixtures]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - uses: ./.github/actions/suite-gate
+        with:
+          suite: E2E fixtures
+          needs: ${{ toJSON(needs) }}
+          run: ${{ needs.changes.outputs.run }}

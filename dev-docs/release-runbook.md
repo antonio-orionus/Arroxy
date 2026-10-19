@@ -79,9 +79,9 @@ gh run list --branch main --limit 10
 Wait for these checks on the stable version-bump commit:
 
 - `check`
-- `Cold start (linux)`
-- `Cold-state install`
-- `1x install/uninstall cycle`
+- `FFmpeg remux gate`
+- `Cold start gate`
+- `Windows installer gate`
 
 Optional dry check:
 
