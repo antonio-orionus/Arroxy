@@ -21,6 +21,17 @@ function feed(events: Array<[number, WarmupProgressEvent]>): {downloads: WarmupD
 }
 
 describe('warmup download tracking', () => {
+	// Found in review: yt-dlp done and the FFmpeg package started but not yet
+	// sized read as 18 MB of 18 MB, a full bar, while FFmpeg was still connecting.
+	it('keeps the bar indeterminate while a running download has no size yet', () => {
+		const {downloads, progress} = feed([
+			[0, downloading('yt-dlp', 18 * MB, 18 * MB)],
+			[1, {binary: 'yt-dlp', phase: 'probing'}],
+			[2, {binary: 'ffmpeg', phase: 'downloading'}]
+		])
+		expect(summarizeSetup(downloads.ledger, progress)).toMatchObject({percent: null, stage: 'connecting'})
+	})
+
 	it('shows no setup at all for a warm launch that only verifies', () => {
 		const {downloads, progress} = feed([[0, {binary: 'yt-dlp', phase: 'probing'}]])
 		expect(summarizeSetup(downloads.ledger, progress)).toBeNull()

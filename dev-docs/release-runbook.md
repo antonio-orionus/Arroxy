@@ -28,7 +28,7 @@ Do **not** edit GitHub Release notes directly via the web UI or `gh release edit
 
 Release builds download FFmpeg and yt-dlp at runtime. Before tagging, confirm both still resolve for a fresh install:
 
-1. Every URL in `src/main/services/binary/FfmpegPackagePins.ts` is a published asset: `bun scripts/build/ffmpegPackage.ts install --platform win32 --arch x64 --cache-root "$(mktemp -d)"` succeeds.
+1. Every URL in `src/main/services/binary/FfmpegPackagePins.ts` is a published asset: `bun scripts/build/ffmpegPackage.ts install --all --cache-root "$(mktemp -d)"` installs every target.
 2. The latest `arroxy-runtime-binaries` release carries `runtime-index-v2.json` and `runtime-index-v2.sig` next to the v1 pair. Without them, new installs still get FFmpeg from the bundled pins but hold yt-dlp at the bundled stable version.
 
 See [`ffmpeg-packages.md`](ffmpeg-packages.md).

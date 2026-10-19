@@ -77,8 +77,12 @@ export function summarizeSetup(ledger: DownloadLedger, progress: Partial<Record<
 	const groups = GROUP_ORDER.filter(group => records.some(([id]) => SETUP_GROUP_OF[id] === group))
 	const downloading = GROUP_ORDER.filter(group => records.some(([id, record]) => SETUP_GROUP_OF[id] === group && !record.finished))
 	const events = Object.values(progress ?? {}).filter((event): event is WarmupProgressEvent => event !== undefined)
-	const stage: SetupStage = downloading.length > 0 ? (downloaded > 0 ? 'downloading' : 'connecting') : events.some(event => event.phase === 'extracting') ? 'unpacking' : 'checking'
-	return {downloaded, total, percent: total > 0 ? Math.min(100, (downloaded / total) * 100) : null, stage, groups, downloading}
+	// A running download with no size yet would make the others' bytes read as
+	// the whole job, so the bar waits until every running download is sized.
+	const unsized = records.some(([, record]) => !record.finished && record.total === 0)
+	const runningBytes = records.reduce((sum, [, record]) => sum + (record.finished ? 0 : record.downloaded), 0)
+	const stage: SetupStage = downloading.length > 0 ? (runningBytes > 0 ? 'downloading' : 'connecting') : events.some(event => event.phase === 'extracting') ? 'unpacking' : 'checking'
+	return {downloaded, total, percent: total > 0 && !unsized ? Math.min(100, (downloaded / total) * 100) : null, stage, groups, downloading}
 }
 
 export interface RateSample {

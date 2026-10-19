@@ -193,6 +193,19 @@ describe('BinaryManager FFmpeg package resolution', () => {
 		expect(materialize.mock.calls.map(([entry]) => entry.version)).toEqual(['C'])
 	})
 
+	// Found in review: package A's ffprobe was kept while its ffmpeg was
+	// rejected, then package B supplied ffmpeg alone, a pair from two builds.
+	it('takes both binaries from one package, never a mix of two', async () => {
+		const materialize = vi.fn(async (entry: FfmpegPackageEntry) => installOf(entry))
+		const mgr = await makeMgr([pkg('A'), pkg('B')], {materialize, prune: vi.fn(async () => [])})
+		stubProbes(mgr, (id, _source, candidatePath) => (id === 'ffmpeg' && candidatePath.startsWith('/packages/A/') ? 'bad_exit_code' : 'ok'))
+
+		const pair = await mgr.resolveFFmpegPair()
+
+		expect(pair.ffmpeg.resolvedPath).toBe('/packages/B/ffmpeg')
+		expect(pair.ffprobe.resolvedPath).toBe('/packages/B/ffprobe')
+	})
+
 	it('falls back to the next approved package when one cannot be installed', async () => {
 		const materialize = vi.fn(async (entry: FfmpegPackageEntry) => {
 			if (entry.version === 'N-2') throw new ArtifactMaterializeError('NETWORK', 'offline')

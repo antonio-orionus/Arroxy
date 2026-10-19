@@ -108,10 +108,12 @@ gh api repos/antonio-orionus/arroxy-runtime-binaries/releases/latest --jq '.tag_
 curl -fsIL https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v1.json >/dev/null && echo ok
 ```
 
-Then verify that each asset matches its pin from a clean cache:
+Once `FfmpegPackagePins.ts` holds the new entries (step 6), verify that every
+published asset matches its pin from a clean cache. Before that, `install`
+would fetch the previous pins, not the release just published:
 
 ```bash
-bun scripts/build/ffmpegPackage.ts install --platform <platform> --arch <arch> --cache-root "$(mktemp -d)"
+bun scripts/build/ffmpegPackage.ts install --all --cache-root "$(mktemp -d)"
 ```
 
 ## The manifest publishing workflow (other repository)

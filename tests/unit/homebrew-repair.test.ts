@@ -175,7 +175,8 @@ describe.each([
 describe('installFfmpegWithHomebrew', () => {
 	function onPath(found: Record<string, string>): void {
 		whereOnPathMock.mockImplementation(async (name: string) => (name === 'brew' ? ['/opt/homebrew/bin/brew'] : found[name] ? [found[name]] : []))
-		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates[0] ?? null)
+		const files = ['/opt/homebrew/bin/brew', ...Object.values(found)]
+		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates.find(candidate => files.includes(candidate)) ?? null)
 	}
 
 	it('installs ffmpeg with brew and returns both media tools', async () => {

@@ -21,8 +21,13 @@ function stubPlatform(platform: NodeJS.Platform): void {
 
 function onPath(found: Record<string, string>): void {
 	whereOnPathMock.mockImplementation(async (name: string) => (found[name] ? [found[name]] : []))
-	firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates[0] ?? null)
+	firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates.find(candidate => Object.values(found).includes(candidate)) ?? null)
 }
+
+// Joined the way the code under test joins them, so the folder splits back
+// out on whichever platform runs the tests.
+const LINKS_FFMPEG = path.join(LINKS, 'ffmpeg.exe')
+const LINKS_FFPROBE = path.join(LINKS, 'ffprobe.exe')
 
 function wingetArgs(): string[][] {
 	return execFileMock.mock.calls.filter(call => call[0] !== 'reg.exe').map(call => call[1] as string[])
@@ -42,7 +47,7 @@ beforeEach(() => {
 	vi.clearAllMocks()
 	stubPlatform('win32')
 	execFileMock.mockImplementation((_file: string, _args: string[], _opts: unknown, cb: ExecCallback) => cb(null, {stdout: '', stderr: ''}))
-	onPath({'winget.exe': 'C:\\winget.exe', 'yt-dlp.exe': `${LINKS}\\yt-dlp.exe`, 'ffmpeg.exe': `${LINKS}\\ffmpeg.exe`, 'ffprobe.exe': `${LINKS}\\ffprobe.exe`})
+	onPath({'winget.exe': 'C:\\winget.exe', 'yt-dlp.exe': `${LINKS}\\yt-dlp.exe`, 'ffmpeg.exe': LINKS_FFMPEG, 'ffprobe.exe': LINKS_FFPROBE})
 })
 
 afterEach(() => {
@@ -52,7 +57,7 @@ afterEach(() => {
 
 describe('installFfmpegWithWinget', () => {
 	it('installs the full FFmpeg build and returns both media tools from the WinGet links', async () => {
-		await expect(installFfmpegWithWinget()).resolves.toEqual({ffmpegPath: `${LINKS}\\ffmpeg.exe`, ffprobePath: `${LINKS}\\ffprobe.exe`})
+		await expect(installFfmpegWithWinget()).resolves.toEqual({ffmpegPath: LINKS_FFMPEG, ffprobePath: LINKS_FFPROBE})
 		expect(wingetArgs()).toEqual([['install', '--id', 'Gyan.FFmpeg', '--exact', '--silent', '--accept-package-agreements', '--accept-source-agreements']])
 	})
 
@@ -81,7 +86,7 @@ describe('installFfmpegWithWinget', () => {
 	it('treats "already installed" as success', async () => {
 		execFileMock.mockImplementation((_file: string, _args: string[], _opts: unknown, cb: ExecCallback) => cb(Object.assign(new Error('already installed'), {code: -1978335189})))
 
-		await expect(installFfmpegWithWinget()).resolves.toEqual({ffmpegPath: `${LINKS}\\ffmpeg.exe`, ffprobePath: `${LINKS}\\ffprobe.exe`})
+		await expect(installFfmpegWithWinget()).resolves.toEqual({ffmpegPath: LINKS_FFMPEG, ffprobePath: LINKS_FFPROBE})
 	})
 
 	it('fails with guidance when WinGet is missing', async () => {

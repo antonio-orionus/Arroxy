@@ -13,9 +13,11 @@
 //
 // install: downloads the pinned package for a target from its release URL,
 // verifies and unpacks it with the app's own installer, and prints the install
-// directory. CI scans that directory with Windows Defender.
+// directory. CI scans that directory with Windows Defender. --all installs
+// every pinned target, to check before a release that each asset is published.
 //
 //   bun scripts/build/ffmpegPackage.ts install --platform win32 --arch x64
+//   bun scripts/build/ffmpegPackage.ts install --all --cache-root "$(mktemp -d)"
 import {createHash} from 'node:crypto'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
@@ -181,20 +183,28 @@ async function buildCommand(args: string[]): Promise<void> {
 	console.log(`Wrote ${entryPath}`)
 }
 
-async function installCommand(args: string[]): Promise<void> {
+function pinnedEntries(args: string[]): readonly FfmpegPackageEntry[] {
+	if (args.includes('--all')) return FFMPEG_PACKAGE_PINS
 	const {platform, arch} = target(args)
 	const entry = FFMPEG_PACKAGE_PINS.find(pin => pin.platform === platform && pin.arch === arch)
 	if (!entry) throw new Error(`no pinned FFmpeg package for ${platform}-${arch}`)
+	return [entry]
+}
+
+async function installCommand(args: string[]): Promise<void> {
 	const cacheRoot = option(args, '--cache-root') ?? path.join(path.resolve(import.meta.dirname, '..', '..'), 'dist', 'ffmpeg-install')
-	const install = await new FfmpegPackageMaterializer().materialize(entry, {cacheRoot})
-	console.log(install.rootDir)
+	for (const entry of pinnedEntries(args)) {
+		// react-doctor-disable-next-line react-doctor/async-await-in-loop -- one ~40 MB download at a time
+		const install = await new FfmpegPackageMaterializer().materialize(entry, {cacheRoot})
+		console.log(install.rootDir)
+	}
 }
 
 async function main(args: string[]): Promise<void> {
 	const [command, ...rest] = args
 	if (command === 'build') return buildCommand(rest)
 	if (command === 'install') return installCommand(rest)
-	throw new Error('usage: bun scripts/build/ffmpegPackage.ts build|install --platform <win32|darwin|linux> --arch <x64|arm64> [options]')
+	throw new Error('usage: bun scripts/build/ffmpegPackage.ts build|install --platform <win32|darwin|linux> --arch <x64|arm64> [options], or install --all')
 }
 
 if (isCliEntrypoint(import.meta)) {

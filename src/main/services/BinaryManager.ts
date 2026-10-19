@@ -651,6 +651,9 @@ export class BinaryManager {
 			return outcome.kind === 'accepted' || outcome.kind === 'cancelled'
 		}
 		const pending = (): FfmpegId[] => (cancelled ? [] : ids.filter(id => !resolved[id]))
+		const release = (id: FfmpegId): void => {
+			delete resolved[id]
+		}
 
 		for (const id of ids) onProgress?.({binary: id, phase: 'starting'})
 		await Promise.all(
@@ -666,7 +669,7 @@ export class BinaryManager {
 		)
 
 		// A machine that refused to run one binary will refuse a downloaded one too.
-		await this.tryManagedFfmpegPackages(() => pending().filter(id => budget[id] === 'full'), tryCandidate, attempts, opts)
+		await this.tryManagedFfmpegPackages(() => pending().filter(id => budget[id] === 'full'), tryCandidate, release, attempts, opts)
 
 		for (const id of pending()) {
 			onProgress?.({binary: id, phase: 'fallback'})
@@ -689,7 +692,7 @@ export class BinaryManager {
 	// bundled pin), then any other package still installed. An installed package
 	// is reused without network access, so a launch with no connection still
 	// resolves from a version the indexes have since moved past.
-	private async tryManagedFfmpegPackages(waitingFor: () => FfmpegId[], tryCandidate: (id: FfmpegId, source: DependencySource, candidatePath: string) => Promise<boolean>, attempts: Record<FfmpegId, DependencyAttempt[]>, opts: ResolveOptions): Promise<void> {
+	private async tryManagedFfmpegPackages(waitingFor: () => FfmpegId[], tryCandidate: (id: FfmpegId, source: DependencySource, candidatePath: string) => Promise<boolean>, release: (id: FfmpegId) => void, attempts: Record<FfmpegId, DependencyAttempt[]>, opts: ResolveOptions): Promise<void> {
 		const {onProgress, signal} = opts
 		if (waitingFor().length === 0) return
 		for (const entry of await this.ffmpegPackageCandidates(signal)) {
@@ -724,10 +727,16 @@ export class BinaryManager {
 			const paths: Record<FfmpegId, string> = {ffmpeg: install.ffmpegPath, ffprobe: install.ffprobePath}
 			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- both probes belong to this one package
 			const settled = await Promise.all(waiting.map(id => tryCandidate(id, source, paths[id])))
-			if (settled.every(Boolean) && !signal?.aborted) {
+			if (signal?.aborted) return
+			if (settled.every(Boolean)) {
 				void this.ffmpegPackages.prune(entry, {cacheRoot: this.artifactCacheDir}).catch((err: unknown) => logger.warn('FFmpeg package cleanup failed', {error: errorMessage(err)}))
 				return
 			}
+			// A package counts only as a whole: keeping the binary that passed
+			// would pair it with the other one from a different package build.
+			waiting.forEach((id, index) => {
+				if (settled[index]) release(id)
+			})
 		}
 	}
 
