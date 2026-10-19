@@ -61,6 +61,16 @@ export function proxyForLog(proxy: ProxySetting): string | null {
 	return proxy.kind === 'proxy' ? proxy.redacted : '<invalid>'
 }
 
+// The network route a request leaves by, for keeping rate-limit cooldowns
+// apart: `direct`, or the proxy's scheme, host and port. A site's limit is on
+// the address it sees, so a different proxy is a different route. Never the
+// credentials.
+export function proxyRouteKey(raw: string | undefined): string {
+	const proxy = parseProxySetting(raw)
+	if (proxy.kind === 'none') return 'direct'
+	return proxy.kind === 'proxy' ? proxy.chromiumRules : 'invalid'
+}
+
 // URL serialization appends "/" to an empty path; a proxy address has none.
 function withoutTrailingSlash(href: string): string {
 	return href.endsWith('/') ? href.slice(0, -1) : href

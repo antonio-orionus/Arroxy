@@ -19,7 +19,7 @@ import {serializeDownloadSmokeReport, summarizeSpawnArgs, type DownloadSmokeRepo
 import type {BinaryManager} from './services/BinaryManager.js'
 import {TokenService} from './services/TokenService.js'
 import {YtDlp, type SettingsSource, type YtDlpResult} from './services/YtDlp.js'
-import {parseSelectedFormats, selectedMaxHeight} from './services/download/formatLimitSignals.js'
+import {availableMaxHeight, parseSelectedFormats, selectedMaxHeight} from './services/download/formatLimitSignals.js'
 import {buildMediaRequest} from './services/phases/mediaRequest.js'
 import type {SettingsStore} from './stores/SettingsStore.js'
 import {HiddenWindowTokenProvider} from './token/providers/HiddenWindowTokenProvider.js'
@@ -60,10 +60,10 @@ function initialReport(config: DownloadSmokeConfig, settings: AppSettings, profi
 		platform: process.platform,
 		arch: process.arch,
 		url: config.url,
-		inputs: {cookies: cookiesLabel(config), proxy: config.proxy.kind === 'url' ? 'set' : config.proxy.kind, profileId, youtubePlayerClients: config.youtubePlayerClients ? [...config.youtubePlayerClients] : 'production-default'},
+		inputs: {cookies: cookiesLabel(config), proxy: config.proxy.kind === 'url' ? 'set' : config.proxy.kind, profileId, youtubePlayerClients: config.youtubePlayerClients ? [...config.youtubePlayerClients] : 'production-default', poToken: config.poToken, verbose: config.verbose},
 		effective: {cookiesMode: settings.common.cookiesMode ?? 'off', proxyConfigured: Boolean(settings.common.proxyUrl?.trim()), formatSelector: null, formatSort: null},
-		selection: {selectedFormat: null, formats: null, maxHeight: null},
-		observed: {playerApiClients: [], sabrSkippedClients: [], warnings: []},
+		selection: {selectedFormat: null, formats: null, maxHeight: null, availableMaxHeight: null},
+		observed: {playerApiClients: [], sabrSkippedClients: [], warnings: [], poTokenFromConfigClients: [], poTokenDebug: []},
 		spawned: null,
 		attempts: [],
 		error: null,
@@ -94,7 +94,9 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 	// reads the persisted one. Fixture E2E runs swap in the mock provider, as the
 	// app itself does, so a smoke against the fixture extractor never reaches YouTube.
 	const tokenService = new TokenService(e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider(() => settings.common.proxyUrl))
-	const ytDlp = new YtDlp(binaryManager, tokenService, source, {e2eMode})
+	// -v rides the harness args hook, the one place extra flags join every spawn.
+	const harness: E2eHarnessMode = config.verbose ? {...e2eMode, ytDlpArgs: opts => [...e2eMode.ytDlpArgs(opts), '-v']} : e2eMode
+	const ytDlp = new YtDlp(binaryManager, tokenService, source, {e2eMode: harness, anonymousPoToken: config.poToken})
 	const profile = config.profileId ? allDownloadProfiles(settings.profiles).find(p => p.id === config.profileId) : resolveActiveDownloadProfile(settings.profiles).profile
 	const report = initialReport(config, settings, profile?.id ?? config.profileId ?? '')
 	const nativeAudioPreference = settings.common.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
@@ -140,7 +142,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		const result = await ytDlp.run(req, {abortSignal: controller.signal, onStdout: onText, onStderr: onText}).finally(() => clearTimeout(timer))
 
 		const seen = observer.snapshot()
-		report.observed = {playerApiClients: seen.playerApiClients, sabrSkippedClients: seen.sabrSkippedClients, warnings: seen.warnings}
+		report.observed = {playerApiClients: seen.playerApiClients, sabrSkippedClients: seen.sabrSkippedClients, warnings: seen.warnings, poTokenFromConfigClients: seen.poTokenFromConfigClients, poTokenDebug: seen.poTokenDebug}
 		report.attempts = ytDlp.getLastInvocationSummaries()
 		const lastAttempt = report.attempts.at(-1)
 		report.spawned = lastAttempt ? summarizeSpawnArgs(lastAttempt.args) : null
@@ -149,6 +151,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		const formats = infoJson ? parseSelectedFormats(infoJson) : null
 		report.selection.formats = formats
 		report.selection.maxHeight = selectedMaxHeight(formats)
+		report.selection.availableMaxHeight = infoJson ? availableMaxHeight(infoJson) : null
 
 		report.outcome = seen.selectedFormat ? 'format-selected' : timedOut ? 'timeout' : 'ytdlp-error'
 		report.ok = report.outcome === 'format-selected'

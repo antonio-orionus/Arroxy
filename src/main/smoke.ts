@@ -8,6 +8,7 @@
 // Triggered by setting ARROXY_SMOKE_URL. Skips creating the main window;
 // reports to stdout; exits cleanly.
 
+import {effectiveExtractorArgs} from 'yt-dlp-bridge'
 import {nonEmpty} from '@shared/format.js'
 import type {ProbeError, ProbeOtherErrorCode, YtDlpErrorKind} from '@shared/types.js'
 import type {BinaryManager} from './services/BinaryManager.js'
@@ -97,8 +98,10 @@ function usesRemoteEjs(args: readonly string[]): boolean {
 	return args.some(arg => arg === '--remote-components' || arg === 'ejs:npm' || arg === 'ejs:github')
 }
 
+// What yt-dlp acts on, not what the argv mentions: a later youtube block would
+// replace the one holding the token. Works on redacted argv.
 function usesYoutubePoToken(args: readonly string[]): boolean {
-	return args.some(arg => arg.startsWith('youtube:po_token='))
+	return effectiveExtractorArgs(args).youtube?.po_token !== undefined
 }
 
 function applyInvocationSummaries(report: LiveProbeSmokeReport, summaries: readonly YtDlpInvocationSummary[], fallbackYtDlpPath: string | null): void {
@@ -199,7 +202,7 @@ export async function runSmokeMode(deps: SmokeDeps): Promise<number> {
 	//    This is the canary for "YouTube renamed the symbol."
 	const mintStart = Date.now()
 	try {
-		const {token, visitorData} = await tokenService.mintTokenForUrl(url)
+		const {token, visitorData} = await tokenService.getToken()
 		const tokenLen = token.length
 		const vdLen = visitorData.length
 		if (tokenLen < 10) throw new Error(`suspiciously short token (${tokenLen} chars)`)

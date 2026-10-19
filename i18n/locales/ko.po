@@ -241,8 +241,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp가 다운로드를 완료했지만 후처리(병합/먹싱/변환)에 실패했습니다. 일시적인 ffmpeg 문제인 경우가 많으니 다시 시도하고, 문제가 계속되면 다른 형식 조합을 사용해 보세요."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "사이트에서 요청 속도를 제한하고 있습니다. 잠시 기다렸다가 다시 시도하세요."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "사이트에서 이 연결의 요청을 제한하고 있습니다."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2419,6 +2419,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "중간 품질"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}}에서 이 연결의 요청을 제한하고 있습니다"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "형식 목록이 완전하지 않을 수 있습니다."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}}에서 지금은 이 요청을 거절했습니다."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "다시 시도"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}}에서 이 제한을 최대 1시간 동안 유지할 수 있습니다."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "지금 시도"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "대기 시간이 끝났습니다. 다시 시도할 수 있습니다."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "제한이 풀리도록 Arroxy는 {{time}}까지 기다린 뒤 {{site}}에 다시 요청합니다."
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "저장 형식"
@@ -3733,13 +3765,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "취소"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "복사한 링크 닫기"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "복사한 링크 준비됨"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "복사한 링크로 바뀜"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -3749,9 +3777,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "동영상 링크를 복사하면 URL 필드를 자동으로 채웁니다."
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "복사한 링크 사용"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "실행 취소"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

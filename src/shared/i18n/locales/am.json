@@ -236,16 +236,7 @@
 			"advanced": "ከፍተኛ",
 			"settings": {"inputHeading": "ግብዓት", "behaviorHeading": "የዳውንሎድ ባህሪ", "behaviorDescription": "ከመገለጫዎች ጋር የሙመና ዳውንሎዶችን የሚጨብጥ ዓለም አቀሚ ባህሪ."},
 			"clearAria": "URL አጽዳ",
-			"clipboard": {
-				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
-				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
-				"autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል",
-				"bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ",
-				"pendingLinkReady": "የተቀዳ አገናኝ ዝግጁ ነው",
-				"useCopiedLink": "የተቀዳውን አገናኝ ተጠቀም",
-				"dismissCopiedLink": "የተቀዳውን አገናኝ ዝጋ",
-				"dialog": {"cancelButton": "ሰርዝ"}
-			},
+			"clipboard": {"toggle": "ቅጂ ሰሌዳ ተቆጣጠር", "toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።", "autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል", "bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ", "replacedLink": "በተቀዳው አገናኝ ተተክቷል", "undo": "ቀልብስ", "dialog": {"cancelButton": "ሰርዝ"}},
 			"hotkey": {
 				"sectionTitle": "አለም አቀፍ ፈጣን ቁልፍ",
 				"sectionDescription": "የተቀዱትን አገናኞች ከማንኛውም መተግበሪያ ያለ Arroxy መክፈት ያውርዱ።",
@@ -426,6 +417,16 @@
 				"bodyExplore": "YouTube ይህን ጥያቄ ገድቧል። ቆይተው እንደገና ይሞክሩ ወይም አውታረ መረብ ይቀይሩ።",
 				"retryCta": "እንደገና ሞክር",
 				"enableRetryCta": "Cookies አስቻል እና እንደገና ሞክር"
+			},
+			"rateLimit": {
+				"heading": "{{site}} ይህን ግንኙነት እየገደበ ነው",
+				"leadDegraded": "የቅርጸቶች ዝርዝሩ ያልተሟላ ሊሆን ይችላል።",
+				"leadFailed": "{{site}} ይህን ጥያቄ ለአሁን አልተቀበለውም።",
+				"waitUntil": "ገደቡ እንዲነሳ Arroxy {{site}}ን እንደገና ከመጠየቁ በፊት እስከ {{time}} ይጠብቃል።",
+				"waitOver": "መጠበቁ አልቋል፣ ስለዚህ እንደገና መሞከር ይችላሉ።",
+				"sessionNote": "{{site}} ይህን ገደብ እስከ አንድ ሰዓት ሊያቆየው ይችላል።",
+				"tryNowCta": "አሁን ሞክር",
+				"retryCta": "እንደገና ሞክር"
 			},
 			"cookiesError": {
 				"heading": "Cookies ምክንያቱ ሊሆን ይችላል",
@@ -774,7 +775,7 @@
 		"ytdlp": {
 			"botBlock": "የቦት መከላከያ ተነሳ። የሚጠቀሙበት IP አድራሻ (የዳታ ሴንተር ክልል ወይም ተጨናንቆ VPN መውጫ) ምናልባት ምልክት ተደርጎበት ሊሆን ይችላል። IP አድራሻዎን ይቀይሩ ወይም ሌላ VPN ነጥብ ይምረጡ ከዚያ እንደገና ሞክሩ። አሁንም ካልሰራ፣ ይህ ጊዜያዊ የYouTube ወገን ለውጥ ሊሆን ይችላል — Arroxy በጅምር yt-dlp ራሱን ያዘምናል፣ ስለዚህ upstream ሲያስተካክለው ማስተካከያው ራሱ ይደርሳል።",
 			"ipBlock": "IP አድራሻዎ YouTube ያገደ ይመስላል። ቆየት ብሎ እንደገና ሞክሩ ወይም VPN ጠቀሙ።",
-			"rateLimit": "YouTube ጥያቄዎችን እየገደበ ነው። አንድ ደቂቃ ቆይቶ እንደገና ሞክሩ።",
+			"rateLimit": "ጣቢያው ከዚህ ግንኙነት የሚመጡ ጥያቄዎችን እየገደበ ነው።",
 			"ageRestricted": "ይህ ቪዲዮ ዕድሜ-ተገደቧል ያለ የገቡ መለያ ሊዳውንሎድ አይችልም።",
 			"unavailable": "ይህ ቪዲዮ አይገኝም — ምናልባት የግል፣ ተሰርዟል ወይም ክልል-ተዘግቷል።",
 			"geoBlocked": "ይህ ቪዲዮ በክልልዎ አይገኝም።",

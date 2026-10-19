@@ -8,6 +8,7 @@ import {createQueueSlice} from './queueSlice.js'
 import {createQuickDownloadSlice} from './quickDownload/quickDownloadSlice.js'
 import {createUiSlice} from './uiSlice.js'
 import {createSystemSlice} from './systemSlice.js'
+import {createSiteCooldownSlice} from './siteCooldownSlice.js'
 import {watchExploreRetryTargets} from './quickDownload/exploreSignInRetry.js'
 import type {AppState} from './types.js'
 
@@ -23,7 +24,8 @@ export const useAppStore = create<AppState>()((set, get) => ({
 	...createOutputConfigSlice(set, get),
 	...createWizardDialogsSlice(set, get),
 	...createQueueSlice(set, get),
-	...createQuickDownloadSlice(set, get)
+	...createQuickDownloadSlice(set, get),
+	...createSiteCooldownSlice(set, get)
 }))
 
 // "Sign in with Explore" retries the failed items once Explore reports the sign-in.

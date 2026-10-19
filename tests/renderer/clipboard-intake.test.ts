@@ -1,53 +1,38 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {buildClipboardCandidate, resolveClipboardIntake} from '@renderer/components/wizard/clipboardIntake.js'
+import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink} from '@renderer/components/wizard/clipboardIntake.js'
 
-const singleUrl = 'https://www.youtube.com/watch?v=one'
-const bulkRaw = 'Grab https://example.com/one, https://example.com/two'
+const link = 'https://www.youtube.com/watch?v=one'
+const idle = {downloadTabActive: true, bulkOpen: false, formatsLoading: false, quickPreparing: false}
 
-describe('clipboard intake decisions', () => {
-	it('fills an empty URL field from one accepted URL', () => {
-		const candidate = buildClipboardCandidate(singleUrl)
-
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'fill-single', url: singleUrl})
+describe('copied link intake', () => {
+	it('fills an empty URL field', () => {
+		expect(resolveCopiedLink(link, '')).toEqual({kind: 'fill', url: link})
+		expect(resolveCopiedLink(link, '   ')).toEqual({kind: 'fill', url: link})
 	})
 
-	it('hints at bulk paste for multiple URLs instead of opening or filling anything', () => {
-		const candidate = buildClipboardCandidate(bulkRaw)
-
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'hint-bulk', candidate: {count: 2}})
+	it('replaces whatever the URL field holds, keeping it for undo', () => {
+		expect(resolveCopiedLink(link, 'https://example.com/old')).toEqual({kind: 'replace', url: link, previous: 'https://example.com/old'})
+		expect(resolveCopiedLink(link, 'half-typed')).toEqual({kind: 'replace', url: link, previous: 'half-typed'})
 	})
 
-	it('hints at bulk paste regardless of busy state — multi-URL candidates never pend', () => {
-		const candidate = buildClipboardCandidate(bulkRaw)
-
-		expect(resolveClipboardIntake({candidate, hasInput: true, formatsLoading: false, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'hint-bulk'})
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: true, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'hint-bulk'})
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: false, bulkOpen: true})).toMatchObject({kind: 'hint-bulk'})
+	it('does nothing when the field already holds the copied link', () => {
+		expect(resolveCopiedLink(link, ` ${link} `)).toEqual({kind: 'none'})
 	})
 
-	it('stores a single candidate when the URL field already has input', () => {
-		const candidate = buildClipboardCandidate(singleUrl)
-
-		expect(resolveClipboardIntake({candidate, hasInput: true, formatsLoading: false, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'store-pending', candidate})
+	it('undoes only while the URL step still holds the copied link and nothing was submitted', () => {
+		const onUrlStep = {wizardStep: 'url', wizardUrl: link, formatsLoading: false, quickPreparing: false} as const
+		expect(canUndoCopiedLink(onUrlStep, link)).toBe(true)
+		expect(canUndoCopiedLink({...onUrlStep, wizardUrl: 'typed-after'}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, formatsLoading: true}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, quickPreparing: true}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, wizardStep: 'formats'}, link)).toBe(false)
 	})
 
-	it('stores a single candidate while probing or quick download preparation blocks safe autofill', () => {
-		const candidate = buildClipboardCandidate(singleUrl)
-
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: true, quickPreparing: false, bulkOpen: false})).toMatchObject({kind: 'store-pending', candidate})
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: true, bulkOpen: false})).toMatchObject({kind: 'store-pending', candidate})
-	})
-
-	it('stores a single candidate without overwriting an open bulk dialog', () => {
-		const candidate = buildClipboardCandidate(singleUrl)
-
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: false, bulkOpen: true})).toMatchObject({kind: 'store-pending', candidate})
-	})
-
-	it('ignores payloads with no accepted URL', () => {
-		const candidate = buildClipboardCandidate('not a url')
-
-		expect(candidate).toBeNull()
-		expect(resolveClipboardIntake({candidate, hasInput: false, formatsLoading: false, quickPreparing: false, bulkOpen: false})).toEqual({kind: 'ignore'})
+	it('applies only on the idle Download tab', () => {
+		expect(canApplyCopiedLink(idle)).toBe(true)
+		expect(canApplyCopiedLink({...idle, downloadTabActive: false})).toBe(false)
+		expect(canApplyCopiedLink({...idle, bulkOpen: true})).toBe(false)
+		expect(canApplyCopiedLink({...idle, formatsLoading: true})).toBe(false)
+		expect(canApplyCopiedLink({...idle, quickPreparing: true})).toBe(false)
 	})
 })

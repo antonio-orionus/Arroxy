@@ -34,6 +34,10 @@ _Avoid_: concurrency, parallel jobs, simultaneous downloads
 Arroxy restarting a failed item on its own, after a growing delay, for transient transport failures only. Blocked and permanently-failed downloads always wait for the user. Distinct from **resume context**, which is what makes a retry pick up partial files instead of starting over.
 _Avoid_: auto-resume, self-heal, backoff retry
 
+**Rate-limit cooldown**:
+The wait Arroxy imposes on new requests to a site after that site rate-limits this connection, one per site and network route. Probes, queued downloads and automatic retries all wait it out; **Try now** lets one request through. A rate limit never brings in an account, because sites rate-limit signed-in accounts too.
+_Avoid_: backoff, throttle, ban
+
 **Soft failure**:
 A non-fatal miss that still leaves a usable result, so the job finishes as complete. Subtitles that could not be fetched are the typical case — the video is kept.
 _Avoid_: warning, partial failure
@@ -57,6 +61,10 @@ _Avoid_: percent
 **Artifact**:
 A file produced by a queue item, such as media, sidecar subtitles, a thumbnail, a description, or a companion file. An artifact is **missing** when it is no longer on disk, for example after being moved or deleted outside the app; the queue checks this each time it loads and clears the mark when the file is back.
 _Avoid_: payload, attachment
+
+**Copied link**:
+The latest single link the clipboard watch saw while Arroxy was in front: a clipboard holding exactly one web link and nothing else. It replaces the URL field without asking, with an Undo, as soon as the Download tab is idle; until then it waits, and a newer copy takes its place.
+_Avoid_: pending link, clipboard candidate, suggested link
 
 ### Queue
 
@@ -253,6 +261,10 @@ _Avoid_: built-in browser, web view, browse tab
 **Explore session**:
 The persistent browsing identity behind Explore, owned by the app and kept separate from the user's own browser. Signing in to Explore signs in this identity; signing out of Explore clears it.
 _Avoid_: Explore account, browser profile
+
+**Idle unload**:
+Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.
+_Avoid_: suspension, discard, hibernation, sleeping tab
 
 **Explore cookies**:
 The cookies read from the Explore session each time a download step needs them, used for that step and then discarded.

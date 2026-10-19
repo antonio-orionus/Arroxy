@@ -55,6 +55,18 @@ describe('toast sink', () => {
 		expect(shown[2]?.options.id).toBe(second?.options.id)
 	})
 
+	// Sonner merges a same-id update into the toast on screen, so an update that
+	// leaves the buttons out would keep the previous message's buttons and callbacks.
+	it('clears the previous buttons when an update carries no actions', () => {
+		render(<App />)
+		notify.clipboard('Replaced with copied link', [{label: 'Undo', onClick: vi.fn()}])
+		notify.clipboard('Multiple links copied — use Bulk URLs')
+
+		expect(shown[1]?.options.id).toBe(shown[0]?.options.id)
+		expect(shown[1]?.options).toHaveProperty('action', undefined)
+		expect(shown[1]?.options).toHaveProperty('cancel', undefined)
+	})
+
 	it('ignores a late close callback from an older toast', () => {
 		render(<App />)
 		notify.clipboard('first')

@@ -13,9 +13,9 @@ describe('QuickDownloadFeedback', () => {
 			quickDownloadQueueIds: [],
 			quickDownloadProgressRunId: null
 		})
-		expect(failedQuickDownloadFeedback({kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2})).toEqual({
+		expect(failedQuickDownloadFeedback({kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, errorUrl: 'https://youtu.be/one', urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2})).toEqual({
 			quickDownloadStatus: 'error',
-			quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2},
+			quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}, errorUrl: 'https://youtu.be/one', urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2},
 			quickDownloadQueueIds: [],
 			quickDownloadProgressRunId: null
 		})

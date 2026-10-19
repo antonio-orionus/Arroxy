@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ማውረዱን ጨርሷል ነገር ግን ድህረ-ሂደት (merge / mux / convert) አልተሳካም። ብዙውን ጊዜ ይህ ጊዜያዊ የffmpeg ችግር ነው — እንደገና ሞክሩ፣ ችግሩ ከቀጠለ ሌላ የቅርጸት ጥምረት ሞክሩ።"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube ጥያቄዎችን እየገደበ ነው። አንድ ደቂቃ ቆይቶ እንደገና ሞክሩ።"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "ጣቢያው ከዚህ ግንኙነት የሚመጡ ጥያቄዎችን እየገደበ ነው።"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2509,6 +2509,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "መካከለኛ ጥራት"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ይህን ግንኙነት እየገደበ ነው"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "የቅርጸቶች ዝርዝሩ ያልተሟላ ሊሆን ይችላል።"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} ይህን ጥያቄ ለአሁን አልተቀበለውም።"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "እንደገና ሞክር"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} ይህን ገደብ እስከ አንድ ሰዓት ሊያቆየው ይችላል።"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "አሁን ሞክር"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "መጠበቁ አልቋል፣ ስለዚህ እንደገና መሞከር ይችላሉ።"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "ገደቡ እንዲነሳ Arroxy {{site}}ን እንደገና ከመጠየቁ በፊት እስከ {{time}} ይጠብቃል።"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "የሚቀመጠው እንደ"
@@ -3893,13 +3925,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "ሰርዝ"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "የተቀዳውን አገናኝ ዝጋ"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "የተቀዳ አገናኝ ዝግጁ ነው"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "በተቀዳው አገናኝ ተተክቷል"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -3909,9 +3937,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።"
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "የተቀዳውን አገናኝ ተጠቀም"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "ቀልብስ"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

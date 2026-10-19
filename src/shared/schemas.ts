@@ -1,6 +1,5 @@
 import {z} from 'zod'
 import {validateUaToken} from './exploreUserAgent.js'
-import {EXPLORE_ADDRESS_MAX} from './sites/exploreAddress.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from 'ytdlp-errors'
@@ -513,41 +512,6 @@ export const ZOOM_STEP = 0.05
 // match) and surfaces "Unsupported URL" via stderr if not.
 const webUrlSchema = z.url('URL must be valid').refine(value => /^https?:\/\//i.test(value), {message: 'Only http/https URLs are supported'})
 
-// Largest pixel extent the Explore view may be asked to cover; matches the compositor's texture ceiling.
-const EXPLORE_BOUNDS_MAX = 16384
-const exploreBoundsValueSchema = z.number().min(0).max(EXPLORE_BOUNDS_MAX)
-export const exploreViewBoundsSchema = z.object({x: exploreBoundsValueSchema, y: exploreBoundsValueSchema, width: exploreBoundsValueSchema, height: exploreBoundsValueSchema})
-export type ExploreViewBounds = z.infer<typeof exploreViewBoundsSchema>
-// `address`: what the user typed in the address bar, normalised by the
-// renderer; main loads it only on the site (exploreHandlers, P2-R45).
-export const exploreNavigateCommandSchema = z.discriminatedUnion('kind', [
-	z.strictObject({kind: z.literal('back')}),
-	z.strictObject({kind: z.literal('forward')}),
-	z.strictObject({kind: z.literal('reload')}),
-	z.strictObject({kind: z.literal('home')}),
-	z.strictObject({kind: z.literal('address'), url: z.string().min(1).max(EXPLORE_ADDRESS_MAX)})
-])
-export type ExploreNavigateCommand = z.infer<typeof exploreNavigateCommandSchema>
-export const exploreSetVisibleSchema = z.object({visible: z.boolean()})
-// Whether the Explore tab is the active tab (the view is muted while it is not).
-export const exploreSetActiveSchema = z.object({active: z.boolean()})
-// A pick in the Explore page's link menu, for the link right-clicked (main
-// builds and shows the menu): `download` queues it with `profile` made the
-// active profile first, or with the active one; `interactive` opens the wizard.
-const exploreLinkUrlSchema = z.string().min(1).max(EXPLORE_ADDRESS_MAX)
-export const exploreLinkActionSchema = z.discriminatedUnion('kind', [z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}), z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})])
-export type ExploreLinkAction = z.infer<typeof exploreLinkActionSchema>
-// A snapshot of the Explore view, shown in its place while an overlay hides it
-// (P2-R35): a base64 JPEG data URL and nothing else (an SVG could carry
-// script). Main encodes it at full device resolution, quality 85; the cap
-// keeps one IPC reply bounded yet fits a noise-heavy page on a 5K display
-// (~15M chars; a typical page is well under 1M).
-export const EXPLORE_SNAPSHOT_MAX_CHARS = 16 * 1024 * 1024
-export const exploreSnapshotSchema = z
-	.string()
-	.max(EXPLORE_SNAPSHOT_MAX_CHARS)
-	.regex(/^data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2}$/)
-
 const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('app-limit')}),
 	z.object({kind: z.literal('first'), count: playlistProbeLimitSchema}),
@@ -565,6 +529,25 @@ export const probePlaylistModeSchema = z.enum(['auto', 'video', 'playlist'])
 export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 
 export const probeSchema = z.object({url: webUrlSchema, playlistMode: probePlaylistModeSchema.optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
+
+// Why a probe that still produced a usable result is marked limited: a bot
+// check on the way, an extractor-side miss, or the site rate-limiting this
+// connection (a different remedy: wait, never cookies).
+export const probeDegradationReasonSchema = z.enum(['botWall', 'extractor', 'rateLimit'])
+export type ProbeDegradationReason = z.infer<typeof probeDegradationReasonSchema>
+
+// What a run showed about the site rate-limiting this connection, named after
+// yt-dlp's wording: an HTTP 429, or YouTube's session limit ("rate-limited by
+// YouTube for up to an hour"), which lasts much longer.
+export const rateLimitEvidenceSchema = z.enum(['rateLimited', 'sessionRateLimited'])
+export type RateLimitEvidence = z.infer<typeof rateLimitEvidenceSchema>
+
+// A running rate-limit cooldown on the current network route: until when new
+// requests to `site` wait. `site` is the request site key (requestSiteFor).
+const requestSiteSchema = z.string().min(1).max(253)
+export const siteCooldownSchema = z.strictObject({site: requestSiteSchema, until: z.iso.datetime(), evidence: rateLimitEvidenceSchema})
+export type SiteCooldown = z.infer<typeof siteCooldownSchema>
+export const siteTryNowSchema = z.strictObject({site: requestSiteSchema})
 
 // PreparedJob discriminated-union schema. Type aliases live in
 // `./preparedJob`; the runtime validator lives here so callers that already

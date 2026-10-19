@@ -105,9 +105,9 @@ export const notify = {
 	// One method for every clipboard-intake toast: the callers pass their own
 	// localized message and the distinction lives in their t() keys, not here.
 	// Same surface and dedupe id as the autofill toast.
-	clipboard(message: string): void {
+	clipboard(message: string, actions?: NotificationActions): void {
 		console.info('[clipboard]', message)
-		emit('info', message, 'clipboard')
+		emit('info', message, 'clipboard', actions)
 	},
 	hotkeyOutcome(outcome: HotkeyOutcome): void {
 		// Localized here (not by the caller) because main routes the same

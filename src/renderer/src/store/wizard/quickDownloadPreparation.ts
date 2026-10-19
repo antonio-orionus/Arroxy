@@ -134,7 +134,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 
 	try {
 		const probeResults: Array<{url: string; intent: UrlIntent; probe: ProbeResult}> = []
-		const failedProbeErrors: ProbeError[] = []
+		const failedProbes: Array<{url: string; error: ProbeError}> = []
 		let failedCount = 0
 		for (const [index, url] of cleanedUrls.entries()) {
 			if (!isRunActive(runId)) return
@@ -151,7 +151,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 			const result = await window.appApi.downloads.probe(probeInputFor(url, get().playlistScope, action.playlistMode))
 			if (!isRunActive(runId)) return
 			if (!result.ok) {
-				failedProbeErrors.push(result.error)
+				failedProbes.push({url, error: result.error})
 				failedCount += 1
 				set(quickDownloadProgressPatch({quickDownloadProgressCompleted: Math.min(index + 1, cleanedUrls.length), quickDownloadProgressFailed: failedCount}))
 				continue
@@ -188,8 +188,13 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 			return
 		}
 		if (queuedIds.length === 0) {
-			const representativeError = selectProbeErrorForGuidance(failedProbeErrors, get().settings?.common, get().exploreView?.signedIn ?? null)
-			set(failedQuickDownloadFeedback(representativeError ? {kind: 'bulk-probe', error: representativeError, urls: [...cleanedUrls], failedCount} : {kind: 'prepare', messageKey: 'wizard.url.quickBulkAllFailed', urls: [...cleanedUrls]}))
+			const representativeError = selectProbeErrorForGuidance(
+				failedProbes.map(failed => failed.error),
+				get().settings?.common,
+				get().exploreView?.signedIn ?? null
+			)
+			const representative = failedProbes.find(failed => failed.error === representativeError)
+			set(failedQuickDownloadFeedback(representative ? {kind: 'bulk-probe', error: representative.error, errorUrl: representative.url, urls: [...cleanedUrls], failedCount} : {kind: 'prepare', messageKey: 'wizard.url.quickBulkAllFailed', urls: [...cleanedUrls]}))
 			return
 		}
 

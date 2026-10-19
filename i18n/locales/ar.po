@@ -266,8 +266,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "انتهى yt-dlp من التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "تُقيّد YouTube الطلبات. انتظر دقيقة ثم حاول مجدداً."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "يحدّ الموقع من الطلبات القادمة من هذا الاتصال."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2869,6 +2869,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "جودة متوسطة"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "يحدّ {{site}} من طلبات هذا الاتصال"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "قد تكون قائمة الصيغ غير مكتملة."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "رفض {{site}} هذا الطلب حاليًا."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "قد يُبقي {{site}} هذا الحد لمدة تصل إلى ساعة."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "جرّب الآن"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "انتهى الانتظار، يمكنك المحاولة مجددًا."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "ينتظر Arroxy حتى {{time}} قبل أن يطلب من {{site}} مجددًا، حتى يزول الحد."
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "يُحفظ كـ"
@@ -4533,13 +4565,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "إلغاء"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "إخفاء الرابط المنسوخ"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "الرابط المنسوخ جاهز"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "تم الاستبدال بالرابط المنسوخ"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -4549,9 +4577,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube."
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "استخدام الرابط المنسوخ"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "تراجع"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

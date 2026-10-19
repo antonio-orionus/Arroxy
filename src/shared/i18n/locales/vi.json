@@ -237,9 +237,8 @@
 				"toggleDescription": "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.",
 				"autofilledLink": "Đã thêm liên kết từ bảng nhớ tạm",
 				"bulkHint": "Đã sao chép nhiều liên kết — thêm chúng qua “URL hàng loạt”",
-				"pendingLinkReady": "Liên kết đã sao chép sẵn sàng",
-				"useCopiedLink": "Dùng liên kết đã sao chép",
-				"dismissCopiedLink": "Bỏ qua liên kết đã sao chép",
+				"replacedLink": "Đã thay bằng liên kết đã sao chép",
+				"undo": "Hoàn tác",
 				"dialog": {"cancelButton": "Hủy"}
 			},
 			"hotkey": {
@@ -425,6 +424,16 @@
 				"bodyExplore": "YouTube đã giới hạn yêu cầu này. Hãy thử lại sau hoặc đổi mạng.",
 				"retryCta": "Thử lại",
 				"enableRetryCta": "Bật cookies và thử lại"
+			},
+			"rateLimit": {
+				"heading": "{{site}} đang giới hạn kết nối này",
+				"leadDegraded": "Danh sách định dạng có thể chưa đầy đủ.",
+				"leadFailed": "{{site}} tạm thời từ chối yêu cầu này.",
+				"waitUntil": "Arroxy sẽ chờ đến {{time}} rồi mới hỏi lại {{site}}, để giới hạn kịp gỡ bỏ.",
+				"waitOver": "Đã hết thời gian chờ, bạn có thể thử lại.",
+				"sessionNote": "{{site}} có thể duy trì giới hạn này đến một giờ.",
+				"tryNowCta": "Thử ngay",
+				"retryCta": "Thử lại"
 			},
 			"cookiesError": {
 				"heading": "Cookies có thể là nguyên nhân",
@@ -777,7 +786,7 @@
 		"ytdlp": {
 			"botBlock": "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía YouTube — Arroxy tự động cập nhật yt-dlp khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng khi upstream phát hành.",
 			"ipBlock": "Địa chỉ IP của bạn dường như bị YouTube chặn. Hãy thử lại sau hoặc dùng VPN.",
-			"rateLimit": "YouTube đang giới hạn tốc độ yêu cầu. Hãy đợi một phút rồi thử lại.",
+			"rateLimit": "Trang web đang giới hạn yêu cầu từ kết nối này.",
 			"ageRestricted": "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập.",
 			"unavailable": "Video này không khả dụng — có thể là riêng tư, đã bị xóa hoặc bị chặn theo khu vực.",
 			"geoBlocked": "Video này không có sẵn ở khu vực của bạn.",

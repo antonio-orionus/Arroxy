@@ -34,10 +34,11 @@ import {
 	type BrowserMockLaunchMode,
 	type BrowserMockScenario
 } from './dev/browserMockScenarios.js'
-import {buildSetupScript} from './dev/scenarios/diagnosticScenarios.js'
+import {playSetupScript, simulateFirstLaunchDownloads} from './dev/warmupPlayback.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
+import {createSiteRequestsMock} from './dev/siteRequestsMock.js'
 import {showcaseProbe, showcaseQueueItem} from './dev/showcaseContent.js'
 
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch'
@@ -163,6 +164,7 @@ export function installBrowserMock(): void {
 
 	let settings: AppSettings = scenarioState.settings
 	const exploreMock = createExploreMock(scenarioState.explore)
+	const siteRequestsMock = createSiteRequestsMock()
 
 	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))
@@ -289,7 +291,13 @@ export function installBrowserMock(): void {
 		}
 
 		const probeErrorKind = mockProbeErrorKind(input.url)
+		// "Try now" on a rate-limited mock probe: the site answers this time.
+		if (probeErrorKind === 'rateLimit' && siteRequestsMock.passesTryNow(input.url)) {
+			await delay(1400)
+			return {ok: true, data: normalVideoProbe({webpageUrl: input.url})}
+		}
 		if (probeErrorKind !== null) {
+			if (probeErrorKind === 'rateLimit') siteRequestsMock.rateLimited(input.url)
 			return {ok: false, error: buildProbeErrorForKind(probeErrorKind)}
 		}
 
@@ -317,7 +325,12 @@ export function installBrowserMock(): void {
 
 		if (scenarioState.probeResult) {
 			await delay(1400)
-			return {ok: true, data: {...scenarioState.probeResult, webpageUrl: input.url}}
+			const probe = scenarioState.probeResult
+			if (probe.kind === 'video' && probe.degraded?.reasons.includes('rateLimit') === true) {
+				if (siteRequestsMock.passesTryNow(input.url)) return {ok: true, data: {...probe, degraded: undefined, webpageUrl: input.url}}
+				siteRequestsMock.rateLimited(input.url)
+			}
+			return {ok: true, data: {...probe, webpageUrl: input.url}}
 		}
 
 		// Visual harness: append `?fail=1` to a URL to simulate a hard
@@ -359,39 +372,10 @@ export function installBrowserMock(): void {
 				}
 
 				const emit = (event: WarmupProgressEvent): void => warmupProgressListeners.forEach(l => l(event))
-				// Setup scenarios play their scripted progress and then leave warmup
-				// running, so the splash holds that state for review.
-				const setupScript = force ? null : buildSetupScript(scenarioState.scenario)
-				if (setupScript) {
-					for (const step of setupScript) {
-						await delay(step.delayMs)
-						emit(step.event)
-					}
-					return new Promise<never>(() => undefined)
-				}
-
-				// A first launch, as the real warmup runs it: yt-dlp and the FFmpeg
-				// package download side by side, and the package (ffmpeg, ffprobe and
-				// their libraries in one archive) reports on the ffmpeg row only.
-				// ffprobe has no download of its own.
-				if (launchMode !== 'ready') {
-					const download = async (name: DependencyId, size: number, steps: number): Promise<void> => {
-						for (let i = 1; i <= steps; i++) {
-							await delay(120)
-							emit({binary: name, phase: 'downloading', bytesDownloaded: Math.round((size / steps) * i), totalBytes: size})
-						}
-					}
-					emit({binary: 'ffprobe', phase: 'starting'})
-					await Promise.all([
-						download('yt-dlp', 18 * 1024 * 1024, 8).then(() => emit({binary: 'yt-dlp', phase: 'done'})),
-						download('ffmpeg', 42 * 1024 * 1024, 20).then(async () => {
-							emit({binary: 'ffmpeg', phase: 'extracting'})
-							await delay(600)
-							emit({binary: 'ffmpeg', phase: 'done'})
-							emit({binary: 'ffprobe', phase: 'done'})
-						})
-					])
-				}
+				// A setup scenario leaves warmup running after its script, so the
+				// splash holds that state for review.
+				if (!force && (await playSetupScript(scenarioState.scenario, emit))) return new Promise<never>(() => undefined)
+				if (launchMode !== 'ready') await simulateFirstLaunchDownloads(emit)
 
 				if (launchMode === 'cold-error' && !force && warmupCallCount === 1) {
 					const blocked: Record<DependencyId, DependencyDiagnostic> = {
@@ -748,6 +732,8 @@ export function installBrowserMock(): void {
 		},
 
 		explore: exploreMock.api,
+
+		siteRequests: siteRequestsMock.api,
 
 		updater: {
 			onUpdateAvailable: listener => {

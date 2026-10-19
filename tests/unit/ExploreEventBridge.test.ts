@@ -3,7 +3,7 @@
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {ExploreEventBridge} from '@main/services/explore/ExploreEventBridge.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import type {ExploreLinkAction} from '@shared/schemas.js'
+import type {ExploreLinkAction} from '@shared/exploreSchemas.js'
 
 vi.mock('electron-log/main.js', () => ({default: {scope: () => ({warn: vi.fn(), info: vi.fn()})}}))
 

@@ -126,6 +126,26 @@ describe('ClipboardWatcher', () => {
 		expect(win.send).not.toHaveBeenCalled()
 	})
 
+	it('does not forward a link followed by other text', async () => {
+		const reader = {readText: vi.fn().mockResolvedValue('')}
+		const win = makeWindow()
+		const watcher = new ClipboardWatcher(win, 800, reader)
+		watcher.setEnabled(true)
+		reader.readText.mockResolvedValue('https://vimeo.com/12345 is great')
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).not.toHaveBeenCalled()
+	})
+
+	it('does not forward a link to an obvious non-media file', async () => {
+		const reader = {readText: vi.fn().mockResolvedValue('')}
+		const win = makeWindow()
+		const watcher = new ClipboardWatcher(win, 800, reader)
+		watcher.setEnabled(true)
+		reader.readText.mockResolvedValue('https://example.com/photo.jpg')
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).not.toHaveBeenCalled()
+	})
+
 	it('sends the channel with a YouTube URL on detection', async () => {
 		const url = yt('abc')
 		const reader = {readText: vi.fn().mockResolvedValue('')}

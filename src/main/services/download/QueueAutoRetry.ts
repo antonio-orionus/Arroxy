@@ -19,6 +19,8 @@ export interface QueueAutoRetryDeps {
 	findItem: (itemId: string) => QueueItem | undefined
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
 	retryReset: (itemId: string) => void
+	// How long the item's site still holds new requests after a rate limit; 0 when it does not.
+	cooldownRemainingMs: (item: QueueItem) => number
 }
 
 export class QueueAutoRetry {
@@ -53,10 +55,13 @@ export class QueueAutoRetry {
 	schedule(item: QueueItem, error: LocalizedError): boolean {
 		const decision = decideAutoRetry(error.kind, item.retryCount ?? 0, this.attempts)
 		if (!decision.retry) return false
-		const retryAt = new Date(Date.now() + decision.delayMs).toISOString()
+		// Never sooner than the site's rate-limit cooldown: an earlier retry
+		// would only be held there anyway, showing a time that is not true.
+		const delayMs = Math.max(decision.delayMs, this.deps.cooldownRemainingMs(item))
+		const retryAt = new Date(Date.now() + delayMs).toISOString()
 		this.deps.patch(item.id, `autoRetry:scheduled:${decision.attempt}`, prev => ({...prev, retryCount: decision.attempt, retryAt}))
-		this.arm(item.id, decision.delayMs)
-		logger.info('Auto-retry scheduled', {itemId: item.id, attempt: decision.attempt, of: this.attempts, delayMs: decision.delayMs, kind: error.kind})
+		this.arm(item.id, delayMs)
+		logger.info('Auto-retry scheduled', {itemId: item.id, attempt: decision.attempt, of: this.attempts, delayMs, kind: error.kind})
 		return true
 	}
 

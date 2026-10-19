@@ -104,7 +104,7 @@ function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token
 		return fn(join(outputDir, 'jar.txt'))
 	}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue(undefined), forgetProbeVerdict: vi.fn()}
-	const tokenService = {mintTokenForUrl: vi.fn(opts.mintToken ?? (() => Promise.resolve({token: 'tok', visitorData: 'vd'}))), invalidateCache: vi.fn(), resetSession: vi.fn()}
+	const tokenService = {getToken: vi.fn(opts.mintToken ?? (() => Promise.resolve({token: 'tok', visitorData: 'vd'}))), invalidateCache: vi.fn(), resetSession: vi.fn()}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {cookiesMode: 'explore'}, playlist: {}})}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: {withJar}, spawnGate: gate, sessionAuth: {canEscalate: () => Promise.resolve(true)}})
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}

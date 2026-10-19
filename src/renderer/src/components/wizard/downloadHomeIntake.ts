@@ -1,9 +1,8 @@
-import {useCallback, useEffect, useRef, useState, type RefObject} from 'react'
+import {useEffect, useState} from 'react'
 import {useTranslation} from 'react-i18next'
-import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {buildClipboardCandidate, resolveClipboardIntake, type ClipboardCandidate} from './clipboardIntake.js'
+import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink} from './clipboardIntake.js'
 
 function isBrowserMockBulkDialogScenario(scenario: string | null): boolean {
 	return scenario === 'profiles-bulk' || scenario === 'profiles-bulk-huge-input'
@@ -38,21 +37,14 @@ function browserMockBulkInitialRaw(scenario: string | null): string {
 
 export interface BulkUrlDialogState {
 	bulkOpen: boolean
-	// Mirrors `bulkOpen` for the clipboard listener, which subscribes once.
-	bulkOpenRef: RefObject<boolean>
 	bulkInitialRaw: string
 	openBulkDialog: () => void
 	handleBulkOpenChange: (next: boolean) => void
 }
 
 export function useBulkUrlDialog(initialBrowserMockScenario: string | null): BulkUrlDialogState {
-	const bulkOpenRef = useRef(false)
 	const [bulkOpen, setBulkOpen] = useState(() => isBrowserMockBulkDialogScenario(initialBrowserMockScenario))
 	const [bulkInitialRaw, setBulkInitialRaw] = useState(() => browserMockBulkInitialRaw(initialBrowserMockScenario))
-
-	useEffect(() => {
-		bulkOpenRef.current = bulkOpen
-	}, [bulkOpen])
 
 	function openBulkDialog(): void {
 		setBulkInitialRaw('')
@@ -64,52 +56,31 @@ export function useBulkUrlDialog(initialBrowserMockScenario: string | null): Bul
 		if (!next) setBulkInitialRaw('')
 	}
 
-	return {bulkOpen, bulkOpenRef, bulkInitialRaw, openBulkDialog, handleBulkOpenChange}
+	return {bulkOpen, bulkInitialRaw, openBulkDialog, handleBulkOpenChange}
 }
 
-export interface ClipboardIntakeState {
-	pendingClipboard: ClipboardCandidate | null
-	setPendingClipboard: (candidate: ClipboardCandidate | null) => void
-	consumeClipboardCandidate: (candidate: ClipboardCandidate) => void
-}
-
-// Copied links reach the home through the clipboard watcher: fill the URL
-// field, hold the link while the field or the bulk dialog is busy, or hint at
-// the bulk dialog for a list.
-export function useClipboardIntake({bulkOpenRef, setWizardUrl}: {bulkOpenRef: RefObject<boolean>; setWizardUrl: (url: string) => void}): ClipboardIntakeState {
+// The copied link reaches the URL field once the Download tab is idle: it
+// fills an empty field and replaces anything else, with Undo on the toast.
+export function useCopiedLinkIntake({bulkOpen, downloadTabActive, setWizardUrl}: {bulkOpen: boolean; downloadTabActive: boolean; setWizardUrl: (url: string) => void}): void {
 	const {t} = useTranslation()
-	const [pendingClipboard, setPendingClipboard] = useState<ClipboardCandidate | null>(null)
-
-	const consumeClipboardCandidate = useCallback(
-		(candidate: ClipboardCandidate): void => {
-			setPendingClipboard(null)
-
-			const url = candidate.acceptedUrls[0]
-			if (!url) return
-			setWizardUrl(url)
-			notify.clipboard(t('wizard.url.clipboard.autofilledLink'))
-		},
-		[setWizardUrl, t]
-	)
+	const copiedLink = useAppStore(state => state.copiedLink)
+	const formatsLoading = useAppStore(state => state.formatsLoading)
+	const quickPreparing = useAppStore(state => state.quickDownloadStatus === 'preparing')
 
 	useEffect(() => {
-		return window.appApi.events.onClipboardUrl(payload => {
+		if (copiedLink === null || !canApplyCopiedLink({bulkOpen, downloadTabActive, formatsLoading, quickPreparing})) return
+		useAppStore.setState({copiedLink: null})
+		const action = resolveCopiedLink(copiedLink, useAppStore.getState().wizardUrl)
+		if (action.kind === 'none') return
+		setWizardUrl(action.url)
+		if (action.kind === 'fill') {
+			notify.clipboard(t('wizard.url.clipboard.autofilledLink'))
+			return
+		}
+		const undo = (): void => {
 			const state = useAppStore.getState()
-			const action = resolveClipboardIntake({candidate: buildClipboardCandidate(payload), hasInput: state.wizardUrl.trim().length > 0, formatsLoading: state.formatsLoading, quickPreparing: state.quickDownloadStatus === 'preparing', bulkOpen: bulkOpenRef.current})
-
-			if (action.kind === 'ignore') return
-			if (action.kind === 'store-pending') {
-				setPendingClipboard(action.candidate)
-				if (bulkOpenRef.current) bulkLogger.info('Clipboard URL held while bulk dialog is open', {accepted: action.candidate.count})
-				return
-			}
-			if (action.kind === 'hint-bulk') {
-				notify.clipboard(t('wizard.url.clipboard.bulkHint'))
-				return
-			}
-			consumeClipboardCandidate(action.candidate)
-		})
-	}, [bulkOpenRef, consumeClipboardCandidate, t])
-
-	return {pendingClipboard, setPendingClipboard, consumeClipboardCandidate}
+			if (canUndoCopiedLink({wizardStep: state.wizardStep, wizardUrl: state.wizardUrl, formatsLoading: state.formatsLoading, quickPreparing: state.quickDownloadStatus === 'preparing'}, action.url)) setWizardUrl(action.previous)
+		}
+		notify.clipboard(t('wizard.url.clipboard.replacedLink'), [{label: t('wizard.url.clipboard.undo'), onClick: undo}])
+	}, [bulkOpen, copiedLink, downloadTabActive, formatsLoading, quickPreparing, setWizardUrl, t])
 }

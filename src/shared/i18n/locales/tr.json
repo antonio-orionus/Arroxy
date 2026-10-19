@@ -263,9 +263,8 @@
 				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
 				"autofilledLink": "Bağlantı panodan eklendi",
 				"bulkHint": "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın",
-				"pendingLinkReady": "Kopyalanmış bağlantı hazır",
-				"useCopiedLink": "Kopyalanan bağlantıyı kullan",
-				"dismissCopiedLink": "Kopyalanan bağlantıyı kapat",
+				"replacedLink": "Kopyalanan bağlantıyla değiştirildi",
+				"undo": "Geri al",
 				"dialog": {"cancelButton": "İptal"}
 			},
 			"hotkey": {
@@ -453,6 +452,16 @@
 				"bodyExplore": "YouTube bu isteği sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
 				"retryCta": "Tekrar dene",
 				"enableRetryCta": "Çerezleri etkinleştir ve tekrar dene"
+			},
+			"rateLimit": {
+				"heading": "{{site}} bu bağlantıyı sınırlıyor",
+				"leadDegraded": "Biçim listesi eksik olabilir.",
+				"leadFailed": "{{site}} bu isteği şimdilik geri çevirdi.",
+				"waitUntil": "Arroxy, sınırın kalkması için {{site}} sitesine yeniden sormadan önce {{time}} saatine kadar bekler.",
+				"waitOver": "Bekleme bitti, yeniden deneyebilirsin.",
+				"sessionNote": "{{site}} bu sınırı bir saate kadar sürdürebilir.",
+				"tryNowCta": "Şimdi dene",
+				"retryCta": "Tekrar dene"
 			},
 			"cookiesError": {
 				"heading": "Neden çerezler olabilir",
@@ -817,7 +826,7 @@
 		"ytdlp": {
 			"botBlock": "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta yt-dlp’yi otomatik günceller, bu yüzden üst kaynak düzeltmeyi yayınladığında çözüm otomatik gelir.",
 			"ipBlock": "IP adresin engellenmiş görünüyor. Daha sonra tekrar dene veya VPN kullan.",
-			"rateLimit": "Site istekleri hız sınırlıyor. Bir dakika bekleyip tekrar dene.",
+			"rateLimit": "Site bu bağlantıdan gelen istekleri sınırlıyor.",
 			"ageRestricted": "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez.",
 			"unavailable": "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir.",
 			"geoBlocked": "Bu video bölgenizde kullanılamıyor.",

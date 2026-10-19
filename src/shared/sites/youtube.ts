@@ -119,6 +119,9 @@ export const youtubeSite: Site = {
 		],
 		isSignedIn: youtubeIsSignedIn,
 		searchUrl: youtubeSearchUrl,
+		// Home and search results: a search box whose query is in the URL. Watch
+		// pages (comments, the player), channels and posts stay.
+		idleUnloadPaths: ['/', '/results'],
 		canonicalAddress: youtubeCanonicalAddress
 	}
 }

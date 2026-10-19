@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp ډاونلوډ بشپړ کړ خو وروستی پروسس (یوځای کول / mux / بدلون) ناکام شو. ډیری وختونه دا د ffmpeg لنډمهاله ستونزه ده — بیا هڅه وکړئ، او که دوام ولري، بل فارمیټ ترکیب وازمویئ."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube غوښتنې محدودوي. یوه دقیقه انتظار کړئ بیا هڅه وکړئ."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "سایټ د دې اتصال غوښتنې محدودوي."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2509,6 +2509,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "منځنی کیفیت"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} د دې اتصال غوښتنې محدودوي"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "د بڼو لړلیک ښايي بشپړ نه وي."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} دا غوښتنه اوس مهال رد کړه."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "بیا هڅه وکړئ"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} کولی شي دا محدودیت تر یو ساعت پورې وساتي."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "اوس یې وازمایه"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "انتظار پای ته ورسید، اوس بیا هڅه کولی شئ."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy تر {{time}} پورې انتظار کوي او بیا له {{site}} څخه غوښتنه کوي، څو محدودیت لرې شي."
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "د خوندي کولو بڼه"
@@ -3893,13 +3925,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "لغوه کړه"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "کاپي شوی لینک بند کړه"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "کاپي شوی لینک چمتو دی"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "په کاپي شوي لینک بدل شو"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -3909,9 +3937,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ."
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "کاپي شوی لینک وکاروه"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "بېرته راګرځول"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

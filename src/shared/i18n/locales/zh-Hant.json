@@ -225,16 +225,7 @@
 			"advanced": "進階",
 			"settings": {"inputHeading": "輸入", "behaviorHeading": "下載行為", "behaviorDescription": "也會影響設定檔下載的全域行為。"},
 			"clearAria": "清除 URL",
-			"clipboard": {
-				"toggle": "監看剪貼簿",
-				"toggleDescription": "複製影片連結時自動填入 URL 欄位。",
-				"autofilledLink": "已從剪貼簿新增連結",
-				"bulkHint": "已複製多個連結——請使用批次 URL 加入",
-				"pendingLinkReady": "已複製的連結已就緒",
-				"useCopiedLink": "使用已複製的連結",
-				"dismissCopiedLink": "關閉已複製的連結",
-				"dialog": {"cancelButton": "取消"}
-			},
+			"clipboard": {"toggle": "監看剪貼簿", "toggleDescription": "複製影片連結時自動填入 URL 欄位。", "autofilledLink": "已從剪貼簿新增連結", "bulkHint": "已複製多個連結——請使用批次 URL 加入", "replacedLink": "已替換為複製的連結", "undo": "復原", "dialog": {"cancelButton": "取消"}},
 			"hotkey": {
 				"sectionTitle": "全域快捷鍵",
 				"sectionDescription": "不用開啟 Arroxy，就能下載從任何應用程式複製的連結。",
@@ -413,6 +404,16 @@
 				"bodyExplore": "YouTube 限制了此要求。請稍後再試，或切換網路。",
 				"retryCta": "重試",
 				"enableRetryCta": "啟用 Cookie 並重試"
+			},
+			"rateLimit": {
+				"heading": "{{site}} 正在限制此連線的請求",
+				"leadDegraded": "格式清單可能不完整。",
+				"leadFailed": "{{site}} 暫時拒絕了此請求。",
+				"waitUntil": "Arroxy 會等到 {{time}} 再向 {{site}} 發出請求，讓限制解除。",
+				"waitOver": "等待時間已過，你可以再試一次。",
+				"sessionNote": "{{site}} 可能會將此限制維持長達一小時。",
+				"tryNowCta": "立即嘗試",
+				"retryCta": "重試"
 			},
 			"cookiesError": {
 				"heading": "Cookie 可能是原因",
@@ -743,7 +744,7 @@
 		"ytdlp": {
 			"botBlock": "已觸發機器人防護。你使用的 IP 很可能已被標記（資料中心網段或繁忙的 VPN 出口）。請更換 IP 或選擇其他 VPN 節點後重試。如果問題持續，可能是網站端的暫時變更——Arroxy 啟動時會自動更新 yt-dlp，因此上游發布修正後會自動套用。",
 			"ipBlock": "你的 IP 位址似乎已被封鎖。請稍後再試或使用 VPN。",
-			"rateLimit": "網站正在限制請求頻率。請等待一分鐘後重試。",
+			"rateLimit": "網站正在限制來自此連線的請求。",
 			"ageRestricted": "此影片有年齡限制，必須登入帳號才能下載。",
 			"unavailable": "此影片無法使用——它可能是私人影片、已刪除，或受地區限制。",
 			"geoBlocked": "此影片在你的地區無法觀看。",

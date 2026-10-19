@@ -90,6 +90,7 @@ function makeDeps() {
 		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn()} as never,
+		siteRequests: {snapshot: vi.fn().mockReturnValue([]), allowOnce: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}
 	}

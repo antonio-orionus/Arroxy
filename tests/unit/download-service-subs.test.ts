@@ -59,7 +59,7 @@ function statusKeys(events: StatusEvent[]): StatusKey[] {
 }
 
 function makeService() {
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/usr/bin/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}

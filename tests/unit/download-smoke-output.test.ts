@@ -17,7 +17,7 @@ describe('createDownloadSmokeObserver', () => {
 	it('extracts selection, clients and SABR skips, and notes the info-json announcement', () => {
 		const obs = createDownloadSmokeObserver()
 		obs.push(COOKIE_RUN.join('\n') + '\n')
-		expect(obs.snapshot()).toEqual({selectedFormat: '18', playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: [COOKIE_RUN[5]], infoJsonWriteSeen: true, transferStarting: false})
+		expect(obs.snapshot()).toEqual({selectedFormat: '18', playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: [COOKIE_RUN[5]], poTokenFromConfigClients: [], poTokenDebug: [], infoJsonWriteSeen: true, transferStarting: false})
 		obs.push('[download] Sleeping 1.81 seconds ...\n')
 		expect(obs.snapshot().transferStarting).toBe(true)
 	})
@@ -40,5 +40,18 @@ describe('createDownloadSmokeObserver', () => {
 		obs.push(`${COOKIE_RUN[3]}\n${COOKIE_RUN[3]}\n${COOKIE_RUN[5]}\n${COOKIE_RUN[5]}\n`)
 		expect(obs.snapshot().playerApiClients).toEqual(['web embedded'])
 		expect(obs.snapshot().warnings).toHaveLength(1)
+	})
+
+	it('records the clients yt-dlp took a PO token for from the command line (verbose only)', () => {
+		const obs = createDownloadSmokeObserver()
+		obs.push('[debug] [youtube] z1NNgSu8hTI: Retrieved a gvs PO Token for web client from config\n[debug] [youtube] z1NNgSu8hTI: Retrieved a gvs PO Token for web client from config\n')
+		expect(obs.snapshot().poTokenFromConfigClients).toEqual(['web'])
+	})
+
+	it('keeps PO token debug lines but never the command-line dump that carries the token', () => {
+		const obs = createDownloadSmokeObserver()
+		const detected = '[debug] [youtube] abc: Detected experiment to bind GVS PO Token to video ID for web client'
+		obs.push(`[debug] Command-line config: ['--extractor-args', 'youtube:po_token=web.gvs+SECRET']\n${detected}\n`)
+		expect(obs.snapshot().poTokenDebug).toEqual([detected])
 	})
 })

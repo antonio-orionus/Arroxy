@@ -243,7 +243,7 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr ""
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgid "The site is rate-limiting requests from this connection."
 msgstr ""
 
 msgctxt "errors.ytdlp.unavailable"
@@ -2467,6 +2467,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr ""
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr ""
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr ""
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr ""
@@ -3823,12 +3855,8 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr ""
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
 msgstr ""
 
 msgctxt "wizard.url.clipboard.toggle"
@@ -3839,8 +3867,8 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr ""
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
 msgstr ""
 
 msgctxt "wizard.url.closeToTray.toggle"

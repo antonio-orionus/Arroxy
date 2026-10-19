@@ -74,3 +74,26 @@ describe('settings update reaches the native theme', () => {
 		expect(onThemeChanged).not.toHaveBeenCalled()
 	})
 })
+
+// Cooldowns are kept per network route, so a new proxy setting changes which
+// ones apply: the queue's hold and the rate-limit alert must hear of it.
+describe('settings update reaches the rate-limit cooldowns', () => {
+	const onProxyChanged = vi.fn()
+
+	beforeEach(() => {
+		handlers.clear()
+		vi.clearAllMocks()
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, proxyUrl: 'http://proxy:8080'}, playlist: {}, profiles: {}})}
+		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: {destroy: vi.fn(), applyProxySetting: vi.fn().mockResolvedValue(undefined)} as never, onProxyChanged})
+	})
+
+	it('tells them when the patch changes the proxy', async () => {
+		await update({common: {proxyUrl: 'http://proxy:8080'}})
+		expect(onProxyChanged).toHaveBeenCalledOnce()
+	})
+
+	it('leaves them alone when the patch does not touch the proxy', async () => {
+		await update({common: {clipboardWatchEnabled: false}})
+		expect(onProxyChanged).not.toHaveBeenCalled()
+	})
+})

@@ -252,9 +252,8 @@
 				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
 				"autofilledLink": "Tautan ditambahkan dari clipboard",
 				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
-				"pendingLinkReady": "Tautan yang disalin sudah siap",
-				"useCopiedLink": "Gunakan tautan yang disalin",
-				"dismissCopiedLink": "Tolak tautan yang disalin",
+				"replacedLink": "Diganti dengan tautan yang disalin",
+				"undo": "Urungkan",
 				"dialog": {"cancelButton": "Membatalkan"}
 			},
 			"hotkey": {
@@ -440,6 +439,16 @@
 				"bodyExplore": "YouTube membatasi permintaan ini. Coba lagi nanti atau ganti jaringan.",
 				"retryCta": "Mencoba kembali",
 				"enableRetryCta": "Aktifkan cookie dan coba lagi"
+			},
+			"rateLimit": {
+				"heading": "{{site}} membatasi koneksi ini",
+				"leadDegraded": "Daftar format mungkin tidak lengkap.",
+				"leadFailed": "{{site}} menolak permintaan ini untuk sementara.",
+				"waitUntil": "Arroxy menunggu sampai {{time}} sebelum menghubungi {{site}} lagi, agar batasnya sempat pulih.",
+				"waitOver": "Waktu tunggu sudah habis, Anda bisa mencoba lagi.",
+				"sessionNote": "{{site}} dapat mempertahankan batas ini hingga satu jam.",
+				"tryNowCta": "Coba sekarang",
+				"retryCta": "Mencoba kembali"
 			},
 			"cookiesError": {
 				"heading": "Cookie mungkin menjadi penyebabnya",
@@ -799,7 +808,7 @@
 		"ytdlp": {
 			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui yt-dlp secara otomatis saat peluncuran, sehingga perbaikan dilakukan secara otomatis setelah upstream mengirimkannya.",
 			"ipBlock": "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN.",
-			"rateLimit": "Situs membatasi permintaan. Tunggu sebentar, lalu coba lagi.",
+			"rateLimit": "Situs ini membatasi permintaan dari koneksi ini.",
 			"ageRestricted": "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk.",
 			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
 			"geoBlocked": "Video ini tidak tersedia di wilayah Anda.",

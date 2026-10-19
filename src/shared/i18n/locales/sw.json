@@ -250,9 +250,8 @@
 				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
 				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
 				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
-				"pendingLinkReady": "Kiungo kilichonakiliwa kiko tayari",
-				"useCopiedLink": "Tumia kiungo kilichonakiliwa",
-				"dismissCopiedLink": "Ondoa kiungo kilichonakiliwa",
+				"replacedLink": "Imebadilishwa na kiungo kilichonakiliwa",
+				"undo": "Tendua",
 				"dialog": {"cancelButton": "Ghairi"}
 			},
 			"hotkey": {
@@ -443,6 +442,16 @@
 				"bodyExplore": "YouTube imezuia ombi hili. Jaribu tena baadaye au badilisha mtandao.",
 				"retryCta": "Jaribu tena",
 				"enableRetryCta": "Washa vidakuzi na ujaribu tena"
+			},
+			"rateLimit": {
+				"heading": "{{site}} inazuia maombi ya muunganisho huu",
+				"leadDegraded": "Orodha ya miundo inaweza kuwa haijakamilika.",
+				"leadFailed": "{{site}} imekataa ombi hili kwa sasa.",
+				"waitUntil": "Arroxy inasubiri hadi {{time}} kabla ya kuuliza {{site}} tena, ili kizuizi kiondoke.",
+				"waitOver": "Muda wa kusubiri umekwisha, unaweza kujaribu tena.",
+				"sessionNote": "{{site}} inaweza kudumisha kizuizi hiki hadi saa moja.",
+				"tryNowCta": "Jaribu sasa",
+				"retryCta": "Jaribu tena"
 			},
 			"cookiesError": {
 				"heading": "Vidakuzi vinaweza kuwa sababu",
@@ -814,7 +823,7 @@
 		"ytdlp": {
 			"botBlock": "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa YouTube — Arroxy inasasisha yt-dlp kiotomatiki wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara chanzo kikitoa sasisho.",
 			"ipBlock": "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.",
-			"rateLimit": "YouTube inazuia maombi. Subiri dakika moja kisha ujaribu tena.",
+			"rateLimit": "Tovuti inazuia maombi kutoka kwa muunganisho huu.",
 			"ageRestricted": "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia.",
 			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
 			"geoBlocked": "Video hii haipatikani katika eneo lako.",

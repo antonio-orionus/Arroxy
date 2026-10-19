@@ -241,9 +241,8 @@
 				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
 				"autofilledLink": "Link added from clipboard",
 				"bulkHint": "Multiple links copied — use Bulk URLs to add them",
-				"pendingLinkReady": "Copied link ready",
-				"useCopiedLink": "Use copied link",
-				"dismissCopiedLink": "Dismiss copied link",
+				"replacedLink": "Replaced with copied link",
+				"undo": "Undo",
 				"dialog": {"cancelButton": "Cancel"}
 			},
 			"hotkey": {
@@ -431,6 +430,16 @@
 				"bodyExplore": "YouTube limited this request. Try again later or switch network.",
 				"retryCta": "Retry",
 				"enableRetryCta": "Enable cookies and retry"
+			},
+			"rateLimit": {
+				"heading": "{{site}} is rate-limiting this connection",
+				"leadDegraded": "The format list may be incomplete.",
+				"leadFailed": "{{site}} turned this request away for now.",
+				"waitUntil": "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear.",
+				"waitOver": "The wait is over, so you can try again.",
+				"sessionNote": "{{site}} can keep this limit for up to an hour.",
+				"tryNowCta": "Try now",
+				"retryCta": "Retry"
 			},
 			"cookiesError": {
 				"heading": "Cookies might be the cause",
@@ -795,7 +804,7 @@
 		"ytdlp": {
 			"botBlock": "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it.",
 			"ipBlock": "Your IP address appears to be blocked. Try again later or use a VPN.",
-			"rateLimit": "Site is rate-limiting requests. Wait a minute then retry.",
+			"rateLimit": "The site is rate-limiting requests from this connection.",
 			"ageRestricted": "This video is age-restricted and cannot be downloaded without a signed-in account.",
 			"unavailable": "This video is unavailable — it may be private, deleted, or region-locked.",
 			"geoBlocked": "This video is not available in your region.",

@@ -241,8 +241,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp 已完成下载，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。"
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube 正在限制请求频率。等一分钟后再重试。"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "网站正在限制来自此连接的请求。"
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2419,6 +2419,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "中等质量"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} 正在限制此连接的请求"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "格式列表可能不完整。"
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} 暂时拒绝了此请求。"
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "重试"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} 可能会将此限制保持长达一小时。"
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "立即尝试"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "等待时间已过，你可以再试一次。"
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy 会等到 {{time}} 再向 {{site}} 发出请求，以便限制解除。"
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "保存为"
@@ -3733,13 +3765,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "取消"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "关闭复制的链接"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "复制的链接已准备好"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "已替换为复制的链接"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -3749,9 +3777,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "复制 YouTube 链接时自动填充 URL 字段。"
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "使用复制的链接"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "撤销"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

@@ -278,9 +278,8 @@
 				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
 				"autofilledLink": "Havola buferdan qo‘shildi",
 				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
-				"pendingLinkReady": "Nusxalangan havola tayyor",
-				"useCopiedLink": "Nusxalangan havoladan foydalanish",
-				"dismissCopiedLink": "Nusxalangan havolani yopish",
+				"replacedLink": "Nusxalangan havola bilan almashtirildi",
+				"undo": "Bekor qilish",
 				"dialog": {"cancelButton": "Bekor qilish"}
 			},
 			"hotkey": {
@@ -468,6 +467,16 @@
 				"bodyExplore": "YouTube bu so'rovni cheklab qo'ydi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
 				"retryCta": "Qayta urinish",
 				"enableRetryCta": "Cookiesni yoqish va qayta urinish"
+			},
+			"rateLimit": {
+				"heading": "{{site}} bu ulanishni cheklayapti",
+				"leadDegraded": "Formatlar ro‘yxati to‘liq bo‘lmasligi mumkin.",
+				"leadFailed": "{{site}} bu so‘rovni hozircha rad etdi.",
+				"waitUntil": "Cheklov olib tashlanishi uchun Arroxy {{site}} ga qayta murojaat qilishdan oldin {{time}} gacha kutadi.",
+				"waitOver": "Kutish tugadi, qayta urinib ko‘rishingiz mumkin.",
+				"sessionNote": "{{site}} bu cheklovni bir soatgacha saqlab turishi mumkin.",
+				"tryNowCta": "Hozir urinish",
+				"retryCta": "Qayta urinish"
 			},
 			"cookiesError": {
 				"heading": "Sabab cookies bo'lishi mumkin",
@@ -839,7 +848,7 @@
 		"ytdlp": {
 			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu YouTube tomonidan vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi, shuning uchun tuzatish yuqori oqim chiqarilishi bilan avtomatik amalga oshiriladi.",
 			"ipBlock": "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
-			"rateLimit": "YouTube so'rovlarni cheklayapti. Bir daqiqa kuting va qayta urinib ko'ring.",
+			"rateLimit": "Sayt bu ulanishdan keladigan so‘rovlarni cheklayapti.",
 			"ageRestricted": "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi.",
 			"unavailable": "Bu video mavjud emas — u shaxsiy, o'chirilgan yoki mintaqa bilan cheklangan bo'lishi mumkin.",
 			"geoBlocked": "Bu video sizning mintaqangizda mavjud emas.",

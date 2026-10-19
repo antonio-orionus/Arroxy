@@ -1,15 +1,6 @@
 import {clipboard, type BrowserWindow} from 'electron'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {parseBulkUrls} from '@shared/bulkUrls.js'
-
-function isProbablyDownloadableUrl(input: string): boolean {
-	try {
-		const u = new URL(input)
-		return u.protocol === 'http:' || u.protocol === 'https:'
-	} catch {
-		return false
-	}
-}
+import {classifyClipboardText} from '@shared/clipboardLinks.js'
 
 export interface ClipboardReader {
 	readText(): Promise<string>
@@ -119,11 +110,9 @@ export class ClipboardWatcher {
 		this.reading = false
 		if (!text || text === this.lastSeen) return
 		this.lastSeen = text
-		const trimmed = text.trim()
-		const parsed = parseBulkUrls(trimmed)
-		if (!isProbablyDownloadableUrl(trimmed) && parsed.accepted.length < 2) return
+		if (classifyClipboardText(text).kind === 'none') return
 		if (this.window.isDestroyed()) return
-		this.window.send(IPC_CHANNELS.eventsClipboardUrl, trimmed)
+		this.window.send(IPC_CHANNELS.eventsClipboardUrl, text.trim())
 	}
 
 	private attachAttention(): void {

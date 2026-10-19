@@ -17,7 +17,7 @@ async function withClipboardWatchEnabled(run: () => Promise<void>): Promise<void
 	}
 }
 
-test('Electron clipboard watcher fills single links, hints at bulk links, and preserves pending candidates', async () => {
+test('Electron clipboard watcher fills and replaces single links with undo, and hints at bulk links', async () => {
 	test.setTimeout(90_000)
 	// ClipboardWatcher only polls while the window is focused AND visible, so the
 	// behavior under test cannot exist in a hidden window. This is a real product
@@ -56,14 +56,16 @@ test('Electron clipboard watcher fills single links, hints at bulk links, and pr
 					await expect(page.locator('[data-sonner-toast]', {hasText: 'Multiple links copied — use Bulk URLs'})).toBeVisible({timeout: 5_000})
 					await expect(page.locator('[data-testid="bulk-url-dialog"]')).toHaveCount(0)
 
+					// One rule: a copied link replaces whatever the field holds, and
+					// the toast's Undo puts the previous text back.
 					await input.fill('https://example.com/already-here')
-					const pendingUrl = urls.video(FIXTURE_VIDEO_IDS[3])
-					await writeClipboard(app, pendingUrl)
-					await expect(page.locator('[data-testid="clipboard-pending-action"]')).toContainText('Use copied link', {timeout: 5_000})
-
-					await page.locator('[data-testid="url-clear"]').click()
-					await expect(input).toHaveValue(pendingUrl)
-					await expect(page.locator('[data-testid="clipboard-pending-action"]')).toHaveCount(0)
+					const replacingUrl = urls.video(FIXTURE_VIDEO_IDS[3])
+					await writeClipboard(app, replacingUrl)
+					await expect(input).toHaveValue(replacingUrl, {timeout: 5_000})
+					const replacedToast = page.locator('[data-sonner-toast]', {hasText: 'Replaced with copied link'})
+					await expect(replacedToast).toBeVisible()
+					await replacedToast.getByRole('button', {name: 'Undo'}).click()
+					await expect(input).toHaveValue('https://example.com/already-here')
 				}
 			)
 		})

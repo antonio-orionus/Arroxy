@@ -251,8 +251,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp a terminé le téléchargement, mais le post-traitement (fusion / mux / conversion) a échoué. C’est souvent un souci ffmpeg passager — réessaie, et si ça persiste, essaie une autre combinaison de formats."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "YouTube limite le débit des requêtes. Attends une minute puis réessaie."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Le site limite les requêtes de cette connexion."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2599,6 +2599,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Qualité moyenne"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} limite cette connexion"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "La liste des formats est peut-être incomplète."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} a refusé cette requête pour le moment."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Réessayer"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} peut maintenir cette limite jusqu’à une heure."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Essayer maintenant"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "L’attente est terminée, vous pouvez réessayer."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy attend jusqu’à {{time}} avant de solliciter de nouveau {{site}}, le temps que la limite se lève."
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Enregistrer en"
@@ -4053,13 +4085,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "Ignorer le lien copié"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "Lien copié prêt"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Remplacé par le lien copié"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -4069,9 +4097,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube."
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "Utiliser le lien copié"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Annuler"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

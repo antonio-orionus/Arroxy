@@ -28,6 +28,7 @@ import type {
 	ProbeProgressEvent,
 	ProbeInfoJsonRef,
 	ProbeDegradationReason,
+	SiteCooldown,
 	JobAuth,
 	QueueItem,
 	QueueLane,
@@ -463,6 +464,8 @@ export interface SystemSlice {
 	warmupStopped: boolean
 	// A package manager install the repair panel started and is waiting on.
 	packageInstall: 'homebrew' | 'winget' | null
+	// The latest link the clipboard watcher saw, until the Download tab takes it.
+	copiedLink: string | null
 	settings: AppSettings | null
 	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null
@@ -538,4 +541,13 @@ export interface SystemSlice {
 	signOutOfExplore: () => Promise<void>
 }
 
-export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & VideoPartSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice
+export interface SiteCooldownSlice {
+	// The current network route's running rate-limit cooldowns, as main last reported them.
+	siteCooldowns: SiteCooldown[]
+	bindSiteCooldowns: () => void
+	// "Try now": the next request to `site` goes through its cooldown once. The
+	// caller then makes that request (its usual retry).
+	tryRateLimitedSiteNow: (site: string) => Promise<void>
+}
+
+export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & VideoPartSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice & SiteCooldownSlice

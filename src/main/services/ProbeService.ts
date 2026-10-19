@@ -20,32 +20,10 @@ import {mapFormats} from './probeFormatMapping.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {sabrSkippedClient} from './download/formatLimitSignals.js'
+import {deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
 const logger = log.scope('probe')
-
-type ProbeSignalCategory = 'extractor' | 'bot'
-
-// Patterns sourced from yt-dlp's stderr emit sites — verified against
-// yt-dlp/yt_dlp/extractor/youtube/_video.py and yt-dlp/yt_dlp/downloader/common.py
-// (search the repo for each exact string). yt-dlp wording occasionally changes
-// across releases; if a probe stops triggering the degradation retry path,
-// re-grep yt-dlp main and update these patterns.
-const PROBE_DEGRADATION_SIGNALS: readonly {label: string; pattern: RegExp; category: ProbeSignalCategory}[] = [
-	{label: 'n challenge solving failed', pattern: /n challenge solving failed/i, category: 'extractor'},
-	{label: 'Some formats may be missing', pattern: /some formats may be missing/i, category: 'extractor'},
-	{label: 'Error solving n challenge request', pattern: /error solving n challenge request/i, category: 'extractor'},
-	{label: 'Failed to download m3u8 information', pattern: /failed to download m3u8 information/i, category: 'extractor'},
-	{label: 'Unable to download webpage', pattern: /unable to download webpage/i, category: 'extractor'},
-	{label: 'IncompleteRead', pattern: /incompleteread/i, category: 'extractor'},
-	{label: 'Sign in to confirm', pattern: /sign in to confirm you'?re not a bot/i, category: 'bot'},
-	{label: 'HTTP 429', pattern: /HTTP Error 429\b|too many requests/i, category: 'bot'}
-]
-
-interface ProbeSignal {
-	label: string
-	category: ProbeSignalCategory
-}
 
 type ProbeAttemptName = 'initial' | 'retry'
 
@@ -113,10 +91,6 @@ function isProbeTimeoutFailure(result: ProbeAttemptResult): boolean {
 	return result.kind === 'failure' && result.error.kind === 'ytdlp' && result.error.error.raw === PROBE_TIMEOUT_MESSAGE
 }
 
-function detectProbeDegradationSignals(stderr: string): ProbeSignal[] {
-	return PROBE_DEGRADATION_SIGNALS.flatMap(({pattern, label, category}) => (pattern.test(stderr) ? [{label, category}] : []))
-}
-
 const PLAYLIST_ITEM_PROGRESS_RE = /\[download\]\s+Downloading item\s+(\d+)\s+of\s+(\d+|N\/A)/i
 const YOUTUBE_TAB_PAGE_PROGRESS_RE = /\[youtube:tab\]\s+.+?\spage\s+(\d+):\s+Downloading API JSON/i
 
@@ -171,12 +145,6 @@ function parseProbeJsonOutput(stdout: string): unknown {
 	}
 	if (lastJsonError) throw lastJsonError
 	return JSON.parse(stdout)
-}
-
-function deriveDegraded(signals: ProbeSignal[]): {reasons: ProbeDegradationReason[]} | undefined {
-	if (signals.length === 0) return undefined
-	const reasons = Array.from(new Set(signals.map(s => (s.category === 'bot' ? 'botWall' : 'extractor')))) as ProbeDegradationReason[]
-	return {reasons}
 }
 
 // The renderer CSP allows `img-src 'self' data: https:` — no plaintext http.
@@ -664,6 +632,12 @@ export class ProbeService extends EventEmitter {
 		if (initial.kind === 'failure') return initial
 		if (initial.data.degradationSignals.length === 0) return initial
 		if (signal.aborted) return initial
+		// The same request now would meet the same limit, and the next one waits
+		// out the site's cooldown anyway (SiteRequestState). Keep what came back.
+		if (isRateLimited(initial.data.degradationSignals)) {
+			logger.info('Probe rate-limited — keeping the result, no relaunch', {url, degradationSignals: initial.data.degradationSignals})
+			return initial
+		}
 
 		logger.info('Probe degraded-success — retrying', {url, degradationSignals: initial.data.degradationSignals})
 

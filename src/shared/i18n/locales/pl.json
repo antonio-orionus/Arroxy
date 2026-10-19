@@ -294,9 +294,8 @@
 				"toggleDescription": "Automatycznie wypełnia pole URL po skopiowaniu linku do filmu.",
 				"autofilledLink": "Dodano link ze schowka",
 				"bulkHint": "Skopiowano wiele linków — dodaj je przez Wiele adresów URL",
-				"pendingLinkReady": "Skopiowany link jest gotowy",
-				"useCopiedLink": "Użyj skopiowanego linku",
-				"dismissCopiedLink": "Odrzuć skopiowany link",
+				"replacedLink": "Zastąpiono skopiowanym linkiem",
+				"undo": "Cofnij",
 				"dialog": {"cancelButton": "Anuluj"}
 			},
 			"hotkey": {
@@ -496,6 +495,16 @@
 				"bodyExplore": "YouTube ograniczył to żądanie. Spróbuj ponownie później lub zmień sieć.",
 				"retryCta": "Spróbuj ponownie",
 				"enableRetryCta": "Włącz pliki cookie i spróbuj ponownie"
+			},
+			"rateLimit": {
+				"heading": "{{site}} ogranicza to połączenie",
+				"leadDegraded": "Lista formatów może być niepełna.",
+				"leadFailed": "{{site}} na razie odrzucił to żądanie.",
+				"waitUntil": "Arroxy czeka do {{time}}, zanim ponownie odpyta {{site}}, aby limit zdążył minąć.",
+				"waitOver": "Oczekiwanie dobiegło końca, możesz spróbować ponownie.",
+				"sessionNote": "{{site}} może utrzymywać ten limit nawet przez godzinę.",
+				"tryNowCta": "Spróbuj teraz",
+				"retryCta": "Spróbuj ponownie"
 			},
 			"cookiesError": {
 				"heading": "Przyczyną mogą być pliki cookie",
@@ -896,7 +905,7 @@
 		"ytdlp": {
 			"botBlock": "Uruchomiono ochronę przed botami. Używany adres IP jest najprawdopodobniej oznaczony (zakres centrum danych lub przeciążony punkt wyjścia VPN). Zmień adres IP albo wybierz inny punkt VPN i spróbuj ponownie. Jeśli problem nie ustąpi, może to być tymczasowa zmiana po stronie witryny — Arroxy automatycznie aktualizuje yt-dlp przy uruchomieniu, więc poprawka trafi do aplikacji, gdy tylko zostanie wydana przez projekt źródłowy.",
 			"ipBlock": "Twój adres IP jest prawdopodobnie zablokowany. Spróbuj ponownie później albo użyj VPN.",
-			"rateLimit": "Witryna ogranicza liczbę żądań. Odczekaj minutę i spróbuj ponownie.",
+			"rateLimit": "Witryna ogranicza żądania z tego połączenia.",
 			"ageRestricted": "Ten film ma ograniczenie wiekowe i nie można go pobrać bez zalogowanego konta.",
 			"unavailable": "Ten film jest niedostępny — może być prywatny, usunięty lub zablokowany w Twoim regionie.",
 			"geoBlocked": "Ten film nie jest dostępny w Twoim regionie.",

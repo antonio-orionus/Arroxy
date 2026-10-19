@@ -268,9 +268,8 @@
 				"toggleDescription": "Preenche automaticamente o campo de URL ao copiar um link de vídeo.",
 				"autofilledLink": "Link adicionado da área de transferência",
 				"bulkHint": "Vários links copiados — adicione-os com “URLs em lote”",
-				"pendingLinkReady": "Link copiado pronto",
-				"useCopiedLink": "Usar link copiado",
-				"dismissCopiedLink": "Descartar link copiado",
+				"replacedLink": "Substituído pelo link copiado",
+				"undo": "Desfazer",
 				"dialog": {"cancelButton": "Cancelar"}
 			},
 			"hotkey": {
@@ -460,6 +459,16 @@
 				"bodyExplore": "O YouTube limitou esta solicitação. Tente novamente mais tarde ou troque de rede.",
 				"retryCta": "Tentar novamente",
 				"enableRetryCta": "Ativar cookies e tentar novamente"
+			},
+			"rateLimit": {
+				"heading": "{{site}} está a limitar esta ligação",
+				"leadDegraded": "A lista de formatos pode estar incompleta.",
+				"leadFailed": "{{site}} recusou este pedido por agora.",
+				"waitUntil": "O Arroxy espera até às {{time}} antes de voltar a contactar {{site}}, para que o limite passe.",
+				"waitOver": "A espera terminou, pode tentar novamente.",
+				"sessionNote": "{{site}} pode manter este limite até uma hora.",
+				"tryNowCta": "Tentar agora",
+				"retryCta": "Tentar novamente"
 			},
 			"cookiesError": {
 				"heading": "Os cookies podem ser a causa",
@@ -843,7 +852,7 @@
 		"ytdlp": {
 			"botBlock": "Proteção contra bots ativada. O IP que você está usando provavelmente foi sinalizado (faixa de datacenter ou saída de VPN movimentada). Mude seu IP ou escolha outro servidor VPN e tente novamente. Se continuar falhando, pode ser uma alteração temporária no site — o Arroxy atualiza o yt-dlp automaticamente ao iniciar, então a correção chegará assim que estiver disponível.",
 			"ipBlock": "Seu endereço IP parece estar bloqueado. Tente novamente mais tarde ou use uma VPN.",
-			"rateLimit": "O site está limitando a taxa de requisições. Aguarde um minuto e tente novamente.",
+			"rateLimit": "O site está a limitar os pedidos desta ligação.",
 			"ageRestricted": "Este vídeo possui restrição de idade e não pode ser baixado sem uma conta conectada.",
 			"unavailable": "Este vídeo está indisponível — pode ser privado, ter sido excluído ou estar bloqueado na sua região.",
 			"geoBlocked": "Este vídeo não está disponível na sua região.",

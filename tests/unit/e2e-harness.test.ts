@@ -166,6 +166,27 @@ describe('resolveE2eHarnessMode Explore home override', () => {
 	})
 })
 
+describe('resolveE2eHarnessMode Explore idle unload delay', () => {
+	const enabled = (extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv => ({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ...extra})
+
+	it('exposes a positive whole number of milliseconds', () => {
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_IDLE_MS: '1500'}), {isPackaged: false}).exploreIdleUnloadMs).toBe(1500)
+	})
+
+	it('keeps the production delay when the variable is unset', () => {
+		expect(resolveE2eHarnessMode(enabled({}), {isPackaged: false}).exploreIdleUnloadMs).toBeUndefined()
+	})
+
+	it('ignores the variable outside the gated harness', () => {
+		expect(resolveE2eHarnessMode({ARROXY_E2E_EXPLORE_IDLE_MS: '1500'}, {isPackaged: false}).exploreIdleUnloadMs).toBeUndefined()
+		expect(resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_EXPLORE_IDLE_MS: '1500', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot()}, {isPackaged: true}).exploreIdleUnloadMs).toBeUndefined()
+	})
+
+	it.each(['0', '-5', '1.5', '1e3', 'soon', ' 100', ''])('fails loudly on %j', value => {
+		expect(() => resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_IDLE_MS: value}), {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_IDLE_MS/)
+	})
+})
+
 describe('isHeadlessWindowRequested', () => {
 	it('enables the hidden window only when both E2E flags are set', () => {
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '1', ARROXY_E2E_HEADLESS: '1'})).toBe(true)

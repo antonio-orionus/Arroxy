@@ -88,11 +88,11 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
 		const anonymous = makeCtx(SUCCESS)
 		await SidecarSubsPhase(false).run(anonymous)
-		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
+		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1', honorCooldown: false})
 
 		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
 		await SidecarSubsPhase(false).run(signedIn)
-		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
+		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1', honorCooldown: false})
 	})
 
 	it('forwards autoOnly so manual tracks are skipped', async () => {

@@ -12,7 +12,7 @@ import {spawnYtDlp} from '@main/utils/process.js'
 const URL = 'https://www.bilibili.com/video/BV1bK411W797?p=1'
 
 function makeYtDlp() {
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore)

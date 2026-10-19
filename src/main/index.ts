@@ -32,6 +32,8 @@ import {ProbeService} from '@main/services/ProbeService.js'
 import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 import {TokenService} from '@main/services/TokenService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
+import {SiteRequestState} from '@main/services/SiteRequestState.js'
+import {proxyRouteKey} from '@main/utils/proxyUrl.js'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
@@ -327,10 +329,12 @@ if (hasSingleInstanceLock) {
 		// One gate for the whole app: it paces every signed-in spawn, probes and downloads alike.
 		const spawnGate = new ExploreSpawnGate(e2eMode.exploreSpawnSpacingMs === undefined ? {} : {minSpacingMs: e2eMode.exploreSpawnSpacingMs})
 		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession})
-		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, spawnGate, sessionAuth: exploreGate})
+		// One rate-limit cooldown per site and network route, shared by probes, queued jobs and automatic retries.
+		const siteRequests = new SiteRequestState({route: () => proxyRouteKey(settingsStore.getSync().common.proxyUrl)})
+		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, spawnGate, sessionAuth: exploreGate, siteRequests})
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, spawnGate})
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession})
-		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache)
+		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, siteRequests)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
 		// the built-in cap for the first batch.
@@ -419,6 +423,7 @@ if (hasSingleInstanceLock) {
 			saveLastPage: url => void settingsStore.update({common: {exploreLastUrl: url}}),
 			adBlock: exploreAdBlocker,
 			homeUrlOverride: e2eMode.exploreHomeUrl,
+			idleUnloadDelayMs: e2eMode.exploreIdleUnloadMs,
 			isPackaged: app.isPackaged,
 			openExternal: url => shell.openExternal(url),
 			emit: state => exploreEvents.emit(state),
@@ -578,7 +583,7 @@ if (hasSingleInstanceLock) {
 
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider, refreshAppMenu: appMenu.refresh})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, refreshAppMenu: appMenu.refresh})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)

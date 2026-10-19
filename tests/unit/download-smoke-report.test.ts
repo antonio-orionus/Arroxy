@@ -9,10 +9,10 @@ const report: DownloadSmokeReport = {
 	platform: 'win32',
 	arch: 'x64',
 	url: 'https://www.youtube.com/watch?v=z1NNgSu8hTI',
-	inputs: {cookies: 'browser:firefox', proxy: 'off', profileId: 'balanced', youtubePlayerClients: 'production-default'},
+	inputs: {cookies: 'browser:firefox', proxy: 'off', profileId: 'balanced', youtubePlayerClients: 'production-default', poToken: true, verbose: false},
 	effective: {cookiesMode: 'browser', proxyConfigured: false, formatSelector: 'bestvideo*+bestaudio/best', formatSort: 'res:720,fps'},
-	selection: {selectedFormat: '18', formats: [{formatId: '18', height: 360, vcodec: 'avc1', acodec: 'mp4a'}], maxHeight: 360},
-	observed: {playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: []},
+	selection: {selectedFormat: '18', formats: [{formatId: '18', height: 360, vcodec: 'avc1', acodec: 'mp4a'}], maxHeight: 360, availableMaxHeight: 720},
+	observed: {playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: [], poTokenFromConfigClients: [], poTokenDebug: []},
 	spawned: {cookies: 'browser', proxy: false, poToken: true, playerClients: ['default', 'web_embedded']},
 	attempts: [],
 	error: null,
@@ -30,8 +30,14 @@ describe('download smoke result line', () => {
 
 describe('summarizeSpawnArgs', () => {
 	it('reads cookies, proxy, token and player clients from a redacted argv', () => {
-		const args = ['--extractor-args', 'youtube:po_token=[REDACTED];visitor_data=[REDACTED]', '--cookies-from-browser', '[REDACTED]', '--proxy', '[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded']
+		const args = ['--cookies-from-browser', '[REDACTED]', '--proxy', '[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded;po_token=[REDACTED];visitor_data=[REDACTED]']
 		expect(summarizeSpawnArgs(args)).toEqual({cookies: 'browser', proxy: true, poToken: true, playerClients: ['default', 'web_embedded']})
+	})
+
+	// yt-dlp keeps only the last block per extractor: a token in an earlier block never reaches it.
+	it('reports no token when a later youtube block replaced the one carrying it', () => {
+		const args = ['--extractor-args', 'youtube:po_token=[REDACTED];visitor_data=[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded']
+		expect(summarizeSpawnArgs(args)).toEqual({cookies: 'none', proxy: false, poToken: false, playerClients: ['default', 'web_embedded']})
 	})
 
 	it('reports a cookie file, and no player_client when none was passed', () => {

@@ -246,8 +246,8 @@ msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) f
 msgstr "yt-dlp indirmeyi bitirdi ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene."
 
 msgctxt "errors.ytdlp.rateLimit"
-msgid "Site is rate-limiting requests. Wait a minute then retry."
-msgstr "Site istekleri hız sınırlıyor. Bir dakika bekleyip tekrar dene."
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Site bu bağlantıdan gelen istekleri sınırlıyor."
 
 msgctxt "errors.ytdlp.unavailable"
 msgid "This video is unavailable — it may be private, deleted, or region-locked."
@@ -2509,6 +2509,38 @@ msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Orta kalite"
 
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} bu bağlantıyı sınırlıyor"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Biçim listesi eksik olabilir."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} bu isteği şimdilik geri çevirdi."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} bu sınırı bir saate kadar sürdürebilir."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Şimdi dene"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Bekleme bitti, yeniden deneyebilirsin."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy, sınırın kalkması için {{site}} sitesine yeniden sormadan önce {{time}} saatine kadar bekler."
+
 msgctxt "wizard.formats.savesAs.label"
 msgid "Saves as"
 msgstr "Şu olarak kaydedilir"
@@ -3893,13 +3925,9 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "İptal"
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr "Kopyalanan bağlantıyı kapat"
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
-msgstr "Kopyalanmış bağlantı hazır"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Kopyalanan bağlantıyla değiştirildi"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -3909,9 +3937,9 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur."
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
-msgstr "Kopyalanan bağlantıyı kullan"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Geri al"
 
 msgctxt "wizard.url.closeToTray.toggle"
 msgid "Hide to tray on close"

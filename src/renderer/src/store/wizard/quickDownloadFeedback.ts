@@ -6,8 +6,9 @@ import {QUEUE_STATUS, type QueueItemStatus} from '@shared/schemas.js'
 
 export type QuickDownloadFailureMessageKey = 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed'
 
-// `urls`: what Retry runs again.
-export type QuickDownloadFailure = {kind: 'bulk-probe'; error: ProbeError; urls: string[]; failedCount: number} | {kind: 'prepare'; messageKey: QuickDownloadFailureMessageKey; urls: string[]} | {kind: 'queue' | 'exception'; message: string; urls: string[]}
+// `urls`: what Retry runs again. `errorUrl`: the link whose failure `error` is,
+// so its guidance (a site's rate-limit cooldown) is about the right site.
+export type QuickDownloadFailure = {kind: 'bulk-probe'; error: ProbeError; errorUrl: string; urls: string[]; failedCount: number} | {kind: 'prepare'; messageKey: QuickDownloadFailureMessageKey; urls: string[]} | {kind: 'queue' | 'exception'; message: string; urls: string[]}
 
 export interface QuickDownloadFeedbackState {
 	quickDownloadStatus: QuickDownloadStatus

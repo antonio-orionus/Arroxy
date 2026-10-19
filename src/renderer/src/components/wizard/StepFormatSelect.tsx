@@ -8,6 +8,7 @@ import {Spinner} from '../ui/spinner.js'
 import downloadingImg from '../../assets/Downloading.png'
 import {VideoColumn} from './format/VideoColumn.js'
 import {BotWallNotice} from './format/BotWallNotice.js'
+import {RateLimitNotice} from './format/RateLimitNotice.js'
 import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
 import {WizardProfileLine} from './format/WizardProfileLine.js'
@@ -76,6 +77,8 @@ export function StepFormatSelect(): ReactNode {
 				<FitNotices />
 
 				<BotWallNotice />
+
+				<RateLimitNotice />
 
 				{wizardMediaKind === 'subtitles' ? (
 					<SubtitleFields withMedia={false} />

@@ -5,7 +5,7 @@
 //   bun run build   # the dev launch runs out/main/index.js
 //   bun run smoke:download -- --url https://www.youtube.com/watch?v=... [--cookies off|browser:firefox|file:/path]
 //     [--proxy off|<url>] [--profile balanced] [--clients default,web_embedded|none] [--timeout 180000]
-//     [--exe /path/to/packaged/Arroxy] [--fresh]
+//     [--po-token on|off] [--verbose] [--exe /path/to/packaged/Arroxy] [--fresh]
 //
 // The wrapper exists for the two mistakes a hand-written launch makes:
 //   - An inherited ELECTRON_RUN_AS_NODE=1 (set by any shell spawned from an
@@ -25,7 +25,10 @@ import {resolveSmokeUrl} from './smoke-shared.js'
 
 const RESULT_PREFIX = 'ARROXY_DOWNLOAD_SMOKE_RESULT '
 
-const {values: flags} = parseArgs({options: {url: {type: 'string'}, cookies: {type: 'string'}, proxy: {type: 'string'}, profile: {type: 'string'}, clients: {type: 'string'}, timeout: {type: 'string'}, exe: {type: 'string'}, fresh: {type: 'boolean', default: false}}, strict: true})
+const {values: flags} = parseArgs({
+	options: {url: {type: 'string'}, cookies: {type: 'string'}, proxy: {type: 'string'}, profile: {type: 'string'}, clients: {type: 'string'}, 'po-token': {type: 'string'}, verbose: {type: 'boolean', default: false}, timeout: {type: 'string'}, exe: {type: 'string'}, fresh: {type: 'boolean', default: false}},
+	strict: true
+})
 
 function electronLaunch(): {file: string; args: string[]} {
 	if (flags.exe) return {file: flags.exe, args: []}
@@ -51,6 +54,8 @@ function smokeEnv(url: string, userData: string): NodeJS.ProcessEnv {
 		['ARROXY_SMOKE_PROXY', flags.proxy],
 		['ARROXY_SMOKE_PROFILE', flags.profile],
 		['ARROXY_SMOKE_PLAYER_CLIENTS', flags.clients],
+		['ARROXY_SMOKE_PO_TOKEN', flags['po-token']],
+		['ARROXY_SMOKE_VERBOSE', flags.verbose ? '1' : undefined],
 		['ARROXY_SMOKE_TIMEOUT_MS', flags.timeout]
 	]
 	for (const [name, value] of overrides) {
@@ -80,9 +85,12 @@ function printSummary(report: unknown, reportPath: string): void {
 		['outcome', field(report, 'outcome')],
 		['format', field(report, 'selection', 'selectedFormat')],
 		['max height', field(report, 'selection', 'maxHeight')],
+		['available height', field(report, 'selection', 'availableMaxHeight')],
 		['sent cookies', field(report, 'spawned', 'cookies')],
 		['sent proxy', field(report, 'spawned', 'proxy')],
 		['sent clients', field(report, 'spawned', 'playerClients') ?? '(yt-dlp default)'],
+		['sent PO token', field(report, 'spawned', 'poToken')],
+		['token parsed for', field(report, 'observed', 'poTokenFromConfigClients')],
 		['players queried', field(report, 'observed', 'playerApiClients')],
 		['SABR skipped', field(report, 'observed', 'sabrSkippedClients')],
 		['error', field(report, 'error')],
