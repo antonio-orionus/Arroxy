@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import type {InFlightFiles} from '@shared/nameBudget.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 
 function utf8Bytes(value: string): number {
@@ -14,7 +15,15 @@ function compiled(template: string): string {
 
 // A roomy Linux directory, so these cases exercise binding rather than the
 // budget. The per-platform limits have their own tests in name-budget.test.ts.
-const LINUX: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux'}
+// A YouTube video+audio download, whose in-flight names are among the shortest.
+const YOUTUBE_IN_FLIGHT: InFlightFiles = {
+	formats: [
+		{formatId: '137', ext: 'mp4'},
+		{formatId: '251', ext: 'webm'}
+	],
+	subtitleLanguages: []
+}
+const LINUX: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux', inFlight: YOUTUBE_IN_FLIGHT}
 
 function bound(template: string, meta: TemplateMetadata, ctx: BindContext = LINUX): string {
 	const result = bindFilenameTemplate(template, meta, ctx)
@@ -293,6 +302,34 @@ describe('templateOutputDir', () => {
 	})
 })
 
+describe('bindFilenameTemplate — the names yt-dlp writes mid-download', () => {
+	// Recorded in src/renderer/src/dev/probeSources/instagram.json. While split
+	// video/audio downloads, yt-dlp writes `<name>.f<format_id>.<ext>.part`, and a
+	// fragmented stream adds `-Frag<N>.part` on top — far more than the final name.
+	const INSTAGRAM = [
+		{formatId: 'dash-1407570984907314v', ext: 'mp4'},
+		{formatId: 'dash-1407570791574000a', ext: 'm4a'}
+	]
+	const LONG_TITLE = {...SINGLE_META, title: 'T'.repeat(300)}
+
+	it('leaves room for the longest fragment name of every requested format on Linux', () => {
+		const ctx: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux', inFlight: {formats: INSTAGRAM, subtitleLanguages: []}}
+		const name = bound('{title} [{id}]', LONG_TITLE, ctx)
+		for (const {formatId, ext} of INSTAGRAM) {
+			expect(utf8Bytes(`${name}.f${formatId}.${ext}.part-Frag999999.part`)).toBeLessThanOrEqual(255)
+		}
+	})
+
+	it('keeps the in-flight path under MAX_PATH inside the job temp folder on Windows', () => {
+		const outputDir = 'C:\\Users\\antonio\\Videos\\Arroxy'
+		const ctx: BindContext = {outputDir, platform: 'win32', inFlight: {formats: INSTAGRAM, subtitleLanguages: []}}
+		const name = bound('{title} [{id}]', LONG_TITLE, ctx)
+		for (const {formatId, ext} of INSTAGRAM) {
+			expect(`${outputDir}\\.arroxy-temp\\0123abcd\\${name}.f${formatId}.${ext}.part-Frag999999.part`.length).toBeLessThanOrEqual(260)
+		}
+	})
+})
+
 describe('bindFilenameTemplate', () => {
 	describe('with a part-of-video suffix', () => {
 		const SUFFIX = '[3m40s-7m15s]'
@@ -306,7 +343,9 @@ describe('bindFilenameTemplate', () => {
 		it('works for a template at the typed-length limit, which the suffix would push past it', () => {
 			const template = `{title}${'x'.repeat(FILENAME_TEMPLATE_MAX - '{title}'.length - ' [{id}]'.length)} [{id}]`
 			expect(template).toHaveLength(FILENAME_TEMPLATE_MAX)
-			const result = bindFilenameTemplate(template, SINGLE_META, LINUX, SUFFIX)
+			// A short title: 186 literal bytes leave little room once the in-flight
+			// names are reserved for, and this case is about the typed limit.
+			const result = bindFilenameTemplate(template, {...SINGLE_META, title: 'Clip'}, LINUX, SUFFIX)
 			expect(result.ok && result.template.endsWith(` [YE7VzlLtp-4] ${SUFFIX}`)).toBe(true)
 		})
 
@@ -318,7 +357,7 @@ describe('bindFilenameTemplate', () => {
 		})
 
 		it('reports a name that cannot fit with the suffix instead of dropping it', () => {
-			const windows: BindContext = {outputDir: `C:\\${'d'.repeat(214)}`, platform: 'win32'}
+			const windows: BindContext = {outputDir: `C:\\${'d'.repeat(183)}`, platform: 'win32', inFlight: YOUTUBE_IN_FLIGHT}
 			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows)).toMatchObject({ok: true})
 			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows, SUFFIX)).toMatchObject({ok: false})
 		})
@@ -424,7 +463,7 @@ describe('bindFilenameTemplate', () => {
 	it('keeps a CJK title whole on macOS, where the limit counts code units', () => {
 		// 200 CJK characters is 600 bytes but only 200 UTF-16 code units, and APFS
 		// counts the latter — measured directly on APFS.
-		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, {outputDir: '/Users/antonio/Videos', platform: 'darwin'})
+		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, {outputDir: '/Users/antonio/Videos', platform: 'darwin', inFlight: YOUTUBE_IN_FLIGHT})
 		expect(result.ok && result.truncated).toEqual([])
 	})
 
@@ -434,7 +473,7 @@ describe('bindFilenameTemplate', () => {
 	})
 
 	it('reports path-too-deep rather than shortening forever', () => {
-		const result = bindFilenameTemplate('{title} [{id}]', PLAYLIST_META, {outputDir: `C:\\${'verylongfolder\\'.repeat(16)}`, platform: 'win32'})
+		const result = bindFilenameTemplate('{title} [{id}]', PLAYLIST_META, {outputDir: `C:\\${'verylongfolder\\'.repeat(16)}`, platform: 'win32', inFlight: YOUTUBE_IN_FLIGHT})
 		expect(result).toEqual({ok: false, reason: 'path-too-deep'})
 	})
 })

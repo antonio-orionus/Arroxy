@@ -23,6 +23,7 @@ import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {fileTypeContainerArgs} from '@shared/selectionOrder.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
+import {requestedFormats} from '@shared/nameBudget.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
@@ -30,7 +31,7 @@ import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, r
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {resolvePlaylistDir} from './playlistDir.js'
-import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
+import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, profileInFlight, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 import {wizardVideoPart} from './videoPart.js'
@@ -70,14 +71,16 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	// one leaves the root as-is. The job then carries the filename segment alone,
 	// with the tokens yt-dlp cannot know already bound.
 	const outputDir = templateOutputDir(effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName), template, templateMeta)
+	const formatId = wizardMediaKind === 'subtitles' ? undefined : buildFormatId(selectedVideoFormatId, effectiveAudio)
+	const subtitleLanguages = state.wizardSubtitleLanguages
+	const inFlight = {formats: wizardMediaKind === 'subtitles' ? [] : requestedFormats(formatId, wizardFormats), subtitleLanguages}
 	// The range goes after the `[id]`, so playlist sync never takes a part for
 	// the whole video; it is bound with the name, not typed into the template.
-	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir, videoPart ? videoPartSuffix(videoPart) : undefined)
+	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir, inFlight, videoPart ? videoPartSuffix(videoPart) : undefined)
 
 	const audioFormats = wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')
 
-	const formatId = wizardMediaKind === 'subtitles' ? undefined : buildFormatId(selectedVideoFormatId, effectiveAudio)
 	const audioConvert = wizardMediaKind === 'subtitles' ? undefined : buildAudioConvertPayload(effectiveAudio)
 	const formatLabel = wizardMediaKind === 'subtitles' ? i18next.t('wizard.formats.kind.subtitles') : buildFormatLabel(selectedVideoFormatId, videoResolution, effectiveAudio, audioFormats)
 
@@ -87,7 +90,6 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const wholeBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
 	const expectedBytes = scaleBytesToPart(wholeBytes, videoPart, state.wizardDuration)
 
-	const subtitleLanguages = state.wizardSubtitleLanguages
 	// Untouched subtitles keep the profile's source (an auto-only profile must
 	// not fetch an uploaded track that shares the key); edited ones follow
 	// which section each picked track came from.
@@ -177,7 +179,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	// Per entry, not per playlist: a nesting template may sort entries into
 	// different folders (by uploader, by date) within the same playlist.
 	const baseDir = templateOwnsDirs(undefined, state.settings?.common?.filenameTemplate) ? templateOutputDir(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), template, templateMeta) : resolvePlaylistDir(state)
-	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, baseDir)
+	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, baseDir, playlistSelectionInFlight(playlistSelection))
 
 	// A subtitles batch skips the output and SponsorBlock steps, so the wizard
 	// state for them is stale; prepareJob ignores both for subtitle-only jobs.
@@ -335,7 +337,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 			extractorKey: state.wizardExtractorKey,
 			resolved,
 			profile,
-			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir),
+			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir, profileInFlight(resolved, [])),
 			nativeAudioPreference,
 			hdrPreference,
 			// No playlistGroupId: QueueService only writes an .m3u for grouped items,
@@ -455,7 +457,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
-			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, templateOutputDir(singleOutputDir, template, templateMeta)),
+			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, templateOutputDir(singleOutputDir, template, templateMeta), profileInFlight(resolved, probe.formats)),
 			nativeAudioPreference,
 			hdrPreference,
 			writeM3u: false,
@@ -492,7 +494,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
-			filenameTemplate: bindJobFilenameTemplate(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot),
+			filenameTemplate: bindJobFilenameTemplate(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot, profileInFlight(resolved, [])),
 			nativeAudioPreference,
 			hdrPreference,
 			playlistGroupId,

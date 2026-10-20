@@ -110,7 +110,7 @@ try {
 		const meta: TemplateMetadata = {title, id, uploader}
 		for (const template of TEMPLATES) {
 			const outputDir = templateOutputDir(path.join(work, 'Downloads'), template, meta)
-			const bound = bindFilenameTemplate(template, meta, {outputDir, platform: process.platform})
+			const bound = bindFilenameTemplate(template, meta, {outputDir, platform: process.platform, inFlight: {formats: null, subtitleLanguages: ['en']}})
 			if (!bound.ok) throw new Error(`${title} · ${template}: bind failed (${bound.reason})`)
 			const compiled = compileFilenameTemplate(bound.template)
 			if (!compiled.ok) throw new Error(`${title} · ${template}: compile failed (${compiled.code})`)

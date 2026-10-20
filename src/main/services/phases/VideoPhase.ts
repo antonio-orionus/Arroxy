@@ -12,9 +12,10 @@ import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelect
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
-import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
+import type {ActiveDownload, Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
+import {FINAL_PATH_FILE_NAME, clearFinalPathFile, readFinalPathFile} from '../ytDlpFinalPath.js'
 import {identityFor} from '../exploreGate.js'
 import {settleWithExploreSession} from './signedInFlow.js'
 
@@ -156,6 +157,20 @@ function canRecoverWithNewSession(result: YtDlpResult, site: Site): boolean {
 	return result.kind === 'exit-error' && (result.errorKind === 'network' || result.errorKind === 'chunkTransferFailure')
 }
 
+// The path yt-dlp printed once the file reached its final place wins over the
+// one followed through the log, which misses some postprocessors' renames (a
+// remux to another container) and so can name a file that no longer exists.
+async function adoptFinalPath(active: ActiveDownload, finalPathFile: string | undefined): Promise<void> {
+	if (!finalPathFile) return
+	const printed = await readFinalPathFile(finalPathFile)
+	if (printed === null) {
+		logger.warn('yt-dlp printed no final media path; keeping the one from its log', {jobId: active.job.id, mediaPath: active.mediaPath})
+		return
+	}
+	if (printed !== active.mediaPath) logger.info('final media path differs from the one in the log', {jobId: active.job.id, logged: active.mediaPath, printed})
+	active.mediaPath = printed
+}
+
 export function VideoPhase(embed: boolean): Phase {
 	return {
 		kind: embed ? 'video+embed' : 'video',
@@ -192,6 +207,10 @@ export function VideoPhase(embed: boolean): Phase {
 
 			const site = siteForJob(preparedJob.extractor, input.url)
 			const buildRequest = (infoJsonPath: string | undefined): YtDlpRequest => buildMediaRequest({url: input.url, job: preparedJob, outputDir: job.outputDir, tempDir, embed, infoJsonPath})
+			const finalPathFile = tempDir ? join(tempDir, FINAL_PATH_FILE_NAME) : undefined
+			// The print file the latest run wrote to; none when there is no temp
+			// folder or a leftover could not be cleared.
+			let printedPathFile: string | undefined
 
 			// Set when the pre-spawn guard refused an escalated job's spawn.
 			let signedOut = false
@@ -251,7 +270,9 @@ export function VideoPhase(embed: boolean): Phase {
 					onStderr: consume,
 					abortSignal: AbortSignal.any([active.signal, stop.signal])
 				})
-				const result = await ytDlp.run(req, signal, {identity: mode.identity, jobKey: job.id})
+				printedPathFile = finalPathFile && (await clearFinalPathFile(finalPathFile)) ? finalPathFile : undefined
+				if (finalPathFile && !printedPathFile) logger.warn('could not clear the final-path file; using the path from the log', {jobId: job.id})
+				const result = await ytDlp.run(req, signal, {identity: mode.identity, jobKey: job.id, ...(printedPathFile ? {finalPathFile: printedPathFile} : {})})
 				// yt-dlp can finish a small file before the stop reaches it. The run
 				// then did complete — at the limited quality — and is kept as it is.
 				return {req, result, formatsWithheld, stoppedLimited: stoppedLimited && result.kind !== 'success', alreadyDownloaded}
@@ -342,6 +363,7 @@ export function VideoPhase(embed: boolean): Phase {
 
 			if (result.kind !== 'success') {
 				if (isSkippableSponsorBlockApiFailure(result, req)) {
+					await adoptFinalPath(active, printedPathFile)
 					return {kind: 'continue'}
 				}
 				const {payload, statusKey, params} = await classifyYtDlpFailure(result, job.outputDir, job.id)
@@ -352,6 +374,7 @@ export function VideoPhase(embed: boolean): Phase {
 				return {kind: 'hard-failed', error: payload, resumeContext}
 			}
 
+			await adoptFinalPath(active, printedPathFile)
 			if (result.usedExtractorFallback) active.usedExtractorFallback = true
 			const qualityLimit = await detectQualityLimit(preparedJob, tempDir, run.formatsWithheld)
 			if (qualityLimit) active.qualityLimit = qualityLimit

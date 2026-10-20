@@ -12,7 +12,7 @@
 // Token names are enumerated in schemas.ts (enum SSOT); the field mapping below
 // is the implementation detail that belongs here.
 
-import {fitName, renderName, type BudgetFailure, type BudgetPiece, type BudgetResult} from './nameBudget.js'
+import {fitName, renderName, type BudgetFailure, type BudgetPiece, type BudgetResult, type InFlightFiles} from './nameBudget.js'
 import {neutralizeFilenameExpansion, neutralizeFilenamePiece} from './pathExpansion.js'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
@@ -363,7 +363,7 @@ function fitNeutralName(pieces: readonly BudgetPiece[], ctx: BindContext): Budge
 	const truncated = new Set<FilenameToken>()
 	let current = neutralizePieces(pieces)
 	for (;;) {
-		const fitted = fitName({pieces: current, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
+		const fitted = fitName({pieces: current, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform), inFlight: ctx.inFlight})
 		if (!fitted.ok) return fitted
 		for (const token of fitted.truncated) truncated.add(token)
 		const again = neutralizePieces(fitted.pieces)
@@ -385,6 +385,8 @@ export interface BindContext {
 	outputDir: string
 	/** Whose filesystem limits apply. Injected so this stays testable per-OS. */
 	platform: NodeJS.Platform
+	/** What yt-dlp writes before the finished file, which must fit too. */
+	inFlight: InFlightFiles
 }
 
 export type BoundFilename = {ok: true; template: string; truncated: FilenameToken[]} | {ok: false; reason: BudgetFailure}

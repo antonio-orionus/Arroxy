@@ -65,3 +65,27 @@ describe('phasesFor — production repro cell', () => {
 		expect(phases).not.toContain('subtitle-only')
 	})
 })
+
+describe('phasesFor — video without audio', () => {
+	const job = (kind: 'video-only' | 'video-audio'): PreparedJob => ({
+		kind: 'ranged-format',
+		extractor: 'TikTok',
+		extractorKey: 'TikTok',
+		intent: kind === 'video-only' ? {kind, goal: 'best-picture', tier: 'best', fileType: 'auto'} : {kind, goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}},
+		filenameTemplate: '{title}',
+		sponsorBlock: SB_OFF,
+		embed: EMBED_OFF,
+		subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: false}
+	})
+	const input = (preparedJob: PreparedJob) => ({url: 'https://www.tiktok.com/@a/video/1', outputDir: '/out', job: preparedJob}) as Parameters<typeof phasesFor>[0]
+
+	// A site whose only streams carry sound gives a video-only profile one of
+	// those; the audio comes off right after the download, before subtitles go in.
+	it('drops the audio after the download, before the subtitles', () => {
+		expect(phasesFor(input(job('video-only'))).map(phase => phase.kind)).toEqual(['preflight', 'video', 'drop-audio', 'sidecar-subs'])
+	})
+
+	it('runs no extra step for video with audio', () => {
+		expect(phasesFor(input(job('video-audio'))).map(phase => phase.kind)).not.toContain('drop-audio')
+	})
+})
