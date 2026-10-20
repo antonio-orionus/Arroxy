@@ -22,12 +22,12 @@ beforeEach(() => {
 	vi.mocked(checkWritableDirectory).mockResolvedValue({ok: true})
 })
 
-function makeCtx(outputDir = '/output'): PhaseContext {
+function makeCtx(outputDir = '/output', childEnv: NodeJS.ProcessEnv = {...process.env}): PhaseContext {
 	const input: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir, job: DEFAULT_JOB as Extract<PreparedJob, {kind: 'single-format'}>}
 	const job: DownloadJob = {id: 'test-job-id', url: 'https://www.youtube.com/watch?v=test', outputDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 	const controller = new AbortController()
 	const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack()}
-	return {active, signal: active.signal, ytDlp: {} as never, emitStatus: vi.fn(), register: () => undefined, safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
+	return {active, signal: active.signal, ytDlp: {childEnv: () => childEnv} as never, emitStatus: vi.fn(), register: () => undefined, safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 }
 
 describe('PreflightPhase', () => {
@@ -119,8 +119,7 @@ describe('PreflightPhase', () => {
 		})
 
 		it('fails with outputPathExpands after the write probe and before the disk check', async () => {
-			vi.stubEnv('ARROXY_PREFLIGHT_DIR', 'elsewhere')
-			const ctx = makeCtx('/media/$ARROXY_PREFLIGHT_DIR')
+			const ctx = makeCtx('/media/$ARROXY_PREFLIGHT_DIR', {ARROXY_PREFLIGHT_DIR: 'elsewhere'})
 			const running = PreflightPhase(undefined).run(ctx)
 			// The queue learns the job id only after start() returns; a status
 			// emitted synchronously would be dropped.
@@ -134,18 +133,19 @@ describe('PreflightPhase', () => {
 			expect(checkDiskSpace).not.toHaveBeenCalled()
 		})
 
-		it('counts the variables Arroxy adds to the yt-dlp child', async () => {
-			vi.stubEnv('ELECTRON_RUN_AS_NODE', undefined)
-			const outcome = await PreflightPhase(undefined).run(makeCtx('/media/$ELECTRON_RUN_AS_NODE'))
+		it('expands against the yt-dlp child environment, not the app environment', async () => {
+			vi.stubEnv('ARROXY_APP_ONLY', 'set')
+			vi.mocked(checkDiskSpace).mockResolvedValue({ok: true, freeBytes: 5_000_000_000, requiredBytes: undefined})
+			const childOnly = await PreflightPhase(undefined).run(makeCtx('/media/$ELECTRON_RUN_AS_NODE', {ELECTRON_RUN_AS_NODE: '1'}))
+			const appOnly = await PreflightPhase(undefined).run(makeCtx('/media/$ARROXY_APP_ONLY', {}))
 
-			expect(outcome.kind).toBe('hard-failed')
-			if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('outputPathExpands')
+			expect(childOnly.kind).toBe('hard-failed')
+			expect(appOnly.kind).toBe('continue')
 		})
 
 		it('lets a $ that names no set variable through', async () => {
-			vi.stubEnv('ARROXY_PREFLIGHT_DIR', undefined)
 			vi.mocked(checkDiskSpace).mockResolvedValue({ok: true, freeBytes: 5_000_000_000, requiredBytes: undefined})
-			const outcome = await PreflightPhase(undefined).run(makeCtx('/media/$ARROXY_PREFLIGHT_DIR $5'))
+			const outcome = await PreflightPhase(undefined).run(makeCtx('/media/$ARROXY_PREFLIGHT_DIR $5', {}))
 
 			expect(outcome.kind).toBe('continue')
 		})

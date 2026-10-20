@@ -1,7 +1,7 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
-import {spawnYtDlp} from '@main/utils/process.js'
+import {spawnYtDlp, ytDlpChildEnv} from '@main/utils/process.js'
 import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
@@ -539,6 +539,13 @@ export class YtDlp {
 
 	get ffmpegPath(): string | null {
 		return this._ffmpegPath
+	}
+
+	// The environment the next run's child gets, as invokeOnce spawns it. Read
+	// after prepare(), which settles the ffmpeg path and the JS runtime.
+	childEnv(): NodeJS.ProcessEnv {
+		const runtime = this._jsRuntime
+		return ytDlpChildEnv(this._ffmpegPath, this.opts.e2eMode, runtime ? env => applyJsRuntimeEnv(env, runtime) : undefined)
 	}
 
 	// Drop the cached PO token / visitor_data and mint a new one, so the next run

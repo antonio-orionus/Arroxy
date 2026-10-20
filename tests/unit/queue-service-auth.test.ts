@@ -165,7 +165,7 @@ describe('QueueService — download-time escalation', () => {
 			return {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false} satisfies YtDlpResult
 		})
 		const resetJob = vi.fn()
-		const ytDlp = {prepare: vi.fn().mockResolvedValue(undefined), run, usesCookies: vi.fn().mockResolvedValue(false), invalidateTokenSession: vi.fn(), ffmpegPath: null}
+		const ytDlp = {prepare: vi.fn().mockResolvedValue(undefined), run, usesCookies: vi.fn().mockResolvedValue(false), invalidateTokenSession: vi.fn(), ffmpegPath: null, childEnv: () => ({})}
 		const downloads = new DownloadService(ytDlp as never, {push: vi.fn().mockResolvedValue(undefined)} as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve(true)}, exploreSession: {verifySignedIn: () => Promise.resolve('signedIn' as const)}, spawnGate: {resetJob}})
 		const qs = new QueueService(store, downloads)
 		const jobIds = new Set<string>()

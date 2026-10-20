@@ -35,9 +35,15 @@ export function envWithFfmpegPaths(ffmpegPath: string | null, opts: {e2eMode?: E
 	return env
 }
 
-export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, e2eMode?: E2eHarnessMode, transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv): ChildProcessWithoutNullStreams {
+// The environment a yt-dlp child runs with, which is also what yt-dlp expands
+// `$NAME` in its output paths against.
+export function ytDlpChildEnv(ffmpegPath: string | null, e2eMode?: E2eHarnessMode, transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv): NodeJS.ProcessEnv {
 	const env = envWithFfmpegPaths(ffmpegPath, {e2eMode})
-	return spawn(binaryPath, args, {env: transformEnv ? transformEnv(env) : env, shell: false, windowsHide: true, detached: SPAWN_AS_PROCESS_GROUP})
+	return transformEnv ? transformEnv(env) : env
+}
+
+export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, e2eMode?: E2eHarnessMode, transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv): ChildProcessWithoutNullStreams {
+	return spawn(binaryPath, args, {env: ytDlpChildEnv(ffmpegPath, e2eMode, transformEnv), shell: false, windowsHide: true, detached: SPAWN_AS_PROCESS_GROUP})
 }
 
 export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWithoutNullStreams {

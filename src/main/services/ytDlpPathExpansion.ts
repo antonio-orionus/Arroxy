@@ -17,8 +17,9 @@ const POSIX_REFERENCE = /\$([A-Za-z0-9_]+|\{[^}]*\})/g
 
 function posixExpandVars(path: string, env: Env): string {
 	return path.replace(POSIX_REFERENCE, (whole, name: string) => {
-		const value = env[name.startsWith('{') && name.endsWith('}') ? name.slice(1, -1) : name]
-		return value ?? whole
+		const key = name.startsWith('{') && name.endsWith('}') ? name.slice(1, -1) : name
+		// Own names only: `$toString` must not find Object.prototype's.
+		return (Object.hasOwn(env, key) ? env[key] : undefined) ?? whole
 	})
 }
 

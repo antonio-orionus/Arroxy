@@ -9,10 +9,6 @@ import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 // disk-space check so the user gets the free-space message, not a permissions one.
 const DISK_FULL_CODES: ReadonlySet<string> = new Set(['ENOSPC', 'EDQUOT'])
 
-// What spawnYtDlp adds to process.env for the child (envWithFfmpegPaths,
-// applyJsRuntimeEnv). Only whether a name is set matters here.
-const CHILD_ENV_ADDITIONS = {PATH: '', LD_LIBRARY_PATH: '', SSL_CERT_FILE: '', ELECTRON_RUN_AS_NODE: '1'}
-
 function formatGB(bytes: number): string {
 	return `${Math.round(bytes / 1e8) / 10} GB`
 }
@@ -36,7 +32,7 @@ export function PreflightPhase(expectedBytes: number | undefined): Phase {
 			// final-path file live under outputDir, so this covers them too. Not
 			// before the write probe: a failure emitted before the phase's first
 			// await reaches the queue before it knows the job, and is dropped.
-			const env = {...CHILD_ENV_ADDITIONS, ...process.env}
+			const env = ctx.ytDlp.childEnv()
 			if (ytDlpExpandsPath(job.outputDir, process.platform, env)) {
 				const error: LocalizedError = {kind: 'outputPathExpands', raw: `${job.outputDir}: yt-dlp would write to ${ytDlpExpandVars(job.outputDir, process.platform, env)}`}
 				ctx.emitStatus('error', STATUS_KEY.outputPathExpands, {dir: job.outputDir}, error)

@@ -127,13 +127,14 @@ test('Electron download into a read-only folder fails before transfer and retrie
 // download folder named after a set variable sent the files to another folder
 // while Arroxy looked for them in this one. Preflight must refuse it before
 // any media request and say why. PATH is set on every platform (Windows looks
-// it up without regard to case).
+// it up without regard to case); braces end the name, since Windows reads a
+// hyphen as part of it.
 test('Electron download into a folder yt-dlp would expand fails before transfer', async () => {
 	test.setTimeout(120_000)
 	const videoId = FIXTURE_VIDEO_IDS[7]
 
-	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-expand-user-', outputPrefix: 'arroxy-fixture-$PATH-out-'}, async ({page, outputDir, fixtureServer, queue, files}) => {
-		expect(path.basename(outputDir)).toContain('$PATH')
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-expand-user-', outputPrefix: 'arroxy-fixture-${PATH}-out-'}, async ({page, outputDir, fixtureServer, queue, files}) => {
+		expect(path.basename(outputDir)).toContain('${PATH}')
 		await prepareSingleReview(page, videoId)
 		await page.locator('[data-testid="btn-download"]').click()
 		await queue.expectStatus('Fixture Video 8', 'error', 90_000)

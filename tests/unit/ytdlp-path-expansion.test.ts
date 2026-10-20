@@ -43,6 +43,12 @@ describe('ytDlpExpandVars', () => {
 		expect(ytDlpExpandVars(input, 'win32', ENV)).toBe(nt)
 	})
 
+	it('treats only names the environment owns as set', () => {
+		const folder = '/media/$toString ${constructor} $__proto__ %valueOf%'
+		expect(ytDlpExpandVars(folder, 'linux', {})).toBe(folder)
+		expect(ytDlpExpandVars(folder, 'win32', {})).toBe(folder)
+	})
+
 	it('looks Windows variables up without regard to case, as os.environ does there', () => {
 		expect(ytDlpExpandVars('C:\\x\\%home%\\$userprofile', 'win32', ENV)).toBe('C:\\x\\/home/u\\C:\\Users\\u')
 		expect(ytDlpExpandVars('/x/$home', 'linux', ENV)).toBe('/x/$home')
