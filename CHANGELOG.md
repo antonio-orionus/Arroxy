@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.7.0
+## 0.7.1
 
 ## Highlights
 
@@ -54,6 +54,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 - Explore's ad blocker now starts off, since it broke too many sites. Turn it on from the shield in Explore's toolbar.
 - The daily heartbeat now also says roughly how long ago Arroxy was installed, still with no ID. You can turn it off in Settings.
+- Arroxy is now licensed under the GNU GPL v3 or later. 0.6.2 and earlier releases stay under MIT, and the `yt-dlp-bridge` and `ytdlp-errors` packages stay MIT.
 
 ---
 

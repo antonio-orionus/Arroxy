@@ -16,8 +16,9 @@ and keeps the code combinable with a future GPL.
 The packages stay MIT because they are libraries: a copyleft license would
 mostly stop other projects from using them.
 
-Every release before this change stays MIT, and anyone may still fork it on
-those terms. The few outside contributions were made under MIT, which permits
+0.6.2 is the last MIT release; 0.7.0 was withdrawn, and 0.7.1 is the first
+GPL one. Every MIT release stays MIT, and anyone may still fork it on those
+terms. The few outside contributions were made under MIT, which permits
 including them in a GPLv3 work; their MIT notices stay valid. Rebranded clones
 are not a licensing problem: `TRADEMARKS.md` covers the name and logo.
 
