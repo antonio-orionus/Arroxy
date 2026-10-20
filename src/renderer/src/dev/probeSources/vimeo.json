@@ -1,0 +1,62 @@
+{
+	"source": {
+		"id": "vimeo",
+		"url": "https://player.vimeo.com/video/76979871",
+		"capturedAt": "2026-10-20",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"_format_sort_fields": [
+			"quality",
+			"res",
+			"fps",
+			"hdr:12",
+			"source"
+		],
+		"id": "76979871",
+		"title": "The New Vimeo Player (You Know, For Videos)",
+		"thumbnail": "https://i.vimeocdn.com/video/452001751-8216e0571c251a09d7a8387550942d89f7f86f6398f8ed886e639b0dd50d3c90-d",
+		"duration": 62,
+		"webpage_url": "https://player.vimeo.com/video/76979871",
+		"extractor": "vimeo",
+		"extractor_key": "Vimeo",
+		"uploader": "Vimeo",
+		"formats": [
+			{"format_id":"hls-akfire_interconnect_quic-audio-low-English","ext":"mp4","resolution":"audio only","format_note":"English, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":0,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-audio-low-English","ext":"mp4","resolution":"audio only","format_note":"English, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":0,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-akfire_interconnect_quic-audio-high-English","ext":"mp4","resolution":"audio only","format_note":"English, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":1,"quality":2,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-audio-high-English","ext":"mp4","resolution":"audio only","format_note":"English, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","language":"en","source_preference":1,"quality":2,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-akfire_interconnect_quic-407","ext":"mp4","resolution":"480x270","width":480,"height":270,"fps":23.976,"tbr":407,"vbr":407,"abr":0,"vcodec":"avc1.42C01E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-407","ext":"mp4","resolution":"480x270","width":480,"height":270,"fps":23.976,"tbr":407,"vbr":407,"abr":0,"vcodec":"avc1.42C01E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-akfire_interconnect_quic-794","ext":"mp4","resolution":"640x360","width":640,"height":360,"fps":23.976,"tbr":794,"vbr":794,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-794","ext":"mp4","resolution":"640x360","width":640,"height":360,"fps":23.976,"tbr":794,"vbr":794,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-akfire_interconnect_quic-1526","ext":"mp4","resolution":"960x540","width":960,"height":540,"fps":23.976,"tbr":1526,"vbr":1526,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-1526","ext":"mp4","resolution":"960x540","width":960,"height":540,"fps":23.976,"tbr":1526,"vbr":1526,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-akfire_interconnect_quic-2644","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"fps":23.976,"tbr":2644,"vbr":2644,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-fastly_skyfire-2644","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"fps":23.976,"tbr":2644,"vbr":2644,"abr":0,"vcodec":"avc1.64001F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"}
+		],
+		"subtitles": {
+			"es": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"en": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"fr": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"de": [
+				{
+					"ext": "vtt"
+				}
+			]
+		},
+		"automatic_captions": {}
+	}
+}

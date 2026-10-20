@@ -6,12 +6,12 @@
 
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
-import {audioCodecName, webmBlocker} from '@shared/fileTypeFit.js'
+import {audioCodecName, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
-import type {SelectionOrder} from '@shared/selectionOrder.js'
+import {effectiveVideoCodec, type SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
 export interface WizardSettingsSnapshot {
@@ -145,6 +145,19 @@ function tierFor(video: FormatOption, formats: readonly FormatOption[]): Playlis
 	return NUMERIC_TIERS.find(tier => Number(tier) <= height) ?? '144'
 }
 
+const PREFERABLE_CODECS: Readonly<Record<string, VideoCodecPreference>> = {VP9: 'vp9', 'H.264': 'h264'}
+
+// The codec a hand pick asks for: only when its height offered another one, so
+// the codec was a choice. VP9 or H.264 is saved as that codec first; anything
+// else (AV1, which yt-dlp takes first anyway) as yt-dlp's own order.
+function pickedVideoCodec(video: FormatOption, formats: readonly FormatOption[], current: VideoCodecPreference | undefined): VideoCodecPreference | undefined {
+	const codec = videoCodecName(video.videoCodec)
+	const height = videoHeight(video.resolution)
+	const hadChoice = formats.some(format => !format.isAudioOnly && videoHeight(format.resolution) === height && videoCodecName(format.videoCodec) !== null && videoCodecName(format.videoCodec) !== codec)
+	if (codec === null || !hadChoice) return current
+	return PREFERABLE_CODECS[codec]
+}
+
 function audioOnlyMedia(selection: AudioSelection): Extract<DownloadProfile['media'], {kind: 'audio-only'}> {
 	if (selection.kind === 'convert-lossy') return {kind: 'audio-only', audio: {format: selection.target, bitrateKbps: selection.bitrateKbps}}
 	if (selection.kind === 'convert-lossless') return {kind: 'audio-only', audio: {format: 'wav'}}
@@ -176,8 +189,11 @@ function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot
 	const hdr = baseVideo?.hdr ? {hdr: baseVideo.hdr} : {}
 	// Nor whether upscaled streams were wanted: the profile's choice stays too.
 	const aiUpscaled = baseVideo?.aiUpscaled ? {aiUpscaled: baseVideo.aiUpscaled} : {}
-	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType, ...hdr, ...aiUpscaled}
-	return {kind: 'video-audio', goal, tier, fileType, ...hdr, ...aiUpscaled, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
+	const wantedCodec = videoChanged ? pickedVideoCodec(video, formats, baseVideo?.videoCodec) : baseVideo?.videoCodec
+	const videoCodec = effectiveVideoCodec(goal, fileType, wantedCodec)
+	const codec = videoCodec === null ? {} : {videoCodec}
+	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType, ...hdr, ...aiUpscaled, ...codec}
+	return {kind: 'video-audio', goal, tier, fileType, ...hdr, ...aiUpscaled, ...codec, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
 }
 
 function baseLanguageCode(trackKey: string): string {

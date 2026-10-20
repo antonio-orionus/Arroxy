@@ -2,12 +2,13 @@ import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import {ChevronDown, ListOrdered} from 'lucide-react'
-import {AI_UPSCALED_CHOICES, HDR_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_FILE_TYPES, VIDEO_GOALS, type AiUpscaled} from '@shared/schemas.js'
+import {AI_UPSCALED_CHOICES, HDR_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_CODEC_PREFERENCES, VIDEO_FILE_TYPES, VIDEO_GOALS, type AiUpscaled} from '@shared/schemas.js'
+import {videoCodecAllowed} from '@shared/selectionOrder.js'
 import type {HdrSetting, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {selectionOrderRows, selectionOrderSummary} from '@renderer/lib/selectionOrderRows.js'
-import {draftSelectionOrder, SMART_TV_MP4_BLOCKED_TIERS, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileHdr, type DownloadProfileNativeAudio} from '../../store/wizard/downloadProfileDraft.js'
+import {draftSelectionOrder, SMART_TV_MP4_BLOCKED_TIERS, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileHdr, type DownloadProfileNativeAudio, type DownloadProfileVideoCodec} from '../../store/wizard/downloadProfileDraft.js'
 import {Button} from '../ui/button.js'
 import {Collapsible, CollapsibleContent, CollapsibleTrigger} from '../ui/collapsible.js'
 import {FieldDescription, Field, FieldGroup, FieldTitle} from '../ui/field.js'
@@ -28,6 +29,7 @@ const FILE_TYPE_LABEL_KEYS = {auto: 'fileType.auto', mp4: 'fileType.mp4', mkv: '
 const FILE_TYPE_DESCRIPTION_KEYS = {auto: 'fileType.description.auto', mp4: 'fileType.description.mp4', mkv: 'fileType.description.mkv', webm: 'fileType.description.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 
 const AI_UPSCALED_LABEL_KEYS = {skip: 'aiUpscaled.skip', allow: 'aiUpscaled.allow'} as const satisfies Record<AiUpscaled, ParseKeys>
+const VIDEO_CODEC_LABEL_KEYS = {auto: 'videoCodec.auto', vp9: 'videoCodec.vp9', h264: 'videoCodec.h264'} as const satisfies Record<DownloadProfileVideoCodec, ParseKeys>
 const HDR_LABEL_KEYS = {auto: 'hdrPreference.auto', sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrSetting, ParseKeys>
 
 const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
@@ -47,12 +49,14 @@ interface ProfileVideoPanelProps {
 // the order the profile picks streams by.
 export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdrSetting, onAction}: ProfileVideoPanelProps): ReactNode {
 	const {t} = useTranslation()
-	const {goal, resolution, fileType, nativeAudio, hdr, aiUpscaled, mediaMode} = draft
-	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default' || hdr !== 'default' || aiUpscaled !== 'skip')
+	const {goal, resolution, fileType, nativeAudio, hdr, aiUpscaled, videoCodec, mediaMode} = draft
+	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default' || hdr !== 'default' || aiUpscaled !== 'skip' || videoCodec !== 'auto')
 	const [orderOpen, setOrderOpen] = useState(false)
 	const order = draftSelectionOrder(draft, globalNativeAudioPreference, resolveAppHdr(globalHdrSetting))
 	const resolutionOptions = goal === 'smart-tv' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
-	const fileTypeOptions: SelectOption<VideoFileType>[] = VIDEO_FILE_TYPES.map(value => ({value, labelKey: FILE_TYPE_LABEL_KEYS[value], disabled: goal === 'smart-tv' && value === 'webm'}))
+	// WebM can't hold H.264, so a file type and a codec that clash are never both offered.
+	const fileTypeOptions: SelectOption<VideoFileType>[] = VIDEO_FILE_TYPES.map(value => ({value, labelKey: FILE_TYPE_LABEL_KEYS[value], disabled: value === 'webm' && (goal === 'smart-tv' || videoCodec === 'h264')}))
+	const videoCodecOptions: SelectOption<DownloadProfileVideoCodec>[] = [{value: 'auto', labelKey: VIDEO_CODEC_LABEL_KEYS.auto}, ...VIDEO_CODEC_PREFERENCES.map(value => ({value, labelKey: VIDEO_CODEC_LABEL_KEYS[value], disabled: !videoCodecAllowed(goal, fileType, value)}))]
 	const nativeAudioOptions: SelectOption<DownloadProfileNativeAudio>[] = [
 		{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(`wizard.url.nativeAudioPreference.${globalNativeAudioPreference}`)}},
 		{value: 'compatible', labelKey: 'wizard.url.nativeAudioPreference.compatible'},
@@ -99,6 +103,10 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 							<div className="flex flex-col gap-1">
 								<ProfileSelect label={t('wizard.profileEditor.field.fileType')} value={fileType} options={fileTypeOptions} onValueChange={next => onAction({type: 'set-file-type', fileType: next})} testId="profiles-editor-video-file-type" />
 								<FieldDescription>{goal === 'smart-tv' ? `${fileTypeDescription} ${t('fileType.smartTvNoWebm')}` : fileTypeDescription}</FieldDescription>
+							</div>
+							<div className="flex flex-col gap-1">
+								<ProfileSelect label={t('videoCodec.label')} value={videoCodec} options={videoCodecOptions} onValueChange={next => onAction({type: 'set-video-codec', videoCodec: next})} disabled={goal === 'smart-tv'} testId="profiles-editor-video-codec" />
+								<FieldDescription>{goal === 'smart-tv' ? t('videoCodec.smartTv') : t('videoCodec.description')}</FieldDescription>
 							</div>
 							<div className="flex flex-col gap-1">
 								<ProfileSelect label={t('hdrPreference.label')} value={hdr} options={hdrOptions} onValueChange={next => onAction({type: 'set-hdr', hdr: next})} testId="profiles-editor-hdr" />

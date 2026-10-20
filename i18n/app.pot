@@ -1462,6 +1462,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr ""
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr ""
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr ""
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr ""
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr ""
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr ""
@@ -1982,6 +1998,30 @@ msgstr ""
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
+msgstr ""
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr ""
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr ""
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr ""
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr ""
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr ""
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
 msgstr ""
 
 msgctxt "wizard.bulk.acceptedCount"
