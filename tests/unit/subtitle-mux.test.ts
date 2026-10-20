@@ -165,6 +165,20 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(tags).toEqual(['language=tam', 'language=slo', 'language=may', 'language=ice', 'language=wel', 'language=ger', 'language=fil', 'language=pt-BR'])
 	})
 
+	// An `-orig` key means a manual track in the same language is embedded too:
+	// both get the language's code, and the automatic one a title that tells them apart.
+	it('-orig track → its language code and an Auto-generated title', async () => {
+		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
+		vi.mocked(rename).mockResolvedValue(undefined)
+		vi.mocked(unlink).mockResolvedValue(undefined)
+
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.en.srt', '/tmp/v.en-orig.srt'], requestedLangs: ['en', 'en-orig'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+
+		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
+		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
+		expect(metadata).toEqual(['-metadata:s:s:0 language=eng', '-metadata:s:s:1 language=eng', '-metadata:s:s:1 title=Auto-generated'])
+	})
+
 	it('unknown / 3-letter lang passes through unchanged', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 		vi.mocked(rename).mockResolvedValue(undefined)

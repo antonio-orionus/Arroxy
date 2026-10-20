@@ -7,12 +7,26 @@ import {iso6392TTo2B} from 'iso-639-2/2t-to-2b.js'
 
 // Matroska's Language element takes ISO 639-2/B ("ger", not "de" or "deu").
 // Players still pick up other forms, but /B is what the spec asks for. A tag
-// with a region or script ("pt-BR", "zh-Hant", "en-orig") passes through
-// as-is: collapsing it onto one code would merge tracks the user picked apart.
+// with a region or script ("pt-BR", "zh-Hant") passes through as-is:
+// collapsing it onto one code would merge tracks the user picked apart.
 const TO_ISO_639_2B: ReadonlyMap<string, string> = new Map([...Object.entries(iso6392TTo2B), ...Object.entries(iso6392BTo1).map(([b, one]): [string, string] => [one, b])])
 
 function toIso639(lang: string): string {
 	return TO_ISO_639_2B.get(lang.toLowerCase()) ?? lang
+}
+
+// A YouTube automatic caption keeps its `-orig` key only beside a manual track
+// in the same language. ffmpeg writes the tag verbatim, and "en-orig" is no
+// ISO 639-2 code, so players show it raw and a language preference skips it.
+// It gets its language's code instead, and a title that tells the two apart.
+const ORIGINAL_CAPTION_SUFFIX = '-orig'
+const ORIGINAL_CAPTION_TITLE = 'Auto-generated'
+
+function subtitleTrackMetadata(lang: string, index: number): string[] {
+	const isOriginalCaption = lang.endsWith(ORIGINAL_CAPTION_SUFFIX)
+	const language = toIso639(isOriginalCaption ? lang.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : lang)
+	const stream = `-metadata:s:s:${index}`
+	return [stream, `language=${language}`, ...(isOriginalCaption ? [stream, `title=${ORIGINAL_CAPTION_TITLE}`] : [])]
 }
 
 // Matroska carries cover art as a file attachment, so it is re-added from a
@@ -28,9 +42,7 @@ export function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks:
 	args.push('-map', '0:V', '-map', '0:a?')
 	for (let i = 0; i < opts.subtitleTracks.length; i++) args.push('-map', String(i + 1))
 	args.push('-c', 'copy', '-c:s', 'srt')
-	for (let i = 0; i < opts.subtitleTracks.length; i++) {
-		args.push(`-metadata:s:s:${i}`, `language=${toIso639(opts.subtitleTracks[i].lang)}`)
-	}
+	opts.subtitleTracks.forEach((track, i) => args.push(...subtitleTrackMetadata(track.lang, i)))
 	if (opts.coverPath) args.push('-attach', opts.coverPath, '-metadata:s:t', 'mimetype=image/jpeg', '-metadata:s:t', `filename=${COVER_ART_ATTACHMENT_NAME}`)
 	args.push(opts.outputPath)
 	return args
