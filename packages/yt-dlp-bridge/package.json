@@ -74,6 +74,10 @@
 			"types": "./dist/option-catalog.d.ts",
 			"import": "./dist/option-catalog.js"
 		},
+		"./output-template": {
+			"types": "./dist/output-template.d.ts",
+			"import": "./dist/output-template.js"
+		},
 		"./parsers": {
 			"types": "./dist/parsers.d.ts",
 			"import": "./dist/parsers.js"

@@ -11,7 +11,7 @@ import type {DetectedDependency} from './types.js'
 
 export type {InspectWorkflowKind, ProbePlaylistMode, SubtitleFormat, SubtitleMode}
 export type {CallerOutput}
-export {templateLiteral} from './output-target.js'
+export {templateLiteral} from './output-template.js'
 
 export interface NetworkPacing {
 	sleepRequests?: number

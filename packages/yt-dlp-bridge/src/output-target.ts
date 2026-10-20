@@ -1,5 +1,6 @@
 import path from 'node:path'
 import {resolveManagedPath, type ResolvedOutputPolicy} from './filesystem.js'
+import {templateLiteral} from './output-template.js'
 import type {SubtitleMode} from './schemas.js'
 
 // Where a workflow writes, and every yt-dlp flag that says so. yt-dlp runs
@@ -8,7 +9,8 @@ import type {SubtitleMode} from './schemas.js'
 // `--load-info-json` and `--download-archive` with no escape at all on POSIX.
 // So no folder text reaches argv: the run's working directory is the folder
 // (`plan.cwd`), every path in argv is relative to it, and the only literal
-// text left, in the templates, goes through templateLiteral().
+// text left, in the templates, goes through templateLiteral()
+// (output-template.ts).
 
 export interface CallerOutput {
 	// Absolute: the job's folder and the run's working directory. Any characters.
@@ -38,23 +40,6 @@ const SUBTITLE_SUBFOLDER = 'subtitles'
 
 export function callerOutputTemplate(output: CallerOutput): string {
 	return output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
-}
-
-/**
- * Literal text for an output template (`-o`, a `--print-to-file` file). Each
- * `%`, `$` and `~` becomes an absent field whose default is that sign,
- * `%(_absent|$)s`. yt-dlp expands before it fills fields, so expansion never
- * sees a `$`, a leading `~` or a `%NAME%`, and the fill then puts the sign
- * back. Lossless on POSIX and Windows.
- *
- * Not `%%`: ntpath pairs `%` signs left to right, and one field before a `%%`
- * (yt-dlp's own escape) shifts the pairing so that a literal `%NAME%`
- * expands. Here every run between two `%` signs starts with `(` or `)`, which
- * no set variable's name does, and each sign adds two `%`, so the pairing of
- * what follows stays as it was.
- */
-export function templateLiteral(text: string): string {
-	return text.replace(/[%$~]/g, sign => `%(_absent|${sign})s`)
 }
 
 function relativeInside(directory: string, file: string): string | null {
