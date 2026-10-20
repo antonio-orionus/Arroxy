@@ -1,29 +1,43 @@
 # Project memory index
 
-- [Glow intensity policy](glow-intensity-policy.md) — home keeps the branded glow vocabulary; dense screens (settings/dialogs/logs/queue) stay calm.
-- [Backdrop WebGL scenes](backdrop-webgl-scenes.md) — the app background is a scene-selected WebGL backdrop: dark aurora and light ocean, with Canvas2D fallback before CSS.
-- [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron 42 can crash-loop `audio.mojom.AudioService`; disable out-of-process Audio Service on Darwin 25+.
+## How Antonio wants work done
+
 - [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
+- [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable only, never a beta.
+- [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared, auto reviews off: trigger behaviour PRs once on a final head, never push mid-review.
 - [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
+- [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`.
+- [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; tests only after the design is approved.
+- [Translate at the final stage](translate-at-final-stage.md) — en only during development (`check:i18n` red is accepted); translate once, right before the PR.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
-- [CodeRabbit review workflow](coderabbit-review-workflow.md) — triggers are a scarce shared quota (2/hour, 100 files/PR, auto reviews off): only behaviour-changing PRs get one, riskiest first; run Codex and the gates first, trigger once on a final head, never push mid-review ("Head commit changed" burns the trigger); poll `issues/<N>/comments` for all three outcomes.
-- [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never Radix `asChild`; `@testing-library/user-event` is not installed, use `fireEvent`.
-- [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint restricted-import globs need `**`.
-- [Windows VM testing](windows-vm-testing.md) — ssh into the local Win11 ARM64 VM to run `dist:win:dir` + `verify:startup` directly; gotchas: bash on PATH, x64-only inherited asset, node-not-bun for `_electron.launch`.
-- [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent/editor shells can carry `ELECTRON_RUN_AS_NODE=1`; hand-launched Electron then crashes with "no export named 'BrowserWindow'". Strip it or use `bun run smoke:download`.
-- [Linux VM testing](linux-vm-testing.md) — use the private Ubuntu VMware guest for Linux/Electron/runtime and GPU-specific checks; `scripts/vm/ubu-*` launch apps over ssh, test AppImage updates, build an arm64 Flatpak. Keep connection details outside the repository.
-- [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read the `theme:startup` log lines and never repro it by stopping xdg-desktop-portal.
-- [YouTube auto-caption -orig tracks](youtube-auto-caption-orig-tracks.md) — automatic_captions mixes byte-identical bare+-orig ASR twins with flaky tlang translations; subtitle 429 ≠ IP block.
-- [yt-dlp stdout corrupts scraped paths](ytdlp-stdout-drops-non-ascii.md) — four ways the stdout we scrape subtitle paths from mangles them, all failing silently as ENOENT; fixed with `--encoding utf-8` + a decoding line reader. The media path now comes from `--print-to-file after_move:filepath`.
-- [Dependabot never bumps overrides](dependabot-never-bumps-overrides.md) — stale `overrides` pins become the vulnerable versions; app.asar ships no node_modules (main bundles everything, guarded by check:main-bundle); never delete lock entries to re-resolve.
+- [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per entry, no internals, no exact sizes.
+
+## Releases and packaging
+
+- [Winget license after relicense](winget-license-after-relicense.md) — the 0.7.1 Winget PR copies `License: MIT`; fix it to GPL-3.0-or-later by hand, then delete this entry.
+- [Dependabot never bumps overrides](dependabot-never-bumps-overrides.md) — stale `overrides` pins become the vulnerable versions; app.asar ships no node_modules.
+- [macOS Gatekeeper quarantine](macos-gatekeeper-quarantine.md) — builds are ad-hoc signed ("could not verify", not "damaged"); the cask strips quarantine in `postflight_steps`.
+
+## Test machines and environment
+
+- [Windows VM testing](windows-vm-testing.md) — ssh into the Win11 ARM64 VM for `dist:win:dir` + `verify:startup`; bash on PATH, x64-only assets, node not bun.
+- [Linux VM testing](linux-vm-testing.md) — Ubuntu ARM64 guest for Linux/Electron/GPU checks; `scripts/vm/ubu-*` launch over ssh; never log the session out.
+- [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent shells can carry it; hand-launched Electron then fails on `BrowserWindow`. Strip it.
+- [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron 42 can crash-loop `audio.mojom.AudioService`; disabled out of process on Darwin 25+.
+- [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read `theme:startup` logs, never repro by stopping the portal.
+
+## Code gotchas
+
+- [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint globs need `**`.
+- [Renderer test & UI API gotchas](renderer-test-and-ui-api-gotchas.md) — base-nova takes a `render` prop, never `asChild`; no user-event, use `fireEvent`.
 - [shadcn CLI writes a bogus cn import](shadcn-cli-cn-import.md) — `shadcn add` imports from "cn" and installs an unrelated package; revert deps, fix the import.
-- [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`; code still goes through a PR.
 - [Download workflow map](download-workflow-map.md) — read `dev-docs/download-workflows.md` before changing how downloads start; update it with the change.
-- [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; write and run tests only after the user approves the design.
-- [Translate at the final stage](translate-at-final-stage.md) — app PO + README locales are translated once, right before the PR; during development en only, `check:i18n` red is accepted.
-- [Ship means merge, not release](ship-means-merge-not-release.md) — stop after the merge; release only on an explicit "release", since a pulled immutable release burns its tag and the Flatpak repo cannot roll back.
-- [macOS ffmpeg cannot verify HTTPS](macos-ffmpeg-cannot-verify-https.md) — embedded macOS ffmpeg has a dead CA path; fixed via SSL_CERT_FILE; the HTTP-only fixture E2E cannot see TLS bugs, so live-smoke anything where ffmpeg opens a URL.
-- [No betas](no-betas.md) — stable releases only; never gate a rollout on a `-beta.N`, use pre-merge evidence or shadow mode in a normal release.
-- [Probe source fixtures](probe-source-fixtures.md) — real probes of many sites as snapshots and "Real sites" mock scenarios; check Format-screen changes against them first.
-- [Changelog stays laconic](changelog-laconic.md) — CHANGELOG entries: one or two user-facing sentences, no internals, no exact sizes; read before writing release notes.
-- [Winget license after relicense](winget-license-after-relicense.md) — the 0.7.1 Winget PR copies `License: MIT` forward; set it to GPL-3.0-or-later by hand on the PR branch, then delete this entry.
+- [Probe source fixtures](probe-source-fixtures.md) — real probes of many sites as snapshots and "Real sites" scenarios; check Format-screen changes against them.
+- [yt-dlp stdout corrupts scraped paths](ytdlp-stdout-drops-non-ascii.md) — four silent ENOENT failure modes; the media path now comes from `--print-to-file`.
+- [YouTube auto-caption -orig tracks](youtube-auto-caption-orig-tracks.md) — bare+`-orig` ASR twins are identical, tlang translations are flaky; subtitle 429 ≠ IP block.
+- [macOS ffmpeg cannot verify HTTPS](macos-ffmpeg-cannot-verify-https.md) — fixed via SSL_CERT_FILE; fixture E2E is HTTP-only, so live-smoke URL-opening ffmpeg changes.
+
+## Visual design
+
+- [Glow intensity policy](glow-intensity-policy.md) — home keeps the branded glow; dense screens (settings, dialogs, logs, queue) stay calm.
+- [Backdrop WebGL scenes](backdrop-webgl-scenes.md) — WebGL dark aurora and light ocean scenes; without WebGL the CSS gradients take over (no Canvas2D).

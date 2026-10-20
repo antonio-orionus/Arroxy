@@ -1,5 +1,5 @@
 youtube-autodub: YouTube AI auto-dubbed audio tracks ("dubbed-auto") beside the original
-Make Your Film Sound 3D SPATIAL in Fairlight | DaVinci Resolve 360 & VR180 Ambisonic Masterclass · 1901 s · card says "1280x720" · 52 formats
+Make Your Film Sound 3D SPATIAL in Fairlight | DaVinci Resolve 360 & VR180 Ambisonic Masterclass · 1901 s · card says "1280x720" · 63 formats
 
 Video (picked for Balanced 720p •):
           SDR AV1         SDR VP9        SDR H.264
@@ -14,14 +14,15 @@ Video (picked for Balanced 720p •):
 
 Audio:
 tracks (English (US) original (default) shown): Spanish (US) · AI dubbed, Portuguese (BR) · AI dubbed, English (US) original (default)
-Opus: 113 kbps 25.5 MiB | 62 kbps 14.0 MiB | 50 kbps 11.3 MiB
-AAC: 129 kbps 29.3 MiB • | 49 kbps 22.05 kHz 11.0 MiB
+Opus: 113 kbps 25.5 MiB DRC | 113 kbps 25.5 MiB • | 62 kbps 14.0 MiB DRC | 62 kbps 14.0 MiB | 50 kbps 11.4 MiB DRC | 50 kbps 11.3 MiB
+AAC: 129 kbps 29.3 MiB DRC | 129 kbps 29.3 MiB | 49 kbps 22.05 kHz 11.0 MiB
+DRC switch shown
 
 Profile picks:
-balanced: 398 (1280x720, mp4) + audio 140-2 (audio only, m4a)
-best-quality: 401 (3840x2160, mp4) + audio 140-2 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140-2 (audio only, m4a)
-audio-only: audio 140-2 (audio only, m4a)
+balanced: 398 (1280x720, mp4) + audio 251-2 (audio only, webm)
+best-quality: 401 (3840x2160, mp4) + audio 251-2 (audio only, webm)
+mp4-1080: 137 (1920x1080, mp4) + audio 140-2 (audio only, m4a)
+audio-only: audio 251-2 (audio only, webm)
 
 Subtitles: zh, en
 Auto captions: en-orig

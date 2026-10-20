@@ -75,7 +75,7 @@ export function playlistSelectionProducesVideo(selection: PlaylistSelection): bo
 }
 
 export function playlistSubtitleOptions(selection: PlaylistSubtitleSelection): SubtitleOptions {
-	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, ...subtitleSourceOptions(selection.source), includeRegionalVariants: true}
+	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, ...subtitleSourceOptions(selection.source), languagesAreCodes: true}
 }
 
 export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaIntent | null {

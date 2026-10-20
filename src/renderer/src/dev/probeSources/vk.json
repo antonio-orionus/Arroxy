@@ -2,10 +2,14 @@
 	"source": {
 		"id": "vk",
 		"url": "https://vk.com/video-77521_162222515",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
+		"_format_sort_fields": [
+			"res",
+			"source"
+		],
 		"id": "-77521_162222515",
 		"title": "ProtivoGunz - Хуёвая песня",
 		"thumbnail": "https://sun9-55.userapi.com/c840729/v840729660/45fcc/VCSnkc3l4C4.jpg",
@@ -18,20 +22,28 @@
 		"upload_date": "20120212",
 		"timestamp": 1329049880,
 		"formats": [
-			{"format_id":"dash_sep-3","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":36.638,"vbr":0,"abr":36.638,"asr":44100,"filesize":893069,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https"},
-			{"format_id":"dash_sep-4","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":53.044,"vbr":0,"abr":53.044,"asr":44100,"filesize":1292949,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https"},
-			{"format_id":"hls_fmp4-12_4-Audio","ext":"mp4","resolution":"audio only","format_note":"Audio, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"has_drm":false},
-			{"format_id":"hls_fmp4-12_0-Audio","ext":"mp4","resolution":"audio only","format_note":"Audio, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"has_drm":false},
-			{"format_id":"hls-144","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":144.115,"dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"dash_sep-1","ext":"mp4","resolution":"192x144","format_note":"DASH video","width":192,"height":144,"fps":25,"tbr":83.138,"vbr":83.138,"abr":0,"filesize":1842263,"vcodec":"avc1.64000B","acodec":"none","dynamic_range":"SDR","protocol":"https"},
-			{"format_id":"hls_fmp4-111","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":111.967,"vbr":111.967,"abr":0,"vcodec":"avc1.64000B","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"url144","ext":"mp4","resolution":"144p","height":144,"filesize":2682422,"dynamic_range":"SDR","protocol":"https","source_preference":1},
-			{"format_id":"hls-348","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":348.701,"dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"dash_sep-2","ext":"mp4","resolution":"320x240","format_note":"DASH video","width":320,"height":240,"fps":25,"tbr":275.192,"vbr":275.192,"abr":0,"filesize":6055062,"vcodec":"avc1.64000D","acodec":"none","dynamic_range":"SDR","protocol":"https"},
-			{"format_id":"hls_fmp4-300","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":300.782,"vbr":300.782,"abr":0,"vcodec":"avc1.64000D","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"url240","ext":"mp4","resolution":"240p","height":240,"filesize":7295101,"dynamic_range":"SDR","protocol":"https","source_preference":1}
+			{"format_id":"dash_sep-3","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":36.638,"vbr":0,"abr":36.638,"asr":44100,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","manifest_url":"https://manifest.invalid/"},
+			{"format_id":"dash_sep-4","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":53.044,"vbr":0,"abr":53.044,"asr":44100,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls_fmp4-12_4-Audio","ext":"mp4","resolution":"audio only","format_note":"Audio, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls_fmp4-12_0-Audio","ext":"mp4","resolution":"audio only","format_note":"Audio, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-144","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":144.115,"dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"dash_sep-1","ext":"mp4","resolution":"192x144","format_note":"DASH video","width":192,"height":144,"fps":25,"tbr":83.138,"vbr":83.138,"abr":0,"vcodec":"avc1.64000B","acodec":"none","dynamic_range":"SDR","protocol":"https","manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls_fmp4-111","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":25,"tbr":111.967,"vbr":111.967,"abr":0,"vcodec":"avc1.64000B","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"url144","ext":"mp4","resolution":"144p","height":144,"dynamic_range":"SDR","protocol":"https","source_preference":1},
+			{"format_id":"hls-348","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":348.701,"dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"dash_sep-2","ext":"mp4","resolution":"320x240","format_note":"DASH video","width":320,"height":240,"fps":25,"tbr":275.192,"vbr":275.192,"abr":0,"vcodec":"avc1.64000D","acodec":"none","dynamic_range":"SDR","protocol":"https","manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls_fmp4-300","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":25,"tbr":300.782,"vbr":300.782,"abr":0,"vcodec":"avc1.64000D","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"url240","ext":"mp4","resolution":"240p","height":240,"dynamic_range":"SDR","protocol":"https","source_preference":1}
 		],
 		"subtitles": {},
 		"automatic_captions": {}
+	},
+	"lookedUpSizes": {
+		"url240": 7295101,
+		"dash_sep-1": 1842263,
+		"url144": 2682422,
+		"dash_sep-4": 1292949,
+		"dash_sep-2": 6055062,
+		"dash_sep-3": 893069
 	}
 }

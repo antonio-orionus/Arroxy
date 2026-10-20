@@ -625,3 +625,101 @@ describe('unbound fallback title cap', () => {
 		expect(validateFilenameTemplate(`${'a'.repeat(FILENAME_TEMPLATE_MAX)}{title}`)).toEqual({ok: false, code: 'too-long'})
 	})
 })
+
+describe('shell expansion in yt-dlp output paths', () => {
+	// yt-dlp runs os.path.expandvars and expanduser over the whole `-o` template
+	// and every `--paths` value before it fills in any field. Field values are
+	// safe; literal text is not. A title bound into the template as literal text
+	// must therefore never reach yt-dlp with a `$NAME` it would expand, or with a
+	// leading `~` that Windows resolves to another user's profile directory.
+	it('neutralises a variable reference in a bound title', () => {
+		expect(bound('{title} [{id}]', {title: 'Why $HOME rules', id: 'abc'})).toBe('Why ＄HOME rules [abc]')
+		expect(bound('{title} [{id}]', {title: '${USER} and $$PATH', id: 'abc'})).toBe('＄_USER_ and ＄＄PATH [abc]')
+	})
+
+	it('leaves a dollar sign that cannot start a variable alone', () => {
+		expect(bound('{title} [{id}]', {title: 'I spent $100 on a $ sign', id: 'abc'})).toBe('I spent $100 on a $ sign [abc]')
+	})
+
+	it('neutralises a dollar sign that ends a value, since what follows it can change', () => {
+		// A cut or a neighbouring token can put a letter right after it.
+		expect(bound('{title} [{id}]', {title: 'Make it rain $', id: 'abc'})).toBe('Make it rain ＄ [abc]')
+	})
+
+	it('neutralises a leading tilde, which Windows expands to a profile directory', () => {
+		expect(bound('{title} [{id}]', {title: '~foo bar', id: 'abc'})).toBe('～foo bar [abc]')
+		expect(bound('{title} ~ [{id}]', {title: 'mid', id: 'abc'})).toBe('mid ~ [abc]')
+	})
+
+	it('neutralises bound uploader and playlist values too', () => {
+		expect(bound('{uploader} - {playlist_title} - {title}', {title: 't', uploader: '$USER', playlistTitle: '${HOME}'})).toBe('＄USER - ＄_HOME_ - t')
+	})
+
+	it('counts the wider look-alike against the byte budget', () => {
+		const result = bindFilenameTemplate('{title} [{id}]', {title: '$A'.repeat(200), id: 'abc'}, LINUX)
+		if (!result.ok) throw new Error(result.reason)
+		expect(result.template).not.toMatch(/\$[A-Za-z_{$]/)
+		expect(utf8Bytes(`${result.template}.mp4`)).toBeLessThanOrEqual(255)
+	})
+
+	it('neutralises literal text in the compiled -o, whatever bound it', () => {
+		expect(compiled('Why $HOME rules [abc]')).toBe('Why ＄HOME rules [abc].%(ext)s')
+		expect(compiled('~root [{id}]')).toBe('～root [%(id)s].%(ext)s')
+		expect(compiled('{title} ~ $5')).toBe('%(title).120B ~ $5.%(ext)s')
+	})
+
+	it('neutralises variables in rendered directories, including the Windows %NAME% form', () => {
+		expect(renderTemplateDirs('{uploader}/{title}', {uploader: '$USER'})).toEqual(['＄USER'])
+		expect(renderTemplateDirs('{playlist_title}/{title}', {playlistTitle: '%TEMP% and 100%% mix'})).toEqual(['％TEMP% and 100％% mix'])
+		expect(renderTemplateDirs('{playlist_title}/{title}', {playlistTitle: '100% Hits'})).toEqual(['100% Hits'])
+	})
+
+	it('shows the neutralised name in the live preview', () => {
+		expect(previewFilenameTemplate('$HOME {title}')).toBe('＄HOME Big Buck Bunny.mp4')
+	})
+})
+
+describe('shell expansion across bound pieces', () => {
+	it('catches a reference formed by a literal dollar before a bound value', () => {
+		// Neither piece holds `$HOME` alone; the name does.
+		expect(bound('${title} [{id}]', {title: 'HOME', id: 'abc'})).toBe('＄HOME [abc]')
+	})
+
+	it('neutralises a literal dollar before a late-bound field too, so one rule covers every piece', () => {
+		// yt-dlp fills the field in after expanding, so this one was safe, but a
+		// rule that looks past a piece's end cannot hold under truncation.
+		expect(bound('${title} [{id}]', {id: 'abc'})).toBe('＄{title} [abc]')
+	})
+})
+
+describe('shell expansion and the byte budget', () => {
+	const REFERENCE = /\$(?=[A-Za-z_{$])/
+	// What yt-dlp writes for a compiled template, given the extension.
+	function written(template: string): string {
+		return compiled(template).replace('.%(ext)s', '.mp4').replaceAll('%%', '%')
+	}
+
+	it('budgets every occurrence of a repeated token as it will be written', () => {
+		// Thirteen copies of a title ending in `$`. Measured with the ASCII `$` this
+		// "fit" at 231 bytes and was written at 259; measured as written, it does not fit.
+		const template = `{title} ${'{title}A'.repeat(12)}{id}{uploader}`
+		const meta = {title: 'abcdefghijklm$', id: 'x'.repeat(24), uploader: 'u'.repeat(100)}
+		expect(bindFilenameTemplate(template, meta, LINUX)).toEqual({ok: false, reason: 'template-cannot-fit'})
+		// With room to spare, every copy is neutralised and the name fits as written.
+		const roomy = bound(`{title} ${'{title}A'.repeat(4)}{id}{uploader}`, meta)
+		expect(roomy).not.toMatch(REFERENCE)
+		expect(roomy.split('＄')).toHaveLength(6)
+		expect(utf8Bytes(written(roomy))).toBeLessThanOrEqual(255)
+	})
+
+	it('never lets truncation leave a dollar sign before a letter', () => {
+		// Shifting the title by one character moves where the cut lands, so one of
+		// these ends the kept part on `$`, right before the literal `B`.
+		for (let shift = 0; shift < 6; shift++) {
+			const result = bindFilenameTemplate('{title}B [{id}]', {title: `${'z'.repeat(shift)}${'a$ '.repeat(120)}`, id: 'abc'}, LINUX)
+			if (!result.ok) throw new Error(result.reason)
+			expect(result.template).not.toMatch(REFERENCE)
+			expect(utf8Bytes(written(result.template))).toBeLessThanOrEqual(255)
+		}
+	})
+})

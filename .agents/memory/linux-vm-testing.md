@@ -1,7 +1,8 @@
 ---
 name: linux-vm-testing
 description: Use the local Ubuntu VMware VM for Linux-side Arroxy and Electron verification without CI iteration.
-type: reference
+metadata:
+  type: reference
 ---
 
 # Ubuntu Linux VM testing

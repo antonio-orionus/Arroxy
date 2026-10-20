@@ -94,9 +94,11 @@ const FORMAT_FIELDS = [
 	'source_preference',
 	'preference',
 	'quality',
-	'has_drm'
+	'has_drm',
+	'manifest_url'
 ] as const
-const INFO_FIELDS = ['id', 'title', 'thumbnail', 'duration', 'webpage_url', 'extractor', 'extractor_key', 'is_live', 'live_status', 'availability', 'has_drm', 'age_limit', 'uploader', 'channel', 'upload_date', 'timestamp', 'chapters'] as const
+// `_format_sort_fields` is the extractor's own sort, which yt-dlp applies after -S.
+const INFO_FIELDS = ['_format_sort_fields', 'id', 'title', 'thumbnail', 'duration', 'webpage_url', 'extractor', 'extractor_key', 'is_live', 'live_status', 'availability', 'has_drm', 'age_limit', 'uploader', 'channel', 'upload_date', 'timestamp', 'chapters'] as const
 
 function pick(source: Record<string, unknown>, fields: readonly string[]): Record<string, unknown> {
 	return Object.fromEntries(fields.flatMap(field => (source[field] === undefined || source[field] === null ? [] : [[field, source[field]]])))
@@ -127,6 +129,12 @@ function thumbnailWithoutQuery(thumbnail: unknown): {thumbnail?: string} {
 	return typeof thumbnail === 'string' ? {thumbnail: thumbnail.split('?')[0]} : {}
 }
 
+// A manifest URL is signed and expires; whether a stream has one is what
+// yt-dlp reads (it estimates no size for it), so a placeholder stands in.
+function withRedactedManifest(format: Record<string, unknown>): Record<string, unknown> {
+	return typeof format.manifest_url === 'string' ? {...format, manifest_url: 'https://manifest.invalid/'} : format
+}
+
 // Tab-indented, but one format per line: a recapture diffs by stream.
 function serialize(fixture: {source: unknown; info: Record<string, unknown> & {formats: unknown[]}}): string {
 	const formats = fixture.info.formats.map(format => `\t\t\t${JSON.stringify(format)}`).join(',\n')
@@ -142,11 +150,14 @@ async function capture(source: ProbeSource, cookieJar: (scope: SignInScope) => P
 	const info: unknown = JSON.parse(stdout)
 	if (!isRecord(info)) throw new Error(`${id}: yt-dlp returned no info dict`)
 	const rawFormats = z.array(ytDlpFormatSchema).parse(Array.isArray(info.formats) ? info.formats : [])
-	const sized = id.startsWith('youtube') ? rawFormats : await lookUpMissingSizes(rawFormats, fetchHeadLength, AbortSignal.timeout(15_000))
-	const formats = sized.map(format => pick(format, FORMAT_FIELDS))
+	// Sizes the app looks up are kept apart from yt-dlp's own fields, which the
+	// selection parity check feeds back to yt-dlp as it saw them.
+	const lookedUp = id.startsWith('youtube') ? new Map<string, number>() : await lookUpMissingSizes(rawFormats, fetchHeadLength, AbortSignal.timeout(15_000))
+	const formats = rawFormats.map(format => withRedactedManifest(pick(format, FORMAT_FIELDS)))
 	const fixture = {
 		source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === undefined ? {} : {signedIn: true})},
-		info: {...pick(info, INFO_FIELDS), ...thumbnailWithoutQuery(info.thumbnail), formats, subtitles: subtitleKeys(info.subtitles), automatic_captions: subtitleKeys(info.automatic_captions)}
+		info: {...pick(info, INFO_FIELDS), ...thumbnailWithoutQuery(info.thumbnail), formats, subtitles: subtitleKeys(info.subtitles), automatic_captions: subtitleKeys(info.automatic_captions)},
+		...(lookedUp.size > 0 ? {lookedUpSizes: Object.fromEntries(lookedUp)} : {})
 	}
 	await writeFile(path.join(OUT_DIR, `${id}.json`), serialize(fixture))
 	console.log(`${id}: ${formats.length} formats → ${id}.json`)

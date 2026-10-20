@@ -2,10 +2,13 @@
 	"source": {
 		"id": "archive",
 		"url": "https://archive.org/details/BigBuckBunny_124",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
+		"_format_sort_fields": [
+			"source"
+		],
 		"id": "BigBuckBunny_124",
 		"title": "Big Buck Bunny",
 		"thumbnail": "https://archive.org/download/BigBuckBunny_124/BigBuckBunny_124.thumbs/Content/big_buck_bunny_720p_surround_000585.jpg",

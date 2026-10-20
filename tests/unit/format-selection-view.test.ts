@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {selectView} from '@renderer/store/formatSelectionView.js'
+import {listedAudioFormats, selectView} from '@renderer/store/formatSelectionView.js'
 import {buildFormatId} from '@renderer/store/helpers.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'
@@ -346,5 +346,15 @@ describe('buildFormatId — conversions', () => {
 	it("names the chosen language's stream for a conversion, and nothing when the default track converts", () => {
 		expect(buildFormatId('', {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192, sourceFormatId: '251-es'})).toBe('251-es')
 		expect(buildFormatId('', {kind: 'convert-lossless', target: 'wav'})).toBeUndefined()
+	})
+})
+
+describe('listedAudioFormats', () => {
+	const audio = (formatId: string, extra: Partial<FormatOption> = {}): FormatOption => ({formatId, label: formatId, ext: 'mp4', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, ...extra})
+
+	it('lists an unnamed-codec copy only where its language has no named track, or when it is picked', () => {
+		const formats = [audio('234'), audio('140', {audioCodec: 'mp4a.40.2', ext: 'm4a'}), audio('234-de', {audioLanguage: 'de'}), audio('140-en', {audioCodec: 'mp4a.40.2', audioLanguage: 'en'})]
+		expect(listedAudioFormats(formats, [null]).map(f => f.formatId)).toEqual(['140', '234-de', '140-en'])
+		expect(listedAudioFormats(formats, ['234']).map(f => f.formatId)).toEqual(['234', '140', '234-de', '140-en'])
 	})
 })

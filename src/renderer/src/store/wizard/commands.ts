@@ -4,6 +4,7 @@
 // links) land here so individual slice files stay focused on their domain.
 
 import {DEFAULTS} from '@shared/constants.js'
+import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
@@ -65,6 +66,7 @@ export const RESET_WIZARD_STATE = {
 	...QUICK_DOWNLOAD_FEEDBACK_INITIAL,
 	// formatPicker
 	wizardFormats: [] as FormatOption[],
+	wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 	selectedVideoFormatId: '',
 	audioSelection: {kind: 'none' as const},
 	wizardSilencedAudio: null as AudioSelection | null,

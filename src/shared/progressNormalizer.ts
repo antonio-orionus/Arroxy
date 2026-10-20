@@ -1,27 +1,8 @@
 import {nextMonotonicPercent} from './progressFormat.js'
 
+// 100% belongs to the terminal status: a running job can still merge, convert
+// or fail after its last byte.
 const RUNNING_MAX_PERCENT = 99.9
-
-interface FragmentProgress {
-	index: number
-	total: number
-}
-
-function parseFragmentProgress(line: string): FragmentProgress | null {
-	const match = /\(frag\s+(\d+)\/(\d+)\)/.exec(line)
-	if (!match) return null
-
-	const index = Number.parseInt(match[1], 10)
-	const total = Number.parseInt(match[2], 10)
-	if (!Number.isFinite(index) || !Number.isFinite(total) || total <= 0) return null
-
-	return {index, total}
-}
-
-function isHlsBootstrapComplete(line: string, percent: number): boolean {
-	const fragment = parseFragmentProgress(line)
-	return fragment !== null && fragment.index === 0 && percent >= RUNNING_MAX_PERCENT
-}
 
 /**
  * A Part of video download is ffmpeg's, which prints no percent, only how much
@@ -35,13 +16,9 @@ export function ffmpegPartPercent(line: string, partSeconds: number): number | u
 	return (written / partSeconds) * 100
 }
 
-export class ProgressNormalizer {
-	nextRunningPercent(current: number, incoming: {line: string; percent?: number}): number {
-		if (incoming.percent === undefined || !Number.isFinite(incoming.percent)) return current
-		if (isHlsBootstrapComplete(incoming.line, incoming.percent)) return current
-
-		const boundedCurrent = Math.min(current, RUNNING_MAX_PERCENT)
-		const boundedIncoming = Math.min(RUNNING_MAX_PERCENT, Math.max(0, incoming.percent))
-		return nextMonotonicPercent(boundedCurrent, boundedIncoming)
-	}
+// The incoming percent already covers every stream of the download (see the
+// bridge's progress tracker), so the bar only ever moves forward.
+export function nextRunningPercent(current: number, incoming: number | undefined): number {
+	if (incoming === undefined || !Number.isFinite(incoming)) return current
+	return nextMonotonicPercent(Math.min(current, RUNNING_MAX_PERCENT), Math.min(RUNNING_MAX_PERCENT, Math.max(0, incoming)))
 }

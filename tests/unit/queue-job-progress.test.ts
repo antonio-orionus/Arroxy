@@ -21,6 +21,19 @@ function event(line: string): ProgressEvent {
 }
 
 describe('QueueJobProgress', () => {
+	it("shows yt-dlp's speed and time left beside the percent", () => {
+		const progress = new QueueJobProgress()
+		const item = makeItem({id: 'a', status: 'running', progressPercent: 30})
+		const update = progress.read(item, {...event('[yt-dlp-bridge:progress] {}'), percent: 40, speedBps: 1024 ** 2, etaSeconds: 65})
+		expect(update).toEqual({percent: 40, detail: '1.00MiB/s • ETA 1:05'})
+	})
+
+	it('never moves the percent backward', () => {
+		const progress = new QueueJobProgress()
+		const item = makeItem({id: 'a', status: 'running', progressPercent: 60})
+		expect(progress.read(item, {...event('[yt-dlp-bridge:progress] {}'), percent: 55})?.percent).toBe(60)
+	})
+
 	it('derives a Part download percent from ffmpeg time= against the part length', () => {
 		const progress = new QueueJobProgress()
 		const item = makeItem({id: 'a', status: 'running', job: PART_JOB})

@@ -70,8 +70,10 @@ never in the download path.
   structure built from the profile and the global settings. Three outputs
   are derived from it and never written by hand again: the yt-dlp `-S`
   sort (Quick Download, playlists later), the comparator the Interactive
-  pick uses, and the readable ladder in the UI. A parity test runs the
-  comparator and yt-dlp's own sort over recorded probes.
+  pick uses, and the readable ladder in the UI. The Interactive pick
+  evaluates the same `-f`/`-S` strings through a translation of yt-dlp's sort and
+  selector, and `bun run check:selection-parity` holds it to a pinned
+  yt-dlp over every recorded probe (ADR 0013).
 - **D2. A goal, not a codec.** The profile's video choice names what the
   file is for, following the Two-Audience Rule in `DESIGN.md` (plain name,
   technical tag, tooltip):

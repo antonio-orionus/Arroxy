@@ -5,6 +5,7 @@
 // store slices only call it and `set()` the result.
 
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
+import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {audioCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
@@ -33,6 +34,7 @@ export interface WizardSettingsSnapshot {
 export interface ProfileApplicationInput {
 	profile: DownloadProfile
 	formats: readonly FormatOption[]
+	selection: FormatSelectionSource
 	subtitles: SubtitleMap
 	automaticCaptions: SubtitleMap
 	isAudioOnlySource: boolean
