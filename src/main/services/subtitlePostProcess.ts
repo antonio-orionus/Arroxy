@@ -13,7 +13,7 @@ import {dedupeVtt} from './vttDedupe.js'
 import {normalizeCueOverlaps} from './cueOverlap.js'
 import {runFfmpeg} from './ffmpegRun.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
-import {detectSubtitleLang} from '@shared/subtitlePath.js'
+import {detectSubtitleLang, subtitleTrackKey} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
 import {buildCoverExtractArgs, buildSubtitleEmbedArgs} from './subtitleEmbedArgs.js'
@@ -104,10 +104,16 @@ export interface MuxResult {
 // Lang attribution is strict: each sub path must end in `.<lang>.<ext>` for
 // one of the requested langs. Unknown → 'und' (no positional fallback —
 // yt-dlp doesn't guarantee output order matches input order).
-export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; keepCoverArt: boolean; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
+// `trackNames` holds each track key's name (see `readSubtitleTrackNames`); a
+// track yt-dlp has no name for is embedded without a title.
+export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; trackNames?: ReadonlyMap<string, string>; keepCoverArt: boolean; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
 	if (opts.subtitlePaths.length === 0) return {ok: false}
 
-	const tracks = opts.subtitlePaths.map(path => ({path, lang: detectSubtitleLang(path, opts.requestedLangs) ?? 'und'}))
+	const tracks = opts.subtitlePaths.map(path => {
+		const key = subtitleTrackKey(path)
+		const name = key === null ? undefined : opts.trackNames?.get(key)
+		return {path, lang: detectSubtitleLang(path, opts.requestedLangs) ?? 'und', ...(name ? {name} : {})}
+	})
 
 	const stem = opts.videoPath.replace(/\.[^.\\/]+$/, '')
 	const outputPath = `${stem}.${EMBED_SUBTITLE_CONTAINER_EXT}`

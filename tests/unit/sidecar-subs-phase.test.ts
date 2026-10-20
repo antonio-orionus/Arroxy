@@ -253,6 +253,16 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 		expect(ctx.active.subtitlePaths).toEqual(['/tmp/video.en.srt', '/tmp/video.es.srt'])
 	})
 
+	// yt-dlp embeds each track's name as its title; the names come from the
+	// media run's info-json, the one the tracks were resolved from.
+	it("hands the mux each track's name from the media run's info-json", async () => {
+		const tempDir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		await writeFile(join(tempDir, '_arroxy.info.json'), JSON.stringify({id: 'test', subtitles: {en: [{ext: 'vtt', name: 'English'}]}, automatic_captions: {}}))
+		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {tempDir}))
+		expect(Object.fromEntries(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].trackNames ?? [])).toEqual({en: 'English'})
+		await rm(tempDir, {recursive: true, force: true})
+	})
+
 	it('keeps the cover art only when the job embeds the thumbnail', async () => {
 		await SidecarSubsPhase(true).run(makeCtx(SUCCESS))
 		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].keepCoverArt).toBe(false)

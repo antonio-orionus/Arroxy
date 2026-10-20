@@ -179,6 +179,66 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(metadata).toEqual(['-metadata:s:s:0 language=eng', '-metadata:s:s:1 language=eng', '-metadata:s:s:1 title=Auto-generated'])
 	})
 
+	// yt-dlp's EmbedSubtitle writes each track's name as its title and handler
+	// name, so players show "English (United Kingdom)" rather than a bare code.
+	it('a named track → its name as title and handler_name, as yt-dlp embeds it', async () => {
+		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
+
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.en-GB.srt', '/tmp/v.ja.srt'], requestedLangs: ['en-GB', 'ja'], trackNames: new Map([['en-GB', 'English (United Kingdom)']]), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+
+		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
+		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
+		expect(metadata).toEqual(['-metadata:s:s:0 language=en-GB', '-metadata:s:s:0 handler_name=English (United Kingdom)', '-metadata:s:s:0 title=English (United Kingdom)', '-metadata:s:s:1 language=jpn'])
+	})
+
+	// Names go by the key in the file name, which is the track yt-dlp wrote,
+	// not the language code the path was attributed to.
+	it('looks a name up by the track key in the file name', async () => {
+		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
+
+		await muxSubtitlesIntoVideo({
+			ffmpegPath: '/fake/ffmpeg',
+			videoPath: '/tmp/v.mkv',
+			subtitlePaths: ['/tmp/v.de-DE.srt'],
+			requestedLangs: ['de'],
+			trackNames: new Map([
+				['de', 'German'],
+				['de-DE', 'German (Germany)']
+			]),
+			keepCoverArt: false,
+			onSpawn: vi.fn(),
+			jobId: JOB_ID
+		})
+
+		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
+		expect(args).toContain('title=German (Germany)')
+		expect(args).not.toContain('title=German')
+	})
+
+	// The automatic caption beside a manual track keeps the title that tells the
+	// two apart; its name ("English (Original)") still goes in the handler name.
+	it('a named -orig track → Auto-generated title, its name as handler_name', async () => {
+		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
+
+		await muxSubtitlesIntoVideo({
+			ffmpegPath: '/fake/ffmpeg',
+			videoPath: '/tmp/v.mkv',
+			subtitlePaths: ['/tmp/v.en.srt', '/tmp/v.en-orig.srt'],
+			requestedLangs: ['en', 'en-orig'],
+			trackNames: new Map([
+				['en', 'English'],
+				['en-orig', 'English (Original)']
+			]),
+			keepCoverArt: false,
+			onSpawn: vi.fn(),
+			jobId: JOB_ID
+		})
+
+		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
+		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
+		expect(metadata).toEqual(['-metadata:s:s:0 language=eng', '-metadata:s:s:0 handler_name=English', '-metadata:s:s:0 title=English', '-metadata:s:s:1 language=eng', '-metadata:s:s:1 handler_name=English (Original)', '-metadata:s:s:1 title=Auto-generated'])
+	})
+
 	it('unknown / 3-letter lang passes through unchanged', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 		vi.mocked(rename).mockResolvedValue(undefined)

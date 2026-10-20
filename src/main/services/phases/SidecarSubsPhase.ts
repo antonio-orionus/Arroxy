@@ -3,16 +3,17 @@ import {DEFAULTS} from '@shared/constants.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
+import type {SubtitleOptions} from '@shared/preparedJob.js'
 import {join} from 'node:path'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome} from './phaseHelpers.js'
-import {resolveSubtitleTracks} from './subtitleTracks.js'
+import {readSubtitleTrackNames, resolveSubtitleTracks} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {forgetOnExit} from '../download/processControl.js'
 import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
 
-async function runEmbedMux(ctx: PhaseContext, subtitleLanguages: readonly string[]): Promise<boolean> {
+async function runEmbedMux(ctx: PhaseContext, subs: SubtitleOptions, infoJsonPaths: readonly (string | undefined)[]): Promise<boolean> {
 	const {active, ytDlp} = ctx
 	const {job, input} = active
 
@@ -29,6 +30,7 @@ async function runEmbedMux(ctx: PhaseContext, subtitleLanguages: readonly string
 	ctx.emitStatus('download', STATUS_KEY.mergingFormats)
 
 	const preparedJob = input.job
+	const trackNames = await readSubtitleTrackNames(subs, {infoJsonPaths})
 
 	let result: Awaited<ReturnType<typeof muxSubtitlesIntoVideo>>
 	try {
@@ -36,7 +38,8 @@ async function runEmbedMux(ctx: PhaseContext, subtitleLanguages: readonly string
 			ffmpegPath,
 			videoPath: active.mediaPath,
 			subtitlePaths: active.subtitlePaths,
-			requestedLangs: subtitleLanguages,
+			requestedLangs: subs.languages,
+			trackNames,
 			keepCoverArt: preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail,
 			onSpawn: proc => {
 				active.ffmpegProcess = proc
@@ -93,7 +96,8 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			// The media run's info-json first: same identity, and written moments ago.
-			const subs = await resolveSubtitleTracks(requested, {infoJsonPaths: [active.tempDir ? join(active.tempDir, INFO_JSON_NAME) : undefined, input.probeInfoJsonPath], site, jobId: job.id})
+			const infoJsonPaths = [active.tempDir ? join(active.tempDir, INFO_JSON_NAME) : undefined, input.probeInfoJsonPath]
+			const subs = await resolveSubtitleTracks(requested, {infoJsonPaths, site, jobId: job.id})
 			if (subs.languages.length === 0) {
 				logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, languages: requested.languages})
 				return {kind: 'completed'}
@@ -141,7 +145,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			if (embedAfter) {
-				const muxOk = await runEmbedMux(ctx, subs.languages)
+				const muxOk = await runEmbedMux(ctx, subs, infoJsonPaths)
 				if (active.pauseRequested) return {kind: 'paused'}
 				if (active.cancelRequested) return {kind: 'cancelled'}
 				if (!muxOk) return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}

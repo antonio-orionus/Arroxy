@@ -23,8 +23,14 @@ const TRACK_KEY_REGEX = new RegExp(`\\.([\\w-]+)\\.(${EXTS_ALT})$`, 'i')
 // dot, which avoids the "Tutorial 1.0.en.srt" → `0` false-positive. Returns
 // null if no requested lang matches; callers should fall back to 'und' (not to
 // a positional guess).
+// The track key yt-dlp wrote a subtitle file under: the `<lang>` segment of
+// `.<lang>.<ext>`, or null for a path not shaped like one.
+export function subtitleTrackKey(path: string): string | null {
+	return TRACK_KEY_REGEX.exec(path)?.[1] ?? null
+}
+
 export function detectSubtitleLang(path: string, requestedLangs: readonly string[]): string | null {
-	const trackKey = TRACK_KEY_REGEX.exec(path)?.[1]
+	const trackKey = subtitleTrackKey(path)
 	if (!trackKey) return null
 	return requestedLangs.find(lang => lang.toLowerCase() === trackKey.toLowerCase()) ?? requestedLangs.find(lang => matchesSubtitleLanguage(lang, trackKey)) ?? null
 }

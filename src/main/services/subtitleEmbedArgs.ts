@@ -22,18 +22,29 @@ function toIso639(lang: string): string {
 const ORIGINAL_CAPTION_SUFFIX = '-orig'
 const ORIGINAL_CAPTION_TITLE = 'Auto-generated'
 
-function subtitleTrackMetadata(lang: string, index: number): string[] {
-	const isOriginalCaption = lang.endsWith(ORIGINAL_CAPTION_SUFFIX)
-	const language = toIso639(isOriginalCaption ? lang.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : lang)
+interface SubtitleEmbedTrack {
+	path: string
+	lang: string
+	// The track's name in the info-json ("English (United Kingdom)").
+	name?: string
+}
+
+// As yt-dlp's EmbedSubtitle does, a track's name becomes its handler name and
+// its title, which is what players list it by. An original-language caption
+// keeps the title that tells it from the manual track instead.
+function subtitleTrackMetadata(track: SubtitleEmbedTrack, index: number): string[] {
+	const isOriginalCaption = track.lang.endsWith(ORIGINAL_CAPTION_SUFFIX)
+	const language = toIso639(isOriginalCaption ? track.lang.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : track.lang)
+	const title = isOriginalCaption ? ORIGINAL_CAPTION_TITLE : track.name
 	const stream = `-metadata:s:s:${index}`
-	return [stream, `language=${language}`, ...(isOriginalCaption ? [stream, `title=${ORIGINAL_CAPTION_TITLE}`] : [])]
+	return [stream, `language=${language}`, ...(track.name ? [stream, `handler_name=${track.name}`] : []), ...(title ? [stream, `title=${title}`] : [])]
 }
 
 // Matroska carries cover art as a file attachment, so it is re-added from a
 // copy rather than mapped: a mapped cover would land as a one-frame video track.
 const COVER_ART_ATTACHMENT_NAME = 'cover.jpg'
 
-export function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: readonly {path: string; lang: string}[]; coverPath: string | undefined; outputPath: string}): string[] {
+export function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: readonly SubtitleEmbedTrack[]; coverPath: string | undefined; outputPath: string}): string[] {
 	const args: string[] = ['-y']
 	args.push('-i', opts.videoPath)
 	for (const track of opts.subtitleTracks) args.push('-i', track.path)
@@ -42,7 +53,7 @@ export function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks:
 	args.push('-map', '0:V', '-map', '0:a?')
 	for (let i = 0; i < opts.subtitleTracks.length; i++) args.push('-map', String(i + 1))
 	args.push('-c', 'copy', '-c:s', 'srt')
-	opts.subtitleTracks.forEach((track, i) => args.push(...subtitleTrackMetadata(track.lang, i)))
+	opts.subtitleTracks.forEach((track, i) => args.push(...subtitleTrackMetadata(track, i)))
 	if (opts.coverPath) args.push('-attach', opts.coverPath, '-metadata:s:t', 'mimetype=image/jpeg', '-metadata:s:t', `filename=${COVER_ART_ATTACHMENT_NAME}`)
 	args.push(opts.outputPath)
 	return args

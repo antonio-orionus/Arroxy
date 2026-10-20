@@ -119,7 +119,7 @@ test('Electron Download Profile set to Manual and auto embeds the uploaded and t
 			const outputs = files.mediaFiles('.mkv', path.join(outputDir, profile.name))
 			expect(outputs).toHaveLength(1)
 			const subtitleTracks = probeStreams(outputs[0]).flatMap(stream => (stream.codecType === 'subtitle' ? [`${stream.language ?? 'und'}|${stream.title ?? ''}`] : []))
-			expect(subtitleTracks.toSorted((a, b) => a.localeCompare(b))).toEqual(['eng|', 'eng|Auto-generated'])
+			expect(subtitleTracks.toSorted((a, b) => a.localeCompare(b))).toEqual(['eng|Auto-generated', 'eng|English'])
 
 			const fetched = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.videoId === videoId && request.status === 200 ? [`${request.lang}:${request.track}`] : []))
 			expect(fetched.toSorted((a, b) => a.localeCompare(b))).toEqual(['en:auto', 'en:manual'])

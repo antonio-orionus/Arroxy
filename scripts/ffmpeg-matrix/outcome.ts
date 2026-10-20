@@ -108,6 +108,8 @@ export function verifyProbe(expectation: Expectation, probeJson: string): string
 		const {codec, language} = expectation.subtitle
 		if (subtitles.length !== 1 || subtitles[0].codec_name !== codec || tag(subtitles[0].tags, 'language') !== language) {
 			problems.push(`expected one ${codec} subtitle in ${language}, got ${subtitles.map(stream => `${stream.codec_name ?? '?'} (${tag(stream.tags, 'language') ?? 'no language'})`).join(', ') || 'none'}`)
+		} else if (expectation.subtitle.title !== undefined && tag(subtitles[0].tags, 'title') !== expectation.subtitle.title) {
+			problems.push(`subtitle title ${JSON.stringify(tag(subtitles[0].tags, 'title') ?? null)}, expected ${JSON.stringify(expectation.subtitle.title)}`)
 		}
 	} else if (subtitles.length > 0) {
 		problems.push(`unexpected subtitle streams: ${subtitles.map(stream => stream.codec_name).join(', ')}`)

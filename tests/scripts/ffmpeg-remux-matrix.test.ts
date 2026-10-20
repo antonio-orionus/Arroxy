@@ -126,6 +126,11 @@ describe('remux matrix argv', () => {
 		expect(argv).toEqual(expect.arrayContaining(['-attach', work('app-cover-extract__vp9-hls+aac.muxing-cover.jpg'), '-c:s', 'srt']))
 		expect(argv.at(-1)).toBe(work('app-subtitles-cover__vp9-hls+aac.muxing.mkv'))
 	})
+
+	it("names Arroxy's subtitle track as yt-dlp does", () => {
+		const argv = planInvocation(find('app-subtitles/vp9-hls+aac.mp4'), layout).argv
+		expect(argv).toEqual(expect.arrayContaining(['-metadata:s:s:0', 'handler_name=English', '-metadata:s:s:0', 'title=English']))
+	})
 })
 
 describe('yt-dlp formatting helpers', () => {
@@ -216,6 +221,13 @@ describe('remux matrix output checks', () => {
 		const movText = {codec_type: 'subtitle', codec_name: 'mov_text', tags: {language: 'eng'}}
 		expect(verifyProbe(subtitles, probe([vp9, aac, movText]))).toEqual([])
 		expect(verifyProbe(subtitles, probe([vp9, aac, {...movText, tags: {language: 'und'}}]))).toEqual(['expected one mov_text subtitle in eng, got mov_text (und)'])
+	})
+
+	it("checks the title of Arroxy's subtitle track", () => {
+		const appSubtitles = expectationFor(find('app-subtitles/vp9-hls+aac.mp4'))
+		const subrip = {codec_type: 'subtitle', codec_name: 'subrip', tags: {language: 'eng', title: 'English'}}
+		expect(verifyProbe(appSubtitles, probe([vp9, aac, subrip]))).toEqual([])
+		expect(verifyProbe(appSubtitles, probe([vp9, aac, {...subrip, tags: {language: 'eng'}}]))).toEqual(['subtitle title null, expected "English"'])
 	})
 
 	it('checks the title and chapter count, matching tag names in any case', () => {

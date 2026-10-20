@@ -306,11 +306,11 @@ export function planInvocation(matrixCase: MatrixCase, layout: Layout): Invocati
 			return {output, files: [], argv: postProcessorArgv([{path: merged}, {path: fixture(FIXTURE_FILES.subtitleVtt)}], {path: output, opts})}
 		}
 		case 'app-subtitles':
-			return {output, files: [], argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'merge', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en'}], coverPath: undefined, outputPath: output})}
+			return {output, files: [], argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'merge', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en', name: SUBTITLE.name}], coverPath: undefined, outputPath: output})}
 		case 'app-cover-extract':
 			return {output, files: [], argv: buildCoverExtractArgs(neededOutput(matrixCase, 'thumbnail', layout), output)}
 		case 'app-subtitles-cover':
-			return {output, files: [], argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'thumbnail', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en'}], coverPath: neededOutput(matrixCase, 'app-cover-extract', layout), outputPath: output})}
+			return {output, files: [], argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'thumbnail', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en', name: SUBTITLE.name}], coverPath: neededOutput(matrixCase, 'app-cover-extract', layout), outputPath: output})}
 	}
 }
 
@@ -326,7 +326,9 @@ export type Expectation =
 			duration: readonly [number, number]
 			title?: string
 			chapters?: number
-			subtitle?: {codec: string; language: string}
+			// `title`: the track's name, as players list it. Checked in Matroska only,
+			// where it is the track's Name element.
+			subtitle?: {codec: string; language: string; title?: string}
 			coverArt?: boolean
 	  }
 
@@ -354,9 +356,9 @@ export function expectationFor(matrixCase: MatrixCase): Expectation {
 		case 'subtitles':
 			return {...base, subtitle: {codec: matrixCase.container === 'mp4' ? 'mov_text' : 'webvtt', language: SUBTITLE.language}}
 		case 'app-subtitles':
-			return {...base, subtitle: {codec: 'subrip', language: SUBTITLE.language}}
+			return {...base, subtitle: {codec: 'subrip', language: SUBTITLE.language, title: SUBTITLE.name}}
 		case 'app-subtitles-cover':
-			return {...base, subtitle: {codec: 'subrip', language: SUBTITLE.language}, coverArt: true}
+			return {...base, subtitle: {codec: 'subrip', language: SUBTITLE.language, title: SUBTITLE.name}, coverArt: true}
 	}
 }
 
