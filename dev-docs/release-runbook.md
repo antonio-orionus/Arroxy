@@ -11,6 +11,10 @@
 
 This is the manual checklist for cutting a stable release.
 
+## Picking the version
+
+Bump the patch number for fixes **and** features: throughout 0.4.x even a UI redesign and six new languages shipped as patches. A minor bump only closes out a release line or marks a milestone the maintainer names. Stable releases only; no `-beta.N`.
+
 ## Release notes
 
 User-facing release notes live in `CHANGELOG.md` at the repo root, keyed by version (`## 0.3.5-beta.1`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release.

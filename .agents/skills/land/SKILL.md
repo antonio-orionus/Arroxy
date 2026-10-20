@@ -1,98 +1,88 @@
 ---
-name: ship-fix
-description: End-to-end Arroxy flow for taking a bug fix (or small feature) from report to published release - worktree, test-first fix, PR, CodeRabbit, CI validation, squash-merge, version bump and tag. Use when the user says "ship this fix", "fix, PR, merge and release", "worktree -> PR -> CodeRabbit -> merge -> release", or asks for the whole chain instead of one step.
+name: land
+description: End-to-end Arroxy flow that takes a fix or feature from report to a merged PR - worktree, test-first change, local Claude + Codex dual review with cross-checked findings, PR, CodeRabbit when the quota allows, auto-merge, and unrelated bugs filed to the private backlog. Use when the user says "land it", "ship this fix", "fix, PR and merge", or asks for the whole chain instead of one step. Releasing is a separate, explicit request.
 ---
 
-# Ship a fix
+# Land a change
 
-One pass from report to released version. This skill is the order of operations; the rules live elsewhere and are linked, not repeated. Read them when a phase points at them.
+One pass from report to merged PR. This skill is the order of operations; the rules live elsewhere and are linked, not repeated. Read them when a phase points at them.
 
-- `AGENTS.md`: Post-Task Checks, Release Pipeline; `dev-docs/fixture-e2e.md`: "Choosing the right test"; `dev-docs/release-runbook.md`.
-- `.agents/memory/MEMORY.md` index, especially `coderabbit-review-workflow.md`, `finish-before-pr.md`, `no-ai-attribution.md`.
-- `scripts/release.sh`: what a release refuses to do.
+- `AGENTS.md`: Post-Task Checks, "One concern per PR"; `dev-docs/fixture-e2e.md`: "Choosing the right test".
+- `.agents/memory/MEMORY.md`, especially `finish-before-pr`, `coderabbit-review-workflow`, `ship-means-merge-not-release`, `no-ai-attribution`, `review-learnings`.
+
+"Land" stops at the merge. Release only when the user explicitly says "release" (`ship-means-merge-not-release`), then follow `dev-docs/release-runbook.md`.
 
 ## Model tiers
 
-If your harness supports subagents with a model choice, delegate mechanical work to the cheaper/faster tier (for example Sonnet in Claude Code): implementation from a precise spec, test runs, CI and CodeRabbit polling, changelog drafting. Keep diagnosis, design decisions, review of subagent output, and the merge/release go/no-go with the main agent. Give a subagent the exact files, the failing test, and the acceptance command; never "figure out the bug". Without subagents, do everything inline in the same order.
+When the harness has subagents with a model choice, give mechanical work (implementation from a precise spec, test runs, CI and CodeRabbit polling) to the cheaper tier with the exact files, the failing test and the acceptance command. Keep diagnosis, design, triage of review findings and the merge go/no-go yourself.
 
 ## Phases
 
 ### 1. Intake
-Reproduce or confirm the root cause before touching code: the user report plus logs; for YouTube or extractor issues, run yt-dlp locally against the failing URL. State the chosen fix design (what changes, which layer, what is deliberately out of scope) before coding.
-verify: root cause is named with evidence, and the design is written down in one short paragraph.
+Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then read the backlog (`.internal/bug-backlog.md`, when `.internal/` exists): an entry in a file this change will touch is in scope if fixing it is small and does not change the design.
+verify: root cause named with evidence; design written; backlog entries in touched files are either taken in or deliberately left.
 
 ### 2. Worktree
-Create an isolated worktree on `fix/<slug>` (or `feat/<slug>`) from a fresh `origin/main`:
-
-```bash
-git fetch origin main
-git worktree add -b fix/<slug> <path> origin/main
-cd <path> && bun run bootstrap
-```
-
-Work only inside it. Never use bare `git stash` (the stash stack is shared across worktrees); use a WIP commit instead.
-verify: `git status` is clean, `git rev-parse HEAD` equals `origin/main`, `bun run doctor` is healthy.
+Work in an isolated worktree on `fix/<slug>` or `feat/<slug>` from a fresh `origin/main` (`git fetch origin main`, `git worktree add -b <branch> <path> origin/main`, then `bun run bootstrap` inside it). Never bare `git stash`; use a WIP commit.
+verify: `git status` clean and `HEAD` equals `origin/main` before the first change.
 
 ### 3. Implement, test first
-Write the failing test at the layer that owns the behavior ("Choosing the right test" in `dev-docs/fixture-e2e.md`). A bug found by using the app belongs in Fixture Product E2E: `bun run build`, then run with `ARROXY_E2E_HEADLESS=1` so no window steals focus. Make it pass with the smallest change. Finish the whole change per `finish-before-pr.md`: locales and README sources are not follow-ups. When the release follows straight after the merge (this flow), the CHANGELOG entry is written in the release commit (phase 9) rather than in the PR. Delegate the implementation to a cheaper subagent with a precise spec; review its diff yourself.
-verify: the new test failed before the fix and passes after; the diff contains only what the design called for.
+Write the failing test at the layer that owns the behaviour, make it pass with the smallest change, and finish everything `finish-before-pr` lists (locales last, per `translate-at-final-stage`). A bug found by using the app belongs in Fixture Product E2E (`bun run build`, then `ARROXY_E2E_HEADLESS=1`).
+verify: the new test failed before the fix and passes after.
 
 ### 4. Gate
-```bash
-bun run check
-```
-Fix failures your change caused. A failure that is clearly unrelated is reported, not fixed (parallel agents may own it).
-verify: `bun run check` exits 0, or every remaining failure is documented as unrelated.
+`bun run check`. Fix what your change caused; report, do not fix, what clearly is not yours (another agent may own it).
+verify: exit 0, or each remaining failure documented as unrelated.
 
-### 5. Commit and PR
-Conventional commit message (`fix: ...`, `feat: ...`), body explains what and why. No AI attribution anywhere (`no-ai-attribution.md`). Before pushing:
+### 5. Local dual review
+Commit, then run in the background (several minutes):
+
+```bash
+bun run review:dual                 # behaviour changes: Codex + four Claude lanes, cross-checked
+bun run review:dual --light         # mechanical or behaviour-free changes: Codex, checked by Claude
+```
+
+It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions and uses no API keys. Exit 0 means nothing to act on, 1 means findings, 2 means a reviewer failed (say so: coverage is partial). Read `report.md` from the path it prints:
+
+- **Fix in this change:** fix each one test-first, as in phase 3. You are still the judge: if a confirmed finding is wrong, say why and record it (below).
+- **Uncertain:** read the code and decide; fix or treat as refuted.
+- **Backlog:** pre-existing bugs outside the changed lines. Promote one into this change when it sits in a function you touched and the fix is small; file the rest (phase 6).
+- **Refuted:** skim; if a refutation is right and the same false alarm could recur, add it to `.agents/memory/review-learnings.md`.
+
+After fixing, run one more round on the fix commits only: `bun run review:dual --light --base <head the first round reviewed>`. Two rounds at most; anything a third round would be needed for goes to the user.
+verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
+
+### 6. Backlog
+Append each unrelated bug to `.internal/bug-backlog.md` under `## Open` (create the file and its line in `.internal/README.md` if missing): `- **<what breaks>** — \`<file:line>\`. <one-sentence failure scenario>. Found by <tool> reviewing <branch> (<YYYY-MM-DD>).` Skip one already listed. Save with `bun run internal:save`. Without `.internal/`, list them in the final report instead.
+verify: `bun run internal:save` pushed, or the bugs are in the report.
+
+### 7. PR
+Conventional commits, body says what and why, no AI attribution:
 
 ```bash
 git log origin/main..HEAD --format="%B" | grep -inE "claude|anthropic|co-authored|generated with"   # must print nothing
 git log origin/main..HEAD --format="%an <%ae> | %cn <%ce>" | sort -u                               # only Antonio
-gh auth status   # antonio-orionus must be the active account
+gh auth status   # antonio-orionus active, else: gh auth switch --user antonio-orionus
 ```
 
-If `antonio-orionus` is not active: `gh auth switch --user antonio-orionus`. The wrong account makes `gh` fail with misleading errors such as "must be a collaborator". Push, then `gh pr create` with a body of: problem, root cause, fix, tests.
-verify: both greps are clean, the PR is open, and its body has the four parts.
+Push and `gh pr create` with: problem, root cause, fix, tests, and a "Review" line (dual review rounds run, findings fixed, findings refuted, backlog entries filed). In the desktop app, bind the PR and turn on Auto-fix.
+verify: PR open, both greps clean.
 
-### 6. CodeRabbit
-Follow `.agents/memory/coderabbit-review-workflow.md`: run Codex and the gates first, then trigger once on the final head.
-verify: every finding is fixed or answered, and the review covers the head commit.
+### 8. CodeRabbit, when it is worth a trigger
+Follow `coderabbit-review-workflow`: only behaviour-changing PRs, one trigger on the final head, never push while it runs. Skip it, and say so in the PR, when the hourly quota is spent and the change is low-risk, or the PR has over 100 files. Check each finding against the code like any other; answer refuted ones in their thread with evidence and add recurring false alarms to `review-learnings.md`.
+verify: the review covered the head commit, or the skip is stated with its reason.
 
-### 7. Validate
-Required checks must be green on the PR head: `gh pr checks <N> --watch`, or poll. A green CodeRabbit check alone proves nothing (it passes when the review was skipped).
-verify: all required checks are `success` on the current head SHA.
-
-### 8. Merge
-Squash-merge. Confirm the repo's squash style first (`git log --oneline -10 origin/main` shows titles ending in `(#N)`):
-
-```bash
-gh pr merge <N> --squash --delete-branch
-git fetch origin main
-```
-
-verify: `gh pr view <N> --json state` reports `MERGED`; `origin/main` contains the squash commit.
-
-### 9. Release
-Run from `main` (the primary checkout or a fresh worktree on `origin/main`), local `main` equal to `origin/main`:
-
-1. Bump `package.json` version: patch for fixes **and** features — throughout 0.4.x even a UI redesign and six new languages shipped as patches. A minor bump only closes out a beta line or marks a milestone the user names. Beta suffix only if asked. Run this phase autonomously — do not hand the release script back to the user.
-2. Add a `## <version>` section at the top of `CHANGELOG.md`, same shape and friendly user-facing tone as the latest entries (one-line summary, then `## Highlights` bullets in plain language). It is the release-notes source of truth; never edit GitHub release notes directly.
-3. `bun run check`, then commit `release: <version>` and push `main`.
-4. Wait for the required checks on that main commit to pass; `scripts/release.sh` refuses a stable tag otherwise (`bash scripts/release.sh stable --verify-only` previews the gate).
-5. `bun run release:stable` (or `release:beta`). This creates the annotated tag and pushes it.
-6. Watch the pipeline: `gh run list --workflow release.yml -L 1`, then `gh run watch <id>`.
-
-verify: the Release workflow succeeded and `https://github.com/antonio-orionus/Arroxy/releases/tag/v<version>` shows a published release with the CHANGELOG notes.
+### 9. Merge
+Once the last review is through, turn on auto-merge (squash) rather than waiting for green and merging by hand; required checks still gate it. A green CodeRabbit check alone proves nothing.
+verify: `gh pr view <N> --json state` reports `MERGED` (or auto-merge is enabled and waiting on checks).
 
 ### 10. Close out
-Remove the worktree after the merge (`git worktree remove <path>`; delete the local branch if it lingers). Report the PR link, the release link, and anything deliberately left out. If the fix came from user feedback, offer to draft replies to those reports.
+Remove the worktree after the merge. Report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out. Then ask whether to release.
 
 ## Stop and ask
 
-- The root cause is ambiguous or you cannot reproduce it.
-- The fix needs a change in `packages/*`: those ship on their own tags (see "Repo Layout" in `AGENTS.md`), so releasing them is a separate decision.
-- A CodeRabbit finding would change the design agreed in phase 1.
-- A CI failure appears unrelated to the change.
-- Any step would rewrite or delete published history (force push, tag deletion, amending a pushed commit).
+- The root cause is ambiguous or will not reproduce.
+- The fix needs a change in `packages/*`: those publish on their own tags.
+- A review finding would change the design agreed in phase 1.
+- A CI failure looks unrelated to the change.
+- Any step would rewrite published history (force push, tag deletion, amending a pushed commit).

@@ -22,6 +22,7 @@ version had to skip 0.4.26), Scoop and Homebrew needed reverts, the Winget PR ha
 to be closed, and the Flatpak repo on Pages could not be rolled back at all. The
 beta rule came from a plan that gated the PO-token change on a beta.
 
-**How to apply:** treat the release phase of the `ship-fix` skill as opt-in.
+**How to apply:** the `land` skill stops at the merge; releasing follows
+`dev-docs/release-runbook.md` only on request.
 After merging, report the PR and ask whether to release. Related:
 [[finish-before-pr]], [[coderabbit-review-workflow]].
