@@ -1,0 +1,21 @@
+vimeo: Vimeo: HLS only, each stream from two CDNs, audio with no codec named and ranked only by quality
+The New Vimeo Player (You Know, For Videos) · 62 s · card says "1280x720" · 12 formats
+
+Video (picked for Balanced 720p •):
+      SDR H.264
+720p  H.264 19.5 MiB •
+480p  H.264 11.2 MiB
+360p  H.264 5.8 MiB
+240p  H.264 3.0 MiB
+
+Audio:
+MP4: mp4 no size | mp4 no size | mp4 no size | mp4 no size •
+
+Profile picks:
+balanced: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+best-quality: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+mp4-1080: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":720})
+audio-only: audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+
+Subtitles: es, en, fr, de
+Auto captions: none
