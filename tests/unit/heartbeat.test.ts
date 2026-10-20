@@ -51,6 +51,7 @@ describe('createHeartbeat', () => {
 		let now = opts.now ?? new Date('2026-10-16T23:30:00Z')
 		let enabled = opts.enabled ?? true
 		const send = vi.fn(async () => undefined)
+		const onSent = vi.fn()
 		const heartbeat = createHeartbeat({
 			send,
 			now: () => now,
@@ -59,9 +60,10 @@ describe('createHeartbeat', () => {
 			history: () => history,
 			record: next => {
 				history = next
-			}
+			},
+			onSent
 		})
-		return {heartbeat, send, setNow: (next: Date) => (now = next), setEnabled: (next: boolean) => (enabled = next), history: () => history}
+		return {heartbeat, send, onSent, setNow: (next: Date) => (now = next), setEnabled: (next: boolean) => (enabled = next), history: () => history}
 	}
 
 	it('sends once per UTC day and records the day', async () => {
@@ -96,6 +98,16 @@ describe('createHeartbeat', () => {
 		await t.heartbeat.maybeSend()
 		expect(t.send).toHaveBeenLastCalledWith(buildHeartbeatPageview(SNAPSHOT, 'existing'))
 		expect(t.history()).toEqual({firstDay: undefined, lastDay: '2026-10-16'})
+	})
+
+	// main.log is the only place a user can check that today's heartbeat went out.
+	it('reports each sent heartbeat with its day and install age, and nothing for a skipped day', async () => {
+		const t = makeHeartbeat()
+		await t.heartbeat.maybeSend()
+		expect(t.onSent).toHaveBeenCalledExactlyOnceWith({day: '2026-10-16', installAge: 'new'})
+
+		await t.heartbeat.maybeSend()
+		expect(t.onSent).toHaveBeenCalledTimes(1)
 	})
 
 	it('skips a day already sent in an earlier session', async () => {
@@ -140,6 +152,7 @@ describe('createHeartbeat failure handling', () => {
 
 	it('never rejects when building the snapshot or sending throws', async () => {
 		const onError = vi.fn()
+		const onSent = vi.fn()
 		const heartbeat = createHeartbeat({
 			send: async () => {
 				throw new Error('boom')
@@ -149,10 +162,12 @@ describe('createHeartbeat failure handling', () => {
 			snapshot: () => SNAPSHOT,
 			history: () => ({}),
 			record: () => undefined,
-			onError
+			onError,
+			onSent
 		})
 		await expect(heartbeat.maybeSend()).resolves.toBe(false)
 		expect(onError).toHaveBeenCalledTimes(1)
+		expect(onSent).not.toHaveBeenCalled()
 	})
 })
 

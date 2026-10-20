@@ -44,6 +44,9 @@ export interface HeartbeatDeps {
 	record: (history: {firstDay?: string; lastDay: string}) => void | Promise<void>
 	// Called once per failed day; the heartbeat itself never throws.
 	onError?: (error: unknown) => void
+	// Called once the request has gone out. The tracker swallows network errors,
+	// so this confirms the send, not that the collector received it.
+	onSent?: (sent: {day: string; installAge: InstallAge}) => void
 }
 
 // `ARROXY_HEARTBEAT_URL=off` keeps any build, a release one included, from
@@ -144,7 +147,9 @@ export function createHeartbeat(deps: HeartbeatDeps): {maybeSend: () => Promise<
 				// Record first: a heartbeat is fire-and-forget, and a lost one is better
 				// than a day counted twice.
 				await deps.record({firstDay, lastDay: day})
-				await deps.send(buildHeartbeatPageview(deps.snapshot(), installAge(firstDay, day)))
+				const age = installAge(firstDay, day)
+				await deps.send(buildHeartbeatPageview(deps.snapshot(), age))
+				deps.onSent?.({day, installAge: age})
 				return true
 			} catch (error) {
 				deps.onError?.(error)

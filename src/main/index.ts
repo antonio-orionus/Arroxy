@@ -386,7 +386,8 @@ if (hasSingleInstanceLock) {
 					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}
 				},
 				record: history => settingsStore.recordHeartbeat(history),
-				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)})
+				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)}),
+				onSent: sent => log.info('Heartbeat sent', sent)
 			})
 			void heartbeat.maybeSend()
 			// Hourly re-check: a session left running in the tray is counted on each new UTC day.
