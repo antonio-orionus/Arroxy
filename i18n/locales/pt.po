@@ -1526,6 +1526,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "mais nítido no mesmo tamanho"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, depois VP9, depois AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "codec deste perfil"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, depois H.264, depois AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "codec deste perfil"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Maior taxa de quadros"
@@ -2071,6 +2087,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Carregando…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automática"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Qual codec escolher primeiro entre streams da mesma altura. Automática mantém a ordem própria do yt-dlp, que favorece AV1, o menor; H.264 toca em TVs e celulares mais antigos."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 primeiro"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Codec de vídeo"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV escolhe sempre H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 primeiro"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "Pronto"
@@ -2390,6 +2430,26 @@ msgstr "Tentar novamente"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Taxa de bits"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Uma fonte que já está em {{target}} mantém seu próprio fluxo e taxa de bits: ela é copiada, não recodificada."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, sem recodificação"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, sem recodificação"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, como na fonte: o fluxo já está em {{target}}, então é copiado, não recodificado"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Como na fonte: o fluxo já está em {{target}}, então é copiado, não recodificado"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"

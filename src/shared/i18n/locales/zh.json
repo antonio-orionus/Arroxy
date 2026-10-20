@@ -403,7 +403,18 @@
 			"drc": {"label": "均衡音量（DRC）", "description": "压低响亮的部分、提升安静的部分，适合扬声器和嘈杂环境。", "tag": "音量均衡"},
 			"audioLanguage": "音频语言",
 			"audioLanguageCount_other": "{{count}} 种语言",
-			"convert": {"label": "转换", "bitrate": "比特率", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "源为 {{kbps}} kbps"},
+			"convert": {
+				"label": "转换",
+				"bitrate": "比特率",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps，不重新编码",
+				"copyLabelNoBitrate": "{{target}}，不重新编码",
+				"copyNote": "{{kbps}} kbps，与源一致：流已是 {{target}}，因此直接复制，不重新编码",
+				"copyNoteNoBitrate": "与源一致：流已是 {{target}}，因此直接复制，不重新编码",
+				"bitrateCopyHint": "已是 {{target}} 的源会保留自身的流和比特率：直接复制，不重新编码。",
+				"sourceKbps": "源为 {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube 限制了本次探测",
 				"bodyUnconfigured": "格式列表可能不完整。请在高级设置中配置 cookies，或更换网络后重试。",
@@ -914,6 +925,8 @@
 			"source": {"label": "优先选择增强比特率流", "reason": "相同分辨率下细节更多"},
 			"protocol": {"label": "优先选择直接下载，而非流式副本", "reason": "相同画面，下载更快"},
 			"codec": {"label": "先 AV1，再 VP9，最后 H.264", "reason": "相同大小下最清晰"},
+			"codecVp9First": {"label": "先 VP9，再 H.264，最后 AV1", "reason": "此配置的编解码器"},
+			"codecH264First": {"label": "先 H.264，再 VP9，最后 AV1", "reason": "此配置的编解码器"},
 			"size": {"label": "更大的文件", "reason": "相同设置下细节更多"},
 			"aacSmartTv": {"label": "AAC 音频", "reason": "随处可播放"},
 			"aacFileType": {"label": "AAC 音频", "reason": "适配 MP4 播放器"},
@@ -927,5 +940,6 @@
 		"summary": {"goal": {"bestPicture": "最佳画质", "smartTv": "所有设备都能播放"}, "fileType": {"auto": "文件类型由流决定", "explicit": "保存为 .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "AI 放大的流", "description": "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。", "skip": "跳过", "allow": "允许"},
+	"videoCodec": {"label": "视频编解码器", "description": "在高度相同的流中，优先采用哪种编解码器。自动会沿用 yt-dlp 自身的顺序，该顺序偏好体积最小的 AV1；H.264 可在较旧的电视和手机上播放。", "smartTv": "智能电视始终采用 H.264。", "auto": "自动", "vp9": "优先 VP9", "h264": "优先 H.264"},
 	"hdrPreference": {"label": "HDR 视频", "description": "自动模式会在此屏幕能显示 HDR 时选择 HDR，否则选择 SDR。HDR 在普通屏幕上看起来会发灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自动"}
 }

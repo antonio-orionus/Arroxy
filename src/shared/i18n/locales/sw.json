@@ -441,7 +441,18 @@
 			"audioLanguage": "Lugha ya sauti",
 			"audioLanguageCount_one": "Lugha {{count}}",
 			"audioLanguageCount_other": "Lugha {{count}}",
-			"convert": {"label": "Badilisha", "bitrate": "Kiwango cha biti", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Chanzo ni {{kbps}} kbps"},
+			"convert": {
+				"label": "Badilisha",
+				"bitrate": "Kiwango cha biti",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, bila kusimba upya",
+				"copyLabelNoBitrate": "{{target}}, bila kusimba upya",
+				"copyNote": "{{kbps}} kbps, kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"copyNoteNoBitrate": "Kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"bitrateCopyHint": "Chanzo ambacho tayari ni {{target}} huhifadhi mkondo na kiwango cha biti chake: kinanakiliwa, hakisimbwi upya.",
+				"sourceKbps": "Chanzo ni {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube ilipunguza uchunguzi huu",
 				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",
@@ -1033,6 +1044,8 @@
 			"source": {"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza", "reason": "maelezo zaidi kwa azimio lilelile"},
 			"protocol": {"label": "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko", "reason": "picha ileile, inapakuliwa haraka zaidi"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
+			"codecVp9First": {"label": "VP9, kisha H.264, kisha AV1", "reason": "kodeki ya wasifu huu"},
+			"codecH264First": {"label": "H.264, kisha VP9, kisha AV1", "reason": "kodeki ya wasifu huu"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
 			"aacFileType": {"label": "Sauti ya AAC", "reason": "inafaa vichezaji vya MP4"},
@@ -1046,5 +1059,13 @@
 		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Mikondo iliyokuzwa kwa AI", "description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.", "skip": "Ruka", "allow": "Ruhusu"},
+	"videoCodec": {
+		"label": "Kodeki ya video",
+		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huhifadhi mpangilio wa yt-dlp wenyewe, unaopendelea AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
+		"smartTv": "Runinga janja huchukua H.264 kila wakati.",
+		"auto": "Otomatiki",
+		"vp9": "VP9 kwanza",
+		"h264": "H.264 kwanza"
+	},
 	"hdrPreference": {"label": "Video ya HDR", "description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatiki"}
 }

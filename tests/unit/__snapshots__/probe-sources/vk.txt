@@ -8,7 +8,8 @@ Video (picked for Balanced 720p •):
 
 Audio:
 tracks (Audio shown): DASH audio, Audio
-MP4: mp4 no size •
+MP4: High quality no size •
+convert from: mp3 ← hls_fmp4-12_0-Audio re-encode · m4a ← hls_fmp4-12_0-Audio re-encode · opus ← hls_fmp4-12_0-Audio re-encode · wav ← hls_fmp4-12_0-Audio re-encode
 
 Profile picks:
 balanced: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})

@@ -10,12 +10,13 @@ Video (picked for Balanced 720p •):
 Audio:
 (no separate audio)
 convert: mp3, m4a, opus, wav
+convert from: mp3 ← 2 re-encode · m4a ← 2 re-encode · opus ← 2 re-encode · wav ← 2 re-encode
 
 Profile picks:
 balanced: 2 (1280x720, avi) + audio none
 best-quality: 2 (1280x720, avi) + audio none
 mp4-1080: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"1080","picked":360})
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none

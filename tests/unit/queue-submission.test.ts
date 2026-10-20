@@ -175,6 +175,12 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items[0]?.job).toMatchObject({subtitles: {languages: ['en'], writeAuto: true, autoOnly: true}})
 	})
 
+	// Audio mode extracts (`--audio-format best`), and the stream's size still sets the disk check.
+	it('keeps the expected size of a native audio pick it extracts', () => {
+		const job = prepareManualQueueSubmission(state({wizardMediaKind: 'audio', selectedVideoFormatId: ''}), 'priority')?.items[0]?.job
+		expect(job).toMatchObject({kind: 'audio-convert', audioConvert: {target: 'best'}, formatId: '251', expectedBytes: 200})
+	})
+
 	it('never sends SponsorBlock with an audio or subtitles download', () => {
 		for (const kind of ['audio', 'subtitles'] as const) {
 			const prepared = prepareManualQueueSubmission(state({wizardMediaKind: kind, selectedVideoFormatId: '', wizardSponsorBlockMode: 'remove', wizardSponsorBlockCategories: ['sponsor']}), 'priority')

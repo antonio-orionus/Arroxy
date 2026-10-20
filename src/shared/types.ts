@@ -13,6 +13,7 @@ export type {
 	PlaylistSelection,
 	PlaylistScope,
 	VideoGoal,
+	VideoCodecPreference,
 	VideoFileType,
 	NativeAudioChoice,
 	PlaylistVideoTier,

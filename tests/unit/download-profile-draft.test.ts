@@ -27,6 +27,31 @@ describe('DownloadProfileDraft', () => {
 		expect(draft.fileType).toBe('auto')
 	})
 
+	it('saves a preferred video codec, and leaves it out when it is Auto', () => {
+		const base = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!)
+		expect(base.videoCodec).toBe('auto')
+		expect(downloadProfileFromDraft(base, NOW, () => 'id').media).not.toHaveProperty('videoCodec')
+		const vp9 = updateDownloadProfileDraft(base, {type: 'set-video-codec', videoCodec: 'vp9'})
+		const saved = downloadProfileFromDraft(vp9, NOW, () => 'id')
+		expect(saved.media).toMatchObject({videoCodec: 'vp9'})
+		expect(createDownloadProfileDraft(saved).videoCodec).toBe('vp9')
+		expect(draftSelectionOrder(vp9, 'compatible', 'hdr')?.videoCodec).toBe('vp9')
+	})
+
+	it('drops the codec preference where it cannot apply: Smart TV, and H.264 in WebM', () => {
+		let draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-video-codec', videoCodec: 'h264'})
+		expect(updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'webm'}).videoCodec).toBe('auto')
+		expect(updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'}).videoCodec).toBe('auto')
+		draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'mp4'})
+		expect(draft.videoCodec).toBe('h264')
+		draft = updateDownloadProfileDraft(updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'}), {type: 'set-video-codec', videoCodec: 'vp9'})
+		expect(draft.videoCodec).toBe('auto')
+		draft = updateDownloadProfileDraft(updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'}), {type: 'set-file-type', fileType: 'webm'})
+		expect(updateDownloadProfileDraft(draft, {type: 'set-video-codec', videoCodec: 'h264'}).videoCodec).toBe('auto')
+		expect(updateDownloadProfileDraft(draft, {type: 'set-video-codec', videoCodec: 'vp9'}).videoCodec).toBe('vp9')
+	})
+
 	it('saves the goal, file type and native audio choice into the profile media', () => {
 		let draft = createDownloadProfileDraft(null)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})

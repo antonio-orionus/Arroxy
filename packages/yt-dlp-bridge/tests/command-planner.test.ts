@@ -2,7 +2,8 @@ import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_DOWNLOAD_RETRY_POLICY, DEFAULT_SOCKET_TIMEOUT_SECONDS, EMBED_SUBTITLE_CONTAINER_EXT, INFO_JSON_DOWNLOAD_RETRY_POLICY, planWorkflow, type WorkflowInput} from '../src/index.js'
 import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'
-import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../../../tests/shared/nativeAudioSelectors.js'
+import {audioConversionSourceSelector as bridgeConversionSelector} from '../src/audio-conversion.js'
+import {audioConversionSourceSelector} from '../../../tests/shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 
@@ -109,12 +110,82 @@ describe('planWorkflow — media', () => {
 	it('plans audio conversion and default music embed policy', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, audio: {convert: {target: 'mp3', lossy: true, bitrateKbps: 192}}})
 
-		expect(adjacent(plan.args, '-f', SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)).toBe(true)
+		expect(adjacent(plan.args, '-f', audioConversionSourceSelector('mp3'))).toBe(true)
 		expect(plan.args).toContain('-x')
 		expect(adjacent(plan.args, '--audio-format', 'mp3')).toBe(true)
 		expect(adjacent(plan.args, '--audio-quality', '192K')).toBe(true)
 		expect(plan.args).toContain('--add-metadata')
 		expect(plan.args).toContain('--embed-thumbnail')
+	})
+
+	describe('audio conversion source', () => {
+		const NON_DRC = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
+		const NON_DOLBY = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
+		const COPY_FLOOR = '[abr>=?96]'
+		const AAC = `[acodec~='(?i)^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$']${COPY_FLOOR}`
+		const DEFAULT_TRACK = '[language_preference>0]'
+		const ORIGINAL_TRACK = "[format_note~='(?i)\\boriginal\\b']"
+
+		function conversionSelector(target: string, formatId?: string): string {
+			const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, ...(formatId ? {selection: {formatId}} : {}), audio: {convert: {target, lossy: target !== 'wav', bitrateKbps: 192}}})
+			return plan.args[plan.args.indexOf('-f') + 1] ?? ''
+		}
+
+		// yt-dlp copies a source already in the target codec (aac into m4a, opus
+		// into opus) and re-encodes anything else: a second lossy pass. So the
+		// source track's stream in the target codec goes first, then any other
+		// stream of that track, before another track's.
+		it('looks for a stream in the target codec first, in the source track, then anywhere', () => {
+			expect(conversionSelector('m4a').split('/')).toEqual([
+				...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, AAC, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${track}${filters}`)),
+				...[`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, AAC, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${filters}`),
+				'best'
+			])
+		})
+
+		it.each([
+			['aac', AAC],
+			['m4a', AAC],
+			['opus', `[acodec~='(?i)^opus$']${COPY_FLOOR}`],
+			['mp3', `[acodec~='(?i)^mp3$']${COPY_FLOOR}`],
+			['vorbis', `[acodec~='(?i)^vorbis$']${COPY_FLOOR}`],
+			['flac', `[acodec~='(?i)^flac$']${COPY_FLOOR}`],
+			['alac', `[acodec~='(?i)^alac$']${COPY_FLOOR}`]
+		])('%s copies a source already in its codec: %s first', (target, codecFilter) => {
+			expect(conversionSelector(target).split('/')[0]).toBe(`bestaudio${DEFAULT_TRACK}${codecFilter}${NON_DRC}`)
+		})
+
+		// WAV decodes every source alike, and an unknown or mapped target
+		// ("aac>m4a/mp3") has no one codec to look for.
+		it.each(['wav', 'aac>m4a/mp3'])('%s has no codec to look for', target => {
+			expect(conversionSelector(target).split('/')).toEqual([...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${NON_DOLBY}${NON_DRC}`, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${track}${filters}`)), ...[`${NON_DOLBY}${NON_DRC}`, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${filters}`), 'best'])
+		})
+
+		// `~=?` also passes a stream with no note at all, so every stream of a
+		// site that writes none would count as the original track.
+		it('takes only a stream whose note says original as the original track', () => {
+			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).not.toContain('format_note~=?')
+		})
+
+		// The caller's own selector (its native-audio preference) wins: the
+		// conversion only changes what happens to the stream it picks.
+		it("uses the caller's format selector as is", () => {
+			const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestaudio[acodec^=ec-3]/bestaudio/best'}, audio: {convert: {target: 'best', lossy: true}}})
+			expect(adjacent(plan.args, '-f', 'bestaudio[acodec^=ec-3]/bestaudio/best')).toBe(true)
+			expect(plan.args.filter(arg => arg === '-f')).toHaveLength(1)
+			expect(adjacent(plan.args, '--audio-format', 'best')).toBe(true)
+			expect(plan.args).not.toContain('--audio-quality')
+			const sorted = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestaudio/best', formatSort: 'acodec:opus'}, audio: {convert: {target: 'best', lossy: true}}})
+			expect(adjacent(sorted.args, '-S', 'acodec:opus')).toBe(true)
+		})
+
+		it('is the exported audioConversionSourceSelector, so a caller can run the same selection', () => {
+			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).toBe(bridgeConversionSelector(target))
+		})
+
+		it("puts the caller's stream ahead of the chain", () => {
+			expect(conversionSelector('opus', '251-es')).toBe(`251-es/${conversionSelector('opus')}`)
+		})
 	})
 
 	it('uses caller-supplied lossy metadata for audio embed policy', () => {

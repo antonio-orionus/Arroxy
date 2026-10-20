@@ -10,7 +10,7 @@ import {redactArgs} from 'yt-dlp-bridge/redaction'
 import type {DependencySource} from '@shared/types.js'
 import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
-import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {audioConversionSourceSelector} from '../shared/nativeAudioSelectors.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
@@ -355,10 +355,10 @@ describe('YtDlp — video args', () => {
 })
 
 describe('YtDlp — audio convert args', () => {
-	it('mp3 192K → source-preferred bestaudio selector, -x, --audio-format mp3, --audio-quality 192K', async () => {
+	it('mp3 192K → conversion source selector, -x, --audio-format mp3, --audio-quality 192K', async () => {
 		await makeYtDlp().run(mediaRequest({audioConvert: lossyAudio('mp3', 192)}))
 		const args = getArgs()
-		expect(args[args.indexOf('-f') + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
+		expect(args[args.indexOf('-f') + 1]).toBe(audioConversionSourceSelector('mp3'))
 		expect(args).toContain('-x')
 		expect(args[args.indexOf('--audio-format') + 1]).toBe('mp3')
 		expect(args[args.indexOf('--audio-quality') + 1]).toBe('192K')
@@ -410,7 +410,7 @@ describe('YtDlp — audio convert args', () => {
 	it('a conversion of a picked stream (one audio language of several) tries it first, then the source-preferred chain', async () => {
 		await makeYtDlp().run(mediaRequest({formatId: '251-es', audioConvert: lossyAudio('mp3', 192)}))
 		const args = getArgs()
-		expect(args[args.indexOf('-f') + 1]).toBe(`251-es/${SOURCE_PREFERRED_BEST_AUDIO_SELECTOR}`)
+		expect(args[args.indexOf('-f') + 1]).toBe(`251-es/${audioConversionSourceSelector('mp3')}`)
 		expect(args.filter(a => a === '-f').length).toBe(1)
 	})
 })

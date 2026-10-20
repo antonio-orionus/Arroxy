@@ -21,7 +21,8 @@ describe('StepOutput', () => {
 		expect(screen.getByTestId('embed-thumbnail-toggle')).toBeInTheDocument()
 	})
 
-	// Native "best" audio is often WebM/opus, which yt-dlp cannot embed into.
+	// "Best" audio keeps the source's own file where it is already a common
+	// audio one (WAV, AIFF, WMA), which yt-dlp cannot embed into, so it offers no cover.
 	it('hides thumbnail embedding for a batch whose files cannot hold cover art', () => {
 		renderBatch({kind: 'audio', format: 'best'})
 		expect(screen.queryByTestId('embed-thumbnail-toggle')).not.toBeInTheDocument()

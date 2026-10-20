@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "bir xil hajmda eng tiniq"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, keyin VP9, keyin AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "shu profilning kodeki"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, keyin H.264, keyin AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "shu profilning kodeki"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Eng yuqori kadr tezligi"
@@ -2011,6 +2027,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Yuklanmoqda…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Avto"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto yt-dlp ning o'z tartibini saqlaydi, u eng kichik AV1 ni afzal ko'radi; H.264 eski televizor va telefonlarda ijro etiladi."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Avval H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Video kodek"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Aqlli TV doim H.264 ni oladi."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Avval VP9"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "Tayyor"
@@ -2300,6 +2340,26 @@ msgstr "Qayta urinish"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Bit tezligi"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Allaqachon {{target}} bo'lgan manba o'z oqimi va bit tezligini saqlaydi: u qayta kodlanmaydi, nusxalanadi."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, qayta kodlanmaydi"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, qayta kodlanmaydi"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"

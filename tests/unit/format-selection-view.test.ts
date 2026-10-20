@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {listedAudioFormats, selectView} from '@renderer/store/formatSelectionView.js'
-import {buildFormatId} from '@renderer/store/helpers.js'
+import {buildAudioConvertPayload, buildFormatId} from '@renderer/store/helpers.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'
 
@@ -274,6 +274,34 @@ describe('selectView — media kinds', () => {
 			['WEBM', ['160 kbps']]
 		])
 	})
+
+	it('opens on the default language when the default stream is a copy the list folds away', () => {
+		const stream = (formatId: string, track: string, extra: Partial<FormatOption> = {}): FormatOption => ({formatId, label: formatId, ext: 'mp4', resolution: 'audio only', audioTrackLabel: track, audioTrackQuality: 'high', isVideoOnly: false, isAudioOnly: true, ...extra})
+		const formats = [stream('es', 'Spanish'), stream('akfire-en', 'English', {isDefaultAudio: true}), stream('fastly-en', 'English', {isDefaultAudio: true})]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.nativeRows.map(row => row.formatId)).toEqual(['es', 'fastly-en'])
+		expect(view.audio.defaultTrack).toBe('English')
+	})
+
+	// Vimeo names neither codec nor bitrate, only a low or high grade.
+	it('names a stream by its quality grade when the site gives no bitrate, best first', () => {
+		const formats: FormatOption[] = [
+			{formatId: 'hls-audio-low', label: 'English · mp4', ext: 'mp4', resolution: 'audio only', audioLanguage: 'en', audioTrackLabel: 'English', audioTrackQuality: 'low', quality: 0, isVideoOnly: false, isAudioOnly: true},
+			{formatId: 'hls-audio-high', label: 'English · mp4', ext: 'mp4', resolution: 'audio only', audioLanguage: 'en', audioTrackLabel: 'English', audioTrackQuality: 'high', quality: 2, isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: 'hls-audio-high'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.lines.map(line => [line.name, line.variants.map(row => [row.formatId, row.chipLabel])])).toEqual([
+			[
+				'MP4',
+				[
+					['hls-audio-high', 'High quality'],
+					['hls-audio-low', 'Low quality']
+				]
+			]
+		])
+	})
 })
 
 describe('selectView — video rows', () => {
@@ -356,5 +384,51 @@ describe('listedAudioFormats', () => {
 		const formats = [audio('234'), audio('140', {audioCodec: 'mp4a.40.2', ext: 'm4a'}), audio('234-de', {audioLanguage: 'de'}), audio('140-en', {audioCodec: 'mp4a.40.2', audioLanguage: 'en'})]
 		expect(listedAudioFormats(formats, [null]).map(f => f.formatId)).toEqual(['140', '234-de', '140-en'])
 		expect(listedAudioFormats(formats, ['234']).map(f => f.formatId)).toEqual(['234', '140', '234-de', '140-en'])
+	})
+
+	// Vimeo lists each stream once per CDN, identical down to yt-dlp's rank: one
+	// chip each, the copy yt-dlp ranks best (listed last), unless the other is picked.
+	it('lists copies of one stream from several CDNs once', () => {
+		const copy = (cdn: string, grade: 'low' | 'high'): FormatOption => audio(`hls-${cdn}-audio-${grade}-English`, {audioLanguage: 'en', audioTrackLabel: 'English', audioTrackQuality: grade, quality: grade === 'high' ? 2 : 0})
+		const formats = [copy('akfire', 'low'), copy('fastly', 'low'), copy('akfire', 'high'), copy('fastly', 'high')]
+		expect(listedAudioFormats(formats, [null]).map(f => f.formatId)).toEqual(['hls-fastly-audio-low-English', 'hls-fastly-audio-high-English'])
+		expect(listedAudioFormats(formats, ['hls-akfire-audio-high-English']).map(f => f.formatId)).toEqual(['hls-fastly-audio-low-English', 'hls-akfire-audio-high-English'])
+	})
+
+	it('keeps streams apart when anything the chip shows differs', () => {
+		const formats = [audio('a', {abr: 128}), audio('b', {abr: 128, filesize: 1_000}), audio('c', {abr: 128, isDrc: true}), audio('d', {abr: 128, audioLanguage: 'de'}), audio('e', {abr: 128})]
+		expect(listedAudioFormats(formats, [null]).map(f => f.formatId)).toEqual(['b', 'c', 'd', 'e'])
+	})
+})
+
+// Audio mode extracts what it downloads: `-x --audio-format best`, the same
+// as an Audio only profile's Quick Download.
+describe('buildAudioConvertPayload — audio mode', () => {
+	it('extracts a native pick, and keep as-is, as they are', () => {
+		expect(buildAudioConvertPayload({kind: 'native', formatId: '251'}, 'audio')).toEqual({target: 'best'})
+		expect(buildAudioConvertPayload({kind: 'extract'}, 'audio')).toEqual({target: 'best'})
+		expect(buildFormatId('', {kind: 'extract'})).toBeUndefined()
+		expect(buildFormatId('', {kind: 'extract', formatId: '18'})).toBe('18')
+	})
+
+	it('leaves a native pick beside a video alone', () => {
+		expect(buildAudioConvertPayload({kind: 'native', formatId: '251'}, 'video')).toBeUndefined()
+		expect(buildAudioConvertPayload({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, 'audio')).toEqual({target: 'mp3', bitrateKbps: 192})
+	})
+})
+
+describe('selectView — audio mode on a site with only combined files', () => {
+	const combined: FormatOption = {formatId: '18', label: '360p', ext: 'mp4', resolution: '640x360', isVideoOnly: false, isAudioOnly: false, audioCodec: 'mp4a.40.2'}
+
+	it('offers keep as-is, and can download with it', () => {
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'extract'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined]})
+		expect(view.audio.extractOffered).toBe(true)
+		expect(view.canDownload).toBe(true)
+	})
+
+	it('does not offer it where the site has its own audio streams', () => {
+		const audio: FormatOption = {formatId: '140', label: '140', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true}
+		expect(selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined, audio]}).audio.extractOffered).toBe(false)
+		expect(selectView({selectedVideoFormatId: '18', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: [combined]}).audio.extractOffered).toBe(false)
 	})
 })

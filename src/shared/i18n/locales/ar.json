@@ -512,7 +512,18 @@
 			"audioLanguageCount_few": "عدد اللغات: {{count}}",
 			"audioLanguageCount_many": "عدد اللغات: {{count}}",
 			"audioLanguageCount_other": "عدد اللغات: {{count}}",
-			"convert": {"label": "تحويل", "bitrate": "معدل البت", "wavLabel": "WAV (غير مضغوط)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "المصدر {{kbps}} kbps"},
+			"convert": {
+				"label": "تحويل",
+				"bitrate": "معدل البت",
+				"wavLabel": "WAV (غير مضغوط)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps، بلا إعادة ترميز",
+				"copyLabelNoBitrate": "{{target}}، بلا إعادة ترميز",
+				"copyNote": "{{kbps}} kbps كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
+				"copyNoteNoBitrate": "كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
+				"bitrateCopyHint": "المصدر الذي هو بصيغة {{target}} أصلًا يحتفظ بتدفقه ومعدل البت الخاص به: يُنسخ دون إعادة ترميز.",
+				"sourceKbps": "المصدر {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube قيّد هذا الفحص",
 				"bodyUnconfigured": "قائمة الصيغ قد تكون غير مكتملة. أعدّ الكوكيز في الإعدادات المتقدمة، أو غيّر الشبكة وأعد المحاولة.",
@@ -1159,6 +1170,8 @@
 			"source": {"label": "التدفقات ذات معدل بت محسّن أولاً", "reason": "تفاصيل أكثر بالدقة نفسها"},
 			"protocol": {"label": "التنزيلات المباشرة قبل النسخ المتدفقة", "reason": "الصورة نفسها، وتنزيل أسرع"},
 			"codec": {"label": "AV1، ثم VP9، ثم H.264", "reason": "الأوضح عند الحجم نفسه"},
+			"codecVp9First": {"label": "VP9، ثم H.264، ثم AV1", "reason": "ترميز ملف التعريف هذا"},
+			"codecH264First": {"label": "H.264، ثم VP9، ثم AV1", "reason": "ترميز ملف التعريف هذا"},
 			"size": {"label": "ملف أكبر", "reason": "تفاصيل أكثر بالإعدادات نفسها"},
 			"aacSmartTv": {"label": "صوت AAC", "reason": "يعمل في كل مكان"},
 			"aacFileType": {"label": "صوت AAC", "reason": "مناسب لمشغلات MP4"},
@@ -1172,5 +1185,13 @@
 		"summary": {"goal": {"bestPicture": "أفضل صورة", "smartTv": "يعمل على أي جهاز"}, "fileType": {"auto": "نوع الملف حسب التدفقات", "explicit": "يُحفظ بصيغة .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "تدفقات مُكبَّرة بالذكاء الاصطناعي", "description": "يعرض YouTube بعض الفيديوهات القديمة بأحجام صنعها بالذكاء الاصطناعي. يُبقي «تخطي» على التدفقات الأصلية؛ ولا يزال بإمكانك اختيار تدفق مُكبَّر يدويًا.", "skip": "تخطي", "allow": "السماح"},
+	"videoCodec": {
+		"label": "ترميز الفيديو",
+		"description": "أي ترميز يُؤخذ أولاً بين التدفقات ذات الارتفاع نفسه. يُبقي «تلقائي» ترتيب yt-dlp الخاص، وهو يفضّل AV1 الأصغر حجماً، بينما يعمل H.264 على التلفزيونات والهواتف الأقدم.",
+		"smartTv": "يعتمد «تلفاز ذكي» ترميز H.264 دائماً.",
+		"auto": "تلقائي",
+		"vp9": "VP9 أولاً",
+		"h264": "H.264 أولاً"
+	},
 	"hdrPreference": {"label": "فيديو HDR", "description": "يختار الوضع التلقائي HDR عندما تستطيع هذه الشاشة عرضه، وإلا يختار SDR. يبدو HDR باهتًا على الشاشات العادية.", "sdr": "SDR", "hdr": "HDR", "auto": "تلقائي"}
 }

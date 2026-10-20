@@ -5,7 +5,7 @@ import {Captions, FileAudio, Film, Scissors, type LucideIcon} from 'lucide-react
 import type {DownloadProfileAudioFormat, HdrSetting, NativeAudioPreference} from '@shared/types.js'
 import type {DownloadProfileAudioQuality, DownloadProfileDraft, DownloadProfileDraftAction, DownloadProfileMediaMode} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
-import {FieldGroup} from '../ui/field.js'
+import {FieldDescription, FieldGroup} from '../ui/field.js'
 import {ToggleGroup} from '../ui/toggle-group.js'
 import {Panel} from '../shared/Panel.js'
 import {OptionCard} from '../shared/OptionCard.js'
@@ -111,6 +111,7 @@ function ProfileAudioPanel({audioFormat, audioQuality, onAction}: ProfileAudioPa
 			<FieldGroup className="gap-3">
 				<ProfileSelect label={t('queue.table.format')} value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={next => onAction({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
 				<ProfileSelect label={t('wizard.profileEditor.field.quality')} value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={next => onAction({type: 'set-audio-quality', audioQuality: next})} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
+				{audioQualityDisabled ? null : <FieldDescription>{t('wizard.formats.convert.bitrateCopyHint', {target: audioFormat.toUpperCase()})}</FieldDescription>}
 			</FieldGroup>
 		</Panel>
 	)

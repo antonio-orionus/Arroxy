@@ -85,7 +85,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const part = input.videoPart ? {videoPart: input.videoPart, sponsorBlock: {mode: 'off'} as const} : {sponsorBlock}
 
 	if (input.audioConvert) {
-		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, ...(input.formatId ? {formatId: input.formatId} : {}), ...filenameTemplate, subtitles, embed: input.embed, ...part}
+		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, ...(input.formatId ? {formatId: input.formatId} : {}), ...filenameTemplate, subtitles, embed: input.embed, ...(input.expectedBytes === undefined ? {} : {expectedBytes: input.expectedBytes}), ...part}
 	}
 
 	if (!input.formatId) throw new Error('prepareJob: single-format requires formatId')

@@ -461,7 +461,18 @@
 			"audioLanguageCount_one": "{{count}} idioma",
 			"audioLanguageCount_many": "{{count}} de idiomas",
 			"audioLanguageCount_other": "{{count}} idiomas",
-			"convert": {"label": "Converter", "bitrate": "Taxa de bits", "wavLabel": "WAV (não comprimido)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "A fonte tem {{kbps}} kbps"},
+			"convert": {
+				"label": "Converter",
+				"bitrate": "Taxa de bits",
+				"wavLabel": "WAV (não comprimido)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, sem recodificação",
+				"copyLabelNoBitrate": "{{target}}, sem recodificação",
+				"copyNote": "{{kbps}} kbps, como na fonte: o fluxo já está em {{target}}, então é copiado, não recodificado",
+				"copyNoteNoBitrate": "Como na fonte: o fluxo já está em {{target}}, então é copiado, não recodificado",
+				"bitrateCopyHint": "Uma fonte que já está em {{target}} mantém seu próprio fluxo e taxa de bits: ela é copiada, não recodificada.",
+				"sourceKbps": "A fonte tem {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "A análise foi limitada",
 				"bodyUnconfigured": "A lista de formatos pode estar incompleta. Configure cookies nas opções avançadas ou troque de rede e tente novamente.",
@@ -1076,6 +1087,8 @@
 			"source": {"label": "Primeiro os fluxos com taxa de bits aprimorada", "reason": "mais detalhes com a mesma resolução"},
 			"protocol": {"label": "Primeiro os downloads diretos, depois as cópias em fluxo", "reason": "a mesma imagem, baixada mais rápido"},
 			"codec": {"label": "AV1, depois VP9, depois H.264", "reason": "mais nítido no mesmo tamanho"},
+			"codecVp9First": {"label": "VP9, depois H.264, depois AV1", "reason": "codec deste perfil"},
+			"codecH264First": {"label": "H.264, depois VP9, depois AV1", "reason": "codec deste perfil"},
 			"size": {"label": "Arquivo maior", "reason": "mais detalhes com as mesmas configurações"},
 			"aacSmartTv": {"label": "Áudio AAC", "reason": "toca em qualquer lugar"},
 			"aacFileType": {"label": "Áudio AAC", "reason": "serve para players MP4"},
@@ -1089,5 +1102,13 @@
 		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Streams ampliados por IA", "description": "O YouTube oferece alguns vídeos antigos em tamanhos criados com IA. “Pular” mantém os streams originais; você ainda pode escolher um ampliado manualmente.", "skip": "Pular", "allow": "Permitir"},
+	"videoCodec": {
+		"label": "Codec de vídeo",
+		"description": "Qual codec escolher primeiro entre streams da mesma altura. Automática mantém a ordem própria do yt-dlp, que favorece AV1, o menor; H.264 toca em TVs e celulares mais antigos.",
+		"smartTv": "Smart TV escolhe sempre H.264.",
+		"auto": "Automática",
+		"vp9": "VP9 primeiro",
+		"h264": "H.264 primeiro"
+	},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Automática escolhe HDR se esta tela puder exibi-lo; caso contrário, SDR. O HDR fica desbotado em telas comuns.", "sdr": "SDR", "hdr": "HDR", "auto": "Automática"}
 }

@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "একই আকারে সবচেয়ে স্পষ্ট"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, তারপর VP9, তারপর AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "এই প্রোফাইলের কোডেক"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, তারপর H.264, তারপর AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "এই প্রোফাইলের কোডেক"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "সর্বোচ্চ ফ্রেম রেট"
@@ -2011,6 +2027,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "লোড হচ্ছে…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "অটো"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "একই উচ্চতার স্ট্রিমগুলোর মধ্যে কোন কোডেক আগে নেওয়া হবে। অটো yt-dlp-এর নিজস্ব ক্রম বজায় রাখে, যা AV1-কে প্রাধান্য দেয়, যা সবচেয়ে ছোট; H.264 পুরোনো টিভি ও ফোনে চলে।"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 আগে"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "ভিডিও কোডেক"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "স্মার্ট TV সবসময় H.264 নেয়।"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 আগে"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "প্রস্তুত"
@@ -2300,6 +2340,26 @@ msgstr "আবার চেষ্টা করুন"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "বিটরেট"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "যে উৎস আগে থেকেই {{target}}, সেটি নিজের স্ট্রিম ও বিটরেট রেখে দেয়: এটি কপি করা হয়, পুনরায় encode করা হয় না।"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, পুনরায় encode নয়"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, পুনরায় encode নয়"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, উৎসে যেমন আছে: স্ট্রিমটি আগে থেকেই {{target}}, তাই এটি কপি করা হয়, পুনরায় encode করা হয় না"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "উৎসে যেমন আছে: স্ট্রিমটি আগে থেকেই {{target}}, তাই এটি কপি করা হয়, পুনরায় encode করা হয় না"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"

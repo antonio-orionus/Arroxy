@@ -451,7 +451,18 @@
 			"audioLanguage": "د غږ ژبه",
 			"audioLanguageCount_one": "{{count}} ژبه",
 			"audioLanguageCount_other": "{{count}} ژبې",
-			"convert": {"label": "بدلول", "bitrate": "بټ ریټ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "سرچینه {{kbps}} kbps ده"},
+			"convert": {
+				"label": "بدلول",
+				"bitrate": "بټ ریټ",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps، بیا کوډ نه کېږي",
+				"copyLabelNoBitrate": "{{target}}، بیا کوډ نه کېږي",
+				"copyNote": "{{kbps}} kbps، لکه په سرچینه کې: جریان لا دمخه {{target}} دی، نو کاپي کېږي، بیا کوډ نه کېږي",
+				"copyNoteNoBitrate": "لکه په سرچینه کې: جریان لا دمخه {{target}} دی، نو کاپي کېږي، بیا کوډ نه کېږي",
+				"bitrateCopyHint": "هغه سرچینه چې لا دمخه {{target}} وي خپل جریان او بټ ریټ ساتي: کاپي کېږي، بیا کوډ نه کېږي.",
+				"sourceKbps": "سرچینه {{kbps}} kbps ده"
+			},
 			"botWall": {
 				"heading": "YouTube دا پلټنه محدوده کړه",
 				"bodyUnconfigured": "د بڼو لیست ممکن نامکمل وي. د پرمختللو تنظیماتو کې کوکیز تنظیم کړئ، یا شبکه بدله کړئ او بیا هڅه وکړئ.",
@@ -1037,6 +1048,8 @@
 			"source": {"label": "لومړی ښه شوی بټ ریټ سټریمونه", "reason": "په ورته ریزولوشن کې ډېر جزئیات"},
 			"protocol": {"label": "مستقیم ډاونلوډونه د سټریم شویو کاپيو څخه مخکې", "reason": "ورته انځور، ګړندی ډاونلوډ"},
 			"codec": {"label": "AV1، بیا VP9، بیا H.264", "reason": "په ورته اندازه تر ټولو روښانه"},
+			"codecVp9First": {"label": "VP9، بیا H.264، بیا AV1", "reason": "د دې پروفایل کوډک"},
+			"codecH264First": {"label": "H.264، بیا VP9، بیا AV1", "reason": "د دې پروفایل کوډک"},
 			"size": {"label": "لوی فایل", "reason": "په ورته امستنو کې ډېر جزئیات"},
 			"aacSmartTv": {"label": "AAC غږ", "reason": "هر ځای چلیږي"},
 			"aacFileType": {"label": "AAC غږ", "reason": "د MP4 پلیرونو سره برابر"},
@@ -1050,5 +1063,13 @@
 		"summary": {"goal": {"bestPicture": "غوره انځور", "smartTv": "په هره وسیله چلیږي"}, "fileType": {"auto": "د فایل ډول له سټریمونو", "explicit": "د .{{ext}} په توګه خوندي کیږي"}}
 	},
 	"aiUpscaled": {"label": "د AI په مرسته لوی شوي سټریمونه", "description": "YouTube ځینې زاړه ویډیوګانې په داسې اندازو وړاندې کوي چې د مصنوعي ځیرکتیا (AI) په مرسته یې جوړې کړې دي. “پرېښودل” اصلي سټریمونه ساتي؛ تاسو لا هم کولی شئ یو لوی شوی سټریم په لاس غوره کړئ.", "skip": "پرېښودل", "allow": "اجازه ورکړئ"},
+	"videoCodec": {
+		"label": "ویډیو کوډک",
+		"description": "د ورته ارتفاع لرونکو سټریمونو ترمنځ کوم کوډک لومړی وټاکل شي. اتوماتیک د yt-dlp خپل ترتیب ساتي، چې AV1 ته لومړیتوب ورکوي، چې تر ټولو کوچنی دی؛ H.264 په زړو ټلویزیونونو او موبایلونو کې چلیږي.",
+		"smartTv": "سمارټ TV تل H.264 اخلي.",
+		"auto": "اتوماتیک",
+		"vp9": "لومړی VP9",
+		"h264": "لومړی H.264"
+	},
 	"hdrPreference": {"label": "HDR ویډیو", "description": "اتوماتیک HDR غوره کوي کله چې دا سکرین یې ښودلی شي، که نه نو SDR. HDR په عادي سکرینونو کې کمرنګه ښکاري.", "sdr": "SDR", "hdr": "HDR", "auto": "اتوماتیک"}
 }

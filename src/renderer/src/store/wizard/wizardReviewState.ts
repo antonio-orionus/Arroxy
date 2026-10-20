@@ -25,6 +25,7 @@ export type WizardReviewState = Pick<
 	| 'wizardExtractor'
 	| 'wizardFileType'
 	| 'wizardFilenameTemplate'
+	| 'wizardFormatSelection'
 	| 'wizardFormats'
 	| 'wizardMediaKind'
 	| 'wizardMode'
@@ -68,6 +69,7 @@ export function selectWizardReviewState(state: AppState): WizardReviewState {
 		wizardExtractor: state.wizardExtractor,
 		wizardFileType: state.wizardFileType,
 		wizardFilenameTemplate: state.wizardFilenameTemplate,
+		wizardFormatSelection: state.wizardFormatSelection,
 		wizardFormats: state.wizardFormats,
 		wizardMediaKind: state.wizardMediaKind,
 		wizardMode: state.wizardMode,

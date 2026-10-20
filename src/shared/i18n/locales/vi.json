@@ -426,7 +426,18 @@
 			"drc": {"label": "Cân bằng âm lượng (DRC)", "description": "Giảm đoạn to, tăng đoạn nhỏ, hợp với loa ngoài và nơi ồn ào.", "tag": "Âm lượng đều"},
 			"audioLanguage": "Ngôn ngữ âm thanh",
 			"audioLanguageCount_other": "{{count}} ngôn ngữ",
-			"convert": {"label": "Chuyển đổi", "bitrate": "Tốc độ bit", "wavLabel": "WAV (không nén)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Nguồn là {{kbps}} kbps"},
+			"convert": {
+				"label": "Chuyển đổi",
+				"bitrate": "Tốc độ bit",
+				"wavLabel": "WAV (không nén)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, không mã hóa lại",
+				"copyLabelNoBitrate": "{{target}}, không mã hóa lại",
+				"copyNote": "{{kbps}} kbps, giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại",
+				"copyNoteNoBitrate": "Giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại",
+				"bitrateCopyHint": "Nguồn đã là {{target}} sẽ giữ nguyên luồng và tốc độ bit của nó: được sao chép, không mã hóa lại.",
+				"sourceKbps": "Nguồn là {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube đã giới hạn lần kiểm tra này",
 				"bodyUnconfigured": "Danh sách định dạng có thể không đầy đủ. Thiết lập cookies trong cài đặt nâng cao, hoặc đổi mạng và thử lại.",
@@ -992,6 +1003,8 @@
 			"source": {"label": "Ưu tiên luồng có tốc độ bit nâng cao", "reason": "nhiều chi tiết hơn với cùng độ phân giải"},
 			"protocol": {"label": "Ưu tiên tải xuống trực tiếp hơn bản sao luồng", "reason": "cùng hình ảnh, tải nhanh hơn"},
 			"codec": {"label": "AV1, rồi VP9, rồi H.264", "reason": "nét nhất ở cùng dung lượng"},
+			"codecVp9First": {"label": "VP9, rồi H.264, rồi AV1", "reason": "codec của hồ sơ này"},
+			"codecH264First": {"label": "H.264, rồi VP9, rồi AV1", "reason": "codec của hồ sơ này"},
 			"size": {"label": "Tệp lớn hơn", "reason": "nhiều chi tiết hơn với cùng cài đặt"},
 			"aacSmartTv": {"label": "Âm thanh AAC", "reason": "phát được ở mọi nơi"},
 			"aacFileType": {"label": "Âm thanh AAC", "reason": "hợp với trình phát MP4"},
@@ -1005,5 +1018,13 @@
 		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Luồng nâng cấp bằng AI", "description": "YouTube cung cấp một số video cũ ở các kích thước được tạo bằng AI. Bỏ qua sẽ giữ các luồng gốc; bạn vẫn có thể tự chọn một luồng đã nâng cấp.", "skip": "Bỏ qua", "allow": "Cho phép"},
+	"videoCodec": {
+		"label": "Codec video",
+		"description": "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động giữ nguyên thứ tự riêng của yt-dlp, vốn ưu tiên AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ.",
+		"smartTv": "TV thông minh luôn lấy H.264.",
+		"auto": "Tự động",
+		"vp9": "Ưu tiên VP9",
+		"h264": "Ưu tiên H.264"
+	},
 	"hdrPreference": {"label": "Video HDR", "description": "Tự động sẽ chọn HDR khi màn hình này hiển thị được HDR, nếu không thì chọn SDR. HDR trông bị nhạt trên màn hình thông thường.", "sdr": "SDR", "hdr": "HDR", "auto": "Tự động"}
 }

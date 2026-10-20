@@ -82,13 +82,14 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const audioFormats = wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')
 
-	const audioConvert = wizardMediaKind === 'subtitles' ? undefined : buildAudioConvertPayload(effectiveAudio)
-	const formatLabel = wizardMediaKind === 'subtitles' ? i18next.t('wizard.formats.kind.subtitles') : buildFormatLabel(selectedVideoFormatId, videoResolution, effectiveAudio, audioFormats)
+	const audioConvert = wizardMediaKind === 'subtitles' ? undefined : buildAudioConvertPayload(effectiveAudio, wizardMediaKind)
+	const formatLabel = wizardMediaKind === 'subtitles' ? i18next.t('wizard.formats.kind.subtitles') : buildFormatLabel(selectedVideoFormatId, videoResolution, effectiveAudio, audioFormats, state.wizardFormatSelection)
 
-	const nativeAudioId = effectiveAudio.kind === 'native' ? effectiveAudio.formatId : null
+	// Extracting as it is (`best`) downloads the stream it names, whose size is known.
+	const nativeAudioId = effectiveAudio.kind === 'native' || effectiveAudio.kind === 'extract' ? (effectiveAudio.formatId ?? null) : null
 	const selectedIds = [selectedVideoFormatId, nativeAudioId].filter(Boolean) as string[]
 	const selectedSizes = selectedIds.map(id => wizardFormats.find(f => f.formatId === id)?.filesize)
-	const wholeBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
+	const wholeBytes = (!audioConvert || audioConvert.target === 'best') && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
 	const expectedBytes = scaleBytesToPart(wholeBytes, videoPart, state.wizardDuration)
 
 	// Untouched subtitles keep the profile's source (an auto-only profile must

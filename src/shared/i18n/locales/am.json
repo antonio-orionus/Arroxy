@@ -416,7 +416,18 @@
 			"audioLanguage": "የድምፅ ቋንቋ",
 			"audioLanguageCount_one": "{{count}} ቋንቋ",
 			"audioLanguageCount_other": "{{count}} ቋንቋዎች",
-			"convert": {"label": "ቀይር", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ምንጩ {{kbps}} kbps ነው"},
+			"convert": {
+				"label": "ቀይር",
+				"bitrate": "ቢትሬት",
+				"wavLabel": "WAV (ያልተጨመቀ)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps፣ ዳግም ኮድ አይደረግም",
+				"copyLabelNoBitrate": "{{target}}፣ ዳግም ኮድ አይደረግም",
+				"copyNote": "{{kbps}} kbps፣ ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም",
+				"copyNoteNoBitrate": "ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም",
+				"bitrateCopyHint": "አስቀድሞ {{target}} የሆነ ምንጭ የራሱን ዥረትና ቢትሬት ይይዛል፦ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም።",
+				"sourceKbps": "ምንጩ {{kbps}} kbps ነው"
+			},
 			"botWall": {
 				"heading": "YouTube ይህን ምርምር ገደበ",
 				"bodyUnconfigured": "የቅርጸት ዝርዝሩ ሙሉ ላይሆን ይችላል። Cookies በከፍተኛ ቅንብሮች ያዘጋጁ፣ ወይም አውታረ መረብ ቀይሩ እና እንደገና ሞክሩ።",
@@ -958,6 +969,8 @@
 			"source": {"label": "የተሻሻለ ቢትሬት ያላቸው ዥረቶች መጀመሪያ", "reason": "በተመሳሳይ ጥራት ተጨማሪ ዝርዝር"},
 			"protocol": {"label": "ቀጥተኛ ውርዶች ከዥረት ቅጂዎች በፊት", "reason": "ተመሳሳይ ምስል፣ ፈጣን ማውረድ"},
 			"codec": {"label": "AV1፣ ከዚያ VP9፣ ከዚያ H.264", "reason": "በተመሳሳይ መጠን በጣም ጥርት ያለ"},
+			"codecVp9First": {"label": "VP9፣ ከዚያ H.264፣ ከዚያ AV1", "reason": "የዚህ መገለጫ ኮዴክ"},
+			"codecH264First": {"label": "H.264፣ ከዚያ VP9፣ ከዚያ AV1", "reason": "የዚህ መገለጫ ኮዴክ"},
 			"size": {"label": "ትልቅ ፋይል", "reason": "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"},
 			"aacSmartTv": {"label": "AAC ድምጽ", "reason": "በሁሉም ቦታ ይጫወታል"},
 			"aacFileType": {"label": "AAC ድምጽ", "reason": "ለMP4 ማጫወቻዎች ተስማሚ"},
@@ -971,5 +984,6 @@
 		"summary": {"goal": {"bestPicture": "ምርጥ ምስል", "smartTv": "በማንኛውም መሣሪያ ይጫወታል"}, "fileType": {"auto": "የፋይል አይነት ከዥረቶቹ", "explicit": "እንደ .{{ext}} ይቀመጣል"}}
 	},
 	"aiUpscaled": {"label": "በAI የተሰፉ ዥረቶች", "description": "YouTube አንዳንድ የቆዩ ቪዲዮዎችን በAI በተሠሩ መጠኖች ያቀርባል። ዝለል የመጀመሪያዎቹን ዥረቶች ይይዛል፤ በAI የተሰፋውን ዥረት ግን አሁንም በእጅ መምረጥ ይችላሉ።", "skip": "ዝለል", "allow": "ፍቀድ"},
+	"videoCodec": {"label": "የቪዲዮ ኮዴክ", "description": "ተመሳሳይ ቁመት ባላቸው ዥረቶች መካከል መጀመሪያ የሚመረጥ ኮዴክ። ራስ-ሰር የ yt-dlp ራሱን ቅደም ተከተል ይጠብቃል፣ ይህም AV1ን ይደግፋል፣ እሱም በጣም ትንሹ ነው፤ H.264 በቆዩ ቲቪዎችና ስልኮች ላይ ይጫወታል።", "smartTv": "ስማርት TV ሁልጊዜ H.264ን ይመርጣል።", "auto": "ራስ-ሰር", "vp9": "VP9 መጀመሪያ", "h264": "H.264 መጀመሪያ"},
 	"hdrPreference": {"label": "HDR ቪዲዮ", "description": "ራስ-ሰር ይህ ስክሪን HDR ማሳየት ከቻለ HDRን ይመርጣል፣ ካልቻለ ደግሞ SDRን። HDR በተለመዱ ስክሪኖች ላይ የደበዘዘ ይመስላል።", "sdr": "SDR", "hdr": "HDR", "auto": "ራስ-ሰር"}
 }
