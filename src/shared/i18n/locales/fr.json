@@ -93,7 +93,6 @@
 			"menuDescription_one": "Choisissez le profil de cette vidéo.",
 			"menuDescription_many": "Choisissez le profil de ces {{count}} vidéos.",
 			"menuDescription_other": "Choisissez le profil de ces {{count}} vidéos.",
-			"assignAria": "Attribuer {{profileName}}",
 			"editProfile": "Modifier {{name}}",
 			"filtersLabel": "Filtres de profil",
 			"filterChip": "{{name}} · {{count}}",

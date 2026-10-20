@@ -3199,10 +3199,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "هر ویدیو سطح انتخابی را جداگانه تعیین می‌کند — فهرست‌های پخش ناهمگون بدون غافلگیری کار می‌کنند."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "اختصاص {{profileName}}"
-
 #. Plural form "one" for fa: used for counts like 0, 1.
 msgctxt "wizard.playlistProfiles.assignTrigger_one"
 msgid "Assign to {{count}} video"

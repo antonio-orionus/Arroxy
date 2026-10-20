@@ -78,7 +78,6 @@
 			"assignTrigger_other": "{{count}} ویڈیوز کو تفویض کریں",
 			"menuDescription_one": "اس ویڈیو کے لیے پروفائل منتخب کریں۔",
 			"menuDescription_other": "ان {{count}} ویڈیوز کے لیے پروفائل منتخب کریں۔",
-			"assignAria": "{{profileName}} تفویض کریں",
 			"editProfile": "{{name}} میں ترمیم کریں",
 			"filtersLabel": "پروفائل فلٹرز",
 			"filterChip": "{{name}} · {{count}}",

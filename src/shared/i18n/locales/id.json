@@ -82,7 +82,6 @@
 			"assignTriggerEmpty": "Tetapkan profil",
 			"assignTrigger_other": "Tetapkan ke {{count}} video",
 			"menuDescription_other": "Pilih profil untuk {{count}} video ini.",
-			"assignAria": "Tetapkan {{profileName}}",
 			"editProfile": "Edit {{name}}",
 			"filtersLabel": "Filter profil",
 			"filterChip": "{{name}} · {{count}}",

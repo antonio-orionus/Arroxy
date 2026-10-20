@@ -73,7 +73,6 @@
 			"menuDescription_one": "Изаберите профил за овај видео.",
 			"menuDescription_few": "Изаберите профил за изабране видео снимке ({{count}}).",
 			"menuDescription_other": "Изаберите профил за изабране видео снимке ({{count}}).",
-			"assignAria": "Додели {{profileName}}",
 			"editProfile": "Измени {{name}}",
 			"filtersLabel": "Филтери профила",
 			"filterChip": "{{name}} · {{count}}",

@@ -84,7 +84,6 @@
 			"assignTrigger_other": "{{count}} videoya ata",
 			"menuDescription_one": "Bu video için profili seçin.",
 			"menuDescription_other": "Bu {{count}} video için profili seçin.",
-			"assignAria": "{{profileName}} ata",
 			"editProfile": "{{name}} düzenle",
 			"filtersLabel": "Profil filtreleri",
 			"filterChip": "{{name}} · {{count}}",

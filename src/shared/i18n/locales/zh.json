@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "分配配置文件",
 			"assignTrigger_other": "分配给 {{count}} 个视频",
 			"menuDescription_other": "为这 {{count}} 个视频选择配置文件。",
-			"assignAria": "分配{{profileName}}",
 			"editProfile": "编辑{{name}}",
 			"filtersLabel": "配置筛选",
 			"filterChip": "{{name}} · {{count}}",

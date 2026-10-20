@@ -80,7 +80,6 @@
 			"menuDescription_one": "Escolha o perfil para este vídeo.",
 			"menuDescription_many": "Escolha o perfil para estes {{count}} vídeos.",
 			"menuDescription_other": "Escolha o perfil para estes {{count}} vídeos.",
-			"assignAria": "Atribuir {{profileName}}",
 			"editProfile": "Editar {{name}}",
 			"filtersLabel": "Filtros de perfil",
 			"filterChip": "{{name}} · {{count}}",

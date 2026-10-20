@@ -62,7 +62,6 @@
 			"assignTrigger_other": "اختصاص به {{count}} ویدیو",
 			"menuDescription_one": "نمایهٔ این ویدیو را انتخاب کنید.",
 			"menuDescription_other": "نمایهٔ این {{count}} ویدیو را انتخاب کنید.",
-			"assignAria": "اختصاص {{profileName}}",
 			"editProfile": "ویرایش {{name}}",
 			"filtersLabel": "فیلترهای نمایه",
 			"filterChip": "{{name}} · {{count}}",

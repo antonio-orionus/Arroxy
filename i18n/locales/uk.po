@@ -3469,10 +3469,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Кожне відео самостійно підбирає відповідний рівень якості — неоднорідні плейлисти працюють без сюрпризів."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Призначити {{profileName}}"
-
 #. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.playlistProfiles.assignTrigger_few"
 msgid "Assign to {{count}} videos"

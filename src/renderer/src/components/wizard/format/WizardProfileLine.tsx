@@ -15,7 +15,7 @@ import {Popover, PopoverTrigger} from '../../ui/popover.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {Hint} from '../../shared/Hint.js'
 import {DownloadProfileEditor} from '../DownloadProfileEditor.js'
-import {DownloadProfileMenuContent} from '../DownloadProfileMenu.js'
+import {ProfilePickerMenu} from '../ProfilePicker.js'
 import {buildDownloadProfileActionModel} from '../downloadProfileActions.js'
 import {ProfileDot} from './FormatLine.js'
 import {ProfileTag} from './ProfileTag.js'
@@ -82,7 +82,7 @@ export function WizardProfileLine(): ReactNode {
 
 	function pick(ref: DownloadProfileRef): void {
 		const option = model.options.find(candidate => candidate.ref.id === ref.id && candidate.ref.kind === ref.kind)
-		if (!option || option.active) return
+		if (!option || option.current) return
 		offer({profile: option.profile, reason: 'switch'})
 	}
 
@@ -127,7 +127,8 @@ export function WizardProfileLine(): ReactNode {
 								}
 							/>
 						</Hint>
-						<DownloadProfileMenuContent
+						<ProfilePickerMenu
+							layout="list"
 							options={model.options}
 							editProfile={activeProfile}
 							align="start"

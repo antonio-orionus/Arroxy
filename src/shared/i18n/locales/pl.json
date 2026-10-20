@@ -97,7 +97,6 @@
 			"menuDescription_few": "Wybierz profil dla zaznaczonych filmów ({{count}}).",
 			"menuDescription_many": "Wybierz profil dla zaznaczonych filmów ({{count}}).",
 			"menuDescription_other": "Wybierz profil dla zaznaczonych filmów ({{count}}).",
-			"assignAria": "Przypisz {{profileName}}",
 			"editProfile": "Edytuj {{name}}",
 			"filtersLabel": "Filtry profili",
 			"filterChip": "{{name}} · {{count}}",

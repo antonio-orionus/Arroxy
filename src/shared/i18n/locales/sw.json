@@ -71,7 +71,6 @@
 			"assignTrigger_other": "Weka kwa video {{count}}",
 			"menuDescription_one": "Chagua wasifu wa video hii.",
 			"menuDescription_other": "Chagua wasifu wa video hizi {{count}}.",
-			"assignAria": "Weka {{profileName}}",
 			"editProfile": "Hariri {{name}}",
 			"filtersLabel": "Vichujio vya wasifu",
 			"filterChip": "{{name}} · {{count}}",

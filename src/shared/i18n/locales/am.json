@@ -62,7 +62,6 @@
 			"assignTrigger_other": "ለ{{count}} ቪዲዮዎች መድብ",
 			"menuDescription_one": "ለዚህ ቪዲዮ መገለጫውን ይምረጡ።",
 			"menuDescription_other": "ለእነዚህ {{count}} ቪዲዮዎች መገለጫውን ይምረጡ።",
-			"assignAria": "{{profileName}}ን መድብ",
 			"editProfile": "{{name}}ን አርትዕ",
 			"filtersLabel": "የመገለጫ ማጣሪያዎች",
 			"filterChip": "{{name}} · {{count}}",

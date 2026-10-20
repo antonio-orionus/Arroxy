@@ -84,7 +84,6 @@
 			"assignTrigger_other": "{{count}} ویډیوګانو ته وټاکئ",
 			"menuDescription_one": "د دې ویډیو لپاره پروفایل غوره کړئ.",
 			"menuDescription_other": "د دې {{count}} ویډیوګانو لپاره پروفایل غوره کړئ.",
-			"assignAria": "{{profileName}} وټاکئ",
 			"editProfile": "{{name}} سمول",
 			"filtersLabel": "د پروفایل فلټرونه",
 			"filterChip": "{{name}} · {{count}}",

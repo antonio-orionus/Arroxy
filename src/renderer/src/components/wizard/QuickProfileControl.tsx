@@ -12,11 +12,11 @@ import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
-import {DownloadProfileMenuContent, type DownloadProfileMenuTestIdPrefix} from './DownloadProfileMenu.js'
+import {ProfilePickerMenu, type ProfilePickerTestIdPrefix} from './ProfilePicker.js'
 import {Hint} from '../shared/Hint.js'
 
 // The URL tab and the Bulk dialog; Explore opens the same menu from its own toolbar.
-type QuickProfileTestIdPrefix = Exclude<DownloadProfileMenuTestIdPrefix, 'explore'>
+type QuickProfileTestIdPrefix = Extract<ProfilePickerTestIdPrefix, 'profiles' | 'bulk'>
 
 interface QuickProfileControlProps {
 	defaultProfileMenuOpen?: boolean
@@ -280,7 +280,7 @@ function ProfileMenu({
 					</div>
 				) : null}
 			</div>
-			<DownloadProfileMenuContent options={model.options} editProfile={model.activeProfile} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />
+			<ProfilePickerMenu layout="grid" options={model.options} editProfile={model.activeProfile} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />
 		</Popover>
 	)
 }

@@ -3334,10 +3334,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Додели {{profileName}}"
-
 #. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.playlistProfiles.assignTrigger_few"
 msgid "Assign to {{count}} videos"

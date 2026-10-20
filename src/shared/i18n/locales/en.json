@@ -62,7 +62,6 @@
 			"assignTrigger_other": "Assign to {{count}} videos",
 			"menuDescription_one": "Pick the profile for this video.",
 			"menuDescription_other": "Pick the profile for these {{count}} videos.",
-			"assignAria": "Assign {{profileName}}",
 			"editProfile": "Edit {{name}}",
 			"filtersLabel": "Profile filters",
 			"filterChip": "{{name}} · {{count}}",
