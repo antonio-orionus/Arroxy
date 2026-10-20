@@ -58,7 +58,7 @@ describe('VideoPhase — media title', () => {
 	it('keeps the unsanitized title yt-dlp wrote into the job info-json', async () => {
 		const ctx = makeCtx(JSON.stringify({id: 'abc', title: 'AC/DC: Live? "Best"'}))
 
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 
 		expect(ctx.active.mediaTitle).toBe('AC/DC: Live? "Best"')
 	})
@@ -66,7 +66,7 @@ describe('VideoPhase — media title', () => {
 	it('reads no title when the run wrote no info-json', async () => {
 		const ctx = makeCtx(null)
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(ctx.active.mediaTitle).toBeUndefined()
 	})
@@ -74,7 +74,7 @@ describe('VideoPhase — media title', () => {
 	it('reads no title from an info-json without one', async () => {
 		const ctx = makeCtx(JSON.stringify({id: 'abc'}))
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(ctx.active.mediaTitle).toBeUndefined()
 	})
@@ -82,7 +82,7 @@ describe('VideoPhase — media title', () => {
 	it('keeps the title when the media landed but the SponsorBlock lookup failed', async () => {
 		const ctx = makeCtx(JSON.stringify({id: 'abc', title: 'Real Title'}), SPONSORBLOCK_API_FAILURE, {...JOB, sponsorBlock: {mode: 'mark', categories: ['sponsor']}})
 
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 
 		expect(ctx.active.mediaTitle).toBe('Real Title')
 	})
@@ -90,7 +90,7 @@ describe('VideoPhase — media title', () => {
 	it('reads no title for a failed run', async () => {
 		const ctx = makeCtx(JSON.stringify({id: 'abc', title: 'Real Title'}), FAILURE)
 
-		expect((await VideoPhase(false).run(ctx)).kind).toBe('hard-failed')
+		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 
 		expect(ctx.active.mediaTitle).toBeUndefined()
 	})

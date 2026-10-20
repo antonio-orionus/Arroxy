@@ -1,6 +1,6 @@
 # Release pipeline internals
 
-What happens after `bun run release:stable` / `release:beta` pushes a tag. `AGENTS.md` keeps the rules for cutting a release; [`release-runbook.md`](release-runbook.md) is the manual checklist and [`flatpak-repo.md`](flatpak-repo.md) covers the Flatpak repo.
+What happens after `bun run release:stable` (or, on an explicit request for a beta, `release:beta`) pushes a tag. `AGENTS.md` keeps the rules for cutting a release; [`release-runbook.md`](release-runbook.md) is the manual checklist and [`flatpak-repo.md`](flatpak-repo.md) covers the Flatpak repo.
 
 | Lives in | What |
 | --- | --- |
@@ -55,7 +55,7 @@ GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppI
 
 ## Pre-release flow (test pipeline w/o auto-updating users)
 
-Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
+Only when the maintainer explicitly asks for a beta; releases normally go stable straight from `main` ([`release-runbook.md`](release-runbook.md)). Tag w/ semver pre-release suffix (e.g. `v0.4.0-beta.1`):
 
 - electron-builder marks the GitHub Release `prerelease: true` automatically (semver `-` suffix triggers it).
 - electron-updater queries `/releases/latest` (excludes pre-releases) → existing user installs do **not** auto-update.

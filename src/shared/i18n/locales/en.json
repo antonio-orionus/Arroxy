@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "dismiss": "Dismiss", "startOver": "Start over"},
+	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "dismiss": "Dismiss", "startOver": "Start over", "close": "Close"},
 	"app": {
 		"feedback": "Feedback",
 		"logs": "Logs",
@@ -620,7 +620,20 @@
 				"save": "Save profile"
 			},
 			"placeholder": {"folder": "Choose a folder for this profile"},
-			"destination": {"global": "Global destination", "override": "Profile override", "resolved": "Resolved destination"},
+			"destination": {
+				"global": "Global destination",
+				"override": "Profile override",
+				"resolved": "Resolved destination",
+				"defaultFolder": "Default downloads folder",
+				"defaultFolderWithSubfolder": "Default downloads folder / {{subfolder}}",
+				"globalActive": "Active",
+				"globalInherited": "Inherited",
+				"overrideSet": "Overrides global",
+				"overrideChoosing": "Choose folder",
+				"overrideNone": "No override set",
+				"overrideSetNote": "This profile saves to its own root before the subfolder is added.",
+				"overrideNoneNote": "No override set. This profile uses the global destination above."
+			},
 			"note": {
 				"subtitlesOnly": "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.",
 				"noSubtitles": "No subtitle files or embedded subtitle tracks will be requested for this profile.",
@@ -631,7 +644,7 @@
 				"autoCaptionsSrt": "Auto-captions will be saved as SRT instead of ASS.",
 				"skippedForOutputType": "Skipped for this output type."
 			},
-			"error": {"save": "Could not save profile settings.", "changeGlobalDestination": "Could not change global destination.", "reset": "Could not reset profile settings."},
+			"error": {"save": "Could not save profile settings.", "changeGlobalDestination": "Could not change global destination.", "reset": "Could not reset profile settings.", "folderPicker": "Could not open folder picker. Enter a path manually."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + audio", "description": "Normal video files"},
 				"videoOnly": {"label": "Video, no audio", "description": "Silent video only"},

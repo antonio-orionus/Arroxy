@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "বাতিল"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "বন্ধ করুন"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "চালিয়ে যান"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "সেরা মান"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "ডিফল্ট ডাউনলোড ফোল্ডার"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "ডিফল্ট ডাউনলোড ফোল্ডার / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "গ্লোবাল গন্তব্য"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "সক্রিয়"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "উত্তরাধিকারসূত্রে প্রাপ্ত"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "প্রোফাইল ওভাররাইড"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "ফোল্ডার বাছুন"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "কোনো ওভাররাইড নেই"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "কোনো ওভাররাইড সেট করা নেই। এই প্রোফাইল উপরের গ্লোবাল গন্তব্য ব্যবহার করে।"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "গ্লোবালকে ওভাররাইড করে"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "সাবফোল্ডার যোগ করার আগে এই প্রোফাইল নিজের রুটে সংরক্ষণ করে।"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "ডাউনলোড প্রোফাইল"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "গ্লোবাল গন্তব্য পরিবর্তন করা যায়নি।"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "ফোল্ডার নির্বাচক খোলা যায়নি। নিজে পথ লিখুন।"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

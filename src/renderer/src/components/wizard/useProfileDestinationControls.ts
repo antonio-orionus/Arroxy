@@ -50,11 +50,17 @@ export function useProfileDestinationControls({initialProfile, destination, onAc
 		beginDestinationEdit(true)
 		try {
 			const result = await window.appApi.dialog.chooseFolder(destination.trim() || undefined)
-			if (!result.ok || !result.data.path) return
+			// The main process reports a dialog failure as a result, not a rejection.
+			if (!result.ok) {
+				console.error('Failed to open destination folder picker', result.error)
+				setPickerError(t('wizard.profileEditor.error.folderPicker'))
+				return
+			}
+			if (!result.data.path) return
 			onAction({type: 'set-destination', destination: result.data.path})
 		} catch (error) {
 			console.error('Failed to open destination folder picker', error)
-			setPickerError('Could not open folder picker. Enter a path manually.')
+			setPickerError(t('wizard.profileEditor.error.folderPicker'))
 		}
 	}
 

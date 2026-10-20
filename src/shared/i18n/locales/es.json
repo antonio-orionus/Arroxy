@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "dismiss": "Descartar", "startOver": "Empezar de nuevo"},
+	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "dismiss": "Descartar", "startOver": "Empezar de nuevo", "close": "Cerrar"},
 	"app": {
 		"feedback": "Comentarios",
 		"logs": "Registros",
@@ -670,7 +670,20 @@
 				"save": "Guardar perfil"
 			},
 			"placeholder": {"folder": "Elegir una carpeta para este perfil"},
-			"destination": {"global": "Destino global", "override": "Anulación del perfil", "resolved": "Destino resuelto"},
+			"destination": {
+				"global": "Destino global",
+				"override": "Anulación del perfil",
+				"resolved": "Destino resuelto",
+				"defaultFolder": "Carpeta de descargas predeterminada",
+				"defaultFolderWithSubfolder": "Carpeta de descargas predeterminada / {{subfolder}}",
+				"globalActive": "Activo",
+				"globalInherited": "Heredado",
+				"overrideSet": "Anula el global",
+				"overrideChoosing": "Elegir carpeta",
+				"overrideNone": "Sin anulación",
+				"overrideSetNote": "Este perfil guarda en su propia raíz antes de añadir la subcarpeta.",
+				"overrideNoneNote": "Sin anulación definida. Este perfil usa el destino global de arriba."
+			},
 			"note": {
 				"subtitlesOnly": "Este perfil solo pone en cola archivos de subtítulos. Se omiten el vídeo, el audio, SponsorBlock y la conversión de medios.",
 				"noSubtitles": "Este perfil no solicitará archivos de subtítulos ni pistas de subtítulos incrustadas.",
@@ -681,7 +694,7 @@
 				"autoCaptionsSrt": "Los subtítulos automáticos se guardarán como SRT en lugar de ASS.",
 				"skippedForOutputType": "Omitido para este tipo de salida."
 			},
-			"error": {"save": "No se pudieron guardar los ajustes del perfil.", "changeGlobalDestination": "No se pudo cambiar el destino global.", "reset": "No se pudieron restablecer los ajustes del perfil."},
+			"error": {"save": "No se pudieron guardar los ajustes del perfil.", "changeGlobalDestination": "No se pudo cambiar el destino global.", "reset": "No se pudieron restablecer los ajustes del perfil.", "folderPicker": "No se pudo abrir el selector de carpetas. Escribe la ruta manualmente."},
 			"mediaMode": {
 				"videoAudio": {"label": "Vídeo + audio", "description": "Archivos de vídeo normales"},
 				"videoOnly": {"label": "Vídeo, sin audio", "description": "Solo vídeo sin sonido"},

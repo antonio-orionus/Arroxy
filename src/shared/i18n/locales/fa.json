@@ -1,5 +1,5 @@
 {
-	"common": {"back": "بازگشت", "cancel": "لغو", "continue": "ادامه", "loading": "در حال بارگیری", "retry": "تلاش دوباره", "dismiss": "بستن", "startOver": "شروع دوباره"},
+	"common": {"back": "بازگشت", "cancel": "لغو", "continue": "ادامه", "loading": "در حال بارگیری", "retry": "تلاش دوباره", "dismiss": "بستن", "startOver": "شروع دوباره", "close": "بستن"},
 	"app": {
 		"feedback": "بازخورد",
 		"logs": "گزارش‌ها",
@@ -620,7 +620,20 @@
 				"save": "ذخیرهٔ نمایه"
 			},
 			"placeholder": {"folder": "انتخاب پوشه برای این نمایه"},
-			"destination": {"global": "مقصد سراسری", "override": "جایگزینی نمایه", "resolved": "مقصد نهایی"},
+			"destination": {
+				"global": "مقصد سراسری",
+				"override": "جایگزینی نمایه",
+				"resolved": "مقصد نهایی",
+				"defaultFolder": "پوشهٔ دانلودهای پیش‌فرض",
+				"defaultFolderWithSubfolder": "پوشهٔ دانلودهای پیش‌فرض / {{subfolder}}",
+				"globalActive": "فعال",
+				"globalInherited": "ارث‌بری‌شده",
+				"overrideSet": "جایگزین سراسری",
+				"overrideChoosing": "انتخاب پوشه",
+				"overrideNone": "بدون جایگزینی",
+				"overrideSetNote": "این نمایه پیش از افزودن زیرپوشه، در ریشهٔ مخصوص خود ذخیره می‌کند.",
+				"overrideNoneNote": "جایگزینی تنظیم نشده است. این نمایه از مقصد سراسری بالا استفاده می‌کند."
+			},
 			"note": {
 				"subtitlesOnly": "این نمایه فقط فایل‌های زیرنویس را به صف می‌افزاید. ویدیو، صدا، SponsorBlock و تبدیل رسانه انجام نمی‌شوند.",
 				"noSubtitles": "برای این نمایه هیچ فایل زیرنویس یا قطعهٔ زیرنویس جاسازی‌شده‌ای درخواست نمی‌شود.",
@@ -631,7 +644,7 @@
 				"autoCaptionsSrt": "زیرنویس‌های خودکار به‌جای ASS با قالب SRT ذخیره می‌شوند.",
 				"skippedForOutputType": "برای این نوع خروجی نادیده گرفته می‌شود."
 			},
-			"error": {"save": "تنظیمات نمایه ذخیره نشد.", "changeGlobalDestination": "مقصد سراسری تغییر نکرد.", "reset": "تنظیمات نمایه بازنشانی نشد."},
+			"error": {"save": "تنظیمات نمایه ذخیره نشد.", "changeGlobalDestination": "مقصد سراسری تغییر نکرد.", "reset": "تنظیمات نمایه بازنشانی نشد.", "folderPicker": "باز کردن انتخابگر پوشه ممکن نشد. مسیر را دستی وارد کنید."},
 			"mediaMode": {
 				"videoAudio": {"label": "ویدیو + صدا", "description": "فایل‌های ویدیویی معمولی"},
 				"videoOnly": {"label": "ویدیو، بدون صدا", "description": "فقط ویدیوی بی‌صدا"},

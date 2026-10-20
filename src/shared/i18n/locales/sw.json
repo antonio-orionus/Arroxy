@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "dismiss": "Funga", "startOver": "Anza upya"},
+	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "dismiss": "Funga", "startOver": "Anza upya", "close": "Funga"},
 	"app": {
 		"feedback": "Maoni",
 		"logs": "Kumbukumbu",
@@ -639,7 +639,20 @@
 				"save": "Hifadhi wasifu"
 			},
 			"placeholder": {"folder": "Chagua folda kwa wasifu huu"},
-			"destination": {"global": "Lengo la jumla", "override": "Ubatilishaji wa wasifu", "resolved": "Lengo la mwisho"},
+			"destination": {
+				"global": "Lengo la jumla",
+				"override": "Ubatilishaji wa wasifu",
+				"resolved": "Lengo la mwisho",
+				"defaultFolder": "Folda chaguomsingi ya vipakuliwa",
+				"defaultFolderWithSubfolder": "Folda chaguomsingi ya vipakuliwa / {{subfolder}}",
+				"globalActive": "Inatumika",
+				"globalInherited": "Imerithiwa",
+				"overrideSet": "Inabatilisha jumla",
+				"overrideChoosing": "Chagua folda",
+				"overrideNone": "Hakuna ubatilishaji",
+				"overrideSetNote": "Wasifu huu huhifadhi kwenye mzizi wake yenyewe kabla ya folda ndogo kuongezwa.",
+				"overrideNoneNote": "Hakuna ubatilishaji uliowekwa. Wasifu huu hutumia lengo la jumla lililo juu."
+			},
 			"note": {
 				"subtitlesOnly": "Wasifu huu huweka foleni faili za manukuu pekee. Video, sauti, SponsorBlock na ubadilishaji wa media hurukwa.",
 				"noSubtitles": "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa.",
@@ -650,7 +663,7 @@
 				"autoCaptionsSrt": "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS.",
 				"skippedForOutputType": "Imerukwa kwa aina hii ya matokeo."
 			},
-			"error": {"save": "Imeshindwa kuhifadhi mipangilio ya wasifu.", "changeGlobalDestination": "Imeshindwa kubadilisha lengo la jumla.", "reset": "Imeshindwa kuweka upya mipangilio ya wasifu."},
+			"error": {"save": "Imeshindwa kuhifadhi mipangilio ya wasifu.", "changeGlobalDestination": "Imeshindwa kubadilisha lengo la jumla.", "reset": "Imeshindwa kuweka upya mipangilio ya wasifu.", "folderPicker": "Haikuweza kufungua kichagua folda. Weka njia mwenyewe."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + sauti", "description": "Faili za kawaida za video"},
 				"videoOnly": {"label": "Video, bila sauti", "description": "Video isiyo na sauti pekee"},

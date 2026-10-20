@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "dismiss": "Tutup", "startOver": "Mulai dari awal"},
+	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "dismiss": "Tutup", "startOver": "Mulai dari awal", "close": "Tutup"},
 	"app": {
 		"feedback": "Masukan",
 		"logs": "Log",
@@ -634,7 +634,20 @@
 				"save": "Simpan profil"
 			},
 			"placeholder": {"folder": "Pilih folder untuk profil ini"},
-			"destination": {"global": "Tujuan global", "override": "Penggantian profil", "resolved": "Tujuan akhir"},
+			"destination": {
+				"global": "Tujuan global",
+				"override": "Penggantian profil",
+				"resolved": "Tujuan akhir",
+				"defaultFolder": "Folder unduhan default",
+				"defaultFolderWithSubfolder": "Folder unduhan default / {{subfolder}}",
+				"globalActive": "Aktif",
+				"globalInherited": "Diwarisi",
+				"overrideSet": "Menggantikan global",
+				"overrideChoosing": "Pilih folder",
+				"overrideNone": "Tanpa penggantian",
+				"overrideSetNote": "Profil ini menyimpan ke root-nya sendiri sebelum subfolder ditambahkan.",
+				"overrideNoneNote": "Penggantian belum diatur. Profil ini memakai tujuan global di atas."
+			},
 			"note": {
 				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati.",
 				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
@@ -645,7 +658,7 @@
 				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
 				"skippedForOutputType": "Dilewati untuk jenis keluaran ini."
 			},
-			"error": {"save": "Tidak dapat menyimpan pengaturan profil.", "changeGlobalDestination": "Tidak dapat mengubah tujuan global.", "reset": "Tidak dapat menyetel ulang pengaturan profil."},
+			"error": {"save": "Tidak dapat menyimpan pengaturan profil.", "changeGlobalDestination": "Tidak dapat mengubah tujuan global.", "reset": "Tidak dapat menyetel ulang pengaturan profil.", "folderPicker": "Tidak dapat membuka pemilih folder. Masukkan jalur secara manual."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + audio", "description": "Berkas video biasa"},
 				"videoOnly": {"label": "Video, tanpa audio", "description": "Hanya video tanpa suara"},

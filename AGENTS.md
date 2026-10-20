@@ -174,13 +174,13 @@ The user starts every update (auto-download is off), and every install channel m
 
 ## Release Pipeline
 
-Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Both are cut from `main`, the only long-lived branch.
+Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Releases are stable and cut straight from `main`, the only long-lived branch; a beta is never a step before a stable release.
 
-- **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:beta` or `bun run release:stable` yourself. Don't hand the script back to the user.
+- **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user.
 - **Tags go through the wrapper**, which makes them annotated and pushes each one alone; a hand-pushed tag can silently fail to start the pipeline.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
-Checklist, beta-then-stable sequence and manual fallback: [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md). Job graph, secrets, Winget, external repos and shipped assets: [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
+Checklist, the optional beta path and manual fallback: [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md). Job graph, secrets, Winget, external repos and shipped assets: [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
 
 ## Binary distribution strategy
 

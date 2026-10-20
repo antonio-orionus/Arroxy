@@ -94,6 +94,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr ""
 
+msgctxt "common.close"
+msgid "Close"
+msgstr ""
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr ""
@@ -3363,12 +3367,48 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr ""
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr ""
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr ""
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr ""
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr ""
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
 msgstr ""
 
 msgctxt "wizard.profileEditor.destination.resolved"
@@ -3385,6 +3425,10 @@ msgstr ""
 
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
+msgstr ""
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
 msgstr ""
 
 msgctxt "wizard.profileEditor.error.reset"

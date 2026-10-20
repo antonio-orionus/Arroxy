@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Откажи"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Затвори"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Настави"
@@ -3572,13 +3576,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Најбољи квалитет"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Подразумевана фасцикла за преузимања"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Подразумевана фасцикла за преузимања / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Опште одредиште"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Активно"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Наслеђено"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Замена профила"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Изабери фасциклу"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Замена није постављена"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Замена није постављена. Овај профил користи опште одредиште изнад."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Замењује опште"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Овај профил чува у сопствену коренску фасциклу пре него што се дода подфасцикла."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3595,6 +3635,10 @@ msgstr "Профил преузимања"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Није могуће променити опште одредиште."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Није могуће отворити бирач фасцикли. Унесите путању ручно."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

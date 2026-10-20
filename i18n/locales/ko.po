@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "취소"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "닫기"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "계속"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "최고 화질"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "기본 다운로드 폴더"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "기본 다운로드 폴더 / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "전역 대상"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "사용 중"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "상속됨"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "프로필 재정의"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "폴더 선택"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "재정의 없음"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "설정된 재정의가 없습니다. 이 프로필은 위의 전역 대상을 사용합니다."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "전역 설정 재정의"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "이 프로필은 하위 폴더가 추가되기 전에 자체 루트 폴더에 저장합니다."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "다운로드 프로필"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "전역 대상을 변경할 수 없습니다."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "폴더 선택기를 열 수 없습니다. 경로를 직접 입력하세요."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

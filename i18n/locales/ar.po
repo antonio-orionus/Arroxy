@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "إلغاء"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "إغلاق"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "متابعة"
@@ -4007,13 +4011,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "أفضل جودة"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "مجلد التنزيلات الافتراضي"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "مجلد التنزيلات الافتراضي / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "الوجهة العامة"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "نشط"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "موروث"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "تجاوز الملف"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "اختيار مجلد"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "لا يوجد تجاوز"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "لم يتم تعيين تجاوز. يستخدم هذا الملف الوجهة العامة أعلاه."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "يتجاوز العام"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "يحفظ هذا الملف في جذره الخاص قبل إضافة المجلد الفرعي."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -4030,6 +4070,10 @@ msgstr "ملف التنزيل"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "تعذّر تغيير الوجهة العامة."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "تعذّر فتح مُحدِّد المجلدات. أدخل المسار يدويًا."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

@@ -114,20 +114,20 @@ function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: Cook
 describe('VideoPhase quality limit detection', () => {
 	it('records a limit when yt-dlp reports withheld formats and the file lands below the cap', async () => {
 		const {ctx, safeConsume} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(safeConsume).toHaveBeenCalledWith(SABR_WARNING)
 	})
 
 	it('records nothing when the cap was reached despite the warning', async () => {
 		const {ctx} = makeCtx({runs: [{withheld: true, infoJson: INFO_720}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.qualityLimit).toBeUndefined()
 	})
 
 	it('records nothing for a low-resolution file without the warning', async () => {
 		const {ctx} = makeCtx({runs: [{withheld: false, infoJson: INFO_360}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.qualityLimit).toBeUndefined()
 	})
 
@@ -135,7 +135,7 @@ describe('VideoPhase quality limit detection', () => {
 		const probeInfoJsonPath = join(outputDir, 'probe.info.json')
 		await writeFile(probeInfoJsonPath, INFO_360)
 		const {ctx} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], input: {probeInfoJsonPath, probeFormatsWithheld: true}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 	})
 
@@ -144,7 +144,7 @@ describe('VideoPhase quality limit detection', () => {
 		await mkdir(tempDir, {recursive: true})
 		await writeFile(join(tempDir, '_arroxy.info.json'), INFO_360)
 		const {ctx, cookieFlags} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], active: {tempDir, formatsWithheld: true}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 	})
@@ -157,7 +157,7 @@ describe('VideoPhase quality limit detection', () => {
 				{withheld: false, infoJson: INFO_720}
 			]
 		})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true, false])
 		expect(ctx.active.qualityLimit).toBeUndefined()
 	})
@@ -165,7 +165,7 @@ describe('VideoPhase quality limit detection', () => {
 	it('never records a limit for a format the user picked explicitly', async () => {
 		const single: MediaJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', sponsorBlock: {mode: 'off'}, embed: RANGED_720.embed}
 		const {ctx} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], input: {job: single}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.qualityLimit).toBeUndefined()
 	})
 })
@@ -179,7 +179,7 @@ describe('VideoPhase retry without cookies', () => {
 				{withheld: false, infoJson: INFO_720}
 			]
 		})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(cookieFlags).toEqual([true, false])
 		expect(ctx.active.qualityLimit).toBeUndefined()
 		expect(cookielessRetry.current).toBe('helps')
@@ -192,7 +192,7 @@ describe('VideoPhase retry without cookies', () => {
 		const probeInfoJsonPath = join(outputDir, 'probe.info.json')
 		await writeFile(probeInfoJsonPath, JSON.stringify({formats: [{format_id: '18', height: 360, vcodec: 'avc1'}]}))
 		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: false, infoJson: INFO_720}], input: {probeInfoJsonPath, probeFormatsWithheld: true}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([false])
 		const loaded = vi.mocked(ctx.ytDlp.run).mock.calls.map(([req]) => (req.kind === 'media' ? req.resume?.loadInfoJsonPath : 'not-media'))
 		expect(loaded).toEqual([undefined])
@@ -211,14 +211,14 @@ describe('VideoPhase retry without cookies', () => {
 			})
 		)
 		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_720}], input: {probeInfoJsonPath, probeFormatsWithheld: true}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true])
 		expect(cookielessRetry.current).toBe('untested')
 	})
 
 	it('keeps a limited download that finished before the stop reached it', async () => {
 		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_360, outrunsStop: true}]})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(cookieFlags).toEqual([true])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(cookielessRetry.current).toBe('untested')
@@ -232,7 +232,7 @@ describe('VideoPhase retry without cookies', () => {
 				{withheld: false, infoJson: INFO_720, alreadyDownloaded: true}
 			]
 		})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true, false])
 		expect(cookielessRetry.current).toBe('untested')
 	})
@@ -263,7 +263,7 @@ describe('VideoPhase retry without cookies', () => {
 			}
 			return original(req, signal, options)
 		})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(partialsSeenByRetry).toEqual([false])
 	})
 
@@ -275,7 +275,7 @@ describe('VideoPhase retry without cookies', () => {
 				{withheld: true, infoJson: INFO_360}
 			]
 		})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true, false])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(cookielessRetry.current).toBe('no-help')
@@ -290,7 +290,7 @@ describe('VideoPhase retry without cookies', () => {
 				{withheld: true, infoJson: INFO_360}
 			]
 		})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(cookieFlags).toEqual([true, false, true])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(cookielessRetry.current).toBe('no-help')
@@ -300,7 +300,7 @@ describe('VideoPhase retry without cookies', () => {
 		const retry = new CookielessRetry()
 		retry.record('full-quality')
 		const helped = makeCtx({usesCookies: true, retry, runs: [{withheld: false, infoJson: INFO_720}]})
-		await VideoPhase(false).run(helped.ctx)
+		await VideoPhase.run(helped.ctx)
 		expect(helped.cookieFlags).toEqual([false])
 
 		const failed = makeCtx({
@@ -311,14 +311,14 @@ describe('VideoPhase retry without cookies', () => {
 				{withheld: false, infoJson: INFO_720}
 			]
 		})
-		await VideoPhase(false).run(failed.ctx)
+		await VideoPhase.run(failed.ctx)
 		expect(failed.cookieFlags).toEqual([false, true])
 		expect(retry.current).toBe('no-help')
 	})
 
 	it('does not drop cookies for a video that needs sign-in', async () => {
 		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_360_AGE_RESTRICTED}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(cookielessRetry.current).toBe('untested')
@@ -326,13 +326,13 @@ describe('VideoPhase retry without cookies', () => {
 
 	it('lets a signed-in download that reached the cap run to the end', async () => {
 		const {ctx, cookieFlags} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_720}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true])
 	})
 
 	it('never retries when cookies are off', async () => {
 		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: false, runs: [{withheld: true, infoJson: INFO_360}]})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(cookieFlags).toEqual([true])
 		expect(cookielessRetry.current).toBe('untested')
 	})
@@ -343,7 +343,7 @@ describe('VideoPhase retry without cookies', () => {
 describe('VideoPhase retry without cookies — escalated jobs', () => {
 	it('never runs the cookieless retry for an escalated job (D4)', async () => {
 		const {ctx, identities, cookielessRetry} = makeCtx({usesCookies: true, signedIn: true, runs: [{withheld: true, infoJson: INFO_360}], input: {auth: 'exploreSession'}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(identities).toEqual(['exploreSession'])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 		expect(cookielessRetry.current).toBe('untested')
@@ -353,7 +353,7 @@ describe('VideoPhase retry without cookies — escalated jobs', () => {
 		const retry = new CookielessRetry()
 		retry.record('full-quality')
 		const {ctx, identities} = makeCtx({usesCookies: true, signedIn: true, retry, runs: [{withheld: true, infoJson: INFO_360}], input: {auth: 'exploreSession'}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(identities).toEqual(['exploreSession'])
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 	})

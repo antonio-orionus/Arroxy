@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Wstecz", "cancel": "Anuluj", "continue": "Kontynuuj", "loading": "Wczytywanie", "retry": "Spróbuj ponownie", "dismiss": "Odrzuć", "startOver": "Zacznij od początku"},
+	"common": {"back": "Wstecz", "cancel": "Anuluj", "continue": "Kontynuuj", "loading": "Wczytywanie", "retry": "Spróbuj ponownie", "dismiss": "Odrzuć", "startOver": "Zacznij od początku", "close": "Zamknij"},
 	"app": {
 		"feedback": "Opinia",
 		"logs": "Dzienniki",
@@ -701,7 +701,20 @@
 				"save": "Zapisz profil"
 			},
 			"placeholder": {"folder": "Wybierz folder dla tego profilu"},
-			"destination": {"global": "Miejsce globalne", "override": "Zastąpienie profilu", "resolved": "Docelowa lokalizacja"},
+			"destination": {
+				"global": "Miejsce globalne",
+				"override": "Zastąpienie profilu",
+				"resolved": "Docelowa lokalizacja",
+				"defaultFolder": "Domyślny folder pobierania",
+				"defaultFolderWithSubfolder": "Domyślny folder pobierania / {{subfolder}}",
+				"globalActive": "Aktywne",
+				"globalInherited": "Dziedziczone",
+				"overrideSet": "Zastępuje globalne",
+				"overrideChoosing": "Wybierz folder",
+				"overrideNone": "Brak zastąpienia",
+				"overrideSetNote": "Ten profil zapisuje do własnego folderu głównego, zanim zostanie dodany podfolder.",
+				"overrideNoneNote": "Brak ustawionego zastąpienia. Ten profil używa globalnego miejsca docelowego powyżej."
+			},
 			"note": {
 				"subtitlesOnly": "Ten profil dodaje do kolejki tylko pliki napisów. Wideo, dźwięk, SponsorBlock i konwersja multimediów są pomijane.",
 				"noSubtitles": "Ten profil nie będzie pobierał plików napisów ani osadzonych ścieżek napisów.",
@@ -712,7 +725,7 @@
 				"autoCaptionsSrt": "Napisy automatyczne zostaną zapisane jako SRT zamiast ASS.",
 				"skippedForOutputType": "Pominięto dla tego typu wyjścia."
 			},
-			"error": {"save": "Nie udało się zapisać ustawień profilu.", "changeGlobalDestination": "Nie udało się zmienić globalnego miejsca docelowego.", "reset": "Nie udało się zresetować ustawień profilu."},
+			"error": {"save": "Nie udało się zapisać ustawień profilu.", "changeGlobalDestination": "Nie udało się zmienić globalnego miejsca docelowego.", "reset": "Nie udało się zresetować ustawień profilu.", "folderPicker": "Nie udało się otworzyć okna wyboru folderu. Wpisz ścieżkę ręcznie."},
 			"mediaMode": {
 				"videoAudio": {"label": "Wideo + dźwięk", "description": "Zwykłe pliki wideo"},
 				"videoOnly": {"label": "Wideo bez dźwięku", "description": "Tylko nieme wideo"},

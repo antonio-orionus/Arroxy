@@ -1,7 +1,7 @@
 import {readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
-import {pickLanguage} from '@shared/i18n/language.js'
+import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
 import {mainT} from '@main/i18n.js'
 
 describe('pickLanguage', () => {
@@ -53,6 +53,37 @@ describe('pickLanguage', () => {
 		expect(pickLanguage('FR')).toBe('fr')
 		expect(pickLanguage('JA-JP')).toBe('ja')
 		expect(pickLanguage('PT-BR')).toBe('pt')
+	})
+})
+
+describe('pickSystemLanguage', () => {
+	it('takes a language Chromium ships no locale for when the OS prefers it', () => {
+		expect(pickSystemLanguage(['km-KH', 'en-US'])).toBe('km')
+		expect(pickSystemLanguage(['my-MM'])).toBe('my')
+		expect(pickSystemLanguage(['uz-Latn-UZ'])).toBe('uz')
+		expect(pickSystemLanguage(['ps-AF'])).toBe('ps')
+		expect(pickSystemLanguage(['om-ET'])).toBe('om')
+	})
+
+	it('skips unsupported languages and takes the next preferred one', () => {
+		expect(pickSystemLanguage(['nl-NL', 'de-DE'])).toBe('de')
+		expect(pickSystemLanguage(['hu-HU', 'cs-CZ', 'zh-TW'])).toBe('zh-Hant')
+	})
+
+	it('treats English as a real preference, not the fallback', () => {
+		expect(pickSystemLanguage(['en-US', 'ru-UA', 'uk-UA'])).toBe('en')
+		expect(pickSystemLanguage(['nl-NL', 'en-GB', 'de-DE'])).toBe('en')
+	})
+
+	it('reads POSIX locale names', () => {
+		expect(pickSystemLanguage(['C', 'km_KH.UTF-8'])).toBe('km')
+		expect(pickSystemLanguage(['zh_TW.UTF-8'])).toBe('zh-Hant')
+		expect(pickSystemLanguage(['sr_RS@latin'])).toBe('sr')
+	})
+
+	it('falls back to en when nothing is supported', () => {
+		expect(pickSystemLanguage(['nl-NL'])).toBe('en')
+		expect(pickSystemLanguage([])).toBe('en')
 	})
 })
 

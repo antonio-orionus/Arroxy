@@ -9,7 +9,7 @@
 | Release-tier startup gate | `release.yml` `startup-gate` job        |
 | Release notes (SSOT)      | `CHANGELOG.md`                          |
 
-This is the manual checklist for cutting a stable release.
+This is the manual checklist for cutting a release. Releases are stable and go straight from `main`; a beta is cut only when the maintainer explicitly asks for one.
 
 ## Picking the version
 
@@ -17,7 +17,7 @@ Bump the patch number for fixes **and** features: throughout 0.4.x even a UI red
 
 ## Release notes
 
-User-facing release notes live in `CHANGELOG.md` at the repo root, keyed by version (`## 0.3.5-beta.1`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release.
+User-facing release notes live in `CHANGELOG.md` at the repo root, keyed by version (`## 0.3.5`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release.
 
 Before tagging:
 
@@ -40,27 +40,16 @@ See [`ffmpeg-packages.md`](ffmpeg-packages.md).
 ## Branch model
 
 - Single long-lived branch: `main`.
-- Beta and stable tags both cut from `main`.
-- Feature work happens on short-lived feature branches merged into `main` when ready.
+- Every release is a stable tag cut straight from `main`. There is no beta step and no standing pre-release line: `package.json` on `main` holds the last released version until the next `release: X.Y.Z` commit.
+- Feature work happens on short-lived feature branches merged into `main` when ready. De-risk a risky change before it merges (live smoke comparisons, fixture E2E, log-only shadow mode), not with a beta.
 
-## 1. Final beta from `main`
-
-Before promoting to stable, cut and test a beta from `main`.
+## 1. Bump `main` to the release version
 
 ```bash
 git checkout main
 git pull origin main
 
-# package.json must be a beta version, e.g. 0.3.2-beta.13
-bun run release:beta
-```
-
-Download the prerelease artifacts from GitHub Releases and smoke-test the app.
-
-## 2. Bump `main` to stable
-
-```bash
-# edit package.json: 0.3.2-beta.13 -> 0.3.2
+# edit package.json: 0.3.1 -> 0.3.2, and add `## 0.3.2` to CHANGELOG.md
 bun run check
 git commit -am "release: 0.3.2"
 git push origin main
@@ -68,7 +57,7 @@ git push origin main
 
 Do not tag yet.
 
-## 3. Wait for `main` checks
+## 2. Wait for `main` checks
 
 The stable tag script refuses to tag until the exact `main` commit passed the required release-gate checks.
 
@@ -80,7 +69,7 @@ Watch the latest `main` runs:
 gh run list --branch main --limit 10
 ```
 
-Wait for these checks on the stable version-bump commit:
+Wait for these checks on the version-bump commit:
 
 - `check`
 - `FFmpeg remux gate`
@@ -93,7 +82,7 @@ Optional dry check:
 bash scripts/release.sh stable --verify-only
 ```
 
-## 4. Cut stable release from `main`
+## 3. Cut the stable release from `main`
 
 Once checks are green:
 
@@ -107,19 +96,26 @@ This creates the annotated `vX.Y.Z` tag and pushes it. The release workflows pub
 
 Release graph summary: `release.yml` runs `verify-version` -> `quality-gate` -> `prepare-release` -> mac/linux builds -> `publish-release`; Flatpak builds after the mac/linux build and uploads separately; Scoop/Homebrew publish after `publish-release`; Winget runs from `release_to_winget.yml` when the release is un-drafted. Windows artifacts are still produced by `installer-smoke.yml` and `publish-release` waits for them before checksums and publish. The `startup-gate` job runs startup verification on all 3 platforms on every tag, alongside the builds; `publish-release` needs it, so a red gate leaves the release a draft. Fix forward and re-run the failed job, or cut a new tag.
 
-## 5. Start the next beta line
+## Optional: a beta, only when the maintainer asks for one
 
-Bump `package.json` to the next pre-release on `main`:
+Cut a beta only on an explicit request for one; no release plan or rollout depends on it. A `-beta.N` tag publishes a GitHub pre-release that skips Scoop, Homebrew, Winget and the Flatpak repo and never auto-updates installed copies ([`release-pipeline.md`](release-pipeline.md#pre-release-flow-test-pipeline-wo-auto-updating-users)).
 
 ```bash
-# edit package.json: 0.3.2 -> 0.3.3-beta.1
-git commit -am "release: start 0.3.3-beta.1"
+git checkout main
+git pull origin main
+
+# edit package.json: 0.3.1 -> 0.3.2-beta.1, add `## 0.3.2-beta.1` to CHANGELOG.md
+bun run check
+git commit -am "release: 0.3.2-beta.1"
 git push origin main
+bun run release:beta
 ```
+
+Download the pre-release artifacts from GitHub Releases to test them. Afterwards, the stable release is the normal path above (`0.3.2-beta.1` -> `0.3.2`); do not leave `main` on a new pre-release version.
 
 ## Common misses
 
-- Do not tag stable before the post-bump `main` checks finish.
-- Do not forget `git push origin main` after the stable version bump.
+- Do not tag before the post-bump `main` checks finish.
+- Do not forget `git push origin main` after the version bump.
 - If `release:stable --verify-only` says a required check is missing, it usually means the current `main` commit predates that required check or the latest `main` run is still in progress.
 - Tags must be annotated (`git tag -a …`). The `release.sh` wrapper enforces this; manual `git tag NAME` lightweight tags are silently skipped by `git push --follow-tags` and the release pipeline never fires. Push the tag by name (`git push origin refs/tags/vX.Y.Z`), never `--follow-tags` or `--tags`: those also push stale local tags, and GitHub creates no tag events for a push carrying more than three tags.

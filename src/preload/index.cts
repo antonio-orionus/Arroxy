@@ -1,11 +1,11 @@
 import {contextBridge, ipcRenderer} from 'electron'
-import {parseInstallChannelArg} from '@shared/runtimeInfo.js'
+import {parseInstallChannelArg, parseSystemLanguageArg} from '@shared/runtimeInfo.js'
 import type {RuntimeInfo} from '@shared/runtimeInfo.js'
 import {createPreloadApi} from './createPreloadApi.js'
 
 declare const __APP_VERSION__: string
 
-const runtimeInfo: RuntimeInfo = {arch: process.arch, osVersion: process.getSystemVersion(), installChannel: parseInstallChannelArg(process.argv)}
+const runtimeInfo: RuntimeInfo = {arch: process.arch, osVersion: process.getSystemVersion(), installChannel: parseInstallChannelArg(process.argv), systemLanguage: parseSystemLanguageArg(process.argv)}
 
 contextBridge.exposeInMainWorld('appApi', createPreloadApi(ipcRenderer))
 contextBridge.exposeInMainWorld('platform', process.platform)

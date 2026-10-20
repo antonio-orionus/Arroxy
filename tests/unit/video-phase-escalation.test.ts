@@ -81,7 +81,7 @@ describe('VideoPhase download-time escalation', () => {
 		// Run 1 loads the probe info-json; run 2 is the existing re-extraction fallback; run 3 is the escalation.
 		const {ctx, run, emitStatus, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED, LOGIN_REQUIRED, SUCCESS], input: {probeInfoJsonPath}, signedIn: true})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome).toEqual({kind: 'continue'})
 		expect(identities(run)).toEqual(['configured', 'configured', 'exploreSession'])
@@ -99,14 +99,14 @@ describe('VideoPhase download-time escalation', () => {
 
 	it('escalates a YouTube bot wall: the PoT ladder already ran inside YtDlp', async () => {
 		const {ctx, run} = makeCtx({runs: [BOT_WALL, SUCCESS], signedIn: true})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 	})
 
 	it('does not escalate a bot wall the ladder has not exhausted', async () => {
 		// A non-PoT site has no ladder to exhaust (R2), so its bot wall never escalates.
 		const {ctx, run, emitStatus} = makeCtx({runs: [BOT_WALL], input: {url: 'https://vimeo.com/1', job: {...YOUTUBE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}}, signedIn: true})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome.kind).toBe('hard-failed')
 		expect(run).toHaveBeenCalledOnce()
 		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.signingInWithExplore)
@@ -114,14 +114,14 @@ describe('VideoPhase download-time escalation', () => {
 
 	it('does not escalate a failure an account cannot fix', async () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [NETWORK], signedIn: true})
-		expect((await VideoPhase(false).run(ctx)).kind).toBe('hard-failed')
+		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 		expect(run).toHaveBeenCalledOnce()
 		expect(canEscalate).not.toHaveBeenCalled()
 	})
 
 	it('does not escalate when the gate refuses (not in explore mode, signed out, or switched off)', async () => {
 		const {ctx, run, emitStatus} = makeCtx({runs: [LOGIN_REQUIRED], signedIn: false})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
 		expect(run).toHaveBeenCalledOnce()
 		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.signingInWithExplore)
@@ -130,7 +130,7 @@ describe('VideoPhase download-time escalation', () => {
 
 	it('does not escalate a job that already runs signed in', async () => {
 		const {ctx, run, emitStatus} = makeCtx({runs: [LOGIN_REQUIRED], input: {auth: 'exploreSession'}, signedIn: true})
-		expect((await VideoPhase(false).run(ctx)).kind).toBe('hard-failed')
+		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 		expect(identities(run)).toEqual(['exploreSession'])
 		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.signingInWithExplore)
 	})
@@ -141,27 +141,27 @@ describe('VideoPhase download-time escalation', () => {
 			ctx.active.cancelRequested = true
 			return Promise.resolve(true)
 		})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'cancelled'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'cancelled'})
 		expect(run).toHaveBeenCalledOnce()
 	})
 
 	it('re-verifies and retries once when yt-dlp rejects the account cookies', async () => {
 		const {ctx, run, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED, SUCCESS], input: {auth: 'exploreSession'}, signedIn: true, verified: 'signedIn'})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		expect(identities(run)).toEqual(['exploreSession', 'exploreSession'])
 	})
 
 	it('retries only once when the cookies are rejected again', async () => {
 		const {ctx, run, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED, COOKIES_REJECTED], input: {auth: 'exploreSession'}, signedIn: true, verified: 'signedIn'})
-		expect((await VideoPhase(false).run(ctx)).kind).toBe('hard-failed')
+		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 		expect(run).toHaveBeenCalledTimes(2)
 	})
 
 	it('fails with the Explore sign-in error when verification says signed out', async () => {
 		const {ctx, run, emitStatus} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession'}, signedIn: true, verified: 'signedOut'})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
 		expect(emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.exploreSignedOut, undefined, expect.objectContaining({kind: 'loginRequired'}))
 		// Never falls back to an anonymous run.
@@ -170,7 +170,7 @@ describe('VideoPhase download-time escalation', () => {
 
 	it('fails with a normal retryable error, not signed out, when verification cannot tell (R22)', async () => {
 		const {ctx, run, emitStatus} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession'}, signedIn: true, verified: 'unknown'})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'network'}})
 		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.exploreSignedOut)
 		// No retry on an unconfirmed session, and never an anonymous run.
@@ -183,13 +183,13 @@ describe('VideoPhase download-time escalation', () => {
 			ctx.active.cancelRequested = true
 			return Promise.resolve('signedOut' as const)
 		})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'cancelled'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'cancelled'})
 		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.exploreSignedOut)
 	})
 
 	it('handles rejected cookies on a just-escalated run the same way', async () => {
 		const {ctx, run, emitStatus} = makeCtx({runs: [LOGIN_REQUIRED, COOKIES_REJECTED], signedIn: true, verified: 'signedOut'})
-		expect((await VideoPhase(false).run(ctx)).kind).toBe('hard-failed')
+		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 		expect(statusKeys(emitStatus)).toContain(STATUS_KEY.exploreSignedOut)
 	})
@@ -199,7 +199,7 @@ describe('pre-spawn guard for escalated jobs (R5b)', () => {
 	it('fails, not downgrades, when an escalated item spawns after the mode left explore', async () => {
 		// The gate reads the live settings: cookiesMode 'off' → canEscalate false.
 		const {ctx, run, emitStatus} = makeCtx({runs: [SUCCESS], input: {auth: 'exploreSession'}, signedIn: false})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
 		expect(run).not.toHaveBeenCalled()
 		expect(emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.exploreSignedOut, undefined, expect.objectContaining({kind: 'loginRequired'}))
@@ -227,7 +227,7 @@ describe('pre-spawn guard for escalated jobs (R5b)', () => {
 
 	it('lets an anonymous job spawn without consulting the gate', async () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [SUCCESS]})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(run).toHaveBeenCalledOnce()
 		expect(canEscalate).not.toHaveBeenCalled()
 	})
@@ -240,7 +240,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	it('checks the session (so a signed-out one gets reported) but keeps the finished download', async () => {
 		for (const verified of ['signedIn', 'signedOut', 'unknown'] as const) {
 			const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession'}, signedIn: true, verified})
-			expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+			expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledOnce()
 			expect(emitStatus.mock.calls.map(call => call[0])).not.toContain('error')
@@ -251,7 +251,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	it('does not hold the finished download while the check is still running', async () => {
 		const {ctx, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession'}, signedIn: true})
 		verifySignedIn.mockImplementation(() => new Promise<ExploreSignInState>(() => undefined))
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 	})
 
@@ -259,7 +259,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	it('skips the sidecar subtitles once the check confirms the session signed out', async () => {
 		const job = {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}}
 		const {ctx, run} = makeCtx({runs: [REJECTED_BUT_DONE, SUCCESS], input: {auth: 'exploreSession', job}, signedIn: true, verified: 'signedOut'})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 		expect(run).toHaveBeenCalledOnce()
 	})
@@ -267,7 +267,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	it('still fetches the sidecar subtitles when the check finds the session signed in', async () => {
 		const job = {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}}
 		const {ctx, run} = makeCtx({runs: [REJECTED_BUT_DONE, SUCCESS], input: {auth: 'exploreSession', job}, signedIn: true, verified: 'signedIn'})
-		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
 		expect(identities(run)).toEqual(['exploreSession', 'exploreSession'])
 	})

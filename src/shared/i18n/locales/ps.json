@@ -1,5 +1,5 @@
 {
-	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "loading": "بارول…", "retry": "بیا هڅه وکړه", "dismiss": "پټول", "startOver": "له سره پیل کړه"},
+	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "loading": "بارول…", "retry": "بیا هڅه وکړه", "dismiss": "پټول", "startOver": "له سره پیل کړه", "close": "تړل"},
 	"app": {
 		"feedback": "نظر",
 		"logs": "لاګونه",
@@ -649,7 +649,20 @@
 				"save": "پروفایل خوندي کول"
 			},
 			"placeholder": {"folder": "د دې پروفایل لپاره یوه پوښۍ وټاکئ"},
-			"destination": {"global": "ټولیزه موخه", "override": "د پروفایل بدیل", "resolved": "وروستۍ موخه"},
+			"destination": {
+				"global": "ټولیزه موخه",
+				"override": "د پروفایل بدیل",
+				"resolved": "وروستۍ موخه",
+				"defaultFolder": "د ډاونلوډ اصلي پوښۍ",
+				"defaultFolderWithSubfolder": "د ډاونلوډ اصلي پوښۍ / {{subfolder}}",
+				"globalActive": "فعاله",
+				"globalInherited": "میراثي",
+				"overrideSet": "ټولیز بدلوي",
+				"overrideChoosing": "پوښۍ وټاکئ",
+				"overrideNone": "هېڅ بدیل نه دی ټاکل شوی",
+				"overrideSetNote": "دا پروفایل د فرعي پوښۍ له اضافه کېدو مخکې خپلې ریښې پوښۍ ته ساتي.",
+				"overrideNoneNote": "هېڅ بدیل نه دی ټاکل شوی. دا پروفایل پورتنۍ ټولیزه موخه کاروي."
+			},
 			"note": {
 				"subtitlesOnly": "دا پروفایل یوازې د سرلیکونو دوتنې په کتار کې اچوي. ویډیو، غږ، SponsorBlock او د رسنیو اړول پرېښودل کېږي.",
 				"noSubtitles": "د دې پروفایل لپاره به نه د سرلیکونو دوتنې او نه ځای پر ځای شوي سرلیک لارې وغوښتل شي.",
@@ -660,7 +673,7 @@
 				"autoCaptionsSrt": "خودکار سرلیکونه به د ASS پر ځای د SRT په توګه خوندي شي.",
 				"skippedForOutputType": "د دې وتنې ډول لپاره پرېښودل شوی."
 			},
-			"error": {"save": "د پروفایل تنظیمات خوندي نه شول.", "changeGlobalDestination": "ټولیزه موخه بدله نه شوه.", "reset": "د پروفایل تنظیمات بیا تنظیم نه شول."},
+			"error": {"save": "د پروفایل تنظیمات خوندي نه شول.", "changeGlobalDestination": "ټولیزه موخه بدله نه شوه.", "reset": "د پروفایل تنظیمات بیا تنظیم نه شول.", "folderPicker": "د پوښۍ ټاکونکی نه شو پرانیستل کېدی. لاره په لاس ولیکئ."},
 			"mediaMode": {
 				"videoAudio": {"label": "ویډیو + غږ", "description": "عادي ویډیو دوتنې"},
 				"videoOnly": {"label": "ویډیو، پرته له غږه", "description": "یوازې بې غږه ویډیو"},

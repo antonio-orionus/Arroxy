@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Hủy"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Đóng"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Tiếp tục"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Chất lượng tốt nhất"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Thư mục tải xuống mặc định"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Thư mục tải xuống mặc định / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Đích chung"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Đang dùng"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Được kế thừa"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Ghi đè hồ sơ"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Chọn thư mục"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Chưa đặt ghi đè"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Chưa đặt ghi đè. Hồ sơ này dùng đích chung ở trên."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Ghi đè đích chung"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Hồ sơ này lưu vào thư mục gốc riêng trước khi thêm thư mục con."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "Hồ sơ tải xuống"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Không thể đổi đích chung."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Không thể mở trình chọn thư mục. Hãy nhập đường dẫn thủ công."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

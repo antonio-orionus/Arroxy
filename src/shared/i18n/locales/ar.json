@@ -1,5 +1,5 @@
 {
-	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "loading": "جارٍ التحميل…", "retry": "إعادة المحاولة", "dismiss": "تجاهل", "startOver": "البدء من جديد"},
+	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "loading": "جارٍ التحميل…", "retry": "إعادة المحاولة", "dismiss": "تجاهل", "startOver": "البدء من جديد", "close": "إغلاق"},
 	"app": {
 		"feedback": "ملاحظات",
 		"logs": "السجلات",
@@ -723,7 +723,20 @@
 				"save": "حفظ الملف"
 			},
 			"placeholder": {"folder": "اختر مجلدًا لهذا الملف"},
-			"destination": {"global": "الوجهة العامة", "override": "تجاوز الملف", "resolved": "الوجهة النهائية"},
+			"destination": {
+				"global": "الوجهة العامة",
+				"override": "تجاوز الملف",
+				"resolved": "الوجهة النهائية",
+				"defaultFolder": "مجلد التنزيلات الافتراضي",
+				"defaultFolderWithSubfolder": "مجلد التنزيلات الافتراضي / {{subfolder}}",
+				"globalActive": "نشط",
+				"globalInherited": "موروث",
+				"overrideSet": "يتجاوز العام",
+				"overrideChoosing": "اختيار مجلد",
+				"overrideNone": "لا يوجد تجاوز",
+				"overrideSetNote": "يحفظ هذا الملف في جذره الخاص قبل إضافة المجلد الفرعي.",
+				"overrideNoneNote": "لم يتم تعيين تجاوز. يستخدم هذا الملف الوجهة العامة أعلاه."
+			},
 			"note": {
 				"subtitlesOnly": "يضيف هذا الملف ملفات الترجمة فقط إلى القائمة. ويتم تخطّي الفيديو والصوت وSponsorBlock وتحويل الوسائط.",
 				"noSubtitles": "لن يُطلب لهذا الملف أي ملفات ترجمة أو مسارات ترجمة مضمّنة.",
@@ -734,7 +747,7 @@
 				"autoCaptionsSrt": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS.",
 				"skippedForOutputType": "تم تخطّيه لنوع الإخراج هذا."
 			},
-			"error": {"save": "تعذّر حفظ إعدادات الملف.", "changeGlobalDestination": "تعذّر تغيير الوجهة العامة.", "reset": "تعذّر إعادة تعيين إعدادات الملف."},
+			"error": {"save": "تعذّر حفظ إعدادات الملف.", "changeGlobalDestination": "تعذّر تغيير الوجهة العامة.", "reset": "تعذّر إعادة تعيين إعدادات الملف.", "folderPicker": "تعذّر فتح مُحدِّد المجلدات. أدخل المسار يدويًا."},
 			"mediaMode": {"videoAudio": {"label": "فيديو + صوت", "description": "ملفات فيديو عادية"}, "videoOnly": {"label": "فيديو، بدون صوت", "description": "فيديو صامت فقط"}, "audioOnly": {"label": "صوت فقط", "description": "موسيقى أو بودكاست"}, "subtitlesOnly": {"label": "ترجمات فقط", "description": "ملفات ترجمة فقط"}},
 			"icon": {"controls": "أدوات التحكم", "download": "تنزيل", "video": "فيديو", "captions": "ترجمات", "audio": "صوت", "music": "موسيقى", "podcast": "بودكاست", "classes": "دروس", "clip": "مقطع", "archive": "أرشيف"},
 			"audioFormat": {"best": "الأفضل", "wav": "WAV"},

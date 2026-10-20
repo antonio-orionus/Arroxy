@@ -123,7 +123,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 
 		const tempDir = join(tempRoot, 'job')
 		await mkdir(tempDir, {recursive: true})
-		const req = buildMediaRequest({url: config.url, job, outputDir: tempRoot, tempDir, embed: false, ...(config.youtubePlayerClients ? {youtubePlayerClients: config.youtubePlayerClients} : {})})
+		const req = buildMediaRequest({url: config.url, job, outputDir: tempRoot, tempDir, ...(config.youtubePlayerClients ? {youtubePlayerClients: config.youtubePlayerClients} : {})})
 
 		const observer = createDownloadSmokeObserver()
 		const controller = new AbortController()

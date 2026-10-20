@@ -1,5 +1,5 @@
 {
-	"common": {"back": "뒤로", "cancel": "취소", "continue": "계속", "loading": "불러오는 중", "retry": "다시 시도", "dismiss": "닫기", "startOver": "처음부터"},
+	"common": {"back": "뒤로", "cancel": "취소", "continue": "계속", "loading": "불러오는 중", "retry": "다시 시도", "dismiss": "닫기", "startOver": "처음부터", "close": "닫기"},
 	"app": {
 		"feedback": "피드백",
 		"logs": "로그",
@@ -602,7 +602,20 @@
 				"save": "프로필 저장"
 			},
 			"placeholder": {"folder": "이 프로필의 폴더 선택"},
-			"destination": {"global": "전역 대상", "override": "프로필 재정의", "resolved": "확정된 대상"},
+			"destination": {
+				"global": "전역 대상",
+				"override": "프로필 재정의",
+				"resolved": "확정된 대상",
+				"defaultFolder": "기본 다운로드 폴더",
+				"defaultFolderWithSubfolder": "기본 다운로드 폴더 / {{subfolder}}",
+				"globalActive": "사용 중",
+				"globalInherited": "상속됨",
+				"overrideSet": "전역 설정 재정의",
+				"overrideChoosing": "폴더 선택",
+				"overrideNone": "재정의 없음",
+				"overrideSetNote": "이 프로필은 하위 폴더가 추가되기 전에 자체 루트 폴더에 저장합니다.",
+				"overrideNoneNote": "설정된 재정의가 없습니다. 이 프로필은 위의 전역 대상을 사용합니다."
+			},
 			"note": {
 				"subtitlesOnly": "이 프로필은 자막 파일만 대기열에 추가합니다. 동영상, 오디오, SponsorBlock 및 미디어 변환은 건너뜁니다.",
 				"noSubtitles": "이 프로필에서는 자막 파일이나 내장 자막 트랙을 요청하지 않습니다.",
@@ -613,7 +626,7 @@
 				"autoCaptionsSrt": "자동 생성 자막은 ASS 대신 SRT로 저장됩니다.",
 				"skippedForOutputType": "이 출력 유형에서는 건너뜁니다."
 			},
-			"error": {"save": "프로필 설정을 저장할 수 없습니다.", "changeGlobalDestination": "전역 대상을 변경할 수 없습니다.", "reset": "프로필 설정을 재설정할 수 없습니다."},
+			"error": {"save": "프로필 설정을 저장할 수 없습니다.", "changeGlobalDestination": "전역 대상을 변경할 수 없습니다.", "reset": "프로필 설정을 재설정할 수 없습니다.", "folderPicker": "폴더 선택기를 열 수 없습니다. 경로를 직접 입력하세요."},
 			"mediaMode": {
 				"videoAudio": {"label": "동영상 + 오디오", "description": "일반 동영상 파일"},
 				"videoOnly": {"label": "동영상, 오디오 없음", "description": "오디오 없는 동영상만"},

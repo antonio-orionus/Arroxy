@@ -1,5 +1,5 @@
 {
-	"common": {"back": "ย้อนกลับ", "cancel": "ยกเลิก", "continue": "ดำเนินการต่อ", "loading": "กำลังโหลด", "retry": "ลองอีกครั้ง", "dismiss": "ปิด", "startOver": "เริ่มใหม่"},
+	"common": {"back": "ย้อนกลับ", "cancel": "ยกเลิก", "continue": "ดำเนินการต่อ", "loading": "กำลังโหลด", "retry": "ลองอีกครั้ง", "dismiss": "ปิด", "startOver": "เริ่มใหม่", "close": "ปิด"},
 	"app": {
 		"feedback": "ข้อเสนอแนะ",
 		"logs": "บันทึก",
@@ -571,7 +571,20 @@
 				"save": "บันทึกโปรไฟล์"
 			},
 			"placeholder": {"folder": "เลือกโฟลเดอร์สำหรับโปรไฟล์นี้"},
-			"destination": {"global": "ปลายทางส่วนกลาง", "override": "การแทนที่โปรไฟล์", "resolved": "ปลายทางที่ใช้จริง"},
+			"destination": {
+				"global": "ปลายทางส่วนกลาง",
+				"override": "การแทนที่โปรไฟล์",
+				"resolved": "ปลายทางที่ใช้จริง",
+				"defaultFolder": "โฟลเดอร์ดาวน์โหลดเริ่มต้น",
+				"defaultFolderWithSubfolder": "โฟลเดอร์ดาวน์โหลดเริ่มต้น / {{subfolder}}",
+				"globalActive": "ใช้งานอยู่",
+				"globalInherited": "สืบทอดมา",
+				"overrideSet": "แทนที่ส่วนกลาง",
+				"overrideChoosing": "เลือกโฟลเดอร์",
+				"overrideNone": "ไม่มีการแทนที่",
+				"overrideSetNote": "โปรไฟล์นี้บันทึกไปยังโฟลเดอร์รากของตัวเองก่อนที่จะเพิ่มโฟลเดอร์ย่อย",
+				"overrideNoneNote": "ยังไม่ได้ตั้งค่าการแทนที่ โปรไฟล์นี้ใช้ปลายทางส่วนกลางด้านบน"
+			},
 			"note": {
 				"subtitlesOnly": "โปรไฟล์นี้เพิ่มเฉพาะไฟล์คำบรรยายลงคิว โดยข้ามวิดีโอ เสียง SponsorBlock และการแปลงสื่อ",
 				"noSubtitles": "โปรไฟล์นี้จะไม่ขอไฟล์คำบรรยายหรือแทร็กคำบรรยายแบบฝัง",
@@ -582,7 +595,7 @@
 				"autoCaptionsSrt": "คำบรรยายอัตโนมัติจะบันทึกเป็น SRT แทน ASS",
 				"skippedForOutputType": "ข้ามสำหรับผลลัพธ์ประเภทนี้"
 			},
-			"error": {"save": "บันทึกการตั้งค่าโปรไฟล์ไม่ได้", "changeGlobalDestination": "เปลี่ยนปลายทางส่วนกลางไม่ได้", "reset": "รีเซ็ตการตั้งค่าโปรไฟล์ไม่ได้"},
+			"error": {"save": "บันทึกการตั้งค่าโปรไฟล์ไม่ได้", "changeGlobalDestination": "เปลี่ยนปลายทางส่วนกลางไม่ได้", "reset": "รีเซ็ตการตั้งค่าโปรไฟล์ไม่ได้", "folderPicker": "เปิดตัวเลือกโฟลเดอร์ไม่ได้ โปรดป้อนเส้นทางด้วยตนเอง"},
 			"mediaMode": {"videoAudio": {"label": "วิดีโอ + เสียง", "description": "ไฟล์วิดีโอปกติ"}, "videoOnly": {"label": "วิดีโอ ไม่มีเสียง", "description": "เฉพาะวิดีโอไม่มีเสียง"}, "audioOnly": {"label": "เฉพาะเสียง", "description": "เพลงหรือพอดแคสต์"}, "subtitlesOnly": {"label": "เฉพาะคำบรรยาย", "description": "เฉพาะไฟล์คำบรรยาย"}},
 			"icon": {"controls": "การควบคุม", "download": "ดาวน์โหลด", "video": "วิดีโอ", "captions": "คำบรรยาย", "audio": "เสียง", "music": "เพลง", "podcast": "พอดแคสต์", "classes": "ชั้นเรียน", "clip": "คลิป", "archive": "ไฟล์เก็บถาวร"},
 			"audioFormat": {"best": "ดีที่สุด", "wav": "WAV"},

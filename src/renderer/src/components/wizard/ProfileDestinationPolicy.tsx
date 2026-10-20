@@ -1,5 +1,6 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import type {TFunction} from 'i18next'
 import {Folder, FolderCog} from 'lucide-react'
 import type {CommonSettings} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
@@ -12,15 +13,15 @@ import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '..
 import {Hint} from '../shared/Hint.js'
 import type {ProfileDestinationControls} from './useProfileDestinationControls.js'
 
-function readablePath(path: string, commonPaths: CommonSettings['commonPaths']): string {
+function readablePath(path: string, commonPaths: CommonSettings['commonPaths'], t: TFunction): string {
 	const trimmed = path.trim()
-	if (!trimmed) return 'Default downloads folder'
+	if (!trimmed) return t('wizard.profileEditor.destination.defaultFolder')
 	return commonPaths ? formatHomeRelativePath(trimmed, commonPaths) : trimmed
 }
 
-function fallbackFinalPath(subfolderName: string): string {
+function fallbackFinalPath(subfolderName: string, t: TFunction): string {
 	const trimmed = subfolderName.trim()
-	return trimmed ? `Default downloads folder / ${trimmed}` : 'Default downloads folder'
+	return trimmed ? t('wizard.profileEditor.destination.defaultFolderWithSubfolder', {subfolder: trimmed}) : t('wizard.profileEditor.destination.defaultFolder')
 }
 
 interface ResolvedProfileDestination {
@@ -31,13 +32,13 @@ interface ResolvedProfileDestination {
 	resolvedDestinationLabel: string
 }
 
-function resolveProfileDestination({destination, saveInsideSubfolder, subfolderName, profileName}: DownloadProfileDraft, globalDestination: string, commonPaths: CommonSettings['commonPaths']): ResolvedProfileDestination {
+function resolveProfileDestination({destination, saveInsideSubfolder, subfolderName, profileName}: DownloadProfileDraft, globalDestination: string, commonPaths: CommonSettings['commonPaths'], t: TFunction): ResolvedProfileDestination {
 	const destinationOverride = destination.trim()
 	const globalDestinationRoot = globalDestination.trim()
 	const destinationBase = destinationOverride || globalDestinationRoot
 	const resolvedSubfolderName = saveInsideSubfolder ? subfolderName.trim() || defaultProfileSubfolderName(profileName) : ''
 	const resolvedDestination = destinationBase ? effectiveOutputDir(destinationBase, saveInsideSubfolder, resolvedSubfolderName) : ''
-	return {globalDestinationRoot, hasDestinationOverride: destinationOverride.length > 0, resolvedDestination, resolvedDestinationLabel: resolvedDestination ? readablePath(resolvedDestination, commonPaths) : fallbackFinalPath(resolvedSubfolderName)}
+	return {globalDestinationRoot, hasDestinationOverride: destinationOverride.length > 0, resolvedDestination, resolvedDestinationLabel: resolvedDestination ? readablePath(resolvedDestination, commonPaths, t) : fallbackFinalPath(resolvedSubfolderName, t)}
 }
 
 interface ProfileDestinationPolicyProps {
@@ -51,7 +52,7 @@ interface ProfileDestinationPolicyProps {
 // root, and the folder that results once the subfolder is added.
 export function ProfileDestinationPolicy({draft, commonPaths, globalDestination, controls}: ProfileDestinationPolicyProps): ReactNode {
 	const {t} = useTranslation()
-	const {globalDestinationRoot, hasDestinationOverride, resolvedDestination, resolvedDestinationLabel} = resolveProfileDestination(draft, globalDestination, commonPaths)
+	const {globalDestinationRoot, hasDestinationOverride, resolvedDestination, resolvedDestinationLabel} = resolveProfileDestination(draft, globalDestination, commonPaths, t)
 
 	return (
 		<div className="grid gap-2" data-testid="profiles-editor-destination-policy">
@@ -84,10 +85,10 @@ function GlobalDestinationCard({globalDestinationRoot, commonPaths, hasDestinati
 				<div className="flex min-w-0 items-center gap-2">
 					<FolderCog className="size-4 shrink-0 text-primary" aria-hidden />
 					<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.global')}</span>
-					<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{hasDestinationOverride ? 'Inherited' : 'Active'}</Badge>
+					<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{t(hasDestinationOverride ? 'wizard.profileEditor.destination.globalInherited' : 'wizard.profileEditor.destination.globalActive')}</Badge>
 				</div>
 				<Hint label={globalDestinationRoot} reveal>
-					<p className="mt-1 truncate font-mono text-xs text-subtle-foreground">{readablePath(globalDestinationRoot, commonPaths)}</p>
+					<p className="mt-1 truncate font-mono text-xs text-subtle-foreground">{readablePath(globalDestinationRoot, commonPaths, t)}</p>
 				</Hint>
 			</div>
 			<div className="mt-2 flex flex-wrap gap-2">
@@ -118,9 +119,9 @@ function ProfileOverrideCard({destination, hasDestinationOverride, controls}: Pr
 				<div className="flex min-w-0 items-center gap-2">
 					<Folder className="size-4 shrink-0 text-primary" aria-hidden />
 					<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.override')}</span>
-					<Badge variant={hasDestinationOverride ? 'secondary' : 'outline'}>{hasDestinationOverride ? 'Overrides global' : showDestinationOverride ? 'Choose folder' : 'No override set'}</Badge>
+					<Badge variant={hasDestinationOverride ? 'secondary' : 'outline'}>{t(hasDestinationOverride ? 'wizard.profileEditor.destination.overrideSet' : showDestinationOverride ? 'wizard.profileEditor.destination.overrideChoosing' : 'wizard.profileEditor.destination.overrideNone')}</Badge>
 				</div>
-				<p className="mt-1 text-caption leading-snug text-subtle-foreground">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
+				<p className="mt-1 text-caption leading-snug text-subtle-foreground">{t(hasDestinationOverride ? 'wizard.profileEditor.destination.overrideSetNote' : 'wizard.profileEditor.destination.overrideNoneNote')}</p>
 			</div>
 			{!showDestinationOverride ? (
 				<div className="mt-2 flex flex-wrap gap-2">

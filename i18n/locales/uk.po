@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Скасувати"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Закрити"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Продовжити"
@@ -3717,13 +3721,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Найкраща якість"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Типова тека завантажень"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Типова тека завантажень / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Загальне місце збереження"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Активне"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Успадковане"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Перевизначення профілю"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Вибрати теку"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Перевизначення не задано"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Перевизначення не задано. Цей профіль використовує загальне місце збереження вище."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Перевизначає загальне"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Цей профіль зберігає у власну кореневу теку, перш ніж додається підтека."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3740,6 +3780,10 @@ msgstr "Профіль завантаження"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Не вдалося змінити загальне місце збереження."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Не вдалося відкрити вибір теки. Введіть шлях вручну."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

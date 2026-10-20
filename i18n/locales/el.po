@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Κλείσιμο"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Συνέχεια"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Καλύτερη ποιότητα"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Προεπιλεγμένος φάκελος λήψεων"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Προεπιλεγμένος φάκελος λήψεων / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Γενικός προορισμός"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Ενεργό"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Κληρονομείται"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Παράκαμψη προφίλ"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Επιλογή φακέλου"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Χωρίς παράκαμψη"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Δεν έχει οριστεί παράκαμψη. Αυτό το προφίλ χρησιμοποιεί τον γενικό προορισμό παραπάνω."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Παρακάμπτει το γενικό"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Αυτό το προφίλ αποθηκεύει στη δική του ρίζα πριν προστεθεί ο υποφάκελος."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "Προφίλ λήψης"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Δεν ήταν δυνατή η αλλαγή του γενικού προορισμού."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Δεν ήταν δυνατό το άνοιγμα του επιλογέα φακέλων. Εισαγάγετε τη διαδρομή χειροκίνητα."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

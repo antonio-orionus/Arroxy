@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "loading": "Wird geladen…", "retry": "Erneut versuchen", "dismiss": "Schließen", "startOver": "Von vorn beginnen"},
+	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "loading": "Wird geladen…", "retry": "Erneut versuchen", "dismiss": "Schließen", "startOver": "Von vorn beginnen", "close": "Schließen"},
 	"app": {
 		"feedback": "Feedback",
 		"logs": "Protokolle",
@@ -666,7 +666,20 @@
 				"save": "Profil speichern"
 			},
 			"placeholder": {"folder": "Ordner für dieses Profil wählen"},
-			"destination": {"global": "Globales Ziel", "override": "Profil-Überschreibung", "resolved": "Aufgelöstes Ziel"},
+			"destination": {
+				"global": "Globales Ziel",
+				"override": "Profil-Überschreibung",
+				"resolved": "Aufgelöstes Ziel",
+				"defaultFolder": "Standard-Downloadordner",
+				"defaultFolderWithSubfolder": "Standard-Downloadordner / {{subfolder}}",
+				"globalActive": "Aktiv",
+				"globalInherited": "Geerbt",
+				"overrideSet": "Überschreibt global",
+				"overrideChoosing": "Ordner wählen",
+				"overrideNone": "Keine Überschreibung",
+				"overrideSetNote": "Dieses Profil speichert in seinem eigenen Stammordner, bevor der Unterordner angehängt wird.",
+				"overrideNoneNote": "Keine Überschreibung festgelegt. Dieses Profil verwendet das globale Ziel oben."
+			},
 			"note": {
 				"subtitlesOnly": "Dieses Profil stellt nur Untertiteldateien in die Warteschlange. Video, Audio, SponsorBlock und Medienkonvertierung werden übersprungen.",
 				"noSubtitles": "Für dieses Profil werden keine Untertiteldateien oder eingebetteten Untertitelspuren angefordert.",
@@ -677,7 +690,7 @@
 				"autoCaptionsSrt": "Automatische Untertitel werden als SRT statt ASS gespeichert.",
 				"skippedForOutputType": "Für diesen Ausgabetyp übersprungen."
 			},
-			"error": {"save": "Profileinstellungen konnten nicht gespeichert werden.", "changeGlobalDestination": "Globales Ziel konnte nicht geändert werden.", "reset": "Profileinstellungen konnten nicht zurückgesetzt werden."},
+			"error": {"save": "Profileinstellungen konnten nicht gespeichert werden.", "changeGlobalDestination": "Globales Ziel konnte nicht geändert werden.", "reset": "Profileinstellungen konnten nicht zurückgesetzt werden.", "folderPicker": "Die Ordnerauswahl konnte nicht geöffnet werden. Gib den Pfad manuell ein."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + Audio", "description": "Normale Videodateien"},
 				"videoOnly": {"label": "Video, ohne Audio", "description": "Nur Video ohne Ton"},

@@ -8,12 +8,13 @@ import type {GraphicsPolicy} from '@shared/types.js'
 import {TrayManager} from '@main/services/TrayManager.js'
 import {mainT} from '@main/i18n.js'
 import {installAppMenu} from '@main/installAppMenu.js'
-import {pickLanguage} from '@shared/i18n/language.js'
+import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
+import type {SupportedLang} from '@shared/i18n/types.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
-import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl} from '@main/services/heartbeat.js'
+import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
 import {detectInstallChannel} from '@main/installChannel.js'
-import {installChannelArg} from '@shared/runtimeInfo.js'
+import {installChannelArg, systemLanguageArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
 import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 import {DownloadService} from '@main/services/DownloadService.js'
@@ -193,7 +194,7 @@ const HEARTBEAT_CHECK_INTERVAL_MS = 60 * 60 * 1000
 // latency rather than however long the main process took to boot.
 const gpuInfoReadiness = hasSingleInstanceLock ? watchInitialGpuInfoUpdate(app) : null
 
-function createMainWindow(backgroundColor: string): BrowserWindow {
+function createMainWindow(backgroundColor: string, systemLanguage: SupportedLang): BrowserWindow {
 	const winState = windowStateKeeper({defaultWidth: WINDOW_DEFAULT_WIDTH, defaultHeight: WINDOW_DEFAULT_HEIGHT})
 	const preloadPath = resolveMainWindowPreloadPath(import.meta.dirname)
 
@@ -221,7 +222,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		autoHideMenuBar: true,
 		backgroundColor,
 		show: !headless,
-		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless), additionalArguments: [installChannelArg(detectInstallChannel(app.getName()))]}
+		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless), additionalArguments: [installChannelArg(detectInstallChannel(app.getName())), systemLanguageArg(systemLanguage)]}
 	})
 
 	registerPreloadDiagnostics(mainWindow, preloadPath)
@@ -291,7 +292,10 @@ if (hasSingleInstanceLock) {
 			initialSettings = await settingsStore.update({common: {clipboardWatchEnabled: e2eMode.allowClipboardWatch ? initialSettings.common.clipboardWatchEnabled : false, analyticsEnabled: false}})
 		}
 		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL || readRuntimeSmokeEnabled()
-		const languageRef: {current: ReturnType<typeof pickLanguage>} = {current: pickLanguage(initialSettings.common.language ?? app.getLocale())}
+		// The OS's own preference list, not app.getLocale(): Chromium clamps that to the
+		// locales it ships, so km, my, uz, ps and om all read as en-US.
+		const systemLanguage = pickSystemLanguage(app.getPreferredSystemLanguages())
+		const languageRef: {current: SupportedLang} = {current: pickLanguage(initialSettings.common.language ?? systemLanguage)}
 		const recentJobsStore = new RecentJobsStore(userDataPath)
 		const queueStore = new QueueStore(userDataPath)
 		const playlistManifestStore = new PlaylistManifestStore(userDataPath)
@@ -380,7 +384,7 @@ if (hasSingleInstanceLock) {
 				send: counterscaleSender(collectorUrl, HEARTBEAT_SITE_ID),
 				now: () => new Date(),
 				isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
-				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: app.getLocale()}),
+				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: osLocale(app.getPreferredSystemLanguages(), app.getLocale())}),
 				history: () => {
 					const {firstHeartbeatDay, lastHeartbeatDay} = settingsStore.getSync().common
 					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}
@@ -396,7 +400,7 @@ if (hasSingleInstanceLock) {
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
-		const mainWindow = createMainWindow(resolveMainWindowBackgroundColor(initialSettings.common.uiTheme, nativeTheme.shouldUseDarkColors))
+		const mainWindow = createMainWindow(resolveMainWindowBackgroundColor(initialSettings.common.uiTheme, nativeTheme.shouldUseDarkColors), systemLanguage)
 
 		// Linux resolves the desktop colour scheme through xdg-desktop-portal over
 		// D-Bus, which is activated on demand, so a cold start can create the window

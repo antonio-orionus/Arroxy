@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Indietro", "cancel": "Annulla", "continue": "Continua", "loading": "Caricamento", "retry": "Riprova", "dismiss": "Ignora", "startOver": "Ricomincia"},
+	"common": {"back": "Indietro", "cancel": "Annulla", "continue": "Continua", "loading": "Caricamento", "retry": "Riprova", "dismiss": "Ignora", "startOver": "Ricomincia", "close": "Chiudi"},
 	"app": {
 		"feedback": "Feedback",
 		"logs": "Log",
@@ -664,7 +664,20 @@
 				"save": "Salva profilo"
 			},
 			"placeholder": {"folder": "Scegli una cartella per questo profilo"},
-			"destination": {"global": "Destinazione globale", "override": "Sostituzione del profilo", "resolved": "Destinazione risultante"},
+			"destination": {
+				"global": "Destinazione globale",
+				"override": "Sostituzione del profilo",
+				"resolved": "Destinazione risultante",
+				"defaultFolder": "Cartella download predefinita",
+				"defaultFolderWithSubfolder": "Cartella download predefinita / {{subfolder}}",
+				"globalActive": "Attiva",
+				"globalInherited": "Ereditata",
+				"overrideSet": "Sostituisce quella globale",
+				"overrideChoosing": "Scegli cartella",
+				"overrideNone": "Nessuna sostituzione",
+				"overrideSetNote": "Questo profilo salva nella propria cartella radice prima che venga aggiunta la sottocartella.",
+				"overrideNoneNote": "Nessuna sostituzione impostata. Questo profilo usa la destinazione globale qui sopra."
+			},
 			"note": {
 				"subtitlesOnly": "Questo profilo aggiunge alla coda solo file di sottotitoli. Video, audio, SponsorBlock e conversione multimediale vengono ignorati.",
 				"noSubtitles": "Per questo profilo non verranno richiesti file né tracce di sottotitoli incorporati.",
@@ -675,7 +688,7 @@
 				"autoCaptionsSrt": "I sottotitoli automatici verranno salvati come SRT invece che ASS.",
 				"skippedForOutputType": "Ignorato per questo tipo di output."
 			},
-			"error": {"save": "Impossibile salvare il profilo.", "changeGlobalDestination": "Impossibile cambiare la destinazione globale.", "reset": "Impossibile reimpostare il profilo."},
+			"error": {"save": "Impossibile salvare il profilo.", "changeGlobalDestination": "Impossibile cambiare la destinazione globale.", "reset": "Impossibile reimpostare il profilo.", "folderPicker": "Impossibile aprire il selettore di cartelle. Inserisci un percorso manualmente."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + audio", "description": "File video normali"},
 				"videoOnly": {"label": "Video, senza audio", "description": "Solo video senza audio"},
