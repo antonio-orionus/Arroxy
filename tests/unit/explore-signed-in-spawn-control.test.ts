@@ -153,6 +153,21 @@ function watchGate(gate: ExploreSpawnGate): {entered: (jobId: string) => Promise
 	return {entered: jobId => entry(jobId).promise}
 }
 
+// A token mint that hangs until released. `minting` resolves once the job has
+// asked for its token: a pause before that point parks the job before it mints,
+// so a test about a pause during the mint awaits this rather than a clock.
+function holdMint(): {mintToken: () => Promise<{token: string; visitorData: string}>; minting: Promise<void>; releaseMint: () => void} {
+	let releaseMint!: () => void
+	const mintGate = new Promise<void>(resolve => (releaseMint = resolve))
+	let markMinting!: () => void
+	const minting = new Promise<void>(resolve => (markMinting = resolve))
+	const mintToken = (): Promise<{token: string; visitorData: string}> => {
+		markMinting()
+		return mintGate.then(() => ({token: 'tok', visitorData: 'vd'}))
+	}
+	return {mintToken, minting, releaseMint: () => releaseMint()}
+}
+
 describe('escalated download waiting for a signed-in slot (I1)', () => {
 	it('is dropped, not spawned, when the job is cancelled while it waits', async () => {
 		const gate = new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0})
@@ -249,13 +264,12 @@ describe('pause of a job with no live process (R24)', () => {
 	})
 
 	it('pauses an anonymous job that has not spawned yet (still minting its token) and resumes it', async () => {
-		let releaseMint!: () => void
-		const mintGate = new Promise<void>(resolve => (releaseMint = resolve))
+		const {mintToken, minting, releaseMint} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken: () => mintGate.then(() => ({token: 'tok', visitorData: 'vd'}))})
+		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
 
 		const jobId = await start()
-		await new Promise(resolve => setTimeout(resolve, 20))
+		await minting
 		expect(await service.pause(jobId)).toMatchObject({ok: true, data: {paused: true, jobId}})
 
 		// The token arrives after the pause: nothing may start downloading.
@@ -270,19 +284,13 @@ describe('pause of a job with no live process (R24)', () => {
 })
 
 describe('resume of a job whose pause has not parked yet (R25)', () => {
-	function mintHeld() {
-		let releaseMint!: () => void
-		const mintGate = new Promise<void>(resolve => (releaseMint = resolve))
-		return {releaseMint: () => releaseMint(), mintToken: () => mintGate.then(() => ({token: 'tok', visitorData: 'vd'}))}
-	}
-
 	it('waits for the pause to park, then resumes the same job with no orphan paused entry', async () => {
-		const {releaseMint, mintToken} = mintHeld()
+		const {releaseMint, mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
 		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
 
 		const jobId = await start()
-		await new Promise(resolve => setTimeout(resolve, 20))
+		await minting
 		expect(await service.pause(jobId)).toMatchObject({ok: true, data: {paused: true, jobId}})
 		// Still in activeJobs: the run has not reached its next run point.
 		expect(service.activeCount).toBe(1)
@@ -301,12 +309,12 @@ describe('resume of a job whose pause has not parked yet (R25)', () => {
 	})
 
 	it('reports the job as still live, not "nothing to resume", once the 10 s bound passes without the job parking', async () => {
-		const {mintToken} = mintHeld()
+		const {mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
 		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
 
 		const jobId = await start()
-		await new Promise(resolve => setTimeout(resolve, 20))
+		await minting
 		await service.pause(jobId)
 
 		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
@@ -326,12 +334,12 @@ describe('resume of a job whose pause has not parked yet (R25)', () => {
 	})
 
 	it('does not wait for a job that was cancelled after the pause', async () => {
-		const {mintToken} = mintHeld()
+		const {mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
 		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
 
 		const jobId = await start()
-		await new Promise(resolve => setTimeout(resolve, 20))
+		await minting
 		await service.pause(jobId)
 		await service.cancel(jobId)
 
@@ -347,10 +355,9 @@ describe('queue resume of a job whose pause has not parked yet', () => {
 	// A queue item whose download was paused while its token mint is held: the
 	// pause is flagged but the job has not parked, so it still exists.
 	async function parkingItem() {
-		let releaseMint!: () => void
-		const mintGate = new Promise<void>(resolve => (releaseMint = resolve))
+		const {mintToken, minting, releaseMint} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken: () => mintGate.then(() => ({token: 'tok', visitorData: 'vd'}))})
+		const {service} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
 		const start = vi.spyOn(service, 'start')
 		const queue = new QueueService(new QueueStore(join(outputDir, 'user-data')), service)
 		await queue.init()
@@ -358,6 +365,7 @@ describe('queue resume of a job whose pause has not parked yet', () => {
 
 		expect(queue.add([makeItem({id: 'a', status: 'pending', url: URL, outputDir, job: JOB})]).ok).toBe(true)
 		await vi.waitFor(() => expect(status()).toBe('running'), SETTLE)
+		await minting
 		expect(await queue.pause('a')).toEqual({ok: true, data: undefined})
 		expect(status()).toBe('paused-active')
 		return {service, queue, start, status, releaseMint}
