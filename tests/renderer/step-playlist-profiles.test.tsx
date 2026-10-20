@@ -756,3 +756,56 @@ describe('multiProfileBreakdown', () => {
 		expect(podcastRow?.outputDir).toBe('/downloads/podcast')
 	})
 })
+
+// A row keeps a profile hidden after it was assigned (and downloads with it),
+// so every picker on the step still shows that profile, first, tagged Hidden.
+describe('StepPlaylistProfiles with a profile hidden after it was assigned', () => {
+	function hidePodcast(): void {
+		act(() => {
+			useAppStore.setState((state): Partial<AppState> => {
+				const settings = state.settings
+				if (!settings) return state
+				return {settings: {...settings, profiles: {...settings.profiles, custom: settings.profiles.custom.map(candidate => (candidate.id === 'podcast' ? {...candidate, enabled: false} : candidate))}}}
+			})
+		})
+	}
+
+	it('keeps the row on the hidden profile, with its filter chip', () => {
+		renderStep()
+		pickFromRow('b', 'podcast')
+		hidePodcast()
+
+		expect(profileCell('b')).toHaveTextContent('Podcast MP3')
+		expect(screen.getByTestId('filter-profile-podcast')).toHaveTextContent('Podcast MP3')
+	})
+
+	it("lists the hidden profile first in the row's menu, checked and tagged Hidden", () => {
+		renderStep()
+		pickFromRow('b', 'podcast')
+		hidePodcast()
+		openRowMenu('b')
+
+		const [first] = within(screen.getByTestId('playlist-row-profile-menu-grid')).getAllByTestId(/^playlist-row-profile-option-/)
+		expect(first).toHaveAttribute('data-testid', 'playlist-row-profile-option-podcast')
+		expect(first).toHaveAttribute('aria-pressed', 'true')
+		expect(first).toHaveTextContent('Hidden')
+	})
+
+	it('offers the hidden profile first in the right-click menu, checked, and assigns from it', async () => {
+		renderStep()
+		pickFromRow('b', 'podcast')
+		hidePodcast()
+		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
+
+		const radios = await screen.findAllByRole('menuitemradio')
+		expect(radios[0]?.textContent).toMatch(/^Podcast MP3Hidden/)
+		expect(radios[0]).toHaveAttribute('aria-checked', 'true')
+		expect(radios.filter(radio => radio.getAttribute('aria-checked') === 'true')).toHaveLength(1)
+
+		const archive = radios.find(radio => radio.textContent?.startsWith('Archive 4K'))
+		if (!archive) throw new Error('expected an Archive 4K item')
+		fireEvent.click(archive)
+		await waitFor(() => expect(profileCell('b')).toHaveTextContent('Archive 4K'))
+		await waitFor(() => expect(screen.queryAllByRole('menuitemradio')).toHaveLength(0))
+	})
+})

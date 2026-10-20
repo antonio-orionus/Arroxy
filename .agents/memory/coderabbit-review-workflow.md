@@ -14,11 +14,13 @@ skipped: automatic reviews are disabled" (PR #164 was green with no review).
 
 The allowance is 2 reviews per hour for the whole repo, failed triggers
 included (Antonio, 2026-10-19: "be strategic"). CodeRabbit reviews a change in
-behaviour, not a PR (Antonio, 2026-10-20, after per-concern splits drained it):
+behaviour, not a PR (Antonio, 2026-10-20, after per-concern splits drained it).
+It is the third reviewer: the local dual review (`bun run review:dual`, run by
+the `land` skill) has already checked every PR before it opens.
 
 - **No trigger** for mechanical PRs (formatting, licence headers, dependency
-  bumps, locale sync, regenerated files) or behaviour-free refactors; Codex and
-  `bun run check` cover them. In a split feature only the PR that changes
+  bumps, locale sync, regenerated files) or behaviour-free refactors; the light
+  dual review and `bun run check` cover them. In a split feature only the PR that changes
   behaviour gets one.
 - **Riskiest first** when the quota is tight: IPC and preload, release and
   build, persistence and settings, the download pipeline. A small, well-tested
@@ -42,7 +44,12 @@ behaviour, not a PR (Antonio, 2026-10-20, after per-concern splits drained it):
   with auto reviews off (PR #220 merged-ready with its fix commit unreviewed).
   Two per PR is the ceiling.
 - A refused trigger ("rate limited") is never retried by the bot; re-trigger
-  after the window.
+  after the window the refusal names ("Next included review available in N
+  minutes").
+- **The first reply can flip.** On PR #386 (2026-10-20) the trigger reply read
+  "Review triggered", then edited itself to "Action not completed — Review rate
+  limited" seconds later. Wait ~30 s before reading it, and treat the review as
+  accepted only once no refusal follows.
 
 ## Reading the outcome
 
@@ -80,4 +87,4 @@ gh api repos/antonio-orionus/Arroxy/issues/<N>/comments --jq '.[].body' | grep -
 
 Check each finding against the code before acting on it, fix what holds, and
 answer the rest in its inline thread (`pulls/<N>/comments/<id>/replies`) with
-evidence. Related: [[finish-before-pr]], [[no-ai-attribution]].
+evidence. A false alarm that will recur goes into [[review-learnings]]. Related: [[finish-before-pr]], [[no-ai-attribution]].

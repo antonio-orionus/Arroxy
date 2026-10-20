@@ -5,6 +5,7 @@
 - [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
 - [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable only, never a beta.
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared, auto reviews off: trigger behaviour PRs once on a final head, never push mid-review.
+- [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer; add one when a refuted finding would recur.
 - [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
 - [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`.
 - [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; tests only after the design is approved.

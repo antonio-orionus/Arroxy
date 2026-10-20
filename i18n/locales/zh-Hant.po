@@ -3072,10 +3072,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "每部影片會獨立解析所選層級——混合格式的播放清單也能如預期運作。"
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "指派 {{profileName}}"
-
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"
 msgid "Assign to {{count}} videos"

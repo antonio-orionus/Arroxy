@@ -3072,10 +3072,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။"
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} ကို သတ်မှတ်ပါ"
-
 #. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"
 msgid "Assign to {{count}} videos"

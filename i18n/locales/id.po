@@ -3072,10 +3072,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Tetapkan {{profileName}}"
-
 #. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"
 msgid "Assign to {{count}} videos"
