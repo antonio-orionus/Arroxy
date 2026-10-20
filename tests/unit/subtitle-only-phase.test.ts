@@ -74,7 +74,7 @@ describe('SubtitleOnlyPhase', () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, languages: ['pt', 'en'], writeAuto: true, languagesAreCodes: true}}}})
 		await SubtitleOnlyPhase.run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles.languages).toEqual(['(?-i:pt-BR)', '(?-i:en-orig)'])
+		expect(req.subtitles.languages).toEqual(['(?-i:pt-BR)', '(?-i:en)'])
 		await rm(dir, {recursive: true, force: true})
 	})
 

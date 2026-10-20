@@ -128,7 +128,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
 			await SidecarSubsPhase(false).run(ctx)
 			const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-			expect(req.subtitles.languages).toEqual(['(?-i:ja-orig)'])
+			expect(req.subtitles.languages).toEqual(['(?-i:ja)'])
 			await rm(tempDir, {recursive: true, force: true})
 		})
 

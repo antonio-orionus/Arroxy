@@ -62,10 +62,16 @@ export function pickSubtitleTracks(languages: readonly string[], source: Downloa
 
 // A job's subtitle options with its language codes turned into this video's
 // exact track keys. Options that already name tracks pass through.
+//
+// An original-language caption (`ja-orig`) is asked for by its bare twin
+// (`ja`): yt-dlp lists it under both keys with the same URL, and the bare one
+// names the file `….ja.srt` and the embedded track `ja`. No manual track can
+// take that key instead: one in the same language would have been picked over
+// the caption, and an auto-only job never fetches manual tracks.
 export function withSubtitleTracks(subtitles: SubtitleOptions, maps: {subtitles: SubtitleMap; automaticCaptions: SubtitleMap}): SubtitleOptions {
 	if (!subtitles.languagesAreCodes) return subtitles
 	const {languagesAreCodes: _codes, ...rest} = subtitles
-	return {...rest, languages: pickSubtitleTracks(subtitles.languages, subtitleSourceOf(subtitles), maps).tracks}
+	return {...rest, languages: pickSubtitleTracks(subtitles.languages, subtitleSourceOf(subtitles), maps).tracks.map(baseLanguage)}
 }
 
 function escapePythonRegex(value: string): string {

@@ -73,8 +73,11 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const hasSubs = !!subtitles
 
 	if (input.subtitleOnly === true || (!hasMedia && hasSubs)) {
-		if (!subtitles) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages')
-		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles}
+		// Exact tracks may be none: a profile's languages resolved against a
+		// video that has none of them. Its subtitle phase then fetches nothing.
+		const onlySubtitles = subtitles ?? (input.subtitles && !input.subtitles.languagesAreCodes ? input.subtitles : undefined)
+		if (!onlySubtitles) throw new Error('prepareJob: subtitle-only requires subtitle languages')
+		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles: onlySubtitles}
 	}
 
 	// SponsorBlock is not offered for a part: its segments are timed against

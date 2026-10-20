@@ -73,7 +73,13 @@ describe('withSubtitleTracks', () => {
 	const options = {languages: ['ja', 'en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: true}
 
 	it('turns language codes into the exact tracks', () => {
-		expect(withSubtitleTracks({...options, languagesAreCodes: true}, maps)).toEqual({...options, languages: ['ja-orig']})
+		expect(withSubtitleTracks({...options, languages: ['de'], languagesAreCodes: true}, {subtitles: {'de-DE': [{ext: 'vtt'}]}, automaticCaptions: {}})).toEqual({...options, languages: ['de-DE']})
+	})
+
+	// yt-dlp lists YouTube's original-language captions as `ja` too, same URL:
+	// that key keeps the file name `….ja.srt` and the embedded track's language `ja`.
+	it("asks for an original-language caption by its bare twin's key", () => {
+		expect(withSubtitleTracks({...options, languagesAreCodes: true}, maps)).toEqual({...options, languages: ['ja']})
 	})
 
 	it('leaves track keys alone', () => {

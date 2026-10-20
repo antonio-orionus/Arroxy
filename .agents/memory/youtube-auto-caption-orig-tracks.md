@@ -48,7 +48,8 @@ every ASR caption track still yields a bare-key `tlang` entry per translation
 language. A `--sub-langs` pattern cannot tell them apart either: a bare `en` is a
 manual track, an identical ASR twin, or a translation, depending on the video.
 So Arroxy picks exact track keys itself (`pickSubtitleTracks`, the Format
-screen's rule) and sends them as `(?-i:<escaped key>)`: queueing resolves a
+screen's rule) and sends them as `(?-i:<escaped key>)`, an `-orig` pick by its
+bare twin's key (same URL; keeps `….en.srt` and the `en` track tag): queueing resolves a
 single video's profile codes from the probe, the subtitle phase resolves a
 playlist entry's from the media run's or probe's info-json. That needs maps that
 list every track, so it runs only where the site adapter sets

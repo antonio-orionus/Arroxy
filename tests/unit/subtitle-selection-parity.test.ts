@@ -41,17 +41,25 @@ const LANGUAGE_SETS = [['en'], ['de'], ['ja'], ['pt'], ['es', 'zh']]
 const SUBTITLE_SOURCES: DownloadProfileSubtitleSource[] = ['manual-first', 'manual-only', 'auto-only']
 const MEDIA = ['balanced', 'subtitles-only'] as const
 
+// YouTube lists its original-language automatic captions twice, as `en` and
+// `en-orig`, with the same URL: one track under two keys. Tracks are compared
+// as `manual:<key>` / `auto:<key without -orig>`.
+function trackId(raw: RawMaps, key: string, writeSubs: boolean): string {
+	return writeSubs && key in (raw.subtitles ?? {}) ? `manual:${key}` : `auto:${key.replace(/-orig$/, '')}`
+}
+
 // The tracks yt-dlp downloads for a job, per `YoutubeDL.process_subtitles`
 // and `orderedSet_from_options(use_regex=True)`.
 function ytDlpFetches(raw: RawMaps, subtitles: SubtitleOptions | undefined): string[] {
 	if (!subtitles) return []
+	const writeSubs = !subtitles.autoOnly
 	const available = new Set<string>()
-	if (!subtitles.autoOnly) for (const key of Object.keys(raw.subtitles ?? {})) available.add(key)
+	if (writeSubs) for (const key of Object.keys(raw.subtitles ?? {})) available.add(key)
 	if (subtitles.writeAuto) for (const key of Object.keys(raw.automatic_captions ?? {})) available.add(key)
 	const picked = new Set<string>()
 	for (const pattern of ytDlpSubtitleLanguages(subtitles)) {
 		const fullmatch = new RegExp(`^(?:${pattern})$`, 'i')
-		for (const key of available) if (fullmatch.test(key)) picked.add(key)
+		for (const key of available) if (fullmatch.test(key)) picked.add(trackId(raw, key, writeSubs))
 	}
 	return [...picked].sort()
 }
@@ -102,7 +110,7 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 					if (media === 'subtitles-only' && picked.length === 0) continue
 					it(`${id} · ${media} · ${source} · ${languages.join('+')}`, () => {
 						const interactive = ytDlpFetches(fixture.info, interactiveJob(probe, profile))
-						expect(interactive).toEqual([...picked].sort())
+						expect(interactive).toEqual(picked.map(key => trackId(fixture.info, key, source !== 'auto-only')).sort())
 						expect(ytDlpFetches(fixture.info, quickJob(probe, profile))).toEqual(interactive)
 					})
 				}

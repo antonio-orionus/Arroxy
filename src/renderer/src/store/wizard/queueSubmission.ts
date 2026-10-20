@@ -357,11 +357,10 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 // exact tracks the Format screen would pick, so yt-dlp fetches those and never
 // a machine translation. Only on a site whose probe lists every track: an
 // empty map elsewhere says nothing. A subtitles-only job none of whose codes
-// this video has keeps them, for the subtitle phase to find nothing to fetch.
+// this video has gets no tracks, and its subtitle phase fetches nothing.
 function profileSubtitles(resolved: ResolvedDownloadProfile, maps: SubtitleMaps | undefined): SubtitleOptions | undefined {
 	if (!resolved.subtitles || !maps || !siteForJob(maps.extractor, maps.webpageUrl).probeListsSubtitleTracks) return resolved.subtitles
-	const exact = withSubtitleTracks(resolved.subtitles, maps)
-	return exact.languages.length === 0 && resolved.isSubtitleOnly ? resolved.subtitles : exact
+	return withSubtitleTracks(resolved.subtitles, maps)
 }
 
 type SubtitleMaps = Pick<Extract<ProbeResult, {kind: 'video'}>, 'subtitles' | 'automaticCaptions' | 'extractor' | 'webpageUrl'>
