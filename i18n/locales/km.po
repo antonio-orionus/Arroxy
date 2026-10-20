@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "ការទូទាត់គ្រីបតូមិនអាចត្រឡប់វិញបានទេ។ សូមផ្ញើតែតាមបណ្តាញដែលបង្ហាញ ហើយប្រៀបធៀបអាសយដ្ឋានទាំងមូល។"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "វីដេអូនេះមិនមានអក្សររត់ជាភាសា {{languages}} ទេ។"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "វីដេអូនេះត្រូវបានកំណត់អាយុ ហើយមិនអាចទាញយកបានដោយគ្មានគណនីដែលបានចូលទេ។"
@@ -1148,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "កំពុងទាញយក"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "គ្មានអក្សររត់ជាភាសា {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "ផ្អាករាល់ការទាញយកសកម្ម ហើយបញ្ឈប់ការទាញយកថ្មីពីការចាប់ផ្តើម"
@@ -1829,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "កំពុងផ្លាស់ទីឯកសារ…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "គ្មានអក្សររត់ជាភាសា {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "មិនអាចរក្សាទុកទៅ {{dir}} បានទេ — Arroxy មិនត្រូវបានអនុញ្ញាតឱ្យសរសេរនៅទីនោះទេ"
@@ -1868,6 +1880,14 @@ msgstr "កំពុងរង់ចាំ {{seconds}} វិនាទីដើ�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "កំពុងចាប់ផ្តើមម៉ាស៊ីនទាញយក…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "វីដេអូនេះមិនមានអក្សររត់ជាភាសា {{languages}} ទេ។ វីដេអូត្រូវបានរក្សាទុកដោយគ្មានវា។"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "វីដេអូនេះមិនមានអក្សររត់ជាភាសា {{languages}} ទេ។ ភាសាផ្សេងទៀតត្រូវបានរក្សាទុក។"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

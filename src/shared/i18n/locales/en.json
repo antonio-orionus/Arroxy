@@ -752,6 +752,7 @@
 			"qualityLimitedSubtitlesFailed": "Limited to {{height}}p · some subtitles failed",
 			"audioKept": "Sound not removed",
 			"audioKeptSubtitlesFailed": "Sound not removed · some subtitles failed",
+			"subtitleLanguagesMissing": "No subtitles in {{languages}}",
 			"pause": "Pause",
 			"resume": "Resume",
 			"cancel": "Cancel",
@@ -812,6 +813,9 @@
 		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help.",
 		"audioKept": "Video saved with its sound — the audio could not be removed",
 		"audioKeptSubtitlesFailed": "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded",
+		"subtitleLanguagesMissing": "This video has no subtitles in {{languages}}. The video was saved without them.",
+		"subtitleLanguagesMissingOthersSaved": "This video has no subtitles in {{languages}}. The other languages were saved.",
+		"noSubtitles": "No subtitles in {{languages}}",
 		"cancelled": "Download cancelled",
 		"complete": "Download complete",
 		"usedExtractorFallback": "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads",
@@ -864,6 +868,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "This video has no subtitles in {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships.",
 			"ipBlock": "Your IP address appears to be blocked. Try again later or use a VPN.",

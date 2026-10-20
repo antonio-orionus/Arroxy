@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kaffaltiin kiriptoo deebi'uu hin danda'u. Neetworkii agarsiifame qofa irratti ergi, teessoo guutuu wal bira qabii ilaali."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Buusaa jira"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Afaanota {{languages}} keessatti axxiinnotni hin jiru"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Daawniloodoonni hunda qabsoo jiran gidduu dhabi"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Faayiloota daddabarsamaa jira…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Afaanota {{languages}} keessatti axxiinnotni hin jiru"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu"
@@ -1918,6 +1930,14 @@ msgstr "Dhiibbaa oolfachuuf sekoondii {{seconds}} eegaa jira…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Injinii buusuu jalqabaa jira…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Viidiyoon sun osoo axxiinnotni hin jiraatin olkaa'ameera."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Afaanonni kaan olkaa'amaniiru."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

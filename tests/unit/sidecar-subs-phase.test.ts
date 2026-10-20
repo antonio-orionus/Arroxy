@@ -144,11 +144,26 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			await rm(tempDir, {recursive: true, force: true})
 		})
 
-		it('completes without running yt-dlp when the video has none of the languages', async () => {
+		// ADR 0016: the video is saved, so the job ends with a notice naming what it lacks.
+		it('keeps the video and names the languages without running yt-dlp when the video has none of them', async () => {
 			const tempDir = await tempDirWithInfoJson()
 			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en'])}})
-			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
 			expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
+		it('fetches the languages the video has, then names the rest', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
+		it('a failed fetch is still the subtitle failure', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(EXIT_ERROR, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 			await rm(tempDir, {recursive: true, force: true})
 		})
 	})

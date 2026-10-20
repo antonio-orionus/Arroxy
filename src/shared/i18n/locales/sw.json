@@ -771,6 +771,7 @@
 			"qualityLimitedSubtitlesFailed": "Imedhibitiwa kwa {{height}}p · baadhi ya manukuu yameshindwa",
 			"audioKept": "Sauti haijaondolewa",
 			"audioKeptSubtitlesFailed": "Sauti haijaondolewa · baadhi ya manukuu yameshindwa",
+			"subtitleLanguagesMissing": "Hakuna manukuu katika lugha: {{languages}}",
 			"pause": "Simamisha",
 			"resume": "Endelea",
 			"cancel": "Ghairi",
@@ -831,6 +832,9 @@
 		"qualityLimitedSubtitlesFailed": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
 		"audioKept": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa",
 		"audioKeptSubtitlesFailed": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa, na baadhi ya manukuu hayakuweza kupakuliwa",
+		"subtitleLanguagesMissing": "Video hii haina manukuu katika lugha: {{languages}}. Video ilihifadhiwa bila hayo.",
+		"subtitleLanguagesMissingOthersSaved": "Video hii haina manukuu katika lugha: {{languages}}. Lugha nyingine zilihifadhiwa.",
+		"noSubtitles": "Hakuna manukuu katika lugha: {{languages}}",
 		"cancelled": "Upakuaji umeghairiwa",
 		"complete": "Upakuaji umekamilika",
 		"usedExtractorFallback": "Imepakiwa kwa kiboreshaji laini — weka cookies.txt kwa upakuaji wa kuaminika zaidi",
@@ -883,6 +887,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Video hii haina manukuu katika lugha: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa tovuti — Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara yakitolewa.",
 			"ipBlock": "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.",

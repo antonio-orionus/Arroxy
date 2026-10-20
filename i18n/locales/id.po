@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Pembayaran kripto tidak dapat dibatalkan. Kirim hanya melalui jaringan yang ditampilkan dan bandingkan seluruh alamat."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk."
@@ -1148,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Mengunduh"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Tidak ada subtitle dalam bahasa: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru"
@@ -1829,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Memindahkan file…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Tidak ada subtitle dalam bahasa: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Tidak dapat menyimpan ke {{dir}} — Arroxy tidak diizinkan menulis di sana"
@@ -1868,6 +1880,14 @@ msgstr "Menunggu {{seconds}} untuk menghindari batas kecepatan…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Memulai mesin pengunduh…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Video disimpan tanpa subtitle tersebut."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Bahasa lainnya telah disimpan."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

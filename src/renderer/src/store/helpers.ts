@@ -1,4 +1,5 @@
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
+import {formatLanguageList} from '@renderer/lib/subtitleLabel.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot, WizardMediaKind} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
@@ -128,11 +129,18 @@ export function generateId(): string {
 	return crypto.randomUUID()
 }
 
+// A status names languages by their codes, comma-joined in `languageCodes`
+// (params hold only strings and numbers); the copy gets their names.
+function statusParams(params: StatusSnapshot['params']): Record<string, unknown> | undefined {
+	const codes = params?.languageCodes
+	return typeof codes === 'string' ? {...params, languages: formatLanguageList(codes.split(','), i18next.language)} : params
+}
+
 export function formatStatus(snapshot: StatusSnapshot | null): string {
 	if (!snapshot) return ''
 	const key = `status.${snapshot.key}`
 	// i18next typed resources don't compose with computed keys + interpolation params; cast through unknown.
-	return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)(key, snapshot.params)
+	return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)(key, statusParams(snapshot.params))
 }
 
 export function formatLocalizedError(error: LocalizedError | null): string {
@@ -140,6 +148,7 @@ export function formatLocalizedError(error: LocalizedError | null): string {
 	// For 'unknown', prefer the verbatim raw stderr so the user sees something
 	// concrete rather than a generic localized fallback.
 	if (error.kind === 'unknown') return error.raw || i18next.t('errors.ytdlp.unknown' as const)
+	if (error.kind === 'noSubtitles' && error.languageCodes?.length) return i18next.t('errors.noSubtitlesIn', {languages: formatLanguageList(error.languageCodes, i18next.language)})
 	return i18next.t(`errors.ytdlp.${error.kind}` as const)
 }
 

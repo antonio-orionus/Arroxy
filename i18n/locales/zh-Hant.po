@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "加密貨幣轉帳無法撤銷。請僅透過所示網路傳送，並核對完整地址。"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "此影片沒有{{languages}}的字幕。"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "此影片有年齡限制，必須登入帳號才能下載。"
@@ -1148,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "正在下載"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "沒有{{languages}}的字幕"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "暫停所有進行中的下載，並阻止新下載開始"
@@ -1829,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "正在移動檔案…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "沒有{{languages}}的字幕"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "無法儲存到 {{dir}}——Arroxy 沒有在該處寫入的權限"
@@ -1868,6 +1880,14 @@ msgstr "正在等待 {{seconds}} 秒以避免頻率限制…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "正在啟動下載引擎…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "此影片沒有{{languages}}的字幕。影片已儲存，但不含這些字幕。"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "此影片沒有{{languages}}的字幕。其他語言已儲存。"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

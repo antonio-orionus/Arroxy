@@ -4,7 +4,7 @@ import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths, logger} from '.
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
-import {resolveSubtitlePlan, subtitleRunIsEmpty, subtitleRunRequest} from './subtitleTracks.js'
+import {endWithoutFetching, missingSubtitles, resolveSubtitlePlan, subtitleRunRequest} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpResult} from '../YtDlp.js'
@@ -32,9 +32,10 @@ export const SubtitleOnlyPhase: Phase = {
 		if (refused) return refused
 
 		const run = await resolveSubtitlePlan(subtitles, {infoJsonPaths: [input.probeInfoJsonPath], site, jobId: job.id})
-		if (subtitleRunIsEmpty(run)) {
+		const missing = missingSubtitles(run, {subtitlesOnly: true})
+		if (missing.before) {
 			logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, request: subtitles.request})
-			return {kind: 'completed'}
+			return endWithoutFetching(ctx, missing.before)
 		}
 
 		// The identity is read per run: an escalation switches the job to the Explore session.
@@ -81,6 +82,6 @@ export const SubtitleOnlyPhase: Phase = {
 			await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
 		}
 
-		return {kind: 'completed'}
+		return missing.after ?? {kind: 'completed'}
 	}
 }

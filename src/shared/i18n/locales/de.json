@@ -798,6 +798,7 @@
 			"qualityLimitedSubtitlesFailed": "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen",
 			"audioKept": "Ton nicht entfernt",
 			"audioKeptSubtitlesFailed": "Ton nicht entfernt · einige Untertitel fehlgeschlagen",
+			"subtitleLanguagesMissing": "Keine Untertitel auf {{languages}}",
 			"pause": "Pause",
 			"resume": "Fortsetzen",
 			"cancel": "Abbrechen",
@@ -858,6 +859,9 @@
 		"qualityLimitedSubtitlesFailed": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
 		"audioKept": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden",
 		"audioKeptSubtitlesFailed": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden, und einige Untertitel konnten nicht geladen werden",
+		"subtitleLanguagesMissing": "Dieses Video hat keine Untertitel auf {{languages}}. Das Video wurde ohne sie gespeichert.",
+		"subtitleLanguagesMissingOthersSaved": "Dieses Video hat keine Untertitel auf {{languages}}. Die anderen Sprachen wurden gespeichert.",
+		"noSubtitles": "Keine Untertitel auf {{languages}}",
 		"cancelled": "Download abgebrochen",
 		"complete": "Download abgeschlossen",
 		"usedExtractorFallback": "Mit gelockertem Extraktor heruntergeladen — richte eine cookies.txt für zuverlässigere Downloads ein",
@@ -910,6 +914,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Dieses Video hat keine Untertitel auf {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens der Seite handeln — Arroxy aktualisiert seine Download-Engine beim Start, sodass der Fix automatisch ankommt, sobald er verfügbar ist.",
 			"ipBlock": "Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.",

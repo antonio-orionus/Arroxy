@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "የክሪፕቶ ክፍያዎች ሊመለሱ አይችሉም። በታየው አውታረ መረብ ብቻ ይላኩ እና አድራሻውን ሙሉ በሙሉ ያመሳስሉ።"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}።"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "ይህ ቪዲዮ ዕድሜ-ተገደቧል ያለ የገቡ መለያ ሊዳውንሎድ አይችልም።"
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "በማውረድ ላይ"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "ንዑስ ርዕሶች የሉም፦ {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "ሁሉንም ንቁ ዳውንሎዶችን አቁም"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ፋይሎችን እያዘዋወሩ…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "ንዑስ ርዕሶች የሉም፦ {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "ወደ {{dir}} ማስቀመጥ አይቻልም — Arroxy እዚያ እንዲጽፍ አልተፈቀደለትም"
@@ -1918,6 +1930,14 @@ msgstr "ፍጥነት ላለማቀዝ {{seconds}} ሰከንድ እየጠበቁ…
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "የማውረጃ ሞተሩን በመጀመር ላይ…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}። ቪዲዮው ያለ እነሱ ተቀምጧል።"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}። ሌሎቹ ቋንቋዎች ተቀምጠዋል።"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Pagamentos em cripto são irreversíveis. Envie somente pela rede indicada e compare o endereço inteiro."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Este vídeo não tem legendas em {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Este vídeo possui restrição de idade e não pode ser baixado sem uma conta conectada."
@@ -1238,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Baixando"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Sem legendas em {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Pausar todos os downloads ativos e impedir que novos iniciem"
@@ -1929,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Movendo arquivos…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Sem legendas em {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Não é possível salvar em {{dir}} — o Arroxy não tem permissão para gravar ali"
@@ -1968,6 +1980,14 @@ msgstr "Aguardando {{seconds}}s para evitar limites de taxa…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Iniciando o mecanismo de download…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Este vídeo não tem legendas em {{languages}}. O vídeo foi salvo sem elas."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Este vídeo não tem legendas em {{languages}}. Os outros idiomas foram salvos."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

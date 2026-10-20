@@ -105,7 +105,7 @@ export interface PausedDownload {
 	formatsWithheld?: boolean
 }
 
-export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey} | {kind: 'hard-failed'; error: LocalizedError; resumeContext?: QueueResumeContext} | {kind: 'cancelled'} | {kind: 'paused'}
+export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey; params?: Record<string, string | number>} | {kind: 'hard-failed'; error: LocalizedError; resumeContext?: QueueResumeContext} | {kind: 'cancelled'} | {kind: 'paused'}
 
 export interface Phase {
 	readonly kind: string

@@ -791,6 +791,7 @@
 			"qualityLimitedSubtitlesFailed": "{{height}}p tti daangeffame · axxiinnota tokko tokko hin milkoofne",
 			"audioKept": "Sagaleen hin balleeffamne",
 			"audioKeptSubtitlesFailed": "Sagaleen hin balleeffamne · axxiinnota tokko tokko hin milkoofne",
+			"subtitleLanguagesMissing": "Afaanota {{languages}} keessatti axxiinnotni hin jiru",
 			"pause": "Dhaabi",
 			"resume": "Itti fufi",
 			"cancel": "Haqi",
@@ -851,6 +852,9 @@
 		"qualityLimitedSubtitlesFailed": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
 		"audioKept": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne",
 		"audioKeptSubtitlesFailed": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne",
+		"subtitleLanguagesMissing": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Viidiyoon sun osoo axxiinnotni hin jiraatin olkaa'ameera.",
+		"subtitleLanguagesMissingOthersSaved": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Afaanonni kaan olkaa'amaniiru.",
+		"noSubtitles": "Afaanota {{languages}} keessatti axxiinnotni hin jiru",
 		"cancelled": "Daawniloodii haqame",
 		"complete": "Daawniloodii xumurame",
 		"usedExtractorFallback": "Haala laafaa ta'een buufame — daawniloodii amanamuuf cookies.txt qopheessi",
@@ -903,6 +907,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu.",
 		"ytdlp": {
 			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf saayitii gama ta'uu danda'a — Arroxy jalqabbii irratti injinii buusuu isaa haaromsa, kanaaf fooyya'iinsi yeroo ba'u ofumaan ni dhufa.",
 			"ipBlock": "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",

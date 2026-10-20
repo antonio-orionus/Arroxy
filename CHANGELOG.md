@@ -20,6 +20,7 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 - A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
 - A video-only download that could not have its sound removed now says so in the queue instead of finishing as a plain success.
 - Your own yt-dlp settings no longer change Arroxy's downloads: a yt-dlp config file or plugin you set up for yt-dlp on its own, or a `yt-dlp.conf` left in your download folder, is now ignored.
+- A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
 
 ## 0.7.2
 

@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kripto to'lovlarni qaytarib bo'lmaydi. Faqat ko'rsatilgan tarmoq orqali yuboring va manzilni to'liq solishtiring."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Bu videoda {{languages}} tillarida subtitr yo'q."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Yuklanmoqda"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} tillarida subtitr yo'q"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Barcha faol yuklamalarni to'xtatib turish"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Fayllar ko'chirilmoqda…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} tillarida subtitr yo'q"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} ga saqlab bo'lmaydi — Arroxy'ga u yerga yozishga ruxsat berilmagan"
@@ -1918,6 +1930,14 @@ msgstr "Tezlik chegarasidan qochish uchun {{seconds}} soniya kutilmoqda…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Yuklash mexanizmi ishga tushmoqda…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Bu videoda {{languages}} tillarida subtitr yo'q. Video subtitrsiz saqlandi."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Bu videoda {{languages}} tillarida subtitr yo'q. Boshqa tillar saqlandi."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

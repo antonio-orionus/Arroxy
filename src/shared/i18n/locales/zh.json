@@ -686,6 +686,7 @@
 			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
 			"audioKept": "未移除声音",
 			"audioKeptSubtitlesFailed": "未移除声音 · 部分字幕未能下载",
+			"subtitleLanguagesMissing": "没有{{languages}}的字幕",
 			"pause": "暂停",
 			"resume": "继续",
 			"cancel": "取消",
@@ -746,6 +747,9 @@
 		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
 		"audioKept": "视频已连同声音保存 — 未能移除音频",
 		"audioKeptSubtitlesFailed": "视频已连同声音保存 — 未能移除音频，且部分字幕未能下载",
+		"subtitleLanguagesMissing": "此视频没有{{languages}}的字幕。视频已保存，但不含这些字幕。",
+		"subtitleLanguagesMissingOthersSaved": "此视频没有{{languages}}的字幕。其他语言已保存。",
+		"noSubtitles": "没有{{languages}}的字幕",
 		"cancelled": "下载已取消",
 		"complete": "下载完成",
 		"usedExtractorFallback": "已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定",
@@ -794,6 +798,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "此视频没有{{languages}}的字幕。",
 		"ytdlp": {
 			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
 			"ipBlock": "你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。",

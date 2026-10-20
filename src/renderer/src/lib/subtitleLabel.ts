@@ -38,3 +38,25 @@ export function buildSubtitleList(subtitles: SubtitleMap, automaticCaptions: Sub
 	const auto = Object.keys(automaticCaptions).flatMap(code => (code === LIVE_CHAT_LANG || subtitles[code] ? [] : [{code, displayName: resolveSubtitleLabel(code, subtitles, automaticCaptions, uiLanguage), isAuto: true}]))
 	return [...manual, ...auto]
 }
+
+const listFormatByLanguage = new Map<string, Intl.ListFormat>()
+
+// Language codes as a list of names in the UI language ("German, French").
+export function formatLanguageList(codes: readonly string[], uiLanguage: string): string {
+	let list = listFormatByLanguage.get(uiLanguage)
+	if (!list) {
+		// react-doctor-disable-next-line react-doctor/js-hoist-intl -- cached per UI language; locale is runtime data
+		list = new Intl.ListFormat([uiLanguage, 'en'], {type: 'unit', style: 'short'})
+		listFormatByLanguage.set(uiLanguage, list)
+	}
+	const names = displayNamesFor(uiLanguage)
+	return list.format(
+		codes.map(code => {
+			try {
+				return names.of(code) ?? code
+			} catch {
+				return code
+			}
+		})
+	)
+}

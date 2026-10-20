@@ -689,6 +689,7 @@
 			"qualityLimitedSubtitlesFailed": "限制為 {{height}}p · 部分字幕無法下載",
 			"audioKept": "未移除聲音",
 			"audioKeptSubtitlesFailed": "未移除聲音 · 部分字幕無法下載",
+			"subtitleLanguagesMissing": "沒有{{languages}}的字幕",
 			"pause": "暫停",
 			"resume": "繼續",
 			"cancel": "取消",
@@ -749,6 +750,9 @@
 		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質，且部分字幕無法下載。稍後再試或改用其他網路可能會有幫助。",
 		"audioKept": "影片已連同聲音儲存——無法移除音訊",
 		"audioKeptSubtitlesFailed": "影片已連同聲音儲存——無法移除音訊，且部分字幕無法下載",
+		"subtitleLanguagesMissing": "此影片沒有{{languages}}的字幕。影片已儲存，但不含這些字幕。",
+		"subtitleLanguagesMissingOthersSaved": "此影片沒有{{languages}}的字幕。其他語言已儲存。",
+		"noSubtitles": "沒有{{languages}}的字幕",
 		"cancelled": "下載已取消",
 		"complete": "下載完成",
 		"usedExtractorFallback": "已使用較寬鬆的擷取器下載——請設定 cookies.txt 以提高下載可靠性",
@@ -797,6 +801,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "此影片沒有{{languages}}的字幕。",
 		"ytdlp": {
 			"botBlock": "已觸發機器人防護。你使用的 IP 很可能已被標記（資料中心網段或繁忙的 VPN 出口）。請更換 IP 或選擇其他 VPN 節點後重試。如果問題持續，可能是網站端的暫時變更——Arroxy 啟動時會更新其下載引擎，因此修正發布後會自動套用。",
 			"ipBlock": "你的 IP 位址似乎已被封鎖。請稍後再試或使用 VPN。",

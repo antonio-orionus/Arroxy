@@ -50,6 +50,8 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 export interface LocalizedError {
 	kind: YtDlpErrorKind
 	raw: string
+	// `noSubtitles`: the requested languages the video has no subtitles in.
+	languageCodes?: string[]
 }
 
 export type EnTranslation = typeof en

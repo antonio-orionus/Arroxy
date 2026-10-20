@@ -799,6 +799,7 @@
 			"qualityLimitedSubtitlesFailed": "Limitado a {{height}}p · algumas legendas falharam",
 			"audioKept": "Áudio não removido",
 			"audioKeptSubtitlesFailed": "Áudio não removido · algumas legendas falharam",
+			"subtitleLanguagesMissing": "Sem legendas em {{languages}}",
 			"pause": "Pausar",
 			"resume": "Retomar",
 			"cancel": "Cancelar",
@@ -859,6 +860,9 @@
 		"qualityLimitedSubtitlesFailed": "Salvo em {{height}}p — o YouTube reteve as qualidades mais altas neste download, e algumas legendas não puderam ser baixadas. Tentar de novo mais tarde ou em outra rede pode ajudar.",
 		"audioKept": "Vídeo salvo com o áudio — não foi possível remover o áudio",
 		"audioKeptSubtitlesFailed": "Vídeo salvo com o áudio — não foi possível remover o áudio, e algumas legendas não puderam ser baixadas",
+		"subtitleLanguagesMissing": "Este vídeo não tem legendas em {{languages}}. O vídeo foi salvo sem elas.",
+		"subtitleLanguagesMissingOthersSaved": "Este vídeo não tem legendas em {{languages}}. Os outros idiomas foram salvos.",
+		"noSubtitles": "Sem legendas em {{languages}}",
 		"cancelled": "Download cancelado",
 		"complete": "Download concluído",
 		"usedExtractorFallback": "Baixado com extrator alternativo — configure um arquivo cookies.txt para downloads mais confiáveis",
@@ -915,6 +919,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Este vídeo não tem legendas em {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Proteção contra bots ativada. O IP que você está usando provavelmente foi sinalizado (faixa de datacenter ou saída de VPN movimentada). Mude seu IP ou escolha outro servidor VPN e tente novamente. Se continuar falhando, pode ser uma alteração temporária no site — o Arroxy atualiza o mecanismo de download ao iniciar, então a correção chegará automaticamente assim que for lançada.",
 			"ipBlock": "Seu endereço IP parece estar bloqueado. Tente novamente mais tarde ou use uma VPN.",

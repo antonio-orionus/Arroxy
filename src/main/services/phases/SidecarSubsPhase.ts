@@ -4,7 +4,7 @@ import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitl
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {join} from 'node:path'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome} from './phaseHelpers.js'
-import {readSubtitleTrackNames, resolveSubtitlePlan, subtitleEmbedTracks, subtitleRunIsEmpty, subtitleRunRequest, type SubtitleRun} from './subtitleTracks.js'
+import {endWithoutFetching, missingSubtitles, readSubtitleTrackNames, resolveSubtitlePlan, subtitleEmbedTracks, subtitleRunRequest, type SubtitleRun} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {forgetOnExit} from '../download/processControl.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -95,9 +95,10 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			// The media run's info-json first: same identity, and written moments ago.
 			const infoJsonPaths = [active.tempDir ? join(active.tempDir, INFO_JSON_NAME) : undefined, input.probeInfoJsonPath]
 			const run = await resolveSubtitlePlan(requested, {infoJsonPaths, site, jobId: job.id})
-			if (subtitleRunIsEmpty(run)) {
+			const missing = missingSubtitles(run, {subtitlesOnly: false})
+			if (missing.before) {
 				logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, request: requested.request})
-				return {kind: 'completed'}
+				return endWithoutFetching(ctx, missing.before)
 			}
 
 			ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
@@ -149,7 +150,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 				if (!muxOk) return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
 			}
 
-			return {kind: 'completed'}
+			return missing.after ?? {kind: 'completed'}
 		}
 	}
 }

@@ -2,7 +2,7 @@ import {readFile} from 'node:fs/promises'
 import {z} from 'zod'
 import {ytDlpSubtitleTrackSchema, type YtDlpSubtitleTrack} from 'yt-dlp-bridge/info'
 import type {SubtitleOptions} from '@shared/preparedJob.js'
-import type {SubtitleFormat} from '@shared/schemas.js'
+import {STATUS_KEY, type SubtitleFormat} from '@shared/schemas.js'
 import type {Site} from '@shared/sites/index.js'
 import {ytDlpSubtitleKey, ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 import {detectSubtitleLang, subtitleTrackKey} from '@shared/subtitlePath.js'
@@ -10,6 +10,7 @@ import {baseLanguage, fetchedTrackFormats, planSubtitleTracks, sourceFetchFlags,
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {logger} from '../subtitlePostProcess.js'
 import type {SubtitleEmbedTrack} from '../subtitleEmbedArgs.js'
+import type {PhaseContext, PhaseOutcome} from './types.js'
 
 const rawSubtitleMapSchema = z.record(z.string(), z.array(ytDlpSubtitleTrackSchema)).nullish()
 const infoSubtitlesSchema = z.object({subtitles: rawSubtitleMapSchema, automatic_captions: rawSubtitleMapSchema}).loose()
@@ -83,9 +84,37 @@ export async function resolveSubtitlePlan(subtitles: SubtitleOptions, opts: {inf
 	return {kind: 'plan', plan, fetch: subtitleFetchFlags(plan)}
 }
 
-// Whether the run asks yt-dlp for nothing: none of the request's languages is on the video.
-export function subtitleRunIsEmpty(run: SubtitleRun): boolean {
-	return run.kind === 'plan' && run.plan.tracks.length === 0
+// What a job ends as when its video lacks requested languages (ADR 0016),
+// decided once for both subtitle phases and only from a plan: a pattern run
+// cannot know, and an empty list of written files proves nothing (inline
+// captions and files already present write none). `before`: nothing to fetch,
+// the phase ends here. `after`: the outcome once the planned tracks are in.
+// A subtitles-only job with none of its languages leaves nothing usable, so it
+// fails hard (never retried automatically); a job with media keeps the video
+// and says which languages it lacks.
+export interface MissingSubtitles {
+	before?: PhaseOutcome
+	after?: PhaseOutcome
+}
+
+export function missingSubtitles(run: SubtitleRun, job: {subtitlesOnly: boolean}): MissingSubtitles {
+	if (run.kind === 'pattern') return {}
+	const {missing, tracks} = run.plan
+	// A queue row saved with no tracks at all asks for nothing.
+	if (tracks.length === 0 && missing.length === 0) return {before: {kind: 'completed'}}
+	if (missing.length === 0) return {}
+	const params = {languageCodes: missing.join(',')}
+	if (tracks.length === 0) {
+		if (job.subtitlesOnly) return {before: {kind: 'hard-failed', error: {kind: 'noSubtitles', raw: `No subtitles in the requested languages: ${missing.join(', ')}`, languageCodes: [...missing]}}}
+		return {before: {kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params}}
+	}
+	return {after: {kind: 'soft-failed', status: job.subtitlesOnly ? STATUS_KEY.subtitleLanguagesMissingOthersSaved : STATUS_KEY.subtitleLanguagesMissing, params}}
+}
+
+// Ends a phase that has nothing to fetch; a hard failure says why on the row.
+export function endWithoutFetching(ctx: PhaseContext, outcome: PhaseOutcome): PhaseOutcome {
+	if (outcome.kind === 'hard-failed') ctx.emitStatus('error', STATUS_KEY.noSubtitles, {languageCodes: (outcome.error.languageCodes ?? []).join(',')}, outcome.error)
+	return outcome
 }
 
 // The subtitles input of a yt-dlp subtitle run.

@@ -750,6 +750,7 @@
 			"qualityLimitedSubtitlesFailed": "{{height}}pに制限 · 一部の字幕が失敗",
 			"audioKept": "音声は削除されていません",
 			"audioKeptSubtitlesFailed": "音声は削除されていません · 一部の字幕が失敗",
+			"subtitleLanguagesMissing": "{{languages}}の字幕がありません",
 			"pause": "一時停止",
 			"resume": "再開",
 			"cancel": "キャンセル",
@@ -810,6 +811,9 @@
 		"qualityLimitedSubtitlesFailed": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供せず、一部の字幕もダウンロードできませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
 		"audioKept": "ビデオは音声付きで保存されました — 音声を削除できませんでした",
 		"audioKeptSubtitlesFailed": "ビデオは音声付きで保存されました — 音声を削除できず、一部の字幕もダウンロードできませんでした",
+		"subtitleLanguagesMissing": "この動画には、{{languages}}の字幕がありません。動画は字幕なしで保存されました。",
+		"subtitleLanguagesMissingOthersSaved": "この動画には、{{languages}}の字幕がありません。その他の言語は保存されました。",
+		"noSubtitles": "{{languages}}の字幕がありません",
 		"cancelled": "ダウンロードがキャンセルされました",
 		"complete": "ダウンロード完了",
 		"usedExtractorFallback": "簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします",
@@ -858,6 +862,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "この動画には、{{languages}}の字幕がありません。",
 		"ytdlp": {
 			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はサイト側の一時的な変更の可能性があります。Arroxyは起動時にダウンロードエンジンを自動更新するため、修正がリリースされれば自動的に適用されます。",
 			"ipBlock": "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。",

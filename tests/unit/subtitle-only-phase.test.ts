@@ -253,3 +253,39 @@ describe('SubtitleOnlyPhase', () => {
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.fetchingSubtitles)
 	})
 })
+
+// ADR 0016: a subtitles-only job none of whose languages is on the video leaves nothing usable.
+describe('SubtitleOnlyPhase — languages the video lacks', () => {
+	async function withProbe(request: SubtitleOptions['request']): Promise<{ctx: PhaseContext; cleanup: () => Promise<void>}> {
+		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		const probeInfoJsonPath = join(dir, 'probe.info.json')
+		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}}))
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {...BASE_SUBS, request}}}})
+		return {ctx, cleanup: () => rm(dir, {recursive: true, force: true})}
+	}
+
+	it('fails hard, naming the languages, without running yt-dlp', async () => {
+		const {ctx, cleanup} = await withProbe({kind: 'languages', languages: ['de', 'fr'], source: 'manual-first'})
+		const outcome = await SubtitleOnlyPhase.run(ctx)
+		expect(outcome).toEqual({kind: 'hard-failed', error: {kind: 'noSubtitles', raw: 'No subtitles in the requested languages: de, fr', languageCodes: ['de', 'fr']}})
+		expect(ctx.ytDlp.run).not.toHaveBeenCalled()
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.noSubtitles, {languageCodes: 'de,fr'}, expect.objectContaining({kind: 'noSubtitles'}))
+		await cleanup()
+	})
+
+	it('saves the languages the video has and names the rest', async () => {
+		const {ctx, cleanup} = await withProbe({kind: 'languages', languages: ['en', 'de'], source: 'manual-first'})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissingOthersSaved, params: {languageCodes: 'de'}})
+		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[0].subtitles.languages).toEqual(['(?-i:en)'])
+		await cleanup()
+	})
+
+	it('a failed fetch still fails the job as before', async () => {
+		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		const probeInfoJsonPath = join(dir, 'probe.info.json')
+		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {en: [{ext: 'vtt'}]}}))
+		const ctx = makeCtx(EXIT_ERROR, {input: {...BASE_INPUT, probeInfoJsonPath, job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {...BASE_SUBS, request: {kind: 'languages', languages: ['en', 'de'], source: 'manual-first'}}}}})
+		expect((await SubtitleOnlyPhase.run(ctx)).kind).toBe('hard-failed')
+		await rm(dir, {recursive: true, force: true})
+	})
+})

@@ -839,6 +839,7 @@
 			"qualityLimitedSubtitlesFailed": "Ograniczono do {{height}}p · części napisów nie pobrano",
 			"audioKept": "Nie usunięto dźwięku",
 			"audioKeptSubtitlesFailed": "Nie usunięto dźwięku · części napisów nie pobrano",
+			"subtitleLanguagesMissing": "Brak napisów w językach: {{languages}}",
 			"pause": "Wstrzymaj",
 			"resume": "Wznów",
 			"cancel": "Anuluj",
@@ -899,6 +900,9 @@
 		"qualityLimitedSubtitlesFailed": "Zapisano w {{height}}p — YouTube wstrzymał wyższe jakości dla tego pobierania i nie udało się pobrać niektórych napisów. Może pomóc ponowna próba później lub z innej sieci.",
 		"audioKept": "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku",
 		"audioKeptSubtitlesFailed": "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku ani pobrać niektórych napisów",
+		"subtitleLanguagesMissing": "Ten film nie ma napisów w językach: {{languages}}. Film został zapisany bez nich.",
+		"subtitleLanguagesMissingOthersSaved": "Ten film nie ma napisów w językach: {{languages}}. Pozostałe języki zostały zapisane.",
+		"noSubtitles": "Brak napisów w językach: {{languages}}",
 		"cancelled": "Pobieranie anulowane",
 		"complete": "Pobieranie ukończone",
 		"usedExtractorFallback": "Pobrano z łagodniejszym ekstraktorem — skonfiguruj cookies.txt, aby pobieranie było bardziej niezawodne",
@@ -964,6 +968,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Ten film nie ma napisów w językach: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Uruchomiono ochronę przed botami. Używany adres IP jest najprawdopodobniej oznaczony (zakres centrum danych lub przeciążony punkt wyjścia VPN). Zmień adres IP albo wybierz inny punkt VPN i spróbuj ponownie. Jeśli problem nie ustąpi, może to być tymczasowa zmiana po stronie witryny — Arroxy aktualizuje swój silnik pobierania przy uruchomieniu, więc poprawka trafi do aplikacji automatycznie, gdy tylko zostanie wydana.",
 			"ipBlock": "Twój adres IP jest prawdopodobnie zablokowany. Spróbuj ponownie później albo użyj VPN.",

@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Οι πληρωμές κρυπτονομισμάτων είναι μη αναστρέψιμες. Στείλτε μόνο μέσω του δικτύου που εμφανίζεται και συγκρίνετε ολόκληρη τη διεύθυνση."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Αυτό το βίντεο δεν έχει υπότιτλους στα {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Αυτό το βίντεο έχει περιορισμό ηλικίας και δεν μπορεί να ληφθεί χωρίς συνδεδεμένο λογαριασμό."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Λήψη"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Δεν υπάρχουν υπότιτλοι στα {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Παύση όλων των ενεργών λήψεων"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Μετακίνηση αρχείων…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Δεν υπάρχουν υπότιτλοι στα {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Δεν είναι δυνατή η αποθήκευση στο {{dir}} — το Arroxy δεν έχει άδεια εγγραφής εκεί"
@@ -1918,6 +1930,14 @@ msgstr "Αναμονή {{seconds}} δευτ. για αποφυγή περιορ�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Εκκίνηση της μηχανής λήψης…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Αυτό το βίντεο δεν έχει υπότιτλους στα {{languages}}. Το βίντεο αποθηκεύτηκε χωρίς αυτούς."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Αυτό το βίντεο δεν έχει υπότιτλους στα {{languages}}. Οι υπόλοιπες γλώσσες αποθηκεύτηκαν."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

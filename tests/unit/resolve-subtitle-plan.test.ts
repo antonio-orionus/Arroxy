@@ -8,7 +8,7 @@ import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 
 vi.mock('@main/services/subtitlePostProcess.js', () => ({logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
-import {resolveSubtitlePlan, subtitleEmbedTracks, subtitleRunIsEmpty, subtitleRunRequest, type SubtitleRun} from '@main/services/phases/subtitleTracks.js'
+import {missingSubtitles, resolveSubtitlePlan, subtitleEmbedTracks, subtitleRunRequest, type SubtitleRun} from '@main/services/phases/subtitleTracks.js'
 
 const YOUTUBE = siteForJob('youtube', 'https://www.youtube.com/watch?v=abc')
 const VIMEO = siteForJob('vimeo', 'https://vimeo.com/1')
@@ -117,15 +117,37 @@ describe('resolveSubtitlePlan', () => {
 		})
 		expect(subtitleRunRequest(run, 'srt')).toEqual({languages: ['(?-i:ja)'], format: 'srt', writeAuto: true})
 	})
+})
 
-	it('is empty when the video has none of the languages', async () => {
-		const run = await resolve({kind: 'languages', languages: ['fr'], source: 'manual-first'})
-		expect(subtitleRunIsEmpty(run)).toBe(true)
-		expect(run.kind === 'plan' && run.plan.missing).toEqual(['fr'])
+// ADR 0016's outcome when the video lacks requested languages, decided from the plan alone.
+describe('missingSubtitles', () => {
+	const languages = (codes: string[]): SubtitleRequest => ({kind: 'languages', languages: codes, source: 'manual-first'})
+
+	it('fails a subtitles-only job with none of its languages before anything is fetched, naming them', async () => {
+		const run = await resolve(languages(['fr', 'de']))
+		expect(missingSubtitles(run, {subtitlesOnly: true})).toEqual({before: {kind: 'hard-failed', error: {kind: 'noSubtitles', raw: 'No subtitles in the requested languages: fr, de', languageCodes: ['fr', 'de']}}})
 	})
 
-	it('a pattern is never empty: yt-dlp alone knows what it matches', async () => {
-		expect(subtitleRunIsEmpty(await resolve({kind: 'languages', languages: ['fr'], source: 'manual-first'}, {infoJsonPaths: []}))).toBe(false)
+	it('keeps the video of a job with media and names the languages it lacks', async () => {
+		expect(missingSubtitles(await resolve(languages(['fr'])), {subtitlesOnly: false})).toEqual({before: {kind: 'soft-failed', status: 'subtitleLanguagesMissing', params: {languageCodes: 'fr'}}})
+	})
+
+	it('fetches the languages the video has and names the rest afterwards', async () => {
+		const run = await resolve(languages(['en', 'fr']))
+		expect(missingSubtitles(run, {subtitlesOnly: true})).toEqual({after: {kind: 'soft-failed', status: 'subtitleLanguagesMissingOthersSaved', params: {languageCodes: 'fr'}}})
+		expect(missingSubtitles(run, {subtitlesOnly: false})).toEqual({after: {kind: 'soft-failed', status: 'subtitleLanguagesMissing', params: {languageCodes: 'fr'}}})
+	})
+
+	it('says nothing when every language is on the video', async () => {
+		expect(missingSubtitles(await resolve(languages(['en'])), {subtitlesOnly: true})).toEqual({})
+	})
+
+	it('says nothing for a pattern run: yt-dlp alone knows what it matches', async () => {
+		expect(missingSubtitles(await resolve(languages(['fr']), {infoJsonPaths: []}), {subtitlesOnly: true})).toEqual({})
+	})
+
+	it('ends a request for no tracks at all as complete', async () => {
+		expect(missingSubtitles(await resolve({kind: 'tracks', tracks: []}), {subtitlesOnly: true})).toEqual({before: {kind: 'completed'}})
 	})
 })
 

@@ -160,6 +160,11 @@ off that plan. Only on sites whose info-json lists every track
 (`probeListsSubtitleTracks`, YouTube); elsewhere, or with no info-json at hand,
 a languages request reaches yt-dlp as a pattern of its codes.
 
+The same step decides what a job ends as when the plan lacks languages
+(`missingSubtitles`): a subtitles-only job with none of them fails hard with
+`noSubtitles`, never retried automatically; otherwise the job keeps what it
+saved and ends with a notice naming the missing languages.
+
 Known duplication between the two:
 
 - Three QueueItem builders repeat the row literal, filename binding and

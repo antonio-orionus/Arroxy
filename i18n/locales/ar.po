@@ -233,6 +233,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "مدفوعات العملات المشفّرة لا يمكن التراجع عنها. أرسل فقط عبر الشبكة المعروضة وقارن العنوان بالكامل."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "هذا الفيديو مقيّد بالعمر ولا يمكن تنزيله بدون حساب مسجّل الدخول."
@@ -1373,6 +1377,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "جارٍ التنزيل"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "لا توجد ترجمات باللغات: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "إيقاف جميع التنزيلات النشطة مؤقتاً"
@@ -2079,6 +2087,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "جارٍ نقل الملفات…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "لا توجد ترجمات باللغات: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "تعذّر الحفظ في {{dir}} — لا يُسمح لـ Arroxy بالكتابة هناك"
@@ -2118,6 +2130,14 @@ msgstr "الانتظار {{seconds}} ثانية لتجنب تجاوز الحد�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "جارٍ بدء محرّك التنزيل…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ الفيديو بدونها."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ اللغات الأخرى."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

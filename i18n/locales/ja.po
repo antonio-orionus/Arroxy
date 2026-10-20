@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "暗号資産の送金は取り消せません。表示されたネットワークでのみ送金し、アドレス全体を照合してください。"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "この動画には、{{languages}}の字幕がありません。"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "この動画は年齢制限があり、ログインアカウントなしではダウンロードできません。"
@@ -1148,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ダウンロード中"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}}の字幕がありません"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "すべてのアクティブなダウンロードを一時停止"
@@ -1829,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ファイルを移動中…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}}の字幕がありません"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} に保存できません — Arroxy にはそこへの書き込みが許可されていません"
@@ -1868,6 +1880,14 @@ msgstr "レート制限回避のため{{seconds}}秒待機中…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "ダウンロードエンジンを起動中…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "この動画には、{{languages}}の字幕がありません。動画は字幕なしで保存されました。"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "この動画には、{{languages}}の字幕がありません。その他の言語は保存されました。"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

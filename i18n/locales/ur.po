@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "کرپٹو ادائیگیاں واپس نہیں ہو سکتیں۔ صرف دکھائے گئے نیٹ ورک پر بھیجیں اور پورا پتہ ملا کر دیکھیں۔"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "یہ ویڈیو عمر کی پابندی کے ساتھ ہے اور سائن اِن اکاؤنٹ کے بغیر ڈاؤن لوڈ نہیں ہو سکتی۔"
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ڈاؤن لوڈ ہو رہا ہے"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} میں سب ٹائٹلز موجود نہیں"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "تمام فعال ڈاؤن لوڈز کو عارضی طور پر روکیں"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "فائلیں منتقل ہو رہی ہیں…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} میں سب ٹائٹلز موجود نہیں"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} میں محفوظ نہیں کیا جا سکتا — Arroxy کو وہاں لکھنے کی اجازت نہیں"
@@ -1918,6 +1930,14 @@ msgstr "ریٹ لمٹس سے بچنے کے لیے {{seconds}} سیکنڈ انت�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "ڈاؤن لوڈ انجن شروع ہو رہا ہے…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ ویڈیو ان کے بغیر محفوظ کی گئی۔"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ باقی زبانیں محفوظ کر لی گئیں۔"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

@@ -741,6 +741,7 @@
 			"qualityLimitedSubtitlesFailed": "Giới hạn ở {{height}}p · một số phụ đề bị lỗi",
 			"audioKept": "Không xóa được âm thanh",
 			"audioKeptSubtitlesFailed": "Không xóa được âm thanh · một số phụ đề bị lỗi",
+			"subtitleLanguagesMissing": "Không có phụ đề bằng {{languages}}",
 			"pause": "Tạm dừng",
 			"resume": "Tiếp tục",
 			"cancel": "Hủy",
@@ -801,6 +802,9 @@
 		"qualityLimitedSubtitlesFailed": "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này và một số phụ đề không thể tải xuống. Thử lại sau hoặc từ mạng khác có thể giúp ích.",
 		"audioKept": "Đã lưu video kèm âm thanh — không thể xóa âm thanh",
 		"audioKeptSubtitlesFailed": "Đã lưu video kèm âm thanh — không thể xóa âm thanh và một số phụ đề không thể tải xuống",
+		"subtitleLanguagesMissing": "Video này không có phụ đề bằng {{languages}}. Video đã được lưu mà không có phụ đề.",
+		"subtitleLanguagesMissingOthersSaved": "Video này không có phụ đề bằng {{languages}}. Các ngôn ngữ khác đã được lưu.",
+		"noSubtitles": "Không có phụ đề bằng {{languages}}",
 		"cancelled": "Đã hủy tải xuống",
 		"complete": "Tải xuống hoàn tất",
 		"usedExtractorFallback": "Đã tải xuống với trình trích xuất dự phòng — thiết lập cookies.txt để tải xuống đáng tin cậy hơn",
@@ -849,6 +853,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Video này không có phụ đề bằng {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía trang web — Arroxy cập nhật bộ máy tải xuống khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng ngay khi được phát hành.",
 			"ipBlock": "Địa chỉ IP của bạn dường như bị YouTube chặn. Hãy thử lại sau hoặc dùng VPN.",
