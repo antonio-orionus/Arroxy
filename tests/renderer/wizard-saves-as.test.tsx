@@ -176,11 +176,23 @@ describe('ProfileTag: why this one', () => {
 		expect(why).toHaveTextContent('AAC audio')
 	})
 
+	it("carries the chips' dot and points at them while hovered", () => {
+		useAppStore.setState({wizardSelectionOrder: selectionOrder({kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}}, 'compatible')})
+		render(<ProfileTag />)
+
+		const tag = screen.getByTestId('profile-pick-tag')
+		expect(tag.querySelector('[data-slot="profile-dot"]')).not.toBeNull()
+		expect(tag).toHaveAttribute('data-profile-why')
+	})
+
 	it('is a plain badge while no order is known', () => {
 		render(<ProfileTag closest />)
 
-		expect(screen.getByTestId('profile-pick-tag')).toHaveTextContent('Closest to profile')
-		expect(screen.getByTestId('profile-pick-tag')).not.toHaveAttribute('tabindex')
+		const tag = screen.getByTestId('profile-pick-tag')
+		expect(tag).toHaveTextContent('Closest to profile')
+		expect(tag).not.toHaveAttribute('tabindex')
+		expect(tag).not.toHaveAttribute('data-profile-why')
+		expect(tag.querySelector('[data-slot="profile-dot"]')).not.toBeNull()
 	})
 })
 
