@@ -124,7 +124,7 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 				</div>
 			)}
 
-			{hasLangs && <Separator className="bg-border/50 -mx-6 w-auto my-1.5" />}
+			{hasLangs && <Separator className="bg-border/50 my-1.5" />}
 
 			{/* ── Languages ───────────────────────────────────── */}
 			{!hasLangs ? (
@@ -187,7 +187,7 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 					</InputGroup>
 
 					{/* Language list */}
-					<div className="flex flex-col -mx-1 px-1">
+					<div className="flex flex-col gap-3 pt-1">
 						{noMatches ? (
 							<Empty className="py-4">
 								<EmptyHeader>
@@ -221,7 +221,7 @@ function LangSection({label, items, selected, onToggle, autoBadge}: LangSectionP
 	if (items.length === 0) return null
 	return (
 		<div>
-			<SectionLabel className="px-2 pt-1.5 pb-0.5">
+			<SectionLabel render={<span />} className="block pb-1.5">
 				{label} ({items.length})
 			</SectionLabel>
 			<div className="grid grid-cols-3 gap-1">
