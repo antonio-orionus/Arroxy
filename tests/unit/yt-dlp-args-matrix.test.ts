@@ -78,7 +78,7 @@ describe('planWorkflow — info-json (resume hardening)', () => {
 	it('video kind w/ tempDir emits --write-info-json + infojson outtmpl', () => {
 		const args = argsFor({kind: 'media', url: 'https://example.com/x', output: {directory: '/tmp/out', tempDirectory: '/tmp/out/.arroxy-temp/abc12345'}, selection: {formatId: 'hls-3217'}})
 		expect(args).toContain('--write-info-json')
-		expect(adjacent(args, '-o', 'infojson:/tmp/out/.arroxy-temp/abc12345/_arroxy')).toBe(true)
+		expect(adjacent(args, '-o', 'infojson:.arroxy-temp/abc12345/_arroxy')).toBe(true)
 	})
 
 	it('video kind w/o tempDir does NOT emit info-json flags', () => {
@@ -89,7 +89,7 @@ describe('planWorkflow — info-json (resume hardening)', () => {
 
 	it('video kind w/ loadInfoJsonPath emits --load-info-json <path>', () => {
 		const args = argsFor({kind: 'media', url: 'https://example.com/x', output: {directory: '/tmp/out', tempDirectory: '/tmp/out/.arroxy-temp/abc12345'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/tmp/out/.arroxy-temp/abc12345/_arroxy.info.json'}})
-		expect(adjacent(args, '--load-info-json', '/tmp/out/.arroxy-temp/abc12345/_arroxy.info.json')).toBe(true)
+		expect(adjacent(args, '--load-info-json', '.arroxy-temp/abc12345/_arroxy.info.json')).toBe(true)
 	})
 
 	it('video kind w/ loadInfoJsonPath omits the URL (avoids yt-dlp warning)', () => {
@@ -107,7 +107,7 @@ describe('planWorkflow — info-json (resume hardening)', () => {
 	it('video+embed kind w/ tempDir emits --write-info-json + infojson outtmpl', () => {
 		const args = argsFor({kind: 'media', url: 'https://example.com/x', output: {directory: '/tmp/out', tempDirectory: '/tmp/out/.arroxy-temp/abc12345'}, subtitles: {embed: true, languages: ['en']}})
 		expect(args).toContain('--write-info-json')
-		expect(adjacent(args, '-o', 'infojson:/tmp/out/.arroxy-temp/abc12345/_arroxy')).toBe(true)
+		expect(adjacent(args, '-o', 'infojson:.arroxy-temp/abc12345/_arroxy')).toBe(true)
 	})
 
 	it('subtitle kind never emits info-json flags', () => {

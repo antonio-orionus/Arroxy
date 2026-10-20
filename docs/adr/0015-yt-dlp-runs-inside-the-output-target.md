@@ -16,9 +16,11 @@ the info-json, the subtitle subfolder, and the files yt-dlp reports into. The
 folder itself, whatever characters the user gave it, never appears in argv. The
 bridge's output target composes all of these flags and returns the working
 directory with the plan. The one piece of literal text left, the bound file
-name, is escaped without loss: `%` as `%%`, and an empty field (`%(_absent|)s`)
-between a `$` and what follows it and before a leading `~`. yt-dlp's expansion
-cannot see through the field, and its field substitution then removes it.
+name, is escaped without loss: each `%`, `$` and `~` becomes an absent field
+whose default is that sign (`%(_absent|$)s`). yt-dlp's expansion cannot see
+through the field, and its field substitution then puts the sign back. `%%`
+is not enough: on Windows, ntpath pairs `%` signs, so a field before a `%%`
+shifts the pairing and a literal `%NAME%` expands.
 
 Every production spawn also passes `--ignore-config`. With no `--paths home`,
 yt-dlp reads `yt-dlp.conf` from its working directory, which would now be the

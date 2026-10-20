@@ -9,13 +9,8 @@ import {isAbsolute} from 'node:path'
 // written in UTF-8 whatever the console's encoding is.
 export const FINAL_PATH_FILE_NAME = '_arroxy.final-path.txt'
 
-// FILE is an output template, so a literal `%` is written `%%`. yt-dlp also
-// expands `$VAR` in it, as it does in `--paths`, with no escape that survives:
-// a folder named after a variable sends the download and this file to the same
-// expanded place, the file is not found here, and the log's path stands.
-export function finalPathPrintArgs(file: string): string[] {
-	return ['--print-to-file', 'after_move:filepath', file.replaceAll('%', '%%')]
-}
+// The bridge asks for it (the media plan's `output.report.finalPath`), relative
+// to the folder yt-dlp runs in, so no folder name can send it elsewhere.
 
 // yt-dlp appends, so a file left by an earlier run would answer for this one.
 // False when it is still there: that run must not ask for the path.

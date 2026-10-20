@@ -51,18 +51,14 @@ beforeEach(() => {
 })
 
 describe('YtDlp — --paths temp dir (video)', () => {
-	it('when tempDir provided: uses --paths home: and --paths temp:', async () => {
+	// yt-dlp runs inside the output folder: home is its working directory.
+	it('when tempDir provided: uses --paths temp: relative to the output folder', async () => {
 		await makeYtDlp().run(mediaRequest({tempDir: TEMP_DIR}))
 		const args = getArgs()
 
-		const homeIdx = args.indexOf('--paths')
-		expect(homeIdx).toBeGreaterThan(-1)
-		expect(args[homeIdx + 1]).toBe(`home:${OUTPUT_DIR}`)
-
-		// Find second --paths for temp
-		const tempIdx = args.indexOf('--paths', homeIdx + 1)
-		expect(tempIdx).toBeGreaterThan(-1)
-		expect(args[tempIdx + 1]).toBe(`temp:${TEMP_DIR}`)
+		expect(args.filter(arg => arg.startsWith('home:'))).toEqual([])
+		const tempIdx = args.indexOf('--paths')
+		expect(args[tempIdx + 1]).toBe('temp:.arroxy-temp/abcd1234')
 	})
 
 	it('when tempDir provided: -o template has no directory prefix', async () => {
@@ -74,12 +70,12 @@ describe('YtDlp — --paths temp dir (video)', () => {
 		expect(args[oIdx + 1]).toBe('%(title).200B.%(ext)s')
 	})
 
-	it('when tempDir is absent: falls back to old -o <outputDir>/%(title)s.%(ext)s', async () => {
+	it('when tempDir is absent: -o is the template alone', async () => {
 		await makeYtDlp().run(mediaRequest())
 		const args = getArgs()
 		expect(args).not.toContain('--paths')
 		const oIdx = args.indexOf('-o')
-		expect(args[oIdx + 1]).toContain(OUTPUT_DIR)
+		expect(args[oIdx + 1]).toBe('%(title).200B.%(ext)s')
 	})
 
 	it('url is always the last argument', async () => {
@@ -89,13 +85,11 @@ describe('YtDlp — --paths temp dir (video)', () => {
 })
 
 describe('YtDlp — --paths temp dir (video+embed)', () => {
-	it('when tempDir provided: uses --paths home: and --paths temp:', async () => {
+	it('when tempDir provided: uses --paths temp: relative to the output folder', async () => {
 		await makeYtDlp().run(mediaRequest({tempDir: TEMP_DIR, subtitleLanguages: ['en']}))
 		const args = getArgs()
-		const homeIdx = args.indexOf('--paths')
-		expect(args[homeIdx + 1]).toBe(`home:${OUTPUT_DIR}`)
-		const tempIdx = args.indexOf('--paths', homeIdx + 1)
-		expect(args[tempIdx + 1]).toBe(`temp:${TEMP_DIR}`)
+		expect(args.filter(arg => arg.startsWith('home:'))).toEqual([])
+		expect(args[args.indexOf('--paths') + 1]).toBe('temp:.arroxy-temp/abcd1234')
 	})
 })
 
@@ -105,10 +99,10 @@ describe('YtDlp — subtitle requests unchanged by --paths', () => {
 		expect(getArgs()).not.toContain('--paths')
 	})
 
-	it('subtitle -o still contains outputDir', async () => {
+	it('subtitle -o is relative to the output folder', async () => {
 		await makeYtDlp().run(subtitleRequest('srt'))
 		const args = getArgs()
 		const oIdx = args.indexOf('-o')
-		expect(args[oIdx + 1]).toContain(OUTPUT_DIR)
+		expect(args[oIdx + 1]).toBe('%(title).200B.%(ext)s')
 	})
 })

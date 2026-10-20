@@ -24,7 +24,6 @@ import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {SiteRequestState} from './SiteRequestState.js'
-import {finalPathPrintArgs} from './ytDlpFinalPath.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
@@ -43,6 +42,13 @@ function summarizeDependencySourceForLog(source: DependencySource | null | undef
 }
 
 export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
+
+// The bridge composes the print-to-file request with the run's other paths,
+// relative to the folder yt-dlp runs in (see ytDlpFinalPath.ts).
+function withFinalPathReport(req: YtDlpRequest, file: string | undefined): YtDlpRequest {
+	if (file === undefined || req.kind !== 'media') return req
+	return {...req, output: {...req.output, report: {...req.output.report, finalPath: file}}}
+}
 
 export interface YtDlpSignal {
 	onMinting?: (attempt: 0 | 1) => void
@@ -644,7 +650,7 @@ export class YtDlp {
 		const route = proxyRouteKey(settings.common?.proxyUrl)
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
-		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy, ...isolatedFromUserYtDlp(this.opts.e2eMode)})
+		const plan = planWorkflow(withFinalPathReport(req, options.finalPathFile), {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy, ...isolatedFromUserYtDlp(this.opts.e2eMode)})
 		const isProbe = req.kind === 'probe'
 		const probePlaylistMode = isProbe ? (req.selection?.playlistMode ?? 'auto') : undefined
 		const hasExplicitYoutubePlayerClient = 'extractor' in req && (req.extractor?.youtube?.playerClient?.length ?? 0) > 0
@@ -667,7 +673,7 @@ export class YtDlp {
 				ffmpegPath: this._ffmpegPath,
 				jsRuntime: this._jsRuntime,
 				e2eMode: this.opts.e2eMode,
-				args: options.finalPathFile ? [...finalPathPrintArgs(options.finalPathFile), ...plan.args] : plan.args,
+				args: plan.args,
 				...(plan.cwd === undefined ? {} : {cwd: plan.cwd}),
 				tokenService: this.tokenService,
 				cookies,

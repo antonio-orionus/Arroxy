@@ -20,12 +20,12 @@
 
 import {execFile} from 'node:child_process'
 import {createHash} from 'node:crypto'
-import {existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync} from 'node:fs'
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync} from 'node:fs'
 import {mkdir, rename, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import {promisify} from 'node:util'
-import {planWorkflow} from 'yt-dlp-bridge'
+import {planWorkflow, templateLiteral, type WorkflowPlan} from 'yt-dlp-bridge'
 import {bindFilenameTemplate, compileFilenameTemplate, templateOutputDir, type TemplateMetadata} from '../src/shared/filenameTemplate.js'
 import {findPython, PYTHON_REQUIREMENT, type PythonCommand} from './selection-parity/python.js'
 
@@ -77,6 +77,8 @@ const TITLES = [
 	"It's $HOME's turn",
 	'I spent $100 on a $ sign $',
 	'100% off %ARROXY_PARITY% and 50%% more',
+	// ntpath pairs `%` signs: a field before an escaped `%%` shifts the pairs.
+	'$X then %USERPROFILE% after a field',
 	'%(id)s looks like a field',
 	'~',
 	'~root',
@@ -89,10 +91,10 @@ const TITLES = [
 const UPLOADERS = ['$USER', 'Who wants $?', '%ARROXY_PARITY%', '~root', '100%% Club', '$$ Bills', 'Ordinary Channel']
 const TEMPLATES = ['{title} [{id}]', '{uploader}/{title} [{id}]', '$HOME {title} [{id}]', '~{title} [{id}]']
 const PROBE = 'youtube-2005'
-// The folder the user picked, with what an output template would act on: the
-// subtitle phases put it in -o, so `%(` must stay literal there. (`$NAME` and a
-// Windows `%%` cannot be escaped in --paths at all; the app refuses those.)
-const DOWNLOAD_FOLDER = 'Downloads 100% %(id)s'
+// The folder the user picked, with everything yt-dlp would expand or strip in
+// a path: a set variable on both OSes, a field, a leading `~` in a segment and
+// a trailing space. yt-dlp runs inside it, so none of it reaches argv.
+const DOWNLOAD_FOLDER = 'Downloads 100% %(id)s $ARROXY_PARITY %USERPROFILE% ~u '
 
 // The fixture's info dict as yt-dlp would load it, renamed: every format needs
 // a URL to be chosen, and the fixtures keep none.
@@ -106,15 +108,30 @@ function infoJson(title: string, uploader: string): unknown {
 
 interface Case {
 	label: string
-	outputDir: string
-	boundName: string
+	// The run's working directory, from the plan.
+	cwd: string
+	// Where the file must land, without its extension.
+	expected: string
 	infoJson: string
 	outputArgs: string[]
+	// A file the plan has yt-dlp report into, and where it must appear.
+	report?: string
 }
 
-// The `-o` and `--paths` arguments of a planned argv, in order.
+// The `-o`, `--paths` and `--print-to-file` arguments of a planned argv, in
+// order. A report printed `after_move` is printed at `video` here: the oracle
+// only simulates, and the FILE template is expanded the same way at any stage.
 function outputArgs(args: readonly string[]): string[] {
-	return args.flatMap((arg, index) => (arg === '-o' || arg === '--paths' ? [arg, args[index + 1] ?? ''] : []))
+	return args.flatMap((arg, index) => {
+		if (arg === '-o' || arg === '--paths') return [arg, args[index + 1] ?? '']
+		if (arg === '--print-to-file') return [arg, (args[index + 1] ?? '').replace(/^\w+:/, 'video:'), args[index + 2] ?? '']
+		return []
+	})
+}
+
+function planCwd(plan: WorkflowPlan): string {
+	if (plan.cwd === undefined) throw new Error(`a ${plan.kind} plan that writes files has no working directory`)
+	return plan.cwd
 }
 
 const verbose = process.argv.includes('--verbose')
@@ -156,22 +173,35 @@ try {
 			const compiled = compileFilenameTemplate(bound.template)
 			if (!compiled.ok) throw new Error(`${title} · ${template}: compile failed (${compiled.code})`)
 			const output = {directory: outputDir, template: compiled.template}
-			// The media phase hands yt-dlp --paths; the subtitle phases put the
-			// directory in -o. Both shapes reach yt-dlp's expansion differently.
+			// The media phase has a temp folder; the subtitle phases write beside
+			// the media. Both run inside the folder.
 			const media = planWorkflow({kind: 'media', url: 'https://parity.invalid', output: {...output, tempDirectory: path.join(outputDir, '.arroxy-tmp')}, resume: {loadInfoJsonPath: infoPath}})
 			const subtitles = planWorkflow({kind: 'subtitles', url: 'https://parity.invalid', output: {...output, subtitleMode: 'sidecar'}, subtitles: {languages: ['en'], format: 'srt'}})
 			for (const [shape, plan] of [['media', media] as const, ['subtitles', subtitles] as const]) {
-				cases.push({label: `${shape} · ${template} · ${JSON.stringify(title.slice(0, 40))} by ${JSON.stringify(uploader)}`, outputDir, boundName: bound.template, infoJson: infoPath, outputArgs: outputArgs(plan.args)})
+				cases.push({label: `${shape} · ${template} · ${JSON.stringify(title.slice(0, 40))} by ${JSON.stringify(uploader)}`, cwd: planCwd(plan), expected: path.join(outputDir, bound.template), infoJson: infoPath, outputArgs: outputArgs(plan.args)})
 			}
 		}
+
+		// The bridge's own literal escape, with no app rule in front of it: the
+		// title as text, `$`, `%` and `~` included, must be the name on disk. The
+		// report file sits in a folder whose name needs the same escape.
+		const directory = path.join(work, DOWNLOAD_FOLDER)
+		const name = `${templateLiteral(title)} [%(id)s].%(ext)s`
+		const media = planWorkflow({kind: 'media', url: 'https://parity.invalid', output: {directory, template: name, tempDirectory: path.join(directory, '.arroxy-tmp'), report: {finalPath: path.join(directory, '.arroxy-tmp', `${title.slice(0, 20)}.txt`)}}})
+		const subtitles = planWorkflow({kind: 'subtitles', url: 'https://parity.invalid', output: {directory, template: name, subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'srt'}})
+		const label = `literal · ${JSON.stringify(title.slice(0, 40))}`
+		cases.push({label: `${label} · media`, cwd: planCwd(media), expected: path.join(directory, `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(media.args), report: path.join(directory, '.arroxy-tmp', `${title.slice(0, 20)}.txt`)})
+		cases.push({label: `${label} · subtitles in a subfolder`, cwd: planCwd(subtitles), expected: path.join(directory, 'subtitles', `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(subtitles.args)})
 	}
+	for (const testCase of cases) mkdirSync(testCase.cwd, {recursive: true})
 
 	const {python, ytDlp} = ready
 	const request = JSON.stringify({
 		cases: cases.map(testCase => {
 			const args = testCase.outputArgs
 			const values = (flag: string): string[] => args.flatMap((arg, index) => (arg === flag ? [args[index + 1] ?? ''] : []))
-			return {info_json: testCase.infoJson, output_args: args, outtmpls: values('-o').map(value => value.replace(/^infojson:/, '')), paths: values('--paths').map(value => value.replace(/^(home|temp):/, ''))}
+			const reports = args.flatMap((arg, index) => (arg === '--print-to-file' ? [args[index + 2] ?? ''] : []))
+			return {cwd: testCase.cwd, info_json: testCase.infoJson, output_args: args, outtmpls: [...values('-o').map(value => value.replace(/^infojson:/, '')), ...reports], paths: values('--paths').map(value => value.replace(/^(home|temp):/, '')), report: testCase.report ?? null}
 		})
 	})
 	const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV}})
@@ -188,13 +218,14 @@ try {
 		if (typeof posix !== 'object' || posix === null || !('filename' in posix) || !('ext' in posix) || typeof posix.filename !== 'string' || typeof posix.ext !== 'string') {
 			problems.push(`yt-dlp failed: ${JSON.stringify(posix)}`)
 		} else {
-			const expected = path.join(testCase.outputDir, `${testCase.boundName}.${posix.ext}`)
+			const expected = `${testCase.expected}.${posix.ext}`
 			if (posix.filename !== expected) problems.push(`app ${JSON.stringify(path.relative(work, expected))}, yt-dlp ${JSON.stringify(path.relative(work, posix.filename))}`)
+			if ('report_written' in posix && posix.report_written === false) problems.push(`yt-dlp wrote no report at ${JSON.stringify(path.relative(work, testCase.report ?? ''))}`)
 		}
 		if (Array.isArray(nt) && nt.length > 0) problems.push(`Windows expansion changes ${nt.join('; ')}`)
 		return problems.map(problem => `${testCase.label}: ${problem}`)
 	})
-	if (verbose) for (const testCase of cases) console.log(`${testCase.label}: ${path.relative(work, path.join(testCase.outputDir, testCase.boundName))}`)
+	if (verbose) for (const testCase of cases) console.log(`${testCase.label}: ${path.relative(work, testCase.expected)}`)
 	console.log(`filename parity: ${cases.length} cases, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
 	for (const difference of differences) console.log(`  ${difference}`)
 	if (differences.length > 0) process.exitCode = 1

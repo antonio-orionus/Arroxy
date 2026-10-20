@@ -1,12 +1,14 @@
 """yt-dlp's own output filename for each case, for the filename parity check.
 
-Reads {"cases": [{"info_json", "output_args", "outtmpls", "paths"}]} as JSON on
+Reads {"cases": [{"cwd", "info_json", "output_args", "outtmpls", "paths", "report"}]} as JSON on
 stdin and writes one result per case as a JSON list. The first argument is the
 pinned yt-dlp zipapp.
 
-POSIX: each case runs the real CLI, `--load-info-json` plus the case's `-o` and
-`--paths` arguments and `--print filename`, so the answer is what a download on
-this machine would write. Nothing is fetched or downloaded.
+POSIX: each case runs the real CLI in the case's working directory,
+`--load-info-json` plus the case's `-o`, `--paths` and `--print-to-file`
+arguments and `--print filename`, so the answer is what a download on this
+machine would write. A report file the case names must then exist. Nothing is
+fetched or downloaded.
 
 Windows: expand_path cannot be run on Windows from here, so the same strings go
 through yt-dlp's own `_outtmpl_expandpath` and `expand_path` with ntpath in
@@ -16,6 +18,7 @@ string unchanged, which is all Arroxy relies on.
 
 import json
 import ntpath
+import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -24,11 +27,14 @@ from concurrent.futures import ThreadPoolExecutor
 def posix_filename(zipapp, case):
     argv = [sys.executable, zipapp, '--ignore-config', '--no-plugin-dirs', '--no-cache-dir',
             '--load-info-json', case['info_json'], '--print', 'filename', '--print', 'ext', *case['output_args']]
-    run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8')
+    run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', cwd=case['cwd'])
     lines = run.stdout.splitlines()
     if run.returncode != 0 or len(lines) != 2:
         return {'error': (run.stderr or run.stdout).strip()[-400:]}
-    return {'filename': lines[0], 'ext': lines[1]}
+    result = {'filename': os.path.join(case['cwd'], lines[0]), 'ext': lines[1]}
+    if case['report'] is not None:
+        result['report_written'] = os.path.isfile(case['report'])
+    return result
 
 
 def nt_changes(zipapp, cases):
