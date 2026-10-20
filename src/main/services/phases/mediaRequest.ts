@@ -2,7 +2,6 @@ import type {AudioConvert as BridgeAudioConvert, CallerMediaWorkflowInput} from 
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {downloadSection} from '@shared/videoPart.js'
-import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import type {AudioConvert, ResolvedStartDownloadInput} from '@shared/types.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {compiledOutputTemplate} from './phaseHelpers.js'
@@ -14,7 +13,6 @@ export interface MediaRequestParams {
 	job: MediaJob
 	outputDir: string
 	tempDir?: string
-	embed: boolean
 	infoJsonPath?: string
 	// Defaults to the production clients; an empty list passes no player_client,
 	// leaving the choice to yt-dlp.
@@ -28,7 +26,7 @@ function bridgeAudioConvert(input: AudioConvert): BridgeAudioConvert {
 // The single source of the media request, shared by VideoPhase and the download
 // smoke so a smoke run exercises exactly what a queued download sends.
 export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkflowInput {
-	const {url, job, outputDir, tempDir, embed, infoJsonPath} = params
+	const {url, job, outputDir, tempDir, infoJsonPath} = params
 	// SponsorBlock applicability is owned by the Site adapter — currently
 	// YouTube-only. Passing the flag for non-YouTube extractors is harmless
 	// but wasted; the wizard hides the SponsorBlock step on non-supporting
@@ -62,7 +60,6 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 		output: {directory: outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
 		selection: {formatId, formatSelector, formatSort, mergeOutputFormat, remuxVideo},
 		...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
-		...(embed && (job.subtitles?.languages.length ?? 0) > 0 && job.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(job.subtitles), writeAuto: job.subtitles.writeAuto, ...(job.subtitles.autoOnly ? {autoOnly: true} : {})}} : {}),
 		...(sbConfig ? {sponsorBlock: sbConfig} : {}),
 		...(videoPart ? {downloadSections: [downloadSection(videoPart)], forceKeyframesAtCuts: videoPart.exactCut} : {}),
 		...(extractor ? {extractor} : {}),
