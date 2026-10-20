@@ -28,6 +28,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'single-profile-misfit',
 	'single-codec-mix',
 	'single-part',
+	'single-8k-hdr',
 	'playlist-normal',
 	'playlist-loading',
 	'playlist-multi-profile',
@@ -115,6 +116,11 @@ function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 	}
 	if (id === 'single-subtitles-kind') store.setWizardMediaKind('subtitles')
 	if (id === 'single-part') store.setState({wizardPart: {start: '1:35', end: '5:52', exactCut: false}})
+	if (id === 'single-8k-hdr') {
+		// HDR first, so the profile picks the 8K HDR stream rather than SDR.
+		const best = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')
+		if (best?.media.kind === 'video-audio') store.setState(profilePatch({...best, media: {...best.media, hdr: {kind: 'custom', preference: 'hdr'}}}, store.getState()))
+	}
 	if (id === 'single-codec-mix') {
 		const fullHd = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'hd-1080')
 		if (fullHd) store.setState(profilePatch(fullHd, store.getState()))
@@ -209,6 +215,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'single-subtitles-kind', group: 'General', title: 'Subtitles only', description: 'Format screen switched to Subtitles: the language picker replaces the stream lists.', kind: 'probe'},
 	{id: 'single-codec-mix', group: 'General', title: 'Codecs and file type', description: 'A 4K HDR video offered as AV1, VP9 and H.264: the codec in each row, the Why this one tip on the Profile badge, and the Saves as menu following the picked streams.', kind: 'probe'},
 	{id: 'single-profile-misfit', group: 'General', title: 'Profile does not fit', description: 'A Full HD profile with English subtitles on a 480p video without subtitles: the fit notices and "Closest to profile" pick.', kind: 'probe'},
+	{id: 'single-8k-hdr', group: 'General', title: '8K HDR 60 fps', description: 'An 8K HDR video at 60 fps on the Best available profile set to HDR first: AV1 up to 4320p, VP9 up to 2160p and H.264 up to 1080p, in HDR10 and SDR columns.', kind: 'probe'},
 	{id: 'single-part', group: 'General', title: 'Part of video', description: 'A chaptered talk opened from a link with t=3:52: the Part panel with range bar, chapter marks and chips, Start/End, exact cut, and the offered link start.', kind: 'probe'},
 	{id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Screen preset for a playlist with thumbnails, durations, and default preset selection.', kind: 'probe'},
 	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},

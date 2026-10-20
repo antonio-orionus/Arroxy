@@ -51,6 +51,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return codecMixVideoProbe()
 		case 'single-part':
 			return partVideoProbe()
+		case 'single-8k-hdr':
+			return eightKHdrVideoProbe()
 		case 'probe-no-formats':
 			return noFormatsProbe()
 		case 'probe-rate-limited':
@@ -86,13 +88,6 @@ export function buildProbeErrorForKind(kind: YtDlpErrorKind): ProbeError {
 	const raw = PROBE_ERROR_RAW[kind] ?? `ERROR: ${kind} error (mock)`
 	return {kind: 'ytdlp', error: {kind, raw}}
 }
-
-const MOCK_FORMATS = [
-	{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
-	{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, videoCodec: 'avc1.4d401f', isVideoOnly: true, isAudioOnly: false},
-	{formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true},
-	{formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, audioCodec: 'mp4a.40.2', isVideoOnly: false, isAudioOnly: true}
-] as const
 
 const NORMAL_VIDEO_FORMATS = [
 	{formatId: '313', label: '2160p | webm | 30fps | 2.2 GB', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, videoCodec: 'vp09.00.51.08', isVideoOnly: true, isAudioOnly: false},
@@ -152,8 +147,8 @@ const SHOWCASE_DUBS: readonly SpokenTrack[] = [
 function spokenTrackFormats(track: SpokenTrack): FormatOption[] {
 	const common = {resolution: 'audio only', audioLanguage: track.code, audioTrackLabel: track.label, isVideoOnly: false, isAudioOnly: true} as const
 	return [
-		{...common, formatId: `140-${track.id}`, label: `${track.label} · m4a · AAC · 130 kbps · 1.4 MB`, ext: 'm4a', abr: 130, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium' satisfies AudioTrackQuality, filesize: 1_400_000},
-		{...common, formatId: `249-${track.id}`, label: `${track.label} · webm · Opus · 69 kbps · 760.6 KB`, ext: 'webm', abr: 69, audioCodec: 'opus', audioTrackQuality: 'low' satisfies AudioTrackQuality, filesize: 778_000}
+		{...common, formatId: `140-${track.id}`, label: `${track.label} · m4a · AAC · 130 kbps · 16.6 MB`, ext: 'm4a', abr: 130, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium' satisfies AudioTrackQuality, filesize: 16_600_000},
+		{...common, formatId: `249-${track.id}`, label: `${track.label} · webm · Opus · 69 kbps · 8.8 MB`, ext: 'webm', abr: 69, audioCodec: 'opus', audioTrackQuality: 'low' satisfies AudioTrackQuality, filesize: 8_800_000}
 	]
 }
 
@@ -189,6 +184,50 @@ function partVideoProbe(): VideoProbeResult {
 	return {...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-part'}), duration: 1502, title: 'Mock Talk - Cutting video without re-encoding', chapters, formats: [...SHOWCASE_VIDEO_FORMATS, ...SHOWCASE_SURROUND_AUDIO_FORMATS]}
 }
 
+// An 8K HDR upload at 60 fps the way YouTube lists it: AV1 up to 4320p, VP9 up to
+// 2160p, both in HDR10 and SDR, H.264 up to 1080p, and 30 fps below 720p.
+function eightKHdrVideoProbe(): VideoProbeResult {
+	const video = (formatId: string, height: number, codec: 'AV1' | 'VP9' | 'H.264', range: 'HDR10' | null, filesize: number): FormatOption => {
+		const width = Math.round((height * 16) / 9)
+		const fps = height >= 720 ? 60 : 30
+		const videoCodec = codec === 'AV1' ? (range ? 'av01.0.17M.10' : 'av01.0.17M.08') : codec === 'VP9' ? (range ? 'vp09.02.51.10' : 'vp09.00.51.08') : 'avc1.64002a'
+		const ext = codec === 'VP9' ? 'webm' : 'mp4'
+		return {formatId, label: [`${height}p${fps}`, ext, codec, range].filter(Boolean).join(' | '), ext, resolution: `${width}x${height}`, fps, ...(range ? {dynamicRange: range} : {}), videoCodec, filesize, isVideoOnly: true, isAudioOnly: false}
+	}
+	return {
+		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-8k-hdr'}),
+		duration: 312,
+		// Not a "Mock" title, so showcase screenshots keep it: the chips leave 60 fps unsaid, since nearly every stream has it.
+		title: 'Coral Reef Life in 8K HDR 60fps',
+		formats: [
+			video('702', 4320, 'AV1', 'HDR10', 2_050_000_000),
+			video('571', 4320, 'AV1', null, 1_720_000_000),
+			video('701', 2160, 'AV1', 'HDR10', 820_000_000),
+			video('337', 2160, 'VP9', 'HDR10', 1_090_000_000),
+			video('401', 2160, 'AV1', null, 700_000_000),
+			video('315', 2160, 'VP9', null, 950_000_000),
+			video('700', 1440, 'AV1', 'HDR10', 420_000_000),
+			video('336', 1440, 'VP9', 'HDR10', 560_000_000),
+			video('400', 1440, 'AV1', null, 360_000_000),
+			video('308', 1440, 'VP9', null, 480_000_000),
+			video('699', 1080, 'AV1', 'HDR10', 210_000_000),
+			video('335', 1080, 'VP9', 'HDR10', 280_000_000),
+			video('399', 1080, 'AV1', null, 180_000_000),
+			video('303', 1080, 'VP9', null, 240_000_000),
+			video('299', 1080, 'H.264', null, 310_000_000),
+			video('698', 720, 'AV1', 'HDR10', 110_000_000),
+			video('334', 720, 'VP9', 'HDR10', 150_000_000),
+			video('398', 720, 'AV1', null, 95_000_000),
+			video('302', 720, 'VP9', null, 125_000_000),
+			video('298', 720, 'H.264', null, 160_000_000),
+			video('397', 480, 'AV1', null, 40_000_000),
+			video('244', 480, 'VP9', null, 50_000_000),
+			video('135', 480, 'H.264', null, 62_000_000),
+			...SHOWCASE_SURROUND_AUDIO_FORMATS
+		]
+	}
+}
+
 function audioOnlyProbe(): ProbeResult {
 	return {
 		kind: 'video',
@@ -216,9 +255,27 @@ function audioMultilingualProbe(): ProbeResult {
 		title: 'Mock Video - Multilingual Audio Tracks',
 		formats: [
 			...SHOWCASE_VIDEO_FORMATS,
+			// The original track also comes in Dolby 5.1, as on a dubbed YouTube trailer; the dubs are stereo only.
+			{
+				formatId: '328-1',
+				label: 'English original (default) · m4a · ec-3 · 6ch · 384 kbps · 49.2 MB',
+				ext: 'm4a',
+				resolution: 'audio only',
+				abr: 384,
+				audioCodec: 'ec-3',
+				audioChannels: 6,
+				audioLanguage: 'en',
+				audioTrackLabel: 'English original (default)',
+				audioTrackQuality: 'high',
+				isDefaultAudio: true,
+				isOriginalAudio: true,
+				filesize: 49_200_000,
+				isVideoOnly: false,
+				isAudioOnly: true
+			},
 			{
 				formatId: '140-1',
-				label: 'English original (default) · m4a · AAC · 130 kbps · 1.4 MB',
+				label: 'English original (default) · m4a · AAC · 130 kbps · 16.6 MB',
 				ext: 'm4a',
 				resolution: 'audio only',
 				abr: 130,
@@ -228,13 +285,13 @@ function audioMultilingualProbe(): ProbeResult {
 				audioTrackQuality: 'medium',
 				isDefaultAudio: true,
 				isOriginalAudio: true,
-				filesize: 1_400_000,
+				filesize: 16_600_000,
 				isVideoOnly: false,
 				isAudioOnly: true
 			},
 			{
 				formatId: '140-1-drc',
-				label: 'English original (default) · m4a · AAC · DRC · 130 kbps · 1.4 MB',
+				label: 'English original (default) · m4a · AAC · DRC · 130 kbps · 16.6 MB',
 				ext: 'm4a',
 				resolution: 'audio only',
 				abr: 130,
@@ -245,13 +302,13 @@ function audioMultilingualProbe(): ProbeResult {
 				audioTrackQuality: 'medium',
 				isDefaultAudio: true,
 				isOriginalAudio: true,
-				filesize: 1_400_000,
+				filesize: 16_600_000,
 				isVideoOnly: false,
 				isAudioOnly: true
 			},
 			{
 				formatId: '251-1',
-				label: 'English original (default) · webm · Opus · 122 kbps · 1.3 MB',
+				label: 'English original (default) · webm · Opus · 122 kbps · 15.6 MB',
 				ext: 'webm',
 				resolution: 'audio only',
 				abr: 122,
@@ -261,7 +318,7 @@ function audioMultilingualProbe(): ProbeResult {
 				audioTrackQuality: 'medium',
 				isDefaultAudio: true,
 				isOriginalAudio: true,
-				filesize: 1_300_000,
+				filesize: 15_600_000,
 				isVideoOnly: false,
 				isAudioOnly: true
 			},
@@ -300,9 +357,21 @@ function videoWithSubtitlesProbe(): ProbeResult {
 		duration: 1845,
 		title: 'Mock Video - Multi-Language Subtitles',
 		thumbnail: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg',
-		subtitles: {en: [{ext: 'vtt', name: 'English'}], es: [{ext: 'vtt', name: 'Espanol'}], fr: [{ext: 'vtt', name: 'Francais'}], de: [{ext: 'vtt', name: 'Deutsch'}], ja: [{ext: 'vtt', name: 'Japanese'}], zh: [{ext: 'vtt', name: 'Chinese'}], ar: [{ext: 'vtt', name: 'Arabic'}]},
-		automaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (auto)'}], 'es-orig': [{ext: 'vtt', name: 'Espanol (auto)'}]},
-		formats: [...MOCK_FORMATS]
+		// Named as yt-dlp names YouTube's tracks. Of the automatic captions only the
+		// original-language one survives the probe's cleanup, so only it is listed.
+		subtitles: {
+			en: [{ext: 'vtt', name: 'English'}],
+			es: [{ext: 'vtt', name: 'Spanish'}],
+			fr: [{ext: 'vtt', name: 'French'}],
+			de: [{ext: 'vtt', name: 'German'}],
+			'pt-BR': [{ext: 'vtt', name: 'Portuguese (Brazil)'}],
+			ja: [{ext: 'vtt', name: 'Japanese'}],
+			ko: [{ext: 'vtt', name: 'Korean'}],
+			'zh-Hans': [{ext: 'vtt', name: 'Chinese (Simplified)'}],
+			ar: [{ext: 'vtt', name: 'Arabic'}]
+		},
+		automaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]},
+		formats: [...SHOWCASE_VIDEO_FORMATS, ...SHOWCASE_SURROUND_AUDIO_FORMATS]
 	}
 }
 

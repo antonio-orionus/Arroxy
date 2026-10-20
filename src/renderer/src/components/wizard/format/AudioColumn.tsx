@@ -342,7 +342,7 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 
 	return (
 		// As tall as its lines, in every mode: the step scrolls, never this list on its own.
-		<div className="flex min-w-0 flex-col">
+		<div className="flex min-w-0 flex-col" data-testid="audio-column">
 			<div className="mb-1.5 flex min-h-8 shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
 				<SectionLabel>{t('wizard.formats.audio')}</SectionLabel>
 				{view.tracks.length > 0 ? <AudioLanguageSelect tracks={view.tracks} trackTags={view.trackTags} track={track} onChange={switchTrack} /> : null}

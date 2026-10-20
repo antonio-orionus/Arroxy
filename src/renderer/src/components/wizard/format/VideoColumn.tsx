@@ -28,7 +28,7 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 	const columns = {gridTemplateColumns: `max-content repeat(${view.columns.length}, auto)`}
 
 	return (
-		<div className="flex min-w-0 flex-col">
+		<div className="flex min-w-0 flex-col" data-testid="video-column">
 			{/* Same height as the Audio header, which may hold the language picker, so both lists start level. */}
 			<div className="mb-1.5 flex min-h-8 items-center">
 				<SectionLabel>{t('wizard.formats.video')}</SectionLabel>
