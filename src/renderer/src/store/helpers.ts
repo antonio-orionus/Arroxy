@@ -72,12 +72,20 @@ export function buildFormatLabel(videoFormatId: string, videoResolution: string,
 	return i18next.t('formatLabel.videoDot', {resolution: videoResolution, audio: audioLabel})
 }
 
+// Everything a chip shows of a stream, and everything yt-dlp ranks it by:
+// streams equal in all of it are copies of one stream.
+function videoCopyKey(format: FormatOption): string {
+	return JSON.stringify([format.resolution, format.dynamicRange, format.videoCodec, format.audioCodec, format.ext, format.fps, format.tbr, format.filesize, format.quality, format.preference, format.isVideoOnly, format.markers ?? []])
+}
+
 // One chip per resolution, dynamic range and codec, so H.264 or VP9 at a height
 // stays reachable. A stream whose codec the site doesn't name joins a named
 // codec's chip at its height, or is the height's only other chip: an unnamed
 // codec is never a choice of its own. The first stream in quality order
 // represents its chip unless one of `preferIds` (the user's pick, the profile's
 // pick) is in it: that stream must stay visible and selectable.
+// Of identical copies (Vimeo lists each stream once per CDN) it is the one
+// yt-dlp would take: it lists formats worst first, and equals keep their order, so the last.
 export function groupVideoFormats(formats: FormatOption[], preferIds: readonly string[] = []): GroupedVideoFormat[] {
 	const groups = new Map<string, FormatOption>()
 	function consider(key: string, f: FormatOption): void {
@@ -89,7 +97,8 @@ export function groupVideoFormats(formats: FormatOption[], preferIds: readonly s
 		const silentOverMuxed = current !== undefined && !preferIds.includes(current.formatId) && !current.isVideoOnly && f.isVideoOnly
 		// The copy the site rates higher (yt-dlp's quality), e.g. Twitch's landscape clip over its portrait crop.
 		const higherRated = current !== undefined && !preferIds.includes(current.formatId) && current.isVideoOnly === f.isVideoOnly && (f.quality ?? 0) > (current.quality ?? 0)
-		if (!current || preferred || silentOverMuxed || higherRated) groups.set(key, f)
+		const laterCopy = current !== undefined && !preferIds.includes(current.formatId) && videoCopyKey(current) === videoCopyKey(f)
+		if (!current || preferred || silentOverMuxed || higherRated || laterCopy) groups.set(key, f)
 	}
 	const videos = formats.filter(f => !f.isAudioOnly)
 	// By the name the row shows: "1920x1080" and "1080p" are one 1080p row.

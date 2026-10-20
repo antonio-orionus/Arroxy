@@ -174,3 +174,17 @@ describe('tiers on real probes', () => {
 		expect(selectionFor('balanced', probeSourceResult('twitch-clip')).media.videoFormatId).toBe('720')
 	})
 })
+
+// With nothing picked, every chip is the copy yt-dlp would take of identical
+// streams: the last listed (Vimeo's fastly_skyfire CDN, TikTok's -1 copies).
+describe('identical copies on real probes', () => {
+	const rows = (id: 'vimeo' | 'tiktok'): string[] => selectView({selectedVideoFormatId: '', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: probeSourceResult(id).formats}).video.rows.map(row => row.formatId)
+
+	it('vimeo', () => {
+		expect(rows('vimeo')).toEqual(['hls-fastly_skyfire-2644', 'hls-fastly_skyfire-1526', 'hls-fastly_skyfire-794', 'hls-fastly_skyfire-407'])
+	})
+
+	it('tiktok', () => {
+		expect(rows('tiktok')).toEqual(['bytevc1_720p_336791-1', 'bytevc1_540p_309336-1', 'h264_540p_344464-1', 'download'])
+	})
+})

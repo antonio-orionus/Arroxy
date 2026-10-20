@@ -7,7 +7,7 @@ Video (picked for Balanced 720p •):
 144p  H.264 2.6 MiB
 
 Audio:
-tracks (Audio shown): DASH audio, Audio
+AAC: 53 kbps 1.2 MiB | 37 kbps 872.1 KiB
 MP4: High quality no size •
 convert from: mp3 ← hls_fmp4-12_0-Audio re-encode · m4a ← hls_fmp4-12_0-Audio re-encode · opus ← hls_fmp4-12_0-Audio re-encode · wav ← hls_fmp4-12_0-Audio re-encode
 

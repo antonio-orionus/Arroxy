@@ -1,12 +1,13 @@
 import {useRef, type ReactNode, type RefObject} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type DragEndEvent, type UniqueIdentifier} from '@dnd-kit/core'
+import {DndContext, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type DragEndEvent, type UniqueIdentifier} from '@dnd-kit/core'
 import {SortableContext, rectSortingStrategy, sortableKeyboardCoordinates, useSortable} from '@dnd-kit/sortable'
 import {CSS} from '@dnd-kit/utilities'
 import {Check, GripVertical, PenLine, Plus, X} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
+import {KeyboardSortSensor} from '@renderer/lib/keyboardSortSensor.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -48,7 +49,7 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 	const enabledCount = profiles.filter(profile => profile.enabled).length
 	// A drop that ends over the card it started on would also click what is under the pointer.
 	const suppressClickRef = useRef(false)
-	const sensors = useSensors(useSensor(PointerSensor, {activationConstraint: {distance: 6}}), useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates}))
+	const sensors = useSensors(useSensor(PointerSensor, {activationConstraint: {distance: 6}}), useSensor(KeyboardSortSensor, {coordinateGetter: sortableKeyboardCoordinates}))
 
 	const nameOf = (id: UniqueIdentifier): string => profiles.find(profile => profile.id === id)?.name ?? String(id)
 	const placeOf = (id: UniqueIdentifier): {position: number; count: number} => ({position: profiles.findIndex(profile => profile.id === id) + 1, count: profiles.length})

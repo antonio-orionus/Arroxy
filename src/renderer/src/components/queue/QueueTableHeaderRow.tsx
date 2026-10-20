@@ -6,12 +6,13 @@
 // for are left out, as their body cells are hidden.
 
 import {useCallback, useRef, useState, type PointerEvent, type KeyboardEvent, type ReactNode, type RefObject} from 'react'
-import {DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type ClientRect, type DragEndEvent, type KeyboardCoordinateGetter, type Modifier, type UniqueIdentifier} from '@dnd-kit/core'
+import {DndContext, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type ClientRect, type DragEndEvent, type KeyboardCoordinateGetter, type Modifier, type UniqueIdentifier} from '@dnd-kit/core'
 import {SortableContext, horizontalListSortingStrategy, useSortable} from '@dnd-kit/sortable'
 import {CSS} from '@dnd-kit/utilities'
 import {flexRender, type Header} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
 import type {QueueItem} from '@shared/types.js'
+import {KeyboardSortSensor} from '@renderer/lib/keyboardSortSensor.js'
 import {cn} from '@renderer/lib/utils.js'
 import {TableHead, TableRow} from '../ui/table.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
@@ -65,7 +66,7 @@ export function QueueTableHeaderRow({t, headers, renderedColumnIds, columnWidths
 	const percents = columnWidthPercents(renderedColumnIds, draftWidths ?? columnWidths)
 	// A drop that ends over the header it started on would also click its sort button.
 	const suppressClickRef = useRef(false)
-	const sensors = useSensors(useSensor(PointerSensor, {activationConstraint: {distance: 6}}), useSensor(KeyboardSensor, {coordinateGetter: horizontalKeyboardCoordinates}))
+	const sensors = useSensors(useSensor(PointerSensor, {activationConstraint: {distance: 6}}), useSensor(KeyboardSortSensor, {coordinateGetter: horizontalKeyboardCoordinates}))
 
 	const columnLabel = (id: UniqueIdentifier): string => (isQueueTableColumnId(id) ? t(COLUMN_LABEL_KEYS[id]) : String(id))
 	const announcements: Announcements = {

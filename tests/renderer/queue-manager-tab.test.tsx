@@ -286,6 +286,24 @@ describe('QueueManagerTab', () => {
 		expect(headerNames().slice(0, 2)).toEqual(['Status', 'Title'])
 	})
 
+	// The pick-up render can outlast the next key press; that key must still move the column.
+	it('moves a column by an arrow pressed before the pick-up has settled', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+		stubTableGeometry()
+
+		render(<QueueManagerTab />)
+		const title = screen.getByRole('columnheader', {name: /title/i})
+		title.focus()
+		fireEvent.keyDown(title, {code: 'Space', key: ' '})
+		fireEvent.keyDown(title, {code: 'ArrowRight', key: 'ArrowRight'})
+		await act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 0))
+		})
+		fireEvent.keyDown(title, {code: 'Space', key: ' '})
+
+		await waitFor(() => expect(headerNames().slice(0, 2)).toEqual(['Status', 'Title']))
+	})
+
 	it('resets column order, widths and visibility from the columns menu', () => {
 		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
 		stubTableGeometry()

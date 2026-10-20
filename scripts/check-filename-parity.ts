@@ -74,6 +74,10 @@ const TITLES = [
 const UPLOADERS = ['$USER', 'Who wants $?', '%ARROXY_PARITY%', '~root', '100%% Club', '$$ Bills', 'Ordinary Channel']
 const TEMPLATES = ['{title} [{id}]', '{uploader}/{title} [{id}]', '$HOME {title} [{id}]', '~{title} [{id}]']
 const PROBE = 'youtube-2005'
+// The folder the user picked, with what an output template would act on: the
+// subtitle phases put it in -o, so `%(` must stay literal there. (`$NAME` and a
+// Windows `%%` cannot be escaped in --paths at all; the app refuses those.)
+const DOWNLOAD_FOLDER = 'Downloads 100% %(id)s'
 
 // The fixture's info dict as yt-dlp would load it, renamed: every format needs
 // a URL to be chosen, and the fixtures keep none.
@@ -110,7 +114,7 @@ try {
 		const id = typeof info === 'object' && info !== null && 'id' in info && typeof info.id === 'string' ? info.id : ''
 		const meta: TemplateMetadata = {title, id, uploader}
 		for (const template of TEMPLATES) {
-			const outputDir = templateOutputDir(path.join(work, 'Downloads'), template, meta)
+			const outputDir = templateOutputDir(path.join(work, DOWNLOAD_FOLDER), template, meta)
 			const bound = bindFilenameTemplate(template, meta, {outputDir, platform: process.platform, inFlight: {formats: null, subtitleLanguages: ['en']}})
 			if (!bound.ok) throw new Error(`${title} · ${template}: bind failed (${bound.reason})`)
 			const compiled = compileFilenameTemplate(bound.template)

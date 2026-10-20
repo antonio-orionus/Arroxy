@@ -301,6 +301,66 @@ describe('DownloadProfilesHome profiles tab reordering', () => {
 		expect(screen.getByText('Dropped Best available in position 2 of 13.')).toBeInTheDocument()
 	})
 
+	// The pick-up render can outlast the next key press; that key must still move the card.
+	const pressAll = (target: HTMLElement, codes: readonly string[]): void => {
+		for (const code of codes) fireEvent.keyDown(target, {code, key: code === 'Space' ? ' ' : code})
+	}
+
+	it('moves a profile by an arrow pressed before the pick-up has settled', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		pressAll(grip, ['Space', 'ArrowRight'])
+		await settle()
+		fireEvent.keyDown(grip, {code: 'Space', key: ' '})
+
+		await waitFor(() => expect(cardIds().slice(0, 2)).toEqual(['best-2160', 'best-quality']))
+		expect(screen.getByText('Dropped Best available in position 2 of 13.')).toBeInTheDocument()
+	})
+
+	it('applies every key pressed before the pick-up has settled, in order', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		pressAll(grip, ['Space', 'ArrowRight', 'ArrowDown', 'Space'])
+
+		await waitFor(() => expect(cardIds().slice(0, 4)).toEqual(['best-2160', 'best-1440', 'hd-1080', 'best-quality']))
+		expect(screen.getByText('Dropped Best available in position 4 of 13.')).toBeInTheDocument()
+	})
+
+	it('discards held keys when the drag is cancelled before they replay', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		pressAll(grip, ['Space', 'ArrowRight', 'Space'])
+		fireEvent(window, new Event('resize'))
+		await settle()
+		await settle()
+
+		expect(screen.getByText('Move cancelled. Best available stays in position 1 of 13.')).toBeInTheDocument()
+		expect(screen.queryByText(/Picked up/)).not.toBeInTheDocument()
+		expect(cardIds().slice(0, 2)).toEqual(['best-quality', 'best-2160'])
+	})
+
+	it('cancels a move by an Escape pressed before the pick-up has settled', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		pressAll(grip, ['Space', 'ArrowRight', 'Escape'])
+
+		await waitFor(() => expect(screen.getByText('Move cancelled. Best available stays in position 1 of 13.')).toBeInTheDocument())
+		expect(cardIds().slice(0, 2)).toEqual(['best-quality', 'best-2160'])
+		expect(window.appApi.settings.update).not.toHaveBeenCalled()
+	})
+
 	it('picks nothing up when Space is pressed on a card button other than the grip', async () => {
 		stubCardGrid()
 		render(<DownloadProfilesHome />)
