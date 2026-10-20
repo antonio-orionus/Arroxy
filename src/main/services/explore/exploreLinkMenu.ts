@@ -46,6 +46,8 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	if (url.length > EXPLORE_ADDRESS_MAX || !isExploreGrabbable(url)) return [copy]
 	const prefs = deps.profiles()
 	const active = resolveActiveDownloadProfile(prefs)
+	// The in-app pickers' rule (saved order, current one marked) with the OS's own
+	// marker: radio items. The active profile is never hidden, so none is tagged.
 	const profiles = enabledDownloadProfiles(prefs).map((profile): MenuItemConstructorOptions => {
 		const ref = downloadProfileRefFor(profile, prefs)
 		return {label: menuText(profile.name), type: 'radio', checked: ref.kind === active.ref.kind && ref.id === active.ref.id, click: () => deps.send({kind: 'download', url, profile: ref})}

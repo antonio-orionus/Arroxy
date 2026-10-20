@@ -3207,10 +3207,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Weka {{profileName}}"
-
 #. Plural form "one" for sw: used for counts like 1.
 msgctxt "wizard.playlistProfiles.assignTrigger_one"
 msgid "Assign to {{count}} video"

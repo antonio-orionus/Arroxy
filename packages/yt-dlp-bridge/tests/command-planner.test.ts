@@ -296,6 +296,15 @@ describe('parseYtDlpOutputLine', () => {
 		expect(parseYtDlpOutputLine('[youtube] abc: Downloading webpage')).toEqual({kind: 'progress', raw: '[youtube] abc: Downloading webpage'})
 	})
 
+	// FFmpegVideoConvertorPP announces its output mid-sentence, unlike
+	// ExtractAudio's bare `Destination:` line.
+	it('takes the destination from a remux or convert line', () => {
+		const path = '/tmp/My Vidéo — 東京 😂.mkv'
+		expect(parseYtDlpOutputLine(`[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: ${path}`)).toEqual({kind: 'postprocess', phase: 'convertingVideo', path})
+		expect(parseYtDlpOutputLine(`[VideoConvertor] Converting video from mp4 to mkv; Destination: ${path}`)).toEqual({kind: 'postprocess', phase: 'convertingVideo', path})
+		expect(parseYtDlpOutputLine('[VideoRemuxer] Not remuxing media file "/tmp/a.mkv"; already is in target format mkv')).toEqual({kind: 'postprocess', phase: 'convertingVideo'})
+	})
+
 	// A `--download-sections` job hands the transfer to ffmpeg, whose banner
 	// prints the googlevideo URL. Its URL-encoded commas (`met=1792423725%2C`)
 	// once read as a percent, which pinned the row at 100% from the first second.

@@ -9,7 +9,7 @@ import {ChevronDown, RotateCcw} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {Button} from '../ui/button.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
-import {DownloadProfileMenuContent} from './DownloadProfileMenu.js'
+import {ProfilePickerMenu} from './ProfilePicker.js'
 import type {PlaylistProfileMenuModel} from './playlistProfileMenu.js'
 
 interface PlaylistProfileActionBarProps {
@@ -38,7 +38,8 @@ export function PlaylistProfileActionBar({menu, selectedCount, onAssign, onEditP
 						</Button>
 					}
 				/>
-				<DownloadProfileMenuContent
+				<ProfilePickerMenu
+					layout="list"
 					options={menu.options}
 					editProfile={menu.sharedProfile}
 					editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: menu.sharedProfile.name}) : undefined}
