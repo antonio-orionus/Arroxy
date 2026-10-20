@@ -23,6 +23,8 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '../
 import type {RowSelectionInteractions} from './useRowSelectionInteractions.js'
 import {SectionLabel} from './SectionLabel.js'
 
+const DEFAULT_SCROLL_HEIGHT = 'h-[clamp(12rem,calc(100vh-16rem),34rem)]'
+
 export interface SelectableVirtualTableProps<TFeatures extends TableFeatures, T extends RowData> {
 	table: TanstackTable<TFeatures, T>
 	rows: Row<TFeatures, T>[]
@@ -43,6 +45,8 @@ export interface SelectableVirtualTableProps<TFeatures extends TableFeatures, T 
 	// Replaces the default header row, e.g. with movable, resizable headers.
 	renderHeaderRow?: (headers: Header<TFeatures, T, unknown>[]) => ReactNode
 	scrollTestId: string
+	// Height of the scroll box. The wizard panel sizes to its content, so a flex-fill has nothing to fill: callers size it from the viewport instead.
+	scrollClassName?: string
 }
 
 // Keydown listeners on a row also see keydowns that bubble up from an
@@ -74,12 +78,14 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 	rowDataAttributes,
 	columnClassName,
 	renderHeaderRow,
-	scrollTestId
+	scrollTestId,
+	scrollClassName = DEFAULT_SCROLL_HEIGHT
 }: SelectableVirtualTableProps<TFeatures, T>): ReactNode {
 	const columnClass = columnClassName ?? ((): undefined => undefined)
 	return (
-		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25" data-testid={scrollTestId}>
-			<Table className="w-full table-fixed">
+		<div ref={scrollRef} className={cn('min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25', scrollClassName)} data-testid={scrollTestId}>
+			{/* The default container scrolls on x, which makes it the nearest scrollport of the sticky header; letting it overflow pins the header to the scroll box above. */}
+			<Table className="w-full table-fixed" containerClassName="overflow-visible">
 				<TableHeader className="sticky top-0 z-10 bg-card/95">
 					{table.getHeaderGroups().map(headerGroup =>
 						renderHeaderRow ? (

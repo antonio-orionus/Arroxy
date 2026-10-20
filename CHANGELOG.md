@@ -56,6 +56,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - The hotkey recorder accepts Shift and Option combinations, arrows, punctuation and the numpad.
 - The Download menu and the Downloads column picker work with the keyboard.
 - In a small window, the footer's links shrink to icons so the language and theme settings stay visible.
+- On a wide window, the download steps are centred and the Explore browser fills the window. A scrolling table keeps its header in view.
 - A busy download queue no longer slows the app down.
 - Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
 - The Vimeo OTT title lookup can no longer reach addresses on your local network.

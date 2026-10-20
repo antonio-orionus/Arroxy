@@ -670,6 +670,7 @@ body {
 	}
 }
 .wizard-step {
+	--wizard-column: 72rem;
 	animation: fade-slide-in 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 	flex: 1;
 	display: flex;
@@ -678,6 +679,13 @@ body {
 }
 .wizard-step > .sticky.bottom-0 {
 	margin-top: auto;
+}
+/* One reading width for every wizard step: the body is centred and capped, while the footer bar
+   (a .sticky child) keeps spanning the stage and caps only its own content (WizardFooter). */
+.wizard-step-column > :not(.sticky) {
+	width: 100%;
+	max-width: var(--wizard-column);
+	margin-inline: auto;
 }
 .wizard-forward .wizard-step {
 	animation: fade-slide-in-forward 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;

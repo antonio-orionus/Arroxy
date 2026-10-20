@@ -27,7 +27,7 @@ export function StepConfirm(): ReactNode {
 	const profileBreakdown = review.inMultiProfile ? multiProfileBreakdown(state) : []
 
 	return (
-		<div className="wizard-step flex flex-col gap-4" data-testid="step-confirm">
+		<div className="wizard-step wizard-step-column flex flex-col gap-4" data-testid="step-confirm">
 			{!review.inBatch && <VideoSummaryCard thumbnail={state.wizardThumbnail} title={state.wizardTitle} duration={state.wizardDuration} resolution={state.selectedVideoFormatId !== '' ? review.videoResolution : undefined} webpageUrl={state.wizardWebpageUrl} />}
 
 			{/* Mascot banner */}

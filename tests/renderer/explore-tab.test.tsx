@@ -440,6 +440,14 @@ describe('Explore page zoom', () => {
 	})
 })
 
+describe('Explore width', () => {
+	it('has no width cap, so the browser grows with the window', () => {
+		renderExplore()
+		expect(screen.getByTestId('download-profiles-home')).toHaveClass('max-w-none')
+		expect(screen.getByTestId('download-profiles-home')).not.toHaveClass('max-w-[92rem]')
+	})
+})
+
 describe('Explore compact layout', () => {
 	function tabsRail(): HTMLElement {
 		return screen.getByTestId('profiles-tabs')

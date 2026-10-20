@@ -143,9 +143,9 @@ bun run dev:mock
 bun run doctor
 ```
 
-`?scenario=<id>` opens any Scenario Workbench state (ids in `src/renderer/src/dev/browserMockScenarios.ts`) and `?kit` the UI kit; browser-mock never stands in for the real preload bridge. Prefer `agent-browser` for interactive checks and screenshots; Playwright only for traces, tests, or `_electron.launch()`.
+`?scenario=<id>` opens any Scenario Workbench state (ids in `src/renderer/src/dev/browserMockScenarios.ts`) and `?kit` the UI kit; browser-mock never stands in for the real preload bridge. In the Claude desktop app, check it with the built-in browser; other agents, and attaching to the real Electron app, use `agent-browser`; Playwright only for traces, tests, or `_electron.launch()`.
 
-Electron-specific behavior (real preload, IPC, GPU) needs the real app: `REMOTE_DEBUGGING_PORT=9333 bun run dev`, then attach over CDP. Backdrop or WebGL problems in Electron: run `bun run gpu:probe` before touching backdrop code. Port pinning, CDP attach, the agent-browser and Playwright recipes, locale simulation, and the GPU/backdrop fallback model are in [`dev-docs/visual-debugging.md`](dev-docs/visual-debugging.md).
+Electron-specific behavior (real preload, IPC, GPU) needs the real app: `REMOTE_DEBUGGING_PORT=9333 bun run dev`, then attach over CDP. Backdrop or WebGL problems in Electron: run `bun run gpu:probe` before touching backdrop code. Port pinning, CDP attach, which browser to use and its recipes, locale simulation, and the GPU/backdrop fallback model are in [`dev-docs/visual-debugging.md`](dev-docs/visual-debugging.md).
 
 ## shadcn/ui Configuration
 

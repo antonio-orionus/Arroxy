@@ -45,7 +45,6 @@ export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): Rea
 					<FormatFooterWarnings />
 				</>
 			}
-			contentClassName="max-w-6xl"
 			info={
 				<span className="flex flex-wrap items-center gap-x-4 gap-y-1.5 max-lg:flex-nowrap max-lg:gap-x-3">
 					<span>{total}</span>

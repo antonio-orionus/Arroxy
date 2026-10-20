@@ -78,6 +78,7 @@ export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVi
 			getRowId={row => row.original.id}
 			emptyLabel={t('wizard.playlistProfiles.empty')}
 			scrollTestId="playlist-profile-scroll"
+			scrollClassName="h-[max(12rem,calc(100vh-24rem))]"
 			rowTestId={rowId => `profile-row-${rowId}`}
 			columnClassName={columnClassName}
 			renderContextMenu={() => <PlaylistProfileContextMenuItems itemIds={contextItemIds} menu={contextMenu} onAssign={onAssign} onReset={onReset} onRemove={onRemove} />}

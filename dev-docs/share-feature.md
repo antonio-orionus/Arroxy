@@ -199,7 +199,7 @@ bun run dev:mock
 bun run doctor
 ```
 
-Drive in a browser via the Playwright MCP tools or manually:
+Drive it in a browser (the Claude desktop app's built-in browser, `agent-browser`, or by hand):
 
 1. Click footer share → dialog opens, no Don't-ask button. Close it, reopen, click Copy → the icon swaps to a check for ~1.5 s.
 2. Open About → click Share → About closes, dialog opens.

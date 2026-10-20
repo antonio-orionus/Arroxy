@@ -152,7 +152,7 @@ export function StepReview(): ReactNode {
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
 	return (
-		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
+		<div className="wizard-step wizard-step-column flex flex-col gap-4" data-testid="step-review">
 			<ReviewPageCallout />
 
 			<ReviewFormatStrip state={state} review={review} onChangeFormat={() => goToStep('formats')} />

@@ -446,6 +446,8 @@ describe('QueueManagerTab', () => {
 		render(<QueueManagerTab />)
 
 		expect(screen.getByTestId('queue-manager-scroll')).toHaveClass('h-[clamp(12rem,calc(100vh-16rem),34rem)]')
+		// The table's own wrapper must not scroll, or the sticky header pins to it instead of to the scroll box.
+		expect(screen.getByTestId('queue-manager-scroll').querySelector('[data-slot="table-container"]')).toHaveClass('overflow-visible')
 	})
 
 	it('renders the current virtual window for later queue rows', () => {

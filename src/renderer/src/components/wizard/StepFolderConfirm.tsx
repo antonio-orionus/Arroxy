@@ -141,7 +141,7 @@ export function StepFolderConfirm(): ReactNode {
 		}))
 	)
 	return (
-		<div className="wizard-step flex flex-col gap-4" data-testid="step-folder">
+		<div className="wizard-step wizard-step-column flex flex-col gap-4" data-testid="step-folder">
 			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} webpageUrl={wizardWebpageUrl} />
 			<FolderFields persist />
 			<WizardFooter>
