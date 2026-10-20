@@ -5,7 +5,7 @@ import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 
-// The working directory the bridge's plan asks for; undefined plans none.
+// The working directory the plan asks for, over the bridge's own; undefined keeps the bridge's.
 let planCwd: string | undefined
 
 vi.mock('yt-dlp-bridge', async importOriginal => {
@@ -85,7 +85,8 @@ describe('YtDlp — the run folder a plan asks for', () => {
 	it('spawns in the inherited working directory when the plan names none', async () => {
 		const onSpawn = vi.fn()
 
-		await makeYtDlp().run(subtitleRequest(), {onSpawn})
+		// A probe writes no files, so its plan names no folder.
+		await makeYtDlp().run({kind: 'probe', url: URL}, {onSpawn})
 
 		expect(spawnCwd()).toBeUndefined()
 		expect(onSpawn).toHaveBeenCalledWith(expect.anything(), undefined)

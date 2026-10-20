@@ -2,6 +2,12 @@ import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 
+// A run makes its plan's folder before it spawns; the folders here are names only.
+vi.mock('node:fs/promises', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:fs/promises')>()
+	return {...actual, mkdir: vi.fn(async () => undefined)}
+})
+
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
 	return {...actual, spawnYtDlp: vi.fn()}

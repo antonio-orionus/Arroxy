@@ -12,6 +12,12 @@ import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {audioConversionSourceSelector} from '../shared/nativeAudioSelectors.js'
 
+// A run makes its plan's folder before it spawns; the folders here are names only.
+vi.mock('node:fs/promises', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:fs/promises')>()
+	return {...actual, mkdir: vi.fn(async () => undefined)}
+})
+
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
 	return {...actual, spawnYtDlp: vi.fn()}
