@@ -89,7 +89,8 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	if (selectedNative && selectedNative.formatId !== followed) {
 		setFollowed(selectedNative.formatId)
 		if (selectedNative.track && selectedNative.track !== track) setTrack(selectedNative.track)
-		if (selectedNative.twinId !== null && selectedNative.isDrc !== drc) setDrc(selectedNative.isDrc)
+		// A conversion's source sets DRC even without a twin: the next pick follows the switch.
+		if ((isConversion(audioSelection) || selectedNative.twinId !== null) && selectedNative.isDrc !== drc) setDrc(selectedNative.isDrc)
 	}
 	const inView = (row: NativeAudioRow, inTrack: string, withDrc: boolean): boolean => (row.twinId === null || row.isDrc === withDrc) && (view.tracks.length === 0 || row.track === inTrack)
 	const shown = (row: NativeAudioRow): boolean => inView(row, track, drc)

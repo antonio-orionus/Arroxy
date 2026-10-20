@@ -1,4 +1,4 @@
-import {extractSelection} from '@shared/audioConversionSource.js'
+import {extractSelection, selectedConversionSource} from '@shared/audioConversionSource.js'
 import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {useMemo} from 'react'
@@ -472,13 +472,14 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...lineOf(variants[0]), variants: variants.toSorted(byCodec)}))
 		// Size-only files (no tier of their own) follow the tiers, the biggest first.
 		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name) || (b.variants[0]?.filesize ?? 0) - (a.variants[0]?.filesize ?? 0))
-	// A conversion's named source stays listed too, even as a folded copy.
-	const conversionSourceId = audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless' ? (audioSelection.sourceFormatId ?? null) : null
+	const conversionSelection = state.formatSelection ?? selectionSourceFromOptions(wizardFormats)
+	// The stream a conversion converts stays listed too, even as a folded copy:
+	// the one it names, else the one yt-dlp picks.
+	const conversionSourceId = audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless' ? (selectedConversionSource(conversionSelection, audioSelection.target, audioSelection.sourceFormatId)?.formatId ?? null) : null
 	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId]).map(format => nativeAudioRow(format, profileAudioId, scale))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)
-	const conversionSelection = state.formatSelection ?? selectionSourceFromOptions(wizardFormats)
 	const extractOffered = isAudioOnly && !hasSeparableAudio && wizardFormats.some(f => !f.isVideoOnly)
 
 	return {

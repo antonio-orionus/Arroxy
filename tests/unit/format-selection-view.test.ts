@@ -443,3 +443,12 @@ describe('selectView — a conversion source that is a folded copy', () => {
 		expect(view.audio.nativeRows.map(row => row.formatId)).toContain('234')
 	})
 })
+
+describe('selectView — the stream an unnamed conversion converts', () => {
+	it('stays listed even as a folded copy', () => {
+		const copy: FormatOption = {formatId: '234', label: '234', ext: 'mp4', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, audioLanguage: 'en', isDefaultAudio: true, abr: 128}
+		const drc: FormatOption = {formatId: '140-drc', label: '140-drc', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, audioCodec: 'mp4a.40.2', audioLanguage: 'en', isDefaultAudio: true, isDrc: true, abr: 129}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [copy, drc]})
+		expect(view.audio.nativeRows.map(row => row.formatId)).toContain('234')
+	})
+})
