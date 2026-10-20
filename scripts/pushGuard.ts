@@ -39,8 +39,10 @@ export function revertedFiles(git: Git, base: string, head: string): RevertedFil
 	const changed = lines(git(['-c', 'core.quotePath=false', 'diff', '--name-only', '--no-renames', mergeBase, head]))
 	if (changed.length === 0) return []
 
-	// Newest first, each commit that touched a changed file with every file it touched.
-	const log = git(['-c', 'core.quotePath=false', '--literal-pathspecs', 'log', '--first-parent', '--diff-merges=first-parent', '--full-diff', '--no-renames', '-n', String(REVERT_WINDOW), '--format=%x00%h %s', '--name-only', mergeBase, '--', ...changed])
+	// Newest first, each commit in the window with every file it touched. No
+	// pathspec: a stale squash can change more files than an argument list holds.
+	const changedSet = new Set(changed)
+	const log = git(['-c', 'core.quotePath=false', 'log', '--first-parent', '--diff-merges=first-parent', '--no-renames', '-n', String(REVERT_WINDOW), '--format=%x00%h %s', '--name-only', mergeBase])
 	const commits = log
 		.split('\0')
 		.filter(Boolean)
@@ -48,8 +50,8 @@ export function revertedFiles(git: Git, base: string, head: string): RevertedFil
 			const [label = '', ...files] = lines(entry)
 			return {sha: label.slice(0, label.indexOf(' ')), label, files}
 		})
+		.filter(c => c.files.some(file => changedSet.has(file)))
 
-	const changedSet = new Set(changed)
 	const queries = [...changed.map(file => `${head}:${file}`), ...commits.flatMap(c => c.files.filter(file => changedSet.has(file)).map(file => `${c.sha}^:${file}`))]
 	const answers = lines(git(['cat-file', '--batch-check=%(objectname)'], `${queries.join('\n')}\n`)).map(answer => (answer.endsWith(' missing') ? null : answer))
 	const blob = new Map(queries.map((query, i) => [query, answers[i] ?? null]))

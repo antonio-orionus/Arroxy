@@ -4,6 +4,7 @@
 // edit, or a squash that drags a stale tree along, changes it and needs a new
 // review. It lives in this worktree's git dir, never in the tree.
 
+import {createHash} from 'node:crypto'
 import {readFile, writeFile} from 'node:fs/promises'
 import {z} from 'zod'
 import type {Git} from '../pushGuard.js'
@@ -21,7 +22,8 @@ export function branchDiffId(git: Git, base: string): string {
 	const mergeBase = git(['merge-base', base, 'HEAD']).trim()
 	const diff = git(['diff', '-U0', '--full-index', '--binary', '--no-color', '--no-ext-diff', '--no-renames', mergeBase, 'HEAD'])
 	if (diff === '') return 'empty'
-	return git(['patch-id', '--verbatim'], diff).split(' ')[0] ?? 'empty'
+	// patch-id prints nothing for a diff it finds no hunks in; the diff's own hash then stands in.
+	return git(['patch-id', '--verbatim'], diff).split(' ')[0] || createHash('sha256').update(diff).digest('hex')
 }
 
 const statePath = (git: Git): string => git(['rev-parse', '--path-format=absolute', '--git-path', STATE_FILE]).trim()

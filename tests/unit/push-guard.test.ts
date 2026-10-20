@@ -124,7 +124,7 @@ describe('revertedFiles', () => {
 		expect(revertedFiles(git, 'origin/main', 'HEAD')).toEqual([])
 	})
 
-	it('flags a deliberate revert too, which the hook lets through with ARROXY_ALLOW_REVERT=1', async () => {
+	it('flags a deliberate revert too', async () => {
 		await landOnMain({'a.txt': 'a2\n'}, 'fix: other lane')
 		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
 		await commit({'a.txt': 'a1\n'}, 'revert: other lane')
@@ -140,7 +140,7 @@ describe('pre-push refs', () => {
 		expect(refsToCheck(parsePushedRefs(stdin))).toEqual([{localRef: 'refs/heads/feat/x', localOid: 'a'.repeat(40), remoteRef: 'refs/heads/feat/x'}])
 	})
 
-	it('blocks a real git push of the stale squash and allows the merge-base squash', async () => {
+	it('blocks a real git push of the stale squash unless ARROXY_ALLOW_REVERT=1, and allows the merge-base squash', async () => {
 		const hooks = path.join(root, 'hooks')
 		const script = path.resolve('scripts/check-push.ts')
 		await mkdir(hooks)
@@ -150,6 +150,9 @@ describe('pre-push refs', () => {
 		const blocked = spawnSync('git', ['push', '-q', 'origin', 'feat/x'], {cwd: clone, encoding: 'utf8', env: ENV})
 		expect(blocked.status).not.toBe(0)
 		expect(blocked.stderr).toMatch(/a\.txt[\s\S]*new\.txt[\s\S]*merge-base/)
+
+		const allowed = spawnSync('git', ['push', '-q', 'origin', 'feat/x:refs/heads/deliberate'], {cwd: clone, encoding: 'utf8', env: {...ENV, ARROXY_ALLOW_REVERT: '1'}})
+		expect(allowed.status).toBe(0)
 
 		sh(clone, 'reset', '-q', '--hard', 'HEAD@{2}')
 		sh(clone, 'reset', '-q', '--soft', sh(clone, 'merge-base', 'origin/main', 'HEAD'))

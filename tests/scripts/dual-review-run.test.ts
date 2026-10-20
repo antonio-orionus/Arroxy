@@ -143,4 +143,22 @@ describe.skipIf(!sh)('review:dual without a usable Codex', () => {
 		expect(r.log).toEqual([])
 		expect(r.json.coverage.codexSkipped).toBeNull()
 	})
+
+	it('records the reviewed diff for review:check-head only after a complete review against origin/main', () => {
+		const record = git('rev-parse', '--path-format=absolute', '--git-path', 'arroxy-reviewed-diff').stdout.trim()
+		rmSync(record, {force: true})
+		expect(run('no-origin', ['--light'], {codex: CODEX_USAGE_LIMIT}).status).toBe(0)
+		expect(existsSync(record)).toBe(false)
+
+		git('update-ref', 'refs/remotes/origin/main', 'main')
+		try {
+			expect(run('reviewer-failed', ['--light'], {codex: CODEX_USAGE_LIMIT, env: {FAKE_CLAUDE_FAIL: '1'}}).status).toBe(2)
+			expect(existsSync(record)).toBe(false)
+			expect(run('recorded', ['--light'], {codex: CODEX_USAGE_LIMIT}).status).toBe(0)
+			expect(JSON.parse(readFileSync(record, 'utf8'))).toMatchObject({head: git('rev-parse', 'HEAD').stdout.trim(), mergeBase: git('rev-parse', 'main').stdout.trim()})
+		} finally {
+			git('update-ref', '-d', 'refs/remotes/origin/main')
+			rmSync(record, {force: true})
+		}
+	})
 })
