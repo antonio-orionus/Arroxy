@@ -53,7 +53,7 @@ Requires Node.js >= 22.13 and ESM.
 ## What changed in 0.6.0 (unreleased)
 
 - **Breaking:** progress is read from yt-dlp's numbers, not its human-readable `[download]  42.0% of …` line. The `progress` event no longer carries `percent`, `total`, `speed` or `eta`; it is now only the fallback for other lines (`raw`).
-- Caller media, caller subtitles and managed download plans pass `--progress-template` with `YT_DLP_PROGRESS_TEMPLATE`, a prefixed JSON line per update. Media plans also pass `--print before_dl:` with `YT_DLP_REQUESTED_FORMATS_TEMPLATE`, and caller media plans pass `--no-quiet` so that print does not silence yt-dlp's other output.
+- Caller media, caller subtitles and managed download plans pass `--progress-template` with `YT_DLP_PROGRESS_TEMPLATE`, a prefixed JSON line per update. Caller media plans and every managed download plan (media, audio, subtitles, thumbnail and playlist) also pass `--print before_dl:` with `YT_DLP_REQUESTED_FORMATS_TEMPLATE`, one prefixed stdout line per video; caller media plans pass `--no-quiet` so that print does not silence yt-dlp's other output.
 - `parseYtDlpOutputLine` emits two new event kinds: `download-progress` (`status`, `formatId`, `downloadedBytes`, `totalBytes`, `totalBytesEstimate`, `speedBps`, `etaSeconds`, `elapsedSeconds`, `fragmentIndex`, `fragmentCount`) and `requested-formats` (the streams yt-dlp is about to download, in order, with `filesize` / `filesizeApprox`). Exhaustive `switch` statements over `YtDlpOutputEvent` need the two new cases.
 - New `YtDlpDownloadProgressTracker` turns those events into one percent over every stream of a video, so the audio download after the video counts instead of restarting at 0%. It also estimates the time left over all remaining streams.
 
