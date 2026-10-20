@@ -42,10 +42,12 @@ export function callerOutputTemplate(output: CallerOutput): string {
 	return output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
 }
 
+// Written with `/`, which yt-dlp takes on Windows too, so argv is the same on
+// every OS.
 function relativeInside(directory: string, file: string): string | null {
 	const relative = path.isAbsolute(file) ? path.relative(directory, file) : path.normalize(file)
 	const escapes = relative === '' || relative === '.' || relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)
-	return escapes ? null : relative
+	return escapes ? null : relative.split(path.sep).join('/')
 }
 
 // A path the run reads or writes inside the folder, relative to it.
@@ -75,7 +77,7 @@ export function callerMediaOutputArgs(output: CallerOutput, options: CallerMedia
 	const temp = output.tempDirectory ? insideTarget(output.directory, output.tempDirectory, 'output.tempDirectory') : undefined
 	const args = temp ? ['--paths', `temp:${temp}`, '-o', template] : ['-o', template]
 	if (temp && !options.skipDownload && options.resume?.writeInfoJson !== false) {
-		args.push('--write-info-json', '-o', `infojson:${templateLiteral(path.join(temp, options.resume?.infoJsonBaseName ?? DEFAULT_INFO_JSON_BASE_NAME))}`)
+		args.push('--write-info-json', '-o', `infojson:${templateLiteral(`${temp}/${options.resume?.infoJsonBaseName ?? DEFAULT_INFO_JSON_BASE_NAME}`)}`)
 	}
 	args.push(...reportArgs(output))
 	return args
