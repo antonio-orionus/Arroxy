@@ -1,6 +1,7 @@
-// `HEARTBEAT_OFF` in src/main/services/heartbeat.ts. Every shipped build that
-// sends a heartbeat stops on this value: newer ones read it as off, older ones
-// as an invalid collector URL.
+// The same value as `HEARTBEAT_OFF` in src/main/services/heartbeat.ts, kept as
+// a literal so these launch scripts don't load the app's heartbeat sender.
+// Every shipped build that sends a heartbeat stops on it: newer ones read it as
+// off, older ones as an invalid collector URL.
 const HEARTBEAT_OFF = 'off'
 
 // The environment for a launch of a real packaged build (this build's journeys,
