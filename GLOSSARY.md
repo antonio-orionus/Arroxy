@@ -246,6 +246,10 @@ _Avoid_: original subtitles, human subtitles
 Subtitles the site generated from the speech. On YouTube only the caption in the spoken language is offered; the site's machine translations are left out. Shown with the Auto badge, under the language's plain name.
 _Avoid_: auto-subs, "(Original)" in labels
 
+**Subtitle track**:
+One subtitle file a video offers: a language, either uploaded (manual subtitles) or generated (an automatic caption). A profile asks for languages and a subtitle source; the Format screen picks tracks.
+_Avoid_: subtitle language (when one track is meant), caption key
+
 **Subtitle source**:
 Which of a language's tracks a profile or subtitles-only batch fetches: manual first (automatic captions only where no manual subtitles exist), manual and auto (both, side by side), manual only, or auto only. A video's own picks are saved as manual and auto when they hold both for one language.
 _Avoid_: subtitle type, caption mode

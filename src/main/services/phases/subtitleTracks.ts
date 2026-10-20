@@ -4,6 +4,7 @@ import {ytDlpSubtitleTrackSchema, type YtDlpSubtitleTrack} from 'yt-dlp-bridge/i
 import type {SubtitleOptions} from '@shared/preparedJob.js'
 import type {Site} from '@shared/sites/index.js'
 import {withSubtitleTracks} from '@shared/subtitleLanguages.js'
+import {fetchedTrackFormats} from '@shared/subtitleTracks.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {logger} from '../subtitlePostProcess.js'
 
@@ -73,13 +74,10 @@ export async function readSubtitleTrackNames(subtitles: Pick<SubtitleOptions, 'f
 	const raw = await firstRawSubtitleMaps(opts.infoJsonPaths)
 	const names = new Map<string, string>()
 	if (!raw) return names
-	const writeSubs = subtitles.autoOnly !== true
-	const writeAuto = subtitles.writeAuto || subtitles.autoOnly === true
-	const available = new Map<string, readonly YtDlpSubtitleTrack[]>()
-	if (writeSubs) for (const [key, formats] of Object.entries(raw.subtitles)) available.set(key, formats)
-	if (writeAuto) for (const [key, formats] of Object.entries(raw.automaticCaptions)) if (!available.has(key)) available.set(key, formats)
-	for (const [key, formats] of available) {
-		const name = pickedFormat(formats, subtitles.format)?.name?.trim()
+	const fetch = {manual: subtitles.autoOnly !== true, auto: subtitles.writeAuto || subtitles.autoOnly === true}
+	for (const key of new Set([...Object.keys(raw.subtitles), ...Object.keys(raw.automaticCaptions)])) {
+		const formats = fetchedTrackFormats(key, raw, fetch)
+		const name = formats && pickedFormat(formats, subtitles.format)?.name?.trim()
 		if (name) names.set(key, name)
 	}
 	return names

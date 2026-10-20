@@ -1,0 +1,123 @@
+// Which subtitle tracks a job fetches: one rule for every job kind. A job asks
+// for languages and a subtitle source (profiles, batches, Quick Download) or
+// for the tracks picked on the Format screen; planning that request over a
+// video's subtitle maps names the exact tracks, and everything yt-dlp is told
+// (the flags, the request keys) is read off the plan.
+
+import type {DownloadProfileSubtitleSource} from './schemas.js'
+import type {SubtitleMap} from './types.js'
+
+export type SubtitleRequest = {kind: 'languages'; languages: readonly string[]; source: DownloadProfileSubtitleSource} | {kind: 'tracks'; tracks: readonly PickedTrack[]}
+
+// A track picked on the Format screen, by its key in the video's maps.
+export interface PickedTrack {
+	key: string
+	auto: boolean
+}
+
+// Sanitized maps (see `sanitizeSubtitleMap`): on YouTube, machine translations
+// are never candidates.
+export interface SubtitleMaps {
+	subtitles: SubtitleMap
+	automaticCaptions: SubtitleMap
+}
+
+export interface PlannedTrack {
+	// The track's key in the video's maps, as the Format screen lists it (`en-orig`).
+	key: string
+	// The exact key yt-dlp is asked for (see `requestKeyFor`).
+	requestKey: string
+	auto: boolean
+	// The base language (`en` for `en-orig`).
+	language: string
+}
+
+export interface SubtitlePlan {
+	tracks: PlannedTrack[]
+	// Requested languages the video has no track for.
+	missing: string[]
+}
+
+// Download profiles store base language codes (`de`), but the tracks a URL
+// offers are often regional variants (`de-DE`, `pt-BR`, `es-419`, `zh-Hans`).
+// A profile asking for `de` should get those too — but not `de-en`, which is
+// German auto-translated from English. Region and script subtags are
+// capitalised or numeric, while a translation source is a lowercase language
+// code, so letter case is what tells them apart.
+const REGIONAL_SUFFIX = /^-(?:[A-Z]{2}|[A-Z][a-z]{3}|\d{3})$/
+
+export function matchesSubtitleLanguage(code: string, trackKey: string): boolean {
+	if (trackKey.slice(0, code.length).toLowerCase() !== code.toLowerCase()) return false
+	const suffix = trackKey.slice(code.length)
+	return suffix === '' || REGIONAL_SUFFIX.test(suffix)
+}
+
+// YouTube's real automatic captions carry this suffix once the subtitle map is
+// sanitized (see `sanitizeSubtitleMap`); the language is the part before it.
+const AUTO_CAPTION_SUFFIX = '-orig'
+
+export function baseLanguage(trackKey: string): string {
+	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
+}
+
+function matchingKeys(code: string, map: SubtitleMap): string[] {
+	return Object.keys(map).filter(key => matchesSubtitleLanguage(code, baseLanguage(key)))
+}
+
+// A picked key is the uploaded track when the manual subtitles hold it: the
+// picker lists a key both maps hold once, as manual.
+export function pickedTrack(key: string, maps: Pick<SubtitleMaps, 'subtitles'>): PickedTrack {
+	return {key, auto: !Object.hasOwn(maps.subtitles, key)}
+}
+
+// The tracks a source picks for some language codes. Manual tracks win per
+// track, not per language: an auto-generated regional variant the manual
+// tracks lack is still picked, as yt-dlp does. `manual-and-auto` keeps the
+// automatic caption beside the manual track.
+function pickLanguages(languages: readonly string[], source: DownloadProfileSubtitleSource, maps: SubtitleMaps): {picked: PickedTrack[]; missing: string[]} {
+	const picked: PickedTrack[] = []
+	const missing: string[] = []
+	for (const code of languages) {
+		const manual = source === 'auto-only' ? [] : matchingKeys(code, maps.subtitles)
+		const manualBases = new Set(manual.map(baseLanguage))
+		const candidates = source === 'manual-only' ? [] : matchingKeys(code, maps.automaticCaptions)
+		const auto = source === 'manual-and-auto' ? candidates : candidates.filter(key => !manualBases.has(baseLanguage(key)))
+		const tracks = [...manual.map(key => ({key, auto: false})), ...auto.map(key => ({key, auto: true}))]
+		if (tracks.length === 0) missing.push(code)
+		for (const track of tracks) if (!picked.some(p => p.key === track.key)) picked.push(track)
+	}
+	return {picked, missing}
+}
+
+// The key to ask yt-dlp for a picked track. An original-language caption
+// (`ja-orig`) goes by its bare twin (`ja`): yt-dlp lists it under both keys
+// with the same URL, and the bare one names the file `….ja.srt` and the
+// embedded track `jpn`, as for any other track. It keeps `-orig` only when the
+// job fetches manual tracks and the video has one under the bare key: yt-dlp
+// fills a key with the manual track first, so the bare key would fetch that
+// one instead of the caption.
+function requestKeyFor(key: string, opts: {subtitles: SubtitleMap; fetchesManual: boolean}): string {
+	const bare = baseLanguage(key)
+	return bare !== key && (!opts.fetchesManual || !Object.hasOwn(opts.subtitles, bare)) ? bare : key
+}
+
+export function planSubtitleTracks(request: SubtitleRequest, maps: SubtitleMaps): SubtitlePlan {
+	const {picked, missing} = request.kind === 'languages' ? pickLanguages(request.languages, request.source, maps) : {picked: [...request.tracks], missing: []}
+	const fetchesManual = picked.some(track => !track.auto)
+	const tracks = picked.map(({key, auto}) => ({key, requestKey: requestKeyFor(key, {subtitles: maps.subtitles, fetchesManual}), auto, language: baseLanguage(key)}))
+	return {tracks, missing}
+}
+
+// Which of yt-dlp's subtitle flags a plan needs: `--write-subs` for a manual
+// track, `--write-auto-subs` for an automatic caption.
+export function subtitleFetchFlags(plan: SubtitlePlan): {manual: boolean; auto: boolean} {
+	return {manual: plan.tracks.some(track => !track.auto), auto: plan.tracks.some(track => track.auto)}
+}
+
+// The map yt-dlp's `process_subtitles` takes a requested key from: the manual
+// subtitles first when it writes them, then the automatic captions.
+export function fetchedTrackFormats<T>(key: string, maps: {subtitles: Record<string, T>; automaticCaptions: Record<string, T>}, fetch: {manual: boolean; auto: boolean}): T | undefined {
+	if (fetch.manual && Object.hasOwn(maps.subtitles, key)) return maps.subtitles[key]
+	if (fetch.auto && Object.hasOwn(maps.automaticCaptions, key)) return maps.automaticCaptions[key]
+	return undefined
+}

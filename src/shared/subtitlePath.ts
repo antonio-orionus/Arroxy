@@ -3,7 +3,7 @@
 // format updates ext detection automatically.
 
 import {SUBTITLE_FORMATS} from './schemas.js'
-import {matchesSubtitleLanguage} from './subtitleLanguages.js'
+import {matchesSubtitleLanguage} from './subtitleTracks.js'
 
 const EXTS_ALT = SUBTITLE_FORMATS.join('|')
 

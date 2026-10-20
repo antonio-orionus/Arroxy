@@ -14,7 +14,7 @@ import type {FormatOption, SubtitleMap} from './types.js'
 import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr} from './hdrSetting.js'
 import {mediaIntentSpec} from './mediaIntent.js'
 import {selectionOrder, type SelectionOrder} from './selectionOrder.js'
-import {pickSubtitleTracks} from './subtitleLanguages.js'
+import {planSubtitleTracks} from './subtitleTracks.js'
 import {tierHeightOf} from './videoTier.js'
 import type {FormatSelectionSource} from './ytdlp/selectableFormat.js'
 import {createFormatSorter, prepareForSort, sortFormats} from './ytdlp/formatSorter.js'
@@ -138,9 +138,9 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 function resolveSubtitles(input: ProfileSelectionInput, notices: FitNotice[]): string[] {
 	const {profile, subtitles, automaticCaptions} = input
 	const wanted = profile.media.kind === 'subtitles-only' || profile.subtitles.enabled ? profile.subtitles.languages : []
-	const {tracks, missing} = pickSubtitleTracks(wanted, profile.subtitles.source, {subtitles, automaticCaptions})
+	const {tracks, missing} = planSubtitleTracks({kind: 'languages', languages: wanted, source: profile.subtitles.source}, {subtitles, automaticCaptions})
 	if (missing.length > 0) notices.push({kind: 'subtitle-languages-missing', languages: missing})
-	return tracks
+	return tracks.map(track => track.key)
 }
 
 export function resolveProfileSelection(input: ProfileSelectionInput): ProfileSelection {

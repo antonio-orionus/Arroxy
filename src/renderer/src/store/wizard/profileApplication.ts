@@ -11,7 +11,7 @@ import type {GlobalHdr} from '@shared/hdrSetting.js'
 import {effectiveVideoCodec, type SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import {pickSubtitleTracks} from '@shared/subtitleLanguages.js'
+import {baseLanguage, pickedTrack, planSubtitleTracks, type PickedTrack} from '@shared/subtitleTracks.js'
 import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
@@ -197,10 +197,6 @@ function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot
 	return {kind: 'video-audio', goal, tier, fileType, ...hdr, ...aiUpscaled, ...codec, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
 }
 
-function baseLanguageCode(trackKey: string): string {
-	return trackKey.endsWith('-orig') ? trackKey.slice(0, -'-orig'.length) : trackKey
-}
-
 type SubtitleSource = DownloadProfile['subtitles']['source']
 
 // Tried after the base profile's own source: automatic captions alone before
@@ -217,18 +213,12 @@ const SOURCE_PREFERENCE = ['auto-only', 'manual-first', 'manual-only', 'manual-a
 // `manual-and-auto`, which keeps every picked track rather than dropping one.
 function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, context: SaveProfileContext): SubtitleSource {
 	if (keys.length === 0) return base
-	// The picker lists a key both maps hold as the uploaded track.
-	const picked = (key: string): string => (key in context.subtitles && !key.endsWith('-orig') ? `manual:${key}` : `auto:${key}`)
-	const languages = [...new Set(keys.map(baseLanguageCode))]
-	const wanted = new Map(languages.map(language => [language, keys.filter(key => baseLanguageCode(key) === language).map(picked)]))
+	const maps = {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}
+	const tag = (track: PickedTrack): string => `${track.auto ? 'auto' : 'manual'}:${track.key}`
+	const languages = [...new Set(keys.map(baseLanguage))]
+	const wanted = new Map(languages.map(language => [language, keys.filter(key => baseLanguage(key) === language).map(key => tag(pickedTrack(key, maps)))]))
 	const kindOf = (track: string): string => track.slice(0, track.indexOf(':'))
-	// Tagged by the map each track comes from: a shared key is the manual one
-	// wherever the source fetches manual tracks.
-	const fetched = (language: string, source: SubtitleSource): string[] => {
-		const manual = source === 'auto-only' ? [] : pickSubtitleTracks([language], source, {subtitles: context.subtitles, automaticCaptions: {}}).tracks
-		const all = pickSubtitleTracks([language], source, {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}).tracks
-		return all.map(key => (manual.includes(key) ? `manual:${key}` : `auto:${key}`))
-	}
+	const fetched = (language: string, source: SubtitleSource): string[] => planSubtitleTracks({kind: 'languages', languages: [language], source}, maps).tracks.map(tag)
 	const givesBack = (source: SubtitleSource): boolean =>
 		languages.every(language => {
 			const want = wanted.get(language) ?? []
@@ -240,7 +230,7 @@ function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, contex
 }
 
 function subtitlesFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, context: SaveProfileContext): DownloadProfile['subtitles'] {
-	const languages = [...new Set(snapshot.subtitleLanguages.map(baseLanguageCode))]
+	const languages = [...new Set(snapshot.subtitleLanguages.map(baseLanguage))]
 	return {enabled: languages.length > 0, languages, source: subtitleSourceFor(snapshot.subtitleLanguages, base.subtitles.source, context), mode: snapshot.subtitleMode, format: snapshot.subtitleFormat}
 }
 

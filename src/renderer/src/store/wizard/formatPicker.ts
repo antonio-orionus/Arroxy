@@ -8,10 +8,10 @@ import {DEFAULTS} from '@shared/constants.js'
 import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import {resolveChosenDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
-import type {AudioSelection, DownloadProfile, FormatOption, SubtitleMap, VideoFileType, WizardMediaKind} from '@shared/types.js'
+import type {AudioSelection, DownloadProfile, FormatOption, VideoFileType, WizardMediaKind} from '@shared/types.js'
 import {webmBlocker} from '@shared/fileTypeFit.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
-import {matchesSubtitleLanguage} from '@shared/subtitleLanguages.js'
+import {planSubtitleTracks} from '@shared/subtitleTracks.js'
 import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {formatMode} from './formatMode.js'
@@ -52,13 +52,15 @@ function audioForAudioOnly(state: AppState): AudioSelection {
 }
 
 // Subtitles-only with nothing picked starts from the app language when the
-// video has it, so the common case is one click.
+// video has it, so the common case is one click: its manual tracks when it
+// has any in that language, else its automatic captions.
 function appLanguageTracks(state: AppState): string[] {
 	const language = state.settings?.common?.language?.split('-')[0]
 	if (!language) return []
-	const pick = (map: SubtitleMap): string[] => Object.keys(map).filter(key => matchesSubtitleLanguage(language, key.replace(/-orig$/, '')))
-	const manual = pick(state.wizardSubtitles)
-	return manual.length > 0 ? manual : pick(state.wizardAutomaticCaptions)
+	const maps = {subtitles: state.wizardSubtitles, automaticCaptions: state.wizardAutomaticCaptions}
+	const pick = (source: 'manual-only' | 'auto-only'): string[] => planSubtitleTracks({kind: 'languages', languages: [language], source}, maps).tracks.map(track => track.key)
+	const manual = pick('manual-only')
+	return manual.length > 0 ? manual : pick('auto-only')
 }
 
 // A stream pick the file type can't hold sends the file type back to Auto:
