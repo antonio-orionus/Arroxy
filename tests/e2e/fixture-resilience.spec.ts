@@ -123,6 +123,26 @@ test('Electron download into a read-only folder fails before transfer and retrie
 	})
 })
 
+// Risk: yt-dlp expands `$NAME` in --paths and writes to the result, so a
+// download folder named after a set variable sent the files to another folder
+// while Arroxy looked for them in this one. Preflight must refuse it before
+// any media request and say why. PATH is set on every platform (Windows looks
+// it up without regard to case).
+test('Electron download into a folder yt-dlp would expand fails before transfer', async () => {
+	test.setTimeout(120_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-expand-user-', outputPrefix: 'arroxy-fixture-$PATH-out-'}, async ({page, outputDir, fixtureServer, queue, files}) => {
+		expect(path.basename(outputDir)).toContain('$PATH')
+		await prepareSingleReview(page, videoId)
+		await page.locator('[data-testid="btn-download"]').click()
+		await queue.expectStatus('Fixture Video 8', 'error', 90_000)
+		await expect(queue.cardByTitle('Fixture Video 8').getByTestId('queue-error-msg')).toContainText('reads as a variable')
+		expect(fixtureServer.telemetry().requests.some(request => isMediaRequestFor(videoId, request))).toBe(false)
+		expect(files.listRecursive()).toEqual([])
+	})
+})
+
 test('Electron split media failure preserves temp artifacts and retries from resume context', async () => {
 	test.setTimeout(180_000)
 	const videoId = SPLIT_MEDIA_VIDEO_ID

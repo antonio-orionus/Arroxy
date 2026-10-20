@@ -15,6 +15,8 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - The URL tab's hints, profile summary and save location show in your language instead of English.
 - On first launch, Arroxy opens in your system language even when it is Khmer, Burmese, Uzbek, Pashto or Oromo, instead of English. If you prefer a language Arroxy lacks, it takes the next one in your system's list.
 - A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
+- A download folder whose name contains a variable such as `$HOME` or `%USERPROFILE%` sent the files to another folder. Arroxy now stops before downloading and says why.
+- Subtitles for a download folder with `%` in its name are saved next to the video.
 
 ## 0.7.2
 

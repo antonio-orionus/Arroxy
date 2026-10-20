@@ -10,9 +10,8 @@ import {isAbsolute} from 'node:path'
 export const FINAL_PATH_FILE_NAME = '_arroxy.final-path.txt'
 
 // FILE is an output template, so a literal `%` is written `%%`. yt-dlp also
-// expands `$VAR` in it, as it does in `--paths`, with no escape that survives:
-// a folder named after a variable sends the download and this file to the same
-// expanded place, the file is not found here, and the log's path stands.
+// expands `$VAR` in it, as it does in `--paths`; FILE sits under the job's
+// folder, and PreflightPhase refuses a folder that would expand.
 export function finalPathPrintArgs(file: string): string[] {
 	return ['--print-to-file', 'after_move:filepath', file.replaceAll('%', '%%')]
 }

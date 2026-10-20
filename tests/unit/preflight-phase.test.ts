@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
+import {afterEach, describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {PreflightPhase} from '@main/services/phases/PreflightPhase.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
@@ -111,6 +111,44 @@ describe('PreflightPhase', () => {
 		expect(outcome.kind).toBe('hard-failed')
 		if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('outOfDiskSpace')
 		expect(ctx.emitStatus).toHaveBeenCalledWith('error', 'diskSpaceInsufficient', expect.any(Object), expect.objectContaining({kind: 'outOfDiskSpace'}))
+	})
+
+	describe('a folder yt-dlp would expand', () => {
+		afterEach(() => {
+			vi.unstubAllEnvs()
+		})
+
+		it('fails with outputPathExpands after the write probe and before the disk check', async () => {
+			vi.stubEnv('ARROXY_PREFLIGHT_DIR', 'elsewhere')
+			const ctx = makeCtx('/media/$ARROXY_PREFLIGHT_DIR')
+			const running = PreflightPhase(undefined).run(ctx)
+			// The queue learns the job id only after start() returns; a status
+			// emitted synchronously would be dropped.
+			expect(ctx.emitStatus).not.toHaveBeenCalled()
+			const outcome = await running
+
+			expect(outcome.kind).toBe('hard-failed')
+			if (outcome.kind === 'hard-failed') expect(outcome.error).toEqual({kind: 'outputPathExpands', raw: '/media/$ARROXY_PREFLIGHT_DIR: yt-dlp would write to /media/elsewhere'})
+			expect(ctx.emitStatus).toHaveBeenCalledWith('error', 'outputPathExpands', {dir: '/media/$ARROXY_PREFLIGHT_DIR'}, expect.objectContaining({kind: 'outputPathExpands'}))
+			expect(checkWritableDirectory).toHaveBeenCalledWith('/media/$ARROXY_PREFLIGHT_DIR')
+			expect(checkDiskSpace).not.toHaveBeenCalled()
+		})
+
+		it('counts the variables Arroxy adds to the yt-dlp child', async () => {
+			vi.stubEnv('ELECTRON_RUN_AS_NODE', undefined)
+			const outcome = await PreflightPhase(undefined).run(makeCtx('/media/$ELECTRON_RUN_AS_NODE'))
+
+			expect(outcome.kind).toBe('hard-failed')
+			if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('outputPathExpands')
+		})
+
+		it('lets a $ that names no set variable through', async () => {
+			vi.stubEnv('ARROXY_PREFLIGHT_DIR', undefined)
+			vi.mocked(checkDiskSpace).mockResolvedValue({ok: true, freeBytes: 5_000_000_000, requiredBytes: undefined})
+			const outcome = await PreflightPhase(undefined).run(makeCtx('/media/$ARROXY_PREFLIGHT_DIR $5'))
+
+			expect(outcome.kind).toBe('continue')
+		})
 	})
 
 	it('checks that the job outputDir is writable', async () => {

@@ -19,7 +19,7 @@ describe('decideAutoRetry', () => {
 	})
 
 	it('never retries failures a retry cannot fix', () => {
-		const hopeless: YtDlpErrorKind[] = ['unavailable', 'drmProtected', 'parse', 'geoBlocked', 'ageRestricted', 'loginRequired', 'unsupportedUrl', 'outOfDiskSpace', 'outputNotWritable', 'missingDependency', 'unknown']
+		const hopeless: YtDlpErrorKind[] = ['unavailable', 'drmProtected', 'parse', 'geoBlocked', 'ageRestricted', 'loginRequired', 'unsupportedUrl', 'outOfDiskSpace', 'outputNotWritable', 'outputPathExpands', 'missingDependency', 'unknown']
 		for (const kind of hopeless) {
 			expect(decideAutoRetry(kind, 0, 5).retry, kind).toBe(false)
 		}

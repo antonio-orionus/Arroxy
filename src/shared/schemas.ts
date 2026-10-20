@@ -543,6 +543,7 @@ export const STATUS_KEY = {
 	unknownStartupFailure: 'unknownStartupFailure',
 	diskSpaceInsufficient: 'diskSpaceInsufficient',
 	outputNotWritable: 'outputNotWritable',
+	outputPathExpands: 'outputPathExpands',
 	fetchingSponsorBlock: 'fetchingSponsorBlock',
 	retryingSponsorBlock: 'retryingSponsorBlock',
 	retryingTransfer: 'retryingTransfer',
