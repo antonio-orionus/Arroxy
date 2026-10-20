@@ -180,6 +180,10 @@ const MARKER_LABEL_KEYS = {
 	watermarked: 'wizard.formats.marker.watermarked'
 } as const satisfies Record<FormatMarker, string>
 
+export const AUDIO_QUALITY_LABEL_KEYS = {high: 'wizard.formats.quality.high', medium: 'wizard.formats.quality.medium', low: 'wizard.formats.quality.low'} as const satisfies Record<AudioTrackQuality, string>
+
+const AUDIO_QUALITY_RANK: Record<AudioTrackQuality, number> = {high: 3, medium: 2, low: 1}
+
 // AI dubs and audio description are a whole track's, so the language picker
 // says them; 360° / VR is the whole video's, so the video card says it; the
 // rest belong to the stream, on its chip.
@@ -205,13 +209,28 @@ function defaultTrackOf(formats: readonly FormatOption[], rows: readonly BaseAud
 	return rows.find(row => row.formatId === source?.formatId)?.track ?? tracks[0]
 }
 
+// Everything a chip shows of a stream, and everything yt-dlp ranks it by:
+// streams equal in all of it are copies of one stream (Vimeo lists each once per CDN).
+function copyKey(format: FormatOption): string {
+	return JSON.stringify([format.audioLanguage, format.audioTrackLabel, format.audioCodec, format.ext, format.abr, format.audioTrackQuality, format.quality, format.preference, format.isDrc === true, format.audioChannels, format.sampleRateHz, format.filesize, format.markers ?? []])
+}
+
 // YouTube lists an HLS copy of each audio track with no codec named. The audio
 // column shows it only where its language has no track with a named codec, or
 // when it is the pick: every stream stays pickable, but no track is listed twice.
+// Of identical copies the list keeps the picked one, else the one yt-dlp would
+// take: it lists formats worst first, and equals keep their order, so the last.
 export function listedAudioFormats(formats: readonly FormatOption[], keepIds: readonly (string | null)[]): FormatOption[] {
 	const audio = formats.filter(format => format.isAudioOnly)
 	const namedLanguages = new Set(audio.filter(format => format.audioCodec !== undefined).map(format => format.audioLanguage))
-	return audio.filter(format => format.audioCodec !== undefined || !namedLanguages.has(format.audioLanguage) || keepIds.includes(format.formatId))
+	const listed = audio.filter(format => format.audioCodec !== undefined || !namedLanguages.has(format.audioLanguage) || keepIds.includes(format.formatId))
+	const shown = new Set(
+		groupBy(listed, copyKey).flatMap(([, copies]) => {
+			const kept = copies.filter(format => keepIds.includes(format.formatId))
+			return kept.length > 0 ? kept : copies.slice(-1)
+		})
+	)
+	return listed.filter(format => shown.has(format))
 }
 
 function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): BaseAudioRow {
@@ -275,20 +294,24 @@ function drcTwins(rows: readonly BaseAudioRow[]): Map<string, string> {
 	return twins
 }
 
-// A line is a codec and its chips say the bitrate. Lines hold every track's
-// streams; the list shows one track's at a time.
+const qualityRank = (row: BaseAudioRow): number => (row.quality ? AUDIO_QUALITY_RANK[row.quality] : 0)
+
+// A line is a codec and its chips say the bitrate, or the site's quality grade
+// when it names no bitrate (Vimeo). Lines hold every track's streams; the list
+// shows one track's at a time.
 function audioLines(rows: readonly BaseAudioRow[]): AudioLine[] {
 	const twins = drcTwins(rows)
 	return groupBy(rows, row => row.codec ?? audioCodecName(row.ext) ?? row.ext.toUpperCase()).map(([name, variants]) => ({
 		name,
-		// Best bitrate first; at equal bitrate, Dolby Digital Plus before Dolby Digital.
+		// Best bitrate first; at equal bitrate, Dolby Digital Plus before Dolby Digital, then the better grade.
 		variants: variants
-			.toSorted((a, b) => (b.kbps ?? 0) - (a.kbps ?? 0) || Number(b.details.includes('E-AC-3')) - Number(a.details.includes('E-AC-3')))
+			.toSorted((a, b) => (b.kbps ?? 0) - (a.kbps ?? 0) || Number(b.details.includes('E-AC-3')) - Number(a.details.includes('E-AC-3')) || qualityRank(b) - qualityRank(a))
 			.map(row => {
 				const twinId = twins.get(row.formatId) ?? null
 				// A paired stream's DRC is the switch's to say; a lone DRC stream keeps the tag.
 				const chipTags = twinId ? row.details.filter(detail => detail !== 'DRC') : row.details
-				return {...row, chipLabel: row.bitrate ?? row.ext, chipTags, twinId}
+				const chipLabel = row.bitrate ?? (row.quality ? i18next.t(AUDIO_QUALITY_LABEL_KEYS[row.quality]) : row.ext)
+				return {...row, chipLabel, chipTags, twinId}
 			})
 	}))
 }

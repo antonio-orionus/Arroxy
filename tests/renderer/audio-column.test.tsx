@@ -21,6 +21,18 @@ function renderColumn(audioSelection: AudioSelection = {kind: 'native', formatId
 const chipNames = (): string[] => screen.getAllByRole('radio').map(radio => radio.getAttribute('aria-label') ?? '')
 
 describe('AudioColumn', () => {
+	it('names a stream with no bitrate by its grade, and a CDN copy only once', () => {
+		const graded = (formatId: string, grade: 'low' | 'high'): FormatOption => ({formatId, label: formatId, ext: 'mp4', resolution: 'audio only', audioLanguage: 'en', audioTrackLabel: 'English', audioTrackQuality: grade, quality: grade === 'high' ? 2 : 0, isVideoOnly: false, isAudioOnly: true})
+		const formats = [graded('akfire-low', 'low'), graded('fastly-low', 'low'), graded('akfire-high', 'high'), graded('fastly-high', 'high')]
+		const audioSelection: AudioSelection = {kind: 'native', formatId: 'fastly-high'}
+		const view = selectView({selectedVideoFormatId: '', audioSelection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={vi.fn()} />)
+
+		const streams = screen.getAllByRole('radio').filter(radio => radio.getAttribute('aria-label')?.startsWith('English'))
+		expect(streams.map(radio => radio.getAttribute('aria-label'))).toEqual(['English · mp4 · High quality', 'English · mp4 · Low quality'])
+		expect(streams.map(radio => radio.textContent)).toEqual([expect.stringContaining('High quality'), expect.stringContaining('Low quality')])
+	})
+
 	it("shows one language's streams at a time, opening on the selection's, and says how many languages there are", () => {
 		renderColumn()
 

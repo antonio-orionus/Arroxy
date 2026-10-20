@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next'
 import type {AudioBitrate, AudioConvertTarget} from '@shared/types.js'
 import {AUDIO_BITRATES, type AudioTrackQuality} from '@shared/schemas.js'
 import type {AudioSelection} from '../../../store/types.js'
-import type {AudioLine, FormatSelectionView, NativeAudioRow} from '../../../store/formatSelectionView.js'
+import {AUDIO_QUALITY_LABEL_KEYS, type AudioLine, type FormatSelectionView, type NativeAudioRow} from '../../../store/formatSelectionView.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {RadioGroup} from '../../ui/radio-group.js'
 import {cn} from '@renderer/lib/utils.js'
@@ -20,7 +20,6 @@ interface AudioColumnProps {
 }
 
 const QUALITY_BAR_COUNT: Record<AudioTrackQuality, number> = {high: 3, medium: 2, low: 1}
-const QUALITY_LABEL_KEY: Record<AudioTrackQuality, 'wizard.formats.quality.high' | 'wizard.formats.quality.medium' | 'wizard.formats.quality.low'> = {high: 'wizard.formats.quality.high', medium: 'wizard.formats.quality.medium', low: 'wizard.formats.quality.low'}
 
 // The probe's quality grade as one to three bars, in the chip's own ink: colour
 // here is not a status. The chip's hint and spoken name say it in words.
@@ -204,14 +203,14 @@ function NoAudioChip({view}: {view: AudioView}): ReactNode {
 
 function NativeStreamChip({row, disabled, narrowStack}: {row: NativeAudioRow; disabled: boolean; narrowStack: boolean}): ReactNode {
 	const {t} = useTranslation()
-	const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
+	const qualityLabel = row.quality ? t(AUDIO_QUALITY_LABEL_KEYS[row.quality]) : null
 	const drcTag = t('wizard.formats.drc.tag')
 	return (
 		<FormatChip
 			value={`native:${row.formatId}`}
 			name={streamName(row, [qualityLabel, row.isProfilePick ? t('wizard.formats.profile.tag') : null])}
-			// The chip shows its bitrate, details and size; the quality meter has no words.
-			hint={[row.chipLabel === row.ext ? null : row.ext, qualityLabel].flatMap(part => (part ? [part] : [])).join(' · ')}
+			// The chip shows its bitrate (or grade), details and size; the quality meter has no words.
+			hint={[row.chipLabel === row.ext ? null : row.ext, qualityLabel === row.chipLabel ? null : qualityLabel].flatMap(part => (part ? [part] : [])).join(' · ')}
 			label={row.chipLabel}
 			tags={row.chipTags.map(tag => (tag === 'DRC' ? drcTag : tag))}
 			markers={row.markers}
