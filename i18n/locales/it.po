@@ -3362,10 +3362,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Ogni video determina autonomamente il livello scelto: le playlist eterogenee funzionano senza sorprese."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Assegna {{profileName}}"
-
 #. Plural form "many" for it: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlistProfiles.assignTrigger_many"
 msgid "Assign to {{count}} videos"

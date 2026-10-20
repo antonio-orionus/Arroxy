@@ -1,4 +1,5 @@
-import {formatConversionCandidate, type ConversionCandidate} from '@shared/audioConversionSource.js'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
+import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
@@ -137,8 +138,8 @@ export interface FormatSelectionView {
 		defaultTrack: string | null
 		// The best native bitrate, which a lossy conversion cannot improve on.
 		sourceKbps: number | null
-		// Every audio stream as a conversion source, ranked as yt-dlp ranks them.
-		conversionCandidates: ConversionCandidate[]
+		// The probe's own yt-dlp formats, which say which stream a conversion starts from.
+		conversionSelection: FormatSelectionSource
 		// Empty in Video mode: conversions belong to Audio mode.
 		convertTargets: AudioConvertTarget[]
 		noAudioDisabled: boolean
@@ -302,6 +303,8 @@ export interface SelectViewInput {
 	lastConvertBitrate: AudioBitrate
 	mediaKind: WizardMediaKind
 	wizardFormats: FormatOption[]
+	// The same formats as yt-dlp sees them; read back from the options without one.
+	formatSelection?: FormatSelectionSource
 	// What the download profile picked, to tag those rows. Null outside single mode.
 	profilePick?: {videoFormatId: string; audioSelection: AudioSelection} | null
 	profileVideoFallback?: boolean
@@ -454,7 +457,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, audioRows, namedTracks) : null,
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
-			conversionCandidates: wizardFormats.flatMap(format => (format.isAudioOnly ? [formatConversionCandidate(format)] : [])),
+			conversionSelection: state.formatSelection ?? selectionSourceFromOptions(wizardFormats),
 			convertTargets,
 			noAudioDisabled,
 			selectedVideoIsMuxed,
@@ -469,6 +472,7 @@ export function useFormatSelectionView(): FormatSelectionView {
 	const lastConvertBitrate = useAppStore(s => s.lastConvertBitrate)
 	const mediaKind = useAppStore(s => s.wizardMediaKind)
 	const wizardFormats = useAppStore(s => s.wizardFormats)
+	const formatSelection = useAppStore(s => s.wizardFormatSelection)
 	const baseline = useAppStore(s => s.wizardProfileBaseline)
 	const profileVideoFallback = useAppStore(s => s.wizardFitNotices.some(notice => notice.kind === 'video-tier-fallback'))
 	const wizardPart = useAppStore(s => s.wizardPart)
@@ -481,6 +485,6 @@ export function useFormatSelectionView(): FormatSelectionView {
 	return useMemo(() => {
 		const part = wizardVideoPart({wizardPart, wizardDuration, wizardMediaKind: mediaKind})
 		const videoPart = part && wizardDuration !== undefined ? {part, durationSeconds: wizardDuration} : null
-		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart, silentVideo, language})
-	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo, language])
+		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, profilePick: baseline, profileVideoFallback, videoPart, silentVideo, language})
+	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo, language])
 }

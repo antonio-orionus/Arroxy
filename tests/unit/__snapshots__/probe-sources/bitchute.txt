@@ -8,6 +8,7 @@ Unknown resolution  mp4 1.1 MiB • +audio
 Audio:
 (no separate audio)
 convert: mp3, m4a, opus, wav
+convert from: mp3 ← 0 re-encode · m4a ← 0 re-encode · opus ← 0 re-encode · wav ← 0 re-encode
 
 Profile picks:
 balanced: 0 (no resolution, mp4) + audio none

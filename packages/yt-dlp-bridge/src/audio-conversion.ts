@@ -4,19 +4,29 @@
 // apply; any other source is re-encoded. WAV has no codec of its own to match.
 // `best` keeps the source's codec wherever yt-dlp can.
 
-// yt-dlp's `acodec` names each codec as ffprobe does, except AAC (`mp4a.40.*`).
-const TARGET_CODEC_PATTERNS: Readonly<Record<string, string>> = {aac: '^(?:aac|mp4a)', m4a: '^(?:aac|mp4a)', opus: '^opus$', mp3: '^mp3$', vorbis: '^vorbis$', flac: '^flac$', alac: '^alac$'}
+// yt-dlp's `acodec` names each codec as ffprobe does, except AAC: `mp4a.40.<n>`
+// for its object types (LC, HE, HEv2, LD, ELD, USAC), never `mp4a.40.34` (MP3)
+// or `mp4a.6B` (MPEG audio).
+const AAC_PATTERN = '^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$'
+const TARGET_CODEC_PATTERNS: Readonly<Record<string, string>> = {aac: AAC_PATTERN, m4a: AAC_PATTERN, opus: '^opus$', mp3: '^mp3$', vorbis: '^vorbis$', flac: '^flac$', alac: '^alac$'}
+
+// A copied stream keeps its bitrate: below this a stream is no better for
+// being copied, and the best stream is re-encoded instead (YouTube's 48 kbps
+// HE-AAC 139 where no 140 is offered, against a 130 kbps Opus 251).
+export const AUDIO_CONVERSION_COPY_MIN_KBPS = 96
 
 function targetCodecPattern(target: string): string | undefined {
 	return Object.hasOwn(TARGET_CODEC_PATTERNS, target) ? TARGET_CODEC_PATTERNS[target] : undefined
 }
 
 // ffprobe's name for the codecs yt-dlp's ACODECS table can copy, from
-// yt-dlp's `acodec` (which names AAC `mp4a.40.*`).
+// yt-dlp's `acodec` (which names AAC by its object type, MP3 in an MP4
+// `mp4a.40.34`).
 const COPYABLE_CODECS = ['opus', 'vorbis', 'mp3', 'flac', 'alac'] as const
 function ffprobeCodec(acodec: string | undefined): string | undefined {
 	if (acodec === undefined) return undefined
-	if (/^(?:aac|mp4a)/i.test(acodec)) return 'aac'
+	if (new RegExp(AAC_PATTERN, 'i').test(acodec)) return 'aac'
+	if (/^mp4a\.40\.34$/i.test(acodec)) return 'mp3'
 	return COPYABLE_CODECS.find(codec => codec === acodec.toLowerCase())
 }
 
@@ -49,10 +59,11 @@ export function audioConversionOutcome(target: string, source: {ext: string | un
 	return ext === undefined ? undefined : {ext, copies: audioConversionCopies(target, source.acodec)}
 }
 
-// The `-f` filter for a stream that converting to `target` copies.
+// The `-f` filter for a stream worth copying when converting to `target`:
+// in its codec, and not below the copy floor (a stream naming no bitrate passes).
 export function audioConversionCopyFilter(target: string): string | undefined {
 	const pattern = targetCodecPattern(target)
-	return pattern === undefined ? undefined : `[acodec~='(?i)${pattern}']`
+	return pattern === undefined ? undefined : `[acodec~='(?i)${pattern}'][abr>=?${AUDIO_CONVERSION_COPY_MIN_KBPS}]`
 }
 
 // Port of FormatSorter's `acodec` order (utils/_utils.py): each pattern is
@@ -64,6 +75,30 @@ const ACODEC_ORDER: readonly (string | null)[] = ['[af]lac', 'wav|aiff', 'opus',
 export function audioCodecPreference(acodec: string | undefined): number {
 	const length = ACODEC_ORDER.length
 	if (acodec === undefined) return length - ACODEC_ORDER.indexOf(null)
-	const index = ACODEC_ORDER.findIndex(pattern => pattern !== null && pattern !== '' && new RegExp(`^(?:${pattern})`).test(acodec))
+	const codec = acodec.toLowerCase()
+	const index = ACODEC_ORDER.findIndex(pattern => pattern !== null && pattern !== '' && new RegExp(`^(?:${pattern})`).test(codec))
 	return length - (index === -1 ? ACODEC_ORDER.indexOf('') : index)
+}
+
+const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
+// Dolby surround makes a poor conversion source: libopus refuses its 5.1(side)
+// layout outright, and the other lossy targets downmix it. A stream with no
+// codec named passes.
+const NON_DOLBY_AUDIO_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
+// Strict: `~=?` would also take a stream with no note at all as the original.
+const SOURCE_TRACK_AUDIO_FILTERS = ['[language_preference>0]', "[format_note~='(?i)\\boriginal\\b']", '']
+
+// The stream to convert, most wanted first: the source's own track before any
+// other; within it the non-DRC master before the DRC one, a stream that is
+// copied as-is before one that is re-encoded, and every stereo stream (DRC
+// ones too) before Dolby surround.
+// The `-f` the planner gives a conversion that names no stream (a caller's
+// stream goes ahead of it). Exported so a caller can run it through its own
+// copy of yt-dlp's selection and know which stream converts.
+export function audioConversionSourceSelector(target: string): string {
+	// A stream already in the target codec is copied, not re-encoded a second time.
+	const codecFilter = audioConversionCopyFilter(target)
+	const stereoFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER]
+	const streamFilters = [...[NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => stereoFilters.map(filter => `${filter}${drcFilter}`)), NON_DRC_AUDIO_FILTERS, '']
+	return [...SOURCE_TRACK_AUDIO_FILTERS.flatMap(trackFilter => streamFilters.map(filters => `bestaudio${trackFilter}${filters}`)), 'best'].join('/')
 }
