@@ -109,26 +109,18 @@ export function toCandidates(engine: Engine, lane: string, findings: readonly Fi
 	return findings.map((f, i) => ({...f, id: `${engine}-${lane}-${i + 1}`, engine, lane}))
 }
 
-// Findings this close are treated as one spot when the report groups
-// duplicates: two reviewers rarely pick the same first line for the same bug.
+// Pre-existing bugs this close to a changed line still count as in the change.
 const LINE_SLACK = 3
-
-const near = (a: Finding, b: Finding): boolean => a.file === b.file && a.lineStart <= b.lineEnd + LINE_SLACK && b.lineStart <= a.lineEnd + LINE_SLACK
 
 const overlap = (a: Finding, b: Finding): boolean => a.file === b.file && a.lineStart <= b.lineEnd && b.lineStart <= a.lineEnd
 
 const rank = (f: Finding): number => SEVERITIES.indexOf(f.severity) - f.confidence
 
-// Location is a weak proxy for "the same bug", so a report counts as
-// corroborated only when the other tool pointed at overlapping lines.
-const isCorroborated = (c: Candidate, all: readonly Candidate[]): boolean => all.some(o => o.engine !== c.engine && overlap(o, c))
-
-// Each tool checks the other's reports, one by one: a model re-reading its own
-// claim tends to share the blind spot that produced it, and checking reports
-// individually keeps a refuted claim from hiding a real neighbour. Reports both
-// tools reached on their own skip the check.
-export function verifierFor(c: Candidate, all: readonly Candidate[]): Engine | null {
-	if (isCorroborated(c, all)) return null
+// Each tool checks every report of the other, one by one: a model re-reading
+// its own claim tends to share the blind spot that produced it. Both tools
+// flagging the same lines is not a shortcut: overlapping locations do not prove
+// they made the same claim.
+export function verifierFor(c: Candidate): Engine {
 	return c.engine === 'claude' ? 'codex' : 'claude'
 }
 
@@ -137,10 +129,12 @@ export type Action = 'fix' | 'backlog'
 
 export interface ResolvedCandidate extends Candidate {
 	status: Status
-	corroborated: boolean
-	reason: string | null
-	verifiedBy: Engine | null
+	reason: string
+	verifiedBy: Engine
 	action: Action | null
+	// Reviewers of the other tool that flagged overlapping lines; shown, never trusted.
+	alsoFlaggedBy: string[]
+	corroborated: boolean
 }
 
 const touchesChange = (f: Finding, changed: ChangedRanges): boolean => (changed.get(f.file) ?? []).some(([start, end]) => f.lineStart <= end + LINE_SLACK && start <= f.lineEnd + LINE_SLACK)
@@ -149,52 +143,29 @@ const touchesChange = (f: Finding, changed: ChangedRanges): boolean => (changed.
 // to this change; anything else is a pre-existing bug for the backlog.
 export function resolveCandidates(all: readonly Candidate[], verdicts: ReadonlyMap<string, Verdict>, changed: ChangedRanges): ResolvedCandidate[] {
 	return all.map(c => {
-		const verifiedBy = verifierFor(c, all)
-		const verdict = verifiedBy === null ? undefined : verdicts.get(c.id)
-		const status: Status = verifiedBy === null ? 'confirmed' : (verdict?.verdict ?? 'uncertain')
+		const verdict = verdicts.get(c.id)
+		const status: Status = verdict?.verdict ?? 'uncertain'
 		const introduced = verdict?.introduced ?? c.introduced
 		const action: Action | null = status === 'refuted' ? null : introduced || touchesChange(c, changed) ? 'fix' : 'backlog'
-		const reason = verdict?.reason ?? (verifiedBy === null ? null : 'The verifier returned no verdict.')
-		return {...c, introduced, status, corroborated: verifiedBy === null, reason, verifiedBy, action}
+		const alsoFlaggedBy = [...new Set(all.filter(o => o.engine !== c.engine && overlap(o, c)).map(o => `${o.engine}:${o.lane}`))]
+		return {...c, introduced, status, reason: verdict?.reason ?? 'The verifier returned no verdict.', verifiedBy: verifierFor(c), action, alsoFlaggedBy, corroborated: alsoFlaggedBy.length > 0}
 	})
 }
 
 // Backlog entries are reported but do not block: they are not this change's to fix.
 export const needsAction = (resolved: readonly ResolvedCandidate[]): boolean => resolved.some(r => r.status === 'uncertain' || (r.status === 'confirmed' && r.action === 'fix'))
 
-// Duplicates are grouped only for reading; every report keeps its own verdict.
-function cluster(entries: readonly ResolvedCandidate[]): ResolvedCandidate[][] {
-	const clusters: ResolvedCandidate[][] = []
-	for (const entry of entries) {
-		const matching = clusters.filter(c => c.some(member => near(member, entry)))
-		const [first, ...rest] = matching
-		if (!first) {
-			clusters.push([entry])
-			continue
-		}
-		first.push(entry)
-		for (const other of rest) {
-			first.push(...other)
-			clusters.splice(clusters.indexOf(other), 1)
-		}
-	}
-	return clusters.map(c => [...c].sort((a, b) => rank(a) - rank(b)))
-}
-
-const checkLabel = (r: ResolvedCandidate): string => (r.corroborated ? 'found by both tools' : `${r.status} by ${r.verifiedBy ?? 'nobody'}`)
-
-function renderEntry([lead, ...others]: ResolvedCandidate[]): string {
-	if (!lead) return ''
-	const where = `${lead.file}:${lead.lineStart}${lead.lineEnd === lead.lineStart ? '' : `-${lead.lineEnd}`}`
-	const lines = [`- **[${lead.severity}] ${lead.title}** — \`${where}\` (${lead.engine}:${lead.lane}; ${checkLabel(lead)})`, `  ${lead.body.replaceAll('\n', '\n  ')}`]
-	if (lead.reason) lines.push(`  _Check:_ ${lead.reason}`)
-	for (const other of others) lines.push(`  _Also (${other.engine}:${other.lane}; ${checkLabel(other)}):_ ${other.title === lead.title ? 'same finding' : other.title}`)
-	return lines.join('\n')
+// Every report is listed in full: grouping nearby reports would hide a second,
+// different defect behind the first one's text.
+function renderEntry(r: ResolvedCandidate): string {
+	const where = `${r.file}:${r.lineStart}${r.lineEnd === r.lineStart ? '' : `-${r.lineEnd}`}`
+	const also = r.alsoFlaggedBy.length === 0 ? '' : `; also flagged by ${r.alsoFlaggedBy.join(', ')}`
+	return [`- **[${r.severity}] ${r.title}** — \`${where}\` (${r.engine}:${r.lane}; ${r.status} by ${r.verifiedBy}${also})`, `  ${r.body.replaceAll('\n', '\n  ')}`, `  _Check:_ ${r.reason}`].join('\n')
 }
 
 function section(title: string, entries: readonly ResolvedCandidate[]): string {
-	const groups = cluster(entries).sort((a, b) => rank(a[0]) - rank(b[0]))
-	return [`## ${title} (${groups.length})`, '', ...(groups.length === 0 ? ['None.'] : groups.map(renderEntry)), ''].join('\n')
+	const sorted = [...entries].sort((a, b) => a.file.localeCompare(b.file) || a.lineStart - b.lineStart || rank(a) - rank(b))
+	return [`## ${title} (${entries.length})`, '', ...(sorted.length === 0 ? ['None.'] : sorted.map(renderEntry)), ''].join('\n')
 }
 
 export interface ReportInput {

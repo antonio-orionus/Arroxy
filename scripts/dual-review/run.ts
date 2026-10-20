@@ -1,7 +1,7 @@
 // Local dual review: Claude (four focused lanes) and Codex (one whole-change
 // pass) review the same diff in parallel through their own CLIs, on the logged-in
-// subscriptions, with no API keys. Each tool then checks the findings only the
-// other one reported. Writes report.md and report.json and prints the report.
+// subscriptions, with no API keys. Each tool then checks every finding the other
+// one reported. Writes report.md and report.json and prints the report.
 //
 //   bun run review:dual [--base <ref>] [--light] [--out <dir>]
 //
@@ -83,11 +83,12 @@ const describeError = (err: unknown): string => (err instanceof Error ? err.mess
 // Runs one agent and parses its answer, so every failure — the process, the
 // envelope, or a reply that breaks the schema — names the agent and its log.
 async function runAgent<T>(engine: Engine, prompt: string, schema: OutputJsonSchema, outDir: string, name: string, parse: (value: unknown) => T): Promise<T> {
-	const text = await (engine === 'codex' ? runCodex : runClaude)(prompt, schema, outDir, name)
 	try {
+		const text = await (engine === 'codex' ? runCodex : runClaude)(prompt, schema, outDir, name)
 		const value: unknown = JSON.parse(text)
 		return parse(value)
 	} catch (err) {
+		if (err instanceof AgentError) throw err
 		throw new AgentError(`${engine} ${name} returned an unusable answer (${describeError(err).split('\n')[0]}); see ${path.join(outDir, `${name}.log`)}`)
 	}
 }
@@ -137,7 +138,7 @@ async function main(): Promise<number> {
 	const reviews = await Promise.allSettled(reviewers.map(([engine, lane]) => review(engine, lane, scope, outDir, repoRoot)))
 	const all = reviews.flatMap(r => (r.status === 'fulfilled' ? r.value : (failures.push(describeError(r.reason)), [])))
 
-	const byVerifier = (engine: Engine): Candidate[] => all.filter(c => verifierFor(c, all) === engine)
+	const byVerifier = (engine: Engine): Candidate[] => all.filter(c => verifierFor(c) === engine)
 	console.error(`dual review: ${all.length} findings; ${byVerifier('codex').length} go to Codex and ${byVerifier('claude').length} to Claude for checking`)
 	const checks = await Promise.allSettled((['codex', 'claude'] as const).map(engine => verify(engine, byVerifier(engine), scope, outDir)))
 	const verdicts = new Map(checks.flatMap(c => (c.status === 'fulfilled' ? [...c.value] : (failures.push(describeError(c.reason)), []))))

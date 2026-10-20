@@ -103,87 +103,96 @@ describe('parseChangedRanges', () => {
 })
 
 describe('verifierFor', () => {
-	it('skips the check when the other tool reported overlapping lines', () => {
-		const all = [...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding({lineStart: 12, lineEnd: 14}))]
-		expect(all.map(c => verifierFor(c, all))).toEqual([null, null])
-	})
-
-	it('has the other tool check a report that only sits near the other tool’s report', () => {
-		const all = [...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding({lineStart: 14, lineEnd: 15}))]
-		expect(all.map(c => verifierFor(c, all))).toEqual(['claude', 'codex'])
-	})
-
-	it('does not count two Claude lanes as agreement', () => {
-		const all = [...candidates('claude', 'failures', finding()), ...candidates('claude', 'tests', finding())]
-		expect(all.map(c => verifierFor(c, all))).toEqual(['codex', 'codex'])
-	})
-
-	it('checks an uncorroborated report even when a corroborated one sits right next to it', () => {
-		const all = [...candidates('codex', 'review', finding(), finding({title: 'Another bug', lineStart: 13, lineEnd: 13, severity: 'P1'})), ...candidates('claude', 'regressions', finding())]
-		expect(all.map(c => verifierFor(c, all))).toEqual([null, 'claude', null])
+	// Overlapping lines do not prove two tools made the same claim, so agreement
+	// never skips the check; it is only noted in the report.
+	it('always sends a report to the other tool, even when both tools flagged the same lines', () => {
+		const all = [...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding()), ...candidates('claude', 'tests', finding())]
+		expect(all.map(c => verifierFor(c))).toEqual(['claude', 'codex', 'codex'])
 	})
 })
 
 describe('resolveCandidates', () => {
 	const changed = new Map([['src/main/queue.ts', [[10, 12] as const]]])
+	const resolve = (all: Candidate[], verdicts: ReturnType<typeof verdict>[]) =>
+		resolveCandidates(
+			all,
+			parseVerdicts(
+				{verdicts},
+				all.map(c => c.id)
+			),
+			changed
+		)
 
-	it('confirms corroborated reports without a verdict and marks introduced bugs for fixing', () => {
+	it('notes when the other tool flagged overlapping lines but still uses the verdict', () => {
 		const all = [...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding())]
-		expect(resolveCandidates(all, new Map(), changed)[0]).toMatchObject({status: 'confirmed', corroborated: true, verifiedBy: null, action: 'fix'})
+		expect(resolve(all, [verdict(all[0].id, 'refuted'), verdict(all[1].id, 'confirmed')]).map(r => [r.status, r.corroborated, r.verifiedBy, r.action])).toEqual([
+			['refuted', true, 'claude', null],
+			['confirmed', true, 'codex', 'fix']
+		])
 	})
 
 	it('applies each report’s own verdict, so a refuted report leaves the action list and its neighbour stays', () => {
 		const all = candidates('codex', 'review', finding({severity: 'P1'}), finding({title: 'Real bug', lineStart: 12, lineEnd: 12}))
-		const ids = all.map(c => c.id)
-		const verdicts = parseVerdicts({verdicts: [verdict(ids[0], 'refuted'), verdict(ids[1], 'confirmed')]}, ids)
-		expect(resolveCandidates(all, verdicts, changed).map(r => [r.title, r.status, r.action, r.verifiedBy])).toEqual([
-			['Drop the stale job', 'refuted', null, 'claude'],
-			['Real bug', 'confirmed', 'fix', 'claude']
+		expect(resolve(all, [verdict(all[0].id, 'refuted'), verdict(all[1].id, 'confirmed')]).map(r => [r.title, r.status, r.action])).toEqual([
+			['Drop the stale job', 'refuted', null],
+			['Real bug', 'confirmed', 'fix']
 		])
 	})
 
 	it('treats a report the verifier skipped as uncertain', () => {
-		expect(resolveCandidates(candidates('claude', 'tests', finding()), new Map(), changed)[0]?.status).toBe('uncertain')
+		expect(resolve(candidates('claude', 'tests', finding()), [])[0]?.status).toBe('uncertain')
 	})
 
 	it('lets the verifier’s view of who introduced the bug decide fix or backlog', () => {
 		const all = candidates('claude', 'tests', finding({introduced: true, lineStart: 300, lineEnd: 301}))
-		const ids = all.map(c => c.id)
-		const verdicts = parseVerdicts({verdicts: [verdict(ids[0], 'confirmed', false)]}, ids)
-		expect(resolveCandidates(all, verdicts, changed)[0]).toMatchObject({introduced: false, action: 'backlog'})
+		expect(resolve(all, [verdict(all[0].id, 'confirmed', false)])[0]).toMatchObject({introduced: false, action: 'backlog'})
 	})
 
-	it('sends a pre-existing bug outside the changed lines to the backlog, and keeps one inside them', () => {
-		const all = [...candidates('codex', 'review', finding({introduced: false}), finding({introduced: false, lineStart: 300, lineEnd: 301})), ...candidates('claude', 'tests', finding({introduced: false}), finding({introduced: false, lineStart: 300, lineEnd: 301}))]
-		expect(resolveCandidates(all, new Map(), changed).map(r => r.action)).toEqual(['fix', 'backlog', 'fix', 'backlog'])
+	it('keeps a pre-existing bug inside the changed lines in this change and sends one outside them to the backlog', () => {
+		const all = candidates('codex', 'review', finding(), finding({lineStart: 300, lineEnd: 301}))
+		expect(
+			resolve(
+				all,
+				all.map(c => verdict(c.id, 'confirmed', false))
+			).map(r => r.action)
+		).toEqual(['fix', 'backlog'])
 	})
 })
 
 describe('needsAction', () => {
 	const changed = new Map<string, [number, number][]>()
+	const resolveOne = (v: 'confirmed' | 'refuted' | 'uncertain', introduced: boolean) => {
+		const all = candidates('codex', 'review', finding())
+		return resolveCandidates(all, parseVerdicts({verdicts: [verdict(all[0].id, v, introduced)]}, [all[0].id]), changed)
+	}
 
 	it('is true for a bug to fix or an uncertain report', () => {
-		expect(needsAction(resolveCandidates([...candidates('codex', 'review', finding()), ...candidates('claude', 'tests', finding())], new Map(), changed))).toBe(true)
-		expect(needsAction(resolveCandidates(candidates('codex', 'review', finding()), new Map(), changed))).toBe(true)
+		expect(needsAction(resolveOne('confirmed', true))).toBe(true)
+		expect(needsAction(resolveOne('uncertain', false))).toBe(true)
 	})
 
 	it('is false when every report is refuted or belongs in the backlog', () => {
-		expect(needsAction(resolveCandidates([...candidates('codex', 'review', finding({introduced: false})), ...candidates('claude', 'tests', finding({introduced: false}))], new Map(), changed))).toBe(false)
+		expect(needsAction(resolveOne('confirmed', false))).toBe(false)
+		expect(needsAction(resolveOne('refuted', true))).toBe(false)
 	})
 })
 
 describe('renderReport', () => {
-	it('groups duplicates and lists fixes, backlog, uncertain and refuted reports with any failed reviewer', () => {
-		const all = [...candidates('codex', 'review', finding(), finding({file: 'src/far.ts', introduced: false})), ...candidates('claude', 'regressions', finding(), finding({file: 'src/far.ts', introduced: false}), finding({file: 'src/wrong.ts'}), finding({file: 'src/maybe.ts'}))]
-		const wrong = all[4].id
-		const resolved = resolveCandidates(all, parseVerdicts({verdicts: [verdict(wrong, 'refuted')]}, [wrong]), new Map())
-		const report = renderReport({base: 'abc1234', head: 'def5678', resolved, failures: ['claude review-claude-tests exited with 1']})
-		expect(report).toContain('## Fix in this change (1)')
+	it('lists every report in full under fixes, backlog, uncertain and refuted, with any failed reviewer', () => {
+		const all = [...candidates('codex', 'review', finding(), finding({file: 'src/far.ts'})), ...candidates('claude', 'regressions', finding({title: 'A different bug', body: 'Cancel leaves a temp file.'}), finding({file: 'src/wrong.ts'}), finding({file: 'src/maybe.ts'}))]
+		const [codexQueue, codexFar, claudeQueue, claudeWrong] = all.map(c => c.id)
+		const verdicts = parseVerdicts(
+			{verdicts: [verdict(codexQueue, 'confirmed'), verdict(codexFar, 'confirmed', false), verdict(claudeQueue, 'confirmed'), verdict(claudeWrong, 'refuted')]},
+			all.map(c => c.id)
+		)
+		const report = renderReport({base: 'abc1234', head: 'def5678', resolved: resolveCandidates(all, verdicts, new Map()), failures: ['claude review-claude-tests exited with 1']})
+		expect(report).toContain('## Fix in this change (2)')
+		expect(report).toContain('Cancel leaves a temp file.')
+		expect(report).toContain('also flagged by claude:regressions')
 		expect(report).toContain('## Backlog (1)')
 		expect(report).toContain('## Uncertain: read the code and decide (1)')
 		expect(report).toContain('## Refuted (1)')
 		expect(report).toContain('refuted because of the code')
 		expect(report).toContain('claude review-claude-tests exited with 1')
-		expect(report.match(/src\/main\/queue\.ts/g)).toHaveLength(1)
 	})
 })
