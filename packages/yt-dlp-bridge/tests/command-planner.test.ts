@@ -285,6 +285,36 @@ describe('planWorkflow — media', () => {
 	})
 })
 
+describe('planWorkflow — output directories in -o', () => {
+	// yt-dlp reads -o as a template: an unescaped `%%` collapses and `%(e)s`
+	// becomes a field. The directory is literal; only the template is not.
+	const DIR = '/out/100%% b%(e)s'
+	const ESCAPED = '/out/100%%%% b%%(e)s'
+
+	it('escapes % in the subtitle directory', () => {
+		const sidecar = planWorkflow({kind: 'subtitles', url: URL, output: {directory: DIR}, subtitles: {languages: ['en'], format: 'srt'}})
+		const subfolder = planWorkflow({kind: 'subtitles', url: URL, output: {directory: DIR, subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'srt'}})
+
+		expect(adjacent(sidecar.args, '-o', `${ESCAPED}/%(title).200B.%(ext)s`)).toBe(true)
+		expect(adjacent(subfolder.args, '-o', `${ESCAPED}/subtitles/%(title).200B.%(ext)s`)).toBe(true)
+		expect(sidecar.facts.output?.directory).toBe(DIR)
+	})
+
+	it('escapes % in a media directory without a temp folder', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, template: '%(id)s.%(ext)s'}, selection: {formatId: '18'}})
+
+		expect(adjacent(plan.args, '-o', `${ESCAPED}/%(id)s.%(ext)s`)).toBe(true)
+	})
+
+	it('escapes % in the info-json path but leaves --paths literal', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, tempDirectory: `${DIR}/.tmp`}, selection: {formatId: '18'}, resume: {infoJsonBaseName: '50% done'}})
+
+		expect(adjacent(plan.args, '--paths', `home:${DIR}`)).toBe(true)
+		expect(adjacent(plan.args, '--paths', `temp:${DIR}/.tmp`)).toBe(true)
+		expect(adjacent(plan.args, '-o', `infojson:${ESCAPED}/.tmp/50%% done`)).toBe(true)
+	})
+})
+
 describe('planWorkflow — subtitles', () => {
 	it('plans sidecar subtitle downloads', () => {
 		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en', 'ja'], format: 'vtt'}})

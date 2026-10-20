@@ -250,7 +250,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 		'--convert-subs',
 		effectiveSubtitleFormat,
 		'-o',
-		`${subOutputDir}/${template}`,
+		`${literalOutputPath(subOutputDir)}/${template}`,
 		input.url
 	]
 	return withFacts({
@@ -643,15 +643,22 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 	if (selection?.remuxVideo) args.push('--remux-video', selection.remuxVideo)
 }
 
+// A caller's directory is literal text, but `-o` is an output template, so a
+// `%` in it would collapse (`%%`) or open a field (`%(`). `--paths` is not a
+// template and takes the directory as it is.
+function literalOutputPath(text: string): string {
+	return text.replaceAll('%', '%%')
+}
+
 function appendCallerOutputArgs(args: string[], input: CallerMediaWorkflowInput, skipDownload: boolean): void {
 	const template = input.output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
 	if (input.output.tempDirectory) {
 		args.push('--paths', `home:${input.output.directory}`, '--paths', `temp:${input.output.tempDirectory}`, '-o', template)
 	} else {
-		args.push('-o', `${input.output.directory}/${template}`)
+		args.push('-o', `${literalOutputPath(input.output.directory)}/${template}`)
 	}
 	if (input.output.tempDirectory && !skipDownload && input.resume?.writeInfoJson !== false) {
-		args.push('--write-info-json', '-o', `infojson:${input.output.tempDirectory}/${input.resume?.infoJsonBaseName ?? '_arroxy'}`)
+		args.push('--write-info-json', '-o', `infojson:${literalOutputPath(`${input.output.tempDirectory}/${input.resume?.infoJsonBaseName ?? '_arroxy'}`)}`)
 	}
 }
 
