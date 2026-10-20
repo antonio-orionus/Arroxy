@@ -86,6 +86,13 @@ describe('package-manager descriptions', () => {
 		expect(commentLangs).toEqual(summaryLangs)
 	})
 
+	it('the install script writes the same desktop entry text as the Flatpak', () => {
+		const installer = readFileSync('scripts/install.sh', 'utf8')
+		const field = (text: string, key: string): string | undefined => new RegExp(`^${key}=(.*)$`, 'm').exec(text)?.[1]
+		expect(field(installer, 'Comment')).toBe(desktopComment())
+		expect(field(installer, 'Keywords')).toBe(field(desktop, 'Keywords'))
+	})
+
 	it('the Flatpak files never name the engine or count languages', () => {
 		for (const text of [metainfo, desktop]) {
 			expect(text).not.toMatch(ENGINE)

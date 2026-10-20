@@ -241,11 +241,11 @@ cat > "$DESKTOP_DIR/arroxy.desktop" <<EOF
 [Desktop Entry]
 Type=Application
 Name=Arroxy
-Comment=YouTube downloader for video, audio, and subtitles
+Comment=Video and audio downloader for YouTube and 2000+ other sites
 Exec=$APP_DIR/Arroxy.AppImage %U
 Icon=arroxy
 Categories=Network;AudioVideo;
-Keywords=youtube;video;download;dlp;yt-dlp;media;mp4;mkv;subtitle;
+Keywords=youtube;video;audio;download;media;mp4;mkv;subtitle;playlist;
 Terminal=false
 EOF
 
