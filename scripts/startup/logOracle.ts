@@ -15,6 +15,9 @@ export interface LogPolicy {
 	allowedErrors: readonly RegExp[]
 }
 
+/** WarmupService's summary line, logged once warmup has settled. */
+export const WARMUP_COMPLETED = 'Warmup completed'
+
 // electron-log main.log line shape: `[2026-08-30 05:22:31.753] [info]  (scope)  message`
 const LEVEL_LINE = /^\[[\d\-:. ]+\]\s+\[(\w+)\]\s*(?:\([\w-]+\)\s*)?(.*)$/
 
@@ -45,8 +48,8 @@ function summaryBranches(logText: string): string[] {
 export function inspectStartupLog(logText: string, policy: LogPolicy): LogViolation[] {
 	const violations: LogViolation[] = []
 
-	if (!logText.includes('Warmup completed')) {
-		violations.push({kind: 'missing-warmup-completed', detail: 'no "Warmup completed" line in main.log'})
+	if (!logText.includes(WARMUP_COMPLETED)) {
+		violations.push({kind: 'missing-warmup-completed', detail: `no "${WARMUP_COMPLETED}" line in main.log`})
 	}
 
 	const settled = settledBranches(logText)

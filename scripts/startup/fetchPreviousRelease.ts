@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {_electron as electron} from '@playwright/test'
 import {packagedLaunchEnv} from './launchEnv.js'
+import {WARMUP_COMPLETED} from './logOracle.js'
 import {awaitWarmupSettled} from './warmupSettled.js'
 
 const STABLE_TAG = /^v(\d+)\.(\d+)\.(\d+)$/
@@ -161,18 +162,25 @@ export async function generateInheritedProfile(tag: string, workDir: string): Pr
 		await app.close()
 	}
 
-	assertRuntimeCacheWritten(profileDir)
+	assertWarmupFinished(profileDir)
 	return profileDir
 }
 
 /**
- * Warmup leaves the downloaded dependencies and their verdicts under
- * `runtime-cache`, so a profile without one was closed before warmup finished
- * and would test an update no real user makes.
+ * A profile the previous release was closed on before warmup settled would
+ * test an update no real user makes. Warmup logs its summary only once it has
+ * settled, and leaves the downloaded dependencies and their verdicts under
+ * `runtime-cache`, so both must be on disk.
  */
-export function assertRuntimeCacheWritten(profileDir: string): void {
+export function assertWarmupFinished(profileDir: string): void {
+	const logPath = path.join(profileDir, 'logs', 'main.log')
+	const log = fs.existsSync(logPath) ? fs.readFileSync(logPath, 'utf8') : ''
 	const cacheDir = path.join(profileDir, 'runtime-cache')
-	if (fs.existsSync(cacheDir) && fs.readdirSync(cacheDir).length > 0) return
+	const cacheEntries = fs.existsSync(cacheDir) ? fs.readdirSync(cacheDir) : []
+
+	const missing = [...(log.includes(WARMUP_COMPLETED) ? [] : [`no "${WARMUP_COMPLETED}" in logs/main.log`]), ...(cacheEntries.length > 0 ? [] : ['no runtime-cache'])]
+	if (missing.length === 0) return
+
 	const contents = fs.existsSync(profileDir) ? fs.readdirSync(profileDir).join(', ') : ''
-	throw new Error(`inherited profile has no runtime-cache, so the previous release closed before warmup wrote it (profile holds: ${contents || 'nothing'})`)
+	throw new Error(`the previous release was closed before warmup finished: ${missing.join(', ')} (profile holds: ${contents || 'nothing'})`)
 }
