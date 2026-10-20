@@ -104,6 +104,9 @@ describe('safeFolderName', () => {
 		expect(safeFolderName('$HOME mix')).toBe('＄HOME mix')
 		expect(safeFolderName('%USERPROFILE% mix')).toBe('％USERPROFILE% mix')
 		expect(safeFolderName('$5 deals, 100% off')).toBe('$5 deals, 100% off')
+		// `?` becomes `_` first, and `$_` is a variable every shell sets.
+		expect(safeFolderName('Who wants $?')).toBe('Who wants ＄_')
+		expect(safeFolderName('100%:off')).toBe('100％_off')
 	})
 
 	it('falls back to Playlist when nothing usable survives', () => {

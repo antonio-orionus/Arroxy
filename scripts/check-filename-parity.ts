@@ -58,6 +58,7 @@ const TITLES = [
 	'$$HOME doubled',
 	'${USER} in braces',
 	'$ARROXY_PARITY',
+	'Who wants $?',
 	"It's $HOME's turn",
 	'I spent $100 on a $ sign $',
 	'100% off %ARROXY_PARITY% and 50%% more',
@@ -70,7 +71,7 @@ const TITLES = [
 	'CON',
 	`Long $HOME title ${'é'.repeat(300)}`
 ]
-const UPLOADERS = ['$USER', '%ARROXY_PARITY%', '~root', '100%% Club', '$$ Bills', 'Ordinary Channel']
+const UPLOADERS = ['$USER', 'Who wants $?', '%ARROXY_PARITY%', '~root', '100%% Club', '$$ Bills', 'Ordinary Channel']
 const TEMPLATES = ['{title} [{id}]', '{uploader}/{title} [{id}]', '$HOME {title} [{id}]', '~{title} [{id}]']
 const PROBE = 'youtube-2005'
 
