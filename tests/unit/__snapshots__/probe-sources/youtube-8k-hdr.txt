@@ -1,5 +1,5 @@
 youtube-8k-hdr: YouTube up to 4320p, HDR10 and SDR, 60 fps, AV1/VP9/VP9.2/H.264
-Animal Planet OLED Demo HDR 8K Ultra HD Dolby Vision™ 60fps · 3861 s · card says "1280x720" · 64 formats
+Animal Planet OLED Demo HDR 8K Ultra HD Dolby Vision™ 60fps · 3861 s · card says "1280x720" · 69 formats
 
 Video (picked for Balanced 720p •):
           HDR10 AV1      HDR10 VP9      SDR VP9               SDR H.264

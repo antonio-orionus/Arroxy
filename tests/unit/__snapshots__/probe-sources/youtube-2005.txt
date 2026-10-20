@@ -1,5 +1,5 @@
 youtube-2005: The first YouTube video: 240p tops
-Me at the zoo · 19 s · card says "320x240" · 22 formats
+Me at the zoo · 19 s · card says "320x240" · 25 formats
 
 Video (picked for Balanced 720p •):
       SDR AV1          SDR VP9        SDR H.264
@@ -7,15 +7,15 @@ Video (picked for Balanced 720p •):
 144p  ·                VP9 320.0 KiB  H.264 323.7 KiB
 
 Audio:
-AAC: 130 kbps 302.0 KiB • | 130 kbps 301.9 KiB DRC | 49 kbps 22.05 kHz 114.7 KiB | 49 kbps 22.05 kHz 114.7 KiB DRC
-Opus: 107 kbps 249.4 KiB DRC | 106 kbps 246.2 KiB | 64 kbps DRC 148.0 KiB DRC | 60 kbps 140.4 KiB | 50 kbps 116.1 KiB DRC | 47 kbps 109.9 KiB
+AAC: 130 kbps 302.0 KiB | 130 kbps 301.9 KiB DRC | 49 kbps 22.05 kHz 114.7 KiB | 49 kbps 22.05 kHz 114.7 KiB DRC
+Opus: 107 kbps 249.4 KiB DRC | 106 kbps 246.2 KiB • | 64 kbps DRC 148.0 KiB DRC | 60 kbps 140.4 KiB | 50 kbps 116.1 KiB DRC | 47 kbps 109.9 KiB
 DRC switch shown
 
 Profile picks:
-balanced: 395 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
-best-quality: 395 (320x240, mp4) + audio 140 (audio only, m4a)
+balanced: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+best-quality: 395 (320x240, mp4) + audio 251 (audio only, webm)
 mp4-1080: 133 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
-audio-only: audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: en, de
 Auto captions: none

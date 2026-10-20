@@ -205,6 +205,15 @@ function defaultTrackOf(formats: readonly FormatOption[], rows: readonly BaseAud
 	return rows.find(row => row.formatId === source?.formatId)?.track ?? tracks[0]
 }
 
+// YouTube lists an HLS copy of each audio track with no codec named. The audio
+// column shows it only where its language has no track with a named codec, or
+// when it is the pick: every stream stays pickable, but no track is listed twice.
+export function listedAudioFormats(formats: readonly FormatOption[], keepIds: readonly (string | null)[]): FormatOption[] {
+	const audio = formats.filter(format => format.isAudioOnly)
+	const namedLanguages = new Set(audio.filter(format => format.audioCodec !== undefined).map(format => format.audioLanguage))
+	return audio.filter(format => format.audioCodec !== undefined || !namedLanguages.has(format.audioLanguage) || keepIds.includes(format.formatId))
+}
+
 function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): BaseAudioRow {
 	const scaledSize = format.filesize ? scale.bytes(format.filesize) : undefined
 	const details = [dolbyVariant(format.audioCodec), format.isDrc ? 'DRC' : null, channelLabel(format.audioChannels), sampleRateLabel(format.sampleRateHz)].flatMap(part => (part ? [part] : []))
@@ -422,7 +431,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...lineOf(variants[0]), variants: variants.toSorted(byCodec)}))
 		// Size-only files (no tier of their own) follow the tiers, the biggest first.
 		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name) || (b.variants[0]?.filesize ?? 0) - (a.variants[0]?.filesize ?? 0))
-	const audioRows = wizardFormats.flatMap(format => (format.isAudioOnly ? [nativeAudioRow(format, profileAudioId, scale)] : []))
+	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId]).map(format => nativeAudioRow(format, profileAudioId, scale))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)

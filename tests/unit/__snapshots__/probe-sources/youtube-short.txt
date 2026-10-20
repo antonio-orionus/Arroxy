@@ -1,5 +1,5 @@
 youtube-short: A vertical Short: 1080x1920, plus a 608x1080 stream that rounds to 480p beside 480x854
-the baddest artists are in LA tonight 🩷#VSFashionShow · 15 s · card says "720x1280" · 40 formats
+the baddest artists are in LA tonight 🩷#VSFashionShow · 15 s · card says "720x1280" · 43 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1        SDR VP9                          SDR H.264

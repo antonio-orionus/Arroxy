@@ -19,7 +19,8 @@ const PICK_PROFILES = ['balanced', 'best-quality', 'mp4-1080', 'audio-only'] as 
 function selectionFor(profileId: string, probe: VideoProbeResult): ReturnType<typeof resolveProfileSelection> {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === profileId)
 	if (!profile) throw new Error(`no built-in ${profileId}`)
-	return resolveProfileSelection({profile, formats: probe.formats, subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: DEFAULTS.nativeAudioPreference})
+	if (!probe.formatSelection) throw new Error('a recorded probe always carries yt-dlp formats')
+	return resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: DEFAULTS.nativeAudioPreference})
 }
 
 function pickFor(profileId: string, probe: VideoProbeResult): MediaSelection {
@@ -121,7 +122,8 @@ describe('AI-upscaled streams on a real probe', () => {
 		const best = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === 'best-quality')
 		if (best?.media.kind !== 'video-audio') throw new Error('best-quality is a video profile')
 		const profile = {...best, media: {...best.media, ...(aiUpscaled ? {aiUpscaled} : {})}}
-		return resolveProfileSelection({profile, formats: probe.formats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: 'compatible'}).media.videoFormatId
+		if (!probe.formatSelection) throw new Error('a recorded probe always carries yt-dlp formats')
+		return resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: 'compatible'}).media.videoFormatId
 	}
 
 	it('are skipped by default, also for profiles saved before the choice existed', () => {

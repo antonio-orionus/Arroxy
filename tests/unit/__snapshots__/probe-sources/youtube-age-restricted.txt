@@ -9,14 +9,14 @@ Video (picked for Balanced 720p •):
 144p   ·            H.264 1.4 MiB
 
 Audio:
-AAC: 130 kbps 1.6 MiB •
-Opus: 129 kbps 1.6 MiB
+AAC: 130 kbps 1.6 MiB
+Opus: 129 kbps 1.6 MiB •
 
 Profile picks:
-balanced: 136 (1280x720, mp4) + audio 140 (audio only, m4a)
-best-quality: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
+balanced: 136 (1280x720, mp4) + audio 251 (audio only, webm)
+best-quality: 137 (1920x1080, mp4) + audio 251 (audio only, webm)
 mp4-1080: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
-audio-only: audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: none
 Auto captions: none

@@ -1,27 +1,27 @@
 youtube-vr: A 360° video: equirectangular projection on every stream
-Sound Formats Trailer Compilation - 360° Binaural AmbiSonic Spatial Sound · 68 s · card says "1280x720 · 360° / VR" · 39 formats
+Sound Formats Trailer Compilation - 360° Binaural AmbiSonic Spatial Sound · 68 s · card says "1280x720 · 360° / VR" · 42 formats
 
 Video (picked for Balanced 720p •):
           SDR VP9        SDR H.264
 2160p 4K  VP9 55.0 MiB   ·
 1440p 2K  VP9 27.7 MiB   ·
 1080p     VP9 8.5 MiB    H.264 21.4 MiB
-720p      VP9 2.3 MiB •  H.264 11.8 MiB
+720p      VP9 4.9 MiB •  H.264 11.8 MiB
 480p      VP9 3.0 MiB    H.264 6.4 MiB
 360p      VP9 2.1 MiB    H.264 3.6 MiB
 240p      VP9 1.0 MiB    H.264 2.5 MiB
 144p      VP9 954.3 KiB  H.264 1.4 MiB
 
 Audio:
-AAC: 130 kbps 1.0 MiB • | 130 kbps 1.0 MiB DRC | 49 kbps 22.05 kHz 408.9 KiB | 49 kbps 22.05 kHz 408.8 KiB DRC
-Opus: 113 kbps DRC 942.8 KiB DRC | 110 kbps 917.2 KiB | 58 kbps 484.4 KiB DRC | 56 kbps 470.3 KiB | 44 kbps 370.5 KiB DRC | 43 kbps 359.8 KiB
+AAC: 130 kbps 1.0 MiB | 130 kbps 1.0 MiB DRC | 49 kbps 22.05 kHz 408.9 KiB | 49 kbps 22.05 kHz 408.8 KiB DRC
+Opus: 113 kbps DRC 942.8 KiB DRC | 110 kbps 917.2 KiB • | 58 kbps 484.4 KiB DRC | 56 kbps 470.3 KiB | 44 kbps 370.5 KiB DRC | 43 kbps 359.8 KiB
 DRC switch shown
 
 Profile picks:
-balanced: 247 (1280x720, webm) + audio 140 (audio only, m4a)
-best-quality: 313 (3840x2160, webm) + audio 140 (audio only, m4a)
+balanced: 609 (1280x720, mp4) + audio 251 (audio only, webm)
+best-quality: 313 (3840x2160, webm) + audio 251 (audio only, webm)
 mp4-1080: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
-audio-only: audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: none
 Auto captions: none

@@ -1,5 +1,5 @@
 youtube-podcast: A 3.6-hour YouTube podcast episode
-Psychiatry, Insane Asylums, Mental Illness, ECT, Lobotomies, Freud & Jung | Lex Fridman Podcast #502 · 13016 s · card says "1280x720" · 43 formats
+Psychiatry, Insane Asylums, Mental Illness, ECT, Lobotomies, Freud & Jung | Lex Fridman Podcast #502 · 13016 s · card says "1280x720" · 45 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1          SDR VP9                         SDR H.264
