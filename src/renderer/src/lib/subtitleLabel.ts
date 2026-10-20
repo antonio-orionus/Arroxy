@@ -14,11 +14,18 @@ function displayNamesFor(uiLanguage: string): Intl.DisplayNames {
 	return next
 }
 
+// An `-orig` key is YouTube's caption of the spoken language, the only
+// automatic caption Arroxy keeps there. yt-dlp names it "English (Original)",
+// which next to the Auto badge reads as the uploaded track, so it gets the
+// plain language name instead.
+const ORIGINAL_CAPTION_SUFFIX = '-orig'
+
 export function resolveSubtitleLabel(code: string, subtitles: SubtitleMap, automaticCaptions: SubtitleMap, uiLanguage: string): string {
-	const fromMeta = subtitles[code]?.[0]?.name ?? automaticCaptions[code]?.[0]?.name
+	const isOriginalCaption = code.endsWith(ORIGINAL_CAPTION_SUFFIX)
+	const fromMeta = isOriginalCaption ? undefined : (subtitles[code]?.[0]?.name ?? automaticCaptions[code]?.[0]?.name)
 	if (fromMeta) return fromMeta
 	try {
-		const normalized = code.replace('_', '-').split('-orig')[0]
+		const normalized = (isOriginalCaption ? code.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : code).replace('_', '-')
 		const dn = displayNamesFor(uiLanguage)
 		return dn.of(normalized) ?? code
 	} catch {

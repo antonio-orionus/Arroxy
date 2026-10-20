@@ -331,6 +331,16 @@ describe('SubtitleFields — save mode UI', () => {
 		expect(setSubtitleMode).toHaveBeenCalledWith('embed')
 	})
 
+	// yt-dlp names YouTube's original-language caption "English (Original)";
+	// next to the Auto badge that reads as the uploaded track, so the label is
+	// the plain language name.
+	it('labels an -orig caption by its plain language name, not yt-dlp\'s "(Original)"', () => {
+		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}, wizardSubtitleLanguages: ['en', 'en-orig'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'srt'})
+		render(<SubtitleFields withMedia />)
+		expect(screen.getByTestId('subtitle-fields').textContent).not.toContain('Original')
+		expect(screen.getAllByText('English').length).toBeGreaterThanOrEqual(2)
+	})
+
 	it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
 		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'ass'})
 		const {rerender} = render(<SubtitleFields withMedia />)
@@ -387,6 +397,14 @@ describe('Review — subtitle row', () => {
 		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
 		expect(value).toContain('Embed into video')
 		expect(value).not.toContain('SRT')
+	})
+
+	it('names an -orig caption by its language, without "(Original)"', () => {
+		singleState({wizardAutomaticCaptions: {'ja-orig': [{ext: 'vtt', name: 'Japanese (Original)'}]}, wizardSubtitleLanguages: ['ja-orig']})
+		render(<StepReview />)
+		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
+		expect(value).toContain('Japanese')
+		expect(value).not.toContain('Original')
 	})
 
 	it('shows Off when no languages are selected, and opens the picker in place', () => {
