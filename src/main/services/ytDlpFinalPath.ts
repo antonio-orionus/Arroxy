@@ -18,8 +18,12 @@ export function finalPathPrintArgs(file: string): string[] {
 }
 
 // yt-dlp appends, so a file left by an earlier run would answer for this one.
-export async function clearFinalPathFile(file: string): Promise<void> {
-	await rm(file, {force: true}).catch(() => undefined)
+// False when it is still there: that run must not ask for the path.
+export async function clearFinalPathFile(file: string): Promise<boolean> {
+	return rm(file, {force: true}).then(
+		() => true,
+		() => false
+	)
 }
 
 // The last absolute path printed, or null when the run printed none (it failed

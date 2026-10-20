@@ -1,4 +1,4 @@
-import {mkdtempSync, rmSync, writeFileSync} from 'node:fs'
+import {mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs'
 import {EventEmitter} from 'node:events'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
@@ -69,13 +69,20 @@ describe('readFinalPathFile / clearFinalPathFile', () => {
 		const file = join(dir, 'final.txt')
 		writeFileSync(file, `${join(dir, 'Clip.mkv')}\n`)
 		expect(await readFinalPathFile(file)).toBe(join(dir, 'Clip.mkv'))
-		await clearFinalPathFile(file)
+		expect(await clearFinalPathFile(file)).toBe(true)
 		expect(await readFinalPathFile(file)).toBeNull()
 	})
 
-	it('answers null for a file that was never written', async () => {
+	it('answers null for a file that was never written, which needs no clearing', async () => {
 		expect(await readFinalPathFile(join(dir, 'missing.txt'))).toBeNull()
-		await expect(clearFinalPathFile(join(dir, 'missing.txt'))).resolves.toBeUndefined()
+		expect(await clearFinalPathFile(join(dir, 'missing.txt'))).toBe(true)
+	})
+
+	// A leftover that cannot be removed would answer for a run that prints nothing.
+	it('reports a file it could not clear', async () => {
+		const file = join(dir, 'final.txt')
+		mkdirSync(join(file, 'blocker'), {recursive: true})
+		expect(await clearFinalPathFile(file)).toBe(false)
 	})
 })
 
