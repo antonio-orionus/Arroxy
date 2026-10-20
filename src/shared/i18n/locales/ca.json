@@ -810,6 +810,7 @@
 			"qualityLimitedSubtitlesFailed": "Limitat a {{height}}p · han fallat alguns subtítols",
 			"audioKept": "So no eliminat",
 			"audioKeptSubtitlesFailed": "So no eliminat · han fallat alguns subtítols",
+			"subtitleLanguagesMissing": "Sense subtítols en {{languages}}",
 			"pause": "Pausa",
 			"resume": "Reprèn",
 			"cancel": "Cancel·la",
@@ -870,6 +871,9 @@
 		"qualityLimitedSubtitlesFailed": "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega i no s'han pogut baixar alguns subtítols. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa.",
 		"audioKept": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio",
 		"audioKeptSubtitlesFailed": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio ni baixar alguns subtítols",
+		"subtitleLanguagesMissing": "Aquest vídeo no té subtítols en {{languages}}. El vídeo s'ha desat sense subtítols.",
+		"subtitleLanguagesMissingOthersSaved": "Aquest vídeo no té subtítols en {{languages}}. Els altres idiomes s'han desat.",
+		"noSubtitles": "Sense subtítols en {{languages}}",
 		"cancelled": "Descàrrega cancel·lada",
 		"complete": "Descàrrega completada",
 		"usedExtractorFallback": "Baixat amb un extractor flexible: configura un cookies.txt per a descàrregues més fiables",
@@ -926,6 +930,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Aquest vídeo no té subtítols en {{languages}}.",
 		"ytdlp": {
 			"botBlock": "S'ha activat la protecció contra robots. És molt probable que la IP que fas servir estigui marcada (rang d'un centre de dades o sortida d'una VPN saturada). Canvia d'IP o tria un altre punt de sortida de la VPN i torna-ho a provar. Si continua fallant, pot ser un canvi temporal al lloc: Arroxy actualitza el seu motor de descàrrega en iniciar-se, de manera que la correcció arribarà automàticament quan es publiqui.",
 			"ipBlock": "Sembla que la teva adreça IP està bloquejada. Torna-ho a provar més tard o fes servir una VPN.",

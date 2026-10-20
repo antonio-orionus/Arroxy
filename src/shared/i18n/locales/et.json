@@ -791,6 +791,7 @@
 			"qualityLimitedSubtitlesFailed": "Piiratud: {{height}}p · mõned subtiitrid ebaõnnestusid",
 			"audioKept": "Heli pole eemaldatud",
 			"audioKeptSubtitlesFailed": "Heli pole eemaldatud · mõned subtiitrid ebaõnnestusid",
+			"subtitleLanguagesMissing": "Subtiitreid pole keeltes: {{languages}}",
 			"pause": "Peata",
 			"resume": "Jätka",
 			"cancel": "Tühista",
@@ -851,6 +852,9 @@
 		"qualityLimitedSubtitlesFailed": "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid ja mõnda subtiitrit ei õnnestunud alla laadida. Abi võib olla hilisemast katsest või teisest võrgust.",
 		"audioKept": "Video salvestati heliga – heli eemaldamine ebaõnnestus",
 		"audioKeptSubtitlesFailed": "Video salvestati heliga – heli eemaldamine ebaõnnestus ja mõnda subtiitrit ei õnnestunud alla laadida",
+		"subtitleLanguagesMissing": "Sellel videol pole subtiitreid keeltes: {{languages}}. Video salvestati ilma nendeta.",
+		"subtitleLanguagesMissingOthersSaved": "Sellel videol pole subtiitreid keeltes: {{languages}}. Ülejäänud keeled salvestati.",
+		"noSubtitles": "Subtiitreid pole keeltes: {{languages}}",
 		"cancelled": "Allalaadimine tühistati",
 		"complete": "Allalaadimine lõppes",
 		"usedExtractorFallback": "Alla laaditud lihtsustatud ekstraktoriga – usaldusväärsemaks allalaadimiseks seadistage cookies.txt",
@@ -903,6 +907,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Sellel videol pole subtiitreid keeltes: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Käivitus robotitõrje. Tõenäoliselt on teie kasutatav IP märgistatud (andmekeskuse vahemik või hõivatud VPN-i väljund). Vahetage IP-aadressi või valige teine VPN-i lõpp-punkt ja proovige uuesti. Kui tõrge kordub, võib tegu olla saidipoolse ajutise muudatusega – Arroxy uuendab käivitamisel oma allalaadimismootorit, seega jõuab parandus automaatselt kohale, kui see ilmub.",
 			"ipBlock": "Teie IP-aadress paistab olevat blokeeritud. Proovige hiljem uuesti või kasutage VPN-i.",

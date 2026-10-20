@@ -796,6 +796,7 @@
 			"qualityLimitedSubtitlesFailed": "Korlátozva: {{height}}p · egyes feliratok sikertelenek",
 			"audioKept": "A hang megmaradt",
 			"audioKeptSubtitlesFailed": "A hang megmaradt · egyes feliratok sikertelenek",
+			"subtitleLanguagesMissing": "Nincs felirat a következő nyelveken: {{languages}}",
 			"pause": "Szünet",
 			"resume": "Folytatás",
 			"cancel": "Mégse",
@@ -856,6 +857,9 @@
 		"qualityLimitedSubtitlesFailed": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később vagy másik hálózatról próbálja újra.",
 		"audioKept": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani",
 		"audioKeptSubtitlesFailed": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani, és egyes feliratokat nem sikerült letölteni",
+		"subtitleLanguagesMissing": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A videó felirat nélkül lett mentve.",
+		"subtitleLanguagesMissingOthersSaved": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A többi nyelv mentésre került.",
+		"noSubtitles": "Nincs felirat a következő nyelveken: {{languages}}",
 		"cancelled": "A letöltés megszakítva",
 		"complete": "A letöltés kész",
 		"usedExtractorFallback": "Letöltve megengedőbb kinyerővel – a megbízhatóbb letöltésekhez állítson be cookies.txt fájlt",
@@ -908,6 +912,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "A botvédelem működésbe lépett. A használt IP-címet valószínűleg megjelölték (adatközponti tartomány vagy túlterhelt VPN-kilépő). Módosítsa az IP-címét, vagy válasszon másik VPN-végpontot, majd próbálja újra. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik.",
 			"ipBlock": "Úgy tűnik, az IP-címe le van tiltva. Próbálja újra később, vagy használjon VPN-t.",

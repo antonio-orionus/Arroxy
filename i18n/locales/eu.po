@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kriptografiazko ordainketak ezin dira atzera egin. Bidali erakusten den sarean bakarrik, eta konparatu helbide osoa."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Bideo honek adin-murrizketa du eta ezin da deskargatu saioa hasita duen konturik gabe."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Deskargatzen"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Azpititulurik ez hizkuntza hauetan: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Eten deskarga aktibo guztiak eta eragotzi berriak hastea"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Fitxategiak mugitzen…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Azpititulurik ez hizkuntza hauetan: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Ezin da gorde hemen: {{dir}} — Arroxy-k ez du hor idazteko baimenik"
@@ -1918,6 +1930,14 @@ msgstr "Itxaroten: {{seconds}} s, abiadura-mugak saihesteko…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Deskarga-motorra abiarazten…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Bideoa azpititulu gabe gorde da."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Gainerako hizkuntzak gorde dira."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

@@ -778,6 +778,7 @@
 			"qualityLimitedSubtitlesFailed": "Limitado a {{height}}p · fallaron algúns subtítulos",
 			"audioKept": "Son sen quitar",
 			"audioKeptSubtitlesFailed": "Son sen quitar · fallaron algúns subtítulos",
+			"subtitleLanguagesMissing": "Sen subtítulos en {{languages}}",
 			"pause": "Pausar",
 			"resume": "Retomar",
 			"cancel": "Cancelar",
@@ -838,6 +839,9 @@
 		"qualityLimitedSubtitlesFailed": "Gardado a {{height}}p: YouTube reservou as calidades superiores para esta descarga e non se puideron descargar algúns subtítulos. Tentalo máis tarde ou desde outra rede pode axudar.",
 		"audioKept": "Vídeo gardado co seu son: non se puido quitar o audio",
 		"audioKeptSubtitlesFailed": "Vídeo gardado co seu son: non se puido quitar o audio e non se puideron descargar algúns subtítulos",
+		"subtitleLanguagesMissing": "Este vídeo non ten subtítulos en {{languages}}. O vídeo gardouse sen subtítulos.",
+		"subtitleLanguagesMissingOthersSaved": "Este vídeo non ten subtítulos en {{languages}}. Os outros idiomas gardáronse.",
+		"noSubtitles": "Sen subtítulos en {{languages}}",
 		"cancelled": "Descarga cancelada",
 		"complete": "Descarga completada",
 		"usedExtractorFallback": "Descargado co extractor relaxado: configura un cookies.txt para descargas máis fiables",
@@ -890,6 +894,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Este vídeo non ten subtítulos en {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Activouse a protección contra bots. O máis probable é que a IP que usas estea marcada (rango de centro de datos ou saída de VPN moi usada). Cambia de IP ou escolle outro punto final da VPN e tenta de novo. Se segue fallando, pode ser un cambio temporal no sitio: Arroxy actualiza o seu motor de descarga ao iniciarse, así que a corrección chegará soa en canto se publique.",
 			"ipBlock": "Parece que a túa dirección IP está bloqueada. Tenta de novo máis tarde ou usa unha VPN.",

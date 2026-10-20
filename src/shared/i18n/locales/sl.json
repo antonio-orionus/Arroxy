@@ -833,6 +833,7 @@
 			"qualityLimitedSubtitlesFailed": "Omejeno na {{height}}p · nekateri podnapisi niso uspeli",
 			"audioKept": "Zvok ni odstranjen",
 			"audioKeptSubtitlesFailed": "Zvok ni odstranjen · nekateri podnapisi niso uspeli",
+			"subtitleLanguagesMissing": "Ni podnapisov v jezikih: {{languages}}",
 			"pause": "Začasno ustavi",
 			"resume": "Nadaljuj",
 			"cancel": "Prekliči",
@@ -893,6 +894,9 @@
 		"qualityLimitedSubtitlesFailed": "Shranjeno pri {{height}}p — YouTube je za ta prenos zadržal višje kakovosti, nekaterih podnapisov pa ni bilo mogoče prenesti. Pomagati utegne ponovni poskus pozneje ali iz drugega omrežja.",
 		"audioKept": "Videoposnetek je shranjen z zvokom — zvoka ni bilo mogoče odstraniti",
 		"audioKeptSubtitlesFailed": "Videoposnetek je shranjen z zvokom — zvoka ni bilo mogoče odstraniti, nekaterih podnapisov pa ni bilo mogoče prenesti",
+		"subtitleLanguagesMissing": "Ta videoposnetek nima podnapisov v jezikih: {{languages}}. Videoposnetek je bil shranjen brez njih.",
+		"subtitleLanguagesMissingOthersSaved": "Ta videoposnetek nima podnapisov v jezikih: {{languages}}. Drugi jeziki so bili shranjeni.",
+		"noSubtitles": "Ni podnapisov v jezikih: {{languages}}",
 		"cancelled": "Prenos preklican",
 		"complete": "Prenos končan",
 		"usedExtractorFallback": "Preneseno s sproščenim ekstraktorjem — za zanesljivejše prenose nastavite cookies.txt",
@@ -958,6 +962,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Ta videoposnetek nima podnapisov v jezikih: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Sprožena je bila zaščita pred boti. Vaš naslov IP je najverjetneje označen (razpon podatkovnega centra ali obremenjen izhod VPN). Zamenjajte naslov IP ali izberite drugo končno točko VPN in poskusite znova. Če še vedno ne deluje, gre morda za začasno spremembo na strani spletnega mesta — Arroxy ob zagonu posodobi svoj mehanizem za prenos, zato bo popravek samodejno prispel, ko bo izdan.",
 			"ipBlock": "Videti je, da je vaš naslov IP blokiran. Poskusite znova pozneje ali uporabite VPN.",

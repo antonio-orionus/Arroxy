@@ -834,6 +834,7 @@
 			"qualityLimitedSubtitlesFailed": "Obmedzené na {{height}}p · niektoré titulky zlyhali",
 			"audioKept": "Zvuk nebol odstránený",
 			"audioKeptSubtitlesFailed": "Zvuk nebol odstránený · niektoré titulky zlyhali",
+			"subtitleLanguagesMissing": "Žiadne titulky v jazykoch: {{languages}}",
 			"pause": "Pozastaviť",
 			"resume": "Pokračovať",
 			"cancel": "Zrušiť",
@@ -894,6 +895,9 @@
 		"qualityLimitedSubtitlesFailed": "Uložené v kvalite {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality a niektoré titulky sa nepodarilo stiahnuť. Môže pomôcť skúsiť to neskôr alebo z inej siete.",
 		"audioKept": "Video bolo uložené so zvukom – zvuk sa nepodarilo odstrániť",
 		"audioKeptSubtitlesFailed": "Video bolo uložené so zvukom – zvuk sa nepodarilo odstrániť a niektoré titulky sa nepodarilo stiahnuť",
+		"subtitleLanguagesMissing": "Toto video nemá titulky v jazykoch: {{languages}}. Video bolo uložené bez nich.",
+		"subtitleLanguagesMissingOthersSaved": "Toto video nemá titulky v jazykoch: {{languages}}. Ostatné jazyky boli uložené.",
+		"noSubtitles": "Žiadne titulky v jazykoch: {{languages}}",
 		"cancelled": "Sťahovanie bolo zrušené",
 		"complete": "Sťahovanie je dokončené",
 		"usedExtractorFallback": "Stiahnuté zjednodušeným extraktorom – nastavte súbor cookies.txt pre spoľahlivejšie sťahovanie",
@@ -954,6 +958,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Toto video nemá titulky v jazykoch: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Spustila sa ochrana pred robotmi. Vaša IP adresa je s najväčšou pravdepodobnosťou označená (rozsah dátového centra alebo vyťažený výstup VPN). Zmeňte IP adresu alebo vyberte iný koncový bod VPN a skúste to znova. Ak to stále zlyháva, môže ísť o dočasnú zmenu na strane webu – Arroxy pri spustení aktualizuje svoj sťahovací nástroj, takže oprava sa nainštaluje automaticky po jej vydaní.",
 			"ipBlock": "Vaša IP adresa je zrejme zablokovaná. Skúste to neskôr alebo použite VPN.",

@@ -223,6 +223,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kriptovaliutų mokėjimai negrįžtami. Siųskite tik nurodytu tinklu ir palyginkite visą adresą."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Šis vaizdo įrašas turi amžiaus apribojimą, todėl jo negalima atsisiųsti be prisijungusios paskyros."
@@ -1283,6 +1287,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Atsisiunčiama"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Nėra subtitrų šiomis kalbomis: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Pristabdyti kiekvieną aktyvų atsisiuntimą ir neleisti pradėti naujų"
@@ -1979,6 +1987,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Perkeliami failai…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Nėra subtitrų šiomis kalbomis: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Nepavyksta įrašyti į {{dir}} – Arroxy neleidžiama ten rašyti"
@@ -2018,6 +2030,14 @@ msgstr "Laukiama {{seconds}} s, kad nebūtų viršytos užklausų ribos…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Paleidžiamas atsisiuntimo variklis…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}. Vaizdo įrašas išsaugotas be jų."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}. Kitos kalbos buvo išsaugotos."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

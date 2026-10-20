@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "תשלומי קריפטו אינם הפיכים. יש לשלוח רק ברשת המוצגת ולהשוות את הכתובת כולה."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "סרטון זה מוגבל לפי גיל ואי אפשר להוריד אותו ללא חשבון מחובר."
@@ -1238,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "מוריד"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "אין כתוביות בשפות הבאות: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "השהיית כל ההורדות הפעילות ומניעת התחלה של הורדות חדשות"
@@ -1929,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "מעביר קבצים…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "אין כתוביות בשפות הבאות: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "אי אפשר לשמור ב-{{dir}} — ל-Arroxy אין הרשאה לכתוב שם"
@@ -1968,6 +1980,14 @@ msgstr "ממתין {{seconds}} שניות כדי להימנע ממגבלות ק�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "מפעיל את מנוע ההורדה…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. הסרטון נשמר בלי כתוביות."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. שאר השפות נשמרו."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

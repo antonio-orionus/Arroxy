@@ -800,6 +800,7 @@
 			"qualityLimitedSubtitlesFailed": "Ograničeno na {{height}}p · neki titlovi nisu uspjeli",
 			"audioKept": "Zvuk nije uklonjen",
 			"audioKeptSubtitlesFailed": "Zvuk nije uklonjen · neki titlovi nisu uspjeli",
+			"subtitleLanguagesMissing": "Nema titlova na jezicima: {{languages}}",
 			"pause": "Pauziraj",
 			"resume": "Nastavi",
 			"cancel": "Otkaži",
@@ -860,6 +861,9 @@
 		"qualityLimitedSubtitlesFailed": "Spremljeno u {{height}}p — YouTube je za ovo preuzimanje uskratio višu kvalitetu, a neke titlove nije bilo moguće preuzeti. Pokušaj kasnije ili s druge mreže mogao bi pomoći.",
 		"audioKept": "Videozapis je spremljen sa zvukom — zvuk nije bilo moguće ukloniti",
 		"audioKeptSubtitlesFailed": "Videozapis je spremljen sa zvukom — zvuk nije bilo moguće ukloniti, a neke titlove nije bilo moguće preuzeti",
+		"subtitleLanguagesMissing": "Ovaj videozapis nema titlove na jezicima: {{languages}}. Videozapis je spremljen bez njih.",
+		"subtitleLanguagesMissingOthersSaved": "Ovaj videozapis nema titlove na jezicima: {{languages}}. Ostali jezici su spremljeni.",
+		"noSubtitles": "Nema titlova na jezicima: {{languages}}",
 		"cancelled": "Preuzimanje otkazano",
 		"complete": "Preuzimanje dovršeno",
 		"usedExtractorFallback": "Preuzeto s ublaženim izdvajačem — postavite cookies.txt za pouzdanija preuzimanja",
@@ -916,6 +920,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Ovaj videozapis nema titlove na jezicima: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Aktivirana je zaštita od botova. Vaša IP adresa vjerojatno je označena (raspon podatkovnog centra ili prometni VPN izlaz). Promijenite IP adresu ili odaberite drugu VPN krajnju točku pa pokušajte ponovo. Ako i dalje ne uspijeva, možda je riječ o privremenoj promjeni na strani web-mjesta — Arroxy pri pokretanju ažurira svoj mehanizam za preuzimanje, pa će se ispravak primijeniti automatski čim bude objavljen.",
 			"ipBlock": "Čini se da je vaša IP adresa blokirana. Pokušajte ponovo kasnije ili upotrijebite VPN.",

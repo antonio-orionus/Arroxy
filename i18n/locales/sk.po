@@ -223,6 +223,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Platby v kryptomenách sú nevratné. Posielajte iba v zobrazenej sieti a porovnajte celú adresu."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Toto video nemá titulky v jazykoch: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Toto video je vekovo obmedzené a nedá sa stiahnuť bez prihláseného účtu."
@@ -1283,6 +1287,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Sťahuje sa"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Žiadne titulky v jazykoch: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Pozastaviť všetky aktívne sťahovania a zabrániť spusteniu nových"
@@ -1979,6 +1987,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Presúvajú sa súbory…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Žiadne titulky v jazykoch: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Do priečinka {{dir}} sa nedá ukladať – Arroxy tam nemá povolený zápis"
@@ -2018,6 +2030,14 @@ msgstr "Čaká sa {{seconds}} s, aby sa predišlo obmedzeniam rýchlosti…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Spúšťa sa sťahovací nástroj…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Toto video nemá titulky v jazykoch: {{languages}}. Video bolo uložené bez nich."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Toto video nemá titulky v jazykoch: {{languages}}. Ostatné jazyky boli uložené."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

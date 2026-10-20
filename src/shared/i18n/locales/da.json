@@ -777,6 +777,7 @@
 			"qualityLimitedSubtitlesFailed": "Begrænset til {{height}}p · nogle undertekster mislykkedes",
 			"audioKept": "Lyd ikke fjernet",
 			"audioKeptSubtitlesFailed": "Lyd ikke fjernet · nogle undertekster mislykkedes",
+			"subtitleLanguagesMissing": "Ingen undertekster på {{languages}}",
 			"pause": "Pause",
 			"resume": "Genoptag",
 			"cancel": "Annuller",
@@ -837,6 +838,9 @@
 		"qualityLimitedSubtitlesFailed": "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download, og nogle undertekster kunne ikke downloades. Det kan hjælpe at prøve igen senere eller fra et andet netværk.",
 		"audioKept": "Video gemt med lyd — lyden kunne ikke fjernes",
 		"audioKeptSubtitlesFailed": "Video gemt med lyd — lyden kunne ikke fjernes, og nogle undertekster kunne ikke downloades",
+		"subtitleLanguagesMissing": "Denne video har ingen undertekster på {{languages}}. Videoen blev gemt uden dem.",
+		"subtitleLanguagesMissingOthersSaved": "Denne video har ingen undertekster på {{languages}}. De øvrige sprog blev gemt.",
+		"noSubtitles": "Ingen undertekster på {{languages}}",
 		"cancelled": "Download annulleret",
 		"complete": "Download fuldført",
 		"usedExtractorFallback": "Downloadet med lempet udtrækker — konfigurer en cookies.txt for mere pålidelige downloads",
@@ -889,6 +893,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Denne video har ingen undertekster på {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Botbeskyttelsen blev udløst. Den IP-adresse, du bruger, er højst sandsynligt markeret (datacenterområde eller travlt VPN-udgangspunkt). Skift din IP-adresse, eller vælg et andet VPN-slutpunkt, og prøv igen. Hvis det bliver ved med at fejle, kan det være en midlertidig ændring på webstedets side — Arroxy opdaterer sin download-motor ved start, så rettelsen kommer automatisk, så snart den er udgivet.",
 			"ipBlock": "Din IP-adresse ser ud til at være blokeret. Prøv igen senere, eller brug en VPN.",

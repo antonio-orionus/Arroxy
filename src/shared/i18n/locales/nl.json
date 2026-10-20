@@ -788,6 +788,7 @@
 			"qualityLimitedSubtitlesFailed": "Beperkt tot {{height}}p · sommige ondertitels mislukt",
 			"audioKept": "Geluid niet verwijderd",
 			"audioKeptSubtitlesFailed": "Geluid niet verwijderd · sommige ondertitels mislukt",
+			"subtitleLanguagesMissing": "Geen ondertitels in {{languages}}",
 			"pause": "Pauzeren",
 			"resume": "Hervatten",
 			"cancel": "Annuleren",
@@ -848,6 +849,9 @@
 		"qualityLimitedSubtitlesFailed": "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter en sommige ondertitels konden niet worden gedownload. Later opnieuw proberen of via een ander netwerk kan helpen.",
 		"audioKept": "Video opgeslagen met geluid — de audio kon niet worden verwijderd",
 		"audioKeptSubtitlesFailed": "Video opgeslagen met geluid — de audio kon niet worden verwijderd en sommige ondertitels konden niet worden gedownload",
+		"subtitleLanguagesMissing": "Deze video heeft geen ondertitels in {{languages}}. De video is zonder ondertitels opgeslagen.",
+		"subtitleLanguagesMissingOthersSaved": "Deze video heeft geen ondertitels in {{languages}}. De andere talen zijn opgeslagen.",
+		"noSubtitles": "Geen ondertitels in {{languages}}",
 		"cancelled": "Download geannuleerd",
 		"complete": "Download voltooid",
 		"usedExtractorFallback": "Gedownload met versoepelde extractor — stel een cookies.txt in voor betrouwbaardere downloads",
@@ -900,6 +904,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Deze video heeft geen ondertitels in {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Botbeveiliging geactiveerd. Het IP-adres dat je gebruikt is waarschijnlijk gemarkeerd (datacenterbereik of drukbezet VPN-uitgangspunt). Wijzig je IP-adres of kies een ander VPN-eindpunt en probeer het opnieuw. Blijft het mislukken, dan gaat het mogelijk om een tijdelijke wijziging aan de kant van de site — Arroxy werkt de downloadengine bij het opstarten bij, dus de oplossing komt automatisch zodra die uitkomt.",
 			"ipBlock": "Je IP-adres lijkt te zijn geblokkeerd. Probeer het later opnieuw of gebruik een VPN.",

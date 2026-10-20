@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Plățile în criptomonede sunt ireversibile. Trimiteți doar în rețeaua afișată și comparați adresa completă."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Acest videoclip are restricție de vârstă și nu poate fi descărcat fără un cont conectat."
@@ -1238,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Se descarcă"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Fără subtitrări în {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Întrerupe fiecare descărcare activă și împiedică pornirea altora noi"
@@ -1929,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Se mută fișierele…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Fără subtitrări în {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Nu se poate salva în {{dir}} — Arroxy nu are permisiunea de a scrie acolo"
@@ -1968,6 +1980,14 @@ msgstr "Se așteaptă {{seconds}} s pentru a evita limitările de rată…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Se pornește motorul de descărcare…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}. Videoclipul a fost salvat fără ele."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}. Celelalte limbi au fost salvate."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

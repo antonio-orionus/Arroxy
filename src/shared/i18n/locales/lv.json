@@ -809,6 +809,7 @@
 			"qualityLimitedSubtitlesFailed": "Ierobežots līdz {{height}}p · daži subtitri neizdevās",
 			"audioKept": "Skaņa nav noņemta",
 			"audioKeptSubtitlesFailed": "Skaņa nav noņemta · daži subtitri neizdevās",
+			"subtitleLanguagesMissing": "Nav subtitru valodās: {{languages}}",
 			"pause": "Pauzēt",
 			"resume": "Atsākt",
 			"cancel": "Atcelt",
@@ -869,6 +870,9 @@
 		"qualityLimitedSubtitlesFailed": "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti, un dažus subtitrus nevarēja lejupielādēt. Var palīdzēt mēģinājums vēlāk vai no cita tīkla.",
 		"audioKept": "Video saglabāts ar skaņu — audio nevarēja noņemt",
 		"audioKeptSubtitlesFailed": "Video saglabāts ar skaņu — audio nevarēja noņemt, un dažus subtitrus nevarēja lejupielādēt",
+		"subtitleLanguagesMissing": "Šim video nav subtitru valodās: {{languages}}. Video tika saglabāts bez tiem.",
+		"subtitleLanguagesMissingOthersSaved": "Šim video nav subtitru valodās: {{languages}}. Pārējās valodas tika saglabātas.",
+		"noSubtitles": "Nav subtitru valodās: {{languages}}",
 		"cancelled": "Lejupielāde atcelta",
 		"complete": "Lejupielāde pabeigta",
 		"usedExtractorFallback": "Lejupielādēts ar vienkāršotu ieguvēju — iestatiet cookies.txt drošākām lejupielādēm",
@@ -925,6 +929,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Šim video nav subtitru valodās: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Aktivizēta aizsardzība pret robotiem. Visticamāk, jūsu izmantotā IP adrese ir atzīmēta (datu centra diapazons vai noslogots VPN izejas punkts). Nomainiet IP adresi vai izvēlieties citu VPN galapunktu un mēģiniet vēlreiz. Ja joprojām neizdodas, iespējams, tā ir īslaicīga izmaiņa vietnes pusē — Arroxy atjaunina savu lejupielādes dzinēju startēšanas brīdī, tāpēc labojums parādīsies automātiski, tiklīdz tas tiks izlaists.",
 			"ipBlock": "Šķiet, ka jūsu IP adrese ir bloķēta. Mēģiniet vēlāk vai izmantojiet VPN.",

@@ -796,6 +796,7 @@
 			"qualityLimitedSubtitlesFailed": "Rajoitettu: {{height}}p · joitakin tekstityksiä ei saatu",
 			"audioKept": "Ääntä ei poistettu",
 			"audioKeptSubtitlesFailed": "Ääntä ei poistettu · joitakin tekstityksiä ei saatu",
+			"subtitleLanguagesMissing": "Ei tekstityksiä kielillä: {{languages}}",
 			"pause": "Keskeytä",
 			"resume": "Jatka",
 			"cancel": "Peruuta",
@@ -856,6 +857,9 @@
 		"qualityLimitedSubtitlesFailed": "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta, eikä joitakin tekstityksiä voitu ladata. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa.",
 		"audioKept": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa",
 		"audioKeptSubtitlesFailed": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa, eikä joitakin tekstityksiä voitu ladata",
+		"subtitleLanguagesMissing": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Video tallennettiin ilman niitä.",
+		"subtitleLanguagesMissingOthersSaved": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Muut kielet tallennettiin.",
+		"noSubtitles": "Ei tekstityksiä kielillä: {{languages}}",
 		"cancelled": "Lataus peruttu",
 		"complete": "Lataus valmis",
 		"usedExtractorFallback": "Ladattu kevennetyllä poimijalla – määritä cookies.txt luotettavampia latauksia varten",
@@ -908,6 +912,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bottisuojaus lauennut. IP-osoitteesi on todennäköisesti merkitty epäilyttäväksi (palvelinkeskuksen osoitealue tai ruuhkainen VPN-poistumispiste). Vaihda IP-osoitetta tai valitse eri VPN-päätepiste ja yritä uudelleen. Jos virhe toistuu, kyseessä voi olla sivuston tilapäinen muutos – Arroxy päivittää latausmoottorinsa käynnistyessään, joten korjaus tulee automaattisesti, kun se julkaistaan.",
 			"ipBlock": "IP-osoitteesi näyttää olevan estetty. Yritä myöhemmin uudelleen tai käytä VPN:ää.",

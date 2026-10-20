@@ -223,6 +223,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Plačila s kriptovalutami so nepovratna. Pošiljajte samo v prikazanem omrežju in primerjajte celoten naslov."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Ta videoposnetek nima podnapisov v jezikih: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Ta videoposnetek je starostno omejen in ga ni mogoče prenesti brez prijavljenega računa."
@@ -1283,6 +1287,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Prenos poteka"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Ni podnapisov v jezikih: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Začasno ustavi vse aktivne prenose in prepreči začetek novih"
@@ -1979,6 +1987,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Premikanje datotek …"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Ni podnapisov v jezikih: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Shranjevanje v {{dir}} ni mogoče — Arroxy tam ne sme pisati"
@@ -2018,6 +2030,14 @@ msgstr "Čakanje {{seconds}} s zaradi omejitev zahtev …"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Zagon mehanizma za prenos …"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Ta videoposnetek nima podnapisov v jezikih: {{languages}}. Videoposnetek je bil shranjen brez njih."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Ta videoposnetek nima podnapisov v jezikih: {{languages}}. Drugi jeziki so bili shranjeni."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

@@ -840,6 +840,7 @@
 			"qualityLimitedSubtitlesFailed": "Apribota iki {{height}}p · kai kurių subtitrų nepavyko gauti",
 			"audioKept": "Garsas nepašalintas",
 			"audioKeptSubtitlesFailed": "Garsas nepašalintas · kai kurių subtitrų nepavyko gauti",
+			"subtitleLanguagesMissing": "Nėra subtitrų šiomis kalbomis: {{languages}}",
 			"pause": "Pristabdyti",
 			"resume": "Tęsti",
 			"cancel": "Atšaukti",
@@ -900,6 +901,9 @@
 		"qualityLimitedSubtitlesFailed": "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės, o kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas vėliau arba iš kito tinklo.",
 		"audioKept": "Vaizdo įrašas įrašytas kartu su garsu – garso pašalinti nepavyko",
 		"audioKeptSubtitlesFailed": "Vaizdo įrašas įrašytas kartu su garsu – garso pašalinti nepavyko, o kai kurių subtitrų atsisiųsti nepavyko",
+		"subtitleLanguagesMissing": "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}. Vaizdo įrašas išsaugotas be jų.",
+		"subtitleLanguagesMissingOthersSaved": "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}. Kitos kalbos buvo išsaugotos.",
+		"noSubtitles": "Nėra subtitrų šiomis kalbomis: {{languages}}",
 		"cancelled": "Atsisiuntimas atšauktas",
 		"complete": "Atsisiuntimas baigtas",
 		"usedExtractorFallback": "Atsisiųsta naudojant supaprastintą ištraukiklį – nustatykite cookies.txt, kad atsisiuntimai būtų patikimesni",
@@ -965,6 +969,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Suveikė apsauga nuo robotų. Greičiausiai jūsų naudojamas IP pažymėtas (duomenų centro diapazonas arba apkrautas VPN išėjimo taškas). Pakeiskite IP arba pasirinkite kitą VPN prieigos tašką ir bandykite dar kartą. Jei nepavyksta, tai gali būti laikinas svetainės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa pasirodys automatiškai, kai tik bus išleista.",
 			"ipBlock": "Atrodo, jūsų IP adresas užblokuotas. Bandykite vėliau arba naudokite VPN.",

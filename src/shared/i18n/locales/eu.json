@@ -799,6 +799,7 @@
 			"qualityLimitedSubtitlesFailed": "Mugatua: {{height}}p · azpititulu batzuek huts egin dute",
 			"audioKept": "Soinua ez da kendu",
 			"audioKeptSubtitlesFailed": "Soinua ez da kendu · azpititulu batzuek huts egin dute",
+			"subtitleLanguagesMissing": "Azpititulurik ez hizkuntza hauetan: {{languages}}",
 			"pause": "Eten",
 			"resume": "Berrekin",
 			"cancel": "Utzi",
@@ -859,6 +860,9 @@
 		"qualityLimitedSubtitlesFailed": "{{height}}p kalitatean gorde da — YouTube-k kalitate handiagoak ukatu ditu deskarga honetarako, eta azpititulu batzuk ezin izan dira deskargatu. Geroago edo beste sare batetik berriro saiatzeak lagun dezake.",
 		"audioKept": "Bideoa soinuarekin gorde da — audioa ezin izan da kendu",
 		"audioKeptSubtitlesFailed": "Bideoa soinuarekin gorde da — audioa ezin izan da kendu, eta azpititulu batzuk ezin izan dira deskargatu",
+		"subtitleLanguagesMissing": "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Bideoa azpititulu gabe gorde da.",
+		"subtitleLanguagesMissingOthersSaved": "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Gainerako hizkuntzak gorde dira.",
+		"noSubtitles": "Azpititulurik ez hizkuntza hauetan: {{languages}}",
 		"cancelled": "Deskarga utzi da",
 		"complete": "Deskarga amaitu da",
 		"usedExtractorFallback": "Erauzle malguarekin deskargatu da — konfiguratu cookies.txt bat deskarga fidagarriagoetarako",
@@ -911,6 +915,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bot-babesa aktibatu da. Ziurrenik erabiltzen ari zaren IPa markatuta dago (datu-zentro baten barrutia edo VPN irteera pilatua). Aldatu IPa edo aukeratu beste VPN amaiera-puntu bat eta saiatu berriro. Hala ere huts egiten badu, gunean aldi baterako aldaketa bat izan daiteke — Arroxy-k abioan eguneratzen du deskarga-motorra, beraz konponbidea automatikoki iritsiko da kaleratzen denean.",
 			"ipBlock": "Badirudi zure IP helbidea blokeatuta dagoela. Saiatu berriro geroago edo erabili VPN bat.",

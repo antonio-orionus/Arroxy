@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kryptovaluuttamaksut ovat peruuttamattomia. Lähetä vain näytetyssä verkossa ja vertaa koko osoite."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Tämä video on ikärajoitettu, eikä sitä voi ladata ilman sisäänkirjautunutta tiliä."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Ladataan"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Ei tekstityksiä kielillä: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Keskeytä kaikki aktiiviset lataukset ja estä uusien alkaminen"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Siirretään tiedostoja…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Ei tekstityksiä kielillä: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Tallennus kansioon {{dir}} ei onnistu – Arroxylla ei ole kirjoitusoikeutta sinne"
@@ -1918,6 +1930,14 @@ msgstr "Odotetaan {{seconds}} s nopeusrajoitusten välttämiseksi…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Käynnistetään latausmoottoria…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Video tallennettiin ilman niitä."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Muut kielet tallennettiin."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

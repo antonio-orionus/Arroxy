@@ -816,6 +816,7 @@
 			"qualityLimitedSubtitlesFailed": "Limitat la {{height}}p · unele subtitrări au eșuat",
 			"audioKept": "Sunetul nu a fost eliminat",
 			"audioKeptSubtitlesFailed": "Sunetul nu a fost eliminat · unele subtitrări au eșuat",
+			"subtitleLanguagesMissing": "Fără subtitrări în {{languages}}",
 			"pause": "Pauză",
 			"resume": "Reluare",
 			"cancel": "Anulare",
@@ -876,6 +877,9 @@
 		"qualityLimitedSubtitlesFailed": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
 		"audioKept": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat",
 		"audioKeptSubtitlesFailed": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat, iar unele subtitrări nu au putut fi descărcate",
+		"subtitleLanguagesMissing": "Acest videoclip nu are subtitrări în {{languages}}. Videoclipul a fost salvat fără ele.",
+		"subtitleLanguagesMissingOthersSaved": "Acest videoclip nu are subtitrări în {{languages}}. Celelalte limbi au fost salvate.",
+		"noSubtitles": "Fără subtitrări în {{languages}}",
 		"cancelled": "Descărcare anulată",
 		"complete": "Descărcare finalizată",
 		"usedExtractorFallback": "Descărcat cu extractor relaxat — configurați un cookies.txt pentru descărcări mai fiabile",
@@ -932,6 +936,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Acest videoclip nu are subtitrări în {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Protecția anti-bot s-a activat. Cel mai probabil IP-ul folosit este semnalat (interval de centru de date sau ieșire VPN aglomerată). Schimbați IP-ul sau alegeți alt punct de ieșire VPN și reîncercați. Dacă tot eșuează, poate fi o schimbare temporară pe partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat după lansare.",
 			"ipBlock": "Adresa dvs. IP pare blocată. Încercați din nou mai târziu sau folosiți un VPN.",

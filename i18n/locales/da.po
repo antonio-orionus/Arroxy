@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kryptobetalinger kan ikke fortrydes. Send kun på det viste netværk, og sammenlign hele adressen."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Denne video har ingen undertekster på {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Denne video er aldersbegrænset og kan ikke downloades uden en konto, du er logget ind på."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Downloader"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Ingen undertekster på {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Sæt alle aktive downloads på pause, og forhindr, at nye starter"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Flytter filer…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Ingen undertekster på {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Kan ikke gemme i {{dir}} — Arroxy har ikke tilladelse til at skrive der"
@@ -1918,6 +1930,14 @@ msgstr "Venter {{seconds}} s for at undgå hastighedsgrænser…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Starter download-motoren…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Denne video har ingen undertekster på {{languages}}. Videoen blev gemt uden dem."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Denne video har ingen undertekster på {{languages}}. De øvrige sprog blev gemt."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

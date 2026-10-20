@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Els pagaments amb criptomonedes són irreversibles. Envia només a la xarxa indicada i compara l'adreça sencera."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Aquest vídeo no té subtítols en {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Aquest vídeo té restricció d'edat i no es pot baixar sense un compte amb la sessió iniciada."
@@ -1238,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Descarregant"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Sense subtítols en {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Posa en pausa totes les descàrregues actives i evita que en comencin de noves"
@@ -1929,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Movent els fitxers…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Sense subtítols en {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "No es pot desar a {{dir}}: Arroxy no té permís per escriure-hi"
@@ -1968,6 +1980,14 @@ msgstr "Esperant {{seconds}} s per evitar els límits de sol·licituds…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Iniciant el motor de descàrrega…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Aquest vídeo no té subtítols en {{languages}}. El vídeo s'ha desat sense subtítols."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Aquest vídeo no té subtítols en {{languages}}. Els altres idiomes s'han desat."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

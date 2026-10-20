@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Cryptobetalingen zijn onomkeerbaar. Verstuur alleen via het getoonde netwerk en vergelijk het hele adres."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Deze video heeft geen ondertitels in {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Deze video heeft een leeftijdsbeperking en kan niet worden gedownload zonder aangemeld account."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Downloaden"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Geen ondertitels in {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Alle actieve downloads pauzeren en voorkomen dat nieuwe starten"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Bestanden verplaatsen…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Geen ondertitels in {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Opslaan in {{dir}} is niet mogelijk — Arroxy mag daar niet schrijven"
@@ -1918,6 +1930,14 @@ msgstr "{{seconds}} s wachten om limieten te voorkomen…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "De downloadengine starten…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Deze video heeft geen ondertitels in {{languages}}. De video is zonder ondertitels opgeslagen."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Deze video heeft geen ondertitels in {{languages}}. De andere talen zijn opgeslagen."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

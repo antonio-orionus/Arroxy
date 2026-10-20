@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "A kriptovalutás fizetések visszavonhatatlanok. Csak a megjelenített hálózaton küldjön, és a teljes címet hasonlítsa össze."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Ez a videó korhatáros, és bejelentkezett fiók nélkül nem tölthető le."
@@ -1193,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Letöltés"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Nincs felirat a következő nyelveken: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Minden aktív letöltés szüneteltetése, és az újak indításának leállítása"
@@ -1879,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Fájlok áthelyezése…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Nincs felirat a következő nyelveken: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Nem menthető ide: {{dir}} – az Arroxynak nincs írási engedélye"
@@ -1918,6 +1930,14 @@ msgstr "Várakozás {{seconds}} mp-ig a sebességkorlát elkerülése érdekébe
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "A letöltőmotor indítása…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A videó felirat nélkül lett mentve."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A többi nyelv mentésre került."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

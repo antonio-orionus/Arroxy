@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kriptovalūtu maksājumi ir neatgriezeniski. Sūtiet tikai norādītajā tīklā un salīdziniet visu adresi."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Šim video nav subtitru valodās: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Šim videoklipam ir vecuma ierobežojums, un to nevar lejupielādēt bez pierakstīta konta."
@@ -1238,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Lejupielādē"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Nav subtitru valodās: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Pauzēt visas aktīvās lejupielādes un neļaut sākties jaunām"
@@ -1929,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Pārvieto failus…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Nav subtitru valodās: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Nevar saglabāt mapē {{dir}} — Arroxy nav atļaujas tur rakstīt"
@@ -1968,6 +1980,14 @@ msgstr "Gaida {{seconds}} s, lai izvairītos no ierobežojumiem…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Startē lejupielādes dzinēju…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Šim video nav subtitru valodās: {{languages}}. Video tika saglabāts bez tiem."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Šim video nav subtitru valodās: {{languages}}. Pārējās valodas tika saglabātas."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

@@ -784,6 +784,7 @@
 			"qualityLimitedSubtitlesFailed": "Begränsad till {{height}}p · vissa undertexter misslyckades",
 			"audioKept": "Ljudet togs inte bort",
 			"audioKeptSubtitlesFailed": "Ljudet togs inte bort · vissa undertexter misslyckades",
+			"subtitleLanguagesMissing": "Inga undertexter på {{languages}}",
 			"pause": "Pausa",
 			"resume": "Återuppta",
 			"cancel": "Avbryt",
@@ -844,6 +845,9 @@
 		"qualityLimitedSubtitlesFailed": "Sparad i {{height}}p – YouTube höll inne högre kvaliteter för den här hämtningen, och vissa undertexter kunde inte hämtas. Det kan hjälpa att försöka igen senare eller från ett annat nätverk.",
 		"audioKept": "Videon sparades med ljud – ljudet kunde inte tas bort",
 		"audioKeptSubtitlesFailed": "Videon sparades med ljud – ljudet kunde inte tas bort, och vissa undertexter kunde inte hämtas",
+		"subtitleLanguagesMissing": "Den här videon har inga undertexter på {{languages}}. Videon sparades utan dem.",
+		"subtitleLanguagesMissingOthersSaved": "Den här videon har inga undertexter på {{languages}}. De andra språken sparades.",
+		"noSubtitles": "Inga undertexter på {{languages}}",
 		"cancelled": "Hämtningen avbröts",
 		"complete": "Hämtningen är klar",
 		"usedExtractorFallback": "Hämtades med lättad extraktor – konfigurera en cookies.txt för mer tillförlitliga hämtningar",
@@ -896,6 +900,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Den här videon har inga undertexter på {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Botskyddet utlöstes. IP-adressen du använder är troligen flaggad (datacenterintervall eller en hårt belastad VPN-utgång). Byt IP-adress eller välj en annan VPN-slutpunkt och försök igen. Om det fortsätter att misslyckas kan det vara en tillfällig ändring hos webbplatsen. Arroxy uppdaterar sin hämtningsmotor vid start, så åtgärden installeras automatiskt när den släpps.",
 			"ipBlock": "Din IP-adress verkar vara blockerad. Försök igen senare eller använd en VPN.",
