@@ -80,9 +80,11 @@ async function runArroxyBrew(args: string[], expectedVersion: string): Promise<v
 }
 
 // Fixed argv, no caller-supplied input: the in-app "Run" for the Homebrew
-// update banner shows the same command it copies.
+// update banner shows the same command it copies. Homebrew refuses a cask from
+// an untrusted tap by its short name; the fully qualified name trusts it first,
+// so a cask installed before Homebrew required tap trust still upgrades.
 export async function upgradeArroxyWithHomebrew(expectedVersion: string): Promise<void> {
-	await runArroxyBrew(['upgrade', '--cask', 'arroxy'], expectedVersion)
+	await runArroxyBrew(['upgrade', '--cask', HOMEBREW_CASK], expectedVersion)
 }
 
 // Moves a DMG-installed copy under Homebrew while updating it. `--adopt` cannot

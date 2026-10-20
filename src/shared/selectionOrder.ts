@@ -131,8 +131,12 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 // SDR first is `hdr:sdr`, and a field named in `-S` outranks every default, so
 // it needs `res` and `fps` named before it or it would pick a lower height to
 // avoid HDR. A height only offered as HDR is still taken (checked with yt-dlp).
+// An audio token (MP4's `acodec:m4a`) outranks the defaults too, so `res`,
+// `fps` and `hdr` come before it as well.
 function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefined {
 	const sdrFirst = order.hdr.preference === 'sdr'
+	const audioToken = (order.audio ?? []).some(audio => audioSortToken(audio) !== undefined)
+	const spellOut = sdrFirst || audioToken
 	switch (rank.kind) {
 		// yt-dlp always sorts by the site's preference first; nothing to spell out.
 		case 'site-preference':
@@ -146,11 +150,12 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 			return 'ext:mp4'
 		case 'resolution':
 			if (rank.tier !== 'best') return `res:${rank.tier}`
-			return sdrFirst ? 'res' : undefined
+			return spellOut ? 'res' : undefined
 		case 'fps':
-			return order.tier === 'best' && !sdrFirst ? undefined : 'fps'
+			return order.tier === 'best' && !spellOut ? undefined : 'fps'
 		case 'hdr':
-			return sdrFirst ? 'hdr:sdr' : undefined
+			// `hdr:12` is yt-dlp's own default for HDR first.
+			return sdrFirst ? 'hdr:sdr' : audioToken ? 'hdr:12' : undefined
 		// The site's own sort order (`_format_sort_fields`) already names it.
 		case 'source':
 		case 'codec':

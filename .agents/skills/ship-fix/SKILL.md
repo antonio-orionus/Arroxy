@@ -57,7 +57,7 @@ If `antonio-orionus` is not active: `gh auth switch --user antonio-orionus`. The
 verify: both greps are clean, the PR is open, and its body has the four parts.
 
 ### 6. CodeRabbit
-Follow `.agents/memory/coderabbit-review-workflow.md` exactly. In short: auto reviews are off, so comment `@coderabbitai review` right after opening; poll `issues/<N>/comments` for all three terminal outcomes (findings, clean, refused); check each finding against the code before acting; fix valid ones, push back with evidence on wrong ones; reply in the inline thread. Re-trigger once only if the post-review commits are substantial, then confirm `coveredCommitId` equals the pushed head.
+Follow `.agents/memory/coderabbit-review-workflow.md`: run Codex and the gates first, then trigger once on the final head.
 verify: every finding is fixed or answered, and the review covers the head commit.
 
 ### 7. Validate

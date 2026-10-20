@@ -1,10 +1,10 @@
 Arroxy — Third-party software notices
 ======================================
 
-Arroxy itself is licensed under the MIT license. The third-party tools
-listed below are used by Arroxy. Tools 1 and 2 are downloaded by Arroxy
-and invoked as separate subprocesses; their licenses do not propagate to
-Arroxy's source code.
+Arroxy itself is licensed under the GNU General Public License v3.0 or
+later. The third-party tools listed below are used by Arroxy. Tools 1
+and 2 are downloaded by Arroxy and invoked as separate subprocesses;
+their licenses do not propagate to Arroxy's source code.
 Libraries 3 to 5 are bundled, unmodified, into Arroxy for its optional
 Explore ad blocker.
 

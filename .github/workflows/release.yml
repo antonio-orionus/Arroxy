@@ -666,6 +666,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
       - name: Update manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           PORTABLE="Arroxy-win-x64-Portable.exe"
@@ -675,8 +677,16 @@ jobs:
             cat SHA256SUMS
             exit 1
           fi
-          jq --arg v "$VERSION" --arg h "$HASH" --arg p "$PORTABLE" \
+          # The license comes from the tagged package.json, so a relicense
+          # reaches the bucket with the release that carries it.
+          LICENSE_ID=$(gh api "repos/${GITHUB_REPOSITORY}/contents/package.json?ref=${GITHUB_REF_NAME}" --jq .content | base64 -d | jq -r .license)
+          if [ -z "$LICENSE_ID" ] || [ "$LICENSE_ID" = "null" ]; then
+            echo "::error::package.json at ${GITHUB_REF_NAME} has no license"
+            exit 1
+          fi
+          jq --arg v "$VERSION" --arg h "$HASH" --arg p "$PORTABLE" --arg l "$LICENSE_ID" \
             '.version = $v
+             | .license = $l
              | .url = "https://github.com/antonio-orionus/Arroxy/releases/download/v\($v)/\($p)"
              | .hash = "sha256:\($h)"
              | .bin = $p

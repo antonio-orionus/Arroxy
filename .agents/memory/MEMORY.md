@@ -26,3 +26,4 @@
 - [No betas](no-betas.md) — stable releases only; never gate a rollout on a `-beta.N`, use pre-merge evidence or shadow mode in a normal release.
 - [Probe source fixtures](probe-source-fixtures.md) — real probes of many sites as snapshots and "Real sites" mock scenarios; check Format-screen changes against them first.
 - [Changelog stays laconic](changelog-laconic.md) — CHANGELOG entries: one or two user-facing sentences, no internals, no exact sizes; read before writing release notes.
+- [Winget license after relicense](winget-license-after-relicense.md) — the 0.7.1 Winget PR copies `License: MIT` forward; set it to GPL-3.0-or-later by hand on the PR branch, then delete this entry.

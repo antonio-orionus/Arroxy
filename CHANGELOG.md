@@ -49,6 +49,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - A busy download queue no longer slows the app down.
 - Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
 - The Vimeo OTT title lookup can no longer reach addresses on your local network.
+- Updating with Homebrew works again on Homebrew 6 and later. The update banner's command, and **Run & Restart**, now name Arroxy's cask in full (`brew upgrade --cask antonio-orionus/arroxy/arroxy`), so Homebrew no longer refuses it as coming from an untrusted tap.
 
 ## Good to know
 
