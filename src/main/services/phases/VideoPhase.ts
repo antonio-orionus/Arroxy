@@ -1,5 +1,5 @@
 import {readFileSync} from 'node:fs'
-import {mkdir, readFile, rm, stat} from 'node:fs/promises'
+import {copyFile, mkdir, readFile, rm, stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
 import {dirname, isAbsolute, join, relative, sep} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -51,6 +51,21 @@ async function setupTempDir(outputDir: string, jobId: string, preserve: boolean,
 function insideOutputDir(outputDir: string, tempDir: string): boolean {
 	const inside = relative(outputDir, tempDir)
 	return inside !== '' && inside !== '..' && !inside.startsWith(`..${sep}`) && !isAbsolute(inside)
+}
+
+// The probe's info-json lives in the app's cache. yt-dlp expands a path it
+// reads like any other, so the run reads a copy in the job's temp folder, by a
+// path relative to the folder it runs in. Without a temp folder, or when the
+// copy fails, the cache path is used as before.
+const PROBE_INFO_JSON_NAME = '_arroxy.probe.info.json'
+
+async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined, tempDir: string | undefined): Promise<string | undefined> {
+	if (!probeInfoJsonPath || !tempDir) return probeInfoJsonPath
+	const copy = join(tempDir, PROBE_INFO_JSON_NAME)
+	return copyFile(probeInfoJsonPath, copy).then(
+		() => copy,
+		() => probeInfoJsonPath
+	)
 }
 
 async function clearTempDir(tempDir: string): Promise<void> {
@@ -220,7 +235,8 @@ export const VideoPhase: Phase = {
 		// The probe's info-json predates any section and stays safe to load.
 		const isPart = preparedJob.kind !== 'ranged-format' && preparedJob.videoPart !== undefined
 		const resumeInfoJsonPath = await detectCachedInfoJson(isResume && !isPart ? tempDir : undefined)
-		const loadInfoJsonPath = resumeInfoJsonPath ?? input.probeInfoJsonPath
+		const probeInfoJsonPath = await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir)
+		const loadInfoJsonPath = resumeInfoJsonPath ?? probeInfoJsonPath
 
 		const site = siteForJob(preparedJob.extractor, input.url)
 		const buildRequest = (infoJsonPath: string | undefined): YtDlpRequest => buildMediaRequest({url: input.url, job: preparedJob, outputDir: job.outputDir, tempDir, infoJsonPath})
@@ -244,7 +260,7 @@ export const VideoPhase: Phase = {
 			// yt-dlp prints the withheld-formats warning during extraction, so a run
 			// that loads the probe's info-json inherits the probe's observation.
 			// A resumed run loading its own saved info-json inherits the earlier run's.
-			let formatsWithheld = infoJsonPath !== undefined && ((infoJsonPath === input.probeInfoJsonPath && input.probeFormatsWithheld === true) || (infoJsonPath === resumeInfoJsonPath && active.formatsWithheld === true))
+			let formatsWithheld = infoJsonPath !== undefined && ((infoJsonPath === probeInfoJsonPath && input.probeFormatsWithheld === true) || (infoJsonPath === resumeInfoJsonPath && active.formatsWithheld === true))
 			active.formatsWithheld = formatsWithheld
 			let infoJsonWritten = false
 			let stopChecked = false

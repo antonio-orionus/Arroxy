@@ -8,7 +8,7 @@
 // attribute because the first call had already reported "it was already there".
 // `setupTempDir` therefore uses a single recursive `mkdir`, and this pins that.
 
-import {mkdtemp, mkdir, rm, rmdir, access} from 'node:fs/promises'
+import {mkdtemp, mkdir, rm, rmdir, access, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
@@ -120,6 +120,28 @@ describe('VideoPhase — a temp folder outside the output folder', () => {
 			expect(ctx.active.tempDir).toBe(join(outputDir, '.arroxy-temp', 'job-1'))
 		} finally {
 			await rm(elsewhere, {recursive: true, force: true})
+		}
+	})
+})
+
+// The probe's info-json lives in the app's cache, outside the output folder.
+// yt-dlp would get it by absolute path, which it expands like any other, so
+// the run reads a copy in the job's temp folder instead.
+describe("VideoPhase — the probe's info-json", () => {
+	it('is read from a copy in the temp folder', async () => {
+		const cache = await mkdtemp(join(tmpdir(), 'arroxy-probe-cache-'))
+		try {
+			const probe = join(cache, 'probe $HOME.info.json')
+			await writeFile(probe, '{"id": "x"}')
+			const ctx = makeCtx()
+			ctx.active.input = {...ctx.active.input, probeInfoJsonPath: probe}
+			await VideoPhase.run(ctx)
+
+			const request = vi.mocked(ctx.ytDlp.run).mock.calls[0]?.[0]
+			const loaded = request?.kind === 'media' ? request.resume?.loadInfoJsonPath : undefined
+			expect(loaded).toBe(join(outputDir, '.arroxy-temp', 'job-1', '_arroxy.probe.info.json'))
+		} finally {
+			await rm(cache, {recursive: true, force: true})
 		}
 	})
 })
