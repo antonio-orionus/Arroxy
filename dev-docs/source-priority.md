@@ -141,10 +141,19 @@ Every order starts with two rules, before the goal's own ranks:
   alternative with `[format_id!$=-sr]` first and the plain selector after,
   so a video offered only upscaled still downloads.
 
-**Best picture:** resolution ≤ tier · fps · HDR · codec (AV1, VP9, HEVC,
-H.264) · size.
+**Best picture:** resolution ≤ tier · fps · HDR · source · codec (AV1, VP9,
+HEVC, H.264) · size.
 
-**Smart TV:** H.264 · MP4 container · resolution ≤ tier · fps · HDR · size.
+**Smart TV:** H.264 · MP4 container · resolution ≤ tier · fps · HDR · source
+· size.
+
+**Source** is yt-dlp's `source_preference`: YouTube raises its Premium
+(enhanced-bitrate) copies by 100 and lowers ones missing a PO token by 20. Its
+extractor sorts `quality, res, fps, hdr:12, source, vcodec`, as do Vimeo and
+(after `res`) VK, LinkedIn and 3Q, so the pick ranks it before codec and a
+1080p video takes the Premium VP9 over AV1, as a queued download does. A
+missing value reads as yt-dlp's default, -1. A queued download needs no `-S`
+token for it: the site's own sort fields follow the `-S` ones.
 No H.264 on the video: the codec rank falls back to Best picture's order
 with the existing `mp4-unavailable` fit notice.
 
