@@ -170,7 +170,7 @@ export function buildDownloadReview(state: WizardReviewState, ctx: DownloadRevie
 
 	const audioFormats = state.wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(videoId, state.wizardFormats, ctx.t('wizard.confirm.audioOnly'))
-	const audioLabel = resolveAudioLabel(audio, audioFormats)
+	const audioLabel = resolveAudioLabel(audio, audioFormats, state.wizardFormatSelection)
 	const videoSummary = kind === 'subtitles' ? ctx.t('wizard.formats.kind.subtitles') : kind === 'audio' ? ctx.t('wizard.confirm.audioOnly') : videoResolution
 
 	const nativeAudioId = audio.kind === 'native' ? audio.formatId : null

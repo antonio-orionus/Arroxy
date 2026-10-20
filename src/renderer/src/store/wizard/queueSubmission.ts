@@ -83,7 +83,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')
 
 	const audioConvert = wizardMediaKind === 'subtitles' ? undefined : buildAudioConvertPayload(effectiveAudio)
-	const formatLabel = wizardMediaKind === 'subtitles' ? i18next.t('wizard.formats.kind.subtitles') : buildFormatLabel(selectedVideoFormatId, videoResolution, effectiveAudio, audioFormats)
+	const formatLabel = wizardMediaKind === 'subtitles' ? i18next.t('wizard.formats.kind.subtitles') : buildFormatLabel(selectedVideoFormatId, videoResolution, effectiveAudio, audioFormats, state.wizardFormatSelection)
 
 	const nativeAudioId = effectiveAudio.kind === 'native' ? effectiveAudio.formatId : null
 	const selectedIds = [selectedVideoFormatId, nativeAudioId].filter(Boolean) as string[]

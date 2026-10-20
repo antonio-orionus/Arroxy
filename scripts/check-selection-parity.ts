@@ -19,6 +19,9 @@ import {existsSync, readFileSync} from 'node:fs'
 import {mkdir, rename, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import {promisify} from 'node:util'
+import {planWorkflow} from 'yt-dlp-bridge'
+import {conversionSource} from '../src/shared/audioConversionSource.js'
+import {AUDIO_CONVERT_TARGETS} from '../src/shared/audioTargets.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../src/shared/downloadProfiles.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec} from '../src/shared/mediaIntent.js'
 import {resolveProfileSelection} from '../src/shared/profileSelection.js'
@@ -149,6 +152,26 @@ for (const probe of probeIds) {
 		const spec = mediaIntentSpec(intent, profileCase.nativeAudio, 'sdr')
 		if (!spec.formatSelector) continue
 		cases.push({probe, label: profileCase.label, format: spec.formatSelector, ...(spec.formatSort ? {sort: spec.formatSort} : {}), expected: app.id, ...(comparesContainer ? {expectedExt: app.container} : {})})
+	}
+}
+
+// The bridge's `-f` for a conversion that names no stream.
+function conversionSelector(target: string): string {
+	const {args} = planWorkflow({kind: 'media', url: 'https://parity.invalid/', output: {directory: '/out'}, audio: {convert: {target, lossy: target !== 'wav', bitrateKbps: 192}}})
+	const selector = args[args.indexOf('-f') + 1]
+	if (selector === undefined) throw new Error(`no -f planned for a ${target} conversion`)
+	return selector
+}
+
+// Conversions: the stream the app says a conversion starts from (its copy
+// labels and notes, a language's source) against the bridge's own selector,
+// which yt-dlp runs. The app runs the same selector through its port.
+for (const probe of probeIds) {
+	const selection = probeSourceResult(probe).formatSelection
+	if (!selection) continue
+	for (const {target} of AUDIO_CONVERT_TARGETS) {
+		const predicted = conversionSource(selection, target)
+		if (predicted) cases.push({probe, label: `convert ${target}`, format: conversionSelector(target), expected: predicted.formatId})
 	}
 }
 

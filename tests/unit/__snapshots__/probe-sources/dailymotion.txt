@@ -10,6 +10,7 @@ Video (picked for Balanced 720p •):
 Audio:
 (no separate audio)
 convert: mp3, m4a, opus, wav
+convert from: mp3 ← hls-720 re-encode · m4a ← hls-720 copy · opus ← hls-720 re-encode · wav ← hls-720 re-encode
 
 Profile picks:
 balanced: hls-720 (1280x720, mp4) + audio none
