@@ -20,6 +20,7 @@ vi.mock('@main/services/download/tempDirVisibility.js', async importOriginal => 
 const JOB: ResolvedStartDownloadInput['job'] = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
 const FAILURE: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'botBlock', rawError: 'bot', stdout: '', stderr: ''}
+const SPONSORBLOCK_API_FAILURE: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: Preprocessing: Unable to communicate with SponsorBlock API: HTTP Error 503', stdout: '', stderr: 'ERROR: Preprocessing: Unable to communicate with SponsorBlock API: HTTP Error 503'}
 
 let outputDir: string
 
@@ -33,7 +34,7 @@ afterEach(async () => {
 
 // A yt-dlp stand-in that writes the info-json into the run's temp folder, as
 // `--write-info-json -o infojson:<temp>/_arroxy` does, then ends with `result`.
-function makeCtx(infoJson: string | null, result: YtDlpResult = SUCCESS): PhaseContext {
+function makeCtx(infoJson: string | null, result: YtDlpResult = SUCCESS, job: ResolvedStartDownloadInput['job'] = JOB): PhaseContext {
 	const run = vi.fn(async (req: YtDlpRequest) => {
 		if (req.kind !== 'media' || !req.output.tempDirectory) throw new Error('unexpected yt-dlp run')
 		if (infoJson !== null) await writeFile(join(req.output.tempDirectory, '_arroxy.info.json'), infoJson)
@@ -42,7 +43,7 @@ function makeCtx(infoJson: string | null, result: YtDlpResult = SUCCESS): PhaseC
 	const controller = new AbortController()
 	const active: ActiveDownload = {
 		job: {id: 'job-title-1', url: 'https://www.youtube.com/watch?v=abc', outputDir, status: 'running', createdAt: '', updatedAt: ''},
-		input: {url: 'https://www.youtube.com/watch?v=abc', outputDir, job: JOB},
+		input: {url: 'https://www.youtube.com/watch?v=abc', outputDir, job},
 		controller,
 		signal: controller.signal,
 		cancelRequested: false,
@@ -76,6 +77,14 @@ describe('VideoPhase — media title', () => {
 		await VideoPhase(false).run(ctx)
 
 		expect(ctx.active.mediaTitle).toBeUndefined()
+	})
+
+	it('keeps the title when the media landed but the SponsorBlock lookup failed', async () => {
+		const ctx = makeCtx(JSON.stringify({id: 'abc', title: 'Real Title'}), SPONSORBLOCK_API_FAILURE, {...JOB, sponsorBlock: {mode: 'mark', categories: ['sponsor']}})
+
+		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+
+		expect(ctx.active.mediaTitle).toBe('Real Title')
 	})
 
 	it('reads no title for a failed run', async () => {

@@ -176,6 +176,8 @@ async function adoptFinalMedia(active: ActiveDownload, finalPathFile: string | u
 	await adoptFinalPath(active, finalPathFile)
 	const title = tempDir ? await readInfoJsonTitle(join(tempDir, INFO_JSON_NAME)) : null
 	if (title !== null) active.mediaTitle = title
+	// A placeholder row then keeps `Untitled · #N`; say why.
+	else logger.info('no title from the job info-json', {jobId: active.job.id, reason: tempDir ? 'missing, unreadable or untitled' : 'no temp folder'})
 }
 
 export function VideoPhase(embed: boolean): Phase {
