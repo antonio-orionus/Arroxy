@@ -104,6 +104,10 @@ describe('PhaseExecutor', () => {
 		const limited = makeCtx({qualityLimit: {height: 360}})
 		await new PhaseExecutor().run(limited, [stubPhase(missing)])
 		expect(vi.mocked(limited.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: 360})
+
+		const kept = makeCtx({qualityLimit: {height: 360}, audioKept: true})
+		await new PhaseExecutor().run(kept, [stubPhase(missing)])
+		expect(vi.mocked(kept.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.audioKeptSubtitlesFailed)
 	})
 
 	it('a subtitles-only job missing some languages reports them with its own notice', async () => {

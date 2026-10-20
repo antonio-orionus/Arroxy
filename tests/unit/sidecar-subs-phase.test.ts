@@ -160,6 +160,22 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			await rm(tempDir, {recursive: true, force: true})
 		})
 
+		it('embeds the languages the video has, then names the rest', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}, subtitlePaths: ['/tmp/video.ja.srt']})
+			expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
+			expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce()
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
+		it('a failed mux is the subtitle failure, whatever the video lacks', async () => {
+			vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: false})
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}, subtitlePaths: ['/tmp/video.ja.srt']})
+			expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
 		it('a failed fetch is still the subtitle failure', async () => {
 			const tempDir = await tempDirWithInfoJson()
 			const ctx = makeCtx(EXIT_ERROR, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
