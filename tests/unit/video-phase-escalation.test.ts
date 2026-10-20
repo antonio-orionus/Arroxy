@@ -47,7 +47,8 @@ afterEach(async () => {
 	await rm(outputDir, {recursive: true, force: true})
 })
 
-function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean}) {
+// `subtitlePaths`: the files a successful subtitle run reported writing.
+function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean; subtitlePaths?: string[]}) {
 	const results = [...opts.runs]
 	const run = vi.fn((_req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
 		const next = results.shift()
@@ -62,7 +63,7 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 		signal: controller.signal,
 		cancelRequested: false,
 		pauseRequested: false,
-		subtitlePaths: [],
+		subtitlePaths: [...(opts.subtitlePaths ?? [])],
 		disposables: new AsyncStack()
 	}
 	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified})
@@ -301,9 +302,10 @@ describe('rejected cookies on a sidecar subtitle fetch', () => {
 // A2-6: subtitle-only jobs escalate at download time like the video phase.
 describe('SubtitleOnlyPhase download-time escalation', () => {
 	const SUBTITLE_ONLY: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
+	const WRITTEN = ['/tmp/video.en.srt']
 
 	it('escalates an anonymous account failure, persisting the signed-in auth before the spawn', async () => {
-		const {ctx, run, emitStatus, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true})
+		const {ctx, run, emitStatus, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true, subtitlePaths: WRITTEN})
 		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 		// The signed-in spawn counts against the job's signed-in budget.
@@ -317,7 +319,7 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 	})
 
 	it('escalates a YouTube bot wall the PoT ladder could not get past', async () => {
-		const {ctx, run} = makeCtx({runs: [BOT_WALL, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true})
+		const {ctx, run} = makeCtx({runs: [BOT_WALL, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true, subtitlePaths: WRITTEN})
 		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 	})
@@ -351,7 +353,7 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 	})
 
 	it('handles rejected cookies on the escalated run: verify, then retry once', async () => {
-		const {ctx, run, verifySignedIn} = makeCtx({runs: [LOGIN_REQUIRED, COOKIES_REJECTED, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true, verified: 'signedIn'})
+		const {ctx, run, verifySignedIn} = makeCtx({runs: [LOGIN_REQUIRED, COOKIES_REJECTED, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true, verified: 'signedIn', subtitlePaths: WRITTEN})
 		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 		expect(identities(run)).toEqual(['configured', 'exploreSession', 'exploreSession'])
