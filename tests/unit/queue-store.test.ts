@@ -320,8 +320,15 @@ describe('QueueStore — subtitle requests from 0.7.2', () => {
 			// Format screen: one kind of track each, so exact tracks.
 			{kind: 'tracks', tracks: [{key: 'en', auto: false}]},
 			{kind: 'tracks', tracks: [{key: 'ja', auto: true}]},
-			// Both tracks of one language: the kinds are not written down, so the languages go back to a plan.
-			{kind: 'languages', languages: ['en'], source: 'manual-and-auto'},
+			// Both kinds fetched: an -orig key is the caption, and a bare key whichever yt-dlp finds first, as before.
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'en', auto: false},
+					{key: 'en', auto: true},
+					{key: 'en-orig', auto: true}
+				]
+			},
 			// Codes keep their source.
 			{kind: 'languages', languages: ['en', 'pl'], source: 'manual-first'},
 			{kind: 'languages', languages: ['de'], source: 'auto-only'},
@@ -341,19 +348,33 @@ describe('QueueStore — subtitle requests from 0.7.2', () => {
 		expect(Object.keys('subtitles' in batch.job ? (batch.job.subtitles ?? {}) : {}).sort()).toEqual(['format', 'mode', 'request'])
 	})
 
-	it('reads a mixed exact-key job with no -orig key as a manual-first plan of its languages', async () => {
+	// The old job asked yt-dlp for exact keys with both write flags: each bare key
+	// came from the uploaded tracks if the video had one, else from the captions.
+	it('keeps a mixed exact-key job asking for the same keys, either kind for a bare key', async () => {
 		const [store, dir] = await tempStore()
-		const row = {...makeItem({id: 'mixed', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-US', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: true}}}
-		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [row]}), 'utf-8')
-		expect(requests(await loadOk(store))).toEqual([{kind: 'languages', languages: ['en-US', 'ja'], source: 'manual-first'}])
-	})
-
-	// A Quick Download resolved a manual-and-auto profile's codes to keys and kept the flag.
-	it('reads exact keys from a manual-and-auto job as a plan of both tracks', async () => {
-		const [store, dir] = await tempStore()
-		const row = {...makeItem({id: 'both', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['de', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: true, autoAlongsideManual: true}}}
-		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [row]}), 'utf-8')
-		expect(requests(await loadOk(store))).toEqual([{kind: 'languages', languages: ['de', 'ja'], source: 'manual-and-auto'}])
+		const rows = [
+			{...makeItem({id: 'mixed', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-orig', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: true}}},
+			// A Quick Download resolved a manual-and-auto profile's codes to keys and kept the flag.
+			{...makeItem({id: 'both', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['de'], mode: 'sidecar', format: 'srt', writeAuto: true, autoAlongsideManual: true}}}
+		]
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: rows}), 'utf-8')
+		expect(requests(await loadOk(store))).toEqual([
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'en-orig', auto: true},
+					{key: 'ja', auto: false},
+					{key: 'ja', auto: true}
+				]
+			},
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'de', auto: false},
+					{key: 'de', auto: true}
+				]
+			}
+		])
 	})
 
 	it('drops a row whose old subtitle options are malformed and keeps the rest', async () => {

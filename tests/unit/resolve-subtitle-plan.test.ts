@@ -76,7 +76,7 @@ describe('resolveSubtitlePlan', () => {
 		expect(subtitleRunRequest(run, 'srt').languages).toEqual(['(?-i:en-orig)', '(?-i:de)'])
 	})
 
-	it('plans picked tracks without an info-json from the picks themselves', async () => {
+	it('plans picked tracks without an info-json from the picks themselves, an -orig key kept beside a manual pick', async () => {
 		const run = await resolve(
 			{
 				kind: 'tracks',
@@ -88,7 +88,34 @@ describe('resolveSubtitlePlan', () => {
 			},
 			{infoJsonPaths: []}
 		)
-		expect(subtitleRunRequest(run, 'srt').languages).toEqual(['(?-i:en)', '(?-i:en-orig)', '(?-i:ja)'])
+		expect(subtitleRunRequest(run, 'srt').languages).toEqual(['(?-i:en)', '(?-i:en-orig)', '(?-i:ja-orig)'])
+	})
+
+	// Without the video's lists, an unpicked uploaded English may exist: the bare key could fetch it instead.
+	it("keeps an -orig pick's own key without an info-json when the plan fetches a manual track", async () => {
+		const run = await resolve(
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'en-orig', auto: true},
+					{key: 'de', auto: false}
+				]
+			},
+			{infoJsonPaths: []}
+		)
+		expect(subtitleRunRequest(run, 'srt').languages).toEqual(['(?-i:en-orig)', '(?-i:de)'])
+	})
+
+	// A queue row migrated from 0.7.2 asks for a bare key from either kind, as its old argv did.
+	it('asks once, with both write flags, for a key picked as both kinds', async () => {
+		const run = await resolve({
+			kind: 'tracks',
+			tracks: [
+				{key: 'ja', auto: false},
+				{key: 'ja', auto: true}
+			]
+		})
+		expect(subtitleRunRequest(run, 'srt')).toEqual({languages: ['(?-i:ja)'], format: 'srt', writeAuto: true})
 	})
 
 	it('is empty when the video has none of the languages', async () => {

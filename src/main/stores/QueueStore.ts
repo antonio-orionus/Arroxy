@@ -2,7 +2,7 @@ import Store from 'electron-store'
 import log from 'electron-log/main.js'
 import type {QueueItem} from '@shared/types.js'
 import {QUEUE_STATUS, type DownloadProfileSubtitleSource} from '@shared/schemas.js'
-import {baseLanguage, type SubtitleRequest} from '@shared/subtitleTracks.js'
+import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import {queueArraySchema, queueItemSchema} from '@shared/queueItemSchema.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
@@ -84,12 +84,11 @@ function migrateLegacyOutputTemplate(row: Record<string, unknown>): Record<strin
 // Jobs saved before subtitle requests held `languages` plus the yt-dlp flags.
 // Codes (`languagesAreCodes`) become a languages request with the source the
 // flags stood for. Exact keys from a job that fetched one kind of track become
-// a tracks request of that kind. Exact keys from a job that fetched both do not
-// say which kind each key is, so they become a languages request over the same
-// keys, planned at run time like a profile's: manual-first, or manual-and-auto
-// when the job came from that source or a key kept its `-orig` (only both
-// tracks of one language picked together did). Anything else is left for
-// validation to reject.
+// a tracks request of that kind. A job that fetched both asked yt-dlp for each
+// bare key from whichever kind the video had, uploaded first, and does not say
+// which: such a key becomes both tracks, which asks yt-dlp the same. An `-orig`
+// key is always the automatic caption. Anything else is left for validation
+// to reject.
 function legacySubtitleSource(subtitles: Record<string, unknown>): DownloadProfileSubtitleSource {
 	if (subtitles.writeAuto !== true) return 'manual-only'
 	if (subtitles.autoOnly === true) return 'auto-only'
@@ -99,10 +98,18 @@ function legacySubtitleSource(subtitles: Record<string, unknown>): DownloadProfi
 function legacySubtitleRequest(subtitles: Record<string, unknown>, languages: string[]): SubtitleRequest {
 	const source = legacySubtitleSource(subtitles)
 	if (subtitles.languagesAreCodes === true) return {kind: 'languages', languages, source}
-	const oneKind = source === 'manual-only' || source === 'auto-only'
-	if (languages.length === 0 || oneKind) return {kind: 'tracks', tracks: languages.map(key => ({key, auto: source === 'auto-only'}))}
-	const bothTracks = source === 'manual-and-auto' || languages.some(key => key.endsWith('-orig'))
-	return {kind: 'languages', languages: [...new Set(languages.map(baseLanguage))], source: bothTracks ? 'manual-and-auto' : 'manual-first'}
+	if (source === 'manual-only' || source === 'auto-only') return {kind: 'tracks', tracks: languages.map(key => ({key, auto: source === 'auto-only'}))}
+	return {
+		kind: 'tracks',
+		tracks: languages.flatMap(key =>
+			key.endsWith('-orig')
+				? [{key, auto: true}]
+				: [
+						{key, auto: false},
+						{key, auto: true}
+					]
+		)
+	}
 }
 
 function migrateLegacySubtitleOptions(row: Record<string, unknown>): Record<string, unknown> {

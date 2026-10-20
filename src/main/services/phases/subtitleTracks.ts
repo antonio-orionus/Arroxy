@@ -6,7 +6,7 @@ import type {SubtitleFormat} from '@shared/schemas.js'
 import type {Site} from '@shared/sites/index.js'
 import {ytDlpSubtitleKey, ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 import {detectSubtitleLang, subtitleTrackKey} from '@shared/subtitlePath.js'
-import {fetchedTrackFormats, planSubtitleTracks, sourceFetchFlags, subtitleFetchFlags, type PickedTrack, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
+import {baseLanguage, fetchedTrackFormats, planSubtitleTracks, sourceFetchFlags, subtitleFetchFlags, type PickedTrack, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {logger} from '../subtitlePostProcess.js'
 import type {SubtitleEmbedTrack} from '../subtitleEmbedArgs.js'
@@ -57,10 +57,14 @@ function sanitizedMaps(raw: RawSubtitleMaps, site: Site): SubtitleMaps {
 	return {subtitles: sanitizeSubtitleMap(raw.subtitles, {isAutomaticCaptions: false, site}), automaticCaptions: sanitizeSubtitleMap(raw.automaticCaptions, {isAutomaticCaptions: true, site})}
 }
 
-// The Format screen's picks with no list at hand: the manual picks stand for
-// the video's manual tracks, which is all a track's request key depends on.
+// The Format screen's picks with no list at hand. Whether the video has an
+// uploaded track under an `-orig` caption's bare key is unknown, so it is
+// assumed to: the caption keeps its own key whenever manual tracks are
+// fetched, and never comes back as the uploaded track.
 function picksAsMaps(tracks: readonly PickedTrack[]): SubtitleMaps {
-	return {subtitles: Object.fromEntries(tracks.filter(track => !track.auto).map(track => [track.key, true])), automaticCaptions: {}}
+	const manual = tracks.filter(track => !track.auto).map(track => track.key)
+	const bareTwins = tracks.filter(track => track.auto).map(track => baseLanguage(track.key))
+	return {subtitles: Object.fromEntries([...manual, ...bareTwins].map(key => [key, true])), automaticCaptions: {}}
 }
 
 // The one step both subtitle phases start with: the job's request planned
