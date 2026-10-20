@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {resolveOutputContainer} from '@renderer/store/wizard/resolveContainer.js'
 import type {AudioSelection, SubtitleMode, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption} from '@shared/types.js'
+import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
 
 function fmt(formatId: string, ext: string, isVideoOnly = false, isAudioOnly = false): FormatOption {
 	return {formatId, ext, label: formatId, resolution: '1080p', isVideoOnly, isAudioOnly}
@@ -57,6 +58,14 @@ describe('resolveOutputContainer', () => {
 		it("a native pick lands in its codec's own container", () => {
 			expect(resolveOutputContainer('', {kind: 'native', formatId: '251'}, sidecar, [opus, aac], 'audio')).toBe('opus')
 			expect(resolveOutputContainer('', {kind: 'native', formatId: '140'}, sidecar, [opus, aac], 'audio')).toBe('m4a')
+		})
+
+		// A real site with only combined files, through the app's own mapping.
+		it('keep as-is names the container from a real probe', () => {
+			const {formats} = probeSourceResult('dailymotion')
+			const combined = formats.find(f => !f.isAudioOnly && !f.isVideoOnly)
+			expect(combined?.audioCodec).toMatch(/^mp4a/)
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: combined?.formatId}, sidecar, formats, 'audio')).toBe('m4a')
 		})
 
 		it("keep as-is lands in the best combined file's audio container", () => {

@@ -310,11 +310,10 @@ describe('DownloadProfileEditor', () => {
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
 
-		// "Best" audio is extracted into its codec's own file (.opus, .m4a), which holds a cover; WAV can't.
-		expect(await screen.findByTestId('profiles-editor-embed-thumbnail')).toBeInTheDocument()
-		fireEvent.click(screen.getByTestId('profiles-editor-audio-format'))
-		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-wav'))
-		await waitFor(() => expect(screen.queryByTestId('profiles-editor-embed-thumbnail')).not.toBeInTheDocument())
+		// "Best" audio keeps the source's own file where it is already a common
+		// audio one (WAV, AIFF, WMA), which yt-dlp cannot embed into, so it offers no cover.
+		await screen.findByTestId('profiles-editor-audio-format')
+		expect(screen.queryByTestId('profiles-editor-embed-thumbnail')).not.toBeInTheDocument()
 
 		fireEvent.click(screen.getByTestId('profiles-editor-audio-format'))
 		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-mp3'))

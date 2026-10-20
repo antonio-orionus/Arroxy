@@ -179,6 +179,7 @@ describe('DownloadProfileDraft', () => {
 	it('never stores thumbnail embedding for media that cannot hold cover art', () => {
 		const modes: [DownloadProfileDraft['mediaMode'], DownloadProfileDraft['audioFormat']][] = [
 			['video-only', 'best'],
+			['audio-only', 'best'],
 			['audio-only', 'wav'],
 			['subtitles-only', 'best']
 		]

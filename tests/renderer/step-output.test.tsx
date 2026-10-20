@@ -21,10 +21,12 @@ describe('StepOutput', () => {
 		expect(screen.getByTestId('embed-thumbnail-toggle')).toBeInTheDocument()
 	})
 
-	// "Best" audio is extracted into its codec's own file (.opus, .m4a), which holds a cover.
-	it('offers thumbnail embedding for a best-audio batch', () => {
+	// "Best" audio keeps the source's own file where it is already a common
+	// audio one (WAV, AIFF, WMA), which yt-dlp cannot embed into, so it offers no cover.
+	it('hides thumbnail embedding for a batch whose files cannot hold cover art', () => {
 		renderBatch({kind: 'audio', format: 'best'})
-		expect(screen.getByTestId('embed-thumbnail-toggle')).toBeInTheDocument()
+		expect(screen.queryByTestId('embed-thumbnail-toggle')).not.toBeInTheDocument()
+		expect(screen.getByTestId('write-thumbnail-toggle')).toBeInTheDocument()
 	})
 
 	it('keeps the switch in single-video mode, where the review step warns per format', () => {
