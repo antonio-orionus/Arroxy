@@ -1,4 +1,4 @@
-import {useState, type KeyboardEvent, type ReactNode} from 'react'
+import {useRef, useState, type KeyboardEvent, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Minus, Plus, RotateCcw, ZoomIn} from 'lucide-react'
 import {EXPLORE_ZOOM_DEFAULT, EXPLORE_ZOOM_MAX, EXPLORE_ZOOM_MIN, parseExploreZoomPercent, stepExploreZoom} from '@shared/exploreZoom.js'
@@ -28,13 +28,18 @@ export function ExploreZoomControl({zoom: savedZoom, onChange}: ExploreZoomContr
 	// this rather than the saved value: fast clicks add up instead of repeating.
 	const [requested, setRequested] = useState<number | null>(null)
 	const zoom = requested ?? savedZoom
+	// Only the latest request may end the wait: an earlier save asking for the same value must not.
+	const latestRequestRef = useRef(0)
 	const [open, setOpen] = useState(false)
 	const [draft, setDraft] = useState<string | null>(null)
 	const label = t('explore.toolbar.zoom.label')
 
 	function change(next: number): void {
+		const request = ++latestRequestRef.current
 		setRequested(next)
-		void onChange(next).finally(() => setRequested(current => (current === next ? null : current)))
+		void onChange(next).finally(() => {
+			if (latestRequestRef.current === request) setRequested(null)
+		})
 	}
 
 	function commit(): void {

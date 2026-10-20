@@ -358,6 +358,39 @@ describe('Explore page zoom', () => {
 		expect(settingsWrites().map(patch => patch.common?.exploreZoom)).toEqual([1.1, 1.25, 1.5])
 	})
 
+	it('keeps following the last request when an earlier save asked for the same value', async () => {
+		const answers: Array<() => void> = []
+		vi.mocked(window.appApi.settings.update).mockImplementation(
+			(patch: SettingsPatch) =>
+				new Promise(resolve => {
+					answers.push(() => {
+						const current = useAppStore.getState().settings ?? defaultAppSettings('/tmp')
+						resolve(ok({...current, common: {...current.common, ...patch.common}}))
+					})
+				})
+		)
+		renderExplore()
+		openZoom()
+
+		// 110%, back to 100%, 110% again: the first and third asked for the same value.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		fireEvent.click(screen.getByTestId('explore-zoom-out'))
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		for (let answered = 0; answered < 2; answered++) {
+			await waitFor(() => expect(answers).toHaveLength(answered + 1))
+			await act(async () => answers[answered]?.())
+		}
+		// The third save is still pending: the next step goes from 110%, not from the 100% the second answer restored.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		await waitFor(() => expect(answers).toHaveLength(3))
+		await act(async () => answers[2]?.())
+		await waitFor(() => expect(answers).toHaveLength(4))
+		await act(async () => answers[3]?.())
+
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('125%'))
+		expect(settingsWrites().map(patch => patch.common?.exploreZoom)).toEqual([1.1, 1, 1.1, 1.25])
+	})
+
 	it('presses a zoom button on Enter instead of swallowing the key', () => {
 		renderExplore()
 		openZoom()
