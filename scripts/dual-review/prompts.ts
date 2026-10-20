@@ -109,11 +109,11 @@ export function verifyPrompt(scope: ReviewScope, findingsJson: string): string {
 
 ${scopeBlock(scope)}
 
-Findings to check (JSON, one entry per id):
+Findings to check (JSON). Each id holds one or more reports that point at the same spot; they may describe the same defect or different ones:
 ${findingsJson}
 
-For each id, open the cited code and the code it depends on, and try to disprove the claim:
-- "confirmed": you traced the failure scenario through the actual code and it happens.
+For each id, open the cited code and the code it depends on, and try to disprove every report under it. The id is "confirmed" if any of its reports holds; say which in the reason.
+- "confirmed": you traced a failure scenario through the actual code and it happens.
 - "refuted": the premise is wrong: a guard, caller, type, test or earlier step prevents it, the cited code does not do what the finding says, or it is out of scope (security hardening, style, something the linter or compiler catches).
 - "uncertain": it depends on runtime behaviour you cannot establish from the code (a yt-dlp or OS behaviour, timing) and you could not settle it.
 Be skeptical: a plausible story is not a confirmation. The reason is one or two sentences citing the code that decided it.

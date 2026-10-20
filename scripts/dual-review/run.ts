@@ -42,8 +42,12 @@ function runProcess(cmd: string, args: string[], logFile: string): Promise<Proce
 		let stdout = ''
 		let stderr = ''
 		const timer = setTimeout(() => child.kill('SIGTERM'), TIMEOUT_MS)
-		child.stdout.on('data', (chunk: Buffer) => (stdout += chunk.toString()))
-		child.stderr.on('data', (chunk: Buffer) => (stderr += chunk.toString()))
+		// Decoding per stream, not per chunk, keeps a multi-byte character split
+		// across two chunks intact.
+		child.stdout.setEncoding('utf8')
+		child.stderr.setEncoding('utf8')
+		child.stdout.on('data', (chunk: string) => (stdout += chunk))
+		child.stderr.on('data', (chunk: string) => (stderr += chunk))
 		const finish = (ok: boolean, detail: string): void => {
 			clearTimeout(timer)
 			void writeFile(logFile, `${stdout}\n--- stderr ---\n${stderr}`).finally(() => resolve({ok, stdout, detail}))
@@ -85,8 +89,14 @@ async function review(engine: Engine, lane: Lane, scope: ReviewScope, outDir: st
 
 async function verify(engine: Engine, groups: readonly FindingGroup[], scope: ReviewScope, outDir: string): Promise<Map<string, Verdict>> {
 	if (groups.length === 0) return new Map()
-	const payload = groups.map(g => ({id: g.id, title: g.lead.title, body: g.lead.body, file: g.lead.file, lineStart: g.lead.lineStart, lineEnd: g.lead.lineEnd, severity: g.lead.severity}))
-	return parseVerdicts(await runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2)), verdictJsonSchema, outDir, `verify-${engine}`))
+	// Every report in a group goes to the verifier, so refuting one cannot
+	// silently discard a different defect that happened to sit nearby.
+	const payload = groups.map(g => ({id: g.id, reports: g.members.map(m => ({title: m.title, body: m.body, file: m.file, lineStart: m.lineStart, lineEnd: m.lineEnd, severity: m.severity}))}))
+	const raw = await runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2)), verdictJsonSchema, outDir, `verify-${engine}`)
+	return parseVerdicts(
+		raw,
+		groups.map(g => g.id)
+	)
 }
 
 async function readLearnings(repoRoot: string): Promise<string> {
@@ -107,7 +117,7 @@ async function main(): Promise<number> {
 	const outDir = path.resolve(repoRoot, values.out ?? path.join('.tmp', 'dual-review', `${head}-${Date.now()}`))
 	await mkdir(outDir, {recursive: true})
 	const scope: ReviewScope = {mergeBase, head, commits: git(['log', '--format=- %h %s%n%w(0,2,2)%b', `${mergeBase}..HEAD`]), files, learnings: await readLearnings(repoRoot)}
-	const changed = parseChangedRanges(git(['diff', '-U0', '--no-color', '--no-ext-diff', `${mergeBase}...HEAD`]))
+	const changed = parseChangedRanges(git(['-c', 'core.quotePath=false', 'diff', '-U0', '--no-color', '--no-ext-diff', `${mergeBase}...HEAD`]))
 
 	const reviewers: [Engine, Lane][] = [['codex', CODEX_LANE], ...(values.light ? [] : CLAUDE_LANES.map((lane): [Engine, Lane] => ['claude', lane]))]
 	console.error(`dual review: ${reviewers.map(([e, l]) => `${e}:${l.id}`).join(', ')} on ${mergeBase}..${head}; logs in ${outDir}`)

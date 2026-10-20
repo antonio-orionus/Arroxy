@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 
-import {groupCandidates, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveGroups, toCandidates, verifierFor, type Candidate, type Finding} from '../../scripts/dual-review/core.js'
+import {groupCandidates, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveGroups, reviewJsonSchema, toCandidates, verdictJsonSchema, verifierFor, type Candidate, type Finding} from '../../scripts/dual-review/core.js'
 
 const ROOT = '/repo'
 
@@ -18,6 +18,16 @@ describe('parseReviewOutput', () => {
 		expect(out.map(f => f.file)).toEqual(['src/main/queue.ts', 'src/a.ts', 'src/b.ts'])
 	})
 
+	it('normalizes Windows absolute paths too', () => {
+		const [out] = parseReviewOutput({findings: [finding({file: 'C:\\repo\\src\\a.ts'})]}, 'C:\\repo')
+		expect(out?.file).toBe('src/a.ts')
+	})
+
+	it('strips a priority tag the reviewer put in the title', () => {
+		const [out] = parseReviewOutput({findings: [finding({title: '[P2] Keep the job'})]}, ROOT)
+		expect(out?.title).toBe('Keep the job')
+	})
+
 	it('clamps confidence and orders a reversed line range', () => {
 		const [out] = parseReviewOutput({findings: [finding({confidence: 4, lineStart: 20, lineEnd: 5})]}, ROOT)
 		expect(out).toMatchObject({confidence: 1, lineStart: 5, lineEnd: 20})
@@ -26,6 +36,29 @@ describe('parseReviewOutput', () => {
 	it('rejects a review missing required fields', () => {
 		expect(() => parseReviewOutput({findings: [{title: 'x'}]}, ROOT)).toThrow()
 		expect(() => parseReviewOutput('not json', ROOT)).toThrow()
+	})
+})
+
+describe('JSON schemas', () => {
+	// The Claude CLI rejects a draft-2020-12 $schema reference outright.
+	it('carry no $schema reference', () => {
+		expect(reviewJsonSchema).not.toHaveProperty('$schema')
+		expect(verdictJsonSchema).not.toHaveProperty('$schema')
+	})
+})
+
+describe('parseVerdicts', () => {
+	it('keeps only verdicts for the groups this verifier was given', () => {
+		const verdicts = parseVerdicts(
+			{
+				verdicts: [
+					{id: 'g1', verdict: 'confirmed', reason: 'ok', introduced: true},
+					{id: 'g2', verdict: 'refuted', reason: 'not mine to judge', introduced: true}
+				]
+			},
+			['g1']
+		)
+		expect([...verdicts.keys()]).toEqual(['g1'])
 	})
 })
 
@@ -59,11 +92,17 @@ describe('parseChangedRanges', () => {
 
 describe('groupCandidates', () => {
 	it('merges Claude and Codex findings on overlapping lines into one agreed group', () => {
-		const groups = groupCandidates([...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding({lineStart: 13, lineEnd: 14, severity: 'P1'}))])
+		const groups = groupCandidates([...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding({lineStart: 12, lineEnd: 14, severity: 'P1'}))])
 		expect(groups).toHaveLength(1)
 		expect(groups[0]?.engines).toEqual(['claude', 'codex'])
 		expect(groups[0]?.lead.severity).toBe('P1')
 		expect(verifierFor(groups[0])).toBeNull()
+	})
+
+	it('groups nearby findings from both tools but has the other tool check them when their lines do not overlap', () => {
+		const groups = groupCandidates([...candidates('codex', 'review', finding()), ...candidates('claude', 'regressions', finding({lineStart: 14, lineEnd: 15, severity: 'P1'}))])
+		expect(groups).toHaveLength(1)
+		expect(verifierFor(groups[0])).toBe('codex')
 	})
 
 	it('keeps findings apart when they are in different files or far apart', () => {
@@ -95,12 +134,15 @@ describe('resolveGroups', () => {
 
 	it('applies the other tool’s verdict and drops refuted findings from the action list', () => {
 		const groups = groupCandidates([...candidates('claude', 'tests', finding()), ...candidates('codex', 'review', finding({file: 'src/x.ts'}))])
-		const verdicts = parseVerdicts({
-			verdicts: [
-				{id: groups[0].id, verdict: 'refuted', reason: 'The guard on line 9 returns early.', introduced: true},
-				{id: groups[1].id, verdict: 'confirmed', reason: 'Traced it.', introduced: true}
-			]
-		})
+		const verdicts = parseVerdicts(
+			{
+				verdicts: [
+					{id: groups[0].id, verdict: 'refuted', reason: 'The guard on line 9 returns early.', introduced: true},
+					{id: groups[1].id, verdict: 'confirmed', reason: 'Traced it.', introduced: true}
+				]
+			},
+			groups.map(g => g.id)
+		)
 		const resolved = resolveGroups(groups, verdicts, changed)
 		expect(resolved.map(r => [r.status, r.action, r.verifiedBy])).toEqual([
 			['refuted', null, 'codex'],
@@ -122,7 +164,7 @@ describe('resolveGroups', () => {
 describe('renderReport', () => {
 	it('lists what to fix, the backlog, the refuted findings and any reviewer that failed', () => {
 		const groups = groupCandidates([...candidates('codex', 'review', finding(), finding({file: 'src/far.ts', introduced: false})), ...candidates('claude', 'regressions', finding(), finding({file: 'src/far.ts', introduced: false}), finding({file: 'src/wrong.ts'}))])
-		const verdicts = parseVerdicts({verdicts: [{id: groups[2].id, verdict: 'refuted', reason: 'No such path.', introduced: true}]})
+		const verdicts = parseVerdicts({verdicts: [{id: groups[2].id, verdict: 'refuted', reason: 'No such path.', introduced: true}]}, [groups[2].id])
 		const report = renderReport({base: 'abc1234', head: 'def5678', resolved: resolveGroups(groups, verdicts, new Map()), failures: ['claude:tests exited with 1']})
 		expect(report).toContain('## Fix in this change (1)')
 		expect(report).toContain('## Backlog (1)')

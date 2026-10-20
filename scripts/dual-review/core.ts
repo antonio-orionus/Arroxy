@@ -24,14 +24,26 @@ export type Engine = 'claude' | 'codex'
 
 export type OutputJsonSchema = z.core.JSONSchema.BaseSchema
 
-export const reviewJsonSchema: OutputJsonSchema = z.toJSONSchema(reviewOutputSchema)
-export const verdictJsonSchema: OutputJsonSchema = z.toJSONSchema(verdictOutputSchema)
+// The Claude CLI rejects the draft-2020-12 `$schema` reference zod emits.
+function wireSchema(schema: z.ZodType): OutputJsonSchema {
+	const {$schema: _dialect, ...rest} = z.toJSONSchema(schema)
+	return rest
+}
+
+export const reviewJsonSchema = wireSchema(reviewOutputSchema)
+export const verdictJsonSchema = wireSchema(verdictOutputSchema)
+
+const toSlashes = (file: string): string => file.replaceAll('\\', '/')
+const isAbsolute = (file: string): boolean => path.posix.isAbsolute(file) || /^[A-Za-z]:\//.test(file)
 
 function repoRelative(file: string, repoRoot: string): string {
-	const slashed = file.replaceAll('\\', '/')
-	const relative = path.posix.isAbsolute(slashed) ? path.posix.relative(repoRoot.replaceAll('\\', '/'), slashed) : slashed
+	const slashed = toSlashes(file)
+	const relative = isAbsolute(slashed) ? path.posix.relative(toSlashes(repoRoot), slashed) : slashed
 	return relative.replace(/^\.\//, '')
 }
+
+// Codex habitually tags titles "[P2] ..."; severity already has its own field.
+const PRIORITY_TAG = /^\s*\[P[0-3]\]\s*/
 
 // A finding without a title or a file cannot be checked or acted on, so it is dropped.
 export function parseReviewOutput(value: unknown, repoRoot: string): Finding[] {
@@ -40,12 +52,20 @@ export function parseReviewOutput(value: unknown, repoRoot: string): Finding[] {
 		.findings.filter(f => f.title.trim() !== '' && f.file.trim() !== '')
 		.map(f => {
 			const [a, b] = [Math.round(f.lineStart), Math.round(f.lineEnd)]
-			return {...f, file: repoRelative(f.file, repoRoot), lineStart: Math.max(1, Math.min(a, b)), lineEnd: Math.max(1, a, b), confidence: Math.min(1, Math.max(0, f.confidence))}
+			return {...f, title: f.title.replace(PRIORITY_TAG, ''), file: repoRelative(f.file, repoRoot), lineStart: Math.max(1, Math.min(a, b)), lineEnd: Math.max(1, a, b), confidence: Math.min(1, Math.max(0, f.confidence))}
 		})
 }
 
-export function parseVerdicts(value: unknown): Map<string, Verdict> {
-	return new Map(verdictOutputSchema.parse(value).verdicts.map(v => [v.id, v]))
+// A verifier may only judge the groups it was given; anything else it returns
+// would overwrite the other verifier's verdict.
+export function parseVerdicts(value: unknown, assignedIds: readonly string[]): Map<string, Verdict> {
+	const assigned = new Set(assignedIds)
+	return new Map(
+		verdictOutputSchema
+			.parse(value)
+			.verdicts.filter(v => assigned.has(v.id))
+			.map(v => [v.id, v])
+	)
 }
 
 export type LineRange = readonly [start: number, end: number]
@@ -60,7 +80,7 @@ export function parseChangedRanges(diff: string): Map<string, LineRange[]> {
 	let current: LineRange[] | null = null
 	for (const line of diff.split(/\r?\n/)) {
 		if (line.startsWith('+++ ')) {
-			const target = line.slice(4)
+			const target = line.slice(4).replace(/^"(.*)"$/, '$1')
 			current = target === '/dev/null' ? null : []
 			if (current) ranges.set(target.replace(/^b\//, ''), current)
 			continue
@@ -122,12 +142,21 @@ export function groupCandidates(all: readonly Candidate[]): FindingGroup[] {
 	})
 }
 
+const overlap = (a: Finding, b: Finding): boolean => a.file === b.file && a.lineStart <= b.lineEnd && b.lineStart <= a.lineEnd
+
+// Location is a weak proxy for "the same bug", so agreement needs both tools to
+// point at overlapping lines; merely nearby findings still get checked.
+export function isAgreed(group: FindingGroup): boolean {
+	const codex = group.members.filter(m => m.engine === 'codex')
+	return group.members.some(m => m.engine === 'claude' && codex.some(c => overlap(m, c)))
+}
+
 // Each tool checks the other's findings: a model re-reading its own claim tends
 // to share the blind spot that produced it. Findings both tools reached on their
 // own skip the check.
 export function verifierFor(group: FindingGroup): Engine | null {
-	if (group.engines.length > 1) return null
-	return group.engines[0] === 'claude' ? 'codex' : 'claude'
+	if (isAgreed(group)) return null
+	return group.lead.engine === 'claude' ? 'codex' : 'claude'
 }
 
 export type Status = 'confirmed' | 'refuted' | 'uncertain'
