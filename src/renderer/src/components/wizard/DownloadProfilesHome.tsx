@@ -103,7 +103,7 @@ export function DownloadProfilesHome(): ReactNode {
 	const tabsList = <HomeTabsList compact={compact} exploreEnabled={exploreEnabled} exploreNoticeSeen={exploreNoticeSeen} queueCount={queueCount} attentionCount={attentionCount} queueIsActive={queueIsActive} />
 
 	return (
-		<div className={cn('wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
+		<div className={cn('wizard-step mx-auto flex w-full flex-col gap-4', activeTab === 'explore' ? 'max-w-none' : 'max-w-[92rem]', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
 			<Tabs
 				value={activeTab}
 				onValueChange={handleTabChange}
