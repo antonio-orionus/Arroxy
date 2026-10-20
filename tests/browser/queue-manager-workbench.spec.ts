@@ -108,3 +108,52 @@ test('quick download rows carry their actions, the badge counts them, and the to
 	await page.getByTestId('queue-cancel-probing-qd-probing').click()
 	await expect(page.getByTestId('queue-manager-row-qd-probing')).toHaveCount(0)
 })
+
+// The table takes the height the window has left and scrolls inside itself:
+// a 5000-row queue must neither push the page into scrolling nor render every row.
+for (const viewport of [
+	{width: 1024, height: 760},
+	{width: 1800, height: 1000}
+]) {
+	test(`Downloads fills a ${viewport.width}x${viewport.height} window and scrolls a large queue inside the table`, async ({page}) => {
+		await page.setViewportSize(viewport)
+		await openQueueScenario(page, 'queue-large')
+
+		const layout = await page.evaluate(() => {
+			const box = (testId: string): HTMLElement => {
+				const element = document.querySelector<HTMLElement>(`[data-testid="${testId}"]`)
+				if (!element) throw new Error(`Missing ${testId}`)
+				return element
+			}
+			const scrollport = box('wizard-scrollport')
+			const table = box('queue-manager-scroll')
+			return {
+				panelGap: scrollport.getBoundingClientRect().bottom - box('queue-manager-tab').getBoundingClientRect().bottom,
+				pageOverflow: scrollport.scrollHeight - scrollport.clientHeight,
+				tableHeight: table.clientHeight,
+				tableScrolls: table.scrollHeight > table.clientHeight,
+				renderedRows: document.querySelectorAll('[data-testid^="queue-manager-row-"]').length
+			}
+		})
+
+		// Only the home's bottom padding sits between the panel and the window's edge.
+		expect(layout.panelGap).toBeGreaterThanOrEqual(0)
+		expect(layout.panelGap).toBeLessThan(32)
+		expect(layout.pageOverflow).toBeLessThanOrEqual(1)
+		expect(layout.tableHeight).toBeGreaterThan(viewport.height / 2)
+		expect(layout.tableScrolls).toBe(true)
+		expect(layout.renderedRows).toBeLessThan(60)
+	})
+}
+
+test('on a wide window the URL tab keeps the wizard width while Downloads grows wider', async ({page}) => {
+	await page.setViewportSize({width: 1800, height: 1000})
+	await openScenario(page, 'queue-large')
+
+	const urlPanel = await page.getByTestId('profiles-download-panel').boundingBox()
+	expect(urlPanel?.width).toBeLessThanOrEqual(72 * 16)
+
+	await page.getByRole('tab', {name: /^downloads/i}).click()
+	const queuePanel = await page.getByTestId('queue-manager-tab').boundingBox()
+	expect(queuePanel?.width).toBeGreaterThan(92 * 16)
+})
