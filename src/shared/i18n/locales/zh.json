@@ -1,5 +1,5 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "dismiss": "关闭", "startOver": "重新开始"},
+	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "dismiss": "关闭", "startOver": "重新开始", "close": "关闭"},
 	"app": {
 		"feedback": "反馈",
 		"logs": "日志",
@@ -571,7 +571,20 @@
 				"save": "保存配置"
 			},
 			"placeholder": {"folder": "为此配置选择一个文件夹"},
-			"destination": {"global": "全局保存位置", "override": "配置覆盖", "resolved": "最终保存位置"},
+			"destination": {
+				"global": "全局保存位置",
+				"override": "配置覆盖",
+				"resolved": "最终保存位置",
+				"defaultFolder": "默认下载文件夹",
+				"defaultFolderWithSubfolder": "默认下载文件夹 / {{subfolder}}",
+				"globalActive": "使用中",
+				"globalInherited": "已沿用",
+				"overrideSet": "覆盖全局",
+				"overrideChoosing": "选择文件夹",
+				"overrideNone": "未设置覆盖",
+				"overrideSetNote": "此配置会先保存到自己的根目录，再添加子文件夹。",
+				"overrideNoneNote": "未设置覆盖。此配置使用上方的全局保存位置。"
+			},
 			"note": {
 				"subtitlesOnly": "此配置仅将字幕文件加入队列。视频、音频、SponsorBlock 和媒体转换均会跳过。",
 				"noSubtitles": "此配置不会请求任何字幕文件或内嵌字幕轨道。",
@@ -582,7 +595,7 @@
 				"autoCaptionsSrt": "自动字幕将保存为 SRT 而非 ASS。",
 				"skippedForOutputType": "此输出类型已跳过。"
 			},
-			"error": {"save": "无法保存配置设置。", "changeGlobalDestination": "无法更改全局保存位置。", "reset": "无法重置配置设置。"},
+			"error": {"save": "无法保存配置设置。", "changeGlobalDestination": "无法更改全局保存位置。", "reset": "无法重置配置设置。", "folderPicker": "无法打开文件夹选择器，请手动输入路径。"},
 			"mediaMode": {"videoAudio": {"label": "视频 + 音频", "description": "普通视频文件"}, "videoOnly": {"label": "视频，无音频", "description": "仅无声视频"}, "audioOnly": {"label": "仅音频", "description": "音乐或播客"}, "subtitlesOnly": {"label": "仅字幕", "description": "仅字幕文件"}},
 			"icon": {"controls": "控制", "download": "下载", "video": "视频", "captions": "字幕", "audio": "音频", "music": "音乐", "podcast": "播客", "classes": "课程", "clip": "片段", "archive": "存档"},
 			"audioFormat": {"best": "最佳", "wav": "WAV"},

@@ -13,7 +13,7 @@ configure({asyncUtilTimeout: 5_000})
 
 if (typeof window !== 'undefined') {
 	window.appVersion = '0.0.0-test'
-	window.runtimeInfo = {arch: 'x64', osVersion: '0.0.0-test', installChannel: 'direct'}
+	window.runtimeInfo = {arch: 'x64', osVersion: '0.0.0-test', installChannel: 'direct', systemLanguage: 'en'}
 }
 
 // jsdom doesn't implement matchMedia — stub it globally for all tests that need it

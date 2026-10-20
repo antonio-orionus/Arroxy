@@ -28,6 +28,13 @@ export interface HeartbeatSnapshot {
 	osLocale: string
 }
 
+// The OS's most preferred language as the OS names it (km-KH, nl-NL), so languages
+// the app lacks still show up. Chromium's application locale is only the fallback:
+// it reads as en-US for every language Chromium ships no locale for.
+export function osLocale(preferredSystemLanguages: readonly string[], chromiumLocale: string): string {
+	return preferredSystemLanguages[0] ?? chromiumLocale
+}
+
 // UTC days (YYYY-MM-DD) of this install's first and last heartbeat. The first
 // is unknown for installs counted before it was recorded.
 export interface HeartbeatHistory {

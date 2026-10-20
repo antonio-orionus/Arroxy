@@ -1,5 +1,5 @@
 {
-	"common": {"back": "পেছনে", "cancel": "বাতিল", "continue": "চালিয়ে যান", "loading": "লোড হচ্ছে…", "retry": "আবার চেষ্টা করুন", "dismiss": "বন্ধ করুন", "startOver": "নতুন করে শুরু করুন"},
+	"common": {"back": "পেছনে", "cancel": "বাতিল", "continue": "চালিয়ে যান", "loading": "লোড হচ্ছে…", "retry": "আবার চেষ্টা করুন", "dismiss": "বন্ধ করুন", "startOver": "নতুন করে শুরু করুন", "close": "বন্ধ করুন"},
 	"app": {
 		"feedback": "মতামত",
 		"logs": "লগ",
@@ -604,7 +604,20 @@
 				"save": "প্রোফাইল সংরক্ষণ করুন"
 			},
 			"placeholder": {"folder": "এই প্রোফাইলের জন্য একটি ফোল্ডার বাছুন"},
-			"destination": {"global": "গ্লোবাল গন্তব্য", "override": "প্রোফাইল ওভাররাইড", "resolved": "চূড়ান্ত গন্তব্য"},
+			"destination": {
+				"global": "গ্লোবাল গন্তব্য",
+				"override": "প্রোফাইল ওভাররাইড",
+				"resolved": "চূড়ান্ত গন্তব্য",
+				"defaultFolder": "ডিফল্ট ডাউনলোড ফোল্ডার",
+				"defaultFolderWithSubfolder": "ডিফল্ট ডাউনলোড ফোল্ডার / {{subfolder}}",
+				"globalActive": "সক্রিয়",
+				"globalInherited": "উত্তরাধিকারসূত্রে প্রাপ্ত",
+				"overrideSet": "গ্লোবালকে ওভাররাইড করে",
+				"overrideChoosing": "ফোল্ডার বাছুন",
+				"overrideNone": "কোনো ওভাররাইড নেই",
+				"overrideSetNote": "সাবফোল্ডার যোগ করার আগে এই প্রোফাইল নিজের রুটে সংরক্ষণ করে।",
+				"overrideNoneNote": "কোনো ওভাররাইড সেট করা নেই। এই প্রোফাইল উপরের গ্লোবাল গন্তব্য ব্যবহার করে।"
+			},
 			"note": {
 				"subtitlesOnly": "এই প্রোফাইল শুধু সাবটাইটেল ফাইল সারিতে যোগ করে। ভিডিও, অডিও, SponsorBlock ও মিডিয়া রূপান্তর বাদ যায়।",
 				"noSubtitles": "এই প্রোফাইলের জন্য কোনো সাবটাইটেল ফাইল বা এমবেড করা সাবটাইটেল ট্র্যাক চাওয়া হবে না।",
@@ -615,7 +628,7 @@
 				"autoCaptionsSrt": "স্বয়ংক্রিয় ক্যাপশন ASS-এর বদলে SRT হিসেবে সংরক্ষিত হবে।",
 				"skippedForOutputType": "এই আউটপুট ধরনের জন্য বাদ দেওয়া হয়েছে।"
 			},
-			"error": {"save": "প্রোফাইল সেটিংস সংরক্ষণ করা যায়নি।", "changeGlobalDestination": "গ্লোবাল গন্তব্য পরিবর্তন করা যায়নি।", "reset": "প্রোফাইল সেটিংস রিসেট করা যায়নি।"},
+			"error": {"save": "প্রোফাইল সেটিংস সংরক্ষণ করা যায়নি।", "changeGlobalDestination": "গ্লোবাল গন্তব্য পরিবর্তন করা যায়নি।", "reset": "প্রোফাইল সেটিংস রিসেট করা যায়নি।", "folderPicker": "ফোল্ডার নির্বাচক খোলা যায়নি। নিজে পথ লিখুন।"},
 			"mediaMode": {"videoAudio": {"label": "ভিডিও + অডিও", "description": "সাধারণ ভিডিও ফাইল"}, "videoOnly": {"label": "ভিডিও, অডিও ছাড়া", "description": "শুধু শব্দহীন ভিডিও"}, "audioOnly": {"label": "শুধু অডিও", "description": "সংগীত বা পডকাস্ট"}, "subtitlesOnly": {"label": "শুধু সাবটাইটেল", "description": "শুধু ক্যাপশন ফাইল"}},
 			"icon": {"controls": "নিয়ন্ত্রণ", "download": "ডাউনলোড", "video": "ভিডিও", "captions": "ক্যাপশন", "audio": "অডিও", "music": "সংগীত", "podcast": "পডকাস্ট", "classes": "ক্লাস", "clip": "ক্লিপ", "archive": "আর্কাইভ"},
 			"audioFormat": {"best": "সেরা", "wav": "WAV"},

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Retour", "cancel": "Annuler", "continue": "Continuer", "loading": "Chargement…", "retry": "Réessayer", "dismiss": "Ignorer", "startOver": "Recommencer"},
+	"common": {"back": "Retour", "cancel": "Annuler", "continue": "Continuer", "loading": "Chargement…", "retry": "Réessayer", "dismiss": "Ignorer", "startOver": "Recommencer", "close": "Fermer"},
 	"app": {
 		"feedback": "Commentaires",
 		"logs": "Journaux",
@@ -677,7 +677,20 @@
 				"save": "Enregistrer le profil"
 			},
 			"placeholder": {"folder": "Choisir un dossier pour ce profil"},
-			"destination": {"global": "Destination globale", "override": "Dérogation de profil", "resolved": "Destination résolue"},
+			"destination": {
+				"global": "Destination globale",
+				"override": "Dérogation de profil",
+				"resolved": "Destination résolue",
+				"defaultFolder": "Dossier de téléchargements par défaut",
+				"defaultFolderWithSubfolder": "Dossier de téléchargements par défaut / {{subfolder}}",
+				"globalActive": "Actif",
+				"globalInherited": "Hérité",
+				"overrideSet": "Remplace le global",
+				"overrideChoosing": "Choisir un dossier",
+				"overrideNone": "Aucune dérogation",
+				"overrideSetNote": "Ce profil enregistre dans sa propre racine avant l'ajout du sous-dossier.",
+				"overrideNoneNote": "Aucune dérogation définie. Ce profil utilise la destination globale ci-dessus."
+			},
 			"note": {
 				"subtitlesOnly": "Ce profil ne met en file d'attente que des fichiers de sous-titres. La vidéo, l'audio, SponsorBlock et la conversion média sont ignorés.",
 				"noSubtitles": "Aucun fichier de sous-titres ni piste intégrée ne sera demandé pour ce profil.",
@@ -688,7 +701,7 @@
 				"autoCaptionsSrt": "Les sous-titres automatiques seront enregistrés en SRT plutôt qu'en ASS.",
 				"skippedForOutputType": "Ignoré pour ce type de sortie."
 			},
-			"error": {"save": "Impossible d'enregistrer les paramètres du profil.", "changeGlobalDestination": "Impossible de modifier la destination globale.", "reset": "Impossible de réinitialiser les paramètres du profil."},
+			"error": {"save": "Impossible d'enregistrer les paramètres du profil.", "changeGlobalDestination": "Impossible de modifier la destination globale.", "reset": "Impossible de réinitialiser les paramètres du profil.", "folderPicker": "Impossible d'ouvrir le sélecteur de dossier. Saisissez le chemin manuellement."},
 			"mediaMode": {
 				"videoAudio": {"label": "Vidéo + audio", "description": "Fichiers vidéo normaux"},
 				"videoOnly": {"label": "Vidéo, sans audio", "description": "Vidéo muette uniquement"},

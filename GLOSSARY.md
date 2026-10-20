@@ -163,7 +163,7 @@ Filling placeholder rows in with real per-row metadata through follow-up probes,
 _Avoid_: enrichment, backfilling rows, resolving
 
 **Title backfill**:
-Replacing a placeholder title on a queue item after it has already been queued, either from a late probe or from the name of the landed artifact. Distinct from hydration, which happens before queueing.
+Replacing a placeholder title on a queue item after it has already been queued, either from a late probe or from the metadata yt-dlp wrote while downloading it. Distinct from hydration, which happens before queueing.
 _Avoid_: late naming, title repair
 
 **Playlist sort mode**:

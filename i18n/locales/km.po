@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "បោះបង់"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "បិទ"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "បន្ត"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "គុណភាពល្អបំផុត"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "ថតទាញយកលំនាំដើម"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "ថតទាញយកលំនាំដើម / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "ទីតាំងរក្សាទុកសកល"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "កំពុងប្រើ"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "បានទទួលមរតក"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "ការជំនួសប្រវត្តិរូប"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "ជ្រើសរើសថត"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "មិនមានការជំនួស"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "មិនបានកំណត់ការជំនួសទេ។ ប្រវត្តិរូបនេះប្រើទីតាំងរក្សាទុកសកលខាងលើ។"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "ជំនួសទីតាំងសកល"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "ប្រវត្តិរូបនេះរក្សាទុកក្នុងថតឫសផ្ទាល់ខ្លួនរបស់វា មុនពេលបន្ថែមថតរង។"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "ប្រវត្តិរូបទាញយក"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "មិនអាចប្តូរទីតាំងរក្សាទុកសកលបានទេ។"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "មិនអាចបើកផ្ទាំងជ្រើសរើសថតបានទេ។ សូមបញ្ចូលផ្លូវដោយខ្លួនឯង។"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

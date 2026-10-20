@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "dismiss": "Yopish", "startOver": "Qaytadan boshlash"},
+	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "dismiss": "Yopish", "startOver": "Qaytadan boshlash", "close": "Yopish"},
 	"app": {
 		"feedback": "Fikr-mulohaza",
 		"logs": "Jurnallar",
@@ -663,7 +663,20 @@
 				"save": "Profilni saqlash"
 			},
 			"placeholder": {"folder": "Bu profil uchun jild tanlang"},
-			"destination": {"global": "Umumiy manzil", "override": "Profil almashtirishi", "resolved": "Yakuniy manzil"},
+			"destination": {
+				"global": "Umumiy manzil",
+				"override": "Profil almashtirishi",
+				"resolved": "Yakuniy manzil",
+				"defaultFolder": "Standart yuklashlar jildi",
+				"defaultFolderWithSubfolder": "Standart yuklashlar jildi / {{subfolder}}",
+				"globalActive": "Faol",
+				"globalInherited": "Meros qilib olingan",
+				"overrideSet": "Umumiyni almashtiradi",
+				"overrideChoosing": "Jildni tanlang",
+				"overrideNone": "Almashtirish belgilanmagan",
+				"overrideSetNote": "Bu profil pastki jild qo'shilishidan oldin o'z ildiz jildiga saqlaydi.",
+				"overrideNoneNote": "Almashtirish belgilanmagan. Bu profil yuqoridagi umumiy manzildan foydalanadi."
+			},
 			"note": {
 				"subtitlesOnly": "Bu profil faqat subtitr fayllarini navbatga qo'yadi. Video, audio, SponsorBlock va media konvertatsiyasi o'tkazib yuboriladi.",
 				"noSubtitles": "Bu profil uchun na subtitr fayllari, na ichki subtitr yo'llari so'ralmaydi.",
@@ -674,7 +687,7 @@
 				"autoCaptionsSrt": "Avtomatik taglavhalar ASS o'rniga SRT sifatida saqlanadi.",
 				"skippedForOutputType": "Bu chiqish turi uchun o'tkazib yuborildi."
 			},
-			"error": {"save": "Profil sozlamalarini saqlab bo'lmadi.", "changeGlobalDestination": "Umumiy manzilni o'zgartirib bo'lmadi.", "reset": "Profil sozlamalarini tiklab bo'lmadi."},
+			"error": {"save": "Profil sozlamalarini saqlab bo'lmadi.", "changeGlobalDestination": "Umumiy manzilni o'zgartirib bo'lmadi.", "reset": "Profil sozlamalarini tiklab bo'lmadi.", "folderPicker": "Jild tanlagichni ochib bo'lmadi. Yo'lni qo'lda kiriting."},
 			"mediaMode": {
 				"videoAudio": {"label": "Video + audio", "description": "Oddiy video fayllar"},
 				"videoOnly": {"label": "Video, audiosiz", "description": "Faqat ovozsiz video"},

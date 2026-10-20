@@ -86,10 +86,10 @@ const SPONSORBLOCK_API_ERROR: YtDlpResult = {
 	stderr: 'ERROR: Preprocessing: Unable to communicate with SponsorBlock API: HTTP Error 503: Service Unavailable'
 }
 
-describe('VideoPhase(embed=false)', () => {
+describe('VideoPhase', () => {
 	it('calls ytDlp.run with kind: media', async () => {
 		const ctx = makeCtx(SUCCESS)
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.runMock).toHaveBeenCalledOnce()
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.kind).toBe('media')
@@ -97,18 +97,18 @@ describe('VideoPhase(embed=false)', () => {
 
 	it('runs with the configured identity by default and the Explore session for an escalated job', async () => {
 		const anonymous = makeCtx(SUCCESS)
-		await VideoPhase(false).run(anonymous)
+		await VideoPhase.run(anonymous)
 		expect(anonymous.runMock.mock.calls[0]?.[2]).toMatchObject({identity: 'configured', jobKey: 'job-1', finalPathFile: expect.stringMatching(/_arroxy\.final-path\.txt$/)})
 
 		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
-		await VideoPhase(false).run(signedIn)
+		await VideoPhase.run(signedIn)
 		expect(signedIn.runMock.mock.calls[0]?.[2]).toMatchObject({identity: 'exploreSession', jobKey: 'job-1'})
 	})
 
 	it('keeps the Explore session on the info-json re-extraction fallback', async () => {
 		const ctx = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession', probeInfoJsonPath: '/cache/probe.info.json'}}), explorePorts({signedIn: true}))
 		ctx.runMock.mockResolvedValueOnce({kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: bad info json', stdout: '', stderr: ''})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.runMock).toHaveBeenCalledTimes(2)
 		expect(ctx.runMock.mock.calls.map(call => call[2])).toMatchObject([
 			{identity: 'exploreSession', jobKey: 'job-1'},
@@ -118,14 +118,14 @@ describe('VideoPhase(embed=false)', () => {
 
 	it('forwards a single-mode filenameTemplate to yt-dlp', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.output.template).toBe('%(title).120B [%(id)s].%(ext)s')
 	})
 
 	it('uses combined YouTube player clients for explicit single-format downloads', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, formatId: '337+380'}}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.extractor).toEqual({youtube: {playerClient: ['default', 'web_embedded']}})
 	})
@@ -145,7 +145,7 @@ describe('VideoPhase(embed=false)', () => {
 			embed: EMBED_OFF
 		}
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: rangedJob}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.extractor).toEqual({youtube: {playerClient: ['default', 'web_embedded']}})
 	})
@@ -153,7 +153,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('fresh single-video start with probeInfoJsonPath passes loadInfoJsonPath to yt-dlp', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath: '/cache/probe.info.json'}})
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
@@ -164,7 +164,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('continue')
 		expect(runMock).toHaveBeenCalledTimes(2)
@@ -184,7 +184,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(invalidateTokenSession).toHaveBeenCalledOnce()
 		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
@@ -199,7 +199,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(invalidateTokenSession).toHaveBeenCalledOnce()
 		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
@@ -218,7 +218,7 @@ describe('VideoPhase(embed=false)', () => {
 		})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome).toEqual({kind: 'cancelled'})
 		expect(runMock).toHaveBeenCalledTimes(1)
@@ -232,7 +232,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(invalidateTokenSession).toHaveBeenCalledWith(active.signal)
 	})
@@ -246,7 +246,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(runMock).toHaveBeenCalledTimes(2)
 		expect(invalidateTokenSession).not.toHaveBeenCalled()
@@ -262,7 +262,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input, job: {...makeJob(), url: input.url}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(runMock).toHaveBeenCalledTimes(2)
 		expect(invalidateTokenSession).not.toHaveBeenCalled()
@@ -276,7 +276,7 @@ describe('VideoPhase(embed=false)', () => {
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}, tempDir: '/tmp/arroxy-resume-info-json'})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(runMock).toHaveBeenCalledTimes(1)
 		expect(outcome.kind).toBe('hard-failed')
@@ -284,19 +284,19 @@ describe('VideoPhase(embed=false)', () => {
 	})
 
 	it('success → returns continue', async () => {
-		const outcome = await VideoPhase(false).run(makeCtx(SUCCESS))
+		const outcome = await VideoPhase.run(makeCtx(SUCCESS))
 		expect(outcome.kind).toBe('continue')
 	})
 
 	it('success with usedExtractorFallback → sets active.usedExtractorFallback', async () => {
 		const ctx = makeCtx(SUCCESS_FALLBACK)
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		expect(ctx.active.usedExtractorFallback).toBe(true)
 	})
 
 	it('exit-error → hard-failed with classified error payload', async () => {
 		const ctx = makeCtx(EXIT_ERROR)
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome.kind).toBe('hard-failed')
 		if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('botBlock')
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.objectContaining({kind: 'botBlock'}))
@@ -306,7 +306,7 @@ describe('VideoPhase(embed=false)', () => {
 		const tempDir = '/tmp/arroxy-resume-media'
 		const ctx = makeCtx(NETWORK_ERROR, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm.part`, `${tempDir}/video.f251.m4a.part`]})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		const expected: QueueResumeContext = {kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'network'}
 		expect(outcome.kind).toBe('hard-failed')
@@ -319,7 +319,7 @@ describe('VideoPhase(embed=false)', () => {
 		const tempDir = '/tmp/arroxy-resume-rate'
 		const ctx = makeCtx(RATE_LIMIT_ERROR, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm.part`, `${tempDir}/video.f251.m4a.part`]})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('hard-failed')
 		if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toMatchObject({kind: 'media-retry', tempDir, reason: 'media-transfer', failureKind: 'rateLimit'})
@@ -330,7 +330,7 @@ describe('VideoPhase(embed=false)', () => {
 			const tempDir = `/tmp/arroxy-resume-${failure.errorKind}`
 			const ctx = makeCtx(failure, {tempDir, mediaDownloadStarted: true, mediaComponentPaths: [`${tempDir}/video.f137.webm`], mediaPath: `${tempDir}/video.webm`, mediaPostprocessStarted: true})
 
-			const outcome = await VideoPhase(false).run(ctx)
+			const outcome = await VideoPhase.run(ctx)
 
 			expect(outcome.kind).toBe('hard-failed')
 			if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toMatchObject({kind: 'media-retry', tempDir, reason: 'postprocess', failureKind: failure.errorKind})
@@ -341,7 +341,7 @@ describe('VideoPhase(embed=false)', () => {
 		for (const failure of [EXIT_ERROR, NETWORK_ERROR]) {
 			const ctx = makeCtx(failure, {tempDir: '/tmp/arroxy-non-resumable'})
 
-			const outcome = await VideoPhase(false).run(ctx)
+			const outcome = await VideoPhase.run(ctx)
 
 			expect(outcome.kind).toBe('hard-failed')
 			if (outcome.kind === 'hard-failed') expect(outcome.resumeContext).toBeUndefined()
@@ -352,7 +352,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('SponsorBlock API failure → continues without failing the downloaded media', async () => {
 		const ctx = makeCtx(SPONSORBLOCK_API_ERROR, {input: {...BASE_INPUT, job: {...BASE_JOB, sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('continue')
 		expect(ctx.runMock).toHaveBeenCalledTimes(1)
@@ -363,7 +363,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('SponsorBlock API failure with mode=off → hard-fails', async () => {
 		const ctx = makeCtx(SPONSORBLOCK_API_ERROR)
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('hard-failed')
 		expect(ctx.runMock.mock.calls[0][0].sponsorBlock).toBeUndefined()
@@ -373,7 +373,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('SponsorBlock API failure with empty categories → hard-fails', async () => {
 		const ctx = makeCtx(SPONSORBLOCK_API_ERROR, {input: {...BASE_INPUT, job: {...BASE_JOB, sponsorBlock: {mode: 'mark', categories: []}}}})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('hard-failed')
 		expect(ctx.runMock.mock.calls[0][0].sponsorBlock).toEqual({mode: 'mark', categories: []})
@@ -387,7 +387,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('empty extractor + YouTube URL → SponsorBlock and player clients still apply', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, extractor: '', extractorKey: '', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const req = ctx.runMock.mock.calls[0][0]
 		expect(req.sponsorBlock).toEqual({mode: 'mark', categories: ['sponsor']})
@@ -397,7 +397,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('empty extractor + non-YouTube URL → stays generic', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, url: 'https://vimeo.com/12345', job: {...BASE_JOB, extractor: '', extractorKey: '', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const req = ctx.runMock.mock.calls[0][0]
 		expect(req.sponsorBlock).toBeUndefined()
@@ -407,7 +407,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('SponsorBlock API failure on a site without SponsorBlock support → hard-fails', async () => {
 		const ctx = makeCtx(SPONSORBLOCK_API_ERROR, {input: {...BASE_INPUT, job: {...BASE_JOB, extractor: 'Vimeo', extractorKey: 'Vimeo', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('hard-failed')
 		expect(ctx.runMock.mock.calls[0][0].sponsorBlock).toBeUndefined()
@@ -415,44 +415,21 @@ describe('VideoPhase(embed=false)', () => {
 	})
 })
 
-describe('VideoPhase(embed=true)', () => {
-	it('calls ytDlp.run with media subtitles when embedding is enabled', async () => {
+describe('VideoPhase — subtitles', () => {
+	it('leaves embedded subtitles to the subtitle phase: the media run downloads none', async () => {
 		const ctx = makeCtx(SUCCESS)
-		await VideoPhase(true).run(ctx)
-		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.kind).toBe('media')
-		expect(req.subtitles).toMatchObject({embed: true, languages: ['(?-i:en)', '(?-i:ja)']})
-	})
-
-	it('embed=true but no subtitleLanguages → omits media subtitles', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: undefined}}})
-		await VideoPhase(true).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.kind).toBe('media')
 		expect(req.subtitles).toBeUndefined()
 	})
+})
 
-	it('embed=true with empty subtitleLanguages → omits media subtitles', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, languages: []}}}})
-		await VideoPhase(true).run(ctx)
-		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.kind).toBe('media')
-		expect(req.subtitles).toBeUndefined()
-	})
-
-	it('audio-convert jobs keep audioConvert when subtitles are embedded', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'embed', format: 'vtt', writeAuto: false}}}})
-		await VideoPhase(true).run(ctx)
-		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.kind).toBe('media')
-		expect(req.subtitles).toMatchObject({embed: true, languages: ['(?-i:en)']})
-		expect(req.audio?.convert).toEqual({target: 'mp3', lossy: true, bitrateKbps: 192})
-	})
-
+describe('VideoPhase — audio conversion', () => {
 	it('marks wav audio conversion as lossless for the bridge planner', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'wav'}, sponsorBlock: SB_OFF, embed: EMBED_OFF}}})
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.audio?.convert).toEqual({target: 'wav', lossy: false})
@@ -462,28 +439,14 @@ describe('VideoPhase(embed=true)', () => {
 describe('VideoPhase — sidecar field propagation', () => {
 	it('writeDescription propagates to media embed options', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: undefined, embed: {...EMBED_OFF, description: true}}}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.embed?.description).toBe(true)
 	})
 
 	it('writeThumbnail propagates to media embed options', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: undefined, embed: {...EMBED_OFF, thumbnailSidecar: true}}}})
-		await VideoPhase(false).run(ctx)
-		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.embed?.thumbnailSidecar).toBe(true)
-	})
-
-	it('writeDescription propagates with embedded subtitles', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, embed: {...EMBED_OFF, description: true}}}})
-		await VideoPhase(true).run(ctx)
-		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.embed?.description).toBe(true)
-	})
-
-	it('writeThumbnail propagates with embedded subtitles', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, embed: {...EMBED_OFF, thumbnailSidecar: true}}}})
-		await VideoPhase(true).run(ctx)
+		await VideoPhase.run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.embed?.thumbnailSidecar).toBe(true)
 	})
@@ -501,7 +464,7 @@ describe('VideoPhase — cancel / pause', () => {
 			return SUCCESS
 		})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome.kind).toBe('cancelled')
 	})
 
@@ -513,7 +476,7 @@ describe('VideoPhase — cancel / pause', () => {
 			return SUCCESS
 		})
 
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})
 })
@@ -546,7 +509,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 	// Verified on a real Windows 11 host that a recreated root loses the Hidden
 	// attribute, so "once per session" would leave later downloads visible.
 	it('hides .arroxy-temp at the moment it creates the root', async () => {
-		await VideoPhase(false).run(makeRealCtx({}))
+		await VideoPhase.run(makeRealCtx({}))
 
 		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledWith(join(outputDir, '.arroxy-temp'))
 	})
@@ -554,16 +517,16 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 	it('does not re-hide a .arroxy-temp that already exists', async () => {
 		await mkdir(join(outputDir, '.arroxy-temp'), {recursive: true})
 
-		await VideoPhase(false).run(makeRealCtx({}))
+		await VideoPhase.run(makeRealCtx({}))
 
 		expect(vi.mocked(hideTempDirRoot)).not.toHaveBeenCalled()
 	})
 
 	it('hides again once cleanup has removed the root and a later job recreates it', async () => {
-		await VideoPhase(false).run(makeRealCtx({}))
+		await VideoPhase.run(makeRealCtx({}))
 		await rm(join(outputDir, '.arroxy-temp'), {recursive: true, force: true})
 
-		await VideoPhase(false).run(makeRealCtx({}))
+		await VideoPhase.run(makeRealCtx({}))
 
 		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledTimes(2)
 	})
@@ -575,7 +538,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(stalePart, 'stale')
 
 		const ctx = makeRealCtx({})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		await expect(access(stalePart)).rejects.toThrow()
 		expect(ctx.active.tempDir).toBe(expectedTempDir)
@@ -588,7 +551,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(partFile, 'partial-bytes')
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		await expect(access(partFile)).resolves.toBeUndefined()
 		expect(ctx.active.tempDir).toBe(expectedTempDir)
@@ -601,7 +564,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(infoJsonPath, '{}')
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.resume?.loadInfoJsonPath).toBe(infoJsonPath)
@@ -614,7 +577,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		const job: PreparedJob = {...BASE_JOB, videoPart: {startSeconds: 3, endSeconds: 6, exactCut: false}}
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir, input: {...BASE_INPUT, job, probeInfoJsonPath: '/cache/probe.info.json'}})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
@@ -626,7 +589,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await mkdir(expectedTempDir, {recursive: true})
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.resume?.loadInfoJsonPath).toBeUndefined()
@@ -638,7 +601,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(join(expectedTempDir, '_arroxy.info.json'), '{}')
 
 		const ctx = makeRealCtx({})
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.resume?.loadInfoJsonPath).toBeUndefined()
@@ -648,7 +611,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir})
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('continue')
 		await expect(access(expectedTempDir)).resolves.toBeUndefined()
@@ -661,7 +624,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(partFile, 'partial-bytes')
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir, mediaDownloadStarted: true, mediaComponentPaths: [partFile]}, NETWORK_ERROR)
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		await ctx.active.disposables[Symbol.asyncDispose]()
 
 		expect(outcome.kind).toBe('hard-failed')
@@ -676,7 +639,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(partFile, 'partial-bytes')
 
 		const ctx = makeRealCtx({tempDir: expectedTempDir, mediaDownloadStarted: true, mediaComponentPaths: [partFile]}, EXIT_ERROR)
-		const outcome = await VideoPhase(false).run(ctx)
+		const outcome = await VideoPhase.run(ctx)
 		await ctx.active.disposables[Symbol.asyncDispose]()
 
 		expect(outcome.kind).toBe('hard-failed')
@@ -693,7 +656,7 @@ describe('VideoPhase — signal callbacks', () => {
 		})
 		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('token', STATUS_KEY.mintingToken)
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('token', STATUS_KEY.remintingToken)
@@ -703,7 +666,7 @@ describe('VideoPhase — signal callbacks', () => {
 		const runMock = vi.fn().mockImplementation(async (_req, _signal) => SUCCESS)
 		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalled()
 	})
@@ -718,7 +681,7 @@ describe('VideoPhase — signal callbacks', () => {
 		const registerSpy = vi.fn((d: () => void | Promise<void>) => active.disposables.defer(d))
 		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(active.ytDlpProcess).toBe(fakeProc)
 		expect(registerSpy).toHaveBeenCalled()
@@ -734,7 +697,7 @@ describe('VideoPhase — signal callbacks', () => {
 		})
 		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
-		await VideoPhase(false).run(ctx)
+		await VideoPhase.run(ctx)
 
 		expect(ctx.safeConsume).toHaveBeenCalledWith('stdout line\n')
 		expect(ctx.safeConsume).toHaveBeenCalledWith('stderr line\n')

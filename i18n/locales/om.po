@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Haqi"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Cufii"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Itti fufi"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Qulqullina gaarii"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Galee buufata durtii"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Galee buufata durtii / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Ga'umsa waliigalaa"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Hojiirra jira"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Dhaalame"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Bakka bu'iinsa piroofaayilii"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Galee filadhu"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Bakka bu'iinsi hin qabamne"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Bakka bu'iinsi hin qabamne. Piroofaayiliin kun ga'umsa waliigalaa armaan olii fayyadama."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Waliigalaa bakka bu'a"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Piroofaayiliin kun osoo galee xiqqaan hin dabalamin, roota mataa isaatti olkaa'a."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "Piroofaayilii buufataa"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Ga'umsa waliigalaa jijjiiruun hin danda'amne."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Filannoo galee banuun hin danda'amne. Daandii harkaan galchi."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

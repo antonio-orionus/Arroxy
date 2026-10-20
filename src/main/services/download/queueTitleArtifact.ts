@@ -1,6 +1,8 @@
 // Artifact ingest with the Layer 2 title backstop. Records the artifact and,
-// when a media file lands on a still-flagged row whose job template has the
-// default shape, backfills the row title from the artifact basename.
+// when a media file lands on a still-flagged row, backfills the row title from
+// the title the event carries: the one yt-dlp wrote into the job's info-json.
+// The filename is never parsed for it — yt-dlp sanitizes and trims names, and
+// the template decides where the title sits.
 //
 // Follows the queueOutputTargetMove host-interface pattern: no queue state
 // here, target resolution reads through the injected host and the mutation
@@ -9,7 +11,7 @@
 // remembered targets, mirroring the previous inline lookup.
 
 import {moveQueueArtifactPath, queueArtifactFromPath, upsertQueueArtifact} from '@shared/queueArtifacts.js'
-import {deriveTitleFromArtifact, withBackfilledTitle} from '@shared/queueTitle.js'
+import {withBackfilledTitle} from '@shared/queueTitle.js'
 import type {QueueArtifactEvent, QueueItem} from '@shared/types.js'
 import type {FinalArtifactTargets} from '../finalArtifactTargets.js'
 
@@ -30,11 +32,9 @@ export function ingestQueueArtifactEvent(host: QueueArtifactIngestHost, event: Q
 	const item = findTarget(host, event.jobId)
 	if (!item) return
 	const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal, sizeBytes: event.sizeBytes})
-	// A media file landing on a still-flagged row proves the real title via
-	// its basename — but only for default-shape templates, where the title
-	// portion is unambiguous. Subtitle-only jobs emit no media artifact and
-	// skip this path by construction.
-	const backfilledTitle = event.kind === 'media' && item.titleIsPlaceholder === true ? deriveTitleFromArtifact(artifact.fileName, 'filenameTemplate' in item.job ? item.job.filenameTemplate : undefined) : null
+	// Without a title on the event the placeholder stays. Subtitle-only jobs
+	// emit no media artifact and skip this path by construction.
+	const backfilledTitle = event.kind === 'media' && item.titleIsPlaceholder === true && event.title ? event.title : null
 	host.commitPatch(item.id, `artifact:${event.kind}`, prev => {
 		const applyTitle = (next: QueueItem): QueueItem => (backfilledTitle !== null && next.titleIsPlaceholder === true ? withBackfilledTitle(next, backfilledTitle) : next)
 		if (!event.fromPath) return applyTitle({...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)})

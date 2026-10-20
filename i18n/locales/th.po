@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "ยกเลิก"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "ปิด"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "ดำเนินการต่อ"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "คุณภาพดีที่สุด"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "โฟลเดอร์ดาวน์โหลดเริ่มต้น"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "โฟลเดอร์ดาวน์โหลดเริ่มต้น / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "ปลายทางส่วนกลาง"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "ใช้งานอยู่"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "สืบทอดมา"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "การแทนที่โปรไฟล์"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "เลือกโฟลเดอร์"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "ไม่มีการแทนที่"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "ยังไม่ได้ตั้งค่าการแทนที่ โปรไฟล์นี้ใช้ปลายทางส่วนกลางด้านบน"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "แทนที่ส่วนกลาง"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "โปรไฟล์นี้บันทึกไปยังโฟลเดอร์รากของตัวเองก่อนที่จะเพิ่มโฟลเดอร์ย่อย"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "โปรไฟล์ดาวน์โหลด"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "เปลี่ยนปลายทางส่วนกลางไม่ได้"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "เปิดตัวเลือกโฟลเดอร์ไม่ได้ โปรดป้อนเส้นทางด้วยตนเอง"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

@@ -50,6 +50,8 @@ Counterscale is built for websites, so app fields ride in the slots its dashboar
 | UTM Term       | app UI language     | `uk`           |
 | UTM Content    | OS locale           | `uk-UA`        |
 
+The OS locale is the first of the OS's preferred languages, as the OS names it, so languages Arroxy lacks (`nl-NL`) show up too. Versions up to 0.7.2 sent Chromium's application locale instead, which reads as `en-US` for every language Chromium ships no locale for (Khmer, Burmese, Uzbek, Pashto, Oromo, Nepali and more).
+
 Values never contain spaces: a collector that decodes `+` and `%20` differently must still store the same value (the local Vite-based Counterscale dev server turned `%20` into `+`).
 
 Browser and Device cards stay empty or constant — ignore them.

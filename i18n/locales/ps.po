@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "لغوه کړئ"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "تړل"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "دوام ورکړه"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "غوره کیفیت"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "د ډاونلوډ اصلي پوښۍ"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "د ډاونلوډ اصلي پوښۍ / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "ټولیزه موخه"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "فعاله"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "میراثي"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "د پروفایل بدیل"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "پوښۍ وټاکئ"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "هېڅ بدیل نه دی ټاکل شوی"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "هېڅ بدیل نه دی ټاکل شوی. دا پروفایل پورتنۍ ټولیزه موخه کاروي."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "ټولیز بدلوي"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "دا پروفایل د فرعي پوښۍ له اضافه کېدو مخکې خپلې ریښې پوښۍ ته ساتي."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "د ښکته کولو پروفایل"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "ټولیزه موخه بدله نه شوه."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "د پوښۍ ټاکونکی نه شو پرانیستل کېدی. لاره په لاس ولیکئ."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

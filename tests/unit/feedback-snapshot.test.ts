@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {buildFeedbackHiddenFields} from '@renderer/components/system/feedbackSnapshot.js'
 import {makeItem} from '../shared/fixtures.js'
 
-const RUNTIME = {arch: 'x64', osVersion: '10.0.26200', installChannel: 'portable' as const}
+const RUNTIME = {arch: 'x64', osVersion: '10.0.26200', installChannel: 'portable' as const, systemLanguage: 'en'}
 
 describe('FeedbackSnapshot', () => {
 	it('summarizes queue status and classified yt-dlp probe errors', () => {
@@ -29,7 +29,18 @@ describe('FeedbackSnapshot', () => {
 	})
 
 	it('falls back for empty queue, unknown runtime facts and non-yt-dlp probe errors', () => {
-		const fields = buildFeedbackHiddenFields({appMode: 'test', appVersion: '', language: 'en', platform: '', queue: [], reportId: 'report-2', runtime: {arch: '', osVersion: '', installChannel: null}, settings: null, wizardError: {kind: 'other', code: 'unknown', message: 'probe unavailable'}, wizardExtractor: ''})
+		const fields = buildFeedbackHiddenFields({
+			appMode: 'test',
+			appVersion: '',
+			language: 'en',
+			platform: '',
+			queue: [],
+			reportId: 'report-2',
+			runtime: {arch: '', osVersion: '', installChannel: null, systemLanguage: null},
+			settings: null,
+			wizardError: {kind: 'other', code: 'unknown', message: 'probe unavailable'},
+			wizardExtractor: ''
+		})
 
 		expect(fields).toMatchObject({app_version: 'unknown', platform: 'unknown', architecture: 'unknown', system_version: 'unknown', install_channel: 'unknown', queue_status: 'empty', extractor: 'none', yt_dlp_error_kind: 'none', error_code: 'unknown'})
 	})

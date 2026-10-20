@@ -86,7 +86,7 @@ describe('VideoPhase — startup sweep racing temp dir setup', () => {
 			return result
 		})
 
-		await VideoPhase(false).run(makeCtx())
+		await VideoPhase.run(makeCtx())
 
 		// The assertion that fails against a split mkdir: with two calls the root
 		// is still empty when the sweep fires, so the rmdir succeeds and the
@@ -98,7 +98,7 @@ describe('VideoPhase — startup sweep racing temp dir setup', () => {
 	it('hides the root it recreates when the sweep got there first', async () => {
 		// Sweep already removed the root before the job started: the job creates it,
 		// so the job owns hiding it.
-		await VideoPhase(false).run(makeCtx())
+		await VideoPhase.run(makeCtx())
 
 		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledWith(join(outputDir, '.arroxy-temp'))
 	})
