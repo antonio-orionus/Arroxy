@@ -7,7 +7,6 @@ import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {buildDownloadProfileActionModel} from '@renderer/components/wizard/downloadProfileActions.js'
-import {orderProfileOptionsForAssignment} from '@renderer/components/wizard/playlistProfileOrder.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState, AudioSelection} from '../types.js'
@@ -105,16 +104,15 @@ export interface MultiProfileBreakdownRow {
 
 // Per-profile grouping for the confirm screen in multi-profile mode, where a
 // single formatLabel/preset can't represent the batch — each item may carry
-// a different DownloadProfile. Ordered the same way the playlistProfiles
-// assignment screen orders its action bar (baseline, then custom, then
-// builtin) so the summary matches what the user just saw while assigning.
+// a different DownloadProfile. In the user's saved profile order, like the
+// assignment screen's pickers.
 export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBreakdownRow[] {
 	const selectedIdSet = new Set(state.selectedPlaylistItemIds)
 	const removedIdSet = new Set(state.removedPlaylistItemIds)
 	const selectedItemIds = state.playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)).map(entry => entry.id)
 
 	const model = buildDownloadProfileActionModel(state.settings?.profiles)
-	const orderedProfiles = orderProfileOptionsForAssignment(model.options, model.activeRef).map(option => option.profile)
+	const orderedProfiles = model.options.map(option => option.profile)
 	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, orderedProfiles, model.activeRef)
 	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
