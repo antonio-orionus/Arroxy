@@ -1,3 +1,4 @@
+import {createInstance} from 'i18next'
 import {describe, expect, it} from 'vite-plus/test'
 import {buildDownloadProfileActionModel, quickProfileSummary} from '@renderer/components/wizard/downloadProfileActions.js'
 import {BUILTIN_DOWNLOAD_PROFILES, setDownloadProfileEnabled} from '@shared/downloadProfiles.js'
@@ -49,13 +50,14 @@ describe('download profile action model', () => {
 		expect(quickProfileSummary({...balanced, media: {kind: 'audio-only', audio: {format: 'best'}}}, i18next.t)).toBe('best audio')
 	})
 
-	it('words the summary in the interface language', async () => {
+	it('words the summary from the catalog it is given', async () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
 		if (!balanced) throw new Error('expected built-in profiles')
-		const de = i18next.getFixedT('de')
+		const catalog = createInstance()
+		await catalog.init({lng: 'xx', resources: {xx: {translation: {wizard: {url: {profile: {summary: {bestAudio: 'beste Tonspur', noAudio: 'ohne Ton'}}}}}}}})
 
-		expect(quickProfileSummary(balanced, de)).toBe(`720p · ${de('wizard.url.profile.summary.bestAudio')}`)
-		expect(de('wizard.url.profile.summary.bestAudio')).not.toBe('best audio')
+		expect(quickProfileSummary(balanced, catalog.t)).toBe('720p · beste Tonspur')
+		expect(quickProfileSummary({...balanced, media: {kind: 'video-only', goal: 'best-picture', tier: '480', fileType: 'auto'}}, catalog.t)).toBe('480p · ohne Ton')
 	})
 
 	it('uses the default bitrate for lossy audio profile summaries with no explicit bitrate', () => {
