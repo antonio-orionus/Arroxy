@@ -91,18 +91,19 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	}
 	const inView = (row: NativeAudioRow, inTrack: string, withDrc: boolean): boolean => (row.twinId === null || row.isDrc === withDrc) && (view.tracks.length === 0 || row.track === inTrack)
 	const shown = (row: NativeAudioRow): boolean => inView(row, track, drc)
-	// The shown language's stream yt-dlp would convert; the DRC switch picks which master comes first.
+	// The shown language's stream yt-dlp would convert; the DRC switch picks which
+	// master comes first. With one language the bridge picks the non-DRC master
+	// itself, so only DRC names a source.
 	const sourceIn = (inTrack: string, withDrc: boolean, target: AudioConvertTarget): string | undefined => {
-		if (view.tracks.length === 0) return undefined
+		if (view.tracks.length === 0) return withDrc ? conversionSource(view.conversionSelection, target, {preferDrc: true})?.formatId : undefined
 		const shownIds = new Set(view.nativeRows.filter(row => inView(row, inTrack, withDrc)).map(row => row.formatId))
 		return conversionSource(view.conversionSelection, target, {formatIds: shownIds, preferDrc: withDrc})?.formatId
 	}
 	const switchDrc = (next: boolean): void => {
 		setDrc(next)
 		if (isConversion(audioSelection)) {
-			// One language: the bridge picks the non-DRC master itself, so only DRC names a source.
 			const {sourceFormatId: _previous, ...conversion} = audioSelection
-			const source = view.tracks.length > 0 ? sourceIn(track, next, audioSelection.target) : next ? conversionSource(view.conversionSelection, audioSelection.target, {preferDrc: true})?.formatId : undefined
+			const source = sourceIn(track, next, audioSelection.target)
 			onSelect(source === undefined ? conversion : {...conversion, sourceFormatId: source})
 			return
 		}
@@ -337,7 +338,7 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 					convertingFrom?.copies ? (
 						<CopyNote target={audioSelection.target} kbps={convertingFrom.kbps} />
 					) : (
-						<BitrateStrip view={view} selection={audioSelection} sourceKbps={convertingFrom?.kbps === undefined ? view.sourceKbps : Math.round(convertingFrom.kbps)} onSelect={onSelect} />
+						<BitrateStrip view={view} selection={audioSelection} sourceKbps={convertingFrom === undefined ? view.sourceKbps : convertingFrom.kbps === undefined ? null : Math.round(convertingFrom.kbps)} onSelect={onSelect} />
 					)
 				) : null}
 

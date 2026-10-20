@@ -124,4 +124,24 @@ describe('AudioColumn', () => {
 
 		expect(screen.getByText('Source is 104 kbps')).toBeInTheDocument()
 	})
+
+	it('keeps DRC when a conversion target is picked with the switch already on', () => {
+		const formats: FormatOption[] = [audio('251', '', 'opus', 'webm', 130), audio('251-drc', '', 'opus', 'webm', 131, true), audio('140', '', 'mp4a.40.2', 'm4a', 129)]
+		const onSelect = vi.fn()
+		const selection: AudioSelection = {kind: 'native', formatId: '251-drc'}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={selection} onSelect={onSelect} />)
+
+		fireEvent.click(screen.getByRole('radio', {name: 'Convert · mp3'}))
+		expect(onSelect).toHaveBeenLastCalledWith({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192, sourceFormatId: '251-drc'})
+	})
+
+	it('names no source bitrate when the source has none', () => {
+		const formats: FormatOption[] = [{...audio('251-en', 'English', 'opus', 'webm', 0), abr: undefined}, audio('251-es', 'Spanish', 'opus', 'webm', 384)]
+		const selection: AudioSelection = {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192, sourceFormatId: '251-en'}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={selection} onSelect={vi.fn()} />)
+
+		expect(screen.queryByText(/^Source is/)).not.toBeInTheDocument()
+	})
 })
