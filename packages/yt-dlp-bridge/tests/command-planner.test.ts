@@ -165,6 +165,18 @@ describe('planWorkflow — media', () => {
 			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).not.toContain('format_note~=?')
 		})
 
+		// The caller's own selector (its native-audio preference) wins: the
+		// conversion only changes what happens to the stream it picks.
+		it("uses the caller's format selector as is", () => {
+			const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestaudio[acodec^=ec-3]/bestaudio/best'}, audio: {convert: {target: 'best', lossy: true}}})
+			expect(adjacent(plan.args, '-f', 'bestaudio[acodec^=ec-3]/bestaudio/best')).toBe(true)
+			expect(plan.args.filter(arg => arg === '-f')).toHaveLength(1)
+			expect(adjacent(plan.args, '--audio-format', 'best')).toBe(true)
+			expect(plan.args).not.toContain('--audio-quality')
+			const sorted = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestaudio/best', formatSort: 'acodec:opus'}, audio: {convert: {target: 'best', lossy: true}}})
+			expect(adjacent(sorted.args, '-S', 'acodec:opus')).toBe(true)
+		})
+
 		it("puts the caller's stream ahead of the chain", () => {
 			expect(conversionSelector('opus', '251-es')).toBe(`251-es/${conversionSelector('opus')}`)
 		})

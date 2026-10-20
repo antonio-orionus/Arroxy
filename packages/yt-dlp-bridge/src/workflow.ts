@@ -638,11 +638,14 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 		return
 	}
 	if (audioConvert) {
-		// A caller's stream (one audio language of several) goes first; the
-		// conversion source chain stays as the fallback if it is gone.
-		const formatId = input.selection?.formatId
+		// A caller's own selector picks the stream outright; a caller's stream
+		// (one audio language of several) goes ahead of the conversion source
+		// chain, which stays as the fallback if it is gone.
+		const {formatId, formatSelector, formatSort} = input.selection ?? {}
 		const sourceSelector = audioConversionSourceSelector(audioConvert.target)
-		args.push('-f', formatId ? `${formatId}/${sourceSelector}` : sourceSelector, '-x', '--audio-format', audioConvert.target)
+		args.push('-f', formatSelector ?? (formatId ? `${formatId}/${sourceSelector}` : sourceSelector))
+		if (formatSelector && formatSort) args.push('-S', formatSort)
+		args.push('-x', '--audio-format', audioConvert.target)
 		if (audioConvert.lossy && audioConvert.bitrateKbps !== undefined) args.push('--audio-quality', `${audioConvert.bitrateKbps}K`)
 		return
 	}
