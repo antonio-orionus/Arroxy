@@ -284,6 +284,19 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('137')
 	})
 
+	// X/Twitter's extractor sorts `proto:m3u8`: HLS first, so "direct downloads first" would be wrong there.
+	it('names the protocol rank only where the extractor ranks direct downloads first', () => {
+		const raw = [rawVideo('137', 1080), rawAudio('140')]
+		expect(resolveRaw(builtin('best-quality'), raw, ['res', 'proto:m3u8']).order?.video.map(rank => rank.kind)).not.toContain('protocol')
+	})
+
+	// A site may leave out the video codec of an audio stream; the Format screen
+	// lists it as audio, and yt-dlp downloads it as it is.
+	it('keeps a native audio pick whose stream names no video codec', () => {
+		const raw = [{format_id: 'aac', ext: 'm4a', resolution: 'audio only', acodec: 'mp4a.40.2', abr: 128, protocol: 'https'}]
+		expect(resolveRaw(builtin('audio-only'), raw, []).media.audioSelection).toEqual({kind: 'native', formatId: 'aac'})
+	})
+
 	it('names the source and protocol ranks only where the extractor sorts by them', () => {
 		const raw = [rawVideo('137', 1080), rawAudio('140')]
 		const youtube = resolveRaw(builtin('best-quality'), raw).order?.video.map(rank => rank.kind)

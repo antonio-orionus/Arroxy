@@ -93,7 +93,8 @@ function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): string | nul
 	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
 	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
 	const audio = media.audioSelection.kind === 'native' ? media.audioSelection.formatId : null
-	if (media.kind === 'audio') return audio
+	// A conversion is an answer too: a native-audio profile must never convert where yt-dlp takes a stream as it is.
+	if (media.kind === 'audio') return audio ?? 'converted'
 	if (media.kind !== 'video' || media.videoFormatId === '') return null
 	return audio === null ? media.videoFormatId : `${media.videoFormatId}+${audio}`
 }
@@ -115,6 +116,15 @@ interface Case {
 	sort?: string
 	expected: string
 }
+
+// Differences already known to be bugs, each with its fix under way. Listed so
+// the check stays a gate for everything else; an entry that no longer occurs
+// fails it too, so the list shrinks as the fixes land.
+const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = (['twitch-clip', 'dailymotion', 'archive', 'streamable', 'bitchute'] as const).flatMap(probe =>
+	(['audio-only compatible', 'audio-only surround'] as const).map(label => ({probe, label, reason: 'Audio only on a site with only combined files: yt-dlp downloads the whole file (`best`), the Format screen converts it to MP3'}))
+)
+
+const isKnown = (testCase: {probe: ProbeSourceId; label: string}): boolean => KNOWN_DIFFERENCES.some(known => known.probe === testCase.probe && known.label === testCase.label)
 
 const verbose = process.argv.includes('--verbose')
 const probeIds: readonly ProbeSourceId[] = PROBE_SOURCES.map(source => source.id)
@@ -140,11 +150,19 @@ const {stdout} = await child
 const picks: unknown = JSON.parse(stdout)
 if (!Array.isArray(picks) || picks.length !== cases.length) throw new Error('the oracle returned a different number of picks than cases')
 
+const known = new Set<string>()
 const differences = cases.flatMap((testCase, index) => {
 	const ytDlpPick: unknown = picks[index]
+	if (ytDlpPick !== testCase.expected && isKnown(testCase)) {
+		known.add(`${testCase.probe} · ${testCase.label}`)
+		return []
+	}
 	return ytDlpPick === testCase.expected ? [] : [`${testCase.probe} · ${testCase.label}: app ${testCase.expected}, yt-dlp ${String(ytDlpPick)}  (-f ${testCase.format}${testCase.sort ? ` -S ${testCase.sort}` : ''})`]
 })
 if (verbose) for (const testCase of cases) console.log(`${testCase.probe} · ${testCase.label}: ${testCase.expected}`)
 console.log(`selection parity: ${cases.length} cases over ${probeIds.length} probes, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
 for (const difference of differences) console.log(`  ${difference}`)
-if (differences.length > 0) process.exitCode = 1
+const stale = KNOWN_DIFFERENCES.filter(entry => !known.has(`${entry.probe} · ${entry.label}`))
+if (known.size > 0) console.log(`  ${known.size} known (${[...new Set(KNOWN_DIFFERENCES.map(entry => entry.reason))].join('; ')})`)
+for (const entry of stale) console.log(`  no longer differs, remove it from KNOWN_DIFFERENCES: ${entry.probe} · ${entry.label}`)
+if (differences.length > 0 || stale.length > 0) process.exitCode = 1

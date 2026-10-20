@@ -79,12 +79,12 @@ function ytDlpPick(intent: MediaIntent, input: ProfileSelectionInput): SelectedF
 }
 
 // The picked streams as the Format screen's options: the one with video, and
-// a separate audio stream when yt-dlp merges one in. A muxed video keeps its own sound.
+// a separate audio stream when yt-dlp merges one in. A muxed video keeps its
+// own sound. Read by the options' own flags, which also name as audio a
+// stream whose site left its video codec out.
 function pickedOptions(picked: SelectedFormats | null, formats: readonly FormatOption[]): {video?: FormatOption; audio?: FormatOption} {
-	const option = (id: string | undefined): FormatOption | undefined => (id === undefined ? undefined : formats.find(format => format.formatId === id))
-	const video = picked?.formats.find(format => format.vcodec !== 'none')
-	const audio = picked?.formats.find(format => format.vcodec === 'none' && format.acodec !== 'none')
-	return {video: option(video?.format_id), audio: option(audio?.format_id)}
+	const options = (picked?.formats ?? []).flatMap(format => formats.filter(option => option.formatId === format.format_id))
+	return {video: options.find(option => !option.isAudioOnly), audio: options.find(option => option.isAudioOnly)}
 }
 
 function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; bitrateKbps?: AudioBitrate}, input: ProfileSelectionInput): AudioSelection {
@@ -97,10 +97,11 @@ function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; b
 }
 
 // The order shown as "Why this one" names the source and protocol ranks only
-// where the extractor's own sort ranks them (YouTube's): elsewhere every copy
-// ties on them before the codec and size decide.
+// where the extractor's own sort ranks them as the rows say (YouTube's plain
+// `source` and `proto`): elsewhere every copy ties on them before the codec
+// and size decide, and `proto:m3u8` (X) would put HLS first, not last.
 function forThisVideo(order: SelectionOrder, sortFields: readonly string[]): SelectionOrder {
-	const named = (field: string): boolean => sortFields.some(item => item.replace(/^\+/, '').split(/[:~]/)[0] === field)
+	const named = (field: string): boolean => sortFields.includes(field)
 	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || named('source')) && (rank.kind !== 'protocol' || named('proto')))}
 }
 
