@@ -2,10 +2,22 @@
 	"source": {
 		"id": "youtube-2005",
 		"url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
-		"capturedAt": "2026-10-19",
-		"ytDlp": "2026.08.19"
+		"capturedAt": "2026-10-20",
+		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
+		"_format_sort_fields": [
+			"quality",
+			"res",
+			"fps",
+			"hdr:12",
+			"source",
+			"vcodec",
+			"channels",
+			"acodec",
+			"lang",
+			"proto"
+		],
 		"id": "jNQXAC9IVRw",
 		"title": "Me at the zoo",
 		"thumbnail": "https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg",
@@ -39,8 +51,8 @@
 			}
 		],
 		"formats": [
-			{"format_id":"233","ext":"mp4","resolution":"audio only","format_note":"Default, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"quality":-1,"has_drm":false},
-			{"format_id":"234","ext":"mp4","resolution":"audio only","format_note":"Default, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"quality":-1,"has_drm":false},
+			{"format_id":"233","ext":"mp4","resolution":"audio only","format_note":"Default, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"quality":-1,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"234","ext":"mp4","resolution":"audio only","format_note":"Default, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"quality":-1,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
 			{"format_id":"139-drc","ext":"m4a","resolution":"audio only","format_note":"low, DRC","tbr":49.127,"vbr":0,"abr":49.127,"asr":22050,"audio_channels":2,"filesize":117495,"filesize_approx":117493,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
 			{"format_id":"249-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":50.012,"vbr":0,"abr":50.012,"asr":48000,"audio_channels":2,"filesize":118912,"filesize_approx":118909,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
 			{"format_id":"250-drc","ext":"webm","resolution":"audio only","format_note":"low, DRC","tbr":63.755,"vbr":0,"abr":63.755,"asr":48000,"audio_channels":2,"filesize":151586,"filesize_approx":151585,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":1.5,"has_drm":false},
@@ -51,16 +63,17 @@
 			{"format_id":"251-drc","ext":"webm","resolution":"audio only","format_note":"medium, DRC","tbr":107.429,"vbr":0,"abr":107.429,"asr":48000,"audio_channels":2,"filesize":255427,"filesize_approx":255425,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2.5,"has_drm":false},
 			{"format_id":"140","ext":"m4a","resolution":"audio only","format_note":"medium","tbr":129.796,"vbr":0,"abr":129.796,"asr":44100,"audio_channels":2,"filesize":309288,"filesize_approx":309287,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
 			{"format_id":"251","ext":"webm","resolution":"audio only","format_note":"medium","tbr":106.064,"vbr":0,"abr":106.064,"asr":48000,"audio_channels":2,"filesize":252182,"filesize_approx":252180,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
-			{"format_id":"269","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":139.566,"vbr":139.566,"abr":0,"vcodec":"avc1.4D400B","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"269","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":139.566,"vbr":139.566,"abr":0,"vcodec":"avc1.4D400B","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
 			{"format_id":"160","ext":"mp4","resolution":"192x144","format_note":"144p","width":192,"height":144,"fps":15,"tbr":82.513,"vbr":82.513,"abr":0,"filesize":195278,"filesize_approx":195277,"vcodec":"avc1.4D400B","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
-			{"format_id":"602","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":75.112,"vbr":75.112,"abr":0,"vcodec":"vp09.00.10.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
-			{"format_id":"603","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":137.995,"vbr":137.995,"abr":0,"vcodec":"vp09.00.11.08.01.05.01.06.00","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"602","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":75.112,"vbr":75.112,"abr":0,"vcodec":"vp09.00.10.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"603","ext":"mp4","resolution":"192x144","width":192,"height":144,"fps":15,"tbr":137.995,"vbr":137.995,"abr":0,"vcodec":"vp09.00.11.08.01.05.01.06.00","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
 			{"format_id":"278","ext":"webm","resolution":"192x144","format_note":"144p","width":192,"height":144,"fps":15,"tbr":78.293,"vbr":78.293,"abr":0,"filesize":185292,"filesize_approx":185290,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
-			{"format_id":"229","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":245.113,"vbr":245.113,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
-			{"format_id":"230","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":294.965,"vbr":294.965,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"229","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":245.113,"vbr":245.113,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"230","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":294.965,"vbr":294.965,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
 			{"format_id":"134","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":15,"tbr":136.218,"vbr":136.218,"abr":0,"filesize":322379,"filesize_approx":322376,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
 			{"format_id":"133","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":15,"tbr":182.995,"vbr":182.995,"abr":0,"filesize":433081,"filesize_approx":433080,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
-			{"format_id":"604","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":198.586,"vbr":198.586,"abr":0,"vcodec":"vp09.00.20.08.01.05.01.06.00","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"18","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":15,"tbr":266.531,"asr":44100,"audio_channels":2,"filesize_approx":635110,"vcodec":"avc1.42001E","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"604","ext":"mp4","resolution":"320x240","width":320,"height":240,"fps":15,"tbr":198.586,"vbr":198.586,"abr":0,"vcodec":"vp09.00.20.08.01.05.01.06.00","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
 			{"format_id":"242","ext":"webm","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":15,"tbr":123.838,"vbr":123.838,"abr":0,"filesize":293080,"filesize_approx":293078,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
 			{"format_id":"395","ext":"mp4","resolution":"320x240","format_note":"240p","width":320,"height":240,"fps":15,"tbr":94.556,"vbr":94.556,"abr":0,"filesize":223779,"filesize_approx":223778,"vcodec":"av01.0.00M.08.0.110.05.01.06.0","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false}
 		],

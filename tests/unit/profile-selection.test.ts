@@ -177,14 +177,14 @@ describe('resolveProfileSelection: subtitles', () => {
 
 describe('resolveProfileSelection: parity with the profile path yt-dlp sort', () => {
 	it('prefers the better codec at the same resolution and fps, like yt-dlp vcodec sorting', () => {
-		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', filesize: 900}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', filesize: 500}), audio('140')]
+		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sortSize: 900}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sortSize: 500}), audio('140')]
 		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
 		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('399')
 	})
 
 	it('takes the stream the site prefers as a source before the better codec, like yt-dlp source before vcodec', () => {
 		// YouTube's Premium VP9 (616) gets source_preference +100 over the AV1 copy.
-		const formats = [video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sourcePreference: -1, filesize: 53}), video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', ext: 'mp4', sourcePreference: 99, filesize: 204}), audio('140')]
+		const formats = [video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sourcePreference: -1, sortSize: 53}), video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', ext: 'mp4', sourcePreference: 99, sortSize: 204}), audio('140')]
 		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('616')
 		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('616')
 	})
@@ -202,14 +202,14 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 	})
 
 	it('reads codec names as yt-dlp does: vp9 and vp09.00 are one codec, HDR VP9 ranks above both', () => {
-		const sameCodec = [video('609', '1280x720', {videoCodec: 'vp09.00.31.08', ext: 'mp4'}), video('247', '1280x720', {videoCodec: 'vp9', filesize: 500}), audio('140')]
+		const sameCodec = [video('609', '1280x720', {videoCodec: 'vp09.00.31.08', ext: 'mp4'}), video('247', '1280x720', {videoCodec: 'vp9', sortSize: 500}), audio('140')]
 		expect(resolve(builtin('balanced'), sameCodec).media.videoFormatId).toBe('247')
-		const hdrVp9 = [video('247', '1280x720', {videoCodec: 'vp9', filesize: 900}), video('334', '1280x720', {videoCodec: 'vp09.02.31.10', filesize: 500}), audio('140')]
+		const hdrVp9 = [video('247', '1280x720', {videoCodec: 'vp9', sortSize: 900}), video('334', '1280x720', {videoCodec: 'vp09.02.31.10', sortSize: 500}), audio('140')]
 		expect(resolve(builtin('balanced'), hdrVp9).media.videoFormatId).toBe('334')
 	})
 
 	it('Smart TV breaks ties among H.264 streams by source preference too', () => {
-		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -21, filesize: 900}), video('137-hls', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1, filesize: 500}), audio('140')]
+		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -21, sortSize: 900}), video('137-hls', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1, sortSize: 500}), audio('140')]
 		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137-hls')
 	})
 
@@ -258,7 +258,7 @@ describe('resolveProfileSelection: selection order and file type', () => {
 
 	it('takes the direct download over its HLS copy on YouTube, like yt-dlp proto before size', () => {
 		// The HLS copy has no size from the site; the app's estimate from its peak bitrate is larger.
-		const formats = [video('270', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 7, filesize: 900}), video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 9, filesize: 500}), audio('140')]
+		const formats = [video('270', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 7, sortSize: 900}), video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 9, sortSize: 500}), audio('140')]
 		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137')
 		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('137')
 	})

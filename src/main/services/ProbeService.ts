@@ -18,6 +18,7 @@ import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import type {LookedUpSizes} from './formatSizeLookup.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
@@ -35,6 +36,8 @@ interface ProbeAttemptSuccess {
 	raw: unknown
 	stderr: string
 	degradationSignals: ProbeSignal[]
+	// Sizes the site left out, asked of its servers (`withSiteSizes`).
+	lookedUpSizes?: LookedUpSizes
 }
 
 type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 'failure'; error: ProbeError}
@@ -56,7 +59,7 @@ export interface ProbeServiceOptions {
 	// Absent: a check after rejected cookies cannot tell (see afterCookiesRejected).
 	exploreSession?: ExploreSignInCheck
 	// Fills the sizes a site leaves out (formatSizeLookup). Absent: none are looked up.
-	formatSizes?: (formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<YtDlpFormat[]>
+	formatSizes?: (formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<LookedUpSizes>
 }
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
@@ -285,7 +288,7 @@ function resolveChapters(raw: unknown[] | undefined): VideoChapter[] {
 	return chapters
 }
 
-function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): VideoProbeResult {
+function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, lookedUpSizes?: LookedUpSizes, probeInfoJsonRef?: ProbeInfoJsonRef): VideoProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
 	return {
@@ -296,7 +299,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {site, durationSeconds: typeof info.duration === 'number' ? info.duration : undefined}),
+		formats: mapFormats(info.formats ?? [], {site, durationSeconds: typeof info.duration === 'number' ? info.duration : undefined, ...(lookedUpSizes ? {lookedUpSizes} : {})}),
 		title: info.title ?? '',
 		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,
@@ -348,7 +351,7 @@ function mapProbeAttempt(attempt: ProbeAttemptResult, url: string, logContext: R
 	}
 	// Hit the redirect-depth cap. Surface the URL error rather than guess.
 	if (isUrlRedirect(info)) return {kind: 'failure', error: {kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'}}
-	const result = buildVideoProbeResult(info, url, deriveDegraded(final.degradationSignals))
+	const result = buildVideoProbeResult(info, url, deriveDegraded(final.degradationSignals), final.lookedUpSizes)
 	// Zero formats + zero subs + zero auto-captions: geo-block, age-gate,
 	// members-only, or live-not-yet. The JSON shape itself was fine.
 	if (result.formats.length === 0 && Object.keys(result.subtitles).length === 0 && Object.keys(result.automaticCaptions).length === 0) {
@@ -564,10 +567,10 @@ export class ProbeService extends EventEmitter {
 	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		const attempt = await this.followExtractorRedirects(url, playlistMode, playlistScope, signal, as, timeoutMs)
 		if (attempt.kind === 'failure') return attempt
-		const info = await this.withSiteSizes(attempt.data.info, url, signal)
+		const lookedUpSizes = await this.withSiteSizes(attempt.data.info, url, signal)
 		// A probe cancelled while its sizes were asked for is cancelled, not a result.
 		if (signal.aborted) return PROBE_CANCELLED
-		return info === attempt.data.info ? attempt : {kind: 'success', data: {...attempt.data, info}}
+		return lookedUpSizes === null ? attempt : {kind: 'success', data: {...attempt.data, lookedUpSizes}}
 	}
 
 	// Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
@@ -713,13 +716,13 @@ export class ProbeService extends EventEmitter {
 		return {kind: 'success', data: {info, raw, stderr: result.stderr, degradationSignals}}
 	}
 
-	// A single video's formats, with the sizes its site leaves out looked up.
+	// The sizes a single video's site leaves out, looked up; null when none are asked.
 	// Never YouTube: it reports its sizes, and its media hosts are asked nothing extra.
-	private async withSiteSizes(info: InfoDict, url: string, signal: AbortSignal): Promise<InfoDict> {
-		if (!this.formatSizes || isPlaylistLike(info) || isUrlRedirect(info)) return info
-		if (siteForUrl(url).id === 'youtube' || siteForExtractor(info.extractor).id === 'youtube') return info
+	private async withSiteSizes(info: InfoDict, url: string, signal: AbortSignal): Promise<LookedUpSizes | null> {
+		if (!this.formatSizes || isPlaylistLike(info) || isUrlRedirect(info)) return null
+		if (siteForUrl(url).id === 'youtube' || siteForExtractor(info.extractor).id === 'youtube') return null
 		const formats = info.formats ?? []
-		return formats.length === 0 ? info : {...info, formats: await this.formatSizes(formats, signal)}
+		return formats.length === 0 ? null : await this.formatSizes(formats, signal)
 	}
 }
 

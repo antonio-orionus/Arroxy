@@ -229,6 +229,27 @@ describe('mapFormats — stream markers', () => {
 })
 
 describe('mapFormats — sizes and names the site leaves out', () => {
+	it("keeps the size yt-dlp's sort sees apart from the size shown", () => {
+		const options = {site: genericSite, durationSeconds: 540, lookedUpSizes: new Map([['looked-up', 7_000]])}
+		const sizes = Object.fromEntries(
+			mapFormats(
+				[
+					{format_id: 'reported', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'none', tbr: 2958, filesize: 9000},
+					{format_id: 'approx', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'none', filesize_approx: 8000},
+					// yt-dlp estimates a plain file's size from its bitrate, as the app does...
+					{format_id: 'plain', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'none', tbr: 2958},
+					// ...but not a manifest's, whose bitrate is often a peak.
+					{format_id: 'hls', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'none', tbr: 2958, manifest_url: 'https://cdn.example/master.m3u8'},
+					// A size the app asked the server for is shown; yt-dlp's sort never sees it.
+					{format_id: 'looked-up', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'none', tbr: 1000}
+				],
+				options
+			).map(f => [f.formatId, [f.filesize, f.sortSize]])
+		)
+		const fromBitrate = (kbps: number): number => Math.trunc((540 * kbps * 1000) / 8)
+		expect(sizes).toEqual({reported: [9000, 9000], approx: [8000, 8000], plain: [fromBitrate(2958), fromBitrate(2958)], hls: [Math.round((2958 * 1000 * 540) / 8), undefined], 'looked-up': [7000, fromBitrate(1000)]})
+	})
+
 	it('estimates a size from the bitrate and duration when the site gives none', () => {
 		const [format] = mapFormats([{format_id: 'hls-2958', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'mp4a.40.2', tbr: 2958}], {site: genericSite, durationSeconds: 540})
 		expect(format.filesize).toBe(Math.round((2958 * 1000 * 540) / 8))

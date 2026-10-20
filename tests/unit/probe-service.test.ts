@@ -965,7 +965,7 @@ describe('ProbeService — sizes the site does not report', () => {
 	function serviceFor(info: unknown, stderrs: readonly string[] = ['']) {
 		let runs = 0
 		const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => ({kind: 'success', stdout: JSON.stringify(info), stderr: stderrs[Math.min(runs++, stderrs.length - 1)] ?? '', usedExtractorFallback: false}))
-		const formatSizes = vi.fn<(formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<YtDlpFormat[]>>(async formats => formats.map(f => ({...f, filesize: f.format_id === 'hd' ? 16_344_300 : 3_576_134})))
+		const formatSizes = vi.fn<(formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<ReadonlyMap<string, number>>>(async formats => new Map(formats.map(f => [f.format_id ?? '', f.format_id === 'hd' ? 16_344_300 : 3_576_134])))
 		return {service: new ProbeService({run} as never, false, undefined, {formatSizes}), formatSizes, run}
 	}
 
@@ -975,6 +975,8 @@ describe('ProbeService — sizes the site does not report', () => {
 		if (!result.ok || result.data.kind !== 'video') throw new Error('probe failed')
 		expect(formatSizes).toHaveBeenCalledTimes(1)
 		expect(Object.fromEntries(result.data.formats.map(f => [f.formatId, f.filesize]))).toEqual({sd: 3_576_134, hd: 16_344_300})
+		// Shown, but not what yt-dlp's sort sees: it never asks the server.
+		expect(result.data.formats.map(f => f.sortSize)).toEqual([undefined, undefined])
 	})
 
 	// YouTube reports its sizes, and its media hosts are not asked anything extra.
@@ -996,9 +998,9 @@ describe('ProbeService — sizes the site does not report', () => {
 
 	it('reports a probe cancelled while its sizes were looked up as cancelled', async () => {
 		const {service, formatSizes} = serviceFor(REEL_INFO)
-		formatSizes.mockImplementationOnce(async formats => {
+		formatSizes.mockImplementationOnce(async () => {
 			service.cancelInFlight()
-			return [...formats]
+			return new Map()
 		})
 		const result = await service.probe(REEL, {playlistMode: 'video'})
 		expect(result.ok).toBe(false)

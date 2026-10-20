@@ -340,7 +340,7 @@ if (hasSingleInstanceLock) {
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, spawnGate})
 		// Sizes a site leaves out come from one HEAD request per file. Not through a
 		// proxy (these requests would bypass it) and not under the E2E harness.
-		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve([...formats]) : lookUpMissingSizes(formats, fetchHeadLength, signal))
+		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, ...(formatSizes ? {formatSizes} : {})})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, siteRequests)
 		// Apply the persisted concurrency before init() runs its boot-time spawn

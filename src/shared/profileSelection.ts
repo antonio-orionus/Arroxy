@@ -97,7 +97,7 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 		case 'protocol':
 			return (b.protocolPreference ?? 0) - (a.protocolPreference ?? 0)
 		case 'size':
-			return (b.filesize ?? 0) - (a.filesize ?? 0)
+			return (b.sortSize ?? 0) - (a.sortSize ?? 0)
 		case 'site-preference':
 		case 'original':
 		case 'h264':

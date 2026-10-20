@@ -236,7 +236,12 @@ export interface FormatOption {
 	audioTrackQuality?: AudioTrackQuality
 	isDefaultAudio?: boolean
 	isOriginalAudio?: boolean
+	// The size shown: the site's, else one asked of its server, else an estimate.
 	filesize?: number
+	// The size yt-dlp's format sort sees, which the Format pick ranks by: the
+	// site's, else yt-dlp's own estimate from the bitrate, which it skips for a
+	// stream played from a manifest. Never a size the app asked a server for.
+	sortSize?: number
 	isVideoOnly: boolean
 	isAudioOnly: boolean
 	dynamicRange?: string
