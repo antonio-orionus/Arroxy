@@ -132,9 +132,10 @@ function audioOnlyIntentSpec(intent: Extract<MediaIntent, {kind: 'audio-only'}>,
 
 // Video without audio takes a video-only stream, else (TikTok, Twitch clips,
 // Archive: sites with no such stream) one with sound, whose audio the download
-// then drops (DropAudioPhase).
+// then drops (DropAudioPhase). A site with sound only (SoundCloud, Bandcamp)
+// gives its sound, as the Format screen offers it there.
 function videoSelector(order: SelectionOrder, audio: AudioRank | undefined): string {
-	if (!audio) return 'bestvideo/bestvideo*'
+	if (!audio) return 'bestvideo/bestvideo*/best'
 	if (audio.kind === 'aac') return order.separateVideoStream ? MP4_WITH_M4A_AUDIO_SELECTOR : VIDEO_WITH_M4A_AUDIO_SELECTOR
 	const preference = order.nativeAudio?.preference ?? 'compatible'
 	return order.separateVideoStream ? pairWithBestNativeAudio('bestvideo', preference, MP4_WITH_AUDIO_SELECTOR) : pairWithBestNativeAudio('bestvideo*', preference, VIDEO_WITH_AUDIO_SELECTOR)

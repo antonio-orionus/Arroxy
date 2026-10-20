@@ -19,6 +19,8 @@ To ignore this, add a trailing '?' to the map.
 Failed to set value '0:a:0' for option 'map': Invalid argument
 `
 const PROBE_ARGS = ['-hide_banner', '-v', 'error', '-i', '/out/clip.mp4', '-map', '0:a:0', '-c', 'copy', '-frames:a', '1', '-f', 'null', '-']
+const VIDEO_PROBE_ARGS = ['-hide_banner', '-v', 'error', '-i', '/out/clip.mp4', '-map', '0:V:0', '-c', 'copy', '-frames:v', '1', '-f', 'null', '-']
+const NO_VIDEO = NO_AUDIO.replaceAll("'0:a:0'", "'0:V:0'")
 
 function ffmpegRun(stderr: string, exitCode: number) {
 	return createTranscriptProcess([{stream: 'stderr', data: stderr}, {close: exitCode}])
@@ -44,6 +46,18 @@ describe('dropAudioStreams', () => {
 		expect(rename).not.toHaveBeenCalled()
 	})
 
+	// A video-only profile on a site with only sound (SoundCloud) downloads the
+	// sound: taking it off would leave nothing.
+	it('keeps the audio of a file with no picture', async () => {
+		vi.mocked(spawnFFmpeg)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
+			.mockReturnValueOnce(ffmpegRun(NO_VIDEO, 234) as never)
+
+		expect(await dropAudioStreams(OPTS)).toEqual({ok: true, dropped: false})
+		expect(vi.mocked(spawnFFmpeg).mock.calls[1]?.[1]).toEqual(VIDEO_PROBE_ARGS)
+		expect(rename).not.toHaveBeenCalled()
+	})
+
 	it('keeps a file it cannot read as it is', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValueOnce(ffmpegRun('clip.mp4: Invalid data found when processing input', 1) as never)
 
@@ -55,9 +69,12 @@ describe('dropAudioStreams', () => {
 		vi.mocked(spawnFFmpeg)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 
 		expect(await dropAudioStreams(OPTS)).toEqual({ok: true, dropped: true})
-		expect(vi.mocked(spawnFFmpeg).mock.calls[1]?.[1]).toEqual(['-y', '-hide_banner', '-i', '/out/clip.mp4', '-map', '0', '-map', '-0:a', '-c', 'copy', COPY])
+		// yt-dlp's own stream copy (`stream_copy_opts`) minus the audio: data streams
+		// MP4 can't hold (timecode, bin_data) would fail the copy.
+		expect(vi.mocked(spawnFFmpeg).mock.calls[2]?.[1]).toEqual(['-y', '-hide_banner', '-i', '/out/clip.mp4', '-map', '0', '-map', '-0:a', '-dn', '-ignore_unknown', '-c', 'copy', '-c:s', 'mov_text', COPY])
 		expect(rename).toHaveBeenCalledWith(COPY, '/out/clip.mp4')
 		expect(rm).toHaveBeenCalledWith(SCRATCH, {recursive: true, force: true})
 	})
@@ -65,6 +82,7 @@ describe('dropAudioStreams', () => {
 	// A name picked beside the video could be a file the user already has there.
 	it('writes the copy into a folder of its own, made beside the video so the move stays on one disk', async () => {
 		vi.mocked(spawnFFmpeg)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 
@@ -75,6 +93,7 @@ describe('dropAudioStreams', () => {
 	it('keeps the original when the copy fails', async () => {
 		vi.mocked(spawnFFmpeg)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 			.mockReturnValueOnce(ffmpegRun('Conversion failed!', 1) as never)
 
 		expect(await dropAudioStreams(OPTS)).toEqual({ok: false, dropped: false})
@@ -84,10 +103,12 @@ describe('dropAudioStreams', () => {
 
 	it('keeps the file when no folder can be made beside it', async () => {
 		vi.mocked(mkdtemp).mockRejectedValueOnce(Object.assign(new Error('EACCES'), {code: 'EACCES'}))
-		vi.mocked(spawnFFmpeg).mockReturnValueOnce(ffmpegRun('', 0) as never)
+		vi.mocked(spawnFFmpeg)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 
 		expect(await dropAudioStreams(OPTS)).toEqual({ok: false, dropped: false})
-		expect(spawnFFmpeg).toHaveBeenCalledTimes(1)
+		expect(spawnFFmpeg).toHaveBeenCalledTimes(2)
 		expect(rename).not.toHaveBeenCalled()
 	})
 
@@ -95,8 +116,9 @@ describe('dropAudioStreams', () => {
 		vi.mocked(spawnFFmpeg)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
+			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 
 		await dropAudioStreams(OPTS)
-		expect(OPTS.onSpawn).toHaveBeenCalledTimes(2)
+		expect(OPTS.onSpawn).toHaveBeenCalledTimes(3)
 	})
 })
