@@ -51,14 +51,13 @@ describe('resolveE2eHarnessMode', () => {
 		expect(() => resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})).toThrow(/yt_dlp_plugins/)
 	})
 
-	it('adds deterministic plugin args and newline only for download runs', () => {
+	it('names the fixture plugin dir and adds newline only for download runs', () => {
 		const root = makePluginRoot()
 		const mode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})
-		const probeArgs = mode.ytDlpArgs({isProbe: true})
-		const downloadArgs = mode.ytDlpArgs({isProbe: false})
 
-		expect(probeArgs).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(root), '--no-cache-dir'])
-		expect(downloadArgs).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(root), '--no-cache-dir', '--newline'])
+		expect(mode.ytDlpPluginDirs).toEqual([path.dirname(root)])
+		expect(mode.ytDlpArgs({isProbe: true})).toEqual(['--no-cache-dir'])
+		expect(mode.ytDlpArgs({isProbe: false})).toEqual(['--no-cache-dir', '--newline'])
 		expect(mode.downloadRetryPolicy).toEqual({retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0', socketTimeout: 5})
 	})
 

@@ -23,6 +23,8 @@ export interface E2eHarnessMode {
 	applyAppSettingsDefaults: (defaults: AppSettings) => AppSettings
 	applySpawnEnv: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv
 	ytDlpArgs: (opts: YtDlpHarnessArgsOptions) => string[]
+	// The only yt-dlp plugin directories a run loads; production loads none.
+	ytDlpPluginDirs: readonly string[]
 	downloadRetryPolicy?: DownloadRetryPolicy
 	// Fixture cookies seeded into the Explore partition (ARROXY_E2E_EXPLORE_COOKIES).
 	exploreCookies?: ExploreCookie[]
@@ -144,7 +146,7 @@ function readExploreIdleUnloadMs(value: string | undefined): number | undefined 
 
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
-		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
+		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], ytDlpPluginDirs: [], downloadRetryPolicy: undefined}
 	}
 
 	const pluginRoot = validatePluginRoot(env.ARROXY_E2E_YTDLP_PLUGIN_DIR)
@@ -167,11 +169,8 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 		commandLineSwitches: E2E_COMMAND_LINE_SWITCHES,
 		applyAppSettingsDefaults: defaults => applyE2eAppSettingsDefaults(defaults, allowClipboardWatch),
 		applySpawnEnv: baseEnv => applyProxyEnv(baseEnv, denyProxyUrl),
-		ytDlpArgs: ({isProbe}) => {
-			const args = ['--ignore-config', '--plugin-dirs', pluginContainer, '--no-cache-dir']
-			if (!isProbe) args.push('--newline')
-			return args
-		},
+		ytDlpArgs: ({isProbe}) => (isProbe ? ['--no-cache-dir'] : ['--no-cache-dir', '--newline']),
+		ytDlpPluginDirs: [pluginContainer],
 		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0', socketTimeout: 5},
 		exploreCookies,
 		// The fixture site is local: pacing protects a real account, and here it only slows the suite.

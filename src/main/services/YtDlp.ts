@@ -4,7 +4,7 @@ import log from 'electron-log/main.js'
 import {spawnYtDlp} from '@main/utils/process.js'
 import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
-import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
+import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat, type WorkflowPlanOptions} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {createStreamTextReader, killProcessTree} from 'yt-dlp-bridge/runner'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
@@ -106,6 +106,15 @@ function checkOneBlockPerExtractor(args: readonly string[], e2eMode: E2eHarnessM
 }
 
 type RetryStrategy = {kind: 'pot'; reMint: boolean} | {kind: 'fallback'} | {kind: 'noExtractorArgs'; usedExtractorFallback?: boolean}
+
+// yt-dlp otherwise reads a yt-dlp.conf from the download folder (or its working
+// directory) and the user's own config, and loads plugins from the user's
+// folders: any of them could change a run Arroxy planned, or add an --exec.
+// Arroxy ships no plugins; the E2E harness loads its fixture extractor only.
+function isolatedFromUserYtDlp(e2eMode: E2eHarnessMode | undefined): Pick<WorkflowPlanOptions, 'configFiles' | 'plugins'> {
+	const pluginDirs = e2eMode?.ytDlpPluginDirs ?? []
+	return {configFiles: {mode: 'disabled'}, plugins: pluginDirs.length > 0 ? {mode: 'explicit', dirs: [...pluginDirs]} : {mode: 'disabled'}}
+}
 
 // Marker for timer-killed probes. ProbeService matches on it to grant exactly
 // one retry — keep the literal in sync if this ever changes.
@@ -613,7 +622,7 @@ export class YtDlp {
 		const route = proxyRouteKey(settings.common?.proxyUrl)
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
-		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
+		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy, ...isolatedFromUserYtDlp(this.opts.e2eMode)})
 		const isProbe = req.kind === 'probe'
 		const probePlaylistMode = isProbe ? (req.selection?.playlistMode ?? 'auto') : undefined
 		const hasExplicitYoutubePlayerClient = 'extractor' in req && (req.extractor?.youtube?.playerClient?.length ?? 0) > 0

@@ -23,7 +23,9 @@ cannot see through the field, and its field substitution then removes it.
 Every production spawn also passes `--ignore-config`. With no `--paths home`,
 yt-dlp reads `yt-dlp.conf` from its working directory, which would now be the
 download folder for every run; a user's global yt-dlp config applied to Arroxy's
-downloads before this as well.
+downloads before this as well. It passes `--no-plugin-dirs` too: Arroxy ships
+no yt-dlp plugins, and yt-dlp would otherwise import any it finds in the user's
+config folders or next to its executable into every run.
 
 Rejected:
 

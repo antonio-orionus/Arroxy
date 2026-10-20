@@ -63,6 +63,35 @@ test('Electron quick download applies the active Download Profile to a fixture v
 	)
 })
 
+// Risk: yt-dlp reads a yt-dlp.conf from the download folder it is handed and
+// applies it on top of Arroxy's own flags. One planted there (here: simulate,
+// so nothing is saved) must not change the download.
+test('Electron quick download ignores a yt-dlp.conf in the download folder', async () => {
+	test.setTimeout(140_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-planted-config-user-',
+			outputPrefix: 'arroxy-fixture-planted-config-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+			}
+		},
+		async ({page, outputDir, urls, queue, files}) => {
+			const profileOutputDir = smallFileProfileDir(outputDir)
+			fs.mkdirSync(profileOutputDir, {recursive: true})
+			fs.writeFileSync(path.join(profileOutputDir, 'yt-dlp.conf'), '--simulate\n')
+
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+
+			files.expectMp4Count(1, profileOutputDir)
+		}
+	)
+})
+
 // Risk: a profile's file type is stored but never reaches yt-dlp. A profile
 // saved as MKV must remux its Quick Download into an .mkv, losslessly.
 test('Electron quick download remuxes into the profile file type', async () => {

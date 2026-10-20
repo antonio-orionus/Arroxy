@@ -156,13 +156,13 @@ describe('redactArgs', () => {
 })
 
 describe('YtDlp — E2E harness args', () => {
-	it('prepends deterministic plugin args and --newline for download runs only in gated E2E mode', async () => {
+	it('prepends --no-cache-dir and --newline for download runs only in gated E2E mode', async () => {
 		const pluginRoot = makePluginRoot()
 		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot}, {isPackaged: false})
 
 		await makeYtDlp({e2eMode}).run(mediaRequest())
 
-		expect(getArgs().slice(0, 5)).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(pluginRoot), '--no-cache-dir', '--newline'])
+		expect(getArgs().slice(0, 2)).toEqual(['--no-cache-dir', '--newline'])
 	})
 
 	it('uses harness-only fast media retry args for download runs in gated E2E mode', async () => {
@@ -177,14 +177,45 @@ describe('YtDlp — E2E harness args', () => {
 		expect(args[args.indexOf('--retry-sleep') + 1]).toBe('fragment:0')
 	})
 
-	it('prepends deterministic plugin args without --newline for probe runs', async () => {
+	it('prepends --no-cache-dir without --newline for probe runs', async () => {
 		const pluginRoot = makePluginRoot()
 		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot}, {isPackaged: false})
 
 		await makeYtDlp({e2eMode}).run({kind: 'probe', url: URL})
 
-		expect(getArgs().slice(0, 4)).toEqual(['--ignore-config', '--plugin-dirs', path.dirname(pluginRoot), '--no-cache-dir'])
+		expect(getArgs()[0]).toBe('--no-cache-dir')
 		expect(getArgs()).not.toContain('--newline')
+	})
+})
+
+describe('YtDlp — user yt-dlp config and plugins', () => {
+	// yt-dlp reads a yt-dlp.conf from the download folder (or from its working
+	// directory), the user's own config, and plugins from the user's folders.
+	// None of them may change a run Arroxy planned, whatever kind of run it is.
+	// Keyed by kind, so a new kind of run fails to compile until it is listed.
+	const requests = {probe: probeRequest(), media: mediaRequest(), subtitles: subtitleRequest()} satisfies Record<YtDlpRequest['kind'], YtDlpRequest>
+
+	it.each(Object.entries(requests))('%s runs read no config file and load no plugins', async (_kind, req) => {
+		await makeYtDlp().run(req)
+
+		const args = getArgs()
+		expect(args).toContain('--ignore-config')
+		expect(args).toContain('--no-plugin-dirs')
+		expect(args).not.toContain('--plugin-dirs')
+	})
+
+	it.each(Object.entries(requests))('%s runs in E2E mode load only the fixture plugins', async (_kind, req) => {
+		const pluginRoot = makePluginRoot()
+		const e2eMode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: pluginRoot}, {isPackaged: false})
+
+		await makeYtDlp({e2eMode}).run(req)
+
+		const args = getArgs()
+		expect(args.filter(arg => arg === '--ignore-config')).toHaveLength(1)
+		// --no-plugin-dirs clears every directory named before it, so the fixture's must come after.
+		expect(args.lastIndexOf('--no-plugin-dirs')).toBeLessThan(args.indexOf('--plugin-dirs'))
+		expect(args.filter(arg => arg === '--plugin-dirs')).toHaveLength(1)
+		expect(args[args.indexOf('--plugin-dirs') + 1]).toBe(path.dirname(pluginRoot))
 	})
 })
 
