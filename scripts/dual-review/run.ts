@@ -7,14 +7,15 @@
 //
 // --base defaults to origin/main; pass the previous review's head to review only
 // the commits since. --light runs Codex alone (Claude still checks its findings),
-// for mechanical changes and fix rounds. Exits 1 when something must be fixed or
-// decided, 2 when a reviewer failed and coverage is partial.
+// for mechanical changes and fix rounds. Exits 1 when something in this change
+// must be fixed or decided (backlog entries alone do not count), 2 when a
+// reviewer failed and coverage is partial.
 
 import {spawn, spawnSync} from 'node:child_process'
 import {mkdir, readFile, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
-import {groupCandidates, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveGroups, reviewJsonSchema, toCandidates, verdictJsonSchema, verifierFor, type Candidate, type Engine, type FindingGroup, type OutputJsonSchema, type Verdict} from './core.js'
+import {needsAction, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveCandidates, reviewJsonSchema, toCandidates, verdictJsonSchema, verifierFor, type Candidate, type Engine, type OutputJsonSchema, type Verdict} from './core.js'
 import {CLAUDE_LANES, CODEX_LANE, reviewPrompt, verifyPrompt, type Lane, type ReviewScope} from './prompts.js'
 
 const TIMEOUT_MS = 30 * 60 * 1000
@@ -59,49 +60,60 @@ function runProcess(cmd: string, args: string[], logFile: string): Promise<Proce
 
 class AgentError extends Error {}
 
-async function runCodex(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<unknown> {
+async function runCodex(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<string> {
 	const schemaFile = path.join(outDir, `${name}.schema.json`)
 	const resultFile = path.join(outDir, `${name}.json`)
 	await writeFile(schemaFile, JSON.stringify(schema))
 	const result = await runProcess('codex', ['exec', '--sandbox', 'read-only', '--output-schema', schemaFile, '--output-last-message', resultFile, prompt], path.join(outDir, `${name}.log`))
 	if (!result.ok) throw new AgentError(`codex ${name} ${result.detail}`)
-	const parsed: unknown = JSON.parse(await readFile(resultFile, 'utf8'))
-	return parsed
+	return readFile(resultFile, 'utf8')
 }
 
-async function runClaude(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<unknown> {
+async function runClaude(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<string> {
 	const args = ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(schema), '--permission-mode', 'default', '--allowedTools', ...CLAUDE_TOOLS, '--disallowedTools', 'Edit', 'Write', 'NotebookEdit', '--', prompt]
 	const result = await runProcess('claude', args, path.join(outDir, `${name}.log`))
 	if (!result.ok) throw new AgentError(`claude ${name} ${result.detail}`)
 	const envelope: unknown = JSON.parse(result.stdout)
-	if (typeof envelope !== 'object' || envelope === null || !('structured_output' in envelope)) throw new AgentError(`claude ${name} returned no structured output; see ${name}.log`)
-	return envelope.structured_output
+	if (typeof envelope !== 'object' || envelope === null || !('structured_output' in envelope)) throw new Error('no structured_output in the response envelope')
+	return JSON.stringify(envelope.structured_output)
 }
-
-const runAgent = (engine: Engine, prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<unknown> => (engine === 'codex' ? runCodex : runClaude)(prompt, schema, outDir, name)
 
 const describeError = (err: unknown): string => (err instanceof Error ? err.message : String(err))
 
+// Runs one agent and parses its answer, so every failure — the process, the
+// envelope, or a reply that breaks the schema — names the agent and its log.
+async function runAgent<T>(engine: Engine, prompt: string, schema: OutputJsonSchema, outDir: string, name: string, parse: (value: unknown) => T): Promise<T> {
+	const text = await (engine === 'codex' ? runCodex : runClaude)(prompt, schema, outDir, name)
+	try {
+		const value: unknown = JSON.parse(text)
+		return parse(value)
+	} catch (err) {
+		throw new AgentError(`${engine} ${name} returned an unusable answer (${describeError(err).split('\n')[0]}); see ${path.join(outDir, `${name}.log`)}`)
+	}
+}
+
 async function review(engine: Engine, lane: Lane, scope: ReviewScope, outDir: string, repoRoot: string): Promise<Candidate[]> {
-	const raw = await runAgent(engine, reviewPrompt(scope, lane), reviewJsonSchema, outDir, `review-${engine}-${lane.id}`)
-	return toCandidates(engine, lane.id, parseReviewOutput(raw, repoRoot))
+	const findings = await runAgent(engine, reviewPrompt(scope, lane), reviewJsonSchema, outDir, `review-${engine}-${lane.id}`, value => parseReviewOutput(value, repoRoot))
+	return toCandidates(engine, lane.id, findings)
 }
 
-async function verify(engine: Engine, groups: readonly FindingGroup[], scope: ReviewScope, outDir: string): Promise<Map<string, Verdict>> {
-	if (groups.length === 0) return new Map()
-	// Every report in a group goes to the verifier, so refuting one cannot
-	// silently discard a different defect that happened to sit nearby.
-	const payload = groups.map(g => ({id: g.id, reports: g.members.map(m => ({title: m.title, body: m.body, file: m.file, lineStart: m.lineStart, lineEnd: m.lineEnd, severity: m.severity}))}))
-	const raw = await runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2)), verdictJsonSchema, outDir, `verify-${engine}`)
-	return parseVerdicts(
-		raw,
-		groups.map(g => g.id)
-	)
+async function verify(engine: Engine, reports: readonly Candidate[], scope: ReviewScope, outDir: string): Promise<Map<string, Verdict>> {
+	if (reports.length === 0) return new Map()
+	const ids = reports.map(r => r.id)
+	const payload = reports.map(r => ({id: r.id, title: r.title, body: r.body, file: r.file, lineStart: r.lineStart, lineEnd: r.lineEnd, severity: r.severity}))
+	return runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2)), verdictJsonSchema, outDir, `verify-${engine}`, value => parseVerdicts(value, ids))
 }
 
+// A missing learnings file is fine; any other read error must not silently
+// drop the rules every reviewer is meant to follow.
 async function readLearnings(repoRoot: string): Promise<string> {
-	const text = await readFile(path.join(repoRoot, LEARNINGS_FILE), 'utf8').catch(() => '')
-	return text.replace(/^---\n[\s\S]*?\n---\n/, '')
+	try {
+		const text = await readFile(path.join(repoRoot, LEARNINGS_FILE), 'utf8')
+		return text.replace(/^---\n[\s\S]*?\n---\n/, '')
+	} catch (err) {
+		if (err instanceof Error && 'code' in err && err.code === 'ENOENT') return ''
+		throw err
+	}
 }
 
 async function main(): Promise<number> {
@@ -125,20 +137,19 @@ async function main(): Promise<number> {
 	const reviews = await Promise.allSettled(reviewers.map(([engine, lane]) => review(engine, lane, scope, outDir, repoRoot)))
 	const all = reviews.flatMap(r => (r.status === 'fulfilled' ? r.value : (failures.push(describeError(r.reason)), [])))
 
-	const groups = groupCandidates(all)
-	const byVerifier = (engine: Engine): FindingGroup[] => groups.filter(g => verifierFor(g) === engine)
-	console.error(`dual review: ${all.length} findings in ${groups.length} groups; cross-checking`)
+	const byVerifier = (engine: Engine): Candidate[] => all.filter(c => verifierFor(c, all) === engine)
+	console.error(`dual review: ${all.length} findings; ${byVerifier('codex').length} go to Codex and ${byVerifier('claude').length} to Claude for checking`)
 	const checks = await Promise.allSettled((['codex', 'claude'] as const).map(engine => verify(engine, byVerifier(engine), scope, outDir)))
 	const verdicts = new Map(checks.flatMap(c => (c.status === 'fulfilled' ? [...c.value] : (failures.push(describeError(c.reason)), []))))
 
-	const resolved = resolveGroups(groups, verdicts, changed)
+	const resolved = resolveCandidates(all, verdicts, changed)
 	const report = renderReport({base: mergeBase, head, resolved, failures})
 	await writeFile(path.join(outDir, 'report.md'), report)
 	await writeFile(path.join(outDir, 'report.json'), JSON.stringify({base: mergeBase, head, failures, resolved}, null, '\t'))
 	console.log(report)
 	console.error(`dual review: report at ${path.join(outDir, 'report.md')}`)
 	if (failures.length > 0) return 2
-	return resolved.some(r => r.status !== 'refuted') ? 1 : 0
+	return needsAction(resolved) ? 1 : 0
 }
 
 process.exitCode = await main()

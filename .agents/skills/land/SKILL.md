@@ -42,7 +42,7 @@ bun run review:dual                 # behaviour changes: Codex + four Claude lan
 bun run review:dual --light         # mechanical or behaviour-free changes: Codex, checked by Claude
 ```
 
-It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions and uses no API keys. Exit 0 means nothing to act on, 1 means findings, 2 means a reviewer failed (say so: coverage is partial). Read `report.md` from the path it prints:
+It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions and uses no API keys. Exit 0 means nothing to fix or decide in this change (backlog entries may still be listed), 1 means something to fix or decide, 2 means a reviewer failed (say so: coverage is partial). Read `report.md` from the path it prints:
 
 - **Fix in this change:** fix each one test-first, as in phase 3. You are still the judge: if a confirmed finding is wrong, say why and record it (below).
 - **Uncertain:** read the code and decide; fix or treat as refuted.

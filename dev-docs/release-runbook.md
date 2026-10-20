@@ -13,7 +13,7 @@ This is the manual checklist for cutting a stable release.
 
 ## Picking the version
 
-Bump the patch number for fixes **and** features: throughout 0.4.x even a UI redesign and six new languages shipped as patches. A minor bump only closes out a release line or marks a milestone the maintainer names. Stable releases only; no `-beta.N`.
+Bump the patch number for fixes **and** features: throughout 0.4.x even a UI redesign and six new languages shipped as patches. A minor bump only closes out a release line or marks a milestone the maintainer names.
 
 ## Release notes
 
