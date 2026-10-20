@@ -90,7 +90,8 @@ if (!BASE_PROFILE) throw new Error('no built-in profile to vary')
 function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): string | null {
 	const probe = probeSourceResult(probeId)
 	const profile: DownloadProfile = {...BASE_PROFILE, media: profileCase.media}
-	const {media} = resolveProfileSelection({profile, formats: probe.formats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
+	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
+	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
 	const audio = media.audioSelection.kind === 'native' ? media.audioSelection.formatId : null
 	if (media.kind === 'audio') return audio
 	if (media.kind !== 'video' || media.videoFormatId === '') return null

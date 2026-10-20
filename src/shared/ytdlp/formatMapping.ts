@@ -77,7 +77,9 @@ export function mapFormats(formats: readonly YtDlpFormat[], {durationSeconds, lo
 	const wide = videoWideMarkers(formats)
 	const mapped = formats.flatMap((item): FormatOption[] => {
 		// A DRM-protected stream can't be downloaded (yt-dlp refuses it), so it is no choice.
-		if (!item.format_id || item.ext === 'mhtml' || item.has_drm === true || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
+		// No media means both tracks say "none": a codec the site leaves out is
+		// unknown to yt-dlp, not absent, and it downloads that stream as such.
+		if (!item.format_id || item.ext === 'mhtml' || item.has_drm === true || (item.vcodec === 'none' && item.acodec === 'none')) return []
 		const isAudioOnly = isAudioOnlyFormat(item)
 		const ext = item.ext ?? 'unknown'
 		const formatId = item.format_id ?? ''

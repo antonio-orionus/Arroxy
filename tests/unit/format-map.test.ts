@@ -200,7 +200,17 @@ describe('mapFormats — stream markers', () => {
 })
 
 describe('mapFormats — sizes and names the site leaves out', () => {
-	it('shows the site's size, else one asked of its server, else an estimate from the bitrate', () => {
+	// yt-dlp counts a missing codec as unknown, not as none: VK's HLS audio names
+	// none, and yt-dlp merges it in. Only a stream that says it has neither is no media.
+	it('keeps an audio stream whose codec the site does not name, and drops one with neither track', () => {
+		const formats = mapFormats([
+			{format_id: 'hls_fmp4-12_0-Audio', ext: 'mp4', resolution: 'audio only', vcodec: 'none', protocol: 'm3u8_native'},
+			{format_id: 'nothing', ext: 'mp4', vcodec: 'none', acodec: 'none'}
+		])
+		expect(formats.map(f => [f.formatId, f.isAudioOnly])).toEqual([['hls_fmp4-12_0-Audio', true]])
+	})
+
+	it("shows the site's size, else one asked of its server, else an estimate from the bitrate", () => {
 		const sizes = Object.fromEntries(
 			mapFormats(
 				[
