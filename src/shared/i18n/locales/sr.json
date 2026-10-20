@@ -455,7 +455,18 @@
 			"audioLanguageCount_one": "Језика: {{count}}",
 			"audioLanguageCount_few": "Језика: {{count}}",
 			"audioLanguageCount_other": "Језика: {{count}}",
-			"convert": {"label": "Конвертуј", "bitrate": "Битрејт", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Извор је {{kbps}} kbps"},
+			"convert": {
+				"label": "Конвертуј",
+				"bitrate": "Битрејт",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, без поновног кодирања",
+				"copyLabelNoBitrate": "{{target}}, без поновног кодирања",
+				"copyNote": "{{kbps}} kbps, као у извору: ток је већ {{target}}, па се копира, а не поново кодира",
+				"copyNoteNoBitrate": "Као у извору: ток је већ {{target}}, па се копира, а не поново кодира",
+				"bitrateCopyHint": "Извор који је већ у формату {{target}} задржава свој ток и битрејт: копира се, а не поново кодира.",
+				"sourceKbps": "Извор је {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube је ограничио ову проверу",
 				"bodyUnconfigured": "Списак формата можда није потпун. Подеси cookies у напредним подешавањима или промени мрежу и покушај поново.",

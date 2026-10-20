@@ -488,7 +488,18 @@
 			"audioLanguageCount_few": "Мов: {{count}}",
 			"audioLanguageCount_many": "Мов: {{count}}",
 			"audioLanguageCount_other": "Мов: {{count}}",
-			"convert": {"label": "Конвертувати", "bitrate": "Бітрейт", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Джерело: {{kbps}} кбіт/с"},
+			"convert": {
+				"label": "Конвертувати",
+				"bitrate": "Бітрейт",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, без перекодування",
+				"copyLabelNoBitrate": "{{target}}, без перекодування",
+				"copyNote": "{{kbps}} кбіт/с, як у джерела: потік уже {{target}}, тому його копіюють без перекодування",
+				"copyNoteNoBitrate": "Як у джерела: потік уже {{target}}, тому його копіюють без перекодування",
+				"bitrateCopyHint": "Джерело, яке вже має формат {{target}}, зберігає свій потік і бітрейт: його копіюють, а не перекодовують.",
+				"sourceKbps": "Джерело: {{kbps}} кбіт/с"
+			},
 			"botWall": {
 				"heading": "YouTube обмежив цей запит",
 				"bodyUnconfigured": "Список форматів може бути неповним. Налаштуй cookies у розширених налаштуваннях або зміни мережу та спробуй ще раз.",

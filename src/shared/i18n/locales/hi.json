@@ -425,7 +425,18 @@
 			"audioLanguage": "ऑडियो की भाषा",
 			"audioLanguageCount_one": "{{count}} भाषा",
 			"audioLanguageCount_other": "{{count}} भाषाएँ",
-			"convert": {"label": "कनवर्ट करें", "bitrate": "बिटरेट", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "स्रोत {{kbps}} kbps है"},
+			"convert": {
+				"label": "कनवर्ट करें",
+				"bitrate": "बिटरेट",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, फिर से encode नहीं",
+				"copyLabelNoBitrate": "{{target}}, फिर से encode नहीं",
+				"copyNote": "{{kbps}} kbps, जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता",
+				"copyNoteNoBitrate": "जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता",
+				"bitrateCopyHint": "जो स्रोत पहले से {{target}} है, वह अपनी स्ट्रीम और बिटरेट रखता है: उसे कॉपी किया जाता है, फिर से encode नहीं किया जाता।",
+				"sourceKbps": "स्रोत {{kbps}} kbps है"
+			},
 			"botWall": {
 				"heading": "YouTube ने इस जाँच को सीमित किया",
 				"bodyUnconfigured": "फ़ॉर्मेट सूची अधूरी हो सकती है। उन्नत सेटिंग्स में कुकी सेट करें, या नेटवर्क बदलकर पुनः प्रयास करें।",

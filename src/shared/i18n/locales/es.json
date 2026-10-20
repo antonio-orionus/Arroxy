@@ -468,7 +468,18 @@
 			"audioLanguageCount_one": "{{count}} idioma",
 			"audioLanguageCount_many": "{{count}} de idiomas",
 			"audioLanguageCount_other": "{{count}} idiomas",
-			"convert": {"label": "Convertir", "bitrate": "Tasa de bits", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "La fuente es de {{kbps}} kbps"},
+			"convert": {
+				"label": "Convertir",
+				"bitrate": "Tasa de bits",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, sin recodificar",
+				"copyLabelNoBitrate": "{{target}}, sin recodificar",
+				"copyNote": "{{kbps}} kbps, como en la fuente: la secuencia ya es {{target}}, así que se copia sin recodificar",
+				"copyNoteNoBitrate": "Como en la fuente: la secuencia ya es {{target}}, así que se copia sin recodificar",
+				"bitrateCopyHint": "Una fuente que ya es {{target}} conserva su propia secuencia y su tasa de bits: se copia sin recodificar.",
+				"sourceKbps": "La fuente es de {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube ha limitado esta consulta",
 				"bodyUnconfigured": "La lista de formatos puede estar incompleta. Configura las cookies en los ajustes avanzados, o cambia de red e inténtalo de nuevo.",

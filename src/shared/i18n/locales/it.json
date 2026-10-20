@@ -462,7 +462,18 @@
 			"audioLanguageCount_one": "{{count}} lingua",
 			"audioLanguageCount_many": "{{count}} di lingue",
 			"audioLanguageCount_other": "{{count}} lingue",
-			"convert": {"label": "Converti", "bitrate": "Bitrate", "wavLabel": "WAV (non compresso)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "La sorgente è a {{kbps}} kbps"},
+			"convert": {
+				"label": "Converti",
+				"bitrate": "Bitrate",
+				"wavLabel": "WAV (non compresso)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, senza ricodifica",
+				"copyLabelNoBitrate": "{{target}}, senza ricodifica",
+				"copyNote": "{{kbps}} kbps, come nella sorgente: il flusso è già {{target}}, quindi viene copiato, non ricodificato",
+				"copyNoteNoBitrate": "Come nella sorgente: il flusso è già {{target}}, quindi viene copiato, non ricodificato",
+				"bitrateCopyHint": "Una sorgente già in {{target}} mantiene il proprio flusso e bitrate: viene copiata, non ricodificata.",
+				"sourceKbps": "La sorgente è a {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "L'analisi è stata limitata",
 				"bodyUnconfigured": "L'elenco dei formati potrebbe essere incompleto. Configura i cookie nelle impostazioni avanzate oppure cambia rete e riprova.",

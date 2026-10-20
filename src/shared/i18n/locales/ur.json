@@ -446,7 +446,18 @@
 			"audioLanguage": "آڈیو کی زبان",
 			"audioLanguageCount_one": "{{count}} زبان",
 			"audioLanguageCount_other": "{{count}} زبانیں",
-			"convert": {"label": "کنورٹ کریں", "bitrate": "بٹ ریٹ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ماخذ {{kbps}} kbps ہے"},
+			"convert": {
+				"label": "کنورٹ کریں",
+				"bitrate": "بٹ ریٹ",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps، دوبارہ encode نہیں",
+				"copyLabelNoBitrate": "{{target}}، دوبارہ encode نہیں",
+				"copyNote": "{{kbps}} kbps، جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"copyNoteNoBitrate": "جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"bitrateCopyHint": "جو ماخذ پہلے ہی {{target}} ہو وہ اپنی سٹریم اور بٹ ریٹ برقرار رکھتا ہے: اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا۔",
+				"sourceKbps": "ماخذ {{kbps}} kbps ہے"
+			},
 			"botWall": {
 				"heading": "YouTube نے یہ پروب محدود کر دی",
 				"bodyUnconfigured": "فارمیٹ کی فہرست نامکمل ہو سکتی ہے۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",

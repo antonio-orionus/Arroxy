@@ -417,7 +417,18 @@
 			"drc": {"label": "음량 고르게 하기 (DRC)", "description": "큰 소리는 줄이고 작은 소리는 키워 스피커나 시끄러운 곳에서 듣기 좋게 합니다.", "tag": "음량 균일"},
 			"audioLanguage": "오디오 언어",
 			"audioLanguageCount_other": "언어 {{count}}개",
-			"convert": {"label": "변환", "bitrate": "비트레이트", "wavLabel": "WAV(비압축)", "lossyLabel": "{{target}} {{bitrate}}kbps", "sourceKbps": "원본 {{kbps}} kbps"},
+			"convert": {
+				"label": "변환",
+				"bitrate": "비트레이트",
+				"wavLabel": "WAV(비압축)",
+				"lossyLabel": "{{target}} {{bitrate}}kbps",
+				"copyLabel": "{{target}} {{bitrate}}kbps, 재인코딩 없음",
+				"copyLabelNoBitrate": "{{target}}, 재인코딩 없음",
+				"copyNote": "원본 그대로 {{kbps}}kbps: 이미 {{target}} 스트림이므로 재인코딩 없이 복사합니다",
+				"copyNoteNoBitrate": "원본 그대로: 이미 {{target}} 스트림이므로 재인코딩 없이 복사합니다",
+				"bitrateCopyHint": "이미 {{target}} 형식인 원본은 자체 스트림과 비트레이트를 유지합니다. 재인코딩 없이 복사됩니다.",
+				"sourceKbps": "원본 {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "분석이 제한됨",
 				"bodyUnconfigured": "형식 목록이 불완전할 수 있습니다. 고급 설정에서 쿠키를 설정하거나 네트워크를 바꿔 다시 시도하세요.",

@@ -404,7 +404,18 @@
 			"drc": {"label": "平衡音量（DRC）", "description": "讓大聲的部分變小、小聲的部分變大，適合喇叭和吵雜環境。", "tag": "音量平衡"},
 			"audioLanguage": "音訊語言",
 			"audioLanguageCount_other": "{{count}} 種語言",
-			"convert": {"label": "轉換", "bitrate": "位元率", "wavLabel": "WAV（未壓縮）", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "來源為 {{kbps}} kbps"},
+			"convert": {
+				"label": "轉換",
+				"bitrate": "位元率",
+				"wavLabel": "WAV（未壓縮）",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps，不重新編碼",
+				"copyLabelNoBitrate": "{{target}}，不重新編碼",
+				"copyNote": "{{kbps}} kbps，與來源一致：串流已是 {{target}}，因此直接複製，不重新編碼",
+				"copyNoteNoBitrate": "與來源一致：串流已是 {{target}}，因此直接複製，不重新編碼",
+				"bitrateCopyHint": "已是 {{target}} 的來源會保留自身的串流和位元率：直接複製，不重新編碼。",
+				"sourceKbps": "來源為 {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "探查受到限制",
 				"bodyUnconfigured": "格式清單可能不完整。請在進階設定中設定 Cookie，或切換網路後重試。",

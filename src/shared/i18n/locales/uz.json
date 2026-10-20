@@ -462,7 +462,18 @@
 			"audioLanguage": "Audio tili",
 			"audioLanguageCount_one": "{{count}} ta til",
 			"audioLanguageCount_other": "{{count}} ta til",
-			"convert": {"label": "Konvertatsiya qilish", "bitrate": "Bit tezligi", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Manba {{kbps}} kbps"},
+			"convert": {
+				"label": "Konvertatsiya qilish",
+				"bitrate": "Bit tezligi",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, qayta kodlanmaydi",
+				"copyLabelNoBitrate": "{{target}}, qayta kodlanmaydi",
+				"copyNote": "{{kbps}} kbps, manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
+				"copyNoteNoBitrate": "Manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
+				"bitrateCopyHint": "Allaqachon {{target}} bo'lgan manba o'z oqimi va bit tezligini saqlaydi: u qayta kodlanmaydi, nusxalanadi.",
+				"sourceKbps": "Manba {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube bu tekshiruvni chekladi",
 				"bodyUnconfigured": "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring.",

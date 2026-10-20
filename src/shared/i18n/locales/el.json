@@ -455,7 +455,18 @@
 			"audioLanguage": "Γλώσσα ήχου",
 			"audioLanguageCount_one": "{{count}} γλώσσα",
 			"audioLanguageCount_other": "{{count}} γλώσσες",
-			"convert": {"label": "Μετατροπή", "bitrate": "Ρυθμός bit", "wavLabel": "WAV (αμετάβλητο)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Η πηγή είναι {{kbps}} kbps"},
+			"convert": {
+				"label": "Μετατροπή",
+				"bitrate": "Ρυθμός bit",
+				"wavLabel": "WAV (αμετάβλητο)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, χωρίς επανακωδικοποίηση",
+				"copyLabelNoBitrate": "{{target}}, χωρίς επανακωδικοποίηση",
+				"copyNote": "{{kbps}} kbps όπως στην πηγή: η ροή είναι ήδη {{target}}, οπότε αντιγράφεται χωρίς επανακωδικοποίηση",
+				"copyNoteNoBitrate": "Όπως στην πηγή: η ροή είναι ήδη {{target}}, οπότε αντιγράφεται χωρίς επανακωδικοποίηση",
+				"bitrateCopyHint": "Μια πηγή που είναι ήδη {{target}} διατηρεί τη δική της ροή και τον ρυθμό bit της: αντιγράφεται χωρίς επανακωδικοποίηση.",
+				"sourceKbps": "Η πηγή είναι {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "Το YouTube περιόρισε αυτή την ανίχνευση",
 				"bodyUnconfigured": "Η λίστα μορφών μπορεί να είναι ελλιπής. Ρύθμισε cookies στις ρυθμίσεις για προχωρημένους, ή άλλαξε δίκτυο και δοκίμασε ξανά.",

@@ -462,7 +462,18 @@
 			"audioLanguage": "Afaan sagalee",
 			"audioLanguageCount_one": "Afaanota {{count}}",
 			"audioLanguageCount_other": "Afaanota {{count}}",
-			"convert": {"label": "Jijjiiri", "bitrate": "Saaffata bitii", "wavLabel": "WAV (cuqxaa hin taane)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Maddi {{kbps}} kbps dha"},
+			"convert": {
+				"label": "Jijjiiri",
+				"bitrate": "Saaffata bitii",
+				"wavLabel": "WAV (cuqxaa hin taane)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, irra deebi'ee hin encode'amu",
+				"copyLabelNoBitrate": "{{target}}, irra deebi'ee hin encode'amu",
+				"copyNote": "{{kbps}} kbps, akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
+				"copyNoteNoBitrate": "Akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
+				"bitrateCopyHint": "Maddi duraanuu {{target}} ta'e stream fi saaffata bitii isaa mataa isaa ni eeggata: irra deebi'ee encode hin taane, waraabama.",
+				"sourceKbps": "Maddi {{kbps}} kbps dha"
+			},
 			"botWall": {
 				"heading": "YouTube qorannoo kana daangeessee jira",
 				"bodyUnconfigured": "Tarreessi foormaatii guutuu ta'uu dhiisuu danda'a. Qindaa'inoota ammayyaa keessatti cookies qopheessi, ykn netwoorkii jijjiiri achiin irra deebi'i.",

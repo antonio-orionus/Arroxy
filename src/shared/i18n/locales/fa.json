@@ -430,7 +430,18 @@
 			"audioLanguage": "زبان صدا",
 			"audioLanguageCount_one": "{{count}} زبان",
 			"audioLanguageCount_other": "{{count}} زبان",
-			"convert": {"label": "تبدیل", "bitrate": "نرخ بیت", "wavLabel": "WAV (بدون فشرده‌سازی)", "lossyLabel": "{{target}} {{bitrate}} کیلوبیت‌برثانیه", "sourceKbps": "منبع {{kbps}} kbps است"},
+			"convert": {
+				"label": "تبدیل",
+				"bitrate": "نرخ بیت",
+				"wavLabel": "WAV (بدون فشرده‌سازی)",
+				"lossyLabel": "{{target}} {{bitrate}} کیلوبیت‌برثانیه",
+				"copyLabel": "{{target}} {{bitrate}} کیلوبیت‌برثانیه، بدون کدگذاری دوباره",
+				"copyLabelNoBitrate": "{{target}}، بدون کدگذاری دوباره",
+				"copyNote": "{{kbps}} کیلوبیت‌برثانیه مانند منبع: جریان از قبل {{target}} است، پس کپی می‌شود و دوباره کدگذاری نمی‌شود",
+				"copyNoteNoBitrate": "مانند منبع: جریان از قبل {{target}} است، پس کپی می‌شود و دوباره کدگذاری نمی‌شود",
+				"bitrateCopyHint": "منبعی که از قبل {{target}} است، جریان و نرخ بیت خودش را نگه می‌دارد: کپی می‌شود و دوباره کدگذاری نمی‌شود.",
+				"sourceKbps": "منبع {{kbps}} kbps است"
+			},
 			"botWall": {
 				"heading": "بررسی محدود شد",
 				"bodyUnconfigured": "ممکن است فهرست قالب‌ها ناقص باشد. در تنظیمات پیشرفته کوکی‌ها را تنظیم کنید یا شبکه را تغییر دهید و دوباره تلاش کنید.",

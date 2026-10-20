@@ -409,7 +409,18 @@
 			"drc": {"label": "အသံကျယ်မှု ညီအောင်လုပ်ရန် (DRC)", "description": "ကျယ်သောအပိုင်းများကို လျှော့ပြီး တိုးသောအပိုင်းများကို မြှင့်ပေးသည်။ စပီကာနှင့် ဆူညံသောအခန်းများအတွက်။", "tag": "အသံညီ"},
 			"audioLanguage": "အသံဘာသာစကား",
 			"audioLanguageCount_other": "ဘာသာစကား {{count}} ခု",
-			"convert": {"label": "ပြောင်းရန်", "bitrate": "Bitrate", "wavLabel": "WAV (ချုံ့မထားသော)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "မူရင်းမှာ {{kbps}} kbps ဖြစ်သည်"},
+			"convert": {
+				"label": "ပြောင်းရန်",
+				"bitrate": "Bitrate",
+				"wavLabel": "WAV (ချုံ့မထားသော)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps၊ ပြန် encode မလုပ်",
+				"copyLabelNoBitrate": "{{target}}၊ ပြန် encode မလုပ်",
+				"copyNote": "{{kbps}} kbps၊ မူရင်းအတိုင်း: stream သည် {{target}} ဖြစ်ပြီးသားဖြစ်သောကြောင့် ပြန် encode မလုပ်ဘဲ ကူးယူထားသည်",
+				"copyNoteNoBitrate": "မူရင်းအတိုင်း: stream သည် {{target}} ဖြစ်ပြီးသားဖြစ်သောကြောင့် ပြန် encode မလုပ်ဘဲ ကူးယူထားသည်",
+				"bitrateCopyHint": "{{target}} ဖြစ်ပြီးသား မူရင်းသည် ၎င်း၏ stream နှင့် bitrate ကို ဆက်ထားပြီး ပြန် encode မလုပ်ဘဲ ကူးယူသည်။",
+				"sourceKbps": "မူရင်းမှာ {{kbps}} kbps ဖြစ်သည်"
+			},
 			"botWall": {
 				"heading": "YouTube မှ ဤစစ်ဆေးမှုကို ကန့်သတ်ပြီ",
 				"bodyUnconfigured": "ဖော်မတ်စာရင်း မပြည့်စုံနိုင်ပါ။ အဆင့်မြင့်ဆက်တင်တွင် cookies တပ်ဆင်ပါ၊ သို့မဟုတ် network ပြောင်းပြီး ထပ်ကြိုးစားပါ။",

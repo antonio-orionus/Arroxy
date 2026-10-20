@@ -404,7 +404,18 @@
 			"drc": {"label": "ធ្វើឲ្យកម្រិតសំឡេងស្មើគ្នា (DRC)", "description": "បន្ថយផ្នែកដែលលឺខ្លាំង និងបង្កើនផ្នែកដែលលឺតិច សម្រាប់ឧបករណ៍បំពងសំឡេង និងកន្លែងដែលមានសំឡេងរំខាន។", "tag": "សំឡេងស្មើគ្នា"},
 			"audioLanguage": "ភាសាសំឡេង",
 			"audioLanguageCount_other": "{{count}} ភាសា",
-			"convert": {"label": "បម្លែង", "bitrate": "Bitrate", "wavLabel": "WAV (មិនបង្ហាប់)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ប្រភពគឺ {{kbps}} kbps"},
+			"convert": {
+				"label": "បម្លែង",
+				"bitrate": "Bitrate",
+				"wavLabel": "WAV (មិនបង្ហាប់)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps គ្មានការអ៊ិនកូដឡើងវិញ",
+				"copyLabelNoBitrate": "{{target}} គ្មានការអ៊ិនកូដឡើងវិញ",
+				"copyNote": "{{kbps}} kbps ដូចប្រភព៖ ស្ទ្រីមនេះជា {{target}} រួចហើយ ដូច្នេះត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ",
+				"copyNoteNoBitrate": "ដូចប្រភព៖ ស្ទ្រីមនេះជា {{target}} រួចហើយ ដូច្នេះត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ",
+				"bitrateCopyHint": "ប្រភពដែលជា {{target}} រួចហើយ រក្សាស្ទ្រីម និង bitrate របស់វា៖ វាត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ។",
+				"sourceKbps": "ប្រភពគឺ {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "ការពិនិត្យត្រូវបានកំណត់",
 				"bodyUnconfigured": "បញ្ជីទម្រង់អាចមិនពេញលេញ។ រៀបចំ cookies ក្នុងការកំណត់កម្រិតខ្ពស់ ឬប្តូរបណ្តាញ ហើយព្យាយាមម្តងទៀត។",

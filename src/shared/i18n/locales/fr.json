@@ -475,7 +475,18 @@
 			"audioLanguageCount_one": "{{count}} langue",
 			"audioLanguageCount_many": "{{count}} de langues",
 			"audioLanguageCount_other": "{{count}} langues",
-			"convert": {"label": "Convertir", "bitrate": "Débit", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Source : {{kbps}} kbit/s"},
+			"convert": {
+				"label": "Convertir",
+				"bitrate": "Débit",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbit/s, sans réencodage",
+				"copyLabelNoBitrate": "{{target}}, sans réencodage",
+				"copyNote": "{{kbps}} kbit/s comme dans la source : le flux est déjà en {{target}}, il est donc copié, sans réencodage",
+				"copyNoteNoBitrate": "Comme dans la source : le flux est déjà en {{target}}, il est donc copié, sans réencodage",
+				"bitrateCopyHint": "Une source déjà en {{target}} conserve son propre flux et son débit : elle est copiée, sans réencodage.",
+				"sourceKbps": "Source : {{kbps}} kbit/s"
+			},
 			"botWall": {
 				"heading": "YouTube a limité cette analyse",
 				"bodyUnconfigured": "La liste des formats est peut-être incomplète. Configurez les cookies dans les paramètres avancés, ou changez de réseau et réessayez.",

@@ -442,7 +442,18 @@
 			"audioLanguage": "Lugha ya sauti",
 			"audioLanguageCount_one": "Lugha {{count}}",
 			"audioLanguageCount_other": "Lugha {{count}}",
-			"convert": {"label": "Badilisha", "bitrate": "Kiwango cha biti", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Chanzo ni {{kbps}} kbps"},
+			"convert": {
+				"label": "Badilisha",
+				"bitrate": "Kiwango cha biti",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, bila kusimba upya",
+				"copyLabelNoBitrate": "{{target}}, bila kusimba upya",
+				"copyNote": "{{kbps}} kbps, kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"copyNoteNoBitrate": "Kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"bitrateCopyHint": "Chanzo ambacho tayari ni {{target}} huhifadhi mkondo na kiwango cha biti chake: kinanakiliwa, hakisimbwi upya.",
+				"sourceKbps": "Chanzo ni {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube ilipunguza uchunguzi huu",
 				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",

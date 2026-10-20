@@ -404,7 +404,18 @@
 			"drc": {"label": "ปรับระดับเสียงให้สม่ำเสมอ (DRC)", "description": "ลดเสียงช่วงที่ดังและเพิ่มเสียงช่วงที่เบา สำหรับลำโพงและห้องที่มีเสียงรบกวน", "tag": "เสียงสม่ำเสมอ"},
 			"audioLanguage": "ภาษาเสียง",
 			"audioLanguageCount_other": "{{count}} ภาษา",
-			"convert": {"label": "แปลง", "bitrate": "บิตเรต", "wavLabel": "WAV (ไม่บีบอัด)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ต้นฉบับ {{kbps}} kbps"},
+			"convert": {
+				"label": "แปลง",
+				"bitrate": "บิตเรต",
+				"wavLabel": "WAV (ไม่บีบอัด)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps ไม่เข้ารหัสใหม่",
+				"copyLabelNoBitrate": "{{target}} ไม่เข้ารหัสใหม่",
+				"copyNote": "{{kbps}} kbps ตามต้นฉบับ: สตรีมเป็น {{target}} อยู่แล้ว จึงคัดลอกโดยไม่เข้ารหัสใหม่",
+				"copyNoteNoBitrate": "ตามต้นฉบับ: สตรีมเป็น {{target}} อยู่แล้ว จึงคัดลอกโดยไม่เข้ารหัสใหม่",
+				"bitrateCopyHint": "ต้นฉบับที่เป็น {{target}} อยู่แล้วจะคงสตรีมและบิตเรตเดิมไว้ โดยคัดลอกแทนการเข้ารหัสใหม่",
+				"sourceKbps": "ต้นฉบับ {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "การตรวจสอบถูกจำกัด",
 				"bodyUnconfigured": "รายการรูปแบบอาจไม่ครบ ตั้งค่าคุกกี้ในการตั้งค่าขั้นสูง หรือเปลี่ยนเครือข่ายแล้วลองใหม่",

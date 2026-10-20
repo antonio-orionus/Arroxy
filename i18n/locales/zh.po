@@ -2203,6 +2203,26 @@ msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "比特率"
 
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "已是 {{target}} 的源会保留自身的流和比特率：直接复制，不重新编码。"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps，不重新编码"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}，不重新编码"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps，与源一致：流已是 {{target}}，因此直接复制，不重新编码"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "与源一致：流已是 {{target}}，因此直接复制，不重新编码"
+
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
 msgstr "转换"

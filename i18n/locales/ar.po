@@ -2653,6 +2653,26 @@ msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "معدل البت"
 
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "المصدر الذي هو بصيغة {{target}} أصلًا يحتفظ بتدفقه ومعدل البت الخاص به: يُنسخ دون إعادة ترميز."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps، بلا إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}، بلا إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز"
+
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
 msgstr "تحويل"

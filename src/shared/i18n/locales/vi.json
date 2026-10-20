@@ -427,7 +427,18 @@
 			"drc": {"label": "Cân bằng âm lượng (DRC)", "description": "Giảm đoạn to, tăng đoạn nhỏ, hợp với loa ngoài và nơi ồn ào.", "tag": "Âm lượng đều"},
 			"audioLanguage": "Ngôn ngữ âm thanh",
 			"audioLanguageCount_other": "{{count}} ngôn ngữ",
-			"convert": {"label": "Chuyển đổi", "bitrate": "Tốc độ bit", "wavLabel": "WAV (không nén)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Nguồn là {{kbps}} kbps"},
+			"convert": {
+				"label": "Chuyển đổi",
+				"bitrate": "Tốc độ bit",
+				"wavLabel": "WAV (không nén)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, không mã hóa lại",
+				"copyLabelNoBitrate": "{{target}}, không mã hóa lại",
+				"copyNote": "{{kbps}} kbps, giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại",
+				"copyNoteNoBitrate": "Giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại",
+				"bitrateCopyHint": "Nguồn đã là {{target}} sẽ giữ nguyên luồng và tốc độ bit của nó: được sao chép, không mã hóa lại.",
+				"sourceKbps": "Nguồn là {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube đã giới hạn lần kiểm tra này",
 				"bodyUnconfigured": "Danh sách định dạng có thể không đầy đủ. Thiết lập cookies trong cài đặt nâng cao, hoặc đổi mạng và thử lại.",

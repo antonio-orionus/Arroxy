@@ -417,7 +417,18 @@
 			"audioLanguage": "የድምፅ ቋንቋ",
 			"audioLanguageCount_one": "{{count}} ቋንቋ",
 			"audioLanguageCount_other": "{{count}} ቋንቋዎች",
-			"convert": {"label": "ቀይር", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ምንጩ {{kbps}} kbps ነው"},
+			"convert": {
+				"label": "ቀይር",
+				"bitrate": "ቢትሬት",
+				"wavLabel": "WAV (ያልተጨመቀ)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps፣ ዳግም ኮድ አይደረግም",
+				"copyLabelNoBitrate": "{{target}}፣ ዳግም ኮድ አይደረግም",
+				"copyNote": "{{kbps}} kbps፣ ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም",
+				"copyNoteNoBitrate": "ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም",
+				"bitrateCopyHint": "አስቀድሞ {{target}} የሆነ ምንጭ የራሱን ዥረትና ቢትሬት ይይዛል፦ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም።",
+				"sourceKbps": "ምንጩ {{kbps}} kbps ነው"
+			},
 			"botWall": {
 				"heading": "YouTube ይህን ምርምር ገደበ",
 				"bodyUnconfigured": "የቅርጸት ዝርዝሩ ሙሉ ላይሆን ይችላል። Cookies በከፍተኛ ቅንብሮች ያዘጋጁ፣ ወይም አውታረ መረብ ቀይሩ እና እንደገና ሞክሩ።",

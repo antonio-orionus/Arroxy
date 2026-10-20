@@ -452,7 +452,18 @@
 			"audioLanguage": "د غږ ژبه",
 			"audioLanguageCount_one": "{{count}} ژبه",
 			"audioLanguageCount_other": "{{count}} ژبې",
-			"convert": {"label": "بدلول", "bitrate": "بټ ریټ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "سرچینه {{kbps}} kbps ده"},
+			"convert": {
+				"label": "بدلول",
+				"bitrate": "بټ ریټ",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps، بیا کوډ نه کېږي",
+				"copyLabelNoBitrate": "{{target}}، بیا کوډ نه کېږي",
+				"copyNote": "{{kbps}} kbps، لکه په سرچینه کې: جریان لا دمخه {{target}} دی، نو کاپي کېږي، بیا کوډ نه کېږي",
+				"copyNoteNoBitrate": "لکه په سرچینه کې: جریان لا دمخه {{target}} دی، نو کاپي کېږي، بیا کوډ نه کېږي",
+				"bitrateCopyHint": "هغه سرچینه چې لا دمخه {{target}} وي خپل جریان او بټ ریټ ساتي: کاپي کېږي، بیا کوډ نه کېږي.",
+				"sourceKbps": "سرچینه {{kbps}} kbps ده"
+			},
 			"botWall": {
 				"heading": "YouTube دا پلټنه محدوده کړه",
 				"bodyUnconfigured": "د بڼو لیست ممکن نامکمل وي. د پرمختللو تنظیماتو کې کوکیز تنظیم کړئ، یا شبکه بدله کړئ او بیا هڅه وکړئ.",

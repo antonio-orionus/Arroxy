@@ -455,7 +455,18 @@
 			"audioLanguage": "Ses dili",
 			"audioLanguageCount_one": "{{count}} dil",
 			"audioLanguageCount_other": "{{count}} dil",
-			"convert": {"label": "Dönüştür", "bitrate": "Bit hızı", "wavLabel": "WAV (sıkıştırılmamış)", "lossyLabel": "{{target}} {{bitrate}} kb/sn", "sourceKbps": "Kaynak {{kbps}} kbps"},
+			"convert": {
+				"label": "Dönüştür",
+				"bitrate": "Bit hızı",
+				"wavLabel": "WAV (sıkıştırılmamış)",
+				"lossyLabel": "{{target}} {{bitrate}} kb/sn",
+				"copyLabel": "{{target}} {{bitrate}} kb/sn, yeniden kodlama yok",
+				"copyLabelNoBitrate": "{{target}}, yeniden kodlama yok",
+				"copyNote": "{{kbps}} kb/sn, kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
+				"copyNoteNoBitrate": "Kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
+				"bitrateCopyHint": "Zaten {{target}} olan bir kaynak kendi akışını ve bit hızını korur: yeniden kodlanmaz, kopyalanır.",
+				"sourceKbps": "Kaynak {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "Denetim sınırlandı",
 				"bodyUnconfigured": "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene.",

@@ -442,7 +442,18 @@
 			"drc": {"label": "Ratakan volume (DRC)", "description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.", "tag": "Volume rata"},
 			"audioLanguage": "Bahasa audio",
 			"audioLanguageCount_other": "{{count}} bahasa",
-			"convert": {"label": "Mengubah", "bitrate": "Kecepatan bit", "wavLabel": "WAV (tidak terkompresi)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Sumber {{kbps}} kbps"},
+			"convert": {
+				"label": "Mengubah",
+				"bitrate": "Kecepatan bit",
+				"wavLabel": "WAV (tidak terkompresi)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, tanpa pengkodean ulang",
+				"copyLabelNoBitrate": "{{target}}, tanpa pengkodean ulang",
+				"copyNote": "{{kbps}} kbps, sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"copyNoteNoBitrate": "Sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"bitrateCopyHint": "Sumber yang sudah berformat {{target}} mempertahankan stream dan bitrate-nya sendiri: disalin tanpa pengkodean ulang.",
+				"sourceKbps": "Sumber {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "Penyelidikan terbatas",
 				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",

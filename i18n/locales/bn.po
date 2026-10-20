@@ -2293,6 +2293,26 @@ msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "বিটরেট"
 
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "যে উৎস আগে থেকেই {{target}}, সেটি নিজের স্ট্রিম ও বিটরেট রেখে দেয়: এটি কপি করা হয়, পুনরায় encode করা হয় না।"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, পুনরায় encode নয়"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, পুনরায় encode নয়"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, উৎসে যেমন আছে: স্ট্রিমটি আগে থেকেই {{target}}, তাই এটি কপি করা হয়, পুনরায় encode করা হয় না"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "উৎসে যেমন আছে: স্ট্রিমটি আগে থেকেই {{target}}, তাই এটি কপি করা হয়, পুনরায় encode করা হয় না"
+
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
 msgstr "কনভার্ট করুন"
