@@ -15,27 +15,21 @@ function toIso639(lang: string): string {
 	return TO_ISO_639_2B.get(lang.toLowerCase()) ?? lang
 }
 
-// A YouTube automatic caption keeps its `-orig` key only beside a manual track
-// in the same language. ffmpeg writes the tag verbatim, and "en-orig" is no
-// ISO 639-2 code, so players show it raw and a language preference skips it.
-// It gets its language's code instead, and a title that tells the two apart.
-const ORIGINAL_CAPTION_SUFFIX = '-orig'
-const ORIGINAL_CAPTION_TITLE = 'Auto-generated'
-
-interface SubtitleEmbedTrack {
+export interface SubtitleEmbedTrack {
 	path: string
+	// The track's language ("en", "pt-BR"), or "und".
 	lang: string
 	// The track's name in the info-json ("English (United Kingdom)").
 	name?: string
+	// A title other than the name, to tell a track from another of its language.
+	title?: string
 }
 
 // As yt-dlp's EmbedSubtitle does, a track's name becomes its handler name and
-// its title, which is what players list it by. An original-language caption
-// keeps the title that tells it from the manual track instead.
+// its title, which is what players list it by.
 function subtitleTrackMetadata(track: SubtitleEmbedTrack, index: number): string[] {
-	const isOriginalCaption = track.lang.endsWith(ORIGINAL_CAPTION_SUFFIX)
-	const language = toIso639(isOriginalCaption ? track.lang.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : track.lang)
-	const title = isOriginalCaption ? ORIGINAL_CAPTION_TITLE : track.name
+	const language = toIso639(track.lang)
+	const title = track.title ?? track.name
 	const stream = `-metadata:s:s:${index}`
 	return [stream, `language=${language}`, ...(track.name ? [stream, `handler_name=${track.name}`] : []), ...(title ? [stream, `title=${title}`] : [])]
 }

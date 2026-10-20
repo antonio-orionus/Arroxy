@@ -20,6 +20,7 @@ import {spawnYtDlp, spawnFFmpeg} from '@main/utils/process.js'
 import type {QueueArtifactEvent, StatusEvent, StatusKey} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {SubtitleFormat, SubtitleMode} from '@shared/schemas.js'
+import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -33,9 +34,9 @@ function makeProcess(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function makeJob(opts: {formatId?: string; remuxVideo?: string; subtitles?: {languages: string[]; writeAuto?: boolean; mode?: SubtitleMode; format?: SubtitleFormat}} = {}): PreparedJob {
+function makeJob(opts: {formatId?: string; remuxVideo?: string; subtitles?: {request: SubtitleRequest; mode?: SubtitleMode; format?: SubtitleFormat}} = {}): PreparedJob {
 	if (!opts.formatId && opts.subtitles) {
-		return {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: opts.subtitles.languages, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt', writeAuto: opts.subtitles.writeAuto ?? false}}
+		return {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {request: opts.subtitles.request, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt'}}
 	}
 	return {
 		kind: 'single-format',
@@ -45,7 +46,7 @@ function makeJob(opts: {formatId?: string; remuxVideo?: string; subtitles?: {lan
 		...(opts.remuxVideo ? {remuxVideo: opts.remuxVideo} : {}),
 		sponsorBlock: SB_OFF,
 		embed: EMBED_OFF,
-		subtitles: opts.subtitles ? {languages: opts.subtitles.languages, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt', writeAuto: opts.subtitles.writeAuto ?? false} : undefined
+		subtitles: opts.subtitles ? {request: opts.subtitles.request, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt'} : undefined
 	}
 }
 
@@ -83,7 +84,7 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
 
-		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {languages: ['en']}})})
+		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}}})})
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
 		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([
@@ -105,7 +106,7 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 		const {service, recentJobsStore} = makeService()
 		const events = captureStatuses(service)
 
-		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {languages: ['en']}})})
+		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}}})})
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
 		const final = events[events.length - 1]
@@ -210,7 +211,7 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		}) as never)
 
 		const {service, recentJobsStore} = makeService()
-		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {languages: ['en-orig'], mode: 'embed', format: 'srt', writeAuto: true}})})
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en-orig', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 
 		const args = ffmpegCalls[0]
@@ -251,7 +252,7 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		}) as never)
 
 		const {service, recentJobsStore} = makeService()
-		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {languages: ['en-orig'], mode: 'embed', format: 'srt', writeAuto: true}})})
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en-orig', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 
 		const args = ffmpegCalls[0]
@@ -311,7 +312,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		const {service, recentJobsStore} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
-		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
@@ -342,7 +343,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 
 		const {service, recentJobsStore} = makeService()
 		const events = captureStatuses(service)
-		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		await vi.waitFor(() => expect(statusKeys(events)).toContain('mergingFormats'))
 
 		const keys = statusKeys(events)
@@ -373,7 +374,7 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		}) as never)
 
 		const {service, recentJobsStore} = makeService()
-		const startResult = await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: true}})})
+		const startResult = await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		expect(startResult.ok).toBe(true)
 		if (!startResult.ok) return
 
@@ -467,7 +468,7 @@ describe('DownloadService — final media path after --remux-video', () => {
 		}) as never)
 
 		const {service, recentJobsStore} = makeService()
-		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv', subtitles: {languages: ['en'], mode: 'embed', format: 'srt'}})})
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'embed', format: 'srt'}})})
 		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
 
 		const args = ffmpegCalls[0]

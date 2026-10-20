@@ -1,16 +1,21 @@
 // Quick Download and the Format screen must fetch the same subtitle tracks for
-// the same profile and video. Each path's job is run through a model of
+// the same profile and video. Each path's job is planned by the subtitle
+// phase's own step over the recorded probe as its info-json, and the yt-dlp
+// request that comes out is run through a model of
 // yt-dlp's own track choice (`YoutubeDL.process_subtitles`: manual tracks
 // first, automatic captions fill in, each `--sub-langs` entry fullmatched
 // case-insensitively against the keys) over the recorded probe's raw maps,
 // so a pattern that also catches YouTube's machine translations shows up here.
 
-import {describe, expect, it} from 'vite-plus/test'
+import {mkdtempSync, writeFileSync} from 'node:fs'
+import {tmpdir} from 'node:os'
+import {join} from 'node:path'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {SubtitleOptions} from '@shared/preparedJob.js'
 import {resolveProfileSelection} from '@shared/profileSelection.js'
-import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
+import {siteForJob} from '@shared/sites/index.js'
 import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import type {DownloadProfile, DownloadProfileSubtitleSource, QueueItem, VideoProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
@@ -24,6 +29,10 @@ import youtubeMusic from '@renderer/dev/probeSources/youtube-music.json' with {t
 import youtubeMultilang from '@renderer/dev/probeSources/youtube-multilang.json' with {type: 'json'}
 import youtubeAutodub from '@renderer/dev/probeSources/youtube-autodub.json' with {type: 'json'}
 import dailymotion from '@renderer/dev/probeSources/dailymotion.json' with {type: 'json'}
+
+vi.mock('@main/services/subtitlePostProcess.js', () => ({logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+
+import {resolveSubtitlePlan, subtitleRunRequest} from '@main/services/phases/subtitleTracks.js'
 
 interface RawMaps {
 	subtitles?: Record<string, unknown>
@@ -49,20 +58,34 @@ function trackId(raw: RawMaps, key: string, writeSubs: boolean): string {
 	return writeSubs && key in (raw.subtitles ?? {}) ? `manual:${key}` : `auto:${key.replace(/-orig$/, '')}`
 }
 
-// The tracks yt-dlp downloads for a job, per `YoutubeDL.process_subtitles`
-// and `orderedSet_from_options(use_regex=True)`.
-function ytDlpFetches(raw: RawMaps, subtitles: SubtitleOptions | undefined): string[] {
-	if (!subtitles) return []
-	const writeSubs = !subtitles.autoOnly
+const infoJsonDir = mkdtempSync(join(tmpdir(), 'arroxy-parity-'))
+
+interface Fetch {
+	// The `--sub-langs` entries, which name the files and embedded tracks.
+	languages: string[]
+	tracks: string[]
+	pattern: boolean
+}
+
+// What a job's subtitle phase asks yt-dlp for, with the probe as its info-json,
+// and the tracks yt-dlp then downloads, per `YoutubeDL.process_subtitles` and
+// `orderedSet_from_options(use_regex=True)`.
+async function ytDlpFetches(raw: RawMaps, probe: VideoProbeResult, subtitles: SubtitleOptions | undefined): Promise<Fetch> {
+	if (!subtitles) return {languages: [], tracks: [], pattern: false}
+	const infoJson = join(infoJsonDir, `${probe.videoId}.info.json`)
+	writeFileSync(infoJson, JSON.stringify(raw))
+	const run = await resolveSubtitlePlan(subtitles, {infoJsonPaths: [infoJson], site: siteForJob(probe.extractor, probe.webpageUrl), jobId: 'parity'})
+	const request = subtitleRunRequest(run, subtitles.format)
+	const writeSubs = request.autoOnly !== true
 	const available = new Set<string>()
 	if (writeSubs) for (const key of Object.keys(raw.subtitles ?? {})) available.add(key)
-	if (subtitles.writeAuto) for (const key of Object.keys(raw.automatic_captions ?? {})) available.add(key)
+	if (request.writeAuto) for (const key of Object.keys(raw.automatic_captions ?? {})) available.add(key)
 	const picked = new Set<string>()
-	for (const pattern of ytDlpSubtitleLanguages(subtitles)) {
+	for (const pattern of request.languages) {
 		const fullmatch = new RegExp(`^(?:${pattern})$`, 'i')
 		for (const key of available) if (fullmatch.test(key)) picked.add(trackId(raw, key, writeSubs))
 	}
-	return [...picked].sort()
+	return {languages: request.languages, tracks: [...picked].sort(), pattern: run.kind === 'pattern'}
 }
 
 function profileFor(media: (typeof MEDIA)[number], languages: string[], source: DownloadProfileSubtitleSource): DownloadProfile {
@@ -127,15 +150,14 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 					}).subtitleLanguages
 					// A subtitles-only profile with no track on this video has nothing for the Format screen to queue.
 					if (media === 'subtitles-only' && picked.length === 0) continue
-					it(`${id} · ${media} · ${source} · ${languages.join('+')}`, () => {
-						const interactiveSubtitles = interactiveJob(probe, profile)
-						const quickSubtitles = quickJob(probe, profile)
-						const interactive = ytDlpFetches(fixture.info, interactiveSubtitles)
-						expect(interactive).toEqual(picked.map(key => trackId(fixture.info, key, source !== 'auto-only')).sort())
-						expect(ytDlpFetches(fixture.info, quickSubtitles)).toEqual(interactive)
+					it(`${id} · ${media} · ${source} · ${languages.join('+')}`, async () => {
+						const interactive = await ytDlpFetches(fixture.info, probe, interactiveJob(probe, profile))
+						const quick = await ytDlpFetches(fixture.info, probe, quickJob(probe, profile))
+						expect(interactive.tracks).toEqual(picked.map(key => trackId(fixture.info, key, source !== 'auto-only')).sort())
+						expect(quick.tracks).toEqual(interactive.tracks)
 						// The keys name the files and the embedded tracks, so they match too
-						// (a site that does not list its tracks leaves Quick Download codes).
-						if (!quickSubtitles?.languagesAreCodes) expect(quickSubtitles?.languages ?? []).toEqual(interactiveSubtitles?.languages ?? [])
+						// (a site that does not list its tracks sends Quick Download's codes).
+						if (!quick.pattern) expect(quick.languages).toEqual(interactive.languages)
 					})
 				}
 	}
@@ -154,10 +176,11 @@ describe('subtitle tracks the user picks on the Format screen', () => {
 		['youtube-2010', ['en-orig'], ['en'], ['auto:en']]
 	]
 	for (const [id, keys, requested, fetched] of cases) {
-		it(`${id} · ${keys.join('+')}`, () => {
-			const subtitles = interactiveJob(probeSourceResult(id), profile, keys)
-			expect(subtitles?.languages).toEqual(requested)
-			expect(ytDlpFetches(Object.fromEntries(SOURCES)[id].info, subtitles)).toEqual(fetched)
+		it(`${id} · ${keys.join('+')}`, async () => {
+			const probe = probeSourceResult(id)
+			const fetch = await ytDlpFetches(Object.fromEntries(SOURCES)[id].info, probe, interactiveJob(probe, profile, keys))
+			expect(fetch.languages).toEqual(requested.map(key => `(?-i:${key})`))
+			expect(fetch.tracks).toEqual(fetched)
 		})
 	}
 })
@@ -165,8 +188,12 @@ describe('subtitle tracks the user picks on the Format screen', () => {
 // Vimeo, TikTok, Bilibili and others list subtitles only when yt-dlp is asked to
 // write or list them, which a probe never is: their empty maps say nothing.
 describe('a site whose probe does not list every subtitle track', () => {
-	it("keeps Quick Download's language codes for yt-dlp to match", () => {
-		const probe: VideoProbeResult = {...probeSourceResult('dailymotion'), extractor: 'vimeo', extractorKey: 'Vimeo', subtitles: {}, automaticCaptions: {}}
-		for (const media of MEDIA) expect(quickJob(probe, profileFor(media, ['en'], 'manual-first'))).toMatchObject({languages: ['en'], languagesAreCodes: true})
+	it("sends Quick Download's language codes for yt-dlp to match", async () => {
+		const probe: VideoProbeResult = {...probeSourceResult('dailymotion'), extractor: 'vimeo', extractorKey: 'Vimeo', webpageUrl: 'https://vimeo.com/1', subtitles: {}, automaticCaptions: {}}
+		for (const media of MEDIA) {
+			const subtitles = quickJob(probe, profileFor(media, ['en'], 'manual-first'))
+			expect(subtitles?.request).toEqual({kind: 'languages', languages: ['en'], source: 'manual-first'})
+			expect((await ytDlpFetches({}, probe, subtitles)).pattern).toBe(true)
+		}
 	})
 })
