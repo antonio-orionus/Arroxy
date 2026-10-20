@@ -163,7 +163,7 @@ export const pt = {
   feat_privacy_1:
     "Processamento 100% local — os downloads vão direto do YouTube para o seu disco",
   feat_privacy_2:
-    "**Código aberto** — cada linha pode ser auditada, sob licença MIT",
+    "**Código aberto** — cada linha pode ser auditada, sob licença GPLv3",
   feat_privacy_3: "Arquivos salvos direto na pasta que você escolher",
   feat_workflow_h3: "Fluxo de trabalho",
   feat_workflow_12: "**Atalho global de download** — copie um link em qualquer app e pressione `Ctrl+Shift+D` (`Cmd+Shift+D` no macOS); o Arroxy o coloca na fila com o seu perfil ativo sem abrir a janela, e uma notificação confirma. Ativo por padrão e reconfigurável",
@@ -310,7 +310,7 @@ export const pt = {
   dl_linux_arch_note: "**Os downloads de Linux na página de versões são apenas x86_64.** Em máquinas ARM64 (Raspberry Pi, Asahi Linux) o Flatpak instala, mas falha ao iniciar com `bwrap: execvp ldconfig: Exec format error`.",
   dl_warning_h3: "Por que você pode ver um aviso",
   dl_warning_p1:
-    "O Arroxy é de código aberto e licenciado sob MIT. As builds para Windows e macOS **não são assinadas digitalmente** — os certificados Apple Developer ID e de assinatura EV do Windows custam centenas de dólares por ano cada um, e um projeto independente paga isso do próprio bolso. Sem essas assinaturas, o SmartScreen do Windows e o Gatekeeper do macOS avisam na primeira execução. Os avisos dizem que *o seu sistema não reconhece o publicador* — não que o Arroxy seja malware.",
+    "O Arroxy é de código aberto e licenciado sob GPLv3. As builds para Windows e macOS **não são assinadas digitalmente** — os certificados Apple Developer ID e de assinatura EV do Windows custam centenas de dólares por ano cada um, e um projeto independente paga isso do próprio bolso. Sem essas assinaturas, o SmartScreen do Windows e o Gatekeeper do macOS avisam na primeira execução. Os avisos dizem que *o seu sistema não reconhece o publicador* — não que o Arroxy seja malware.",
   dl_warning_p2:
     "Três formas de verificar o Arroxy por conta própria, em ordem crescente de rigor:\n\n- **Leia o código-fonte.** Cada linha está no [GitHub](https://github.com/antonio-orionus/Arroxy) e você pode [compilar a partir do código](#tech).\n- **Confira o SHA256.** Compare o seu arquivo com o [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) publicado — veja [Verifique o seu download](#verify) abaixo.\n- **Rode uma varredura de terceiros.** Envie o arquivo para o [VirusTotal](https://www.virustotal.com).",
 
@@ -372,7 +372,7 @@ export const pt = {
   privacy_p3: "O Explore mantém os próprios logins, separados do seu navegador, e o Arroxy nunca lê nem preenche um formulário de login — você digita na própria página do site. Os downloads rodam sem login; só quando um falha de um jeito que uma conta pode resolver, o Arroxy lê o login na hora, guarda em um arquivo temporário para aquele download e apaga o arquivo depois. Sair do Explore nas configurações faz os logins serem esquecidos.",
   faq_q1: "É realmente gratuito?",
   faq_a1:
-    "Sim — licença MIT, sem plano premium, sem recursos bloqueados.",
+    "Sim — licença GPLv3, sem plano premium, sem recursos bloqueados.",
   faq_q11: "Qual a diferença entre o Arroxy e outras GUIs do yt-dlp?",
   faq_a11:
     "A maioria das GUIs gratuitas do yt-dlp são wrappers que só aceitam um link. O Arroxy adiciona o **Explore**, um navegador integrado ao app que abre o YouTube ou qualquer outro site: você navega e baixa sem copiar links, e entra ali uma vez para baixar vídeos privados, exclusivos para membros e com restrição de idade e as suas listas Assistir mais tarde e Curtidos, sem exportar cookies. O Arroxy usa esse login quando o YouTube pede para confirmar que você não é um robô, e o navegador integrado obtém o token de download do YouTube para que os downloads não caiam para menos formatos. Veja [Por que o Arroxy](#why).",
@@ -426,10 +426,10 @@ export const pt = {
   tech_content: TECH_CONTENT,
   support_h2: "Apoie o Arroxy",
   support_note:
-    "O Arroxy é gratuito e licenciado sob MIT — sem anúncios, sem telemetria, sem plano pago. Se ele economiza o seu tempo, você pode apoiar o desenvolvimento com Bitcoin, Tron ou Ethereum: os endereços estão no [DONATE.md](DONATE.md), que é a única fonte oficial deles. O Arroxy nunca vai te enviar um endereço por e-mail ou mensagem direta. Dar uma estrela ao repositório, relatar bugs e melhorar as traduções ajuda tanto quanto.",
+    "O Arroxy é gratuito e licenciado sob GPLv3 — sem anúncios, sem telemetria, sem plano pago. Se ele economiza o seu tempo, você pode apoiar o desenvolvimento com Bitcoin, Tron ou Ethereum: os endereços estão no [DONATE.md](DONATE.md), que é a única fonte oficial deles. O Arroxy nunca vai te enviar um endereço por e-mail ou mensagem direta. Dar uma estrela ao repositório, relatar bugs e melhorar as traduções ajuda tanto quanto.",
   tos_h2: "Termos de uso",
   tos_note:
     "O Arroxy é uma ferramenta para uso pessoal e privado apenas. Você é o único responsável por garantir que os seus downloads cumpram os [Termos de Serviço](https://www.youtube.com/t/terms) do YouTube e as leis de direito autoral da sua jurisdição. Não use o Arroxy para baixar, reproduzir ou distribuir conteúdo que você não tem o direito de usar. Os desenvolvedores não se responsabilizam por qualquer uso indevido.",
   footer_credit:
-    'Licença MIT · Feito com cuidado por <a href="https://x.com/OrionusAI">@OrionusAI</a>',
+    'Licença GPLv3 · Feito com cuidado por <a href="https://x.com/OrionusAI">@OrionusAI</a>',
 };

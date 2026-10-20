@@ -11,7 +11,7 @@
 		"theme": "အသွင်အပြင်",
 		"styleHint": "အသစ်- ဤနေရာတွင် အောရိုရာ သို့မဟုတ် ရိုးရှင်း ကို ရွေးပါ"
 	},
-	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "MIT လိုင်စင် · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
+	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
 	"titleBar": {"close": "ပိတ်မည်", "minimize": "သေးငယ်အောင်လုပ်မည်", "maximize": "အများဆုံးချဲ့မည်", "restore": "ပြန်ရောက်မည်"},
 	"splash": {
 		"greeting": "ဟေး၊ ကြိုဆိုပါသည်!",

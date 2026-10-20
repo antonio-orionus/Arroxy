@@ -16,8 +16,8 @@ msgid "GitHub"
 msgstr "GitHub"
 
 msgctxt "about.licenseLine"
-msgid "MIT License · by Antonio Orionus"
-msgstr "MIT 라이선스 · Antonio Orionus 제작"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · Antonio Orionus 제작"
 
 msgctxt "about.openTitle"
 msgid "About Arroxy"

@@ -26,7 +26,7 @@ How Arroxy gets ffmpeg/ffprobe and yt-dlp, and keeps them licensed and verified.
 
 ## License attribution
 
-`THIRD_PARTY_NOTICES.txt` ships at `<resources>/` via top-level `extraResources` and covers yt-dlp (Unlicense) and the ad blocker libraries; it points to the FFmpeg package for FFmpeg. Each package carries its own `NOTICE.txt` (GPLv3), and its release must carry the corresponding source; see [`ffmpeg-packages.md`](ffmpeg-packages.md#redistribution). Arroxy stays MIT — spawn ≠ link, no GPL propagation into our code.
+`THIRD_PARTY_NOTICES.txt` ships at `<resources>/` via top-level `extraResources` and covers yt-dlp (Unlicense) and the ad blocker libraries; it points to the FFmpeg package for FFmpeg. Each package carries its own `NOTICE.txt` (GPLv3), and its release must carry the corresponding source; see [`ffmpeg-packages.md`](ffmpeg-packages.md#redistribution). Arroxy itself is GPL-3.0-or-later (ADR 0012), but that is a choice, not a consequence: spawning ffmpeg is not linking, so the FFmpeg packages impose nothing on our code.
 
 ## Smoke parity
 

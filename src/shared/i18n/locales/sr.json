@@ -11,15 +11,7 @@
 		"theme": "Тема",
 		"styleHint": "Ново: изаберите Aurora или Минималистички овде"
 	},
-	"about": {
-		"button": "О апликацији",
-		"openTitle": "О апликацији Arroxy",
-		"tagline": "Брз и приступачан преузимач за YouTube и још 2000+ сајтова.",
-		"websiteLink": "Веб-сајт",
-		"githubLink": "GitHub",
-		"licenseLine": "Лиценца MIT · by Antonio Orionus",
-		"thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"
-	},
+	"about": {"button": "О апликацији", "openTitle": "О апликацији Arroxy", "tagline": "Брз и приступачан преузимач за YouTube и још 2000+ сајтова.", "websiteLink": "Веб-сајт", "githubLink": "GitHub", "licenseLine": "GPLv3 · аутор: Antonio Orionus", "thirdPartyNotices": "Прикажи обавештења о компонентама трећих страна"},
 	"titleBar": {"close": "Затвори", "minimize": "Минимизуј", "maximize": "Максимизуј", "restore": "Врати"},
 	"splash": {
 		"greeting": "Добродошао/ла назад!",

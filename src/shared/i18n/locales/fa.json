@@ -11,7 +11,7 @@
 		"theme": "پوسته",
 		"styleHint": "جدید: اینجا آرورا یا مینیمال را انتخاب کنید"
 	},
-	"about": {"button": "درباره", "openTitle": "دربارهٔ Arroxy", "tagline": "دانلودری سریع و ساده برای YouTube و بیش از ۲۰۰۰ سایت دیگر.", "websiteLink": "وب‌سایت", "githubLink": "GitHub", "licenseLine": "مجوز MIT · ساختهٔ Antonio Orionus", "thirdPartyNotices": "مشاهدهٔ اعلان‌های شخص ثالث"},
+	"about": {"button": "درباره", "openTitle": "دربارهٔ Arroxy", "tagline": "دانلودری سریع و ساده برای YouTube و بیش از ۲۰۰۰ سایت دیگر.", "websiteLink": "وب‌سایت", "githubLink": "GitHub", "licenseLine": "GPLv3 · ساختهٔ Antonio Orionus", "thirdPartyNotices": "مشاهدهٔ اعلان‌های شخص ثالث"},
 	"titleBar": {"close": "بستن", "minimize": "کمینه کردن", "maximize": "بیشینه کردن", "restore": "بازگردانی"},
 	"splash": {
 		"greeting": "سلام، خوش آمدید!",

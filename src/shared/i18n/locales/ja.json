@@ -11,7 +11,7 @@
 		"theme": "テーマ",
 		"styleHint": "新機能：ここでオーロラかミニマルを選べます"
 	},
-	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "MIT ライセンス · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
+	"about": {"button": "情報", "openTitle": "Arroxy について", "tagline": "YouTube と 2000 以上の他サイトに対応する、高速で使いやすいダウンローダー。", "websiteLink": "公式サイト", "githubLink": "GitHub", "licenseLine": "GPLv3 · 作者 Antonio Orionus", "thirdPartyNotices": "サードパーティ通知を表示"},
 	"titleBar": {"close": "閉じる", "minimize": "最小化", "maximize": "最大化", "restore": "元に戻す"},
 	"splash": {
 		"greeting": "やあ、おかえり!",

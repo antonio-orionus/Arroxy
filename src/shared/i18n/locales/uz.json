@@ -11,15 +11,7 @@
 		"theme": "Mavzu",
 		"styleHint": "Yangi: bu yerda Aurora yoki Minimalistik uslubini tanlang"
 	},
-	"about": {
-		"button": "Dastur haqida",
-		"openTitle": "Arroxy haqida",
-		"tagline": "YouTube va 2000+ boshqa saytlar uchun tez va qulay yuklab oluvchi.",
-		"websiteLink": "Veb-sayt",
-		"githubLink": "GitHub",
-		"licenseLine": "MIT litsenziyasi · by Antonio Orionus",
-		"thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish"
-	},
+	"about": {"button": "Dastur haqida", "openTitle": "Arroxy haqida", "tagline": "YouTube va 2000+ boshqa saytlar uchun tez va qulay yuklab oluvchi.", "websiteLink": "Veb-sayt", "githubLink": "GitHub", "licenseLine": "GPLv3 · muallif: Antonio Orionus", "thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish"},
 	"titleBar": {"close": "Yopish", "minimize": "Kichraytirish", "maximize": "Kattalashtirish", "restore": "Tiklash"},
 	"splash": {
 		"greeting": "Xush kelibsiz, qayta keldingiz!",

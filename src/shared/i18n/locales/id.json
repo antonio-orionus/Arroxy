@@ -11,7 +11,7 @@
 		"theme": "Tema",
 		"styleHint": "Baru: pilih Aurora atau Minimalis di sini"
 	},
-	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "Lisensi MIT · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
+	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "GPLv3 · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
 	"titleBar": {"close": "Menutup", "minimize": "Memperkecil", "maximize": "Maksimalkan", "restore": "Memulihkan"},
 	"splash": {
 		"greeting": "Hei, selamat datang kembali!",

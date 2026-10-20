@@ -156,7 +156,7 @@ export const ko = {
     "**스트림의 실체를 파악** — YouTube가 AI로 업스케일한 크기, AI 더빙 오디오 언어, 향상된 비트레이트 스트림, 360° 동영상, 손상되었거나 워터마크가 있는 사본이 표시됩니다. 프로필은 허용하지 않는 한 AI 업스케일 스트림을 건너뜁니다",
   feat_privacy_h3: "개인정보 보호 및 제어",
   feat_privacy_1: "100% 로컬 처리 — YouTube에서 사용자의 디스크로 바로 다운로드",
-  feat_privacy_2: "**오픈 소스** — 모든 코드를 감사할 수 있으며 MIT 라이선스 적용",
+  feat_privacy_2: "**오픈 소스** — 모든 코드를 감사할 수 있으며 GPLv3 라이선스 적용",
   feat_privacy_3: "선택한 폴더에 파일을 바로 저장",
   feat_workflow_h3: "워크플로",
   feat_workflow_12: "**전역 다운로드 단축키** — 어느 앱에서든 링크를 복사하고 `Ctrl+Shift+D`(macOS에서는 `Cmd+Shift+D`)를 누르면, 창을 열지 않고 활성 프로필로 대기열에 추가되며 알림으로 확인됩니다. 기본 활성화되며 키를 변경할 수 있습니다",
@@ -253,7 +253,7 @@ export const ko = {
   dl_linux_targz_text: "`.tar.gz` 빌드는 AppImage 래퍼가 없는 동일한 앱입니다. 원하는 곳에 압축을 풀고 실행하세요. 설치 프로그램과 FUSE가 필요 없습니다.",
   dl_linux_arch_note: "**릴리스 페이지의 Linux 다운로드는 x86_64 전용입니다.** ARM64 장치(Raspberry Pi, Asahi Linux)에서는 Flatpak이 설치되더라도 시작할 때 `bwrap: execvp ldconfig: Exec format error` 오류가 발생합니다.",
   dl_warning_h3: "경고가 표시될 수 있는 이유",
-  dl_warning_p1: "Arroxy는 오픈 소스이며 MIT 라이선스를 사용합니다. Windows와 macOS 빌드는 **코드 서명되지 않았습니다**. Apple Developer ID와 Windows EV 코드 서명 인증서는 각각 연간 수백 달러가 들며 독립 프로젝트가 직접 부담해야 합니다. 서명이 없으면 Windows SmartScreen과 macOS Gatekeeper가 처음 실행할 때 경고합니다. 경고는 *운영 체제가 게시자를 알지 못한다*는 뜻이지 Arroxy가 악성 코드라는 뜻이 아닙니다.",
+  dl_warning_p1: "Arroxy는 오픈 소스이며 GPLv3 라이선스를 사용합니다. Windows와 macOS 빌드는 **코드 서명되지 않았습니다**. Apple Developer ID와 Windows EV 코드 서명 인증서는 각각 연간 수백 달러가 들며 독립 프로젝트가 직접 부담해야 합니다. 서명이 없으면 Windows SmartScreen과 macOS Gatekeeper가 처음 실행할 때 경고합니다. 경고는 *운영 체제가 게시자를 알지 못한다*는 뜻이지 Arroxy가 악성 코드라는 뜻이 아닙니다.",
   dl_warning_p2: "엄격한 순서로 Arroxy를 직접 확인하는 세 가지 방법:\n\n- **소스를 읽으세요.** 모든 코드가 [GitHub](https://github.com/antonio-orionus/Arroxy)에 있고 [소스에서 빌드](#tech)할 수 있습니다.\n- **SHA256을 확인하세요.** 파일을 공개된 [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)와 대조하세요. 아래 [다운로드 확인](#verify)을 참고하세요.\n- **외부 검사를 실행하세요.** 파일을 [VirusTotal](https://www.virustotal.com)에 업로드하세요.",
   dl_win_first_h3: "Windows 최초 실행",
   shot_smartscreen_more_alt: "추가 정보 링크가 강조된 Windows의 PC 보호 SmartScreen 대화 상자",
@@ -279,7 +279,7 @@ export const ko = {
   privacy_p3:
     "Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는 어떤 로그인 양식도 읽거나 채우지 않습니다. 입력은 해당 사이트 자체 페이지에서 직접 합니다. 다운로드는 로그아웃 상태로 실행되고, 계정으로 해결할 수 있는 이유로 실패할 때만 Arroxy가 로그인 정보를 새로 읽어 해당 다운로드용 임시 파일에 두었다가 끝나면 파일을 삭제합니다. 설정에서 Explore를 로그아웃하면 로그인 정보가 지워집니다.",
   faq_q1: "정말 무료인가요?",
-  faq_a1: "예. MIT 라이선스이며 프리미엄 등급이나 기능 제한이 없습니다.",
+  faq_a1: "예. GPLv3 라이선스이며 프리미엄 등급이나 기능 제한이 없습니다.",
   faq_q11: "Arroxy는 다른 yt-dlp GUI와 무엇이 다른가요?",
   faq_a11:
     "대부분의 무료 yt-dlp GUI는 링크만 받는 래퍼입니다. Arroxy는 YouTube든 다른 사이트든 열 수 있는, 앱에 내장된 브라우저인 **Explore**를 더했습니다. 링크를 복사하지 않고 둘러보며 다운로드할 수 있고, 그곳에서 한 번 로그인하면 쿠키를 내보내지 않고도 비공개·멤버 전용·연령 제한 동영상과 나중에 볼 동영상, 좋아요 표시한 동영상 목록을 다운로드할 수 있습니다. YouTube가 봇이 아닌지 확인을 요구하면 Arroxy가 이 로그인을 사용하며, 내장 브라우저가 YouTube의 다운로드 토큰을 받아 오므로 다운로드가 더 적은 형식으로 떨어지지 않습니다. [Arroxy를 선택하는 이유](#why)를 참고하세요.",
@@ -349,8 +349,8 @@ export const ko = {
   dl_pm_intro: "이미 패키지 관리자를 사용하나요? 수동 다운로드 단계를 건너뛸 수 있습니다.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy 후원",
-  support_note: "Arroxy는 무료이며 MIT 라이선스를 사용합니다. 광고, 텔레메트리, 유료 등급이 없습니다. 시간을 절약해 주었다면 Bitcoin, Tron 또는 Ethereum으로 개발을 후원할 수 있습니다. 주소는 유일한 공식 출처인 [DONATE.md](DONATE.md)에 있습니다. Arroxy는 이메일이나 개인 메시지로 주소를 보내지 않습니다. 저장소에 별을 주고, 버그를 신고하고, 번역을 개선하는 것도 같은 만큼 도움이 됩니다.",
+  support_note: "Arroxy는 무료이며 GPLv3 라이선스를 사용합니다. 광고, 텔레메트리, 유료 등급이 없습니다. 시간을 절약해 주었다면 Bitcoin, Tron 또는 Ethereum으로 개발을 후원할 수 있습니다. 주소는 유일한 공식 출처인 [DONATE.md](DONATE.md)에 있습니다. Arroxy는 이메일이나 개인 메시지로 주소를 보내지 않습니다. 저장소에 별을 주고, 버그를 신고하고, 번역을 개선하는 것도 같은 만큼 도움이 됩니다.",
   tos_h2: "이용 약관",
   tos_note: "Arroxy는 개인적이고 비공개인 용도로만 사용하는 도구입니다. 다운로드가 YouTube [서비스 약관](https://www.youtube.com/t/terms)과 사용자의 관할권에 적용되는 저작권법을 준수하는지 확인할 책임은 전적으로 사용자에게 있습니다. 사용 권한이 없는 콘텐츠를 다운로드, 복제 또는 배포하는 데 Arroxy를 사용하지 마세요. 개발자는 오용에 책임지지 않습니다.",
-  footer_credit: 'MIT 라이선스 · <a href="https://x.com/OrionusAI">@OrionusAI</a>가 정성껏 제작',
+  footer_credit: 'GPLv3 라이선스 · <a href="https://x.com/OrionusAI">@OrionusAI</a>가 정성껏 제작',
 };

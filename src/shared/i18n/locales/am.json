@@ -11,7 +11,7 @@
 		"theme": "ገጽታ",
 		"styleHint": "አዲስ፦ Aurora ወይም ቀላል እዚህ ይምረጡ"
 	},
-	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
+	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "GPLv3 · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
 	"splash": {
 		"greeting": "እንኳን ደህና መጡ!",

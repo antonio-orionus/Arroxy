@@ -11,7 +11,7 @@
 		"theme": "Mandhari",
 		"styleHint": "Mpya: chagua Aurora au Rahisi hapa"
 	},
-	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
+	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "GPLv3 · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
 	"splash": {
 		"greeting": "Hujambo, karibu tena!",

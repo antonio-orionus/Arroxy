@@ -11,7 +11,7 @@
 		"theme": "主題",
 		"styleHint": "新功能：在這裡選擇 Aurora 或極簡"
 	},
-	"about": {"button": "關於", "openTitle": "關於 Arroxy", "tagline": "快速、好用的下載工具，支援 YouTube 與其他 2000 多個網站。", "websiteLink": "網站", "githubLink": "GitHub", "licenseLine": "MIT 授權條款 · 作者 Antonio Orionus", "thirdPartyNotices": "檢視第三方聲明"},
+	"about": {"button": "關於", "openTitle": "關於 Arroxy", "tagline": "快速、好用的下載工具，支援 YouTube 與其他 2000 多個網站。", "websiteLink": "網站", "githubLink": "GitHub", "licenseLine": "GPLv3 · 作者 Antonio Orionus", "thirdPartyNotices": "檢視第三方聲明"},
 	"titleBar": {"close": "關閉", "minimize": "最小化", "maximize": "最大化", "restore": "還原"},
 	"splash": {
 		"greeting": "嘿，歡迎回來！",

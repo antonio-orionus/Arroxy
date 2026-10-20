@@ -1,6 +1,6 @@
 # Supporting Arroxy
 
-Arroxy is free software under the MIT License — no ads, no telemetry, no account,
+Arroxy is free software under the GNU GPL v3 — no ads, no telemetry, no account,
 no paid tier, and no usage limits. Donations are optional and buy no influence
 over the roadmap; feature priority is decided in [public issues](../../issues).
 

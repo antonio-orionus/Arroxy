@@ -17,7 +17,7 @@
 		"tagline": "Szybki i przyjazny program do pobierania z YouTube i ponad 2000 innych witryn.",
 		"websiteLink": "Witryna",
 		"githubLink": "GitHub",
-		"licenseLine": "Licencja MIT · autor: Antonio Orionus",
+		"licenseLine": "GPLv3 · autor: Antonio Orionus",
 		"thirdPartyNotices": "Wyświetl informacje o oprogramowaniu innych firm"
 	},
 	"titleBar": {"close": "Zamknij", "minimize": "Minimalizuj", "maximize": "Maksymalizuj", "restore": "Przywróć"},

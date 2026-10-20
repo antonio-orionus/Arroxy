@@ -318,7 +318,7 @@ export const ja = {
   dl_linux_arch_note: "**リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。",
   dl_warning_h3: "警告が表示される理由",
   dl_warning_p1:
-    "Arroxy はオープンソースで MIT ライセンスのソフトウェアです。Windows および macOS のビルドは**コード署名されていません** — Apple Developer ID と Windows EV のコード署名証明書はそれぞれ年間数百ドルかかり、個人プロジェクトでは自己負担になります。署名がない場合、Windows SmartScreen と macOS Gatekeeper は初回起動時に警告を表示します。これらの警告は*OS が発行元を認識していない*ことを意味するものであり、Arroxy がマルウェアであることを示すものではありません。",
+    "Arroxy はオープンソースで GPLv3 ライセンスのソフトウェアです。Windows および macOS のビルドは**コード署名されていません** — Apple Developer ID と Windows EV のコード署名証明書はそれぞれ年間数百ドルかかり、個人プロジェクトでは自己負担になります。署名がない場合、Windows SmartScreen と macOS Gatekeeper は初回起動時に警告を表示します。これらの警告は*OS が発行元を認識していない*ことを意味するものであり、Arroxy がマルウェアであることを示すものではありません。",
   dl_warning_p2:
     "自分で Arroxy を検証する 3 つの方法（厳密さの高い順）：\n\n- **ソースコードを読む。** すべての行は [GitHub](https://github.com/antonio-orionus/Arroxy) にあり、[ソースからビルド](#tech)することもできます。\n- **SHA256 を確認する。** ダウンロードしたファイルを公開済みの [`SHA256SUMS`](../../releases/latest) と照合してください — 下記の[ダウンロードの検証](#verify)を参照。\n- **サードパーティのスキャンを実行する。** [VirusTotal](https://www.virustotal.com) にファイルをアップロード。",
 
@@ -382,7 +382,7 @@ export const ja = {
   privacy_p3:
     "Explore は、ブラウザーとは別に独自のサインインを保持します。Arroxy がどのサインインフォームも読み取ったり入力したりすることはなく、入力するのはそのサイト自身のページです。ダウンロードはサインアウトの状態で実行され、アカウントで解決できる理由で失敗したときだけ、Arroxy はサインイン情報をその都度読み取り、そのダウンロード用の一時ファイルに保存して、終了後にファイルを削除します。設定で Explore をサインアウトすると、サインインは消去されます。",
   faq_q1: "本当に無料ですか？",
-  faq_a1: "はい — MIT ライセンス、プレミアム層なし、機能ゲートなし。",
+  faq_a1: "はい — GPLv3 ライセンス、プレミアム層なし、機能ゲートなし。",
   faq_q11: "Arroxy は他の yt-dlp GUI と何が違いますか？",
   faq_a11:
     "無料の yt-dlp GUI の多くは、リンクを受け取るだけのラッパーです。Arroxy には、YouTube やほかのサイトを開けるアプリ組み込みのブラウザー **Explore** があります。リンクをコピーせずに閲覧しながらダウンロードでき、そこで一度サインインすれば、Cookie をエクスポートすることなく、非公開動画、メンバー限定動画、年齢制限付き動画、「後で見る」や「高く評価した動画」のリストもダウンロードできます。YouTube からボットでないことの確認を求められたときは、Arroxy がそのサインインを使います。また、内蔵ブラウザーが YouTube のダウンロードトークンを取得するので、ダウンロードで使える形式が減ってしまうこともありません。詳しくは[なぜ Arroxy？](#why)をご覧ください。",
@@ -435,10 +435,10 @@ export const ja = {
     "機能のアイデアがありますか？[リクエストを開いてください](../../issues) — コミュニティの意見が優先順位を決めます。",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy を支援する",
-  support_note: "Arroxy は無料で MIT ライセンスです。広告もテレメトリも有料版もありません。時間の節約に役立っているなら、Bitcoin、Tron、または Ethereum で開発を支援できます。アドレスは [DONATE.md](DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。",
+  support_note: "Arroxy は無料で GPLv3 ライセンスです。広告もテレメトリも有料版もありません。時間の節約に役立っているなら、Bitcoin、Tron、または Ethereum で開発を支援できます。アドレスは [DONATE.md](DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。",
   tos_h2: "利用規約",
   tos_note:
     "Arroxy は個人的・私的利用のみを目的としたツールです。ダウンロードが YouTube の[利用規約](https://www.youtube.com/t/terms)およびあなたの法域の著作権法に準拠することはあなた自身の責任です。権利を持たないコンテンツのダウンロード・複製・配布に Arroxy を使用しないでください。開発者は誤用に対して一切の責任を負いません。",
   footer_credit:
-    'MIT ライセンス · <a href="https://x.com/OrionusAI">@OrionusAI</a> が心を込めて制作',
+    'GPLv3 ライセンス · <a href="https://x.com/OrionusAI">@OrionusAI</a> が心を込めて制作',
 };

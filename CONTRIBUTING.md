@@ -161,4 +161,4 @@ For a fresh-Windows-box bootstrap, see `scripts/build/build-windows.ps1`.
 
 ## Licensing
 
-Arroxy is MIT-licensed. By submitting a PR you agree your contribution is licensed under the same terms.
+Arroxy is licensed under the GNU General Public License v3.0 or later (see [`LICENSE`](LICENSE)). By submitting a PR you agree your contribution is licensed under the same terms. The `yt-dlp-bridge` and `ytdlp-errors` packages stay MIT; a contribution to one of them is MIT-licensed. The Arroxy name and logo are covered by [`TRADEMARKS.md`](TRADEMARKS.md).

@@ -11,7 +11,7 @@
 		"theme": "Tema",
 		"styleHint": "Yeni: Aurora veya Minimal'i buradan seçin"
 	},
-	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "MIT Lisansı · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
+	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
 	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},
 	"splash": {
 		"greeting": "Selam, tekrar hoş geldin!",

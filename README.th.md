@@ -7,7 +7,7 @@
 
 **อ่านในภาษา:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **ไทย** · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
-[![รุ่น](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![บิลด์](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![เว็บไซต์](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![สัญญาอนุญาต](https://img.shields.io/badge/license-MIT-green) ![แพลตฟอร์ม](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ภาษา](https://img.shields.io/badge/i18n-31_languages-blue)
+[![รุ่น](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![บิลด์](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![เว็บไซต์](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![สัญญาอนุญาต](https://img.shields.io/badge/license-GPLv3-blue) ![แพลตฟอร์ม](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ภาษา](https://img.shields.io/badge/i18n-31_languages-blue)
 
 ดาวน์โหลดวิดีโอ Shorts เพลง ช่อง พอดแคสต์ หรือแทร็กเสียงจาก **YouTube และเว็บไซต์ที่รองรับกว่า 2000 แห่ง** — สูงสุด 8K HDR ที่ 60 fps เป็น MP3 / AAC / Opus หรือเฉพาะช่วงที่ต้องการ **เรียกดู YouTube หรือเว็บไซต์อื่นใดใน Arroxy** ผ่านแท็บ Explore แล้วดาวน์โหลดวิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ เข้าสู่ระบบที่นั่นเพื่อดาวน์โหลดวิดีโอส่วนตัว วิดีโอเฉพาะสมาชิก และวิดีโอจำกัดอายุที่บัญชีของคุณดูได้ ทำงานภายในเครื่องบน Windows, macOS และ Linux **ไม่มีโฆษณา ไม่มีส่วนเกิน และไม่มีการขายเพิ่ม**
 
@@ -21,7 +21,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
@@ -117,7 +117,7 @@
 <summary><strong>🛡️ ความเป็นส่วนตัวและการควบคุม</strong></summary>
 
 - ประมวลผลภายในเครื่อง 100% — ดาวน์โหลดตรงจาก YouTube ลงดิสก์ของคุณ
-- **โอเพนซอร์ส** — ตรวจสอบโค้ดได้ทุกบรรทัด ภายใต้ MIT License
+- **โอเพนซอร์ส** — ตรวจสอบโค้ดได้ทุกบรรทัด ภายใต้ GPLv3
 - บันทึกไฟล์ตรงไปยังโฟลเดอร์ที่คุณเลือก
 
 </details>
@@ -261,7 +261,7 @@ open /Applications/Arroxy.app
 <details>
 <summary><strong><a id="why-warning"></a>⚠️ เหตุผลที่อาจเห็นคำเตือน</strong></summary>
 
-Arroxy เป็นโอเพนซอร์สภายใต้ MIT License บิลด์ Windows และ macOS **ไม่ได้ลงนามโค้ด** — ใบรับรอง Apple Developer ID และ Windows EV แต่ละอย่างมีค่าใช้จ่ายหลายร้อยดอลลาร์ต่อปี ซึ่งโครงการอิสระต้องออกเอง หากไม่มีลายเซ็น Windows SmartScreen และ macOS Gatekeeper จะเตือนเมื่อเปิดครั้งแรก คำเตือนหมายถึง *ระบบปฏิบัติการไม่รู้จักผู้เผยแพร่* ไม่ได้หมายความว่า Arroxy เป็นมัลแวร์
+Arroxy เป็นโอเพนซอร์สภายใต้ GPLv3 บิลด์ Windows และ macOS **ไม่ได้ลงนามโค้ด** — ใบรับรอง Apple Developer ID และ Windows EV แต่ละอย่างมีค่าใช้จ่ายหลายร้อยดอลลาร์ต่อปี ซึ่งโครงการอิสระต้องออกเอง หากไม่มีลายเซ็น Windows SmartScreen และ macOS Gatekeeper จะเตือนเมื่อเปิดครั้งแรก คำเตือนหมายถึง *ระบบปฏิบัติการไม่รู้จักผู้เผยแพร่* ไม่ได้หมายความว่า Arroxy เป็นมัลแวร์
 
 สามวิธีตรวจสอบ Arroxy ด้วยตนเอง เรียงจากง่ายไปเข้มงวด:
 
@@ -396,7 +396,7 @@ Explore เก็บการเข้าสู่ระบบของตัว
 <details>
 <summary><strong>ฟรีจริงหรือไม่</strong></summary>
 
-ใช่ — MIT License ไม่มีระดับพรีเมียมและไม่ล็อกความสามารถ
+ใช่ — GPLv3 ไม่มีระดับพรีเมียมและไม่ล็อกความสามารถ
 
 </details>
 
@@ -491,7 +491,7 @@ yt-dlp อัปเดตอัตโนมัติเมื่อเปิด�
 
 ## <a id="support"></a>💖 สนับสนุน Arroxy
 
-Arroxy ฟรีและใช้ MIT License — ไม่มีโฆษณา ไม่มีเทเลเมทรี และไม่มีระดับแบบชำระเงิน ถ้าช่วยประหยัดเวลา คุณสนับสนุนการพัฒนาด้วย Bitcoin, Tron หรือ Ethereum ได้ ที่อยู่ระบุไว้ใน [DONATE.md](DONATE.md) ซึ่งเป็นแหล่งทางการเพียงแห่งเดียว Arroxy จะไม่ส่งที่อยู่ให้ทางอีเมลหรือข้อความส่วนตัว การกดดาวให้ repository รายงานบั๊ก และปรับปรุงคำแปลก็ช่วยได้มากเช่นกัน
+Arroxy ฟรีและใช้ GPLv3 — ไม่มีโฆษณา ไม่มีเทเลเมทรี และไม่มีระดับแบบชำระเงิน ถ้าช่วยประหยัดเวลา คุณสนับสนุนการพัฒนาด้วย Bitcoin, Tron หรือ Ethereum ได้ ที่อยู่ระบุไว้ใน [DONATE.md](DONATE.md) ซึ่งเป็นแหล่งทางการเพียงแห่งเดียว Arroxy จะไม่ส่งที่อยู่ให้ทางอีเมลหรือข้อความส่วนตัว การกดดาวให้ repository รายงานบั๊ก และปรับปรุงคำแปลก็ช่วยได้มากเช่นกัน
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
@@ -667,5 +667,5 @@ Arroxy เป็นเครื่องมือสำหรับการใ�
 </a>
 
 <div align="center">
-  <sub>MIT License · สร้างด้วยความใส่ใจโดย <a href="https://x.com/OrionusAI">@OrionusAI</a></sub>
+  <sub>GPLv3 · สร้างด้วยความใส่ใจโดย <a href="https://x.com/OrionusAI">@OrionusAI</a></sub>
 </div>

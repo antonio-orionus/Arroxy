@@ -11,7 +11,7 @@
 		"theme": "Θέμα",
 		"styleHint": "Νέο: επιλέξτε Aurora ή Μινιμαλιστικό εδώ"
 	},
-	"about": {"button": "Σχετικά", "openTitle": "Σχετικά με το Arroxy", "tagline": "Γρήγορο και φιλικό πρόγραμμα λήψης για το YouTube και 2000+ άλλους ιστότοπους.", "websiteLink": "Ιστότοπος", "githubLink": "GitHub", "licenseLine": "Άδεια MIT · από Antonio Orionus", "thirdPartyNotices": "Προβολή ανακοινώσεων τρίτων"},
+	"about": {"button": "Σχετικά", "openTitle": "Σχετικά με το Arroxy", "tagline": "Γρήγορο και φιλικό πρόγραμμα λήψης για το YouTube και 2000+ άλλους ιστότοπους.", "websiteLink": "Ιστότοπος", "githubLink": "GitHub", "licenseLine": "GPLv3 · από Antonio Orionus", "thirdPartyNotices": "Προβολή ανακοινώσεων τρίτων"},
 	"titleBar": {"close": "Κλείσιμο", "minimize": "Ελαχιστοποίηση", "maximize": "Μεγιστοποίηση", "restore": "Επαναφορά"},
 	"splash": {
 		"greeting": "Καλώς ήρθες πάλι!",

@@ -16,8 +16,8 @@ msgid "GitHub"
 msgstr "GitHub"
 
 msgctxt "about.licenseLine"
-msgid "MIT License · by Antonio Orionus"
-msgstr "អាជ្ញាប័ណ្ណ MIT · ដោយ Antonio Orionus"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · ដោយ Antonio Orionus"
 
 msgctxt "about.openTitle"
 msgid "About Arroxy"

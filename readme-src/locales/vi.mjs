@@ -325,7 +325,7 @@ export const vi = {
   dl_linux_arch_note: "**Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.",
   dl_warning_h3: "Tại sao bạn có thể thấy cảnh báo",
   dl_warning_p1:
-    "Arroxy là phần mềm mã nguồn mở theo giấy phép MIT. Các bản build trên Windows và macOS **không được ký mã** — chứng chỉ Apple Developer ID và Windows EV code-signing mỗi loại tốn hàng trăm đô la mỗi năm, một dự án độc lập phải tự chi trả. Không có những chữ ký đó, Windows SmartScreen và macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Các cảnh báo có nghĩa là *hệ điều hành của bạn không nhận ra nhà phát hành* — không có nghĩa là Arroxy là phần mềm độc hại.",
+    "Arroxy là phần mềm mã nguồn mở theo giấy phép GPLv3. Các bản build trên Windows và macOS **không được ký mã** — chứng chỉ Apple Developer ID và Windows EV code-signing mỗi loại tốn hàng trăm đô la mỗi năm, một dự án độc lập phải tự chi trả. Không có những chữ ký đó, Windows SmartScreen và macOS Gatekeeper sẽ cảnh báo khi khởi động lần đầu. Các cảnh báo có nghĩa là *hệ điều hành của bạn không nhận ra nhà phát hành* — không có nghĩa là Arroxy là phần mềm độc hại.",
   dl_warning_p2:
     "Ba cách để tự xác minh Arroxy, theo mức độ nghiêm ngặt tăng dần:\n\n- **Đọc mã nguồn.** Mọi dòng đều có trên [GitHub](https://github.com/antonio-orionus/Arroxy) và bạn có thể [tự build từ nguồn](#tech).\n- **Kiểm tra SHA256.** So sánh file của bạn với [`SHA256SUMS`](../../releases/latest) đã công bố — xem [Xác minh tải xuống](#verify) bên dưới.\n- **Chạy quét của bên thứ ba.** Tải file lên [VirusTotal](https://www.virustotal.com).",
 
@@ -387,7 +387,7 @@ export const vi = {
   privacy_p3:
     "Explore giữ các đăng nhập riêng, tách biệt với trình duyệt của bạn, và Arroxy không bao giờ đọc hay điền biểu mẫu đăng nhập — bạn nhập trực tiếp vào trang của chính trang web đó. Các lượt tải chạy khi chưa đăng nhập; chỉ khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục, Arroxy mới đọc lại thông tin đăng nhập, lưu vào một tệp tạm cho lượt tải đó và xóa tệp sau đó. Đăng xuất khỏi Explore trong Cài đặt sẽ xóa các thông tin này.",
   faq_q1: "Thực sự miễn phí không?",
-  faq_a1: "Có — giấy phép MIT, không có gói cao cấp, không khóa tính năng.",
+  faq_a1: "Có — giấy phép GPLv3, không có gói cao cấp, không khóa tính năng.",
   faq_q11: "Arroxy khác gì so với các GUI yt-dlp khác?",
   faq_a11:
     "Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết. Arroxy bổ sung **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác: bạn vừa duyệt vừa tải mà không cần sao chép liên kết, và chỉ cần đăng nhập ở đó một lần để tải video riêng tư, video dành cho thành viên, video giới hạn độ tuổi cùng danh sách Xem sau và Video đã thích của bạn, không cần xuất cookie. Arroxy dùng đăng nhập đó khi YouTube yêu cầu bạn xác nhận mình không phải robot, và trình duyệt tích hợp của nó lấy token tải xuống của YouTube để các lượt tải không bị giảm xuống còn ít định dạng hơn. Xem [Tại sao chọn Arroxy](#why).",
@@ -440,10 +440,10 @@ export const vi = {
     "Bạn có ý tưởng tính năng? [Mở yêu cầu](../../issues) — ý kiến cộng đồng định hình thứ tự ưu tiên.",
   tech_content: TECH_CONTENT,
   support_h2: "Ủng hộ Arroxy",
-  support_note: "Arroxy miễn phí và có giấy phép MIT — không quảng cáo, không telemetry, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin, Tron hoặc Ethereum: địa chỉ nằm trong [DONATE.md](DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.",
+  support_note: "Arroxy miễn phí và có giấy phép GPLv3 — không quảng cáo, không telemetry, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin, Tron hoặc Ethereum: địa chỉ nằm trong [DONATE.md](DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.",
   tos_h2: "Điều khoản sử dụng",
   tos_note:
     "Arroxy là công cụ chỉ dành cho mục đích sử dụng cá nhân, riêng tư. Bạn hoàn toàn chịu trách nhiệm đảm bảo các tải xuống của mình tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại khu vực pháp lý của bạn. Không sử dụng Arroxy để tải xuống, sao chép hoặc phân phối nội dung mà bạn không có quyền sử dụng. Các nhà phát triển không chịu trách nhiệm về bất kỳ hành vi lạm dụng nào.",
   footer_credit:
-    'Giấy phép MIT · Được tạo ra với tâm huyết bởi <a href="https://x.com/OrionusAI">@OrionusAI</a>',
+    'Giấy phép GPLv3 · Được tạo ra với tâm huyết bởi <a href="https://x.com/OrionusAI">@OrionusAI</a>',
 };

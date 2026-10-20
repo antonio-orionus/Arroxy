@@ -3,7 +3,7 @@
 	"version": "0.7.0",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
-	"license": "MIT",
+	"license": "GPL-3.0-or-later",
 	"author": {
 		"name": "Antonio Orionus",
 		"email": "orionusAI@proton.me",

@@ -11,15 +11,7 @@
 		"theme": "Тема",
 		"styleHint": "Нове: оберіть Aurora або Мінімалістичний тут"
 	},
-	"about": {
-		"button": "Про програму",
-		"openTitle": "Про програму Arroxy",
-		"tagline": "Швидкий і зручний завантажувач для YouTube та ще 2000+ сайтів.",
-		"websiteLink": "Сайт",
-		"githubLink": "GitHub",
-		"licenseLine": "Ліцензія MIT · by Antonio Orionus",
-		"thirdPartyNotices": "Переглянути повідомлення про сторонні компоненти"
-	},
+	"about": {"button": "Про програму", "openTitle": "Про програму Arroxy", "tagline": "Швидкий і зручний завантажувач для YouTube та ще 2000+ сайтів.", "websiteLink": "Сайт", "githubLink": "GitHub", "licenseLine": "GPLv3 · автор: Antonio Orionus", "thirdPartyNotices": "Переглянути повідомлення про сторонні компоненти"},
 	"titleBar": {"close": "Закрити", "minimize": "Згорнути", "maximize": "Розгорнути", "restore": "Відновити"},
 	"splash": {
 		"greeting": "Привіт, з поверненням!",

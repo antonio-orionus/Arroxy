@@ -11,7 +11,7 @@
 		"theme": "Tiimii",
 		"styleHint": "Haaraa: As irratti Aurora yookaan Salphaa filadhu"
 	},
-	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
+	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus tiin hojjetame", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
 	"splash": {
 		"greeting": "Baga nagaan deebitee!",

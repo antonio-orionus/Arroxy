@@ -164,7 +164,7 @@ export const en = {
   feat_privacy_h3: "Privacy & control",
   feat_privacy_1:
     "100% local processing — downloads go straight from YouTube to your disk",
-  feat_privacy_2: "**Open source** — every line auditable, MIT licensed",
+  feat_privacy_2: "**Open source** — every line auditable, GPLv3 licensed",
   feat_privacy_3: "Files saved straight to the folder you choose",
   feat_workflow_h3: "Workflow",
   feat_workflow_12:
@@ -322,7 +322,7 @@ export const en = {
   dl_linux_arch_note: "**The Linux downloads on the release page are x86_64 only.** On ARM64 machines (Raspberry Pi, Asahi Linux) the Flatpak still installs, then fails at launch with `bwrap: execvp ldconfig: Exec format error`.",
   dl_warning_h3: "Why you may see a warning",
   dl_warning_p1:
-    "Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.",
+    "Arroxy is open-source and GPLv3-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.",
   dl_warning_p2:
     "Three ways to verify Arroxy yourself, in increasing rigor:\n\n- **Read the source.** Every line is on [GitHub](https://github.com/antonio-orionus/Arroxy) and you can [build it from source](#tech).\n- **Check the SHA256.** Match your file against the published [`SHA256SUMS`](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) — see [Verify your download](#verify) below.\n- **Run a third-party scan.** Upload the file to [VirusTotal](https://www.virustotal.com).",
 
@@ -386,7 +386,7 @@ export const en = {
   privacy_p3:
     "Explore keeps its own sign-ins, separate from your browser, and Arroxy never reads or fills in a sign-in form — you type into the site's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets them.",
   faq_q1: "Is it really free?",
-  faq_a1: "Yes — MIT licensed, no premium tier, no feature gating.",
+  faq_a1: "Yes — GPLv3 licensed, no premium tier, no feature gating.",
   faq_q11: "How is Arroxy different from other yt-dlp GUIs?",
   faq_a11:
     "Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).",
@@ -439,10 +439,10 @@ export const en = {
     "Have a feature in mind? [Open a request](../../issues) — community input shapes priority.",
   tech_content: TECH_CONTENT,
   support_h2: "Support Arroxy",
-  support_note: "Arroxy is free and MIT-licensed — no ads, no telemetry, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.",
+  support_note: "Arroxy is free and GPLv3-licensed — no ads, no telemetry, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.",
   tos_h2: "Terms of use",
   tos_note:
     "Arroxy is a tool for personal, private use only. You are solely responsible for ensuring your downloads comply with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and the copyright laws of your jurisdiction. Do not use Arroxy to download, reproduce, or distribute content you do not have the right to use. The developers are not liable for any misuse.",
   footer_credit:
-    'MIT License · Made with care by <a href="https://x.com/OrionusAI">@OrionusAI</a>',
+    'GPLv3 · Made with care by <a href="https://x.com/OrionusAI">@OrionusAI</a>',
 };

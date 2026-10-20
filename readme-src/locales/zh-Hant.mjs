@@ -297,7 +297,7 @@ export const zhHant = {
   dl_linux_arch_note: "**釋出頁面上的 Linux 下載僅提供 x86_64。** 在 ARM64 裝置（樹莓派、Asahi Linux）上 Flatpak 可以安裝，但啟動時會失敗並報 `bwrap: execvp ldconfig: Exec format error`。",
   dl_warning_h3: "為什麼可能會看到警告",
   dl_warning_p1:
-    "Arroxy 是開源軟體，採用 MIT 授權條款。Windows 和 macOS 版本**未經程式碼簽名** — Apple Developer ID 和 Windows EV 程式碼簽名憑證每年各需數百美元，對於獨立專案來說完全自掏腰包。沒有這些簽名，Windows SmartScreen 和 macOS Gatekeeper 在首次啟動時會向你發出警告。這些警告的意思是*你的系統不認識該釋出者* — 並不意味著 Arroxy 是惡意軟體。",
+    "Arroxy 是開源軟體，採用 GPLv3 授權條款。Windows 和 macOS 版本**未經程式碼簽名** — Apple Developer ID 和 Windows EV 程式碼簽名憑證每年各需數百美元，對於獨立專案來說完全自掏腰包。沒有這些簽名，Windows SmartScreen 和 macOS Gatekeeper 在首次啟動時會向你發出警告。這些警告的意思是*你的系統不認識該釋出者* — 並不意味著 Arroxy 是惡意軟體。",
   dl_warning_p2:
     "三種自行驗證 Arroxy 的方式，按嚴格程度遞增：\n\n- **查看原始碼。** 每一行都在 [GitHub](https://github.com/antonio-orionus/Arroxy) 上，你也可以[從原始碼建置](#tech)。\n- **驗證 SHA256。** 將你的檔案與釋出的 [`SHA256SUMS`](../../releases/latest) 對比 — 見下方[驗證你的下載](#verify)。\n- **執行第三方掃描。** 將檔案上傳至 [VirusTotal](https://www.virustotal.com)。",
 
@@ -358,7 +358,7 @@ export const zhHant = {
   privacy_p3:
     "Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀取或填寫登入表單 — 你是在 該網站自己的頁面上輸入。下載在未登入狀態下進行；只有在下載因帳號可解決的原因失敗時，Arroxy 才會重新讀取該登入，把它放進僅供該次下載使用的暫存檔，並在之後刪除該檔案。在設定中登出 Explore 即可清除這些登入。",
   faq_q1: "真的免費嗎？",
-  faq_a1: "是的 — MIT 授權條款，無付費版，無功能限制。",
+  faq_a1: "是的 — GPLv3 授權條款，無付費版，無功能限制。",
   faq_q11: "Arroxy 和其他 yt-dlp 圖形介面有什麼不同？",
   faq_a11:
     "多數免費的 yt-dlp 圖形介面只是接收連結的包裝程式。Arroxy 加入了 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站：你可以邊瀏覽邊下載，不必複製連結；只要在其中登入一次，就能下載私人、會員專屬與年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單，完全不必匯出 Cookie。當 YouTube 要求你確認自己不是機器人時，Arroxy 會使用這個登入；它的內建瀏覽器也會取得 YouTube 的下載權杖，讓下載不會退回到較少的格式。請參閱[為什麼選 Arroxy](#why)。",
@@ -408,10 +408,10 @@ export const zhHant = {
   plan_cta: "有想法？[提交請求](../../issues) — 社羣意見決定優先順序。",
   tech_content: TECH_CONTENT,
   support_h2: "支援 Arroxy",
-  support_note: "Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有遙測、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin、Tron 或 Ethereum 支援它的開發：地址見 [DONATE.md](DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。",
+  support_note: "Arroxy 完全免費並採用 GPLv3 授權條款 —— 沒有廣告、沒有遙測、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin、Tron 或 Ethereum 支援它的開發：地址見 [DONATE.md](DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。",
   tos_h2: "使用條款",
   tos_note:
     "Arroxy 僅供個人私人使用。你需要自行確保下載行為符合 YouTube 的[服務條款](https://www.youtube.com/t/terms)及你所在地區的版權法律。請勿使用 Arroxy 下載、複製或分發你不享有權利的內容。開發者對任何濫用行為不承擔責任。",
   footer_credit:
-    'MIT 授權條款 · 由 <a href="https://x.com/OrionusAI">@OrionusAI</a> 用心打造',
+    'GPLv3 授權條款 · 由 <a href="https://x.com/OrionusAI">@OrionusAI</a> 用心打造',
 };

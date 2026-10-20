@@ -11,7 +11,7 @@
 		"theme": "테마",
 		"styleHint": "새 기능: 여기서 오로라 또는 미니멀을 선택하세요"
 	},
-	"about": {"button": "정보", "openTitle": "Arroxy 정보", "tagline": "YouTube 및 2000개 이상의 사이트를 위한 빠르고 편리한 다운로더입니다.", "websiteLink": "웹사이트", "githubLink": "GitHub", "licenseLine": "MIT 라이선스 · Antonio Orionus 제작", "thirdPartyNotices": "타사 고지 사항 보기"},
+	"about": {"button": "정보", "openTitle": "Arroxy 정보", "tagline": "YouTube 및 2000개 이상의 사이트를 위한 빠르고 편리한 다운로더입니다.", "websiteLink": "웹사이트", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus 제작", "thirdPartyNotices": "타사 고지 사항 보기"},
 	"titleBar": {"close": "닫기", "minimize": "최소화", "maximize": "최대화", "restore": "복원"},
 	"splash": {
 		"greeting": "다시 오신 것을 환영합니다!",

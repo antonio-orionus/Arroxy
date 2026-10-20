@@ -11,7 +11,7 @@
 		"theme": "Giao diện",
 		"styleHint": "Mới: chọn Aurora hoặc Tối giản tại đây"
 	},
-	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
+	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "GPLv3 · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
 	"titleBar": {"close": "Đóng", "minimize": "Thu nhỏ", "maximize": "Phóng to", "restore": "Khôi phục"},
 	"splash": {
 		"greeting": "Xin chào, chào mừng bạn quay lại!",

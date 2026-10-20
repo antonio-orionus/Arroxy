@@ -11,7 +11,7 @@
 		"theme": "ธีม",
 		"styleHint": "ใหม่: เลือก Aurora หรือ มินิมอล ได้ที่นี่"
 	},
-	"about": {"button": "เกี่ยวกับ", "openTitle": "เกี่ยวกับ Arroxy", "tagline": "เครื่องมือดาวน์โหลดที่รวดเร็วและใช้งานง่ายสำหรับ YouTube และเว็บไซต์อื่นกว่า 2000 แห่ง", "websiteLink": "เว็บไซต์", "githubLink": "GitHub", "licenseLine": "สัญญาอนุญาต MIT · โดย Antonio Orionus", "thirdPartyNotices": "ดูประกาศของบุคคลที่สาม"},
+	"about": {"button": "เกี่ยวกับ", "openTitle": "เกี่ยวกับ Arroxy", "tagline": "เครื่องมือดาวน์โหลดที่รวดเร็วและใช้งานง่ายสำหรับ YouTube และเว็บไซต์อื่นกว่า 2000 แห่ง", "websiteLink": "เว็บไซต์", "githubLink": "GitHub", "licenseLine": "GPLv3 · โดย Antonio Orionus", "thirdPartyNotices": "ดูประกาศของบุคคลที่สาม"},
 	"titleBar": {"close": "ปิด", "minimize": "ย่อเล็กสุด", "maximize": "ขยายใหญ่สุด", "restore": "คืนค่า"},
 	"splash": {
 		"greeting": "ยินดีต้อนรับกลับมา!",

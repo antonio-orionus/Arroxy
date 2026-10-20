@@ -11,7 +11,7 @@
 		"theme": "Theme",
 		"styleHint": "New: choose Aurora or Minimal here"
 	},
-	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
+	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "GPLv3 · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
 	"splash": {
 		"greeting": "Hey, welcome back!",

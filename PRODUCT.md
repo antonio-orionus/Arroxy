@@ -14,7 +14,7 @@ People who want video, audio, music, playlists, channels, podcasts, or subtitles
 
 ## Product Purpose
 
-Arroxy is a free, MIT-licensed desktop GUI around `yt-dlp` + `ffmpeg`. It makes the most capable downloader available usable by people who would never touch a shell, without dumbing it down for those who would. Success: a first-time user pastes a link and gets a correct file with zero configuration; a returning user pulls with their saved profile in one action, or from any app via the global hotkey; a power user reaches every format, audio, subtitle, and playlist control without fighting the UI. Everything runs on the user's machine. The marketing site lives in a separate repo (`arroxy-web`); this product is the app.
+Arroxy is a free, GPLv3-licensed desktop GUI around `yt-dlp` + `ffmpeg`. It makes the most capable downloader available usable by people who would never touch a shell, without dumbing it down for those who would. Success: a first-time user pastes a link and gets a correct file with zero configuration; a returning user pulls with their saved profile in one action, or from any app via the global hotkey; a power user reaches every format, audio, subtitle, and playlist control without fighting the UI. Everything runs on the user's machine. The marketing site lives in a separate repo (`arroxy-web`); this product is the app.
 
 ## Positioning
 
@@ -56,7 +56,7 @@ The one free, open-source, local-only downloader that is friendly enough for a n
 
 - Product screenshots in `build/` (`Main-screenshot.png`, `Download-profiles-screenshot.png`, `Per-item-playlist-profiles-screenshot.png`, `Global-hotkey.png` / `Global-hotkey-dark.png`, `Bulk-urls-mode-screenshot.png`, `Downloading-in-parallel-screenshot.png`, `Subtitles-screenshot.png`, `Multi-lang-audio-support-screenshot.png`, `Dolby-audio-support-screenshot.png`, and others).
 - The README's "Why Arroxy" comparison against 4K Video Downloader, JDownloader, online converters, and browser extensions (sourced from `readme-src/`).
-- A public Discord community; MIT license; published `SHA256SUMS` and GitHub immutable releases.
+- A public Discord community; GPLv3 license; published `SHA256SUMS` and GitHub immutable releases.
 - **Absent, do not fabricate:** testimonials, user counts, download counts, star counts, press quotes, or benchmarks.
 
 ## Product Principles

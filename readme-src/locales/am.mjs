@@ -308,7 +308,7 @@ export const am = {
   dl_linux_arch_note: "**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።",
   dl_warning_h3: "ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ",
   dl_warning_p1:
-    "Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።",
+    "Arroxy ምን ኮድ ያለው (open-source) እና GPLv3 ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።",
   dl_warning_p2:
     "Arroxy ን ራስዎ ለማረጋገጥ ሦስት መንገዶች፣ ከፍ እያለ በሚሄድ ጥብቅነት:\n\n- **ምንጩን ያንብቡ።** ሁሉም መስመሮች [GitHub](https://github.com/antonio-orionus/Arroxy) ላይ ናቸው፣ እናም [ከምንጩ ሊሠሩ](#tech) ይችላሉ።\n- **SHA256ን ያረጋግጡ።** ፋይልዎን ከታተሙት [`SHA256SUMS`](../../releases/latest) ጋር ያዛምዱ — ከዚህ በታች [ማውረዱን ያረጋግጡ](#verify) ይመልከቱ።\n- **የሦስተኛ ወገን ቅኝት ያካሂዱ።** ፋይሉን ወደ [VirusTotal](https://www.virustotal.com) ይጫኑ።",
 
@@ -370,7 +370,7 @@ export const am = {
   privacy_p3:
     "Explore ከbrowserዎ የተለየ የራሱን መግቢያዎች ይይዛል፣ እና Arroxy ማንኛውንም የመግቢያ ቅጽ ፈጽሞ አያነብም ወይም አይሞላም — እርስዎ በጣቢያው የራሱ ገጽ ላይ ይተይባሉ። ማውረዶች ሳይገቡ ይሠራሉ፤ ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ Arroxy መግቢያውን እንደገና ያነባል፣ ለዚያ ማውረድ በጊዜያዊ ፋይል ውስጥ ያቆየዋል፣ እና በኋላ ፋይሉን ይሰርዛል። በSettings ውስጥ ከExplore መውጣት ይረሳቸዋል።",
   faq_q1: "በርግጥ ነፃ ነው?",
-  faq_a1: "አዎ — MIT ፈቃድ አለው፣ ምንም ፕሪሚየም ደረጃ፣ ምንም ባህሪ ቁጥጥር የለም።",
+  faq_a1: "አዎ — GPLv3 ፈቃድ አለው፣ ምንም ፕሪሚየም ደረጃ፣ ምንም ባህሪ ቁጥጥር የለም።",
   faq_q11: "Arroxy ከሌሎች የyt-dlp GUIዎች በምን ይለያል?",
   faq_a11:
     "አብዛኞቹ ነፃ የyt-dlp GUIዎች ሊንክ ብቻ የሚቀበሉ መጠቅለያዎች ናቸው። Arroxy **Explore**ን ይጨምራል፣ በአፑ ውስጥ አብሮ የተሠራ፣ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ የሚከፍት browser: ሊንክ ሳይገለብጡ ያስሳሉ እና ያወርዳሉ፣ እንዲሁም የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎችን እና የWatch Later እና Liked ዝርዝሮችዎን ለማውረድ እዚያ አንድ ጊዜ ይገባሉ፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ Arroxy ያንን መግቢያ ይጠቀማል፣ አብሮ የተሠራው browser ደግሞ ማውረዶች ወደ ያነሱ ቅርጸቶች እንዳይወርዱ የYouTube የማውረጃ ቶከን ያገኛል። [ለምን Arroxy](#why) ይመልከቱ።",
@@ -421,10 +421,10 @@ export const am = {
   plan_cta: "ባህሪ ሀሳብ አለዎ? [ጥያቄ ይክፈቱ](../../issues) — ማህበረሰቡ አስተዋጽኦ ቅድሚያ ይወስናሉ።",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy ይደግፉ",
-  support_note: "Arroxy ነፃ ነው እና በMIT ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ ቴሌሜትሪ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin፣ በTron ወይም በEthereum መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።",
+  support_note: "Arroxy ነፃ ነው እና በGPLv3 ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ ቴሌሜትሪ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin፣ በTron ወይም በEthereum መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።",
   tos_h2: "የአጠቃቀም ደንቦች",
   tos_note:
     "Arroxy ለግል፣ ሚስጥራዊ አጠቃቀም ብቻ ሶፍትዌር ነው። ማውረዶቹ የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ሙሉ ኃላፊነትዎ ነው። Arroxy ን ለማውረድ፣ ለማባዛት ወይም ሊጠቀሙበት የማይፈቅዱ ይዘቶችን ለማሰራጨት አይጠቀሙ። ገንቢዎቹ ለምን ዓይነት አላግባብ አጠቃቀም ኃላፊነት አይወስዱም።",
   footer_credit:
-    'MIT License · Made with care by <a href="https://x.com/OrionusAI">@OrionusAI</a>',
+    'GPLv3 · Made with care by <a href="https://x.com/OrionusAI">@OrionusAI</a>',
 };
