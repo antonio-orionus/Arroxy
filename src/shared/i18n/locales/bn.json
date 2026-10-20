@@ -62,7 +62,6 @@
 			"assignTrigger_other": "{{count}}টি ভিডিওতে নির্ধারণ করুন",
 			"menuDescription_one": "এই ভিডিওর জন্য প্রোফাইল বেছে নিন।",
 			"menuDescription_other": "এই {{count}}টি ভিডিওর জন্য প্রোফাইল বেছে নিন।",
-			"assignAria": "{{profileName}} নির্ধারণ করুন",
 			"editProfile": "{{name}} সম্পাদনা করুন",
 			"filtersLabel": "প্রোফাইল ফিল্টার",
 			"filterChip": "{{name}} · {{count}}",

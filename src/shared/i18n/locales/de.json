@@ -91,7 +91,6 @@
 			"assignTrigger_other": "{{count}} Videos zuweisen",
 			"menuDescription_one": "Wählen Sie das Profil für dieses Video.",
 			"menuDescription_other": "Wählen Sie das Profil für diese {{count}} Videos.",
-			"assignAria": "{{profileName}} zuweisen",
 			"editProfile": "{{name}} bearbeiten",
 			"filtersLabel": "Profilfilter",
 			"filterChip": "{{name}} · {{count}}",
