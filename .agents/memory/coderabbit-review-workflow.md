@@ -44,7 +44,12 @@ the `land` skill) has already checked every PR before it opens.
   with auto reviews off (PR #220 merged-ready with its fix commit unreviewed).
   Two per PR is the ceiling.
 - A refused trigger ("rate limited") is never retried by the bot; re-trigger
-  after the window.
+  after the window the refusal names ("Next included review available in N
+  minutes").
+- **The first reply can flip.** On PR #386 (2026-10-20) the trigger reply read
+  "Review triggered", then edited itself to "Action not completed — Review rate
+  limited" seconds later. Wait ~30 s before reading it, and treat the review as
+  accepted only once no refusal follows.
 
 ## Reading the outcome
 
