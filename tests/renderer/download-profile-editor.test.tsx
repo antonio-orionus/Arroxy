@@ -4,7 +4,7 @@ import {describe, expect, it, vi} from 'vite-plus/test'
 import {DownloadProfileEditor} from '@renderer/components/wizard/DownloadProfileEditor.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
-import {ok} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import {i18next} from '@shared/i18n/index.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {expectHint} from '../shared/hint.js'
@@ -506,6 +506,30 @@ describe('DownloadProfileEditor', () => {
 			expect(await screen.findByText('Could not open folder picker. Enter a path manually.')).toBeInTheDocument()
 			fireEvent.change(screen.getByLabelText('Profile override path'), {target: {value: 'D:\\Videos'}})
 			expect(screen.queryByText('Could not open folder picker. Enter a path manually.')).not.toBeInTheDocument()
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
+
+	it('shows the folder picker error when the dialog reports a failure, and stays quiet on cancel', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const api = buildMockAppApi()
+		vi.mocked(api.dialog.chooseFolder)
+			.mockResolvedValueOnce(ok({path: null}))
+			.mockResolvedValueOnce(fail({code: 'unknown', message: 'dialog unavailable'}))
+		window.appApi = api
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+
+		try {
+			render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+			fireEvent.click(screen.getByRole('button', {name: 'Set profile override'}))
+			await waitFor(() => expect(api.dialog.chooseFolder).toHaveBeenCalledTimes(1))
+			expect(screen.queryByText('Could not open folder picker. Enter a path manually.')).not.toBeInTheDocument()
+
+			fireEvent.click(screen.getByRole('button', {name: 'Choose destination folder'}))
+			expect(await screen.findByText('Could not open folder picker. Enter a path manually.')).toBeInTheDocument()
 		} finally {
 			consoleError.mockRestore()
 		}
