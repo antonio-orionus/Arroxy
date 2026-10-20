@@ -84,7 +84,8 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 	const columnClass = columnClassName ?? ((): undefined => undefined)
 	return (
 		<div ref={scrollRef} className={cn('min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25', scrollClassName)} data-testid={scrollTestId}>
-			<Table className="w-full table-fixed">
+			{/* The default container scrolls on x, which makes it the nearest scrollport of the sticky header; letting it overflow pins the header to the scroll box above. */}
+			<Table className="w-full table-fixed" containerClassName="overflow-visible">
 				<TableHeader className="sticky top-0 z-10 bg-card/95">
 					{table.getHeaderGroups().map(headerGroup =>
 						renderHeaderRow ? (
