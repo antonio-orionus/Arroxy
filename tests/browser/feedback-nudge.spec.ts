@@ -46,3 +46,20 @@ test('visual screenshot — nudge above Feedback button', async ({page}) => {
 
 	await expect(page.getByTestId('feedback-nudge')).toBeVisible()
 })
+
+test('hovering Feedback while the nudge is up opens no hint over it', async ({page}) => {
+	await page.waitForSelector('[data-testid="feedback-nudge"]', {timeout: 2_000})
+	// The nudging button moves, so a hint could open and close again under the
+	// pointer: record every hover hint that appears, not just the last state.
+	await page.evaluate(() => {
+		const seen: string[] = []
+		;(window as unknown as {__hintsSeen: string[]}).__hintsSeen = seen
+		new MutationObserver(() => {
+			for (const tip of document.querySelectorAll('[data-slot="tooltip-content"]:not([data-testid="style-hint"])')) seen.push(tip.textContent ?? '')
+		}).observe(document.body, {childList: true, subtree: true})
+	})
+	await page.getByTestId('btn-feedback').hover()
+	await page.waitForTimeout(800)
+	expect(await page.evaluate(() => (window as unknown as {__hintsSeen: string[]}).__hintsSeen)).toEqual([])
+	await expect(page.getByTestId('feedback-nudge')).toBeVisible()
+})

@@ -283,7 +283,8 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 				</Hint>
 				<div className="relative inline-flex h-6 items-center">
 					<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
-					<Hint label={t('app.feedback')}>
+					{/* No hint while the nudge is up: it would open over the nudge's message. */}
+					<Hint label={showNudge ? '' : t('app.feedback')}>
 						<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')} onClick={onFeedback} aria-label={t('app.feedback')} data-testid="btn-feedback">
 							<MessageCircle data-icon="inline-start" aria-hidden />
 							<span className={footerLabelClass} data-testid="btn-feedback-label">
