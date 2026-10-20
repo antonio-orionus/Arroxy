@@ -29,7 +29,7 @@ async function formatBox(page: Page): Promise<FormatBox | null> {
 test('in Audio mode the list grows with its streams instead of scrolling inside a box', async ({page}) => {
 	await page.setViewportSize({width: 1024, height: 860})
 	await openFormats(page, 'single-normal')
-	await page.getByRole('button', {name: 'Audio', exact: true}).click()
+	await page.getByRole('button', {name: 'Audio only', exact: true}).click()
 
 	const box = await formatBox(page)
 	expect(box).not.toBeNull()

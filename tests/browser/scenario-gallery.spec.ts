@@ -143,9 +143,10 @@ test('audio track quality scenarios render quality bars, languages and channel l
 	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
 })
 
-test('mockStep opens screen presets directly to confirm', async ({page}) => {
+// A single video's last step is Review; a playlist's is Confirm.
+test('mockStep opens screen presets directly to their last step', async ({page}) => {
 	await openWithParams(page, 'scenario=single-normal&mockStep=confirm')
-	await expect(page.getByTestId('step-confirm')).toBeVisible({timeout: 6_000})
+	await expect(page.getByTestId('step-review')).toBeVisible({timeout: 6_000})
 
 	await openWithParams(page, 'scenario=playlist-normal&mockStep=confirm')
 	await expect(page.getByTestId('step-confirm')).toBeVisible({timeout: 6_000})

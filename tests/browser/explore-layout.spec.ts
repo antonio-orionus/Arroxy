@@ -9,6 +9,9 @@ import type {Page} from '@playwright/test'
 
 const ZOOM_LEVELS = [1, 1.25, 1.5] as const
 const ZOOM_STEP = 0.05
+// Hover tooltips only: the footer's one-time style hint opens on its own a
+// moment after startup and stays up for a while, over any screen.
+const HOVER_TOOLTIP = '[data-slot="tooltip-content"]:not([data-testid="style-hint"])'
 
 interface Rect {
 	x: number
@@ -91,7 +94,7 @@ for (const [id, adBlock] of [
 		await expect(shield).toHaveAttribute('data-adblock', adBlock, {timeout: 15_000})
 		await expect(shield).toHaveAttribute('aria-pressed', String(adBlock !== 'off'))
 		await shield.hover()
-		await expect(page.locator('[data-slot="tooltip-content"]')).toContainText('YouTube may push back on ad blockers')
+		await expect(page.locator(HOVER_TOOLTIP)).toContainText('YouTube may push back on ad blockers')
 	})
 }
 
@@ -174,7 +177,7 @@ for (const [width, zoom] of [
 
 		for (const target of [page.getByTestId('explore-adblock'), page.getByTestId('explore-toolbar').getByRole('button', {name: 'Forward', exact: true}), page.getByTestId('explore-download'), page.getByTestId('explore-interactive')]) {
 			await target.hover()
-			const tip = page.locator('[data-slot="tooltip-content"]')
+			const tip = page.locator(HOVER_TOOLTIP)
 			await expect(tip).toBeVisible()
 			await expect(tip).toHaveAttribute('data-side', 'top')
 			// The popup slides in; measure once it has settled above its button.

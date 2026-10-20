@@ -431,7 +431,8 @@ for (const viewport of VIEWPORTS) {
 				const label = await download.textContent()
 				expect(label).not.toBeNull()
 				await download.hover()
-				const tip = page.locator('[data-slot="tooltip-content"]')
+				// Not the footer's one-time style hint, which opens on its own after startup.
+				const tip = page.locator('[data-slot="tooltip-content"]:not([data-testid="style-hint"])')
 				await expect(tip).toHaveText(label ?? '')
 				await expect(tip).toHaveAttribute('data-side', 'top')
 				const [box, inner] = [await tip.boundingBox(), await page.evaluate(() => ({width: window.innerWidth}))]
