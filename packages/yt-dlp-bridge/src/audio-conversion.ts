@@ -44,3 +44,26 @@ export function audioCodecPreference(acodec: string | undefined): number {
 	const index = ACODEC_ORDER.findIndex(pattern => pattern !== null && pattern !== '' && new RegExp(`^(?:${pattern})`).test(codec))
 	return length - (index === -1 ? ACODEC_ORDER.indexOf('') : index)
 }
+
+const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
+// Dolby surround makes a poor conversion source: libopus refuses its 5.1(side)
+// layout outright, and the other lossy targets downmix it. A stream with no
+// codec named passes.
+const NON_DOLBY_AUDIO_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
+// Strict: `~=?` would also take a stream with no note at all as the original.
+const SOURCE_TRACK_AUDIO_FILTERS = ['[language_preference>0]', "[format_note~='(?i)\\boriginal\\b']", '']
+
+// The stream to convert, most wanted first: the source's own track before any
+// other; within it the non-DRC master before the DRC one, a stream that is
+// copied as-is before one that is re-encoded, and every stereo stream (DRC
+// ones too) before Dolby surround.
+// The `-f` the planner gives a conversion that names no stream (a caller's
+// stream goes ahead of it). Exported so a caller can run it through its own
+// copy of yt-dlp's selection and know which stream converts.
+export function audioConversionSourceSelector(target: string): string {
+	// A stream already in the target codec is copied, not re-encoded a second time.
+	const codecFilter = audioConversionCopyFilter(target)
+	const stereoFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER]
+	const streamFilters = [...[NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => stereoFilters.map(filter => `${filter}${drcFilter}`)), NON_DRC_AUDIO_FILTERS, '']
+	return [...SOURCE_TRACK_AUDIO_FILTERS.flatMap(trackFilter => streamFilters.map(filters => `bestaudio${trackFilter}${filters}`)), 'best'].join('/')
+}

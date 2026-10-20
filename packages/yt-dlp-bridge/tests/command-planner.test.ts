@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_DOWNLOAD_RETRY_POLICY, DEFAULT_SOCKET_TIMEOUT_SECONDS, EMBED_SUBTITLE_CONTAINER_EXT, INFO_JSON_DOWNLOAD_RETRY_POLICY, planWorkflow, type WorkflowInput} from '../src/index.js'
 import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'
+import {audioConversionSourceSelector as bridgeConversionSelector} from '../src/audio-conversion.js'
 import {audioConversionSourceSelector} from '../../../tests/shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
@@ -164,6 +165,10 @@ describe('planWorkflow — media', () => {
 		// site that writes none would count as the original track.
 		it('takes only a stream whose note says original as the original track', () => {
 			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).not.toContain('format_note~=?')
+		})
+
+		it('is the exported audioConversionSourceSelector, so a caller can run the same selection', () => {
+			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).toBe(bridgeConversionSelector(target))
 		})
 
 		it("puts the caller's stream ahead of the chain", () => {

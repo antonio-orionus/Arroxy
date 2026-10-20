@@ -57,7 +57,7 @@ Requires Node.js >= 22.13 and ESM.
 - `parseYtDlpOutputLine` emits two new event kinds: `download-progress` (`status`, `formatId`, `downloadedBytes`, `totalBytes`, `totalBytesEstimate`, `speedBps`, `etaSeconds`, `elapsedSeconds`, `fragmentIndex`, `fragmentCount`) and `requested-formats` (the streams yt-dlp is about to download, in order, with `filesize` / `filesizeApprox`). Exhaustive `switch` statements over `YtDlpOutputEvent` need the two new cases.
 - New `YtDlpDownloadProgressTracker` turns those events into one percent over every stream of a video, so the audio download after the video counts instead of restarting at 0%. It also estimates the time left over all remaining streams.
 - An audio conversion now converts a stream already in the target codec when the source has one (AAC 140 for m4a on YouTube, Opus 251 for opus). yt-dlp copies such a stream instead of re-encoding it, so there is no second lossy pass; `--audio-quality` does not apply to it. A stream below 96 kbps (`AUDIO_CONVERSION_COPY_MIN_KBPS`) is not worth copying: the best stream is re-encoded instead. Each tier of the source chain (the source's track, then any) tries non-DRC before DRC, and every stereo stream before Dolby surround, which libopus cannot take. The "original" track filter no longer matches a stream with no `format_note`.
-- New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, and `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, and `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does.
+- New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, and `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does, and `audioConversionSourceSelector(target)` is the `-f` the planner gives a conversion that names no stream.
 
 ## What changed in 0.5.0
 
@@ -307,7 +307,7 @@ Prefer the root export for workflow planning and subpaths for lower-level utilit
 | --- | --- |
 | Workflow planning | `planWorkflow`, workflow input/plan/fact types |
 | Schemas | `WorkflowInspectInputSchema`, `WorkflowDownloadInputSchema`, `WorkflowExecutionInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`, `WorkflowInputSchema`, `ValidateWorkflowInputSchema` |
-| Audio conversion | `audioConversionCopies`, `audioConversionCopyFilter`, `audioCodecPreference` from `yt-dlp-bridge/audio-conversion` |
+| Audio conversion | `audioConversionCopies`, `audioConversionCopyFilter`, `audioCodecPreference`, `audioConversionSourceSelector`, `AUDIO_CONVERSION_COPY_MIN_KBPS` from `yt-dlp-bridge/audio-conversion` |
 | Config | `loadConfig` from `yt-dlp-bridge/config` |
 | Environment | `checkEnvironment` from `yt-dlp-bridge/environment` |
 | Filesystem policy | `resolveOutputPolicy`, `resolveManagedPath`, `ensureWithinRoot`, `isPathInside`, `isPathInsideWith`, `hasParentTraversal`, `ensureDirectory`, `readArchive` from `yt-dlp-bridge/filesystem` |
