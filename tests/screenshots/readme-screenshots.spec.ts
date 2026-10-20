@@ -202,13 +202,31 @@ async function spotlight(page: Page, selectors: readonly string[]): Promise<void
 	}, area)
 }
 
+// Opens the page and takes the shot. The backdrop rechecks its speed about two
+// seconds after it starts and may fall back to the CSS look then, so an Aurora
+// shot counts only when WebGL was still on both before and after the capture.
+async function capture(page: Page, open: () => Promise<void>, take: () => Promise<Buffer>, webgl: boolean): Promise<Buffer> {
+	const webglOn = (): Promise<boolean> => page.evaluate(() => document.body.classList.contains('backdrop-webgl-active'))
+	for (let attempt = 1; ; attempt++) {
+		await open()
+		if (!webgl) return take()
+		if (await webglOn()) {
+			const image = await take()
+			if (await webglOn()) return image
+		}
+		if (attempt === BACKDROP_ATTEMPTS) throw new Error(`The WebGL backdrop fell back during ${BACKDROP_ATTEMPTS} captures: ${page.url()}`)
+	}
+}
+
 for (const locale of LOCALES) {
 	for (const shot of SHOTS) {
 		test(titled(shot.name, locale), async ({page}) => {
 			if (shot.height || shot.width) await page.setViewportSize({width: shot.width ?? 900, height: shot.height ?? 760})
-			await settle(page, shot.query, shot.ready, {locale, prepare: shot.prepare})
-			if (shot.spotlight) await spotlight(page, shot.spotlight)
-			await page.screenshot({path: shotPath(locale, shot.file)})
+			const open = async (): Promise<void> => {
+				await settle(page, shot.query, shot.ready, {locale, prepare: shot.prepare})
+				if (shot.spotlight) await spotlight(page, shot.spotlight)
+			}
+			await capture(page, open, () => page.screenshot({path: shotPath(locale, shot.file)}), true)
 		})
 	}
 }
@@ -226,8 +244,9 @@ for (const locale of LOCALES) {
 	test(titled('Themes and styles', locale), async ({page, context}) => {
 		const frames: string[] = []
 		for (const look of LOOKS) {
-			await settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', {...look, locale})
-			frames.push((await page.screenshot({omitBackground: true})).toString('base64'))
+			const open = (): Promise<void> => settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', {...look, locale})
+			const image = await capture(page, open, () => page.screenshot({omitBackground: true}), look.style === 'aurora')
+			frames.push(image.toString('base64'))
 		}
 		const grid = await context.newPage()
 		await grid.setViewportSize({width: 1000, height: 800})
