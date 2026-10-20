@@ -23,6 +23,10 @@ export const YT_DLP_ERROR_KINDS = [
 	// Classified from stderr; callers may also set it from their own URL
 	// validation before yt-dlp is spawned.
 	'unsupportedUrl',
+	// None of the subtitle languages asked for exists on the video. yt-dlp says
+	// so on stdout and exits 0; callers may also set it when they plan the
+	// tracks themselves before spawning it.
+	'noSubtitles',
 	// Fallback when no pattern matches. `raw` carries the verbatim stderr.
 	'unknown'
 ] as const

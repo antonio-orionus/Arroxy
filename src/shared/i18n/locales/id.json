@@ -881,6 +881,7 @@
 			"outOfDiskSpace": "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi.",
 			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",
 			"unsupportedUrl": "Arroxy tidak mendukung URL ini. Coba tautan dari situs lain.",
+			"noSubtitles": "Video ini tidak memiliki subtitle dalam bahasa yang diminta.",
 			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan Arroxy menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
 			"missingDependency": "Arroxy tidak dapat menemukan FFmpeg atau FFprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi.",
 			"postprocessFailure": "Unduhan selesai, tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain.",

@@ -73,9 +73,12 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `parse` | `YTDLP_PARSE_FAILURE` | no | no | `--dump-json` output unparseable |
 | `network` | `YTDLP_NETWORK` | yes | no | Transport-level error |
 | `unsupportedUrl` | `YTDLP_UNSUPPORTED_URL` | no | yes | URL not handled by any extractor, or not a URL |
+| `noSubtitles` | `YTDLP_NO_SUBTITLES` | no | yes | None of the requested subtitle languages exists on the video |
 | `unknown` | `YTDLP_UNKNOWN` | no | no | No pattern matched; render `raw` |
 
 `unsupportedUrl` is classified from yt-dlp's `Unsupported URL:`, `No suitable extractor ... found for URL` and `... is not a valid URL` lines. Hosts can also set it from their own URL validation before yt-dlp is spawned.
+
+`noSubtitles` is classified from yt-dlp's `There are no subtitles for the requested languages` line. yt-dlp prints it to stdout and still exits 0, so pass that output to the classifier yourself. Hosts that check the video's subtitle lists before spawning yt-dlp can also set it.
 
 ## API
 

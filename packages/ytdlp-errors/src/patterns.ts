@@ -60,6 +60,11 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// unsuccessful" and explicit "login required" phrasing from extractors.
 	loginRequired: /only available for registered users|login was unsuccessful|login (?:is )?required/i,
 
+	// YoutubeDL._write_subtitles: "[info] There are no subtitles for the
+	// requested languages", printed to stdout (to_screen, not a warning) when
+	// no requested language matched; the run still exits 0.
+	noSubtitles: /there are no subtitles for the requested languages/i,
+
 	// ENOSPC variants across platforms:
 	//  - Linux: "No space left on device"
 	//  - Windows: "There is not enough space on the disk"

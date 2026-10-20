@@ -249,6 +249,10 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena."
 
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Video hii haina manukuu katika lugha zilizoombwa."
+
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena."

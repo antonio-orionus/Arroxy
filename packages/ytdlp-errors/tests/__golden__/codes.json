@@ -10,6 +10,7 @@
 		"loginRequired": "YTDLP_LOGIN_REQUIRED",
 		"missingDependency": "YTDLP_MISSING_DEPENDENCY",
 		"network": "YTDLP_NETWORK",
+		"noSubtitles": "YTDLP_NO_SUBTITLES",
 		"outOfDiskSpace": "YTDLP_OUT_OF_DISK_SPACE",
 		"outputNotWritable": "YTDLP_OUTPUT_NOT_WRITABLE",
 		"parse": "YTDLP_PARSE_FAILURE",
