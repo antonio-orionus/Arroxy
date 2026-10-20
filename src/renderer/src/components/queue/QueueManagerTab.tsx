@@ -246,7 +246,7 @@ export function QueueManagerTab(): ReactNode {
 	const renderedColumnCount = Math.max(1, renderedColumnIds.length)
 
 	return (
-		<Card variant="glass" render={<section />} className="mx-auto min-h-[28rem] w-full max-w-[92rem] gap-0 p-3" data-testid="queue-manager-tab">
+		<Card variant="glass" render={<section />} className="min-h-[28rem] w-full flex-1 gap-0 p-3" data-testid="queue-manager-tab">
 			<QueueManagerToolbar
 				t={t}
 				queue={queue}

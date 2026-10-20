@@ -445,7 +445,8 @@ describe('QueueManagerTab', () => {
 
 		render(<QueueManagerTab />)
 
-		expect(screen.getByTestId('queue-manager-scroll')).toHaveClass('h-[clamp(12rem,calc(100vh-16rem),34rem)]')
+		// Size containment keeps 5000 rows out of the panel's height; the scroll box takes the height left.
+		expect(screen.getByTestId('queue-manager-scroll')).toHaveClass('contain-size', 'flex-1', 'min-h-48')
 		// The table's own wrapper must not scroll, or the sticky header pins to it instead of to the scroll box.
 		expect(screen.getByTestId('queue-manager-scroll').querySelector('[data-slot="table-container"]')).toHaveClass('overflow-visible')
 	})

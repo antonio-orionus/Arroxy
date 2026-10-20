@@ -17,7 +17,7 @@ describe('DownloadProfilesHome action rows', () => {
 		vi.clearAllMocks()
 	})
 
-	it('keeps secondary actions compact instead of stretching across wide panels', () => {
+	it('keeps the URL tab and its secondary actions compact on wide windows', () => {
 		render(
 			<TooltipProvider>
 				<StepUrlInput />
@@ -26,9 +26,10 @@ describe('DownloadProfilesHome action rows', () => {
 
 		const actionRows = screen.getByTestId('profiles-action-rows')
 
+		// The tab keeps the wizard's reading width, so the two rows share it evenly.
+		expect(screen.getByTestId('download-profiles-home')).toHaveClass('max-w-6xl')
 		expect(actionRows).toHaveClass('w-full')
-		expect(actionRows).toHaveClass('lg:grid-cols-[repeat(2,minmax(0,35rem))]')
-		expect(actionRows).toHaveClass('lg:justify-start')
+		expect(actionRows).toHaveClass('sm:grid-cols-2')
 	})
 
 	it('keeps static supported-site proof out of the main URL workflow', () => {

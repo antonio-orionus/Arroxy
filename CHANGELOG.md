@@ -15,6 +15,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - YouTube's automatic captions show their language name, without a confusing "(Original)".
 - A profile can fetch uploaded and automatic subtitles of the same language side by side (**Manual and auto**). Saving a download that picked both now keeps both.
 - An automatic caption gets the same file name and track language whether you picked it or your profile did. Embedded next to uploaded subtitles of the same language, it is marked "Auto-generated".
+- The Downloads table fills the window's height, and on wide windows the URL tab keeps a comfortable width.
 
 ## 0.7.1
 

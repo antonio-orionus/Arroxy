@@ -114,6 +114,10 @@ export function QueueManagerTable({
 			getRowId={row => row.original.id}
 			emptyLabel={t('queue.empty')}
 			scrollTestId="queue-manager-scroll"
+			// Size containment keeps the rows out of the page height, so the table takes
+			// the height the card has left: it grows with the window and scrolls inside
+			// itself, however many rows there are.
+			scrollClassName="min-h-48 flex-1 contain-size"
 			rowTestId={rowId => `queue-manager-row-${rowId}`}
 			rowDataAttributes={row => ({'data-status': row.original.status, ...(row.original.id === highlightedId ? {'data-highlighted': 'true'} : {})})}
 			columnClassName={columnClassName}

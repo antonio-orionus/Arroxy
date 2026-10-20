@@ -22,7 +22,7 @@ import {QueueManagerTab} from '../queue/QueueManagerTab.js'
 import {ExploreTab} from '../explore/ExploreTab.js'
 import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
-import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip} from './homeTabRoute.js'
+import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip, type ProfilesTab} from './homeTabRoute.js'
 import {useBulkUrlDialog, useCopiedLinkIntake} from './downloadHomeIntake.js'
 import {ProfileEditorDialog} from './ProfileEditorDialog.js'
 import {useProfileEditor} from './useProfileEditor.js'
@@ -78,6 +78,15 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
 }
 
+// How wide each tab may grow. The URL tab is a short form, so it keeps the
+// wizard's reading width; the Downloads table gains a column of text with every
+// extra rem; Explore is a browser and takes the whole window.
+const TAB_MAX_WIDTH: Record<ProfilesTab, string> = {download: 'max-w-6xl', explore: 'max-w-none', queue: 'max-w-[120rem]', profiles: 'max-w-[92rem]', settings: 'max-w-[92rem]'}
+
+// Explore's browser and the Downloads table fill the remaining height; the
+// other tabs size to their content.
+const FILLS_HEIGHT: ReadonlySet<ProfilesTab> = new Set<ProfilesTab>(['explore', 'queue'])
+
 export function DownloadProfilesHome(): ReactNode {
 	const view = useDownloadHomeView()
 	const {activeProfile, cookiesConfigDialogIssue, dismissCookiesConfigDialog, moveDownloadProfile, openCookiesSettings, profiles, profilesPrefs, removeDownloadProfile, setActiveDownloadProfile, setDownloadProfileEnabled, setWizardUrl} = view
@@ -103,13 +112,8 @@ export function DownloadProfilesHome(): ReactNode {
 	const tabsList = <HomeTabsList compact={compact} exploreEnabled={exploreEnabled} exploreNoticeSeen={exploreNoticeSeen} queueCount={queueCount} attentionCount={attentionCount} queueIsActive={queueIsActive} />
 
 	return (
-		<div className={cn('wizard-step mx-auto flex w-full flex-col gap-4', activeTab === 'explore' ? 'max-w-none' : 'max-w-[92rem]', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
-			<Tabs
-				value={activeTab}
-				onValueChange={handleTabChange}
-				// Explore's browser fills the remaining height; the other tabs size to their content.
-				className={cn('gap-4', activeTab === 'explore' && 'flex-1')}
-			>
+		<div className={cn('wizard-step mx-auto flex w-full flex-col gap-4', TAB_MAX_WIDTH[activeTab], compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
+			<Tabs value={activeTab} onValueChange={handleTabChange} className={cn('gap-4', FILLS_HEIGHT.has(activeTab) && 'flex-1')}>
 				{compact ? null : (
 					<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
 						{tabsList}
@@ -127,7 +131,7 @@ export function DownloadProfilesHome(): ReactNode {
 					</TabsContent>
 				) : null}
 
-				<TabsContent value="queue">
+				<TabsContent value="queue" className="flex min-h-0 flex-col">
 					<QueueManagerTab />
 				</TabsContent>
 
@@ -196,7 +200,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 
 				<QuickDownloadFeedback view={view} />
 
-				<div className="mt-3 grid w-full gap-2 lg:grid-cols-[repeat(2,minmax(0,35rem))] lg:justify-start" data-testid="profiles-action-rows">
+				<div className="mt-3 grid w-full gap-2 sm:grid-cols-2" data-testid="profiles-action-rows">
 					<ActionRow disabled={!urlReady} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
 					<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={onOpenBulk} testId="profiles-bulk-urls" />
 				</div>
