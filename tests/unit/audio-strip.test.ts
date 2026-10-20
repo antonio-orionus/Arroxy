@@ -72,7 +72,9 @@ describe('dropAudioStreams', () => {
 			.mockReturnValueOnce(ffmpegRun('', 0) as never)
 
 		expect(await dropAudioStreams(OPTS)).toEqual({ok: true, dropped: true})
-		expect(vi.mocked(spawnFFmpeg).mock.calls[2]?.[1]).toEqual(['-y', '-hide_banner', '-i', '/out/clip.mp4', '-map', '0', '-map', '-0:a', '-c', 'copy', COPY])
+		// yt-dlp's own stream copy (`stream_copy_opts`) minus the audio: data streams
+		// MP4 can't hold (timecode, bin_data) would fail the copy.
+		expect(vi.mocked(spawnFFmpeg).mock.calls[2]?.[1]).toEqual(['-y', '-hide_banner', '-i', '/out/clip.mp4', '-map', '0', '-map', '-0:a', '-dn', '-ignore_unknown', '-c', 'copy', '-c:s', 'mov_text', COPY])
 		expect(rename).toHaveBeenCalledWith(COPY, '/out/clip.mp4')
 		expect(rm).toHaveBeenCalledWith(SCRATCH, {recursive: true, force: true})
 	})

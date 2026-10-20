@@ -7,7 +7,7 @@
 
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {mkdtemp, rename, rm} from 'node:fs/promises'
-import {basename, dirname, join} from 'node:path'
+import {basename, dirname, extname, join} from 'node:path'
 import log from 'electron-log/main.js'
 import {runFfmpeg} from './ffmpegRun.js'
 
@@ -18,6 +18,14 @@ export const logger = log.scope('audio-strip')
 // there is one, and says the map matches no streams when not.
 function streamProbeArgs(videoPath: string, kind: 'a' | 'V'): string[] {
 	return ['-hide_banner', '-v', 'error', '-i', videoPath, '-map', `0:${kind}:0`, '-c', 'copy', `-frames:${kind.toLowerCase()}`, '1', '-f', 'null', '-']
+}
+
+// yt-dlp's own stream copy (`FFmpegPostProcessor.stream_copy_opts`), less the
+// audio: data streams a container can't hold (timecode, `bin_data`) are left
+// out, as are streams ffmpeg doesn't know, and MP4 subtitles stay `mov_text`.
+function streamCopyWithoutAudio(videoPath: string): string[] {
+	const movFamily = ['.mp4', '.mov', '.m4a'].includes(extname(videoPath).toLowerCase())
+	return ['-map', '0', '-map', '-0:a', '-dn', '-ignore_unknown', '-c', 'copy', ...(movFamily ? ['-c:s', 'mov_text'] : [])]
 }
 
 type StreamCheck = 'present' | 'absent' | 'unreadable'
@@ -52,7 +60,7 @@ export async function dropAudioStreams(opts: {ffmpegPath: string; videoPath: str
 	}
 	try {
 		const copyPath = join(scratchDir, basename(videoPath))
-		const copied = await runFfmpeg(ffmpegPath, ['-y', '-hide_banner', '-i', videoPath, '-map', '0', '-map', '-0:a', '-c', 'copy', copyPath], onSpawn)
+		const copied = await runFfmpeg(ffmpegPath, ['-y', '-hide_banner', '-i', videoPath, ...streamCopyWithoutAudio(videoPath), copyPath], onSpawn)
 		if (!copied.ok) {
 			logger.error('audio strip: ffmpeg failed or cancelled', {jobId, videoPath, stderrTail: copied.stderrTail})
 			return {ok: false, dropped: false}
