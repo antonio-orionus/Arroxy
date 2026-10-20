@@ -75,7 +75,9 @@ function ReviewRowItem({row, value, off, changedFrom, children}: ReviewRowItemPr
 					{changedFrom ? <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-primary" data-testid={`review-row-${row}-changed`} /> : null}
 				</span>
 				<Hint label={value} reveal>
-					<span className={cn('min-w-0 flex-1 truncate font-normal', off ? 'text-muted-foreground' : 'text-foreground', row === 'fileName' && 'font-mono')}>{value}</span>
+					<span className={cn('min-w-0 flex-1 truncate font-normal', off ? 'text-muted-foreground' : 'text-foreground', row === 'fileName' && 'font-mono')} data-value-state={off ? 'off' : 'on'} data-testid={`review-row-${row}-value`}>
+						{value}
+					</span>
 				</Hint>
 			</AccordionTrigger>
 			<AccordionContent className="flex flex-col gap-3 px-4 pt-1 pb-4">{children}</AccordionContent>

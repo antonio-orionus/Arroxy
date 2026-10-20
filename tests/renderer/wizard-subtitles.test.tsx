@@ -446,6 +446,20 @@ describe('Review — rows', () => {
 		}
 	})
 
+	it('dims values that are off and brightens ones that are on', () => {
+		singleState({wizardReviewRow: null, wizardSubtitleLanguages: [], wizardEmbedChapters: false, wizardEmbedMetadata: false, wizardEmbedThumbnail: false, wizardWriteDescription: false, wizardWriteThumbnail: false})
+		const {unmount} = render(<StepReview />)
+		expect(screen.getByTestId('review-row-subtitles-value')).toHaveAttribute('data-value-state', 'off')
+		expect(screen.getByTestId('review-row-extras-value')).toHaveAttribute('data-value-state', 'off')
+		expect(screen.getByTestId('review-row-saveTo-value')).toHaveAttribute('data-value-state', 'on')
+		unmount()
+
+		useAppStore.setState({wizardSubtitleLanguages: ['en'], wizardWriteThumbnail: true})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-row-subtitles-value')).toHaveAttribute('data-value-state', 'on')
+		expect(screen.getByTestId('review-row-extras-value')).toHaveAttribute('data-value-state', 'on')
+	})
+
 	it('marks only the rows this run changed from its profile', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
 		singleState({wizardReviewRow: null, wizardProfile: profile})
