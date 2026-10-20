@@ -105,7 +105,8 @@ export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: Nati
 // WebM included: it stays WebM whenever the streams fit. On Auto, a merge ends
 // in MP4 or MKV, as yt-dlp writes a WebM merge as MKV to hold the cover; video
 // without audio is a lone stream, not merged, so it ends in whatever the site
-// serves, often WebM.
+// serves, often WebM. Video with audio is taken as merged, though a site with
+// no separate streams gives one lone file (`best`) that may be WebM too.
 export function canEmbedThumbnail(spec: MediaIntentSpec): boolean {
 	if (spec.audioConvert) return spec.audioConvert.target !== 'best' && canHoldEmbeddedThumbnail(spec.audioConvert.target)
 	if (spec.fileType === undefined || spec.fileType === 'auto') return spec.producesVideo && spec.producesAudio
