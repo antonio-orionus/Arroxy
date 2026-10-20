@@ -37,8 +37,13 @@ describe('audio conversion source on real probes', () => {
 	})
 
 	// libopus refuses Dolby's 5.1(side) layout; the other targets downmix it.
-	it.each(['m4a', 'opus', 'mp3', 'wav'])('the Dolby trailer converts a stereo stream to %s', target => {
-		expect(pick('youtube-dolby', target)).toMatch(/^(?:140|251)$/)
+	it.each([
+		['m4a', '140'],
+		['opus', '251'],
+		['mp3', '251'],
+		['wav', '251']
+	] as const)('the Dolby trailer converts a stereo stream to %s: %s', (target, formatId) => {
+		expect(pick('youtube-dolby', target)).toBe(formatId)
 	})
 
 	// A low-bitrate stream in the target codec is no better for being copied.
