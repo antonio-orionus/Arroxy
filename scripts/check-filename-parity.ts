@@ -52,15 +52,14 @@ async function pinnedYtDlp(): Promise<string> {
 	const file = path.join(CACHE_DIR, `yt-dlp-${YT_DLP.version}.zip`)
 	if (existsSync(file) && sha256(readFileSync(file)) === YT_DLP.sha256) return file
 	const url = `https://github.com/yt-dlp/yt-dlp/releases/download/${YT_DLP.version}/yt-dlp`
-	const bytes = await fetch(url).then(
-		async response => {
-			if (!response.ok) throw new MissingPrerequisite(`yt-dlp ${YT_DLP.version} could not be downloaded (HTTP ${response.status}) and is not cached`)
-			return new Uint8Array(await response.arrayBuffer())
-		},
-		(error: unknown) => {
-			throw new MissingPrerequisite(`yt-dlp ${YT_DLP.version} could not be downloaded (${error instanceof Error ? error.message : String(error)}) and is not cached`)
-		}
-	)
+	let bytes: Uint8Array
+	try {
+		const response = await fetch(url)
+		if (!response.ok) throw new Error(`HTTP ${response.status}`)
+		bytes = new Uint8Array(await response.arrayBuffer())
+	} catch (error) {
+		throw new MissingPrerequisite(`yt-dlp ${YT_DLP.version} could not be downloaded (${error instanceof Error ? error.message : String(error)}) and is not cached`)
+	}
 	const actual = sha256(bytes)
 	if (actual !== YT_DLP.sha256) throw new Error(`yt-dlp ${YT_DLP.version} has SHA-256 ${actual}, expected ${YT_DLP.sha256}`)
 	await mkdir(CACHE_DIR, {recursive: true})
