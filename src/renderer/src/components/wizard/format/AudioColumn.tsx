@@ -85,9 +85,11 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	const [track, setTrack] = useState([selectedNative?.track, view.defaultTrack, view.tracks[0]].find(name => name !== undefined && name !== null && name !== '') ?? '')
 	// When something else changes the selection (a profile switch, Undo), the
 	// language and DRC follow it, so the chosen chip is never filtered out.
-	const [followed, setFollowed] = useState(selectedNative?.formatId)
-	if (selectedNative && selectedNative.formatId !== followed) {
-		setFollowed(selectedNative.formatId)
+	// Keyed by the kind too: a conversion taking over the stream a native pick had still follows it.
+	const followKey = selectedNative ? `${isConversion(audioSelection) ? 'convert' : 'native'}:${selectedNative.formatId}` : undefined
+	const [followed, setFollowed] = useState(followKey)
+	if (selectedNative && followKey !== followed) {
+		setFollowed(followKey)
 		if (selectedNative.track && selectedNative.track !== track) setTrack(selectedNative.track)
 		// A conversion's source sets DRC even without a twin: the next pick follows the switch.
 		if ((isConversion(audioSelection) || selectedNative.twinId !== null) && selectedNative.isDrc !== drc) setDrc(selectedNative.isDrc)
