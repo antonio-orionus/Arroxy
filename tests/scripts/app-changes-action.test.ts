@@ -145,6 +145,9 @@ describe.each(GATED)('$workflow', ({workflow, scope, gate, ungated}) => {
 	it('triggers on every pull request, so its gate always reports', () => {
 		const pullRequest = record(doc.on, 'on').pull_request
 		expect(isRecord(pullRequest) ? pullRequest.paths : undefined).toBeUndefined()
+		// Nor only those into main: a stacked PR is moved onto main when its base
+		// merges, and must already carry the gate then (no run starts on a retarget).
+		expect(isRecord(pullRequest) ? pullRequest.branches : undefined).toBeUndefined()
 	})
 
 	it(`asks the app-changes action for the ${scope} scope`, () => {

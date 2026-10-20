@@ -16,8 +16,9 @@ describe('dev smoke workflow', () => {
 
 		expect(workflow).toContain('name: Dev Smoke')
 		expect(workflow).toContain('workflow_dispatch:')
-		expect(workflow).toContain('pull_request:')
-		expect(workflow).toContain('branches: [main]')
+		// Every pull request, not only those into main: a stacked PR moved onto
+		// main after its base merges must already carry this required check.
+		expect(workflow).toMatch(/^  pull_request:\n  workflow_dispatch:/m)
 		expect(workflow).toContain('fail-fast: false')
 		expect(workflow).toContain('max-parallel: 3')
 		expect(workflow).toContain('os: windows-latest')
