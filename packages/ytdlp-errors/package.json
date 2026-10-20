@@ -1,6 +1,6 @@
 {
 	"name": "ytdlp-errors",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"description": "Classify yt-dlp stderr into a closed taxonomy of error kinds (botBlock, ipBlock, rateLimit, ageRestricted, drmProtected, ...). Zero deps, pure regex, ESM + CJS.",
 	"keywords": [
 		"cjs",
