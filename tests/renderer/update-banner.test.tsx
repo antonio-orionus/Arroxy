@@ -19,8 +19,8 @@ describe('resolveAction', () => {
 	// Homebrew is the one package manager the app can drive itself: replacing
 	// the .app bundle of a running macOS app is safe, then the app relaunches.
 	it('homebrew → runnable command regardless of platform', () => {
-		expect(resolveAction('homebrew', 'darwin')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy', runnable: true})
-		expect(resolveAction('homebrew', 'linux')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy', runnable: true})
+		expect(resolveAction('homebrew', 'darwin')).toEqual({kind: 'command', cmd: 'brew upgrade --cask antonio-orionus/arroxy/arroxy', runnable: true})
+		expect(resolveAction('homebrew', 'linux')).toEqual({kind: 'command', cmd: 'brew upgrade --cask antonio-orionus/arroxy/arroxy', runnable: true})
 	})
 
 	// `brew install --cask --adopt` cannot work here: adopt demands the installed
@@ -225,13 +225,13 @@ describe('UpdateBanner', () => {
 		window.platform = 'darwin'
 		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
 		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — update with Homebrew.')
-		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask arroxy')
+		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask antonio-orionus/arroxy/arroxy')
 
 		await act(async () => {
 			fireEvent.click(screen.getByRole('button', {name: /Copy command/i}))
 		})
 
-		expect(navigator.clipboard.writeText).toHaveBeenCalledWith('brew upgrade --cask arroxy')
+		expect(navigator.clipboard.writeText).toHaveBeenCalledWith('brew upgrade --cask antonio-orionus/arroxy/arroxy')
 	})
 
 	it('offers Run & Restart next to Copy for homebrew; clicking it calls onInstall', () => {
@@ -260,7 +260,7 @@ describe('UpdateBanner', () => {
 		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={false} installError={'Homebrew was not found.'} onInstall={onInstall} onDownload={vi.fn()} onDismiss={vi.fn()} />)
 
 		expect(screen.getByTestId('update-banner-message').textContent).toMatch(/Update failed.*Homebrew was not found/)
-		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask arroxy')
+		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask antonio-orionus/arroxy/arroxy')
 		fireEvent.click(screen.getByRole('button', {name: 'Retry'}))
 		expect(onInstall).toHaveBeenCalledOnce()
 	})

@@ -219,7 +219,7 @@ test('probe error dropdown shows all error kinds', async ({page}) => {
 
 test('update scenarios render channel-specific actions', async ({page}) => {
 	await openScenario(page, 'update-homebrew')
-	await expect(page.getByTestId('update-command')).toHaveText('brew upgrade --cask arroxy')
+	await expect(page.getByTestId('update-command')).toHaveText('brew upgrade --cask antonio-orionus/arroxy/arroxy')
 
 	await openScenario(page, 'update-scoop')
 	await expect(page.getByTestId('update-command')).toHaveText('scoop update arroxy')

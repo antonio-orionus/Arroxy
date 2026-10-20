@@ -96,10 +96,13 @@ describe('installArroxyWithHomebrew', () => {
 })
 
 describe('upgradeArroxyWithHomebrew', () => {
-	it('runs `brew upgrade --cask arroxy` non-interactively with a fixed argv', async () => {
+	// Homebrew refuses a cask from an untrusted tap by its short name; the
+	// fully qualified name trusts it first, so a cask installed before tap
+	// trust existed still upgrades.
+	it('runs `brew upgrade --cask antonio-orionus/arroxy/arroxy` non-interactively with a fixed argv', async () => {
 		await upgradeArroxyWithHomebrew('0.5.3')
 
-		expect(commandCalls()).toEqual([['upgrade', '--cask', 'arroxy']])
+		expect(commandCalls()).toEqual([['upgrade', '--cask', 'antonio-orionus/arroxy/arroxy']])
 		const [file, , opts] = execFileMock.mock.calls[0]
 		expect(file).toBe('/opt/homebrew/bin/brew')
 		expect(opts).toMatchObject({env: expect.objectContaining({NONINTERACTIVE: '1', HOMEBREW_NO_ANALYTICS: '1'}), timeout: expect.any(Number)})

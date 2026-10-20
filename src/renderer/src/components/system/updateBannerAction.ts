@@ -20,7 +20,7 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 		case 'scoop':
 			return {kind: 'command', cmd: 'scoop update arroxy', runnable: false}
 		case 'homebrew':
-			return {kind: 'command', cmd: 'brew upgrade --cask arroxy', runnable: true}
+			return {kind: 'command', cmd: `brew upgrade --cask ${HOMEBREW_CASK}`, runnable: true}
 		case 'winget':
 			return {kind: 'install'}
 		case 'portable':
