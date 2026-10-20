@@ -126,12 +126,20 @@ function exploreReady(settings: AppSettings): void {
 	settings.common.exploreModeAutoSwitched = true
 }
 
-// The view reports the page it shows; this stands in for the user browsing to a video.
+// The view reports the page it shows; this stands in for the user browsing to a
+// video. The real view keeps reporting the local page it shows (its load ending,
+// its title, the sign-in read), and any late report would replace this one, so
+// Download would grab the local page. From here on only this report reaches the
+// renderer.
 async function reportExplorePage(app: ElectronApplication, state: ExploreViewState): Promise<void> {
 	await app.evaluate(({BrowserWindow}, next) => {
 		const win = BrowserWindow.getAllWindows().find(candidate => candidate.webContents.getURL().startsWith('file:'))
 		if (!win) throw new Error('main window not found')
-		win.webContents.send('explore:stateChanged', next)
+		const send = win.webContents.send.bind(win.webContents)
+		win.webContents.send = (channel: string, ...args: unknown[]) => {
+			if (channel !== 'explore:stateChanged') send(channel, ...args)
+		}
+		send('explore:stateChanged', next)
 	}, state)
 }
 
@@ -149,6 +157,7 @@ test('Download from Explore places a probing row at once and finishes in the bac
 			await expect(page.getByTestId('explore-address')).toHaveValue(home.url, {timeout: 30_000})
 			const pageTitle = 'Fixture video page - YouTube'
 			await reportExplorePage(app, {url: urls.video(videoId), title: pageTitle, canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})
+			await expect(page.getByTestId('explore-address')).toHaveValue(urls.video(videoId))
 
 			const download = page.getByTestId('explore-download')
 			await expect(download).toBeEnabled()
