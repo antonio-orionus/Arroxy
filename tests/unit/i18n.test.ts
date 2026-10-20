@@ -45,8 +45,29 @@ describe('pickLanguage', () => {
 		expect(pickLanguage('th-TH')).toBe('th')
 	})
 
+	it('reads Norwegian as Bokmål, whichever code the OS reports', () => {
+		expect(pickLanguage('nb-NO')).toBe('nb')
+		expect(pickLanguage('no')).toBe('nb')
+		expect(pickLanguage('no-NO')).toBe('nb')
+		expect(pickLanguage('nn-NO')).toBe('nb')
+		expect(pickLanguage('nb_NO.UTF-8')).toBe('nb')
+	})
+
+	it('reads the legacy iw code as Hebrew', () => {
+		expect(pickLanguage('he-IL')).toBe('he')
+		expect(pickLanguage('iw')).toBe('he')
+		expect(pickLanguage('iw-IL')).toBe('he')
+		expect(pickLanguage('iw_IL.UTF-8')).toBe('he')
+	})
+
+	it('reads Valencian as Catalan', () => {
+		expect(pickLanguage('ca-ES-valencia')).toBe('ca')
+		expect(pickLanguage('ca_ES@valencia')).toBe('ca')
+	})
+
 	it('falls back to en when language is unsupported', () => {
 		expect(pickLanguage('tlh')).toBe('en')
+		expect(pickLanguage('is-IS')).toBe('en')
 	})
 
 	it('handles uppercase input', () => {
@@ -66,13 +87,21 @@ describe('pickSystemLanguage', () => {
 	})
 
 	it('skips unsupported languages and takes the next preferred one', () => {
-		expect(pickSystemLanguage(['nl-NL', 'de-DE'])).toBe('de')
-		expect(pickSystemLanguage(['hu-HU', 'cs-CZ', 'zh-TW'])).toBe('zh-Hant')
+		expect(pickSystemLanguage(['is-IS', 'de-DE'])).toBe('de')
+		expect(pickSystemLanguage(['is-IS', 'ga-IE', 'zh-TW'])).toBe('zh-Hant')
 	})
 
 	it('treats English as a real preference, not the fallback', () => {
 		expect(pickSystemLanguage(['en-US', 'ru-UA', 'uk-UA'])).toBe('en')
-		expect(pickSystemLanguage(['nl-NL', 'en-GB', 'de-DE'])).toBe('en')
+		expect(pickSystemLanguage(['is-IS', 'en-GB', 'de-DE'])).toBe('en')
+	})
+
+	it('takes the languages that used to fall back to English', () => {
+		expect(pickSystemLanguage(['hu-HU', 'en-US'])).toBe('hu')
+		expect(pickSystemLanguage(['nl-NL', 'en-GB'])).toBe('nl')
+		expect(pickSystemLanguage(['cs-CZ'])).toBe('cs')
+		expect(pickSystemLanguage(['nn-NO', 'en-US'])).toBe('nb')
+		expect(pickSystemLanguage(['iw-IL', 'en-US'])).toBe('he')
 	})
 
 	it('reads POSIX locale names', () => {
@@ -82,7 +111,7 @@ describe('pickSystemLanguage', () => {
 	})
 
 	it('falls back to en when nothing is supported', () => {
-		expect(pickSystemLanguage(['nl-NL'])).toBe('en')
+		expect(pickSystemLanguage(['is-IS'])).toBe('en')
 		expect(pickSystemLanguage([])).toBe('en')
 	})
 })

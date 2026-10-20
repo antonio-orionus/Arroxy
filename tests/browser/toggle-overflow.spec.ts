@@ -548,15 +548,17 @@ async function cutStatusBadges(page: Page): Promise<{label: string; problem: str
 			const range = document.createRange()
 			range.selectNodeContents(badge)
 			for (const line of range.getClientRects()) {
-				if (line.right > rect.right + 1 || line.bottom > rect.bottom + 1) found.push({label: text, problem: 'a word lies outside the badge'})
+				if (line.right > rect.right + 1 || line.left < rect.left - 1 || line.bottom > rect.bottom + 1) found.push({label: text, problem: 'a word lies outside the badge'})
 			}
-			// A probing row's Cancel stays inline, beside its badge, inside the cell.
+			// A probing row's Cancel stays inline, after its badge (to its left in a
+			// right-to-left language), inside the cell.
 			const cancel = cell.querySelector<HTMLElement>('[data-testid^="queue-cancel-probing-"]')
 			if (cancel) {
 				const cancelRect = cancel.getBoundingClientRect()
 				const middle = cancelRect.top + cancelRect.height / 2
-				if (middle < rect.top - 1 || middle > rect.bottom + 1 || cancelRect.left < rect.right - 1) found.push({label: text, problem: 'Cancel is not inline beside the badge'})
-				if (cancelRect.right > box.right + 1) found.push({label: text, problem: 'Cancel outside its cell'})
+				const afterBadge = getComputedStyle(cell).direction === 'rtl' ? cancelRect.right <= rect.left + 1 : cancelRect.left >= rect.right - 1
+				if (middle < rect.top - 1 || middle > rect.bottom + 1 || !afterBadge) found.push({label: text, problem: 'Cancel is not inline beside the badge'})
+				if (cancelRect.right > box.right + 1 || cancelRect.left < box.left - 1) found.push({label: text, problem: 'Cancel outside its cell'})
 			}
 		}
 		return found
@@ -581,7 +583,8 @@ for (const viewport of [
 	{width: 720, height: 760},
 	{width: 900, height: 760}
 ] as const) {
-	for (const locale of ['en', ...LONG_LOCALES]) {
+	// he: the badge and its Cancel in a right-to-left layout.
+	for (const locale of ['en', ...LONG_LOCALES, 'he']) {
 		test(`[${viewport.width}x${viewport.height}][${locale}] queue status badges show their whole label (needs-choice and error rows)`, async ({page}) => {
 			await page.setViewportSize(viewport)
 			await openScreen(page, QUEUE_ATTENTION_SCREEN, locale)

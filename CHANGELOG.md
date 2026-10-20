@@ -12,6 +12,10 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 Arroxy's website has a new address: **https://arroxy.com/**. The About, Share and update "Download" links open it.
 
+## Highlights
+
+- **19 new languages.** Arroxy now speaks Basque, Bulgarian, Catalan, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Galician, Hebrew, Hungarian, Latvian, Lithuanian, Norwegian, Romanian, Slovak, Slovenian and Swedish, and opens in them on first launch when your system uses them.
+
 ## Fixes
 
 - The URL tab's hints, profile summary and save location show in your language instead of English.

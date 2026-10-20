@@ -6,12 +6,14 @@ describe('isRtl', () => {
 		expect(isRtl('ar')).toBe(true)
 		expect(isRtl('fa')).toBe(true)
 		expect(isRtl('ps')).toBe(true)
+		expect(isRtl('he')).toBe(true)
 	})
 
 	it('returns false for LTR languages', () => {
 		expect(isRtl('en')).toBe(false)
 		expect(isRtl('fr')).toBe(false)
 		expect(isRtl('zh')).toBe(false)
+		expect(isRtl('hu')).toBe(false)
 	})
 
 	it('RTL_LANGS set matches isRtl', () => {

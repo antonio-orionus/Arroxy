@@ -1,0 +1,5366 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Apie"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · sukūrė Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Apie „Arroxy“"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Greita ir patogi YouTube bei daugiau nei 2000 kitų svetainių atsisiuntimo programa."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Peržiūrėti trečiųjų šalių pranešimus"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Svetainė"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Leisti"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube kai kuriuos senus vaizdo įrašus siūlo dydžiais, sukurtais naudojant dirbtinį intelektą. Pasirinkus „Praleisti“, paliekami originalūs srautai; išdidintą srautą vis tiek galite pasirinkti rankiniu būdu."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "DI išdidinti srautai"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Praleisti"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Atsiliepimai"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Patinka Arroxy? Norėčiau išgirsti jūsų nuomonę! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Žurnalai"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Įrašyti diagnostikos failą"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Sudeda jūsų žurnalus ir programos informaciją į vieną failą aplanke „Atsisiuntimai“, kurį galite pridėti prie GitHub pranešimo apie problemą. Jūsų naudotojo aplanko pavadinimas pašalinamas; vaizdo įrašų nuorodos ir pavadinimai lieka."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Nauja: čia pasirinkite „Aurora“ arba „Minimalistinis“"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Tema"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Padidinti"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Sumažinti"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Atgal"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Uždaryti"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Tęsti"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Atmesti"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Įkeliama"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Pradėti iš naujo"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy toliau veiks ir užbaigs vykdomus atsisiuntimus. Tai galite pakeisti vėliau išplėstiniuose parametruose."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Slėpti į dėklą"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Uždarant paslėpti Arroxy sistemos dėkle?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Išeiti"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Daugiau neklausti"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Atšaukti atsisiuntimus ir išeiti"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Pristabdykite, kad galėtumėte tęsti vėliau, arba atšaukite, kad atmestumėte eigą."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Tęsti atsisiuntimą"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "Vykdomi {{count}} atsisiuntimai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "dialogs.quitWithActiveDownloads.message_many"
+msgid "{{count}} downloads in progress"
+msgstr "Vykdoma {{count}} atsisiuntimo"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Vykdomas {{count}} atsisiuntimas"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Vykdoma {{count}} atsisiuntimų"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Pristabdyti atsisiuntimus ir išeiti"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Atvaizdavimo procesas sugedo ({{reason}}). Įkelkite iš naujo ir bandykite dar kartą."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy susidūrė su problema"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Išeiti"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Įkelti iš naujo"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Nukopijuota!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopijuoti adresą"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy yra nemokama ir atvirojo kodo, be reklamų ir mokamo plano. Aukos neprivalomos ir nesuteikia įtakos plėtros planams."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Paaukoti"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Paremti Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "{{coin}} aukos adreso QR kodas"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Paremkite Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Kriptovaliutų mokėjimai negrįžtami. Siųskite tik nurodytu tinklu ir palyginkite visą adresą."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Šis vaizdo įrašas turi amžiaus apribojimą, todėl jo negalima atsisiųsti be prisijungusios paskyros."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Suveikė apsauga nuo robotų. Greičiausiai jūsų naudojamas IP pažymėtas (duomenų centro diapazonas arba apkrautas VPN išėjimo taškas). Pakeiskite IP arba pasirinkite kitą VPN prieigos tašką ir bandykite dar kartą. Jei nepavyksta, tai gali būti laikinas svetainės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa pasirodys automatiškai, kai tik bus išleista."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Serveris nuolat nutraukdavo atsisiuntimą pusiaukelėje, o Arroxy pasidavė po pakartotinių bandymų. Dažniausiai taip nutinka su didžiausiais vaizdo formatais (4K HDR / didelės bitų spartos VP9). Bandykite dar kartą, pakeiskite tinklą ar VPN arba pasirinkite mažesnės skiriamosios gebos formatą."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Šis vaizdo įrašas apsaugotas DRM. Arroxy negali pašalinti DRM, todėl failo atsisiųsti neįmanoma."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Šis vaizdo įrašas jūsų regione nepasiekiamas."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Atrodo, jūsų IP adresas užblokuotas. Bandykite vėliau arba naudokite VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Šiam vaizdo įrašui reikia prisijungusios paskyros."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy nepavyko rasti FFmpeg arba FFprobe. Paleiskite sąranką dar kartą arba nurodykite FFmpeg vietą, tada bandykite atsisiųsti iš naujo."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Tinklo klaida. Patikrinkite ryšį ir bandykite dar kartą."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Šiame vaizdo įraše nėra subtitrų prašomomis kalbomis."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Nepakanka vietos diske. Atlaisvinkite vietos ir bandykite dar kartą."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy negali rašyti į atsisiuntimų aplanką. Jis gali būti tik skaitomas, esantis užrakintame diske arba užblokuotas jūsų sistemos privatumo parametrų. Pasirinkite kitą aplanką arba leiskite prieigą, tada bandykite dar kartą."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Nepavyko išanalizuoti svetainės atsakymo. Galbūt svetainė pakeitė vaizdo įrašų pateikimo būdą. Arroxy atnaujina atsisiuntimo variklį paleidžiant – bandykite dar kartą po kelių minučių, kai pataisa bus išleista."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Atsisiuntimas baigtas, bet paskesnis apdorojimas (sujungimas / maišymas / konvertavimas) nepavyko. Dažnai tai laikina ffmpeg problema – bandykite dar kartą, o jei kartojasi, išbandykite kitą formatų derinį."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Svetainė riboja šio ryšio užklausų skaičių."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Šis vaizdo įrašas nepasiekiamas – jis gali būti privatus, ištrintas arba užblokuotas regione."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Atsisiųsti nepavyko. Žr. neapdorotą išvestį žemiau."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy nepalaiko šio URL. Išbandykite kitos svetainės nuorodą."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Patikrinkite ryšį ir bandykite dar kartą."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Šis puslapis neįsikėlė"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Atverti parametrus"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Patikrinkite tarpinį serverį parametruose ir bandykite dar kartą."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Naršymas negali prisijungti per jūsų tarpinį serverį"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Dešiniuoju pelės mygtuku spustelėkite bet kurią puslapio vaizdo įrašo, grojaraščio ar kanalo nuorodą, kad atsisiųstumėte ją naudodami aktyvų profilį, pasirinktumėte kitą profilį arba atvertumėte žingsnis po žingsnio eigą."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Spustelėkite nuorodą dešiniuoju mygtuku, kad ją atsisiųstumėte"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopijuoti nuorodą"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Atsisiųsti naudojant"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Nauja"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Raskite vaizdo įrašą YouTube ar bet kurioje kitoje svetainėje ir atsisiųskite jį čia – nereikia kopijuoti nuorodų. Prisijunkite prie svetainės čia, kad atsisiųstumėte vaizdo įrašus, kuriems reikia paskyros."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Tęsti"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Tokios svetainės kaip YouTube gali pažymėti – o kartais ir užblokuoti – paskyras, naudojamas su atsisiuntimo įrankiais, tokiais kaip Arroxy. Naudokite paskyrą, kurios nesigailėtumėte prarasti, o ne pagrindinę."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Prisijunkite su antrine paskyra"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Naršykite internete tiesiai Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Atsisiuntimams naudojami jūsų naršyklės slapukai, o ne prisijungimas per Naršymą."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Atsisiuntimams naudojamas jūsų slapukų failas, o ne prisijungimas per Naršymą."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Ne dabar"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Slapukai išjungti, todėl atsisiuntimams nenaudojamas jūsų prisijungimas per Naršymą."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Naudoti prisijungimą per Naršymą"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje ir prisijunkite, kad pasiektumėte vaizdo įrašus, kuriems reikia paskyros."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Atlaisvinti atmintį, kai nenaudojama"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Praėjus 5 minutėms kitame skirtuke, uždaro YouTube pagrindinį arba paieškos puslapį. Grįžus jis įkeliamas iš naujo, o tai užtrunka kelias sekundes."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Paieškos variklis"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Kur ieškoma adreso juostoje įvestas tekstas. Nuorodos atveriamos tokios, kokios įvestos."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Rodyti skirtuką „Naršymas“"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Išjungus, atsisiuntimams taip pat nebenaudojamas jūsų prisijungimas per Naršymą."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Atsijungti nuo Naršymo"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Atsijungti"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Tai išvalo jūsų prisijungimus ir naršymo duomenis Naršyme visose svetainėse. Atsisiuntimai, kuriems reikia paskyros, nepavyks, kol vėl neprisijungsite."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Atsijungti nuo Naršymo?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Išvalo jūsų prisijungimus ir naršymo duomenis Naršyme visose svetainėse."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Naršymas"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Naršymas"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube gali priešintis skelbimų blokavimui prisijungusiose paskyrose."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Skelbimų blokatorius"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Skelbimų blokatorius: išjungtas – spustelėkite, kad įjungtumėte"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Skelbimų blokatorius: įjungtas – spustelėkite, kad išjungtumėte"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Skelbimų blokatorius: paleidžiamas – spustelėkite, kad išjungtumėte"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Skelbimų blokatorius: nepasiekiamas, nepavyko atsisiųsti jo filtrų sąrašų – spustelėkite, kad išjungtumėte"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adresas"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Ieškokite {{engine}} arba atverkite bet kurią svetainę (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Naršymo valdikliai"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Atgal"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Kompaktiškas išdėstymas"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Atsisiųsti · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Pirmyn"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Rodyti visą išdėstymą"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Atverkite vaizdo įrašą, grojaraštį ar kanalą, kad jį atsisiųstumėte"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube pagrindinis"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interaktyvus atsisiuntimas: pasirinkite formatą, subtitrus ir dar daugiau…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Naršymas negali atverti to adreso."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Įkelti iš naujo"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Ši paieška per ilga."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Puslapio mastelis: {{percent}} %"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Padidinti"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Puslapio mastelis"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Sumažinti"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Mastelio procentai"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Atkurti 100 % mastelį"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Pasirinkite, kaip pavadinami atsisiųsti failai. Spustelėkite žymę, kad ją įterptumėte. Naudokite /, kad atsisiuntimus išrikiuotumėte į aplankus."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Įveskite failo pavadinimo šabloną."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Pašalinkite nereikalingą / – kiekvienas aplankas turi turėti pavadinimą."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Pašalinkite simbolius, kurių negalima naudoti failų pavadinimuose: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Šis aplanko pavadinimas neleidžiamas. Venkite . ir .. bei rezervuotų pavadinimų, pvz., CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Įtraukite {title} arba {id} į failo pavadinimą, kad kiekvienas atsisiuntimas gautų savo pavadinimą."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} negali būti aplanko pavadinimas – kokybė nežinoma, kol neprasideda atsisiuntimas."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Nesuporuotas { arba } – žymes, pvz., {title}, apgaubkite skliaustais."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Šablonas per ilgas."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Nežinoma žymė {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Be {id} Arroxy negali aptikti jau atsisiųstų grojaraščio elementų ar kurti .m3u grojaraščių."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Failo pavadinimo šablonas"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Nepasiekiama, nes jūsų failo pavadinimo šablone nėra {id} arba atsisiuntimai rikiuojami į aplankus."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Grojaraštyje"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Vienas vaizdo įrašas"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Palikite tuščią, kad būtų paveldėtas bendrasis šablonas."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Failo pavadinimo šablonas"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automatinis"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automatinis (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Failo tipą nulemia pasirinkti srautai."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Gali talpinti bet kurį kodeką. Kai kurie televizoriai ir telefonai jo neatveria."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Atkuriamas beveik visur. VP9 MP4 faile QuickTime neatkurs vaizdo."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Atvirasis formatas naršyklėms. Talpina tik VP9 arba AV1 su Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 MP4 faile QuickTime atkurti reikia naujesnio Mac. H.264 atkuriamas visur."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 MP4 faile QuickTime neatkurs vaizdo. H.264 atkuriamas visur."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profilis"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM nesiūlomas su Smart TV: jis negali talpinti H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM negali talpinti {{codec}}. Pasirinkite MKV arba MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Garsas"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Tik garsas · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automatinis"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automatinis režimas pasirenka HDR, kai šis ekranas jį gali rodyti, kitu atveju – SDR. Įprastuose ekranuose HDR atrodo išblukęs."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR vaizdo įrašas"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Kalba"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Prisijungta per Naršymą – kartojama {{count}} nuorodos"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.exploreSignInRetrying_many"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Prisijungta per Naršymą – kartojama {{count}} nuorodos"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Prisijungta per Naršymą – kartojama {{count}} nuoroda"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Prisijungta per Naršymą – kartojama {{count}} nuorodų"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Nepavyko atsijungti nuo Naršymo. Bandykite dar kartą."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Šis aplankas jūsų sistemai per giliai. Atsisiuntimas vis tiek gali nepavykti – pasirinkite artimesnį aplanką."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Šio vaizdo įrašo pavadinimas netelpa į visas jūsų šablono dalis, todėl naudotas numatytasis pavadinimas."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Nepavyko atverti aplanko parinkiklio."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Jau eilėje – kopija nepridėta"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy dar paleidžiama – pabandykite po akimirkos"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Užbaikite slapukų sąranką Arroxy ir bandykite dar kartą"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Iškarpinėje nėra nuorodos – pirmiausia nukopijuokite"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Nukopijuota kelios nuorodos – naudokite Arroxy skiltį „Kelios nuorodos“"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Šiai nuorodai reikia jūsų pasirinkimo – žr. Atsisiuntimai Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Atsisiuntimas įtrauktas į eilę iš iškarpinės"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Nepavyko pridėti tos nuorodos – bandykite dar kartą Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Šio aplanko negalima naudoti šiam grojaraščiui."
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} vaizdo įrašai jau eilėje – praleista"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.queue.skippedAlreadyQueued_many"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} vaizdo įrašo jau eilėje – praleista"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} vaizdo įrašas jau eilėje – praleista"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} vaizdo įrašų jau eilėje – praleista"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Pridėta: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Jau eilėje"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ vaizdo įrašai – pasirinkite, kiek"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseHowMany_many"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ vaizdo įrašo – pasirinkite, kiek"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ vaizdo įrašas – pasirinkite, kiek"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ vaizdo įrašų – pasirinkite, kiek"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Nepavyko paruošti: {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Nepavyko pridėti tos nuorodos – bandykite dar kartą"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}} vaizdo įrašai – peržiūrėkite ir pasirinkite"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.review_many"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}} vaizdo įrašo – peržiūrėkite ir pasirinkite"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "Šiame sąraše {{count}} vaizdo įrašas – peržiūrėkite ir pasirinkite"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}} vaizdo įrašų – peržiūrėkite ir pasirinkite"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}}+ vaizdo įrašai – peržiūrėkite ir pasirinkite"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.reviewCapped_many"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}}+ vaizdo įrašo – peržiūrėkite ir pasirinkite"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "Šiame sąraše {{count}}+ vaizdo įrašas – peržiūrėkite ir pasirinkite"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Šiame sąraše {{count}}+ vaizdo įrašų – peržiūrėkite ir pasirinkite"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Rodyti"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Nepavyko įrašyti jūsų parametrų."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Nepavyko to atverti."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Sąranka nebaigta. Kai kurie atsisiuntimai gali nepavykti, kol ji nebus baigta."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Garsas (geriausias)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Garsas ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Originalus geriausias garsas, be perkodavimo"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Konvertuoti į M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Konvertuoti į MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Konvertuoti į Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 aukštesnės nei 1080p raiškos YouTube nėra – automatiškai apribota iki 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Įrašyti kaip"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Tiesiai į įrašymo aplanką"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Kalbos"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Norėdami tęsti, pasirinkite bent vieną kalbą."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Kiekvienam vaizdo įrašui įrašomi tik subtitrų failai – vaizdas ir garsas neatsisiunčiami."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Šaltinis"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Iki 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Iki 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Iki 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Iki 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Iki 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Iki 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Iki 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Iki 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Geriausia kokybė"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ribojama iki 1080p, jei reikia, kiekvienam elementui sumažinama"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Kuo mažesni failai"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ribojama iki 2K, jei reikia, kiekvienam elementui sumažinama"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ribojama iki 2160p, jei reikia, kiekvienam elementui sumažinama"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Labai maži failai, žema kokybė"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Maži failai esant ribotam pralaidumui"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Mažas pralaidumas"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Mažesni failai, platus suderinamumas"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Geriausias galimas vaizdas ir garsas kiekvienam elementui"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Garsas"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrai"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Vaizdo įrašas"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Geriausias originalus"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "H.264 MP4 Smart TV įrenginiams"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Geriausias galimas konteineris ir kodekai kiekvienam elementui"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Jei įmanoma, teikti pirmenybę H.264 vaizdui + AAC garsui MP4 faile"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Papildomas failas"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Aprašas"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Medija"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Trūksta"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtitrai"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatiūra"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefaktas"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "Reikia jūsų dėmesio: {{count}} atsisiuntimai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.attentionBadge_many"
+msgid "{{count}} downloads need your attention"
+msgstr "Reikia jūsų dėmesio: {{count}} atsisiuntimo"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "Reikia jūsų dėmesio: {{count}} atsisiuntimas"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "Reikia jūsų dėmesio: {{count}} atsisiuntimų"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Pašalinti kiekvieną atsisiuntimą iš sąrašo praėjus kelioms sekundėms po jo pabaigos. Failai lieka jūsų aplanke."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Valyti baigtus"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Atšaukti visus aktyvius ir laukiančius atsisiuntimus"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Visi vaizdo įrašai"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašai. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.cappedBody_many"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašo. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašas. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašų. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Pirmieji {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Peržiūrėti"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.reviewBody_many"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Išvalyti baigtus atsisiuntimus"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Eilėje esantys atsisiuntimai bus rodomi čia"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Visi"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Eilės būsenos filtrai"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Visi elementai"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Atsisiuntimai"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Garsas nepašalintas"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Garsas nepašalintas · kai kurių subtitrų nepavyko gauti"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Atsisiųsti nepavyko"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Atverti paskirties aplanką"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pristabdyti"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Tik laukiantiems"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Atsisiųsti dabar – praleisti eilę"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Apribota iki {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Apribota iki {{height}}p · kai kurių subtitrų nepavyko gauti"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Pašalinti"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Tęsti"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "automatiškai bandoma dar kartą ({{attempt}}-as bandymas)"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Nustatyti vietą"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Pasirinkite laukiančius elementus, kad nustatytumėte vietą."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Atšaukta"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Baigta"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Klaida"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Sulaikyta"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Reikia jūsų pasirinkimo"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Pristabdyta"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Laukiama"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Gaunama išsami informacija"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Atsisiunčiama"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Pristabdyti kiekvieną aktyvų atsisiuntimą ir neleisti pradėti naujų"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Eilė pristabdyta – laukiantys elementai neprasidės, kol jos neatnaujinsite"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Tęsti pristabdytus atsisiuntimus ir leisti eilei veikti toliau"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Tęsti eilę"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Pasirinkti elementai"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "Pasirinkta {{selected}} · iš viso {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Atsisiuntimai"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Pridėta"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefaktai"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Stulpelis „{{column}}“ nuleistas."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Stulpelio „{{column}}“ perkėlimas atšauktas."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Stulpelis „{{column}}“ yra virš „{{target}}“."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Stulpelis „{{column}}“ paimtas."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Stulpeliai"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Baigta"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formatas"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Slėpti artefaktus: {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "perkeliamas stulpelis"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Norėdami perkelti stulpelį, paspauskite tarpo klavišą arba „Enter“, perkelkite rodyklių klavišais, tada vėl paspauskite tarpo klavišą arba „Enter“, kad jį nuleistumėte. Paspauskite „Esc“, kad atšauktumėte."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Paskirties aplankas"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Eiga"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Atkurti stulpelius"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Keisti stulpelio „{{column}}“ plotį"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Rodyti artefaktus: {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Dydis"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Rikiuoti pagal: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Būsena"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Atsisiuntimai dabar rodomi skirtuke „Atsisiuntimai“ – atverkite jį bet kada, kad stebėtumėte eigą."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Tęsti"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Ką tik atnaujinote programą. Štai svarbiausi pakeitimai."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Visos laidos pastabos ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Kas naujo Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Pasirinkti vykdomąjį failą"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Diegti per Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Diegti per WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Atverti priklausomybės aplanką"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Atkurti numatytąjį"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Bandyti dar kartą"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Peržiūrėti sąrankos žurnalą"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Bandykite dar kartą. Jei vis tiek nepavyksta, žemiau pasirinkite veikiančią kopiją."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Įrankis veikia netinkamai"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Leiskite Arroxy savo antivirusinėje programoje arba „SmartScreen“ ir bandykite dar kartą."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirusinė programa užblokavo įrankį"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Patikrinkite interneto ryšį ir bandykite dar kartą."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Nepavyko atsisiųsti to, ko reikia Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Bandykite dar kartą, kad atsisiųstumėte iš naujo."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Atsisiuntimas atkeliavo pažeistas"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Bandykite dar kartą, kad atsisiųstumėte iš naujo."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Atsisiuntimas nesutapo su savo kontroline suma"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Žemiau pasirinkite abu arba atkurkite numatytuosius."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg ir FFprobe reikia nustatyti kartu"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Bandykite dar kartą. Jei vis tiek nepavyksta, žemiau pasirinkite kopiją, kuria pasitikite."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Jūsų sistema neleidžia Arroxy paleisti įrankio"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Bandykite dar kartą. Jei vis tiek nepavyksta, žemiau pasirinkite veikiančią kopiją."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Įrankio nėra arba jis nepasileidžia"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Dažnai tai būna saugos tikrinimas pirmą kartą paleidus. Bandykite dar kartą."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Įrankis per ilgai neatsakė"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Bandykite dar kartą arba atverkite sąrankos žurnalą, kad sužinotumėte daugiau."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Sąrankos metu kažkas nutiko"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Atsisiuntimo variklis"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Medijos įrankiai"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Diegiama per Homebrew… Tai gali užtrukti kelias minutes."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Diegiama per WinGet… Tai gali užtrukti kelias minutes."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Nurodykite Arroxy jau turimas kopijas arba įdiekite jas kitu būdu."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Taip pat galite įdiegti yt-dlp ir ffmpeg per savo paketų tvarkyklę, tada spustelėti „Bandyti dar kartą“."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Nustatyti rankiniu būdu"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Bandykite dar kartą arba žemiau nurodykite Arroxy jau turimus įrankius."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Sąranka sustojo"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Sąrankai reikia jūsų pagalbos"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Kaip šis profilis renkasi"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC garsas"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "tinka MP4 grotuvams"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC garsas"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "atkuriamas visur"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, tada VP9, tada H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "ryškiausias esant tokiam dydžiui"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, tada VP9, tada AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "šio profilio kodekas"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, tada H.264, tada AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "šio profilio kodekas"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Didžiausias kadrų dažnis"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "sklandesnis judesys"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 vaizdas"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "atkuriamas kiekviename įrenginyje"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR prieš SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "sodresnės spalvos HDR ekranuose"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "šis ekranas rodo HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR prieš HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "tinkamai atrodo bet kuriame ekrane"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "šis ekranas nėra HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 srautai"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "paruošti MP4 failui"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereo garsas"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "šis profilis"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "iš parametrų"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Erdvinis garsas, kai siūlomas"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus garsas"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "tinka WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Originalūs srautai, ne DI išdidinti"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "išdidinta kopija didesnė, bet tikrų detalių nepridėdama"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Tiesioginiai atsisiuntimai prieš srautines kopijas"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "tas pats vaizdas, atsisiunčiamas greičiau"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Iki {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "jūsų riba"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Didžiausia skiriamoji geba"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "riba nenustatyta"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Srautai, kurių svetainė nepažymi kaip prastesnių"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "praleidžia pažeistas, su vandenženkliu ir atsargines kopijas"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Didesnis failas"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "daugiau detalių esant tiems patiems parametrams"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Pirmiausia padidintos spartos srautai"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "daugiau detalių esant tai pačiai skiriamajai gebai"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "failo tipas pagal srautus"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "įrašoma kaip .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "geriausias vaizdas"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "atkuriamas bet kuriame įrenginyje"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Kodėl šis?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Kodėl profilis pasirinko šį"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Nukopijuota!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopijuoti nuorodą"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy – nemokama atvirojo kodo vaizdo įrašų atsisiuntimo programa, skirta Windows, macOS ir Linux. Veikia su YouTube, Vimeo, Twitch ir daugiau nei 2000 svetainių.\n"
+"4K · HDR · MP3 · Shorts · Subtitrai · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy yra nemokama ir atvirojo kodo. Dalydamiesi padedate jai pasiekti daugiau žmonių."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Dalytis"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Dalytis Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Dalytis Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Pasidalykite Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Kyla problemų? Nustatykite rankiniu būdu"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Sveiki sugrįžę!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} iš {{total}}"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "splash.setup.left.minutes_few"
+msgid "about {{count}} min left"
+msgstr "liko apie {{count}} min."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "splash.setup.left.minutes_many"
+msgid "about {{count}} min left"
+msgstr "liko apie {{count}} min."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "liko apie {{count}} min."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "liko apie {{count}} min."
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "liko mažiau nei minutė"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Užtikrina, kad atsisiuntimai veiktų, kai svetainės keičiasi."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Tai įvyksta tik vieną kartą. Arroxy pasilieka šiuos įrankius ir pati juos atnaujina."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Tai įvyksta tik vieną kartą. Arroxy pasilieka juos būsimiems atnaujinimams."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Tikrinama, ar viskas veikia"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Jungiamasi…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Atsisiunčiamas atsisiuntimo variklis ir medijos įrankiai"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Atsisiunčiamas atsisiuntimo variklis"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Atsisiunčiami medijos įrankiai"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Išpakuojami medijos įrankiai"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Atnaujinamas atsisiuntimo variklis"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Pirmojo karto sąranka"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Atnaujinami medijos įrankiai"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Pirmasis šios versijos tikrinimas – jis lėtas. Paprastai apie minutę."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Tikrinama: {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Ruošiami atsisiuntimai…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Sąranka nepavyko. Išsamią informaciją rasite sąrankos žurnale."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Vaizdo įrašas įrašytas kartu su garsu – garso pašalinti nepavyko"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Vaizdo įrašas įrašytas kartu su garsu – garso pašalinti nepavyko, o kai kurių subtitrų atsisiųsti nepavyko"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Atsisiuntimas atšauktas"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Atsisiuntimas baigtas"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Konvertuojamas vaizdo įrašas…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Nepakanka vietos diske – reikia {{required}}, yra tik {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Atsisiunčiamas {{name}} vykdomasis failas…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Atsisiunčiamas vaizdas ir garsas…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Įterpiami metaduomenys…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Atsijungta nuo Naršymo – prisijunkite iš naujo"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Konvertuojamas garsas…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Jungiamasi prie SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Gaunami subtitrai…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Sujungiamas garsas ir vaizdas…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Kuriamas YouTube žetonas…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Perkeliami failai…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Nepavyksta įrašyti į {{dir}} – Arroxy neleidžiama ten rašyti"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Ruošiami vykdomieji failai…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės. Gali padėti bandymas vėliau arba iš kito tinklo."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės, o kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas vėliau arba iš kito tinklo."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Kuriamas naujas žetonas…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock nepasiekiamas, bandoma dar kartą ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Ryšys užstrigo, bandoma dar kartą ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Prisijungiama naudojant jūsų Naršymo paskyrą…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Laukiama {{seconds}} s, kad nebūtų viršytos užklausų ribos…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Paleidžiamas atsisiuntimo variklis…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Vaizdo įrašas įrašytas – kai kurių subtitrų atsisiųsti nepavyko"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Nežinomas atsisiuntimo paleidimo sutrikimas"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Atsisiųsta naudojant supaprastintą ištraukiklį – nustatykite cookies.txt, kad atsisiuntimai būtų patikimesni"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Atsisiuntimo variklis baigė darbą su kodu {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Atsisiuntimo variklio klaida: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tamsusis režimas"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Šviesusis režimas"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Sistemos numatytasis"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Uždaryti"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Išskleisti"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Sumažinti"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Atkurti"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Atsisiųsti iš iškarpinės"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Atverti Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Išeiti iš Arroxy"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Atsisiunčiama: {{count}} · {{percent}} %"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "tray.menu.statusActive_many"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Atsisiunčiama: {{count}} · {{percent}} %"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "Atsisiunčiama: {{count}} · {{percent}} %"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Atsisiunčiama: {{count}} · {{percent}} %"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Neveikia"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Komanda nukopijuota į iškarpinę"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopijuoti komandą į iškarpinę"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Atmesti naujinimo juostą"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Atsisiųsti ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Atsisiųsti DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Atsisiunčiama…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Įdiegti ir paleisti iš naujo"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Naujinimas nepavyko"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Galima Arroxy {{version}} – jūs naudojate {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Galima Arroxy {{version}} – atnaujinkite per Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Galima Arroxy {{version}} – atsisiųskite naują DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Galima Arroxy {{version}} – atsisiųskite DMG arba pereikite prie Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Galima Arroxy {{version}} – atsisiųskite naują versiją."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Vykdyti ir paleisti iš naujo"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Atnaujinama…"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} skyriai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "videoCard.chapters_many"
+msgid "{{count}} chapters"
+msgstr "{{count}} skyriaus"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} skyrius"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} skyrių"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Įkeliama…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automatinis"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Kurį kodeką rinktis pirmiausia tarp tokio paties aukščio srautų. Automatinis režimas palieka paties yt-dlp tvarką, kuri teikia pirmenybę mažiausiam AV1; H.264 atkuriamas senesniuose televizoriuose ir telefonuose."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Pirmiausia H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Vaizdo kodekas"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV visada renkasi H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Pirmiausia VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Paruošta"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Įklijuokite vaizdo įrašų, grojaraščių, kanalų, paieškos arba garso URL. Arroxy prieš įtraukdama į eilę pašalins pasikartojimus."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Įklijuokite vieną ar kelis URL, kad peržiūrėtumėte paketą."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ignoruota"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Norėdami tęsti, pridėkite bent vieną palaikomą URL."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Pasikartoja"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL sąrašas"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Kelios nuorodos"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Eilė"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Įtraukia į eilę – prasidės, kai baigsis aktyvus atsisiuntimas"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Tik garsas"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} iš {{total}} vaizdo įrašų"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValue_many"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} iš {{total}} vaizdo įrašų"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} iš {{total}} vaizdo įrašų"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} iš {{total}} vaizdo įrašų"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} iš {{total}} takelių"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueAudio_many"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} iš {{total}} takelių"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} iš {{total}} takelių"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} iš {{total}} takelių"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} iš {{total}} URL"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueBulk_many"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} iš {{total}} URL"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} iš {{total}} URL"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} iš {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Garsas"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Paketas"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Elementai"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Grojaraštis"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Šablonas"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Įrašyti į"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Dydis"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtitrai"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Vaizdas"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Jūsų failas bus įrašytas į"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Jie bus įrašyti į {{count}} toliau nurodytas paskirtis"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.landInMultiProfile_many"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Jie bus įrašyti į {{count}} toliau nurodytas paskirtis"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Jis bus įrašytas į toliau nurodytą paskirtį"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Jie bus įrašyti į {{count}} toliau nurodytų paskirčių"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Aktyvus šablonas „Tik subtitrai“, tačiau nepasirinkta nė viena subtitrų kalba – nieko nebus atsisiųsta."
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} elementai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.profileBreakdownCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} elemento"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} elementas"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementų"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Šio paketo profiliai"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Atsisiųsti! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Praleidžia eilę – prasideda dabar ir vykdomas kartu su kitais aktyviais atsisiuntimais"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Viskas paruošta atsisiuntimui!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Nežinoma"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitrų įterpimas pakeistas į atskirą failą – garso takeliai nepalaiko įterptų subtitrų srautų."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Vaizdo įraše įterptiems subtitrams reikia MKV failo, todėl šis atsisiuntimas įrašomas kaip .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Miniatiūros įterpimas praleistas – išvesties konteineris jo nepalaiko."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Kitas…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Darbalaukis"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumentai"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Atsisiuntimai"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Įrašyti į"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Namai"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muzika"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Paveikslėliai"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Aplanko pavadinime yra netinkamų simbolių"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "pvz., lo-fi įrašai"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Įrašyti į poaplankį"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmai"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Garsas"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Garso kalba"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "{{count}} kalbos"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.formats.audioLanguageCount_many"
+msgid "{{count}} languages"
+msgstr "{{count}} kalbos"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} kalba"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} kalbų"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Tik garsas"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Sparta {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Slapukai sukonfigūruoti, bet išjungti. Įjunkite juos ir bandykite dar kartą, kad gautumėte visą sąrašą, arba pakeiskite tinklą ir bandykite dar kartą."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Net ir su slapukais YouTube apribojo šį nuskaitymą. Bandykite vėliau arba pakeiskite tinklą."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube apribojo šią užklausą. Bandykite vėliau arba pakeiskite tinklą."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Formatų sąrašas gali būti nepilnas. Nustatykite slapukus išplėstiniuose parametruose arba pakeiskite tinklą ir bandykite dar kartą."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Įjungti slapukus ir bandyti dar kartą"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Nuskaitymas apribotas"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Sparta"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Šaltinis, kuris jau yra {{target}}, išlaiko savo srautą ir spartą: jis nukopijuojamas, o ne perkoduojamas."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kb/s, be perkodavimo"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, be perkodavimo"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kb/s, kaip šaltinyje: srautas jau yra {{target}}, todėl jis nukopijuojamas, o ne perkoduojamas"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Kaip šaltinyje: srautas jau yra {{target}}, todėl jis nukopijuojamas, o ne perkoduojamas"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Konvertuoti"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kb/s"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Šaltinio sparta {{kbps}} kb/s"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (nesuglaudintas)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Naršyklė"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Prisijungimas per Naršymą"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Failas"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Slapukų šaltinis"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp dokumentacija (problema #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 ir naujesnė versija užšifruoja slapukus taip, kad kitos „Windows“ programos jų nepaskaito. Išbandykite vieną iš toliau nurodytų sprendimų."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Eksportuokite slapukus iš Chrome naršyklės plėtiniu, tada perjunkite šią programą į režimą „Failas“ ir pasirinkite eksportuotą failą."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Eksportuoti cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox nenaudoja „App-Bound Encryption“. Atverkite slapukų parametrus ir naršyklių sąraše pasirinkite Firefox."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Pereiti prie Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Pridėkite --disable-features=LockProfileCookieDatabase prie Chrome paleidimo nuorodos. Įspėjimas: tai anuliuoja anksčiau užšifruotus slapukus, todėl būsite atjungti nuo visų svetainių ir turėsite prisijungti iš naujo."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Paleisti Chrome išjungus „App-Bound Encryption“"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome slapukus užblokavo Windows šifravimas"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Slapukai skaitomi tiesiai iš naršyklės. Jei naršyklė šiuo metu veikia, jos slapukų duomenų bazė gali būti užrakinta („Chromium“ šeima). Naršyklėje taip pat turi būti prisijungta prie YouTube. Pabandykite uždaryti naršyklę, pereiti prie kitos naršyklės, perjungti į režimą „Failas“ arba išjungti slapukus."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Jūsų slapukų failas gali būti tuščias, pasenęs arba netinkamo formato (Arroxy reikia „Netscape“ formato cookies.txt failo). Pabandykite eksportuoti slapukus iš naujo, pasirinkti kitą failą, perjungti į režimą „Naršyklė“ arba išjungti slapukus."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Prisijunkite per Naršymą ir Arroxy pabandys dar kartą."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Prisijungti per Naršymą"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šiam vaizdo įrašui gali reikėti YouTube paskyros"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy jau bandė prisijungusi per Naršymą, todėl dar kartą prisijungti nepadės. Svetainė gali turėti problemų arba ši paskyra negali to atverti. Bandykite vėliau."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Svetainė tai atmetė net su jūsų prisijungimu per Naršymą"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Esate prisijungę prie Naršymo, tačiau atsisiuntimai šiuo metu to prisijungimo nenaudoja."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Naudoti mano prisijungimą per Naršymą ir bandyti dar kartą"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šiam vaizdo įrašui gali reikėti YouTube paskyros"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Jei šiam vaizdo įrašui reikia paskyros, Arroxy automatiškai naudoja jūsų prisijungimą per Naršymą. Jis gali būti nepasiekiamas dėl kitos priežasties."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Prisijungta prie Naršymo"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Jei šiam vaizdo įrašui reikia YouTube paskyros, prisijunkite per Naršymą ir bandykite dar kartą. Arroxy naudoja tą prisijungimą tik tada, kai to reikia atsisiuntimui."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Prisijungti per Naršymą"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šiam vaizdo įrašui gali reikėti YouTube paskyros"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Šiai nuorodai gali reikėti {{host}} paskyros"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Prisijunkite prie {{host}} per Naršymą ir bandykite dar kartą."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Prisijunkite prie {{host}} Naršyme ir bandykite dar kartą. Arroxy naudoja tą prisijungimą tik tada, kai to reikia atsisiuntimui."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Priežastis gali būti slapukai"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy nepavyko pasiekti šio vaizdo įrašo be tapatybės nustatymo. Sukonfigūruokite slapukus išplėstiniuose parametruose – nukreipkite juos į naršyklę, kurioje jau esate prisijungę, arba importuokite cookies.txt failą."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Šiai svetainei reikia prisijungimo"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Atverti slapukų parametrus"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Verčiau naudoti slapukų failą arba naršyklę…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Nutildo garsias dalis ir sustiprina tylias – kalbėtuvams ir triukšmingoms patalpoms."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Išlyginti garsumą (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Išlygintas garsumas"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Jūsų profilis yra Smart TV (H.264). Šis vaizdo įrašas H.264 nesiūlo, todėl pasirinktas artimiausias srautas."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Šioje nuorodoje nėra vaizdo, todėl pasirinktas garsas."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Jūsų profilis prašo subtitrų šiomis kalbomis: {{languages}}. Šiame vaizdo įraše jų nėra."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Šiame vaizdo įraše tokios mažos raiškos nėra, todėl pasirinkta {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Šis vaizdo įrašas siekia tik iki {{picked}}p, todėl pasirinkta {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Jūsų profilis prašo WebM. Šio vaizdo įrašo pasirinktuose srautuose yra {{codec}}, kurio WebM negali talpinti, todėl failo tipas yra „Automatinis“."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Įtraukti į eilę nepradedant"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Atsisiųsti"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Daugiau atsisiuntimo parinkčių"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Pasirinkite bent vieną subtitrų kalbą."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Palikti kaip yra"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Integruotas garsas"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Tik garsas"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Ką atsisiųsti"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Tik subtitrai"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Vaizdas + garsas"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Vaizdas be garso"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Įkeliami formatai"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Palaukite, kol baigsis nuskaitymas – grojaraščiai ir paieškos gali užtrukti."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "DI įgarsinta"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "DI išdidinta"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Garso aprašymas"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Pažeista"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Padidinta sparta"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Erdvinis garsas"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Su vandenženkliu"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Be garso"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Jūsų aktyvus profilis iš anksto pasirenka srautus už jus. Perjunkite profilius meniu arba naudokite pieštuką, kad pakoreguotumėte vieną neišeidami iš šio atsisiuntimo."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formatai prasideda nuo jūsų profilio"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Artimiausia profiliui"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Redaguoti: {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Palikti mano pakeitimus"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Tik šiam atsisiuntimui. Jūsų numatytasis profilis lieka nepakitęs."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Iš anksto pasirinkta iš"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Atkurti viską"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Šiam atsisiuntimui pakeitėte: {{areas}}. Profilis „{{profile}}“ vaizdą ir garsą pasirenka bet kuriuo atveju. Palikti kitus jūsų pakeitimus ar viską atkurti pagal profilį?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Perjungti profilį?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profilis"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Šiam atsisiuntimui pakeitėte: {{areas}}. Atnaujintas profilis vaizdą ir garsą pasirenka bet kuriuo atveju. Palikti kitus jūsų pakeitimus ar viską atkurti pagal profilį?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Naudoti atnaujintą profilį?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Aukšta kokybė"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Žema kokybė"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Vidutinė kokybė"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} riboja šį ryšį"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Formatų sąrašas gali būti nepilnas."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} kol kas atmetė šią užklausą."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Bandyti dar kartą"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} šį apribojimą gali palaikyti iki valandos."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Bandyti dabar"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Laukimas baigėsi, todėl galite bandyti dar kartą."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy lauks iki {{time}}, prieš dar kartą kreipdamasi į {{site}}, kad apribojimas galėtų išnykti."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Nežinoma skiriamoji geba"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Įrašoma kaip"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM negali talpinti {{codec}}, todėl failo tipas grąžintas į „Automatinis“."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Dydis nežinomas"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Pereiti prie patvirtinimo"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Visuose likusiuose žingsniuose naudoja jūsų įrašytas nuostatas. Jei norite pakeisti parametrą, tęskite žingsnis po žingsnio – jūsų pasirinkimas bus įrašytas kitam kartui."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Ieškoma geriausių formatų jums…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Iš viso"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Vaizdas"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "su garsu"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Norite tik spustelėto vaizdo įrašo ar pasirinkti iš grojaraščio? Toliau pasirinksite konkrečius vaizdo įrašus arba intervalą."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Pasirinkti iš grojaraščio"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Grojaraščio nuskaitymo riba: {{count}} elementų"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Įkelia grojaraštį iki jūsų grojaraščio nuskaitymo ribos, prieš parodydama parinkiklį."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Atsisiųskite tik šį vaizdo įrašą arba įtraukite į eilę visą grojaraštį naudodami aktyvų greitojo atsisiuntimo profilį."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Didžiausias įrašų skaičius, kurį Arroxy nuskaito prieš įtraukdama grojaraštį, kanalą ar paieškos rezultatą į eilę."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Įtraukia į eilę visus įkeltus grojaraščio elementus naudodama aktyvų greitojo atsisiuntimo profilį. Jei nuskaitymas pasiekia jūsų ribą, Arroxy paklaus prieš įtraukdama į eilę."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Įtraukia į eilę vieną atsisiuntimą ir ignoruoja prie šio URL prijungtą grojaraštį."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Atsisiųsti šį vaizdo įrašą"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Atsisiųsti visą grojaraštį"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Įkelia tik šį vaizdo įrašą. Prie šio URL prijungtas grojaraštis ignoruojamas."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Tik šį"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Šioje nuorodoje yra grojaraštis"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Skyrių žymos, pasiekiamos bet kuriame šiuolaikiniame grotuve."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Įterpti skyrius"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Pavadinimas, atlikėjas, aprašas ir įkėlimo data įrašomi į failą."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Įterpti metaduomenis"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Viršelio paveikslėlis failo viduje. WebM vaizdo įrašas bus perpakuotas į MKV; praleidžiama, kai įterpiami subtitrai."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Įterpti miniatiūrą"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Įrašo vaizdo įrašo aprašą kaip .description tekstinį failą šalia atsisiuntimo."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Įrašyti aprašą"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Įrašo .m3u grojaraštį kartu su vaizdo įrašais, kad jie atsidarytų eilės tvarka jūsų medijos grotuve."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Sukurti .m3u grojaraščio failą"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Įrašo miniatiūrą kaip .jpg paveikslėlio failą šalia atsisiuntimo."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Įrašyti miniatiūrą"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Vaizdo įrašo kortelėje perjunkite į „Dalis“, kad pasirinktumėte pradžią ir pabaigą arba skyrių ir atsisiųstumėte tik tą ruožą."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Atsisiųskite tik vaizdo įrašo dalį"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Skyriai"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "{{number}} skyrius"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Dalis atsisiunčiama per ffmpeg, todėl jai netaikomi jūsų atsisiuntimo jungčių ir tempo parametrai."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Pirmiausia pataisykite dalies pradžią ir pabaigą."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Pabaiga"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Vaizdo įrašas baigiasi ties {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Pabaigą įveskite kaip h:mm:ss, m:ss arba sekundėmis."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Pradžią įveskite kaip h:mm:ss, m:ss arba sekundėmis."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Pradžia turi būti ankstesnė už pabaigą."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Išjungta: kiekvienas pjūvis pasirenka artimiausią pagrindinį kadrą, kuris gali skirtis keliomis sekundėmis nuo įvesto laiko."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Tikslus pjūvis (perkoduoja, lėčiau)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} iš {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Dalis"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Vaizdo įrašo dalis"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Pradžia"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "visas vaizdo įrašas"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Dalis {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Kiek vaizdo įrašo"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss arba sekundės"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Dalis, apytiksliai"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Šis vaizdo įrašas nenurodo savo trukmės, todėl jį galima atsisiųsti tik visą."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Subtitrai visada apima visą vaizdo įrašą."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Jūsų nuoroda prasideda ties {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Naudoti kaip pradžią"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Visas vaizdo įrašas"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Visas takelis"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Atkurkite juos, kad galėtumėte tęsti."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Pašalinti visi elementai"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Jau atsisiųsta"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Kelios nuorodos"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Laukti nebūtina – dabar į eilę įtraukti failai vis tiek gaus tikruosius pavadinimus atsisiunčiant."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Gaunama vaizdo įrašų informacija… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Informacija nepasiekiama"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Gaunama informacija"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Laukiama"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "tiesioginis"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Grojaraščio elementai"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Atsisiunčiami vaizdo įrašai"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} vaizdo įrašai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCount_many"
+msgid "{{count}} videos"
+msgstr "{{count}} vaizdo įrašo"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} vaizdo įrašas"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} vaizdo įrašų"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} takeliai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountAudio_many"
+msgid "{{count}} tracks"
+msgstr "{{count}} takelio"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} takelis"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} takelių"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountBulk_many"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Gaunamas grojaraštis…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Gaunami vaizdo įrašai…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Apribota iki pirmųjų {{count}} elementų"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "Rasta puslapių: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.loadingPagesFound_many"
+msgid "{{count}} pages found"
+msgstr "Rasta puslapių: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Rasta puslapių: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Rasta puslapių: {{count}}"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Renkami vaizdo įrašai"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Nuskaitomi kanalo puslapiai"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Priskirti profilius kiekvienam elementui"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Praleidžia Kokybę, SponsorBlock, Išvestį ir Įrašymą – vietoj to priskirkite atsisiuntimo profilį kiekvienam elementui"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Grojaraštis"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "Iš jų {{count}} yra grojaraščiai, o ne vaizdo įrašai – įklijuokite jų nuorodas po vieną, kad juos atsisiųstumėte."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.nestedPlaylistHint_many"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "Iš jų {{count}} yra grojaraščiai, o ne vaizdo įrašai – įklijuokite jų nuorodas po vieną, kad juos atsisiųstumėte."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "Iš jų {{count}} yra grojaraštis, o ne vaizdo įrašas – įklijuokite jo nuorodą atskirai, kad jį atsisiųstumėte."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "Iš jų {{count}} yra grojaraščiai, o ne vaizdo įrašai – įklijuokite jų nuorodas po vieną, kad juos atsisiųstumėte."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Norėdami tęsti, pasirinkite bent vieną vaizdo įrašą"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Rodoma pirmųjų {{count}} elementų. Padidinkite įkėlimo ribą, kad pamatytumėte daugiau."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Grojaraščio nuskaitymas apribotas"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Nuskaitymas apribotas"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Taikyti intervalą"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Nuo"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Iki"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "Pašalinta: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removedCount_many"
+msgid "{{count}} removed"
+msgstr "Pašalinta: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "Pašalinta: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "Pašalinta: {{count}}"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Pašalinti iš sąrašo: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removeFromListCount_many"
+msgid "Remove {{count}} from list"
+msgstr "Pašalinti iš sąrašo: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Pašalinti iš sąrašo: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Pašalinti iš sąrašo: {{count}}"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Atkurti"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Pasirinkti viską"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "Pasirinkta: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.selectedCount_many"
+msgid "{{count}} selected"
+msgstr "Pasirinkta: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "Pasirinkta: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "Pasirinkta: {{count}}"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Nepasirinkti nieko"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Grojaraščio tvarka"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Gaunamos įkėlimo datos…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Rikiuoti"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Seniausi pirmiausia"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Naujausi pirmiausia"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Taikyti sinchronizavimą"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Keisti aplanką…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} iš šių vaizdo įrašų jau yra aplanke {{dir}}. Sinchronizuoti, kad būtų atsisiųsti tik nauji?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Jau yra aplanke"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Aplanke {{dir}} šio grojaraščio vaizdo įrašų nerasta."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Aplanke {{dir}} šio šaltinio vaizdo įrašų nerasta."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Dar nieko neatsisiųsta"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Tikrinamas aplankas…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Vaizdo įrašo miniatiūra"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Pasirinkite paketo kokybę"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} elementai"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistPresets.itemCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} elemento"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} elementas"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementų"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Kiekvienas vaizdo įrašas pasirinktą lygį pritaiko atskirai – įvairūs grojaraščiai veikia be netikėtumų."
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.assignTrigger_few"
+msgid "Assign to {{count}} videos"
+msgstr "Priskirti {{count}} vaizdo įrašams"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Priskirti {{count}} vaizdo įrašo"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Priskirti {{count}} vaizdo įrašui"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Priskirti {{count}} vaizdo įrašų"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Priskirti profilį"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Trukmė"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profilis"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Redaguoti: {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Šį filtrą atitinkančių elementų nėra"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Profilių filtrai"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Priskirti atsisiuntimo profilius"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.menuDescription_few"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Pasirinkite šių {{count}} vaizdo įrašų profilį."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Pasirinkite šių {{count}} vaizdo įrašų profilį."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Pasirinkite šio vaizdo įrašo profilį."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Pasirinkite šių {{count}} vaizdo įrašų profilį."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Pasirinkta {{selected}} iš {{total}}"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Keisti bendrąjį"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Pasirinkti paskirties aplanką"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Pasirinkti profilio piktogramą"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Pašalinti {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Atkurti profilį"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Šis profilis jau naudoja integruotus parametrus"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Atkurti integruoto profilio parametrus"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Įrašyti profilį"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Nustatyti profilio pakeitimą"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Nustatyti pakeitimą"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Naudoti bendrąjį numatytąjį"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Naudoti kalbos kodą „{{code}}“"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Išplėstiniai"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Naudoti programos parametrą ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Geriausias"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Iki 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Iki 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Iki 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Geriausia kokybė"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Numatytasis atsisiuntimų aplankas"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Numatytasis atsisiuntimų aplankas / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Bendroji paskirtis"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktyvi"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Paveldėta"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Profilio pakeitimas"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Pasirinkti aplanką"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Pakeitimas nenustatytas"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Pakeitimas nenustatytas. Šis profilis naudoja aukščiau nurodytą bendrąją paskirtį."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Pakeičia bendrąją"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Šis profilis įrašo į savo šakninį aplanką, prieš pridedant poaplankį."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Galutinė paskirtis"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Viena pakartotinai naudojama sąranka greitajam atsisiuntimui, kelioms nuorodoms ir grojaraščiams."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Atsisiuntimo profilis"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Nepavyko pakeisti bendrosios paskirties."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Nepavyko atverti aplanko parinkiklio. Įveskite kelią rankiniu būdu."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Nepavyko atkurti profilio parametrų."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Nepavyko įrašyti profilio parametrų."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Pateikimas"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Failo tipas"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimizuoti pagal"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Profilio piktograma"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Kalbos"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Profilio pavadinimas"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Profilio pavadinimas ir piktograma"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Originalus garsas"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Profilio pakeitimo kelias"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kokybė"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Skiriamoji geba"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Šaltinis"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Poaplankio pavadinimas"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Subtitrų atsisiuntimai"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profiliai prašo kalbų kodų; prieinamumas nustatomas kiekvienam URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Ryškiausias esant tokiam dydžiui. Senesni televizoriai, QuickTime ir kai kurios redagavimo programos jo neatkuria."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Geriausias vaizdas"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Atkuriamas televizoriuose, telefonuose, WhatsApp, QuickTime ir vaizdo įrašų redagavimo programose. YouTube siūlo H.264 tik iki 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Archyvas"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Garsas"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Subtitrai"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Pamokos"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klipas"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Valdikliai"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Atsisiuntimas"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Muzika"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Tinklalaidė"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Vaizdo įrašas"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Muzika ar tinklalaidės"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Tik garsas"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Tik subtitrų failai"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Tik subtitrai"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Įprasti vaizdo failai"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Vaizdas + garsas"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Tik nebylus vaizdas"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Vaizdas be garso"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automatiniai subtitrai bus įrašyti SRT, o ne ASS formatu."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Atitinkančių kalbų nėra"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Šiam profiliui nebus prašoma subtitrų failų ar įterptų subtitrų takelių."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Ieškokite pagal kalbos pavadinimą arba kodą"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Šiam išvesties tipui praleidžiama."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Pasirinkite bent vieną kalbą."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Pasirinkite bent vieną kalbą arba išjunkite subtitrų atsisiuntimus."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Šis profilis į eilę įtraukia tik subtitrų failus. Vaizdas, garsas, SponsorBlock ir medijos konvertavimas praleidžiami."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profiliai paveldi bendrąją paskirtį, nebent nustatysite profilio pakeitimą."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Išplėstinės parinktys"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Pasirinkite pagrindinį atsisiuntimo būdą."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Atsisiuntimo tipas"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Pavadinimas ir piktograma, rodomi greitajame atsisiuntime, keliose nuorodose ir profilių sąrašuose."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Profilio tapatybė"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "Įjungta: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
+msgid "{{count}} enabled"
+msgstr "Įjungta: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "Įjungta: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "Įjungta: {{count}}"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Išvesties parinktys"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Pasirinkite šio profilio aplanką"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Praleista"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Pažymi rėmėjų segmentus kaip skyrius (nepažeidžiant)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Be SponsorBlock – vaizdo įrašas atkuriamas toks, koks įkeltas."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Iškerpa rėmėjų segmentus iš vaizdo įrašo naudojant FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Tik automatiniai"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Rankiniai ir automatiniai"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Pirmiausia rankiniai, tada automatiniai"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Tik rankiniai"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} žinynas"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Atšaukti paruošimą"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Dabartinė nuoroda"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy skaito nuorodą ir taiko profilį {{profileName}}."
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "Nepavyko: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.quickProgress.failedCount_many"
+msgid "{{count}} failed"
+msgstr "Nepavyko: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "Nepavyko: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "Nepavyko: {{count}}"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Gaunama išsami informacija"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Įtraukiama į eilę"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Ruošiamas greitasis atsisiuntimas"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Palikite šį langą atidarytą, kol Arroxy ruošia eilę."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "papildai"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "failo pavadinimas"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "formatas"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "aplankas"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "subtitrai"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtitrai, SponsorBlock, papildai (pvz., miniatiūra), aplankas ir failo pavadinimas anksčiau buvo atskiri žingsniai. Spustelėkite eilutę, kad ją pakeistumėte."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Visi kiti parametrai dabar šiame puslapyje"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Pakeista, palyginti su „{{profile}}“: {{areas}}. Taikoma tik šiam atsisiuntimui."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Pakeista, palyginti su „{{profile}}“:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Keisti formatą"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Žymės: {title}, {id}, {uploader}, {date}, {resolution}. Plėtinys pridedamas automatiškai."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Įrašyti kaip profilį"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (redaguotas)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Šiam atsisiuntimui naudoti pakeisti parametrai. Naudoti juos ir kitą kartą?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Atšaukti pakeitimus, grįžti į „{{profile}}“"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Papildai"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Failo pavadinimas"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Įrašyti į"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrai"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Viskas kita"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Įrašyti profilį"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Išsaugo šiuos parametrus kaip profilį, kurį galėsite pasirinkti kitą kartą. Jūsų greitojo atsisiuntimo profilis nepasikeičia."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Nepavyko įrašyti profilio."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Profilio pavadinimas"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Įrašyta kaip profilis „{{name}}“"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Įrašyti kaip profilį"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Įrašyti kaip naują profilį"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Atnaujinti profilį"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Tai integruotas profilis. Pradinius jo parametrus galite atkurti skirtuke „Profiliai“."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Nuo šiol kiekvienas atsisiuntimas su šiuo profiliu naudos naujus parametrus."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Formatas"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Atnaujinti „{{profile}}“?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profilis „{{name}}“ atnaujintas"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Atnaujinti „{{profile}}“ šiais pakeitimais"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Nėra"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Užpildas"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Įžanga"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Muzika ne tema"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Pabaiga"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Peržiūra"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Savireklama"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Rėmėjas"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategorijos"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Pažymėti kaip skyrius"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Pašalinti segmentus"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Rėmėjų filtravimas"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Pažymi rėmėjų segmentus kaip skyrius (nepažeidžiant)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Be SponsorBlock – vaizdo įrašas atkuriamas toks, koks įkeltas."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Iškerpa rėmėjų segmentus iš vaizdo įrašo naudojant FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Patvirtinti"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Įrašyti"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Formatas"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Išvestis"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Grojaraštis"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kokybė"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profiliai"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Peržiūra"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrai"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automatiniai subtitrai bus įrašyti SRT, o ne ASS formatu – YouTube vaizdo įrašų subtitrams pašalinamas slenkančių eilučių dubliavimasis, kurio mūsų ASS konverteris dar nemoka atkartoti."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Išvalyti viską"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Įterpimo režimu išvestis įrašoma kaip .mkv, kad subtitrų takeliai įsitvirtintų patikimai."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Formatas"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Šiam vaizdo įrašui subtitrų nėra"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Kalbų neatitinka"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Subtitrų nepasirinkta"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Pašalinti: {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Įterpti į vaizdo įrašą"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Įrašyti kaip"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Šalia vaizdo įrašo"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "poaplankis subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Ieškoti kalbų…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automatiniai"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Rankiniai"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Atsisiuntimo profilių naršymas"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Išplėstiniai"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Siųsti kasdienį aktyvumo signalą"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Jokios telemetrijos. Kartą per dieną anoniminis aktyvumo signalas išsiunčia programos versiją, diegimo kanalą, OS, kalbą, šalį ir apytikslį laiką nuo Arroxy įdiegimo, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Jokių ID, URL, vaizdo įrašų pavadinimų ar failų pavadinimų."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Praėjus kelioms sekundėms po pabaigos pašalina atsisiuntimą iš sąrašo „Atsisiuntimai“. Failai lieka jūsų aplanke; nepavykę ir atšaukti atsisiuntimai sąraše lieka."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Šalinti baigtus atsisiuntimus"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Automatiškai bando dar kartą po tinklo ar serverio trikdžio, kiekvieną kartą laukdama ilgiau. Svetainės užblokuoti atsisiuntimai automatiškai nekartojami."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Kartoti nepavykusius atsisiuntimus"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "k."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Kelios nuorodos"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Pridėkite kelis URL ir įtraukite juos į eilę."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Išvalyti URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Nuoroda pridėta iš iškarpinės"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Nukopijuota kelios nuorodos – pridėkite jas per „Kelios nuorodos“"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Pakeista nukopijuota nuoroda"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Stebėti iškarpinę"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Automatiškai užpildyti URL lauką, kai nukopijuojate vaizdo įrašo nuorodą."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Uždarant slėpti į dėklą"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Tęsti atsisiuntimus fone uždarius langą."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Kiek eilės elementų atsisiunčiama tuo pačiu metu. Daugiau vienu metu greičiau baigia ilgą eilę, bet padidina riziką, kad svetainė jus apribos."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Atsisiuntimų vienu metu"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "atsisiuntimų"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Tokios svetainės kaip YouTube gali pažymėti – o kartais ir užblokuoti – paskyras, kurių slapukus naudoja atsisiuntimo įrankiai, tokie kaip Arroxy. Jei įmanoma, naudokite vienkartinę paskyrą."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Slapukus skaito tiesiai iš naršyklės. „Chromium“ šeimos naršyklės turi būti uždarytos."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Naršyklė"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Pasirinkite naršyklę…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Pasirinkti…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Išvalyti"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Pasirinkite naršyklę, kad naudotumėte slapukus"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Pasirinkite failą, kad naudotumėte slapukus"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Jūsų prisijungimas per Naršymą naudojamas tik tada, kai to reikia atsisiuntimui."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Skirtukas „Naršymas“ išjungtas, todėl atsisiuntimai nenaudoja jūsų prisijungimo per Naršymą. Įjunkite jį žemiau skiltyje „Naršymas“."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "„Get cookies.txt LOCALLY“ (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Slapukų failas"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Kaip eksportuoti slapukus?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Atverti Naršymą"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Failas nepasirinktas"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Rekomenduojama"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Rizika: cookies.txt turi visas tos naršyklės prisijungusias sesijas – laikykite jį privatų."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Naršyklė"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Prisijungimas per Naršymą"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Failas"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Slapukų šaltinis"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Padeda su vaizdo įrašais, turinčiais amžiaus apribojimą, skirtais tik nariams ir privačiais paskyros vaizdo įrašais."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Pagreitina didelius atsisiuntimus gaudama kelias vaizdo įrašo dalis vienu metu. Didesnės reikšmės padidina riziką, kad svetainė jus apribos."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Atsisiuntimo ryšiai"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ryšių"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Tik garsas"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrai"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ svetainių"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Muzikos grojaraščiai"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Vaizdo įrašų grojaraščiai"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Ką gali atsisiųsti Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanalai"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muzika"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Grojaraščiai"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Tinklalaidės"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Žingsnis po žingsnio vedlys. Pasirinkite formatą, kokybę ir dar daugiau."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Atsisiųsti iš URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Keisti spartųjį klavišą"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Šį spartųjį klavišą naudoja kita programa – pasirinkite kitą."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Arba paspauskite"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Nukopijuokite vaizdo įrašo nuorodą bet kur, paspauskite šį spartųjį klavišą ir Arroxy įtrauks ją į eilę su jūsų aktyviu profiliu – nereikia keisti langų."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Pakeiskite arba išjunkite parametruose."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Paspauskite klavišus…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Atkurti numatytąjį"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Atsisiųskite bet kokią nukopijuotą nuorodą iš bet kurios programos neatidarę Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Visuotinis spartusis klavišas"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Išbandyti"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Įjungti visuotinį spartųjį klavišą"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Paspauskite spartųjį klavišą, kai iškarpinėje yra vaizdo įrašo nuoroda."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interaktyvus atsisiuntimas"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktyvūs atsisiuntimai išlaiko dabartinę ribą. Pristabdykite ir tęskite, kad pakeitimai įsigaliotų."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Kita…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "pvz., 750K arba 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Riboja medijos atsisiuntimų pralaidumą. Užklausų tempas žemiau paprastai yra stipresnė apribojimo priemonė."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Naudokite skaičių su K arba M (pvz., 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Atsisiuntimo greičio riba"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Atsisiunčiu fone… moku daryti kelis darbus 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Greitasis režimas į eilę įtraukia įkeltus elementus su profiliu {{profileName}}. Interaktyvus leidžia pirmiausia peržiūrėti ar pasirinkti elementus."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Įmeskite nuorodą ir leiskite Arroxy ją atsisiųsti ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Ši nuoroda rodo į vieną vaizdo įrašą kolekcijoje. Arroxy paklaus, kurį norite, prieš nuskaitydama."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} skaito šią nuorodą ir taiko profilį {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Eilė tvarko šį atsisiuntimą. Kol jis vyksta, galite įklijuoti kitą nuorodą."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Greitasis režimas pradeda vieną atsisiuntimą su profiliu {{profileName}}. Vienkartiniams pakeitimams naudokite interaktyvų."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Suderinamas stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo ar erdvinis garsas, kai profilis renkasi originalų garsą. Profilis gali tai pakeisti."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Originalaus garso nuostata"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Teikti pirmenybę erdviniam / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Prideda nedidelių pauzių kiekvieno atsisiuntimo metu, kad Arroxy per agresyviai nenaudotų svetainės. Reikšmės sekundėmis."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pauzė prieš pradedant mediją: daugiausia"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pauzė prieš pradedant mediją: mažiausia"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Laukti tarp metaduomenų patikrų"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Laukti prieš subtitrų failus"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Švelnūs atsisiuntimai"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Kiek atsargi turėtų būti Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Subalansuota"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Atsargi"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Pasirinktinė"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Pauzės: {{requests}} tarp patikrų, {{downloads}} prieš pradedant mediją, {{subtitles}} prieš subtitrų failus."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Šios pauzės vyksta kiekvieno atsisiuntimo viduje. Kiek atsisiuntimų vykdoma vienu metu, nustatoma atskirai, skiltyje „Atsisiuntimų vienu metu“."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Numatytoji. Prideda trumpas pauzes tarp užklausų ir prieš pradedant mediją."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Prideda ilgesnes pauzes dideliems grojaraščiams arba tinklams, kurie dažnai pasiekia ribas."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Patys sureguliuokite išplėstinius atskiro atsisiuntimo valdiklius."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Naudoja tik nedideles bazines pauzes, kurias Arroxy palieka medijai ir subtitrams."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Dabartinė riba: {{count}} elementų"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Kita…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Naudokite sveikąjį skaičių nuo {{min}} iki {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Įrašyti ribą"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Pasirinktinė grojaraščio nuskaitymo riba"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Pasirinktinė: {{count}} elementų"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Didžiausias įrašų skaičius, kurį Arroxy įkelia atvėrus grojaraštį, kanalą ar paieškos rezultatą."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Naudokite sveikąjį skaičių nuo 1 iki 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Nuskaitomi grojaraščio elementai"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} elementų"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Kurdama parinkiklį Arroxy prašo tik tiek grojaraščio, kanalo ar paieškos įrašų."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Naudoti programos ribą: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Taikyti"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Nepavyko pritaikyti grojaraščio apimties: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Taikyti ir įkelti iš naujo"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Keisti"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Pasirinkite, ką Arroxy įkelia šiam grojaraščiui."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Grojaraščio apimtis"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Toje apimtyje vaizdo įrašų nėra"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Pirmieji"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Naudokite sveikuosius elementų numerius nuo 1 iki {{max}}, o pradžia neturi būti didesnė už pabaigą."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Įkeliami elementai"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Grojaraščio apimtis"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Intervalas"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Įkeliama iš naujo..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Atkurti"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Įkelti pirmuosius elementus: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Įkelti pirmuosius elementus: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Įkelti elementus {{from}}–{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "iki"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktyvus profilis"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Integruotas"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Pasirinktinis"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Paslėptas"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Pakeistas"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Keisti bendrąją paskirtį"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Naudojama bendroji paskirtis"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Naudojama bendroji paskirtis + profilio poaplankis"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Naudojamas profilio pakeitimas"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Naudojamas profilio pakeitimas + profilio poaplankis"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Paskirtis"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Redaguoti aktyvų profilį"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Paslėpti profiliai lieka čia, bet dingsta iš visų profilių parinkiklių."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Rodyti profilį parinkikliuose: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Palikite bent vieną profilį prieinamą."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Tvarkyti profilius"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Keiskite aktyvų profilį greitajam atsisiuntimui, kelioms nuorodoms ir grojaraščiams."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Perjungti profilį"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "perkeliamas profilis"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Perkėlimas atšauktas. {{profileName}} lieka {{position}} vietoje iš {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} nuleistas {{position}} vietoje iš {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Perkelti {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Norėdami perkelti profilį, paspauskite tarpo klavišą arba „Enter“, perkelkite rodyklių klavišais, tada vėl paspauskite tarpo klavišą arba „Enter“, kad jį nuleistumėte. Paspauskite „Esc“, kad atšauktumėte."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} yra virš {{position}} vietos iš {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Paimtas {{profileName}}. Jis yra {{position}} vietoje iš {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Naujas profilis"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Kurkite, pasirinkite, redaguokite ar šalinkite pakartotinai naudojamas atsisiuntimo sąrankas."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Atsisiuntimo profiliai"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Pašalinti"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Vilkite profilį, kad jį perkeltumėte. Visi profilių parinkikliai laikosi šios tvarkos."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Atkurti"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC garsas"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "geriausias garsas"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "geriausias vaizdas"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "be garso"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "tik subtitrai"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV garsas"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Perjungti atsisiuntimo profilį: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Perjungti atsisiuntimo profilį"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Išvalyti"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Nukreipia srautą per tarpinį serverį – naudinga turiniui, apribotam pagal regioną."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Tarpinio serverio URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Nepavyko paruošti nė vieno iš tų URL"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Greitasis atsisiuntimas"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Atsisiųs naudodama: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Nepavyko pridėti šio: {{error}}"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.url.quickPartialFailed_many"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Nepavyko paruošti eilės elemento"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Ruošiama"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Nuskaitymas nepavyko"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Įtraukta į eilę"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Norėdami pradėti, įklijuokite vaizdo įrašo, grojaraščio, kanalo ar paieškos URL."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Bendrasis elgesys, turintis įtakos ir pagal profilį vykdomiems atsisiuntimams."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Atsisiuntimo elgesys"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Įvestis"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Stikliniai skydeliai virš judančio dangaus. Reikia grafikos spartinimo."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Vientisi, ramūs paviršiai. Lengvai veikia bet kuriame kompiuteryje."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimalistinis"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Abu stiliai turi šviesųjį ir tamsųjį variantą."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stilius"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Kaip atrodo Arroxy. Šviesųjį ir tamsųjį režimą perjunkite poraštėje."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Išvaizda"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} reikia grafikos spartinimo, kuris šiuo metu nepasiekiamas, todėl Arroxy rodo {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profiliai"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Parametrai"

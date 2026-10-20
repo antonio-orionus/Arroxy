@@ -3,6 +3,7 @@ import {validateUaToken} from './exploreUserAgent.js'
 import {EXPLORE_ZOOM_MAX, EXPLORE_ZOOM_MIN} from './exploreZoom.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
+import {SUPPORTED_LANG_CODES} from './i18n/supportedLangCodes.js'
 import {RATE_LIMIT_EVIDENCE, YT_DLP_ERROR_KINDS, type RateLimitEvidence, type YtDlpErrorKind} from 'ytdlp-errors'
 import {SUBTITLE_FORMATS, SUBTITLE_MODES, SubtitleFormatSchema as subtitleFormatSchema, SubtitleModeSchema as subtitleModeSchema, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge/schemas'
 
@@ -287,7 +288,7 @@ export const audioSelectionSchema = z.discriminatedUnion('kind', [
 ])
 export type AudioSelection = z.infer<typeof audioSelectionSchema>
 
-export const supportedLangSchema = z.enum(['om', 'id', 'de', 'en', 'es', 'fr', 'it', 'sw', 'uz', 'pl', 'pt', 'vi', 'tr', 'am', 'ar', 'ur', 'ps', 'fa', 'bn', 'hi', 'th', 'my', 'km', 'el', 'ru', 'sr', 'uk', 'zh', 'ja', 'ko', 'zh-Hant'])
+export const supportedLangSchema = z.enum(SUPPORTED_LANG_CODES)
 export type SupportedLang = z.infer<typeof supportedLangSchema>
 export const SUPPORTED_LANGS = supportedLangSchema.options
 

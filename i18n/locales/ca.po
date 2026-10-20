@@ -1,0 +1,5206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Quant a"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · per Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Quant a Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Un descarregador ràpid i amable per a YouTube i més de 2000 llocs més."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Mostra els avisos de tercers"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Lloc web"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Permet"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube ofereix alguns vídeos antics en mides generades amb IA. Omet conserva els fluxos originals; encara pots triar-ne un d'escalat a mà."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Fluxos escalats amb IA"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Omet"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Comentaris"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "T'agrada Arroxy? M'encantaria saber la teva opinió! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Registres"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Desa el fitxer de diagnòstic"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Reuneix els registres i les dades de l'aplicació en un sol fitxer a Descàrregues, a punt per adjuntar-lo a una incidència de GitHub. S'elimina el nom de la teva carpeta d'usuari; els enllaços i els títols dels vídeos es conserven."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Novetat: tria Aurora o Minimal aquí"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Tema"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Amplia"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Redueix"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Enrere"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Tanca"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Continua"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Descarta"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "S'està carregant"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Torna a començar"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy continua en execució i acaba les descàrregues actives. Pots canviar-ho més endavant a la configuració avançada."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Amaga a la safata"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Vols amagar Arroxy a la safata del sistema en tancar?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Surt"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "No m'ho tornis a preguntar"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Cancel·la les descàrregues i surt"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Posa-les en pausa per reprendre-les més tard o cancel·la-les per descartar el progrés."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Continua descarregant"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "dialogs.quitWithActiveDownloads.message_many"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} de descàrregues en curs"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} descàrrega en curs"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} descàrregues en curs"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Posa en pausa les descàrregues i surt"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "El procés de renderització ha fallat ({{reason}}). Torna a carregar per tornar-ho a provar."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy ha trobat un problema"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Surt"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Torna a carregar"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Copiada!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Copia l'adreça"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy és gratuït i de codi obert, sense anuncis ni nivell de pagament. Les donacions són opcionals i no donen cap influència sobre el full de ruta."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Dona"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Dona suport a Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Codi QR de l'adreça de donació de {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Dona suport a Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Els pagaments amb criptomonedes són irreversibles. Envia només a la xarxa indicada i compara l'adreça sencera."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Aquest vídeo té restricció d'edat i no es pot baixar sense un compte amb la sessió iniciada."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "S'ha activat la protecció contra robots. És molt probable que la IP que fas servir estigui marcada (rang d'un centre de dades o sortida d'una VPN saturada). Canvia d'IP o tria un altre punt de sortida de la VPN i torna-ho a provar. Si continua fallant, pot ser un canvi temporal al lloc: Arroxy actualitza el seu motor de descàrrega en iniciar-se, de manera que la correcció arribarà automàticament quan es publiqui."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "El servidor va tallar la descàrrega repetidament a mig camí i Arroxy s'ha rendit després de reintentar-ho. Sol passar amb els formats de vídeo més grans (4K HDR / VP9 d'alta taxa de bits). Torna-ho a provar, canvia de xarxa o de VPN, o tria un format de resolució més baixa."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Aquest vídeo està protegit amb DRM. Arroxy no pot eliminar el DRM, per això el fitxer no es pot baixar."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Aquest vídeo no està disponible a la teva regió."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Sembla que la teva adreça IP està bloquejada. Torna-ho a provar més tard o fes servir una VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Aquest vídeo requereix un compte amb la sessió iniciada."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy no ha trobat FFmpeg ni FFprobe. Torna a executar la configuració o indica la ubicació de FFmpeg i després torna a provar la descàrrega."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Error de xarxa. Comprova la connexió i torna-ho a provar."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Aquest vídeo no té subtítols en els idiomes sol·licitats."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "No hi ha prou espai al disc. Allibera espai i torna-ho a provar."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy no pot escriure a la carpeta de descàrregues. Potser és de només lectura, és en una unitat bloquejada o la configuració de privadesa del sistema la bloqueja. Tria una altra carpeta o permet-ne l'accés i torna-ho a provar."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "No s'ha pogut interpretar la resposta del lloc. Potser el lloc ha canviat la manera de servir els vídeos. Arroxy actualitza el seu motor de descàrrega en iniciar-se: torna-ho a provar d'aquí a uns minuts, quan es publiqui la correcció."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "La descàrrega ha acabat, però ha fallat el postprocessament (combinació / mux / conversió). Sovint és un problema passatger de ffmpeg: torna-ho a provar i, si persisteix, prova una altra combinació de formats."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "El lloc està limitant les sol·licituds d'aquesta connexió."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Aquest vídeo no està disponible: pot ser privat, haver estat suprimit o estar bloquejat per regió."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "La descàrrega ha fallat. Consulta la sortida original a sota."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy no admet aquesta URL. Prova amb un enllaç d'un altre lloc."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Comprova la connexió i torna-ho a provar."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Aquesta pàgina no s'ha carregat"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Obre la configuració"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Comprova el servidor intermediari a la configuració i torna-ho a provar."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explora no es pot connectar mitjançant el servidor intermediari"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Fes clic amb el botó dret en qualsevol enllaç de vídeo, llista de reproducció o canal de la pàgina per baixar-lo amb el perfil actiu, triar-ne un altre o obrir el flux pas a pas."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Fes clic dret en un enllaç per baixar-lo"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Copia l'enllaç"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Descarrega amb"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Nou"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Troba un vídeo a YouTube o a qualsevol altre lloc i baixa'l des d'aquí, sense copiar enllaços. Inicia la sessió en un lloc per baixar vídeos que requereixen un compte."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Continua"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes que s'utilitzen amb eines de descàrrega com Arroxy. Fes servir un compte que et puguis permetre perdre, no el principal."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Inicia la sessió amb un compte secundari"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Navega per la web sense sortir d'Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Les descàrregues fan servir les galetes del navegador, no el teu inici de sessió a Explora."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Les descàrregues fan servir el fitxer de galetes, no el teu inici de sessió a Explora."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Ara no"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Les galetes estan desactivades, així que les descàrregues no fan servir el teu inici de sessió a Explora."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Usa l'inici de sessió d'Explora"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Navega per YouTube o per qualsevol altre lloc dins d'Arroxy i inicia la sessió per accedir als vídeos que requereixen un compte."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Allibera memòria quan no hi siguis"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Després de 5 minuts en una altra pestanya, tanca la pàgina d'inici o de cerca de YouTube. En tornar, es torna a carregar, cosa que triga uns segons."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Motor de cerca"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "On es cerca el text escrit a la barra d'adreces. Els enllaços s'obren tal com els escrius."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Mostra la pestanya Explora"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Si la desactives, les descàrregues també deixen de fer servir el teu inici de sessió a Explora."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Tanca la sessió d'Explora"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Tanca la sessió"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "S'esborren els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs. Les descàrregues que requereixin un compte fallaran fins que tornis a iniciar la sessió."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Vols tancar la sessió d'Explora?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Esborra els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explora"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explora"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "És possible que YouTube posi traves als blocadors d'anuncis als comptes amb la sessió iniciada."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Blocador d'anuncis"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Blocador d'anuncis: desactivat — fes clic per activar-lo"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Blocador d'anuncis: activat — fes clic per desactivar-lo"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Blocador d'anuncis: iniciant-se — fes clic per desactivar-lo"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Blocador d'anuncis: no disponible, no s'han pogut baixar les llistes de filtres — fes clic per desactivar-lo"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adreça"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Cerca a {{engine}} o obre qualsevol lloc (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Controls del navegador d'Explora"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Enrere"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Disseny compacte"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Descarrega · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Endavant"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Mostra el disseny complet"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Obre un vídeo, una llista de reproducció o un canal per baixar-lo"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Inici de YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Descàrrega interactiva: tria el format, els subtítols i més…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Explora no pot obrir aquesta adreça."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Torna a carregar"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Aquesta cerca és massa llarga."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Zoom de la pàgina: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Amplia"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Zoom de la pàgina"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Redueix"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Percentatge de zoom"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Restableix el zoom al 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Tria com es posen els noms als fitxers baixats. Fes clic en una variable per inserir-la. Fes servir / per classificar les descàrregues en carpetes."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Introdueix una plantilla de nom de fitxer."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Elimina la / sobrera: cada carpeta necessita un nom."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Elimina els caràcters que no es permeten als noms de fitxer: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Aquest nom de carpeta no es permet. Evita . i .. i noms reservats com CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Afegeix {title} o {id} al nom del fitxer perquè cada descàrrega tingui un nom propi."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} no pot donar nom a una carpeta: la qualitat no es coneix fins que comença la descàrrega."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ o } sense aparellar: posa les variables entre claus, com {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "La plantilla és massa llarga."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Variable desconeguda {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Sense {id}, Arroxy no pot detectar els elements de llistes de reproducció ja baixats ni generar llistes .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Plantilla de nom de fitxer"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "No disponible perquè la plantilla de nom de fitxer no inclou {id} o classifica les descàrregues en carpetes."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "En una llista de reproducció"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Un sol vídeo"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Deixa-ho buit per heretar la plantilla global."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Plantilla de nom de fitxer"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automàtic"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automàtic (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Els fluxos triats determinen el tipus de fitxer."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Admet qualsevol còdec. Alguns televisors i telèfons no el poden obrir."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Es reprodueix gairebé a tot arreu. El VP9 en un MP4 no es veu a QuickTime."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Format obert per als navegadors. Només admet VP9 o AV1 amb Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "L'AV1 en un MP4 requereix un Mac recent per reproduir-se a QuickTime. L'H.264 es reprodueix a tot arreu."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "El VP9 en un MP4 no es veu a QuickTime. L'H.264 es reprodueix a tot arreu."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Perfil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM no s'ofereix amb Smart TV: no pot contenir H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM no pot contenir {{codec}}. Tria MKV o MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Àudio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Només àudio · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automàtic"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automàtic tria HDR quan aquesta pantalla el pot mostrar i, si no, SDR. L'HDR es veu apagat en pantalles normals."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "Vídeo HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Idioma"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.exploreSignInRetrying_many"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Sessió iniciada a Explora: es tornen a provar {{count}} d'enllaços"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Sessió iniciada a Explora: es torna a provar 1 enllaç"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Sessió iniciada a Explora: es tornen a provar {{count}} enllaços"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "No s'ha pogut tancar la sessió d'Explora. Torna-ho a provar."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Aquesta carpeta és massa profunda per al teu sistema. La descàrrega encara podria fallar: tria una carpeta més curta."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "El nom d'aquest vídeo no pot encabir totes les parts de la plantilla, així que s'ha fet servir el nom predeterminat."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "No s'ha pogut obrir el selector de carpetes."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Ja és a la cua: no s'ha afegit cap còpia"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy encara s'està iniciant: torna-ho a provar d'aquí a un moment"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Acaba de configurar les galetes a Arroxy i torna-ho a provar"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "No hi ha cap enllaç al porta-retalls: copia'n un primer"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "S'han copiat diversos enllaços: fes servir URL en bloc a Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Aquest enllaç requereix la teva decisió: consulta Descàrregues a Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Descàrrega afegida a la cua des del porta-retalls"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "No s'ha pogut afegir l'enllaç: torna-ho a provar a Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Aquesta carpeta no es pot fer servir per a aquesta llista de reproducció."
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.queue.skippedAlreadyQueued_many"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} de vídeos ja són a la cua: s'han omès"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} vídeo ja és a la cua: s'ha omès"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} vídeos ja són a la cua: s'han omès"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Afegit: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Ja és a la cua"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseHowMany_many"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ de vídeos: tria quants"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ vídeo: tria quants"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ vídeos: tria quants"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "No s'ha pogut preparar {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "No s'ha pogut afegir l'enllaç: torna-ho a provar"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.review_many"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} de vídeos en aquesta llista: revisa per triar"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} vídeo en aquesta llista: revisa per triar"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} vídeos en aquesta llista: revisa per triar"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.reviewCapped_many"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ de vídeos en aquesta llista: revisa per triar"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ vídeo en aquesta llista: revisa per triar"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ vídeos en aquesta llista: revisa per triar"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Mostra"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "No s'ha pogut desar la configuració."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "No s'ha pogut obrir."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "La preparació no ha acabat. Algunes descàrregues poden fallar fins que acabi."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Àudio (el millor)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Àudio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "El millor àudio original, sense recodificar"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Converteix a M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Converteix a MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Converteix a Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "L'H.264 per sobre de 1080p no està disponible a YouTube: es limita automàticament a 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Desa com a"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Directament a la carpeta de destinació"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Idiomes"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Tria almenys un idioma per continuar."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Només es desen els fitxers de subtítols de cada vídeo: no es baixa cap vídeo ni àudio."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Font"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Fins a 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Fins a 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Fins a 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Fins a 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Fins a 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Fins a 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Fins a 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Fins a 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Màxima qualitat"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Limitat a 1080p; en cada element baixa a una resolució inferior si cal"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Els fitxers més petits possibles"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Limitat a 2K; en cada element baixa a una resolució inferior si cal"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Limitat a 2160p; en cada element baixa a una resolució inferior si cal"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Fitxers molt petits, qualitat baixa"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Fitxers petits per a connexions limitades"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Poc ample de banda"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Fitxers més petits, àmplia compatibilitat"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "El millor vídeo + àudio disponible de cada element"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Àudio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtítols"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Vídeo"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "El millor original"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "MP4 H.264 per a Smart TV"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "El millor contenidor i còdecs disponibles de cada element"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Prefereix vídeo H.264 + àudio AAC en MP4 sempre que sigui possible"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Complement"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Descripció"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Contingut"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Falta"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtítol"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefacte"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.attentionBadge_many"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} de descàrregues necessiten la teva atenció"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} descàrrega necessita la teva atenció"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} descàrregues necessiten la teva atenció"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Elimina cada descàrrega de la llista uns segons després d'acabar. Els fitxers es queden a la carpeta."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Neteja automàtica"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Cancel·la totes les descàrregues actives i pendents"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Tots els vídeos"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.cappedBody_many"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Més de {{count}} de vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió."
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Més de {{count}} vídeo en aquesta llista de reproducció. Baixa'ls tots, el primer {{count}} o tria'ls en una revisió."
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Més de {{count}} vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Els primers {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Revisa"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.reviewBody_many"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Aquest enllaç és una llista de {{count}} de vídeos. Revisa'l per triar què vols baixar."
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Aquest enllaç és una llista de {{count}} vídeo. Revisa'l per triar què vols baixar."
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Aquest enllaç és una llista de {{count}} vídeos. Revisa'l per triar què vols baixar."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Esborra les descàrregues completades"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Les descàrregues en cua apareixeran aquí"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Totes"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtres d'estat de la cua"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Tots els elements"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Descàrregues"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "So no eliminat"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "So no eliminat · han fallat alguns subtítols"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "La descàrrega ha fallat"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Obre la carpeta de destinació"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pausa"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Només pendents"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Descarrega ara: salta la cua"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Limitat a {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Limitat a {{height}}p · han fallat alguns subtítols"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Elimina"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Reprèn"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "es torna a provar automàticament (intent {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Defineix la ubicació"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Selecciona elements pendents per definir la ubicació."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Cancel·lada"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Feta"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Error"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Retinguda"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Requereix la teva decisió"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "En pausa"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "En espera"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Obtenint detalls"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Descarregant"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Posa en pausa totes les descàrregues actives i evita que en comencin de noves"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "La cua està en pausa: els elements en espera no començaran fins que no la reprenguis"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Reprèn les descàrregues en pausa i deixa que la cua continuï"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Reprèn la cua"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Elements seleccionats"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} seleccionats · {{total}} en total"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Descàrregues"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Afegit"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefactes"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "S'ha deixat anar la columna {{column}}."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "S'ha cancel·lat el moviment de la columna {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "La columna {{column}} és sobre {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "S'ha agafat la columna {{column}}."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Columnes"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Acabat"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Amaga els artefactes de {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "columna que es pot moure"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Per moure una columna, prem Espai o Retorn, mou-la amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-la anar. Prem Escape per cancel·lar."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Destinació"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Progrés"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Restableix les columnes"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Canvia la mida de la columna {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Mostra els artefactes de {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Mida"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Ordena per {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Estat"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Títol"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Ara les descàrregues són a la pestanya Descàrregues: obre-la quan vulguis per veure'n el progrés."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Continua"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Acabes d'actualitzar. Aquests són els aspectes destacats."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Notes de la versió completes ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Novetats d'Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Tria l'executable"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instal·la amb Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instal·la amb WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Obre la carpeta de dependències"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Restableix els valors predeterminats"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Torna-ho a provar"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Mostra el registre de configuració"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Una eina no funciona bé"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Permet Arroxy a l'antivirus o a SmartScreen i torna-ho a provar."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "L'antivirus ha bloquejat una eina"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Comprova la connexió a internet i torna-ho a provar."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "No s'ha pogut baixar el que Arroxy necessita"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Torna-ho a provar per baixar-ho de nou."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "S'ha rebut una descàrrega malmesa"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Torna-ho a provar per baixar-ho de nou."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Una descàrrega no coincidia amb la suma de verificació"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Tria'ls tots dos a sota o restableix-ne els valors predeterminats."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg i FFprobe s'han de definir junts"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Torna-ho a provar. Si continua fallant, tria a sota una còpia de confiança."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "El sistema no deixa que Arroxy executi una eina"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Falta una eina o no s'inicia"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Sovint és una anàlisi de seguretat en la primera execució. Torna-ho a provar."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Una eina ha trigat massa a respondre"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Torna-ho a provar o obre el registre de configuració per veure'n els detalls."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Alguna cosa ha anat malament durant la configuració"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Motor de descàrrega"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Eines multimèdia"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "S'està instal·lant amb Homebrew… Pot trigar uns minuts."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "S'està instal·lant amb WinGet… Pot trigar uns minuts."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Indica a Arroxy les còpies que ja tens o instal·la-les d'una altra manera."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "També pots instal·lar yt-dlp i ffmpeg amb el gestor de paquets i després fer clic a Torna-ho a provar."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Configura-ho manualment"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Torna-ho a provar o indica a Arroxy a sota les eines que ja tens."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "La configuració s'ha aturat"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "La configuració necessita ajuda"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Com tria aquest perfil"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Àudio AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "s'adapta als reproductors MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Àudio AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "es reprodueix a tot arreu"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, després VP9 i després H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "la millor nitidesa per a una mida determinada"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, després VP9 i després AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "còdec d'aquest perfil"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, després H.264 i després AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "còdec d'aquest perfil"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Màxima taxa de fotogrames"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "moviment més fluid"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Vídeo H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "es reprodueix a tots els dispositius"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR abans que SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "colors més rics en pantalles HDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "aquesta pantalla mostra HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR abans que HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "es veu bé en qualsevol pantalla"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "aquesta pantalla no és HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Fluxos MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "a punt per a un fitxer MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Àudio estèreo"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "aquest perfil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "de la configuració"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Àudio envoltant si n'hi ha"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Àudio Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "s'adapta a WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Fluxos originals, no escalats amb IA"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "una còpia escalada és més alta, però no hi afegeix cap detall real"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Descàrregues directes abans que còpies en streaming"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "la mateixa imatge, baixada més de pressa"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Fins a {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "el teu límit"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Màxima resolució"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "sense cap límit definit"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Fluxos que el lloc no desprestigia"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "evita còpies malmeses, amb marca d'aigua o de recanvi"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Fitxer més gran"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "més detall amb la mateixa configuració"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Primer els fluxos amb taxa de bits millorada"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "més detall amb la mateixa resolució"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "tipus de fitxer segons els fluxos"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "es desa com a .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "la millor imatge"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "es reprodueix a qualsevol dispositiu"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Per què aquest?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Per què el perfil ha triat això"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Copiat!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Copia l'enllaç"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy: descarregador de vídeo gratuït i de codi obert per a Windows, macOS i Linux. Funciona amb YouTube, Vimeo, Twitch i més de 2000 llocs.\n"
+"4K · HDR · MP3 · Shorts · Subtítols · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy és gratuït i de codi obert. Compartir-lo ajuda que més gent el descobreixi."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Comparteix"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Comparteix Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Comparteix Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Comparteix Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Tens problemes? Configura-ho manualment"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Hola, ja has tornat!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} de {{total}}"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "splash.setup.left.minutes_many"
+msgid "about {{count}} min left"
+msgstr "queden uns {{count}} de min"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "queda aproximadament {{count}} min"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "queden uns {{count}} min"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "queda menys d'un minut"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Fa que les descàrregues continuïn funcionant quan els llocs canvien."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Això només passa una vegada. Arroxy conserva aquestes eines i les actualitza ell mateix."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Això només passa una vegada. Arroxy les conserva per a futures actualitzacions."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Comprovant que tot funciona"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Connectant…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Baixant el motor de descàrrega i les eines multimèdia"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Baixant el motor de descàrrega"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Baixant les eines multimèdia"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Descomprimint les eines multimèdia"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Actualitzant el motor de descàrrega"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Configuració inicial"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Actualitzant les eines multimèdia"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Primera comprovació d'aquesta versió: aquesta és lenta. Normalment dura un minut aproximadament."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Comprovant {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Preparant les descàrregues…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "La configuració ha fallat. Obre el registre de configuració per veure'n els detalls."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio ni baixar alguns subtítols"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Descàrrega cancel·lada"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Descàrrega completada"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Convertint el vídeo…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "No hi ha prou espai al disc: calen {{required}} i només n'hi ha {{free}} de lliures"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Baixant el binari de {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Baixant vídeo i àudio…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Incrustant les metadades…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Sessió d'Explora tancada: torna a iniciar-la"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Convertint l'àudio…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Contactant amb SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Obtenint els subtítols…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Combinant àudio i vídeo…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Generant el testimoni de YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Movent els fitxers…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "No es pot desar a {{dir}}: Arroxy no té permís per escriure-hi"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Preparant els binaris…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega i no s'han pogut baixar alguns subtítols. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Tornant a generar el testimoni…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock no disponible, es reintenta ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "La connexió s'ha encallat, es reintenta ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Iniciant la sessió amb el teu compte d'Explora…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Esperant {{seconds}} s per evitar els límits de sol·licituds…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Iniciant el motor de descàrrega…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Vídeo desat: no s'han pogut baixar alguns subtítols"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Error d'inici de descàrrega desconegut"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Baixat amb un extractor flexible: configura un cookies.txt per a descàrregues més fiables"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "El motor de descàrrega ha acabat amb el codi {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Error del motor de descàrrega: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Mode fosc"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Mode clar"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Predeterminat del sistema"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Tanca"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maximitza"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimitza"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Restaura"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Descarrega del porta-retalls"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Obre Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Surt d'Arroxy"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "tray.menu.statusActive_many"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} descarregant · {{percent}}%"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 descarregant · {{percent}}%"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} descarregant · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Inactiu"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Ordre copiada al porta-retalls"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Copia l'ordre al porta-retalls"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Descarta el bàner d'actualització"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Baixa ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Baixa el DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Baixant…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instal·la i reinicia"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "L'actualització ha fallat"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} ja és disponible: tens la {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} ja és disponible: actualitza amb Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} ja és disponible: baixa el DMG nou."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} ja és disponible: baixa el DMG o canvia a Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} ja és disponible: baixa la compilació nova."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Executa i reinicia"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Actualitzant…"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "videoCard.chapters_many"
+msgid "{{count}} chapters"
+msgstr "{{count}} de capítols"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} capítol"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} capítols"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Carregant…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automàtic"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Quin còdec s'agafa primer entre fluxos de la mateixa alçada. Automàtic manté l'ordre propi de yt-dlp, que afavoreix l'AV1, el més petit; l'H.264 es reprodueix en televisors i telèfons més antics."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Primer H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Còdec de vídeo"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV sempre agafa H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Primer VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "A punt"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Enganxa URL de vídeos, llistes de reproducció, canals, cerques o àudios. Arroxy eliminarà els duplicats abans d'afegir-los a la cua."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Enganxa una o més URL per previsualitzar el lot."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ignorades"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Afegeix almenys una URL compatible per continuar."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplicada"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Llista d'URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL en bloc"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Cua"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Afegeix a la cua: comença quan acabi la descàrrega activa"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Només àudio"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValue_many"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} de {{total}} vídeos"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} de {{total}} vídeo"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} de {{total}} vídeos"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueAudio_many"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} de {{total}} pistes"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} de {{total}} pista"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} de {{total}} pistes"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueBulk_many"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} de {{total}} URL"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} de {{total}} URL"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} de {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Àudio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Lot"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Elements"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Llista de reproducció"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Predefinit"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Desa a"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Mida"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtítols"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Vídeo"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "El fitxer es desarà a"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.landInMultiProfile_many"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Es desaran a les {{count}} de destinacions següents"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Es desarà a la destinació següent"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Es desaran a les {{count}} destinacions següents"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "El predefinit només subtítols és actiu, però no hi ha cap idioma de subtítols seleccionat: no es baixarà res."
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.profileBreakdownCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} d'elements"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elements"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Perfils d'aquest lot"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Descarrega! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Salta la cua: comença ara i s'executa amb les altres descàrregues actives"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "A punt per descarregar!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Desconeguda"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "La incrustació de subtítols s'ha canviat a fitxer extern: les pistes d'àudio no admeten fluxos de subtítols incrustats."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Els subtítols dins del vídeo requereixen un fitxer MKV, així que aquesta descàrrega es desa com a .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "S'ha omès la incrustació de la miniatura: el contenidor de sortida no l'admet."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Personalitzada…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Escriptori"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Documents"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Descàrregues"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Desa a"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Inici"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Música"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Imatges"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "El nom de la carpeta té caràcters no vàlids"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "p. ex., extractes lo-fi"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Desa dins d'una subcarpeta"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Pel·lícules"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Àudio"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Idioma de l'àudio"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.formats.audioLanguageCount_many"
+msgid "{{count}} languages"
+msgstr "{{count}} d'idiomes"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} idioma"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} idiomes"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Només àudio"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Taxa de bits {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Les galetes estan configurades però desactivades. Activa-les i torna-ho a provar per obtenir la llista completa, o canvia de xarxa i torna-ho a provar."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Fins i tot amb galetes, YouTube ha limitat aquesta anàlisi. Torna-ho a provar més tard o canvia de xarxa."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube ha limitat aquesta sol·licitud. Torna-ho a provar més tard o canvia de xarxa."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "És possible que la llista de formats estigui incompleta. Configura les galetes a la configuració avançada, o canvia de xarxa i torna-ho a provar."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Activa les galetes i torna-ho a provar"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "L'anàlisi s'ha limitat"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Taxa de bits"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Una font que ja és {{target}} conserva el seu flux i la seva taxa de bits: es copia, no es recodifica."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, sense recodificar"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, sense recodificar"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, tal com els té la font: el flux ja és {{target}}, així que es copia, no es recodifica"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Tal com el té la font: el flux ja és {{target}}, així que es copia, no es recodifica"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Converteix"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "La font és de {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (sense comprimir)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Navegador"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Inici de sessió a Explora"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Fitxer"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Font de les galetes"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "Documentació de yt-dlp (incidència #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 i posteriors xifra les galetes d'una manera que altres aplicacions no poden llegir a Windows. Prova una de les solucions alternatives següents."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Exporta les galetes de Chrome amb una extensió del navegador, passa després aquesta aplicació al mode Fitxer i tria el fitxer exportat."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Exporta cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox no fa servir App-Bound Encryption. Obre la configuració de les galetes i tria Firefox a la llista de navegadors."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Canvia a Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Afegeix --disable-features=LockProfileCookieDatabase a la drecera d'inici de Chrome. Atenció: això invalida les galetes xifrades anteriorment, de manera que se't tancarà la sessió a tots els llocs i hauràs de tornar-hi a iniciar."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Inicia Chrome amb App-Bound Encryption desactivat"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Galetes de Chrome bloquejades pel xifratge de Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Les galetes es llegeixen directament del navegador. Si el navegador s'està executant, la seva base de dades de galetes pot estar bloquejada (família Chromium). A més, el navegador ha de tenir la sessió iniciada a YouTube. Prova de tancar el navegador, de canviar a un altre navegador, de passar al mode Fitxer o de desactivar les galetes."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Pot ser que el fitxer de galetes sigui buit, hagi caducat o tingui un format incorrecte (Arroxy necessita un cookies.txt en format Netscape). Prova de tornar a exportar les galetes, de triar un altre fitxer, de passar al mode Navegador o de desactivar les galetes."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Inicia la sessió a Explora i Arroxy ho tornarà a provar."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Inicia la sessió a Explora"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "És possible que aquest vídeo necessiti un compte de YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy ja ho ha provat amb la sessió iniciada a Explora, així que tornar-hi a iniciar la sessió no ajudarà. Potser el lloc té problemes o aquest compte no hi pot accedir. Torna-ho a provar més tard."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "El lloc ho ha rebutjat fins i tot amb el teu inici de sessió a Explora"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Tens la sessió iniciada a Explora, però ara mateix les descàrregues no fan servir aquest inici de sessió."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Usa el meu inici de sessió a Explora i torna-ho a provar"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "És possible que aquest vídeo necessiti un compte de YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Si aquest vídeo necessita un compte, Arroxy fa servir automàticament el teu inici de sessió a Explora. Pot ser que no estigui disponible per un altre motiu."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Sessió iniciada a Explora"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Si aquest vídeo necessita un compte de YouTube, inicia la sessió a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Inicia la sessió a Explora"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "És possible que aquest vídeo necessiti un compte de YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "És possible que aquest enllaç necessiti un compte a {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Inicia la sessió a {{host}} amb Explora i torna-ho a provar."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Inicia la sessió a {{host}} a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Les galetes podrien ser la causa"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy no ha pogut accedir a aquest vídeo sense autenticació. Configura les galetes a la configuració avançada: apunta a un navegador amb la sessió ja iniciada o importa un fitxer cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Aquest lloc requereix iniciar la sessió"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Obre la configuració de les galetes"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Usa un fitxer de galetes o un navegador…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Suavitza les parts fortes i reforça les fluixes, per a altaveus i entorns sorollosos."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Uniformitza el volum (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Volum uniforme"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "El teu perfil és Smart TV (H.264). Aquest vídeo no ofereix H.264, així que se selecciona el flux més proper."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Aquest enllaç no té vídeo, així que se selecciona l'àudio."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "El teu perfil demana subtítols en {{languages}}. Aquest vídeo no en té."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "El teu perfil demana {{wanted}}p. Aquest vídeo no té res tan petit, així que se selecciona {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "El teu perfil demana {{wanted}}p. Aquest vídeo només arriba a {{picked}}p, així que se selecciona {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "El teu perfil demana WebM. Els fluxos triats d'aquest vídeo inclouen {{codec}}, que WebM no pot contenir, així que el tipus de fitxer és Automàtic."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Afegeix a la cua sense començar"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Descarrega"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Més opcions de descàrrega"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Tria almenys un idioma de subtítols."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Deixa-ho tal qual"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Àudio integrat"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Només àudio"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Què vols baixar"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Només subtítols"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Vídeo + àudio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Vídeo, sense àudio"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Carregant els formats"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Espera que acabi l'anàlisi: les llistes de reproducció i les cerques poden trigar una mica."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Doblat amb IA"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Escalat amb IA"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audiodescripció"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Malmès"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Taxa de bits millorada"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Àudio espacial"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Amb marca d'aigua"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Sense àudio"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "El teu perfil actiu preselecciona els fluxos per tu. Canvia de perfil des del menú o fes servir el llapis per ajustar-ne un sense sortir d'aquesta descàrrega."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Els formats parteixen del teu perfil"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "El més proper al perfil"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Edita {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Conserva els meus canvis"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Només per a aquesta descàrrega. El teu perfil predeterminat no canvia."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Preseleccionat de"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Restableix-ho tot"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Has canviat {{areas}} per a aquesta descàrrega. «{{profile}}» tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Vols canviar de perfil?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Perfil"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Has canviat {{areas}} per a aquesta descàrrega. El perfil actualitzat tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Vols usar el perfil actualitzat?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Qualitat alta"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Qualitat baixa"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Qualitat mitjana"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} està limitant aquesta connexió"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "És possible que la llista de formats estigui incompleta."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} ha rebutjat aquesta sol·licitud de moment."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Torna-ho a provar"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} pot mantenir aquest límit fins a una hora."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Prova ara"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "L'espera ha acabat, així que ja ho pots tornar a provar."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy espera fins a les {{time}} abans de tornar a consultar {{site}}, perquè el límit es pugui aixecar."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Resolució desconeguda"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Es desa com a"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM no pot contenir {{codec}}, així que el tipus de fitxer ha tornat a Automàtic."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Mida desconeguda"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Salta a la confirmació"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Usa les preferències desades per a tots els passos restants. Per canviar una opció, continua pas a pas: la teva elecció es desarà per a la propera vegada."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Buscant els millors formats per a tu…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Vídeo"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "amb àudio"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Vols només el vídeo en què has fet clic o triar de la llista de reproducció? A continuació triaràs vídeos concrets o un interval."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Tria de la llista"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Límit d'anàlisi de la llista: {{count}} elements"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Carrega la llista de reproducció, fins al límit d'anàlisi, abans de mostrar el selector."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Descarrega només aquest vídeo o posa a la cua tota la llista de reproducció amb el perfil de Descàrrega ràpida actiu."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Nombre màxim d'entrades que Arroxy examina abans de posar a la cua una llista de reproducció, un canal o els resultats d'una cerca."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Posa a la cua tots els elements carregats de la llista amb el perfil de Descàrrega ràpida actiu. Si l'exploració arriba al límit, Arroxy et pregunta abans d'afegir-los."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Posa a la cua una descàrrega i ignora la llista de reproducció associada a aquesta URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Descarrega aquest vídeo"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Descarrega tota la llista"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Carrega només aquest vídeo. S'ignora la llista de reproducció associada a aquesta URL."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Només aquest"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Aquest enllaç té una llista de reproducció"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Marcadors de capítol que es poden navegar en qualsevol reproductor modern."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Incrusta els capítols"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Títol, artista, descripció i data de pujada escrits dins del fitxer."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Incrusta les metadades"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Portada dins del fitxer. El vídeo WebM es remultiplexarà a MKV; s'omet quan s'incrusten subtítols."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Incrusta la miniatura"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Desa la descripció del vídeo en un fitxer de text .description al costat de la descàrrega."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Desa la descripció"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Desa una llista de reproducció .m3u al costat dels vídeos perquè s'obrin en ordre al reproductor multimèdia."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Genera un fitxer de llista .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Desa la miniatura com a fitxer d'imatge .jpg al costat de la descàrrega."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Desa la miniatura"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Canvia a Fragment a la targeta del vídeo per triar un inici i un final, o un capítol, i baixar només aquest tram."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Descarrega només un fragment d'un vídeo"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Capítols"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Capítol {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Un fragment es baixa mitjançant ffmpeg, així que no se li apliquen les connexions de descàrrega ni la configuració de ritme."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Corregeix primer l'inici i el final del fragment."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Final"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "El vídeo acaba a {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Introdueix el final com h:mm:ss, m:ss o segons."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Introdueix l'inici com h:mm:ss, m:ss o segons."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "L'inici ha de ser abans del final."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Desactivat: cada tall s'ajusta al fotograma clau més proper, que pot ser a uns quants segons del temps que has escrit."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Tall exacte (recodifica, més lent)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} de {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Fragment"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Fragment del vídeo"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Inici"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "vídeo sencer"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Fragment {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Quant del vídeo"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss o segons"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Fragment, estimat"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Aquest vídeo no indica la durada, així que només es pot baixar sencer."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Els subtítols sempre cobreixen tot el vídeo."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "El teu enllaç comença a {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Usa com a inici"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Vídeo sencer"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Pista sencera"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Restaura'ls per continuar."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "S'han eliminat tots els elements"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Ja baixat"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL en bloc"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "No cal esperar: els fitxers que posis a la cua ara també rebran el nom real quan es baixin."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Obtenint els detalls dels vídeos… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Detalls no disponibles"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Obtenint detalls"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "En espera"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "en directe"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Elements de la llista"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Vídeos per baixar"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCount_many"
+msgid "{{count}} videos"
+msgstr "{{count}} de vídeos"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} vídeo"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} vídeos"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountAudio_many"
+msgid "{{count}} tracks"
+msgstr "{{count}} de pistes"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} pista"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} pistes"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountBulk_many"
+msgid "{{count}} URLs"
+msgstr "{{count}} d'URL"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Obtenint la llista de reproducció…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Obtenint els vídeos…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Limitat als primers {{count}} elements"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.loadingPagesFound_many"
+msgid "{{count}} pages found"
+msgstr "{{count}} de pàgines trobades"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} pàgina trobada"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} pàgines trobades"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Recollint vídeos"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Examinant les pàgines del canal"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Assigna perfils per element"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Omet Qualitat, SponsorBlock, Sortida i Desa: assigna un perfil de descàrrega per a cada element"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Llista de reproducció"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.nestedPlaylistHint_many"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les."
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} d'aquests és una llista de reproducció, no un vídeo: enganxa'n l'enllaç per separat per baixar-la."
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Selecciona almenys un vídeo per continuar"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Es mostren els primers {{count}} elements. Augmenta el límit de càrrega per veure'n més."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "L'exploració de la llista té un límit"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "L'exploració té un límit"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Aplica l'interval"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Des de"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Fins a"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removedCount_many"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminats"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminat"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminats"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removeFromListCount_many"
+msgid "Remove {{count}} from list"
+msgstr "Elimina {{count}} de la llista"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Elimina {{count}} de la llista"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Elimina {{count}} de la llista"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Restaura"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Selecciona-ho tot"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.selectedCount_many"
+msgid "{{count}} selected"
+msgstr "{{count}} seleccionats"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} seleccionat"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} seleccionats"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "No en seleccionis cap"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Ordre de la llista"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Obtenint les dates de pujada…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Ordena"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Primer els més antics"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Primer els més recents"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Aplica la sincronització"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Canvia la carpeta…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} d'aquests vídeos ja són a {{dir}}. Vols sincronitzar per baixar només els nous?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Ja són a la carpeta"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "No s'ha trobat cap vídeo d'aquesta llista de reproducció a {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "No s'ha trobat cap vídeo d'aquesta font a {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Encara no s'ha baixat res"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Comprovant la carpeta…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Miniatura del vídeo"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Tria la qualitat del lot"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistPresets.itemCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} d'elements"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elements"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Cada vídeo resol el nivell triat per separat: les llistes heterogènies funcionen sense sorpreses."
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Assigna a {{count}} de vídeos"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Assigna a {{count}} vídeo"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Assigna a {{count}} vídeos"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Assigna un perfil"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Durada"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Perfil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Edita {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Cap element coincideix amb aquest filtre"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filtres de perfil"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Assigna perfils de descàrrega"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Tria el perfil d'aquests {{count}} de vídeos."
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Tria el perfil d'aquest vídeo."
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Tria el perfil d'aquests {{count}} vídeos."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} de {{total}} seleccionats"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Canvia el global"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Tria la carpeta de destinació"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Tria la icona del perfil"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Elimina {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Restableix el perfil"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Aquest perfil ja fa servir la configuració integrada"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Restaura la configuració integrada del perfil"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Desa el perfil"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Defineix una substitució del perfil"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Defineix substitució"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Usa el valor global predeterminat"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Usa el codi d'idioma «{{code}}»"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Avançat"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Usa la configuració de l'aplicació ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "El millor"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Fins a 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Fins a 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Fins a 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Màxima qualitat"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Carpeta de descàrregues predeterminada"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Carpeta de descàrregues predeterminada / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Destinació global"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Activa"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Heretada"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Substitució del perfil"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Tria una carpeta"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Sense substitució"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "No hi ha cap substitució. Aquest perfil fa servir la destinació global de dalt."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Substitueix el global"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Aquest perfil es desa a la seva pròpia arrel abans que s'afegeixi la subcarpeta."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Destinació resultant"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Una configuració reutilitzable per a la Descàrrega ràpida, les URL en bloc i les llistes de reproducció."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Perfil de descàrrega"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "No s'ha pogut canviar la destinació global."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "No s'ha pogut obrir el selector de carpetes. Introdueix una ruta manualment."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "No s'ha pogut restablir la configuració del perfil."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "No s'ha pogut desar la configuració del perfil."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Lliurament"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Tipus de fitxer"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimitza per a"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Icona del perfil"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Idiomes"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Nom del perfil"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Nom i icona del perfil"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Àudio original"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Ruta de substitució del perfil"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Qualitat"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Resolució"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Font"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Nom de la subcarpeta"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Descàrrega de subtítols"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Els perfils demanen codis d'idioma; la disponibilitat es resol per a cada URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "La més nítida per a una mida determinada. Els televisors antics, QuickTime i alguns editors no la poden reproduir."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Millor imatge"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Es reprodueix en televisors, telèfons, WhatsApp, QuickTime i editors de vídeo. YouTube ofereix H.264 només fins a 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Arxiu"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Àudio"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Llegendes"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Classes"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Clip"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Controls"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Descàrrega"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Música"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Pòdcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Vídeo"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Música o pòdcasts"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Només àudio"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Només fitxers de subtítols"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Només subtítols"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Fitxers de vídeo normals"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Vídeo + àudio"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Només vídeo mut"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Vídeo, sense àudio"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Els subtítols automàtics es desaran com a SRT en lloc d'ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Cap idioma coincident"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "No es demanaran fitxers de subtítols ni pistes de subtítols incrustades per a aquest perfil."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Cerca pel nom o el codi de l'idioma"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "S'omet per a aquest tipus de sortida."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Tria almenys un idioma."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Tria almenys un idioma o desactiva la descàrrega de subtítols."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Aquest perfil només posa a la cua fitxers de subtítols. S'ometen el vídeo, l'àudio, SponsorBlock i la conversió multimèdia."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Els perfils hereten la destinació global tret que defineixis una substitució del perfil."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Opcions avançades"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Tria la forma principal en què vols baixar."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Tipus de descàrrega"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Nom i icona que es mostren a la Descàrrega ràpida, les URL en bloc i les llistes de perfils."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Identitat del perfil"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
+msgid "{{count}} enabled"
+msgstr "{{count}} activades"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} activada"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} activades"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Opcions de sortida"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Tria una carpeta per a aquest perfil"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Omès"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Marca els segments de patrocini com a capítols (no destructiu)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Talla els segments de patrocini del vídeo amb FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Només autogenerats"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Manuals i automàtics"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Primer manuals, després automàtics"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Només manuals"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Ajuda de {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Cancel·la la preparació"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Enllaç actual"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy està llegint l'enllaç i aplicant {{profileName}}."
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.quickProgress.failedCount_many"
+msgid "{{count}} failed"
+msgstr "{{count}} han fallat"
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} ha fallat"
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} han fallat"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Obtenint detalls"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Afegint a la cua"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Preparant la Descàrrega ràpida"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Deixa això obert mentre Arroxy prepara la cua."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "extres"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "nom del fitxer"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "format"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "carpeta"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "subtítols"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Els subtítols, SponsorBlock, els extres com la miniatura, la carpeta i el nom del fitxer eren passos separats. Fes clic en una fila per canviar-la."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Tota la resta de la configuració ara és en aquesta pàgina"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Canviat respecte de {{profile}}: {{areas}}. S'aplica només a aquesta descàrrega."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Canviat respecte de {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Canvia el format"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Variables: {title}, {id}, {uploader}, {date}, {resolution}. L'extensió s'afegeix automàticament."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Desa com a perfil"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (editat)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Aquesta descàrrega ha fet servir una configuració editada. La vols usar la propera vegada?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Desfés els canvis i torna a «{{profile}}»"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Extres"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Nom del fitxer"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Desa a"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Subtítols"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Tota la resta"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Desa el perfil"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Conserva aquesta configuració com a perfil que podràs triar la propera vegada. El teu perfil de Descàrrega ràpida no canvia."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "No s'ha pogut desar el perfil."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Nom del perfil"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Desat com a perfil «{{name}}»"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Desa com a perfil"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Desa com a perfil nou"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Actualitza el perfil"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Aquest és un perfil integrat. Pots restaurar-ne la configuració original a la pestanya Perfils."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "A partir d'ara, totes les descàrregues amb aquest perfil faran servir la configuració nova."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Vols actualitzar «{{profile}}»?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "S'ha actualitzat el perfil «{{name}}»"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Actualitza «{{profile}}» amb aquests canvis"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Cap"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Desactivat"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Desactivats"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Farciment"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Introducció"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Música fora de tema"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Final"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Avançament"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Autopromoció"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Patrocini"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Categories"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Marca com a capítols"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Desactivat"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Elimina els segments"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Filtratge de patrocinis"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Marca els segments de patrocini com a capítols (no destructiu)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Talla els segments de patrocini del vídeo amb FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Confirma"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Desa"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Sortida"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Llista"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Qualitat"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Perfils"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Revisa"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtítols"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Els subtítols automàtics es desaran com a SRT en lloc d'ASS: als vídeos de YouTube se'ls treu la duplicació de les indicacions rodants, cosa que el nostre convertidor d'ASS encara no pot replicar."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Esborra-ho tot"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "El mode d'incrustació desa la sortida com a .mkv perquè les pistes de subtítols s'incrustin de manera fiable."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Aquest vídeo no té subtítols disponibles"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Cap idioma coincideix"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Cap subtítol seleccionat"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Elimina {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Incrusta al vídeo"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Desa com a"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Al costat del vídeo"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Subcarpeta subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Cerca idiomes…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Autogenerats"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Manuals"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Navegació dels perfils de descàrrega"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Avançat"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Envia el senyal diari"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Sense telemetria. Un cop al dia, un senyal anònim envia la versió de l'aplicació, el canal d'instal·lació, el sistema operatiu, l'idioma, el país i aproximadament fa quant que s'ha instal·lat Arroxy, per poder comptar els usuaris actius i nous. Sense identificadors, URL, títols de vídeos ni noms de fitxers."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Treu una descàrrega de la llista de Descàrregues uns segons després d'acabar. Els fitxers es queden a la carpeta; les descàrregues fallides i cancel·lades es queden a la llista."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Elimina les descàrregues acabades"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Ho torna a provar automàticament després d'un problema passatger de xarxa o de servidor, esperant més entre cada intent. Les descàrregues bloquejades pel lloc no es tornen a provar mai automàticament."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Reintenta les descàrregues fallides"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "vegades"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL en bloc"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Afegeix i posa a la cua diverses URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Esborra l'URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Enllaç afegit des del porta-retalls"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "S'han copiat diversos enllaços: fes servir URL en bloc per afegir-los"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Substituït per l'enllaç copiat"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Vigila el porta-retalls"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Emplena automàticament el camp d'URL quan copies l'enllaç d'un vídeo."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Desfés"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Amaga a la safata en tancar"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Continua les descàrregues en segon pla després de tancar la finestra."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Quants elements de la cua es baixen alhora. Com més alhora, més aviat s'acaba una cua llarga, però augmenta la probabilitat que un lloc et limiti."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Descàrregues alhora"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "descàrregues"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes les galetes dels quals fan servir eines de descàrrega com Arroxy. Fes servir un compte d'usar i llençar quan sigui possible."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Llegeix les galetes directament del navegador. El navegador ha d'estar tancat en els navegadors de la família Chromium."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Navegador"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Tria un navegador…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Tria…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Esborra"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Tria un navegador per fer servir les galetes"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Tria un fitxer per fer servir les galetes"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Fa servir el teu inici de sessió a Explora només quan una descàrrega el necessita."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "La pestanya Explora està desactivada, així que les descàrregues no fan servir el teu inici de sessió a Explora. Activa-la a Explora, més avall."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Get cookies.txt LOCALLY, extensió per a Chrome"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Fitxer de galetes"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Com puc exportar les galetes?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Obre Explora"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Cap fitxer seleccionat"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Recomanat"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risc: un cookies.txt conté totes les sessions iniciades d'aquell navegador; mantén-lo en privat."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Navegador"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Inici de sessió a Explora"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Fitxer"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Font de les galetes"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Desactivada"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Ajuda amb els vídeos amb restricció d'edat, només per a membres i privats d'un compte."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Accelera les descàrregues grans baixant diverses parts d'un vídeo alhora. Els valors alts augmenten la probabilitat que un lloc et limiti."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Connexions de descàrrega"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "connexions"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Només àudio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtítols"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Més de 2000 llocs"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Llistes de música"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Llistes de vídeo"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Què pot baixar Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Canals"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Música"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Llistes de reproducció"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Pòdcasts"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Assistent pas a pas. Tria el format, la qualitat i més."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Descarrega des d'una URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Canvia la drecera"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Una altra aplicació ja fa servir aquesta drecera: tria'n una altra."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "O prem"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Copia l'enllaç d'un vídeo en qualsevol lloc, prem aquesta drecera i Arroxy el posa a la cua amb el teu perfil actiu, sense canviar de finestra."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Canvia-la o desactiva-la a la configuració."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Prem les tecles…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Restableix el valor predeterminat"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Descarrega qualsevol enllaç que copiïs, des de qualsevol aplicació, sense obrir Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Drecera global"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Prova"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Activa la drecera global"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Prem la drecera amb l'enllaç d'un vídeo al porta-retalls."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Descàrrega interactiva"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Les descàrregues actives conserven el límit actual. Posa-les en pausa i reprèn-les per aplicar els canvis."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Personalitzat…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "p. ex., 750K o 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Limita l'ample de banda de les descàrregues multimèdia. El ritme de sol·licituds de sota sol ser la palanca més efectiva contra els límits."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Fes servir un nombre seguit de K o M (p. ex., 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Límit de velocitat de descàrrega"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Desactivat"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Descarregant en segon pla… Puc fer diverses coses alhora 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "La descàrrega ràpida posa a la cua els elements carregats amb {{profileName}}. La interactiva et deixa inspeccionar-los o seleccionar-los abans."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Deixa un enllaç i Arroxy s'encarrega de baixar-lo ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Aquest enllaç apunta a un vídeo dins d'una col·lecció. Arroxy et preguntarà quin vols abans d'analitzar-lo."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} està llegint aquest enllaç i aplicant {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "La cua s'ocupa d'aquesta descàrrega. Pots enganxar un altre enllaç mentre treballa."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "La descàrrega ràpida comença una descàrrega amb {{profileName}}. Fes servir la interactiva per a canvis puntuals."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Estèreo compatible"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Estèreo o envoltant quan un perfil tria l'àudio original. Un perfil ho pot substituir."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Preferència d'àudio original"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Prefereix envoltant / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Afegeix petites esperes durant cada descàrrega perquè Arroxy no pressioni el lloc massa. Els valors són en segons."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pausa abans que comenci el contingut: màx."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pausa abans que comenci el contingut: mín."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Espera entre comprovacions de metadades"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Espera abans dels fitxers de subtítols"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Descàrregues suaus"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Quanta cautela ha de tenir Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Equilibrada"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Cautelosa"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Personalitzada"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Desactivada"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Esperes: {{requests}} entre comprovacions, {{downloads}} abans que comenci el contingut, {{subtitles}} abans dels fitxers de subtítols."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Aquestes esperes es fan dins de cada descàrrega. Quantes descàrregues s'executen alhora s'estableix per separat, a Descàrregues alhora."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Predeterminada. Afegeix pauses curtes entre sol·licituds i abans que comenci el contingut."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Afegeix pauses més llargues per a llistes de reproducció grans o xarxes que topen sovint amb límits."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Ajusta tu mateix els controls avançats de cada descàrrega."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Només fa servir les petites pauses de base que Arroxy manté per al contingut i els subtítols."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Límit actual: {{count}} elements"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Personalitzat…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Fes servir un nombre enter de {{min}} a {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Desa el límit"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Límit personalitzat d'exploració de llistes"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Personalitzat: {{count}} elements"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Nombre màxim d'entrades que Arroxy carrega quan s'obre una llista de reproducció, un canal o els resultats d'una cerca."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Fes servir un nombre enter de l'1 al 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Elements de la llista per explorar"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} elements"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy només demana aquest nombre d'entrades de la llista de reproducció, el canal o la cerca mentre construeix el selector."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Usa el límit de l'aplicació: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Aplica"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "No s'ha pogut aplicar aquest abast de la llista: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Aplica i torna a carregar"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Canvia"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Tria què carrega Arroxy d'aquesta llista de reproducció."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Abast de la llista"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "No hi ha cap vídeo en aquest abast"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Els primers"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Fes servir números d'element enters de l'1 a {{max}}, amb l'inici no superior al final."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Elements per carregar"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Abast de la llista"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Interval"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Tornant a carregar..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Restableix"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Carrega els primers elements: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Carrega els primers elements: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Carrega els elements {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "fins a"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Perfil actiu"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Integrat"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Personalitzat"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Ocult"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Modificat"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Canvia la destinació global"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Usa la destinació global"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Usa la destinació global + la subcarpeta del perfil"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Usa la substitució del perfil"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Usa la substitució del perfil + la subcarpeta del perfil"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Destinació"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Edita"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Edita el perfil actiu"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Els perfils ocults es queden aquí, però desapareixen de tots els selectors de perfil."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Mostra el perfil als selectors: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Mantén almenys un perfil disponible."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Gestiona els perfils"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Canvia el perfil actiu de la Descàrrega ràpida, les URL en bloc i les llistes de reproducció."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Canvia de perfil"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "perfil que es pot moure"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Moviment cancel·lat. {{profileName}} es queda a la posició {{position}} de {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "S'ha deixat {{profileName}} a la posició {{position}} de {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Mou {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Per moure un perfil, prem Espai o Retorn, mou-lo amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-lo anar. Prem Escape per cancel·lar."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} és sobre la posició {{position}} de {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "S'ha agafat {{profileName}}. És a la posició {{position}} de {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Perfil nou"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Crea, selecciona, edita o elimina configuracions de descàrrega reutilitzables."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Perfils de descàrrega"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Elimina"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Arrossega un perfil per moure'l. Tots els selectors de perfil segueixen aquest ordre."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Restableix"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "àudio AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "el millor àudio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "el millor vídeo"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "sense àudio"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "només subtítols"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "àudio WAV"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Canvia el perfil de descàrrega: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Canvia el perfil de descàrrega"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Esborra"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Encamina el trànsit mitjançant un servidor intermediari: útil per a contingut amb restriccions geogràfiques."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL del servidor intermediari"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "No s'ha pogut preparar cap d'aquestes URL"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Descàrrega ràpida"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Es descarregarà amb: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "No s'ha pogut afegir aquest: {{error}}"
+
+#. Plural form "many" for ca: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.url.quickPartialFailed_many"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} d'URL."
+
+#. Plural form "one" for ca: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "S'ha posat a la cua el que ha funcionat. No s'ha pogut preparar {{count}} URL."
+
+#. Plural form "other" for ca: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} URL."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "No s'ha pogut preparar l'element de la cua"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Preparant"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "L'anàlisi ha fallat"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Afegit a la cua"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Enganxa l'URL d'un vídeo, una llista de reproducció, un canal o una cerca per començar."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Comportament global que també afecta les descàrregues basades en perfils."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Comportament de descàrrega"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Entrada"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Panells de vidre sobre un cel en moviment. Requereix acceleració gràfica."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Superfícies sòlides i discretes. Funciona de manera lleugera en qualsevol ordinador."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Tots dos estils tenen versió clara i fosca."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Estil"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Com es veu Arroxy. Canvia entre clar i fosc al peu de pàgina."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Aparença"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} requereix acceleració gràfica, que ara no és disponible, així que Arroxy mostra {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Perfils"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Configuració"

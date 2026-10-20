@@ -1,0 +1,5046 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Info"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · door Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Over Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Snelle, gebruiksvriendelijke downloader voor YouTube en 2000+ andere sites."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Kennisgevingen van derden bekijken"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Website"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Toestaan"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube biedt sommige oude video’s aan in formaten die het met AI heeft gemaakt. Met Overslaan blijven de originele streams behouden; je kunt een opgeschaalde stream nog steeds handmatig kiezen."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Met AI opgeschaalde streams"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Overslaan"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Feedback"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Bevalt Arroxy je? Ik hoor graag van je! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Logboeken"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Diagnosebestand opslaan"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Zet je logboeken en app-gegevens in één bestand in Downloads, klaar om aan een GitHub-issue toe te voegen. Je gebruikersmapnaam wordt verwijderd; videolinks en titels blijven staan."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Nieuw: kies hier Aurora of Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Thema"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Inzoomen"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Uitzoomen"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Terug"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Sluiten"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Sluiten"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Laden"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Opnieuw beginnen"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy blijft actief en rondt actieve downloads af. Je kunt dit later wijzigen in de geavanceerde instellingen."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Naar systeemvak"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Arroxy naar het systeemvak verbergen bij het sluiten?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Niet meer vragen"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Downloads annuleren en afsluiten"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Pauzeer om later te hervatten, of annuleer om de voortgang te verwijderen."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Doorgaan met downloaden"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} download bezig"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} downloads bezig"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Downloads pauzeren en afsluiten"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Het renderproces is gecrasht ({{reason}}). Laad opnieuw om het nogmaals te proberen."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Er is een probleem opgetreden in Arroxy"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Opnieuw laden"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Gekopieerd!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Adres kopiëren"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy is gratis en open source, zonder advertenties of betaald abonnement. Donaties zijn vrijwillig en geven geen invloed op de roadmap."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Doneren"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Steun Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR-code van het {{coin}}-donatieadres"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Steun Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Cryptobetalingen zijn onomkeerbaar. Verstuur alleen via het getoonde netwerk en vergelijk het hele adres."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Deze video heeft een leeftijdsbeperking en kan niet worden gedownload zonder aangemeld account."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Botbeveiliging geactiveerd. Het IP-adres dat je gebruikt is waarschijnlijk gemarkeerd (datacenterbereik of drukbezet VPN-uitgangspunt). Wijzig je IP-adres of kies een ander VPN-eindpunt en probeer het opnieuw. Blijft het mislukken, dan gaat het mogelijk om een tijdelijke wijziging aan de kant van de site — Arroxy werkt de downloadengine bij het opstarten bij, dus de oplossing komt automatisch zodra die uitkomt."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "De server verbrak de download steeds halverwege en Arroxy gaf het op na meerdere pogingen. Dit gebeurt meestal bij de grootste videoformaten (4K HDR / VP9 met hoge bitrate). Probeer het opnieuw, wissel van netwerk/VPN of kies een formaat met lagere resolutie."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Deze video is beveiligd met DRM. Arroxy kan DRM niet verwijderen, dus het bestand kan niet worden gedownload."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Deze video is niet beschikbaar in jouw regio."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Je IP-adres lijkt te zijn geblokkeerd. Probeer het later opnieuw of gebruik een VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Voor deze video is een aangemeld account nodig."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy kon FFmpeg of FFprobe niet vinden. Voer de installatie opnieuw uit of stel een FFmpeg-locatie in en probeer de download daarna opnieuw."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Netwerkfout. Controleer je verbinding en probeer het opnieuw."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Deze video heeft geen ondertitels in de gevraagde talen."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Onvoldoende schijfruimte. Maak ruimte vrij en probeer het opnieuw."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy kan niet naar de downloadmap schrijven. De map is mogelijk alleen-lezen, staat op een vergrendelde schijf of wordt geblokkeerd door de privacyinstellingen van je systeem. Kies een andere map of sta toegang toe en probeer het opnieuw."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Het antwoord van de site kon niet worden verwerkt. De site heeft mogelijk gewijzigd hoe video’s worden aangeboden. Arroxy werkt de downloadengine bij het opstarten bij — probeer het over een paar minuten opnieuw zodra de oplossing er is."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "De download is voltooid, maar de nabewerking (samenvoegen / muxen / converteren) is mislukt. Vaak is dit een tijdelijk ffmpeg-probleem — probeer het opnieuw en probeer een andere combinatie van formaten als het blijft mislukken."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "De site beperkt het aantal verzoeken vanaf deze verbinding."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Deze video is niet beschikbaar — mogelijk is hij privé, verwijderd of vergrendeld voor jouw regio."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Download mislukt. Zie de onbewerkte uitvoer hieronder."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy ondersteunt deze URL niet. Probeer een link van een andere site."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Controleer je verbinding en probeer het opnieuw."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Deze pagina is niet geladen"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Instellingen openen"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Controleer de proxy in de instellingen en probeer het opnieuw."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Verkennen kan geen verbinding maken via je proxy"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Klik met de rechtermuisknop op een video-, afspeellijst- of kanaallink op de pagina om te downloaden met je actieve profiel, een ander profiel te kiezen of de stapsgewijze flow te openen."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Klik met rechts op een link om te downloaden"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Link kopiëren"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Downloaden met"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Nieuw"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Zoek een video op YouTube of een andere site en download hem hier — zonder links te kopiëren. Meld je hier aan bij een site om video’s te downloaden waarvoor een account nodig is."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Sites zoals YouTube kunnen accounts die met downloadtools als Arroxy worden gebruikt markeren — en soms blokkeren. Gebruik een account dat je kunt missen, niet je hoofdaccount."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Meld je aan met een tweede account"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Surf over het web, direct in Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Downloads gebruiken de cookies van je browser, niet je aanmelding in Verkennen."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Downloads gebruiken je cookiebestand, niet je aanmelding in Verkennen."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Niet nu"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookies staan uit, dus downloads gebruiken je aanmelding in Verkennen niet."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Aanmelding in Verkennen gebruiken"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Surf op YouTube of een andere site in Arroxy en meld je aan voor video’s waarvoor een account nodig is."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Geheugen vrijgeven bij afwezigheid"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Na 5 minuten op een ander tabblad wordt de YouTube-startpagina of zoekpagina gesloten. Bij terugkeer wordt hij opnieuw geladen, wat een paar seconden duurt."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Zoekmachine"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Waar tekst uit de adresbalk wordt gezocht. Links worden geopend zoals ingetypt."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Tabblad Verkennen tonen"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Als je dit uitschakelt, gebruiken downloads ook je aanmelding in Verkennen niet meer."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Afmelden bij Verkennen"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Afmelden"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Hiermee worden je aanmeldingen en browsegegevens in Verkennen gewist, voor alle sites. Downloads waarvoor een account nodig is, mislukken tot je je opnieuw aanmeldt."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Afmelden bij Verkennen?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Wist je aanmeldingen en browsegegevens in Verkennen, voor alle sites."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Verkennen"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Verkennen"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube kan bij aangemelde accounts bezwaren hebben tegen advertentieblokkers."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Advertentieblokkering"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Advertentieblokkering: uit — klik om in te schakelen"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Advertentieblokkering: aan — klik om uit te schakelen"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Advertentieblokkering: starten — klik om uit te schakelen"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Advertentieblokkering: niet beschikbaar, de filterlijsten konden niet worden gedownload — klik om uit te schakelen"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adres"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Zoek op {{engine}} of open een site (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Browserbediening van Verkennen"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Terug"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Compacte weergave"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Downloaden · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Vooruit"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Volledige weergave tonen"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Open een video, afspeellijst of kanaal om te downloaden"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube-startpagina"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interactief downloaden: kies formaat, ondertitels en meer…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Verkennen kan dat adres niet openen."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Opnieuw laden"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Die zoekopdracht is te lang."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Paginazoom: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Inzoomen"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Paginazoom"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Uitzoomen"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Zoompercentage"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Zoom terugzetten naar 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Kies hoe gedownloade bestanden worden genoemd. Klik op een token om het in te voegen. Gebruik / om downloads in mappen te sorteren."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Voer een sjabloon voor de bestandsnaam in."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Verwijder de extra / — elke map heeft een naam nodig."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Verwijder tekens die niet zijn toegestaan in bestandsnamen: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Die mapnaam is niet toegestaan. Vermijd . en .. en gereserveerde namen zoals CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Voeg {title} of {id} toe aan de bestandsnaam zodat elke download een eigen naam krijgt."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} kan geen map een naam geven — de kwaliteit is pas bekend zodra de download start."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Niet-overeenkomende { of } — plaats tokens zoals {title} tussen accolades."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Het sjabloon is te lang."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Onbekend token {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Zonder {id} kan Arroxy reeds gedownloade afspeellijstitems niet herkennen en geen .m3u-afspeellijsten maken."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Sjabloon voor bestandsnaam"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Niet beschikbaar omdat je sjabloon voor de bestandsnaam {id} niet bevat of downloads in mappen sorteert."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "In een afspeellijst"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Enkele video"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Laat leeg om het algemene sjabloon over te nemen."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Sjabloon voor bestandsnaam"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automatisch"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automatisch (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "De gekozen streams bepalen het bestandstype."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Kan elke codec bevatten. Sommige tv’s en telefoons kunnen het niet openen."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Speelt vrijwel overal af. VP9 in een MP4 wordt in QuickTime zonder beeld afgespeeld."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Open formaat voor browsers. Bevat alleen VP9 of AV1 met Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 in een MP4 vereist een recente Mac om in QuickTime af te spelen. H.264 speelt overal af."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 in een MP4 wordt in QuickTime zonder beeld afgespeeld. H.264 speelt overal af."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profiel"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM wordt niet aangeboden bij Smart-tv: het kan geen H.264 bevatten."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM kan {{codec}} niet bevatten. Kies MKV of MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Alleen audio · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automatisch"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automatisch kiest HDR als dit scherm dat kan tonen, anders SDR. HDR ziet er op gewone schermen flets uit."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR-video"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Taal"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Aangemeld via Verkennen — 1 link wordt opnieuw geprobeerd"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Aangemeld via Verkennen — {{count}} links worden opnieuw geprobeerd"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Afmelden bij Verkennen is niet gelukt. Probeer het opnieuw."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Deze map zit te diep voor je systeem. De download kan nog steeds mislukken — kies een kortere map."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "De naam van deze video past niet in elk onderdeel van je sjabloon, dus de standaardnaam is gebruikt."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "De mapkiezer kon niet worden geopend."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Staat al in de wachtrij — geen kopie toegevoegd"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy is nog bezig met opstarten — probeer het zo opnieuw"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Rond de cookie-instelling in Arroxy af en probeer het opnieuw"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Geen link op je klembord — kopieer er eerst een"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Meerdere links gekopieerd — gebruik Meerdere URL’s in Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Voor die link moet je een keuze maken — zie Downloads in Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Download vanaf klembord in de wachtrij gezet"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Die link kon niet worden toegevoegd — probeer het opnieuw in Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Die map kan niet voor deze afspeellijst worden gebruikt."
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} video staat al in de wachtrij — overgeslagen"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} video’s staan al in de wachtrij — overgeslagen"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Toegevoegd: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Staat al in de wachtrij"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video — kies hoeveel"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video’s — kies hoeveel"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} kon niet worden voorbereid"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Die link kon niet worden toegevoegd — probeer het opnieuw"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} video in deze lijst — bekijk om te kiezen"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} video’s in deze lijst — bekijk om te kiezen"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ video in deze lijst — bekijk om te kiezen"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ video’s in deze lijst — bekijk om te kiezen"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Bekijken"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Je instellingen konden niet worden opgeslagen."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Dat kon niet worden geopend."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "De installatie is niet voltooid. Sommige downloads kunnen mislukken totdat dit is gelukt."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (beste)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Beste oorspronkelijke audio, niet opnieuw gecodeerd"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Converteren naar M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Converteren naar MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Converteren naar Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 boven 1080p is niet beschikbaar op YouTube — automatisch beperkt tot 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Opslaan als"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Direct in de opslagmap"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Talen"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Kies minstens één taal om door te gaan."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Voor elke video worden alleen ondertitelbestanden opgeslagen — er wordt geen video of audio gedownload."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Bron"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Tot 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Tot 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Tot 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Tot 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Tot 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Tot 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Tot 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Tot 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Beste kwaliteit"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Beperkt tot 1080p, valt per item terug op lager"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Kleinst mogelijke bestanden"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Beperkt tot 2K, valt per item terug op lager"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Beperkt tot 2160p, valt per item terug op lager"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Zeer kleine bestanden, lage kwaliteit"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Kleine bestanden voor weinig bandbreedte"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Lage bandbreedte"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Kleinere bestanden, brede compatibiliteit"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Hoogst beschikbare video + audio per item"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Beste oorspronkelijke"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "Smart-tv H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Best beschikbare container en codecs per item"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Bij voorkeur H.264-video + AAC-audio in MP4, indien mogelijk"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Bijbehorend"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Beschrijving"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Media"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Ontbreekt"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Ondertitel"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatuur"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefact"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} download vraagt je aandacht"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} downloads vragen je aandacht"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Verwijder elke download een paar seconden na voltooiing uit de lijst. Bestanden blijven in je map staan."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Voltooide automatisch wissen"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Alle actieve en wachtende downloads annuleren"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Alle video’s"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Meer dan {{count}} video in deze afspeellijst. Download ze allemaal, de eerste {{count}}, of kies via Bekijken."
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Meer dan {{count}} video’s in deze afspeellijst. Download ze allemaal, de eerste {{count}}, of kies via Bekijken."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Eerste {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Bekijken"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Deze link is een lijst met {{count}} video. Bekijk hem om te kiezen wat je downloadt."
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Deze link is een lijst met {{count}} video’s. Bekijk hem om te kiezen wat je downloadt."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Voltooide downloads wissen"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Downloads in de wachtrij verschijnen hier"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Alles"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Statusfilters van de wachtrij"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Alle items"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Geluid niet verwijderd"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Geluid niet verwijderd · sommige ondertitels mislukt"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Download mislukt"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Doelmap openen"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pauzeren"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Alleen wachtende"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Nu binnenhalen — wachtrij overslaan"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Beperkt tot {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Beperkt tot {{height}}p · sommige ondertitels mislukt"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Hervatten"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "wordt automatisch opnieuw geprobeerd (poging {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Locatie instellen"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Selecteer wachtende items om de locatie in te stellen."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Klaar"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Fout"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Vastgehouden"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Keuze nodig"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Gepauzeerd"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Wachten"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Details ophalen"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Downloaden"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Alle actieve downloads pauzeren en voorkomen dat nieuwe starten"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "De wachtrij is gepauzeerd — wachtende items starten pas als je hervat"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Gepauzeerde downloads hervatten en de wachtrij laten doorlopen"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Wachtrij hervatten"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Geselecteerde items"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} geselecteerd · {{total}} totaal"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Toegevoegd"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefacten"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Kolom {{column}} neergezet."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Het verplaatsen van kolom {{column}} is geannuleerd."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Kolom {{column}} staat boven {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Kolom {{column}} opgepakt."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Kolommen"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Voltooid"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formaat"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Artefacten van {{title}} verbergen"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "verplaatsbare kolom"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Om een kolom te verplaatsen, druk je op Spatie of Enter, verplaats je hem met de pijltjestoetsen en druk je opnieuw op Spatie of Enter om hem neer te zetten. Druk op Escape om te annuleren."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Doel"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Voortgang"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Kolommen herstellen"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Grootte van kolom {{column}} aanpassen"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Artefacten van {{title}} tonen"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Grootte"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sorteren op {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Status"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Titel"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Downloads staan nu op het tabblad Downloads — open het wanneer je wilt om de voortgang te volgen."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Je gebruikt een nieuwe update. Dit zijn de belangrijkste punten."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Volledige release-opmerkingen ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Nieuw in Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Uitvoerbaar bestand kiezen"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Installeren met Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Installeren met WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Map met afhankelijkheden openen"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Standaard herstellen"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Opnieuw proberen"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Installatielogboek bekijken"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Probeer het opnieuw. Blijft het mislukken, kies dan hieronder een werkende kopie."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Een hulpprogramma werkt niet goed"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Sta Arroxy toe in je antivirusprogramma of SmartScreen en probeer het opnieuw."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Je antivirusprogramma heeft een hulpprogramma geblokkeerd"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Controleer je internetverbinding en probeer het opnieuw."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Wat Arroxy nodig heeft kon niet worden gedownload"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Probeer het opnieuw om het opnieuw te downloaden."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Een download is beschadigd aangekomen"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Probeer het opnieuw om het opnieuw te downloaden."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Een download kwam niet overeen met de controlesom"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Kies hieronder beide, of herstel ze naar de standaard."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg en FFprobe moeten samen worden ingesteld"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Probeer het opnieuw. Blijft het mislukken, kies dan hieronder een kopie die je vertrouwt."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Je systeem laat Arroxy geen hulpprogramma uitvoeren"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Probeer het opnieuw. Blijft het mislukken, kies dan hieronder een werkende kopie."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Een hulpprogramma ontbreekt of start niet"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Dit is vaak een beveiligingsscan bij het eerste gebruik. Probeer het opnieuw."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Een hulpprogramma reageerde te traag"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Probeer het opnieuw, of open het installatielogboek voor details."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Er is iets misgegaan tijdens de installatie"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Downloadengine"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Mediatools"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Installeren met Homebrew… Dit kan een paar minuten duren."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Installeren met WinGet… Dit kan een paar minuten duren."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Wijs Arroxy naar kopieën die je al hebt, of installeer ze op een andere manier."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Je kunt yt-dlp en ffmpeg ook installeren met je pakketbeheerder en daarna op Opnieuw proberen klikken."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Handmatig instellen"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Probeer het opnieuw, of wijs Arroxy hieronder naar hulpprogramma’s die je al hebt."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Installatie gestopt"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "De installatie heeft je hulp nodig"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Hoe dit profiel kiest"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC-audio"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "past bij MP4-spelers"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC-audio"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "speelt overal af"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, dan VP9, dan H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "scherpst bij een gegeven grootte"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, dan VP9, dan AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "codec van dit profiel"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, dan H.264, dan AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "codec van dit profiel"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Hoogste framerate"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "vloeiendere beweging"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264-video"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "speelt op elk apparaat af"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR vóór SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "rijkere kleuren op HDR-schermen"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "dit scherm toont HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR vóór HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "ziet er op elk scherm goed uit"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "dit scherm is geen HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4-streams"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "klaar voor een MP4-bestand"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereo-audio"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "dit profiel"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "uit Instellingen"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Surround-audio indien aangeboden"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus-audio"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "past bij WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Originele streams, geen met AI opgeschaalde"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "een opgeschaalde kopie is groter maar voegt geen echt detail toe"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Directe downloads vóór gestreamde kopieën"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "hetzelfde beeld, sneller gedownload"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Tot {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "jouw limiet"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Hoogste resolutie"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "geen limiet ingesteld"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Streams die de site niet lager waardeert"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "slaat beschadigde, van watermerk voorziene en noodkopieën over"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Groter bestand"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "meer detail bij dezelfde instellingen"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Streams met verbeterde bitrate eerst"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "meer detail bij dezelfde resolutie"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "bestandstype volgt de streams"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "wordt opgeslagen als .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "beste beeld"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "speelt op elk apparaat af"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Waarom deze?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Waarom het profiel dit koos"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Gekopieerd!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Link kopiëren"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — gratis, open-source videodownloader voor Windows, macOS & Linux. Werkt met YouTube, Vimeo, Twitch en 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Ondertitels · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy is gratis en open source. Door te delen ontdekken meer mensen het."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Delen"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Arroxy delen"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Arroxy delen"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Arroxy delen"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Problemen? Stel het handmatig in"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Hoi, welkom terug!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} van {{total}}"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "nog ongeveer {{count}} min"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "nog ongeveer {{count}} min"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "nog minder dan een minuut"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Houdt downloads werkend als sites veranderen."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Dit gebeurt eenmalig. Arroxy bewaart deze hulpprogramma’s en werkt ze zelf bij."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Dit gebeurt eenmalig. Arroxy bewaart ze voor toekomstige updates."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Controleren of alles werkt"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Verbinden…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "De downloadengine en mediatools downloaden"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "De downloadengine downloaden"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "De mediatools downloaden"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "De mediatools uitpakken"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "De downloadengine bijwerken"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Eerste installatie"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "De mediatools bijwerken"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Eerste controle van deze versie — deze duurt langer. Meestal ongeveer een minuut."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} controleren…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Downloads voorbereiden…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Installatie mislukt. Open het installatielogboek voor details."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video opgeslagen met geluid — de audio kon niet worden verwijderd"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video opgeslagen met geluid — de audio kon niet worden verwijderd en sommige ondertitels konden niet worden gedownload"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Download geannuleerd"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Download voltooid"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Video converteren…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Onvoldoende schijfruimte — {{required}} nodig, slechts {{free}} beschikbaar"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "{{name}}-programma downloaden…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Video en audio downloaden…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Metagegevens insluiten…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Afgemeld bij Verkennen — meld je opnieuw aan"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Audio converteren…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Contact maken met SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Ondertitels ophalen…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Audio en video samenvoegen…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube-token genereren…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Bestanden verplaatsen…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Opslaan in {{dir}} is niet mogelijk — Arroxy mag daar niet schrijven"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Programma’s voorbereiden…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter. Later opnieuw proberen of via een ander netwerk kan helpen."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter en sommige ondertitels konden niet worden gedownload. Later opnieuw proberen of via een ander netwerk kan helpen."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Token opnieuw genereren…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock niet beschikbaar, opnieuw proberen ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Verbinding bleef hangen, opnieuw proberen ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Aanmelden met je Verkennen-account…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "{{seconds}} s wachten om limieten te voorkomen…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "De downloadengine starten…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video opgeslagen — sommige ondertitels konden niet worden gedownload"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Onbekende fout bij het starten van de download"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Gedownload met versoepelde extractor — stel een cookies.txt in voor betrouwbaardere downloads"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "De downloadengine is afgesloten met code {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Fout in downloadengine: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Donkere modus"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Lichte modus"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Systeemstandaard"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Sluiten"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maximaliseren"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimaliseren"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Herstellen"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Downloaden vanaf klembord"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Arroxy openen"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Arroxy afsluiten"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 download actief · {{percent}}%"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} downloads actief · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Inactief"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Opdracht naar klembord gekopieerd"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Opdracht naar klembord kopiëren"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Updatebanner sluiten"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Downloaden ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG downloaden ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Downloaden…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Installeren en opnieuw starten"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Bijwerken mislukt"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} is beschikbaar — je hebt {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} is beschikbaar — werk bij met Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} is beschikbaar — download de nieuwe DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} is beschikbaar — download de DMG of stap over op Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} is beschikbaar — download de nieuwe build."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Uitvoeren en opnieuw starten"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Bijwerken…"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} hoofdstuk"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} hoofdstukken"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Laden…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automatisch"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Welke codec als eerste wordt gekozen bij streams van dezelfde hoogte. Automatisch behoudt de eigen volgorde van yt-dlp, die AV1 (de kleinste) bevoordeelt; H.264 speelt af op oudere tv’s en telefoons."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 eerst"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Videocodec"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart-tv neemt altijd H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 eerst"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Klaar"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Plak video-, afspeellijst-, kanaal-, zoek- of audio-URL’s. Arroxy verwijdert duplicaten voordat ze in de wachtrij komen."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Plak een of meer URL’s om een voorbeeld van de batch te zien."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Genegeerd"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Voeg minstens één ondersteunde URL toe om door te gaan."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplicaat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL-lijst"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Meerdere URL’s"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Wachtrij"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Voegt toe aan de wachtrij — start zodra de actieve download klaar is"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Alleen audio"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} van {{total}} video"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} van {{total}} video’s"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} van {{total}} track"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} van {{total}} tracks"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} van {{total}} URL"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} van {{total}} URL’s"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Batch"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Items"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Voorinstelling"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Opslaan in"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Grootte"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Je bestand komt terecht in"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Het komt terecht in de bestemming hieronder"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Ze komen terecht in de {{count}} bestemmingen hieronder"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "De voorinstelling Alleen ondertitels is actief, maar er is geen ondertiteltaal geselecteerd — er wordt niets gedownload."
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} item"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} items"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profielen in deze batch"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Binnenhalen! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Slaat de wachtrij over — start nu, naast andere actieve downloads"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Klaar om binnen te halen!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Ondertitels insluiten is gewijzigd in los bestand — audiotracks ondersteunen geen ingesloten ondertitelstreams."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Ondertitels in de video vereisen een MKV-bestand, dus deze download wordt opgeslagen als .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Miniatuur insluiten overgeslagen — de uitvoercontainer ondersteunt dit niet."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Aangepast…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Bureaublad"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Documenten"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Opslaan in"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Persoonlijke map"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muziek"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Afbeeldingen"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Mapnaam bevat ongeldige tekens"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "bijv. lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Opslaan in submap"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Films"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Audiotaal"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} taal"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} talen"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Alleen audio"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Bitrate {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookies zijn ingesteld maar uitgeschakeld. Schakel ze in en probeer het opnieuw voor de volledige lijst, of wissel van netwerk en probeer opnieuw."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Zelfs met cookies heeft YouTube deze analyse beperkt. Probeer het later opnieuw of wissel van netwerk."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube heeft dit verzoek beperkt. Probeer het later opnieuw of wissel van netwerk."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "De formatenlijst is mogelijk onvolledig. Stel cookies in bij de geavanceerde instellingen, of wissel van netwerk en probeer opnieuw."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Cookies inschakelen en opnieuw proberen"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Analyse was beperkt"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Een bron die al {{target}} is, behoudt zijn eigen stream en bitrate: die wordt gekopieerd, niet opnieuw gecodeerd."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, niet opnieuw gecodeerd"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, niet opnieuw gecodeerd"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, zoals de bron het heeft: de stream is al {{target}}, dus hij wordt gekopieerd, niet opnieuw gecodeerd"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Zoals de bron het heeft: de stream is al {{target}}, dus hij wordt gekopieerd, niet opnieuw gecodeerd"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Converteren"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Bron is {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (ongecomprimeerd)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Aanmelding in Verkennen"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Bestand"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Cookiebron"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp-documentatie (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 en nieuwer versleutelt cookies op een manier die andere apps in Windows niet kunnen lezen. Probeer een van de onderstaande oplossingen."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Exporteer cookies uit Chrome met een browserextensie, schakel deze app dan over op de modus Bestand en kies het geëxporteerde bestand."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "cookies.txt exporteren"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox gebruikt geen App-Bound Encryption. Open de cookie-instellingen en kies Firefox in de browserlijst."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Overstappen op Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Voeg --disable-features=LockProfileCookieDatabase toe aan de opstartsnelkoppeling van Chrome. Let op: hierdoor worden eerder versleutelde cookies ongeldig, dus je wordt overal afgemeld en moet opnieuw aanmelden."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Chrome starten met App-Bound Encryption uitgeschakeld"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome-cookies geblokkeerd door Windows-versleuteling"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookies worden rechtstreeks uit de browser gelezen. Als de browser nu draait, kan de cookiedatabase vergrendeld zijn (Chromium-familie). De browser moet ook bij YouTube zijn aangemeld. Sluit de browser, gebruik een andere browser, schakel over op de modus Bestand, of schakel cookies uit."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Je cookiebestand is mogelijk leeg, verlopen of heeft het verkeerde formaat (Arroxy heeft een cookies.txt-bestand in Netscape-formaat nodig). Exporteer de cookies opnieuw, kies een ander bestand, schakel over op de modus Browser, of schakel cookies uit."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Meld je aan via Verkennen en Arroxy probeert het opnieuw."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Aanmelden via Verkennen"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Deze video heeft mogelijk een YouTube-account nodig"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy heeft het al aangemeld via Verkennen geprobeerd, dus opnieuw aanmelden helpt niet. De site heeft mogelijk problemen, of dit account kan het niet openen. Probeer het later opnieuw."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "De site weigerde dit, zelfs met je aanmelding in Verkennen"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Je bent aangemeld in Verkennen, maar downloads gebruiken die aanmelding nu niet."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Mijn aanmelding in Verkennen gebruiken en opnieuw proberen"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Deze video heeft mogelijk een YouTube-account nodig"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Als deze video een account nodig heeft, gebruikt Arroxy automatisch je aanmelding in Verkennen. Mogelijk is hij om een andere reden niet beschikbaar."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Aangemeld in Verkennen"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Als deze video een YouTube-account nodig heeft, meld je dan aan in Verkennen en probeer het opnieuw. Arroxy gebruikt die aanmelding alleen wanneer een download die nodig heeft."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Aanmelden in Verkennen"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Deze video heeft mogelijk een YouTube-account nodig"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Voor deze link is mogelijk een account bij {{host}} nodig"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Meld je via Verkennen aan bij {{host}} en probeer het opnieuw."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Meld je in Verkennen aan bij {{host}} en probeer het opnieuw. Arroxy gebruikt die aanmelding alleen wanneer een download die nodig heeft."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookies zijn mogelijk de oorzaak"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy kon deze video niet openen zonder verificatie. Stel cookies in bij de geavanceerde instellingen — richt ze op een browser waarin je al bent aangemeld, of importeer een cookies.txt-bestand."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Deze site vereist aanmelden"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Cookie-instellingen openen"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Liever een cookiebestand of browser gebruiken…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Maakt harde stukken zachter en zachte stukken luider, voor luidsprekers en rumoerige ruimtes."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Luidheid gelijktrekken (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Gelijke luidheid"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Je profiel is Smart-tv (H.264). Deze video biedt geen H.264, dus de dichtstbijzijnde stream is geselecteerd."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Deze link bevat geen video, dus audio is geselecteerd."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Je profiel vraagt om ondertitels in {{languages}}. Deze video heeft ze niet."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Je profiel vraagt om {{wanted}}p. Deze video heeft niets zo kleins, dus {{picked}}p is geselecteerd."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Je profiel vraagt om {{wanted}}p. Deze video gaat maar tot {{picked}}p, dus {{picked}}p is geselecteerd."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Je profiel vraagt om WebM. De gekozen streams van deze video bevatten {{codec}}, wat WebM niet kan bevatten, dus het bestandstype is Automatisch."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Toevoegen aan wachtrij zonder te starten"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Downloaden"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Meer downloadopties"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Kies minstens één ondertiteltaal."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Ongewijzigd laten"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Ingebouwde audio"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Alleen audio"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Wat downloaden"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Alleen ondertitels"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, geen audio"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Formaten laden"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Wacht tot de analyse klaar is — afspeellijsten en zoekopdrachten kunnen even duren."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Met AI nagesynchroniseerd"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Met AI opgeschaald"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audiobeschrijving"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Beschadigd"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Verbeterde bitrate"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Ruimtelijke audio"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Met watermerk"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Geen audio"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Je actieve profiel selecteert de streams alvast voor je. Wissel van profiel via het menu, of gebruik het potlood om er een aan te passen zonder deze download te verlaten."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formaten beginnen bij je profiel"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Dichtst bij profiel"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "{{name}} bewerken"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Mijn wijzigingen behouden"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Alleen voor deze download. Je standaardprofiel blijft zoals het is."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Vooraf geselecteerd uit"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Alles herstellen"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Je hebt {{areas}} voor deze download gewijzigd. „{{profile}}” kiest de video en audio in elk geval. Je andere wijzigingen behouden, of alles terugzetten naar het profiel?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Van profiel wisselen?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profiel"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Je hebt {{areas}} voor deze download gewijzigd. Het bijgewerkte profiel kiest de video en audio in elk geval. Je andere wijzigingen behouden, of alles terugzetten naar het profiel?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Het bijgewerkte profiel gebruiken?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Hoge kwaliteit"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Lage kwaliteit"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Gemiddelde kwaliteit"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} beperkt deze verbinding"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "De formatenlijst is mogelijk onvolledig."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} heeft dit verzoek voorlopig geweigerd."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} kan deze beperking tot een uur handhaven."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Nu proberen"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "De wachttijd is voorbij, dus je kunt het opnieuw proberen."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy wacht tot {{time}} voordat het {{site}} opnieuw benadert, zodat de beperking kan verdwijnen."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Onbekende resolutie"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Opslaan als"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM kan {{codec}} niet bevatten, dus het bestandstype is teruggezet op Automatisch."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Grootte onbekend"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Naar bevestigen"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Gebruikt je opgeslagen voorkeuren voor alle resterende stappen. Ga stap voor stap verder om een instelling te wijzigen — je keuze wordt de volgende keer onthouden."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "De beste formaten voor je opsporen…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Totaal"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "met audio"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Alleen de video waarop je klikte, of kiezen uit de afspeellijst? Daarna kies je specifieke video’s of een bereik."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Kiezen uit afspeellijst"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Analyselimiet afspeellijst: {{count}} items"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Laadt de afspeellijst, tot je analyselimiet voor afspeellijsten, voordat de keuzelijst verschijnt."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Download alleen deze video, of zet de hele afspeellijst in de wachtrij met je actieve profiel voor Snel downloaden."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Maximaal aantal items dat Arroxy scant voordat een afspeellijst, kanaal of zoekresultaat in de wachtrij komt."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Zet elk geladen afspeellijstitem in de wachtrij met het actieve profiel voor Snel downloaden. Als de scan je limiet bereikt, vraagt Arroxy eerst om bevestiging."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Zet één download in de wachtrij en negeert de afspeellijst bij deze URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Deze video downloaden"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Hele afspeellijst downloaden"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Laadt alleen deze video. De afspeellijst bij deze URL wordt genegeerd."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Alleen deze"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Deze link bevat een afspeellijst"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Hoofdstukmarkeringen waarmee je in elke moderne speler kunt navigeren."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Hoofdstukken insluiten"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Titel, artiest, beschrijving en uploaddatum worden in het bestand geschreven."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Metagegevens insluiten"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Albumhoes in het bestand. WebM-video wordt omgezet naar MKV; overgeslagen wanneer ondertitels worden ingesloten."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Miniatuur insluiten"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Slaat de videobeschrijving op als .description-tekstbestand naast de download."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Beschrijving opslaan"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Sla een .m3u-afspeellijst naast de video’s op zodat ze in je mediaspeler op volgorde openen."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr ".m3u-afspeellijstbestand genereren"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Slaat de miniatuur op als .jpg-afbeeldingsbestand naast de download."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Miniatuur opslaan"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Schakel op de videokaart over naar Deel om een begin en einde of een hoofdstuk te kiezen en alleen dat stuk te downloaden."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Download slechts een deel van een video"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Hoofdstukken"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Hoofdstuk {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Een deel wordt via ffmpeg gedownload, dus je instellingen voor downloadverbindingen en tempo gelden daarvoor niet."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Corrigeer eerst het begin en einde van het deel."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Einde"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "De video eindigt bij {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Voer het einde in als u:mm:ss, m:ss of seconden."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Voer het begin in als u:mm:ss, m:ss of seconden."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Het begin moet vóór het einde liggen."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Uit: elke knip komt op het dichtstbijzijnde keyframe uit, wat een paar seconden verschilt van de tijd die je typte."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Exacte knip (codeert opnieuw, langzamer)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} van {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Deel"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Deel van de video"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Begin"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "hele video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Deel {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Hoeveel van de video"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "u:mm:ss, m:ss of seconden"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Deel, geschat"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Deze video geeft zijn lengte niet door, dus hij kan alleen in zijn geheel worden gedownload."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Ondertitels beslaan altijd de hele video."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Je link begint bij {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Als begin gebruiken"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Hele video"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Hele track"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Herstel ze om door te gaan."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Alle items zijn verwijderd"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Al gedownload"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Meerdere URL’s"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Wachten hoeft niet — bestanden die je nu in de wachtrij zet, krijgen hun echte naam alsnog bij het downloaden."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Videodetails ophalen… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Details niet beschikbaar"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Details ophalen"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Wachten"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Afspeellijstitems"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Te downloaden video’s"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} video’s"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} track"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} tracks"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL’s"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Afspeellijst ophalen…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Video’s ophalen…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Beperkt tot de eerste {{count}} items"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} pagina gevonden"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} pagina’s gevonden"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Video’s verzamelen"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kanaalpagina’s scannen"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Profielen per item toewijzen"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Slaat Kwaliteit, SponsorBlock, Uitvoer en Opslaan over — wijs in plaats daarvan per item een downloadprofiel toe"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} hiervan is een afspeellijst, geen video — plak de link apart om hem te downloaden."
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} hiervan zijn afspeellijsten, geen video’s — plak de links een voor een om ze te downloaden."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Selecteer minstens één video om door te gaan"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "De eerste {{count}} items worden getoond. Verhoog de laadlimiet om er meer te zien."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Scan van afspeellijst is beperkt"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Scan is beperkt"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Bereik toepassen"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Van"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Tot"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} verwijderd"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} verwijderd"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} uit lijst verwijderen"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "{{count}} uit lijst verwijderen"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Herstellen"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Alles selecteren"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} geselecteerd"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} geselecteerd"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Niets selecteren"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Volgorde van afspeellijst"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Uploaddatums ophalen…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sorteren"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Oudste eerst"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Nieuwste eerst"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Synchronisatie toepassen"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Map wijzigen…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} van deze video’s staan al in {{dir}}. Synchroniseren om alleen de nieuwe te downloaden?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Al in de map"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Er zijn geen video’s uit deze afspeellijst gevonden in {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Er zijn geen video’s uit deze bron gevonden in {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Nog niets gedownload"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Map controleren…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Miniatuur van video"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Kies de kwaliteit voor de batch"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} item"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} items"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Elke video bepaalt het gekozen niveau zelfstandig — gemengde afspeellijsten werken zonder verrassingen."
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Toewijzen aan {{count}} video"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Toewijzen aan {{count}} video’s"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Profiel toewijzen"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Duur"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profiel"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} bewerken"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Geen items komen overeen met dit filter"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Profielfilters"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Downloadprofielen toewijzen"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Kies het profiel voor deze video."
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Kies het profiel voor deze {{count}} video’s."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} van {{total}} geselecteerd"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Algemeen wijzigen"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Doelmap kiezen"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Profielpictogram kiezen"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "{{code}} verwijderen"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Profiel herstellen"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Dit profiel gebruikt al de ingebouwde instellingen"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "De ingebouwde profielinstellingen herstellen"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Profiel opslaan"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Profielvervanging instellen"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Vervanging instellen"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Algemene standaard gebruiken"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Taalcode „{{code}}” gebruiken"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "App-instelling gebruiken ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Beste"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Tot 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Tot 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Tot 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Beste kwaliteit"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Standaardmap voor downloads"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Standaardmap voor downloads / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Algemene bestemming"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Actief"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Overgenomen"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Profielvervanging"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Map kiezen"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Geen vervanging ingesteld"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Geen vervanging ingesteld. Dit profiel gebruikt de algemene bestemming hierboven."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Vervangt algemeen"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Dit profiel slaat op in zijn eigen hoofdmap voordat de submap wordt toegevoegd."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Bepaalde bestemming"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Eén herbruikbare configuratie voor Snel downloaden, Meerdere URL’s en afspeellijsten."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Downloadprofiel"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "De algemene bestemming kon niet worden gewijzigd."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "De mapkiezer kon niet worden geopend. Voer handmatig een pad in."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "De profielinstellingen konden niet worden hersteld."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "De profielinstellingen konden niet worden opgeslagen."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Aflevering"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Bestandstype"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimaliseren voor"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Profielpictogram"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Talen"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Profielnaam"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Profielnaam en pictogram"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Oorspronkelijke audio"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Pad van profielvervanging"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kwaliteit"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Resolutie"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Bron"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Naam van submap"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Ondertitels downloaden"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profielen vragen taalcodes aan; beschikbaarheid wordt per URL bepaald."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Scherpst bij een gegeven grootte. Oudere tv’s, QuickTime en sommige editors kunnen het niet afspelen."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Beste beeld"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Speelt af op tv’s, telefoons, WhatsApp, QuickTime en videobewerkers. YouTube biedt H.264 alleen tot 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart-tv"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Archief"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Ondertiteling"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Lessen"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Clip"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Bediening"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Download"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Muziek"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Muziek of podcasts"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Alleen audio"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Alleen ondertitelbestanden"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Alleen ondertitels"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Gewone videobestanden"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Alleen stille video"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video, geen audio"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automatische ondertitels worden opgeslagen als SRT in plaats van ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Geen overeenkomende talen"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Voor dit profiel worden geen ondertitelbestanden of ingesloten ondertiteltracks aangevraagd."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Zoek op taalnaam of code"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Overgeslagen voor dit uitvoertype."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Kies minstens één taal."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Kies minstens één taal, of schakel het downloaden van ondertitels uit."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Dit profiel zet alleen ondertitelbestanden in de wachtrij. Video, audio, SponsorBlock en mediaconversie worden overgeslagen."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profielen nemen de algemene bestemming over, tenzij je een profielvervanging instelt."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Geavanceerde opties"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Kies de primaire manier waarop je wilt downloaden."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Downloadtype"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Naam en pictogram zoals getoond bij Snel downloaden, Meerdere URL’s en in profiellijsten."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Profielidentiteit"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} ingeschakeld"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} ingeschakeld"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Uitvoeropties"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Kies een map voor dit profiel"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Overgeslagen"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Markeert sponsorsegmenten als hoofdstukken (niet-destructief)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Geen SponsorBlock — video speelt af zoals geüpload."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Knipt sponsorsegmenten met FFmpeg uit de video."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Alleen automatisch gegenereerd"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Handmatig en automatisch"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Eerst handmatig, dan automatisch"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Alleen handmatig"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Help bij {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Voorbereiding annuleren"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Huidige link"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy leest de link en past {{profileName}} toe."
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} mislukt"
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} mislukt"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Details ophalen"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Toevoegen aan wachtrij"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Snel downloaden voorbereiden"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Houd dit open terwijl Arroxy de wachtrij voorbereidt."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "extra’s"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "bestandsnaam"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "formaat"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "map"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "ondertitels"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Ondertitels, SponsorBlock, extra’s zoals de miniatuur, map en bestandsnaam waren vroeger aparte stappen. Klik op een rij om hem te wijzigen."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Alle andere instellingen staan nu op deze pagina"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Gewijzigd ten opzichte van {{profile}}: {{areas}}. Geldt alleen voor deze download."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Gewijzigd ten opzichte van {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Formaat wijzigen"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. De extensie wordt automatisch toegevoegd."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Opslaan als profiel"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (bewerkt)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Deze download gebruikte bewerkte instellingen. Volgende keer opnieuw gebruiken?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Wijzigingen ongedaan maken, terug naar „{{profile}}”"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Extra’s"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Bestandsnaam"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Opslaan in"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Al het andere"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Profiel opslaan"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Bewaart deze instellingen als profiel dat je de volgende keer kunt kiezen. Je profiel voor Snel downloaden blijft ongewijzigd."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Het profiel kon niet worden opgeslagen."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Profielnaam"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Opgeslagen als profiel „{{name}}”"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Opslaan als profiel"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Opslaan als nieuw profiel"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Profiel bijwerken"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Dit is een ingebouwd profiel. Je kunt de oorspronkelijke instellingen herstellen op het tabblad Profielen."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Voortaan gebruikt elke download met dit profiel de nieuwe instellingen."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Formaat"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "„{{profile}}” bijwerken?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profiel „{{name}}” bijgewerkt"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "„{{profile}}” bijwerken met deze wijzigingen"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Geen"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Opvulling"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Intro"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Muziek buiten het onderwerp"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Outro"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Eigen promotie"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Categorieën"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Markeren als hoofdstukken"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Segmenten verwijderen"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Sponsorfilter"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Markeert sponsorsegmenten als hoofdstukken (niet-destructief)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Geen SponsorBlock — video speelt af zoals geüpload."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Knipt sponsorsegmenten met FFmpeg uit de video."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Bevestigen"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Opslaan"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Formaat"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Uitvoer"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Afspeellijst"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Video’s"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kwaliteit"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profielen"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Controleren"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automatische ondertitels worden opgeslagen als SRT in plaats van ASS — voor YouTube-video’s worden ze ontdaan van dubbele rollende regels, wat onze ASS-converter nog niet kan."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Alles wissen"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "In de modus Insluiten wordt de uitvoer als .mkv opgeslagen, zodat ondertiteltracks betrouwbaar worden ingesloten."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Formaat"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Geen ondertitels beschikbaar voor deze video"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Geen overeenkomende talen"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Geen ondertitels geselecteerd"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "{{name}} verwijderen"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "In video insluiten"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Opslaan als"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Naast de video"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Submap subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Talen zoeken…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automatisch gegenereerd"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Handmatig"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Navigatie van downloadprofielen"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Dagelijkse heartbeat verzenden"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Geen telemetrie. Eén keer per dag verstuurt een anonieme heartbeat de app-versie, het installatiekanaal, het besturingssysteem, de taal, het land en ongeveer hoe lang geleden Arroxy is geïnstalleerd, zodat we actieve en nieuwe gebruikers kunnen tellen. Geen ID’s, URL’s, videotitels of bestandsnamen."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Haalt een download enkele seconden na voltooiing uit de lijst Downloads. De bestanden blijven in je map; mislukte en geannuleerde downloads blijven in de lijst."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Voltooide downloads verwijderen"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Probeert automatisch opnieuw na een netwerk- of serverstoring, met steeds langere wachttijd tussen pogingen. Downloads die door de site worden geblokkeerd, worden nooit automatisch opnieuw geprobeerd."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Mislukte downloads opnieuw proberen"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "keer"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Meerdere URL’s"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Voeg meerdere URL’s toe en zet ze in de wachtrij."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "URL wissen"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Link toegevoegd vanaf klembord"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Meerdere links gekopieerd — gebruik Meerdere URL’s om ze toe te voegen"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Vervangen door gekopieerde link"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Klembord in de gaten houden"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Vult het URL-veld automatisch in wanneer je een videolink kopieert."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Bij sluiten naar systeemvak"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Downloads op de achtergrond voortzetten nadat je het venster sluit."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Hoeveel items uit de wachtrij tegelijk worden gedownload. Meer tegelijk maakt een lange wachtrij sneller af, maar vergroot de kans dat een site je beperkt."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Downloads tegelijk"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "downloads"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Sites zoals YouTube kunnen accounts waarvan de cookies door downloadtools als Arroxy worden gebruikt markeren — en soms blokkeren. Gebruik indien mogelijk een wegwerpaccount."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Leest cookies rechtstreeks uit de browser. Bij browsers uit de Chromium-familie moet de browser gesloten zijn."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Kies een browser…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Kiezen…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Wissen"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Kies een browser om cookies te gebruiken"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Kies een bestand om cookies te gebruiken"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Gebruikt je aanmelding in Verkennen alleen wanneer een download die nodig heeft."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Het tabblad Verkennen staat uit, dus downloads gebruiken je aanmelding in Verkennen niet. Schakel het hieronder in bij Verkennen."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Extensie Get cookies.txt LOCALLY (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Cookiebestand"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Hoe exporteer ik cookies?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Verkennen openen"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Geen bestand geselecteerd"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Aanbevolen"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risico: een cookies.txt bevat elke aangemelde sessie van die browser — houd het privé."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Aanmelding in Verkennen"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Bestand"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Cookiebron"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Helpt bij video’s met leeftijdsbeperking, alleen voor leden of privé voor een account."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Versnelt grote downloads door meerdere delen van een video tegelijk op te halen. Hogere waarden vergroten de kans dat een site je beperkt."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Downloadverbindingen"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "verbindingen"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Alleen audio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ sites"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Muziekafspeellijsten"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Video’s"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Videoafspeellijsten"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Wat Arroxy kan binnenhalen"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanalen"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muziek"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Afspeellijsten"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasts"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Video’s"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Stapsgewijze wizard. Kies formaat, kwaliteit en meer."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Downloaden vanaf URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Sneltoets wijzigen"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Deze sneltoets wordt al door een andere app gebruikt — kies een andere."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Of druk op"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Kopieer overal een videolink, druk op deze sneltoets en Arroxy zet hem met je actieve profiel in de wachtrij — zonder van venster te wisselen."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Wijzig of schakel uit in Instellingen."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Druk op toetsen…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Standaard herstellen"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Download elke link die je kopieert, vanuit elke app, zonder Arroxy te openen."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Algemene sneltoets"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testen"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Algemene sneltoets inschakelen"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Druk op de sneltoets met een videolink op je klembord."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interactief downloaden"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Actieve downloads behouden hun huidige limiet. Pauzeer en hervat om wijzigingen toe te passen."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Aangepast…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "bijv. 750K of 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Beperk de bandbreedte voor mediadownloads. Verzoektempo hieronder is meestal de sterkere hefboom tegen limieten."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Gebruik een getal gevolgd door K of M (bijv. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Downloadsnelheidslimiet"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Bezig met downloaden op de achtergrond… ik kan multitasken 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Snel zet geladen items in de wachtrij met {{profileName}}. Met Interactief kun je items eerst bekijken of selecteren."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Plak een link en laat Arroxy hem binnenhalen ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Deze link verwijst naar één video in een verzameling. Arroxy vraagt welke je wilt voordat de analyse start."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} leest deze link en past {{profileName}} toe."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "De wachtrij verwerkt deze download. Je kunt een andere link plakken terwijl dit bezig is."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Snel start één download met {{profileName}}. Gebruik Interactief voor eenmalige wijzigingen."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Compatibele stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo of surround wanneer een profiel oorspronkelijke audio kiest. Een profiel kan dit overschrijven."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Voorkeur voor oorspronkelijke audio"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Surround / Dolby verkiezen"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Voeg kleine wachttijden toe tijdens elke download zodat Arroxy de site niet te agressief benadert. Waarden zijn in seconden."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pauze voordat media start: max"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pauze voordat media start: min"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Wachten tussen controles van metagegevens"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Wachten voor ondertitelbestanden"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Rustig downloaden"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Hoe voorzichtig moet Arroxy zijn?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Gebalanceerd"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Voorzichtig"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Aangepast"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Wachttijden: {{requests}} tussen controles, {{downloads}} voordat media start, {{subtitles}} voor ondertitelbestanden."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Deze wachttijden vinden plaats binnen elke download. Hoeveel downloads tegelijk lopen, stel je apart in bij Downloads tegelijk."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Standaard. Voegt korte pauzes toe tussen verzoeken en voordat media start."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Voegt langere pauzes toe voor grote afspeellijsten of netwerken die vaak limieten raken."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Stel de geavanceerde bediening per download zelf af."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Gebruikt alleen de kleine basispauzes die Arroxy voor media en ondertitels aanhoudt."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "sec"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Huidige limiet: {{count}} items"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Aangepast…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Gebruik een geheel getal van {{min}} tot {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Limiet opslaan"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Aangepaste scanlimiet voor afspeellijsten"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Aangepast: {{count}} items"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Maximaal aantal items dat Arroxy laadt wanneer een afspeellijst, kanaal of zoekresultaat wordt geopend."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Gebruik een geheel getal van 1 tot 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Te scannen afspeellijstitems"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} items"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy vraagt bij het opbouwen van de keuzelijst slechts zoveel afspeellijst-, kanaal- of zoekitems op."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "App-limiet gebruiken: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Toepassen"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Dat afspeellijstbereik kon niet worden toegepast: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Toepassen en opnieuw laden"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Wijzigen"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Kies wat Arroxy voor deze afspeellijst laadt."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Afspeellijstbereik"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Geen video’s in dat bereik"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Eerste"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Gebruik gehele itemnummers van 1 tot {{max}}, waarbij het begin niet hoger is dan het einde."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Te laden items"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Afspeellijstbereik"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Bereik"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Opnieuw laden..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Herstellen"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Eerste items laden: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Eerste items laden: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Items {{from}}-{{to}} laden"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "tot"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Actief profiel"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Ingebouwd"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Aangepast"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Verborgen"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Gewijzigd"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Algemene bestemming wijzigen"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Algemene bestemming wordt gebruikt"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Algemene bestemming + profielsubmap wordt gebruikt"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Profielvervanging wordt gebruikt"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Profielvervanging + profielsubmap wordt gebruikt"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Bestemming"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Bewerken"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Actief profiel bewerken"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Verborgen profielen blijven hier staan maar verdwijnen uit elke profielkeuzelijst."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Profiel tonen in keuzelijsten: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Houd minstens één profiel beschikbaar."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Profielen beheren"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Wijzig het actieve profiel voor Snel downloaden, Meerdere URL’s en afspeellijsten."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Van profiel wisselen"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "verplaatsbaar profiel"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Verplaatsen geannuleerd. {{profileName}} blijft op positie {{position}} van {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} neergezet op positie {{position}} van {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} verplaatsen"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Om een profiel te verplaatsen, druk je op Spatie of Enter, verplaats je het met de pijltjestoetsen en druk je opnieuw op Spatie of Enter om het neer te zetten. Druk op Escape om te annuleren."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} staat boven positie {{position}} van {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} opgepakt. Het staat op positie {{position}} van {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Nieuw profiel"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Maak herbruikbare downloadconfiguraties, selecteer, bewerk of verwijder ze."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Downloadprofielen"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Sleep een profiel om het te verplaatsen. Elke profielkeuzelijst volgt deze volgorde."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Herstellen"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC-audio"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "beste audio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "beste video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "geen audio"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "alleen ondertitels"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV-audio"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Van downloadprofiel wisselen: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Van downloadprofiel wisselen"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Wissen"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Leid verkeer via een proxy — handig voor content met regiobeperking."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy-URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:poort"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Geen van die URL’s kon worden voorbereid"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Snel downloaden"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Downloadt met: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Deze kon niet worden toegevoegd: {{error}}"
+
+#. Plural form "one" for nl: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Wat lukte staat in de wachtrij. {{count}} URL kon niet worden voorbereid."
+
+#. Plural form "other" for nl: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Wat lukte staat in de wachtrij. {{count}} URL’s konden niet worden voorbereid."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Wachtrij-item kon niet worden voorbereid"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Voorbereiden"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Analyse mislukt"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Toegevoegd aan wachtrij"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Plak een video-, afspeellijst-, kanaal- of zoek-URL om te beginnen."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Algemeen gedrag dat ook van invloed is op downloads via profielen."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Downloadgedrag"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Invoer"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Glazen panelen boven een bewegende hemel. Vereist grafische versnelling."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Effen, rustige vlakken. Draait licht op elke computer."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Beide stijlen zijn beschikbaar in licht en donker."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stijl"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Hoe Arroxy eruitziet. Wissel onderaan tussen licht en donker."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Weergave"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} vereist grafische versnelling, die nu niet beschikbaar is, dus Arroxy toont {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profielen"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Instellingen"

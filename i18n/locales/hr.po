@@ -1,0 +1,5206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "O programu"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · autor: Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "O programu Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Brz i jednostavan program za preuzimanje s YouTubea i više od 2000 drugih web-mjesta."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Prikaži obavijesti o softveru trećih strana"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Web-mjesto"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Dopusti"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube neke stare videozapise nudi u veličinama koje je izradio pomoću AI-ja. Preskoči zadržava izvorne tokove; povećani tok i dalje možete odabrati ručno."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Tokovi povećani pomoću AI-ja"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Preskoči"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Povratne informacije"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Sviđa vam se Arroxy? Rado bismo čuli vaše mišljenje! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Zapisnici"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Spremi datoteku s dijagnostikom"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Sprema vaše zapisnike i podatke o aplikaciji u jednu datoteku u mapi Preuzimanja, spremnu za prilaganje GitHub prijavi. Naziv vaše korisničke mape se uklanja; poveznice i naslovi videozapisa ostaju."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Novo: ovdje odaberite Aurora ili Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Tema"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Povećaj"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Smanji"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Natrag"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Zatvori"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Nastavi"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Odbaci"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Učitavanje"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Počni ispočetka"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy ostaje pokrenut i dovršava aktivna preuzimanja. To možete promijeniti kasnije u naprednim postavkama."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Sakrij u traku sustava"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Sakriti Arroxy u traku sustava pri zatvaranju?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Izađi"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Ne pitaj ponovo"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Otkaži preuzimanja i izađi"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Pauzirajte da biste nastavili kasnije ili otkažite da biste odbacili napredak."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Nastavi preuzimanje"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "Preuzimanja u tijeku: {{count}}"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} preuzimanje u tijeku"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Preuzimanja u tijeku: {{count}}"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Pauziraj preuzimanja i izađi"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Proces renderiranja se srušio ({{reason}}). Ponovno učitajte za novi pokušaj."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy je naišao na problem"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Izađi"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Ponovno učitaj"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Kopirano!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopiraj adresu"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy je besplatan i otvorenog koda, bez oglasa i plaćene razine. Donacije su dobrovoljne i ne daju utjecaj na plan razvoja."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Doniraj"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Podržite Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR kod adrese za donaciju ({{coin}})"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Podržite Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Plaćanja kriptovalutama su nepovratna. Šaljite samo na prikazanoj mreži i usporedite cijelu adresu."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Ovaj videozapis ima dobno ograničenje i ne može se preuzeti bez prijavljenog računa."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Aktivirana je zaštita od botova. Vaša IP adresa vjerojatno je označena (raspon podatkovnog centra ili prometni VPN izlaz). Promijenite IP adresu ili odaberite drugu VPN krajnju točku pa pokušajte ponovo. Ako i dalje ne uspijeva, možda je riječ o privremenoj promjeni na strani web-mjesta — Arroxy pri pokretanju ažurira svoj mehanizam za preuzimanje, pa će se ispravak primijeniti automatski čim bude objavljen."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Poslužitelj je neprestano prekidao preuzimanje usred prijenosa, a Arroxy je odustao nakon ponovnih pokušaja. To se najčešće događa s najvećim formatima videozapisa (4K HDR / VP9 visoke brzine prijenosa). Pokušajte ponovo, promijenite mrežu/VPN ili odaberite format niže razlučivosti."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Ovaj videozapis je zaštićen DRM-om. Arroxy ne može ukloniti DRM pa se datoteka ne može preuzeti."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Ovaj videozapis nije dostupan u vašoj regiji."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Čini se da je vaša IP adresa blokirana. Pokušajte ponovo kasnije ili upotrijebite VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Ovaj videozapis zahtijeva prijavljeni račun."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy nije mogao pronaći FFmpeg ili FFprobe. Ponovno pokrenite postavljanje ili postavite lokaciju FFmpega pa ponovo pokušajte preuzimanje."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Mrežna pogreška. Provjerite vezu i pokušajte ponovo."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Ovaj videozapis nema titlove na traženim jezicima."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Nema dovoljno prostora na disku. Oslobodite prostor i pokušajte ponovo."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy ne može pisati u mapu za preuzimanje. Možda je samo za čitanje, nalazi se na zaključanom pogonu ili je blokirana postavkama privatnosti sustava. Odaberite drugu mapu ili dopustite pristup pa pokušajte ponovo."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Odgovor web-mjesta nije bilo moguće obraditi. Web-mjesto je možda promijenilo način posluživanja videozapisa. Arroxy pri pokretanju ažurira svoj mehanizam za preuzimanje — pokušajte ponovo za nekoliko minuta, kad ispravak bude objavljen."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Preuzimanje je završeno, ali naknadna obrada (spajanje / multipleksiranje / pretvorba) nije uspjela. Često je riječ o privremenom problemu s FFmpegom — pokušajte ponovo, a ako se problem ponovi, isprobajte drugu kombinaciju formata."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Web-mjesto ograničava broj zahtjeva s ove veze."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Ovaj videozapis nije dostupan — možda je privatan, izbrisan ili ograničen po regiji."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Preuzimanje nije uspjelo. Pogledajte neobrađeni ispis u nastavku."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy ne podržava ovaj URL. Pokušajte s poveznicom s drugog web-mjesta."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Provjerite vezu pa pokušajte ponovo."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Ova se stranica nije učitala"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Otvori postavke"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Provjerite proxy u postavkama pa pokušajte ponovo."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Istraži se ne može povezati putem vašeg proxyja"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Desnom tipkom miša kliknite bilo koju poveznicu na videozapis, popis za reprodukciju ili kanal na stranici da biste je preuzeli s aktivnim profilom, odabrali drugi profil ili otvorili tijek korak po korak."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Desnom tipkom kliknite poveznicu da je preuzmete"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopiraj poveznicu"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Preuzmi s profilom"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Novo"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Pronađite videozapis na YouTubeu ili bilo kojem drugom web-mjestu i preuzmite ga odavde — bez kopiranja poveznica. Prijavite se ovdje na web-mjesto da biste preuzimali videozapise koji zahtijevaju račun."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Nastavi"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Web-mjesta poput YouTubea mogu označiti — a katkad i zabraniti — račune koji se koriste s alatima za preuzimanje kao što je Arroxy. Upotrijebite račun koji možete izgubiti, a ne glavni."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Prijavite se sporednim računom"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Pregledavajte web izravno u Arroxyju"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Preuzimanja koriste kolačiće vašeg preglednika, a ne vašu prijavu u Istraži."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Preuzimanja koriste vašu datoteku s kolačićima, a ne vašu prijavu u Istraži."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Ne sada"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Kolačići su isključeni pa preuzimanja ne koriste vašu prijavu u Istraži."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Koristi prijavu u Istraži"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Pregledavajte YouTube ili bilo koje drugo web-mjesto unutar Arroxyja i prijavite se za videozapise koji zahtijevaju račun."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Oslobodi memoriju tijekom odsutnosti"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Nakon 5 minuta na drugoj kartici zatvara početnu stranicu ili stranicu pretraživanja YouTubea. Povratak je ponovno učitava, što traje nekoliko sekundi."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Tražilica"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Gdje se pretražuje tekst upisan u adresnu traku. Poveznice se otvaraju kako su upisane."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Prikaži karticu Istraži"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Isključivanjem se također prestaje koristiti vaša prijava u Istraži za preuzimanja."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Odjava iz Istraži"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Odjavi me"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Time se brišu vaše prijave i podaci pregledavanja u Istraži, na svim web-mjestima. Preuzimanja koja zahtijevaju račun neće uspjeti dok se ponovo ne prijavite."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Odjaviti se iz Istraži?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Briše vaše prijave i podatke pregledavanja u Istraži, na svim web-mjestima."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Istraži"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Istraži"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube može praviti poteškoće blokatorima oglasa za prijavljene račune."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Blokator oglasa"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Blokator oglasa: isključen — kliknite da ga uključite"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Blokator oglasa: uključen — kliknite da ga isključite"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Blokator oglasa: pokreće se — kliknite da ga isključite"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Blokator oglasa: nedostupan, popisi filtara nisu se mogli preuzeti — kliknite da ga isključite"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adresa"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Pretražite {{engine}} ili otvorite bilo koje web-mjesto (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Kontrole preglednika Istraži"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Natrag"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Kompaktan raspored"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Preuzmi · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Naprijed"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Prikaži puni raspored"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Otvorite videozapis, popis za reprodukciju ili kanal da biste ga preuzeli"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Početna stranica YouTubea"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interaktivno preuzimanje: odaberite format, titlove i više…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Istraži ne može otvoriti tu adresu."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Ponovno učitaj"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Ta je pretraga predugačka."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Zumiranje stranice: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Povećaj"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Zumiranje stranice"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Smanji"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Postotak zumiranja"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Vrati zumiranje na 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Odaberite kako se imenuju preuzete datoteke. Kliknite token da ga umetnete. Upotrijebite / za razvrstavanje preuzimanja u mape."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Unesite predložak naziva datoteke."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Uklonite suvišnu kosu crtu / — svaka mapa mora imati naziv."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Uklonite znakove koji nisu dopušteni u nazivima datoteka: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Taj naziv mape nije dopušten. Izbjegavajte . i .. te rezervirane nazive poput CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Dodajte {title} ili {id} u naziv datoteke kako bi svako preuzimanje dobilo vlastiti naziv."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} ne može imenovati mapu — kvaliteta nije poznata dok preuzimanje ne počne."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Nespareni { ili } — tokene poput {title} stavite u vitičaste zagrade."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Predložak je predugačak."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Nepoznati token {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Bez {id} Arroxy ne može prepoznati već preuzete stavke popisa za reprodukciju niti izraditi .m3u popise."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Predložak naziva datoteke"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Nedostupno jer vaš predložak naziva datoteke ne sadrži {id} ili razvrstava preuzimanja u mape."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "U popisu za reprodukciju"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Jedan videozapis"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Ostavite prazno da biste naslijedili globalni predložak."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Predložak naziva datoteke"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automatski"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automatski (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Vrstu datoteke određuju odabrani tokovi."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Podržava sve kodeke. Neki televizori i telefoni ne mogu je otvoriti."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Reproducira se gotovo posvuda. VP9 u MP4 datoteci neće prikazati video u QuickTimeu."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Otvoreni format za preglednike. Podržava samo VP9 ili AV1 s Opusom."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 u MP4 datoteci zahtijeva noviji Mac za reprodukciju u QuickTimeu. H.264 se reproducira posvuda."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 u MP4 datoteci neće prikazati video u QuickTimeu. H.264 se reproducira posvuda."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM nije dostupan uz Smart TV: ne podržava H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM ne podržava {{codec}}. Odaberite MKV ili MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Samo audio · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automatski"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automatski bira HDR kad ga ovaj zaslon može prikazati, inače SDR. HDR na običnim zaslonima izgleda isprano."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR video"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Jezik"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Prijavljeni ste u Istraži — ponovno se pokušava s {{count}} poveznice"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Prijavljeni ste u Istraži — ponovno se pokušava s {{count}} poveznicom"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Prijavljeni ste u Istraži — ponovno se pokušava s {{count}} poveznica"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Odjava iz Istraži nije uspjela. Pokušajte ponovo."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Ova je mapa preduboko za vaš sustav. Preuzimanje bi i dalje moglo propasti — odaberite plići put."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Naziv ovog videozapisa ne može sadržavati sve dijelove vašeg predloška pa je upotrijebljen zadani naziv."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Odabir mape nije se mogao otvoriti."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Već je u redu — kopija nije dodana"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy se još pokreće — pokušajte ponovo za trenutak"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Dovršite postavljanje kolačića u Arroxyju pa pokušajte ponovo"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "U međuspremniku nema poveznice — prvo je kopirajte"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Kopirano je više poveznica — upotrijebite Više URL-ova u Arroxyju"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Ta poveznica zahtijeva vaš odabir — pogledajte Preuzimanja u Arroxyju"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Preuzimanje iz međuspremnika dodano u red"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Poveznicu nije bilo moguće dodati — pokušajte ponovo u Arroxyju"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Ta se mapa ne može upotrijebiti za ovaj popis za reprodukciju."
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videozapisa već su u redu — preskočeno"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} videozapis već je u redu — preskočeno"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videozapisa već su u redu — preskočeno"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Dodano: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Već je u redu"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videozapisa — odaberite koliko"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ videozapisa — odaberite koliko"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videozapisa — odaberite koliko"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Priprema nije uspjela: {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Poveznicu nije bilo moguće dodati — pokušajte ponovo"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videozapisa na ovom popisu — pregledajte i odaberite"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} videozapis na ovom popisu — pregledajte i odaberite"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videozapisa na ovom popisu — pregledajte i odaberite"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videozapisa na ovom popisu — pregledajte i odaberite"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ videozapisa na ovom popisu — pregledajte i odaberite"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videozapisa na ovom popisu — pregledajte i odaberite"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Prikaži"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Postavke nije bilo moguće spremiti."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Nije bilo moguće otvoriti."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Postavljanje nije dovršeno. Neka preuzimanja mogu propasti dok se ne dovrši."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (najbolji)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Izvorni najbolji zvuk, bez ponovnog kodiranja"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Pretvori u M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Pretvori u MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Pretvori u Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 iznad 1080p nije dostupan na YouTubeu — automatski je ograničeno na 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Spremi kao"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Izravno u mapu za spremanje"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Jezici"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Odaberite barem jedan jezik za nastavak."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Za svaki se videozapis spremaju samo datoteke s titlovima — video i audio se ne preuzimaju."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Izvor"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Do 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Do 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Do 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Do 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Do 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Do 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Do 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Do 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Najbolja kvaliteta"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ograničeno na 1080p, po stavci pada na nižu razlučivost"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Najmanje moguće datoteke"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ograničeno na 2K, po stavci pada na nižu razlučivost"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ograničeno na 2160p, po stavci pada na nižu razlučivost"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Vrlo male datoteke, niska kvaliteta"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Male datoteke za slabu propusnost"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Mala propusnost"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Manje datoteke, široka kompatibilnost"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Najbolji dostupni video + audio po stavci"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Titlovi"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Najbolji izvorni"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "Smart TV (H.264 MP4)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Najbolji dostupni spremnik i kodeci po stavci"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Ako je moguće, preferira H.264 video + AAC audio u MP4 datoteci"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Prateća"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Opis"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Medij"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Nedostaje"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Titl"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Sličica"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefakt"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} preuzimanja zahtijevaju vašu pažnju"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} preuzimanje zahtijeva vašu pažnju"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} preuzimanja zahtijeva vašu pažnju"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Uklanja svako preuzimanje s popisa nekoliko sekundi nakon završetka. Datoteke ostaju u vašoj mapi."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Automatski ukloni završeno"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Otkaži sva aktivna i nadolazeća preuzimanja"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Svi videozapisi"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Na ovom popisu za reprodukciju ima više od {{count}} videozapisa. Preuzmite sve, prvih {{count}} ili odaberite u pregledu."
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Na ovom popisu za reprodukciju ima više od {{count}} videozapisa. Preuzmite sve, prvih {{count}} ili odaberite u pregledu."
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Na ovom popisu za reprodukciju ima više od {{count}} videozapisa. Preuzmite sve, prvih {{count}} ili odaberite u pregledu."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Prvih {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Pregled"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Ova poveznica vodi na popis od {{count}} videozapisa. Pregledajte ga da biste odabrali što preuzeti."
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Ova poveznica vodi na popis od {{count}} videozapisa. Pregledajte ga da biste odabrali što preuzeti."
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Ova poveznica vodi na popis od {{count}} videozapisa. Pregledajte ga da biste odabrali što preuzeti."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Očisti završena preuzimanja"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Ovdje će se prikazati preuzimanja u redu"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Sve"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtri statusa reda"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Sve stavke"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Preuzimanja"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Zvuk nije uklonjen"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Zvuk nije uklonjen · neki titlovi nisu uspjeli"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Otkaži"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Preuzimanje nije uspjelo"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Otvori odredišnu mapu"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pauziraj"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Samo stavke na čekanju"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Preuzmi odmah — preskoči red"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Ograničeno na {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Ograničeno na {{height}}p · neki titlovi nisu uspjeli"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Ukloni"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Nastavi"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "automatski ponovni pokušaj (pokušaj {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Postavi lokaciju"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Odaberite stavke na čekanju da biste postavili lokaciju."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Otkazano"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Gotovo"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Pogreška"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Zadržano"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Zahtijeva vaš odabir"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Pauzirano"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Na čekanju"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Dohvaćanje pojedinosti"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Preuzimanje"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Pauziraj svako aktivno preuzimanje i spriječi pokretanje novih"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Red je pauziran — stavke na čekanju neće se pokrenuti dok ga ne nastavite"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Nastavi pauzirana preuzimanja i dopusti redu da nastavi"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Nastavi red"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Odabrane stavke"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "Odabrano: {{selected}} · ukupno: {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Preuzimanja"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Dodano"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefakti"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Stupac {{column}} je spušten."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Premještanje stupca {{column}} je otkazano."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Stupac {{column}} je iznad: {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Stupac {{column}} je podignut."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Stupci"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Završeno"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Sakrij artefakte za {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "stupac koji se može premjestiti"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Da biste premjestili stupac, pritisnite razmaknicu ili Enter, pomaknite ga tipkama sa strelicama, a zatim ponovo pritisnite razmaknicu ili Enter da ga ispustite. Pritisnite Esc za otkazivanje."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Odredište"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Napredak"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Vrati stupce"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Promijeni veličinu stupca {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Prikaži artefakte za {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Veličina"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sortiraj po: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Status"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Naslov"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Preuzimanja su sada na kartici Preuzimanja — otvorite je kad god želite pratiti napredak."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Nastavi"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Pokrenuli ste svježe ažuriranje. Evo najvažnijeg."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Cjelovite bilješke o izdanju ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Što je novo u Arroxyju {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Odaberi izvršnu datoteku"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instaliraj putem Homebrewa"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instaliraj putem WinGeta"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Otvori mapu ovisnosti"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Vrati na zadano"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Pokušaj ponovo"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Prikaži zapisnik postavljanja"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Pokušajte ponovo. Ako i dalje ne uspijeva, u nastavku odaberite ispravnu kopiju."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Alat ne radi ispravno"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Dopustite Arroxy u antivirusnom programu ili SmartScreenu pa pokušajte ponovo."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirusni program blokirao je alat"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Provjerite internetsku vezu pa pokušajte ponovo."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Nije bilo moguće preuzeti ono što Arroxy treba"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Pokušajte ponovo da ga preuzmete iznova."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Preuzeta je oštećena datoteka"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Pokušajte ponovo da ga preuzmete iznova."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Preuzeta datoteka ne odgovara kontrolnom zbroju"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "U nastavku odaberite oba ili ih vratite na zadano."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg i FFprobe moraju se postaviti zajedno"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Pokušajte ponovo. Ako i dalje ne uspijeva, u nastavku odaberite kopiju kojoj vjerujete."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Vaš sustav ne dopušta Arroxyju pokretanje alata"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Pokušajte ponovo. Ako i dalje ne uspijeva, u nastavku odaberite ispravnu kopiju."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Alat nedostaje ili se ne može pokrenuti"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "To je često sigurnosna provjera pri prvom pokretanju. Pokušajte ponovo."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Alat se predugo odazivao"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Pokušajte ponovo ili otvorite zapisnik postavljanja za pojedinosti."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Nešto je pošlo po zlu tijekom postavljanja"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Mehanizam za preuzimanje"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Medijski alati"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Instalacija putem Homebrewa… To može potrajati nekoliko minuta."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Instalacija putem WinGeta… To može potrajati nekoliko minuta."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Usmjerite Arroxy na kopije koje već imate ili ih instalirajte na drugi način."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "yt-dlp i ffmpeg možete instalirati i pomoću upravitelja paketa, a zatim kliknuti Pokušaj ponovo."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Postavi ručno"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Pokušajte ponovo ili u nastavku usmjerite Arroxy na alate koje već imate."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Postavljanje je zaustavljeno"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Postavljanje treba vašu pomoć"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Kako ovaj profil bira"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "odgovara MP4 reproduktorima"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "reproducira se posvuda"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, zatim VP9, zatim H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "najoštrije pri istoj veličini"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, zatim VP9, zatim AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "kodek ovog profila"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, zatim H.264, zatim AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "kodek ovog profila"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Najveća brzina sličica"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "glađe kretanje"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 video"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "reproducira se na svakom uređaju"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR prije SDR-a"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "bogatije boje na HDR zaslonima"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "ovaj zaslon prikazuje HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR prije HDR-a"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "izgleda ispravno na svakom zaslonu"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "ovaj zaslon nije HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 tokovi"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "spremno za MP4 datoteku"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereo zvuk"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "ovaj profil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "iz postavki"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Surround zvuk kad je ponuđen"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus audio"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "odgovara WebM-u"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Izvorni tokovi, ne oni povećani pomoću AI-ja"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "povećana kopija je viša, ali ne dodaje stvarni detalj"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Izravna preuzimanja prije streamanih kopija"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "ista slika, preuzeta brže"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Do {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "vaše ograničenje"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Najviša razlučivost"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "ograničenje nije postavljeno"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Tokovi koje web-mjesto ne označava kao lošije"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "preskače oštećene kopije, kopije s vodenim žigom i rezervne kopije"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Veća datoteka"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "više detalja pri istim postavkama"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Prvo tokovi s poboljšanom brzinom prijenosa"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "više detalja pri istoj razlučivosti"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "vrsta datoteke prema tokovima"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "sprema se kao .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "najbolja slika"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "reproducira se na svakom uređaju"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Zašto ovaj?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Zašto je profil odabrao ovo"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Kopirano!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopiraj poveznicu"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — besplatan program otvorenog koda za preuzimanje videozapisa za Windows, macOS i Linux. Radi s YouTubeom, Vimeom, Twitchem i više od 2000 web-mjesta.\n"
+"4K · HDR · MP3 · Shorts · Titlovi · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy je besplatan i otvorenog koda. Dijeljenjem ga može otkriti više ljudi."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Podijeli"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Podijelite Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Podijelite Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Podijelite Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Imate problema? Postavite ručno"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Pozdrav, dobro došli natrag!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} od {{total}}"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "splash.setup.left.minutes_few"
+msgid "about {{count}} min left"
+msgstr "preostalo još oko {{count}} min"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "preostalo još oko {{count}} min"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "preostalo još oko {{count}} min"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "preostalo manje od minute"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Održava preuzimanja ispravnima kad se web-mjesta promijene."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "To se događa samo jednom. Arroxy zadržava ove alate i sam ih ažurira."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "To se događa samo jednom. Arroxy ih zadržava za buduća ažuriranja."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Provjera radi li sve"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Povezivanje…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Preuzimanje mehanizma za preuzimanje i medijskih alata"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Preuzimanje mehanizma za preuzimanje"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Preuzimanje medijskih alata"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Raspakiravanje medijskih alata"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Ažuriranje mehanizma za preuzimanje"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Postavljanje pri prvom pokretanju"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Ažuriranje medijskih alata"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Prva provjera ove verzije — ova je spora. Obično traje oko minutu."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Provjera: {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Priprema preuzimanja…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Postavljanje nije uspjelo. Za pojedinosti otvorite zapisnik postavljanja."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Videozapis je spremljen sa zvukom — zvuk nije bilo moguće ukloniti"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Videozapis je spremljen sa zvukom — zvuk nije bilo moguće ukloniti, a neke titlove nije bilo moguće preuzeti"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Preuzimanje otkazano"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Preuzimanje dovršeno"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Pretvaranje videozapisa…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Nema dovoljno prostora na disku — potrebno je {{required}}, dostupno je samo {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Preuzimanje programa {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Preuzimanje videa i zvuka…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Ugrađivanje metapodataka…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Odjavljeni ste iz Istraži — prijavite se ponovo"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Pretvaranje zvuka…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Povezivanje sa SponsorBlockom…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Dohvaćanje titlova…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Spajanje zvuka i videa…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Izrada YouTube tokena…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Premještanje datoteka…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Spremanje u {{dir}} nije moguće — Arroxy nema dopuštenje za pisanje tamo"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Priprema programa…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Spremljeno u {{height}}p — YouTube je za ovo preuzimanje uskratio višu kvalitetu. Pokušaj kasnije ili s druge mreže mogao bi pomoći."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Spremljeno u {{height}}p — YouTube je za ovo preuzimanje uskratio višu kvalitetu, a neke titlove nije bilo moguće preuzeti. Pokušaj kasnije ili s druge mreže mogao bi pomoći."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Ponovna izrada tokena…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock nije dostupan, ponovni pokušaj ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Veza je zastala, ponovni pokušaj ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Prijava vašim računom iz Istraži…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Čekanje {{seconds}} s radi izbjegavanja ograničenja…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Pokretanje mehanizma za preuzimanje…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Videozapis je spremljen — neke titlove nije bilo moguće preuzeti"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Nepoznata pogreška pri pokretanju preuzimanja"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Preuzeto s ublaženim izdvajačem — postavite cookies.txt za pouzdanija preuzimanja"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Mehanizam za preuzimanje završio je s kodom {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Pogreška mehanizma za preuzimanje: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tamni način"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Svijetli način"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Zadano za sustav"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Zatvori"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Povećaj"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Smanji"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Vrati"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Preuzmi iz međuspremnika"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Otvori Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Izađi iz programa Arroxy"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Preuzimanja: {{count}} · {{percent}}%"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "Preuzimanja: {{count}} · {{percent}}%"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Preuzimanja: {{count}} · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Mirovanje"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Naredba kopirana u međuspremnik"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopiraj naredbu u međuspremnik"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Odbaci obavijest o ažuriranju"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Preuzmi ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Preuzmi DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Preuzimanje…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instaliraj i ponovo pokreni"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Ažuriranje nije uspjelo"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Dostupan je Arroxy {{version}} — imate {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Dostupan je Arroxy {{version}} — ažurirajte putem Homebrewa."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Dostupan je Arroxy {{version}} — preuzmite novi DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Dostupan je Arroxy {{version}} — preuzmite DMG ili prijeđite na Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Dostupan je Arroxy {{version}} — preuzmite novu verziju."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Pokreni i ponovo pokreni"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Nadogradnja…"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} poglavlja"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} poglavlje"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} poglavlja"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Učitavanje…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automatski"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Koji se kodek prvi uzima među tokovima iste visine. Automatski zadržava vlastiti redoslijed yt-dlp-a, koji favorizira AV1, najmanji; H.264 se reproducira na starijim televizorima i telefonima."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Prvo H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Video kodek"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV uvijek uzima H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Prvo VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Spremno"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Zalijepite URL-ove videozapisa, popisa za reprodukciju, kanala, pretraga ili zvuka. Arroxy će ukloniti duplikate prije stavljanja u red."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Zalijepite jedan ili više URL-ova za pregled skupa."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Zanemareno"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Dodajte barem jedan podržani URL za nastavak."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplikat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Popis URL-ova"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Više URL-ova"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Red"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Dodaje u red — počinje kad se aktivno preuzimanje završi"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Samo audio"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} od {{total}} videozapisa"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} od {{total}} videozapisa"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} od {{total}} videozapisa"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} od {{total}} zapisa"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} od {{total}} zapisa"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} od {{total}} zapisa"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} od {{total}} URL-ova"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} od {{total}} URL-ova"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} od {{total}} URL-ova"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Skup"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Stavke"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Popis za reprodukciju"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Predložak"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Spremi u"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Veličina"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Titlovi"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Vaša će datoteka biti spremljena u"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Datoteke će biti spremljene u {{count}} odredišta u nastavku"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Datoteka će biti spremljena u odredište u nastavku"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Datoteke će biti spremljene u {{count}} odredišta u nastavku"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Aktivan je predložak samo za titlove, ali nije odabran nijedan jezik titlova — ništa se neće preuzeti."
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} stavke"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} stavka"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} stavki"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profili u ovom skupu"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Preuzmi! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Preskače red — počinje odmah i izvodi se uz ostala aktivna preuzimanja"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Spremno za preuzimanje!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Nepoznato"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Ugradnja titlova promijenjena je u zasebnu datoteku — audio zapisi ne podržavaju ugrađene tokove titlova."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Titlovi unutar videozapisa zahtijevaju MKV datoteku pa se ovo preuzimanje sprema kao .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Ugradnja sličice preskočena — izlazni spremnik je ne podržava."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Prilagođeno…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Radna površina"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Preuzimanja"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Spremi u"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Početna"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Glazba"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Slike"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Naziv mape sadrži nevažeće znakove"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "npr. lo-fi snimke"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Spremi u podmapu"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmovi"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Jezik zvuka"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "{{count}} jezika"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} jezik"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} jezika"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Samo audio"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Brzina prijenosa {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Kolačići su postavljeni, ali isključeni. Uključite ih i pokušajte ponovo da biste dobili cijeli popis ili promijenite mrežu i pokušajte ponovo."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Čak i s kolačićima YouTube je ograničio ovu provjeru. Pokušajte ponovo kasnije ili promijenite mrežu."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube je ograničio ovaj zahtjev. Pokušajte ponovo kasnije ili promijenite mrežu."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Popis formata možda je nepotpun. Postavite kolačiće u naprednim postavkama ili promijenite mrežu i pokušajte ponovo."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Uključi kolačiće i pokušaj ponovo"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Provjera je ograničena"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Brzina prijenosa"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Izvor koji je već {{target}} zadržava vlastiti tok i brzinu prijenosa: kopira se, a ne kodira ponovo."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, bez ponovnog kodiranja"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, bez ponovnog kodiranja"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, kakav je u izvoru: tok je već {{target}}, pa se kopira, a ne kodira ponovo"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Kakav je u izvoru: tok je već {{target}}, pa se kopira, a ne kodira ponovo"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Pretvori"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Izvor ima {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (nekomprimirano)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Preglednik"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Prijava u Istraži"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Datoteka"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Izvor kolačića"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp dokumentacija (problem #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 i noviji šifriraju kolačiće na način koji druge aplikacije u sustavu Windows ne mogu pročitati. Isprobajte jedno od rješenja u nastavku."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Izvezite kolačiće iz Chromea pomoću proširenja preglednika, zatim prebacite ovu aplikaciju na način rada Datoteka i odaberite izvezenu datoteku."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Izvezi cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox ne koristi App-Bound Encryption. Otvorite postavke kolačića i s popisa preglednika odaberite Firefox."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Prijeđi na Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Dodajte --disable-features=LockProfileCookieDatabase u prečac za pokretanje Chromea. Upozorenje: time se poništavaju prethodno šifrirani kolačići pa ćete biti odjavljeni sa svih web-mjesta i morat ćete se ponovo prijaviti."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Pokreni Chrome s isključenim App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Windows šifriranje blokira Chromeove kolačiće"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Kolačići se čitaju izravno iz preglednika. Ako je preglednik trenutačno pokrenut, njegova baza kolačića može biti zaključana (obitelj Chromium). Preglednik mora biti i prijavljen na YouTube. Pokušajte zatvoriti preglednik, prijeći na drugi preglednik, prebaciti se na način rada Datoteka ili isključiti kolačiće."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Vaša datoteka s kolačićima možda je prazna, istekla ili u pogrešnom formatu (Arroxy treba Netscape datoteku cookies.txt). Pokušajte ponovo izvesti kolačiće, odabrati drugu datoteku, prijeći na način rada Preglednik ili isključiti kolačiće."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Prijavite se u Istraži i Arroxy će pokušati ponovo."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Prijavi se u Istraži"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Ovaj videozapis možda zahtijeva YouTube račun"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy je već pokušao s prijavom u Istraži pa ponovna prijava neće pomoći. Web-mjesto možda ima poteškoća ili ovaj račun ne može otvoriti sadržaj. Pokušajte ponovo kasnije."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Web-mjesto je to odbilo čak i s vašom prijavom u Istraži"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Prijavljeni ste u Istraži, ali preuzimanja trenutačno ne koriste tu prijavu."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Upotrijebi moju prijavu u Istraži i pokušaj ponovo"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Ovaj videozapis možda zahtijeva YouTube račun"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Ako ovaj videozapis zahtijeva račun, Arroxy automatski koristi vašu prijavu u Istraži. Možda je nedostupan iz drugog razloga."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Prijavljeni ste u Istraži"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Ako ovaj videozapis zahtijeva YouTube račun, prijavite se u Istraži i pokušajte ponovo. Arroxy tu prijavu koristi samo kad je preuzimanje treba."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Prijavi se u Istraži"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Ovaj videozapis možda zahtijeva YouTube račun"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Ova poveznica možda zahtijeva račun na {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Prijavite se na {{host}} u Istraži, a zatim pokušajte ponovo."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Prijavite se na {{host}} u Istraži, a zatim pokušajte ponovo. Arroxy tu prijavu koristi samo kad je preuzimanje treba."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Uzrok bi mogli biti kolačići"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy nije mogao pristupiti ovom videozapisu bez autentifikacije. Postavite kolačiće u naprednim postavkama — usmjerite ih na preglednik u koji ste već prijavljeni ili uvezite datoteku cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Ovo web-mjesto zahtijeva prijavu"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Otvori postavke kolačića"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Umjesto toga upotrijebi datoteku s kolačićima ili preglednik…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Utišava glasne dijelove i pojačava tihe, za zvučnike i bučne prostorije."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Izjednači glasnoću (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Izjednačena glasnoća"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Vaš je profil Smart TV (H.264). Ovaj videozapis ne nudi H.264 pa je odabran najbliži tok."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Ova poveznica nema video pa je odabran zvuk."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Vaš profil traži titlove na jezicima: {{languages}}. Ovaj videozapis ih nema."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Vaš profil traži {{wanted}}p. Ovaj videozapis nema ništa tako malo pa je odabrano {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Vaš profil traži {{wanted}}p. Ovaj videozapis ide samo do {{picked}}p pa je odabrano {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Vaš profil traži WebM. Odabrani tokovi ovog videozapisa uključuju {{codec}}, koji WebM ne podržava, pa je vrsta datoteke Automatski."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Dodaj u red bez pokretanja"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Preuzmi"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Više mogućnosti preuzimanja"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Odaberite barem jedan jezik titlova."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Zadrži kako jest"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Ugrađeni zvuk"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Samo audio"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Što preuzeti"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Samo titlovi"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, bez zvuka"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Učitavanje formata"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Pričekajte dok provjera ne završi — popisi za reprodukciju i pretrage mogu potrajati."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Sinkronizirano AI-jem"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Povećano AI-jem"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audiodeskripcija"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Oštećeno"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Poboljšana brzina prijenosa"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Prostorni zvuk"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "S vodenim žigom"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Bez zvuka"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Vaš aktivni profil unaprijed odabire tokove umjesto vas. Promijenite profil iz izbornika ili olovkom prilagodite jedan bez napuštanja ovog preuzimanja."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formati polaze od vašeg profila"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Najbliže profilu"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Uredi {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Zadrži moje promjene"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Samo za ovo preuzimanje. Vaš zadani profil ostaje kakav jest."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Unaprijed odabrano iz"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Vrati sve"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Za ovo ste preuzimanje promijenili: {{areas}}. „{{profile}}” u svakom slučaju bira video i zvuk. Zadržati ostale promjene ili sve vratiti na profil?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Promijeniti profil?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Za ovo ste preuzimanje promijenili: {{areas}}. Ažurirani profil u svakom slučaju bira video i zvuk. Zadržati ostale promjene ili sve vratiti na profil?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Upotrijebiti ažurirani profil?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Visoka kvaliteta"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Niska kvaliteta"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Srednja kvaliteta"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ograničava ovu vezu"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Popis formata možda je nepotpun."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} je za sada odbio ovaj zahtjev."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Pokušaj ponovo"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} ovo ograničenje može zadržati do sat vremena."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Pokušaj sada"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Čekanje je završilo pa možete pokušati ponovo."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy čeka do {{time}} prije nego što ponovo pošalje zahtjev web-mjestu {{site}}, kako bi se ograničenje moglo ukloniti."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Nepoznata razlučivost"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Sprema se kao"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM ne podržava {{codec}} pa je vrsta datoteke vraćena na Automatski."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Veličina nepoznata"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Preskoči na potvrdu"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Koristi vaše spremljene postavke za sve preostale korake. Da biste promijenili postavku, nastavite korak po korak — vaš će odabir biti spremljen za sljedeći put."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Traženje najboljih formata za vas…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Ukupno"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "sa zvukom"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Želite li samo videozapis na koji ste kliknuli ili odabir s popisa za reprodukciju? U sljedećem koraku birat ćete određene videozapise ili raspon."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Odaberi s popisa za reprodukciju"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Ograničenje provjere popisa: {{count}} stavki"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Učitava popis za reprodukciju, do vašeg ograničenja provjere popisa, prije prikaza birača."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Preuzmite samo ovaj videozapis ili stavite u red cijeli popis za reprodukciju s aktivnim profilom brzog preuzimanja."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Najveći broj unosa koje Arroxy pregledava prije stavljanja u red popisa za reprodukciju, kanala ili rezultata pretrage."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Stavlja u red svaku učitanu stavku popisa za reprodukciju s aktivnim profilom brzog preuzimanja. Ako pregled dosegne vaše ograničenje, Arroxy pita prije stavljanja u red."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Stavlja u red jedno preuzimanje i zanemaruje popis za reprodukciju priložen uz ovaj URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Preuzmi ovaj videozapis"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Preuzmi cijeli popis za reprodukciju"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Učitava samo ovaj videozapis. Popis za reprodukciju priložen uz ovaj URL se zanemaruje."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Samo ovaj"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Ova poveznica sadrži popis za reprodukciju"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Oznake poglavlja kojima se može kretati u svakom modernom reproduktoru."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Ugradi poglavlja"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Naslov, izvođač, opis i datum otpremanja upisuju se u datoteku."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Ugradi metapodatke"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Naslovnica unutar datoteke. WebM videozapis prepakirat će se u MKV; preskače se kad su titlovi ugrađeni."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Ugradi sličicu"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Sprema opis videozapisa kao tekstualnu datoteku .description pokraj preuzimanja."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Spremi opis"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Sprema .m3u popis za reprodukciju uz videozapise kako bi se u medijskom reproduktoru otvarali redoslijedom."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Generiraj .m3u datoteku popisa za reprodukciju"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Sprema sličicu kao slikovnu datoteku .jpg pokraj preuzimanja."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Spremi sličicu"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Prijeđite na Dio na kartici videozapisa da biste odabrali početak i kraj ili poglavlje i preuzeli samo taj dio."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Preuzmite samo dio videozapisa"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Poglavlja"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Poglavlje {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Dio se preuzima putem ffmpega pa se na njega ne odnose postavke veza za preuzimanje i tempa."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Prvo ispravite početak i kraj dijela."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Kraj"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Videozapis završava u {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Unesite kraj kao h:mm:ss, m:ss ili sekunde."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Unesite početak kao h:mm:ss, m:ss ili sekunde."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Početak mora biti prije kraja."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Isključeno: svaki rez pada na najbliži ključni kadar, što može biti nekoliko sekundi od vremena koje ste upisali."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Točan rez (ponovno kodira, sporije)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} od {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Dio"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Dio videozapisa"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Početak"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "cijeli videozapis"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Dio {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Koliki dio videozapisa"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss ili sekunde"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Dio, procjena"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Ovaj videozapis ne prijavljuje svoju duljinu pa se može preuzeti samo cijeli."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Titlovi uvijek obuhvaćaju cijeli videozapis."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Vaša poveznica počinje u {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Koristi kao početak"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Cijeli videozapis"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Cijeli zapis"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Vratite ih da biste nastavili."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Sve su stavke uklonjene"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Već preuzeto"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Više URL-ova"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nema potrebe čekati — datoteke koje sada stavite u red ipak dobivaju prave nazive pri preuzimanju."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Dohvaćanje pojedinosti o videozapisima… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Pojedinosti nisu dostupne"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Dohvaćanje pojedinosti"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Na čekanju"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "uživo"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Stavke popisa za reprodukciju"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Videozapisi za preuzimanje"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} videozapisa"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} videozapis"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} videozapisa"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} zapisa"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} zapis"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} zapisa"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-a"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-ova"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Dohvaćanje popisa za reprodukciju…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Dohvaćanje videozapisa…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Ograničeno na prvih {{count}} stavki"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "Pronađene su {{count}} stranice"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Pronađena je {{count}} stranica"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Pronađeno je {{count}} stranica"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Prikupljanje videozapisa"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Pregledavanje stranica kanala"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Dodijeli profile po stavci"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Preskače Kvalitetu, SponsorBlock, Izlaz i Spremanje — umjesto toga dodijelite profil za preuzimanje svakoj stavki"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Popis za reprodukciju"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} od ovih su popisi za reprodukciju, a ne videozapisi — zalijepite njihove poveznice jednu po jednu da biste ih preuzeli."
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} od ovih je popis za reprodukciju, a ne videozapis — zalijepite samo njegovu poveznicu da biste ga preuzeli."
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} od ovih su popisi za reprodukciju, a ne videozapisi — zalijepite njihove poveznice jednu po jednu da biste ih preuzeli."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Odaberite barem jedan videozapis za nastavak"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Prikazano je prvih {{count}} stavki. Povećajte ograničenje učitavanja da biste vidjeli više."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Pregled popisa za reprodukciju je ograničen"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Pregled je ograničen"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Primijeni raspon"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Od"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Do"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "Uklonjeno: {{count}}"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "Uklonjeno: {{count}}"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "Uklonjeno: {{count}}"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Ukloni s popisa ({{count}})"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Ukloni s popisa ({{count}})"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Ukloni s popisa ({{count}})"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Vrati"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Odaberi sve"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "Odabrano: {{count}}"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "Odabrano: {{count}}"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "Odabrano: {{count}}"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Poništi odabir"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Redoslijed popisa"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Dohvaćanje datuma otpremanja…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sortiraj"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Najstarije prvo"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Najnovije prvo"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Primijeni sinkronizaciju"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Promijeni mapu…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} od ovih videozapisa već je u {{dir}}. Sinkronizirati da se preuzmu samo novi?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Već u mapi"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Nijedan videozapis s ovog popisa za reprodukciju nije pronađen u {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Nijedan videozapis iz ovog izvora nije pronađen u {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Još ništa nije preuzeto"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Provjera mape…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Sličica videozapisa"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Odaberite kvalitetu za skup"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} stavke"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} stavka"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} stavki"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Svaki videozapis zasebno razrješava odabranu razinu — raznorodni popisi za reprodukciju rade bez iznenađenja."
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistProfiles.assignTrigger_few"
+msgid "Assign to {{count}} videos"
+msgstr "Dodijeli za {{count}} videozapisa"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Dodijeli za {{count}} videozapis"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Dodijeli za {{count}} videozapisa"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Dodijeli profil"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Trajanje"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Uredi {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Nijedna stavka ne odgovara ovom filtru"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filtri profila"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Dodijelite profile za preuzimanje"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistProfiles.menuDescription_few"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Odaberite profil za ova {{count}} videozapisa."
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Odaberite profil za ovaj videozapis."
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Odaberite profil za ovih {{count}} videozapisa."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Odabrano {{selected}} od {{total}}"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Promijeni globalno"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Odaberi odredišnu mapu"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Odaberi ikonu profila"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Ukloni {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Vrati profil"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Ovaj profil već koristi ugrađene postavke"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Vraća ugrađene postavke profila"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Spremi profil"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Postavi zamjenu profila"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Postavi zamjenu"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Koristi globalno zadano"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Koristi kôd jezika „{{code}}”"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Napredno"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Koristi postavku aplikacije ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Najbolji"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Do 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Do 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Do 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Najbolja kvaliteta"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Zadana mapa za preuzimanja"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Zadana mapa za preuzimanja / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Globalno odredište"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktivno"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Naslijeđeno"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Zamjena profila"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Odaberite mapu"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Zamjena nije postavljena"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Zamjena nije postavljena. Ovaj profil koristi globalno odredište iznad."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Zamjenjuje globalno"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Ovaj profil sprema u vlastiti korijen prije dodavanja podmape."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Razriješeno odredište"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Jedno višekratno postavljanje za brzo preuzimanje, više URL-ova i popise za reprodukciju."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Profil preuzimanja"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Globalno odredište nije bilo moguće promijeniti."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Odabir mape nije se mogao otvoriti. Unesite putanju ručno."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Postavke profila nije bilo moguće vratiti."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Postavke profila nije bilo moguće spremiti."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Način spremanja"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Vrsta datoteke"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimiziraj za"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Ikona profila"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Jezici"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Naziv profila"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Naziv i ikona profila"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Izvorni zvuk"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Putanja zamjene profila"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kvaliteta"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Razlučivost"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Izvor"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Naziv podmape"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Preuzimanje titlova"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profili traže kodove jezika; dostupnost se razrješava za svaki URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Najoštrije pri određenoj veličini. Stariji televizori, QuickTime i neki uređivači ne mogu ga reproducirati."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Najbolja slika"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Reproducira se na televizorima, telefonima, WhatsAppu, QuickTimeu i video uređivačima. YouTube nudi H.264 samo do 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Arhiva"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Titlovi"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Predavanja"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Isječak"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Kontrole"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Preuzimanje"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Glazba"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Glazba ili podcasti"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Samo audio"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Samo datoteke s titlovima"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Samo titlovi"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Uobičajene video datoteke"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Samo nijemi video"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video, bez zvuka"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automatski titlovi spremit će se kao SRT umjesto ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Nema odgovarajućih jezika"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Za ovaj profil neće se tražiti datoteke s titlovima ni ugrađeni zapisi titlova."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Pretražite po nazivu ili kodu jezika"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Preskočeno za ovu vrstu izlaza."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Odaberite barem jedan jezik."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Odaberite barem jedan jezik ili isključite preuzimanje titlova."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Ovaj profil stavlja u red samo datoteke s titlovima. Video, zvuk, SponsorBlock i pretvorba medija se preskaču."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profili nasljeđuju globalno odredište osim ako postavite zamjenu profila."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Napredne mogućnosti"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Odaberite primarni način preuzimanja."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Vrsta preuzimanja"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Naziv i ikona prikazani u brzom preuzimanju, Više URL-ova i popisima profila."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Identitet profila"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "Uključeno: {{count}}"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "Uključeno: {{count}}"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "Uključeno: {{count}}"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Mogućnosti izlaza"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Odaberite mapu za ovaj profil"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Preskočeno"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Označava segmente sponzora kao poglavlja (nedestruktivno)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlocka — videozapis se reproducira kako je otpremljen."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Izrezuje segmente sponzora iz videozapisa pomoću FFmpega."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Samo automatski generirani"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Ručni i automatski"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Prvo ručni, zatim automatski"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Samo ručni"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} – pomoć"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Otkaži pripremu"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Trenutačna poveznica"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy čita poveznicu i primjenjuje profil {{profileName}}."
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "Neuspjelo: {{count}}"
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "Neuspjelo: {{count}}"
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "Neuspjelo: {{count}}"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Dohvaćanje pojedinosti"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Dodavanje u red"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Priprema brzog preuzimanja"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Ne zatvarajte ovo dok Arroxy priprema red."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "dodaci"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "naziv datoteke"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "format"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "mapa"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "titlovi"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Titlovi, SponsorBlock, dodaci poput sličice, mapa i naziv datoteke prije su bili zasebni koraci. Kliknite redak da ga promijenite."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Sve ostale postavke sada su na ovoj stranici"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Promijenjeno u odnosu na {{profile}}: {{areas}}. Vrijedi samo za ovo preuzimanje."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Promijenjeno u odnosu na {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Promijeni format"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Tokeni: {title}, {id}, {uploader}, {date}, {resolution}. Ekstenzija se dodaje automatski."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Spremi kao profil"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (uređeno)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Ovo je preuzimanje koristilo uređene postavke. Upotrijebiti ih sljedeći put?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Poništi promjene, natrag na „{{profile}}”"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Dodaci"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Naziv datoteke"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Spremi u"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Titlovi"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Sve ostalo"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Spremi profil"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Zadržava ove postavke kao profil koji možete odabrati sljedeći put. Vaš profil brzog preuzimanja ostaje isti."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Profil nije bilo moguće spremiti."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Naziv profila"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Spremljeno kao profil „{{name}}”"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Spremi kao profil"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Spremi kao novi profil"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Ažuriraj profil"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Ovo je ugrađeni profil. Njegove izvorne postavke možete vratiti na kartici Profili."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Od sada svako preuzimanje s ovim profilom koristi nove postavke."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Ažurirati „{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Ažuriran profil „{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Ažuriraj „{{profile}}” ovim promjenama"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Nema"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Dopuna"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Uvod"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Glazba izvan teme"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Završetak"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Najava"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Samopromocija"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponzor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategorije"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Označi kao poglavlja"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Ukloni segmente"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Filtriranje sponzora"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Označava segmente sponzora kao poglavlja (nedestruktivno)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlocka — videozapis se reproducira kako je otpremljen."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Izrezuje segmente sponzora iz videozapisa pomoću FFmpega."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Potvrda"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Spremi"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Izlaz"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Popis"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videozapisi"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kvaliteta"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profili"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Pregled"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Titlovi"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automatski titlovi spremit će se kao SRT umjesto ASS — za YouTube videozapise očišćeni su od dupliciranja klizećih natpisa, što naš ASS pretvarač još ne može replicirati."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Očisti sve"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Način ugradnje sprema izlaz kao .mkv kako bi se zapisi titlova pouzdano ugradili."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Za ovaj videozapis nema dostupnih titlova"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Nijedan jezik ne odgovara"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Nijedan titl nije odabran"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Ukloni {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Ugradi u videozapis"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Spremi kao"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Pokraj videozapisa"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "podmapa subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Pretražite jezike…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automatski generirani"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ručni"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Navigacija profila preuzimanja"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Napredno"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Šalji dnevni signal aktivnosti"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Bez telemetrije. Jednom dnevno anonimni signal aktivnosti šalje verziju aplikacije, kanal instalacije, OS, jezik, državu i otprilike koliko je prošlo od instalacije Arroxyja, kako bismo mogli brojati aktivne i nove korisnike. Bez ID-ova, URL-ova, naslova videozapisa ili naziva datoteka."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Uklanja preuzimanje s popisa Preuzimanja nekoliko sekundi nakon završetka. Datoteke ostaju u vašoj mapi; neuspjela i otkazana preuzimanja ostaju na popisu."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Ukloni završena preuzimanja"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Automatski pokušava ponovo nakon mrežnog ili poslužiteljskog zastoja, čekajući dulje između pokušaja. Preuzimanja koja je blokiralo web-mjesto nikad se ne ponavljaju automatski."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Ponovi neuspjela preuzimanja"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "puta"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Više URL-ova"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Dodajte i stavite u red više URL-ova."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Očisti URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Poveznica dodana iz međuspremnika"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Kopirano je više poveznica — upotrijebite Više URL-ova da ih dodate"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Zamijenjeno kopiranom poveznicom"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Prati međuspremnik"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Automatski ispunjava polje URL-a kad kopirate poveznicu na videozapis."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Poništi"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Sakrij u traku pri zatvaranju"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Nastavlja preuzimanja u pozadini nakon zatvaranja prozora."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Koliko se stavki iz reda preuzima istodobno. Više istodobnih preuzimanja prije završava dugačak red, ali povećava vjerojatnost da vas web-mjesto ograniči."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Istodobna preuzimanja"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "preuzimanja"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Web-mjesta poput YouTubea mogu označiti — a katkad i zabraniti — račune čije kolačiće koriste alati za preuzimanje poput Arroxyja. Ako je moguće, upotrijebite privremeni račun."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Čita kolačiće izravno iz preglednika. Preglednik mora biti zatvoren za preglednike iz obitelji Chromium."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Preglednik"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Odaberite preglednik…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Odaberi…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Očisti"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Odaberite preglednik za korištenje kolačića"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Odaberite datoteku za korištenje kolačića"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Koristi vašu prijavu u Istraži samo kad je preuzimanje treba."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Kartica Istraži je isključena pa preuzimanja ne koriste vašu prijavu u Istraži. Uključite je pod Istraži u nastavku."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Proširenje Get cookies.txt LOCALLY (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Datoteka s kolačićima"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Kako izvesti kolačiće?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Otvori Istraži"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Nije odabrana datoteka"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Preporučeno"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Rizik: cookies.txt sadrži sve prijavljene sesije tog preglednika — čuvajte ga privatnim."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Preglednik"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Prijava u Istraži"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Datoteka"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Izvor kolačića"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Pomaže kod videozapisa s dobnim ograničenjem, samo za članove i privatnih videozapisa vezanih uz račun."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Ubrzava velika preuzimanja dohvaćanjem više dijelova videozapisa odjednom. Veće vrijednosti povećavaju vjerojatnost da vas web-mjesto ograniči."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Veze za preuzimanje"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "veza"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Samo audio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Titlovi"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ web-mjesta"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Glazbeni popisi za reprodukciju"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Videozapisi"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Video popisi za reprodukciju"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Što Arroxy može preuzeti"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanali"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Glazba"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Popisi za reprodukciju"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasti"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Videozapisi"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Čarobnjak korak po korak. Odaberite format, kvalitetu i više."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Preuzmi s URL-a"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Promijeni prečac"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Ovaj prečac koristi druga aplikacija — odaberite drugi."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Ili pritisnite"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Kopirajte poveznicu na videozapis bilo gdje, pritisnite ovaj prečac i Arroxy će je staviti u red s vašim aktivnim profilom — bez prebacivanja prozora."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Promijenite ili isključite u postavkama."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Pritisnite tipke…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Vrati na zadano"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Preuzmite bilo koju poveznicu koju kopirate, iz bilo koje aplikacije, bez otvaranja Arroxyja."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Globalni prečac"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testiraj"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Uključi globalni prečac"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Pritisnite prečac dok je poveznica na videozapis u međuspremniku."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interaktivno preuzimanje"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktivna preuzimanja zadržavaju trenutačno ograničenje. Pauzirajte pa nastavite da biste primijenili promjene."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Prilagođeno…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "npr. 750K ili 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Ograničava propusnost za preuzimanje medija. Tempo zahtjeva u nastavku obično je jača poluga za ograničenje brzine."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Upotrijebite broj iza kojeg slijedi K ili M (npr. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Ograničenje brzine preuzimanja"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Preuzimam u pozadini… mogu raditi više stvari odjednom 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Brzo preuzimanje stavlja u red učitane stavke s profilom {{profileName}}. Interaktivno vam omogućuje da prvo pregledate ili odaberete stavke."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Zalijepite poveznicu i pustite da je Arroxy preuzme ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Ova poveznica pokazuje na jedan videozapis unutar zbirke. Arroxy će pitati koji želite prije provjere."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} čita ovu poveznicu i primjenjuje profil {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Red obrađuje ovo preuzimanje. Dok radi, možete zalijepiti drugu poveznicu."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Brzo pokreće jedno preuzimanje s profilom {{profileName}}. Za jednokratne promjene upotrijebite Interaktivno."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Kompatibilni stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo ili surround kad profil odabere izvorni zvuk. Profil to može nadjačati."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Postavka izvornog zvuka"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Preferiraj surround / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Dodajte kratka čekanja tijekom svakog preuzimanja kako Arroxy ne bi preagresivno opterećivao web-mjesto. Vrijednosti su u sekundama."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Stanka prije početka medija: maks."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Stanka prije početka medija: min."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Čekanje između provjera metapodataka"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Čekanje prije datoteka s titlovima"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Nježna preuzimanja"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Koliko oprezan treba biti Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Uravnoteženo"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Oprezno"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Prilagođeno"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Čekanja: {{requests}} između provjera, {{downloads}} prije početka medija, {{subtitles}} prije datoteka s titlovima."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Ova se čekanja događaju unutar svakog preuzimanja. Koliko se preuzimanja izvodi istodobno postavlja se zasebno, pod Istodobna preuzimanja."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Zadano. Dodaje kratke stanke između zahtjeva i prije početka medija."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Dodaje dulje stanke za velike popise za reprodukciju ili mreže koje često nailaze na ograničenja."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Sami podesite napredne kontrole po preuzimanju."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Koristi samo male osnovne stanke koje Arroxy zadržava za medij i titlove."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Trenutačno ograničenje: {{count}} stavki"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Prilagođeno…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Upotrijebite cijeli broj od {{min}} do {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Spremi ograničenje"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Prilagođeno ograničenje pregleda popisa za reprodukciju"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Prilagođeno: {{count}} stavki"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Najveći broj unosa koje Arroxy učitava kad se otvori popis za reprodukciju, kanal ili rezultat pretrage."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Upotrijebite cijeli broj od 1 do 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Stavke popisa za pregled"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} stavki"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy traži samo toliko unosa popisa za reprodukciju, kanala ili pretrage dok gradi birač."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Koristi ograničenje aplikacije: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Primijeni"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Taj opseg popisa za reprodukciju nije bilo moguće primijeniti: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Primijeni i ponovno učitaj"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Promijeni"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Odaberite što Arroxy učitava za ovaj popis za reprodukciju."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Opseg popisa za reprodukciju"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Nema videozapisa u tom opsegu"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Prvih"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Upotrijebite cijele brojeve stavki od 1 do {{max}}, pri čemu početak nije veći od kraja."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Stavke za učitavanje"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Opseg popisa za reprodukciju"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Raspon"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Ponovno učitavanje..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Vrati"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Učitaj prvih stavki: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Učitaj prvih stavki: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Učitaj stavke {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "do"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktivni profil"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Ugrađeni"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Prilagođeni"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Skriven"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Izmijenjen"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Promijeni globalno odredište"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Koristi se globalno odredište"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Koristi se globalno odredište + podmapa profila"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Koristi se zamjena profila"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Koristi se zamjena profila + podmapa profila"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Odredište"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Uredi"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Uredi aktivni profil"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Skriveni profili ostaju ovdje, ali nestaju iz svakog birača profila."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Prikaži profil u biračima: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Zadržite barem jedan dostupan profil."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Upravljaj profilima"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Promijenite aktivni profil za brzo preuzimanje, Više URL-ova i popise za reprodukciju."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Promijeni profil"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "profil koji se može premjestiti"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Premještanje otkazano. {{profileName}} ostaje na poziciji {{position}} od {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} ispušten na poziciju {{position}} od {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Premjesti {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Da biste premjestili profil, pritisnite razmaknicu ili Enter, pomaknite ga tipkama sa strelicama, a zatim pritisnite razmaknicu ili Enter da ga ispustite. Pritisnite Esc za otkazivanje."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} je iznad pozicije {{position}} od {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Podignut {{profileName}}. Nalazi se na poziciji {{position}} od {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Novi profil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Izradite, odaberite, uredite ili uklonite višekratne postavke preuzimanja."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Profili preuzimanja"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Ukloni"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Povucite profil da ga premjestite. Svaki birač profila prati ovaj redoslijed."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Vrati"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "najbolji zvuk"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "najbolji video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "bez zvuka"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "samo titlovi"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV audio"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Promijeni profil preuzimanja: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Promijeni profil preuzimanja"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Očisti"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Usmjerite promet putem proxyja — korisno za sadržaj ograničen po regiji."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL proxyja"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Nijedan od tih URL-ova nije bilo moguće pripremiti"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Brzo preuzimanje"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Preuzet će se s profilom: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Ovo nije bilo moguće dodati: {{error}}"
+
+#. Plural form "few" for hr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Dodano u red ono što je uspjelo. {{count}} URL-a nije bilo moguće pripremiti."
+
+#. Plural form "one" for hr: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Dodano u red ono što je uspjelo. {{count}} URL nije bilo moguće pripremiti."
+
+#. Plural form "other" for hr: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Dodano u red ono što je uspjelo. {{count}} URL-ova nije bilo moguće pripremiti."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Stavku reda nije bilo moguće pripremiti"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Priprema"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Provjera nije uspjela"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Dodano u red"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Zalijepite URL videozapisa, popisa za reprodukciju, kanala ili pretrage za početak."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Globalno ponašanje koje utječe i na preuzimanja vođena profilom."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Ponašanje preuzimanja"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Unos"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Staklene ploče nad pokretnim nebom. Zahtijeva grafičko ubrzanje."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Čvrste, mirne površine. Lagano radi na bilo kojem računalu."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Oba stila dolaze u svijetloj i tamnoj verziji."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stil"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Kako Arroxy izgleda. Prebacujte između svijetle i tamne u podnožju."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Izgled"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} zahtijeva grafičko ubrzanje, koje trenutačno nije dostupno, pa Arroxy prikazuje {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profili"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Postavke"

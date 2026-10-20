@@ -36,7 +36,8 @@ import {
 	type BrowserMockScenario
 } from './dev/browserMockScenarios.js'
 import {playSetupScript, simulateFirstLaunchDownloads} from './dev/warmupPlayback.js'
-import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
+import {isRtl} from '@shared/i18n/rtl.js'
+import {applyThemeLive, readKnobs} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
 import {createSiteRequestsMock} from './dev/siteRequestsMock.js'
@@ -139,7 +140,7 @@ export function installBrowserMock(): void {
 
 	// RTL direction for locale knob.
 	if (knobs.locale !== null) {
-		document.documentElement.dir = RTL_LANGS.has(knobs.locale) ? 'rtl' : 'ltr'
+		document.documentElement.dir = isRtl(knobs.locale) ? 'rtl' : 'ltr'
 	}
 
 	const statusListeners = new Set<(e: StatusEvent) => void>()
