@@ -181,6 +181,7 @@ export function ProfilePickerMenu({align = 'end', onClose, onPickProfile, onEdit
 
 // The same options inside a right-click menu: radio items, so the menu's own
 // check marks the current profile, and the rows' Hidden profile shows first.
+// Radio items stay open on a click by default; a pick closes the menu like its other items.
 export function ProfilePickerContextItems({options, label, onPick}: {options: readonly ProfilePickerOption[]; label: string; onPick: (ref: DownloadProfileRef) => void}): ReactNode {
 	const current = options.find(option => option.current)
 	return (
@@ -188,7 +189,7 @@ export function ProfilePickerContextItems({options, label, onPick}: {options: re
 			<ContextMenuLabel>{label}</ContextMenuLabel>
 			<ContextMenuRadioGroup value={current?.profile.id ?? null}>
 				{options.map(option => (
-					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} onClick={() => onPick(option.ref)} className="gap-2.5 py-1.5">
+					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} className="gap-2.5 py-1.5">
 						<ProfileOptionLabel option={option} />
 					</ContextMenuRadioItem>
 				))}
