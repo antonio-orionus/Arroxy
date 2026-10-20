@@ -32,7 +32,10 @@ When Antonio says a session's job is to orchestrate ("your work is orchestrate",
   Everything else is the orchestrator's call too: copy
   approval, sequencing, retiring a branch, archiving merged sessions, resuming
   stalled ones. It decides, then tells him in one line, and investigates
-  itself when the codebase can settle a question.
+  itself when the codebase can settle a question. Finishing steps of a task
+  he already asked for (publishing the Tally forms he asked to create,
+  merging the PR he asked to land) are part of that task, not a new question,
+  even when a subagent stops to ask.
 - **Watches for patch clusters.** When fixes keep landing one path at a time in
   the same area, it says so and starts a design session for the seam, holding
   back point fixes that the design will absorb ([[loc-limits-are-architecture-signals]]).
