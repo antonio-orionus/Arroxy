@@ -19,6 +19,9 @@
 // `$` before a name, a brace, or a second `$`. A name starting with a digit or
 // `-` is legal on Windows but never set in practice.
 const DOLLAR_REFERENCE = /\$(?=[A-Za-z_{$])/g
+// The same, plus a `$` that ends the text: for a piece of a larger name, what
+// follows is not known yet and may change when a neighbour is truncated.
+const DOLLAR_REFERENCE_OR_END = /\$(?=[A-Za-z_{$]|$)/g
 // `%` before a name, a second `%` (nt's escape, which collapses the pair), or
 // `(`, which opens a yt-dlp field when a directory reaches `-o` unescaped.
 const PERCENT_REFERENCE = /%(?=[A-Za-z_%(])/g
@@ -38,6 +41,17 @@ const FULLWIDTH_TILDE = '\uFF5E'
 export function neutralizeFilenameExpansion(text: string, atStart = true): string {
 	const dollars = text.replace(DOLLAR_REFERENCE, FULLWIDTH_DOLLAR)
 	return atStart ? dollars.replace(/^~/, FULLWIDTH_TILDE) : dollars
+}
+
+/**
+ * One piece of a filename that is still being assembled (a bound value or a
+ * literal between tokens). Context-free on purpose: every occurrence of a
+ * repeated token gets the same text, and no cut or neighbour can turn a safe
+ * `$` into a reference later. The leading `~` is the caller's, since only the
+ * caller knows which piece starts the name.
+ */
+export function neutralizeFilenamePiece(text: string): string {
+	return text.replace(DOLLAR_REFERENCE_OR_END, FULLWIDTH_DOLLAR)
 }
 
 /**

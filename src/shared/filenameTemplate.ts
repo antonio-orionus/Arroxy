@@ -12,8 +12,8 @@
 // Token names are enumerated in schemas.ts (enum SSOT); the field mapping below
 // is the implementation detail that belongs here.
 
-import {fitName, renderName, type BudgetFailure, type BudgetPiece} from './nameBudget.js'
-import {neutralizeFilenameExpansion} from './pathExpansion.js'
+import {fitName, renderName, type BudgetFailure, type BudgetPiece, type BudgetResult} from './nameBudget.js'
+import {neutralizeFilenameExpansion, neutralizeFilenamePiece} from './pathExpansion.js'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
@@ -320,7 +320,7 @@ const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE
 // the template's meaning has to go: separators would invent a folder, braces
 // would invent a token, and the rest are illegal in filenames anyway. `%` is
 // left alone — compileFilenameTemplate escapes literals on the way out — and so
-// is shell expansion, which neutralizePieces handles across the whole name.
+// is shell expansion, which neutralizePieces handles once the pieces exist.
 //
 // Length is deliberately not handled here. Trimming each value against its own
 // allowance cannot see the whole name, which is what the filesystem measures;
@@ -336,20 +336,40 @@ function sanitizeBoundLiteral(value: string): string {
 }
 
 // yt-dlp expands `$NAME` and a leading `~` in literal `-o` text (see
-// pathExpansion.ts). Neutralised across the whole name rather than piece by
-// piece, because a literal `$` before a bound `{title}` forms a reference that
-// neither piece holds alone. Every swap keeps the UTF-16 length, so the result
-// is cut back into the same pieces, and fitName measures the wider look-alikes.
-// A placeholder stays a field in `-o`, which yt-dlp fills in after expanding,
-// so it is masked out of the scan.
+// pathExpansion.ts). Done before fitName so the wider look-alikes are measured,
+// and piece by piece with a context-free rule, because fitName gives every
+// occurrence of a token the same text: a rule that looked at the neighbours
+// could neutralise one copy and not another. A placeholder stays a field in
+// `-o`, which yt-dlp fills in after expanding, so it is left alone.
 function neutralizePieces(pieces: readonly BudgetPiece[]): BudgetPiece[] {
-	const name = neutralizeFilenameExpansion(pieces.map(piece => (piece.kind === 'placeholder' ? '\0'.repeat(piece.text.length) : piece.text)).join(''))
-	let cursor = 0
-	return pieces.map(piece => {
-		const text = name.slice(cursor, cursor + piece.text.length)
-		cursor += piece.text.length
-		return piece.kind === 'placeholder' ? piece : {...piece, text}
-	})
+	const neutral = pieces.map(piece => (piece.kind === 'placeholder' ? piece : {...piece, text: neutralizeFilenamePiece(piece.text)}))
+	const first = neutral.find(piece => piece.text !== '')
+	if (!first || first.kind === 'placeholder' || !first.text.startsWith('~')) return neutral
+	// Every copy of the leading token, so they still share one text.
+	return neutral.map(piece => (piece === first || (first.kind === 'token' && piece.kind === 'token' && piece.token === first.token) ? {...piece, text: neutralizeFilenameExpansion(piece.text)} : piece))
+}
+
+function sameText(a: readonly BudgetPiece[], b: readonly BudgetPiece[]): boolean {
+	return renderName(a) === renderName(b)
+}
+
+/**
+ * fitName over neutralised pieces. A cut can end a value on a `$` that used to
+ * be followed by a space, so the fitted pieces are neutralised again; when that
+ * widens anything, they are fitted again. Each round only ever turns `$` into
+ * its look-alike and then shortens, so it settles within a few rounds.
+ */
+function fitNeutralName(pieces: readonly BudgetPiece[], ctx: BindContext): BudgetResult {
+	const truncated = new Set<FilenameToken>()
+	let current = neutralizePieces(pieces)
+	for (;;) {
+		const fitted = fitName({pieces: current, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
+		if (!fitted.ok) return fitted
+		for (const token of fitted.truncated) truncated.add(token)
+		const again = neutralizePieces(fitted.pieces)
+		if (sameText(again, fitted.pieces)) return {ok: true, pieces: fitted.pieces, truncated: [...truncated]}
+		current = again
+	}
 }
 
 // Applied to the assembled name, because both hazards are properties of the
@@ -406,7 +426,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 	// against the typed-length limit and hide it from directory resolution.
 	if (suffix) pieces.push({kind: 'literal', text: ` ${suffix}`})
 
-	const fitted = fitName({pieces: neutralizePieces(pieces), outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
+	const fitted = fitNeutralName(pieces, ctx)
 	if (!fitted.ok) return fitted
 
 	return {ok: true, template: finalizeName(renderName(fitted.pieces)), truncated: fitted.truncated}
