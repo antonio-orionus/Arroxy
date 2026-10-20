@@ -1,4 +1,4 @@
-// yt-dlp's format selection (`YoutubeDL.build_format_selector`), ported for the
+// yt-dlp's format selection (`YoutubeDL.build_format_selector`), translated for the
 // part of its language `mediaIntentSpec` writes: alternatives (`/`), a merge
 // (`+`), the best / bestvideo / bestaudio atoms with or without `*`, and
 // `[...]` filters. Evaluated over formats sorted worst first (formatSorter.ts),

@@ -2,7 +2,7 @@
 // Format screen. The profile describes intent ("up to 720p, MP4"); the probe
 // lists what this video has. The pick runs the very `-f` and `-S` a queued
 // download hands yt-dlp (`mediaIntentSpec`) through yt-dlp's own format sort
-// and selection, ported (`ytdlp/formatSorter.ts`, `ytdlp/formatSelector.ts`)
+// and selection, translated (`ytdlp/formatSorter.ts`, `ytdlp/formatSelector.ts`)
 // and held to yt-dlp by the selection parity check, so the Format screen
 // pre-selects what Quick Download downloads. The result names exact format
 // ids so sizes and the review are exact, plus fit notices for every part of

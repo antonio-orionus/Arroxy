@@ -216,6 +216,10 @@ _Avoid_: pending decision, blocked row, needs review
 A row only the user can move on — a probe-error row or one that needs your choice. The Downloads tab counts them.
 _Avoid_: alerts, problems, warnings
 
+**Selection parity**:
+The rule that the Format screen pre-selects exactly the streams a queued download of the same profile downloads. Both read the profile's yt-dlp selection; a check against yt-dlp itself, over recorded probes, holds them together.
+_Avoid_: pick sync, format consistency
+
 ### Subtitles
 
 **Sidecar subtitles**:

@@ -1,9 +1,9 @@
-// yt-dlp's format sort (`yt_dlp/utils/_utils.py`, `FormatSorter`), ported so the
+// yt-dlp's format sort (`yt_dlp/utils/_utils.py`, `FormatSorter`), translated so the
 // Format screen ranks streams exactly as the yt-dlp run that downloads them:
 // the same fields, in the same order (forced, then priority, then the `-S`
 // tokens, then the extractor's `_format_sort_fields`, then yt-dlp's defaults),
 // compared the same way. The selection parity check
-// (scripts/check-selection-parity.ts) holds this port to real yt-dlp.
+// (scripts/check-selection-parity.ts) holds this translation to real yt-dlp.
 
 import type {YtDlpSelectableFormat} from './selectableFormat.js'
 
