@@ -128,7 +128,7 @@ interface Case {
 // Differences already known to be bugs, each with its fix under way. Listed so
 // the check stays a gate for everything else; an entry that no longer occurs
 // fails it too, so the list shrinks as the fixes land.
-const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = (['twitch-clip', 'dailymotion', 'archive', 'streamable', 'bitchute'] as const).flatMap(probe =>
+const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = (['twitch-clip', 'dailymotion', 'archive', 'streamable', 'bitchute', 'peertube', 'odysee'] as const).flatMap(probe =>
 	(['audio-only compatible', 'audio-only surround'] as const).map(label => ({probe, label, reason: 'Audio only on a site with only combined files: yt-dlp downloads the whole file (`best`), the Format screen converts it to MP3'}))
 )
 

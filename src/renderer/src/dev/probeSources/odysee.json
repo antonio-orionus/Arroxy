@@ -1,0 +1,30 @@
+{
+	"source": {
+		"id": "odysee",
+		"url": "https://odysee.com/@BrodieRobertson:5/apple-is-tracking-everything-you-do-on:e",
+		"capturedAt": "2026-10-20",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"id": "e6b46b4ae2bb25c67915dad71ac5d202e47dba25",
+		"title": "Apple Is Tracking EVERYTHING You Do On Big Sur",
+		"thumbnail": "https://thumbnails.lbry.com/SAFaipfXN_0",
+		"duration": 745,
+		"webpage_url": "https://odysee.com/@BrodieRobertson:5/apple-is-tracking-everything-you-do-on:e",
+		"extractor": "lbry",
+		"extractor_key": "LBRY",
+		"is_live": false,
+		"channel": "Brodie Robertson | Linux Tips & Tricks",
+		"upload_date": "20201116",
+		"timestamp": 1605548137,
+		"formats": [
+			{"format_id":"hls-215","ext":"mp4","resolution":"256x144","width":256,"height":144,"tbr":215.6,"vcodec":"avc1.4d400b","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-655","ext":"mp4","resolution":"640x360","width":640,"height":360,"tbr":655.6,"vcodec":"avc1.4d401e","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-2890","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"tbr":2890.8,"vcodec":"avc1.4d401f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-4026","ext":"mp4","resolution":"1920x1080","width":1920,"height":1080,"tbr":4026,"vcodec":"avc1.4d4028","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"original","ext":"mp4","resolution":"1920x1080","width":1920,"height":1080,"filesize":79159050,"dynamic_range":"SDR","protocol":"https","quality":1}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

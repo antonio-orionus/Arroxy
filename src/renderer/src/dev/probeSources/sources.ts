@@ -38,6 +38,9 @@ export const PROBE_SOURCES = [
 	{id: 'soundcloud', url: 'https://soundcloud.com/forss/flickermood', shows: 'Audio-only site'},
 	{id: 'tiktok', url: 'https://www.tiktok.com/@meister12347/video/6934396727596240134', shows: 'TikTok: bytevc1 and H.264 at the same heights, several bitrates each'},
 	{id: 'instagram', url: 'https://www.instagram.com/p/DebnOR3N4hf/', shows: 'Instagram: VP9 DASH with bitrates but no duration (no size estimate), and three combined MP4s with no details at all'},
+	{id: 'vimeo', url: 'https://player.vimeo.com/video/76979871', shows: 'Vimeo: HLS only, each stream from two CDNs, audio with no codec named and ranked only by quality'},
+	{id: 'peertube', url: 'https://framatube.org/videos/watch/9c9de5e8-0a1e-484a-b099-e80766180a6d', shows: 'PeerTube: a direct MP4 per height with only its height and size, beside HLS copies that name their codecs'},
+	{id: 'odysee', url: 'https://odysee.com/@BrodieRobertson:5/apple-is-tracking-everything-you-do-on:e', shows: "Odysee: an HLS ladder plus the uploader's original file, rated higher, with no codec named"},
 	{id: 'facebook', url: 'https://www.facebook.com/reel/2218259845769232/', shows: 'A Facebook reel, signed in: AV1 DASH at several bitrates per height, and distinct sd and hd MP4s with no details at all', signIn: 'web'}
 ] as const satisfies readonly ProbeSource[]
 
