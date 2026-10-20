@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react'
 import {Accordion as AccordionPrimitive} from '@base-ui/react/accordion'
 import {cn} from '@renderer/lib/utils.js'
-import {ChevronDownIcon, ChevronUpIcon} from 'lucide-react'
+import {ChevronDownIcon} from 'lucide-react'
 
 // Generic over the item values, so a controlled accordion's onValueChange is typed.
 function Accordion<Value = unknown>({className, ...props}: AccordionPrimitive.Root.Props<Value>): ReactNode {
@@ -24,8 +24,7 @@ function AccordionTrigger({className, children, ...props}: AccordionPrimitive.Tr
 				{...props}
 			>
 				{children}
-				<ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-				<ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+				<ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 transition-transform duration-200 group-aria-expanded/accordion-trigger:rotate-180 motion-reduce:transition-none" />
 			</AccordionPrimitive.Trigger>
 		</AccordionPrimitive.Header>
 	)

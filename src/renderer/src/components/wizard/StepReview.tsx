@@ -1,7 +1,7 @@
 import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
-import {TriangleAlert} from 'lucide-react'
+import {Captions, FileText, Folder, Layers, Scissors, TriangleAlert, type LucideIcon} from 'lucide-react'
 import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {selectWizardReviewState, type WizardReviewState} from '../../store/wizard/wizardReviewState.js'
@@ -27,10 +27,14 @@ import {FolderFields} from './StepFolderConfirm.js'
 import {Hint} from '../shared/Hint.js'
 import {ReviewPageCallout} from './ReviewPageCallout.js'
 import {ProfileEditLine} from './ProfileEditLine.js'
+import {wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
+import {cn} from '../../lib/utils.js'
 import {wizardVideoPart} from '../../store/wizard/videoPart.js'
 import {formatPartTime} from '@shared/videoPart.js'
 
 const ROW_LABEL_KEYS = {subtitles: 'wizard.review.rows.subtitles', sponsorBlock: 'wizard.review.rows.sponsorBlock', extras: 'wizard.review.rows.extras', saveTo: 'wizard.review.rows.saveTo', fileName: 'wizard.review.rows.fileName'} as const satisfies Record<ReviewRow, string>
+
+const ROW_ICONS = {subtitles: Captions, sponsorBlock: Scissors, extras: Layers, saveTo: Folder, fileName: FileText} as const satisfies Record<ReviewRow, LucideIcon>
 
 function FileNameFields(): ReactNode {
 	const {t} = useTranslation()
@@ -49,18 +53,28 @@ function FileNameFields(): ReactNode {
 interface ReviewRowItemProps {
 	row: ReviewRow
 	value: string
+	off: boolean
+	changedFrom: string | null
 	children: ReactNode
 }
 
-// One Review row: label and current value; opens its editor in place.
-function ReviewRowItem({row, value, children}: ReviewRowItemProps): ReactNode {
+// One Review row: label and current value; opens its editor in place. A value
+// that is on reads brighter than one that is off, and a dot marks a row this
+// run changed from its profile.
+function ReviewRowItem({row, value, off, changedFrom, children}: ReviewRowItemProps): ReactNode {
 	const {t} = useTranslation()
+	const Icon = ROW_ICONS[row]
 	return (
-		<AccordionItem value={row} className="data-open:bg-primary/5" data-testid={`review-row-${row}`}>
-			<AccordionTrigger className="items-center gap-3 rounded-none px-4 py-3 hover:bg-muted hover:no-underline focus-visible:ring-inset" data-testid={`review-row-${row}-toggle`}>
-				<span className="w-28 shrink-0 font-semibold text-foreground">{t(ROW_LABEL_KEYS[row])}</span>
+		<AccordionItem value={row} className="transition-colors data-open:bg-primary/5" data-testid={`review-row-${row}`}>
+			<AccordionTrigger className="items-center gap-3 rounded-none px-4 py-3.5 hover:bg-muted/60 hover:no-underline focus-visible:ring-inset" data-testid={`review-row-${row}-toggle`}>
+				<Icon aria-hidden className="size-4 shrink-0 text-subtle-foreground transition-colors group-hover/accordion-trigger:text-muted-foreground group-aria-expanded/accordion-trigger:text-primary" />
+				<span className="flex w-28 shrink-0 items-center gap-1.5 font-semibold text-foreground">
+					{changedFrom ? <span className="sr-only">{changedFrom}</span> : null}
+					<span className="min-w-0">{t(ROW_LABEL_KEYS[row])}</span>
+					{changedFrom ? <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-primary" data-testid={`review-row-${row}-changed`} /> : null}
+				</span>
 				<Hint label={value} reveal>
-					<span className="min-w-0 flex-1 truncate font-normal text-muted-foreground">{value}</span>
+					<span className={cn('min-w-0 flex-1 truncate font-normal', off ? 'text-muted-foreground' : 'text-foreground', row === 'fileName' && 'font-mono')}>{value}</span>
 				</Hint>
 			</AccordionTrigger>
 			<AccordionContent className="flex flex-col gap-3 px-4 pt-1 pb-4">{children}</AccordionContent>
@@ -71,6 +85,7 @@ function ReviewRowItem({row, value, children}: ReviewRowItemProps): ReactNode {
 interface ReviewRowEntry {
 	row: ReviewRow
 	value: string
+	off: boolean
 	fields: ReactNode
 }
 
@@ -79,11 +94,11 @@ interface ReviewRowEntry {
 function reviewRowEntries(state: WizardReviewState, summary: SingleSettingsSummary): ReviewRowEntry[] {
 	const kind = state.wizardMediaKind
 	return [
-		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
-		...(sponsorBlockApplies(state) && summary.sponsorBlock !== null ? [{row: 'sponsorBlock' as const, value: summary.sponsorBlock, fields: <SponsorBlockFields />}] : []),
-		...(kind === 'subtitles' ? [] : [{row: 'extras' as const, value: summary.extras, fields: <OutputFields />}]),
-		{row: 'saveTo', value: summary.saveTo, fields: <FolderFields persist={false} />},
-		{row: 'fileName', value: summary.fileName, fields: <FileNameFields />}
+		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, off: !summary.subtitlesOn, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
+		...(sponsorBlockApplies(state) && summary.sponsorBlock !== null ? [{row: 'sponsorBlock' as const, value: summary.sponsorBlock, off: state.wizardSponsorBlockMode === 'off', fields: <SponsorBlockFields />}] : []),
+		...(kind === 'subtitles' ? [] : [{row: 'extras' as const, value: summary.extras, off: !summary.extrasOn, fields: <OutputFields />}]),
+		{row: 'saveTo', value: summary.saveTo, off: false, fields: <FolderFields persist={false} />},
+		{row: 'fileName', value: summary.fileName, off: false, fields: <FileNameFields />}
 	]
 }
 
@@ -148,6 +163,8 @@ export function StepReview(): ReactNode {
 	const summary = buildSingleSettingsSummary(state, {t: translate, language: i18n.language})
 	const review = buildDownloadReview(state, {t: translate, language: i18n.language, commonPaths: state.commonPaths})
 	const rows = reviewRowEntries(state, summary)
+	const changed = wizardChangedAreas(state)
+	const changedFrom = t('wizard.review.changedFrom', {profile: state.wizardProfile?.name ?? ''})
 	const caveat = mp4CaveatCodec(state)
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
@@ -161,8 +178,8 @@ export function StepReview(): ReactNode {
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>
 				<Card className="gap-0 overflow-hidden py-0">
 					<Accordion<ReviewRow> value={wizardReviewRow ? [wizardReviewRow] : []} onValueChange={next => openRow(next[0] ?? null)}>
-						{rows.map(({row, value, fields}) => (
-							<ReviewRowItem key={row} row={row} value={value}>
+						{rows.map(({row, value, off, fields}) => (
+							<ReviewRowItem key={row} row={row} value={value} off={off} changedFrom={changed.includes(row) ? changedFrom : null}>
 								{fields}
 							</ReviewRowItem>
 						))}

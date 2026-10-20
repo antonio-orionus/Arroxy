@@ -8,6 +8,9 @@ import {buildAppSettings} from '../shared/settingsFixtures.js'
 import {SubtitleFields} from '@renderer/components/wizard/SubtitleFields.js'
 import {StepReview} from '@renderer/components/wizard/StepReview.js'
 import {StepFormatSelect} from '@renderer/components/wizard/StepFormatSelect.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {wizardSnapshot} from '@renderer/store/wizard/wizardProfileState.js'
+import {selectWizardReviewState} from '@renderer/store/wizard/wizardReviewState.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -443,6 +446,22 @@ describe('Review — rows', () => {
 		}
 	})
 
+	it('marks only the rows this run changed from its profile', () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
+		singleState({wizardReviewRow: null, wizardProfile: profile})
+		useAppStore.setState({wizardProfileBaseline: wizardSnapshot(selectWizardReviewState(useAppStore.getState()))})
+		useAppStore.setState({wizardFilenameTemplate: '{uploader} - {title}'})
+		try {
+			render(<StepReview />)
+			expect(screen.getByTestId('review-row-fileName-changed')).toBeInTheDocument()
+			expect(screen.getByTestId('review-row-fileName-toggle').textContent).toContain(`Changed from ${profile.name}:`)
+			expect(screen.queryByTestId('review-row-subtitles-changed')).toBeNull()
+			expect(screen.queryByTestId('review-row-saveTo-changed')).toBeNull()
+		} finally {
+			useAppStore.setState({wizardProfile: null, wizardProfileBaseline: null})
+		}
+	})
+
 	it('closes the open row from its header', () => {
 		singleState({wizardReviewRow: 'fileName'})
 		render(<StepReview />)
@@ -527,13 +546,13 @@ describe('Format screen — footer', () => {
 		}
 	})
 
-	// Extras holds the thumbnail and description switches, which a closed row hid.
-	it('Continue opens Review with Extras unfolded', () => {
+	// Review opens folded: every row's value already says what it holds.
+	it('Continue opens Review with every row folded', () => {
 		singleState({wizardStep: 'formats', wizardReviewRow: 'subtitles'})
 		render(<StepFormatSelect />)
 		fireEvent.click(screen.getByTestId('btn-format-continue'))
 		expect(useAppStore.getState().wizardStep).toBe('confirm')
-		expect(useAppStore.getState().wizardReviewRow).toBe('extras')
+		expect(useAppStore.getState().wizardReviewRow).toBeNull()
 	})
 
 	it('Continue is disabled in Subtitles with no language', () => {

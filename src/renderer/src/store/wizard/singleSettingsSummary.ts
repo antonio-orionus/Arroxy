@@ -19,6 +19,7 @@ export interface SingleSettingsSummary {
 	// Null when SponsorBlock doesn't apply (not YouTube, or nothing with video).
 	sponsorBlock: string | null
 	extras: string
+	extrasOn: boolean
 	saveTo: string
 	fileName: string
 }
@@ -55,5 +56,5 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 	// A part's file name ends in its range, appended when the job is queued.
 	const part = wizardVideoPart(state)
 	const fileName = part ? `${state.wizardFilenameTemplate} ${videoPartSuffix(part)}` : state.wizardFilenameTemplate
-	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'), saveTo, fileName}
+	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'), extrasOn: extras.length > 0, saveTo, fileName}
 }

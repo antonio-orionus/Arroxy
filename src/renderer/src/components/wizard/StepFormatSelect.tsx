@@ -119,7 +119,7 @@ export function StepFormatSelect(): ReactNode {
 				)}
 			</div>
 
-			<FormatFooter view={view} onBack={back} onContinue={() => openReview('extras')} />
+			<FormatFooter view={view} onBack={back} onContinue={() => openReview(null)} />
 		</div>
 	)
 }
