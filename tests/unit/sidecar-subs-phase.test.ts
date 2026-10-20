@@ -24,7 +24,7 @@ vi.mock('@main/services/subtitlePostProcess', () => ({
 	logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}
 }))
 
-import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '@main/services/subtitlePostProcess.js'
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -261,6 +261,43 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {tempDir}))
 		expect(Object.fromEntries(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].trackNames ?? [])).toEqual({en: 'English'})
 		await rm(tempDir, {recursive: true, force: true})
+	})
+
+	it("falls back to the probe's info-json for the names", async () => {
+		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		const probeInfoJsonPath = join(dir, 'probe.info.json')
+		await writeFile(probeInfoJsonPath, JSON.stringify({id: 'test', subtitles: {en: [{ext: 'vtt', name: 'English'}]}}))
+		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath}}))
+		expect(Object.fromEntries(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].trackNames ?? [])).toEqual({en: 'English'})
+		await rm(dir, {recursive: true, force: true})
+	})
+
+	// yt-dlp downloads automatic captions as SRT when ASS is asked for, so the
+	// name is the SRT entry's, as in yt-dlp's own requested_subtitles.
+	it('names each track after the format the subtitle run actually fetched', async () => {
+		const tempDir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		await writeFile(
+			join(tempDir, '_arroxy.info.json'),
+			JSON.stringify({
+				id: 'test',
+				subtitles: {},
+				automatic_captions: {
+					en: [
+						{ext: 'srt', name: 'English SRT'},
+						{ext: 'ass', name: 'English ASS'}
+					]
+				}
+			})
+		)
+		const input: ResolvedStartDownloadInput = {...BASE_INPUT, job: {...BASE_JOB, subtitles: {languages: ['en'], mode: 'embed', format: 'ass', writeAuto: true}}}
+		await SidecarSubsPhase(true).run(makeCtx({...SUCCESS, effectiveSubtitleFormat: 'srt'}, {tempDir, input}))
+		expect(Object.fromEntries(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].trackNames ?? [])).toEqual({en: 'English SRT'})
+		await rm(tempDir, {recursive: true, force: true})
+	})
+
+	it('logs that the tracks go untitled when no info-json names them', async () => {
+		await SidecarSubsPhase(true).run(makeCtx(SUCCESS))
+		expect(logger.warn).toHaveBeenCalledWith('embed-mux: no track names — no readable info-json lists these tracks; they are embedded untitled', {jobId: 'job-1'})
 	})
 
 	it('keeps the cover art only when the job embeds the thumbnail', async () => {

@@ -83,8 +83,9 @@ describe('readSubtitleTrackNames', () => {
 	})
 
 	it('a key named like an Object.prototype member is just another key', async () => {
-		const path = await infoJson('a.info.json', {subtitles: {en: [{ext: 'vtt', name: 'English'}]}})
+		const path = await infoJson('a.info.json', {subtitles: {constructor: [{ext: 'vtt', name: 'Constructor'}]}, automatic_captions: {toString: [{ext: 'vtt', name: 'To string'}]}})
 		const names = await readSubtitleTrackNames(MANUAL_AND_AUTO, {infoJsonPaths: [path]})
-		expect(names.get('constructor')).toBeUndefined()
+		expect(Object.fromEntries(names)).toEqual({constructor: 'Constructor', toString: 'To string'})
+		expect(names.get('hasOwnProperty')).toBeUndefined()
 	})
 })

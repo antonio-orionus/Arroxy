@@ -1,4 +1,4 @@
-import {STATUS_KEY} from '@shared/schemas.js'
+import {STATUS_KEY, type SubtitleFormat} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
@@ -13,7 +13,7 @@ import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
 
-async function runEmbedMux(ctx: PhaseContext, subs: SubtitleOptions, infoJsonPaths: readonly (string | undefined)[]): Promise<boolean> {
+async function runEmbedMux(ctx: PhaseContext, subs: SubtitleOptions, opts: {infoJsonPaths: readonly (string | undefined)[]; fetchedFormat: SubtitleFormat}): Promise<boolean> {
 	const {active, ytDlp} = ctx
 	const {job, input} = active
 
@@ -30,7 +30,8 @@ async function runEmbedMux(ctx: PhaseContext, subs: SubtitleOptions, infoJsonPat
 	ctx.emitStatus('download', STATUS_KEY.mergingFormats)
 
 	const preparedJob = input.job
-	const trackNames = await readSubtitleTrackNames(subs, {infoJsonPaths})
+	const trackNames = await readSubtitleTrackNames({...subs, format: opts.fetchedFormat}, {infoJsonPaths: opts.infoJsonPaths})
+	if (trackNames.size === 0) logger.warn('embed-mux: no track names — no readable info-json lists these tracks; they are embedded untitled', {jobId: job.id})
 
 	let result: Awaited<ReturnType<typeof muxSubtitlesIntoVideo>>
 	try {
@@ -138,6 +139,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			if (subResult.usedExtractorFallback) active.usedExtractorFallback = true
+			const fetchedFormat = subResult.effectiveSubtitleFormat ?? subs.format ?? DEFAULTS.subtitleFormat
 			active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subs.format ?? DEFAULTS.subtitleFormat)
 
 			if (subs.writeAuto) {
@@ -145,7 +147,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			if (embedAfter) {
-				const muxOk = await runEmbedMux(ctx, subs, infoJsonPaths)
+				const muxOk = await runEmbedMux(ctx, subs, {infoJsonPaths, fetchedFormat})
 				if (active.pauseRequested) return {kind: 'paused'}
 				if (active.cancelRequested) return {kind: 'cancelled'}
 				if (!muxOk) return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
