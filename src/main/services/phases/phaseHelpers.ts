@@ -57,8 +57,9 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 		abortSignal: active.signal,
 		pauseSignal: active.pauseController?.signal,
 		...rest,
-		onSpawn: proc => {
+		onSpawn: (proc, cwd) => {
 			active.ytDlpProcess = proc
+			active.ytDlpCwd = cwd
 			forgetOnExit(proc, () => {
 				if (active.ytDlpProcess === proc) active.ytDlpProcess = undefined
 			})
@@ -66,7 +67,7 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 			ctx.register(() => {
 				proc.kill('SIGKILL')
 			})
-			extraOnSpawn?.(proc)
+			extraOnSpawn?.(proc, cwd)
 		},
 		onStdout: extraOnStdout ?? (text => ctx.safeConsume(text)),
 		onStderr: extraOnStderr ?? (text => ctx.safeConsume(text))

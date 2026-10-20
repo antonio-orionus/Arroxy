@@ -35,9 +35,16 @@ export function envWithFfmpegPaths(ffmpegPath: string | null, opts: {e2eMode?: E
 	return env
 }
 
-export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, e2eMode?: E2eHarnessMode, transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv): ChildProcessWithoutNullStreams {
-	const env = envWithFfmpegPaths(ffmpegPath, {e2eMode})
-	return spawn(binaryPath, args, {env: transformEnv ? transformEnv(env) : env, shell: false, windowsHide: true, detached: SPAWN_AS_PROCESS_GROUP})
+export interface YtDlpSpawnOptions {
+	e2eMode?: E2eHarnessMode
+	transformEnv?: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv
+	// The run's folder, when its plan names one; else the app's own working directory.
+	cwd?: string
+}
+
+export function spawnYtDlp(binaryPath: string, args: string[], ffmpegPath: string | null, opts: YtDlpSpawnOptions = {}): ChildProcessWithoutNullStreams {
+	const env = envWithFfmpegPaths(ffmpegPath, {e2eMode: opts.e2eMode})
+	return spawn(binaryPath, args, {env: opts.transformEnv ? opts.transformEnv(env) : env, ...(opts.cwd === undefined ? {} : {cwd: opts.cwd}), shell: false, windowsHide: true, detached: SPAWN_AS_PROCESS_GROUP})
 }
 
 export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWithoutNullStreams {

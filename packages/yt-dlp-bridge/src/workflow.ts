@@ -137,6 +137,9 @@ export interface WorkflowPlanFacts {
 
 export interface WorkflowPlan {
 	kind: NonNullable<WorkflowInput['kind']>
+	// The working directory the run must have: every path in `args` is
+	// relative to it. Set on every plan that writes files.
+	cwd?: string
 	args: string[]
 	redactedArgs: string[]
 	facts: WorkflowPlanFacts

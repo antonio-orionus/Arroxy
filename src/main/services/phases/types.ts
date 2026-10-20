@@ -51,6 +51,8 @@ export interface ActiveJobInput {
 	pauseController?: AbortController
 	disposables: AsyncStack
 	ytDlpProcess?: ChildProcessWithoutNullStreams
+	// The folder the latest yt-dlp run executes in; the paths it prints are relative to it.
+	ytDlpCwd?: string
 	ffmpegProcess?: ChildProcessWithoutNullStreams
 	mockTimer?: NodeJS.Timeout
 	currentFileKind?: 'subtitle' | 'media'

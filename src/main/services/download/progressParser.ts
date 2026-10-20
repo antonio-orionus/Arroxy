@@ -7,6 +7,7 @@
 // + finalize() also read them), not parser state, so they live on
 // ActiveDownload rather than inside this class.
 
+import {isAbsolute, resolve} from 'node:path'
 import log from 'electron-log/main.js'
 import {isSubtitleFile} from '@shared/subtitlePath.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -90,6 +91,29 @@ function logOutputLine(active: ActiveDownload, line: string, event: YtDlpOutputE
 	}
 }
 
+// yt-dlp prints a path as argv gave it, so relative to the folder the run
+// executes in when its plan names one.
+function runPath(active: ActiveDownload, path: string): string {
+	return active.ytDlpCwd === undefined || isAbsolute(path) ? path : resolve(active.ytDlpCwd, path)
+}
+
+// The event with every path it names made absolute.
+function withRunPaths(active: ActiveDownload, event: YtDlpOutputEvent): YtDlpOutputEvent {
+	switch (event.kind) {
+		case 'destination':
+		case 'already-downloaded':
+		case 'artifact':
+			return {...event, path: runPath(active, event.path)}
+		case 'merge':
+		case 'postprocess':
+			return event.path === undefined ? event : {...event, path: runPath(active, event.path)}
+		case 'move':
+			return {...event, from: runPath(active, event.from), to: runPath(active, event.to)}
+		default:
+			return event
+	}
+}
+
 function rememberSubtitlePath(active: ActiveDownload, path: string): void {
 	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
 }
@@ -113,7 +137,8 @@ export class ProgressParser {
 	consume(active: ActiveDownload, text: string): void {
 		const jobId = active.job.id
 		for (const line of splitOutputLines(text)) {
-			const event = parseYtDlpOutputLine(line)
+			const parsed = parseYtDlpOutputLine(line)
+			const event = parsed && withRunPaths(active, parsed)
 			const combined = event?.kind === 'download-progress' ? this.trackerFor(active).update(event.progress) : undefined
 			logOutputLine(active, line, event, combined?.percent)
 			if (!event) continue

@@ -1,3 +1,4 @@
+import path from 'node:path'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 import {ProgressParser} from '@main/services/download/progressParser.js'
@@ -386,5 +387,50 @@ describe('ProgressParser — transfer retries', () => {
 
 		expect(emitStatus).toHaveBeenCalledWith('job-1', 'download', STATUS_KEY.retryingTransfer, {attempt: 1, total: 20})
 		expect(emitProgress).not.toHaveBeenCalled()
+	})
+})
+
+// yt-dlp prints the paths it writes as given in argv: relative to the folder it
+// runs in, when its plan sets one. App state holds absolute paths.
+describe('ProgressParser — paths relative to the run folder', () => {
+	const runCwd = path.resolve('/downloads/job')
+	const inRun = (name: string): string => path.join(runCwd, name)
+
+	function consumeInRun(lines: string[], run: {cwd?: string} = {cwd: runCwd}): {active: ActiveDownload; emitArtifact: ReturnType<typeof vi.fn>} {
+		const emitArtifact = vi.fn()
+		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
+		const active = {...makeActive(BASE_INPUT_SINGLE_FORMAT), ...(run.cwd === undefined ? {} : {ytDlpCwd: run.cwd})}
+		parser.consume(active, `${lines.join('\n')}\n`)
+		return {active, emitArtifact}
+	}
+
+	it('resolves destinations, merges and moves against the run folder', () => {
+		const {active, emitArtifact} = consumeInRun(['[download] Destination: .arroxy-temp/abc/Clip.f398.mp4', '[download] Destination: Clip.en.srt', '[Merger] Merging formats into ".arroxy-temp/abc/Clip.mp4"', '[MoveFiles] Moving file ".arroxy-temp/abc/Clip.mp4" to "Clip.mp4"'])
+
+		expect(active.mediaComponentPaths).toEqual([inRun('.arroxy-temp/abc/Clip.f398.mp4')])
+		expect(active.subtitlePaths).toEqual([inRun('Clip.en.srt')])
+		expect(active.mediaPath).toBe(inRun('Clip.mp4'))
+		expect(emitArtifact).toHaveBeenCalledWith(expect.objectContaining({path: inRun('Clip.mp4'), fromPath: inRun('.arroxy-temp/abc/Clip.mp4')}))
+	})
+
+	it('resolves already-downloaded files, remux targets and sidecar artifacts against the run folder', () => {
+		const {active} = consumeInRun(['[download] Clip.en.srt has already been downloaded', '[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: Clip.mkv', '[info] Writing video description to: Clip.description'])
+
+		expect(active.subtitlePaths).toEqual([inRun('Clip.en.srt')])
+		expect(active.mediaPath).toBe(inRun('Clip.mkv'))
+		expect(active.sidecarPaths).toEqual([inRun('Clip.description')])
+	})
+
+	it('keeps absolute paths as yt-dlp printed them', () => {
+		const absolute = path.resolve('/elsewhere/Clip.mp4')
+		const {active} = consumeInRun([`[Merger] Merging formats into "${absolute}"`])
+
+		expect(active.mediaPath).toBe(absolute)
+	})
+
+	it('leaves paths untouched when the run has no folder of its own', () => {
+		const {active} = consumeInRun(['[download] Destination: Clip.en.srt'], {})
+
+		expect(active.subtitlePaths).toEqual(['Clip.en.srt'])
 	})
 })
