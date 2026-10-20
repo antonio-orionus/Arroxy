@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "لغو"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "بستن"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "ادامه"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "بهترین کیفیت"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "پوشهٔ دانلودهای پیش‌فرض"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "پوشهٔ دانلودهای پیش‌فرض / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "مقصد سراسری"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "فعال"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "ارث‌بری‌شده"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "جایگزینی نمایه"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "انتخاب پوشه"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "بدون جایگزینی"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "جایگزینی تنظیم نشده است. این نمایه از مقصد سراسری بالا استفاده می‌کند."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "جایگزین سراسری"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "این نمایه پیش از افزودن زیرپوشه، در ریشهٔ مخصوص خود ذخیره می‌کند."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "نمایهٔ دانلود"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "مقصد سراسری تغییر نکرد."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "باز کردن انتخابگر پوشه ممکن نشد. مسیر را دستی وارد کنید."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

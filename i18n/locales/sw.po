@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Ghairi"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Funga"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Endelea"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Ubora bora"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Folda chaguomsingi ya vipakuliwa"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Folda chaguomsingi ya vipakuliwa / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Lengo la jumla"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Inatumika"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Imerithiwa"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Ubatilishaji wa wasifu"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Chagua folda"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Hakuna ubatilishaji"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Hakuna ubatilishaji uliowekwa. Wasifu huu hutumia lengo la jumla lililo juu."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Inabatilisha jumla"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Wasifu huu huhifadhi kwenye mzizi wake yenyewe kabla ya folda ndogo kuongezwa."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "Wasifu wa upakuaji"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Imeshindwa kubadilisha lengo la jumla."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Haikuweza kufungua kichagua folda. Weka njia mwenyewe."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

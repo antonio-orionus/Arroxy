@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "Anuluj"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "Zamknij"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "Kontynuuj"
@@ -3717,13 +3721,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Najlepsza jakość"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Domyślny folder pobierania"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Domyślny folder pobierania / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "Miejsce globalne"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktywne"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Dziedziczone"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "Zastąpienie profilu"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Wybierz folder"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Brak zastąpienia"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Brak ustawionego zastąpienia. Ten profil używa globalnego miejsca docelowego powyżej."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Zastępuje globalne"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Ten profil zapisuje do własnego folderu głównego, zanim zostanie dodany podfolder."
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3740,6 +3780,10 @@ msgstr "Profil pobierania"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "Nie udało się zmienić globalnego miejsca docelowego."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Nie udało się otworzyć okna wyboru folderu. Wpisz ścieżkę ręcznie."
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

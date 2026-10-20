@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "dismiss": "Dhiisi", "startOver": "Jalqabbii irra deebi'i"},
+	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "dismiss": "Dhiisi", "startOver": "Jalqabbii irra deebi'i", "close": "Cufii"},
 	"app": {
 		"feedback": "Yaada",
 		"logs": "Galmee",
@@ -659,7 +659,20 @@
 				"save": "Piroofaayilii olkaa'i"
 			},
 			"placeholder": {"folder": "Piroofaayilii kanaaf galee filadhu"},
-			"destination": {"global": "Ga'umsa waliigalaa", "override": "Bakka bu'iinsa piroofaayilii", "resolved": "Ga'umsa dhumaa"},
+			"destination": {
+				"global": "Ga'umsa waliigalaa",
+				"override": "Bakka bu'iinsa piroofaayilii",
+				"resolved": "Ga'umsa dhumaa",
+				"defaultFolder": "Galee buufata durtii",
+				"defaultFolderWithSubfolder": "Galee buufata durtii / {{subfolder}}",
+				"globalActive": "Hojiirra jira",
+				"globalInherited": "Dhaalame",
+				"overrideSet": "Waliigalaa bakka bu'a",
+				"overrideChoosing": "Galee filadhu",
+				"overrideNone": "Bakka bu'iinsi hin qabamne",
+				"overrideSetNote": "Piroofaayiliin kun osoo galee xiqqaan hin dabalamin, roota mataa isaatti olkaa'a.",
+				"overrideNoneNote": "Bakka bu'iinsi hin qabamne. Piroofaayiliin kun ga'umsa waliigalaa armaan olii fayyadama."
+			},
 			"note": {
 				"subtitlesOnly": "Piroofaayiliin kun faayilii ergaa gadii qofa tarree keessa kaa'a. Viidiyoon, sagaleen, SponsorBlock fi jijjiirraan miidiyaa ni darbatamu.",
 				"noSubtitles": "Piroofaayilii kanaaf faayiliin ergaa gadii ykn sararri ergaa gadii keessatti galfame hin gaafatamu.",
@@ -670,7 +683,7 @@
 				"autoCaptionsSrt": "Ergaan gadii ofumaan uumame bakka ASS SRT ta'ee ni olkaa'ama.",
 				"skippedForOutputType": "Gosa bahaa kanaaf darbameera."
 			},
-			"error": {"save": "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne.", "changeGlobalDestination": "Ga'umsa waliigalaa jijjiiruun hin danda'amne.", "reset": "Qindaa'inni piroofaayilii haaromsuun hin danda'amne."},
+			"error": {"save": "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne.", "changeGlobalDestination": "Ga'umsa waliigalaa jijjiiruun hin danda'amne.", "reset": "Qindaa'inni piroofaayilii haaromsuun hin danda'amne.", "folderPicker": "Filannoo galee banuun hin danda'amne. Daandii harkaan galchi."},
 			"mediaMode": {
 				"videoAudio": {"label": "Viidiyoo + sagalee", "description": "Faayilii viidiyoo idilee"},
 				"videoOnly": {"label": "Viidiyoo, sagalee malee", "description": "Viidiyoo sagalee hin qabne qofa"},

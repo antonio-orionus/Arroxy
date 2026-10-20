@@ -1,5 +1,5 @@
 {
-	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "loading": "読み込み中…", "retry": "再試行", "dismiss": "閉じる", "startOver": "最初からやり直す"},
+	"common": {"back": "戻る", "cancel": "キャンセル", "continue": "続行", "loading": "読み込み中…", "retry": "再試行", "dismiss": "閉じる", "startOver": "最初からやり直す", "close": "閉じる"},
 	"app": {
 		"feedback": "フィードバック",
 		"logs": "ログ",
@@ -621,7 +621,20 @@
 				"save": "プロフィールを保存"
 			},
 			"placeholder": {"folder": "このプロフィール用のフォルダーを選択"},
-			"destination": {"global": "全体の保存先", "override": "プロフィール個別設定", "resolved": "最終的な保存先"},
+			"destination": {
+				"global": "全体の保存先",
+				"override": "プロフィール個別設定",
+				"resolved": "最終的な保存先",
+				"defaultFolder": "既定のダウンロードフォルダー",
+				"defaultFolderWithSubfolder": "既定のダウンロードフォルダー / {{subfolder}}",
+				"globalActive": "使用中",
+				"globalInherited": "継承",
+				"overrideSet": "全体設定を上書き",
+				"overrideChoosing": "フォルダーを選択",
+				"overrideNone": "個別設定なし",
+				"overrideSetNote": "このプロフィールは、サブフォルダーが追加される前に、独自のルートフォルダーに保存します。",
+				"overrideNoneNote": "個別設定はありません。このプロフィールは上の全体の保存先を使います。"
+			},
 			"note": {
 				"subtitlesOnly": "このプロフィールは字幕ファイルのみをキューに追加します。動画、音声、SponsorBlock、メディア変換はスキップされます。",
 				"noSubtitles": "このプロフィールでは字幕ファイルも埋め込み字幕トラックも取得しません。",
@@ -632,7 +645,7 @@
 				"autoCaptionsSrt": "自動字幕は ASS ではなく SRT として保存されます。",
 				"skippedForOutputType": "この出力形式ではスキップされます。"
 			},
-			"error": {"save": "プロフィール設定を保存できませんでした。", "changeGlobalDestination": "全体の保存先を変更できませんでした。", "reset": "プロフィール設定をリセットできませんでした。"},
+			"error": {"save": "プロフィール設定を保存できませんでした。", "changeGlobalDestination": "全体の保存先を変更できませんでした。", "reset": "プロフィール設定をリセットできませんでした。", "folderPicker": "フォルダー選択を開けませんでした。パスを手動で入力してください。"},
 			"mediaMode": {
 				"videoAudio": {"label": "動画 + 音声", "description": "通常の動画ファイル"},
 				"videoOnly": {"label": "動画、音声なし", "description": "音声なしの動画のみ"},

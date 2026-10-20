@@ -1,5 +1,5 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "繼續", "loading": "載入中", "retry": "重試", "dismiss": "關閉", "startOver": "重新開始"},
+	"common": {"back": "返回", "cancel": "取消", "continue": "繼續", "loading": "載入中", "retry": "重試", "dismiss": "關閉", "startOver": "重新開始", "close": "關閉"},
 	"app": {
 		"feedback": "意見回饋",
 		"logs": "記錄",
@@ -571,7 +571,20 @@
 				"save": "儲存設定檔"
 			},
 			"placeholder": {"folder": "選擇此設定檔的資料夾"},
-			"destination": {"global": "全域目的地", "override": "設定檔覆寫", "resolved": "解析後的目的地"},
+			"destination": {
+				"global": "全域目的地",
+				"override": "設定檔覆寫",
+				"resolved": "解析後的目的地",
+				"defaultFolder": "預設下載資料夾",
+				"defaultFolderWithSubfolder": "預設下載資料夾 / {{subfolder}}",
+				"globalActive": "使用中",
+				"globalInherited": "已沿用",
+				"overrideSet": "覆寫全域設定",
+				"overrideChoosing": "選擇資料夾",
+				"overrideNone": "未設定覆寫",
+				"overrideSetNote": "此設定檔會先儲存到自己的根目錄，再加上子資料夾。",
+				"overrideNoneNote": "未設定覆寫。此設定檔會使用上方的全域目的地。"
+			},
 			"note": {
 				"subtitlesOnly": "此設定檔只會將字幕檔案加入佇列。影片、音訊、SponsorBlock 與媒體轉換皆會略過。",
 				"noSubtitles": "此設定檔不會要求字幕檔案或嵌入式字幕軌。",
@@ -582,7 +595,7 @@
 				"autoCaptionsSrt": "自動產生的字幕將儲存為 SRT，而非 ASS。",
 				"skippedForOutputType": "此輸出類型會略過。"
 			},
-			"error": {"save": "無法儲存設定檔設定。", "changeGlobalDestination": "無法變更全域目的地。", "reset": "無法重設設定檔設定。"},
+			"error": {"save": "無法儲存設定檔設定。", "changeGlobalDestination": "無法變更全域目的地。", "reset": "無法重設設定檔設定。", "folderPicker": "無法開啟資料夾選擇器，請手動輸入路徑。"},
 			"mediaMode": {"videoAudio": {"label": "影片 + 音訊", "description": "一般影片檔案"}, "videoOnly": {"label": "影片，無音訊", "description": "僅無聲影片"}, "audioOnly": {"label": "僅音訊", "description": "音樂或 Podcast"}, "subtitlesOnly": {"label": "僅字幕", "description": "僅字幕檔案"}},
 			"icon": {"controls": "控制項", "download": "下載", "video": "影片", "captions": "字幕", "audio": "音訊", "music": "音樂", "podcast": "Podcast", "classes": "課程", "clip": "短片", "archive": "封存"},
 			"audioFormat": {"best": "最佳", "wav": "WAV"},

@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "ပယ်ဖျက်မည်"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "ပိတ်မည်"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "ဆက်လက်သွားမည်"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "အကောင်းဆုံး အရည်အသွေး"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "မူလ ဒေါင်းလုဒ် ဖိုင်တွဲ"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "မူလ ဒေါင်းလုဒ် ဖိုင်တွဲ / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "အထွေထွေ ဦးတည်ရာ"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "အသုံးပြုနေသည်"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "ဆက်ခံထားသည်"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "ပရိုဖိုင် အစားထိုးမှု"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "ဖိုင်တွဲ ရွေးပါ"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "အစားထိုးမှု မရှိပါ"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "အစားထိုးမှု မသတ်မှတ်ထားပါ။ ဤပရိုဖိုင်သည် အထက်ရှိ အထွေထွေ ဦးတည်ရာကို သုံးသည်။"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "အထွေထွေကို အစားထိုးသည်"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "ဤပရိုဖိုင်သည် ဖိုင်တွဲခွဲ မထည့်မီ ၎င်း၏ကိုယ်ပိုင် အမြစ်ဖိုင်တွဲထဲသို့ သိမ်းဆည်းသည်။"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "ဒေါင်းလုဒ် ပရိုဖိုင်"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "အထွေထွေ ဦးတည်ရာကို မပြောင်းနိုင်ပါ။"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "ဖိုင်တွဲရွေးချယ်စနစ်ကို ဖွင့်၍မရပါ။ လမ်းကြောင်းကို ကိုယ်တိုင် ရိုက်ထည့်ပါ။"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

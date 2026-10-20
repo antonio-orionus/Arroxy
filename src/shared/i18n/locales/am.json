@@ -1,5 +1,5 @@
 {
-	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "dismiss": "ዝጋ", "startOver": "ከመጀመሪያ ጀምር"},
+	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "dismiss": "ዝጋ", "startOver": "ከመጀመሪያ ጀምር", "close": "ዝጋ"},
 	"app": {
 		"feedback": "አስተያየት",
 		"logs": "ምዝግቦች",
@@ -589,7 +589,20 @@
 				"save": "መገለጫ አስቀምጥ"
 			},
 			"placeholder": {"folder": "ለዚህ መገለጫ አቃፊ ይምረጡ"},
-			"destination": {"global": "አጠቃላይ መድረሻ", "override": "የመገለጫ ተሻሪ", "resolved": "የመጨረሻ መድረሻ"},
+			"destination": {
+				"global": "አጠቃላይ መድረሻ",
+				"override": "የመገለጫ ተሻሪ",
+				"resolved": "የመጨረሻ መድረሻ",
+				"defaultFolder": "ነባሪ የውርዶች አቃፊ",
+				"defaultFolderWithSubfolder": "ነባሪ የውርዶች አቃፊ / {{subfolder}}",
+				"globalActive": "ንቁ",
+				"globalInherited": "የተወረሰ",
+				"overrideSet": "አጠቃላዩን ይተካል",
+				"overrideChoosing": "አቃፊ ይምረጡ",
+				"overrideNone": "ተሻሪ አልተዘጋጀም",
+				"overrideSetNote": "ይህ መገለጫ ንዑስ አቃፊው ከመጨመሩ በፊት በራሱ ስር አቃፊ ያስቀምጣል።",
+				"overrideNoneNote": "ተሻሪ አልተዘጋጀም። ይህ መገለጫ ከላይ ያለውን አጠቃላይ መድረሻ ይጠቀማል።"
+			},
 			"note": {
 				"subtitlesOnly": "ይህ መገለጫ የትርጉም ጽሑፍ ፋይሎችን ብቻ ወደ ወረፋ ያስገባል። ቪዲዮ፣ ድምፅ፣ SponsorBlock እና የሚዲያ ልወጣ ይዘለላሉ።",
 				"noSubtitles": "ለዚህ መገለጫ ምንም የትርጉም ጽሑፍ ፋይል ወይም የተካተተ የትርጉም ትራክ አይጠየቅም።",
@@ -600,7 +613,7 @@
 				"autoCaptionsSrt": "ራስ-ሰር መግለጫ ጽሑፎች በASS ፋንታ በSRT ይቀመጣሉ።",
 				"skippedForOutputType": "ለዚህ የውጤት ዓይነት ተዘሏል።"
 			},
-			"error": {"save": "የመገለጫ ቅንብሮችን ማስቀመጥ አልተቻለም።", "changeGlobalDestination": "አጠቃላይ መድረሻን መቀየር አልተቻለም።", "reset": "የመገለጫ ቅንብሮችን ዳግም ማስጀመር አልተቻለም።"},
+			"error": {"save": "የመገለጫ ቅንብሮችን ማስቀመጥ አልተቻለም።", "changeGlobalDestination": "አጠቃላይ መድረሻን መቀየር አልተቻለም።", "reset": "የመገለጫ ቅንብሮችን ዳግም ማስጀመር አልተቻለም።", "folderPicker": "የአቃፊ መምረጫን መክፈት አልተቻለም። መንገዱን በእጅ ያስገቡ።"},
 			"mediaMode": {"videoAudio": {"label": "ቪዲዮ + ድምፅ", "description": "መደበኛ የቪዲዮ ፋይሎች"}, "videoOnly": {"label": "ቪዲዮ፣ ያለ ድምፅ", "description": "ድምፅ የሌለው ቪዲዮ ብቻ"}, "audioOnly": {"label": "ድምፅ ብቻ", "description": "ሙዚቃ ወይም ፖድካስት"}, "subtitlesOnly": {"label": "ንዑስ ርዕሶች ብቻ", "description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"}},
 			"icon": {"controls": "መቆጣጠሪያዎች", "download": "ማውረድ", "video": "ቪዲዮ", "captions": "መግለጫ ጽሑፎች", "audio": "ድምፅ", "music": "ሙዚቃ", "podcast": "ፖድካስት", "classes": "ትምህርቶች", "clip": "ቁራጭ", "archive": "መዝገብ"},
 			"audioFormat": {"best": "ምርጥ", "wav": "WAV"},

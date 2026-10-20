@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "منسوخ کریں"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "بند کریں"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "جاری رکھیں"
@@ -3427,13 +3431,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "بہترین معیار"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "ڈیفالٹ ڈاؤن لوڈز فولڈر"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "ڈیفالٹ ڈاؤن لوڈز فولڈر / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "عالمی منزل"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "فعال"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "وراثت میں ملا"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "پروفائل اووررائیڈ"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "فولڈر منتخب کریں"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "کوئی اووررائیڈ مقرر نہیں"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "کوئی اووررائیڈ مقرر نہیں۔ یہ پروفائل اوپر والی عالمی منزل استعمال کرتا ہے۔"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "عالمی کو اووررائیڈ کرتا ہے"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "یہ پروفائل ذیلی فولڈر شامل ہونے سے پہلے اپنے ہی روٹ میں محفوظ کرتا ہے۔"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3450,6 +3490,10 @@ msgstr "ڈاؤن لوڈ پروفائل"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "عالمی منزل تبدیل نہیں کی جا سکی۔"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔ راستہ خود درج کریں۔"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

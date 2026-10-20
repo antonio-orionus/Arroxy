@@ -95,6 +95,10 @@ msgctxt "common.cancel"
 msgid "Cancel"
 msgstr "取消"
 
+msgctxt "common.close"
+msgid "Close"
+msgstr "關閉"
+
 msgctxt "common.continue"
 msgid "Continue"
 msgstr "繼續"
@@ -3282,13 +3286,49 @@ msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "最佳畫質"
 
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "預設下載資料夾"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "預設下載資料夾 / {{subfolder}}"
+
 msgctxt "wizard.profileEditor.destination.global"
 msgid "Global destination"
 msgstr "全域目的地"
 
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "使用中"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "已沿用"
+
 msgctxt "wizard.profileEditor.destination.override"
 msgid "Profile override"
 msgstr "設定檔覆寫"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "選擇資料夾"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "未設定覆寫"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "未設定覆寫。此設定檔會使用上方的全域目的地。"
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "覆寫全域設定"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "此設定檔會先儲存到自己的根目錄，再加上子資料夾。"
 
 msgctxt "wizard.profileEditor.destination.resolved"
 msgid "Resolved destination"
@@ -3305,6 +3345,10 @@ msgstr "下載設定檔"
 msgctxt "wizard.profileEditor.error.changeGlobalDestination"
 msgid "Could not change global destination."
 msgstr "無法變更全域目的地。"
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "無法開啟資料夾選擇器，請手動輸入路徑。"
 
 msgctxt "wizard.profileEditor.error.reset"
 msgid "Could not reset profile settings."

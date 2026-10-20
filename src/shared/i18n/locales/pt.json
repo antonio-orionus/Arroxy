@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Voltar", "cancel": "Cancelar", "continue": "Continuar", "loading": "Carregando…", "retry": "Tentar novamente", "dismiss": "Dispensar", "startOver": "Recomeçar"},
+	"common": {"back": "Voltar", "cancel": "Cancelar", "continue": "Continuar", "loading": "Carregando…", "retry": "Tentar novamente", "dismiss": "Dispensar", "startOver": "Recomeçar", "close": "Fechar"},
 	"app": {
 		"feedback": "Feedback",
 		"logs": "Logs",
@@ -664,7 +664,20 @@
 				"save": "Salvar perfil"
 			},
 			"placeholder": {"folder": "Escolha uma pasta para este perfil"},
-			"destination": {"global": "Destino global", "override": "Específico do perfil", "resolved": "Destino final"},
+			"destination": {
+				"global": "Destino global",
+				"override": "Específico do perfil",
+				"resolved": "Destino final",
+				"defaultFolder": "Pasta de downloads padrão",
+				"defaultFolderWithSubfolder": "Pasta de downloads padrão / {{subfolder}}",
+				"globalActive": "Ativo",
+				"globalInherited": "Herdado",
+				"overrideSet": "Substitui o global",
+				"overrideChoosing": "Escolher pasta",
+				"overrideNone": "Sem pasta específica",
+				"overrideSetNote": "Este perfil salva na própria pasta raiz antes de a subpasta ser adicionada.",
+				"overrideNoneNote": "Nenhuma pasta específica definida. Este perfil usa o destino global acima."
+			},
 			"note": {
 				"subtitlesOnly": "Este perfil enfileira apenas arquivos de legenda. Vídeo, áudio, SponsorBlock e conversão de mídia são ignorados.",
 				"noSubtitles": "Nenhum arquivo de legenda ou faixa de legenda embutida será solicitado para este perfil.",
@@ -675,7 +688,7 @@
 				"autoCaptionsSrt": "Legendas automáticas serão salvas como SRT em vez de ASS.",
 				"skippedForOutputType": "Ignorado para este tipo de saída."
 			},
-			"error": {"save": "Não foi possível salvar as configurações do perfil.", "changeGlobalDestination": "Não foi possível alterar o destino global.", "reset": "Não foi possível redefinir as configurações do perfil."},
+			"error": {"save": "Não foi possível salvar as configurações do perfil.", "changeGlobalDestination": "Não foi possível alterar o destino global.", "reset": "Não foi possível redefinir as configurações do perfil.", "folderPicker": "Não foi possível abrir o seletor de pastas. Digite o caminho manualmente."},
 			"mediaMode": {
 				"videoAudio": {"label": "Vídeo + áudio", "description": "Arquivos de vídeo normais"},
 				"videoOnly": {"label": "Vídeo, sem áudio", "description": "Apenas vídeo mudo"},
