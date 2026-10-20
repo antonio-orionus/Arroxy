@@ -100,6 +100,13 @@ describe('inFlightReserve — the names yt-dlp writes before the finished file',
 		expect(JOB_TEMP_DIR_DEPTH).toBe(`/${TEMP_DIR_NAME}/${'0123abcd'}`.length)
 		expect(RESERVE.path).toBe(RESERVE.component + JOB_TEMP_DIR_DEPTH)
 	})
+
+	it('charges a subtitles-only job for the subtitles subfolder, not the media temp folder', () => {
+		// Subtitles-only jobs never write into `.arroxy-temp`; the deepest they go
+		// is the `subtitles/` subfolder (planCallerSubtitlesWorkflow).
+		const reserve = inFlightReserve({formats: [], subtitleLanguages: ['en']})
+		expect(reserve.path).toBe(reserve.component + '/subtitles'.length)
+	})
 })
 
 describe('requestedFormats', () => {

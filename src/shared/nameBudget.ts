@@ -78,10 +78,10 @@ const REGIONAL_VARIANT = '-Hans'
 
 // Media is downloaded into `<outputDir>/.arroxy-temp/<job id, 8 chars>/` and
 // moved out when finished, so its in-flight names sit that much deeper than the
-// output folder. It is the deepest folder anything lands in: subtitles go to
-// the output folder or its `subtitles/` subfolder, or into the same job folder
-// when yt-dlp embeds them.
+// output folder; subtitles a media job embeds land there too. A subtitles-only
+// job never uses that folder, and goes at most one `subtitles/` deeper.
 export const JOB_TEMP_DIR_DEPTH = '/.arroxy-temp/'.length + 8
+const SUBTITLE_DIR_DEPTH = '/subtitles'.length
 
 function formatSuffix({formatId, ext}: InFlightFormat): number {
 	const longestExt = ext.length > MIN_EXT.length ? ext : MIN_EXT
@@ -102,7 +102,7 @@ export function inFlightReserve(files: InFlightFiles): InFlightReserve {
 	const media = Math.max(0, ...formats.map(formatSuffix))
 	const subtitles = Math.max(0, ...files.subtitleLanguages.map(subtitleSuffix))
 	const longest = Math.max(media, subtitles)
-	return {component: longest, path: longest + JOB_TEMP_DIR_DEPTH}
+	return {component: longest, path: longest + (media > 0 ? JOB_TEMP_DIR_DEPTH : SUBTITLE_DIR_DEPTH)}
 }
 
 /**
