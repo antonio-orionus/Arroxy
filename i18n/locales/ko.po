@@ -252,6 +252,10 @@ msgctxt "errors.ytdlp.outputNotWritable"
 msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
 msgstr "Arroxy가 다운로드 폴더에 쓸 수 없습니다. 폴더가 읽기 전용이거나, 잠긴 드라이브에 있거나, 시스템의 개인정보 보호 설정으로 차단되었을 수 있습니다. 다른 폴더를 선택하거나 접근을 허용한 뒤 다시 시도하세요."
 
+msgctxt "errors.ytdlp.outputPathExpands"
+msgid "The download folder's path contains something the download engine reads as a variable, such as $HOME or %USERPROFILE%, so the files would be saved in another folder. Rename the folder or choose another one, then retry."
+msgstr "다운로드 폴더 경로에 다운로드 엔진이 변수로 해석하는 내용($HOME, %USERPROFILE% 등)이 들어 있어 파일이 다른 폴더에 저장됩니다. 폴더 이름을 바꾸거나 다른 폴더를 선택한 뒤 다시 시도하세요."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr "사이트의 응답을 분석할 수 없습니다. 사이트가 동영상을 제공하는 방식이 바뀌었을 수 있습니다. Arroxy는 시작 시 다운로드 엔진을 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요."
@@ -1812,6 +1816,10 @@ msgstr "파일 이동 중…"
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}}에 저장할 수 없습니다 — Arroxy에 그곳에 쓸 권한이 없습니다"
+
+msgctxt "status.outputPathExpands"
+msgid "Can't save to {{dir}}: the download engine would read part of its path as a variable"
+msgstr "{{dir}}에 저장할 수 없습니다 — 다운로드 엔진이 경로의 일부를 변수로 해석합니다"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

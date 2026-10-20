@@ -257,6 +257,10 @@ msgctxt "errors.ytdlp.outputNotWritable"
 msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
 msgstr "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i."
 
+msgctxt "errors.ytdlp.outputPathExpands"
+msgid "The download folder's path contains something the download engine reads as a variable, such as $HOME or %USERPROFILE%, so the files would be saved in another folder. Rename the folder or choose another one, then retry."
+msgstr "Karaan galmee buufataa wanta injiniin buusuu akka jijjiiramaatti dubbisu, kan akka $HOME ykn %USERPROFILE%, of keessaa qaba; kanaaf faayiloonni galmee biraa keessatti ni olkaa'amu. Galmee kana maqaa jijjiiri ykn galmee biraa filadhu, achiin irra deebi'i."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Saayitichi viidiyoo akkamitti akka dhiheessu jijjiirrachuu danda'a. Arroxy yeroo banamu injinii buusuu isaa haaromsa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i."
@@ -1862,6 +1866,10 @@ msgstr "Faayiloota daddabarsamaa jira…"
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu"
+
+msgctxt "status.outputPathExpands"
+msgid "Can't save to {{dir}}: the download engine would read part of its path as a variable"
+msgstr "{{dir}} keessatti olkaa'uun hin danda'amu — injinii buusuu kun kutaa karaa isaa akka jijjiiramaatti dubbisa"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

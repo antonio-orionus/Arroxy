@@ -257,6 +257,10 @@ msgctxt "errors.ytdlp.outputNotWritable"
 msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
 msgstr "Arroxy ڈاؤن لوڈ فولڈر میں نہیں لکھ سکتا۔ ہو سکتا ہے وہ صرف پڑھنے کے لیے ہو، کسی لاک شدہ ڈرائیو پر ہو، یا آپ کے سسٹم کی رازداری کی ترتیبات نے اسے روک رکھا ہو۔ کوئی دوسرا فولڈر منتخب کریں یا رسائی کی اجازت دیں، پھر دوبارہ کوشش کریں۔"
 
+msgctxt "errors.ytdlp.outputPathExpands"
+msgid "The download folder's path contains something the download engine reads as a variable, such as $HOME or %USERPROFILE%, so the files would be saved in another folder. Rename the folder or choose another one, then retry."
+msgstr "ڈاؤن لوڈ فولڈر کے راستے میں کوئی ایسی چیز ہے جسے ڈاؤن لوڈ انجن متغیر کے طور پر پڑھتا ہے، جیسے $HOME یا %USERPROFILE%، اس لیے فائلیں کسی اور فولڈر میں محفوظ ہوں گی۔ فولڈر کا نام بدلیں یا کوئی دوسرا فولڈر منتخب کریں، پھر دوبارہ کوشش کریں۔"
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr "سائٹ کا جواب پارس نہیں ہو سکا۔ ممکن ہے سائٹ نے ویڈیوز پیش کرنے کا طریقہ بدل دیا ہو۔ Arroxy لانچ پر اپنا ڈاؤن لوڈ انجن اپ ڈیٹ کرتا ہے — چند منٹ بعد دوبارہ کوشش کریں جب فکس آ جائے۔"
@@ -1862,6 +1866,10 @@ msgstr "فائلیں منتقل ہو رہی ہیں…"
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} میں محفوظ نہیں کیا جا سکتا — Arroxy کو وہاں لکھنے کی اجازت نہیں"
+
+msgctxt "status.outputPathExpands"
+msgid "Can't save to {{dir}}: the download engine would read part of its path as a variable"
+msgstr "{{dir}} میں محفوظ نہیں کیا جا سکتا: ڈاؤن لوڈ انجن اس کے راستے کے کچھ حصے کو متغیر کے طور پر پڑھے گا"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

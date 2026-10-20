@@ -262,6 +262,10 @@ msgctxt "errors.ytdlp.outputNotWritable"
 msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
 msgstr "Arroxy не може да пише у фасциклу за преузимања. Можда је само за читање, на закључаном диску или је блокирана подешавањима приватности система. Изабери другу фасциклу или дозволи приступ, па покушај поново."
 
+msgctxt "errors.ytdlp.outputPathExpands"
+msgid "The download folder's path contains something the download engine reads as a variable, such as $HOME or %USERPROFILE%, so the files would be saved in another folder. Rename the folder or choose another one, then retry."
+msgstr "Путања фасцикле за преузимања садржи нешто што механизам за преузимање чита као променљиву, на пример $HOME или %USERPROFILE%, па би се фајлови сачували у другој фасцикли. Преименуј фасциклу или изабери другу, па покушај поново."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr "Није било могуће парсирати одговор сајта. Сајт је можда променио начин на који служи видео снимке. Arroxy ажурира механизам за преузимање при покретању — покушај поново за неколико минута када исправка буде објављена."
@@ -1912,6 +1916,10 @@ msgstr "Премештање датотека…"
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Није могуће сачувати у {{dir}} — Arroxy нема дозволу да пише тамо"
+
+msgctxt "status.outputPathExpands"
+msgid "Can't save to {{dir}}: the download engine would read part of its path as a variable"
+msgstr "Није могуће сачувати у {{dir}}: механизам за преузимање би део његове путање прочитао као променљиву"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

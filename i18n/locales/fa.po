@@ -257,6 +257,10 @@ msgctxt "errors.ytdlp.outputNotWritable"
 msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
 msgstr "Arroxy نمی‌تواند در پوشهٔ دانلود بنویسد. ممکن است فقط‌خواندنی باشد، روی درایوی قفل‌شده باشد یا تنظیمات حریم خصوصی سیستم شما جلوی آن را گرفته باشد. پوشهٔ دیگری انتخاب کنید یا اجازهٔ دسترسی بدهید و دوباره تلاش کنید."
 
+msgctxt "errors.ytdlp.outputPathExpands"
+msgid "The download folder's path contains something the download engine reads as a variable, such as $HOME or %USERPROFILE%, so the files would be saved in another folder. Rename the folder or choose another one, then retry."
+msgstr "مسیر پوشهٔ دانلود چیزی دارد که موتور دانلود آن را به‌عنوان متغیر می‌خواند، مانند $HOME یا %USERPROFILE%، بنابراین فایل‌ها در پوشهٔ دیگری ذخیره می‌شوند. نام پوشه را تغییر دهید یا پوشهٔ دیگری انتخاب کنید و دوباره تلاش کنید."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
 msgstr "پاسخ سایت قابل تجزیه نبود. ممکن است سایت شیوهٔ ارائهٔ ویدیوها را تغییر داده باشد. Arroxy هنگام اجرا موتور دانلود خود را به‌روزرسانی می‌کند — چند دقیقه پس از انتشار اصلاح دوباره تلاش کنید."
@@ -1862,6 +1866,10 @@ msgstr "در حال جابه‌جایی فایل‌ها…"
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "ذخیره در {{dir}} ممکن نیست — Arroxy اجازهٔ نوشتن در آنجا را ندارد"
+
+msgctxt "status.outputPathExpands"
+msgid "Can't save to {{dir}}: the download engine would read part of its path as a variable"
+msgstr "ذخیره در {{dir}} ممکن نیست — موتور دانلود بخشی از مسیر آن را به‌عنوان متغیر می‌خواند"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
