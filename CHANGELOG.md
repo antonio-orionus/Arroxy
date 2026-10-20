@@ -12,6 +12,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Fixes
 
+- Review is easier to scan: each row has an icon, settings that are on stand out from those that are off, and a dot marks what you changed from your profile. It opens with every row folded, and long labels no longer wrap in other languages.
 - YouTube's automatic captions show their language name, without a confusing "(Original)".
 - A profile can fetch uploaded and automatic subtitles of the same language side by side (**Manual and auto**). Saving a download that picked both now keeps both.
 - An automatic caption gets the same file name and track language whether you picked it or your profile did. Embedded next to uploaded subtitles of the same language, it is marked "Auto-generated".
