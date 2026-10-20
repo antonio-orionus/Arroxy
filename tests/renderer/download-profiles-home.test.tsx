@@ -243,3 +243,88 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		expect(screen.getByTestId('profiles-manage-card-balanced-enabled-toggle')).toBeInTheDocument()
 	})
 })
+
+describe('DownloadProfilesHome profiles tab reordering', () => {
+	beforeEach(() => {
+		window.appApi = buildMockAppApi()
+		window.history.replaceState(null, '', '#profiles')
+		localStorage.clear()
+		useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadProgressFailed: 0, settings: defaultAppSettings('/tmp')})
+		vi.mocked(window.appApi.settings.update).mockImplementation(async patch => {
+			const current = useAppStore.getState().settings
+			return ok({...current, profiles: {...current?.profiles, ...patch.profiles}} as AppSettings)
+		})
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
+
+	const cardIds = (): string[] => screen.getAllByTestId(/^profiles-manage-card-[^-]+(?:-[^-]+)*$/).flatMap(node => (node.tagName === 'ARTICLE' ? [node.dataset.testid?.replace('profiles-manage-card-', '') ?? ''] : []))
+
+	// jsdom lays nothing out: give each profile card a box in a two-column grid,
+	// in DOM order, so keyboard moves can find the card beside it.
+	function stubCardGrid(): void {
+		const original = HTMLElement.prototype.getBoundingClientRect
+		vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+			if (this.tagName !== 'ARTICLE' || !this.parentElement) return original.call(this)
+			const index = Array.from(this.parentElement.children).indexOf(this)
+			const left = (index % 2) * 300
+			const top = Math.floor(index / 2) * 100
+			return {x: left, y: top, left, top, width: 280, height: 90, right: left + 280, bottom: top + 90, toJSON: () => ({})}
+		})
+	}
+
+	const settle = (): Promise<void> =>
+		act(async () => {
+			await new Promise(resolve => setTimeout(resolve, 0))
+		})
+
+	it('moves a profile with the keyboard from its grip, announces it and saves the order', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+		expect(cardIds().slice(0, 2)).toEqual(['best-quality', 'best-2160'])
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		expect(grip).toHaveAttribute('aria-roledescription', 'movable profile')
+		grip.focus()
+		fireEvent.keyDown(grip, {code: 'Space', key: ' '})
+		await settle()
+		expect(screen.getByText('Picked up Best available. It is in position 1 of 13.')).toBeInTheDocument()
+		fireEvent.keyDown(document, {code: 'ArrowRight', key: 'ArrowRight'})
+		await settle()
+		fireEvent.keyDown(document, {code: 'Space', key: ' '})
+
+		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledTimes(1))
+		expect(window.appApi.settings.update).toHaveBeenCalledWith({profiles: expect.objectContaining({order: expect.arrayContaining(['best-2160', 'best-quality'])})})
+		await waitFor(() => expect(cardIds().slice(0, 2)).toEqual(['best-2160', 'best-quality']))
+		expect(screen.getByText('Dropped Best available in position 2 of 13.')).toBeInTheDocument()
+	})
+
+	it('picks nothing up when Space is pressed on a card button other than the grip', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const edit = within(screen.getByTestId('profiles-manage-card-best-quality')).getByRole('button', {name: 'Edit'})
+		edit.focus()
+		fireEvent.keyDown(edit, {code: 'Space', key: ' '})
+		await settle()
+		fireEvent.keyDown(document, {code: 'ArrowRight', key: 'ArrowRight'})
+		await settle()
+		fireEvent.keyDown(document, {code: 'Space', key: ' '})
+		await settle()
+
+		expect(screen.queryByText(/Picked up/)).not.toBeInTheDocument()
+		expect(window.appApi.settings.update).not.toHaveBeenCalled()
+	})
+
+	it('lists profiles in the saved order in the Quick Download profile menu', () => {
+		window.history.replaceState(null, '', '#download')
+		useAppStore.setState({settings: {...defaultAppSettings('/tmp'), profiles: {...defaultAppSettings('/tmp').profiles, order: ['audio-only', 'mp4-720']}}, wizardUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+		render(<DownloadProfilesHome />)
+
+		fireEvent.click(screen.getByTestId('profiles-active-profile-trigger'))
+		const options = screen.getAllByTestId(/^profiles-profile-option-/).map(node => node.dataset.testid?.replace('profiles-profile-option-', ''))
+		expect(options.slice(0, 3)).toEqual(['audio-only', 'mp4-720', 'best-quality'])
+	})
+})

@@ -52,9 +52,19 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 
 	const nameOf = (id: UniqueIdentifier): string => profiles.find(profile => profile.id === id)?.name ?? String(id)
 	const placeOf = (id: UniqueIdentifier): {position: number; count: number} => ({position: profiles.findIndex(profile => profile.id === id) + 1, count: profiles.length})
+	// A pick-up is also over its own slot at once; announcing that would replace
+	// the pick-up message before a screen reader reads it.
+	const movedRef = useRef(false)
 	const announcements: Announcements = {
-		onDragStart: ({active}) => t('wizard.url.profile.movePickedUp', {profileName: nameOf(active.id), ...placeOf(active.id)}),
-		onDragOver: ({active, over}) => (over ? t('wizard.url.profile.moveOver', {profileName: nameOf(active.id), ...placeOf(over.id)}) : undefined),
+		onDragStart: ({active}) => {
+			movedRef.current = false
+			return t('wizard.url.profile.movePickedUp', {profileName: nameOf(active.id), ...placeOf(active.id)})
+		},
+		onDragOver: ({active, over}) => {
+			if (!over || (over.id === active.id && !movedRef.current)) return undefined
+			movedRef.current = true
+			return t('wizard.url.profile.moveOver', {profileName: nameOf(active.id), ...placeOf(over.id)})
+		},
 		onDragEnd: ({active, over}) => t('wizard.url.profile.moveDropped', {profileName: nameOf(active.id), ...placeOf(over?.id ?? active.id)}),
 		onDragCancel: ({active}) => t('wizard.url.profile.moveCancelled', {profileName: nameOf(active.id), ...placeOf(active.id)})
 	}

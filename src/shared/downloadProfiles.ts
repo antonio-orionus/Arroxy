@@ -211,7 +211,7 @@ export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id:
 	}
 	const custom = normalized.custom.filter(profile => profile.id !== id)
 	const activeRemoved = normalized.active.kind === 'custom' && normalized.active.id === id
-	return {...normalized, active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : normalized.active, custom}
+	return normalizeDownloadProfilesPrefs({...normalized, active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : normalized.active, custom})
 }
 
 export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: string, enabled: boolean): DownloadProfilesPrefs {
