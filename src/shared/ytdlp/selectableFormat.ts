@@ -64,14 +64,14 @@ export interface FormatSelectionSource {
 export const EMPTY_FORMAT_SELECTION: FormatSelectionSource = {formats: [], sortFields: []}
 
 // Raw formats that don't parse as a format are left out, as the Format screen leaves them out.
-export function selectableFormats(raw: readonly unknown[]): YtDlpSelectableFormat[] {
+function selectableFormats(raw: readonly unknown[]): YtDlpSelectableFormat[] {
 	return raw.flatMap(format => {
 		const parsed = ytDlpSelectableFormatSchema.safeParse(format)
 		return parsed.success ? [parsed.data] : []
 	})
 }
 
-export function formatSortFields(raw: unknown): string[] {
+function formatSortFields(raw: unknown): string[] {
 	const parsed = z.array(z.string()).safeParse(raw)
 	return parsed.success ? parsed.data : []
 }

@@ -128,7 +128,7 @@ function parseAtom(text: string): Atom {
 	return {spec, filters}
 }
 
-export function parseFormatSelector(selector: string): readonly Alternative[] {
+function parseFormatSelector(selector: string): readonly Alternative[] {
 	return splitTopLevel(selector, '/').map(alternative => {
 		const parts = splitTopLevel(alternative, '+').map(parseAtom)
 		const [first, second] = parts

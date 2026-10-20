@@ -72,6 +72,7 @@
 		"knip": "knip",
 		"knip:test-only": "node scripts/find-test-only-exports.mjs",
 		"check:loc": "node scripts/check-ts-max-loc.mjs",
+		"check:selection-parity": "bun scripts/check-selection-parity.ts",
 		"check:pins": "node scripts/check-dependency-pins.mjs",
 		"check:donation-addresses": "node scripts/check-donation-addresses.mjs",
 		"deps:vuln": "bun scripts/depsVuln.ts",
