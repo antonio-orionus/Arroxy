@@ -1,0 +1,5066 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Относно"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · от Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Относно Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Бърза и удобна програма за изтегляне от YouTube и над 2000 други сайта."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Преглед на известията за трети страни"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Уебсайт"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Разрешаване"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube предлага някои стари видеа в размери, създадени с ИИ. „Пропускане“ запазва оригиналните потоци; увеличен поток пак можете да изберете ръчно."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Потоци, увеличени с ИИ"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Пропускане"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Отзиви"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Харесва ли ви Arroxy? Ще се радвам да чуя мнението ви! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Дневници"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Запазване на диагностичен файл"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Събира дневниците и данните за приложението в един файл в „Изтегляния“, готов за прикачване към проблем в GitHub. Името на вашата потребителска папка се премахва; връзките и заглавията на видеата остават."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Ново: изберете Aurora или Минимален тук"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Тема"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Увеличаване"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Намаляване"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Затваряне"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Продължи"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Отхвърляне"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Зареждане"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Започване отначало"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy продължава да работи и довършва активните изтегляния. Можете да промените това по-късно в разширените настройки."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Скриване в системната област"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Да се скрие ли Arroxy в системната област при затваряне?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Изход"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Не питай отново"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Отмяна на изтеглянията и изход"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Поставете на пауза, за да продължите по-късно, или отменете, за да изгубите напредъка."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Продължаване на изтеглянето"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} изтегляне в ход"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} изтегляния в ход"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Пауза на изтеглянията и изход"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Процесът на визуализация се срина ({{reason}}). Презаредете, за да опитате отново."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy срещна проблем"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Изход"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Презареждане"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Копирано!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Копиране на адреса"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy е безплатен и с отворен код, без реклами и платено ниво. Даренията са по желание и не дават влияние върху плановете за развитие."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Дарение"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Подкрепете Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR код на адреса за дарения в {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Подкрепете Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Плащанията с криптовалути са необратими. Изпращайте само по показаната мрежа и сравнете целия адрес."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Това видео няма субтитри на следните езици: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Това видео има възрастово ограничение и не може да се изтегли без влязъл акаунт."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Задействана е защита срещу ботове. Най-вероятно използваният от вас IP адрес е отбелязан (диапазон на център за данни или претоварен изход на VPN). Сменете IP адреса или изберете друга точка на VPN и опитайте отново. Ако продължава да не успява, може да е временна промяна от страна на сайта — Arroxy обновява механизма си за изтегляне при стартиране, така че поправката ще пристигне автоматично, щом излезе."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Сървърът непрекъснато прекъсваше изтеглянето по средата и Arroxy се отказа след няколко опита. Това обикновено засяга най-големите видеоформати (4K HDR / VP9 с висок битрейт). Опитайте отново, сменете мрежата/VPN или изберете формат с по-ниска разделителна способност."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Това видео е защитено с DRM. Arroxy не може да премахне DRM, затова файлът не може да се изтегли."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Това видео не е налично във вашия регион."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Изглежда, че вашият IP адрес е блокиран. Опитайте отново по-късно или използвайте VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Това видео изисква влязъл акаунт."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy не откри FFmpeg или FFprobe. Стартирайте настройката отново или задайте местоположение на FFmpeg, след което опитайте изтеглянето пак."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Мрежова грешка. Проверете връзката си и опитайте отново."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Това видео няма субтитри на заявените езици."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Недостатъчно място на диска. Освободете място и опитайте отново."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy не може да записва в папката за изтегляне. Тя може да е само за четене, на заключено устройство или блокирана от настройките за поверителност на системата. Изберете друга папка или разрешете достъп, след което опитайте отново."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Отговорът от сайта не можа да се обработи. Възможно е сайтът да е променил начина, по който предоставя видеата. Arroxy обновява механизма си за изтегляне при стартиране — опитайте отново след няколко минути, когато поправката излезе."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Изтеглянето приключи, но последващата обработка (обединяване / мултиплексиране / преобразуване) не успя. Често това е временен проблем с ffmpeg — опитайте отново, а ако продължава, изпробвайте друга комбинация от формати."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Сайтът ограничава честотата на заявките от тази връзка."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Това видео е недостъпно — може да е частно, изтрито или ограничено по регион."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Изтеглянето не успя. Вижте суровия изход по-долу."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy не поддържа този адрес. Опитайте връзка от друг сайт."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Проверете връзката си и опитайте отново."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Тази страница не се зареди"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Отваряне на настройките"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Проверете прокси сървъра в настройките и опитайте отново."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "„Разглеждане“ не може да се свърже през вашия прокси сървър"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Щракнете с десния бутон върху връзка към видео, плейлист или канал на страницата, за да го изтеглите с активния си профил, да изберете друг профил или да отворите пошаговия режим."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Щракнете с десния бутон върху връзка, за да я изтеглите"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Копиране на връзката"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Изтегляне с"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Ново"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Намерете видео в YouTube или друг сайт и го изтеглете оттук — без копиране на връзки. Влезте в сайт тук, за да изтегляте видеа, които изискват акаунт."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Продължи"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Сайтове като YouTube могат да отбелязват — а понякога и да блокират — акаунти, използвани с инструменти за изтегляне като Arroxy. Използвайте акаунт, който можете да си позволите да изгубите, а не основния си."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Влезте с резервен акаунт"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Сърфирайте в мрежата направо в Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Изтеглянията използват бисквитките на браузъра ви, а не влизането ви в „Разглеждане“."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Изтеглянията използват файла ви с бисквитки, а не влизането ви в „Разглеждане“."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Не сега"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Бисквитките са изключени, затова изтеглянията не използват влизането ви в „Разглеждане“."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Използване на влизането от „Разглеждане“"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Разглеждайте YouTube или друг сайт в Arroxy и влизайте за видеа, които изискват акаунт."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Освобождаване на памет при отсъствие"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "След 5 минути в друг раздел затваря началната страница или страницата с резултати на YouTube. При връщане се зарежда отново, което отнема няколко секунди."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Търсачка"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Къде се търси текстът, въведен в адресната лента. Връзките се отварят както са въведени."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Показване на раздела „Разглеждане“"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Изключването спира и използването на влизането ви в „Разглеждане“ при изтегляне."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Излизане от „Разглеждане“"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Излизане"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Това изчиства влизанията и данните за сърфиране в „Разглеждане“ за всички сайтове. Изтеглянията, които изискват акаунт, няма да успяват, докато не влезете отново."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Излизане от „Разглеждане“?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Изчиства влизанията и данните за сърфиране в „Разглеждане“ за всички сайтове."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Разглеждане"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Разглеждане"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube може да оказва съпротива на блокерите на реклами при влезли акаунти."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Блокер на реклами"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Блокер на реклами: изключен — щракнете, за да го включите"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Блокер на реклами: включен — щракнете, за да го изключите"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Блокер на реклами: стартира — щракнете, за да го изключите"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Блокер на реклами: недостъпен, филтриращите му списъци не можаха да бъдат изтеглени — щракнете, за да го изключите"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Адрес"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Търсене в {{engine}} или отваряне на сайт (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Контроли на браузъра „Разглеждане“"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Компактен изглед"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Изтегляне · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Напред"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Показване на пълния изглед"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Отворете видео, плейлист или канал, за да го изтеглите"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Начало на YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Интерактивно изтегляне: изберете формат, субтитри и други…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "„Разглеждане“ не може да отвори този адрес."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Презареждане"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Това търсене е твърде дълго."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Мащаб на страницата: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Увеличаване"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Мащаб на страницата"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Намаляване"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Мащаб в проценти"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Връщане на мащаба на 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Изберете как да се именуват изтеглените файлове. Щракнете върху маркер, за да го вмъкнете. Използвайте /, за да разпределяте изтеглянията по папки."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Въведете шаблон за име на файл."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Премахнете излишното / — всяка папка се нуждае от име."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Премахнете знаците, които не са разрешени в имена на файлове: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Това име на папка не е разрешено. Избягвайте . и .. и запазени имена като CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Добавете {title} или {id} към името на файла, за да получава всяко изтегляне собствено име."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} не може да именува папка — качеството не е известно, докато изтеглянето не започне."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Несдвоена { или } — оградете маркери като {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Шаблонът е твърде дълъг."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Непознат маркер {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Без {id} Arroxy не може да разпознава вече изтеглени елементи от плейлист или да създава .m3u плейлисти."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Шаблон за име на файл"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Недостъпно, защото шаблонът ви за име на файл или не включва {id}, или разпределя изтеглянията по папки."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "В плейлист"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Единично видео"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Оставете празно, за да се наследи глобалният шаблон."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Шаблон за име на файл"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Автоматично"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Автоматично (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Избраните потоци определят типа на файла."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Поддържа всеки кодек. Някои телевизори и телефони не могат да го отворят."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Възпроизвежда се почти навсякъде. VP9 в MP4 няма да се възпроизвежда като видео в QuickTime."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Отворен формат за браузъри. Поддържа само VP9 или AV1 с Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 в MP4 изисква сравнително нов Mac, за да се възпроизвежда в QuickTime. H.264 се възпроизвежда навсякъде."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 в MP4 няма да се възпроизвежда като видео в QuickTime. H.264 се възпроизвежда навсякъде."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Профил"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM не се предлага със Smart TV: не поддържа H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM не поддържа {{codec}}. Изберете MKV или MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Само аудио · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Автоматично"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "„Автоматично“ избира HDR, когато този екран може да го показва, иначе SDR. HDR изглежда избледняло на обикновени екрани."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR видео"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Език"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Влязохте през „Разглеждане“ — нов опит за 1 връзка"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Влязохте през „Разглеждане“ — нов опит за {{count}} връзки"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Излизането от „Разглеждане“ не успя. Опитайте отново."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Тази папка е твърде дълбоко вложена за системата ви. Изтеглянето пак може да не успее — изберете по-къса папка."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Името на това видео не може да побере всички части от шаблона ви, затова е използвано името по подразбиране."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Избирачът на папки не можа да се отвори."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Вече е в опашката — не е добавено копие"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy все още стартира — опитайте след малко"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Довършете настройката на бисквитките в Arroxy и опитайте отново"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Няма връзка в клипборда — първо копирайте такава"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Копирани са няколко връзки — използвайте „Много адреси“ в Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Тази връзка очаква вашия избор — вижте „Изтегляния“ в Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Изтеглянето от клипборда е добавено в опашката"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Връзката не можа да се добави — опитайте отново в Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Тази папка не може да се използва за този плейлист."
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} видео вече е в опашката — пропуснато"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} видеа вече са в опашката — пропуснати"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Добавено: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Вече е в опашката"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ видео — изберете колко"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ видеа — изберете колко"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} не можа да се подготви"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Връзката не можа да се добави — опитайте отново"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} видео в този списък — прегледайте, за да изберете"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} видеа в този списък — прегледайте, за да изберете"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ видео в този списък — прегледайте, за да изберете"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ видеа в този списък — прегледайте, за да изберете"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Преглед"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Настройките не можаха да се запазят."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Това не можа да се отвори."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Подготовката не приключи. Някои изтегляния може да не успеят, докато не приключи."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Аудио (най-добро)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Аудио ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Оригинално най-добро аудио, без прекодиране"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Преобразуване в M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Преобразуване в MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Преобразуване в Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 над 1080p не е налично в YouTube — автоматично се ограничава до 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Запазване като"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Директно в папката за запазване"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Езици"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Изберете поне един език, за да продължите."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "За всяко видео се запазват само файлове със субтитри — не се изтегля видео или аудио."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Източник"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "До 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "До 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "До 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "До 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "До 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "До 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "До 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "До 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Най-добро качество"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ограничено до 1080p, при нужда по-ниско за всеки елемент"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Възможно най-малки файлове"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ограничено до 2K, при нужда по-ниско за всеки елемент"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ограничено до 2160p, при нужда по-ниско за всеки елемент"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Много малки файлове, ниско качество"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Малки файлове за слаба връзка"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Малък трафик"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "По-малки файлове, широка съвместимост"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Най-доброто налично видео + аудио за всеки елемент"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Субтитри"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Най-добър оригинален"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "MP4 H.264 за Smart TV"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Най-добрият наличен контейнер и кодеци за всеки елемент"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "По възможност предпочита H.264 видео + AAC аудио в MP4"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Придружаващ"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Описание"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Медия"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Липсва"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Субтитри"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Миниатюра"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Файл"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} изтегляне изисква вниманието ви"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} изтегляния изискват вниманието ви"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Премахва всяко изтегляне от списъка няколко секунди след приключването му. Файловете остават в папката ви."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Автоизчистване на готовите"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Отмяна на всички активни и чакащи изтегляния"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Всички видеа"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Повече от {{count}} видео в този плейлист. Изтеглете всички, първите {{count}} или изберете в преглед."
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Повече от {{count}} видеа в този плейлист. Изтеглете всички, първите {{count}} или изберете в преглед."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Първите {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Преглед"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Тази връзка е списък с {{count}} видео. Прегледайте го, за да изберете какво да изтеглите."
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Тази връзка е списък с {{count}} видеа. Прегледайте го, за да изберете какво да изтеглите."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Изчистване на завършените изтегляния"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Изтеглянията в опашката ще се показват тук"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Всички"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Филтри по състояние на опашката"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Всички елементи"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Изтегляния"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Звукът не е премахнат"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Звукът не е премахнат · някои субтитри не успяха"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Изтеглянето не успя"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Отваряне на целевата папка"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Пауза"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Само чакащи"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Изтегли сега — без опашка"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Ограничено до {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Ограничено до {{height}}p · някои субтитри не успяха"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Премахване"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Възобновяване"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "автоматичен нов опит (опит {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Задаване на място"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Изберете чакащи елементи, за да зададете място."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Отменено"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Готово"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Грешка"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Задържано"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Очаква избор"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "На пауза"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Чака"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Извличане на подробности"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Изтегляне"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Няма субтитри на следните езици: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Поставя на пауза всяко активно изтегляне и спира стартирането на нови"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Опашката е на пауза — чакащите елементи няма да стартират, докато не я възобновите"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Възобновява спрените изтегляния и позволява на опашката да продължи"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Възобновяване на опашката"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Избрани елементи"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} избрани · {{total}} общо"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Изтегляния"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Добавено"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Файлове"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Колоната „{{column}}“ е пусната."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Преместването на колоната „{{column}}“ е отказано."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Колоната „{{column}}“ е над {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Колоната „{{column}}“ е взета."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Колони"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Приключено"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Скриване на файловете за {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "преместваема колона"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "За да преместите колона, натиснете интервал или Enter, преместете я със стрелките, след което натиснете интервал или Enter, за да я пуснете. Натиснете Escape за отказ."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Целева папка"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Напредък"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Нулиране на колоните"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Преоразмеряване на колона „{{column}}“"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Показване на файловете за {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Размер"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Сортиране по {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Състояние"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Заглавие"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Изтеглянията вече са в раздела „Изтегляния“ — отворете го по всяко време, за да следите напредъка."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Продължи"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Току-що обновихте приложението. Ето най-важното."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Пълни бележки по изданието ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Какво е ново в Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Избор на изпълним файл"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Инсталиране с Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Инсталиране с WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Отваряне на папката със зависимости"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Нулиране по подразбиране"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Опитайте отново"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Преглед на дневника за настройка"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Опитайте отново. Ако продължава да не успява, изберете работещо копие по-долу."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Инструмент не работи правилно"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Разрешете Arroxy във вашия антивирусен софтуер или SmartScreen и опитайте отново."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Антивирусната ви програма блокира инструмент"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Проверете интернет връзката си и опитайте отново."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Не можа да се изтегли това, от което Arroxy се нуждае"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Опитайте отново, за да го изтеглите наново."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Изтеглен файл е пристигнал повреден"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Опитайте отново, за да го изтеглите наново."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Изтеглен файл не съвпада със своята контролна сума"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Изберете и двата по-долу или ги нулирайте по подразбиране."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg и FFprobe трябва да се задават заедно"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Опитайте отново. Ако продължава да не успява, изберете копие, на което имате доверие, по-долу."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Системата ви не позволява на Arroxy да стартира инструмент"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Опитайте отново. Ако продължава да не успява, изберете работещо копие по-долу."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Инструмент липсва или не стартира"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Често това е проверка за сигурност при първо стартиране. Опитайте отново."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Инструмент отговори твърде бавно"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Опитайте отново или отворете дневника за настройка за подробности."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Нещо се обърка по време на настройката"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Механизъм за изтегляне"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Медийни инструменти"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Инсталиране с Homebrew… Това може да отнеме няколко минути."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Инсталиране с WinGet… Това може да отнеме няколко минути."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Посочете на Arroxy копия, които вече имате, или ги инсталирайте по друг начин."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Можете също да инсталирате yt-dlp и ffmpeg с мениджъра на пакети, след което да щракнете върху „Опитайте отново“."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Настройване ръчно"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Опитайте отново или посочете на Arroxy инструменти, които вече имате, по-долу."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Настройката спря"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Настройката се нуждае от помощ"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Как този профил избира"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC аудио"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "подходящо за MP4 плейъри"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC аудио"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "възпроизвежда се навсякъде"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, после VP9, после H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "най-остро при даден размер"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, после VP9, после AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "кодекът на този профил"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, после H.264, после AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "кодекът на този профил"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Най-висока кадрова честота"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "по-плавно движение"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 видео"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "възпроизвежда се на всяко устройство"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR преди SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "по-богати цветове на HDR екрани"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "този екран показва HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR преди HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "изглежда правилно на всеки екран"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "този екран не е HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 потоци"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "готови за MP4 файл"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Стерео аудио"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "този профил"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "от настройките"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Съраунд аудио, когато е налично"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus аудио"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "подходящо за WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Оригинални потоци, а не увеличени с ИИ"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "увеличеното копие е по-високо, но не добавя истински детайл"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Директни изтегляния преди поточни копия"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "същата картина, изтеглена по-бързо"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "До {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "вашето ограничение"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Най-висока разделителна способност"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "няма зададено ограничение"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Потоци, които сайтът не маркира като по-лоши"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "прескача повредени копия, копия с воден знак и резервни копия"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "По-голям файл"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "повече детайл при същите настройки"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Първо потоци с подобрен битрейт"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "повече детайл при същата разделителна способност"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "типът на файла идва от потоците"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "запазва се като .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "най-добра картина"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "възпроизвежда се на всяко устройство"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Защо този?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Защо профилът избра това"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Копирано!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Копиране на връзката"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — безплатна програма за изтегляне на видео с отворен код за Windows, macOS и Linux. Работи с YouTube, Vimeo, Twitch и над 2000 сайта.\n"
+"4K · HDR · MP3 · Shorts · Субтитри · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy е безплатен и с отворен код. Споделянето помага на повече хора да го открият."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Споделяне"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Споделете Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Споделяне на Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Споделете Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Проблеми ли? Настройте ръчно"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Здравейте отново!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} от {{total}}"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "остава около {{count}} мин"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "остават около {{count}} мин"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "остава по-малко от минута"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Поддържа изтеглянията работещи, когато сайтовете се променят."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Това се случва веднъж. Arroxy пази тези инструменти и ги обновява сам."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Това се случва веднъж. Arroxy ги пази за бъдещи обновления."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Проверка дали всичко работи"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Свързване…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Изтегляне на механизма за изтегляне и медийните инструменти"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Изтегляне на механизма за изтегляне"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Изтегляне на медийните инструменти"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Разархивиране на медийните инструменти"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Обновяване на механизма за изтегляне"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Първоначална настройка"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Обновяване на медийните инструменти"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Първа проверка на тази версия — тя е по-бавна. Обикновено около минута."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Проверка на {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Подготовка на изтеглянията…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Настройката не успя. Отворете дневника за настройка за подробности."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Видеото е запазено със звука — аудиото не можа да се премахне"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Видеото е запазено със звука — аудиото не можа да се премахне, а някои субтитри не можаха да се изтеглят"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Изтеглянето е отменено"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Изтеглянето завърши"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Преобразуване на видеото…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Недостатъчно място на диска — нужни са {{required}}, налични са само {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Изтегляне на двоичния файл {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Изтегляне на видео и аудио…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Вграждане на метаданни…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Излязохте от „Разглеждане“ — влезте отново"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Преобразуване на аудиото…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Връзка със SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Извличане на субтитри…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Обединяване на аудио и видео…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Създаване на токен за YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Преместване на файлове…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Няма субтитри на следните езици: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Не може да се запише в {{dir}} — Arroxy няма разрешение да пише там"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Подготовка на двоичните файлове…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Запазено в {{height}}p — YouTube задържа по-високите качества за това изтегляне. Може да помогне нов опит по-късно или от друга мрежа."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Запазено в {{height}}p — YouTube задържа по-високите качества за това изтегляне, а някои субтитри не можаха да се изтеглят. Може да помогне нов опит по-късно или от друга мрежа."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Подновяване на токена…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock е недостъпен, нов опит ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Връзката засече, нов опит ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Влизане с вашия акаунт от „Разглеждане“…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Изчакване {{seconds}} с, за да се избегнат ограничения…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Стартиране на механизма за изтегляне…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Това видео няма субтитри на следните езици: {{languages}}. Видеото е запазено без тях."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Това видео няма субтитри на следните езици: {{languages}}. Останалите езици са запазени."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Видеото е запазено — някои субтитри не можаха да се изтеглят"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Неизвестна грешка при стартиране на изтеглянето"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Изтеглено с облекчен екстрактор — настройте cookies.txt за по-надеждни изтегляния"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Механизмът за изтегляне завърши с код {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Грешка в механизма за изтегляне: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Тъмен режим"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Светъл режим"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Системна настройка"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Затваряне"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Максимизиране"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Минимизиране"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Възстановяване"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Изтегляне от клипборда"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Отваряне на Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Изход от Arroxy"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 се изтегля · {{percent}}%"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} се изтеглят · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Неактивен"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Командата е копирана в клипборда"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Копиране на командата в клипборда"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Скриване на банера за обновяване"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Изтегляне ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Изтегляне на DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Изтегляне…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Инсталиране и рестартиране"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Обновяването не успя"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} е наличен — вие имате {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} е наличен — обновете с Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} е наличен — изтеглете новия DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} е наличен — изтеглете DMG или преминете към Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} е наличен — изтеглете новата версия."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Изпълнение и рестартиране"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Надграждане…"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} глава"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} глави"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Зареждане…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Автоматично"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Кой кодек да се предпочете сред потоците с еднаква височина. „Автоматично“ запазва собствения ред на yt-dlp, който предпочита AV1, най-малкия; H.264 се възпроизвежда на по-стари телевизори и телефони."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Първо H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Видеокодек"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV винаги избира H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Първо VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Готови"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Поставете адреси на видео, плейлист, канал, търсене или аудио. Arroxy ще премахне дубликатите преди добавянето в опашката."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Поставете един или повече адреси, за да видите пакета."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Игнорирани"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Добавете поне един поддържан адрес, за да продължите."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Дубликат"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Списък с адреси"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Много адреси"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Опашка"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Добавя в опашката — стартира, когато активното изтегляне приключи"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Само аудио"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} от {{total}} видео"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} от {{total}} видеа"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} от {{total}} песен"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} от {{total}} песни"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} от {{total}} адрес"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} от {{total}} адреса"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Пакет"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Елементи"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Плейлист"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Шаблон"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Запазване в"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Размер"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Субтитри"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Файлът ви ще бъде в"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Ще бъде в местоназначението по-долу"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Ще бъдат в {{count}} местоназначения по-долу"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Активен е шаблонът „Само субтитри“, но не е избран език на субтитри — нищо няма да се изтегли."
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} елемент"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} елемента"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Профили в този пакет"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Изтегли! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Прескача опашката — стартира веднага и работи успоредно с другите активни изтегляния"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Готово за изтегляне!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Неизвестен"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Вграждането на субтитри е сменено на отделен файл — аудио файловете не поддържат вградени потоци със субтитри."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Субтитрите във видеото изискват MKV файл, затова това изтегляне се запазва като .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Вграждането на миниатюра е пропуснато — изходният контейнер не го поддържа."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Друга…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Работен плот"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Документи"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Изтегляния"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Запазване в"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Начална папка"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Музика"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Картини"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Името на папката съдържа недопустими знаци"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "напр. lo-fi записи"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Запазване в подпапка"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Филми"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Език на аудиото"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} език"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} езика"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Само аудио"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Битрейт {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Бисквитките са конфигурирани, но изключени. Включете ги и опитайте отново, за да получите пълния списък, или сменете мрежата и опитайте отново."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Дори с бисквитки YouTube ограничи този анализ. Опитайте отново по-късно или сменете мрежата."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube ограничи тази заявка. Опитайте отново по-късно или сменете мрежата."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Списъкът с формати може да е непълен. Настройте бисквитките в разширените настройки или сменете мрежата и опитайте отново."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Включване на бисквитките и нов опит"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Анализът беше ограничен"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Битрейт"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Източник, който вече е {{target}}, запазва собствения си поток и битрейт: копира се, без прекодиране."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, без прекодиране"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, без прекодиране"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, както е в източника: потокът вече е {{target}}, затова се копира, без прекодиране"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Както е в източника: потокът вече е {{target}}, затова се копира, без прекодиране"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Преобразуване"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Източникът е {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (некомпресиран)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Браузър"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Влизане в „Разглеждане“"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Файл"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Източник на бисквитки"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "документация на yt-dlp (проблем #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 и по-нови версии криптират бисквитките по начин, който други приложения не могат да прочетат в Windows. Опитайте някой от заобиколните начини по-долу."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Експортирайте бисквитките от Chrome с разширение на браузъра, след което превключете това приложение на режим „Файл“ и изберете експортирания файл."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Експортиране на cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox не използва App-Bound Encryption. Отворете настройките за бисквитки и изберете Firefox от списъка с браузъри."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Превключване към Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Добавете --disable-features=LockProfileCookieDatabase към прекия път за стартиране на Chrome. Внимание: това прави невалидни предишно криптираните бисквитки, така че ще излезете от всички сайтове и ще трябва да влезете отново."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Стартиране на Chrome с изключено App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Бисквитките на Chrome са блокирани от криптирането на Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Бисквитките се четат директно от браузъра. Ако браузърът е стартиран в момента, базата данни с бисквитки може да е заключена (семейство Chromium). Браузърът трябва също да е влязъл в YouTube. Опитайте да затворите браузъра, да превключите на друг браузър, да превключите на режим „Файл“ или да изключите бисквитките."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Файлът ви с бисквитки може да е празен, с изтекъл срок или в грешен формат (Arroxy се нуждае от файл cookies.txt във формат Netscape). Опитайте да експортирате бисквитките отново, да изберете друг файл, да превключите на режим „Браузър“ или да изключите бисквитките."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Влезте през „Разглеждане“ и Arroxy ще опита отново."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Влизане през „Разглеждане“"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Това видео може да изисква акаунт в YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy вече опита с влизане през „Разглеждане“, така че повторното влизане няма да помогне. Възможно е сайтът да има проблеми или този акаунт да няма достъп. Опитайте отново по-късно."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Сайтът отказа това дори с влизането ви в „Разглеждане“"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Влезли сте в „Разглеждане“, но изтеглянията в момента не използват това влизане."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Използване на моето влизане и нов опит"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Това видео може да изисква акаунт в YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Ако това видео изисква акаунт, Arroxy автоматично използва влизането ви в „Разглеждане“. Възможно е да е недостъпно по друга причина."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Влезли сте в „Разглеждане“"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Ако това видео изисква акаунт в YouTube, влезте в „Разглеждане“ и опитайте отново. Arroxy използва това влизане само когато изтегляне го изисква."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Влизане в „Разглеждане“"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Това видео може да изисква акаунт в YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Тази връзка може да изисква акаунт в {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Влезте в {{host}} през „Разглеждане“ и опитайте отново."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Влезте в {{host}} в „Разглеждане“ и опитайте отново. Arroxy използва това влизане само когато изтегляне го изисква."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Причината може да са бисквитките"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy не можа да получи достъп до това видео без удостоверяване. Конфигурирайте бисквитките в разширените настройки — насочете ги към браузър, в който вече сте влезли, или импортирайте файл cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Този сайт изисква вход"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Отваряне на настройките за бисквитки"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Използване на файл с бисквитки или браузър…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Заглушава силните звуци и усилва тихите — за високоговорители и шумна обстановка."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Изравняване на силата на звука (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Изравнен звук"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Профилът ви е Smart TV (H.264). Това видео не предлага H.264, затова е избран най-близкият поток."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Тази връзка няма видео, затова е избрано аудио."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Профилът ви изисква субтитри на {{languages}}. Това видео ги няма."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Профилът ви изисква {{wanted}}p. Това видео няма толкова ниско качество, затова е избрано {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Профилът ви изисква {{wanted}}p. Това видео стига само до {{picked}}p, затова е избрано {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Профилът ви изисква WebM. Избраните потоци на това видео включват {{codec}}, което WebM не поддържа, затова типът на файла е „Автоматично“."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Добавяне в опашката без стартиране"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Изтегляне"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Още опции за изтегляне"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Изберете поне един език на субтитрите."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Запазване както е"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Вградено аудио"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Само аудио"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Какво да се изтегли"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Само субтитри"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Видео + аудио"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Видео, без аудио"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Зареждане на форматите"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Изчакайте анализът да приключи — плейлистите и търсенията може да отнемат време."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Дублирано с ИИ"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Увеличено с ИИ"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Аудиоописание"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Повредено"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Подобрен битрейт"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Пространствено аудио"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "С воден знак"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Без аудио"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Активният ви профил избира потоците предварително вместо вас. Сменяйте профилите от менюто или използвайте молива, за да настроите един, без да напускате това изтегляне."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Форматите тръгват от вашия профил"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Най-близко до профила"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Редактиране на {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Запазване на промените ми"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Само за това изтегляне. Профилът ви по подразбиране остава непроменен."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Предварително избрано от"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Нулиране на всичко"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Променихте {{areas}} за това изтегляне. „{{profile}}“ избира видеото и аудиото при всички случаи. Да запазим ли другите ви промени, или да нулираме всичко към профила?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Смяна на профила?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Профил"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Променихте {{areas}} за това изтегляне. Обновеният профил избира видеото и аудиото при всички случаи. Да запазим ли другите ви промени, или да нулираме всичко към профила?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Използване на обновения профил?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Високо качество"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Ниско качество"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Средно качество"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ограничава тази връзка"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Списъкът с формати може да е непълен."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} отхвърли тази заявка засега."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Нов опит"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} може да задържи това ограничение до един час."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Опитайте сега"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Чакането приключи, можете да опитате отново."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy изчаква до {{time}}, преди да попита {{site}} отново, за да може ограничението да отпадне."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Неизвестна разделителна способност"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Запазва се като"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM не поддържа {{codec}}, затова типът на файла се върна на „Автоматично“."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Размерът е неизвестен"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Към потвърждение"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Използва запазените ви предпочитания за всички оставащи стъпки. За да промените настройка, продължете стъпка по стъпка — изборът ви ще бъде запазен за следващия път."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Търсим най-добрите формати за вас…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Общо"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "с аудио"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Само видеото, върху което щракнахте, или избор от плейлиста? След това ще изберете конкретни видеа или диапазон."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Избор от плейлиста"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Лимит на анализа на плейлист: {{count}} елемента"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Зарежда плейлиста, до вашия лимит на анализ на плейлист, преди да покаже избора."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Изтеглете само това видео или добавете целия плейлист в опашката с активния ви профил за бързо изтегляне."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Максимален брой записи, които Arroxy сканира, преди да добави плейлист, канал или резултат от търсене в опашката."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Добавя в опашката всеки зареден елемент от плейлиста с активния профил за бързо изтегляне. Ако сканирането достигне лимита ви, Arroxy пита, преди да добави."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Добавя в опашката едно изтегляне и пренебрегва плейлиста, прикрепен към този адрес."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Изтегляне на това видео"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Изтегляне на целия плейлист"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Зарежда само това видео. Плейлистът, прикрепен към този адрес, се пренебрегва."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Само това"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Тази връзка съдържа плейлист"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Маркери на глави, по които може да се навигира във всеки съвременен плейър."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Вграждане на глави"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Заглавие, изпълнител, описание и дата на качване, записани във файла."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Вграждане на метаданни"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Обложка вътре във файла. WebM видео ще бъде преопаковано в MKV; пропуска се, когато субтитрите са вградени."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Вграждане на миниатюра"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Запазва описанието на видеото като текстов файл .description до изтегления файл."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Запазване на описанието"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Запазва плейлист .m3u заедно с видеата, за да се отварят по ред в медийния ви плейър."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Създаване на файл с плейлист .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Запазва миниатюрата като изображение .jpg до изтегления файл."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Запазване на миниатюрата"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Превключете на „Част“ в картата на видеото, за да изберете начало и край или глава и да изтеглите само този участък."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Изтеглете само част от видео"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Глави"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Глава {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Частта се изтегля чрез ffmpeg, затова настройките ви за връзки за изтегляне и темпо не важат за нея."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Първо поправете началото и края на частта."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Край"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Видеото свършва в {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Въведете края като ч:мм:сс, м:сс или секунди."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Въведете началото като ч:мм:сс, м:сс или секунди."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Началото трябва да е преди края."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Изключено: всяко рязане попада на най-близкия ключов кадър, който може да е на няколко секунди от въведеното време."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Точно рязане (прекодира, по-бавно)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} от {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Част"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Част от видеото"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Начало"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "цялото видео"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Част {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Каква част от видеото"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "ч:мм:сс, м:сс или секунди"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Част, приблизително"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Това видео не съобщава дължината си, затова може да се изтегли само цяло."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Субтитрите винаги обхващат цялото видео."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Връзката ви започва от {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Използване като начало"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Цялото видео"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Цялата песен"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Възстановете ги, за да продължите."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Всички елементи са премахнати"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Вече изтеглено"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Много адреси"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Не е нужно да чакате — файловете, добавени в опашката сега, пак получават истинските си имена при изтегляне."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Извличане на подробности за видеата… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Подробностите не са налични"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Извличане на подробности"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Чака"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "на живо"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Елементи на плейлиста"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Видеа за изтегляне"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} видео"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} видеа"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} песен"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} песни"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} адрес"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} адреса"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Извличане на плейлиста…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Извличане на видеата…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Ограничено до първите {{count}} елемента"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Намерена е {{count}} страница"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Намерени са {{count}} страници"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Събиране на видеа"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Сканиране на страниците на канала"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Присвояване на профили по елемент"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Пропуска „Качество“, SponsorBlock, „Изход“ и „Запазване“ — вместо това присвоете профил за изтегляне на всеки елемент"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Плейлист"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} от тези е плейлист, а не видео — поставете връзката му отделно, за да го изтеглите."
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} от тези са плейлисти, а не видеа — поставяйте връзките им една по една, за да ги изтеглите."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Изберете поне едно видео, за да продължите"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Показват се първите {{count}} елемента. Увеличете лимита на зареждане, за да видите още."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Сканирането на плейлиста е ограничено"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Сканирането е ограничено"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Прилагане на диапазона"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "От"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "До"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} премахнат"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} премахнати"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Премахване на {{count}} от списъка"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Премахване на {{count}} от списъка"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Възстановяване"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Избиране на всички"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} избран"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} избрани"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Без избор"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Ред в плейлиста"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Извличане на датите на качване…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Сортиране"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Първо най-старите"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Първо най-новите"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Прилагане на синхронизирането"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Смяна на папката…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} от тези видеа вече са в {{dir}}. Да се синхронизира ли, за да се изтеглят само новите?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Вече в папката"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Не са намерени видеа от този плейлист в {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Не са намерени видеа от този източник в {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Още нищо не е изтеглено"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Проверка на папката…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Миниатюра на видеото"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Изберете качество за пакета"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} елемент"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} елемента"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Всяко видео определя избраното ниво независимо — разнородните плейлисти работят без изненади."
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Присвояване на {{count}} видео"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Присвояване на {{count}} видеа"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Присвояване на профил"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Продължителност"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Профил"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Редактиране на {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Няма елементи, отговарящи на този филтър"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Филтри по профил"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Присвояване на профили за изтегляне"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Изберете профила за това видео."
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Изберете профила за тези {{count}} видеа."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} от {{total}} избрани"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Смяна на глобалното"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Избор на целева папка"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Избор на икона на профила"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Премахване на {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Нулиране на профила"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Този профил вече използва вградените настройки"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Възстановяване на вградените настройки на профила"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Запазване на профила"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Задаване на замяна за профила"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Задаване на замяна"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Използване на глобалната стойност по подразбиране"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Използване на кода на езика „{{code}}“"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Разширени"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Използване на настройката на приложението ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Най-добър"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "До 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "До 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "До 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Най-добро качество"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Папка за изтегляния по подразбиране"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Папка за изтегляния по подразбиране / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Глобално местоназначение"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Активно"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Наследено"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Замяна за профила"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Избор на папка"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Няма зададена замяна"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Няма зададена замяна. Този профил използва глобалното местоназначение по-горе."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Замества глобалното"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Този профил запазва в собствена основна папка, преди да се добави подпапката."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Определено местоназначение"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Една преизползваема настройка за бързо изтегляне, много адреси и плейлисти."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Профил за изтегляне"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Глобалното местоназначение не можа да се промени."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Избирачът на папки не можа да се отвори. Въведете път ръчно."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Настройките на профила не можаха да се нулират."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Настройките на профила не можаха да се запазят."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Начин на запазване"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Тип на файла"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Оптимизиране за"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Икона на профила"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Езици"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Име на профила"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Име и икона на профила"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Оригинално аудио"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Път за замяна на профила"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Качество"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Разделителна способност"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Източник"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Име на подпапката"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Изтегляне на субтитри"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Профилите заявяват кодове на езици; наличността се определя за всеки адрес."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Най-остро при даден размер. По-стари телевизори, QuickTime и някои редактори не могат да го възпроизведат."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Най-добра картина"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Възпроизвежда се на телевизори, телефони, WhatsApp, QuickTime и видеоредактори. YouTube предлага H.264 само до 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Архив"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Надписи"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Уроци"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Клип"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Контроли"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Изтегляне"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Музика"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Подкаст"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Музика или подкасти"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Само аудио"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Само файлове с надписи"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Само субтитри"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Обикновени видеофайлове"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Видео + аудио"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Само видео, без звук"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Видео, без аудио"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Автоматичните надписи ще се запазват като SRT вместо ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Няма съвпадащи езици"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "За този профил няма да се искат файлове със субтитри или вградени субтитри."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Търсене по име или код на език"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Пропуснато за този тип изход."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Изберете поне един език."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Изберете поне един език или изключете изтеглянето на субтитри."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Този профил добавя в опашката само файлове със субтитри. Видеото, аудиото, SponsorBlock и медийното преобразуване се пропускат."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Профилите наследяват глобалното местоназначение, освен ако не зададете замяна за профила."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Разширени опции"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Изберете основния начин, по който искате да изтегляте."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Тип изтегляне"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Име и икона, показвани в „Бързо изтегляне“, „Много адреси“ и списъците с профили."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Име и икона на профила"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} включено"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} включени"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Опции за изход"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Изберете папка за този профил"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Пропуснато"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Маркира спонсорските сегменти като глави (без изтриване)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Без SponsorBlock — видеото се възпроизвежда както е качено."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Изрязва спонсорските сегменти от видеото с FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Само автоматично генерирани"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Ръчни и автоматични"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Първо ръчни, после автоматични"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Само ръчни"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Помощ: {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Отмяна на подготовката"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Текуща връзка"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy чете връзката и прилага {{profileName}}."
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} неуспешен"
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} неуспешни"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Извличане на подробности"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Добавяне в опашката"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Подготовка на бързо изтегляне"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Дръжте това отворено, докато Arroxy подготвя опашката."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "допълнителните опции"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "името на файла"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "формата"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "папката"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "субтитрите"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Субтитрите, SponsorBlock, допълнителните неща като миниатюрата, папката и името на файла бяха отделни стъпки. Щракнете върху ред, за да го промените."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Всички останали настройки са на тази страница"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Променено спрямо {{profile}}: {{areas}}. Важи само за това изтегляне."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Променено спрямо {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Смяна на формата"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Маркери: {title}, {id}, {uploader}, {date}, {resolution}. Разширението се добавя автоматично."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Запазване като профил"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (редактиран)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Това изтегляне използва редактирани настройки. Да се използват ли следващия път?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Отмяна на промените, обратно към „{{profile}}“"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Допълнителни"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Име на файла"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Запазване в"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Субтитри"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Всичко останало"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Запазване на профила"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Запазва тези настройки като профил, който можете да изберете следващия път. Профилът ви за бързо изтегляне остава същият."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Профилът не можа да се запази."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Име на профила"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Запазено като профил „{{name}}“"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Запазване като профил"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Запазване като нов профил"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Обновяване на профила"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Това е вграден профил. Можете да възстановите първоначалните му настройки в раздела „Профили“."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Оттук нататък всяко изтегляне с този профил използва новите настройки."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Да се обнови ли „{{profile}}“?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Обновен профил „{{name}}“"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Обновяване на „{{profile}}“ с тези промени"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Няма"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Изключено"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Изключени"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Запълващ материал"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Интро"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Музика извън темата"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Финал"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Предварителен преглед"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Самореклама"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Спонсор"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Категории"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Маркиране като глави"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Изключено"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Премахване на сегменти"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Филтриране на спонсори"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Маркира спонсорските сегменти като глави (без изтриване)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Без SponsorBlock — видеото се възпроизвежда както е качено."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Изрязва спонсорските сегменти от видеото с FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Потвърждение"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Запазване"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Изход"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Плейлист"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Видеа"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Качество"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Профили"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Преглед"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Субтитри"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "Адрес"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Автоматичните надписи ще се запазват като SRT вместо ASS — за видеата в YouTube те се почистват от дублирането при плъзгащите се реплики, което нашият ASS конвертор все още не може да възпроизведе."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Авто"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Изчистване на всички"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Режимът на вграждане запазва изхода като .mkv, за да се вграждат субтитрите надеждно."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Формат"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Няма налични субтитри за това видео"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Няма съвпадащи езици"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Няма избрани субтитри"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Премахване на {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Вграждане във видеото"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Запазване като"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "До видеото"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Подпапка subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Търсене на езици…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Автоматично генерирани"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ръчни"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Навигация по профили за изтегляне"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Разширени"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Изпращане на ежедневен сигнал"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Без телеметрия. Веднъж дневно анонимен сигнал изпраща версията на приложението, канала на инсталиране, ОС, езика, държавата и приблизително колко отдавна е инсталиран Arroxy, за да броим активните и новите потребители. Без идентификатори, адреси, заглавия на видеа или имена на файлове."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Премахва изтегляне от списъка „Изтегляния“ няколко секунди след приключването му. Файловете остават в папката ви; неуспелите и отменените изтегляния остават в списъка."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Премахване на приключилите изтегляния"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Автоматично опитва отново след мрежов или сървърен проблем, като изчаква все по-дълго между опитите. Изтегляния, блокирани от сайта, никога не се опитват автоматично отново."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Нов опит за неуспелите изтегляния"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "пъти"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Много адреси"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Добавяне на няколко адреса в опашката."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Изчистване на адреса"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Връзката е добавена от клипборда"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Копирани са няколко връзки — използвайте „Много адреси“, за да ги добавите"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Заменено с копираната връзка"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Следене на клипборда"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Автоматично попълва полето за адрес, когато копирате връзка към видео."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Отмяна"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Скриване в системната област при затваряне"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Продължава изтеглянията на заден план след затваряне на прозореца."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Колко елемента от опашката се изтеглят едновременно. Повече наведнъж приключва дълга опашка по-бързо, но повишава риска сайтът да ви ограничи."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Изтегляния наведнъж"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "изтегляния"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Сайтове като YouTube могат да отбелязват — а понякога и да блокират — акаунти, чиито бисквитки се използват от инструменти за изтегляне като Arroxy. Когато е възможно, използвайте временен акаунт."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Чете бисквитките директно от браузъра. За браузърите от семейство Chromium браузърът трябва да е затворен."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Браузър"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Изберете браузър…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Избор…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Изчистване"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Изберете браузър, за да използвате бисквитки"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Изберете файл, за да използвате бисквитки"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Използва влизането ви в „Разглеждане“ само когато изтегляне го изисква."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Разделът „Разглеждане“ е изключен, затова изтеглянията не използват влизането ви в „Разглеждане“. Включете го под „Разглеждане“ по-долу."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "„Get cookies.txt LOCALLY“ (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Файл с бисквитки"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Как да експортирам бисквитки?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Отваряне на „Разглеждане“"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Няма избран файл"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Препоръчва се"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Риск: cookies.txt съдържа всяка влязла сесия за този браузър — пазете го в тайна."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Браузър"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Влизане в „Разглеждане“"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Файл"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Източник на бисквитки"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Изключено"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Помага при видеа с възрастово ограничение, само за членове и частни видеа в акаунт."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Ускорява големите изтегляния, като извлича няколко части от видеото наведнъж. По-високите стойности повишават риска сайтът да ви ограничи."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Връзки за изтегляне"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "връзки"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Само аудио"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Субтитри"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Над 2000 сайта"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Музикални плейлисти"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Видеа"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Видео плейлисти"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Какво може да изтегли Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Канали"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Музика"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Плейлисти"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Подкасти"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Видеа"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Пошагов съветник. Изберете формат, качество и други."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Изтегляне от адрес"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Смяна на прекия път"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Този пряк път се използва от друго приложение — изберете друг."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Или натиснете"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Копирайте връзка към видео навсякъде, натиснете този пряк път и Arroxy я добавя в опашката с активния ви профил — без да превключвате прозорци."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Променете или изключете в настройките."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Натиснете клавиши…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Връщане по подразбиране"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Изтегляйте всяка копирана връзка от всяко приложение, без да отваряте Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Глобален пряк път"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Тест"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Включване на глобален пряк път"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Натиснете прекия път, когато в клипборда ви има връзка към видео."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Интерактивно изтегляне"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Активните изтегляния запазват текущото си ограничение. Пауза + Възобновяване, за да се приложат промените."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Друго…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "напр. 750K или 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Ограничава трафика за изтеглянията на медия. Темпото на заявките по-долу обикновено е по-силният лост срещу ограничаване."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Използвайте число, следвано от K или M (напр. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Ограничение на скоростта на изтегляне"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Изключено"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Изтеглям на заден план… Мога да върша няколко неща едновременно 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "„Бързо“ добавя заредените елементи в опашката с {{profileName}}. „Интерактивно“ ви позволява първо да прегледате или изберете елементи."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Пуснете връзка и оставете Arroxy да я изтегли ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Тази връзка сочи към едно видео в колекция. Arroxy ще попита кое искате, преди да го анализира."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} чете тази връзка и прилага {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Опашката обработва това изтегляне. Можете да поставите друга връзка, докато работи."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "„Бързо“ стартира едно изтегляне с {{profileName}}. Използвайте „Интерактивно“ за еднократни промени."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Съвместимо стерео"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Стерео или съраунд, когато профил избира оригинално аудио. Профилът може да го замени."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Предпочитание за оригинално аудио"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Предпочитане на съраунд / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Добавя малки паузи по време на всяко изтегляне, за да не натоварва Arroxy сайта твърде агресивно. Стойностите са в секунди."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Пауза преди започване на медията: макс."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Пауза преди започване на медията: мин."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Изчакване между проверките на метаданните"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Изчакване преди файловете със субтитри"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Щадящо изтегляне"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Колко предпазлив да е Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Балансирано"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Предпазливо"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Персонализирано"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Изключено"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Изчаквания: {{requests}} между проверките, {{downloads}} преди започване на медията, {{subtitles}} преди файловете със субтитри."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Тези изчаквания се случват във всяко изтегляне. Колко изтегляния работят едновременно се задава отделно, в „Изтегляния наведнъж“."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "По подразбиране. Добавя кратки паузи между заявките и преди започване на медията."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Добавя по-дълги паузи за големи плейлисти или мрежи, които често достигат ограничения."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Настройте сами разширените контроли за всяко изтегляне."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Използва само малките базови паузи, които Arroxy поддържа за медия и субтитри."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "сек"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Текущ лимит: {{count}} елемента"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Друго…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Използвайте цяло число от {{min}} до {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Запазване на лимита"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Собствен лимит за сканиране на плейлист"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Собствен: {{count}} елемента"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Максимален брой записи, които Arroxy зарежда при отваряне на плейлист, канал или резултат от търсене."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Използвайте цяло число от 1 до 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Елементи от плейлиста за сканиране"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} елемента"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy иска само толкова записи от плейлист, канал или търсене, докато изгражда избора."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Използване на лимита на приложението: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Прилагане"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Обхватът на плейлиста не можа да се приложи: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Прилагане и презареждане"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Отказ"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Промяна"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Изберете какво да зарежда Arroxy за този плейлист."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Обхват на плейлиста"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Няма видеа в този обхват"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Първите"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Използвайте цели номера на елементи от 1 до {{max}}, като началото не е по-голямо от края."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Елементи за зареждане"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Обхват на плейлиста"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Диапазон"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Презареждане..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Нулиране"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Зареждане на първите елементи: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Зареждане на първите елементи: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Зареждане на елементи {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "до"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Активен профил"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Вграден"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Персонализиран"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Скрит"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Променен"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Смяна на глобалното местоназначение"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Използва се глобалното местоназначение"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Използва се глобалното местоназначение + подпапка на профила"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Използва се замяна за профила"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Използва се замяна за профила + подпапка на профила"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Местоназначение"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Редактиране"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Редактиране на активния профил"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Скритите профили остават тук, но изчезват от всеки избор на профил."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Показване на профила в списъците за избор: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Оставете поне един наличен профил."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Управление на профилите"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Сменя активния профил за бързо изтегляне, много адреси и плейлисти."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Смяна на профила"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "преместваем профил"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Преместването е отказано. {{profileName}} остава на позиция {{position}} от {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} е пуснат на позиция {{position}} от {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Преместване на {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "За да преместите профил, натиснете интервал или Enter, преместете го със стрелките, след което натиснете интервал или Enter, за да го пуснете. Натиснете Escape за отказ."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} е над позиция {{position}} от {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} е взет. Намира се на позиция {{position}} от {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Нов профил"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Създавайте, избирайте, редактирайте или премахвайте преизползваеми настройки за изтегляне."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Профили за изтегляне"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Премахване"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Плъзнете профил, за да го преместите. Всеки избор на профил следва този ред."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Нулиране"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC аудио"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "най-добро аудио"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "най-добро видео"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "без аудио"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "само субтитри"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV аудио"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Смяна на профила за изтегляне: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Смяна на профила за изтегляне"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Изчистване"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Насочва трафика през прокси — полезно за съдържание с географски ограничения."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL на прокси"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Нито един от тези адреси не можа да се подготви"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Бързо изтегляне"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Ще изтегли с: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Този не можа да се добави: {{error}}"
+
+#. Plural form "one" for bg: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Добавено е това, което успя. {{count}} адрес не можа да се подготви."
+
+#. Plural form "other" for bg: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Добавено е това, което успя. {{count}} адреса не можаха да се подготвят."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Елементът от опашката не можа да се подготви"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Подготовка"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Анализът не успя"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Добавено в опашката"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Поставете адрес на видео, плейлист, канал или търсене, за да започнете."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Глобално поведение, което засяга и изтеглянията по профил."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Поведение при изтегляне"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Въвеждане"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Стъклени панели върху движещо се небе. Изисква графично ускорение."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Плътни, спокойни повърхности. Работи леко на всеки компютър."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Минимален"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "И двата стила са налични в светъл и тъмен вариант."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Стил"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Как изглежда Arroxy. Превключвайте между светъл и тъмен вариант в долната лента."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Външен вид"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} изисква графично ускорение, което в момента не е налично, затова Arroxy показва {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Профили"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Настройки"

@@ -1,0 +1,5226 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Par lietotni"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · autors Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Par Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Ātrs un draudzīgs lejupielādētājs YouTube un vairāk nekā 2000 citām vietnēm."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Skatīt trešo pušu paziņojumus"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Vietne"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Atļaut"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube piedāvā dažus vecus videoklipus izmēros, ko tas izveidojis ar MI. Opcija “Izlaist” saglabā oriģinālās straumes; uzlabotu straumi joprojām var izvēlēties pats."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Ar MI uzlabotas straumes"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Izlaist"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Atsauksmes"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Patīk Arroxy? Labprāt uzzinātu jūsu domas! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Žurnāli"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Saglabāt diagnostikas failu"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Ievieto žurnālus un lietotnes datus vienā failā mapē Lejupielādes, kas ir gatavs pievienošanai GitHub problēmai. Jūsu lietotāja mapes nosaukums tiek noņemts; video saites un nosaukumi paliek."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Jaunums: šeit izvēlieties Aurora vai Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Motīvs"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Tuvināt"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Tālināt"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Atpakaļ"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Aizvērt"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Turpināt"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Noraidīt"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Notiek ielāde"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Sākt no jauna"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy turpina darboties un pabeidz aktīvās lejupielādes. Šo var mainīt vēlāk papildu iestatījumos."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Paslēpt teknē"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Aizverot paslēpt Arroxy sistēmas teknē?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Iziet"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Vairs nejautāt"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Atcelt lejupielādes un iziet"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Pauzējiet, lai vēlāk atsāktu, vai atceliet, lai atmestu progresu."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Turpināt lejupielādi"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Notiek {{count}} lejupielāde"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Notiek {{count}} lejupielādes"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "dialogs.quitWithActiveDownloads.message_zero"
+msgid "{{count}} downloads in progress"
+msgstr "Notiek {{count}} lejupielāžu"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Pauzēt lejupielādes un iziet"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Renderēšanas process avarēja ({{reason}}). Pārlādējiet, lai mēģinātu vēlreiz."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy radās problēma"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Iziet"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Pārlādēt"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Nokopēts!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopēt adresi"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy ir bezmaksas un atvērtā koda, bez reklāmām un maksas līmeņa. Ziedojumi ir brīvprātīgi un neietekmē attīstības plānu."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Ziedot"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Atbalstīt Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "{{coin}} ziedojumu adreses QR kods"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Atbalstīt Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Kriptovalūtu maksājumi ir neatgriezeniski. Sūtiet tikai norādītajā tīklā un salīdziniet visu adresi."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Šim video nav subtitru valodās: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Šim videoklipam ir vecuma ierobežojums, un to nevar lejupielādēt bez pierakstīta konta."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Aktivizēta aizsardzība pret robotiem. Visticamāk, jūsu izmantotā IP adrese ir atzīmēta (datu centra diapazons vai noslogots VPN izejas punkts). Nomainiet IP adresi vai izvēlieties citu VPN galapunktu un mēģiniet vēlreiz. Ja joprojām neizdodas, iespējams, tā ir īslaicīga izmaiņa vietnes pusē — Arroxy atjaunina savu lejupielādes dzinēju startēšanas brīdī, tāpēc labojums parādīsies automātiski, tiklīdz tas tiks izlaists."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Serveris pārtrauca lejupielādi pa vidu, un Arroxy pēc atkārtotiem mēģinājumiem padevās. Tas parasti skar vislielākos video formātus (4K HDR / VP9 ar augstu bitrati). Mēģiniet vēlreiz, nomainiet tīklu/VPN vai izvēlieties formātu ar zemāku izšķirtspēju."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Šo videoklipu aizsargā DRM. Arroxy nevar noņemt DRM, tāpēc failu nevar lejupielādēt."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Šis videoklips jūsu reģionā nav pieejams."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Šķiet, ka jūsu IP adrese ir bloķēta. Mēģiniet vēlāk vai izmantojiet VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Šim videoklipam nepieciešams pierakstīts konts."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy neatrada FFmpeg vai FFprobe. Palaidiet iestatīšanu vēlreiz vai norādiet FFmpeg atrašanās vietu, tad mēģiniet lejupielādi vēlreiz."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Tīkla kļūda. Pārbaudiet savienojumu un mēģiniet vēlreiz."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Šim video nav subtitru pieprasītajās valodās."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Nepietiek vietas diskā. Atbrīvojiet vietu un mēģiniet vēlreiz."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy nevar rakstīt lejupielādes mapē. Tā var būt tikai lasāma, atrasties slēgtā diskā vai būt bloķēta ar sistēmas konfidencialitātes iestatījumiem. Izvēlieties citu mapi vai atļaujiet piekļuvi, tad mēģiniet vēlreiz."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Neizdevās apstrādāt vietnes atbildi. Iespējams, vietne ir mainījusi veidu, kā tā piedāvā videoklipus. Arroxy atjaunina savu lejupielādes dzinēju startēšanas brīdī — mēģiniet vēlreiz pēc dažām minūtēm, kad labojums būs izlaists."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Lejupielāde pabeigta, bet pēcapstrāde (apvienošana / mux / pārvēršana) neizdevās. Bieži tā ir īslaicīga ffmpeg problēma — mēģiniet vēlreiz, un, ja tā turpinās, izmēģiniet citu formātu kombināciju."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Vietne ierobežo pieprasījumu skaitu no šī savienojuma."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Šis videoklips nav pieejams — tas var būt privāts, dzēsts vai bloķēts reģionā."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Lejupielāde neizdevās. Skatiet neapstrādāto izvadi zemāk."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy neatbalsta šo URL. Izmēģiniet saiti no citas vietnes."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Pārbaudiet savienojumu un mēģiniet vēlreiz."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Šī lapa neielādējās"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Atvērt iestatījumus"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Pārbaudiet starpniekserveri iestatījumos un mēģiniet vēlreiz."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Sadaļa Izpēte nevar izveidot savienojumu caur jūsu starpniekserveri"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Ar peles labo pogu noklikšķiniet uz jebkuras video, atskaņošanas saraksta vai kanāla saites lapā, lai lejupielādētu to ar aktīvo profilu, izvēlētos citu profilu vai atvērtu soli pa solim norisošo plūsmu."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Ar peles labo pogu noklikšķiniet uz saites, lai to lejupielādētu"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopēt saiti"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Lejupielādēt ar"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Jauns"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Atrodiet videoklipu YouTube vai jebkurā citā vietnē un lejupielādējiet to no šejienes — nav jākopē saites. Pierakstieties vietnē šeit, lai lejupielādētu videoklipus, kuriem nepieciešams konts."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Turpināt"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Tādas vietnes kā YouTube var atzīmēt — un dažkārt bloķēt — kontus, kas tiek izmantoti kopā ar lejupielādes rīkiem, piemēram, Arroxy. Izmantojiet kontu, ko varat atļauties pazaudēt, nevis savu galveno."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Pierakstieties ar papildu kontu"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Pārlūkojiet tīmekli tieši Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Lejupielādēs tiek izmantoti jūsu pārlūka sīkfaili, nevis pierakstīšanās sadaļā Izpēte."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Lejupielādēs tiek izmantots jūsu sīkfailu fails, nevis pierakstīšanās sadaļā Izpēte."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Ne tagad"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Sīkfaili ir izslēgti, tāpēc lejupielādēs netiek izmantota pierakstīšanās sadaļā Izpēte."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Izmantot pierakstīšanos sadaļā Izpēte"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Pārlūkojiet YouTube vai jebkuru citu vietni Arroxy iekšienē un pierakstieties, lai piekļūtu videoklipiem, kuriem nepieciešams konts."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Atbrīvot atmiņu prombūtnes laikā"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Pēc 5 minūtēm citā cilnē aizver YouTube sākumlapu vai meklēšanas lapu. Atgriežoties tā tiek pārlādēta, kas aizņem dažas sekundes."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Meklētājprogramma"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Kur tiek meklēts adreses joslā ievadītais teksts. Saites tiek atvērtas tādas, kā ievadītas."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Rādīt cilni Izpēte"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Izslēdzot to, lejupielādēs arī vairs netiek izmantota jūsu pierakstīšanās sadaļā Izpēte."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Izrakstīties no sadaļas Izpēte"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Izrakstīties"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Tas dzēš jūsu pierakstīšanās datus un pārlūkošanas datus sadaļā Izpēte visās vietnēs. Lejupielādes, kurām nepieciešams konts, neizdosies, līdz pierakstīsities vēlreiz."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Izrakstīties no sadaļas Izpēte?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Dzēš jūsu pierakstīšanās datus un pārlūkošanas datus sadaļā Izpēte visās vietnēs."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Izpēte"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Izpēte"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube var pretoties reklāmu bloķētājiem pierakstītiem kontiem."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Reklāmu bloķētājs"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Reklāmu bloķētājs: izslēgts — noklikšķiniet, lai ieslēgtu"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Reklāmu bloķētājs: ieslēgts — noklikšķiniet, lai izslēgtu"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Reklāmu bloķētājs: startē — noklikšķiniet, lai izslēgtu"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Reklāmu bloķētājs: nav pieejams, tā filtru sarakstus neizdevās lejupielādēt — noklikšķiniet, lai izslēgtu"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adrese"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Meklējiet {{engine}} vai atveriet jebkuru vietni (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Izpētes pārlūka vadīklas"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Atpakaļ"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Kompakts izkārtojums"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Lejupielādēt · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Uz priekšu"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Rādīt pilnu izkārtojumu"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Atveriet video, atskaņošanas sarakstu vai kanālu, lai to lejupielādētu"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube sākums"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interaktīvā lejupielāde: izvēlieties formātu, subtitrus un citu…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Sadaļa Izpēte nevar atvērt šo adresi."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Pārlādēt"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Šis meklēšanas vaicājums ir pārāk garš."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Lapas tālummaiņa: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Tuvināt"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Lapas tālummaiņa"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Tālināt"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Tālummaiņas procenti"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Atiestatīt tālummaiņu uz 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Izvēlieties, kā tiek nosaukti lejupielādētie faili. Noklikšķiniet uz marķiera, lai to ievietotu. Izmantojiet /, lai šķirotu lejupielādes mapēs."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Ievadiet faila nosaukuma veidni."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Noņemiet lieko / — katrai mapei jābūt nosaukumam."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Noņemiet rakstzīmes, kas nav atļautas failu nosaukumos: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Šāds mapes nosaukums nav atļauts. Izvairieties no . un .. un rezervētiem nosaukumiem, piemēram, CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Pievienojiet faila nosaukumam {title} vai {id}, lai katrai lejupielādei būtu savs nosaukums."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} nevar nosaukt mapi — kvalitāte nav zināma, līdz lejupielāde sākas."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Nesaskaņota { vai } — ievietojiet marķierus, piemēram, {title}, iekavās."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Veidne ir pārāk gara."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Nezināms marķieris {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Bez {id} Arroxy nevar noteikt jau lejupielādētus atskaņošanas saraksta vienumus vai izveidot .m3u atskaņošanas sarakstus."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Faila nosaukuma veidne"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Nav pieejams, jo jūsu faila nosaukuma veidnē nav {id} vai tā šķiro lejupielādes mapēs."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Atskaņošanas sarakstā"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Atsevišķs video"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Atstājiet tukšu, lai izmantotu globālo veidni."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Faila nosaukuma veidne"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automātiski"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automātiski (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Faila tipu nosaka izvēlētās straumes."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Satur jebkuru kodeku. Dažos televizoros un tālruņos to nevar atvērt."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Atskaņojas gandrīz visur. VP9 MP4 failā QuickTime video neatskaņosies."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Atvērts formāts pārlūkiem. Satur tikai VP9 vai AV1 ar Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 MP4 failā, lai atskaņotu QuickTime, nepieciešams jauns Mac. H.264 atskaņojas visur."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 MP4 failā QuickTime video neatskaņosies. H.264 atskaņojas visur."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profils"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM netiek piedāvāts ar Smart TV: tas nevar saturēt H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM nevar saturēt {{codec}}. Izvēlieties MKV vai MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Tikai audio · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automātiski"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automātiskais režīms izvēlas HDR, ja šis ekrāns to var attēlot, citādi SDR. Parastos ekrānos HDR izskatās izbalējis."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR video"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Valoda"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Pierakstīts sadaļā Izpēte — atkārtoti mēģina {{count}} saiti"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Pierakstīts sadaļā Izpēte — atkārtoti mēģina {{count}} saites"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.exploreSignInRetrying_zero"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Pierakstīts sadaļā Izpēte — atkārtoti mēģina {{count}} saišu"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Neizdevās izrakstīties no sadaļas Izpēte. Mēģiniet vēlreiz."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Šī mape jūsu sistēmai ir pārāk dziļa. Lejupielāde joprojām var neizdoties — izvēlieties īsāku mapi."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Šī video nosaukums nevar ietvert visas jūsu veidnes daļas, tāpēc tika izmantots noklusējuma nosaukums."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Neizdevās atvērt mapes izvēles logu."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Jau rindā — kopija netika pievienota"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy vēl startē — mēģiniet pēc brīža"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Pabeidziet sīkfailu iestatīšanu Arroxy un mēģiniet vēlreiz"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Starpliktuvē nav saites — vispirms nokopējiet kādu"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Nokopētas vairākas saites — izmantojiet Arroxy funkciju Vairāki URL"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Šai saitei jāizvēlas jums — skatiet Lejupielādes lietotnē Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Lejupielāde no starpliktuves pievienota rindai"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Neizdevās pievienot šo saiti — mēģiniet vēlreiz lietotnē Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Šo mapi nevar izmantot šim atskaņošanas sarakstam."
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} video jau ir rindā — izlaists"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} video jau ir rindā — izlaisti"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.queue.skippedAlreadyQueued_zero"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} video jau ir rindā — izlaisti"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Pievienots: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Jau rindā"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video — izvēlieties, cik lejupielādēt"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video — izvēlieties, cik lejupielādēt"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.chooseHowMany_zero"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video — izvēlieties, cik lejupielādēt"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Neizdevās sagatavot: {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Neizdevās pievienot šo saiti — mēģiniet vēlreiz"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.review_zero"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.reviewCapped_zero"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Skatīt"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Neizdevās saglabāt iestatījumus."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Neizdevās to atvērt."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Iestatīšana netika pabeigta. Dažas lejupielādes var neizdoties, līdz tā tiks pabeigta."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (labākais)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Oriģinālais labākais audio, bez pārkodēšanas"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Pārvērst uz M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Pārvērst uz MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Pārvērst uz Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 virs 1080p YouTube nav pieejams — automātiski ierobežots līdz 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Saglabāt kā"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Tieši saglabāšanas mapē"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Valodas"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Lai turpinātu, izvēlieties vismaz vienu valodu."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Katram video tiek saglabāti tikai subtitru faili — video vai audio netiek lejupielādēts."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Avots"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Līdz 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Līdz 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Līdz 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Līdz 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Līdz 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Līdz 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Līdz 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Līdz 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Labākā kvalitāte"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ierobežots līdz 1080p, atsevišķiem vienumiem pāriet uz zemāku"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Pēc iespējas mazāki faili"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ierobežots līdz 2K, atsevišķiem vienumiem pāriet uz zemāku"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ierobežots līdz 2160p, atsevišķiem vienumiem pāriet uz zemāku"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Ļoti mazi faili, zema kvalitāte"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Mazi faili ierobežotam joslas platumam"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Mazs joslas platums"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Mazāki faili, plaša saderība"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Augstākā pieejamā video + audio kvalitāte katram vienumam"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtitri"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Labākais oriģinālais"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "Smart TV: H.264 MP4 formātā"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Labākais pieejamais konteiners un kodeki katram vienumam"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Pēc iespējas dot priekšroku H.264 video + AAC audio MP4 failā"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Pavadošais"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Apraksts"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Multivide"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Trūkst"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtitri"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Sīktēls"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefakts"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} lejupielādei nepieciešama jūsu uzmanība"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} lejupielādēm nepieciešama jūsu uzmanība"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.attentionBadge_zero"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} lejupielāžu nepieciešama jūsu uzmanība"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Noņemt katru lejupielādi no saraksta dažas sekundes pēc tās pabeigšanas. Faili paliek jūsu mapē."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Automātiski notīrīt pabeigtās"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Atcelt visas aktīvās un gaidošās lejupielādes"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Visi video"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šajā atskaņošanas sarakstā ir vairāk nekā {{count}} video. Lejupielādējiet visus, pirmos {{count}} vai izvēlieties pārskatā."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šajā atskaņošanas sarakstā ir vairāk nekā {{count}} video. Lejupielādējiet visus, pirmos {{count}} vai izvēlieties pārskatā."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.choice.cappedBody_zero"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Šajā atskaņošanas sarakstā ir vairāk nekā {{count}} video. Lejupielādējiet visus, pirmos {{count}} vai izvēlieties pārskatā."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Pirmie {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Pārskatīt"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "queue.choice.reviewBody_zero"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Notīrīt pabeigtās lejupielādes"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Rindā pievienotās lejupielādes parādīsies šeit"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Visas"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Rindas statusa filtri"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Visi vienumi"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Lejupielādes"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Skaņa nav noņemta"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Skaņa nav noņemta · daži subtitri neizdevās"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Lejupielāde neizdevās"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Atvērt mērķa mapi"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pauzēt"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Tikai gaidošie"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Sākt tūlīt — izlaist rindu"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Ierobežots līdz {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Ierobežots līdz {{height}}p · daži subtitri neizdevās"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Noņemt"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Atsākt"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "mēģina automātiski vēlreiz (mēģinājums {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Iestatīt atrašanās vietu"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Atlasiet gaidošos vienumus, lai iestatītu atrašanās vietu."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Atcelts"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Pabeigts"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Kļūda"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Aizturēts"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Jāizvēlas jums"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Pauzēts"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Gaida"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Iegūst informāciju"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Lejupielādē"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Nav subtitru valodās: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Pauzēt visas aktīvās lejupielādes un neļaut sākties jaunām"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Rinda ir pauzēta — gaidošie vienumi nesāksies, kamēr to neatsāksiet"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Atsākt pauzētās lejupielādes un ļaut rindai turpināt"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Atsākt rindu"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Atlasītie vienumi"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} atlasīti · {{total}} kopā"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Lejupielādes"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Pievienots"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefakti"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Kolonna {{column}} nomesta."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Kolonnas {{column}} pārvietošana atcelta."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Kolonna {{column}} atrodas virs {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Kolonna {{column}} pacelta."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Kolonnas"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Pabeigts"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formāts"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Paslēpt artefaktus: {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "pārvietojama kolonna"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Lai pārvietotu kolonnu, nospiediet atstarpes taustiņu vai Enter, pārvietojiet to ar bulttaustiņiem un vēlreiz nospiediet atstarpes taustiņu vai Enter, lai to nomestu. Nospiediet Escape, lai atceltu."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Mērķa mape"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Progress"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Atiestatīt kolonnas"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Mainīt kolonnas {{column}} izmēru"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Rādīt artefaktus: {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Izmērs"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Kārtot pēc: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Statuss"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Nosaukums"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Lejupielādes tagad atrodas cilnē Lejupielādes — atveriet to jebkurā laikā, lai sekotu progresam."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Turpināt"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Jums darbojas jauns atjauninājums. Lūk, galvenais."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Pilnas laidiena piezīmes ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Kas jauns Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Izvēlēties izpildāmo failu"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instalēt ar Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instalēt ar WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Atvērt atkarību mapi"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Atiestatīt uz noklusējumu"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Skatīt iestatīšanas žurnālu"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Mēģiniet vēlreiz. Ja joprojām neizdodas, zemāk izvēlieties darbojošos kopiju."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Kāds rīks nedarbojas pareizi"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Atļaujiet Arroxy savā pretvīrusu programmā vai SmartScreen un mēģiniet vēlreiz."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Jūsu pretvīrusu programma bloķēja rīku"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Pārbaudiet interneta savienojumu un mēģiniet vēlreiz."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Neizdevās lejupielādēt to, kas Arroxy nepieciešams"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Mēģiniet vēlreiz, lai lejupielādētu to no jauna."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Lejupielāde tika saņemta bojāta"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Mēģiniet vēlreiz, lai lejupielādētu to no jauna."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Lejupielāde neatbilda savai kontrolsummai"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Zemāk izvēlieties abus vai atiestatiet tos uz noklusējumu."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg un FFprobe jāiestata kopā"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Mēģiniet vēlreiz. Ja joprojām neizdodas, zemāk izvēlieties kopiju, kurai uzticaties."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Jūsu sistēma neļauj Arroxy palaist rīku"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Mēģiniet vēlreiz. Ja joprojām neizdodas, zemāk izvēlieties darbojošos kopiju."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Rīks trūkst vai nestartē"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Pirmajā palaišanas reizē tā bieži ir drošības skenēšana. Mēģiniet vēlreiz."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Rīks pārāk ilgi neatbildēja"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Mēģiniet vēlreiz vai atveriet iestatīšanas žurnālu, lai uzzinātu sīkāk."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Iestatīšanas laikā kaut kas nogāja greizi"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Lejupielādes dzinējs"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Multivides rīki"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Notiek instalēšana ar Homebrew… Tas var aizņemt dažas minūtes."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Notiek instalēšana ar WinGet… Tas var aizņemt dažas minūtes."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Norādiet Arroxy kopijas, kas jums jau ir, vai instalējiet tās citā veidā."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Varat arī instalēt yt-dlp un ffmpeg ar savu pakotņu pārvaldnieku, tad noklikšķināt uz Mēģināt vēlreiz."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Iestatīt manuāli"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Mēģiniet vēlreiz vai zemāk norādiet Arroxy rīkus, kas jums jau ir."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Iestatīšana apturēta"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Iestatīšanai nepieciešama jūsu palīdzība"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Kā šis profils izvēlas"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "der MP4 atskaņotājiem"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "atskaņojas visur"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, tad VP9, tad H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "visskaidrākais noteiktā izmērā"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, tad VP9, tad AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "šī profila kodeks"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, tad H.264, tad AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "šī profila kodeks"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Augstākais kadru ātrums"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "vienmērīgāka kustība"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 video"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "atskaņojas katrā ierīcē"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR pirms SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "bagātīgākas krāsas HDR ekrānos"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "šis ekrāns attēlo HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR pirms HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "izskatās pareizi jebkurā ekrānā"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "šis ekrāns nav HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 straumes"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "gatavas MP4 failam"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereo audio"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "šis profils"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "no iestatījumiem"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Telpiskais audio, ja tāds ir pieejams"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus audio"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "der WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Oriģinālās straumes, nevis ar MI uzlabotās"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "uzlabotai kopijai ir lielāks augstums, bet tā nepievieno reālas detaļas"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Tiešās lejupielādes pirms straumētajām kopijām"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "tas pats attēls, lejupielādēts ātrāk"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Līdz {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "jūsu ierobežojums"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Augstākā izšķirtspēja"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "ierobežojums nav iestatīts"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Straumes, kuras vietne nav atzīmējusi kā sliktākas"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "izlaiž bojātas, ar ūdenszīmi un rezerves kopijas"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Lielāks fails"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "vairāk detaļu ar tiem pašiem iestatījumiem"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Vispirms straumes ar uzlabotu bitrati"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "vairāk detaļu ar to pašu izšķirtspēju"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "faila tips pēc straumēm"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "saglabā kā .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "labākais attēls"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "atskaņojas jebkurā ierīcē"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Kāpēc šī?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Kāpēc profils izvēlējās šo"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Nokopēts!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopēt saiti"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — bezmaksas atvērtā koda video lejupielādētājs operētājsistēmām Windows, macOS un Linux. Darbojas ar YouTube, Vimeo, Twitch un 2000+ vietnēm.\n"
+"4K · HDR · MP3 · Shorts · Subtitri · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy ir bezmaksas un atvērtā koda. Daloties ar to, vairāk cilvēku to atklās."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Kopīgot"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Kopīgot Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Kopīgot Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Kopīgot Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Rodas problēmas? Iestatiet manuāli"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Sveiki, laipni lūdzam atpakaļ!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} no {{total}}"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "atlikusi apmēram {{count}} minūte"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "atlikušas apmēram {{count}} minūtes"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "splash.setup.left.minutes_zero"
+msgid "about {{count}} min left"
+msgstr "atlikušas apmēram {{count}} minūšu"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "atlikusi mazāk nekā minūte"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Nodrošina, ka lejupielādes turpina darboties, kad vietnes mainās."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Tas notiek vienu reizi. Arroxy saglabā šos rīkus un atjaunina tos pats."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Tas notiek vienu reizi. Arroxy tos saglabā turpmākiem atjauninājumiem."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Pārbauda, vai viss darbojas"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Notiek savienošana…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Lejupielādē lejupielādes dzinēju un multivides rīkus"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Lejupielādē lejupielādes dzinēju"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Lejupielādē multivides rīkus"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Izpako multivides rīkus"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Atjaunina lejupielādes dzinēju"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Pirmreizējā iestatīšana"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Atjaunina multivides rīkus"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Šīs versijas pirmā pārbaude — šī ir lēna. Parasti aptuveni minūti."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Pārbauda {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Sagatavo lejupielādes…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Iestatīšana neizdevās. Atveriet iestatīšanas žurnālu, lai uzzinātu sīkāk."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video saglabāts ar skaņu — audio nevarēja noņemt"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video saglabāts ar skaņu — audio nevarēja noņemt, un dažus subtitrus nevarēja lejupielādēt"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Lejupielāde atcelta"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Lejupielāde pabeigta"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Pārvērš video…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Nepietiek vietas diskā — nepieciešams {{required}}, pieejams tikai {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Lejupielādē {{name}} bināro failu…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Lejupielādē video un audio…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Iegulst metadatus…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Izrakstīts no sadaļas Izpēte — pierakstieties vēlreiz"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Pārvērš audio…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Sazinās ar SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Iegūst subtitrus…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Apvieno audio un video…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Izveido YouTube pilnvaru…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Pārvieto failus…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Nav subtitru valodās: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Nevar saglabāt mapē {{dir}} — Arroxy nav atļaujas tur rakstīt"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Sagatavo bināros failus…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti. Var palīdzēt mēģinājums vēlāk vai no cita tīkla."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti, un dažus subtitrus nevarēja lejupielādēt. Var palīdzēt mēģinājums vēlāk vai no cita tīkla."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Atkārtoti izveido pilnvaru…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock nav pieejams, mēģina vēlreiz ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Savienojums iesprūdis, mēģina vēlreiz ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Piesakās ar jūsu Izpētes kontu…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Gaida {{seconds}} s, lai izvairītos no ierobežojumiem…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Startē lejupielādes dzinēju…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Šim video nav subtitru valodās: {{languages}}. Video tika saglabāts bez tiem."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Šim video nav subtitru valodās: {{languages}}. Pārējās valodas tika saglabātas."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video saglabāts — dažus subtitrus nevarēja lejupielādēt"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Nezināma lejupielādes startēšanas kļūda"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Lejupielādēts ar vienkāršotu ieguvēju — iestatiet cookies.txt drošākām lejupielādēm"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Lejupielādes dzinējs beidza darbu ar kodu {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Lejupielādes dzinēja kļūda: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tumšais režīms"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Gaišais režīms"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Sistēmas noklusējums"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Aizvērt"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maksimizēt"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimizēt"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Atjaunot"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Lejupielādēt no starpliktuves"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Atvērt Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Iziet no Arroxy"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "Lejupielādē: {{count}} · {{percent}}%"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Lejupielādē: {{count}} · {{percent}}%"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "tray.menu.statusActive_zero"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Lejupielādē: {{count}} · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Dīkstāvē"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Komanda nokopēta starpliktuvē"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopēt komandu starpliktuvē"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Aizvērt atjauninājuma joslu"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Lejupielādēt ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Lejupielādēt DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Lejupielādē…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instalēt un restartēt"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Atjaunināšana neizdevās"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Pieejams Arroxy {{version}} — jums ir {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Pieejams Arroxy {{version}} — atjauniniet ar Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Pieejams Arroxy {{version}} — lejupielādējiet jauno DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Pieejams Arroxy {{version}} — lejupielādējiet DMG vai pārejiet uz Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Pieejams Arroxy {{version}} — lejupielādējiet jauno būvējumu."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Palaist un restartēt"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Jaunina…"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} nodaļa"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} nodaļas"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "videoCard.chapters_zero"
+msgid "{{count}} chapters"
+msgstr "{{count}} nodaļu"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Notiek ielāde…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automātiski"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Kuru kodeku izvēlēties pirmo starp vienāda augstuma straumēm. Automātiskais režīms saglabā paša yt-dlp secību, kas dod priekšroku AV1, mazākajam; H.264 atskaņojas vecākos televizoros un tālruņos."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Vispirms H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Video kodeks"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV vienmēr izvēlas H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Vispirms VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Gatavi"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Ielīmējiet video, atskaņošanas sarakstu, kanālu, meklēšanas vai audio URL. Arroxy pirms pievienošanas rindai noņems dublikātus."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Ielīmējiet vienu vai vairākus URL, lai priekšskatītu pakotni."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ignorēti"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Lai turpinātu, pievienojiet vismaz vienu atbalstītu URL."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Dublikāts"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL saraksts"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Vairāki URL"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Rindā"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Pievieno rindai — sākas, kad aktīvā lejupielāde pabeigta"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Tikai audio"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} no {{total}} video"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} no {{total}} video"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValue_zero"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} no {{total}} video"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} no {{total}} celiņiem"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} no {{total}} celiņiem"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValueAudio_zero"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} no {{total}} celiņiem"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} no {{total}} URL"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} no {{total}} URL"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.itemsValueBulk_zero"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} no {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Pakotne"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Vienumi"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Atskaņošanas saraksts"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Profils"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Saglabāt mapē"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Izmērs"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtitri"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Jūsu fails nonāks mapē"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Tas nonāks tālāk norādītajā galamērķī"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Tie nonāks tālāk norādītajos galamērķos ({{count}})"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.landInMultiProfile_zero"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Tie nonāks tālāk norādītajos galamērķos ({{count}})"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Ir aktīva sagatave “Tikai subtitri”, bet nav izvēlēta neviena subtitru valoda — nekas netiks lejupielādēts."
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} vienums"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} vienumi"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.confirm.profileBreakdownCount_zero"
+msgid "{{count}} items"
+msgstr "{{count}} vienumu"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profili šajā pakotnē"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Lejupielādēt ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Izlaiž rindu — sākas tūlīt, darbojas līdzās citām aktīvajām lejupielādēm"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Gatavs lejupielādei!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Nezināms"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtitru iegulšana mainīta uz atsevišķu failu — audio ierakstos iegultas subtitru straumes netiek atbalstītas."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Video iegultajiem subtitriem nepieciešams MKV fails, tāpēc šī lejupielāde tiek saglabāta kā .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Sīktēla iegulšana izlaista — izvades konteiners to neatbalsta."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Pielāgot…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Darbvirsma"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Lejupielādes"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Saglabāt mapē"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Sākums"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Mūzika"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Attēli"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Mapes nosaukumā ir nederīgas rakstzīmes"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "piem., lo-fi ieraksti"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Saglabāt apakšmapē"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmas"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Audio valoda"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} valoda"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} valodas"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.formats.audioLanguageCount_zero"
+msgid "{{count}} languages"
+msgstr "{{count}} valodu"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Tikai audio"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Bitrate {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Sīkfaili ir konfigurēti, bet izslēgti. Ieslēdziet tos un mēģiniet vēlreiz, lai iegūtu pilnu sarakstu, vai nomainiet tīklu un mēģiniet vēlreiz."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "YouTube ierobežoja šo pārbaudi pat ar sīkfailiem. Mēģiniet vēlāk vai nomainiet tīklu."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube ierobežoja šo pieprasījumu. Mēģiniet vēlāk vai nomainiet tīklu."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Formātu saraksts var būt nepilnīgs. Iestatiet sīkfailus papildu iestatījumos vai nomainiet tīklu un mēģiniet vēlreiz."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Ieslēgt sīkfailus un mēģināt vēlreiz"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Pārbaude tika ierobežota"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Avots, kas jau ir {{target}}, saglabā savu straumi un bitrati: tas tiek kopēts, nevis pārkodēts."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, bez pārkodēšanas"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, bez pārkodēšanas"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, kā avotam: straume jau ir {{target}}, tāpēc tā tiek kopēta, nevis pārkodēta"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Kā avotam: straume jau ir {{target}}, tāpēc tā tiek kopēta, nevis pārkodēta"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Pārvērst"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Avots ir {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (nesaspiests)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Pārlūks"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Pierakstīšanās sadaļā Izpēte"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Fails"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Sīkfailu avots"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp dokumentācija (problēma #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 un jaunāks šifrē sīkfailus tā, ka citas lietotnes Windows sistēmā tos nevar nolasīt. Izmēģiniet kādu no tālāk norādītajiem risinājumiem."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Eksportējiet sīkfailus no Chrome ar pārlūka paplašinājumu, pēc tam pārslēdziet šo lietotni uz režīmu Fails un izvēlieties eksportēto failu."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Eksportēt cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox neizmanto App-Bound Encryption. Atveriet sīkfailu iestatījumus un pārlūku sarakstā izvēlieties Firefox."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Pāriet uz Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Pievienojiet --disable-features=LockProfileCookieDatabase Chrome palaišanas saīsnei. Brīdinājums: tas padara iepriekš šifrētos sīkfailus nederīgus, tāpēc tiksiet izrakstīts no visām vietnēm un jums būs jāpierakstās vēlreiz."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Palaist Chrome ar izslēgtu App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome sīkfailus bloķē Windows šifrēšana"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Sīkfaili tiek nolasīti tieši no pārlūka. Ja pārlūks pašlaik darbojas, tā sīkfailu datubāze var būt bloķēta (Chromium saimes pārlūkiem). Pārlūkā jābūt arī pierakstītam YouTube. Mēģiniet aizvērt pārlūku, pārslēgties uz citu pārlūku, pārslēgties uz režīmu Fails vai izslēgt sīkfailus."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Jūsu sīkfailu fails var būt tukšs, novecojis vai nepareizā formātā (Arroxy nepieciešams Netscape cookies.txt fails). Mēģiniet vēlreiz eksportēt sīkfailus, izvēlēties citu failu, pārslēgties uz režīmu Pārlūks vai izslēgt sīkfailus."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Pierakstieties sadaļā Izpēte, un Arroxy mēģinās vēlreiz."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Pierakstīties sadaļā Izpēte"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šim videoklipam var būt nepieciešams YouTube konts"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy jau mēģināja pierakstītā stāvoklī, izmantojot Izpēti, tāpēc atkārtota pierakstīšanās nepalīdzēs. Iespējams, vietnei ir problēmas vai šis konts to nevar atvērt. Mēģiniet vēlāk."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Vietne to atteica pat ar jūsu pierakstīšanos sadaļā Izpēte"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Esat pierakstīts sadaļā Izpēte, taču lejupielādes šobrīd šo pierakstīšanos neizmanto."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Izmantot manu pierakstīšanos sadaļā Izpēte un mēģināt vēlreiz"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šim videoklipam var būt nepieciešams YouTube konts"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Ja šim videoklipam nepieciešams konts, Arroxy automātiski izmanto jūsu pierakstīšanos sadaļā Izpēte. Iespējams, tas nav pieejams cita iemesla dēļ."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Pierakstīts sadaļā Izpēte"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Ja šim videoklipam nepieciešams YouTube konts, pierakstieties sadaļā Izpēte un mēģiniet vēlreiz. Arroxy izmanto šo pierakstīšanos tikai tad, kad lejupielādei tā nepieciešama."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Pierakstīties sadaļā Izpēte"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Šim videoklipam var būt nepieciešams YouTube konts"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Šai saitei var būt nepieciešams konts vietnē {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Pierakstieties vietnē {{host}} ar sadaļu Izpēte un mēģiniet vēlreiz."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Pierakstieties vietnē {{host}} sadaļā Izpēte un mēģiniet vēlreiz. Arroxy izmanto šo pierakstīšanos tikai tad, kad lejupielādei tā nepieciešama."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cēlonis var būt sīkfaili"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy nevarēja piekļūt šim videoklipam bez autentifikācijas. Konfigurējiet sīkfailus papildu iestatījumos — norādiet pārlūku, kurā jau esat pierakstījies, vai importējiet cookies.txt failu."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Šai vietnei nepieciešama pierakstīšanās"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Atvērt sīkfailu iestatījumus"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Tā vietā izmantot sīkfailu failu vai pārlūku…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Pieklusina skaļās daļas un pastiprina klusās — skaļruņiem un trokšņainām telpām."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Izlīdzināt skaļumu (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Izlīdzināts skaļums"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Jūsu profils ir Smart TV (H.264). Šim video H.264 nav pieejams, tāpēc izvēlēta tuvākā straume."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Šajā saitē nav video, tāpēc izvēlēts audio."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Jūsu profils pieprasa subtitrus valodās: {{languages}}. Šim video to nav."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Jūsu profils pieprasa {{wanted}}p. Šim video nav nekā tik mazā, tāpēc izvēlēts {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Jūsu profils pieprasa {{wanted}}p. Šis video sasniedz tikai {{picked}}p, tāpēc izvēlēts {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Jūsu profils pieprasa WebM. Šī video izvēlētajās straumēs ir {{codec}}, ko WebM nevar saturēt, tāpēc faila tips ir Automātiski."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Pievienot rindai, nesākot"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Lejupielādēt"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Citas lejupielādes opcijas"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Izvēlieties vismaz vienu subtitru valodu."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Atstāt kā ir"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Iebūvētais audio"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Tikai audio"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Ko lejupielādēt"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Tikai subtitri"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, bez audio"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Ielādē formātus"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Lūdzu, uzgaidiet, līdz pārbaude beidzas — atskaņošanas saraksti un meklēšanas rezultāti var aizņemt kādu laiku."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Ar MI dublēts"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Ar MI uzlabots"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audio apraksts"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Bojāts"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Uzlabota bitrate"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Telpiskais audio"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Ar ūdenszīmi"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Bez audio"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Jūsu aktīvais profils jau iepriekš izvēlas straumes jūsu vietā. Pārslēdziet profilus izvēlnē vai izmantojiet zīmuli, lai pielāgotu kādu, neizejot no šīs lejupielādes."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formāti sākas no jūsu profila"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Tuvākais profilam"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Rediģēt: {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Paturēt manas izmaiņas"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Tikai šai lejupielādei. Jūsu noklusējuma profils paliek nemainīts."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Iepriekš izvēlēts no"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Atiestatīt visu"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Jūs mainījāt {{areas}} šai lejupielādei. Profils “{{profile}}” abos gadījumos izvēlas video un audio. Paturēt pārējās izmaiņas vai atiestatīt visu uz profilu?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Pārslēgt profilu?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profils"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Jūs mainījāt {{areas}} šai lejupielādei. Atjauninātais profils abos gadījumos izvēlas video un audio. Paturēt pārējās izmaiņas vai atiestatīt visu uz profilu?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Izmantot atjaunināto profilu?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Augsta kvalitāte"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Zema kvalitāte"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Vidēja kvalitāte"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} ierobežo pieprasījumus no šī savienojuma"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Formātu saraksts var būt nepilnīgs."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} šobrīd noraidīja šo pieprasījumu."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Mēģināt vēlreiz"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} šo ierobežojumu var saglabāt līdz stundai."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Mēģināt tagad"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Gaidīšana beigusies, tāpēc varat mēģināt vēlreiz."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy gaidīs līdz {{time}}, pirms atkal vērsties pie {{site}}, lai ierobežojums varētu beigties."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Nezināma izšķirtspēja"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Saglabā kā"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM nevar saturēt {{codec}}, tāpēc faila tips atgriezts uz Automātiski."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Izmērs nezināms"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Pāriet uz apstiprināšanu"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Visos atlikušajos soļos izmanto jūsu saglabātos iestatījumus. Lai mainītu iestatījumu, turpiniet soli pa solim — jūsu izvēle tiks saglabāta nākamajai reizei."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Meklē jums labākos formātus…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Kopā"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "ar audio"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Vēlaties tikai video, uz kura noklikšķinājāt, vai izvēlēties no atskaņošanas saraksta? Nākamajā solī izvēlēsieties konkrētus video vai diapazonu."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Izvēlēties no saraksta"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Atskaņošanas saraksta pārbaudes limits (vienumi): {{count}}"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Ielādē atskaņošanas sarakstu līdz jūsu atskaņošanas saraksta pārbaudes limitam, pirms parāda izvēles logu."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Lejupielādēt tikai šo video vai pievienot rindai visu atskaņošanas sarakstu ar aktīvo ātrās lejupielādes profilu."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Maksimālais ierakstu skaits, ko Arroxy pārbauda, pirms pievieno rindai atskaņošanas sarakstu, kanālu vai meklēšanas rezultātu."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Pievieno rindai katru ielādēto atskaņošanas saraksta vienumu ar aktīvo ātrās lejupielādes profilu. Ja pārbaude sasniedz jūsu limitu, Arroxy pirms pievienošanas jautā."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Pievieno rindai vienu lejupielādi un ignorē šim URL pievienoto atskaņošanas sarakstu."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Lejupielādēt šo video"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Lejupielādēt visu sarakstu"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Ielādē tikai šo video. Šim URL pievienotais atskaņošanas saraksts tiek ignorēts."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Tikai šo"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Šajā saitē ir atskaņošanas saraksts"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Nodaļu atzīmes, pa kurām var pārvietoties jebkurā mūsdienu atskaņotājā."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Iegult nodaļas"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Nosaukums, izpildītājs, apraksts un augšupielādes datums tiek ierakstīti failā."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Iegult metadatus"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Vāka attēls faila iekšpusē. WebM video tiks pārpakots uz MKV; izlaists, ja ir iegulti subtitri."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Iegult sīktēlu"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Saglabā video aprakstu .description teksta failā līdzās lejupielādei."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Saglabāt aprakstu"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Saglabā .m3u atskaņošanas sarakstu līdzās video, lai tie multivides atskaņotājā atvērtos pareizā secībā."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Izveidot .m3u atskaņošanas saraksta failu"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Saglabā sīktēlu kā .jpg attēla failu līdzās lejupielādei."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Saglabāt sīktēlu"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Pārslēdzieties uz Fragments video kartītē, lai izvēlētos sākumu un beigas vai nodaļu un lejupielādētu tikai šo posmu."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Lejupielādējiet tikai video daļu"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Nodaļas"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Nodaļa {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Fragments tiek lejupielādēts ar ffmpeg, tāpēc lejupielādes savienojumu un tempa iestatījumi uz to neattiecas."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Vispirms izlabojiet fragmenta sākumu un beigas."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Beigas"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video beidzas pie {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Ievadiet beigas kā h:mm:ss, m:ss vai sekundes."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Ievadiet sākumu kā h:mm:ss, m:ss vai sekundes."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Sākumam jābūt pirms beigām."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Izslēgts: katrs griezums nonāk uz tuvāko atslēgkadru, kas var atšķirties par dažām sekundēm no ievadītā laika."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Precīzs griezums (pārkodē, lēnāk)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} no {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Fragments"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Video fragments"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Sākums"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "viss video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Fragments {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Cik daudz no video"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss vai sekundes"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Fragments, aptuveni"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Šis video neziņo savu garumu, tāpēc to var lejupielādēt tikai pilnībā."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Subtitri vienmēr aptver visu video."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Jūsu saite sākas pie {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Izmantot kā sākumu"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Viss video"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Viss celiņš"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Atjaunojiet tos, lai turpinātu."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Visi vienumi tika noņemti"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Jau lejupielādēts"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Vairāki URL"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nav jāgaida — tagad rindā pievienotie faili lejupielādes laikā joprojām saņem savus īstos nosaukumus."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Iegūst video informāciju… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Informācija nav pieejama"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Iegūst informāciju"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Gaida"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "tiešraide"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Atskaņošanas saraksta vienumi"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Lejupielādējamie video"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} video"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCount_zero"
+msgid "{{count}} videos"
+msgstr "{{count}} video"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} celiņš"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} celiņi"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCountAudio_zero"
+msgid "{{count}} tracks"
+msgstr "{{count}} celiņu"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.itemCountBulk_zero"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Iegūst atskaņošanas sarakstu…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Iegūst video…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Ierobežots līdz pirmajiem {{count}} vienumiem"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Atrasta {{count}} lapa"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Atrastas {{count}} lapas"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.loadingPagesFound_zero"
+msgid "{{count}} pages found"
+msgstr "Atrastas {{count}} lapu"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Vāc video"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Pārbauda kanāla lapas"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Piešķirt profilus katram vienumam"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Izlaiž Kvalitāti, SponsorBlock, Izvadi un Saglabāšanu — tā vietā katram vienumam piešķiriet lejupielādes profilu"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Atskaņošanas saraksts"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} no šiem ir atskaņošanas saraksts, nevis video — ielīmējiet tā saiti atsevišķi, lai to lejupielādētu."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} no šiem ir atskaņošanas saraksti, nevis video — ielīmējiet to saites pa vienai, lai tos lejupielādētu."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.nestedPlaylistHint_zero"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} no šiem ir atskaņošanas saraksti, nevis video — ielīmējiet to saites pa vienai, lai tos lejupielādētu."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Lai turpinātu, atlasiet vismaz vienu video"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Rāda pirmos {{count}} vienumus. Palieliniet ielādes limitu, lai redzētu vairāk."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Atskaņošanas saraksta pārbaude ir ierobežota"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Pārbaude ir ierobežota"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Lietot diapazonu"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "No"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Līdz"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "Noņemts {{count}}"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "Noņemti {{count}}"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.removedCount_zero"
+msgid "{{count}} removed"
+msgstr "Noņemti {{count}}"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Noņemt {{count}} no saraksta"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Noņemt {{count}} no saraksta"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.removeFromListCount_zero"
+msgid "Remove {{count}} from list"
+msgstr "Noņemt {{count}} no saraksta"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Atjaunot"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Atlasīt visu"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "Atlasīts {{count}}"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "Atlasīti {{count}}"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.selectedCount_zero"
+msgid "{{count}} selected"
+msgstr "Atlasīti {{count}}"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Neatlasīt neko"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Saraksta secība"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Iegūst augšupielādes datumus…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Kārtot"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Vispirms vecākie"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Vispirms jaunākie"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Lietot sinhronizāciju"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Mainīt mapi…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} no šiem video jau ir mapē {{dir}}. Sinhronizēt, lai lejupielādētu tikai jaunos?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Jau mapē"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Mapē {{dir}} netika atrasts neviens šī atskaņošanas saraksta video."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Mapē {{dir}} netika atrasts neviens šī avota video."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Vēl nekas nav lejupielādēts"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Pārbauda mapi…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Video sīktēls"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Izvēlieties pakotnes kvalitāti"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} vienums"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} vienumi"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistPresets.itemCount_zero"
+msgid "{{count}} items"
+msgstr "{{count}} vienumu"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Katrs video izvēlēto līmeni nosaka neatkarīgi — dažādi atskaņošanas saraksti darbojas bez pārsteigumiem."
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Piešķirt {{count}} video"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Piešķirt {{count}} video"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistProfiles.assignTrigger_zero"
+msgid "Assign to {{count}} videos"
+msgstr "Piešķirt {{count}} video"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Piešķirt profilu"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Ilgums"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profils"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Rediģēt: {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Neviens vienums neatbilst šim filtram"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Profilu filtri"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Piešķiriet lejupielādes profilus"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Izvēlieties profilu šiem {{count}} video."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Izvēlieties profilu šiem {{count}} video."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistProfiles.menuDescription_zero"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Izvēlieties profilu šiem {{count}} video."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Atlasīti {{selected}} no {{total}}"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Mainīt globālo"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Izvēlēties galamērķa mapi"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Izvēlēties profila ikonu"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Noņemt {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Atiestatīt profilu"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Šis profils jau izmanto iebūvētos iestatījumus"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Atjaunot iebūvētā profila iestatījumus"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Saglabāt profilu"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Iestatīt profila nepārklājumu"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Iestatīt nepārklājumu"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Izmantot globālo noklusējumu"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Izmantot valodas kodu “{{code}}”"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Papildu"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Izmantot lietotnes iestatījumu ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Labākais"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Līdz 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Līdz 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Līdz 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Labākā kvalitāte"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Noklusējuma lejupielāžu mape"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Noklusējuma lejupielāžu mape / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Globālais galamērķis"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktīvs"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Mantots"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Profila nepārklājums"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Izvēlieties mapi"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Nepārklājums nav iestatīts"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Nepārklājums nav iestatīts. Šis profils izmanto iepriekš norādīto globālo galamērķi."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Pārklāj globālo"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Šis profils saglabā savā saknē, pirms tiek pievienota apakšmape."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Galīgais galamērķis"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Viena atkārtoti izmantojama konfigurācija ātrajai lejupielādei, vairākiem URL un atskaņošanas sarakstiem."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Lejupielādes profils"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Neizdevās mainīt globālo galamērķi."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Neizdevās atvērt mapes izvēles logu. Ievadiet ceļu manuāli."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Neizdevās atiestatīt profila iestatījumus."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Neizdevās saglabāt profila iestatījumus."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Saglabāšanas veids"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Faila tips"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimizēt"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Profila ikona"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Valodas"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Profila nosaukums"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Profila nosaukums un ikona"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Oriģinālais audio"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Profila nepārklājuma ceļš"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kvalitāte"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Izšķirtspēja"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Avots"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Apakšmapes nosaukums"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Subtitru lejupielādes"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profili pieprasa valodu kodus; pieejamība tiek noteikta katram URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Visasākais noteiktā izmērā. Vecāki televizori, QuickTime un daži redaktori to neatskaņo."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Labākais attēls"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Atskaņojas televizoros, tālruņos, WhatsApp, QuickTime un video redaktoros. YouTube piedāvā H.264 tikai līdz 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Arhīvs"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Paraksti"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Nodarbības"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klips"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Vadīklas"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Lejupielāde"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Mūzika"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podkāsts"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Mūzika vai podkāsti"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Tikai audio"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Tikai parakstu faili"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Tikai subtitri"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Parasti video faili"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Tikai video bez skaņas"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video, bez audio"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automātiskie paraksti tiks saglabāti kā SRT, nevis ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Nav atbilstošu valodu"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Šim profilam netiks pieprasīti subtitru faili vai iegulti subtitru celiņi."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Meklēt pēc valodas nosaukuma vai koda"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Šim izvades tipam izlaists."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Izvēlieties vismaz vienu valodu."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Izvēlieties vismaz vienu valodu vai izslēdziet subtitru lejupielādes."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Šis profils rindā pievieno tikai subtitru failus. Video, audio, SponsorBlock un multivides pārvēršana tiek izlaisti."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profili manto globālo galamērķi, ja vien neiestatāt profila nepārklājumu."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Papildu opcijas"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Izvēlieties galveno lejupielādes veidu."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Lejupielādes veids"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Nosaukums un ikona, kas redzami ātrajā lejupielādē, vairākos URL un profilu sarakstos."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Profila identitāte"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "Ieslēgts {{count}}"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "Ieslēgti {{count}}"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_zero"
+msgid "{{count}} enabled"
+msgstr "Ieslēgti {{count}}"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Izvades opcijas"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Izvēlieties šī profila mapi"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Izlaists"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Atzīmē sponsoru segmentus kā nodaļas (nedestruktīvi)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock — video tiek atskaņots kā augšupielādēts."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Izgriež sponsoru segmentus no video ar FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Tikai automātiski ģenerētie"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Manuālie un automātiskie"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Vispirms manuālie, tad automātiskie"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Tikai manuālie"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} palīdzība"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Atcelt sagatavošanu"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Pašreizējā saite"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy nolasa saiti un piemēro profilu {{profileName}}."
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} neizdevās"
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} neizdevās"
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.quickProgress.failedCount_zero"
+msgid "{{count}} failed"
+msgstr "{{count}} neizdevās"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Iegūst informāciju"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Pievieno rindai"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Sagatavo ātro lejupielādi"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Atstājiet šo atvērtu, kamēr Arroxy sagatavo rindu."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "papildu opcijas"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "faila nosaukumu"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "formātu"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "mapi"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "subtitrus"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtitri, SponsorBlock, papildu opcijas, piemēram, sīktēls, mape un faila nosaukums, agrāk bija atsevišķi soļi. Noklikšķiniet uz rindas, lai to mainītu."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Visi pārējie iestatījumi tagad ir šajā lapā"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Mainīts salīdzinājumā ar {{profile}}: {{areas}}. Attiecas tikai uz šo lejupielādi."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Mainīts salīdzinājumā ar {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Mainīt formātu"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Marķieri: {title}, {id}, {uploader}, {date}, {resolution}. Paplašinājums tiek pievienots automātiski."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Saglabāt kā profilu"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (rediģēts)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Šī lejupielāde izmantoja rediģētus iestatījumus. Izmantot tos nākamreiz?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Atsaukt izmaiņas, atpakaļ uz “{{profile}}”"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Papildu opcijas"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Faila nosaukums"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Saglabāt mapē"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Subtitri"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Viss pārējais"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Saglabāt profilu"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Saglabā šos iestatījumus kā profilu, ko varēsiet izvēlēties nākamreiz. Jūsu ātrās lejupielādes profils paliek nemainīts."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Neizdevās saglabāt profilu."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Profila nosaukums"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Saglabāts kā profils “{{name}}”"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Saglabāt kā profilu"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Saglabāt kā jaunu profilu"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Atjaunināt profilu"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Šis ir iebūvēts profils. Tā sākotnējos iestatījumus varat atjaunot cilnē Profili."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Turpmāk katra lejupielāde ar šo profilu izmantos jaunos iestatījumus."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Formāts"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Atjaunināt “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profils “{{name}}” atjaunināts"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Atjaunināt “{{profile}}” ar šīm izmaiņām"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Nav"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Izslēgti"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Pildviela"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Ievads"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Mūzika ārpus tēmas"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Nobeigums"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Priekšskatījums"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Pašreklāma"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsors"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategorijas"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Atzīmēt kā nodaļas"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Noņemt segmentus"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Sponsoru filtrēšana"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Atzīmē sponsoru segmentus kā nodaļas (nedestruktīvi)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock — video tiek atskaņots kā augšupielādēts."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Izgriež sponsoru segmentus no video ar FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Apstiprināt"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Saglabāt"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Formāts"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Izvade"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Saraksts"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kvalitāte"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profili"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Pārskats"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtitri"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automātiskie paraksti tiks saglabāti kā SRT, nevis ASS — YouTube video tie tiek attīrīti no ritošo parakstu dublēšanās, ko mūsu ASS pārveidotājs vēl nespēj atveidot."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Notīrīt visu"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Iegulšanas režīms saglabā izvadi kā .mkv, lai subtitru celiņi tiktu iegulti uzticami."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Formāts"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Šim video nav pieejamu subtitru"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Nav atbilstošu valodu"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Nav izvēlētu subtitru"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Noņemt {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Iegult video"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Saglabāt kā"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Līdzās video"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "apakšmape subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Meklēt valodas…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automātiski ģenerētie"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Manuālie"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Lejupielādes profilu navigācija"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Papildu"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Sūtīt ikdienas pulsa signālu"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Nekādas telemetrijas. Reizi dienā anonīms pulsa signāls nosūta lietotnes versiju, instalēšanas kanālu, OS, valodu, valsti un aptuveni cik sen Arroxy ir instalēts, lai mēs varētu saskaitīt aktīvos un jaunos lietotājus. Bez ID, URL, video nosaukumiem vai failu nosaukumiem."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Noņem lejupielādi no sadaļas Lejupielādes dažas sekundes pēc tās pabeigšanas. Faili paliek jūsu mapē; neizdevušās un atceltās lejupielādes paliek sarakstā."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Noņemt pabeigtās lejupielādes"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Automātiski mēģina vēlreiz pēc tīkla vai servera kļūmes, katru reizi gaidot ilgāk. Vietnes bloķētas lejupielādes netiek automātiski atkārtotas."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Atkārtot neizdevušās lejupielādes"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "reizes"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Vairāki URL"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Pievienot rindai vairākus URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Notīrīt URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Saite pievienota no starpliktuves"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Nokopētas vairākas saites — izmantojiet Vairāki URL, lai tās pievienotu"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Aizstāts ar nokopēto saiti"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Vērot starpliktuvi"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Automātiski aizpilda URL lauku, kad nokopējat video saiti."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Atsaukt"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Aizverot paslēpt teknē"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Turpināt lejupielādes fonā pēc loga aizvēršanas."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Cik rindas vienumu tiek lejupielādēti vienlaikus. Vairāk vienlaikus ātrāk pabeidz garu rindu, bet palielina iespēju, ka vietne jūs ierobežos."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Vienlaicīgas lejupielādes"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "lejupielādes"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Tādas vietnes kā YouTube var atzīmēt — un dažkārt bloķēt — kontus, kuru sīkfailus izmanto lejupielādes rīki, piemēram, Arroxy. Ja iespējams, izmantojiet vienreizēju kontu."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Nolasa sīkfailus tieši no pārlūka. Chromium saimes pārlūkiem pārlūkam jābūt aizvērtam."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Pārlūks"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Izvēlieties pārlūku…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Izvēlēties…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Notīrīt"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Izvēlieties pārlūku, lai izmantotu sīkfailus"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Izvēlieties failu, lai izmantotu sīkfailus"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Izmanto jūsu pierakstīšanos sadaļā Izpēte tikai tad, kad lejupielādei tā nepieciešama."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Cilne Izpēte ir izslēgta, tāpēc lejupielādēs netiek izmantota jūsu pierakstīšanās sadaļā Izpēte. Ieslēdziet to zemāk sadaļā Izpēte."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Iegūt cookies.txt LOKĀLI (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Sīkfailu fails"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Kā eksportēt sīkfailus?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Atvērt Izpēti"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Fails nav izvēlēts"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Ieteicams"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risks: cookies.txt satur visas šī pārlūka pierakstītās sesijas — glabājiet to privāti."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Pārlūks"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Pierakstīšanās sadaļā Izpēte"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Fails"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Sīkfailu avots"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Palīdz ar videoklipiem, kuriem ir vecuma ierobežojums, kas paredzēti tikai dalībniekiem vai ir privāti kontam."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Paātrina lielas lejupielādes, vienlaikus iegūstot vairākas video daļas. Augstākas vērtības palielina iespēju, ka vietne jūs ierobežos."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Lejupielādes savienojumi"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "savienojumi"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Tikai audio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtitri"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ vietņu"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Mūzikas atskaņošanas saraksti"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Video atskaņošanas saraksti"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Ko Arroxy var lejupielādēt"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanāli"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Mūzika"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Atskaņošanas saraksti"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podkāsti"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Video"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Soli pa solim vednis. Izvēlieties formātu, kvalitāti un citu."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Lejupielādēt no URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Mainīt īsinājumtaustiņu"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Šo īsinājumtaustiņu izmanto cita lietotne — izvēlieties citu."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Vai nospiediet"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Nokopējiet video saiti jebkur, nospiediet šo īsinājumtaustiņu, un Arroxy to pievienos rindai ar jūsu aktīvo profilu — nav jāpārslēdz logi."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Mainiet vai izslēdziet iestatījumos."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Nospiediet taustiņus…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Atiestatīt uz noklusējumu"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Lejupielādējiet jebkuru nokopēto saiti no jebkuras lietotnes, neatverot Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Globālais īsinājumtaustiņš"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Pārbaudīt"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Ieslēgt globālo īsinājumtaustiņu"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Nospiediet īsinājumtaustiņu, kad starpliktuvē ir video saite."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interaktīvā lejupielāde"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktīvās lejupielādes saglabā savu pašreizējo ierobežojumu. Lai piemērotu izmaiņas, pauzējiet un atsāciet."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Pielāgot…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "piem., 750K vai 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Ierobežo joslas platumu multivides lejupielādēm. Zemāk esošais pieprasījumu temps parasti ir spēcīgāks ierobežošanas līdzeklis."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Izmantojiet skaitli, kam seko K vai M (piem., 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Lejupielādes ātruma ierobežojums"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Lejupielādēju fonā… Es protu darīt vairākas lietas vienlaikus 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Ātrā lejupielāde pievieno rindai ielādētos vienumus ar profilu {{profileName}}. Interaktīvā ļauj vispirms apskatīt vai atlasīt vienumus."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Ievietojiet saiti, un Arroxy to lejupielādēs ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Šī saite norāda uz vienu video kolekcijā. Arroxy pirms pārbaudes pajautās, kuru vēlaties."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} nolasa šo saiti un piemēro profilu {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Rinda apstrādā šo lejupielādi. Kamēr tā darbojas, varat ielīmēt citu saiti."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Ātrā lejupielāde sāk vienu lejupielādi ar profilu {{profileName}}. Vienreizējām izmaiņām izmantojiet Interaktīvo."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Saderīgs stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo vai telpiskais, kad profils izvēlas oriģinālo audio. Profils to var pārrakstīt."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Oriģinālā audio preference"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Dot priekšroku telpiskajam / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Pievieno nelielas gaidīšanas pauzes katras lejupielādes laikā, lai Arroxy pārāk agresīvi neapmeklētu vietni. Vērtības ir sekundēs."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pauze pirms multivides sākuma: maks."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pauze pirms multivides sākuma: min."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Gaidīšana starp metadatu pārbaudēm"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Gaidīšana pirms subtitru failiem"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Saudzīgas lejupielādes"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Cik piesardzīgam jābūt Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Līdzsvarots"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Piesardzīgs"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Pielāgots"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Gaida: {{requests}} starp pārbaudēm, {{downloads}} pirms multivides sākuma, {{subtitles}} pirms subtitru failiem."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Šīs gaidīšanas notiek katras lejupielādes iekšienē. Cik lejupielādes darbojas vienlaikus, tiek iestatīts atsevišķi sadaļā Vienlaicīgas lejupielādes."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Noklusējums. Pievieno īsas pauzes starp pieprasījumiem un pirms multivides sākuma."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Pievieno garākas pauzes lieliem atskaņošanas sarakstiem vai tīkliem, kas bieži sasniedz ierobežojumus."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Pats pielāgojiet papildu vadīklas katrai lejupielādei."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Izmanto tikai nelielās pamata pauzes, ko Arroxy saglabā multivides un subtitru failiem."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Pašreizējais limits: {{count}} vienumi"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Pielāgot…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Izmantojiet veselu skaitli no {{min}} līdz {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Saglabāt limitu"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Pielāgots atskaņošanas saraksta pārbaudes limits"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Pielāgots: {{count}} vienumi"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Maksimālais ierakstu skaits, ko Arroxy ielādē, atverot atskaņošanas sarakstu, kanālu vai meklēšanas rezultātu."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Izmantojiet veselu skaitli no 1 līdz 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Pārbaudāmie atskaņošanas saraksta vienumi"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} vienumi"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy, veidojot izvēles logu, pieprasa tikai tik daudz atskaņošanas saraksta, kanāla vai meklēšanas ierakstu."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Izmantot lietotnes limitu: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Lietot"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Neizdevās lietot šo atskaņošanas saraksta tvērumu: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Lietot un pārlādēt"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Mainīt"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Izvēlieties, ko Arroxy ielādē šim atskaņošanas sarakstam."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Atskaņošanas saraksta tvērums"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Šajā tvērumā nav video"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Pirmie"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Izmantojiet veselus vienumu numurus no 1 līdz {{max}}, sākumam nebūdams lielākam par beigām."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Ielādējamie vienumi"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Atskaņošanas saraksta tvērums"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Diapazons"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Pārlādē..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Atiestatīt"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Ielādēt pirmos vienumus: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Ielādēt pirmos vienumus: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Ielādēt vienumus {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "līdz"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktīvais profils"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Iebūvēts"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Pielāgots"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Paslēpts"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Mainīts"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Mainīt globālo galamērķi"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Izmanto globālo galamērķi"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Izmanto globālo galamērķi + profila apakšmapi"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Izmanto profila nepārklājumu"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Izmanto profila nepārklājumu + profila apakšmapi"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Galamērķis"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Rediģēt"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Rediģēt aktīvo profilu"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Paslēptie profili paliek šeit, bet pazūd no katra profilu izvēles saraksta."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Rādīt profilu izvēles sarakstos: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Atstājiet pieejamu vismaz vienu profilu."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Pārvaldīt profilus"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Maina aktīvo profilu ātrajai lejupielādei, vairākiem URL un atskaņošanas sarakstiem."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Pārslēgt profilu"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "pārvietojams profils"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Pārvietošana atcelta. {{profileName}} paliek pozīcijā {{position}} no {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} nomests pozīcijā {{position}} no {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Pārvietot {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Lai pārvietotu profilu, nospiediet atstarpes taustiņu vai Enter, pārvietojiet to ar bulttaustiņiem un vēlreiz nospiediet atstarpes taustiņu vai Enter, lai to nomestu. Nospiediet Escape, lai atceltu."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} atrodas virs pozīcijas {{position}} no {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Pacelts {{profileName}}. Tas atrodas pozīcijā {{position}} no {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Jauns profils"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Izveidojiet, izvēlieties, rediģējiet vai noņemiet atkārtoti izmantojamas lejupielādes konfigurācijas."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Lejupielādes profili"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Noņemt"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Velciet profilu, lai to pārvietotu. Visi profilu izvēles saraksti seko šai secībai."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Atiestatīt"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "labākais audio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "labākais video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "bez audio"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "tikai subtitri"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV audio"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Pārslēgt lejupielādes profilu: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Pārslēgt lejupielādes profilu"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Notīrīt"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Novirza datplūsmu caur starpniekserveri — noder saturam, kas ierobežots pēc ģeogrāfiskās atrašanās vietas."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Starpniekservera URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Nevienu no šiem URL nevarēja sagatavot"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Ātrā lejupielāde"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Lejupielādēs, izmantojot: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Neizdevās pievienot šo: {{error}}"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.url.quickPartialFailed_zero"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Rindas vienumu nevarēja sagatavot"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Sagatavo"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Pārbaude neizdevās"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Pievienots rindai"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Lai sāktu, ielīmējiet video, atskaņošanas saraksta, kanāla vai meklēšanas URL."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Globāla darbība, kas ietekmē arī uz profiliem balstītās lejupielādes."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Lejupielādes darbība"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Ievade"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Stikla paneļi virs kustīgām debesīm. Nepieciešams grafikas paātrinājums."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Vienlaidu, mierīgas virsmas. Viegli darbojas jebkurā datorā."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Abi stili ir pieejami gaišajā un tumšajā variantā."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stils"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Kā izskatās Arroxy. Pārslēdzieties starp gaišo un tumšo kājenē."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Izskats"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} nepieciešams grafikas paātrinājums, kas šobrīd nav pieejams, tāpēc Arroxy rāda {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profili"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Iestatījumi"

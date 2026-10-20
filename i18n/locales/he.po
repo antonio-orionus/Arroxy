@@ -1,0 +1,5226 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "אודות"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · מאת Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "אודות Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "מוריד מהיר ונוח עבור YouTube ויותר מ-2000 אתרים נוספים."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "הצגת הודעות צד שלישי"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "אתר"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "אפשר"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube מציע כמה סרטונים ישנים בגדלים שנוצרו באמצעות AI. “דילוג” שומר על הזרמים המקוריים; עדיין אפשר לבחור ידנית זרם משופר."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "זרמים משופרי AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "דילוג"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "משוב"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "נהנים מ-Arroxy? אשמח לשמוע מכם! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "יומנים"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "שמירת קובץ אבחון"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "מאגד את היומנים ופרטי היישום לקובץ אחד בתיקיית ההורדות, מוכן לצירוף לדיווח ב-GitHub. שם תיקיית המשתמש שלכם מוסר; קישורים וכותרות של סרטונים נשארים."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "חדש: בחרו כאן Aurora או Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "ערכת נושא"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "הגדלה"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "הקטנה"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "חזרה"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "סגירה"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "המשך"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "סגירה"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "טוען"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "התחלה מחדש"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy ממשיך לפעול ומסיים הורדות פעילות. ניתן לשנות זאת בהגדרות מתקדמות."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "הסתרה למגש"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "להסתיר את Arroxy למגש המערכת בעת הסגירה?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "יציאה"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "לא לשאול שוב"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "ביטול הורדות ויציאה"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "אפשר להשהות כדי להמשיך מאוחר יותר, או לבטל ולמחוק את ההתקדמות."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "המשך הורדה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "הורדה אחת בתהליך"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} הורדות בתהליך"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "dialogs.quitWithActiveDownloads.message_two"
+msgid "{{count}} downloads in progress"
+msgstr "שתי הורדות בתהליך"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "השהיית הורדות ויציאה"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "תהליך התצוגה קרס ({{reason}}). יש לטעון מחדש כדי לנסות שוב."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy נתקל בבעיה"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "יציאה"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "טעינה מחדש"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "הועתק!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "העתקת כתובת"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy חינמי ובקוד פתוח, ללא פרסומות וללא גרסה בתשלום. התרומות אופציונליות ואינן קונות השפעה על מפת הדרכים."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "תרומה"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "תמיכה ב-Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "קוד QR של כתובת התרומה ב-{{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "תמיכה ב-Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "תשלומי קריפטו אינם הפיכים. יש לשלוח רק ברשת המוצגת ולהשוות את הכתובת כולה."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "סרטון זה מוגבל לפי גיל ואי אפשר להוריד אותו ללא חשבון מחובר."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "הגנת הבוטים הופעלה. סביר שכתובת ה-IP שבה אתם משתמשים סומנה (טווח של מרכז נתונים או יציאת VPN עמוסה). החליפו כתובת IP או בחרו נקודת יציאה אחרת ב-VPN ונסו שוב. אם הבעיה נמשכת, ייתכן שמדובר בשינוי זמני בצד האתר — Arroxy מעדכן את מנוע ההורדה בכל הפעלה, ולכן התיקון יגיע אוטומטית ברגע שיפורסם."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "השרת המשיך לנתק את ההורדה באמצע, ו-Arroxy ויתר לאחר ניסיונות חוזרים. בעיה זו מופיעה בדרך כלל בפורמטי הווידאו הגדולים ביותר (4K HDR / VP9 בקצב סיביות גבוה). נסו שוב, החליפו רשת או VPN, או בחרו פורמט ברזולוציה נמוכה יותר."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "סרטון זה מוגן ב-DRM. Arroxy אינו יכול להסיר DRM, ולכן אי אפשר להוריד את הקובץ."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "סרטון זה אינו זמין באזור שלכם."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "נראה שכתובת ה-IP שלכם חסומה. נסו שוב מאוחר יותר או השתמשו ב-VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "סרטון זה דורש חשבון מחובר."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy לא הצליח למצוא את FFmpeg או את FFprobe. הפעילו את ההגדרה מחדש או הגדירו מיקום ל-FFmpeg, ואז נסו להוריד שוב."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "שגיאת רשת. בדקו את החיבור ונסו שוב."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "לסרטון זה אין כתוביות בשפות המבוקשות."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "אין מספיק מקום בדיסק. פנו מקום ונסו שוב."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy לא יכול לכתוב בתיקיית ההורדות. ייתכן שהיא לקריאה בלבד, נמצאת בכונן נעול או חסומה על ידי הגדרות הפרטיות של המערכת. בחרו תיקייה אחרת או אפשרו גישה, ואז נסו שוב."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "לא ניתן היה לנתח את התגובה מהאתר. ייתכן שהאתר שינה את אופן הגשת הסרטונים. Arroxy מעדכן את מנוע ההורדה בכל הפעלה — נסו שוב בעוד כמה דקות, לאחר שהתיקון יפורסם."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "ההורדה הסתיימה, אך העיבוד הסופי (מיזוג / שילוב / המרה) נכשל. לעיתים קרובות זו תקלה זמנית ב-ffmpeg — נסו שוב, ואם הבעיה נמשכת נסו שילוב אחר של פורמטים."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "האתר מגביל את קצב הבקשות מחיבור זה."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "סרטון זה אינו זמין — ייתכן שהוא פרטי, נמחק או חסום באזור."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "ההורדה נכשלה. ראו את הפלט הגולמי למטה."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy אינו תומך בכתובת זו. נסו קישור מאתר אחר."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "בדקו את החיבור ונסו שוב."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "הדף לא נטען"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "פתיחת הגדרות"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "בדקו את שרת ה-Proxy בהגדרות ונסו שוב."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "“גילוי” לא מצליח להתחבר דרך שרת ה-Proxy שלכם"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "לחצו לחיצה ימנית על כל קישור לסרטון, לרשימת השמעה או לערוץ בדף כדי להוריד אותו עם הפרופיל הפעיל, לבחור פרופיל אחר או לפתוח את התהליך שלב אחר שלב."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "לחיצה ימנית על קישור כדי להוריד אותו"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "העתקת קישור"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "הורדה באמצעות"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "חדש"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "מצאו סרטון ב-YouTube או באתר אחר והורידו אותו מכאן — בלי להעתיק קישורים. התחברו לאתר כאן כדי להוריד סרטונים שדורשים חשבון."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "המשך"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שמשמשים עם כלי הורדה כמו Arroxy. השתמשו בחשבון שאפשר להרשות לעצמכם לאבד, לא בחשבון הראשי."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "התחברו עם חשבון משני"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "גלישה באינטרנט ישירות בתוך Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "ההורדות משתמשות בקובצי ה-Cookie של הדפדפן, לא בהתחברות שלכם ב“גילוי”."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "ההורדות משתמשות בקובץ ה-Cookie שלכם, לא בהתחברות שלכם ב“גילוי”."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "לא עכשיו"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "קובצי Cookie כבויים, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "שימוש בהתחברות ל“גילוי”"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "גלשו ב-YouTube או באתר אחר בתוך Arroxy, והתחברו כדי להוריד סרטונים שדורשים חשבון."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "שחרור זיכרון בזמן היעדרות"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "לאחר 5 דקות בכרטיסייה אחרת, דף הבית או דף החיפוש של YouTube נסגר. החזרה אליו טוענת אותו מחדש, מה שנמשך כמה שניות."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "מנוע חיפוש"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "המקום שבו מתבצע חיפוש של טקסט שהוקלד בשורת הכתובת. קישורים נפתחים כפי שהוקלדו."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "הצגת הכרטיסייה “גילוי”"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "כיבוי האפשרות גם מונע מההורדות להשתמש בהתחברות שלכם ב“גילוי”."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "התנתקות מ“גילוי”"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "התנתקות"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "פעולה זו מוחקת את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים. הורדות שדורשות חשבון ייכשלו עד שתתחברו שוב."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "להתנתק מ“גילוי”?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "מוחק את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "גילוי"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "גילוי"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube עשוי להתנגד לחוסמי פרסומות בחשבונות מחוברים."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "חוסם פרסומות"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "חוסם פרסומות: כבוי — לחצו כדי להפעיל"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "חוסם פרסומות: פועל — לחצו כדי לכבות"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "חוסם פרסומות: מתחיל — לחצו כדי לכבות"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "חוסם פרסומות: לא זמין, לא ניתן היה להוריד את רשימות הסינון שלו — לחצו כדי לכבות"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "כתובת"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "חיפוש ב-{{engine}} או פתיחת כל אתר (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "פקדי הדפדפן של “גילוי”"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "אחורה"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "פריסה קומפקטית"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "הורדה · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "קדימה"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "הצגת פריסה מלאה"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "פתחו סרטון, רשימת השמעה או ערוץ כדי להוריד אותם"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "דף הבית של YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "הורדה אינטראקטיבית: בחירת פורמט, כתוביות ועוד…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "“גילוי” לא יכול לפתוח את הכתובת הזו."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "רענון"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "החיפוש ארוך מדי."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "זום בדף: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "הגדלה"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "זום בדף"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "הקטנה"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "אחוז זום"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "איפוס הזום ל-100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "בחרו איך יקראו הקבצים שהורדו. לחצו על אסימון כדי להוסיף אותו. השתמשו בתו / כדי למיין הורדות לתיקיות."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "הזינו תבנית לשם קובץ."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "הסירו את התו / העודף — לכל תיקייה חייב להיות שם."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "הסירו תווים שאינם מותרים בשמות קבצים: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "שם התיקייה הזה אינו מותר. הימנעו מ-. ומ-.. וכן משמות שמורים כמו CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "הוסיפו {title} או {id} לשם הקובץ כדי שכל הורדה תקבל שם משלה."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "אי אפשר להשתמש ב-{resolution} כשם של תיקייה — האיכות אינה ידועה עד שההורדה מתחילה."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ או } ללא התאמה — עטפו אסימונים כמו {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "התבנית ארוכה מדי."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "אסימון לא מוכר: {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "בלי {id}, Arroxy לא יכול לזהות פריטי רשימת השמעה שכבר הורדו או ליצור רשימות השמעה בפורמט m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "תבנית שם קובץ"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "לא זמין מפני שתבנית שם הקובץ שלכם אינה כוללת {id} או ממיינת הורדות לתיקיות."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "ברשימת השמעה"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "סרטון בודד"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "השאירו ריק כדי לרשת את התבנית הגלובלית."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "תבנית שם קובץ"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "אוטומטי"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "אוטומטי (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "הזרמים שנבחרו קובעים את סוג הקובץ."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "תומך בכל קודק. חלק מהטלוויזיות והטלפונים לא יכולים לפתוח אותו."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "מתנגן כמעט בכל מקום. וידאו VP9 בתוך MP4 לא יתנגן ב-QuickTime."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "פורמט פתוח לדפדפנים. תומך רק ב-VP9 או AV1 עם Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 בתוך MP4 דורש Mac עדכני כדי להתנגן ב-QuickTime. H.264 מתנגן בכל מקום."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 בתוך MP4 לא יתנגן כוידאו ב-QuickTime. H.264 מתנגן בכל מקום."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "פרופיל"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM אינו מוצע עם טלוויזיה חכמה: הוא אינו תומך ב-H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM אינו תומך ב-{{codec}}. בחרו MKV או MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "שמע"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "שמע בלבד · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "אוטומטי"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "במצב אוטומטי נבחר HDR כשהמסך הזה יכול להציג אותו, ואחרת SDR. HDR נראה דהוי במסכים רגילים."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "וידאו HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "שפה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר לקישור אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "notifications.exploreSignInRetrying_two"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "לא ניתן היה להתנתק מ“גילוי”. נסו שוב."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "התיקייה הזו עמוקה מדי עבור המערכת שלכם. ייתכן שההורדה עדיין תיכשל — בחרו תיקייה קצרה יותר."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "שם הסרטון הזה אינו יכול להכיל את כל חלקי התבנית שלכם, ולכן נעשה שימוש בשם ברירת המחדל."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "לא ניתן היה לפתוח את בורר התיקיות."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "כבר בתור — לא נוסף עותק"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy עדיין מתחיל — נסו שוב בעוד רגע"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "סיימו להגדיר קובצי Cookie ב-Arroxy ונסו שוב"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "אין קישור בלוח — העתיקו קישור קודם"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” ב-Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "הקישור הזה דורש את בחירתכם — ראו הורדות ב-Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "ההורדה נוספה לתור מהלוח"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "לא ניתן היה להוסיף את הקישור — נסו שוב ב-Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "אי אפשר להשתמש בתיקייה הזו עבור רשימת ההשמעה."
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "סרטון אחד כבר בתור — דולג"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} סרטונים כבר בתור — דולגו"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "notifications.queue.skippedAlreadyQueued_two"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} סרטונים כבר בתור — דולגו"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "נוסף: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "כבר בתור"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "סרטון אחד ומעלה — בחרו כמה"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ סרטונים — בחרו כמה"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "notifications.quickDownload.chooseHowMany_two"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ סרטונים — בחרו כמה"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "לא ניתן היה להכין את {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "לא ניתן היה להוסיף את הקישור — נסו שוב"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "סרטון אחד ברשימה זו — לסקירה ובחירה"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} סרטונים ברשימה זו — לסקירה ובחירה"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "notifications.quickDownload.review_two"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} סרטונים ברשימה זו — לסקירה ובחירה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "סרטון אחד ומעלה ברשימה זו — לסקירה ובחירה"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "notifications.quickDownload.reviewCapped_two"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "הצגה"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "לא ניתן היה לשמור את ההגדרות שלכם."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "לא ניתן היה לפתוח זאת."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "ההגדרה לא הסתיימה. ייתכן שחלק מההורדות ייכשלו עד שתסתיים."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "שמע (הטוב ביותר)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "שמע ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "השמע המקורי הטוב ביותר, ללא קידוד מחדש"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "המרה ל-M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "המרה ל-MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "המרה ל-Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 מעל 1080p אינו זמין ב-YouTube — מוגבל אוטומטית ל-1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "שמירה בתור"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "ישירות בתיקיית השמירה"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "שפות"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "בחרו לפחות שפה אחת כדי להמשיך."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "לכל סרטון נשמרים קובצי כתוביות בלבד — לא מורדים וידאו או שמע."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "מקור"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "עד 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "עד 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "עד 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "עד 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "עד 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "עד 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "עד 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "עד 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "איכות מיטבית"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "מוגבל ל-1080p, יורד לאיכות נמוכה יותר לפי פריט"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "הקבצים הקטנים ביותר האפשריים"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "מוגבל ל-2K, יורד לאיכות נמוכה יותר לפי פריט"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "מוגבל ל-2160p, יורד לאיכות נמוכה יותר לפי פריט"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "קבצים קטנים מאוד, איכות נמוכה"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "קבצים קטנים לרוחב פס מוגבל"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "רוחב פס נמוך"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "קבצים קטנים יותר, תאימות רחבה"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "הווידאו והשמע הגבוהים ביותר הזמינים לכל פריט"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "שמע"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "כתוביות"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "וידאו"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "הטוב ביותר במקור"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "טלוויזיה חכמה H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "סוג הקובץ והקודקים הטובים ביותר הזמינים לכל פריט"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "העדפת וידאו H.264 ושמע AAC בתוך MP4 כשאפשר"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "נלווה"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "תיאור"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "מדיה"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "חסר"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "כתובית"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "תמונה ממוזערת"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "קובץ"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "הורדה אחת דורשת את תשומת לבכם"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} הורדות דורשות את תשומת לבכם"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "queue.attentionBadge_two"
+msgid "{{count}} downloads need your attention"
+msgstr "שתי הורדות דורשות את תשומת לבכם"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "הסרת כל הורדה מהרשימה כמה שניות אחרי שהסתיימה. הקבצים נשארים בתיקייה שלכם."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "ניקוי אוטומטי של ההורדות שהושלמו"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "ביטול כל ההורדות הפעילות והממתינות"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "כל הסרטונים"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "יש יותר מסרטון אחד ברשימת ההשמעה הזו. אפשר להוריד את כולם, את הראשון או לבחור בסקירה."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "יש יותר מ-{{count}} סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את {{count}} הראשונים או לבחור בסקירה."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "queue.choice.cappedBody_two"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "יש יותר משני סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את שני הראשונים או לבחור בסקירה."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "{{count}} הראשונים"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "סקירה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "הקישור הזה הוא רשימה של סרטון אחד. סקרו אותה כדי לבחור מה להוריד."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "הקישור הזה הוא רשימה של {{count}} סרטונים. סקרו אותה כדי לבחור מה להוריד."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "queue.choice.reviewBody_two"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "הקישור הזה הוא רשימה של שני סרטונים. סקרו אותה כדי לבחור מה להוריד."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "ניקוי הורדות שהושלמו"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "הורדות שבתור יופיעו כאן"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "הכול"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "מסנני מצב התור"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "כל הפריטים"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "הורדות"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "השמע לא הוסר"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "השמע לא הוסר · חלק מהכתוביות נכשלו"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "ההורדה נכשלה"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "פתיחת תיקיית היעד"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "השהיה"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "ממתינים בלבד"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "הורדה מיידית — דילוג על התור"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "מוגבל ל-{{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "מוגבל ל-{{height}}p · חלק מהכתוביות נכשלו"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "הסרה"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "חידוש"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "ניסיון חוזר אוטומטי (ניסיון {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "הגדרת מיקום"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "בחרו פריטים ממתינים כדי להגדיר מיקום."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "בוטל"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "הושלם"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "שגיאה"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "מעוכב"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "דורש את בחירתכם"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "מושהה"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "בהמתנה"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "אחזור פרטים"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "מוריד"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "אין כתוביות בשפות הבאות: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "השהיית כל ההורדות הפעילות ומניעת התחלה של הורדות חדשות"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "התור מושהה — פריטים ממתינים לא יתחילו עד שתחדשו אותו"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "חידוש הורדות מושהות והמשך פעולת התור"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "חידוש התור"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "פריטים נבחרים"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} נבחרו · {{total}} בסך הכול"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "הורדות"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "נוסף"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "קבצים"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "העמודה {{column}} שוחררה."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "הזזת העמודה {{column}} בוטלה."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "העמודה {{column}} נמצאת מעל {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "העמודה {{column}} נאספה."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "עמודות"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "הסתיים"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "פורמט"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "הסתרת הקבצים של {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "עמודה ניתנת להזזה"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "כדי להזיז עמודה, הקישו על רווח או על Enter, הזיזו אותה באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותה. הקישו על Escape כדי לבטל."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "יעד פלט"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "התקדמות"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "איפוס עמודות"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "שינוי גודל העמודה {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "הצגת הקבצים של {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "גודל"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "מיון לפי {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "מצב"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "כותרת"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ההורדות נמצאות עכשיו בכרטיסייה “הורדות” — פתחו אותה בכל עת כדי לעקוב אחר ההתקדמות."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "המשך"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "אתם מריצים עדכון חדש. הנה הדגשים."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "הערות מלאות לגרסה ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "מה חדש ב-Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "בחירת קובץ הפעלה"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "התקנה באמצעות Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "התקנה באמצעות WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "פתיחת תיקיית התלויות"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "איפוס לברירת המחדל"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "ניסיון חוזר"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "הצגת יומן ההגדרה"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "כלי אינו פועל כראוי"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "אפשרו את Arroxy בתוכנת האנטי-וירוס או ב-SmartScreen ונסו שוב."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "תוכנת האנטי-וירוס חסמה כלי"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "בדקו את חיבור האינטרנט ונסו שוב."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "לא ניתן היה להוריד את מה ש-Arroxy צריך"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "נסו שוב כדי להוריד אותו מחדש."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "הורדה הגיעה פגומה"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "נסו שוב כדי להוריד אותו מחדש."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "הורדה לא תאמה את סכום הביקורת שלה"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "בחרו את שניהם להלן, או אפסו אותם לברירת המחדל."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "יש להגדיר את FFmpeg ואת FFprobe יחד"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק שאתם סומכים עליו."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "המערכת לא מאפשרת ל-Arroxy להפעיל כלי"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "כלי חסר או שאינו מתחיל"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "לעיתים קרובות זו סריקת אבטחה בהפעלה הראשונה. נסו שוב."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "כלי התעכב יותר מדי בתגובה"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "נסו שוב, או פתחו את יומן ההגדרה לפרטים."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "משהו השתבש במהלך ההגדרה"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "מנוע ההורדה"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "כלי מדיה"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "ההתקנה באמצעות Homebrew מתבצעת… זה עשוי להימשך כמה דקות."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "ההתקנה באמצעות WinGet מתבצעת… זה עשוי להימשך כמה דקות."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "הפנו את Arroxy לעותקים שכבר יש לכם, או התקינו אותם בדרך אחרת."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "אפשר גם להתקין את yt-dlp ואת ffmpeg באמצעות מנהל החבילות שלכם, ואז ללחוץ על “ניסיון חוזר”."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "הגדרה ידנית"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "נסו שוב, או הפנו את Arroxy להלן לכלים שכבר יש לכם."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "ההגדרה נעצרה"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "ההגדרה זקוקה לעזרתכם"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "איך הפרופיל הזה בוחר"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "שמע AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "מתאים לנגני MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "שמע AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "מתנגן בכל מקום"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, אחר כך VP9, אחר כך H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "החד ביותר בגודל נתון"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, אחר כך VP9, אחר כך AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "הקודק של הפרופיל הזה"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, אחר כך H.264, אחר כך AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "הקודק של הפרופיל הזה"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "קצב הפריימים הגבוה ביותר"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "תנועה חלקה יותר"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "וידאו H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "מתנגן בכל מכשיר"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR לפני SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "צבעים עשירים יותר במסכי HDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "המסך הזה מציג HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR לפני HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "נראה תקין בכל מסך"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "המסך הזה אינו HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "זרמי MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "מוכן לקובץ MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "שמע סטריאו"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "הפרופיל הזה"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "מההגדרות"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "שמע היקפי כשהוא מוצע"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "שמע Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "מתאים ל-WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "זרמים מקוריים, לא משופרי AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "עותק משופר גבוה יותר אך אינו מוסיף פרטים אמיתיים"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "הורדות ישירות לפני עותקים בהזרמה"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "אותה תמונה, מורדת מהר יותר"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "עד {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "המגבלה שלכם"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "הרזולוציה הגבוהה ביותר"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "לא הוגדרה מגבלה"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "זרמים שהאתר אינו מסמן כנחותים"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "מדלג על עותקים פגומים, עם סימן מים ועל עותקי גיבוי"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "קובץ גדול יותר"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "יותר פרטים באותן הגדרות"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "זרמים בקצב סיביות משופר קודם"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "יותר פרטים באותה רזולוציה"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "סוג הקובץ נקבע לפי הזרמים"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "נשמר כ-.{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "התמונה הטובה ביותר"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "מתנגן בכל מכשיר"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "למה זה?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "למה הפרופיל בחר בזה"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "הועתק!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "העתקת קישור"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — מוריד וידאו חינמי ובקוד פתוח עבור Windows, macOS ו-Linux. עובד עם YouTube, Vimeo, Twitch ויותר מ-2000 אתרים.\n"
+"4K · HDR · MP3 · Shorts · כתוביות · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy חינמי ובקוד פתוח. שיתוף עוזר ליותר אנשים לגלות אותו."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "שיתוף"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "שיתוף Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "שיתוף Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "שיתוף Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "יש בעיה? הגדירו ידנית"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "ברוכים השבים!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} מתוך {{total}}"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "נותרה בערך דקה"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "נותרו בערך {{count}} דקות"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "splash.setup.left.minutes_two"
+msgid "about {{count}} min left"
+msgstr "נותרו בערך שתי דקות"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "נותרה פחות מדקה"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "שומר על תקינות ההורדות כשאתרים משתנים."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "זה קורה פעם אחת. Arroxy שומר את הכלים האלה ומעדכן אותם בעצמו."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "זה קורה פעם אחת. Arroxy שומר אותם לעדכונים עתידיים."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "בודק שהכול עובד"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "מתחבר…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "מוריד את מנוע ההורדה ואת כלי המדיה"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "מוריד את מנוע ההורדה"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "מוריד את כלי המדיה"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "מחלץ את כלי המדיה"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "עדכון מנוע ההורדה"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "הגדרה בפעם הראשונה"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "עדכון כלי המדיה"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "בדיקה ראשונה של גרסה זו — היא איטית. בדרך כלל כדקה."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "בודק את {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "מכין הורדות…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "ההגדרה נכשלה. פתחו את יומן ההגדרה לפרטים."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע, ולא ניתן היה להוריד חלק מהכתוביות"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "ההורדה בוטלה"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "ההורדה הושלמה"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "ממיר וידאו…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "אין מספיק מקום בדיסק — נדרש {{required}}, זמין רק {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "מוריד את הקובץ הבינארי {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "מוריד וידאו ושמע…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "משלב מטא-נתונים…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "נותקתם מ“גילוי” — התחברו שוב"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "ממיר שמע…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "פונה אל SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "מאחזר כתוביות…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "ממזג שמע ווידאו…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "מנפיק אסימון YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "מעביר קבצים…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "אין כתוביות בשפות הבאות: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "אי אפשר לשמור ב-{{dir}} — ל-Arroxy אין הרשאה לכתוב שם"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "מכין קבצים בינאריים…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו, ולא ניתן היה להוריד חלק מהכתוביות. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "מנפיק אסימון מחדש…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock אינו זמין, מנסה שוב ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "החיבור נתקע, מנסה שוב ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "מתחבר עם חשבון “גילוי” שלכם…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "ממתין {{seconds}} שניות כדי להימנע ממגבלות קצב…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "מפעיל את מנוע ההורדה…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. הסרטון נשמר בלי כתוביות."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. שאר השפות נשמרו."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "הווידאו נשמר — לא ניתן היה להוריד חלק מהכתוביות"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "כשל לא ידוע בהפעלת ההורדה"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "הורד באמצעות מחלץ מקל — הגדירו cookies.txt לשיפור מהימנות ההורדות"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "מנוע ההורדה הסתיים עם קוד {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "שגיאת מנוע ההורדה: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "מצב כהה"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "מצב בהיר"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "ברירת המחדל של המערכת"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "סגירה"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "הגדלה"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "מזעור"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "שחזור"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "הורדה מהלוח"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "פתיחת Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "יציאה מ-Arroxy"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "הורדה אחת · {{percent}}%"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} הורדות · {{percent}}%"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "tray.menu.statusActive_two"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "שתי הורדות · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "במצב המתנה"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "הפקודה הועתקה ללוח"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "העתקת הפקודה ללוח"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "סגירת באנר העדכון"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "הורדה ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "הורדת DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "מוריד…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "התקנה והפעלה מחדש"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "העדכון נכשל"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} זמין — הגרסה שלכם היא {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} זמין — עדכנו באמצעות Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} זמין — הורידו את ה-DMG החדש."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} זמין — הורידו את ה-DMG או עברו ל-Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} זמין — הורידו את הגרסה החדשה."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "הרצה והפעלה מחדש"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "משדרג…"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "פרק אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} פרקים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "videoCard.chapters_two"
+msgid "{{count}} chapters"
+msgstr "שני פרקים"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "טוען…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "אוטומטי"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "איזה קודק לבחור קודם בין זרמים באותו גובה. במצב אוטומטי נשמר הסדר של yt-dlp עצמו, שמעדיף את AV1, הקטן ביותר; H.264 מתנגן בטלוויזיות ובטלפונים ישנים יותר."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 קודם"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "קודק וידאו"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "טלוויזיה חכמה תמיד בוחר ב-H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 קודם"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "מוכנים"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "הדביקו כתובות URL של סרטונים, רשימות השמעה, ערוצים, חיפושים או שמע. Arroxy ינקה כפילויות לפני ההוספה לתור."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "הדביקו כתובת URL אחת או יותר כדי להציג תצוגה מקדימה של האצווה."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "התעלמות"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "הוסיפו לפחות כתובת URL נתמכת אחת כדי להמשיך."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "כפילות"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "רשימת כתובות URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "כתובות URL מרובות"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ תור"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "מוסיף לתור — מתחיל כשההורדה הפעילה מסתיימת"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "שמע בלבד"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "סרטון אחד מתוך {{total}}"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} מתוך {{total}} סרטונים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.confirm.itemsValue_two"
+msgid "{{count}} of {{total}} videos"
+msgstr "שני סרטונים מתוך {{total}}"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "רצועה אחת מתוך {{total}}"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} מתוך {{total}} רצועות"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.confirm.itemsValueAudio_two"
+msgid "{{count}} of {{total}} tracks"
+msgstr "שתי רצועות מתוך {{total}}"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "כתובת URL אחת מתוך {{total}}"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} מתוך {{total}} כתובות URL"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.confirm.itemsValueBulk_two"
+msgid "{{count}} of {{total}} URLs"
+msgstr "שתי כתובות URL מתוך {{total}}"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "שמע"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "אצווה"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "פריטים"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "רשימת השמעה"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "הגדרה מראש"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "שמירה אל"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "גודל"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "כתוביות"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "וידאו"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "הקובץ שלכם יישמר בתיקייה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "הוא יישמר ביעד שלהלן"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "הם יישמרו ב-{{count}} היעדים שלהלן"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.confirm.landInMultiProfile_two"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "הם יישמרו בשני היעדים שלהלן"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "ההגדרה המוכנה “כתוביות בלבד” פעילה אך לא נבחרה שפת כתוביות — שום דבר לא יורד."
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "פריט אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} פריטים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.confirm.profileBreakdownCount_two"
+msgid "{{count}} items"
+msgstr "שני פריטים"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "פרופילים באצווה זו"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "מורידים! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "מדלג על התור — מתחיל עכשיו, פועל לצד הורדות פעילות אחרות"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "הכול מוכן להורדה!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "לא ידוע"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "שילוב הכתוביות שונה לקובץ נפרד — רצועות שמע אינן תומכות בזרמי כתוביות משולבים."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "כתוביות בתוך הווידאו דורשות קובץ MKV, ולכן הורדה זו נשמרת כ-.mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "שילוב התמונה הממוזערת דולג — סוג קובץ הפלט אינו תומך בכך."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "מותאם אישית…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "שולחן העבודה"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "מסמכים"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "הורדות"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "שמירה אל"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "בית"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "מוזיקה"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "תמונות"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "שם התיקייה מכיל תווים לא חוקיים"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "לדוגמה: הקלטות lo-fi"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "שמירה בתוך תיקיית משנה"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "סרטים"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "שמע"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "שפת שמע"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "שפה אחת"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} שפות"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.formats.audioLanguageCount_two"
+msgid "{{count}} languages"
+msgstr "שתי שפות"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "שמע בלבד"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "קצב סיביות {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "קובצי Cookie מוגדרים אך כבויים. הפעילו אותם ונסו שוב כדי לקבל את הרשימה המלאה, או החליפו רשת ונסו שוב."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "גם עם קובצי Cookie, YouTube הגביל את הבדיקה הזו. נסו שוב מאוחר יותר או החליפו רשת."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube הגביל את הבקשה הזו. נסו שוב מאוחר יותר או החליפו רשת."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "ייתכן שרשימת הפורמטים חלקית. הגדירו קובצי Cookie בהגדרות מתקדמות, או החליפו רשת ונסו שוב."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "הפעלת Cookie וניסיון חוזר"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "הבדיקה הוגבלה"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "קצב סיביות"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "מקור שהוא כבר {{target}} שומר על הזרם ועל קצב הסיביות שלו: הוא מועתק, לא מקודד מחדש."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, ללא קידוד מחדש"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, ללא קידוד מחדש"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "המרה"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "המקור הוא {{kbps}} kbps"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (ללא דחיסה)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "דפדפן"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "התחברות ב“גילוי”"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "קובץ"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "מקור Cookie"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "מסמכי yt-dlp (בעיה #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 ואילך מצפין קובצי Cookie באופן שיישומים אחרים אינם יכולים לקרוא ב-Windows. נסו אחד מהפתרונות העוקפים שלהלן."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "ייצאו קובצי Cookie מ-Chrome באמצעות תוסף דפדפן, ואז העבירו את היישום למצב קובץ ובחרו את הקובץ שיוצא."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "ייצוא cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox אינו משתמש ב-App-Bound Encryption. פתחו את הגדרות ה-Cookie ובחרו Firefox מרשימת הדפדפנים."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "מעבר ל-Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "הוסיפו את --disable-features=LockProfileCookieDatabase לקיצור הדרך להפעלת Chrome. אזהרה: פעולה זו מבטלת קובצי Cookie שהוצפנו בעבר, ולכן תנותקו מכל האתרים ותצטרכו להתחבר מחדש."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "הפעלת Chrome כשה-App-Bound Encryption מושבת"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "קובצי Cookie של Chrome חסומים על ידי הצפנת Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "קובצי Cookie נקראים ישירות מהדפדפן. אם הדפדפן פועל כרגע, ייתכן שמסד הנתונים של קובצי ה-Cookie נעול (משפחת Chromium). הדפדפן צריך להיות מחובר גם ל-YouTube. נסו לסגור את הדפדפן, לעבור לדפדפן אחר, לעבור למצב קובץ או לכבות את קובצי ה-Cookie."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "ייתכן שקובץ ה-Cookie שלכם ריק, שתוקפו פג או שהוא בפורמט שגוי (Arroxy צריך קובץ cookies.txt בפורמט Netscape). נסו לייצא מחדש את קובצי ה-Cookie, לבחור קובץ אחר, לעבור למצב דפדפן או לכבות את קובצי ה-Cookie."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "התחברו ב“גילוי” ו-Arroxy ינסה שוב."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "התחברות ב“גילוי”"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "ייתכן שסרטון זה דורש חשבון YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy כבר ניסה זאת כשהוא מחובר דרך “גילוי”, ולכן התחברות נוספת לא תעזור. ייתכן שיש תקלה באתר, או שהחשבון הזה אינו יכול לפתוח אותו. נסו שוב מאוחר יותר."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "האתר סירב גם עם ההתחברות שלכם ב“גילוי”"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "אתם מחוברים ל“גילוי”, אך ההורדות אינן משתמשות כרגע בהתחברות הזו."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "שימוש בהתחברות שלי ב“גילוי” וניסיון חוזר"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "ייתכן שסרטון זה דורש חשבון YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "אם סרטון זה דורש חשבון, Arroxy משתמש בהתחברות שלכם ב“גילוי” באופן אוטומטי. ייתכן שהוא אינו זמין מסיבה אחרת."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "מחוברים ל“גילוי”"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "אם סרטון זה דורש חשבון YouTube, התחברו ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "התחברות ב“גילוי”"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "ייתכן שסרטון זה דורש חשבון YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "ייתכן שקישור זה דורש חשבון ב-{{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "התחברו ל-{{host}} דרך “גילוי” ונסו שוב."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "התחברו ל-{{host}} ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "ייתכן שקובצי Cookie הם הסיבה"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy לא הצליח לגשת לסרטון זה ללא אימות. הגדירו קובצי Cookie בהגדרות מתקדמות — הפנו אותם לדפדפן שכבר מחובר, או ייבאו קובץ cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "אתר זה דורש התחברות"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "פתיחת הגדרות Cookie"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "שימוש בקובץ Cookie או בדפדפן במקום זאת…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "מנמיך חלקים רועשים ומגביר חלקים שקטים, עבור רמקולים וחדרים רועשים."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "איזון עוצמת הקול (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "עוצמה מאוזנת"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "הפרופיל שלכם הוא טלוויזיה חכמה (H.264). סרטון זה אינו מציע H.264, ולכן נבחר הזרם הקרוב ביותר."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "בקישור זה אין וידאו, ולכן נבחר שמע."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "הפרופיל שלכם מבקש כתוביות ב-{{languages}}. בסרטון זה אין אותן."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "הפרופיל שלכם מבקש {{wanted}}p. בסרטון זה אין דבר קטן כל כך, ולכן נבחר {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "הפרופיל שלכם מבקש {{wanted}}p. סרטון זה מגיע רק עד {{picked}}p, ולכן נבחר {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "הפרופיל שלכם מבקש WebM. הזרמים שנבחרו בסרטון זה כוללים {{codec}}, ש-WebM אינו תומך בו, ולכן סוג הקובץ הוא אוטומטי."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "הוספה לתור ללא התחלה"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "הורדה"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "אפשרויות הורדה נוספות"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "בחרו לפחות שפת כתוביות אחת."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "להשאיר כפי שהוא"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "שמע מובנה"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "שמע בלבד"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "מה להוריד"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "כתוביות בלבד"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "וידאו + שמע"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "וידאו, ללא שמע"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "טוען פורמטים"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "המתינו לסיום הבדיקה — רשימות השמעה וחיפושים עשויים להימשך זמן מה."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "דובב ב-AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "משופר ב-AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "תיאור שמע"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "פגום"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "קצב סיביות משופר"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "שמע מרחבי"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "עם סימן מים"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "ללא שמע"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "הפרופיל הפעיל שלכם בוחר מראש את הזרמים עבורכם. החליפו פרופילים מהתפריט, או השתמשו בעיפרון כדי לכוונן פרופיל בלי לצאת מהורדה זו."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "הפורמטים מתחילים מהפרופיל שלכם"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "הקרוב ביותר לפרופיל"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "עריכת {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "שמירת השינויים שלי"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "להורדה זו בלבד. פרופיל ברירת המחדל שלכם נשאר כפי שהוא."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "נבחר מראש מתוך"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "איפוס הכול"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "שיניתם {{areas}} בהורדה זו. “{{profile}}” בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "להחליף פרופיל?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "פרופיל"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "שיניתם {{areas}} בהורדה זו. הפרופיל המעודכן בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "להשתמש בפרופיל המעודכן?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "איכות גבוהה"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "איכות נמוכה"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "איכות בינונית"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} מגביל את קצב הבקשות מחיבור זה"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "ייתכן שרשימת הפורמטים חלקית."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} דחה בקשה זו לעת עתה."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "ניסיון חוזר"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} עשוי להשאיר מגבלה זו בתוקף עד שעה."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "ניסיון עכשיו"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "ההמתנה הסתיימה, ולכן אפשר לנסות שוב."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy ימתין עד {{time}} לפני שיפנה שוב אל {{site}}, כדי שהמגבלה תוסר."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "רזולוציה לא ידועה"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "נשמר בתור"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM אינו תומך ב-{{codec}}, ולכן סוג הקובץ חזר לאוטומטי."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "גודל לא ידוע"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "דילוג לאישור"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "משתמש בהעדפות השמורות שלכם בכל השלבים הנותרים. כדי לשנות הגדרה, המשיכו שלב אחר שלב — הבחירה שלכם תישמר לפעם הבאה."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "מחפש עבורכם את הפורמטים הטובים ביותר…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "סך הכול"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "וידאו"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "עם שמע"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "רוצים רק את הסרטון שלחצתם עליו, או לבחור מרשימת ההשמעה? בשלב הבא תבחרו סרטונים מסוימים או טווח."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "בחירה מרשימת ההשמעה"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "מגבלת בדיקת רשימת השמעה: {{count}} פריטים"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "טוען את רשימת ההשמעה, עד מגבלת הבדיקה שלכם, לפני הצגת הבורר."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "הורידו רק את הסרטון הזה, או הוסיפו לתור את כל רשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "המספר המרבי של פריטים ש-Arroxy סורק לפני הוספה לתור של רשימת השמעה, ערוץ או תוצאות חיפוש."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "מוסיף לתור כל פריט שנטען מרשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל. אם הסריקה מגיעה למגבלה שלכם, Arroxy שואל לפני ההוספה לתור."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "מוסיף לתור הורדה אחת ומתעלם מרשימת ההשמעה המצורפת לכתובת זו."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "הורדת הסרטון הזה"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "הורדת כל רשימת ההשמעה"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "טוען רק את הסרטון הזה. רשימת ההשמעה המצורפת לכתובת זו אינה נלקחת בחשבון."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "רק זה"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "בקישור זה יש רשימת השמעה"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "סימוני פרקים שאפשר לנווט בהם בכל נגן מודרני."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "שילוב פרקים"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "כותרת, אמן, תיאור ותאריך העלאה נכתבים לתוך הקובץ."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "שילוב מטא-נתונים"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "תמונת עטיפה בתוך הקובץ. וידאו WebM יועבר ל-MKV ללא קידוד מחדש; מדולג כשכתוביות משולבות."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "שילוב תמונה ממוזערת"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "שומר את תיאור הסרטון בקובץ טקסט מסוג description לצד ההורדה."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "שמירת תיאור"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "שומר קובץ רשימת השמעה בפורמט m3u לצד הסרטונים, כדי שייפתחו לפי הסדר בנגן המדיה שלכם."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "יצירת קובץ רשימת השמעה בפורמט m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "שומר את התמונה הממוזערת כקובץ תמונה מסוג jpg לצד ההורדה."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "שמירת תמונה ממוזערת"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "עברו אל “חלק” בכרטיס הסרטון כדי לבחור התחלה וסיום, או פרק, ולהוריד רק את הקטע הזה."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "הורדת חלק מסרטון בלבד"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "פרקים"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "פרק {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "חלק מורד באמצעות ffmpeg, ולכן הגדרות חיבורי ההורדה והקצב שלכם אינן חלות עליו."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "תקנו קודם את ההתחלה והסיום של החלק."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "סיום"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "הסרטון מסתיים ב-{{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "הזינו את הסיום בפורמט h:mm:ss, m:ss או בשניות."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "הזינו את ההתחלה בפורמט h:mm:ss, m:ss או בשניות."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "ההתחלה חייבת לבוא לפני הסיום."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "כבוי: כל חיתוך נוחת על פריים המפתח הקרוב ביותר, שיכול להיות במרחק כמה שניות מהזמן שהקלדתם."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "חיתוך מדויק (מקודד מחדש, איטי יותר)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} מתוך {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "חלק"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "חלק מהסרטון"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "התחלה"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "כל הסרטון"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "חלק {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "כמה מהסרטון"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss או שניות"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "חלק, משוער"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "סרטון זה אינו מדווח על אורכו, ולכן אפשר להוריד אותו רק במלואו."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "כתוביות תמיד מכסות את הסרטון כולו."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "הקישור שלכם מתחיל ב-{{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "שימוש כהתחלה"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "כל הסרטון"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "כל הרצועה"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "שחזרו אותם כדי להמשיך."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "כל הפריטים הוסרו"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "כבר הורד"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "כתובות URL מרובות"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "אין צורך להמתין — קבצים שנוספו עכשיו לתור יקבלו את שמותיהם האמיתיים בעת ההורדה."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "מאחזר פרטי סרטונים… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "הפרטים אינם זמינים"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "מאחזר פרטים"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "בהמתנה"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "שידור חי"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "פריטי רשימת ההשמעה"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "סרטונים להורדה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "סרטון אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} סרטונים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.itemCount_two"
+msgid "{{count}} videos"
+msgstr "שני סרטונים"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "רצועה אחת"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} רצועות"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.itemCountAudio_two"
+msgid "{{count}} tracks"
+msgstr "שתי רצועות"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "כתובת URL אחת"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} כתובות URL"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.itemCountBulk_two"
+msgid "{{count}} URLs"
+msgstr "שתי כתובות URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "מאחזר את רשימת ההשמעה…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "מאחזר סרטונים…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "מוגבל ל-{{count}} הפריטים הראשונים"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "נמצא דף אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "נמצאו {{count}} דפים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.loadingPagesFound_two"
+msgid "{{count}} pages found"
+msgstr "נמצאו שני דפים"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "אוסף סרטונים"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "סורק דפי ערוץ"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "הקצאת פרופילים לפי פריט"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "מדלג על איכות, SponsorBlock, פלט ושמירה — הקצו במקום זאת פרופיל הורדה לכל פריט"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "רשימת השמעה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "אחד מאלה הוא רשימת השמעה ולא סרטון — הדביקו את הקישור שלו בנפרד כדי להוריד אותו."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.nestedPlaylistHint_two"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "שניים מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "בחרו לפחות סרטון אחד כדי להמשיך"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "מוצגים {{count}} הפריטים הראשונים. הגדילו את מגבלת הטעינה כדי לראות עוד."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "סריקת רשימת ההשמעה מוגבלת"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "הסריקה מוגבלת"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "החלת טווח"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "מהפריט"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "עד הפריט"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "אחד הוסר"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} הוסרו"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.removedCount_two"
+msgid "{{count}} removed"
+msgstr "שניים הוסרו"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "הסרת אחד מהרשימה"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "הסרת {{count}} מהרשימה"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.removeFromListCount_two"
+msgid "Remove {{count}} from list"
+msgstr "הסרת שניים מהרשימה"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "שחזור"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "בחירת הכול"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "אחד נבחר"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} נבחרו"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlist.selectedCount_two"
+msgid "{{count}} selected"
+msgstr "שניים נבחרו"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "ביטול הבחירה"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "סדר רשימת ההשמעה"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "מאחזר תאריכי העלאה…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "מיון"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "הישנים ראשונים"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "החדשים ראשונים"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "החלת סנכרון"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "שינוי תיקייה…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} מהסרטונים האלה כבר נמצאים ב-{{dir}}. לסנכרן כדי להוריד רק את החדשים?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "כבר בתיקייה"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "לא נמצאו סרטונים מרשימת ההשמעה הזו ב-{{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "לא נמצאו סרטונים מהמקור הזה ב-{{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "עדיין לא הורד דבר"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "בודק את התיקייה…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "תמונה ממוזערת של הסרטון"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "בחרו איכות עבור האצווה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "פריט אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} פריטים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlistPresets.itemCount_two"
+msgid "{{count}} items"
+msgstr "שני פריטים"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "כל סרטון מפענח את הרמה שנבחרה בנפרד — רשימות השמעה לא אחידות פועלות ללא הפתעות."
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "הקצאה לסרטון אחד"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "הקצאה ל-{{count}} סרטונים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlistProfiles.assignTrigger_two"
+msgid "Assign to {{count}} videos"
+msgstr "הקצאה לשני סרטונים"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "הקצאת פרופיל"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "משך"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "פרופיל"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "עריכת {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "אין פריטים התואמים למסנן זה"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "מסנני פרופילים"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "הקצאת פרופילי הורדה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "בחרו את הפרופיל עבור הסרטון הזה."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "בחרו את הפרופיל עבור {{count}} הסרטונים האלה."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlistProfiles.menuDescription_two"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "בחרו את הפרופיל עבור שני הסרטונים האלה."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} מתוך {{total}} נבחרו"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "שינוי גלובלי"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "בחירת תיקיית יעד"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "בחירת סמל פרופיל"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "הסרת {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "איפוס פרופיל"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "פרופיל זה כבר משתמש בהגדרות המובנות"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "שחזור הגדרות הפרופיל המובנות"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "שמירת פרופיל"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "הגדרת עקיפת פרופיל"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "הגדרת עקיפה"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "שימוש בברירת המחדל הגלובלית"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "שימוש בקוד השפה “{{code}}”"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "מתקדם"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "שימוש בהגדרת היישום ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "הטוב ביותר"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "עד 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "עד 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "עד 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "איכות מיטבית"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "תיקיית ההורדות המוגדרת כברירת מחדל"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "תיקיית ההורדות המוגדרת כברירת מחדל / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "יעד גלובלי"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "פעיל"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "בירושה"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "עקיפת פרופיל"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "בחירת תיקייה"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "לא הוגדרה עקיפה"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "לא הוגדרה עקיפה. פרופיל זה משתמש ביעד הגלובלי שלמעלה."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "עוקף את הגלובלי"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "פרופיל זה נשמר בשורש משלו לפני הוספת תיקיית המשנה."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "היעד הסופי"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "הגדרה אחת לשימוש חוזר עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "פרופיל הורדה"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "לא ניתן היה לשנות את היעד הגלובלי."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "לא ניתן היה לפתוח את בורר התיקיות. הזינו נתיב ידנית."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "לא ניתן היה לאפס את הגדרות הפרופיל."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "לא ניתן היה לשמור את הגדרות הפרופיל."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "אופן השמירה"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "סוג קובץ"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "אופטימיזציה עבור"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "סמל פרופיל"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "שפות"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "שם הפרופיל"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "שם וסמל הפרופיל"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "שמע מקורי"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "נתיב עקיפת הפרופיל"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "איכות"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "רזולוציה"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "מקור"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "שם תיקיית המשנה"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "הורדות כתוביות"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "פרופילים מבקשים קודי שפה; הזמינות נקבעת לכל כתובת URL בנפרד."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "החד ביותר בגודל נתון. טלוויזיות ישנות, QuickTime וחלק מעורכי הווידאו אינם יכולים לנגן אותו."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "התמונה הטובה ביותר"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "מתנגן בטלוויזיות, בטלפונים, ב-WhatsApp, ב-QuickTime ובעורכי וידאו. YouTube מציע H.264 רק עד 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "טלוויזיה חכמה"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "ארכיון"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "שמע"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "כתוביות"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "שיעורים"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "קליפ"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "פקדים"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "הורדה"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "מוזיקה"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "פודקאסט"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "וידאו"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "מוזיקה או פודקאסטים"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "שמע בלבד"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "קובצי כתוביות בלבד"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "כתוביות בלבד"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "קובצי וידאו רגילים"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "וידאו + שמע"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "וידאו שקט בלבד"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "וידאו, ללא שמע"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "אין שפות תואמות"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "לא יתבקשו קובצי כתוביות או רצועות כתוביות משולבות עבור פרופיל זה."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "חיפוש לפי שם שפה או קוד"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "מדולג עבור סוג פלט זה."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "בחרו לפחות שפה אחת."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "בחרו לפחות שפה אחת, או כבו את הורדות הכתוביות."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "פרופיל זה מוסיף לתור קובצי כתוביות בלבד. וידאו, שמע, SponsorBlock והמרת מדיה מדולגים."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "פרופילים יורשים את היעד הגלובלי אלא אם הגדרתם עקיפת פרופיל."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "אפשרויות מתקדמות"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "בחרו את הדרך העיקרית שבה אתם רוצים להוריד."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "סוג הורדה"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "שם וסמל המוצגים בהורדה מהירה, בכתובות URL מרובות וברשימות הפרופילים."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "זהות הפרופיל"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "אחד מופעל"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} מופעלים"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_two"
+msgid "{{count}} enabled"
+msgstr "שניים מופעלים"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "אפשרויות פלט"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "בחרו תיקייה עבור פרופיל זה"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "מדולג"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "מסמן קטעי חסות כפרקים (לא הרסני)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "חותך קטעי חסות מהווידאו באמצעות FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "אוטומטיות בלבד"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "ידניות ואוטומטיות"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "ידניות קודם, אחר כך אוטומטיות"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "ידניות בלבד"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "עזרה: {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "ביטול ההכנה"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "הקישור הנוכחי"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy קורא את הקישור ומחיל את {{profileName}}."
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "אחד נכשל"
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} נכשלו"
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.quickProgress.failedCount_two"
+msgid "{{count}} failed"
+msgstr "שניים נכשלו"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "אחזור פרטים"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "הוספה לתור"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "הכנת הורדה מהירה"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "השאירו חלון זה פתוח בזמן ש-Arroxy מכין את התור."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "תוספות"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "שם קובץ"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "פורמט"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "תיקייה"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "כתוביות"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "כתוביות, SponsorBlock, תוספות כמו תמונה ממוזערת, תיקייה ושם קובץ היו בעבר שלבים נפרדים. לחצו על שורה כדי לשנות אותה."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "כל שאר ההגדרות נמצאות עכשיו בדף זה"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "שונה לעומת {{profile}}: {{areas}}. חל על הורדה זו בלבד."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "שונה לעומת {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "שינוי פורמט"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "אסימונים: {title}, {id}, {uploader}, {date}, {resolution}. הסיומת מתווספת עבורכם."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "שמירה כפרופיל"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (נערך)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "הורדה זו השתמשה בהגדרות שנערכו. להשתמש בהן בפעם הבאה?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "ביטול השינויים, חזרה ל“{{profile}}”"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "תוספות"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "שם קובץ"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "שמירה אל"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "כתוביות"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "כל השאר"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "שמירת פרופיל"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "שומר הגדרות אלה כפרופיל שאפשר לבחור בפעם הבאה. פרופיל ההורדה המהירה שלכם נשאר כפי שהוא."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "לא ניתן היה לשמור את הפרופיל."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "שם הפרופיל"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "נשמר כפרופיל “{{name}}”"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "שמירה כפרופיל"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "שמירה כפרופיל חדש"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "עדכון פרופיל"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "זהו פרופיל מובנה. אפשר לשחזר את ההגדרות המקוריות שלו בכרטיסייה “פרופילים”."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "מעתה, כל הורדה עם פרופיל זה תשתמש בהגדרות החדשות."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "פורמט"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "לעדכן את “{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "הפרופיל “{{name}}” עודכן"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "עדכון “{{profile}}” עם שינויים אלה"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "ללא"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "מילוי"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "פתיח"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "מוזיקה שאינה קשורה לנושא"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "סיום"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "תצוגה מקדימה"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "קידום עצמי"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "חסות"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "קטגוריות"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "סימון כפרקים"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "הסרת קטעים"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "סינון חסויות"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "מסמן קטעי חסות כפרקים (לא הרסני)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "חותך קטעי חסות מהווידאו באמצעות FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "אישור"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "שמירה"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "פורמט"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "פלט"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "רשימת השמעה"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "סרטונים"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "איכות"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "פרופילים"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "סקירה"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "כתוביות"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS — בסרטוני YouTube הן מנוקות מכפילויות של רמזים מתגלגלים, שממיר ה-ASS שלנו עדיין אינו יכול לשחזר."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "אוטו׳"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "ניקוי הכול"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "מצב השילוב שומר את הפלט כ-.mkv כדי שרצועות הכתוביות ישולבו באופן מהימן."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "פורמט"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "אין כתוביות זמינות לסרטון זה"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "אין שפות תואמות"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "לא נבחרו כתוביות"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "הסרת {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "שילוב בתוך הווידאו"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "שמירה בתור"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "ליד הסרטון"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "תיקיית משנה subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "חיפוש שפות…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "נוצרו אוטומטית"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "ידניות"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "ניווט בפרופילי הורדה"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "מתקדם"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "שליחת פעימת לב יומית"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "ללא טלמטריה. פעם ביום נשלחת פעימת לב אנונימית עם גרסת היישום, ערוץ ההתקנה, מערכת ההפעלה, השפה, המדינה והזמן המשוער שחלף מאז ההתקנה של Arroxy, כדי שנוכל לספור משתמשים פעילים וחדשים. ללא מזהים, כתובות URL, כותרות סרטונים או שמות קבצים."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "מסיר הורדה מרשימת ההורדות כמה שניות אחרי שהיא מסתיימת. הקבצים נשארים בתיקייה שלכם; הורדות שנכשלו או בוטלו נשארות ברשימה."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "הסרת הורדות שהסתיימו"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "מנסה שוב אוטומטית לאחר תקלה רגעית ברשת או בשרת, ומחכה זמן ארוך יותר בין ניסיון לניסיון. הורדות שנחסמו על ידי האתר לא יינסו שוב אוטומטית."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "ניסיון חוזר להורדות שנכשלו"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "פעמים"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "כתובות URL מרובות"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "הוספה לתור של כמה כתובות URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "ניקוי כתובת URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "הקישור נוסף מהלוח"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” כדי להוסיף אותם"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "הוחלף בקישור שהועתק"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "מעקב אחר הלוח"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "מילוי אוטומטי של שדה ה-URL כשמעתיקים קישור לסרטון."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "ביטול"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "הסתרה למגש בעת סגירה"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "המשך ההורדות ברקע לאחר סגירת החלון."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "כמה פריטים מהתור יורדים בו זמנית. ככל שיותר בו זמנית, תור ארוך מסתיים מהר יותר, אך עולה הסיכוי שאתר יגביל אתכם."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "הורדות בו זמנית"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "הורדות"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שקובצי ה-Cookie שלהם משמשים כלי הורדה כמו Arroxy. אם אפשר, השתמשו בחשבון חד-פעמי."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "קורא קובצי Cookie ישירות מהדפדפן. בדפדפנים ממשפחת Chromium יש לסגור את הדפדפן."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "דפדפן"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "בחירת דפדפן…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "בחירה…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "ניקוי"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "בחרו דפדפן כדי להשתמש בקובצי Cookie"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "בחרו קובץ כדי להשתמש בקובצי Cookie"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "משתמש בהתחברות שלכם ב“גילוי” רק כשהורדה זקוקה לה."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "הכרטיסייה “גילוי” כבויה, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”. הפעילו אותה תחת “גילוי” להלן."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "קבלת cookies.txt מקומית (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "קובץ Cookie"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "איך מייצאים קובצי Cookie?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "פתיחת “גילוי”"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "לא נבחר קובץ"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "מומלץ"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "סיכון: קובץ cookies.txt מכיל כל הפעלה מחוברת של הדפדפן הזה — שמרו עליו פרטי."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "דפדפן"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "התחברות ב“גילוי”"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "קובץ"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "מקור Cookie"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "עוזר עם סרטונים מוגבלי גיל, סרטונים לחברי מועדון בלבד וסרטונים פרטיים בחשבון."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "מאיץ הורדות גדולות על ידי אחזור כמה חלקים של סרטון בו זמנית. ערכים גבוהים מעלים את הסיכוי שאתר יגביל אתכם."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "חיבורי הורדה"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "חיבורים"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "שמע בלבד"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "כתוביות"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ אתרים"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "רשימות השמעה של מוזיקה"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "סרטונים"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "רשימות השמעה של וידאו"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "מה Arroxy יכול להוריד"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "ערוצים"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "מוזיקה"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "רשימות השמעה"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "פודקאסטים"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "סרטונים"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "אשף שלב אחר שלב. בחירת פורמט, איכות ועוד."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "הורדה מכתובת URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "שינוי קיצור"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "קיצור זה תפוס על ידי יישום אחר — בחרו קיצור אחר."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "או הקישו"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "העתיקו קישור לסרטון בכל מקום, הקישו על הקיצור הזה ו-Arroxy יוסיף אותו לתור עם הפרופיל הפעיל — בלי לעבור בין חלונות."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "אפשר לשנות או לכבות בהגדרות."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "הקישו על מקשים…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "איפוס לברירת המחדל"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "הורידו כל קישור שהעתקתם, מכל יישום, בלי לפתוח את Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "מקש קיצור גלובלי"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "בדיקה"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "הפעלת מקש קיצור גלובלי"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "הקישו על הקיצור כשיש קישור לסרטון בלוח."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "הורדה אינטראקטיבית"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "הורדות פעילות שומרות על המגבלה הנוכחית שלהן. השהו וחדשו כדי להחיל שינויים."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "מותאם אישית…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "לדוגמה: 750K או 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "הגבלת רוחב הפס להורדות מדיה. קצב הבקשות שלהלן הוא בדרך כלל המנוף החזק יותר להגבלת הקצב."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "השתמשו במספר ואחריו K או M (לדוגמה: 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "מגבלת מהירות הורדה"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "מוריד ברקע… אני יודע לעשות כמה דברים במקביל 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "המצב המהיר מוסיף לתור את הפריטים שנטענו עם {{profileName}}. המצב האינטראקטיבי מאפשר לבדוק או לבחור פריטים קודם."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "זרקו קישור ותנו ל-Arroxy להוריד ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "קישור זה מצביע על סרטון אחד בתוך אוסף. Arroxy ישאל איזה מהם אתם רוצים לפני הבדיקה."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}}: קריאת הקישור והחלת {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "התור מטפל בהורדה זו. אפשר להדביק קישור נוסף בזמן שהיא פועלת."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "המצב המהיר מתחיל הורדה אחת עם {{profileName}}. השתמשו במצב האינטראקטיבי לשינויים חד-פעמיים."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "סטריאו תואם"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "סטריאו או היקפי כשפרופיל בוחר שמע מקורי. פרופיל יכול לעקוף זאת."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "העדפת שמע מקורי"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "העדפת היקפי / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "הוספת השהיות קטנות במהלך כל הורדה כדי ש-Arroxy לא יפנה לאתר באגרסיביות רבה מדי. הערכים הם בשניות."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "השהיה לפני תחילת המדיה: מרבית"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "השהיה לפני תחילת המדיה: מזערית"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "המתנה בין בדיקות מטא-נתונים"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "המתנה לפני קובצי כתוביות"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "הורדות עדינות"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "עד כמה Arroxy צריך להיזהר?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "מאוזן"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "זהיר"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "מותאם אישית"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "כבוי"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "המתנות: {{requests}} בין בדיקות, {{downloads}} לפני תחילת המדיה, {{subtitles}} לפני קובצי כתוביות."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "ההמתנות האלה מתרחשות בתוך כל הורדה. כמה הורדות רצות בו זמנית נקבע בנפרד, תחת “הורדות בו זמנית”."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ברירת מחדל. מוסיף השהיות קצרות בין בקשות ולפני תחילת המדיה."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "מוסיף השהיות ארוכות יותר לרשימות השמעה גדולות או לרשתות שנתקלות לעיתים קרובות במגבלות."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "כוונון עצמאי של הפקדים המתקדמים לכל הורדה."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "משתמש רק בהשהיות הבסיס הקטנות ש-Arroxy שומר למדיה ולכתוביות."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "שנ׳"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "מגבלה נוכחית: {{count}} פריטים"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "מותאם אישית…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "השתמשו במספר שלם מ-{{min}} עד {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "שמירת מגבלה"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "מגבלת סריקת רשימת השמעה מותאמת אישית"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "מותאם אישית: {{count}} פריטים"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "המספר המרבי של פריטים ש-Arroxy טוען כשפותחים רשימת השמעה, ערוץ או תוצאות חיפוש."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "השתמשו במספר שלם מ-1 עד 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "פריטי רשימת השמעה לסריקה"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} פריטים"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy מבקש רק כמות זו של פריטים מרשימת השמעה, ערוץ או חיפוש בעת בניית הבורר."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "שימוש במגבלת היישום: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "החלה"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "לא ניתן היה להחיל את טווח רשימת ההשמעה הזה: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "החלה וטעינה מחדש"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "שינוי"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "בחרו מה Arroxy טוען עבור רשימת השמעה זו."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "טווח רשימת ההשמעה"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "אין סרטונים בטווח הזה"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "הראשונים"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "השתמשו במספרי פריטים שלמים מ-1 עד {{max}}, כאשר ההתחלה אינה גבוהה מהסיום."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "פריטים לטעינה"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "טווח רשימת השמעה"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "טווח"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "טוען מחדש..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "איפוס"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "טעינת הפריטים הראשונים: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "טעינת הפריטים הראשונים: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "טעינת פריטים {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "עד"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "פרופיל פעיל"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "מובנה"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "מותאם אישית"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "מוסתר"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "שונה"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "שינוי היעד הגלובלי"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "משתמש ביעד הגלובלי"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "משתמש ביעד הגלובלי + תיקיית משנה של הפרופיל"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "משתמש בעקיפת הפרופיל"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "משתמש בעקיפת הפרופיל + תיקיית משנה של הפרופיל"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "יעד"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "עריכה"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "עריכת הפרופיל הפעיל"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "פרופילים מוסתרים נשארים כאן אך נעלמים מכל בוררי הפרופילים."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "הצגת הפרופיל בבוררים: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "השאירו לפחות פרופיל אחד זמין."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "ניהול פרופילים"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "שינוי הפרופיל הפעיל עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "החלפת פרופיל"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "פרופיל ניתן להזזה"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ההזזה בוטלה. {{profileName}} נשאר במקום {{position}} מתוך {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} הונח במקום {{position}} מתוך {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "הזזת {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "כדי להזיז פרופיל, הקישו על רווח או על Enter, הזיזו אותו באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותו. הקישו על Escape כדי לבטל."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} נמצא מעל מקום {{position}} מתוך {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} נאסף. הוא נמצא במקום {{position}} מתוך {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "פרופיל חדש"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "יצירה, בחירה, עריכה או הסרה של הגדרות הורדה לשימוש חוזר."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "פרופילי הורדה"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "הסרה"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "גררו פרופיל כדי להזיז אותו. כל בוררי הפרופילים עוקבים אחר הסדר הזה."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "איפוס"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "שמע AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "השמע הטוב ביותר"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "הווידאו הטוב ביותר"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "ללא שמע"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "כתוביות בלבד"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "שמע WAV"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "החלפת פרופיל הורדה: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "החלפת פרופיל הורדה"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "ניקוי"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "ניתוב התעבורה דרך שרת Proxy — שימושי לתוכן מוגבל גיאוגרפית."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "כתובת Proxy"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "לא ניתן היה להכין אף אחת מכתובות ה-URL האלה"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "הורדה מהירה"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "יורד באמצעות: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "לא ניתן היה להוסיף את זה: {{error}}"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "מה שהצליח נוסף לתור. כתובת URL אחת לא הוכנה."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "מה שהצליח נוסף לתור. {{count}} כתובות URL לא הוכנו."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.url.quickPartialFailed_two"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "מה שהצליח נוסף לתור. שתי כתובות URL לא הוכנו."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "לא ניתן היה להכין את פריט התור"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "מכין"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "הבדיקה נכשלה"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "נוסף לתור"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "הדביקו כתובת URL של סרטון, רשימת השמעה, ערוץ או חיפוש כדי להתחיל."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "התנהגות גלובלית שמשפיעה גם על הורדות מבוססות פרופיל."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "התנהגות ההורדה"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "קלט"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "לוחות זכוכית מעל שמיים נעים. דורש האצת גרפיקה."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "משטחים אחידים ושקטים. רץ בקלות בכל מחשב."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "שני הסגנונות זמינים בבהיר ובכהה."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "סגנון"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "איך Arroxy נראה. עברו בין בהיר לכהה בכותרת התחתונה."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "מראה"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} דורש האצת גרפיקה, שאינה זמינה כרגע, ולכן Arroxy מציג {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "פרופילים"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "הגדרות"

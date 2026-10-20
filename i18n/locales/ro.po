@@ -1,0 +1,5226 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Despre"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · de Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Despre Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Descărcător rapid și prietenos pentru YouTube și peste 2000 de alte site-uri."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Vedeți notificările terților"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Site web"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Permite"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube oferă unele videoclipuri vechi în dimensiuni create cu IA. Omiterea păstrează fluxurile originale; puteți totuși alege manual unul mărit cu IA."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Fluxuri mărite cu IA"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Omite"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Feedback"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Vă place Arroxy? Aș vrea să aflu părerea dvs.! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Jurnale"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Salvează fișierul de diagnosticare"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Pune jurnalele și detaliile aplicației într-un singur fișier în Descărcări, gata de atașat la o problemă GitHub. Numele folderului de utilizator este eliminat; linkurile și titlurile videoclipurilor rămân."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Nou: alegeți aici Aurora sau Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Temă"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Mărire"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Micșorare"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Înapoi"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Închidere"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Continuare"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Respinge"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Se încarcă"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Reluați de la început"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy rămâne pornit și termină descărcările active. Puteți schimba asta mai târziu în setările avansate."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Ascunde în bara de sistem"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Ascundeți Arroxy în bara de sistem la închidere?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Ieșire"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Nu mai întreba"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Anulează descărcările și ieși"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Întrerupeți pentru a relua mai târziu sau anulați pentru a renunța la progres."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Continuă descărcarea"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} descărcări în curs"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} descărcare în curs"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} de descărcări în curs"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Întrerupe descărcările și ieși"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Procesul de randare s-a oprit ({{reason}}). Reîncărcați pentru a încerca din nou."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy a întâmpinat o problemă"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Ieșire"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Reîncarcă"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Copiat!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Copiază adresa"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy este gratuit și open-source, fără reclame și fără nivel plătit. Donațiile sunt opționale și nu oferă nicio influență asupra foii de parcurs."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Donează"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Susțineți Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Cod QR cu adresa de donație {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Susțineți Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Plățile în criptomonede sunt ireversibile. Trimiteți doar în rețeaua afișată și comparați adresa completă."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Acest videoclip are restricție de vârstă și nu poate fi descărcat fără un cont conectat."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Protecția anti-bot s-a activat. Cel mai probabil IP-ul folosit este semnalat (interval de centru de date sau ieșire VPN aglomerată). Schimbați IP-ul sau alegeți alt punct de ieșire VPN și reîncercați. Dacă tot eșuează, poate fi o schimbare temporară pe partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat după lansare."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Serverul a întrerupt descărcarea în mod repetat, iar Arroxy a renunțat după mai multe încercări. Se întâmplă de obicei la cele mai mari formate video (4K HDR / VP9 cu bitrate ridicat). Reîncercați, schimbați rețeaua/VPN-ul sau alegeți un format cu rezoluție mai mică."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Acest videoclip este protejat prin DRM. Arroxy nu poate elimina DRM-ul, deci fișierul nu poate fi descărcat."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Acest videoclip nu este disponibil în regiunea dvs."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Adresa dvs. IP pare blocată. Încercați din nou mai târziu sau folosiți un VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Acest videoclip necesită un cont conectat."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy nu a găsit FFmpeg sau FFprobe. Rulați din nou configurarea sau setați o locație FFmpeg, apoi reîncercați descărcarea."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Eroare de rețea. Verificați conexiunea și reîncercați."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Acest videoclip nu are subtitrări în limbile solicitate."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Spațiu insuficient pe disc. Eliberați spațiu și reîncercați."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy nu poate scrie în folderul de descărcare. Poate fi doar în citire, pe o unitate blocată sau blocat de setările de confidențialitate ale sistemului. Alegeți alt folder sau permiteți accesul, apoi reîncercați."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Nu s-a putut analiza răspunsul site-ului. Este posibil ca site-ul să fi schimbat modul în care oferă videoclipurile. Arroxy își actualizează motorul de descărcare la pornire — reîncercați peste câteva minute, după lansarea remedierii."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Descărcarea s-a terminat, dar postprocesarea (îmbinare / multiplexare / conversie) a eșuat. Adesea este o problemă ffmpeg trecătoare — reîncercați, iar dacă persistă, încercați o altă combinație de formate."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Site-ul limitează cererile din această conexiune."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Acest videoclip nu este disponibil — poate fi privat, șters sau blocat regional."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Descărcarea a eșuat. Vedeți ieșirea brută de mai jos."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy nu acceptă acest URL. Încercați un link de pe alt site."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Verificați conexiunea, apoi încercați din nou."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Această pagină nu s-a încărcat"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Deschide Setările"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Verificați proxy-ul din Setări, apoi încercați din nou."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explorare nu se poate conecta prin proxy-ul dvs."
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Faceți clic dreapta pe orice link de videoclip, listă de redare sau canal din pagină pentru a-l descărca cu profilul activ, a alege alt profil sau a deschide fluxul pas cu pas."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Faceți clic dreapta pe un link pentru a-l descărca"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Copiază linkul"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Descarcă cu"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Nou"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Găsiți un videoclip pe YouTube sau pe orice alt site și descărcați-l direct de aici — fără copiat linkuri. Conectați-vă la un site aici pentru a descărca videoclipuri care necesită un cont."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Continuare"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile folosite cu instrumente de descărcare precum Arroxy. Folosiți un cont pe care vi-l permiteți să-l pierdeți, nu pe cel principal."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Conectați-vă cu un cont secundar"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Navigați pe web chiar în Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Descărcările folosesc cookie-urile browserului, nu conectarea din Explorare."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Descărcările folosesc fișierul de cookie-uri, nu conectarea din Explorare."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Nu acum"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookie-urile sunt dezactivate, deci descărcările nu folosesc conectarea din Explorare."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Folosește conectarea din Explorare"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Navigați pe YouTube sau pe orice alt site în Arroxy și conectați-vă pentru videoclipuri care necesită un cont."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Eliberează memoria când sunteți plecat"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "După 5 minute petrecute în altă filă, închide pagina principală sau de căutare YouTube. La revenire se reîncarcă, ceea ce durează câteva secunde."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Motor de căutare"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Unde se caută textul tastat în bara de adrese. Linkurile se deschid așa cum au fost tastate."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Afișează fila Explorare"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Dezactivarea ei oprește și folosirea conectării din Explorare la descărcări."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Deconectare din Explorare"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Deconectare"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Această acțiune șterge conectările și datele de navigare din Explorare, pe toate site-urile. Descărcările care necesită un cont vor eșua până vă conectați din nou."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Vă deconectați din Explorare?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Șterge conectările și datele de navigare din Explorare, pe toate site-urile."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explorare"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explorare"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube poate opune rezistență blocantelor de reclame pentru conturile conectate."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Blocant de reclame"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Blocant de reclame: oprit — faceți clic pentru a-l porni"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Blocant de reclame: pornit — faceți clic pentru a-l opri"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Blocant de reclame: se pornește — faceți clic pentru a-l opri"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Blocant de reclame: indisponibil, listele de filtre nu au putut fi descărcate — faceți clic pentru a-l opri"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adresă"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Căutați în {{engine}} sau deschideți orice site (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Comenzile browserului Explorare"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Înapoi"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Aspect compact"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Descarcă · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Înainte"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Afișează aspectul complet"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Deschideți un videoclip, o listă de redare sau un canal pentru a-l descărca"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Pagina principală YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Descărcare interactivă: alegeți formatul, subtitrările și altele…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Explorare nu poate deschide această adresă."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Reîncarcă"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Căutarea este prea lungă."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Zoom pagină: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Mărire"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Zoom pagină"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Micșorare"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Procent zoom"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Resetează zoomul la 100%"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Alegeți cum sunt denumite fișierele descărcate. Faceți clic pe un simbol pentru a-l insera. Folosiți / pentru a sorta descărcările în foldere."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Introduceți un șablon de nume de fișier."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Eliminați / în plus — fiecare folder are nevoie de un nume."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Eliminați caracterele nepermise în numele de fișiere: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Numele de folder nu este permis. Evitați . și .. și numele rezervate, precum CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Adăugați {title} sau {id} la numele de fișier, ca fiecare descărcare să aibă un nume propriu."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} nu poate denumi un folder — calitatea nu se cunoaște până la începerea descărcării."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ sau } fără pereche — încadrați simbolurile precum {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Șablonul este prea lung."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Simbol necunoscut {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Fără {id}, Arroxy nu poate detecta elementele deja descărcate din listele de redare și nici nu poate genera liste .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Șablon nume de fișier"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Indisponibil, deoarece șablonul de nume de fișier fie nu include {id}, fie sortează descărcările în foldere."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Într-o listă de redare"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Un singur videoclip"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Lăsați gol pentru a moșteni șablonul global."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Șablon nume de fișier"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Auto (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Fluxurile alese stabilesc tipul de fișier."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Acceptă orice codec. Unele televizoare și telefoane nu îl pot deschide."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Se redă aproape peste tot. VP9 într-un MP4 nu redă imaginea în QuickTime."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Format deschis pentru browsere. Acceptă doar VP9 sau AV1 cu Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 într-un MP4 necesită un Mac recent pentru redare în QuickTime. H.264 se redă peste tot."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 într-un MP4 nu redă imaginea în QuickTime. H.264 se redă peste tot."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM nu este disponibil cu Smart TV: nu poate conține H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM nu poate conține {{codec}}. Alegeți MKV sau MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Doar audio · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Auto alege HDR când ecranul îl poate afișa, altfel SDR. HDR arată șters pe ecranele obișnuite."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "Video HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Limbă"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Conectat cu Explorare — se reîncearcă {{count}} linkuri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Conectat cu Explorare — se reîncearcă 1 link"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Conectat cu Explorare — se reîncearcă {{count}} de linkuri"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Deconectarea din Explorare a eșuat. Încercați din nou."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Acest folder este prea adânc pentru sistemul dvs. Descărcarea poate totuși eșua — alegeți un folder mai puțin adânc."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Numele acestui videoclip nu poate cuprinde toate părțile șablonului dvs., așa că s-a folosit numele implicit."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Nu s-a putut deschide selectorul de foldere."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Este deja în coadă — nu s-a adăugat o copie"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy încă pornește — încercați din nou într-o clipă"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Terminați configurarea cookie-urilor în Arroxy, apoi încercați din nou"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Niciun link în clipboard — copiați unul mai întâi"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc în Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Acest link necesită alegerea dvs. — vedeți Descărcări în Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Descărcare adăugată în coadă din clipboard"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Nu s-a putut adăuga linkul — încercați din nou în Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Acest folder nu poate fi folosit pentru această listă de redare."
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videoclipuri sunt deja în coadă — omise"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} videoclip este deja în coadă — omis"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} de videoclipuri sunt deja în coadă — omise"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Adăugat: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Este deja în coadă"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videoclipuri — alegeți câte"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ videoclip — alegeți câte"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ de videoclipuri — alegeți câte"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Nu s-a putut pregăti {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Nu s-a putut adăuga linkul — încercați din nou"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videoclipuri în această listă — examinați pentru a alege"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} videoclip în această listă — examinați pentru a alege"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} de videoclipuri în această listă — examinați pentru a alege"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videoclipuri în această listă — examinați pentru a alege"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ videoclip în această listă — examinați pentru a alege"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ de videoclipuri în această listă — examinați pentru a alege"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Vizualizare"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Nu s-au putut salva setările."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Nu s-a putut deschide."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Configurarea nu s-a încheiat. Unele descărcări pot eșua până atunci."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audio (cel mai bun)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audio ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Cel mai bun audio nativ, fără recodificare"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Conversie în M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Conversie în MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Conversie în Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 peste 1080p nu este disponibil pe YouTube — limitat automat la 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Salvează ca"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Direct în folderul de salvare"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Limbi"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Alegeți cel puțin o limbă pentru a continua."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Pentru fiecare videoclip se salvează doar fișierele de subtitrare — nu se descarcă video sau audio."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Sursă"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Până la 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Până la 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Până la 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Până la 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Până la 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Până la 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Până la 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Până la 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Cea mai bună calitate"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Limitat la 1080p, trece la o calitate mai mică pentru fiecare element"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Cele mai mici fișiere posibile"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Limitat la 2K, trece la o calitate mai mică pentru fiecare element"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Limitat la 2160p, trece la o calitate mai mică pentru fiecare element"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Fișiere foarte mici, calitate scăzută"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Fișiere mici pentru lățime de bandă redusă"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Lățime de bandă redusă"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Fișiere mai mici, compatibilitate largă"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Cel mai bun video + audio disponibil pentru fiecare element"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Cel mai bun nativ"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "MP4 H.264 pentru Smart TV"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Cel mai bun container și cele mai bune codecuri disponibile pentru fiecare element"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Preferă video H.264 + audio AAC în MP4 când este posibil"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Însoțitor"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Descriere"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Media"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Lipsă"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtitrare"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatură"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefact"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} descărcări necesită atenția dvs."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} descărcare necesită atenția dvs."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} de descărcări necesită atenția dvs."
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Elimină fiecare descărcare din listă la câteva secunde după ce se termină. Fișierele rămân în folder."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Curăță automat finalizatele"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Anulează toate descărcările active și în așteptare"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Toate videoclipurile"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Peste {{count}} videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Peste {{count}} videoclip în această listă de redare. Descărcați-le pe toate, primul sau alegeți într-o examinare."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Peste {{count}} de videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Primele {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Examinare"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Acest link este o listă de {{count}} videoclipuri. Examinați-o pentru a alege ce descărcați."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Acest link este o listă de {{count}} videoclip. Examinați-o pentru a alege ce descărcați."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Acest link este o listă de {{count}} de videoclipuri. Examinați-o pentru a alege ce descărcați."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Șterge descărcările finalizate"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Descărcările din coadă vor apărea aici"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Toate"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtre după starea cozii"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Toate elementele"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Descărcări"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Sunetul nu a fost eliminat"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Sunetul nu a fost eliminat · unele subtitrări au eșuat"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Descărcarea a eșuat"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Deschide folderul de destinație"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pauză"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Doar în așteptare"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Descarcă acum — sari peste coadă"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Limitat la {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Limitat la {{height}}p · unele subtitrări au eșuat"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Elimină"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Reluare"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "se reîncearcă automat (încercarea {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Setează locația"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Selectați elemente în așteptare pentru a seta locația."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Anulată"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Finalizată"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Eroare"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Reținută"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Necesită alegerea dvs."
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "În pauză"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "În așteptare"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Se preiau detaliile"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Se descarcă"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Fără subtitrări în {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Întrerupe fiecare descărcare activă și împiedică pornirea altora noi"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Coada este în pauză — elementele în așteptare nu vor porni până o reluați"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Reia descărcările întrerupte și lasă coada să continue"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Reia coada"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Elemente selectate"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} selectate · {{total}} în total"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Descărcări"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Adăugat"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefacte"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Coloana {{column}} a fost plasată."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Mutarea coloanei {{column}} a fost anulată."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Coloana {{column}} este peste {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Coloana {{column}} a fost ridicată."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Coloane"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Finalizat"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Ascunde artefactele pentru {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "coloană mutabilă"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Pentru a muta o coloană, apăsați Space sau Enter, mutați-o cu tastele săgeată, apoi apăsați Space sau Enter pentru a o plasa. Apăsați Escape pentru a anula."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Destinație"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Progres"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Resetează coloanele"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Redimensionează coloana {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Afișează artefactele pentru {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Dimensiune"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sortează după {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Stare"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Titlu"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Descărcările se află acum în fila Descărcări — deschideți-o oricând pentru a urmări progresul."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Continuare"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Rulați o versiune proaspăt actualizată. Iată principalele noutăți."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Note complete despre versiune ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Ce este nou în Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Alege executabilul"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instalează cu Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instalează cu WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Deschide folderul dependenței"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Resetează la valoarea implicită"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Încercați din nou"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Vezi jurnalul de configurare"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Un instrument nu funcționează corect"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Permiteți Arroxy în antivirus sau în SmartScreen, apoi încercați din nou."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirusul a blocat un instrument"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Verificați conexiunea la internet, apoi încercați din nou."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Nu s-a putut descărca ce are nevoie Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Încercați din nou pentru a-l descărca de la zero."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "O descărcare a ajuns deteriorată"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Încercați din nou pentru a-l descărca de la zero."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "O descărcare nu s-a potrivit cu suma de control"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Alegeți-le pe amândouă mai jos sau resetați-le la valorile implicite."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg și FFprobe trebuie setate împreună"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie în care aveți încredere."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Sistemul nu permite Arroxy să ruleze un instrument"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Un instrument lipsește sau nu pornește"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Adesea este o scanare de securitate la prima rulare. Încercați din nou."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Un instrument a răspuns prea greu"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Încercați din nou sau deschideți jurnalul de configurare pentru detalii."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Ceva nu a mers bine la configurare"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Motor de descărcare"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Instrumente media"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Se instalează cu Homebrew… Poate dura câteva minute."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Se instalează cu WinGet… Poate dura câteva minute."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Indicați-i lui Arroxy copiile pe care le aveți deja sau instalați-le altfel."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Puteți instala yt-dlp și ffmpeg și cu managerul de pachete, apoi faceți clic pe Încercați din nou."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Configurați manual"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Încercați din nou sau indicați-i lui Arroxy mai jos instrumentele pe care le aveți deja."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Configurarea s-a oprit"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Configurarea are nevoie de ajutorul dvs."
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Cum alege acest profil"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Audio AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "se potrivește playerelor MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Audio AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "se redă peste tot"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, apoi VP9, apoi H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "cea mai clară imagine la o anumită dimensiune"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, apoi VP9, apoi AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "codecul acestui profil"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, apoi H.264, apoi AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "codecul acestui profil"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Cea mai mare rată de cadre"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "mișcare mai fluidă"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Video H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "se redă pe orice dispozitiv"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR înaintea SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "culori mai bogate pe ecranele HDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "acest ecran afișează HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR înaintea HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "arată corect pe orice ecran"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "acest ecran nu este HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Fluxuri MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "pregătite pentru un fișier MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Audio stereo"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "acest profil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "din Setări"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Audio surround, când este oferit"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Audio Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "se potrivește cu WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Fluxuri originale, nu cele mărite cu IA"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "o copie mărită este mai înaltă, dar nu adaugă detalii reale"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Descărcări directe înaintea copiilor transmise în flux"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "aceeași imagine, descărcată mai repede"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Până la {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "limita dvs."
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Cea mai mare rezoluție"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "nicio limită setată"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Fluxuri pe care site-ul nu le declasează"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "evită copiile deteriorate, cu filigran și de rezervă"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Fișier mai mare"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "mai multe detalii cu aceleași setări"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Mai întâi fluxurile cu bitrate îmbunătățit"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "mai multe detalii la aceeași rezoluție"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "tipul fișierului din fluxuri"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "se salvează ca .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "cea mai bună imagine"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "se redă pe orice dispozitiv"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "De ce acesta?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "De ce a ales profilul acest flux"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Copiat!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Copiază linkul"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — program gratuit și open-source de descărcat videoclipuri pentru Windows, macOS și Linux. Funcționează cu YouTube, Vimeo, Twitch și peste 2000 de site-uri.\n"
+"4K · HDR · MP3 · Shorts · Subtitrări · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy este gratuit și open-source. Distribuirea ajută mai multe persoane să-l descopere."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Distribuie"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Distribuiți Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Distribuiți Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Distribuiți Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Aveți probleme? Configurați manual"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Bun venit înapoi!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} din {{total}}"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_few"
+msgid "about {{count}} min left"
+msgstr "mai durează aproximativ {{count}} min"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "mai durează aproximativ {{count}} min"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "mai durează aproximativ {{count}} min"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "mai durează mai puțin de un minut"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Menține descărcările funcționale când site-urile se schimbă."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Se întâmplă o singură dată. Arroxy păstrează aceste instrumente și le actualizează singur."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Se întâmplă o singură dată. Arroxy le păstrează pentru actualizările viitoare."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Se verifică dacă totul funcționează"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Se conectează…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Se descarcă motorul de descărcare și instrumentele media"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Se descarcă motorul de descărcare"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Se descarcă instrumentele media"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Se despachetează instrumentele media"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Se actualizează motorul de descărcare"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Configurare inițială"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Se actualizează instrumentele media"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Prima verificare a acestei versiuni — aceasta durează mai mult. De obicei, cam un minut."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Se verifică {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Se pregătesc descărcările…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Configurarea a eșuat. Deschideți jurnalul de configurare pentru detalii."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat, iar unele subtitrări nu au putut fi descărcate"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Descărcare anulată"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Descărcare finalizată"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Se convertește videoclipul…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Spațiu insuficient pe disc — sunt necesare {{required}}, dar sunt disponibile doar {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Se descarcă fișierul binar {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Se descarcă video și audio…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Se încorporează metadatele…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Deconectat din Explorare — conectați-vă din nou"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Se convertește audio…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Se contactează SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Se preiau subtitrările…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Se îmbină audio și video…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Se generează jetonul YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Se mută fișierele…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Fără subtitrări în {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Nu se poate salva în {{dir}} — Arroxy nu are permisiunea de a scrie acolo"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Se pregătesc fișierele binare…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Se regenerează jetonul…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock indisponibil, se reîncearcă ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Conexiune blocată, se reîncearcă ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Conectare cu contul dvs. din Explorare…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Se așteaptă {{seconds}} s pentru a evita limitările de rată…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Se pornește motorul de descărcare…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}. Videoclipul a fost salvat fără ele."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Acest videoclip nu are subtitrări în {{languages}}. Celelalte limbi au fost salvate."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Videoclip salvat — unele subtitrări nu au putut fi descărcate"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Eroare necunoscută la pornirea descărcării"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Descărcat cu extractor relaxat — configurați un cookies.txt pentru descărcări mai fiabile"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Motorul de descărcare s-a închis cu codul {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Eroare a motorului de descărcare: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Mod întunecat"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Mod luminos"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Implicit sistem"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Închidere"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maximizare"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimizare"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Restaurare"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Descarcă din clipboard"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Deschide Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Ieșire din Arroxy"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} în descărcare · {{percent}}%"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 în descărcare · {{percent}}%"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} în descărcare · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Inactiv"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Comanda a fost copiată în clipboard"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Copiază comanda în clipboard"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Închide bannerul de actualizare"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Descarcă ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Descarcă DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Se descarcă…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instalează și repornește"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Actualizarea a eșuat"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} este disponibil — aveți {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} este disponibil — actualizați cu Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} este disponibil — descărcați noul DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} este disponibil — descărcați DMG-ul sau treceți la Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} este disponibil — descărcați noua versiune."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Rulează și repornește"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Se actualizează…"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} capitole"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} capitol"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} de capitole"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Se încarcă…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Ce codec se ia primul dintre fluxurile cu aceeași înălțime. Auto păstrează ordinea proprie yt-dlp, care favorizează AV1, cel mai mic; H.264 se redă pe televizoare și telefoane mai vechi."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Întâi H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Codec video"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV ia întotdeauna H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Întâi VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Gata"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Lipiți URL-uri de videoclipuri, liste de redare, canale, căutări sau fișiere audio. Arroxy elimină duplicatele înainte de a le adăuga în coadă."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Lipiți unul sau mai multe URL-uri pentru a previzualiza lotul."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ignorate"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Adăugați cel puțin un URL acceptat pentru a continua."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplicat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Listă de URL-uri"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL-uri în bloc"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Coadă"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Adaugă în coadă — pornește când se termină descărcarea activă"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Doar audio"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} din {{total}} videoclipuri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} din {{total}} videoclipuri"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} din {{total}} videoclipuri"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} din {{total}} piese"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} din {{total}} piese"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} din {{total}} piese"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} din {{total}} URL-uri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} din {{total}} URL-uri"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} din {{total}} URL-uri"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Lot"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Elemente"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Listă de redare"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Presetare"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Salvare în"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Dimensiune"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Fișierul dvs. va ajunge în"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Vor ajunge în cele {{count}} destinații de mai jos"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Va ajunge în destinația de mai jos"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Vor ajunge în cele {{count}} de destinații de mai jos"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Presetarea Doar subtitrări este activă, dar nu este selectată nicio limbă de subtitrare — nu se va descărca nimic."
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} elemente"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} de elemente"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profiluri din acest lot"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Descarcă! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Sare peste coadă — pornește acum, rulează alături de alte descărcări active"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Gata de descărcare!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Necunoscută"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Încorporarea subtitrării a fost schimbată în fișier separat — pistele audio nu acceptă fluxuri de subtitrare încorporate."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Subtitrările din interiorul videoclipului necesită un fișier MKV, deci această descărcare se salvează ca .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Încorporarea miniaturii a fost omisă — containerul de ieșire nu o acceptă."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Personalizat…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Desktop"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Documente"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Descărcări"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Salvare în"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Acasă"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muzică"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Imagini"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Numele folderului conține caractere nevalide"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "ex. lo-fi"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Salvează într-un subfolder"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filme"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Limba audio"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "{{count}} limbi"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} limbă"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} de limbi"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Doar audio"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Bitrate {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookie-urile sunt configurate, dar dezactivate. Activați-le și reîncercați pentru a obține lista completă sau schimbați rețeaua și reîncercați."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Chiar și cu cookie-uri, YouTube a limitat această sondare. Încercați din nou mai târziu sau schimbați rețeaua."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube a limitat această cerere. Încercați din nou mai târziu sau schimbați rețeaua."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Lista de formate poate fi incompletă. Configurați cookie-urile în setările avansate sau schimbați rețeaua și reîncercați."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Activează cookie-urile și reîncearcă"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Sondarea a fost limitată"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "O sursă care este deja {{target}} își păstrează fluxul și bitrate-ul: este copiată, nu recodificată."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kb/s, fără recodificare"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, fără recodificare"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kb/s, așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Conversie"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kb/s"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Sursa are {{kbps}} kb/s"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (necomprimat)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Conectare Explorare"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Fișier"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Sursa cookie-urilor"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "documentația yt-dlp (problema #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 și versiunile mai noi criptează cookie-urile într-un mod pe care alte aplicații nu îl pot citi în Windows. Încercați una dintre soluțiile de mai jos."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Exportați cookie-urile din Chrome cu o extensie de browser, apoi comutați această aplicație pe modul Fișier și alegeți fișierul exportat."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Exportați cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox nu folosește App-Bound Encryption. Deschideți setările cookie-urilor și alegeți Firefox din lista de browsere."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Treceți la Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Adăugați --disable-features=LockProfileCookieDatabase la comanda rapidă de lansare a Chrome. Atenție: aceasta invalidează cookie-urile criptate anterior, deci veți fi deconectat de pe toate site-urile și va trebui să vă conectați din nou."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Lansați Chrome cu App-Bound Encryption dezactivat"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Cookie-urile Chrome sunt blocate de criptarea Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookie-urile sunt citite direct din browser. Dacă browserul rulează în prezent, baza lui de date de cookie-uri poate fi blocată (familia Chromium). Browserul trebuie să fie conectat și la YouTube. Încercați să închideți browserul, să treceți la alt browser, la modul Fișier sau să dezactivați cookie-urile."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Fișierul de cookie-uri poate fi gol, expirat sau în format greșit (Arroxy are nevoie de un fișier cookies.txt Netscape). Încercați să exportați din nou cookie-urile, să alegeți alt fișier, să treceți la modul Browser sau să dezactivați cookie-urile."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Conectați-vă cu Explorare, iar Arroxy va reîncerca."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Conectați-vă cu Explorare"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Este posibil ca acest videoclip să necesite un cont YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy a încercat deja conectat prin Explorare, deci o nouă conectare nu va ajuta. Site-ul poate avea probleme sau acest cont nu îl poate deschide. Încercați din nou mai târziu."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Site-ul a refuzat chiar și cu conectarea dvs. din Explorare"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Sunteți conectat la Explorare, dar descărcările nu folosesc în prezent acea conectare."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Folosește conectarea mea din Explorare și reîncearcă"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Este posibil ca acest videoclip să necesite un cont YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Dacă acest videoclip necesită un cont, Arroxy folosește automat conectarea dvs. din Explorare. Poate fi indisponibil dintr-un alt motiv."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Conectat la Explorare"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Dacă acest videoclip necesită un cont YouTube, conectați-vă în Explorare și reîncercați. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Conectați-vă în Explorare"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Este posibil ca acest videoclip să necesite un cont YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Este posibil ca acest link să necesite un cont pe {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Conectați-vă la {{host}} cu Explorare, apoi încercați din nou."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Conectați-vă la {{host}} în Explorare, apoi încercați din nou. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cauza ar putea fi cookie-urile"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy nu a putut accesa acest videoclip fără autentificare. Configurați cookie-urile în setările avansate — indicați un browser în care sunteți deja conectat sau importați un fișier cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Acest site necesită conectare"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Deschide setările cookie-urilor"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Folosiți în schimb un fișier de cookie-uri sau un browser…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Părțile tari devin mai line, iar cele line mai tari, pentru difuzoare și încăperi zgomotoase."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Uniformizează volumul (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Volum uniform"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Profilul dvs. este Smart TV (H.264). Acest videoclip nu oferă H.264, așa că este selectat cel mai apropiat flux."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Acest link nu conține video, așa că este selectat audio."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Profilul dvs. cere subtitrări în {{languages}}. Acest videoclip nu le are."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Profilul dvs. cere {{wanted}}p. Acest videoclip nu are nimic atât de mic, așa că este selectat {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Profilul dvs. cere {{wanted}}p. Acest videoclip ajunge doar până la {{picked}}p, așa că este selectat {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Profilul dvs. cere WebM. Fluxurile alese pentru acest videoclip includ {{codec}}, pe care WebM nu îl poate conține, așa că tipul fișierului este Auto."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Adaugă în coadă fără a porni"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Descarcă"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Mai multe opțiuni de descărcare"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Alegeți cel puțin o limbă de subtitrare."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Păstrează ca atare"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Audio încorporat"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Doar audio"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Ce se descarcă"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Doar subtitrări"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, fără audio"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Se încarcă formatele"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Așteptați până se termină sondarea — listele de redare și căutările pot dura."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Dublat cu IA"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Mărit cu IA"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Descriere audio"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Deteriorat"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bitrate îmbunătățit"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Audio spațial"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Cu filigran"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Fără audio"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Profilul activ preselectează fluxurile pentru dvs. Schimbați profilul din meniu sau folosiți creionul pentru a-l ajusta fără a părăsi această descărcare."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formatele pornesc de la profilul dvs."
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Cel mai apropiat de profil"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Editați {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Păstrează modificările mele"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Doar pentru această descărcare. Profilul implicit rămâne neschimbat."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Preselectat din"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Resetează tot"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Ați modificat {{areas}} pentru această descărcare. „{{profile}}” alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Schimbați profilul?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Ați modificat {{areas}} pentru această descărcare. Profilul actualizat alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Folosiți profilul actualizat?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Calitate ridicată"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Calitate scăzută"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Calitate medie"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} limitează această conexiune"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Lista de formate poate fi incompletă."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} a respins această cerere deocamdată."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Reîncercați"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} poate menține această limită până la o oră."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Încercați acum"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Așteptarea s-a încheiat, deci puteți încerca din nou."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy așteaptă până la {{time}} înainte de a mai cere ceva de la {{site}}, pentru ca limita să dispară."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Rezoluție necunoscută"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Se salvează ca"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Dimensiune necunoscută"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Treceți la confirmare"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Folosește preferințele salvate pentru toți pașii rămași. Pentru a schimba o setare, continuați pas cu pas — alegerea dvs. va fi salvată pentru data viitoare."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Căutăm cele mai bune formate pentru dvs.…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Total"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "cu audio"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Doriți doar videoclipul pe care ați făcut clic sau alegeți din lista de redare? În continuare veți alege videoclipuri anume sau un interval."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Alege din listă"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Limita de sondare a listei: {{count}} elemente"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Încarcă lista de redare, până la limita de sondare a listei, înainte de a afișa selectorul."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Descărcați doar acest videoclip sau puneți în coadă întreaga listă de redare cu profilul Descărcare rapidă activ."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Numărul maxim de intrări pe care Arroxy le scanează înainte de a pune în coadă o listă de redare, un canal sau un rezultat de căutare."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Pune în coadă fiecare element încărcat al listei cu profilul Descărcare rapidă activ. Dacă scanarea atinge limita, Arroxy întreabă înainte de a le pune în coadă."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Pune în coadă o singură descărcare și ignoră lista de redare atașată acestui URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Descarcă acest videoclip"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Descarcă toată lista"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Încarcă doar acest videoclip. Lista de redare atașată acestui URL este ignorată."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Doar acesta"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Acest link conține o listă de redare"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Marcaje de capitole care pot fi folosite în orice player modern."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Încorporează capitolele"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Titlul, artistul, descrierea și data încărcării se scriu în fișier."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Încorporează metadatele"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Coperta se află în interiorul fișierului. Videoclipul WebM va fi remultiplexat în MKV; se omite când subtitrările sunt încorporate."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Încorporează miniatura"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Salvează descrierea videoclipului ca fișier text .description lângă descărcare."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Salvează descrierea"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Salvează o listă de redare .m3u lângă videoclipuri, ca ele să se deschidă în ordine în playerul media."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Generează fișier de listă .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Salvează miniatura ca fișier imagine .jpg lângă descărcare."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Salvează miniatura"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Treceți la Parte pe cardul videoclipului pentru a alege un început și un sfârșit sau un capitol și a descărca doar acel fragment."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Descărcați doar o parte dintr-un videoclip"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Capitole"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Capitolul {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "O parte se descarcă prin ffmpeg, deci conexiunile de descărcare și setările de ritm nu se aplică."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Corectați mai întâi începutul și sfârșitul părții."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Sfârșit"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Videoclipul se termină la {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Introduceți sfârșitul ca h:mm:ss, m:ss sau secunde."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Introduceți începutul ca h:mm:ss, m:ss sau secunde."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Începutul trebuie să fie înaintea sfârșitului."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Dezactivat: fiecare tăietură ajunge la cel mai apropiat cadru-cheie, care poate fi la câteva secunde de ora introdusă."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Tăiere exactă (recodifică, mai lent)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} din {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Parte"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Parte din videoclip"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Început"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "tot videoclipul"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Partea {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Cât din videoclip"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss sau secunde"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Parte, estimat"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Acest videoclip nu raportează durata, deci poate fi descărcat doar întreg."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Subtitrările acoperă întotdeauna tot videoclipul."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Linkul dvs. începe la {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Folosește ca început"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Tot videoclipul"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Toată piesa"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Restaurați-le pentru a continua."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Toate elementele au fost eliminate"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Deja descărcat"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL-uri în bloc"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nu trebuie să așteptați — fișierele puse acum în coadă își primesc numele real la descărcare."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Se preiau detaliile videoclipurilor… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Detalii indisponibile"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Se preiau detaliile"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "În așteptare"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "live"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Elementele listei de redare"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Videoclipuri de descărcat"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} videoclipuri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} videoclip"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} de videoclipuri"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} piese"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} piesă"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} de piese"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-uri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} de URL-uri"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Se preia lista de redare…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Se preiau videoclipurile…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Limitat la primele {{count}} elemente"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "{{count}} pagini găsite"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} pagină găsită"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} de pagini găsite"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Se colectează videoclipurile"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Se scanează paginile canalului"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Atribuie profiluri pe element"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Omite Calitate, SponsorBlock, Ieșire și Salvare — atribuiți în schimb un profil de descărcare pentru fiecare element"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Listă de redare"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} dintre acestea este o listă de redare, nu un videoclip — lipiți linkul ei separat pentru a o descărca."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Selectați cel puțin un videoclip pentru a continua"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Se afișează primele {{count}} elemente. Măriți limita de încărcare pentru a vedea mai multe."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Scanarea listei de redare este limitată"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Scanarea este limitată"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Aplică intervalul"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "De la"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Până la"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminate"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminat"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} eliminate"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Elimină {{count}} din listă"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Elimină {{count}} din listă"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Elimină {{count}} din listă"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Restaurează"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Selectează tot"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "{{count}} selectate"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} selectat"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} selectate"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Nu selecta nimic"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Ordinea listei"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Se preiau datele încărcării…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sortare"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Cele mai vechi primele"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Cele mai noi primele"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Aplică sincronizarea"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Schimbă folderul…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} dintre aceste videoclipuri se află deja în {{dir}}. Sincronizați pentru a descărca doar pe cele noi?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Deja în folder"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Niciun videoclip din această listă de redare nu a fost găsit în {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Niciun videoclip din această sursă nu a fost găsit în {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Nimic descărcat încă"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Se verifică folderul…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Miniatura videoclipului"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Alegeți calitatea pentru lot"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} elemente"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} de elemente"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Fiecare videoclip rezolvă nivelul ales în mod independent — listele de redare eterogene funcționează fără surprize."
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_few"
+msgid "Assign to {{count}} videos"
+msgstr "Atribuie la {{count}} videoclipuri"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Atribuie la {{count}} videoclip"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Atribuie la {{count}} de videoclipuri"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Atribuie profil"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Durată"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Editați {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Niciun element nu se potrivește cu acest filtru"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filtre de profil"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Atribuiți profiluri de descărcare"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_few"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Alegeți profilul pentru aceste {{count}} videoclipuri."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Alegeți profilul pentru acest videoclip."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Alegeți profilul pentru aceste {{count}} de videoclipuri."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} din {{total}} selectate"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Schimbă global"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Alege folderul de destinație"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Alege pictograma profilului"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Elimină {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Resetează profilul"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Acest profil folosește deja setările încorporate"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Restaurează setările încorporate ale profilului"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Salvează profilul"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Setează o suprascriere de profil"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Setează suprascriere"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Folosește valoarea globală implicită"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Folosește codul de limbă „{{code}}”"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Avansat"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Folosește setarea aplicației ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Cel mai bun"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Până la 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Până la 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Până la 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Cea mai bună calitate"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Folderul implicit de descărcări"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Folderul implicit de descărcări / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Destinație globală"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Activă"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Moștenită"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Suprascriere de profil"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Alegeți folderul"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Nicio suprascriere setată"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Nicio suprascriere setată. Acest profil folosește destinația globală de mai sus."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Suprascrie destinația globală"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Acest profil se salvează în propria rădăcină, înainte de adăugarea subfolderului."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Destinația rezolvată"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "O configurație reutilizabilă pentru Descărcare rapidă, URL-uri în bloc și liste de redare."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Profil de descărcare"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Nu s-a putut schimba destinația globală."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Nu s-a putut deschide selectorul de foldere. Introduceți manual o cale."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Nu s-au putut reseta setările profilului."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Nu s-au putut salva setările profilului."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Livrare"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Tip de fișier"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimizat pentru"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Pictograma profilului"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Limbi"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Numele profilului"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Numele și pictograma profilului"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Audio nativ"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Calea de suprascriere a profilului"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Calitate"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Rezoluție"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Sursă"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Numele subfolderului"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Descărcări de subtitrări"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profilurile cer coduri de limbă; disponibilitatea se stabilește pentru fiecare URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Cea mai clară imagine la o anumită dimensiune. Televizoarele mai vechi, QuickTime și unele editoare nu o pot reda."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Cea mai bună imagine"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Se redă pe televizoare, telefoane, WhatsApp, QuickTime și editoare video. YouTube oferă H.264 doar până la 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Arhivă"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Subtitrări"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Cursuri"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Clip"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Comenzi"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Descărcare"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Muzică"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Muzică sau podcasturi"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Doar audio"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Doar fișiere de subtitrare"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Doar subtitrări"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Fișiere video obișnuite"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + audio"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Doar video, fără sunet"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video, fără audio"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Subtitrările automate vor fi salvate ca SRT în loc de ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Nicio limbă corespunzătoare"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Pentru acest profil nu se vor cere fișiere de subtitrare sau piste de subtitrare încorporate."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Căutați după numele sau codul limbii"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Omis pentru acest tip de ieșire."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Alegeți cel puțin o limbă."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Alegeți cel puțin o limbă sau dezactivați descărcarea subtitrărilor."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Acest profil pune în coadă doar fișiere de subtitrare. Video, audio, SponsorBlock și conversia media sunt omise."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profilurile moștenesc destinația globală, cu excepția cazului în care setați o suprascriere de profil."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Opțiuni avansate"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Alegeți modul principal în care doriți să descărcați."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Tip de descărcare"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Numele și pictograma afișate în Descărcare rapidă, URL-uri în bloc și listele de profiluri."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Identitatea profilului"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "{{count}} activate"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} activată"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} activate"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Opțiuni de ieșire"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Alegeți un folder pentru acest profil"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Omis"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Marchează segmentele sponsorizate drept capitole (nedistructiv)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Taie segmentele sponsorizate din videoclip cu FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Doar generate automat"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Manuale și automate"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Întâi manuale, apoi automate"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Doar manuale"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Ajutor pentru {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Anulează pregătirea"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Linkul curent"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy citește linkul și aplică {{profileName}}."
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "{{count}} eșuate"
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} eșuată"
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} eșuate"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Se preiau detaliile"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Se adaugă în coadă"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Se pregătește Descărcarea rapidă"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Lăsați aceasta deschisă cât timp Arroxy pregătește coada."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "extra"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "nume de fișier"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "format"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "folder"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "subtitrări"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtitrările, SponsorBlock, extrele precum miniatura, folderul și numele fișierului erau înainte pași separați. Faceți clic pe un rând pentru a-l modifica."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Toate celelalte setări se află acum pe această pagină"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Modificat față de {{profile}}: {{areas}}. Se aplică doar acestei descărcări."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Modificat față de {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Schimbă formatul"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Simboluri: {title}, {id}, {uploader}, {date}, {resolution}. Extensia se adaugă automat."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Salvează ca profil"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (editat)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Această descărcare a folosit setări editate. Le folosiți și data viitoare?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Anulează modificările, înapoi la „{{profile}}”"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Extra"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Nume de fișier"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Salvare în"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Restul setărilor"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Salvează profilul"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Păstrează aceste setări ca profil pe care îl puteți alege data viitoare. Profilul Descărcare rapidă rămâne neschimbat."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Profilul nu a putut fi salvat."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Numele profilului"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Salvat ca profil „{{name}}”"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Salvează ca profil"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Salvează ca profil nou"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Actualizează profilul"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Acesta este un profil încorporat. Îi puteți restaura setările originale în fila Profiluri."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "De acum înainte, fiecare descărcare cu acest profil folosește noile setări."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Actualizați „{{profile}}”?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profil actualizat „{{name}}”"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Actualizează „{{profile}}” cu aceste modificări"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Niciunul"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Dezactivat"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Dezactivate"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Umplutură"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Intro"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Muzică în afara subiectului"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Outro"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Previzualizare"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Autopromovare"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Categorii"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Marchează ca capitole"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Dezactivat"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Elimină segmentele"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Filtrarea sponsorilor"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Marchează segmentele sponsorizate drept capitole (nedistructiv)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Taie segmentele sponsorizate din videoclip cu FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Confirmare"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Salvare"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Ieșire"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Listă"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videoclipuri"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Calitate"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profiluri"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Examinare"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Subtitrările automate vor fi salvate ca SRT în loc de ASS — pentru videoclipurile YouTube sunt curățate de dublarea indicilor derulanți, pe care convertorul nostru ASS nu o poate reproduce încă."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Șterge tot"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Modul încorporare salvează ieșirea ca .mkv, pentru ca pistele de subtitrare să se încorporeze fiabil."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Nu există subtitrări disponibile pentru acest videoclip"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Nicio limbă nu se potrivește"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Nicio subtitrare selectată"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Elimină {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Încorporate în videoclip"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Salvează ca"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Lângă videoclip"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subfolderul subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Căutați limbi…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Generate automat"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Manuale"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Navigare între profilurile de descărcare"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Avansat"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Trimite semnalul zilnic de activitate"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Fără telemetrie. O dată pe zi, un semnal anonim trimite versiunea aplicației, canalul de instalare, sistemul de operare, limba, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Fără ID-uri, URL-uri, titluri de videoclipuri sau nume de fișiere."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Scoate o descărcare din lista Descărcări la câteva secunde după ce se termină. Fișierele rămân în folder; descărcările eșuate și anulate rămân în listă."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Elimină descărcările finalizate"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Încearcă automat din nou după o defecțiune de rețea sau de server, așteptând tot mai mult între încercări. Descărcările blocate de site nu sunt reîncercate automat."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Reîncearcă descărcările eșuate"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ori"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL-uri în bloc"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Adăugați și puneți în coadă mai multe URL-uri."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Șterge URL-ul"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Link adăugat din clipboard"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc pentru a le adăuga"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Înlocuit cu linkul copiat"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Urmărește clipboardul"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Completează automat câmpul URL când copiați un link de videoclip."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Anulează"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Ascunde în bara de sistem la închidere"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Continuă descărcările în fundal după închiderea ferestrei."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Câte elemente din coadă se descarcă în același timp. Mai multe deodată termină mai repede o coadă lungă, dar cresc șansa ca un site să vă limiteze."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Descărcări simultane"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "descărcări"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile ale căror cookie-uri sunt folosite de instrumente de descărcare precum Arroxy. Folosiți un cont de unică folosință când este posibil."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Citește cookie-urile direct din browser. Pentru browserele din familia Chromium, browserul trebuie să fie închis."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Alegeți un browser…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Alegeți…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Șterge"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Alegeți un browser pentru a folosi cookie-urile"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Alegeți un fișier pentru a folosi cookie-urile"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Folosește conectarea din Explorare doar când o descărcare are nevoie de ea."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Fila Explorare este dezactivată, deci descărcările nu folosesc conectarea din Explorare. Activați-o în Explorare, mai jos."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Obțineți cookies.txt LOCAL (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Fișier de cookie-uri"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Cum export cookie-urile?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Deschide Explorare"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Niciun fișier selectat"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Recomandat"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risc: un fișier cookies.txt conține toate sesiunile conectate din acel browser — păstrați-l privat."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Browser"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Conectare Explorare"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Fișier"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Sursa cookie-urilor"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Dezactivat"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Ajută la videoclipurile cu restricție de vârstă, doar pentru membri sau private în cont."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Accelerează descărcările mari prin preluarea mai multor părți ale unui videoclip deodată. Valorile mai mari cresc șansa ca un site să vă limiteze."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Conexiuni de descărcare"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "conexiuni"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Doar audio"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Peste 2000 de site-uri"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Liste de redare muzicale"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Videoclipuri"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Liste de redare video"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Ce poate descărca Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Canale"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muzică"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Liste de redare"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasturi"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Videoclipuri"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Asistent pas cu pas. Alegeți formatul, calitatea și altele."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Descărcare de la un URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Schimbă comanda rapidă"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Această comandă rapidă este folosită de altă aplicație — alegeți alta."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Sau apăsați"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Copiați un link de videoclip oriunde, apăsați această comandă rapidă, iar Arroxy îl pune în coadă cu profilul activ — fără a schimba ferestrele."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Schimbați-o sau dezactivați-o în Setări."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Apăsați tastele…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Resetează la valoarea implicită"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Descărcați orice link copiați, din orice aplicație, fără a deschide Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Comandă rapidă globală"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testează"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Activează comanda rapidă globală"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Apăsați comanda rapidă având în clipboard un link de videoclip."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Descărcare interactivă"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Descărcările active își păstrează limita curentă. Întrerupeți și reluați pentru a aplica modificările."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Personalizat…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "ex. 750K sau 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Limitează lățimea de bandă pentru descărcările media. Ritmul cererilor de mai jos este de obicei pârghia mai puternică împotriva limitării."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Folosiți un număr urmat de K sau M (ex. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Limită de viteză la descărcare"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Dezactivat"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Descarc în fundal… pot face mai multe deodată 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Descărcarea rapidă pune în coadă elementele încărcate cu {{profileName}}. Descărcarea interactivă vă lasă să inspectați sau să selectați mai întâi elementele."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Lăsați un link și Arroxy îl descarcă ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Acest link duce la un videoclip dintr-o colecție. Arroxy vă va întreba pe care îl doriți înainte de sondare."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} citește acest link și aplică {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Coada se ocupă de această descărcare. Puteți lipi alt link cât timp lucrează."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Descărcarea rapidă pornește o descărcare cu {{profileName}}. Folosiți Interactiv pentru modificări punctuale."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Stereo compatibil"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo sau surround când un profil alege audio nativ. Un profil îl poate suprascrie."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Preferință pentru audio nativ"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Preferă surround / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Adaugă mici pauze în timpul fiecărei descărcări, ca Arroxy să nu solicite site-ul prea agresiv. Valorile sunt în secunde."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pauză înainte de pornirea media: max."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pauză înainte de pornirea media: min."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Așteptare între verificările de metadate"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Așteptare înainte de fișierele de subtitrare"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Descărcări blânde"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Cât de precaut să fie Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Echilibrat"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Precaut"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Personalizat"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Dezactivat"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Așteptări: {{requests}} între verificări, {{downloads}} înainte de pornirea media, {{subtitles}} înainte de fișierele de subtitrare."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Aceste așteptări au loc în interiorul fiecărei descărcări. Câte descărcări rulează simultan se setează separat, la Descărcări simultane."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Implicit. Adaugă pauze scurte între cereri și înainte de pornirea media."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Adaugă pauze mai lungi pentru liste de redare mari sau rețele care ating des limitele."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Reglați singur comenzile avansate pentru fiecare descărcare."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Folosește doar pauzele mici de bază pe care Arroxy le păstrează pentru media și subtitrări."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Limita curentă: {{count}} elemente"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Personalizat…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Folosiți un număr întreg de la {{min}} la {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Salvează limita"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Limită personalizată de scanare a listei"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Personalizat: {{count}} elemente"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Numărul maxim de intrări pe care Arroxy le încarcă la deschiderea unei liste de redare, a unui canal sau a unui rezultat de căutare."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Folosiți un număr întreg de la 1 la 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Elemente de scanat din listă"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} elemente"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy cere doar atâtea intrări de listă de redare, canal sau căutare cât construiește selectorul."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Folosește limita aplicației: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Aplică"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Nu s-a putut aplica acel interval al listei: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Aplică și reîncarcă"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Anulare"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Schimbă"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Alegeți ce încarcă Arroxy pentru această listă de redare."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Aria listei de redare"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Niciun videoclip în această arie"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Primele"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Folosiți numere întregi de element de la 1 la {{max}}, cu începutul nu mai mare decât sfârșitul."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Elemente de încărcat"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Aria listei de redare"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Interval"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Se reîncarcă..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Resetează"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Încarcă primele elemente: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Încarcă primele elemente: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Încarcă elementele {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "până la"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Profil activ"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Încorporat"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Personalizat"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Ascuns"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Modificat"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Schimbă destinația globală"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Se folosește destinația globală"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Se folosește destinația globală + subfolderul profilului"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Se folosește suprascrierea profilului"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Se folosește suprascrierea profilului + subfolderul profilului"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Destinație"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Editare"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Editează profilul activ"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Profilurile ascunse rămân aici, dar dispar din toate selectoarele de profil."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Afișează profilul în selectoare: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Păstrați cel puțin un profil disponibil."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Gestionează profilurile"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Schimbați profilul activ pentru Descărcare rapidă, URL-uri în bloc și liste de redare."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Schimbă profilul"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "profil mutabil"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Mutare anulată. {{profileName}} rămâne pe poziția {{position}} din {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} a fost plasat pe poziția {{position}} din {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Mută {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Pentru a muta un profil, apăsați Space sau Enter, mutați-l cu tastele săgeată, apoi apăsați Space sau Enter pentru a-l plasa. Apăsați Escape pentru a anula."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} este peste poziția {{position}} din {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} a fost ridicat. Se află pe poziția {{position}} din {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Profil nou"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Creați, selectați, editați sau eliminați configurații de descărcare reutilizabile."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Profiluri de descărcare"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Elimină"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmează această ordine."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Resetează"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "audio AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "cel mai bun audio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "cel mai bun video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "fără audio"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "doar subtitrări"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "audio WAV"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Schimbă profilul de descărcare: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Schimbă profilul de descărcare"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Șterge"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Direcționează traficul printr-un proxy — util pentru conținut restricționat geografic."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL proxy"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Niciunul dintre acele URL-uri nu a putut fi pregătit"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Descărcare rapidă"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Va descărca folosind: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Nu s-a putut adăuga acesta: {{error}}"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "S-au pus în coadă cele reușite. {{count}} URL-uri nu au putut fi pregătite."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "S-au pus în coadă cele reușite. {{count}} URL nu a putut fi pregătit."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "S-au pus în coadă cele reușite. {{count}} de URL-uri nu au putut fi pregătite."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Elementul din coadă nu a putut fi pregătit"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Se pregătește"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Sondarea a eșuat"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Adăugat în coadă"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Lipiți un URL de videoclip, listă de redare, canal sau căutare pentru a începe."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Comportament global care afectează și descărcările conduse de profil."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Comportamentul descărcărilor"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Intrare"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Panouri de sticlă peste un cer în mișcare. Necesită accelerare grafică."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Suprafețe pline, discrete. Rulează ușor pe orice computer."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Ambele stiluri există în variantă luminoasă și întunecată."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stil"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Cum arată Arroxy. Comutați între luminos și întunecat din subsol."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Aspect"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} necesită accelerare grafică, care nu este disponibilă acum, așa că Arroxy afișează {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profiluri"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Setări"

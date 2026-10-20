@@ -1,5 +1,14 @@
 import {SUPPORTED_LANGS, type SupportedLang} from './types.js'
 
+// Language codes an OS can report for a language the app ships under another code:
+// generic and Nynorsk Norwegian read Bokmål, and iw is Hebrew's withdrawn ISO 639 code,
+// still found in older locale names (iw_IL).
+const LANGUAGE_ALIASES: ReadonlyMap<string, SupportedLang> = new Map([
+	['no', 'nb'],
+	['nn', 'nb'],
+	['iw', 'he']
+])
+
 // The supported app language a locale tag names, or null when it names none.
 function matchLanguage(raw: string): SupportedLang | null {
 	// POSIX names carry a codeset and modifier (zh_TW.UTF-8, sr_RS@latin).
@@ -8,7 +17,7 @@ function matchLanguage(raw: string): SupportedLang | null {
 	const exact = SUPPORTED_LANGS.find(l => l.toLowerCase() === lower)
 	if (exact) return exact
 	const prefix = lower.split(/[-_]/)[0]
-	return SUPPORTED_LANGS.find(l => l === prefix) ?? null
+	return LANGUAGE_ALIASES.get(prefix) ?? SUPPORTED_LANGS.find(l => l === prefix) ?? null
 }
 
 // Maps an OS/browser locale tag onto the closest supported app language.
