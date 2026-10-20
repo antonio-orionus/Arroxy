@@ -252,7 +252,10 @@ export const downloadProfilesPrefsSchema = z.object({
 	// Built-in visibility only. Keyed by built-in id; absent = use the built-in's
 	// own `enabled` default, so a later change to that default still reaches users.
 	// Custom profiles carry their own `enabled` — they are fully persisted.
-	enabledOverrides: z.record(z.string(), z.boolean()).default({})
+	enabledOverrides: z.record(z.string(), z.boolean()).default({}),
+	// The user's order for every profile list, built-ins and custom mixed, by id.
+	// Absent = never reordered: built-ins first, then custom profiles.
+	order: z.array(z.string()).optional()
 })
 export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>
 
@@ -714,7 +717,7 @@ const commonSettingsPatchSchema = commonSettingsSchema
 // doesn't actually distinguish from undefined.
 const playlistPrefsPatchSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})
 
-const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(downloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional(), enabledOverrides: z.record(z.string(), z.boolean()).optional()})
+const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(downloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional(), enabledOverrides: z.record(z.string(), z.boolean()).optional(), order: z.array(z.string()).optional()})
 
 export const updateSettingsSchema = z.object({common: commonSettingsPatchSchema.optional(), playlist: playlistPrefsPatchSchema.optional(), profiles: downloadProfilesPrefsPatchSchema.optional()}).refine(
 	patch => {

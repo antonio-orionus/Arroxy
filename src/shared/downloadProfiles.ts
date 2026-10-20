@@ -100,7 +100,20 @@ export function normalizeDownloadProfilesPrefs(prefs: DownloadProfilesPrefs | un
 	const source = prefs ?? DEFAULT_DOWNLOAD_PROFILES_PREFS
 	const rawOverrides = source.enabledOverrides ?? {}
 	const enabledOverrides = Object.fromEntries(Object.entries(rawOverrides).filter(([id, value]) => typeof value === 'boolean' && isBuiltinDownloadProfileId(id)))
-	return {active: source.active ?? DEFAULT_DOWNLOAD_PROFILE_REF, custom: (source.custom ?? []).filter(profile => !isBuiltinDownloadProfileId(profile.id)), overrides: (source.overrides ?? []).filter(profile => isBuiltinDownloadProfileId(profile.id)), enabledOverrides}
+	const custom = (source.custom ?? []).filter(profile => !isBuiltinDownloadProfileId(profile.id))
+	const normalized: DownloadProfilesPrefs = {active: source.active ?? DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides: (source.overrides ?? []).filter(profile => isBuiltinDownloadProfileId(profile.id)), enabledOverrides}
+	if (!source.order) return normalized
+	// Ids of deleted profiles drop out, so a removed profile leaves no gap.
+	const known = new Set([...BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id), ...custom.map(profile => profile.id)])
+	return {...normalized, order: [...new Set(source.order)].filter(id => known.has(id))}
+}
+
+// Profiles the user never placed (made after the last reorder, or built-ins an
+// update added) follow the placed ones, in catalog order.
+function inUserOrder(profiles: DownloadProfile[], order: readonly string[] | undefined): DownloadProfile[] {
+	if (!order || order.length === 0) return profiles
+	const placed = order.flatMap(id => profiles.filter(profile => profile.id === id))
+	return [...placed, ...profiles.filter(profile => !order.includes(profile.id))]
 }
 
 function builtinEnabled(id: string, prefs: DownloadProfilesPrefs): boolean {
@@ -119,7 +132,19 @@ function overriddenBuiltinProfiles(prefs: DownloadProfilesPrefs | undefined): Do
 
 export function allDownloadProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
 	const normalized = normalizeDownloadProfilesPrefs(prefs)
-	return [...overriddenBuiltinProfiles(normalized), ...normalized.custom]
+	return inUserOrder([...overriddenBuiltinProfiles(normalized), ...normalized.custom], normalized.order)
+}
+
+// Moves a profile to where `targetId` stands, shifting the ones between. The
+// whole order is written, so later lists all agree with this one.
+export function moveDownloadProfile(prefs: DownloadProfilesPrefs, id: string, targetId: string): DownloadProfilesPrefs {
+	const normalized = normalizeDownloadProfilesPrefs(prefs)
+	const order = allDownloadProfiles(normalized).map(profile => profile.id)
+	const from = order.indexOf(id)
+	const to = order.indexOf(targetId)
+	if (from === -1 || to === -1 || from === to) return normalized
+	order.splice(to, 0, ...order.splice(from, 1))
+	return {...normalized, order}
 }
 
 export function enabledDownloadProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {

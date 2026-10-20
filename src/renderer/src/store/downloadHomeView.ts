@@ -36,6 +36,7 @@ export interface DownloadHomeView {
 	quickDownloadProbeExperience: ProbeErrorExperience | null
 	quickDownloadProgressFailed: ReturnType<typeof useAppStore.getState>['quickDownloadProgressFailed']
 	quickDownloadStatus: ReturnType<typeof useAppStore.getState>['quickDownloadStatus']
+	moveDownloadProfile: ReturnType<typeof useAppStore.getState>['moveDownloadProfile']
 	removeDownloadProfile: ReturnType<typeof useAppStore.getState>['removeDownloadProfile']
 	retryQuickDownloadFailure: ReturnType<typeof useAppStore.getState>['retryQuickDownloadFailure']
 	retryQuickDownloadWithCookies: ReturnType<typeof useAppStore.getState>['retryQuickDownloadWithCookies']
@@ -96,6 +97,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 			quickDownloadFailure: s.quickDownloadFailure,
 			quickDownloadProgressFailed: s.quickDownloadProgressFailed,
 			quickDownloadStatus: s.quickDownloadStatus,
+			moveDownloadProfile: s.moveDownloadProfile,
 			removeDownloadProfile: s.removeDownloadProfile,
 			retryQuickDownloadFailure: s.retryQuickDownloadFailure,
 			retryQuickDownloadWithCookies: s.retryQuickDownloadWithCookies,
