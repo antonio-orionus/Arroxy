@@ -62,9 +62,12 @@ function formatMarkers(format: YtDlpFormat, wide: VideoWideMarkers): FormatMarke
 	return [...markers, ...(format.language && wide.aiDubbedLanguages.has(format.language) ? (['ai-dubbed'] as const) : []), ...(wide.vr && isVideo ? (['vr'] as const) : [])]
 }
 
-function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference' | 'quality'> {
+// `source_preference` is not in the bridge's typed format schema; it passes
+// through its loose fields, so it is checked here.
+function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference' | 'quality' | 'sourcePreference'> {
 	const markers = formatMarkers(format, wide)
-	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {})}
+	const sourcePreference = format.source_preference
+	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {}), ...(typeof sourcePreference === 'number' ? {sourcePreference} : {})}
 }
 
 export function mapFormats(formats: readonly YtDlpFormat[], durationSeconds?: number): FormatOption[] {

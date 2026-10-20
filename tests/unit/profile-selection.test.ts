@@ -182,6 +182,30 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('399')
 	})
 
+	it('takes the stream the site prefers as a source before the better codec, like yt-dlp source before vcodec', () => {
+		// YouTube's Premium VP9 (616) gets source_preference +100 over the AV1 copy.
+		const formats = [video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sourcePreference: -1, filesize: 53}), video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', ext: 'mp4', sourcePreference: 99, filesize: 204}), audio('140')]
+		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('616')
+		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('616')
+	})
+
+	it('reads a missing source preference as yt-dlp default -1, so the codec still decides', () => {
+		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4'}), audio('140')]
+		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
+		const unset = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4'}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4'}), audio('140')]
+		expect(resolve(builtin('best-quality'), unset).media.videoFormatId).toBe('399')
+	})
+
+	it('fps and HDR still outrank the source preference, as in yt-dlp', () => {
+		const formats = [video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', fps: 30, sourcePreference: 99}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', fps: 60, sourcePreference: -1}), audio('140')]
+		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
+	})
+
+	it('Smart TV breaks ties among H.264 streams by source preference too', () => {
+		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -21, filesize: 900}), video('137-hls', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1, filesize: 500}), audio('140')]
+		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137-hls')
+	})
+
 	it('MP4 profiles put the MP4 container before resolution, like vcodec:h264,ext:mp4,res', () => {
 		const formats = [video('mov', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mov'}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
 		const result = resolve(builtin('mp4-1080'), formats)
@@ -219,7 +243,7 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	it('returns the order that made the pick, for the Why this one tip', () => {
 		const smartTv = resolve(builtin('mp4-720')).order
 		expect(smartTv?.goal).toBe('smart-tv')
-		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
 		expect(resolve(builtin('balanced')).order?.audio).toEqual([{kind: 'native'}])
 		expect(resolve(builtin('audio-only')).order).toBeNull()
 		expect(resolve(builtin('subtitles-only')).order).toBeNull()

@@ -248,6 +248,10 @@ export interface FormatOption {
 	// yt-dlp's `quality`: how the site rates copies of the same height (Twitch's
 	// portrait crops are -2). Breaks ties at one height, as in yt-dlp's sort.
 	quality?: number
+	// yt-dlp's `source_preference`: how the site rates where a copy comes from
+	// (YouTube's Premium copies +100, ones missing a PO token -20). Absent reads
+	// as yt-dlp's default, -1.
+	sourcePreference?: number
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled'

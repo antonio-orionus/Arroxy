@@ -173,6 +173,11 @@ describe('mapFormats — stream markers', () => {
 		const formats = mapFormats([video('ok', {preference: -1}), video('drm', {has_drm: true})])
 		expect(formats.map(f => [f.formatId, f.preference])).toEqual([['ok', -1]])
 	})
+
+	it('keeps the source preference yt-dlp raises for Premium copies, ignoring a value that is no number', () => {
+		const formats = mapFormats([video('616', {format_note: 'Premium', source_preference: 99}), video('399', {source_preference: -1}), video('137', {source_preference: 'high'})])
+		expect(Object.fromEntries(formats.map(f => [f.formatId, f.sourcePreference]))).toEqual({616: 99, 399: -1, 137: undefined})
+	})
 })
 
 describe('mapFormats — sizes and names the site leaves out', () => {

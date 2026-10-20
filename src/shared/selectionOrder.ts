@@ -22,6 +22,10 @@ export type VideoRank =
 	| {kind: 'resolution'; tier: PlaylistVideoTier}
 	| {kind: 'fps'}
 	| {kind: 'hdr'}
+	// Copies the site rates higher by where they come from (yt-dlp's
+	// `source_preference`: YouTube's Premium streams, ones not missing a PO
+	// token). YouTube, Vimeo and VK sort it right after resolution, fps and HDR.
+	| {kind: 'source'}
 	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
 	| {kind: 'codec'}
 	| {kind: 'size'}
@@ -85,7 +89,7 @@ export function effectiveFileType(goal: VideoGoal, fileType: VideoFileType): Vid
 	return fileTypeAllowed(goal, fileType) ? fileType : 'auto'
 }
 
-const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'codec'}, {kind: 'size'}]
+const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'size'}]
 
 function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean): VideoRank[] {
 	const original: VideoRank[] = [{kind: 'site-preference'}, ...(skipAiUpscaled ? [{kind: 'original'} as const] : [])]
@@ -144,6 +148,8 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 			return order.tier === 'best' && !sdrFirst ? undefined : 'fps'
 		case 'hdr':
 			return sdrFirst ? 'hdr:sdr' : undefined
+		// The site's own sort order (`_format_sort_fields`) already names it.
+		case 'source':
 		case 'codec':
 		case 'size':
 			return undefined

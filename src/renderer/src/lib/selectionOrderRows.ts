@@ -27,6 +27,8 @@ function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): Selecti
 			return {label: t('selectionOrder.rank.fps.label'), reason: t('selectionOrder.rank.fps.reason')}
 		case 'hdr':
 			return hdrRow(t, order)
+		case 'source':
+			return {label: t('selectionOrder.rank.source.label'), reason: t('selectionOrder.rank.source.reason')}
 		case 'codec':
 			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
 		case 'size':

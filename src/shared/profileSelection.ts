@@ -76,6 +76,9 @@ function codecRank(format: FormatOption): number {
 	return index < 0 ? VIDEO_CODEC_RANK.length : index
 }
 
+// yt-dlp's value for a stream whose site sets no `source_preference`.
+const DEFAULT_SOURCE_PREFERENCE = -1
+
 // The ranks after resolution compare streams of one height, best first.
 function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order: SelectionOrder): number {
 	switch (rank.kind) {
@@ -85,6 +88,8 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 			const hdrFirst = Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined)
 			return order.hdr.preference === 'hdr' ? hdrFirst : -hdrFirst
 		}
+		case 'source':
+			return (b.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE) - (a.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE)
 		case 'codec':
 			return codecRank(a) - codecRank(b)
 		case 'size':
