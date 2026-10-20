@@ -1,9 +1,14 @@
+import path from 'node:path'
 import type {FileTransport} from 'electron-log'
 
 // Large enough to hold a busy playlist session once progress redraws are no
 // longer logged line by line; the previous file survives one rotation as
 // main.old.log, so the history on disk is up to twice this.
 export const LOG_FILE_MAX_BYTES = 5 * 1024 * 1024
+
+export function mainLogPath(userDataPath: string): string {
+	return path.join(userDataPath, 'logs', 'main.log')
+}
 
 export interface LogFileOptions {
 	logPath: string

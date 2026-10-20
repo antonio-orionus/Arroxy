@@ -72,3 +72,20 @@ test('URL input is interactive', async () => {
 
 	await app.close()
 })
+
+// Lines logged before app-ready (boot identity, Chromium switches, GPU mode)
+// must land in the same profile log as the rest of the session. Otherwise a run
+// with a scratch ELECTRON_USER_DATA leaks them into electron-log's default file,
+// which on Windows is the real install's main.log.
+test('pre-ready log lines go to the ELECTRON_USER_DATA profile log', async () => {
+	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-boot-log-'))
+	const app = await launchApp(userDataDir)
+	const page = await app.firstWindow()
+
+	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
+	await app.close()
+
+	const mainLog = fs.readFileSync(path.join(userDataDir, 'logs', 'main.log'), 'utf8')
+	expect(mainLog).toMatch(/\[info\]\s+boot \{/)
+	expect(mainLog).toMatch(/\[info\]\s+Session started/)
+})

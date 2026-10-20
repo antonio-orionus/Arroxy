@@ -47,7 +47,8 @@ import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/C
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
-import {configureLogFile} from '@main/utils/logFile.js'
+import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
+import {applyUserDataOverride} from '@main/userDataOverride.js'
 import {currentRuntimeFacts, describeSessionContext} from '@main/utils/sessionContext.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
@@ -67,6 +68,18 @@ import contextMenu from 'electron-context-menu'
 import windowStateKeeper from 'electron-window-state'
 
 log.initialize()
+
+// Settle the profile and point electron-log at its main.log before the first
+// log line. Otherwise early lines go to electron-log's own default file: the
+// real install's main.log on Windows even when ELECTRON_USER_DATA moves this
+// run elsewhere, and a separate ~/Library/Logs file on macOS that bug reports
+// never include. Session context is read lazily, so a rotation before the
+// stores exist says so instead of guessing.
+const runtimeFacts = currentRuntimeFacts(app.getVersion())
+let contextSources: {settingsStore: SettingsStore; tokenService: TokenService} | null = null
+const sessionContext = (): Record<string, unknown> => describeSessionContext(runtimeFacts, contextSources?.settingsStore.getSync() ?? null, contextSources?.tokenService.lastWarmUp() ?? null)
+const userDataPath = applyUserDataOverride(app, process.env)
+configureLogFile(log.transports.file, {logPath: mainLogPath(userDataPath), onRotated: () => log.info('Log file rotated', sessionContext())})
 
 // Catch fatal main-process errors that would otherwise crash silently before
 // any window appears — without these, pre-ready bugs leave no diagnostic trail.
@@ -128,15 +141,11 @@ if (gpuMode === 'force') {
 	log.warn('unknown ARROXY_GPU_MODE ignored', {value: gpuMode})
 }
 
-if (process.env.ELECTRON_USER_DATA) {
-	app.setPath('userData', process.env.ELECTRON_USER_DATA)
-}
-
 // Pre-flight runtime args. Lets users recover from GPU/driver hangs that prevent
 // the window from ever appearing — they edit argv.json by hand, no UI needed.
 // Mirrors VS Code's `argv.json` pattern.
 try {
-	const argvPath = path.join(app.getPath('userData'), 'argv.json')
+	const argvPath = path.join(userDataPath, 'argv.json')
 	if (fs.existsSync(argvPath)) {
 		const raw = fs.readFileSync(argvPath, 'utf8')
 		const cfg = JSON.parse(raw) as {'disable-hardware-acceleration'?: boolean}
@@ -248,13 +257,6 @@ if (hasSingleInstanceLock) {
 	void app.whenReady().then(async () => {
 		lifecyclePhase = 'ready'
 		gpuInfoReadiness?.startBudget(GPU_INFO_BUDGET_MS)
-		const userDataPath = app.getPath('userData')
-		const runtimeFacts = currentRuntimeFacts(app.getVersion())
-		// Filled in once the stores exist; until then the context says so instead
-		// of guessing. Read lazily because a rotation can happen at any time.
-		let contextSources: {settingsStore: SettingsStore; tokenService: TokenService} | null = null
-		const sessionContext = (): Record<string, unknown> => describeSessionContext(runtimeFacts, contextSources?.settingsStore.getSync() ?? null, contextSources?.tokenService.lastWarmUp() ?? null)
-		configureLogFile(log.transports.file, {logPath: path.join(userDataPath, 'logs', 'main.log'), onRotated: () => log.info('Log file rotated', sessionContext())})
 		log.info('Session started', sessionContext())
 		let graphicsPolicyPromise: Promise<GraphicsPolicy> | null = null
 		const graphicsPolicyProvider = async (): Promise<GraphicsPolicy> => {
