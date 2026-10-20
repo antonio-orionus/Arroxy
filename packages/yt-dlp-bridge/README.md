@@ -52,7 +52,7 @@ Requires Node.js >= 22.13 and ESM.
 
 ## What changed in 0.6.0 (unreleased)
 
-- **Breaking:** a plan that writes files now carries `cwd`, and every path in its `args` is relative to it. Run it there (`runCommand(…, {cwd: plan.cwd})`): run elsewhere, the files land in the wrong folder. Caller plans run in `output.directory`; `--paths home:` is gone, and `output.tempDirectory`, `-o infojson:`, the subtitle subfolder and a `resume.loadInfoJsonPath` inside the folder become relative. Managed plans run in the output root; the temp root and the download archive are relative when they are inside it. yt-dlp expands `$NAME`, `%NAME%` and `~` in every path it is given, with no escape on POSIX for `--paths`, and strips trailing spaces from `--paths` values. So a folder such as `$HOME`, `%USERPROFILE%` or `Downloads ` (trailing space) wrote somewhere else; now its name never reaches argv.
+- **Breaking:** a plan that writes files now carries `cwd`, and every path in its `args` is relative to it. Run it there (`runCommand(…, {cwd: plan.cwd})`): run elsewhere, the files land in the wrong folder. Create the folder first if it may not exist (`mkdir(plan.cwd, {recursive: true})`): yt-dlp used to make it through `--paths home`, and a spawn in a missing folder fails with `ENOENT`. Caller plans run in `output.directory`; `--paths home:` is gone, and `output.tempDirectory`, `-o infojson:`, the subtitle subfolder and a `resume.loadInfoJsonPath` inside the folder become relative. Managed plans run in the output root; the temp root and the download archive are relative when they are inside it. yt-dlp expands `$NAME`, `%NAME%` and `~` in every path it is given, with no escape on POSIX for `--paths`, and strips trailing spaces from `--paths` values. So a folder such as `$HOME`, `%USERPROFILE%` or `Downloads ` (trailing space) wrote somewhere else; now its name never reaches argv.
 - **Breaking:** `output.tempDirectory` must be inside `output.directory`; a plan with one outside it throws.
 - New `output.report`: `finalPath` has yt-dlp append the media's absolute path once every postprocessor and the move are done (`--print-to-file after_move:filepath`); `subtitles` has it append `requested_subtitles` as JSON, with each track's `filepath`, also under `--skip-download` (`after_video`). Both files must be inside `output.directory`.
 - New `templateLiteral(text)`, also from the new `yt-dlp-bridge/output-template` subpath: literal text for an output template. Each `%`, `$` and `~` becomes an absent field whose default is that sign (`%(_absent|$)s`), which yt-dlp's expansion cannot see through. `%%` is not used: on Windows, ntpath pairs `%` signs, and a field before a `%%` lets a literal `%NAME%` expand.
@@ -266,7 +266,7 @@ function onLine(line: string) {
 
 ### Run a planned command
 
-The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries. Pass the plan's `cwd`: the paths in its argv are relative to it. The child runs as its own process group on Unix, so it does not receive the terminal's Ctrl+C: stop it with `signal`.
+The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries. Pass the plan's `cwd`, which must exist: the paths in its argv are relative to it. The child runs as its own process group on Unix, so it does not receive the terminal's Ctrl+C: stop it with `signal`.
 
 ```ts
 import { planWorkflow } from "yt-dlp-bridge";
