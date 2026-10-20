@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "ဆက်တင်တူတွင် အသေးစိတ်ပိုများ"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "မြှင့်ထားသော bitrate stream များကို ဦးစားပေး"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "ကြည်လင်ပြတ်သားမှုတူတွင် အသေးစိတ်ပိုများ"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "stream များမှ ဖိုင်အမျိုးအစား"

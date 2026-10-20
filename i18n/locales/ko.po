@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "같은 설정에서 더 세밀함"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "향상된 비트레이트 스트림 우선"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "같은 해상도에서 더 세밀함"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "스트림에 따라 파일 형식 결정"

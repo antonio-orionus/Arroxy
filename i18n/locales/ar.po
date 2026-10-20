@@ -1773,6 +1773,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "تفاصيل أكثر بالإعدادات نفسها"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "التدفقات ذات معدل بت محسّن أولاً"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "تفاصيل أكثر بالدقة نفسها"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "نوع الملف حسب التدفقات"

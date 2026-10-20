@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "相同設定下細節更多"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "優先選擇增強位元率串流"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "相同解析度下細節更多"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "檔案類型由串流決定"

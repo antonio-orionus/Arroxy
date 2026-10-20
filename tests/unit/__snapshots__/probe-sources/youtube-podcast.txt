@@ -17,7 +17,7 @@ DRC switch shown
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 251 (audio only, webm)
-best-quality: 399 (1920x1080, mp4) + audio 251 (audio only, webm)
+best-quality: 616 (1920x1080, mp4) + audio 251 (audio only, webm)
 mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 251 (audio only, webm)
 

@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "detail lebih banyak pada pengaturan yang sama"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Stream dengan bitrate ditingkatkan lebih dulu"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "detail lebih banyak pada resolusi yang sama"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "jenis file mengikuti stream"

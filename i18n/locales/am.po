@@ -1593,6 +1593,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "የተሻሻለ ቢትሬት ያላቸው ዥረቶች መጀመሪያ"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "በተመሳሳይ ጥራት ተጨማሪ ዝርዝር"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "የፋይል አይነት ከዥረቶቹ"

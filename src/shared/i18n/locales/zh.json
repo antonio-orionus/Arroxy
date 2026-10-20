@@ -904,6 +904,7 @@
 			"fps": {"label": "最高帧率", "reason": "动作更流畅"},
 			"sitePreference": {"label": "网站未降级的流", "reason": "跳过损坏、带水印和备用的副本"},
 			"original": {"label": "原始流，而非 AI 放大的流", "reason": "放大版分辨率更高，但没有增加真实细节"},
+			"source": {"label": "优先选择增强比特率流", "reason": "相同分辨率下细节更多"},
 			"codec": {"label": "先 AV1，再 VP9，最后 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "更大的文件", "reason": "相同设置下细节更多"},
 			"aacSmartTv": {"label": "AAC 音频", "reason": "随处可播放"},

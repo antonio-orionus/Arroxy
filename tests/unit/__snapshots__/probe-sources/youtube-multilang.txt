@@ -17,7 +17,7 @@ AAC: 129 kbps 40.0 MiB • | 49 kbps 22.05 kHz 15.0 MiB
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140-20 (audio only, m4a)
-best-quality: 399 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
+best-quality: 616 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
 mp4-1080: 270 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
 audio-only: audio 140-20 (audio only, m4a)
 

@@ -1593,6 +1593,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "aynı ayarlarda daha fazla ayrıntı"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Gelişmiş bit hızlı akışlar önce"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "aynı çözünürlükte daha fazla ayrıntı"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "akışlardan dosya türü"

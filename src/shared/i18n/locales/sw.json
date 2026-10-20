@@ -1023,6 +1023,7 @@
 			"fps": {"label": "Kasi ya juu zaidi ya fremu", "reason": "mwendo laini zaidi"},
 			"sitePreference": {"label": "Mikondo isiyoshushwa na tovuti", "reason": "huruka nakala zilizoharibika, zenye alama-maji na za akiba"},
 			"original": {"label": "Mikondo asili, si iliyokuzwa kwa AI", "reason": "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"},
+			"source": {"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza", "reason": "maelezo zaidi kwa azimio lilelile"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},

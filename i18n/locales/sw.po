@@ -1593,6 +1593,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "maelezo zaidi kwa mipangilio ileile"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Mitiririko yenye bitrate iliyoboreshwa kwanza"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "maelezo zaidi kwa azimio lilelile"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "aina ya faili kutoka kwa mikondo"

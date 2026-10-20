@@ -1593,6 +1593,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "একই সেটিংসে আরও বেশি ডিটেইল"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "উন্নত বিটরেটের স্ট্রিম আগে"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "একই রেজোলিউশনে আরও বেশি ডিটেইল"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "স্ট্রিম অনুযায়ী ফাইলের ধরন"

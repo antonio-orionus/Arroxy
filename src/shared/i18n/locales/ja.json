@@ -996,6 +996,7 @@
 			"fps": {"label": "最高フレームレート", "reason": "動きがなめらか"},
 			"sitePreference": {"label": "サイトが優先度を下げていないストリーム", "reason": "破損・透かし入り・代替用のコピーを除外"},
 			"original": {"label": "AI アップスケール版ではなく元のストリーム", "reason": "アップスケール版は解像度が高くても実際の細部は増えない"},
+			"source": {"label": "高ビットレートを優先", "reason": "同じ解像度でより高精細"},
 			"codec": {"label": "AV1、次に VP9、次に H.264", "reason": "同じサイズで最も鮮明"},
 			"size": {"label": "大きいファイル", "reason": "同じ設定でより高精細"},
 			"aacSmartTv": {"label": "AAC 音声", "reason": "どこでも再生可能"},

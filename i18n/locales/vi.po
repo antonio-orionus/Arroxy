@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "nhiều chi tiết hơn với cùng cài đặt"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Ưu tiên luồng có tốc độ bit nâng cao"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "nhiều chi tiết hơn với cùng độ phân giải"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "loại tệp theo các luồng"

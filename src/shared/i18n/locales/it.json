@@ -1072,6 +1072,7 @@
 			"fps": {"label": "Frequenza fotogrammi massima", "reason": "movimento più fluido"},
 			"sitePreference": {"label": "Stream che il sito non declassa", "reason": "salta le copie danneggiate, con filigrana e di riserva"},
 			"original": {"label": "Stream originali, non ingranditi con IA", "reason": "una copia ingrandita è più alta ma non aggiunge dettagli reali"},
+			"source": {"label": "Prima i flussi a bitrate migliorato", "reason": "più dettaglio con la stessa risoluzione"},
 			"codec": {"label": "AV1, poi VP9, poi H.264", "reason": "più nitido a parità di dimensioni"},
 			"size": {"label": "File più grande", "reason": "più dettaglio con le stesse impostazioni"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "si riproduce ovunque"},

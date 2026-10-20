@@ -982,6 +982,7 @@
 			"fps": {"label": "Tốc độ khung hình cao nhất", "reason": "chuyển động mượt hơn"},
 			"sitePreference": {"label": "Luồng không bị trang web hạ ưu tiên", "reason": "bỏ qua bản bị hỏng, có hình mờ và bản dự phòng"},
 			"original": {"label": "Luồng gốc, không phải luồng nâng cấp bằng AI", "reason": "bản nâng cấp có độ phân giải cao hơn nhưng không thêm chi tiết thật"},
+			"source": {"label": "Ưu tiên luồng có tốc độ bit nâng cao", "reason": "nhiều chi tiết hơn với cùng độ phân giải"},
 			"codec": {"label": "AV1, rồi VP9, rồi H.264", "reason": "nét nhất ở cùng dung lượng"},
 			"size": {"label": "Tệp lớn hơn", "reason": "nhiều chi tiết hơn với cùng cài đặt"},
 			"aacSmartTv": {"label": "Âm thanh AAC", "reason": "phát được ở mọi nơi"},

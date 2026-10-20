@@ -1593,6 +1593,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "qindaaʼina walfakkaataan qulqullina dabalataa"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Tarreessaawwan Bitrate fooyya'e duraan"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "bal'ina ifaa walfakkaataan qulqullina dabalataa"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "gosa faayilii tarreessaawwan irraa"

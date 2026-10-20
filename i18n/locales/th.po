@@ -1548,6 +1548,14 @@ msgctxt "selectionOrder.rank.size.reason"
 msgid "more detail at the same settings"
 msgstr "รายละเอียดมากกว่าในการตั้งค่าเดียวกัน"
 
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "สตรีมที่มีบิตเรตที่ปรับปรุงแล้วก่อน"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "รายละเอียดมากกว่าในความละเอียดเท่ากัน"
+
 msgctxt "selectionOrder.summary.fileType.auto"
 msgid "file type from the streams"
 msgstr "ประเภทไฟล์ตามสตรีม"
