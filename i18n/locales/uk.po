@@ -223,6 +223,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Криптоплатежі незворотні. Надсилайте лише в зазначеній мережі та звіряйте адресу повністю."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "У цьому відео немає субтитрів такими мовами: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Це відео має віковий ценз — без авторизації завантажити неможливо."
@@ -258,6 +262,10 @@ msgstr "Arroxy не знайшов FFmpeg або FFprobe. Запусти нал�
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Помилка мережі. Перевір з’єднання та спробуй ще раз."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "У цьому відео немає субтитрів потрібними мовами."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1279,6 +1287,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Завантажується"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Немає субтитрів такими мовами: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Призупинити всі активні завантаження"
@@ -1975,6 +1987,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Переміщення файлів…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Немає субтитрів такими мовами: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Не вдається зберегти в {{dir}} — Arroxy не дозволено туди записувати"
@@ -2014,6 +2030,14 @@ msgstr "Очікування {{seconds}}с для уникнення ліміт�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Запуск рушія завантаження…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "У цьому відео немає субтитрів такими мовами: {{languages}}. Відео збережено без них."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "У цьому відео немає субтитрів такими мовами: {{languages}}. Інші мови збережено."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

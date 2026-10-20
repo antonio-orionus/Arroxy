@@ -752,6 +752,7 @@
 			"qualityLimitedSubtitlesFailed": "Limited to {{height}}p · some subtitles failed",
 			"audioKept": "Sound not removed",
 			"audioKeptSubtitlesFailed": "Sound not removed · some subtitles failed",
+			"subtitleLanguagesMissing": "No subtitles in {{languages}}",
 			"pause": "Pause",
 			"resume": "Resume",
 			"cancel": "Cancel",
@@ -812,6 +813,9 @@
 		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help.",
 		"audioKept": "Video saved with its sound — the audio could not be removed",
 		"audioKeptSubtitlesFailed": "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded",
+		"subtitleLanguagesMissing": "This video has no subtitles in {{languages}}. The video was saved without them.",
+		"subtitleLanguagesMissingOthersSaved": "This video has no subtitles in {{languages}}. The other languages were saved.",
+		"noSubtitles": "No subtitles in {{languages}}",
 		"cancelled": "Download cancelled",
 		"complete": "Download complete",
 		"usedExtractorFallback": "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads",
@@ -864,6 +868,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "This video has no subtitles in {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships.",
 			"ipBlock": "Your IP address appears to be blocked. Try again later or use a VPN.",
@@ -874,6 +879,7 @@
 			"outOfDiskSpace": "Not enough disk space. Free up space and retry.",
 			"outputNotWritable": "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry.",
 			"unsupportedUrl": "Arroxy doesn't support this URL. Try a link from a different site.",
+			"noSubtitles": "This video has no subtitles in the requested languages.",
 			"chunkTransferFailure": "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format.",
 			"missingDependency": "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download.",
 			"postprocessFailure": "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination.",

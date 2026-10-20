@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Malipo ya kripto hayawezi kurudishwa. Tuma kwa mtandao ulioonyeshwa pekee na linganisha anwani nzima."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Video hii haina manukuu katika lugha: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia."
@@ -248,6 +252,10 @@ msgstr "Arroxy haikuweza kupata FFmpeg wala FFprobe. Endesha usanidi tena au wek
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Video hii haina manukuu katika lugha zilizoombwa."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1189,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Inapakua"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Hakuna manukuu katika lugha: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Simamisha vipakuzi vyote vinavyoendelea"
@@ -1875,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Inahamisha faili…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Hakuna manukuu katika lugha: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Haiwezekani kuhifadhi kwenye {{dir}} — Arroxy hairuhusiwi kuandika hapo"
@@ -1914,6 +1930,14 @@ msgstr "Inasubiri sekunde {{seconds}} kuepuka vikwazo vya kiwango…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Inaanzisha injini ya upakuaji…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Video hii haina manukuu katika lugha: {{languages}}. Video ilihifadhiwa bila hayo."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Video hii haina manukuu katika lugha: {{languages}}. Lugha nyingine zilihifadhiwa."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

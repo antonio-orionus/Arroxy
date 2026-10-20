@@ -1,0 +1,4 @@
+[youtube] Extracting URL: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+[youtube] dQw4w9WgXcQ: Downloading webpage
+[info] dQw4w9WgXcQ: Downloading 1 format(s): 18
+[info] There are no subtitles for the requested languages

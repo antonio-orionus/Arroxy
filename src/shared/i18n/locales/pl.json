@@ -839,6 +839,7 @@
 			"qualityLimitedSubtitlesFailed": "Ograniczono do {{height}}p · części napisów nie pobrano",
 			"audioKept": "Nie usunięto dźwięku",
 			"audioKeptSubtitlesFailed": "Nie usunięto dźwięku · części napisów nie pobrano",
+			"subtitleLanguagesMissing": "Brak napisów w językach: {{languages}}",
 			"pause": "Wstrzymaj",
 			"resume": "Wznów",
 			"cancel": "Anuluj",
@@ -899,6 +900,9 @@
 		"qualityLimitedSubtitlesFailed": "Zapisano w {{height}}p — YouTube wstrzymał wyższe jakości dla tego pobierania i nie udało się pobrać niektórych napisów. Może pomóc ponowna próba później lub z innej sieci.",
 		"audioKept": "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku",
 		"audioKeptSubtitlesFailed": "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku ani pobrać niektórych napisów",
+		"subtitleLanguagesMissing": "Ten film nie ma napisów w językach: {{languages}}. Film został zapisany bez nich.",
+		"subtitleLanguagesMissingOthersSaved": "Ten film nie ma napisów w językach: {{languages}}. Pozostałe języki zostały zapisane.",
+		"noSubtitles": "Brak napisów w językach: {{languages}}",
 		"cancelled": "Pobieranie anulowane",
 		"complete": "Pobieranie ukończone",
 		"usedExtractorFallback": "Pobrano z łagodniejszym ekstraktorem — skonfiguruj cookies.txt, aby pobieranie było bardziej niezawodne",
@@ -964,6 +968,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Ten film nie ma napisów w językach: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Uruchomiono ochronę przed botami. Używany adres IP jest najprawdopodobniej oznaczony (zakres centrum danych lub przeciążony punkt wyjścia VPN). Zmień adres IP albo wybierz inny punkt VPN i spróbuj ponownie. Jeśli problem nie ustąpi, może to być tymczasowa zmiana po stronie witryny — Arroxy aktualizuje swój silnik pobierania przy uruchomieniu, więc poprawka trafi do aplikacji automatycznie, gdy tylko zostanie wydana.",
 			"ipBlock": "Twój adres IP jest prawdopodobnie zablokowany. Spróbuj ponownie później albo użyj VPN.",
@@ -974,6 +979,7 @@
 			"outOfDiskSpace": "Za mało miejsca na dysku. Zwolnij miejsce i spróbuj ponownie.",
 			"outputNotWritable": "Arroxy nie może zapisywać w folderze pobierania. Folder może być tylko do odczytu, znajdować się na zablokowanym dysku lub być zablokowany przez ustawienia prywatności systemu. Wybierz inny folder lub zezwól na dostęp, a potem spróbuj ponownie.",
 			"unsupportedUrl": "Arroxy nie obsługuje tego adresu URL. Spróbuj linku z innej witryny.",
+			"noSubtitles": "Ten film nie ma napisów w żądanych językach.",
 			"chunkTransferFailure": "Serwer wielokrotnie przerywał pobieranie w połowie i Arroxy zrezygnował po kolejnych próbach. Zwykle dotyczy to największych formatów wideo (4K HDR / VP9 o wysokiej przepływności). Spróbuj ponownie, zmień sieć/VPN albo wybierz format o niższej rozdzielczości.",
 			"missingDependency": "Arroxy nie znalazł FFmpeg ani FFprobe. Uruchom konfigurację ponownie albo ustaw lokalizację FFmpeg i spróbuj pobrać jeszcze raz.",
 			"postprocessFailure": "Pobieranie zakończyło się, ale przetwarzanie końcowe (łączenie/multipleksowanie/konwersja) nie powiodło się. Często jest to przejściowy problem z ffmpeg — spróbuj ponownie, a jeśli problem się powtarza, wybierz inną kombinację formatów.",

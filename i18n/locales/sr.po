@@ -218,6 +218,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Крипто уплате су неповратне. Шаљи само преко приказане мреже и упореди целу адресу."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Овај видео нема титлове на језицима: {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Овај видео је ограничен по старости и не може се преузети без пријављеног налога."
@@ -253,6 +257,10 @@ msgstr "Arroxy није пронашао FFmpeg или FFprobe. Покрени �
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Грешка мреже. Провери везу и покушај поново."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Овај видео нема титлове на траженим језицима."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1234,6 +1242,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Преузимање"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Нема титлова на језицима: {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Паузирај сва активна преузимања"
@@ -1925,6 +1937,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Премештање датотека…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Нема титлова на језицима: {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Није могуће сачувати у {{dir}} — Arroxy нема дозволу да пише тамо"
@@ -1964,6 +1980,14 @@ msgstr "Чекање {{seconds}}с да би се избегла огранич�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Покретање механизма за преузимање…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Овај видео нема титлове на језицима: {{languages}}. Видео је сачуван без њих."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Овај видео нема титлове на језицима: {{languages}}. Остали језици су сачувани."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

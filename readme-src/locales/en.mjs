@@ -99,6 +99,7 @@ export const en = {
     "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
   cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
+  website_url: "https://arroxy.com/",
   star_cta: "If Arroxy saves you time, a ⭐ helps others find it.",
   ai_notice: "",
   toc_heading: "Contents",

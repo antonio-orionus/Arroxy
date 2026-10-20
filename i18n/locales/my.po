@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Crypto ငွေပေးချေမှုများကို ပြန်ရုပ်သိမ်း၍ မရပါ။ ပြထားသော ကွန်ရက်ဖြင့်သာ ပို့ပြီး လိပ်စာတစ်ခုလုံးကို နှိုင်းယှဉ်စစ်ဆေးပါ။"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "ဤဗီဒီယိုတွင် {{languages}} ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ။"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "ဤဗီဒီယိုသည် အသက်အကန့်အသတ်ရှိပြီး login ဝင်ထားသော account မပါဘဲ ဒေါင်းလုဒ်မဆင်းနိုင်ပါ။"
@@ -243,6 +247,10 @@ msgstr "Arroxy က FFmpeg သို့မဟုတ် FFprobe ကို ရှ�
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Network အမှား။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "ဤဗီဒီယိုတွင် တောင်းဆိုထားသော ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ။"
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1144,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "ဒေါင်းလုဒ်လုပ်နေသည်"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "လုပ်ဆောင်နေသောဒေါင်းလုဒ်အားလုံး ခေတ္တရပ်မည်"
@@ -1825,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ဖိုင်များရွှေ့နေသည်…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} တွင် သိမ်းဆည်း၍ မရပါ — Arroxy ကို ထိုနေရာတွင် ရေးခွင့်မပြုထားပါ"
@@ -1864,6 +1880,14 @@ msgstr "နှုန်းကန့်သတ်မှုရှောင်ရန
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "ဒေါင်းလုဒ်အင်ဂျင်ကို စတင်နေသည်…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "ဤဗီဒီယိုတွင် {{languages}} ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ။ ဗီဒီယိုကို စာတန်းထိုးမပါဘဲ သိမ်းဆည်းပြီးပါပြီ။"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "ဤဗီဒီယိုတွင် {{languages}} ဘာသာစကားများဖြင့် စာတန်းထိုး မရှိပါ။ ကျန်ဘာသာစကားများကို သိမ်းဆည်းပြီးပါပြီ။"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

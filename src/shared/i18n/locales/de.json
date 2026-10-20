@@ -798,6 +798,7 @@
 			"qualityLimitedSubtitlesFailed": "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen",
 			"audioKept": "Ton nicht entfernt",
 			"audioKeptSubtitlesFailed": "Ton nicht entfernt · einige Untertitel fehlgeschlagen",
+			"subtitleLanguagesMissing": "Keine Untertitel auf {{languages}}",
 			"pause": "Pause",
 			"resume": "Fortsetzen",
 			"cancel": "Abbrechen",
@@ -858,6 +859,9 @@
 		"qualityLimitedSubtitlesFailed": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
 		"audioKept": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden",
 		"audioKeptSubtitlesFailed": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden, und einige Untertitel konnten nicht geladen werden",
+		"subtitleLanguagesMissing": "Dieses Video hat keine Untertitel auf {{languages}}. Das Video wurde ohne sie gespeichert.",
+		"subtitleLanguagesMissingOthersSaved": "Dieses Video hat keine Untertitel auf {{languages}}. Die anderen Sprachen wurden gespeichert.",
+		"noSubtitles": "Keine Untertitel auf {{languages}}",
 		"cancelled": "Download abgebrochen",
 		"complete": "Download abgeschlossen",
 		"usedExtractorFallback": "Mit gelockertem Extraktor heruntergeladen — richte eine cookies.txt für zuverlässigere Downloads ein",
@@ -910,6 +914,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Dieses Video hat keine Untertitel auf {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens der Seite handeln — Arroxy aktualisiert seine Download-Engine beim Start, sodass der Fix automatisch ankommt, sobald er verfügbar ist.",
 			"ipBlock": "Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.",
@@ -920,6 +925,7 @@
 			"outOfDiskSpace": "Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut.",
 			"outputNotWritable": "Arroxy kann nicht in den Download-Ordner schreiben. Er ist vielleicht schreibgeschützt, liegt auf einem gesperrten Laufwerk oder wird von den Datenschutzeinstellungen deines Systems blockiert. Wähle einen anderen Ordner oder erlaube den Zugriff und versuche es erneut.",
 			"unsupportedUrl": "Arroxy unterstützt diese URL nicht. Versuche einen Link von einer anderen Website.",
+			"noSubtitles": "Dieses Video hat keine Untertitel in den angeforderten Sprachen.",
 			"chunkTransferFailure": "Der Server hat den Download wiederholt mittendrin abgebrochen, und Arroxy hat nach mehreren Versuchen aufgegeben. Das betrifft meist die größten Videoformate (4K HDR / VP9 mit hoher Bitrate). Versuche es erneut, wechsle das Netzwerk/VPN oder wähle eine niedrigere Auflösung.",
 			"missingDependency": "Arroxy konnte FFmpeg oder FFprobe nicht finden. Führe die Einrichtung erneut aus oder lege einen FFmpeg-Speicherort fest und versuche den Download dann erneut.",
 			"postprocessFailure": "Der Download wurde abgeschlossen, aber die Nachbearbeitung (Merge / Mux / Konvertierung) ist fehlgeschlagen. Oft ist das ein vorübergehendes ffmpeg-Problem — versuche es erneut, und wenn es bestehen bleibt, probiere eine andere Formatkombination.",

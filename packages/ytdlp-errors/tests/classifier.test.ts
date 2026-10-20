@@ -75,6 +75,18 @@ describe('classifyYtDlpStderr — fixture corpus', () => {
 	})
 })
 
+// The no-subtitles line is informational: a real failure in the same output names the cause.
+describe('classifyYtDlpStderr — noSubtitles yields to failures', () => {
+	const NO_SUBS = '[info] There are no subtitles for the requested languages'
+	it.each([
+		['ERROR: unable to write data: [Errno 28] No space left on device', 'outOfDiskSpace'],
+		['ERROR: Postprocessing: Conversion failed!', 'postprocessFailure'],
+		['ERROR: Unable to download video data: <urlopen error timed out>', 'network']
+	] as const)('%s → %s', (failure, kind) => {
+		expect(classifyYtDlpStderr(`${NO_SUBS}\n${failure}`).kind).toBe(kind)
+	})
+})
+
 describe('classifyYtDlpStderr — extension hook', () => {
 	it('merges extraPatterns ahead of built-ins so custom rules win', () => {
 		const result = classifyYtDlpStderr('ERROR: tooManyRequests: please slow down', {extraPatterns: {rateLimit: /tooManyRequests/}})

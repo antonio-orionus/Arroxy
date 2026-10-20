@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Krypto-Zahlungen sind unumkehrbar. Sende nur über das angezeigte Netzwerk und vergleiche die gesamte Adresse."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Dieses Video hat keine Untertitel auf {{languages}}."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden."
@@ -248,6 +252,10 @@ msgstr "Arroxy konnte FFmpeg oder FFprobe nicht finden. Führe die Einrichtung e
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Dieses Video hat keine Untertitel in den angeforderten Sprachen."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1189,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "Lädt herunter"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Keine Untertitel auf {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Alle aktiven Downloads pausieren"
@@ -1875,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Dateien werden verschoben…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Keine Untertitel auf {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "Speichern in {{dir}} nicht möglich — Arroxy darf dort nicht schreiben"
@@ -1914,6 +1930,14 @@ msgstr "Warte {{seconds}}s, um Limits zu vermeiden…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "Download-Engine wird gestartet…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Dieses Video hat keine Untertitel auf {{languages}}. Das Video wurde ohne sie gespeichert."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Dieses Video hat keine Untertitel auf {{languages}}. Die anderen Sprachen wurden gespeichert."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

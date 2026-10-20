@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "암호화폐 송금은 되돌릴 수 없습니다. 표시된 네트워크로만 보내고 주소 전체를 비교하세요."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "이 동영상에는 {{languages}} 자막이 없습니다."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "이 동영상은 연령 제한이 있어 로그인한 계정 없이는 다운로드할 수 없습니다."
@@ -243,6 +247,10 @@ msgstr "Arroxy가 FFmpeg 또는 FFprobe를 찾지 못했습니다. 설정을 다
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "이 동영상에는 요청한 언어의 자막이 없습니다."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1144,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "다운로드 중"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} 자막 없음"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "모든 진행 중인 다운로드를 일시 중지하고 새 다운로드가 시작되지 않게 합니다"
@@ -1825,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "파일 이동 중…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} 자막 없음"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}}에 저장할 수 없습니다 — Arroxy에 그곳에 쓸 권한이 없습니다"
@@ -1864,6 +1880,14 @@ msgstr "요청 제한을 피하기 위해 {{seconds}}초 대기 중…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "다운로드 엔진 시작 중…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "이 동영상에는 {{languages}} 자막이 없습니다. 동영상은 자막 없이 저장되었습니다."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "이 동영상에는 {{languages}} 자막이 없습니다. 나머지 언어는 저장되었습니다."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

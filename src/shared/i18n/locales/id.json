@@ -763,6 +763,7 @@
 			"qualityLimitedSubtitlesFailed": "Dibatasi ke {{height}}p · beberapa subtitle gagal",
 			"audioKept": "Suara tidak dihapus",
 			"audioKeptSubtitlesFailed": "Suara tidak dihapus · beberapa subtitle gagal",
+			"subtitleLanguagesMissing": "Tidak ada subtitle dalam bahasa: {{languages}}",
 			"pause": "Berhenti sebentar",
 			"resume": "Melanjutkan",
 			"cancel": "Membatalkan",
@@ -823,6 +824,9 @@
 		"qualityLimitedSubtitlesFailed": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini, dan beberapa subtitle tidak dapat diunduh. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
 		"audioKept": "Video disimpan beserta suaranya — audio tidak dapat dihapus",
 		"audioKeptSubtitlesFailed": "Video disimpan beserta suaranya — audio tidak dapat dihapus, dan beberapa subtitle tidak dapat diunduh",
+		"subtitleLanguagesMissing": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Video disimpan tanpa subtitle tersebut.",
+		"subtitleLanguagesMissingOthersSaved": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Bahasa lainnya telah disimpan.",
+		"noSubtitles": "Tidak ada subtitle dalam bahasa: {{languages}}",
 		"cancelled": "Pengunduhan dibatalkan",
 		"complete": "Pengunduhan selesai",
 		"usedExtractorFallback": "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal",
@@ -871,6 +875,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}.",
 		"ytdlp": {
 			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui mesin pengunduhnya saat peluncuran, sehingga perbaikan diterapkan secara otomatis setelah dirilis.",
 			"ipBlock": "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN.",
@@ -881,6 +886,7 @@
 			"outOfDiskSpace": "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi.",
 			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",
 			"unsupportedUrl": "Arroxy tidak mendukung URL ini. Coba tautan dari situs lain.",
+			"noSubtitles": "Video ini tidak memiliki subtitle dalam bahasa yang diminta.",
 			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan Arroxy menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
 			"missingDependency": "Arroxy tidak dapat menemukan FFmpeg atau FFprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi.",
 			"postprocessFailure": "Unduhan selesai, tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain.",

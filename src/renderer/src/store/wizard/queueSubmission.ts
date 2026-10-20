@@ -15,9 +15,7 @@ import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPr
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
-import {siteForJob} from '@shared/sites/index.js'
-import {withSubtitleTracks} from '@shared/subtitleLanguages.js'
-import {pickedTrack, planSubtitleTracks, subtitleFetchFlags, type SubtitlePlan} from '@shared/subtitleTracks.js'
+import {pickedTrack, planSubtitleTracks, type SubtitlePlan} from '@shared/subtitleTracks.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
@@ -73,13 +71,6 @@ function wizardSubtitlePlan(state: AppState): SubtitlePlan {
 	return planSubtitleTracks({kind: 'tracks', tracks}, maps)
 }
 
-// The yt-dlp flags a plan's tracks need, as a job's subtitle options hold them.
-function subtitleSourceFlags(plan: SubtitlePlan): {writeAuto: boolean; autoOnly?: true} {
-	const fetch = subtitleFetchFlags(plan)
-	if (!fetch.auto) return {writeAuto: false}
-	return fetch.manual ? {writeAuto: true} : {writeAuto: true, autoOnly: true}
-}
-
 function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueItem | null {
 	const {wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir} = state
 	const {wizardSubfolderEnabled, wizardSubfolderName} = state
@@ -98,7 +89,6 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const formatId = wizardMediaKind === 'subtitles' ? undefined : buildFormatId(selectedVideoFormatId, effectiveAudio)
 	const subtitleLanguages = state.wizardSubtitleLanguages
 	const subtitlePlan = wizardSubtitlePlan(state)
-	const subtitleSource = subtitleSourceFlags(subtitlePlan)
 	// The same track goes by the same key, and so gets the same file name and
 	// embedded track, as when a profile picks it.
 	const subtitleKeys = subtitlePlan.tracks.map(track => track.requestKey)
@@ -135,7 +125,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		sponsorBlockMode: wizardMediaKind === 'video' ? state.wizardSponsorBlockMode : 'off'
 	})
 
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleKeys, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat, ...subtitleSource} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {request: {kind: 'tracks', tracks: subtitlePlan.tracks.map(({key, auto}) => ({key, auto}))}, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat} : undefined
 
 	const job = prepareJob({
 		mode: 'single',
@@ -377,20 +367,8 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 	return `${ref.kind}:${ref.id}`
 }
 
-// A probed video's subtitle maps turn the profile's language codes into the
-// exact tracks the Format screen would pick, so yt-dlp fetches those and never
-// a machine translation. Only on a site whose probe lists every track: an
-// empty map elsewhere says nothing. A subtitles-only job none of whose codes
-// this video has gets no tracks, and its subtitle phase fetches nothing.
-function profileSubtitles(resolved: ResolvedDownloadProfile, maps: SubtitleMaps | undefined): SubtitleOptions | undefined {
-	if (!resolved.subtitles || !maps || !siteForJob(maps.extractor, maps.webpageUrl).probeListsSubtitleTracks) return resolved.subtitles
-	return withSubtitleTracks(resolved.subtitles, maps)
-}
-
-type SubtitleMaps = Pick<Extract<ProbeResult, {kind: 'video'}>, 'subtitles' | 'automaticCaptions' | 'extractor' | 'webpageUrl'>
-
-function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference, subtitleMaps: SubtitleMaps | undefined): PreparedJob {
-	const subtitles = profileSubtitles(resolved, subtitleMaps)
+function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): PreparedJob {
+	const {subtitles} = resolved
 	if (resolved.isSubtitleOnly) {
 		return prepareJob({mode: 'single', extractor, extractorKey, subtitleOnly: true, filenameTemplate, subtitles, sponsorBlockMode: 'off', sponsorBlockCategories: [], embed: resolved.embed})
 	}
@@ -414,8 +392,6 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 function buildProfileEntryQueueItem(params: {
 	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail' | 'titleIsPlaceholder'>
 	probeInfoJsonRef?: PlaylistEntry['probeInfoJsonRef']
-	// A single probed video's; playlist entries have none until they download.
-	subtitleMaps?: SubtitleMaps
 	auth: JobAuth | undefined
 	outputDir: string
 	extractor: string
@@ -451,7 +427,7 @@ function buildProfileEntryQueueItem(params: {
 		...(params.auth ? {auth: params.auth} : {}),
 		writeM3u: params.writeM3u,
 		retryCount: 0,
-		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference, params.hdrPreference, params.subtitleMaps)
+		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference, params.hdrPreference)
 	}
 }
 
@@ -489,7 +465,6 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 		const item = buildProfileEntryQueueItem({
 			entry: {url: probe.webpageUrl || source.url, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
-			subtitleMaps: probe,
 			auth: probe.auth,
 			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),
 			extractor: probe.extractor,

@@ -716,6 +716,7 @@
 			"qualityLimitedSubtitlesFailed": "በ{{height}}p ተገድቧል · አንዳንድ ንዑስ ርዕሶች አልተሳኩም",
 			"audioKept": "ድምፅ አልተወገደም",
 			"audioKeptSubtitlesFailed": "ድምፅ አልተወገደም · አንዳንድ ንዑስ ርዕሶች አልተሳኩም",
+			"subtitleLanguagesMissing": "ንዑስ ርዕሶች የሉም፦ {{languages}}",
 			"pause": "አቋርጥ",
 			"resume": "ቀጥል",
 			"cancel": "ሰርዝ",
@@ -776,6 +777,9 @@
 		"qualityLimitedSubtitlesFailed": "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል፣ እና አንዳንድ ንዑስ ርዕሶች ሊዳውንሎድ አልቻሉም። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።",
 		"audioKept": "ቪዲዮ ከድምፁ ጋር ተቀምጧል — ድምፁን ማስወገድ አልተቻለም",
 		"audioKeptSubtitlesFailed": "ቪዲዮ ከድምፁ ጋር ተቀምጧል — ድምፁን ማስወገድ አልተቻለም፣ አንዳንድ ንዑስ ርዕሶችም ሊዳውንሎድ አልቻሉም",
+		"subtitleLanguagesMissing": "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}። ቪዲዮው ያለ እነሱ ተቀምጧል።",
+		"subtitleLanguagesMissingOthersSaved": "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}። ሌሎቹ ቋንቋዎች ተቀምጠዋል።",
+		"noSubtitles": "ንዑስ ርዕሶች የሉም፦ {{languages}}",
 		"cancelled": "ዳውንሎድ ተሰርዟል",
 		"complete": "ዳውንሎድ ተጠናቅቋል",
 		"usedExtractorFallback": "ቀልל ቅናሽ ሞዴ ዳውንሎድ ተደርጓል — ይበልጥ አስተማማኝ ዳውንሎዶች ለማግኘት cookies.txt አዘጋጅ",
@@ -828,6 +832,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "ይህ ቪዲዮ በእነዚህ ቋንቋዎች ንዑስ ርዕሶች የሉትም፦ {{languages}}።",
 		"ytdlp": {
 			"botBlock": "የቦት መከላከያ ተነሳ። የሚጠቀሙበት IP አድራሻ (የዳታ ሴንተር ክልል ወይም ተጨናንቆ VPN መውጫ) ምናልባት ምልክት ተደርጎበት ሊሆን ይችላል። IP አድራሻዎን ይቀይሩ ወይም ሌላ VPN ነጥብ ይምረጡ ከዚያ እንደገና ሞክሩ። አሁንም ካልሰራ፣ ይህ ጊዜያዊ የጣቢያ ወገን ለውጥ ሊሆን ይችላል — Arroxy በጅምር የማውረጃ ሞተሩን ያዘምናል፣ ስለዚህ ማስተካከያው ሲወጣ ራሱ ይደርሳል።",
 			"ipBlock": "IP አድራሻዎ YouTube ያገደ ይመስላል። ቆየት ብሎ እንደገና ሞክሩ ወይም VPN ጠቀሙ።",
@@ -838,6 +843,7 @@
 			"outOfDiskSpace": "በቂ ዲስክ ቦታ የለም። ቦታ ፍቱ እና እንደገና ሞክሩ።",
 			"outputNotWritable": "Arroxy ወደ ማውረጃ አቃፊው መጻፍ አልቻለም። አቃፊው ለንባብ ብቻ የሆነ፣ በተቆለፈ ድራይቭ ላይ ያለ ወይም በሲስተምዎ የግላዊነት ቅንብሮች የታገደ ሊሆን ይችላል። ሌላ አቃፊ ይምረጡ ወይም መዳረሻ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።",
 			"unsupportedUrl": "Arroxy ይህን URL አይደግፍም። ከሌላ ጣቢያ አገናኝ ይሞክሩ።",
+			"noSubtitles": "ይህ ቪዲዮ በተጠየቁት ቋንቋዎች ንዑስ ርዕሶች የሉትም።",
 			"chunkTransferFailure": "አገልጋዩ ውርዱን በመካከል ደጋግሞ አቋረጠ፣ Arroxy ደግሞ እንደገና ከሞከረ በኋላ ተወው። ይህ ብዙ ጊዜ ትልቁን የቪዲዮ ቅርጸቶች (4K HDR / ከፍተኛ bitrate VP9) ይነካል። እንደገና ሞክሩ፣ አውታረ መረብ/VPN ይቀይሩ፣ ወይም ዝቅተኛ ጥራት ቅርጸት ይምረጡ።",
 			"missingDependency": "Arroxy FFmpeg ወይም FFprobe ማግኘት አልቻለም። ማዋቀሩን እንደገና ያሂዱ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ ማውረዱን እንደገና ይሞክሩ።",
 			"postprocessFailure": "ማውረዱ ተጠናቅቋል ነገር ግን ድህረ-ሂደት (merge / mux / convert) አልተሳካም። ብዙውን ጊዜ ይህ ጊዜያዊ የffmpeg ችግር ነው — እንደገና ሞክሩ፣ ችግሩ ከቀጠለ ሌላ የቅርጸት ጥምረት ሞክሩ።",

@@ -805,6 +805,7 @@
 			"qualityLimitedSubtitlesFailed": "Limitado a {{height}}p · algunos subtítulos fallaron",
 			"audioKept": "Sonido sin quitar",
 			"audioKeptSubtitlesFailed": "Sonido sin quitar · algunos subtítulos fallaron",
+			"subtitleLanguagesMissing": "Sin subtítulos en {{languages}}",
 			"pause": "Pausar",
 			"resume": "Reanudar",
 			"cancel": "Cancelar",
@@ -865,6 +866,9 @@
 		"qualityLimitedSubtitlesFailed": "Guardado en {{height}}p — YouTube retuvo las calidades superiores para esta descarga y algunos subtítulos no se pudieron descargar. Volver a intentarlo más tarde o desde otra red puede ayudar.",
 		"audioKept": "Video guardado con su sonido — no se pudo quitar el audio",
 		"audioKeptSubtitlesFailed": "Video guardado con su sonido — no se pudo quitar el audio y algunos subtítulos no se pudieron descargar",
+		"subtitleLanguagesMissing": "Este vídeo no tiene subtítulos en {{languages}}. El vídeo se guardó sin ellos.",
+		"subtitleLanguagesMissingOthersSaved": "Este vídeo no tiene subtítulos en {{languages}}. Los demás idiomas se guardaron.",
+		"noSubtitles": "Sin subtítulos en {{languages}}",
 		"cancelled": "Descarga cancelada",
 		"complete": "Descarga completada",
 		"usedExtractorFallback": "Descargado con extractor relajado — configura un cookies.txt para descargas más fiables",
@@ -921,6 +925,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Este vídeo no tiene subtítulos en {{languages}}.",
 		"ytdlp": {
 			"botBlock": "La protección contra bots se activó. La IP que estás usando probablemente está marcada (rango de datacenter o salida de VPN con mucho tráfico). Cambia tu IP o elige un punto de salida de VPN diferente y vuelve a intentarlo. Si sigue fallando, puede ser un cambio temporal del sitio — Arroxy actualiza su motor de descarga al iniciar, por lo que la corrección llegará sola en cuanto esté disponible.",
 			"ipBlock": "Tu dirección IP parece estar bloqueada por YouTube. Inténtalo más tarde o usa una VPN.",
@@ -931,6 +936,7 @@
 			"outOfDiskSpace": "No hay suficiente espacio en disco. Libera espacio e inténtalo de nuevo.",
 			"outputNotWritable": "Arroxy no puede escribir en la carpeta de descargas. Puede que sea de solo lectura, esté en una unidad bloqueada o la bloqueen los ajustes de privacidad de tu sistema. Elige otra carpeta o permite el acceso e inténtalo de nuevo.",
 			"unsupportedUrl": "Arroxy no admite esta URL. Prueba con un enlace de otro sitio.",
+			"noSubtitles": "Este vídeo no tiene subtítulos en los idiomas solicitados.",
 			"chunkTransferFailure": "El servidor cortó la descarga repetidamente y Arroxy se rindió tras varios intentos. Esto suele ocurrir con los formatos de mayor tamaño (4K HDR / VP9 de alta tasa de bits). Vuelve a intentarlo, cambia de red/VPN o elige un formato de menor resolución.",
 			"missingDependency": "Arroxy no pudo encontrar FFmpeg ni FFprobe. Vuelve a ejecutar la configuración o indica una ubicación de FFmpeg y luego reintenta la descarga.",
 			"postprocessFailure": "La descarga terminó, pero el post-procesado (mezcla / mux / conversión) falló. A menudo es un problema transitorio de ffmpeg — reintenta, y si persiste prueba con otra combinación de formatos.",

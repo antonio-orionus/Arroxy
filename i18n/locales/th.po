@@ -208,6 +208,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "การชำระเงินด้วยคริปโตไม่สามารถย้อนกลับได้ ส่งเฉพาะผ่านเครือข่ายที่แสดงไว้ และตรวจสอบที่อยู่ให้ครบทั้งหมด"
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "วิดีโอนี้ไม่มีคำบรรยายในภาษา {{languages}}"
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "วิดีโอนี้จำกัดอายุและไม่สามารถดาวน์โหลดได้หากไม่ได้ลงชื่อเข้าใช้บัญชี"
@@ -243,6 +247,10 @@ msgstr "Arroxy ไม่พบ FFmpeg หรือ FFprobe ลองตั้ง
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "ข้อผิดพลาดของเครือข่าย ตรวจสอบการเชื่อมต่อแล้วลองใหม่"
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "วิดีโอนี้ไม่มีคำบรรยายในภาษาที่ร้องขอ"
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1144,6 +1152,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "กำลังดาวน์โหลด"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "ไม่มีคำบรรยายในภาษา {{languages}}"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "หยุดการดาวน์โหลดที่ทำงานอยู่ทั้งหมดและไม่ให้รายการใหม่เริ่ม"
@@ -1825,6 +1837,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "กำลังย้ายไฟล์…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "ไม่มีคำบรรยายในภาษา {{languages}}"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "บันทึกไปที่ {{dir}} ไม่ได้ — Arroxy ไม่ได้รับอนุญาตให้เขียนที่นั่น"
@@ -1864,6 +1880,14 @@ msgstr "กำลังรอ {{seconds}} วินาทีเพื่อห�
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "กำลังเริ่มตัวช่วยดาวน์โหลด…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "วิดีโอนี้ไม่มีคำบรรยายในภาษา {{languages}} บันทึกวิดีโอโดยไม่มีคำบรรยายเหล่านั้นแล้ว"
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "วิดีโอนี้ไม่มีคำบรรยายในภาษา {{languages}} บันทึกภาษาอื่นแล้ว"
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

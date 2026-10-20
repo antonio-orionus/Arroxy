@@ -686,6 +686,7 @@
 			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
 			"audioKept": "未移除声音",
 			"audioKeptSubtitlesFailed": "未移除声音 · 部分字幕未能下载",
+			"subtitleLanguagesMissing": "没有{{languages}}的字幕",
 			"pause": "暂停",
 			"resume": "继续",
 			"cancel": "取消",
@@ -746,6 +747,9 @@
 		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
 		"audioKept": "视频已连同声音保存 — 未能移除音频",
 		"audioKeptSubtitlesFailed": "视频已连同声音保存 — 未能移除音频，且部分字幕未能下载",
+		"subtitleLanguagesMissing": "此视频没有{{languages}}的字幕。视频已保存，但不含这些字幕。",
+		"subtitleLanguagesMissingOthersSaved": "此视频没有{{languages}}的字幕。其他语言已保存。",
+		"noSubtitles": "没有{{languages}}的字幕",
 		"cancelled": "下载已取消",
 		"complete": "下载完成",
 		"usedExtractorFallback": "已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定",
@@ -794,6 +798,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "此视频没有{{languages}}的字幕。",
 		"ytdlp": {
 			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
 			"ipBlock": "你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。",
@@ -804,6 +809,7 @@
 			"outOfDiskSpace": "磁盘空间不足。请清理空间后重试。",
 			"outputNotWritable": "Arroxy 无法写入下载文件夹。该文件夹可能是只读的、位于已锁定的驱动器上，或被系统的隐私设置阻止。请选择其他文件夹或允许访问，然后重试。",
 			"unsupportedUrl": "Arroxy 不支持此 URL。请尝试其他网站的链接。",
+			"noSubtitles": "此视频没有所请求语言的字幕。",
 			"chunkTransferFailure": "服务器在传输过程中反复中断下载，Arroxy 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
 			"missingDependency": "Arroxy 找不到 FFmpeg 或 FFprobe。请重新运行设置，或指定 FFmpeg 位置，然后重试下载。",
 			"postprocessFailure": "下载已完成，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。",

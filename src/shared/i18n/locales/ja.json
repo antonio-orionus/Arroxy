@@ -750,6 +750,7 @@
 			"qualityLimitedSubtitlesFailed": "{{height}}pに制限 · 一部の字幕が失敗",
 			"audioKept": "音声は削除されていません",
 			"audioKeptSubtitlesFailed": "音声は削除されていません · 一部の字幕が失敗",
+			"subtitleLanguagesMissing": "{{languages}}の字幕がありません",
 			"pause": "一時停止",
 			"resume": "再開",
 			"cancel": "キャンセル",
@@ -810,6 +811,9 @@
 		"qualityLimitedSubtitlesFailed": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供せず、一部の字幕もダウンロードできませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
 		"audioKept": "ビデオは音声付きで保存されました — 音声を削除できませんでした",
 		"audioKeptSubtitlesFailed": "ビデオは音声付きで保存されました — 音声を削除できず、一部の字幕もダウンロードできませんでした",
+		"subtitleLanguagesMissing": "この動画には、{{languages}}の字幕がありません。動画は字幕なしで保存されました。",
+		"subtitleLanguagesMissingOthersSaved": "この動画には、{{languages}}の字幕がありません。その他の言語は保存されました。",
+		"noSubtitles": "{{languages}}の字幕がありません",
 		"cancelled": "ダウンロードがキャンセルされました",
 		"complete": "ダウンロード完了",
 		"usedExtractorFallback": "簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします",
@@ -858,6 +862,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "この動画には、{{languages}}の字幕がありません。",
 		"ytdlp": {
 			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はサイト側の一時的な変更の可能性があります。Arroxyは起動時にダウンロードエンジンを自動更新するため、修正がリリースされれば自動的に適用されます。",
 			"ipBlock": "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。",
@@ -868,6 +873,7 @@
 			"outOfDiskSpace": "ディスク容量が不足しています。空き容量を増やして再試行してください。",
 			"outputNotWritable": "Arroxy がダウンロードフォルダーに書き込めません。フォルダーが読み取り専用か、ロックされたドライブ上にあるか、システムのプライバシー設定でブロックされている可能性があります。別のフォルダーを選ぶかアクセスを許可してから、再試行してください。",
 			"unsupportedUrl": "Arroxyはこの URL に対応していません。別のサイトのリンクを試してください。",
+			"noSubtitles": "この動画には、リクエストされた言語の字幕がありません。",
 			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、Arroxyは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
 			"missingDependency": "ArroxyがFFmpegまたはFFprobeを見つけられませんでした。セットアップをもう一度実行するか、FFmpegの場所を指定してから、ダウンロードをやり直してください。",
 			"postprocessFailure": "ダウンロードは完了しましたが、後処理（マージ / mux / 変換）に失敗しました。多くの場合、これは一時的な ffmpeg の問題です。再試行し、それでも続く場合は別のフォーマットの組み合わせを試してください。",

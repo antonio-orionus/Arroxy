@@ -795,6 +795,7 @@
 			"qualityLimitedSubtitlesFailed": "{{height}}p bilan cheklangan · ba'zi subtitrlar yuklanmadi",
 			"audioKept": "Tovush olib tashlanmadi",
 			"audioKeptSubtitlesFailed": "Tovush olib tashlanmadi · ba'zi subtitrlar yuklanmadi",
+			"subtitleLanguagesMissing": "{{languages}} tillarida subtitr yo'q",
 			"pause": "To'xtatish",
 			"resume": "Davom ettirish",
 			"cancel": "Bekor qilish",
@@ -855,6 +856,9 @@
 		"qualityLimitedSubtitlesFailed": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi va ba'zi subtitrlarni yuklab bo'lmadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
 		"audioKept": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi",
 		"audioKeptSubtitlesFailed": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi va ba'zi subtitrlarni yuklab bo'lmadi",
+		"subtitleLanguagesMissing": "Bu videoda {{languages}} tillarida subtitr yo'q. Video subtitrsiz saqlandi.",
+		"subtitleLanguagesMissingOthersSaved": "Bu videoda {{languages}} tillarida subtitr yo'q. Boshqa tillar saqlandi.",
+		"noSubtitles": "{{languages}} tillarida subtitr yo'q",
 		"cancelled": "Yuklama bekor qilindi",
 		"complete": "Yuklama yakunlandi",
 		"usedExtractorFallback": "Yengilroq ekstraktor bilan yuklab olindi — ishonchli yuklamalar uchun cookies.txt ni sozlang",
@@ -907,6 +911,7 @@
 		}
 	},
 	"errors": {
+		"noSubtitlesIn": "Bu videoda {{languages}} tillarida subtitr yo'q.",
 		"ytdlp": {
 			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu sayt tomonidagi vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi, shuning uchun tuzatish chiqishi bilan avtomatik qo'llaniladi.",
 			"ipBlock": "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
@@ -917,6 +922,7 @@
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",
 			"unsupportedUrl": "Arroxy bu URL ni qo'llab-quvvatlamaydi. Boshqa saytdan havola sinab ko'ring.",
+			"noSubtitles": "Bu videoda so'ralgan tillarda subtitr yo'q.",
 			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va Arroxy qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
 			"missingDependency": "Arroxy FFmpeg yoki FFprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
 			"postprocessFailure": "Yuklab olish tugadi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",

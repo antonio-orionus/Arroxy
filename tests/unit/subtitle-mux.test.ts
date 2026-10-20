@@ -11,8 +11,18 @@ vi.mock('@main/utils/process.js', async importOriginal => {
 import {access, readFile, writeFile, rename, unlink} from 'node:fs/promises'
 import {spawnFFmpeg} from '@main/utils/process.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
+import {subtitleEmbedTracks, type SubtitleRun} from '@main/services/phases/subtitleTracks.js'
+import {planSubtitleTracks} from '@shared/subtitleTracks.js'
 
 const JOB_ID = 'job-1'
+
+// A pattern run's files, matched to the requested codes.
+function embed(paths: string[], languages: string[], names: ReadonlyMap<string, string> = new Map()): ReturnType<typeof subtitleEmbedTracks> {
+	return subtitleEmbedTracks(paths, {kind: 'pattern', languages, fetch: {manual: true, auto: false}}, names)
+}
+
+// Both English tracks of a YouTube video: the automatic caption keeps its `-orig` key.
+const BOTH_ENGLISH: SubtitleRun = {kind: 'plan', plan: planSubtitleTracks({kind: 'languages', languages: ['en'], source: 'manual-and-auto'}, {subtitles: {en: []}, automaticCaptions: {'en-orig': []}}), fetch: {manual: true, auto: true}}
 const YT_URL = 'https://www.youtube.com/watch?v=k1qBgIw8fAQ'
 
 function makeFakeFFmpeg(exitCode: number) {
@@ -35,7 +45,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		expect(args[0]).toBe('-y')
@@ -60,7 +70,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt', '/tmp/video.ja.srt'], requestedLangs: ['en', 'ja'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt', '/tmp/video.ja.srt'], ['en', 'ja']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		expect(args).toEqual(['-y', '-i', '/tmp/video.mkv', '-i', '/tmp/video.en.srt', '-i', '/tmp/video.ja.srt', '-map', '0:V', '-map', '0:a?', '-map', '1', '-map', '2', '-c', 'copy', '-c:s', 'srt', '-metadata:s:s:0', 'language=eng', '-metadata:s:s:1', 'language=jpn', '/tmp/video.muxing.mkv'])
@@ -71,7 +81,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 			.mockReturnValueOnce(makeFakeFFmpeg(0) as never)
 			.mockReturnValueOnce(makeFakeFFmpeg(0) as never)
 
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result).toEqual({ok: true, outputPath: '/tmp/video.mkv'})
 		const [[, extractArgs], [, muxArgs]] = vi.mocked(spawnFFmpeg).mock.calls
@@ -110,7 +120,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 			.mockReturnValueOnce(makeFakeFFmpeg(234) as never)
 			.mockReturnValueOnce(makeFakeFFmpeg(0) as never)
 
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result.ok).toBe(true)
 		const [, muxArgs] = vi.mocked(spawnFFmpeg).mock.calls[1]
@@ -124,14 +134,14 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 				throw new Error('spawn EACCES')
 			})
 
-		await expect(muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})).rejects.toThrow('spawn EACCES')
+		await expect(muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})).rejects.toThrow('spawn EACCES')
 		expect(unlink).toHaveBeenCalledWith('/tmp/video.muxing-cover.jpg')
 	})
 
 	it('keepCoverArt=false → a single ffmpeg run, no cover step', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(spawnFFmpeg).toHaveBeenCalledOnce()
 		expect(vi.mocked(spawnFFmpeg).mock.calls[0][1]).not.toContain('-attach')
@@ -142,7 +152,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.ja.srt', '/tmp/v.zh.srt', '/tmp/v.ko.srt'], requestedLangs: ['ja', 'zh', 'ko'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: embed(['/tmp/v.ja.srt', '/tmp/v.zh.srt', '/tmp/v.ko.srt'], ['ja', 'zh', 'ko']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		expect(args).toContain('language=jpn')
@@ -156,7 +166,17 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(unlink).mockResolvedValue(undefined)
 		const langs = ['ta', 'sk', 'ms', 'is', 'cy', 'deu', 'fil', 'pt-BR']
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: langs.map(lang => `/tmp/v.${lang}.srt`), requestedLangs: langs, keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({
+			ffmpegPath: '/fake/ffmpeg',
+			videoPath: '/tmp/v.mkv',
+			tracks: embed(
+				langs.map(lang => `/tmp/v.${lang}.srt`),
+				langs
+			),
+			keepCoverArt: false,
+			onSpawn: vi.fn(),
+			jobId: JOB_ID
+		})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		const tags = args.filter(arg => arg.startsWith('language='))
@@ -172,7 +192,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.en.srt', '/tmp/v.en-orig.srt'], requestedLangs: ['en', 'en-orig'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: subtitleEmbedTracks(['/tmp/v.en.srt', '/tmp/v.en-orig.srt'], BOTH_ENGLISH, new Map()), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
@@ -184,7 +204,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 	it('a named track → its name as title and handler_name, as yt-dlp embeds it', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.en-GB.srt', '/tmp/v.ja.srt'], requestedLangs: ['en-GB', 'ja'], trackNames: new Map([['en-GB', 'English (United Kingdom)']]), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: embed(['/tmp/v.en-GB.srt', '/tmp/v.ja.srt'], ['en-GB', 'ja'], new Map([['en-GB', 'English (United Kingdom)']])), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
@@ -199,12 +219,14 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		await muxSubtitlesIntoVideo({
 			ffmpegPath: '/fake/ffmpeg',
 			videoPath: '/tmp/v.mkv',
-			subtitlePaths: ['/tmp/v.de-DE.srt'],
-			requestedLangs: ['de'],
-			trackNames: new Map([
-				['de', 'German'],
-				['de-DE', 'German (Germany)']
-			]),
+			tracks: embed(
+				['/tmp/v.de-DE.srt'],
+				['de'],
+				new Map([
+					['de', 'German'],
+					['de-DE', 'German (Germany)']
+				])
+			),
 			keepCoverArt: false,
 			onSpawn: vi.fn(),
 			jobId: JOB_ID
@@ -223,12 +245,14 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		await muxSubtitlesIntoVideo({
 			ffmpegPath: '/fake/ffmpeg',
 			videoPath: '/tmp/v.mkv',
-			subtitlePaths: ['/tmp/v.en.srt', '/tmp/v.en-orig.srt'],
-			requestedLangs: ['en', 'en-orig'],
-			trackNames: new Map([
-				['en', 'English'],
-				['en-orig', 'English (Original)']
-			]),
+			tracks: subtitleEmbedTracks(
+				['/tmp/v.en.srt', '/tmp/v.en-orig.srt'],
+				BOTH_ENGLISH,
+				new Map([
+					['en', 'English'],
+					['en-orig', 'English (Original)']
+				])
+			),
 			keepCoverArt: false,
 			onSpawn: vi.fn(),
 			jobId: JOB_ID
@@ -244,7 +268,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: ['/tmp/v.und.srt'], requestedLangs: ['und'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: embed(['/tmp/v.und.srt'], ['und']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		expect(args).toContain('language=und')
@@ -258,8 +282,7 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		await muxSubtitlesIntoVideo({
 			ffmpegPath: '/fake/ffmpeg',
 			videoPath: '/tmp/v.mkv',
-			subtitlePaths: ['/tmp/v.xx.srt'],
-			requestedLangs: ['en'], // 'xx' doesn't match 'en'
+			tracks: embed(['/tmp/v.xx.srt'], ['en']), // 'xx' doesn't match 'en'
 			keepCoverArt: false,
 			onSpawn: vi.fn(),
 			jobId: JOB_ID
@@ -276,7 +299,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result.ok).toBe(true)
 		expect(result.outputPath).toMatch(/\.mkv$/)
@@ -285,7 +308,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 	it('ffmpeg non-zero exit → { ok: false }, originals preserved', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(1) as never)
 
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result.ok).toBe(false)
 		expect(rename).not.toHaveBeenCalled()
@@ -296,13 +319,13 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 	it('ffmpeg spawn error → { ok: false }', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpegError() as never)
 
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result.ok).toBe(false)
 	})
 
-	it('empty subtitlePaths → { ok: false } without spawning ffmpeg', async () => {
-		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: [], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+	it('no tracks → { ok: false } without spawning ffmpeg', async () => {
+		const result = await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: [], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(result.ok).toBe(false)
 		expect(spawnFFmpeg).not.toHaveBeenCalled()
@@ -315,7 +338,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
 		const onSpawn = vi.fn()
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn, jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn, jobId: JOB_ID})
 
 		expect(onSpawn).toHaveBeenCalledWith(fakeProc)
 	})
@@ -325,7 +348,7 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mkv', tracks: embed(['/tmp/video.en.srt'], ['en']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		expect(rename).toHaveBeenCalledWith(expect.stringContaining('.muxing.mkv'), '/tmp/video.mkv')
 		expect(unlink).toHaveBeenCalledWith('/tmp/video.en.srt')

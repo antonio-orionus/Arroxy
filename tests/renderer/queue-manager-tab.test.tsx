@@ -504,6 +504,32 @@ describe('QueueManagerTab', () => {
 		await expectHint(notice, /subtitles[\s\S]*another network/i)
 	})
 
+	it('names the subtitle languages a finished row lacks, the tooltip saying what was kept', async () => {
+		useAppStore.setState({
+			queue: [
+				makeItem({id: 'video', title: 'Video job', status: 'done', progressPercent: 100, lastStatus: {key: 'subtitleLanguagesMissing', params: {languageCodes: 'de,fr'}}}),
+				makeItem({id: 'subs', title: 'Subs job', status: 'done', progressPercent: 100, lastStatus: {key: 'subtitleLanguagesMissingOthersSaved', params: {languageCodes: 'de'}}})
+			]
+		})
+
+		render(<QueueManagerTab />)
+
+		const video = within(screen.getByTestId('queue-manager-row-video')).getByTestId('queue-subs-warning')
+		expect(video).toHaveTextContent('No subtitles in German, French')
+		await expectHint(video, /no subtitles in German, French\. The video was saved without them\./i)
+		const subs = within(screen.getByTestId('queue-manager-row-subs')).getByTestId('queue-subs-warning')
+		expect(subs).toHaveTextContent('No subtitles in German')
+		await expectHint(subs, /no subtitles in German\. The other languages were saved\./i)
+	})
+
+	it('names the languages a failed subtitles-only row has no subtitles in', () => {
+		useAppStore.setState({queue: [makeItem({id: 'none', title: 'None job', status: 'error', error: {kind: 'noSubtitles', raw: 'x', languageCodes: ['de', 'fr']}, lastStatus: {key: 'noSubtitles', params: {languageCodes: 'de,fr'}}})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-manager-row-none')).toHaveTextContent('This video has no subtitles in German, French.')
+	})
+
 	it('warns on a finished row whose audio could not be removed, alone or with failed subtitles', async () => {
 		useAppStore.setState({queue: [makeItem({id: 'kept', title: 'Kept video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKept'}}), makeItem({id: 'kept-subs', title: 'Kept subs video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKeptSubtitlesFailed'}})]})
 

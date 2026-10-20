@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 — no subtitles in the requested languages
+
+### Added
+
+- Added `noSubtitles` (stable code `YTDLP_NO_SUBTITLES`) for a run where none of the requested subtitle languages exists on the video. It classifies yt-dlp's `There are no subtitles for the requested languages` line, which yt-dlp prints to stdout on a run that still exits 0. Hosts can also set it when they check the video's subtitle lists before spawning yt-dlp. Includes metadata, README coverage and a fixture.
+
 ## 1.3.0 — signals, stderr-classified unsupported URLs, output folder write failures
 
 1.2.0 was never published; its changes ship in 1.3.0 and are listed under 1.2.0 below.

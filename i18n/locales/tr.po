@@ -213,6 +213,10 @@ msgctxt "donate.warning"
 msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
 msgstr "Kripto ödemeleri geri alınamaz. Yalnızca gösterilen ağ üzerinden gönderin ve adresin tamamını karşılaştırın."
 
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Bu videoda {{languages}} altyazı yok."
+
 msgctxt "errors.ytdlp.ageRestricted"
 msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
 msgstr "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez."
@@ -248,6 +252,10 @@ msgstr "Arroxy, FFmpeg veya FFprobe’u bulamadı. Kurulumu yeniden çalıştır
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Ağ hatası. Bağlantını kontrol edip tekrar dene."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Bu videoda istenen dillerde altyazı yok."
 
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
@@ -1189,6 +1197,10 @@ msgctxt "queue.item.statusRunning"
 msgid "Downloading"
 msgstr "İndiriliyor"
 
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} altyazı yok"
+
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
 msgstr "Tüm etkin indirmeleri duraklat ve yenilerinin başlamasını durdur"
@@ -1875,6 +1887,10 @@ msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Dosyalar taşınıyor…"
 
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "{{languages}} altyazı yok"
+
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
 msgstr "{{dir}} konumuna kaydedilemiyor — Arroxy'nin oraya yazma izni yok"
@@ -1914,6 +1930,14 @@ msgstr "Hız sınırlarından kaçınmak için {{seconds}} sn bekleniyor…"
 msgctxt "status.startingYtdlp"
 msgid "Starting the download engine…"
 msgstr "İndirme motoru başlatılıyor…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Bu videoda {{languages}} altyazı yok. Video bunlar olmadan kaydedildi."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Bu videoda {{languages}} altyazı yok. Diğer diller kaydedildi."
 
 msgctxt "status.subtitlesFailed"
 msgid "Video saved — some subtitles could not be downloaded"

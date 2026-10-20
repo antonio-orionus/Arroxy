@@ -1,5 +1,10 @@
-import {STATUS_KEY} from '@shared/schemas.js'
+import {STATUS_KEY, type StatusKey} from '@shared/schemas.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
+
+function emitDone(ctx: PhaseContext, status: StatusKey, params: Record<string, string | number> | undefined): void {
+	if (params) ctx.emitStatus('done', status, params)
+	else ctx.emitStatus('done', status)
+}
 
 // Drives the phase chain. Returns the resolved outcome up to the caller
 // (DownloadService) — cleanup, finalize, and pause-park live there now,
@@ -18,8 +23,8 @@ export class PhaseExecutor {
 					this.emitCompletion(ctx)
 					return out
 				case 'soft-failed':
-					if (out.status === STATUS_KEY.subtitlesFailed) this.emitSubtitlesFailed(ctx)
-					else ctx.emitStatus('done', out.status)
+					if (out.status === STATUS_KEY.subtitlesFailed || out.status === STATUS_KEY.subtitleLanguagesMissing) this.emitSubtitlesFailed(ctx, out.status, out.params)
+					else emitDone(ctx, out.status, out.params)
 					return out
 				case 'hard-failed':
 					// Phase already emitted the error status with the LocalizedError.
@@ -51,9 +56,10 @@ export class PhaseExecutor {
 
 	// Both notices matter, since the kept audio and the quality limit concern
 	// the video itself; the kept audio wins over the quality limit, as above.
-	private emitSubtitlesFailed(ctx: PhaseContext): void {
+	// Their combined notice covers subtitles missing from the video too.
+	private emitSubtitlesFailed(ctx: PhaseContext, status: StatusKey, params: Record<string, string | number> | undefined): void {
 		if (ctx.active.audioKept) ctx.emitStatus('done', STATUS_KEY.audioKeptSubtitlesFailed)
 		else if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height})
-		else ctx.emitStatus('done', STATUS_KEY.subtitlesFailed)
+		else emitDone(ctx, status, params)
 	}
 }

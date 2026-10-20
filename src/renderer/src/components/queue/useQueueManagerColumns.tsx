@@ -9,6 +9,7 @@ import {compactSize} from '@shared/format.js'
 import {i18next} from '@shared/i18n/index.js'
 import {cn} from '@renderer/lib/utils.js'
 import {formatLocalizedError, formatStatus} from '../../store/useAppStore.js'
+import {formatLanguageList} from '@renderer/lib/subtitleLabel.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
@@ -75,6 +76,11 @@ interface DoneNotice {
 
 const heightParam = (item: QueueItem): string | number => item.lastStatus?.params?.height ?? ''
 
+function missingLanguagesLabel(item: QueueItem, t: TFunction): string {
+	const codes = item.lastStatus?.params?.languageCodes
+	return t('queue.item.subtitleLanguagesMissing', {languages: typeof codes === 'string' ? formatLanguageList(codes.split(','), i18next.language) : ''})
+}
+
 // A finished row still carries a notice when something about the result needs
 // the user's attention; each kind keeps its own test id.
 const DONE_NOTICES: Partial<Record<StatusKey, DoneNotice>> = {
@@ -82,7 +88,9 @@ const DONE_NOTICES: Partial<Record<StatusKey, DoneNotice>> = {
 	qualityLimited: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimited', {height: heightParam(item)})},
 	qualityLimitedSubtitlesFailed: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimitedSubtitlesFailed', {height: heightParam(item)})},
 	audioKept: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKept')},
-	audioKeptSubtitlesFailed: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKeptSubtitlesFailed')}
+	audioKeptSubtitlesFailed: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKeptSubtitlesFailed')},
+	subtitleLanguagesMissing: {testId: 'queue-subs-warning', label: missingLanguagesLabel},
+	subtitleLanguagesMissingOthersSaved: {testId: 'queue-subs-warning', label: missingLanguagesLabel}
 }
 
 function doneNotice(item: QueueItem): DoneNotice | undefined {

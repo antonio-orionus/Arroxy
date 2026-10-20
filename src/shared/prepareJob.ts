@@ -4,6 +4,7 @@ import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent, play
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions, VideoPart} from './preparedJob.js'
 import type {AudioConvert, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
 import type {ContainerArgs} from './selectionOrder.js'
+import {requestedSubtitles} from './subtitleTracks.js'
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
 // migrations in main can synthesize jobs without a renderer dependency.
@@ -39,14 +40,14 @@ export interface PrepareJobInput extends ExtractorIdentity {
 
 export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const sponsorBlock = toSponsorBlockOptions(input.sponsorBlockMode, input.sponsorBlockCategories)
-	const subtitles = input.subtitles && input.subtitles.languages.length > 0 ? input.subtitles : undefined
+	const subtitles = input.subtitles && requestedSubtitles(input.subtitles.request).length > 0 ? input.subtitles : undefined
 	const identity: ExtractorIdentity = {extractor: input.extractor, extractorKey: input.extractorKey}
 	const filenameTemplate = input.filenameTemplate ? {filenameTemplate: input.filenameTemplate} : {}
 
 	if (input.mode === 'playlist') {
 		if (input.playlistSelection?.kind === 'subtitles') {
 			const batchSubtitles = playlistSubtitleOptions(input.playlistSelection)
-			if (batchSubtitles.languages.length === 0) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages')
+			if (requestedSubtitles(batchSubtitles.request).length === 0) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages')
 			return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles: batchSubtitles}
 		}
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
@@ -73,11 +74,8 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const hasSubs = !!subtitles
 
 	if (input.subtitleOnly === true || (!hasMedia && hasSubs)) {
-		// Exact tracks may be none: a profile's languages resolved against a
-		// video that has none of them. Its subtitle phase then fetches nothing.
-		const onlySubtitles = subtitles ?? (input.subtitles && !input.subtitles.languagesAreCodes ? input.subtitles : undefined)
-		if (!onlySubtitles) throw new Error('prepareJob: subtitle-only requires subtitle languages')
-		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles: onlySubtitles}
+		if (!subtitles) throw new Error('prepareJob: subtitle-only requires subtitle languages')
+		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles}
 	}
 
 	// SponsorBlock is not offered for a part: its segments are timed against

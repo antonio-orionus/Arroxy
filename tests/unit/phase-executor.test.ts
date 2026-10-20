@@ -95,6 +95,27 @@ describe('PhaseExecutor', () => {
 		expect(vi.mocked(subs.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.audioKeptSubtitlesFailed)
 	})
 
+	it('names the subtitle languages a saved video lacks, unless a notice about the video itself takes the row', async () => {
+		const missing = {kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'de,fr'}} as const
+		const plain = makeCtx()
+		await new PhaseExecutor().run(plain, [stubPhase(missing)])
+		expect(vi.mocked(plain.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.subtitleLanguagesMissing, {languageCodes: 'de,fr'})
+
+		const limited = makeCtx({qualityLimit: {height: 360}})
+		await new PhaseExecutor().run(limited, [stubPhase(missing)])
+		expect(vi.mocked(limited.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: 360})
+
+		const kept = makeCtx({qualityLimit: {height: 360}, audioKept: true})
+		await new PhaseExecutor().run(kept, [stubPhase(missing)])
+		expect(vi.mocked(kept.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.audioKeptSubtitlesFailed)
+	})
+
+	it('a subtitles-only job missing some languages reports them with its own notice', async () => {
+		const ctx = makeCtx()
+		await new PhaseExecutor().run(ctx, [stubPhase({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissingOthersSaved, params: {languageCodes: 'de'}})])
+		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.subtitleLanguagesMissingOthersSaved, {languageCodes: 'de'})
+	})
+
 	it('completion with usedExtractorFallback → emits usedExtractorFallback before complete', async () => {
 		const ctx = makeCtx({usedExtractorFallback: true})
 

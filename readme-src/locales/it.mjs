@@ -97,6 +97,7 @@ export const it = {
   hero_desc: "Scarica video, Shorts, musica, canali, podcast o tracce audio da **YouTube e oltre 2000 siti supportati** — fino a 8K HDR a 60 fps, in MP3 / AAC / Opus oppure solo la parte che ti serve. **Naviga su YouTube o su qualsiasi altro sito dentro Arroxy** nella scheda Explore e scarica il video, la playlist o il canale che stai guardando; accedi lì per scaricare i video privati, riservati ai membri e con limiti di età che il tuo account può vedere. Funziona localmente su Windows, macOS e Linux. **Niente pubblicità, niente software superfluo, niente upselling.**",
   cta_latest: "↓ Installa l'ultima versione",
   cta_website: "Sito web",
+  website_url: "https://arroxy.com/",
   star_cta: "Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.",
   ai_notice: "> 🌐 Questa traduzione è stata realizzata con assistenza IA. Il [README in inglese](README.md) è la fonte autorevole. Hai trovato un errore? [Apri una PR](../../pulls).",
   toc_heading: "Indice",
