@@ -11,7 +11,8 @@ export const OptionRiskPhaseSchema = z.enum(['inspect', 'plan', 'download', 'pos
 export const OptionRiskSchema = z.enum(['low', 'medium', 'high'])
 export const OptionPolicySchema = z.enum(['safe', 'path-gated', 'expert-only', 'blocked-in-expert'])
 export const YtDlpPostprocessPhaseSchema = z.enum(['extractingAudio', 'convertingVideo', 'embeddingMetadata', 'movingFiles'])
-export const YtDlpOutputEventKindSchema = z.enum(['destination', 'merge', 'already-downloaded', 'move', 'artifact', 'sleep', 'sponsorblock-fetch', 'sponsorblock-retry', 'transfer-retry', 'postprocess', 'progress'])
+export const YtDlpOutputEventKindSchema = z.enum(['destination', 'merge', 'already-downloaded', 'move', 'artifact', 'sleep', 'sponsorblock-fetch', 'sponsorblock-retry', 'transfer-retry', 'postprocess', 'requested-formats', 'download-progress', 'progress'])
+export const YtDlpDownloadStatusSchema = z.enum(['downloading', 'finished'])
 
 export type DependencyStatus = z.infer<typeof DependencyStatusSchema>
 export type ProbePlaylistMode = z.infer<typeof ProbePlaylistModeSchema>
@@ -23,6 +24,7 @@ export type OptionRisk = z.infer<typeof OptionRiskSchema>
 export type OptionPolicy = z.infer<typeof OptionPolicySchema>
 export type YtDlpPostprocessPhase = z.infer<typeof YtDlpPostprocessPhaseSchema>
 export type YtDlpOutputEventKind = z.infer<typeof YtDlpOutputEventKindSchema>
+export type YtDlpDownloadStatus = z.infer<typeof YtDlpDownloadStatusSchema>
 
 export const DEPENDENCY_STATUSES = DependencyStatusSchema.options
 export const PROBE_PLAYLIST_MODES = ProbePlaylistModeSchema.options
@@ -34,6 +36,7 @@ export const OPTION_RISKS = OptionRiskSchema.options
 export const OPTION_POLICIES = OptionPolicySchema.options
 export const YT_DLP_POSTPROCESS_PHASES = YtDlpPostprocessPhaseSchema.options
 export const YT_DLP_OUTPUT_EVENT_KINDS = YtDlpOutputEventKindSchema.options
+export const YT_DLP_DOWNLOAD_STATUSES = YtDlpDownloadStatusSchema.options
 
 export const OutputPolicySchema = z.object({outputRoot: z.string().optional(), tempRoot: z.string().optional(), outputTemplate: z.string().optional(), allowOverwrite: z.boolean().default(false)})
 

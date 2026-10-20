@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Buufannaan kallattii kopiiwwan yaaman duraan"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "fakkii walfakkaataa, saffisaan buufame"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Hanga {{tier}}p"

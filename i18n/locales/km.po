@@ -1516,6 +1516,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "ច្បាប់ដែលពង្រីកខ្ពស់ជាង ប៉ុន្តែមិនបន្ថែមលម្អិតពិតទេ"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "ការទាញយកដោយផ្ទាល់ មុនច្បាប់ចម្លងស្ទ្រីម"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "រូបភាពដូចគ្នា ទាញយកលឿនជាង"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "រហូតដល់ {{tier}}p"

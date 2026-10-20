@@ -1024,6 +1024,7 @@
 			"sitePreference": {"label": "Sitenin geri plana atmadığı akışlar", "reason": "hasarlı, filigranlı ve yedek kopyaları atlar"},
 			"original": {"label": "YZ ile büyütülmüş değil, orijinal akışlar", "reason": "büyütülmüş kopya daha yüksektir ama gerçek ayrıntı eklemez"},
 			"source": {"label": "Gelişmiş bit hızlı akışlar önce", "reason": "aynı çözünürlükte daha fazla ayrıntı"},
+			"protocol": {"label": "Doğrudan indirmeler akış kopyalarından önce", "reason": "aynı görüntü, daha hızlı iner"},
 			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
 			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
 			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},

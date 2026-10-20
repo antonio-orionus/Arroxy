@@ -1,7 +1,8 @@
 ---
 name: windows-vm-testing
 description: Use the local Windows 11 ARM64 test VM to run Windows builds and CI gate scripts directly instead of iterating on GitHub Actions tags.
-type: reference
+metadata:
+  type: reference
 ---
 
 # Windows VM testing (replaces tag-push iteration)
@@ -14,7 +15,7 @@ The local Windows 11 ARM64 test VM is the fast loop for Windows-only verificatio
 - Repo checkout at `C:\Arroxy` (no remote; `git init` + local tags `v0.4.7`, `v0.4.8-beta.5` for the inherited-update journey). **Use `scripts/vm/win-sync.sh`** (tracked + untracked non-ignored files, ~26 MB, deletes files removed since the last sync) and **`scripts/vm/win-build.sh`** (`bun install` + `dist:win:dir`, ~45 s warm). `scripts/vm/win-install-release.sh [tag]` installs a published release as a baseline (0.4.16 installed 2026-09-16). All go through the `win-vm` SSH alias with key auth; see `dev-docs/download-smoke.md`.
 - `bun install` with `$env:CI='true'` (no .git there, so `vp config` installs no hooks).
 - (2026-09-13) Standalone `yt-dlp.exe` at `C:\Users\admin\yt-dlp.exe` (official release, not Arroxy's managed copy). Lets yt-dlp's Windows stdout behaviour be checked without building the app — drive it from `node` through a pipe, with a crafted info.json or a local `http://127.0.0.1` file server so no external network is needed. Recipe and results in [[ytdlp-stdout-drops-non-ascii]].
-- (2026-09-14, issue #222 repro; **hosts-file part removed 2026-09-16**, settings part may still apply) Hosts file blocked `www.youtube.com` / `youtube.com` / `m.youtube.com` (lines tagged `# issue222`), and `%APPDATA%\arroxy\settings.json` has `cookiesMode: browser`, `cookiesBrowser: firefox`, `proxyUrl: 192.168.212.1:18080` (a throwaway proxy on the Mac, `/tmp/issue222/proxy.mjs`). Backups: `settings.json.issue222-*.bak` beside it and `C:\Users\admin\hosts.issue222-*.bak`. Arroxy 0.4.13 portable at `C:\Users\admin\arroxy-0413\`, launched into the desktop session via scheduled task `arroxy-issue222` with `--remote-debugging-port=9333`. The hosts lines were removed on 2026-09-16 (backup `C:\Windows\System32\drivers\etc\hosts.bak-issue222`); the settings.json proxy/cookies may still be the #222 values — restore its backup or use an isolated `ELECTRON_USER_DATA` before trusting a live run.
+- **Leftover from the issue #222 repro (2026-09-14):** `%APPDATA%\arroxy\settings.json` may still hold `cookiesMode: browser`, `cookiesBrowser: firefox` and a dead `proxyUrl: 192.168.212.1:18080`. Restore its `settings.json.issue222-*.bak` or use an isolated `ELECTRON_USER_DATA` before trusting a live run. The hosts-file block was removed 2026-09-16.
 - The console codepage is **437**, a legacy OEM page. That makes the VM a faithful repro host for anything that depends on a non-UTF-8 codepage.
 
 ## Gotchas

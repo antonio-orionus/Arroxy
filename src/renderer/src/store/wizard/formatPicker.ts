@@ -4,6 +4,7 @@
 // wizardProfileState (store adapters); this slice wires them to actions.
 
 import {DEFAULTS} from '@shared/constants.js'
+import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import {resolveChosenDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {AudioSelection, DownloadProfile, FormatOption, SubtitleMap, VideoFileType, WizardMediaKind} from '@shared/types.js'
@@ -131,6 +132,7 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 
 	return {
 		wizardFormats: [],
+		wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
 		wizardSilencedAudio: null,

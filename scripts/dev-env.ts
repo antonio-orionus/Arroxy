@@ -7,6 +7,7 @@ import path from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {promisify} from 'node:util'
 import {checkEmbeddedPayload, hostEmbeddedTarget} from './build/embeddedPayload.js'
+import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 
 const RENDERER_HOST = '127.0.0.1' as const
 const RENDERER_PORT_BASE = 20_000
@@ -466,6 +467,12 @@ async function checkPlaywrightChromium(repoRoot: string): Promise<DoctorCheck> {
 	}
 }
 
+// `bun run check` needs it; running the app does not, so a missing one doesn't fail doctor.
+async function pythonCheck(): Promise<DoctorCheck> {
+	const python = await findPython()
+	return {id: 'python', label: 'Python 3.10+', ok: python !== null, severity: 'optional', message: python ? [python.command, ...python.args].join(' ') : `missing: ${PYTHON_REQUIREMENT}`}
+}
+
 async function commandAvailable(command: string, args: string[]): Promise<boolean> {
 	try {
 		await captureCommand(command, args)
@@ -506,7 +513,8 @@ async function createRuntimeDoctorReport(repoRoot: string): Promise<DoctorReport
 			message: rendererPortAvailable ? `source: ${env.rendererPortSource}` : rendererServerResponding ? `source: ${env.rendererPortSource}; renderer already responds` : 'port is already in use'
 		},
 		{id: 'electron-user-data', label: 'Electron user data path', ok: await directoryExists(env.electronUserData), severity: 'required', message: `${env.electronUserData} (${env.electronUserDataSource})`},
-		{id: 'tmp-dir', label: 'temporary directory', ok: await directoryExists(env.tmpDir), severity: 'required', message: `${env.tmpDir} (${env.tmpDirSource})`}
+		{id: 'tmp-dir', label: 'temporary directory', ok: await directoryExists(env.tmpDir), severity: 'required', message: `${env.tmpDir} (${env.tmpDirSource})`},
+		await pythonCheck()
 	]
 
 	if (process.platform === 'linux') {

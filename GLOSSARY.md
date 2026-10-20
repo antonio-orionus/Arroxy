@@ -185,7 +185,7 @@ Any place that picks a download profile. Every one lists the user's saved order 
 _Avoid_: profile menu, profile switcher, profile dropdown
 
 **Selection order**:
-The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: streams the site doesn't mark down, original streams before AI-upscaled ones (unless the profile allows them), resolution limit, frame rate, HDR, the site's preferred copy (such as enhanced-bitrate streams), codec, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
+The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: streams the site doesn't mark down, original streams before AI-upscaled ones (unless the profile allows them), resolution limit, frame rate, HDR, the site's preferred copy (such as enhanced-bitrate streams), codec, a direct download before its streamed copy, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
 _Avoid_: priority, hierarchy, ranking, sort
 
 **Profile goal**:
@@ -219,6 +219,10 @@ _Avoid_: pending decision, blocked row, needs review
 **Needs attention**:
 A row only the user can move on — a probe-error row or one that needs your choice. The Downloads tab counts them.
 _Avoid_: alerts, problems, warnings
+
+**Selection parity**:
+The rule that the Format screen pre-selects exactly the streams a queued download of the same profile downloads. Both read the profile's yt-dlp selection; a check against yt-dlp itself, over recorded probes, holds them together.
+_Avoid_: pick sync, format consistency
 
 ### Subtitles
 

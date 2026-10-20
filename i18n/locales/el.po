@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "ένα αναβαθμισμένο αντίγραφο είναι ψηλότερο αλλά δεν προσθέτει πραγματική λεπτομέρεια"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Άμεσες λήψεις πριν από τα αντίγραφα ροής"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "η ίδια εικόνα, πιο γρήγορη λήψη"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Έως {{tier}}p"

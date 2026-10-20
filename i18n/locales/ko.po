@@ -1516,6 +1516,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "업스케일 사본은 해상도가 높아도 실제 디테일은 늘지 않음"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "직접 다운로드를 스트리밍 사본보다 우선"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "같은 화질, 더 빠른 다운로드"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "최대 {{tier}}p"

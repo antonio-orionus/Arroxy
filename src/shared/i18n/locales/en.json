@@ -999,6 +999,7 @@
 			"sitePreference": {"label": "Streams the site does not mark down", "reason": "skips damaged, watermarked and fallback copies"},
 			"original": {"label": "Original streams, not AI-upscaled ones", "reason": "an upscaled copy is taller but adds no real detail"},
 			"source": {"label": "Enhanced-bitrate streams first", "reason": "more detail at the same resolution"},
+			"protocol": {"label": "Direct downloads before streamed copies", "reason": "the same picture, downloaded faster"},
 			"codec": {"label": "AV1, then VP9, then H.264", "reason": "sharpest at a given size"},
 			"size": {"label": "Larger file", "reason": "more detail at the same settings"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "plays everywhere"},

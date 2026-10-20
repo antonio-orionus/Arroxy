@@ -6,6 +6,10 @@ import type {YtDlpSignal} from '../YtDlp.js'
 import {forgetOnExit} from '../download/processControl.js'
 import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 
+// The info-json a media run writes into the job's temp dir: replayed on resume,
+// and read by the subtitle phase for the video's tracks.
+export const INFO_JSON_NAME = '_arroxy.info.json'
+
 // An escalated job runs on the Explore session or not at all: before each of
 // its spawns the gate is asked again, so signing out, leaving explore mode or
 // the kill switch stop it instead of letting it run anonymously. A sign-out

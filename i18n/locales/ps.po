@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "لوی شوې کاپي لوړه ده خو ریښتیني جزئیات نه زیاتوي"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "مستقیم ډاونلوډونه د سټریم شویو کاپيو څخه مخکې"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "ورته انځور، ګړندی ډاونلوډ"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "تر {{tier}}p پورې"

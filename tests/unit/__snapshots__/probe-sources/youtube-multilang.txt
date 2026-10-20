@@ -1,5 +1,5 @@
 youtube-multilang: YouTube with several audio languages, DRC twins, AV1/VP9/H.264 at most heights
-Lose 150 Lbs Together, Win $250,000 · 2596 s · card says "1280x720" · 137 formats
+Lose 150 Lbs Together, Win $250,000 · 2596 s · card says "1280x720" · 184 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1          SDR VP9                         SDR H.264
@@ -11,15 +11,16 @@ Video (picked for Balanced 720p •):
 144p   AV1 27.2 MiB     VP9 297.4 MiB                   H.264 59.0 MiB
 
 Audio:
-tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, Chinese (Simplified), Chinese (Traditional), Vietnamese, Japanese, English original (default), German, French, Portuguese
-Opus: 128 kbps 39.6 MiB | 65 kbps 20.1 MiB | 50 kbps 15.4 MiB
-AAC: 129 kbps 40.0 MiB • | 49 kbps 22.05 kHz 15.0 MiB
+tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, English original (default), Chinese (Simplified), Chinese (Traditional), Vietnamese, Japanese, German, French, Portuguese
+Opus: 128 kbps 39.6 MiB • | 128 kbps 39.5 MiB DRC | 65 kbps 20.1 MiB | 65 kbps 20.1 MiB DRC | 50 kbps 15.4 MiB | 50 kbps 15.4 MiB DRC
+AAC: 129 kbps 40.0 MiB DRC | 129 kbps 40.0 MiB | 49 kbps 22.05 kHz 15.0 MiB
+DRC switch shown
 
 Profile picks:
-balanced: 398 (1280x720, mp4) + audio 140-20 (audio only, m4a)
-best-quality: 616 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
-audio-only: audio 140-20 (audio only, m4a)
+balanced: 398 (1280x720, mp4) + audio 251-20 (audio only, webm)
+best-quality: 616 (1920x1080, mp4) + audio 251-20 (audio only, webm)
+mp4-1080: 137 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
+audio-only: audio 251-20 (audio only, webm)
 
 Subtitles: ar, bn, zh-Hans, zh-Hant, en, fr, de, hi, id, it, ja, ko, ml, mr, fa, pl, pt, pa, ru, es, ta, te, th, tr, vi
 Auto captions: en-orig

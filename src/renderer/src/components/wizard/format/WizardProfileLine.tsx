@@ -17,7 +17,6 @@ import {Hint} from '../../shared/Hint.js'
 import {DownloadProfileEditor} from '../DownloadProfileEditor.js'
 import {ProfilePickerMenu} from '../ProfilePicker.js'
 import {buildDownloadProfileActionModel} from '../downloadProfileActions.js'
-import {ProfileDot} from './FormatLine.js'
 import {ProfileTag} from './ProfileTag.js'
 
 const MODE_LABEL_KEYS = {video: 'wizard.formats.kind.video', 'video-only': 'wizard.formats.kind.videoOnly', audio: 'wizard.formats.kind.audio', subtitles: 'wizard.formats.kind.subtitles'} as const satisfies Record<FormatMode, string>
@@ -148,10 +147,7 @@ export function WizardProfileLine(): ReactNode {
 					</Hint>
 				</div>
 				{/* The one legend for the dot on the chips this profile picked; the tag's hint says why. */}
-				<span className="flex items-center gap-1.5 text-caption text-subtle-foreground">
-					<ProfileDot />
-					<ProfileTag closest={profileFallback} />
-				</span>
+				<ProfileTag closest={profileFallback} />
 			</div>
 			<ToggleGroup
 				size="sm"

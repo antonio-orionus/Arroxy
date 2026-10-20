@@ -2,7 +2,7 @@
 	"source": {
 		"id": "streamable",
 		"url": "https://streamable.com/moo",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
@@ -16,9 +16,12 @@
 		"upload_date": "20150311",
 		"timestamp": 1426115495,
 		"formats": [
-			{"format_id":"mp4","ext":"mp4","resolution":"852x480","width":852,"height":480,"filesize":3044857,"dynamic_range":"SDR","protocol":"https"}
+			{"format_id":"mp4","ext":"mp4","resolution":"852x480","width":852,"height":480,"dynamic_range":"SDR","protocol":"https"}
 		],
 		"subtitles": {},
 		"automatic_captions": {}
+	},
+	"lookedUpSizes": {
+		"mp4": 3044857
 	}
 }

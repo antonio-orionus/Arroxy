@@ -97,8 +97,13 @@ describe('prepareJob', () => {
 			expect(job.kind).toBe('subtitle-only')
 		})
 
-		it('throws when subtitle-only requested with empty languages', () => {
-			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toThrow(/subtitle-only/)
+		it('throws when subtitle-only is requested without subtitles or with no language codes', () => {
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true})).toThrow(/subtitle-only/)
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false, languagesAreCodes: true}})).toThrow(/subtitle-only/)
+		})
+
+		it('keeps a subtitle-only job whose video has none of the wanted tracks', () => {
+			expect(prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toMatchObject({kind: 'subtitle-only', subtitles: {languages: []}})
 		})
 	})
 

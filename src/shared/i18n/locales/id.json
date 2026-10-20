@@ -1011,6 +1011,7 @@
 			"sitePreference": {"label": "Stream yang tidak diberi prioritas rendah oleh situs", "reason": "melewati salinan rusak, bertanda air, dan cadangan"},
 			"original": {"label": "Stream asli, bukan hasil upscale AI", "reason": "salinan upscale lebih tinggi tetapi tidak menambah detail nyata"},
 			"source": {"label": "Stream dengan bitrate ditingkatkan lebih dulu", "reason": "detail lebih banyak pada resolusi yang sama"},
+			"protocol": {"label": "Unduhan langsung sebelum salinan stream", "reason": "gambar yang sama, diunduh lebih cepat"},
 			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
 			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},

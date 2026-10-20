@@ -1516,6 +1516,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "bản nâng cấp có độ phân giải cao hơn nhưng không thêm chi tiết thật"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Ưu tiên tải xuống trực tiếp hơn bản sao luồng"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "cùng hình ảnh, tải nhanh hơn"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Tối đa {{tier}}p"

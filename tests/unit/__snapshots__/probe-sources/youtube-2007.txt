@@ -1,5 +1,5 @@
 youtube-2007: A 2007 upload: YouTube adds AI-upscaled 720p and 1080p (-sr) above the original 480p
-Charlie bit my finger - again ! · 56 s · card says "640x480" · 25 formats
+Charlie bit my finger - again ! · 56 s · card says "640x480" · 31 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1                    SDR VP9                    SDR H.264
@@ -11,15 +11,15 @@ Video (picked for Balanced 720p •):
 144p   AV1 415.6 KiB              VP9 441.0 KiB              H.264 341.0 KiB
 
 Audio:
-AAC: 130 kbps 883.7 KiB DRC | 130 kbps 883.7 KiB •
-Opus: 127 kbps 868.5 KiB DRC | 127 kbps 864.6 KiB | 66 kbps 449.7 KiB DRC | 66 kbps 447.9 KiB | 51 kbps 347.9 KiB DRC | 51 kbps 347.1 KiB
+AAC: 130 kbps 883.7 KiB DRC | 130 kbps 883.7 KiB
+Opus: 127 kbps 868.5 KiB DRC | 127 kbps 864.6 KiB • | 66 kbps 449.7 KiB DRC | 66 kbps 447.9 KiB | 51 kbps 347.9 KiB DRC | 51 kbps 347.1 KiB
 DRC switch shown
 
 Profile picks:
-balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
-best-quality: 397 (640x480, mp4) + audio 140 (audio only, m4a)
+balanced: 397 (640x480, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
+best-quality: 397 (640x480, mp4) + audio 251 (audio only, webm)
 mp4-1080: 135 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
-audio-only: audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: none
 Auto captions: en-orig

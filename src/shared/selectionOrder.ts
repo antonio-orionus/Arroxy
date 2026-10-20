@@ -24,11 +24,13 @@ export type VideoRank =
 	| {kind: 'hdr'}
 	// Copies the site rates higher by where they come from (yt-dlp's
 	// `source_preference`: YouTube's Premium streams, ones not missing a PO
-	// token). Probes carry it only from sites whose yt-dlp sort ranks it here,
-	// right after resolution, fps and HDR (`Site.sortsSourceBeforeCodec`).
+	// token), where the extractor's own sort ranks it here (YouTube's).
 	| {kind: 'source'}
 	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
 	| {kind: 'codec'}
+	// A direct download before its HLS copy, where the extractor's own sort
+	// ranks the protocol before the size (YouTube's).
+	| {kind: 'protocol'}
 	| {kind: 'size'}
 
 export type NativeAudioSource = 'settings' | 'profile'
@@ -90,7 +92,7 @@ export function effectiveFileType(goal: VideoGoal, fileType: VideoFileType): Vid
 	return fileTypeAllowed(goal, fileType) ? fileType : 'auto'
 }
 
-const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'size'}]
+const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'protocol'}, {kind: 'size'}]
 
 function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean): VideoRank[] {
 	const original: VideoRank[] = [{kind: 'site-preference'}, ...(skipAiUpscaled ? [{kind: 'original'} as const] : [])]
@@ -157,6 +159,7 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 		// The site's own sort order (`_format_sort_fields`) already names it.
 		case 'source':
 		case 'codec':
+		case 'protocol':
 		case 'size':
 			return undefined
 	}
