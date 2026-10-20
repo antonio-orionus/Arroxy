@@ -79,6 +79,7 @@ const heightParam = (item: QueueItem): string | number => item.lastStatus?.param
 // the user's attention; each kind keeps its own test id.
 const DONE_NOTICES: Partial<Record<StatusKey, DoneNotice>> = {
 	subtitlesFailed: {testId: 'queue-subs-warning', label: item => formatStatus(item.lastStatus)},
+	noSubtitleTracks: {testId: 'queue-subs-warning', label: (_item, t) => t('queue.item.noSubtitleTracks')},
 	qualityLimited: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimited', {height: heightParam(item)})},
 	qualityLimitedSubtitlesFailed: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimitedSubtitlesFailed', {height: heightParam(item)})},
 	audioKept: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKept')},

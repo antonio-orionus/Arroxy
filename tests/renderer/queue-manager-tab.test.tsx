@@ -499,6 +499,16 @@ describe('QueueManagerTab', () => {
 		await expectHint(keptSubs, /audio could not be removed[\s\S]*subtitles/i)
 	})
 
+	it('warns on a finished subtitles-only row that found no subtitles in its languages', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'none', title: 'No subs video', status: 'done', progressPercent: 100, lastStatus: {key: 'noSubtitleTracks'}})]})
+
+		render(<QueueManagerTab />)
+
+		const notice = within(screen.getByTestId('queue-manager-row-none')).getByTestId('queue-subs-warning')
+		expect(notice).toHaveTextContent('No subtitles found')
+		await expectHint(notice, /no subtitles in the chosen languages[\s\S]*nothing was saved/i)
+	})
+
 	it('filters by queue status', () => {
 		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'}), makeItem({id: 'done', title: 'Finished video', status: 'done', progressPercent: 100})]})
 

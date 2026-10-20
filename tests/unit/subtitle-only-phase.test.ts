@@ -128,6 +128,25 @@ describe('SubtitleOnlyPhase', () => {
 		expect(outcome.kind).toBe('completed')
 	})
 
+	// A subtitles-only job saves nothing else, so finding no track is not a
+	// plain success: the queue row must say nothing was saved.
+	it('soft-fails without fetching when the video has none of the requested languages', async () => {
+		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		const probeInfoJsonPath = join(dir, 'probe.info.json')
+		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {en: [{ext: 'vtt'}], es: [{ext: 'vtt'}]}, automatic_captions: {}}))
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, languages: ['de'], languagesAreCodes: true}}}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks})
+		expect(ctx.ytDlp.run).not.toHaveBeenCalled()
+		await rm(dir, {recursive: true, force: true})
+	})
+
+	// yt-dlp exits 0 when none of the requested languages exists (it only warns),
+	// which happens when the codes are matched as a pattern.
+	it('soft-fails when the subtitle run writes no file', async () => {
+		const outcome = await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {subtitlePaths: []}))
+		expect(outcome).toEqual({kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks})
+	})
+
 	it('failure → hard-failed with classified error payload', async () => {
 		const ctx = makeCtx(EXIT_ERROR)
 		const outcome = await SubtitleOnlyPhase.run(ctx)

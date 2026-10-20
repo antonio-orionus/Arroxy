@@ -45,7 +45,8 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 				queueItem({id: 'queue-notices-1', title: 'Finished - YouTube limited quality', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.qualityLimited, params: {height: 360}}, finishedAt: '2026-05-31T12:00:00.000Z'}),
 				queueItem({id: 'queue-notices-2', title: 'Finished - Subtitles failed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.subtitlesFailed}, finishedAt: '2026-05-31T11:50:00.000Z'}),
 				queueItem({id: 'queue-notices-3', title: 'Finished - Limited quality and subtitles failed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.qualityLimitedSubtitlesFailed, params: {height: 360}}, finishedAt: '2026-05-31T11:40:00.000Z'}),
-				queueItem({id: 'queue-notices-4', title: 'Finished - Sound could not be removed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.audioKept}, finishedAt: '2026-05-31T11:30:00.000Z'})
+				queueItem({id: 'queue-notices-4', title: 'Finished - Sound could not be removed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.audioKept}, finishedAt: '2026-05-31T11:30:00.000Z'}),
+				queueItem({id: 'queue-notices-5', title: 'Finished - No subtitles in the chosen languages', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.noSubtitleTracks}, finishedAt: '2026-05-31T11:20:00.000Z'})
 			]
 		case 'queue-columns':
 			return [

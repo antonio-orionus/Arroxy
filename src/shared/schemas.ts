@@ -532,6 +532,7 @@ export const STATUS_KEY = {
 	fetchingSubtitles: 'fetchingSubtitles',
 	sleepingBetweenRequests: 'sleepingBetweenRequests',
 	subtitlesFailed: 'subtitlesFailed',
+	noSubtitleTracks: 'noSubtitleTracks',
 	qualityLimited: 'qualityLimited',
 	qualityLimitedSubtitlesFailed: 'qualityLimitedSubtitlesFailed',
 	audioKept: 'audioKept',

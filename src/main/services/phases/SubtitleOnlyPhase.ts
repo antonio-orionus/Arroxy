@@ -33,9 +33,10 @@ export const SubtitleOnlyPhase: Phase = {
 		if (refused) return refused
 
 		const subtitles = await resolveSubtitleTracks(requested, {infoJsonPaths: [input.probeInfoJsonPath], site, jobId: job.id})
+		// Subtitles are all this job saves, so finding none is reported, not a plain success.
 		if (subtitles.languages.length === 0) {
-			logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, languages: requested.languages})
-			return {kind: 'completed'}
+			logger.warn('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, languages: requested.languages})
+			return {kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks}
 		}
 
 		// The identity is read per run: an escalation switches the job to the Explore session.
@@ -76,6 +77,11 @@ export const SubtitleOnlyPhase: Phase = {
 		}
 
 		if (result.usedExtractorFallback) active.usedExtractorFallback = true
+		// yt-dlp only warns about a language it cannot find, and exits 0.
+		if (active.subtitlePaths.length === 0) {
+			logger.warn('subtitle-only run wrote no subtitle file', {jobId: job.id, languages: subtitles.languages})
+			return {kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks}
+		}
 		active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subtitles.format ?? DEFAULTS.subtitleFormat)
 
 		if (subtitles.writeAuto) {
