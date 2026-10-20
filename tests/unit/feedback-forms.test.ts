@@ -10,15 +10,14 @@ describe('feedbackFormId', () => {
 	it('opens the translated form for the app language', () => {
 		expect(feedbackFormId('es')).toBe('dbqgxD')
 		expect(feedbackFormId('zh-Hant')).toBe('yXZg66')
+		expect(feedbackFormId('nl')).toBe('xVXJZd')
+		expect(feedbackFormId('he')).toBe('GexRLe')
+		expect(feedbackFormId('gl')).toBe('VpLzVj')
 	})
 
-	it('opens the English master for a language with no translated form yet', () => {
-		expect(feedbackFormId('nl')).toBe('Ek6M8B')
-		expect(feedbackFormId('he')).toBe('Ek6M8B')
-	})
-
-	it('never shares a translated form between two languages', () => {
-		const translated = SUPPORTED_LANGS.map(feedbackFormId).filter(id => id !== 'Ek6M8B')
-		expect(new Set(translated).size).toBe(translated.length)
+	it('gives every app language a form of its own', () => {
+		const ids = SUPPORTED_LANGS.map(feedbackFormId)
+		expect(ids.every(id => /^[A-Za-z0-9]{6}$/.test(id))).toBe(true)
+		expect(new Set(ids).size).toBe(SUPPORTED_LANGS.length)
 	})
 })
