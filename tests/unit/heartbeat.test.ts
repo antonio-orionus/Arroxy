@@ -1,6 +1,6 @@
 // @vitest-environment node
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {buildHeartbeatPageview, counterscaleSender, createHeartbeat, HEARTBEAT_URL, heartbeatUrl, installAge, osLabel, type HeartbeatHistory, type HeartbeatSnapshot} from '@main/services/heartbeat.js'
+import {buildHeartbeatPageview, counterscaleSender, createHeartbeat, HEARTBEAT_OFF, HEARTBEAT_URL, heartbeatUrl, installAge, osLabel, type HeartbeatHistory, type HeartbeatSnapshot} from '@main/services/heartbeat.js'
 
 const SNAPSHOT: HeartbeatSnapshot = {appVersion: '0.5.1', platform: 'darwin', arch: 'arm64', osVersion: '26.0.1', installChannel: 'homebrew', appLocale: 'uk', osLocale: 'en-US'}
 
@@ -185,6 +185,11 @@ describe('heartbeatUrl', () => {
 		expect(heartbeatUrl({isPackaged: true, isDev: false, envUrl: 'http://stats.example.test/collect'})).toBeUndefined()
 		expect(heartbeatUrl({isPackaged: true, isDev: false, envUrl: 'ftp://stats.example.test/collect'})).toBeUndefined()
 		expect(heartbeatUrl({isPackaged: true, isDev: false, envUrl: 'not a url'})).toBeUndefined()
+	})
+
+	it('sends nowhere when the override is off, even from a release build', () => {
+		expect(heartbeatUrl({isPackaged: true, isDev: false, envUrl: HEARTBEAT_OFF})).toBeUndefined()
+		expect(HEARTBEAT_OFF).toBe('off')
 	})
 
 	it('treats an empty override as unset', () => {

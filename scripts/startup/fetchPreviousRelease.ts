@@ -2,6 +2,7 @@ import {execFileSync} from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import {_electron as electron} from '@playwright/test'
+import {packagedLaunchEnv} from './launchEnv.js'
 
 const STABLE_TAG = /^v(\d+)\.(\d+)\.(\d+)$/
 const REPO = 'antonio-orionus/Arroxy'
@@ -139,9 +140,7 @@ export async function generateInheritedProfile(tag: string, workDir: string): Pr
 	const profileDir = path.join(workDir, 'inherited-profile')
 	fs.mkdirSync(profileDir, {recursive: true})
 
-	const env: NodeJS.ProcessEnv = {...process.env, ELECTRON_USER_DATA: profileDir}
-	delete env.ELECTRON_RUN_AS_NODE
-	delete env.ARROXY_E2E
+	const env = packagedLaunchEnv(profileDir)
 	if (process.platform === 'linux') {
 		// CI runners ship without libfuse2, so the AppImage cannot mount itself —
 		// beta.3's gate died in "Process failed to launch!" exactly there. The

@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {_electron as electron, type ElectronApplication, type Page} from '@playwright/test'
 import type {ExpectedOutcome, StartupJourney} from './journeys.js'
+import {packagedLaunchEnv} from './launchEnv.js'
 import {inspectStartupLog, type LogViolation} from './logOracle.js'
 import {provisionProfile} from './provisionProfile.js'
 
@@ -30,17 +31,7 @@ export interface JourneyVerdict {
 }
 
 export function buildJourneyEnv(journey: StartupJourney, ctx: RunContext, profileDir: string): NodeJS.ProcessEnv {
-	const env: NodeJS.ProcessEnv = {...process.env, ...journey.env, ELECTRON_USER_DATA: profileDir}
-
-	// ELECTRON_RUN_AS_NODE turns the app into a bare Node process — it must never
-	// reach the app itself, only yt-dlp's child env (see AGENTS.md).
-	delete env.ELECTRON_RUN_AS_NODE
-
-	// ARROXY_E2E would swap in MockTokenProvider and the fixture yt-dlp plugin,
-	// mocking away the very branches these journeys exist to verify; MOCK_BACKEND
-	// would stub the backend the same way.
-	delete env.ARROXY_E2E
-	delete env.MOCK_BACKEND
+	const env = packagedLaunchEnv(profileDir, journey.env)
 
 	if (journey.pathContamination && ctx.fakeToolsDir) {
 		env.PATH = `${ctx.fakeToolsDir}${path.delimiter}${env.PATH ?? ''}`

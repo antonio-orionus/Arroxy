@@ -34,6 +34,10 @@ describe('buildJourneyEnv', () => {
 		}
 	})
 
+	it('keeps the journey launch off the production heartbeat collector', () => {
+		expect(buildJourneyEnv(BASE, CTX, '/tmp/profile').ARROXY_HEARTBEAT_URL).toBe('off')
+	})
+
 	it('applies journey env overrides', () => {
 		const journey = {...BASE, env: {ARROXY_GPU_MODE: 'software'}}
 		expect(buildJourneyEnv(journey, CTX, '/tmp/profile').ARROXY_GPU_MODE).toBe('software')

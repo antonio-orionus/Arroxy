@@ -46,10 +46,16 @@ export interface HeartbeatDeps {
 	onError?: (error: unknown) => void
 }
 
+// `ARROXY_HEARTBEAT_URL=off` keeps any build, a release one included, from
+// reporting: test harnesses that launch real release builds set it. Builds
+// before this value existed read it as an invalid URL, which also sends nothing.
+export const HEARTBEAT_OFF = 'off'
+
 // Only a packaged release build reports to the production collector. Dev, mock,
 // smoke and E2E sessions, and any unpackaged build (`electron-vite preview`
 // starts no dev server), report nowhere unless a collector is named explicitly.
 export function heartbeatUrl({isPackaged, isDev, envUrl}: {isPackaged: boolean; isDev: boolean; envUrl: string | undefined}): string | undefined {
+	if (envUrl === HEARTBEAT_OFF) return undefined
 	if (envUrl) return isAllowedCollector(envUrl) ? envUrl : undefined
 	return isPackaged && !isDev ? HEARTBEAT_URL : undefined
 }
