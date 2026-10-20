@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "สลับโปรไฟล์"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "โปรไฟล์ที่ย้ายได้"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ยกเลิกการย้ายแล้ว โปรไฟล์ {{profileName}} ยังอยู่ในตำแหน่งที่ {{position}} จาก {{count}}"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "วางโปรไฟล์ {{profileName}} ในตำแหน่งที่ {{position}} จาก {{count}} แล้ว"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "ย้าย {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "หากต้องการย้ายโปรไฟล์ ให้กด Space หรือ Enter แล้วใช้ปุ่มลูกศรเพื่อย้าย จากนั้นกด Space หรือ Enter อีกครั้งเพื่อวาง กด Esc เพื่อยกเลิก"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "โปรไฟล์ {{profileName}} อยู่เหนือตำแหน่งที่ {{position}} จาก {{count}}"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "หยิบโปรไฟล์ {{profileName}} แล้ว อยู่ในตำแหน่งที่ {{position}} จาก {{count}}"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "โปรไฟล์ใหม่"
@@ -4511,6 +4539,10 @@ msgstr "โปรไฟล์ดาวน์โหลด"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "นำออก"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "ลากโปรไฟล์เพื่อย้าย ตัวเลือกโปรไฟล์ทุกแห่งจะเรียงตามลำดับนี้"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

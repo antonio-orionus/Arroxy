@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Profili değiştir"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "taşınabilir profil"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Taşıma iptal edildi. {{profileName}} profili {{count}} içinde {{position}}. sırada kalıyor."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} profili {{count}} içinde {{position}}. sıraya bırakıldı."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} profilini taşı"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Bir profili taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} profili {{count}} içinde {{position}}. sıranın üzerinde."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} profili alındı. {{count}} içinde {{position}}. sırada."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Yeni profil"
@@ -4666,6 +4694,10 @@ msgstr "İndirme Profilleri"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Kaldır"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sırayı izler."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "切換設定檔"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "可移動的設定檔"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "已取消移動。{{profileName}} 仍位於第 {{position}} 個，共 {{count}} 個。"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "已將 {{profileName}} 放在第 {{position}} 個，共 {{count}} 個。"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "移動 {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "若要移動設定檔，請按空白鍵或 Enter 鍵，用方向鍵移動，然後再按空白鍵或 Enter 鍵放下。按 Esc 鍵取消。"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} 懸停在第 {{position}} 個上，共 {{count}} 個。"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "已拿起 {{profileName}}。目前位於第 {{position}} 個，共 {{count}} 個。"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "新增設定檔"
@@ -4511,6 +4539,10 @@ msgstr "下載設定檔"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "移除"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "拖曳設定檔即可移動。所有設定檔選取器都會依照這個順序排列。"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

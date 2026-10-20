@@ -5271,6 +5271,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "تبديل ملف التعريف"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "ملف قابل للنقل"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "تم إلغاء النقل. يبقى {{profileName}} في الموضع {{position}} من {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "تم إفلات {{profileName}} في الموضع {{position}} من {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "نقل {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "لنقل ملف، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} فوق الموضع {{position}} من {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "تم التقاط {{profileName}}. موضعه {{position}} من {{count}}."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "ملف تعريف جديد"
@@ -5286,6 +5314,10 @@ msgstr "ملفات التنزيل الشخصية"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "إزالة"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "اسحب ملفًا لنقله. تتبع كل قوائم الملفات هذا الترتيب."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

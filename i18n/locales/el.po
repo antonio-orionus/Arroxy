@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Αλλαγή προφίλ"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "μετακινούμενο προφίλ"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Η μετακίνηση ακυρώθηκε. Το προφίλ {{profileName}} παραμένει στη θέση {{position}} από {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Το προφίλ {{profileName}} αφέθηκε στη θέση {{position}} από {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Μετακίνηση {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Για να μετακινήσεις ένα προφίλ, πάτα Space ή Enter, μετακίνησέ το με τα πλήκτρα βελών και πάτα ξανά Space ή Enter για να το αφήσεις. Πάτα Escape για ακύρωση."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Το προφίλ {{profileName}} βρίσκεται πάνω από τη θέση {{position}} από {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Σηκώθηκε το προφίλ {{profileName}}. Βρίσκεται στη θέση {{position}} από {{count}}."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Νέο προφίλ"
@@ -4666,6 +4694,10 @@ msgstr "Προφίλ λήψης"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Αφαίρεση"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Σύρε ένα προφίλ για να το μετακινήσεις. Κάθε επιλογέας προφίλ ακολουθεί αυτή τη σειρά."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
