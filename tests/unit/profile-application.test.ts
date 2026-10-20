@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {applyProfileToWizard, changedFromProfile, profileFromWizard, type SaveProfileContext, type WizardSettingsSnapshot} from '@renderer/store/wizard/profileApplication.js'
 import type {DownloadProfile, FormatOption} from '@shared/types.js'
@@ -19,7 +20,17 @@ const FORMATS: FormatOption[] = [
 ]
 
 function apply(profile: DownloadProfile) {
-	return applyProfileToWizard({profile, formats: FORMATS, subtitles: {en: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}, automaticCaptions: {'ja-orig': [{ext: 'vtt'}]}, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: '/home/me/Downloads', globalFilenameTemplate: undefined})
+	return applyProfileToWizard({
+		profile,
+		formats: FORMATS,
+		selection: selectionSourceFromOptions(FORMATS),
+		subtitles: {en: [{ext: 'vtt'}], de: [{ext: 'vtt'}]},
+		automaticCaptions: {'ja-orig': [{ext: 'vtt'}]},
+		isAudioOnlySource: false,
+		nativeAudioPreference: 'compatible',
+		baseOutputDir: '/home/me/Downloads',
+		globalFilenameTemplate: undefined
+	})
 }
 
 describe('applyProfileToWizard', () => {
@@ -78,7 +89,17 @@ describe('profileFromWizard', () => {
 	const context: SaveProfileContext = {id: 'custom-1', name: 'My 1080p', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/home/me/Downloads', globalFilenameTemplate: undefined, subtitles: MANUAL, automaticCaptions: AUTO}
 
 	function save(base: DownloadProfile, edit: (snapshot: WizardSettingsSnapshot) => WizardSettingsSnapshot, formats: FormatOption[] = FORMATS, ctx = context): DownloadProfile {
-		const baseline = applyProfileToWizard({profile: base, formats, subtitles: ctx.subtitles, automaticCaptions: ctx.automaticCaptions, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: ctx.defaultOutputDir, globalFilenameTemplate: undefined}).snapshot
+		const baseline = applyProfileToWizard({
+			profile: base,
+			formats,
+			selection: selectionSourceFromOptions(formats),
+			subtitles: ctx.subtitles,
+			automaticCaptions: ctx.automaticCaptions,
+			isAudioOnlySource: false,
+			nativeAudioPreference: 'compatible',
+			baseOutputDir: ctx.defaultOutputDir,
+			globalFilenameTemplate: undefined
+		}).snapshot
 		return profileFromWizard(base, baseline, edit(baseline), formats, ctx)
 	}
 
@@ -143,7 +164,7 @@ describe('profileFromWizard', () => {
 			{formatId: '140', label: 'm4a', ext: 'm4a', resolution: 'audio only', audioCodec: 'mp4a.40.2', abr: 130, isVideoOnly: false, isAudioOnly: true}
 		]
 		const profileWith = (fileType: 'auto' | 'mp4' | 'mkv' | 'webm', goal: 'best-picture' | 'smart-tv' = 'best-picture'): DownloadProfile => ({...builtin('hd-1080'), media: {kind: 'video-audio', goal, tier: '1080', fileType, audio: {native: {kind: 'default'}}}})
-		const applyTo = (profile: DownloadProfile, formats: FormatOption[]) => applyProfileToWizard({profile, formats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: '/d', globalFilenameTemplate: undefined})
+		const applyTo = (profile: DownloadProfile, formats: FormatOption[]) => applyProfileToWizard({profile, formats, selection: selectionSourceFromOptions(formats), subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: '/d', globalFilenameTemplate: undefined})
 
 		it("starts from the profile's file type", () => {
 			expect(applyTo(profileWith('mkv'), WEBM_FORMATS).snapshot.fileType).toBe('mkv')

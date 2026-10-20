@@ -1,5 +1,6 @@
 import type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 import type {PreparedJob} from './preparedJob.js'
+import type {FormatSelectionSource} from './ytdlp/selectableFormat.js'
 
 export type {PreparedJob} from './preparedJob.js'
 
@@ -236,6 +237,7 @@ export interface FormatOption {
 	audioTrackQuality?: AudioTrackQuality
 	isDefaultAudio?: boolean
 	isOriginalAudio?: boolean
+	// The size shown: the site's, else one asked of its server, else an estimate.
 	filesize?: number
 	isVideoOnly: boolean
 	isAudioOnly: boolean
@@ -248,11 +250,6 @@ export interface FormatOption {
 	// yt-dlp's `quality`: how the site rates copies of the same height (Twitch's
 	// portrait crops are -2). Breaks ties at one height, as in yt-dlp's sort.
 	quality?: number
-	// yt-dlp's `source_preference`: how the site rates where a copy comes from
-	// (YouTube's Premium copies +100, ones missing a PO token -20). Absent reads
-	// as yt-dlp's default, -1. Only set on sites whose yt-dlp sort ranks it
-	// before the codec (YouTube).
-	sourcePreference?: number
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled'
@@ -460,6 +457,10 @@ export interface VideoProbeResult extends ProbeCommon {
 	videoId?: string | null
 	probeInfoJsonRef?: ProbeInfoJsonRef
 	formats: FormatOption[]
+	// The formats as yt-dlp sees them, for the profile pick to choose as yt-dlp
+	// would. Absent on results built without a probe (the mock backend,
+	// scenarios); the pick then reads the options (`selectionSourceFromOptions`).
+	formatSelection?: FormatSelectionSource
 	title: string
 	thumbnail: string
 	duration?: number
@@ -526,6 +527,10 @@ export interface ProgressEvent {
 	line: string
 	at: string
 	percent?: number
+	// yt-dlp's transfer rate (bytes/s) and time left (s), from a structured
+	// progress record.
+	speedBps?: number
+	etaSeconds?: number
 }
 
 export interface QueueArtifactEvent {

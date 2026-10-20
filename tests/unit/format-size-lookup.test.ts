@@ -26,11 +26,7 @@ describe('lookUpMissingSizes', () => {
 		const headLength = vi.fn<HeadLength>(async url => (url.endsWith('/hd.mp4') ? 16_344_300 : 3_576_134))
 		const formats = [plain('sd', {http_headers: {Referer: 'https://www.facebook.com/'}}), plain('hd'), plain('dash-v', {filesize: 9})]
 		const sized = await lookUpMissingSizes(formats, headLength, NEVER)
-		expect(sized.map(f => [f.format_id, f.filesize])).toEqual([
-			['sd', 3_576_134],
-			['hd', 16_344_300],
-			['dash-v', 9]
-		])
+		expect(Object.fromEntries(sized)).toEqual({sd: 3_576_134, hd: 16_344_300})
 		expect(headLength).toHaveBeenCalledTimes(2)
 		expect(headLength).toHaveBeenCalledWith('https://cdn.example/sd.mp4', {Referer: 'https://www.facebook.com/'}, expect.any(AbortSignal))
 	})
@@ -41,7 +37,7 @@ describe('lookUpMissingSizes', () => {
 			throw new Error('ECONNRESET')
 		})
 		const sized = await lookUpMissingSizes([plain('a'), plain('b')], headLength, NEVER)
-		expect(sized.map(f => f.filesize)).toEqual([undefined, undefined])
+		expect(sized.size).toBe(0)
 	})
 
 	it(`asks about ${SIZE_LOOKUP_MAX} files at most`, async () => {
@@ -65,7 +61,7 @@ describe('lookUpMissingSizes', () => {
 		const started = Date.now()
 		const sized = await lookUpMissingSizes([plain('fast'), plain('slow')], headLength, NEVER, 50)
 		expect(Date.now() - started).toBeLessThan(2_000)
-		expect(sized.map(f => f.filesize)).toEqual([5, undefined])
+		expect(Object.fromEntries(sized)).toEqual({fast: 5})
 	})
 
 	it('asks nothing once the probe is cancelled', async () => {
@@ -74,7 +70,7 @@ describe('lookUpMissingSizes', () => {
 		cancelled.abort()
 		const sized = await lookUpMissingSizes([plain('a')], headLength, cancelled.signal)
 		expect(headLength).not.toHaveBeenCalled()
-		expect(sized[0]?.filesize).toBeUndefined()
+		expect(sized.size).toBe(0)
 	})
 })
 

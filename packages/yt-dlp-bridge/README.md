@@ -50,8 +50,12 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
-## Unreleased
+## What changed in 0.6.0 (unreleased)
 
+- **Breaking:** progress is read from yt-dlp's numbers, not its human-readable `[download]  42.0% of …` line. The `progress` event no longer carries `percent`, `total`, `speed` or `eta`; it is now only the fallback for other lines (`raw`).
+- Caller media, caller subtitles and managed download plans pass `--progress-template` with `YT_DLP_PROGRESS_TEMPLATE`, a prefixed JSON line per update. Caller media plans and every managed download plan (media, audio, subtitles, thumbnail and playlist) also pass `--print before_dl:` with `YT_DLP_REQUESTED_FORMATS_TEMPLATE`, one prefixed stdout line per video; caller media plans pass `--no-quiet` so that print does not silence yt-dlp's other output.
+- `parseYtDlpOutputLine` emits two new event kinds: `download-progress` (`status`, `formatId`, `downloadedBytes`, `totalBytes`, `totalBytesEstimate`, `speedBps`, `etaSeconds`, `elapsedSeconds`, `fragmentIndex`, `fragmentCount`) and `requested-formats` (the streams yt-dlp is about to download, in order, with `filesize` / `filesizeApprox`). Exhaustive `switch` statements over `YtDlpOutputEvent` need the two new cases.
+- New `YtDlpDownloadProgressTracker` turns those events into one percent over every stream of a video, so the audio download after the video counts instead of restarting at 0%. It also estimates the time left over all remaining streams.
 - An audio conversion now converts a stream already in the target codec when the source has one (AAC 140 for m4a on YouTube, Opus 251 for opus). yt-dlp copies such a stream instead of re-encoding it, so there is no second lossy pass; `--audio-quality` does not apply to it. Each tier of the source chain (the source's track, then any) tries non-DRC before DRC and avoids Dolby surround, which libopus cannot take. The "original" track filter no longer matches a stream with no `format_note`.
 - New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, and `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, and `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does.
 
@@ -238,6 +242,20 @@ const event = parseYtDlpOutputLine('[Merger] Merging formats into "/tmp/video.mp
 
 if (event?.kind === "merge") {
   console.log(event.path);
+}
+```
+
+Plans for media downloads ask yt-dlp for structured progress. Feed it to a tracker for one percent across every stream of a merged download:
+
+```ts
+import { parseYtDlpOutputLine, YtDlpDownloadProgressTracker } from "yt-dlp-bridge/parsers";
+
+const tracker = new YtDlpDownloadProgressTracker();
+
+function onLine(line: string) {
+  const event = parseYtDlpOutputLine(line);
+  if (event?.kind === "requested-formats") tracker.setRequestedFormats(event.formats);
+  if (event?.kind === "download-progress") console.log(tracker.update(event.progress).percent);
 }
 ```
 

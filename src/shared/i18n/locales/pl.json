@@ -1152,6 +1152,7 @@
 			"sitePreference": {"label": "Strumienie nieobniżone przez witrynę", "reason": "pomija kopie uszkodzone, ze znakiem wodnym i zapasowe"},
 			"original": {"label": "Oryginalne strumienie, nie przeskalowane przez AI", "reason": "przeskalowana kopia jest wyższa, ale nie dodaje prawdziwych szczegółów"},
 			"source": {"label": "Najpierw strumienie o wyższej przepływności", "reason": "więcej szczegółów przy tej samej rozdzielczości"},
+			"protocol": {"label": "Pobrania bezpośrednie przed kopiami strumieniowymi", "reason": "ten sam obraz, pobierany szybciej"},
 			"codec": {"label": "AV1, potem VP9, potem H.264", "reason": "najostrzejszy przy danym rozmiarze"},
 			"size": {"label": "Większy plik", "reason": "więcej szczegółów przy tych samych ustawieniach"},
 			"aacSmartTv": {"label": "Dźwięk AAC", "reason": "działa wszędzie"},

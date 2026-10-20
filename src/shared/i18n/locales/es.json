@@ -1097,6 +1097,7 @@
 			"sitePreference": {"label": "Streams que el sitio no penaliza", "reason": "omite copias dañadas, con marca de agua y de respaldo"},
 			"original": {"label": "Streams originales, no reescalados con IA", "reason": "una copia reescalada es más alta pero no añade detalle real"},
 			"source": {"label": "Primero los streams con tasa de bits mejorada", "reason": "más detalle con la misma resolución"},
+			"protocol": {"label": "Descargas directas antes que copias en streaming", "reason": "la misma imagen, descarga más rápida"},
 			"codec": {"label": "AV1, luego VP9, luego H.264", "reason": "más nítido al mismo tamaño"},
 			"size": {"label": "Archivo más grande", "reason": "más detalle con los mismos ajustes"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "se reproduce en todas partes"},

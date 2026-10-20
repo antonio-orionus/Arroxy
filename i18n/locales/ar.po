@@ -1741,6 +1741,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "النسخة المُكبَّرة أطول لكنها لا تضيف تفاصيل حقيقية"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "التنزيلات المباشرة قبل النسخ المتدفقة"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "الصورة نفسها، وتنزيل أسرع"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "حتى {{tier}}p"

@@ -79,11 +79,11 @@ export interface Site {
 	// would discard every track.
 	readonly autoCaptionRequiresOrigSuffix: boolean
 
-	// yt-dlp's extractor sorts the site's `source_preference` right after
-	// resolution, fps and HDR, ahead of the codec (YouTube's Premium copies).
-	// Elsewhere it sorts after codec and size, or not at all (TikTok), so the
-	// Format pick leaves it out rather than rank it above the codec.
-	readonly sortsSourceBeforeCodec: boolean
+	// The probe lists every subtitle track the video has, so its maps can turn
+	// a profile's language codes into exact track keys. YouTube builds them
+	// eagerly; many other extractors (Vimeo, TikTok, Bilibili…) fill them only
+	// when yt-dlp is asked to write or list subtitles, which a probe never is.
+	readonly probeListsSubtitleTracks: boolean
 
 	// Browse-id hint for the playlist intake step. YouTube's playlist intake
 	// browse-ids encode container kind in the prefix (UC*, MPRE*, MPSPPL*, …);

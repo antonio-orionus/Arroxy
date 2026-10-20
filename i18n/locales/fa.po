@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "نسخهٔ ارتقایافته بلندتر است اما جزئیات واقعی اضافه نمی‌کند"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "دانلود مستقیم پیش از نسخه‌های جریانی"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "همان تصویر، دانلود سریع‌تر"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "تا {{tier}}p"

@@ -1,5 +1,5 @@
 vk: DASH video-only and muxed MP4s of the same height, codec named on some only
-ProtivoGunz - Хуёвая песня · 195 s · card says "320x240" · 10 formats
+ProtivoGunz - Хуёвая песня · 195 s · card says "320x240" · 12 formats
 
 Video (picked for Balanced 720p •):
       SDR H.264
@@ -7,14 +7,15 @@ Video (picked for Balanced 720p •):
 144p  H.264 2.6 MiB
 
 Audio:
-AAC: 53 kbps 1.2 MiB • | 37 kbps 872.1 KiB
+tracks (Audio shown): DASH audio, Audio
+MP4: mp4 no size •
 convert from: mp3 ← dash_sep-4 re-encode · m4a ← dash_sep-4 copy 53 kbps · opus ← dash_sep-4 re-encode · wav ← dash_sep-4 re-encode
 
 Profile picks:
-balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
-best-quality: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+balanced: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+best-quality: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4)
 mp4-1080: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
-audio-only: audio dash_sep-4 (audio only, m4a)
+audio-only: audio hls_fmp4-12_0-Audio (audio only, mp4)
 
 Subtitles: none
 Auto captions: none

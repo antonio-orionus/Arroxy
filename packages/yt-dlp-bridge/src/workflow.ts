@@ -3,6 +3,7 @@ import {loadConfig, type ServerConfig} from './config.js'
 import {audioConversionCopyFilter} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
+import {YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE} from './progress.js'
 import {redactArgs} from './redaction.js'
 import {type InspectWorkflowKind, type ProbePlaylistMode, type SubtitleFormat, type SubtitleMode, type WorkflowDownloadInputSchema, type WorkflowExpertInputSchema, type WorkflowInspectInputSchema, type WorkflowPostprocessInputSchema} from './schemas.js'
 import type {DetectedDependency} from './types.js'
@@ -251,6 +252,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 	const template = input.output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
 	const args = [
 		...baseArgs(options),
+		...progressTemplateArgs(),
 		'--skip-download',
 		'--no-playlist',
 		// With only --write-auto-subs yt-dlp skips manual tracks, which it would
@@ -286,7 +288,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 
 function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
 	const skipDownload = input.selection?.skipDownload === true
-	const args: string[] = [...baseArgs(options), '--progress', '--no-playlist']
+	const args: string[] = [...baseArgs(options), ...progressTemplateArgs(), ...requestedFormatsArgs(), '--no-quiet', '--no-playlist']
 	const loadInfoJsonPath = input.resume?.loadInfoJsonPath
 	if (loadInfoJsonPath) args.push('--load-info-json', loadInfoJsonPath)
 	// An explicit caller policy always wins; otherwise the budget follows whether
@@ -413,7 +415,7 @@ function buildManagedDownloadArgs(input: NormalizedManagedDownloadInput, policy:
 	args.push('--paths', `temp:${policy.tempRoot}`)
 	args.push('--output', policy.outputTemplate)
 	args.push(policy.allowOverwrite ? '--force-overwrites' : '--no-overwrites')
-	args.push('--newline', '--progress')
+	args.push('--newline', ...progressTemplateArgs(), ...requestedFormatsArgs())
 	args.push('--print', 'after_move:filepath')
 
 	appendManagedSelectionArgs(args, input, policy, config)
@@ -446,6 +448,17 @@ function managedBaseArgs(input: Pick<NormalizedManagedDownloadInput | Normalized
 	appendNetworkArgs(args, input.network)
 	appendAuthArgs(args, input.auth, config)
 	return args
+}
+
+// Progress as one JSON line per update, and the streams it covers once per
+// video before they download: see progress.ts. `--print` implies `--quiet`, so a
+// workflow that reads yt-dlp's other output lines must also pass `--no-quiet`.
+function progressTemplateArgs(): string[] {
+	return ['--progress', '--progress-template', `download:${YT_DLP_PROGRESS_TEMPLATE}`]
+}
+
+function requestedFormatsArgs(): string[] {
+	return ['--print', `before_dl:${YT_DLP_REQUESTED_FORMATS_TEMPLATE}`]
 }
 
 function baseArgs(options: WorkflowPlanOptions): string[] {

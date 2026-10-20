@@ -1112,6 +1112,7 @@
 			"sitePreference": {"label": "Flux que le site ne déclasse pas", "reason": "ignore les copies endommagées, filigranées et de secours"},
 			"original": {"label": "Flux d’origine, pas ceux agrandis par IA", "reason": "une copie agrandie est plus haute mais n’ajoute aucun vrai détail"},
 			"source": {"label": "Flux à débit amélioré en premier", "reason": "plus de détails à la même résolution"},
+			"protocol": {"label": "Téléchargements directs avant les copies en flux", "reason": "la même image, téléchargée plus vite"},
 			"codec": {"label": "AV1, puis VP9, puis H.264", "reason": "le plus net à taille égale"},
 			"size": {"label": "Fichier plus volumineux", "reason": "plus de détails avec les mêmes réglages"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "se lit partout"},

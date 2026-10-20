@@ -190,12 +190,21 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                     },
                 ],
             },
+            # Like YouTube's: the original-language caption is listed twice,
+            # bare and with `-orig`, both pointing at the same track.
             'automatic_captions': {
                 'en': [
                     {
                         'url': f'{base_url}/subtitles/{video_id}/en.auto.vtt',
                         'ext': 'vtt',
                         'name': 'English',
+                    },
+                ],
+                'en-orig': [
+                    {
+                        'url': f'{base_url}/subtitles/{video_id}/en.auto.vtt',
+                        'ext': 'vtt',
+                        'name': 'English (Original)',
                     },
                 ],
             },

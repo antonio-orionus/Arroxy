@@ -2,13 +2,13 @@
 	"source": {
 		"id": "dailymotion",
 		"url": "https://www.dailymotion.com/video/x7tgad0",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
 		"id": "x7tgad0",
 		"title": "Midnight Sun | Iceland",
-		"thumbnail": "https://s1.dmcdn.net/v/SBL5q1g4216cSudEI/x1080",
+		"thumbnail": "https://s2.dmcdn.net/v/SBL5q1g4216cSudEI/x1080",
 		"duration": 87,
 		"webpage_url": "https://www.dailymotion.com/video/x7tgad0",
 		"extractor": "dailymotion",
@@ -19,9 +19,9 @@
 		"upload_date": "20200422",
 		"timestamp": 1587571181,
 		"formats": [
-			{"format_id":"hls-380","ext":"mp4","resolution":"512x288","width":512,"height":288,"tbr":460.56,"vcodec":"avc1.42001e","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"hls-480","ext":"mp4","resolution":"848x480","width":848,"height":480,"tbr":836.28,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false},
-			{"format_id":"hls-720","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"tbr":2149.28,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false}
+			{"format_id":"hls-380","ext":"mp4","resolution":"512x288","width":512,"height":288,"tbr":460.56,"vcodec":"avc1.42001e","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-480","ext":"mp4","resolution":"848x480","width":848,"height":480,"tbr":836.28,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"hls-720","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"tbr":2149.28,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"}
 		],
 		"subtitles": {
 			"en": [

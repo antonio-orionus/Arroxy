@@ -1,5 +1,5 @@
 youtube-premium: A "Premium" enhanced-bitrate 1080p (616) offered signed out
-What is Audio Description? · 133 s · card says "1280x720" · 42 formats
+What is Audio Description? · 133 s · card says "1280x720" · 45 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1        SDR VP9                          SDR H.264
@@ -11,16 +11,16 @@ Video (picked for Balanced 720p •):
 144p   AV1 589.4 KiB  VP9 1.9 MiB                      H.264 1.7 MiB
 
 Audio:
-AAC: 130 kbps 2.0 MiB DRC | 130 kbps 2.0 MiB • | 49 kbps 22.05 kHz 792.8 KiB DRC | 49 kbps 22.05 kHz 792.8 KiB
-Opus: 113 kbps 1.7 MiB DRC | 112 kbps 1.7 MiB | 62 kbps 1003.6 KiB DRC | 62 kbps 998.0 KiB | 50 kbps 814.8 KiB DRC | 50 kbps 805.9 KiB
+AAC: 130 kbps 2.0 MiB DRC | 130 kbps 2.0 MiB | 49 kbps 22.05 kHz 792.8 KiB DRC | 49 kbps 22.05 kHz 792.8 KiB
+Opus: 113 kbps 1.7 MiB DRC | 112 kbps 1.7 MiB • | 62 kbps 1003.6 KiB DRC | 62 kbps 998.0 KiB | 50 kbps 814.8 KiB DRC | 50 kbps 805.9 KiB
 DRC switch shown
-convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 112 kbps · wav ← 251 re-encode
+convert from: mp3 ← 233 re-encode · m4a ← 233 re-encode · opus ← 233 re-encode · wav ← 233 re-encode
 
 Profile picks:
-balanced: 398 (1280x720, mp4) + audio 140 (audio only, m4a)
-best-quality: 616 (1920x1080, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
-audio-only: audio 140 (audio only, m4a)
+balanced: 398 (1280x720, mp4) + audio 251 (audio only, webm)
+best-quality: 616 (1920x1080, mp4) + audio 251 (audio only, webm)
+mp4-1080: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: none
 Auto captions: en-orig

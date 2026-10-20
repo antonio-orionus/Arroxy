@@ -1,5 +1,4 @@
 import type {FormatMarker, FormatOption} from '@shared/types.js'
-import type {Site} from '@shared/sites/types.js'
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
@@ -64,28 +63,27 @@ function formatMarkers(format: YtDlpFormat, wide: VideoWideMarkers): FormatMarke
 }
 
 export interface MapFormatsOptions {
-	site: Pick<Site, 'sortsSourceBeforeCodec'>
 	durationSeconds?: number
+	// Sizes the site left out, asked of its servers, by format id: shown only.
+	lookedUpSizes?: ReadonlyMap<string, number>
 }
 
-// `source_preference` is not in the bridge's typed format schema; it passes
-// through its loose fields, so it is checked here. Kept only where yt-dlp
-// ranks it before the codec (`Site.sortsSourceBeforeCodec`).
-function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers, site: MapFormatsOptions['site']): Pick<FormatOption, 'markers' | 'preference' | 'quality' | 'sourcePreference'> {
+function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference' | 'quality'> {
 	const markers = formatMarkers(format, wide)
-	const sourcePreference = site.sortsSourceBeforeCodec ? format.source_preference : undefined
-	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {}), ...(typeof sourcePreference === 'number' ? {sourcePreference} : {})}
+	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {})}
 }
 
-export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSeconds}: MapFormatsOptions): FormatOption[] {
+export function mapFormats(formats: readonly YtDlpFormat[], {durationSeconds, lookedUpSizes}: MapFormatsOptions = {}): FormatOption[] {
 	const wide = videoWideMarkers(formats)
 	const mapped = formats.flatMap((item): FormatOption[] => {
 		// A DRM-protected stream can't be downloaded (yt-dlp refuses it), so it is no choice.
-		if (!item.format_id || item.ext === 'mhtml' || item.has_drm === true || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
+		// No media means both tracks say "none": a codec the site leaves out is
+		// unknown to yt-dlp, not absent, and it downloads that stream as such.
+		if (!item.format_id || item.ext === 'mhtml' || item.has_drm === true || (item.vcodec === 'none' && item.acodec === 'none')) return []
 		const isAudioOnly = isAudioOnlyFormat(item)
 		const ext = item.ext ?? 'unknown'
-		const filesize = item.filesize ?? item.filesize_approx ?? estimatedFilesize(item, durationSeconds)
 		const formatId = item.format_id ?? ''
+		const filesize = item.filesize ?? item.filesize_approx ?? lookedUpSizes?.get(formatId) ?? estimatedFilesize(item, durationSeconds)
 
 		if (isAudioOnly) {
 			const abr = item.abr
@@ -118,7 +116,7 @@ export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSecon
 					isVideoOnly: false,
 					isAudioOnly: true,
 					dynamicRange: undefined,
-					...streamFlags(item, wide, site)
+					...streamFlags(item, wide)
 				} satisfies FormatOption
 			]
 		}
@@ -132,7 +130,7 @@ export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSecon
 		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
 		const tbr = item.tbr ?? item.vbr
 
-		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide, site)} satisfies FormatOption]
+		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
 	})
 
 	return sortFormatsByQuality(mapped)

@@ -25,10 +25,11 @@ export interface SubtitleOptions {
 	// source choice is honoured even when a manual track exists. Implies
 	// `writeAuto`; absent means manual tracks are requested as usual.
 	autoOnly?: boolean
-	// `languages` are base codes that should also fetch regional tracks
-	// (`de` → `de-DE`). Download profiles set it; the wizard sends exact track
-	// keys picked from the probe result.
-	includeRegionalVariants?: boolean
+	// `languages` are a profile's or batch's language codes (`de`), not this
+	// video's track keys (`de-DE`, `en-orig`). Set until the video's subtitle
+	// maps are known: queueing resolves them from the probe, the subtitle phase
+	// from an info-json. Absent: exact track keys, as the Format screen sends.
+	languagesAreCodes?: true
 }
 
 export type SponsorBlockOptions = {mode: 'off'} | {mode: 'mark' | 'remove'; categories: SponsorBlockCategory[]}
@@ -60,10 +61,8 @@ export type PreparedJob =
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
 
-// `includeRegionalVariants`: `languages` are base codes that should also fetch
-// regional tracks (`de` → `de-DE`). Download profiles set it; the wizard sends
-// exact track keys picked from the probe result.
-const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), includeRegionalVariants: z.boolean().optional()})
+// `languagesAreCodes`: see `SubtitleOptions`.
+const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), languagesAreCodes: z.literal(true).optional()})
 
 const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
 

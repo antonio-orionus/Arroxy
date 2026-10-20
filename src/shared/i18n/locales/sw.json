@@ -1043,6 +1043,7 @@
 			"sitePreference": {"label": "Mikondo isiyoshushwa na tovuti", "reason": "huruka nakala zilizoharibika, zenye alama-maji na za akiba"},
 			"original": {"label": "Mikondo asili, si iliyokuzwa kwa AI", "reason": "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"},
 			"source": {"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza", "reason": "maelezo zaidi kwa azimio lilelile"},
+			"protocol": {"label": "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko", "reason": "picha ileile, inapakuliwa haraka zaidi"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},

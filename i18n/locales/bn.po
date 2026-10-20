@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "আপস্কেল কপি লম্বা হলেও আসল ডিটেইল যোগ করে না"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "স্ট্রিম করা কপির আগে সরাসরি ডাউনলোড"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "একই ছবি, দ্রুত ডাউনলোড"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "{{tier}}p পর্যন্ত"

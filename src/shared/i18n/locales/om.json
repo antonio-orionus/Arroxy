@@ -1082,6 +1082,7 @@
 			"sitePreference": {"label": "Tarreessaawwan saayitiin gadi hin buusne", "reason": "garagalchawwan miidhaman, mallattoo bishaanii qabanii fi bakka bu'oo ni darba"},
 			"original": {"label": "Tarreessaawwan jalqabaa, kan AI'n guddifaman miti", "reason": "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"},
 			"source": {"label": "Tarreessaawwan Bitrate fooyya'e duraan", "reason": "bal'ina ifaa walfakkaataan qulqullina dabalataa"},
+			"protocol": {"label": "Buufannaan kallattii kopiiwwan yaaman duraan", "reason": "fakkii walfakkaataa, saffisaan buufame"},
 			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
 			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
 			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},

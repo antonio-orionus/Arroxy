@@ -6,6 +6,7 @@ import type {VideoProbeResult} from '@shared/types.js'
 import {siteForExtractor} from '@shared/sites/index.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {infoDictSchema} from 'yt-dlp-bridge/info'
 import {PROBE_SOURCES, type ProbeSourceId} from './sources.js'
@@ -35,7 +36,8 @@ import youtubePodcast from './youtube-podcast.json' with {type: 'json'}
 import twitchClip from './twitch-clip.json' with {type: 'json'}
 import bandcamp from './bandcamp.json' with {type: 'json'}
 
-const FIXTURES: Record<ProbeSourceId, {info: unknown}> = {
+// `lookedUpSizes`: sizes the capture asked the site's servers for, as the app does.
+const FIXTURES: Record<ProbeSourceId, {info: unknown; lookedUpSizes?: Record<string, number>}> = {
 	'youtube-multilang': youtubeMultilang,
 	'youtube-8k-hdr': youtube8kHdr,
 	'youtube-2014': youtube2014,
@@ -70,7 +72,8 @@ export function isProbeSourceId(value: string): value is ProbeSourceId {
 }
 
 export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
-	const info = infoDictSchema.parse(FIXTURES[id].info)
+	const fixture = FIXTURES[id]
+	const info = infoDictSchema.parse(fixture.info)
 	if (info._type !== 'video') throw new Error(`Probe source ${id} is not a single video`)
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
@@ -81,7 +84,8 @@ export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? '',
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {site, durationSeconds: info.duration}),
+		formats: mapFormats(info.formats ?? [], {durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})}),
+		formatSelection: formatSelectionSource(info, '_format_sort_fields' in info ? info._format_sort_fields : undefined),
 		title: info.title ?? '',
 		thumbnail: info.thumbnail ?? '',
 		...(info.duration === undefined ? {} : {duration: Math.round(info.duration)}),

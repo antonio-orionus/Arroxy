@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILES_PREFS} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
@@ -36,6 +37,7 @@ beforeEach(() => {
 		settings: SETTINGS,
 		wizardMode: 'single',
 		wizardFormats: FORMATS,
+		wizardFormatSelection: selectionSourceFromOptions(FORMATS),
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardIsAudioOnlySource: false,
@@ -63,7 +65,7 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
 	})
 
 	it('skips Dolby when choosing the reset native audio', () => {
-		useAppStore.setState({wizardFormats: DOLBY_FIRST_FORMATS, audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, wizardMediaKind: 'audio'})
+		useAppStore.setState({wizardFormats: DOLBY_FIRST_FORMATS, wizardFormatSelection: selectionSourceFromOptions(DOLBY_FIRST_FORMATS), audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, wizardMediaKind: 'audio'})
 
 		useAppStore.getState().setSelectedVideoFormatId('337')
 
@@ -79,7 +81,12 @@ describe('wizard slice — invariant: video + convert audio is unreachable', () 
 	})
 
 	it('switching between video-only streams keeps a native audio pick', () => {
-		useAppStore.setState({wizardFormats: [...FORMATS, {formatId: '136', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: true, isAudioOnly: false}], selectedVideoFormatId: '136', audioSelection: {kind: 'native', formatId: '249'}})
+		useAppStore.setState({
+			wizardFormats: [...FORMATS, {formatId: '136', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: true, isAudioOnly: false}],
+			wizardFormatSelection: selectionSourceFromOptions([...FORMATS, {formatId: '136', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: true, isAudioOnly: false}]),
+			selectedVideoFormatId: '136',
+			audioSelection: {kind: 'native', formatId: '249'}
+		})
 
 		useAppStore.getState().setSelectedVideoFormatId('137')
 
@@ -151,7 +158,7 @@ describe('wizard slice — leaving a run', () => {
 describe('wizard slice — Audio only profile, then Video', () => {
 	it('Video, no audio also lands on the ranked silent stream, not the first one listed', () => {
 		const silent720: FormatOption = {formatId: '136', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 300_000_000, isVideoOnly: true, isAudioOnly: false}
-		useAppStore.setState({wizardFormats: [...FORMATS, silent720]})
+		useAppStore.setState({wizardFormats: [...FORMATS, silent720], wizardFormatSelection: selectionSourceFromOptions([...FORMATS, silent720])})
 		useAppStore.setState(profilePatch(builtin('audio-only'), useAppStore.getState()))
 
 		useAppStore.getState().setFormatMode('video-only')
@@ -217,7 +224,8 @@ describe('wizard slice — Video / Audio / Subtitles switch', () => {
 
 		useAppStore.getState().setWizardMediaKind('video')
 
-		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
+		// yt-dlp reads the .opus file's codec from its extension and ranks Opus above an unnamed codec.
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
 	})
 
 	it('Subtitles drops the media, starts from the app language and never embeds', () => {

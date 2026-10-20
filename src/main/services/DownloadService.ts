@@ -20,6 +20,7 @@ import {killActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
+import {YT_DLP_PROGRESS_PREFIX} from 'yt-dlp-bridge/parsers'
 import {announcedArtifactEvents, finalArtifactsOf, sizedArtifactEvents} from './download/finalArtifacts.js'
 import {JobLifecycle} from './JobLifecycle.js'
 import {CookielessRetry} from './download/cookielessRetry.js'
@@ -499,7 +500,9 @@ export class DownloadService extends EventEmitter {
 		const timer = setInterval(() => {
 			percent += 10
 
-			const line = `[download] ${percent.toFixed(1)}% of ~10MiB at 1.2MiB/s ETA 00:0${Math.max(0, 10 - percent / 10)}`
+			const totalBytes = 10 * 1024 ** 2
+			const record = {status: percent >= 100 ? 'finished' : 'downloading', downloaded_bytes: (totalBytes * percent) / 100, total_bytes: totalBytes, speed: 1.2 * 1024 ** 2, eta: Math.max(0, 10 - percent / 10)}
+			const line = `${YT_DLP_PROGRESS_PREFIX} ${JSON.stringify({progress: record, format_id: 'mock'})}`
 			this.consumeProgress(active, line)
 
 			if (percent >= 100) {

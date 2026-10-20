@@ -62,3 +62,12 @@ name: yt-dlp writes `<name>.f<format_id>.<ext>.part` for split video/audio, and
 have no maximum (a recorded DASH id is 22 characters), so a fixed reserve
 overflowed; where the formats are not known yet, a generous allowance stands in.
 The total-path reserve also covers the job temp folder that media downloads into.
+
+Literal text is not inert in yt-dlp: it runs `expandvars` and `expanduser` over
+the whole `-o` template and every `--paths` value before filling in fields, so a
+bound title `Why $HOME rules` was written into a folder named `Why `. There is no
+escape that survives both POSIX and Windows expansion (`$$` is not one), so bound
+names and Arroxy-rendered folders swap a `$` that could start a reference, a
+Windows `%NAME%` in folders, and a leading `~` for full-width look-alikes, the
+way yt-dlp itself swaps `:` or `|`. `bun run check:filename-parity` compares
+Arroxy's predicted paths with real yt-dlp's over a corpus of such titles.

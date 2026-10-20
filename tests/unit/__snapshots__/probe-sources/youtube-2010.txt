@@ -1,5 +1,5 @@
 youtube-2010: A 2010 upload: 480p tops, odd frame rates (13 and 25 fps)
-Yosemitebear Mountain Double Rainbow 1-8-10 · 209 s · card says "640x480" · 31 formats
+Yosemitebear Mountain Double Rainbow 1-8-10 · 209 s · card says "640x480" · 34 formats
 
 Video (picked for Balanced 720p •):
       SDR AV1        SDR VP9       SDR H.264
@@ -9,16 +9,16 @@ Video (picked for Balanced 720p •):
 144p  AV1 1.1 MiB    VP9 4.0 MiB   H.264 3.5 MiB
 
 Audio:
-AAC: 130 kbps 3.2 MiB • | 130 kbps 3.2 MiB DRC | 49 kbps 22.05 kHz 1.2 MiB | 49 kbps 22.05 kHz 1.2 MiB DRC
-Opus: 106 kbps 2.6 MiB DRC | 105 kbps 2.6 MiB | 63 kbps 1.5 MiB DRC | 61 kbps 1.5 MiB | 51 kbps 1.2 MiB DRC | 50 kbps 1.2 MiB
+AAC: 130 kbps 3.2 MiB | 130 kbps 3.2 MiB DRC | 49 kbps 22.05 kHz 1.2 MiB | 49 kbps 22.05 kHz 1.2 MiB DRC
+Opus: 106 kbps 2.6 MiB DRC | 105 kbps 2.6 MiB • | 63 kbps 1.5 MiB DRC | 61 kbps 1.5 MiB | 51 kbps 1.2 MiB DRC | 50 kbps 1.2 MiB
 DRC switch shown
-convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 105 kbps · wav ← 251 re-encode
+convert from: mp3 ← 233 re-encode · m4a ← 233 re-encode · opus ← 233 re-encode · wav ← 233 re-encode
 
 Profile picks:
-balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
-best-quality: 397 (640x480, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 231 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
-audio-only: audio 140 (audio only, m4a)
+balanced: 397 (640x480, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
+best-quality: 397 (640x480, mp4) + audio 251 (audio only, webm)
+mp4-1080: 135 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: en
 Auto captions: en-orig

@@ -1,5 +1,5 @@
 youtube-music: A YouTube Music link
-Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster) · 213 s · card says "1280x720" · 43 formats
+Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster) · 213 s · card says "1280x720" · 45 formats
 
 Video (picked for Balanced 720p •):
           SDR AV1         SDR VP9        SDR H.264
@@ -13,15 +13,15 @@ Video (picked for Balanced 720p •):
 144p      AV1 1.4 MiB     VP9 3.1 MiB    H.264 4.2 MiB
 
 Audio:
-AAC: 130 kbps 3.2 MiB • | 49 kbps 22.05 kHz 1.2 MiB
-Opus: 129 kbps 3.2 MiB | 61 kbps 1.5 MiB | 46 kbps 1.1 MiB
-convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 129 kbps · wav ← 251 re-encode
+AAC: 130 kbps 3.2 MiB | 49 kbps 22.05 kHz 1.2 MiB
+Opus: 129 kbps 3.2 MiB • | 61 kbps 1.5 MiB | 46 kbps 1.1 MiB
+convert from: mp3 ← 233 re-encode · m4a ← 233 re-encode · opus ← 233 re-encode · wav ← 233 re-encode
 
 Profile picks:
-balanced: 398 (1280x720, mp4) + audio 140 (audio only, m4a)
-best-quality: 401 (3840x2160, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
-audio-only: audio 140 (audio only, m4a)
+balanced: 398 (1280x720, mp4) + audio 251 (audio only, webm)
+best-quality: 401 (3840x2160, mp4) + audio 251 (audio only, webm)
+mp4-1080: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
 
 Subtitles: en, de-DE, ja, pt-BR, es-419
 Auto captions: en-orig

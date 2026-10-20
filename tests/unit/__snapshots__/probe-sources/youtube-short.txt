@@ -1,5 +1,5 @@
 youtube-short: A vertical Short: 1080x1920, plus a 608x1080 stream that rounds to 480p beside 480x854
-the baddest artists are in LA tonight 🩷#VSFashionShow · 15 s · card says "720x1280" · 40 formats
+the baddest artists are in LA tonight 🩷#VSFashionShow · 15 s · card says "720x1280" · 43 formats
 
 Video (picked for Balanced 720p •):
        SDR AV1        SDR VP9                          SDR H.264
@@ -14,12 +14,12 @@ Audio:
 Opus: 136 kbps 247.9 KiB DRC | 136 kbps 247.8 KiB • | 68 kbps 124.3 KiB DRC | 68 kbps 124.3 KiB | 52 kbps 94.6 KiB DRC | 52 kbps 94.6 KiB
 AAC: 130 kbps 236.7 KiB DRC | 130 kbps 236.7 KiB | 49 kbps 22.05 kHz 90.4 KiB DRC | 49 kbps 22.05 kHz 90.4 KiB
 DRC switch shown
-convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 136 kbps · wav ← 251 re-encode
+convert from: mp3 ← 233 re-encode · m4a ← 233 re-encode · opus ← 233 re-encode · wav ← 233 re-encode
 
 Profile picks:
 balanced: 398 (720x1280, mp4) + audio 251 (audio only, webm)
 best-quality: 616 (1080x1920, mp4) + audio 251 (audio only, webm)
-mp4-1080: 270 (1080x1920, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 137 (1080x1920, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 251 (audio only, webm)
 
 Subtitles: none

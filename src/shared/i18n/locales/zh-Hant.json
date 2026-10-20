@@ -937,6 +937,7 @@
 			"sitePreference": {"label": "網站未降級的串流", "reason": "略過損毀、有浮水印和備用的副本"},
 			"original": {"label": "原始串流，而非 AI 放大的串流", "reason": "放大版解析度較高，但沒有增加真實細節"},
 			"source": {"label": "優先選擇增強位元率串流", "reason": "相同解析度下細節更多"},
+			"protocol": {"label": "優先選擇直接下載，而非串流副本", "reason": "相同畫面，下載更快"},
 			"codec": {"label": "先 AV1，再 VP9，最後 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "較大的檔案", "reason": "相同設定下細節更多"},
 			"aacSmartTv": {"label": "AAC 音訊", "reason": "隨處都能播放"},

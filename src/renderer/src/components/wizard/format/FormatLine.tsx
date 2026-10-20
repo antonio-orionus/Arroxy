@@ -115,7 +115,7 @@ export function FormatChip({
 					{size}
 				</span>
 			) : null}
-			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background" /> : null}
+			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background transition profile-why:scale-150 profile-why:ring-4 profile-why:ring-primary/40" /> : null}
 		</RadioGroupChip>
 	)
 	return hint ? <Hint label={hint}>{chip}</Hint> : chip
@@ -124,5 +124,5 @@ export function FormatChip({
 // The download profile's pick. One legend says what it means, on the
 // "Pre-selected from" line; each picked chip carries the dot on its corner.
 export function ProfileDot({className}: {className?: string}): ReactNode {
-	return <span aria-hidden className={cn('pointer-events-none size-2 shrink-0 rounded-full bg-primary', className)} />
+	return <span aria-hidden data-slot="profile-dot" className={cn('pointer-events-none size-2 shrink-0 rounded-full bg-primary', className)} />
 }
