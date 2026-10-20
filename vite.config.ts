@@ -38,6 +38,9 @@ const TEST_TIMEOUT_MS = 20_000
 // Every gate `bun run check` runs in parallel. `quality-gate` runs packages:check
 // only after all of them pass, because the package gates rebuild shared outputs.
 const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:selection-parity', 'check:pins', 'check:i18n', 'check:donation-addresses', 'test']
+// CI runs the unit tests in shards on their own runners (`ci.yml`), so its gates
+// job sets CHECK_TESTS_SEPARATELY and the gate leaves them out; locally they run.
+const CHECK_GATES = process.env.CHECK_TESTS_SEPARATELY === '1' ? QUALITY_GATES.filter(gate => gate !== 'test') : QUALITY_GATES
 
 // Format, then lint with type checks (typeCheck is on). This is `vp check`
 // plus --deny-warnings, which `vp check` cannot take. Type-aware rules resolve
@@ -52,7 +55,7 @@ export default defineConfig({
 			{resolve: {alias: testAlias}, test: {name: 'jsdom', globals: true, include: ['tests/**/*.test.tsx'], environment: 'jsdom', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}}
 		]
 	},
-	run: {tasks: {'quality-gate': {command: 'bun run packages:check', dependsOn: QUALITY_GATES, cache: false}}},
+	run: {tasks: {'quality-gate': {command: 'bun run packages:check', dependsOn: CHECK_GATES, cache: false}}},
 	staged: {'readme-src/**': "bash -lc 'bun run build:readme && git add README.md README.*.md' --", '*.{json,jsonc,css}': 'vp fmt --no-error-on-unmatched-pattern', '*.{ts,tsx,cts,mts,js,mjs,cjs}': STAGED_CHECK},
 	fmt: {
 		// Mirrors the former Biome formatter settings (tabs, 320 cols, no semis, collapsed objects).
