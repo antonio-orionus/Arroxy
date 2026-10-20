@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased — next release 1.3.0 (minor): signals and stderr-classified unsupported URLs
+## 1.3.0 — signals, stderr-classified unsupported URLs, output folder write failures
+
+1.2.0 was never published; its changes ship in 1.3.0 and are listed under 1.2.0 below.
 
 ### Added
 
@@ -15,7 +17,7 @@
 - `classifyYtDlpStderr` now returns `unsupportedUrl` for yt-dlp's `Unsupported URL: …`, `No suitable extractor (…) found for URL …` and `'…' is not a valid URL` lines. It is checked first, so words in the echoed URL cannot win. These lines classified as `unknown` before (or as whatever the URL text happened to match).
 - `ClassifierKind` now includes `unsupportedUrl`, so `extraPatterns` accepts it.
 
-## 1.2.0 — output folder write failures
+## 1.2.0 — output folder write failures (unpublished, shipped in 1.3.0)
 
 ### Added
 

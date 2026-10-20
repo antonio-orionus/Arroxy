@@ -13,6 +13,7 @@ Source and contributions live in the Arroxy monorepo at [`packages/yt-dlp-bridge
 
 - [Install](#install)
 - [Features](#features)
+- [What changed in 0.5.0](#what-changed-in-050)
 - [What changed in 0.4.0](#what-changed-in-040)
 - [What changed in 0.3.0](#what-changed-in-030)
 - [What changed in 0.2.0](#what-changed-in-020)
@@ -49,9 +50,9 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
-## Unreleased
+## What changed in 0.5.0
 
-Next release: **0.5.0**. It contains breaking changes and requires `ytdlp-errors` 1.3.0.
+0.5.0 contains breaking changes and requires `ytdlp-errors` 1.3.0. 0.4.0 was never published; its change is listed under 0.4.0 below and ships in 0.5.0.
 
 - **Breaking:** `CONFIG` is gone from `yt-dlp-bridge/config`. The package no longer reads `YTDLP_MCP_*` or the home directory at import: `planWorkflow` and `checkEnvironment` call `loadConfig()` when no `config` is passed, so they see the environment as it is at call time.
 - **Breaking:** `parseProgress`, `ProgressEvent`, `ProgressEventPhaseSchema`/`ProgressEventPhase` and `PROGRESS_EVENT_PHASES` are removed. `parseYtDlpOutputLine` is the one progress parser: its `progress` event now also carries `total`, `speed` and `eta` from a `[download]` line.
