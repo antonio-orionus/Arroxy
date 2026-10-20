@@ -77,7 +77,17 @@ Once the last review is through, turn on auto-merge (squash) rather than waiting
 verify: `gh pr view <N> --json state` reports `MERGED` (or auto-merge is enabled and waiting on checks).
 
 ### 10. Close out
-Remove the worktree after the merge. Report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out. Then ask whether to release.
+Prune what this run created, and only that: other agents work in their own worktrees and branches in parallel, so leave every worktree you did not create alone, however stale it looks. Run this from the primary checkout, never from inside the worktree being removed:
+
+```bash
+git -C <worktree> status --short             # must print nothing: uncommitted work is never discarded
+git worktree remove <worktree>               # refuses on its own if anything is left
+git branch -D <branch>                       # the squash merge leaves the local branch unmerged by ancestry
+git worktree prune
+```
+
+The same goes for any scratch worktree the run made (a docs commit to `main`, a reproduction): remove it as soon as its commit is pushed. If auto-merge is still waiting on checks when you finish, the merge will not wake you; remove the worktree when the next event or session shows the PR merged, and say so in the report. Then report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out, and ask whether to release.
+verify: `git worktree list` no longer shows the run's worktrees, and `git branch --list <branch>` prints nothing.
 
 ## Stop and ask
 
