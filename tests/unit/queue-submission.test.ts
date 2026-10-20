@@ -148,7 +148,7 @@ function multiProfileState(overrides: Partial<AppState> = {}): AppState {
 
 function expectSourcePreferredSelector(selector: string | undefined): void {
 	expect(selector).toContain('[language_preference>0]')
-	expect(selector).toContain("[format_note~=?'(?i)\\boriginal\\b']")
+	expect(selector).toContain("[format_note~='(?i)\\boriginal\\b']")
 }
 
 // The wizard's fallbacks; these tests name everything through the probe.
@@ -215,7 +215,7 @@ describe('QueueSubmission', () => {
 
 		expect(job?.kind).toBe('ranged-format')
 		if (job?.kind === 'ranged-format') {
-			expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+			expect(job.formatSelector).toContain("bestaudio[acodec~='^(?:e-?ac-?3|ec-3)$']")
 			expectSourcePreferredSelector(job.formatSelector)
 		}
 	})
@@ -271,7 +271,7 @@ describe('QueueSubmission', () => {
 
 		expect(job?.kind).toBe('ranged-format')
 		if (job?.kind === 'ranged-format') {
-			expect(job.formatSelector).toContain("bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$']")
+			expect(job.formatSelector).toContain("bestaudio[acodec~='^(?:e-?ac-?3|ec-3)$']")
 			expectSourcePreferredSelector(job.formatSelector)
 		}
 	})

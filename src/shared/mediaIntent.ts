@@ -22,12 +22,16 @@ const VIDEO_WITH_AUDIO_SELECTOR = 'bestvideo*+bestaudio/best'
 const VIDEO_WITH_M4A_AUDIO_SELECTOR = 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'
 const MP4_WITH_AUDIO_SELECTOR = 'bestvideo+bestaudio/best[ext=mp4]/best'
 const MP4_WITH_M4A_AUDIO_SELECTOR = 'bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'
+// A trailing `?` in a yt-dlp filter also matches a stream whose field is
+// missing. Filters that leave something out keep it (a stream with no codec
+// named is not Dolby); filters that ask for something must not, or they take
+// a stream that says nothing (YouTube's HLS audio) as Dolby or as original.
 const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
 const COMPATIBLE_AUDIO_CODEC_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
-const EC3_AUDIO_CODEC_FILTER = "[acodec~=?'^(?:e-?ac-?3|ec-3)$']"
-const AC3_AUDIO_CODEC_FILTER = "[acodec~=?'^(?:ac-?3)$']"
+const EC3_AUDIO_CODEC_FILTER = "[acodec~='^(?:e-?ac-?3|ec-3)$']"
+const AC3_AUDIO_CODEC_FILTER = "[acodec~='^(?:ac-?3)$']"
 const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
-const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
+const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~='(?i)\\boriginal\\b']"
 const SOURCE_PREFERRED_AUDIO_FILTERS = [SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER]
 
 function bestAudioWith(...filters: string[]): string {
