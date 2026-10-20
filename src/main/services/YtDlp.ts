@@ -23,6 +23,7 @@ import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {SiteRequestState} from './SiteRequestState.js'
+import {finalPathPrintArgs} from './ytDlpFinalPath.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
@@ -486,6 +487,8 @@ export interface YtDlpRunOptions {
 	// cooldown holds new work, and dropping that job's subtitles would lose
 	// what the user asked for over one more request.
 	honorCooldown?: boolean
+	// yt-dlp appends the finished file's path here (see ytDlpFinalPath.ts).
+	finalPathFile?: string
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
@@ -633,7 +636,7 @@ export class YtDlp {
 				ffmpegPath: this._ffmpegPath,
 				jsRuntime: this._jsRuntime,
 				e2eMode: this.opts.e2eMode,
-				args: plan.args,
+				args: options.finalPathFile ? [...finalPathPrintArgs(options.finalPathFile), ...plan.args] : plan.args,
 				tokenService: this.tokenService,
 				cookies,
 				sessionJars: this.opts.sessionJars,

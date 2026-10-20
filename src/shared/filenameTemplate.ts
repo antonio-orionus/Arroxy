@@ -12,7 +12,7 @@
 // Token names are enumerated in schemas.ts (enum SSOT); the field mapping below
 // is the implementation detail that belongs here.
 
-import {fitName, renderName, type BudgetFailure, type BudgetPiece} from './nameBudget.js'
+import {fitName, renderName, type BudgetFailure, type BudgetPiece, type InFlightFiles} from './nameBudget.js'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
@@ -337,6 +337,8 @@ export interface BindContext {
 	outputDir: string
 	/** Whose filesystem limits apply. Injected so this stays testable per-OS. */
 	platform: NodeJS.Platform
+	/** What yt-dlp writes before the finished file, which must fit too. */
+	inFlight: InFlightFiles
 }
 
 export type BoundFilename = {ok: true; template: string; truncated: FilenameToken[]} | {ok: false; reason: BudgetFailure}
@@ -378,7 +380,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 	// against the typed-length limit and hide it from directory resolution.
 	if (suffix) pieces.push({kind: 'literal', text: ` ${suffix}`})
 
-	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
+	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform), inFlight: ctx.inFlight})
 	if (!fitted.ok) return fitted
 
 	return {ok: true, template: finalizeName(renderName(fitted.pieces)), truncated: fitted.truncated}

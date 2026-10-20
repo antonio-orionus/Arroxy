@@ -71,7 +71,7 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 - **Split along seams:** a `packages/*` change apart from the app change that uses it; a behaviour-free refactor or rename before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features or modules as separate PRs off `main`.
 - **Tests stay with their code.** Never split by layer (a code PR, then a "tests and docs" PR).
 - **Keep one PR** when the pieces cannot each be green alone, and say why in its body.
-- **Review by kind:** a mechanical PR gets Codex and the gates, no CodeRabbit trigger; a logic PR gets Codex first, then the CodeRabbit budget in memory `coderabbit-review-workflow` (the quota is scarce and shared).
+- **Review by kind:** CodeRabbit reviews a change in behaviour, not a PR. Mechanical PRs and behaviour-free refactors or renames get Codex and the gates, no CodeRabbit trigger, so a split spends a trigger only on the PR that changes behaviour. A logic PR gets Codex first, then the CodeRabbit budget in memory `coderabbit-review-workflow` (2 reviews an hour, shared by the whole repo).
 - **Docs-only changes skip the PR** and go straight to `main` (memory `readme-edits-skip-pr`).
 
 ## Agent setup

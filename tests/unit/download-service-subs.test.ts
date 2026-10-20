@@ -1,5 +1,5 @@
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
-import {mkdtempSync, readFileSync, writeFileSync, rmSync} from 'node:fs'
+import {appendFileSync, mkdtempSync, readFileSync, writeFileSync, rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 
@@ -33,7 +33,7 @@ function makeProcess(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function makeJob(opts: {formatId?: string; subtitles?: {languages: string[]; writeAuto?: boolean; mode?: SubtitleMode; format?: SubtitleFormat}} = {}): PreparedJob {
+function makeJob(opts: {formatId?: string; remuxVideo?: string; subtitles?: {languages: string[]; writeAuto?: boolean; mode?: SubtitleMode; format?: SubtitleFormat}} = {}): PreparedJob {
 	if (!opts.formatId && opts.subtitles) {
 		return {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: opts.subtitles.languages, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt', writeAuto: opts.subtitles.writeAuto ?? false}}
 	}
@@ -42,6 +42,7 @@ function makeJob(opts: {formatId?: string; subtitles?: {languages: string[]; wri
 		extractor: 'youtube',
 		extractorKey: 'Youtube',
 		formatId: opts.formatId ?? '137+251',
+		...(opts.remuxVideo ? {remuxVideo: opts.remuxVideo} : {}),
 		sponsorBlock: SB_OFF,
 		embed: EMBED_OFF,
 		subtitles: opts.subtitles ? {languages: opts.subtitles.languages, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt', writeAuto: opts.subtitles.writeAuto ?? false} : undefined
@@ -385,6 +386,92 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 
 		// See the comment above — wait for the job to fully settle before the
 		// outer afterEach() rmSync()s workDir.
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+	})
+})
+
+// What real yt-dlp does with `--print-to-file after_move:filepath FILE`: once
+// every postprocessor and the move have run, it appends the final path to FILE.
+// FILE is an output template, so a `%` arrives doubled.
+function printFinalPath(args: readonly string[], finalPath: string): void {
+	const at = args.indexOf('--print-to-file')
+	if (at === -1 || args[at + 1] !== 'after_move:filepath') return
+	const file = args[at + 2]?.replaceAll('%%', '%')
+	if (file) appendFileSync(file, `${finalPath}\n`)
+}
+
+describe('DownloadService — final media path after --remux-video', () => {
+	let workDir: string
+
+	beforeEach(() => {
+		workDir = mkdtempSync(join(tmpdir(), 'arroxy-remux-'))
+	})
+
+	afterEach(() => {
+		rmSync(workDir, {recursive: true, force: true})
+	})
+
+	// yt-dlp's own output for a muxed MP4 saved as MKV: the remuxer names its
+	// destination after a "Remuxing video from …;" prefix, deletes the MP4 and
+	// the move carries the .mkv out of the temp folder.
+	function makeRemuxSpawn(paths: {tempMp4: string; tempMkv: string; finalMkv: string; subPath: string}) {
+		let call = 0
+		return ((_bin: string, args: string[]) => {
+			const isPhase1 = call === 0
+			call++
+			const phase1 = [`[download] Destination: ${paths.tempMp4}`, `[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: ${paths.tempMkv}`, `Deleting original file ${paths.tempMp4} (pass -k to keep)`, `[MoveFiles] Moving file "${paths.tempMkv}" to "${paths.finalMkv}"`].join('\n')
+			return createTranscriptProcess([{stream: 'stdout', data: isPhase1 ? `${phase1}\n` : `[download] Destination: ${paths.subPath}\n`}, {close: 0}], {
+				beforeStart: () => {
+					if (isPhase1) {
+						writeFileSync(paths.finalMkv, 'remuxed-bytes')
+						printFinalPath(args, paths.finalMkv)
+					} else {
+						writeFileSync(paths.subPath, '1\n00:00:00,000 --> 00:00:01,000\nHi\n')
+					}
+				}
+			})
+		}) as never
+	}
+
+	function remuxPaths() {
+		const tempDir = join(workDir, '.arroxy-temp', 'abc1234')
+		return {tempMp4: join(tempDir, 'Clip.mp4'), tempMkv: join(tempDir, 'Clip.mkv'), finalMkv: join(workDir, 'Clip.mkv'), subPath: join(workDir, 'Clip.en.srt')}
+	}
+
+	it('reports the moved .mkv as the media, not the deleted pre-remux file', async () => {
+		const paths = remuxPaths()
+		vi.mocked(spawnYtDlp).mockImplementation(makeRemuxSpawn(paths))
+		const {service, recentJobsStore} = makeService()
+		const artifacts: QueueArtifactEvent[] = []
+		service.on('artifact', event => artifacts.push(event))
+
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv'})})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+
+		await vi.waitFor(() => expect(artifacts.some(artifact => artifact.kind === 'media' && artifact.sizeBytes !== undefined)).toBe(true))
+		const media = artifacts.filter(artifact => artifact.kind === 'media' && artifact.fromPath === undefined)
+		expect(new Set(media.map(artifact => artifact.path))).toEqual(new Set([paths.finalMkv]))
+	})
+
+	it('embeds subtitles into the moved .mkv after a remux', async () => {
+		const paths = remuxPaths()
+		vi.mocked(spawnYtDlp).mockImplementation(makeRemuxSpawn(paths))
+		const ffmpegCalls: string[][] = []
+		vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
+			ffmpegCalls.push(args)
+			return createTranscriptProcess([{close: 0}], {
+				beforeStart: () => {
+					writeFileSync(args[args.length - 1], 'muxed-bytes')
+				}
+			})
+		}) as never)
+
+		const {service, recentJobsStore} = makeService()
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv', subtitles: {languages: ['en'], mode: 'embed', format: 'srt'}})})
+		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
+
+		const args = ffmpegCalls[0]
+		expect(args[args.indexOf('-i') + 1]).toBe(paths.finalMkv)
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 })

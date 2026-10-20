@@ -98,11 +98,11 @@ describe('VideoPhase(embed=false)', () => {
 	it('runs with the configured identity by default and the Explore session for an escalated job', async () => {
 		const anonymous = makeCtx(SUCCESS)
 		await VideoPhase(false).run(anonymous)
-		expect(anonymous.runMock.mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
+		expect(anonymous.runMock.mock.calls[0]?.[2]).toMatchObject({identity: 'configured', jobKey: 'job-1', finalPathFile: expect.stringMatching(/_arroxy\.final-path\.txt$/)})
 
 		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
 		await VideoPhase(false).run(signedIn)
-		expect(signedIn.runMock.mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
+		expect(signedIn.runMock.mock.calls[0]?.[2]).toMatchObject({identity: 'exploreSession', jobKey: 'job-1'})
 	})
 
 	it('keeps the Explore session on the info-json re-extraction fallback', async () => {
@@ -110,7 +110,7 @@ describe('VideoPhase(embed=false)', () => {
 		ctx.runMock.mockResolvedValueOnce({kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: bad info json', stdout: '', stderr: ''})
 		await VideoPhase(false).run(ctx)
 		expect(ctx.runMock).toHaveBeenCalledTimes(2)
-		expect(ctx.runMock.mock.calls.map(call => call[2])).toEqual([
+		expect(ctx.runMock.mock.calls.map(call => call[2])).toMatchObject([
 			{identity: 'exploreSession', jobKey: 'job-1'},
 			{identity: 'exploreSession', jobKey: 'job-1'}
 		])
