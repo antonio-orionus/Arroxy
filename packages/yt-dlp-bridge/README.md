@@ -50,6 +50,11 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
+## Unreleased
+
+- An audio conversion now converts a stream already in the target codec when the source has one (AAC 140 for m4a on YouTube, Opus 251 for opus). yt-dlp copies such a stream instead of re-encoding it, so there is no second lossy pass; `--audio-quality` does not apply to it. Each tier of the source chain (the source's track, then any) tries non-DRC before DRC and avoids Dolby surround, which libopus cannot take. The "original" track filter no longer matches a stream with no `format_note`.
+- New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, and `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, and `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does.
+
 ## What changed in 0.5.0
 
 0.5.0 contains breaking changes and requires `ytdlp-errors` 1.3.0. 0.4.0 was never published; its change is listed under 0.4.0 below and ships in 0.5.0.
@@ -284,6 +289,7 @@ Prefer the root export for workflow planning and subpaths for lower-level utilit
 | --- | --- |
 | Workflow planning | `planWorkflow`, workflow input/plan/fact types |
 | Schemas | `WorkflowInspectInputSchema`, `WorkflowDownloadInputSchema`, `WorkflowExecutionInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`, `WorkflowInputSchema`, `ValidateWorkflowInputSchema` |
+| Audio conversion | `audioConversionCopies`, `audioConversionCopyFilter`, `audioCodecPreference` from `yt-dlp-bridge/audio-conversion` |
 | Config | `loadConfig` from `yt-dlp-bridge/config` |
 | Environment | `checkEnvironment` from `yt-dlp-bridge/environment` |
 | Filesystem policy | `resolveOutputPolicy`, `resolveManagedPath`, `ensureWithinRoot`, `isPathInside`, `isPathInsideWith`, `hasParentTraversal`, `ensureDirectory`, `readArchive` from `yt-dlp-bridge/filesystem` |

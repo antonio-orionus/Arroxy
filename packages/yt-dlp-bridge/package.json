@@ -46,6 +46,10 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
 		},
+		"./audio-conversion": {
+			"types": "./dist/audio-conversion.d.ts",
+			"import": "./dist/audio-conversion.js"
+		},
 		"./config": {
 			"types": "./dist/config.d.ts",
 			"import": "./dist/config.js"

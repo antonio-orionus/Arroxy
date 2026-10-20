@@ -1,5 +1,6 @@
 import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
+import {audioConversionCopyFilter} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {redactArgs} from './redaction.js'
@@ -169,19 +170,23 @@ export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
 const DEFAULT_CALLER_OUTPUT_TEMPLATE = '%(title).200B.%(ext)s'
 const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
-const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
-const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
-const SOURCE_PREFERRED_AUDIO_FILTERS = [SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER]
+// Dolby surround makes a poor conversion source: libopus refuses its 5.1(side)
+// layout outright, and the other lossy targets downmix it. A stream with no
+// codec named passes.
+const NON_DOLBY_AUDIO_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
+// Strict: `~=?` would also take a stream with no note at all as the original.
+const SOURCE_TRACK_AUDIO_FILTERS = ['[language_preference>0]', "[format_note~='(?i)\\boriginal\\b']", '']
 
-function bestAudioWith(...filters: string[]): string {
-	return `bestaudio${filters.join('')}`
+// The stream to convert, most wanted first: the source's own track before any
+// other, its non-DRC master before the DRC one, and within those a stream that
+// is copied as-is before one that is re-encoded, then any but Dolby surround.
+function audioConversionSourceSelector(target: string): string {
+	// A stream already in the target codec is copied, not re-encoded a second time.
+	const codecFilter = audioConversionCopyFilter(target)
+	const codecFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER, '']
+	const streamFilters = [NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => codecFilters.map(filter => `${filter}${drcFilter}`))
+	return [...SOURCE_TRACK_AUDIO_FILTERS.flatMap(trackFilter => streamFilters.map(filters => `bestaudio${trackFilter}${filters}`)), 'best'].join('/')
 }
-
-function sourcePreferredAudioWith(...filters: string[]): string[] {
-	return SOURCE_PREFERRED_AUDIO_FILTERS.map(sourceFilter => bestAudioWith(sourceFilter, ...filters))
-}
-
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...sourcePreferredAudioWith(), bestAudioWith(NON_DRC_AUDIO_FILTERS), 'bestaudio', 'best'].join('/')
 
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
 	const planned = planWorkflowWithoutRedaction(input, options)
@@ -621,9 +626,10 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 	}
 	if (audioConvert) {
 		// A caller's stream (one audio language of several) goes first; the
-		// source-preferred chain stays as the fallback if it is gone.
+		// conversion source chain stays as the fallback if it is gone.
 		const formatId = input.selection?.formatId
-		args.push('-f', formatId ? `${formatId}/${SOURCE_PREFERRED_BEST_AUDIO_SELECTOR}` : SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, '-x', '--audio-format', audioConvert.target)
+		const sourceSelector = audioConversionSourceSelector(audioConvert.target)
+		args.push('-f', formatId ? `${formatId}/${sourceSelector}` : sourceSelector, '-x', '--audio-format', audioConvert.target)
 		if (audioConvert.lossy && audioConvert.bitrateKbps !== undefined) args.push('--audio-quality', `${audioConvert.bitrateKbps}K`)
 		return
 	}

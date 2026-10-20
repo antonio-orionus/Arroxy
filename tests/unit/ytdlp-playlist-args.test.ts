@@ -15,7 +15,7 @@ import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
-import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, audioConversionSourceSelector, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
@@ -129,10 +129,10 @@ describe('Audio · Lossy convert', () => {
 		['opus', 320]
 	] as const)('format=%s bitrate=%d → -x --audio-format <fmt> --audio-quality <kbps>K', (format, kbps) => {
 		const args = argsFor({kind: 'audio', format, bitrateKbps: kbps})
-		// Audio convert path: source-preferred bestaudio selector + -x --audio-format <fmt> --audio-quality <kbps>K
+		// Audio convert path: conversion source selector + -x --audio-format <fmt> --audio-quality <kbps>K
 		expect(args).toContain('-f')
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
+		expect(args[fIdx + 1]).toBe(audioConversionSourceSelector(format))
 		expect(args).toContain('-x')
 		expect(args).toContain('--audio-format')
 		const afIdx = args.indexOf('--audio-format')
