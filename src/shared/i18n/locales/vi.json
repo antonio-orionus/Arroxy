@@ -67,7 +67,6 @@
 			"assignTriggerEmpty": "Gán hồ sơ",
 			"assignTrigger_other": "Gán cho {{count}} video",
 			"menuDescription_other": "Chọn hồ sơ cho {{count}} video này.",
-			"assignAria": "Gán {{profileName}}",
 			"editProfile": "Sửa {{name}}",
 			"filtersLabel": "Bộ lọc hồ sơ",
 			"filterChip": "{{name}} · {{count}}",

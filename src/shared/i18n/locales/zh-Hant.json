@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "指派設定檔",
 			"assignTrigger_other": "指派給 {{count}} 部影片",
 			"menuDescription_other": "為這 {{count}} 部影片選擇設定檔。",
-			"assignAria": "指派 {{profileName}}",
 			"editProfile": "編輯 {{name}}",
 			"filtersLabel": "設定檔篩選器",
 			"filterChip": "{{name}} · {{count}}",

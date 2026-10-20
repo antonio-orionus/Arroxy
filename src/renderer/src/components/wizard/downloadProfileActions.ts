@@ -1,23 +1,16 @@
-import {downloadProfileLabel, downloadProfileRefFor, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import {downloadProfileRefFor, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {LucideIcon} from 'lucide-react'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
-
-export interface DownloadProfileActionOption {
-	profile: DownloadProfile
-	ref: DownloadProfileRef
-	Icon: LucideIcon
-	label: string
-	active: boolean
-}
+import {profilePickerOptions, type ProfilePickerOption} from './profilePickerOptions.js'
 
 export interface DownloadProfileActionModel {
 	activeProfile: DownloadProfile
 	activeRef: DownloadProfileRef
 	ActiveIcon: LucideIcon
 	activeSummary: string
-	options: DownloadProfileActionOption[]
+	options: ProfilePickerOption[]
 }
 
 export function quickProfileSummary(profile: DownloadProfile): string {
@@ -42,18 +35,9 @@ export function quickProfileSummary(profile: DownloadProfile): string {
 }
 
 // `current` is the profile to mark as chosen instead of the app's active one: a
-// download that started from another profile shows that one. A profile turned
-// off since then still shows, first.
+// download that started from another profile shows that one, even if it was
+// hidden since (profilePickerOptions).
 export function buildDownloadProfileActionModel(profilesPrefs: DownloadProfilesPrefs | undefined, current?: DownloadProfile): DownloadProfileActionModel {
-	const enabled = enabledDownloadProfiles(profilesPrefs)
 	const activeProfile = current ?? resolveActiveDownloadProfile(profilesPrefs).profile
-	const profiles = current && !enabled.some(profile => profile.id === current.id) ? [current, ...enabled] : enabled
-	const activeRef = downloadProfileRefFor(activeProfile, profilesPrefs)
-	return {
-		activeProfile,
-		activeRef,
-		ActiveIcon: PROFILE_ICONS[activeProfile.icon],
-		activeSummary: quickProfileSummary(activeProfile),
-		options: profiles.map(profile => ({profile, ref: downloadProfileRefFor(profile, profilesPrefs), Icon: PROFILE_ICONS[profile.icon], label: downloadProfileLabel(profile), active: profile.id === activeProfile.id}))
-	}
+	return {activeProfile, activeRef: downloadProfileRefFor(activeProfile, profilesPrefs), ActiveIcon: PROFILE_ICONS[activeProfile.icon], activeSummary: quickProfileSummary(activeProfile), options: profilePickerOptions(profilesPrefs, {current: activeProfile})}
 }

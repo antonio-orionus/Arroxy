@@ -3112,10 +3112,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "각 동영상이 선택한 등급을 독립적으로 결정하므로 다양한 재생목록도 예상대로 작동합니다."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} 지정"
-
 #. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"
 msgid "Assign to {{count}} videos"

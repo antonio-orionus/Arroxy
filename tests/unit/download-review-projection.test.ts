@@ -1,7 +1,8 @@
 import {describe, expect, it} from 'vite-plus/test'
 import type {FormatOption, PlaylistEntry, PlaylistSelection} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
-import {buildDownloadReview} from '@renderer/store/wizard/downloadReviewProjection.js'
+import {buildDownloadReview, multiProfileBreakdown} from '@renderer/store/wizard/downloadReviewProjection.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p', ext: 'webm', resolution: '1080p', fps: 30, isVideoOnly: true, isAudioOnly: false, filesize: 1024},
@@ -136,5 +137,23 @@ describe('subtitles-only batch review', () => {
 
 		expect(review.hasNothingSelected).toBe(true)
 		expect(review.allowedActions.addToQueue).toBe(false)
+	})
+
+	it('counts rows on a profile hidden since it was assigned under that profile, listed first', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		if (!balanced) throw new Error('expected the balanced built-in')
+		const lectures = {...balanced, id: 'lectures', name: 'Lectures', enabled: false}
+		const rows = multiProfileBreakdown(
+			state({
+				multiProfileMode: true,
+				settings: {common: {defaultOutputDir: '/downloads', rememberLastOutputDir: false, clipboardWatchEnabled: false, hotkeyEnabled: false}, playlist: {}, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [lectures], overrides: [], enabledOverrides: {}}},
+				playlistProfileAssignments: {a: {kind: 'custom', id: 'lectures'}}
+			})
+		)
+
+		expect(rows.map(row => [row.profileId, row.count])).toEqual([
+			['lectures', 1],
+			['balanced', 1]
+		])
 	})
 })

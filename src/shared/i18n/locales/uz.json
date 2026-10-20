@@ -91,7 +91,6 @@
 			"assignTrigger_other": "{{count}} ta videoga belgilash",
 			"menuDescription_one": "Bu video uchun profilni tanlang.",
 			"menuDescription_other": "Bu {{count}} ta video uchun profilni tanlang.",
-			"assignAria": "{{profileName}} belgilash",
 			"editProfile": "{{name}} tahrirlash",
 			"filtersLabel": "Profil filtrlari",
 			"filterChip": "{{name}} · {{count}}",

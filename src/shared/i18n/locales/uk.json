@@ -95,7 +95,6 @@
 			"menuDescription_few": "Виберіть профіль для вибраних відео ({{count}}).",
 			"menuDescription_many": "Виберіть профіль для вибраних відео ({{count}}).",
 			"menuDescription_other": "Виберіть профіль для вибраних відео ({{count}}).",
-			"assignAria": "Призначити {{profileName}}",
 			"editProfile": "Редагувати {{name}}",
 			"filtersLabel": "Фільтри профілів",
 			"filterChip": "{{name}} · {{count}}",

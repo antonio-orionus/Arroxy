@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "프로필 지정",
 			"assignTrigger_other": "동영상 {{count}}개에 지정",
 			"menuDescription_other": "이 동영상 {{count}}개의 프로필을 선택하세요.",
-			"assignAria": "{{profileName}} 지정",
 			"editProfile": "{{name}} 편집",
 			"filtersLabel": "프로필 필터",
 			"filterChip": "{{name}} · {{count}}",

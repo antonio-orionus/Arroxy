@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "កំណត់ប្រវត្តិរូប",
 			"assignTrigger_other": "កំណត់ទៅ {{count}} វីដេអូ",
 			"menuDescription_other": "ជ្រើសរើសប្រវត្តិរូបសម្រាប់វីដេអូ {{count}} ទាំងនេះ។",
-			"assignAria": "កំណត់ {{profileName}}",
 			"editProfile": "កែសម្រួល {{name}}",
 			"filtersLabel": "តម្រងប្រវត្តិរូប",
 			"filterChip": "{{name}} · {{count}}",

@@ -69,7 +69,6 @@
 			"assignTriggerEmpty": "プロファイルを割り当て",
 			"assignTrigger_other": "{{count}} 本の動画に割り当て",
 			"menuDescription_other": "これら {{count}} 本の動画のプロファイルを選択します。",
-			"assignAria": "{{profileName}} を割り当て",
 			"editProfile": "{{name}} を編集",
 			"filtersLabel": "プロファイルフィルター",
 			"filterChip": "{{name}} · {{count}}",

@@ -12,7 +12,7 @@ describe('download profile action model', () => {
 		expect(model.activeProfile.id).toBe('audio-only')
 		expect(model.activeSummary).toBe('best audio')
 		expect(model.options).toHaveLength(BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.enabled).length)
-		expect(model.options.find(option => option.profile.id === 'audio-only')).toMatchObject({active: true, ref: {kind: 'builtin', id: 'audio-only'}})
+		expect(model.options.find(option => option.profile.id === 'audio-only')).toMatchObject({current: true, ref: {kind: 'builtin', id: 'audio-only'}})
 		expect(model.options.every(option => option.label.length > 0)).toBe(true)
 	})
 
@@ -24,10 +24,10 @@ describe('download profile action model', () => {
 
 		const model = buildDownloadProfileActionModel(prefs, balanced)
 		expect(model.activeProfile.id).toBe('balanced')
-		expect(model.options.filter(option => option.active).map(option => option.profile.id)).toEqual(['balanced'])
+		expect(model.options.filter(option => option.current).map(option => option.profile.id)).toEqual(['balanced'])
 
 		const turnedOff = buildDownloadProfileActionModel(prefs, low)
-		expect(turnedOff.options[0]).toMatchObject({active: true, profile: {id: 'low-240'}})
+		expect(turnedOff.options[0]).toMatchObject({current: true, hidden: true, profile: {id: 'low-240'}})
 	})
 
 	it('hides disabled low-data profiles until they are enabled', () => {

@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
@@ -27,6 +27,7 @@ import {createPlaylistProfileTableState, playlistProfileTableReducer} from './pl
 import {PLAYLIST_PROFILE_COLUMNS} from './playlistProfileColumns.js'
 import {PlaylistProfileColumnsContext, type PlaylistProfileColumnsContextValue, type PlaylistSelectAllState} from './playlistProfileColumnsContext.js'
 import {playlistProfileMenuModel, rowMenuTargets} from './playlistProfileMenu.js'
+import {profilePickerOptions} from './profilePickerOptions.js'
 import {PlaylistProfileRowMenu, type PlaylistProfileRowMenuHandle} from './PlaylistProfileRowMenu.js'
 import {playlistProfileTableFeatures} from './playlistProfileTableFeatures.js'
 import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
@@ -78,8 +79,11 @@ export function StepPlaylistProfiles(): ReactNode {
 	const hasAnyThumbnail = useMemo(() => items.some(entry => !!entry.thumbnail), [items])
 	const liveLabel = t('wizard.playlist.durationUnknown')
 
-	const model = useMemo(() => buildDownloadProfileActionModel(settings?.profiles), [settings?.profiles])
-	const profiles = useMemo(() => model.options.map(option => option.profile), [model.options])
+	const profilesPrefs = settings?.profiles
+	const model = useMemo(() => buildDownloadProfileActionModel(profilesPrefs), [profilesPrefs])
+	// Every saved profile, hidden ones too: a row keeps a profile hidden after it was
+	// assigned, and downloads with it (prepareMultiProfileQueueSubmission).
+	const profiles = useMemo(() => allDownloadProfiles(profilesPrefs), [profilesPrefs])
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
 	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
 	// dialog previews the same resolved path DownloadProfilesHome would show.
@@ -158,13 +162,16 @@ export function StepPlaylistProfiles(): ReactNode {
 			}),
 		[itemById, resolveProfile]
 	)
-	const toolbarMenu = useMemo(() => playlistProfileMenuModel(model.options, profilesOf(selectedItemIds)), [model.options, profilesOf, selectedItemIds])
+	// The chips list the profiles in use the way every picker lists profiles.
+	const chipOptions = useMemo(() => profilePickerOptions(profilesPrefs, {current: null, inUse: profiles.filter(profile => counts.has(profile.id))}), [profilesPrefs, profiles, counts])
+	const toolbarMenu = useMemo(() => playlistProfileMenuModel(profilesPrefs, profilesOf(selectedItemIds)), [profilesPrefs, profilesOf, selectedItemIds])
+	const contextMenu = useMemo(() => playlistProfileMenuModel(profilesPrefs, profilesOf(contextItemIds)), [profilesPrefs, profilesOf, contextItemIds])
 	const rowMenuFor = useCallback(
 		(rowId: string) => {
 			const targets = rowMenuTargets(rowId, selectedIds, selectedItemIds)
-			return {targets, menu: playlistProfileMenuModel(model.options, profilesOf(targets))}
+			return {targets, menu: playlistProfileMenuModel(profilesPrefs, profilesOf(targets))}
 		},
-		[model.options, profilesOf, selectedIds, selectedItemIds]
+		[profilesPrefs, profilesOf, selectedIds, selectedItemIds]
 	)
 
 	const assign = useCallback(
@@ -264,7 +271,7 @@ export function StepPlaylistProfiles(): ReactNode {
 
 				<PlaylistProfileActionBar menu={toolbarMenu} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={editProfile} onNewProfile={() => newProfile(selectedItemIds)} onReset={() => reset(selectedItemIds)} />
 
-				<PlaylistProfileFilterChips options={model.options} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
+				<PlaylistProfileFilterChips options={chipOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 
 				{allRemoved ? (
 					<Empty className="flex-1 py-10" data-testid="playlist-profile-empty">
@@ -283,8 +290,8 @@ export function StepPlaylistProfiles(): ReactNode {
 							topVirtualPadding={topVirtualPadding}
 							bottomVirtualPadding={bottomVirtualPadding}
 							renderedColumnCount={renderedColumnCount}
-							options={model.options}
 							contextItemIds={contextItemIds}
+							contextMenu={contextMenu}
 							selectedIds={selectedIds}
 							interactions={interactions}
 							onAssign={assign}

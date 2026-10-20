@@ -3247,10 +3247,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔"
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} تفویض کریں"
-
 #. Plural form "one" for ur: used for counts like 1.
 msgctxt "wizard.playlistProfiles.assignTrigger_one"
 msgid "Assign to {{count}} video"

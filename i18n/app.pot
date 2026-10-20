@@ -3187,10 +3187,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr ""
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr ""
-
 msgctxt "wizard.playlistProfiles.assignTrigger_one"
 msgid "Assign to {{count}} video"
 msgstr ""
