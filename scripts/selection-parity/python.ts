@@ -1,5 +1,5 @@
-// The Python that runs the pinned yt-dlp for the selection parity check
-// (`bun run check`). yt-dlp needs Python 3.10 or newer. macOS ships only a
+// The Python that runs the pinned yt-dlp for the parity checks (selection and
+// filename; both are gates of `bun run check`). yt-dlp needs Python 3.10 or newer. macOS ships only a
 // `python3` stub until the Command Line Tools are installed, and Windows names
 // it `python` or the `py` launcher, so each is tried and its version checked.
 
@@ -27,7 +27,7 @@ const CANDIDATES: readonly PythonCommand[] =
 
 const VERSION_CHECK = 'import sys; print(sys.version_info >= (3, 10))'
 
-export const PYTHON_REQUIREMENT = 'Python 3.10 or newer (python3, python or py -3), to run yt-dlp for the selection parity check'
+export const PYTHON_REQUIREMENT = 'Python 3.10 or newer (python3, python or py -3), to run yt-dlp for the parity checks'
 
 export async function findPython(): Promise<PythonCommand | null> {
 	for (const candidate of CANDIDATES) {

@@ -27,11 +27,15 @@ bunx vp check --fix             # same, with formatter and lint fixes
 bun run check:static            # errors:build + vp check (the gate's static step)
 bun run check:tooling-parity    # representative rule parity probes
 bun run check:tooling-contract  # verifies this monorepo tooling contract
+bun run check:selection-parity  # Format-screen picks vs real yt-dlp (needs Python 3.10+)
+bun run check:filename-parity   # predicted download paths vs real yt-dlp (needs Python 3.10+)
 bun run packages:check          # registry package gates in dependency order
 bun run check                   # canonical local and CI gate
 ```
 
 `bun run check` is the single required pre-PR and CI command. CI should call it directly instead of duplicating its substeps.
+
+The two parity checks run the pinned yt-dlp zipapp (fetched once into `node_modules/.cache`, SHA-256 verified) under Python 3.10+. `check:filename-parity` takes about 15 s. Without Python 3.10+, or offline with no cached zipapp, it prints `SKIPPED` and exits 0 locally so a missing runtime does not block a contributor, and it never prints a pass. When `CI` is set the same gap fails the run, so the gate that enforces it cannot skip it. Every path change is compared with yt-dlp's own expansion of `$VAR`, `~`, `%VAR%` and `%(field)s` there; a unit test alone does not prove that.
 
 ## Pre-commit Hook
 

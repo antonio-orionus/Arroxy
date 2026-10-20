@@ -9,6 +9,11 @@
 //   bun run check:filename-parity            # fail on any difference
 //   bun run check:filename-parity --verbose  # also list the agreed cases
 //
+// It is a gate of `bun run check`. Where Python 3.10+ or the yt-dlp download is
+// missing, a local run prints SKIPPED and exits 0, so a contributor without
+// them is not blocked; it never reports a pass. Under CI (`CI` set) the same
+// gap fails the run, so the check cannot be skipped where it is enforced.
+//
 // yt-dlp is the pinned release below, its zipapp fetched once into
 // node_modules/.cache and checked against the published SHA-256; it runs under
 // python3 (scripts/filename-parity/oracle.py), offline, from a recorded probe.
@@ -22,6 +27,7 @@ import path from 'node:path'
 import {promisify} from 'node:util'
 import {planWorkflow} from 'yt-dlp-bridge'
 import {bindFilenameTemplate, compileFilenameTemplate, templateOutputDir, type TemplateMetadata} from '../src/shared/filenameTemplate.js'
+import {findPython, PYTHON_REQUIREMENT, type PythonCommand} from './selection-parity/python.js'
 
 const YT_DLP = {version: '2026.08.19', sha256: '1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6'}
 
@@ -35,6 +41,9 @@ const PARITY_VAR = {ARROXY_PARITY: 'EXPANDED'}
 // What Windows would have set, so the ntpath pass has real variables to expand.
 const WINDOWS_ENV = {USERNAME: 'parity', USERPROFILE: 'C:\\Users\\parity', TEMP: 'C:\\Users\\parity\\AppData\\Local\\Temp'}
 
+// A prerequisite the check cannot run without: skipped locally, failed in CI.
+class MissingPrerequisite extends Error {}
+
 function sha256(bytes: Uint8Array): string {
 	return createHash('sha256').update(bytes).digest('hex')
 }
@@ -42,9 +51,16 @@ function sha256(bytes: Uint8Array): string {
 async function pinnedYtDlp(): Promise<string> {
 	const file = path.join(CACHE_DIR, `yt-dlp-${YT_DLP.version}.zip`)
 	if (existsSync(file) && sha256(readFileSync(file)) === YT_DLP.sha256) return file
-	const response = await fetch(`https://github.com/yt-dlp/yt-dlp/releases/download/${YT_DLP.version}/yt-dlp`)
-	if (!response.ok) throw new Error(`could not fetch yt-dlp ${YT_DLP.version}: HTTP ${response.status}`)
-	const bytes = new Uint8Array(await response.arrayBuffer())
+	const url = `https://github.com/yt-dlp/yt-dlp/releases/download/${YT_DLP.version}/yt-dlp`
+	const bytes = await fetch(url).then(
+		async response => {
+			if (!response.ok) throw new MissingPrerequisite(`yt-dlp ${YT_DLP.version} could not be downloaded (HTTP ${response.status}) and is not cached`)
+			return new Uint8Array(await response.arrayBuffer())
+		},
+		(error: unknown) => {
+			throw new MissingPrerequisite(`yt-dlp ${YT_DLP.version} could not be downloaded (${error instanceof Error ? error.message : String(error)}) and is not cached`)
+		}
+	)
 	const actual = sha256(bytes)
 	if (actual !== YT_DLP.sha256) throw new Error(`yt-dlp ${YT_DLP.version} has SHA-256 ${actual}, expected ${YT_DLP.sha256}`)
 	await mkdir(CACHE_DIR, {recursive: true})
@@ -103,6 +119,27 @@ function outputArgs(args: readonly string[]): string[] {
 }
 
 const verbose = process.argv.includes('--verbose')
+
+// Both prerequisites are settled before any case is built, so a skip is cheap.
+async function prerequisites(): Promise<{python: PythonCommand; ytDlp: string}> {
+	const python = await findPython()
+	if (python === null) throw new MissingPrerequisite(`needs ${PYTHON_REQUIREMENT}, which was not found`)
+	return {python, ytDlp: await pinnedYtDlp()}
+}
+
+let ready: {python: PythonCommand; ytDlp: string}
+try {
+	ready = await prerequisites()
+} catch (error) {
+	if (!(error instanceof MissingPrerequisite)) throw error
+	if (process.env.CI) {
+		console.error(`filename parity: FAILED, ${error.message}; CI must run this check`)
+		process.exit(1)
+	}
+	console.warn(`filename parity: SKIPPED, ${error.message}. Nothing was compared against yt-dlp; CI will run it.`)
+	process.exit(0)
+}
+
 const work = realpathSync(mkdtempSync(path.join(tmpdir(), 'arroxy-filename-parity-')))
 const cases: Case[] = []
 try {
@@ -130,7 +167,7 @@ try {
 		}
 	}
 
-	const ytDlp = await pinnedYtDlp()
+	const {python, ytDlp} = ready
 	const request = JSON.stringify({
 		cases: cases.map(testCase => {
 			const args = testCase.outputArgs
@@ -138,7 +175,7 @@ try {
 			return {info_json: testCase.infoJson, output_args: args, outtmpls: values('-o').map(value => value.replace(/^infojson:/, '')), paths: values('--paths').map(value => value.replace(/^(home|temp):/, ''))}
 		})
 	})
-	const child = run('python3', [ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV}})
+	const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV}})
 	child.child.stdin?.end(request)
 	const {stdout} = await child
 	const results: unknown = JSON.parse(stdout)
