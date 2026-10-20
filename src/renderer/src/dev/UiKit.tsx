@@ -1,5 +1,6 @@
 import {useState, type ReactNode} from 'react'
 import {AlertTriangle, CheckCircle2, Clapperboard, Download, FolderOpen, Info, Inbox, Link2, Music, Pause, Play, Search, Trash2, XCircle} from 'lucide-react'
+import {cn} from '@renderer/lib/utils.js'
 import {CheckRow} from '../components/shared/CheckRow.js'
 import {FormatChip, FormatLine} from '../components/wizard/format/FormatLine.js'
 import {IconTile} from '../components/shared/IconTile.js'
@@ -37,6 +38,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from '../components/ui/tabs.js
 import {Textarea} from '../components/ui/textarea.js'
 import {ToggleGroup, ToggleGroupItem} from '../components/ui/toggle-group.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../components/ui/tooltip.js'
+import {UiKitProfilePickers} from './UiKitProfilePickers.js'
 
 // Design-system sheet for the browser-mock workbench (`?kit`). Every primitive in
 // every variant, on the real glass surfaces, in whichever sky and direction the
@@ -68,9 +70,9 @@ const TOKENS = [
 // A Greek label is among the longest the app ships; it proves the wrap contract.
 const LONG_LABEL = 'Συμβατότητα με έξυπνη τηλεόραση'
 
-function Section({title, children}: {title: string; children: ReactNode}): ReactNode {
+function Section({title, wide = false, children}: {title: string; wide?: boolean; children: ReactNode}): ReactNode {
 	return (
-		<section className="glow-panel flex flex-col gap-4 rounded-2xl p-5" data-testid={`kit-${title.toLowerCase().replace(/\W+/g, '-')}`}>
+		<section className={cn('glow-panel flex flex-col gap-4 rounded-2xl p-5', wide && 'lg:col-span-2')} data-testid={`kit-${title.toLowerCase().replace(/\W+/g, '-')}`}>
 			<h2 className="text-headline">{title}</h2>
 			{children}
 		</section>
@@ -511,6 +513,10 @@ export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 							<OptionCard value="downloads" orientation="horizontal" icon={<Download />} title="Downloads" meta="~/Downloads" />
 							<OptionCard value="music" orientation="horizontal" icon={<Music />} title="Music" meta="~/Music" />
 						</ToggleGroup>
+					</Section>
+
+					<Section title="Profile pickers" wide>
+						<UiKitProfilePickers />
 					</Section>
 
 					<Section title="Composites: identity">

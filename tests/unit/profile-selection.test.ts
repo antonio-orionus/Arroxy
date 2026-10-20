@@ -285,6 +285,20 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	})
 
 	// X/Twitter's extractor sorts `proto:m3u8`: HLS first, so "direct downloads first" would be wrong there.
+	// yt-dlp's `res` is the smaller side, which `-S res:1080` caps on: an
+	// ultra-wide 2560x1080 is a 1080 stream to it, though its row reads 1440p.
+	it("says nothing about the tier for a stream yt-dlp's res counts as that tier, though its row reads 1440p", () => {
+		const raw = [rawVideo('wide', 1080, {width: 2560, resolution: '2560x1080'}), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('hd-1080'), raw)
+		expect(media.videoFormatId).toBe('wide')
+		expect(notices).toEqual([])
+	})
+
+	it('still says so when the video only goes lower', () => {
+		const raw = [rawVideo('720', 720), rawAudio('140')]
+		expect(resolveRaw(builtin('hd-1080'), raw).notices).toEqual([{kind: 'video-tier-fallback', wanted: '1080', picked: 720}])
+	})
+
 	it('names the protocol rank only where the extractor ranks direct downloads first', () => {
 		const raw = [rawVideo('137', 1080), rawAudio('140')]
 		expect(resolveRaw(builtin('best-quality'), raw, ['res', 'proto:m3u8']).order?.video.map(rank => rank.kind)).not.toContain('protocol')

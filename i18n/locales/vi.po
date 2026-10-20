@@ -3072,10 +3072,6 @@ msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà."
 
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Gán {{profileName}}"
-
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"
 msgid "Assign to {{count}} videos"

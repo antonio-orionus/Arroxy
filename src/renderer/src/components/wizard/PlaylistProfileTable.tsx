@@ -12,7 +12,8 @@ import type {DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {ContextMenuContent, ContextMenuItem, ContextMenuSeparator} from '../ui/context-menu.js'
 import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
 import type {RowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
-import type {DownloadProfileActionOption} from './downloadProfileActions.js'
+import type {PlaylistProfileMenuModel} from './playlistProfileMenu.js'
+import {ProfilePickerContextItems} from './ProfilePicker.js'
 import type {PlaylistProfileTableFeatures} from './playlistProfileTableFeatures.js'
 
 interface PlaylistProfileTableProps {
@@ -23,8 +24,9 @@ interface PlaylistProfileTableProps {
 	topVirtualPadding: number
 	bottomVirtualPadding: number
 	renderedColumnCount: number
-	options: DownloadProfileActionOption[]
+	// The right-click menu's rows and its model for them.
 	contextItemIds: string[]
+	contextMenu: PlaylistProfileMenuModel
 	selectedIds: ReadonlySet<string>
 	interactions: RowSelectionInteractions
 	onAssign: (itemIds: string[], ref: DownloadProfileRef) => void
@@ -41,16 +43,11 @@ function columnClassName(columnId: string): string {
 	return 'w-24'
 }
 
-function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset, onRemove}: {itemIds: string[]; options: DownloadProfileActionOption[]; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void; onRemove: (itemIds: string[]) => void}): ReactNode {
+function PlaylistProfileContextMenuItems({itemIds, menu, onAssign, onReset, onRemove}: {itemIds: string[]; menu: PlaylistProfileMenuModel; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void; onRemove: (itemIds: string[]) => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
-		<ContextMenuContent className="min-w-56">
-			{options.map(option => (
-				<ContextMenuItem key={option.profile.id} onClick={() => onAssign(itemIds, option.ref)}>
-					<option.Icon size={14} aria-hidden />
-					{t('wizard.playlistProfiles.assignAria', {profileName: option.profile.name})}
-				</ContextMenuItem>
-			))}
+		<ContextMenuContent className="min-w-64">
+			<ProfilePickerContextItems options={menu.options} label={t('wizard.playlistProfiles.assignTriggerEmpty')} onPick={ref => onAssign(itemIds, ref)} />
 			<ContextMenuSeparator />
 			<ContextMenuItem onClick={() => onReset(itemIds)}>
 				<RotateCcw size={14} aria-hidden />
@@ -65,7 +62,7 @@ function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset, o
 	)
 }
 
-export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, options, contextItemIds, selectedIds, interactions, onAssign, onReset, onRemove}: PlaylistProfileTableProps): ReactNode {
+export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItemIds, contextMenu, selectedIds, interactions, onAssign, onReset, onRemove}: PlaylistProfileTableProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<SelectableVirtualTable
@@ -83,7 +80,7 @@ export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVi
 			scrollTestId="playlist-profile-scroll"
 			rowTestId={rowId => `profile-row-${rowId}`}
 			columnClassName={columnClassName}
-			renderContextMenu={() => <PlaylistProfileContextMenuItems itemIds={contextItemIds} options={options} onAssign={onAssign} onReset={onReset} onRemove={onRemove} />}
+			renderContextMenu={() => <PlaylistProfileContextMenuItems itemIds={contextItemIds} menu={contextMenu} onAssign={onAssign} onReset={onReset} onRemove={onRemove} />}
 		/>
 	)
 }
