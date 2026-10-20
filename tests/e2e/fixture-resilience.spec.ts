@@ -123,6 +123,25 @@ test('Electron download into a read-only folder fails before transfer and retrie
 	})
 })
 
+// Risk: yt-dlp expands `$NAME`, `${NAME}`, `%NAME%` and `~` in every path it
+// is given, and --paths has no escape on POSIX, so a download folder named
+// after a set variable sent the files to another folder while Arroxy looked
+// for them in this one. yt-dlp now runs inside the folder and no folder text
+// reaches its argv: the download must land here, under the name as typed.
+// PATH and HOME are set on every platform the suite runs on.
+test('Electron download into a folder named after variables lands in that folder', async () => {
+	test.setTimeout(120_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-expand-user-', outputPrefix: 'arroxy-fixture-${PATH} $HOME %PATH% ~u-out-'}, async ({page, outputDir, queue, files}) => {
+		expect(path.basename(outputDir)).toContain('${PATH} $HOME %PATH% ~u')
+		await prepareSingleReview(page, videoId)
+		await page.locator('[data-testid="btn-download"]').click()
+		await queue.expectStatus('Fixture Video 8', 'done', 90_000)
+		files.expectMp4Count(1)
+	})
+})
+
 test('Electron split media failure preserves temp artifacts and retries from resume context', async () => {
 	test.setTimeout(180_000)
 	const videoId = SPLIT_MEDIA_VIDEO_ID
