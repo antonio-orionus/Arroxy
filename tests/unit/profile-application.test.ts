@@ -189,6 +189,19 @@ describe('profileFromWizard', () => {
 		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['de']}), FORMATS, regional).subtitles).toMatchObject({languages: ['de'], source: 'manual-first'})
 	})
 
+	// Every picked track must come back, not just a track of the same kind.
+	it('never lets a regional caption stand in for the picked one', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}], 'en-US-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en', 'en-orig']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-and-auto'})
+	})
+
+	// Off YouTube both maps can key a track `en`; the picker lists it as the uploaded one.
+	it('tells an uploaded track from an automatic one that shares its key', () => {
+		const ctx = {...context, subtitles: {en: [{ext: 'vtt'}]}, automaticCaptions: {en: [{ext: 'vtt'}]}}
+		const autoOnly = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['ja'], source: 'auto-only' as const}}
+		expect(save(autoOnly, snapshot => ({...snapshot, subtitleLanguages: ['en']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-first'})
+	})
+
 	it('saves audio conversions, folder and file name', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})

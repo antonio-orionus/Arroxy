@@ -207,19 +207,35 @@ type SubtitleSource = DownloadProfile['subtitles']['source']
 // sources that would bring an uploaded track along.
 const SOURCE_PREFERENCE = ['auto-only', 'manual-first', 'manual-only', 'manual-and-auto'] as const satisfies readonly SubtitleSource[]
 
-// The saved source is one whose pick on this video gives back, per language,
-// the kind of track the user kept (manual, automatic or both), so reapplying
-// the profile finds the same tracks again; the base's own wins when it does.
-// One source covers every language, so picks no single source gives back
-// (both tracks of one language, the manual track alone of another) save as
+// The saved source is one whose pick on this video gives back every picked
+// track, from the same map, and adds no kind of track (manual or automatic)
+// the user left out of a language, so reapplying the profile finds the same
+// tracks again; the base's own wins when it does. A regional variant of a kept
+// kind may come along: the profile's language code matches it anyway. One
+// source covers every language, so picks no single source gives back (both
+// tracks of one language, the manual track alone of another) save as
 // `manual-and-auto`, which keeps every picked track rather than dropping one.
 function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, context: SaveProfileContext): SubtitleSource {
 	if (keys.length === 0) return base
-	const maps = {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}
-	const kinds = (tracks: readonly string[]): string => [...new Set(tracks.map(key => (key in context.subtitles && !key.endsWith('-orig') ? 'manual' : 'auto')))].toSorted().join('+')
+	// The picker lists a key both maps hold as the uploaded track.
+	const picked = (key: string): string => (key in context.subtitles && !key.endsWith('-orig') ? `manual:${key}` : `auto:${key}`)
 	const languages = [...new Set(keys.map(baseLanguageCode))]
-	const wanted = new Map(languages.map(language => [language, kinds(keys.filter(key => baseLanguageCode(key) === language))]))
-	const givesBack = (source: SubtitleSource): boolean => languages.every(language => kinds(pickSubtitleTracks([language], source, maps).tracks) === wanted.get(language))
+	const wanted = new Map(languages.map(language => [language, keys.filter(key => baseLanguageCode(key) === language).map(picked)]))
+	const kindOf = (track: string): string => track.slice(0, track.indexOf(':'))
+	// Tagged by the map each track comes from: a shared key is the manual one
+	// wherever the source fetches manual tracks.
+	const fetched = (language: string, source: SubtitleSource): string[] => {
+		const manual = source === 'auto-only' ? [] : pickSubtitleTracks([language], source, {subtitles: context.subtitles, automaticCaptions: {}}).tracks
+		const all = pickSubtitleTracks([language], source, {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}).tracks
+		return all.map(key => (manual.includes(key) ? `manual:${key}` : `auto:${key}`))
+	}
+	const givesBack = (source: SubtitleSource): boolean =>
+		languages.every(language => {
+			const want = wanted.get(language) ?? []
+			const got = fetched(language, source)
+			const kinds = new Set(want.map(kindOf))
+			return want.every(track => got.includes(track)) && got.every(track => kinds.has(kindOf(track)))
+		})
 	return [base, ...SOURCE_PREFERENCE].find(givesBack) ?? 'manual-and-auto'
 }
 
