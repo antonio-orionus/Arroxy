@@ -24,7 +24,8 @@ export type VideoRank =
 	| {kind: 'hdr'}
 	// Copies the site rates higher by where they come from (yt-dlp's
 	// `source_preference`: YouTube's Premium streams, ones not missing a PO
-	// token). YouTube, Vimeo and VK sort it right after resolution, fps and HDR.
+	// token). Probes carry it only from sites whose yt-dlp sort ranks it here,
+	// right after resolution, fps and HDR (`Site.sortsSourceBeforeCodec`).
 	| {kind: 'source'}
 	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
 	| {kind: 'codec'}

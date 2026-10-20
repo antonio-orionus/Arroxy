@@ -149,11 +149,14 @@ HEVC, H.264) · size.
 
 **Source** is yt-dlp's `source_preference`: YouTube raises its Premium
 (enhanced-bitrate) copies by 100 and lowers ones missing a PO token by 20. Its
-extractor sorts `quality, res, fps, hdr:12, source, vcodec`, as do Vimeo and
-(after `res`) VK, LinkedIn and 3Q, so the pick ranks it before codec and a
-1080p video takes the Premium VP9 over AV1, as a queued download does. A
-missing value reads as yt-dlp's default, -1. A queued download needs no `-S`
-token for it: the site's own sort fields follow the `-S` ones.
+extractor sorts `quality, res, fps, hdr:12, source, vcodec`, so the pick ranks
+it before codec and a 1080p video takes the Premium VP9 over AV1, as a queued
+download does. A queued download needs no `-S` token for it: the site's own
+sort fields follow the `-S` ones. Other sites place it differently (TikTok
+sorts `quality, codec, size, br` and marks its API copies -2; yt-dlp's
+default puts it after size), so the probe keeps it only for sites whose
+adapter sets `sortsSourceBeforeCodec`; elsewhere it is absent and every copy
+ties on it. A missing value reads as yt-dlp's default, -1.
 No H.264 on the video: the codec rank falls back to Best picture's order
 with the existing `mp4-unavailable` fit notice.
 

@@ -81,7 +81,7 @@ export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? '',
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], info.duration),
+		formats: mapFormats(info.formats ?? [], {site, durationSeconds: info.duration}),
 		title: info.title ?? '',
 		thumbnail: info.thumbnail ?? '',
 		...(info.duration === undefined ? {} : {duration: Math.round(info.duration)}),

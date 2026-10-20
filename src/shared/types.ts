@@ -250,7 +250,8 @@ export interface FormatOption {
 	quality?: number
 	// yt-dlp's `source_preference`: how the site rates where a copy comes from
 	// (YouTube's Premium copies +100, ones missing a PO token -20). Absent reads
-	// as yt-dlp's default, -1.
+	// as yt-dlp's default, -1. Only set on sites whose yt-dlp sort ranks it
+	// before the codec (YouTube).
 	sourcePreference?: number
 }
 

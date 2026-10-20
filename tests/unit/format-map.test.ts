@@ -1,13 +1,18 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {genericSite} from '@shared/sites/generic.js'
+import {youtubeSite} from '@shared/sites/youtube.js'
 
 describe('mapFormats', () => {
 	it('returns raw format_id without composing audio selector', () => {
-		const mapped = mapFormats([
-			{format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
-			{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
-			{format_id: '137', resolution: '1080p', ext: 'mp4', vcodec: 'avc1', acodec: 'none'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
+				{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
+				{format_id: '137', resolution: '1080p', ext: 'mp4', vcodec: 'avc1', acodec: 'none'}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped).toHaveLength(3)
 		expect(mapped[0].formatId).toBe('137')
@@ -20,11 +25,14 @@ describe('mapFormats', () => {
 	})
 
 	it('keeps the channel count and sample rate of an audio stream as data, not only in its label', () => {
-		const mapped = mapFormats([
-			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', audio_channels: 6, asr: 48_000},
-			{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', asr: 22_050},
-			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', audio_channels: 6, asr: 48_000},
+				{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', asr: 22_050},
+				{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'}
+			],
+			{site: genericSite}
+		)
 		expect(mapped.find(f => f.formatId === '380')).toEqual(expect.objectContaining({audioChannels: 6, sampleRateHz: 48_000}))
 		expect(mapped.find(f => f.formatId === '139')?.sampleRateHz).toBe(22_050)
 		expect(mapped.find(f => f.formatId === '139')?.audioChannels).toBeUndefined()
@@ -32,21 +40,27 @@ describe('mapFormats', () => {
 	})
 
 	it('keeps the video codec on video streams so MP4 profiles can prefer H.264', () => {
-		const mapped = mapFormats([
-			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},
-			{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},
+				{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2'}
+			],
+			{site: genericSite}
+		)
 		expect(mapped.find(f => f.formatId === '137')?.videoCodec).toBe('avc1.640028')
 		expect(mapped.find(f => f.formatId === '140')?.videoCodec).toBeUndefined()
 	})
 
 	it('keeps the bitrate of a video stream, or of a muxed stream as a whole', () => {
-		const mapped = mapFormats([
-			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none', tbr: 2645.9, vbr: 2645.9},
-			{format_id: '18', resolution: '640x360', ext: 'mp4', vcodec: 'avc1.42001E', acodec: 'mp4a.40.2', tbr: 501.5},
-			{format_id: '136', resolution: '1280x720', ext: 'mp4', vcodec: 'avc1.4d401f', acodec: 'none', vbr: 1200},
-			{format_id: '135', resolution: '854x480', ext: 'mp4', vcodec: 'avc1.4d401e', acodec: 'none'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none', tbr: 2645.9, vbr: 2645.9},
+				{format_id: '18', resolution: '640x360', ext: 'mp4', vcodec: 'avc1.42001E', acodec: 'mp4a.40.2', tbr: 501.5},
+				{format_id: '136', resolution: '1280x720', ext: 'mp4', vcodec: 'avc1.4d401f', acodec: 'none', vbr: 1200},
+				{format_id: '135', resolution: '854x480', ext: 'mp4', vcodec: 'avc1.4d401e', acodec: 'none'}
+			],
+			{site: genericSite}
+		)
 		expect(mapped.find(f => f.formatId === '137')?.tbr).toBe(2645.9)
 		expect(mapped.find(f => f.formatId === '18')?.tbr).toBe(501.5)
 		expect(mapped.find(f => f.formatId === '136')?.tbr).toBe(1200)
@@ -54,10 +68,13 @@ describe('mapFormats', () => {
 	})
 
 	it('includes audio-only formats (vcodec === none) with isAudioOnly flag', () => {
-		const mapped = mapFormats([
-			{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
-			{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},
+				{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a'}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped).toHaveLength(2)
 		const audioOnly = mapped.find(f => f.formatId === '140')
@@ -66,11 +83,14 @@ describe('mapFormats', () => {
 	})
 
 	it('includes YouTube Dolby audio-only codecs without filtering them out', () => {
-		const mapped = mapFormats([
-			{format_id: '328', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ec-3', abr: 384},
-			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384},
-			{format_id: '251', resolution: 'audio only', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '328', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ec-3', abr: 384},
+				{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384},
+				{format_id: '251', resolution: 'audio only', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped.map(format => format.formatId).sort()).toEqual(['251', '328', '380'])
 		expect(mapped.map(format => format.formatId)).toEqual(['328', '380', '251'])
@@ -81,12 +101,15 @@ describe('mapFormats', () => {
 	})
 
 	it('disambiguates DRC variants and non-stereo audio in labels', () => {
-		const mapped = mapFormats([
-			{format_id: '140-drc', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium, DRC', audio_channels: 2, asr: 44100},
-			{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium', audio_channels: 2, asr: 44100},
-			{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', abr: 48.9, format_note: 'low', audio_channels: 2, asr: 22050},
-			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384.1, format_note: 'high', audio_channels: 6, asr: 48000}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '140-drc', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium, DRC', audio_channels: 2, asr: 44100},
+				{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, format_note: 'medium', audio_channels: 2, asr: 44100},
+				{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', abr: 48.9, format_note: 'low', audio_channels: 2, asr: 22050},
+				{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384.1, format_note: 'high', audio_channels: 6, asr: 48000}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped.find(format => format.formatId === '140-drc')?.label).toContain('DRC')
 		expect(mapped.find(format => format.formatId === '140-drc')?.isDrc).toBe(true)
@@ -100,11 +123,14 @@ describe('mapFormats', () => {
 	})
 
 	it('preserves source audio language metadata for display and selection', () => {
-		const mapped = mapFormats([
-			{format_id: '140-drc', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, language: 'en', language_preference: 10, format_note: 'English original (default), medium, DRC'},
-			{format_id: '140-1', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.5, language: 'en', language_preference: 10, format_note: 'English original (default), medium'},
-			{format_id: '140-0', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.5, language: 'tlh', language_preference: -1, format_note: 'Klingon, medium'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '140-drc', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.6, language: 'en', language_preference: 10, format_note: 'English original (default), medium, DRC'},
+				{format_id: '140-1', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.5, language: 'en', language_preference: 10, format_note: 'English original (default), medium'},
+				{format_id: '140-0', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129.5, language: 'tlh', language_preference: -1, format_note: 'Klingon, medium'}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped.find(format => format.formatId === '140-drc')).toEqual(expect.objectContaining({audioLanguage: 'en', audioLanguagePreference: 10, audioTrackLabel: 'English original (default)', isDefaultAudio: true, isOriginalAudio: true, isDrc: true}))
 		expect(mapped.find(format => format.formatId === '140-1')).toEqual(expect.objectContaining({audioTrackLabel: 'English original (default)', audioTrackQuality: 'medium', isDefaultAudio: true, isOriginalAudio: true, isDrc: false}))
@@ -112,11 +138,14 @@ describe('mapFormats', () => {
 	})
 
 	it('keeps quality metadata separate when format_note contains only quality', () => {
-		const mapped = mapFormats([
-			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384.1, format_note: 'high', audio_channels: 6},
-			{format_id: '251', resolution: 'audio only', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 122.4, format_note: 'medium'},
-			{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', abr: 48.9, format_note: 'low'}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', abr: 384.1, format_note: 'high', audio_channels: 6},
+				{format_id: '251', resolution: 'audio only', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 122.4, format_note: 'medium'},
+				{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', abr: 48.9, format_note: 'low'}
+			],
+			{site: genericSite}
+		)
 
 		const high = mapped.find(format => format.formatId === '380')
 		const medium = mapped.find(format => format.formatId === '251')
@@ -131,11 +160,14 @@ describe('mapFormats', () => {
 	})
 
 	it('sorts by resolution descending then filesize descending', () => {
-		const mapped = mapFormats([
-			{format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 10000},
-			{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 50000},
-			{format_id: '137', resolution: '1080p', ext: 'mp4', vcodec: 'avc1', acodec: 'none', filesize: 90000}
-		])
+		const mapped = mapFormats(
+			[
+				{format_id: '18', resolution: '360p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 10000},
+				{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', filesize: 50000},
+				{format_id: '137', resolution: '1080p', ext: 'mp4', vcodec: 'avc1', acodec: 'none', filesize: 90000}
+			],
+			{site: genericSite}
+		)
 
 		expect(mapped[0].resolution).toBe('1080p')
 		expect(mapped[1].resolution).toBe('720p')
@@ -147,7 +179,7 @@ describe('mapFormats', () => {
 describe('mapFormats — stream markers', () => {
 	const video = (format_id: string, extra: Record<string, unknown> = {}) => ({format_id, ext: 'mp4', resolution: '1920x1080', width: 1920, height: 1080, vcodec: 'avc1.640028', acodec: 'none', ...extra})
 	const audio = (format_id: string, extra: Record<string, unknown> = {}) => ({format_id, ext: 'm4a', resolution: 'audio only', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128, ...extra})
-	const markersOf = (formats: Record<string, unknown>[]) => Object.fromEntries(mapFormats(formats).map(f => [f.formatId, f.markers ?? []]))
+	const markersOf = (formats: Record<string, unknown>[]) => Object.fromEntries(mapFormats(formats, {site: genericSite}).map(f => [f.formatId, f.markers ?? []]))
 
 	it('reads each marker from the notes yt-dlp writes', () => {
 		expect(
@@ -170,28 +202,37 @@ describe('mapFormats — stream markers', () => {
 	})
 
 	it('keeps the site preference and drops streams yt-dlp cannot download for DRM', () => {
-		const formats = mapFormats([video('ok', {preference: -1}), video('drm', {has_drm: true})])
+		const formats = mapFormats([video('ok', {preference: -1}), video('drm', {has_drm: true})], {site: genericSite})
 		expect(formats.map(f => [f.formatId, f.preference])).toEqual([['ok', -1]])
 	})
 
-	it('keeps the source preference yt-dlp raises for Premium copies, ignoring a value that is no number', () => {
-		const formats = mapFormats([video('616', {format_note: 'Premium', source_preference: 99}), video('399', {source_preference: -1}), video('137', {source_preference: 'high'})])
+	it('keeps the source preference yt-dlp raises for Premium copies on YouTube, ignoring a value that is no number', () => {
+		const formats = mapFormats([video('616', {format_note: 'Premium', source_preference: 99}), video('399', {source_preference: -1}), video('137', {source_preference: 'high'})], {site: youtubeSite})
 		expect(Object.fromEntries(formats.map(f => [f.formatId, f.sourcePreference]))).toEqual({616: 99, 399: -1, 137: undefined})
+	})
+
+	it('leaves the source preference out where yt-dlp sorts it after the codec (TikTok, generic sites)', () => {
+		// TikTok sorts quality,codec,size,br and marks its API copies -2.
+		const formats = mapFormats([video('bytevc1_1080p', {vcodec: 'h265', source_preference: -2}), video('h264_1080p', {vcodec: 'h264', source_preference: -1})], {site: genericSite})
+		expect(formats.map(f => f.sourcePreference)).toEqual([undefined, undefined])
 	})
 })
 
 describe('mapFormats — sizes and names the site leaves out', () => {
 	it('estimates a size from the bitrate and duration when the site gives none', () => {
-		const [format] = mapFormats([{format_id: 'hls-2958', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'mp4a.40.2', tbr: 2958}], 540)
+		const [format] = mapFormats([{format_id: 'hls-2958', ext: 'mp4', resolution: '1280x720', vcodec: 'avc1', acodec: 'mp4a.40.2', tbr: 2958}], {site: genericSite, durationSeconds: 540})
 		expect(format.filesize).toBe(Math.round((2958 * 1000 * 540) / 8))
 	})
 
 	it('names no resolution rather than yt-dlp\'s "unknown" or a note like "watermarked"', () => {
-		const formats = mapFormats([
-			{format_id: '0', ext: 'mp4', resolution: 'unknown', vcodec: 'h264', acodec: 'aac'},
-			{format_id: 'download', ext: 'mp4', format_note: 'watermarked', vcodec: 'h264', acodec: 'aac'},
-			{format_id: 'sized', ext: 'mp4', width: 576, height: 1024, vcodec: 'h264', acodec: 'aac'}
-		])
+		const formats = mapFormats(
+			[
+				{format_id: '0', ext: 'mp4', resolution: 'unknown', vcodec: 'h264', acodec: 'aac'},
+				{format_id: 'download', ext: 'mp4', format_note: 'watermarked', vcodec: 'h264', acodec: 'aac'},
+				{format_id: 'sized', ext: 'mp4', width: 576, height: 1024, vcodec: 'h264', acodec: 'aac'}
+			],
+			{site: genericSite}
+		)
 		expect(Object.fromEntries(formats.map(f => [f.formatId, f.resolution]))).toEqual({0: '', download: '', sized: '576x1024'})
 	})
 })

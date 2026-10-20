@@ -296,7 +296,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], typeof info.duration === 'number' ? info.duration : undefined),
+		formats: mapFormats(info.formats ?? [], {site, durationSeconds: typeof info.duration === 'number' ? info.duration : undefined}),
 		title: info.title ?? '',
 		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,
