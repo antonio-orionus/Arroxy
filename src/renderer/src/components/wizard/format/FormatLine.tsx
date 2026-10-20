@@ -115,7 +115,7 @@ export function FormatChip({
 					{size}
 				</span>
 			) : null}
-			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background" /> : null}
+			{profilePick ? <ProfileDot className="absolute -end-1 -top-1 ring-2 ring-background transition-[scale,box-shadow] profile-why:scale-150 profile-why:ring-4 profile-why:ring-primary/40" /> : null}
 		</RadioGroupChip>
 	)
 	return hint ? <Hint label={hint}>{chip}</Hint> : chip

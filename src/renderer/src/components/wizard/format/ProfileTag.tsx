@@ -4,6 +4,7 @@ import {Info} from 'lucide-react'
 import {selectionOrderRows} from '@renderer/lib/selectionOrderRows.js'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {Badge} from '../../ui/badge.js'
+import {ProfileDot} from './FormatLine.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../../ui/tooltip.js'
 
 // Marks the stream the download profile picked for this video. Hover or focus
@@ -17,6 +18,7 @@ export function ProfileTag({closest = false}: {closest?: boolean}): ReactNode {
 	if (!order) {
 		return (
 			<Badge variant="secondary" size="sm" className="shrink-0" data-testid="profile-pick-tag">
+				<ProfileDot />
 				{label}
 			</Badge>
 		)
@@ -25,7 +27,8 @@ export function ProfileTag({closest = false}: {closest?: boolean}): ReactNode {
 		<Tooltip>
 			<TooltipTrigger
 				render={props => (
-					<Badge {...props} variant="secondary" size="sm" className="shrink-0 cursor-help" tabIndex={0} aria-label={`${label}. ${t('selectionOrder.whyLabel')}`} data-testid="profile-pick-tag">
+					<Badge {...props} variant="secondary" size="sm" className="shrink-0 cursor-help" tabIndex={0} aria-label={`${label}. ${t('selectionOrder.whyLabel')}`} data-profile-why data-testid="profile-pick-tag">
+						<ProfileDot />
 						{label}
 						<Info data-icon="inline-end" aria-hidden />
 					</Badge>
