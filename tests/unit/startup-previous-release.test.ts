@@ -1,5 +1,8 @@
-import {describe, expect, it} from 'vite-plus/test'
-import {assetNameFor, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
+import {assertRuntimeCacheWritten, assetNameFor, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
 
 describe('previousStableTag', () => {
 	const tags = ['v0.4.3', 'v0.4.4', 'v0.4.5', 'v0.4.6', 'v0.4.7', 'v0.4.8-beta.1']
@@ -31,5 +34,37 @@ describe('assetNameFor', () => {
 		expect(assetNameFor('linux', 'x64')).toBe('Arroxy-linux-x64.AppImage')
 		expect(assetNameFor('darwin', 'arm64')).toBe('Arroxy-mac-arm64.dmg')
 		expect(assetNameFor('win32', 'x64')).toBe('Arroxy-win-x64-Portable.exe')
+	})
+})
+
+describe('assertRuntimeCacheWritten', () => {
+	let profileDir: string
+
+	beforeEach(() => {
+		profileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-inherited-'))
+	})
+
+	afterEach(() => {
+		fs.rmSync(profileDir, {recursive: true, force: true})
+	})
+
+	it('rejects a profile the previous release left without a runtime cache', () => {
+		fs.writeFileSync(path.join(profileDir, 'settings.json'), '{}')
+		expect(() => assertRuntimeCacheWritten(profileDir)).toThrow(/runtime-cache/)
+	})
+
+	it('rejects an empty runtime cache', () => {
+		fs.mkdirSync(path.join(profileDir, 'runtime-cache'))
+		expect(() => assertRuntimeCacheWritten(profileDir)).toThrow(/runtime-cache/)
+	})
+
+	it('names what the profile does contain, so a red gate can be triaged from its log', () => {
+		fs.writeFileSync(path.join(profileDir, 'settings.json'), '{}')
+		expect(() => assertRuntimeCacheWritten(profileDir)).toThrow(/settings\.json/)
+	})
+
+	it('accepts a profile whose runtime cache holds anything', () => {
+		fs.mkdirSync(path.join(profileDir, 'runtime-cache', 'binaries'), {recursive: true})
+		expect(() => assertRuntimeCacheWritten(profileDir)).not.toThrow()
 	})
 })

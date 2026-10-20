@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {_electron as electron} from '@playwright/test'
 import {packagedLaunchEnv} from './launchEnv.js'
+import {awaitWarmupSettled} from './warmupSettled.js'
 
 const STABLE_TAG = /^v(\d+)\.(\d+)\.(\d+)$/
 const REPO = 'antonio-orionus/Arroxy'
@@ -154,10 +155,24 @@ export async function generateInheritedProfile(tag: string, workDir: string): Pr
 		const page = await app.firstWindow()
 		// Wait for the previous version to finish warmup, so the profile it leaves
 		// behind is the one a real user would carry into the update.
-		await page.locator('[data-testid="splash-overlay"]').waitFor({state: 'detached', timeout: PROFILE_WRITE_TIMEOUT_MS})
+		const observed = await awaitWarmupSettled(page, PROFILE_WRITE_TIMEOUT_MS)
+		if (observed !== 'main-screen') throw new Error(`${tag} ended warmup on the ${observed} instead of the main screen, so it wrote no usable inherited profile`)
 	} finally {
 		await app.close()
 	}
 
+	assertRuntimeCacheWritten(profileDir)
 	return profileDir
+}
+
+/**
+ * Warmup leaves the downloaded dependencies and their verdicts under
+ * `runtime-cache`, so a profile without one was closed before warmup finished
+ * and would test an update no real user makes.
+ */
+export function assertRuntimeCacheWritten(profileDir: string): void {
+	const cacheDir = path.join(profileDir, 'runtime-cache')
+	if (fs.existsSync(cacheDir) && fs.readdirSync(cacheDir).length > 0) return
+	const contents = fs.existsSync(profileDir) ? fs.readdirSync(profileDir).join(', ') : ''
+	throw new Error(`inherited profile has no runtime-cache, so the previous release closed before warmup wrote it (profile holds: ${contents || 'nothing'})`)
 }

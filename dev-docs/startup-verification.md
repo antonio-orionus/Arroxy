@@ -3,7 +3,7 @@
 | Lives in                                    |                                                                                                                       |
 | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Journey catalog (data)                      | `scripts/startup/journeys.ts`                                                                                         |
-| Runner / oracle / provisioner / verdicts    | `scripts/startup/runJourney.ts`, `logOracle.ts`, `provisionProfile.ts`, `checkVerdicts.ts`, `fetchPreviousRelease.ts` |
+| Runner / oracle / provisioner / verdicts    | `scripts/startup/runJourney.ts`, `warmupSettled.ts`, `logOracle.ts`, `provisionProfile.ts`, `checkVerdicts.ts`, `fetchPreviousRelease.ts` |
 | Entry point (Playwright Test spec)          | `tests/e2e/startup-journeys.spec.ts`                                                                                  |
 | Workflows                                   | `e2e-cold-start.yml` (pr), `release.yml` `startup-gate` (release), `startup-nightly.yml` (nightly)                    |
 | Decision records                            | `docs/adr/0006` · map: `dev-docs/ci-cd-strategy.md`                                                                   |
