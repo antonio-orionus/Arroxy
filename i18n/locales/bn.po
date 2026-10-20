@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ডাউনলোড"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "সাউন্ড সরানো হয়নি"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "সাউন্ড সরানো হয়নি · কিছু সাবটাইটেল ব্যর্থ"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "বাতিল"
@@ -1802,6 +1810,14 @@ msgstr "ডাউনলোড প্রস্তুত করা হচ্ছে
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "সেটআপ ব্যর্থ হয়েছে। বিস্তারিত জানতে সেটআপ লগ খুলুন।"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ভিডিও সাউন্ডসহ সেভ হয়েছে — অডিও সরানো যায়নি"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ভিডিও সাউন্ডসহ সেভ হয়েছে — অডিও সরানো যায়নি এবং কিছু সাবটাইটেল ডাউনলোড করা যায়নি"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

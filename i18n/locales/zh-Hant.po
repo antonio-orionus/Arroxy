@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "下載"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "未移除聲音"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "未移除聲音 · 部分字幕無法下載"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "取消"
@@ -1752,6 +1760,14 @@ msgstr "正在準備下載…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "設定失敗。請開啟設定記錄以查看詳細資料。"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "影片已連同聲音儲存——無法移除音訊"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "影片已連同聲音儲存——無法移除音訊，且部分字幕無法下載"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

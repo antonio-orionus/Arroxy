@@ -18,8 +18,7 @@ export class PhaseExecutor {
 					this.emitCompletion(ctx)
 					return out
 				case 'soft-failed':
-					// Both notices matter: the quality limit concerns the video itself.
-					if (out.status === STATUS_KEY.subtitlesFailed && ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height})
+					if (out.status === STATUS_KEY.subtitlesFailed) this.emitSubtitlesFailed(ctx)
 					else ctx.emitStatus('done', out.status)
 					return out
 				case 'hard-failed':
@@ -42,8 +41,19 @@ export class PhaseExecutor {
 		if (ctx.active.usedExtractorFallback) {
 			ctx.emitStatus('download', STATUS_KEY.usedExtractorFallback)
 		}
-		// A quality limit replaces the plain completion notice.
-		if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimited, {height: ctx.active.qualityLimit.height})
+		// A kept audio track, else a quality limit, replaces the plain completion
+		// notice. The audio goes first: the profile asked for none, so the file
+		// itself is not what the user picked.
+		if (ctx.active.audioKept) ctx.emitStatus('done', STATUS_KEY.audioKept)
+		else if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimited, {height: ctx.active.qualityLimit.height})
 		else ctx.emitStatus('done', STATUS_KEY.complete)
+	}
+
+	// Both notices matter, since the kept audio and the quality limit concern
+	// the video itself; the kept audio wins over the quality limit, as above.
+	private emitSubtitlesFailed(ctx: PhaseContext): void {
+		if (ctx.active.audioKept) ctx.emitStatus('done', STATUS_KEY.audioKeptSubtitlesFailed)
+		else if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height})
+		else ctx.emitStatus('done', STATUS_KEY.subtitlesFailed)
 	}
 }

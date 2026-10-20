@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ዳውንሎዶች"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "ድምፅ አልተወገደም"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "ድምፅ አልተወገደም · አንዳንድ ንዑስ ርዕሶች አልተሳኩም"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "ሰርዝ"
@@ -1802,6 +1810,14 @@ msgstr "ውርዶችን በማዘጋጀት ላይ…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ቪዲዮ ከድምፁ ጋር ተቀምጧል — ድምፁን ማስወገድ አልተቻለም"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ቪዲዮ ከድምፁ ጋር ተቀምጧል — ድምፁን ማስወገድ አልተቻለም፣ አንዳንድ ንዑስ ርዕሶችም ሊዳውንሎድ አልቻሉም"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

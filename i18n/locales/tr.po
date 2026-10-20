@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "İndirmeler"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Ses kaldırılamadı"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Ses kaldırılamadı · bazı altyazılar indirilemedi"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "İptal"
@@ -1802,6 +1810,14 @@ msgstr "İndirmeler hazırlanıyor…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video sesiyle birlikte kaydedildi — ses kaldırılamadı"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video sesiyle birlikte kaydedildi — ses kaldırılamadı ve bazı altyazılar indirilemedi"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

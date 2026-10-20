@@ -6,7 +6,8 @@ import {interruptedOutcome} from './phaseHelpers.js'
 
 // Video without audio, after the download: a site with no video-only stream
 // gave one with sound (`bestvideo*`), so its audio comes off here. A failed
-// strip keeps the file as downloaded rather than lose the video.
+// strip keeps the file as downloaded rather than lose the video, and the job
+// finishes with a notice saying the sound is still there.
 export const DropAudioPhase: Phase = {
 	kind: 'drop-audio',
 	async run(ctx: PhaseContext): Promise<PhaseOutcome> {
@@ -34,7 +35,10 @@ export const DropAudioPhase: Phase = {
 				},
 				jobId: job.id
 			})
-			if (!result.ok) logger.warn('drop-audio: kept the file with its audio', {jobId: job.id})
+			if (!result.ok) {
+				logger.warn('drop-audio: kept the file with its audio', {jobId: job.id})
+				active.audioKept = true
+			}
 		} finally {
 			active.ffmpegProcess = undefined
 		}

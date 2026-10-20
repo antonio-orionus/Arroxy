@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Buufata"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Sagaleen hin balleeffamne"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Sagaleen hin balleeffamne · axxiinnota tokko tokko hin milkoofne"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Haqi"
@@ -1802,6 +1810,14 @@ msgstr "Buufannoowwan qopheessaa jira…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

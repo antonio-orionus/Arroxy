@@ -1179,6 +1179,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Загрузки"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Звук не удалён"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Звук не удалён · часть субтитров не загрузилась"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Отменить"
@@ -1902,6 +1910,14 @@ msgstr "Подготовка загрузок…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Настройка завершилась ошибкой. Открой журнал настройки для подробностей."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Видео сохранено со звуком — не удалось убрать звук"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Видео сохранено со звуком — не удалось убрать звук, и некоторые субтитры не загрузились"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

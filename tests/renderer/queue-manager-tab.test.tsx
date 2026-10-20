@@ -486,6 +486,19 @@ describe('QueueManagerTab', () => {
 		await expectHint(notice, /subtitles[\s\S]*another network/i)
 	})
 
+	it('warns on a finished row whose audio could not be removed, alone or with failed subtitles', async () => {
+		useAppStore.setState({queue: [makeItem({id: 'kept', title: 'Kept video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKept'}}), makeItem({id: 'kept-subs', title: 'Kept subs video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKeptSubtitlesFailed'}})]})
+
+		render(<QueueManagerTab />)
+
+		const kept = within(screen.getByTestId('queue-manager-row-kept')).getByTestId('queue-audio-warning')
+		const keptSubs = within(screen.getByTestId('queue-manager-row-kept-subs')).getByTestId('queue-audio-warning')
+		expect(kept).toHaveTextContent('Sound not removed')
+		await expectHint(kept, /audio could not be removed/i)
+		expect(keptSubs.textContent).toMatch(/subtitles/i)
+		await expectHint(keptSubs, /audio could not be removed[\s\S]*subtitles/i)
+	})
+
 	it('filters by queue status', () => {
 		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'}), makeItem({id: 'done', title: 'Finished video', status: 'done', progressPercent: 100})]})
 

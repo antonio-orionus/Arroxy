@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "다운로드"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "오디오 제거 안 됨"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "오디오 제거 안 됨 · 일부 자막 실패"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "취소"
@@ -1752,6 +1760,14 @@ msgstr "다운로드 준비 중…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "설정에 실패했습니다. 자세한 내용은 설정 로그를 여세요."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "동영상이 오디오와 함께 저장되었습니다 — 오디오를 제거하지 못했습니다"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "동영상이 오디오와 함께 저장되었습니다 — 오디오를 제거하지 못했고 일부 자막도 다운로드하지 못했습니다"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

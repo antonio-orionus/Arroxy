@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "डाउनलोड"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "आवाज़ नहीं हटाई गई"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "आवाज़ नहीं हटाई गई · कुछ सबटाइटल विफल"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "रद्द करें"
@@ -1802,6 +1810,14 @@ msgstr "डाउनलोड तैयार किए जा रहे है�
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "सेटअप विफल हो गया। विवरण के लिए सेटअप लॉग खोलें।"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "वीडियो आवाज़ के साथ सहेजा गया — ऑडियो हटाया नहीं जा सका"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "वीडियो आवाज़ के साथ सहेजा गया — ऑडियो हटाया नहीं जा सका, और कुछ सबटाइटल डाउनलोड नहीं हो सके"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

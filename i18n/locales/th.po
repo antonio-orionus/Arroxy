@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ดาวน์โหลด"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "ไม่ได้ลบเสียง"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "ไม่ได้ลบเสียง · คำบรรยายบางรายการล้มเหลว"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "ยกเลิก"
@@ -1752,6 +1760,14 @@ msgstr "กำลังเตรียมการดาวน์โหลด…
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "ตั้งค่าไม่สำเร็จ เปิดบันทึกการตั้งค่าเพื่อดูรายละเอียด"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "บันทึกวิดีโอพร้อมเสียงแล้ว — ลบเสียงไม่ได้"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "บันทึกวิดีโอพร้อมเสียงแล้ว — ลบเสียงไม่ได้ และดาวน์โหลดคำบรรยายบางรายการไม่ได้"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

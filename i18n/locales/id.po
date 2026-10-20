@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Unduhan"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Suara tidak dihapus"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Suara tidak dihapus · beberapa subtitle gagal"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Membatalkan"
@@ -1752,6 +1760,14 @@ msgstr "Mempersiapkan unduhan…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video disimpan beserta suaranya — audio tidak dapat dihapus"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video disimpan beserta suaranya — audio tidak dapat dihapus, dan beberapa subtitle tidak dapat diunduh"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

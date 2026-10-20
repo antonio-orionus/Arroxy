@@ -1179,6 +1179,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Pobieranie"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Nie usunięto dźwięku"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Nie usunięto dźwięku · części napisów nie pobrano"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Anuluj"
@@ -1902,6 +1910,14 @@ msgstr "Przygotowywanie pobierania…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Konfiguracja nie powiodła się. Otwórz dziennik konfiguracji, aby poznać szczegóły."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Film zapisany z dźwiękiem — nie udało się usunąć dźwięku ani pobrać niektórych napisów"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

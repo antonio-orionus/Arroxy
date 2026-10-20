@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Yuklamalar"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Tovush olib tashlanmadi"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Tovush olib tashlanmadi · ba'zi subtitrlar yuklanmadi"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Bekor qilish"
@@ -1802,6 +1810,14 @@ msgstr "Yuklab olishlar tayyorlanmoqda…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi va ba'zi subtitrlarni yuklab bo'lmadi"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

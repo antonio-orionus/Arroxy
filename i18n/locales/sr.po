@@ -1134,6 +1134,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Преузимања"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Звук није уклоњен"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Звук није уклоњен · неки титлови нису преузети"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Откажи"
@@ -1852,6 +1860,14 @@ msgstr "Припрема преузимања…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Подешавање није успело. Отвори дневник подешавања за детаље."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Видео је сачуван са звуком — звук није могао бити уклоњен"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Видео је сачуван са звуком — звук није могао бити уклоњен, а неки титлови нису могли бити преузети"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

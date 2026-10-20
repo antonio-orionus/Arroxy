@@ -1070,6 +1070,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr ""
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr ""
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr ""
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr ""
@@ -1778,6 +1786,14 @@ msgstr ""
 
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
+msgstr ""
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr ""
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
 msgstr ""
 
 msgctxt "status.cancelled"

@@ -84,6 +84,17 @@ describe('PhaseExecutor', () => {
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: 360})
 	})
 
+	it('a kept audio track wins over a quality limit, alone or with failed subtitles', async () => {
+		const done = makeCtx({qualityLimit: {height: 360}, audioKept: true})
+		await new PhaseExecutor().run(done, [stubPhase({kind: 'continue'})])
+		expect(vi.mocked(done.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.audioKept)
+		expect(vi.mocked(done.emitStatus)).not.toHaveBeenCalledWith('done', STATUS_KEY.qualityLimited, {height: 360})
+
+		const subs = makeCtx({qualityLimit: {height: 360}, audioKept: true})
+		await new PhaseExecutor().run(subs, [stubPhase({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})])
+		expect(vi.mocked(subs.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.audioKeptSubtitlesFailed)
+	})
+
 	it('completion with usedExtractorFallback → emits usedExtractorFallback before complete', async () => {
 		const ctx = makeCtx({usedExtractorFallback: true})
 

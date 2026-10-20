@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Λήψεις"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Ο ήχος δεν αφαιρέθηκε"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Ο ήχος δεν αφαιρέθηκε · ορισμένοι υπότιτλοι απέτυχαν"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Ακύρωση"
@@ -1802,6 +1810,14 @@ msgstr "Προετοιμασία λήψεων…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Η ρύθμιση απέτυχε. Άνοιξε το αρχείο καταγραφής ρύθμισης για λεπτομέρειες."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Το βίντεο αποθηκεύτηκε με τον ήχο του — ο ήχος δεν μπόρεσε να αφαιρεθεί"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Το βίντεο αποθηκεύτηκε με τον ήχο του — ο ήχος δεν μπόρεσε να αφαιρεθεί και ορισμένοι υπότιτλοι δεν κατέβηκαν"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "دانلودها"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "صدا حذف نشد"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "صدا حذف نشد · برخی زیرنویس‌ها ناموفق بودند"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "لغو"
@@ -1802,6 +1810,14 @@ msgstr "در حال آماده‌سازی دانلودها…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "راه‌اندازی ناموفق بود. برای جزئیات، گزارش راه‌اندازی را باز کنید."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ویدیو با صدا ذخیره شد — حذف صدا ممکن نشد"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ویدیو با صدا ذخیره شد — حذف صدا ممکن نشد و برخی زیرنویس‌ها دانلود نشدند"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

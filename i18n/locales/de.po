@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Downloads"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Ton nicht entfernt"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Ton nicht entfernt · einige Untertitel fehlgeschlagen"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -1802,6 +1810,14 @@ msgstr "Downloads werden vorbereitet…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden, und einige Untertitel konnten nicht geladen werden"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

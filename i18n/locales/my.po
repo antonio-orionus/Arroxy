@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ဒေါင်းလုဒ်များ"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "အသံ မဖယ်ရှားနိုင်ပါ"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "အသံ မဖယ်ရှားနိုင်ပါ · အချို့စာတန်းထိုးများ မအောင်မြင်ပါ"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "ပယ်ဖျက်မည်"
@@ -1752,6 +1760,14 @@ msgstr "ဒေါင်းလုဒ်များကို ပြင်ဆင�
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "တပ်ဆင်မှုမအောင်မြင်ပါ။ အသေးစိတ်ကြည့်ရန် setup log ဖွင့်ပါ။"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ဗီဒီယိုကို အသံနှင့်အတူ သိမ်းပြီးပြီ — အသံကို မဖယ်ရှားနိုင်ပါ"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ဗီဒီယိုကို အသံနှင့်အတူ သိမ်းပြီးပြီ — အသံကို မဖယ်ရှားနိုင်ပါ၊ အချို့စာတန်းထိုးများလည်း ဒေါင်းလုဒ်မဆင်းနိုင်ပါ"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

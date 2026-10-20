@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Vipakuliwa"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Sauti haijaondolewa"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Sauti haijaondolewa · baadhi ya manukuu yameshindwa"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Ghairi"
@@ -1802,6 +1810,14 @@ msgstr "Inaandaa vipakuliwa…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa, na baadhi ya manukuu hayakuweza kupakuliwa"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

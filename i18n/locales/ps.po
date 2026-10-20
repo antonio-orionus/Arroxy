@@ -1089,6 +1089,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ډاونلوډونه"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "غږ نه دی لرې شوی"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "غږ نه دی لرې شوی · ځینې ژباړلیکونه ناکام شول"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "لغوه کول"
@@ -1802,6 +1810,14 @@ msgstr "ډاونلوډونه چمتو کېږي…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "نصب ناکام شو. د توضیحاتو لپاره د نصب لاګ خلاص کړئ."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ویډیو له غږ سره خوندي شوه — غږ لرې نه شو"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ویډیو له غږ سره خوندي شوه — غږ لرې نه شو، او ځینې ژباړلیکونه ډاونلوډ نه شول"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

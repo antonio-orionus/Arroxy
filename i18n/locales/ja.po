@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ダウンロード"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "音声は削除されていません"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "音声は削除されていません · 一部の字幕が失敗"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "キャンセル"
@@ -1752,6 +1760,14 @@ msgstr "ダウンロードを準備中…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "セットアップに失敗しました。セットアップログを開いて詳細を確認してください。"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "ビデオは音声付きで保存されました — 音声を削除できませんでした"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "ビデオは音声付きで保存されました — 音声を削除できず、一部の字幕もダウンロードできませんでした"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

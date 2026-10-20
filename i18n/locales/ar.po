@@ -1269,6 +1269,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "التنزيلات"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "لم تتم إزالة الصوت"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "لم تتم إزالة الصوت · تعذّر تنزيل بعض الترجمات"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "إلغاء"
@@ -2002,6 +2010,14 @@ msgstr "جارٍ تحضير التنزيلات…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت، وتعذّر تنزيل بعض الترجمات"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

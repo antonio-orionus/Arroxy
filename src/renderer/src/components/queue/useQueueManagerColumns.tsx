@@ -80,7 +80,9 @@ const heightParam = (item: QueueItem): string | number => item.lastStatus?.param
 const DONE_NOTICES: Partial<Record<StatusKey, DoneNotice>> = {
 	subtitlesFailed: {testId: 'queue-subs-warning', label: item => formatStatus(item.lastStatus)},
 	qualityLimited: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimited', {height: heightParam(item)})},
-	qualityLimitedSubtitlesFailed: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimitedSubtitlesFailed', {height: heightParam(item)})}
+	qualityLimitedSubtitlesFailed: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimitedSubtitlesFailed', {height: heightParam(item)})},
+	audioKept: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKept')},
+	audioKeptSubtitlesFailed: {testId: 'queue-audio-warning', label: (_item, t) => t('queue.item.audioKeptSubtitlesFailed')}
 }
 
 function doneNotice(item: QueueItem): DoneNotice | undefined {

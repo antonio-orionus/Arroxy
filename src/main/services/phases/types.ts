@@ -69,6 +69,9 @@ export interface ActiveJobInput {
 	// Set when YouTube withheld format URLs and the saved file came out below
 	// what the profile asked for; completion reports it instead of a plain done.
 	qualityLimit?: QualityLimit
+	// A profile's video without audio got a file with sound, and taking the
+	// sound off failed; completion reports it instead of a plain done.
+	audioKept?: boolean
 	// yt-dlp reported withheld formats during this job's extraction. A resumed
 	// run loads the saved info-json and never extracts again, so this is how it
 	// still knows.

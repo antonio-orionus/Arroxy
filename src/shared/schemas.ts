@@ -534,6 +534,8 @@ export const STATUS_KEY = {
 	subtitlesFailed: 'subtitlesFailed',
 	qualityLimited: 'qualityLimited',
 	qualityLimitedSubtitlesFailed: 'qualityLimitedSubtitlesFailed',
+	audioKept: 'audioKept',
+	audioKeptSubtitlesFailed: 'audioKeptSubtitlesFailed',
 	cancelled: 'cancelled',
 	complete: 'complete',
 	usedExtractorFallback: 'usedExtractorFallback',

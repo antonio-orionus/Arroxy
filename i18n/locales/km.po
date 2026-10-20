@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "ការទាញយក"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "មិនបានដកសំឡេងចេញ"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "មិនបានដកសំឡេងចេញ · អក្សររត់មួយចំនួនបានបរាជ័យ"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "បោះបង់"
@@ -1752,6 +1760,14 @@ msgstr "កំពុងរៀបចំការទាញយក…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "ការរៀបចំបានបរាជ័យ។ បើកកំណត់ហេតុការរៀបចំសម្រាប់ព័ត៌មានលម្អិត។"
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "បានរក្សាទុកវីដេអូជាមួយសំឡេង — មិនអាចដកសំឡេងចេញបានទេ"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "បានរក្សាទុកវីដេអូជាមួយសំឡេង — មិនអាចដកសំឡេងចេញបាន ហើយអក្សររត់មួយចំនួនមិនអាចទាញយកបានទេ"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"

@@ -1044,6 +1044,14 @@ msgctxt "queue.header"
 msgid "Downloads"
 msgstr "Tải xuống"
 
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Không xóa được âm thanh"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Không xóa được âm thanh · một số phụ đề bị lỗi"
+
 msgctxt "queue.item.cancel"
 msgid "Cancel"
 msgstr "Hủy"
@@ -1752,6 +1760,14 @@ msgstr "Đang chuẩn bị tải xuống…"
 msgctxt "splash.warmupFailedNoDiag"
 msgid "Setup failed. Open the setup log for details."
 msgstr "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Đã lưu video kèm âm thanh — không thể xóa âm thanh"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Đã lưu video kèm âm thanh — không thể xóa âm thanh và một số phụ đề không thể tải xuống"
 
 msgctxt "status.cancelled"
 msgid "Download cancelled"
