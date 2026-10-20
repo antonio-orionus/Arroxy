@@ -60,11 +60,6 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// unsuccessful" and explicit "login required" phrasing from extractors.
 	loginRequired: /only available for registered users|login was unsuccessful|login (?:is )?required/i,
 
-	// YoutubeDL._write_subtitles: "[info] There are no subtitles for the
-	// requested languages", printed to stdout (to_screen, not a warning) when
-	// no requested language matched; the run still exits 0.
-	noSubtitles: /there are no subtitles for the requested languages/i,
-
 	// ENOSPC variants across platforms:
 	//  - Linux: "No space left on device"
 	//  - Windows: "There is not enough space on the disk"
@@ -114,7 +109,13 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// is checked first so "Giving up after N retries" lines classify correctly
 	// even when they also contain ECONNRESET. Includes Python's textual error
 	// form ("Connection reset by peer") emitted via OSError.strerror.
-	network: /unable to download video data|\b(?:timed? out|timeout|econn(?:reset|refused|aborted)|enotfound|getaddrinfo|network is unreachable|connection reset by peer)\b/i
+	network: /unable to download video data|\b(?:timed? out|timeout|econn(?:reset|refused|aborted)|enotfound|getaddrinfo|network is unreachable|connection reset by peer)\b/i,
+
+	// YoutubeDL._write_subtitles: "[info] There are no subtitles for the
+	// requested languages", printed to stdout (to_screen, not a warning) when
+	// no requested language matched; the run still exits 0. Last: it is
+	// informational, so any real failure in the same output names the cause.
+	noSubtitles: /there are no subtitles for the requested languages/i
 }
 
 // Signals that are not failure kinds of their own: they qualify a run (which
