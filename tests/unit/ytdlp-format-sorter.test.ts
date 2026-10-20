@@ -3,8 +3,8 @@ import {createFormatSorter, prepareForSort, sortFormats} from '@shared/ytdlp/for
 import type {YtDlpSelectableFormat} from '@shared/ytdlp/selectableFormat.js'
 
 const FORMATS: YtDlpSelectableFormat[] = [
-	{format_id: 'tall', vcodec: 'avc1', acodec: 'none', width: 1920, height: 1080, source_preference: -1},
-	{format_id: 'short', vcodec: 'avc1', acodec: 'none', width: 1280, height: 720, source_preference: 5}
+	{format_id: 'tall', vcodec: 'avc1', acodec: 'none', width: 1920, height: 1080, format_note: 'a'},
+	{format_id: 'short', vcodec: 'avc1', acodec: 'none', width: 1280, height: 720, format_note: 'b'}
 ]
 
 // Best last, as yt-dlp sorts.
@@ -17,9 +17,11 @@ describe('yt-dlp format sort', () => {
 		expect(ids([], ['res', 'nosuchfield'])).toEqual(ids([], ['res']))
 	})
 
-	it("ranks by the format's own value of an arbitrary field, as yt-dlp does", () => {
-		// `source_preference` itself has no setting (yt-dlp's `source` field reads it).
-		expect(ids(['source_preference'], []).at(-1)).toBe('short')
-		expect(ids(['+source_preference'], []).at(-1)).toBe('tall')
+	it("ranks by the format's own value of a field with no setting, as yt-dlp does", () => {
+		// `format_note` has no setting: yt-dlp ranks a text value as (1, value),
+		// above a missing one and in text order, and ignores `+` for text.
+		expect(ids(['res'], []).at(-1)).toBe('tall')
+		expect(ids(['format_note'], []).at(-1)).toBe('short')
+		expect(ids(['+format_note'], []).at(-1)).toBe('short')
 	})
 })
