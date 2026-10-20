@@ -52,6 +52,10 @@ It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions
 - **Refuted:** skim; if a refutation is right and the same false alarm could recur, add it to `.agents/memory/review-learnings.md`.
 
 After fixing, run one more round on the fix commits only: `bun run review:dual --light --base <head the first round reviewed>`. Two rounds at most; anything a third round would be needed for goes to the user.
+
+A run that exits 0 or 1 records the branch's diff against main as reviewed (in this worktree's git dir). Phase 7 pushes only that diff: any later edit or squash that changes it needs another round. A clean rebase or a merge of main does not.
+
+**Squash safely.** To fold the branch into one commit, use `git reset --soft $(git merge-base origin/main HEAD)` then `git commit`, or `git commit --amend`. Never `git reset --soft origin/main`. Once main has moved, that re-parents the stale index onto the new main, and the commit reverts everything merged in between (PR #430, memory `squash-onto-merge-base`). Squash before the review, not after.
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
@@ -67,8 +71,16 @@ git log origin/main..HEAD --format="%an <%ae> | %cn <%ce>" | sort -u            
 gh auth status   # antonio-orionus active, else: gh auth switch --user antonio-orionus
 ```
 
+Then, right before every push (the first one and each one after review fixes):
+
+```bash
+bun run review:check-head   # prints `git diff --stat origin/main...HEAD`; fails if HEAD undoes main's work or is not the reviewed diff
+```
+
+Read the file list it prints. If it names any file beyond what the task declared, stop: find out where the file came from before pushing. On a failure, follow what it prints: re-review the changed diff, or rebuild a broken squash from `git reflog`. Never push around it. The repo's pre-push hook checks for reverts on every branch push too, but only in a clone whose hooks are enabled.
+
 Push and `gh pr create` with: problem, root cause, fix, tests, and a "Review" line (dual review rounds run, findings fixed, findings refuted, backlog entries filed). In the desktop app, bind the PR and turn on Auto-fix.
-verify: PR open, both greps clean.
+verify: `review:check-head` exited 0 on the pushed head, its file list matches the task, PR open, both greps clean.
 
 ### 8. CodeRabbit, when it is worth a trigger
 Follow `coderabbit-review-workflow`: only behaviour-changing PRs, one trigger on the final head once CI is green, never push while it runs. A refused trigger gets one retry after the cooldown it names; refused again, merge on the local reviews. Skip it, and say so in the PR, when the hourly quota is spent and the change is low-risk, or the PR has over 100 files. Check each finding against the code like any other; answer refuted ones in their thread with evidence and add recurring false alarms to `review-learnings.md`.

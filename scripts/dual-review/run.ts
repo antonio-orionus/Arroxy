@@ -14,7 +14,8 @@
 // reviewer, and every finding is checked in a second Claude pass instead of by
 // Codex. Exits 1 when something in this change must be fixed or decided
 // (backlog entries alone do not count), 2 when a reviewer failed, so coverage is
-// partial, or when no reviewer completed at all.
+// partial, or when no reviewer completed at all. A run that exits 0 or 1 records
+// the branch's diff as reviewed, for `bun run review:check-head`.
 
 import {spawn, spawnSync} from 'node:child_process'
 import {mkdir, readFile, writeFile} from 'node:fs/promises'
@@ -41,7 +42,9 @@ import {
 	type Engine,
 	type OutputJsonSchema
 } from './core.js'
+import {gitIn} from '../pushGuard.js'
 import {CLAUDE_LANES, WHOLE_CHANGE_LANE, reviewPrompt, verifyPrompt, type Lane, type ReviewScope} from './prompts.js'
+import {recordReviewed} from './reviewedState.js'
 
 const TIMEOUT_MS = 30 * 60 * 1000
 const LEARNINGS_FILE = '.agents/memory/review-learnings.md'
@@ -234,6 +237,10 @@ async function main(): Promise<number> {
 	console.error(`dual review: ${coverageSummary(coverage)}`)
 	console.error(`dual review: report at ${path.join(outDir, 'report.md')}`)
 	if (failures.length > 0) return 2
+	// A complete review, whatever it found, is what `review:check-head` lets land
+	// push; that check measures against origin/main, so without it there is nothing to record.
+	if (spawnSync('git', ['rev-parse', '--verify', '--quiet', 'origin/main'], {stdio: 'ignore'}).status === 0) await recordReviewed(gitIn(repoRoot), 'origin/main')
+	else console.error('dual review: no origin/main, so this review is not recorded for review:check-head')
 	return needsAction(resolved) ? 1 : 0
 }
 

@@ -15,7 +15,7 @@ Vite+ docs for the installed version live at `node_modules/vite-plus/docs`; `bun
 | Tests | Vitest (`vp test`) | Root `vite.config.ts` `test` block defines the `node` and `jsdom` projects; each package's `vite.config.ts` holds its own `test` block. Tests import from `vite-plus/test`. |
 | Library builds | tsdown (`vp pack`) | `ytdlp-errors` builds from its `vite.config.ts` `pack` block with `fixedExtension: false`, so output names match `package.json` `exports`. |
 | Task running | Vite Task (`vp run`) | `bun run check` runs the `quality-gate` task: every gate in parallel, then `packages:check`. The task is uncached on purpose. |
-| Commit hooks | `vp config` / `vp staged` | `.vite-hooks/pre-commit` runs `vp staged` (rules in the `vite.config.ts` `staged` block), then the commit-fallout check. |
+| Commit hooks | `vp config` / `vp staged` | `.vite-hooks/pre-commit` runs `vp staged` (rules in the `vite.config.ts` `staged` block), then the commit-fallout check. `.vite-hooks/pre-push` runs the revert check. |
 | Unused code | Knip | Every workspace package must be represented in `knip.json`. |
 | Registry package safety | Package gates | Root `packages:check` owns dependency order and runs package typecheck, test, build, pack dry-run, and packed metadata verification. |
 
@@ -47,6 +47,12 @@ The two parity checks run the pinned yt-dlp zipapp (fetched once into `node_modu
 `bun install` runs `vp config --no-agent`, which installs the hook dispatcher under `.vite-hooks/_`. It leaves an existing `core.hooksPath` alone, so a clone that used husky before keeps pointing at the dead `.husky/_` and runs no hooks. Run `bunx vp hooks enable` once in such a clone. `core.hooksPath` is shared by every worktree of a clone.
 
 A file with unstaged or untracked changes holds work outside the commit, possibly a parallel agent's. Its findings are reported but never block. `git commit --no-verify` bypasses both steps; `bun run check` still gates the PR.
+
+## Pre-push Hook
+
+`.vite-hooks/pre-push` runs `scripts/check-push.ts` on every branch push except to `main`, which takes docs-only commits directly. It fetches `origin main` and refuses a push that wholly undoes recent main commits, meaning every file such a commit changed is back to an earlier version byte-for-byte. That is what squashing with `git reset --soft origin/main` after main moved produces. The re-parented stale index reads as a revert of everything merged since. A diff comparison of `origin/main` with `origin/main...HEAD` cannot see it, because the merge-base is then main itself. A commit undone only by deleting its files does not count, since that is also how files are retired.
+
+A deliberate revert passes with `ARROXY_ALLOW_REVERT=1 git push`. The land flow runs the same check through `bun run review:check-head`, which also refuses a head whose diff differs from the one `review:dual` last reviewed. That gate stays out of the hook, so a plain push by hand never needs a review.
 
 Publish workflows stay package-specific, but they call root package check scripts: `bun run errors:check` for `ytdlp-errors` and `bun run bridge:check` for `yt-dlp-bridge`.
 
