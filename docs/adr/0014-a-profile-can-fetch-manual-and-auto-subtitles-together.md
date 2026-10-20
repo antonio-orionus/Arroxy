@@ -8,9 +8,12 @@ one of the two tracks per language. Saving those picks as a profile wrote
 `en` with manual first, so reapplying it silently dropped the caption.
 
 We added a fourth source, **manual and auto**: for each language, the manual
-tracks and the automatic caption are both picked. Saving picks that hold both
-for one language writes this source; a profile saved without such a pair goes
-back to manual first, so it never adds a caption the user left out.
+tracks and the automatic caption are both picked. Saving a video's picks
+writes the source whose pick on that video gives back, per language, the kind
+of track the user kept (manual, automatic or both), preferring the profile's
+own source when it already does. Picks that hold both tracks of a language
+save as manual and auto; an automatic caption kept over its uploaded twin
+saves as auto only.
 
 Rejected:
 
@@ -24,9 +27,12 @@ Rejected:
 
 ## Consequences
 
-The source is coarse on purpose: on YouTube it adds the spoken language's
-caption whenever that language is in the profile, which is what the user
-asked for. On sites whose probe does not list every track, and for a
+The source is one choice for every language. Picks no single source gives
+back (both English tracks, but German's uploaded track alone on a video that
+also has a German caption) save as manual and auto, which adds that caption
+rather than dropping the English one: a profile may fetch more than one
+video's picks, never less. On YouTube that case needs a caption in two
+languages, which only multi-language videos have. On sites whose probe does not list every track, and for a
 playlist entry with no info-json, the language codes go to yt-dlp as a
 pattern, and yt-dlp keeps one track per key (the manual one), so there
 manual and auto behaves as manual first.

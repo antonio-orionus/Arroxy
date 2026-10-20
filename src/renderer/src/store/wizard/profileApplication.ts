@@ -11,6 +11,7 @@ import type {GlobalHdr} from '@shared/hdrSetting.js'
 import {effectiveVideoCodec, type SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
+import {pickSubtitleTracks} from '@shared/subtitleLanguages.js'
 import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
@@ -200,20 +201,26 @@ function baseLanguageCode(trackKey: string): string {
 	return trackKey.endsWith('-orig') ? trackKey.slice(0, -'-orig'.length) : trackKey
 }
 
-// Where the picked tracks come from decides the saved source, so reapplying
-// the profile finds the same tracks again. A manual and an automatic track of
-// one language need `manual-and-auto`: any other source brings back one of them.
-function subtitleSourceFor(keys: readonly string[], base: DownloadProfile['subtitles']['source'], context: SaveProfileContext): DownloadProfile['subtitles']['source'] {
-	const isManual = (key: string): boolean => key in context.subtitles && !key.endsWith('-orig')
-	const manualKeys = keys.filter(isManual)
-	const manualLanguages = new Set(manualKeys.map(baseLanguageCode))
+type SubtitleSource = DownloadProfile['subtitles']['source']
+
+// Tried after the base profile's own source: automatic captions alone before
+// sources that would bring an uploaded track along.
+const SOURCE_PREFERENCE = ['auto-only', 'manual-first', 'manual-only', 'manual-and-auto'] as const satisfies readonly SubtitleSource[]
+
+// The saved source is one whose pick on this video gives back, per language,
+// the kind of track the user kept (manual, automatic or both), so reapplying
+// the profile finds the same tracks again; the base's own wins when it does.
+// One source covers every language, so picks no single source gives back
+// (both tracks of one language, the manual track alone of another) save as
+// `manual-and-auto`, which keeps every picked track rather than dropping one.
+function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, context: SaveProfileContext): SubtitleSource {
 	if (keys.length === 0) return base
-	if (keys.some(key => !isManual(key) && manualLanguages.has(baseLanguageCode(key)))) return 'manual-and-auto'
-	// Without such a pair, `manual-and-auto` would add a caption the user left out.
-	const single = base === 'manual-and-auto' ? 'manual-first' : base
-	if (manualKeys.length === keys.length) return single === 'auto-only' ? 'manual-first' : single
-	if (manualKeys.length === 0) return single === 'manual-only' ? 'auto-only' : single
-	return 'manual-first'
+	const maps = {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}
+	const kinds = (tracks: readonly string[]): string => [...new Set(tracks.map(key => (key in context.subtitles && !key.endsWith('-orig') ? 'manual' : 'auto')))].toSorted().join('+')
+	const languages = [...new Set(keys.map(baseLanguageCode))]
+	const wanted = new Map(languages.map(language => [language, kinds(keys.filter(key => baseLanguageCode(key) === language))]))
+	const givesBack = (source: SubtitleSource): boolean => languages.every(language => kinds(pickSubtitleTracks([language], source, maps).tracks) === wanted.get(language))
+	return [base, ...SOURCE_PREFERENCE].find(givesBack) ?? 'manual-and-auto'
 }
 
 function subtitlesFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, context: SaveProfileContext): DownloadProfile['subtitles'] {
