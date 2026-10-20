@@ -101,7 +101,6 @@
 			"menuDescription_few": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
 			"menuDescription_many": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
 			"menuDescription_other": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"assignAria": "تعيين {{profileName}}",
 			"editProfile": "تعديل {{name}}",
 			"filtersLabel": "عوامل تصفية الملف الشخصي",
 			"filterChip": "{{name}} · {{count}}",

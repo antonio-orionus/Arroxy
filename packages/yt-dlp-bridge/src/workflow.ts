@@ -1,6 +1,6 @@
 import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
-import {audioConversionCopyFilter} from './audio-conversion.js'
+import {audioConversionSourceSelector} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE} from './progress.js'
@@ -170,24 +170,6 @@ export const DEFAULT_SLEEP_SUBTITLES_SECONDS = 3
 export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
 const DEFAULT_CALLER_OUTPUT_TEMPLATE = '%(title).200B.%(ext)s'
-const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
-// Dolby surround makes a poor conversion source: libopus refuses its 5.1(side)
-// layout outright, and the other lossy targets downmix it. A stream with no
-// codec named passes.
-const NON_DOLBY_AUDIO_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
-// Strict: `~=?` would also take a stream with no note at all as the original.
-const SOURCE_TRACK_AUDIO_FILTERS = ['[language_preference>0]', "[format_note~='(?i)\\boriginal\\b']", '']
-
-// The stream to convert, most wanted first: the source's own track before any
-// other, its non-DRC master before the DRC one, and within those a stream that
-// is copied as-is before one that is re-encoded, then any but Dolby surround.
-function audioConversionSourceSelector(target: string): string {
-	// A stream already in the target codec is copied, not re-encoded a second time.
-	const codecFilter = audioConversionCopyFilter(target)
-	const codecFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER, '']
-	const streamFilters = [NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => codecFilters.map(filter => `${filter}${drcFilter}`))
-	return [...SOURCE_TRACK_AUDIO_FILTERS.flatMap(trackFilter => streamFilters.map(filters => `bestaudio${trackFilter}${filters}`)), 'best'].join('/')
-}
 
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
 	const planned = planWorkflowWithoutRedaction(input, options)

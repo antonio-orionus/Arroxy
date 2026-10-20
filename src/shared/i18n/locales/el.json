@@ -84,7 +84,6 @@
 			"assignTrigger_other": "Εκχώρηση σε {{count}} βίντεο",
 			"menuDescription_one": "Επιλέξτε το προφίλ για αυτό το βίντεο.",
 			"menuDescription_other": "Επιλέξτε το προφίλ για αυτά τα {{count}} βίντεο.",
-			"assignAria": "Εκχώρηση {{profileName}}",
 			"editProfile": "Επεξεργασία {{name}}",
 			"filtersLabel": "Φίλτρα προφίλ",
 			"filterChip": "{{name}} · {{count}}",

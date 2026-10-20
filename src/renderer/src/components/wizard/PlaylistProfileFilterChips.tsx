@@ -5,11 +5,11 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import type {DownloadProfileActionOption} from './downloadProfileActions.js'
+import type {ProfilePickerOption} from './profilePickerOptions.js'
 import type {PlaylistProfileFilter} from './playlistProfileTableState.js'
 
 interface PlaylistProfileFilterChipsProps {
-	options: DownloadProfileActionOption[]
+	options: readonly ProfilePickerOption[]
 	counts: Map<string, number>
 	totalCount: number
 	filter: PlaylistProfileFilter

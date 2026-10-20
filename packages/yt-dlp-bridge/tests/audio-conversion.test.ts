@@ -21,6 +21,9 @@ describe('audioConversionCopies', () => {
 
 	it.each([
 		['m4a', 'opus'],
+		// mp4a.6B is MPEG audio and mp4a.40.34 MP3 in an MP4: not AAC.
+		['m4a', 'mp4a.6B'],
+		['m4a', 'mp4a.40.34'],
 		['opus', 'mp4a.40.2'],
 		['mp3', 'opus'],
 		['m4a', 'ec-3'],
@@ -44,5 +47,7 @@ describe('audioCodecPreference', () => {
 		expect(ranks).toEqual(ranks.toSorted((a, b) => b - a))
 		expect(audioCodecPreference('opus')).toBeGreaterThan(audioCodecPreference('mp4a.40.2'))
 		expect(audioCodecPreference('flac')).toBe(audioCodecPreference('alac'))
+		// FormatSorter lowercases the codec before matching.
+		expect(audioCodecPreference('OPUS')).toBe(audioCodecPreference('opus'))
 	})
 })
