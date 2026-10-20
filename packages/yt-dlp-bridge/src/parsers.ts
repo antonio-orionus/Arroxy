@@ -1,6 +1,8 @@
 import {infoDictSchema, isPlaylistLike, ytDlpFormatSchema, type YtDlpFormat} from './info.js'
 import type {FinalPathResult, FormatSummary, PaginationResult, ParsedJsonLines, SanitizedFormatSummary, SanitizedMetadataItem, SubtitleSummary, ThumbnailSummary} from './types.js'
+import {definedFields} from './fields.js'
 export {parseYtDlpOutputLine, type YtDlpOutputEvent, type YtDlpPostprocessPhase} from './output-events.js'
+export {YT_DLP_PROGRESS_PREFIX, YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_PREFIX, YT_DLP_REQUESTED_FORMATS_TEMPLATE, YtDlpDownloadProgressTracker, type CombinedDownloadProgress, type YtDlpDownloadProgress, type YtDlpRequestedFormat} from './progress.js'
 
 export function parseJsonLines<T = unknown>(output: string): ParsedJsonLines<T> {
 	const rawLines = output.split(/\r?\n/).flatMap(line => {
@@ -214,17 +216,4 @@ function sanitizeFormatSummary(format: YtDlpFormat): SanitizedFormatSummary {
 		dynamicRange: format.dynamic_range,
 		language: format.language
 	})
-}
-
-type DefinedFields<T> = {[K in keyof T]?: Exclude<T[K], undefined>}
-
-// Drops undefined values so optional fields are absent rather than present-
-// but-undefined (exactOptionalPropertyTypes).
-function definedFields<T extends Record<string, unknown>>(fields: T): DefinedFields<T> {
-	const result: DefinedFields<T> = {}
-	for (const key of Object.keys(fields) as (keyof T)[]) {
-		const value = fields[key]
-		if (value !== undefined) result[key] = value as Exclude<T[keyof T], undefined>
-	}
-	return result
 }

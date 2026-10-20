@@ -84,7 +84,7 @@ describe('playlistEntryTemplateMeta', () => {
 		// stay late-bound for yt-dlp to resolve at download time.
 		const placeholder: PlaylistEntry = {...ENTRY, title: 'Untitled · #1', titleIsPlaceholder: true, videoId: null}
 		const meta = playlistEntryTemplateMeta(placeholder, 'Nature Docs', 'PL1')
-		const bound = bindFilenameTemplate('{title} [{id}]', meta, {outputDir: '/tmp', platform: 'linux'})
+		const bound = bindFilenameTemplate('{title} [{id}]', meta, {outputDir: '/tmp', platform: 'linux', inFlight: {formats: null, subtitleLanguages: []}})
 		expect(bound.ok).toBe(true)
 		if (!bound.ok) return
 		expect(bound.template).toContain('{title}')
@@ -117,13 +117,14 @@ describe('canScanPlaylistFolder', () => {
 describe('bindJobFilenameTemplate with a part-of-video suffix', () => {
 	const META = {title: 'Clip', id: 'abc'}
 	const SUFFIX = '[3s-6s]'
+	const IN_FLIGHT = {formats: null, subtitleLanguages: []}
 
 	it('ends the bound name with the suffix', () => {
-		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp', SUFFIX)).toBe('Clip [abc] [3s-6s]')
-		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp')).toBe('Clip [abc]')
+		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp', IN_FLIGHT, SUFFIX)).toBe('Clip [abc] [3s-6s]')
+		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp', IN_FLIGHT)).toBe('Clip [abc]')
 	})
 
 	it('keeps the suffix when a template it cannot use falls back to the default', () => {
-		expect(bindJobFilenameTemplate('{not-a-token}', META, '/tmp', SUFFIX)).toBe('Clip [abc] [3s-6s]')
+		expect(bindJobFilenameTemplate('{not-a-token}', META, '/tmp', IN_FLIGHT, SUFFIX)).toBe('Clip [abc] [3s-6s]')
 	})
 })

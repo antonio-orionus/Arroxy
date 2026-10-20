@@ -1,5 +1,6 @@
 import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import {fileTypeFits, mp4Caveat, type Mp4Caveat} from '@shared/fileTypeFit.js'
+import {compatibleExt} from '@shared/ytdlp/compatibleExt.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AppState} from '../types.js'
 
@@ -14,9 +15,10 @@ import type {AppState} from '../types.js'
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
  * - video + a chosen file type → that type (WebM only when the streams fit,
  *   else the MKV fallback the remux rule names)
- * - video + same-container audio → that container, except a WebM merge that
- *   embeds a thumbnail, which yt-dlp switches to mkv to hold the cover art
- * - video + mixed-container audio → mkv (yt-dlp default merge)
+ * - video alone → its own file
+ * - video + audio → the container yt-dlp's merger picks (`compatibleExt`),
+ *   except a WebM merge that embeds a thumbnail, which yt-dlp switches to mkv
+ *   to hold the cover art
  */
 export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], mediaKind: WizardMediaKind, embedThumbnail = false, fileType: VideoFileType = 'auto'): string {
 	if (mediaKind === 'subtitles') return 'subtitle-only'
@@ -45,10 +47,12 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	if (fileType === 'webm') return fileTypeFits('webm', videoFmt, audioFmt ?? undefined) ? 'webm' : 'mkv'
 	if (fileType !== 'auto') return fileType
 
-	if (videoExt === 'webm' && !audioExt) return 'webm'
-	if (videoExt === 'webm' && audioExt === 'webm') return embedThumbnail ? 'mkv' : 'webm'
-	if (videoExt === 'mp4' && (!audioExt || audioExt === 'm4a' || audioExt === 'mp4')) return 'mp4'
-	return 'mkv'
+	// One stream (video only, or video with its own sound): its own file, unmerged.
+	if (!audioFmt || !audioExt) return videoExt
+	// Merged: the container yt-dlp's merger picks, by codec first (AV1 or VP9
+	// with Opus is WebM, whatever the video's own file was).
+	const merged = compatibleExt({vcodecs: [videoFmt.videoCodec], acodecs: [audioFmt.audioCodec], vexts: [videoExt], aexts: [audioExt]})
+	return merged === 'webm' && embedThumbnail ? 'mkv' : merged
 }
 
 // The video codec that makes an MP4 risky to play in QuickTime (VP9 or AV1),

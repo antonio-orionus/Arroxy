@@ -1,5 +1,5 @@
 youtube-8k-hdr: YouTube up to 4320p, HDR10 and SDR, 60 fps, AV1/VP9/VP9.2/H.264
-Animal Planet OLED Demo HDR 8K Ultra HD Dolby Vision™ 60fps · 3861 s · card says "1280x720" · 64 formats
+Animal Planet OLED Demo HDR 8K Ultra HD Dolby Vision™ 60fps · 3861 s · card says "1280x720" · 69 formats
 
 Video (picked for Balanced 720p •):
           HDR10 AV1      HDR10 VP9      SDR VP9               SDR H.264
@@ -7,7 +7,7 @@ Video (picked for Balanced 720p •):
 2160p 4K  AV1 11.1 GiB   VP9 14.7 GiB   VP9 13.4 GiB          ·
 1440p 2K  AV1 6.2 GiB    VP9 8.2 GiB    VP9 6.8 GiB           ·
 1080p     AV1 2.3 GiB    VP9 3.3 GiB    VP9 5.3 GiB           H.264 3.4 GiB
-720p      AV1 1.4 GiB    VP9 2.2 GiB    VP9 2.2 GiB •         H.264 2.0 GiB
+720p      AV1 1.4 GiB    VP9 2.2 GiB    VP9 804.6 MiB •       H.264 2.0 GiB
 480p      AV1 534.0 MiB  VP9 1.0 GiB    VP9 30 fps 528.5 MiB  H.264 30 fps 625.1 MiB
 360p      AV1 275.7 MiB  VP9 580.7 MiB  VP9 30 fps 327.0 MiB  H.264 30 fps 371.2 MiB
 240p      AV1 130.2 MiB  VP9 268.3 MiB  VP9 30 fps 128.3 MiB  H.264 30 fps 144.6 MiB
@@ -19,9 +19,9 @@ AAC: 129 kbps 59.5 MiB DRC | 129 kbps 59.5 MiB | 49 kbps 22.05 kHz 22.4 MiB DRC 
 DRC switch shown
 
 Profile picks:
-balanced: 612 (1280x720, mp4) + audio 251 (audio only, webm)
+balanced: 302 (1280x720, webm) + audio 251 (audio only, webm)
 best-quality: 702 (7680x4320, mp4) + audio 251 (audio only, webm)
-mp4-1080: 312 (1920x1080, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 299 (1920x1080, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 251 (audio only, webm)
 
 Subtitles: none

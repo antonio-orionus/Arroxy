@@ -293,8 +293,6 @@ describe('parseYtDlpOutputLine', () => {
 		expect(parseYtDlpOutputLine('[ExtractAudio] Destination: /tmp/audio.mp3')).toEqual({kind: 'postprocess', phase: 'extractingAudio', path: '/tmp/audio.mp3'})
 		expect(parseYtDlpOutputLine("[download] Got error: (<HTTPSConnection(host='rr3---sn-txhxooxu-n5il.googlevideo.com', port=443) at 0x2b188eaab90>, 'Connection to rr3---sn-txhxooxu-n5il.googlevideo.com timed out. (connect timeout=20.0)'). Retrying (1/20)...")).toEqual({kind: 'transfer-retry', attempt: 1, total: 20})
 		expect(parseYtDlpOutputLine('[download] Got error: read timed out. Retrying (3/20)...')).toEqual({kind: 'transfer-retry', attempt: 3, total: 20})
-		expect(parseYtDlpOutputLine('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toEqual({kind: 'progress', percent: 42, total: '10.00MiB', speed: '1.00MiB/s', eta: '00:05', raw: '[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05'})
-		expect(parseYtDlpOutputLine('[download] 100% of ~ 12.30MiB in 00:00:04 at 2.95MiB/s')).toEqual({kind: 'progress', percent: 100, total: '~ 12.30MiB', speed: '2.95MiB/s', raw: '[download] 100% of ~ 12.30MiB in 00:00:04 at 2.95MiB/s'})
 		expect(parseYtDlpOutputLine('[youtube] abc: Downloading webpage')).toEqual({kind: 'progress', raw: '[youtube] abc: Downloading webpage'})
 	})
 
@@ -309,15 +307,13 @@ describe('parseYtDlpOutputLine', () => {
 
 	// A `--download-sections` job hands the transfer to ffmpeg, whose banner
 	// prints the googlevideo URL. Its URL-encoded commas (`met=1792423725%2C`)
-	// look like a percent, which pinned the row at 100% from the first second.
-	it('takes a percent only from a [download] progress line', () => {
+	// once read as a percent, which pinned the row at 100% from the first second.
+	it('leaves ffmpeg output lines as plain output', () => {
 		const ffmpegInput =
 			"Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'https://rr4---sn-ixh7yn7e.googlevideo.com/videoplayback?expire=1792445325&ei=LTfWar_aMbuK0u8Pvv6BmQo&ip=203.0.113.7&id=o-REDACTED&itag=401&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=810&met=1792423725%2C&mh=3w&mm=18%2C29&mn=sn-ixh7yn7e%2Csn-aj5go5-53&ms=aub%2Crdu&mv=m&mvi=4&pl=24&rms=aub%2Caub&gcr=dk&initcwndbps=4261500&vprv=1&svpuc=1&mime=video%2Fmp4&rqh=1&gir=yes&clen=252854527&dur=233.900&lmt=1782655386027359&mt=1792423316&fvip=5&keepalive=yes&fexp=51565115%2C52184236&c=VISIONOS&txp=5532534&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cgcr%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=REDACTED%3D%3D&lsparams=cps%2Cmet%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=REDACTED%3D':"
 		expect(parseYtDlpOutputLine(ffmpegInput)).toEqual({kind: 'progress', raw: ffmpegInput})
 		const ffmpegSummary = '[out#0/mp4 @ 0x600003b452c0] video:120257KiB audio:1797KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.050264%'
 		expect(parseYtDlpOutputLine(ffmpegSummary)).toEqual({kind: 'progress', raw: ffmpegSummary})
-		const fragment = '[download]  10.4% of ~  16.34KiB at  900.87B/s ETA 00:00 (frag 1/47)'
-		expect(parseYtDlpOutputLine(fragment)).toMatchObject({kind: 'progress', percent: 10.4})
 	})
 })
 

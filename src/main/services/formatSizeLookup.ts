@@ -5,7 +5,11 @@ import {isPrivateHostname} from './privateHostname.js'
 // combined MP4s, DASH streams of a site that gives no duration), though their
 // server states it in one HEAD request. Asked only for plain http(s) files, a
 // few at a time, within a short budget: a format whose server does not answer
-// keeps no size, as before.
+// keeps no size, as before. The sizes come back apart from the formats, keyed
+// by format id: they are for showing, and yt-dlp's own sort never sees them.
+
+// Bytes per format id, for the formats whose server stated a length.
+export type LookedUpSizes = ReadonlyMap<string, number>
 
 // The file's length in bytes, or null when the server does not say.
 export type HeadLength = (url: string, headers: Readonly<Record<string, string>>, signal: AbortSignal) => Promise<number | null>
@@ -19,21 +23,18 @@ export function needsSizeLookup(format: YtDlpFormat): boolean {
 	return format.filesize === undefined && format.filesize_approx === undefined && typeof format.url === 'string' && PLAIN_PROTOCOLS.has(format.protocol ?? '')
 }
 
-export async function lookUpMissingSizes(formats: readonly YtDlpFormat[], headLength: HeadLength, signal: AbortSignal, budgetMs: number = SIZE_LOOKUP_BUDGET_MS): Promise<YtDlpFormat[]> {
-	const wanted = signal.aborted ? [] : formats.filter(needsSizeLookup).slice(0, SIZE_LOOKUP_MAX)
-	if (wanted.length === 0) return [...formats]
+export async function lookUpMissingSizes(formats: readonly YtDlpFormat[], headLength: HeadLength, signal: AbortSignal, budgetMs: number = SIZE_LOOKUP_BUDGET_MS): Promise<LookedUpSizes> {
+	const sizes = new Map<string, number>()
+	const wanted = signal.aborted ? [] : formats.filter(format => needsSizeLookup(format) && format.format_id !== undefined).slice(0, SIZE_LOOKUP_MAX)
+	if (wanted.length === 0) return sizes
 	const budget = AbortSignal.any([signal, AbortSignal.timeout(budgetMs)])
-	const sizes = new Map<YtDlpFormat, number>()
 	await Promise.all(
 		wanted.map(async format => {
 			const length = await headLength(format.url ?? '', format.http_headers ?? {}, budget).catch(() => null)
-			if (length !== null && length > 0) sizes.set(format, length)
+			if (length !== null && length > 0 && format.format_id !== undefined) sizes.set(format.format_id, length)
 		})
 	)
-	return formats.map(format => {
-		const filesize = sizes.get(format)
-		return filesize === undefined ? format : {...format, filesize}
-	})
+	return sizes
 }
 
 const MAX_REDIRECTS = 5

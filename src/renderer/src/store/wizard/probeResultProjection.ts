@@ -1,4 +1,6 @@
 import {DEFAULTS} from '@shared/constants.js'
+import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {DEFAULT_AUDIO_BITRATE, DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
 import type {AudioSelection} from '@shared/schemas.js'
@@ -65,6 +67,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardError: null,
 			cookiesConfigDialogIssue: null,
 			wizardFormats: [],
+			wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 			wizardSilencedAudio: null,
 			wizardFormatsDegraded: null,
 			wizardSubtitles: {},
@@ -111,7 +114,7 @@ export function projectProbeFailure(error: AppState['wizardError']): Partial<App
 // falls back to the profile's.
 export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, state: AppState, firstProbe: boolean): Partial<AppState> {
 	const {formats, title, thumbnail, duration, subtitles, automaticCaptions, degraded} = probe
-	const probeFields = {wizardFormats: formats, wizardSubtitles: subtitles, wizardAutomaticCaptions: automaticCaptions, wizardIsAudioOnlySource: probe.isAudioOnlySource === true}
+	const probeFields = {wizardFormats: formats, wizardFormatSelection: probe.formatSelection ?? selectionSourceFromOptions(formats, duration), wizardSubtitles: subtitles, wizardAutomaticCaptions: automaticCaptions, wizardIsAudioOnlySource: probe.isAudioOnlySource === true}
 	const keepEdits = !firstProbe && state.wizardProfile !== null
 	const profile = keepEdits && state.wizardProfile ? state.wizardProfile : resolveActiveDownloadProfile(state.settings?.profiles).profile
 	const applied = profilePatch(profile, {...state, ...probeFields})
@@ -204,6 +207,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		playlistProbeProgress: null,
 		formatsLoading: false,
 		wizardFormats: [],
+		wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 		wizardFormatsDegraded: null,
 		// A part is single-video only: a link that turns out to be a playlist drops it.
 		...RESET_VIDEO_PART_STATE,
@@ -280,6 +284,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardUploader: '',
 			wizardUploadDate: '',
 			wizardFormats: [],
+			wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 			wizardFormatsDegraded: null,
 			selectedVideoFormatId: '',
 			audioSelection: {kind: 'none'},

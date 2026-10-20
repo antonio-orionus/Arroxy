@@ -1,3 +1,4 @@
+import {parseProgressLine, parseRequestedFormatsLine, type YtDlpDownloadProgress, type YtDlpRequestedFormat} from './progress.js'
 import type {YtDlpOutputEventKind, YtDlpPostprocessPhase} from './schemas.js'
 
 export type {YtDlpPostprocessPhase}
@@ -13,14 +14,22 @@ export type YtDlpOutputEvent =
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-retry'>; attempt: number; total: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'transfer-retry'>; attempt: number; total: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'postprocess'>; phase: YtDlpPostprocessPhase; path?: string}
-	// The fallback for every other line. A `[download]` progress line also
-	// carries yt-dlp's total size, speed and ETA as printed (`10.00MiB`,
-	// `1.00MiB/s`, `00:05`).
-	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; percent?: number; total?: string; speed?: string; eta?: string; raw: string}
+	// Only from argv that asks for them (`YT_DLP_REQUESTED_FORMATS_TEMPLATE`,
+	// `YT_DLP_PROGRESS_TEMPLATE`); the bridge's download workflows do.
+	| {kind: Extract<YtDlpOutputEventKind, 'requested-formats'>; formats: YtDlpRequestedFormat[]}
+	| {kind: Extract<YtDlpOutputEventKind, 'download-progress'>; progress: YtDlpDownloadProgress}
+	// The fallback for every other line, ffmpeg's status lines included.
+	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; raw: string}
 
 export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 	const clean = line.trim()
 	if (!clean) return null
+
+	const progress = parseProgressLine(clean)
+	if (progress) return {kind: 'download-progress', progress}
+
+	const formats = parseRequestedFormatsLine(clean)
+	if (formats) return {kind: 'requested-formats', formats}
 
 	const destination = /^\[download\] Destination:\s+(.+)$/.exec(clean)
 	if (destination?.[1]) return {kind: 'destination', path: destination[1]}
@@ -65,18 +74,7 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 		return {kind: 'postprocess', phase: postprocess, ...(destination?.[1] ? {path: destination[1]} : {})}
 	}
 
-	const percent = parsePercentFromLine(clean)
-	return {kind: 'progress', ...(percent === undefined ? {} : {percent}), ...downloadProgressFields(clean), raw: clean}
-}
-
-// `[download]  42.0% of ~10.00MiB at 1.00MiB/s ETA 00:05` (any part may be
-// missing or `Unknown`).
-function downloadProgressFields(line: string): {total?: string; speed?: string; eta?: string} {
-	if (!line.startsWith('[download]')) return {}
-	const total = /\bof\s+(.+?)(?=\s+(?:at|ETA|in)\b|$)/i.exec(line)?.[1]?.trim()
-	const speed = /\bat\s+(\S+)/i.exec(line)?.[1]
-	const eta = /\bETA\s+(\S+)/i.exec(line)?.[1]
-	return {...(total ? {total} : {}), ...(speed ? {speed} : {}), ...(eta ? {eta} : {})}
+	return {kind: 'progress', raw: clean}
 }
 
 function postprocessPhase(line: string): YtDlpPostprocessPhase | null {
@@ -85,14 +83,4 @@ function postprocessPhase(line: string): YtDlpPostprocessPhase | null {
 	if (line.startsWith('[EmbedThumbnail]') || line.startsWith('[Metadata]') || line.startsWith('[FixupM4a]') || line.startsWith('[FixupM3u8]')) return 'embeddingMetadata'
 	if (line.startsWith('[MoveFiles]')) return 'movingFiles'
 	return null
-}
-
-// Only yt-dlp's own `[download]  42.0% of …` line carries a percent. Other
-// lines may hold a `N%` that is no progress: ffmpeg's banner prints the media
-// URL, whose encoded commas read as one (`met=1792423725%2C`).
-function parsePercentFromLine(line: string): number | undefined {
-	const match = /^\[download\]\s+(\d+(?:\.\d+)?)%/.exec(line)
-	if (!match?.[1]) return undefined
-	const parsed = Number.parseFloat(match[1])
-	return Number.isNaN(parsed) ? undefined : parsed
 }

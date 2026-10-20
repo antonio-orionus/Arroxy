@@ -1,7 +1,8 @@
 ---
 name: electron-run-as-node-leak
 description: Agent/editor shells spawned from an Electron app inherit ELECTRON_RUN_AS_NODE=1, which makes a hand-launched Electron run as plain Node and crash on `import {BrowserWindow} from 'electron'`.
-type: reference
+metadata:
+  type: reference
 ---
 
 # Inherited ELECTRON_RUN_AS_NODE breaks hand-launched Electron

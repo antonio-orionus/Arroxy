@@ -2,7 +2,7 @@
 	"source": {
 		"id": "twitch-clip",
 		"url": "https://www.twitch.tv/twitch/clip/ObedientAssiduousNikudonCclamChamp-c8MYDuWjmyTjxxzb",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
@@ -18,16 +18,26 @@
 		"upload_date": "20261015",
 		"timestamp": 1792088901,
 		"formats": [
-			{"format_id":"portrait-360","ext":"mp4","resolution":"360p","height":360,"fps":30,"filesize":1326554,"dynamic_range":"SDR","protocol":"https","quality":-2},
-			{"format_id":"portrait-480","ext":"mp4","resolution":"480p","height":480,"fps":30,"filesize":1705127,"dynamic_range":"SDR","protocol":"https","quality":-2},
-			{"format_id":"portrait-720","ext":"mp4","resolution":"720p","height":720,"fps":60,"filesize":3181495,"dynamic_range":"SDR","protocol":"https","quality":-2},
-			{"format_id":"portrait-1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"filesize":11917486,"dynamic_range":"SDR","protocol":"https","quality":-2},
-			{"format_id":"360","ext":"mp4","resolution":"360p","height":360,"fps":30,"filesize":1314104,"dynamic_range":"SDR","protocol":"https"},
-			{"format_id":"480","ext":"mp4","resolution":"480p","height":480,"fps":30,"filesize":1679811,"dynamic_range":"SDR","protocol":"https"},
-			{"format_id":"720","ext":"mp4","resolution":"720p","height":720,"fps":60,"filesize":3222106,"dynamic_range":"SDR","protocol":"https"},
-			{"format_id":"1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"filesize":6304012,"dynamic_range":"SDR","protocol":"https"}
+			{"format_id":"portrait-360","ext":"mp4","resolution":"360p","height":360,"fps":30,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-480","ext":"mp4","resolution":"480p","height":480,"fps":30,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-720","ext":"mp4","resolution":"720p","height":720,"fps":60,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"360","ext":"mp4","resolution":"360p","height":360,"fps":30,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"480","ext":"mp4","resolution":"480p","height":480,"fps":30,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"720","ext":"mp4","resolution":"720p","height":720,"fps":60,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"dynamic_range":"SDR","protocol":"https"}
 		],
 		"subtitles": {},
 		"automatic_captions": {}
+	},
+	"lookedUpSizes": {
+		"360": 1314104,
+		"480": 1679811,
+		"720": 3222106,
+		"1080": 6304012,
+		"portrait-1080": 11917486,
+		"portrait-360": 1326554,
+		"portrait-720": 3181495,
+		"portrait-480": 1705127
 	}
 }

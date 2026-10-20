@@ -29,6 +29,12 @@ function withSkippedAiUpscaled(spec: Record<string, unknown>): Record<string, un
 	return typeof selector === 'string' && selector.includes('bestvideo') ? {...spec, formatSelector: skippingAiUpscaled(selector)} : spec
 }
 
+// New since the recording: video without audio falls back to a stream with
+// sound on a site that has no video-only stream (its audio is dropped later).
+function withVideoOnlyFallback(spec: Record<string, unknown>): Record<string, unknown> {
+	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*/best'} : spec
+}
+
 // Fixed since the recording: the filters asking for Dolby or an "original"
 // track no longer match a stream whose field is missing (`~=?` → `~=`).
 function withStrictInclusionFilters(spec: Record<string, unknown>): Record<string, unknown> {
@@ -49,7 +55,7 @@ function withVideoRanksBeforeAudio(spec: Record<string, unknown>): Record<string
 }
 
 function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
-	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(spec)))
+	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec))))
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {
@@ -99,9 +105,9 @@ function video(goal: VideoMediaIntent['goal'], fileType: VideoMediaIntent['fileT
 
 describe('selectionOrder', () => {
 	it('ranks resolution first for Best picture and H.264 first for Smart TV', () => {
-		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
-		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
-		expect(selectionOrder({...video('best-picture', 'auto'), aiUpscaled: 'allow'}, 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
+		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
+		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
+		expect(selectionOrder({...video('best-picture', 'auto'), aiUpscaled: 'allow'}, 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
 	})
 
 	it('picks the audio rank from goal and file type', () => {

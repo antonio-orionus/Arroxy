@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import type {InFlightFiles} from '@shared/nameBudget.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 
 function utf8Bytes(value: string): number {
@@ -14,7 +15,15 @@ function compiled(template: string): string {
 
 // A roomy Linux directory, so these cases exercise binding rather than the
 // budget. The per-platform limits have their own tests in name-budget.test.ts.
-const LINUX: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux'}
+// A YouTube video+audio download, whose in-flight names are among the shortest.
+const YOUTUBE_IN_FLIGHT: InFlightFiles = {
+	formats: [
+		{formatId: '137', ext: 'mp4'},
+		{formatId: '251', ext: 'webm'}
+	],
+	subtitleLanguages: []
+}
+const LINUX: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux', inFlight: YOUTUBE_IN_FLIGHT}
 
 function bound(template: string, meta: TemplateMetadata, ctx: BindContext = LINUX): string {
 	const result = bindFilenameTemplate(template, meta, ctx)
@@ -293,6 +302,34 @@ describe('templateOutputDir', () => {
 	})
 })
 
+describe('bindFilenameTemplate — the names yt-dlp writes mid-download', () => {
+	// Recorded in src/renderer/src/dev/probeSources/instagram.json. While split
+	// video/audio downloads, yt-dlp writes `<name>.f<format_id>.<ext>.part`, and a
+	// fragmented stream adds `-Frag<N>.part` on top — far more than the final name.
+	const INSTAGRAM = [
+		{formatId: 'dash-1407570984907314v', ext: 'mp4'},
+		{formatId: 'dash-1407570791574000a', ext: 'm4a'}
+	]
+	const LONG_TITLE = {...SINGLE_META, title: 'T'.repeat(300)}
+
+	it('leaves room for the longest fragment name of every requested format on Linux', () => {
+		const ctx: BindContext = {outputDir: '/home/antonio/Videos', platform: 'linux', inFlight: {formats: INSTAGRAM, subtitleLanguages: []}}
+		const name = bound('{title} [{id}]', LONG_TITLE, ctx)
+		for (const {formatId, ext} of INSTAGRAM) {
+			expect(utf8Bytes(`${name}.f${formatId}.${ext}.part-Frag999999.part`)).toBeLessThanOrEqual(255)
+		}
+	})
+
+	it('keeps the in-flight path under MAX_PATH inside the job temp folder on Windows', () => {
+		const outputDir = 'C:\\Users\\antonio\\Videos\\Arroxy'
+		const ctx: BindContext = {outputDir, platform: 'win32', inFlight: {formats: INSTAGRAM, subtitleLanguages: []}}
+		const name = bound('{title} [{id}]', LONG_TITLE, ctx)
+		for (const {formatId, ext} of INSTAGRAM) {
+			expect(`${outputDir}\\.arroxy-temp\\0123abcd\\${name}.f${formatId}.${ext}.part-Frag999999.part`.length).toBeLessThanOrEqual(260)
+		}
+	})
+})
+
 describe('bindFilenameTemplate', () => {
 	describe('with a part-of-video suffix', () => {
 		const SUFFIX = '[3m40s-7m15s]'
@@ -306,7 +343,9 @@ describe('bindFilenameTemplate', () => {
 		it('works for a template at the typed-length limit, which the suffix would push past it', () => {
 			const template = `{title}${'x'.repeat(FILENAME_TEMPLATE_MAX - '{title}'.length - ' [{id}]'.length)} [{id}]`
 			expect(template).toHaveLength(FILENAME_TEMPLATE_MAX)
-			const result = bindFilenameTemplate(template, SINGLE_META, LINUX, SUFFIX)
+			// A short title: 186 literal bytes leave little room once the in-flight
+			// names are reserved for, and this case is about the typed limit.
+			const result = bindFilenameTemplate(template, {...SINGLE_META, title: 'Clip'}, LINUX, SUFFIX)
 			expect(result.ok && result.template.endsWith(` [YE7VzlLtp-4] ${SUFFIX}`)).toBe(true)
 		})
 
@@ -318,7 +357,7 @@ describe('bindFilenameTemplate', () => {
 		})
 
 		it('reports a name that cannot fit with the suffix instead of dropping it', () => {
-			const windows: BindContext = {outputDir: `C:\\${'d'.repeat(214)}`, platform: 'win32'}
+			const windows: BindContext = {outputDir: `C:\\${'d'.repeat(183)}`, platform: 'win32', inFlight: YOUTUBE_IN_FLIGHT}
 			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows)).toMatchObject({ok: true})
 			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows, SUFFIX)).toMatchObject({ok: false})
 		})
@@ -424,7 +463,7 @@ describe('bindFilenameTemplate', () => {
 	it('keeps a CJK title whole on macOS, where the limit counts code units', () => {
 		// 200 CJK characters is 600 bytes but only 200 UTF-16 code units, and APFS
 		// counts the latter — measured directly on APFS.
-		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, {outputDir: '/Users/antonio/Videos', platform: 'darwin'})
+		const result = bindFilenameTemplate('{title} [{id}]', {...PLAYLIST_META, title: '龍'.repeat(200)}, {outputDir: '/Users/antonio/Videos', platform: 'darwin', inFlight: YOUTUBE_IN_FLIGHT})
 		expect(result.ok && result.truncated).toEqual([])
 	})
 
@@ -434,7 +473,7 @@ describe('bindFilenameTemplate', () => {
 	})
 
 	it('reports path-too-deep rather than shortening forever', () => {
-		const result = bindFilenameTemplate('{title} [{id}]', PLAYLIST_META, {outputDir: `C:\\${'verylongfolder\\'.repeat(16)}`, platform: 'win32'})
+		const result = bindFilenameTemplate('{title} [{id}]', PLAYLIST_META, {outputDir: `C:\\${'verylongfolder\\'.repeat(16)}`, platform: 'win32', inFlight: YOUTUBE_IN_FLIGHT})
 		expect(result).toEqual({ok: false, reason: 'path-too-deep'})
 	})
 })
@@ -584,5 +623,103 @@ describe('unbound fallback title cap', () => {
 	it('still rejects a template longer than the field accepts', () => {
 		// The one thing `too-long` means now: more characters than FILENAME_TEMPLATE_MAX.
 		expect(validateFilenameTemplate(`${'a'.repeat(FILENAME_TEMPLATE_MAX)}{title}`)).toEqual({ok: false, code: 'too-long'})
+	})
+})
+
+describe('shell expansion in yt-dlp output paths', () => {
+	// yt-dlp runs os.path.expandvars and expanduser over the whole `-o` template
+	// and every `--paths` value before it fills in any field. Field values are
+	// safe; literal text is not. A title bound into the template as literal text
+	// must therefore never reach yt-dlp with a `$NAME` it would expand, or with a
+	// leading `~` that Windows resolves to another user's profile directory.
+	it('neutralises a variable reference in a bound title', () => {
+		expect(bound('{title} [{id}]', {title: 'Why $HOME rules', id: 'abc'})).toBe('Why ＄HOME rules [abc]')
+		expect(bound('{title} [{id}]', {title: '${USER} and $$PATH', id: 'abc'})).toBe('＄_USER_ and ＄＄PATH [abc]')
+	})
+
+	it('leaves a dollar sign that cannot start a variable alone', () => {
+		expect(bound('{title} [{id}]', {title: 'I spent $100 on a $ sign', id: 'abc'})).toBe('I spent $100 on a $ sign [abc]')
+	})
+
+	it('neutralises a dollar sign that ends a value, since what follows it can change', () => {
+		// A cut or a neighbouring token can put a letter right after it.
+		expect(bound('{title} [{id}]', {title: 'Make it rain $', id: 'abc'})).toBe('Make it rain ＄ [abc]')
+	})
+
+	it('neutralises a leading tilde, which Windows expands to a profile directory', () => {
+		expect(bound('{title} [{id}]', {title: '~foo bar', id: 'abc'})).toBe('～foo bar [abc]')
+		expect(bound('{title} ~ [{id}]', {title: 'mid', id: 'abc'})).toBe('mid ~ [abc]')
+	})
+
+	it('neutralises bound uploader and playlist values too', () => {
+		expect(bound('{uploader} - {playlist_title} - {title}', {title: 't', uploader: '$USER', playlistTitle: '${HOME}'})).toBe('＄USER - ＄_HOME_ - t')
+	})
+
+	it('counts the wider look-alike against the byte budget', () => {
+		const result = bindFilenameTemplate('{title} [{id}]', {title: '$A'.repeat(200), id: 'abc'}, LINUX)
+		if (!result.ok) throw new Error(result.reason)
+		expect(result.template).not.toMatch(/\$[A-Za-z_{$]/)
+		expect(utf8Bytes(`${result.template}.mp4`)).toBeLessThanOrEqual(255)
+	})
+
+	it('neutralises literal text in the compiled -o, whatever bound it', () => {
+		expect(compiled('Why $HOME rules [abc]')).toBe('Why ＄HOME rules [abc].%(ext)s')
+		expect(compiled('~root [{id}]')).toBe('～root [%(id)s].%(ext)s')
+		expect(compiled('{title} ~ $5')).toBe('%(title).120B ~ $5.%(ext)s')
+	})
+
+	it('neutralises variables in rendered directories, including the Windows %NAME% form', () => {
+		expect(renderTemplateDirs('{uploader}/{title}', {uploader: '$USER'})).toEqual(['＄USER'])
+		expect(renderTemplateDirs('{playlist_title}/{title}', {playlistTitle: '%TEMP% and 100%% mix'})).toEqual(['％TEMP% and 100％% mix'])
+		expect(renderTemplateDirs('{playlist_title}/{title}', {playlistTitle: '100% Hits'})).toEqual(['100% Hits'])
+	})
+
+	it('shows the neutralised name in the live preview', () => {
+		expect(previewFilenameTemplate('$HOME {title}')).toBe('＄HOME Big Buck Bunny.mp4')
+	})
+})
+
+describe('shell expansion across bound pieces', () => {
+	it('catches a reference formed by a literal dollar before a bound value', () => {
+		// Neither piece holds `$HOME` alone; the name does.
+		expect(bound('${title} [{id}]', {title: 'HOME', id: 'abc'})).toBe('＄HOME [abc]')
+	})
+
+	it('neutralises a literal dollar before a late-bound field too, so one rule covers every piece', () => {
+		// yt-dlp fills the field in after expanding, so this one was safe, but a
+		// rule that looks past a piece's end cannot hold under truncation.
+		expect(bound('${title} [{id}]', {id: 'abc'})).toBe('＄{title} [abc]')
+	})
+})
+
+describe('shell expansion and the byte budget', () => {
+	const REFERENCE = /\$(?=[A-Za-z_{$])/
+	// What yt-dlp writes for a compiled template, given the extension.
+	function written(template: string): string {
+		return compiled(template).replace('.%(ext)s', '.mp4').replaceAll('%%', '%')
+	}
+
+	it('budgets every occurrence of a repeated token as it will be written', () => {
+		// Thirteen copies of a title ending in `$`. Measured with the ASCII `$` this
+		// "fit" at 231 bytes and was written at 259; measured as written, it does not fit.
+		const template = `{title} ${'{title}A'.repeat(12)}{id}{uploader}`
+		const meta = {title: 'abcdefghijklm$', id: 'x'.repeat(24), uploader: 'u'.repeat(100)}
+		expect(bindFilenameTemplate(template, meta, LINUX)).toEqual({ok: false, reason: 'template-cannot-fit'})
+		// With room to spare, every copy is neutralised and the name fits as written.
+		const roomy = bound(`{title} ${'{title}A'.repeat(4)}{id}{uploader}`, meta)
+		expect(roomy).not.toMatch(REFERENCE)
+		expect(roomy.split('＄')).toHaveLength(6)
+		expect(utf8Bytes(written(roomy))).toBeLessThanOrEqual(255)
+	})
+
+	it('never lets truncation leave a dollar sign before a letter', () => {
+		// Shifting the title by one character moves where the cut lands, so one of
+		// these ends the kept part on `$`, right before the literal `B`.
+		for (let shift = 0; shift < 6; shift++) {
+			const result = bindFilenameTemplate('{title}B [{id}]', {title: `${'z'.repeat(shift)}${'a$ '.repeat(120)}`, id: 'abc'}, LINUX)
+			if (!result.ok) throw new Error(result.reason)
+			expect(result.template).not.toMatch(REFERENCE)
+			expect(utf8Bytes(written(result.template))).toBeLessThanOrEqual(255)
+		}
 	})
 })

@@ -31,6 +31,8 @@ function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): Selecti
 			return {label: t('selectionOrder.rank.source.label'), reason: t('selectionOrder.rank.source.reason')}
 		case 'codec':
 			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
+		case 'protocol':
+			return {label: t('selectionOrder.rank.protocol.label'), reason: t('selectionOrder.rank.protocol.reason')}
 		case 'size':
 			return {label: t('selectionOrder.rank.size.label'), reason: t('selectionOrder.rank.size.reason')}
 	}

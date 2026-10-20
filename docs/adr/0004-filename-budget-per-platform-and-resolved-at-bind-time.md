@@ -55,6 +55,19 @@ carrying their own messages, because reporting a blown byte budget as "Template
 is too long." told users with an 84-character template that their template was
 too long.
 
-The reserve for suffixes grew from 6 bytes to 22, because the name on disk during
-a download is longer than the finished name: yt-dlp writes
-`<name>.f<format_id>.<ext>.part` for split video/audio, not just `<name>.<ext>`.
+The reserve for suffixes is resolved at bind time too, from what the job will
+download, because the name on disk during a download is longer than the finished
+name: yt-dlp writes `<name>.f<format_id>.<ext>.part` for split video/audio, and
+`.part-Frag<N>.part` on top for each fragment of a DASH/HLS stream. Format ids
+have no maximum (a recorded DASH id is 22 characters), so a fixed reserve
+overflowed; where the formats are not known yet, a generous allowance stands in.
+The total-path reserve also covers the job temp folder that media downloads into.
+
+Literal text is not inert in yt-dlp: it runs `expandvars` and `expanduser` over
+the whole `-o` template and every `--paths` value before filling in fields, so a
+bound title `Why $HOME rules` was written into a folder named `Why `. There is no
+escape that survives both POSIX and Windows expansion (`$$` is not one), so bound
+names and Arroxy-rendered folders swap a `$` that could start a reference, a
+Windows `%NAME%` in folders, and a leading `~` for full-width look-alikes, the
+way yt-dlp itself swaps `:` or `|`. `bun run check:filename-parity` compares
+Arroxy's predicted paths with real yt-dlp's over a corpus of such titles.

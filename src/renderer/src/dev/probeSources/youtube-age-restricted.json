@@ -2,11 +2,23 @@
 	"source": {
 		"id": "youtube-age-restricted",
 		"url": "https://www.youtube.com/watch?v=Tq92D6wQ1mg",
-		"capturedAt": "2026-10-19",
+		"capturedAt": "2026-10-20",
 		"ytDlp": "2026.10.10.233141",
 		"signedIn": true
 	},
 	"info": {
+		"_format_sort_fields": [
+			"quality",
+			"res",
+			"fps",
+			"hdr:12",
+			"source",
+			"vcodec",
+			"channels",
+			"acodec",
+			"lang",
+			"proto"
+		],
 		"id": "Tq92D6wQ1mg",
 		"title": "[MMD] Adios - EVERGLOW [+Motion DL]",
 		"thumbnail": "https://i.ytimg.com/vi/Tq92D6wQ1mg/sddefault.jpg",

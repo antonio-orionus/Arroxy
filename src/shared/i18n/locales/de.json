@@ -1078,6 +1078,7 @@
 			"sitePreference": {"label": "Streams, die die Website nicht abwertet", "reason": "überspringt beschädigte Kopien, solche mit Wasserzeichen und Ersatzkopien"},
 			"original": {"label": "Original-Streams, keine KI-hochskalierten", "reason": "eine hochskalierte Kopie ist höher, bringt aber keine echten Details"},
 			"source": {"label": "Streams mit erhöhter Bitrate zuerst", "reason": "mehr Details bei gleicher Auflösung"},
+			"protocol": {"label": "Direkte Downloads vor gestreamten Kopien", "reason": "gleiches Bild, schneller heruntergeladen"},
 			"codec": {"label": "AV1, dann VP9, dann H.264", "reason": "bei gleicher Größe am schärfsten"},
 			"size": {"label": "Größere Datei", "reason": "mehr Details bei gleichen Einstellungen"},
 			"aacSmartTv": {"label": "AAC-Audio", "reason": "läuft überall"},

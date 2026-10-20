@@ -1561,6 +1561,14 @@ msgctxt "selectionOrder.rank.original.reason"
 msgid "an upscaled copy is taller but adds no real detail"
 msgstr "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"
 
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "picha ileile, inapakuliwa haraka zaidi"
+
 msgctxt "selectionOrder.rank.resolution.label"
 msgid "Up to {{tier}}p"
 msgstr "Hadi {{tier}}p"

@@ -37,7 +37,7 @@ const TEST_TIMEOUT_MS = 20_000
 
 // Every gate `bun run check` runs in parallel. `quality-gate` runs packages:check
 // only after all of them pass, because the package gates rebuild shared outputs.
-const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:pins', 'check:i18n', 'check:donation-addresses', 'test']
+const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:selection-parity', 'check:pins', 'check:i18n', 'check:donation-addresses', 'test']
 
 // Format, then lint with type checks (typeCheck is on). This is `vp check`
 // plus --deny-warnings, which `vp check` cannot take. Type-aware rules resolve

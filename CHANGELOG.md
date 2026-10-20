@@ -37,8 +37,10 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - A site whose stream list is gone no longer triggers a second lookup.
 - YouTube downloads use YouTube's download token again.
 - Part of video downloads show real progress, speed and time left.
+- The progress bar keeps moving while the audio of a video downloads, instead of sitting near 100%.
 - Downloads that use FFmpeg no longer show a stray "Merging…" label.
 - Subtitles embedded into MKV get the right language tag for every ISO 639-1 language.
+- A download saved as another file type, such as MKV, now gets its subtitles embedded, and its row in Downloads points at the saved file.
 - A playlist title ending in an emoji or accented letter no longer leaves a broken character in its folder name.
 - Vimeo OTT titles show accents, dashes and quotes correctly.
 - A copied link replaces the URL field, with **Undo**, instead of asking first. One copied while Arroxy is busy fills in once you're back on the Download tab.

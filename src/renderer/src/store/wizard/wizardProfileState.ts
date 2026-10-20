@@ -54,7 +54,7 @@ export function snapshotPatch(snapshot: WizardSettingsSnapshot): Partial<AppStat
 	}
 }
 
-type ProbeFields = Pick<AppState, 'wizardFormats' | 'wizardSubtitles' | 'wizardAutomaticCaptions' | 'wizardIsAudioOnlySource' | 'settings' | 'wizardOutputDir'>
+type ProbeFields = Pick<AppState, 'wizardFormats' | 'wizardFormatSelection' | 'wizardSubtitles' | 'wizardAutomaticCaptions' | 'wizardIsAudioOnlySource' | 'settings' | 'wizardOutputDir'>
 
 // Every setting the profile gives for the probe in `state`, as a state patch
 // plus the baseline and notices that go with it.
@@ -64,6 +64,7 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 	const {snapshot, notices, order} = applyProfileToWizard({
 		profile,
 		formats: state.wizardFormats,
+		selection: state.wizardFormatSelection,
 		subtitles: state.wizardSubtitles,
 		automaticCaptions: state.wizardAutomaticCaptions,
 		isAudioOnlySource: state.wizardIsAudioOnlySource,
@@ -88,7 +89,16 @@ export function profileVideoPick(state: ProbeFields & Pick<AppState, 'wizardProf
 	const {audio: _audio, ...video} = base.media.kind === 'video-audio' ? base.media : {...base.media, audio: undefined}
 	const ranking: DownloadProfile = silent ? {...base, media: {...video, kind: 'video-only'}} : base
 	const common = state.settings?.common
-	const {media} = resolveProfileSelection({profile: ranking, formats: state.wizardFormats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference, hdrPreference: resolveAppHdr(common?.hdrPreference)})
+	const {media} = resolveProfileSelection({
+		profile: ranking,
+		formats: state.wizardFormats,
+		selection: state.wizardFormatSelection,
+		subtitles: {},
+		automaticCaptions: {},
+		isAudioOnlySource: false,
+		nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference,
+		hdrPreference: resolveAppHdr(common?.hdrPreference)
+	})
 	return media.videoFormatId
 }
 

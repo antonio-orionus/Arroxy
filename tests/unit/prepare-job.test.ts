@@ -97,8 +97,13 @@ describe('prepareJob', () => {
 			expect(job.kind).toBe('subtitle-only')
 		})
 
-		it('throws when subtitle-only requested with empty languages', () => {
-			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toThrow(/subtitle-only/)
+		it('throws when subtitle-only is requested without subtitles or with no language codes', () => {
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true})).toThrow(/subtitle-only/)
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false, languagesAreCodes: true}})).toThrow(/subtitle-only/)
+		})
+
+		it('keeps a subtitle-only job whose video has none of the wanted tracks', () => {
+			expect(prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toMatchObject({kind: 'subtitle-only', subtitles: {languages: []}})
 		})
 	})
 
@@ -150,7 +155,7 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo'))
+			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*/best'))
 			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr')
 		})
 

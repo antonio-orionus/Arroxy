@@ -980,6 +980,7 @@
 			"sitePreference": {"label": "사이트가 후순위로 두지 않은 스트림", "reason": "손상, 워터마크, 대체용 사본 제외"},
 			"original": {"label": "AI 업스케일이 아닌 원본 스트림", "reason": "업스케일 사본은 해상도가 높아도 실제 디테일은 늘지 않음"},
 			"source": {"label": "향상된 비트레이트 스트림 우선", "reason": "같은 해상도에서 더 세밀함"},
+			"protocol": {"label": "직접 다운로드를 스트리밍 사본보다 우선", "reason": "같은 화질, 더 빠른 다운로드"},
 			"codec": {"label": "AV1, 그다음 VP9, 그다음 H.264", "reason": "같은 크기에서 가장 선명"},
 			"size": {"label": "더 큰 파일", "reason": "같은 설정에서 더 세밀함"},
 			"aacSmartTv": {"label": "AAC 오디오", "reason": "어디서나 재생"},
