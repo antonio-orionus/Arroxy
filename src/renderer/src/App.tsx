@@ -283,12 +283,14 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 				</Hint>
 				<div className="relative inline-flex h-6 items-center">
 					<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
-					<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')} onClick={onFeedback} aria-label={t('app.feedback')} data-testid="btn-feedback">
-						<MessageCircle data-icon="inline-start" aria-hidden />
-						<span className={footerLabelClass} data-testid="btn-feedback-label">
-							{t('app.feedback')}
-						</span>
-					</Button>
+					<Hint label={t('app.feedback')}>
+						<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')} onClick={onFeedback} aria-label={t('app.feedback')} data-testid="btn-feedback">
+							<MessageCircle data-icon="inline-start" aria-hidden />
+							<span className={footerLabelClass} data-testid="btn-feedback-label">
+								{t('app.feedback')}
+							</span>
+						</Button>
+					</Hint>
 				</div>
 			</div>
 		</footer>
