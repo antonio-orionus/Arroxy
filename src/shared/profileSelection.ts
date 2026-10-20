@@ -117,12 +117,20 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 		return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, input)}, order}
 	}
 
-	const {video, audio} = pickedOptions(ytDlpPick(media, input), formats)
+	const picked = ytDlpPick(media, input)
+	const {video, audio} = pickedOptions(picked, formats)
 	if (!video) return {media: {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}, order}
 	if (order.goal === 'smart-tv' && !isH264(video)) notices.push({kind: 'mp4-unavailable'})
+	// A stream meets the tier when either measure says so: the row's label
+	// (a 1280x640 trailer reads 720p) or the tier as `-S res:N` counts it,
+	// yt-dlp's `res`, the smaller side (an ultra-wide 2560x1080 is 1080 though
+	// its row reads 1440p). A stream whose site gives no size (0) says nothing.
 	const pickedHeight = videoHeight(video.resolution)
-	// A stream whose site gives no size (height 0) says nothing about the tier: no "goes up to 0p".
-	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
+	const raw = picked?.formats.find(format => format.format_id === video.formatId)
+	const sides = [raw?.height, raw?.width].filter((side): side is number => side !== undefined && side > 0)
+	const res = sides.length > 0 ? Math.min(...sides) : pickedHeight
+	const meetsTier = (height: number): boolean => height === Number(order.tier)
+	if (order.tier !== 'best' && pickedHeight !== 0 && !meetsTier(pickedHeight) && !meetsTier(res)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
 	return {media: {kind: 'video', videoFormatId: video.formatId, audioSelection: audio ? {kind: 'native', formatId: audio.formatId} : NO_AUDIO}, order}
 }
 
