@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {queueArraySchema} from '@shared/queueItemSchema.js'
-import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
+import {audioConvertSchema, MAX_SUBTITLE_LANGUAGES, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
+import {startDownloadSchema} from '@shared/preparedJob.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}

@@ -241,24 +241,37 @@ function parseEnabledOverrides(value: unknown): Record<string, boolean> {
 	return out
 }
 
-function normalizePersistedProfiles(source: unknown): DownloadProfilesPrefs {
-	const record = asRecord(source)
-	const custom = parseProfileList(record?.custom, 'custom')
-	const overrides = parseProfileList(record?.overrides, 'overrides')
-	const enabledOverrides = parseEnabledOverrides(record?.enabledOverrides)
-	const parsedActive = downloadProfileRefSchema.safeParse(record?.active)
+function parseProfileOrder(value: unknown): string[] | undefined {
+	if (value === undefined) return undefined
+	if (!Array.isArray(value)) {
+		logger.warn('Discarded download profile order that is not an array', {type: typeof value})
+		return undefined
+	}
+	return value.filter((id): id is string => typeof id === 'string')
+}
+
+function persistedActiveRef(value: unknown, custom: readonly DownloadProfile[]): DownloadProfileRef {
+	const parsedActive = downloadProfileRefSchema.safeParse(value)
 	if (!parsedActive.success) {
-		if (record?.active !== undefined) logger.warn('Reset unreadable active download profile reference', {issues: issuePaths(parsedActive.error)})
-		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides, enabledOverrides}
+		if (value !== undefined) logger.warn('Reset unreadable active download profile reference', {issues: issuePaths(parsedActive.error)})
+		return DEFAULT_DOWNLOAD_PROFILE_REF
 	}
 	const active: DownloadProfileRef = parsedActive.data
 	// A dangling custom reference resolves to the default profile at read time
 	// anyway; resetting it here keeps disk and UI telling the same story.
 	if (active.kind === 'custom' && !custom.some(profile => profile.id === active.id)) {
 		logger.warn('Active download profile no longer exists — falling back to the default', {id: active.id})
-		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides, enabledOverrides}
+		return DEFAULT_DOWNLOAD_PROFILE_REF
 	}
-	return {active, custom, overrides, enabledOverrides}
+	return active
+}
+
+function normalizePersistedProfiles(source: unknown): DownloadProfilesPrefs {
+	const record = asRecord(source)
+	const custom = parseProfileList(record?.custom, 'custom')
+	const prefs: DownloadProfilesPrefs = {active: persistedActiveRef(record?.active, custom), custom, overrides: parseProfileList(record?.overrides, 'overrides'), enabledOverrides: parseEnabledOverrides(record?.enabledOverrides)}
+	const order = parseProfileOrder(record?.order)
+	return order ? {...prefs, order} : prefs
 }
 
 // Profiles saved before goals and file types carry `codec` and `tiers` in their

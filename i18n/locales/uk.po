@@ -4961,6 +4961,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Перемкнути профіль"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "переміщуваний профіль"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Переміщення скасовано. Профіль «{{profileName}}» залишається на позиції {{position}} з {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Профіль «{{profileName}}» розміщено на позиції {{position}} з {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Перемістити профіль «{{profileName}}»"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Щоб перемістити профіль, натисніть пробіл або Enter, перемістіть його клавішами зі стрілками, а потім знову натисніть пробіл або Enter, щоб розмістити. Натисніть Esc, щоб скасувати."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Профіль «{{profileName}}» над позицією {{position}} з {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Профіль «{{profileName}}» захоплено. Він на позиції {{position}} з {{count}}."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Новий профіль"
@@ -4976,6 +5004,10 @@ msgstr "Профілі завантаження"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Видалити"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Перетягніть профіль, щоб перемістити його. Усі списки профілів дотримуються цього порядку."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "تغییر نمایه"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "نمایهٔ قابل جابه‌جایی"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "جابه‌جایی لغو شد. {{profileName}} در جایگاه {{position}} از {{count}} باقی می‌ماند."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} در جایگاه {{position}} از {{count}} رها شد."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "جابه‌جایی {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "برای جابه‌جایی یک نمایه، Space یا Enter را فشار دهید، با کلیدهای جهت‌نما آن را حرکت دهید، سپس برای رها کردن دوباره Space یا Enter را فشار دهید. برای لغو، Escape را فشار دهید."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} روی جایگاه {{position}} از {{count}} قرار دارد."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} برداشته شد. در جایگاه {{position}} از {{count}} است."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "نمایهٔ جدید"
@@ -4666,6 +4694,10 @@ msgstr "نمایه‌های دانلود"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "حذف"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "برای جابه‌جایی یک نمایه، آن را بکشید. همهٔ انتخابگرهای نمایه از این ترتیب پیروی می‌کنند."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

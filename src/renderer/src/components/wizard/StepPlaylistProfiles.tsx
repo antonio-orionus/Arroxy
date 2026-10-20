@@ -23,7 +23,6 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
-import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {PLAYLIST_PROFILE_COLUMNS} from './playlistProfileColumns.js'
 import {PlaylistProfileColumnsContext, type PlaylistProfileColumnsContextValue, type PlaylistSelectAllState} from './playlistProfileColumnsContext.js'
@@ -80,11 +79,7 @@ export function StepPlaylistProfiles(): ReactNode {
 	const liveLabel = t('wizard.playlist.durationUnknown')
 
 	const model = useMemo(() => buildDownloadProfileActionModel(settings?.profiles), [settings?.profiles])
-	// Baseline first, then the user's custom profiles, then builtins — local to
-	// this screen. See playlistProfileOrder.ts for why the catalog order (used
-	// as-is by the home-screen picker) doesn't work here.
-	const orderedOptions = useMemo(() => orderProfileOptionsForAssignment(model.options, model.activeRef), [model.options, model.activeRef])
-	const profiles = useMemo(() => orderedOptions.map(option => option.profile), [orderedOptions])
+	const profiles = useMemo(() => model.options.map(option => option.profile), [model.options])
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
 	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
 	// dialog previews the same resolved path DownloadProfilesHome would show.
@@ -163,13 +158,13 @@ export function StepPlaylistProfiles(): ReactNode {
 			}),
 		[itemById, resolveProfile]
 	)
-	const toolbarMenu = useMemo(() => playlistProfileMenuModel(orderedOptions, profilesOf(selectedItemIds)), [orderedOptions, profilesOf, selectedItemIds])
+	const toolbarMenu = useMemo(() => playlistProfileMenuModel(model.options, profilesOf(selectedItemIds)), [model.options, profilesOf, selectedItemIds])
 	const rowMenuFor = useCallback(
 		(rowId: string) => {
 			const targets = rowMenuTargets(rowId, selectedIds, selectedItemIds)
-			return {targets, menu: playlistProfileMenuModel(orderedOptions, profilesOf(targets))}
+			return {targets, menu: playlistProfileMenuModel(model.options, profilesOf(targets))}
 		},
-		[orderedOptions, profilesOf, selectedIds, selectedItemIds]
+		[model.options, profilesOf, selectedIds, selectedItemIds]
 	)
 
 	const assign = useCallback(
@@ -269,7 +264,7 @@ export function StepPlaylistProfiles(): ReactNode {
 
 				<PlaylistProfileActionBar menu={toolbarMenu} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={editProfile} onNewProfile={() => newProfile(selectedItemIds)} onReset={() => reset(selectedItemIds)} />
 
-				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
+				<PlaylistProfileFilterChips options={model.options} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 
 				{allRemoved ? (
 					<Empty className="flex-1 py-10" data-testid="playlist-profile-empty">
@@ -288,7 +283,7 @@ export function StepPlaylistProfiles(): ReactNode {
 							topVirtualPadding={topVirtualPadding}
 							bottomVirtualPadding={bottomVirtualPadding}
 							renderedColumnCount={renderedColumnCount}
-							options={orderedOptions}
+							options={model.options}
 							contextItemIds={contextItemIds}
 							selectedIds={selectedIds}
 							interactions={interactions}

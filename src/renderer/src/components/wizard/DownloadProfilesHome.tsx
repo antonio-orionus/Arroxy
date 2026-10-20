@@ -1,28 +1,25 @@
 import {useRef, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Link2, ListPlus, PenLine, Plus, Wand2, X, type LucideIcon} from 'lucide-react'
-import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
+import {ChevronRight, Link2, ListPlus, Wand2, X, type LucideIcon} from 'lucide-react'
+import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
-import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useDownloadHomeView, type DownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
-import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
-import {Switch} from '../ui/switch.js'
 import {Tabs, TabsContent} from '../ui/tabs.js'
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
+import {ProfilesManageTab} from './DownloadProfilesManageTab.js'
 import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {QueueManagerTab} from '../queue/QueueManagerTab.js'
 import {ExploreTab} from '../explore/ExploreTab.js'
-import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
 import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip} from './homeTabRoute.js'
@@ -39,20 +36,6 @@ function browserMockScenarioId(): string | null {
 	} catch {
 		return null
 	}
-}
-
-function profileDetail(profile: DownloadProfile, t: TFunction): string {
-	const subs = profile.subtitles.enabled || profile.media.kind === 'subtitles-only' ? `${profile.subtitles.languages.join(', ') || 'selected'} ${t('wizard.confirm.labelSubtitles').toLowerCase()}` : t('wizard.subtitles.noSelected')
-	const output = profile.output.kind === 'fixed' ? profile.output.dir : t('wizard.folder.downloads')
-	const artifacts = [
-		profile.embed.metadata ? t('wizard.output.embedMetadata.label') : null,
-		profile.embed.thumbnail ? t('wizard.output.embedThumbnail.label') : null,
-		profile.embed.thumbnailSidecar ? t('wizard.output.writeThumbnail.label') : null,
-		profile.embed.description ? t('wizard.output.writeDescription.label') : null
-	]
-		.filter(Boolean)
-		.join(' · ')
-	return `${subs} · ${output}${artifacts ? ` · ${artifacts}` : ''}`
 }
 
 function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {
@@ -97,7 +80,7 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 
 export function DownloadProfilesHome(): ReactNode {
 	const view = useDownloadHomeView()
-	const {activeProfile, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, profiles, profilesPrefs, removeDownloadProfile, setActiveDownloadProfile, setDownloadProfileEnabled, setWizardUrl} = view
+	const {activeProfile, cookiesConfigDialogIssue, dismissCookiesConfigDialog, moveDownloadProfile, openCookiesSettings, profiles, profilesPrefs, removeDownloadProfile, setActiveDownloadProfile, setDownloadProfileEnabled, setWizardUrl} = view
 	const initialBrowserMockScenario = browserMockScenarioId()
 	const {activeTab, exploreEnabled, compact} = useProfilesTabRoute()
 	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
@@ -149,7 +132,16 @@ export function DownloadProfilesHome(): ReactNode {
 				</TabsContent>
 
 				<TabsContent value="profiles">
-					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} onToggleEnabled={(id, enabled) => void setDownloadProfileEnabled(id, enabled)} profiles={profiles} profilesPrefs={profilesPrefs} />
+					<ProfilesManageTab
+						activeProfile={activeProfile}
+						onEdit={openEditor}
+						onMove={(id, targetId) => void moveDownloadProfile(id, targetId)}
+						onPick={activateProfile}
+						onRemove={profile => void removeDownloadProfile(profile.id)}
+						onToggleEnabled={(id, enabled) => void setDownloadProfileEnabled(id, enabled)}
+						profiles={profiles}
+						profilesPrefs={profilesPrefs}
+					/>
 				</TabsContent>
 				<TabsContent value="settings">
 					<DownloadProfilesSettingsTab />
@@ -325,124 +317,5 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			</span>
 			<ChevronRight className="ms-auto text-muted-foreground" aria-hidden />
 		</Button>
-	)
-}
-
-function ProfilesTab({
-	activeProfile,
-	onEdit,
-	onPick,
-	onRemove,
-	onToggleEnabled,
-	profiles,
-	profilesPrefs
-}: {
-	activeProfile: DownloadProfile
-	onEdit: (profile: DownloadProfile | null) => void
-	onPick: (profile: DownloadProfile) => void
-	onRemove: (profile: DownloadProfile) => void
-	onToggleEnabled: (id: string, enabled: boolean) => void
-	profiles: DownloadProfile[]
-	profilesPrefs: DownloadProfilesPrefs | undefined
-}): ReactNode {
-	const {t} = useTranslation()
-	const enabledCount = profiles.filter(profile => profile.enabled).length
-	return (
-		<Card variant="glass" data-testid="profiles-manage-tab">
-			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
-				<div>
-					<CardTitle className="text-xl font-semibold leading-tight">{t('wizard.url.profile.panelTitle')}</CardTitle>
-					<CardDescription className="mt-1 text-xs text-subtle-foreground">{t('wizard.url.profile.panelDescription')}</CardDescription>
-					<p className="mt-1 text-caption text-subtle-foreground">{t('wizard.url.profile.enableHint')}</p>
-				</div>
-				<Button variant="glow" type="button" onClick={() => onEdit(null)}>
-					<Plus data-icon="inline-start" />
-					{t('wizard.url.profile.newProfile')}
-				</Button>
-			</CardHeader>
-			<CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-				{profiles.map(profile => {
-					const Icon = PROFILE_ICONS[profile.icon]
-					const active = activeProfile.id === profile.id
-					const origin = downloadProfileOrigin(profile, profilesPrefs)
-					const isCustom = origin.kind === 'custom'
-					const canRemove = isCustom || origin.overridden
-					const canToggleOff = profile.enabled ? enabledCount > 1 : true
-					return (
-						<article
-							key={profile.id}
-							data-active={active ? 'true' : undefined}
-							data-selected={active || undefined}
-							data-disabled-profile={!profile.enabled ? 'true' : undefined}
-							className={cn('choice-surface rounded-lg p-3', !profile.enabled && 'opacity-60 saturate-[0.7]')}
-							data-testid={`profiles-manage-card-${profile.id}`}
-						>
-							<button
-								type="button"
-								className="flex w-full items-start gap-3 text-left"
-								aria-pressed={active}
-								aria-disabled={!profile.enabled}
-								onClick={() => {
-									if (!profile.enabled) return
-									onPick(profile)
-								}}
-								data-testid={`profiles-manage-card-${profile.id}-picker`}
-							>
-								<IconTile>
-									<Icon />
-								</IconTile>
-								<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
-									<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
-										<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
-											{profile.name}
-										</span>
-										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
-										{!profile.enabled ? <Badge variant="outline">{t('wizard.url.profile.badgeDisabled')}</Badge> : null}
-										<Check className={cn('ms-auto size-4 shrink-0 text-primary transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
-									</span>
-									<span className="mt-1 block text-xs text-subtle-foreground" data-testid={`profiles-manage-card-${profile.id}-description`}>
-										{downloadProfileLabel(profile)}
-									</span>
-									<span className="block text-xs text-subtle-foreground" data-testid={`profiles-manage-card-${profile.id}-detail`}>
-										{profileDetail(profile, t)}
-									</span>
-								</span>
-							</button>
-							<div className="mt-3 flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
-								<div className="grid flex-1 grid-cols-2 gap-2">
-									<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
-										<PenLine data-icon="inline-start" />
-										{t('wizard.url.profile.edit')}
-									</Button>
-									<Button type="button" variant="outline" size="sm" disabled={!canRemove} onClick={() => onRemove(profile)}>
-										<X data-icon="inline-start" />
-										{isCustom ? t('wizard.url.profile.remove') : t('wizard.url.profile.reset')}
-									</Button>
-								</div>
-								<Tooltip>
-									<TooltipTrigger
-										render={props => (
-											<span {...props} className="inline-flex">
-												<Switch
-													checked={profile.enabled}
-													disabled={!canToggleOff}
-													onCheckedChange={next => {
-														if (!canToggleOff && profile.enabled) return
-														onToggleEnabled(profile.id, next)
-													}}
-													aria-label={t('wizard.url.profile.enableToggleAria', {profileName: profile.name})}
-													data-testid={`profiles-manage-card-${profile.id}-enabled-toggle`}
-												/>
-											</span>
-										)}
-									/>
-									{!canToggleOff ? <TooltipContent>{t('wizard.url.profile.lastEnabledHint')}</TooltipContent> : null}
-								</Tooltip>
-							</div>
-						</article>
-					)
-				})}
-			</CardContent>
-		</Card>
 	)
 }

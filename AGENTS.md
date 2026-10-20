@@ -1,4 +1,6 @@
-# General
+# Arroxy
+
+Arroxy's coding standards, commands and gotchas, for anyone working in this repository — human or agent.
 
 ## Engineering Principles
 
@@ -8,12 +10,7 @@ The defaults below apply to every change in this codebase.
 - **Validate at trust transitions.** Data received from IPC, persistence, external processes, network responses, environment/configuration, browser evaluation, and untyped framework APIs enters as `unknown` when its runtime shape is not guaranteed. Convert it through an owned parser or normalizer into a named trusted type before domain logic consumes it. Parsers may accept `unknown` and use runtime checks. Runtime narrowing remains valid for typed unions, optional values, capability detection, and error normalization. Prefer schemas, type guards, contextual typing, and discriminated unions over assertions. A necessary assertion must be supported by a locally visible check or a precise documented invariant.
 - **Clean architecture.** Keep concerns separated, dependencies pointing inward, business logic decoupled from frameworks and I/O. The renderer shouldn't know how the main process fetches; the main process shouldn't know which component renders.
 - **Prefer mature libraries over bespoke code.** For validation, HTTP, ORM, auth, logging, and similar plumbing, reach for the production-proven, widely-adopted package before writing your own. If a mature library solves the problem, use it.
-- **Push back when something looks wrong.** Don't defer to the user reflexively. If a proposal looks incorrect, incomplete, or inconsistent with the codebase, name the specific reason rather than agreeing. Agreement-by-default is a failure mode.
-- **Verify before you act on uncertainty.** When you're not confident about a fact, an API surface, a library's behavior, or how a piece of this codebase works, check it — read the source, check the docs, run a quick test. Assumed knowledge is the most common source of bugs.
 - **Reuse the domain glossary** in `GLOSSARY.md` — the canonical naming reference for the architecture. Use those terms exactly when extending or refactoring; add new entries when extracting modules instead of letting parallel vocabularies sprout.
-- Don’t fight errors! Whenever you encounter the same error 3 times, research the web (and github using gh api) and find 3-5 possible ways to fix it. Then choose the most efficient solution and implement it or stop to notify user that there is no clean fix at this point.
-
----
 
 ## Repo Layout — this is a monorepo
 
@@ -34,7 +31,18 @@ bun run bridge:check   # yt-dlp-bridge: builds ytdlp-errors first, then the same
 
 Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*` and `ytdlp-errors-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
 
----
+## Related repositories
+
+Arroxy spans several repositories. This repo is the hub: the others consume what it builds or publishes, and none of them is a source for app code.
+
+| Repository | Owns | Connection to this repo |
+| --- | --- | --- |
+| `arroxy-web` | Landing site, blog, download picker, landing-page copy in every locale | Its `release-manifest` workflow refreshes download metadata from this repo's latest release; the `notify-web-release-manifest` job here dispatches `arroxy-release` to trigger it |
+| `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
+| `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as `.internal/`; see below |
+| `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
+
+The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these (for example, `arroxy-web` commits straight to `main` and opens no PRs).
 
 ## Domain Glossary
 
@@ -45,8 +53,6 @@ The glossary is the single source of terminology for this repo. Keep it implemen
 ### ADRs
 
 Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision that is hard to reverse, surprising without context, and chosen through a real trade-off. Keep it short; skip ADRs for reversible or obvious choices.
-
----
 
 ## Working Conventions
 
@@ -60,8 +66,6 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 **Translation workflow.** Use the `translate-arroxy-i18n` project skill for app locale changes, PO/POT sync, generated locale JSON, and i18n audits.
 
-**Session scope.** Treat every agent session as scoped to the task context it was given. Other agents may be working in parallel on the same branch, so do not repair, reformat, revert, or restructure files outside your current scope just because you notice a problem there.
-
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` on its own, so every review reads a single idea.
 
 - **Split along seams:** a `packages/*` change apart from the app change that uses it; a behaviour-free refactor or rename before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features or modules as separate PRs off `main`.
@@ -70,97 +74,25 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 - **Review by kind:** a mechanical PR gets Codex and the gates, no CodeRabbit trigger; a logic PR gets Codex first, then the CodeRabbit budget in memory `coderabbit-review-workflow` (the quota is scarce and shared).
 - **Docs-only changes skip the PR** and go straight to `main` (memory `readme-edits-skip-pr`).
 
-### Agent Skills
+## Agent setup
 
-- **translate-arroxy-i18n** — manages app locale updates, gettext PO/POT sync, runtime locale JSON generation, and i18n audit commands. Entry point: `.agents/skills/translate-arroxy-i18n/SKILL.md`.
-- **ship-fix** — runs the end-to-end flow for a bug fix: worktree, test-first fix, PR, CodeRabbit, CI validation, squash-merge, version bump and release, with cheaper subagents for mechanical work. Entry point: `.agents/skills/ship-fix/SKILL.md`.
-
----
-
-## Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-
-- State assumptions explicitly. Ask if uncertain.
-- Multiple interpretations? Present them — don't pick silently.
-- Simpler approach exists? Say so. Push back when warranted.
-- Unclear? Stop. Name what's confusing. Ask.
-
-## Goal-Driven Execution
-
-**Define success criteria. Loop until verified.** Transform tasks into verifiable goals: "Add validation" → tests for invalid inputs, then make them pass. "Fix the bug" → reproduce-test, then make it pass. "Refactor X" → tests pass before and after. For multi-step tasks, state a brief plan with a `verify:` line per step.
-
-For multi-step tasks, use this shape:
-
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-
-Strong success criteria let you loop independently. Weak criteria like "make it work" require constant clarification.
-
-**Simplify aggressively.** If you write 200 lines and it could be 50, rewrite it. Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
----
-
-# Project-Scoped
-
-## Memory storage — project-scoped, not user-scoped
-
-Persistent memory for this repo lives at `./.agents/memory/`, not in any user-scoped (`~/.claude/projects/...`) or tool-specific (`./.claude/memory/`) location. Read `MEMORY.md` in that directory for the index, and write new memories there following the same `name` / `description` / `type` frontmatter convention as the existing files. Do **not** write project facts, conventions, or references into user-scoped memory — they belong with the repo so other clones / collaborators / reset-home agents can see them.
-
-Rarely-needed deep-dive references that bloat this file (e.g. the YouTube bot-protection research map) live as memory entries instead of inline sections here. Pull them in via memory when the symptom matches.
-
-**Private maintainer docs.** Unbuilt plans, research records and personal notes live in the private `arroxy-internal` repo, reached through a gitignored `.internal` link that `bun run bootstrap` (or `bun run internal:sync`) creates when you have access; every checkout and worktree shares one clone. If `.internal/` exists, read `.internal/README.md` alongside `MEMORY.md`. After editing anything there, run `bun run internal:save` — it is a separate repo, so those edits never ride along in a branch or PR. Tracked files never link into `.internal/`; give a one-line summary instead.
-
-## Agent skills — light repo, recoverable installs
-
-Keep installable third-party skills out of Git. Their source directories under `./.agents/skills/` are local restored state, and their recovery metadata lives in the tracked `skills-lock.json`. After a fresh clone or accidental local checkout deletion, run:
-
-```bash
-bun run agents:skills:restore
-```
-
-Only tiny project-owned, non-installable skills stay tracked under `./.agents/skills/`. Do not add `.claude/skills/` to Git; that directory is local/generated only. If a new public skill is useful for Arroxy, add it through the Skills CLI so `skills-lock.json` records the source and hash instead of committing the skill's source tree.
-
-## Agent tooling — no tool lock-in
-
-The repo works the same for any coding agent. Keep agent config in three layers:
-
-1. **Shared sources (tracked, plain files):** `AGENTS.md`, `GLOSSARY.md`, `.agents/memory/`, `.agents/skills/` + `skills-lock.json`, and `.agents/mcp.json`. Edit only these.
-2. **Per-tool adapters (gitignored, generated):** `.claude/skills/` links, `.mcp.json`, `.codex/config.toml`, `opencode.jsonc`. (`CLAUDE.md` is a tracked symlink to `AGENTS.md`.) `bun run agents:sync` rebuilds them (`bootstrap` and `agents:skills:restore` run it too). Codex and OpenCode read `.agents/skills` natively; only Claude Code needs the links. To add a tool, extend `scripts/agents-sync.ts`.
-3. **Harness plugins (per machine, never in the repo):** Superpowers, context7, playwright, CodeGraph prompt hooks, etc. install differently in every tool — see [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md). Tracked files must not depend on them: never reference plugin-namespaced skills (`superpowers:*`, `feature-dev:*`) or tool-specific tool names as requirements. If a plugin workflow matters for Arroxy, write the rule into `AGENTS.md` or a project skill.
-
----
+- **Memory** lives in `.agents/memory/`: read `MEMORY.md` before working, and write new memories there with the same frontmatter, never in user-scoped or tool-specific memory. Deep-dive references live there too, not in this file.
+- **Private maintainer docs** live in the private `arroxy-internal` repo, linked as a gitignored `.internal/` by `bun run bootstrap` (or `bun run internal:sync`) when you have access. If it exists, read `.internal/README.md` too. After editing there, run `bun run internal:save`: it is a separate repo, so those edits never ride along in a PR. Tracked files never link into `.internal/`; give a one-line summary instead.
+- **Agent config** is edited only in the shared sources (`AGENTS.md`, `GLOSSARY.md`, `.agents/`, `skills-lock.json`); `bun run agents:sync` generates every per-tool adapter. Install third-party skills through the Skills CLI (`bun run agents:skills:restore` after a fresh clone) and never commit their source or `.claude/skills/`. Tracked files never depend on a harness plugin (`superpowers:*`, `feature-dev:*`). Layers, and how to add a tool, skill or MCP server: [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md).
 
 ## Post-Task Checks
 
-After completing any implementation task, run this single command and fix all errors caused by your change before reporting done:
+After any implementation task, run the full gate and fix every error your change caused before reporting done. Do not skip it: a change in one file can break types, introduce dead code, or create circular imports elsewhere.
 
 ```bash
-bun run check   # vp check (format + lint + types + import cycles) + tests + knip + tooling contract + package gates
+bun run check           # full gate: vp check + tests + knip + tooling contract + package gates
+bunx vp check           # while iterating: format + lint + type errors + import cycles, ~5 s (--fix applies fixes)
+bun run knip:test-only  # src/ files imported only from tests/: does a helper belong in tests/?
 ```
-
-Do not skip. A change in one file can break types, introduce dead code, or create circular imports elsewhere.
-
-If `bun run check`, lint, typecheck, or tests report an unexpected failure that is not clearly attributable to your current task, do not try to fix it opportunistically. Capture the relevant failure, state that it appears outside the current session scope, and leave it alone so a parallel agent's in-progress work is not disrupted. Only touch unrelated files when the user explicitly expands the scope or when you can show the failure is a direct consequence of your edits.
-
-### Fast static check
-
-```bash
-bunx vp check           # format + lint + type errors + import cycles, ~5 s
-bunx vp check --fix     # same, and apply formatter and lint fixes
-bun run knip:test-only  # src/ files imported only from tests/ — potential dead production code
-```
-
-Use `vp check` while iterating; `bun run check` is the full gate before reporting done. Run `knip:test-only` when reviewing whether a helper belongs in `src/` or `tests/`.
 
 ### Toolchain — Vite+
 
-Formatting, linting, tests, library packaging, staged-file checks, commit hooks and the `check` task runner all come from [Vite+](https://viteplus.dev) (`vp`), configured in the root `vite.config.ts`. Run it as `bunx vp <command>` or through the `bun run` scripts. Its docs for the installed version live at `node_modules/vite-plus/docs`; read them rather than guessing flags, and use `bunx vp toolchain` to see bundled tool versions. electron-vite still owns the Electron dev and build. `vp check` type-checks through the TypeScript 7 toolchain; the publishable packages still type-check and build with `tsc`. Do not bring back Biome, Madge as a gate, husky, lint-staged, concurrently or tsup. The root `oxlint`, `oxlint-tsgolint` and `@oxlint/plugins` pins must match the versions `vite-plus` bundles; bump them together with `vite-plus`.
-
-The root-owned tooling contract lives in `dev-docs/tooling-contract.md`. Do not add package-local formatter/linter configs. Publishable package runtime `workspace:*` dependencies are allowed only for local workspace packages and must pass packed metadata verification.
+Formatting, linting, tests, library packaging, commit hooks and the `check` runner come from [Vite+](https://viteplus.dev) (`vp`, configured in the root `vite.config.ts`); electron-vite still owns the Electron dev and build. Read `node_modules/vite-plus/docs` rather than guessing flags. Do not bring back Biome, Madge as a gate, husky, lint-staged, concurrently or tsup, and bump the root `oxlint`, `oxlint-tsgolint` and `@oxlint/plugins` pins together with `vite-plus`. The rest of the contract (package-local configs, `workspace:*` dependencies, the TypeScript toolchains): [`dev-docs/tooling-contract.md`](dev-docs/tooling-contract.md).
 
 ### Dev workflow
 
@@ -173,17 +105,10 @@ bun run doctor     # inspect checkout readiness and selected dev paths/ports
 
 ### Fresh checkout / worktree bootstrap
 
-Worktree creation is tool-owned. After any fresh clone or worktree created by another harness, run:
-
 ```bash
-bun run bootstrap
+bun run bootstrap   # after any fresh clone or worktree; per-checkout ports and ELECTRON_USER_DATA let checkouts run in parallel
+bun run repair      # non-destructive fix for missing or stale dependencies, Electron payloads, Playwright browsers, embedded ffmpeg/ffprobe
 ```
-
-`bun run bootstrap` prepares the checkout. Dev launchers use per-checkout ports and `ELECTRON_USER_DATA` so multiple checkouts can run in parallel.
-
-Use `bun run doctor` to inspect the selected renderer port, Electron user data path, temp path, and required local artifacts.
-
-Use `bun run repair` for a non-destructive checkout repair when dependencies, Electron payloads, Playwright browsers, or embedded ffmpeg/ffprobe artifacts are missing or stale.
 
 ### Test runner
 
@@ -200,19 +125,13 @@ ARROXY_E2E_HEADLESS=1 bunx playwright test --config playwright.config.ts --worke
 ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts --config playwright.config.ts --workers=1 -g "<test name>"
 ```
 
-The flag only takes effect in an E2E launch — `ARROXY_E2E=1` (set by the fixture harness) or `MOCK_BACKEND=1` (set by the smoke and startup-resilience specs) — so a stray export never hides a normal launch; see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. Any new spec that launches the app must set one of the two, or its window shows. Specs that need a focused window (hotkey feedback, clipboard watching) skip themselves under the flag. `startup-journeys.spec.ts` drives a packaged build (`PACKAGED_EXE`) and is not covered. It maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
-
-Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, not the dev server. Never hide the build's output: it type-checks first and stops on any error (including in test files), leaving the old bundle in place. The E2E global setup refuses to run when `out/main/index.js` is older than any file in `src/` (`ARROXY_E2E_ALLOW_STALE_BUILD=1` to override).
-
----
+Any new spec that launches the app must set `ARROXY_E2E=1` or `MOCK_BACKEND=1`, or the flag is ignored and its window shows. Rebuild first (`bun run build`): the suites launch `out/main/index.js`, not the dev server, and refuse a stale build. Never hide the build's output; it stops on any type error and leaves the old bundle in place. How the flag works and which specs skip under it: [`dev-docs/fixture-e2e.md`](dev-docs/fixture-e2e.md#running-headless).
 
 ## Arroxy Testing Architecture
 
 Arroxy is an Electron desktop app: do not let React/component testing habits replace product workflow validation. A bug found through real user actions (paste, metadata loading, wizard navigation, queue controls, pause/resume/cancel, file output) must be verified through the layer that can exercise those actions in the real app: **Fixture Product E2E** (`ARROXY_E2E=1`) is the acceptance owner for real user workflows. Pure rules go to fast logic tests, visual states to the Scenario Workbench, boot/preload to Mock Electron smoke tests, and live YouTube only ever to a tiny drift smoke test, never the acceptance gate.
 
 The layer-ownership table, how to choose a layer, and how to design a scenario (risk groups, milestones, oracles, anti-patterns) are in [`dev-docs/fixture-e2e.md`](dev-docs/fixture-e2e.md). Read it before adding or reshaping a test.
-
----
 
 ## Visual Debugging
 
@@ -223,11 +142,9 @@ bun run dev:mock
 bun run doctor
 ```
 
-`browserMock.ts` stubs `window.appApi` only in this explicit `browser-mock` mode; Electron dev and packaged builds always use the real preload bridge. The gallery lists every Scenario Workbench state (`?scenario=<id>`, ids in `src/renderer/src/dev/browserMockScenarios.ts`) and `?kit` opens the UI kit. Update-banner scenarios (`update-direct`, `update-scoop`, `update-homebrew`, `update-winget`, `update-portable`, `update-flatpak`) are the only ones that emit an update event. Prefer `agent-browser` for interactive checks and screenshots; Playwright only for traces, tests, or `_electron.launch()`.
+`?scenario=<id>` opens any Scenario Workbench state (ids in `src/renderer/src/dev/browserMockScenarios.ts`) and `?kit` the UI kit; browser-mock never stands in for the real preload bridge. Prefer `agent-browser` for interactive checks and screenshots; Playwright only for traces, tests, or `_electron.launch()`.
 
 Electron-specific behavior (real preload, IPC, GPU) needs the real app: `REMOTE_DEBUGGING_PORT=9333 bun run dev`, then attach over CDP. Backdrop or WebGL problems in Electron: run `bun run gpu:probe` before touching backdrop code. Port pinning, CDP attach, the agent-browser and Playwright recipes, locale simulation, and the GPU/backdrop fallback model are in [`dev-docs/visual-debugging.md`](dev-docs/visual-debugging.md).
-
----
 
 ## shadcn/ui Configuration
 
@@ -240,45 +157,38 @@ shadcn/ui (`base-nova`, config in `components.json`) is the primary source for r
 
 The token list, ratchet baseline command, toggle rules and translation-width tests are in [`DESIGN.md`](DESIGN.md) §7.
 
----
-
 ## Brand / Visual
 
 **Font:** Poppins (`@fontsource/poppins`, weights 400/500/600/700); don't reintroduce Outfit or Geist. Use tokens and variants from `src/renderer/src/styles.css`, never arbitrary values: one primary action per view is `<Button variant="glow">`, selected surfaces `bg-primary/12`, muted labels `text-subtle-foreground`, small type `text-caption`, back/secondary buttons `variant="outline"` (see `DESIGN.md`).
 
 Breakpoints are Tailwind v4's defaults (`sm` 640, `md` 768, `lg` 1024, `xl` 1280, `2xl` 1536), no overrides. The Electron window's minimum is 720×760 and default 1024×860 (`WINDOW_*` in `src/shared/constants.ts`), so `<640px` is browser-mock/test coverage only.
 
----
-
 ## Subtitle Pipeline
 
 Subtitles are a soft second phase (ADR 0002): phase 1 downloads media with `--no-write-subs --no-write-auto-subs`; phase 2 runs only if phase 1 exits 0 and languages were picked. A phase-2 failure emits `subtitlesFailed` and still finalizes as `completed`. Embed mode also uses phase 2, then muxes with ffmpeg and passes `--merge-output-format mkv`; sidecar and subfolder modes pass no container flag. `sanitizeSubtitleMap` (`ProbeService.ts`) keeps only `-orig` automatic captions for sites whose `autoCaptionRequiresOrigSuffix` is set (YouTube); see memory `youtube-auto-caption-orig-tracks`.
 
----
-
 ## In-App Update Notifications
 
-`electron-updater` checks 5 s after launch and every 6 h after, announcing each version once; auto-download is **off**, the user starts every update. Every install channel must hear of a release. `resolveAction(channel, platform)` picks the banner's action per install channel (copy-command for Scoop/Homebrew/Flatpak, download link for portable and macOS, the GitHub release for the Linux tarball, "Install & Restart" otherwise). Channel table, IPC and the Linux AppImage gate: [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
-
----
+The user starts every update (auto-download is off), and every install channel must hear of a release. Check timing, per-channel actions (`resolveAction`) and the Linux AppImage gate: [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
 
 ## Release Pipeline
 
 Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Both are cut from `main`, the only long-lived branch.
 
 - **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:beta` or `bun run release:stable` yourself. Don't hand the script back to the user.
-- **Tags must be annotated and pushed alone** (the wrapper does both): `git push --follow-tags` silently skips lightweight tags, and also pushes any stale local tags; GitHub fires no tag events when one push carries more than three tags, so the pipeline never starts.
+- **Tags go through the wrapper**, which makes them annotated and pushes each one alone; a hand-pushed tag can silently fail to start the pipeline.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
 Checklist, beta-then-stable sequence and manual fallback: [`dev-docs/release-runbook.md`](dev-docs/release-runbook.md). Job graph, secrets, Winget, external repos and shipped assets: [`dev-docs/release-pipeline.md`](dev-docs/release-pipeline.md). Keep third-party actions that receive a token pinned to a full commit SHA, and never rotate the Flatpak signing key casually ([`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md)).
 
----
-
 ## Binary distribution strategy
 
-Release builds bundle no third-party binaries. yt-dlp is fetched and updated at runtime (ADR 0003); ffmpeg/ffprobe come from an approved **FFmpeg package**, installed once per machine and kept across app updates (ADR 0010). FFmpeg versions change only by editing the committed pins in `FfmpegPackagePins.ts`, and the daily manifest is generated from `main`, so a merged pin change reaches every user within a day without an app release: review it as a release. Pins are FFmpeg release builds on one major/minor across platforms, never master or nightly builds; bump them only for a point release or a known bug, and only after the FFmpeg remux matrix passes on every platform ([version policy](dev-docs/ffmpeg-packages.md#version-policy)). FFmpeg releases in `arroxy-runtime-binaries` must be published with `--latest=false`, and FFmpeg entries go only in the v2 manifest, never v1. Dev builds and fixture E2E use `build/embedded/`. Keep the `runAsNode` fuse: the packaged Electron is yt-dlp's Node runtime, and `ELECTRON_RUN_AS_NODE=1` goes **only** into the yt-dlp child environment, never `process.env` or persisted config. `scripts/test-binaries/` must stay tracked. Strategy and licensing: [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md); packages, approval and publishing: [`dev-docs/ffmpeg-packages.md`](dev-docs/ffmpeg-packages.md).
+Release builds bundle no third-party binaries: yt-dlp is fetched and updated at runtime (ADR 0003), and ffmpeg/ffprobe come from an approved **FFmpeg package** installed once per machine (ADR 0010).
 
----
+- **FFmpeg pin changes ship without an app release.** Versions change only through `FfmpegPackagePins.ts`, and the daily manifest is generated from `main`, so a merged pin change reaches every user within a day: review it as a release, and bump only as the [version policy](dev-docs/ffmpeg-packages.md#version-policy) allows.
+- **`ELECTRON_RUN_AS_NODE=1` goes only into the yt-dlp child environment**, never `process.env` or persisted config. Keep the `runAsNode` fuse: the packaged Electron is yt-dlp's Node runtime.
+
+Strategy, dev binaries and licensing: [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md); packages, approval, publishing and the v1/v2 manifests: [`dev-docs/ffmpeg-packages.md`](dev-docs/ffmpeg-packages.md), [`dev-docs/runtime-binaries.md`](dev-docs/runtime-binaries.md).
 
 ## Updating Public-Facing Content (READMEs)
 

@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Ganti profil"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "profil yang dapat dipindahkan"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Pemindahan dibatalkan. Profil {{profileName}} tetap di posisi {{position}} dari {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} dilepas di posisi {{position}} dari {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Pindahkan {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Untuk memindahkan profil, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} berada di atas posisi {{position}} dari {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} diangkat. Posisinya {{position}} dari {{count}}."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profil baru"
@@ -4511,6 +4539,10 @@ msgstr "Unduh Profil"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Menghapus"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Seret profil untuk memindahkannya. Semua pemilih profil mengikuti urutan ini."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

@@ -9,6 +9,8 @@ import {
 	downloadProfileOrigin,
 	downloadProfileRefFor,
 	enabledDownloadProfiles,
+	moveDownloadProfile,
+	normalizeDownloadProfilesPrefs,
 	removeDownloadProfileFromPrefs,
 	resolveActiveDownloadProfile,
 	resolveDownloadProfileBaseDir,
@@ -370,5 +372,65 @@ describe('download profiles', () => {
 		expect(enabledDownloadProfiles(prefs)).toEqual([])
 		expect(() => resolveActiveDownloadProfile(prefs)).not.toThrow()
 		expect(resolveActiveDownloadProfile(prefs).profile).toBeDefined()
+	})
+})
+
+describe('download profile order', () => {
+	const catalogIds = BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)
+	const ids = (profiles: readonly DownloadProfile[]): string[] => profiles.map(profile => profile.id)
+
+	it('lists built-ins first, then custom profiles, until the user reorders', () => {
+		const withCustom = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, customProfile())
+		expect(ids(allDownloadProfiles(withCustom))).toEqual([...catalogIds, 'study-captions'])
+	})
+
+	it('moves a profile to where the target stands and shifts the ones between', () => {
+		const next = moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'balanced', 'best-quality')
+		expect(ids(allDownloadProfiles(next)).slice(0, 6)).toEqual(['balanced', 'best-quality', 'best-2160', 'best-1440', 'hd-1080', 'small-file'])
+
+		const back = moveDownloadProfile(next, 'balanced', 'hd-1080')
+		expect(ids(allDownloadProfiles(back))).toEqual(catalogIds)
+	})
+
+	it('mixes custom profiles in among the built-ins', () => {
+		const withCustom = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, customProfile())
+		const next = moveDownloadProfile(withCustom, 'study-captions', 'best-2160')
+		expect(ids(allDownloadProfiles(next)).slice(0, 3)).toEqual(['best-quality', 'study-captions', 'best-2160'])
+	})
+
+	it('keeps a hidden profile in place and leaves it out of the enabled list', () => {
+		const next = moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'low-240', 'best-quality')
+		expect(ids(allDownloadProfiles(next))[0]).toBe('low-240')
+		expect(ids(enabledDownloadProfiles(next))[0]).toBe('best-quality')
+
+		const shown = setDownloadProfileEnabled(next, 'low-240', true)
+		expect(ids(enabledDownloadProfiles(shown))[0]).toBe('low-240')
+	})
+
+	it('puts profiles the user never placed after the placed ones, in catalog order', () => {
+		const placed = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, order: ['audio-only', 'balanced']}
+		const withCustom = saveDownloadProfileToPrefs(placed, customProfile())
+		expect(ids(allDownloadProfiles(withCustom))).toEqual(['audio-only', 'balanced', ...catalogIds.filter(id => id !== 'audio-only' && id !== 'balanced'), 'study-captions'])
+	})
+
+	it('drops a removed custom profile from the order', () => {
+		const withCustom = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, customProfile())
+		const moved = moveDownloadProfile(withCustom, 'study-captions', 'best-quality')
+		expect(moved.order?.[0]).toBe('study-captions')
+
+		const removed = removeDownloadProfileFromPrefs(moved, 'study-captions')
+		expect(removed.order).not.toContain('study-captions')
+		expect(ids(allDownloadProfiles(removed))).toEqual(catalogIds)
+	})
+
+	it('drops unknown and repeated ids from a stored order', () => {
+		const normalized = normalizeDownloadProfilesPrefs({...DEFAULT_DOWNLOAD_PROFILES_PREFS, order: ['audio-only', 'gone', 'audio-only', 'balanced']})
+		expect(normalized.order).toEqual(['audio-only', 'balanced'])
+	})
+
+	it('leaves the order alone for an unknown profile or a drop on itself', () => {
+		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'gone', 'balanced').order).toBeUndefined()
+		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'balanced', 'gone').order).toBeUndefined()
+		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'balanced', 'balanced').order).toBeUndefined()
 	})
 })

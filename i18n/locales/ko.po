@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "프로필 전환"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "이동 가능한 프로필"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "이동이 취소되었습니다. {{profileName}} 프로필은 {{count}}개 중 {{position}}번째 위치에 그대로 있습니다."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} 프로필을 {{count}}개 중 {{position}}번째 위치에 놓았습니다."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} 이동"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "프로필을 이동하려면 Space 또는 Enter 키를 누르고, 방향키로 이동한 다음 Space 또는 Enter 키를 눌러 놓으세요. 취소하려면 Esc 키를 누르세요."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} 프로필이 {{count}}개 중 {{position}}번째 위치 위에 있습니다."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} 프로필을 집었습니다. {{count}}개 중 {{position}}번째 위치입니다."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "새 프로필"
@@ -4511,6 +4539,10 @@ msgstr "다운로드 프로필"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "제거"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "프로필을 드래그하여 이동하세요. 모든 프로필 선택기가 이 순서를 따릅니다."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "प्रोफ़ाइल बदलें"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "स्थानांतरित करने योग्य प्रोफ़ाइल"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ले जाना रद्द किया गया। {{profileName}} {{count}} में से स्थिति {{position}} पर ही रहेगा।"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} को {{count}} में से स्थिति {{position}} पर छोड़ा गया।"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} को ले जाएँ"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "प्रोफ़ाइल को ले जाने के लिए Space या Enter दबाएँ, तीर कुंजियों से उसे ले जाएँ, फिर छोड़ने के लिए Space या Enter दबाएँ। रद्द करने के लिए Escape दबाएँ।"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} {{count}} में से स्थिति {{position}} के ऊपर है।"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} उठाया गया। यह {{count}} में से स्थिति {{position}} पर है।"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "नई प्रोफ़ाइल"
@@ -4666,6 +4694,10 @@ msgstr "डाउनलोड प्रोफाइल"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "हटाएँ"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "प्रोफ़ाइल को ले जाने के लिए उसे खींचें। हर पिकर इसी क्रम का पालन करता है।"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

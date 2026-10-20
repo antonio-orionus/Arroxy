@@ -75,8 +75,8 @@ vi.mock('@tanstack/react-virtual', () => ({
 const ORIGINAL_SAVE_DOWNLOAD_PROFILE = useAppStore.getState().saveDownloadProfile
 
 // The real catalog + downloadProfileActions model is used everywhere below —
-// no mock. The screen orders profiles baseline, then custom, then builtin
-// (playlistProfileOrder.ts).
+// no mock. The screen lists profiles in the user's saved order, like every
+// other profile picker.
 function renderStep(overrides: {common?: Partial<AppSettings['common']>} = {}): ReturnType<typeof render> {
 	if (overrides.common) {
 		useAppStore.setState((state): Partial<AppState> => {
@@ -262,17 +262,15 @@ describe('StepPlaylistProfiles', () => {
 			expect(within(screen.getByTestId('playlist-profile-menu-actions')).queryByRole('button', {name: /^Edit/})).not.toBeInTheDocument()
 		})
 
-		it('puts the baseline and custom profiles ahead of builtins', () => {
+		it('lists profiles in the saved order, with no re-sort for the baseline or custom profiles', () => {
+			useAppStore.setState({settings: {profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: [], enabledOverrides: {}, order: ['audio-only', 'podcast', 'hd-1080', 'archive']}} as unknown as AppSettings})
 			renderStep()
 			check('b')
 			openToolbarMenu()
-			// Catalog order is builtins first; this screen re-sorts to baseline,
-			// then custom, then builtins, with the media-less builtins last.
 			const ids = within(screen.getByTestId('playlist-profile-menu-grid'))
 				.getAllByTestId(/^playlist-profile-option-/)
 				.map(button => button.dataset.testid?.replace('playlist-profile-option-', ''))
-			expect(ids.slice(0, 2)).toEqual(['archive', 'podcast'])
-			expect(ids.slice(-2)).toEqual(['audio-only', 'subtitles-only'])
+			expect(ids.slice(0, 4)).toEqual(['audio-only', 'podcast', 'hd-1080', 'archive'])
 		})
 
 		it('assigns a builtin profile from the end of the menu', () => {
@@ -713,16 +711,17 @@ function multiProfileState(overrides: Partial<AppState> = {}): AppState {
 }
 
 describe('multiProfileBreakdown', () => {
-	it('groups the confirm summary by profile, ordered baseline-then-custom-then-builtin', () => {
-		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}}))
-
-		// Pinned order AND both names+counts: under raw catalog order (10
-		// builtins first, customs last) this would come back empty for the
-		// custom profiles used here, or in the wrong order — proving the
-		// breakdown reuses playlistProfileOrder.ts rather than catalog order.
-		expect(rows.map(row => [row.name, row.count])).toEqual([
+	it('groups the confirm summary by profile, in the saved profile order', () => {
+		const assigned = {playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}}
+		expect(multiProfileBreakdown(multiProfileState(assigned)).map(row => [row.name, row.count])).toEqual([
 			['Archive 4K', 1],
 			['Podcast MP3', 1]
+		])
+
+		const reordered = multiProfileState({...assigned, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: [], enabledOverrides: {}, order: ['podcast', 'archive']}}})
+		expect(multiProfileBreakdown(reordered).map(row => [row.name, row.count])).toEqual([
+			['Podcast MP3', 1],
+			['Archive 4K', 1]
 		])
 	})
 

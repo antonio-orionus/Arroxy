@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Profaayilii jijjiiri"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "profaayilii sochoosuun danda'amu"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Sochiin haqameera. {{profileName}} iddoo {{position}} kan {{count}} keessaa irra turaa jira."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} iddoo {{position}} kan {{count}} keessaa irratti gadi dhiifameera."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} sochoosi"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Profaayilii sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} iddoo {{position}} kan {{count}} keessaa irra jira."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} kaafameera. Iddoo {{position}} kan {{count}} keessaa irra jira."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profaayilii haaraa"
@@ -4666,6 +4694,10 @@ msgstr "Profaayilota buusuu"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Haqi"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Profaayilii sochoosuuf harkisi. Filannoowwan profaayilii hundi tartiiba kana hordofu."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

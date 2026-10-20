@@ -1,7 +1,9 @@
-// Type aliases live here. Runtime zod schemas live in `./schemas` so that
-// `schemas.ts` (which depends on these types via `preparedJobSchema` and
-// `startDownloadSchema`) does not import a sibling that would re-import
-// it — keeps module init free of circular hazards.
+// The prepared-job contract: its types and the runtime validator for jobs that
+// cross IPC. It imports from `./schemas`, never the other way round, so module
+// init stays free of circular hazards.
+import {z} from 'zod'
+import {SubtitleFormatSchema as subtitleFormatSchema, SubtitleModeSchema as subtitleModeSchema} from 'yt-dlp-bridge/schemas'
+import {audioConvertSchema, cookiesModeSchema, jobAuthSchema, mediaIntentSchema, sponsorBlockCategorySchema, webUrlSchema} from './schemas.js'
 import type {AudioConvert, MediaIntent, SponsorBlockCategory, SubtitleFormat, SubtitleMode} from './schemas.js'
 
 export interface ExtractorIdentity {
@@ -58,6 +60,63 @@ export type PreparedJob =
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
 
-// Schema re-exported here so `@shared/preparedJob` is the canonical path for
-// both type and runtime validator.
-export {preparedJobSchema} from './schemas.js'
+// `includeRegionalVariants`: `languages` are base codes that should also fetch
+// regional tracks (`de` → `de-DE`). Download profiles set it; the wizard sends
+// exact track keys picked from the probe result.
+const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), includeRegionalVariants: z.boolean().optional()})
+
+const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
+
+const videoPartSchema = z.object({startSeconds: z.number().int().min(0), endSeconds: z.number().int().positive(), exactCut: z.boolean()}).refine(part => part.startSeconds < part.endSeconds, {message: 'startSeconds must be before endSeconds'})
+
+const embedOptionsSchema = z.object({chapters: z.boolean(), metadata: z.boolean(), thumbnail: z.boolean(), description: z.boolean(), thumbnailSidecar: z.boolean()})
+
+// Each variant carries the yt-dlp `extractor` + `extractor_key` strings that
+// were observed at probe time. These plumb through to download jobs so the
+// download path can branch on extractor without re-probing.
+const extractorIdentitySchema = {extractor: z.string(), extractorKey: z.string()}
+
+export const preparedJobSchema = z.discriminatedUnion('kind', [
+	z.object({
+		kind: z.literal('single-format'),
+		...extractorIdentitySchema,
+		formatId: z.string().min(1),
+		mergeOutputFormat: z.string().min(1).optional(),
+		remuxVideo: z.string().min(1).optional(),
+		filenameTemplate: z.string().min(1).optional(),
+		subtitles: subtitleOptionsSchema.optional(),
+		sponsorBlock: sponsorBlockOptionsSchema,
+		embed: embedOptionsSchema,
+		expectedBytes: z.number().positive().optional(),
+		videoPart: videoPartSchema.optional()
+	}),
+	z.object({
+		kind: z.literal('audio-convert'),
+		...extractorIdentitySchema,
+		audioConvert: audioConvertSchema,
+		formatId: z.string().min(1).optional(),
+		filenameTemplate: z.string().min(1).optional(),
+		subtitles: subtitleOptionsSchema.optional(),
+		sponsorBlock: sponsorBlockOptionsSchema,
+		embed: embedOptionsSchema,
+		videoPart: videoPartSchema.optional()
+	}),
+	z.object({
+		kind: z.literal('ranged-format'),
+		...extractorIdentitySchema,
+		intent: mediaIntentSchema,
+		formatSelector: z.string().min(1).optional(),
+		formatSort: z.string().min(1).optional(),
+		mergeOutputFormat: z.string().min(1).optional(),
+		remuxVideo: z.string().min(1).optional(),
+		audioConvert: audioConvertSchema.optional(),
+		filenameTemplate: z.string().min(1),
+		subtitles: subtitleOptionsSchema.optional(),
+		sponsorBlock: sponsorBlockOptionsSchema,
+		embed: embedOptionsSchema
+	}),
+	z.object({kind: z.literal('subtitle-only'), ...extractorIdentitySchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema}),
+	z.object({kind: z.literal('unresolved'), extractor: z.literal(''), extractorKey: z.literal('')})
+])
+
+export const startDownloadSchema = z.object({url: webUrlSchema, outputDir: z.string().min(1).optional(), cookiesMode: cookiesModeSchema.optional(), job: preparedJobSchema, auth: jobAuthSchema.optional()})
