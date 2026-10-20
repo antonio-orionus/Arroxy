@@ -243,10 +243,16 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	it('returns the order that made the pick, for the Why this one tip', () => {
 		const smartTv = resolve(builtin('mp4-720')).order
 		expect(smartTv?.goal).toBe('smart-tv')
-		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
+		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
 		expect(resolve(builtin('balanced')).order?.audio).toEqual([{kind: 'native'}])
 		expect(resolve(builtin('audio-only')).order).toBeNull()
 		expect(resolve(builtin('subtitles-only')).order).toBeNull()
+	})
+
+	it('leaves the source rank out of the order when no stream of this video carries one', () => {
+		const ranked = [video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', sourcePreference: 99}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', sourcePreference: -1}), audio('140')]
+		expect(resolve(builtin('best-quality'), ranked).order?.video.map(rank => rank.kind)).toContain('source')
+		expect(resolve(builtin('best-quality')).order?.video.map(rank => rank.kind)).not.toContain('source')
 	})
 
 	it('names the profile native audio choice as its own source', () => {
