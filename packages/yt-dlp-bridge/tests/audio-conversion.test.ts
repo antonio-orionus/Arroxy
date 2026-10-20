@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {audioCodecPreference, audioConversionCopies, audioConversionOutcome} from '../src/audio-conversion.js'
+import {audioCodecPreference, audioConversionCopies, audioConversionCopyFilter, audioConversionOutcome} from '../src/audio-conversion.js'
 
 // yt-dlp's FFmpegExtractAudioPP copies a source whose ffprobe codec equals the
 // target (or AAC into m4a) and re-encodes the rest; WAV is always an encode.
@@ -105,5 +105,14 @@ describe('audioConversionOutcome', () => {
 		['wav', {ext: 'webm', acodec: 'opus'}, {ext: 'wav', copies: false}]
 	])('%s from %o', (target, source, outcome) => {
 		expect(audioConversionOutcome(target, source)).toEqual(outcome)
+	})
+})
+
+// The `-f` copy filter takes what the copy rule copies: MP3 in an MP4 too.
+describe('audioConversionCopyFilter', () => {
+	it.each(['mp3', 'MP3', 'mp4a.40.34'])('mp3 copies %s', acodec => {
+		const pattern = /acodec~='\(\?i\)(.*)'\]\[abr/.exec(audioConversionCopyFilter('mp3') ?? '')?.[1] ?? ''
+		expect(new RegExp(pattern, 'i').test(acodec)).toBe(true)
+		expect(audioConversionCopies('mp3', acodec)).toBe(true)
 	})
 })

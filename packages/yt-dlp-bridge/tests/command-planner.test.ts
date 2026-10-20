@@ -147,7 +147,7 @@ describe('planWorkflow — media', () => {
 			['aac', AAC],
 			['m4a', AAC],
 			['opus', `[acodec~='(?i)^opus$']${COPY_FLOOR}`],
-			['mp3', `[acodec~='(?i)^mp3$']${COPY_FLOOR}`],
+			['mp3', `[acodec~='(?i)^(?:mp3|mp4a\\.40\\.34)$']${COPY_FLOOR}`],
 			['vorbis', `[acodec~='(?i)^vorbis$']${COPY_FLOOR}`],
 			['flac', `[acodec~='(?i)^flac$']${COPY_FLOOR}`],
 			['alac', `[acodec~='(?i)^alac$']${COPY_FLOOR}`]

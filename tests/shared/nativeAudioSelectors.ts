@@ -24,7 +24,7 @@ export const COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR = pairWithCompatibleNativeAudi
 // stream worth copying (target codec, at least 96 kbps) before a re-encode,
 // and every stereo stream before Dolby surround.
 const AAC_COPY = "[acodec~='(?i)^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$']"
-const CONVERSION_CODEC_FILTERS: Readonly<Record<string, string>> = {mp3: "[acodec~='(?i)^mp3$']", m4a: AAC_COPY, opus: "[acodec~='(?i)^opus$']"}
+const CONVERSION_CODEC_FILTERS: Readonly<Record<string, string>> = {mp3: "[acodec~='(?i)^(?:mp3|mp4a\\.40\\.34)$']", m4a: AAC_COPY, opus: "[acodec~='(?i)^opus$']"}
 export function audioConversionSourceSelector(target: string): string {
 	const codecFilter = CONVERSION_CODEC_FILTERS[target]
 	const stereoFilters = [...(codecFilter ? [`${codecFilter}[abr>=?96]`] : []), COMPATIBLE_AUDIO_CODEC_FILTER]

@@ -8,7 +8,7 @@
 // for its object types (LC, HE, HEv2, LD, ELD, USAC), never `mp4a.40.34` (MP3)
 // or `mp4a.6B` (MPEG audio).
 const AAC_PATTERN = '^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$'
-const TARGET_CODEC_PATTERNS: Readonly<Record<string, string>> = {aac: AAC_PATTERN, m4a: AAC_PATTERN, opus: '^opus$', mp3: '^mp3$', vorbis: '^vorbis$', flac: '^flac$', alac: '^alac$'}
+const TARGET_CODEC_PATTERNS: Readonly<Record<string, string>> = {aac: AAC_PATTERN, m4a: AAC_PATTERN, opus: '^opus$', mp3: '^(?:mp3|mp4a\\.40\\.34)$', vorbis: '^vorbis$', flac: '^flac$', alac: '^alac$'}
 
 // A copied stream keeps its bitrate: below this a stream is no better for
 // being copied, and the best stream is re-encoded instead (YouTube's 48 kbps
