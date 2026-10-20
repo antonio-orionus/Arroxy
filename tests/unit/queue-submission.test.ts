@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
@@ -53,6 +54,7 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		wizardMediaKind: 'video',
 		wizardFilenameTemplate: '{title} [{id}]',
 		wizardFormats: FORMATS,
+		wizardFormatSelection: selectionSourceFromOptions(FORMATS),
 		wizardSubtitles: {en: [{ext: 'vtt'}]},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: ['en'],

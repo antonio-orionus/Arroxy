@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen} from '@testing-library/react'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {SavesAsControl} from '@renderer/components/wizard/format/SavesAsControl.js'
 import {ProfileTag} from '@renderer/components/wizard/format/ProfileTag.js'
@@ -30,6 +31,7 @@ beforeEach(() => {
 		settings: defaultAppSettings('/downloads'),
 		wizardMode: 'single',
 		wizardFormats: FORMATS,
+		wizardFormatSelection: selectionSourceFromOptions(FORMATS),
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardIsAudioOnlySource: false,
