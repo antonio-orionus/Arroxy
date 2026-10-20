@@ -68,4 +68,12 @@ describe('mediaIntentSpec native audio preference', () => {
 		expect(selector).not.toMatch(/\[format_note~=\?/)
 		expect(selector).toContain("[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']")
 	})
+
+	// TikTok, Twitch clips and Archive offer only streams with sound: `bestvideo`
+	// alone found nothing there and the download failed.
+	it('falls back to a stream with sound for a video-only profile; the audio comes off after the download', () => {
+		const spec = mediaIntentSpec({kind: 'video-only', goal: 'best-picture', tier: 'best', fileType: 'auto'}, 'compatible')
+		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*'))
+		expect(spec.producesAudio).toBe(false)
+	})
 })

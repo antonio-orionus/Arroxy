@@ -29,6 +29,12 @@ function withSkippedAiUpscaled(spec: Record<string, unknown>): Record<string, un
 	return typeof selector === 'string' && selector.includes('bestvideo') ? {...spec, formatSelector: skippingAiUpscaled(selector)} : spec
 }
 
+// New since the recording: video without audio falls back to a stream with
+// sound on a site that has no video-only stream (its audio is dropped later).
+function withVideoOnlyFallback(spec: Record<string, unknown>): Record<string, unknown> {
+	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*'} : spec
+}
+
 // Fixed since the recording: the filters asking for Dolby or an "original"
 // track no longer match a stream whose field is missing (`~=?` → `~=`).
 function withStrictInclusionFilters(spec: Record<string, unknown>): Record<string, unknown> {
@@ -49,7 +55,7 @@ function withVideoRanksBeforeAudio(spec: Record<string, unknown>): Record<string
 }
 
 function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
-	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(spec)))
+	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec))))
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {
