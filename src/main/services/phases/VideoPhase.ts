@@ -13,7 +13,7 @@ import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut, INFO_JSON_NAME} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
 import {identityFor} from '../exploreGate.js'
 import {settleWithExploreSession} from './signedInFlow.js'
@@ -75,8 +75,6 @@ async function detectQualityLimit(job: ResolvedStartDownloadInput['job'], tempDi
 	const selectedHeight = infoJson === null ? null : selectedMaxHeight(parseSelectedFormats(infoJson))
 	return assessQualityLimit({sabrSkipped: true, selectedHeight, intent: job.intent})
 }
-
-const INFO_JSON_NAME = '_arroxy.info.json'
 
 interface MediaRunMode {
 	identity: RunIdentity

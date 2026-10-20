@@ -421,7 +421,7 @@ describe('VideoPhase(embed=true)', () => {
 		await VideoPhase(true).run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.kind).toBe('media')
-		expect(req.subtitles).toMatchObject({embed: true, languages: ['en', 'ja']})
+		expect(req.subtitles).toMatchObject({embed: true, languages: ['(?-i:en)', '(?-i:ja)']})
 	})
 
 	it('embed=true but no subtitleLanguages → omits media subtitles', async () => {
@@ -445,7 +445,7 @@ describe('VideoPhase(embed=true)', () => {
 		await VideoPhase(true).run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.kind).toBe('media')
-		expect(req.subtitles).toMatchObject({embed: true, languages: ['en']})
+		expect(req.subtitles).toMatchObject({embed: true, languages: ['(?-i:en)']})
 		expect(req.audio?.convert).toEqual({target: 'mp3', lossy: true, bitrateKbps: 192})
 	})
 

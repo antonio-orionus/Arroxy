@@ -1,4 +1,7 @@
 import {EventEmitter} from 'node:events'
+import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {tmpdir} from 'node:os'
+import {join} from 'node:path'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -61,7 +64,18 @@ describe('SubtitleOnlyPhase', () => {
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.kind).toBe('subtitles')
 		expect(req.url).toBe(BASE_INPUT.url)
-		expect(req.subtitles.languages).toEqual(['en'])
+		expect(req.subtitles.languages).toEqual(['(?-i:en)'])
+	})
+
+	it("resolves language codes against the probe's info-json", async () => {
+		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+		const probeInfoJsonPath = join(dir, 'probe.info.json')
+		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {'pt-BR': [{ext: 'vtt'}]}, automatic_captions: {'en-orig': [{ext: 'vtt'}], en: [{ext: 'vtt'}], pt: [{ext: 'vtt'}]}}))
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, languages: ['pt', 'en'], writeAuto: true, languagesAreCodes: true}}}})
+		await SubtitleOnlyPhase.run(ctx)
+		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+		expect(req.subtitles.languages).toEqual(['(?-i:pt-BR)', '(?-i:en-orig)'])
+		await rm(dir, {recursive: true, force: true})
 	})
 
 	it('runs anonymously by default and with the Explore session for an escalated job', async () => {

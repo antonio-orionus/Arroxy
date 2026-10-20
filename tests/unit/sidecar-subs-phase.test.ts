@@ -1,4 +1,7 @@
 import {EventEmitter} from 'node:events'
+import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {tmpdir} from 'node:os'
+import {join} from 'node:path'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SidecarSubsPhase} from '@main/services/phases/SidecarSubsPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -82,7 +85,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		await SidecarSubsPhase(false).run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.kind).toBe('subtitles')
-		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: false}})
+		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['(?-i:en)'], format: 'srt', writeAuto: false}})
 	})
 
 	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
@@ -102,11 +105,40 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
 	})
 
-	it('expands profile languages into yt-dlp regional-variant selectors', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, languages: ['de'], includeRegionalVariants: true}}}})
+	it('falls back to regional-variant selectors for language codes when no info-json is at hand', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, languages: ['de'], languagesAreCodes: true}}}})
 		await SidecarSubsPhase(false).run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.subtitles.languages).toEqual([ytDlpSubtitleLanguageSelector('de')])
+	})
+
+	describe("language codes with the media run's info-json", () => {
+		// A Japanese video: YouTube lists `en` as a machine translation of the Japanese captions.
+		const JAPANESE_VIDEO = {id: 'test', subtitles: {}, automatic_captions: {ja: [{ext: 'vtt'}], 'ja-orig': [{ext: 'vtt'}], en: [{ext: 'vtt'}]}}
+		const codesJob = (languages: string[]): ResolvedStartDownloadInput['job'] => ({...BASE_JOB, subtitles: {languages, mode: 'sidecar', format: 'srt', writeAuto: true, languagesAreCodes: true}})
+
+		async function tempDirWithInfoJson(): Promise<string> {
+			const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
+			await writeFile(join(dir, '_arroxy.info.json'), JSON.stringify(JAPANESE_VIDEO))
+			return dir
+		}
+
+		it('fetches exactly the tracks the Format screen would pick, never a translation', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
+			await SidecarSubsPhase(false).run(ctx)
+			const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+			expect(req.subtitles.languages).toEqual(['(?-i:ja-orig)'])
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
+		it('completes without running yt-dlp when the video has none of the languages', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en'])}})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+			expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
+			await rm(tempDir, {recursive: true, force: true})
+		})
 	})
 
 	it('does not forward SponsorBlock config to the subtitle request', async () => {

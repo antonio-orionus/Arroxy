@@ -148,6 +148,12 @@ Five sources feed jobs, and which one applies depends on the path:
   `buildPlaylistQueueItem` (playlist/bulk, via
   `playlistSelectionToMediaIntent`), both from `prepareManualQueueSubmission`.
 
+Subtitle languages become exact track keys by one rule (`pickSubtitleTracks`,
+`src/shared/subtitleLanguages.ts`) on every path: the Format screen and a
+profile's single video at queueing time, from the probe; a playlist entry in
+the subtitle phase, from the media run's or the probe's info-json
+(`resolveSubtitleTracks`). yt-dlp gets them as exact `--sub-langs` entries.
+
 Known duplication between the two:
 
 - Three QueueItem builders repeat the row literal, filename binding and

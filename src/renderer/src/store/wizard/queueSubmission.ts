@@ -15,7 +15,7 @@ import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPr
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
-import {subtitleSourceOptions} from '@shared/subtitleLanguages.js'
+import {subtitleSourceOptions, withSubtitleTracks} from '@shared/subtitleLanguages.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
@@ -352,9 +352,22 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 	return `${ref.kind}:${ref.id}`
 }
 
-function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): PreparedJob {
+// A probed video's subtitle maps turn the profile's language codes into the
+// exact tracks the Format screen would pick, so yt-dlp fetches those and never
+// a machine translation. A subtitles-only job none of whose codes this video
+// has keeps them, for the subtitle phase to find nothing to fetch.
+function profileSubtitles(resolved: ResolvedDownloadProfile, maps: SubtitleMaps | undefined): SubtitleOptions | undefined {
+	if (!resolved.subtitles || !maps) return resolved.subtitles
+	const exact = withSubtitleTracks(resolved.subtitles, maps)
+	return exact.languages.length === 0 && resolved.isSubtitleOnly ? resolved.subtitles : exact
+}
+
+type SubtitleMaps = Pick<Extract<ProbeResult, {kind: 'video'}>, 'subtitles' | 'automaticCaptions'>
+
+function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference, subtitleMaps: SubtitleMaps | undefined): PreparedJob {
+	const subtitles = profileSubtitles(resolved, subtitleMaps)
 	if (resolved.isSubtitleOnly) {
-		return prepareJob({mode: 'single', extractor, extractorKey, subtitleOnly: true, filenameTemplate, subtitles: resolved.subtitles, sponsorBlockMode: 'off', sponsorBlockCategories: [], embed: resolved.embed})
+		return prepareJob({mode: 'single', extractor, extractorKey, subtitleOnly: true, filenameTemplate, subtitles, sponsorBlockMode: 'off', sponsorBlockCategories: [], embed: resolved.embed})
 	}
 
 	if (!resolved.intent) throw new Error(`download profile media intent missing for ${downloadProfileRefLabel(resolved.ref)}`)
@@ -366,7 +379,7 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 		nativeAudioPreference,
 		hdrPreference,
 		filenameTemplate,
-		subtitles: resolved.subtitles,
+		subtitles,
 		sponsorBlockMode: resolved.sponsorBlock.mode,
 		sponsorBlockCategories: resolved.sponsorBlock.mode === 'off' ? [] : resolved.sponsorBlock.categories,
 		embed: resolved.embed
@@ -376,6 +389,8 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 function buildProfileEntryQueueItem(params: {
 	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail' | 'titleIsPlaceholder'>
 	probeInfoJsonRef?: PlaylistEntry['probeInfoJsonRef']
+	// A single probed video's; playlist entries have none until they download.
+	subtitleMaps?: SubtitleMaps
 	auth: JobAuth | undefined
 	outputDir: string
 	extractor: string
@@ -411,7 +426,7 @@ function buildProfileEntryQueueItem(params: {
 		...(params.auth ? {auth: params.auth} : {}),
 		writeM3u: params.writeM3u,
 		retryCount: 0,
-		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference, params.hdrPreference)
+		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference, params.hdrPreference, params.subtitleMaps)
 	}
 }
 
@@ -449,6 +464,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 		const item = buildProfileEntryQueueItem({
 			entry: {url: probe.webpageUrl || source.url, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
+			subtitleMaps: probe,
 			auth: probe.auth,
 			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),
 			extractor: probe.extractor,
