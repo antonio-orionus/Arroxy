@@ -1,14 +1,21 @@
 name: App changes
-description: Whether a pull request changed a file that can affect a heavy app suite (E2E, browser smoke, Windows installer)
+description: Whether a pull request or a push to the default branch changed a file that can affect a heavy app suite (E2E, browser smoke, Windows installer)
 
-# The heavy PR suites skip a pull request that only touches files they cannot
-# run: docs, agent tooling, translation sources, unit tests, the remux matrix.
+# The heavy suites skip a change that only touches files they cannot run:
+# docs, agent tooling, translation sources, unit tests, the remux matrix.
 # Everything else counts, so a new top-level file or directory runs the suites
-# until someone lists it here. Pushes, tags, schedules and manual runs always
-# run. tests/scripts/app-changes-action.test.ts pins what each scope runs on.
+# until someone lists it here. Tags, schedules and manual runs always run.
+#
+# A push to the default branch is filtered against the commit before it, and
+# only when this workflow's push run on that commit passed. A skipped run
+# reports a green gate for its commit, which the release script trusts, so it
+# must never sit on top of a failed, cancelled or unfinished run: then the
+# suite runs, and the commits it covers get tested after all.
+# tests/scripts/app-changes-action.test.ts pins what each scope runs on.
 #
 # Callers must check out the repository first (a sparse checkout of
-# .github/actions is enough) and grant `pull-requests: read`.
+# .github/actions is enough) and grant `actions: read` and
+# `pull-requests: read`.
 
 inputs:
   scope:
@@ -18,13 +25,27 @@ inputs:
 outputs:
   run:
     description: "'true' when the suite has to run"
-    value: ${{ github.event_name != 'pull_request' || steps.filter.outputs[inputs.scope] == 'true' }}
+    value: ${{ steps.filter.outcome != 'success' || steps.filter.outputs[inputs.scope] == 'true' }}
 
 runs:
   using: composite
   steps:
+    - id: previous
+      if: ${{ github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.event.before != '0000000000000000000000000000000000000000' }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        BEFORE: ${{ github.event.before }}
+        BRANCH: ${{ github.ref_name }}
+      run: |
+        workflow="${GITHUB_WORKFLOW_REF%@*}"
+        workflow="${workflow##*/}"
+        # A failed lookup runs the suite rather than failing the gate.
+        conclusion=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/runs?event=push&branch=$BRANCH&head_sha=$BEFORE&per_page=1" --jq '.workflow_runs[0].conclusion // "none"') || conclusion=unknown
+        echo "This workflow's run on $BEFORE: $conclusion"
+        echo "conclusion=$conclusion" >> "$GITHUB_OUTPUT"
     - id: filter
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' || steps.previous.outputs.conclusion == 'success' }}
       uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
       with:
         predicate-quantifier: some-with-excludes

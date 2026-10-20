@@ -30,7 +30,10 @@ function flatPatterns(value: unknown): string[] {
 function filterRules(): Record<string, string[]> {
 	const steps = record(readYaml(ACTION_PATH).runs, 'runs').steps
 	if (!Array.isArray(steps)) throw new Error('the action has no steps')
-	const filter = record(steps[0], 'the filter step')
+	const filter = record(
+		steps.find((step: unknown) => isRecord(step) && step.id === 'filter'),
+		'the filter step'
+	)
 	const inputs = record(filter.with, 'the filter inputs')
 	expect(filter.uses).toMatch(/^dorny\/paths-filter@[a-f0-9]{40}$/)
 	expect(inputs['predicate-quantifier']).toBe('some-with-excludes')
@@ -96,9 +99,24 @@ describe('app-changes action', () => {
 		for (const scope of SCOPES) expect(rules[scope]?.slice(0, base.length)).toEqual(base)
 	})
 
-	it('always runs outside pull requests', () => {
+	it('runs whenever the filter did not run', () => {
 		const run = record(record(readYaml(ACTION_PATH).outputs, 'outputs').run, 'the run output').value
-		expect(run).toBe("${{ github.event_name != 'pull_request' || steps.filter.outputs[inputs.scope] == 'true' }}")
+		expect(run).toBe("${{ steps.filter.outcome != 'success' || steps.filter.outputs[inputs.scope] == 'true' }}")
+	})
+
+	// A skip on main vouches for the commit below it, so it is only safe when
+	// that commit's run passed: a failed or cancelled run must not be buried
+	// under a docs push that a release then trusts.
+	it('filters a pull request, or a push to the default branch on top of a passing run', () => {
+		const steps = record(readYaml(ACTION_PATH).runs, 'runs').steps
+		if (!Array.isArray(steps)) throw new Error('the action has no steps')
+		const [previous, filter] = steps.map((step: unknown) => record(step, 'a step'))
+		expect(previous?.id).toBe('previous')
+		expect(previous?.if).toBe("${{ github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.event.before != '0000000000000000000000000000000000000000' }}")
+		expect(previous?.run).toContain('event=push')
+		expect(previous?.run).toContain('head_sha=$BEFORE')
+		expect(filter?.id).toBe('filter')
+		expect(filter?.if).toBe("${{ github.event_name == 'pull_request' || steps.previous.outputs.conclusion == 'success' }}")
 	})
 })
 
@@ -128,8 +146,9 @@ describe.each(GATED)('$workflow', ({workflow, scope, gate, ungated}) => {
 	})
 
 	it(`asks the app-changes action for the ${scope} scope`, () => {
-		const steps = record(jobs.changes, 'changes').steps
-		expect(steps).toContainEqual({id: 'changes', uses: './.github/actions/app-changes', with: {scope}})
+		const changes = record(jobs.changes, 'changes')
+		expect(changes.steps).toContainEqual({id: 'changes', uses: './.github/actions/app-changes', with: {scope}})
+		expect(changes.permissions).toEqual({actions: 'read', contents: 'read', 'pull-requests': 'read'})
 	})
 
 	it('skips every suite job, directly or through the jobs it needs, when the filter says so', () => {
