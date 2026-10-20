@@ -14,7 +14,7 @@ import type {FormatOption, SubtitleMap} from './types.js'
 import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr} from './hdrSetting.js'
 import {mediaIntentSpec} from './mediaIntent.js'
 import {selectionOrder, type SelectionOrder} from './selectionOrder.js'
-import {matchesSubtitleLanguage} from './subtitleLanguages.js'
+import {pickSubtitleTracks} from './subtitleLanguages.js'
 import {tierHeightOf} from './videoTier.js'
 import type {FormatSelectionSource} from './ytdlp/selectableFormat.js'
 import {createFormatSorter, prepareForSort, sortFormats} from './ytdlp/formatSorter.js'
@@ -51,7 +51,6 @@ export interface ProfileSelection {
 	order: SelectionOrder | null
 }
 
-const AUTO_CAPTION_SUFFIX = '-orig'
 const NO_AUDIO: AudioSelection = {kind: 'none'}
 
 // The stream's tier (see videoTier.ts): the same height the Format screen names
@@ -127,32 +126,12 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	return {media: {kind: 'video', videoFormatId: video.formatId, audioSelection: audio ? {kind: 'native', formatId: audio.formatId} : NO_AUDIO}, order}
 }
 
-function baseLanguage(trackKey: string): string {
-	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
-}
-
-function matchingKeys(code: string, map: SubtitleMap): string[] {
-	return Object.keys(map).filter(key => matchesSubtitleLanguage(code, baseLanguage(key)))
-}
-
 function resolveSubtitles(input: ProfileSelectionInput, notices: FitNotice[]): string[] {
 	const {profile, subtitles, automaticCaptions} = input
 	const wanted = profile.media.kind === 'subtitles-only' || profile.subtitles.enabled ? profile.subtitles.languages : []
-	const source = profile.subtitles.source
-	const picked: string[] = []
-	const missing: string[] = []
-	for (const code of wanted) {
-		const manual = source === 'auto-only' ? [] : matchingKeys(code, subtitles)
-		// Manual tracks win per track, not per language: an auto-generated
-		// regional variant the manual tracks lack is still picked, as yt-dlp does.
-		const manualBases = new Set(manual.map(baseLanguage))
-		const auto = source === 'manual-only' ? [] : matchingKeys(code, automaticCaptions).filter(key => !manualBases.has(baseLanguage(key)))
-		const keys = [...manual, ...auto]
-		if (keys.length === 0) missing.push(code)
-		for (const key of keys) if (!picked.includes(key)) picked.push(key)
-	}
+	const {tracks, missing} = pickSubtitleTracks(wanted, profile.subtitles.source, {subtitles, automaticCaptions})
 	if (missing.length > 0) notices.push({kind: 'subtitle-languages-missing', languages: missing})
-	return picked
+	return tracks
 }
 
 export function resolveProfileSelection(input: ProfileSelectionInput): ProfileSelection {

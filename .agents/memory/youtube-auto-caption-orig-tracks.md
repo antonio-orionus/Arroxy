@@ -39,10 +39,25 @@ soft-fail (`subtitlesFailed`, video already saved) is the correct path.
 translations (the flaky ones). Dropping the bare-code original (e.g. `ja`) is
 lossless dedupe — identical bytes to its `-orig` twin.
 
-## Escape hatch
+## No escape hatch in yt-dlp
 
-`--extractor-args youtube:skip=translated_subs` stops yt-dlp emitting translation
-entries at all (`get_translated_subs` gate ~4237).
+`--extractor-args youtube:skip=translated_subs` does NOT stop ASR translations.
+In `_video.py` (~4237, ~4296-4313, verified on 2026.08.19) the `get_translated_subs`
+gate applies only to translations of *manual* tracks (`trans_code-<lang>` keys);
+every ASR caption track still yields a bare-key `tlang` entry per translation
+language. A `--sub-langs` pattern cannot tell them apart either: a bare `en` is a
+manual track, an identical ASR twin, or a translation, depending on the video.
+So Arroxy picks exact track keys itself (`pickSubtitleTracks`, the Format
+screen's rule) and sends them as `(?-i:<escaped key>)`, an `-orig` pick by its
+bare twin's key (same URL; keeps `….en.srt` and the `en` track tag): queueing resolves a
+single video's profile codes from the probe, the subtitle phase resolves a
+playlist entry's from the media run's or probe's info-json. That needs maps that
+list every track, so it runs only where the site adapter sets
+`probeListsSubtitleTracks` (YouTube): extractors using yt-dlp's lazy
+`extract_subtitles` (Vimeo, TikTok, Bilibili, Niconico, PeerTube…) return empty
+maps unless `--write-subs`/`--list-subs` is set, which neither the probe nor
+phase 1 does. Those sites, and a job with no info-json at all (a subtitles-only
+playlist entry), still send the code pattern.
 
 ## Subtitle source → yt-dlp flags
 
@@ -50,7 +65,6 @@ entries at all (`get_translated_subs` gate ~4237).
 `subtitleSourceOptions`) makes the bridge drop `--write-subs` and keep
 `--write-auto-subs`. yt-dlp's `process_subtitles` merges manual first and lets
 automatic captions fill only languages without a manual track, so without
-`autoOnly` an "auto-only" choice is indistinguishable from manual-first. A
-profile's base code (`en`) matches the bare automatic key, not `en-orig`; for an
-English original they are byte-identical, for other originals the bare key is a
-flaky translation.
+`autoOnly` an "auto-only" choice is indistinguishable from manual-first. yt-dlp
+fullmatches each `--sub-langs` entry with `re.I` (`orderedSet_from_options`), so
+exact keys need the scoped `(?-i:…)` group to stay exact.

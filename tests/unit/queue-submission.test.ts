@@ -303,9 +303,19 @@ describe('QueueSubmission', () => {
 		const settings = defaultAppSettings('/downloads')
 		const profile = subtitleProfile()
 		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [profile], overrides: [], enabledOverrides: {}}
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)
+		const prepared = prepareActiveProfileQueueSubmission({...VIDEO_PROBE, subtitles: {'en-GB': [{ext: 'vtt'}]}}, state({settings}), 'normal', NO_SOURCE)
 
-		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
+		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en-GB'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
+	})
+
+	// Keeping the codes would let yt-dlp match them as a pattern, translations included.
+	it('queues a subtitles-only profile job with no tracks when the video has none of its languages', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [subtitleProfile()], overrides: [], enabledOverrides: {}}
+		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
+
+		expect(job).toMatchObject({kind: 'subtitle-only', subtitles: {languages: []}})
+		expect(job && 'subtitles' in job ? job.subtitles : undefined).not.toHaveProperty('languagesAreCodes')
 	})
 
 	it('keeps removed items out of the manual playlist submission and its manifest', () => {

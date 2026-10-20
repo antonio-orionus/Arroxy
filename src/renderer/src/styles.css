@@ -17,6 +17,9 @@
 @import './styles/aurora.css';
 
 @custom-variant dark (&:is(.dark *));
+/* While the Profile tag is hovered or focused, the chips it explains answer.
+   Matched from the root, so it holds while one Profile tag is on screen. */
+@custom-variant profile-why (:root:has([data-profile-why]:is(:hover, :focus-visible)) &);
 
 @theme {
 	/* Poppins and JetBrains Mono have no Khmer glyphs, so Khmer text falls through to Noto Sans Khmer. */

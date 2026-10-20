@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {matchesSubtitleLanguage, ytDlpSubtitleLanguages, ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
+import {matchesSubtitleLanguage, pickSubtitleTracks, withSubtitleTracks, ytDlpSubtitleLanguages, ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 
 // Track keys observed on a real YouTube video (`yt-dlp --list-subs`), plus
 // regional variants uploaders commonly set. `de-en` is German auto-translated
@@ -41,12 +41,48 @@ describe('ytDlpSubtitleLanguageSelector', () => {
 })
 
 describe('ytDlpSubtitleLanguages', () => {
-	it('passes exact codes through when regional variants are not requested', () => {
-		expect(ytDlpSubtitleLanguages({languages: ['en-orig', 'de-DE']})).toEqual(['en-orig', 'de-DE'])
-		expect(ytDlpSubtitleLanguages({languages: ['en'], includeRegionalVariants: false})).toEqual(['en'])
+	it('sends track keys as exact, case-sensitive yt-dlp patterns', () => {
+		expect(ytDlpSubtitleLanguages({languages: ['en-orig', 'de-DE']})).toEqual(['(?-i:en-orig)', '(?-i:de-DE)'])
 	})
 
-	it('expands every code into a selector when regional variants are requested', () => {
-		expect(ytDlpSubtitleLanguages({languages: ['en', 'uk'], includeRegionalVariants: true})).toEqual([ytDlpSubtitleLanguageSelector('en'), ytDlpSubtitleLanguageSelector('uk')])
+	it('escapes regex syntax in a track key', () => {
+		expect(ytDlpSubtitleLanguages({languages: ['en.x', 'a+b(c)']})).toEqual(['(?-i:en\\.x)', '(?-i:a\\+b\\(c\\))'])
+	})
+
+	it('falls back to a selector per code when the codes were never resolved to tracks', () => {
+		expect(ytDlpSubtitleLanguages({languages: ['en', 'uk'], languagesAreCodes: true})).toEqual([ytDlpSubtitleLanguageSelector('en'), ytDlpSubtitleLanguageSelector('uk')])
+	})
+})
+
+describe('pickSubtitleTracks', () => {
+	// A Japanese video as the Format screen sees it: YouTube's auto captions cut to `-orig`.
+	const maps = {subtitles: {'en-US': [{ext: 'vtt'}]}, automaticCaptions: {'ja-orig': [{ext: 'vtt'}]}}
+
+	it('picks manual tracks and real automatic captions, reporting codes the video lacks', () => {
+		expect(pickSubtitleTracks(['ja', 'en', 'de'], 'manual-first', maps)).toEqual({tracks: ['ja-orig', 'en-US'], missing: ['de']})
+	})
+
+	it('honours the source', () => {
+		expect(pickSubtitleTracks(['ja', 'en'], 'manual-only', maps)).toEqual({tracks: ['en-US'], missing: ['ja']})
+		expect(pickSubtitleTracks(['ja', 'en'], 'auto-only', maps)).toEqual({tracks: ['ja-orig'], missing: ['en']})
+	})
+})
+
+describe('withSubtitleTracks', () => {
+	const maps = {subtitles: {}, automaticCaptions: {'ja-orig': [{ext: 'vtt'}]}}
+	const options = {languages: ['ja', 'en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: true}
+
+	it('turns language codes into the exact tracks', () => {
+		expect(withSubtitleTracks({...options, languages: ['de'], languagesAreCodes: true}, {subtitles: {'de-DE': [{ext: 'vtt'}]}, automaticCaptions: {}})).toEqual({...options, languages: ['de-DE']})
+	})
+
+	// yt-dlp lists YouTube's original-language captions as `ja` too, same URL:
+	// that key keeps the file name `….ja.srt` and the embedded track's language `ja`.
+	it("asks for an original-language caption by its bare twin's key", () => {
+		expect(withSubtitleTracks({...options, languagesAreCodes: true}, maps)).toEqual({...options, languages: ['ja']})
+	})
+
+	it('leaves track keys alone', () => {
+		expect(withSubtitleTracks(options, maps)).toBe(options)
 	})
 })
