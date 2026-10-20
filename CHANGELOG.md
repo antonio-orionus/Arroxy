@@ -17,6 +17,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - Embedded subtitles carry their track's name, such as "English (United Kingdom)", so players list them by name rather than by a bare language code.
 - A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
 - A video-only download that could not have its sound removed now says so in the queue instead of finishing as a plain success.
+- A subtitles-only download that finds no subtitles in your chosen languages now says so in the queue instead of finishing as a plain success.
 
 ## 0.7.2
 
