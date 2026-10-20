@@ -120,7 +120,8 @@ describe('planWorkflow — media', () => {
 	describe('audio conversion source', () => {
 		const NON_DRC = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
 		const NON_DOLBY = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
-		const AAC = "[acodec~='(?i)^(?:aac|mp4a)']"
+		const COPY_FLOOR = '[abr>=?96]'
+		const AAC = `[acodec~='(?i)^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$']${COPY_FLOOR}`
 		const DEFAULT_TRACK = '[language_preference>0]'
 		const ORIGINAL_TRACK = "[format_note~='(?i)\\boriginal\\b']"
 
@@ -135,8 +136,8 @@ describe('planWorkflow — media', () => {
 		// stream of that track, before another track's.
 		it('looks for a stream in the target codec first, in the source track, then anywhere', () => {
 			expect(conversionSelector('m4a').split('/')).toEqual([
-				...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, NON_DRC, AAC, NON_DOLBY, ''].map(filters => `bestaudio${track}${filters}`)),
-				...[`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, NON_DRC, AAC, NON_DOLBY, ''].map(filters => `bestaudio${filters}`),
+				...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, AAC, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${track}${filters}`)),
+				...[`${AAC}${NON_DRC}`, `${NON_DOLBY}${NON_DRC}`, AAC, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${filters}`),
 				'best'
 			])
 		})
@@ -144,11 +145,11 @@ describe('planWorkflow — media', () => {
 		it.each([
 			['aac', AAC],
 			['m4a', AAC],
-			['opus', "[acodec~='(?i)^opus$']"],
-			['mp3', "[acodec~='(?i)^mp3$']"],
-			['vorbis', "[acodec~='(?i)^vorbis$']"],
-			['flac', "[acodec~='(?i)^flac$']"],
-			['alac', "[acodec~='(?i)^alac$']"]
+			['opus', `[acodec~='(?i)^opus$']${COPY_FLOOR}`],
+			['mp3', `[acodec~='(?i)^mp3$']${COPY_FLOOR}`],
+			['vorbis', `[acodec~='(?i)^vorbis$']${COPY_FLOOR}`],
+			['flac', `[acodec~='(?i)^flac$']${COPY_FLOOR}`],
+			['alac', `[acodec~='(?i)^alac$']${COPY_FLOOR}`]
 		])('%s copies a source already in its codec: %s first', (target, codecFilter) => {
 			expect(conversionSelector(target).split('/')[0]).toBe(`bestaudio${DEFAULT_TRACK}${codecFilter}${NON_DRC}`)
 		})
@@ -156,7 +157,7 @@ describe('planWorkflow — media', () => {
 		// WAV decodes every source alike, and an unknown or mapped target
 		// ("aac>m4a/mp3") has no one codec to look for.
 		it.each(['wav', 'aac>m4a/mp3'])('%s has no codec to look for', target => {
-			expect(conversionSelector(target).split('/')).toEqual([...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${NON_DOLBY}${NON_DRC}`, NON_DRC, NON_DOLBY, ''].map(filters => `bestaudio${track}${filters}`)), ...[`${NON_DOLBY}${NON_DRC}`, NON_DRC, NON_DOLBY, ''].map(filters => `bestaudio${filters}`), 'best'])
+			expect(conversionSelector(target).split('/')).toEqual([...[DEFAULT_TRACK, ORIGINAL_TRACK].flatMap(track => [`${NON_DOLBY}${NON_DRC}`, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${track}${filters}`)), ...[`${NON_DOLBY}${NON_DRC}`, NON_DOLBY, NON_DRC, ''].map(filters => `bestaudio${filters}`), 'best'])
 		})
 
 		// `~=?` also passes a stream with no note at all, so every stream of a

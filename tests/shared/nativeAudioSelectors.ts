@@ -20,13 +20,15 @@ const COMPATIBLE_BEST_AUDIO_SELECTOR = [
 export const COMPATIBLE_AUDIO_ONLY_SELECTOR = `${COMPATIBLE_BEST_AUDIO_SELECTOR}/best`
 export const COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR = pairWithCompatibleNativeAudio('bestvideo*', 'bestvideo*+bestaudio/best')
 
-// The bridge's conversion source: the target codec's stream (copied, not
-// re-encoded) first, per track and DRC tier.
-const CONVERSION_CODEC_FILTERS: Readonly<Record<string, string>> = {mp3: "[acodec~='(?i)^mp3$']", m4a: "[acodec~='(?i)^(?:aac|mp4a)']", opus: "[acodec~='(?i)^opus$']"}
+// The bridge's conversion source: per track, the non-DRC master first, a
+// stream worth copying (target codec, at least 96 kbps) before a re-encode,
+// and every stereo stream before Dolby surround.
+const AAC_COPY = "[acodec~='(?i)^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$']"
+const CONVERSION_CODEC_FILTERS: Readonly<Record<string, string>> = {mp3: "[acodec~='(?i)^mp3$']", m4a: AAC_COPY, opus: "[acodec~='(?i)^opus$']"}
 export function audioConversionSourceSelector(target: string): string {
 	const codecFilter = CONVERSION_CODEC_FILTERS[target]
-	const codecFilters = [...(codecFilter ? [codecFilter] : []), COMPATIBLE_AUDIO_CODEC_FILTER, '']
-	const streamFilters = [NON_DRC_AUDIO_FILTERS, ''].flatMap(drc => codecFilters.map(codec => `${codec}${drc}`))
+	const stereoFilters = [...(codecFilter ? [`${codecFilter}[abr>=?96]`] : []), COMPATIBLE_AUDIO_CODEC_FILTER]
+	const streamFilters = [...[NON_DRC_AUDIO_FILTERS, ''].flatMap(drc => stereoFilters.map(filter => `${filter}${drc}`)), NON_DRC_AUDIO_FILTERS, '']
 	return [...[SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER, ''].flatMap(track => streamFilters.map(filters => `bestaudio${track}${filters}`)), 'best'].join('/')
 }
 

@@ -179,13 +179,14 @@ const NON_DOLBY_AUDIO_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
 const SOURCE_TRACK_AUDIO_FILTERS = ['[language_preference>0]', "[format_note~='(?i)\\boriginal\\b']", '']
 
 // The stream to convert, most wanted first: the source's own track before any
-// other, its non-DRC master before the DRC one, and within those a stream that
-// is copied as-is before one that is re-encoded, then any but Dolby surround.
+// other; within it the non-DRC master before the DRC one, a stream that is
+// copied as-is before one that is re-encoded, and every stereo stream (DRC
+// ones too) before Dolby surround.
 function audioConversionSourceSelector(target: string): string {
 	// A stream already in the target codec is copied, not re-encoded a second time.
 	const codecFilter = audioConversionCopyFilter(target)
-	const codecFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER, '']
-	const streamFilters = [NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => codecFilters.map(filter => `${filter}${drcFilter}`))
+	const stereoFilters = [...(codecFilter ? [codecFilter] : []), NON_DOLBY_AUDIO_FILTER]
+	const streamFilters = [...[NON_DRC_AUDIO_FILTERS, ''].flatMap(drcFilter => stereoFilters.map(filter => `${filter}${drcFilter}`)), NON_DRC_AUDIO_FILTERS, '']
 	return [...SOURCE_TRACK_AUDIO_FILTERS.flatMap(trackFilter => streamFilters.map(filters => `bestaudio${trackFilter}${filters}`)), 'best'].join('/')
 }
 
