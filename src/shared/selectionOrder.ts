@@ -24,13 +24,12 @@ export type VideoRank =
 	| {kind: 'hdr'}
 	// Copies the site rates higher by where they come from (yt-dlp's
 	// `source_preference`: YouTube's Premium streams, ones not missing a PO
-	// token). Probes carry it only from sites whose yt-dlp sort ranks it here,
-	// right after resolution, fps and HDR (`Site.sortsSourceBeforeCodec`).
+	// token), where the extractor's own sort ranks it here (YouTube's).
 	| {kind: 'source'}
 	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
 	| {kind: 'codec'}
-	// A direct download before its HLS copy, on sites whose yt-dlp sort ranks
-	// the protocol before the size (`Site.sortsProtocolBeforeSize`).
+	// A direct download before its HLS copy, where the extractor's own sort
+	// ranks the protocol before the size (YouTube's).
 	| {kind: 'protocol'}
 	| {kind: 'size'}
 

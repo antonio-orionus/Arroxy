@@ -18,6 +18,7 @@ import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import type {LookedUpSizes} from './formatSizeLookup.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
@@ -299,7 +300,9 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {site, durationSeconds: typeof info.duration === 'number' ? info.duration : undefined, ...(lookedUpSizes ? {lookedUpSizes} : {})}),
+		formats: mapFormats(info.formats ?? [], {durationSeconds: typeof info.duration === 'number' ? info.duration : undefined, ...(lookedUpSizes ? {lookedUpSizes} : {})}),
+		// yt-dlp's own formats and its extractor's sort, so the profile pick runs as the download will.
+		formatSelection: formatSelectionSource(info, '_format_sort_fields' in info ? info._format_sort_fields : undefined),
 		title: info.title ?? '',
 		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,

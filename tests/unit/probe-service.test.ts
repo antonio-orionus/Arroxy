@@ -975,8 +975,8 @@ describe('ProbeService — sizes the site does not report', () => {
 		if (!result.ok || result.data.kind !== 'video') throw new Error('probe failed')
 		expect(formatSizes).toHaveBeenCalledTimes(1)
 		expect(Object.fromEntries(result.data.formats.map(f => [f.formatId, f.filesize]))).toEqual({sd: 3_576_134, hd: 16_344_300})
-		// Shown, but not what yt-dlp's sort sees: it never asks the server.
-		expect(result.data.formats.map(f => f.sortSize)).toEqual([undefined, undefined])
+		// Shown only: the formats the profile pick runs on are yt-dlp's own, without them.
+		expect(result.data.formatSelection?.formats.map(f => f.filesize)).toEqual([undefined, undefined])
 	})
 
 	// YouTube reports its sizes, and its media hosts are not asked anything extra.

@@ -1,6 +1,9 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {resolveProfileSelection, videoHeight} from '@shared/profileSelection.js'
+import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
+import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import type {DownloadProfile, FormatOption, SubtitleMap} from '@shared/types.js'
 
 function builtin(id: string): DownloadProfile {
@@ -43,8 +46,18 @@ const YOUTUBE: FormatOption[] = [
 const NO_SUBS: SubtitleMap = {}
 
 function resolve(profile: DownloadProfile, formats: FormatOption[] = YOUTUBE, extra: Partial<Parameters<typeof resolveProfileSelection>[0]> = {}) {
-	return resolveProfileSelection({profile, formats, subtitles: NO_SUBS, automaticCaptions: NO_SUBS, isAudioOnlySource: false, nativeAudioPreference: 'compatible', ...extra})
+	return resolveProfileSelection({profile, formats, selection: selectionSourceFromOptions(formats), subtitles: NO_SUBS, automaticCaptions: NO_SUBS, isAudioOnlySource: false, nativeAudioPreference: 'compatible', ...extra})
 }
+
+// A probe as yt-dlp returns it: its formats (best last, as yt-dlp lists them)
+// and its extractor's own sort, read the way the app reads a real probe.
+function resolveRaw(profile: DownloadProfile, raw: readonly Record<string, unknown>[], sortFields: readonly string[] = YOUTUBE_SORT_FIELDS) {
+	const formats = mapFormats(raw.map(format => ({...format})))
+	return resolveProfileSelection({profile, formats, selection: formatSelectionSource({formats: raw}, sortFields), subtitles: NO_SUBS, automaticCaptions: NO_SUBS, isAudioOnlySource: false, nativeAudioPreference: 'compatible'})
+}
+
+// YouTube's `_format_sort_fields`.
+const YOUTUBE_SORT_FIELDS = ['quality', 'res', 'fps', 'hdr:12', 'source', 'vcodec', 'channels', 'acodec', 'lang', 'proto']
 
 describe('videoHeight', () => {
 	it('reads WxH, NNNp and labels with extras', () => {
@@ -175,42 +188,50 @@ describe('resolveProfileSelection: subtitles', () => {
 	})
 })
 
+// yt-dlp formats as a YouTube probe lists them.
+function rawVideo(formatId: string, height: number, extra: Record<string, unknown> = {}): Record<string, unknown> {
+	return {format_id: formatId, ext: 'mp4', width: Math.round((height * 16) / 9), height, resolution: `${Math.round((height * 16) / 9)}x${height}`, fps: 30, vcodec: 'avc1.640028', acodec: 'none', dynamic_range: 'SDR', protocol: 'https', source_preference: -1, ...extra}
+}
+
+function rawAudio(formatId: string, extra: Record<string, unknown> = {}): Record<string, unknown> {
+	return {format_id: formatId, ext: 'm4a', resolution: 'audio only', vcodec: 'none', acodec: 'mp4a.40.2', abr: 129, audio_channels: 2, protocol: 'https', source_preference: -1, ...extra}
+}
+
 describe('resolveProfileSelection: parity with the profile path yt-dlp sort', () => {
 	it('prefers the better codec at the same resolution and fps, like yt-dlp vcodec sorting', () => {
-		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sortSize: 900}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sortSize: 500}), audio('140')]
-		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
-		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('399')
+		const raw = [rawVideo('137', 1080, {filesize: 900}), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08', filesize: 500}), rawAudio('140')]
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('399')
+		expect(resolveRaw(builtin('hd-1080'), raw).media.videoFormatId).toBe('399')
 	})
 
-	it('takes the stream the site prefers as a source before the better codec, like yt-dlp source before vcodec', () => {
+	it('takes the stream the site prefers as a source before the better codec, like YouTube source before vcodec', () => {
 		// YouTube's Premium VP9 (616) gets source_preference +100 over the AV1 copy.
-		const formats = [video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', sourcePreference: -1, sortSize: 53}), video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', ext: 'mp4', sourcePreference: 99, sortSize: 204}), audio('140')]
-		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('616')
-		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('616')
+		const raw = [rawVideo('399', 1080, {vcodec: 'av01.0.08M.08', filesize: 53}), rawVideo('616', 1080, {vcodec: 'vp09.00.40.08', source_preference: 99, filesize: 204}), rawAudio('140')]
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('616')
+		expect(resolveRaw(builtin('hd-1080'), raw).media.videoFormatId).toBe('616')
+		// Where the extractor's sort doesn't rank the source first, the codec decides.
+		expect(resolveRaw(builtin('best-quality'), raw, []).media.videoFormatId).toBe('399')
 	})
 
 	it('reads a missing source preference as yt-dlp default -1, so the codec still decides', () => {
-		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4'}), audio('140')]
-		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
-		const unset = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4'}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4'}), audio('140')]
-		expect(resolve(builtin('best-quality'), unset).media.videoFormatId).toBe('399')
+		const raw = [rawVideo('137', 1080), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08', source_preference: undefined}), rawAudio('140')]
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('399')
 	})
 
 	it('fps and HDR still outrank the source preference, as in yt-dlp', () => {
-		const formats = [video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', fps: 30, sourcePreference: 99}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', fps: 60, sourcePreference: -1}), audio('140')]
-		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
+		const raw = [rawVideo('616', 1080, {vcodec: 'vp09.00.40.08', source_preference: 99}), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08', fps: 60}), rawAudio('140')]
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('399')
 	})
 
-	it('reads codec names as yt-dlp does: vp9 and vp09.00 are one codec, HDR VP9 ranks above both', () => {
-		const sameCodec = [video('609', '1280x720', {videoCodec: 'vp09.00.31.08', ext: 'mp4'}), video('247', '1280x720', {videoCodec: 'vp9', sortSize: 500}), audio('140')]
-		expect(resolve(builtin('balanced'), sameCodec).media.videoFormatId).toBe('247')
-		const hdrVp9 = [video('247', '1280x720', {videoCodec: 'vp9', sortSize: 900}), video('334', '1280x720', {videoCodec: 'vp09.02.31.10', sortSize: 500}), audio('140')]
-		expect(resolve(builtin('balanced'), hdrVp9).media.videoFormatId).toBe('334')
+	it('reads vp9 and vp09.00 as one codec, as yt-dlp does, so the copies tie on it', () => {
+		// The HLS copy (609) has no size; the direct download (247) wins on YouTube's protocol rank.
+		const raw = [rawVideo('609', 720, {vcodec: 'vp09.00.31.08', protocol: 'm3u8_native', tbr: 1679}), rawVideo('247', 720, {vcodec: 'vp9', ext: 'webm', filesize: 500}), rawAudio('140')]
+		expect(resolveRaw(builtin('balanced'), raw).media.videoFormatId).toBe('247')
 	})
 
 	it('Smart TV breaks ties among H.264 streams by source preference too', () => {
-		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -21, sortSize: 900}), video('137-hls', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1, sortSize: 500}), audio('140')]
-		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137-hls')
+		const raw = [rawVideo('137', 1080, {source_preference: -21, filesize: 900}), rawVideo('137-hls', 1080, {filesize: 500}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-1080'), raw).media.videoFormatId).toBe('137-hls')
 	})
 
 	it('MP4 profiles put the MP4 container before resolution, like vcodec:h264,ext:mp4,res', () => {
@@ -257,22 +278,20 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	})
 
 	it('takes the direct download over its HLS copy on YouTube, like yt-dlp proto before size', () => {
-		// The HLS copy has no size from the site; the app's estimate from its peak bitrate is larger.
-		const formats = [video('270', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 7, sortSize: 900}), video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 9, sortSize: 500}), audio('140')]
-		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137')
-		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('137')
+		// The HLS copy has no size from the site; its peak bitrate would make an estimate larger.
+		const raw = [rawVideo('270', 1080, {protocol: 'm3u8_native', tbr: 3292, manifest_url: 'https://manifest.invalid/'}), rawVideo('137', 1080, {filesize: 500}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-1080'), raw).media.videoFormatId).toBe('137')
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('137')
 	})
 
-	it('leaves the protocol rank out of the order when no stream of this video carries one', () => {
-		const ranked = [video('137', '1920x1080', {videoCodec: 'avc1.640028', protocolPreference: 9}), audio('140')]
-		expect(resolve(builtin('best-quality'), ranked).order?.video.map(rank => rank.kind)).toContain('protocol')
-		expect(resolve(builtin('best-quality')).order?.video.map(rank => rank.kind)).not.toContain('protocol')
-	})
-
-	it('leaves the source rank out of the order when no stream of this video carries one', () => {
-		const ranked = [video('616', '1920x1080', {videoCodec: 'vp09.00.40.08', sourcePreference: 99}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', sourcePreference: -1}), audio('140')]
-		expect(resolve(builtin('best-quality'), ranked).order?.video.map(rank => rank.kind)).toContain('source')
-		expect(resolve(builtin('best-quality')).order?.video.map(rank => rank.kind)).not.toContain('source')
+	it('names the source and protocol ranks only where the extractor sorts by them', () => {
+		const raw = [rawVideo('137', 1080), rawAudio('140')]
+		const youtube = resolveRaw(builtin('best-quality'), raw).order?.video.map(rank => rank.kind)
+		expect(youtube).toContain('source')
+		expect(youtube).toContain('protocol')
+		const generic = resolveRaw(builtin('best-quality'), raw, []).order?.video.map(rank => rank.kind)
+		expect(generic).not.toContain('source')
+		expect(generic).not.toContain('protocol')
 	})
 
 	it('names the profile native audio choice as its own source', () => {

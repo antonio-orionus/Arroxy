@@ -1,4 +1,5 @@
 import type {StoreApi} from 'zustand'
+import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import type {ExploreSignInSite} from './exploreSignInSite.js'
 import type {
 	AppSettings,
@@ -258,6 +259,8 @@ export type QuickDownloadRowAnswer = 'all' | 'first' | 'review'
 // download profile a single-video run starts from.
 export interface FormatPickerSlice {
 	wizardFormats: FormatOption[]
+	// The same formats as yt-dlp sees them, which the profile pick runs on.
+	wizardFormatSelection: FormatSelectionSource
 	selectedVideoFormatId: string
 	audioSelection: AudioSelection
 	// The audio pick Video, no audio set aside, given back when audio returns.

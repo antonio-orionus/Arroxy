@@ -1,5 +1,4 @@
 import type {FormatMarker, FormatOption} from '@shared/types.js'
-import type {Site} from '@shared/sites/types.js'
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
@@ -64,48 +63,17 @@ function formatMarkers(format: YtDlpFormat, wide: VideoWideMarkers): FormatMarke
 }
 
 export interface MapFormatsOptions {
-	site: Pick<Site, 'sortsSourceBeforeCodec' | 'sortsProtocolBeforeSize'>
 	durationSeconds?: number
 	// Sizes the site left out, asked of its servers, by format id: shown only.
 	lookedUpSizes?: ReadonlyMap<string, number>
 }
 
-// The size yt-dlp sorts by (`process_video_result` fills `filesize_approx`
-// from `tbr` when the stream has no `manifest_url`, then the sort reads
-// `filesize`, else `filesize_approx`).
-function ytDlpSortSize(format: YtDlpFormat, durationSeconds: number | undefined): number | undefined {
-	const reported = format.filesize ?? format.filesize_approx
-	if (reported !== undefined) return reported
-	if (format.manifest_url || !format.tbr || !durationSeconds) return undefined
-	return Math.trunc((durationSeconds * format.tbr * 1000) / 8)
-}
-
-// yt-dlp's protocol order (`FormatSorter.settings.proto`), best first; an
-// unknown or missing protocol takes the place of its '' entry.
-const PROTOCOL_ORDER: readonly (RegExp | null)[] = [/^(ht|f)tps/, /^(ht|f)tp$/, /^m3u8/, /^.*dash/, /^websocket_frag/, /^rtmpe?/, null, /^(ws|websocket)/, /^f4/]
-
-function protocolPreference(protocol: string | undefined): number {
-	const lower = protocol?.toLowerCase()
-	const index = lower === undefined ? -1 : PROTOCOL_ORDER.findIndex(pattern => pattern !== null && pattern.test(lower))
-	return PROTOCOL_ORDER.length - (index < 0 ? PROTOCOL_ORDER.indexOf(null) : index)
-}
-
-// `source_preference` is not in the bridge's typed format schema; it passes
-// through its loose fields, so it is checked here. Kept only where yt-dlp
-// ranks it before the codec (`Site.sortsSourceBeforeCodec`).
-function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers, site: MapFormatsOptions['site']): Pick<FormatOption, 'markers' | 'preference' | 'quality' | 'sourcePreference' | 'protocolPreference'> {
+function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference' | 'quality'> {
 	const markers = formatMarkers(format, wide)
-	const sourcePreference = site.sortsSourceBeforeCodec ? format.source_preference : undefined
-	return {
-		...(markers.length > 0 ? {markers} : {}),
-		...(typeof format.preference === 'number' ? {preference: format.preference} : {}),
-		...(typeof format.quality === 'number' ? {quality: format.quality} : {}),
-		...(typeof sourcePreference === 'number' ? {sourcePreference} : {}),
-		...(site.sortsProtocolBeforeSize ? {protocolPreference: protocolPreference(format.protocol)} : {})
-	}
+	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {})}
 }
 
-export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSeconds, lookedUpSizes}: MapFormatsOptions): FormatOption[] {
+export function mapFormats(formats: readonly YtDlpFormat[], {durationSeconds, lookedUpSizes}: MapFormatsOptions = {}): FormatOption[] {
 	const wide = videoWideMarkers(formats)
 	const mapped = formats.flatMap((item): FormatOption[] => {
 		// A DRM-protected stream can't be downloaded (yt-dlp refuses it), so it is no choice.
@@ -114,8 +82,6 @@ export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSecon
 		const ext = item.ext ?? 'unknown'
 		const formatId = item.format_id ?? ''
 		const filesize = item.filesize ?? item.filesize_approx ?? lookedUpSizes?.get(formatId) ?? estimatedFilesize(item, durationSeconds)
-		const sortSize = ytDlpSortSize(item, durationSeconds)
-		const sizes = {filesize, ...(sortSize === undefined ? {} : {sortSize})}
 
 		if (isAudioOnly) {
 			const abr = item.abr
@@ -144,11 +110,11 @@ export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSecon
 					...(trackQuality ? {audioTrackQuality: trackQuality} : {}),
 					isDefaultAudio: defaultAudio,
 					isOriginalAudio: originalAudio,
-					...sizes,
+					filesize,
 					isVideoOnly: false,
 					isAudioOnly: true,
 					dynamicRange: undefined,
-					...streamFlags(item, wide, site)
+					...streamFlags(item, wide)
 				} satisfies FormatOption
 			]
 		}
@@ -162,7 +128,7 @@ export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSecon
 		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
 		const tbr = item.tbr ?? item.vbr
 
-		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...(tbr ? {tbr} : {}), ...sizes, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide, site)} satisfies FormatOption]
+		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
 	})
 
 	return sortFormatsByQuality(mapped)

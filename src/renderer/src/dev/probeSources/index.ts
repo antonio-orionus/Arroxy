@@ -6,6 +6,7 @@ import type {VideoProbeResult} from '@shared/types.js'
 import {siteForExtractor} from '@shared/sites/index.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
+import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {infoDictSchema} from 'yt-dlp-bridge/info'
 import {PROBE_SOURCES, type ProbeSourceId} from './sources.js'
@@ -83,7 +84,8 @@ export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? '',
 		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {site, durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})}),
+		formats: mapFormats(info.formats ?? [], {durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})}),
+		formatSelection: formatSelectionSource(info, '_format_sort_fields' in info ? info._format_sort_fields : undefined),
 		title: info.title ?? '',
 		thumbnail: info.thumbnail ?? '',
 		...(info.duration === undefined ? {} : {duration: Math.round(info.duration)}),
