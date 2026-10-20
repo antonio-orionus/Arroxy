@@ -363,6 +363,15 @@ describe('selectView — one chip per codec', () => {
 		expect(lines[0].variants.map(row => row.formatId)).toEqual(['dash-240'])
 	})
 
+	// Vimeo lists each stream once per CDN, identical down to yt-dlp's rank: the
+	// chip is the copy yt-dlp takes (listed last), unless the other is picked.
+	it('shows the copy yt-dlp would take of identical streams from several CDNs', () => {
+		const copies = [video('hls-akfire-2644', '1280x720', 'mp4', 'avc1.64001F'), video('hls-fastly-2644', '1280x720', 'mp4', 'avc1.64001F')]
+		const chipOf = (selected: string): string[] => selectView({selectedVideoFormatId: selected, audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: copies}).video.rows.map(row => row.formatId)
+		expect(chipOf('')).toEqual(['hls-fastly-2644'])
+		expect(chipOf('hls-akfire-2644')).toEqual(['hls-akfire-2644'])
+	})
+
 	it('puts streams with no codec name in one shared column, labelled by file type', () => {
 		const {columns, lines} = view([video('2', '1280x720', 'avi', undefined, false), video('1', '640x360', 'mp4', undefined, false)])
 		expect(columns).toEqual([{range: 'SDR', codec: null}])

@@ -174,3 +174,12 @@ describe('tiers on real probes', () => {
 		expect(selectionFor('balanced', probeSourceResult('twitch-clip')).media.videoFormatId).toBe('720')
 	})
 })
+
+// With nothing picked, a chip is the copy yt-dlp would take: the profiles' pick, listed last.
+describe('identical copies on real probes', () => {
+	it.each(['vimeo', 'tiktok'] as const)('%s: each chip is the copy yt-dlp takes', id => {
+		const probe = probeSourceResult(id)
+		const rows = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: probe.formats}).video.rows
+		expect(rows.map(row => row.formatId)).toContain(pickFor('best-quality', probe).videoFormatId)
+	})
+})
