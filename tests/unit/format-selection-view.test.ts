@@ -275,6 +275,15 @@ describe('selectView — media kinds', () => {
 		])
 	})
 
+	it('opens on the default language when the default stream is a copy the list folds away', () => {
+		const stream = (formatId: string, track: string, extra: Partial<FormatOption> = {}): FormatOption => ({formatId, label: formatId, ext: 'mp4', resolution: 'audio only', audioTrackLabel: track, audioTrackQuality: 'high', isVideoOnly: false, isAudioOnly: true, ...extra})
+		const formats = [stream('es', 'Spanish'), stream('akfire-en', 'English', {isDefaultAudio: true}), stream('fastly-en', 'English', {isDefaultAudio: true})]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.nativeRows.map(row => row.formatId)).toEqual(['es', 'fastly-en'])
+		expect(view.audio.defaultTrack).toBe('English')
+	})
+
 	// Vimeo names neither codec nor bitrate, only a low or high grade.
 	it('names a stream by its quality grade when the site gives no bitrate, best first', () => {
 		const formats: FormatOption[] = [

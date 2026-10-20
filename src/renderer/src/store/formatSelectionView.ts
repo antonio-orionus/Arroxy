@@ -204,9 +204,16 @@ function markerTags(markers: readonly FormatMarker[] | undefined, shown: readonl
 	return (markers ?? []).filter(marker => shown.includes(marker)).map(marker => i18next.t(MARKER_LABEL_KEYS[marker]))
 }
 
-function defaultTrackOf(formats: readonly FormatOption[], rows: readonly BaseAudioRow[], tracks: readonly string[]): string {
+// The track a stream belongs to: its name or language; empty when it is not a named track.
+function trackOf(format: FormatOption): string {
+	return format.audioTrackLabel ?? format.audioLanguage ?? ''
+}
+
+// By the track, not the stream: the default stream may be a copy the list left out.
+function defaultTrackOf(formats: readonly FormatOption[], tracks: readonly string[]): string {
 	const source = formats.find(f => f.isAudioOnly && f.isDefaultAudio === true) ?? formats.find(f => f.isAudioOnly && f.isOriginalAudio === true)
-	return rows.find(row => row.formatId === source?.formatId)?.track ?? tracks[0]
+	const track = source ? trackOf(source) : ''
+	return tracks.includes(track) ? track : tracks[0]
 }
 
 // Everything a chip shows of a stream, and everything yt-dlp ranks it by:
@@ -241,7 +248,7 @@ function nativeAudioRow(format: FormatOption, profileAudioId: string | null, sca
 		formatId: format.formatId,
 		label: format.label,
 		quality: format.audioTrackQuality ?? null,
-		track: format.audioTrackLabel ?? format.audioLanguage ?? '',
+		track: trackOf(format),
 		codec: audioCodecName(format.audioCodec) ?? format.audioCodec ?? null,
 		kbps: format.abr ?? null,
 		bitrate: format.abr ? `${Math.round(format.abr)} kbps` : null,
@@ -471,7 +478,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			nativeRows: lines.flatMap(line => line.variants),
 			hasDrcTwins: lines.some(line => line.variants.some(row => row.twinId !== null)),
 			tracks: namedTracks.length > 1 ? namedTracks : [],
-			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, audioRows, namedTracks) : null,
+			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, namedTracks) : null,
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
 			convertTargets,
