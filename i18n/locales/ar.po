@@ -517,6 +517,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "عبارة البحث هذه طويلة جدًا."
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "تكبير الصفحة: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "تكبير"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "تكبير الصفحة"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "تصغير"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "نسبة التكبير"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "إعادة التكبير إلى 100%"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "اختر طريقة تسمية الملفات التي يتم تنزيلها. انقر على رمز لإدراجه. استخدم / لترتيب التنزيلات في مجلدات."

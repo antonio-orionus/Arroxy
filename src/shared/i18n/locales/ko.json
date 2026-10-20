@@ -933,6 +933,7 @@
 			"grabUnavailable": "동영상, 재생목록 또는 채널을 열면 다운로드할 수 있습니다",
 			"compactLayout": "컴팩트 레이아웃",
 			"fullLayout": "전체 레이아웃 표시",
+			"zoom": {"label": "페이지 확대/축소", "hint": "페이지 확대/축소: {{percent}}%", "in": "확대", "out": "축소", "percent": "확대/축소 비율", "reset": "확대/축소를 100%로 초기화"},
 			"adBlock": {
 				"aria": "광고 차단",
 				"off": "광고 차단: 꺼짐 — 클릭하여 켜기",

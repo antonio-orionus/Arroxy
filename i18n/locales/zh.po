@@ -492,6 +492,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "搜索内容太长。"
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "页面缩放：{{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "放大"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "页面缩放"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "缩小"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "缩放百分比"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "将缩放重置为 100%"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "选择下载文件的命名方式。点击标记即可插入。使用 / 可将下载内容分类到文件夹。"

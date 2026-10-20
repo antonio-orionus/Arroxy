@@ -990,6 +990,7 @@
 			"grabUnavailable": "Fungua video, orodha ya kucheza au kituo ili kupakua",
 			"compactLayout": "Mpangilio mshikamano",
 			"fullLayout": "Onyesha mpangilio kamili",
+			"zoom": {"label": "Ukuzaji wa ukurasa", "hint": "Ukuzaji wa ukurasa: {{percent}}%", "in": "Kuza", "out": "Punguza", "percent": "Asilimia ya ukuzaji", "reset": "Rejesha ukuzaji kuwa 100%"},
 			"adBlock": {
 				"aria": "Kizuia matangazo",
 				"off": "Kizuia matangazo: kimezimwa — bofya ili kukiwasha",

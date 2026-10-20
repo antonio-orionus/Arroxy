@@ -396,6 +396,7 @@ New `common` fields:
 | `exploreModeNudgeDismissedFor` | `CookiesMode?` | unset | D6 "Not now", cleared when `cookiesMode` changes |
 | `exploreLastUrl` | `string?` | unset | Last site page the view showed, reopened at the next start (P2-R34). Main-owned: not in the renderer's settings patch |
 | `exploreAdBlock` | `boolean?` | unset → off | The Explore ad blocker (P2-R36) |
+| `exploreZoom` | `number?` | unset → `1` | The page's zoom factor (0.25–5), set from the toolbar's zoom control; main re-applies it at view creation and after every navigation, since Chromium zooms per host |
 | `exploreSearchEngine` | `ExploreSearchEngine?` | unset → `duckduckgo` | Where plain text typed in the address bar is searched: `duckduckgo`, `brave`, `google`, `bing` or `youtube` |
 
 **Last page (P2-R34).** The view records each committed main-frame page (full

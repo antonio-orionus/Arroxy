@@ -492,6 +492,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "検索語が長すぎます。"
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "ページのズーム: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "拡大"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "ページのズーム"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "縮小"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "ズーム率"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "ズームを100%に戻す"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "ダウンロードしたファイルの名前の付け方を選びます。トークンをクリックすると挿入されます。/ を使うとフォルダーに振り分けられます。"

@@ -50,6 +50,7 @@ export class FakeWebContents extends EventEmitter {
 	readonly stop = vi.fn()
 	readonly executeJavaScript = vi.fn()
 	readonly setAudioMuted = vi.fn()
+	readonly setZoomFactor = vi.fn()
 	readonly capturePage = vi.fn((): Promise<FakeImage> => Promise.resolve(fakeImage(1600, 1000)))
 	readonly close = vi.fn((opts?: {waitForBeforeUnload: boolean}) => {
 		if (opts?.waitForBeforeUnload === true && this.beforeUnload === 'veto') {

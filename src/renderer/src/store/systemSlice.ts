@@ -705,6 +705,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'exploreCompactChrome', {exploreCompactChrome: compact})
 		},
 
+		setExploreZoom: async zoom => {
+			await applyCommonPatchAsync(get, set, 'exploreZoom', {exploreZoom: zoom})
+		},
+
 		markExploreFirstOpen: async () => {
 			// D6: only an `off` found at the first open is switched; `file`/`browser`
 			// are never switched, and a later `off` is a deliberate choice.

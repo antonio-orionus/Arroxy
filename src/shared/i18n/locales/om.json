@@ -1017,6 +1017,7 @@
 			"grabUnavailable": "Buufachuuf viidiyoo, tarree taphachiisaa ykn channel bani",
 			"compactLayout": "Qindaa'ina gabaabaa",
 			"fullLayout": "Qindaa'ina guutuu agarsiisi",
+			"zoom": {"label": "Guddina fuula", "hint": "Guddina fuula: {{percent}}%", "in": "Guddisi", "out": "Xiqqeessi", "percent": "Dhibbeentaa guddinaa", "reset": "Guddina gara 100% deebisi"},
 			"adBlock": {
 				"aria": "Dhorkaa beeksisaa",
 				"off": "Dhorkaa beeksisaa: cufaa — banuuf tuqi",

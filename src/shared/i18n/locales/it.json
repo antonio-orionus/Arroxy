@@ -1039,6 +1039,7 @@
 			"grabUnavailable": "Apri un video, una playlist o un canale per scaricarlo",
 			"compactLayout": "Layout compatto",
 			"fullLayout": "Mostra layout completo",
+			"zoom": {"label": "Zoom pagina", "hint": "Zoom pagina: {{percent}}%", "in": "Ingrandisci", "out": "Riduci", "percent": "Percentuale di zoom", "reset": "Reimposta zoom al 100%"},
 			"adBlock": {
 				"aria": "Blocco annunci",
 				"off": "Blocco annunci: disattivato — clic per attivarlo",

@@ -1024,6 +1024,7 @@
 			"grabUnavailable": "Öffne ein Video, eine Playlist oder einen Kanal, um herunterzuladen",
 			"compactLayout": "Kompaktes Layout",
 			"fullLayout": "Volles Layout anzeigen",
+			"zoom": {"label": "Seitenzoom", "hint": "Seitenzoom: {{percent}}%", "in": "Vergrößern", "out": "Verkleinern", "percent": "Zoom in Prozent", "reset": "Zoom auf 100% zurücksetzen"},
 			"adBlock": {
 				"aria": "Werbeblocker",
 				"off": "Werbeblocker: aus — zum Einschalten klicken",

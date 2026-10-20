@@ -497,6 +497,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "این عبارت جست‌وجو بیش از حد طولانی است."
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "بزرگ‌نمایی صفحه: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "بزرگ‌نمایی"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "بزرگ‌نمایی صفحه"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "کوچک‌نمایی"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "درصد بزرگ‌نمایی"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "بازنشانی بزرگ‌نمایی به 100%"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "روش نام‌گذاری فایل‌های دانلودشده را انتخاب کنید. برای درج هر نشانه روی آن کلیک کنید. برای مرتب‌کردن دانلودها در پوشه‌ها از / استفاده کنید."

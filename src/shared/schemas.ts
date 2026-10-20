@@ -1,5 +1,6 @@
 import {z} from 'zod'
 import {validateUaToken} from './exploreUserAgent.js'
+import {EXPLORE_ZOOM_MAX, EXPLORE_ZOOM_MIN} from './exploreZoom.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
 import {RATE_LIMIT_EVIDENCE, YT_DLP_ERROR_KINDS, type RateLimitEvidence, type YtDlpErrorKind} from 'ytdlp-errors'
@@ -660,6 +661,8 @@ const commonSettingsSchema = z.object({
 	exploreIdleUnload: z.boolean().optional(),
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.
 	exploreCompactChrome: z.boolean().optional(),
+	// The Explore page's zoom as a factor; absent means 100% (see exploreZoomOf).
+	exploreZoom: z.number().min(EXPLORE_ZOOM_MIN).max(EXPLORE_ZOOM_MAX).optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	hdrPreference: hdrSettingSchema.optional(),
 	limitRate: limitRateSchema.optional(),

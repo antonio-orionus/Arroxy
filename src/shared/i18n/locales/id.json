@@ -965,6 +965,7 @@
 			"grabUnavailable": "Buka video, playlist, atau kanal untuk mengunduhnya",
 			"compactLayout": "Tata letak ringkas",
 			"fullLayout": "Tampilkan tata letak penuh",
+			"zoom": {"label": "Zoom halaman", "hint": "Zoom halaman: {{percent}}%", "in": "Perbesar", "out": "Perkecil", "percent": "Persentase zoom", "reset": "Setel ulang zoom ke 100%"},
 			"adBlock": {
 				"aria": "Pemblokir iklan",
 				"off": "Pemblokir iklan: nonaktif — klik untuk mengaktifkan",

@@ -1054,6 +1054,7 @@
 			"grabUnavailable": "Ouvrez une vidéo, une playlist ou une chaîne pour la télécharger",
 			"compactLayout": "Disposition compacte",
 			"fullLayout": "Afficher la disposition complète",
+			"zoom": {"label": "Zoom de la page", "hint": "Zoom de la page : {{percent}}%", "in": "Zoom avant", "out": "Zoom arrière", "percent": "Pourcentage de zoom", "reset": "Réinitialiser le zoom à 100%"},
 			"adBlock": {
 				"aria": "Bloqueur de publicités",
 				"off": "Bloqueur de publicités : désactivé — cliquez pour l'activer",

@@ -44,7 +44,8 @@ function makeHost() {
 		destroy: vi.fn(),
 		applyProxySetting: vi.fn().mockResolvedValue(undefined),
 		applyAdBlockSetting: vi.fn().mockResolvedValue(undefined),
-		applyIdleUnloadSetting: vi.fn()
+		applyIdleUnloadSetting: vi.fn(),
+		applyZoomSetting: vi.fn()
 	}
 }
 

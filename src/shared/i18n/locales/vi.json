@@ -949,6 +949,7 @@
 			"grabUnavailable": "Mở một video, danh sách phát hoặc kênh để tải xuống",
 			"compactLayout": "Bố cục thu gọn",
 			"fullLayout": "Hiện bố cục đầy đủ",
+			"zoom": {"label": "Thu phóng trang", "hint": "Thu phóng trang: {{percent}}%", "in": "Phóng to", "out": "Thu nhỏ", "percent": "Phần trăm thu phóng", "reset": "Đặt lại thu phóng về 100%"},
 			"adBlock": {
 				"aria": "Trình chặn quảng cáo",
 				"off": "Trình chặn quảng cáo: tắt — nhấp để bật",

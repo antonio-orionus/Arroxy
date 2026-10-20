@@ -1021,6 +1021,7 @@
 			"grabUnavailable": "Yuklab olish uchun video, pleylist yoki kanalni oching",
 			"compactLayout": "Ixcham ko'rinish",
 			"fullLayout": "To'liq ko'rinishni ko'rsatish",
+			"zoom": {"label": "Sahifa masshtabi", "hint": "Sahifa masshtabi: {{percent}}%", "in": "Kattalashtirish", "out": "Kichraytirish", "percent": "Masshtab foizi", "reset": "Masshtabni 100% ga qaytarish"},
 			"adBlock": {
 				"aria": "Reklama blokeri",
 				"off": "Reklama blokeri: o'chiq — yoqish uchun bosing",

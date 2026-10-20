@@ -2,6 +2,7 @@ import {useEffect, useRef, type ReactNode, type RefObject} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
+import {exploreZoomOf} from '@shared/exploreZoom.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import {exploreSearchEngineOf} from '@shared/sites/exploreSearch.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
@@ -51,6 +52,8 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 	const profilesPrefs = useAppStore(s => s.settings?.profiles)
 	const setActiveDownloadProfile = useAppStore(s => s.setActiveDownloadProfile)
 	const setExploreAdBlock = useAppStore(s => s.setExploreAdBlock)
+	const zoom = useAppStore(s => exploreZoomOf(s.settings?.common ?? {}))
+	const setExploreZoom = useAppStore(s => s.setExploreZoom)
 	const compact = useAppStore(selectCompactChrome)
 	const setExploreCompactChrome = useAppStore(s => s.setExploreCompactChrome)
 	const {addressHint, setAddressHint} = useAppStore(useShallow(s => ({addressHint: s.exploreAddressHint, setAddressHint: s.setExploreAddressHint})))
@@ -94,6 +97,8 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				onDownload={grab}
 				onInteractive={() => openExploreInteractive(state.url)}
 				onToggleAdBlock={enabled => void setExploreAdBlock(enabled)}
+				zoom={zoom}
+				onZoomChange={next => void setExploreZoom(next)}
 				compact={compact}
 				leading={compactTabs}
 				onToggleCompact={next => void setExploreCompactChrome(next)}

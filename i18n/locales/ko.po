@@ -492,6 +492,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "검색어가 너무 깁니다."
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "페이지 확대/축소: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "확대"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "페이지 확대/축소"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "축소"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "확대/축소 비율"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "확대/축소를 100%로 초기화"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "다운로드한 파일의 이름 지정 방식을 선택하세요. 토큰을 클릭해 삽입하고 /를 사용해 다운로드를 폴더로 분류하세요."

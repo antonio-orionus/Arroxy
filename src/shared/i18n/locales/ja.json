@@ -958,6 +958,7 @@
 			"grabUnavailable": "動画、プレイリスト、チャンネルを開くとダウンロードできます",
 			"compactLayout": "コンパクト表示",
 			"fullLayout": "通常の表示に戻す",
+			"zoom": {"label": "ページのズーム", "hint": "ページのズーム: {{percent}}%", "in": "拡大", "out": "縮小", "percent": "ズーム率", "reset": "ズームを100%に戻す"},
 			"adBlock": {
 				"aria": "広告ブロック",
 				"off": "広告ブロック: オフ — クリックでオンにする",

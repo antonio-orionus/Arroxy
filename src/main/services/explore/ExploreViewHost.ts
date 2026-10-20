@@ -2,6 +2,7 @@ import {WebContentsView, type BrowserWindow, type Cookie, type InputEvent, type 
 import log from 'electron-log/main.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 import {isExploreIdleUnloadOn} from '@shared/exploreIdleUnload.js'
+import {exploreZoomOf} from '@shared/exploreZoom.js'
 import {hostMatches} from '@shared/sites/hostRules.js'
 import {exploreAddressScope, isExploreAddress, type ExploreAddressScope} from '@shared/sites/exploreAddress.js'
 import {siteById} from '@shared/sites/index.js'
@@ -251,6 +252,13 @@ export class ExploreViewHost {
 	applyIdleUnloadSetting(): void {
 		this.cancelIdleUnload()
 		if (!this.active) this.armIdleUnload()
+	}
+
+	// The page's zoom follows the setting. Chromium keeps zoom per host, so a
+	// page on another host starts at 100% until this runs again (did-navigate).
+	applyZoomSetting(): void {
+		const wc = this.view?.webContents
+		if (wc && !wc.isDestroyed()) wc.setZoomFactor(exploreZoomOf(this.deps.settings()))
 	}
 
 	// A changed ad blocker setting. Without a view nothing starts: the next
@@ -528,6 +536,7 @@ export class ExploreViewHost {
 		this.wire(view.webContents)
 		this.watchClose(view)
 		view.webContents.setAudioMuted(!this.active)
+		this.applyZoomSetting()
 		this.watchCookies(ses)
 		this.deps.window.contentView.addChildView(view)
 		if (this.bounds) view.setBounds(this.bounds)
@@ -585,6 +594,7 @@ export class ExploreViewHost {
 		wc.on('did-navigate', (_event, url) => {
 			this.mediaPlaying = false
 			dropBlankEntryBehind(wc)
+			this.applyZoomSetting()
 			this.lastPage.record(url)
 			// Only a proxy that applies clears a refusal (whenProxyReady).
 			if (!this.proxyRefused) this.error = null

@@ -492,6 +492,30 @@ msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "ထိုရှာဖွေမှု အရှည်လွန်းသည်။"
 
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "စာမျက်နှာ ချဲ့ခြင်း- {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "ချဲ့မည်"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "စာမျက်နှာ ချဲ့ခြင်း"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "ချုံ့မည်"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "ချဲ့ခြင်း ရာခိုင်နှုန်း"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "ချဲ့ခြင်းကို 100% သို့ ပြန်လည်သတ်မှတ်မည်"
+
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
 msgstr "ဒေါင်းလုဒ်လုပ်ထားသော ဖိုင်များကို မည်သို့အမည်ပေးမည်ကို ရွေးပါ။ ထည့်သွင်းရန် တိုကင်တစ်ခုကို နှိပ်ပါ။ ဒေါင်းလုဒ်များကို ဖိုလ်ဒါများအဖြစ် ခွဲရန် / ကို သုံးပါ။"

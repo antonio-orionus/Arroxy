@@ -152,6 +152,7 @@ export interface CommonSettings {
 	exploreSearchEngine?: ExploreSearchEngine
 	exploreIdleUnload?: boolean
 	exploreCompactChrome?: boolean
+	exploreZoom?: number
 	nativeAudioPreference?: NativeAudioPreference
 	hdrPreference?: HdrSetting
 	limitRate?: string

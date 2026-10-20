@@ -878,6 +878,7 @@
 			"grabUnavailable": "打开视频、播放列表或频道即可下载",
 			"compactLayout": "紧凑布局",
 			"fullLayout": "显示完整布局",
+			"zoom": {"label": "页面缩放", "hint": "页面缩放：{{percent}}%", "in": "放大", "out": "缩小", "percent": "缩放百分比", "reset": "将缩放重置为 100%"},
 			"adBlock": {"aria": "广告拦截", "off": "广告拦截：已关闭 — 点击开启", "starting": "广告拦截：启动中 — 点击关闭", "on": "广告拦截：已开启 — 点击关闭", "unavailable": "广告拦截：不可用，无法下载其过滤列表 — 点击关闭", "accountNote": "对于已登录的账号，YouTube 可能会抵制广告拦截。"}
 		},
 		"settings": {

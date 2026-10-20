@@ -891,6 +891,7 @@
 			"grabUnavailable": "開啟影片、播放清單或頻道即可下載",
 			"compactLayout": "精簡版面",
 			"fullLayout": "顯示完整版面",
+			"zoom": {"label": "頁面縮放", "hint": "頁面縮放：{{percent}}%", "in": "放大", "out": "縮小", "percent": "縮放百分比", "reset": "將縮放重設為 100%"},
 			"adBlock": {"aria": "廣告攔截", "off": "廣告攔截：已關閉 — 點一下開啟", "starting": "廣告攔截：啟動中 — 點一下關閉", "on": "廣告攔截：已開啟 — 點一下關閉", "unavailable": "廣告攔截：無法使用，無法下載其過濾清單 — 點一下關閉", "accountNote": "對於已登入的帳號，YouTube 可能會抵制廣告攔截。"}
 		},
 		"settings": {

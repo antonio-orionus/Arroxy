@@ -958,6 +958,7 @@
 			"grabUnavailable": "Open a video, playlist, or channel to download it",
 			"compactLayout": "Compact layout",
 			"fullLayout": "Show full layout",
+			"zoom": {"label": "Page zoom", "hint": "Page zoom: {{percent}}%", "in": "Zoom in", "out": "Zoom out", "percent": "Zoom percent", "reset": "Reset zoom to 100%"},
 			"adBlock": {
 				"aria": "Ad blocker",
 				"off": "Ad blocker: off — click to turn on",

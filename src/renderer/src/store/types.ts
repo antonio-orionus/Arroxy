@@ -555,6 +555,7 @@ export interface SystemSlice {
 	dismissReviewCallout: () => Promise<void>
 	acknowledgeExploreNotice: () => Promise<void>
 	setExploreCompactChrome: (compact: boolean) => Promise<void>
+	setExploreZoom: (zoom: number) => Promise<void>
 	// Marks the first Explore open done; switches `off` to `explore` only if that is the mode right now. One write.
 	markExploreFirstOpen: () => Promise<void>
 	// The cookie mode to `explore`, the first open marked done (so the open's own

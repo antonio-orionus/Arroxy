@@ -15,6 +15,7 @@ import {NativeViewPointerEntries} from '../shared/nativeViewPointerEntries.js'
 import {Spinner} from '../ui/spinner.js'
 import {Toggle} from '../ui/toggle.js'
 import {ExploreAddressBar} from './ExploreAddressBar.js'
+import {ExploreZoomControl} from './ExploreZoomControl.js'
 
 // What the profile menu's picks and actions do; the home owns the editor and the tabs.
 export interface ExploreProfileMenuActions {
@@ -40,6 +41,9 @@ interface ExploreToolbarProps {
 	onDownload: () => void
 	onInteractive: () => void
 	onToggleAdBlock: (enabled: boolean) => void
+	// The page's zoom factor (1 = 100%) and its change.
+	zoom: number
+	onZoomChange: (zoom: number) => void
 	// Compact app chrome: an icon-only tab bar and a slim footer, for more page.
 	compact: boolean
 	// Shown first in the row (the home's compact tab list).
@@ -91,7 +95,7 @@ function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compac
 // stays focusable (`focusableWhenDisabled`, so aria-disabled instead of
 // disabled): the browser fires no hover on a disabled button, and that is when
 // its tooltip has to say why.
-export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
+export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, zoom, onZoomChange, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
 	const {t} = useTranslation()
 	const [menuOpen, setMenuOpen] = useState(false)
 	const {activeProfile, ActiveIcon} = profiles
@@ -133,6 +137,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 				</ButtonGroup>
 				<ExploreAddressBar url={state.url} searchEngine={searchEngine} onSubmit={onSubmitAddress} onEdit={onAddressEdit} />
 				<AdBlockToggle status={state.adBlock} onToggle={onToggleAdBlock} />
+				<ExploreZoomControl zoom={zoom} onChange={onZoomChange} />
 				{/* On a row of its own (narrow or zoomed windows) the cluster shrinks and the profile name truncates. */}
 				<div className="flex min-w-0 max-w-full items-center gap-2" data-testid="explore-download-cluster">
 					<Popover open={menuOpen} onOpenChange={setMenuOpen}>

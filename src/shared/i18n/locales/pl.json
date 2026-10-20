@@ -1092,6 +1092,7 @@
 			"grabUnavailable": "Otwórz film, playlistę lub kanał, aby pobrać",
 			"compactLayout": "Układ kompaktowy",
 			"fullLayout": "Pokaż pełny układ",
+			"zoom": {"label": "Powiększenie strony", "hint": "Powiększenie strony: {{percent}}%", "in": "Powiększ", "out": "Pomniejsz", "percent": "Powiększenie w procentach", "reset": "Przywróć powiększenie 100%"},
 			"adBlock": {
 				"aria": "Blokowanie reklam",
 				"off": "Blokowanie reklam: wyłączone — kliknij, aby włączyć",
