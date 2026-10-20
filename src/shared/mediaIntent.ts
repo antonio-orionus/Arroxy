@@ -102,8 +102,10 @@ export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: Nati
 // a WebM merge to MKV for it). A single native stream — video-only, or "best"
 // audio, often WebM/opus — fails postprocessing instead, and WAV has no slot.
 // A file the user asked to keep as WebM can't hold one either.
+// `best` keeps a file already in a common audio container, and WAV, AIFF and
+// WMA hold no cover: the container is unknown until the stream is.
 export function canEmbedThumbnail(spec: MediaIntentSpec): boolean {
-	if (spec.audioConvert) return spec.audioConvert.target !== 'wav'
+	if (spec.audioConvert) return spec.audioConvert.target !== 'wav' && spec.audioConvert.target !== 'best'
 	return spec.producesVideo && spec.producesAudio && spec.fileType !== 'webm'
 }
 
@@ -121,7 +123,8 @@ function pairWithBestNativeAudio(videoSelector: string, preference: NativeAudioP
 
 function audioOnlyIntentSpec(intent: Extract<MediaIntent, {kind: 'audio-only'}>, nativeAudioPreference: NativeAudioPreference): MediaIntentSpec {
 	if (intent.audio.format === 'best') {
-		return {formatSelector: `${bestNativeAudioSelector(nativeAudioPreference)}/best`, producesVideo: false, producesAudio: true}
+		// `-x`: an audio file even when the pick is a combined file (`best`).
+		return {formatSelector: `${bestNativeAudioSelector(nativeAudioPreference)}/best`, audioConvert: {target: 'best'}, producesVideo: false, producesAudio: true}
 	}
 	if (intent.audio.format === 'wav') {
 		return {audioConvert: {target: 'wav'}, producesVideo: false, producesAudio: true}

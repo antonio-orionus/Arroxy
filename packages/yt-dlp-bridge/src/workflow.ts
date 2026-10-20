@@ -1,5 +1,6 @@
 import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
+import {audioConversionSourceSelector} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE} from './progress.js'
@@ -169,20 +170,6 @@ export const DEFAULT_SLEEP_SUBTITLES_SECONDS = 3
 export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
 const DEFAULT_CALLER_OUTPUT_TEMPLATE = '%(title).200B.%(ext)s'
-const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
-const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
-const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
-const SOURCE_PREFERRED_AUDIO_FILTERS = [SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER]
-
-function bestAudioWith(...filters: string[]): string {
-	return `bestaudio${filters.join('')}`
-}
-
-function sourcePreferredAudioWith(...filters: string[]): string[] {
-	return SOURCE_PREFERRED_AUDIO_FILTERS.map(sourceFilter => bestAudioWith(sourceFilter, ...filters))
-}
-
-const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...sourcePreferredAudioWith(), bestAudioWith(NON_DRC_AUDIO_FILTERS), 'bestaudio', 'best'].join('/')
 
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
 	const planned = planWorkflowWithoutRedaction(input, options)
@@ -633,10 +620,14 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 		return
 	}
 	if (audioConvert) {
-		// A caller's stream (one audio language of several) goes first; the
-		// source-preferred chain stays as the fallback if it is gone.
-		const formatId = input.selection?.formatId
-		args.push('-f', formatId ? `${formatId}/${SOURCE_PREFERRED_BEST_AUDIO_SELECTOR}` : SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, '-x', '--audio-format', audioConvert.target)
+		// A caller's own selector picks the stream outright; a caller's stream
+		// (one audio language of several) goes ahead of the conversion source
+		// chain, which stays as the fallback if it is gone.
+		const {formatId, formatSelector, formatSort} = input.selection ?? {}
+		const sourceSelector = audioConversionSourceSelector(audioConvert.target)
+		args.push('-f', formatSelector ?? (formatId ? `${formatId}/${sourceSelector}` : sourceSelector))
+		if (formatSelector && formatSort) args.push('-S', formatSort)
+		args.push('-x', '--audio-format', audioConvert.target)
 		if (audioConvert.lossy && audioConvert.bitrateKbps !== undefined) args.push('--audio-quality', `${audioConvert.bitrateKbps}K`)
 		return
 	}

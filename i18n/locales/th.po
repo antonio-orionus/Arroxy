@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "คมชัดที่สุดในขนาดเท่ากัน"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264 ก่อน แล้ว VP9 แล้ว AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "โคเดกของโปรไฟล์นี้"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9 ก่อน แล้ว H.264 แล้ว AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "โคเดกของโปรไฟล์นี้"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "เฟรมเรตสูงสุด"
@@ -1951,6 +1967,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "กำลังโหลด…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "อัตโนมัติ"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "เลือกโคเดกใดก่อนในบรรดาสตรีมที่มีความสูงเท่ากัน อัตโนมัติจะคงลำดับของ yt-dlp เอง ซึ่งให้ความสำคัญกับ AV1 ที่เล็กที่สุด ส่วน H.264 เล่นได้บนทีวีและโทรศัพท์รุ่นเก่า"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 ก่อน"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "โคเดกวิดีโอ"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "สมาร์ททีวีใช้ H.264 เสมอ"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 ก่อน"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "พร้อม"
@@ -2210,6 +2250,26 @@ msgstr "ลองอีกครั้ง"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "บิตเรต"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "ต้นฉบับที่เป็น {{target}} อยู่แล้วจะคงสตรีมและบิตเรตเดิมไว้ โดยคัดลอกแทนการเข้ารหัสใหม่"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps ไม่เข้ารหัสใหม่"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}} ไม่เข้ารหัสใหม่"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps ตามต้นฉบับ: สตรีมเป็น {{target}} อยู่แล้ว จึงคัดลอกโดยไม่เข้ารหัสใหม่"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "ตามต้นฉบับ: สตรีมเป็น {{target}} อยู่แล้ว จึงคัดลอกโดยไม่เข้ารหัสใหม่"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3071,10 +3131,6 @@ msgstr "{{count}} รายการ"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "แต่ละวิดีโอจะเลือกระดับที่กำหนดแยกกัน — เพลย์ลิสต์ที่หลากหลายจึงทำงานได้ตามคาด"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "กำหนด {{profileName}}"
 
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"

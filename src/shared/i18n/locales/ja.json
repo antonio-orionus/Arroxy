@@ -69,7 +69,6 @@
 			"assignTriggerEmpty": "プロファイルを割り当て",
 			"assignTrigger_other": "{{count}} 本の動画に割り当て",
 			"menuDescription_other": "これら {{count}} 本の動画のプロファイルを選択します。",
-			"assignAria": "{{profileName}} を割り当て",
 			"editProfile": "{{name}} を編集",
 			"filtersLabel": "プロファイルフィルター",
 			"filterChip": "{{name}} · {{count}}",
@@ -429,7 +428,18 @@
 			"drc": {"label": "音量を均一にする（DRC）", "description": "大きな音を抑え、小さな音を持ち上げます。スピーカーや騒がしい場所向けです。", "tag": "音量均一"},
 			"audioLanguage": "音声の言語",
 			"audioLanguageCount_other": "{{count}} 言語",
-			"convert": {"label": "変換", "bitrate": "ビットレート", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "元の音声は {{kbps}} kbps"},
+			"convert": {
+				"label": "変換",
+				"bitrate": "ビットレート",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps、再エンコードなし",
+				"copyLabelNoBitrate": "{{target}}、再エンコードなし",
+				"copyNote": "{{kbps}} kbps(元の音声のまま):ストリームはすでに {{target}} のため、再エンコードせずコピーします",
+				"copyNoteNoBitrate": "元の音声のまま:ストリームはすでに {{target}} のため、再エンコードせずコピーします",
+				"bitrateCopyHint": "すでに {{target}} の音声は、元のストリームとビットレートを保ったまま、再エンコードせずにコピーされます。",
+				"sourceKbps": "元の音声は {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTubeがこの取得を制限しました",
 				"bodyUnconfigured": "フォーマット一覧が不完全な可能性があります。詳細設定でCookieを設定するか、ネットワークを変えて再試行してください。",
@@ -1007,6 +1017,8 @@
 			"source": {"label": "高ビットレートを優先", "reason": "同じ解像度でより高精細"},
 			"protocol": {"label": "ダイレクトダウンロードをストリーミングより優先", "reason": "同じ画質でより高速にダウンロード"},
 			"codec": {"label": "AV1、次に VP9、次に H.264", "reason": "同じサイズで最も鮮明"},
+			"codecVp9First": {"label": "VP9、次に H.264、次に AV1", "reason": "このプロフィールのコーデック"},
+			"codecH264First": {"label": "H.264、次に VP9、次に AV1", "reason": "このプロフィールのコーデック"},
 			"size": {"label": "大きいファイル", "reason": "同じ設定でより高精細"},
 			"aacSmartTv": {"label": "AAC 音声", "reason": "どこでも再生可能"},
 			"aacFileType": {"label": "AAC 音声", "reason": "MP4 プレーヤーに対応"},
@@ -1020,5 +1032,13 @@
 		"summary": {"goal": {"bestPicture": "最高画質", "smartTv": "どの端末でも再生可能"}, "fileType": {"auto": "ファイル形式はストリームに合わせる", "explicit": ".{{ext}} で保存"}}
 	},
 	"aiUpscaled": {"label": "AI アップスケールのストリーム", "description": "YouTube は一部の古い動画を、AI で作ったサイズでも提供しています。「スキップ」では元のストリームを使います。アップスケール版を手動で選ぶこともできます。", "skip": "スキップ", "allow": "許可"},
+	"videoCodec": {
+		"label": "動画コーデック",
+		"description": "同じ高さのストリームのうち、最初に選ぶコーデックです。自動では yt-dlp 自身の順序を保ち、その順序では最小の AV1 が優先され、H.264 は古いテレビやスマホでも再生できます。",
+		"smartTv": "スマートTVでは常に H.264 を選びます。",
+		"auto": "自動",
+		"vp9": "VP9 を優先",
+		"h264": "H.264 を優先"
+	},
 	"hdrPreference": {"label": "HDR 動画", "description": "「自動」は、この画面が HDR を表示できる場合は HDR、そうでなければ SDR を選びます。HDR は通常の画面では色あせて見えます。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

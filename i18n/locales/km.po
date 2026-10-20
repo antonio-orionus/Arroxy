@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "ច្បាស់បំផុតក្នុងទំហំដូចគ្នា"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264 បន្ទាប់មក VP9 បន្ទាប់មក AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "កូឌិករបស់ប្រវត្តិរូបនេះ"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9 បន្ទាប់មក H.264 បន្ទាប់មក AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "កូឌិករបស់ប្រវត្តិរូបនេះ"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "អត្រាស៊ុមខ្ពស់បំផុត"
@@ -1951,6 +1967,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "កំពុងផ្ទុក…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "ស្វ័យប្រវត្តិ"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "កូឌិកណាដែលត្រូវជ្រើសមុនក្នុងចំណោមស្ទ្រីមដែលមានកម្ពស់ដូចគ្នា។ ស្វ័យប្រវត្តិ រក្សាលំដាប់ផ្ទាល់ខ្លួនរបស់ yt-dlp ដែលចូលចិត្ត AV1 ដែលតូចជាងគេ; H.264 ចាក់បានលើទូរទស្សន៍ និងទូរស័ព្ទចាស់ៗ។"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 មុន"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "កូឌិកវីដេអូ"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV ជ្រើស H.264 ជានិច្ច។"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 មុន"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "រួចរាល់"
@@ -2210,6 +2250,26 @@ msgstr "ព្យាយាមម្តងទៀត"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "ប្រភពដែលជា {{target}} រួចហើយ រក្សាស្ទ្រីម និង bitrate របស់វា៖ វាត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ។"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps គ្មានការអ៊ិនកូដឡើងវិញ"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}} គ្មានការអ៊ិនកូដឡើងវិញ"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps ដូចប្រភព៖ ស្ទ្រីមនេះជា {{target}} រួចហើយ ដូច្នេះត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "ដូចប្រភព៖ ស្ទ្រីមនេះជា {{target}} រួចហើយ ដូច្នេះត្រូវបានចម្លង មិនមែនអ៊ិនកូដឡើងវិញទេ"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3071,10 +3131,6 @@ msgstr "{{count}} ធាតុ"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "វីដេអូនីមួយៗកំណត់កម្រិតដែលបានជ្រើសរើសដោយឯករាជ្យ — បញ្ជីចាក់ចម្រុះដំណើរការបានដោយគ្មានការភ្ញាក់ផ្អើល។"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "កំណត់ {{profileName}}"
 
 #. Plural form "other" for km: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"

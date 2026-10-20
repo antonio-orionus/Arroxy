@@ -180,6 +180,10 @@ _Avoid_: mix, autoplay queue, station
 A saved, reusable set of download settings the user applies in one click, without walking the wizard.
 _Avoid_: preset, template, config
 
+**Profile picker**:
+Any place that picks a download profile. Every one lists the user's saved order and checks the profile in use; a profile something already uses but the user has since hidden still shows, first, tagged Hidden. A grid where the pick changes the app's active profile, a list where it picks for one download or for playlist rows.
+_Avoid_: profile menu, profile switcher, profile dropdown
+
 **Selection order**:
 The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: streams the site doesn't mark down, original streams before AI-upscaled ones (unless the profile allows them), resolution limit, frame rate, HDR, the site's preferred copy (such as enhanced-bitrate streams), codec, a direct download before its streamed copy, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
 _Avoid_: priority, hierarchy, ranking, sort
@@ -187,6 +191,10 @@ _Avoid_: priority, hierarchy, ranking, sort
 **Profile goal**:
 What a download profile's video is for, which decides the codec its selection order prefers: Best picture (the newest, most efficient codecs) or Smart TV (the codec every device plays).
 _Avoid_: codec, compatibility, native
+
+**Video codec preference**:
+A Best picture profile's choice to take VP9 or H.264 first among streams of the same height, instead of the newest codec. It never costs resolution, frame rate or HDR; Smart TV has no use for it.
+_Avoid_: codec override, codec priority
 
 **File type**:
 The kind of file a download is saved as, such as MP4, MKV or WebM. Auto lets the chosen streams decide.

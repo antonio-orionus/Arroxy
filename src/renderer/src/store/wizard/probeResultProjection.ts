@@ -1,8 +1,9 @@
+import {extractSelection} from '@shared/audioConversionSource.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
-import {DEFAULT_AUDIO_BITRATE, DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
 import type {AudioSelection} from '@shared/schemas.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
@@ -160,8 +161,11 @@ function keptSelection(kept: WizardSettingsSnapshot, probe: Extract<ProbeResult,
 	const mediaKind = kept.mediaKind === 'video' && videos.length === 0 ? 'audio' : kept.mediaKind
 	const video = mediaKind === 'video' ? (offered(kept.videoFormatId) ?? videos[0]) : undefined
 	const bestAudioId = preferredNativeAudioId(audios, state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
-	const replacementAudio: AudioSelection = mediaKind === 'audio' && audios.length === 0 ? {kind: 'convert-lossy', target: 'mp3', bitrateKbps: DEFAULT_AUDIO_BITRATE} : bestAudioId === null ? {kind: 'none'} : {kind: 'native', formatId: bestAudioId}
-	const audioSelection: AudioSelection = video && !video.isVideoOnly ? {kind: 'none'} : kept.audioSelection.kind === 'native' && !offered(kept.audioSelection.formatId) ? replacementAudio : kept.audioSelection
+	const replacementAudio: AudioSelection = mediaKind === 'audio' && audios.length === 0 ? extractSelection(probe.formatSelection ?? selectionSourceFromOptions(probe.formats)) : bestAudioId === null ? {kind: 'none'} : {kind: 'native', formatId: bestAudioId}
+	// Keep as-is belongs to a site with no audio streams of its own.
+	const keptAudio = kept.audioSelection
+	const stale = (keptAudio.kind === 'native' && !offered(keptAudio.formatId)) || (keptAudio.kind === 'extract' && (audios.length > 0 || (keptAudio.formatId !== undefined && !offered(keptAudio.formatId))))
+	const audioSelection: AudioSelection = video && !video.isVideoOnly ? {kind: 'none'} : stale ? replacementAudio : kept.audioSelection
 	const tracks = {...probe.subtitles, ...probe.automaticCaptions}
 	return {...kept, mediaKind, videoFormatId: video?.formatId ?? '', audioSelection, subtitleLanguages: kept.subtitleLanguages.filter(lang => lang in tracks)}
 }

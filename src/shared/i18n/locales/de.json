@@ -91,7 +91,6 @@
 			"assignTrigger_other": "{{count}} Videos zuweisen",
 			"menuDescription_one": "Wählen Sie das Profil für dieses Video.",
 			"menuDescription_other": "Wählen Sie das Profil für diese {{count}} Videos.",
-			"assignAria": "{{profileName}} zuweisen",
 			"editProfile": "{{name}} bearbeiten",
 			"filtersLabel": "Profilfilter",
 			"filterChip": "{{name}} · {{count}}",
@@ -462,7 +461,18 @@
 			"audioLanguage": "Audiosprache",
 			"audioLanguageCount_one": "{{count}} Sprache",
 			"audioLanguageCount_other": "{{count}} Sprachen",
-			"convert": {"label": "Konvertieren", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Quelle: {{kbps}} kbit/s"},
+			"convert": {
+				"label": "Konvertieren",
+				"bitrate": "Bitrate",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbit/s, keine Neukodierung",
+				"copyLabelNoBitrate": "{{target}}, keine Neukodierung",
+				"copyNote": "{{kbps}} kbit/s wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
+				"copyNoteNoBitrate": "Wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
+				"bitrateCopyHint": "Eine Quelle, die bereits {{target}} ist, behält ihren eigenen Stream und ihre Bitrate: Sie wird kopiert und nicht neu kodiert.",
+				"sourceKbps": "Quelle: {{kbps}} kbit/s"
+			},
 			"botWall": {
 				"heading": "YouTube hat diese Abfrage eingeschränkt",
 				"bodyUnconfigured": "Die Formatliste ist möglicherweise unvollständig. Cookies in den erweiterten Einstellungen einrichten oder Netzwerk wechseln und erneut versuchen.",
@@ -1080,6 +1090,8 @@
 			"source": {"label": "Streams mit erhöhter Bitrate zuerst", "reason": "mehr Details bei gleicher Auflösung"},
 			"protocol": {"label": "Direkte Downloads vor gestreamten Kopien", "reason": "gleiches Bild, schneller heruntergeladen"},
 			"codec": {"label": "AV1, dann VP9, dann H.264", "reason": "bei gleicher Größe am schärfsten"},
+			"codecVp9First": {"label": "VP9, dann H.264, dann AV1", "reason": "Codec dieses Profils"},
+			"codecH264First": {"label": "H.264, dann VP9, dann AV1", "reason": "Codec dieses Profils"},
 			"size": {"label": "Größere Datei", "reason": "mehr Details bei gleichen Einstellungen"},
 			"aacSmartTv": {"label": "AAC-Audio", "reason": "läuft überall"},
 			"aacFileType": {"label": "AAC-Audio", "reason": "passt zu MP4-Playern"},
@@ -1093,5 +1105,13 @@
 		"summary": {"goal": {"bestPicture": "bestes Bild", "smartTv": "läuft auf jedem Gerät"}, "fileType": {"auto": "Dateityp aus den Streams", "explicit": "speichert als .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "KI-hochskalierte Streams", "description": "YouTube bietet manche alten Videos in Größen an, die per KI erzeugt wurden. „Überspringen“ behält die Original-Streams; einen hochskalierten kannst du trotzdem von Hand wählen.", "skip": "Überspringen", "allow": "Zulassen"},
+	"videoCodec": {
+		"label": "Video-Codec",
+		"description": "Welcher Codec bei Streams gleicher Höhe zuerst gewählt wird. Auto behält die eigene Reihenfolge von yt-dlp bei, die AV1, den kleinsten, bevorzugt; H.264 läuft auf älteren Fernsehern und Handys.",
+		"smartTv": "Smart-TV nimmt immer H.264.",
+		"auto": "Auto",
+		"vp9": "Zuerst VP9",
+		"h264": "Zuerst H.264"
+	},
 	"hdrPreference": {"label": "HDR-Video", "description": "Auto wählt HDR, wenn dieser Bildschirm es darstellen kann, sonst SDR. HDR wirkt auf normalen Bildschirmen blass.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

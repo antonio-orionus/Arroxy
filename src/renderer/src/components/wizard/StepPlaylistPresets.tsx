@@ -163,6 +163,7 @@ function AudioPresetFields({selection, onChange}: PresetFieldsProps<PlaylistAudi
 							</ToggleGroupItem>
 						))}
 					</ToggleGroup>
+					<p className="mt-1.5 text-caption text-subtle-foreground">{t('wizard.formats.convert.bitrateCopyHint', {target: currentAudioFormat.toUpperCase()})}</p>
 				</div>
 			)}
 		</>

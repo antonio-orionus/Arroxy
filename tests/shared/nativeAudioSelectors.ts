@@ -2,9 +2,6 @@ const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'
 const COMPATIBLE_AUDIO_CODEC_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
 const SOURCE_DEFAULT_AUDIO_FILTER = '[language_preference>0]'
 const SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~='(?i)\\boriginal\\b']"
-// yt-dlp-bridge's conversion selector (packages/yt-dlp-bridge) still writes the
-// "original" filter with `?`, which also matches a stream with no note.
-const BRIDGE_SOURCE_ORIGINAL_AUDIO_FILTER = "[format_note~=?'(?i)\\boriginal\\b']"
 
 const COMPATIBLE_BEST_AUDIO_SELECTOR = [
 	`bestaudio${SOURCE_DEFAULT_AUDIO_FILTER}${COMPATIBLE_AUDIO_CODEC_FILTER}${NON_DRC_AUDIO_FILTERS}`,
@@ -22,10 +19,18 @@ const COMPATIBLE_BEST_AUDIO_SELECTOR = [
 ].join('/')
 export const COMPATIBLE_AUDIO_ONLY_SELECTOR = `${COMPATIBLE_BEST_AUDIO_SELECTOR}/best`
 export const COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR = pairWithCompatibleNativeAudio('bestvideo*', 'bestvideo*+bestaudio/best')
-function bridgeSourcePreferredAudioWith(...filters: string[]): string[] {
-	return [SOURCE_DEFAULT_AUDIO_FILTER, BRIDGE_SOURCE_ORIGINAL_AUDIO_FILTER].map(sourceFilter => `bestaudio${sourceFilter}${filters.join('')}`)
+
+// The bridge's conversion source: per track, the non-DRC master first, a
+// stream worth copying (target codec, at least 96 kbps) before a re-encode,
+// and every stereo stream before Dolby surround.
+const AAC_COPY = "[acodec~='(?i)^(?:aac|mp4a(?:\\.40\\.(?:[1-6]|23|29|39|42))?)$']"
+const CONVERSION_CODEC_FILTERS: Readonly<Record<string, string>> = {mp3: "[acodec~='(?i)^mp3$']", m4a: AAC_COPY, opus: "[acodec~='(?i)^opus$']"}
+export function audioConversionSourceSelector(target: string): string {
+	const codecFilter = CONVERSION_CODEC_FILTERS[target]
+	const stereoFilters = [...(codecFilter ? [`${codecFilter}[abr>=?96]`] : []), COMPATIBLE_AUDIO_CODEC_FILTER]
+	const streamFilters = [...[NON_DRC_AUDIO_FILTERS, ''].flatMap(drc => stereoFilters.map(filter => `${filter}${drc}`)), NON_DRC_AUDIO_FILTERS, '']
+	return [...[SOURCE_DEFAULT_AUDIO_FILTER, SOURCE_ORIGINAL_AUDIO_FILTER, ''].flatMap(track => streamFilters.map(filters => `bestaudio${track}${filters}`)), 'best'].join('/')
 }
-export const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...bridgeSourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...bridgeSourcePreferredAudioWith(), `bestaudio${NON_DRC_AUDIO_FILTERS}`, 'bestaudio', 'best'].join('/')
 
 function pairWithCompatibleNativeAudio(videoSelector: string, fallback: string): string {
 	return COMPATIBLE_BEST_AUDIO_SELECTOR.split('/')

@@ -14,6 +14,7 @@ Audio:
 Opus: 138 kbps DRC 213.5 MiB DRC | 132 kbps 204.5 MiB • | 79 kbps DRC 123.1 MiB DRC | 76 kbps 117.7 MiB | 52 kbps 81.2 MiB DRC | 52 kbps 80.1 MiB
 AAC: 129 kbps 200.8 MiB DRC | 129 kbps 200.8 MiB | 49 kbps 22.05 kHz 75.6 MiB DRC | 49 kbps 22.05 kHz 75.6 MiB
 DRC switch shown
+convert from: mp3 ← 251 re-encode · m4a ← 140 copy 129 kbps · opus ← 251 copy 132 kbps · wav ← 251 re-encode
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 251 (audio only, webm)

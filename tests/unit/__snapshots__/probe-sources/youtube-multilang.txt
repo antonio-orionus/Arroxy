@@ -15,6 +15,7 @@ tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangl
 Opus: 128 kbps 39.6 MiB • | 128 kbps 39.5 MiB DRC | 65 kbps 20.1 MiB | 65 kbps 20.1 MiB DRC | 50 kbps 15.4 MiB | 50 kbps 15.4 MiB DRC
 AAC: 129 kbps 40.0 MiB DRC | 129 kbps 40.0 MiB | 49 kbps 22.05 kHz 15.0 MiB
 DRC switch shown
+convert from: mp3 ← 251-20 re-encode · m4a ← 140-20 copy 129 kbps · opus ← 251-20 copy 128 kbps · wav ← 251-20 re-encode
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 251-20 (audio only, webm)

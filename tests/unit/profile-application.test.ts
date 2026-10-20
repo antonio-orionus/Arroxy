@@ -118,7 +118,26 @@ describe('profileFromWizard', () => {
 
 	it('turns a picked video stream into the tier it sits in, keeping the audio intent', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '137'}))
-		expect(saved.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(saved.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', videoCodec: 'h264', audio: {native: {kind: 'default'}}})
+	})
+
+	describe('the codec of a hand-picked stream', () => {
+		const vp9First = (): DownloadProfile => ({...builtin('hd-1080'), media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', videoCodec: 'vp9', audio: {native: {kind: 'default'}}}})
+
+		it('is saved when the height offered another codec: H.264 or VP9 first', () => {
+			expect(save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '136'})).media).toMatchObject({tier: '720', videoCodec: 'h264'})
+			expect(save(builtin('hd-1080'), snapshot => ({...snapshot, videoFormatId: '137'})).media).toMatchObject({tier: '1080', videoCodec: 'h264'})
+		})
+
+		it("goes back to yt-dlp's own order when the pick is the codec it takes first anyway", () => {
+			expect(save(vp9First(), snapshot => ({...snapshot, videoFormatId: '399'})).media).not.toHaveProperty('videoCodec')
+		})
+
+		it("says nothing when the height had only that codec, so the profile's own choice stays", () => {
+			const vp9Only = FORMATS.filter(format => format.formatId !== '136')
+			expect(save(vp9First(), snapshot => ({...snapshot, videoFormatId: '247'}), vp9Only).media).toMatchObject({tier: '720', videoCodec: 'vp9'})
+			expect(save(builtin('hd-1080'), snapshot => ({...snapshot, videoFormatId: '247'}), vp9Only).media).not.toHaveProperty('videoCodec')
+		})
 	})
 
 	it('saves "best" only when the user picks the top stream themselves', () => {

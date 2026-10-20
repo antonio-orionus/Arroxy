@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "በተመሳሳይ መጠን በጣም ጥርት ያለ"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264፣ ከዚያ VP9፣ ከዚያ AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "የዚህ መገለጫ ኮዴክ"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9፣ ከዚያ H.264፣ ከዚያ AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "የዚህ መገለጫ ኮዴክ"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "ከፍተኛው የፍሬም መጠን"
@@ -2011,6 +2027,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "በመጫን ላይ…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "ራስ-ሰር"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "ተመሳሳይ ቁመት ባላቸው ዥረቶች መካከል መጀመሪያ የሚመረጥ ኮዴክ። ራስ-ሰር የ yt-dlp ራሱን ቅደም ተከተል ይጠብቃል፣ ይህም AV1ን ይደግፋል፣ እሱም በጣም ትንሹ ነው፤ H.264 በቆዩ ቲቪዎችና ስልኮች ላይ ይጫወታል።"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 መጀመሪያ"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "የቪዲዮ ኮዴክ"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "ስማርት TV ሁልጊዜ H.264ን ይመርጣል።"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 መጀመሪያ"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "ዝግጁ"
@@ -2300,6 +2340,26 @@ msgstr "እንደገና ሞክር"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "ቢትሬት"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "አስቀድሞ {{target}} የሆነ ምንጭ የራሱን ዥረትና ቢትሬት ይይዛል፦ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም።"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps፣ ዳግም ኮድ አይደረግም"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}፣ ዳግም ኮድ አይደረግም"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps፣ ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "ምንጩ እንዳለው፦ ዥረቱ አስቀድሞ {{target}} ስለሆነ ይገለበጣል እንጂ ዳግም ኮድ አይደረግም"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3206,10 +3266,6 @@ msgstr "{{count}} ንጥሎች"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "እያንዳንዱ ቪዲዮ የተመረጠውን ደረጃ ራሱን ችሎ ይፈታል — የተለያዩ playlists ያለ ችግር ይሰራሉ።"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}}ን መድብ"
 
 #. Plural form "one" for am: used for counts like 0, 1.
 msgctxt "wizard.playlistProfiles.assignTrigger_one"

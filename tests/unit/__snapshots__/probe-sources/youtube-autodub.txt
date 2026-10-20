@@ -17,6 +17,7 @@ tracks (English (US) original (default) shown): Spanish (US) · AI dubbed, Portu
 Opus: 113 kbps 25.5 MiB DRC | 113 kbps 25.5 MiB • | 62 kbps 14.0 MiB DRC | 62 kbps 14.0 MiB | 50 kbps 11.4 MiB DRC | 50 kbps 11.3 MiB
 AAC: 129 kbps 29.3 MiB DRC | 129 kbps 29.3 MiB | 49 kbps 22.05 kHz 11.0 MiB
 DRC switch shown
+convert from: mp3 ← 251-2 re-encode · m4a ← 140-2 copy 129 kbps · opus ← 251-2 copy 113 kbps · wav ← 251-2 re-encode
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 251-2 (audio only, webm)

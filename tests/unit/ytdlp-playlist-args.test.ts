@@ -15,7 +15,7 @@ import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
-import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, SOURCE_PREFERRED_BEST_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, audioConversionSourceSelector, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
@@ -102,14 +102,18 @@ describe('Video · MP4 codec', () => {
 	})
 })
 
-describe('Audio · Best (no convert)', () => {
-	it('format=best → -f bestaudio/best, no -x, no --audio-format', () => {
+// `-x --audio-format best`: the picked stream's audio as it is, so a site
+// with only combined files (the `/best` fallback) still gives an audio file.
+describe('Audio · Best (extracted as is)', () => {
+	it('format=best → -f bestaudio/best, -x --audio-format best, no --audio-quality', () => {
 		const args = argsFor({kind: 'audio', format: 'best'})
 		const fIdx = args.indexOf('-f')
 		expect(fIdx).toBeGreaterThan(-1)
 		expect(args[fIdx + 1]).toBe(COMPATIBLE_AUDIO_ONLY_SELECTOR)
-		expect(args).not.toContain('-x')
-		expect(args).not.toContain('--audio-format')
+		expect(args.filter(arg => arg === '-f')).toHaveLength(1)
+		expect(args).toContain('-x')
+		expect(args[args.indexOf('--audio-format') + 1]).toBe('best')
+		expect(args).not.toContain('--audio-quality')
 	})
 })
 
@@ -129,10 +133,10 @@ describe('Audio · Lossy convert', () => {
 		['opus', 320]
 	] as const)('format=%s bitrate=%d → -x --audio-format <fmt> --audio-quality <kbps>K', (format, kbps) => {
 		const args = argsFor({kind: 'audio', format, bitrateKbps: kbps})
-		// Audio convert path: source-preferred bestaudio selector + -x --audio-format <fmt> --audio-quality <kbps>K
+		// Audio convert path: conversion source selector + -x --audio-format <fmt> --audio-quality <kbps>K
 		expect(args).toContain('-f')
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe(SOURCE_PREFERRED_BEST_AUDIO_SELECTOR)
+		expect(args[fIdx + 1]).toBe(audioConversionSourceSelector(format))
 		expect(args).toContain('-x')
 		expect(args).toContain('--audio-format')
 		const afIdx = args.indexOf('--audio-format')

@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "指派設定檔",
 			"assignTrigger_other": "指派給 {{count}} 部影片",
 			"menuDescription_other": "為這 {{count}} 部影片選擇設定檔。",
-			"assignAria": "指派 {{profileName}}",
 			"editProfile": "編輯 {{name}}",
 			"filtersLabel": "設定檔篩選器",
 			"filterChip": "{{name}} · {{count}}",
@@ -404,7 +403,18 @@
 			"drc": {"label": "平衡音量（DRC）", "description": "讓大聲的部分變小、小聲的部分變大，適合喇叭和吵雜環境。", "tag": "音量平衡"},
 			"audioLanguage": "音訊語言",
 			"audioLanguageCount_other": "{{count}} 種語言",
-			"convert": {"label": "轉換", "bitrate": "位元率", "wavLabel": "WAV（未壓縮）", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "來源為 {{kbps}} kbps"},
+			"convert": {
+				"label": "轉換",
+				"bitrate": "位元率",
+				"wavLabel": "WAV（未壓縮）",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps，不重新編碼",
+				"copyLabelNoBitrate": "{{target}}，不重新編碼",
+				"copyNote": "{{kbps}} kbps，與來源一致：串流已是 {{target}}，因此直接複製，不重新編碼",
+				"copyNoteNoBitrate": "與來源一致：串流已是 {{target}}，因此直接複製，不重新編碼",
+				"bitrateCopyHint": "已是 {{target}} 的來源會保留自身的串流和位元率：直接複製，不重新編碼。",
+				"sourceKbps": "來源為 {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "探查受到限制",
 				"bodyUnconfigured": "格式清單可能不完整。請在進階設定中設定 Cookie，或切換網路後重試。",
@@ -928,6 +938,8 @@
 			"source": {"label": "優先選擇增強位元率串流", "reason": "相同解析度下細節更多"},
 			"protocol": {"label": "優先選擇直接下載，而非串流副本", "reason": "相同畫面，下載更快"},
 			"codec": {"label": "先 AV1，再 VP9，最後 H.264", "reason": "相同大小下最清晰"},
+			"codecVp9First": {"label": "先 VP9，再 H.264，最後 AV1", "reason": "此設定檔的編解碼器"},
+			"codecH264First": {"label": "先 H.264，再 VP9，最後 AV1", "reason": "此設定檔的編解碼器"},
 			"size": {"label": "較大的檔案", "reason": "相同設定下細節更多"},
 			"aacSmartTv": {"label": "AAC 音訊", "reason": "隨處都能播放"},
 			"aacFileType": {"label": "AAC 音訊", "reason": "適用於 MP4 播放器"},
@@ -941,5 +953,6 @@
 		"summary": {"goal": {"bestPicture": "最佳畫質", "smartTv": "所有裝置都能播放"}, "fileType": {"auto": "檔案類型由串流決定", "explicit": "儲存為 .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "AI 放大的串流", "description": "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。", "skip": "略過", "allow": "允許"},
+	"videoCodec": {"label": "影片編解碼器", "description": "在高度相同的串流中，優先採用哪種編解碼器。自動會沿用 yt-dlp 自身的順序，該順序偏好體積最小的 AV1；H.264 可在較舊的電視和手機上播放。", "smartTv": "智慧型電視一律採用 H.264。", "auto": "自動", "vp9": "優先 VP9", "h264": "優先 H.264"},
 	"hdrPreference": {"label": "HDR 影片", "description": "自動模式會在此螢幕能顯示 HDR 時選擇 HDR，否則選擇 SDR。HDR 在一般螢幕上看起來會偏灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

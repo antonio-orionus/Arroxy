@@ -56,7 +56,7 @@ export interface VideoPart {
 // produces a real job — never startable (DownloadService refuses it).
 export type PreparedJob =
 	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; mergeOutputFormat?: string; remuxVideo?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number; videoPart?: VideoPart})
-	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; formatId?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; videoPart?: VideoPart})
+	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; formatId?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number; videoPart?: VideoPart})
 	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; remuxVideo?: string; audioConvert?: AudioConvert; filenameTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
@@ -98,6 +98,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		subtitles: subtitleOptionsSchema.optional(),
 		sponsorBlock: sponsorBlockOptionsSchema,
 		embed: embedOptionsSchema,
+		expectedBytes: z.number().positive().optional(),
 		videoPart: videoPartSchema.optional()
 	}),
 	z.object({

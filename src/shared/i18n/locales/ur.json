@@ -78,7 +78,6 @@
 			"assignTrigger_other": "{{count}} ویڈیوز کو تفویض کریں",
 			"menuDescription_one": "اس ویڈیو کے لیے پروفائل منتخب کریں۔",
 			"menuDescription_other": "ان {{count}} ویڈیوز کے لیے پروفائل منتخب کریں۔",
-			"assignAria": "{{profileName}} تفویض کریں",
 			"editProfile": "{{name}} میں ترمیم کریں",
 			"filtersLabel": "پروفائل فلٹرز",
 			"filterChip": "{{name}} · {{count}}",
@@ -446,7 +445,18 @@
 			"audioLanguage": "آڈیو کی زبان",
 			"audioLanguageCount_one": "{{count}} زبان",
 			"audioLanguageCount_other": "{{count}} زبانیں",
-			"convert": {"label": "کنورٹ کریں", "bitrate": "بٹ ریٹ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ماخذ {{kbps}} kbps ہے"},
+			"convert": {
+				"label": "کنورٹ کریں",
+				"bitrate": "بٹ ریٹ",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps، دوبارہ encode نہیں",
+				"copyLabelNoBitrate": "{{target}}، دوبارہ encode نہیں",
+				"copyNote": "{{kbps}} kbps، جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"copyNoteNoBitrate": "جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"bitrateCopyHint": "جو ماخذ پہلے ہی {{target}} ہو وہ اپنی سٹریم اور بٹ ریٹ برقرار رکھتا ہے: اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا۔",
+				"sourceKbps": "ماخذ {{kbps}} kbps ہے"
+			},
 			"botWall": {
 				"heading": "YouTube نے یہ پروب محدود کر دی",
 				"bodyUnconfigured": "فارمیٹ کی فہرست نامکمل ہو سکتی ہے۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
@@ -1045,6 +1055,8 @@
 			"source": {"label": "پہلے بہتر بٹ ریٹ والی اسٹریمز", "reason": "اسی ریزولوشن میں زیادہ تفصیل"},
 			"protocol": {"label": "پہلے براہِ راست ڈاؤن لوڈز، پھر اسٹریم شدہ کاپیاں", "reason": "وہی تصویر، زیادہ تیزی سے ڈاؤن لوڈ"},
 			"codec": {"label": "AV1، پھر VP9، پھر H.264", "reason": "ایک ہی سائز میں سب سے واضح"},
+			"codecVp9First": {"label": "VP9، پھر H.264، پھر AV1", "reason": "اس پروفائل کا کوڈیک"},
+			"codecH264First": {"label": "H.264، پھر VP9، پھر AV1", "reason": "اس پروفائل کا کوڈیک"},
 			"size": {"label": "بڑی فائل", "reason": "انہی ترتیبات میں زیادہ تفصیل"},
 			"aacSmartTv": {"label": "AAC آڈیو", "reason": "ہر جگہ چلتی ہے"},
 			"aacFileType": {"label": "AAC آڈیو", "reason": "MP4 پلیئرز کے لیے موزوں"},
@@ -1058,5 +1070,13 @@
 		"summary": {"goal": {"bestPicture": "بہترین تصویر", "smartTv": "ہر ڈیوائس پر چلتی ہے"}, "fileType": {"auto": "فائل کی قسم اسٹریمز سے", "explicit": ".{{ext}} کے طور پر محفوظ"}}
 	},
 	"aiUpscaled": {"label": "AI سے اپ اسکیل شدہ اسٹریمز", "description": "YouTube کچھ پرانی ویڈیوز ایسے سائزز میں پیش کرتا ہے جو اس نے AI سے بنائے ہیں۔ “چھوڑ دیں” اصل اسٹریمز رکھتا ہے؛ آپ پھر بھی کوئی اپ اسکیل شدہ اسٹریم خود چن سکتے ہیں۔", "skip": "چھوڑ دیں", "allow": "اجازت دیں"},
+	"videoCodec": {
+		"label": "ویڈیو کوڈیک",
+		"description": "ایک ہی اونچائی کی سٹریمز میں سے پہلے کون سا کوڈیک لیا جائے۔ آٹو yt-dlp کی اپنی ترتیب برقرار رکھتا ہے، جو سب سے چھوٹے AV1 کو ترجیح دیتی ہے؛ H.264 پرانے TV اور فونز پر چلتا ہے۔",
+		"smartTv": "سمارٹ TV ہمیشہ H.264 لیتا ہے۔",
+		"auto": "آٹو",
+		"vp9": "پہلے VP9",
+		"h264": "پہلے H.264"
+	},
 	"hdrPreference": {"label": "HDR ویڈیو", "description": "اگر یہ اسکرین HDR دکھا سکے تو آٹو HDR چنتا ہے، ورنہ SDR۔ عام اسکرینوں پر HDR پھیکا دکھتا ہے۔", "sdr": "SDR", "hdr": "HDR", "auto": "آٹو"}
 }

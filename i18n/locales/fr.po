@@ -1526,6 +1526,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "le plus net à taille égale"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, puis VP9, puis AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "le codec de ce profil"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, puis H.264, puis AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "le codec de ce profil"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Fréquence d'images maximale"
@@ -2071,6 +2087,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Chargement…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Quel codec prendre en premier parmi les flux de même hauteur. Auto garde l’ordre propre à yt-dlp, qui favorise l’AV1, le plus léger ; le H.264 passe sur les anciennes TV et les anciens téléphones."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 en premier"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Codec vidéo"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "TV connectée prend toujours le H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 en premier"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "Prêtes"
@@ -2390,6 +2430,26 @@ msgstr "Réessayer"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Débit"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Une source déjà en {{target}} conserve son propre flux et son débit : elle est copiée, sans réencodage."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbit/s, sans réencodage"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, sans réencodage"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbit/s comme dans la source : le flux est déjà en {{target}}, il est donc copié, sans réencodage"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Comme dans la source : le flux est déjà en {{target}}, il est donc copié, sans réencodage"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3341,10 +3401,6 @@ msgstr "{{count}} éléments"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Chaque vidéo résout le niveau choisi indépendamment — les playlists hétérogènes fonctionnent sans surprise."
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Attribuer {{profileName}}"
 
 #. Plural form "many" for fr: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlistProfiles.assignTrigger_many"

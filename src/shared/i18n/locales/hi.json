@@ -62,7 +62,6 @@
 			"assignTrigger_other": "{{count}} वीडियो को असाइन करें",
 			"menuDescription_one": "इस वीडियो के लिए प्रोफ़ाइल चुनें।",
 			"menuDescription_other": "इन {{count}} वीडियो के लिए प्रोफ़ाइल चुनें।",
-			"assignAria": "{{profileName}} असाइन करें",
 			"editProfile": "{{name}} संपादित करें",
 			"filtersLabel": "प्रोफ़ाइल फ़िल्टर",
 			"filterChip": "{{name}} · {{count}}",
@@ -425,7 +424,18 @@
 			"audioLanguage": "ऑडियो की भाषा",
 			"audioLanguageCount_one": "{{count}} भाषा",
 			"audioLanguageCount_other": "{{count}} भाषाएँ",
-			"convert": {"label": "कनवर्ट करें", "bitrate": "बिटरेट", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "स्रोत {{kbps}} kbps है"},
+			"convert": {
+				"label": "कनवर्ट करें",
+				"bitrate": "बिटरेट",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, फिर से encode नहीं",
+				"copyLabelNoBitrate": "{{target}}, फिर से encode नहीं",
+				"copyNote": "{{kbps}} kbps, जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता",
+				"copyNoteNoBitrate": "जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता",
+				"bitrateCopyHint": "जो स्रोत पहले से {{target}} है, वह अपनी स्ट्रीम और बिटरेट रखता है: उसे कॉपी किया जाता है, फिर से encode नहीं किया जाता।",
+				"sourceKbps": "स्रोत {{kbps}} kbps है"
+			},
 			"botWall": {
 				"heading": "YouTube ने इस जाँच को सीमित किया",
 				"bodyUnconfigured": "फ़ॉर्मेट सूची अधूरी हो सकती है। उन्नत सेटिंग्स में कुकी सेट करें, या नेटवर्क बदलकर पुनः प्रयास करें।",
@@ -979,6 +989,8 @@
 			"source": {"label": "बेहतर बिटरेट वाली स्ट्रीम पहले", "reason": "समान रिज़ॉल्यूशन पर ज़्यादा विवरण"},
 			"protocol": {"label": "सीधे डाउनलोड स्ट्रीम की गई कॉपी से पहले", "reason": "वही तस्वीर, तेज़ डाउनलोड"},
 			"codec": {"label": "AV1, फिर VP9, फिर H.264", "reason": "समान आकार पर सबसे साफ़"},
+			"codecVp9First": {"label": "VP9, फिर H.264, फिर AV1", "reason": "इस प्रोफ़ाइल का कोडेक"},
+			"codecH264First": {"label": "H.264, फिर VP9, फिर AV1", "reason": "इस प्रोफ़ाइल का कोडेक"},
 			"size": {"label": "बड़ी फ़ाइल", "reason": "समान सेटिंग्स पर ज़्यादा विवरण"},
 			"aacSmartTv": {"label": "ऑडियो AAC", "reason": "हर जगह चलता है"},
 			"aacFileType": {"label": "ऑडियो AAC", "reason": "MP4 प्लेयर के लिए सही"},
@@ -992,5 +1004,6 @@
 		"summary": {"goal": {"bestPicture": "सबसे साफ़ तस्वीर", "smartTv": "किसी भी डिवाइस पर चलता है"}, "fileType": {"auto": "स्ट्रीम के हिसाब से फ़ाइल प्रकार", "explicit": ".{{ext}} में सेव होता है"}}
 	},
 	"aiUpscaled": {"label": "AI से अपस्केल की गई स्ट्रीम", "description": "YouTube कुछ पुराने वीडियो ऐसे साइज़ में देता है जो उसने AI से बनाए हैं। “छोड़ें” मूल स्ट्रीम रखता है; आप फिर भी कोई अपस्केल की गई स्ट्रीम ख़ुद चुन सकते हैं।", "skip": "छोड़ें", "allow": "अनुमति दें"},
+	"videoCodec": {"label": "वीडियो कोडेक", "description": "समान ऊँचाई वाली स्ट्रीम में कौन-सा कोडेक पहले लिया जाए। स्वतः yt-dlp का अपना क्रम रखता है, जो AV1 को प्राथमिकता देता है, जो सबसे छोटा है; H.264 पुराने टीवी और फ़ोन पर चलता है।", "smartTv": "स्मार्ट TV हमेशा H.264 लेता है।", "auto": "स्वतः", "vp9": "पहले VP9", "h264": "पहले H.264"},
 	"hdrPreference": {"label": "HDR वीडियो", "description": "स्वतः विकल्प तब HDR चुनता है जब यह स्क्रीन उसे दिखा सके, वरना SDR। सामान्य स्क्रीन पर HDR फीका दिखता है।", "sdr": "SDR", "hdr": "HDR", "auto": "स्वतः"}
 }

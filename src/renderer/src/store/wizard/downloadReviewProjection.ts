@@ -2,11 +2,11 @@ import {humanSize} from '@shared/format.js'
 import {scaleBytesToPart} from '@shared/videoPart.js'
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
-import {resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, resolveActiveDownloadProfile, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {buildDownloadProfileActionModel} from '@renderer/components/wizard/downloadProfileActions.js'
+import {profilePickerOptions} from '@renderer/components/wizard/profilePickerOptions.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState, AudioSelection} from '../types.js'
@@ -111,9 +111,11 @@ export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBre
 	const removedIdSet = new Set(state.removedPlaylistItemIds)
 	const selectedItemIds = state.playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)).map(entry => entry.id)
 
-	const model = buildDownloadProfileActionModel(state.settings?.profiles)
-	const orderedProfiles = model.options.map(option => option.profile)
-	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, orderedProfiles, model.activeRef)
+	// Resolved like the queued downloads are (every saved profile, hidden ones too), listed like every profile picker.
+	const prefs = state.settings?.profiles
+	const profiles = allDownloadProfiles(prefs)
+	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, profiles, resolveActiveDownloadProfile(prefs).ref)
+	const orderedProfiles = profilePickerOptions(prefs, {current: null, inUse: profiles.filter(profile => counts.has(profile.id))}).map(option => option.profile)
 	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
 	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profile.name, icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
@@ -168,7 +170,7 @@ export function buildDownloadReview(state: WizardReviewState, ctx: DownloadRevie
 
 	const audioFormats = state.wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(videoId, state.wizardFormats, ctx.t('wizard.confirm.audioOnly'))
-	const audioLabel = resolveAudioLabel(audio, audioFormats)
+	const audioLabel = resolveAudioLabel(audio, audioFormats, state.wizardFormatSelection)
 	const videoSummary = kind === 'subtitles' ? ctx.t('wizard.formats.kind.subtitles') : kind === 'audio' ? ctx.t('wizard.confirm.audioOnly') : videoResolution
 
 	const nativeAudioId = audio.kind === 'native' ? audio.formatId : null

@@ -39,10 +39,10 @@ function dropsAudio(job: PreparedJob): boolean {
 
 export function phasesFor(input: ResolvedStartDownloadInput): Phase[] {
 	const {job} = input
-	// expectedBytes only known for single-format probes. Other kinds (audio-convert,
-	// ranged-format, subtitle-only) still run preflight against the floor in
+	// expectedBytes known for a single format and for audio extracted as it is.
+	// Other jobs (a re-encode, ranged-format, subtitle-only) still run preflight against the floor in
 	// checkDiskSpace so a near-full disk gets caught before yt-dlp spawns.
-	const expectedBytes = job.kind === 'single-format' ? job.expectedBytes : undefined
+	const expectedBytes = job.kind === 'single-format' || job.kind === 'audio-convert' ? job.expectedBytes : undefined
 	const [media, ...afterMedia] = PHASES[strategyFor(job)]
 	return [PreflightPhase(expectedBytes), ...(media ? [media] : []), ...(dropsAudio(job) ? [DropAudioPhase] : []), ...afterMedia]
 }

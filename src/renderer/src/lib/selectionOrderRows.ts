@@ -30,11 +30,22 @@ function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): Selecti
 		case 'source':
 			return {label: t('selectionOrder.rank.source.label'), reason: t('selectionOrder.rank.source.reason')}
 		case 'codec':
-			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
+			return codecRow(t, order)
 		case 'protocol':
 			return {label: t('selectionOrder.rank.protocol.label'), reason: t('selectionOrder.rank.protocol.reason')}
 		case 'size':
 			return {label: t('selectionOrder.rank.size.label'), reason: t('selectionOrder.rank.size.reason')}
+	}
+}
+
+function codecRow(t: TFunction, order: SelectionOrder): SelectionOrderRow {
+	switch (order.videoCodec) {
+		case 'vp9':
+			return {label: t('selectionOrder.rank.codecVp9First.label'), reason: t('selectionOrder.rank.codecVp9First.reason')}
+		case 'h264':
+			return {label: t('selectionOrder.rank.codecH264First.label'), reason: t('selectionOrder.rank.codecH264First.reason')}
+		case null:
+			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
 	}
 }
 

@@ -7,7 +7,7 @@
 //   - the "Why this one" explanation the UI shows (the ranks themselves).
 
 import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr, type HdrSource} from './hdrSetting.js'
-import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
+import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
 
 export type VideoRank =
 	// Streams the site doesn't mark down (yt-dlp's `preference`: damaged,
@@ -26,7 +26,8 @@ export type VideoRank =
 	// `source_preference`: YouTube's Premium streams, ones not missing a PO
 	// token), where the extractor's own sort ranks it here (YouTube's).
 	| {kind: 'source'}
-	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
+	// yt-dlp's own codec order (AV1, VP9, HEVC, H.264), or the profile's
+	// preferred codec first (`SelectionOrder.videoCodec`).
 	| {kind: 'codec'}
 	// A direct download before its HLS copy, where the extractor's own sort
 	// ranks the protocol before the size (YouTube's).
@@ -54,6 +55,8 @@ export interface SelectionOrder {
 	audio: readonly AudioRank[] | null
 	// SDR or HDR first when a height offers both, and where that choice comes from.
 	hdr: EffectiveHdr
+	// The codec taken first among streams of one height; null keeps yt-dlp's order.
+	videoCodec: VideoCodecPreference | null
 	// Stereo or surround among native tracks, and where that choice comes from.
 	// Also breaks ties inside the AAC and Opus ranks. Null for video-only.
 	nativeAudio: EffectiveNativeAudio | null
@@ -92,12 +95,24 @@ export function effectiveFileType(goal: VideoGoal, fileType: VideoFileType): Vid
 	return fileTypeAllowed(goal, fileType) ? fileType : 'auto'
 }
 
-const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'protocol'}, {kind: 'size'}]
+// Smart TV already takes H.264 before anything else, and WebM can't hold H.264.
+export function videoCodecAllowed(goal: VideoGoal, fileType: VideoFileType, videoCodec: VideoCodecPreference): boolean {
+	return goal !== 'smart-tv' && !(videoCodec === 'h264' && fileType === 'webm')
+}
 
-function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean): VideoRank[] {
+export function effectiveVideoCodec(goal: VideoGoal, fileType: VideoFileType, videoCodec: VideoCodecPreference | undefined): VideoCodecPreference | null {
+	return videoCodec !== undefined && videoCodecAllowed(goal, fileType, videoCodec) ? videoCodec : null
+}
+
+const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'protocol'}, {kind: 'size'}]
+// A preferred codec is named in `-S`, and every `-S` field comes before the
+// extractor's own sort, so it outranks the site's source rank (YouTube's Premium copies).
+const PREFERRED_CODEC_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'codec'}, {kind: 'source'}, {kind: 'protocol'}, {kind: 'size'}]
+
+function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean, videoCodec: VideoCodecPreference | null): VideoRank[] {
 	const original: VideoRank[] = [{kind: 'site-preference'}, ...(skipAiUpscaled ? [{kind: 'original'} as const] : [])]
 	if (goal === 'smart-tv') return [...original, {kind: 'h264'}, {kind: 'mp4-streams'}, {kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
-	return [...original, {kind: 'resolution', tier}, ...BEST_PICTURE_VIDEO]
+	return [...original, {kind: 'resolution', tier}, ...(videoCodec === null ? BEST_PICTURE_VIDEO : PREFERRED_CODEC_VIDEO)]
 }
 
 function audioRank(goal: VideoGoal, fileType: VideoFileType): AudioRank {
@@ -111,12 +126,14 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 	const fileType = effectiveFileType(intent.goal, intent.fileType)
 	const withAudio = intent.kind === 'video-audio'
 	const skipAiUpscaled = intent.aiUpscaled !== 'allow'
+	const videoCodec = effectiveVideoCodec(intent.goal, fileType, intent.videoCodec)
 	return {
 		goal: intent.goal,
 		tier: intent.tier,
 		fileType,
-		video: videoRanks(intent.goal, intent.tier, skipAiUpscaled),
+		video: videoRanks(intent.goal, intent.tier, skipAiUpscaled, videoCodec),
 		hdr: effectiveHdr(intent.hdr, globalHdr),
+		videoCodec,
 		audio: withAudio ? [audioRank(intent.goal, fileType)] : null,
 		nativeAudio: withAudio ? effectiveNativeAudio(intent.audio.native, globalPreference) : null,
 		separateVideoStream: intent.kind === 'video-only' || intent.goal === 'smart-tv',
@@ -131,12 +148,12 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 // SDR first is `hdr:sdr`, and a field named in `-S` outranks every default, so
 // it needs `res` and `fps` named before it or it would pick a lower height to
 // avoid HDR. A height only offered as HDR is still taken (checked with yt-dlp).
-// An audio token (MP4's `acodec:m4a`) outranks the defaults too, so `res`,
-// `fps` and `hdr` come before it as well.
+// An audio token (MP4's `acodec:m4a`) or a preferred codec (`vcodec:<limit>`)
+// outranks the defaults too, so `res`, `fps` and `hdr` come before it as well.
 function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefined {
 	const sdrFirst = order.hdr.preference === 'sdr'
 	const audioToken = (order.audio ?? []).some(audio => audioSortToken(audio) !== undefined)
-	const spellOut = sdrFirst || audioToken
+	const spellOut = sdrFirst || audioToken || order.videoCodec !== null
 	switch (rank.kind) {
 		// yt-dlp always sorts by the site's preference first; nothing to spell out.
 		case 'site-preference':
@@ -155,15 +172,21 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 			return order.tier === 'best' && !spellOut ? undefined : 'fps'
 		case 'hdr':
 			// `hdr:12` is yt-dlp's own default for HDR first.
-			return sdrFirst ? 'hdr:sdr' : audioToken ? 'hdr:12' : undefined
+			return sdrFirst ? 'hdr:sdr' : spellOut ? 'hdr:12' : undefined
+		case 'codec':
+			return order.videoCodec === null ? undefined : `vcodec:${VIDEO_CODEC_SORT_LIMIT[order.videoCodec]}`
 		// The site's own sort order (`_format_sort_fields`) already names it.
 		case 'source':
-		case 'codec':
 		case 'protocol':
 		case 'size':
 			return undefined
 	}
 }
+
+// yt-dlp's `vcodec:<limit>` takes the limit, then the codecs it ranks below it,
+// then the ones above it, worst first. `vp9.2` is the limit yt-dlp itself uses
+// to prefer VP9 (`FormatSorter._prefer_vp9_sort`), so HDR VP9 stays in.
+const VIDEO_CODEC_SORT_LIMIT = {vp9: 'vp9.2', h264: 'h264'} as const satisfies Record<VideoCodecPreference, string>
 
 function audioSortToken(rank: AudioRank): string | undefined {
 	switch (rank.kind) {

@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "同じサイズで最も鮮明"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264、次に VP9、次に AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "このプロフィールのコーデック"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9、次に H.264、次に AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "このプロフィールのコーデック"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "最高フレームレート"
@@ -1951,6 +1967,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "読み込み中…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "自動"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "同じ高さのストリームのうち、最初に選ぶコーデックです。自動では yt-dlp 自身の順序を保ち、その順序では最小の AV1 が優先され、H.264 は古いテレビやスマホでも再生できます。"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 を優先"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "動画コーデック"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "スマートTVでは常に H.264 を選びます。"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 を優先"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "準備完了"
@@ -2210,6 +2250,26 @@ msgstr "再試行"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "ビットレート"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "すでに {{target}} の音声は、元のストリームとビットレートを保ったまま、再エンコードせずにコピーされます。"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps、再エンコードなし"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}、再エンコードなし"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps(元の音声のまま):ストリームはすでに {{target}} のため、再エンコードせずコピーします"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "元の音声のまま:ストリームはすでに {{target}} のため、再エンコードせずコピーします"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3071,10 +3131,6 @@ msgstr "{{count}} 件"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} を割り当て"
 
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"

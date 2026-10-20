@@ -73,7 +73,6 @@
 			"menuDescription_one": "Изаберите профил за овај видео.",
 			"menuDescription_few": "Изаберите профил за изабране видео снимке ({{count}}).",
 			"menuDescription_other": "Изаберите профил за изабране видео снимке ({{count}}).",
-			"assignAria": "Додели {{profileName}}",
 			"editProfile": "Измени {{name}}",
 			"filtersLabel": "Филтери профила",
 			"filterChip": "{{name}} · {{count}}",
@@ -455,7 +454,18 @@
 			"audioLanguageCount_one": "Језика: {{count}}",
 			"audioLanguageCount_few": "Језика: {{count}}",
 			"audioLanguageCount_other": "Језика: {{count}}",
-			"convert": {"label": "Конвертуј", "bitrate": "Битрејт", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Извор је {{kbps}} kbps"},
+			"convert": {
+				"label": "Конвертуј",
+				"bitrate": "Битрејт",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, без поновног кодирања",
+				"copyLabelNoBitrate": "{{target}}, без поновног кодирања",
+				"copyNote": "{{kbps}} kbps, као у извору: ток је већ {{target}}, па се копира, а не поново кодира",
+				"copyNoteNoBitrate": "Као у извору: ток је већ {{target}}, па се копира, а не поново кодира",
+				"bitrateCopyHint": "Извор који је већ у формату {{target}} задржава свој ток и битрејт: копира се, а не поново кодира.",
+				"sourceKbps": "Извор је {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "YouTube је ограничио ову проверу",
 				"bodyUnconfigured": "Списак формата можда није потпун. Подеси cookies у напредним подешавањима или промени мрежу и покушај поново.",
@@ -1061,6 +1071,8 @@
 			"source": {"label": "Прво токови са повећаним битрејтом", "reason": "више детаља при истој резолуцији"},
 			"protocol": {"label": "Прво директна преузимања, па копије из тока", "reason": "иста слика, брже преузимање"},
 			"codec": {"label": "AV1, па VP9, па H.264", "reason": "најоштрије при истој величини"},
+			"codecVp9First": {"label": "VP9, па H.264, па AV1", "reason": "кодек овог профила"},
+			"codecH264First": {"label": "H.264, па VP9, па AV1", "reason": "кодек овог профила"},
 			"size": {"label": "Већа датотека", "reason": "више детаља при истим подешавањима"},
 			"aacSmartTv": {"label": "AAC звук", "reason": "ради свуда"},
 			"aacFileType": {"label": "AAC звук", "reason": "одговара MP4 плејерима"},
@@ -1074,5 +1086,13 @@
 		"summary": {"goal": {"bestPicture": "најбоља слика", "smartTv": "ради на сваком уређају"}, "fileType": {"auto": "тип датотеке према токовима", "explicit": "чува се као .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Токови увећани помоћу AI", "description": "YouTube нуди неке старе видео снимке у величинама које је направио помоћу AI. „Прескочи” задржава оригиналне токове; увећани ток и даље можете изабрати ручно.", "skip": "Прескочи", "allow": "Дозволи"},
+	"videoCodec": {
+		"label": "Видео кодек",
+		"description": "Који кодек први узети међу токовима исте висине. Аутоматски задржава сопствени редослед yt-dlp-а, који фаворизује AV1, најмањи; H.264 ради на старијим телевизорима и телефонима.",
+		"smartTv": "Паметни TV увек узима H.264.",
+		"auto": "Аутоматски",
+		"vp9": "Прво VP9",
+		"h264": "Прво H.264"
+	},
 	"hdrPreference": {"label": "HDR видео", "description": "Аутоматски бира HDR ако овај екран може да га прикаже, иначе SDR. HDR изгледа бледо на обичним екранима.", "sdr": "SDR", "hdr": "HDR", "auto": "Аутоматски"}
 }

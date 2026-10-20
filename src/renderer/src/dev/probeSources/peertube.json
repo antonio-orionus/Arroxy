@@ -1,0 +1,37 @@
+{
+	"source": {
+		"id": "peertube",
+		"url": "https://framatube.org/videos/watch/9c9de5e8-0a1e-484a-b099-e80766180a6d",
+		"capturedAt": "2026-10-20",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"id": "9c9de5e8-0a1e-484a-b099-e80766180a6d",
+		"title": "What is PeerTube?",
+		"thumbnail": "https://framatube.org/lazy-static/thumbnails/2463a64d-561c-4442-9a76-15337b58a4b2.jpg",
+		"duration": 113,
+		"webpage_url": "https://framatube.org/videos/watch/9c9de5e8-0a1e-484a-b099-e80766180a6d",
+		"extractor": "PeerTube",
+		"extractor_key": "PeerTube",
+		"is_live": false,
+		"has_drm": false,
+		"uploader": "Framasoft",
+		"channel": "A propos de PeerTube",
+		"upload_date": "20181001",
+		"timestamp": 1538391166,
+		"formats": [
+			{"format_id":"240p","ext":"mp4","resolution":"240p","height":240,"fps":24,"filesize":3792049,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1","ext":"mp4","resolution":"426x240","width":426,"height":240,"fps":24,"tbr":268.464,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"360p","ext":"mp4","resolution":"360p","height":360,"fps":24,"filesize":5166155,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"3","ext":"mp4","resolution":"640x360","width":640,"height":360,"fps":24,"tbr":365.746,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"480p","ext":"mp4","resolution":"480p","height":480,"fps":24,"filesize":6557911,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"5","ext":"mp4","resolution":"852x480","width":852,"height":480,"fps":24,"tbr":464.277,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"720p","ext":"mp4","resolution":"720p","height":720,"fps":24,"filesize":10017104,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"7","ext":"mp4","resolution":"1280x720","width":1280,"height":720,"fps":24,"tbr":709.176,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"1080p","ext":"mp4","resolution":"1080p","height":1080,"fps":24,"filesize":16815344,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"9","ext":"mp4","resolution":"1920x1080","width":1920,"height":1080,"fps":24,"tbr":1190.467,"vcodec":"avc1.64001f","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"m3u8_native","has_drm":false,"manifest_url":"https://manifest.invalid/"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

@@ -19,10 +19,14 @@ import {existsSync, readFileSync} from 'node:fs'
 import {mkdir, rename, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import {promisify} from 'node:util'
+import {planWorkflow} from 'yt-dlp-bridge'
+import {conversionSource} from '../src/shared/audioConversionSource.js'
+import {AUDIO_CONVERT_TARGETS} from '../src/shared/audioTargets.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../src/shared/downloadProfiles.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec} from '../src/shared/mediaIntent.js'
 import {resolveProfileSelection} from '../src/shared/profileSelection.js'
-import type {DownloadProfile, DownloadProfileMedia, HdrPreference, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '../src/shared/schemas.js'
+import {VIDEO_CODEC_PREFERENCES, type DownloadProfile, type DownloadProfileMedia, type HdrPreference, type NativeAudioPreference, type PlaylistVideoTier, type VideoCodecPreference, type VideoFileType, type VideoGoal} from '../src/shared/schemas.js'
+import {videoCodecAllowed} from '../src/shared/selectionOrder.js'
 import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 import {probeSourceResult} from '../src/renderer/src/dev/probeSources/index.js'
 import {resolveOutputContainer} from '../src/renderer/src/store/wizard/resolveContainer.js'
@@ -66,6 +70,8 @@ const TIERS: readonly PlaylistVideoTier[] = ['best', '1080', '720', '480']
 const HDR: readonly HdrPreference[] = ['sdr', 'hdr']
 const FILE_TYPES: readonly VideoFileType[] = ['auto', 'mp4', 'webm']
 const NATIVE_AUDIO: readonly NativeAudioPreference[] = ['compatible', 'surround']
+// No preference (yt-dlp's own codec order), then each one the editor offers.
+const VIDEO_CODECS: readonly (VideoCodecPreference | undefined)[] = [undefined, ...VIDEO_CODEC_PREFERENCES]
 
 function profileCases(): ProfileCase[] {
 	const cases: ProfileCase[] = []
@@ -74,12 +80,14 @@ function profileCases(): ProfileCase[] {
 			for (const hdr of HDR)
 				for (const fileType of FILE_TYPES) {
 					if (goal === 'smart-tv' && (fileType === 'webm' || ['best', '2160', '1440'].includes(tier))) continue
-					for (const aiUpscaled of ['skip', 'allow'] as const) {
-						const video = {goal, tier, fileType, hdr: {kind: 'custom' as const, preference: hdr}, ...(aiUpscaled === 'allow' ? {aiUpscaled} : {})}
-						const label = `${goal} ${tier} ${fileType} ${hdr}${aiUpscaled === 'allow' ? ' +ai' : ''}`
-						cases.push({label: `${label} video-only`, media: {kind: 'video-only', ...video}, nativeAudio: 'compatible'})
-						for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `${label} ${nativeAudio}`, media: {kind: 'video-audio', ...video, audio: {native: {kind: 'default'}}}, nativeAudio})
-					}
+					for (const aiUpscaled of ['skip', 'allow'] as const)
+						for (const videoCodec of VIDEO_CODECS) {
+							if (videoCodec !== undefined && !videoCodecAllowed(goal, fileType, videoCodec)) continue
+							const video = {goal, tier, fileType, hdr: {kind: 'custom' as const, preference: hdr}, ...(aiUpscaled === 'allow' ? {aiUpscaled} : {}), ...(videoCodec ? {videoCodec} : {})}
+							const label = `${goal} ${tier} ${fileType} ${hdr}${aiUpscaled === 'allow' ? ' +ai' : ''}${videoCodec ? ` ${videoCodec}-first` : ''}`
+							cases.push({label: `${label} video-only`, media: {kind: 'video-only', ...video}, nativeAudio: 'compatible'})
+							for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `${label} ${nativeAudio}`, media: {kind: 'video-audio', ...video, audio: {native: {kind: 'default'}}}, nativeAudio})
+						}
 				}
 	for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `audio-only ${nativeAudio}`, media: {kind: 'audio-only', audio: {format: 'best'}}, nativeAudio})
 	return cases
@@ -96,7 +104,8 @@ function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): {id: string;
 	const profile: DownloadProfile = {...BASE_PROFILE, media: profileCase.media}
 	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
 	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
-	const audio = media.audioSelection.kind === 'native' ? media.audioSelection.formatId : null
+	// Keep as-is names the combined file whose audio it extracts, as yt-dlp's `-x` does.
+	const audio = media.audioSelection.kind === 'native' || media.audioSelection.kind === 'extract' ? (media.audioSelection.formatId ?? null) : null
 	// A conversion is an answer too: a native-audio profile must never convert where yt-dlp takes a stream as it is.
 	const container = resolveOutputContainer(media.videoFormatId, media.audioSelection, 'sidecar', probe.formats, media.kind, false, 'auto')
 	if (media.kind === 'audio') return {id: audio ?? 'converted', container}
@@ -128,9 +137,7 @@ interface Case {
 // Differences already known to be bugs, each with its fix under way. Listed so
 // the check stays a gate for everything else; an entry that no longer occurs
 // fails it too, so the list shrinks as the fixes land.
-const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = (['twitch-clip', 'dailymotion', 'archive', 'streamable', 'bitchute'] as const).flatMap(probe =>
-	(['audio-only compatible', 'audio-only surround'] as const).map(label => ({probe, label, reason: 'Audio only on a site with only combined files: yt-dlp downloads the whole file (`best`), the Format screen converts it to MP3'}))
-)
+const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = []
 
 const isKnown = (testCase: {probe: ProbeSourceId; label: string}): boolean => KNOWN_DIFFERENCES.some(known => known.probe === testCase.probe && known.label === testCase.label)
 
@@ -149,6 +156,26 @@ for (const probe of probeIds) {
 		const spec = mediaIntentSpec(intent, profileCase.nativeAudio, 'sdr')
 		if (!spec.formatSelector) continue
 		cases.push({probe, label: profileCase.label, format: spec.formatSelector, ...(spec.formatSort ? {sort: spec.formatSort} : {}), expected: app.id, ...(comparesContainer ? {expectedExt: app.container} : {})})
+	}
+}
+
+// The bridge's `-f` for a conversion that names no stream.
+function conversionSelector(target: string): string {
+	const {args} = planWorkflow({kind: 'media', url: 'https://parity.invalid/', output: {directory: '/out'}, audio: {convert: {target, lossy: target !== 'wav', bitrateKbps: 192}}})
+	const selector = args[args.indexOf('-f') + 1]
+	if (selector === undefined) throw new Error(`no -f planned for a ${target} conversion`)
+	return selector
+}
+
+// Conversions: the stream the app says a conversion starts from (its copy
+// labels and notes, a language's source) against the bridge's own selector,
+// which yt-dlp runs. The app runs the same selector through its port.
+for (const probe of probeIds) {
+	const selection = probeSourceResult(probe).formatSelection
+	if (!selection) continue
+	for (const {target} of AUDIO_CONVERT_TARGETS) {
+		const predicted = conversionSource(selection, target)
+		if (predicted) cases.push({probe, label: `convert ${target}`, format: conversionSelector(target), expected: predicted.formatId})
 	}
 }
 

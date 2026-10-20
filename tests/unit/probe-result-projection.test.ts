@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
+import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
 import type {FormatOption, ProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult} from '@renderer/store/wizard/probeResultProjection.js'
@@ -112,6 +113,14 @@ describe('ProbeResultProjection', () => {
 		const first = projectVideoProbeResult(VIDEO_PROBE, appState(), true)
 		const edited = appState({...first, selectedVideoFormatId: 'gone'})
 		expect(projectVideoProbeResult(VIDEO_PROBE, edited, false).selectedVideoFormatId).toBe('137')
+	})
+
+	it('names the new combined file when a retry no longer offers the kept one', () => {
+		const combined: FormatOption = {formatId: '18', label: '360p', ext: 'mp4', resolution: '640x360', isVideoOnly: false, isAudioOnly: false, audioCodec: 'mp4a.40.2'}
+		const probe = {...VIDEO_PROBE, formats: [combined], formatSelection: selectionSourceFromOptions([combined])}
+		const first = projectVideoProbeResult(probe, appState(), true)
+		const edited = appState({...first, wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'extract', formatId: 'gone'}})
+		expect(projectVideoProbeResult(probe, edited, false).audioSelection).toEqual({kind: 'extract', formatId: '18'})
 	})
 
 	it('lands a new video with the whole video picked, its chapters, and the link start offered', () => {

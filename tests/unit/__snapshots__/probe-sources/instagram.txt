@@ -11,6 +11,7 @@ Unknown resolution  ·              mp4 6.2 MiB +audio
 
 Audio:
 AAC: 70 kbps 323.8 KiB •
+convert from: mp3 ← dash-1407570791574000a re-encode · m4a ← dash-1407570791574000a copy 70 kbps · opus ← dash-1407570791574000a re-encode · wav ← dash-1407570791574000a re-encode
 
 Profile picks:
 balanced: dash-1407570978240648v (720x1280, mp4) + audio dash-1407570791574000a (audio only, m4a)

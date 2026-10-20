@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "समान आकार पर सबसे साफ़"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, फिर VP9, फिर AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "इस प्रोफ़ाइल का कोडेक"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, फिर H.264, फिर AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "इस प्रोफ़ाइल का कोडेक"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "सबसे ऊँचा फ़्रेम रेट"
@@ -2011,6 +2027,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "स्वतः"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "समान ऊँचाई वाली स्ट्रीम में कौन-सा कोडेक पहले लिया जाए। स्वतः yt-dlp का अपना क्रम रखता है, जो AV1 को प्राथमिकता देता है, जो सबसे छोटा है; H.264 पुराने टीवी और फ़ोन पर चलता है।"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "पहले H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "वीडियो कोडेक"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "स्मार्ट TV हमेशा H.264 लेता है।"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "पहले VP9"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "तैयार"
@@ -2300,6 +2340,26 @@ msgstr "पुनः प्रयास"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "बिटरेट"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "जो स्रोत पहले से {{target}} है, वह अपनी स्ट्रीम और बिटरेट रखता है: उसे कॉपी किया जाता है, फिर से encode नहीं किया जाता।"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, फिर से encode नहीं"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, फिर से encode नहीं"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "जैसा स्रोत में है: स्ट्रीम पहले से {{target}} है, इसलिए इसे कॉपी किया जाता है, फिर से encode नहीं किया जाता"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3206,10 +3266,6 @@ msgstr "{{count}} आइटम"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "हर वीडियो चुनी गई श्रेणी के अनुसार स्वतंत्र रूप से रेज़ॉल्व होता है — मिश्रित Playlist बिना किसी परेशानी के काम करती है।"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} असाइन करें"
 
 #. Plural form "one" for hi: used for counts like 0, 1.
 msgctxt "wizard.playlistProfiles.assignTrigger_one"

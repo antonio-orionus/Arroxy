@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "အရွယ်အစားတူတွင် အကြည်ဆုံး"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264၊ ထို့နောက် VP9၊ ထို့နောက် AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "ဤပရိုဖိုင်၏ ကိုဒက်"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9၊ ထို့နောက် H.264၊ ထို့နောက် AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "ဤပရိုဖိုင်၏ ကိုဒက်"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "အမြင့်ဆုံး frame rate"
@@ -1951,6 +1967,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "ဖွင့်နေသည်…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "အလိုအလျောက်"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "အမြင့်တူသော စီးကြောင်းများထဲမှ ကိုဒက်ကို အရင်ရွေးမည့်အရာ။ အလိုအလျောက်က yt-dlp ၏ ကိုယ်ပိုင်အစီအစဉ်ကို ထိန်းထားပြီး အသေးဆုံး AV1 ကို ဦးစားပေးကာ H.264 သည် ဟောင်းသော TV နှင့် ဖုန်းများတွင် ဖွင့်နိုင်သည်။"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 အရင်"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "ဗီဒီယို ကိုဒက်"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "စမတ် TV သည် H.264 ကို အမြဲယူသည်။"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 အရင်"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "အဆင်သင့်"
@@ -2210,6 +2250,26 @@ msgstr "ထပ်ကြိုးစားမည်"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Bitrate"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "{{target}} ဖြစ်ပြီးသား မူရင်းသည် ၎င်း၏ stream နှင့် bitrate ကို ဆက်ထားပြီး ပြန် encode မလုပ်ဘဲ ကူးယူသည်။"
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps၊ ပြန် encode မလုပ်"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}၊ ပြန် encode မလုပ်"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps၊ မူရင်းအတိုင်း: stream သည် {{target}} ဖြစ်ပြီးသားဖြစ်သောကြောင့် ပြန် encode မလုပ်ဘဲ ကူးယူထားသည်"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "မူရင်းအတိုင်း: stream သည် {{target}} ဖြစ်ပြီးသားဖြစ်သောကြောင့် ပြန် encode မလုပ်ဘဲ ကူးယူထားသည်"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3071,10 +3131,6 @@ msgstr "{{count}} ခု"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။"
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "{{profileName}} ကို သတ်မှတ်ပါ"
 
 #. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"

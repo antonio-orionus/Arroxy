@@ -102,7 +102,8 @@ describe('SavesAsControl', () => {
 		useAppStore.setState({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}})
 		render(<SavesAsControl />)
 
-		expect(screen.getByTestId('saves-as')).toHaveTextContent('Saves as.webm')
+		// Audio mode extracts: a WebM's Opus lands as .opus.
+		expect(screen.getByTestId('saves-as')).toHaveTextContent('Saves as.opus')
 		expect(screen.queryByTestId('saves-as-trigger')).not.toBeInTheDocument()
 	})
 

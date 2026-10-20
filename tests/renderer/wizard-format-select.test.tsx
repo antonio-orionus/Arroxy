@@ -210,12 +210,14 @@ describe('wizard slice — Video / Audio / Subtitles switch', () => {
 		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '249'}})
 	})
 
-	it('Audio on a muxed-only source converts to mp3 at the remembered bitrate', () => {
-		useAppStore.setState({wizardFormats: FORMATS.filter(f => !f.isAudioOnly), lastConvertBitrate: 256})
+	// Named after the combined file yt-dlp picks, as the profile pick is.
+	it('Audio on a muxed-only source keeps the audio of the file yt-dlp picks, as it is', () => {
+		const muxedOnly = FORMATS.filter(f => !f.isAudioOnly)
+		useAppStore.setState({wizardFormats: muxedOnly, wizardFormatSelection: selectionSourceFromOptions(muxedOnly), lastConvertBitrate: 256})
 
 		useAppStore.getState().setWizardMediaKind('audio')
 
-		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 256})
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'extract', formatId: '22'})
 	})
 
 	it('Video returns to the profile pick', () => {

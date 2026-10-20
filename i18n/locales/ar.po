@@ -1661,6 +1661,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "الأوضح عند الحجم نفسه"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264، ثم VP9، ثم AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "ترميز ملف التعريف هذا"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9، ثم H.264، ثم AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "ترميز ملف التعريف هذا"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "أعلى معدل إطارات"
@@ -2251,6 +2267,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "جارٍ التحميل…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "تلقائي"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "أي ترميز يُؤخذ أولاً بين التدفقات ذات الارتفاع نفسه. يُبقي «تلقائي» ترتيب yt-dlp الخاص، وهو يفضّل AV1 الأصغر حجماً، بينما يعمل H.264 على التلفزيونات والهواتف الأقدم."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 أولاً"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "ترميز الفيديو"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "يعتمد «تلفاز ذكي» ترميز H.264 دائماً."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 أولاً"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "جاهزة"
@@ -2660,6 +2700,26 @@ msgstr "إعادة المحاولة"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "معدل البت"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "المصدر الذي هو بصيغة {{target}} أصلًا يحتفظ بتدفقه ومعدل البت الخاص به: يُنسخ دون إعادة ترميز."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps، بلا إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}، بلا إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3746,10 +3806,6 @@ msgstr "{{count}} عنصر"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت."
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "تعيين {{profileName}}"
 
 #. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
 msgctxt "wizard.playlistProfiles.assignTrigger_few"

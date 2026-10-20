@@ -149,6 +149,19 @@ HEVC, H.264) · size.
 **Smart TV:** H.264 · MP4 container · resolution ≤ tier · fps · HDR · source
 · size.
 
+**Video codec preference** (`videoCodec`, Best picture only): VP9 or H.264
+first. It is a `vcodec:` limit in `-S` (`vcodec:vp9.2`, the limit yt-dlp
+itself uses to prefer VP9, or `vcodec:h264`), with `res`, `fps` and `hdr`
+named before it so the codec never costs height, frame rate or HDR. Every `-S`
+field comes before the extractor's own sort, so the codec then ranks before
+source: an H.264-first profile takes H.264 over YouTube's Premium VP9. Under a
+limit yt-dlp takes that codec, then the ones it ranks below it, then the ones
+above it, worst first: VP9 first is VP9, HEVC, H.264, AV1; H.264 first is
+H.264, HEVC, VP9, AV1. Smart TV has no use for it (H.264 is already first),
+and H.264 first never goes with WebM, which can't hold it. Saving a hand pick
+records VP9 or H.264 when its height offered another codec, and drops the
+preference for an AV1 pick.
+
 **Source** is yt-dlp's `source_preference`: YouTube raises its Premium
 (enhanced-bitrate) copies by 100 and lowers ones missing a PO token by 20. Its
 extractor sorts `quality, res, fps, hdr:12, source, vcodec`, so the pick ranks

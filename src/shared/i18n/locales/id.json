@@ -82,7 +82,6 @@
 			"assignTriggerEmpty": "Tetapkan profil",
 			"assignTrigger_other": "Tetapkan ke {{count}} video",
 			"menuDescription_other": "Pilih profil untuk {{count}} video ini.",
-			"assignAria": "Tetapkan {{profileName}}",
 			"editProfile": "Edit {{name}}",
 			"filtersLabel": "Filter profil",
 			"filterChip": "{{name}} · {{count}}",
@@ -442,7 +441,18 @@
 			"drc": {"label": "Ratakan volume (DRC)", "description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.", "tag": "Volume rata"},
 			"audioLanguage": "Bahasa audio",
 			"audioLanguageCount_other": "{{count}} bahasa",
-			"convert": {"label": "Mengubah", "bitrate": "Kecepatan bit", "wavLabel": "WAV (tidak terkompresi)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Sumber {{kbps}} kbps"},
+			"convert": {
+				"label": "Mengubah",
+				"bitrate": "Kecepatan bit",
+				"wavLabel": "WAV (tidak terkompresi)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, tanpa pengkodean ulang",
+				"copyLabelNoBitrate": "{{target}}, tanpa pengkodean ulang",
+				"copyNote": "{{kbps}} kbps, sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"copyNoteNoBitrate": "Sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"bitrateCopyHint": "Sumber yang sudah berformat {{target}} mempertahankan stream dan bitrate-nya sendiri: disalin tanpa pengkodean ulang.",
+				"sourceKbps": "Sumber {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "Penyelidikan terbatas",
 				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",
@@ -1014,6 +1024,8 @@
 			"source": {"label": "Stream dengan bitrate ditingkatkan lebih dulu", "reason": "detail lebih banyak pada resolusi yang sama"},
 			"protocol": {"label": "Unduhan langsung sebelum salinan stream", "reason": "gambar yang sama, diunduh lebih cepat"},
 			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
+			"codecVp9First": {"label": "VP9, lalu H.264, lalu AV1", "reason": "codec profil ini"},
+			"codecH264First": {"label": "H.264, lalu VP9, lalu AV1", "reason": "codec profil ini"},
 			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},
 			"aacFileType": {"label": "Audio AAC", "reason": "cocok untuk pemutar MP4"},
@@ -1027,5 +1039,13 @@
 		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Stream hasil upscale AI", "description": "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual.", "skip": "Lewati", "allow": "Izinkan"},
+	"videoCodec": {
+		"label": "Codec video",
+		"description": "Codec mana yang diambil lebih dulu di antara stream dengan tinggi yang sama. Otomatis mempertahankan urutan bawaan yt-dlp, yang mengutamakan AV1, yang terkecil; H.264 diputar di TV dan ponsel lama.",
+		"smartTv": "TV Pintar selalu memakai H.264.",
+		"auto": "Otomatis",
+		"vp9": "VP9 dulu",
+		"h264": "H.264 dulu"
+	},
 	"hdrPreference": {"label": "Video HDR", "description": "Otomatis memilih HDR jika layar ini bisa menampilkannya, jika tidak memakai SDR. HDR tampak pucat di layar biasa.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatis"}
 }

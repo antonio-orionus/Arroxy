@@ -73,10 +73,10 @@ describe('mediaIntentSpec', () => {
 	})
 
 	describe('audio', () => {
-		it('format=best → bestaudio selector, no convert', () => {
+		it('format=best → bestaudio selector, extracted as is', () => {
 			const spec = specFor({kind: 'audio', format: 'best'})
 			expect(spec.formatSelector).toBe(COMPATIBLE_AUDIO_ONLY_SELECTOR)
-			expect(spec.audioConvert).toBeUndefined()
+			expect(spec.audioConvert).toEqual({target: 'best'})
 			expect(spec.formatSort).toBeUndefined()
 			expect(spec.producesVideo).toBe(false)
 		})

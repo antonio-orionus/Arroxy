@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "nét nhất ở cùng dung lượng"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, rồi VP9, rồi AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "codec của hồ sơ này"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, rồi H.264, rồi AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "codec của hồ sơ này"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Tốc độ khung hình cao nhất"
@@ -1951,6 +1967,30 @@ msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Đang tải…"
 
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Tự động"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động giữ nguyên thứ tự riêng của yt-dlp, vốn ưu tiên AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Ưu tiên H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Codec video"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "TV thông minh luôn lấy H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Ưu tiên VP9"
+
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
 msgstr "Sẵn sàng"
@@ -2210,6 +2250,26 @@ msgstr "Thử lại"
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
 msgstr "Tốc độ bit"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Nguồn đã là {{target}} sẽ giữ nguyên luồng và tốc độ bit của nó: được sao chép, không mã hóa lại."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, không mã hóa lại"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, không mã hóa lại"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Giữ nguyên như nguồn: luồng đã là {{target}} nên được sao chép, không mã hóa lại"
 
 msgctxt "wizard.formats.convert.label"
 msgid "Convert"
@@ -3071,10 +3131,6 @@ msgstr "{{count}} mục"
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
 msgstr "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà."
-
-msgctxt "wizard.playlistProfiles.assignAria"
-msgid "Assign {{profileName}}"
-msgstr "Gán {{profileName}}"
 
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.assignTrigger_other"

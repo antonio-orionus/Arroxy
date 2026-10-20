@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {resolveOutputContainer} from '@renderer/store/wizard/resolveContainer.js'
 import type {AudioSelection, SubtitleMode, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption} from '@shared/types.js'
+import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
 
 function fmt(formatId: string, ext: string, isVideoOnly = false, isAudioOnly = false): FormatOption {
 	return {formatId, ext, label: formatId, resolution: '1080p', isVideoOnly, isAudioOnly}
@@ -45,6 +46,34 @@ describe('resolveOutputContainer', () => {
 		it('convert-lossy opus → opus', () => {
 			const audio: AudioSelection = {kind: 'convert-lossy', target: 'opus', bitrateKbps: 128}
 			expect(resolveOutputContainer('', audio, sidecar, FORMATS, 'video')).toBe('opus')
+		})
+	})
+
+	// Audio mode extracts (`-x --audio-format best`): a WebM's Opus lands as .opus.
+	describe('audio mode', () => {
+		const opus = {...WEBM_AUDIO, audioCodec: 'opus'}
+		const aac = {...M4A_AUDIO, audioCodec: 'mp4a.40.2'}
+		const combined = {...fmt('18', 'mp4'), audioCodec: 'mp4a.40.2'}
+
+		it("a native pick lands in its codec's own container", () => {
+			expect(resolveOutputContainer('', {kind: 'native', formatId: '251'}, sidecar, [opus, aac], 'audio')).toBe('opus')
+			expect(resolveOutputContainer('', {kind: 'native', formatId: '140'}, sidecar, [opus, aac], 'audio')).toBe('m4a')
+		})
+
+		// A real site with only combined files, through the app's own mapping.
+		it('keep as-is names the container from a real probe', () => {
+			const {formats} = probeSourceResult('dailymotion')
+			const combined = formats.find(f => !f.isAudioOnly && !f.isVideoOnly)
+			expect(combined?.audioCodec).toMatch(/^mp4a/)
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: combined?.formatId}, sidecar, formats, 'audio')).toBe('m4a')
+		})
+
+		it("keep as-is lands in its combined file's audio container", () => {
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '18'}, sidecar, [combined], 'audio')).toBe('m4a')
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '18'}, sidecar, [fmt('18', 'mp4')], 'audio')).toBe('unknown')
+			// Unnamed, yt-dlp picks its own: no guess from the list's order.
+			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [combined], 'audio')).toBe('unknown')
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '43'}, sidecar, [combined, {...fmt('43', 'webm'), audioCodec: 'vorbis'}], 'audio')).toBe('ogg')
 		})
 	})
 

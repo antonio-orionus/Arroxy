@@ -25,6 +25,13 @@ const COMPATIBLE_BEST_AUDIO_SELECTOR = [
 ].join('/')
 
 describe('mediaIntentSpec native audio preference', () => {
+	// yt-dlp's `-x --audio-format best`: an audio file even from a site whose
+	// streams all carry video, its audio kept as is wherever yt-dlp can.
+	it('audio best extracts the picked stream as is', () => {
+		expect(mediaIntentSpec(BEST_AUDIO, 'compatible').audioConvert).toEqual({target: 'best'})
+		expect(mediaIntentSpec(BEST_AUDIO, 'surround').audioConvert).toEqual({target: 'best'})
+	})
+
 	it('compatible native audio selector prefers source default or original non-DRC audio first', () => {
 		const spec = mediaIntentSpec(BEST_VIDEO, 'compatible')
 
