@@ -100,7 +100,10 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	const switchDrc = (next: boolean): void => {
 		setDrc(next)
 		if (isConversion(audioSelection)) {
-			if (audioSelection.sourceFormatId) onSelect({...audioSelection, sourceFormatId: sourceIn(track, next, audioSelection.target)})
+			// One language: the bridge picks the non-DRC master itself, so only DRC names a source.
+			const {sourceFormatId: _previous, ...conversion} = audioSelection
+			const source = view.tracks.length > 0 ? sourceIn(track, next, audioSelection.target) : next ? conversionSource(view.conversionSelection, audioSelection.target, {preferDrc: true})?.formatId : undefined
+			onSelect(source === undefined ? conversion : {...conversion, sourceFormatId: source})
 			return
 		}
 		// The chosen stream swaps for its twin, so the switch never leaves a hidden chip selected.
@@ -171,7 +174,8 @@ function AudioLanguageSelect({tracks, trackTags, track, onChange}: {tracks: read
 	)
 }
 
-function BitrateStrip({view, selection, onSelect}: {view: AudioView; selection: LossyConversion; onSelect: (sel: AudioSelection) => void}): ReactNode {
+// `sourceKbps`: the bitrate of the stream the conversion starts from.
+function BitrateStrip({view, selection, sourceKbps, onSelect}: {view: AudioView; selection: LossyConversion; sourceKbps: number | null; onSelect: (sel: AudioSelection) => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<div className="grid grid-cols-[4.5rem_minmax(0,1fr)] items-center gap-2 pt-1.5" data-testid="audio-bitrate-strip">
@@ -196,7 +200,7 @@ function BitrateStrip({view, selection, onSelect}: {view: AudioView; selection: 
 					))}
 				</ToggleGroup>
 				{/* Converting cannot add what the source never had. */}
-				{view.sourceKbps ? <span className="text-caption text-subtle-foreground">{t('wizard.formats.convert.sourceKbps', {kbps: view.sourceKbps})}</span> : null}
+				{sourceKbps ? <span className="text-caption text-subtle-foreground">{t('wizard.formats.convert.sourceKbps', {kbps: sourceKbps})}</span> : null}
 			</span>
 		</div>
 	)
@@ -310,8 +314,8 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 	const {t} = useTranslation()
 	const subtitleOnly = mode === 'subtitle-only'
 	const {drc, track, shown, switchDrc, switchTrack, convertSourceFor} = useAudioStreamFilter(view, audioSelection, onSelect)
-	// A source already in the target codec is copied as-is, so no bitrate applies to it.
-	const copySource = audioSelection.kind === 'convert-lossy' ? selectedConversionSource(view.conversionSelection, audioSelection.target, audioSelection.sourceFormatId) : undefined
+	// The stream the conversion starts from: copied as-is when it is in the target codec (no bitrate applies), and its own bitrate otherwise.
+	const convertingFrom = audioSelection.kind === 'convert-lossy' ? selectedConversionSource(view.conversionSelection, audioSelection.target, audioSelection.sourceFormatId) : undefined
 
 	// One column per codec, best bitrate first.
 	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
@@ -329,7 +333,13 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 				<AudioStreamList view={view} codecColumns={codecColumns} subtitleOnly={subtitleOnly} audioSelection={audioSelection} onSelect={onSelect} convertSourceFor={convertSourceFor} />
 
 				{/* Bitrate belongs to a lossy conversion, so it shows only once one is picked. */}
-				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? copySource?.copies ? <CopyNote target={audioSelection.target} kbps={copySource.kbps} /> : <BitrateStrip view={view} selection={audioSelection} onSelect={onSelect} /> : null}
+				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? (
+					convertingFrom?.copies ? (
+						<CopyNote target={audioSelection.target} kbps={convertingFrom.kbps} />
+					) : (
+						<BitrateStrip view={view} selection={audioSelection} sourceKbps={convertingFrom?.kbps === undefined ? view.sourceKbps : Math.round(convertingFrom.kbps)} onSelect={onSelect} />
+					)
+				) : null}
 
 				{/* `w-0 min-w-full`: the switch's long description wraps to the grid's width instead of setting it. */}
 				{view.hasDrcTwins ? (

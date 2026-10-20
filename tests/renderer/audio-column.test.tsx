@@ -103,4 +103,25 @@ describe('AudioColumn', () => {
 		expect(screen.getByTestId('audio-bitrate-strip')).toBeInTheDocument()
 		expect(screen.queryByTestId('audio-copy-note')).not.toBeInTheDocument()
 	})
+
+	// One language: the bridge picks the source, unless the DRC switch names its DRC master.
+	it('names the DRC stream for a conversion on a single-language video when DRC is switched on', () => {
+		const formats: FormatOption[] = [audio('251', '', 'opus', 'webm', 130), audio('251-drc', '', 'opus', 'webm', 131, true), audio('140', '', 'mp4a.40.2', 'm4a', 129)]
+		const onSelect = vi.fn()
+		const selection: AudioSelection = {kind: 'convert-lossy', target: 'opus', bitrateKbps: 192}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={selection} onSelect={onSelect} />)
+
+		fireEvent.click(screen.getByRole('switch', {name: /Even out loudness/}))
+		expect(onSelect).toHaveBeenLastCalledWith({...selection, sourceFormatId: '251-drc'})
+	})
+
+	it("names the conversion source's own bitrate, not the highest one", () => {
+		const formats: FormatOption[] = [audio('328', '', 'ec-3', 'm4a', 384), audio('251', '', 'opus', 'webm', 104)]
+		const selection: AudioSelection = {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={selection} onSelect={vi.fn()} />)
+
+		expect(screen.getByText('Source is 104 kbps')).toBeInTheDocument()
+	})
 })
