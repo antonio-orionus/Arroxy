@@ -527,6 +527,10 @@ export interface ProgressEvent {
 	line: string
 	at: string
 	percent?: number
+	// yt-dlp's transfer rate (bytes/s) and time left (s), from a structured
+	// progress record.
+	speedBps?: number
+	etaSeconds?: number
 }
 
 export interface QueueArtifactEvent {

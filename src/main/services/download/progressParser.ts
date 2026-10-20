@@ -15,7 +15,7 @@ import {artifactKindForPath} from '@shared/queueArtifacts.js'
 import type {ActiveDownload} from '../phases/types.js'
 import {nowIso} from '@main/utils/clock.js'
 import {QueueResumeLifecycle} from './QueueResumeLifecycle.js'
-import {parseYtDlpOutputLine, type YtDlpPostprocessPhase} from 'yt-dlp-bridge/parsers'
+import {parseYtDlpOutputLine, YtDlpDownloadProgressTracker, type YtDlpOutputEvent, type YtDlpPostprocessPhase} from 'yt-dlp-bridge/parsers'
 import {splitOutputLines} from 'yt-dlp-bridge/runner'
 
 const logger = log.scope('downloads')
@@ -24,16 +24,14 @@ export type StatusEmit = (jobId: string, stage: StatusEvent['stage'], statusKey:
 export type ProgressEmit = (event: ProgressEvent) => void
 export type ArtifactEmit = (event: QueueArtifactEvent) => void
 
-const PROGRESS_LINE = /^\[download\]\s+(\d+(?:\.\d+)?|Unknown)% of /
 // Stands in for a percent yt-dlp cannot report, so such a file is logged once.
 const UNKNOWN_PROGRESS_STEP = -1
 
 // yt-dlp redraws its progress line several times a second, and logging every
 // redraw pushed the lines that explain a failure out of a rotated log. Keep the
 // first line of each 10% step (100% is its own step) for the current file.
-function takeProgressLogStep(active: ActiveDownload, line: string): boolean {
-	const percent = PROGRESS_LINE.exec(line)?.[1]
-	const step = percent === undefined || percent === 'Unknown' ? UNKNOWN_PROGRESS_STEP : Math.floor(Math.min(Number(percent), 100) / 10)
+function takeProgressLogStep(active: ActiveDownload, percent: number | undefined): boolean {
+	const step = percent === undefined ? UNKNOWN_PROGRESS_STEP : Math.floor(Math.min(percent, 100) / 10)
 	if (step === active.lastLoggedProgressStep) return false
 	active.lastLoggedProgressStep = step
 	return true
@@ -77,6 +75,21 @@ function shortSegmentOpen(line: string): string | null {
 	return `${source} Opening ${segment === undefined ? '' : `segment ${segment} on `}${host}`
 }
 
+function logOutputLine(active: ActiveDownload, line: string, event: YtDlpOutputEvent | null, percent: number | undefined): void {
+	const meta = {jobId: active.job.id, source: 'yt-dlp-progress'}
+	if (line.startsWith('WARNING:') || line.startsWith('ERROR:')) {
+		logger.warn(line, meta)
+	} else if (event?.kind === 'download-progress') {
+		if (takeProgressLogStep(active, percent)) logger.debug(line, meta)
+	} else if (FFMPEG_STATUS_LINE.test(line)) {
+		if (takeFfmpegLogStep(active, line)) logger.debug(line, meta)
+	} else {
+		const segmentOpen = shortSegmentOpen(line)
+		if (segmentOpen !== null) logger.debug(segmentOpen, meta)
+		else logger.info(line, meta)
+	}
+}
+
 function rememberSubtitlePath(active: ActiveDownload, path: string): void {
 	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
 }
@@ -87,6 +100,10 @@ function replacePath(paths: string[] | undefined, from: string, to: string): str
 }
 
 export class ProgressParser {
+	// One per running job: yt-dlp prints the streams it is about to download,
+	// then progress for each in turn, and the tracker turns that into one percent.
+	private readonly trackers = new WeakMap<ActiveDownload, YtDlpDownloadProgressTracker>()
+
 	constructor(
 		private readonly emitStatus: StatusEmit,
 		private readonly emitProgress: ProgressEmit,
@@ -96,20 +113,24 @@ export class ProgressParser {
 	consume(active: ActiveDownload, text: string): void {
 		const jobId = active.job.id
 		for (const line of splitOutputLines(text)) {
-			if (line.startsWith('WARNING:') || line.startsWith('ERROR:')) {
-				logger.warn(line, {jobId, source: 'yt-dlp-progress'})
-			} else if (PROGRESS_LINE.test(line)) {
-				if (takeProgressLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
-			} else if (FFMPEG_STATUS_LINE.test(line)) {
-				if (takeFfmpegLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
-			} else {
-				const segmentOpen = shortSegmentOpen(line)
-				if (segmentOpen !== null) logger.debug(segmentOpen, {jobId, source: 'yt-dlp-progress'})
-				else logger.info(line, {jobId, source: 'yt-dlp-progress'})
+			const event = parseYtDlpOutputLine(line)
+			const combined = event?.kind === 'download-progress' ? this.trackerFor(active).update(event.progress) : undefined
+			logOutputLine(active, line, event, combined?.percent)
+			if (!event) continue
+
+			if (event.kind === 'requested-formats') {
+				this.trackerFor(active).setRequestedFormats(event.formats)
+				continue
 			}
 
-			const event = parseYtDlpOutputLine(line)
-			if (!event) continue
+			if (event.kind === 'download-progress') {
+				const {percent, speedBps, etaSeconds} = combined ?? {}
+				// A sidecar subtitle is fetched after the media, and its own 0–100%
+				// would rewind the bar. A subtitle-only job has nothing else to show.
+				const shownPercent = active.currentFileKind === 'subtitle' && active.input.job.kind !== 'subtitle-only' ? undefined : percent
+				this.emitProgress({jobId, line, at: nowIso(), ...(shownPercent === undefined ? {} : {percent: shownPercent}), ...(speedBps === undefined ? {} : {speedBps}), ...(etaSeconds === undefined ? {} : {etaSeconds})})
+				continue
+			}
 
 			if (event.kind === 'destination') {
 				const path = event.path
@@ -187,8 +208,17 @@ export class ProgressParser {
 				continue
 			}
 
-			this.emitProgress({jobId, line: event.raw, at: nowIso(), percent: active.currentFileKind === 'subtitle' && active.input.job.kind !== 'subtitle-only' ? undefined : event.percent})
+			this.emitProgress({jobId, line: event.raw, at: nowIso()})
 		}
+	}
+
+	private trackerFor(active: ActiveDownload): YtDlpDownloadProgressTracker {
+		let tracker = this.trackers.get(active)
+		if (!tracker) {
+			tracker = new YtDlpDownloadProgressTracker()
+			this.trackers.set(active, tracker)
+		}
+		return tracker
 	}
 
 	// Idempotent per phase — once a postprocess phase has emitted its status

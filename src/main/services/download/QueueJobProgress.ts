@@ -1,15 +1,14 @@
-// Turns a running job's raw yt-dlp progress lines into the queue item's
-// progress fields. Owns one formatter and one normalizer per job, so throttle,
-// spike suppression and yt-dlp's percent quirks carry across consecutive
-// lines without reaching the queue state machine.
+// Turns a running job's progress events into the queue item's progress fields.
+// Owns one formatter per job, so throttle and spike suppression carry across
+// consecutive events without reaching the queue state machine.
 
 import {STATUS_KEY, type StatusKey} from '@shared/schemas.js'
 import {ProgressFormatter} from '@shared/progressFormat.js'
-import {ffmpegPartPercent, ProgressNormalizer} from '@shared/progressNormalizer.js'
+import {ffmpegPartPercent, nextRunningPercent} from '@shared/progressNormalizer.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {ProgressEvent, QueueItem} from '@shared/types.js'
 
-// Post-download phase keys. yt-dlp can emit a straggler `[download] X%`
+// Post-download phase keys. yt-dlp can emit a straggler progress
 // line AFTER the Merger/Metadata/MoveFiles status events due to stdout
 // buffering. Without this gate, the late progress event would re-populate
 // `progressDetail` and the UI would flip from "Merging formats…" back to
@@ -28,7 +27,6 @@ export interface QueueJobProgressUpdate {
 
 export class QueueJobProgress {
 	private readonly formatters = new Map<string, ProgressFormatter>()
-	private readonly normalizers = new Map<string, ProgressNormalizer>()
 
 	// null: the line arrived after the item entered a post-download phase and
 	// must be dropped.
@@ -41,18 +39,12 @@ export class QueueJobProgress {
 			formatter = new ProgressFormatter(seconds)
 			this.formatters.set(event.jobId, formatter)
 		}
-		let normalizer = this.normalizers.get(event.jobId)
-		if (!normalizer) {
-			normalizer = new ProgressNormalizer()
-			this.normalizers.set(event.jobId, normalizer)
-		}
-		const detail = formatter.update(event.line)
-		const incoming = event.percent === undefined && seconds !== null ? {line: event.line, percent: ffmpegPartPercent(event.line, seconds)} : event
-		return {percent: normalizer.nextRunningPercent(item.progressPercent, incoming), ...(detail !== null ? {detail} : {})}
+		const detail = formatter.update(event)
+		const incoming = event.percent === undefined && seconds !== null ? ffmpegPartPercent(event.line, seconds) : event.percent
+		return {percent: nextRunningPercent(item.progressPercent, incoming), ...(detail !== null ? {detail} : {})}
 	}
 
 	forget(jobId: string): void {
 		this.formatters.delete(jobId)
-		this.normalizers.delete(jobId)
 	}
 }
