@@ -59,7 +59,9 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 
 	const postprocess = postprocessPhase(clean)
 	if (postprocess) {
-		const destination = /^\[(?:ExtractAudio|VideoConvertor|VideoRemuxer)\] Destination:\s+(.+)$/.exec(clean)
+		// ExtractAudio prints `Destination: <path>` alone; the video convertor and
+		// remuxer print `Remuxing video from mp4 to mkv; Destination: <path>`.
+		const destination = /^\[(?:ExtractAudio\]|(?:VideoConvertor|VideoRemuxer)\] (?:Converting|Remuxing) video from \S+ to \S+;) Destination:\s+(.+)$/.exec(clean)
 		return {kind: 'postprocess', phase: postprocess, ...(destination?.[1] ? {path: destination[1]} : {})}
 	}
 
