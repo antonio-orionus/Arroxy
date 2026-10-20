@@ -68,9 +68,11 @@ describe('resolveOutputContainer', () => {
 			expect(resolveOutputContainer('', {kind: 'extract', formatId: combined?.formatId}, sidecar, formats, 'audio')).toBe('m4a')
 		})
 
-		it("keep as-is lands in the best combined file's audio container", () => {
-			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [combined], 'audio')).toBe('m4a')
-			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [fmt('18', 'mp4')], 'audio')).toBe('unknown')
+		it("keep as-is lands in its combined file's audio container", () => {
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '18'}, sidecar, [combined], 'audio')).toBe('m4a')
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '18'}, sidecar, [fmt('18', 'mp4')], 'audio')).toBe('unknown')
+			// Unnamed, yt-dlp picks its own: no guess from the list's order.
+			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [combined], 'audio')).toBe('unknown')
 			expect(resolveOutputContainer('', {kind: 'extract', formatId: '43'}, sidecar, [combined, {...fmt('43', 'webm'), audioCodec: 'vorbis'}], 'audio')).toBe('ogg')
 		})
 	})

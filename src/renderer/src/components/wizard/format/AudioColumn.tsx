@@ -138,7 +138,7 @@ function convertSelection(target: AudioConvertTarget, bitrateKbps: AudioBitrate,
 
 function selectionFromValue(value: string, view: AudioView, convertSourceFor: (target: AudioConvertTarget) => string | undefined): AudioSelection | null {
 	if (value === 'none') return {kind: 'none'}
-	if (value === 'extract') return {kind: 'extract'}
+	if (value === 'extract') return view.extractFormatId === null ? {kind: 'extract'} : {kind: 'extract', formatId: view.extractFormatId}
 	const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
 	if (native) return {kind: 'native', formatId: native.formatId}
 	const target = view.convertTargets.find(candidate => `convert:${candidate}` === value)

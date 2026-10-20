@@ -112,6 +112,6 @@ describe('AudioColumn', () => {
 		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={onSelect} />)
 
 		fireEvent.click(screen.getByRole('radio', {name: /^Keep as-is/}))
-		expect(onSelect).toHaveBeenCalledWith({kind: 'extract'})
+		expect(onSelect).toHaveBeenCalledWith({kind: 'extract', formatId: '18'})
 	})
 })

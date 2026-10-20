@@ -1,3 +1,4 @@
+import {extractSelection} from '@shared/audioConversionSource.js'
 // FormatPicker — the slice that owns the single-video selection: format /
 // audio / subtitle state and the download profile the run started from.
 // Profile → selection logic lives in profileApplication (pure) and
@@ -46,7 +47,7 @@ function audioForAudioOnly(state: AppState): AudioSelection {
 	const current = state.audioSelection
 	if (isConvert(current)) return current
 	if (current.kind === 'native' && hasFormat(state.wizardFormats, current.formatId)) return current
-	if (!state.wizardFormats.some(f => f.isAudioOnly)) return {kind: 'extract'}
+	if (!state.wizardFormats.some(f => f.isAudioOnly)) return current.kind === 'extract' && current.formatId !== undefined && hasFormat(state.wizardFormats, current.formatId) ? current : extractSelection(state.wizardFormatSelection)
 	return bestNativeAudio(state.wizardFormats, state)
 }
 

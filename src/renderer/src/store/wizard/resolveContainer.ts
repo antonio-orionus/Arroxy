@@ -29,10 +29,11 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
 	if (audioSelection.kind === 'convert-lossy') return audioSelection.target
 	// Audio mode extracts with `--audio-format best`: the codec's own container
-	// (a WebM's Opus lands as .opus), and keep as-is takes the best combined file.
+	// (a WebM's Opus lands as .opus), keep as-is that of its combined file.
 	if (mediaKind === 'audio' && (audioSelection.kind === 'native' || audioSelection.kind === 'extract')) {
+		// Keep as-is that names no file leaves the pick to yt-dlp: no guess from the list's order.
 		const named = audioSelection.formatId
-		const source = named === undefined ? wizardFormats.find(f => !f.isAudioOnly && !f.isVideoOnly) : wizardFormats.find(f => f.formatId === named)
+		const source = named === undefined ? undefined : wizardFormats.find(f => f.formatId === named)
 		return (source ? audioConversionOutcome('best', {ext: source.ext, acodec: source.audioCodec})?.ext : undefined) ?? (audioSelection.kind === 'native' ? (source?.ext ?? 'unknown') : 'unknown')
 	}
 
