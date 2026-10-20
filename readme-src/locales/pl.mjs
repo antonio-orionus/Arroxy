@@ -97,7 +97,6 @@ export const pl = {
   hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 8K HDR przy 60 kl./s, jako MP3 / AAC / Opus albo tylko potrzebny fragment. **Przeglądaj YouTube lub dowolną inną stronę w Arroxy** na karcie Explore i pobieraj oglądany film, playlistę lub kanał; zaloguj się tam, aby pobierać filmy prywatne, tylko dla członków i z ograniczeniem wieku, które może oglądać Twoje konto. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
   cta_latest: "↓ Zainstaluj najnowsze wydanie",
   cta_website: "Witryna",
-  website_url: "https://arroxy.com/",
   star_cta: "Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.",
   ai_notice: "> 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../pulls).",
   toc_heading: "Spis treści",

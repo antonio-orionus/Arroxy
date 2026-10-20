@@ -207,7 +207,7 @@ describe('pre-spawn guard for escalated jobs (R5b)', () => {
 
 	// R13: the video is already saved, and phase-2 subtitle failures are soft.
 	it('soft-fails the sidecar subtitles of an escalated job, keeping the saved video', async () => {
-		const {ctx, run, emitStatus} = makeCtx({runs: [SUCCESS], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}}, signedIn: false})
+		const {ctx, run, emitStatus} = makeCtx({runs: [SUCCESS], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}}, signedIn: false})
 		const outcome = await SidecarSubsPhase(false).run(ctx)
 		expect(outcome).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 		expect(run).not.toHaveBeenCalled()
@@ -217,7 +217,7 @@ describe('pre-spawn guard for escalated jobs (R5b)', () => {
 	})
 
 	it('guards the subtitle-only spawn of an escalated job', async () => {
-		const subtitleOnly: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		const subtitleOnly: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 		const {ctx, run, emitStatus} = makeCtx({runs: [SUCCESS], input: {auth: 'exploreSession', job: subtitleOnly}, signedIn: false})
 		const outcome = await SubtitleOnlyPhase.run(ctx)
 		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
@@ -257,7 +257,7 @@ describe('rejected cookies on a run that succeeded', () => {
 
 	// M2: a sign-out the site confirmed stops the job's later signed-in spawns, cookies present or not.
 	it('skips the sidecar subtitles once the check confirms the session signed out', async () => {
-		const job = {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks' as const, tracks: [{key: 'en', auto: false}]}, mode: 'sidecar' as const, format: 'srt' as const}}
+		const job = {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}}
 		const {ctx, run} = makeCtx({runs: [REJECTED_BUT_DONE, SUCCESS], input: {auth: 'exploreSession', job}, signedIn: true, verified: 'signedOut'})
 		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
@@ -265,7 +265,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	})
 
 	it('still fetches the sidecar subtitles when the check finds the session signed in', async () => {
-		const job = {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks' as const, tracks: [{key: 'en', auto: false}]}, mode: 'sidecar' as const, format: 'srt' as const}}
+		const job = {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}}
 		const {ctx, run} = makeCtx({runs: [REJECTED_BUT_DONE, SUCCESS], input: {auth: 'exploreSession', job}, signedIn: true, verified: 'signedIn'})
 		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
@@ -273,7 +273,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	})
 
 	it('keeps sidecar subtitles that arrived anyway', async () => {
-		const {ctx, run, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}}, signedIn: true, verified: 'signedOut'})
+		const {ctx, run, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}}, signedIn: true, verified: 'signedOut'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 		expect(run).toHaveBeenCalledOnce()
@@ -281,7 +281,7 @@ describe('rejected cookies on a run that succeeded', () => {
 })
 
 describe('rejected cookies on a sidecar subtitle fetch', () => {
-	const SUBS_JOB: ResolvedStartDownloadInput['job'] = {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+	const SUBS_JOB: ResolvedStartDownloadInput['job'] = {...YOUTUBE_JOB, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 
 	it('soft-fails, keeping the saved video, when the session turns out signed out', async () => {
 		const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedOut'})
@@ -300,7 +300,7 @@ describe('rejected cookies on a sidecar subtitle fetch', () => {
 
 // A2-6: subtitle-only jobs escalate at download time like the video phase.
 describe('SubtitleOnlyPhase download-time escalation', () => {
-	const SUBTITLE_ONLY: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+	const SUBTITLE_ONLY: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 
 	it('escalates an anonymous account failure, persisting the signed-in auth before the spawn', async () => {
 		const {ctx, run, emitStatus, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED, SUCCESS], input: {job: SUBTITLE_ONLY}, signedIn: true})

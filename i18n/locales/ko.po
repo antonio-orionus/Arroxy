@@ -244,10 +244,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요."
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "이 동영상에는 요청한 언어의 자막이 없습니다."
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "디스크 공간이 부족합니다. 공간을 확보하고 다시 시도하세요."

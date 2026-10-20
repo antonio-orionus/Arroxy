@@ -99,7 +99,6 @@ export const tr = {
     "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
-  website_url: "https://arroxy.com/",
   star_cta:
     "Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yardım eder.",
   ai_notice:

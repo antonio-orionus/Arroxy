@@ -9,11 +9,7 @@ import type {PreparedJob} from '@shared/preparedJob.js'
 
 vi.mock('@main/utils/clock', () => ({nowIso: () => '2024-01-01T00:00:00.000Z'}))
 
-const BASE_INPUT_SUBTITLE_ONLY: ResolvedStartDownloadInput = {
-	url: 'https://www.youtube.com/watch?v=test',
-	outputDir: '/tmp',
-	job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en-orig', auto: false}]}, mode: 'sidecar', format: 'srt'}} satisfies PreparedJob
-}
+const BASE_INPUT_SUBTITLE_ONLY: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-orig'], mode: 'sidecar', format: 'srt', writeAuto: false}} satisfies PreparedJob}
 
 const BASE_INPUT_SINGLE_FORMAT: ResolvedStartDownloadInput = {
 	url: 'https://www.youtube.com/watch?v=test',

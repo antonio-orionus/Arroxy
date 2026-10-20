@@ -99,7 +99,6 @@ export const fr = {
     "Télécharge des vidéos, Shorts, musiques, chaînes, podcasts ou pistes audio depuis **YouTube et plus de 2000 sites supportés** — jusqu'à 8K HDR à 60 fps, en MP3 / AAC / Opus, ou seulement le passage dont tu as besoin. **Parcours YouTube ou n'importe quel autre site dans Arroxy** depuis l'onglet Explore et télécharge la vidéo, la playlist ou la chaîne que tu regardes ; connecte-toi là pour télécharger les vidéos privées, réservées aux membres et soumises à une limite d'âge que ton compte peut voir. Fonctionne en local sur Windows, macOS et Linux. **Pas de pub, pas de superflu, pas d'upsell.**",
   cta_latest: "↓ Télécharger la dernière version",
   cta_website: "Site web",
-  website_url: "https://arroxy.com/fr/",
   star_cta:
     "Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.",
   ai_notice:

@@ -899,7 +899,6 @@
 			"outOfDiskSpace": "Yeterli disk alanı yok. Yer açıp tekrar dene.",
 			"outputNotWritable": "Arroxy indirme klasörüne yazamıyor. Klasör salt okunur olabilir, kilitli bir sürücüde olabilir ya da sisteminin gizlilik ayarları tarafından engelleniyor olabilir. Başka bir klasör seç veya erişime izin ver, sonra tekrar dene.",
 			"unsupportedUrl": "Arroxy bu URL’yi desteklemiyor. Farklı bir siteden bir bağlantı dene.",
-			"noSubtitles": "Bu videoda istenen dillerde altyazı yok.",
 			"chunkTransferFailure": "Sunucu indirmeyi akış ortasında kesmeye devam etti ve Arroxy tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç.",
 			"missingDependency": "Arroxy, FFmpeg veya FFprobe’u bulamadı. Kurulumu yeniden çalıştır ya da bir FFmpeg konumu belirle, ardından indirmeyi tekrar dene.",
 			"postprocessFailure": "İndirme tamamlandı ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene.",

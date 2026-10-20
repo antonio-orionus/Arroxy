@@ -43,7 +43,6 @@ export const ERROR_KIND_METADATA: Record<YtDlpErrorKind, KindMetadata> = {
 	postprocessFailure: {code: 'YTDLP_POSTPROCESS_FAILURE', recoverable: true, userActionable: false, suggestedFlags: ['--ffmpeg-location']},
 	parse: {code: 'YTDLP_PARSE_FAILURE', recoverable: false, userActionable: false},
 	network: {code: 'YTDLP_NETWORK', recoverable: true, userActionable: false, suggestedFlags: ['--retries', '--socket-timeout']},
-	noSubtitles: {code: 'YTDLP_NO_SUBTITLES', recoverable: false, userActionable: true, suggestedFlags: ['--list-subs']},
 	unsupportedUrl: {code: 'YTDLP_UNSUPPORTED_URL', recoverable: false, userActionable: true, docsUrl: 'https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md'},
 	unknown: {code: 'YTDLP_UNKNOWN', recoverable: false, userActionable: false}
 }

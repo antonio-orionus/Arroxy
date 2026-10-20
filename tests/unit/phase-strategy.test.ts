@@ -5,7 +5,7 @@ import type {PreparedJob, SubtitleOptions, SponsorBlockOptions, EmbedOptions} fr
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 
-const BASE_SUBS: SubtitleOptions = {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}
+const BASE_SUBS: SubtitleOptions = {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}
 
 describe('strategyFor — kind routing', () => {
 	it('subtitle-only kind → always subtitle-only', () => {
@@ -29,27 +29,27 @@ describe('strategyFor — kind routing', () => {
 	})
 
 	it('single-format with subtitles mode=embed + writeAuto=false → video+embed', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'embed', format: 'vtt'}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'embed', format: 'vtt', writeAuto: false}}
 		expect(strategyFor(job)).toBe<StrategyKind>('video+embed')
 	})
 
 	it('single-format with subtitles mode=embed + writeAuto=true → video+embed+auto', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'vtt'}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'embed', format: 'vtt', writeAuto: true}}
 		expect(strategyFor(job)).toBe<StrategyKind>('video+embed+auto')
 	})
 
 	it('single-format with subtitles mode=sidecar → video+sidecar', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 		expect(strategyFor(job)).toBe<StrategyKind>('video+sidecar')
 	})
 
 	it('single-format with subtitles mode=subfolder → video+sidecar', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'subfolder', format: 'srt'}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'subfolder', format: 'srt', writeAuto: false}}
 		expect(strategyFor(job)).toBe<StrategyKind>('video+sidecar')
 	})
 
 	it('audio-convert with subtitles mode=sidecar → video+sidecar', () => {
-		const job: PreparedJob = {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		const job: PreparedJob = {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 		expect(strategyFor(job)).toBe<StrategyKind>('video+sidecar')
 	})
 })
@@ -59,25 +59,7 @@ describe('phasesFor — production repro cell', () => {
 	// 2 subtitles. Before the fix this returned [Preflight, SubtitleOnlyPhase],
 	// silently dropping the audio download.
 	it('audio-only + m4a-convert + 2 subs → preflight + video phase', () => {
-		const job: PreparedJob = {
-			kind: 'audio-convert',
-			extractor: 'youtube',
-			extractorKey: 'Youtube',
-			audioConvert: {target: 'm4a', bitrateKbps: 192},
-			sponsorBlock: SB_OFF,
-			embed: EMBED_OFF,
-			subtitles: {
-				request: {
-					kind: 'tracks',
-					tracks: [
-						{key: 'en-j3PyPqV-e1s', auto: false},
-						{key: 'en-orig', auto: false}
-					]
-				},
-				mode: 'sidecar',
-				format: 'srt'
-			}
-		}
+		const job: PreparedJob = {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'm4a', bitrateKbps: 192}, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en-j3PyPqV-e1s', 'en-orig'], mode: 'sidecar', format: 'srt', writeAuto: false}}
 		const phases = phasesFor({url: 'https://www.youtube.com/watch?v=gJYZE9UXiHk', outputDir: '/tmp/out', job}).map(p => p.kind)
 		expect(phases.some(k => k.startsWith('video'))).toBe(true)
 		expect(phases).not.toContain('subtitle-only')
@@ -93,7 +75,7 @@ describe('phasesFor — video without audio', () => {
 		filenameTemplate: '{title}',
 		sponsorBlock: SB_OFF,
 		embed: EMBED_OFF,
-		subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'embed', format: 'srt'}
+		subtitles: {languages: ['en'], mode: 'embed', format: 'srt', writeAuto: false}
 	})
 	const input = (preparedJob: PreparedJob) => ({url: 'https://www.tiktok.com/@a/video/1', outputDir: '/out', job: preparedJob}) as Parameters<typeof phasesFor>[0]
 

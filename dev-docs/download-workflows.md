@@ -148,24 +148,20 @@ Five sources feed jobs, and which one applies depends on the path:
   `buildPlaylistQueueItem` (playlist/bulk, via
   `playlistSelectionToMediaIntent`), both from `prepareManualQueueSubmission`.
 
-A job carries a subtitle request, never resolved tracks (ADR 0016): a
-profile's, batch's or Quick Download's languages and subtitle source, or the
-tracks picked on the Format screen (`SubtitleRequest`,
-`src/shared/subtitleTracks.ts`). Both subtitle phases start with
-`resolveSubtitlePlan` (`src/main/services/phases/subtitleTracks.ts`), which
-plans the request with `planSubtitleTracks`, the rule the Format screen
-previews with, over the media run's or the probe's info-json. The `--sub-langs`
-entries, the write flags and the mux's language and title per file are read
-off that plan. Only on sites whose info-json lists every track
-(`probeListsSubtitleTracks`, YouTube); elsewhere, or with no info-json at hand,
-a languages request reaches yt-dlp as a pattern of its codes.
+Subtitle languages become exact track keys by one rule (`pickSubtitleTracks`,
+`src/shared/subtitleLanguages.ts`) on every path: the Format screen and a
+profile's single video at queueing time, from the probe; a playlist entry in
+the subtitle phase, from the media run's or the probe's info-json
+(`resolveSubtitleTracks`). yt-dlp gets them as exact `--sub-langs` entries.
+Only on sites whose probe lists every track (`probeListsSubtitleTracks`,
+YouTube); elsewhere a profile's codes reach yt-dlp as a pattern.
 
 Known duplication between the two:
 
 - Three QueueItem builders repeat the row literal, filename binding and
   `prepareJob` call.
 - Two converters into the same `MediaIntent` (`playlistSelectionToMediaIntent`,
-  `mediaIntentFromProfileMedia`).
+  `mediaIntentFromProfileMedia`); subtitle options built twice.
 - Media normalization in two places (`sanitizeJobOptions` vs
   `resolveDownloadProfile`); the playlist wizard path relies on `prepareJob`
   alone.

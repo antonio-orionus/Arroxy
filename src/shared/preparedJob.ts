@@ -5,7 +5,6 @@ import {z} from 'zod'
 import {SubtitleFormatSchema as subtitleFormatSchema, SubtitleModeSchema as subtitleModeSchema} from 'yt-dlp-bridge/schemas'
 import {audioConvertSchema, cookiesModeSchema, jobAuthSchema, mediaIntentSchema, sponsorBlockCategorySchema, webUrlSchema} from './schemas.js'
 import type {AudioConvert, MediaIntent, SponsorBlockCategory, SubtitleFormat, SubtitleMode} from './schemas.js'
-import {subtitleRequestSchema, type SubtitleRequest} from './subtitleTracks.js'
 
 export interface ExtractorIdentity {
 	// yt-dlp's IE_NAME for the extractor that produced this job — e.g. 'youtube',
@@ -17,12 +16,24 @@ export interface ExtractorIdentity {
 	extractorKey: string
 }
 
-// A job asks for subtitles by request, never by resolved tracks: its subtitle
-// phase plans the tracks from the video's own lists (see `planSubtitleTracks`).
 export interface SubtitleOptions {
-	request: SubtitleRequest
+	languages: string[]
 	mode: SubtitleMode
 	format: SubtitleFormat
+	writeAuto: boolean
+	// Request automatic captions only and skip manual tracks, so an "auto-only"
+	// source choice is honoured even when a manual track exists. Implies
+	// `writeAuto`; absent means manual tracks are requested as usual.
+	autoOnly?: boolean
+	// With `languagesAreCodes`: each language's automatic caption is picked
+	// beside its manual tracks, not only where they are missing (the
+	// `manual-and-auto` source). Implies `writeAuto`.
+	autoAlongsideManual?: true
+	// `languages` are a profile's or batch's language codes (`de`), not this
+	// video's track keys (`de-DE`, `en-orig`). Set until the video's subtitle
+	// maps are known: queueing resolves them from the probe, the subtitle phase
+	// from an info-json. Absent: exact track keys, as the Format screen sends.
+	languagesAreCodes?: true
 }
 
 export type SponsorBlockOptions = {mode: 'off'} | {mode: 'mark' | 'remove'; categories: SponsorBlockCategory[]}
@@ -54,7 +65,8 @@ export type PreparedJob =
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
 
-const subtitleOptionsSchema = z.object({request: subtitleRequestSchema, mode: subtitleModeSchema, format: subtitleFormatSchema})
+// `languagesAreCodes`: see `SubtitleOptions`.
+const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), autoAlongsideManual: z.literal(true).optional(), languagesAreCodes: z.literal(true).optional()})
 
 const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
 

@@ -249,10 +249,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Ağ hatası. Bağlantını kontrol edip tekrar dene."
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "Bu videoda istenen dillerde altyazı yok."
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Yeterli disk alanı yok. Yer açıp tekrar dene."

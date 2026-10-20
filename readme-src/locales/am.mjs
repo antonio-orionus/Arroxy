@@ -100,7 +100,6 @@ export const am = {
     "ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 8K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በExplore ትር **YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**",
   cta_latest: "↓ የቅርብ ጊዜ ስሪት አውርድ",
   cta_website: "ድር ጣቢያ",
-  website_url: "https://arroxy.com/",
   star_cta: "Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።",
   ai_notice: "",
   toc_heading: "ዝርዝር",

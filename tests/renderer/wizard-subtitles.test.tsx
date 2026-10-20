@@ -140,7 +140,7 @@ describe('Subtitles kind', () => {
 
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
 		expect(item.job.kind).toBe('subtitle-only')
-		expect(item.job.kind === 'subtitle-only' ? item.job.subtitles.request : undefined).toEqual({kind: 'tracks', tracks: [{key: 'en', auto: false}]})
+		expect(item.job.kind === 'subtitle-only' ? item.job.subtitles.languages : []).toEqual(['en'])
 	})
 })
 
@@ -203,16 +203,11 @@ describe('Wizard subtitle step — store behavior', () => {
 
 		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
 		expect(queue).toHaveLength(1)
-		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.request).toEqual({
-			kind: 'tracks',
-			tracks: [
-				{key: 'en', auto: false},
-				{key: 'es', auto: false}
-			]
-		})
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.languages).toEqual(['en', 'es'])
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.writeAuto).toBe(false)
 	})
 
-	it('buildQueueItem marks a selected lang that is auto-only as an automatic track', async () => {
+	it('buildQueueItem derives writeAutoSubs: true when a selected lang is auto-only', async () => {
 		window.appApi = buildMockApi() as never
 		await useAppStore.getState().initialize()
 
@@ -235,7 +230,7 @@ describe('Wizard subtitle step — store behavior', () => {
 		await useAppStore.getState().addToQueue()
 
 		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
-		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.request).toEqual({kind: 'tracks', tracks: [{key: 'de-orig', auto: true}]})
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.writeAuto).toBe(true)
 	})
 
 	it('wizardSubtitleMode defaults to sidecar and wizardSubtitleFormat to srt', () => {

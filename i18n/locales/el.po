@@ -249,10 +249,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Σφάλμα δικτύου. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά."
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "Αυτό το βίντεο δεν έχει υπότιτλους στις γλώσσες που ζητήθηκαν."
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Δεν υπάρχει αρκετός χώρος στο δίσκο. Ελευθέρωσε χώρο και δοκίμασε ξανά."

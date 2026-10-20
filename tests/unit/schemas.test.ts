@@ -20,26 +20,7 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	})
 
 	it('accepts subtitle-only job with languages', () => {
-		const result = startDownloadSchema.safeParse({
-			url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-			job: {
-				kind: 'subtitle-only',
-				...IDENTITY,
-				subtitles: {
-					request: {
-						kind: 'tracks',
-						tracks: [
-							{key: 'en', auto: false},
-							{key: 'en-US', auto: false},
-							{key: 'pt-BR', auto: false},
-							{key: 'en-orig', auto: false}
-						]
-					},
-					mode: 'sidecar',
-					format: 'srt'
-				}
-			}
-		})
+		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'subtitle-only', ...IDENTITY, subtitles: {languages: ['en', 'en-US', 'pt-BR', 'en-orig'], mode: 'sidecar', format: 'srt', writeAuto: false}}})
 		expect(result.success).toBe(true)
 	})
 

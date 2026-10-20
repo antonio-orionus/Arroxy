@@ -917,7 +917,6 @@
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",
 			"unsupportedUrl": "Arroxy bu URL ni qo'llab-quvvatlamaydi. Boshqa saytdan havola sinab ko'ring.",
-			"noSubtitles": "Bu videoda so'ralgan tillarda subtitr yo'q.",
 			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va Arroxy qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
 			"missingDependency": "Arroxy FFmpeg yoki FFprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
 			"postprocessFailure": "Yuklab olish tugadi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",

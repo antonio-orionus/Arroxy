@@ -7,16 +7,41 @@
 //
 // --base defaults to origin/main; pass the previous review's head to review only
 // the commits since. --light runs Codex alone (Claude still checks its findings),
-// for mechanical changes and fix rounds. Exits 1 when something in this change
-// must be fixed or decided (backlog entries alone do not count), 2 when a
-// reviewer failed and coverage is partial.
+// for mechanical changes and fix rounds.
+//
+// When Codex cannot run (usage limit, not logged in, not installed) it is
+// skipped and the report says so: --light then runs one whole-change Claude
+// reviewer, and every finding is checked in a second Claude pass instead of by
+// Codex. Exits 1 when something in this change must be fixed or decided
+// (backlog entries alone do not count), 2 when a reviewer failed, so coverage is
+// partial, or when no reviewer completed at all.
 
 import {spawn, spawnSync} from 'node:child_process'
 import {mkdir, readFile, writeFile} from 'node:fs/promises'
+import os from 'node:os'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
-import {needsAction, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveCandidates, reviewJsonSchema, toCandidates, verdictJsonSchema, verifierFor, type Candidate, type Engine, type OutputJsonSchema, type Verdict} from './core.js'
-import {CLAUDE_LANES, CODEX_LANE, reviewPrompt, verifyPrompt, type Lane, type ReviewScope} from './prompts.js'
+import {
+	classifyCodexFailure,
+	coverageSummary,
+	needsAction,
+	parseChangedRanges,
+	parseReviewOutput,
+	parseVerdicts,
+	renderReport,
+	resolveCandidates,
+	reviewJsonSchema,
+	toCandidates,
+	verdictJsonSchema,
+	verifierFor,
+	type Candidate,
+	type Checked,
+	type CodexUnavailability,
+	type Coverage,
+	type Engine,
+	type OutputJsonSchema
+} from './core.js'
+import {CLAUDE_LANES, WHOLE_CHANGE_LANE, reviewPrompt, verifyPrompt, type Lane, type ReviewScope} from './prompts.js'
 
 const TIMEOUT_MS = 30 * 60 * 1000
 const LEARNINGS_FILE = '.agents/memory/review-learnings.md'
@@ -34,6 +59,9 @@ function git(args: string[]): string {
 interface ProcessResult {
 	ok: boolean
 	stdout: string
+	stderr: string
+	// The spawn error code (ENOENT for a missing binary), when the process never started.
+	spawnCode: string | undefined
 	detail: string
 }
 
@@ -49,23 +77,40 @@ function runProcess(cmd: string, args: string[], logFile: string): Promise<Proce
 		child.stderr.setEncoding('utf8')
 		child.stdout.on('data', (chunk: string) => (stdout += chunk))
 		child.stderr.on('data', (chunk: string) => (stderr += chunk))
-		const finish = (ok: boolean, detail: string): void => {
+		let done = false
+		const finish = (ok: boolean, detail: string, spawnCode?: string): void => {
+			if (done) return
+			done = true
 			clearTimeout(timer)
-			void writeFile(logFile, `${stdout}\n--- stderr ---\n${stderr}`).finally(() => resolve({ok, stdout, detail}))
+			void writeFile(logFile, `${stdout}\n--- stderr ---\n${stderr}`).finally(() => resolve({ok, stdout, stderr, spawnCode, detail}))
 		}
-		child.on('error', err => finish(false, `could not start: ${err.message}`))
-		child.on('close', (code, signal) => finish(code === 0, code === 0 ? '' : `exited with ${code ?? signal}; see ${logFile}`))
+		child.on('error', err => finish(false, `could not start: ${err.message}`, 'code' in err && typeof err.code === 'string' ? err.code : undefined))
+		// Bun can report a failed spawn as `close` with the negated errno before (or
+		// without) the `error` event; node reports it as `error` only.
+		child.on('close', (code, signal) => finish(code === 0, code === 0 ? '' : `exited with ${code ?? signal}; see ${logFile}`, code !== null && code < 0 ? errnoName(-code) : undefined))
 	})
 }
 
+const errnoName = (errno: number): string | undefined => Object.entries(os.constants.errno).find(([, value]) => value === errno)?.[0]
+
 class AgentError extends Error {}
+
+// Codex cannot be used at all right now; not a reviewer failure, because Claude stands in.
+class CodexUnavailableError extends AgentError {
+	constructor(readonly unavailability: CodexUnavailability) {
+		super(`codex unavailable: ${unavailability.reason}: ${unavailability.detail}`)
+	}
+}
 
 async function runCodex(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<string> {
 	const schemaFile = path.join(outDir, `${name}.schema.json`)
 	const resultFile = path.join(outDir, `${name}.json`)
 	await writeFile(schemaFile, JSON.stringify(schema))
 	const result = await runProcess('codex', ['exec', '--sandbox', 'read-only', '--output-schema', schemaFile, '--output-last-message', resultFile, prompt], path.join(outDir, `${name}.log`))
-	if (!result.ok) throw new AgentError(`codex ${name} ${result.detail}`)
+	if (!result.ok) {
+		const unavailable = classifyCodexFailure(`${result.stderr}\n${result.stdout}`, result.spawnCode)
+		throw unavailable ? new CodexUnavailableError(unavailable) : new AgentError(`codex ${name} ${result.detail}`)
+	}
 	return readFile(resultFile, 'utf8')
 }
 
@@ -98,11 +143,15 @@ async function review(engine: Engine, lane: Lane, scope: ReviewScope, outDir: st
 	return toCandidates(engine, lane.id, findings)
 }
 
-async function verify(engine: Engine, reports: readonly Candidate[], scope: ReviewScope, outDir: string): Promise<Map<string, Verdict>> {
+// `author` is the tool that reported them; the same tool checking them is the
+// Codex-unavailable self-check.
+async function verify(engine: Engine, author: Engine, reports: readonly Candidate[], scope: ReviewScope, outDir: string): Promise<Map<string, Checked>> {
 	if (reports.length === 0) return new Map()
 	const ids = reports.map(r => r.id)
 	const payload = reports.map(r => ({id: r.id, title: r.title, body: r.body, file: r.file, lineStart: r.lineStart, lineEnd: r.lineEnd, severity: r.severity}))
-	return runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2)), verdictJsonSchema, outDir, `verify-${engine}`, value => parseVerdicts(value, ids))
+	const name = engine === author ? `verify-${engine}-self` : `verify-${engine}`
+	const verdicts = await runAgent(engine, verifyPrompt(scope, JSON.stringify(payload, null, 2), engine === author), verdictJsonSchema, outDir, name, value => parseVerdicts(value, ids))
+	return new Map([...verdicts].map(([id, verdict]) => [id, {verdict, by: engine}]))
 }
 
 // A missing learnings file is fine; any other read error must not silently
@@ -132,22 +181,57 @@ async function main(): Promise<number> {
 	const scope: ReviewScope = {mergeBase, head, commits: git(['log', '--format=- %h %s%n%w(0,2,2)%b', `${mergeBase}..HEAD`]), files, learnings: await readLearnings(repoRoot)}
 	const changed = parseChangedRanges(git(['-c', 'core.quotePath=false', 'diff', '-U0', '--no-color', '--no-ext-diff', `${mergeBase}...HEAD`]))
 
-	const reviewers: [Engine, Lane][] = [['codex', CODEX_LANE], ...(values.light ? [] : CLAUDE_LANES.map((lane): [Engine, Lane] => ['claude', lane]))]
-	console.error(`dual review: ${reviewers.map(([e, l]) => `${e}:${l.id}`).join(', ')} on ${mergeBase}..${head}; logs in ${outDir}`)
 	const failures: string[] = []
-	const reviews = await Promise.allSettled(reviewers.map(([engine, lane]) => review(engine, lane, scope, outDir, repoRoot)))
-	const all = reviews.flatMap(r => (r.status === 'fulfilled' ? r.value : (failures.push(describeError(r.reason)), [])))
+	const codex: {skipped: CodexUnavailability | null} = {skipped: null}
+	// A Codex call that finds Codex unusable ends its use for the rest of the run.
+	const noteSkip = (err: unknown): boolean => {
+		if (!(err instanceof CodexUnavailableError)) return false
+		codex.skipped ??= err.unavailability
+		return true
+	}
 
-	const byVerifier = (engine: Engine): Candidate[] => all.filter(c => verifierFor(c) === engine)
-	console.error(`dual review: ${all.length} findings; ${byVerifier('codex').length} go to Codex and ${byVerifier('claude').length} to Claude for checking`)
-	const checks = await Promise.allSettled((['codex', 'claude'] as const).map(engine => verify(engine, byVerifier(engine), scope, outDir)))
-	const verdicts = new Map(checks.flatMap(c => (c.status === 'fulfilled' ? [...c.value] : (failures.push(describeError(c.reason)), []))))
+	const ran: string[] = []
+	const runReviewers = async (reviewers: readonly (readonly [Engine, Lane])[]): Promise<Candidate[]> => {
+		console.error(`dual review: ${reviewers.map(([e, l]) => `${e}:${l.id}`).join(', ')} on ${mergeBase}..${head}; logs in ${outDir}`)
+		const settled = await Promise.allSettled(reviewers.map(([engine, lane]) => review(engine, lane, scope, outDir, repoRoot)))
+		return settled.flatMap((r, i) => {
+			if (r.status === 'fulfilled') return (ran.push(`${reviewers[i][0]}:${reviewers[i][1].id}`), r.value)
+			if (!noteSkip(r.reason)) failures.push(describeError(r.reason))
+			return []
+		})
+	}
 
-	const resolved = resolveCandidates(all, verdicts, changed)
-	const report = renderReport({base: mergeBase, head, resolved, failures})
+	const first: (readonly [Engine, Lane])[] = [['codex', WHOLE_CHANGE_LANE], ...(values.light ? [] : CLAUDE_LANES.map(lane => ['claude', lane] as const))]
+	const all = await runReviewers(first)
+	if (codex.skipped && values.light) {
+		console.error(`dual review: Codex is unavailable (${codex.skipped.reason}); a single Claude reviewer takes its place`)
+		all.push(...(await runReviewers([['claude', WHOLE_CHANGE_LANE]])))
+	}
+
+	const checks = new Map<string, Checked>()
+	const check = async (author: Engine, reports: readonly Candidate[]): Promise<void> => {
+		const engine = verifierFor(reports[0], codex.skipped === null)
+		try {
+			for (const [id, c] of await verify(engine, author, reports, scope, outDir)) checks.set(id, c)
+		} catch (err) {
+			// Codex ran out between the review and the check: Claude checks in its place.
+			if (engine === 'codex' && noteSkip(err)) return check(author, reports)
+			failures.push(describeError(err))
+		}
+	}
+	const byAuthor = (engine: Engine): Candidate[] => all.filter(c => c.engine === engine)
+	console.error(`dual review: ${all.length} findings; ${byAuthor('claude').length} by Claude and ${byAuthor('codex').length} by Codex go to checking`)
+	await Promise.all((['claude', 'codex'] as const).filter(author => byAuthor(author).length > 0).map(author => check(author, byAuthor(author))))
+
+	const coverage: Coverage = {reviewers: ran, verifiers: [...new Set([...checks.values()].map(c => c.by))], codexSkipped: codex.skipped}
+	if (ran.length === 0 && failures.length === 0) failures.push('no reviewer completed')
+
+	const resolved = resolveCandidates(all, checks, changed)
+	const report = renderReport({base: mergeBase, head, resolved, failures, coverage})
 	await writeFile(path.join(outDir, 'report.md'), report)
-	await writeFile(path.join(outDir, 'report.json'), JSON.stringify({base: mergeBase, head, failures, resolved}, null, '\t'))
+	await writeFile(path.join(outDir, 'report.json'), JSON.stringify({base: mergeBase, head, failures, coverage, resolved}, null, '\t'))
 	console.log(report)
+	console.error(`dual review: ${coverageSummary(coverage)}`)
 	console.error(`dual review: report at ${path.join(outDir, 'report.md')}`)
 	if (failures.length > 0) return 2
 	return needsAction(resolved) ? 1 : 0

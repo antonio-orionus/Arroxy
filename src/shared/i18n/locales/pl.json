@@ -974,7 +974,6 @@
 			"outOfDiskSpace": "Za mało miejsca na dysku. Zwolnij miejsce i spróbuj ponownie.",
 			"outputNotWritable": "Arroxy nie może zapisywać w folderze pobierania. Folder może być tylko do odczytu, znajdować się na zablokowanym dysku lub być zablokowany przez ustawienia prywatności systemu. Wybierz inny folder lub zezwól na dostęp, a potem spróbuj ponownie.",
 			"unsupportedUrl": "Arroxy nie obsługuje tego adresu URL. Spróbuj linku z innej witryny.",
-			"noSubtitles": "Ten film nie ma napisów w żądanych językach.",
 			"chunkTransferFailure": "Serwer wielokrotnie przerywał pobieranie w połowie i Arroxy zrezygnował po kolejnych próbach. Zwykle dotyczy to największych formatów wideo (4K HDR / VP9 o wysokiej przepływności). Spróbuj ponownie, zmień sieć/VPN albo wybierz format o niższej rozdzielczości.",
 			"missingDependency": "Arroxy nie znalazł FFmpeg ani FFprobe. Uruchom konfigurację ponownie albo ustaw lokalizację FFmpeg i spróbuj pobrać jeszcze raz.",
 			"postprocessFailure": "Pobieranie zakończyło się, ale przetwarzanie końcowe (łączenie/multipleksowanie/konwersja) nie powiodło się. Często jest to przejściowy problem z ffmpeg — spróbuj ponownie, a jeśli problem się powtarza, wybierz inną kombinację formatów.",

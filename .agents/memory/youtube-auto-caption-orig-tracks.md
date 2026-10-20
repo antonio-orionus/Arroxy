@@ -47,16 +47,16 @@ gate applies only to translations of *manual* tracks (`trans_code-<lang>` keys);
 every ASR caption track still yields a bare-key `tlang` entry per translation
 language. A `--sub-langs` pattern cannot tell them apart either: a bare `en` is a
 manual track, an identical ASR twin, or a translation, depending on the video.
-So Arroxy picks exact track keys itself (`planSubtitleTracks`, the Format
+So Arroxy picks exact track keys itself (`pickSubtitleTracks`, the Format
 screen's rule) and sends them as `(?-i:<escaped key>)`, an `-orig` pick by its
 bare twin's key (same URL; keeps `….en.srt` and the `en` track tag) on every path,
-hand-picked or profile (a planned track's `requestKey`). It keeps `-orig` only when the job fetches
+hand-picked or profile (`subtitleRequestKeys`). It keeps `-orig` only when the job fetches
 manual tracks and the video has one under the bare key, since yt-dlp fills a key manual
 first; embedding then tags it with the base language and titles it "Auto-generated"
 (ffmpeg writes `en-orig` verbatim, an invalid ISO 639-2 code players show raw). The
-`manual-and-auto` subtitle source picks both tracks (ADR 0014). A job carries its
-subtitle request; the subtitle phase plans it from the media run's or probe's
-info-json (`resolveSubtitlePlan`, ADR 0016). That needs maps that
+`manual-and-auto` subtitle source picks both tracks (ADR 0014). Queueing resolves a
+single video's profile codes from the probe, the subtitle phase resolves a
+playlist entry's from the media run's or probe's info-json. That needs maps that
 list every track, so it runs only where the site adapter sets
 `probeListsSubtitleTracks` (YouTube): extractors using yt-dlp's lazy
 `extract_subtitles` (Vimeo, TikTok, Bilibili, Niconico, PeerTube…) return empty
@@ -66,9 +66,10 @@ playlist entry), still send the code pattern.
 
 ## Subtitle source → yt-dlp flags
 
-A plan with only automatic captions (an `auto-only` source, or captions picked
-alone) makes the bridge drop `--write-subs` and keep `--write-auto-subs`. yt-dlp's `process_subtitles` merges manual first and lets
+`SubtitleOptions.autoOnly` (set from the `auto-only` source by
+`subtitleSourceOptions`) makes the bridge drop `--write-subs` and keep
+`--write-auto-subs`. yt-dlp's `process_subtitles` merges manual first and lets
 automatic captions fill only languages without a manual track, so without
-that an "auto-only" choice is indistinguishable from manual-first. yt-dlp
+`autoOnly` an "auto-only" choice is indistinguishable from manual-first. yt-dlp
 fullmatches each `--sub-langs` entry with `re.I` (`orderedSet_from_options`), so
 exact keys need the scoped `(?-i:…)` group to stay exact.

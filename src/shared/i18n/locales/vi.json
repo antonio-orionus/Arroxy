@@ -859,7 +859,6 @@
 			"outOfDiskSpace": "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại.",
 			"outputNotWritable": "Arroxy không thể ghi vào thư mục tải xuống. Thư mục có thể chỉ cho phép đọc, nằm trên ổ đĩa bị khóa, hoặc bị chặn bởi cài đặt quyền riêng tư của hệ thống. Hãy chọn thư mục khác hoặc cho phép truy cập rồi thử lại.",
 			"unsupportedUrl": "Arroxy không hỗ trợ URL này. Hãy thử liên kết từ một trang web khác.",
-			"noSubtitles": "Video này không có phụ đề bằng các ngôn ngữ đã yêu cầu.",
 			"chunkTransferFailure": "Máy chủ liên tục ngắt kết nối giữa chừng và Arroxy đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn.",
 			"missingDependency": "Arroxy không tìm thấy FFmpeg hoặc FFprobe. Hãy chạy lại thiết lập hoặc chọn vị trí FFmpeg, rồi thử tải lại.",
 			"postprocessFailure": "Đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác.",

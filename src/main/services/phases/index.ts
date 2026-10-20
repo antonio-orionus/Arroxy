@@ -1,6 +1,5 @@
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
-import {requestFetchesAuto} from '@shared/subtitleTracks.js'
 import {VideoPhase} from './VideoPhase.js'
 import {SubtitleOnlyPhase} from './SubtitleOnlyPhase.js'
 import {SidecarSubsPhase} from './SidecarSubsPhase.js'
@@ -21,7 +20,7 @@ export function strategyFor(job: PreparedJob): StrategyKind {
 		case 'ranged-format': {
 			const subs = job.subtitles
 			if (!subs) return 'video'
-			if (subs.mode === 'embed' && requestFetchesAuto(subs.request)) return 'video+embed+auto'
+			if (subs.mode === 'embed' && subs.writeAuto) return 'video+embed+auto'
 			if (subs.mode === 'embed') return 'video+embed'
 			return 'video+sidecar'
 		}

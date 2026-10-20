@@ -42,7 +42,9 @@ bun run review:dual                 # behaviour changes: Codex + four Claude lan
 bun run review:dual --light         # mechanical or behaviour-free changes: Codex, checked by Claude
 ```
 
-It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions and uses no API keys. Exit 0 means nothing to fix or decide in this change (backlog entries may still be listed), 1 means something to fix or decide, 2 means a reviewer failed (say so: coverage is partial). Read `report.md` from the path it prints:
+It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions and uses no API keys. Exit 0 means nothing to fix or decide in this change (backlog entries may still be listed), 1 means something to fix or decide, 2 means a reviewer failed (say so: coverage is partial) or none completed. Read `report.md` from the path it prints:
+
+**Codex unavailable** (usage limit, not logged in, not installed): the tool detects it, skips Codex and says so in the report's `Review coverage` line; do not improvise a workaround. `--light` then runs one whole-change Claude reviewer; full mode keeps its four Claude lanes; either way a second Claude pass, not Codex, checks every finding. That is a weaker cross-check (same model, shared blind spots), so quote the `Review coverage` line in the PR's "Review" line, and treat an "uncertain" verdict as a reason to read the code yourself. Exit 2 with "No reviewer completed" means the change was not reviewed at all: fix the cause and re-run, never open the PR as if it had been.
 
 - **Fix in this change:** fix each one test-first, as in phase 3. You are still the judge: if a confirmed finding is wrong, say why and record it (below).
 - **Uncertain:** read the code and decide; fix or treat as refuted.

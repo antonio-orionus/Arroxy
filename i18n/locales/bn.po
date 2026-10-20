@@ -249,10 +249,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।"
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "এই ভিডিওতে অনুরোধ করা ভাষাগুলোতে কোনো সাবটাইটেল নেই।"
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "পর্যাপ্ত ডিস্ক স্পেস নেই। জায়গা খালি করে আবার চেষ্টা করুন।"

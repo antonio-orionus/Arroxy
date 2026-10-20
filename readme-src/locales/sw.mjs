@@ -99,7 +99,6 @@ export const sw = {
     "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
-  website_url: "https://arroxy.com/",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
   ai_notice: "",
   toc_heading: "Yaliyomo",

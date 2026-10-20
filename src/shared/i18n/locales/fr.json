@@ -938,7 +938,6 @@
 			"outOfDiskSpace": "Espace disque insuffisant. Libère de l'espace et réessaie.",
 			"outputNotWritable": "Arroxy ne peut pas écrire dans le dossier de téléchargement. Il est peut-être en lecture seule, sur un lecteur verrouillé ou bloqué par les réglages de confidentialité de ton système. Choisis un autre dossier ou autorise l'accès, puis réessaie.",
 			"unsupportedUrl": "Arroxy ne prend pas en charge cette URL. Essaie un lien d'un autre site.",
-			"noSubtitles": "Cette vidéo n'a pas de sous-titres dans les langues demandées.",
 			"chunkTransferFailure": "Le serveur a interrompu le téléchargement en cours de route à plusieurs reprises et Arroxy a abandonné après plusieurs tentatives. Cela touche généralement les formats vidéo les plus lourds (4K HDR / VP9 haut débit). Réessaie, change de réseau/VPN ou sélectionne un format de résolution inférieure.",
 			"missingDependency": "Arroxy n'a pas trouvé FFmpeg ni FFprobe. Relancez la configuration ou définissez un emplacement FFmpeg, puis relancez le téléchargement.",
 			"postprocessFailure": "Le téléchargement est terminé, mais le post-traitement (fusion / mux / conversion) a échoué. C’est souvent un souci ffmpeg passager — réessaie, et si ça persiste, essaie une autre combinaison de formats.",

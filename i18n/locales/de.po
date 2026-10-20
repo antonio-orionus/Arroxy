@@ -249,10 +249,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut."
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "Dieses Video hat keine Untertitel in den angeforderten Sprachen."
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut."

@@ -99,7 +99,6 @@ export const uz = {
     "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
-  website_url: "https://arroxy.com/",
   star_cta:
     "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
   ai_notice: "",

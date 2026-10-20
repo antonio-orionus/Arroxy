@@ -3,6 +3,7 @@ import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
+import {subtitleSourceOptions} from './subtitleLanguages.js'
 import {canHoldEmbeddedThumbnail} from './thumbnailEmbed.js'
 
 export interface MediaIntentSpec {
@@ -75,7 +76,7 @@ export function playlistSelectionProducesVideo(selection: PlaylistSelection): bo
 }
 
 export function playlistSubtitleOptions(selection: PlaylistSubtitleSelection): SubtitleOptions {
-	return {request: {kind: 'languages', languages: [...selection.languages], source: selection.source}, mode: selection.mode, format: selection.format}
+	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, ...subtitleSourceOptions(selection.source), languagesAreCodes: true}
 }
 
 export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaIntent | null {

@@ -100,7 +100,6 @@ export const vi = {
     "Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**",
   cta_latest: "↓ Tải phiên bản mới nhất",
   cta_website: "Trang web",
-  website_url: "https://arroxy.com/",
   star_cta:
     "Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.",
   ai_notice: "",

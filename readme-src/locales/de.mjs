@@ -99,7 +99,6 @@ export const de = {
     "Lade Videos, Shorts, Musik, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 8K HDR mit 60 fps, als MP3 / AAC / Opus oder nur den Teil, den du brauchst. **Durchstöbere YouTube oder jede andere Seite direkt in Arroxy** im Explore-Tab und lade das Video, die Playlist oder den Kanal herunter, den du gerade ansiehst; melde dich dort an, um private, Mitglieder- und altersbeschränkte Videos zu laden, die dein Konto ansehen darf. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**",
   cta_latest: "↓ Neueste Version herunterladen",
   cta_website: "Webseite",
-  website_url: "https://arroxy.com/de/",
   star_cta: "Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.",
   ai_notice:
     "> 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).",

@@ -16,7 +16,8 @@ export interface Lane {
 }
 
 // Claude reviews in narrow lanes, Codex reviews the whole change at once, so the
-// two tools find bugs from different angles. Security is out of scope by the
+// two tools find bugs from different angles. When Codex is unavailable, a light
+// run puts the whole-change lane on Claude instead. Security is out of scope by the
 // owner's choice: Arroxy is a desktop app and the tokens are better spent here.
 export const CLAUDE_LANES: readonly Lane[] = [
 	{
@@ -53,7 +54,7 @@ Quote the rule a finding rests on.`
 	}
 ]
 
-export const CODEX_LANE: Lane = {
+export const WHOLE_CHANGE_LANE: Lane = {
 	id: 'review',
 	focus: `The whole change: correctness, regressions, broken contracts between callers and callees, races and cleanup, silent failures, type-safety holes at trust boundaries, breaches of the repository's documented rules (AGENTS.md at the root and in changed folders, GLOSSARY.md, DESIGN.md), and behaviour changes that have no test.`
 }
@@ -104,8 +105,12 @@ ${SHARED_RULES}${learningsBlock(scope.learnings)}
 Return JSON matching the provided schema.`
 }
 
-export function verifyPrompt(scope: ReviewScope, findingsJson: string): string {
-	return `Another reviewer found the defects below in a code change in Arroxy, an Electron desktop app. Your job is to check each one independently against the code. You are read-only: do not edit files, stage, commit or run anything that changes the workspace.
+// `selfCheck`: the findings came from an earlier Claude pass, because Codex is
+// unavailable. The same model shares the first pass's blind spots, so the prompt
+// tells the checker not to inherit its reasoning.
+export function verifyPrompt(scope: ReviewScope, findingsJson: string, selfCheck: boolean): string {
+	const author = selfCheck ? 'An earlier pass by the same model as you (so it may share your blind spots; do not trust its reasoning, re-derive each claim from the code yourself)' : 'Another reviewer'
+	return `${author} found the defects below in a code change in Arroxy, an Electron desktop app. Your job is to check each one independently against the code. You are read-only: do not edit files, stage, commit or run anything that changes the workspace.
 
 ${scopeBlock(scope)}
 

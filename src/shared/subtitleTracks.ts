@@ -4,33 +4,22 @@
 // video's subtitle maps names the exact tracks, and everything yt-dlp is told
 // (the flags, the request keys) is read off the plan.
 
-import {z} from 'zod'
-import {downloadProfileSubtitleSourceSchema, type DownloadProfileSubtitleSource} from './schemas.js'
+import type {DownloadProfileSubtitleSource} from './schemas.js'
+import type {SubtitleMap} from './types.js'
+
+export type SubtitleRequest = {kind: 'languages'; languages: readonly string[]; source: DownloadProfileSubtitleSource} | {kind: 'tracks'; tracks: readonly PickedTrack[]}
 
 // A track picked on the Format screen, by its key in the video's maps.
-const pickedTrackSchema = z.object({key: z.string().min(1), auto: z.boolean()})
-export type PickedTrack = z.infer<typeof pickedTrackSchema>
-
-export const subtitleRequestSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('languages'), languages: z.array(z.string().min(1)), source: downloadProfileSubtitleSourceSchema}), z.object({kind: z.literal('tracks'), tracks: z.array(pickedTrackSchema)})])
-export type SubtitleRequest = z.infer<typeof subtitleRequestSchema>
-
-// What a request names: its language codes, or the keys of its tracks.
-export function requestedSubtitles(request: SubtitleRequest): string[] {
-	return request.kind === 'languages' ? [...request.languages] : request.tracks.map(track => track.key)
+export interface PickedTrack {
+	key: string
+	auto: boolean
 }
 
-// Whether a request can fetch an automatic caption.
-export function requestFetchesAuto(request: SubtitleRequest): boolean {
-	return request.kind === 'languages' ? request.source !== 'manual-only' : request.tracks.some(track => track.auto)
-}
-
-// A video's subtitle maps by track key; planning reads only the keys. Sanitized
-// (see `sanitizeSubtitleMap`): on YouTube, machine translations are never
-// candidates.
-type TrackMap = Readonly<Record<string, unknown>>
+// Sanitized maps (see `sanitizeSubtitleMap`): on YouTube, machine translations
+// are never candidates.
 export interface SubtitleMaps {
-	subtitles: TrackMap
-	automaticCaptions: TrackMap
+	subtitles: SubtitleMap
+	automaticCaptions: SubtitleMap
 }
 
 export interface PlannedTrack {
@@ -71,7 +60,7 @@ export function baseLanguage(trackKey: string): string {
 	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
 }
 
-function matchingKeys(code: string, map: TrackMap): string[] {
+function matchingKeys(code: string, map: SubtitleMap): string[] {
 	return Object.keys(map).filter(key => matchesSubtitleLanguage(code, baseLanguage(key)))
 }
 
@@ -107,7 +96,7 @@ function pickLanguages(languages: readonly string[], source: DownloadProfileSubt
 // job fetches manual tracks and the video has one under the bare key: yt-dlp
 // fills a key with the manual track first, so the bare key would fetch that
 // one instead of the caption.
-function requestKeyFor(key: string, opts: {subtitles: TrackMap; fetchesManual: boolean}): string {
+function requestKeyFor(key: string, opts: {subtitles: SubtitleMap; fetchesManual: boolean}): string {
 	const bare = baseLanguage(key)
 	return bare !== key && (!opts.fetchesManual || !Object.hasOwn(opts.subtitles, bare)) ? bare : key
 }
@@ -123,11 +112,6 @@ export function planSubtitleTracks(request: SubtitleRequest, maps: SubtitleMaps)
 // track, `--write-auto-subs` for an automatic caption.
 export function subtitleFetchFlags(plan: SubtitlePlan): {manual: boolean; auto: boolean} {
 	return {manual: plan.tracks.some(track => !track.auto), auto: plan.tracks.some(track => track.auto)}
-}
-
-// The flags a subtitle source needs when no plan could be made.
-export function sourceFetchFlags(source: DownloadProfileSubtitleSource): {manual: boolean; auto: boolean} {
-	return {manual: source !== 'auto-only', auto: source !== 'manual-only'}
 }
 
 // The map yt-dlp's `process_subtitles` takes a requested key from: the manual

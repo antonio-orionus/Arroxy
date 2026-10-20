@@ -5,7 +5,6 @@ import type {DownloadProfile, PlaylistEntry, PlaylistSelection} from '@shared/ty
 import {notify} from '@renderer/lib/notify.js'
 import {hostPlatform} from '@renderer/lib/platform.js'
 import type {AppState} from '../types.js'
-import {requestedSubtitles} from '@shared/subtitleTracks.js'
 
 /**
  * Effective Arroxy filename template for a job: profile override > global >
@@ -96,7 +95,7 @@ export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata
  * format ids stay unknown until yt-dlp runs.
  */
 export function profileInFlight(resolved: ResolvedDownloadProfile, probed: readonly InFlightFormat[]): InFlightFiles {
-	return {formats: resolved.isSubtitleOnly ? [] : requestedFormats(undefined, probed), subtitleLanguages: resolved.subtitles ? requestedSubtitles(resolved.subtitles.request) : []}
+	return {formats: resolved.isSubtitleOnly ? [] : requestedFormats(undefined, probed), subtitleLanguages: resolved.subtitles?.languages ?? []}
 }
 
 /** What a playlist batch has yt-dlp write for each entry. */

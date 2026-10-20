@@ -244,10 +244,6 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Lỗi mạng. Hãy kiểm tra kết nối và thử lại."
 
-msgctxt "errors.ytdlp.noSubtitles"
-msgid "This video has no subtitles in the requested languages."
-msgstr "Video này không có phụ đề bằng các ngôn ngữ đã yêu cầu."
-
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại."
