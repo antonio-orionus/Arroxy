@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "ច្បាស់បំផុតក្នុងទំហំដូចគ្នា"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264 បន្ទាប់មក VP9 បន្ទាប់មក AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "កូឌិករបស់ប្រវត្តិរូបនេះ"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9 បន្ទាប់មក H.264 បន្ទាប់មក AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "កូឌិករបស់ប្រវត្តិរូបនេះ"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "អត្រាស៊ុមខ្ពស់បំផុត"
@@ -1950,6 +1966,30 @@ msgstr "{{count}} ជំពូក"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "កំពុងផ្ទុក…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "ស្វ័យប្រវត្តិ"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "កូឌិកណាដែលត្រូវជ្រើសមុនក្នុងចំណោមស្ទ្រីមដែលមានកម្ពស់ដូចគ្នា។ ស្វ័យប្រវត្តិ ជ្រើស AV1 ដែលតូចជាងគេ; H.264 ចាក់បានលើទូរទស្សន៍ និងទូរស័ព្ទចាស់ៗ។"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 មុន"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "កូឌិកវីដេអូ"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV ជ្រើស H.264 ជានិច្ច។"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 មុន"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

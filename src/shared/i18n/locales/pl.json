@@ -1143,6 +1143,8 @@
 			"source": {"label": "Najpierw strumienie o wyższej przepływności", "reason": "więcej szczegółów przy tej samej rozdzielczości"},
 			"protocol": {"label": "Pobrania bezpośrednie przed kopiami strumieniowymi", "reason": "ten sam obraz, pobierany szybciej"},
 			"codec": {"label": "AV1, potem VP9, potem H.264", "reason": "najostrzejszy przy danym rozmiarze"},
+			"codecVp9First": {"label": "VP9, potem H.264, potem AV1", "reason": "kodek tego profilu"},
+			"codecH264First": {"label": "H.264, potem VP9, potem AV1", "reason": "kodek tego profilu"},
 			"size": {"label": "Większy plik", "reason": "więcej szczegółów przy tych samych ustawieniach"},
 			"aacSmartTv": {"label": "Dźwięk AAC", "reason": "działa wszędzie"},
 			"aacFileType": {"label": "Dźwięk AAC", "reason": "pasuje do odtwarzaczy MP4"},
@@ -1156,5 +1158,13 @@
 		"summary": {"goal": {"bestPicture": "najlepszy obraz", "smartTv": "działa na każdym urządzeniu"}, "fileType": {"auto": "typ pliku ze strumieni", "explicit": "zapis jako .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Strumienie przeskalowane przez AI", "description": "YouTube oferuje niektóre stare filmy w rozmiarach wygenerowanych przez AI. „Pomiń” zachowuje oryginalne strumienie; nadal możesz ręcznie wybrać przeskalowany.", "skip": "Pomiń", "allow": "Zezwól"},
+	"videoCodec": {
+		"label": "Kodek wideo",
+		"description": "Który kodek wybrać w pierwszej kolejności spośród strumieni o tej samej wysokości. Automatycznie wybiera AV1, najmniejszy; H.264 działa na starszych telewizorach i telefonach.",
+		"smartTv": "Smart TV zawsze wybiera H.264.",
+		"auto": "Automatycznie",
+		"vp9": "Najpierw VP9",
+		"h264": "Najpierw H.264"
+	},
 	"hdrPreference": {"label": "Wideo HDR", "description": "Automatycznie wybiera HDR, jeśli ten ekran potrafi go wyświetlić, a w przeciwnym razie SDR. HDR wygląda blado na zwykłych ekranach.", "sdr": "SDR", "hdr": "HDR", "auto": "Automatycznie"}
 }

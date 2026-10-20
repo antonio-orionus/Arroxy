@@ -1034,6 +1034,8 @@
 			"source": {"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza", "reason": "maelezo zaidi kwa azimio lilelile"},
 			"protocol": {"label": "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko", "reason": "picha ileile, inapakuliwa haraka zaidi"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
+			"codecVp9First": {"label": "VP9, kisha H.264, kisha AV1", "reason": "kodeki ya wasifu huu"},
+			"codecH264First": {"label": "H.264, kisha VP9, kisha AV1", "reason": "kodeki ya wasifu huu"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
 			"aacFileType": {"label": "Sauti ya AAC", "reason": "inafaa vichezaji vya MP4"},
@@ -1047,5 +1049,13 @@
 		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Mikondo iliyokuzwa kwa AI", "description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.", "skip": "Ruka", "allow": "Ruhusu"},
+	"videoCodec": {
+		"label": "Kodeki ya video",
+		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huchukua AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
+		"smartTv": "Runinga janja huchukua H.264 kila wakati.",
+		"auto": "Otomatiki",
+		"vp9": "VP9 kwanza",
+		"h264": "H.264 kwanza"
+	},
 	"hdrPreference": {"label": "Video ya HDR", "description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatiki"}
 }

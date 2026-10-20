@@ -1083,6 +1083,8 @@
 			"source": {"label": "Prima i flussi a bitrate migliorato", "reason": "più dettaglio con la stessa risoluzione"},
 			"protocol": {"label": "Download diretti prima delle copie in streaming", "reason": "la stessa immagine, scaricata più velocemente"},
 			"codec": {"label": "AV1, poi VP9, poi H.264", "reason": "più nitido a parità di dimensioni"},
+			"codecVp9First": {"label": "VP9, poi H.264, poi AV1", "reason": "codec di questo profilo"},
+			"codecH264First": {"label": "H.264, poi VP9, poi AV1", "reason": "codec di questo profilo"},
 			"size": {"label": "File più grande", "reason": "più dettaglio con le stesse impostazioni"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "si riproduce ovunque"},
 			"aacFileType": {"label": "Audio AAC", "reason": "adatto ai lettori MP4"},
@@ -1096,5 +1098,13 @@
 		"summary": {"goal": {"bestPicture": "migliore immagine", "smartTv": "si riproduce su ogni dispositivo"}, "fileType": {"auto": "tipo di file dai flussi", "explicit": "salva come .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Stream ingranditi con IA", "description": "YouTube offre alcuni vecchi video in dimensioni create con l'IA. “Salta” mantiene gli stream originali; puoi comunque sceglierne uno ingrandito a mano.", "skip": "Salta", "allow": "Consenti"},
+	"videoCodec": {
+		"label": "Codec video",
+		"description": "Quale codec scegliere per primo tra i flussi della stessa altezza. Automatico sceglie AV1, il più leggero; H.264 si riproduce su TV e telefoni meno recenti.",
+		"smartTv": "Smart TV sceglie sempre H.264.",
+		"auto": "Automatico",
+		"vp9": "Prima VP9",
+		"h264": "Prima H.264"
+	},
 	"hdrPreference": {"label": "Video HDR", "description": "Automatico sceglie HDR se questo schermo può mostrarlo, altrimenti SDR. L'HDR appare sbiadito sugli schermi normali.", "sdr": "SDR", "hdr": "HDR", "auto": "Automatico"}
 }

@@ -1027,6 +1027,8 @@
 			"source": {"label": "Gelişmiş bit hızlı akışlar önce", "reason": "aynı çözünürlükte daha fazla ayrıntı"},
 			"protocol": {"label": "Doğrudan indirmeler akış kopyalarından önce", "reason": "aynı görüntü, daha hızlı iner"},
 			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
+			"codecVp9First": {"label": "VP9, sonra H.264, sonra AV1", "reason": "bu profilin kodeği"},
+			"codecH264First": {"label": "H.264, sonra VP9, sonra AV1", "reason": "bu profilin kodeği"},
 			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
 			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},
 			"aacFileType": {"label": "AAC ses", "reason": "MP4 oynatıcılara uyar"},
@@ -1040,5 +1042,6 @@
 		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
 	},
 	"aiUpscaled": {"label": "YZ ile büyütülmüş akışlar", "description": "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz.", "skip": "Atla", "allow": "İzin ver"},
+	"videoCodec": {"label": "Video kodeği", "description": "Aynı yükseklikteki akışlar arasında önce hangi kodeğin alınacağı. Otomatik, en küçük olan AV1'i alır; H.264 eski TV'lerde ve telefonlarda oynatılır.", "smartTv": "Akıllı TV her zaman H.264 alır.", "auto": "Otomatik", "vp9": "Önce VP9", "h264": "Önce H.264"},
 	"hdrPreference": {"label": "HDR video", "description": "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatik"}
 }

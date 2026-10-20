@@ -1088,6 +1088,8 @@
 			"source": {"label": "Primero los streams con tasa de bits mejorada", "reason": "más detalle con la misma resolución"},
 			"protocol": {"label": "Descargas directas antes que copias en streaming", "reason": "la misma imagen, descarga más rápida"},
 			"codec": {"label": "AV1, luego VP9, luego H.264", "reason": "más nítido al mismo tamaño"},
+			"codecVp9First": {"label": "VP9, luego H.264, luego AV1", "reason": "el códec de este perfil"},
+			"codecH264First": {"label": "H.264, luego VP9, luego AV1", "reason": "el códec de este perfil"},
 			"size": {"label": "Archivo más grande", "reason": "más detalle con los mismos ajustes"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "se reproduce en todas partes"},
 			"aacFileType": {"label": "Audio AAC", "reason": "apto para reproductores MP4"},
@@ -1101,5 +1103,13 @@
 		"summary": {"goal": {"bestPicture": "mejor imagen", "smartTv": "se reproduce en cualquier dispositivo"}, "fileType": {"auto": "tipo de archivo según los flujos", "explicit": "se guarda como .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Streams reescalados con IA", "description": "YouTube ofrece algunos vídeos antiguos en tamaños creados con IA. «Omitir» conserva los streams originales; aun así puedes elegir uno reescalado a mano.", "skip": "Omitir", "allow": "Permitir"},
+	"videoCodec": {
+		"label": "Códec de vídeo",
+		"description": "Qué códec elegir primero entre streams de la misma altura. Auto elige AV1, el más pequeño; H.264 se reproduce en televisores y teléfonos más antiguos.",
+		"smartTv": "TV inteligente siempre elige H.264.",
+		"auto": "Auto",
+		"vp9": "VP9 primero",
+		"h264": "H.264 primero"
+	},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Auto elige HDR si esta pantalla puede mostrarlo y, si no, SDR. El HDR se ve apagado en pantallas normales.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

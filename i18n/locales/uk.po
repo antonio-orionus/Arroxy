@@ -1571,6 +1571,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "найчіткіше за того самого розміру"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, потім VP9, потім AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "кодек цього профілю"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, потім H.264, потім AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "кодек цього профілю"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Найвища частота кадрів"
@@ -2130,6 +2146,30 @@ msgstr "{{count}} розділів"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Завантаження…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Авто"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Який кодек брати першим серед потоків однакової висоти. Авто бере AV1, найменший; H.264 відтворюється на старіших телевізорах і телефонах."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Спершу H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Відеокодек"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Смарт-ТВ завжди бере H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Спершу VP9"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

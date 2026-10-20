@@ -1002,6 +1002,8 @@
 			"source": {"label": "Enhanced-bitrate streams first", "reason": "more detail at the same resolution"},
 			"protocol": {"label": "Direct downloads before streamed copies", "reason": "the same picture, downloaded faster"},
 			"codec": {"label": "AV1, then VP9, then H.264", "reason": "sharpest at a given size"},
+			"codecVp9First": {"label": "VP9, then H.264, then AV1", "reason": "this profile's codec"},
+			"codecH264First": {"label": "H.264, then VP9, then AV1", "reason": "this profile's codec"},
 			"size": {"label": "Larger file", "reason": "more detail at the same settings"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "plays everywhere"},
 			"aacFileType": {"label": "AAC audio", "reason": "fits MP4 players"},
@@ -1015,5 +1017,6 @@
 		"summary": {"goal": {"bestPicture": "best picture", "smartTv": "plays on any device"}, "fileType": {"auto": "file type from the streams", "explicit": "saves as .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "AI-upscaled streams", "description": "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand.", "skip": "Skip", "allow": "Allow"},
+	"videoCodec": {"label": "Video codec", "description": "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones.", "smartTv": "Smart TV always takes H.264.", "auto": "Auto", "vp9": "VP9 first", "h264": "H.264 first"},
 	"hdrPreference": {"label": "HDR video", "description": "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

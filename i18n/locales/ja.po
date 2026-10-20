@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "同じサイズで最も鮮明"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264、次に VP9、次に AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "このプロフィールのコーデック"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9、次に H.264、次に AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "このプロフィールのコーデック"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "最高フレームレート"
@@ -1950,6 +1966,30 @@ msgstr "{{count}} チャプター"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "読み込み中…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "自動"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "同じ高さのストリームのうち、最初に選ぶコーデックです。自動では最小の AV1 を選び、H.264 は古いテレビやスマホでも再生できます。"
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 を優先"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "動画コーデック"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "スマートTVでは常に H.264 を選びます。"
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 を優先"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

@@ -1077,6 +1077,8 @@
 			"source": {"label": "Primeiro os fluxos com taxa de bits aprimorada", "reason": "mais detalhes com a mesma resolução"},
 			"protocol": {"label": "Primeiro os downloads diretos, depois as cópias em fluxo", "reason": "a mesma imagem, baixada mais rápido"},
 			"codec": {"label": "AV1, depois VP9, depois H.264", "reason": "mais nítido no mesmo tamanho"},
+			"codecVp9First": {"label": "VP9, depois H.264, depois AV1", "reason": "codec deste perfil"},
+			"codecH264First": {"label": "H.264, depois VP9, depois AV1", "reason": "codec deste perfil"},
 			"size": {"label": "Arquivo maior", "reason": "mais detalhes com as mesmas configurações"},
 			"aacSmartTv": {"label": "Áudio AAC", "reason": "toca em qualquer lugar"},
 			"aacFileType": {"label": "Áudio AAC", "reason": "serve para players MP4"},
@@ -1090,5 +1092,6 @@
 		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Streams ampliados por IA", "description": "O YouTube oferece alguns vídeos antigos em tamanhos criados com IA. “Pular” mantém os streams originais; você ainda pode escolher um ampliado manualmente.", "skip": "Pular", "allow": "Permitir"},
+	"videoCodec": {"label": "Codec de vídeo", "description": "Qual codec escolher primeiro entre streams da mesma altura. Automática escolhe AV1, o menor; H.264 toca em TVs e celulares mais antigos.", "smartTv": "Smart TV escolhe sempre H.264.", "auto": "Automática", "vp9": "VP9 primeiro", "h264": "H.264 primeiro"},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Automática escolhe HDR se esta tela puder exibi-lo; caso contrário, SDR. O HDR fica desbotado em telas comuns.", "sdr": "SDR", "hdr": "HDR", "auto": "Automática"}
 }
