@@ -139,4 +139,22 @@ describe('YtDlp — the run folder a plan asks for', () => {
 		expect(result).toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
 		expect(fs.existsSync(planCwd)).toBe(false)
 	})
+
+	// Making the folder is an await of its own: a pause landing during it finds
+	// no process to pause, so the run must not spawn after it.
+	it('does not spawn a run paused while its folder was being made', async () => {
+		planCwd = path.join(workDir, 'job')
+		const pause = new AbortController()
+		const real = vi.mocked(mkdir).getMockImplementation()
+		vi.mocked(mkdir).mockImplementationOnce(async (...args: Parameters<typeof mkdir>) => {
+			const made = await (real as typeof mkdir)(...args)
+			pause.abort()
+			return made
+		})
+
+		const result = await makeYtDlp().run(subtitleRequest(), {pauseSignal: pause.signal})
+
+		expect(result).toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
 })

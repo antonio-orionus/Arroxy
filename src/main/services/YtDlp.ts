@@ -318,6 +318,8 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	if (opts.cwd !== undefined) {
 		const unusable = await ensureRunFolder(opts.cwd)
 		if (unusable) return unusable
+		// Making the folder is an await too, and a pause during it finds no process.
+		if (stoppedBeforeSpawn(opts.signal)) return cancelledResult()
 	}
 	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
