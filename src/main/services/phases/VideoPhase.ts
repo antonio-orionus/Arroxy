@@ -10,6 +10,7 @@ import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {sabrSkippedClient} from 'ytdlp-errors'
 import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
+import {readInfoJsonTitle} from '../download/infoJsonTitle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {ActiveDownload, Phase, PhaseContext, PhaseOutcome} from './types.js'
@@ -167,6 +168,14 @@ async function adoptFinalPath(active: ActiveDownload, finalPathFile: string | un
 	}
 	if (printed !== active.mediaPath) logger.info('final media path differs from the one in the log', {jobId: active.job.id, logged: active.mediaPath, printed})
 	active.mediaPath = printed
+}
+
+// What a run that produced the media leaves for completion to report: the
+// file's final path and the title from the info-json the run wrote.
+async function adoptFinalMedia(active: ActiveDownload, finalPathFile: string | undefined, tempDir: string | undefined): Promise<void> {
+	await adoptFinalPath(active, finalPathFile)
+	const title = tempDir ? await readInfoJsonTitle(join(tempDir, INFO_JSON_NAME)) : null
+	if (title !== null) active.mediaTitle = title
 }
 
 export function VideoPhase(embed: boolean): Phase {
@@ -361,7 +370,7 @@ export function VideoPhase(embed: boolean): Phase {
 
 			if (result.kind !== 'success') {
 				if (isSkippableSponsorBlockApiFailure(result, req)) {
-					await adoptFinalPath(active, printedPathFile)
+					await adoptFinalMedia(active, printedPathFile, tempDir)
 					return {kind: 'continue'}
 				}
 				const {payload, statusKey, params} = await classifyYtDlpFailure(result, job.outputDir, job.id)
@@ -372,7 +381,7 @@ export function VideoPhase(embed: boolean): Phase {
 				return {kind: 'hard-failed', error: payload, resumeContext}
 			}
 
-			await adoptFinalPath(active, printedPathFile)
+			await adoptFinalMedia(active, printedPathFile, tempDir)
 			if (result.usedExtractorFallback) active.usedExtractorFallback = true
 			const qualityLimit = await detectQualityLimit(preparedJob, tempDir, run.formatsWithheld)
 			if (qualityLimit) active.qualityLimit = qualityLimit

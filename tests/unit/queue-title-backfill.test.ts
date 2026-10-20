@@ -8,7 +8,6 @@ import type {DownloadService} from '@main/services/DownloadService.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {QueueArtifactEvent} from '@shared/types.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
-import {ok} from '@shared/result.js'
 import {makeItem} from '../shared/fixtures.js'
 
 class FakeDownloadService extends EventEmitter {
@@ -34,28 +33,49 @@ function artifactEvent(jobId: string, path: string, kind: QueueArtifactEvent['ki
 }
 
 describe('Layer 2 — artifact backstop', () => {
-	it('derives the row title from a media artifact when the flag is set and the template is the default', () => {
+	it('takes the row title from the title the media artifact event carries', () => {
 		const ds = new FakeDownloadService()
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
 		qs.add([makeItem({id: 'q-backfill', status: 'running', lastJobId: 'job-backfill', title: 'Untitled · #1', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
 
-		ds.emit('artifact', artifactEvent('job-backfill', '/downloads/Real Title [abc123].mp4'))
+		ds.emit('artifact', {...artifactEvent('job-backfill', '/downloads/Real Title [abc123].mp4'), title: 'Real Title'})
 
 		const [item] = qs.snapshot()
 		expect(item.title).toBe('Real Title')
 		expect(item.titleIsPlaceholder).toBeUndefined()
 	})
 
-	it('derives the row title for the exact `{title}` template', () => {
+	it('keeps characters and length the filename had to give up', () => {
 		const ds = new FakeDownloadService()
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
-		qs.add([makeItem({id: 'q-exact', status: 'running', lastJobId: 'job-exact', title: 'Untitled · #2', titleIsPlaceholder: true, job: jobWithTemplate('{title}')})])
+		qs.add([makeItem({id: 'q-lossy', status: 'running', lastJobId: 'job-lossy', title: 'Untitled · #2', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
 
-		ds.emit('artifact', artifactEvent('job-exact', '/downloads/Real Title.mp4'))
+		ds.emit('artifact', {...artifactEvent('job-lossy', '/downloads/AC⧸DC： Live？ [abc123].mp4'), title: 'AC/DC: Live?'})
+
+		expect(qs.snapshot()[0]?.title).toBe('AC/DC: Live?')
+	})
+
+	it('backfills under any filename template, since the title no longer comes from the name', () => {
+		const ds = new FakeDownloadService()
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-custom', status: 'running', lastJobId: 'job-custom', title: 'Untitled · #3', titleIsPlaceholder: true, job: jobWithTemplate('{uploader} - {title}')})])
+
+		ds.emit('artifact', {...artifactEvent('job-custom', '/downloads/Uploader - Real Title.mp4'), title: 'Real Title'})
+
+		expect(qs.snapshot()[0]?.title).toBe('Real Title')
+	})
+
+	it('keeps the placeholder when the media event carries no title, whatever the filename says', () => {
+		const ds = new FakeDownloadService()
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-untitled', status: 'running', lastJobId: 'job-untitled', title: 'Untitled · #4', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
+
+		ds.emit('artifact', artifactEvent('job-untitled', '/downloads/Real Title [abc123].mp4'))
 
 		const [item] = qs.snapshot()
-		expect(item.title).toBe('Real Title')
-		expect(item.titleIsPlaceholder).toBeUndefined()
+		expect(item.title).toBe('Untitled · #4')
+		expect(item.titleIsPlaceholder).toBe(true)
+		expect(item.artifacts).toEqual([expect.objectContaining({kind: 'media', fileName: 'Real Title [abc123].mp4'})])
 	})
 
 	it('leaves rows without the flag alone', () => {
@@ -63,46 +83,21 @@ describe('Layer 2 — artifact backstop', () => {
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
 		qs.add([makeItem({id: 'q-real', status: 'running', lastJobId: 'job-real', title: 'Real Title', job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
 
-		ds.emit('artifact', artifactEvent('job-real', '/downloads/Other Title [abc123].mp4'))
+		ds.emit('artifact', {...artifactEvent('job-real', '/downloads/Other Title [abc123].mp4'), title: 'Other Title'})
 
-		const [item] = qs.snapshot()
-		expect(item.title).toBe('Real Title')
+		expect(qs.snapshot()[0]?.title).toBe('Real Title')
 	})
 
-	it('skips subtitle-only artifacts — subtitle jobs have no media to derive from', () => {
+	it('only a media artifact sets the title', () => {
 		const ds = new FakeDownloadService()
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
-		qs.add([makeItem({id: 'q-subs', status: 'running', lastJobId: 'job-subs', title: 'Untitled · #3', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
+		qs.add([makeItem({id: 'q-subs', status: 'running', lastJobId: 'job-subs', title: 'Untitled · #5', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
 
-		ds.emit('artifact', artifactEvent('job-subs', '/downloads/Real Title [abc123].en.srt', 'subtitle'))
+		ds.emit('artifact', {...artifactEvent('job-subs', '/downloads/Real Title [abc123].en.srt', 'subtitle'), title: 'Real Title'})
 
 		const [item] = qs.snapshot()
-		expect(item.title).toBe('Untitled · #3')
+		expect(item.title).toBe('Untitled · #5')
 		expect(item.titleIsPlaceholder).toBe(true)
-	})
-
-	it('skips custom filename templates without guessing', () => {
-		const ds = new FakeDownloadService()
-		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
-		qs.add([makeItem({id: 'q-custom', status: 'running', lastJobId: 'job-custom', title: 'Untitled · #4', titleIsPlaceholder: true, job: jobWithTemplate('{uploader} - {title}')})])
-
-		ds.emit('artifact', artifactEvent('job-custom', '/downloads/Uploader - Real Title.mp4'))
-
-		const [item] = qs.snapshot()
-		expect(item.title).toBe('Untitled · #4')
-		expect(item.titleIsPlaceholder).toBe(true)
-	})
-
-	it('still records the artifact even when the title cannot be derived', () => {
-		const ds = new FakeDownloadService()
-		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
-		qs.add([makeItem({id: 'q-artifact', status: 'running', lastJobId: 'job-artifact', title: 'Untitled · #5', titleIsPlaceholder: true, job: jobWithTemplate('{uploader} - {title}')})])
-
-		ds.emit('artifact', artifactEvent('job-artifact', '/downloads/Uploader - Real Title.mp4'))
-
-		const [item] = qs.snapshot()
-		expect(item.artifacts).toEqual([expect.objectContaining({kind: 'media', fileName: 'Uploader - Real Title.mp4'})])
-		expect(ok(true).ok).toBe(true)
 	})
 
 	it('records the size a final artifact event carries', () => {

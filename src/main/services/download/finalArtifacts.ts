@@ -15,20 +15,22 @@ export interface FinalArtifact {
 	kind: QueueArtifactKind
 	// Reported only when the file is still on disk at completion.
 	sidecar?: true
+	// The media file's title from the job's info-json.
+	title?: string
 }
 
 export function finalArtifactsOf(active: ActiveDownload): FinalArtifact[] {
 	const artifacts: FinalArtifact[] = []
-	const add = (path: string | undefined, kind: QueueArtifactKind, sidecar = false): void => {
+	const add = (path: string | undefined, kind: QueueArtifactKind, extra: Omit<FinalArtifact, 'path' | 'kind'> = {}): void => {
 		if (!path || artifacts.some(artifact => artifact.path === path)) return
-		artifacts.push({path, kind, ...(sidecar ? {sidecar: true as const} : {})})
+		artifacts.push({path, kind, ...extra})
 	}
-	add(active.mediaPath, 'media')
+	add(active.mediaPath, 'media', active.mediaTitle ? {title: active.mediaTitle} : {})
 	const embedsSubtitlesIntoMedia = active.input.job.kind !== 'subtitle-only' && active.input.job.subtitles?.mode === 'embed'
 	if (!embedsSubtitlesIntoMedia) {
 		for (const subtitlePath of active.subtitlePaths) add(subtitlePath, 'subtitle')
 	}
-	for (const sidecarPath of active.sidecarPaths ?? []) add(sidecarPath, artifactKindForPath(sidecarPath), true)
+	for (const sidecarPath of active.sidecarPaths ?? []) add(sidecarPath, artifactKindForPath(sidecarPath), {sidecar: true})
 	return artifacts
 }
 
@@ -47,7 +49,7 @@ export async function fileOnDisk(path: string): Promise<FileOnDisk> {
 }
 
 export function announcedArtifactEvents(jobId: string, artifacts: readonly FinalArtifact[]): QueueArtifactEvent[] {
-	return artifacts.filter(artifact => artifact.sidecar !== true).map(({path, kind}) => ({jobId, path, kind, at: nowIso()}))
+	return artifacts.filter(artifact => artifact.sidecar !== true).map(({path, kind, title}) => ({jobId, path, kind, at: nowIso(), ...(title ? {title} : {})}))
 }
 
 // Media and subtitles come back only when a size was read (they were already

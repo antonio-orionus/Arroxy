@@ -543,6 +543,9 @@ export interface QueueArtifactEvent {
 	fromPath?: string
 	internal?: boolean
 	sizeBytes?: number
+	// On the media event a completed job announces: the video's title from the
+	// info-json yt-dlp wrote, unsanitized. Names a placeholder row.
+	title?: string
 }
 
 export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const
