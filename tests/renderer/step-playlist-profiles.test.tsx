@@ -776,7 +776,7 @@ describe('StepPlaylistProfiles with a profile hidden after it was assigned', () 
 		hidePodcast()
 
 		expect(profileCell('b')).toHaveTextContent('Podcast MP3')
-		expect(screen.getByTestId('filter-profile-podcast').textContent).toMatch(/Podcast MP3/i)
+		expect(screen.getByTestId('filter-profile-podcast')).toHaveTextContent('Podcast MP3')
 	})
 
 	it("lists the hidden profile first in the row's menu, checked and tagged Hidden", () => {
