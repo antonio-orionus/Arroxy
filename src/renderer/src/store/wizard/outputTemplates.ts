@@ -1,6 +1,7 @@
-import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
+import {resolveFilenameTemplate, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
-import type {DownloadProfile, PlaylistEntry} from '@shared/types.js'
+import {requestedFormats, type InFlightFiles, type InFlightFormat} from '@shared/nameBudget.js'
+import type {DownloadProfile, PlaylistEntry, PlaylistSelection} from '@shared/types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {hostPlatform} from '@renderer/lib/platform.js'
 import type {AppState} from '../types.js'
@@ -63,8 +64,9 @@ export function canWriteM3u(profile: DownloadProfile | undefined, globalTemplate
  * Bind a template into the filename segment the job will carry, sized to the
  * user's filesystem.
  *
- * The budget needs the real output directory and the real platform, so it can
- * only run here — `outputDir` is already resolved by this point. Compiling to a
+ * The budget needs the real output directory, the real platform, and what the
+ * job downloads (`inFlight`: yt-dlp's names mid-download are longer than the
+ * finished one), so it can only run here — all three are resolved by this point. Compiling to a
  * yt-dlp `-o` still happens in main; this only decides how long the name may be.
  *
  * A template that cannot fit falls back to the built-in default rather than
@@ -73,8 +75,8 @@ export function canWriteM3u(profile: DownloadProfile | undefined, globalTemplate
  * rescue it — the write will fail with yt-dlp's own error, and the notify line
  * says why.
  */
-export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata, outputDir: string, suffix?: string): string {
-	const ctx = {outputDir, platform: hostPlatform()}
+export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata, outputDir: string, inFlight: InFlightFiles, suffix?: string): string {
+	const ctx = {outputDir, platform: hostPlatform(), inFlight}
 	const bound = bindFilenameTemplate(template, meta, ctx, suffix)
 	if (bound.ok) {
 		if (bound.truncated.length > 0) notify.filenameShortened(meta.title ?? '', bound.truncated)
@@ -85,6 +87,20 @@ export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata
 	// The suffix survives even a name that cannot fit: a part must never be
 	// written under the whole video's name.
 	return fallback.ok ? fallback.template : suffix ? `${DEFAULT_FILENAME_TEMPLATE} ${suffix}` : DEFAULT_FILENAME_TEMPLATE
+}
+
+/**
+ * What a download profile has yt-dlp write. `probed` is the probe's format list
+ * when the job is one probed video; playlist entries carry none, so their
+ * format ids stay unknown until yt-dlp runs.
+ */
+export function profileInFlight(resolved: ResolvedDownloadProfile, probed: readonly InFlightFormat[]): InFlightFiles {
+	return {formats: resolved.isSubtitleOnly ? [] : requestedFormats(undefined, probed), subtitleLanguages: resolved.subtitles?.languages ?? []}
+}
+
+/** What a playlist batch has yt-dlp write for each entry. */
+export function playlistSelectionInFlight(selection: PlaylistSelection): InFlightFiles {
+	return selection.kind === 'subtitles' ? {formats: [], subtitleLanguages: selection.languages} : {formats: null, subtitleLanguages: []}
 }
 
 /** Drop blanks so an absent field collapses its folder rather than emptying it. */

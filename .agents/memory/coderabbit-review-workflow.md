@@ -1,6 +1,6 @@
 ---
 name: coderabbit-review-workflow
-description: CodeRabbit reviews are a scarce, repo-wide quota (2/hour, 100 files/PR) and automatic reviews are OFF, so every review needs a manual trigger; spend triggers strategically — finish all local review (Codex, gates) first, trigger once when the head is final, never push while a review runs (it aborts with "Head commit changed" and burns the trigger); poll issues/<N>/comments for all outcomes; never merge on green CI alone.
+description: CodeRabbit reviews are a scarce, repo-wide quota (2/hour, 100 files/PR) and automatic reviews are OFF, so every review needs a manual trigger; only PRs that change behaviour get one (never mechanical or behaviour-free refactor PRs), riskiest first; spend triggers strategically — finish all local review (Codex, gates) first, trigger once when the head is final, never push while a review runs (it aborts with "Head commit changed" and burns the trigger); poll issues/<N>/comments for all outcomes; never merge on green CI alone.
 metadata:
   type: feedback
 ---
@@ -16,6 +16,22 @@ is valid. Do not merge on a green CI alone.
 review is usually enough.** Only spend the second trigger when the commits
 pushed after the first review are substantial (new logic, not just review-fix
 tweaks). The rest of this section explains why a second trigger is ever needed.
+
+## Which PRs get a trigger
+
+**Antonio (2026-10-20): splitting PRs per concern drained the quota faster**, because
+each split-off PR took its own trigger. CodeRabbit reviews a change in behaviour,
+not a PR:
+
+- **No trigger** for mechanical PRs (formatting, licence headers, dependency
+  bumps, locale sync, regenerated files) or behaviour-free refactors and renames.
+  Codex and `bun run check` cover them: a refactor that changes behaviour shows
+  up as failing tests or types. In a split feature, only the PR that changes
+  behaviour spends a trigger; a `packages/*` change that carries the new
+  behaviour is that PR, and the app PR wiring it in is plumbing.
+- **Riskiest first when the quota is tight:** IPC and preload, release and build,
+  persistence and settings, the download pipeline. A small, well-tested renderer
+  fix can go with Codex alone rather than wait an hour for a slot.
 
 ## Spend triggers strategically: they are not unlimited
 
@@ -34,7 +50,7 @@ unlimited.** Every trigger, including one that fails, spends part of the
   the outcome lands, even docs or memory edits.
 - **Wait for a terminal outcome before deciding anything** (table below), then
   batch every fix into one push.
-- **The second trigger is optional.** Spend it only when the fixes add real
+- **The second trigger is the exception.** Spend it only when the fixes add real
   new logic (see the next paragraph); a small review-fix tweak is not worth a
   quota unit.
 
@@ -52,8 +68,8 @@ would have merged that way. The trigger reply states the mechanic outright:
 
 So the second trigger is cheap in scope — it reads only the new commits — but
 still spends one unit of a limited quota shared across every PR in the repo. Two
-triggers per PR is the budget: open, and after fixes. Anything beyond that needs
-a reason. The walkthrough comment states the allowance outright — "Your plan
+triggers per PR is the ceiling, not the norm: one on the final head, a second
+only when the fixes added new logic. Anything beyond that needs a reason. The walkthrough comment states the allowance outright — "Your plan
 provides up to 2 included reviews per hour; 1 remains after this review."
 
 **A green CodeRabbit check is never evidence a review happened.** With auto

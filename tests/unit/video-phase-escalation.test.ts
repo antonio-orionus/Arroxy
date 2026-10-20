@@ -85,7 +85,7 @@ describe('VideoPhase download-time escalation', () => {
 
 		expect(outcome).toEqual({kind: 'continue'})
 		expect(identities(run)).toEqual(['configured', 'configured', 'exploreSession'])
-		expect(run.mock.calls[2]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
+		expect(run.mock.calls[2]?.[2]).toMatchObject({identity: 'exploreSession', jobKey: 'job-1'})
 		// The escalated run re-extracts: the anonymous info-json is never replayed signed in.
 		const escalatedReq = run.mock.calls[2]?.[0]
 		expect(escalatedReq?.kind === 'media' ? escalatedReq.resume?.loadInfoJsonPath : 'not media').toBeUndefined()

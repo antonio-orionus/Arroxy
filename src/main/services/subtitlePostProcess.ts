@@ -11,7 +11,7 @@ import log from 'electron-log/main.js'
 import {dedupeSrt} from './srtDedupe.js'
 import {dedupeVtt} from './vttDedupe.js'
 import {normalizeCueOverlaps} from './cueOverlap.js'
-import {spawnFFmpeg} from '@main/utils/process.js'
+import {runFfmpeg} from './ffmpegRun.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
 import {detectSubtitleLang} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -95,22 +95,6 @@ export async function postProcessSubtitleFiles(paths: readonly string[], opts: {
 export interface MuxResult {
 	ok: boolean
 	outputPath?: string
-}
-
-// Enough of ffmpeg's stderr to name the failing stream without flooding the log.
-const STDERR_TAIL_CHARS = 2000
-
-function runFfmpeg(ffmpegPath: string, args: string[], onSpawn: (proc: ChildProcessWithoutNullStreams) => void): Promise<{ok: boolean; stderrTail: string}> {
-	return new Promise(resolve => {
-		let stderrTail = ''
-		const proc = spawnFFmpeg(ffmpegPath, args)
-		onSpawn(proc)
-		proc.stderr.on('data', (chunk: Buffer | string) => {
-			stderrTail = (stderrTail + chunk.toString()).slice(-STDERR_TAIL_CHARS)
-		})
-		proc.on('error', () => resolve({ok: false, stderrTail}))
-		proc.on('close', code => resolve({ok: code === 0, stderrTail}))
-	})
 }
 
 // Mux deduped sidecar subs into the merged video via ffmpeg -c copy (+ srt
