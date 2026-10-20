@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "ပရိုဖိုင် ပြောင်းပါ"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "ရွှေ့နိုင်သော ပရိုဖိုင်"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ရွှေ့ခြင်းကို ပယ်ဖျက်လိုက်သည်။ {{profileName}} သည် {{count}} ခုအနက် အမှတ် {{position}} နေရာတွင် ဆက်ရှိနေသည်။"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} ကို {{count}} ခုအနက် အမှတ် {{position}} နေရာတွင် ချလိုက်သည်။"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} ကို ရွှေ့ပါ"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "ပရိုဖိုင်ကို ရွှေ့ရန် Space သို့မဟုတ် Enter ကို နှိပ်ပါ၊ မြှားခလုတ်များဖြင့် ရွှေ့ပြီးနောက် Space သို့မဟုတ် Enter ကို ထပ်နှိပ်၍ ချပါ။ ပယ်ဖျက်ရန် Escape ကို နှိပ်ပါ။"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} သည် {{count}} ခုအနက် အမှတ် {{position}} နေရာအပေါ်တွင် ရှိသည်။"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} ကို ကောက်ယူလိုက်သည်။ ၎င်းသည် {{count}} ခုအနက် အမှတ် {{position}} နေရာတွင် ရှိသည်။"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "ပရိုဖိုင် အသစ်"
@@ -4511,6 +4539,10 @@ msgstr "ဒေါင်းလုဒ် ပရိုဖိုင်များ"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "ဖယ်ရှား"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "ပရိုဖိုင်ကို ဆွဲ၍ ရွှေ့ပါ။ ပရိုဖိုင်ရွေးချယ်မှုတိုင်းသည် ဤအစီအစဉ်အတိုင်း ဖြစ်သည်။"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

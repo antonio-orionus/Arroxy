@@ -23,6 +23,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Stream tags.** The Format screen marks AI-upscaled, AI-dubbed, enhanced-bitrate, 360°, damaged and watermarked streams.
 - **Profiles skip AI-upscaled streams.** A setting in the profile editor's Advanced section allows them.
 - **Arrange the Downloads table.** Drag a header to move or resize its column, or use the keyboard. **Reset columns** in the columns menu puts them back.
+- **Put your profiles in order.** Drag profiles on the Profiles tab, or move them with the keyboard. Every profile picker follows your order.
 - **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
 
 ## Fixes

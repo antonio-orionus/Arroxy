@@ -4496,6 +4496,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "ប្តូរប្រវត្តិរូប"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "ប្រវត្តិរូបដែលអាចផ្លាស់ទីបាន"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ការផ្លាស់ទីត្រូវបានបោះបង់។ {{profileName}} នៅទីតាំងទី {{position}} ក្នុងចំណោម {{count}} ដដែល។"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "បានទម្លាក់ {{profileName}} នៅទីតាំងទី {{position}} ក្នុងចំណោម {{count}}។"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "ផ្លាស់ទី {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "ដើម្បីផ្លាស់ទីប្រវត្តិរូប សូមចុច Space ឬ Enter ផ្លាស់ទីវាដោយប្រើគ្រាប់ចុចព្រួញ បន្ទាប់មកចុច Space ឬ Enter ដើម្បីទម្លាក់។ ចុច Escape ដើម្បីបោះបង់។"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} នៅលើទីតាំងទី {{position}} ក្នុងចំណោម {{count}}។"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "បានលើក {{profileName}}។ វានៅទីតាំងទី {{position}} ក្នុងចំណោម {{count}}។"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "ប្រវត្តិរូបថ្មី"
@@ -4511,6 +4539,10 @@ msgstr "ប្រវត្តិរូបទាញយក"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "លុប"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "អូសប្រវត្តិរូបដើម្បីផ្លាស់ទី។ ផ្ទាំងជ្រើសរើសប្រវត្តិរូបទាំងអស់ធ្វើតាមលំដាប់នេះ។"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

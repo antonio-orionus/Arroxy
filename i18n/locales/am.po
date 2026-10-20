@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "መገለጫ ቀይር"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "ተንቀሳቃሽ መገለጫ"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "ማንቀሳቀስ ተሰርዟል። {{profileName}} ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ይቆያል።"
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ተጥሏል።"
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}}ን አንቀሳቅስ"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "መገለጫን ለማንቀሳቀስ ስፔስ ወይም ኤንተር ይጫኑ፣ በቀስት ቁልፎች ያንቀሳቅሱት፣ ከዚያ ለመጣል እንደገና ስፔስ ወይም ኤንተር ይጫኑ። ለመሰረዝ ኤስኬፕ ይጫኑ።"
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ነው።"
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} ተነሳ። ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ነው።"
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "አዲስ መገለጫ"
@@ -4666,6 +4694,10 @@ msgstr "የማውረድ መገለጫዎች"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "አስወግድ"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "መገለጫን ለማንቀሳቀስ ይጎትቱት። እያንዳንዱ መገለጫ መምረጫ ይህን ቅደም ተከተል ይከተላል።"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

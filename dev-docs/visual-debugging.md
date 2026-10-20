@@ -42,6 +42,8 @@ bunx vp dev src/renderer --port 5173 --mode browser-mock
 
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
 
+Update-banner scenarios (`update-direct`, `update-scoop`, `update-homebrew`, `update-winget`, `update-portable`, `update-flatpak`) are the only ones that emit an update event.
+
 For realtime interaction with the real Electron renderer, expose Electron CDP through `electron-vite`:
 
 ```bash

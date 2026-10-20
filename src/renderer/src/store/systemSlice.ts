@@ -1,7 +1,7 @@
 import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef, HotkeyRegistrationStatus, HotkeyState} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
 import {DEFAULTS} from '@shared/constants.js'
-import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs, setDownloadProfileEnabled as setProfileEnabledInPrefs} from '@shared/downloadProfiles.js'
+import {DEFAULT_DOWNLOAD_PROFILES_PREFS, moveDownloadProfile as moveProfileInPrefs, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs, setDownloadProfileEnabled as setProfileEnabledInPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
 import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
@@ -654,6 +654,11 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		setDownloadProfileEnabled: async (id: string, enabled: boolean) => {
 			const profiles = setProfileEnabledInPrefs(currentProfiles(get().settings), id, enabled)
 			await applyProfilesPatchAsync(get, set, 'downloadProfile.enabled', profiles)
+		},
+
+		moveDownloadProfile: async (id: string, targetId: string) => {
+			const profiles = moveProfileInPrefs(currentProfiles(get().settings), id, targetId)
+			await applyProfilesPatchAsync(get, set, 'downloadProfile.order', profiles)
 		},
 
 		openShareDialog: () => {

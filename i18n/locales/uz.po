@@ -4651,6 +4651,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Profilni almashtirish"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "ko‘chiriladigan profil"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Ko‘chirish bekor qilindi. {{profileName}} profili {{count}} tadan {{position}}-o‘rinda qoladi."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} profili {{count}} tadan {{position}}-o‘ringa qo‘yildi."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "{{profileName}} profilini ko‘chirish"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Profilni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} profili {{count}} tadan {{position}}-o‘rin ustida."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} profili olindi. U {{count}} tadan {{position}}-o‘rinda."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Yangi profil"
@@ -4666,6 +4694,10 @@ msgstr "Yuklab olish profillari"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Olib tashlash"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Profilni ko‘chirish uchun uni sudrab olib boring. Har bir profil tanlagich shu tartibga amal qiladi."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

@@ -4961,6 +4961,34 @@ msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
 msgstr "Переключить профиль"
 
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "перемещаемый профиль"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Перемещение отменено. Профиль «{{profileName}}» остаётся на позиции {{position}} из {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Профиль «{{profileName}}» отпущен на позиции {{position}} из {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Переместить {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Чтобы переместить профиль, нажмите пробел или Enter, переместите его стрелками, затем снова нажмите пробел или Enter, чтобы отпустить его. Для отмены нажмите Escape."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Профиль «{{profileName}}» находится над позицией {{position}} из {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Профиль «{{profileName}}» взят. Он находится на позиции {{position}} из {{count}}."
+
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Новый профиль"
@@ -4976,6 +5004,10 @@ msgstr "Профили загрузки"
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
 msgstr "Удалить"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Перетащите профиль, чтобы переместить его. Все списки профилей следуют этому порядку."
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"

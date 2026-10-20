@@ -596,6 +596,34 @@ describe('settings and recent stores', () => {
 		expect(updated.profiles.enabledOverrides).toEqual({'low-144': true})
 	})
 
+	it('keeps the saved profile order across a restart', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-order-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		await store.update({profiles: {order: ['audio-only', 'balanced']}})
+
+		const reloaded = await new SettingsStore(userData, baseDefaults).get()
+		expect(reloaded.profiles.order).toEqual(['audio-only', 'balanced'])
+	})
+
+	it('reads a profile order that was never saved as absent', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-order-none-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		expect(settings.profiles.order).toBeUndefined()
+	})
+
+	it('drops unreadable profile order entries and keeps the other profile settings', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-order-bad-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'audio-only'}, custom: [], overrides: [], order: ['audio-only', 7, null, 'balanced']}}), 'utf-8')
+		expect((await new SettingsStore(userData, baseDefaults).get()).profiles).toMatchObject({active: {kind: 'builtin', id: 'audio-only'}, order: ['audio-only', 'balanced']})
+
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'audio-only'}, custom: [], overrides: [], order: 'audio-only'}}), 'utf-8')
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
+		expect(settings.profiles.order).toBeUndefined()
+	})
+
 	it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-binary-overrides-'))
 		const store = new SettingsStore(userData, baseDefaults)

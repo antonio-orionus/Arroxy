@@ -35,6 +35,29 @@ function withVideoOnlyFallback(spec: Record<string, unknown>): Record<string, un
 	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*/best'} : spec
 }
 
+// Fixed since the recording: the filters asking for Dolby or an "original"
+// track no longer match a stream whose field is missing (`~=?` → `~=`).
+function withStrictInclusionFilters(spec: Record<string, unknown>): Record<string, unknown> {
+	const selector = spec.formatSelector
+	return typeof selector === 'string' ? {...spec, formatSelector: selector.replaceAll('[acodec~=?', '[acodec~=').replaceAll('[format_note~=?', '[format_note~=')} : spec
+}
+
+// Fixed since the recording: an audio token comes after res, fps and HDR,
+// since a field named in -S outranks yt-dlp's defaults.
+function withVideoRanksBeforeAudio(spec: Record<string, unknown>): Record<string, unknown> {
+	const sort = spec.formatSort
+	if (typeof sort !== 'string' || !sort.includes('acodec:') || sort.includes('hdr')) return spec
+	const tokens = sort.split(',')
+	const audioAt = tokens.findIndex(token => token.startsWith('acodec:'))
+	const video = tokens.slice(0, audioAt)
+	const spelled = [...video, ...(video.some(token => token.startsWith('res')) ? [] : ['res']), ...(video.includes('fps') ? [] : ['fps']), 'hdr:12']
+	return {...spec, formatSort: [...spelled, ...tokens.slice(audioAt)].join(',')}
+}
+
+function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
+	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec))))
+}
+
 describe('selection order parity with the recorded yt-dlp specs', () => {
 	it('covers every recorded combination', () => {
 		expect(CASES.length).toBe(138)
@@ -49,7 +72,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		if (folded) continue
 		it(`matches ${label}`, () => {
 			const upgraded = mediaIntentSchema.parse(intent)
-			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(withSkippedAiUpscaled(withVideoOnlyFallback(legacyCase.spec)))
+			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(asNowFixed(legacyCase.spec))
 		})
 	}
 
@@ -57,7 +80,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		const recordedAac = CASES.find(c => c.intent.codec === 'mp4' && c.intent.tiers?.[0] === '720' && c.intent.audio?.format === 'm4a' && c.pref === 'compatible')
-		expect(mediaIntentSpec(upgraded, 'compatible', 'hdr')).toEqual(withSkippedAiUpscaled({...recordedAac?.spec, fileType: 'auto'}))
+		expect(mediaIntentSpec(upgraded, 'compatible', 'hdr')).toEqual(asNowFixed({...recordedAac?.spec, fileType: 'auto'}))
 	})
 
 	it('reads an old native profile with AAC audio as Best picture saved as MP4', () => {
@@ -65,7 +88,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		const spec = mediaIntentSpec(upgraded, 'compatible', 'hdr')
 		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
-		expect(spec.formatSort).toBe('res:1080,fps,acodec:m4a')
+		expect(spec.formatSort).toBe('res:1080,fps,hdr:12,acodec:m4a')
 		expect(spec.mergeOutputFormat).toBe('mp4')
 		expect(spec.remuxVideo).toBe('mp4')
 	})
@@ -144,6 +167,17 @@ describe('HDR preference', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible'))).toBe('res:1080,fps,hdr:sdr')
 		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:sdr,acodec:m4a')
+	})
+
+	// A field named in -S outranks every default yt-dlp field, so an audio token
+	// alone (MP4's acodec:m4a) once ranked the codec above resolution: yt-dlp
+	// took YouTube's 360p muxed MP4 for a Best-quality MP4 profile.
+	it('names resolution, fps and HDR before any audio token, so audio never costs height', () => {
+		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'webm', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:opus')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', '1080'), 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:12,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible', 'hdr'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:12,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'sdr'))).toBe('res,fps,hdr:sdr,acodec:m4a')
 	})
 
 	it("leaves yt-dlp's own order, HDR first, when the app setting is HDR", () => {

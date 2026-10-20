@@ -66,3 +66,11 @@ For each risk group, add Fixture Product E2E only for behavior that needs real a
 - Do not treat browser-mock as proof that real IPC, yt-dlp, queue scheduling, or filesystem behavior works.
 - Do not use fake yt-dlp as the normal download acceptance strategy. Keep fake yt-dlp only for process-supervision failures such as spawn failure, permission denied, crash, invalid JSON, huge stderr, hang, and signal termination.
 - Do not make one super scenario that covers every risk at once. Prefer grouped, realistic scenarios with clear ownership.
+
+## Running headless
+
+`ARROXY_E2E_HEADLESS=1` maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
+
+The flag only takes effect in an E2E launch — `ARROXY_E2E=1` (set by the fixture harness) or `MOCK_BACKEND=1` (set by the smoke and startup-resilience specs) — so a stray export never hides a normal launch; see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. Any new spec that launches the app must set one of the two, or its window shows. Specs that need a focused window (hotkey feedback, clipboard watching) skip themselves under the flag. `startup-journeys.spec.ts` drives a packaged build (`PACKAGED_EXE`) and is not covered.
+
+The suites launch `out/main/index.js`, not the dev server, so rebuild first (`bun run build`). The build type-checks first and stops on any error (including in test files), leaving the old bundle in place, so never hide its output. The E2E global setup refuses to run when `out/main/index.js` is older than any file in `src/` (`ARROXY_E2E_ALLOW_STALE_BUILD=1` to override).
