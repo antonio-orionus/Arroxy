@@ -32,7 +32,7 @@ function withSkippedAiUpscaled(spec: Record<string, unknown>): Record<string, un
 // New since the recording: video without audio falls back to a stream with
 // sound on a site that has no video-only stream (its audio is dropped later).
 function withVideoOnlyFallback(spec: Record<string, unknown>): Record<string, unknown> {
-	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*'} : spec
+	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*/best'} : spec
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {

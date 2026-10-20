@@ -150,7 +150,7 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*'))
+			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*/best'))
 			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr')
 		})
 

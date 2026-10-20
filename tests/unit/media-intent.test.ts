@@ -63,7 +63,7 @@ describe('mediaIntentSpec native audio preference', () => {
 	// alone found nothing there and the download failed.
 	it('falls back to a stream with sound for a video-only profile; the audio comes off after the download', () => {
 		const spec = mediaIntentSpec({kind: 'video-only', goal: 'best-picture', tier: 'best', fileType: 'auto'}, 'compatible')
-		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*'))
+		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*/best'))
 		expect(spec.producesAudio).toBe(false)
 	})
 })
