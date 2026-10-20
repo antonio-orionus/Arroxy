@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect, useLayoutEffect, useState, type ComponentType, type Dispatch, type ReactNode, type SetStateAction} from 'react'
+import {lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type Dispatch, type ReactNode, type SetStateAction} from 'react'
 import log from 'electron-log/renderer.js'
 import {Heart, Info, MessageCircle, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
@@ -35,6 +35,7 @@ import {selectBackdropAvailability, selectCompactChrome, selectEffectiveStyle} f
 import {STYLES} from './styles/registry.js'
 import changelogText from '../../../CHANGELOG.md?raw'
 import {Hint} from './components/shared/Hint.js'
+import {useOverflowCollapse} from './components/shared/useOverflowCollapse.js'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
@@ -220,12 +221,18 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 	const {uiZoom, setUiZoom, setAboutDialogOpen, setDonateDialogOpen, openShareDialog} = useAppStore(useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, setAboutDialogOpen: state.setAboutDialogOpen, setDonateDialogOpen: state.setDonateDialogOpen, openShareDialog: state.openShareDialog})))
 	// While browsing in Explore's compact layout the footer drops its labels and slims down.
 	const compactChrome = useAppStore(selectCompactChrome)
-	const footerLabelClass = compactChrome ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
-	const footerActionClass = cn(FOOTER_ACTION_BUTTON_CLASS, compactChrome && 'size-6 px-0')
+	const language = useAppStore(state => state.language)
+	// The action labels also give way, to their icons, before the settings on the left get cut off.
+	const footerRef = useRef<HTMLElement>(null)
+	const leftControlsRef = useRef<HTMLDivElement>(null)
+	const labelsCollapsed = useOverflowCollapse(footerRef, leftControlsRef, `${language}:${compactChrome}`)
+	const iconsOnly = compactChrome || labelsCollapsed
+	const footerLabelClass = iconsOnly ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
+	const footerActionClass = cn(FOOTER_ACTION_BUTTON_CLASS, iconsOnly && 'size-6 px-0')
 
 	return (
-		<footer className={cn('chrome-glass shrink-0 flex min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2', compactChrome ? 'h-7' : 'h-8')} data-compact={compactChrome ? 'true' : undefined} data-testid="app-footer">
-			<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden" data-testid="footer-left-controls">
+		<footer ref={footerRef} className={cn('chrome-glass shrink-0 flex min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2', compactChrome ? 'h-7' : 'h-8')} data-compact={compactChrome ? 'true' : undefined} data-testid="app-footer">
+			<div ref={leftControlsRef} className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden" data-testid="footer-left-controls">
 				<ButtonGroup>
 					<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
 						−
@@ -247,7 +254,7 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 				<Hint label={t('about.openTitle')}>
 					<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} data-testid="btn-about">
 						<Info data-icon="inline-start" aria-hidden />
-						<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
+						<span className={cn(iconsOnly && 'sr-only')}>{t('about.button')}</span>
 					</Button>
 				</Hint>
 				<Hint label={t('share.footerTooltip')}>
