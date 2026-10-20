@@ -84,10 +84,14 @@ interface FieldData {
 	limit: number | string | null
 }
 
+// A field with no setting is yt-dlp's (deprecated) arbitrary field: an empty
+// setting, so it sorts by the format's own value of that name. One the app
+// doesn't keep (`ytDlpSelectableFormatSchema`) reads as missing everywhere and
+// so reorders nothing.
+const ARBITRARY_FIELD: FieldSetting = {}
+
 function settingOf(field: string): FieldSetting {
-	const setting = SETTINGS[field]
-	if (!setting) throw new Error(`yt-dlp format sort: unknown field ${field}`)
-	return setting
+	return SETTINGS[field] ?? ARBITRARY_FIELD
 }
 
 function typeOf(field: string): FieldType {

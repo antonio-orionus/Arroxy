@@ -10,7 +10,8 @@
 //
 // yt-dlp is the pinned release below, its zipapp fetched once into
 // node_modules/.cache and checked against the published SHA-256; it runs
-// in-process under python3 (scripts/selection-parity/oracle.py).
+// in-process under Python 3.10+ (scripts/selection-parity/oracle.py, found by
+// scripts/selection-parity/python.ts; `bun run doctor` reports it).
 
 import {execFile} from 'node:child_process'
 import {createHash} from 'node:crypto'
@@ -22,6 +23,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '../src/shared/downloadProfiles.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec} from '../src/shared/mediaIntent.js'
 import {resolveProfileSelection} from '../src/shared/profileSelection.js'
 import type {DownloadProfile, DownloadProfileMedia, HdrPreference, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '../src/shared/schemas.js'
+import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 import {probeSourceResult} from '../src/renderer/src/dev/probeSources/index.js'
 import {PROBE_SOURCES, type ProbeSourceId} from '../src/renderer/src/dev/probeSources/sources.js'
 
@@ -144,7 +146,9 @@ for (const probe of probeIds) {
 
 const ytDlp = await pinnedYtDlp()
 const request = JSON.stringify({probes: Object.fromEntries(probeIds.map(id => [id, oracleInfo(id)])), cases: cases.map(({probe, format, sort}) => ({probe, format, sort}))})
-const child = run('python3', [ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024})
+const python = await findPython()
+if (python === null) throw new Error(`check:selection-parity needs ${PYTHON_REQUIREMENT}. Install it, then run the check again.`)
+const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024})
 child.child.stdin?.end(request)
 const {stdout} = await child
 const picks: unknown = JSON.parse(stdout)
