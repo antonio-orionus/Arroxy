@@ -430,7 +430,18 @@
 			"audioLanguage": "Audio language",
 			"audioLanguageCount_one": "{{count}} language",
 			"audioLanguageCount_other": "{{count}} languages",
-			"convert": {"label": "Convert", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Source is {{kbps}} kbps"},
+			"convert": {
+				"label": "Convert",
+				"bitrate": "Bitrate",
+				"wavLabel": "WAV (uncompressed)",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"copyLabel": "{{target}} {{bitrate}} kbps, no re-encode",
+				"copyLabelNoBitrate": "{{target}}, no re-encode",
+				"copyNote": "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded",
+				"copyNoteNoBitrate": "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded",
+				"bitrateCopyHint": "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded.",
+				"sourceKbps": "Source is {{kbps}} kbps"
+			},
 			"botWall": {
 				"heading": "Probe was limited",
 				"bodyUnconfigured": "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry.",

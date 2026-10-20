@@ -8,6 +8,7 @@ Video (picked for Balanced 720p •):
 
 Audio:
 AAC: 53 kbps 1.2 MiB • | 37 kbps 872.1 KiB
+convert from: mp3 ← dash_sep-4 re-encode · m4a ← dash_sep-4 copy 53 kbps · opus ← dash_sep-4 re-encode · wav ← dash_sep-4 re-encode
 
 Profile picks:
 balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})

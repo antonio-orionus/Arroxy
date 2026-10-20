@@ -14,6 +14,7 @@ Audio:
 AAC: 130 kbps 883.7 KiB DRC | 130 kbps 883.7 KiB •
 Opus: 127 kbps 868.5 KiB DRC | 127 kbps 864.6 KiB | 66 kbps 449.7 KiB DRC | 66 kbps 447.9 KiB | 51 kbps 347.9 KiB DRC | 51 kbps 347.1 KiB
 DRC switch shown
+convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 127 kbps · wav ← 251 re-encode
 
 Profile picks:
 balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})

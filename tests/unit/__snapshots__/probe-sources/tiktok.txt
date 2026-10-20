@@ -9,6 +9,7 @@ Unknown resolution  ·                        H.264 [Watermarked] no size +audio
 
 Audio:
 AAC: m4a 949.5 KiB
+convert from: mp3 ← audio re-encode · m4a ← audio copy · opus ← audio re-encode · wav ← audio re-encode
 
 Profile picks:
 balanced: bytevc1_720p_336791-0 (720x1280, mp4) + audio none

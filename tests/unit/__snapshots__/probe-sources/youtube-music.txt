@@ -15,6 +15,7 @@ Video (picked for Balanced 720p •):
 Audio:
 AAC: 130 kbps 3.2 MiB • | 49 kbps 22.05 kHz 1.2 MiB
 Opus: 129 kbps 3.2 MiB | 61 kbps 1.5 MiB | 46 kbps 1.1 MiB
+convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 129 kbps · wav ← 251 re-encode
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140 (audio only, m4a)

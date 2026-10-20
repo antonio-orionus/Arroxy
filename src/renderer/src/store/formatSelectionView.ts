@@ -1,3 +1,4 @@
+import {formatConversionCandidate, type ConversionCandidate} from '@shared/audioConversionSource.js'
 import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
@@ -136,6 +137,8 @@ export interface FormatSelectionView {
 		defaultTrack: string | null
 		// The best native bitrate, which a lossy conversion cannot improve on.
 		sourceKbps: number | null
+		// Every audio stream as a conversion source, ranked as yt-dlp ranks them.
+		conversionCandidates: ConversionCandidate[]
 		// Empty in Video mode: conversions belong to Audio mode.
 		convertTargets: AudioConvertTarget[]
 		noAudioDisabled: boolean
@@ -442,6 +445,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, audioRows, namedTracks) : null,
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
+			conversionCandidates: wizardFormats.flatMap(format => (format.isAudioOnly ? [formatConversionCandidate(format)] : [])),
 			convertTargets,
 			noAudioDisabled,
 			selectedVideoIsMuxed,

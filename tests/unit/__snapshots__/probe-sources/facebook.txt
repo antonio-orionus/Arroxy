@@ -11,6 +11,7 @@ SD     ·              mp4 3.4 MiB +audio
 
 Audio:
 AAC: 76 kbps 279.2 KiB •
+convert from: mp3 ← 1390081639775431a re-encode · m4a ← 1390081639775431a copy 76 kbps · opus ← 1390081639775431a re-encode · wav ← 1390081639775431a re-encode
 
 Profile picks:
 balanced: 1390089359774659v (720x1280, mp4) + audio 1390081639775431a (audio only, m4a)

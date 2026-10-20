@@ -11,6 +11,7 @@ import {SectionLabel} from '../../shared/SectionLabel.js'
 import {FormatChip, FormatLine, FormatLineName} from './FormatLine.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../../ui/select.js'
 import {SettingSwitch} from '../../shared/SettingSwitch.js'
+import {conversionSource, selectedConversionSource} from '@shared/audioConversionSource.js'
 
 interface AudioColumnProps {
 	view: FormatSelectionView['audio']
@@ -56,9 +57,10 @@ interface AudioStreamFilter {
 	shown: (row: NativeAudioRow) => boolean
 	switchDrc: (next: boolean) => void
 	switchTrack: (next: string) => void
-	// The stream a conversion starts from: the shown language's best, when the
-	// video has several languages; undefined lets yt-dlp take the default track.
-	convertSource: string | undefined
+	// The stream a conversion to a target starts from, when the video has
+	// several languages: the shown language's own stream in that codec (copied,
+	// not re-encoded), else its best; undefined lets yt-dlp take the default track.
+	convertSourceFor: (target: AudioConvertTarget) => string | undefined
 }
 
 function isConversion(selection: AudioSelection): selection is Extract<AudioSelection, {kind: 'convert-lossy' | 'convert-lossless'}> {
@@ -89,11 +91,20 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	}
 	const inView = (row: NativeAudioRow, inTrack: string, withDrc: boolean): boolean => (row.twinId === null || row.isDrc === withDrc) && (view.tracks.length === 0 || row.track === inTrack)
 	const shown = (row: NativeAudioRow): boolean => inView(row, track, drc)
-	const bestIn = (inTrack: string, withDrc: boolean): string | undefined => (view.tracks.length === 0 ? undefined : view.nativeRows.filter(row => inView(row, inTrack, withDrc)).toSorted((a, b) => (b.kbps ?? 0) - (a.kbps ?? 0))[0]?.formatId)
+	// The shown language's streams, as yt-dlp ranks them; the DRC switch picks which master comes first.
+	const sourceIn = (inTrack: string, withDrc: boolean, target: AudioConvertTarget): string | undefined => {
+		if (view.tracks.length === 0) return undefined
+		const shownIds = new Set(view.nativeRows.filter(row => inView(row, inTrack, withDrc)).map(row => row.formatId))
+		return conversionSource(
+			view.conversionCandidates.filter(candidate => shownIds.has(candidate.formatId)),
+			target,
+			{preferDrc: withDrc}
+		)?.formatId
+	}
 	const switchDrc = (next: boolean): void => {
 		setDrc(next)
 		if (isConversion(audioSelection)) {
-			if (audioSelection.sourceFormatId) onSelect({...audioSelection, sourceFormatId: bestIn(track, next)})
+			if (audioSelection.sourceFormatId) onSelect({...audioSelection, sourceFormatId: sourceIn(track, next, audioSelection.target)})
 			return
 		}
 		// The chosen stream swaps for its twin, so the switch never leaves a hidden chip selected.
@@ -101,9 +112,9 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	}
 	const switchTrack = (next: string): void => {
 		setTrack(next)
-		// A conversion follows the language: it converts that language's best stream.
+		// A conversion follows the language: it converts that language's stream.
 		if (isConversion(audioSelection)) {
-			onSelect({...audioSelection, sourceFormatId: bestIn(next, drc)})
+			onSelect({...audioSelection, sourceFormatId: sourceIn(next, drc, audioSelection.target)})
 			return
 		}
 		// A language change keeps the choice: the same codec at the nearest bitrate, in the new language.
@@ -114,7 +125,7 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 		)
 		if (replacement) onSelect({kind: 'native', formatId: replacement.formatId})
 	}
-	return {drc, track, shown, switchDrc, switchTrack, convertSource: bestIn(track, drc)}
+	return {drc, track, shown, switchDrc, switchTrack, convertSourceFor: target => sourceIn(track, drc, target)}
 }
 
 // The radio group speaks strings; these encode and decode the three selection kinds.
@@ -128,12 +139,12 @@ function convertSelection(target: AudioConvertTarget, bitrateKbps: AudioBitrate,
 	return target === 'wav' ? {kind: 'convert-lossless', target: 'wav', ...source} : {kind: 'convert-lossy', target, bitrateKbps, ...source}
 }
 
-function selectionFromValue(value: string, view: AudioView, convertSource: string | undefined): AudioSelection | null {
+function selectionFromValue(value: string, view: AudioView, convertSourceFor: (target: AudioConvertTarget) => string | undefined): AudioSelection | null {
 	if (value === 'none') return {kind: 'none'}
 	const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
 	if (native) return {kind: 'native', formatId: native.formatId}
 	const target = view.convertTargets.find(candidate => `convert:${candidate}` === value)
-	return target ? convertSelection(target, view.bitrateStrip.value, convertSource) : null
+	return target ? convertSelection(target, view.bitrateStrip.value, convertSourceFor(target)) : null
 }
 
 function AudioLanguageSelect({tracks, trackTags, track, onChange}: {tracks: readonly string[]; trackTags: Readonly<Record<string, readonly string[]>>; track: string; onChange: (next: string) => void}): ReactNode {
@@ -195,6 +206,19 @@ function BitrateStrip({view, selection, onSelect}: {view: AudioView; selection: 
 	)
 }
 
+// In place of the bitrate strip when the stream is already in the target
+// codec: yt-dlp copies it, so it keeps the source's bitrate.
+function CopyNote({target, kbps}: {target: AudioConvertTarget; kbps: number | undefined}): ReactNode {
+	const {t} = useTranslation()
+	const rounded = kbps === undefined ? undefined : Math.round(kbps)
+	return (
+		<div className="grid grid-cols-[4.5rem_minmax(0,1fr)] items-center gap-2 pt-1.5" data-testid="audio-copy-note">
+			<FormatLineName name={t('wizard.formats.convert.bitrate')} />
+			<span className="text-caption text-subtle-foreground">{rounded === undefined ? t('wizard.formats.convert.copyNoteNoBitrate', {target: target.toUpperCase()}) : t('wizard.formats.convert.copyNote', {target: target.toUpperCase(), kbps: rounded})}</span>
+		</div>
+	)
+}
+
 // Keep as-is: a stream with its own audio keeps it. Silence is the switch's
 // Video, no audio, so this column never offers No audio.
 function NoAudioChip({view}: {view: AudioView}): ReactNode {
@@ -235,17 +259,17 @@ interface AudioStreamListProps {
 	subtitleOnly: boolean
 	audioSelection: AudioSelection
 	onSelect: (sel: AudioSelection) => void
-	convertSource: string | undefined
+	convertSourceFor: (target: AudioConvertTarget) => string | undefined
 }
 
-function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSelect, convertSource}: AudioStreamListProps): ReactNode {
+function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSelect, convertSourceFor}: AudioStreamListProps): ReactNode {
 	const {t} = useTranslation()
 	// Two or more codec columns only fit a narrow window with stacked chips.
 	const narrowStack = codecColumns.length >= 2
 	// A disabled chip never reads as chosen, even though the store keeps the selection.
 	const selectedChipDisabled = audioSelection.kind === 'none' ? view.noAudioDisabled : subtitleOnly
 	const selectValue = (value: string): void => {
-		const next = selectionFromValue(value, view, convertSource)
+		const next = selectionFromValue(value, view, convertSourceFor)
 		if (next) onSelect(next)
 	}
 
@@ -289,7 +313,9 @@ function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSe
 export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnProps): ReactNode {
 	const {t} = useTranslation()
 	const subtitleOnly = mode === 'subtitle-only'
-	const {drc, track, shown, switchDrc, switchTrack, convertSource} = useAudioStreamFilter(view, audioSelection, onSelect)
+	const {drc, track, shown, switchDrc, switchTrack, convertSourceFor} = useAudioStreamFilter(view, audioSelection, onSelect)
+	// A source already in the target codec is copied as-is, so no bitrate applies to it.
+	const copySource = audioSelection.kind === 'convert-lossy' ? selectedConversionSource(view.conversionCandidates, audioSelection.target, audioSelection.sourceFormatId) : undefined
 
 	// One column per codec, best bitrate first.
 	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
@@ -304,10 +330,10 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 
 			{/* As wide as the chips: the rows below match the grid instead of the whole column. */}
 			<div className="flex w-fit max-w-full flex-col">
-				<AudioStreamList view={view} codecColumns={codecColumns} subtitleOnly={subtitleOnly} audioSelection={audioSelection} onSelect={onSelect} convertSource={convertSource} />
+				<AudioStreamList view={view} codecColumns={codecColumns} subtitleOnly={subtitleOnly} audioSelection={audioSelection} onSelect={onSelect} convertSourceFor={convertSourceFor} />
 
 				{/* Bitrate belongs to a lossy conversion, so it shows only once one is picked. */}
-				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? <BitrateStrip view={view} selection={audioSelection} onSelect={onSelect} /> : null}
+				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? copySource?.copies ? <CopyNote target={audioSelection.target} kbps={copySource.kbps} /> : <BitrateStrip view={view} selection={audioSelection} onSelect={onSelect} /> : null}
 
 				{/* `w-0 min-w-full`: the switch's long description wraps to the grid's width instead of setting it. */}
 				{view.hasDrcTwins ? (

@@ -2,6 +2,7 @@ import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
+import {formatConversionCandidate, selectedConversionSource} from '@shared/audioConversionSource.js'
 import type {AudioSelection} from './types.js'
 
 export interface GroupedVideoFormat {
@@ -39,7 +40,12 @@ export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: 
 	if (audioSelection.kind === 'convert-lossy') {
 		// i18next typed-resource inference doesn't always pick up placeholders in
 		// every locale variant — cast through `unknown` like formatStatus does.
-		return (i18next.t as (k: string, opts?: Record<string, unknown>) => string)('wizard.formats.convert.lossyLabel', {target: audioSelection.target.toUpperCase(), bitrate: audioSelection.bitrateKbps})
+		const t = i18next.t as (k: string, opts?: Record<string, unknown>) => string
+		const target = audioSelection.target.toUpperCase()
+		// A source already in the target codec is copied: the chosen bitrate doesn't apply.
+		const source = selectedConversionSource(audioFormats.map(formatConversionCandidate), audioSelection.target, audioSelection.sourceFormatId)
+		if (source?.copies) return source.kbps ? t('wizard.formats.convert.copyLabel', {target, bitrate: Math.round(source.kbps)}) : t('wizard.formats.convert.copyLabelNoBitrate', {target})
+		return t('wizard.formats.convert.lossyLabel', {target, bitrate: audioSelection.bitrateKbps})
 	}
 	const audioFmt = audioFormats.find(f => f.formatId === audioSelection.formatId)
 	return audioFmt?.label ?? i18next.t('formatLabel.audioFallback')

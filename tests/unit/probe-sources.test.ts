@@ -13,6 +13,8 @@ import type {VideoProbeResult} from '@shared/types.js'
 import {selectView, type FormatSelectionView, type VideoFormatRow} from '@renderer/store/formatSelectionView.js'
 import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
 import {PROBE_SOURCES} from '@renderer/dev/probeSources/sources.js'
+import {conversionSource, formatConversionCandidate} from '@shared/audioConversionSource.js'
+import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 
 const PICK_PROFILES = ['balanced', 'best-quality', 'mp4-1080', 'audio-only'] as const
 
@@ -77,6 +79,17 @@ function describePick(probe: VideoProbeResult, pick: MediaSelection): string {
 	return pick.kind === 'audio' ? `audio ${audio}` : `${name(pick.videoFormatId)} + audio ${audio}`
 }
 
+// The stream each conversion starts from and whether yt-dlp copies it, as
+// the wizard predicts it for a conversion that names no stream.
+function conversionSources(probe: VideoProbeResult): string[] {
+	const candidates = probe.formats.flatMap(format => (format.isAudioOnly ? [formatConversionCandidate(format)] : []))
+	const picks = AUDIO_CONVERT_TARGETS.flatMap(({target}) => {
+		const source = conversionSource(candidates, target)
+		return source ? [`${target} ← ${source.formatId} ${source.copies ? `copy${source.kbps ? ` ${Math.round(source.kbps)} kbps` : ''}` : 're-encode'}`] : []
+	})
+	return picks.length > 0 ? [`convert from: ${picks.join(' · ')}`] : []
+}
+
 function render(id: string): string {
 	const source = PROBE_SOURCES.find(candidate => candidate.id === id)
 	const probe = probeSourceResult(source?.id ?? 'vk')
@@ -94,6 +107,7 @@ function render(id: string): string {
 		'Audio:',
 		...audioList(view),
 		...(view.audio.convertTargets.length > 0 ? [`convert: ${view.audio.convertTargets.join(', ')}`] : []),
+		...conversionSources(probe),
 		'',
 		'Profile picks:',
 		...PICK_PROFILES.map(profileId => {

@@ -7,6 +7,7 @@ Video (picked for Balanced 720p •):
 Audio:
 MP3: 128 kbps 3.2 MiB •
 convert: mp3, m4a, opus, wav
+convert from: mp3 ← mp3-128 copy 128 kbps · m4a ← mp3-128 re-encode · opus ← mp3-128 re-encode · wav ← mp3-128 re-encode
 
 Profile picks:
 balanced: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})

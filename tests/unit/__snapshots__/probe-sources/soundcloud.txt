@@ -7,6 +7,7 @@ Video (picked for Balanced 720p •):
 Audio:
 AAC: 160 kbps 4.0 MiB • | 96 kbps 2.4 MiB
 convert: mp3, m4a, opus, wav
+convert from: mp3 ← hls_aac_160k re-encode · m4a ← hls_aac_160k copy 160 kbps · opus ← hls_aac_160k re-encode · wav ← hls_aac_160k re-encode
 
 Profile picks:
 balanced: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
