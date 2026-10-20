@@ -22,7 +22,8 @@ import {promisify} from 'node:util'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../src/shared/downloadProfiles.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec} from '../src/shared/mediaIntent.js'
 import {resolveProfileSelection} from '../src/shared/profileSelection.js'
-import type {DownloadProfile, DownloadProfileMedia, HdrPreference, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '../src/shared/schemas.js'
+import {VIDEO_CODEC_PREFERENCES, type DownloadProfile, type DownloadProfileMedia, type HdrPreference, type NativeAudioPreference, type PlaylistVideoTier, type VideoCodecPreference, type VideoFileType, type VideoGoal} from '../src/shared/schemas.js'
+import {videoCodecAllowed} from '../src/shared/selectionOrder.js'
 import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 import {probeSourceResult} from '../src/renderer/src/dev/probeSources/index.js'
 import {resolveOutputContainer} from '../src/renderer/src/store/wizard/resolveContainer.js'
@@ -66,6 +67,8 @@ const TIERS: readonly PlaylistVideoTier[] = ['best', '1080', '720', '480']
 const HDR: readonly HdrPreference[] = ['sdr', 'hdr']
 const FILE_TYPES: readonly VideoFileType[] = ['auto', 'mp4', 'webm']
 const NATIVE_AUDIO: readonly NativeAudioPreference[] = ['compatible', 'surround']
+// No preference (yt-dlp's own codec order), then each one the editor offers.
+const VIDEO_CODECS: readonly (VideoCodecPreference | undefined)[] = [undefined, ...VIDEO_CODEC_PREFERENCES]
 
 function profileCases(): ProfileCase[] {
 	const cases: ProfileCase[] = []
@@ -74,12 +77,14 @@ function profileCases(): ProfileCase[] {
 			for (const hdr of HDR)
 				for (const fileType of FILE_TYPES) {
 					if (goal === 'smart-tv' && (fileType === 'webm' || ['best', '2160', '1440'].includes(tier))) continue
-					for (const aiUpscaled of ['skip', 'allow'] as const) {
-						const video = {goal, tier, fileType, hdr: {kind: 'custom' as const, preference: hdr}, ...(aiUpscaled === 'allow' ? {aiUpscaled} : {})}
-						const label = `${goal} ${tier} ${fileType} ${hdr}${aiUpscaled === 'allow' ? ' +ai' : ''}`
-						cases.push({label: `${label} video-only`, media: {kind: 'video-only', ...video}, nativeAudio: 'compatible'})
-						for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `${label} ${nativeAudio}`, media: {kind: 'video-audio', ...video, audio: {native: {kind: 'default'}}}, nativeAudio})
-					}
+					for (const aiUpscaled of ['skip', 'allow'] as const)
+						for (const videoCodec of VIDEO_CODECS) {
+							if (videoCodec !== undefined && !videoCodecAllowed(goal, fileType, videoCodec)) continue
+							const video = {goal, tier, fileType, hdr: {kind: 'custom' as const, preference: hdr}, ...(aiUpscaled === 'allow' ? {aiUpscaled} : {}), ...(videoCodec ? {videoCodec} : {})}
+							const label = `${goal} ${tier} ${fileType} ${hdr}${aiUpscaled === 'allow' ? ' +ai' : ''}${videoCodec ? ` ${videoCodec}-first` : ''}`
+							cases.push({label: `${label} video-only`, media: {kind: 'video-only', ...video}, nativeAudio: 'compatible'})
+							for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `${label} ${nativeAudio}`, media: {kind: 'video-audio', ...video, audio: {native: {kind: 'default'}}}, nativeAudio})
+						}
 				}
 	for (const nativeAudio of NATIVE_AUDIO) cases.push({label: `audio-only ${nativeAudio}`, media: {kind: 'audio-only', audio: {format: 'best'}}, nativeAudio})
 	return cases

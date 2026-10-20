@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {canEmbedThumbnail, mediaIntentSpec} from '@shared/mediaIntent.js'
-import {containerArgsFor, effectiveFileType, effectiveNativeAudio, fileTypeAllowed, formatSortFor, selectionOrder} from '@shared/selectionOrder.js'
+import {containerArgsFor, effectiveFileType, effectiveNativeAudio, effectiveVideoCodec, fileTypeAllowed, formatSortFor, selectionOrder} from '@shared/selectionOrder.js'
 import {mediaIntentSchema, type MediaIntent, type NativeAudioPreference, type VideoMediaIntent} from '@shared/schemas.js'
 import {readFileSync} from 'node:fs'
 import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
@@ -208,5 +208,41 @@ describe('HDR preference', () => {
 		const stored = {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto', hdr: {kind: 'custom', preference: 'hdr'}}
 		expect(mediaIntentSchema.parse(stored)).toEqual(stored)
 		expect(mediaIntentSchema.parse({kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'})).not.toHaveProperty('hdr')
+	})
+})
+
+describe('video codec preference', () => {
+	const withCodec = (intent: Extract<VideoMediaIntent, {kind: 'video-audio'}>, videoCodec: 'vp9' | 'h264') => ({...intent, videoCodec})
+
+	it('ranks the preferred codec right after HDR, above the source rank', () => {
+		expect(selectionOrder(withCodec(video('best-picture', 'auto'), 'vp9'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'codec', 'source', 'protocol', 'size'])
+		expect(selectionOrder(withCodec(video('best-picture', 'auto'), 'vp9'), 'compatible').videoCodec).toBe('vp9')
+		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').videoCodec).toBeNull()
+	})
+
+	it("uses yt-dlp's own codec limits, naming resolution, fps and HDR first so the codec never costs height", () => {
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', 'best'), 'vp9'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,vcodec:vp9.2')
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', '1080'), 'h264'), 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:12,vcodec:h264')
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', 'best'), 'h264'), 'compatible', 'sdr'))).toBe('res,fps,hdr:sdr,vcodec:h264')
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'mp4', '720'), 'vp9'), 'compatible', 'sdr'))).toBe('res:720,fps,hdr:sdr,vcodec:vp9.2,acodec:m4a')
+	})
+
+	it('has no effect on Smart TV, which always takes H.264', () => {
+		expect(effectiveVideoCodec('smart-tv', 'auto', 'vp9')).toBeNull()
+		const order = selectionOrder(withCodec(video('smart-tv', 'auto', '720'), 'vp9'), 'compatible')
+		expect(order.videoCodec).toBeNull()
+		expect(formatSortFor(order)).toBe(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible')))
+	})
+
+	it('drops H.264 first for a file kept as WebM, which cannot hold H.264', () => {
+		expect(effectiveVideoCodec('best-picture', 'webm', 'h264')).toBeNull()
+		expect(effectiveVideoCodec('best-picture', 'webm', 'vp9')).toBe('vp9')
+		expect(selectionOrder(withCodec(video('best-picture', 'webm'), 'h264'), 'compatible').videoCodec).toBeNull()
+	})
+
+	it('survives parsing, and an absent one reads as no preference', () => {
+		const stored = {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto', videoCodec: 'h264'}
+		expect(mediaIntentSchema.parse(stored)).toEqual(stored)
+		expect(mediaIntentSchema.parse({kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'})).not.toHaveProperty('videoCodec')
 	})
 })

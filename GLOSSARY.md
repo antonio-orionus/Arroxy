@@ -188,6 +188,10 @@ _Avoid_: priority, hierarchy, ranking, sort
 What a download profile's video is for, which decides the codec its selection order prefers: Best picture (the newest, most efficient codecs) or Smart TV (the codec every device plays).
 _Avoid_: codec, compatibility, native
 
+**Video codec preference**:
+A Best picture profile's choice to take VP9 or H.264 first among streams of the same height, instead of the newest codec. It never costs resolution, frame rate or HDR; Smart TV has no use for it.
+_Avoid_: codec override, codec priority
+
 **File type**:
 The kind of file a download is saved as, such as MP4, MKV or WebM. Auto lets the chosen streams decide.
 _Avoid_: container, extension, format
