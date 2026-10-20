@@ -72,7 +72,7 @@ export function OutputFields(): ReactNode {
 export function StepOutput(): ReactNode {
 	const {advance, back} = useAppStore(useShallow(state => ({advance: state.advance, back: state.back})))
 	return (
-		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-output">
+		<div className="wizard-step wizard-step-column flex flex-col gap-1.5" data-testid="step-output">
 			<OutputFields />
 			<WizardStepFooterActions onBack={back} onContinue={advance} />
 		</div>

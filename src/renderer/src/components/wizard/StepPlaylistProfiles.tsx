@@ -249,7 +249,7 @@ export function StepPlaylistProfiles(): ReactNode {
 	const renderedColumnCount = table.getAllLeafColumns().length
 
 	return (
-		<div className="wizard-step gap-3" data-testid="step-playlist-profiles">
+		<div className="wizard-step wizard-step-column gap-3" data-testid="step-playlist-profiles">
 			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
 				<div className="flex items-baseline justify-between gap-2">
 					<h2 className="text-sm font-semibold truncate">{t('wizard.playlistProfiles.heading')}</h2>

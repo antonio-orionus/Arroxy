@@ -85,9 +85,9 @@ export function StepFormatSelect(): ReactNode {
 	if (formatsLoading) return <FormatsLoading onCancel={cancelWizardProbe} />
 
 	return (
-		<div className="wizard-step flex flex-col gap-3" data-testid="step-formats">
-			{/* Capped so a wide window keeps related controls (the mode switch, Whole video / Part) near what they act on. */}
-			<div className="@container flex w-full max-w-6xl flex-col gap-3">
+		<div className="wizard-step wizard-step-column flex flex-col gap-3" data-testid="step-formats">
+			{/* The step column caps this so a wide window keeps related controls (the mode switch, Whole video / Part) near what they act on. */}
+			<div className="@container flex flex-col gap-3">
 				<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
 
 				<VideoPartCallout />

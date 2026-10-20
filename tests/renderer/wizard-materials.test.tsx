@@ -16,6 +16,18 @@ describe('wizard materials', () => {
 		expect(container.firstElementChild).not.toHaveClass('bg-background')
 	})
 
+	it('caps and centres the footer content, bar and warning band alike, to the wizard column', () => {
+		render(
+			<WizardFooter info="Size unknown" extraAbove={<span>Profile line</span>}>
+				<button type="button">Continue</button>
+			</WizardFooter>
+		)
+
+		for (const content of [screen.getByText('Size unknown').parentElement, screen.getByText('Profile line').parentElement]) {
+			expect(content).toHaveClass('mx-auto', 'max-w-(--wizard-column)')
+		}
+	})
+
 	it('renders the probed media summary with the shared wizard summary material', () => {
 		render(<VideoSummaryCard thumbnail="" title="Example video" duration={42} resolution="1080p" webpageUrl="https://example.com/watch?v=1" />)
 

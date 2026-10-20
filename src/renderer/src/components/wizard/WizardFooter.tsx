@@ -1,27 +1,23 @@
 import type {ReactNode} from 'react'
-import {cn} from '@renderer/lib/utils.js'
 import {Separator} from '../ui/separator.js'
 
 interface WizardFooterProps {
 	children: ReactNode
 	info?: ReactNode
 	extraAbove?: ReactNode
-	// Caps the footer's content to the step's own width cap, so its edges line up
-	// with the content above while the bar itself spans the stage.
-	contentClassName?: string
 }
 
-export function WizardFooter({children, info, extraAbove, contentClassName}: WizardFooterProps): ReactNode {
+export function WizardFooter({children, info, extraAbove}: WizardFooterProps): ReactNode {
 	return (
 		<div className="wizard-footer-surface sticky bottom-0 z-10 -mx-6">
 			{extraAbove ? (
 				<div className="px-6">
 					{/* The band pads both edges, so its lines sit centred above the divider; with nothing in it, it takes no room. */}
-					<div className={cn('flex flex-col gap-1.5 py-2 empty:hidden', contentClassName)}>{extraAbove}</div>
+					<div className={'mx-auto flex max-w-(--wizard-column) flex-col gap-1.5 py-2 empty:hidden'}>{extraAbove}</div>
 				</div>
 			) : null}
 			<Separator className="wizard-footer-divider my-0 w-full" />
-			<div className={cn('flex items-center px-6 py-3', contentClassName && 'box-content', contentClassName)}>
+			<div className={'mx-auto box-content flex max-w-(--wizard-column) items-center px-6 py-3'}>
 				<div className="flex-1 text-sm text-muted-foreground">{info}</div>
 				<div className="flex gap-2">{children}</div>
 			</div>

@@ -288,7 +288,7 @@ export function StepPlaylistItems(): ReactNode {
 	const canContinue = selectedPlaylistItemIds.length > 0 && !playlistBusy && !view.allRemoved
 
 	return (
-		<div className="wizard-step gap-3" data-testid="step-playlist-items">
+		<div className="wizard-step wizard-step-column gap-3" data-testid="step-playlist-items">
 			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
 				<PlaylistItemsHeading isBulk={isBulk} copyKeys={copyKeys} itemCount={playlistItems.length} />
 

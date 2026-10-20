@@ -79,7 +79,7 @@ export function SponsorBlockFields(): ReactNode {
 export function StepSponsorBlock(): ReactNode {
 	const {advance, back} = useAppStore(useShallow(state => ({advance: state.advance, back: state.back})))
 	return (
-		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-sponsorblock">
+		<div className="wizard-step wizard-step-column flex flex-col gap-1.5" data-testid="step-sponsorblock">
 			<SponsorBlockFields />
 			<WizardStepFooterActions onBack={back} onContinue={advance} />
 		</div>
