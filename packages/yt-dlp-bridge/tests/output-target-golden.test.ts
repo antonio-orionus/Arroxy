@@ -1,3 +1,4 @@
+import path from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
 import {loadConfig} from '../src/config.js'
 import {planWorkflow, type WorkflowInput, type WorkflowPlanOptions} from '../src/index.js'
@@ -8,6 +9,13 @@ import {planWorkflow, type WorkflowInput, type WorkflowPlanOptions} from '../src
 const URL = 'https://www.youtube.com/watch?v=test'
 const config = {...loadConfig({}), outputRoot: '/srv/out', tempRoot: '/srv/tmp'}
 const PCT_DIR = '/out/100% b%(e)s'
+// Managed roots go through path.resolve, which gives `C:\srv\...` on Windows.
+const MANAGED_ROOT = path.resolve('/srv')
+
+function portable(arg: string): string {
+	const at = arg.indexOf(MANAGED_ROOT)
+	return at === -1 ? arg : `${arg.slice(0, at)}/srv${arg.slice(at + MANAGED_ROOT.length).replaceAll(path.sep, '/')}`
+}
 
 const CASES: [string, WorkflowInput, WorkflowPlanOptions?][] = [
 	['media with a temp folder writes the info-json there', {kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.arroxy-temp/job'}, selection: {formatId: '137+140'}}],
@@ -28,7 +36,7 @@ const CASES: [string, WorkflowInput, WorkflowPlanOptions?][] = [
 
 describe('output target golden argv', () => {
 	it('plans every path flag as recorded', async () => {
-		const planned = Object.fromEntries(CASES.map(([name, input, options]) => [name, planWorkflow(input, options).args]))
+		const planned = Object.fromEntries(CASES.map(([name, input, options]) => [name, planWorkflow(input, options).args.map(portable)]))
 		await expect(`${JSON.stringify(planned, null, '\t')}\n`).toMatchFileSnapshot('./golden/output-target-argv.json')
 	})
 })
