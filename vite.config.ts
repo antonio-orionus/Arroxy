@@ -56,7 +56,7 @@ export default defineConfig({
 		]
 	},
 	run: {tasks: {'quality-gate': {command: 'bun run packages:check', dependsOn: CHECK_GATES, cache: false}}},
-	staged: {'readme-src/**': "bash -lc 'bun run build:readme && git add README.md README.*.md' --", '*.{json,jsonc,css}': 'vp fmt --no-error-on-unmatched-pattern', '*.{ts,tsx,cts,mts,js,mjs,cjs}': STAGED_CHECK},
+	staged: {'readme-src/**': "bash -lc 'bun run build:readme && git add README.md docs/readme' --", '*.{json,jsonc,css}': 'vp fmt --no-error-on-unmatched-pattern', '*.{ts,tsx,cts,mts,js,mjs,cjs}': STAGED_CHECK},
 	fmt: {
 		// Mirrors the former Biome formatter settings (tabs, 320 cols, no semis, collapsed objects).
 		useTabs: true,

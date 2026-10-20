@@ -84,7 +84,7 @@ reviews:
     - "!i18n/app.pot"
     # README files are generated from readme-src; review the source files, not the outputs.
     - "!README.md"
-    - "!README.*.md"
+    - "!docs/readme/**"
     # Locale-heavy PRs can exceed CodeRabbit's file cap. Keep the English sources in review
     # scope and exclude every other locale's generated/source artifacts explicitly; broad negative
     # patterns cannot be re-included later by CodeRabbit.

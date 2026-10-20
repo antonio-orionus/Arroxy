@@ -193,4 +193,4 @@ Strategy, dev binaries and licensing: [`dev-docs/binary-distribution.md`](dev-do
 
 ## Updating Public-Facing Content (READMEs)
 
-`README.md` and every `README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Landing-site copy lives in the `arroxy-web` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).
+`README.md` and every `docs/readme/README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Landing-site copy lives in the `arroxy-web` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).

@@ -68,7 +68,7 @@ const SHARED_RULES = `What counts as a finding:
 Do not report:
 - Security hardening, threat models or attack scenarios. This is a desktop app; the owner has ruled security review out of scope.
 - Style, naming, formatting, comment wording, or anything oxlint, the TypeScript compiler, knip or \`bun run check\` would already catch.
-- Generated files: README*.md at the root, non-English locale JSON and .po files.
+- Generated files: README.md at the root and docs/readme/README.*.md, non-English locale JSON and .po files.
 - Speculation that something "may break" elsewhere without naming the code that breaks.
 - Suggestions to add docstrings, logging for its own sake, or more defensive checks on values that are already validated.
 

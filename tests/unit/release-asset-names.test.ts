@@ -299,7 +299,8 @@ describe('release asset names', () => {
 	})
 
 	it('does not document stale versioned Windows filename patterns in generated READMEs', () => {
-		const readmes = readdirSync(root).filter(file => /^README(?:\.[a-z]+)?\.md$/.test(file))
+		const localeReadmes = readdirSync(join(root, 'docs/readme')).filter(file => file.endsWith('.md'))
+		const readmes = ['README.md', ...localeReadmes.map(file => `docs/readme/${file}`)]
 
 		for (const file of readmes) {
 			const content = read(file)

@@ -70,7 +70,7 @@ runs:
             - '!DONATE.md'
             - '!GLOSSARY.md'
             - '!PRODUCT.md'
-            - '!README*.md'
+            - '!README.md'
             - '!dev-docs/**'
             - '!docs/**'
             - '!flatpak/**'

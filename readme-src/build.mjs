@@ -1,12 +1,12 @@
 // Build localized README files from template.md + strings.mjs.
 //
-//   README.md         <- en (canonical)
-//   README.{code}.md  <- one per non-en locale
+//   README.md                     <- en (canonical)
+//   docs/readme/README.{code}.md  <- one per non-en locale
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
 import { readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { LOCALES } from "./strings.mjs";
@@ -73,11 +73,27 @@ function checkParity(locales, { strict }) {
   }
 }
 
+// Each locale's `filename` is a repo-root-relative path. Links in the template
+// are written as seen from the repo root, so a README generated into a subfolder
+// gets them rewritten to climb back up to the root first.
+function rootPrefix(filename) {
+  return posix.relative(posix.dirname(filename), ".");
+}
+
+const RELATIVE_LINK_RE = /(\]\(|(?:src|href)=")(?![a-z][a-z0-9+.-]*:|#|\/)([^)"\s]+)/gi;
+
+function rebaseRelativeLinks(text, filename) {
+  const prefix = rootPrefix(filename);
+  if (!prefix) return text;
+  return text.replace(RELATIVE_LINK_RE, (_, lead, target) => lead + posix.join(prefix, target));
+}
+
 function buildLangNav(currentLoc, locales) {
+  const fromDir = posix.dirname(currentLoc.filename);
   return locales
     .map((l) => {
       if (l.code === currentLoc.code) return `**${l.name}**`;
-      return `[${l.name}](${l.filename})`;
+      return `[${l.name}](${posix.relative(fromDir, l.filename)})`;
     })
     .join(" · ");
 }
@@ -111,6 +127,7 @@ async function main() {
 
   for (const loc of LOCALES) {
     let md = applyStrings(template, loc.strings, enStrings);
+    md = rebaseRelativeLinks(md, loc.filename);
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
       LANG_COUNT: String(LOCALES.length),
@@ -124,7 +141,7 @@ async function main() {
     const { date, changed } = resolveStamp(md, previous);
     await writeFile(outPath, md.replace(STAMP_SENTINEL, `_Last updated: ${date}._`), "utf8");
     console.log(
-      `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(14)} ${date}${changed ? " (updated)" : ""}`,
+      `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(30)} ${date}${changed ? " (updated)" : ""}`,
     );
   }
 

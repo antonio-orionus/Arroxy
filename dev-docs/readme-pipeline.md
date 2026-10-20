@@ -4,7 +4,7 @@ How the public READMEs are generated, translated, and illustrated. The landing s
 
 | Source | Generates | Command |
 | --- | --- | --- |
-| `readme-src/locales/{lang}.mjs` + `readme-src/template.md` | `README.md` + `README.{lang}.md` | `node readme-src/build.mjs` |
+| `readme-src/locales/{lang}.mjs` + `readme-src/template.md` | `README.md` + `docs/readme/README.{lang}.md` | `node readme-src/build.mjs` |
 
 - Each locale is its own file under `readme-src/locales/`. `readme-src/strings.mjs` only imports them and exports the ordered `LOCALES` array; edit the per-locale files, not the aggregator.
 - `build.mjs` stamps `Last updated:`; never hand-edit it. A README keeps the date of the last build that changed its content (the build compares its render with the file on disk, ignoring the stamp), so rebuilding an unchanged README is a no-op and a single-locale edit bumps only that locale. The staged-file rule for `readme-src/**` rebuilds and re-stamps the READMEs into the same commit.
@@ -15,7 +15,7 @@ How the public READMEs are generated, translated, and illustrated. The landing s
 
 1. Keys are grouped as `feat_<group>_<n>` (`feat_workflow_11`, `feat_quality_3`, `feat_privacy_2`). Add the next number in the matching group to `readme-src/locales/en.mjs`, then to every other locale, then add `- {{feat_<group>_<n>}}` to `readme-src/template.md` in the matching section.
 2. Run `node readme-src/build.mjs` and confirm `✓` for every locale.
-3. Commit the sources **and** the regenerated `README*.md` files together.
+3. Commit the sources **and** the regenerated `README.md` and `docs/readme/` files together.
 
 ## Locales in scope
 

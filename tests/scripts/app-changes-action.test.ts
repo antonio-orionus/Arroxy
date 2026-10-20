@@ -67,7 +67,7 @@ const PIN_RECORD_PR = [
 ]
 
 const CASES: {name: string; files: string[]; runs: Scope[]}[] = [
-	{name: 'docs and translation sources', files: ['dev-docs/release-runbook.md', 'README.md', 'README.de.md', 'readme-src/strings/en.json', 'i18n/locales/de.po', 'GLOSSARY.md', 'docs/adr/0010-ffmpeg-package.md'], runs: []},
+	{name: 'docs and translation sources', files: ['dev-docs/release-runbook.md', 'README.md', 'docs/readme/README.de.md', 'readme-src/strings/en.json', 'i18n/locales/de.po', 'GLOSSARY.md', 'docs/adr/0010-ffmpeg-package.md'], runs: []},
 	{name: 'agent tooling', files: ['.agents/memory/MEMORY.md', 'skills-lock.json', 'AGENTS.md', '.coderabbit.yaml'], runs: []},
 	{name: 'unit and renderer tests', files: ['tests/unit/queue.test.ts', 'tests/renderer/wizard.test.tsx', 'tests/scripts/embedded-payload.test.ts', 'packages/yt-dlp-bridge/tests/bridge.test.ts'], runs: []},
 	{name: 'the remux matrix and VM scripts', files: ['scripts/ffmpeg-matrix/run.ts', 'tests/fixtures/ffmpeg-remux/vp9-hls.mp4', 'scripts/vm/win-sync.sh'], runs: []},
