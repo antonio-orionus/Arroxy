@@ -49,6 +49,13 @@ export const videoGoalSchema = z.enum(['best-picture', 'smart-tv'])
 export type VideoGoal = z.infer<typeof videoGoalSchema>
 export const VIDEO_GOALS = videoGoalSchema.options
 
+// A codec a Best picture profile takes first among streams of one height, over
+// yt-dlp's own order (AV1 first). Absent means yt-dlp's order; Smart TV always
+// takes H.264.
+export const videoCodecPreferenceSchema = z.enum(['vp9', 'h264'])
+export type VideoCodecPreference = z.infer<typeof videoCodecPreferenceSchema>
+export const VIDEO_CODEC_PREFERENCES = videoCodecPreferenceSchema.options
+
 // The kind of file a video download is saved as. `auto` lets the picked
 // streams decide; the others remux (copy streams, never re-encode).
 export const videoFileTypeSchema = z.enum(['auto', 'mp4', 'mkv', 'webm'])
@@ -174,7 +181,8 @@ export const AI_UPSCALED_CHOICES = aiUpscaledSchema.options
 // `hdr` absent means `default`: profiles saved before the choice existed follow
 // the app setting, which upgrades to HDR for existing installs. `aiUpscaled`
 // absent means `skip`, for profiles saved before the choice existed too.
-const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema, hdr: hdrChoiceSchema.optional(), aiUpscaled: aiUpscaledSchema.optional()}
+// `videoCodec` absent means yt-dlp's own codec order.
+const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema, hdr: hdrChoiceSchema.optional(), aiUpscaled: aiUpscaledSchema.optional(), videoCodec: videoCodecPreferenceSchema.optional()}
 const videoAudioMediaSchema = z.object({kind: z.literal('video-audio'), ...videoMediaFields, audio: z.object({native: nativeAudioChoiceSchema})})
 const videoOnlyMediaSchema = z.object({kind: z.literal('video-only'), ...videoMediaFields})
 const audioOnlyMediaSchema = z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})

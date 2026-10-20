@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "kali zaidi kwa ukubwa uleule"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, kisha VP9, kisha AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "kodeki ya wasifu huu"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, kisha H.264, kisha AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "kodeki ya wasifu huu"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Kasi ya juu zaidi ya fremu"
@@ -2010,6 +2026,30 @@ msgstr "Sura {{count}}"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Inapakia…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Otomatiki"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huhifadhi mpangilio wa yt-dlp wenyewe, unaopendelea AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 kwanza"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Kodeki ya video"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Runinga janja huchukua H.264 kila wakati."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 kwanza"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

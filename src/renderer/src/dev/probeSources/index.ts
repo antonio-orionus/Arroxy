@@ -35,6 +35,9 @@ import youtubeMusic from './youtube-music.json' with {type: 'json'}
 import youtubePodcast from './youtube-podcast.json' with {type: 'json'}
 import twitchClip from './twitch-clip.json' with {type: 'json'}
 import bandcamp from './bandcamp.json' with {type: 'json'}
+import vimeo from './vimeo.json' with {type: 'json'}
+import peertube from './peertube.json' with {type: 'json'}
+import odysee from './odysee.json' with {type: 'json'}
 
 // `lookedUpSizes`: sizes the capture asked the site's servers for, as the app does.
 const FIXTURES: Record<ProbeSourceId, {info: unknown; lookedUpSizes?: Record<string, number>}> = {
@@ -62,6 +65,9 @@ const FIXTURES: Record<ProbeSourceId, {info: unknown; lookedUpSizes?: Record<str
 	soundcloud,
 	tiktok,
 	instagram,
+	vimeo,
+	peertube,
+	odysee,
 	facebook
 }
 
