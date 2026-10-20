@@ -10,6 +10,7 @@ export const genericSite: Site = {
 	supportsSponsorBlock: false,
 	needsAutoCaptionDedupe: false,
 	autoCaptionRequiresOrigSuffix: false,
+	probeListsSubtitleTracks: false,
 	sortsSourceBeforeCodec: false
 	// No hintForPlaylistId / isNestedContainer — yt-dlp's generic extractor
 	// doesn't expose the metadata that those would parse.

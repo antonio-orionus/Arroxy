@@ -132,6 +132,16 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			await rm(tempDir, {recursive: true, force: true})
 		})
 
+		it('keeps the codes on a site whose info-json does not list subtitles until they are asked for', async () => {
+			const tempDir = await tempDirWithInfoJson()
+			const job = {...codesJob(['en']), extractor: 'vimeo', extractorKey: 'Vimeo'}
+			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, url: 'https://vimeo.com/1', job}})
+			await SidecarSubsPhase(false).run(ctx)
+			const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+			expect(req.subtitles.languages).toEqual([ytDlpSubtitleLanguageSelector('en')])
+			await rm(tempDir, {recursive: true, force: true})
+		})
+
 		it('completes without running yt-dlp when the video has none of the languages', async () => {
 			const tempDir = await tempDirWithInfoJson()
 			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en'])}})

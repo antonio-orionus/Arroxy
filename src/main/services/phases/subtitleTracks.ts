@@ -26,10 +26,11 @@ async function readSubtitleMaps(path: string, site: Site): Promise<Parameters<ty
 
 // A job that still carries language codes (a playlist entry is queued before
 // its video is known) gets this video's exact tracks from the first readable
-// info-json, by the rule the Format screen uses. With none at hand the codes
-// stay, and yt-dlp matches them as a pattern.
+// info-json, by the rule the Format screen uses. With none at hand, or on a
+// site whose info-json lists subtitles only when asked to write them (phase 1
+// never is), the codes stay and yt-dlp matches them as a pattern.
 export async function resolveSubtitleTracks(subtitles: SubtitleOptions, opts: {infoJsonPaths: readonly (string | undefined)[]; site: Site; jobId: string}): Promise<SubtitleOptions> {
-	if (!subtitles.languagesAreCodes) return subtitles
+	if (!subtitles.languagesAreCodes || !opts.site.probeListsSubtitleTracks) return subtitles
 	for (const path of opts.infoJsonPaths) {
 		if (path === undefined) continue
 		const maps = await readSubtitleMaps(path, opts.site)

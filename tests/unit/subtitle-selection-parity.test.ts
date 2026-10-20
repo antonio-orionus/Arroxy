@@ -108,3 +108,12 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 				}
 	}
 })
+
+// Vimeo, TikTok, Bilibili and others list subtitles only when yt-dlp is asked to
+// write or list them, which a probe never is: their empty maps say nothing.
+describe('a site whose probe does not list every subtitle track', () => {
+	it("keeps Quick Download's language codes for yt-dlp to match", () => {
+		const probe: VideoProbeResult = {...probeSourceResult('dailymotion'), extractor: 'vimeo', extractorKey: 'Vimeo', subtitles: {}, automaticCaptions: {}}
+		for (const media of MEDIA) expect(quickJob(probe, profileFor(media, ['en'], 'manual-first'))).toMatchObject({languages: ['en'], languagesAreCodes: true})
+	})
+})

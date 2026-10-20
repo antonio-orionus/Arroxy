@@ -15,6 +15,7 @@ import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPr
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
+import {siteForJob} from '@shared/sites/index.js'
 import {subtitleSourceOptions, withSubtitleTracks} from '@shared/subtitleLanguages.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
@@ -354,15 +355,16 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 
 // A probed video's subtitle maps turn the profile's language codes into the
 // exact tracks the Format screen would pick, so yt-dlp fetches those and never
-// a machine translation. A subtitles-only job none of whose codes this video
-// has keeps them, for the subtitle phase to find nothing to fetch.
+// a machine translation. Only on a site whose probe lists every track: an
+// empty map elsewhere says nothing. A subtitles-only job none of whose codes
+// this video has keeps them, for the subtitle phase to find nothing to fetch.
 function profileSubtitles(resolved: ResolvedDownloadProfile, maps: SubtitleMaps | undefined): SubtitleOptions | undefined {
-	if (!resolved.subtitles || !maps) return resolved.subtitles
+	if (!resolved.subtitles || !maps || !siteForJob(maps.extractor, maps.webpageUrl).probeListsSubtitleTracks) return resolved.subtitles
 	const exact = withSubtitleTracks(resolved.subtitles, maps)
 	return exact.languages.length === 0 && resolved.isSubtitleOnly ? resolved.subtitles : exact
 }
 
-type SubtitleMaps = Pick<Extract<ProbeResult, {kind: 'video'}>, 'subtitles' | 'automaticCaptions'>
+type SubtitleMaps = Pick<Extract<ProbeResult, {kind: 'video'}>, 'subtitles' | 'automaticCaptions' | 'extractor' | 'webpageUrl'>
 
 function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference, subtitleMaps: SubtitleMaps | undefined): PreparedJob {
 	const subtitles = profileSubtitles(resolved, subtitleMaps)

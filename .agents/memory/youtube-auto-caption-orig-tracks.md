@@ -50,8 +50,13 @@ manual track, an identical ASR twin, or a translation, depending on the video.
 So Arroxy picks exact track keys itself (`pickSubtitleTracks`, the Format
 screen's rule) and sends them as `(?-i:<escaped key>)`: queueing resolves a
 single video's profile codes from the probe, the subtitle phase resolves a
-playlist entry's from the media run's or probe's info-json. Only a job with no
-info-json at all (a subtitles-only playlist entry) still sends the code pattern.
+playlist entry's from the media run's or probe's info-json. That needs maps that
+list every track, so it runs only where the site adapter sets
+`probeListsSubtitleTracks` (YouTube): extractors using yt-dlp's lazy
+`extract_subtitles` (Vimeo, TikTok, Bilibili, Niconico, PeerTube…) return empty
+maps unless `--write-subs`/`--list-subs` is set, which neither the probe nor
+phase 1 does. Those sites, and a job with no info-json at all (a subtitles-only
+playlist entry), still send the code pattern.
 
 ## Subtitle source → yt-dlp flags
 

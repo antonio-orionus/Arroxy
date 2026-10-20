@@ -153,6 +153,8 @@ Subtitle languages become exact track keys by one rule (`pickSubtitleTracks`,
 profile's single video at queueing time, from the probe; a playlist entry in
 the subtitle phase, from the media run's or the probe's info-json
 (`resolveSubtitleTracks`). yt-dlp gets them as exact `--sub-langs` entries.
+Only on sites whose probe lists every track (`probeListsSubtitleTracks`,
+YouTube); elsewhere a profile's codes reach yt-dlp as a pattern.
 
 Known duplication between the two:
 
