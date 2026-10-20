@@ -5,8 +5,6 @@
 // reserved DOS device names — anything that would break path joining at
 // the OS level.
 
-import {neutralizeDirExpansion} from './pathExpansion.js'
-
 // Reject filename-illegal chars including ASCII control bytes (\x00-\x1F),
 // which are explicitly disallowed on Windows and produce undefined behavior
 // in path APIs on POSIX.
@@ -72,14 +70,11 @@ function truncateGraphemes(text: string, max: number): string {
  * fallback for the one case that does need a folder no matter what.
  */
 export function sanitizeDirSegment(raw: string): string | null {
-	// The segment reaches yt-dlp's --paths, where `$NAME` and `%NAME%` would
-	// expand. Neutralised after the swaps, which can create a reference: `$?`
-	// becomes `$_`, a variable every shell sets.
-	const sanitized = neutralizeDirExpansion(
-		raw
-			.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
-			.replace(/\s+/g, ' ')
-	)
+	// yt-dlp runs inside the folder this names, so `$` and `%` never reach its
+	// argv and are kept as they are.
+	const sanitized = raw
+		.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
+		.replace(/\s+/g, ' ')
 		.trim()
 		.replace(/[. ]+$/, '')
 	// Truncating can re-expose a trailing dot or space that Windows drops.

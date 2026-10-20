@@ -12,8 +12,8 @@
 // Token names are enumerated in schemas.ts (enum SSOT); the field mapping below
 // is the implementation detail that belongs here.
 
-import {fitName, renderName, type BudgetFailure, type BudgetPiece, type BudgetResult, type InFlightFiles} from './nameBudget.js'
-import {neutralizeFilenameExpansion, neutralizeFilenamePiece} from './pathExpansion.js'
+import {fitName, renderName, type BudgetFailure, type BudgetPiece, type InFlightFiles} from './nameBudget.js'
+import {templateLiteral} from 'yt-dlp-bridge/output-template'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
@@ -232,15 +232,14 @@ export function compileFilenameTemplate(template: string): FilenameTemplateCompi
 	// Parsed as generated output, not as something a user typed — see ParseOptions.
 	const parsed = parse(template, {source: 'bound'})
 	if (!parsed.ok) return parsed
-	// Literal text must survive yt-dlp's own expansion pass: `%` is escaped,
-	// and anything expandvars or expanduser would act on is neutralised (see
-	// pathExpansion.ts). Binding already did the latter; this is the guarantee
-	// at the boundary, for templates that never went through it. Fields need
-	// neither, because yt-dlp fills them in after expanding.
+	// Literal text must survive yt-dlp's own expansion pass, which runs before
+	// it fills fields: templateLiteral escapes each `%`, `$` and `~` without
+	// changing what is written. Fields need nothing, because yt-dlp fills them
+	// in after expanding.
 	const body = parsed.file
-		.map((segment, index) => {
+		.map(segment => {
 			if (segment.kind === 'token') return segment.token === 'title' ? `%(title).${FALLBACK_TITLE_BYTES}B` : TOKEN_FIELDS[segment.token]
-			return neutralizeFilenameExpansion(segment.text, index === 0).replaceAll('%', '%%')
+			return templateLiteral(segment.text)
 		})
 		.join('')
 	return {ok: true, template: `${body}.%(ext)s`}
@@ -319,8 +318,8 @@ const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE
 // A bound value becomes literal template text, so anything that would change
 // the template's meaning has to go: separators would invent a folder, braces
 // would invent a token, and the rest are illegal in filenames anyway. `%` is
-// left alone — compileFilenameTemplate escapes literals on the way out — and so
-// is shell expansion, which neutralizePieces handles once the pieces exist.
+// left alone, as are `$` and `~`: compileFilenameTemplate escapes literals on
+// the way out, and the escape does not change what is written.
 //
 // Length is deliberately not handled here. Trimming each value against its own
 // allowance cannot see the whole name, which is what the filesystem measures;
@@ -333,43 +332,6 @@ function sanitizeBoundLiteral(value: string): string {
 			.replace(/\s+/g, ' ')
 			.trim()
 	)
-}
-
-// yt-dlp expands `$NAME` and a leading `~` in literal `-o` text (see
-// pathExpansion.ts). Done before fitName so the wider look-alikes are measured,
-// and piece by piece with a context-free rule, because fitName gives every
-// occurrence of a token the same text: a rule that looked at the neighbours
-// could neutralise one copy and not another. A placeholder stays a field in
-// `-o`, which yt-dlp fills in after expanding, so it is left alone.
-function neutralizePieces(pieces: readonly BudgetPiece[]): BudgetPiece[] {
-	const neutral = pieces.map(piece => (piece.kind === 'placeholder' ? piece : {...piece, text: neutralizeFilenamePiece(piece.text)}))
-	const first = neutral.find(piece => piece.text !== '')
-	if (!first || first.kind === 'placeholder' || !first.text.startsWith('~')) return neutral
-	// Every copy of the leading token, so they still share one text.
-	return neutral.map(piece => (piece === first || (first.kind === 'token' && piece.kind === 'token' && piece.token === first.token) ? {...piece, text: neutralizeFilenameExpansion(piece.text)} : piece))
-}
-
-function sameText(a: readonly BudgetPiece[], b: readonly BudgetPiece[]): boolean {
-	return renderName(a) === renderName(b)
-}
-
-/**
- * fitName over neutralised pieces. A cut can end a value on a `$` that used to
- * be followed by a space, so the fitted pieces are neutralised again; when that
- * widens anything, they are fitted again. Each round only ever turns `$` into
- * its look-alike and then shortens, so it settles within a few rounds.
- */
-function fitNeutralName(pieces: readonly BudgetPiece[], ctx: BindContext): BudgetResult {
-	const truncated = new Set<FilenameToken>()
-	let current = neutralizePieces(pieces)
-	for (;;) {
-		const fitted = fitName({pieces: current, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform), inFlight: ctx.inFlight})
-		if (!fitted.ok) return fitted
-		for (const token of fitted.truncated) truncated.add(token)
-		const again = neutralizePieces(fitted.pieces)
-		if (sameText(again, fitted.pieces)) return {ok: true, pieces: fitted.pieces, truncated: [...truncated]}
-		current = again
-	}
 }
 
 // Applied to the assembled name, because both hazards are properties of the
@@ -428,7 +390,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 	// against the typed-length limit and hide it from directory resolution.
 	if (suffix) pieces.push({kind: 'literal', text: ` ${suffix}`})
 
-	const fitted = fitNeutralName(pieces, ctx)
+	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform), inFlight: ctx.inFlight})
 	if (!fitted.ok) return fitted
 
 	return {ok: true, template: finalizeName(renderName(fitted.pieces)), truncated: fitted.truncated}
@@ -497,6 +459,6 @@ export function previewFilenameTemplate(template: string, sample: 'video' | 'pla
 	if (!parsed.ok) return null
 	const meta = sample === 'playlist' ? PLAYLIST_SAMPLE : VIDEO_SAMPLE
 	const dirs = renderTemplateDirs(template, meta)
-	const filename = `${neutralizeFilenameExpansion(renderSegment(parsed.file, meta))}.${SAMPLE_EXT}`
+	const filename = `${renderSegment(parsed.file, meta)}.${SAMPLE_EXT}`
 	return [...dirs, filename].join('/')
 }

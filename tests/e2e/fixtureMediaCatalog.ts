@@ -72,6 +72,12 @@ if (!awkwardTitleVideo) throw new Error('fixture-media-catalog.json must define 
 export const AWKWARD_TITLE_VIDEO_ID = awkwardTitleVideo.id
 /** The raw title, before any sanitizing or shortening Arroxy applies. */
 export const AWKWARD_TITLE = titleOverride(awkwardTitleVideo) ?? ''
+// A title yt-dlp would expand if it reached its argv as plain text: a leading
+// `~`, a set variable and an output-template field.
+const expandingTitleVideo = catalog.videos.find(video => titleOverride(video)?.includes('$') === true)
+if (!expandingTitleVideo) throw new Error('fixture-media-catalog.json must define a video whose title names a variable')
+export const EXPANDING_TITLE_VIDEO_ID = expandingTitleVideo.id
+export const EXPANDING_TITLE = titleOverride(expandingTitleVideo) ?? ''
 // Mimics a signed-in session YouTube limited: the 720p format comes back without
 // a URL and yt-dlp prints its SABR warning, leaving only the 360p fallback.
 const isSabrLimited = (video: (typeof catalog.videos)[number]): boolean => sessionLimits(video).warnings.some(warning => warning.includes('missing a URL'))

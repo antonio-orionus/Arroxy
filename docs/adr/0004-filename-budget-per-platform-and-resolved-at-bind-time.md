@@ -65,9 +65,15 @@ The total-path reserve also covers the job temp folder that media downloads into
 
 Literal text is not inert in yt-dlp: it runs `expandvars` and `expanduser` over
 the whole `-o` template and every `--paths` value before filling in fields, so a
-bound title `Why $HOME rules` was written into a folder named `Why `. There is no
-escape that survives both POSIX and Windows expansion (`$$` is not one), so bound
-names and Arroxy-rendered folders swap a `$` that could start a reference, a
-Windows `%NAME%` in folders, and a leading `~` for full-width look-alikes, the
-way yt-dlp itself swaps `:` or `|`. `bun run check:filename-parity` compares
-Arroxy's predicted paths with real yt-dlp's over a corpus of such titles.
+bound title `Why $HOME rules` was written into a folder named `Why `.
+
+**Superseded by ADR 0015** for that paragraph's remedy. This ADR used to swap a
+`$` that could start a reference, a Windows `%NAME%` in folders, and a leading
+`~` for full-width look-alikes, on the grounds that no escape survives both
+expanders. That holds for `--paths`, not for `-o`. yt-dlp now runs inside the
+output folder, so no folder text reaches its argv, and bound names keep their
+ASCII signs: the compiled `-o` escapes each `%`, `$` and `~` as an absent field
+defaulting to that sign, which expansion cannot see through. The escape changes
+nothing on disk, so the budget measures the name as typed.
+`bun run check:filename-parity` compares Arroxy's predicted paths with real
+yt-dlp's over a corpus of such titles and folders.

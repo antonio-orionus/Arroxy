@@ -26,6 +26,7 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 - Your own yt-dlp settings no longer change Arroxy's downloads: a yt-dlp config file or plugin you set up for yt-dlp on its own, or a `yt-dlp.conf` left in your download folder, is now ignored.
 - A download folder named like `$HOME` or `%USERPROFILE%`, or ending in a space, now gets the files, instead of a folder elsewhere with the name expanded.
 - A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
+- File and folder names keep `$`, `%` and `~` as in the title, instead of look-alike characters.
 
 ## 0.7.2
 

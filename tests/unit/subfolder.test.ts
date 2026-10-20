@@ -98,15 +98,11 @@ describe('safeFolderName', () => {
 		expect(safeFolderName(`${'a'.repeat(60)}....`)).toBe('a'.repeat(60))
 	})
 
-	it('neutralises variable references yt-dlp would expand in --paths', () => {
-		// yt-dlp expands `$NAME` (and `%NAME%` on Windows) in every --paths value, so
-		// a playlist called "$HOME mix" would otherwise land in the home directory.
-		expect(safeFolderName('$HOME mix')).toBe('＄HOME mix')
-		expect(safeFolderName('%USERPROFILE% mix')).toBe('％USERPROFILE% mix')
-		expect(safeFolderName('$5 deals, 100% off')).toBe('$5 deals, 100% off')
-		// `?` becomes `_` first, and `$_` is a variable every shell sets.
-		expect(safeFolderName('Who wants $?')).toBe('Who wants ＄_')
-		expect(safeFolderName('100%:off')).toBe('100％_off')
+	// yt-dlp runs inside the folder, so its name never reaches argv to expand.
+	it('keeps $ and % as typed', () => {
+		expect(safeFolderName('$HOME mix')).toBe('$HOME mix')
+		expect(safeFolderName('%USERPROFILE% mix')).toBe('%USERPROFILE% mix')
+		expect(safeFolderName('Who wants $?')).toBe('Who wants $_')
 	})
 
 	it('falls back to Playlist when nothing usable survives', () => {

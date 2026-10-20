@@ -4,6 +4,7 @@ import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
 import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_OVERLAP_PLAYLIST_TITLE, FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {EXPANDING_TITLE, EXPANDING_TITLE_VIDEO_ID} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleReview, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -32,6 +33,38 @@ async function expectOrderedM3u(dir: string, playlistTitle: string, expectedIds:
 	const orderedIds = [...m3u.matchAll(FIXTURE_M3U_VIDEO_ID_PATTERN)].map(match => match[1])
 	expect(orderedIds).toEqual([...expectedIds])
 }
+
+// Risk: yt-dlp expands `$NAME`, `%NAME%` and a leading `~` in every path and
+// template it is given, and strips trailing spaces from --paths values. The
+// title and the download folder used to be bent around that (full-width
+// look-alikes) or sent the file elsewhere. yt-dlp now runs inside the folder
+// and the name's literal text is escaped losslessly: both must be on disk
+// exactly as named.
+test('Electron download keeps a title and folder full of expansion characters as they are', async () => {
+	test.setTimeout(120_000)
+	const folderName = 'Down $HOME %PATH% ~u '
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-literal-user-',
+			outputPrefix: 'arroxy-fixture-literal-out-',
+			settings: settings => {
+				const folder = path.join(settings.common.defaultOutputDir, folderName)
+				fs.mkdirSync(folder, {recursive: true})
+				settings.common.defaultOutputDir = folder
+				settings.common.filenameTemplate = '{title} [{id}]'
+			}
+		},
+		async ({page, outputDir, queue, files}) => {
+			await prepareSingleReview(page, EXPANDING_TITLE_VIDEO_ID)
+			await page.locator('[data-testid="btn-download"]').click()
+			await queue.expectStatus(EXPANDING_TITLE, 'done', 90_000)
+
+			expect(files.mediaFiles('mp4', path.join(outputDir, folderName)).map(file => path.basename(file))).toEqual([`${EXPANDING_TITLE} [${EXPANDING_TITLE_VIDEO_ID}].mp4`])
+			expect(files.mediaFiles('mp4')).toHaveLength(1)
+		}
+	)
+})
 
 test('Electron quick download applies the active Download Profile to a fixture video', async () => {
 	test.setTimeout(140_000)

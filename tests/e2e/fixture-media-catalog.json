@@ -46,7 +46,8 @@
 				{"start_time": 3, "end_time": 6, "title": "Middle"},
 				{"start_time": 6, "end_time": 8, "title": "Ending"}
 			]
-		}
+		},
+		{"id": "ARX00000017", "number": 17, "formatSet": "muxed", "title": "~$HOME pays 100%(id)s"}
 	],
 	"formatSets": {
 		"muxed": [
