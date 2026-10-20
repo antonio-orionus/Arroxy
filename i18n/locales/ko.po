@@ -3575,6 +3575,10 @@ msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
 msgid "Auto-generated only"
 msgstr "자동 생성만"
 
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "수동 및 자동"
+
 msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
 msgid "Manual first, then auto"
 msgstr "수동 우선, 이후 자동"

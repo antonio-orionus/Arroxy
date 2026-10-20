@@ -3725,6 +3725,10 @@ msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
 msgid "Auto-generated only"
 msgstr "Kan ofumaan uumaman qofa"
 
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Harkaan fi ofumaan"
+
 msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
 msgid "Manual first, then auto"
 msgstr "Duraa harkaan, sana booda ofumaan"

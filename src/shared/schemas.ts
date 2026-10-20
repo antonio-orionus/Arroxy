@@ -136,7 +136,10 @@ const subfolderNameSchema = z
 export const audioConvertSchema = z.discriminatedUnion('target', [z.object({target: z.literal('best')}), z.object({target: z.literal('wav')}), z.object({target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema})])
 export type AudioConvert = z.infer<typeof audioConvertSchema>
 
-export const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only'])
+// Which tracks of each language a profile or batch fetches. `manual-and-auto`
+// adds the automatic caption beside an uploaded track of the same language;
+// `manual-first` takes it only where no uploaded track exists.
+export const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-and-auto', 'manual-only', 'auto-only'])
 export type DownloadProfileSubtitleSource = z.infer<typeof downloadProfileSubtitleSourceSchema>
 
 // A subtitles-only batch has no media file to embed into, so the delivery

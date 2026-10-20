@@ -49,7 +49,12 @@ language. A `--sub-langs` pattern cannot tell them apart either: a bare `en` is 
 manual track, an identical ASR twin, or a translation, depending on the video.
 So Arroxy picks exact track keys itself (`pickSubtitleTracks`, the Format
 screen's rule) and sends them as `(?-i:<escaped key>)`, an `-orig` pick by its
-bare twin's key (same URL; keeps `….en.srt` and the `en` track tag): queueing resolves a
+bare twin's key (same URL; keeps `….en.srt` and the `en` track tag) on every path,
+hand-picked or profile (`subtitleRequestKeys`). It keeps `-orig` only when the job fetches
+manual tracks and the video has one under the bare key, since yt-dlp fills a key manual
+first; embedding then tags it with the base language and titles it "Auto-generated"
+(ffmpeg writes `en-orig` verbatim, an invalid ISO 639-2 code players show raw). The
+`manual-and-auto` subtitle source picks both tracks (ADR 0014). Queueing resolves a
 single video's profile codes from the probe, the subtitle phase resolves a
 playlist entry's from the media run's or probe's info-json. That needs maps that
 list every track, so it runs only where the site adapter sets

@@ -9,6 +9,7 @@ export interface ProbedStream {
 	codecType: string
 	codecName: string
 	language: string | undefined
+	title: string | undefined
 	mimetype: string | undefined
 	attachedPic: boolean
 }
@@ -37,6 +38,7 @@ function parseStream(raw: unknown): ProbedStream {
 		codecType: optionalString(raw, 'codec_type') ?? '',
 		codecName: optionalString(raw, 'codec_name') ?? '',
 		language: optionalString(tags, 'language'),
+		title: optionalString(tags, 'title'),
 		// Matroska attachments carry the MIME type as an upper- or lower-case tag.
 		mimetype: optionalString(tags, 'mimetype') ?? optionalString(tags, 'MIMETYPE'),
 		attachedPic: disposition?.attached_pic === 1

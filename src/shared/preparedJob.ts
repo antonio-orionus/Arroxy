@@ -25,6 +25,10 @@ export interface SubtitleOptions {
 	// source choice is honoured even when a manual track exists. Implies
 	// `writeAuto`; absent means manual tracks are requested as usual.
 	autoOnly?: boolean
+	// With `languagesAreCodes`: each language's automatic caption is picked
+	// beside its manual tracks, not only where they are missing (the
+	// `manual-and-auto` source). Implies `writeAuto`.
+	autoAlongsideManual?: true
 	// `languages` are a profile's or batch's language codes (`de`), not this
 	// video's track keys (`de-DE`, `en-orig`). Set until the video's subtitle
 	// maps are known: queueing resolves them from the probe, the subtitle phase
@@ -62,7 +66,7 @@ export type PreparedJob =
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
 
 // `languagesAreCodes`: see `SubtitleOptions`.
-const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), languagesAreCodes: z.literal(true).optional()})
+const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), autoOnly: z.boolean().optional(), autoAlongsideManual: z.literal(true).optional(), languagesAreCodes: z.literal(true).optional()})
 
 const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
 

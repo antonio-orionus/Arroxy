@@ -636,7 +636,7 @@
 			"audioFormat": {"best": "最高", "wav": "WAV"},
 			"audioQuality": {"128": "最大 128K", "192": "最大 192K", "320": "最大 320K", "best": "最高品質"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "まず手動、次に自動", "manualOnly": "手動のみ", "autoOnly": "自動生成のみ"},
+			"subtitleSource": {"manualFirst": "まず手動、次に自動", "manualAndAuto": "手動と自動", "manualOnly": "手動のみ", "autoOnly": "自動生成のみ"},
 			"sponsorBlockHint": {"off": "SponsorBlock なし — 動画はアップロードされたまま再生されます。", "mark": "スポンサー区間をチャプターとして記録します（ファイルは変更しません）。", "remove": "FFmpeg でスポンサー区間を動画から切り取ります。"},
 			"advanced": "詳細設定",
 			"goal": {

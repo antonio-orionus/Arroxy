@@ -649,7 +649,7 @@
 			"audioFormat": {"best": "Terbaik", "wav": "WAV"},
 			"audioQuality": {"128": "Hingga 128K", "192": "Hingga 192K", "320": "Hingga 320K", "best": "Kualitas terbaik"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Manual dulu, lalu otomatis", "manualOnly": "Hanya manual", "autoOnly": "Hanya hasil otomatis"},
+			"subtitleSource": {"manualFirst": "Manual dulu, lalu otomatis", "manualAndAuto": "Manual dan otomatis", "manualOnly": "Hanya manual", "autoOnly": "Hanya hasil otomatis"},
 			"sponsorBlockHint": {"off": "Tanpa SponsorBlock — video diputar apa adanya.", "mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."},
 			"advanced": "Canggih",
 			"goal": {

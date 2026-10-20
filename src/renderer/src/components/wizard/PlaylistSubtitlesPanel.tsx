@@ -13,6 +13,7 @@ import {SectionLabel} from '../shared/SectionLabel.js'
 // the same track choice with the same words.
 const SOURCE_OPTIONS = [
 	{value: 'manual-first', labelKey: 'wizard.profileEditor.subtitleSource.manualFirst'},
+	{value: 'manual-and-auto', labelKey: 'wizard.profileEditor.subtitleSource.manualAndAuto'},
 	{value: 'manual-only', labelKey: 'wizard.profileEditor.subtitleSource.manualOnly'},
 	{value: 'auto-only', labelKey: 'wizard.profileEditor.subtitleSource.autoOnly'}
 ] as const satisfies readonly {value: DownloadProfileSubtitleSource; labelKey: string}[]

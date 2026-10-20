@@ -581,7 +581,7 @@
 			"audioFormat": {"best": "最佳", "wav": "WAV"},
 			"audioQuality": {"128": "最高 128K", "192": "最高 192K", "320": "最高 320K", "best": "最佳畫質"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "手動優先，其次自動", "manualOnly": "僅手動", "autoOnly": "僅自動產生"},
+			"subtitleSource": {"manualFirst": "手動優先，其次自動", "manualAndAuto": "手動與自動", "manualOnly": "僅手動", "autoOnly": "僅自動產生"},
 			"sponsorBlockHint": {"off": "不使用 SponsorBlock——影片會依上傳時的內容播放。", "mark": "將贊助片段標示為章節（不修改內容）。", "remove": "使用 FFmpeg 從影片中剪除贊助片段。"},
 			"advanced": "進階",
 			"goal": {

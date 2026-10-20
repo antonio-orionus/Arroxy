@@ -674,7 +674,7 @@
 			"audioFormat": {"best": "Καλύτερο", "wav": "WAV"},
 			"audioQuality": {"128": "Έως 128K", "192": "Έως 192K", "320": "Έως 320K", "best": "Καλύτερη ποιότητα"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Πρώτα χειροκίνητα, μετά αυτόματα", "manualOnly": "Μόνο χειροκίνητα", "autoOnly": "Μόνο αυτόματα"},
+			"subtitleSource": {"manualFirst": "Πρώτα χειροκίνητα, μετά αυτόματα", "manualAndAuto": "Χειροκίνητα και αυτόματα", "manualOnly": "Μόνο χειροκίνητα", "autoOnly": "Μόνο αυτόματα"},
 			"sponsorBlockHint": {"off": "Χωρίς SponsorBlock — το βίντεο παίζει όπως ανέβηκε.", "mark": "Επισημαίνει τα χορηγούμενα τμήματα ως κεφάλαια (χωρίς αλλοίωση).", "remove": "Κόβει τα χορηγούμενα τμήματα από το βίντεο με FFmpeg."},
 			"advanced": "Για προχωρημένους",
 			"goal": {

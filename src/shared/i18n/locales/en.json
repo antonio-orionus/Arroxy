@@ -635,7 +635,7 @@
 			"audioFormat": {"best": "Best", "wav": "WAV"},
 			"audioQuality": {"best": "Best quality", "320": "Up to 320K", "192": "Up to 192K", "128": "Up to 128K"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Manual first, then auto", "manualOnly": "Manual only", "autoOnly": "Auto-generated only"},
+			"subtitleSource": {"manualFirst": "Manual first, then auto", "manualAndAuto": "Manual and auto", "manualOnly": "Manual only", "autoOnly": "Auto-generated only"},
 			"sponsorBlockHint": {"off": "No SponsorBlock — video plays as uploaded.", "mark": "Marks sponsor segments as chapters (non-destructive).", "remove": "Cuts sponsor segments from the video using FFmpeg."},
 			"advanced": "Advanced",
 			"goal": {

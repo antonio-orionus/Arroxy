@@ -678,7 +678,7 @@
 			"audioFormat": {"best": "Eng yaxshi", "wav": "WAV"},
 			"audioQuality": {"128": "128K gacha", "192": "192K gacha", "320": "320K gacha", "best": "Eng yaxshi sifat"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Avval qo'lda, keyin avtomatik", "manualOnly": "Faqat qo'lda", "autoOnly": "Faqat avtomatik yaratilgan"},
+			"subtitleSource": {"manualFirst": "Avval qo'lda, keyin avtomatik", "manualAndAuto": "Qo'lda va avtomatik", "manualOnly": "Faqat qo'lda", "autoOnly": "Faqat avtomatik yaratilgan"},
 			"sponsorBlockHint": {"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.", "mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).", "remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."},
 			"advanced": "Kengaytirilgan",
 			"goal": {

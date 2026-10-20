@@ -660,7 +660,7 @@
 			"audioFormat": {"best": "En iyi", "wav": "WAV"},
 			"audioQuality": {"128": "128K'ya kadar", "192": "192K'ya kadar", "320": "320K'ya kadar", "best": "En iyi kalite"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Önce elle, sonra otomatik", "manualOnly": "Yalnızca elle", "autoOnly": "Yalnızca otomatik oluşturulan"},
+			"subtitleSource": {"manualFirst": "Önce elle, sonra otomatik", "manualAndAuto": "Elle ve otomatik", "manualOnly": "Yalnızca elle", "autoOnly": "Yalnızca otomatik oluşturulan"},
 			"sponsorBlockHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.", "mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).", "remove": "Sponsor bölümlerini FFmpeg ile videodan keser."},
 			"advanced": "Gelişmiş",
 			"goal": {

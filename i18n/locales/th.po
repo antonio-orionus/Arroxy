@@ -3575,6 +3575,10 @@ msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
 msgid "Auto-generated only"
 msgstr "เฉพาะที่สร้างอัตโนมัติ"
 
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "คำบรรยายที่ทำเองและอัตโนมัติ"
+
 msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
 msgid "Manual first, then auto"
 msgstr "คำบรรยายที่ทำเองก่อน แล้วจึงอัตโนมัติ"

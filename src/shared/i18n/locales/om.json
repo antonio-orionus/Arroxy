@@ -674,7 +674,7 @@
 			"audioFormat": {"best": "Gaarii", "wav": "WAV"},
 			"audioQuality": {"128": "Hanga 128K", "192": "Hanga 192K", "320": "Hanga 320K", "best": "Qulqullina gaarii"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Duraa harkaan, sana booda ofumaan", "manualOnly": "Harkaan qofa", "autoOnly": "Kan ofumaan uumaman qofa"},
+			"subtitleSource": {"manualFirst": "Duraa harkaan, sana booda ofumaan", "manualAndAuto": "Harkaan fi ofumaan", "manualOnly": "Harkaan qofa", "autoOnly": "Kan ofumaan uumaman qofa"},
 			"sponsorBlockHint": {"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.", "mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).", "remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."},
 			"advanced": "Ammayyaa",
 			"goal": {

@@ -24,6 +24,12 @@
 //    sidecar subtitle files; ffprobe finds one subtitle track per language,
 //    tagged eng and spa, plus the cover art; both subtitle files were fetched
 //    from the fixture server.
+//
+// A second scenario: a profile set to Manual and auto must embed the uploaded
+// English and YouTube's automatic English as two tracks, both tagged eng (an
+// `en-orig` tag is no language code, so players show it raw), the automatic
+// one titled so the two can be told apart. Saved profiles once kept only the
+// uploaded track.
 import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
@@ -32,7 +38,7 @@ import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {probeStreams} from './ffprobe.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
-function embedSubtitlesProfile(fileType: VideoFileType): DownloadProfile {
+function embedSubtitlesProfile(fileType: VideoFileType, subtitles: Pick<DownloadProfile['subtitles'], 'languages' | 'source'> = {languages: ['en', 'es'], source: 'manual-only'}): DownloadProfile {
 	const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
 	if (!base) throw new Error('small-file built-in profile missing')
 	return {
@@ -40,7 +46,7 @@ function embedSubtitlesProfile(fileType: VideoFileType): DownloadProfile {
 		id: 'embed-subs',
 		name: 'Embed Subs',
 		media: {kind: 'video-audio', goal: 'smart-tv', tier: '480', fileType, audio: {native: {kind: 'default'}}},
-		subtitles: {enabled: true, languages: ['en', 'es'], source: 'manual-only', mode: 'embed', format: 'srt'},
+		subtitles: {enabled: true, ...subtitles, mode: 'embed', format: 'srt'},
 		subfolder: {enabled: true, name: 'Embed Subs'},
 		sponsorBlock: {mode: 'off', categories: []},
 		embed: {chapters: false, metadata: false, thumbnail: true, description: false, thumbnailSidecar: false}
@@ -89,3 +95,34 @@ for (const {fileType, title} of [
 		)
 	})
 }
+
+test('Electron Download Profile set to Manual and auto embeds the uploaded and the automatic English apart', async () => {
+	test.setTimeout(160_000)
+	const videoIndex = 9
+	const videoId = FIXTURE_VIDEO_IDS[videoIndex]
+	const profile = embedSubtitlesProfile('auto', {languages: ['en'], source: 'manual-and-auto'})
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-embed-both-user-',
+			outputPrefix: 'arroxy-fixture-embed-both-out-',
+			settings: settings => {
+				settings.profiles.custom = [profile]
+				settings.profiles.active = {kind: 'custom', id: profile.id}
+			}
+		},
+		async ({page, outputDir, urls, queue, files, fixtureServer}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus(`Fixture Video ${videoIndex + 1}`, 'done', 140_000)
+
+			const outputs = files.mediaFiles('.mkv', path.join(outputDir, profile.name))
+			expect(outputs).toHaveLength(1)
+			const subtitleTracks = probeStreams(outputs[0]).flatMap(stream => (stream.codecType === 'subtitle' ? [`${stream.language ?? 'und'}|${stream.title ?? ''}`] : []))
+			expect(subtitleTracks.toSorted((a, b) => a.localeCompare(b))).toEqual(['eng|', 'eng|Auto-generated'])
+
+			const fetched = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.videoId === videoId && request.status === 200 ? [`${request.lang}:${request.track}`] : []))
+			expect(fetched.toSorted((a, b) => a.localeCompare(b))).toEqual(['en:auto', 'en:manual'])
+		}
+	)
+})

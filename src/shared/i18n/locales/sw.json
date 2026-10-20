@@ -654,7 +654,7 @@
 			"audioFormat": {"best": "Bora", "wav": "WAV"},
 			"audioQuality": {"128": "Hadi 128K", "192": "Hadi 192K", "320": "Hadi 320K", "best": "Ubora bora"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki", "manualOnly": "Kwa mkono pekee", "autoOnly": "Zilizotengenezwa kiotomatiki pekee"},
+			"subtitleSource": {"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki", "manualAndAuto": "Kwa mkono na kiotomatiki", "manualOnly": "Kwa mkono pekee", "autoOnly": "Zilizotengenezwa kiotomatiki pekee"},
 			"sponsorBlockHint": {"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.", "mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).", "remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."},
 			"advanced": "Hali ya juu",
 			"goal": {

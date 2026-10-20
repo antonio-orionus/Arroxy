@@ -617,7 +617,7 @@
 			"audioFormat": {"best": "최상", "wav": "WAV"},
 			"audioQuality": {"128": "최대 128K", "192": "최대 192K", "320": "최대 320K", "best": "최고 화질"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "수동 우선, 이후 자동", "manualOnly": "수동만", "autoOnly": "자동 생성만"},
+			"subtitleSource": {"manualFirst": "수동 우선, 이후 자동", "manualAndAuto": "수동 및 자동", "manualOnly": "수동만", "autoOnly": "자동 생성만"},
 			"sponsorBlockHint": {"off": "SponsorBlock 없음 — 동영상이 업로드된 그대로 재생됩니다.", "mark": "스폰서 구간을 챕터로 표시합니다(비파괴).", "remove": "FFmpeg로 동영상에서 스폰서 구간을 잘라냅니다."},
 			"advanced": "고급",
 			"goal": {

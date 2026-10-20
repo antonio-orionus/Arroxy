@@ -614,7 +614,7 @@
 			"audioFormat": {"best": "সেরা", "wav": "WAV"},
 			"audioQuality": {"128": "১২৮K পর্যন্ত", "192": "১৯২K পর্যন্ত", "320": "৩২০K পর্যন্ত", "best": "সেরা মান"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "আগে ম্যানুয়াল, পরে স্বয়ংক্রিয়", "manualOnly": "শুধু ম্যানুয়াল", "autoOnly": "শুধু স্বয়ংক্রিয়"},
+			"subtitleSource": {"manualFirst": "আগে ম্যানুয়াল, পরে স্বয়ংক্রিয়", "manualAndAuto": "ম্যানুয়াল ও স্বয়ংক্রিয়", "manualOnly": "শুধু ম্যানুয়াল", "autoOnly": "শুধু স্বয়ংক্রিয়"},
 			"sponsorBlockHint": {"off": "SponsorBlock নেই — ভিডিও যেমন আপলোড হয়েছে তেমনই চলবে।", "mark": "স্পনসর অংশগুলোকে অধ্যায় হিসেবে চিহ্নিত করে (ফাইল বদলায় না)।", "remove": "FFmpeg দিয়ে ভিডিও থেকে স্পনসর অংশ কেটে দেয়।"},
 			"advanced": "উন্নত",
 			"goal": {"bestPicture": {"name": "সেরা ছবি", "tag": "AV1 · VP9", "description": "একই আকারে সবচেয়ে স্পষ্ট। পুরোনো টিভি, QuickTime ও কিছু এডিটর এটি চালাতে পারে না।"}, "smartTv": {"name": "স্মার্ট TV", "tag": "MP4 · H.264", "description": "টিভি, ফোন, WhatsApp, QuickTime ও ভিডিও এডিটরে চলে। YouTube শুধু ১০৮০p পর্যন্ত H.264 দেয়।"}},

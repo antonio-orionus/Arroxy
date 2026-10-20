@@ -627,7 +627,7 @@
 			"audioFormat": {"best": "Tốt nhất", "wav": "WAV"},
 			"audioQuality": {"128": "Tối đa 128K", "192": "Tối đa 192K", "320": "Tối đa 320K", "best": "Chất lượng tốt nhất"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Thủ công trước, rồi tự động", "manualOnly": "Chỉ thủ công", "autoOnly": "Chỉ tự động tạo"},
+			"subtitleSource": {"manualFirst": "Thủ công trước, rồi tự động", "manualAndAuto": "Thủ công và tự động", "manualOnly": "Chỉ thủ công", "autoOnly": "Chỉ tự động tạo"},
 			"sponsorBlockHint": {"off": "Không dùng SponsorBlock — video phát nguyên như khi tải lên.", "mark": "Đánh dấu đoạn tài trợ thành chương (không sửa tệp).", "remove": "Cắt các đoạn tài trợ khỏi video bằng FFmpeg."},
 			"advanced": "Nâng cao",
 			"goal": {

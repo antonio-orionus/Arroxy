@@ -3575,6 +3575,10 @@ msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
 msgid "Auto-generated only"
 msgstr "အလိုအလျောက် ဖန်တီးထားသည်များသာ"
 
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "ကိုယ်တိုင်နှင့် အလိုအလျောက်"
+
 msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
 msgid "Manual first, then auto"
 msgstr "ဦးစွာ ကိုယ်တိုင်၊ ထို့နောက် အလိုအလျောက်"

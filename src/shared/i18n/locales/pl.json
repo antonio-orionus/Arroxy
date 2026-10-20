@@ -716,7 +716,7 @@
 			"audioFormat": {"best": "Najlepszy", "wav": "WAV"},
 			"audioQuality": {"128": "Do 128K", "192": "Do 192K", "320": "Do 320K", "best": "Najlepsza jakość"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Najpierw ręczne, potem automatyczne", "manualOnly": "Tylko ręczne", "autoOnly": "Tylko automatyczne"},
+			"subtitleSource": {"manualFirst": "Najpierw ręczne, potem automatyczne", "manualAndAuto": "Ręczne i automatyczne", "manualOnly": "Tylko ręczne", "autoOnly": "Tylko automatyczne"},
 			"sponsorBlockHint": {"off": "Bez SponsorBlock — film jest odtwarzany tak, jak go przesłano.", "mark": "Oznacza segmenty sponsorskie jako rozdziały (bez modyfikacji).", "remove": "Wycina segmenty sponsorskie z filmu za pomocą FFmpeg."},
 			"advanced": "Zaawansowane",
 			"goal": {

@@ -163,6 +163,14 @@ describe('profileFromWizard', () => {
 		expect(save(manualOnly, snapshot => ({...snapshot, subtitleLanguages: ['en', 'ja-orig']})).subtitles).toMatchObject({languages: ['en', 'ja'], source: 'manual-first'})
 	})
 
+	// Picks [en, en-orig] used to save as manual-first, which brings back only the uploaded English.
+	it('saves manual and automatic tracks of one language as manual-and-auto', () => {
+		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en', 'de', 'en-orig']}), FORMATS, ctx).subtitles).toMatchObject({enabled: true, languages: ['en', 'de'], source: 'manual-and-auto'})
+		const both = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], source: 'manual-and-auto' as const}}
+		expect(save(both, snapshot => ({...snapshot, subtitleLanguages: ['en']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-first'})
+	})
+
 	it('saves audio conversions, folder and file name', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})

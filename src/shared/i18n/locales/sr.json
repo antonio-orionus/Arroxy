@@ -665,7 +665,7 @@
 			"audioFormat": {"best": "Најбоље", "wav": "WAV"},
 			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Најбољи квалитет"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Прво ручни, затим аутоматски", "manualOnly": "Само ручни", "autoOnly": "Само аутоматски генерисани"},
+			"subtitleSource": {"manualFirst": "Прво ручни, затим аутоматски", "manualAndAuto": "Ручни и аутоматски", "manualOnly": "Само ручни", "autoOnly": "Само аутоматски генерисани"},
 			"sponsorBlockHint": {"off": "Без SponsorBlock-а — видео се пушта како је отпремљен.", "mark": "Означава спонзорисане сегменте као поглавља (без измене датотеке).", "remove": "Исеца спонзорисане сегменте из видеа помоћу FFmpeg-а."},
 			"advanced": "Напредно",
 			"goal": {

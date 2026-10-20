@@ -581,7 +581,7 @@
 			"audioFormat": {"best": "ดีที่สุด", "wav": "WAV"},
 			"audioQuality": {"128": "สูงสุด 128K", "192": "สูงสุด 192K", "320": "สูงสุด 320K", "best": "คุณภาพดีที่สุด"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "คำบรรยายที่ทำเองก่อน แล้วจึงอัตโนมัติ", "manualOnly": "เฉพาะที่ทำเอง", "autoOnly": "เฉพาะที่สร้างอัตโนมัติ"},
+			"subtitleSource": {"manualFirst": "คำบรรยายที่ทำเองก่อน แล้วจึงอัตโนมัติ", "manualAndAuto": "คำบรรยายที่ทำเองและอัตโนมัติ", "manualOnly": "เฉพาะที่ทำเอง", "autoOnly": "เฉพาะที่สร้างอัตโนมัติ"},
 			"sponsorBlockHint": {"off": "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา", "mark": "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)", "remove": "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"},
 			"advanced": "ขั้นสูง",
 			"goal": {"bestPicture": {"name": "ภาพดีที่สุด", "tag": "AV1 · VP9", "description": "คมชัดที่สุดในขนาดเท่ากัน ทีวีรุ่นเก่า QuickTime และโปรแกรมตัดต่อบางตัวเล่นไม่ได้"}, "smartTv": {"name": "สมาร์ททีวี", "tag": "MP4 · H.264", "description": "เล่นได้บนทีวี โทรศัพท์ WhatsApp QuickTime และโปรแกรมตัดต่อวิดีโอ YouTube มี H.264 ถึง 1080p เท่านั้น"}},

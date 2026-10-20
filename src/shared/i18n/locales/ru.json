@@ -710,7 +710,7 @@
 			"audioFormat": {"best": "Лучшее", "wav": "WAV"},
 			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Лучшее качество"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Сначала ручные, затем автоматические", "manualOnly": "Только ручные", "autoOnly": "Только автоматические"},
+			"subtitleSource": {"manualFirst": "Сначала ручные, затем автоматические", "manualAndAuto": "Ручные и автоматические", "manualOnly": "Только ручные", "autoOnly": "Только автоматические"},
 			"sponsorBlockHint": {"off": "Без SponsorBlock — видео воспроизводится как загружено.", "mark": "Отмечает спонсорские сегменты как главы (без изменения файла).", "remove": "Вырезает спонсорские сегменты из видео с помощью FFmpeg."},
 			"advanced": "Дополнительно",
 			"goal": {

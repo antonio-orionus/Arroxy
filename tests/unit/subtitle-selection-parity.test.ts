@@ -39,7 +39,7 @@ const SOURCES: [ProbeSourceId, {info: RawMaps}][] = [
 	['dailymotion', dailymotion]
 ]
 const LANGUAGE_SETS = [['en'], ['de'], ['ja'], ['pt'], ['es', 'zh']]
-const SUBTITLE_SOURCES: DownloadProfileSubtitleSource[] = ['manual-first', 'manual-only', 'auto-only']
+const SUBTITLE_SOURCES: DownloadProfileSubtitleSource[] = ['manual-first', 'manual-and-auto', 'manual-only', 'auto-only']
 const MEDIA = ['balanced', 'subtitles-only'] as const
 
 // YouTube lists its original-language automatic captions twice, as `en` and
@@ -81,7 +81,8 @@ function quickJob(probe: VideoProbeResult, profile: DownloadProfile): SubtitleOp
 	return subtitlesOf(prepareActiveProfileQueueSubmission(probe, {settings, queue: []} as unknown as AppState, 'normal', {url: probe.webpageUrl, playlistTitle: ''})?.items[0])
 }
 
-function interactiveJob(probe: VideoProbeResult, profile: DownloadProfile): SubtitleOptions | undefined {
+// `handPicked`: the tracks the user ticked on the Format screen instead of the profile's.
+function interactiveJob(probe: VideoProbeResult, profile: DownloadProfile, handPicked?: string[]): SubtitleOptions | undefined {
 	const probeFields = {
 		settings: defaultAppSettings('/downloads'),
 		wizardFormats: probe.formats,
@@ -102,6 +103,7 @@ function interactiveJob(probe: VideoProbeResult, profile: DownloadProfile): Subt
 		wizardExtractor: probe.extractor,
 		wizardExtractorKey: probe.extractorKey,
 		wizardMediaKind: profile.media.kind === 'subtitles-only' ? 'subtitles' : 'video',
+		...(handPicked ? {wizardSubtitleLanguages: handPicked} : {}),
 		queue: []
 	} as unknown as AppState
 	return subtitlesOf(prepareManualQueueSubmission(state, 'normal')?.items[0])
@@ -126,11 +128,37 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 					// A subtitles-only profile with no track on this video has nothing for the Format screen to queue.
 					if (media === 'subtitles-only' && picked.length === 0) continue
 					it(`${id} · ${media} · ${source} · ${languages.join('+')}`, () => {
-						const interactive = ytDlpFetches(fixture.info, interactiveJob(probe, profile))
+						const interactiveSubtitles = interactiveJob(probe, profile)
+						const quickSubtitles = quickJob(probe, profile)
+						const interactive = ytDlpFetches(fixture.info, interactiveSubtitles)
 						expect(interactive).toEqual(picked.map(key => trackId(fixture.info, key, source !== 'auto-only')).sort())
-						expect(ytDlpFetches(fixture.info, quickJob(probe, profile))).toEqual(interactive)
+						expect(ytDlpFetches(fixture.info, quickSubtitles)).toEqual(interactive)
+						// The keys name the files and the embedded tracks, so they match too
+						// (a site that does not list its tracks leaves Quick Download codes).
+						if (!quickSubtitles?.languagesAreCodes) expect(quickSubtitles?.languages ?? []).toEqual(interactiveSubtitles?.languages ?? [])
 					})
 				}
+	}
+})
+
+// The same track gets the same key, and so the same file name and embedded
+// track, whether a profile picked it or the user did.
+describe('subtitle tracks the user picks on the Format screen', () => {
+	const profile = profileFor('balanced', [], 'manual-first')
+	const cases: [ProbeSourceId, string[], string[], string[]][] = [
+		// A video with no uploaded English: its caption goes by `en`, as a profile sends it.
+		['youtube-2007', ['en-orig'], ['en'], ['auto:en']],
+		// Uploaded and automatic English: the caption keeps `en-orig`, so the two stay apart.
+		['youtube-2010', ['en', 'en-orig'], ['en', 'en-orig'], ['auto:en', 'manual:en']],
+		// Only the caption, though an uploaded track exists: automatic captions alone, by `en`.
+		['youtube-2010', ['en-orig'], ['en'], ['auto:en']]
+	]
+	for (const [id, keys, requested, fetched] of cases) {
+		it(`${id} · ${keys.join('+')}`, () => {
+			const subtitles = interactiveJob(probeSourceResult(id), profile, keys)
+			expect(subtitles?.languages).toEqual(requested)
+			expect(ytDlpFetches(Object.fromEntries(SOURCES)[id].info, subtitles)).toEqual(fetched)
+		})
 	}
 })
 

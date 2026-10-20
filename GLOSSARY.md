@@ -238,6 +238,18 @@ _Avoid_: external subtitles
 Subtitles muxed into the video file as a selectable track.
 _Avoid_: burned-in, hardcoded, baked-in subtitles
 
+**Manual subtitles**:
+Subtitles the uploader provided. Shown without a badge.
+_Avoid_: original subtitles, human subtitles
+
+**Automatic captions**:
+Subtitles the site generated from the speech. On YouTube only the caption in the spoken language is offered; the site's machine translations are left out. Shown with the Auto badge, under the language's plain name.
+_Avoid_: auto-subs, "(Original)" in labels
+
+**Subtitle source**:
+Which of a language's tracks a profile or subtitles-only batch fetches: manual first (automatic captions only where no manual subtitles exist), manual and auto (both, side by side), manual only, or auto only. A video's own picks are saved as manual and auto when they hold both for one language.
+_Avoid_: subtitle type, caption mode
+
 ### Binaries and runtime
 
 **Dependency**:

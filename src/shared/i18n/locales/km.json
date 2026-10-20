@@ -581,7 +581,7 @@
 			"audioFormat": {"best": "ល្អបំផុត", "wav": "WAV"},
 			"audioQuality": {"128": "រហូតដល់ 128K", "192": "រហូតដល់ 192K", "320": "រហូតដល់ 320K", "best": "គុណភាពល្អបំផុត"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "ដោយដៃមុន បន្ទាប់មកស្វ័យប្រវត្តិ", "manualOnly": "តែដោយដៃ", "autoOnly": "តែបង្កើតដោយស្វ័យប្រវត្តិ"},
+			"subtitleSource": {"manualFirst": "ដោយដៃមុន បន្ទាប់មកស្វ័យប្រវត្តិ", "manualAndAuto": "ដោយដៃ និងស្វ័យប្រវត្តិ", "manualOnly": "តែដោយដៃ", "autoOnly": "តែបង្កើតដោយស្វ័យប្រវត្តិ"},
 			"sponsorBlockHint": {"off": "គ្មាន SponsorBlock — វីដេអូចាក់ដូចដែលបានផ្ទុកឡើង។", "mark": "សម្គាល់ផ្នែកអ្នកឧបត្ថម្ភជាជំពូក (មិនបំផ្លាញ)។", "remove": "កាត់ផ្នែកអ្នកឧបត្ថម្ភចេញពីវីដេអូដោយប្រើ FFmpeg។"},
 			"advanced": "កម្រិតខ្ពស់",
 			"goal": {

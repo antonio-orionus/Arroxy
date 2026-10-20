@@ -11,12 +11,12 @@ import {
 	type DownloadProfileOutputContext,
 	type ResolvedDownloadProfile
 } from '@shared/downloadProfiles.js'
-import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPreference, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
+import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPreference, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane, SubtitleMap} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
 import {siteForJob} from '@shared/sites/index.js'
-import {subtitleSourceOptions, withSubtitleTracks} from '@shared/subtitleLanguages.js'
+import {subtitleRequestKeys, subtitleSourceOptions, withSubtitleTracks} from '@shared/subtitleLanguages.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
@@ -57,6 +57,14 @@ export interface PreparedQueueSubmission {
 	skippedAlreadyQueued: number
 }
 
+// The yt-dlp flags for tracks picked by hand. A key in both maps is the
+// uploaded track: the picker lists it once, as manual.
+function pickedSubtitleSource(keys: readonly string[], subtitles: SubtitleMap, automaticCaptions: SubtitleMap): {writeAuto: boolean; autoOnly?: true} {
+	const autoKeys = keys.filter(key => !!automaticCaptions[key] && !subtitles[key])
+	if (autoKeys.length === 0) return {writeAuto: false}
+	return autoKeys.length === keys.length ? {writeAuto: true, autoOnly: true} : {writeAuto: true}
+}
+
 function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueItem | null {
 	const {wizardUrl, wizardTitle, wizardThumbnail, wizardOutputDir} = state
 	const {wizardSubfolderEnabled, wizardSubfolderName} = state
@@ -74,7 +82,18 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const outputDir = templateOutputDir(effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName), template, templateMeta)
 	const formatId = wizardMediaKind === 'subtitles' ? undefined : buildFormatId(selectedVideoFormatId, effectiveAudio)
 	const subtitleLanguages = state.wizardSubtitleLanguages
-	const inFlight = {formats: wizardMediaKind === 'subtitles' ? [] : requestedFormats(formatId, wizardFormats), subtitleLanguages}
+	// Untouched subtitles keep the profile's source (an auto-only profile must
+	// not fetch an uploaded track that shares the key); edited ones follow
+	// which section each picked track came from, automatic captions alone
+	// when nothing else was picked.
+	const profile = state.wizardProfile
+	const baseline = state.wizardProfileBaseline
+	const subtitlesUntouched = profile && baseline ? baseline.subtitleLanguages.length === subtitleLanguages.length && baseline.subtitleLanguages.every(lang => subtitleLanguages.includes(lang)) : false
+	const subtitleSource = subtitlesUntouched && profile ? subtitleSourceOptions(profile.subtitles.source) : pickedSubtitleSource(subtitleLanguages, state.wizardSubtitles, state.wizardAutomaticCaptions)
+	// The same track goes by the same key, and so gets the same file name and
+	// embedded track, as when a profile picks it.
+	const subtitleKeys = subtitleRequestKeys(subtitleLanguages, {subtitles: state.wizardSubtitles, autoOnly: subtitleSource.autoOnly === true})
+	const inFlight = {formats: wizardMediaKind === 'subtitles' ? [] : requestedFormats(formatId, wizardFormats), subtitleLanguages: subtitleKeys}
 	// The range goes after the `[id]`, so playlist sync never takes a part for
 	// the whole video; it is bound with the name, not typed into the template.
 	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir, inFlight, videoPart ? videoPartSuffix(videoPart) : undefined)
@@ -92,13 +111,6 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const wholeBytes = (!audioConvert || audioConvert.target === 'best') && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
 	const expectedBytes = scaleBytesToPart(wholeBytes, videoPart, state.wizardDuration)
 
-	// Untouched subtitles keep the profile's source (an auto-only profile must
-	// not fetch an uploaded track that shares the key); edited ones follow
-	// which section each picked track came from.
-	const profile = state.wizardProfile
-	const baseline = state.wizardProfileBaseline
-	const subtitlesUntouched = profile && baseline ? baseline.subtitleLanguages.length === subtitleLanguages.length && baseline.subtitleLanguages.every(lang => subtitleLanguages.includes(lang)) : false
-	const subtitleSource = subtitlesUntouched && profile ? subtitleSourceOptions(profile.subtitles.source) : {writeAuto: subtitleLanguages.some(l => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l])}
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
 	const fileType = wizardMediaKind === 'video' ? state.wizardFileType : 'auto'
@@ -114,7 +126,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		sponsorBlockMode: wizardMediaKind === 'video' ? state.wizardSponsorBlockMode : 'off'
 	})
 
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat, ...subtitleSource} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleKeys, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat, ...subtitleSource} : undefined
 
 	const job = prepareJob({
 		mode: 'single',

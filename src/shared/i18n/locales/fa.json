@@ -635,7 +635,7 @@
 			"audioFormat": {"best": "بهترین", "wav": "WAV"},
 			"audioQuality": {"128": "تا 128K", "192": "تا 192K", "320": "تا 320K", "best": "بهترین کیفیت"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "ابتدا دستی، سپس خودکار", "manualOnly": "فقط دستی", "autoOnly": "فقط تولیدشدهٔ خودکار"},
+			"subtitleSource": {"manualFirst": "ابتدا دستی، سپس خودکار", "manualAndAuto": "دستی و خودکار", "manualOnly": "فقط دستی", "autoOnly": "فقط تولیدشدهٔ خودکار"},
 			"sponsorBlockHint": {"off": "بدون SponsorBlock — ویدیو همان‌طور که بارگذاری شده پخش می‌شود.", "mark": "بخش‌های اسپانسری را به‌عنوان فصل علامت می‌زند (بدون تغییر محتوا).", "remove": "بخش‌های اسپانسری را با FFmpeg از ویدیو می‌بُرد."},
 			"advanced": "پیشرفته",
 			"goal": {

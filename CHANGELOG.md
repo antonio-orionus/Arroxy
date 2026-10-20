@@ -48,6 +48,8 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - Downloads that use FFmpeg no longer show a stray "Merging…" label.
 - Subtitles embedded into MKV get the right language tag for every ISO 639-1 language.
 - YouTube's automatic captions show their language name, without a confusing "(Original)".
+- A profile can fetch uploaded and automatic subtitles of the same language side by side (**Manual and auto**). Saving a download that picked both now keeps both.
+- An automatic caption gets the same file name and track language whether you picked it or your profile did. Embedded next to uploaded subtitles of the same language, it is marked "Auto-generated".
 - A download saved as another file type, such as MKV, now gets its subtitles embedded, and its row in Downloads points at the saved file.
 - A playlist title ending in an emoji or accented letter no longer leaves a broken character in its folder name.
 - Vimeo OTT titles show accents, dashes and quotes correctly.

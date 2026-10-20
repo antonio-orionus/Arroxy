@@ -581,7 +581,7 @@
 			"audioFormat": {"best": "最佳", "wav": "WAV"},
 			"audioQuality": {"128": "最高 128K", "192": "最高 192K", "320": "最高 320K", "best": "最佳质量"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "先手动，后自动", "manualOnly": "仅手动", "autoOnly": "仅自动生成"},
+			"subtitleSource": {"manualFirst": "先手动，后自动", "manualAndAuto": "手动和自动", "manualOnly": "仅手动", "autoOnly": "仅自动生成"},
 			"sponsorBlockHint": {"off": "不使用 SponsorBlock — 视频按上传原样播放。", "mark": "将赞助片段标记为章节（不修改文件）。", "remove": "使用 FFmpeg 从视频中剪除赞助片段。"},
 			"advanced": "高级",
 			"goal": {"bestPicture": {"name": "最佳画质", "tag": "AV1 · VP9", "description": "相同大小下最清晰。较旧的电视、QuickTime 和部分编辑器无法播放。"}, "smartTv": {"name": "智能电视", "tag": "MP4 · H.264", "description": "可在电视、手机、WhatsApp、QuickTime 和视频编辑器中播放。YouTube 仅在 1080p 及以下提供 H.264。"}},

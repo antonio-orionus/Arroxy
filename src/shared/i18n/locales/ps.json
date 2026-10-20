@@ -664,7 +664,7 @@
 			"audioFormat": {"best": "غوره", "wav": "WAV"},
 			"audioQuality": {"128": "تر ۱۲۸K پورې", "192": "تر ۱۹۲K پورې", "320": "تر ۳۲۰K پورې", "best": "غوره کیفیت"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "لومړی لاسي، بیا خودکار", "manualOnly": "یوازې لاسي", "autoOnly": "یوازې په خودکار ډول جوړ شوي"},
+			"subtitleSource": {"manualFirst": "لومړی لاسي، بیا خودکار", "manualAndAuto": "لاسي او خودکار", "manualOnly": "یوازې لاسي", "autoOnly": "یوازې په خودکار ډول جوړ شوي"},
 			"sponsorBlockHint": {"off": "SponsorBlock نشته — ویډیو لکه څنګه چې پورته شوې همداسې غږېږي.", "mark": "سپانسر برخې د څپرکو په توګه په نښه کوي (دوتنه نه بدلوي).", "remove": "د FFmpeg په مرسته سپانسر برخې له ویډیو څخه پرې کوي."},
 			"advanced": "پرمختللي",
 			"goal": {

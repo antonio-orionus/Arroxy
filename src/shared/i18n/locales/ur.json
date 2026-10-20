@@ -658,7 +658,7 @@
 			"audioFormat": {"best": "بہترین", "wav": "WAV"},
 			"audioQuality": {"128": "128K تک", "192": "192K تک", "320": "320K تک", "best": "بہترین معیار"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "پہلے دستی، پھر خودکار", "manualOnly": "صرف دستی", "autoOnly": "صرف خودکار تیار کردہ"},
+			"subtitleSource": {"manualFirst": "پہلے دستی، پھر خودکار", "manualAndAuto": "دستی اور خودکار", "manualOnly": "صرف دستی", "autoOnly": "صرف خودکار تیار کردہ"},
 			"sponsorBlockHint": {"off": "SponsorBlock نہیں — ویڈیو جیسے اپ لوڈ ہوئی ویسے ہی چلے گی۔", "mark": "سپانسر حصوں کو ابواب کے طور پر نشان زد کرتا ہے (فائل تبدیل نہیں ہوتی)۔", "remove": "FFmpeg کے ذریعے ویڈیو سے سپانسر حصے کاٹ دیتا ہے۔"},
 			"advanced": "ایڈوانسڈ",
 			"goal": {

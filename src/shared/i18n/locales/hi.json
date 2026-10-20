@@ -612,7 +612,7 @@
 			"audioFormat": {"best": "सर्वोत्तम", "wav": "WAV"},
 			"audioQuality": {"128": "128K तक", "192": "192K तक", "320": "320K तक", "best": "सर्वोत्तम गुणवत्ता"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "पहले मैनुअल, फिर स्वतः", "manualOnly": "केवल मैनुअल", "autoOnly": "केवल स्वतः निर्मित"},
+			"subtitleSource": {"manualFirst": "पहले मैनुअल, फिर स्वतः", "manualAndAuto": "मैनुअल और स्वतः", "manualOnly": "केवल मैनुअल", "autoOnly": "केवल स्वतः निर्मित"},
 			"sponsorBlockHint": {"off": "SponsorBlock नहीं — वीडियो जैसा अपलोड हुआ वैसा ही चलेगा।", "mark": "प्रायोजित खंडों को अध्यायों के रूप में चिह्नित करता है (फ़ाइल नहीं बदलती)।", "remove": "FFmpeg से वीडियो में से प्रायोजित खंड काट देता है।"},
 			"advanced": "उन्नत",
 			"goal": {

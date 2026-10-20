@@ -599,7 +599,7 @@
 			"audioFormat": {"best": "ምርጥ", "wav": "WAV"},
 			"audioQuality": {"128": "እስከ 128K", "192": "እስከ 192K", "320": "እስከ 320K", "best": "ምርጥ ጥራት"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "መጀመሪያ በእጅ፣ ከዚያ ራስ-ሰር", "manualOnly": "በእጅ ብቻ", "autoOnly": "ራስ-ሰር የተፈጠሩ ብቻ"},
+			"subtitleSource": {"manualFirst": "መጀመሪያ በእጅ፣ ከዚያ ራስ-ሰር", "manualAndAuto": "በእጅ እና ራስ-ሰር", "manualOnly": "በእጅ ብቻ", "autoOnly": "ራስ-ሰር የተፈጠሩ ብቻ"},
 			"sponsorBlockHint": {"off": "SponsorBlock የለም — ቪዲዮው እንደተጫነ ይጫወታል።", "mark": "የስፖንሰር ክፍሎችን እንደ ምዕራፎች ምልክት ያደርጋል (ፋይሉን አይለውጥም)።", "remove": "በFFmpeg የስፖንሰር ክፍሎችን ከቪዲዮው ይቆርጣል።"},
 			"advanced": "ከፍተኛ",
 			"goal": {

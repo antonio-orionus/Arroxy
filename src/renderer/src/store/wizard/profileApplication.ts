@@ -201,13 +201,18 @@ function baseLanguageCode(trackKey: string): string {
 }
 
 // Where the picked tracks come from decides the saved source, so reapplying
-// the profile finds the same tracks again.
+// the profile finds the same tracks again. A manual and an automatic track of
+// one language need `manual-and-auto`: any other source brings back one of them.
 function subtitleSourceFor(keys: readonly string[], base: DownloadProfile['subtitles']['source'], context: SaveProfileContext): DownloadProfile['subtitles']['source'] {
 	const isManual = (key: string): boolean => key in context.subtitles && !key.endsWith('-orig')
-	const manual = keys.filter(isManual).length
+	const manualKeys = keys.filter(isManual)
+	const manualLanguages = new Set(manualKeys.map(baseLanguageCode))
 	if (keys.length === 0) return base
-	if (manual === keys.length) return base === 'auto-only' ? 'manual-first' : base
-	if (manual === 0) return base === 'manual-only' ? 'auto-only' : base
+	if (keys.some(key => !isManual(key) && manualLanguages.has(baseLanguageCode(key)))) return 'manual-and-auto'
+	// Without such a pair, `manual-and-auto` would add a caption the user left out.
+	const single = base === 'manual-and-auto' ? 'manual-first' : base
+	if (manualKeys.length === keys.length) return single === 'auto-only' ? 'manual-first' : single
+	if (manualKeys.length === 0) return single === 'manual-only' ? 'auto-only' : single
 	return 'manual-first'
 }
 

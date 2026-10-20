@@ -61,6 +61,15 @@ describe('StepPlaylistPresets · subtitles batch', () => {
 		await waitFor(() => expect(useAppStore.getState().playlistSelection).toEqual({...SUBS, source: 'auto-only', mode: 'subfolder', format: 'vtt'}))
 	})
 
+	it('offers manual and auto side by side as a source', async () => {
+		setSelection(SUBS)
+		render(<StepPlaylistPresets />)
+
+		fireEvent.click(screen.getByRole('button', {name: 'Manual and auto'}))
+
+		await waitFor(() => expect(useAppStore.getState().playlistSelection).toEqual({...SUBS, source: 'manual-and-auto'}))
+	})
+
 	it('keeps the subtitle choices when switching to another type and back', async () => {
 		setSelection({...SUBS, languages: ['pl', 'de'], format: 'vtt'})
 		render(<StepPlaylistPresets />)
