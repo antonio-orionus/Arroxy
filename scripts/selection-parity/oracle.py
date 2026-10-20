@@ -1,8 +1,9 @@
 """yt-dlp's own format pick for each case, for the selection parity check.
 
 Reads {"probes": {id: info_dict}, "cases": [{"probe", "format", "sort"}]} as
-JSON on stdin and writes one picked format_id per case (null when yt-dlp picks
-nothing) as a JSON list. Runs yt-dlp in-process (its zipapp on sys.path, the
+JSON on stdin and writes, per case, the picked format_id and the extension yt-dlp
+gives the result (its merger's container for a merge), or null when it picks
+nothing, as a JSON list. Runs yt-dlp in-process (its zipapp on sys.path, the
 first argument), one worker per core, so thousands of cases cost a few
 interpreter starts. Each case goes through `process_ie_result`, the path
 `--load-info-json` takes, so the extractor's `_format_sort_fields` and
@@ -37,7 +38,7 @@ def pick(case):
         result = _ydl.process_ie_result(copy.deepcopy(_probes[case['probe']]), download=False)
     except Exception:
         return None
-    return result.get('format_id')
+    return {'id': result.get('format_id'), 'ext': result.get('ext')}
 
 
 def main():

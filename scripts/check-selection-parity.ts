@@ -25,6 +25,7 @@ import {resolveProfileSelection} from '../src/shared/profileSelection.js'
 import type {DownloadProfile, DownloadProfileMedia, HdrPreference, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '../src/shared/schemas.js'
 import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 import {probeSourceResult} from '../src/renderer/src/dev/probeSources/index.js'
+import {resolveOutputContainer} from '../src/renderer/src/store/wizard/resolveContainer.js'
 import {PROBE_SOURCES, type ProbeSourceId} from '../src/renderer/src/dev/probeSources/sources.js'
 
 const YT_DLP = {version: '2026.08.19', sha256: '1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6'}
@@ -88,17 +89,19 @@ const BASE_PROFILE = BUILTIN_DOWNLOAD_PROFILES[0]
 if (!BASE_PROFILE) throw new Error('no built-in profile to vary')
 
 // The app's pick in yt-dlp's format_id shape ("video+audio"), or null when the
-// app picks nothing yt-dlp would name (a conversion, subtitles).
-function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): string | null {
+// app picks nothing yt-dlp would name (subtitles), with the container the
+// Format screen says the file saves as.
+function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): {id: string; container: string} | null {
 	const probe = probeSourceResult(probeId)
 	const profile: DownloadProfile = {...BASE_PROFILE, media: profileCase.media}
 	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
 	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
 	const audio = media.audioSelection.kind === 'native' ? media.audioSelection.formatId : null
 	// A conversion is an answer too: a native-audio profile must never convert where yt-dlp takes a stream as it is.
-	if (media.kind === 'audio') return audio ?? 'converted'
+	const container = resolveOutputContainer(media.videoFormatId, media.audioSelection, 'sidecar', probe.formats, media.kind, false, 'auto')
+	if (media.kind === 'audio') return {id: audio ?? 'converted', container}
 	if (media.kind !== 'video' || media.videoFormatId === '') return null
-	return audio === null ? media.videoFormatId : `${media.videoFormatId}+${audio}`
+	return {id: audio === null ? media.videoFormatId : `${media.videoFormatId}+${audio}`, container}
 }
 
 // The fixture's info dict as yt-dlp would load it: every format needs a URL to
@@ -117,6 +120,9 @@ interface Case {
 	format: string
 	sort?: string
 	expected: string
+	// The container yt-dlp's result should carry, where no --merge-output-format
+	// or remux applies (a Best picture profile with no file type).
+	expectedExt?: string
 }
 
 // Differences already known to be bugs, each with its fix under way. Listed so
@@ -133,14 +139,16 @@ const probeIds: readonly ProbeSourceId[] = PROBE_SOURCES.map(source => source.id
 const cases: Case[] = []
 for (const probe of probeIds) {
 	for (const profileCase of profileCases()) {
-		const expected = appPick(probe, profileCase)
-		if (expected === null) continue
+		const app = appPick(probe, profileCase)
+		if (app === null) continue
+		const media = profileCase.media
+		const comparesContainer = (media.kind === 'video-audio' || media.kind === 'video-only') && media.goal === 'best-picture' && media.fileType === 'auto'
 		// The profile carries its own HDR choice, so the app setting passed here never applies.
 		const intent = mediaIntentFromProfileMedia(profileCase.media)
 		if (intent === null) continue
 		const spec = mediaIntentSpec(intent, profileCase.nativeAudio, 'sdr')
 		if (!spec.formatSelector) continue
-		cases.push({probe, label: profileCase.label, format: spec.formatSelector, ...(spec.formatSort ? {sort: spec.formatSort} : {}), expected})
+		cases.push({probe, label: profileCase.label, format: spec.formatSelector, ...(spec.formatSort ? {sort: spec.formatSort} : {}), expected: app.id, ...(comparesContainer ? {expectedExt: app.container} : {})})
 	}
 }
 
@@ -155,13 +163,22 @@ const picks: unknown = JSON.parse(stdout)
 if (!Array.isArray(picks) || picks.length !== cases.length) throw new Error('the oracle returned a different number of picks than cases')
 
 const known = new Set<string>()
+// One oracle answer: yt-dlp's format_id and the extension of its result, or nothing picked.
+function oracleAnswer(raw: unknown): {id: string; ext: string | null} | null {
+	if (typeof raw !== 'object' || raw === null || !('id' in raw) || typeof raw.id !== 'string') return null
+	return {id: raw.id, ext: 'ext' in raw && typeof raw.ext === 'string' ? raw.ext : null}
+}
+
 const differences = cases.flatMap((testCase, index) => {
-	const ytDlpPick: unknown = picks[index]
-	if (ytDlpPick !== testCase.expected && isKnown(testCase)) {
+	const answer = oracleAnswer(picks[index])
+	const same = answer?.id === testCase.expected && (testCase.expectedExt === undefined || answer.ext === testCase.expectedExt)
+	if (!same && isKnown(testCase)) {
 		known.add(`${testCase.probe} · ${testCase.label}`)
 		return []
 	}
-	return ytDlpPick === testCase.expected ? [] : [`${testCase.probe} · ${testCase.label}: app ${testCase.expected}, yt-dlp ${String(ytDlpPick)}  (-f ${testCase.format}${testCase.sort ? ` -S ${testCase.sort}` : ''})`]
+	const app = `${testCase.expected}${testCase.expectedExt ? ` (${testCase.expectedExt})` : ''}`
+	const ytDlp = answer ? `${answer.id}${testCase.expectedExt ? ` (${answer.ext ?? '?'})` : ''}` : 'null'
+	return same ? [] : [`${testCase.probe} · ${testCase.label}: app ${app}, yt-dlp ${ytDlp}  (-f ${testCase.format}${testCase.sort ? ` -S ${testCase.sort}` : ''})`]
 })
 if (verbose) for (const testCase of cases) console.log(`${testCase.probe} · ${testCase.label}: ${testCase.expected}`)
 console.log(`selection parity: ${cases.length} cases over ${probeIds.length} probes, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
