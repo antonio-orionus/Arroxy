@@ -1,6 +1,6 @@
 ---
 name: ytdlp-stdout-drops-non-ascii
-description: We learn media and sidecar paths by scraping yt-dlp's stdout; that stream corrupts them four different ways (codepage drop, split multi-byte char, split line, bare-\r framing) and every corruption fails silently as ENOENT
+description: We learned media and sidecar paths by scraping yt-dlp's stdout, which corrupts them four ways (codepage drop, split multi-byte char, split line, bare-\r framing), each failing silently as ENOENT; the media path now comes from --print-to-file, subtitle paths still from the log
 metadata:
   type: project
 ---
@@ -125,7 +125,17 @@ scraped `[download] Destination:` against `readdir`.
 
 Any new code that trusts a path, title, or ID scraped from yt-dlp stdout. The
 reader covers every consumer that goes through `YtDlp.spawn()`; a spawn path that
-bypasses it inherits all four vectors. The structural escape — reading paths from
-`--print-to-file` or the info.json instead of the log stream — was *not* taken:
-the sidecar-subs spawn writes no info.json and yt-dlp has no clean per-subtitle
-print field, and stdout must stay parseable for progress regardless.
+bypasses it inherits all four vectors.
+
+The structural escape is now taken for the **media** path: the media run passes
+`--print-to-file after_move:filepath <tempDir>/_arroxy.final-path.txt`, and
+`VideoPhase` adopts the path yt-dlp writes there (UTF-8, after every
+postprocessor and the move) over the one followed through the log. That also
+fixed a fifth, non-encoding failure: the log's `[VideoRemuxer] Remuxing video
+from mp4 to mkv; Destination: …` line never matched the bridge's
+`[VideoRemuxer] Destination:` regex, so a remuxed download kept the deleted MP4
+path and the embed mux ran on a missing file. Gotchas: FILE is an output
+template (`%` → `%%`), and yt-dlp expands `$VAR` in it exactly as in `--paths`,
+with no escape that survives (`$$HOME` still expands), so `$` is passed as is.
+The log path stays as the fallback and for resume. **Subtitle** paths still come
+from the log: the sidecar-subs spawn has no clean per-subtitle print field.
