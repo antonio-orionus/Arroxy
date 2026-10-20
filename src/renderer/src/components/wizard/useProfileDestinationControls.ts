@@ -54,7 +54,7 @@ export function useProfileDestinationControls({initialProfile, destination, onAc
 			onAction({type: 'set-destination', destination: result.data.path})
 		} catch (error) {
 			console.error('Failed to open destination folder picker', error)
-			setPickerError('Could not open folder picker. Enter a path manually.')
+			setPickerError(t('wizard.profileEditor.error.folderPicker'))
 		}
 	}
 
