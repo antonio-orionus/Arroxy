@@ -112,3 +112,6 @@ private
 # copies (e.g. src/build/embedded/ if a tool resolves cwd wrong).
 **/build/embedded/*
 .vitest/
+
+# Localized screenshots (`bun run screenshots:readme --locales ...`): the website converts them; the README uses build/ only.
+build/localized/

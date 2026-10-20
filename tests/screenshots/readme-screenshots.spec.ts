@@ -1,10 +1,17 @@
 import {test} from '@playwright/test'
 import type {Page} from '@playwright/test'
+import {SUPPORTED_LANGS} from '../../src/shared/schemas.js'
+import type {SupportedLang} from '../../src/shared/schemas.js'
 
 // Regenerates the README screenshots in build/ from the browser-mock renderer.
 //
-//   bun run screenshots:readme                      every shot
-//   bun run screenshots:readme -g "Bulk URLs"        one shot
+//   bun run screenshots:readme                          every shot, English, into build/
+//   bun run screenshots:readme -g "Bulk URLs"            one shot
+//   bun run screenshots:readme --locales de,fr          every shot in German and French
+//
+// English shots go to build/ (the README's); any other locale goes to the
+// gitignored build/localized/<locale>/, for the website to pick up. Steps find
+// elements by test id, never by visible text, so every locale runs the same recipe.
 //
 // Each shot is a scenario from the Scenario Workbench rendered with showcase
 // content (`showcase=1`: sample titles and generated artwork instead of fixture
@@ -33,7 +40,7 @@ const SAMPLE_URLS = ['https://www.youtube.com/watch?v=aurora4k01', 'https://www.
 
 const SHOTS: readonly Shot[] = [
 	{name: 'Quick Download home', file: 'Main-screenshot.png', query: 'scenario=profiles-home-clipboard-single', ready: '[data-testid="profiles-quick-download"]:not([disabled])'},
-	{name: 'Download profiles', file: 'Download-profiles-screenshot.png', query: 'scenario=default', ready: '[data-testid="profiles-manage-tab"]', prepare: page => openTab(page, 'Profiles')},
+	{name: 'Download profiles', file: 'Download-profiles-screenshot.png', query: 'scenario=default', ready: '[data-testid="profiles-manage-tab"]', prepare: page => openTab(page, 'profiles')},
 	{
 		name: 'Per-item playlist profiles',
 		file: 'Per-item-playlist-profiles-screenshot.png',
@@ -76,7 +83,7 @@ const SHOTS: readonly Shot[] = [
 		ready: '[data-testid="review-row-subtitles"] [data-checked]',
 		prepare: async page => {
 			// A few uploaded languages and the original-language captions, as someone would pick them.
-			for (const language of ['English', 'Spanish', 'Japanese', 'English (Original)']) await page.getByRole('checkbox', {name: language, exact: true}).click()
+			for (const code of ['en', 'es', 'ja', 'en-orig']) await page.locator(`[data-testid="review-row-subtitles"] [id$="-${code}-label"]`).click()
 		},
 		spotlight: ['[data-testid="review-row-subtitles"]']
 	},
@@ -84,38 +91,71 @@ const SHOTS: readonly Shot[] = [
 		name: 'Bulk URLs',
 		file: 'Bulk-urls-mode-screenshot.png',
 		query: 'scenario=profiles-bulk',
-		ready: 'text=Duplicate',
+		ready: '[data-testid="bulk-url-rejected"]',
 		prepare: async page => {
 			// The repeated first link shows duplicate detection.
 			await page.getByTestId('bulk-url-textarea').fill([...SAMPLE_URLS, SAMPLE_URLS[0]].join('\n'))
 		}
 	},
-	{name: 'Profile editor', file: 'Profile-editor-screenshot.png', query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByRole('button', {name: 'Advanced'}).click()},
+	{name: 'Profile editor', file: 'Profile-editor-screenshot.png', query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByTestId('profiles-editor-video-advanced-toggle').click()},
 	{name: 'Part of video', file: 'Part-of-video-screenshot.png', query: 'scenario=single-part', height: 1100, ready: '[data-testid="video-part-panel"]', spotlight: ['[data-testid="video-part-panel"]']},
 	{name: 'Explore', file: 'Explore-screenshot.png', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
 	{name: 'Explore browsing', file: 'Explore-browsing-screenshot.png', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
-	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'Downloads')},
-	{name: 'Parallel downloads', file: 'Downloading-in-parallel-screenshot.png', query: 'scenario=queue-parallel', ready: '[data-testid="queue-manager-row-queue-parallel-6"]', prepare: page => openTab(page, 'Downloads')}
+	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'queue')},
+	{name: 'Parallel downloads', file: 'Downloading-in-parallel-screenshot.png', query: 'scenario=queue-parallel', ready: '[data-testid="queue-manager-row-queue-parallel-6"]', prepare: page => openTab(page, 'queue')}
 ]
 
 // Chrome that belongs to the workbench or to first-run moments, not to the feature being shown.
 const HIDE = ['[data-testid="scenario-gallery"]', '[data-testid="queue-tab-first-run-cue"]', '[data-testid="feedback-nudge"]', '[data-testid="style-hint"]', '[data-testid="format-profile-callout"]', '[data-testid="video-part-callout"]', '[data-testid="explore-link-callout"]']
 
-async function openTab(page: Page, name: string): Promise<void> {
-	await page
-		.getByRole('tab', {name: new RegExp(name)})
-		.first()
-		.click()
+async function openTab(page: Page, tab: 'profiles' | 'queue'): Promise<void> {
+	await page.getByTestId(`home-tab-${tab}`).click()
 }
 
+// `ARROXY_SHOT_LOCALES` (set by `--locales`): a comma-separated list, or `all`.
+function shotLocales(): SupportedLang[] {
+	const raw = process.env.ARROXY_SHOT_LOCALES?.trim() ?? ''
+	if (raw === '') return ['en']
+	if (raw === 'all') return [...SUPPORTED_LANGS]
+	return raw.split(',').map(code => {
+		const locale = SUPPORTED_LANGS.find(lang => lang === code.trim())
+		if (!locale) throw new Error(`Unknown locale "${code}". Supported: ${SUPPORTED_LANGS.join(', ')}`)
+		return locale
+	})
+}
+
+const LOCALES = shotLocales()
+
+function shotPath(locale: SupportedLang, file: string): string {
+	return locale === 'en' ? `build/${file}` : `build/localized/${locale}/${file}`
+}
+
+// English keeps the bare name, so `-g "Bulk URLs"` still picks the README shot.
+function titled(name: string, locale: SupportedLang): string {
+	return locale === 'en' ? name : `${name} [${locale}]`
+}
+
+const BACKDROP_ATTEMPTS = 3
+
 // Opens a scenario with showcase content and waits until it has settled.
-async function settle(page: Page, query: string, ready: string, options: {theme?: 'dark' | 'light'; style?: 'aurora' | 'minimal'; prepare?: Shot['prepare']} = {}): Promise<void> {
-	const {theme = 'dark', style, prepare} = options
-	await page.goto(`/?${query}&theme=${theme}${style ? `&style=${style}` : ''}&showcase=1&backdropSoftware=1`)
-	await page.waitForSelector('[data-testid="app-root"]')
+async function settle(page: Page, query: string, ready: string, options: {locale: SupportedLang; theme?: 'dark' | 'light'; style?: 'aurora' | 'minimal'; prepare?: Shot['prepare']}): Promise<void> {
+	const {locale, theme = 'dark', style, prepare} = options
+	const url = `/?${query}&locale=${locale}&theme=${theme}${style ? `&style=${style}` : ''}&showcase=1&backdropSoftware=1`
+	// Minimal draws no backdrop, so only Aurora has a WebGL scene to wait for. With
+	// several pages rendering at once, the backdrop's start-up timing can judge
+	// software WebGL too slow and fall back to the CSS look; a fresh load retries it.
+	for (let attempt = 1; ; attempt++) {
+		await page.goto(url)
+		await page.waitForSelector('[data-testid="app-root"]')
+		if (style === 'minimal') break
+		const webgl = await page
+			.waitForSelector('body.backdrop-webgl-active', {state: 'attached', timeout: 10_000})
+			.then(() => true)
+			.catch(() => false)
+		if (webgl) break
+		if (attempt === BACKDROP_ATTEMPTS) throw new Error(`The WebGL backdrop did not start after ${BACKDROP_ATTEMPTS} loads: ${url}`)
+	}
 	await page.addStyleTag({content: `${HIDE.join(',')}{display:none!important}`})
-	// Minimal draws no backdrop, so only Aurora has a WebGL scene to wait for.
-	if (style !== 'minimal') await page.waitForSelector('body.backdrop-webgl-active')
 	if (prepare) {
 		// Probe scenarios land on their step only after the mock's probe delay.
 		await page.waitForSelector('[data-testid="profiles-tabs"], [data-testid="wizard-panel"] [data-testid^="step-"]')
@@ -162,13 +202,15 @@ async function spotlight(page: Page, selectors: readonly string[]): Promise<void
 	}, area)
 }
 
-for (const shot of SHOTS) {
-	test(shot.name, async ({page}) => {
-		if (shot.height || shot.width) await page.setViewportSize({width: shot.width ?? 900, height: shot.height ?? 760})
-		await settle(page, shot.query, shot.ready, {prepare: shot.prepare})
-		if (shot.spotlight) await spotlight(page, shot.spotlight)
-		await page.screenshot({path: `build/${shot.file}`})
-	})
+for (const locale of LOCALES) {
+	for (const shot of SHOTS) {
+		test(titled(shot.name, locale), async ({page}) => {
+			if (shot.height || shot.width) await page.setViewportSize({width: shot.width ?? 900, height: shot.height ?? 760})
+			await settle(page, shot.query, shot.ready, {locale, prepare: shot.prepare})
+			if (shot.spotlight) await spotlight(page, shot.spotlight)
+			await page.screenshot({path: shotPath(locale, shot.file)})
+		})
+	}
 }
 
 // The main screen in both themes and both styles, captured one by one and laid out as a 2x2 grid:
@@ -180,15 +222,17 @@ const LOOKS = [
 	{style: 'minimal', theme: 'light'}
 ] as const
 
-test('Themes and styles', async ({page, context}) => {
-	const frames: string[] = []
-	for (const look of LOOKS) {
-		await settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', look)
-		frames.push((await page.screenshot({omitBackground: true})).toString('base64'))
-	}
-	const grid = await context.newPage()
-	await grid.setViewportSize({width: 1000, height: 800})
-	await grid.setContent(`<body style="margin:0;display:grid;grid-template-columns:repeat(2,480px);gap:20px;width:max-content;background:transparent">${frames.map(frame => `<img src="data:image/png;base64,${frame}" style="width:480px;display:block;border-radius:14px">`).join('')}</body>`)
-	await grid.waitForFunction(() => [...document.images].every(image => image.complete))
-	await grid.locator('body').screenshot({path: 'build/Themes-and-styles-screenshot.png', omitBackground: true})
-})
+for (const locale of LOCALES) {
+	test(titled('Themes and styles', locale), async ({page, context}) => {
+		const frames: string[] = []
+		for (const look of LOOKS) {
+			await settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', {...look, locale})
+			frames.push((await page.screenshot({omitBackground: true})).toString('base64'))
+		}
+		const grid = await context.newPage()
+		await grid.setViewportSize({width: 1000, height: 800})
+		await grid.setContent(`<body style="margin:0;display:grid;grid-template-columns:repeat(2,480px);gap:20px;width:max-content;background:transparent">${frames.map(frame => `<img src="data:image/png;base64,${frame}" style="width:480px;display:block;border-radius:14px">`).join('')}</body>`)
+		await grid.waitForFunction(() => [...document.images].every(image => image.complete))
+		await grid.locator('body').screenshot({path: shotPath(locale, 'Themes-and-styles-screenshot.png'), omitBackground: true})
+	})
+}

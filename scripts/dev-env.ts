@@ -693,6 +693,23 @@ async function clearFreshMainLog(env: DevEnvPaths): Promise<void> {
 	await fs.rm(path.join(env.electronUserData, 'logs', 'main.log'), {force: true})
 }
 
+// Splits `--locales <list>` or `--locales=<list>` off the screenshot runner's arguments.
+function takeLocalesFlag(args: readonly string[]): {locales: string | null; rest: string[]} {
+	const rest: string[] = []
+	let locales: string | null = null
+	for (let i = 0; i < args.length; i++) {
+		const arg = args[i]
+		if (arg === '--locales') {
+			const value = args[i + 1]
+			if (value === undefined) throw new Error('--locales needs a value, e.g. --locales de,fr or --locales all')
+			locales = value
+			i++
+		} else if (arg.startsWith('--locales=')) locales = arg.slice('--locales='.length)
+		else rest.push(arg)
+	}
+	return {locales, rest}
+}
+
 async function runLauncher(args: string[]): Promise<void> {
 	const [launcher, ...launcherArgs] = args
 	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke|screenshots>')
@@ -716,8 +733,9 @@ async function runLauncher(args: string[]): Promise<void> {
 	}
 
 	if (launcher === 'screenshots') {
-		// Extra arguments go to Playwright, e.g. `-g "Bulk URLs"` to retake one shot.
-		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', '--config', 'playwright.screenshots.config.ts', ...launcherArgs], {cwd: repoRoot, env: baseEnv})
+		// `--locales de,fr` (or `all`) picks the UI languages; other arguments go to Playwright, e.g. `-g "Bulk URLs"` to retake one shot.
+		const {locales, rest} = takeLocalesFlag(launcherArgs)
+		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', '--config', 'playwright.screenshots.config.ts', ...rest], {cwd: repoRoot, env: locales === null ? baseEnv : {...baseEnv, ARROXY_SHOT_LOCALES: locales}})
 		return
 	}
 

@@ -45,7 +45,7 @@ export function HomeTabsList({compact, exploreEnabled, exploreNoticeSeen, queueC
 function HomeTabTrigger({compact, icon: Icon, label, value}: {compact: boolean; icon: LucideIcon; label: string; value: ProfilesTab}): ReactNode {
 	return (
 		<Hint label={compact ? label : undefined}>
-			<TabsTrigger value={value} className={TAB_TRIGGER_CLASS}>
+			<TabsTrigger value={value} className={TAB_TRIGGER_CLASS} data-testid={`home-tab-${value}`}>
 				<Icon data-icon="inline-start" aria-hidden />
 				<TabLabel compact={compact}>{label}</TabLabel>
 			</TabsTrigger>
@@ -75,7 +75,7 @@ function QueueTabTrigger({compact, queueCount, attentionCount, queueIsActive}: {
 	return (
 		// One hint for the tab and its attention badge: nested hints would open together.
 		<Hint label={[compact ? t('queue.tabLabel') : null, attentionCount > 0 ? t('queue.attentionBadge', {count: attentionCount}) : null].filter(Boolean).join(' · ')}>
-			<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger', TAB_TRIGGER_CLASS, queueIsActive && 'queue-tab-working')}>
+			<TabsTrigger value="queue" data-testid="home-tab-queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger', TAB_TRIGGER_CLASS, queueIsActive && 'queue-tab-working')}>
 				<Inbox data-icon="inline-start" aria-hidden />
 				<TabLabel compact={compact}>{t('queue.tabLabel')}</TabLabel>
 				<QueueTabCountBadge queueCount={queueCount} attentionCount={attentionCount} />

@@ -141,7 +141,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 									</Item>
 								))}
 								{preview.previewRejected.map(item => (
-									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-warning">
+									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-warning" data-testid="bulk-url-rejected">
 										<ItemMedia variant="icon">
 											<AlertTriangle />
 										</ItemMedia>
