@@ -46,7 +46,7 @@ function audioForAudioOnly(state: AppState): AudioSelection {
 	const current = state.audioSelection
 	if (isConvert(current)) return current
 	if (current.kind === 'native' && hasFormat(state.wizardFormats, current.formatId)) return current
-	if (!state.wizardFormats.some(f => f.isAudioOnly)) return {kind: 'convert-lossy', target: 'mp3', bitrateKbps: state.lastConvertBitrate}
+	if (!state.wizardFormats.some(f => f.isAudioOnly)) return {kind: 'extract'}
 	return bestNativeAudio(state.wizardFormats, state)
 }
 

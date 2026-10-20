@@ -48,6 +48,24 @@ describe('resolveOutputContainer', () => {
 		})
 	})
 
+	// Audio mode extracts (`-x --audio-format best`): a WebM's Opus lands as .opus.
+	describe('audio mode', () => {
+		const opus = {...WEBM_AUDIO, audioCodec: 'opus'}
+		const aac = {...M4A_AUDIO, audioCodec: 'mp4a.40.2'}
+		const combined = {...fmt('18', 'mp4'), audioCodec: 'mp4a.40.2'}
+
+		it("a native pick lands in its codec's own container", () => {
+			expect(resolveOutputContainer('', {kind: 'native', formatId: '251'}, sidecar, [opus, aac], 'audio')).toBe('opus')
+			expect(resolveOutputContainer('', {kind: 'native', formatId: '140'}, sidecar, [opus, aac], 'audio')).toBe('m4a')
+		})
+
+		it("keep as-is lands in the best combined file's audio container", () => {
+			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [combined], 'audio')).toBe('m4a')
+			expect(resolveOutputContainer('', {kind: 'extract'}, sidecar, [fmt('18', 'mp4')], 'audio')).toBe('unknown')
+			expect(resolveOutputContainer('', {kind: 'extract', formatId: '43'}, sidecar, [combined, {...fmt('43', 'webm'), audioCodec: 'vorbis'}], 'audio')).toBe('ogg')
+		})
+	})
+
 	describe('audio-only (no video track)', () => {
 		it('native audio → format ext', () => {
 			const audio: AudioSelection = {kind: 'native', formatId: '251'}

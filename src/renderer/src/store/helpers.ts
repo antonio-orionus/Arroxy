@@ -1,5 +1,5 @@
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
-import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot} from '@shared/types.js'
+import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot, WizardMediaKind} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
 import {formatConversionCandidate, selectedConversionSource} from '@shared/audioConversionSource.js'
@@ -17,6 +17,7 @@ export interface GroupedVideoFormat {
 // chosen language's stream as `formatId`; without it the default track converts.
 export function buildFormatId(videoFormatId: string, audioSelection: AudioSelection): string | undefined {
 	if (audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless') return audioSelection.sourceFormatId
+	if (audioSelection.kind === 'extract') return audioSelection.formatId
 	const audioFormatId = audioSelection.kind === 'native' ? audioSelection.formatId : null
 	if (videoFormatId === '' && audioFormatId === null) return undefined
 	if (videoFormatId === '') return audioFormatId ?? undefined
@@ -25,8 +26,11 @@ export function buildFormatId(videoFormatId: string, audioSelection: AudioSelect
 }
 
 // IPC payload mirror of audioSelection. Returns the `audioConvert` field for
-// the IPC schema, or undefined for native/none picks.
-export function buildAudioConvertPayload(audioSelection: AudioSelection): AudioConvert | undefined {
+// the IPC schema, or undefined for none, and a native pick beside a video.
+// Audio mode extracts what it downloads (`-x --audio-format best`), as an
+// Audio only profile's Quick Download does.
+export function buildAudioConvertPayload(audioSelection: AudioSelection, mediaKind: WizardMediaKind): AudioConvert | undefined {
+	if (audioSelection.kind === 'extract' || (audioSelection.kind === 'native' && mediaKind === 'audio')) return {target: 'best'}
 	if (audioSelection.kind === 'convert-lossless') return {target: 'wav'}
 	if (audioSelection.kind === 'convert-lossy') return {target: audioSelection.target, bitrateKbps: audioSelection.bitrateKbps}
 	return undefined
@@ -36,6 +40,7 @@ export function buildAudioConvertPayload(audioSelection: AudioSelection): AudioC
 // StepConfirm (preview row) so they can't drift.
 export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
 	if (audioSelection.kind === 'none') return i18next.t('wizard.formats.noAudio')
+	if (audioSelection.kind === 'extract') return i18next.t('wizard.formats.keepAudio')
 	if (audioSelection.kind === 'convert-lossless') return i18next.t('wizard.formats.convert.wavLabel')
 	if (audioSelection.kind === 'convert-lossy') {
 		// i18next typed-resource inference doesn't always pick up placeholders in

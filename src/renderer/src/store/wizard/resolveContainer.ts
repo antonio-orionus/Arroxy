@@ -1,4 +1,5 @@
 import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import {audioConversionOutcome} from 'yt-dlp-bridge/audio-conversion'
 import {fileTypeFits, mp4Caveat, type Mp4Caveat} from '@shared/fileTypeFit.js'
 import {compatibleExt} from '@shared/ytdlp/compatibleExt.js'
 import type {FormatOption} from '@shared/types.js'
@@ -11,7 +12,9 @@ import type {AppState} from '../types.js'
  * Rules mirror yt-dlp's container selection logic:
  * - subtitle-only → no media container
  * - audio convert → target format ('mp3', 'm4a', 'opus', 'wav')
- * - audio-only native → format's own ext (often 'webm' for YouTube opus)
+ * - audio mode native or keep as-is → `--audio-format best`'s container
+ *   (a WebM's Opus lands as .opus)
+ * - audio-only native beside no video pick → format's own ext
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
  * - video + a chosen file type → that type (WebM only when the streams fit,
  *   else the MKV fallback the remux rule names)
@@ -25,6 +28,13 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
 	if (audioSelection.kind === 'convert-lossy') return audioSelection.target
+	// Audio mode extracts with `--audio-format best`: the codec's own container
+	// (a WebM's Opus lands as .opus), and keep as-is takes the best combined file.
+	if (mediaKind === 'audio' && (audioSelection.kind === 'native' || audioSelection.kind === 'extract')) {
+		const named = audioSelection.formatId
+		const source = named === undefined ? wizardFormats.find(f => !f.isAudioOnly && !f.isVideoOnly) : wizardFormats.find(f => f.formatId === named)
+		return (source ? audioConversionOutcome('best', {ext: source.ext, acodec: source.audioCodec})?.ext : undefined) ?? (audioSelection.kind === 'native' ? (source?.ext ?? 'unknown') : 'unknown')
+	}
 
 	if (selectedVideoFormatId === '') {
 		if (audioSelection.kind === 'native') {

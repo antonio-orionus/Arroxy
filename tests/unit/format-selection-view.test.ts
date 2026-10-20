@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {listedAudioFormats, selectView} from '@renderer/store/formatSelectionView.js'
-import {buildFormatId} from '@renderer/store/helpers.js'
+import {buildAudioConvertPayload, buildFormatId} from '@renderer/store/helpers.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'
 
@@ -356,5 +356,37 @@ describe('listedAudioFormats', () => {
 		const formats = [audio('234'), audio('140', {audioCodec: 'mp4a.40.2', ext: 'm4a'}), audio('234-de', {audioLanguage: 'de'}), audio('140-en', {audioCodec: 'mp4a.40.2', audioLanguage: 'en'})]
 		expect(listedAudioFormats(formats, [null]).map(f => f.formatId)).toEqual(['140', '234-de', '140-en'])
 		expect(listedAudioFormats(formats, ['234']).map(f => f.formatId)).toEqual(['234', '140', '234-de', '140-en'])
+	})
+})
+
+// Audio mode extracts what it downloads: `-x --audio-format best`, the same
+// as an Audio only profile's Quick Download.
+describe('buildAudioConvertPayload — audio mode', () => {
+	it('extracts a native pick, and keep as-is, as they are', () => {
+		expect(buildAudioConvertPayload({kind: 'native', formatId: '251'}, 'audio')).toEqual({target: 'best'})
+		expect(buildAudioConvertPayload({kind: 'extract'}, 'audio')).toEqual({target: 'best'})
+		expect(buildFormatId('', {kind: 'extract'})).toBeUndefined()
+		expect(buildFormatId('', {kind: 'extract', formatId: '18'})).toBe('18')
+	})
+
+	it('leaves a native pick beside a video alone', () => {
+		expect(buildAudioConvertPayload({kind: 'native', formatId: '251'}, 'video')).toBeUndefined()
+		expect(buildAudioConvertPayload({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, 'audio')).toEqual({target: 'mp3', bitrateKbps: 192})
+	})
+})
+
+describe('selectView — audio mode on a site with only combined files', () => {
+	const combined: FormatOption = {formatId: '18', label: '360p', ext: 'mp4', resolution: '640x360', isVideoOnly: false, isAudioOnly: false, audioCodec: 'mp4a.40.2'}
+
+	it('offers keep as-is, and can download with it', () => {
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'extract'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined]})
+		expect(view.audio.extractOffered).toBe(true)
+		expect(view.canDownload).toBe(true)
+	})
+
+	it('does not offer it where the site has its own audio streams', () => {
+		const audio: FormatOption = {formatId: '140', label: '140', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true}
+		expect(selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined, audio]}).audio.extractOffered).toBe(false)
+		expect(selectView({selectedVideoFormatId: '18', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: [combined]}).audio.extractOffered).toBe(false)
 	})
 })

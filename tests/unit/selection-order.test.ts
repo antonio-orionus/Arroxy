@@ -54,8 +54,14 @@ function withVideoRanksBeforeAudio(spec: Record<string, unknown>): Record<string
 	return {...spec, formatSort: [...spelled, ...tokens.slice(audioAt)].join(',')}
 }
 
+// New since the recording: audio best extracts its pick (`-x --audio-format
+// best`), so a site with only combined files still gives an audio file.
+function withExtractedBestAudio(spec: Record<string, unknown>): Record<string, unknown> {
+	return spec.producesVideo === false && spec.audioConvert === undefined ? {...spec, audioConvert: {target: 'best'}} : spec
+}
+
 function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
-	return withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec))))
+	return withExtractedBestAudio(withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec)))))
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {

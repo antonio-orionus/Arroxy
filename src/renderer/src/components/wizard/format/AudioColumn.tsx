@@ -131,6 +131,7 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 // The radio group speaks strings; these encode and decode the three selection kinds.
 function selectionValue(selection: AudioSelection): string {
 	if (selection.kind === 'none') return 'none'
+	if (selection.kind === 'extract') return 'extract'
 	return selection.kind === 'native' ? `native:${selection.formatId}` : `convert:${selection.target}`
 }
 
@@ -141,6 +142,7 @@ function convertSelection(target: AudioConvertTarget, bitrateKbps: AudioBitrate,
 
 function selectionFromValue(value: string, view: AudioView, convertSourceFor: (target: AudioConvertTarget) => string | undefined): AudioSelection | null {
 	if (value === 'none') return {kind: 'none'}
+	if (value === 'extract') return {kind: 'extract'}
 	const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
 	if (native) return {kind: 'native', formatId: native.formatId}
 	const target = view.convertTargets.find(candidate => `convert:${candidate}` === value)
@@ -219,6 +221,13 @@ function CopyNote({target, kbps}: {target: AudioConvertTarget; kbps: number | un
 	)
 }
 
+// Audio mode on a site with only combined files: keep as-is extracts their
+// audio as it is (`--audio-format best`), the same file Quick Download gives.
+function ExtractChip(): ReactNode {
+	const {t} = useTranslation()
+	return <FormatChip value="extract" name={`${t('wizard.formats.keepAudio')} · ${t('wizard.formats.keepAudioMeta')}`} label={t('wizard.formats.keepAudio')} tags={[t('wizard.formats.keepAudioMeta')]} />
+}
+
 // Keep as-is: a stream with its own audio keeps it. Silence is the switch's
 // Video, no audio, so this column never offers No audio.
 function NoAudioChip({view}: {view: AudioView}): ReactNode {
@@ -280,6 +289,11 @@ function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSe
 			{view.selectedVideoIsMuxed ? (
 				<div className="mb-1.5 flex">
 					<NoAudioChip view={view} />
+				</div>
+			) : null}
+			{view.extractOffered ? (
+				<div className="mb-1.5 flex">
+					<ExtractChip />
 				</div>
 			) : null}
 

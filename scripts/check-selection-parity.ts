@@ -96,7 +96,8 @@ function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): {id: string;
 	const profile: DownloadProfile = {...BASE_PROFILE, media: profileCase.media}
 	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
 	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
-	const audio = media.audioSelection.kind === 'native' ? media.audioSelection.formatId : null
+	// Keep as-is names the combined file whose audio it extracts, as yt-dlp's `-x` does.
+	const audio = media.audioSelection.kind === 'native' || media.audioSelection.kind === 'extract' ? (media.audioSelection.formatId ?? null) : null
 	// A conversion is an answer too: a native-audio profile must never convert where yt-dlp takes a stream as it is.
 	const container = resolveOutputContainer(media.videoFormatId, media.audioSelection, 'sidecar', probe.formats, media.kind, false, 'auto')
 	if (media.kind === 'audio') return {id: audio ?? 'converted', container}
@@ -128,9 +129,7 @@ interface Case {
 // Differences already known to be bugs, each with its fix under way. Listed so
 // the check stays a gate for everything else; an entry that no longer occurs
 // fails it too, so the list shrinks as the fixes land.
-const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = (['twitch-clip', 'dailymotion', 'archive', 'streamable', 'bitchute'] as const).flatMap(probe =>
-	(['audio-only compatible', 'audio-only surround'] as const).map(label => ({probe, label, reason: 'Audio only on a site with only combined files: yt-dlp downloads the whole file (`best`), the Format screen converts it to MP3'}))
-)
+const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = []
 
 const isKnown = (testCase: {probe: ProbeSourceId; label: string}): boolean => KNOWN_DIFFERENCES.some(known => known.probe === testCase.probe && known.label === testCase.label)
 

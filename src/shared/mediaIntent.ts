@@ -121,7 +121,8 @@ function pairWithBestNativeAudio(videoSelector: string, preference: NativeAudioP
 
 function audioOnlyIntentSpec(intent: Extract<MediaIntent, {kind: 'audio-only'}>, nativeAudioPreference: NativeAudioPreference): MediaIntentSpec {
 	if (intent.audio.format === 'best') {
-		return {formatSelector: `${bestNativeAudioSelector(nativeAudioPreference)}/best`, producesVideo: false, producesAudio: true}
+		// `-x`: an audio file even when the pick is a combined file (`best`).
+		return {formatSelector: `${bestNativeAudioSelector(nativeAudioPreference)}/best`, audioConvert: {target: 'best'}, producesVideo: false, producesAudio: true}
 	}
 	if (intent.audio.format === 'wav') {
 		return {audioConvert: {target: 'wav'}, producesVideo: false, producesAudio: true}

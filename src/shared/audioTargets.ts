@@ -17,6 +17,8 @@ export const AUDIO_CONVERT_TARGETS = [
 	{target: 'wav', lossy: false}
 ] as const satisfies readonly AudioConvertTargetSpec[]
 
-export function isAudioConvertTargetLossy(target: AudioConvertTarget): boolean {
-	return AUDIO_CONVERT_TARGETS.some(spec => spec.target === target && spec.lossy)
+// `best` (extract, keep the codec) is no chip of its own, and keeps a lossy
+// codec in almost every case (Opus, AAC, MP3), so it counts as lossy.
+export function isAudioConvertTargetLossy(target: AudioConvertTarget | 'best'): boolean {
+	return target === 'best' || AUDIO_CONVERT_TARGETS.some(spec => spec.target === target && spec.lossy)
 }

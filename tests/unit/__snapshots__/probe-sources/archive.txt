@@ -15,7 +15,7 @@ Profile picks:
 balanced: 2 (1280x720, avi) + audio none
 best-quality: 2 (1280x720, avi) + audio none
 mp4-1080: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"1080","picked":360})
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none

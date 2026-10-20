@@ -60,7 +60,7 @@ describe('planWorkflow — video kind invariants', () => {
 		expect(adjacent(args, '-f', audioConversionSourceSelector(audioConvert.target))).toBe(true)
 		expect(args).toContain('-x')
 		expect(adjacent(args, '--audio-format', audioConvert.target)).toBe(true)
-		if (audioConvert.target !== 'wav') {
+		if ('bitrateKbps' in audioConvert) {
 			expect(adjacent(args, '--audio-quality', `${audioConvert.bitrateKbps}K`)).toBe(true)
 		}
 		expect(args).not.toContain('--skip-download')

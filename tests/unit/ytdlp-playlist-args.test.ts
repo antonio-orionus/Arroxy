@@ -102,14 +102,18 @@ describe('Video · MP4 codec', () => {
 	})
 })
 
-describe('Audio · Best (no convert)', () => {
-	it('format=best → -f bestaudio/best, no -x, no --audio-format', () => {
+// `-x --audio-format best`: the picked stream's audio as it is, so a site
+// with only combined files (the `/best` fallback) still gives an audio file.
+describe('Audio · Best (extracted as is)', () => {
+	it('format=best → -f bestaudio/best, -x --audio-format best, no --audio-quality', () => {
 		const args = argsFor({kind: 'audio', format: 'best'})
 		const fIdx = args.indexOf('-f')
 		expect(fIdx).toBeGreaterThan(-1)
 		expect(args[fIdx + 1]).toBe(COMPATIBLE_AUDIO_ONLY_SELECTOR)
-		expect(args).not.toContain('-x')
-		expect(args).not.toContain('--audio-format')
+		expect(args.filter(arg => arg === '-f')).toHaveLength(1)
+		expect(args).toContain('-x')
+		expect(args[args.indexOf('--audio-format') + 1]).toBe('best')
+		expect(args).not.toContain('--audio-quality')
 	})
 })
 

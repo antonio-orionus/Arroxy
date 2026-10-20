@@ -310,9 +310,11 @@ describe('DownloadProfileEditor', () => {
 
 		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
 
-		// Native "best" audio is often WebM/opus, which yt-dlp cannot embed into.
-		await screen.findByTestId('profiles-editor-audio-format')
-		expect(screen.queryByTestId('profiles-editor-embed-thumbnail')).not.toBeInTheDocument()
+		// "Best" audio is extracted into its codec's own file (.opus, .m4a), which holds a cover; WAV can't.
+		expect(await screen.findByTestId('profiles-editor-embed-thumbnail')).toBeInTheDocument()
+		fireEvent.click(screen.getByTestId('profiles-editor-audio-format'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-wav'))
+		await waitFor(() => expect(screen.queryByTestId('profiles-editor-embed-thumbnail')).not.toBeInTheDocument())
 
 		fireEvent.click(screen.getByTestId('profiles-editor-audio-format'))
 		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-mp3'))

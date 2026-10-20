@@ -16,7 +16,7 @@ Profile picks:
 balanced: 720 (720p, mp4) + audio none
 best-quality: 1080 (1080p, mp4) + audio none
 mp4-1080: 1080 (1080p, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none

@@ -13,7 +13,7 @@ Profile picks:
 balanced: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
 best-quality: mp4 (852x480, mp4) + audio none
 mp4-1080: mp4 (852x480, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"1080","picked":480})
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none

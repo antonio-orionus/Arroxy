@@ -142,9 +142,10 @@ describe('resolveProfileSelection: audio and subtitles-only media', () => {
 		expect(resolve(withMedia('audio-only', {kind: 'audio-only', audio: {format: 'wav'}})).media.audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
 	})
 
-	it('audio best on a muxed-only source converts to mp3 at 192', () => {
+	// The same file Quick Download gives: the combined file's audio, as it is.
+	it('audio best on a muxed-only source extracts its audio as is', () => {
 		const formats = [video('18', '640x360', {isVideoOnly: false, ext: 'mp4'})]
-		expect(resolve(builtin('audio-only'), formats).media.audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
+		expect(resolve(builtin('audio-only'), formats).media.audioSelection).toEqual({kind: 'extract', formatId: '18'})
 	})
 
 	it('subtitles-only selects no media', () => {

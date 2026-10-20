@@ -180,7 +180,6 @@ describe('prepareJob', () => {
 			const intents = [
 				{kind: 'video-only' as const, goal: 'best-picture' as const, tier: '1080' as const, fileType: 'auto' as const},
 				{kind: 'video-only' as const, goal: 'smart-tv' as const, tier: '1080' as const, fileType: 'auto' as const},
-				{kind: 'audio-only' as const, audio: {format: 'best' as const}},
 				{kind: 'audio-only' as const, audio: {format: 'wav' as const}}
 			]
 			for (const mediaIntent of intents) {

@@ -103,4 +103,15 @@ describe('AudioColumn', () => {
 		expect(screen.getByTestId('audio-bitrate-strip')).toBeInTheDocument()
 		expect(screen.queryByTestId('audio-copy-note')).not.toBeInTheDocument()
 	})
+
+	it('offers keep as-is in audio mode on a site with only combined files', () => {
+		const onSelect = vi.fn()
+		const combined: FormatOption = {formatId: '18', label: '360p', ext: 'mp4', resolution: '640x360', isVideoOnly: false, isAudioOnly: false, audioCodec: 'mp4a.40.2'}
+		const audioSelection: AudioSelection = {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}
+		const view = selectView({selectedVideoFormatId: '', audioSelection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [combined]})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={onSelect} />)
+
+		fireEvent.click(screen.getByRole('radio', {name: /^Keep as-is/}))
+		expect(onSelect).toHaveBeenCalledWith({kind: 'extract'})
+	})
 })

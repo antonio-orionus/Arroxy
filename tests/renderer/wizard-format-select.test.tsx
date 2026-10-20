@@ -210,12 +210,12 @@ describe('wizard slice — Video / Audio / Subtitles switch', () => {
 		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '249'}})
 	})
 
-	it('Audio on a muxed-only source converts to mp3 at the remembered bitrate', () => {
+	it('Audio on a muxed-only source keeps its audio as is', () => {
 		useAppStore.setState({wizardFormats: FORMATS.filter(f => !f.isAudioOnly), lastConvertBitrate: 256})
 
 		useAppStore.getState().setWizardMediaKind('audio')
 
-		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 256})
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'extract'})
 	})
 
 	it('Video returns to the profile pick', () => {

@@ -90,9 +90,10 @@ function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; b
 	if (profileAudio.format === 'wav') return {kind: 'convert-lossless', target: 'wav'}
 	if (profileAudio.format !== 'best') return {kind: 'convert-lossy', target: profileAudio.format, bitrateKbps: profileAudio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}
 	const picked = pickedOptions(ytDlpPick({kind: 'audio-only', audio: {format: 'best'}}, input), input.formats)
-	// A source with no separable audio track can only give audio by converting
-	// its muxed stream; "native" would land on the disabled "No audio" row.
-	return picked.audio && !picked.video ? {kind: 'native', formatId: picked.audio.formatId} : {kind: 'convert-lossy', target: 'mp3', bitrateKbps: DEFAULT_AUDIO_BITRATE}
+	// yt-dlp picks a combined file where the source has no audio stream of its
+	// own; `-x` extracts its audio as it is, so the Format screen keeps it as-is.
+	if (picked.audio && !picked.video) return {kind: 'native', formatId: picked.audio.formatId}
+	return picked.video ? {kind: 'extract', formatId: picked.video.formatId} : {kind: 'extract'}
 }
 
 // The order shown as "Why this one" names the source and protocol ranks only
