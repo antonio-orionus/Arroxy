@@ -13,6 +13,11 @@ vi.mock('yt-dlp-bridge', async importOriginal => {
 	return {...actual, planWorkflow: (...args: Parameters<typeof actual.planWorkflow>) => ({...actual.planWorkflow(...args), ...(planCwd === undefined ? {} : {cwd: planCwd})})}
 })
 
+vi.mock('node:fs/promises', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:fs/promises')>()
+	return {...actual, mkdir: vi.fn(actual.mkdir)}
+})
+
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
 	return {...actual, spawnYtDlp: vi.fn()}
@@ -23,6 +28,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 	return {...actual, probeElectronNodeRuntime: vi.fn()}
 })
 
+import {mkdir} from 'node:fs/promises'
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 
@@ -36,11 +42,23 @@ function makeFakeProcess() {
 	return proc
 }
 
-function makeYtDlp(): YtDlp {
+let binaryManager: {forgetProbeVerdict: ReturnType<typeof vi.fn>}
+
+function makeYtDlp(opts: {onEnsureYtDlp?: () => void} = {}): YtDlp {
 	const tokenService = {getToken: vi.fn(), invalidateCache: vi.fn()}
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue(null)}
+	const manager = {
+		ensureYtDlp: vi.fn(() => {
+			opts.onEnsureYtDlp?.()
+			return Promise.resolve('/fake/yt-dlp')
+		}),
+		ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'),
+		ensureFFprobe: vi.fn().mockResolvedValue(null),
+		getLastDiagnostic: vi.fn().mockReturnValue(null),
+		forgetProbeVerdict: vi.fn()
+	}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {}, playlist: {}})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore)
+	binaryManager = manager
+	return new YtDlp(manager as never, tokenService as never, settingsStore)
 }
 
 function subtitleRequest(): YtDlpRequest {
@@ -96,5 +114,28 @@ describe('YtDlp — the run folder a plan asks for', () => {
 
 		expect(result).toMatchObject({kind: 'exit-error', errorKind: 'outputNotWritable'})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
+		expect(binaryManager.forgetProbeVerdict).not.toHaveBeenCalled()
+	})
+
+	it('fails as a full disk when there is no room for the folder', async () => {
+		planCwd = path.join(workDir, 'job')
+		vi.mocked(mkdir).mockRejectedValueOnce(Object.assign(new Error('no space left on device'), {code: 'ENOSPC'}))
+
+		const result = await makeYtDlp().run(subtitleRequest())
+
+		expect(result).toMatchObject({kind: 'exit-error', errorKind: 'outOfDiskSpace'})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	// yt-dlp makes the folder only once it writes; a run stopped before it
+	// spawns must not leave an empty one behind in the user's library.
+	it('makes no folder for a run cancelled before it spawns', async () => {
+		planCwd = path.join(workDir, 'job')
+		const controller = new AbortController()
+
+		const result = await makeYtDlp({onEnsureYtDlp: () => controller.abort()}).run(subtitleRequest(), {abortSignal: controller.signal})
+
+		expect(result).toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
+		expect(fs.existsSync(planCwd)).toBe(false)
 	})
 })

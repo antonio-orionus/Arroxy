@@ -194,8 +194,8 @@ function heldByCooldown(site: string, until: number): YtDlpResult {
 
 // A run executes inside its plan's folder, which a subtitles-only job has not
 // created yet. Spawning in a missing folder fails with ENOENT, which would read
-// as a missing yt-dlp binary, so the folder is made first and a failure is the
-// folder's.
+// as a missing yt-dlp binary, so the folder is made right before the spawn (a
+// run stopped earlier leaves none behind) and a failure is the folder's.
 async function ensureRunFolder(cwd: string): Promise<YtDlpResult | null> {
 	try {
 		await mkdir(cwd, {recursive: true})
@@ -308,6 +308,10 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	// The token mint above can take a while; a pause landing during it stops the run here.
 	if (stoppedBeforeSpawn(opts.signal)) {
 		return Promise.resolve(cancelledResult())
+	}
+	if (opts.cwd !== undefined) {
+		const unusable = await ensureRunFolder(opts.cwd)
+		if (unusable) return unusable
 	}
 	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
@@ -641,10 +645,6 @@ export class YtDlp {
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
 		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy, ...isolatedFromUserYtDlp(this.opts.e2eMode)})
-		if (plan.cwd !== undefined) {
-			const unusable = await ensureRunFolder(plan.cwd)
-			if (unusable) return unusable
-		}
 		const isProbe = req.kind === 'probe'
 		const probePlaylistMode = isProbe ? (req.selection?.playlistMode ?? 'auto') : undefined
 		const hasExplicitYoutubePlayerClient = 'extractor' in req && (req.extractor?.youtube?.playerClient?.length ?? 0) > 0
