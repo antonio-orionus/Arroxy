@@ -1,16 +1,16 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {buildDownloadProfileActionModel, quickProfileSummary} from '@renderer/components/wizard/downloadProfileActions.js'
 import {BUILTIN_DOWNLOAD_PROFILES, setDownloadProfileEnabled} from '@shared/downloadProfiles.js'
+import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfilesPrefs} from '@shared/types.js'
 
 describe('download profile action model', () => {
-	it('projects the active profile, menu options, refs, labels, and summaries in one place', () => {
+	it('projects the active profile, menu options, refs, and labels in one place', () => {
 		const prefs: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'audio-only'}, overrides: [], custom: [], enabledOverrides: {}}
 
 		const model = buildDownloadProfileActionModel(prefs)
 
 		expect(model.activeProfile.id).toBe('audio-only')
-		expect(model.activeSummary).toBe('best audio')
 		expect(model.options).toHaveLength(BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.enabled).length)
 		expect(model.options.find(option => option.profile.id === 'audio-only')).toMatchObject({current: true, ref: {kind: 'builtin', id: 'audio-only'}})
 		expect(model.options.every(option => option.label.length > 0)).toBe(true)
@@ -43,11 +43,22 @@ describe('download profile action model', () => {
 		const small = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
 		if (!balanced || !small) throw new Error('expected built-in profiles')
 
-		expect(quickProfileSummary(balanced)).toBe('720p · best audio')
-		expect(quickProfileSummary(small)).toBe('480p · best audio')
+		expect(quickProfileSummary(balanced, i18next.t)).toBe('720p · best audio')
+		expect(quickProfileSummary(small, i18next.t)).toBe('480p · best audio')
+		expect(quickProfileSummary({...balanced, media: {kind: 'video-only', goal: 'best-picture', tier: 'best', fileType: 'auto'}}, i18next.t)).toBe('best video · no audio')
+		expect(quickProfileSummary({...balanced, media: {kind: 'audio-only', audio: {format: 'best'}}}, i18next.t)).toBe('best audio')
+	})
+
+	it('words the summary in the interface language', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		if (!balanced) throw new Error('expected built-in profiles')
+		const de = i18next.getFixedT('de')
+
+		expect(quickProfileSummary(balanced, de)).toBe(`720p · ${de('wizard.url.profile.summary.bestAudio')}`)
+		expect(de('wizard.url.profile.summary.bestAudio')).not.toBe('best audio')
 	})
 
 	it('uses the default bitrate for lossy audio profile summaries with no explicit bitrate', () => {
-		expect(quickProfileSummary({...BUILTIN_DOWNLOAD_PROFILES[0], media: {kind: 'audio-only', audio: {format: 'mp3'}}})).toBe('MP3 192K')
+		expect(quickProfileSummary({...BUILTIN_DOWNLOAD_PROFILES[0], media: {kind: 'audio-only', audio: {format: 'mp3'}}}, i18next.t)).toBe('MP3 192K')
 	})
 })

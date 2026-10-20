@@ -11,7 +11,7 @@ import {Kbd, KbdGroup} from '../ui/kbd.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
+import {buildDownloadProfileActionModel, quickProfileSummary, type DownloadProfileActionModel} from './downloadProfileActions.js'
 import {ProfilePickerMenu, type ProfilePickerTestIdPrefix} from './ProfilePicker.js'
 import {Hint} from '../shared/Hint.js'
 
@@ -176,7 +176,8 @@ function ProfileMenu({
 }): ReactNode {
 	const {t} = useTranslation()
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
-	const {ActiveIcon, activeSummary} = model
+	const {ActiveIcon} = model
+	const activeSummary = quickProfileSummary(activeProfile, t)
 	const destinationLabel = compact ? undefined : destination?.trim()
 	const destinationDetailText = destinationDetail?.trim()
 	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText

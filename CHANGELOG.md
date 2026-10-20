@@ -8,6 +8,12 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.7.3
+
+## Fixes
+
+- The URL tab's hints, profile summary and save location show in your language instead of English.
+
 ## 0.7.2
 
 ## Highlights
