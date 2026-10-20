@@ -244,6 +244,7 @@ export const pt = {
   shot11_cap: "<b>Baixe só uma parte do vídeo</b><br/>Escolha um início e um fim, ou um capítulo — o Arroxy salva apenas esse trecho",
   shot12_cap: "<b>Editor de perfis</b><br/>Ajuste um perfil: tipo de arquivo, resolução, legendas, destino, modelo de nome de arquivo e mais",
   shot13_cap: "<b>Escuro ou claro, vidro ou sólido</b><br/>Quatro visuais à escolha: painéis de vidro sobre um céu em movimento ou superfícies sólidas e tranquilas, cada um em escuro e claro",
+  shot14_cap: "<b>8K HDR a 60 fps</b><br/>Cada resolução, codec e stream HDR que um vídeo oferece, lado a lado",
   dl_platform_col: "Plataforma",
   dl_format_col: "Download direto",
   dl_oneline_note:

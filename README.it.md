@@ -63,6 +63,9 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Scarica solo una parte del video</b><br/>Scegli inizio e fine, oppure un capitolo — Arroxy salva solo quell’intervallo</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR a 60 fps</b><br/>Ogni risoluzione, codec e flusso HDR di un video, fianco a fianco</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor dei profili</b><br/>Regola un profilo: tipo di file, risoluzione, sottotitoli, destinazione, modello del nome file e altro</sub></td>
   </tr>
   <tr>

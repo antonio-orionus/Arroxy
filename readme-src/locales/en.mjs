@@ -256,6 +256,8 @@ export const en = {
     "<b>Profile editor</b><br/>Tune a profile: file type, resolution, subtitles, destination, filename template and more",
   shot13_cap:
     "<b>Dark or light, glass or solid</b><br/>Four looks to choose from: glass panels over a moving sky or quiet solid surfaces, each in dark and light",
+  shot14_cap:
+    "<b>8K HDR at 60 fps</b><br/>Every resolution, codec and HDR stream a video offers, side by side",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
   dl_oneline_note:

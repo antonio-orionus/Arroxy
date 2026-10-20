@@ -63,6 +63,9 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>영상의 일부만 다운로드</b><br/>시작과 끝, 또는 챕터를 고르면 — Arroxy가 그 구간만 저장합니다</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>60fps 8K HDR</b><br/>영상이 제공하는 모든 해상도, 코덱, HDR 스트림을 나란히</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>프로필 편집기</b><br/>프로필을 세밀하게 조정하세요: 파일 형식, 해상도, 자막, 저장 위치, 파일 이름 템플릿 등</sub></td>
   </tr>
   <tr>

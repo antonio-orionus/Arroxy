@@ -244,6 +244,8 @@ export const de = {
     "<b>Profil-Editor</b><br/>Ein Profil feinjustieren: Dateityp, Auflösung, Untertitel, Zielordner, Dateinamenvorlage und mehr",
   shot13_cap:
     "<b>Dunkel oder hell, Glas oder schlicht</b><br/>Vier Looks zur Wahl: Glasflächen über einem bewegten Himmel oder ruhige, einfarbige Flächen – jeweils dunkel und hell",
+  shot14_cap:
+    "<b>8K HDR mit 60 fps</b><br/>Jede Auflösung, jeder Codec und jeder HDR-Stream eines Videos, nebeneinander",
   dl_platform_col: "Plattform",
   dl_format_col: "Format",
   dl_oneline_note:

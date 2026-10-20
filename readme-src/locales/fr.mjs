@@ -246,6 +246,8 @@ export const fr = {
     "<b>Éditeur de profils</b><br/>Réglez un profil : type de fichier, résolution, sous-titres, destination, modèle de nom de fichier et plus encore",
   shot13_cap:
     "<b>Sombre ou clair, verre ou uni</b><br/>Quatre styles au choix : des panneaux de verre sur un ciel animé ou des surfaces unies et calmes, chacun en sombre et en clair",
+  shot14_cap:
+    "<b>8K HDR à 60 i/s</b><br/>Chaque résolution, codec et flux HDR d'une vidéo, côte à côte",
   dl_platform_col: "Plateforme",
   dl_format_col: "Format",
   dl_oneline_note:

@@ -61,6 +61,9 @@
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>نزّل جزءًا فقط من الفيديو</b><br/>حدّد البداية والنهاية أو فصلًا — وسيحفظ Arroxy هذا النطاق فقط</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR بمعدل 60 إطارًا في الثانية</b><br/>كل دقة وترميز وبث HDR يقدّمه الفيديو، جنبًا إلى جنب</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>محرّر الملفات الشخصية</b><br/>اضبط ملفًا شخصيًا: نوع الملف والدقة والترجمات والوجهة وقالب اسم الملف وغير ذلك</sub></td>
   </tr>
   <tr>

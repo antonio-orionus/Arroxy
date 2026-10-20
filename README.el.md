@@ -61,6 +61,9 @@
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Κατεβάστε μόνο ένα μέρος του βίντεο</b><br/>Επιλέξτε αρχή και τέλος ή ένα κεφάλαιο — το Arroxy αποθηκεύει μόνο αυτό το τμήμα</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR στα 60 fps</b><br/>Κάθε ανάλυση, codec και ροή HDR που προσφέρει ένα βίντεο, δίπλα δίπλα</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Επεξεργαστής προφίλ</b><br/>Ρυθμίστε ένα προφίλ: τύπο αρχείου, ανάλυση, υπότιτλους, προορισμό, πρότυπο ονόματος αρχείου και άλλα</sub></td>
   </tr>
   <tr>

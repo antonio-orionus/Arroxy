@@ -61,6 +61,9 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ဗီဒီယိုရဲ့ တစ်စိတ်တစ်ပိုင်းကိုသာ ဒေါင်းလုဒ်လုပ်ပါ</b><br/>အစနဲ့ အဆုံး ဒါမှမဟုတ် အခန်းတစ်ခုကို ရွေးပါ — Arroxy က ထိုအပိုင်းကိုသာ သိမ်းပေးပါတယ်</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>60 fps ဖြင့် 8K HDR</b><br/>ဗီဒီယိုတစ်ခုပေးသော resolution၊ codec နှင့် HDR stream အားလုံးကို ဘေးချင်းယှဉ်၍</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ပရိုဖိုင် တည်းဖြတ်ကိရိယာ</b><br/>ပရိုဖိုင်ကို ညှိပါ- ဖိုင်အမျိုးအစား၊ ရီဇိုလူးရှင်း၊ စာတန်းထိုး၊ သိမ်းဆည်းမည့်နေရာ၊ ဖိုင်အမည်ပုံစံနှင့် အခြားများ</sub></td>
   </tr>
   <tr>

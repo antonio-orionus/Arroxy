@@ -207,6 +207,7 @@ export const pl = {
   shot11_cap: "<b>Pobierz tylko fragment wideo</b><br/>Wybierz początek i koniec albo rozdział — Arroxy zapisze tylko ten zakres",
   shot12_cap: "<b>Edytor profili</b><br/>Dopasuj profil: typ pliku, rozdzielczość, napisy, miejsce zapisu, szablon nazwy pliku i więcej",
   shot13_cap: "<b>Ciemny lub jasny, szklany lub jednolity</b><br/>Cztery wyglądy do wyboru: szklane panele na ruchomym niebie albo spokojne, jednolite powierzchnie — każdy w trybie ciemnym i jasnym",
+  shot14_cap: "<b>8K HDR w 60 kl./s</b><br/>Każda rozdzielczość, kodek i strumień HDR filmu, obok siebie",
   dl_platform_col: "Platforma",
   dl_format_col: "Pobieranie bezpośrednie",
   dl_oneline_note: "Dostępne są tylko kompilacje x86_64. Nie masz `curl`? Zamień `curl -fsSL` na `wget -qO-`.",

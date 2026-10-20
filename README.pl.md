@@ -63,6 +63,9 @@ Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pobierz tylko fragment wideo</b><br/>Wybierz początek i koniec albo rozdział — Arroxy zapisze tylko ten zakres</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR w 60 kl./s</b><br/>Każda rozdzielczość, kodek i strumień HDR filmu, obok siebie</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Edytor profili</b><br/>Dopasuj profil: typ pliku, rozdzielczość, napisy, miejsce zapisu, szablon nazwy pliku i więcej</sub></td>
   </tr>
   <tr>

@@ -63,6 +63,9 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Unduh hanya sebagian video</b><br/>Pilih awal dan akhir, atau satu bab — Arroxy hanya menyimpan rentang itu</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR pada 60 fps</b><br/>Setiap resolusi, codec, dan stream HDR yang ditawarkan video, berdampingan</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor profil</b><br/>Atur profil: jenis file, resolusi, subtitel, tujuan, templat nama file, dan lainnya</sub></td>
   </tr>
   <tr>

@@ -61,6 +61,9 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
     <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ভিডিওর শুধু একটি অংশ ডাউনলোড করুন</b><br/>শুরু ও শেষ, অথবা একটি চ্যাপ্টার বেছে নিন — Arroxy শুধু সেই অংশটুকুই সংরক্ষণ করে</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>60 fps-এ 8K HDR</b><br/>ভিডিওর প্রতিটি রেজোলিউশন, কোডেক ও HDR স্ট্রিম, পাশাপাশি</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>প্রোফাইল এডিটর</b><br/>প্রোফাইল ঠিক করুন: ফাইলের ধরন, রেজোলিউশন, সাবটাইটেল, গন্তব্য, ফাইলনেম টেমপ্লেট এবং আরও অনেক কিছু</sub></td>
   </tr>
   <tr>

@@ -242,6 +242,7 @@ export const sw = {
   shot11_cap: "<b>Pakua sehemu tu ya video</b><br/>Chagua mwanzo na mwisho, au sura — Arroxy huhifadhi sehemu hiyo pekee",
   shot12_cap: "<b>Kihariri cha wasifu</b><br/>Rekebisha wasifu: aina ya faili, ubora, manukuu, mahali pa kuhifadhi, kiolezo cha jina la faili na mengineyo",
   shot13_cap: "<b>Giza au mwanga, kioo au imara</b><br/>Mionekano minne ya kuchagua: paneli za kioo juu ya anga linalosonga au nyuso imara tulivu, kila mmoja katika giza na mwanga",
+  shot14_cap: "<b>8K HDR kwa fps 60</b><br/>Kila ubora, kodeki na mtiririko wa HDR ambao video inatoa, kando kwa kando",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",
   dl_oneline_note:

@@ -114,6 +114,7 @@ export const id = {
   "shot11_cap": "<b>Unduh hanya sebagian video</b><br/>Pilih awal dan akhir, atau satu bab — Arroxy hanya menyimpan rentang itu",
   "shot12_cap": "<b>Editor profil</b><br/>Atur profil: jenis file, resolusi, subtitel, tujuan, templat nama file, dan lainnya",
   "shot13_cap": "<b>Gelap atau terang, kaca atau polos</b><br/>Empat tampilan untuk dipilih: panel kaca di atas langit bergerak atau permukaan polos yang tenang, masing-masing dalam mode gelap dan terang",
+  "shot14_cap": "<b>8K HDR pada 60 fps</b><br/>Setiap resolusi, codec, dan stream HDR yang ditawarkan video, berdampingan",
   "dl_platform_col": "Platform",
   "dl_format_col": "Unduh langsung",
   "dl_oneline_note": "Build hanya tersedia untuk x86_64. Tidak ada `curl`? Ganti `curl -fsSL` dengan `wget -qO-`.",

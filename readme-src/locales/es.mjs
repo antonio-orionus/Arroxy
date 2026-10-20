@@ -246,6 +246,8 @@ export const es = {
     "<b>Editor de perfiles</b><br/>Ajusta un perfil: tipo de archivo, resolución, subtítulos, destino, plantilla de nombre de archivo y más",
   shot13_cap:
     "<b>Oscuro o claro, cristal o sólido</b><br/>Cuatro aspectos a elegir: paneles de cristal sobre un cielo en movimiento o superficies sólidas y tranquilas, cada uno en oscuro y claro",
+  shot14_cap:
+    "<b>8K HDR a 60 fps</b><br/>Cada resolución, códec y flujo HDR que ofrece un vídeo, uno al lado del otro",
   dl_platform_col: "Plataforma",
   dl_format_col: "Formato",
   dl_oneline_note:

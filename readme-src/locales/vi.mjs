@@ -258,6 +258,7 @@ export const vi = {
     "<b>Trình chỉnh sửa hồ sơ</b><br/>Tinh chỉnh một hồ sơ: loại tệp, độ phân giải, phụ đề, nơi lưu, mẫu tên tệp và nhiều hơn nữa",
   shot13_cap:
     "<b>Tối hoặc sáng, kính hoặc đơn sắc</b><br/>Bốn giao diện để chọn: các khung kính trên bầu trời chuyển động hoặc bề mặt đơn sắc yên tĩnh, mỗi kiểu đều có tối và sáng",
+  shot14_cap: "<b>8K HDR ở 60 fps</b><br/>Mọi độ phân giải, codec và luồng HDR của video, đặt cạnh nhau",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
   dl_oneline_note:

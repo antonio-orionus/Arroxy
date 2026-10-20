@@ -243,6 +243,7 @@ export const tr = {
   shot11_cap: "<b>Videonun yalnızca bir bölümünü indirin</b><br/>Başlangıç ve bitiş ya da bir bölüm seçin — Arroxy yalnızca o aralığı kaydeder",
   shot12_cap: "<b>Profil düzenleyici</b><br/>Bir profili ayarlayın: dosya türü, çözünürlük, altyazılar, hedef, dosya adı şablonu ve daha fazlası",
   shot13_cap: "<b>Koyu ya da açık, cam ya da sade</b><br/>Seçebileceğiniz dört görünüm: hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler, her biri koyu ve açık temada",
+  shot14_cap: "<b>60 fps'de 8K HDR</b><br/>Bir videonun sunduğu her çözünürlük, codec ve HDR akışı yan yana",
   dl_platform_col: "Platform",
   dl_format_col: "Doğrudan indirme",
   dl_oneline_note:

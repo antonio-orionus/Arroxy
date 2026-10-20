@@ -242,6 +242,7 @@ export const uz = {
   shot11_cap: "<b>Videoning faqat bir qismini yuklab oling</b><br/>Boshlanish va tugash yoki bobni tanlang — Arroxy faqat shu oraliqni saqlaydi",
   shot12_cap: "<b>Profil muharriri</b><br/>Profilni sozlang: fayl turi, ruxsat, taglavhalar, saqlash joyi, fayl nomi shabloni va boshqalar",
   shot13_cap: "<b>Qorong'i yoki yorug', shisha yoki oddiy</b><br/>Tanlash uchun to'rt ko'rinish: harakatlanuvchi osmon ustidagi shisha panellar yoki sokin oddiy sirtlar, har biri qorong'i va yorug' rejimda",
+  shot14_cap: "<b>60 fps’da 8K HDR</b><br/>Video taklif qiladigan har bir sifat, kodek va HDR oqimi yonma-yon",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",
   dl_oneline_note:

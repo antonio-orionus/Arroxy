@@ -207,6 +207,7 @@ export const it = {
   shot11_cap: "<b>Scarica solo una parte del video</b><br/>Scegli inizio e fine, oppure un capitolo — Arroxy salva solo quell’intervallo",
   shot12_cap: "<b>Editor dei profili</b><br/>Regola un profilo: tipo di file, risoluzione, sottotitoli, destinazione, modello del nome file e altro",
   shot13_cap: "<b>Scuro o chiaro, vetro o tinta unita</b><br/>Quattro look tra cui scegliere: pannelli di vetro su un cielo in movimento o superfici piene e tranquille, ciascuno in scuro e chiaro",
+  shot14_cap: "<b>8K HDR a 60 fps</b><br/>Ogni risoluzione, codec e flusso HDR di un video, fianco a fianco",
   dl_platform_col: "Piattaforma",
   dl_format_col: "Download diretto",
   dl_oneline_note: "Le build sono disponibili solo per x86_64. Non hai `curl`? Sostituisci `curl -fsSL` con `wget -qO-`.",

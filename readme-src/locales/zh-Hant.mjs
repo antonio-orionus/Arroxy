@@ -235,6 +235,7 @@ export const zhHant = {
   shot11_cap: "<b>只下載影片的一部分</b><br/>選擇開始與結束時間，或某個章節 — Arroxy 只會儲存該範圍",
   shot12_cap: "<b>設定檔編輯器</b><br/>細部調整設定檔：檔案類型、解析度、字幕、儲存位置、檔名範本等",
   shot13_cap: "<b>深色或淺色，玻璃或純色</b><br/>四種外觀任你選：動態天空上的玻璃面板，或安靜的純色介面，皆提供深色與淺色",
+  shot14_cap: "<b>8K HDR 60 幀</b><br/>影片提供的每種解析度、編碼與 HDR 串流，並排呈現",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_oneline_note:

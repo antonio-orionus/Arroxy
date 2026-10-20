@@ -241,6 +241,7 @@ export const om = {
   shot11_cap: "<b>Kutaa viidiyoo tokko qofa buusi</b><br/>Jalqabaa fi dhumaa, yookaan boqonnaa filadhu — Arroxy kutaa sana qofa kuusa",
   shot12_cap: "<b>Gulaalaa piroofayilii</b><br/>Piroofayilii sirreessi: gosa faayilii, gulaalummaa, hiikkaa jalqabaa, bakka kuusaa, qophii maqaa faayilii fi kkf",
   shot13_cap: "<b>Dukkana moo ifa, galaasaa moo cimaa</b><br/>Mul'ata afur filachuu dandeessu: paanaalii galaasaa samii socho'u irra jiru yookaan fuula cimaa callisaa, tokkoon tokkoon isaanii dukkanaa fi ifaan",
+  shot14_cap: "<b>8K HDR 60 fps irratti</b><br/>Qulqullina, codec fi HDR stream viidiyoon kennu hunda, cinaa cinaatti",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_oneline_note:
