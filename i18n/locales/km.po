@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ការទាញយកបានបរាជ័យ"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "រកមិនឃើញអក្សររត់"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "បើកថតទីតាំងរក្សាទុក"
@@ -1824,6 +1828,10 @@ msgstr "កំពុងបង្កើត YouTube token…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "កំពុងផ្លាស់ទីឯកសារ…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "គ្មានអក្សររត់ក្នុងភាសាដែលបានជ្រើសរើសទេ — មិនបានរក្សាទុកអ្វីឡើយ"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

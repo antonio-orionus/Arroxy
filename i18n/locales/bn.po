@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ডাউনলোড ব্যর্থ"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "সাবটাইটেল পাওয়া যায়নি"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "গন্তব্য ফোল্ডার খুলুন"
@@ -1874,6 +1878,10 @@ msgstr "YouTube টোকেন তৈরি হচ্ছে…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ফাইল সরানো হচ্ছে…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "নির্বাচিত ভাষায় কোনো সাবটাইটেল নেই — কিছুই সেভ হয়নি"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

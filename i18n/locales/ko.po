@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "다운로드 실패"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "자막 없음"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "대상 폴더 열기"
@@ -1824,6 +1828,10 @@ msgstr "YouTube 토큰 생성 중…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "파일 이동 중…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "선택한 언어의 자막이 없어 아무것도 저장되지 않았습니다"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

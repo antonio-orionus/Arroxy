@@ -1150,6 +1150,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Falha no download"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Nenhuma legenda"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Abrir pasta de destino"
@@ -1924,6 +1928,10 @@ msgstr "Gerando token do YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Movendo arquivos…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Sem legendas nos idiomas escolhidos — nada foi salvo"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

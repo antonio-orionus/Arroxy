@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ډاونلوډ ناکام شو"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "ژباړلیکونه ونه موندل شول"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "د مقصد پوښۍ پرانیزئ"
@@ -1874,6 +1878,10 @@ msgstr "YouTube ټوکن جوړیږي…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "فایلونه لیږدول کیږي…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "په ټاکل شویو ژبو کې ژباړلیکونه نشته — هیڅ خوندي نه شو"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

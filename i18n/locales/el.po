@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Αποτυχία λήψης"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Δεν βρέθηκαν υπότιτλοι"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Άνοιγμα φακέλου προορισμού"
@@ -1874,6 +1878,10 @@ msgstr "Δημιουργία YouTube token…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Μετακίνηση αρχείων…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Δεν υπάρχουν υπότιτλοι στις επιλεγμένες γλώσσες — δεν αποθηκεύτηκε τίποτα"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

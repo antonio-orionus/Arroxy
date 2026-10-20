@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "下载失败"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "未找到字幕"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "打开目标文件夹"
@@ -1824,6 +1828,10 @@ msgstr "正在生成 YouTube 令牌…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "正在移动文件…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "所选语言没有字幕 — 未保存任何内容"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

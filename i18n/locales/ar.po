@@ -1285,6 +1285,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "فشل التنزيل"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "لم يتم العثور على ترجمات"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "فتح مجلد الوجهة"
@@ -2074,6 +2078,10 @@ msgstr "جارٍ إنشاء رمز YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "جارٍ نقل الملفات…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "لا توجد ترجمات باللغات المختارة — لم يتم حفظ أي شيء"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

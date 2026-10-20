@@ -1195,6 +1195,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Не вдалося завантажити"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Субтитрів не знайдено"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Відкрити папку призначення"
@@ -1974,6 +1978,10 @@ msgstr "Створення токена YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Переміщення файлів…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Немає субтитрів вибраними мовами — нічого не збережено"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

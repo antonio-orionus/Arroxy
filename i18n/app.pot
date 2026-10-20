@@ -1086,6 +1086,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr ""
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr ""
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr ""
@@ -1850,6 +1854,10 @@ msgstr ""
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
+msgstr ""
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
 msgstr ""
 
 msgctxt "status.outputNotWritable"

@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ดาวน์โหลดไม่สำเร็จ"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "ไม่พบคำบรรยาย"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "เปิดโฟลเดอร์ปลายทาง"
@@ -1824,6 +1828,10 @@ msgstr "กำลังสร้างโทเค็น YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "กำลังย้ายไฟล์…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "ไม่มีคำบรรยายในภาษาที่เลือก — ไม่ได้บันทึกอะไรไว้"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

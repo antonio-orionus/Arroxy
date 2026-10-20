@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Pengunduhan gagal"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Subtitle tidak ditemukan"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Buka folder tujuan"
@@ -1824,6 +1828,10 @@ msgstr "Mencetak token YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Memindahkan file…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Tidak ada subtitle dalam bahasa yang dipilih — tidak ada yang disimpan"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

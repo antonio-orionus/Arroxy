@@ -1150,6 +1150,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Échec du téléchargement"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Aucun sous-titre trouvé"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Ouvrir le dossier de destination"
@@ -1924,6 +1928,10 @@ msgstr "Génération du jeton YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Déplacement des fichiers…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Aucun sous-titre dans les langues choisies — rien n'a été enregistré"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

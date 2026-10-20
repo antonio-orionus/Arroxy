@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ዳውንሎድ ወድቋል"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "ንዑስ ርዕስ አልተገኘም"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "የመድረሻ አቃፊን ክፈት"
@@ -1874,6 +1878,10 @@ msgstr "YouTube ቶከን እያመረቱ…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ፋይሎችን እያዘዋወሩ…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "በተመረጡት ቋንቋዎች ንዑስ ርዕሶች የሉም — ምንም አልተቀመጠም"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

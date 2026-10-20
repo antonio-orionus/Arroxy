@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "İndirme başarısız oldu"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Altyazı bulunamadı"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Hedef klasörü aç"
@@ -1874,6 +1878,10 @@ msgstr "YouTube jetonu oluşturuluyor…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Dosyalar taşınıyor…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Seçilen dillerde altyazı yok — hiçbir şey kaydedilmedi"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

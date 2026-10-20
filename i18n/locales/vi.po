@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Tải xuống thất bại"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Không có phụ đề"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Mở thư mục đích"
@@ -1824,6 +1828,10 @@ msgstr "Đang tạo token YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Đang di chuyển tệp…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Không có phụ đề nào trong các ngôn ngữ đã chọn — chưa lưu gì cả"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

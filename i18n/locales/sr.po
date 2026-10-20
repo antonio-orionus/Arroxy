@@ -1150,6 +1150,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Преузимање није успело"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Титлови нису пронађени"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Отвори фасциклу одредишта"
@@ -1924,6 +1928,10 @@ msgstr "Генерисање YouTube токена…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Премештање датотека…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Нема титлова на изабраним језицима — ништа није сачувано"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

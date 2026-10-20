@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "စာတန်းထိုး မတွေ့ပါ"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "ဦးတည်ရာ ဖိုလ်ဒါကို ဖွင့်ရန်"
@@ -1824,6 +1828,10 @@ msgstr "YouTube token ထုတ်နေသည်…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ဖိုင်များရွှေ့နေသည်…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "ရွေးထားသောဘာသာစကားများတွင် စာတန်းထိုး မရှိပါ — ဘာမှ မသိမ်းဆည်းခဲ့ပါ"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

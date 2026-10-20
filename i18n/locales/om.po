@@ -1105,6 +1105,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "Daawniloodii kufe"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "Axxiinnoonni hin argamne"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "Galmee itti galu bani"
@@ -1874,6 +1878,10 @@ msgstr "Tookenii YouTube uumaa jira…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Faayiloota daddabarsamaa jira…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "Afaanota filataman keessatti axxiinnoonni hin jiru — homtuu hin olkaa'amne"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"

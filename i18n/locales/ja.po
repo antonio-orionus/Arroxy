@@ -1060,6 +1060,10 @@ msgctxt "queue.item.defaultError"
 msgid "Download failed"
 msgstr "ダウンロード失敗"
 
+msgctxt "queue.item.noSubtitleTracks"
+msgid "No subtitles found"
+msgstr "字幕が見つかりません"
+
 msgctxt "queue.item.openDestinationFolder"
 msgid "Open destination folder"
 msgstr "保存先フォルダーを開く"
@@ -1824,6 +1828,10 @@ msgstr "YouTubeトークンを生成中…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ファイルを移動中…"
+
+msgctxt "status.noSubtitleTracks"
+msgid "No subtitles in the chosen languages — nothing was saved"
+msgstr "選択した言語の字幕がありません — 何も保存されませんでした"
 
 msgctxt "status.outputNotWritable"
 msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
