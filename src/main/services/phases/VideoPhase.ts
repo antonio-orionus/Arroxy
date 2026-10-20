@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs'
 import {mkdir, readFile, rm, stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
-import {dirname, join} from 'node:path'
+import {dirname, isAbsolute, join, relative, sep} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
@@ -44,6 +44,13 @@ async function setupTempDir(outputDir: string, jobId: string, preserve: boolean,
 	} catch {
 		return undefined
 	}
+}
+
+// yt-dlp runs inside the output folder and is given the temp folder relative
+// to it, so a preserved one resumes only from inside that folder.
+function insideOutputDir(outputDir: string, tempDir: string): boolean {
+	const inside = relative(outputDir, tempDir)
+	return inside !== '' && inside !== '..' && !inside.startsWith(`..${sep}`) && !isAbsolute(inside)
 }
 
 async function clearTempDir(tempDir: string): Promise<void> {
@@ -191,8 +198,10 @@ export const VideoPhase: Phase = {
 			throw new Error('invariant: VideoPhase reached with subtitle-only job')
 		}
 
-		const isResume = active.tempDir != null
-		const tempDir = await setupTempDir(job.outputDir, job.id, isResume, active.tempDir)
+		const preserved = active.tempDir != null && insideOutputDir(job.outputDir, active.tempDir) ? active.tempDir : undefined
+		if (active.tempDir != null && preserved === undefined) logger.info('preserved temp folder is outside the output folder; starting fresh', {jobId: job.id, tempDir: active.tempDir})
+		const isResume = preserved !== undefined
+		const tempDir = await setupTempDir(job.outputDir, job.id, isResume, preserved)
 		if (tempDir) {
 			active.tempDir = tempDir
 			// Disposables drain on finalize for completed / soft-failed /

@@ -103,3 +103,23 @@ describe('VideoPhase — startup sweep racing temp dir setup', () => {
 		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledWith(join(outputDir, '.arroxy-temp'))
 	})
 })
+
+// yt-dlp runs inside the output folder and is given the temp folder relative to
+// it, so the planner refuses one outside. A persisted temp folder from anywhere
+// else (a resume, a retry) is replaced by a fresh one inside the folder.
+describe('VideoPhase — a temp folder outside the output folder', () => {
+	it('starts in a fresh temp folder inside the output folder', async () => {
+		const elsewhere = await mkdtemp(join(tmpdir(), 'arroxy-elsewhere-'))
+		try {
+			const ctx = makeCtx()
+			ctx.active.tempDir = elsewhere
+			await VideoPhase.run(ctx)
+
+			const request = vi.mocked(ctx.ytDlp.run).mock.calls[0]?.[0]
+			expect(request?.kind === 'media' ? request.output.tempDirectory : undefined).toBe(join(outputDir, '.arroxy-temp', 'job-1'))
+			expect(ctx.active.tempDir).toBe(join(outputDir, '.arroxy-temp', 'job-1'))
+		} finally {
+			await rm(elsewhere, {recursive: true, force: true})
+		}
+	})
+})

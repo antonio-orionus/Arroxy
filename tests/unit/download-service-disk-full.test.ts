@@ -146,7 +146,7 @@ describe('DownloadService — retry temp dir ownership', () => {
 			return NETWORK_RESULT
 		})
 
-		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: DEFAULT_JOB, tempDir})
+		await service.start({url: YOUTUBE_URL, outputDir: path.dirname(tempDir), job: DEFAULT_JOB, tempDir})
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce(), {timeout: 5000})
 
 		const finalized = recentJobsStore.push.mock.calls[0]?.[0]
