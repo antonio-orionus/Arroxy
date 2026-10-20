@@ -244,6 +244,10 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "កំហុសបណ្តាញ។ ពិនិត្យការតភ្ជាប់របស់អ្នក ហើយព្យាយាមម្តងទៀត។"
 
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "វីដេអូនេះមិនមានអក្សររត់ជាភាសាដែលបានស្នើសុំទេ។"
+
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "ទំហំថាសមិនគ្រប់គ្រាន់។ សម្អាតទំហំ ហើយព្យាយាមម្តងទៀត។"

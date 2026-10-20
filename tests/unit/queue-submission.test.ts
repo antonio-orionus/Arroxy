@@ -162,7 +162,14 @@ describe('QueueSubmission', () => {
 
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.manifest).toBeUndefined()
-		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/downloads', lane: 'priority', writeM3u: true, job: {kind: 'single-format', formatId: '137+251', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}})
+		expect(prepared?.items[0]).toMatchObject({
+			url: 'https://www.youtube.com/watch?v=abc',
+			title: 'Video',
+			outputDir: '/downloads',
+			lane: 'priority',
+			writeM3u: true,
+			job: {kind: 'single-format', formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		})
 		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual({id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'})
 	})
 
@@ -172,7 +179,7 @@ describe('QueueSubmission', () => {
 		const both = {wizardExtractor: 'vimeo', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}}
 		const applied = profilePatch(autoOnly, {...state(both), settings: defaultAppSettings('/downloads')})
 		const prepared = prepareManualQueueSubmission(state({...both, ...applied}), 'priority')
-		expect(prepared?.items[0]?.job).toMatchObject({subtitles: {languages: ['en'], writeAuto: true, autoOnly: true}})
+		expect(prepared?.items[0]?.job).toMatchObject({subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}}})
 	})
 
 	// Audio mode extracts (`--audio-format best`), and the stream's size still sets the disk check.
@@ -311,17 +318,16 @@ describe('QueueSubmission', () => {
 		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [profile], overrides: [], enabledOverrides: {}}
 		const prepared = prepareActiveProfileQueueSubmission({...VIDEO_PROBE, subtitles: {'en-GB': [{ext: 'vtt'}]}}, state({settings}), 'normal', NO_SOURCE)
 
-		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en-GB'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
+		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {request: {kind: 'languages', languages: ['en'], source: 'manual-only'}, mode: 'sidecar', format: 'vtt'}}})
 	})
 
-	// Keeping the codes would let yt-dlp match them as a pattern, translations included.
-	it('queues a subtitles-only profile job with no tracks when the video has none of its languages', () => {
+	// Queue time no longer resolves codes to tracks: the subtitle phase plans them from the video's own lists.
+	it('queues a subtitles-only profile job with the languages request when the video has none of its languages', () => {
 		const settings = defaultAppSettings('/downloads')
 		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [subtitleProfile()], overrides: [], enabledOverrides: {}}
 		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
 
-		expect(job).toMatchObject({kind: 'subtitle-only', subtitles: {languages: []}})
-		expect(job && 'subtitles' in job ? job.subtitles : undefined).not.toHaveProperty('languagesAreCodes')
+		expect(job).toMatchObject({kind: 'subtitle-only', subtitles: {request: {kind: 'languages', languages: ['en'], source: 'manual-only'}}})
 	})
 
 	it('keeps removed items out of the manual playlist submission and its manifest', () => {
@@ -784,7 +790,7 @@ describe('subtitles-only batch selections', () => {
 		expect(prepared?.items).toHaveLength(2)
 		expect(prepared?.manifest).toBeUndefined()
 		for (const item of prepared?.items ?? []) {
-			expect(item.job).toMatchObject({kind: 'subtitle-only', subtitles: {languages: ['en', 'pl'], mode: 'subfolder', format: 'vtt', writeAuto: true}})
+			expect(item.job).toMatchObject({kind: 'subtitle-only', subtitles: {request: {kind: 'languages', languages: ['en', 'pl'], source: 'manual-first'}, mode: 'subfolder', format: 'vtt'}})
 		}
 	})
 

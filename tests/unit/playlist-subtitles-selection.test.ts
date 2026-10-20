@@ -33,14 +33,14 @@ describe('playlist subtitles selection', () => {
 		})
 
 		it('marks auto-only selections so only automatic captions are requested', () => {
-			expect(playlistSubtitleOptions({...SUBS, source: 'auto-only'})).toEqual({languages: ['en', 'pl'], mode: 'sidecar', format: 'srt', writeAuto: true, autoOnly: true, languagesAreCodes: true})
+			expect(playlistSubtitleOptions({...SUBS, source: 'auto-only'})).toEqual({request: {kind: 'languages', languages: ['en', 'pl'], source: 'auto-only'}, mode: 'sidecar', format: 'srt'})
 			expect(playlistSubtitleOptions({...SUBS, source: 'manual-first'})).not.toHaveProperty('autoOnly')
 			expect(playlistSubtitleOptions({...SUBS, source: 'manual-only'})).not.toHaveProperty('autoOnly')
 		})
 
 		it('maps the selection to job subtitle options', () => {
-			expect(playlistSubtitleOptions(SUBS)).toEqual({languages: ['en', 'pl'], mode: 'sidecar', format: 'srt', writeAuto: true, languagesAreCodes: true})
-			expect(playlistSubtitleOptions({...SUBS, source: 'manual-only', mode: 'subfolder', format: 'vtt'})).toEqual({languages: ['en', 'pl'], mode: 'subfolder', format: 'vtt', writeAuto: false, languagesAreCodes: true})
+			expect(playlistSubtitleOptions(SUBS)).toEqual({request: {kind: 'languages', languages: ['en', 'pl'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'})
+			expect(playlistSubtitleOptions({...SUBS, source: 'manual-only', mode: 'subfolder', format: 'vtt'})).toEqual({request: {kind: 'languages', languages: ['en', 'pl'], source: 'manual-only'}, mode: 'subfolder', format: 'vtt'})
 		})
 	})
 
@@ -55,7 +55,7 @@ describe('playlist subtitles selection', () => {
 
 		it('builds a subtitle-only job for a subtitles batch selection', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: SUBS, filenameTemplate: '{title} [{id}]'})
-			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {languages: ['en', 'pl'], mode: 'sidecar', format: 'srt', writeAuto: true, languagesAreCodes: true}})
+			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {request: {kind: 'languages', languages: ['en', 'pl'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'}})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 

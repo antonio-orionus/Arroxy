@@ -1,11 +1,10 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
-import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
-import {resolveSubtitleTracks} from './subtitleTracks.js'
+import {resolveSubtitlePlan, subtitleRunIsEmpty, subtitleRunRequest} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpResult} from '../YtDlp.js'
@@ -22,7 +21,7 @@ export const SubtitleOnlyPhase: Phase = {
 			throw new Error('invariant: SubtitleOnlyPhase reached with non-subtitle-only job')
 		}
 
-		const requested = preparedJob.subtitles
+		const {subtitles} = preparedJob
 
 		// A pause or cancel wins over a lost session: the job parks (or ends) as the user asked.
 		const interrupted = interruptedOutcome(active)
@@ -32,9 +31,9 @@ export const SubtitleOnlyPhase: Phase = {
 		const refused = await guardSignedInSpawn(ctx)
 		if (refused) return refused
 
-		const subtitles = await resolveSubtitleTracks(requested, {infoJsonPaths: [input.probeInfoJsonPath], site, jobId: job.id})
-		if (subtitles.languages.length === 0) {
-			logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, languages: requested.languages})
+		const run = await resolveSubtitlePlan(subtitles, {infoJsonPaths: [input.probeInfoJsonPath], site, jobId: job.id})
+		if (subtitleRunIsEmpty(run)) {
+			logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, request: subtitles.request})
 			return {kind: 'completed'}
 		}
 
@@ -45,7 +44,7 @@ export const SubtitleOnlyPhase: Phase = {
 					kind: 'subtitles',
 					url: input.url,
 					output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-					subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto, ...(subtitles.autoOnly ? {autoOnly: true} : {})}
+					subtitles: subtitleRunRequest(run, subtitles.format ?? DEFAULTS.subtitleFormat)
 				},
 				buildYtDlpSignal(ctx, active, {
 					onMinting: attempt => {
@@ -78,7 +77,7 @@ export const SubtitleOnlyPhase: Phase = {
 		if (result.usedExtractorFallback) active.usedExtractorFallback = true
 		active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subtitles.format ?? DEFAULTS.subtitleFormat)
 
-		if (subtitles.writeAuto) {
+		if (run.fetch.auto) {
 			await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
 		}
 

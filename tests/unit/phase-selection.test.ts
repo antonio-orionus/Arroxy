@@ -1,11 +1,25 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {phasesFor} from '@main/services/phases/index.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const FORMAT_ID = 'bv+ba'
-const LANGS = ['en', 'ja']
+const MANUAL_TRACKS: SubtitleRequest = {
+	kind: 'tracks',
+	tracks: [
+		{key: 'en', auto: false},
+		{key: 'ja', auto: false}
+	]
+}
+const AUTO_TRACKS: SubtitleRequest = {
+	kind: 'tracks',
+	tracks: [
+		{key: 'en', auto: true},
+		{key: 'ja', auto: true}
+	]
+}
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 
@@ -18,7 +32,7 @@ function input(job: Exclude<PreparedJob, {kind: 'unresolved'}>): ResolvedStartDo
 
 describe('phasesFor — strategy selection', () => {
 	it('no formatId + langs → preflight + subtitle-only', () => {
-		const job: PreparedJob = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: LANGS, mode: 'sidecar', format: 'srt', writeAuto: false}}
+		const job: PreparedJob = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {request: MANUAL_TRACKS, mode: 'sidecar', format: 'srt'}}
 		const phases = phasesFor(input(job))
 		expect(phases).toHaveLength(2)
 		expect(phases[0].kind).toBe('preflight')
@@ -34,7 +48,7 @@ describe('phasesFor — strategy selection', () => {
 	})
 
 	it('formatId + langs + mode=sidecar → preflight + video + sidecar-subs', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: LANGS, mode: 'sidecar', format: 'srt', writeAuto: false}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: MANUAL_TRACKS, mode: 'sidecar', format: 'srt'}}
 		const phases = phasesFor(input(job))
 		expect(phases).toHaveLength(3)
 		expect(phases[0].kind).toBe('preflight')
@@ -43,7 +57,7 @@ describe('phasesFor — strategy selection', () => {
 	})
 
 	it('formatId + langs + mode=embed + writeAutoSubs=false → preflight + video + sidecar-subs mux', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: LANGS, mode: 'embed', format: 'vtt', writeAuto: false}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: MANUAL_TRACKS, mode: 'embed', format: 'vtt'}}
 		const phases = phasesFor(input(job))
 		expect(phases).toHaveLength(3)
 		expect(phases[0].kind).toBe('preflight')
@@ -52,7 +66,7 @@ describe('phasesFor — strategy selection', () => {
 	})
 
 	it('formatId + langs + mode=embed + writeAutoSubs=true → preflight + video + sidecar-subs', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: LANGS, mode: 'embed', format: 'vtt', writeAuto: true}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: AUTO_TRACKS, mode: 'embed', format: 'vtt'}}
 		const phases = phasesFor(input(job))
 		expect(phases).toHaveLength(3)
 		expect(phases[0].kind).toBe('preflight')
@@ -93,7 +107,7 @@ describe('phasesFor — strategy selection', () => {
 	})
 
 	it('formatId + langs + mode=subfolder → preflight + video + sidecar-subs', () => {
-		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: LANGS, mode: 'subfolder', format: 'srt', writeAuto: false}}
+		const job: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: FORMAT_ID, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {request: MANUAL_TRACKS, mode: 'subfolder', format: 'srt'}}
 		const phases = phasesFor(input(job))
 		expect(phases).toHaveLength(3)
 		expect(phases[0].kind).toBe('preflight')

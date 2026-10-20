@@ -8,7 +8,7 @@ import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
-import type {PreparedJob} from '@shared/preparedJob.js'
+import type {PreparedJob, SubtitleOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 import {explorePorts} from '../helpers/explorePorts.js'
@@ -28,7 +28,18 @@ function makeJob(): DownloadJob {
 	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 }
 
-const BASE_SUBS = {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}
+const BASE_SUBS: SubtitleOptions = {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}
+const AUTO_SUBS: SubtitleOptions = {...BASE_SUBS, request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}}
+const MIXED_SUBS: SubtitleOptions = {
+	...BASE_SUBS,
+	request: {
+		kind: 'tracks',
+		tracks: [
+			{key: 'en', auto: false},
+			{key: 'ja-orig', auto: true}
+		]
+	}
+}
 const BASE_JOB: PreparedJob = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: BASE_SUBS}
 
 const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
@@ -71,7 +82,7 @@ describe('SubtitleOnlyPhase', () => {
 		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
 		const probeInfoJsonPath = join(dir, 'probe.info.json')
 		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {'pt-BR': [{ext: 'vtt'}]}, automatic_captions: {'en-orig': [{ext: 'vtt'}], en: [{ext: 'vtt'}], pt: [{ext: 'vtt'}]}}))
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, languages: ['pt', 'en'], writeAuto: true, languagesAreCodes: true}}}})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, request: {kind: 'languages', languages: ['pt', 'en'], source: 'manual-first'}}}}})
 		await SubtitleOnlyPhase.run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.subtitles.languages).toEqual(['(?-i:pt-BR)', '(?-i:en)'])
@@ -102,15 +113,15 @@ describe('SubtitleOnlyPhase', () => {
 		expect(outcome.kind).toBe('hard-failed')
 	})
 
-	it('forwards autoOnly so manual tracks are skipped', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true, autoOnly: true}}}})
+	it('asks for automatic captions only when every planned track is one', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}})
 		await SubtitleOnlyPhase.run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
 	})
 
-	it('omits autoOnly for manual-first jobs', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}})
+	it('omits autoOnly when the plan holds a manual track too', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: MIXED_SUBS}}})
 		await SubtitleOnlyPhase.run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.subtitles.autoOnly).toBeUndefined()
@@ -142,14 +153,14 @@ describe('SubtitleOnlyPhase', () => {
 		expect(ctx.active.usedExtractorFallback).toBe(true)
 	})
 
-	it('writeAutoSubs=false → postProcessSubtitleFiles not called', async () => {
-		await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: false}}}}))
+	it('no automatic caption → postProcessSubtitleFiles not called', async () => {
+		await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: BASE_SUBS}}}))
 		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
-	it('writeAutoSubs=true → postProcessSubtitleFiles called after success', async () => {
+	it('an automatic caption → postProcessSubtitleFiles called after success', async () => {
 		const paths = ['/tmp/video.en.srt']
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}, subtitlePaths: paths})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: paths})
 		await SubtitleOnlyPhase.run(ctx)
 		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
 		const [calledPaths, calledOpts] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
@@ -161,7 +172,7 @@ describe('SubtitleOnlyPhase', () => {
 
 	it('post-processes the converted subtitle files, not the deleted pre-conversion paths', async () => {
 		vi.mocked(resolveConvertedSubtitlePaths).mockResolvedValueOnce(['/tmp/video.en.srt'])
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}, subtitlePaths: ['/tmp/video.en.vtt']})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: ['/tmp/video.en.vtt']})
 		await SubtitleOnlyPhase.run(ctx)
 		expect(resolveConvertedSubtitlePaths).toHaveBeenCalledWith(['/tmp/video.en.vtt'], 'srt')
 		expect(vi.mocked(postProcessSubtitleFiles).mock.calls[0][0]).toEqual(['/tmp/video.en.srt'])
@@ -169,7 +180,7 @@ describe('SubtitleOnlyPhase', () => {
 	})
 
 	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}})
 		await SubtitleOnlyPhase.run(ctx)
 
 		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0][1].shouldAbort

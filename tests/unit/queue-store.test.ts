@@ -4,6 +4,7 @@ import path from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
 import {QueueStore} from '@main/stores/QueueStore.js'
 import {makeItem} from '../shared/fixtures.js'
+import type {QueueItem} from '@shared/types.js'
 
 async function tempStore(): Promise<[QueueStore, string]> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'queue-store-'))
@@ -298,5 +299,89 @@ describe('QueueStore — filename template migration', () => {
 		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items}), 'utf-8')
 
 		expect((await loadOk(store))[0].job).toMatchObject({filenameTemplate: '{uploader} - {title}'})
+	})
+})
+
+// A queue saved by 0.7.2, when a job held its subtitle languages (track keys,
+// or a profile's codes) plus the yt-dlp flags. Written by that version's own
+// queue builders, one row per kind of job that carried subtitles.
+describe('QueueStore — subtitle requests from 0.7.2', () => {
+	async function loadFixture(): Promise<QueueItem[]> {
+		const [store, dir] = await tempStore()
+		await fs.copyFile(path.join(import.meta.dirname, '../fixtures/queue/queue-0.7.2.json'), path.join(dir, 'queue.json'))
+		return loadOk(store)
+	}
+	const requests = (items: QueueItem[]): unknown[] => items.map(item => ('subtitles' in item.job ? item.job.subtitles?.request : undefined))
+
+	it('keeps every row, each subtitle job asking by request', async () => {
+		const items = await loadFixture()
+		expect(items).toHaveLength(11)
+		expect(requests(items)).toEqual([
+			// Format screen: one kind of track each, so exact tracks.
+			{kind: 'tracks', tracks: [{key: 'en', auto: false}]},
+			{kind: 'tracks', tracks: [{key: 'ja', auto: true}]},
+			// Both kinds fetched: an -orig key is the caption, and a bare key whichever yt-dlp finds first, as before.
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'en', auto: false},
+					{key: 'en', auto: true},
+					{key: 'en-orig', auto: true}
+				]
+			},
+			// Codes keep their source.
+			{kind: 'languages', languages: ['en', 'pl'], source: 'manual-first'},
+			{kind: 'languages', languages: ['de'], source: 'auto-only'},
+			{kind: 'tracks', tracks: [{key: 'en-GB', auto: false}]},
+			// A subtitles-only job left with no tracks still asks for none.
+			{kind: 'tracks', tracks: []},
+			{kind: 'languages', languages: ['en', 'ja'], source: 'manual-and-auto'},
+			{kind: 'languages', languages: ['en', 'ja'], source: 'auto-only'},
+			{kind: 'languages', languages: ['en', 'ja'], source: 'manual-only'},
+			undefined
+		])
+	})
+
+	it('keeps the rest of each subtitle option and drops the old flags', async () => {
+		const [, , , batch] = await loadFixture()
+		expect(batch?.job).toMatchObject({kind: 'subtitle-only', subtitles: {mode: 'subfolder', format: 'vtt'}})
+		expect(Object.keys('subtitles' in batch.job ? (batch.job.subtitles ?? {}) : {}).sort()).toEqual(['format', 'mode', 'request'])
+	})
+
+	// The old job asked yt-dlp for exact keys with both write flags: each bare key
+	// came from the uploaded tracks if the video had one, else from the captions.
+	it('keeps a mixed exact-key job asking for the same keys, either kind for a bare key', async () => {
+		const [store, dir] = await tempStore()
+		const rows = [
+			{...makeItem({id: 'mixed', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-orig', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: true}}},
+			// A Quick Download resolved a manual-and-auto profile's codes to keys and kept the flag.
+			{...makeItem({id: 'both', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['de'], mode: 'sidecar', format: 'srt', writeAuto: true, autoAlongsideManual: true}}}
+		]
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: rows}), 'utf-8')
+		expect(requests(await loadOk(store))).toEqual([
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'en-orig', auto: true},
+					{key: 'ja', auto: false},
+					{key: 'ja', auto: true}
+				]
+			},
+			{
+				kind: 'tracks',
+				tracks: [
+					{key: 'de', auto: false},
+					{key: 'de', auto: true}
+				]
+			}
+		])
+	})
+
+	it('drops a row whose old subtitle options are malformed and keeps the rest', async () => {
+		const [store, dir] = await tempStore()
+		const kept = makeItem({id: 'kept', status: 'pending'})
+		const broken = {...makeItem({id: 'broken', status: 'pending'}), job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: 'en', mode: 'sidecar', format: 'srt', writeAuto: true}}}
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [kept, broken]}), 'utf-8')
+		expect((await loadOk(store)).map(item => item.id)).toEqual(['kept'])
 	})
 })

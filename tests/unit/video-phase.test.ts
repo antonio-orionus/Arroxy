@@ -28,7 +28,25 @@ function makeJob(): DownloadJob {
 	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 }
 
-const BASE_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en', 'ja'], mode: 'embed', format: 'vtt', writeAuto: false}}
+const BASE_JOB: PreparedJob = {
+	kind: 'single-format',
+	extractor: 'youtube',
+	extractorKey: 'Youtube',
+	formatId: 'bv+ba',
+	sponsorBlock: SB_OFF,
+	embed: EMBED_OFF,
+	subtitles: {
+		request: {
+			kind: 'tracks',
+			tracks: [
+				{key: 'en', auto: false},
+				{key: 'ja', auto: false}
+			]
+		},
+		mode: 'embed',
+		format: 'vtt'
+	}
+}
 
 const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
 

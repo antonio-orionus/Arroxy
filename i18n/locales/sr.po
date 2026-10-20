@@ -254,6 +254,10 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Грешка мреже. Провери везу и покушај поново."
 
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Овај видео нема титлове на траженим језицима."
+
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Нема довољно простора на диску. Ослободи простор и покушај поново."

@@ -99,6 +99,7 @@ export const zhHant = {
     "從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、音樂、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube 或任何其他網站**，下載你正在看的影片、播放清單或頻道；在那裡登入後，還能下載你的帳號可觀看的私人、會員專屬和年齡限制影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**",
   cta_latest: "↓ 下載最新版本",
   cta_website: "官網",
+  website_url: "https://arroxy.com/",
   star_cta: "如果 Arroxy 幫你節省了時間，點個 ⭐ 讓更多人發現它。",
   ai_notice:
     "> 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。",

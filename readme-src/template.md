@@ -7,11 +7,11 @@
 
 **{{read_in_label}}** {{LANG_NAV}}
 
-[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![{{badge_website_alt}}](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![{{badge_license_alt}}](https://img.shields.io/badge/license-GPLv3-blue) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-{{LANG_COUNT}}_languages-blue)
+[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![{{badge_website_alt}}](https://img.shields.io/badge/website-arroxy.com-blueviolet)]({{website_url}}) ![{{badge_license_alt}}](https://img.shields.io/badge/license-GPLv3-blue) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-{{LANG_COUNT}}_languages-blue)
 
 {{hero_desc}}
 
-[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [{{dl_win_first_h3}}](#windows-first-launch) · [{{dl_macos_first_h3}}](#macos-first-launch) · [{{dl_linux_first_h3}}](#linux-first-launch)
+[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**]({{website_url}}) &nbsp;·&nbsp; [{{dl_win_first_h3}}](#windows-first-launch) · [{{dl_macos_first_h3}}](#macos-first-launch) · [{{dl_linux_first_h3}}](#linux-first-launch)
 
 [![{{discord_badge_text}}](https://img.shields.io/badge/{{discord_badge_encoded}}-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 

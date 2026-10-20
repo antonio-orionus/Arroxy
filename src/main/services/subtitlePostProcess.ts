@@ -13,10 +13,9 @@ import {dedupeVtt} from './vttDedupe.js'
 import {normalizeCueOverlaps} from './cueOverlap.js'
 import {runFfmpeg} from './ffmpegRun.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
-import {detectSubtitleLang, subtitleTrackKey} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
-import {buildCoverExtractArgs, buildSubtitleEmbedArgs} from './subtitleEmbedArgs.js'
+import {buildCoverExtractArgs, buildSubtitleEmbedArgs, type SubtitleEmbedTrack} from './subtitleEmbedArgs.js'
 
 export const logger = log.scope('subs')
 
@@ -100,20 +99,11 @@ export interface MuxResult {
 // Mux deduped sidecar subs into the merged video via ffmpeg -c copy (+ srt
 // for sub streams). Returns the new media path on success.
 // `keepCoverArt` carries the embedded thumbnail over as a Matroska attachment.
-//
-// Lang attribution is strict: each sub path must end in `.<lang>.<ext>` for
-// one of the requested langs. Unknown → 'und' (no positional fallback —
-// yt-dlp doesn't guarantee output order matches input order).
-// `trackNames` holds each track key's name (see `readSubtitleTrackNames`); a
-// track yt-dlp has no name for is embedded without a title.
-export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; trackNames?: ReadonlyMap<string, string>; keepCoverArt: boolean; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
-	if (opts.subtitlePaths.length === 0) return {ok: false}
-
-	const tracks = opts.subtitlePaths.map(path => {
-		const key = subtitleTrackKey(path)
-		const name = key === null ? undefined : opts.trackNames?.get(key)
-		return {path, lang: detectSubtitleLang(path, opts.requestedLangs) ?? 'und', ...(name ? {name} : {})}
-	})
+// Each track's language and title come from the job's subtitle plan (see
+// `subtitleEmbedTracks`).
+export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; tracks: readonly SubtitleEmbedTrack[]; keepCoverArt: boolean; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
+	const {tracks} = opts
+	if (tracks.length === 0) return {ok: false}
 
 	const stem = opts.videoPath.replace(/\.[^.\\/]+$/, '')
 	const outputPath = `${stem}.${EMBED_SUBTITLE_CONTAINER_EXT}`
@@ -154,7 +144,7 @@ export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath
 		})
 	}
 	await Promise.all(
-		opts.subtitlePaths.map(p =>
+		tracks.map(({path: p}) =>
 			unlink(p).catch(err => {
 				logger.warn('subtitle mux: sidecar unlink failed', {jobId: opts.jobId, path: p, message: err instanceof Error ? err.message : String(err)})
 			})

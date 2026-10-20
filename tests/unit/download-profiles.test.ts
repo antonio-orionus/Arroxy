@@ -76,7 +76,7 @@ describe('download profiles', () => {
 				expect(profile.subtitles).toEqual({enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'})
 				const resolved = resolveDownloadProfile(profile, {kind: 'builtin', id: profile.id})
 				expect(resolved.isSubtitleOnly).toBe(true)
-				expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, languagesAreCodes: true})
+				expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'})
 				expect(resolved.embed).toEqual({chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false})
 				continue
 			}
@@ -240,7 +240,7 @@ describe('download profiles', () => {
 		expect(resolved.intent).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
 		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
-		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true, languagesAreCodes: true})
+		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en', 'uk'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})
 		expect(downloadProfileLabel(profile)).toBe('Up to 1080p · Smart TV')
@@ -253,7 +253,7 @@ describe('download profiles', () => {
 		expect(resolved.intent).toBeNull()
 		expect(resolved.spec).toBeNull()
 		expect(resolved.isSubtitleOnly).toBe(true)
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false, languagesAreCodes: true})
+		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en'], source: 'manual-only'}, mode: 'sidecar', format: 'vtt'})
 		expect(resolved.sponsorBlock).toEqual({mode: 'off'})
 		expect(resolved.embed).toEqual({chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false})
 	})
@@ -263,18 +263,14 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.spec?.producesVideo).toBe(false)
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, autoOnly: true, languagesAreCodes: true})
+		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en'], source: 'auto-only'}, mode: 'sidecar', format: 'srt'})
 	})
 
-	it.each([
-		['manual-first', {writeAuto: true}],
-		['manual-only', {writeAuto: false}],
-		['auto-only', {writeAuto: true, autoOnly: true}]
-	] as const)('maps the %s subtitle source to the job track selection', (source, expected) => {
+	it.each(['manual-first', 'manual-only', 'auto-only', 'manual-and-auto'] as const)('carries the %s subtitle source on the job request', source => {
 		const profile = customProfile({subtitles: {enabled: true, languages: ['en'], source, mode: 'sidecar', format: 'srt'}})
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', languagesAreCodes: true, ...expected})
+		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en'], source}, mode: 'sidecar', format: 'srt'})
 	})
 
 	it('resolves WAV audio-only profiles as lossless conversion with no bitrate', () => {

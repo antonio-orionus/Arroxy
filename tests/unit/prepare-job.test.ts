@@ -24,13 +24,38 @@ describe('prepareJob', () => {
 		})
 
 		it('attaches subtitles when languages non-empty', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '22', subtitles: {languages: ['en', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({
+				...BASE,
+				mode: 'single',
+				formatId: '22',
+				subtitles: {
+					request: {
+						kind: 'tracks',
+						tracks: [
+							{key: 'en', auto: false},
+							{key: 'ja', auto: false}
+						]
+					},
+					mode: 'sidecar',
+					format: 'srt'
+				}
+			})
 			if (job.kind !== 'single-format') throw new Error('unreachable')
-			expect(job.subtitles).toEqual({languages: ['en', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: false})
+			expect(job.subtitles).toEqual({
+				request: {
+					kind: 'tracks',
+					tracks: [
+						{key: 'en', auto: false},
+						{key: 'ja', auto: false}
+					]
+				},
+				mode: 'sidecar',
+				format: 'srt'
+			})
 		})
 
 		it('drops empty subtitles bundle', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '22', subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({...BASE, mode: 'single', formatId: '22', subtitles: {request: {kind: 'tracks', tracks: []}, mode: 'sidecar', format: 'srt'}})
 			if (job.kind !== 'single-format') throw new Error('unreachable')
 			expect(job.subtitles).toBeUndefined()
 		})
@@ -54,7 +79,7 @@ describe('prepareJob', () => {
 		})
 
 		it('never puts a part on a subtitles-only job', () => {
-			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, videoPart: PART})
+			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}, videoPart: PART})
 			expect(job).not.toHaveProperty('videoPart')
 		})
 
@@ -87,23 +112,23 @@ describe('prepareJob', () => {
 
 	describe('subtitle-only kind', () => {
 		it('triggers via the Subtitles kind', () => {
-			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, filenameTemplate: '{title} [{id}]'})
-			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}, filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
 		it('triggers via implicit "subs only, no media" intent', () => {
-			const job = prepareJob({...BASE, mode: 'single', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true}})
+			const job = prepareJob({...BASE, mode: 'single', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'sidecar', format: 'srt'}})
 			expect(job.kind).toBe('subtitle-only')
 		})
 
 		it('throws when subtitle-only is requested without subtitles or with no language codes', () => {
 			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true})).toThrow(/subtitle-only/)
-			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false, languagesAreCodes: true}})).toThrow(/subtitle-only/)
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {request: {kind: 'languages', languages: [], source: 'manual-only'}, mode: 'sidecar', format: 'srt'}})).toThrow(/subtitle-only/)
 		})
 
-		it('keeps a subtitle-only job whose video has none of the wanted tracks', () => {
-			expect(prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toMatchObject({kind: 'subtitle-only', subtitles: {languages: []}})
+		it('rejects a subtitle-only job whose track request is empty', () => {
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {request: {kind: 'tracks', tracks: []}, mode: 'sidecar', format: 'srt'}})).toThrow(/subtitle-only/)
 		})
 	})
 

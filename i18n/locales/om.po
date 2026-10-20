@@ -249,6 +249,10 @@ msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
 msgstr "Dogoggora network. Walqunnamtii kee mirkaneessi ergasii irra deebi'i."
 
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Viidiyoon kun afaan gaafataman keessatti axxiinnota hin qabu."
+
 msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i."
