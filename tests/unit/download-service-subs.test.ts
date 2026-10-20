@@ -1,7 +1,7 @@
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {appendFileSync, mkdtempSync, readFileSync, writeFileSync, rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join, resolve} from 'node:path'
 
 vi.unmock('node:fs/promises')
 
@@ -392,12 +392,13 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 
 // What real yt-dlp does with `--print-to-file after_move:filepath FILE`: once
 // every postprocessor and the move have run, it appends the final path to FILE.
-// FILE is an output template, so a `%` arrives doubled.
-function printFinalPath(args: readonly string[], finalPath: string): void {
+// FILE is an output template relative to the folder the run happens in, so a
+// literal sign arrives as an absent field that defaults to it.
+function printFinalPath(args: readonly string[], finalPath: string, cwd: string): void {
 	const at = args.indexOf('--print-to-file')
 	if (at === -1 || args[at + 1] !== 'after_move:filepath') return
-	const file = args[at + 2]?.replaceAll('%%', '%')
-	if (file) appendFileSync(file, `${finalPath}\n`)
+	const file = args[at + 2]?.replace(/%\(_absent\|(.)\)s/g, '$1')
+	if (file) appendFileSync(resolve(cwd, file), `${finalPath}\n`)
 }
 
 describe('DownloadService — final media path after --remux-video', () => {
@@ -424,7 +425,7 @@ describe('DownloadService — final media path after --remux-video', () => {
 				beforeStart: () => {
 					if (isPhase1) {
 						writeFileSync(paths.finalMkv, 'remuxed-bytes')
-						printFinalPath(args, paths.finalMkv)
+						printFinalPath(args, paths.finalMkv, workDir)
 					} else {
 						writeFileSync(paths.subPath, '1\n00:00:00,000 --> 00:00:01,000\nHi\n')
 					}
