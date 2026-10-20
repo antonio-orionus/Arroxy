@@ -62,7 +62,7 @@ export function WizardProfileLine(): ReactNode {
 	const profilesPrefs = settings?.profiles
 	const model = buildDownloadProfileActionModel(profilesPrefs, wizardProfile ?? undefined)
 	const {activeProfile, ActiveIcon} = model
-	const globalDestination = wizardOutputDir.trim() || (settings?.common?.defaultOutputDir ?? '')
+	const globalDestination = wizardOutputDir.trim() ? wizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
 
 	// Reads the saved profiles at call time: right after a save, this render's copy is stale.
 	function apply(profile: DownloadProfile, keepEdits = false): void {

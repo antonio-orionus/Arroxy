@@ -122,8 +122,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 			return ''
 		}
 	}, [activeProfile, commonSettings, state.wizardOutputDir])
-	const currentGlobalDestinationRoot = state.wizardOutputDir?.trim() ?? ''
-	const globalDestinationRoot = currentGlobalDestinationRoot.length > 0 ? currentGlobalDestinationRoot : (commonSettings?.defaultOutputDir ?? '')
+	const globalDestinationRoot = state.wizardOutputDir?.trim() ? state.wizardOutputDir : (commonSettings?.defaultOutputDir ?? '')
 	const inputType = useMemo(() => detectUrlType(state.wizardUrl), [state.wizardUrl])
 	const quickDownloadFailureText = useMemo(() => quickDownloadFailureMessage(state.quickDownloadFailure), [state.quickDownloadFailure])
 	const quickDownloadProbeFailureError = useMemo(() => quickDownloadProbeFailure(state.quickDownloadFailure), [state.quickDownloadFailure])

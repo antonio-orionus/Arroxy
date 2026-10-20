@@ -162,6 +162,18 @@ describe('download profiles', () => {
 		expect(resolveDownloadProfileOutputDir(flat, {currentOutputDir: '', defaultOutputDir: '/home/user/Downloads'})).toBe('/home/user/Downloads')
 	})
 
+	// A blank folder is absent; any other is the folder as picked. A trailing
+	// space is part of a macOS or Linux folder's name, and trimming it would
+	// send the files to a sibling folder without it.
+	it('keeps a picked folder as given, trailing space included', () => {
+		const fixed = customProfile({output: {kind: 'fixed', dir: '/mnt/Down '}, subfolder: {enabled: false, name: 'x'}})
+		const flat = customProfile({output: {kind: 'default'}, subfolder: {enabled: false, name: 'x'}})
+
+		expect(resolveDownloadProfileBaseDir(fixed, {currentOutputDir: '', defaultOutputDir: '/d'})).toBe('/mnt/Down ')
+		expect(resolveDownloadProfileBaseDir(flat, {currentOutputDir: '/media/Down ', defaultOutputDir: '/d'})).toBe('/media/Down ')
+		expect(resolveDownloadProfileBaseDir(flat, {currentOutputDir: '  ', defaultOutputDir: '/home/Down '})).toBe('/home/Down ')
+	})
+
 	it('rejects default profile output when no output root is available', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		if (!balanced) throw new Error('expected balanced profile')

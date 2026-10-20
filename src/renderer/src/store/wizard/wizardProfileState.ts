@@ -60,7 +60,7 @@ type ProbeFields = Pick<AppState, 'wizardFormats' | 'wizardFormatSelection' | 'w
 // plus the baseline and notices that go with it.
 export function profilePatch(profile: DownloadProfile, state: ProbeFields): Partial<AppState> {
 	const common = state.settings?.common
-	const globalDir = common?.defaultOutputDir?.trim()
+	const globalDir = common?.defaultOutputDir?.trim() ? common.defaultOutputDir : undefined
 	const {snapshot, notices, order} = applyProfileToWizard({
 		profile,
 		formats: state.wizardFormats,
@@ -70,7 +70,7 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 		isAudioOnlySource: state.wizardIsAudioOnlySource,
 		nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference,
 		hdrPreference: resolveAppHdr(common?.hdrPreference),
-		baseOutputDir: globalDir !== undefined && globalDir !== '' ? globalDir : state.wizardOutputDir,
+		baseOutputDir: globalDir ?? state.wizardOutputDir,
 		globalFilenameTemplate: common?.filenameTemplate
 	})
 	return {...snapshotPatch(snapshot), wizardProfile: profile, wizardProfileBaseline: snapshot, wizardFitNotices: notices, wizardSelectionOrder: order}

@@ -27,8 +27,8 @@ async function ensureWritableDirectory(outputDir: string): Promise<Result<void>>
 }
 
 export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {
-	const nextOutputDir = outputDir.trim()
-	if (!nextOutputDir) return fail(createAppError('validation', 'outputDir is required'))
+	// Kept as given: a trailing space is part of a macOS or Linux folder's name.
+	if (!outputDir.trim()) return fail(createAppError('validation', 'outputDir is required'))
 
 	const items: QueueOutputTargetChangeItemResult[] = []
 	const skipped: QueueActionSkippedItem[] = []
@@ -47,9 +47,9 @@ export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, i
 		applicableItemIds.push(item.id)
 	}
 
-	if (applicableItemIds.length === 0) return ok({outputDir: nextOutputDir, items, skipped})
+	if (applicableItemIds.length === 0) return ok({outputDir, items, skipped})
 
-	const writable = await ensureWritableDirectory(nextOutputDir)
+	const writable = await ensureWritableDirectory(outputDir)
 	if (!writable.ok) return fail(writable.error)
 
 	for (const itemId of applicableItemIds) {
@@ -58,7 +58,7 @@ export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, i
 			skipped.push({itemId, reason: 'not-found'})
 			continue
 		}
-		const result = changeSingleOutputTarget(host, item, nextOutputDir)
+		const result = changeSingleOutputTarget(host, item, outputDir)
 		if ('skipped' in result) {
 			skipped.push(result.skipped)
 			continue
@@ -67,5 +67,5 @@ export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, i
 		items.push(result.itemResult)
 	}
 
-	return ok({outputDir: nextOutputDir, items, skipped})
+	return ok({outputDir, items, skipped})
 }

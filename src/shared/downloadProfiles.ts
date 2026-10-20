@@ -251,16 +251,15 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 	return {profile, ref, intent, spec, subtitles, sponsorBlock, embed, isSubtitleOnly}
 }
 
+function nonBlank(dir: string | undefined): string | undefined {
+	return dir?.trim() ? dir : undefined
+}
+
 export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
-	if (profile.output.kind === 'fixed') {
-		const fixedOutputDir = profile.output.dir.trim()
-		if (fixedOutputDir) return fixedOutputDir
-		throw new Error('Download profile output directory is required')
-	}
-	const currentOutputDir = context.currentOutputDir?.trim()
-	if (currentOutputDir) return currentOutputDir
-	const defaultOutputDir = context.defaultOutputDir?.trim()
-	if (defaultOutputDir) return defaultOutputDir
+	// Blank means absent; any other folder is kept as given, since a trailing
+	// space is part of a macOS or Linux folder's name.
+	const dir = profile.output.kind === 'fixed' ? nonBlank(profile.output.dir) : (nonBlank(context.currentOutputDir) ?? nonBlank(context.defaultOutputDir))
+	if (dir !== undefined) return dir
 	throw new Error('Download profile output directory is required')
 }
 

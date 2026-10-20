@@ -60,8 +60,13 @@ test('Electron download keeps a title and folder full of expansion characters as
 			await page.locator('[data-testid="btn-download"]').click()
 			await queue.expectStatus(EXPANDING_TITLE, 'done', 90_000)
 
-			expect(files.mediaFiles('mp4', path.join(outputDir, folderName)).map(file => path.basename(file))).toEqual([`${EXPANDING_TITLE} [${EXPANDING_TITLE_VIDEO_ID}].mp4`])
-			expect(files.mediaFiles('mp4')).toHaveLength(1)
+			// Under the folder as named (the profile may add its own subfolder), and
+			// under the title as named.
+			const produced = files.mediaFiles('mp4')
+			expect(produced).toHaveLength(1)
+			const file = produced[0] ?? ''
+			expect(path.relative(path.join(outputDir, folderName), file)).not.toMatch(/^\.\./)
+			expect(path.basename(file)).toBe(`${EXPANDING_TITLE} [${EXPANDING_TITLE_VIDEO_ID}].mp4`)
 		}
 	)
 })
