@@ -18,7 +18,7 @@ Profile picks:
 balanced: 7 (1280x720, mp4) + audio none
 best-quality: 9 (1920x1080, mp4) + audio none
 mp4-1080: 9 (1920x1080, mp4) + audio none
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none

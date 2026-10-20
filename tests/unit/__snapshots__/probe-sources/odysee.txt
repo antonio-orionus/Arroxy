@@ -17,7 +17,7 @@ Profile picks:
 balanced: hls-2890 (1280x720, mp4) + audio none
 best-quality: original (1920x1080, mp4) + audio none
 mp4-1080: hls-4026 (1920x1080, mp4) + audio none
-audio-only: audio convert-lossy
+audio-only: audio extract
 
 Subtitles: none
 Auto captions: none
