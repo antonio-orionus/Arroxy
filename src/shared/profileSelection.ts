@@ -67,13 +67,15 @@ function nativeAudio(audioFormats: readonly FormatOption[], preference: NativeAu
 	return id === null ? NO_AUDIO : {kind: 'native', formatId: id}
 }
 
-// yt-dlp's default vcodec preference (`-S vcodec`), best first.
-const VIDEO_CODEC_RANK = ['av01', 'vp09', 'vp9', 'hev1', 'hvc1', 'h265', 'avc1', 'h264', 'vp8', 'h263', 'theora']
+// yt-dlp's vcodec order (`FormatSorter.settings.vcodec`), best first: `vp9`
+// and `vp09.00…` are one codec, HDR VP9 (`vp09.02…`) ranks above them. Codecs
+// it doesn't name rank below every named one.
+const VIDEO_CODEC_ORDER: readonly RegExp[] = [/^av0?1/, /^vp0?9\.0?2/, /^vp0?9/, /^(?:[hx]265|he?vc?)/, /^(?:[hx]264|avc)/, /^vp0?8/, /^(?:mp4v|h263)/, /^theora/]
 
 function codecRank(format: FormatOption): number {
 	const codec = format.videoCodec?.toLowerCase() ?? ''
-	const index = VIDEO_CODEC_RANK.findIndex(prefix => codec.startsWith(prefix))
-	return index < 0 ? VIDEO_CODEC_RANK.length : index
+	const index = VIDEO_CODEC_ORDER.findIndex(pattern => pattern.test(codec))
+	return index < 0 ? VIDEO_CODEC_ORDER.length : index
 }
 
 // yt-dlp's value for a stream whose site sets no `source_preference`.
@@ -92,6 +94,8 @@ function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order:
 			return (b.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE) - (a.sourcePreference ?? DEFAULT_SOURCE_PREFERENCE)
 		case 'codec':
 			return codecRank(a) - codecRank(b)
+		case 'protocol':
+			return (b.protocolPreference ?? 0) - (a.protocolPreference ?? 0)
 		case 'size':
 			return (b.filesize ?? 0) - (a.filesize ?? 0)
 		case 'site-preference':
@@ -179,11 +183,13 @@ function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; b
 	return nativeAudio(audioFormats, preference)
 }
 
-// The order shown as "Why this one" drops the source rank when no stream of
-// this video carries one (any site but YouTube): every copy ties on it there.
+// The order shown as "Why this one" drops the source and protocol ranks when
+// no stream of this video carries one (any site but YouTube): every copy ties
+// on it there.
 function forThisVideo(order: SelectionOrder, videos: readonly FormatOption[]): SelectionOrder {
-	if (videos.some(f => f.sourcePreference !== undefined)) return order
-	return {...order, video: order.video.filter(rank => rank.kind !== 'source')}
+	const hasSource = videos.some(f => f.sourcePreference !== undefined)
+	const hasProtocol = videos.some(f => f.protocolPreference !== undefined)
+	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || hasSource) && (rank.kind !== 'protocol' || hasProtocol))}
 }
 
 function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {

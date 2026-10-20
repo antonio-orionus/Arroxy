@@ -64,17 +64,33 @@ function formatMarkers(format: YtDlpFormat, wide: VideoWideMarkers): FormatMarke
 }
 
 export interface MapFormatsOptions {
-	site: Pick<Site, 'sortsSourceBeforeCodec'>
+	site: Pick<Site, 'sortsSourceBeforeCodec' | 'sortsProtocolBeforeSize'>
 	durationSeconds?: number
+}
+
+// yt-dlp's protocol order (`FormatSorter.settings.proto`), best first; an
+// unknown or missing protocol takes the place of its '' entry.
+const PROTOCOL_ORDER: readonly (RegExp | null)[] = [/^(ht|f)tps/, /^(ht|f)tp$/, /^m3u8/, /^.*dash/, /^websocket_frag/, /^rtmpe?/, null, /^(ws|websocket)/, /^f4/]
+
+function protocolPreference(protocol: string | undefined): number {
+	const lower = protocol?.toLowerCase()
+	const index = lower === undefined ? -1 : PROTOCOL_ORDER.findIndex(pattern => pattern !== null && pattern.test(lower))
+	return PROTOCOL_ORDER.length - (index < 0 ? PROTOCOL_ORDER.indexOf(null) : index)
 }
 
 // `source_preference` is not in the bridge's typed format schema; it passes
 // through its loose fields, so it is checked here. Kept only where yt-dlp
 // ranks it before the codec (`Site.sortsSourceBeforeCodec`).
-function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers, site: MapFormatsOptions['site']): Pick<FormatOption, 'markers' | 'preference' | 'quality' | 'sourcePreference'> {
+function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers, site: MapFormatsOptions['site']): Pick<FormatOption, 'markers' | 'preference' | 'quality' | 'sourcePreference' | 'protocolPreference'> {
 	const markers = formatMarkers(format, wide)
 	const sourcePreference = site.sortsSourceBeforeCodec ? format.source_preference : undefined
-	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {}), ...(typeof sourcePreference === 'number' ? {sourcePreference} : {})}
+	return {
+		...(markers.length > 0 ? {markers} : {}),
+		...(typeof format.preference === 'number' ? {preference: format.preference} : {}),
+		...(typeof format.quality === 'number' ? {quality: format.quality} : {}),
+		...(typeof sourcePreference === 'number' ? {sourcePreference} : {}),
+		...(site.sortsProtocolBeforeSize ? {protocolPreference: protocolPreference(format.protocol)} : {})
+	}
 }
 
 export function mapFormats(formats: readonly YtDlpFormat[], {site, durationSeconds}: MapFormatsOptions): FormatOption[] {

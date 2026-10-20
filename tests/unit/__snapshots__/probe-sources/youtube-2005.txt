@@ -14,7 +14,7 @@ DRC switch shown
 Profile picks:
 balanced: 395 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
 best-quality: 395 (320x240, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 230 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
+mp4-1080: 133 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
 audio-only: audio 140 (audio only, m4a)
 
 Subtitles: en, de

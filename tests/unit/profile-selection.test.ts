@@ -201,6 +201,13 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
 	})
 
+	it('reads codec names as yt-dlp does: vp9 and vp09.00 are one codec, HDR VP9 ranks above both', () => {
+		const sameCodec = [video('609', '1280x720', {videoCodec: 'vp09.00.31.08', ext: 'mp4'}), video('247', '1280x720', {videoCodec: 'vp9', filesize: 500}), audio('140')]
+		expect(resolve(builtin('balanced'), sameCodec).media.videoFormatId).toBe('247')
+		const hdrVp9 = [video('247', '1280x720', {videoCodec: 'vp9', filesize: 900}), video('334', '1280x720', {videoCodec: 'vp09.02.31.10', filesize: 500}), audio('140')]
+		expect(resolve(builtin('balanced'), hdrVp9).media.videoFormatId).toBe('334')
+	})
+
 	it('Smart TV breaks ties among H.264 streams by source preference too', () => {
 		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -21, filesize: 900}), video('137-hls', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', sourcePreference: -1, filesize: 500}), audio('140')]
 		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137-hls')
@@ -247,6 +254,19 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(resolve(builtin('balanced')).order?.audio).toEqual([{kind: 'native'}])
 		expect(resolve(builtin('audio-only')).order).toBeNull()
 		expect(resolve(builtin('subtitles-only')).order).toBeNull()
+	})
+
+	it('takes the direct download over its HLS copy on YouTube, like yt-dlp proto before size', () => {
+		// The HLS copy has no size from the site; the app's estimate from its peak bitrate is larger.
+		const formats = [video('270', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 7, filesize: 900}), video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', protocolPreference: 9, filesize: 500}), audio('140')]
+		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('137')
+		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('137')
+	})
+
+	it('leaves the protocol rank out of the order when no stream of this video carries one', () => {
+		const ranked = [video('137', '1920x1080', {videoCodec: 'avc1.640028', protocolPreference: 9}), audio('140')]
+		expect(resolve(builtin('best-quality'), ranked).order?.video.map(rank => rank.kind)).toContain('protocol')
+		expect(resolve(builtin('best-quality')).order?.video.map(rank => rank.kind)).not.toContain('protocol')
 	})
 
 	it('leaves the source rank out of the order when no stream of this video carries one', () => {

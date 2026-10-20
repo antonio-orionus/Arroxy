@@ -17,7 +17,7 @@ Opus: 126 kbps 4.0 MiB | 64 kbps 2.0 MiB | 49 kbps 1.5 MiB
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140 (audio only, m4a)
 best-quality: 616 (1920x1080, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 137 (1920x1080, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 140 (audio only, m4a)
 
 Subtitles: en-nP7-2PuUl7o

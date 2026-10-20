@@ -92,6 +92,7 @@ export const youtubeSite: Site = {
 	needsAutoCaptionDedupe: true,
 	autoCaptionRequiresOrigSuffix: true,
 	sortsSourceBeforeCodec: true,
+	sortsProtocolBeforeSize: true,
 	hintForPlaylistId: youtubeHintForId,
 	isNestedContainer: youtubeIsNested,
 	explore: {

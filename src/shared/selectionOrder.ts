@@ -29,6 +29,9 @@ export type VideoRank =
 	| {kind: 'source'}
 	// yt-dlp's own codec order: AV1, VP9, HEVC, H.264.
 	| {kind: 'codec'}
+	// A direct download before its HLS copy, on sites whose yt-dlp sort ranks
+	// the protocol before the size (`Site.sortsProtocolBeforeSize`).
+	| {kind: 'protocol'}
 	| {kind: 'size'}
 
 export type NativeAudioSource = 'settings' | 'profile'
@@ -90,7 +93,7 @@ export function effectiveFileType(goal: VideoGoal, fileType: VideoFileType): Vid
 	return fileTypeAllowed(goal, fileType) ? fileType : 'auto'
 }
 
-const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'size'}]
+const BEST_PICTURE_VIDEO: readonly VideoRank[] = [{kind: 'fps'}, {kind: 'hdr'}, {kind: 'source'}, {kind: 'codec'}, {kind: 'protocol'}, {kind: 'size'}]
 
 function videoRanks(goal: VideoGoal, tier: PlaylistVideoTier, skipAiUpscaled: boolean): VideoRank[] {
 	const original: VideoRank[] = [{kind: 'site-preference'}, ...(skipAiUpscaled ? [{kind: 'original'} as const] : [])]
@@ -152,6 +155,7 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 		// The site's own sort order (`_format_sort_fields`) already names it.
 		case 'source':
 		case 'codec':
+		case 'protocol':
 		case 'size':
 			return undefined
 	}

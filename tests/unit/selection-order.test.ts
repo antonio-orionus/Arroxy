@@ -76,9 +76,9 @@ function video(goal: VideoMediaIntent['goal'], fileType: VideoMediaIntent['fileT
 
 describe('selectionOrder', () => {
 	it('ranks resolution first for Best picture and H.264 first for Smart TV', () => {
-		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
-		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
-		expect(selectionOrder({...video('best-picture', 'auto'), aiUpscaled: 'allow'}, 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'resolution', 'fps', 'hdr', 'source', 'codec', 'size'])
+		expect(selectionOrder(video('best-picture', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
+		expect(selectionOrder(video('smart-tv', 'auto'), 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'original', 'h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
+		expect(selectionOrder({...video('best-picture', 'auto'), aiUpscaled: 'allow'}, 'compatible').video.map(rank => rank.kind)).toEqual(['site-preference', 'resolution', 'fps', 'hdr', 'source', 'codec', 'protocol', 'size'])
 	})
 
 	it('picks the audio rank from goal and file type', () => {

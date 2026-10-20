@@ -216,6 +216,16 @@ describe('mapFormats — stream markers', () => {
 		const formats = mapFormats([video('bytevc1_1080p', {vcodec: 'h265', source_preference: -2}), video('h264_1080p', {vcodec: 'h264', source_preference: -1})], {site: genericSite})
 		expect(formats.map(f => f.sourcePreference)).toEqual([undefined, undefined])
 	})
+
+	it("rates the protocol on YouTube as yt-dlp's sort does, a direct download above an HLS copy", () => {
+		const formats = mapFormats([video('247', {protocol: 'https'}), video('609', {protocol: 'm3u8_native'}), video('x', {protocol: 'http_dash_segments'}), video('y', {})], {site: youtubeSite})
+		expect(Object.fromEntries(formats.map(f => [f.formatId, f.protocolPreference]))).toEqual({247: 9, 609: 7, x: 6, y: 3})
+	})
+
+	it('leaves the protocol out where yt-dlp ranks it after the size (generic sites)', () => {
+		const formats = mapFormats([video('dash', {protocol: 'https'}), video('hls', {protocol: 'm3u8_native'})], {site: genericSite})
+		expect(formats.map(f => f.protocolPreference)).toEqual([undefined, undefined])
+	})
 })
 
 describe('mapFormats — sizes and names the site leaves out', () => {

@@ -253,6 +253,10 @@ export interface FormatOption {
 	// as yt-dlp's default, -1. Only set on sites whose yt-dlp sort ranks it
 	// before the codec (YouTube).
 	sourcePreference?: number
+	// yt-dlp's rating of the stream's protocol (higher is better: a direct
+	// download above HLS, HLS above DASH segments). Only set on sites whose
+	// yt-dlp sort ranks it before the size (YouTube).
+	protocolPreference?: number
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled'

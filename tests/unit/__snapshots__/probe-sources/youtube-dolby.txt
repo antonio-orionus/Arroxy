@@ -6,7 +6,7 @@ Video (picked for Balanced 720p •):
 2160p 4K  AV1 335.1 MiB  VP9 445.4 MiB  VP9 345.1 MiB   ·
 1440p 2K  AV1 157.9 MiB  VP9 190.1 MiB  VP9 174.7 MiB   ·
 1080p     AV1 53.6 MiB   VP9 71.3 MiB   VP9 74.8 MiB    H.264 85.2 MiB
-720p      AV1 29.3 MiB   VP9 42.1 MiB   VP9 41.0 MiB •  H.264 28.5 MiB
+720p      AV1 29.3 MiB   VP9 42.1 MiB   VP9 13.8 MiB •  H.264 28.5 MiB
 480p      AV1 11.4 MiB   VP9 20.5 MiB   VP9 21.9 MiB    H.264 20.9 MiB
 360p      AV1 6.1 MiB    VP9 12.0 MiB   VP9 13.4 MiB    H.264 14.5 MiB
 240p      AV1 2.8 MiB    VP9 5.4 MiB    VP9 6.1 MiB     H.264 5.7 MiB
@@ -19,9 +19,9 @@ Opus: 105 kbps 2.1 MiB DRC | 104 kbps 2.1 MiB | 53 kbps 1.0 MiB DRC | 53 kbps 1.
 DRC switch shown
 
 Profile picks:
-balanced: 609 (1280x640, mp4) + audio 140 (audio only, m4a)
-best-quality: 625 (3840x1920, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 270 (1920x960, mp4) + audio 140 (audio only, m4a)
+balanced: 247 (1280x640, webm) + audio 140 (audio only, m4a)
+best-quality: 313 (3840x1920, webm) + audio 140 (audio only, m4a)
+mp4-1080: 137 (1920x960, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 140 (audio only, m4a)
 
 Subtitles: none

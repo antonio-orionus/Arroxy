@@ -20,7 +20,7 @@ AAC: 129 kbps 29.3 MiB • | 49 kbps 22.05 kHz 11.0 MiB
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140-2 (audio only, m4a)
 best-quality: 401 (3840x2160, mp4) + audio 140-2 (audio only, m4a)
-mp4-1080: 270 (1920x1080, mp4) + audio 140-2 (audio only, m4a)
+mp4-1080: 137 (1920x1080, mp4) + audio 140-2 (audio only, m4a)
 audio-only: audio 140-2 (audio only, m4a)
 
 Subtitles: zh, en
