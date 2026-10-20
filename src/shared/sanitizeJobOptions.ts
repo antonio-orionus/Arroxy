@@ -1,9 +1,6 @@
 import type {SponsorBlockMode, SubtitleMode, VideoFileType} from './schemas.js'
 import type {EmbedOptions} from './preparedJob.js'
-
-// Containers that support --embed-thumbnail per yt-dlp.
-// Source: "Supported filetypes for thumbnail embedding are: mp3, mkv/mka, ogg/opus/flac, m4a/mp4/m4v/mov"
-const THUMBNAIL_EMBED_SUPPORTED = new Set(['mp3', 'mkv', 'mka', 'ogg', 'opus', 'flac', 'm4a', 'mp4', 'm4v', 'mov'])
+import {canHoldEmbeddedThumbnail} from './thumbnailEmbed.js'
 
 export type ConflictCode = 'thumbnailEmbedNotSupported' | 'subtitleEmbedNoMedia' | 'subtitleEmbedAudioOnly' | 'subtitleEmbedForcesMkv' | 'embedOptionsNoMedia' | 'sponsorBlockNoMedia'
 
@@ -59,7 +56,7 @@ export function sanitizeJobOptions(input: SanitizeInput): SanitizeResult {
 			outSubtitleMode = 'sidecar'
 		}
 	} else {
-		if (thumbnail && !THUMBNAIL_EMBED_SUPPORTED.has(resolvedOutputContainer)) {
+		if (thumbnail && !canHoldEmbeddedThumbnail(resolvedOutputContainer)) {
 			conflicts.push({code: 'thumbnailEmbedNotSupported'})
 			thumbnail = false
 		}

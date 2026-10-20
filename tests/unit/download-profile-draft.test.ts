@@ -216,6 +216,15 @@ describe('DownloadProfileDraft', () => {
 			expect(downloadProfileFromDraft(draft, NOW, () => 'id').embed.thumbnail, `${mediaMode}/${audioFormat}`).toBe(false)
 		}
 	})
+	it('stores thumbnail embedding for video without audio saved as MP4 or MKV', () => {
+		for (const fileType of ['mp4', 'mkv'] as const) {
+			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null), {type: 'set-embed-thumbnail', embedThumbnail: true})
+			draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-only'})
+			draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType})
+			expect(canDraftEmbedThumbnail(draft), fileType).toBe(true)
+			expect(downloadProfileFromDraft(draft, NOW, () => 'id').embed.thumbnail, fileType).toBe(true)
+		}
+	})
 	it('round-trips the chosen SponsorBlock categories instead of resetting them', () => {
 		let draft = createDownloadProfileDraft(null)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-sponsor-block-mode', sponsorBlockMode: 'remove'})

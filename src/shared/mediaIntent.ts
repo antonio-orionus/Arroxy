@@ -4,6 +4,7 @@ import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
 import {subtitleSourceOptions} from './subtitleLanguages.js'
+import {canHoldEmbeddedThumbnail} from './thumbnailEmbed.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
@@ -98,15 +99,18 @@ export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: Nati
 	}
 }
 
-// yt-dlp embeds cover art into mp3/m4a/opus and into a merged video (it remuxes
-// a WebM merge to MKV for it). A single native stream — video-only, or "best"
-// audio, often WebM/opus — fails postprocessing instead, and WAV has no slot.
-// A file the user asked to keep as WebM can't hold one either.
-// `best` keeps a file already in a common audio container, and WAV, AIFF and
-// WMA hold no cover: the container is unknown until the stream is.
+// Cover art goes in by the container the download ends in (yt-dlp's list, in
+// thumbnailEmbed). Converted audio ends in its target, `best` in whatever the
+// stream is (WAV, AIFF and WMA hold none). A chosen file type is the container,
+// WebM included: it stays WebM whenever the streams fit. On Auto, a merge ends
+// in MP4 or MKV, as yt-dlp writes a WebM merge as MKV to hold the cover; video
+// without audio is a lone stream, not merged, so it ends in whatever the site
+// serves, often WebM. Video with audio is taken as merged, though a site with
+// no separate streams gives one lone file (`best`) that may be WebM too.
 export function canEmbedThumbnail(spec: MediaIntentSpec): boolean {
-	if (spec.audioConvert) return spec.audioConvert.target !== 'wav' && spec.audioConvert.target !== 'best'
-	return spec.producesVideo && spec.producesAudio && spec.fileType !== 'webm'
+	if (spec.audioConvert) return spec.audioConvert.target !== 'best' && canHoldEmbeddedThumbnail(spec.audioConvert.target)
+	if (spec.fileType === undefined || spec.fileType === 'auto') return spec.producesVideo && spec.producesAudio
+	return canHoldEmbeddedThumbnail(spec.fileType)
 }
 
 function bestNativeAudioSelector(preference: NativeAudioPreference): string {

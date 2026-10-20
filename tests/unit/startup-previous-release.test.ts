@@ -1,5 +1,8 @@
-import {describe, expect, it} from 'vite-plus/test'
-import {assetNameFor, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
+import {assertWarmupFinished, assetNameFor, previousStableTag} from '../../scripts/startup/fetchPreviousRelease.js'
 
 describe('previousStableTag', () => {
 	const tags = ['v0.4.3', 'v0.4.4', 'v0.4.5', 'v0.4.6', 'v0.4.7', 'v0.4.8-beta.1']
@@ -31,5 +34,56 @@ describe('assetNameFor', () => {
 		expect(assetNameFor('linux', 'x64')).toBe('Arroxy-linux-x64.AppImage')
 		expect(assetNameFor('darwin', 'arm64')).toBe('Arroxy-mac-arm64.dmg')
 		expect(assetNameFor('win32', 'x64')).toBe('Arroxy-win-x64-Portable.exe')
+	})
+})
+
+describe('assertWarmupFinished', () => {
+	let profileDir: string
+
+	const writeLog = (text: string) => {
+		fs.mkdirSync(path.join(profileDir, 'logs'), {recursive: true})
+		fs.writeFileSync(path.join(profileDir, 'logs', 'main.log'), text)
+	}
+	const writeCache = () => fs.mkdirSync(path.join(profileDir, 'runtime-cache', 'binaries'), {recursive: true})
+
+	beforeEach(() => {
+		profileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-inherited-'))
+	})
+
+	afterEach(() => {
+		fs.rmSync(profileDir, {recursive: true, force: true})
+	})
+
+	it('rejects a profile closed before warmup logged its summary', () => {
+		writeLog("[2026-10-20 10:00:00.000] [info]  Warmup branch settled { branch: 'ytDlp' }\n")
+		writeCache()
+		expect(() => assertWarmupFinished(profileDir)).toThrow(/Warmup completed/)
+	})
+
+	it('rejects a profile without a main.log', () => {
+		writeCache()
+		expect(() => assertWarmupFinished(profileDir)).toThrow(/Warmup completed/)
+	})
+
+	it('rejects a profile the previous release left without a runtime cache', () => {
+		writeLog('[2026-10-20 10:00:00.000] [info]  Warmup completed { totalMs: 900 }\n')
+		expect(() => assertWarmupFinished(profileDir)).toThrow(/runtime-cache/)
+	})
+
+	it('rejects an empty runtime cache', () => {
+		writeLog('[2026-10-20 10:00:00.000] [info]  Warmup completed { totalMs: 900 }\n')
+		fs.mkdirSync(path.join(profileDir, 'runtime-cache'))
+		expect(() => assertWarmupFinished(profileDir)).toThrow(/runtime-cache/)
+	})
+
+	it('names what the profile does contain, so a red gate can be triaged from its log', () => {
+		fs.writeFileSync(path.join(profileDir, 'settings.json'), '{}')
+		expect(() => assertWarmupFinished(profileDir)).toThrow(/settings\.json/)
+	})
+
+	it('accepts a profile whose warmup logged its summary and wrote the runtime cache', () => {
+		writeLog('[2026-10-20 10:00:00.000] [info]  Warmup completed { totalMs: 900 }\n')
+		writeCache()
+		expect(() => assertWarmupFinished(profileDir)).not.toThrow()
 	})
 })

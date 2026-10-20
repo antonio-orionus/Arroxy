@@ -15,6 +15,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - The URL tab's hints, profile summary and save location show in your language instead of English.
 - On first launch, Arroxy opens in your system language even when it is Khmer, Burmese, Uzbek, Pashto or Oromo, instead of English. If you prefer a language Arroxy lacks, it takes the next one in your system's list.
 - Embedded subtitles carry their track's name, such as "English (United Kingdom)", so players list them by name rather than by a bare language code.
+- A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
 
 ## 0.7.2
 
