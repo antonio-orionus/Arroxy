@@ -48,9 +48,9 @@ describe('planWorkflow — media', () => {
 		expect(plan.args).toContain('--continue')
 		expect(plan.args).toContain('--http-chunk-size')
 		expect(adjacent(plan.args, '-f', '137+140')).toBe(true)
-		expect(adjacent(plan.args, '--paths', 'home:/out')).toBe(true)
-		expect(adjacent(plan.args, '--paths', 'temp:/out/.tmp/job')).toBe(true)
-		expect(adjacent(plan.args, '-o', 'infojson:/out/.tmp/job/_arroxy')).toBe(true)
+		expect(plan.cwd).toBe('/out')
+		expect(adjacent(plan.args, '--paths', 'temp:.tmp/job')).toBe(true)
+		expect(adjacent(plan.args, '-o', 'infojson:.tmp/job/_arroxy')).toBe(true)
 		expect(plan.args.at(-1)).toBe(URL)
 		expect(plan.facts.isMediaDownload).toBe(true)
 	})
@@ -58,7 +58,7 @@ describe('planWorkflow — media', () => {
 	it('plans load-info-json resume without passing the original URL', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp/job'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/out/.tmp/job/_arroxy.info.json'}})
 
-		expect(adjacent(plan.args, '--load-info-json', '/out/.tmp/job/_arroxy.info.json')).toBe(true)
+		expect(adjacent(plan.args, '--load-info-json', '.tmp/job/_arroxy.info.json')).toBe(true)
 		expect(plan.args).not.toContain(URL)
 	})
 
@@ -285,33 +285,26 @@ describe('planWorkflow — media', () => {
 	})
 })
 
-describe('planWorkflow — output directories in -o', () => {
-	// yt-dlp reads -o as a template: an unescaped `%%` collapses and `%(e)s`
-	// becomes a field. The directory is literal; only the template is not.
+describe('planWorkflow — template text in -o', () => {
+	// The folder is the run's working directory, so its `%` never reaches a
+	// template. Literal text that does (the info-json base name) is escaped.
 	const DIR = '/out/100%% b%(e)s'
-	const ESCAPED = '/out/100%%%% b%%(e)s'
 
-	it('escapes % in the subtitle directory', () => {
+	it('keeps a % folder out of the subtitle and media templates', () => {
 		const sidecar = planWorkflow({kind: 'subtitles', url: URL, output: {directory: DIR}, subtitles: {languages: ['en'], format: 'srt'}})
-		const subfolder = planWorkflow({kind: 'subtitles', url: URL, output: {directory: DIR, subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'srt'}})
+		const media = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, template: '%(id)s.%(ext)s'}, selection: {formatId: '18'}})
 
-		expect(adjacent(sidecar.args, '-o', `${ESCAPED}/%(title).200B.%(ext)s`)).toBe(true)
-		expect(adjacent(subfolder.args, '-o', `${ESCAPED}/subtitles/%(title).200B.%(ext)s`)).toBe(true)
+		expect(sidecar.cwd).toBe(DIR)
+		expect(adjacent(sidecar.args, '-o', '%(title).200B.%(ext)s')).toBe(true)
+		expect(adjacent(media.args, '-o', '%(id)s.%(ext)s')).toBe(true)
 		expect(sidecar.facts.output?.directory).toBe(DIR)
 	})
 
-	it('escapes % in a media directory without a temp folder', () => {
-		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, template: '%(id)s.%(ext)s'}, selection: {formatId: '18'}})
-
-		expect(adjacent(plan.args, '-o', `${ESCAPED}/%(id)s.%(ext)s`)).toBe(true)
-	})
-
-	it('escapes % in the info-json path but leaves --paths literal', () => {
+	it('escapes % in the info-json base name', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, tempDirectory: `${DIR}/.tmp`}, selection: {formatId: '18'}, resume: {infoJsonBaseName: '50% done'}})
 
-		expect(adjacent(plan.args, '--paths', `home:${DIR}`)).toBe(true)
-		expect(adjacent(plan.args, '--paths', `temp:${DIR}/.tmp`)).toBe(true)
-		expect(adjacent(plan.args, '-o', `infojson:${ESCAPED}/.tmp/50%% done`)).toBe(true)
+		expect(adjacent(plan.args, '--paths', 'temp:.tmp')).toBe(true)
+		expect(adjacent(plan.args, '-o', 'infojson:.tmp/50%(_absent|%)s done')).toBe(true)
 	})
 })
 
@@ -323,7 +316,8 @@ describe('planWorkflow — subtitles', () => {
 		expect(adjacent(plan.args, '--sub-langs', 'en,ja')).toBe(true)
 		expect(adjacent(plan.args, '--sub-format', 'vtt/best')).toBe(true)
 		expect(adjacent(plan.args, '--convert-subs', 'vtt')).toBe(true)
-		expect(adjacent(plan.args, '-o', '/out/%(title).200B.%(ext)s')).toBe(true)
+		expect(adjacent(plan.args, '-o', '%(title).200B.%(ext)s')).toBe(true)
+		expect(plan.cwd).toBe('/out')
 		expect(plan.facts.effectiveSubtitleFormat).toBe('vtt')
 	})
 
@@ -332,7 +326,7 @@ describe('planWorkflow — subtitles', () => {
 
 		expect(adjacent(plan.args, '--sub-format', 'srt/best')).toBe(true)
 		expect(adjacent(plan.args, '--convert-subs', 'srt')).toBe(true)
-		expect(adjacent(plan.args, '-o', '/out/subtitles/%(title).200B.%(ext)s')).toBe(true)
+		expect(adjacent(plan.args, '-o', 'subtitles/%(title).200B.%(ext)s')).toBe(true)
 		expect(plan.facts.effectiveSubtitleFormat).toBe('srt')
 	})
 

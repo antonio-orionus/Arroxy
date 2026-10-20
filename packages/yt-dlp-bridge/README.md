@@ -52,6 +52,10 @@ Requires Node.js >= 22.13 and ESM.
 
 ## What changed in 0.6.0 (unreleased)
 
+- **Breaking:** a plan that writes files now carries `cwd`, and every path in its `args` is relative to it. Run it there (`runCommand(…, {cwd: plan.cwd})`): run elsewhere, the files land in the wrong folder. Caller plans run in `output.directory`; `--paths home:` is gone, and `output.tempDirectory`, `-o infojson:`, the subtitle subfolder and a `resume.loadInfoJsonPath` inside the folder become relative. Managed plans run in the output root; the temp root and the download archive are relative when they are inside it. yt-dlp expands `$NAME`, `%NAME%` and `~` in every path it is given, with no escape on POSIX for `--paths`, and strips trailing spaces from `--paths` values. So a folder such as `$HOME`, `%USERPROFILE%` or `Downloads ` (trailing space) wrote somewhere else; now its name never reaches argv.
+- **Breaking:** `output.tempDirectory` must be inside `output.directory`; a plan with one outside it throws.
+- New `output.report`: `finalPath` has yt-dlp append the media's absolute path once every postprocessor and the move are done (`--print-to-file after_move:filepath`); `subtitles` has it append `requested_subtitles` as JSON, with each track's `filepath`, also under `--skip-download` (`after_video`). Both files must be inside `output.directory`.
+- New `templateLiteral(text)`: literal text for an output template. Each `%`, `$` and `~` becomes an absent field whose default is that sign (`%(_absent|$)s`), which yt-dlp's expansion cannot see through. `%%` is not used: on Windows, ntpath pairs `%` signs, and a field before a `%%` lets a literal `%NAME%` expand.
 - **Breaking:** progress is read from yt-dlp's numbers, not its human-readable `[download]  42.0% of …` line. The `progress` event no longer carries `percent`, `total`, `speed` or `eta`; it is now only the fallback for other lines (`raw`).
 - Caller media, caller subtitles and managed download plans pass `--progress-template` with `YT_DLP_PROGRESS_TEMPLATE`, a prefixed JSON line per update. Caller media plans and every managed download plan (media, audio, subtitles, thumbnail and playlist) also pass `--print before_dl:` with `YT_DLP_REQUESTED_FORMATS_TEMPLATE`, one prefixed stdout line per video; caller media plans pass `--no-quiet` so that print does not silence yt-dlp's other output.
 - `parseYtDlpOutputLine` emits two new event kinds: `download-progress` (`status`, `formatId`, `downloadedBytes`, `totalBytes`, `totalBytesEstimate`, `speedBps`, `etaSeconds`, `elapsedSeconds`, `fragmentIndex`, `fragmentCount`) and `requested-formats` (the streams yt-dlp is about to download, in order, with `filesize` / `filesizeApprox`). Exhaustive `switch` statements over `YtDlpOutputEvent` need the two new cases.
@@ -59,7 +63,6 @@ Requires Node.js >= 22.13 and ESM.
 - An audio conversion now converts a stream already in the target codec when the source has one (AAC 140 for m4a on YouTube, Opus 251 for opus). yt-dlp copies such a stream instead of re-encoding it, so there is no second lossy pass; `--audio-quality` does not apply to it. A stream below 96 kbps (`AUDIO_CONVERSION_COPY_MIN_KBPS`) is not worth copying: the best stream is re-encoded instead. Each tier of the source chain (the source's track, then any) tries non-DRC before DRC, and every stereo stream before Dolby surround, which libopus cannot take. The "original" track filter no longer matches a stream with no `format_note`.
 - With `audio.convert`, a caller's `selection.formatSelector` (and `formatSort`) now picks the stream to convert, in place of the bridge's source chain. `--audio-format best` (`target: 'best'`) extracts the audio and keeps its codec where yt-dlp can.
 - New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, `audioConversionOutcome(target, {ext, acodec})` gives the file's extension and whether the audio is kept as is, `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does, and `audioConversionSourceSelector(target)` is the `-f` the planner gives a conversion that names no stream.
-- Caller plans escape `%` in `output.directory` and `output.tempDirectory` wherever they reach `-o` (subtitle plans, a media plan without a temp folder, the info-json path), so a folder such as `100%% done` or `a%(b)s` is written as named instead of being read as part of the template. `--paths` takes them unchanged.
 
 ## What changed in 0.5.0
 
@@ -263,7 +266,7 @@ function onLine(line: string) {
 
 ### Run a planned command
 
-The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries. The child runs as its own process group on Unix, so it does not receive the terminal's Ctrl+C: stop it with `signal`.
+The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries. Pass the plan's `cwd`: the paths in its argv are relative to it. The child runs as its own process group on Unix, so it does not receive the terminal's Ctrl+C: stop it with `signal`.
 
 ```ts
 import { planWorkflow } from "yt-dlp-bridge";
@@ -278,6 +281,7 @@ const plan = planWorkflow({
 
 try {
   const result = await runCommand("yt-dlp", plan.args, {
+    cwd: plan.cwd,
     timeoutMs: 900_000,
     maxOutputBytes: 4 * 1024 * 1024,
     onStderrLine: line => console.log(parseYtDlpOutputLine(line))
@@ -307,7 +311,7 @@ Prefer the root export for workflow planning and subpaths for lower-level utilit
 
 | Area | Exports |
 | --- | --- |
-| Workflow planning | `planWorkflow`, workflow input/plan/fact types |
+| Workflow planning | `planWorkflow`, `templateLiteral`, workflow input/plan/fact types |
 | Schemas | `WorkflowInspectInputSchema`, `WorkflowDownloadInputSchema`, `WorkflowExecutionInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`, `WorkflowInputSchema`, `ValidateWorkflowInputSchema` |
 | Audio conversion | `audioConversionCopies`, `audioConversionOutcome`, `audioConversionCopyFilter`, `audioCodecPreference`, `audioConversionSourceSelector`, `AUDIO_CONVERSION_COPY_MIN_KBPS` from `yt-dlp-bridge/audio-conversion` |
 | Config | `loadConfig` from `yt-dlp-bridge/config` |

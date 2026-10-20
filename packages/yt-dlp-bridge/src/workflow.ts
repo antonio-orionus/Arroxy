@@ -11,6 +11,7 @@ import type {DetectedDependency} from './types.js'
 
 export type {InspectWorkflowKind, ProbePlaylistMode, SubtitleFormat, SubtitleMode}
 export type {CallerOutput}
+export {templateLiteral} from './output-target.js'
 
 export interface NetworkPacing {
 	sleepRequests?: number
@@ -249,6 +250,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 	]
 	return withFacts({
 		kind: 'subtitles',
+		cwd: input.output.directory,
 		args,
 		redactedArgs: [],
 		facts: {
@@ -266,7 +268,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	const skipDownload = input.selection?.skipDownload === true
 	const args: string[] = [...baseArgs(options), ...progressTemplateArgs(), ...requestedFormatsArgs(), '--no-quiet', '--no-playlist']
 	const loadInfoJsonPath = input.resume?.loadInfoJsonPath
-	args.push(...loadInfoJsonArgs(loadInfoJsonPath))
+	args.push(...loadInfoJsonArgs(input.output, loadInfoJsonPath))
 	// An explicit caller policy always wins; otherwise the budget follows whether
 	// this attempt replays a pinned info-json plan (see the two policies above).
 	const retryPolicy = options.downloadRetryPolicy ?? (loadInfoJsonPath ? INFO_JSON_DOWNLOAD_RETRY_POLICY : DEFAULT_DOWNLOAD_RETRY_POLICY)
@@ -319,6 +321,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 
 	return withFacts({
 		kind: 'media',
+		cwd: input.output.directory,
 		args,
 		redactedArgs: [],
 		facts: {
@@ -340,6 +343,7 @@ function planManagedDownloadWorkflow(input: ManagedDownloadWorkflowInput, option
 	const optional = optionalManagedDependencyReasons(normalized)
 	return withFacts({
 		kind: normalized.kind,
+		cwd: outputPolicy.outputRoot,
 		args,
 		redactedArgs: [],
 		facts: {

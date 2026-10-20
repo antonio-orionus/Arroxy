@@ -3,9 +3,9 @@ import {describe, expect, it} from 'vite-plus/test'
 import {loadConfig} from '../src/config.js'
 import {planWorkflow, type WorkflowInput, type WorkflowPlanOptions} from '../src/index.js'
 
-// Every path flag a workflow plans, pinned argv for argv. The file was written
-// from the planner before the output target took the flags over; a change to it
-// is a change to what yt-dlp is told, and is reviewed as one.
+// Every path flag a workflow plans, and the working directory it runs in,
+// pinned argv for argv. A change to the file is a change to what yt-dlp is
+// told, and is reviewed as one.
 const URL = 'https://www.youtube.com/watch?v=test'
 const config = {...loadConfig({}), outputRoot: '/srv/out', tempRoot: '/srv/tmp'}
 const PCT_DIR = '/out/100% b%(e)s'
@@ -36,7 +36,12 @@ const CASES: [string, WorkflowInput, WorkflowPlanOptions?][] = [
 
 describe('output target golden argv', () => {
 	it('plans every path flag as recorded', async () => {
-		const planned = Object.fromEntries(CASES.map(([name, input, options]) => [name, planWorkflow(input, options).args.map(portable)]))
+		const planned = Object.fromEntries(
+			CASES.map(([name, input, options]) => {
+				const plan = planWorkflow(input, options)
+				return [name, {cwd: plan.cwd === undefined ? null : portable(plan.cwd), args: plan.args.map(portable)}]
+			})
+		)
 		await expect(`${JSON.stringify(planned, null, '\t')}\n`).toMatchFileSnapshot('./golden/output-target-argv.json')
 	})
 })

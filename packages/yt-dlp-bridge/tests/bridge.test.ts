@@ -118,13 +118,15 @@ describe('filesystem policy', () => {
 	it('resolves managed roots and archive files under configured roots', () => {
 		const config = loadConfig({YTDLP_MCP_OUTPUT_ROOT: path.join(os.tmpdir(), 'yt-dlp-bridge-test', 'downloads'), YTDLP_MCP_TEMP_ROOT: path.join(os.tmpdir(), 'yt-dlp-bridge-test', 'temp')})
 		const policy = resolveOutputPolicy(config, {outputRoot: 'playlist', tempRoot: 'job-1'})
-		const args = planWorkflow(makePlanInput({output: {outputRoot: 'playlist', tempRoot: 'job-1'}, selection: {matchFilters: [], breakMatchFilters: [], downloadArchive: 'archive.txt'}}), {config, configFiles: {mode: 'disabled'}}).args
+		const plan = planWorkflow(makePlanInput({output: {outputRoot: 'playlist', tempRoot: 'job-1'}, selection: {matchFilters: [], breakMatchFilters: [], downloadArchive: 'archive.txt'}}), {config, configFiles: {mode: 'disabled'}})
+		const args = plan.args
 		const archiveIndex = args.indexOf('--download-archive')
 		expect(archiveIndex).toBeGreaterThan(-1)
 
 		expect(policy.outputRoot).toBe(path.join(config.outputRoot, 'playlist'))
 		expect(policy.tempRoot).toBe(path.join(config.tempRoot, 'job-1'))
-		expect(args[archiveIndex + 1]).toBe(path.join(policy.outputRoot, 'archive.txt'))
+		expect(plan.cwd).toBe(policy.outputRoot)
+		expect(args[archiveIndex + 1]).toBe('archive.txt')
 	})
 
 	it('treats blank env vars as unset', () => {
