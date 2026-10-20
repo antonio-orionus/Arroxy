@@ -332,6 +332,22 @@ describe('DownloadProfilesHome profiles tab reordering', () => {
 		expect(screen.getByText('Dropped Best available in position 4 of 13.')).toBeInTheDocument()
 	})
 
+	it('discards held keys when the drag is cancelled before they replay', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		pressAll(grip, ['Space', 'ArrowRight', 'Space'])
+		fireEvent(window, new Event('resize'))
+		await settle()
+		await settle()
+
+		expect(screen.getByText('Move cancelled. Best available stays in position 1 of 13.')).toBeInTheDocument()
+		expect(screen.queryByText(/Picked up/)).not.toBeInTheDocument()
+		expect(cardIds().slice(0, 2)).toEqual(['best-quality', 'best-2160'])
+	})
+
 	it('cancels a move by an Escape pressed before the pick-up has settled', async () => {
 		stubCardGrid()
 		render(<DownloadProfilesHome />)

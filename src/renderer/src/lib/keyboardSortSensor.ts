@@ -11,7 +11,19 @@ const MAX_SETTLE_TURNS = 20
 // replays them, in order, once dnd-kit is listening.
 export class KeyboardSortSensor extends KeyboardSensor {
 	constructor(props: KeyboardSensorProps) {
-		super(props)
+		// Once the drag is over, held keys have nothing left to act on.
+		let stopped = false
+		super({
+			...props,
+			onEnd: () => {
+				stopped = true
+				props.onEnd()
+			},
+			onCancel: () => {
+				stopped = true
+				props.onCancel()
+			}
+		})
 		const {event: pickUp, options, context} = props
 		const doc = pickUp.target instanceof Node ? (pickUp.target.ownerDocument ?? document) : document
 		const view = doc.defaultView ?? window
@@ -32,14 +44,16 @@ export class KeyboardSortSensor extends KeyboardSensor {
 			const {over, collisions} = context.current
 			return (over?.id ?? null) === (collisions?.[0]?.id ?? null)
 		}
+		// The hold stays until the last replayed move has settled, so a key
+		// pressed meanwhile still queues behind it.
 		const replay = (index: number, turns: number): void => {
-			const event = held[index]
-			if (!event) {
-				doc.removeEventListener('keydown', hold, true)
+			if (!stopped && turns < MAX_SETTLE_TURNS && !settled()) {
+				view.setTimeout(() => replay(index, turns + 1))
 				return
 			}
-			if (turns < MAX_SETTLE_TURNS && !settled()) {
-				view.setTimeout(() => replay(index, turns + 1))
+			const event = held[index]
+			if (stopped || !event) {
+				doc.removeEventListener('keydown', hold, true)
 				return
 			}
 			const {code, key, altKey, ctrlKey, metaKey, shiftKey} = event
