@@ -13,9 +13,12 @@ export function audioTrackQuality(format: YtDlpFormat): AudioTrackQuality | unde
 	return noteParts?.find(isAudioTrackQuality)
 }
 
+// A track is a language: yt-dlp ranks and picks tracks by `language`, and
+// `format_note` is free text ("DASH audio", "Audio, low"), naming a track only
+// when the stream has a language (YouTube's "English original (default)").
 export function audioTrackLabel(format: YtDlpFormat): string | undefined {
 	const note = format.format_note?.trim()
-	if (!note) return format.language
+	if (!format.language || !note) return format.language
 	const first = note.split(',')[0]?.trim()
 	if (first && isAudioTrackQuality(first.toLowerCase())) return format.language
 	return first || format.language
