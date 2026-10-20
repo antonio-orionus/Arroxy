@@ -60,17 +60,18 @@ interface ReviewRowItemProps {
 
 // One Review row: label and current value; opens its editor in place. A value
 // that is on reads brighter than one that is off, and a dot marks a row this
-// run changed from its profile.
+// run changed from its profile. Rows share the accordion's columns (subgrid),
+// so the label column fits the longest label and labels never wrap.
 function ReviewRowItem({row, value, off, changedFrom, children}: ReviewRowItemProps): ReactNode {
 	const {t} = useTranslation()
 	const Icon = ROW_ICONS[row]
 	return (
-		<AccordionItem value={row} className="transition-colors data-open:bg-primary/5" data-testid={`review-row-${row}`}>
-			<AccordionTrigger className="items-center gap-3 rounded-none px-4 py-3.5 hover:bg-muted/60 hover:no-underline focus-visible:ring-inset" data-testid={`review-row-${row}-toggle`}>
+		<AccordionItem value={row} className="col-span-full grid grid-cols-subgrid transition-colors data-open:bg-primary/5" data-testid={`review-row-${row}`}>
+			<AccordionTrigger headerClassName="col-span-full grid grid-cols-subgrid" className="col-span-full grid grid-cols-subgrid items-center gap-x-3 rounded-none px-4 py-3.5 hover:bg-muted/60 hover:no-underline focus-visible:ring-inset" data-testid={`review-row-${row}-toggle`}>
 				<Icon aria-hidden className="size-4 shrink-0 text-subtle-foreground transition-colors group-hover/accordion-trigger:text-muted-foreground group-aria-expanded/accordion-trigger:text-primary" />
-				<span className="flex w-28 shrink-0 items-center gap-1.5 font-semibold text-foreground">
+				<span className="flex min-w-28 items-center gap-1.5 font-semibold whitespace-nowrap text-foreground">
 					{changedFrom ? <span className="sr-only">{changedFrom}</span> : null}
-					<span className="min-w-0">{t(ROW_LABEL_KEYS[row])}</span>
+					<span>{t(ROW_LABEL_KEYS[row])}</span>
 					{changedFrom ? <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-primary" data-testid={`review-row-${row}-changed`} /> : null}
 				</span>
 				<Hint label={value} reveal>
@@ -177,7 +178,7 @@ export function StepReview(): ReactNode {
 			<div className="flex flex-col gap-1.5">
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>
 				<Card className="gap-0 overflow-hidden py-0">
-					<Accordion<ReviewRow> value={wizardReviewRow ? [wizardReviewRow] : []} onValueChange={next => openRow(next[0] ?? null)}>
+					<Accordion<ReviewRow> className="grid grid-cols-[auto_max-content_minmax(0,1fr)_auto]" value={wizardReviewRow ? [wizardReviewRow] : []} onValueChange={next => openRow(next[0] ?? null)}>
 						{rows.map(({row, value, off, fields}) => (
 							<ReviewRowItem key={row} row={row} value={value} off={off} changedFrom={changed.includes(row) ? changedFrom : null}>
 								{fields}
