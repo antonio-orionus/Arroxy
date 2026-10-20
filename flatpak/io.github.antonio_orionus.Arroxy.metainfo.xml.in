@@ -3,35 +3,35 @@
   <id>io.github.antonio_orionus.Arroxy</id>
 
   <name>Arroxy</name>
-  <summary>YouTube downloader for video, audio, and subtitles</summary>
-  <summary xml:lang="de">YouTube Downloader für Video, Audio und Untertitel</summary>
-  <summary xml:lang="es">Descargador de YouTube para vídeo, audio y subtítulos</summary>
-  <summary xml:lang="fr">Téléchargeur YouTube pour vidéo, audio et sous-titres</summary>
-  <summary xml:lang="hi">वीडियो, ऑडियो और सबटाइटल के लिए YouTube डाउनलोडर</summary>
-  <summary xml:lang="ja">動画・音声・字幕に対応した YouTube ダウンローダー</summary>
-  <summary xml:lang="ru">Загрузчик YouTube — видео, аудио и субтитры</summary>
-  <summary xml:lang="uk">Завантажувач YouTube — відео, аудіо та субтитри</summary>
-  <summary xml:lang="zh">下载 YouTube 视频、音频和字幕</summary>
+  <summary>Video and audio downloader for YouTube and 2000+ other sites</summary>
+  <summary xml:lang="de">Video- und Audio-Downloader für YouTube und über 2000 weitere Websites</summary>
+  <summary xml:lang="es">Descargador de vídeo y audio para YouTube y más de 2000 sitios</summary>
+  <summary xml:lang="fr">Téléchargeur de vidéo et d'audio pour YouTube et plus de 2000 autres sites</summary>
+  <summary xml:lang="hi">YouTube और 2000+ अन्य साइटों के लिए वीडियो और ऑडियो डाउनलोडर</summary>
+  <summary xml:lang="ja">YouTube など 2000 以上のサイトに対応した動画・音声ダウンローダー</summary>
+  <summary xml:lang="ru">Загрузчик видео и аудио с YouTube и более 2000 других сайтов</summary>
+  <summary xml:lang="uk">Завантажувач відео та аудіо з YouTube і понад 2000 інших сайтів</summary>
+  <summary xml:lang="zh">从 YouTube 及 2000 多个其他网站下载视频和音频</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
 
   <description>
     <p>
-      Arroxy is a free open-source YouTube downloader built around a simple step-by-step
-      wizard. Paste a URL, pick a format and quality, choose where to save, and download —
-      no command-line flags, no terminal required.
+      Arroxy is a free, open-source desktop app for downloading video and audio from YouTube
+      and 2000+ other sites. Paste a link, or browse any site in the built-in Explore browser
+      and download what you are watching.
     </p>
     <p>Features:</p>
     <ul>
-      <li>Download YouTube videos in up to 4K, 1080p60, and HDR</li>
-      <li>Extract audio in MP3, M4A, Opus, and other formats</li>
-      <li>Download subtitles in any language, embedded or as sidecar files</li>
-      <li>Parallel download queue with real-time progress</li>
-      <li>Supports YouTube Shorts, playlists, and live archives</li>
-      <li>Powered by yt-dlp under the hood, kept up to date automatically</li>
-      <li>Works on Linux, Windows, and macOS</li>
-      <li>Available in 9 languages</li>
+      <li>Videos, Shorts, playlists and channels in up to 8K HDR at 60 fps</li>
+      <li>Audio as MP3, M4A or Opus</li>
+      <li>Download profiles that remember how you like each download</li>
+      <li>Subtitles in any language, embedded or as separate files</li>
+      <li>SponsorBlock and partial downloads built in</li>
+      <li>Sign in once in Explore to download private, members-only and age-restricted videos your account can watch</li>
+      <li>A download queue with live progress</li>
+      <li>Works on Linux, Windows and macOS</li>
     </ul>
   </description>
 
@@ -53,7 +53,6 @@
     <keyword>shorts</keyword>
     <keyword>4K</keyword>
     <keyword>HDR</keyword>
-    <keyword>yt-dlp</keyword>
   </keywords>
 
   <screenshots>

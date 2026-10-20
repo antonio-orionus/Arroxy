@@ -2,7 +2,7 @@
 	"name": "arroxy",
 	"version": "0.7.1",
 	"private": true,
-	"description": "Arroxy - YouTube downloader app",
+	"description": "Free, open-source video downloader for YouTube and 2000+ other sites, with a built-in browser for sites that need a sign-in.",
 	"license": "GPL-3.0-or-later",
 	"author": {
 		"name": "Antonio Orionus",

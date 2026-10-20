@@ -677,16 +677,24 @@ jobs:
             cat SHA256SUMS
             exit 1
           fi
-          # The license comes from the tagged package.json, so a relicense
-          # reaches the bucket with the release that carries it.
-          LICENSE_ID=$(gh api "repos/${GITHUB_REPOSITORY}/contents/package.json?ref=${GITHUB_REF_NAME}" --jq .content | base64 -d | jq -r .license)
+          # The license and description come from the tagged package.json, so
+          # a relicense or a new description reaches the bucket with the
+          # release that carries it.
+          gh api "repos/${GITHUB_REPOSITORY}/contents/package.json?ref=${GITHUB_REF_NAME}" --jq .content | base64 -d > tagged-package.json
+          LICENSE_ID=$(jq -r .license tagged-package.json)
           if [ -z "$LICENSE_ID" ] || [ "$LICENSE_ID" = "null" ]; then
             echo "::error::package.json at ${GITHUB_REF_NAME} has no license"
             exit 1
           fi
-          jq --arg v "$VERSION" --arg h "$HASH" --arg p "$PORTABLE" --arg l "$LICENSE_ID" \
+          DESCRIPTION=$(jq -r .description tagged-package.json)
+          if [ -z "$DESCRIPTION" ] || [ "$DESCRIPTION" = "null" ]; then
+            echo "::error::package.json at ${GITHUB_REF_NAME} has no description"
+            exit 1
+          fi
+          jq --arg v "$VERSION" --arg h "$HASH" --arg p "$PORTABLE" --arg l "$LICENSE_ID" --arg d "$DESCRIPTION" \
             '.version = $v
              | .license = $l
+             | .description = $d
              | .url = "https://github.com/antonio-orionus/Arroxy/releases/download/v\($v)/\($p)"
              | .hash = "sha256:\($h)"
              | .bin = $p
@@ -746,7 +754,7 @@ jobs:
             end
 
             name "Arroxy"
-            desc "YouTube downloader"
+            desc "Video and audio downloader for YouTube and 2000+ other sites"
             homepage "https://github.com/antonio-orionus/Arroxy"
 
             # Electron 44 requires macOS 13; refuse the install on older
