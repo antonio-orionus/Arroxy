@@ -4,25 +4,6 @@ export function nextMonotonicPercent(current: number, incoming?: number): number
 	return Math.max(current, boundedIncoming)
 }
 
-const UNITS: Record<string, number> = {B: 1, KiB: 1024, MiB: 1024 ** 2, GiB: 1024 ** 3}
-
-export function parseSpeedBps(speed: string): number | null {
-	const match = /^([\d.]+)\s*(B|KiB|MiB|GiB)\/s$/.exec(speed)
-	if (!match) return null
-	const unit = UNITS[match[2]]
-	if (unit === undefined) return null
-	return parseFloat(match[1]) * unit
-}
-
-export function parseEtaSeconds(eta: string): number | null {
-	if (eta === 'Unknown' || eta === '--:--:--') return null
-	const parts = eta.split(':').map(Number)
-	if (parts.some(p => Number.isNaN(p))) return null
-	if (parts.length === 2) return parts[0] * 60 + parts[1]
-	if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2]
-	return null
-}
-
 export function formatEta(seconds: number): string {
 	const h = Math.floor(seconds / 3600)
 	const m = Math.floor((seconds % 3600) / 60)
@@ -64,6 +45,14 @@ const THROTTLE_MS = 1000
 const SUPPRESSION_WINDOW_MS = 1500
 const SPIKE_DROP_RATIO = 0.2
 
+// One progress update: the line it came from, and yt-dlp's transfer rate
+// (bytes/s) and time left (s) when the line was a structured progress record.
+export interface TransferUpdate {
+	line: string
+	speedBps?: number
+	etaSeconds?: number
+}
+
 export class ProgressFormatter {
 	private lastEmittedSpeedBps: number | null = null
 	private suppressedSinceMs: number | null = null
@@ -73,7 +62,7 @@ export class ProgressFormatter {
 	// `partSeconds`: the length of the Part of video this job downloads, if any.
 	constructor(private readonly partSeconds: number | null = null) {}
 
-	update(line: string): string | null {
+	update({line, speedBps, etaSeconds}: TransferUpdate): string | null {
 		if (this.partSeconds !== null && /\btime=-?\d/.test(line)) {
 			this.lastDetail = ffmpegPartDetail(line, this.partSeconds) ?? this.lastDetail
 			return this.lastDetail
@@ -89,18 +78,7 @@ export class ProgressFormatter {
 			return this.lastDetail
 		}
 
-		if (!line.startsWith('[download]')) return null
-
-		// HLS / DASH lines append "(frag N/M)" after ETA — strip via optional group so
-		// it doesn't end up in the ETA capture (would break parseEtaSeconds).
-		const match = /\bat\s+(.+?)\s+ETA\s+(.+?)(?:\s+\(frag\s+\d+\/\d+\))?$/.exec(line)
-		if (!match) return null
-
-		const speedStr = match[1].trim()
-		const etaStr = match[2].trim()
-		const speedBps = parseSpeedBps(speedStr)
-		const etaSec = parseEtaSeconds(etaStr)
-		if (speedBps === null || etaSec === null) return this.lastDetail
+		if (speedBps === undefined || etaSeconds === undefined) return this.lastDetail
 
 		const now = Date.now()
 
@@ -116,7 +94,7 @@ export class ProgressFormatter {
 		if (now - this.lastEmitTime < THROTTLE_MS) return this.lastDetail
 		this.lastEmitTime = now
 		this.lastEmittedSpeedBps = speedBps
-		this.lastDetail = `${speedStr} • ETA ${formatEta(etaSec)}`
+		this.lastDetail = `${formatBps(speedBps)} • ETA ${formatEta(etaSeconds)}`
 		return this.lastDetail
 	}
 

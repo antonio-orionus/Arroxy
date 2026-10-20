@@ -139,3 +139,10 @@ template (`%` → `%%`), and yt-dlp expands `$VAR` in it exactly as in `--paths`
 with no escape that survives (`$$HOME` still expands), so `$` is passed as is.
 The log path stays as the fallback and for resume. **Subtitle** paths still come
 from the log: the sidecar-subs spawn has no clean per-subtitle print field.
+
+Progress itself no longer scrapes the human-readable `[download]  42.0% …` line:
+the bridge's download plans pass `--progress-template` and `--print before_dl:`
+templates that print prefixed `%()j` JSON (non-ASCII escaped, so V1 and V2
+cannot touch it), and the bridge's progress tracker combines every requested
+stream into one percent. The line reader still frames those lines, so V3 and V4
+still matter.

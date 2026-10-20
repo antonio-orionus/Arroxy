@@ -36,6 +36,15 @@ function makeActive(input: ResolvedStartDownloadInput): ActiveDownload {
 	}
 }
 
+// Lines yt-dlp prints with the bridge's progress templates, from a real
+// `-f 395+250` run: the video stream, then the audio stream.
+const REQUESTED_395_250 = '[yt-dlp-bridge:formats] {"format_id":"395+250","filesize":null,"filesize_approx":367572,"requested":[{"format_id": "395", "filesize": 223779, "filesize_approx": 223778}, {"format_id": "250", "filesize": 143795, "filesize_approx": 143794}]}'
+const BOTH_STREAMS = 223779 + 143795
+
+function progressLine(formatId: string, fields: Record<string, number | string>): string {
+	return `[yt-dlp-bridge:progress] ${JSON.stringify({progress: {status: 'downloading', ...fields}, format_id: formatId})}`
+}
+
 // yt-dlp redraws its progress line several times a second. Logging every redraw
 // made progress a third of a user's log and rotated away the lines that explain
 // a failure (issue #222), so the log keeps one line per 10% step.
@@ -44,27 +53,31 @@ describe('ProgressParser — progress logging', () => {
 		return vi
 			.mocked(log.debug)
 			.mock.calls.map(call => call[0])
-			.filter(line => typeof line === 'string' && line.includes('% of'))
+			.filter(line => typeof line === 'string' && line.startsWith('[yt-dlp-bridge:progress]'))
 	}
 
 	it('logs one progress line per 10% step instead of every redraw', () => {
 		vi.mocked(log.debug).mockClear()
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+		const lines = [100, 500, 1200, 1500].map(downloaded => progressLine('18', {downloaded_bytes: downloaded, total_bytes: 10_000}))
+		const finished = `[yt-dlp-bridge:progress] ${JSON.stringify({progress: {status: 'finished', downloaded_bytes: 10_000, total_bytes: 10_000}, format_id: '18'})}`
 
-		parser.consume(active, '[download]   1.0% of 10.00MiB at 1.00MiB/s ETA 00:09\r[download]   5.0% of 10.00MiB at 1.00MiB/s ETA 00:09\r[download]  12.0% of 10.00MiB at 1.00MiB/s ETA 00:08\r[download]  15.0% of 10.00MiB at 1.00MiB/s ETA 00:08\r[download] 100% of 10.00MiB in 00:00:10 at 1.00MiB/s\n')
+		parser.consume(active, `${[...lines, finished].join('\r')}\n`)
 
-		expect(loggedProgressLines()).toEqual(['[download]   1.0% of 10.00MiB at 1.00MiB/s ETA 00:09', '[download]  12.0% of 10.00MiB at 1.00MiB/s ETA 00:08', '[download] 100% of 10.00MiB in 00:00:10 at 1.00MiB/s'])
+		expect(loggedProgressLines()).toEqual([lines[0], lines[2], finished])
 	})
 
 	it('starts counting again when the next file begins', () => {
 		vi.mocked(log.debug).mockClear()
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+		const video = progressLine('395', {downloaded_bytes: 5500, total_bytes: 10_000})
+		const audio = progressLine('251', {downloaded_bytes: 5700, total_bytes: 10_000})
 
-		parser.consume(active, '[download]  55.0% of 10.00MiB at 1.00MiB/s ETA 00:05\n[download] Destination: /tmp/video.f251.webm\n[download]  57.0% of 2.00MiB at 1.00MiB/s ETA 00:01\n')
+		parser.consume(active, `${video}\n[download] Destination: /tmp/video.f251.webm\n${audio}\n`)
 
-		expect(loggedProgressLines()).toEqual(['[download]  55.0% of 10.00MiB at 1.00MiB/s ETA 00:05', '[download]  57.0% of 2.00MiB at 1.00MiB/s ETA 00:01'])
+		expect(loggedProgressLines()).toEqual([video, audio])
 	})
 })
 
@@ -200,7 +213,7 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.currentFileKind).toBe('subtitle')
 
 		emitProgress.mockClear()
-		parser.consume(active, '[download] 100% of   34.29KiB in 00:00:00 at 132.99KiB/s')
+		parser.consume(active, `[yt-dlp-bridge:progress] ${JSON.stringify({progress: {status: 'finished', downloaded_bytes: 35113, total_bytes: 35113}, format_id: null})}`)
 
 		expect(emitProgress).toHaveBeenCalledOnce()
 		expect(emitProgress.mock.calls[0][0].percent).toBe(100)
@@ -215,23 +228,60 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.currentFileKind).toBe('subtitle')
 
 		emitProgress.mockClear()
-		parser.consume(active, '[download]  72.3% of  500.00KiB at   1.00MiB/s ETA 00:00')
+		parser.consume(active, `[yt-dlp-bridge:progress] ${JSON.stringify({progress: {status: 'downloading', downloaded_bytes: 723, total_bytes: 1000}, format_id: null})}`)
 
 		expect(emitProgress).toHaveBeenCalledOnce()
 		expect(emitProgress.mock.calls[0][0].percent).toBeUndefined()
 	})
 
-	it('forwards percent for media files', () => {
+	it("forwards percent and yt-dlp's speed and time left for media files", () => {
 		const emitProgress = vi.fn()
 		const parser = new ProgressParser(vi.fn(), emitProgress)
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
 
 		parser.consume(active, '[download] Destination: /tmp/video.mp4')
 		emitProgress.mockClear()
-		parser.consume(active, '[download]  72.3% of  500.00KiB at   1.00MiB/s ETA 00:00')
+		const line = progressLine('18', {downloaded_bytes: 723, total_bytes: 1000, speed: 1_048_576, eta: 5})
+		parser.consume(active, line)
 
 		expect(emitProgress).toHaveBeenCalledOnce()
-		expect(emitProgress.mock.calls[0][0].percent).toBe(72.3)
+		expect(emitProgress.mock.calls[0][0]).toEqual({jobId: 'job-1', line, at: '2024-01-01T00:00:00.000Z', percent: 72.3, speedBps: 1_048_576, etaSeconds: 5})
+	})
+
+	// yt-dlp downloads a video+audio format as two streams, each reporting from
+	// 0% again. Taken one at a time, the video filled the bar and the audio
+	// download after it moved nothing.
+	it('keeps the percent moving through the audio stream of a video+audio download', () => {
+		const emitProgress = vi.fn()
+		const parser = new ProgressParser(vi.fn(), emitProgress)
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(
+			active,
+			[
+				REQUESTED_395_250,
+				'[download] Destination: /tmp/video.f395.mp4',
+				progressLine('395', {downloaded_bytes: 111_889, total_bytes: 223_779}),
+				`[yt-dlp-bridge:progress] ${JSON.stringify({progress: {status: 'finished', downloaded_bytes: 223_779, total_bytes: 223_779}, format_id: '395'})}`,
+				'[download] Destination: /tmp/video.f250.webm',
+				progressLine('250', {downloaded_bytes: 71_897, total_bytes: 143_795}),
+				progressLine('250', {downloaded_bytes: 130_048, total_bytes: 143_795})
+			].join('\n')
+		)
+
+		const percents = emitProgress.mock.calls.map(([event]) => event.percent)
+		expect(percents).toEqual([expect.closeTo((111_889 / BOTH_STREAMS) * 100, 5), expect.closeTo((223_779 / BOTH_STREAMS) * 100, 5), expect.closeTo(((223_779 + 71_897) / BOTH_STREAMS) * 100, 5), expect.closeTo(((223_779 + 130_048) / BOTH_STREAMS) * 100, 5)])
+	})
+
+	it('starts each yt-dlp run over from its own requested formats', () => {
+		const emitProgress = vi.fn()
+		const parser = new ProgressParser(vi.fn(), emitProgress)
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, `${REQUESTED_395_250}\n${progressLine('250', {downloaded_bytes: 0, total_bytes: 143_795})}\n`)
+		parser.consume(active, `[yt-dlp-bridge:formats] {"format_id":"18","filesize":1000,"filesize_approx":null,"requested":null}\n${progressLine('18', {downloaded_bytes: 100, total_bytes: 1000})}\n`)
+
+		expect(emitProgress.mock.calls.at(-1)?.[0].percent).toBe(10)
 	})
 
 	it('emits rounded sleep status from yt-dlp sleep lines', () => {
