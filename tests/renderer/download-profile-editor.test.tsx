@@ -193,6 +193,39 @@ describe('DownloadProfileEditor', () => {
 		expect(onSave.mock.calls[0]?.[0].media).not.toHaveProperty('hdr')
 	})
 
+	it('saves a preferred video codec and lists it in how the profile picks', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-video-codec')).toHaveTextContent('Auto')
+		fireEvent.click(screen.getByTestId('profiles-editor-video-codec'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-codec-option-h264'))
+		fireEvent.click(screen.getByTestId('profiles-editor-video-file-type'))
+		expect(await screen.findByTestId('profiles-editor-video-file-type-option-webm')).toHaveAttribute('aria-disabled', 'true')
+		fireEvent.click(screen.getByTestId('profiles-editor-selection-order-toggle'))
+		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent("H.264, then VP9, then AV1 · this profile's codec")
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: expect.objectContaining({videoCodec: 'h264'})}))
+		})
+	})
+
+	it('keeps the video codec on Auto for Smart TV, which always takes H.264', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-video-codec')).toBeDisabled()
+		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent('Smart TV always takes H.264.')
+	})
+
 	it('says SDR is first in the list of how the profile picks', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()

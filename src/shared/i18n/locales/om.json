@@ -1083,6 +1083,8 @@
 			"source": {"label": "Tarreessaawwan Bitrate fooyya'e duraan", "reason": "bal'ina ifaa walfakkaataan qulqullina dabalataa"},
 			"protocol": {"label": "Buufannaan kallattii kopiiwwan yaaman duraan", "reason": "fakkii walfakkaataa, saffisaan buufame"},
 			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
+			"codecVp9First": {"label": "VP9, itti aansee H.264, itti aansee AV1", "reason": "koodeekii piroofaayilii kanaa"},
+			"codecH264First": {"label": "H.264, itti aansee VP9, itti aansee AV1", "reason": "koodeekii piroofaayilii kanaa"},
 			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
 			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},
 			"aacFileType": {"label": "Sagalee AAC", "reason": "taphattoota MP4 waliin wal sima"},
@@ -1096,5 +1098,13 @@
 		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
 	},
 	"aiUpscaled": {"label": "Tarreessaawwan AI'n guddifaman", "description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.", "skip": "Darbi", "allow": "Hayyami"},
+	"videoCodec": {
+		"label": "Koodeeki viidiyoo",
+		"description": "Koodeekiin kam sirna dheerina wal fakkaatu keessaa jalqaba fudhatamu. Ofumaan tartiiba yt-dlp mataa isaa eegaa, kan AV1 isa xiqqaa dursu; H.264 TV fi bilbila durii irratti ni taphata.",
+		"smartTv": "TV smart yeroo hunda H.264 fudhata.",
+		"auto": "Ofumaa",
+		"vp9": "VP9 jalqaba",
+		"h264": "H.264 jalqaba"
+	},
 	"hdrPreference": {"label": "Viidiyoo HDR", "description": "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata.", "sdr": "SDR", "hdr": "HDR", "auto": "Ofumaa"}
 }

@@ -260,6 +260,45 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 	})
 })
 
+describe('resolveProfileSelection: video codec preference', () => {
+	const prefer = (videoCodec: 'vp9' | 'h264', tier: '1080' | 'best' = 'best'): DownloadProfile => withMedia('best-quality', {kind: 'video-audio', goal: 'best-picture', tier, fileType: 'auto', videoCodec, audio: {native: {kind: 'default'}}})
+	const AT_1080 = [rawVideo('137', 1080), rawVideo('248', 1080, {vcodec: 'vp9', ext: 'webm'}), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08'}), rawAudio('140')]
+
+	it('takes the preferred codec among streams of one height', () => {
+		expect(resolveRaw(prefer('vp9'), AT_1080).media.videoFormatId).toBe('248')
+		expect(resolveRaw(prefer('h264'), AT_1080).media.videoFormatId).toBe('137')
+		expect(resolveRaw(builtin('best-quality'), AT_1080).media.videoFormatId).toBe('399')
+	})
+
+	it('never trades height for the codec', () => {
+		const raw = [rawVideo('137', 1080), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08'}), rawVideo('401', 2160, {vcodec: 'av01.0.12M.08'}), rawAudio('140')]
+		expect(resolveRaw(prefer('h264'), raw).media.videoFormatId).toBe('401')
+		expect(resolveRaw(prefer('vp9', '1080'), raw).media.videoFormatId).toBe('137')
+	})
+
+	it('ranks the others as yt-dlp does under a codec limit: lesser codecs next, better ones last', () => {
+		expect(
+			resolveRaw(
+				prefer('vp9'),
+				AT_1080.filter(format => format.format_id !== '248')
+			).media.videoFormatId
+		).toBe('137')
+		const noH264 = [rawVideo('701', 1080, {vcodec: 'av01.0.09M.10', dynamic_range: 'HDR10'}), rawVideo('337', 1080, {vcodec: 'vp09.02.40.10', ext: 'webm', dynamic_range: 'HDR10'}), rawAudio('140')]
+		expect(resolveRaw(prefer('h264'), noH264).media.videoFormatId).toBe('337')
+	})
+
+	it("puts the preferred codec before the site's source rank, so H.264 beats YouTube's Premium VP9", () => {
+		const raw = [rawVideo('137', 1080), rawVideo('616', 1080, {vcodec: 'vp09.00.40.08', source_preference: 99}), rawAudio('140')]
+		expect(resolveRaw(prefer('h264'), raw).media.videoFormatId).toBe('137')
+		expect(resolveRaw(builtin('best-quality'), raw).media.videoFormatId).toBe('616')
+	})
+
+	it('is ignored by Smart TV, which always takes H.264', () => {
+		const smartTv = withMedia('mp4-1080', {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', videoCodec: 'vp9', audio: {native: {kind: 'default'}}})
+		expect(resolveRaw(smartTv, AT_1080).media.videoFormatId).toBe('137')
+	})
+})
+
 describe('resolveProfileSelection: subtitle precedence per track', () => {
 	it('manual-first keeps an auto-generated regional variant the manual tracks lack', () => {
 		const profile = withSubtitles(builtin('balanced'), {languages: ['en'], source: 'manual-first'})

@@ -1,7 +1,24 @@
 import {DEFAULTS} from '@shared/constants.js'
-import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, VideoGoal} from '@shared/types.js'
+import type {
+	AudioBitrate,
+	DownloadProfile,
+	DownloadProfileAudioFormat,
+	DownloadProfileIcon,
+	DownloadProfileSubtitleSource,
+	HdrPreference,
+	NativeAudioChoice,
+	NativeAudioPreference,
+	PlaylistVideoTier,
+	SponsorBlockCategory,
+	SponsorBlockMode,
+	SubtitleFormat,
+	SubtitleMode,
+	VideoCodecPreference,
+	VideoFileType,
+	VideoGoal
+} from '@shared/types.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
-import {effectiveFileType, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
+import {effectiveFileType, effectiveVideoCodec, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES, type AiUpscaled} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
 import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
@@ -13,6 +30,8 @@ export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
 export type DownloadProfileNativeAudio = 'default' | NativeAudioPreference
 // The editor's HDR video select: follow Settings, or this profile's own.
 export type DownloadProfileHdr = 'default' | HdrPreference
+// The editor's Video codec select: yt-dlp's own order, or one codec first.
+export type DownloadProfileVideoCodec = 'auto' | VideoCodecPreference
 
 export interface DownloadProfileDraft {
 	profileId: string | null
@@ -27,6 +46,7 @@ export interface DownloadProfileDraft {
 	nativeAudio: DownloadProfileNativeAudio
 	hdr: DownloadProfileHdr
 	aiUpscaled: AiUpscaled
+	videoCodec: DownloadProfileVideoCodec
 	audioFormat: DownloadProfileAudioFormat
 	audioQuality: DownloadProfileAudioQuality
 	subtitleEnabled: boolean
@@ -58,6 +78,7 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-native-audio'; nativeAudio: DownloadProfileNativeAudio}
 	| {type: 'set-hdr'; hdr: DownloadProfileHdr}
 	| {type: 'set-ai-upscaled'; aiUpscaled: AiUpscaled}
+	| {type: 'set-video-codec'; videoCodec: DownloadProfileVideoCodec}
 	| {type: 'set-audio-format'; audioFormat: DownloadProfileAudioFormat}
 	| {type: 'set-audio-quality'; audioQuality: DownloadProfileAudioQuality}
 	| {type: 'set-subtitle-enabled'; subtitleEnabled: boolean}
@@ -127,6 +148,16 @@ function initialAiUpscaled(profile: DownloadProfile | null): AiUpscaled {
 	return (media?.kind === 'video-audio' || media?.kind === 'video-only') && media.aiUpscaled === 'allow' ? 'allow' : 'skip'
 }
 
+function initialVideoCodec(profile: DownloadProfile | null): DownloadProfileVideoCodec {
+	return videoMedia(profile)?.videoCodec ?? 'auto'
+}
+
+// A codec preference the goal and file type can't use (Smart TV; H.264 in
+// WebM) goes back to Auto, as Smart TV's WebM goes back to Auto.
+function withVideoCodec(draft: DownloadProfileDraft, videoCodec: DownloadProfileVideoCodec): DownloadProfileDraft {
+	return {...draft, videoCodec: effectiveVideoCodec(draft.goal, draft.fileType, videoCodec === 'auto' ? undefined : videoCodec) ?? 'auto'}
+}
+
 function nativeAudioChoice(nativeAudio: DownloadProfileNativeAudio): NativeAudioChoice {
 	return nativeAudio === 'default' ? {kind: 'default'} : {kind: 'custom', preference: nativeAudio}
 }
@@ -149,6 +180,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		nativeAudio: initialNativeAudio(initialProfile),
 		hdr: initialHdr(initialProfile),
 		aiUpscaled: initialAiUpscaled(initialProfile),
+		videoCodec: initialVideoCodec(initialProfile),
 		audioFormat: initialAudioFormat(initialProfile),
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
@@ -183,17 +215,19 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			if (action.mediaMode === 'audio-only') return {...draft, mediaMode: action.mediaMode, audioFormat: 'best', audioQuality: 'best'}
 			return {...draft, mediaMode: action.mediaMode, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled}
 		case 'set-goal':
-			return {...draft, goal: action.goal, resolution: smartTvCompatibleResolution(action.goal, draft.resolution), fileType: effectiveFileType(action.goal, draft.fileType)}
+			return withVideoCodec({...draft, goal: action.goal, resolution: smartTvCompatibleResolution(action.goal, draft.resolution), fileType: effectiveFileType(action.goal, draft.fileType)}, draft.videoCodec)
 		case 'set-resolution':
 			return {...draft, resolution: smartTvCompatibleResolution(draft.goal, action.resolution)}
 		case 'set-file-type':
-			return {...draft, fileType: effectiveFileType(draft.goal, action.fileType)}
+			return withVideoCodec({...draft, fileType: effectiveFileType(draft.goal, action.fileType)}, draft.videoCodec)
 		case 'set-native-audio':
 			return {...draft, nativeAudio: action.nativeAudio}
 		case 'set-hdr':
 			return {...draft, hdr: action.hdr}
 		case 'set-ai-upscaled':
 			return {...draft, aiUpscaled: action.aiUpscaled}
+		case 'set-video-codec':
+			return withVideoCodec(draft, action.videoCodec)
 		case 'set-audio-format':
 			return {...draft, audioFormat: action.audioFormat}
 		case 'set-audio-quality':
@@ -250,9 +284,11 @@ function initialSponsorBlockCategories(initialProfile: DownloadProfile | null): 
 function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['media'] {
 	if (draft.mediaMode === 'audio-only') return {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}
 	if (draft.mediaMode === 'subtitles-only') return {kind: 'subtitles-only'}
-	// Absent `hdr` follows the app setting and absent `aiUpscaled` skips, so
-	// only a choice that differs is stored.
-	const video = {goal: draft.goal, tier: draft.resolution, fileType: effectiveFileType(draft.goal, draft.fileType), ...(draft.hdr === 'default' ? {} : {hdr: {kind: 'custom' as const, preference: draft.hdr}}), ...(draft.aiUpscaled === 'allow' ? {aiUpscaled: 'allow' as const} : {})}
+	// Absent `hdr` follows the app setting, absent `aiUpscaled` skips and absent
+	// `videoCodec` keeps yt-dlp's order, so only a choice that differs is stored.
+	const fileType = effectiveFileType(draft.goal, draft.fileType)
+	const videoCodec = draft.videoCodec === 'auto' ? null : effectiveVideoCodec(draft.goal, fileType, draft.videoCodec)
+	const video = {goal: draft.goal, tier: draft.resolution, fileType, ...(draft.hdr === 'default' ? {} : {hdr: {kind: 'custom' as const, preference: draft.hdr}}), ...(draft.aiUpscaled === 'allow' ? {aiUpscaled: 'allow' as const} : {}), ...(videoCodec === null ? {} : {videoCodec})}
 	if (draft.mediaMode === 'video-audio') return {kind: draft.mediaMode, ...video, audio: {native: nativeAudioChoice(draft.nativeAudio)}}
 	return {kind: draft.mediaMode, ...video}
 }

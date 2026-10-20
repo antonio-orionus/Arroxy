@@ -1481,6 +1481,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "په ورته اندازه تر ټولو روښانه"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264، بیا VP9، بیا AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "د دې پروفایل کوډک"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9، بیا H.264، بیا AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "د دې پروفایل کوډک"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "تر ټولو لوړ فریم ریټ"
@@ -2010,6 +2026,30 @@ msgstr "{{count}} فصلونه"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "بارول…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "اتوماتیک"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "د ورته ارتفاع لرونکو سټریمونو ترمنځ کوم کوډک لومړی وټاکل شي. اتوماتیک د yt-dlp خپل ترتیب ساتي، چې AV1 ته لومړیتوب ورکوي، چې تر ټولو کوچنی دی؛ H.264 په زړو ټلویزیونونو او موبایلونو کې چلیږي."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "لومړی H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "ویډیو کوډک"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "سمارټ TV تل H.264 اخلي."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "لومړی VP9"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

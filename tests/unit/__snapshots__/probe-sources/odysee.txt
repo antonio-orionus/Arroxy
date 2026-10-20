@@ -1,0 +1,23 @@
+odysee: Odysee: an HLS ladder plus the uploader's original file, rated higher, with no codec named
+Apple Is Tracking EVERYTHING You Do On Big Sur · 745 s · card says "1280x720" · 5 formats
+
+Video (picked for Balanced 720p •):
+       SDR H.264                 SDR (codec not named)
+1080p  ·                         mp4 75.4 MiB +audio
+720p   H.264 256.7 MiB • +audio  ·
+360p   H.264 58.2 MiB +audio     ·
+144p   H.264 19.1 MiB +audio     ·
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+convert from: mp3 ← original re-encode · m4a ← original re-encode · opus ← original re-encode · wav ← original re-encode
+
+Profile picks:
+balanced: hls-2890 (1280x720, mp4) + audio none
+best-quality: original (1920x1080, mp4) + audio none
+mp4-1080: hls-4026 (1920x1080, mp4) + audio none
+audio-only: audio convert-lossy
+
+Subtitles: none
+Auto captions: none

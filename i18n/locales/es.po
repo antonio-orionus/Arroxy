@@ -1526,6 +1526,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "más nítido al mismo tamaño"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, luego VP9, luego AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "el códec de este perfil"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, luego H.264, luego AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "el códec de este perfil"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Mayor tasa de fotogramas"
@@ -2070,6 +2086,30 @@ msgstr "{{count}} capítulos"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Cargando…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Qué códec elegir primero entre streams de la misma altura. Auto mantiene el orden propio de yt-dlp, que favorece AV1, el más pequeño; H.264 se reproduce en televisores y teléfonos más antiguos."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 primero"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Códec de vídeo"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "TV inteligente siempre elige H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 primero"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

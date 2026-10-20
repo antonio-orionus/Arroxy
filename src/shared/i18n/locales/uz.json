@@ -1080,6 +1080,8 @@
 			"source": {"label": "Avval yuqori bitreytli oqimlar", "reason": "bir xil ruxsatda ko'proq tafsilot"},
 			"protocol": {"label": "Avval to'g'ridan-to'g'ri yuklab olishlar, keyin oqimli nusxalar", "reason": "bir xil tasvir, tezroq yuklanadi"},
 			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
+			"codecVp9First": {"label": "VP9, keyin H.264, keyin AV1", "reason": "shu profilning kodeki"},
+			"codecH264First": {"label": "H.264, keyin VP9, keyin AV1", "reason": "shu profilning kodeki"},
 			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
 			"aacFileType": {"label": "AAC audio", "reason": "MP4 pleyerlariga mos"},
@@ -1097,6 +1099,14 @@
 		"description": "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin.",
 		"skip": "O'tkazib yuborish",
 		"allow": "Ruxsat berish"
+	},
+	"videoCodec": {
+		"label": "Video kodek",
+		"description": "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto yt-dlp ning o'z tartibini saqlaydi, u eng kichik AV1 ni afzal ko'radi; H.264 eski televizor va telefonlarda ijro etiladi.",
+		"smartTv": "Aqlli TV doim H.264 ni oladi.",
+		"auto": "Avto",
+		"vp9": "Avval VP9",
+		"h264": "Avval H.264"
 	},
 	"hdrPreference": {"label": "HDR video", "description": "Avto rejim bu ekran HDR'ni ko'rsata olsa HDR'ni, aks holda SDR'ni tanlaydi. Oddiy ekranlarda HDR xira ko'rinadi.", "sdr": "SDR", "hdr": "HDR", "auto": "Avto"}
 }

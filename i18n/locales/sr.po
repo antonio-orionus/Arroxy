@@ -1526,6 +1526,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "најоштрије при истој величини"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, па VP9, па AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "кодек овог профила"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, па H.264, па AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "кодек овог профила"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "Највећа брзина кадрова"
@@ -2070,6 +2086,30 @@ msgstr "{{count}} поглавља"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Учитавање…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Аутоматски"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Који кодек први узети међу токовима исте висине. Аутоматски задржава сопствени редослед yt-dlp-а, који фаворизује AV1, најмањи; H.264 ради на старијим телевизорима и телефонима."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Прво H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Видео кодек"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Паметни TV увек узима H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Прво VP9"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"

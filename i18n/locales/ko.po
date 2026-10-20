@@ -1436,6 +1436,22 @@ msgctxt "selectionOrder.rank.codec.reason"
 msgid "sharpest at a given size"
 msgstr "같은 크기에서 가장 선명"
 
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, 그다음 VP9, 그다음 AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "이 프로필의 코덱"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, 그다음 H.264, 그다음 AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "이 프로필의 코덱"
+
 msgctxt "selectionOrder.rank.fps.label"
 msgid "Highest frame rate"
 msgstr "가장 높은 프레임 속도"
@@ -1950,6 +1966,30 @@ msgstr "{{count}}개 챕터"
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "불러오는 중…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "자동"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "높이가 같은 스트림 중 먼저 선택할 코덱입니다. 자동은 yt-dlp 자체 순서를 유지하며, 가장 작은 AV1을 우선하고, H.264는 오래된 TV와 휴대폰에서 재생됩니다."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 우선"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "비디오 코덱"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "스마트 TV는 항상 H.264를 선택합니다."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 우선"
 
 msgctxt "wizard.bulk.acceptedCount"
 msgid "Ready"
