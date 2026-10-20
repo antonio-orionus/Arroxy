@@ -432,3 +432,14 @@ describe('selectView — audio mode on a site with only combined files', () => {
 		expect(selectView({selectedVideoFormatId: '18', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: [combined]}).audio.extractOffered).toBe(false)
 	})
 })
+
+// A conversion's named stream stays listed even when it is a folded copy, so
+// the audio column can show its language.
+describe('selectView — a conversion source that is a folded copy', () => {
+	it('keeps it listed', () => {
+		const copy: FormatOption = {formatId: '234', label: '234', ext: 'mp4', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, audioLanguage: 'en'}
+		const named: FormatOption = {formatId: '140', label: '140', ext: 'm4a', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true, audioCodec: 'mp4a.40.2', audioLanguage: 'en'}
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192, sourceFormatId: '234'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: [copy, named]})
+		expect(view.audio.nativeRows.map(row => row.formatId)).toContain('234')
+	})
+})

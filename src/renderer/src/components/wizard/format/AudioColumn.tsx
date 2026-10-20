@@ -67,15 +67,18 @@ function isConversion(selection: AudioSelection): selection is Extract<AudioSele
 }
 
 // The native stream behind the selection: the pick itself, or a conversion's source.
-function selectedStreamId(selection: AudioSelection): string | undefined {
+// A conversion that names no stream converts the one yt-dlp picks: the
+// controls follow that one, not whichever language was shown before.
+function selectedStreamId(selection: AudioSelection, view: AudioView): string | undefined {
 	if (selection.kind === 'native') return selection.formatId
-	return isConversion(selection) ? selection.sourceFormatId : undefined
+	if (!isConversion(selection)) return undefined
+	return selection.sourceFormatId ?? selectedConversionSource(view.conversionSelection, selection.target, undefined)?.formatId
 }
 
 // Which streams the list shows: one of each DRC pair, and one language at a time.
 function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, onSelect: (sel: AudioSelection) => void): AudioStreamFilter {
 	// Which of each DRC pair the list shows; it opens on whatever the selection already is.
-	const selectedId = selectedStreamId(audioSelection)
+	const selectedId = selectedStreamId(audioSelection, view)
 	const selectedNative = selectedId === undefined ? undefined : view.nativeRows.find(row => row.formatId === selectedId)
 	const [drc, setDrc] = useState(selectedNative?.isDrc === true)
 	// A video with several languages shows one at a time; it opens on the selection's, else the source's default.

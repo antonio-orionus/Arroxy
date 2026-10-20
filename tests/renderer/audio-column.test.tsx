@@ -167,4 +167,17 @@ describe('AudioColumn', () => {
 
 		expect(screen.queryByText(/^Source is/)).not.toBeInTheDocument()
 	})
+
+	// A conversion that names no stream converts the default track: the controls show that one.
+	it("follows an unnamed conversion's own source, not the language shown before", () => {
+		const formats = FORMATS.map(format => (format.audioTrackLabel === 'English' ? {...format, isDefaultAudio: true} : format))
+		const view = (selection: AudioSelection): ReturnType<typeof selectView>['audio'] => selectView({selectedVideoFormatId: '', audioSelection: selection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats}).audio
+		const spanish: AudioSelection = {kind: 'native', formatId: '251-es'}
+		const {rerender} = render(<AudioColumn view={view(spanish)} mode="audio-only" audioSelection={spanish} onSelect={vi.fn()} />)
+		expect(screen.getByTestId('audio-language')).toHaveTextContent('Spanish')
+
+		const conversion: AudioSelection = {kind: 'convert-lossy', target: 'opus', bitrateKbps: 192}
+		rerender(<AudioColumn view={view(conversion)} mode="audio-only" audioSelection={conversion} onSelect={vi.fn()} />)
+		expect(screen.getByTestId('audio-language')).toHaveTextContent('English')
+	})
 })

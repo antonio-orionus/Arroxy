@@ -472,7 +472,9 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...lineOf(variants[0]), variants: variants.toSorted(byCodec)}))
 		// Size-only files (no tier of their own) follow the tiers, the biggest first.
 		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name) || (b.variants[0]?.filesize ?? 0) - (a.variants[0]?.filesize ?? 0))
-	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId]).map(format => nativeAudioRow(format, profileAudioId, scale))
+	// A conversion's named source stays listed too, even as a folded copy.
+	const conversionSourceId = audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless' ? (audioSelection.sourceFormatId ?? null) : null
+	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId]).map(format => nativeAudioRow(format, profileAudioId, scale))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)
