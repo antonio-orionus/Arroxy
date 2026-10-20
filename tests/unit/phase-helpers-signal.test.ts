@@ -6,7 +6,7 @@ import {AsyncStack, type ActiveJob, type PhaseContext} from '@main/services/phas
 function makeActive(): ActiveJob {
 	return {
 		job: {id: 'job-1', url: 'https://example.com/v', outputDir: '/downloads', status: 'running', createdAt: '2024-01-01T00:00:00.000Z', updatedAt: '2024-01-01T00:00:00.000Z'},
-		input: {url: 'https://example.com/v', outputDir: '/downloads', job: {kind: 'subtitle-only', extractor: 'generic', extractorKey: 'Generic', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}},
+		input: {url: 'https://example.com/v', outputDir: '/downloads', job: {kind: 'single-format', extractor: 'generic', extractorKey: 'Generic', formatId: '18', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}},
 		controller: new AbortController(),
 		get signal(): AbortSignal {
 			return this.controller.signal
