@@ -183,7 +183,7 @@ describe('UpdateBanner integration in App', () => {
 		expect(installMock).toHaveBeenCalledOnce()
 	})
 
-	it('Download DMG ↗ calls shell.openExternal with GitHub releases URL', async () => {
+	it('Download DMG ↗ calls shell.openExternal with the website URL', async () => {
 		let capturedListener: UpdateListener | null = null
 		const onUpdateAvailable = (listener: UpdateListener) => {
 			capturedListener = listener
@@ -204,7 +204,7 @@ describe('UpdateBanner integration in App', () => {
 			fireEvent.click(screen.getByRole('button', {name: 'Download DMG ↗'}))
 		})
 
-		expect(openExternal).toHaveBeenCalledWith('https://orionus.dev/arroxy/')
+		expect(openExternal).toHaveBeenCalledWith('https://arroxy.com/')
 	})
 
 	it('Download DMG ↗ dismisses the banner after clicking', async () => {

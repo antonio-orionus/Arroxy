@@ -92,7 +92,7 @@ cat >"$site/arroxy.flatpakrepo" <<EOF
 [Flatpak Repo]
 Title=Arroxy
 Url=$url/repo/
-Homepage=https://orionus.dev/arroxy/
+Homepage=https://arroxy.com/
 Comment=Arroxy's own Flatpak repository
 Description=Updates for the Arroxy Flatpak, published with every stable release.
 GPGKey=$gpg_key_b64
@@ -105,7 +105,7 @@ Name=$APP_ID
 Branch=$BRANCH
 Url=$url/repo/
 SuggestRemoteName=arroxy
-Homepage=https://orionus.dev/arroxy/
+Homepage=https://arroxy.com/
 RuntimeRepo=$FLATHUB_REPO
 IsRuntime=false
 GPGKey=$gpg_key_b64
@@ -118,7 +118,7 @@ cat >"$site/index.html" <<EOF
 <h1>Arroxy Flatpak repository</h1>
 <p>Install once, then <code>flatpak update</code> keeps Arroxy current:</p>
 <pre>flatpak install --user $url/$APP_ID.flatpakref</pre>
-<p><a href="$APP_ID.flatpakref">$APP_ID.flatpakref</a> · <a href="arroxy.flatpakrepo">arroxy.flatpakrepo</a> · <a href="https://orionus.dev/arroxy/">orionus.dev/arroxy</a></p>
+<p><a href="$APP_ID.flatpakref">$APP_ID.flatpakref</a> · <a href="arroxy.flatpakrepo">arroxy.flatpakrepo</a> · <a href="https://arroxy.com/">arroxy.com</a></p>
 EOF
 
 if [[ -n $bundle ]]; then

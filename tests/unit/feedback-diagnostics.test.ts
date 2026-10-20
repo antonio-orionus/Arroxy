@@ -63,7 +63,7 @@ describe('FeedbackDiagnostics', () => {
 		}
 	})
 
-	it('posts to the site subpath endpoint by default', async () => {
+	it('posts to the orionus.dev endpoint by default', async () => {
 		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-feedback-diagnostics-default-'))
 		const logPath = path.join(tempDir, 'main.log')
 		await fs.writeFile(logPath, 'diagnostic log\n')

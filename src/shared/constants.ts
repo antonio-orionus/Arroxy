@@ -4,9 +4,9 @@ import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
 export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 
-// Public landing site. The old host (arroxy.orionus.dev) 301s here, so links in
-// earlier releases keep working.
-export const WEBSITE_URL = 'https://orionus.dev/arroxy/'
+// Public landing site. Links in earlier releases point at orionus.dev/arroxy/
+// (or the older arroxy.orionus.dev), which keep forwarding visitors.
+export const WEBSITE_URL = 'https://arroxy.com/'
 
 // GitHub Releases; one release's page is `${RELEASES_URL}/tag/v<version>`.
 export const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases'
