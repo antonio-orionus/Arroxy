@@ -73,6 +73,7 @@
 		"knip:test-only": "node scripts/find-test-only-exports.mjs",
 		"check:loc": "node scripts/check-ts-max-loc.mjs",
 		"check:pins": "node scripts/check-dependency-pins.mjs",
+		"check:filename-parity": "bun scripts/check-filename-parity.ts",
 		"check:donation-addresses": "node scripts/check-donation-addresses.mjs",
 		"deps:vuln": "bun scripts/depsVuln.ts",
 		"deps:vuln:strict": "bun scripts/depsVuln.ts --threshold moderate",
