@@ -301,6 +301,22 @@ describe('DownloadProfilesHome profiles tab reordering', () => {
 		expect(screen.getByText('Dropped Best available in position 2 of 13.')).toBeInTheDocument()
 	})
 
+	// The pick-up render can outlast the next key press; that key must still move the card.
+	it('moves a profile by an arrow pressed before the pick-up has settled', async () => {
+		stubCardGrid()
+		render(<DownloadProfilesHome />)
+
+		const grip = screen.getByRole('button', {name: 'Move Best available'})
+		grip.focus()
+		fireEvent.keyDown(grip, {code: 'Space', key: ' '})
+		fireEvent.keyDown(grip, {code: 'ArrowRight', key: 'ArrowRight'})
+		await settle()
+		fireEvent.keyDown(grip, {code: 'Space', key: ' '})
+
+		await waitFor(() => expect(cardIds().slice(0, 2)).toEqual(['best-2160', 'best-quality']))
+		expect(screen.getByText('Dropped Best available in position 2 of 13.')).toBeInTheDocument()
+	})
+
 	it('picks nothing up when Space is pressed on a card button other than the grip', async () => {
 		stubCardGrid()
 		render(<DownloadProfilesHome />)
