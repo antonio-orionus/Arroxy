@@ -12,7 +12,7 @@ import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
-import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl} from '@main/services/heartbeat.js'
+import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {installChannelArg, systemLanguageArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
@@ -384,7 +384,7 @@ if (hasSingleInstanceLock) {
 				send: counterscaleSender(collectorUrl, HEARTBEAT_SITE_ID),
 				now: () => new Date(),
 				isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
-				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: app.getPreferredSystemLanguages()[0] ?? app.getLocale()}),
+				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: osLocale(app.getPreferredSystemLanguages(), app.getLocale())}),
 				history: () => {
 					const {firstHeartbeatDay, lastHeartbeatDay} = settingsStore.getSync().common
 					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}

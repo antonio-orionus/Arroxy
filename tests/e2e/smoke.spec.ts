@@ -94,15 +94,34 @@ test('pre-ready log lines go to the ELECTRON_USER_DATA profile log', async () =>
 // resolves to locales Chromium ships, so an OS set to Khmer reads as en-US. The
 // first launch must follow the OS's own preference list instead. macOS takes a
 // per-process -AppleLanguages override; Linux reads LANGUAGE through GLib.
-test('first launch follows an OS language Chromium ships no locale for', async () => {
+function khmerOs(): {args?: string[]; env?: Record<string, string>} {
+	return process.platform === 'darwin' ? {args: ['-AppleLanguages', '(km-KH, en-US)']} : {env: {LANGUAGE: 'km_KH:en_US'}}
+}
+
+test.describe('system language', () => {
 	test.skip(process.platform === 'win32', 'Windows has no per-process override for the preferred UI languages')
-	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-system-language-'))
-	const app = await launchApp(userDataDir, process.platform === 'darwin' ? {args: ['-AppleLanguages', '(km-KH, en-US)']} : {env: {LANGUAGE: 'km_KH:en_US'}})
-	const page = await app.firstWindow()
 
-	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
-	await expect(page.locator('html')).toHaveAttribute('lang', 'km')
-	expect(await app.evaluate(({app: electronApp}) => electronApp.getLocale())).toBe('en-US')
+	test('first launch follows an OS language Chromium ships no locale for', async () => {
+		const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-system-language-'))
+		const app = await launchApp(userDataDir, khmerOs())
+		const page = await app.firstWindow()
 
-	await app.close()
+		await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
+		await expect(page.locator('html')).toHaveAttribute('lang', 'km')
+
+		await app.close()
+	})
+
+	test('a saved language wins over the OS language', async () => {
+		const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-saved-language-'))
+		fs.writeFileSync(path.join(userDataDir, 'settings.json'), JSON.stringify({common: {language: 'de'}}), 'utf8')
+		const app = await launchApp(userDataDir, khmerOs())
+		const page = await app.firstWindow()
+
+		await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
+		await expect(page.locator('html')).toHaveAttribute('lang', 'de')
+		expect(await page.evaluate(() => window.runtimeInfo.systemLanguage)).toBe('km')
+
+		await app.close()
+	})
 })

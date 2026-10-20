@@ -1,8 +1,19 @@
 // @vitest-environment node
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {buildHeartbeatPageview, counterscaleSender, createHeartbeat, HEARTBEAT_OFF, HEARTBEAT_URL, heartbeatUrl, installAge, osLabel, type HeartbeatHistory, type HeartbeatSnapshot} from '@main/services/heartbeat.js'
+import {buildHeartbeatPageview, counterscaleSender, createHeartbeat, HEARTBEAT_OFF, HEARTBEAT_URL, heartbeatUrl, installAge, osLabel, osLocale, type HeartbeatHistory, type HeartbeatSnapshot} from '@main/services/heartbeat.js'
 
 const SNAPSHOT: HeartbeatSnapshot = {appVersion: '0.5.1', platform: 'darwin', arch: 'arm64', osVersion: '26.0.1', installChannel: 'homebrew', appLocale: 'uk', osLocale: 'en-US'}
+
+describe('osLocale', () => {
+	it("reports the OS's most preferred language as the OS names it", () => {
+		expect(osLocale(['km-KH', 'en-US'], 'en-US')).toBe('km-KH')
+		expect(osLocale(['nl-NL', 'de-DE'], 'nl')).toBe('nl-NL')
+	})
+
+	it("falls back to Chromium's locale when the OS lists no language", () => {
+		expect(osLocale([], 'en-US')).toBe('en-US')
+	})
+})
 
 describe('osLabel', () => {
 	it('names the OS release without kernel or build noise, and without spaces', () => {
