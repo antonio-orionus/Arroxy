@@ -119,9 +119,58 @@ const rank = (f: Finding): number => SEVERITIES.indexOf(f.severity) - f.confiden
 // Each tool checks every report of the other, one by one: a model re-reading
 // its own claim tends to share the blind spot that produced it. Both tools
 // flagging the same lines is not a shortcut: overlapping locations do not prove
-// they made the same claim.
-export function verifierFor(c: Candidate): Engine {
-	return c.engine === 'claude' ? 'codex' : 'claude'
+// they made the same claim. With Codex unavailable Claude checks its own
+// reports in a fresh pass, the weaker substitute the report says it is.
+export function verifierFor(c: Candidate, codexAvailable: boolean): Engine {
+	return c.engine === 'claude' && codexAvailable ? 'codex' : 'claude'
+}
+
+export interface Checked {
+	verdict: Verdict
+	by: Engine
+}
+
+// Why Codex took no part. `missing` and `auth` come from the first failed run;
+// anything else a failed Codex run prints is a real reviewer failure.
+export type CodexUnavailableReason = 'usage-limit' | 'auth' | 'missing'
+
+export interface CodexUnavailability {
+	reason: CodexUnavailableReason
+	detail: string
+}
+
+const CODEX_UNAVAILABLE: readonly (readonly [CodexUnavailableReason, RegExp])[] = [
+	['usage-limit', /usage limit|exceeded your (?:current )?quota|insufficient[_ ]quota/i],
+	['auth', /not logged in|codex login|unauthori[sz]ed|authentication (?:failed|required|error)|sign in|log in/i]
+]
+
+// Reads what a failed `codex exec` printed. Only Codex's own "ERROR:" lines
+// count: the rest of the output echoes the prompt (commit messages, diffs) and
+// MCP transport noise, either of which can mention a usage limit or a login.
+export function classifyCodexFailure(output: string, spawnErrorCode?: string): CodexUnavailability | null {
+	if (spawnErrorCode === 'ENOENT') return {reason: 'missing', detail: 'the codex binary was not found on PATH'}
+	const errors = output.split(/\r?\n/).flatMap(l => (l.startsWith('ERROR:') ? [l.slice('ERROR:'.length).trim()] : []))
+	for (const [reason, pattern] of CODEX_UNAVAILABLE) {
+		const line = errors.find(l => pattern.test(l))
+		if (line !== undefined) return {reason, detail: line}
+	}
+	return null
+}
+
+const UNAVAILABLE_LABEL: Record<CodexUnavailableReason, string> = {'usage-limit': 'usage limit', auth: 'not logged in', missing: 'not installed'}
+
+// Who actually reviewed and checked the change, for the report and the PR body.
+export interface Coverage {
+	reviewers: readonly string[]
+	verifiers: readonly Engine[]
+	codexSkipped: CodexUnavailability | null
+}
+
+export function coverageSummary({reviewers, verifiers, codexSkipped}: Coverage): string {
+	const skipped = codexSkipped ? `Codex skipped (${UNAVAILABLE_LABEL[codexSkipped.reason]}: ${codexSkipped.detail}). ` : ''
+	if (reviewers.length === 0) return `${skipped}No reviewer completed, so nothing reviewed this change.`
+	const checkers = verifiers.length === 0 ? 'no findings needed checking' : codexSkipped ? 'findings checked in a second Claude pass, not by Codex, so a blind spot the first pass had may remain' : `findings cross-checked by ${verifiers.join(' and ')}`
+	return `${skipped}Reviewed by ${reviewers.join(', ')}; ${checkers}.`
 }
 
 export type Status = Verdict['verdict']
@@ -130,7 +179,8 @@ export type Action = 'fix' | 'backlog'
 export interface ResolvedCandidate extends Candidate {
 	status: Status
 	reason: string
-	verifiedBy: Engine
+	// null: no verdict came back.
+	verifiedBy: Engine | null
 	action: Action | null
 	// Reviewers of the other tool that flagged overlapping lines; shown, never trusted.
 	alsoFlaggedBy: string[]
@@ -141,14 +191,15 @@ const touchesChange = (f: Finding, changed: ChangedRanges): boolean => (changed.
 
 // A bug the change introduced, or one sitting in the lines it changed, belongs
 // to this change; anything else is a pre-existing bug for the backlog.
-export function resolveCandidates(all: readonly Candidate[], verdicts: ReadonlyMap<string, Verdict>, changed: ChangedRanges): ResolvedCandidate[] {
+export function resolveCandidates(all: readonly Candidate[], checks: ReadonlyMap<string, Checked>, changed: ChangedRanges): ResolvedCandidate[] {
 	return all.map(c => {
-		const verdict = verdicts.get(c.id)
+		const check = checks.get(c.id)
+		const verdict = check?.verdict
 		const status: Status = verdict?.verdict ?? 'uncertain'
 		const introduced = verdict?.introduced ?? c.introduced
 		const action: Action | null = status === 'refuted' ? null : introduced || touchesChange(c, changed) ? 'fix' : 'backlog'
 		const alsoFlaggedBy = [...new Set(all.filter(o => o.engine !== c.engine && overlap(o, c)).map(o => `${o.engine}:${o.lane}`))]
-		return {...c, introduced, status, reason: verdict?.reason ?? 'The verifier returned no verdict.', verifiedBy: verifierFor(c), action, alsoFlaggedBy, corroborated: alsoFlaggedBy.length > 0}
+		return {...c, introduced, status, reason: verdict?.reason ?? 'The verifier returned no verdict.', verifiedBy: check?.by ?? null, action, alsoFlaggedBy, corroborated: alsoFlaggedBy.length > 0}
 	})
 }
 
@@ -160,7 +211,8 @@ export const needsAction = (resolved: readonly ResolvedCandidate[]): boolean => 
 function renderEntry(r: ResolvedCandidate): string {
 	const where = `${r.file}:${r.lineStart}${r.lineEnd === r.lineStart ? '' : `-${r.lineEnd}`}`
 	const also = r.alsoFlaggedBy.length === 0 ? '' : `; also flagged by ${r.alsoFlaggedBy.join(', ')}`
-	return [`- **[${r.severity}] ${r.title}** — \`${where}\` (${r.engine}:${r.lane}; ${r.status} by ${r.verifiedBy}${also})`, `  ${r.body.replaceAll('\n', '\n  ')}`, `  _Check:_ ${r.reason}`].join('\n')
+	const by = r.verifiedBy === null ? 'not checked' : r.verifiedBy === r.engine ? `${r.status} by a second ${r.engine} pass` : `${r.status} by ${r.verifiedBy}`
+	return [`- **[${r.severity}] ${r.title}** — \`${where}\` (${r.engine}:${r.lane}; ${by}${also})`, `  ${r.body.replaceAll('\n', '\n  ')}`, `  _Check:_ ${r.reason}`].join('\n')
 }
 
 function section(title: string, entries: readonly ResolvedCandidate[]): string {
@@ -173,14 +225,17 @@ export interface ReportInput {
 	head: string
 	resolved: readonly ResolvedCandidate[]
 	failures: readonly string[]
+	coverage: Coverage
 }
 
-export function renderReport({base, head, resolved, failures}: ReportInput): string {
+export function renderReport({base, head, resolved, failures, coverage}: ReportInput): string {
 	const confirmed = resolved.filter(r => r.status === 'confirmed')
 	return [
 		`# Dual review of ${base}..${head}`,
 		'',
-		failures.length === 0 ? 'Every reviewer finished.' : `**Incomplete: some reviewers failed, so coverage is partial.**\n\n${failures.map(f => `- ${f}`).join('\n')}`,
+		`**Review coverage:** ${coverageSummary(coverage)}`,
+		'',
+		failures.length === 0 ? 'Every reviewer that ran finished.' : `**Incomplete: some reviewers failed, so coverage is partial.**\n\n${failures.map(f => `- ${f}`).join('\n')}`,
 		'',
 		section(
 			'Fix in this change',
