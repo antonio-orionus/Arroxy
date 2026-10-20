@@ -10,11 +10,12 @@ import {buildProbeErrorExperience, type ProbeErrorExperience} from './wizard/pro
 import type {QuickDownloadFailure, QuickDownloadFailureMessageKey} from './wizard/quickDownloadFeedback.js'
 
 export type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'Mixed URL' | 'URL' | 'Unsupported URL' | 'Unknown URL'
+export type ActiveProfileDestinationDetailKey = 'wizard.url.profile.destinationDetail.global' | 'wizard.url.profile.destinationDetail.globalSubfolder' | 'wizard.url.profile.destinationDetail.override' | 'wizard.url.profile.destinationDetail.overrideSubfolder'
 export type QuickDownloadFailureMessage = {kind: 'i18n'; key: QuickDownloadFailureMessageKey} | {kind: 'text'; text: string} | {kind: 'bulk-probe'; error: ProbeError}
 
 export interface DownloadHomeView {
 	activeProfileDestination: string
-	activeProfileDestinationDetail: string
+	activeProfileDestinationDetailKey: ActiveProfileDestinationDetailKey
 	activeProfile: DownloadProfile
 	chooseWizardFolder: ReturnType<typeof useAppStore.getState>['chooseWizardFolder']
 	commonPaths: ReturnType<typeof useAppStore.getState>['commonPaths']
@@ -74,9 +75,9 @@ function detectUrlType(value: string): DownloadInputType | null {
 	}
 }
 
-function activeProfileDestinationDetail(profile: DownloadProfile): string {
-	const source = profile.output.kind === 'fixed' ? 'profile override' : 'global destination'
-	return profile.subfolder.enabled ? `Using ${source} + profile subfolder` : `Using ${source}`
+function activeProfileDestinationDetailKey(profile: DownloadProfile): ActiveProfileDestinationDetailKey {
+	if (profile.output.kind === 'fixed') return profile.subfolder.enabled ? 'wizard.url.profile.destinationDetail.overrideSubfolder' : 'wizard.url.profile.destinationDetail.override'
+	return profile.subfolder.enabled ? 'wizard.url.profile.destinationDetail.globalSubfolder' : 'wizard.url.profile.destinationDetail.global'
 }
 
 export function useDownloadHomeView(): DownloadHomeView {
@@ -138,7 +139,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 		...state,
 		activeProfile,
 		activeProfileDestination,
-		activeProfileDestinationDetail: activeProfileDestinationDetail(activeProfile),
+		activeProfileDestinationDetailKey: activeProfileDestinationDetailKey(activeProfile),
 		commonPaths: commonSettings?.commonPaths,
 		globalDestinationRoot,
 		hasInput,

@@ -4304,9 +4304,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "အမြန်ဒေါင်းလုဒ်က ရရှိထားသော အရာများကို {{profileName}} ဖြင့် တန်းစီထည့်သည်။ အပြန်အလှန်ဒေါင်းလုဒ်ဖြင့် အရင်စစ်ကြည့်နိုင်သည် သို့မဟုတ် ရွေးချယ်နိုင်သည်။"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "လင့်ခ်တစ်ခုထည့်ပြီး Arroxy ကို ဆွဲယူခိုင်းလိုက်ပါ ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "ဤလင့်ခ်သည် စုစည်းမှုတစ်ခုအတွင်းရှိ ဗီဒီယိုတစ်ခုကို ညွှန်ပြနေသည်။ စစ်ဆေးမီ ဘယ်ဟာကို လိုချင်သလဲဆိုတာ Arroxy က မေးပါမည်။"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} သည် ဤလင့်ခ်ကို ဖတ်ပြီး {{profileName}} ကို အသုံးပြုနေသည်။"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "တန်းစီစာရင်းက ဤဒေါင်းလုဒ်ကို ကိုင်တွယ်နေသည်။ အလုပ်လုပ်နေစဉ် အခြားလင့်ခ်တစ်ခုကို ကူးထည့်နိုင်သည်။"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "အမြန်ဒေါင်းလုဒ်က {{profileName}} ဖြင့် ဒေါင်းလုဒ်တစ်ခု စတင်သည်။ တစ်ခါတည်း ပြောင်းလိုပါက အပြန်အလှန်ဒေါင်းလုဒ်ကို သုံးပါ။"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4552,6 +4572,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "အများသုံး သိမ်းဆည်းရာနေရာ ပြောင်းပါ"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "အများသုံး သိမ်းဆည်းရာနေရာကို အသုံးပြုနေသည်"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "အများသုံး သိမ်းဆည်းရာနေရာ + ပရိုဖိုင် အောက်ဖိုလ်ဒါကို အသုံးပြုနေသည်"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "ပရိုဖိုင် အစားထိုးမှုကို အသုံးပြုနေသည်"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "ပရိုဖိုင် အစားထိုးမှု + ပရိုဖိုင် အောက်ဖိုလ်ဒါကို အသုံးပြုနေသည်"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "သိမ်းဆည်းရာနေရာ"
@@ -4639,6 +4675,30 @@ msgstr "ပရိုဖိုင်ကို ဆွဲ၍ ရွှေ့ပါ�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "ပြန်သတ်မှတ်"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC အသံ"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "အကောင်းဆုံး အသံ"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "အကောင်းဆုံး ဗီဒီယို"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "အသံမပါ"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "စာတန်းထိုးသာ"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV အသံ"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

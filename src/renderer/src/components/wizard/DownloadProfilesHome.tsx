@@ -38,44 +38,34 @@ function browserMockScenarioId(): string | null {
 	}
 }
 
-function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {
-	key: string
-	title: string
-	body: string
-	points: string[]
-	image: string
-} {
+// What the mascot says under the heading: what Quick Download will do with the
+// link in the field, or how it is getting on.
+function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {body: string; image: string} {
 	if (quickDownloadStatus === 'preparing') {
-		return {key: 'preparing', title: t('wizard.url.quickPreparing'), body: `${t('wizard.url.quickDownload')} is reading this link and applying ${activeProfileName}.`, points: ['No wizard steps', 'Queued when ready'], image: downloadingImg}
+		return {body: t('wizard.url.mascotPreparing', {quickDownload: t('wizard.url.quickDownload'), profileName: activeProfileName}), image: downloadingImg}
 	}
 
 	if (quickDownloadStatus === 'queued') {
-		return {key: 'queued', title: t('wizard.url.quickQueued'), body: 'The queue is handling this download. You can paste another link while it works.', points: ['Queue keeps order', 'Profile applied'], image: downloadingImg}
+		return {body: t('wizard.url.mascotQueued'), image: downloadingImg}
 	}
 
 	if (!hasInput) {
-		return {
-			key: hasActiveDownloads ? 'idle-running' : 'idle',
-			title: hasActiveDownloads ? 'Downloads are running' : 'Tip',
-			body: hasActiveDownloads ? t('wizard.url.mascotBusy') : t('wizard.url.mascotIdle'),
-			points: ['Quick uses the active profile', 'Interactive reviews first', 'Bulk handles lists'],
-			image: hasActiveDownloads ? downloadingImg : hiImg
-		}
+		return hasActiveDownloads ? {body: t('wizard.url.mascotBusy'), image: downloadingImg} : {body: t('wizard.url.mascotIdle'), image: hiImg}
 	}
 
 	if (inputType === 'Playlist URL' || inputType === 'Channel URL' || inputType === 'Search URL') {
-		return {key: `collection-${inputType}`, title: inputType, body: `Quick queues loaded items with ${activeProfileName}. Interactive lets you inspect or select items first.`, points: ['Quick queues loaded items', 'Interactive supports selection', 'Profile rules apply'], image: hiImg}
+		return {body: t('wizard.url.mascotCollection', {profileName: activeProfileName}), image: hiImg}
 	}
 
 	if (inputType === 'Mixed URL') {
-		return {key: 'mixed', title: 'Mixed URL', body: 'This link points at one video inside a collection. Arroxy will ask which one you want before probing.', points: ['Choose video or collection', 'No silent playlist choice'], image: hiImg}
+		return {body: t('wizard.url.mascotMixed'), image: hiImg}
 	}
 
 	if (inputType === 'Single URL') {
-		return {key: 'single', title: 'Single URL', body: `Quick starts one download with ${activeProfileName}. Use Interactive for one-off changes.`, points: ['Quick is fastest', 'Interactive can override options'], image: hiImg}
+		return {body: t('wizard.url.mascotSingle', {profileName: activeProfileName}), image: hiImg}
 	}
 
-	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
+	return {body: t('wizard.url.quickSingleOnly'), image: hiImg}
 }
 
 // How wide each tab may grow. The URL tab is a short form, so it keeps the
@@ -171,7 +161,7 @@ interface DownloadTabPanelProps {
 // it in the wizard, or open the bulk dialog.
 function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
-	const {activeProfileDestination, activeProfileDestinationDetail, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
+	const {activeProfileDestination, activeProfileDestinationDetailKey, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
 	const pickProfileRef = (ref: DownloadProfileRef): void => {
 		void setActiveDownloadProfile(ref)
 	}
@@ -187,7 +177,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 				<QuickProfileControl
 					defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
 					destination={activeProfileDestination}
-					destinationDetail={activeProfileDestinationDetail}
+					destinationDetail={t(activeProfileDestinationDetailKey)}
 					disabled={!urlReady}
 					onChangeGlobalDestination={() => void chooseWizardFolder()}
 					onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}

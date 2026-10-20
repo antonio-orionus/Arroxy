@@ -5079,9 +5079,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "يضيف التنزيل السريع العناصر المحمّلة إلى قائمة الانتظار باستخدام {{profileName}}. أما التنزيل التفاعلي فيتيح لك فحص العناصر أو تحديدها أولًا."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "أرسل رابطًا ودع Arroxy يسحبه ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "يشير هذا الرابط إلى فيديو واحد داخل مجموعة. سيسألك Arroxy عن الفيديو الذي تريده قبل الفحص."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "يقرأ {{quickDownload}} هذا الرابط ويطبّق {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "قائمة الانتظار تتولى هذا التنزيل. يمكنك لصق رابط آخر أثناء ذلك."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "يبدأ التنزيل السريع تنزيلًا واحدًا باستخدام {{profileName}}. استخدم التنزيل التفاعلي لإجراء تغييرات لمرة واحدة."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5327,6 +5347,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "تغيير وجهة الحفظ العامة"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "استخدام الوجهة العامة"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "استخدام الوجهة العامة + المجلد الفرعي للملف"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "استخدام تجاوز الملف"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "استخدام تجاوز الملف + المجلد الفرعي للملف"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "الوجهة"
@@ -5414,6 +5450,30 @@ msgstr "اسحب ملفًا لنقله. تتبع كل قوائم الملفات 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "إعادة ضبط"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "صوت AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "أفضل صوت"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "أفضل فيديو"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "بدون صوت"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "ترجمات فقط"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "صوت WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

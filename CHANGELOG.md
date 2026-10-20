@@ -8,13 +8,12 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## Unreleased
+## 0.7.3
 
 ## Fixes
 
+- The URL tab's hints, profile summary and save location show in your language instead of English.
 - On first launch, Arroxy opens in your system language even when it is Khmer, Burmese, Uzbek, Pashto or Oromo, instead of English. If you prefer a language Arroxy lacks, it takes the next one in your system's list.
-
----
 
 ## 0.7.2
 

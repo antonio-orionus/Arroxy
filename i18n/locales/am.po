@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "በዳራ ዳውንሎድ እያደረጉ ነው… ብዙ ስራ አሰራ 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "ፈጣን ማውረድ የተጫኑትን ንጥሎች {{profileName}} በመጠቀም ወደ ወረፋ ያስገባል። በይነተገናኝ ማውረድ መጀመሪያ ንጥሎችን እንዲመረምሩ ወይም እንዲመርጡ ያስችልዎታል።"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "አገናኝ ጣል፣ Arroxy እንዲያወርደው ተወው ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "ይህ አገናኝ በስብስብ ውስጥ ያለ አንድ ቪዲዮ ያመለክታል። Arroxy ከመመርመሩ በፊት የትኛውን እንደሚፈልጉ ይጠይቃል።"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} ይህን አገናኝ እያነበበ {{profileName}} እየተጠቀመ ነው።"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "ወረፋው ይህን ማውረድ እያስተናገደ ነው። እስኪጨርስ ድረስ ሌላ አገናኝ መለጠፍ ይችላሉ።"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "ፈጣን ማውረድ {{profileName}} በመጠቀም አንድ ማውረድ ይጀምራል። ለአንድ ጊዜ ለውጦች በይነተገናኝ ማውረድ ይጠቀሙ።"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "አጠቃላይ መዳረሻ ቀይር"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "አጠቃላይ መዳረሻ በመጠቀም"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "አጠቃላይ መዳረሻ + የመገለጫ ንዑስ አቃፊ በመጠቀም"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "የመገለጫ ተሻሪ በመጠቀም"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "የመገለጫ ተሻሪ + የመገለጫ ንዑስ አቃፊ በመጠቀም"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "መዳረሻ"
@@ -4794,6 +4830,30 @@ msgstr "መገለጫን ለማንቀሳቀስ ይጎትቱት። እያንዳን
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "ዳግም አስጀምር"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC ድምጽ"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "ምርጥ ድምጽ"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "ምርጥ ቪዲዮ"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "ምንም ድምጽ የለም"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "ንዑስ ርዕሶች ብቻ"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV ድምጽ"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

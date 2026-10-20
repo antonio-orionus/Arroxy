@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "فوری ڈاؤن لوڈ لوڈ ہو چکی آئٹمز کو {{profileName}} کے ساتھ قطار میں لگاتا ہے۔ انٹرایکٹو ڈاؤن لوڈ آپ کو پہلے آئٹمز دیکھنے یا منتخب کرنے دیتا ہے۔"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "ایک لنک ڈالیں اور Arroxy کو اسے کھینچ لانے دیں ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "یہ لنک کسی کلیکشن کی ایک ویڈیو کی طرف جاتا ہے۔ جانچ سے پہلے Arroxy پوچھے گا کہ آپ کون سی چاہتے ہیں۔"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} یہ لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "قطار یہ ڈاؤن لوڈ سنبھال رہی ہے۔ اس دوران آپ دوسرا لنک پیسٹ کر سکتے ہیں۔"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "فوری ڈاؤن لوڈ {{profileName}} کے ساتھ ایک ڈاؤن لوڈ شروع کرتا ہے۔ ایک بار کی تبدیلیوں کے لیے انٹرایکٹو ڈاؤن لوڈ استعمال کریں۔"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "عالمی منزل تبدیل کریں"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "عالمی منزل استعمال ہو رہی ہے"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "عالمی منزل + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "پروفائل اووررائیڈ استعمال ہو رہا ہے"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "پروفائل اووررائیڈ + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "منزل"
@@ -4794,6 +4830,30 @@ msgstr "کسی پروفائل کو منتقل کرنے کے لیے اسے گھس
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "ری سیٹ کریں"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC آڈیو"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "بہترین آڈیو"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "بہترین ویڈیو"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "کوئی آڈیو نہیں"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "صرف سب ٹائٹلز"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV آڈیو"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

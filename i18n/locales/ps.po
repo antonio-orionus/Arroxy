@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډیرو کارونو سره معامله وکړم 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "چټک ډاونلوډ بار شوي توکي د {{profileName}} سره کتار ته اچوي. تعاملي ډاونلوډ تاسو ته اجازه درکوي چې لومړی توکي وګورئ یا وټاکئ."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "لینک واچوئ او Arroxy پرېږدئ چې یې راکښته کړي ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "دا لینک په ټولګه کې یو ویډیو ته اشاره کوي. Arroxy به د تحلیل دمخه وپوښتي چې کوم یو غواړئ."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} دا لینک لولي او {{profileName}} پلي کوي."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "کتار دا ډاونلوډ پروسس کوي. کله چې کار کوي، تاسو کولی شئ بل لینک پیسټ کړئ."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "چټک ډاونلوډ د {{profileName}} سره یو ډاونلوډ پیلوي. د یو ځل بدلونونو لپاره تعاملي ډاونلوډ وکاروئ."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "عمومي موخه بدله کړئ"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "عمومي موخه کاروي"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "عمومي موخه + د پروفایل فرعي فولډر کاروي"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "د پروفایل بدیل کاروي"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "د پروفایل بدیل + د پروفایل فرعي فولډر کاروي"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "موخه"
@@ -4794,6 +4830,30 @@ msgstr "د خوځولو لپاره پروفایل راکاږئ. د پروفای�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "بیا تنظیمول"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC غږ"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "غوره غږ"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "غوره ویډیو"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "غږ نشته"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "یوازې ژباړلیکونه"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV غږ"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

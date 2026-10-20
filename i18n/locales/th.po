@@ -4304,9 +4304,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "กำลังดาวน์โหลดในเบื้องหลัง… ฉันทำหลายอย่างพร้อมกันได้ 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "ดาวน์โหลดด่วนจะนำรายการที่โหลดแล้วเข้าคิวด้วย {{profileName}} ส่วนดาวน์โหลดแบบโต้ตอบให้คุณตรวจดูหรือเลือกรายการก่อน"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "ใส่ลิงก์แล้วปล่อยให้ Arroxy ดาวน์โหลด ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "ลิงก์นี้ชี้ไปที่วิดีโอหนึ่งรายการในคอลเลกชัน Arroxy จะถามว่าคุณต้องการรายการไหนก่อนตรวจสอบ"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} กำลังอ่านลิงก์นี้และใช้ {{profileName}}"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "คิวกำลังจัดการดาวน์โหลดนี้ คุณวางลิงก์อื่นได้ระหว่างที่รอ"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "ดาวน์โหลดด่วนจะเริ่มดาวน์โหลดหนึ่งรายการด้วย {{profileName}} ใช้ดาวน์โหลดแบบโต้ตอบหากต้องการปรับเฉพาะครั้ง"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4552,6 +4572,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "เปลี่ยนปลายทางส่วนกลาง"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "ใช้ปลายทางส่วนกลาง"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "ใช้ปลายทางส่วนกลาง + โฟลเดอร์ย่อยของโปรไฟล์"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "ใช้การแทนที่ของโปรไฟล์"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "ใช้การแทนที่ของโปรไฟล์ + โฟลเดอร์ย่อยของโปรไฟล์"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "ปลายทาง"
@@ -4639,6 +4675,30 @@ msgstr "ลากโปรไฟล์เพื่อย้าย ตัวเ�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "รีเซ็ต"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "เสียง AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "เสียงที่ดีที่สุด"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "วิดีโอที่ดีที่สุด"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "ไม่มีเสียง"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "เฉพาะคำบรรยาย"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "เสียง WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

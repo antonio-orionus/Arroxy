@@ -4769,9 +4769,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Pobieranie w tle… Potrafię robić kilka rzeczy naraz 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Szybkie pobieranie dodaje wczytane elementy do kolejki z profilem {{profileName}}. Pobieranie interaktywne pozwala najpierw je przejrzeć lub wybrać."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Wklej link i pozwól Arroxy go pobrać ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Ten link wskazuje jeden film w kolekcji. Arroxy zapyta, który chcesz, przed analizą."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} odczytuje ten link i stosuje profil {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Kolejka obsługuje to pobieranie. Możesz wkleić kolejny link, gdy trwa."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Szybkie pobieranie uruchamia jedno pobieranie z profilem {{profileName}}. Do jednorazowych zmian użyj pobierania interaktywnego."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5017,6 +5037,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Zmień globalne miejsce docelowe"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Używa globalnego miejsca docelowego"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Używa globalnego miejsca docelowego + podfolderu profilu"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Używa zastąpienia profilu"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Używa zastąpienia profilu + podfolderu profilu"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Miejsce docelowe"
@@ -5104,6 +5140,30 @@ msgstr "Przeciągnij profil, aby go przenieść. Wszystkie listy wyboru profilu 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Resetuj"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "dźwięk AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "najlepszy dźwięk"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "najlepszy film"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "bez dźwięku"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "tylko napisy"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "dźwięk WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
