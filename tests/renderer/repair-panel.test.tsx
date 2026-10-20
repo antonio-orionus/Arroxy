@@ -110,7 +110,7 @@ describe('RepairPanel', () => {
 
 		it('points Linux at its own package manager instead of a button', () => {
 			window.platform = 'linux'
-			window.runtimeInfo = {arch: 'x64', osVersion: 'test', installChannel: 'appimage'}
+			window.runtimeInfo = {arch: 'x64', osVersion: 'test', installChannel: 'appimage', systemLanguage: 'en'}
 
 			openManual()
 
@@ -121,7 +121,7 @@ describe('RepairPanel', () => {
 		// A Flatpak cannot see what the host installs, so the hint would mislead.
 		it('gives a Flatpak no package-manager hint', () => {
 			window.platform = 'linux'
-			window.runtimeInfo = {arch: 'x64', osVersion: 'test', installChannel: 'flatpak'}
+			window.runtimeInfo = {arch: 'x64', osVersion: 'test', installChannel: 'flatpak', systemLanguage: 'en'}
 
 			openManual()
 

@@ -117,7 +117,7 @@ describe('Footer feedback controls', () => {
 		window.appApi = mockAppApi
 		window.appVersion = '1.2.3'
 		window.platform = 'linux'
-		window.runtimeInfo = {arch: 'arm64', osVersion: '7.0.0-38-generic', installChannel: 'flatpak'}
+		window.runtimeInfo = {arch: 'arm64', osVersion: '7.0.0-38-generic', installChannel: 'flatpak', systemLanguage: 'en'}
 		;(window as unknown as {Tally?: {openPopup: typeof mockTallyOpenPopup}}).Tally = {openPopup: mockTallyOpenPopup}
 		vi.clearAllMocks()
 	})

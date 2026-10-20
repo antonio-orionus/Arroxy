@@ -3,16 +3,16 @@ import os from 'node:os'
 import fs from 'node:fs'
 import {expect, test, _electron as electron, type ElectronApplication} from '@playwright/test'
 
-function buildEnv(userDataDir: string): Record<string, string> {
+function buildEnv(userDataDir: string, extra: Record<string, string> = {}): Record<string, string> {
 	const env: Record<string, string> = Object.fromEntries(Object.entries(process.env).filter((entry): entry is [string, string] => typeof entry[1] === 'string'))
 	env.MOCK_BACKEND = '1'
 	env.ELECTRON_USER_DATA = userDataDir
 	delete env.ELECTRON_RUN_AS_NODE
-	return env
+	return {...env, ...extra}
 }
 
-async function launchApp(userDataDir: string): Promise<ElectronApplication> {
-	return electron.launch({args: [path.join(process.cwd(), 'out/main/index.js')], env: buildEnv(userDataDir)})
+async function launchApp(userDataDir: string, options: {args?: string[]; env?: Record<string, string>} = {}): Promise<ElectronApplication> {
+	return electron.launch({args: [path.join(process.cwd(), 'out/main/index.js'), ...(options.args ?? [])], env: buildEnv(userDataDir, options.env)})
 }
 
 test('app shell renders with expected structure', async () => {
@@ -88,4 +88,21 @@ test('pre-ready log lines go to the ELECTRON_USER_DATA profile log', async () =>
 	const mainLog = fs.readFileSync(path.join(userDataDir, 'logs', 'main.log'), 'utf8')
 	expect(mainLog).toMatch(/\[info\]\s+boot \{/)
 	expect(mainLog).toMatch(/\[info\]\s+Session started/)
+})
+
+// Chromium's application locale (app.getLocale(), navigator.language) only
+// resolves to locales Chromium ships, so an OS set to Khmer reads as en-US. The
+// first launch must follow the OS's own preference list instead. macOS takes a
+// per-process -AppleLanguages override; Linux reads LANGUAGE through GLib.
+test('first launch follows an OS language Chromium ships no locale for', async () => {
+	test.skip(process.platform === 'win32', 'Windows has no per-process override for the preferred UI languages')
+	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-system-language-'))
+	const app = await launchApp(userDataDir, process.platform === 'darwin' ? {args: ['-AppleLanguages', '(km-KH, en-US)']} : {env: {LANGUAGE: 'km_KH:en_US'}})
+	const page = await app.firstWindow()
+
+	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
+	await expect(page.locator('html')).toHaveAttribute('lang', 'km')
+	expect(await app.evaluate(({app: electronApp}) => electronApp.getLocale())).toBe('en-US')
+
+	await app.close()
 })

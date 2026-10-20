@@ -2,7 +2,8 @@ import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, D
 import type {SettingsPatch} from '@shared/api.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, moveDownloadProfile as moveProfileInPrefs, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs, setDownloadProfileEnabled as setProfileEnabledInPrefs} from '@shared/downloadProfiles.js'
-import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
+import {i18next, isRtl} from '@shared/i18n/index.js'
+import {systemLanguage} from '../systemLanguage.js'
 import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
@@ -202,10 +203,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		settings: null,
 		hotkeyRegistration: 'off',
 		graphicsPolicy: null,
-		// Guard `navigator` so vitest's node-env tests (e.g. format-selection-view)
-		// can construct the store at module-load time without DOM globals.
-		// initialize() reassigns from settingsResult.common.language anyway.
-		language: typeof navigator !== 'undefined' ? pickLanguage(navigator.language) : pickLanguage('en'),
+		// initialize() reassigns from settingsResult.common.language when one is saved.
+		language: systemLanguage(),
 		commonPaths: undefined,
 		shareDialogOpen: false,
 		exploreView: null,
