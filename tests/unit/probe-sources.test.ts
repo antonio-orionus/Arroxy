@@ -175,11 +175,16 @@ describe('tiers on real probes', () => {
 	})
 })
 
-// With nothing picked, a chip is the copy yt-dlp would take: the profiles' pick, listed last.
+// With nothing picked, every chip is the copy yt-dlp would take of identical
+// streams: the last listed (Vimeo's fastly_skyfire CDN, TikTok's -1 copies).
 describe('identical copies on real probes', () => {
-	it.each(['vimeo', 'tiktok'] as const)('%s: each chip is the copy yt-dlp takes', id => {
-		const probe = probeSourceResult(id)
-		const rows = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: probe.formats}).video.rows
-		expect(rows.map(row => row.formatId)).toContain(pickFor('best-quality', probe).videoFormatId)
+	const rows = (id: 'vimeo' | 'tiktok'): string[] => selectView({selectedVideoFormatId: '', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: probeSourceResult(id).formats}).video.rows.map(row => row.formatId)
+
+	it('vimeo', () => {
+		expect(rows('vimeo')).toEqual(['hls-fastly_skyfire-2644', 'hls-fastly_skyfire-1526', 'hls-fastly_skyfire-794', 'hls-fastly_skyfire-407'])
+	})
+
+	it('tiktok', () => {
+		expect(rows('tiktok')).toEqual(['bytevc1_720p_336791-1', 'bytevc1_540p_309336-1', 'h264_540p_344464-1', 'download'])
 	})
 })
