@@ -33,6 +33,17 @@ The `vedantmgoyal9/winget-releaser` action can only **update** an existing winge
 
 If we ever change the PackageIdentifier, repeat that one-time submission for the new identifier and update `release_to_winget.yml`.
 
+### The `--winget` installer switch
+
+The action takes no manifest fields: komac regenerates the installer entries and carries every root-level field (`Scope`, `InstallModes`, `InstallerSwitches`) forward from the previous version's manifest. The manifest needs a root-level
+
+```yaml
+InstallerSwitches:
+  Custom: --winget
+```
+
+which WinGet passes on every `winget install` and `winget upgrade`; `build/installer.nsh` turns it into the `winget` install channel ([in-app-updates.md](in-app-updates.md)). It has to be added by hand once, on the automated PR of the first release whose installer contains `build/installer.nsh` (push a commit to that PR's branch in the `antonio-orionus/winget-pkgs` fork before it merges). Check later release PRs still carry it; if a manifest ever loses it, add it back the same way.
+
 ## External repos this pipeline writes to
 
 - [`antonio-orionus/scoop-bucket`](https://github.com/antonio-orionus/scoop-bucket) — single `bucket/arroxy.json` manifest, auto-bumped per release

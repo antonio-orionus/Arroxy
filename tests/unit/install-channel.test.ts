@@ -73,6 +73,27 @@ describe('detectInstallChannel', () => {
 		expect(detectInstallChannel('arroxy')).toBe('scoop')
 	})
 
+	it('detects winget on win32 when the installer left its marker beside the executable', async () => {
+		setPlatform('win32')
+		setExecPath('C:\\Users\\tester\\AppData\\Local\\Programs\\Arroxy\\Arroxy.exe')
+		vi.doMock('node:fs', () => ({default: {existsSync: (p: string) => p === 'C:\\Users\\tester\\AppData\\Local\\Programs\\Arroxy\\installed-by-winget'}}))
+		const {detectInstallChannel} = await import('@main/installChannel.js')
+		expect(detectInstallChannel('arroxy')).toBe('winget')
+		vi.doUnmock('node:fs')
+	})
+
+	it('scoop and portable win over a winget marker', async () => {
+		setPlatform('win32')
+		vi.doMock('node:fs', () => ({default: {existsSync: (p: string) => p.endsWith('installed-by-winget')}}))
+		const {detectInstallChannel} = await import('@main/installChannel.js')
+		setExecPath('C:\\Users\\tester\\scoop\\apps\\arroxy\\current\\Arroxy.exe')
+		expect(detectInstallChannel('arroxy')).toBe('scoop')
+		setExecPath('C:\\Users\\tester\\Downloads\\Arroxy-portable.exe')
+		process.env.PORTABLE_EXECUTABLE_FILE = 'C:\\Users\\tester\\Downloads\\Arroxy-portable.exe'
+		expect(detectInstallChannel('arroxy')).toBe('portable')
+		vi.doUnmock('node:fs')
+	})
+
 	it('detects homebrew on darwin when Caskroom directory exists for the given app name', async () => {
 		setPlatform('darwin')
 		vi.doMock('node:fs', () => ({default: {existsSync: (p: string) => p === '/opt/homebrew/Caskroom/arroxy'}}))
