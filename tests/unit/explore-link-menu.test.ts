@@ -89,6 +89,15 @@ describe('Explore link menu', () => {
 		expect(checked).toEqual([resolveActiveDownloadProfile(prefs).profile.name])
 	})
 
+	it('Download with follows the saved profile order, like every in-app picker', () => {
+		const prefs: DownloadProfilesPrefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [customProfile('Podcasts')], order: ['custom-Podcasts', 'audio-only']}
+		const {deps} = harness(prefs)
+		const profiles = submenu(item(exploreLinkMenuTemplate(WATCH, deps), 'Download with'))
+
+		expect(profiles.slice(0, 2).map(entry => entry.label)).toEqual(['Podcasts', 'Audio only'])
+		expect(profiles.every(entry => entry.type === 'radio')).toBe(true)
+	})
+
 	it('a pick in Download with sends the link with that profile', () => {
 		const prefs: DownloadProfilesPrefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [customProfile('Podcasts')]}
 		const {deps, sent} = harness(prefs)

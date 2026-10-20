@@ -62,7 +62,6 @@
 			"assignTrigger_other": "{{count}} वीडियो को असाइन करें",
 			"menuDescription_one": "इस वीडियो के लिए प्रोफ़ाइल चुनें।",
 			"menuDescription_other": "इन {{count}} वीडियो के लिए प्रोफ़ाइल चुनें।",
-			"assignAria": "{{profileName}} असाइन करें",
 			"editProfile": "{{name}} संपादित करें",
 			"filtersLabel": "प्रोफ़ाइल फ़िल्टर",
 			"filterChip": "{{name}} · {{count}}",

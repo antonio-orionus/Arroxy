@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "กำหนดโปรไฟล์",
 			"assignTrigger_other": "กำหนดให้วิดีโอ {{count}} รายการ",
 			"menuDescription_other": "เลือกโปรไฟล์สำหรับวิดีโอ {{count}} รายการนี้",
-			"assignAria": "กำหนด {{profileName}}",
 			"editProfile": "แก้ไข {{name}}",
 			"filtersLabel": "ตัวกรองโปรไฟล์",
 			"filterChip": "{{name}} · {{count}}",

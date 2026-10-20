@@ -12,7 +12,7 @@ function friendlyCodec(acodec: string): string {
 	return acodec
 }
 
-function isDrcAudio(format: YtDlpFormat): boolean {
+export function isDrcAudio(format: Pick<YtDlpFormat, 'format_id' | 'format_note'>): boolean {
 	return /(?:^|[-_\s])drc(?:$|[-_\s])/i.test(format.format_id ?? '') || /\bdrc\b/i.test(format.format_note ?? '')
 }
 

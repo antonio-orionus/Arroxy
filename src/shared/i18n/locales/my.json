@@ -60,7 +60,6 @@
 			"assignTriggerEmpty": "ပရိုဖိုင် သတ်မှတ်ပါ",
 			"assignTrigger_other": "ဗီဒီယို {{count}} ခုကို သတ်မှတ်ပါ",
 			"menuDescription_other": "ဤဗီဒီယို {{count}} ခုအတွက် ပရိုဖိုင်ကို ရွေးပါ။",
-			"assignAria": "{{profileName}} ကို သတ်မှတ်ပါ",
 			"editProfile": "{{name}} ကို ပြင်ဆင်ပါ",
 			"filtersLabel": "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ",
 			"filterChip": "{{name}} · {{count}}",

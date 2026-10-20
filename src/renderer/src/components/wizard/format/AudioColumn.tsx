@@ -91,15 +91,11 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	}
 	const inView = (row: NativeAudioRow, inTrack: string, withDrc: boolean): boolean => (row.twinId === null || row.isDrc === withDrc) && (view.tracks.length === 0 || row.track === inTrack)
 	const shown = (row: NativeAudioRow): boolean => inView(row, track, drc)
-	// The shown language's streams, as yt-dlp ranks them; the DRC switch picks which master comes first.
+	// The shown language's stream yt-dlp would convert; the DRC switch picks which master comes first.
 	const sourceIn = (inTrack: string, withDrc: boolean, target: AudioConvertTarget): string | undefined => {
 		if (view.tracks.length === 0) return undefined
 		const shownIds = new Set(view.nativeRows.filter(row => inView(row, inTrack, withDrc)).map(row => row.formatId))
-		return conversionSource(
-			view.conversionCandidates.filter(candidate => shownIds.has(candidate.formatId)),
-			target,
-			{preferDrc: withDrc}
-		)?.formatId
+		return conversionSource(view.conversionSelection, target, {formatIds: shownIds, preferDrc: withDrc})?.formatId
 	}
 	const switchDrc = (next: boolean): void => {
 		setDrc(next)
@@ -329,7 +325,7 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 	const subtitleOnly = mode === 'subtitle-only'
 	const {drc, track, shown, switchDrc, switchTrack, convertSourceFor} = useAudioStreamFilter(view, audioSelection, onSelect)
 	// A source already in the target codec is copied as-is, so no bitrate applies to it.
-	const copySource = audioSelection.kind === 'convert-lossy' ? selectedConversionSource(view.conversionCandidates, audioSelection.target, audioSelection.sourceFormatId) : undefined
+	const copySource = audioSelection.kind === 'convert-lossy' ? selectedConversionSource(view.conversionSelection, audioSelection.target, audioSelection.sourceFormatId) : undefined
 
 	// One column per codec, best bitrate first.
 	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
