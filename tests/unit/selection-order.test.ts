@@ -29,6 +29,12 @@ function withSkippedAiUpscaled(spec: Record<string, unknown>): Record<string, un
 	return typeof selector === 'string' && selector.includes('bestvideo') ? {...spec, formatSelector: skippingAiUpscaled(selector)} : spec
 }
 
+// New since the recording: video without audio falls back to a stream with
+// sound on a site that has no video-only stream (its audio is dropped later).
+function withVideoOnlyFallback(spec: Record<string, unknown>): Record<string, unknown> {
+	return spec.formatSelector === 'bestvideo' ? {...spec, formatSelector: 'bestvideo/bestvideo*'} : spec
+}
+
 describe('selection order parity with the recorded yt-dlp specs', () => {
 	it('covers every recorded combination', () => {
 		expect(CASES.length).toBe(138)
@@ -43,7 +49,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		if (folded) continue
 		it(`matches ${label}`, () => {
 			const upgraded = mediaIntentSchema.parse(intent)
-			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(withSkippedAiUpscaled(legacyCase.spec))
+			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(withSkippedAiUpscaled(withVideoOnlyFallback(legacyCase.spec)))
 		})
 	}
 

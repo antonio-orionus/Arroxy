@@ -4,6 +4,7 @@ import {VideoPhase} from './VideoPhase.js'
 import {SubtitleOnlyPhase} from './SubtitleOnlyPhase.js'
 import {SidecarSubsPhase} from './SidecarSubsPhase.js'
 import {PreflightPhase} from './PreflightPhase.js'
+import {DropAudioPhase} from './DropAudioPhase.js'
 import type {Phase} from './types.js'
 
 export type StrategyKind = 'subtitle-only' | 'video' | 'video+sidecar' | 'video+embed' | 'video+embed+auto'
@@ -30,13 +31,20 @@ export function strategyFor(job: PreparedJob): StrategyKind {
 	}
 }
 
+// A profile's video without audio may download a stream with sound (a site
+// with no video-only stream); its audio comes off before subtitles go in.
+function dropsAudio(job: PreparedJob): boolean {
+	return job.kind === 'ranged-format' && job.intent.kind === 'video-only'
+}
+
 export function phasesFor(input: ResolvedStartDownloadInput): Phase[] {
 	const {job} = input
 	// expectedBytes only known for single-format probes. Other kinds (audio-convert,
 	// ranged-format, subtitle-only) still run preflight against the floor in
 	// checkDiskSpace so a near-full disk gets caught before yt-dlp spawns.
 	const expectedBytes = job.kind === 'single-format' ? job.expectedBytes : undefined
-	return [PreflightPhase(expectedBytes), ...PHASES[strategyFor(job)]]
+	const [media, ...afterMedia] = PHASES[strategyFor(job)]
+	return [PreflightPhase(expectedBytes), ...(media ? [media] : []), ...(dropsAudio(job) ? [DropAudioPhase] : []), ...afterMedia]
 }
 
 export {PhaseExecutor} from './PhaseExecutor.js'
