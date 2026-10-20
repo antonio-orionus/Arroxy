@@ -4769,9 +4769,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Качаю в фоне… могу делать несколько дел сразу 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Быстрая загрузка ставит загруженные элементы в очередь с профилем {{profileName}}. Интерактивная загрузка позволяет сначала просмотреть или выбрать элементы."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Кинь ссылку, а Arroxy всё заберёт ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Эта ссылка указывает на одно видео внутри коллекции. Arroxy спросит, какое именно нужно, прежде чем анализировать."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} читает эту ссылку и применяет {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Очередь обрабатывает эту загрузку. Пока она идёт, можно вставить другую ссылку."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Быстрая загрузка запускает одну загрузку с профилем {{profileName}}. Для разовых изменений используйте интерактивную загрузку."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5017,6 +5037,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Изменить общую папку назначения"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Используется общая папка назначения"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Используется общая папка назначения + подпапка профиля"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Используется переопределение профиля"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Используется переопределение профиля + подпапка профиля"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Папка назначения"
@@ -5104,6 +5140,30 @@ msgstr "Перетащите профиль, чтобы переместить �
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Сбросить"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "аудио AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "лучшее аудио"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "лучшее видео"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "без аудио"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "только субтитры"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "аудио WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

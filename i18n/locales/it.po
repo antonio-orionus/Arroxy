@@ -4614,9 +4614,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Download in background… Posso fare più cose insieme 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Download rapido mette in coda gli elementi caricati con {{profileName}}. Download interattivo ti permette di esaminare o selezionare prima gli elementi."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Inserisci un link e lascia fare ad Arroxy ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Questo link punta a un solo video all’interno di una raccolta. Arroxy ti chiederà quale vuoi prima di analizzarlo."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} sta leggendo questo link e applicando {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "La coda sta gestendo questo download. Puoi incollare un altro link mentre lavora."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Download rapido avvia un download con {{profileName}}. Usa Download interattivo per modifiche una tantum."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4862,6 +4882,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Cambia destinazione globale"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Uso della destinazione globale"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Uso della destinazione globale + sottocartella del profilo"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Uso della sostituzione del profilo"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Uso della sostituzione del profilo + sottocartella del profilo"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Destinazione"
@@ -4949,6 +4985,30 @@ msgstr "Trascina un profilo per spostarlo. Tutti i selettori di profilo seguono 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Reimposta"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "audio AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "miglior audio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "miglior video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "senza audio"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "solo sottotitoli"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "audio WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

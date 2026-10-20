@@ -4304,9 +4304,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "백그라운드에서 다운로드 중… 멀티태스킹도 문제없어요 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "빠른 다운로드는 불러온 항목을 {{profileName}}(으)로 대기열에 추가합니다. 대화형 다운로드에서는 먼저 항목을 확인하거나 선택할 수 있습니다."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "링크를 넣고 Arroxy에 맡기세요 ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "이 링크는 컬렉션에 속한 동영상 하나를 가리킵니다. 분석하기 전에 Arroxy가 원하는 동영상을 물어봅니다."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}}이(가) 이 링크를 읽고 {{profileName}}을(를) 적용하고 있습니다."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "대기열에서 이 다운로드를 처리하고 있습니다. 처리하는 동안 다른 링크를 붙여 넣을 수 있습니다."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "빠른 다운로드는 {{profileName}}(으)로 다운로드 하나를 시작합니다. 한 번만 바꾸려면 대화형 다운로드를 사용하세요."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4552,6 +4572,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "전역 대상 변경"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "전역 대상 사용 중"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "전역 대상 + 프로필 하위 폴더 사용 중"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "프로필 재정의 사용 중"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "프로필 재정의 + 프로필 하위 폴더 사용 중"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "대상"
@@ -4639,6 +4675,30 @@ msgstr "프로필을 드래그하여 이동하세요. 모든 프로필 선택기
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "재설정"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC 오디오"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "최고 음질 오디오"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "최고 화질 동영상"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "오디오 없음"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "자막만"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV 오디오"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

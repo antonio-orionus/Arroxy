@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "در حال دانلود در پس‌زمینه… من چندکاره‌ام 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "دانلود سریع موارد بارگذاری‌شده را با {{profileName}} در صف قرار می‌دهد. دانلود تعاملی به شما اجازه می‌دهد ابتدا موارد را بررسی یا انتخاب کنید."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "یک پیوند بدهید و بگذارید Arroxy آن را دانلود کند ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "این پیوند به یک ویدیو در یک مجموعه اشاره دارد. Arroxy پیش از بررسی از شما می‌پرسد کدام را می‌خواهید."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} در حال خواندن این پیوند و اعمال {{profileName}} است."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "صف این دانلود را انجام می‌دهد. تا آن موقع می‌توانید پیوند دیگری جای‌گذاری کنید."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "دانلود سریع یک دانلود را با {{profileName}} شروع می‌کند. برای تغییرات یک‌باره از دانلود تعاملی استفاده کنید."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "تغییر مقصد سراسری"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "استفاده از مقصد سراسری"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "استفاده از مقصد سراسری + زیرپوشهٔ نمایه"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "استفاده از جایگزینی نمایه"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "استفاده از جایگزینی نمایه + زیرپوشهٔ نمایه"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "مقصد"
@@ -4794,6 +4830,30 @@ msgstr "برای جابه‌جایی یک نمایه، آن را بکشید. ه�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "بازنشانی"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "صدای AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "بهترین صدا"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "بهترین ویدیو"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "بدون صدا"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "فقط زیرنویس"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "صدای WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

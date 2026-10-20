@@ -4614,9 +4614,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Преузимање у позадини… Умем да радим више ствари одједном 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Брзо преузимање ставља учитане ставке у ред са {{profileName}}. Интерактивно преузимање ти омогућава да прво прегледаш или изабереш ставке."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Убаци линк и пусти Arroxy да га преузме ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Ова веза показује на један видео унутар колекције. Arroxy ће питати који желиш пре провере."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} чита ову везу и примењује {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Ред обрађује ово преузимање. Док ради, можеш налепити другу везу."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Брзо преузимање покреће једно преузимање са {{profileName}}. За једнократне измене користи интерактивно преузимање."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4862,6 +4882,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Промени глобално одредиште"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Користи се глобално одредиште"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Користи се глобално одредиште + поддиректоријум профила"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Користи се замена профила"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Користи се замена профила + поддиректоријум профила"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Одредиште"
@@ -4949,6 +4985,30 @@ msgstr "Превуците профил да га померите. Сваки �
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Ресетуј"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC звук"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "најбољи звук"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "најбољи видео"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "без звука"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "само титлови"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV звук"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Arka planda indiriliyor… Aynı anda birkaç işi halledebilirim 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Hızlı İndirme, yüklenen öğeleri {{profileName}} profiliyle kuyruğa ekler. Etkileşimli İndirme ise öğeleri önce incelemeni veya seçmeni sağlar."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Bir bağlantı bırak, Arroxy onu çeksin ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Bu bağlantı bir koleksiyondaki tek bir videoyu işaret ediyor. Arroxy, inceleme öncesinde hangisini istediğini soracak."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} bu bağlantıyı okuyor ve {{profileName}} profilini uyguluyor."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Kuyruk bu indirmeyi işliyor. O sürerken başka bir bağlantı yapıştırabilirsin."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Hızlı İndirme, {{profileName}} profiliyle tek bir indirme başlatır. Tek seferlik değişiklikler için Etkileşimli İndirme'yi kullan."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Genel hedefi değiştir"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Genel hedef kullanılıyor"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Genel hedef + profil alt klasörü kullanılıyor"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Profil geçersiz kılması kullanılıyor"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Profil geçersiz kılması + profil alt klasörü kullanılıyor"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Hedef"
@@ -4794,6 +4830,30 @@ msgstr "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sır
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Sıfırla"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC ses"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "en iyi ses"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "en iyi video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "ses yok"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "yalnızca altyazılar"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV ses"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

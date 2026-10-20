@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Λήψη στο παρασκήνιο… Ξέρω να κάνω πολλά μαζί 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Η Γρήγορη λήψη βάζει στην ουρά τα φορτωμένα στοιχεία με το {{profileName}}. Η Διαδραστική λήψη σου επιτρέπει να τα ελέγξεις ή να τα επιλέξεις πρώτα."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Ρίξε έναν σύνδεσμο και άσε το Arroxy να το κατεβάσει ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Αυτός ο σύνδεσμος οδηγεί σε ένα βίντεο μέσα σε μια συλλογή. Το Arroxy θα ρωτήσει ποιο θέλεις πριν από τον έλεγχο."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "Η {{quickDownload}} διαβάζει αυτόν τον σύνδεσμο και εφαρμόζει το {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Η ουρά διαχειρίζεται αυτή τη λήψη. Μπορείς να επικολλήσεις έναν άλλο σύνδεσμο στο μεταξύ."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Η Γρήγορη λήψη ξεκινά μία λήψη με το {{profileName}}. Χρησιμοποίησε τη Διαδραστική λήψη για εφάπαξ αλλαγές."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Αλλαγή καθολικού προορισμού"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Χρήση καθολικού προορισμού"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Χρήση καθολικού προορισμού + υποφακέλου προφίλ"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Χρήση παράκαμψης προφίλ"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Χρήση παράκαμψης προφίλ + υποφακέλου προφίλ"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Προορισμός"
@@ -4794,6 +4830,30 @@ msgstr "Σύρε ένα προφίλ για να το μετακινήσεις. 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Επαναφορά"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "ήχος AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "καλύτερος ήχος"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "καλύτερο βίντεο"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "χωρίς ήχο"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "μόνο υπότιτλοι"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "ήχος WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

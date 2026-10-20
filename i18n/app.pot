@@ -4391,8 +4391,28 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr ""
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr ""
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
+msgstr ""
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr ""
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr ""
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr ""
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr ""
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
@@ -4639,6 +4659,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr ""
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr ""
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr ""
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr ""
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr ""
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr ""
@@ -4725,6 +4761,30 @@ msgstr ""
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr ""
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
 msgstr ""
 
 msgctxt "wizard.url.profile.switchAria"

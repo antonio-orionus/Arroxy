@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Upakuaji wa haraka huweka vipengee vilivyopakiwa kwenye foleni kwa kutumia {{profileName}}. Upakuaji shirikishi hukuruhusu kukagua au kuchagua vipengee kwanza."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Weka kiungo, Arroxy aipakue ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Kiungo hiki kinaelekeza kwenye video moja ndani ya mkusanyiko. Arroxy itakuuliza ni ipi unayotaka kabla ya kuchunguza."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} inasoma kiungo hiki na kutumia {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Foleni inashughulikia upakuaji huu. Unaweza kubandika kiungo kingine wakati inafanya kazi."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Upakuaji wa haraka huanzisha upakuaji mmoja kwa kutumia {{profileName}}. Tumia upakuaji shirikishi kwa mabadiliko ya mara moja."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Badilisha mahali pa kuhifadhi kwa jumla"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Inatumia mahali pa kuhifadhi kwa jumla"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Inatumia mahali pa kuhifadhi kwa jumla + saraka ndogo ya wasifu"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Inatumia ubatilishaji wa wasifu"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Inatumia ubatilishaji wa wasifu + saraka ndogo ya wasifu"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Mahali pa kuhifadhi"
@@ -4794,6 +4830,30 @@ msgstr "Buruta wasifu ili kuusogeza. Kila kichaguzi cha wasifu kinafuata mpangil
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Weka upya"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "sauti ya AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "sauti bora"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "video bora"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "bila sauti"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "manukuu peke yake"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "sauti ya WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

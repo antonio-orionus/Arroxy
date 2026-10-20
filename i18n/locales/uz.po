@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Tez yuklab olish yuklangan elementlarni {{profileName}} bilan navbatga qo'yadi. Interaktiv yuklab olish avval elementlarni ko'rib chiqish yoki tanlash imkonini beradi."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Havolani tashlang, Arroxy uni tortib olsin ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Bu havola to'plamdagi bitta videoga olib boradi. Tekshirishdan oldin Arroxy qaysi birini xohlayotganingizni so'raydi."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} bu havolani o'qiyapti va {{profileName}} profilini qo'llayapti."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Bu yuklab olishni navbat bajaryapti. U ishlayotganda boshqa havolani qo'yishingiz mumkin."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Tez yuklab olish {{profileName}} bilan bitta yuklab olishni boshlaydi. Bir martalik o'zgartirishlar uchun Interaktiv yuklab olishdan foydalaning."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Umumiy saqlash manzilini o'zgartirish"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Umumiy saqlash manzili ishlatilmoqda"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Umumiy saqlash manzili + profil ichki jildi ishlatilmoqda"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Profil almashtirishi ishlatilmoqda"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Profil almashtirishi + profil ichki jildi ishlatilmoqda"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Manzil"
@@ -4794,6 +4830,30 @@ msgstr "Profilni ko‘chirish uchun uni sudrab olib boring. Har bir profil tanla
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Qayta tiklash"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC audio"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "eng yaxshi audio"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "eng yaxshi video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "audiosiz"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "faqat subtitrlar"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV audio"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

@@ -4304,9 +4304,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "កំពុងទាញយកនៅផ្ទៃខាងក្រោយ… ខ្ញុំធ្វើការច្រើនក្នុងពេលតែមួយបាន 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "ទាញយករហ័សដាក់ធាតុដែលបានផ្ទុកចូលក្នុងជួរដោយប្រើ {{profileName}}។ ទាញយកអន្តរកម្មអនុញ្ញាតឱ្យអ្នកពិនិត្យ ឬជ្រើសរើសធាតុជាមុនសិន។"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "ទម្លាក់តំណមួយ ហើយឱ្យ Arroxy ទាញយកវា ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "តំណនេះចង្អុលទៅវីដេអូមួយក្នុងបណ្តុំ។ Arroxy នឹងសួរថាអ្នកចង់បានមួយណា មុនពេលពិនិត្យ។"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} កំពុងអានតំណនេះ ហើយអនុវត្ត {{profileName}}។"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "ជួរកំពុងដំណើរការការទាញយកនេះ។ អ្នកអាចបិទភ្ជាប់តំណផ្សេងទៀតបានខណៈពេលដែលវាកំពុងដំណើរការ។"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "ទាញយករហ័សចាប់ផ្តើមការទាញយកមួយដោយប្រើ {{profileName}}។ ប្រើទាញយកអន្តរកម្មសម្រាប់ការផ្លាស់ប្តូរម្តងម្កាល។"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4552,6 +4572,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "ប្តូរទីតាំងរក្សាទុកសកល"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "ប្រើទីតាំងរក្សាទុកសកល"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "ប្រើទីតាំងរក្សាទុកសកល + ថតរងរបស់ប្រវត្តិរូប"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "ប្រើការជំនួសប្រវត្តិរូប"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "ប្រើការជំនួសប្រវត្តិរូប + ថតរងរបស់ប្រវត្តិរូប"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "ទីតាំងរក្សាទុក"
@@ -4639,6 +4675,30 @@ msgstr "អូសប្រវត្តិរូបដើម្បីផ្លា
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "កំណត់ឡើងវិញ"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "សំឡេង AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "សំឡេងល្អបំផុត"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "វីដេអូល្អបំផុត"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "គ្មានសំឡេង"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "តែអក្សររត់"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "សំឡេង WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

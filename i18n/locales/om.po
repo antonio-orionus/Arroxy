@@ -4459,9 +4459,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Buufata saffisaan wantoota fe'aman {{profileName}}'n tarreessa. Buufata walnaqqeen duraan akka ilaaltu ykn akka filattu si dandeessisa."
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Liinkii galchi; Arroxy haa buusu ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Liinkiin kun viidiyoo tokko cuunfaa keessa jiru agarsiisa. Arroxy qoratuu dura isa kam akka barbaaddu si gaafata."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} liinkii kana dubbisaa jira, {{profileName}} immoo fayyadamaa jira."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Tarreen buufata kana hojjechaa jira. Yeroo inni hojjetu liinkii biraa maxxansuu dandeessa."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Buufata saffisaan buufata tokko {{profileName}}'n jalqaba. Jijjiirama yeroo tokkoof buufata walnaqqee fayyadami."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4707,6 +4727,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "Bakki waliigalaa jijjiiri"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Bakka waliigalaa fayyadamaa jira"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Bakka waliigalaa + saab-foldarii piroofaayilii fayyadamaa jira"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Bakka bu'iinsa piroofaayilii fayyadamaa jira"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Bakka bu'iinsa piroofaayilii + saab-foldarii piroofaayilii fayyadamaa jira"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Bakki itti olkaa'amu"
@@ -4794,6 +4830,30 @@ msgstr "Profaayilii sochoosuuf harkisi. Filannoowwan profaayilii hundi tartiiba 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Deebisi"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "sagalee AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "sagalee isa caalaa gaarii"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "viidiyoo isa caalaa gaarii"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "sagalee hin jiru"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "axxiinni qofa"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "sagalee WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

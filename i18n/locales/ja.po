@@ -4304,9 +4304,29 @@ msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
 msgstr "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎"
 
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "クイックダウンロードは読み込んだ項目を{{profileName}}でキューに追加します。インタラクティブダウンロードなら、先に項目を確認・選択できます。"
+
 msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "このリンクはコレクション内の1本の動画を指しています。解析する前に、どの動画にするか Arroxy が確認します。"
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}}がこのリンクを読み込み、{{profileName}}を適用しています。"
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "キューがこのダウンロードを処理しています。処理中でも別のリンクを貼り付けられます。"
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "クイックダウンロードは{{profileName}}で1件のダウンロードを開始します。その場限りの変更にはインタラクティブダウンロードを使ってください。"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4552,6 +4572,22 @@ msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
 msgstr "グローバル保存先を変更"
 
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "グローバル保存先を使用"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "グローバル保存先 + プロフィールのサブフォルダーを使用"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "プロフィール個別設定を使用"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "プロフィール個別設定 + プロフィールのサブフォルダーを使用"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "保存先"
@@ -4639,6 +4675,30 @@ msgstr "プロファイルをドラッグして移動します。すべてのピ
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "リセット"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC 音声"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "最高音質の音声"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "最高画質の動画"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "音声なし"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "字幕のみ"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV 音声"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
