@@ -1068,6 +1068,7 @@
 			"sitePreference": {"label": "Sayt past baholamagan oqimlar", "reason": "shikastlangan, suv belgili va zaxira nusxalarni o'tkazib yuboradi"},
 			"original": {"label": "Asl oqimlar, SI kattalashtirganlari emas", "reason": "kattalashtirilgan nusxa balandroq, lekin haqiqiy tafsilot qo'shmaydi"},
 			"source": {"label": "Avval yuqori bitreytli oqimlar", "reason": "bir xil ruxsatda ko'proq tafsilot"},
+			"protocol": {"label": "Avval to'g'ridan-to'g'ri yuklab olishlar, keyin oqimli nusxalar", "reason": "bir xil tasvir, tezroq yuklanadi"},
 			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
 			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
