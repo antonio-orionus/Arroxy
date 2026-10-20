@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `outputPathExpands` (code `YTDLP_OUTPUT_PATH_EXPANDS`): an output folder whose name yt-dlp would expand (`$NAME`, `%NAME%`, a leading `~`), so the files would land elsewhere. yt-dlp never reports it, so the classifier never returns it and `ClassifierKind` leaves it out; a host sets it from its own check before spawning.
+
 ## 1.3.0 — signals, stderr-classified unsupported URLs, output folder write failures
 
 1.2.0 was never published; its changes ship in 1.3.0 and are listed under 1.2.0 below.

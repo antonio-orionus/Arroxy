@@ -23,14 +23,20 @@ export const YT_DLP_ERROR_KINDS = [
 	// Classified from stderr; callers may also set it from their own URL
 	// validation before yt-dlp is spawned.
 	'unsupportedUrl',
+	// The output folder's name holds text yt-dlp expands before it writes
+	// (`$NAME`, `%NAME%`, a leading `~`), so the files would land elsewhere.
+	// yt-dlp reports nothing: only a caller that checks the folder before
+	// spawning can set it.
+	'outputPathExpands',
 	// Fallback when no pattern matches. `raw` carries the verbatim stderr.
 	'unknown'
 ] as const
 
 export type YtDlpErrorKind = (typeof YT_DLP_ERROR_KINDS)[number]
 
-// Kinds the stderr classifier matches by pattern. `unknown` is its fallback.
-export type ClassifierKind = Exclude<YtDlpErrorKind, 'unknown'>
+// Kinds the stderr classifier matches by pattern. `unknown` is its fallback;
+// `outputPathExpands` never shows in stderr.
+export type ClassifierKind = Exclude<YtDlpErrorKind, 'unknown' | 'outputPathExpands'>
 
 export interface ClassifiedError {
 	kind: YtDlpErrorKind

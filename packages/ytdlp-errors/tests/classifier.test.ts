@@ -8,7 +8,7 @@ import type {YtDlpErrorKind} from '../src/index.js'
 const FIXTURES_ROOT = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'yt-dlp-stderr')
 
 // The "no pattern matched" fallback has no fixture of its own pattern.
-const NON_CLASSIFIER_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['unknown'])
+const NON_CLASSIFIER_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['unknown', 'outputPathExpands'])
 
 interface Fixture {
 	kind: YtDlpErrorKind
@@ -49,6 +49,12 @@ describe('classifyYtDlpStderr — fixture corpus', () => {
 			if (NON_CLASSIFIER_KINDS.has(kind)) continue
 			expect(kindsSeen, `missing fixture for kind "${kind}"`).toContain(kind)
 		}
+	})
+
+	it('never classifies outputPathExpands: yt-dlp expands the folder without a word', () => {
+		expect(fixtures.filter(f => f.kind === 'outputPathExpands')).toEqual([])
+		expect(classifyYtDlpStderr("ERROR: unable to open for writing: [Errno 2] No such file or directory: '/home/u/x.part'").kind).not.toBe('outputPathExpands')
+		expect(() => classifyYtDlpStderr('x', {extraPatterns: {['outputPathExpands' as string]: /x/}})).toThrow('Unsupported extraPatterns kind')
 	})
 
 	it('returns kind "unknown" with raw passthrough for unmatched stderr', () => {

@@ -12,6 +12,7 @@
 		"network": "YTDLP_NETWORK",
 		"outOfDiskSpace": "YTDLP_OUT_OF_DISK_SPACE",
 		"outputNotWritable": "YTDLP_OUTPUT_NOT_WRITABLE",
+		"outputPathExpands": "YTDLP_OUTPUT_PATH_EXPANDS",
 		"parse": "YTDLP_PARSE_FAILURE",
 		"postprocessFailure": "YTDLP_POSTPROCESS_FAILURE",
 		"rateLimit": "YTDLP_RATE_LIMIT",

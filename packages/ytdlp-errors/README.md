@@ -73,9 +73,12 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `parse` | `YTDLP_PARSE_FAILURE` | no | no | `--dump-json` output unparseable |
 | `network` | `YTDLP_NETWORK` | yes | no | Transport-level error |
 | `unsupportedUrl` | `YTDLP_UNSUPPORTED_URL` | no | yes | URL not handled by any extractor, or not a URL |
+| `outputPathExpands` | `YTDLP_OUTPUT_PATH_EXPANDS` | yes | yes | Output folder name holds `$NAME`, `%NAME%` or a leading `~`, which yt-dlp expands; set by the host before spawning |
 | `unknown` | `YTDLP_UNKNOWN` | no | no | No pattern matched; render `raw` |
 
 `unsupportedUrl` is classified from yt-dlp's `Unsupported URL:`, `No suitable extractor ... found for URL` and `... is not a valid URL` lines. Hosts can also set it from their own URL validation before yt-dlp is spawned.
+
+`outputPathExpands` is never classified: yt-dlp runs `os.path.expandvars(os.path.expanduser(…))` over `--paths` and `-o` and writes to the result without a word, so a folder named `$HOME` or `%USERPROFILE%` sends the download somewhere else. A host that checks the folder before spawning sets it.
 
 ## API
 
