@@ -77,11 +77,6 @@ export const SubtitleOnlyPhase: Phase = {
 		}
 
 		if (result.usedExtractorFallback) active.usedExtractorFallback = true
-		// yt-dlp only warns about a language it cannot find, and exits 0.
-		if (active.subtitlePaths.length === 0) {
-			logger.warn('subtitle-only run wrote no subtitle file', {jobId: job.id, languages: subtitles.languages})
-			return {kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks}
-		}
 		active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subtitles.format ?? DEFAULTS.subtitleFormat)
 
 		if (subtitles.writeAuto) {

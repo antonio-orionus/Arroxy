@@ -140,11 +140,10 @@ describe('SubtitleOnlyPhase', () => {
 		await rm(dir, {recursive: true, force: true})
 	})
 
-	// yt-dlp exits 0 when none of the requested languages exists (it only warns),
-	// which happens when the codes are matched as a pattern.
-	it('soft-fails when the subtitle run writes no file', async () => {
-		const outcome = await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {subtitlePaths: []}))
-		expect(outcome).toEqual({kind: 'soft-failed', status: STATUS_KEY.noSubtitleTracks})
+	// No reported path is no proof that nothing was saved: inline captions and
+	// files already present are written without a line the parser reads.
+	it('completes a successful run that reported no subtitle path', async () => {
+		expect(await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {subtitlePaths: []}))).toEqual({kind: 'completed'})
 	})
 
 	it('failure → hard-failed with classified error payload', async () => {
