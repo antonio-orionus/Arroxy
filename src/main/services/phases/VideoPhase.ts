@@ -59,12 +59,15 @@ function insideOutputDir(outputDir: string, tempDir: string): boolean {
 // copy fails, the cache path is used as before.
 const PROBE_INFO_JSON_NAME = '_arroxy.probe.info.json'
 
-async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined, tempDir: string | undefined): Promise<string | undefined> {
+async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined, tempDir: string | undefined, jobId: string): Promise<string | undefined> {
 	if (!probeInfoJsonPath || !tempDir) return probeInfoJsonPath
 	const copy = join(tempDir, PROBE_INFO_JSON_NAME)
 	return copyFile(probeInfoJsonPath, copy).then(
 		() => copy,
-		() => probeInfoJsonPath
+		(error: unknown) => {
+			logger.warn("could not copy the probe's info-json into the temp folder; reading it from the cache", {jobId, code: error instanceof Error && 'code' in error ? String(error.code) : null})
+			return probeInfoJsonPath
+		}
 	)
 }
 
@@ -235,7 +238,7 @@ export const VideoPhase: Phase = {
 		// The probe's info-json predates any section and stays safe to load.
 		const isPart = preparedJob.kind !== 'ranged-format' && preparedJob.videoPart !== undefined
 		const resumeInfoJsonPath = await detectCachedInfoJson(isResume && !isPart ? tempDir : undefined)
-		const probeInfoJsonPath = await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir)
+		const probeInfoJsonPath = await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir, job.id)
 		const loadInfoJsonPath = resumeInfoJsonPath ?? probeInfoJsonPath
 
 		const site = siteForJob(preparedJob.extractor, input.url)

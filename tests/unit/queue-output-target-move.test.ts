@@ -37,6 +37,24 @@ describe('changeQueueOutputTarget', () => {
 		expect(item.outputDir).toBe('/mnt/target')
 	})
 
+	// A trailing space is part of a macOS or Linux folder's name; trimming it
+	// would send the download to a sibling folder.
+	it('keeps the folder as given, trailing space included, and still refuses a blank one', async () => {
+		const {changeQueueOutputTarget} = await import('@main/services/queueOutputTargetMove.js')
+		let item = makeItem({id: 'fresh', status: 'pending', outputDir: '/mnt/source', progressPercent: 0})
+		fsMock.mkdir.mockResolvedValue(undefined)
+		fsMock.writeFile.mockResolvedValue(undefined)
+		fsMock.unlink.mockResolvedValue(undefined)
+		const host = {findItem: () => item, patchItem: (_itemId: string, _reason: string, patcher: (item: QueueItem) => QueueItem) => (item = patcher(item))}
+
+		const result = await changeQueueOutputTarget(host, ['fresh'], '/mnt/Down ')
+		expect(result.ok && result.data.outputDir).toBe('/mnt/Down ')
+		expect(item.outputDir).toBe('/mnt/Down ')
+
+		const blank = await changeQueueOutputTarget(host, ['fresh'], '   ')
+		expect(blank.ok).toBe(false)
+	})
+
 	it('does not create the output directory when no selected item can move', async () => {
 		const {changeQueueOutputTarget} = await import('@main/services/queueOutputTargetMove.js')
 		const done = makeItem({id: 'done', status: 'done', outputDir: '/mnt/source'})
