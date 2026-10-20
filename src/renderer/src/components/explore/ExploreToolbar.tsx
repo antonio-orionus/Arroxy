@@ -43,7 +43,7 @@ interface ExploreToolbarProps {
 	onToggleAdBlock: (enabled: boolean) => void
 	// The page's zoom factor (1 = 100%) and its change.
 	zoom: number
-	onZoomChange: (zoom: number) => void
+	onZoomChange: (zoom: number) => Promise<void>
 	// Compact app chrome: an icon-only tab bar and a slim footer, for more page.
 	compact: boolean
 	// Shown first in the row (the home's compact tab list).

@@ -326,6 +326,48 @@ describe('Explore page zoom', () => {
 		expect(settingsWrites()).toContainEqual({common: {exploreZoom: 0.9}})
 	})
 
+	it('adds up fast clicks while earlier saves are still answering', async () => {
+		// Each save answers late, with the zoom it carried, as main's response does.
+		const answers: Array<() => void> = []
+		vi.mocked(window.appApi.settings.update).mockImplementation(
+			(patch: SettingsPatch) =>
+				new Promise(resolve => {
+					answers.push(() => {
+						const current = useAppStore.getState().settings ?? defaultAppSettings('/tmp')
+						resolve(ok({...current, common: {...current.common, ...patch.common}}))
+					})
+				})
+		)
+		renderExplore()
+		openZoom()
+
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+		await waitFor(() => expect(answers).toHaveLength(1))
+		await act(async () => answers[0]?.())
+		// The first answer put 110% back; the third click still steps from 125%.
+		fireEvent.click(screen.getByTestId('explore-zoom-in'))
+
+		// Saves run one at a time; answer each as it arrives, so none is left holding the queue.
+		for (let answered = 1; answered < 3; answered++) {
+			await waitFor(() => expect(answers).toHaveLength(answered + 1))
+			act(() => answers[answered]?.())
+		}
+
+		await waitFor(() => expect(screen.getByTestId('explore-zoom-input')).toHaveValue('150%'))
+		expect(settingsWrites().map(patch => patch.common?.exploreZoom)).toEqual([1.1, 1.25, 1.5])
+	})
+
+	it('presses a zoom button on Enter instead of swallowing the key', () => {
+		renderExplore()
+		openZoom()
+		const press = new KeyboardEvent('keydown', {key: 'Enter', bubbles: true, cancelable: true})
+
+		screen.getByTestId('explore-zoom-in').dispatchEvent(press)
+
+		expect(press.defaultPrevented).toBe(false)
+	})
+
 	it('sets a typed percent on Enter and clamps it to the range', async () => {
 		renderExplore()
 		openZoom()

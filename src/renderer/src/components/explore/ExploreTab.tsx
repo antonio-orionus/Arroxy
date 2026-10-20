@@ -98,7 +98,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				onInteractive={() => openExploreInteractive(state.url)}
 				onToggleAdBlock={enabled => void setExploreAdBlock(enabled)}
 				zoom={zoom}
-				onZoomChange={next => void setExploreZoom(next)}
+				onZoomChange={setExploreZoom}
 				compact={compact}
 				leading={compactTabs}
 				onToggleCompact={next => void setExploreCompactChrome(next)}
