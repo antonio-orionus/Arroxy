@@ -115,6 +115,8 @@ describe('app-changes action', () => {
 		expect(previous?.if).toBe("${{ github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.event.before != '0000000000000000000000000000000000000000' }}")
 		expect(previous?.run).toContain('event=push')
 		expect(previous?.run).toContain('head_sha=$BEFORE')
+		// No run (or one still going) and a failed lookup must never read as success.
+		expect(previous?.run).toContain(`--jq '.workflow_runs[0].conclusion // "none"') || conclusion=unknown`)
 		expect(filter?.id).toBe('filter')
 		expect(filter?.if).toBe("${{ github.event_name == 'pull_request' || steps.previous.outputs.conclusion == 'success' }}")
 	})
@@ -148,7 +150,9 @@ describe.each(GATED)('$workflow', ({workflow, scope, gate, ungated}) => {
 	it(`asks the app-changes action for the ${scope} scope`, () => {
 		const changes = record(jobs.changes, 'changes')
 		expect(changes.steps).toContainEqual({id: 'changes', uses: './.github/actions/app-changes', with: {scope}})
-		expect(changes.permissions).toEqual({actions: 'read', contents: 'read', 'pull-requests': 'read'})
+		// Only a push run looks up the previous run, through the Actions API.
+		const onPush = record(doc.on, 'on').push !== undefined
+		expect(changes.permissions).toEqual({...(onPush ? {actions: 'read'} : {}), contents: 'read', 'pull-requests': 'read'})
 	})
 
 	it('skips every suite job, directly or through the jobs it needs, when the filter says so', () => {

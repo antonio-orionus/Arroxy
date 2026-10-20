@@ -17,12 +17,11 @@ permissions:
   contents: read
 
 jobs:
-  # Skips this suite on a change that cannot affect it; see
+  # Skips this suite on a pull request that cannot affect it; see
   # .github/actions/app-changes for what counts.
   changes:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
       contents: read
       pull-requests: read
     outputs:
