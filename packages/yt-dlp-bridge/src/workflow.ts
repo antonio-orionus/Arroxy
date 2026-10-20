@@ -2,13 +2,15 @@ import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
 import {audioConversionSourceSelector} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
-import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
+import {resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
+import {callerMediaOutputArgs, callerOutputTemplate, callerSubtitlesOutputArgs, loadInfoJsonArgs, managedDownloadArchiveArgs, managedOutputArgs, type CallerOutput} from './output-target.js'
 import {YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE} from './progress.js'
 import {redactArgs} from './redaction.js'
 import {type InspectWorkflowKind, type ProbePlaylistMode, type SubtitleFormat, type SubtitleMode, type WorkflowDownloadInputSchema, type WorkflowExpertInputSchema, type WorkflowInspectInputSchema, type WorkflowPostprocessInputSchema} from './schemas.js'
 import type {DetectedDependency} from './types.js'
 
 export type {InspectWorkflowKind, ProbePlaylistMode, SubtitleFormat, SubtitleMode}
+export type {CallerOutput}
 
 export interface NetworkPacing {
 	sleepRequests?: number
@@ -49,13 +51,6 @@ export interface PlaylistScopePlan {
 export interface SponsorBlockPlan {
 	mode: 'mark' | 'remove'
 	categories: string[]
-}
-
-export interface CallerOutput {
-	directory: string
-	template?: string
-	tempDirectory?: string
-	subtitleMode?: SubtitleMode
 }
 
 export interface ProbeWorkflowInput {
@@ -169,8 +164,6 @@ export const INFO_JSON_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 3,
 export const DEFAULT_SLEEP_SUBTITLES_SECONDS = 3
 export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
-const DEFAULT_CALLER_OUTPUT_TEMPLATE = '%(title).200B.%(ext)s'
-
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
 	const planned = planWorkflowWithoutRedaction(input, options)
 	// The planners add each extractor option as its own block; yt-dlp would keep
@@ -229,9 +222,8 @@ function planInspectWorkflow(input: ManagedInspectWorkflowInput, options: Workfl
 }
 
 function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
-	const subOutputDir = input.output.subtitleMode === 'subfolder' ? `${input.output.directory}/subtitles` : input.output.directory
 	const effectiveSubtitleFormat = resolveEffectiveSubtitleFormat(input.subtitles)
-	const template = input.output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
+	const template = callerOutputTemplate(input.output)
 	const args = [
 		...baseArgs(options),
 		...progressTemplateArgs(),
@@ -249,8 +241,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 		`${effectiveSubtitleFormat}/best`,
 		'--convert-subs',
 		effectiveSubtitleFormat,
-		'-o',
-		`${literalOutputPath(subOutputDir)}/${template}`,
+		...callerSubtitlesOutputArgs(input.output),
 		input.url
 	]
 	return withFacts({
@@ -272,7 +263,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	const skipDownload = input.selection?.skipDownload === true
 	const args: string[] = [...baseArgs(options), ...progressTemplateArgs(), ...requestedFormatsArgs(), '--no-quiet', '--no-playlist']
 	const loadInfoJsonPath = input.resume?.loadInfoJsonPath
-	if (loadInfoJsonPath) args.push('--load-info-json', loadInfoJsonPath)
+	args.push(...loadInfoJsonArgs(loadInfoJsonPath))
 	// An explicit caller policy always wins; otherwise the budget follows whether
 	// this attempt replays a pinned info-json plan (see the two policies above).
 	const retryPolicy = options.downloadRetryPolicy ?? (loadInfoJsonPath ? INFO_JSON_DOWNLOAD_RETRY_POLICY : DEFAULT_DOWNLOAD_RETRY_POLICY)
@@ -318,7 +309,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	if (input.embed?.thumbnailSidecar) args.push('--write-thumbnail')
 
 	appendCallerMediaSelectionArgs(args, input, audioConvert, embedSubs, skipDownload)
-	appendCallerOutputArgs(args, input, skipDownload)
+	args.push(...callerMediaOutputArgs(input.output, {skipDownload, ...(input.resume ? {resume: input.resume} : {})}))
 	appendCallerExtractorArgs(args, input)
 	args.push(...downloadPacingArgs(options.pacing))
 	if (!loadInfoJsonPath) args.push(input.url)
@@ -329,7 +320,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 		redactedArgs: [],
 		facts: {
 			isMediaDownload: !skipDownload,
-			output: {directory: input.output.directory, template: input.output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE, ...(input.output.tempDirectory ? {tempDirectory: input.output.tempDirectory} : {})},
+			output: {directory: input.output.directory, template: callerOutputTemplate(input.output), ...(input.output.tempDirectory ? {tempDirectory: input.output.tempDirectory} : {})},
 			dependencies: dependencyFacts(callerMediaDependencyReasons(input, audioConvert, embedSubs), new Map(), options.detectedDependencies),
 			risks: callerMediaRisks(input),
 			sideEffects: callerMediaSideEffects(input, audioConvert, embedSubs, skipDownload)
@@ -393,9 +384,7 @@ function planExpertWorkflow(input: ExpertWorkflowInput, options: WorkflowPlanOpt
 function buildManagedDownloadArgs(input: NormalizedManagedDownloadInput, policy: ResolvedOutputPolicy, config: ServerConfig, options: WorkflowPlanOptions): string[] {
 	const args = managedBaseArgs(input, options, config)
 
-	args.push('--paths', `home:${policy.outputRoot}`)
-	args.push('--paths', `temp:${policy.tempRoot}`)
-	args.push('--output', policy.outputTemplate)
+	args.push(...managedOutputArgs(policy))
 	args.push(policy.allowOverwrite ? '--force-overwrites' : '--no-overwrites')
 	args.push('--newline', ...progressTemplateArgs(), ...requestedFormatsArgs())
 	args.push('--print', 'after_move:filepath')
@@ -504,7 +493,7 @@ function appendManagedSelectionArgs(args: string[], input: NormalizedManagedDown
 	pushRepeated(args, '--match-filters', selection.matchFilters)
 	pushRepeated(args, '--break-match-filters', selection.breakMatchFilters)
 	if (selection.ageLimit !== undefined) push(args, '--age-limit', String(selection.ageLimit))
-	push(args, '--download-archive', selection.downloadArchive ? resolveManagedPath(policy.outputRoot, selection.downloadArchive, 'downloadArchive', config.allowArbitraryOutputPaths) : undefined)
+	args.push(...managedDownloadArchiveArgs(policy, selection.downloadArchive, config.allowArbitraryOutputPaths))
 	if (selection.maxDownloads !== undefined) push(args, '--max-downloads', String(selection.maxDownloads))
 	if (selection.breakOnExisting) args.push('--break-on-existing')
 	if (selection.breakPerInput) args.push('--break-per-input')
@@ -641,25 +630,6 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 	if (embedSubs) return
 	if (selection?.mergeOutputFormat) args.push('--merge-output-format', selection.mergeOutputFormat)
 	if (selection?.remuxVideo) args.push('--remux-video', selection.remuxVideo)
-}
-
-// A caller's directory is literal text, but `-o` is an output template, so a
-// `%` in it would collapse (`%%`) or open a field (`%(`). `--paths` is not a
-// template and takes the directory as it is.
-function literalOutputPath(text: string): string {
-	return text.replaceAll('%', '%%')
-}
-
-function appendCallerOutputArgs(args: string[], input: CallerMediaWorkflowInput, skipDownload: boolean): void {
-	const template = input.output.template ?? DEFAULT_CALLER_OUTPUT_TEMPLATE
-	if (input.output.tempDirectory) {
-		args.push('--paths', `home:${input.output.directory}`, '--paths', `temp:${input.output.tempDirectory}`, '-o', template)
-	} else {
-		args.push('-o', `${literalOutputPath(input.output.directory)}/${template}`)
-	}
-	if (input.output.tempDirectory && !skipDownload && input.resume?.writeInfoJson !== false) {
-		args.push('--write-info-json', '-o', `infojson:${literalOutputPath(`${input.output.tempDirectory}/${input.resume?.infoJsonBaseName ?? '_arroxy'}`)}`)
-	}
 }
 
 function hasCallerSections(input: CallerMediaWorkflowInput): boolean {
