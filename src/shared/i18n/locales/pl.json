@@ -1159,7 +1159,7 @@
 	"aiUpscaled": {"label": "Strumienie przeskalowane przez AI", "description": "YouTube oferuje niektóre stare filmy w rozmiarach wygenerowanych przez AI. „Pomiń” zachowuje oryginalne strumienie; nadal możesz ręcznie wybrać przeskalowany.", "skip": "Pomiń", "allow": "Zezwól"},
 	"videoCodec": {
 		"label": "Kodek wideo",
-		"description": "Który kodek wybrać w pierwszej kolejności spośród strumieni o tej samej wysokości. Automatycznie wybiera AV1, najmniejszy; H.264 działa na starszych telewizorach i telefonach.",
+		"description": "Który kodek wybrać w pierwszej kolejności spośród strumieni o tej samej wysokości. Automatycznie zachowuje własną kolejność yt-dlp, która faworyzuje AV1, najmniejszy; H.264 działa na starszych telewizorach i telefonach.",
 		"smartTv": "Smart TV zawsze wybiera H.264.",
 		"auto": "Automatycznie",
 		"vp9": "Najpierw VP9",

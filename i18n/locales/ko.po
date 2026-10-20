@@ -1972,8 +1972,8 @@ msgid "Auto"
 msgstr "자동"
 
 msgctxt "videoCodec.description"
-msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
-msgstr "높이가 같은 스트림 중 먼저 선택할 코덱입니다. 자동은 가장 작은 AV1을 선택하고, H.264는 오래된 TV와 휴대폰에서 재생됩니다."
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "높이가 같은 스트림 중 먼저 선택할 코덱입니다. 자동은 yt-dlp 자체 순서를 유지하며, 가장 작은 AV1을 우선하고, H.264는 오래된 TV와 휴대폰에서 재생됩니다."
 
 msgctxt "videoCodec.h264"
 msgid "H.264 first"

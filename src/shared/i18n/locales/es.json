@@ -1104,7 +1104,7 @@
 	"aiUpscaled": {"label": "Streams reescalados con IA", "description": "YouTube ofrece algunos vídeos antiguos en tamaños creados con IA. «Omitir» conserva los streams originales; aun así puedes elegir uno reescalado a mano.", "skip": "Omitir", "allow": "Permitir"},
 	"videoCodec": {
 		"label": "Códec de vídeo",
-		"description": "Qué códec elegir primero entre streams de la misma altura. Auto elige AV1, el más pequeño; H.264 se reproduce en televisores y teléfonos más antiguos.",
+		"description": "Qué códec elegir primero entre streams de la misma altura. Auto mantiene el orden propio de yt-dlp, que favorece AV1, el más pequeño; H.264 se reproduce en televisores y teléfonos más antiguos.",
 		"smartTv": "TV inteligente siempre elige H.264.",
 		"auto": "Auto",
 		"vp9": "VP9 primero",

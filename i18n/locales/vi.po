@@ -1972,8 +1972,8 @@ msgid "Auto"
 msgstr "Tự động"
 
 msgctxt "videoCodec.description"
-msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
-msgstr "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động lấy AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ."
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động giữ nguyên thứ tự riêng của yt-dlp, vốn ưu tiên AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ."
 
 msgctxt "videoCodec.h264"
 msgid "H.264 first"

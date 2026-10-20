@@ -2032,8 +2032,8 @@ msgid "Auto"
 msgstr "Avto"
 
 msgctxt "videoCodec.description"
-msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
-msgstr "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto eng kichik AV1 ni oladi; H.264 eski televizor va telefonlarda ijro etiladi."
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto yt-dlp ning o'z tartibini saqlaydi, u eng kichik AV1 ni afzal ko'radi; H.264 eski televizor va telefonlarda ijro etiladi."
 
 msgctxt "videoCodec.h264"
 msgid "H.264 first"

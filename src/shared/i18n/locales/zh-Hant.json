@@ -942,6 +942,6 @@
 		"summary": {"goal": {"bestPicture": "最佳畫質", "smartTv": "所有裝置都能播放"}, "fileType": {"auto": "檔案類型由串流決定", "explicit": "儲存為 .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "AI 放大的串流", "description": "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。", "skip": "略過", "allow": "允許"},
-	"videoCodec": {"label": "影片編解碼器", "description": "在高度相同的串流中，優先採用哪種編解碼器。自動會選用體積最小的 AV1；H.264 可在較舊的電視和手機上播放。", "smartTv": "智慧型電視一律採用 H.264。", "auto": "自動", "vp9": "優先 VP9", "h264": "優先 H.264"},
+	"videoCodec": {"label": "影片編解碼器", "description": "在高度相同的串流中，優先採用哪種編解碼器。自動會沿用 yt-dlp 自身的順序，該順序偏好體積最小的 AV1；H.264 可在較舊的電視和手機上播放。", "smartTv": "智慧型電視一律採用 H.264。", "auto": "自動", "vp9": "優先 VP9", "h264": "優先 H.264"},
 	"hdrPreference": {"label": "HDR 影片", "description": "自動模式會在此螢幕能顯示 HDR 時選擇 HDR，否則選擇 SDR。HDR 在一般螢幕上看起來會偏灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

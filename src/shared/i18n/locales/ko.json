@@ -996,6 +996,6 @@
 		"summary": {"goal": {"bestPicture": "최고 화질", "smartTv": "모든 기기에서 재생"}, "fileType": {"auto": "스트림에 따라 파일 형식 결정", "explicit": ".{{ext}}로 저장"}}
 	},
 	"aiUpscaled": {"label": "AI 업스케일 스트림", "description": "YouTube는 일부 오래된 동영상을 AI로 만든 크기로도 제공합니다. 건너뛰기를 선택하면 원본 스트림을 유지하며, 업스케일된 스트림을 직접 고를 수도 있습니다.", "skip": "건너뛰기", "allow": "허용"},
-	"videoCodec": {"label": "비디오 코덱", "description": "높이가 같은 스트림 중 먼저 선택할 코덱입니다. 자동은 가장 작은 AV1을 선택하고, H.264는 오래된 TV와 휴대폰에서 재생됩니다.", "smartTv": "스마트 TV는 항상 H.264를 선택합니다.", "auto": "자동", "vp9": "VP9 우선", "h264": "H.264 우선"},
+	"videoCodec": {"label": "비디오 코덱", "description": "높이가 같은 스트림 중 먼저 선택할 코덱입니다. 자동은 yt-dlp 자체 순서를 유지하며, 가장 작은 AV1을 우선하고, H.264는 오래된 TV와 휴대폰에서 재생됩니다.", "smartTv": "스마트 TV는 항상 H.264를 선택합니다.", "auto": "자동", "vp9": "VP9 우선", "h264": "H.264 우선"},
 	"hdrPreference": {"label": "HDR 영상", "description": "자동은 이 화면이 HDR을 표시할 수 있으면 HDR을, 아니면 SDR을 선택합니다. HDR은 일반 화면에서는 색이 바래 보입니다.", "sdr": "SDR", "hdr": "HDR", "auto": "자동"}
 }

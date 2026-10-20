@@ -1099,7 +1099,7 @@
 	"aiUpscaled": {"label": "Stream ingranditi con IA", "description": "YouTube offre alcuni vecchi video in dimensioni create con l'IA. “Salta” mantiene gli stream originali; puoi comunque sceglierne uno ingrandito a mano.", "skip": "Salta", "allow": "Consenti"},
 	"videoCodec": {
 		"label": "Codec video",
-		"description": "Quale codec scegliere per primo tra i flussi della stessa altezza. Automatico sceglie AV1, il più leggero; H.264 si riproduce su TV e telefoni meno recenti.",
+		"description": "Quale codec scegliere per primo tra i flussi della stessa altezza. Automatico mantiene l'ordine proprio di yt-dlp, che favorisce AV1, il più leggero; H.264 si riproduce su TV e telefoni meno recenti.",
 		"smartTv": "Smart TV sceglie sempre H.264.",
 		"auto": "Automatico",
 		"vp9": "Prima VP9",

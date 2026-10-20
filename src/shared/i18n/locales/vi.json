@@ -1007,6 +1007,13 @@
 		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Luồng nâng cấp bằng AI", "description": "YouTube cung cấp một số video cũ ở các kích thước được tạo bằng AI. Bỏ qua sẽ giữ các luồng gốc; bạn vẫn có thể tự chọn một luồng đã nâng cấp.", "skip": "Bỏ qua", "allow": "Cho phép"},
-	"videoCodec": {"label": "Codec video", "description": "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động lấy AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ.", "smartTv": "TV thông minh luôn lấy H.264.", "auto": "Tự động", "vp9": "Ưu tiên VP9", "h264": "Ưu tiên H.264"},
+	"videoCodec": {
+		"label": "Codec video",
+		"description": "Codec nào được lấy trước trong các luồng cùng chiều cao. Tự động giữ nguyên thứ tự riêng của yt-dlp, vốn ưu tiên AV1, nhỏ nhất; H.264 phát được trên TV và điện thoại đời cũ.",
+		"smartTv": "TV thông minh luôn lấy H.264.",
+		"auto": "Tự động",
+		"vp9": "Ưu tiên VP9",
+		"h264": "Ưu tiên H.264"
+	},
 	"hdrPreference": {"label": "Video HDR", "description": "Tự động sẽ chọn HDR khi màn hình này hiển thị được HDR, nếu không thì chọn SDR. HDR trông bị nhạt trên màn hình thông thường.", "sdr": "SDR", "hdr": "HDR", "auto": "Tự động"}
 }

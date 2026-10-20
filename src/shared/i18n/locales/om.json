@@ -1089,7 +1089,7 @@
 	"aiUpscaled": {"label": "Tarreessaawwan AI'n guddifaman", "description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.", "skip": "Darbi", "allow": "Hayyami"},
 	"videoCodec": {
 		"label": "Koodeeki viidiyoo",
-		"description": "Koodeekiin kam sirna dheerina wal fakkaatu keessaa jalqaba fudhatamu. Ofumaan AV1 isa xiqqaa fudhata; H.264 TV fi bilbila durii irratti ni taphata.",
+		"description": "Koodeekiin kam sirna dheerina wal fakkaatu keessaa jalqaba fudhatamu. Ofumaan tartiiba yt-dlp mataa isaa eegaa, kan AV1 isa xiqqaa dursu; H.264 TV fi bilbila durii irratti ni taphata.",
 		"smartTv": "TV smart yeroo hunda H.264 fudhata.",
 		"auto": "Ofumaa",
 		"vp9": "VP9 jalqaba",

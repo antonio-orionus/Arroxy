@@ -1094,6 +1094,13 @@
 		"summary": {"goal": {"bestPicture": "bestes Bild", "smartTv": "läuft auf jedem Gerät"}, "fileType": {"auto": "Dateityp aus den Streams", "explicit": "speichert als .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "KI-hochskalierte Streams", "description": "YouTube bietet manche alten Videos in Größen an, die per KI erzeugt wurden. „Überspringen“ behält die Original-Streams; einen hochskalierten kannst du trotzdem von Hand wählen.", "skip": "Überspringen", "allow": "Zulassen"},
-	"videoCodec": {"label": "Video-Codec", "description": "Welcher Codec bei Streams gleicher Höhe zuerst gewählt wird. Auto wählt AV1, den kleinsten; H.264 läuft auf älteren Fernsehern und Handys.", "smartTv": "Smart-TV nimmt immer H.264.", "auto": "Auto", "vp9": "Zuerst VP9", "h264": "Zuerst H.264"},
+	"videoCodec": {
+		"label": "Video-Codec",
+		"description": "Welcher Codec bei Streams gleicher Höhe zuerst gewählt wird. Auto behält die eigene Reihenfolge von yt-dlp bei, die AV1, den kleinsten, bevorzugt; H.264 läuft auf älteren Fernsehern und Handys.",
+		"smartTv": "Smart-TV nimmt immer H.264.",
+		"auto": "Auto",
+		"vp9": "Zuerst VP9",
+		"h264": "Zuerst H.264"
+	},
 	"hdrPreference": {"label": "HDR-Video", "description": "Auto wählt HDR, wenn dieser Bildschirm es darstellen kann, sonst SDR. HDR wirkt auf normalen Bildschirmen blass.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

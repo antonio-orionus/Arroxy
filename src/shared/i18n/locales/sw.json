@@ -1050,7 +1050,7 @@
 	"aiUpscaled": {"label": "Mikondo iliyokuzwa kwa AI", "description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.", "skip": "Ruka", "allow": "Ruhusu"},
 	"videoCodec": {
 		"label": "Kodeki ya video",
-		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huchukua AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
+		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huhifadhi mpangilio wa yt-dlp wenyewe, unaopendelea AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
 		"smartTv": "Runinga janja huchukua H.264 kila wakati.",
 		"auto": "Otomatiki",
 		"vp9": "VP9 kwanza",

@@ -1119,7 +1119,7 @@
 	"aiUpscaled": {"label": "Flux agrandis par IA", "description": "YouTube propose certaines anciennes vidéos dans des tailles créées par IA. « Ignorer » conserve les flux d’origine ; vous pouvez toujours choisir un flux agrandi manuellement.", "skip": "Ignorer", "allow": "Autoriser"},
 	"videoCodec": {
 		"label": "Codec vidéo",
-		"description": "Quel codec prendre en premier parmi les flux de même hauteur. Auto prend l’AV1, le plus léger ; le H.264 passe sur les anciennes TV et les anciens téléphones.",
+		"description": "Quel codec prendre en premier parmi les flux de même hauteur. Auto garde l’ordre propre à yt-dlp, qui favorise l’AV1, le plus léger ; le H.264 passe sur les anciennes TV et les anciens téléphones.",
 		"smartTv": "TV connectée prend toujours le H.264.",
 		"auto": "Auto",
 		"vp9": "VP9 en premier",

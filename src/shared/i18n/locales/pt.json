@@ -1091,6 +1091,13 @@
 		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	},
 	"aiUpscaled": {"label": "Streams ampliados por IA", "description": "O YouTube oferece alguns vídeos antigos em tamanhos criados com IA. “Pular” mantém os streams originais; você ainda pode escolher um ampliado manualmente.", "skip": "Pular", "allow": "Permitir"},
-	"videoCodec": {"label": "Codec de vídeo", "description": "Qual codec escolher primeiro entre streams da mesma altura. Automática escolhe AV1, o menor; H.264 toca em TVs e celulares mais antigos.", "smartTv": "Smart TV escolhe sempre H.264.", "auto": "Automática", "vp9": "VP9 primeiro", "h264": "H.264 primeiro"},
+	"videoCodec": {
+		"label": "Codec de vídeo",
+		"description": "Qual codec escolher primeiro entre streams da mesma altura. Automática mantém a ordem própria do yt-dlp, que favorece AV1, o menor; H.264 toca em TVs e celulares mais antigos.",
+		"smartTv": "Smart TV escolhe sempre H.264.",
+		"auto": "Automática",
+		"vp9": "VP9 primeiro",
+		"h264": "H.264 primeiro"
+	},
 	"hdrPreference": {"label": "Vídeo HDR", "description": "Automática escolhe HDR se esta tela puder exibi-lo; caso contrário, SDR. O HDR fica desbotado em telas comuns.", "sdr": "SDR", "hdr": "HDR", "auto": "Automática"}
 }

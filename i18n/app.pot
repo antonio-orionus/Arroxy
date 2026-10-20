@@ -2005,7 +2005,7 @@ msgid "Auto"
 msgstr ""
 
 msgctxt "videoCodec.description"
-msgid "Which codec to take first among streams of the same height. Auto takes AV1, the smallest; H.264 plays on older TVs and phones."
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
 msgstr ""
 
 msgctxt "videoCodec.h264"
