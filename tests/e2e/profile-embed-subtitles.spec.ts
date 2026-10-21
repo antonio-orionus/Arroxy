@@ -38,7 +38,7 @@ import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {probeStreams} from './ffprobe.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
-function embedSubtitlesProfile(fileType: VideoFileType, subtitles: Pick<DownloadProfile['subtitles'], 'languages' | 'source'> = {languages: ['en', 'es'], source: 'manual-only'}): DownloadProfile {
+function embedSubtitlesProfile(fileType: VideoFileType, subtitles: Pick<DownloadProfile['subtitles'], 'languages' | 'source'> = {languages: ['en', 'es'], source: 'manual-only'}): DownloadProfile & {name: string} {
 	const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
 	if (!base) throw new Error('small-file built-in profile missing')
 	return {

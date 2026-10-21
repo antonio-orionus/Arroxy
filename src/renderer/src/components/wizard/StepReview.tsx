@@ -30,6 +30,7 @@ import {wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
 import {cn} from '../../lib/utils.js'
 import {wizardVideoPart} from '../../store/wizard/videoPart.js'
 import {formatPartTime} from '@shared/videoPart.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 const ROW_LABEL_KEYS = {subtitles: 'wizard.review.rows.subtitles', sponsorBlock: 'wizard.review.rows.sponsorBlock', extras: 'wizard.review.rows.extras', saveTo: 'wizard.review.rows.saveTo', fileName: 'wizard.review.rows.fileName'} as const satisfies Record<ReviewRow, string>
 
@@ -147,6 +148,7 @@ function ReviewWarnings({caveat, conflicts}: {caveat: Mp4Caveat | null; conflict
 // place. The footer says what changed from the profile this run started from.
 export function StepReview(): ReactNode {
 	const {t, i18n} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const state = useAppStore(useShallow(selectWizardReviewState))
 	const {wizardReviewRow, setWizardReviewRow, goToStep, dismissReviewCallout} = useAppStore(useShallow(s => ({wizardReviewRow: s.wizardReviewRow, setWizardReviewRow: s.setWizardReviewRow, goToStep: s.goToStep, dismissReviewCallout: s.dismissReviewCallout})))
 	const reviewCalloutPending = state.settings?.common?.reviewCalloutDismissed !== true && (state.settings?.common?.successfulDownloadCount ?? 0) > 0
@@ -160,7 +162,7 @@ export function StepReview(): ReactNode {
 	const review = buildDownloadReview(state, {t: translate, language: i18n.language, commonPaths: state.commonPaths})
 	const rows = reviewRowEntries(state, summary)
 	const changed = wizardChangedAreas(state)
-	const changedFrom = t('wizard.review.changedFrom', {profile: state.wizardProfile?.name ?? ''})
+	const changedFrom = t('wizard.review.changedFrom', {profile: state.wizardProfile ? nameOf(state.wizardProfile) : ''})
 	const caveat = mp4CaveatCodec(state)
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 

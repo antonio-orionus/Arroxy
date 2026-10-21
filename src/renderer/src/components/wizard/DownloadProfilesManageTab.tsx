@@ -16,6 +16,7 @@ import {Switch} from '../ui/switch.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {IconTile} from '../shared/IconTile.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 function profileDetail(profile: DownloadProfile, t: TFunction): string {
 	const subs = profile.subtitles.enabled || profile.media.kind === 'subtitles-only' ? `${profile.subtitles.languages.join(', ') || 'selected'} ${t('wizard.confirm.labelSubtitles').toLowerCase()}` : t('wizard.subtitles.noSelected')
@@ -51,7 +52,11 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 	const suppressClickRef = useRef(false)
 	const sensors = useSensors(useSensor(PointerSensor, {activationConstraint: {distance: 6}}), useSensor(KeyboardSortSensor, {coordinateGetter: sortableKeyboardCoordinates}))
 
-	const nameOf = (id: UniqueIdentifier): string => profiles.find(profile => profile.id === id)?.name ?? String(id)
+	const nameOf = useProfileDisplayName()
+	const nameAt = (id: UniqueIdentifier): string => {
+		const profile = profiles.find(item => item.id === id)
+		return profile ? nameOf(profile) : String(id)
+	}
 	const placeOf = (id: UniqueIdentifier): {position: number; count: number} => ({position: profiles.findIndex(profile => profile.id === id) + 1, count: profiles.length})
 	// A pick-up is also over its own slot at once; announcing that would replace
 	// the pick-up message before a screen reader reads it.
@@ -59,15 +64,15 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 	const announcements: Announcements = {
 		onDragStart: ({active}) => {
 			movedRef.current = false
-			return t('wizard.url.profile.movePickedUp', {profileName: nameOf(active.id), ...placeOf(active.id)})
+			return t('wizard.url.profile.movePickedUp', {profileName: nameAt(active.id), ...placeOf(active.id)})
 		},
 		onDragOver: ({active, over}) => {
 			if (!over || (over.id === active.id && !movedRef.current)) return undefined
 			movedRef.current = true
-			return t('wizard.url.profile.moveOver', {profileName: nameOf(active.id), ...placeOf(over.id)})
+			return t('wizard.url.profile.moveOver', {profileName: nameAt(active.id), ...placeOf(over.id)})
 		},
-		onDragEnd: ({active, over}) => t('wizard.url.profile.moveDropped', {profileName: nameOf(active.id), ...placeOf(over?.id ?? active.id)}),
-		onDragCancel: ({active}) => t('wizard.url.profile.moveCancelled', {profileName: nameOf(active.id), ...placeOf(active.id)})
+		onDragEnd: ({active, over}) => t('wizard.url.profile.moveDropped', {profileName: nameAt(active.id), ...placeOf(over?.id ?? active.id)}),
+		onDragCancel: ({active}) => t('wizard.url.profile.moveCancelled', {profileName: nameAt(active.id), ...placeOf(active.id)})
 	}
 
 	const endDrag = (): void => {
@@ -122,6 +127,7 @@ interface ProfileCardProps {
 }
 
 function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressClickRef, onEdit, onPick, onRemove, onToggleEnabled}: ProfileCardProps): ReactNode {
+	const nameOf = useProfileDisplayName()
 	const {attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging} = useSortable({id: profile.id, attributes: {roleDescription: t('wizard.url.profile.movableProfile')}})
 	const Icon = PROFILE_ICONS[profile.icon]
 	const origin = downloadProfileOrigin(profile, profilesPrefs)
@@ -161,7 +167,7 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 				<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
 					<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
 						<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
-							{profile.name}
+							{nameOf(profile)}
 						</span>
 						<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
 						{!profile.enabled ? <Badge variant="outline">{t('wizard.url.profile.badgeDisabled')}</Badge> : null}
@@ -183,7 +189,7 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 					variant="ghost"
 					size="icon-sm"
 					className={cn('shrink-0 touch-none text-subtle-foreground', isDragging ? 'cursor-grabbing' : 'cursor-grab')}
-					aria-label={t('wizard.url.profile.moveHandleAria', {profileName: profile.name})}
+					aria-label={t('wizard.url.profile.moveHandleAria', {profileName: nameOf(profile)})}
 					data-testid={`profiles-manage-card-${profile.id}-move`}
 				>
 					<GripVertical />
@@ -209,7 +215,7 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 										if (!canToggleOff && profile.enabled) return
 										onToggleEnabled(profile.id, next)
 									}}
-									aria-label={t('wizard.url.profile.enableToggleAria', {profileName: profile.name})}
+									aria-label={t('wizard.url.profile.enableToggleAria', {profileName: nameOf(profile)})}
 									data-testid={`profiles-manage-card-${profile.id}-enabled-toggle`}
 								/>
 							</span>

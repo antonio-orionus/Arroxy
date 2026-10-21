@@ -1,11 +1,12 @@
 import type {MenuItemConstructorOptions} from 'electron'
 import {mainT} from '@main/i18n.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
+import {downloadProfileName} from '@shared/downloadProfileName.js'
 import {downloadProfileRefFor, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
-import type {DownloadProfilesPrefs, ExploreLinkAction} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfilesPrefs, ExploreLinkAction} from '@shared/types.js'
 
 export interface ExploreLinkMenuDeps {
 	profiles: () => DownloadProfilesPrefs | undefined
@@ -46,14 +47,15 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	if (url.length > EXPLORE_ADDRESS_MAX || !isExploreGrabbable(url)) return [copy]
 	const prefs = deps.profiles()
 	const active = resolveActiveDownloadProfile(prefs)
+	const nameOf = (profile: DownloadProfile): string => downloadProfileName(profile, key => mainT(lang, key))
 	// The in-app pickers' rule (saved order, current one marked) with the OS's own
 	// marker: radio items. The active profile is never hidden, so none is tagged.
 	const profiles = enabledDownloadProfiles(prefs).map((profile): MenuItemConstructorOptions => {
 		const ref = downloadProfileRefFor(profile, prefs)
-		return {label: menuText(profile.name), type: 'radio', checked: ref.kind === active.ref.kind && ref.id === active.ref.id, click: () => deps.send({kind: 'download', url, profile: ref})}
+		return {label: menuText(nameOf(profile)), type: 'radio', checked: ref.kind === active.ref.kind && ref.id === active.ref.id, click: () => deps.send({kind: 'download', url, profile: ref})}
 	})
 	return [
-		{label: menuText(mainT(lang, 'explore.toolbar.downloadWithProfile', {profileName: active.profile.name})), click: () => deps.send({kind: 'download', url})},
+		{label: menuText(mainT(lang, 'explore.toolbar.downloadWithProfile', {profileName: nameOf(active.profile)})), click: () => deps.send({kind: 'download', url})},
 		{label: mainT(lang, 'explore.linkMenu.downloadWith'), submenu: profiles},
 		{type: 'separator'},
 		{label: mainT(lang, 'explore.toolbar.interactiveHint'), click: () => deps.send({kind: 'interactive', url})},

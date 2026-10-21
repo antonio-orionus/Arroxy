@@ -18,6 +18,7 @@ import type {
 	VideoGoal
 } from '@shared/types.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
+import {BUILTIN_DOWNLOAD_PROFILES, isBuiltinDownloadProfileId} from '@shared/downloadProfiles.js'
 import {effectiveFileType, effectiveVideoCodec, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES, type AiUpscaled} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
@@ -37,7 +38,9 @@ export interface DownloadProfileDraft {
 	profileId: string | null
 	createdAt: string | null
 	enabled: boolean
-	profileName: string
+	// null: a built-in on its own name, shown in the app language. Text the user
+	// clears on a built-in saves as its own name too.
+	profileName: string | null
 	profileIcon: DownloadProfileIcon
 	mediaMode: DownloadProfileMediaMode
 	goal: VideoGoal
@@ -109,8 +112,15 @@ export interface DownloadProfileDraftValidation {
 export const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
 export const SMART_TV_MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
 
-export function defaultProfileSubfolderName(name: string): string {
+function defaultProfileSubfolderName(name: string): string {
 	return safeFolderName(name.trim() || 'Download Profile')
+}
+
+// The folder a profile saves into when its subfolder field is left empty: a
+// built-in's own, which no rename moves, or one named after a custom profile.
+export function draftDefaultSubfolderName(draft: Pick<DownloadProfileDraft, 'profileId' | 'profileName'>): string {
+	const builtin = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === draft.profileId)
+	return builtin ? builtin.subfolder.name : defaultProfileSubfolderName(draft.profileName ?? '')
 }
 
 function smartTvCompatibleResolution(goal: VideoGoal, resolution: PlaylistVideoTier): PlaylistVideoTier {
@@ -163,7 +173,7 @@ function nativeAudioChoice(nativeAudio: DownloadProfileNativeAudio): NativeAudio
 }
 
 export function createDownloadProfileDraft(initialProfile: DownloadProfile | null): DownloadProfileDraft {
-	const profileName = initialProfile?.name ?? 'Study Captions'
+	const profileName = initialProfile ? (initialProfile.name ?? null) : 'Study Captions'
 	const video = videoMedia(initialProfile)
 	const goal = video?.goal ?? 'smart-tv'
 	const resolution = smartTvCompatibleResolution(goal, video?.tier ?? '1080')
@@ -191,7 +201,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		destination: initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '',
 		filenameTemplate: initialProfile?.filename.kind === 'custom' ? initialProfile.filename.template : '',
 		saveInsideSubfolder: initialProfile?.subfolder.enabled ?? true,
-		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName),
+		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName ?? ''),
 		embedMetadata: initialProfile?.embed.metadata ?? true,
 		embedChapters: initialProfile?.embed.chapters ?? true,
 		embedThumbnail: initialProfile?.embed.thumbnail ?? DEFAULTS.embedThumbnail,
@@ -205,9 +215,8 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: DownloadProfileDraftAction): DownloadProfileDraft {
 	switch (action.type) {
 		case 'set-profile-name': {
-			const previousDefaultSubfolder = defaultProfileSubfolderName(draft.profileName)
-			const nextDefaultSubfolder = defaultProfileSubfolderName(action.profileName)
-			return {...draft, profileName: action.profileName, subfolderName: draft.subfolderName === previousDefaultSubfolder ? nextDefaultSubfolder : draft.subfolderName}
+			const renamed = {...draft, profileName: action.profileName}
+			return draft.subfolderName === draftDefaultSubfolderName(draft) ? {...renamed, subfolderName: draftDefaultSubfolderName(renamed)} : renamed
 		}
 		case 'set-profile-icon':
 			return {...draft, profileIcon: action.profileIcon}
@@ -320,19 +329,25 @@ function effectiveSubtitleEnabled(draft: DownloadProfileDraft): boolean {
 	return draft.mediaMode === 'subtitles-only' || draft.subtitleEnabled
 }
 
+function savedProfileName(draft: DownloadProfileDraft): string | undefined {
+	const typed = draft.profileName?.trim() ?? ''
+	if (typed) return typed
+	return draft.profileId !== null && isBuiltinDownloadProfileId(draft.profileId) ? undefined : 'Download Profile'
+}
+
 export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: string, idFactory: () => string): DownloadProfile {
 	const showVideo = draft.mediaMode === 'video-audio' || draft.mediaMode === 'video-only'
 	const subtitlesEnabled = effectiveSubtitleEnabled(draft)
 	return {
 		id: draft.profileId ?? idFactory(),
-		name: draft.profileName.trim() || 'Download Profile',
+		name: savedProfileName(draft),
 		icon: draft.profileIcon,
 		enabled: draft.enabled,
 		media: profileMediaFromDraft(draft),
 		subtitles: {enabled: subtitlesEnabled, languages: subtitlesEnabled ? draft.subtitleLanguages : [], source: draft.subtitleSource, mode: draft.subtitleDelivery, format: draft.subtitleFormat},
 		output: draft.destination.trim() ? {kind: 'fixed', dir: draft.destination.trim()} : {kind: 'default'},
 		filename: draft.filenameTemplate.trim() ? {kind: 'custom', template: draft.filenameTemplate.trim()} : {kind: 'default'},
-		subfolder: {enabled: draft.saveInsideSubfolder, name: draft.saveInsideSubfolder ? draft.subfolderName.trim() || defaultProfileSubfolderName(draft.profileName) : ''},
+		subfolder: {enabled: draft.saveInsideSubfolder, name: draft.saveInsideSubfolder ? draft.subfolderName.trim() || draftDefaultSubfolderName(draft) : ''},
 		sponsorBlock: {mode: showVideo ? draft.sponsorBlockMode : 'off', categories: showVideo && draft.sponsorBlockMode !== 'off' ? [...draft.sponsorBlockCategories] : []},
 		embed: {chapters: showVideo && draft.embedChapters, metadata: draft.embedMetadata, thumbnail: draft.embedThumbnail && canDraftEmbedThumbnail(draft), description: draft.saveDescription, thumbnailSidecar: draft.saveThumbnail},
 		createdAt: draft.createdAt ?? now,

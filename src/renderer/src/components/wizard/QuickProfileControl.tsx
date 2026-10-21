@@ -5,6 +5,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import {formatHotkeyChord, formatHotkeyChordSpoken} from '@renderer/lib/hotkeyLabel.js'
 import {cn} from '@renderer/lib/utils.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Kbd, KbdGroup} from '../ui/kbd.js'
@@ -54,12 +55,13 @@ export function QuickProfileControl({
 }: QuickProfileControlProps): ReactNode {
 	const model = buildDownloadProfileActionModel(profilesPrefs)
 	const {activeProfile} = model
+	const nameOf = useProfileDisplayName()
 	const compact = size === 'compact'
 	const hasDestination = !compact && Boolean(destination?.trim())
 	const clusterTestId = testIdPrefix === 'profiles' ? 'profiles-quick-preview' : 'bulk-quick-profile-preview'
 	return (
 		<div className={cn('quick-profile-cluster flex w-full flex-col overflow-hidden rounded-xl md:flex-row', clusterMinHeightClass(compact, hasDestination))} data-linked-control="quick-profile" data-testid={clusterTestId}>
-			<QuickDownloadAction compact={compact} disabled={disabled} preparing={preparing} profileName={activeProfile.name} onDownload={onDownload} testIdPrefix={testIdPrefix} />
+			<QuickDownloadAction compact={compact} disabled={disabled} preparing={preparing} profileName={nameOf(activeProfile)} onDownload={onDownload} testIdPrefix={testIdPrefix} />
 
 			<ProfileMenu
 				activeProfile={activeProfile}
@@ -175,6 +177,7 @@ function ProfileMenu({
 	testIdPrefix: QuickProfileTestIdPrefix
 }): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
 	const {ActiveIcon} = model
 	const activeSummary = quickProfileSummary(activeProfile, t)
@@ -207,7 +210,7 @@ function ProfileMenu({
 								<Button
 									type="button"
 									variant="ghost"
-									aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})}
+									aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(activeProfile)})}
 									className={cn('quick-profile-selector-trigger h-auto min-w-0 flex-1 justify-start whitespace-normal rounded-xl bg-transparent text-left hover:bg-transparent', compact ? 'gap-3 px-1.5 py-1.5' : 'gap-2 px-1.5 py-1.5 md:gap-3')}
 									data-testid={`${testIdPrefix}-active-profile-trigger`}
 								>
@@ -216,7 +219,7 @@ function ProfileMenu({
 									</span>
 									<span className="min-w-0 flex-1">
 										<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
-										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{activeProfile.name}</span>
+										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{nameOf(activeProfile)}</span>
 										<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
 									</span>
 									<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>

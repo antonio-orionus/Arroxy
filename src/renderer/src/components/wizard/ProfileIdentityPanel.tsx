@@ -11,6 +11,8 @@ import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {Panel} from '../shared/Panel.js'
 import {Hint} from '../shared/Hint.js'
+import {isBuiltinDownloadProfileId} from '@shared/downloadProfiles.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 const PROFILE_ICON_META = {
 	controls: {labelKey: 'wizard.profileEditor.icon.controls', icon: SlidersHorizontal},
@@ -28,7 +30,8 @@ const PROFILE_ICON_META = {
 const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map(value => ({value, ...PROFILE_ICON_META[value]}))
 
 interface ProfileIdentityPanelProps {
-	profileName: string
+	profileId: string | null
+	profileName: string | null
 	profileIcon: DownloadProfileIcon
 	// Owned by the editor, not this panel: the dialog content unmounts while
 	// closed, and the picker state lives as long as the draft does.
@@ -38,8 +41,12 @@ interface ProfileIdentityPanelProps {
 }
 
 // The profile editor's Identity panel: the profile name with its icon picker.
-export function ProfileIdentityPanel({profileName, profileIcon, iconPickerOpen, onIconPickerOpenChange, onAction}: ProfileIdentityPanelProps): ReactNode {
+export function ProfileIdentityPanel({profileId, profileName, profileIcon, iconPickerOpen, onIconPickerOpenChange, onAction}: ProfileIdentityPanelProps): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
+	// A built-in's own name fills the field until the user types one, and comes
+	// back as the placeholder when they clear it.
+	const ownName = profileId !== null && isBuiltinDownloadProfileId(profileId) ? nameOf({id: profileId}) : undefined
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
 
 	return (
@@ -86,7 +93,7 @@ export function ProfileIdentityPanel({profileName, profileIcon, iconPickerOpen, 
 							</ToggleGroup>
 						</PopoverContent>
 					</Popover>
-					<InputGroupInput id="profile-name" value={profileName} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
+					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
 				</InputGroup>
 			</Field>
 		</Panel>

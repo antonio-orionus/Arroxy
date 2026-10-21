@@ -17,6 +17,7 @@ import {PopoverContent} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
 import {Hint} from '../shared/Hint.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 export type ProfilePickerLayout = 'grid' | 'list'
 export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row' | 'kit'
@@ -24,13 +25,14 @@ export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizar
 // Icon, name, the Hidden tag for a profile kept only because it is in use, and its summary.
 function ProfileOptionLabel({option}: {option: ProfilePickerOption}): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const {profile, Icon, label, hidden} = option
 	return (
 		<>
 			<Icon className="shrink-0 text-primary" aria-hidden />
 			<span className="min-w-0 flex-1">
 				<span className="flex min-w-0 items-center gap-1.5">
-					<span className="truncate text-sm font-semibold text-foreground">{profile.name}</span>
+					<span className="truncate text-sm font-semibold text-foreground">{nameOf(profile)}</span>
 					{hidden ? (
 						<Badge variant="outline" size="sm">
 							{t('wizard.url.profile.badgeDisabled')}
@@ -51,10 +53,11 @@ interface ProfilePickerOptionsProps {
 }
 
 function ProfilePickerOptions({options, layout, onPick, testIdPrefix}: ProfilePickerOptionsProps): ReactNode {
+	const nameOf = useProfileDisplayName()
 	return (
 		<div className={cn('grid', layout === 'grid' ? 'grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2' : 'grid-cols-1 gap-0.5')} data-layout={layout} data-testid={`${testIdPrefix}-profile-menu-grid`}>
 			{options.map(option => (
-				<Hint key={option.profile.id} label={`${option.profile.name}: ${option.label}`} reveal>
+				<Hint key={option.profile.id} label={`${nameOf(option.profile)}: ${option.label}`} reveal>
 					<Button
 						type="button"
 						variant={layout === 'grid' ? 'outline' : 'ghost'}

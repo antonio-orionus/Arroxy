@@ -11,7 +11,7 @@ describe('DownloadProfileDraft', () => {
 	it('initializes from a built-in profile', () => {
 		const draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!)
 
-		expect(draft).toMatchObject({profileId: 'balanced', profileName: 'Balanced 720p', profileIcon: 'controls', mediaMode: 'video-audio', goal: 'best-picture', resolution: '720', fileType: 'auto', nativeAudio: 'default', subfolderName: 'Balanced 720p'})
+		expect(draft).toMatchObject({profileId: 'balanced', profileName: null, profileIcon: 'controls', mediaMode: 'video-audio', goal: 'best-picture', resolution: '720', fileType: 'auto', nativeAudio: 'default', subfolderName: 'Balanced 720p'})
 	})
 
 	it('never keeps Smart TV as a WebM file', () => {
@@ -122,6 +122,24 @@ describe('DownloadProfileDraft', () => {
 		draft = updateDownloadProfileDraft(draft, {type: 'set-subfolder-name', subfolderName: 'Custom Folder'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: 'Renamed'})
 		expect(draft.subfolderName).toBe('Custom Folder')
+	})
+
+	it('keeps a built-in on its own name until the user types one, and back when the field is cleared', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		let draft = createDownloadProfileDraft(balanced)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '1080'})
+		expect(downloadProfileFromDraft(draft, NOW, () => 'unused').name).toBeUndefined()
+
+		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: 'Lectures'})
+		// Renaming a built-in leaves its download folder where it was.
+		expect(draft.subfolderName).toBe('Balanced 720p')
+		expect(downloadProfileFromDraft(draft, NOW, () => 'unused').name).toBe('Lectures')
+
+		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: '  '})
+		expect(downloadProfileFromDraft(draft, NOW, () => 'unused').name).toBeUndefined()
+
+		draft = updateDownloadProfileDraft(draft, {type: 'set-subfolder-name', subfolderName: ''})
+		expect(downloadProfileFromDraft(draft, NOW, () => 'unused').subfolder).toEqual({enabled: true, name: 'Balanced 720p'})
 	})
 
 	it('validates invalid subfolder names only when subfolders are enabled', () => {

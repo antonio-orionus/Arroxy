@@ -1,7 +1,7 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
-import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from './schemas.js'
+import {builtinDownloadProfileIdSchema, DEFAULT_AUDIO_BITRATE} from './schemas.js'
+import type {BuiltinDownloadProfileId, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
@@ -16,11 +16,11 @@ function videoAudio(goal: VideoGoal, tier: PlaylistVideoTier): VideoAudioProfile
 	return {kind: 'video-audio', goal, tier, fileType: 'auto', audio: {native: {kind: 'default'}}}
 }
 
-// `subfolderName` keeps a built-in's existing download folder when its display name changes.
-function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon'], enabled = true, subfolderName = name): DownloadProfile {
+// A built-in stores no name: it is shown from the catalog in the app language.
+// `subfolderName` is its download folder, which stays put whatever it is called.
+function baseProfile(id: BuiltinDownloadProfileId, subfolderName: string, media: DownloadProfile['media'], icon: DownloadProfile['icon'], enabled = true): DownloadProfile {
 	return {
 		id,
-		name,
 		icon,
 		enabled,
 		media,
@@ -61,9 +61,10 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('hd-1080', 'Full HD 1080p', videoAudio('best-picture', '1080'), 'video'),
 	baseProfile('balanced', 'Balanced 720p', videoAudio('best-picture', '720'), 'controls'),
 	baseProfile('small-file', 'Small file 480p', videoAudio('best-picture', '480'), 'clip'),
-	baseProfile('mp4-1080', 'Smart TV 1080p', videoAudio('smart-tv', '1080'), 'video', true, 'Smart TV MP4 Full HD 1080p'),
-	baseProfile('mp4-720', 'Smart TV 720p', videoAudio('smart-tv', '720'), 'video', true, 'Smart TV MP4 HD 720p'),
-	baseProfile('mp4-480', 'Smart TV 480p', videoAudio('smart-tv', '480'), 'video', true, 'Smart TV MP4 SD 480p'),
+	// The Smart TV folders keep the names these built-ins had before a rename.
+	baseProfile('mp4-1080', 'Smart TV MP4 Full HD 1080p', videoAudio('smart-tv', '1080'), 'video'),
+	baseProfile('mp4-720', 'Smart TV MP4 HD 720p', videoAudio('smart-tv', '720'), 'video'),
+	baseProfile('mp4-480', 'Smart TV MP4 SD 480p', videoAudio('smart-tv', '480'), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio'),
 	subtitlesOnlyProfile(),
 	baseProfile('low-240', 'Low data 240p', videoAudio('best-picture', '240'), 'clip', false),
@@ -92,8 +93,8 @@ export interface DownloadProfileOutputContext {
 	defaultOutputDir?: string
 }
 
-function isBuiltinDownloadProfileId(id: string): boolean {
-	return BUILTIN_DOWNLOAD_PROFILES.some(profile => profile.id === id)
+export function isBuiltinDownloadProfileId(id: string): id is BuiltinDownloadProfileId {
+	return builtinDownloadProfileIdSchema.safeParse(id).success
 }
 
 export function normalizeDownloadProfilesPrefs(prefs: DownloadProfilesPrefs | undefined): DownloadProfilesPrefs {

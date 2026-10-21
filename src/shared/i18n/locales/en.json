@@ -1621,6 +1621,21 @@
 				"badgeCustom": "Custom",
 				"badgeDisabled": "Hidden",
 				"badgeModified": "Modified",
+				"builtinName": {
+					"audio-only": "Audio only",
+					"balanced": "Balanced 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Best available",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Lowest 144p",
+					"low-240": "Low data 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Small file 480p",
+					"subtitles-only": "Subtitles only"
+				},
 				"changeGlobalDestination": "Change global destination",
 				"destinationDetail": {
 					"global": "Using global destination",

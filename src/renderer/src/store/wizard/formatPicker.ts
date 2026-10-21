@@ -14,6 +14,7 @@ import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {planSubtitleTracks} from '@shared/subtitleTracks.js'
 import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
+import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {formatMode} from './formatMode.js'
 import type {FormatMode} from '@shared/schemas.js'
 import {editedProfileDraft, profilePatch, profileVideoPick, switchProfilePatch, updatedProfileDraft, wizardSnapshot} from './wizardProfileState.js'
@@ -207,14 +208,14 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 			const trimmed = name.trim()
 			const profile = trimmed ? editedProfileDraft(get(), trimmed) : null
 			if (!profile || !(await persistWizardProfile(profile))) return false
-			notify.profileSaved(profile.name)
+			notify.profileSaved(profileDisplayName(profile))
 			return true
 		},
 
 		updateWizardProfile: async () => {
 			const profile = updatedProfileDraft(get())
 			if (!profile || !(await persistWizardProfile(profile))) return false
-			notify.profileUpdated(profile.name)
+			notify.profileUpdated(profileDisplayName(profile))
 			return true
 		}
 	}

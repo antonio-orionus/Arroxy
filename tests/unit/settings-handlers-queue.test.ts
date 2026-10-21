@@ -126,8 +126,8 @@ describe('settings update refuses a new profile filename template that does not 
 		['custom', '{tittle}'],
 		['overrides', 'a:b {title}']
 	])('refuses a %s profile with the template %s', async (bucket, template) => {
-		const result = await send({profiles: {[bucket]: [{...base, id: 'mine', filename: {kind: 'custom', template}}]}})
-		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: `Download profile "${base.name}" has an unusable filename template`}})
+		const result = await send({profiles: {[bucket]: [{...base, id: 'mine', name: 'Mine', filename: {kind: 'custom', template}}]}})
+		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: 'Download profile "Mine" has an unusable filename template'}})
 		expect(settingsStore.update).not.toHaveBeenCalled()
 	})
 

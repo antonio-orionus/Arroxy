@@ -16,6 +16,7 @@ import {Spinner} from '../ui/spinner.js'
 import {Toggle} from '../ui/toggle.js'
 import {ExploreAddressBar} from './ExploreAddressBar.js'
 import {ExploreZoomControl} from './ExploreZoomControl.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 // What the profile menu's picks and actions do; the home owns the editor and the tabs.
 export interface ExploreProfileMenuActions {
@@ -97,11 +98,12 @@ function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compac
 // its tooltip has to say why.
 export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, zoom, onZoomChange, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const [menuOpen, setMenuOpen] = useState(false)
 	const {activeProfile, ActiveIcon} = profiles
 	const blocked = !grabbable
 	const grabHint = grabbable ? undefined : t('explore.toolbar.grabUnavailable')
-	const downloadLabel = t('explore.toolbar.downloadWithProfile', {profileName: activeProfile.name})
+	const downloadLabel = t('explore.toolbar.downloadWithProfile', {profileName: nameOf(activeProfile)})
 	const interactiveHint = t('explore.toolbar.interactiveHint')
 	return (
 		<NativeViewPointerEntries value={pointerEntries}>
@@ -151,7 +153,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 							<Hint label={grabHint ?? t('wizard.url.profile.switchTitle')}>
 								<PopoverTrigger
 									render={
-										<Button type="button" size="icon-sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})} className="border-s-primary-foreground/25" data-testid="explore-profile-trigger">
+										<Button type="button" size="icon-sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(activeProfile)})} className="border-s-primary-foreground/25" data-testid="explore-profile-trigger">
 											<ChevronDown aria-hidden />
 										</Button>
 									}

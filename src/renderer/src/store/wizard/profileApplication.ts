@@ -128,7 +128,8 @@ export function withAreasFrom(target: WizardSettingsSnapshot, source: WizardSett
 
 export interface SaveProfileContext {
 	id: string
-	name: string
+	// Absent keeps a built-in on its own name.
+	name?: string
 	now: string
 	defaultOutputDir: string
 	globalFilenameTemplate: string | undefined

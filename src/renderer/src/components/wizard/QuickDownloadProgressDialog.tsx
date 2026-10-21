@@ -13,6 +13,7 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {Progress} from '../ui/progress.js'
 import {Spinner} from '../ui/spinner.js'
 import {IconTile} from '../shared/IconTile.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 const PHASE_LABEL_KEYS: Record<QuickDownloadProgressPhase, 'wizard.quickProgress.phase.probing' | 'wizard.quickProgress.phase.queueing'> = {probing: 'wizard.quickProgress.phase.probing', queueing: 'wizard.quickProgress.phase.queueing'}
 
@@ -67,6 +68,7 @@ function describeQuickDownloadProgress({t, phase, probe, playlistLimit, complete
 
 export function QuickDownloadProgressDialog(): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const quickDownloadStatus = useAppStore(state => state.quickDownloadStatus)
 	const phase = useAppStore(state => state.quickDownloadProgressPhase)
 	const total = useAppStore(state => state.quickDownloadProgressTotal)
@@ -96,7 +98,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 						</IconTile>
 						{t('wizard.quickProgress.title')}
 					</DialogTitle>
-					<DialogDescription>{t('wizard.quickProgress.description', {profileName: activeProfile.name})}</DialogDescription>
+					<DialogDescription>{t('wizard.quickProgress.description', {profileName: nameOf(activeProfile)})}</DialogDescription>
 				</DialogHeader>
 
 				<div className="grid min-w-0 gap-3" data-testid="quick-download-progress-body">

@@ -138,7 +138,7 @@ export function DownloadProfileEditor({
 				<ScrollArea className="max-h-[min(78vh,46rem)]">
 					<div className="grid gap-4 p-1 pr-3 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.85fr)]">
 						<div className="flex flex-col gap-3">
-							<ProfileIdentityPanel profileName={draft.profileName} profileIcon={draft.profileIcon} iconPickerOpen={profileIconPickerOpen} onIconPickerOpenChange={setProfileIconPickerOpen} onAction={updateDraft} />
+							<ProfileIdentityPanel profileId={draft.profileId} profileName={draft.profileName} profileIcon={draft.profileIcon} iconPickerOpen={profileIconPickerOpen} onIconPickerOpenChange={setProfileIconPickerOpen} onAction={updateDraft} />
 
 							<ProfileDownloadTypePanel mediaMode={draft.mediaMode} onAction={updateDraft} />
 

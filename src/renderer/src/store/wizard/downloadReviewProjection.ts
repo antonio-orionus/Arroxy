@@ -6,6 +6,7 @@ import {allDownloadProfiles, resolveActiveDownloadProfile, resolveDownloadProfil
 import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
+import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {profilePickerOptions} from '@renderer/components/wizard/profilePickerOptions.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
@@ -118,7 +119,7 @@ export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBre
 	const orderedProfiles = profilePickerOptions(prefs, {current: null, inUse: profiles.filter(profile => counts.has(profile.id))}).map(option => option.profile)
 	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
-	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profile.name, icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
+	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profileDisplayName(profile), icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
 }
 
 // Mirrors the try/catch at store/downloadHomeView.ts:107-111 — the only other

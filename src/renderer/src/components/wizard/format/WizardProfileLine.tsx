@@ -18,6 +18,7 @@ import {DownloadProfileEditor} from '../DownloadProfileEditor.js'
 import {ProfilePickerMenu} from '../ProfilePicker.js'
 import {buildDownloadProfileActionModel} from '../downloadProfileActions.js'
 import {ProfileTag} from './ProfileTag.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 const MODE_LABEL_KEYS = {video: 'wizard.formats.kind.video', 'video-only': 'wizard.formats.kind.videoOnly', audio: 'wizard.formats.kind.audio', subtitles: 'wizard.formats.kind.subtitles'} as const satisfies Record<FormatMode, string>
 
@@ -35,6 +36,7 @@ interface PendingProfile {
 // the new profile, or reset everything to it.
 export function WizardProfileLine(): ReactNode {
 	const {t, i18n} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const {settings, wizardOutputDir, wizardProfile, mode, hasSilentVideo, hasVideo, hasAudio, hasSubtitles, profileFallback, setFormatMode, chooseWizardProfile, saveDownloadProfile, chooseWizardFolder, dismissCallout} = useAppStore(
 		useShallow(state => ({
 			settings: state.settings,
@@ -107,7 +109,7 @@ export function WizardProfileLine(): ReactNode {
 	}
 
 	const modeEnabled: Record<FormatMode, boolean> = {video: hasVideo, 'video-only': hasSilentVideo, audio: hasAudio, subtitles: hasSubtitles}
-	const editLabel = t('wizard.formats.profile.edit', {name: activeProfile.name})
+	const editLabel = t('wizard.formats.profile.edit', {name: nameOf(activeProfile)})
 
 	return (
 		<div className="flex flex-wrap items-center gap-x-3 gap-y-2" data-testid="wizard-profile-line">
@@ -118,9 +120,9 @@ export function WizardProfileLine(): ReactNode {
 						<Hint label={t('wizard.url.profile.switchTitle')}>
 							<PopoverTrigger
 								render={
-									<Button type="button" variant="outline" size="sm" className="min-w-0 max-w-64 gap-1.5" aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})} data-testid="wizard-profile-trigger">
+									<Button type="button" variant="outline" size="sm" className="min-w-0 max-w-64 gap-1.5" aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(activeProfile)})} data-testid="wizard-profile-trigger">
 										<ActiveIcon className="shrink-0 text-primary" aria-hidden />
-										<span className="min-w-0 truncate">{activeProfile.name}</span>
+										<span className="min-w-0 truncate">{nameOf(activeProfile)}</span>
 										<ChevronDown className="shrink-0 text-muted-foreground transition-transform duration-200 group-aria-expanded/button:rotate-180" aria-hidden />
 									</Button>
 								}
@@ -190,7 +192,7 @@ export function WizardProfileLine(): ReactNode {
 					<AlertDialogHeader>
 						<AlertDialogTitle>{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedTitle' : 'wizard.formats.profile.switchTitle')}</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody', {areas: new Intl.ListFormat(i18n.language, {type: 'conjunction'}).format(edits.map(area => t(AREA_LABEL_KEYS[area]))), profile: pending?.profile.name ?? ''})}
+							{t(pending?.reason === 'updated' ? 'wizard.formats.profile.updatedBody' : 'wizard.formats.profile.switchBody', {areas: new Intl.ListFormat(i18n.language, {type: 'conjunction'}).format(edits.map(area => t(AREA_LABEL_KEYS[area]))), profile: pending ? nameOf(pending.profile) : ''})}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>

@@ -94,6 +94,8 @@ export const downloadProfileAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'o
 export type DownloadProfileAudioFormat = z.infer<typeof downloadProfileAudioFormatSchema>
 
 export const downloadProfileIconSchema = z.enum(['controls', 'download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive'])
+export const builtinDownloadProfileIdSchema = z.enum(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only', 'subtitles-only', 'low-240', 'low-144'])
+export type BuiltinDownloadProfileId = z.infer<typeof builtinDownloadProfileIdSchema>
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>
 export const DOWNLOAD_PROFILE_ICONS = downloadProfileIconSchema.options
 
@@ -239,7 +241,9 @@ const downloadProfileFilenameSchema = z.discriminatedUnion('kind', [z.object({ki
 
 export const downloadProfileSchema = z.object({
 	id: z.string().min(1),
-	name: z.string().trim().min(1).max(80),
+	// Absent only on a built-in the user never renamed: it shows the built-in's
+	// own name in the app language. A custom profile always carries one.
+	name: z.string().trim().min(1).max(80).optional(),
 	icon: downloadProfileIconSchema,
 	// `.default` so every profile persisted before the visibility switch existed
 	// keeps parsing and lands enabled — same migration lever as `filename` below.

@@ -24,7 +24,7 @@ import type {DownloadProfile} from '../../src/shared/types.js'
 import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
-function germanProfile(baseId: 'subtitles-only' | 'balanced'): DownloadProfile {
+function germanProfile(baseId: 'subtitles-only' | 'balanced'): DownloadProfile & {name: string} {
 	const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === baseId)
 	if (!base) throw new Error(`${baseId} built-in profile missing`)
 	return {...base, id: `german-${baseId}`, name: `German ${baseId}`, subtitles: {...base.subtitles, enabled: true, languages: ['de'], mode: 'sidecar'}, subfolder: {enabled: true, name: `German ${baseId}`}}

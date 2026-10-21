@@ -139,7 +139,7 @@ export function wizardProfileSaveFailure(state: WizardReviewState, asNew: boolea
 // The run's settings as a profile with the given identity, or null when nothing
 // differs from the profile it started from, the changes can't be kept, or this
 // isn't a single-video run.
-function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}, asNew: boolean): DownloadProfile | null {
+function draftFromWizard(state: WizardReviewState, identity: Pick<DownloadProfile, 'id' | 'name'>, asNew: boolean): DownloadProfile | null {
 	const base = state.wizardProfile
 	const baseline = state.wizardProfileBaseline
 	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0 || wizardProfileSaveFailure(state, asNew)) return null

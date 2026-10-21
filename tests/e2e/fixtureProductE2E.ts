@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
-import {DEFAULT_DOWNLOAD_PROFILES_PREFS, resolveActiveDownloadProfile, resolveDownloadProfile} from '../../src/shared/downloadProfiles.js'
+import {DEFAULT_DOWNLOAD_PROFILES_PREFS, downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile} from '../../src/shared/downloadProfiles.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '../../src/shared/filenameTemplate.js'
 import {prepareJob} from '../../src/shared/prepareJob.js'
 import {queueArraySchema} from '../../src/shared/queueItemSchema.js'
@@ -149,7 +149,7 @@ export function restoredQueueItem(id: string, videoId: string, title: string, ou
 		title,
 		thumbnail: '',
 		outputDir,
-		formatLabel: profile.name,
+		formatLabel: downloadProfileLabel(profile),
 		status: 'pending',
 		lane: 'normal',
 		progressPercent: 0,

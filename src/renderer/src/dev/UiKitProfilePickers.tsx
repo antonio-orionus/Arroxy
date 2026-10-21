@@ -10,6 +10,7 @@ import {SectionLabel} from '../components/shared/SectionLabel.js'
 import {ProfilesManageTab} from '../components/wizard/DownloadProfilesManageTab.js'
 import {ProfilePickerContextItems, ProfilePickerInline, ProfilePickerMenu, type ProfilePickerLayout, type ProfilePickerPanelProps} from '../components/wizard/ProfilePicker.js'
 import {profilePickerOptions} from '../components/wizard/profilePickerOptions.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 // One set of saved profiles behind every picker below: a custom profile moved
 // up the saved order, two built-ins and a custom profile hidden.
@@ -60,6 +61,7 @@ function LiveTrigger({layout, label, panel}: {layout: ProfilePickerLayout; label
 
 export function UiKitProfilePickers(): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const switcher = profilePickerOptions(PREFS, {current: ACTIVE})
 	const formatStep = profilePickerOptions(PREFS, {current: QHD})
 	const mixedRows = profilePickerOptions(PREFS, {current: null, inUse: [LECTURES_SAVED, ACTIVE]})
@@ -74,13 +76,13 @@ export function UiKitProfilePickers(): ReactNode {
 
 			<div className="flex flex-wrap items-start gap-6">
 				<Variant title="List · this download only" rule="Format step. Picked QHD 1440p, then hid it: still first, still checked.">
-					<ProfilePickerInline {...panelHandlers} options={formatStep} layout="list" description={t('wizard.formats.profile.menuDescription')} editProfile={QHD} editLabel={t('wizard.formats.profile.edit', {name: QHD.name})} testIdPrefix="kit" />
+					<ProfilePickerInline {...panelHandlers} options={formatStep} layout="list" description={t('wizard.formats.profile.menuDescription')} editProfile={QHD} editLabel={t('wizard.formats.profile.edit', {name: nameOf(QHD)})} testIdPrefix="kit" />
 				</Variant>
 				<Variant title="List · playlist rows, mixed" rule="“Assign to 3 videos” and a selected row's profile button. The rows use a hidden profile: it shows first. No check, no Edit.">
 					<ProfilePickerInline {...panelHandlers} options={mixedRows} layout="list" description={t('wizard.playlistProfiles.menuDescription', {count: 3})} editProfile={null} testIdPrefix="kit" />
 				</Variant>
 				<Variant title="List · one playlist row" rule="A row's profile button for a row on its own.">
-					<ProfilePickerInline {...panelHandlers} options={oneRow} layout="list" description={t('wizard.playlistProfiles.menuDescription', {count: 1})} editProfile={PODCAST} editLabel={t('wizard.playlistProfiles.editProfile', {name: PODCAST.name})} testIdPrefix="kit" />
+					<ProfilePickerInline {...panelHandlers} options={oneRow} layout="list" description={t('wizard.playlistProfiles.menuDescription', {count: 1})} editProfile={PODCAST} editLabel={t('wizard.playlistProfiles.editProfile', {name: nameOf(PODCAST)})} testIdPrefix="kit" />
 				</Variant>
 			</div>
 
@@ -115,7 +117,7 @@ export function UiKitProfilePickers(): ReactNode {
 					{switcher.map(option => (
 						<li key={option.profile.id} className="flex items-center gap-2 px-2 py-0.5">
 							<span className="w-3 text-primary">{option.current ? '✓' : ''}</span>
-							{option.profile.name}
+							{nameOf(option.profile)}
 						</li>
 					))}
 				</ol>

@@ -17,11 +17,14 @@ import {Input} from '../ui/input.js'
 import {Hint} from '../shared/Hint.js'
 import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const id = useId()
-	const profileName = useAppStore(state => state.wizardProfile?.name ?? '')
+	const wizardProfile = useAppStore(state => state.wizardProfile)
+	const profileName = wizardProfile ? nameOf(wizardProfile) : ''
 	const saveWizardAsProfile = useAppStore(state => state.saveWizardAsProfile)
 	const [name, setName] = useState('')
 	const [saving, setSaving] = useState(false)
@@ -73,13 +76,14 @@ const DIFF_LABEL_KEYS = {format: 'wizard.review.update.rows.format', subtitles: 
 // Confirms an update with the profile's values before and after, area by area.
 function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const state = useAppStore(useShallow(selectWizardReviewState))
 	const updateWizardProfile = useAppStore(s => s.updateWizardProfile)
 	const [saving, setSaving] = useState(false)
 	const before = state.wizardProfile
 	const after = updatedProfileDraft(state)
 	const rows = before && after ? profileDiffRows(before, after, {t: createTranslationPort(t), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths}) : []
-	const name = before?.name ?? ''
+	const name = before ? nameOf(before) : ''
 
 	async function update(): Promise<void> {
 		setSaving(true)
@@ -137,8 +141,10 @@ function IconAction({Icon, label, onClick, testId, blockedBy}: {Icon: LucideIcon
 // profile: what changed, then update that profile, save a new one, or undo.
 export function ProfileEditLine(): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const changed = useAppStore(useShallow(wizardChangedAreas))
-	const profileName = useAppStore(state => state.wizardProfile?.name ?? '')
+	const wizardProfile = useAppStore(state => state.wizardProfile)
+	const profileName = wizardProfile ? nameOf(wizardProfile) : ''
 	const resetWizardToProfile = useAppStore(state => state.resetWizardToProfile)
 	const updateFailure = useAppStore(useShallow(state => wizardProfileSaveFailure(state, false)))
 	const saveAsFailure = useAppStore(useShallow(state => wizardProfileSaveFailure(state, true)))

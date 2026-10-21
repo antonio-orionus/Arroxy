@@ -11,6 +11,7 @@ import {Button} from '../ui/button.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {ProfilePickerMenu} from './ProfilePicker.js'
 import type {PlaylistProfileMenuModel} from './playlistProfileMenu.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 interface PlaylistProfileActionBarProps {
 	menu: PlaylistProfileMenuModel
@@ -23,6 +24,7 @@ interface PlaylistProfileActionBarProps {
 
 export function PlaylistProfileActionBar({menu, selectedCount, onAssign, onEditProfile, onNewProfile, onReset}: PlaylistProfileActionBarProps): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const [open, setOpen] = useState(false)
 	const disabled = selectedCount === 0
 
@@ -42,7 +44,7 @@ export function PlaylistProfileActionBar({menu, selectedCount, onAssign, onEditP
 					layout="list"
 					options={menu.options}
 					editProfile={menu.sharedProfile}
-					editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: menu.sharedProfile.name}) : undefined}
+					editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: nameOf(menu.sharedProfile)}) : undefined}
 					description={t('wizard.playlistProfiles.menuDescription', {count: selectedCount})}
 					align="start"
 					onPickProfile={onAssign}

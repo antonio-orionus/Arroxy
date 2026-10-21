@@ -12,6 +12,7 @@ import {Checkbox} from '../ui/checkbox.js'
 import {PopoverTrigger} from '../ui/popover.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {usePlaylistProfileColumnsContext} from './playlistProfileColumnsContext.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 // Controls inside a row act on their own: a click or a drag starting on them
 // must not also reach the row's select-on-click and drag-to-select handlers.
@@ -44,6 +45,7 @@ export function TitleCell({entry}: {entry: PlaylistEntry}): ReactNode {
 // is the payload that tells the menu which rows it acts on.
 export function ProfileCell({entry}: {entry: PlaylistEntry}): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const {resolveProfile, rowMenu} = usePlaylistProfileColumnsContext()
 	const profile = resolveProfile(entry)
 	const Icon = PROFILE_ICONS[profile.icon]
@@ -54,9 +56,9 @@ export function ProfileCell({entry}: {entry: PlaylistEntry}): ReactNode {
 			onClick={stopRowGesture}
 			onPointerDown={stopRowGesture}
 			render={
-				<Button type="button" variant="ghost" size="xs" className="max-w-full justify-start" aria-label={t('wizard.url.profile.switchAria', {profileName: profile.name})} data-testid={`profile-cell-${entry.id}`}>
+				<Button type="button" variant="ghost" size="xs" className="max-w-full justify-start" aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(profile)})} data-testid={`profile-cell-${entry.id}`}>
 					<Icon className="text-primary" aria-hidden />
-					<span className="min-w-0 truncate text-foreground">{profile.name}</span>
+					<span className="min-w-0 truncate text-foreground">{nameOf(profile)}</span>
 					<ChevronDown className="text-muted-foreground transition-transform duration-200 group-aria-expanded/button:rotate-180" aria-hidden />
 				</Button>
 			}

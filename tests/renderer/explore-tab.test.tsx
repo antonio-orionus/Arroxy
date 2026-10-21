@@ -7,6 +7,7 @@ import {DownloadProfilesHome} from '@renderer/components/wizard/DownloadProfiles
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {fail, ok} from '@shared/result.js'
 import type {SettingsPatch} from '@shared/api.js'
 import type {AppSettings, CookiesMode, ExploreViewState, ProbeError} from '@shared/types.js'
@@ -26,7 +27,7 @@ const WATCH_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 const INTERACTIVE_HINT = 'Interactive Download: choose format, subtitles and more…'
 
 function activeProfileName(): string {
-	return resolveActiveDownloadProfile(useAppStore.getState().settings?.profiles).profile.name
+	return profileDisplayName(resolveActiveDownloadProfile(useAppStore.getState().settings?.profiles).profile)
 }
 
 type ExploreCommon = Pick<AppSettings['common'], 'exploreEnabled' | 'exploreNoticeSeen' | 'exploreModeAutoSwitched' | 'exploreModeNudgeDismissedFor' | 'cookiesMode' | 'exploreAdBlock' | 'exploreCompactChrome' | 'exploreZoom'>

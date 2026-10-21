@@ -31,7 +31,7 @@ import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {probeStreams} from './ffprobe.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
-function coverArtProfile(id: string, name: string, media: DownloadProfile['media'], embedSubtitles = false): DownloadProfile {
+function coverArtProfile(id: string, name: string, media: DownloadProfile['media'], embedSubtitles = false): DownloadProfile & {name: string} {
 	const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
 	if (!base) throw new Error('small-file built-in profile missing')
 	const subtitles: DownloadProfile['subtitles'] = embedSubtitles ? {enabled: true, languages: ['en'], source: 'manual-only', mode: 'embed', format: 'srt'} : base.subtitles

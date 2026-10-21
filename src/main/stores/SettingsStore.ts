@@ -5,8 +5,9 @@ import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
 import type {AppSettings, CommonSettings, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
-import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, isBuiltinDownloadProfileId} from '@shared/downloadProfiles.js'
 import {appSettingsSchema, downloadProfileRefSchema, downloadProfileSchema} from '@shared/schemas.js'
+import {isShippedBuiltinProfileName} from './shippedBuiltinProfileNames.js'
 
 export type {SettingsPatch}
 
@@ -204,10 +205,25 @@ function parseProfileList(value: unknown, bucket: 'custom' | 'overrides'): Downl
 	}
 	return value.flatMap((item, index) => {
 		const parsed = downloadProfileSchema.safeParse(item)
-		if (parsed.success) return [parsed.data]
-		logger.warn('Dropped invalid download profile', {bucket, index, id: profileIdOf(item), issues: issuePaths(parsed.error)})
-		return []
+		if (!parsed.success) {
+			logger.warn('Dropped invalid download profile', {bucket, index, id: profileIdOf(item), issues: issuePaths(parsed.error)})
+			return []
+		}
+		if (bucket === 'custom' && parsed.data.name === undefined) {
+			logger.warn('Dropped custom download profile without a name', {index, id: parsed.data.id})
+			return []
+		}
+		return [bucket === 'overrides' ? withoutShippedName(parsed.data) : parsed.data]
 	})
+}
+
+// An edited built-in saved before built-ins stopped storing their name still
+// carries the English one it shipped with; dropping it shows the built-in's
+// own name in the app language.
+function withoutShippedName(profile: DownloadProfile): DownloadProfile {
+	if (profile.name === undefined || !isBuiltinDownloadProfileId(profile.id) || !isShippedBuiltinProfileName(profile.id, profile.name)) return profile
+	const {name: _shipped, ...rest} = profile
+	return rest
 }
 
 /**
@@ -282,7 +298,23 @@ function hasLegacyProfileMedia(raw: Record<string, unknown>): boolean {
 	return [profiles?.custom, profiles?.overrides].some(bucket => Array.isArray(bucket) && bucket.some(item => asRecord(asRecord(item)?.media)?.codec !== undefined))
 }
 
-const PRE_SELECTION_ORDER_BACKUP = 'settings.before-selection-order.json'
+// An edited built-in that still stores a name it shipped with. Loading drops
+// that name, and an older app version drops a built-in edit without one.
+function hasShippedBuiltinName(raw: Record<string, unknown>): boolean {
+	const overrides = asRecord(raw.profiles)?.overrides
+	if (!Array.isArray(overrides)) return false
+	return overrides.some(item => {
+		const record = asRecord(item)
+		return typeof record?.id === 'string' && typeof record.name === 'string' && isBuiltinDownloadProfileId(record.id) && isShippedBuiltinProfileName(record.id, record.name)
+	})
+}
+
+// Each conversion an older app version cannot read back, with the file that
+// keeps the settings as they were before it.
+const PROFILE_CONVERSION_BACKUPS: readonly {file: string; applies: (raw: Record<string, unknown>) => boolean}[] = [
+	{file: 'settings.before-selection-order.json', applies: hasLegacyProfileMedia},
+	{file: 'settings.before-profile-names.json', applies: hasShippedBuiltinName}
+]
 
 interface PriorSettings {
 	// The file's exact bytes, kept so a backup is the file as it was.
@@ -337,15 +369,17 @@ export class SettingsStore {
 	// as it was, so going back to an older build loses nothing. Never blocks
 	// startup, and never overwrites an earlier backup.
 	private backUpLegacyProfiles(userDataPath: string, prior: PriorSettings | null): void {
-		if (!prior || !hasLegacyProfileMedia(prior.data)) return
-		const backupPath = path.join(userDataPath, PRE_SELECTION_ORDER_BACKUP)
-		try {
-			// `wx` fails if a backup already exists, so an earlier one is never overwritten.
-			fs.writeFileSync(backupPath, prior.text, {encoding: 'utf-8', flag: 'wx'})
-			logger.info('Backed up settings before converting profiles', {file: PRE_SELECTION_ORDER_BACKUP})
-		} catch (error) {
-			if (error instanceof Error && 'code' in error && error.code === 'EEXIST') return
-			logger.warn('Could not back up settings before converting profiles', {error: error instanceof Error ? error.message : String(error)})
+		if (!prior) return
+		for (const {file, applies} of PROFILE_CONVERSION_BACKUPS) {
+			if (!applies(prior.data)) continue
+			try {
+				// `wx` fails if a backup already exists, so an earlier one is never overwritten.
+				fs.writeFileSync(path.join(userDataPath, file), prior.text, {encoding: 'utf-8', flag: 'wx'})
+				logger.info('Backed up settings before converting profiles', {file})
+			} catch (error) {
+				if (error instanceof Error && 'code' in error && error.code === 'EEXIST') continue
+				logger.warn('Could not back up settings before converting profiles', {file, error: error instanceof Error ? error.message : String(error)})
+			}
 		}
 	}
 

@@ -21,7 +21,9 @@ import {
 	saveDownloadProfileToPrefs,
 	setDownloadProfileEnabled
 } from '@shared/downloadProfiles.js'
+import {downloadProfileName} from '@shared/downloadProfileName.js'
 import type {DownloadProfile} from '@shared/types.js'
+import {mainT} from '@main/i18n.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
 
@@ -47,10 +49,21 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 // names so files already downloaded stay where playlist sync looks for them.
 const LEGACY_SUBFOLDERS: Record<string, string> = {'mp4-1080': 'Smart TV MP4 Full HD 1080p', 'mp4-720': 'Smart TV MP4 HD 720p', 'mp4-480': 'Smart TV MP4 SD 480p'}
 
+const englishName = (profile: DownloadProfile): string => downloadProfileName(profile, key => mainT('en', key))
+
 describe('download profiles', () => {
+	it('shows a built-in name in the app language and a typed name as typed', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		expect(downloadProfileName(balanced, key => `<${key}>`)).toBe('<wizard.url.profile.builtinName.balanced>')
+		expect(downloadProfileName({...balanced, name: 'Lectures'}, key => `<${key}>`)).toBe('Lectures')
+		expect(downloadProfileName(customProfile(), key => `<${key}>`)).toBe('Study Captions')
+	})
+
 	it('built-ins are immutable profile-shaped defaults', () => {
 		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only', 'subtitles-only', 'low-240', 'low-144'])
-		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, profile.name])).toEqual([
+		// Built-ins store no name: it is shown from the catalog in the app language.
+		expect(BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.name !== undefined)).toEqual([])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, englishName(profile)])).toEqual([
 			['best-quality', 'Best available'],
 			['best-2160', '4K UHD 2160p'],
 			['best-1440', 'QHD 1440p'],
@@ -69,7 +82,7 @@ describe('download profiles', () => {
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
-			expect(profile.subfolder).toEqual({enabled: true, name: LEGACY_SUBFOLDERS[profile.id] ?? profile.name})
+			expect(profile.subfolder).toEqual({enabled: true, name: LEGACY_SUBFOLDERS[profile.id] ?? englishName(profile)})
 			expect(profile.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false})
 
 			if (profile.media.kind === 'subtitles-only') {
@@ -211,7 +224,7 @@ describe('download profiles', () => {
 		const reset = removeDownloadProfileFromPrefs(overridden, 'balanced')
 		expect(reset.overrides).toHaveLength(0)
 		expect(reset.active).toEqual({kind: 'builtin', id: 'balanced'})
-		expect(resolveActiveDownloadProfile(reset).profile.name).toBe('Balanced 720p')
+		expect(resolveActiveDownloadProfile(reset).profile.name).toBeUndefined()
 	})
 
 	it('saving an edit to a disabled built-in leaves prefs.active unchanged', () => {

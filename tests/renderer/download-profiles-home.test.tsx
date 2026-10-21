@@ -168,6 +168,29 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		i18next.addResourceBundle('en', 'translation', en, true, true)
 	})
 
+	it('shows built-in names from the catalog, edited or not, and a name the user typed as typed', async () => {
+		i18next.addResource('en', 'translation', 'wizard.url.profile.builtinName.balanced', 'Équilibré 720p')
+		const defaults = defaultAppSettings('/tmp')
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const hd = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'hd-1080')!
+		const overrides = [
+			{...balanced, embed: {...balanced.embed, thumbnail: true}},
+			{...hd, name: 'Lectures'}
+		]
+		useAppStore.setState({settings: {...defaults, profiles: {...defaults.profiles, overrides}}})
+		render(<DownloadProfilesHome />)
+
+		expect(screen.getByTestId('profiles-manage-card-balanced-title')).toHaveTextContent('Équilibré 720p')
+		expect(within(screen.getByTestId('profiles-manage-card-balanced')).getByText('Modified')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-manage-card-hd-1080-title')).toHaveTextContent('Lectures')
+
+		fireEvent.click(within(screen.getByTestId('profiles-manage-card-balanced')).getByRole('button', {name: 'Edit'}))
+		const name = await screen.findByTestId('profiles-editor-name')
+		expect(name).toHaveValue('Équilibré 720p')
+		fireEvent.change(name, {target: {value: ''}})
+		expect(name).toHaveAttribute('placeholder', 'Équilibré 720p')
+	})
+
 	it('renders opt-in low-data built-ins muted with a Hidden badge', () => {
 		render(<DownloadProfilesHome />)
 

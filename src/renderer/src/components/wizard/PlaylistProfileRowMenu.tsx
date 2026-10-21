@@ -8,6 +8,7 @@ import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {Popover, type PopoverHandle} from '../ui/popover.js'
 import {ProfilePickerMenu} from './ProfilePicker.js'
 import type {PlaylistProfileMenuModel} from './playlistProfileMenu.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 export type PlaylistProfileRowMenuHandle = PopoverHandle<string>
 
@@ -22,6 +23,7 @@ interface PlaylistProfileRowMenuProps {
 
 export function PlaylistProfileRowMenu({handle, menuFor, onAssign, onEditProfile, onNewProfile}: PlaylistProfileRowMenuProps): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	return (
 		<Popover handle={handle}>
 			{({payload}) => {
@@ -32,7 +34,7 @@ export function PlaylistProfileRowMenu({handle, menuFor, onAssign, onEditProfile
 						layout="list"
 						options={menu.options}
 						editProfile={menu.sharedProfile}
-						editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: menu.sharedProfile.name}) : undefined}
+						editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: nameOf(menu.sharedProfile)}) : undefined}
 						description={t('wizard.playlistProfiles.menuDescription', {count: targets.length})}
 						align="start"
 						onPickProfile={ref => onAssign(targets, ref)}

@@ -2,6 +2,8 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {updateSettingsSchema, type DownloadProfile, type DownloadProfilesPrefs, type UiTheme} from '@shared/schemas.js'
 import type {SettingsPatch} from '@shared/api.js'
 import {downloadProfileFilenameFailure} from '@shared/downloadProfiles.js'
+import {downloadProfileName} from '@shared/downloadProfileName.js'
+import {mainT} from '@main/i18n.js'
 import {fail, ok} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
@@ -57,7 +59,7 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 
 	handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async data => {
 		const unusable = data.profiles ? newUnusableFilename(data.profiles, (await settingsStore.get()).profiles) : null
-		if (unusable) return fail(createAppError('validation', `Download profile "${unusable.name}" has an unusable filename template`))
+		if (unusable) return fail(createAppError('validation', `Download profile "${downloadProfileName(unusable, key => mainT('en', key))}" has an unusable filename template`))
 		const updated = await settingsStore.update(data)
 		clipboardWatcher.setEnabled(updated.common.clipboardWatchEnabled)
 		if (data.common?.hotkeyEnabled !== undefined || data.common?.hotkeyAccelerator !== undefined) {

@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import {SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import type {CommonSettings, SponsorBlockCategory, SponsorBlockMode} from '@shared/types.js'
-import {canDraftEmbedThumbnail, defaultProfileSubfolderName, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileDraftValidation, type DownloadProfileMediaMode} from '../../store/wizard/downloadProfileDraft.js'
+import {canDraftEmbedThumbnail, draftDefaultSubfolderName, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileDraftValidation, type DownloadProfileMediaMode} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Checkbox} from '../ui/checkbox.js'
@@ -60,7 +60,7 @@ export function ProfileAdvancedPanel({draft, validation, commonPaths, globalDest
 			<FieldGroup className="gap-3">
 				<ProfileDestinationPolicy draft={draft} commonPaths={commonPaths} globalDestination={globalDestination} controls={destinationControls} />
 
-				<ProfileSubfolderFields profileName={draft.profileName} saveInsideSubfolder={draft.saveInsideSubfolder} subfolderName={draft.subfolderName} subfolderInvalid={validation.subfolderInvalid} onAction={onAction} />
+				<ProfileSubfolderFields defaultSubfolderName={draftDefaultSubfolderName(draft)} saveInsideSubfolder={draft.saveInsideSubfolder} subfolderName={draft.subfolderName} subfolderInvalid={validation.subfolderInvalid} onAction={onAction} />
 
 				<FilenameTemplateField
 					value={draft.filenameTemplate}
@@ -81,14 +81,14 @@ export function ProfileAdvancedPanel({draft, validation, commonPaths, globalDest
 }
 
 interface ProfileSubfolderFieldsProps {
-	profileName: string
+	defaultSubfolderName: string
 	saveInsideSubfolder: boolean
 	subfolderName: string
 	subfolderInvalid: boolean
 	onAction: (action: DownloadProfileDraftAction) => void
 }
 
-function ProfileSubfolderFields({profileName, saveInsideSubfolder, subfolderName, subfolderInvalid, onAction}: ProfileSubfolderFieldsProps): ReactNode {
+function ProfileSubfolderFields({defaultSubfolderName, saveInsideSubfolder, subfolderName, subfolderInvalid, onAction}: ProfileSubfolderFieldsProps): ReactNode {
 	const {t} = useTranslation()
 
 	return (
@@ -107,7 +107,7 @@ function ProfileSubfolderFields({profileName, saveInsideSubfolder, subfolderName
 						value={subfolderName}
 						onChange={event => onAction({type: 'set-subfolder-name', subfolderName: event.target.value})}
 						disabled={!saveInsideSubfolder}
-						placeholder={defaultProfileSubfolderName(profileName)}
+						placeholder={defaultSubfolderName}
 						maxLength={64}
 						aria-invalid={subfolderInvalid}
 						data-testid="profiles-editor-subfolder-name"

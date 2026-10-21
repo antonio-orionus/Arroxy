@@ -11,6 +11,7 @@ import {StepFormatSelect} from '@renderer/components/wizard/StepFormatSelect.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {wizardSnapshot} from '@renderer/store/wizard/wizardProfileState.js'
 import {selectWizardReviewState} from '@renderer/store/wizard/wizardReviewState.js'
+import {profileDisplayName} from '@renderer/lib/profileName.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -473,7 +474,7 @@ describe('Review — rows', () => {
 		try {
 			render(<StepReview />)
 			expect(screen.getByTestId('review-row-fileName-changed')).toBeInTheDocument()
-			expect(screen.getByTestId('review-row-fileName-toggle').textContent).toContain(`Changed from ${profile.name}:`)
+			expect(screen.getByTestId('review-row-fileName-toggle').textContent).toContain(`Changed from ${profileDisplayName(profile)}:`)
 			expect(screen.queryByTestId('review-row-subtitles-changed')).toBeNull()
 			expect(screen.queryByTestId('review-row-saveTo-changed')).toBeNull()
 		} finally {

@@ -5,7 +5,7 @@ import {Folder, FolderCog} from 'lucide-react'
 import type {CommonSettings} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
-import {defaultProfileSubfolderName, type DownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
+import {draftDefaultSubfolderName, type DownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldError, FieldLabel} from '../ui/field.js'
@@ -32,11 +32,12 @@ interface ResolvedProfileDestination {
 	resolvedDestinationLabel: string
 }
 
-function resolveProfileDestination({destination, saveInsideSubfolder, subfolderName, profileName}: DownloadProfileDraft, globalDestination: string, commonPaths: CommonSettings['commonPaths'], t: TFunction): ResolvedProfileDestination {
+function resolveProfileDestination(draft: DownloadProfileDraft, globalDestination: string, commonPaths: CommonSettings['commonPaths'], t: TFunction): ResolvedProfileDestination {
+	const {destination, saveInsideSubfolder, subfolderName} = draft
 	const destinationOverride = destination.trim()
 	const globalDestinationRoot = globalDestination.trim()
 	const destinationBase = destinationOverride || globalDestinationRoot
-	const resolvedSubfolderName = saveInsideSubfolder ? subfolderName.trim() || defaultProfileSubfolderName(profileName) : ''
+	const resolvedSubfolderName = saveInsideSubfolder ? subfolderName.trim() || draftDefaultSubfolderName(draft) : ''
 	const resolvedDestination = destinationBase ? effectiveOutputDir(destinationBase, saveInsideSubfolder, resolvedSubfolderName) : ''
 	return {globalDestinationRoot, hasDestinationOverride: destinationOverride.length > 0, resolvedDestination, resolvedDestinationLabel: resolvedDestination ? readablePath(resolvedDestination, commonPaths, t) : fallbackFinalPath(resolvedSubfolderName, t)}
 }

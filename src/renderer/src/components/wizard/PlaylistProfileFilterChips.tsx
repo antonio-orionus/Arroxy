@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
 import type {PlaylistProfileFilter} from './playlistProfileTableState.js'
+import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 
 interface PlaylistProfileFilterChipsProps {
 	options: readonly ProfilePickerOption[]
@@ -18,6 +19,7 @@ interface PlaylistProfileFilterChipsProps {
 
 export function PlaylistProfileFilterChips({options, counts, totalCount, filter, onFilterChange}: PlaylistProfileFilterChipsProps): ReactNode {
 	const {t} = useTranslation()
+	const nameOf = useProfileDisplayName()
 	const assignedOptions = options.filter(option => (counts.get(option.profile.id) ?? 0) > 0)
 	return (
 		<ToggleGroup
@@ -37,7 +39,7 @@ export function PlaylistProfileFilterChips({options, counts, totalCount, filter,
 			</ToggleGroupItem>
 			{assignedOptions.map(option => (
 				<ToggleGroupItem key={option.profile.id} value={option.profile.id} shape="chip" className="uppercase" data-testid={`filter-profile-${option.profile.id}`}>
-					{t('wizard.playlistProfiles.filterChip', {name: option.profile.name, count: counts.get(option.profile.id) ?? 0})}
+					{t('wizard.playlistProfiles.filterChip', {name: nameOf(option.profile), count: counts.get(option.profile.id) ?? 0})}
 				</ToggleGroupItem>
 			))}
 		</ToggleGroup>
