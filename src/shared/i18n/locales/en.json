@@ -1169,6 +1169,7 @@
 				"320": "Up to 320K",
 				"best": "Best quality"
 			},
+			"defaultName": "New profile",
 			"destination": {
 				"defaultFolder": "Default downloads folder",
 				"defaultFolderWithSubfolder": "Default downloads folder / {{subfolder}}",
@@ -1678,6 +1679,7 @@
 				"moveOver": "{{profileName}} is over position {{position}} of {{count}}.",
 				"movePickedUp": "Picked up {{profileName}}. It is in position {{position}} of {{count}}.",
 				"newProfile": "New profile",
+				"outputMissing": "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default.",
 				"panelDescription": "Create, select, edit, or remove reusable download setups.",
 				"panelTitle": "Download Profiles",
 				"remove": "Remove",

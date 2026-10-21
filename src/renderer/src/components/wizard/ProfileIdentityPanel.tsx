@@ -32,6 +32,8 @@ const PROFILE_ICON_OPTIONS = DOWNLOAD_PROFILE_ICONS.map(value => ({value, ...PRO
 interface ProfileIdentityPanelProps {
 	profileId: string | null
 	profileName: string | null
+	// Shown while a custom profile's name is empty: what it saves under.
+	fallbackName: string
 	profileIcon: DownloadProfileIcon
 	// Owned by the editor, not this panel: the dialog content unmounts while
 	// closed, and the picker state lives as long as the draft does.
@@ -41,7 +43,7 @@ interface ProfileIdentityPanelProps {
 }
 
 // The profile editor's Identity panel: the profile name with its icon picker.
-export function ProfileIdentityPanel({profileId, profileName, profileIcon, iconPickerOpen, onIconPickerOpenChange, onAction}: ProfileIdentityPanelProps): ReactNode {
+export function ProfileIdentityPanel({profileId, profileName, fallbackName, profileIcon, iconPickerOpen, onIconPickerOpenChange, onAction}: ProfileIdentityPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const nameOf = useProfileDisplayName()
 	// A built-in's own name fills the field until the user types one, and comes
@@ -93,7 +95,7 @@ export function ProfileIdentityPanel({profileId, profileName, profileIcon, iconP
 							</ToggleGroup>
 						</PopoverContent>
 					</Popover>
-					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName} maxLength={80} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
+					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName ?? fallbackName} maxLength={80} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
 				</InputGroup>
 			</Field>
 		</Panel>

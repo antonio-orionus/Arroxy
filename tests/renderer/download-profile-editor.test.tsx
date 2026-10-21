@@ -6,6 +6,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {fail, ok} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const LINUX_COMMON_PATHS = {desktop: '/home/user/Desktop', documents: '/home/user/Documents', downloads: '/home/user/Downloads', home: '/home/user', music: '/home/user/Music', pictures: '/home/user/Pictures', videos: '/home/user/Videos'}
 
@@ -22,6 +23,28 @@ describe('DownloadProfileEditor', () => {
 		expect(screen.getByTestId('profiles-editor-video-goal-best-picture')).toHaveTextContent('AV1 · VP9')
 		expect(screen.queryByTestId('profiles-editor-audio-format')).not.toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-audio-quality')).not.toBeInTheDocument()
+	})
+
+	it('starts a new profile with an empty name and its fallback as the hint', async () => {
+		render(<DownloadProfileEditor initialProfile={null} open onOpenChange={() => undefined} />)
+		const name = await screen.findByTestId('profiles-editor-name')
+		expect(name).toHaveValue('')
+		expect(name).toHaveAttribute('placeholder', 'New profile')
+	})
+
+	it('saves an unnamed new profile under the fallback name, with subtitles in the app language', async () => {
+		i18next.addResource('he', 'translation', 'wizard.profileEditor.defaultName', 'פרופיל חדש')
+		await i18next.changeLanguage('he')
+		try {
+			const onSave = vi.fn()
+			render(<DownloadProfileEditor initialProfile={null} open onOpenChange={() => undefined} onSave={onSave} />)
+			fireEvent.click(await screen.findByRole('button', {name: i18next.t('wizard.profileEditor.action.save')}))
+
+			await waitFor(() => expect(onSave).toHaveBeenCalled())
+			expect(onSave.mock.calls[0]?.[0]).toMatchObject({name: 'פרופיל חדש', subtitles: {languages: ['iw']}})
+		} finally {
+			await i18next.changeLanguage('en')
+		}
 	})
 
 	it('does not render profile-specific playlist cap controls', async () => {

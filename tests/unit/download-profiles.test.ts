@@ -4,6 +4,7 @@ import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {
 	BUILTIN_DOWNLOAD_PROFILES,
 	DEFAULT_DOWNLOAD_PROFILE_REF,
+	DownloadProfileOutputMissingError,
 	DEFAULT_DOWNLOAD_PROFILES_PREFS,
 	allDownloadProfiles,
 	downloadProfileFilenameFailure,
@@ -189,8 +190,8 @@ describe('download profiles', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		if (!balanced) throw new Error('expected balanced profile')
 
-		expect(() => resolveDownloadProfileBaseDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
-		expect(() => resolveDownloadProfileOutputDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
+		expect(() => resolveDownloadProfileBaseDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow(DownloadProfileOutputMissingError)
+		expect(() => resolveDownloadProfileOutputDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow(DownloadProfileOutputMissingError)
 	})
 
 	it('upserts and removes custom profiles while preserving active fallback', () => {

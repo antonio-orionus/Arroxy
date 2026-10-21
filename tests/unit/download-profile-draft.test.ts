@@ -6,16 +6,31 @@ import type {DownloadProfile} from '@shared/types.js'
 import {canDraftEmbedThumbnail, createDownloadProfileDraft, downloadProfileFromDraft, draftSelectionOrder, type DownloadProfileDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
 const NOW = '2026-06-10T12:00:00.000Z'
+// What the editor passes in: its fallback name and subtitle language, in the app language.
+const NEW_PROFILE = {fallbackName: 'Neues Profil', subtitleLanguage: 'de'}
 
 describe('DownloadProfileDraft', () => {
 	it('initializes from a built-in profile', () => {
-		const draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!)
+		const draft = createDownloadProfileDraft(
+			BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!,
+			NEW_PROFILE
+		)
 
 		expect(draft).toMatchObject({profileId: 'balanced', profileName: null, profileIcon: 'controls', mediaMode: 'video-audio', goal: 'best-picture', resolution: '720', fileType: 'auto', nativeAudio: 'default', subfolderName: 'Balanced 720p'})
 	})
 
+	it('starts a new profile unnamed, in the app language, and saves it under the fallback name', () => {
+		const draft = createDownloadProfileDraft(null, NEW_PROFILE)
+		expect(draft.profileName).toBe('')
+		expect(draft.subtitleLanguages).toEqual(['de'])
+
+		const profile = downloadProfileFromDraft(draft, NOW, () => 'new-id')
+		expect(profile.name).toBe('Neues Profil')
+		expect(profile.subfolder).toEqual({enabled: true, name: 'Neues Profil'})
+	})
+
 	it('never keeps Smart TV as a WebM file', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'webm'})
@@ -28,18 +43,24 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('saves a preferred video codec, and leaves it out when it is Auto', () => {
-		const base = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!)
+		const base = createDownloadProfileDraft(
+			BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!,
+			NEW_PROFILE
+		)
 		expect(base.videoCodec).toBe('auto')
 		expect(downloadProfileFromDraft(base, NOW, () => 'id').media).not.toHaveProperty('videoCodec')
 		const vp9 = updateDownloadProfileDraft(base, {type: 'set-video-codec', videoCodec: 'vp9'})
 		const saved = downloadProfileFromDraft(vp9, NOW, () => 'id')
 		expect(saved.media).toMatchObject({videoCodec: 'vp9'})
-		expect(createDownloadProfileDraft(saved).videoCodec).toBe('vp9')
+		expect(createDownloadProfileDraft(saved, NEW_PROFILE).videoCodec).toBe('vp9')
 		expect(draftSelectionOrder(vp9, 'compatible', 'hdr')?.videoCodec).toBe('vp9')
 	})
 
 	it('drops the codec preference where it cannot apply: Smart TV, and H.264 in WebM', () => {
-		let draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!)
+		let draft = createDownloadProfileDraft(
+			BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')!,
+			NEW_PROFILE
+		)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-video-codec', videoCodec: 'h264'})
 		expect(updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'webm'}).videoCodec).toBe('auto')
 		expect(updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'}).videoCodec).toBe('auto')
@@ -53,7 +74,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('saves the goal, file type and native audio choice into the profile media', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '2160'})
@@ -65,7 +86,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('describes the order a draft would pick by, with the settings audio choice', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
 
@@ -75,7 +96,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('caps Smart TV H.264 MP4 profiles at 1080p when codec changes', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '2160'})
@@ -85,7 +106,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('caps newly selected Smart TV H.264 MP4 resolutions above 1080p', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '1440'})
@@ -96,14 +117,14 @@ describe('DownloadProfileDraft', () => {
 	it('normalizes legacy custom Smart TV H.264 MP4 profiles above 1080p when editing', () => {
 		const legacyProfile: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'custom-mp4-2160', name: 'Custom MP4 2160p', media: {kind: 'video-audio', goal: 'smart-tv', tier: '2160', fileType: 'auto', audio: {native: {kind: 'default'}}}}
 
-		const draft = createDownloadProfileDraft(legacyProfile)
+		const draft = createDownloadProfileDraft(legacyProfile, NEW_PROFILE)
 
 		expect(draft.goal).toBe('smart-tv')
 		expect(draft.resolution).toBe('1080')
 	})
 
 	it('keeps audio-only WAV lossless without bitrate', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'audio-only'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-audio-format', audioFormat: 'wav'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-audio-quality', audioQuality: '320'})
@@ -114,7 +135,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('tracks the default subfolder name until the user edits it', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: 'Lecture Pack'})
 		expect(draft.subfolderName).toBe('Lecture Pack')
@@ -126,7 +147,7 @@ describe('DownloadProfileDraft', () => {
 
 	it('keeps a built-in on its own name until the user types one, and back when the field is cleared', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
-		let draft = createDownloadProfileDraft(balanced)
+		let draft = createDownloadProfileDraft(balanced, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '1080'})
 		expect(downloadProfileFromDraft(draft, NOW, () => 'unused').name).toBeUndefined()
 
@@ -143,7 +164,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('validates invalid subfolder names only when subfolders are enabled', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-subfolder-name', subfolderName: 'bad/name'})
 
 		expect(validateDownloadProfileDraft(draft).subfolderInvalid).toBe(true)
@@ -151,7 +172,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('flags missing subtitle languages only while subtitles are effectively on', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: []})
 		expect(validateDownloadProfileDraft(draft).subtitleLanguagesMissing).toBe(true)
 
@@ -166,7 +187,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('dedupes selected subtitle languages and caps them at the schema limit', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: ['en', 'uk', 'en', 'zh-Hant']})
 		expect(draft.subtitleLanguages).toEqual(['en', 'uk', 'zh-Hant'])
 
@@ -176,7 +197,7 @@ describe('DownloadProfileDraft', () => {
 	})
 
 	it('serializes the draft into a download profile', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-profile-name', profileName: 'Study Captions'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'subtitles-only'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: ['en', 'uk']})
@@ -193,30 +214,30 @@ describe('DownloadProfileDraft', () => {
 		const {filename: _filename, ...legacy} = balanced
 
 		const normalized = downloadProfileSchema.parse(legacy)
-		const draft = createDownloadProfileDraft(normalized)
+		const draft = createDownloadProfileDraft(normalized, NEW_PROFILE)
 
 		expect(draft.filenameTemplate).toBe('')
 	})
 
 	it('carries the visibility flag through the draft round-trip', () => {
-		expect(createDownloadProfileDraft(null).enabled).toBe(true)
+		expect(createDownloadProfileDraft(null, NEW_PROFILE).enabled).toBe(true)
 
 		const disabledCustom: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'hidden-custom', name: 'Hidden', enabled: false}
-		const draft = createDownloadProfileDraft(disabledCustom)
+		const draft = createDownloadProfileDraft(disabledCustom, NEW_PROFILE)
 		expect(draft.enabled).toBe(false)
 
 		const profile = downloadProfileFromDraft(draft, NOW, () => 'hidden-custom')
 		expect(profile.enabled).toBe(false)
 	})
 	it('round-trips thumbnail embedding for media that can hold cover art', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'audio-only'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-audio-format', audioFormat: 'mp3'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-embed-thumbnail', embedThumbnail: true})
 
 		const profile = downloadProfileFromDraft(draft, NOW, () => 'mp3-cover')
 		expect(profile.embed.thumbnail).toBe(true)
-		expect(createDownloadProfileDraft(profile).embedThumbnail).toBe(true)
+		expect(createDownloadProfileDraft(profile, NEW_PROFILE).embedThumbnail).toBe(true)
 	})
 
 	it('never stores thumbnail embedding for media that cannot hold cover art', () => {
@@ -227,7 +248,7 @@ describe('DownloadProfileDraft', () => {
 			['subtitles-only', 'best']
 		]
 		for (const [mediaMode, audioFormat] of modes) {
-			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null), {type: 'set-embed-thumbnail', embedThumbnail: true})
+			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null, NEW_PROFILE), {type: 'set-embed-thumbnail', embedThumbnail: true})
 			draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode})
 			draft = updateDownloadProfileDraft(draft, {type: 'set-audio-format', audioFormat})
 			expect(canDraftEmbedThumbnail(draft), `${mediaMode}/${audioFormat}`).toBe(false)
@@ -236,7 +257,7 @@ describe('DownloadProfileDraft', () => {
 	})
 	it('stores thumbnail embedding for video without audio saved as MP4 or MKV', () => {
 		for (const fileType of ['mp4', 'mkv'] as const) {
-			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null), {type: 'set-embed-thumbnail', embedThumbnail: true})
+			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null, NEW_PROFILE), {type: 'set-embed-thumbnail', embedThumbnail: true})
 			draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-only'})
 			draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType})
 			expect(canDraftEmbedThumbnail(draft), fileType).toBe(true)
@@ -244,7 +265,7 @@ describe('DownloadProfileDraft', () => {
 		}
 	})
 	it('round-trips the chosen SponsorBlock categories instead of resetting them', () => {
-		let draft = createDownloadProfileDraft(null)
+		let draft = createDownloadProfileDraft(null, NEW_PROFILE)
 		draft = updateDownloadProfileDraft(draft, {type: 'set-sponsor-block-mode', sponsorBlockMode: 'remove'})
 		expect(draft.sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
 		for (const category of DEFAULTS.sponsorBlockCategories) if (category !== 'sponsor') draft = updateDownloadProfileDraft(draft, {type: 'toggle-sponsor-block-category', category})
@@ -252,14 +273,14 @@ describe('DownloadProfileDraft', () => {
 
 		const profile = downloadProfileFromDraft(draft, NOW, () => 'sb')
 		expect(profile.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor', 'outro']})
-		expect(createDownloadProfileDraft(profile).sponsorBlockCategories).toEqual(['sponsor', 'outro'])
+		expect(createDownloadProfileDraft(profile, NEW_PROFILE).sponsorBlockCategories).toEqual(['sponsor', 'outro'])
 	})
 	it('keeps an active SponsorBlock mode with no categories as saved', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
 		const emptyActive: DownloadProfile = {...balanced, id: 'sb-empty', sponsorBlock: {mode: 'mark', categories: []}}
-		expect(createDownloadProfileDraft(emptyActive).sponsorBlockCategories).toEqual([])
+		expect(createDownloadProfileDraft(emptyActive, NEW_PROFILE).sponsorBlockCategories).toEqual([])
 
 		const off: DownloadProfile = {...balanced, id: 'sb-off', sponsorBlock: {mode: 'off', categories: []}}
-		expect(createDownloadProfileDraft(off).sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
+		expect(createDownloadProfileDraft(off, NEW_PROFILE).sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
 	})
 })
