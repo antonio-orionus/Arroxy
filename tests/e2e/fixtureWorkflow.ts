@@ -90,6 +90,12 @@ export async function launchFixtureApp(ytDlpPath: string, input: Omit<FixtureEnv
 	const page = await app.firstWindow()
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 60_000})
 	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
+	// The home renders under the startup splash before the saved settings reach
+	// it, so until then it shows the defaults (Balanced 720p, not the seeded
+	// profile). The splash leaves only once startup has applied them, and the
+	// settings read waits on the graphics policy, which a cold CI launch can
+	// hold for seconds. A user never sees the home before this point either.
+	await expect(page.getByTestId('splash-overlay')).toBeHidden({timeout: 60_000})
 	return {app, page}
 }
 
