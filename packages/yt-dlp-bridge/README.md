@@ -50,7 +50,9 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
-## What changed in 0.6.1 (unreleased)
+## What changed in 0.6.1
+
+0.6.1 requires `ytdlp-errors` 1.5.0.
 
 - `requested-formats` events carry `filesizeFromBitrate`: bitrate × duration, as yt-dlp's `filesize_from_tbr`. yt-dlp leaves `filesize_approx` empty for a fragmented (HLS/DASH manifest) stream, so this is all such a stream has before it starts. `YT_DLP_REQUESTED_FORMATS_TEMPLATE` now also prints `tbr` and the duration.
 - `YtDlpDownloadProgressTracker` weighs each stream by the best size known for it (exact, an estimate from its finished fragments, `filesizeApprox`, then `filesizeFromBitrate`), and a stream with none by the mean of the others; equal shares remain only when no size is known. A stream of unknown size moves by its fragments, and the percent never goes back when a size turns out larger. Before, a small video then an HLS audio held at 50% through the audio's first fragment, then fell back.

@@ -100,7 +100,7 @@
     },
     "packages/yt-dlp-bridge": {
       "name": "yt-dlp-bridge",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "dependencies": {
         "ytdlp-errors": "workspace:*",
         "zod": "4.6.7",
