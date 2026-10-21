@@ -860,6 +860,7 @@
 			"rateLimit": "Trang web đang giới hạn yêu cầu từ kết nối này.",
 			"ageRestricted": "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập.",
 			"unavailable": "Video này không khả dụng — có thể là riêng tư, đã bị xóa hoặc bị chặn theo khu vực.",
+			"formatUnavailable": "Video này không còn cung cấp định dạng bạn đã chọn. Hãy dán lại liên kết và chọn từ các định dạng hiện có.",
 			"geoBlocked": "Video này không có sẵn ở khu vực của bạn.",
 			"outOfDiskSpace": "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại.",
 			"outputNotWritable": "Arroxy không thể ghi vào thư mục tải xuống. Thư mục có thể chỉ cho phép đọc, nằm trên ổ đĩa bị khóa, hoặc bị chặn bởi cài đặt quyền riêng tư của hệ thống. Hãy chọn thư mục khác hoặc cho phép truy cập rồi thử lại.",

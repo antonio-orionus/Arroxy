@@ -900,6 +900,7 @@
 			"rateLimit": "Nettstedet begrenser antall forespørsler fra denne tilkoblingen.",
 			"ageRestricted": "Denne videoen har aldersgrense og kan ikke lastes ned uten en pålogget konto.",
 			"unavailable": "Denne videoen er utilgjengelig – den kan være privat, slettet eller regionlåst.",
+			"formatUnavailable": "Denne videoen tilbyr ikke lenger formatet du valgte. Lim inn lenken på nytt og velg blant formatene den tilbyr nå.",
 			"geoBlocked": "Denne videoen er ikke tilgjengelig i regionen din.",
 			"outOfDiskSpace": "Ikke nok diskplass. Frigjør plass og prøv på nytt.",
 			"outputNotWritable": "Arroxy kan ikke skrive til nedlastingsmappen. Den kan være skrivebeskyttet, ligge på en låst stasjon eller være blokkert av personverninnstillingene i systemet. Velg en annen mappe eller gi tilgang, og prøv på nytt.",

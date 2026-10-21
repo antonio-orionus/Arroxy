@@ -900,6 +900,7 @@
 			"rateLimit": "Site bu bağlantıdan gelen istekleri sınırlıyor.",
 			"ageRestricted": "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez.",
 			"unavailable": "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir.",
+			"formatUnavailable": "Bu video artık seçtiğin biçimi sunmuyor. Bağlantıyı tekrar yapıştır ve şu anda sunulan biçimlerden birini seç.",
 			"geoBlocked": "Bu video bölgenizde kullanılamıyor.",
 			"outOfDiskSpace": "Yeterli disk alanı yok. Yer açıp tekrar dene.",
 			"outputNotWritable": "Arroxy indirme klasörüne yazamıyor. Klasör salt okunur olabilir, kilitli bir sürücüde olabilir ya da sisteminin gizlilik ayarları tarafından engelleniyor olabilir. Başka bir klasör seç veya erişime izin ver, sonra tekrar dene.",

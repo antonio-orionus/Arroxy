@@ -15,7 +15,7 @@ import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPr
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
-import {pickedTrack, planSubtitleTracks, type SubtitlePlan} from '@shared/subtitleTracks.js'
+import {planSubtitleTracks, type SubtitlePlan} from '@shared/subtitleTracks.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
@@ -35,6 +35,7 @@ import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, playlis
 import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 import {wizardVideoPart} from './videoPart.js'
+import {wizardPickedTracks} from './profileApplication.js'
 import {scaleBytesToPart, videoPartSuffix} from '@shared/videoPart.js'
 import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
@@ -56,18 +57,9 @@ export interface PreparedQueueSubmission {
 	skippedAlreadyQueued: number
 }
 
-// The tracks picked on the Format screen. Untouched picks keep the kind the
-// profile's own plan gave each one (an auto-only profile must not fetch an
-// uploaded track that shares the key); edited ones follow the section each
-// track was picked from.
 function wizardSubtitlePlan(state: AppState): SubtitlePlan {
-	const keys = state.wizardSubtitleLanguages
 	const maps = {subtitles: state.wizardSubtitles, automaticCaptions: state.wizardAutomaticCaptions}
-	const profile = state.wizardProfile
-	const baseline = state.wizardProfileBaseline
-	const untouched = profile && baseline && baseline.subtitleLanguages.length === keys.length && baseline.subtitleLanguages.every(key => keys.includes(key))
-	const profileTracks = untouched ? planSubtitleTracks({kind: 'languages', languages: profile.subtitles.languages, source: profile.subtitles.source}, maps).tracks : []
-	const tracks = keys.map(key => profileTracks.find(track => track.key === key) ?? pickedTrack(key, maps))
+	const tracks = wizardPickedTracks(state.wizardSubtitleLanguages, maps, state.wizardProfile, state.wizardProfileBaseline?.subtitleLanguages ?? null)
 	return planSubtitleTracks({kind: 'tracks', tracks}, maps)
 }
 

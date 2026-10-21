@@ -50,7 +50,9 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
-## What changed in 0.6.0 (unreleased)
+## What changed in 0.6.0
+
+0.6.0 contains breaking changes and requires `ytdlp-errors` 1.4.0.
 
 - **Breaking:** a plan that writes files now carries `cwd`, and every path in its `args` is relative to it. Run it there (`runCommand(…, {cwd: plan.cwd})`): run elsewhere, the files land in the wrong folder. Create the folder first if it may not exist (`mkdir(plan.cwd, {recursive: true})`): yt-dlp used to make it through `--paths home`, and a spawn in a missing folder fails with `ENOENT`. Caller plans run in `output.directory`; `--paths home:` is gone, and `output.tempDirectory`, `-o infojson:`, the subtitle subfolder and a `resume.loadInfoJsonPath` inside the folder become relative. Managed plans run in the output root; the temp root and the download archive are relative when they are inside it. yt-dlp expands `$NAME`, `%NAME%` and `~` in every path it is given, with no escape on POSIX for `--paths`, and strips trailing spaces from `--paths` values. So a folder such as `$HOME`, `%USERPROFILE%` or `Downloads ` (trailing space) wrote somewhere else; now its name never reaches argv.
 - **Breaking:** `output.tempDirectory` must be inside `output.directory`; a plan with one outside it throws.
@@ -66,6 +68,9 @@ Requires Node.js >= 22.13 and ESM.
 - An audio conversion now converts a stream already in the target codec when the source has one (AAC 140 for m4a on YouTube, Opus 251 for opus). yt-dlp copies such a stream instead of re-encoding it, so there is no second lossy pass; `--audio-quality` does not apply to it. A stream below 96 kbps (`AUDIO_CONVERSION_COPY_MIN_KBPS`) is not worth copying: the best stream is re-encoded instead. Each tier of the source chain (the source's track, then any) tries non-DRC before DRC, and every stereo stream before Dolby surround, which libopus cannot take. The "original" track filter no longer matches a stream with no `format_note`.
 - With `audio.convert`, a caller's `selection.formatSelector` (and `formatSort`) now picks the stream to convert, in place of the bridge's source chain. `--audio-format best` (`target: 'best'`) extracts the audio and keeps its codec where yt-dlp can.
 - New `yt-dlp-bridge/audio-conversion` subpath: `audioConversionCopies(target, acodec)` says whether converting a stream to `target` copies it, `audioConversionCopyFilter(target)` is the `-f` filter for such a stream, `audioConversionOutcome(target, {ext, acodec})` gives the file's extension and whether the audio is kept as is, `audioCodecPreference(acodec)` ranks a codec as yt-dlp's format sorter does, and `audioConversionSourceSelector(target)` is the `-f` the planner gives a conversion that names no stream.
+- An MP3 conversion also copies an MP3 stream inside an MP4 (`acodec` `mp4a.40.34`), where it used to pass it over and re-encode another one.
+- A `[VideoRemuxer] Remuxing video from … to …; Destination: <path>` or `[VideoConvertor] Converting video …` line now gives its destination in the `postprocess` event; it came out without a path before, so a consumer following the file kept the pre-remux path, which yt-dlp deletes.
+- A caller's directory that reaches `-o` no longer loses or expands `%` signs: a folder named `100%% done` or containing `%(id)s` keeps its name. Since every path is now relative to the plan's `cwd`, the folder text no longer reaches argv at all.
 
 ## What changed in 0.5.0
 

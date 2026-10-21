@@ -937,6 +937,7 @@
 			"rateLimit": "El lloc està limitant les sol·licituds d'aquesta connexió.",
 			"ageRestricted": "Aquest vídeo té restricció d'edat i no es pot baixar sense un compte amb la sessió iniciada.",
 			"unavailable": "Aquest vídeo no està disponible: pot ser privat, haver estat suprimit o estar bloquejat per regió.",
+			"formatUnavailable": "Aquest vídeo ja no ofereix el format que has triat. Torna a enganxar l'enllaç i tria entre els formats que ofereix ara.",
 			"geoBlocked": "Aquest vídeo no està disponible a la teva regió.",
 			"outOfDiskSpace": "No hi ha prou espai al disc. Allibera espai i torna-ho a provar.",
 			"outputNotWritable": "Arroxy no pot escriure a la carpeta de descàrregues. Potser és de només lectura, és en una unitat bloquejada o la configuració de privadesa del sistema la bloqueja. Tria una altra carpeta o permet-ne l'accés i torna-ho a provar.",

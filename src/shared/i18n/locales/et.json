@@ -914,6 +914,7 @@
 			"rateLimit": "Sait piirab selle ühenduse päringute arvu.",
 			"ageRestricted": "See video on vanusepiiranguga ja seda ei saa ilma sisselogitud kontota alla laadida.",
 			"unavailable": "See video pole saadaval – see võib olla privaatne, kustutatud või piirkonnapõhiselt lukustatud.",
+			"formatUnavailable": "See video ei paku enam teie valitud vormingut. Kleepige link uuesti ja valige vormingute hulgast, mida see praegu pakub.",
 			"geoBlocked": "See video pole teie piirkonnas saadaval.",
 			"outOfDiskSpace": "Kettaruumi pole piisavalt. Vabastage ruumi ja proovige uuesti.",
 			"outputNotWritable": "Arroxy ei saa allalaadimiskausta kirjutada. See võib olla kirjutuskaitstud, lukustatud draivil või blokeeritud süsteemi privaatsussätete poolt. Valige teine kaust või lubage juurdepääs ning proovige uuesti.",

@@ -165,7 +165,9 @@ and embedded title come from the plan, its name from the lists.
 The same step decides what a job ends as when the plan lacks languages
 (`missingSubtitles`): a subtitles-only job with none of them fails hard with
 `noSubtitles`, never retried automatically; otherwise the job keeps what it
-saved and ends with a notice naming the missing languages.
+saved and ends with a notice naming the missing languages. A notice about the
+video itself (sound kept, quality limited) keeps the row and carries the
+languages, which the queue names on a line of their own.
 
 Known duplication between the two:
 

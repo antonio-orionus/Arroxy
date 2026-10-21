@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.5.0 — requested format not available
+
+### Added
+
+- Added `formatUnavailable` (stable code `YTDLP_FORMAT_UNAVAILABLE`) for a run whose format selector, or a pinned format id, matched none of the formats it extracted. The video itself is available: another player client, or a later extraction, can list a different set of formats. Recoverable and user-actionable: probe again and pick from the current list. Includes metadata, README coverage and a fixture.
+
+### Changed
+
+- yt-dlp's `Requested format is not available` line now classifies as `formatUnavailable` instead of `unavailable`, which no longer covers it.
+
 ## 1.4.0 — no subtitles in the requested languages
 
 ### Added

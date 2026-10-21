@@ -56,10 +56,13 @@ export class PhaseExecutor {
 
 	// Both notices matter, since the kept audio and the quality limit concern
 	// the video itself; the kept audio wins over the quality limit, as above.
-	// Their combined notice covers subtitles missing from the video too.
+	// Languages the video lacks failed nothing: the video's own notice keeps its
+	// plain key and carries them, for the queue to name beside it.
 	private emitSubtitlesFailed(ctx: PhaseContext, status: StatusKey, params: Record<string, string | number> | undefined): void {
-		if (ctx.active.audioKept) ctx.emitStatus('done', STATUS_KEY.audioKeptSubtitlesFailed)
-		else if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height})
+		const missing = status === STATUS_KEY.subtitleLanguagesMissing
+		const languages = missing ? params : undefined
+		if (ctx.active.audioKept) emitDone(ctx, missing ? STATUS_KEY.audioKept : STATUS_KEY.audioKeptSubtitlesFailed, languages)
+		else if (ctx.active.qualityLimit) ctx.emitStatus('done', missing ? STATUS_KEY.qualityLimited : STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height, ...languages})
 		else emitDone(ctx, status, params)
 	}
 }

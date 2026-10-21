@@ -975,6 +975,7 @@
 			"rateLimit": "Witryna ogranicza żądania z tego połączenia.",
 			"ageRestricted": "Ten film ma ograniczenie wiekowe i nie można go pobrać bez zalogowanego konta.",
 			"unavailable": "Ten film jest niedostępny — może być prywatny, usunięty lub zablokowany w Twoim regionie.",
+			"formatUnavailable": "Ten film nie oferuje już wybranego przez Ciebie formatu. Wklej link ponownie i wybierz jeden z formatów dostępnych teraz.",
 			"geoBlocked": "Ten film nie jest dostępny w Twoim regionie.",
 			"outOfDiskSpace": "Za mało miejsca na dysku. Zwolnij miejsce i spróbuj ponownie.",
 			"outputNotWritable": "Arroxy nie może zapisywać w folderze pobierania. Folder może być tylko do odczytu, znajdować się na zablokowanym dysku lub być zablokowany przez ustawienia prywatności systemu. Wybierz inny folder lub zezwól na dostęp, a potem spróbuj ponownie.",

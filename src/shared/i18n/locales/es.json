@@ -932,6 +932,7 @@
 			"rateLimit": "El sitio está limitando las solicitudes de esta conexión.",
 			"ageRestricted": "Este vídeo tiene restricción de edad y no se puede descargar sin una cuenta iniciada.",
 			"unavailable": "Este vídeo no está disponible — puede ser privado, eliminado o estar restringido por región.",
+			"formatUnavailable": "Este vídeo ya no ofrece el formato que elegiste. Pega el enlace de nuevo y elige entre los formatos que ofrece ahora.",
 			"geoBlocked": "Este vídeo no está disponible en tu región.",
 			"outOfDiskSpace": "No hay suficiente espacio en disco. Libera espacio e inténtalo de nuevo.",
 			"outputNotWritable": "Arroxy no puede escribir en la carpeta de descargas. Puede que sea de solo lectura, esté en una unidad bloqueada o la bloqueen los ajustes de privacidad de tu sistema. Elige otra carpeta o permite el acceso e inténtalo de nuevo.",

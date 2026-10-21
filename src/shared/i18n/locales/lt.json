@@ -976,6 +976,7 @@
 			"rateLimit": "Svetainė riboja šio ryšio užklausų skaičių.",
 			"ageRestricted": "Šis vaizdo įrašas turi amžiaus apribojimą, todėl jo negalima atsisiųsti be prisijungusios paskyros.",
 			"unavailable": "Šis vaizdo įrašas nepasiekiamas – jis gali būti privatus, ištrintas arba užblokuotas regione.",
+			"formatUnavailable": "Šis vaizdo įrašas nebeturi jūsų pasirinkto formato. Dar kartą įklijuokite nuorodą ir pasirinkite iš formatų, kurie siūlomi dabar.",
 			"geoBlocked": "Šis vaizdo įrašas jūsų regione nepasiekiamas.",
 			"outOfDiskSpace": "Nepakanka vietos diske. Atlaisvinkite vietos ir bandykite dar kartą.",
 			"outputNotWritable": "Arroxy negali rašyti į atsisiuntimų aplanką. Jis gali būti tik skaitomas, esantis užrakintame diske arba užblokuotas jūsų sistemos privatumo parametrų. Pasirinkite kitą aplanką arba leiskite prieigą, tada bandykite dar kartą.",
