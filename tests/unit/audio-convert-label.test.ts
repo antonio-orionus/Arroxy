@@ -58,8 +58,7 @@ describe('resolveAudioLabel — native streams', () => {
 		await i18next.changeLanguage('ru')
 		const original = {...TRACKS[0], isOriginalAudio: true}
 
-		expect(label({kind: 'native', formatId: '251-0'}, [original, TRACKS[1]])).toMatch(/^Английский · \S+ · webm · Opus · 130 kbps$/)
-		expect(label({kind: 'native', formatId: '251-0'}, [original, TRACKS[1]])).not.toContain('English')
+		expect(label({kind: 'native', formatId: '251-0'}, [original, TRACKS[1]])).toBe(`Английский · ${i18next.t('wizard.formats.marker.original')} · webm · Opus · 130 kbps`)
 	})
 
 	it("doesn't repeat the original in a note kept as it is", () => {
