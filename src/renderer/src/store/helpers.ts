@@ -67,8 +67,9 @@ function nativeAudioLabel(format: FormatOption, audioFormats: FormatOption[]): s
 	const track = format.audioTrackLabel
 	if (!track || !format.label.startsWith(`${track} · `)) return format.label
 	const name = audioTrackNames(audioFormats, i18next.language).get(track) ?? track
-	// A note kept as it is says "original" itself.
-	const original = format.isOriginalAudio === true && name !== track ? ` · ${i18next.t('wizard.formats.marker.original')}` : ''
+	// A note kept as it is may say "original" itself.
+	const saysOriginal = name === track && /\boriginal\b/i.test(track)
+	const original = format.isOriginalAudio === true && !saysOriginal ? ` · ${i18next.t('wizard.formats.marker.original')}` : ''
 	return `${name}${original}${format.label.slice(track.length)}`
 }
 

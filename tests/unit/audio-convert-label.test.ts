@@ -68,6 +68,13 @@ describe('resolveAudioLabel — native streams', () => {
 		expect(label({kind: 'native', formatId: '251-9'}, [unnamed, TRACKS[1]])).toBe('Commentary original (default) · webm · Opus · 130 kbps')
 	})
 
+	it('still says it of a kept note that does not', () => {
+		// yt-dlp names the track by its code when the note leads with a grade ("high, original").
+		const bare = {...track('251-8', 'qaa', 'qaa'), isOriginalAudio: true}
+
+		expect(label({kind: 'native', formatId: '251-8'}, [bare, TRACKS[1]])).toBe('qaa · Original · webm · Opus · 130 kbps')
+	})
+
 	it('names the track among the listed streams, as the picker does, not their hidden copies', async () => {
 		await i18next.changeLanguage('ru')
 		// YouTube's HLS copy has no codec and its own note for the same language.
