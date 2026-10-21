@@ -269,8 +269,8 @@ test('a failed probe becomes an error row, and Retry from the row succeeds once 
 // the row once the failure is lifted.
 // Milestones: the error row before the reload, and again after it; probing
 // again after Retry; done.
-// Oracles: the row is labelled Balanced 720p in Downloads and in queue.json,
-// and the file on disk is an mp4 in Balanced's folder, not audio.
+// Oracles: the row is labelled with Balanced's format in Downloads and in
+// queue.json, and the file on disk is an mp4 in Balanced's folder, not audio.
 test('a row keeps the profile it was placed with across a window reload', async () => {
 	test.setTimeout(180_000)
 	const videoId = FIXTURE_VIDEO_IDS[1]
@@ -295,10 +295,9 @@ test('a row keeps the profile it was placed with across a window reload', async 
 		await page.getByTestId(`queue-attention-${itemId}`).getByRole('button', {name: 'Retry'}).click()
 		await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'done', {timeout: 120_000})
 
-		await expect(page.getByTestId(rowTestId)).toContainText('Balanced 720p')
+		await expect(page.getByTestId(rowTestId)).toContainText('Up to 720p · Best picture')
 		const persisted = readPersistedQueue(userDataDir)
-		expect(persisted).toHaveLength(1)
-		expect(persisted[0]?.formatLabel).toContain('Balanced 720p')
+		expect(persisted.map(item => item.formatLabel)).toEqual(['Up to 720p · Best picture'])
 		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
 		expect(files.mediaFiles('mp4')[0]).toContain('Balanced 720p')
 	})

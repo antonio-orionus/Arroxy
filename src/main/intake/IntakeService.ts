@@ -119,7 +119,7 @@ export class IntakeService {
 			return {kind: 'not-added'}
 		}
 		logger.info('link taken in', {itemId: row.id, intakeId: origin.intakeId, origin: origin.kind, playlistMode: request.playlistMode})
-		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title}, request)
+		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title}, {requestId: request.requestId, origin: origin.kind})
 		return {kind: 'added', itemId: row.id, title: row.title}
 	}
 
