@@ -261,9 +261,6 @@ body {
 .quick-profile-selector-title {
 	color: var(--quick-selector-ink);
 }
-.quick-profile-selector-kicker {
-	color: var(--quick-selector-kicker);
-}
 .quick-profile-selector-meta {
 	color: var(--quick-selector-muted);
 }
@@ -1048,7 +1045,6 @@ body {
 	--quick-selector-sheen: linear-gradient(145deg, color-mix(in srgb, var(--tint-start) 24%, transparent), transparent 38%), radial-gradient(120% 90% at 88% 100%, color-mix(in srgb, var(--tint-end) 14%, transparent), transparent 62%);
 	--quick-selector-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 86%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--glow) 22%, transparent), inset 0 -28px 58px -42px color-mix(in srgb, var(--tint-end) 26%, transparent);
 	--quick-selector-ink: var(--foreground);
-	--quick-selector-kicker: var(--selected-foreground);
 	--quick-selector-muted: var(--muted-foreground);
 	--quick-focus-glow: 0 0 30px -10px color-mix(in srgb, var(--glow) 48%, transparent);
 	--quick-chevron-border: var(--line);

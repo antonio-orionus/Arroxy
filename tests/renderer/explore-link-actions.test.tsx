@@ -98,7 +98,7 @@ describe('Explore link menu picks', () => {
 		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: WATCH_URL, entry: 'explore'}))
 		expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({profiles: expect.objectContaining({active: {kind: 'builtin', id: 'audio-only'}})}))
 		expect(activeAtQueue).toEqual([{kind: 'builtin', id: 'audio-only'}])
-		await waitFor(() => expect(screen.getByTestId('explore-download')).toHaveTextContent('Download · Audio only'))
+		await waitFor(() => expect(screen.getByTestId('explore-profile-trigger')).toHaveAccessibleName('Switch download profile: Audio only'))
 	})
 
 	// The pick named the profile to download with: queuing with the old one instead would be a silent wrong download.

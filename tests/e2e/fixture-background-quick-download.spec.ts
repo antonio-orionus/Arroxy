@@ -210,7 +210,8 @@ test('a link menu profile pick on the home feed makes it the active profile and 
 			const url = urls.video(videoId)
 			await pickFromLinkMenu(app, {kind: 'download', url, profile: {kind: 'builtin', id: 'best-quality'}})
 
-			await expect(download).toHaveText('Download · Best available', {timeout: 10_000})
+			await expect(page.getByTestId('explore-profile-trigger')).toHaveAccessibleName('Switch download profile: Best available', {timeout: 10_000})
+			await expect(download).toHaveAttribute('aria-description', 'Download · With Best available')
 			await expect(toast(page, `Added: ${toastItemName(url)}`)).toBeVisible({timeout: 10_000})
 			await expectNoModal(page)
 			await expect(page.getByTestId('explore-tab')).toBeVisible()

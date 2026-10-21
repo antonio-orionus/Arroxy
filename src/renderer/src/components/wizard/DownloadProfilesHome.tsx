@@ -33,6 +33,7 @@ import {useProfileEditor} from './useProfileEditor.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 import {IconTile} from '../shared/IconTile.js'
+import {Hint} from '../shared/Hint.js'
 
 function browserMockScenarioId(): string | null {
 	try {
@@ -166,7 +167,7 @@ interface DownloadTabPanelProps {
 // it in the wizard, or open the bulk dialog.
 function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk, onPasteBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
-	const {activeProfileDestination, activeProfileDestinationDetailKey, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
+	const {activeProfileDestination, activeProfileDestinationDetailKey, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
 	const pickProfileRef = (ref: DownloadProfileRef): void => {
 		void setActiveDownloadProfile(ref)
 	}
@@ -184,7 +185,6 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 					destination={activeProfileDestination}
 					destinationDetail={t(activeProfileDestinationDetailKey)}
 					disabled={!urlReady}
-					onChangeGlobalDestination={() => void chooseWizardFolder()}
 					onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}
 					onEditProfile={onEditProfile}
 					onManageProfiles={onManageProfiles}
@@ -330,23 +330,25 @@ function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
 }
 
 function ActionRow({description, disabled = false, icon: Icon, onClick, testId, title}: {description: string; disabled?: boolean; icon: LucideIcon; onClick: () => void; testId: string; title: string}): ReactNode {
+	// The name only; what it does is the hint. Focusable when disabled, so the hint still shows.
 	return (
-		<Button
-			type="button"
-			variant="ghost"
-			disabled={disabled}
-			onClick={onClick}
-			data-testid={testId}
-			className="glow-tile h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-lg border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-(--hover-brightness) active:translate-y-px"
-		>
-			<IconTile tone="lit">
-				<Icon />
-			</IconTile>
-			<span className="flex min-w-0 flex-1 flex-col items-start">
-				<span className="text-title">{title}</span>
-				<span className="text-xs font-normal text-muted-foreground">{description}</span>
-			</span>
-			<ChevronRight className="ms-auto text-muted-foreground" aria-hidden />
-		</Button>
+		<Hint label={description}>
+			<Button
+				type="button"
+				variant="ghost"
+				disabled={disabled}
+				focusableWhenDisabled
+				aria-description={description}
+				onClick={onClick}
+				data-testid={testId}
+				className="glow-tile h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-lg border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-(--hover-brightness) active:translate-y-px"
+			>
+				<IconTile tone="lit">
+					<Icon />
+				</IconTile>
+				<span className="min-w-0 flex-1 text-title">{title}</span>
+				<ChevronRight className="ms-auto text-muted-foreground" aria-hidden />
+			</Button>
+		</Hint>
 	)
 }

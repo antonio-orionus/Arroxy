@@ -45,6 +45,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'profiles-home-clipboard-single',
 	'profiles-home-clipboard-bulk',
 	'profiles-split-menu',
+	'profiles-plain-link',
 	'profiles-editor',
 	'profiles-bulk',
 	'profiles-bulk-huge-input',
@@ -230,11 +231,12 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-hydration', group: 'Playlist', title: 'Hydrating series', description: 'Bilibili-style series: placeholder rows resolve titles, thumbnails, and upload dates in the background (p5 fails, p7 stays dateless, dates are shuffled so the upload sort visibly reorders).', kind: 'probe'},
 	{id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk'},
 	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
-	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered.', kind: 'profile'},
+	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered: the shortcut is in its hint.', kind: 'profile'},
 	{id: 'hotkey-conflict', group: 'Profiles', title: 'Global hotkey conflict', description: 'Hotkey settings with the configured shortcut unavailable because another app owns it.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home with one clipboard-detected link prefilled.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after several clipboard links were detected; the first link is prefilled.', kind: 'profile'},
 	{id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download profile picker opened.', kind: 'profile'},
+	{id: 'profiles-plain-link', group: 'Profiles', title: 'Plain video link', description: 'A plain watch?v=… link pasted with the hotkey registered: Quick Download shows its name; the profile and the global shortcut are in its hint.', kind: 'profile'},
 	{id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'New profile form opened in a dialog.', kind: 'profile'},
 	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Bulk URLs dialog opened from the redesigned main screen.', kind: 'profile'},
 	{id: 'profiles-bulk-huge-input', group: 'Profiles', title: 'Bulk URLs huge input', description: 'Bulk URLs dialog seeded with a giant pasted log so textarea scrolling and dialog chrome stay visible.', kind: 'profile'},
@@ -290,7 +292,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'repair-mixed', group: 'Diagnostics', title: 'Repair: mixed causes', description: 'Antivirus blocked the download engine while the media tools failed to download: one line per cause.', kind: 'diagnostics'},
 	{id: 'explore-notice', group: 'Explore', title: 'Explore first-run notice', description: 'First open of the Explore tab: an illustrated preview of Explore (toolbar with the Download split over an abstract video page) and the ban-risk notice show before any view exists.', kind: 'explore'},
 	{id: 'explore-browsing', group: 'Explore', title: 'Explore browsing', description: 'Notice acknowledged and signed in: toolbar plus a loaded page (a neutral placeholder stands in for the native view).', kind: 'explore'},
-	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download split truncates the name and keeps it whole in the native tooltip.', kind: 'explore'},
+	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download button shows no name; its hint names the profile in full.', kind: 'explore'},
 	{id: 'explore-nudge', group: 'Explore', title: 'Explore mode nudge', description: 'Cookies mode is not Explore, so the mode nudge sits above the toolbar.', kind: 'explore'},
 	{id: 'explore-proxy-error', group: 'Explore', title: 'Explore proxy error', description: 'The view refuses to load because the proxy setting is invalid: the error surface replaces the page.', kind: 'explore'},
 	{id: 'explore-adblock-on', group: 'Explore', title: 'Explore ad blocker on', description: 'The user turned the ad blocker on: the shield in the toolbar is pressed and Explore pages load filtered.', kind: 'explore'},
@@ -372,6 +374,7 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 	if (scenario.id === 'profiles-home-clipboard-single') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-home-clipboard-bulk') return {wizardStep: 'url', wizardUrl: PROFILE_BULK_URLS[0]}
 	if (scenario.id === 'profiles-split-menu') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
+	if (scenario.id === 'profiles-plain-link') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-quick-progress')
 		return {wizardStep: 'url', wizardUrl: '', quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressTotal: 3, quickDownloadProgressCompleted: 1, quickDownloadProgressFailed: 0, quickDownloadProgressCurrent: PROFILE_BULK_URLS[1], quickDownloadProgressTitle: 'Me at the zoo'}
 	if (scenario.id === 'profiles-playlist-cap') {
@@ -570,7 +573,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			embedThumbnail: false,
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
 			commonPaths,
-			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
+			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' || scenario.id === 'profiles-plain-link' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
 			...(scenario.id === 'single-review-returning' ? {successfulDownloadCount: 12} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),

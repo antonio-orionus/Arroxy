@@ -51,6 +51,9 @@ describe('HotkeySettingsSection', () => {
 		mount({hotkeyEnabled: true}, {}, 'pending')
 
 		expect(screen.getByText('Enable global hotkey')).toBeInTheDocument()
+		// The toggle says what the shortcut does, including on a link to a video in a playlist.
+		expect(screen.getByText('Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video.')).toBeInTheDocument()
+		expect(screen.queryByText('Press the shortcut with a video link on your clipboard.')).toBeNull()
 		expect(toggle()).toHaveAttribute('aria-checked', 'true')
 		expect(screen.getByTestId('profiles-settings-hotkey-chord-value')).toHaveTextContent(formatHotkeyChord(DEFAULTS.hotkeyAccelerator).join(' + '))
 		expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeDisabled()

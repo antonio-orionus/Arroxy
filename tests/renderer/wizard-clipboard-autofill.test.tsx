@@ -301,12 +301,12 @@ describe('bulk URL dialog', () => {
 		const confirm = screen.getByTestId('bulk-url-confirm')
 		const quickConfirm = screen.getByTestId('bulk-quick-download')
 		expect(confirm).toBeDisabled()
-		expect(quickConfirm).toBeDisabled()
+		expect(quickConfirm).toHaveAttribute('aria-disabled', 'true')
 
 		fireEvent.change(screen.getByTestId('bulk-url-textarea'), {target: {value: 'https://example.com/one'}})
 
 		expect(confirm).toBeEnabled()
-		expect(quickConfirm).toBeEnabled()
+		expect(quickConfirm).toHaveAttribute('aria-disabled', 'false')
 	})
 
 	it('confirm populates selectable bulk rows', () => {

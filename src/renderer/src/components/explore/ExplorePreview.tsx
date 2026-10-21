@@ -47,7 +47,7 @@ function VideoCard({thumbnail}: {thumbnail: (typeof THUMBNAILS)[number]}): React
 // Neutral shapes and theme colours only: no site's logo, art or people.
 // Shorter in a narrow card (a small window or a large UI zoom), so the notice's
 // text and Continue stay in view; the parent is the size container.
-export function ExplorePreview({profileName, ProfileIcon}: {profileName: string; ProfileIcon: LucideIcon}): ReactNode {
+export function ExplorePreview({ProfileIcon}: {ProfileIcon: LucideIcon}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<div aria-hidden inert className="pointer-events-none relative h-48 overflow-hidden @xl:h-72 rounded-xl border border-border bg-background/40 select-none mask-b-from-75%" data-testid="explore-preview">
@@ -63,7 +63,7 @@ export function ExplorePreview({profileName, ProfileIcon}: {profileName: string;
 				<span className="flex min-w-0 shrink">
 					<span className={cn(buttonVariants({size: 'xs'}), 'min-w-0 shrink rounded-e-none')}>
 						<ProfileIcon data-icon="inline-start" />
-						<span className="min-w-0 truncate">{t('explore.toolbar.downloadWithProfile', {profileName})}</span>
+						<span className="min-w-0 truncate">{t('explore.toolbar.download')}</span>
 					</span>
 					<span className={cn(buttonVariants({size: 'icon-xs'}), 'shrink-0 rounded-s-none border-s border-s-primary-foreground/25')}>
 						<ChevronDown />

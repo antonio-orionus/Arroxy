@@ -426,14 +426,15 @@ for (const viewport of VIEWPORTS) {
 				if ('zoom' in viewport) await setUiZoom(page, viewport.zoom)
 				expect(await overflowingToolbar(page)).toEqual([])
 				const download = page.getByTestId('explore-download')
-				// The label truncates on a narrow row; hovering shows it whole, in a tooltip that
-				// opens above the toolbar and stays inside the window.
+				// The label names no profile; hovering names it whole, after the label, in a tooltip
+				// that opens above the toolbar and stays inside the window.
 				const label = await download.textContent()
 				expect(label).not.toBeNull()
 				await download.hover()
 				// Not the footer's one-time style hint, which opens on its own after startup.
 				const tip = page.locator('[data-slot="tooltip-content"]:not([data-testid="style-hint"])')
-				await expect(tip).toHaveText(label ?? '')
+				await expect(tip).toContainText(`${label ?? ''} · `)
+				expect(((await tip.textContent()) ?? '').startsWith(`${label ?? ''} · `)).toBe(true)
 				await expect(tip).toHaveAttribute('data-side', 'top')
 				const [box, inner] = [await tip.boundingBox(), await page.evaluate(() => ({width: window.innerWidth}))]
 				expect(box?.x ?? -1).toBeGreaterThanOrEqual(0)

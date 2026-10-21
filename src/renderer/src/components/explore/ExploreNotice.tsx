@@ -9,19 +9,18 @@ import {ExplorePreview} from './ExplorePreview.js'
 
 interface ExploreNoticeProps {
 	// The active download profile, as the preview's Download split names it.
-	profileName: string
 	ProfileIcon: LucideIcon
 	onContinue: () => void
 }
 
 // First-run screen. Nothing loads in the Explore view until it is
 // acknowledged; a picture of Explore above the text shows what is coming.
-export function ExploreNotice({profileName, ProfileIcon, onContinue}: ExploreNoticeProps): ReactNode {
+export function ExploreNotice({ProfileIcon, onContinue}: ExploreNoticeProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<Card variant="glass" className="mx-auto w-full max-w-2xl" data-testid="explore-notice">
 			<div className="@container px-5 md:px-6">
-				<ExplorePreview profileName={profileName} ProfileIcon={ProfileIcon} />
+				<ExplorePreview ProfileIcon={ProfileIcon} />
 			</div>
 			<CardHeader className="px-5 md:px-6">
 				<div className="flex min-w-0 items-start gap-3">

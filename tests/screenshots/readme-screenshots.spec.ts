@@ -47,7 +47,7 @@ interface Shot {
 const SAMPLE_URLS = ['https://www.youtube.com/watch?v=aurora4k01', 'https://www.youtube.com/watch?v=reefdoc002', 'https://www.youtube.com/watch?v=nighttrain3']
 
 const SHOTS: readonly Shot[] = [
-	{name: 'Quick Download home', file: 'Main-screenshot', appstream: true, query: 'scenario=profiles-home-clipboard-single', ready: '[data-testid="profiles-quick-download"]:not([disabled])'},
+	{name: 'Quick Download home', file: 'Main-screenshot', appstream: true, query: 'scenario=profiles-home-clipboard-single', ready: '[data-testid="profiles-quick-download"]:not([aria-disabled="true"])'},
 	{name: 'Download profiles', file: 'Download-profiles-screenshot', query: 'scenario=default', ready: '[data-testid="profiles-manage-tab"]', prepare: page => openTab(page, 'profiles')},
 	{
 		name: 'Per-item playlist profiles',
@@ -258,7 +258,7 @@ for (const locale of LOCALES) {
 	test(titled('Themes and styles', locale), async ({page, context}) => {
 		const frames: string[] = []
 		for (const look of LOOKS) {
-			const open = (): Promise<void> => settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', {...look, locale})
+			const open = (): Promise<void> => settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([aria-disabled="true"])', {...look, locale})
 			const image = await capture(page, open, () => page.screenshot({omitBackground: true}), look.style === 'aurora')
 			frames.push(image.toString('base64'))
 		}

@@ -6,7 +6,6 @@ import {exploreZoomOf} from '@shared/exploreZoom.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import {exploreSearchEngineOf} from '@shared/sites/exploreSearch.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
-import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Card} from '../ui/card.js'
@@ -32,10 +31,9 @@ export function ExploreTab(props: ExploreTabProps): ReactNode {
 	const noticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
 	const acknowledgeExploreNotice = useAppStore(state => state.acknowledgeExploreNotice)
 	const profilesPrefs = useAppStore(state => state.settings?.profiles)
-	const nameOf = useProfileDisplayName()
 	if (!noticeSeen) {
-		const {activeProfile, ActiveIcon} = buildDownloadProfileActionModel(profilesPrefs)
-		return <ExploreNotice profileName={nameOf(activeProfile)} ProfileIcon={ActiveIcon} onContinue={() => void acknowledgeExploreNotice()} />
+		const {ActiveIcon} = buildDownloadProfileActionModel(profilesPrefs)
+		return <ExploreNotice ProfileIcon={ActiveIcon} onContinue={() => void acknowledgeExploreNotice()} />
 	}
 	return <ExploreBrowser {...props} />
 }

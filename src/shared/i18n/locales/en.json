@@ -155,6 +155,7 @@
 			"aria": "Explore browser controls",
 			"back": "Back",
 			"compactLayout": "Compact layout",
+			"download": "Download",
 			"downloadWithProfile": "Download · {{profileName}}",
 			"forward": "Forward",
 			"fullLayout": "Show full layout",
@@ -1548,16 +1549,14 @@
 			"hotkey": {
 				"changeShortcut": "Change shortcut",
 				"conflict": "This shortcut is taken by another app — pick another one.",
-				"hintLabel": "Or press",
-				"hintTooltip": "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows.",
-				"hintTooltipSettings": "Change or turn it off in Settings.",
+				"globalLabel": "Global shortcut",
 				"recording": "Press keys…",
 				"reset": "Reset to default",
 				"sectionDescription": "Download whatever link you copy, from any app, without opening Arroxy.",
 				"sectionTitle": "Global hotkey",
 				"test": "Test",
 				"toggle": "Enable global hotkey",
-				"toggleDescription": "Press the shortcut with a video link on your clipboard."
+				"toggleDescriptionDetail": "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
 			},
 			"interactiveDownload": "Interactive Download",
 			"limitRate": {
@@ -1679,6 +1678,7 @@
 					"override": "Using profile override",
 					"overrideSubfolder": "Using profile override + profile subfolder"
 				},
+				"destinationEditHint": "To change where it saves, edit the profile.",
 				"destinationFallback": "Destination",
 				"edit": "Edit",
 				"editActive": "Edit active profile",
@@ -1702,6 +1702,7 @@
 				"remove": "Remove",
 				"reorderHint": "Drag a profile to move it. Every profile picker follows this order.",
 				"reset": "Reset",
+				"savesTo": "Saves to",
 				"switchAria": "Switch download profile: {{profileName}}",
 				"switchTitle": "Switch download profile"
 			},

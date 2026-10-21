@@ -184,7 +184,9 @@ describe('Explore first-run notice', () => {
 		const preview = screen.getByTestId('explore-preview')
 		expect(preview).toHaveAttribute('aria-hidden', 'true')
 		expect(preview).toHaveAttribute('inert')
-		expect(preview).toHaveTextContent(`Download · ${activeProfileName()}`)
+		// Like the real toolbar: Download names no profile.
+		expect(preview).toHaveTextContent('Download')
+		expect(preview).not.toHaveTextContent(activeProfileName())
 		expect(preview.querySelectorAll('button, a, input')).toHaveLength(0)
 		expect(screen.getAllByRole('button').some(button => preview.contains(button))).toBe(false)
 	})
@@ -899,17 +901,17 @@ describe('Explore toolbar', () => {
 		for (const id of ['explore-download', 'explore-profile-trigger', 'explore-interactive']) expect(screen.getByTestId(id)).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
-	it('names the active profile on Download and keeps the full label in its tooltip', async () => {
+	it('labels Download without a profile name and names the active profile in its hint', async () => {
 		renderExplore()
 		await waitFor(() => expect(stateListener).not.toBeNull())
 		emitState({url: WATCH_URL})
 
-		const label = `Download · ${activeProfileName()}`
 		const download = screen.getByTestId('explore-download')
-		expect(download).toHaveTextContent(label)
+		expect(download.textContent).toBe('Download')
+		expect(download).not.toHaveTextContent(activeProfileName())
 		expect(download).not.toHaveAttribute('title')
 		fireEvent.mouseEnter(download)
-		expect(await findTip()).toHaveTextContent(label)
+		expect(await findTip()).toHaveTextContent(`Download · With ${activeProfileName()}`)
 	})
 
 	it('Download queues the current page with the active profile and stays in Explore', async () => {
@@ -976,7 +978,7 @@ describe('Explore toolbar tooltips', () => {
 
 	it('shows the Download label, the profile switch and the interactive hint on a video', async () => {
 		await renderOn(WATCH_URL)
-		const label = `Download · ${activeProfileName()}`
+		const label = `Download · With ${activeProfileName()}`
 
 		for (const [id, text] of [
 			['explore-download', label],
@@ -1084,7 +1086,7 @@ describe('Explore profile menu', () => {
 		fireEvent.click(within(menu).getByTestId('explore-profile-option-audio-only'))
 
 		await waitFor(() => expect(settingsWrites()).toContainEqual(expect.objectContaining({profiles: expect.objectContaining({active: {kind: 'builtin', id: 'audio-only'}})})))
-		await waitFor(() => expect(screen.getByTestId('explore-download')).toHaveTextContent(`Download · ${activeProfileName()}`))
+		await waitFor(() => expect(screen.getByTestId('explore-download')).toHaveAttribute('aria-description', `Download · With ${activeProfileName()}`))
 		expect(activeProfileName()).not.toBe('')
 		await waitFor(() => expect(screen.queryByTestId('explore-profile-menu-grid')).not.toBeVisible())
 	})

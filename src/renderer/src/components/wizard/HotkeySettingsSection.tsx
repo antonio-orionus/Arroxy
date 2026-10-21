@@ -71,7 +71,7 @@ export function HotkeySettingsSection(): ReactNode {
 
 	return (
 		<FieldGroup className="gap-4">
-			<SettingSwitch id="profiles-settings-hotkey" label={t('wizard.url.hotkey.toggle')} description={t('wizard.url.hotkey.toggleDescription')} checked={enabled} onCheckedChange={checked => void setHotkeyEnabled(checked)} testId="profiles-settings-hotkey-toggle" />
+			<SettingSwitch id="profiles-settings-hotkey" label={t('wizard.url.hotkey.toggle')} description={t('wizard.url.hotkey.toggleDescriptionDetail')} checked={enabled} onCheckedChange={checked => void setHotkeyEnabled(checked)} testId="profiles-settings-hotkey-toggle" />
 
 			<Field className="gap-1.5">
 				<FieldContent className="gap-0.5">

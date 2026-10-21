@@ -103,7 +103,10 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 	const {activeProfile, ActiveIcon} = profiles
 	const blocked = !grabbable
 	const grabHint = grabbable ? undefined : t('explore.toolbar.grabUnavailable')
-	const downloadLabel = t('explore.toolbar.downloadWithProfile', {profileName: nameOf(activeProfile)})
+	const profileName = nameOf(activeProfile)
+	// No profile name on the button: the hint names it.
+	const downloadLabel = t('explore.toolbar.download')
+	const downloadHint = `${downloadLabel} · ${t('wizard.listPrompt.withProfile', {profileName})}`
 	const interactiveHint = t('explore.toolbar.interactiveHint')
 	return (
 		<NativeViewPointerEntries value={pointerEntries}>
@@ -140,12 +143,12 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 				<ExploreAddressBar url={state.url} searchEngine={searchEngine} onSubmit={onSubmitAddress} onEdit={onAddressEdit} />
 				<AdBlockToggle status={state.adBlock} onToggle={onToggleAdBlock} />
 				<ExploreZoomControl zoom={zoom} onChange={onZoomChange} />
-				{/* On a row of its own (narrow or zoomed windows) the cluster shrinks and the profile name truncates. */}
+				{/* On a row of its own (narrow or zoomed windows) the cluster shrinks and the Download label truncates. */}
 				<div className="flex min-w-0 max-w-full items-center gap-2" data-testid="explore-download-cluster">
 					<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 						<ButtonGroup className="min-w-0">
-							<Hint label={grabHint ?? downloadLabel}>
-								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} onClick={onDownload} className="min-w-8 shrink" data-testid="explore-download">
+							<Hint label={grabHint ?? downloadHint}>
+								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint ?? downloadHint} onClick={onDownload} className="min-w-8 shrink" data-testid="explore-download">
 									<ActiveIcon data-icon="inline-start" aria-hidden />
 									<span className="min-w-0 truncate">{downloadLabel}</span>
 								</Button>
@@ -153,7 +156,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 							<Hint label={grabHint ?? t('wizard.url.profile.switchTitle')}>
 								<PopoverTrigger
 									render={
-										<Button type="button" size="icon-sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(activeProfile)})} className="border-s-primary-foreground/25" data-testid="explore-profile-trigger">
+										<Button type="button" size="icon-sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} aria-label={t('wizard.url.profile.switchAria', {profileName})} className="border-s-primary-foreground/25" data-testid="explore-profile-trigger">
 											<ChevronDown aria-hidden />
 										</Button>
 									}

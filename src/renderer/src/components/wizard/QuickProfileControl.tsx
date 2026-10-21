@@ -1,9 +1,9 @@
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine} from 'lucide-react'
+import {ChevronDown, Download, Folder, PenLine} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
-import {formatHotkeyChord, formatHotkeyChordSpoken} from '@renderer/lib/hotkeyLabel.js'
+import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {cn} from '@renderer/lib/utils.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -25,7 +25,6 @@ interface QuickProfileControlProps {
 	destination?: string
 	destinationDetail?: string
 	disabled: boolean
-	onChangeGlobalDestination?: () => void
 	onDownload: () => void
 	onEditProfile: (profile: DownloadProfile) => void
 	onManageProfiles: () => void
@@ -38,22 +37,7 @@ interface QuickProfileControlProps {
 	testIdPrefix?: QuickProfileTestIdPrefix
 }
 
-export function QuickProfileControl({
-	defaultProfileMenuOpen = false,
-	destination,
-	destinationDetail,
-	disabled,
-	onChangeGlobalDestination,
-	onDownload,
-	onEditProfile,
-	onManageProfiles,
-	onNewProfile,
-	onPickProfile,
-	preparing = false,
-	profilesPrefs,
-	size = 'default',
-	testIdPrefix = 'profiles'
-}: QuickProfileControlProps): ReactNode {
+export function QuickProfileControl({defaultProfileMenuOpen = false, destination, destinationDetail, disabled, onDownload, onEditProfile, onManageProfiles, onNewProfile, onPickProfile, preparing = false, profilesPrefs, size = 'default', testIdPrefix = 'profiles'}: QuickProfileControlProps): ReactNode {
 	const model = buildDownloadProfileActionModel(profilesPrefs)
 	const {activeProfile} = model
 	const nameOf = useProfileDisplayName()
@@ -70,7 +54,6 @@ export function QuickProfileControl({
 				defaultOpen={defaultProfileMenuOpen}
 				destination={destination}
 				destinationDetail={destinationDetail}
-				onChangeGlobalDestination={onChangeGlobalDestination}
 				onEditProfile={onEditProfile}
 				onManageProfiles={onManageProfiles}
 				onNewProfile={onNewProfile}
@@ -89,65 +72,60 @@ function clusterMinHeightClass(compact: boolean, hasDestination: boolean): strin
 
 function QuickDownloadAction({compact, disabled, preparing, profileName, onDownload, testIdPrefix}: {compact: boolean; disabled: boolean; preparing: boolean; profileName: string; onDownload: () => void; testIdPrefix: QuickProfileTestIdPrefix}): ReactNode {
 	const {t} = useTranslation()
+	// The name only on the face; the profile and (on the URL tab) the global shortcut wait in the hint.
+	// No arrow: Quick Download starts at once, and an arrow means "opens something".
 	return (
-		<button
-			type="button"
-			disabled={disabled}
-			aria-busy={preparing}
-			onClick={onDownload}
-			className={cn(
-				'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
-				compact ? 'min-h-[4.75rem] px-4 py-3 md:min-h-[5rem] md:basis-[52%]' : 'min-h-[6rem] px-5 py-4 md:m-2 md:me-0 md:min-h-0 md:flex-[0_1_42%] md:self-stretch lg:m-3 lg:me-0 lg:flex-[0_1_38%] lg:px-5 xl:flex-[0_1_36%] xl:px-6',
-				'hover:brightness-[1.08] active:translate-y-px',
-				'focus-visible:outline-none',
-				disabled && !preparing && 'pointer-events-none opacity-55 saturate-[0.65]',
-				preparing && 'pointer-events-none'
-			)}
-			data-testid={`${testIdPrefix}-quick-download`}
+		<Hint
+			label={
+				<span className="flex flex-col items-start gap-1" data-testid={`${testIdPrefix}-quick-download-hint`}>
+					<span>{t('wizard.url.quickDownloadTooltip', {profileName})}</span>
+					{testIdPrefix === 'profiles' ? <GlobalHotkeyHintLine /> : null}
+				</span>
+			}
 		>
-			<span aria-hidden className="quick-card-overlay pointer-events-none absolute inset-0" />
-			<span className={cn('icon-tile quick-icon-tile relative grid shrink-0 place-items-center rounded-xl [&_svg]:size-6', compact ? 'size-11' : 'size-12 md:size-14 md:[&_svg]:size-7')}>{preparing ? <Spinner aria-hidden className={compact ? 'size-5' : 'size-6 md:size-7'} /> : <Download aria-hidden />}</span>
-			<span className="relative flex min-w-0 flex-col">
-				<span className={compact ? 'text-title' : 'text-headline'}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
-				<span className={cn('mt-1 block truncate font-medium leading-snug text-quick-card-muted', compact ? 'text-xs' : 'text-sm md:whitespace-nowrap')}>{t('wizard.url.quickDownloadTooltip', {profileName})}</span>
-				{compact ? null : <QuickDownloadHotkeyHint />}
-			</span>
-			<ChevronRight className={cn('relative ms-auto shrink-0 text-quick-card-ink opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5', compact ? 'size-5' : 'size-5 md:size-6')} aria-hidden />
-		</button>
+			{/* aria-disabled, not disabled: the hint carries the profile and the shortcut, so it
+			   must open by hover and focus while the button cannot act yet. A click then does nothing. */}
+			<button
+				type="button"
+				aria-disabled={disabled || preparing}
+				aria-busy={preparing}
+				onClick={() => {
+					if (!disabled && !preparing) onDownload()
+				}}
+				className={cn(
+					'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
+					compact ? 'min-h-[4.75rem] px-4 py-3 md:min-h-[5rem] md:basis-[52%]' : 'min-h-[6rem] px-5 py-4 md:m-2 md:me-0 md:min-h-0 md:flex-[0_1_42%] md:self-stretch lg:m-3 lg:me-0 lg:flex-[0_1_38%] lg:px-5 xl:flex-[0_1_36%] xl:px-6',
+					!disabled && !preparing && 'hover:brightness-[1.08] active:translate-y-px',
+					'focus-visible:outline-none',
+					disabled && !preparing && 'cursor-default opacity-55 saturate-[0.65]',
+					preparing && 'cursor-progress'
+				)}
+				data-testid={`${testIdPrefix}-quick-download`}
+			>
+				<span aria-hidden className="quick-card-overlay pointer-events-none absolute inset-0" />
+				<span className={cn('icon-tile quick-icon-tile relative grid shrink-0 place-items-center rounded-xl [&_svg]:size-6', compact ? 'size-11' : 'size-12 md:size-14 md:[&_svg]:size-7')}>{preparing ? <Spinner aria-hidden className={compact ? 'size-5' : 'size-6 md:size-7'} /> : <Download aria-hidden />}</span>
+				<span className={cn('relative min-w-0', compact ? 'text-title' : 'text-headline')}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
+			</button>
+		</Hint>
 	)
 }
 
-// Shown only while the global hotkey is actually registered, so the chord it names always works.
-function QuickDownloadHotkeyHint(): ReactNode {
+// The global shortcut, in Quick Download's hint: its name and chord; Settings explains it.
+// Shown only while the hotkey is registered, so the chord it names always works.
+function GlobalHotkeyHintLine(): ReactNode {
 	const {t} = useTranslation()
 	const accelerator = useAppStore(state => state.settings?.common?.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 	const hotkeyRegistration = useAppStore(state => state.hotkeyRegistration)
-	const openAdvancedSettings = useAppStore(state => state.openAdvancedSettings)
 	if (hotkeyRegistration !== 'registered') return null
-	const chordKeys = formatHotkeyChord(accelerator)
-	const spokenChord = formatHotkeyChordSpoken(accelerator)
 	return (
-		<Tooltip disableHoverablePopup={false}>
-			<TooltipTrigger
-				render={props => (
-					<span {...props} aria-label={`${t('wizard.url.hotkey.hintLabel')} ${spokenChord.join(' ')}`} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-caption font-medium text-quick-card-muted">
-						<span>{t('wizard.url.hotkey.hintLabel')}</span>
-						<KbdGroup aria-hidden="true">
-							{chordKeys.map(key => (
-								<Kbd key={key}>{key}</Kbd>
-							))}
-						</KbdGroup>
-					</span>
-				)}
-			/>
-			{/* Rendered inside the Quick Download button: no click in here may reach it. */}
-			<TooltipContent side="bottom" className="pointer-events-auto max-w-xs flex-col items-start gap-1 text-left select-text" onClick={event => event.stopPropagation()}>
-				<span>{t('wizard.url.hotkey.hintTooltip')}</span>
-				<Button type="button" variant="link" size="inline" className="text-start text-muted-foreground hover:text-popover-foreground" onClick={() => openAdvancedSettings('hotkey')}>
-					{t('wizard.url.hotkey.hintTooltipSettings')}
-				</Button>
-			</TooltipContent>
-		</Tooltip>
+		<span className="flex flex-wrap items-center gap-1.5" data-testid="quick-download-global-hotkey">
+			<span>{t('wizard.url.hotkey.globalLabel')}</span>
+			<KbdGroup>
+				{formatHotkeyChord(accelerator).map(key => (
+					<Kbd key={key}>{key}</Kbd>
+				))}
+			</KbdGroup>
+		</span>
 	)
 }
 
@@ -157,7 +135,6 @@ function ProfileMenu({
 	defaultOpen,
 	destination,
 	destinationDetail,
-	onChangeGlobalDestination,
 	onEditProfile,
 	onManageProfiles,
 	onNewProfile,
@@ -170,7 +147,6 @@ function ProfileMenu({
 	defaultOpen: boolean
 	destination?: string
 	destinationDetail?: string
-	onChangeGlobalDestination?: () => void
 	onEditProfile: (profile: DownloadProfile) => void
 	onManageProfiles: () => void
 	onNewProfile: () => void
@@ -186,7 +162,6 @@ function ProfileMenu({
 	const destinationDetailText = destinationDetail?.trim()
 	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText
 	const activeProfileLabel = t('wizard.url.profile.activeLabel')
-	const changeGlobalDestinationLabel = t('wizard.url.profile.changeGlobalDestination')
 	const editActiveProfileLabel = t('wizard.url.profile.editActive')
 
 	function closeAndRun(action: () => void): void {
@@ -204,7 +179,15 @@ function ProfileMenu({
 				data-testid={`${testIdPrefix}-active-profile-card`}
 			>
 				<div className="relative flex min-w-0 items-center gap-2">
-					<Hint label={<ProfileSummaryContent profile={activeProfile} />} delay={600}>
+					<Hint
+						label={
+							<span className="flex flex-col gap-1.5" data-testid={`${testIdPrefix}-active-profile-hint`}>
+								<span className="text-label uppercase text-muted-foreground">{activeProfileLabel}</span>
+								<ProfileSummaryContent profile={activeProfile} />
+							</span>
+						}
+						delay={600}
+					>
 						<PopoverTrigger
 							render={
 								<Button
@@ -217,10 +200,7 @@ function ProfileMenu({
 									<span className={cn('icon-tile grid shrink-0 place-items-center rounded-xl', compact ? 'size-10 [&_svg]:size-5' : 'size-11 md:size-14 [&_svg]:size-5 md:[&_svg]:size-7')}>
 										<ActiveIcon aria-hidden />
 									</span>
-									<span className="min-w-0 flex-1">
-										<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
-										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{nameOf(activeProfile)}</span>
-									</span>
+									<span className={cn('quick-profile-selector-title block min-w-0 flex-1 truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{nameOf(activeProfile)}</span>
 									<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>
 										<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />
 									</span>
@@ -249,38 +229,24 @@ function ProfileMenu({
 					</Tooltip>
 				</div>
 				{destinationLabel ? (
-					<div className="quick-profile-destination relative mt-2 flex min-w-0 items-center gap-2 rounded-xl px-2 py-2" data-testid={`${testIdPrefix}-profile-destination`}>
-						<Folder className="size-4 shrink-0 text-quick-selector-muted" aria-hidden />
-						<span className="min-w-0 flex-1">
-							<Hint label={destinationDetailLabel} reveal>
-								<span className="block truncate text-caption font-medium leading-snug text-quick-selector-muted">{destinationDetailLabel}</span>
-							</Hint>
-							<Hint label={destinationLabel} reveal>
-								<span className="mt-1 block truncate font-mono text-xs leading-tight text-quick-selector-ink">{destinationLabel}</span>
-							</Hint>
-						</span>
-						{onChangeGlobalDestination ? (
-							<Tooltip>
-								<TooltipTrigger
-									render={props => (
-										<Button
-											{...props}
-											type="button"
-											variant="ghost"
-											size="icon-sm"
-											aria-label={changeGlobalDestinationLabel}
-											onClick={() => closeAndRun(onChangeGlobalDestination)}
-											className="quick-profile-inline-action shrink-0 text-quick-selector-muted hover:text-quick-selector-ink"
-											data-testid={`${testIdPrefix}-change-global-destination`}
-										>
-											<FolderCog aria-hidden />
-										</Button>
-									)}
-								/>
-								<TooltipContent>{changeGlobalDestinationLabel}</TooltipContent>
-							</Tooltip>
-						) : null}
-					</div>
+					// Read-only: the profile owns where it saves; the hint says which rule applies and where to change it.
+					<Hint
+						label={
+							<span className="flex max-w-xs flex-col gap-1" data-testid={`${testIdPrefix}-profile-destination-hint`}>
+								<span className="wrap-anywhere font-mono text-xs">{destinationLabel}</span>
+								<span className="text-muted-foreground">{destinationDetailLabel}</span>
+								<span>{t('wizard.url.profile.destinationEditHint')}</span>
+							</span>
+						}
+					>
+						<div className="quick-profile-destination relative mt-2 flex min-w-0 items-center gap-2 rounded-xl px-2.5 py-2" data-testid={`${testIdPrefix}-profile-destination`}>
+							<Folder className="size-4 shrink-0 text-quick-selector-muted" aria-hidden />
+							<span className="min-w-0 flex-1">
+								<span className="block truncate text-caption font-medium leading-snug text-quick-selector-muted">{t('wizard.url.profile.savesTo')}</span>
+								<span className="mt-0.5 block truncate font-mono text-xs leading-tight text-quick-selector-ink">{destinationLabel}</span>
+							</span>
+						</div>
+					</Hint>
 				) : null}
 			</div>
 			<ProfilePickerMenu layout="grid" options={model.options} editProfile={model.activeProfile} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />

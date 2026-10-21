@@ -74,7 +74,15 @@ describe('a blocked toolbar button', () => {
 
 	it.each(BLOCKABLE)('%s carries no blocked reason once it can act', async id => {
 		await renderOn(WATCH_URL)
-		expect(screen.getByTestId(id)).not.toHaveAttribute('aria-description')
+		expect(screen.getByTestId(id)).not.toHaveAttribute('aria-description', GRAB_HINT)
+	})
+
+	// Download's label names no profile: once it can act, its description does, as its hint does.
+	it('describes Download with the profile once it can act', async () => {
+		await renderOn(WATCH_URL)
+		expect(screen.getByTestId('explore-download')).toHaveAttribute('aria-description', expect.stringMatching(/^Download · With .+/))
+		expect(screen.getByTestId('explore-profile-trigger')).not.toHaveAttribute('aria-description')
+		expect(screen.getByTestId('explore-interactive')).not.toHaveAttribute('aria-description')
 	})
 
 	// jsdom never turns Enter/Space on a button into a click, so the press is the

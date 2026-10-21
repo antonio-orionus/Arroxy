@@ -5,6 +5,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {installCanvasMocks} from '../shared/mockWebgl.js'
 import {armQueue} from '../shared/quickDownloadHarness.js'
+import {expectHint} from '../shared/hint.js'
 import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {BASE_STYLE} from '@renderer/styles/registry.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
@@ -162,6 +163,23 @@ describe('App renderer', () => {
 		expect(url.searchParams.get('theme')).toBe('system')
 	})
 
+	it('shows the action rows by name, with what each does only in its hint', async () => {
+		render(<App />)
+
+		const interactive = await screen.findByTestId('profiles-interactive-download')
+		const bulk = screen.getByTestId('profiles-bulk-urls')
+		expect(interactive.textContent).toBe('Interactive Download')
+		expect(bulk.textContent).toBe('Bulk URLs')
+		expect(interactive).toHaveAttribute('aria-description', 'Step-by-step wizard. Choose format, quality, and more.')
+		expect(bulk).toHaveAttribute('aria-description', 'Add and queue multiple URLs.')
+
+		// With no link yet, Interactive is disabled but stays focusable, so its hint still shows.
+		expect(interactive).toHaveAttribute('aria-disabled', 'true')
+		expect(interactive).not.toHaveAttribute('disabled')
+		await expectHint(interactive, 'Step-by-step wizard. Choose format, quality, and more.')
+		await expectHint(bulk, 'Add and queue multiple URLs.')
+	})
+
 	it('submits URL probes through the preload API', async () => {
 		render(<App />)
 
@@ -191,10 +209,11 @@ describe('App renderer', () => {
 		const quick = await screen.findByTestId('profiles-quick-download')
 		const fetch = screen.getByTestId('profiles-interactive-download')
 		expect(quick.textContent).toMatch(/Quick download/i)
-		expect(quick).toHaveTextContent('Will download using: Balanced 720p')
+		// Names only on the card: the profile Quick Download uses is in its hint.
+		expect(quick).not.toHaveTextContent('Will download using')
 		expect(screen.getByTestId('profiles-quick-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced 720p')
-		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Active profile')
+		expect(screen.getByTestId('profiles-active-profile-card')).not.toHaveTextContent('Active profile')
 		// Names only on the card; what the profile does is in its hint.
 		expect(screen.getByTestId('profiles-active-profile-card')).not.toHaveTextContent('720p ·')
 		const trigger = screen.getByTestId('profiles-active-profile-trigger')
@@ -202,13 +221,15 @@ describe('App renderer', () => {
 		fireEvent.mouseEnter(trigger)
 		fireEvent.mouseMove(trigger, {clientX: 5, clientY: 5})
 		expect(await screen.findByTestId('profile-summary-balanced', undefined, {timeout: 2000})).toHaveTextContent('Up to 720p · Best picture')
-		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('Using global destination + profile subfolder')
+		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('Saves to')
 		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('/tmp/Balanced 720p')
 		expect(screen.getByRole('button', {name: 'Edit active profile'})).toBeInTheDocument()
-		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeInTheDocument()
+		// Read-only: the profile editor changes where it saves.
+		expect(screen.queryByRole('button', {name: 'Change global destination'})).not.toBeInTheDocument()
 		const profileMenuTrigger = screen.getByRole('button', {name: 'Switch download profile: Balanced 720p'})
 		expect(profileMenuTrigger).toBeInTheDocument()
-		expect(quick).toBeDisabled()
+		// aria-disabled, so its hint still opens; a click does nothing.
+		expect(quick).toHaveAttribute('aria-disabled', 'true')
 
 		fireEvent.click(profileMenuTrigger)
 		expect(await screen.findByText('Switch profile')).toBeInTheDocument()
@@ -237,7 +258,7 @@ describe('App renderer', () => {
 		expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
 		expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=jNQXAC9IVRw'}})
-		expect(quick).toBeEnabled()
+		expect(quick).toHaveAttribute('aria-disabled', 'false')
 		expect(fetch).toBeEnabled()
 
 		resolveProbe({
@@ -261,7 +282,7 @@ describe('App renderer', () => {
 		await waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalledTimes(1))
 	})
 
-	it('explains profile destination overrides on the active profile card', async () => {
+	it('explains profile destination overrides in the destination hint', async () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
 		expect(balanced).toBeDefined()
 		window.appApi = buildMockAppApi({settings: {profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [{...balanced!, output: {kind: 'fixed', dir: '/mnt/archive'}, subfolder: {enabled: true, name: 'Lectures'}}], enabledOverrides: {}}}})
@@ -269,8 +290,8 @@ describe('App renderer', () => {
 		render(<App />)
 
 		const destination = await screen.findByTestId('profiles-profile-destination')
-		expect(destination).toHaveTextContent('Using profile override + profile subfolder')
 		expect(destination).toHaveTextContent('/mnt/archive/Lectures')
+		await expectHint(destination, 'Using profile override + profile subfolder')
 	})
 
 	// Bulk URLs still prepares its links in one modal run.
