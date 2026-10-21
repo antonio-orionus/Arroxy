@@ -517,8 +517,8 @@ describe('QueueManagerTab', () => {
 		render(<QueueManagerTab />)
 
 		const video = within(screen.getByTestId('queue-manager-row-video')).getByTestId('queue-subs-warning')
-		expect(video).toHaveTextContent('No subtitles in German and French')
-		await expectHint(video, /no subtitles in German and French\. The video was saved without them\./i)
+		expect(video).toHaveTextContent('No subtitles in German or French')
+		await expectHint(video, /no subtitles in German or French\. The video was saved without them\./i)
 		const subs = within(screen.getByTestId('queue-manager-row-subs')).getByTestId('queue-subs-warning')
 		expect(subs).toHaveTextContent('No subtitles in German')
 		await expectHint(subs, /no subtitles in German\. The other languages were saved\./i)
@@ -538,8 +538,8 @@ describe('QueueManagerTab', () => {
 		const kept = within(screen.getByTestId('queue-manager-row-kept'))
 		expect(kept.getByTestId('queue-audio-warning')).toHaveTextContent('Sound not removed')
 		await expectHint(kept.getByTestId('queue-audio-warning'), /audio could not be removed/i)
-		expect(kept.getByTestId('queue-subs-warning')).toHaveTextContent('No subtitles in German and French')
-		await expectHint(kept.getByTestId('queue-subs-warning'), /no subtitles in German and French\. The video was saved without them\./i)
+		expect(kept.getByTestId('queue-subs-warning')).toHaveTextContent('No subtitles in German or French')
+		await expectHint(kept.getByTestId('queue-subs-warning'), /no subtitles in German or French\. The video was saved without them\./i)
 		const limited = within(screen.getByTestId('queue-manager-row-limited'))
 		expect(limited.getByTestId('queue-quality-warning')).toHaveTextContent('Limited to 360p')
 		expect(limited.getByTestId('queue-subs-warning')).toHaveTextContent('No subtitles in German')
@@ -551,7 +551,7 @@ describe('QueueManagerTab', () => {
 
 		render(<QueueManagerTab />)
 
-		expect(screen.getByTestId('queue-manager-row-none')).toHaveTextContent('This video has no subtitles in German and French.')
+		expect(screen.getByTestId('queue-manager-row-none')).toHaveTextContent('This video has no subtitles in German or French.')
 	})
 
 	it('warns on a finished row whose audio could not be removed, alone or with failed subtitles', async () => {

@@ -36,18 +36,19 @@ export function languageName(code: string, uiLanguage: string): string {
 	return intlLanguageName(captionLanguage(code), uiLanguage) ?? captionLanguage(code)
 }
 
-const listFormatByLanguage = new Map<string, Intl.ListFormat>()
+const listFormats = new Map<string, Intl.ListFormat>()
 
-// Language codes as a list of names in the UI language ("German and French").
-// Every message that lists them names languages that are all missing, so the
-// list is a conjunction; a unit list has no separator at all in Russian or
-// Japanese ("немецкий французский").
-export function formatLanguageList(codes: readonly string[], uiLanguage: string): string {
-	let list = listFormatByLanguage.get(uiLanguage)
+// Language codes as a list of names in the UI language. The message picks the
+// join: "no subtitles in German or French" says none of them exist, "asks for
+// subtitles in German and French" lists them all. Intl spells either in each
+// language's own separators.
+export function formatLanguageList(codes: readonly string[], uiLanguage: string, type: 'conjunction' | 'disjunction'): string {
+	const key = `${type}:${uiLanguage}`
+	let list = listFormats.get(key)
 	if (!list) {
-		// react-doctor-disable-next-line react-doctor/js-hoist-intl -- cached per UI language; locale is runtime data
-		list = new Intl.ListFormat([uiLanguage, 'en'], {type: 'conjunction'})
-		listFormatByLanguage.set(uiLanguage, list)
+		// react-doctor-disable-next-line react-doctor/js-hoist-intl -- cached per UI language and type; locale is runtime data
+		list = new Intl.ListFormat([uiLanguage, 'en'], {type})
+		listFormats.set(key, list)
 	}
 	return list.format(codes.map(code => languageName(code, uiLanguage)))
 }

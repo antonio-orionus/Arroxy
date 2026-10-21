@@ -48,25 +48,35 @@ describe('resolveSubtitleLabel', () => {
 describe('names for running text', () => {
 	it('stay lowercase, since they fill sentences', () => {
 		expect(languageName('de', 'ru')).toBe('немецкий')
-		expect(formatLanguageList(['de'], 'ru')).toBe('немецкий')
+		expect(formatLanguageList(['de'], 'ru', 'disjunction')).toBe('немецкий')
 	})
 
 	it('name an -orig caption code by its language', () => {
 		expect(languageName('en-orig', 'ru')).toBe('английский')
-		expect(formatLanguageList(['en-orig'], 'en')).toBe('English')
+		expect(formatLanguageList(['en-orig'], 'en', 'disjunction')).toBe('English')
 	})
 
 	it('fall back to the code Intl cannot name', () => {
 		expect(languageName('nb-ttv', 'ru')).toBe('nb-ttv')
 	})
 
-	// Every listed language is missing, so the list joins them with "and".
+	// "Your profile asks for subtitles in German and French".
 	it.each([
 		['en', 'German, French, and Spanish'],
 		['ru', 'немецкий, французский и испанский'],
 		['ja', 'ドイツ語、フランス語、スペイン語'],
 		['zh-CN', '德语、法语和西班牙语']
-	])('join several names with the %s list separators', (uiLanguage, expected) => {
-		expect(formatLanguageList(['de', 'fr', 'es'], uiLanguage)).toBe(expected)
+	])('join names with the %s conjunction', (uiLanguage, expected) => {
+		expect(formatLanguageList(['de', 'fr', 'es'], uiLanguage, 'conjunction')).toBe(expected)
+	})
+
+	// "No subtitles in German or French".
+	it.each([
+		['en', 'German, French, or Spanish'],
+		['ru', 'немецкий, французский или испанский'],
+		['ja', 'ドイツ語、フランス語、またはスペイン語'],
+		['zh-CN', '德语、法语或西班牙语']
+	])('join names with the %s disjunction', (uiLanguage, expected) => {
+		expect(formatLanguageList(['de', 'fr', 'es'], uiLanguage, 'disjunction')).toBe(expected)
 	})
 })

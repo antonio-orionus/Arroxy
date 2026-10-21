@@ -72,7 +72,7 @@ const heightParam = (item: QueueItem): string | number => item.lastStatus?.param
 
 function missingLanguagesLabel(item: QueueItem, t: TFunction): string {
 	const codes = item.lastStatus?.params?.languageCodes
-	return t('queue.item.subtitleLanguagesMissing', {languages: typeof codes === 'string' ? formatLanguageList(codes.split(','), i18next.language) : ''})
+	return t('queue.item.subtitleLanguagesMissing', {languages: typeof codes === 'string' ? formatLanguageList(codes.split(','), i18next.language, 'disjunction') : ''})
 }
 
 // A finished row still carries a notice when something about the result needs

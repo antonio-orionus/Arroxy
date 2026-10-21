@@ -185,7 +185,7 @@ describe('FitNotices: missing subtitle languages', () => {
 		useAppStore.setState({wizardFitNotices: [{kind: 'subtitle-languages-missing', languages: ['de', 'en-orig']}]})
 		render(<FitNotices />)
 
-		expect(screen.getByTestId('fit-notice-subtitle-languages-missing')).toHaveTextContent('немецкий, английский.')
+		expect(screen.getByTestId('fit-notice-subtitle-languages-missing')).toHaveTextContent('немецкий и английский.')
 	})
 })
 

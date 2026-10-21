@@ -2,7 +2,7 @@ import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Info, TriangleAlert} from 'lucide-react'
 import type {FitNotice} from '@shared/profileSelection.js'
-import {languageName} from '../../../lib/subtitleLabel.js'
+import {formatLanguageList} from '../../../lib/subtitleLabel.js'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {Alert, AlertDescription} from '../../ui/alert.js'
 
@@ -25,7 +25,7 @@ export function FitNotices(): ReactNode {
 			case 'no-video':
 				return t('wizard.formats.fit.noVideo')
 			case 'subtitle-languages-missing':
-				return t('wizard.formats.fit.subtitlesMissing', {languages: notice.languages.map(code => languageName(code, i18n.language)).join(', ')})
+				return t('wizard.formats.fit.subtitlesMissing', {languages: formatLanguageList(notice.languages, i18n.language, 'conjunction')})
 		}
 	}
 

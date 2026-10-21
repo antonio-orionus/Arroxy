@@ -144,10 +144,11 @@ export function generateId(): string {
 }
 
 // A status names languages by their codes, comma-joined in `languageCodes`
-// (params hold only strings and numbers); the copy gets their names.
+// (params hold only strings and numbers); the copy gets their names. Every
+// status that names languages says they are missing, so "or" joins them.
 function statusParams(params: StatusSnapshot['params']): Record<string, unknown> | undefined {
 	const codes = params?.languageCodes
-	return typeof codes === 'string' ? {...params, languages: formatLanguageList(codes.split(','), i18next.language)} : params
+	return typeof codes === 'string' ? {...params, languages: formatLanguageList(codes.split(','), i18next.language, 'disjunction')} : params
 }
 
 export function formatStatus(snapshot: StatusSnapshot | null): string {
@@ -162,7 +163,7 @@ export function formatLocalizedError(error: LocalizedError | null): string {
 	// For 'unknown', prefer the verbatim raw stderr so the user sees something
 	// concrete rather than a generic localized fallback.
 	if (error.kind === 'unknown') return error.raw || i18next.t('errors.ytdlp.unknown' as const)
-	if (error.kind === 'noSubtitles' && error.languageCodes?.length) return i18next.t('errors.noSubtitlesIn', {languages: formatLanguageList(error.languageCodes, i18next.language)})
+	if (error.kind === 'noSubtitles' && error.languageCodes?.length) return i18next.t('errors.noSubtitlesIn', {languages: formatLanguageList(error.languageCodes, i18next.language, 'disjunction')})
 	return i18next.t(`errors.ytdlp.${error.kind}` as const)
 }
 
