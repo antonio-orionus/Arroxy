@@ -1,6 +1,6 @@
 # Changelog fragments
 
-A PR with a user-facing change adds one file here instead of editing `CHANGELOG.md`, so open PRs never conflict over the changelog. A PR with nothing user-facing adds none.
+A PR with a user-facing change adds one file here instead of editing `CHANGELOG.md`, so open PRs never conflict over the changelog. A PR with nothing user-facing adds none, and neither does work behind a release flag: the PR that turns the flag on adds the feature's fragment ([`dev-docs/release-flags.md`](../dev-docs/release-flags.md)).
 
 ## Writing one
 
