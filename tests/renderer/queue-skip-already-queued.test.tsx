@@ -9,7 +9,7 @@ import {ok} from '@shared/result.js'
 import type {PlaylistEntry, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import {admitAgainstLive} from '@shared/queueActions.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
-import {armQueue} from '../shared/quickDownloadHarness.js'
+import {armQueue, queue} from '../shared/quickDownloadHarness.js'
 
 // A playlist that overlaps what is already live in the queue must not be lost to
 // the admission guard's conflict. The overlap is dropped before submission, the
@@ -110,15 +110,23 @@ describe('Quick Download of a playlist', () => {
 		await quickDownload()
 
 		expect(await swappedUrls(api)).toHaveLength(3)
+		// The outcome (queued, nothing skipped) shows nothing, so wait for the
+		// three rows to land and for the outcome chain to finish: it runs on
+		// promises the mocks resolve at once, so a macrotask outlasts it.
+		await vi.waitFor(() => expect(queue().filter(item => item.status === 'pending')).toHaveLength(3))
+		await new Promise(resolve => setTimeout(resolve, 0))
 		expect(skipNotices()).toEqual([])
 	})
 
 	it('answers a lone already-queued video with Already in the queue, placing nothing', async () => {
-		const api = arm([queued(URL_A)])
+		const seeded = [queued(URL_A)]
+		const api = arm(seeded)
 
 		await quickDownload(URL_A)
 
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(api.intake.add).toHaveBeenCalledOnce()
+		expect(queue()).toEqual(seeded)
+		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
 		expect(notices.map(notice => notice.message)).toEqual(['Already in the queue'])
 	})
 })

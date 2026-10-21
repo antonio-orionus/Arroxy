@@ -145,7 +145,9 @@ describe('handleHotkeyTrigger', () => {
 
 		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
 
-		await vi.waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce())
+		// The failed swap settles the row as a probe error; the hotkey hears it last.
+		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'submission-failed', url: URL}))
+		expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce()
 		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardUrl: ''})
 	})
 })

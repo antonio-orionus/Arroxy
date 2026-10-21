@@ -193,8 +193,8 @@ describe('quickDownload', () => {
 
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 
-		expect(api.downloads.probe).not.toHaveBeenCalled()
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		// Nothing is taken in until the prompt is answered.
+		expect(api.intake.add).not.toHaveBeenCalled()
 		expect(useAppStore.getState()).toMatchObject({wizardUrl: mixedUrl, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'url-tab', quickDownloadStatus: 'idle'})
 	})
 
@@ -528,14 +528,15 @@ describe('quickDownload', () => {
 
 	it('keeps the URL when the row cannot be placed', async () => {
 		const api = buildMockAppApi()
-		vi.mocked(api.queue.cmd.add).mockResolvedValue(fail({code: 'validation', message: 'Queue failed'}))
+		// Main refuses to place the row.
+		vi.mocked(api.intake.add).mockResolvedValue(ok({kind: 'not-added'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
 		await useAppStore.getState().quickDownload({url: YOUTUBE_URL, entry: 'url-tab'})
 
+		expect(api.intake.add).toHaveBeenCalledWith(expect.objectContaining({url: YOUTUBE_URL}))
 		expect(useAppStore.getState().wizardUrl).toBe(YOUTUBE_URL)
-		expect(api.downloads.probe).not.toHaveBeenCalled()
 	})
 
 	it('opens the cookies config dialog without probing when cookies settings are incomplete', async () => {
@@ -546,8 +547,7 @@ describe('quickDownload', () => {
 
 		await useAppStore.getState().quickDownload({url: YOUTUBE_URL, entry: 'url-tab'})
 
-		expect(api.downloads.probe).not.toHaveBeenCalled()
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(api.intake.add).not.toHaveBeenCalled()
 		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
 		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
 	})
