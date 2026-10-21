@@ -28,10 +28,14 @@ export function unreleasedFlagsOn(mode: string, override: string | undefined): b
 
 // Vite replaces both reads with literals at build time, in main, preload and
 // renderer alike, so a release build never reaches a gated entry point.
-const UNRELEASED_FLAGS_ON = unreleasedFlagsOn(import.meta.env.MODE, import.meta.env.VITE_RELEASE_FLAGS)
+export const UNRELEASED_FLAGS_ON = unreleasedFlagsOn(import.meta.env.MODE, import.meta.env.VITE_RELEASE_FLAGS)
+
+export function releaseFlagOn(definition: ReleaseFlagDefinition | undefined, unreleasedOn: boolean): boolean {
+	return definition?.inRelease === true || unreleasedOn
+}
 
 /** @public Read by gated entry points; none exists while the registry is empty. */
 export function isReleaseFlagOn(flag: ReleaseFlag): boolean {
 	const name: string = flag
-	return RELEASE_FLAGS[name]?.inRelease === true || UNRELEASED_FLAGS_ON
+	return releaseFlagOn(RELEASE_FLAGS[name], UNRELEASED_FLAGS_ON)
 }
