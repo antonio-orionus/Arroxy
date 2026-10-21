@@ -1,6 +1,11 @@
 import {useSyncExternalStore} from 'react'
+import log from 'electron-log/renderer.js'
 import type {QuickTimeHost} from '@shared/fileTypeFit.js'
 import {hostPlatform} from './platform.js'
+
+const quickTimeLogger = log.scope('quicktime')
+
+type ElectronLogWindow = Window & {__electronLog?: unknown}
 
 // AV1 in an MP4 at 1080p, the kind of file a download ends as.
 const AV1_MP4: MediaDecodingConfiguration = {type: 'file', video: {contentType: 'video/mp4; codecs="av01.0.08M.08"', width: 1920, height: 1080, bitrate: 4_000_000, framerate: 30}}
@@ -9,11 +14,14 @@ const AV1_MP4: MediaDecodingConfiguration = {type: 'file', video: {contentType: 
 // Apple has no software AV1 decoder. Chromium ships one, so `supported` is
 // always true; `powerEfficient` is true only when the chip decodes it (M3 and
 // later). Anything that cannot answer reads as no hardware, so the warning stays.
+// So does a Mac where the user turned GPU acceleration off: Chromium then sees
+// no hardware decoder, though QuickTime still uses it.
 export async function decodesAv1InHardware(): Promise<boolean> {
 	try {
 		const info = await navigator.mediaCapabilities.decodingInfo(AV1_MP4)
 		return info.powerEfficient
-	} catch {
+	} catch (error) {
+		if ((window as ElectronLogWindow).__electronLog) quickTimeLogger.warn('AV1 decode probe failed; the AV1 warning stays', error)
 		return false
 	}
 }
