@@ -927,6 +927,7 @@
 			"rateLimit": "Web-mjesto ograničava broj zahtjeva s ove veze.",
 			"ageRestricted": "Ovaj videozapis ima dobno ograničenje i ne može se preuzeti bez prijavljenog računa.",
 			"unavailable": "Ovaj videozapis nije dostupan — možda je privatan, izbrisan ili ograničen po regiji.",
+			"formatUnavailable": "Ovaj videozapis više ne nudi format koji ste odabrali. Ponovno zalijepite poveznicu i odaberite neki od formata koje sada nudi.",
 			"geoBlocked": "Ovaj videozapis nije dostupan u vašoj regiji.",
 			"outOfDiskSpace": "Nema dovoljno prostora na disku. Oslobodite prostor i pokušajte ponovo.",
 			"outputNotWritable": "Arroxy ne može pisati u mapu za preuzimanje. Možda je samo za čitanje, nalazi se na zaključanom pogonu ili je blokirana postavkama privatnosti sustava. Odaberite drugu mapu ili dopustite pristup pa pokušajte ponovo.",

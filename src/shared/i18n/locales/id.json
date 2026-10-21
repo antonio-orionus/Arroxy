@@ -882,6 +882,7 @@
 			"rateLimit": "Situs ini membatasi permintaan dari koneksi ini.",
 			"ageRestricted": "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk.",
 			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
+			"formatUnavailable": "Video ini tidak lagi menawarkan format yang Anda pilih. Tempel tautan itu lagi, lalu pilih dari format yang tersedia sekarang.",
 			"geoBlocked": "Video ini tidak tersedia di wilayah Anda.",
 			"outOfDiskSpace": "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi.",
 			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",

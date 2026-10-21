@@ -919,6 +919,7 @@
 			"rateLimit": "A webhely korlátozza az erről a kapcsolatról érkező kéréseket.",
 			"ageRestricted": "Ez a videó korhatáros, és bejelentkezett fiók nélkül nem tölthető le.",
 			"unavailable": "Ez a videó nem érhető el – lehet, hogy privát, törölték, vagy régiózárolt.",
+			"formatUnavailable": "Ez a videó már nem kínálja az Ön által kiválasztott formátumot. Illessze be újra a hivatkozást, és válasszon a most elérhető formátumok közül.",
 			"geoBlocked": "Ez a videó az Ön régiójában nem érhető el.",
 			"outOfDiskSpace": "Nincs elég szabad lemezterület. Szabadítson fel helyet, és próbálja újra.",
 			"outputNotWritable": "Az Arroxy nem tud írni a letöltési mappába. Lehet, hogy csak olvasható, zárolt meghajtón van, vagy a rendszer adatvédelmi beállításai blokkolják. Válasszon másik mappát, vagy engedélyezze a hozzáférést, majd próbálja újra.",

@@ -9,6 +9,10 @@ export const YT_DLP_ERROR_KINDS = [
 	'rateLimit',
 	'ageRestricted',
 	'unavailable',
+	// The format selector (`-f`, or a pinned format id) matched none of the
+	// formats the run extracted. The video itself is available; another player
+	// client or a later extraction may list a different set of formats.
+	'formatUnavailable',
 	'geoBlocked',
 	'drmProtected',
 	'loginRequired',

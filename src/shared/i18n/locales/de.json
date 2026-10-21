@@ -921,6 +921,7 @@
 			"rateLimit": "Die Website drosselt Anfragen von dieser Verbindung.",
 			"ageRestricted": "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.",
 			"unavailable": "Dieses Video ist nicht verfügbar — möglicherweise privat, gelöscht oder regional gesperrt.",
+			"formatUnavailable": "Dieses Video bietet das gewählte Format nicht mehr an. Füge den Link erneut ein und wähle aus den Formaten, die es jetzt anbietet.",
 			"geoBlocked": "Dieses Video ist in deiner Region nicht verfügbar.",
 			"outOfDiskSpace": "Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut.",
 			"outputNotWritable": "Arroxy kann nicht in den Download-Ordner schreiben. Er ist vielleicht schreibgeschützt, liegt auf einem gesperrten Laufwerk oder wird von den Datenschutzeinstellungen deines Systems blockiert. Wähle einen anderen Ordner oder erlaube den Zugriff und versuche es erneut.",

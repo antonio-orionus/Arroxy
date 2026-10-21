@@ -919,6 +919,7 @@
 			"rateLimit": "Sivusto rajoittaa tämän yhteyden pyyntöjä.",
 			"ageRestricted": "Tämä video on ikärajoitettu, eikä sitä voi ladata ilman sisäänkirjautunutta tiliä.",
 			"unavailable": "Tämä video ei ole saatavilla – se voi olla yksityinen, poistettu tai alueeseen lukittu.",
+			"formatUnavailable": "Tämä video ei enää tarjoa valitsemaasi muotoa. Liitä linkki uudelleen ja valitse muoto niistä, joita se nyt tarjoaa.",
 			"geoBlocked": "Tämä video ei ole saatavilla alueellasi.",
 			"outOfDiskSpace": "Levytila ei riitä. Vapauta tilaa ja yritä uudelleen.",
 			"outputNotWritable": "Arroxy ei voi kirjoittaa latauskansioon. Se voi olla vain luku -tilassa, lukitulla asemalla tai järjestelmäsi tietosuoja-asetusten estämä. Valitse toinen kansio tai salli käyttöoikeus ja yritä uudelleen.",

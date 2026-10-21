@@ -33,6 +33,7 @@ export const ERROR_KIND_METADATA: Record<YtDlpErrorKind, KindMetadata> = {
 	rateLimit: {code: 'YTDLP_RATE_LIMIT', recoverable: true, userActionable: true, suggestedFlags: ['--sleep-requests', '--sleep-interval', '--max-sleep-interval'], docsUrl: `${WIKI}/Extractors#this-content-isnt-available-try-again-later`},
 	ageRestricted: {code: 'YTDLP_AGE_RESTRICTED', recoverable: true, userActionable: true, suggestedFlags: ['--cookies-from-browser', '--cookies'], docsUrl: `${WIKI}/Extractors#age-restricted-videos`},
 	unavailable: {code: 'YTDLP_UNAVAILABLE', recoverable: false, userActionable: false},
+	formatUnavailable: {code: 'YTDLP_FORMAT_UNAVAILABLE', recoverable: true, userActionable: true, suggestedFlags: ['--list-formats']},
 	geoBlocked: {code: 'YTDLP_GEO_BLOCKED', recoverable: true, userActionable: true, suggestedFlags: ['--geo-bypass', '--geo-bypass-country', '--proxy']},
 	drmProtected: {code: 'YTDLP_DRM_PROTECTED', recoverable: false, userActionable: false, docsUrl: `${WIKI}/FAQ#yt-dlp-cant-download-drm-protected-content`},
 	loginRequired: {code: 'YTDLP_LOGIN_REQUIRED', recoverable: true, userActionable: true, suggestedFlags: ['--cookies-from-browser', '--cookies', '--username', '--password']},
