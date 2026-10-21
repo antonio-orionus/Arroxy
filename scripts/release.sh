@@ -6,6 +6,7 @@
 #   - stable release before required GitHub checks passed on the tagged commit
 #   - version/mode mismatch (beta tag w/o -, stable tag with -)
 #   - duplicate tag (local or remote)
+#   - stable release whose changelog fragments were not assembled into CHANGELOG.md
 #   - lightweight tag (always uses -a, annotated)
 #   - stale local tags riding along (pushes only the branch and this tag)
 #
@@ -144,6 +145,12 @@ case "$MODE" in
 esac
 
 TAG="v$VERSION"
+
+# 4b. stable release notes: the release commit assembled every changelog.d/
+# fragment into this version's CHANGELOG.md section
+if [[ "$MODE" == "stable" ]]; then
+  bun scripts/changelog.ts verify-release "$VERSION"
+fi
 
 # 5. tag must not already exist locally or on remote
 if [[ "$VERIFY_ONLY" == false ]]; then

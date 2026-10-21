@@ -1,0 +1,1 @@
+A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.

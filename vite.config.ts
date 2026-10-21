@@ -37,7 +37,7 @@ const TEST_TIMEOUT_MS = 20_000
 
 // Every gate `bun run check` runs in parallel. `quality-gate` runs packages:check
 // only after all of them pass, because the package gates rebuild shared outputs.
-const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:selection-parity', 'check:filename-parity', 'check:pins', 'check:i18n', 'check:donation-addresses', 'test']
+const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:selection-parity', 'check:filename-parity', 'check:pins', 'check:i18n', 'check:donation-addresses', 'check:changelog', 'test']
 // CI runs the unit tests in shards on their own runners (`ci.yml`), so its gates
 // job sets CHECK_TESTS_SEPARATELY and the gate leaves them out; locally they run.
 const CHECK_GATES = process.env.CHECK_TESTS_SEPARATELY === '1' ? QUALITY_GATES.filter(gate => gate !== 'test') : QUALITY_GATES

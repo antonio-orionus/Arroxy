@@ -75,6 +75,7 @@ const CASES: {name: string; files: string[]; runs: Scope[]}[] = [
 	{name: 'main-process code', files: ['src/main/services/YtDlp.ts'], runs: ['e2e', 'browser', 'installer']},
 	{name: 'renderer code', files: ['src/renderer/src/App.tsx'], runs: ['e2e', 'browser', 'installer']},
 	{name: 'runtime locale JSON', files: ['src/shared/i18n/locales/de.json'], runs: ['e2e', 'browser', 'installer']},
+	{name: 'changelog fragments, which the renderer never reads', files: ['changelog.d/explore-zoom.fix.md', 'changelog.d/README.md'], runs: []},
 	{name: 'the changelog the renderer imports', files: ['CHANGELOG.md'], runs: ['e2e', 'browser', 'installer']},
 	{name: 'dependencies', files: ['bun.lock'], runs: ['e2e', 'browser', 'installer']},
 	{name: 'workspace package source', files: ['packages/yt-dlp-bridge/src/index.ts'], runs: ['e2e', 'browser', 'installer']},

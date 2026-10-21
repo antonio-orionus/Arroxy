@@ -4,35 +4,9 @@ All notable user-facing changes to Arroxy.
 
 This file is the source of truth for release notes. The release workflow reads the section matching the pushed tag (e.g. `## 0.3.5-beta.1`) and posts it as the GitHub Release body. Auto-generated "What's Changed" PR list + Full Changelog link is appended automatically.
 
-When cutting a release, add a new section at the top in the same shape as the most recent entry.
+Unreleased changes are not written here: each PR adds a fragment to [`changelog.d/`](changelog.d/README.md), and the release commit assembles them into the new section at the top (`bun run changelog:assemble`).
 
 ---
-
-## 0.7.3
-
-Arroxy's website has a new address: **https://arroxy.com/**. The About, Share and update "Download" links open it.
-
-## Highlights
-
-- **More filename tokens.** Name files and folders after `{year}`, `{site}`, `{categories}`, `{artist}`, `{album}` and `{track}`, for example `{artist}/{album}/{track} [{id}]`.
-- **19 new languages.** Arroxy now speaks Basque, Bulgarian, Catalan, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Galician, Hebrew, Hungarian, Latvian, Lithuanian, Norwegian, Romanian, Slovak, Slovenian and Swedish, and opens in them on first launch when your system uses them. The feedback form is translated into each of them too.
-
-## Fixes
-
-- The URL tab's hints, profile summary and save location show in your language instead of English.
-- On first launch, Arroxy opens in your system language even when it is Khmer, Burmese, Uzbek, Pashto or Oromo, instead of English. If you prefer a language Arroxy lacks, it takes the next one in your system's list.
-- Embedded subtitles carry their track's name, such as "English (United Kingdom)", so players list them by name rather than by a bare language code.
-- A profile that saves video without audio as MP4 or MKV can embed the thumbnail as cover art.
-- A video-only download that could not have its sound removed now says so in the queue instead of finishing as a plain success.
-- Your own yt-dlp settings no longer change Arroxy's downloads: a yt-dlp config file or plugin you set up for yt-dlp on its own, or a `yt-dlp.conf` left in your download folder, is now ignored.
-- A download folder named like `$HOME` or `%USERPROFILE%`, or ending in a space, now gets the files, instead of a folder elsewhere with the name expanded.
-- A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
-- Playlist subtitles, and subtitles from sites other than YouTube, are the exact tracks you asked for, never a machine translation. A subtitles-only download is named after its video.
-- File and folder names keep `$`, `%` and `~` as in the title, instead of look-alike characters.
-- When a video no longer offers the format you picked, Arroxy says so and asks you to pick again, instead of calling the video private, deleted or region-locked.
-- Videos added several links at a time keep more of a long title in their file name. A long-titled playlist video from Vimeo no longer fails with "File name too long".
-- YouTube show links (`youtube.com/show/…`) download as the playlist they are, with its real name and every video, and Explore offers to download them.
-- The feedback form opens in full over Explore, instead of being hidden behind the page.
 
 ## 0.7.2
 

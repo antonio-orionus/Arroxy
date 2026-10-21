@@ -2,7 +2,7 @@
 
 ## How Antonio wants work done
 
-- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
+- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, changelog fragment) before proposing a PR.
 - [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable only, never a beta; never ask or offer to release.
 - [Orchestrator session](orchestrator-session.md) — on "orchestrator"/"orchestrate", load the `orchestrate` skill: it holds the standing rules (dispatch, verify first, start sessions yourself, ask only critical decisions, never release Arroxy).
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared and adaptive, auto reviews off: trigger behaviour PRs once on a final head after CI is green, one retry at most, never push mid-review.
@@ -13,7 +13,7 @@
 - [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; tests only after the design is approved.
 - [Translate at the final stage](translate-at-final-stage.md) — en only during development (`check:i18n` red is accepted); translate once, right before the PR.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
-- [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per entry, no internals, no exact sizes.
+- [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per fragment or entry, no internals, no exact sizes.
 
 ## Releases and packaging
 

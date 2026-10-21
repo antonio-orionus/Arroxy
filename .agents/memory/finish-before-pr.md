@@ -18,7 +18,7 @@ permanent ones.
 
 **How to apply:** for a user-facing feature, "done" includes the code, tests at
 the owning layer, all locale catalogs, the README (`readme-src/`, all locales),
-`CHANGELOG.md`, and any security or tooling gap the change directly touches.
+a changelog fragment in `changelog.d/` (never `CHANGELOG.md` itself), and any security or tooling gap the change directly touches.
 Raise scope concerns while working, not as leftovers at the end. Splitting the
 work across several commits on one branch is fine and preferred — that is not
 what he means by fragmented.
