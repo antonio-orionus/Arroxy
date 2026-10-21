@@ -920,6 +920,7 @@
 				"audioDescription": "Audio description",
 				"damaged": "Damaged",
 				"enhancedBitrate": "Enhanced bitrate",
+				"original": "Original",
 				"spatialAudio": "Spatial audio",
 				"vr": "360° / VR",
 				"watermarked": "Watermarked"

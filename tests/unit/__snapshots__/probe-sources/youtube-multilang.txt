@@ -11,7 +11,7 @@ Video (picked for Balanced 720p •):
 144p   AV1 27.2 MiB     VP9 297.4 MiB                   H.264 59.0 MiB
 
 Audio:
-tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, English original (default), Chinese (Simplified), Chinese (Traditional), Vietnamese, Japanese, German, French, Portuguese
+tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, English · Original, Simplified Chinese, Traditional Chinese, Vietnamese, Japanese, German, French, Portuguese
 Opus: 128 kbps 39.6 MiB • | 128 kbps 39.5 MiB DRC | 65 kbps 20.1 MiB | 65 kbps 20.1 MiB DRC | 50 kbps 15.4 MiB | 50 kbps 15.4 MiB DRC
 AAC: 129 kbps 40.0 MiB DRC | 129 kbps 40.0 MiB | 49 kbps 22.05 kHz 15.0 MiB
 DRC switch shown

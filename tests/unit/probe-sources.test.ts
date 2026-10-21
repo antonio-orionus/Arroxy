@@ -67,7 +67,8 @@ function audioList(view: FormatSelectionView): string[] {
 		const rows = line.variants.filter(row => shown === null || row.track === shown)
 		return rows.length > 0 ? [`${line.name}: ${rows.map(row => chip(row) + (row.isDrc ? ' DRC' : '')).join(' | ')}`] : []
 	})
-	const named = tracks.map(name => [name, ...(view.audio.trackTags[name] ?? [])].join(' · '))
+	// As the language picker shows them: the name, then what sets the track apart.
+	const named = tracks.map(name => [view.audio.trackNames[name] ?? name, ...(view.audio.trackTags[name] ?? [])].join(' · '))
 	return [...(shown === null ? [] : [`tracks (${shown} shown): ${named.join(', ')}`]), ...(lines.length > 0 ? lines : ['(no separate audio)']), ...(view.audio.hasDrcTwins ? ['DRC switch shown'] : [])]
 }
 

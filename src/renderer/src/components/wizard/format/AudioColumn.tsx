@@ -36,8 +36,8 @@ function QualityMeter({quality}: {quality: AudioTrackQuality}): ReactNode {
 }
 
 // Every fact about the stream, for its spoken name.
-function streamName(row: NativeAudioRow, extras: readonly (string | null)[]): string {
-	return [row.track, row.codec, row.ext, row.bitrate, ...row.details, ...row.markers.map(view => view.label), row.size, ...extras].flatMap(part => (part ? [part] : [])).join(' · ')
+function streamName(row: NativeAudioRow, trackName: string | undefined, extras: readonly (string | null)[]): string {
+	return [trackName ?? row.track, row.codec, row.ext, row.bitrate, ...row.details, ...row.markers.map(view => view.label), row.size, ...extras].flatMap(part => (part ? [part] : [])).join(' · ')
 }
 
 // The stream in `track` that stands in for `current`: same codec and DRC, nearest bitrate.
@@ -154,20 +154,20 @@ function selectionFromValue(value: string, view: AudioView, convertSourceFor: (t
 	return target ? convertSelection(target, view.bitrateStrip.value, convertSourceFor(target)) : null
 }
 
-function AudioLanguageSelect({tracks, trackTags, track, onChange}: {tracks: readonly string[]; trackTags: Readonly<Record<string, readonly string[]>>; track: string; onChange: (next: string) => void}): ReactNode {
+function AudioLanguageSelect({tracks, trackNames, trackTags, track, onChange}: {tracks: readonly string[]; trackNames: Readonly<Record<string, string>>; trackTags: Readonly<Record<string, readonly string[]>>; track: string; onChange: (next: string) => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<span className="flex max-w-full min-w-0 items-center gap-2">
 			<span className="shrink-0 text-caption text-subtle-foreground">{t('wizard.formats.audioLanguageCount', {count: tracks.length})}</span>
 			<Select value={track} onValueChange={value => value !== null && onChange(value)}>
 				<SelectTrigger size="sm" className="max-w-64 min-w-40" aria-label={t('wizard.formats.audioLanguage')} data-testid="audio-language">
-					<SelectValue>{() => [track, ...(trackTags[track] ?? [])].join(' · ')}</SelectValue>
+					<SelectValue>{() => [trackNames[track] ?? track, ...(trackTags[track] ?? [])].join(' · ')}</SelectValue>
 				</SelectTrigger>
 				<SelectContent align="end">
 					<SelectGroup>
 						{tracks.map(name => (
 							<SelectItem key={name} value={name}>
-								{name}
+								{trackNames[name] ?? name}
 								{(trackTags[name] ?? []).map(tag => (
 									<span key={tag} className="text-caption text-subtle-foreground">
 										{tag}
@@ -241,14 +241,14 @@ function NoAudioChip({view}: {view: AudioView}): ReactNode {
 	return <FormatChip value="none" name={`${t('wizard.formats.keepAudio')} · ${t('wizard.formats.keepAudioMeta')}`} label={t('wizard.formats.keepAudio')} tags={[t('wizard.formats.keepAudioMeta')]} disabled={view.noAudioDisabled} />
 }
 
-function NativeStreamChip({row, disabled, narrowStack}: {row: NativeAudioRow; disabled: boolean; narrowStack: boolean}): ReactNode {
+function NativeStreamChip({row, trackName, disabled, narrowStack}: {row: NativeAudioRow; trackName: string | undefined; disabled: boolean; narrowStack: boolean}): ReactNode {
 	const {t} = useTranslation()
 	const qualityLabel = row.quality ? t(AUDIO_QUALITY_LABEL_KEYS[row.quality]) : null
 	const drcTag = t('wizard.formats.drc.tag')
 	return (
 		<FormatChip
 			value={`native:${row.formatId}`}
-			name={streamName(row, [qualityLabel, row.isProfilePick ? t('wizard.formats.profile.tag') : null])}
+			name={streamName(row, trackName, [qualityLabel, row.isProfilePick ? t('wizard.formats.profile.tag') : null])}
 			// The chip shows its bitrate (or grade), details and size; the quality meter has no words.
 			hint={[row.chipLabel === row.ext ? null : row.ext, qualityLabel === row.chipLabel ? null : qualityLabel].flatMap(part => (part ? [part] : [])).join(' · ')}
 			label={row.chipLabel}
@@ -312,7 +312,7 @@ function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSe
 								{line.name}
 							</span>
 							{rows.map(row => (
-								<NativeStreamChip key={row.formatId} row={row} disabled={subtitleOnly} narrowStack={narrowStack} />
+								<NativeStreamChip key={row.formatId} row={row} trackName={view.trackNames[row.track]} disabled={subtitleOnly} narrowStack={narrowStack} />
 							))}
 						</div>
 					))}
@@ -345,7 +345,7 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 		<div className="flex min-w-0 flex-col" data-testid="audio-column">
 			<div className="mb-1.5 flex min-h-8 shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
 				<SectionLabel>{t('wizard.formats.audio')}</SectionLabel>
-				{view.tracks.length > 0 ? <AudioLanguageSelect tracks={view.tracks} trackTags={view.trackTags} track={track} onChange={switchTrack} /> : null}
+				{view.tracks.length > 0 ? <AudioLanguageSelect tracks={view.tracks} trackNames={view.trackNames} trackTags={view.trackTags} track={track} onChange={switchTrack} /> : null}
 			</div>
 
 			{/* As wide as the chips: the rows below match the grid instead of the whole column. */}

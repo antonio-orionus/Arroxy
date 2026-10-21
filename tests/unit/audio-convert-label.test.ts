@@ -1,7 +1,8 @@
-import {describe, expect, it} from 'vite-plus/test'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
 import type {FormatOption} from '@shared/types.js'
 import {resolveAudioLabel} from '@renderer/store/helpers.js'
 import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const label = (selection: Parameters<typeof resolveAudioLabel>[0], formats: FormatOption[]): string => resolveAudioLabel(selection, formats, selectionSourceFromOptions(formats))
 
@@ -35,5 +36,25 @@ describe('resolveAudioLabel — conversions', () => {
 
 	it('keeps the chosen bitrate when the probe lists no audio stream', () => {
 		expect(label({kind: 'convert-lossy', target: 'm4a', bitrateKbps: 192}, [])).toBe('M4A 192 kbps')
+	})
+})
+
+// The review row and the queue's format column show the picked stream's label.
+describe('resolveAudioLabel — native streams', () => {
+	afterEach(async () => {
+		await i18next.changeLanguage('en')
+	})
+
+	const track = (formatId: string, language: string, note: string): FormatOption => ({formatId, label: `${note} · webm · Opus · 130 kbps`, ext: 'webm', resolution: 'audio only', isAudioOnly: true, isVideoOnly: false, audioCodec: 'opus', abr: 130, audioLanguage: language, audioTrackLabel: note})
+	const TRACKS = [track('251-0', 'en', 'English original (default)'), track('251-1', 'de', 'German')]
+
+	it('names the track in the UI language, as the language picker does', async () => {
+		await i18next.changeLanguage('ru')
+
+		expect(label({kind: 'native', formatId: '251-0'}, TRACKS)).toBe('Английский · webm · Opus · 130 kbps')
+	})
+
+	it("keeps a label that doesn't start with the track as it is", () => {
+		expect(label({kind: 'native', formatId: '251'}, YOUTUBE)).toBe('251')
 	})
 })

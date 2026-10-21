@@ -1,5 +1,6 @@
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import {formatLanguageList} from '@renderer/lib/subtitleLabel.js'
+import {audioTrackNames} from '@renderer/lib/audioTrackName.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot, WizardMediaKind} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
@@ -56,7 +57,17 @@ export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: 
 		return t('wizard.formats.convert.lossyLabel', {target, bitrate: audioSelection.bitrateKbps})
 	}
 	const audioFmt = audioFormats.find(f => f.formatId === audioSelection.formatId)
-	return audioFmt?.label ?? i18next.t('formatLabel.audioFallback')
+	return audioFmt ? nativeAudioLabel(audioFmt, audioFormats) : i18next.t('formatLabel.audioFallback')
+}
+
+// A stream's label leads with its track's note ("English original (default) ·
+// webm · …", as the probe builds it); the track shows the name the language
+// picker gives it.
+function nativeAudioLabel(format: FormatOption, audioFormats: FormatOption[]): string {
+	const track = format.audioTrackLabel
+	if (!track || !format.label.startsWith(`${track} · `)) return format.label
+	const name = audioTrackNames(audioFormats, i18next.language).get(track) ?? track
+	return `${name}${format.label.slice(track.length)}`
 }
 
 // Selected-video-id → resolution label. The audio-only case returns

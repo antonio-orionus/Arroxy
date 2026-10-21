@@ -13,7 +13,7 @@ Video (picked for Balanced 720p •):
 144p      AV1 9.8 MiB     VP9 42.2 MiB   H.264 47.0 MiB
 
 Audio:
-tracks (English (US) original (default) shown): Spanish (US) · AI dubbed, Portuguese (BR) · AI dubbed, English (US) original (default)
+tracks (English (US) original (default) shown): Spanish (United States) · AI dubbed, Brazilian Portuguese · AI dubbed, American English · Original
 Opus: 113 kbps 25.5 MiB DRC | 113 kbps 25.5 MiB • | 62 kbps 14.0 MiB DRC | 62 kbps 14.0 MiB | 50 kbps 11.4 MiB DRC | 50 kbps 11.3 MiB
 AAC: 129 kbps 29.3 MiB DRC | 129 kbps 29.3 MiB | 49 kbps 22.05 kHz 11.0 MiB
 DRC switch shown

@@ -4,6 +4,7 @@ import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
+import {audioTrackNames, trackOf} from '@renderer/lib/audioTrackName.js'
 import {humanBitrate, humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
@@ -86,7 +87,7 @@ export interface NativeAudioRow {
 	isDrc: boolean
 	// The same track without DRC (or with it): one switch picks which of the pair the list shows.
 	twinId: string | null
-	// What sets the whole track apart (AI dubbed, audio description), for the language picker.
+	// What sets the whole track apart (original, AI dubbed, audio description), for the language picker.
 	trackTags: string[]
 	markers: StreamMarkerView[]
 	isProfilePick: boolean
@@ -132,7 +133,9 @@ export interface FormatSelectionView {
 		hasDrcTwins: boolean
 		// The named tracks (languages) to pick from, in the probe's order; empty when there is at most one.
 		tracks: string[]
-		// Per track, what sets it apart (AI dubbed, audio description).
+		// Per track, what it shows: its language in the UI language, else the site's text.
+		trackNames: Record<string, string>
+		// Per track, what sets it apart (original, AI dubbed, audio description).
 		trackTags: Record<string, string[]>
 		// The source's own default (or original) language, where the list opens
 		// when no stream is picked yet: never an AI dub just because it is listed first.
@@ -213,11 +216,6 @@ function markerTags(markers: readonly FormatMarker[] | undefined, shown: readonl
 	return (markers ?? []).filter(marker => shown.includes(marker)).map(marker => i18next.t(MARKER_LABEL_KEYS[marker]))
 }
 
-// The track a stream belongs to: its name or language; empty when it is not a named track.
-function trackOf(format: FormatOption): string {
-	return format.audioTrackLabel ?? format.audioLanguage ?? ''
-}
-
 // By the track, not the stream: the default stream may be a copy the list left out.
 function defaultTrackOf(formats: readonly FormatOption[], tracks: readonly string[]): string {
 	const source = formats.find(f => f.isAudioOnly && f.isDefaultAudio === true) ?? formats.find(f => f.isAudioOnly && f.isOriginalAudio === true)
@@ -264,7 +262,7 @@ function nativeAudioRow(format: FormatOption, profileAudioId: string | null, sca
 		details,
 		size: scaledSize === undefined ? null : scale.text(scaledSize),
 		isDrc: format.isDrc === true,
-		trackTags: markerTags(format.markers, TRACK_MARKERS),
+		trackTags: [...(format.isOriginalAudio === true ? [i18next.t('wizard.formats.marker.original')] : []), ...markerTags(format.markers, TRACK_MARKERS)],
 		markers: markerViews(format.markers),
 		isProfilePick: format.formatId === profileAudioId
 	}
@@ -476,7 +474,8 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	// The stream a conversion converts stays listed too, even as a folded copy:
 	// the one it names, else the one yt-dlp picks.
 	const conversionSourceId = audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless' ? (selectedConversionSource(conversionSelection, audioSelection.target, audioSelection.sourceFormatId)?.formatId ?? null) : null
-	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId]).map(format => nativeAudioRow(format, profileAudioId, scale))
+	const listedAudio = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId])
+	const audioRows = listedAudio.map(format => nativeAudioRow(format, profileAudioId, scale))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)
@@ -495,6 +494,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			hasDrcTwins: lines.some(line => line.variants.some(row => row.twinId !== null)),
 			tracks: namedTracks.length > 1 ? namedTracks : [],
 			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, namedTracks) : null,
+			trackNames: Object.fromEntries(audioTrackNames(listedAudio, state.language ?? 'en')),
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
 			extractOffered,

@@ -33,6 +33,19 @@ describe('AudioColumn', () => {
 		expect(streams.map(radio => radio.textContent)).toEqual([expect.stringContaining('High quality'), expect.stringContaining('Low quality')])
 	})
 
+	it('names the languages in the UI language, with the original marked', async () => {
+		const youtube = (formatId: string, extra: Partial<FormatOption>): FormatOption => ({formatId, label: formatId, ext: 'webm', resolution: 'audio only', abr: 130, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true, ...extra})
+		const formats = [youtube('251-0', {audioLanguage: 'en', audioTrackLabel: 'English original (default)', isOriginalAudio: true, isDefaultAudio: true}), youtube('251-1', {audioLanguage: 'ru', audioTrackLabel: 'Russian'})]
+		const audioSelection: AudioSelection = {kind: 'native', formatId: '251-0'}
+		const view = selectView({selectedVideoFormatId: '', audioSelection, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats, language: 'ru'})
+		render(<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={vi.fn()} />)
+
+		expect(screen.getByTestId('audio-language')).toHaveTextContent('Английский · Original')
+		expect(chipNames().filter(name => name.includes('kbps'))).toEqual([expect.stringMatching(/^Английский · /)])
+		fireEvent.click(screen.getByTestId('audio-language'))
+		expect(await screen.findByRole('option', {name: 'Русский'})).toBeInTheDocument()
+	})
+
 	it("shows one language's streams at a time, opening on the selection's, and says how many languages there are", () => {
 		renderColumn()
 

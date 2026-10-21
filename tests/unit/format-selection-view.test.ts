@@ -260,6 +260,32 @@ describe('selectView — media kinds', () => {
 		])
 	})
 
+	describe('track names in the UI language', () => {
+		const track = (formatId: string, extra: Partial<FormatOption>): FormatOption => ({formatId, label: formatId, ext: 'webm', resolution: 'audio only', abr: 130, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true, ...extra})
+		const view = (formats: FormatOption[], language: string) => selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: formats[0].formatId}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats, language}).audio
+
+		it("names YouTube's English track notes by their language, and says which is the original", () => {
+			const audio = view([track('251-0', {audioLanguage: 'en', audioTrackLabel: 'English original (default)', isOriginalAudio: true, isDefaultAudio: true}), track('251-1', {audioLanguage: 'de', audioTrackLabel: 'German', markers: ['ai-dubbed']})], 'ru')
+
+			// The note stays the track's key; only what is shown changes.
+			expect(audio.tracks).toEqual(['English original (default)', 'German'])
+			expect(audio.trackNames).toEqual({'English original (default)': 'Английский', German: 'Немецкий'})
+			expect(audio.trackTags).toEqual({'English original (default)': ['Original'], German: ['AI dubbed']})
+		})
+
+		it('names a bare language code by its language', () => {
+			const audio = view([track('a-ru', {audioLanguage: 'ru'}), track('a-en', {audioLanguage: 'en'})], 'de')
+
+			expect(audio.trackNames).toEqual({ru: 'Russisch', en: 'Englisch'})
+		})
+
+		it("keeps the site's text where Intl has no name, or two tracks would read the same", () => {
+			const audio = view([track('a', {audioLanguage: 'qaa', audioTrackLabel: 'Commentary'}), track('b', {audioLanguage: 'en', audioTrackLabel: 'English'}), track('c', {audioLanguage: 'en', audioTrackLabel: 'English (director)'}), track('d', {audioTrackLabel: 'Track 4'})], 'en')
+
+			expect(audio.trackNames).toEqual({Commentary: 'Commentary', English: 'English', 'English (director)': 'English (director)', 'Track 4': 'Track 4'})
+		})
+	})
+
 	it('offers no track picker when the streams name one track or none', () => {
 		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: SEPARATE_FORMATS})
 

@@ -108,6 +108,8 @@ describe('mapFormats', () => {
 
 		expect(mapped.find(format => format.formatId === '140-drc')).toEqual(expect.objectContaining({audioLanguage: 'en', audioLanguagePreference: 10, audioTrackLabel: 'English original (default)', isDefaultAudio: true, isOriginalAudio: true, isDrc: true}))
 		expect(mapped.find(format => format.formatId === '140-1')).toEqual(expect.objectContaining({audioTrackLabel: 'English original (default)', audioTrackQuality: 'medium', isDefaultAudio: true, isOriginalAudio: true, isDrc: false}))
+		// The renderer swaps this lead for the track's name in the UI language.
+		expect(mapped.find(format => format.formatId === '140-1')?.label).toMatch(/^English original \(default\) · /)
 		expect(mapped.find(format => format.formatId === '140-0')).toEqual(expect.objectContaining({audioLanguage: 'tlh', audioTrackLabel: 'Klingon', audioTrackQuality: 'medium', isDefaultAudio: false, isOriginalAudio: false}))
 	})
 
