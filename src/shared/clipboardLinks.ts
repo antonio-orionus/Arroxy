@@ -1,5 +1,4 @@
 import {parseBulkUrls} from './bulkUrls.js'
-import {cleanUrl} from './cleanUrl.js'
 
 export type ClipboardLinks = {kind: 'none'} | {kind: 'single'; url: string} | {kind: 'bulk'; urls: string[]}
 
@@ -30,16 +29,11 @@ export function classifyClipboardText(raw: string): ClipboardLinks {
 export type PastedLinks = {kind: 'none'} | {kind: 'single'; url: string} | {kind: 'bulk'; raw: string}
 
 // What the Paste button acts on. A click is an explicit ask, so unlike the
-// watcher it takes a link out of any text. A link that is the whole clipboard
-// is kept as copied, since the bulk tokenizer splits at `,` and `;` that a URL
-// may hold. Several links go to Bulk URLs with the text as copied.
+// watcher it takes a link out of any text. Several links go to Bulk URLs with
+// the text as copied.
 export function classifyPastedText(raw: string): PastedLinks {
-	const text = raw.trim()
-	const urls = parseBulkUrls(text)
-		.accepted.map(item => item.url)
-		.filter(isWebUrl)
+	const urls = parseBulkUrls(raw).accepted.map(item => item.url)
 	if (urls.length > 1) return {kind: 'bulk', raw}
 	const [url] = urls
-	if (!url) return {kind: 'none'}
-	return {kind: 'single', url: BARE_WEB_LINK_RE.test(text) && isWebUrl(text) ? cleanUrl(text) : url}
+	return url ? {kind: 'single', url} : {kind: 'none'}
 }

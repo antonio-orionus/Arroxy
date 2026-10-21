@@ -41,6 +41,10 @@ describe('classifyClipboardText', () => {
 		expect(classifyClipboardText('  \n https://youtu.be/abc \n')).toEqual({kind: 'single', url: 'https://youtu.be/abc'})
 	})
 
+	it('keeps commas and semicolons inside the link', () => {
+		expect(classifyClipboardText('https://media.example/clip,part1.mp4')).toEqual({kind: 'single', url: 'https://media.example/clip,part1.mp4'})
+	})
+
 	it('returns the cleaned link', () => {
 		expect(classifyClipboardText('https://www.youtube.com/watch?v=abc&si=tracking')).toEqual({kind: 'single', url: 'https://www.youtube.com/watch?v=abc'})
 	})

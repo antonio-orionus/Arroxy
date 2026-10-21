@@ -15,6 +15,39 @@ describe('parseBulkUrls', () => {
 		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2', 'https://c.test/3', 'https://d.test/4', 'https://e.test/5'])
 	})
 
+	it('splits at a comma or semicolon only where the next link starts', () => {
+		const result = parseBulkUrls('https://a.test/1,https://b.test/2;https://c.test/3')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2', 'https://c.test/3'])
+	})
+
+	it('keeps commas and semicolons inside a link', () => {
+		const result = parseBulkUrls('https://media.example/clip,part1.mp4\nhttps://media.example/watch?a=1;b=2\nhttps://media.example/video.json;part.mp4')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://media.example/clip,part1.mp4', 'https://media.example/watch?a=1;b=2', 'https://media.example/video.json;part.mp4'])
+	})
+
+	it('drops a comma or semicolon that ends a link in prose', () => {
+		const result = parseBulkUrls('see https://a.test/1, then https://b.test/2; done')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://a.test/1', 'https://b.test/2'])
+	})
+
+	it('dedupes the same link joined by a comma', () => {
+		const result = parseBulkUrls('https://vimeo.com/12345,https://vimeo.com/12345')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://vimeo.com/12345'])
+		expect(result.duplicateCount).toBe(1)
+	})
+
+	it('ignores links that do not parse', () => {
+		const result = parseBulkUrls('https://:bad\nhttps://vimeo.com/12345\nhttps://?')
+
+		expect(result.accepted.map(item => item.url)).toEqual(['https://vimeo.com/12345'])
+		expect(result.invalidCount).toBe(2)
+		expect(result.ignoredCount).toBe(2)
+	})
+
 	it('extracts URLs from mixed surrounding text', () => {
 		const result = parseBulkUrls('first: https://example.com/one (then) paste https://example.com/two.')
 
