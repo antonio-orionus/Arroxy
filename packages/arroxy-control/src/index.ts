@@ -51,5 +51,7 @@ export {
 	type QueueItemView,
 	queueItemViewSchema,
 	type QueueLane,
-	queueLaneSchema
+	queueLaneSchema,
+	type SchedulerState,
+	schedulerStateSchema
 } from './views'

@@ -1,6 +1,6 @@
 import {z} from 'zod'
 import {controlErrorCodeSchema} from './errors'
-import {appStatusSchema, idSchema, intakeViewSchema, profileRefSchema, profileViewSchema, queueItemViewSchema} from './views'
+import {appStatusSchema, idSchema, intakeViewSchema, profileRefSchema, profileViewSchema, queueItemViewSchema, schedulerStateSchema} from './views'
 
 // Every request the Control API v1 answers, with its params and result. Both
 // sides drop unknown payload fields, so a newer peer within the same major can
@@ -59,7 +59,13 @@ const linksAddParamsSchema = z.object({
 	// Chosen by the client. The same (client, requestId) returns the same intake,
 	// so a retransmit never queues twice.
 	requestId: idSchema,
-	url: z.url({protocol: /^https?$/}).max(4096),
+	// `pattern` repeats the protocol rule for the JSON Schema export, which keeps
+	// only `format: uri` otherwise. JSON Schema patterns take no flags, hence the
+	// spelled-out case.
+	url: z
+		.url({protocol: /^https?$/i})
+		.max(4096)
+		.meta({pattern: '^[Hh][Tt][Tt][Pp][Ss]?://'}),
 	// An existing profile, used for this link only and never made active. Left
 	// out, the active profile prepares it.
 	profile: profileRefSchema.optional(),
@@ -73,7 +79,7 @@ const intakeChooseParamsSchema = z.discriminatedUnion('take', [z.object({intakeI
 
 // Partial outcomes: the scheduler state after the call, the items it moved and
 // the ones it could not.
-const bulkResultSchema = z.object({scheduler: z.object({paused: z.boolean()}), done: z.array(idSchema), failed: z.array(z.object({itemId: idSchema, code: controlErrorCodeSchema}))})
+const bulkResultSchema = z.object({scheduler: schedulerStateSchema, done: z.array(idSchema), failed: z.array(z.object({itemId: idSchema, code: controlErrorCodeSchema}))})
 
 export const CONTROL_METHODS = {
 	hello: {params: helloParamsSchema, result: helloResultSchema},

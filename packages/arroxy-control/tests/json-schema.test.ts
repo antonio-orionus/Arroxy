@@ -24,6 +24,18 @@ describe('controlJsonSchemas', () => {
 		expect(JSON.stringify(schemas.envelope)).toContain('"additionalProperties":false')
 	})
 
+	it('keeps the http(s)-only rule for links.add URLs', () => {
+		const url = schemas.methods['links.add'].params.properties?.url
+		expect(typeof url === 'object' && typeof url.pattern === 'string').toBe(true)
+		if (typeof url === 'object' && typeof url.pattern === 'string') {
+			expect(url.format).toBe('uri')
+			const pattern = new RegExp(url.pattern)
+			expect(pattern.test('https://example.com/v')).toBe(true)
+			expect(pattern.test('HTTP://example.com/v')).toBe(true)
+			expect(pattern.test('ftp://example.com/v')).toBe(false)
+		}
+	})
+
 	it('lists the error table with each code', () => {
 		expect(Object.keys(schemas.errors).sort()).toEqual([...CONTROL_ERROR_CODES].sort())
 		expect(schemas.protocolMajors).toEqual([1])

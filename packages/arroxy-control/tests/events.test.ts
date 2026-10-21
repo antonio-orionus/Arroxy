@@ -3,7 +3,7 @@ import {CONTROL_EVENT_NAMES, parseControlEvent} from '../src/index'
 
 const item = {id: 'q1', title: 'A', site: 'youtube', status: 'pending', progress: null, lane: 'normal', origin: {kind: 'pairedDevice', label: 'Pixel 8'}, intakeId: 'i1', error: null}
 const progress = {percent: 5, downloadedBytes: 5, totalBytes: 100, speedBytesPerSecond: 1, etaSeconds: 95}
-const status = {ready: true, binaries: {ytDlp: 'ready', ffmpeg: 'ready'}, scheduler: {paused: false}, cooldowns: []}
+const status = {ready: true, binaries: {ytDlp: 'ready', ffmpeg: 'ready'}, scheduler: 'running', cooldowns: []}
 
 describe('events', () => {
 	it('covers the v1 event kinds', () => {
@@ -38,7 +38,8 @@ describe('events', () => {
 		expect(parsed.status).toBe('invalid')
 	})
 
-	it('refuses a removal reason outside the v1 set', () => {
+	it('accepts exactly the v1 removal reasons', () => {
 		for (const reason of ['cancelled', 'removed', 'replaced', 'nothingNew', 'autoRemoved']) expect(parseControlEvent({type: 'event', event: 'queue.removed', seq: 1, bootId: 'b1', data: {itemId: 'q1', reason}}).status).toBe('event')
+		for (const reason of ['expired', 'Removed', '']) expect(parseControlEvent({type: 'event', event: 'queue.removed', seq: 1, bootId: 'b1', data: {itemId: 'q1', reason}}).status).toBe('invalid')
 	})
 })

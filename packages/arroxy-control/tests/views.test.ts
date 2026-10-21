@@ -35,7 +35,7 @@ describe('intake states', () => {
 	it.each([
 		{state: 'probing'},
 		{state: 'queued', itemIds: ['q1', 'q2']},
-		{state: 'needsYourChoice', kind: 'playlistCap', total: null, offered: 200},
+		{state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: 200},
 		{state: 'needsYourChoice', kind: 'playlistReview', total: 12, offered: 12},
 		{state: 'probeFailed', ytdlpKind: 'unavailable', retryable: false},
 		{state: 'nothingNew'},
@@ -46,6 +46,7 @@ describe('intake states', () => {
 
 	it('refuses an unknown state and a queued state without items', () => {
 		expect(intakeStateSchema.safeParse({state: 'done'}).success).toBe(false)
+		expect(intakeStateSchema.safeParse({state: 'needsYourChoice', kind: 'playlistCap', total: null, offered: 1}).success).toBe(false)
 		expect(intakeStateSchema.safeParse({state: 'queued'}).success).toBe(false)
 	})
 
@@ -65,7 +66,8 @@ describe('ProfileView', () => {
 
 describe('app status', () => {
 	it('reports readiness, binaries, the scheduler and site cooldowns', () => {
-		const status = {ready: true, binaries: {ytDlp: 'ready', ffmpeg: 'installing'}, scheduler: {paused: false}, cooldowns: [{site: 'youtube', until: 1_760_000_000_000}]}
+		const status = {ready: true, binaries: {ytDlp: 'ready', ffmpeg: 'installing'}, scheduler: 'paused', cooldowns: [{site: 'youtube', until: 1_760_000_000_000}]}
 		expect(appStatusSchema.parse(status)).toEqual(status)
+		expect(appStatusSchema.safeParse({...status, scheduler: {paused: true}}).success).toBe(false)
 	})
 })

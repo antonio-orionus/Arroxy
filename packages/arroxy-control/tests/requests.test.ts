@@ -95,7 +95,7 @@ describe('queue verbs', () => {
 	})
 
 	it.each(['queue.pauseAll', 'queue.resumeAll'] as const)('%s reports partial outcomes', method => {
-		const result = {scheduler: {paused: true}, done: ['q1', 'q2'], failed: [{itemId: 'q3', code: 'invalid_state'}]}
+		const result = {scheduler: 'paused', done: ['q1', 'q2'], failed: [{itemId: 'q3', code: 'invalid_state'}]}
 		expect(CONTROL_METHODS[method].result.parse(result)).toEqual(result)
 		expect(CONTROL_METHODS[method].result.safeParse({...result, failed: [{itemId: 'q3', code: 'nope'}]}).success).toBe(false)
 	})

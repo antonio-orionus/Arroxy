@@ -64,13 +64,13 @@ export type QueueItemView = z.infer<typeof queueItemViewSchema>
 
 // What a `links.add` turned into. `probing` moves to exactly one of the others;
 // `needsYourChoice` moves on through intake.choose, `probeFailed` through
-// intake.retry. For a playlist that ran past the load limit `total` is null
-// when the site did not say how long it is; `offered` is how many entries were
-// loaded and can be queued.
+// intake.retry. `loadLimit`: a playlist ran past the load limit; `total` is
+// null when the site did not say how long it is, and `offered` is how many
+// entries were loaded and can be queued.
 export const intakeStateSchema = z.discriminatedUnion('state', [
 	z.object({state: z.literal('probing')}),
 	z.object({state: z.literal('queued'), itemIds: z.array(idSchema).min(1)}),
-	z.object({state: z.literal('needsYourChoice'), kind: z.enum(['playlistCap', 'playlistReview']), total: z.number().int().nonnegative().nullable(), offered: z.number().int().nonnegative()}),
+	z.object({state: z.literal('needsYourChoice'), kind: z.enum(['loadLimit', 'playlistReview']), total: z.number().int().nonnegative().nullable(), offered: z.number().int().nonnegative()}),
 	z.object({state: z.literal('probeFailed'), ytdlpKind: z.string().min(1).nullable(), retryable: z.boolean()}),
 	z.object({state: z.literal('nothingNew')}),
 	z.object({state: z.literal('cancelled')})
@@ -80,6 +80,11 @@ export type IntakeState = z.infer<typeof intakeStateSchema>
 export const intakeViewSchema = z.object({intakeId: idSchema, placeholderId: idSchema, state: intakeStateSchema, updatedAt: timestampSchema})
 export type IntakeView = z.infer<typeof intakeViewSchema>
 
+// Whether the queue starts pending items. Paused, running items keep running
+// until paused one by one or by queue.pauseAll.
+export const schedulerStateSchema = z.enum(['paused', 'running'])
+export type SchedulerState = z.infer<typeof schedulerStateSchema>
+
 export const binaryStateSchema = z.enum(['ready', 'installing', 'updating', 'missing', 'failed'])
 export type BinaryState = z.infer<typeof binaryStateSchema>
 
@@ -87,7 +92,7 @@ export const appStatusSchema = z.object({
 	// Binaries present and the queue able to start work.
 	ready: z.boolean(),
 	binaries: z.object({ytDlp: binaryStateSchema, ffmpeg: binaryStateSchema}),
-	scheduler: z.object({paused: z.boolean()}),
+	scheduler: schedulerStateSchema,
 	// Sites Arroxy is holding off after the site asked it to slow down.
 	cooldowns: z.array(z.object({site: z.string().min(1), until: timestampSchema}))
 })
