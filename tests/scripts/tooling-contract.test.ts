@@ -42,7 +42,7 @@ function packageJson(options: {devDependencies?: Record<string, string>; package
 				'check:tooling-contract': 'node scripts/check-tooling-contract.mjs',
 				'packages:verify-metadata': 'node scripts/check-package-publish-metadata.mjs',
 				check: 'vp run quality-gate',
-				'packages:check': options.packagesCheck ?? 'bun run errors:check && bun run bridge:check && bun run control:check && bun run packages:verify-metadata'
+				'packages:check': options.packagesCheck ?? 'bun run errors:check && bun run bridge:check && bun run control:check && bun run mcp:check && bun run packages:verify-metadata'
 			}
 		},
 		null,
@@ -78,7 +78,8 @@ async function createContractFixture(overrides: {gitignore?: string; mise?: stri
 		writeFixtureFile(root, '.github/workflows/ci.yml', 'steps:\n  - run: bun run check\n'),
 		writeFixtureFile(root, '.github/workflows/publish-ytdlp-errors.yml', publishWorkflow('bun run errors:check')),
 		writeFixtureFile(root, '.github/workflows/publish-yt-dlp-bridge.yml', publishWorkflow('bun run bridge:check')),
-		writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run control:check'))
+		writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run control:check')),
+		writeFixtureFile(root, '.github/workflows/publish-arroxy-mcp.yml', publishWorkflow('bun run mcp:check'))
 	])
 	return root
 }
@@ -99,12 +100,12 @@ describe('tooling contract', () => {
 	})
 
 	it('fails when packages:check skips the arroxy-control gate', async () => {
-		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run packages:verify-metadata'})
+		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run mcp:check && bun run packages:verify-metadata'})
 
 		const result = runToolingContract(root)
 
 		expect(result.status).toBe(1)
-		expect(result.output).toContain('packages:check must run errors:check, bridge:check and control:check, then packages:verify-metadata.')
+		expect(result.output).toContain('packages:check must run errors:check, bridge:check, control:check and mcp:check, then packages:verify-metadata.')
 	})
 
 	it('fails when the arroxy-control publish workflow skips its gate', async () => {
@@ -115,6 +116,34 @@ describe('tooling contract', () => {
 
 		expect(result.status).toBe(1)
 		expect(result.output).toContain('publish-arroxy-control.yml must call "bun run control:check"')
+	})
+
+	it('fails when packages:check skips the arroxy-mcp gate', async () => {
+		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run control:check && bun run packages:verify-metadata'})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('packages:check must run errors:check, bridge:check, control:check and mcp:check, then packages:verify-metadata.')
+	})
+
+	it('fails when packages:check runs the arroxy-mcp gate before the arroxy-control gate it depends on', async () => {
+		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run mcp:check && bun run control:check && bun run packages:verify-metadata'})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('packages:check must run errors:check, bridge:check, control:check and mcp:check, then packages:verify-metadata.')
+	})
+
+	it('fails when the arroxy-mcp publish workflow skips its gate', async () => {
+		const root = await createContractFixture()
+		await writeFixtureFile(root, '.github/workflows/publish-arroxy-mcp.yml', publishWorkflow('bun run control:check'))
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('publish-arroxy-mcp.yml must call "bun run mcp:check"')
 	})
 
 	it('fails when the plugin bridge drifts from the oxlint version vite-plus bundles', async () => {

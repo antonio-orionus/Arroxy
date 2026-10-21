@@ -20,6 +20,7 @@ Arroxy is a Bun workspace (`workspaces: ["packages/*"]`), not a single app:
 - `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published as `yt-dlp-bridge` on npm; the app consumes it via `workspace:*`.
 - `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published as `ytdlp-errors` on npm; `yt-dlp-bridge` depends on it.
 - `packages/arroxy-control` — Control API schemas (requests, results, events, errors) and their JSON Schema export. Published as `arroxy-control` on npm, by its own `arroxy-control-v*.*.*` tag; no tag has been cut yet.
+- `packages/arroxy-mcp` — MCP server and command line that drive the running app through the Control API; depends on `arroxy-control`. Published as `arroxy-mcp` on npm, by its own `arroxy-mcp-v*.*.*` tag; no tag has been cut yet.
 
 **These packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
 
@@ -29,9 +30,10 @@ Gates after touching a package:
 bun run errors:check    # ytdlp-errors: typecheck + test + build + pack:dry-run
 bun run bridge:check    # yt-dlp-bridge: builds ytdlp-errors first, then the same chain
 bun run control:check   # arroxy-control: the same chain
+bun run mcp:check       # arroxy-mcp: the same chain
 ```
 
-Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*`, `ytdlp-errors-v*.*.*` and `arroxy-control-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
+Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*`, `ytdlp-errors-v*.*.*`, `arroxy-control-v*.*.*` and `arroxy-mcp-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
 
 A PR that changes a package never edits that package's changelog. Only the `release(packages): <pkg> <version>` PR writes the version's section, so feature PRs never conflict over it or claim a version number before the release picks one.
 

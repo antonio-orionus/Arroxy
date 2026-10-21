@@ -1,0 +1,62 @@
+{
+	"name": "arroxy-mcp",
+	"version": "0.1.0",
+	"description": "MCP server and command line for the Arroxy desktop app: lets local AI agents and scripts add links, read the queue and control downloads through the Arroxy Control API.",
+	"keywords": [
+		"arroxy",
+		"cli",
+		"control-api",
+		"downloader",
+		"mcp",
+		"model-context-protocol",
+		"yt-dlp"
+	],
+	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/arroxy-mcp#readme",
+	"bugs": {
+		"url": "https://github.com/antonio-orionus/Arroxy/issues"
+	},
+	"license": "MIT",
+	"author": "Antonio Orionus",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/antonio-orionus/Arroxy.git",
+		"directory": "packages/arroxy-mcp"
+	},
+	"bin": {
+		"arroxy-mcp": "./dist/cli.js"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"test": "vp test run",
+		"build": "vp pack",
+		"prepack": "bun run typecheck && bun run test && bun run build",
+		"pack:dry-run": "bun pm pack --dry-run"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/server": "2.3.1",
+		"arroxy-control": "workspace:*",
+		"zod": "4.6.7"
+	},
+	"devDependencies": {
+		"@modelcontextprotocol/client": "2.3.1",
+		"@types/node": "26.6.5",
+		"typescript": "6.0.3",
+		"vite-plus": "catalog:"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"packageManager": "bun@1.4.2"
+}

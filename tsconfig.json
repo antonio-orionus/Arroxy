@@ -38,6 +38,8 @@
 		"workers",
 		"packages/arroxy-control/src",
 		"packages/arroxy-control/tests",
+		"packages/arroxy-mcp/src",
+		"packages/arroxy-mcp/tests",
 		"packages/yt-dlp-bridge/src",
 		"packages/yt-dlp-bridge/tests",
 		"packages/ytdlp-errors/src",
