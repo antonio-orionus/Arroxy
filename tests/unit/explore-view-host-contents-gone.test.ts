@@ -70,6 +70,32 @@ describe('ExploreViewHost contents gone', () => {
 		expect(secondView().loadURL).toHaveBeenCalledWith(SEARCH)
 	})
 
+	it('the gone view's idle unload deadline does not carry over to the fresh view', async () => {
+		vi.useFakeTimers()
+		try {
+			const h = makeHarness({settings: {exploreIdleUnload: true}, idleUnloadDelayMs: 10_000})
+			h.host.setActive(true)
+			await h.host.setVisible(true)
+			const wc = onlyView().webContents
+			wc.entries = [HOME]
+			wc.url = HOME
+			h.host.setActive(false)
+			await h.host.setVisible(false)
+
+			wc.finishClose()
+			// Shown again before the tab reports itself active.
+			await h.host.setVisible(true)
+			const fresh = secondView()
+			fresh.entries = [HOME]
+			fresh.url = HOME
+			vi.advanceTimersByTime(10_000)
+
+			expect(fresh.close).not.toHaveBeenCalled()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('a crashed renderer keeps its view and history: Retry reloads the page in place', async () => {
 		const {h, wc} = await browsing()
 
