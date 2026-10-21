@@ -105,7 +105,7 @@ describe('settings update reaches the rate-limit cooldowns', () => {
 // later save of the profile list.
 describe('settings update refuses a new profile filename template that does not validate', () => {
 	const base = BUILTIN_DOWNLOAD_PROFILES[0]
-	const stored = {...base, id: 'old', filename: {kind: 'custom', template: '{titel}'}}
+	const stored = {...base, id: 'old', name: 'Old', filename: {kind: 'custom', template: '{titel}'}}
 	const settingsStore = {get: vi.fn(), update: vi.fn()}
 
 	beforeEach(() => {
@@ -131,6 +131,11 @@ describe('settings update refuses a new profile filename template that does not 
 		expect(settingsStore.update).not.toHaveBeenCalled()
 	})
 
+	it('names an unnamed built-in by its own name', async () => {
+		const result = await send({profiles: {overrides: [{...base, filename: {kind: 'custom', template: '{tittle}'}}]}})
+		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: 'Download profile "Best available" has an unusable filename template'}})
+	})
+
 	it("refuses a new profile that takes on another profile's stored template", async () => {
 		const result = await send({profiles: {custom: [stored, {...stored, id: 'copy', name: 'Copy'}]}})
 		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: 'Download profile "Copy" has an unusable filename template'}})
@@ -138,7 +143,7 @@ describe('settings update refuses a new profile filename template that does not 
 	})
 
 	it('saves a profile whose template validates', async () => {
-		const result = await send({profiles: {custom: [stored, {...base, id: 'mine', filename: {kind: 'custom', template: '{uploader} - {title}'}}]}})
+		const result = await send({profiles: {custom: [stored, {...base, id: 'mine', name: 'Mine', filename: {kind: 'custom', template: '{uploader} - {title}'}}]}})
 		expect(result).toMatchObject({ok: true})
 		expect(settingsStore.update).toHaveBeenCalled()
 	})

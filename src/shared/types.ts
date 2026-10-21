@@ -133,6 +133,9 @@ export interface CommonSettings {
 	// Internal: never accepted from the renderer.
 	firstHeartbeatDay?: string
 	lastHeartbeatDay?: string
+	// Internal: set once edited built-ins have dropped the English names they
+	// shipped with. Never accepted from the renderer.
+	builtinProfileNamesMigrated?: true
 	uiZoom?: number
 	uiTheme?: UiTheme
 	uiStyle?: UiStyle

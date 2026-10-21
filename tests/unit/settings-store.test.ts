@@ -535,6 +535,27 @@ describe('settings and recent stores', () => {
 			expect(profiles.custom.map(profile => profile.name)).toEqual(['Balanced 720p'])
 		})
 
+		it('drops shipped names once, so a later rename to an old name stays', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-once-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [override('balanced', 'Balanced 720p')]}}), 'utf-8')
+			const store = new SettingsStore(userData, baseDefaults)
+			expect(store.getSync().profiles.overrides[0]?.name).toBeUndefined()
+
+			await store.update({profiles: {overrides: [override('balanced', 'Balanced')]}})
+			expect(new SettingsStore(userData, baseDefaults).getSync().profiles.overrides[0]?.name).toBe('Balanced')
+		})
+
+		it('drops a custom profile without a name and keeps a built-in edit without one', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-missing-'))
+			const {name: _name, ...nameless} = override('balanced', 'unused')
+			await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [{...nameless, id: 'nameless'}], overrides: [nameless]}}), 'utf-8')
+			const {profiles} = new SettingsStore(userData, baseDefaults).getSync()
+			expect(profiles.custom).toEqual([])
+			expect(profiles.overrides.map(profile => profile.id)).toEqual(['balanced'])
+			expect(updateSettingsSchema.safeParse({profiles: {custom: [{...nameless, id: 'nameless'}]}}).success).toBe(false)
+			expect(updateSettingsSchema.safeParse({profiles: {overrides: [nameless]}}).success).toBe(true)
+		})
+
 		it('keeps the settings file as it was before dropping shipped names, once', async () => {
 			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-builtin-name-backup-'))
 			const original = JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [override('balanced', 'Balanced 720p')]}})

@@ -261,13 +261,15 @@ export const downloadProfileSchema = z.object({
 	updatedAt: z.string()
 })
 export type DownloadProfile = z.infer<typeof downloadProfileSchema>
+// Only a built-in may leave its name to the catalog.
+export const customDownloadProfileSchema = downloadProfileSchema.refine(profile => profile.name !== undefined, {message: 'A custom profile needs a name', path: ['name']})
 
 export const downloadProfileRefSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('builtin'), id: z.string().min(1)}), z.object({kind: z.literal('custom'), id: z.string().min(1)})])
 export type DownloadProfileRef = z.infer<typeof downloadProfileRefSchema>
 
 export const downloadProfilesPrefsSchema = z.object({
 	active: downloadProfileRefSchema,
-	custom: z.array(downloadProfileSchema),
+	custom: z.array(customDownloadProfileSchema),
 	overrides: z.array(downloadProfileSchema),
 	// Built-in visibility only. Keyed by built-in id; absent = use the built-in's
 	// own `enabled` default, so a later change to that default still reaches users.
@@ -652,6 +654,9 @@ const commonSettingsSchema = z.object({
 	// Lenient on read: a malformed value only means "not sent today" or "age
 	// unknown", and a strict check here would reset the whole common section.
 	firstHeartbeatDay: z.string().optional(),
+	// Set once edited built-ins have dropped the English names they shipped
+	// with, so a name the user types later is never taken for one.
+	builtinProfileNamesMigrated: z.literal(true).optional(),
 	lastHeartbeatDay: z.string().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
@@ -733,7 +738,7 @@ export const appSettingsSchema = z.object({common: commonSettingsSchema, playlis
 // reader (ExploreSessionService) already falls back to the default token.
 const commonSettingsPatchSchema = commonSettingsSchema
 	.partial()
-	.omit({commonPaths: true, firstHeartbeatDay: true, lastHeartbeatDay: true, exploreLastUrl: true})
+	.omit({commonPaths: true, builtinProfileNamesMigrated: true, firstHeartbeatDay: true, lastHeartbeatDay: true, exploreLastUrl: true})
 	.extend({
 		exploreUserAgent: z
 			.string()
@@ -749,7 +754,7 @@ const commonSettingsPatchSchema = commonSettingsSchema
 // doesn't actually distinguish from undefined.
 const playlistPrefsPatchSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})
 
-const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(downloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional(), enabledOverrides: z.record(z.string(), z.boolean()).optional(), order: z.array(z.string()).optional()})
+const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(customDownloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional(), enabledOverrides: z.record(z.string(), z.boolean()).optional(), order: z.array(z.string()).optional()})
 
 export const updateSettingsSchema = z.object({common: commonSettingsPatchSchema.optional(), playlist: playlistPrefsPatchSchema.optional(), profiles: downloadProfilesPrefsPatchSchema.optional()}).refine(
 	patch => {
