@@ -96,8 +96,8 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				setLane: vi.fn().mockResolvedValue(ok(undefined)),
 				applySelectionAction: vi.fn().mockResolvedValue(ok({action: 'pause', appliedIds: [], skipped: []})),
 				changeOutputTarget: vi.fn().mockResolvedValue(ok({outputDir: '/tmp', items: [], skipped: []})),
-				pauseAll: vi.fn().mockResolvedValue(ok(undefined)),
-				resumeAll: vi.fn().mockResolvedValue(ok(undefined))
+				pauseAll: vi.fn().mockResolvedValue(ok({scheduler: 'paused', done: [], failed: []})),
+				resumeAll: vi.fn().mockResolvedValue(ok({scheduler: 'running', done: [], failed: []}))
 			},
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
