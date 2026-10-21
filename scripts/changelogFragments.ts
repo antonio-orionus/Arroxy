@@ -80,8 +80,10 @@ export function releaseSectionBody(changelog: string, version: string): string |
 	const start = lines.findIndex(line => line.trim() === `## ${version}`)
 	if (start === -1) return null
 	const end = lines.findIndex((line, index) => index > start && VERSION_HEADING.test(line.trim()))
+	// The `---` between releases is no content of its own.
 	return lines
 		.slice(start + 1, end === -1 ? lines.length : end)
+		.filter(line => line.trim() !== '---')
 		.join('\n')
 		.trim()
 }
@@ -109,7 +111,10 @@ export function changelogProblems(changelog: string, packageVersion: string): st
 	// left out of every release's notes.
 	const stray = lines.slice(0, firstRelease === -1 ? lines.length : firstRelease).find(line => /^##\s/.test(line))
 	if (stray !== undefined) return [`CHANGELOG.md: "${stray}" sits above the newest release. ${useFragments}`]
-	const unreleased = versionHeadings(changelog).find(version => valid(version) !== null && gt(version, packageVersion))
+	const headings = versionHeadings(changelog)
+	const malformed = headings.find(version => valid(version) === null)
+	if (malformed !== undefined) return [`CHANGELOG.md: ## ${malformed} is not a semver version`]
+	const unreleased = headings.find(version => gt(version, packageVersion))
 	if (unreleased === undefined) return []
 	return [`CHANGELOG.md: it has a ## ${unreleased} section, but package.json is ${packageVersion}. ${useFragments}`]
 }

@@ -82,6 +82,10 @@ describe('changelogProblems', () => {
 		expect(changelogProblems(ahead, '1.2.2')).toEqual([expect.stringMatching(/changelog\.d/)])
 	})
 
+	it('rejects a version heading that is not semver', () => {
+		expect(changelogProblems(CHANGELOG.replace('## 1.2.2', '## 1.3\n\n- New.\n\n## 1.2.2'), '1.2.2')).toEqual([expect.stringMatching(/## 1\.3.*semver/)])
+	})
+
 	it('accepts a beta that has no section of its own', () => {
 		expect(changelogProblems(CHANGELOG, '1.2.3-beta.1')).toEqual([])
 	})
@@ -177,6 +181,14 @@ describe('changelog CLI', () => {
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual([])
 	})
 
+	it('finishes an assembly that deleted only some fragments', async () => {
+		const assembled = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Fix one.\n- Fix two.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': assembled, 'changelog.d/two.fix.md': 'Fix two.\n'})
+		expect(cli('assemble')).toMatchObject({status: 0})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(assembled)
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual([])
+	})
+
 	it('keeps the fragments when the version already has a different section', async () => {
 		const edited = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Edited fix.\n')
 		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': edited, 'changelog.d/a.fix.md': 'Fix.\n'})
@@ -222,6 +234,8 @@ describe('changelog CLI', () => {
 	it('blocks a release whose section is empty', async () => {
 		const {cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG.replace('## 1.2.2', '## 1.2.3\n\n## 1.2.2')})
 		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/empty/)})
+		const {cli: separatorOnly} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG.replace('## 1.2.2', '## 1.2.3\n\n---\n\n## 1.2.2')})
+		expect(separatorOnly('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/empty/)})
 	})
 
 	it('blocks a release with no section of its own', async () => {

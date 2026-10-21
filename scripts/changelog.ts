@@ -48,9 +48,11 @@ function assemble(requested: string | undefined): void {
 	const fragments = orderFragmentFiles(files, gitAddLog()).map(file => parseFragment(file, readFileSync(file, 'utf8')))
 	const section = assembleSection(version, fragments)
 	const current = readFileSync(CHANGELOG, 'utf8')
-	// An earlier run that wrote this very section but failed to delete the
-	// fragments only needs the deletion; any other existing section is refused.
-	const alreadyWritten = releaseSectionBody(current, version) === releaseSectionBody(section, version)
+	// An earlier run that wrote the section but failed to delete every fragment
+	// only needs the deletion: each fragment left must already be in the
+	// section. Any other existing section is refused, fragments kept.
+	const existing = releaseSectionBody(current, version)
+	const alreadyWritten = existing !== null && fragments.every(fragment => existing.split('\n').some(line => line === fragment.text || line === `- ${fragment.text}`))
 	if (!alreadyWritten) {
 		let changelog: string
 		try {
