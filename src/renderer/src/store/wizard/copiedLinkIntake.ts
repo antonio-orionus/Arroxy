@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import {classifyClipboardText} from '@shared/clipboardLinks.js'
+import {classifyClipboardText, singleWebLink} from '@shared/clipboardLinks.js'
 import {isReleaseFlagOn} from '@shared/releaseFlags.js'
 import {notify} from '@renderer/lib/notify.js'
 import type {SetState} from '../types.js'
@@ -28,8 +28,8 @@ export function bindCopiedLinks(set: SetState): () => void {
 export function bindOpenedLinks(set: SetState): () => void {
 	if (!isReleaseFlagOn('linkScheme')) return () => undefined
 	const unbind = window.appApi.events.onOpenedLink(payload => {
-		const links = classifyClipboardText(payload)
-		if (links.kind === 'single') set({copiedLink: {url: links.url, from: 'link'}})
+		const url = singleWebLink(payload)
+		if (url !== null) set({copiedLink: {url, from: 'link'}})
 	})
 	void window.appApi.links.rendererReady()
 	return unbind

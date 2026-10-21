@@ -189,7 +189,8 @@ if (!hasSingleInstanceLock) {
 	app.quit()
 }
 
-// Listens before `ready`: macOS sends the link that launched the app early.
+// Listens before `ready`: macOS sends the link that launched the app early,
+// and a second launch can arrive while startup still awaits its reads.
 const linkInbox = hasSingleInstanceLock
 	? registerLinkScheme({
 			onOpenUrl: listener =>
@@ -197,6 +198,7 @@ const linkInbox = hasSingleInstanceLock
 					event.preventDefault()
 					listener(url)
 				}),
+			onSecondInstance: listener => app.on('second-instance', (_event, argv) => listener(argv)),
 			argv: process.argv,
 			log
 		})
@@ -479,13 +481,11 @@ if (hasSingleInstanceLock) {
 		probeService.onExploreVerifiedSignedOut(() => exploreView.markSignedOutAfterVerify())
 		exploreView.readSignedIn()
 
-		app.on('second-instance', (_event, argv) => {
+		app.on('second-instance', () => {
 			if (mainWindow.isDestroyed()) return
 			if (mainWindow.isMinimized()) mainWindow.restore()
 			mainWindow.focus()
-			linkInbox?.receiveArgv(argv, 'second-instance')
 		})
-		if (linkInbox) attachLinkInbox(linkInbox, mainWindow, {headless: isHeadlessWindowRequested(process.env)})
 
 		// Declare tray before the close handler so the handler can reference it.
 		let tray: TrayManager | null = null
@@ -594,6 +594,7 @@ if (hasSingleInstanceLock) {
 
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
+		if (linkInbox) attachLinkInbox(linkInbox, mainWindow, {clipboard: clipboardWatcher, headless: isHeadlessWindowRequested(process.env)})
 
 		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)

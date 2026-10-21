@@ -18,6 +18,12 @@ describe('parseArroxyLink', () => {
 		expect(parseArroxyLink(link(`?url=${encodeURIComponent(VIDEO)}`, 'ARROXY://Open'))).toEqual({ok: true, url: VIDEO})
 	})
 
+	it('keeps the whole link, punctuation included', () => {
+		for (const url of ['https://example.com/video,part2.mp4', 'https://example.com/watch?token=abc;def', "https://example.com/a'b|c"]) {
+			expect(parseArroxyLink(buildArroxyLink(url))).toEqual({ok: true, url})
+		}
+	})
+
 	it('round-trips the links it builds', () => {
 		const tricky = 'https://example.com/watch?v=1&list=PL2#t=30'
 		expect(parseArroxyLink(buildArroxyLink(tricky))).toEqual({ok: true, url: tricky})

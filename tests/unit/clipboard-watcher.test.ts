@@ -76,6 +76,38 @@ describe('ClipboardWatcher', () => {
 		vi.useRealTimers()
 	})
 
+	it('ignoreCurrentClipboard keeps an earlier copy from being offered when the window comes forward', async () => {
+		const reader = {readText: vi.fn().mockResolvedValue(yt('copiedEarlier'))}
+		const win = makeWindow({focused: false})
+		const watcher = new ClipboardWatcher(win, 800, reader)
+		watcher.setEnabled(true)
+
+		await watcher.ignoreCurrentClipboard()
+		win.setFocused(true)
+		win.fire('focus')
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).not.toHaveBeenCalled()
+
+		reader.readText.mockResolvedValue(yt('copiedAfter'))
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).toHaveBeenCalledExactlyOnceWith('events:clipboardUrl', yt('copiedAfter'))
+	})
+
+	it('ignoreCurrentClipboard drops a read already in flight', async () => {
+		const pending = deferred<string>()
+		const reader = {readText: vi.fn().mockReturnValueOnce(pending.promise).mockResolvedValue(yt('copiedEarlier'))}
+		const win = makeWindow()
+		const watcher = new ClipboardWatcher(win, 800, reader)
+		watcher.setEnabled(true)
+		await vi.advanceTimersByTimeAsync(800)
+		expect(reader.readText).toHaveBeenCalledOnce()
+
+		await watcher.ignoreCurrentClipboard()
+		pending.resolve(yt('copiedEarlier'))
+		await vi.advanceTimersByTimeAsync(1600)
+		expect(win.send).not.toHaveBeenCalled()
+	})
+
 	it('does not poll when disabled by default', async () => {
 		const reader = {readText: vi.fn().mockResolvedValue('')}
 		const win = makeWindow()

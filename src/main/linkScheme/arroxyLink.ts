@@ -1,4 +1,4 @@
-import {classifyClipboardText} from '@shared/clipboardLinks.js'
+import {singleWebLink} from '@shared/clipboardLinks.js'
 
 // An `arroxy://` link is an untrusted caller: any web page or app can open one.
 // The one form it may take is `arroxy://open?url=<percent-encoded http(s) link>`,
@@ -36,9 +36,8 @@ export function parseArroxyLink(raw: string): ArroxyLinkParse {
 	if (link.username || link.password || link.port || link.hash) return reject('extraParts')
 	const params = [...link.searchParams]
 	if (params.length !== 1 || params[0]?.[0] !== 'url') return reject('wrongParams')
-	// The same rule as a copied link: one web link and nothing else.
-	const links = classifyClipboardText(params[0][1])
-	return links.kind === 'single' ? {ok: true, url: links.url} : reject('notAWebLink')
+	const url = singleWebLink(params[0][1])
+	return url === null ? reject('notAWebLink') : {ok: true, url}
 }
 
 // Windows and Linux pass the link as a command-line argument; Chromium may

@@ -288,8 +288,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindCopiedLinks = bindCopiedLinks(set)
 			unbindOpenedLinks?.()
 			unbindOpenedLinks = bindOpenedLinks(set)
-			unbindOpenedLinks?.()
-			unbindOpenedLinks = bindOpenedLinks(set)
 
 			get().bindExploreView()
 			get().bindSiteCooldowns()

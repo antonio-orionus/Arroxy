@@ -111,6 +111,15 @@ describe('a link opened in Arroxy', () => {
 		expect(useAppStore.getState().wizardUrl).toBe(OPENED_URL)
 	})
 
+	it('keeps punctuation inside the link', () => {
+		unbind = bindOpenedLinks(useAppStore.setState)
+		render(<StepUrlInput />)
+
+		open('https://example.com/video,part2.mp4')
+
+		expect(useAppStore.getState().wizardUrl).toBe('https://example.com/video,part2.mp4')
+	})
+
 	it('re-checks what crossed IPC and drops anything but one web link', () => {
 		unbind = bindOpenedLinks(useAppStore.setState)
 		render(<StepUrlInput />)
