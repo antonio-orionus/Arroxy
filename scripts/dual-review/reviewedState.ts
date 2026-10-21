@@ -1,8 +1,10 @@
 // What the last dual review saw, so the land flow can refuse to push anything
 // else. The record is the branch's diff against its merge-base with main,
-// reduced to a patch id: a clean rebase or a merge of main keeps it, while any
-// edit, or a squash that drags a stale tree along, changes it and needs a new
-// review. It lives in this worktree's git dir, never in the tree.
+// reduced to a hash that keeps where each change sits: a clean rebase or a
+// merge of main keeps it, while any edit, a moved edit, or a squash that drags
+// a stale tree along changes it and needs a new review. It is taken when the
+// review starts, so a commit that lands while the review runs stays
+// unreviewed. It lives in this worktree's git dir, never in the tree.
 
 import {createHash} from 'node:crypto'
 import {readFile, writeFile} from 'node:fs/promises'
@@ -13,17 +15,25 @@ const STATE_FILE = 'arroxy-reviewed-diff'
 
 const reviewedStateSchema = z.object({diffId: z.string(), head: z.string(), mergeBase: z.string(), recordedAt: z.string()})
 type ReviewedState = z.infer<typeof reviewedStateSchema>
+export type ReviewedSnapshot = Omit<ReviewedState, 'recordedAt'>
 
 export type ReviewCheck = {ok: true} | {ok: false; reason: string}
 
-// Zero context lines, so main's edits next to the branch's hunks do not change
-// the id; --verbatim keeps whitespace changes significant.
+// The diff with its default three context lines and its paths, hashed, so the
+// same edit in another place hashes differently (git patch-id drops both the
+// context and the position). Hunk line numbers and blob ids are stripped: they
+// move whenever main changes the file elsewhere, which a rebase may bring in
+// without changing anything the review saw.
 export function branchDiffId(git: Git, base: string): string {
 	const mergeBase = git(['merge-base', base, 'HEAD']).trim()
-	const diff = git(['diff', '-U0', '--full-index', '--binary', '--no-color', '--no-ext-diff', '--no-renames', mergeBase, 'HEAD'])
+	const diff = git(['-c', 'core.quotePath=false', 'diff', '-U3', '--binary', '--no-color', '--no-ext-diff', '--no-renames', mergeBase, 'HEAD'])
 	if (diff === '') return 'empty'
-	// patch-id prints nothing for a diff it finds no hunks in; the diff's own hash then stands in.
-	return git(['patch-id', '--verbatim'], diff).split(' ')[0] || createHash('sha256').update(diff).digest('hex')
+	const located = diff
+		.split('\n')
+		.filter(line => !line.startsWith('index '))
+		.map(line => line.replace(/^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@/, '@@'))
+		.join('\n')
+	return createHash('sha256').update(located).digest('hex')
 }
 
 const statePath = (git: Git): string => git(['rev-parse', '--path-format=absolute', '--git-path', STATE_FILE]).trim()
@@ -37,8 +47,13 @@ function parseState(text: string): ReviewedState | null {
 	}
 }
 
-export async function recordReviewed(git: Git, base: string): Promise<void> {
-	const state: ReviewedState = {diffId: branchDiffId(git, base), head: git(['rev-parse', 'HEAD']).trim(), mergeBase: git(['merge-base', base, 'HEAD']).trim(), recordedAt: new Date().toISOString()}
+// Taken when the review starts: HEAD at the end may hold commits no reviewer saw.
+export function reviewedSnapshot(git: Git, base: string): ReviewedSnapshot {
+	return {diffId: branchDiffId(git, base), head: git(['rev-parse', 'HEAD']).trim(), mergeBase: git(['merge-base', base, 'HEAD']).trim()}
+}
+
+export async function recordReviewed(git: Git, snapshot: ReviewedSnapshot): Promise<void> {
+	const state: ReviewedState = {...snapshot, recordedAt: new Date().toISOString()}
 	await writeFile(statePath(git), `${JSON.stringify(state, null, '\t')}\n`)
 }
 

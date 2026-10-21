@@ -15,7 +15,8 @@
 // Codex. Exits 1 when something in this change must be fixed or decided
 // (backlog entries alone do not count), 2 when a reviewer failed, so coverage is
 // partial, or when no reviewer completed at all. A run that exits 0 or 1 records
-// the branch's diff as reviewed, for `bun run review:check-head`.
+// the branch's diff as it was when the review started, for
+// `bun run review:check-head`.
 
 import {spawn, spawnSync} from 'node:child_process'
 import {mkdir, readFile, writeFile} from 'node:fs/promises'
@@ -44,7 +45,7 @@ import {
 } from './core.js'
 import {gitIn} from '../pushGuard.js'
 import {CLAUDE_LANES, WHOLE_CHANGE_LANE, reviewPrompt, verifyPrompt, type Lane, type ReviewScope} from './prompts.js'
-import {recordReviewed} from './reviewedState.js'
+import {recordReviewed, reviewedSnapshot} from './reviewedState.js'
 
 const TIMEOUT_MS = 30 * 60 * 1000
 const LEARNINGS_FILE = '.agents/memory/review-learnings.md'
@@ -179,6 +180,8 @@ async function main(): Promise<number> {
 		console.error(`dual review: nothing to review between ${values.base} and HEAD.`)
 		return 2
 	}
+	// `review:check-head` measures against origin/main, so without it there is nothing to record.
+	const reviewed = spawnSync('git', ['rev-parse', '--verify', '--quiet', 'origin/main'], {stdio: 'ignore'}).status === 0 ? reviewedSnapshot(gitIn(repoRoot), 'origin/main') : null
 	const outDir = path.resolve(repoRoot, values.out ?? path.join('.tmp', 'dual-review', `${head}-${Date.now()}`))
 	await mkdir(outDir, {recursive: true})
 	const scope: ReviewScope = {mergeBase, head, commits: git(['log', '--format=- %h %s%n%w(0,2,2)%b', `${mergeBase}..HEAD`]), files, learnings: await readLearnings(repoRoot)}
@@ -238,9 +241,12 @@ async function main(): Promise<number> {
 	console.error(`dual review: report at ${path.join(outDir, 'report.md')}`)
 	if (failures.length > 0) return 2
 	// A complete review, whatever it found, is what `review:check-head` lets land
-	// push; that check measures against origin/main, so without it there is nothing to record.
-	if (spawnSync('git', ['rev-parse', '--verify', '--quiet', 'origin/main'], {stdio: 'ignore'}).status === 0) await recordReviewed(gitIn(repoRoot), 'origin/main')
-	else console.error('dual review: no origin/main, so this review is not recorded for review:check-head')
+	// push: the diff as it stood when the reviewers started, not whatever HEAD is now.
+	if (reviewed === null) console.error('dual review: no origin/main, so this review is not recorded for review:check-head')
+	else {
+		await recordReviewed(gitIn(repoRoot), reviewed)
+		if (git(['rev-parse', 'HEAD']) !== reviewed.head) console.error(`dual review: HEAD moved while the review ran; recorded ${head} as reviewed, and the commits after it still need a review`)
+	}
 	return needsAction(resolved) ? 1 : 0
 }
 

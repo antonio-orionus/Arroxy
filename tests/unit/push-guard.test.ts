@@ -3,7 +3,7 @@ import {mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
-import {branchDiffId, checkReviewed, recordReviewed} from '../../scripts/dual-review/reviewedState.js'
+import {branchDiffId, checkReviewed, recordReviewed, reviewedSnapshot} from '../../scripts/dual-review/reviewedState.js'
 import {gitIn, parsePushedRefs, refsToCheck, revertedFiles, type Git} from '../../scripts/pushGuard.js'
 
 const ZERO = '0'.repeat(40)
@@ -176,10 +176,42 @@ describe('reviewed state', () => {
 		expect(branchDiffId(git, 'origin/main')).not.toBe(reviewed)
 	})
 
+	it('tells the same edit apart by where it sits', async () => {
+		const src = (a: string, b: string) => `function a() {\n\treturn ${a}\n}\n\nfunction b() {\n\treturn ${b}\n}\n`
+		await landOnMain({'f.ts': src('true', 'true')}, 'feat: f')
+		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
+		await commit({'f.ts': src('false', 'true')}, 'fix: a')
+		const inA = branchDiffId(git, 'origin/main')
+		sh(clone, 'reset', '-q', '--hard', 'HEAD~1')
+		await commit({'f.ts': src('true', 'false')}, 'fix: b')
+		expect(branchDiffId(git, 'origin/main')).not.toBe(inA)
+	})
+
+	it('keeps the diff id when main edits the same file away from the branch hunk', async () => {
+		const lines = (top: string, bottom: string) => [top, ...Array.from({length: 20}, (_, i) => `line ${i}`), bottom, ''].join('\n')
+		await landOnMain({'f.txt': lines('top', 'bottom')}, 'feat: f')
+		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
+		await commit({'f.txt': lines('top', 'bottom edited')}, 'fix: bottom')
+		const reviewed = branchDiffId(git, 'origin/main')
+		await landOnMain({'f.txt': lines('top edited\nadded', 'bottom')}, 'fix: top')
+		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
+		expect(branchDiffId(git, 'origin/main')).toBe(reviewed)
+	})
+
+	it('records the commit the review started on, not one that landed while it ran', async () => {
+		await commit({'mine.txt': 'mine\n'}, 'feat: one')
+		const started = reviewedSnapshot(git, 'origin/main')
+		await commit({'mine.txt': 'mine 2\n'}, 'fix: landed during review')
+		await recordReviewed(git, started)
+		expect(await checkReviewed(git, 'origin/main')).toMatchObject({ok: false, reason: expect.stringMatching(/changed since the review/)})
+		sh(clone, 'reset', '-q', '--hard', 'HEAD~1')
+		expect(await checkReviewed(git, 'origin/main')).toEqual({ok: true})
+	})
+
 	it('refuses an unreviewed branch and a change made after review', async () => {
 		await commit({'mine.txt': 'mine\n'}, 'feat: one')
 		expect(await checkReviewed(git, 'origin/main')).toMatchObject({ok: false, reason: expect.stringMatching(/no review recorded/)})
-		await recordReviewed(git, 'origin/main')
+		await recordReviewed(git, reviewedSnapshot(git, 'origin/main'))
 		expect(await checkReviewed(git, 'origin/main')).toEqual({ok: true})
 		await commit({'mine.txt': 'mine 2\n'}, 'fix: after review')
 		expect(await checkReviewed(git, 'origin/main')).toMatchObject({ok: false, reason: expect.stringMatching(/changed since the review/)})
@@ -189,11 +221,11 @@ describe('reviewed state', () => {
 		const checkHead = () => spawnSync('bun', [path.resolve('scripts/dual-review/check-head.ts')], {cwd: clone, encoding: 'utf8', env: ENV})
 		await commit({'mine.txt': 'mine\n'}, 'feat: one')
 		expect(checkHead()).toMatchObject({status: 1, stderr: expect.stringMatching(/no review recorded/)})
-		await recordReviewed(git, 'origin/main')
+		await recordReviewed(git, reviewedSnapshot(git, 'origin/main'))
 		expect(checkHead()).toMatchObject({status: 0, stdout: expect.stringMatching(/mine\.txt/)})
 
 		await commit({'mine.txt': 'mine 2\n'}, 'feat: two')
-		await recordReviewed(git, 'origin/main')
+		await recordReviewed(git, reviewedSnapshot(git, 'origin/main'))
 		await landOnMain({'a.txt': 'a2\n'}, 'fix: other lane')
 		sh(clone, 'fetch', '-q', 'origin')
 		sh(clone, 'reset', '-q', '--soft', 'origin/main')
