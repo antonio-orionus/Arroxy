@@ -1,826 +1,718 @@
 {
-	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "loading": "Wird geladen…", "retry": "Erneut versuchen", "dismiss": "Schließen", "startOver": "Von vorn beginnen", "close": "Schließen"},
+	"about": {
+		"button": "Info",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · von Antonio Orionus",
+		"openTitle": "Über Arroxy",
+		"tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.",
+		"thirdPartyNotices": "Drittanbieter-Hinweise anzeigen",
+		"websiteLink": "Website"
+	},
+	"aiUpscaled": {
+		"allow": "Zulassen",
+		"description": "YouTube bietet manche alten Videos in Größen an, die per KI erzeugt wurden. „Überspringen“ behält die Original-Streams; einen hochskalierten kannst du trotzdem von Hand wählen.",
+		"label": "KI-hochskalierte Streams",
+		"skip": "Überspringen"
+	},
 	"app": {
 		"feedback": "Feedback",
+		"feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬",
 		"logs": "Protokolle",
 		"saveDiagnostics": "Diagnosedatei speichern",
 		"saveDiagnosticsDescription": "Fasst Protokolle und App-Details in einer Datei im Downloads-Ordner zusammen, bereit zum Anhängen an ein GitHub-Issue. Der Name des Benutzerordners wird entfernt; Videolinks und -titel bleiben erhalten.",
-		"feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬",
-		"zoomIn": "Vergrößern",
-		"zoomOut": "Verkleinern",
+		"styleHint": "Neu: Aurora oder Minimal hier auswählen",
 		"theme": "Farbschema",
-		"styleHint": "Neu: Aurora oder Minimal hier auswählen"
+		"zoomIn": "Vergrößern",
+		"zoomOut": "Verkleinern"
 	},
-	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "GPLv3 · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
-	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},
+	"common": {
+		"back": "Zurück",
+		"cancel": "Abbrechen",
+		"close": "Schließen",
+		"continue": "Weiter",
+		"dismiss": "Schließen",
+		"loading": "Wird geladen…",
+		"retry": "Erneut versuchen",
+		"startOver": "Von vorn beginnen"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy läuft weiter und schließt aktive Downloads ab. Ändern Sie dies in den erweiterten Einstellungen.",
+			"hide": "In Infobereich minimieren",
+			"message": "Arroxy beim Schließen in den Infobereich minimieren?",
+			"quit": "Beenden",
+			"remember": "Nicht mehr fragen"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Downloads abbrechen & beenden",
+			"detail": "Pausieren, um später fortzufahren, oder abbrechen, um den Fortschritt zu verwerfen.",
+			"keep": "Weiter herunterladen",
+			"message_one": "{{count}} Download läuft",
+			"message_other": "{{count}} Downloads laufen",
+			"pause": "Downloads pausieren & beenden"
+		},
+		"rendererCrashed": {
+			"detail": "Der Renderer-Prozess ist abgestürzt ({{reason}}). Neu laden, um es erneut zu versuchen.",
+			"message": "Arroxy hat ein Problem festgestellt",
+			"quit": "Beenden",
+			"reload": "Neu laden"
+		}
+	},
+	"donate": {
+		"copied": "Kopiert!",
+		"copyAddress": "Adresse kopieren",
+		"description": "Arroxy ist kostenlos und Open Source, ohne Werbung und ohne Bezahlstufe. Spenden sind freiwillig und verschaffen keinen Einfluss auf die Roadmap.",
+		"footerLabel": "Spenden",
+		"footerTooltip": "Arroxy unterstützen",
+		"qrAlt": "QR-Code der {{coin}}-Spendenadresse",
+		"title": "Arroxy unterstützen",
+		"warning": "Krypto-Zahlungen sind unumkehrbar. Sende nur über das angezeigte Netzwerk und vergleiche die gesamte Adresse."
+	},
+	"errors": {
+		"noSubtitlesIn": "Dieses Video hat keine Untertitel auf {{languages}}.",
+		"ytdlp": {
+			"ageRestricted": "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.",
+			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens der Seite handeln — Arroxy aktualisiert seine Download-Engine beim Start, sodass der Fix automatisch ankommt, sobald er verfügbar ist.",
+			"chunkTransferFailure": "Der Server hat den Download wiederholt mittendrin abgebrochen, und Arroxy hat nach mehreren Versuchen aufgegeben. Das betrifft meist die größten Videoformate (4K HDR / VP9 mit hoher Bitrate). Versuche es erneut, wechsle das Netzwerk/VPN oder wähle eine niedrigere Auflösung.",
+			"drmProtected": "Dieses Video ist DRM-geschützt. Arroxy kann DRM nicht entfernen, daher kann die Datei nicht heruntergeladen werden.",
+			"formatUnavailable": "Dieses Video bietet das gewählte Format nicht mehr an. Füge den Link erneut ein und wähle aus den Formaten, die es jetzt anbietet.",
+			"geoBlocked": "Dieses Video ist in deiner Region nicht verfügbar.",
+			"ipBlock": "Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.",
+			"loginRequired": "Dieses Video erfordert ein angemeldetes Konto.",
+			"missingDependency": "Arroxy konnte FFmpeg oder FFprobe nicht finden. Führe die Einrichtung erneut aus oder lege einen FFmpeg-Speicherort fest und versuche den Download dann erneut.",
+			"network": "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut.",
+			"noSubtitles": "Dieses Video hat keine Untertitel in den angeforderten Sprachen.",
+			"outOfDiskSpace": "Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut.",
+			"outputNotWritable": "Arroxy kann nicht in den Download-Ordner schreiben. Er ist vielleicht schreibgeschützt, liegt auf einem gesperrten Laufwerk oder wird von den Datenschutzeinstellungen deines Systems blockiert. Wähle einen anderen Ordner oder erlaube den Zugriff und versuche es erneut.",
+			"parse": "Die Antwort der Seite konnte nicht analysiert werden. Möglicherweise hat die Seite geändert, wie sie Videos ausliefert. Arroxy aktualisiert seine Download-Engine beim Start — versuche es in ein paar Minuten erneut, sobald der Fix da ist.",
+			"postprocessFailure": "Der Download wurde abgeschlossen, aber die Nachbearbeitung (Merge / Mux / Konvertierung) ist fehlgeschlagen. Oft ist das ein vorübergehendes ffmpeg-Problem — versuche es erneut, und wenn es bestehen bleibt, probiere eine andere Formatkombination.",
+			"rateLimit": "Die Website drosselt Anfragen von dieser Verbindung.",
+			"unavailable": "Dieses Video ist nicht verfügbar — möglicherweise privat, gelöscht oder regional gesperrt.",
+			"unknown": "Download fehlgeschlagen. Siehe die Rohausgabe unten.",
+			"unsupportedUrl": "Arroxy unterstützt diese URL nicht. Versuche einen Link von einer anderen Website."
+		}
+	},
+	"explore": {
+		"error": {
+			"loadBody": "Überprüfe deine Verbindung und versuche es dann erneut.",
+			"loadTitle": "Diese Seite wurde nicht geladen",
+			"openSettings": "Einstellungen öffnen",
+			"proxyBody": "Überprüfe den Proxy in den Einstellungen und versuche es dann erneut.",
+			"proxyTitle": "Entdecken kann sich nicht über deinen Proxy verbinden",
+			"retry": "Erneut versuchen"
+		},
+		"linkCallout": {
+			"body": "Klicke auf der Seite mit der rechten Maustaste auf einen Video-, Playlist- oder Kanal-Link. So lädst du mit deinem aktiven Profil herunter, wählst ein anderes Profil oder öffnest den Interaktiven Download.",
+			"title": "Rechtsklick auf einen Link zum Herunterladen"
+		},
+		"linkMenu": {
+			"copyLink": "Link kopieren",
+			"downloadWith": "Download mit"
+		},
+		"newBadge": "Neu",
+		"notice": {
+			"body": "Finde ein Video auf YouTube oder einer anderen Website und lade es direkt von hier herunter — ohne Links zu kopieren. Melde dich hier bei einer Website an, um Videos herunterzuladen, für die ein Konto nötig ist.",
+			"continue": "Weiter",
+			"riskBody": "Websites wie YouTube können Konten markieren — und manchmal sperren —, die mit Download-Tools wie Arroxy verwendet werden. Nutze ein Konto, das du verschmerzen kannst, nicht dein Hauptkonto.",
+			"riskTitle": "Mit einem Zweitkonto anmelden",
+			"title": "Das Web direkt in Arroxy durchstöbern"
+		},
+		"nudge": {
+			"browser": "Downloads verwenden die Cookies deines Browsers, nicht deine Entdecken-Anmeldung.",
+			"file": "Downloads verwenden deine Cookie-Datei, nicht deine Entdecken-Anmeldung.",
+			"notNow": "Nicht jetzt",
+			"off": "Cookies sind aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht.",
+			"useExplore": "Entdecken-Anmeldung nutzen"
+		},
+		"settings": {
+			"description": "Durchstöbere YouTube oder jede andere Website in Arroxy und melde dich für Videos an, die ein Konto erfordern.",
+			"idleUnload": "Arbeitsspeicher im Hintergrund freigeben",
+			"idleUnloadDescription": "Schließt nach 5 Minuten auf einem anderen Tab die YouTube-Startseite oder -Suchseite. Beim Zurückkehren wird sie neu geladen, was einige Sekunden dauert.",
+			"searchEngine": "Suchmaschine",
+			"searchEngineDescription": "Wo der in die Adressleiste getippte Text gesucht wird. Links werden so geöffnet, wie sie eingegeben wurden.",
+			"showTab": "Entdecken-Tab anzeigen",
+			"showTabDescription": "Wenn du ihn ausschaltest, verwenden Downloads deine Entdecken-Anmeldung ebenfalls nicht mehr.",
+			"signOut": "Von Entdecken abmelden",
+			"signOutConfirm": "Abmelden",
+			"signOutConfirmBody": "Dadurch werden deine Anmeldungen und die Browserdaten in Entdecken auf allen Websites gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest.",
+			"signOutConfirmTitle": "Von Entdecken abmelden?",
+			"signOutDescription": "Löscht deine Anmeldungen und die Browserdaten in Entdecken, auf allen Websites.",
+			"title": "Entdecken"
+		},
+		"tabLabel": "Entdecken",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube kann bei angemeldeten Konten gegen Werbeblocker vorgehen.",
+				"aria": "Werbeblocker",
+				"off": "Werbeblocker: aus — zum Einschalten klicken",
+				"on": "Werbeblocker: an — zum Ausschalten klicken",
+				"starting": "Werbeblocker: startet — zum Ausschalten klicken",
+				"unavailable": "Werbeblocker: nicht verfügbar, die Filterlisten konnten nicht heruntergeladen werden — zum Ausschalten klicken"
+			},
+			"addressAria": "Adresse",
+			"addressPlaceholder": "{{engine}} durchsuchen oder beliebige Website öffnen (Vimeo, Instagram…)",
+			"aria": "Entdecken-Browsersteuerung",
+			"back": "Zurück",
+			"compactLayout": "Kompaktes Layout",
+			"downloadWithProfile": "Download · {{profileName}}",
+			"forward": "Vorwärts",
+			"fullLayout": "Volles Layout anzeigen",
+			"grabUnavailable": "Öffne ein Video, eine Playlist oder einen Kanal, um herunterzuladen",
+			"home": "YouTube-Startseite",
+			"interactiveHint": "Interaktiver Download: Format, Untertitel und mehr wählen…",
+			"refusedHint": "Entdecken kann diese Adresse nicht öffnen.",
+			"reload": "Neu laden",
+			"searchTooLong": "Diese Suche ist zu lang.",
+			"zoom": {
+				"hint": "Seitenzoom: {{percent}}%",
+				"in": "Vergrößern",
+				"label": "Seitenzoom",
+				"out": "Verkleinern",
+				"percent": "Zoom in Prozent",
+				"reset": "Zoom auf 100% zurücksetzen"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"description": {
+			"auto": "Die gewählten Streams bestimmen den Dateityp.",
+			"mkv": "Nimmt jeden Codec auf. Manche Fernseher und Handys können MKV nicht öffnen.",
+			"mp4": "Läuft fast überall. VP9 in MP4 lässt sich in QuickTime nicht als Video abspielen.",
+			"webm": "Offenes Format für Browser. Enthält nur VP9 oder AV1 mit Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 in MP4 braucht für QuickTime einen neueren Mac. H.264 läuft überall.",
+		"mp4CaveatVp9": "VP9 in MP4 lässt sich in QuickTime nicht als Video abspielen. H.264 läuft überall.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM wird bei Smart-TV nicht angeboten: Es kann kein H.264 enthalten.",
+		"webm": "WebM",
+		"webmBlocked": "WebM kann {{codec}} nicht enthalten. Wähle MKV oder MP4."
+	},
+	"filenameTemplate": {
+		"description": "Lege fest, wie heruntergeladene Dateien benannt werden. Klicke auf einen Platzhalter, um ihn einzufügen. Nutze /, um Downloads in Ordner zu sortieren.",
+		"error": {
+			"empty": "Gib eine Dateinamenvorlage ein.",
+			"empty-segment": "Entferne das überzählige / — jeder Ordner braucht einen Namen.",
+			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: \\ : * ? \" < > |",
+			"invalid-segment": "Dieser Ordnername ist nicht erlaubt. Vermeide . und .. sowie reservierte Namen wie CON.",
+			"no-unique-token": "Füge {title} oder {id} zum Dateinamen hinzu, damit jeder Download einen eigenen Namen erhält.",
+			"resolution-in-dir": "{resolution} kann keinen Ordner benennen — die Qualität steht erst beim Start des Downloads fest.",
+			"stray-brace": "Nicht geschlossene { oder } — schreibe Platzhalter wie {title}.",
+			"too-long": "Die Vorlage ist zu lang.",
+			"unknown-token": "Unbekannter Platzhalter {{token}}."
+		},
+		"idWarning": "Ohne {id} kann Arroxy bereits heruntergeladene Playlist-Einträge nicht erkennen und keine .m3u-Playlists erstellen.",
+		"label": "Dateinamenvorlage",
+		"m3uDisabled": "Nicht verfügbar, weil deine Dateinamenvorlage entweder {id} nicht enthält oder Downloads in Ordner sortiert.",
+		"previewPlaylist": "In einer Wiedergabeliste",
+		"previewSingle": "Einzelnes Video",
+		"profileOverrideDescription": "Leer lassen, um die globale Vorlage zu übernehmen.",
+		"profileOverrideLabel": "Dateinamenvorlage"
+	},
+	"formatLabel": {
+		"audioFallback": "Audio",
+		"audioOnlyDot": "Nur Audio · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Auto",
+		"description": "Auto wählt HDR, wenn dieser Bildschirm es darstellen kann, sonst SDR. HDR wirkt auf normalen Bildschirmen blass.",
+		"hdr": "HDR",
+		"label": "HDR-Video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Sprache"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Mit Entdecken angemeldet — 1 Link wird erneut versucht",
+		"exploreSignInRetrying_other": "Mit Entdecken angemeldet — {{count}} Links werden erneut versucht",
+		"exploreSignOutFailed": "Abmelden von Entdecken fehlgeschlagen. Versuche es erneut.",
+		"filenameFolderTooDeep": "Dieser Ordner ist zu tief verschachtelt für dein System. Der Download kann trotzdem fehlschlagen — wähle einen kürzeren Ordner.",
+		"filenameTemplateCannotFit": "Der Name dieses Videos passt nicht in jeden Teil deiner Vorlage, daher wurde der Standardname verwendet.",
+		"folderSelectFailed": "Die Ordnerauswahl konnte nicht geöffnet werden.",
+		"hotkey": {
+			"alreadyQueued": "Bereits in der Warteschlange — keine Kopie hinzugefügt",
+			"busy": "Arroxy startet noch — versuche es gleich erneut",
+			"cookiesSetup": "Schließe die Cookie-Einrichtung in Arroxy ab und versuche es dann erneut",
+			"invalidClipboard": "Kein Link in der Zwischenablage — kopiere zuerst einen",
+			"multipleUrls": "Mehrere Links kopiert — „Bulk-URLs“ in Arroxy verwenden",
+			"needsReview": "Dieser Link braucht deine Auswahl — siehe Downloads in Arroxy",
+			"queued": "Download aus der Zwischenablage hinzugefügt",
+			"submissionFailed": "Dieser Link konnte nicht hinzugefügt werden — versuche es erneut in Arroxy"
+		},
+		"playlistFolderRejected": "Dieser Ordner kann für diese Playlist nicht verwendet werden.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} Video ist bereits in der Warteschlange — übersprungen",
+			"skippedAlreadyQueued_other": "{{count}} Videos sind bereits in der Warteschlange — übersprungen"
+		},
+		"quickDownload": {
+			"added": "Hinzugefügt: {{title}}",
+			"alreadyQueued": "Bereits in der Warteschlange",
+			"chooseHowMany_one": "{{count}}+ Video — Anzahl wählen",
+			"chooseHowMany_other": "{{count}}+ Videos — Anzahl wählen",
+			"failed": "{{title}} konnte nicht vorbereitet werden",
+			"notAdded": "Link konnte nicht hinzugefügt werden — versuche es erneut",
+			"reviewCapped_one": "{{count}}+ Video in dieser Liste — zum Auswählen prüfen",
+			"reviewCapped_other": "{{count}}+ Videos in dieser Liste — zum Auswählen prüfen",
+			"review_one": "{{count}} Video in dieser Liste — zum Auswählen prüfen",
+			"review_other": "{{count}} Videos in dieser Liste — zum Auswählen prüfen",
+			"view": "Ansehen"
+		},
+		"settingsSaveFailed": "Deine Einstellungen konnten nicht gespeichert werden.",
+		"shellActionFailed": "Das konnte nicht geöffnet werden.",
+		"warmupFailed": "Die Einrichtung wurde nicht abgeschlossen. Einige Downloads können bis dahin fehlschlagen."
+	},
+	"playlistPresets": {
+		"audioFormat": {
+			"best": "Audio (beste Qualität)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Bestes natives Audio, keine Neukodierung",
+			"m4a": "In M4A (AAC) umwandeln",
+			"mp3": "In MP3 umwandeln",
+			"opus": "In Opus umwandeln"
+		},
+		"mp4Cap": "H.264 über 1080p ist auf YouTube nicht verfügbar — automatisch auf 1080p begrenzt",
+		"subtitles": {
+			"deliveryHeading": "Speichern als",
+			"deliveryLoose": "Direkt im Speicherordner",
+			"languages": "Sprachen",
+			"languagesRequired": "Wählen Sie mindestens eine Sprache aus, um fortzufahren.",
+			"note": "Für jedes Video werden nur Untertiteldateien gespeichert — es wird kein Video und kein Audio heruntergeladen.",
+			"source": "Quelle"
+		},
+		"tier": {
+			"144": "Bis 144p",
+			"240": "Bis 240p",
+			"360": "Bis 360p",
+			"480": "Bis 480p",
+			"720": "Bis 720p",
+			"1080": "Bis 1080p",
+			"1440": "Bis 1440p",
+			"2160": "Bis 4K",
+			"best": "Beste Qualität"
+		},
+		"tierDesc": {
+			"144": "Kleinstmögliche Dateien",
+			"240": "Sehr kleine Dateien, geringe Qualität",
+			"360": "Kleine Dateien für knappe Bandbreite",
+			"480": "Geringe Bandbreite",
+			"720": "Kleinere Dateien, breite Kompatibilität",
+			"1080": "Auf 1080p begrenzt, fällt pro Eintrag niedriger aus",
+			"1440": "Auf 2K begrenzt, fällt pro Eintrag niedriger aus",
+			"2160": "Auf 2160p begrenzt, fällt pro Eintrag niedriger aus",
+			"best": "Höchstes verfügbares Video + Audio pro Eintrag"
+		},
+		"type": {
+			"audio": "Audio",
+			"subtitles": "Untertitel",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Bestes natives Format",
+			"mp4": "Smart-TV H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Höchster verfügbarer Codec pro Eintrag",
+			"mp4": "H.264 + AAC bevorzugt, MP4-Container · bestmöglich"
+		}
+	},
+	"queue": {
+		"artifact": {
+			"companion": "Begleitdatei",
+			"description": "Beschreibung",
+			"media": "Medien",
+			"missing": "Fehlt",
+			"subtitle": "Untertitel",
+			"thumbnail": "Thumbnail",
+			"unknown": "Datei"
+		},
+		"attentionBadge_one": "{{count}} Download braucht deine Aufmerksamkeit",
+		"attentionBadge_other": "{{count}} Downloads brauchen deine Aufmerksamkeit",
+		"autoRemoveCompleted": {
+			"hint": "Jeden Download wenige Sekunden nach dem Abschluss aus der Liste entfernen. Die Dateien bleiben in deinem Ordner.",
+			"label": "Fertige automatisch entfernen"
+		},
+		"cancelAllTitle": "Alle aktiven und ausstehenden Downloads abbrechen",
+		"choice": {
+			"all": "Alle Videos",
+			"cappedBody_one": "Mehr als {{count}} Video in dieser Playlist. Lade alle herunter, die ersten {{count}} oder wähle in der Prüfung aus.",
+			"cappedBody_other": "Mehr als {{count}} Videos in dieser Playlist. Lade alle herunter, die ersten {{count}} oder wähle in der Prüfung aus.",
+			"first": "Erste {{count}}",
+			"review": "Prüfen",
+			"reviewBody_one": "Dieser Link ist eine Liste mit {{count}} Video. Prüfe sie, um auszuwählen, was heruntergeladen wird.",
+			"reviewBody_other": "Dieser Link ist eine Liste mit {{count}} Videos. Prüfe sie, um auszuwählen, was heruntergeladen wird."
+		},
+		"clearTitle": "Abgeschlossene Downloads entfernen",
+		"empty": "Eingereihte Downloads erscheinen hier",
+		"filterAll": "Alle",
+		"filtersLabel": "Statusfilter der Warteschlange",
+		"globalActionsLabel": "Alle Elemente",
+		"header": "Downloads",
+		"item": {
+			"audioKept": "Ton nicht entfernt",
+			"audioKeptSubtitlesFailed": "Ton nicht entfernt · einige Untertitel fehlgeschlagen",
+			"cancel": "Abbrechen",
+			"defaultError": "Download fehlgeschlagen",
+			"openDestinationFolder": "Zielordner öffnen",
+			"pause": "Pause",
+			"pendingOnly": "Nur ausstehende",
+			"pullNow": "Jetzt starten — Warteschlange überspringen",
+			"qualityLimited": "Begrenzt auf {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen",
+			"remove": "Entfernen",
+			"resume": "Fortsetzen",
+			"retry": "Erneut versuchen",
+			"retryingSoon": "wird automatisch wiederholt (Versuch {{attempt}})",
+			"setLocation": "Speicherort festlegen",
+			"setLocationHint": "Wähle wartende Elemente aus, um den Speicherort festzulegen.",
+			"statusCancelled": "Abgebrochen",
+			"statusDone": "Fertig",
+			"statusError": "Fehler",
+			"statusHeld": "Zurückgehalten",
+			"statusNeedsChoice": "Wartet auf deine Auswahl",
+			"statusPaused": "Pausiert",
+			"statusPending": "Wartet",
+			"statusProbing": "Details werden geladen",
+			"statusRunning": "Lädt herunter",
+			"subtitleLanguagesMissing": "Keine Untertitel auf {{languages}}"
+		},
+		"pauseAllTitle": "Alle aktiven Downloads pausieren",
+		"pausedBanner": "Die Warteschlange ist pausiert — wartende Downloads starten erst, wenn du sie fortsetzt",
+		"resumeAllTitle": "Pausierte Downloads fortsetzen und die Warteschlange weiterlaufen lassen",
+		"resumeQueueAction": "Warteschlange fortsetzen",
+		"selectedActionsLabel": "Ausgewählte Elemente",
+		"selectionSummary": "{{selected}} ausgewählt · {{total}} gesamt",
+		"tabLabel": "Downloads",
+		"tabTip": "Downloads findest du jetzt im Downloads-Tab — öffne ihn jederzeit, um den Fortschritt zu verfolgen.",
+		"table": {
+			"added": "Hinzugefügt",
+			"artifacts": "Ausgabedateien",
+			"columnDropped": "Spalte „{{column}}“ abgelegt.",
+			"columnMoveCancelled": "Verschieben der Spalte „{{column}}“ abgebrochen.",
+			"columnMovedOver": "Spalte „{{column}}“ befindet sich über „{{target}}“.",
+			"columnPickedUp": "Spalte „{{column}}“ aufgenommen.",
+			"columns": "Spalten",
+			"finished": "Abgeschlossen",
+			"format": "Format",
+			"hideArtifactsFor": "Ausgabedateien für {{title}} ausblenden",
+			"movableColumn": "verschiebbare Spalte",
+			"moveColumnInstructions": "Zum Verschieben einer Spalte Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen.",
+			"notAvailable": "—",
+			"outputTarget": "Ausgabeziel",
+			"progress": "Fortschritt",
+			"resetColumns": "Spalten zurücksetzen",
+			"resizeColumn": "Breite der Spalte „{{column}}“ ändern",
+			"showArtifactsFor": "Ausgabedateien für {{title}} anzeigen",
+			"size": "Größe",
+			"sortBy": "Nach {{label}} sortieren",
+			"status": "Status",
+			"title": "Titel"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Weiter",
+		"description": "Du verwendest ein frisches Update. Hier sind die Highlights.",
+		"fullNotes": "Vollständige Versionshinweise ↗",
+		"title": "Neu in Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Abbrechen",
+			"chooseExecutable": "Ausführbare Datei wählen",
+			"installWithHomebrew": "Mit Homebrew installieren",
+			"installWithWinget": "Mit WinGet installieren",
+			"openDependencyFolder": "Abhängigkeitsordner öffnen",
+			"resetToDefault": "Auf Standard zurücksetzen",
+			"retrySetup": "Erneut versuchen",
+			"viewSetupLog": "Einrichtungsprotokoll anzeigen"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus.",
+				"title": "Ein Tool funktioniert nicht richtig"
+			},
+			"blockedOrQuarantined": {
+				"body": "Erlaube Arroxy in deinem Virenschutz oder in SmartScreen und versuche es dann erneut.",
+				"title": "Dein Virenschutz hat ein Tool blockiert"
+			},
+			"downloadFailed": {
+				"body": "Überprüfe deine Internetverbindung und versuche es dann erneut.",
+				"title": "Was Arroxy braucht, konnte nicht heruntergeladen werden"
+			},
+			"extractFailed": {
+				"body": "Versuche es erneut, um es neu herunterzuladen.",
+				"title": "Ein Download ist beschädigt angekommen"
+			},
+			"hashFailed": {
+				"body": "Versuche es erneut, um es neu herunterzuladen.",
+				"title": "Ein Download stimmte nicht mit seiner Prüfsumme überein"
+			},
+			"pairIncomplete": {
+				"body": "Wähle unten beide aus oder setze sie auf den Standard zurück.",
+				"title": "FFmpeg und FFprobe müssen zusammen festgelegt werden"
+			},
+			"permissionDenied": {
+				"body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine Kopie, der du vertraust.",
+				"title": "Dein System erlaubt Arroxy nicht, ein Tool auszuführen"
+			},
+			"spawnFailed": {
+				"body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus.",
+				"title": "Ein Tool fehlt oder startet nicht"
+			},
+			"timeout": {
+				"body": "Das liegt oft an einer Sicherheitsprüfung beim ersten Start. Versuche es erneut.",
+				"title": "Ein Tool hat zu lange nicht geantwortet"
+			},
+			"unknown": {
+				"body": "Versuche es erneut oder öffne das Einrichtungsprotokoll für Details.",
+				"title": "Bei der Einrichtung ist etwas schiefgelaufen"
+			}
+		},
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
+		},
+		"groups": {
+			"engine": "Download-Engine",
+			"media": "Medientools"
+		},
+		"installing": {
+			"homebrew": "Installation mit Homebrew läuft… Das kann ein paar Minuten dauern.",
+			"winget": "Installation mit WinGet läuft… Das kann ein paar Minuten dauern."
+		},
+		"manual": {
+			"intro": "Verweise Arroxy auf Kopien, die du schon hast, oder installiere sie auf einem anderen Weg.",
+			"linuxHint": "Du kannst yt-dlp und ffmpeg auch mit deinem Paketmanager installieren und dann auf „Erneut versuchen“ klicken.",
+			"toggle": "Manuell einrichten"
+		},
+		"stopped": {
+			"body": "Versuche es erneut oder verweise Arroxy unten auf Tools, die du schon hast.",
+			"title": "Einrichtung gestoppt"
+		},
+		"title": "Einrichtung braucht deine Hilfe"
+	},
+	"selectionOrder": {
+		"editorTitle": "So wählt dieses Profil aus",
+		"rank": {
+			"aacFileType": {
+				"label": "AAC-Audio",
+				"reason": "passt zu MP4-Playern"
+			},
+			"aacSmartTv": {
+				"label": "AAC-Audio",
+				"reason": "läuft überall"
+			},
+			"codec": {
+				"label": "AV1, dann VP9, dann H.264",
+				"reason": "bei gleicher Größe am schärfsten"
+			},
+			"codecH264First": {
+				"label": "H.264, dann VP9, dann AV1",
+				"reason": "Codec dieses Profils"
+			},
+			"codecVp9First": {
+				"label": "VP9, dann H.264, dann AV1",
+				"reason": "Codec dieses Profils"
+			},
+			"fps": {
+				"label": "Höchste Bildrate",
+				"reason": "flüssigere Bewegung"
+			},
+			"h264": {
+				"label": "H.264-Video",
+				"reason": "läuft auf jedem Gerät"
+			},
+			"hdrFirst": {
+				"label": "HDR vor SDR",
+				"reason": "satteres Bild auf HDR-Bildschirmen",
+				"reasonScreen": "dieser Bildschirm zeigt HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR vor HDR",
+				"reason": "wirkt auf jedem Bildschirm richtig",
+				"reasonScreen": "dieser Bildschirm zeigt kein HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-Streams",
+				"reason": "bereit für eine MP4-Datei"
+			},
+			"nativeCompatible": {
+				"label": "Stereo-Audio"
+			},
+			"nativeSource": {
+				"profile": "dieses Profil",
+				"settings": "aus den Einstellungen"
+			},
+			"nativeSurround": {
+				"label": "Surround-Audio, wenn verfügbar"
+			},
+			"opus": {
+				"label": "Opus-Audio",
+				"reason": "passt zu WebM"
+			},
+			"original": {
+				"label": "Original-Streams, keine KI-hochskalierten",
+				"reason": "eine hochskalierte Kopie ist höher, bringt aber keine echten Details"
+			},
+			"protocol": {
+				"label": "Direkte Downloads vor gestreamten Kopien",
+				"reason": "gleiches Bild, schneller heruntergeladen"
+			},
+			"resolution": {
+				"label": "Bis {{tier}}p",
+				"reason": "dein Limit"
+			},
+			"resolutionBest": {
+				"label": "Höchste Auflösung",
+				"reason": "kein Limit gesetzt"
+			},
+			"sitePreference": {
+				"label": "Streams, die die Website nicht abwertet",
+				"reason": "überspringt beschädigte Kopien, solche mit Wasserzeichen und Ersatzkopien"
+			},
+			"size": {
+				"label": "Größere Datei",
+				"reason": "mehr Details bei gleichen Einstellungen"
+			},
+			"source": {
+				"label": "Streams mit erhöhter Bitrate zuerst",
+				"reason": "mehr Details bei gleicher Auflösung"
+			}
+		},
+		"summary": {
+			"fileType": {
+				"auto": "Dateityp aus den Streams",
+				"explicit": "speichert als .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "bestes Bild",
+				"smartTv": "läuft auf jedem Gerät"
+			}
+		},
+		"whyLabel": "Warum dieser?",
+		"whyTitle": "Warum das Profil das gewählt hat"
+	},
+	"share": {
+		"copied": "Kopiert!",
+		"copyLink": "Link kopieren",
+		"defaultMessage": "Arroxy — Kostenloser Open-Source-Video-Downloader für Windows, macOS & Linux. Funktioniert mit YouTube, Vimeo, Twitch und 2000+ weiteren Websites.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy ist kostenlos und Open-Source. Durch das Teilen helfen mehr Menschen, es zu entdecken.",
+		"footerLabel": "Teilen",
+		"footerTooltip": "Arroxy teilen",
+		"shareAction": "Arroxy teilen",
+		"title": "Arroxy teilen"
+	},
 	"splash": {
-		"greeting": "Hey, schön dich wiederzusehen!",
-		"warmup": "Downloads werden vorbereitet…",
-		"verifying": "{{binary}} wird geprüft…",
-		"verifyFirstCheck": "Erste Prüfung dieser Version — diese ist langsam. Meist etwa eine Minute.",
 		"cancel": "Probleme? Manuell einrichten",
-		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details.",
+		"greeting": "Hey, schön dich wiederzusehen!",
 		"setup": {
-			"title": {"firstRun": "Einrichtung beim ersten Start", "media": "Medientools werden aktualisiert", "engine": "Download-Engine wird aktualisiert"},
+			"bytes": "{{done}} von {{total}}",
+			"left": {
+				"minutes_one": "noch etwa {{count}} Min.",
+				"minutes_other": "noch etwa {{count}} Min.",
+				"underMinute": "noch weniger als eine Minute"
+			},
+			"note": {
+				"engine": "Damit Downloads weiter funktionieren, wenn sich Websites ändern.",
+				"firstRun": "Das passiert nur einmal. Arroxy behält diese Tools und aktualisiert sie selbst.",
+				"media": "Das passiert nur einmal. Arroxy behält sie für künftige Updates."
+			},
 			"stage": {
+				"checking": "Es wird geprüft, ob alles funktioniert",
 				"connecting": "Verbindung wird hergestellt…",
 				"downloadingBoth": "Download-Engine und Medientools werden heruntergeladen",
 				"downloadingEngine": "Download-Engine wird heruntergeladen",
 				"downloadingMedia": "Medientools werden heruntergeladen",
-				"unpacking": "Medientools werden entpackt",
-				"checking": "Es wird geprüft, ob alles funktioniert"
+				"unpacking": "Medientools werden entpackt"
 			},
-			"bytes": "{{done}} von {{total}}",
-			"left": {"underMinute": "noch weniger als eine Minute", "minutes_one": "noch etwa {{count}} Min.", "minutes_other": "noch etwa {{count}} Min."},
-			"note": {"firstRun": "Das passiert nur einmal. Arroxy behält diese Tools und aktualisiert sie selbst.", "media": "Das passiert nur einmal. Arroxy behält sie für künftige Updates.", "engine": "Damit Downloads weiter funktionieren, wenn sich Websites ändern."}
-		}
-	},
-	"repair": {
-		"title": "Einrichtung braucht deine Hilfe",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Download-Engine", "media": "Medientools"},
-		"causes": {
-			"downloadFailed": {"title": "Was Arroxy braucht, konnte nicht heruntergeladen werden", "body": "Überprüfe deine Internetverbindung und versuche es dann erneut."},
-			"extractFailed": {"title": "Ein Download ist beschädigt angekommen", "body": "Versuche es erneut, um es neu herunterzuladen."},
-			"hashFailed": {"title": "Ein Download stimmte nicht mit seiner Prüfsumme überein", "body": "Versuche es erneut, um es neu herunterzuladen."},
-			"spawnFailed": {"title": "Ein Tool fehlt oder startet nicht", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus."},
-			"permissionDenied": {"title": "Dein System erlaubt Arroxy nicht, ein Tool auszuführen", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine Kopie, der du vertraust."},
-			"blockedOrQuarantined": {"title": "Dein Virenschutz hat ein Tool blockiert", "body": "Erlaube Arroxy in deinem Virenschutz oder in SmartScreen und versuche es dann erneut."},
-			"badExitCode": {"title": "Ein Tool funktioniert nicht richtig", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus."},
-			"timeout": {"title": "Ein Tool hat zu lange nicht geantwortet", "body": "Das liegt oft an einer Sicherheitsprüfung beim ersten Start. Versuche es erneut."},
-			"pairIncomplete": {"title": "FFmpeg und FFprobe müssen zusammen festgelegt werden", "body": "Wähle unten beide aus oder setze sie auf den Standard zurück."},
-			"unknown": {"title": "Bei der Einrichtung ist etwas schiefgelaufen", "body": "Versuche es erneut oder öffne das Einrichtungsprotokoll für Details."}
-		},
-		"installing": {"homebrew": "Installation mit Homebrew läuft… Das kann ein paar Minuten dauern.", "winget": "Installation mit WinGet läuft… Das kann ein paar Minuten dauern."},
-		"stopped": {"title": "Einrichtung gestoppt", "body": "Versuche es erneut oder verweise Arroxy unten auf Tools, die du schon hast."},
-		"manual": {"toggle": "Manuell einrichten", "intro": "Verweise Arroxy auf Kopien, die du schon hast, oder installiere sie auf einem anderen Weg.", "linuxHint": "Du kannst yt-dlp und ffmpeg auch mit deinem Paketmanager installieren und dann auf „Erneut versuchen“ klicken."},
-		"actions": {
-			"chooseExecutable": "Ausführbare Datei wählen",
-			"installWithHomebrew": "Mit Homebrew installieren",
-			"installWithWinget": "Mit WinGet installieren",
-			"resetToDefault": "Auf Standard zurücksetzen",
-			"retrySetup": "Erneut versuchen",
-			"cancel": "Abbrechen",
-			"openDependencyFolder": "Abhängigkeitsordner öffnen",
-			"viewSetupLog": "Einrichtungsprotokoll anzeigen"
-		}
-	},
-	"theme": {"light": "Heller Modus", "dark": "Dunkler Modus", "system": "Systemstandard"},
-	"language": {"label": "Sprache"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Wiedergabeliste",
-			"playlistItemsGeneric": "Videos",
-			"playlistPresets": "Qualität",
-			"playlistProfiles": "Profile",
-			"formats": "Format",
-			"subtitles": "Untertitel",
-			"sponsorblock": "SponsorBlock",
-			"output": "Ausgabe",
-			"folder": "Speichern",
-			"confirm": "Bestätigen",
-			"review": "Prüfen"
-		},
-		"playlistPresets": {"heading": "Qualität für den Stapel wählen", "subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen.", "itemCount_one": "{{count}} Element", "itemCount_other": "{{count}} Elemente"},
-		"playlistProfiles": {
-			"heading": "Download-Profile zuweisen",
-			"selectedSummary": "{{selected}} von {{total}} ausgewählt",
-			"assignTriggerEmpty": "Profil zuweisen",
-			"assignTrigger_one": "{{count}} Video zuweisen",
-			"assignTrigger_other": "{{count}} Videos zuweisen",
-			"menuDescription_one": "Wählen Sie das Profil für dieses Video.",
-			"menuDescription_other": "Wählen Sie das Profil für diese {{count}} Videos.",
-			"editProfile": "{{name}} bearbeiten",
-			"filtersLabel": "Profilfilter",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Dauer",
-			"empty": "Keine Einträge entsprechen diesem Filter"
-		},
-		"playlist": {
-			"heading": "Playlist-Elemente",
-			"headingGeneric": "Videos zum Herunterladen",
-			"bulkHeading": "Bulk-URLs",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} videos",
-			"itemCountAudio_one": "{{count}} Titel",
-			"itemCountAudio_other": "{{count}} Titel",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URLs",
-			"bulkMetadataResolving": "Videodetails werden geladen… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Kein Warten nötig — Dateien, die jetzt in die Warteschlange gestellt werden, erhalten beim Herunterladen trotzdem ihre echten Namen.",
-			"bulkRowWaiting": "Wartet",
-			"bulkRowResolving": "Details werden geladen",
-			"bulkRowFailed": "Details nicht verfügbar",
-			"selectAll": "Alle auswählen",
-			"selectNone": "Keine auswählen",
-			"sortLabel": "Sortieren",
-			"sortApi": "Playlist-Reihenfolge",
-			"sortUploadAsc": "Älteste zuerst",
-			"sortUploadDesc": "Neueste zuerst",
-			"sortFetchingDates": "Upload-Daten werden geladen…",
-			"rangeFrom": "Von",
-			"rangeTo": "Bis",
-			"rangeApply": "Bereich übernehmen",
-			"selectedCount_one": "{{count}} ausgewählt",
-			"selectedCount_other": "{{count}} ausgewählt",
-			"noSelection": "Wähle mindestens ein Video aus, um fortzufahren",
-			"loadingItems": "Playlist wird geladen…",
-			"loadingItemsGeneric": "Videos werden abgerufen…",
-			"loadingPhasePages": "Kanalseiten werden geprüft",
-			"loadingPhaseItems": "Videos werden gesammelt",
-			"loadingPagesFound_one": "{{count}} Seite gefunden",
-			"loadingPagesFound_other": "{{count}} Seiten gefunden",
-			"loadingLimitHint": "Auf die ersten {{count}} Einträge begrenzt",
-			"thumbnailAlt": "Video-Vorschaubild",
-			"durationUnknown": "live",
-			"syncChange": "Ordner ändern…",
-			"syncApply": "Sync anwenden",
-			"syncScanning": "Ordner wird geprüft…",
-			"syncFoundTitle": "Bereits im Ordner",
-			"syncFoundDesc": "{{n}} dieser Videos sind bereits in {{dir}}. Synchronisieren, um nur die neuen herunterzuladen?",
-			"syncNoneTitle": "Noch nichts heruntergeladen",
-			"syncNoneDesc": "Keine Videos aus dieser Playlist wurden in {{dir}} gefunden.",
-			"syncNoneDescGeneric": "In {{dir}} wurden keine Videos aus dieser Quelle gefunden.",
-			"alreadyDownloaded": "Bereits heruntergeladen",
-			"nestedPlaylistBadge": "Wiedergabeliste",
-			"nestedPlaylistHint_one": "{{count}} davon ist eine Wiedergabeliste, kein Video — füge den Link einzeln ein, um sie herunterzuladen.",
-			"nestedPlaylistHint_other": "{{count}} davon sind Wiedergabelisten, keine Videos — füge die Links einzeln ein, um sie herunterzuladen.",
-			"probeLimitAlertTitle": "Playlist-Scan ist begrenzt",
-			"probeLimitAlertTitleGeneric": "Scan ist begrenzt",
-			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
-			"multiProfileEntry": "Profile pro Element zuweisen",
-			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu",
-			"removeFromListCount_one": "{{count}} aus der Liste entfernen",
-			"removeFromListCount_other": "{{count}} aus der Liste entfernen",
-			"restore": "Wiederherstellen",
-			"removedCount_one": "{{count}} entfernt",
-			"removedCount_other": "{{count}} entfernt",
-			"allRemovedTitle": "Alle Elemente wurden entfernt",
-			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren."
-		},
-		"bulk": {
-			"title": "Bulk-URLs",
-			"description": "Füge Video-, Playlist-, Kanal-, Such- oder Audio-URLs ein. Arroxy bereinigt Duplikate vor dem Einreihen.",
-			"textareaLabel": "URL-Liste",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Bereit",
-			"ignoredCount": "Ignoriert",
-			"emptyPreview": "Füge eine oder mehrere URLs ein, um den Stapel anzuzeigen.",
-			"needsAtLeastOne": "Füge mindestens eine unterstützte URL hinzu, um fortzufahren.",
-			"reject": {"duplicate": "Duplikat"}
-		},
-		"tabsNavAria": "Download-Profil-Navigation",
-		"profileSwitchRow": {"helpAria": "Hilfe zu {{label}}"},
-		"mixedPrompt": {
-			"title": "Dieser Link enthält eine Playlist",
-			"body": "Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.",
-			"quickBody": "Lade nur dieses Video herunter oder stelle die ganze Playlist mit deinem aktiven Schnelldownload-Profil in die Warteschlange.",
-			"singleVideo": "Nur dieses eine",
-			"quickSingleVideo": "Dieses Video herunterladen",
-			"pickFromPlaylist": "Aus Playlist auswählen",
-			"quickWholePlaylist": "Ganze Playlist herunterladen",
-			"playlistLimit": "Playlist-Prüflimit: {{count}} Einträge",
-			"quickLimitDescription": "Maximale Anzahl der Einträge, die Arroxy scannt, bevor eine Playlist, ein Kanal oder ein Suchergebnis in die Warteschlange kommt.",
-			"singleTooltip": "Lädt nur dieses Video. Die an diese URL angehängte Playlist wird ignoriert.",
-			"quickSingleTooltip": "Stellt einen Download in die Warteschlange und ignoriert die Playlist, die an diese URL angehängt ist.",
-			"playlistTooltip": "Lädt die Playlist bis zu deinem Playlist-Prüflimit, bevor die Auswahl angezeigt wird.",
-			"quickPlaylistTooltip": "Stellt jeden geladenen Playlist-Eintrag mit dem aktiven Schnelldownload-Profil in die Warteschlange. Wenn der Scan dein Limit erreicht, fragt Arroxy vor dem Einreihen nach."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Playlist-Bereich",
-				"change": "Ändern",
-				"summaryAppLimit": "Erste Einträge laden: {{count}}",
-				"summaryFirst": "Erste Einträge laden: {{count}}",
-				"summaryRange": "Einträge {{from}}-{{to}} laden",
-				"dialogTitle": "Playlist-Bereich",
-				"dialogDescription": "Lege fest, was Arroxy für diese Playlist lädt.",
-				"itemsLabel": "Zu ladende Einträge",
-				"appLimit": "App-Limit verwenden: {{count}}",
-				"first": "Erste",
-				"range": "Bereich",
-				"to": "bis",
-				"invalid": "Verwende ganze Zahlen von 1 bis {{max}}; der Anfang darf nicht größer als das Ende sein.",
-				"applyError": "Dieser Playlist-Bereich konnte nicht angewendet werden: {{message}}",
-				"reset": "Zurücksetzen",
-				"cancel": "Abbrechen",
-				"apply": "Anwenden",
-				"applyReload": "Anwenden und neu laden",
-				"reloading": "Wird neu geladen...",
-				"emptyTitle": "Keine Videos in diesem Bereich"
-			},
-			"heading": "Von URL herunterladen",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "Profile", "settings": "Einstellungen"},
-			"interactiveDownload": "Interaktiver Download",
-			"fetchFormatsTooltip": "Schritt-für-Schritt-Assistent. Wähle Format, Qualität und mehr.",
-			"quickDownload": "Schnelldownload",
-			"quickDownloadTooltip": "Wird mit {{profileName}} heruntergeladen",
-			"quickPreparing": "Wird vorbereitet",
-			"quickQueued": "Zur Warteschlange hinzugefügt",
-			"quickSingleOnly": "Füge eine Video-, Playlist-, Kanal- oder Such-URL ein, um loszulegen.",
-			"quickProbeFailed": "Prüfung fehlgeschlagen",
-			"quickPrepareFailed": "Warteschlangeneintrag konnte nicht vorbereitet werden",
-			"quickBulkAllFailed": "Keine dieser URLs konnte vorbereitet werden",
-			"quickFailed": "Konnte dieses Element nicht hinzufügen: {{error}}",
-			"quickPartialFailed_one": "Was funktioniert hat, wurde eingereiht. {{count}} URL konnte nicht vorbereitet werden.",
-			"quickPartialFailed_other": "Was funktioniert hat, wurde eingereiht. {{count}} URLs konnten nicht vorbereitet werden.",
-			"profile": {
-				"destinationFallback": "Ziel",
-				"switchAria": "Download-Profil wechseln: {{profileName}}",
-				"switchTitle": "Download-Profil wechseln",
-				"activeLabel": "Aktives Profil",
-				"editActive": "Aktives Profil bearbeiten",
-				"changeGlobalDestination": "Globales Ziel ändern",
-				"destinationDetail": {"global": "Verwendet globales Ziel", "globalSubfolder": "Verwendet globales Ziel + Profil-Unterordner", "override": "Verwendet Profil-Überschreibung", "overrideSubfolder": "Verwendet Profil-Überschreibung + Profil-Unterordner"},
-				"summary": {"bestVideo": "bestes Video", "bestAudio": "bestes Audio", "aacAudio": "AAC-Audio", "wavAudio": "WAV-Audio", "noAudio": "kein Audio", "subtitlesOnly": "nur Untertitel"},
-				"menuTitle": "Profil wechseln",
-				"menuDescription": "Ändere das aktive Profil für Quick Download, Bulk-URLs und Playlists.",
-				"newProfile": "Neues Profil",
-				"manageProfiles": "Profile verwalten",
-				"panelTitle": "Download-Profile",
-				"panelDescription": "Erstelle, wähle, bearbeite oder entferne wiederverwendbare Download-Einstellungen.",
-				"badgeCustom": "Benutzerdefiniert",
-				"badgeModified": "Geändert",
-				"badgeBuiltIn": "Integriert",
-				"badgeDisabled": "Ausgeblendet",
-				"enableToggleAria": "Profil in Auswahl anzeigen: {{profileName}}",
-				"enableHint": "Ausgeblendete Profile bleiben hier, verschwinden aber aus jeder Profilauswahl.",
-				"reorderHint": "Profil ziehen, um es zu verschieben. Jede Profilauswahl folgt dieser Reihenfolge.",
-				"moveHandleAria": "{{profileName}} verschieben",
-				"movableProfile": "verschiebbares Profil",
-				"moveInstructions": "Zum Verschieben eines Profils Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen.",
-				"movePickedUp": "Profil „{{profileName}}“ aufgenommen. Es steht an Position {{position}} von {{count}}.",
-				"moveOver": "Profil „{{profileName}}“ befindet sich über Position {{position}} von {{count}}.",
-				"moveDropped": "Profil „{{profileName}}“ an Position {{position}} von {{count}} abgelegt.",
-				"moveCancelled": "Verschieben abgebrochen. Profil „{{profileName}}“ bleibt an Position {{position}} von {{count}}.",
-				"lastEnabledHint": "Mindestens ein Profil verfügbar halten.",
-				"edit": "Bearbeiten",
-				"remove": "Entfernen",
-				"reset": "Zurücksetzen"
-			},
-			"bulkButton": "Bulk-URLs",
-			"bulkTooltip": "Mehrere URLs hinzufügen und in die Warteschlange stellen.",
-			"features": {
-				"heading": "Was Arroxy laden kann",
-				"youtube": {"heading": "YouTube", "video": "Videos", "channel": "Kanäle", "playlist": "Wiedergabelisten", "short": "Shorts", "music": "Musik", "podcast": "Podcasts"},
-				"anySite": {"heading": "2000+ Seiten", "video": "Videos", "videoPlaylist": "Video-Playlists", "musicPlaylist": "Musik-Playlists"},
-				"always": {"audioOnly": "Nur Audio", "subtitles": "Untertitel"}
-			},
-			"mascotIdle": "Wirf einen Link rein und lass Arroxy ihn holen ✨",
-			"mascotBusy": "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎",
-			"mascotPreparing": "{{quickDownload}} liest diesen Link und wendet {{profileName}} an.",
-			"mascotQueued": "Die Warteschlange bearbeitet diesen Download. Du kannst währenddessen einen weiteren Link einfügen.",
-			"mascotCollection": "Schnelldownload reiht die geladenen Elemente mit {{profileName}} in die Warteschlange ein. Mit „Interaktiver Download“ kannst du die Elemente zuerst ansehen oder auswählen.",
-			"mascotMixed": "Dieser Link verweist auf ein einzelnes Video in einer Sammlung. Arroxy fragt dich, welches du möchtest, bevor es analysiert wird.",
-			"mascotSingle": "Schnelldownload startet einen Download mit {{profileName}}. Für einmalige Änderungen nutze „Interaktiver Download“.",
-			"advanced": "Erweitert",
-			"settings": {"inputHeading": "Eingabe", "behaviorHeading": "Downloadverhalten", "behaviorDescription": "Globales Verhalten, das auch profilgesteuerte Downloads betrifft."},
-			"clearAria": "URL löschen",
-			"clipboard": {
-				"toggle": "Zwischenablage beobachten",
-				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
-				"autofilledLink": "Link aus der Zwischenablage hinzugefügt",
-				"bulkHint": "Mehrere Links kopiert — über „Bulk-URLs“ hinzufügen",
-				"replacedLink": "Durch kopierten Link ersetzt",
-				"undo": "Rückgängig",
-				"dialog": {"cancelButton": "Abbrechen"}
-			},
-			"hotkey": {
-				"sectionTitle": "Globales Tastenkürzel",
-				"sectionDescription": "Lädt jeden kopierten Link aus jeder App herunter, ohne Arroxy zu öffnen.",
-				"toggle": "Globales Tastenkürzel aktivieren",
-				"toggleDescription": "Drücke das Kürzel mit einem Video-Link in der Zwischenablage.",
-				"changeShortcut": "Kürzel ändern",
-				"recording": "Tasten drücken…",
-				"test": "Testen",
-				"conflict": "Dieses Kürzel wird bereits von einer anderen App verwendet — wähle ein anderes.",
-				"hintLabel": "Oder drücke",
-				"hintTooltip": "Kopiere irgendwo einen Videolink, drücke dieses Kürzel, und Arroxy reiht ihn mit deinem aktiven Profil ein — du musst nicht zwischen Fenstern wechseln.",
-				"hintTooltipSettings": "Ändere es in den Einstellungen oder schalte es dort aus.",
-				"reset": "Auf Standard zurücksetzen"
-			},
-			"cookies": {
-				"sourceLabel": "Cookies-Quelle",
-				"sourceOff": "Aus",
-				"sourceFile": "Datei",
-				"sourceBrowser": "Browser",
-				"sourceExplore": "Entdecken-Anmeldung",
-				"recommended": "Empfohlen",
-				"exploreDescription": "Verwendet deine Entdecken-Anmeldung nur, wenn ein Download sie braucht.",
-				"exploreDisabled": "Der Entdecken-Tab ist aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht. Schalte ihn unten unter Entdecken ein.",
-				"openExplore": "Entdecken öffnen",
-				"toggleDescription": "Hilft bei altersbeschränkten, nur-für-Mitglieder- und kontoprivaten Videos.",
-				"risk": "Risiko: Eine cookies.txt enthält alle angemeldeten Sitzungen dieses Browsers — halte sie geheim.",
-				"fileLabel": "Cookies-Datei",
-				"choose": "Auswählen…",
-				"clear": "Entfernen",
-				"placeholder": "Keine Datei ausgewählt",
-				"helpLink": "Wie exportiere ich Cookies?",
-				"enabledButNoFile": "Wähle eine Datei aus, um Cookies zu nutzen",
-				"browserLabel": "Browser",
-				"browserPlaceholder": "Browser wählen…",
-				"browserHelp": "Liest Cookies direkt aus dem Browser. Bei Chromium-basierten Browsern muss der Browser geschlossen sein.",
-				"enabledButNoBrowser": "Wähle einen Browser, um Cookies zu nutzen",
-				"banWarning": "Seiten wie YouTube können Konten markieren — und teils sperren —, deren Cookies von Download-Tools wie Arroxy verwendet werden. Nutze nach Möglichkeit ein Wegwerfkonto.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "cookies.txt LOKAL holen (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "Datenverkehr über einen Proxy leiten — nützlich für geo-gesperrte Inhalte.", "placeholder": "http://host:port", "clear": "Löschen"},
-			"style": {
-				"panelTitle": "Aussehen",
-				"panelDescription": "So sieht Arroxy aus. Wechsle in der Fußzeile zwischen Hell und Dunkel.",
-				"modeLabel": "Stil",
-				"modeDescription": "Beide Stile gibt es in Hell und Dunkel.",
-				"aurora": {"label": "Aurora", "description": "Glaspaneele über einem bewegten Himmel. Braucht Grafikbeschleunigung."},
-				"minimal": {"label": "Minimal", "description": "Ruhige, einfarbige Flächen. Läuft auf jedem Computer flüssig."},
-				"unavailableNotice": "{{style}} braucht Grafikbeschleunigung, die gerade nicht verfügbar ist. Deshalb zeigt Arroxy {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Download-Geschwindigkeitslimit",
-				"description": "Begrenzt die Bandbreite für Mediendownloads. Die Anfrage-Pausen darunter sind meist der stärkere Hebel gegen Limits.",
-				"off": "Aus",
-				"custom": "Benutzerdefiniert…",
-				"customPlaceholder": "z. B. 750K oder 1.5M",
-				"invalid": "Nutze eine Zahl mit K oder M (z. B. 500K, 1.5M)",
-				"activeWarning": "Aktive Downloads behalten ihr aktuelles Limit. Pausieren + Fortsetzen wendet Änderungen an."
-			},
-			"playlistProbeLimit": {
-				"label": "Playlist-Einträge scannen",
-				"description": "Maximale Anzahl der Einträge, die Arroxy beim Öffnen einer Playlist, eines Kanals oder eines Suchergebnisses lädt.",
-				"option": "{{count}} Einträge",
-				"current": "Aktuelles Limit: {{count}} Einträge",
-				"customValue": "Benutzerdefiniert: {{count}} Einträge",
-				"custom": "Benutzerdefiniert…",
-				"customDialogTitle": "Benutzerdefiniertes Playlist-Scan-Limit",
-				"customDialogDescription": "Verwende eine ganze Zahl von {{min}} bis {{max}}.",
-				"customDialogCancel": "Abbrechen",
-				"customDialogSave": "Limit speichern",
-				"invalid": "Verwende eine ganze Zahl von 1 bis 5000",
-				"tooltip": "Arroxy fragt beim Aufbau der Auswahl nur so viele Playlist-, Kanal- oder Suchergebnisse ab."
-			},
-			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Stereo oder Surround, wenn ein Profil natives Audio wählt. Ein Profil kann das überschreiben.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
-			"autoRetry": {"label": "Fehlgeschlagene Downloads wiederholen", "description": "Versucht es nach einem Netzwerk- oder Serverproblem automatisch erneut und wartet vor jedem Versuch länger. Von der Seite blockierte Downloads werden nie automatisch wiederholt.", "unit": "mal"},
-			"autoRemoveCompleted": {"label": "Fertige Downloads automatisch entfernen", "description": "Nimmt einen Download wenige Sekunden nach dem Abschluss aus der Downloads-Liste. Die Dateien bleiben in deinem Ordner; fehlgeschlagene und abgebrochene Downloads bleiben in der Liste."},
-			"concurrentDownloads": {"label": "Gleichzeitige Downloads", "description": "Wie viele Einträge der Warteschlange gleichzeitig geladen werden. Mehr auf einmal leert eine lange Warteschlange schneller, erhöht aber die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Downloads"},
-			"downloadConnections": {"label": "Download-Verbindungen", "description": "Beschleunigt große Downloads, indem mehrere Teile eines Videos gleichzeitig geladen werden. Höhere Werte erhöhen die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Verbindungen"},
-			"networkPacing": {
-				"heading": "Sanftes Herunterladen",
-				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte in Sekunden.",
-				"presetLabel": "Wie vorsichtig soll Arroxy sein?",
-				"tooltip": "Diese Pausen liegen innerhalb jedes Downloads. Wie viele Downloads gleichzeitig laufen, wird separat unter „Gleichzeitige Downloads“ eingestellt.",
-				"summary": "Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien.",
-				"presets": {"off": "Aus", "balanced": "Ausgewogen", "careful": "Vorsichtig", "custom": "Benutzerdefiniert"},
-				"tooltips": {
-					"off": "Nutzt nur die kleinen Basispausen, die Arroxy für Medien und Untertitel beibehält.",
-					"balanced": "Standard. Fügt kurze Pausen zwischen Abfragen und vor Medienbeginn hinzu.",
-					"careful": "Fügt längere Pausen für große Playlists oder Netzwerke ein, die häufig an Limits stoßen.",
-					"custom": "Passe die erweiterten Download-Steuerungen selbst an."
-				},
-				"fields": {"sleepRequests": "Pause zwischen Metadaten-Abfragen", "sleepInterval": "Pause vor Medienbeginn: Min", "maxSleepInterval": "Pause vor Medienbeginn: Max", "sleepSubtitles": "Pause vor Untertiteldateien"},
-				"units": {"seconds": "Sek"}
-			},
-			"closeToTray": {"toggle": "Beim Schließen in die Taskleiste minimieren", "toggleDescription": "Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird."},
-			"analytics": {
-				"toggle": "Tägliches Lebenszeichen senden",
-				"toggleDescription": "Keine Telemetrie. Einmal am Tag sendet ein anonymes Lebenszeichen App-Version, Installationskanal, Betriebssystem, Sprache, Land und ungefähr, wie lange Arroxy schon installiert ist, damit wir aktive und neue Nutzer zählen können. Keine IDs, URLs, Videotitel oder Dateinamen."
+			"title": {
+				"engine": "Download-Engine wird aktualisiert",
+				"firstRun": "Einrichtung beim ersten Start",
+				"media": "Medientools werden aktualisiert"
 			}
 		},
-		"quickProgress": {
-			"title": "Schnelldownload wird vorbereitet",
-			"description": "Arroxy liest den Link und wendet {{profileName}} an.",
-			"currentFallback": "Aktueller Link",
-			"waitHint": "Lass dies geöffnet, während Arroxy die Warteschlange vorbereitet.",
-			"failedCount_one": "{{count}} fehlgeschlagen",
-			"failedCount_other": "{{count}} fehlgeschlagen",
-			"cancel": "Vorbereitung abbrechen",
-			"phase": {"probing": "Details werden geladen", "queueing": "Wird zur Warteschlange hinzugefügt"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Keine Untertitel für dieses Video verfügbar",
-			"searchPlaceholder": "Sprachen suchen…",
-			"noMatches": "Keine Sprachen gefunden",
-			"clearAll": "Alle entfernen",
-			"noSelected": "Keine Untertitel ausgewählt",
-			"removeLanguage": "{{name}} entfernen",
-			"sectionManual": "Manuell",
-			"sectionAuto": "Automatisch generiert",
-			"saveMode": {"heading": "Speichern als", "sidecar": "Neben dem Video", "embed": "In Video einbetten", "subfolder": "Unterordner subtitles/"},
-			"format": {"heading": "Format"},
-			"embedNote": "Im Einbettungsmodus wird die Ausgabe als .mkv gespeichert, damit Untertitel-Spuren zuverlässig eingebettet werden.",
-			"autoAssNote": "Auto-Untertitel werden als SRT statt ASS gespeichert — sie werden immer von YouTubes rollenden Cue-Duplikaten bereinigt, was unser ASS-Konverter noch nicht abbilden kann."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsor-Filterung",
-			"mode": {"off": "Aus", "mark": "Als Kapitel markieren", "remove": "Segmente entfernen"},
-			"modeHint": {"off": "Kein SponsorBlock — Video wird unverändert abgespielt.", "mark": "Markiert Sponsor-Segmente als Kapitel (nicht destruktiv).", "remove": "Schneidet Sponsor-Segmente mit FFmpeg aus dem Video."},
-			"categoriesHeading": "Kategorien",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Eigenwerbung", "music_offtopic": "Musik (Off-Topic)", "preview": "Vorschau", "filler": "Füllmaterial"}
-		},
-		"formats": {
-			"kind": {"label": "Was herunterladen", "video": "Video + Audio", "videoOnly": "Video, ohne Audio", "audio": "Nur Audio", "subtitles": "Nur Untertitel"},
-			"profile": {
-				"calloutTitle": "Formate starten mit deinem Profil",
-				"calloutBody": "Dein aktives Profil wählt die Streams für dich vor. Wechsle das Profil über das Menü oder passe es mit dem Stift an, ohne diesen Download zu verlassen.",
-				"preselected": "Vorausgewählt aus",
-				"tag": "Profil",
-				"closestTag": "Dem Profil am nächsten",
-				"switchTitle": "Profil wechseln?",
-				"switchBody": "Du hast {{areas}} für diesen Download geändert. „{{profile}}“ wählt Video und Audio in jedem Fall. Deine anderen Änderungen behalten oder alles auf das Profil zurücksetzen?",
-				"resetAll": "Alles zurücksetzen",
-				"edit": "{{name}} bearbeiten",
-				"updatedTitle": "Aktualisiertes Profil verwenden?",
-				"updatedBody": "Du hast {{areas}} für diesen Download geändert. Das aktualisierte Profil wählt Video und Audio in jedem Fall. Deine anderen Änderungen behalten oder alles auf das Profil zurücksetzen?",
-				"keepEdits": "Meine Änderungen behalten",
-				"menuDescription": "Nur für diesen Download. Ihr Standardprofil bleibt unverändert."
-			},
-			"fit": {
-				"tierBelow": "Ihr Profil verlangt {{wanted}}p. Dieses Video geht nur bis {{picked}}p, deshalb wurde {{picked}}p gewählt.",
-				"tierAbove": "Ihr Profil verlangt {{wanted}}p. So niedrig ist dieses Video nicht verfügbar, deshalb wurde {{picked}}p gewählt.",
-				"mp4Unavailable": "Dein Profil ist Smart-TV (H.264). Dieses Video bietet kein H.264, deshalb wird der nächstliegende Stream gewählt.",
-				"noVideo": "Dieser Link enthält kein Video, deshalb wurde Audio gewählt.",
-				"subtitlesMissing": "Ihr Profil verlangt Untertitel in {{languages}}. Dieses Video hat keine.",
-				"webmUnavailable": "Dein Profil verlangt WebM. Die gewählten Streams dieses Videos enthalten {{codec}}, das WebM nicht aufnehmen kann, deshalb ist der Dateityp Auto."
-			},
-			"footer": {"download": "Download", "moreActions": "Weitere Download-Optionen", "addToQueue": "Zur Warteschlange hinzufügen, ohne zu starten", "subtitlesRequired": "Wählen Sie mindestens eine Untertitelsprache aus."},
-			"video": "Video",
-			"audio": "Audio",
-			"noAudio": "Kein Audio",
-			"withAudio": "mit Audio",
-			"resolutionUnknown": "Unbekannte Auflösung",
-			"bitrateValue": "Bitrate: {{bitrate}}",
-			"marker": {"aiUpscaled": "KI-hochskaliert", "aiDubbed": "KI-synchronisiert", "audioDescription": "Audiodeskription", "spatialAudio": "Raumklang", "vr": "360° / VR", "enhancedBitrate": "Erhöhte Bitrate", "damaged": "Beschädigt", "watermarked": "Mit Wasserzeichen"},
-			"keepAudio": "So belassen",
-			"keepAudioMeta": "Integriertes Audio",
-			"audioOnly": "Nur Audio",
-			"sniffing": "Suche die besten Formate für dich…",
-			"loadingHint": "Bitte warten, bis die Analyse abgeschlossen ist — Playlists und Suchen können etwas dauern.",
-			"loadingAria": "Formate werden geladen",
-			"sizeUnknown": "Größe unbekannt",
-			"total": "Gesamt",
-			"skipToConfirm": "Zur Bestätigung überspringen",
-			"skipToConfirmTooltip": "Verwendet deine gespeicherten Einstellungen für alle verbleibenden Schritte. Um eine Einstellung zu ändern, fahre stattdessen Schritt für Schritt fort – deine Wahl wird für das nächste Mal gespeichert.",
-			"quality": {"high": "Hohe Qualität", "medium": "Mittlere Qualität", "low": "Niedrige Qualität"},
-			"drc": {"label": "Lautstärke angleichen (DRC)", "description": "Laute Stellen leiser, leise Stellen lauter – für Lautsprecher und laute Umgebungen.", "tag": "Angeglichene Lautstärke"},
-			"audioLanguage": "Audiosprache",
-			"audioLanguageCount_one": "{{count}} Sprache",
-			"audioLanguageCount_other": "{{count}} Sprachen",
-			"convert": {
-				"label": "Konvertieren",
-				"bitrate": "Bitrate",
-				"wavLabel": "WAV (uncompressed)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbit/s, keine Neukodierung",
-				"copyLabelNoBitrate": "{{target}}, keine Neukodierung",
-				"copyNote": "{{kbps}} kbit/s wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
-				"copyNoteNoBitrate": "Wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
-				"bitrateCopyHint": "Eine Quelle, die bereits {{target}} ist, behält ihren eigenen Stream und ihre Bitrate: Sie wird kopiert und nicht neu kodiert.",
-				"sourceKbps": "Quelle: {{kbps}} kbit/s"
-			},
-			"botWall": {
-				"heading": "YouTube hat diese Abfrage eingeschränkt",
-				"bodyUnconfigured": "Die Formatliste ist möglicherweise unvollständig. Cookies in den erweiterten Einstellungen einrichten oder Netzwerk wechseln und erneut versuchen.",
-				"bodyDisabled": "Cookies sind konfiguriert, aber deaktiviert. Aktiviere sie und versuche es erneut für die vollständige Liste, oder wechsle das Netzwerk.",
-				"bodyEnabled": "Auch mit Cookies hat YouTube diese Abfrage eingeschränkt. Versuche es später erneut oder wechsle das Netzwerk.",
-				"bodyExplore": "YouTube hat diese Anfrage eingeschränkt. Versuche es später erneut oder wechsle das Netzwerk.",
-				"retryCta": "Erneut versuchen",
-				"enableRetryCta": "Cookies aktivieren und erneut versuchen"
-			},
-			"rateLimit": {
-				"heading": "{{site}} drosselt diese Verbindung",
-				"leadDegraded": "Die Formatliste ist möglicherweise unvollständig.",
-				"leadFailed": "{{site}} hat diese Anfrage vorerst abgewiesen.",
-				"waitUntil": "Arroxy wartet bis {{time}}, bevor es {{site}} erneut anfragt, damit die Drosselung abklingen kann.",
-				"waitOver": "Die Wartezeit ist vorbei, du kannst es erneut versuchen.",
-				"sessionNote": "{{site}} kann diese Drosselung bis zu einer Stunde aufrechterhalten.",
-				"tryNowCta": "Jetzt versuchen",
-				"retryCta": "Erneut versuchen"
-			},
-			"cookiesError": {
-				"heading": "Cookies könnten die Ursache sein",
-				"currentModeLabel": "Cookies-Quelle",
-				"currentModeFile": "Datei",
-				"currentModeBrowser": "Browser",
-				"currentModeExplore": "Entdecken-Anmeldung",
-				"explanationFile": "Deine Cookies-Datei könnte leer, abgelaufen oder im falschen Format vorliegen (Arroxy benötigt eine Netscape-cookies.txt-Datei). Versuche, die Cookies neu zu exportieren, eine andere Datei auszuwählen, in den Browser-Modus zu wechseln oder Cookies zu deaktivieren.",
-				"explanationBrowser": "Cookies werden direkt aus dem Browser gelesen. Wenn der Browser gerade läuft, ist die Cookie-Datenbank möglicherweise gesperrt (Chromium-Familie). Der Browser muss zudem bei YouTube angemeldet sein. Versuche, den Browser zu schließen, zu einem anderen Browser zu wechseln, in den Datei-Modus zu wechseln oder Cookies zu deaktivieren.",
-				"openSettingsCta": "Cookies-Einstellungen öffnen",
-				"exploreSignIn": {"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto", "body": "Falls dieses Video ein YouTube-Konto erfordert, melde dich in Entdecken an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht.", "cta": "In Entdecken anmelden"},
-				"exploreSignedIn": {"heading": "In Entdecken angemeldet", "body": "Falls dieses Video ein Konto erfordert, verwendet Arroxy automatisch deine Entdecken-Anmeldung. Es kann auch einen anderen Grund für die Nichtverfügbarkeit geben."},
-				"exploreOffer": {"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto", "body": "Melde dich in Entdecken an, dann versucht Arroxy es erneut.", "cta": "Mit Entdecken anmelden"},
-				"exploreReuse": {"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto", "body": "Du bist in Entdecken angemeldet, aber Downloads nutzen diese Anmeldung gerade nicht.", "cta": "Meine Entdecken-Anmeldung nutzen und erneut versuchen"},
-				"exploreSite": {
-					"heading": "Dieser Link benötigt möglicherweise ein Konto bei {{host}}",
-					"signInBody": "Melde dich in Entdecken bei {{host}} an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht.",
-					"offerBody": "Melde dich mit Entdecken bei {{host}} an und versuche es erneut."
-				},
-				"exploreRefused": {
-					"heading": "Die Website hat das trotz deiner Anmeldung in Entdecken abgelehnt",
-					"body": "Arroxy hat es bereits mit deiner Anmeldung in Entdecken versucht, eine erneute Anmeldung hilft also nicht. Möglicherweise hat die Website Probleme oder dieses Konto kann sie nicht öffnen. Versuche es später erneut."
-				},
-				"otherCookiesCta": "Stattdessen eine Cookies-Datei oder einen Browser verwenden…",
-				"needsCookies": {"heading": "Diese Seite erfordert eine Anmeldung", "body": "Arroxy konnte ohne Authentifizierung nicht auf dieses Video zugreifen. Konfiguriere Cookies in den erweiterten Einstellungen — verweise auf einen Browser, in dem du bereits angemeldet bist, oder importiere eine cookies.txt-Datei."},
-				"dpapi": {
-					"heading": "Chrome-Cookies durch Windows-Verschlüsselung blockiert",
-					"explanation": "Chrome 127 und neuer verschlüsselt Cookies auf eine Weise, die andere Apps unter Windows nicht lesen können. Probiere einen der folgenden Workarounds.",
-					"fixFirefoxLabel": "Zu Firefox wechseln",
-					"fixFirefoxBody": "Firefox verwendet keine App-Bound Encryption. Öffne die Cookies-Einstellungen und wähle Firefox aus der Browser-Liste.",
-					"fixFileLabel": "cookies.txt exportieren",
-					"fixFileBody": "Exportiere Cookies aus Chrome mit einer Browser-Erweiterung, wechsle dann in dieser App in den Datei-Modus und wähle die exportierte Datei.",
-					"fixUnsafeLabel": "Chrome mit deaktivierter App-Bound Encryption starten",
-					"fixUnsafeBody": "Füge --disable-features=LockProfileCookieDatabase zur Startverknüpfung von Chrome hinzu. Warnung: Dadurch werden zuvor verschlüsselte Cookies ungültig, sodass du überall abgemeldet wirst und dich erneut anmelden musst.",
-					"docsLinkLabel": "yt-dlp Dokumentation (Issue #10927)"
-				}
-			},
-			"savesAs": {"label": "Speichern als", "reset": "WebM kann {{codec}} nicht enthalten, deshalb ist der Dateityp wieder Auto."}
-		},
-		"folder": {
-			"heading": "Speichern in",
-			"downloads": "Downloads",
-			"videos": "Filme",
-			"desktop": "Schreibtisch",
-			"music": "Musik",
-			"documents": "Dokumente",
-			"pictures": "Bilder",
-			"home": "Persönlicher Ordner",
-			"custom": "Benutzerdefiniert…",
-			"subfolder": {"toggle": "In Unterordner speichern", "placeholder": "z. B. lo-fi rips", "invalid": "Ordnername enthält ungültige Zeichen"}
-		},
-		"output": {
-			"embedChapters": {"label": "Kapitel einbetten", "description": "Kapitelmarkierungen, navigierbar in jedem modernen Player."},
-			"embedMetadata": {"label": "Metadaten einbetten", "description": "Titel, Künstler, Beschreibung und Upload-Datum in die Datei schreiben."},
-			"embedThumbnail": {"label": "Thumbnail einbetten", "description": "Cover-Art in der Datei. WebM-Video wird zu MKV remuxed; wird übersprungen, wenn Untertitel eingebettet werden."},
-			"writeDescription": {"label": "Beschreibung speichern", "description": "Speichert die Videobeschreibung als .description-Datei neben dem Download."},
-			"writeThumbnail": {"label": "Thumbnail speichern", "description": "Speichert das Thumbnail als .jpg-Bilddatei neben dem Download."},
-			"writeM3u": {"label": ".m3u-Playlistdatei erstellen", "description": "Speichert eine .m3u-Playlist neben den Videos, damit sie in Reihenfolge im Mediaplayer geöffnet werden."}
-		},
-		"review": {
-			"changeFormat": "Format ändern",
-			"rowsHeading": "Alles andere",
-			"rows": {"subtitles": "Untertitel", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Speicherort", "fileName": "Dateiname"},
-			"value": {"subtitlesOff": "Aus", "sponsorBlockOff": "Aus", "extrasNone": "Keine"},
-			"changed": "Geändert gegenüber {{profile}}: {{areas}}. Gilt nur für diesen Download.",
-			"areas": {"format": "Format", "subtitles": "Untertitel", "sponsorBlock": "SponsorBlock", "extras": "Extras", "saveTo": "Ordner", "fileName": "Dateiname"},
-			"updateProfile": "„{{profile}}“ mit diesen Änderungen aktualisieren",
-			"saveAsProfile": "Als neues Profil speichern",
-			"update": {
-				"title": "„{{profile}}“ aktualisieren?",
-				"description": "Ab jetzt verwendet jeder Download mit diesem Profil die neuen Einstellungen.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Dies ist ein integriertes Profil. Du kannst seine ursprünglichen Einstellungen im Tab „Profile“ wiederherstellen.",
-				"action": "Profil aktualisieren",
-				"updated": "Profil „{{name}}“ aktualisiert"
-			},
-			"callout": {"title": "Alle anderen Einstellungen sind jetzt auf dieser Seite", "body": "Untertitel, SponsorBlock, Extras wie das Thumbnail, Ordner und Dateiname waren früher eigene Schritte. Klicke auf eine Zeile, um sie zu ändern."},
-			"reset": "Änderungen verwerfen, zurück zu „{{profile}}“",
-			"changedFrom": "Geändert gegenüber {{profile}}:",
-			"save": {
-				"title": "Als Profil speichern",
-				"description": "Speichert diese Einstellungen als Profil, das Sie nächstes Mal wählen können. Ihr Profil „Schnelldownload“ bleibt unverändert.",
-				"nameLabel": "Profilname",
-				"action": "Profil speichern",
-				"saved": "Als Profil „{{name}}“ gespeichert",
-				"failed": "Das Profil konnte nicht gespeichert werden."
-			},
-			"fileNameHint": "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt.",
-			"nextTime": {"title": "Dieser Download verwendete geänderte Einstellungen. Nächstes Mal verwenden?", "action": "Als Profil speichern", "defaultName": "{{profile}} (bearbeitet)"}
-		},
-		"confirm": {
-			"readyHeadline": "Bereit zum Herunterladen!",
-			"landIn": "Deine Datei landet in",
-			"landInMultiProfile_one": "Es landet im Ziel unten",
-			"landInMultiProfile_other": "Sie landen in den {{count}} Zielen unten",
-			"labelVideo": "Video",
-			"labelAudio": "Audio",
-			"labelSubtitles": "Untertitel",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Speicherort",
-			"labelSize": "Größe",
-			"sizeUnknown": "Unbekannt",
-			"nothingToDownload": "Das Voreinstellung „Nur Untertitel\" ist aktiv, aber keine Untertitelsprache ausgewählt – es wird nichts heruntergeladen.",
-			"thumbnailEmbedNotSupported": "Thumbnail-embed übersprungen – der Ausgabe-container unterstützt es nicht.",
-			"subtitleEmbedAudioOnly": "Subtitle-embed zu sidecar geändert – Audiospuren unterstützen keine eingebetteten Untertitel-Streams.",
-			"audioOnly": "Nur Audio",
-			"addToQueue": "+ Warteschlange",
-			"addToQueueTooltip": "Startet, wenn andere Downloads fertig sind — volle Bandbreite",
-			"pullIt": "Hol's rein! ↓",
-			"pullItTooltip": "Startet sofort — läuft parallel zu anderen aktiven Downloads",
-			"labelPlaylist": "Wiedergabeliste",
-			"labelBulk": "Bulk-URLs",
-			"labelPreset": "Voreinstellung",
-			"labelItems": "Elemente",
-			"itemsValue_one": "{{count}} von {{total}} Video",
-			"itemsValue_other": "{{count}} von {{total}} Videos",
-			"itemsValueAudio_one": "{{count}} von {{total}} Titel",
-			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
-			"itemsValueBulk_one": "{{count}} von {{total}} URL",
-			"itemsValueBulk_other": "{{count}} von {{total}} URLs",
-			"profileBreakdownHeading": "Profile in diesem Stapel",
-			"profileBreakdownCount_one": "{{count}} Element",
-			"profileBreakdownCount_other": "{{count}} Elemente",
-			"subtitleEmbedForcesMkv": "Untertitel im Video brauchen eine MKV-Datei, deshalb wird dieser Download als .mkv gespeichert."
-		},
-		"profileEditor": {
-			"dialogTitle": "Download-Profil",
-			"dialogDescription": "Eine wiederverwendbare Konfiguration für Schnell-Download, Massen-URLs und Playlists.",
-			"skipped": "Übersprungen",
-			"panel": {
-				"identity": {"title": "Profilidentität", "description": "Name und Symbol, die in Schnell-Download, Massen-URLs und Profillisten angezeigt werden."},
-				"downloadType": {"title": "Download-Typ", "description": "Wähle die primäre Art, wie du herunterladen möchtest."},
-				"advanced": {"title": "Erweiterte Optionen", "description": "Profile übernehmen das globale Ziel, sofern du keine Profil-Überschreibung festlegst."},
-				"output": {"title": "Ausgabeoptionen", "enabledCount_one": "{{count}} aktiviert", "enabledCount_other": "{{count}} aktiviert"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profilname und -symbol",
-				"icon": "Profilsymbol",
-				"resolution": "Auflösung",
-				"quality": "Qualität",
-				"source": "Quelle",
-				"subfolderName": "Unterordnername",
-				"name": "Profilname",
-				"subtitleDownloads": "Untertitel-Downloads",
-				"subtitleDownloadsDescription": "Profile fordern Sprachcodes an; die Verfügbarkeit wird für jede URL einzeln ermittelt.",
-				"languages": "Sprachen",
-				"delivery": "Ablage",
-				"overridePath": "Pfad der Profil-Überschreibung",
-				"goal": "Optimieren für",
-				"fileType": "Dateityp",
-				"nativeAudio": "Natives Audio"
-			},
-			"action": {
-				"chooseIcon": "Profilsymbol wählen",
-				"setOverride": "Profil-Überschreibung festlegen",
-				"chooseFolder": "Zielordner wählen",
-				"removeLanguage": "{{code}} entfernen",
-				"useLanguageCode": "Sprachcode „{{code}}“ verwenden",
-				"changeGlobalShort": "Global ändern",
-				"setOverrideShort": "Überschreibung festlegen",
-				"useGlobalDefault": "Globalen Standard verwenden",
-				"reset": "Profil zurücksetzen",
-				"resetHint": "Integrierte Profileinstellungen wiederherstellen",
-				"resetDisabledHint": "Dieses Profil verwendet bereits die integrierten Einstellungen",
-				"save": "Profil speichern"
-			},
-			"placeholder": {"folder": "Ordner für dieses Profil wählen"},
-			"destination": {
-				"global": "Globales Ziel",
-				"override": "Profil-Überschreibung",
-				"resolved": "Aufgelöstes Ziel",
-				"defaultFolder": "Standard-Downloadordner",
-				"defaultFolderWithSubfolder": "Standard-Downloadordner / {{subfolder}}",
-				"globalActive": "Aktiv",
-				"globalInherited": "Geerbt",
-				"overrideSet": "Überschreibt global",
-				"overrideChoosing": "Ordner wählen",
-				"overrideNone": "Keine Überschreibung",
-				"overrideSetNote": "Dieses Profil speichert in seinem eigenen Stammordner, bevor der Unterordner angehängt wird.",
-				"overrideNoneNote": "Keine Überschreibung festgelegt. Dieses Profil verwendet das globale Ziel oben."
-			},
-			"note": {
-				"subtitlesOnly": "Dieses Profil stellt nur Untertiteldateien in die Warteschlange. Video, Audio, SponsorBlock und Medienkonvertierung werden übersprungen.",
-				"noSubtitles": "Für dieses Profil werden keine Untertiteldateien oder eingebetteten Untertitelspuren angefordert.",
-				"searchLanguages": "Nach Sprachname oder -code suchen",
-				"noLanguageMatches": "Keine passenden Sprachen",
-				"subtitleLanguagesRequired": "Wählen Sie mindestens eine Sprache aus.",
-				"subtitleLanguagesRequiredOrOff": "Wählen Sie mindestens eine Sprache aus oder deaktivieren Sie Untertitel-Downloads.",
-				"autoCaptionsSrt": "Automatische Untertitel werden als SRT statt ASS gespeichert.",
-				"skippedForOutputType": "Für diesen Ausgabetyp übersprungen."
-			},
-			"error": {"save": "Profileinstellungen konnten nicht gespeichert werden.", "changeGlobalDestination": "Globales Ziel konnte nicht geändert werden.", "reset": "Profileinstellungen konnten nicht zurückgesetzt werden.", "folderPicker": "Die Ordnerauswahl konnte nicht geöffnet werden. Gib den Pfad manuell ein."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + Audio", "description": "Normale Videodateien"},
-				"videoOnly": {"label": "Video, ohne Audio", "description": "Nur Video ohne Ton"},
-				"audioOnly": {"label": "Nur Audio", "description": "Musik oder Podcasts"},
-				"subtitlesOnly": {"label": "Nur Untertitel", "description": "Nur Untertiteldateien"}
-			},
-			"icon": {"controls": "Regler", "download": "Download", "video": "Video", "captions": "Untertitel", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kurse", "clip": "Clip", "archive": "Archiv"},
-			"audioFormat": {"best": "Beste", "wav": "WAV"},
-			"audioQuality": {"128": "Bis zu 128K", "192": "Bis zu 192K", "320": "Bis zu 320K", "best": "Beste Qualität"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Zuerst manuell, dann automatisch", "manualAndAuto": "Manuell und automatisch", "manualOnly": "Nur manuell", "autoOnly": "Nur automatisch erzeugte"},
-			"sponsorBlockHint": {"off": "Kein SponsorBlock — Video wird wie hochgeladen abgespielt.", "mark": "Markiert Sponsor-Segmente als Kapitel (nicht zerstörend).", "remove": "Schneidet Sponsor-Segmente mit FFmpeg aus dem Video."},
-			"advanced": "Erweitert",
-			"goal": {
-				"bestPicture": {"name": "Bestes Bild", "tag": "AV1 · VP9", "description": "Bei gleicher Größe am schärfsten. Ältere Fernseher, QuickTime und manche Editoren können es nicht abspielen."},
-				"smartTv": {"name": "Smart-TV", "tag": "MP4 · H.264", "description": "Läuft auf Fernsehern, Handys, WhatsApp, QuickTime und Videoeditoren. YouTube bietet H.264 nur bis 1080p."}
-			},
-			"appSetting": "App-Einstellung verwenden ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Wie viel vom Video",
-			"whole": "Ganzes Video",
-			"wholeTrack": "Ganze Spur",
-			"part": "Ausschnitt",
-			"unavailableSubtitles": "Untertitel decken immer das ganze Video ab.",
-			"unavailableDuration": "Dieses Video meldet seine Länge nicht, daher kann es nur komplett heruntergeladen werden.",
-			"rangeLabel": "Ausschnitt des Videos",
-			"start": "Start",
-			"end": "Ende",
-			"timeHint": "h:mm:ss, m:ss oder Sekunden",
-			"length": "{{length}} von {{duration}}",
-			"chapters": "Kapitel",
-			"chapterUntitled": "Kapitel {{number}}",
-			"exactCut": {"label": "Exakter Schnitt (neu kodiert, langsamer)", "hint": "Aus: Jeder Schnitt landet am nächstgelegenen Keyframe, der einige Sekunden von der eingegebenen Zeit entfernt sein kann."},
-			"calloutTitle": "Nur einen Teil eines Videos herunterladen",
-			"calloutBody": "Auf der Videokarte zu „Ausschnitt“ wechseln, Anfang und Ende oder ein Kapitel festlegen und nur diesen Abschnitt herunterladen.",
-			"connectionsNote": "Ein Ausschnitt wird über ffmpeg heruntergeladen, daher gelten deine Download-Verbindungen und Pausen-Einstellungen dafür nicht.",
-			"urlStart": "Dein Link beginnt bei {{time}}",
-			"useUrlStart": "Als Start verwenden",
-			"error": {"startInvalid": "Gib den Start als h:mm:ss, m:ss oder Sekunden ein.", "endInvalid": "Gib das Ende als h:mm:ss, m:ss oder Sekunden ein.", "startNotBeforeEnd": "Der Start muss vor dem Ende liegen.", "endBeyondDuration": "Das Video endet bei {{duration}}."},
-			"downloadBlocked": "Korrigiere zuerst Start und Ende des Ausschnitts.",
-			"totalEstimate": "Ausschnitt, geschätzt",
-			"summary": "Ausschnitt {{start}}–{{end}}",
-			"subtitlesFullLength": "ganzes Video"
-		}
+		"verifyFirstCheck": "Erste Prüfung dieser Version — diese ist langsam. Meist etwa eine Minute.",
+		"verifying": "{{binary}} wird geprüft…",
+		"warmup": "Downloads werden vorbereitet…",
+		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."
 	},
-	"videoCard": {"titlePlaceholder": "Wird geladen…", "chapters_one": "{{count}} Kapitel", "chapters_other": "{{count}} Kapitel"},
-	"queue": {
-		"header": "Downloads",
-		"tabLabel": "Downloads",
-		"attentionBadge_one": "{{count}} Download braucht deine Aufmerksamkeit",
-		"attentionBadge_other": "{{count}} Downloads brauchen deine Aufmerksamkeit",
-		"choice": {
-			"cappedBody_one": "Mehr als {{count}} Video in dieser Playlist. Lade alle herunter, die ersten {{count}} oder wähle in der Prüfung aus.",
-			"cappedBody_other": "Mehr als {{count}} Videos in dieser Playlist. Lade alle herunter, die ersten {{count}} oder wähle in der Prüfung aus.",
-			"reviewBody_one": "Dieser Link ist eine Liste mit {{count}} Video. Prüfe sie, um auszuwählen, was heruntergeladen wird.",
-			"reviewBody_other": "Dieser Link ist eine Liste mit {{count}} Videos. Prüfe sie, um auszuwählen, was heruntergeladen wird.",
-			"all": "Alle Videos",
-			"first": "Erste {{count}}",
-			"review": "Prüfen"
+	"status": {
+		"audioKept": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden",
+		"audioKeptSubtitlesFailed": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden, und einige Untertitel konnten nicht geladen werden",
+		"cancelled": "Download abgebrochen",
+		"complete": "Download abgeschlossen",
+		"convertingVideo": "Video wird konvertiert…",
+		"diskSpaceInsufficient": "Nicht genug Speicherplatz — {{required}} benötigt, nur {{free}} verfügbar",
+		"downloadingBinary": "Binärdatei {{name}} wird heruntergeladen…",
+		"downloadingMedia": "Video & Audio werden heruntergeladen…",
+		"embeddingMetadata": "Metadaten werden eingebettet…",
+		"exploreSignedOut": "Von Entdecken abgemeldet — melde dich erneut an",
+		"extractingAudio": "Audio wird konvertiert…",
+		"fetchingSponsorBlock": "SponsorBlock wird kontaktiert…",
+		"fetchingSubtitles": "Untertitel werden geholt…",
+		"mergingFormats": "Audio und Video werden zusammengeführt…",
+		"mintingToken": "YouTube-Token wird erzeugt…",
+		"movingFiles": "Dateien werden verschoben…",
+		"noSubtitles": "Keine Untertitel auf {{languages}}",
+		"outputNotWritable": "Speichern in {{dir}} nicht möglich — Arroxy darf dort nicht schreiben",
+		"preparingBinaries": "Binärdateien werden vorbereitet…",
+		"qualityLimited": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
+		"qualityLimitedSubtitlesFailed": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
+		"remintingToken": "Token wird neu erzeugt…",
+		"retryingSponsorBlock": "SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Verbindung hängt, erneuter Versuch ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Anmeldung mit deinem Entdecken-Konto…",
+		"sleepingBetweenRequests": "Warte {{seconds}}s, um Limits zu vermeiden…",
+		"startingYtdlp": "Download-Engine wird gestartet…",
+		"subtitleLanguagesMissing": "Dieses Video hat keine Untertitel auf {{languages}}. Das Video wurde ohne sie gespeichert.",
+		"subtitleLanguagesMissingOthersSaved": "Dieses Video hat keine Untertitel auf {{languages}}. Die anderen Sprachen wurden gespeichert.",
+		"subtitlesFailed": "Video gespeichert — einige Untertitel konnten nicht geladen werden",
+		"unknownStartupFailure": "Unbekannter Fehler beim Starten des Downloads",
+		"usedExtractorFallback": "Mit gelockertem Extraktor heruntergeladen — richte eine cookies.txt für zuverlässigere Downloads ein",
+		"ytdlpExitCode": "Die Download-Engine wurde mit Code {{code}} beendet",
+		"ytdlpProcessError": "Fehler der Download-Engine: {{error}}"
+	},
+	"theme": {
+		"dark": "Dunkler Modus",
+		"light": "Heller Modus",
+		"system": "Systemstandard"
+	},
+	"titleBar": {
+		"close": "Schließen",
+		"maximize": "Maximieren",
+		"minimize": "Minimieren",
+		"restore": "Wiederherstellen"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Aus der Zwischenablage herunterladen",
+			"open": "Arroxy öffnen",
+			"quit": "Arroxy beenden",
+			"statusActive_one": "1 lädt herunter · {{percent}}%",
+			"statusActive_other": "{{count}} laden herunter · {{percent}}%",
+			"statusIdle": "Inaktiv"
 		},
-		"tabTip": "Downloads findest du jetzt im Downloads-Tab — öffne ihn jederzeit, um den Fortschritt zu verfolgen.",
-		"empty": "Eingereihte Downloads erscheinen hier",
-		"filtersLabel": "Statusfilter der Warteschlange",
-		"filterAll": "Alle",
-		"selectedActionsLabel": "Ausgewählte Elemente",
-		"globalActionsLabel": "Alle Elemente",
-		"selectionSummary": "{{selected}} ausgewählt · {{total}} gesamt",
-		"clearTitle": "Abgeschlossene Downloads entfernen",
-		"autoRemoveCompleted": {"label": "Fertige automatisch entfernen", "hint": "Jeden Download wenige Sekunden nach dem Abschluss aus der Liste entfernen. Die Dateien bleiben in deinem Ordner."},
-		"pauseAllTitle": "Alle aktiven Downloads pausieren",
-		"resumeAllTitle": "Pausierte Downloads fortsetzen und die Warteschlange weiterlaufen lassen",
-		"pausedBanner": "Die Warteschlange ist pausiert — wartende Downloads starten erst, wenn du sie fortsetzt",
-		"resumeQueueAction": "Warteschlange fortsetzen",
-		"cancelAllTitle": "Alle aktiven und ausstehenden Downloads abbrechen",
-		"table": {
-			"columns": "Spalten",
-			"title": "Titel",
-			"status": "Status",
-			"progress": "Fortschritt",
-			"format": "Format",
-			"outputTarget": "Ausgabeziel",
-			"artifacts": "Ausgabedateien",
-			"size": "Größe",
-			"added": "Hinzugefügt",
-			"finished": "Abgeschlossen",
-			"notAvailable": "—",
-			"sortBy": "Nach {{label}} sortieren",
-			"showArtifactsFor": "Ausgabedateien für {{title}} anzeigen",
-			"hideArtifactsFor": "Ausgabedateien für {{title}} ausblenden",
-			"resetColumns": "Spalten zurücksetzen",
-			"resizeColumn": "Breite der Spalte „{{column}}“ ändern",
-			"movableColumn": "verschiebbare Spalte",
-			"moveColumnInstructions": "Zum Verschieben einer Spalte Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen.",
-			"columnPickedUp": "Spalte „{{column}}“ aufgenommen.",
-			"columnMovedOver": "Spalte „{{column}}“ befindet sich über „{{target}}“.",
-			"columnDropped": "Spalte „{{column}}“ abgelegt.",
-			"columnMoveCancelled": "Verschieben der Spalte „{{column}}“ abgebrochen."
-		},
-		"artifact": {"media": "Medien", "subtitle": "Untertitel", "thumbnail": "Thumbnail", "description": "Beschreibung", "companion": "Begleitdatei", "unknown": "Datei", "missing": "Fehlt"},
-		"item": {
-			"defaultError": "Download fehlgeschlagen",
-			"retryingSoon": "wird automatisch wiederholt (Versuch {{attempt}})",
-			"qualityLimited": "Begrenzt auf {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen",
-			"audioKept": "Ton nicht entfernt",
-			"audioKeptSubtitlesFailed": "Ton nicht entfernt · einige Untertitel fehlgeschlagen",
-			"subtitleLanguagesMissing": "Keine Untertitel auf {{languages}}",
-			"pause": "Pause",
-			"resume": "Fortsetzen",
-			"cancel": "Abbrechen",
-			"retry": "Erneut versuchen",
-			"setLocation": "Speicherort festlegen",
-			"setLocationHint": "Wähle wartende Elemente aus, um den Speicherort festzulegen.",
-			"pendingOnly": "Nur ausstehende",
-			"openDestinationFolder": "Zielordner öffnen",
-			"remove": "Entfernen",
-			"pullNow": "Jetzt starten — Warteschlange überspringen",
-			"statusProbing": "Details werden geladen",
-			"statusNeedsChoice": "Wartet auf deine Auswahl",
-			"statusPending": "Wartet",
-			"statusRunning": "Lädt herunter",
-			"statusHeld": "Zurückgehalten",
-			"statusPaused": "Pausiert",
-			"statusDone": "Fertig",
-			"statusError": "Fehler",
-			"statusCancelled": "Abgebrochen"
-		}
+		"tooltip": "Arroxy"
 	},
 	"update": {
+		"copied": "Befehl in die Zwischenablage kopiert",
+		"copy": "Befehl in die Zwischenablage kopieren",
+		"dismiss": "Update-Banner schließen",
+		"download": "Herunterladen ↗",
+		"downloadDmg": "DMG herunterladen ↗",
+		"downloading": "Wird heruntergeladen…",
+		"install": "Installieren & neu starten",
+		"installFailed": "Update fehlgeschlagen",
 		"message": {
 			"generic": "Arroxy {{version}} ist verfügbar — du hast {{currentVersion}}.",
 			"homebrew": "Arroxy {{version}} ist verfügbar — mit Homebrew aktualisieren.",
@@ -828,322 +720,988 @@
 			"macosDirectHomebrew": "Arroxy {{version}} ist verfügbar — lade die DMG herunter oder wechsle zu Homebrew.",
 			"portable": "Arroxy {{version}} ist verfügbar — lade den neuen Build herunter."
 		},
-		"install": "Installieren & neu starten",
-		"downloading": "Wird heruntergeladen…",
+		"retry": "Erneut versuchen",
 		"runAndRestart": "Ausführen & neu starten",
-		"upgrading": "Wird aktualisiert…",
-		"download": "Herunterladen ↗",
-		"downloadDmg": "DMG herunterladen ↗",
-		"dismiss": "Update-Banner schließen",
-		"copy": "Befehl in die Zwischenablage kopieren",
-		"copied": "Befehl in die Zwischenablage kopiert",
-		"installFailed": "Update fehlgeschlagen",
-		"retry": "Erneut versuchen"
+		"upgrading": "Wird aktualisiert…"
 	},
-	"releaseNotes": {"title": "Neu in Arroxy {{version}}", "description": "Du verwendest ein frisches Update. Hier sind die Highlights.", "fullNotes": "Vollständige Versionshinweise ↗", "continue": "Weiter"},
-	"status": {
-		"preparingBinaries": "Binärdateien werden vorbereitet…",
-		"mintingToken": "YouTube-Token wird erzeugt…",
-		"remintingToken": "Token wird neu erzeugt…",
-		"startingYtdlp": "Download-Engine wird gestartet…",
-		"downloadingMedia": "Video & Audio werden heruntergeladen…",
-		"mergingFormats": "Audio und Video werden zusammengeführt…",
-		"extractingAudio": "Audio wird konvertiert…",
-		"convertingVideo": "Video wird konvertiert…",
-		"embeddingMetadata": "Metadaten werden eingebettet…",
-		"movingFiles": "Dateien werden verschoben…",
-		"fetchingSubtitles": "Untertitel werden geholt…",
-		"sleepingBetweenRequests": "Warte {{seconds}}s, um Limits zu vermeiden…",
-		"subtitlesFailed": "Video gespeichert — einige Untertitel konnten nicht geladen werden",
-		"qualityLimited": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
-		"qualityLimitedSubtitlesFailed": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
-		"audioKept": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden",
-		"audioKeptSubtitlesFailed": "Video mit Ton gespeichert — der Ton konnte nicht entfernt werden, und einige Untertitel konnten nicht geladen werden",
-		"subtitleLanguagesMissing": "Dieses Video hat keine Untertitel auf {{languages}}. Das Video wurde ohne sie gespeichert.",
-		"subtitleLanguagesMissingOthersSaved": "Dieses Video hat keine Untertitel auf {{languages}}. Die anderen Sprachen wurden gespeichert.",
-		"noSubtitles": "Keine Untertitel auf {{languages}}",
-		"cancelled": "Download abgebrochen",
-		"complete": "Download abgeschlossen",
-		"usedExtractorFallback": "Mit gelockertem Extraktor heruntergeladen — richte eine cookies.txt für zuverlässigere Downloads ein",
-		"ytdlpProcessError": "Fehler der Download-Engine: {{error}}",
-		"ytdlpExitCode": "Die Download-Engine wurde mit Code {{code}} beendet",
-		"downloadingBinary": "Binärdatei {{name}} wird heruntergeladen…",
-		"unknownStartupFailure": "Unbekannter Fehler beim Starten des Downloads",
-		"diskSpaceInsufficient": "Nicht genug Speicherplatz — {{required}} benötigt, nur {{free}} verfügbar",
-		"outputNotWritable": "Speichern in {{dir}} nicht möglich — Arroxy darf dort nicht schreiben",
-		"fetchingSponsorBlock": "SponsorBlock wird kontaktiert…",
-		"retryingSponsorBlock": "SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Verbindung hängt, erneuter Versuch ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Anmeldung mit deinem Entdecken-Konto…",
-		"exploreSignedOut": "Von Entdecken abgemeldet — melde dich erneut an"
+	"videoCard": {
+		"chapters_one": "{{count}} Kapitel",
+		"chapters_other": "{{count}} Kapitel",
+		"titlePlaceholder": "Wird geladen…"
 	},
-	"notifications": {
-		"settingsSaveFailed": "Deine Einstellungen konnten nicht gespeichert werden.",
-		"warmupFailed": "Die Einrichtung wurde nicht abgeschlossen. Einige Downloads können bis dahin fehlschlagen.",
-		"shellActionFailed": "Das konnte nicht geöffnet werden.",
-		"folderSelectFailed": "Die Ordnerauswahl konnte nicht geöffnet werden.",
-		"exploreSignInRetrying_one": "Mit Entdecken angemeldet — 1 Link wird erneut versucht",
-		"exploreSignInRetrying_other": "Mit Entdecken angemeldet — {{count}} Links werden erneut versucht",
-		"exploreSignOutFailed": "Abmelden von Entdecken fehlgeschlagen. Versuche es erneut.",
-		"playlistFolderRejected": "Dieser Ordner kann für diese Playlist nicht verwendet werden.",
-		"filenameFolderTooDeep": "Dieser Ordner ist zu tief verschachtelt für dein System. Der Download kann trotzdem fehlschlagen — wähle einen kürzeren Ordner.",
-		"filenameTemplateCannotFit": "Der Name dieses Videos passt nicht in jeden Teil deiner Vorlage, daher wurde der Standardname verwendet.",
-		"hotkey": {
-			"queued": "Download aus der Zwischenablage hinzugefügt",
-			"alreadyQueued": "Bereits in der Warteschlange — keine Kopie hinzugefügt",
-			"invalidClipboard": "Kein Link in der Zwischenablage — kopiere zuerst einen",
-			"multipleUrls": "Mehrere Links kopiert — „Bulk-URLs“ in Arroxy verwenden",
-			"needsReview": "Dieser Link braucht deine Auswahl — siehe Downloads in Arroxy",
-			"cookiesSetup": "Schließe die Cookie-Einrichtung in Arroxy ab und versuche es dann erneut",
-			"busy": "Arroxy startet noch — versuche es gleich erneut",
-			"submissionFailed": "Dieser Link konnte nicht hinzugefügt werden — versuche es erneut in Arroxy"
+	"videoCodec": {
+		"auto": "Auto",
+		"description": "Welcher Codec bei Streams gleicher Höhe zuerst gewählt wird. Auto behält die eigene Reihenfolge von yt-dlp bei, die AV1, den kleinsten, bevorzugt; H.264 läuft auf älteren Fernsehern und Handys.",
+		"h264": "Zuerst H.264",
+		"label": "Video-Codec",
+		"smartTv": "Smart-TV nimmt immer H.264.",
+		"vp9": "Zuerst VP9"
+	},
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Bereit",
+			"description": "Füge Video-, Playlist-, Kanal-, Such- oder Audio-URLs ein. Arroxy bereinigt Duplikate vor dem Einreihen.",
+			"emptyPreview": "Füge eine oder mehrere URLs ein, um den Stapel anzuzeigen.",
+			"ignoredCount": "Ignoriert",
+			"needsAtLeastOne": "Füge mindestens eine unterstützte URL hinzu, um fortzufahren.",
+			"reject": {
+				"duplicate": "Duplikat"
+			},
+			"textareaLabel": "URL-Liste",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Bulk-URLs"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} Video ist bereits in der Warteschlange — übersprungen", "skippedAlreadyQueued_other": "{{count}} Videos sind bereits in der Warteschlange — übersprungen"},
-		"quickDownload": {
-			"added": "Hinzugefügt: {{title}}",
-			"alreadyQueued": "Bereits in der Warteschlange",
-			"failed": "{{title}} konnte nicht vorbereitet werden",
-			"notAdded": "Link konnte nicht hinzugefügt werden — versuche es erneut",
-			"chooseHowMany_one": "{{count}}+ Video — Anzahl wählen",
-			"chooseHowMany_other": "{{count}}+ Videos — Anzahl wählen",
-			"review_one": "{{count}} Video in dieser Liste — zum Auswählen prüfen",
-			"review_other": "{{count}} Videos in dieser Liste — zum Auswählen prüfen",
-			"reviewCapped_one": "{{count}}+ Video in dieser Liste — zum Auswählen prüfen",
-			"reviewCapped_other": "{{count}}+ Videos in dieser Liste — zum Auswählen prüfen",
-			"view": "Ansehen"
-		}
-	},
-	"errors": {
-		"noSubtitlesIn": "Dieses Video hat keine Untertitel auf {{languages}}.",
-		"ytdlp": {
-			"botBlock": "Bot-Schutz ausgelöst. Die verwendete IP ist höchstwahrscheinlich als verdächtig markiert (Rechenzentrumsbereich oder stark genutzter VPN-Ausgangsknoten). Wechsle deine IP oder wähle einen anderen VPN-Endpunkt und versuche es erneut. Falls das Problem weiterhin besteht, könnte es sich um eine vorübergehende Änderung seitens der Seite handeln — Arroxy aktualisiert seine Download-Engine beim Start, sodass der Fix automatisch ankommt, sobald er verfügbar ist.",
-			"ipBlock": "Deine IP-Adresse scheint von YouTube blockiert zu sein. Versuch es später oder nutze ein VPN.",
-			"rateLimit": "Die Website drosselt Anfragen von dieser Verbindung.",
-			"ageRestricted": "Dieses Video ist altersbeschränkt und kann ohne angemeldetes Konto nicht heruntergeladen werden.",
-			"unavailable": "Dieses Video ist nicht verfügbar — möglicherweise privat, gelöscht oder regional gesperrt.",
-			"formatUnavailable": "Dieses Video bietet das gewählte Format nicht mehr an. Füge den Link erneut ein und wähle aus den Formaten, die es jetzt anbietet.",
-			"geoBlocked": "Dieses Video ist in deiner Region nicht verfügbar.",
-			"outOfDiskSpace": "Nicht genug Speicherplatz. Gib Speicher frei und versuche es erneut.",
-			"outputNotWritable": "Arroxy kann nicht in den Download-Ordner schreiben. Er ist vielleicht schreibgeschützt, liegt auf einem gesperrten Laufwerk oder wird von den Datenschutzeinstellungen deines Systems blockiert. Wähle einen anderen Ordner oder erlaube den Zugriff und versuche es erneut.",
-			"unsupportedUrl": "Arroxy unterstützt diese URL nicht. Versuche einen Link von einer anderen Website.",
-			"noSubtitles": "Dieses Video hat keine Untertitel in den angeforderten Sprachen.",
-			"chunkTransferFailure": "Der Server hat den Download wiederholt mittendrin abgebrochen, und Arroxy hat nach mehreren Versuchen aufgegeben. Das betrifft meist die größten Videoformate (4K HDR / VP9 mit hoher Bitrate). Versuche es erneut, wechsle das Netzwerk/VPN oder wähle eine niedrigere Auflösung.",
-			"missingDependency": "Arroxy konnte FFmpeg oder FFprobe nicht finden. Führe die Einrichtung erneut aus oder lege einen FFmpeg-Speicherort fest und versuche den Download dann erneut.",
-			"postprocessFailure": "Der Download wurde abgeschlossen, aber die Nachbearbeitung (Merge / Mux / Konvertierung) ist fehlgeschlagen. Oft ist das ein vorübergehendes ffmpeg-Problem — versuche es erneut, und wenn es bestehen bleibt, probiere eine andere Formatkombination.",
-			"parse": "Die Antwort der Seite konnte nicht analysiert werden. Möglicherweise hat die Seite geändert, wie sie Videos ausliefert. Arroxy aktualisiert seine Download-Engine beim Start — versuche es in ein paar Minuten erneut, sobald der Fix da ist.",
-			"network": "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut.",
-			"drmProtected": "Dieses Video ist DRM-geschützt. Arroxy kann DRM nicht entfernen, daher kann die Datei nicht heruntergeladen werden.",
-			"loginRequired": "Dieses Video erfordert ein angemeldetes Konto.",
-			"unknown": "Download fehlgeschlagen. Siehe die Rohausgabe unten."
-		}
-	},
-	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Untertitel"},
-		"subtitles": {
-			"note": "Für jedes Video werden nur Untertiteldateien gespeichert — es wird kein Video und kein Audio heruntergeladen.",
-			"languages": "Sprachen",
-			"languagesRequired": "Wählen Sie mindestens eine Sprache aus, um fortzufahren.",
-			"source": "Quelle",
-			"deliveryHeading": "Speichern als",
-			"deliveryLoose": "Direkt im Speicherordner"
+		"confirm": {
+			"addToQueue": "+ Warteschlange",
+			"addToQueueTooltip": "Startet, wenn andere Downloads fertig sind — volle Bandbreite",
+			"audioOnly": "Nur Audio",
+			"itemsValueAudio_one": "{{count}} von {{total}} Titel",
+			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
+			"itemsValueBulk_one": "{{count}} von {{total}} URL",
+			"itemsValueBulk_other": "{{count}} von {{total}} URLs",
+			"itemsValue_one": "{{count}} von {{total}} Video",
+			"itemsValue_other": "{{count}} von {{total}} Videos",
+			"labelAudio": "Audio",
+			"labelBulk": "Bulk-URLs",
+			"labelItems": "Elemente",
+			"labelPlaylist": "Wiedergabeliste",
+			"labelPreset": "Voreinstellung",
+			"labelSaveTo": "Speicherort",
+			"labelSize": "Größe",
+			"labelSubtitles": "Untertitel",
+			"labelVideo": "Video",
+			"landIn": "Deine Datei landet in",
+			"landInMultiProfile_one": "Es landet im Ziel unten",
+			"landInMultiProfile_other": "Sie landen in den {{count}} Zielen unten",
+			"nothingToDownload": "Das Voreinstellung „Nur Untertitel\" ist aktiv, aber keine Untertitelsprache ausgewählt – es wird nichts heruntergeladen.",
+			"profileBreakdownCount_one": "{{count}} Element",
+			"profileBreakdownCount_other": "{{count}} Elemente",
+			"profileBreakdownHeading": "Profile in diesem Stapel",
+			"pullIt": "Hol's rein! ↓",
+			"pullItTooltip": "Startet sofort — läuft parallel zu anderen aktiven Downloads",
+			"readyHeadline": "Bereit zum Herunterladen!",
+			"sizeUnknown": "Unbekannt",
+			"subtitleEmbedAudioOnly": "Subtitle-embed zu sidecar geändert – Audiospuren unterstützen keine eingebetteten Untertitel-Streams.",
+			"subtitleEmbedForcesMkv": "Untertitel im Video brauchen eine MKV-Datei, deshalb wird dieser Download als .mkv gespeichert.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail-embed übersprungen – der Ausgabe-container unterstützt es nicht."
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "Smart-TV H.264 MP4"},
-		"videoFormatDesc": {"best": "Höchster verfügbarer Codec pro Eintrag", "mp4": "H.264 + AAC bevorzugt, MP4-Container · bestmöglich"},
-		"tier": {"144": "Bis 144p", "240": "Bis 240p", "360": "Bis 360p", "480": "Bis 480p", "720": "Bis 720p", "1080": "Bis 1080p", "1440": "Bis 1440p", "2160": "Bis 4K", "best": "Best quality"},
-		"tierDesc": {
-			"144": "Kleinstmögliche Dateien",
-			"240": "Sehr kleine Dateien, geringe Qualität",
-			"360": "Kleine Dateien für knappe Bandbreite",
-			"480": "Low bandwidth",
-			"720": "Kleinere Dateien, breite Kompatibilität",
-			"1080": "Auf 1080p begrenzt, fällt pro Eintrag niedriger aus",
-			"1440": "Auf 2K begrenzt, fällt pro Eintrag niedriger aus",
-			"2160": "Auf 2160p begrenzt, fällt pro Eintrag niedriger aus",
-			"best": "Höchstes verfügbares Video + Audio pro Eintrag"
+		"folder": {
+			"custom": "Benutzerdefiniert…",
+			"desktop": "Schreibtisch",
+			"documents": "Dokumente",
+			"downloads": "Downloads",
+			"heading": "Speichern in",
+			"home": "Persönlicher Ordner",
+			"music": "Musik",
+			"pictures": "Bilder",
+			"subfolder": {
+				"invalid": "Ordnername enthält ungültige Zeichen",
+				"placeholder": "z. B. lo-fi rips",
+				"toggle": "In Unterordner speichern"
+			},
+			"videos": "Filme"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Bestes natives Audio, keine Neukodierung", "mp3": "In MP3 umwandeln", "m4a": "In M4A (AAC) umwandeln", "opus": "In Opus umwandeln"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 über 1080p ist auf YouTube nicht verfügbar — automatisch auf 1080p begrenzt"
-	},
-	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Nur Audio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inaktiv", "statusActive_one": "1 lädt herunter · {{percent}}%", "statusActive_other": "{{count}} laden herunter · {{percent}}%", "downloadFromClipboard": "Aus der Zwischenablage herunterladen", "open": "Arroxy öffnen", "quit": "Arroxy beenden"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} Download läuft",
-			"message_other": "{{count}} Downloads laufen",
-			"detail": "Pausieren, um später fortzufahren, oder abbrechen, um den Fortschritt zu verwerfen.",
-			"confirm": "Downloads abbrechen & beenden",
-			"pause": "Downloads pausieren & beenden",
-			"keep": "Weiter herunterladen"
+		"formats": {
+			"audio": "Audio",
+			"audioLanguage": "Audiosprache",
+			"audioLanguageCount_one": "{{count}} Sprache",
+			"audioLanguageCount_other": "{{count}} Sprachen",
+			"audioOnly": "Nur Audio",
+			"bitrateValue": "Bitrate: {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies sind konfiguriert, aber deaktiviert. Aktiviere sie und versuche es erneut für die vollständige Liste, oder wechsle das Netzwerk.",
+				"bodyEnabled": "Auch mit Cookies hat YouTube diese Abfrage eingeschränkt. Versuche es später erneut oder wechsle das Netzwerk.",
+				"bodyExplore": "YouTube hat diese Anfrage eingeschränkt. Versuche es später erneut oder wechsle das Netzwerk.",
+				"bodyUnconfigured": "Die Formatliste ist möglicherweise unvollständig. Cookies in den erweiterten Einstellungen einrichten oder Netzwerk wechseln und erneut versuchen.",
+				"enableRetryCta": "Cookies aktivieren und erneut versuchen",
+				"heading": "YouTube hat diese Abfrage eingeschränkt",
+				"retryCta": "Erneut versuchen"
+			},
+			"convert": {
+				"bitrate": "Bitrate",
+				"bitrateCopyHint": "Eine Quelle, die bereits {{target}} ist, behält ihren eigenen Stream und ihre Bitrate: Sie wird kopiert und nicht neu kodiert.",
+				"copyLabel": "{{target}} {{bitrate}} kbit/s, keine Neukodierung",
+				"copyLabelNoBitrate": "{{target}}, keine Neukodierung",
+				"copyNote": "{{kbps}} kbit/s wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
+				"copyNoteNoBitrate": "Wie in der Quelle: Der Stream ist bereits {{target}}, daher wird er kopiert und nicht neu kodiert",
+				"label": "Konvertieren",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Quelle: {{kbps}} kbit/s",
+				"wavLabel": "WAV (uncompressed)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Entdecken-Anmeldung",
+				"currentModeFile": "Datei",
+				"currentModeLabel": "Cookies-Quelle",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp Dokumentation (Issue #10927)",
+					"explanation": "Chrome 127 und neuer verschlüsselt Cookies auf eine Weise, die andere Apps unter Windows nicht lesen können. Probiere einen der folgenden Workarounds.",
+					"fixFileBody": "Exportiere Cookies aus Chrome mit einer Browser-Erweiterung, wechsle dann in dieser App in den Datei-Modus und wähle die exportierte Datei.",
+					"fixFileLabel": "cookies.txt exportieren",
+					"fixFirefoxBody": "Firefox verwendet keine App-Bound Encryption. Öffne die Cookies-Einstellungen und wähle Firefox aus der Browser-Liste.",
+					"fixFirefoxLabel": "Zu Firefox wechseln",
+					"fixUnsafeBody": "Füge --disable-features=LockProfileCookieDatabase zur Startverknüpfung von Chrome hinzu. Warnung: Dadurch werden zuvor verschlüsselte Cookies ungültig, sodass du überall abgemeldet wirst und dich erneut anmelden musst.",
+					"fixUnsafeLabel": "Chrome mit deaktivierter App-Bound Encryption starten",
+					"heading": "Chrome-Cookies durch Windows-Verschlüsselung blockiert"
+				},
+				"explanationBrowser": "Cookies werden direkt aus dem Browser gelesen. Wenn der Browser gerade läuft, ist die Cookie-Datenbank möglicherweise gesperrt (Chromium-Familie). Der Browser muss zudem bei YouTube angemeldet sein. Versuche, den Browser zu schließen, zu einem anderen Browser zu wechseln, in den Datei-Modus zu wechseln oder Cookies zu deaktivieren.",
+				"explanationFile": "Deine Cookies-Datei könnte leer, abgelaufen oder im falschen Format vorliegen (Arroxy benötigt eine Netscape-cookies.txt-Datei). Versuche, die Cookies neu zu exportieren, eine andere Datei auszuwählen, in den Browser-Modus zu wechseln oder Cookies zu deaktivieren.",
+				"exploreOffer": {
+					"body": "Melde dich in Entdecken an, dann versucht Arroxy es erneut.",
+					"cta": "Mit Entdecken anmelden",
+					"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto"
+				},
+				"exploreRefused": {
+					"body": "Arroxy hat es bereits mit deiner Anmeldung in Entdecken versucht, eine erneute Anmeldung hilft also nicht. Möglicherweise hat die Website Probleme oder dieses Konto kann sie nicht öffnen. Versuche es später erneut.",
+					"heading": "Die Website hat das trotz deiner Anmeldung in Entdecken abgelehnt"
+				},
+				"exploreReuse": {
+					"body": "Du bist in Entdecken angemeldet, aber Downloads nutzen diese Anmeldung gerade nicht.",
+					"cta": "Meine Entdecken-Anmeldung nutzen und erneut versuchen",
+					"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto"
+				},
+				"exploreSignIn": {
+					"body": "Falls dieses Video ein YouTube-Konto erfordert, melde dich in Entdecken an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht.",
+					"cta": "In Entdecken anmelden",
+					"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto"
+				},
+				"exploreSignedIn": {
+					"body": "Falls dieses Video ein Konto erfordert, verwendet Arroxy automatisch deine Entdecken-Anmeldung. Es kann auch einen anderen Grund für die Nichtverfügbarkeit geben.",
+					"heading": "In Entdecken angemeldet"
+				},
+				"exploreSite": {
+					"heading": "Dieser Link benötigt möglicherweise ein Konto bei {{host}}",
+					"offerBody": "Melde dich mit Entdecken bei {{host}} an und versuche es erneut.",
+					"signInBody": "Melde dich in Entdecken bei {{host}} an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht."
+				},
+				"heading": "Cookies könnten die Ursache sein",
+				"needsCookies": {
+					"body": "Arroxy konnte ohne Authentifizierung nicht auf dieses Video zugreifen. Konfiguriere Cookies in den erweiterten Einstellungen — verweise auf einen Browser, in dem du bereits angemeldet bist, oder importiere eine cookies.txt-Datei.",
+					"heading": "Diese Seite erfordert eine Anmeldung"
+				},
+				"openSettingsCta": "Cookies-Einstellungen öffnen",
+				"otherCookiesCta": "Stattdessen eine Cookies-Datei oder einen Browser verwenden…"
+			},
+			"drc": {
+				"description": "Laute Stellen leiser, leise Stellen lauter – für Lautsprecher und laute Umgebungen.",
+				"label": "Lautstärke angleichen (DRC)",
+				"tag": "Angeglichene Lautstärke"
+			},
+			"fit": {
+				"mp4Unavailable": "Dein Profil ist Smart-TV (H.264). Dieses Video bietet kein H.264, deshalb wird der nächstliegende Stream gewählt.",
+				"noVideo": "Dieser Link enthält kein Video, deshalb wurde Audio gewählt.",
+				"subtitlesMissing": "Ihr Profil verlangt Untertitel in {{languages}}. Dieses Video hat keine.",
+				"tierAbove": "Ihr Profil verlangt {{wanted}}p. So niedrig ist dieses Video nicht verfügbar, deshalb wurde {{picked}}p gewählt.",
+				"tierBelow": "Ihr Profil verlangt {{wanted}}p. Dieses Video geht nur bis {{picked}}p, deshalb wurde {{picked}}p gewählt.",
+				"webmUnavailable": "Dein Profil verlangt WebM. Die gewählten Streams dieses Videos enthalten {{codec}}, das WebM nicht aufnehmen kann, deshalb ist der Dateityp Auto."
+			},
+			"footer": {
+				"addToQueue": "Zur Warteschlange hinzufügen, ohne zu starten",
+				"download": "Download",
+				"moreActions": "Weitere Download-Optionen",
+				"subtitlesRequired": "Wählen Sie mindestens eine Untertitelsprache aus."
+			},
+			"keepAudio": "So belassen",
+			"keepAudioMeta": "Integriertes Audio",
+			"kind": {
+				"audio": "Nur Audio",
+				"label": "Was herunterladen",
+				"subtitles": "Nur Untertitel",
+				"video": "Video + Audio",
+				"videoOnly": "Video, ohne Audio"
+			},
+			"loadingAria": "Formate werden geladen",
+			"loadingHint": "Bitte warten, bis die Analyse abgeschlossen ist — Playlists und Suchen können etwas dauern.",
+			"marker": {
+				"aiDubbed": "KI-synchronisiert",
+				"aiUpscaled": "KI-hochskaliert",
+				"audioDescription": "Audiodeskription",
+				"damaged": "Beschädigt",
+				"enhancedBitrate": "Erhöhte Bitrate",
+				"spatialAudio": "Raumklang",
+				"vr": "360° / VR",
+				"watermarked": "Mit Wasserzeichen"
+			},
+			"noAudio": "Kein Audio",
+			"profile": {
+				"calloutBody": "Dein aktives Profil wählt die Streams für dich vor. Wechsle das Profil über das Menü oder passe es mit dem Stift an, ohne diesen Download zu verlassen.",
+				"calloutTitle": "Formate starten mit deinem Profil",
+				"closestTag": "Dem Profil am nächsten",
+				"edit": "{{name}} bearbeiten",
+				"keepEdits": "Meine Änderungen behalten",
+				"menuDescription": "Nur für diesen Download. Ihr Standardprofil bleibt unverändert.",
+				"preselected": "Vorausgewählt aus",
+				"resetAll": "Alles zurücksetzen",
+				"switchBody": "Du hast {{areas}} für diesen Download geändert. „{{profile}}“ wählt Video und Audio in jedem Fall. Deine anderen Änderungen behalten oder alles auf das Profil zurücksetzen?",
+				"switchTitle": "Profil wechseln?",
+				"tag": "Profil",
+				"updatedBody": "Du hast {{areas}} für diesen Download geändert. Das aktualisierte Profil wählt Video und Audio in jedem Fall. Deine anderen Änderungen behalten oder alles auf das Profil zurücksetzen?",
+				"updatedTitle": "Aktualisiertes Profil verwenden?"
+			},
+			"quality": {
+				"high": "Hohe Qualität",
+				"low": "Niedrige Qualität",
+				"medium": "Mittlere Qualität"
+			},
+			"rateLimit": {
+				"heading": "{{site}} drosselt diese Verbindung",
+				"leadDegraded": "Die Formatliste ist möglicherweise unvollständig.",
+				"leadFailed": "{{site}} hat diese Anfrage vorerst abgewiesen.",
+				"retryCta": "Erneut versuchen",
+				"sessionNote": "{{site}} kann diese Drosselung bis zu einer Stunde aufrechterhalten.",
+				"tryNowCta": "Jetzt versuchen",
+				"waitOver": "Die Wartezeit ist vorbei, du kannst es erneut versuchen.",
+				"waitUntil": "Arroxy wartet bis {{time}}, bevor es {{site}} erneut anfragt, damit die Drosselung abklingen kann."
+			},
+			"resolutionUnknown": "Unbekannte Auflösung",
+			"savesAs": {
+				"label": "Speichern als",
+				"reset": "WebM kann {{codec}} nicht enthalten, deshalb ist der Dateityp wieder Auto."
+			},
+			"sizeUnknown": "Größe unbekannt",
+			"skipToConfirm": "Zur Bestätigung überspringen",
+			"skipToConfirmTooltip": "Verwendet deine gespeicherten Einstellungen für alle verbleibenden Schritte. Um eine Einstellung zu ändern, fahre stattdessen Schritt für Schritt fort – deine Wahl wird für das nächste Mal gespeichert.",
+			"sniffing": "Suche die besten Formate für dich…",
+			"total": "Gesamt",
+			"video": "Video",
+			"withAudio": "mit Audio"
 		},
-		"closeToTray": {"message": "Arroxy beim Schließen in den Infobereich minimieren?", "detail": "Arroxy läuft weiter und schließt aktive Downloads ab. Ändern Sie dies in den erweiterten Einstellungen.", "hide": "In Infobereich minimieren", "quit": "Beenden", "remember": "Nicht mehr fragen"},
-		"rendererCrashed": {"message": "Arroxy hat ein Problem festgestellt", "detail": "Der Renderer-Prozess ist abgestürzt ({{reason}}). Neu laden, um es erneut zu versuchen.", "reload": "Neu laden", "quit": "Beenden"}
-	},
-	"share": {
-		"title": "Arroxy teilen",
-		"description": "Arroxy ist kostenlos und Open-Source. Durch das Teilen helfen mehr Menschen, es zu entdecken.",
-		"copyLink": "Link kopieren",
-		"copied": "Kopiert!",
-		"defaultMessage": "Arroxy — Kostenloser Open-Source-Video-Downloader für Windows, macOS & Linux. Funktioniert mit YouTube, Vimeo, Twitch und 2000+ weiteren Websites.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "Arroxy teilen",
-		"footerLabel": "Teilen",
-		"shareAction": "Arroxy teilen"
-	},
-	"donate": {
-		"title": "Arroxy unterstützen",
-		"description": "Arroxy ist kostenlos und Open Source, ohne Werbung und ohne Bezahlstufe. Spenden sind freiwillig und verschaffen keinen Einfluss auf die Roadmap.",
-		"footerTooltip": "Arroxy unterstützen",
-		"footerLabel": "Spenden",
-		"copyAddress": "Adresse kopieren",
-		"copied": "Kopiert!",
-		"qrAlt": "QR-Code der {{coin}}-Spendenadresse",
-		"warning": "Krypto-Zahlungen sind unumkehrbar. Sende nur über das angezeigte Netzwerk und vergleiche die gesamte Adresse."
-	},
-	"filenameTemplate": {
-		"label": "Dateinamenvorlage",
-		"description": "Lege fest, wie heruntergeladene Dateien benannt werden. Klicke auf einen Platzhalter, um ihn einzufügen. Nutze /, um Downloads in Ordner zu sortieren.",
-		"profileOverrideLabel": "Dateinamenvorlage",
-		"profileOverrideDescription": "Leer lassen, um die globale Vorlage zu übernehmen.",
-		"idWarning": "Ohne {id} kann Arroxy bereits heruntergeladene Playlist-Einträge nicht erkennen und keine .m3u-Playlists erstellen.",
-		"m3uDisabled": "Nicht verfügbar, weil deine Dateinamenvorlage entweder {id} nicht enthält oder Downloads in Ordner sortiert.",
-		"previewSingle": "Einzelnes Video",
-		"previewPlaylist": "In einer Wiedergabeliste",
-		"error": {
-			"empty": "Gib eine Dateinamenvorlage ein.",
-			"too-long": "Die Vorlage ist zu lang.",
-			"forbidden-char": "Entferne Zeichen, die in Dateinamen nicht erlaubt sind: \\ : * ? \" < > |",
-			"stray-brace": "Nicht geschlossene { oder } — schreibe Platzhalter wie {title}.",
-			"no-unique-token": "Füge {title} oder {id} zum Dateinamen hinzu, damit jeder Download einen eigenen Namen erhält.",
-			"unknown-token": "Unbekannter Platzhalter {{token}}.",
-			"empty-segment": "Entferne das überzählige / — jeder Ordner braucht einen Namen.",
-			"invalid-segment": "Dieser Ordnername ist nicht erlaubt. Vermeide . und .. sowie reservierte Namen wie CON.",
-			"resolution-in-dir": "{resolution} kann keinen Ordner benennen — die Qualität steht erst beim Start des Downloads fest."
-		}
-	},
-	"explore": {
-		"tabLabel": "Entdecken",
-		"newBadge": "Neu",
-		"notice": {
-			"title": "Das Web direkt in Arroxy durchstöbern",
-			"body": "Finde ein Video auf YouTube oder einer anderen Website und lade es direkt von hier herunter — ohne Links zu kopieren. Melde dich hier bei einer Website an, um Videos herunterzuladen, für die ein Konto nötig ist.",
-			"riskTitle": "Mit einem Zweitkonto anmelden",
-			"riskBody": "Websites wie YouTube können Konten markieren — und manchmal sperren —, die mit Download-Tools wie Arroxy verwendet werden. Nutze ein Konto, das du verschmerzen kannst, nicht dein Hauptkonto.",
-			"continue": "Weiter"
+		"mixedPrompt": {
+			"body": "Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.",
+			"pickFromPlaylist": "Aus Playlist auswählen",
+			"playlistLimit": "Playlist-Prüflimit: {{count}} Einträge",
+			"playlistTooltip": "Lädt die Playlist bis zu deinem Playlist-Prüflimit, bevor die Auswahl angezeigt wird.",
+			"quickBody": "Lade nur dieses Video herunter oder stelle die ganze Playlist mit deinem aktiven Schnelldownload-Profil in die Warteschlange.",
+			"quickLimitDescription": "Maximale Anzahl der Einträge, die Arroxy scannt, bevor eine Playlist, ein Kanal oder ein Suchergebnis in die Warteschlange kommt.",
+			"quickPlaylistTooltip": "Stellt jeden geladenen Playlist-Eintrag mit dem aktiven Schnelldownload-Profil in die Warteschlange. Wenn der Scan dein Limit erreicht, fragt Arroxy vor dem Einreihen nach.",
+			"quickSingleTooltip": "Stellt einen Download in die Warteschlange und ignoriert die Playlist, die an diese URL angehängt ist.",
+			"quickSingleVideo": "Dieses Video herunterladen",
+			"quickWholePlaylist": "Ganze Playlist herunterladen",
+			"singleTooltip": "Lädt nur dieses Video. Die an diese URL angehängte Playlist wird ignoriert.",
+			"singleVideo": "Nur dieses eine",
+			"title": "Dieser Link enthält eine Playlist"
 		},
-		"nudge": {
-			"off": "Cookies sind aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht.",
-			"file": "Downloads verwenden deine Cookie-Datei, nicht deine Entdecken-Anmeldung.",
-			"browser": "Downloads verwenden die Cookies deines Browsers, nicht deine Entdecken-Anmeldung.",
-			"useExplore": "Entdecken-Anmeldung nutzen",
-			"notNow": "Nicht jetzt"
-		},
-		"linkCallout": {"title": "Rechtsklick auf einen Link zum Herunterladen", "body": "Klicke auf der Seite mit der rechten Maustaste auf einen Video-, Playlist- oder Kanal-Link. So lädst du mit deinem aktiven Profil herunter, wählst ein anderes Profil oder öffnest den Interaktiven Download."},
-		"linkMenu": {"downloadWith": "Download mit", "copyLink": "Link kopieren"},
-		"toolbar": {
-			"aria": "Entdecken-Browsersteuerung",
-			"back": "Zurück",
-			"forward": "Vorwärts",
-			"reload": "Neu laden",
-			"home": "YouTube-Startseite",
-			"addressAria": "Adresse",
-			"addressPlaceholder": "{{engine}} durchsuchen oder beliebige Website öffnen (Vimeo, Instagram…)",
-			"refusedHint": "Entdecken kann diese Adresse nicht öffnen.",
-			"searchTooLong": "Diese Suche ist zu lang.",
-			"downloadWithProfile": "Download · {{profileName}}",
-			"interactiveHint": "Interaktiver Download: Format, Untertitel und mehr wählen…",
-			"grabUnavailable": "Öffne ein Video, eine Playlist oder einen Kanal, um herunterzuladen",
-			"compactLayout": "Kompaktes Layout",
-			"fullLayout": "Volles Layout anzeigen",
-			"zoom": {"label": "Seitenzoom", "hint": "Seitenzoom: {{percent}}%", "in": "Vergrößern", "out": "Verkleinern", "percent": "Zoom in Prozent", "reset": "Zoom auf 100% zurücksetzen"},
-			"adBlock": {
-				"aria": "Werbeblocker",
-				"off": "Werbeblocker: aus — zum Einschalten klicken",
-				"starting": "Werbeblocker: startet — zum Ausschalten klicken",
-				"on": "Werbeblocker: an — zum Ausschalten klicken",
-				"unavailable": "Werbeblocker: nicht verfügbar, die Filterlisten konnten nicht heruntergeladen werden — zum Ausschalten klicken",
-				"accountNote": "YouTube kann bei angemeldeten Konten gegen Werbeblocker vorgehen."
+		"output": {
+			"embedChapters": {
+				"description": "Kapitelmarkierungen, navigierbar in jedem modernen Player.",
+				"label": "Kapitel einbetten"
+			},
+			"embedMetadata": {
+				"description": "Titel, Künstler, Beschreibung und Upload-Datum in die Datei schreiben.",
+				"label": "Metadaten einbetten"
+			},
+			"embedThumbnail": {
+				"description": "Cover-Art in der Datei. WebM-Video wird zu MKV remuxed; wird übersprungen, wenn Untertitel eingebettet werden.",
+				"label": "Thumbnail einbetten"
+			},
+			"writeDescription": {
+				"description": "Speichert die Videobeschreibung als .description-Datei neben dem Download.",
+				"label": "Beschreibung speichern"
+			},
+			"writeM3u": {
+				"description": "Speichert eine .m3u-Playlist neben den Videos, damit sie in Reihenfolge im Mediaplayer geöffnet werden.",
+				"label": ".m3u-Playlistdatei erstellen"
+			},
+			"writeThumbnail": {
+				"description": "Speichert das Thumbnail als .jpg-Bilddatei neben dem Download.",
+				"label": "Thumbnail speichern"
 			}
 		},
-		"settings": {
-			"title": "Entdecken",
-			"description": "Durchstöbere YouTube oder jede andere Website in Arroxy und melde dich für Videos an, die ein Konto erfordern.",
-			"showTab": "Entdecken-Tab anzeigen",
-			"showTabDescription": "Wenn du ihn ausschaltest, verwenden Downloads deine Entdecken-Anmeldung ebenfalls nicht mehr.",
-			"idleUnload": "Arbeitsspeicher im Hintergrund freigeben",
-			"idleUnloadDescription": "Schließt nach 5 Minuten auf einem anderen Tab die YouTube-Startseite oder -Suchseite. Beim Zurückkehren wird sie neu geladen, was einige Sekunden dauert.",
-			"searchEngine": "Suchmaschine",
-			"searchEngineDescription": "Wo der in die Adressleiste getippte Text gesucht wird. Links werden so geöffnet, wie sie eingegeben wurden.",
-			"signOut": "Von Entdecken abmelden",
-			"signOutDescription": "Löscht deine Anmeldungen und die Browserdaten in Entdecken, auf allen Websites.",
-			"signOutConfirmTitle": "Von Entdecken abmelden?",
-			"signOutConfirmBody": "Dadurch werden deine Anmeldungen und die Browserdaten in Entdecken auf allen Websites gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest.",
-			"signOutConfirm": "Abmelden"
+		"part": {
+			"calloutBody": "Auf der Videokarte zu „Ausschnitt“ wechseln, Anfang und Ende oder ein Kapitel festlegen und nur diesen Abschnitt herunterladen.",
+			"calloutTitle": "Nur einen Teil eines Videos herunterladen",
+			"chapterUntitled": "Kapitel {{number}}",
+			"chapters": "Kapitel",
+			"connectionsNote": "Ein Ausschnitt wird über ffmpeg heruntergeladen, daher gelten deine Download-Verbindungen und Pausen-Einstellungen dafür nicht.",
+			"downloadBlocked": "Korrigiere zuerst Start und Ende des Ausschnitts.",
+			"end": "Ende",
+			"error": {
+				"endBeyondDuration": "Das Video endet bei {{duration}}.",
+				"endInvalid": "Gib das Ende als h:mm:ss, m:ss oder Sekunden ein.",
+				"startInvalid": "Gib den Start als h:mm:ss, m:ss oder Sekunden ein.",
+				"startNotBeforeEnd": "Der Start muss vor dem Ende liegen."
+			},
+			"exactCut": {
+				"hint": "Aus: Jeder Schnitt landet am nächstgelegenen Keyframe, der einige Sekunden von der eingegebenen Zeit entfernt sein kann.",
+				"label": "Exakter Schnitt (neu kodiert, langsamer)"
+			},
+			"length": "{{length}} von {{duration}}",
+			"part": "Ausschnitt",
+			"rangeLabel": "Ausschnitt des Videos",
+			"start": "Start",
+			"subtitlesFullLength": "ganzes Video",
+			"summary": "Ausschnitt {{start}}–{{end}}",
+			"switchLabel": "Wie viel vom Video",
+			"timeHint": "h:mm:ss, m:ss oder Sekunden",
+			"totalEstimate": "Ausschnitt, geschätzt",
+			"unavailableDuration": "Dieses Video meldet seine Länge nicht, daher kann es nur komplett heruntergeladen werden.",
+			"unavailableSubtitles": "Untertitel decken immer das ganze Video ab.",
+			"urlStart": "Dein Link beginnt bei {{time}}",
+			"useUrlStart": "Als Start verwenden",
+			"whole": "Ganzes Video",
+			"wholeTrack": "Ganze Spur"
 		},
-		"error": {
-			"proxyTitle": "Entdecken kann sich nicht über deinen Proxy verbinden",
-			"proxyBody": "Überprüfe den Proxy in den Einstellungen und versuche es dann erneut.",
-			"loadTitle": "Diese Seite wurde nicht geladen",
-			"loadBody": "Überprüfe deine Verbindung und versuche es dann erneut.",
-			"retry": "Erneut versuchen",
-			"openSettings": "Einstellungen öffnen"
+		"playlist": {
+			"allRemovedDescription": "Stelle sie wieder her, um fortzufahren.",
+			"allRemovedTitle": "Alle Elemente wurden entfernt",
+			"alreadyDownloaded": "Bereits heruntergeladen",
+			"bulkHeading": "Bulk-URLs",
+			"bulkMetadataOptional": "Kein Warten nötig — Dateien, die jetzt in die Warteschlange gestellt werden, erhalten beim Herunterladen trotzdem ihre echten Namen.",
+			"bulkMetadataResolving": "Videodetails werden geladen… {{done}}/{{total}}",
+			"bulkRowFailed": "Details nicht verfügbar",
+			"bulkRowResolving": "Details werden geladen",
+			"bulkRowWaiting": "Wartet",
+			"durationUnknown": "live",
+			"heading": "Playlist-Elemente",
+			"headingGeneric": "Videos zum Herunterladen",
+			"itemCountAudio_one": "{{count}} Titel",
+			"itemCountAudio_other": "{{count}} Titel",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URLs",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} videos",
+			"loadingItems": "Playlist wird geladen…",
+			"loadingItemsGeneric": "Videos werden abgerufen…",
+			"loadingLimitHint": "Auf die ersten {{count}} Einträge begrenzt",
+			"loadingPagesFound_one": "{{count}} Seite gefunden",
+			"loadingPagesFound_other": "{{count}} Seiten gefunden",
+			"loadingPhaseItems": "Videos werden gesammelt",
+			"loadingPhasePages": "Kanalseiten werden geprüft",
+			"multiProfileEntry": "Profile pro Element zuweisen",
+			"multiProfileEntryTooltip": "Überspringt Qualität, SponsorBlock, Ausgabe und Speichern — weist stattdessen jedem Element ein Download-Profil zu",
+			"nestedPlaylistBadge": "Wiedergabeliste",
+			"nestedPlaylistHint_one": "{{count}} davon ist eine Wiedergabeliste, kein Video — füge den Link einzeln ein, um sie herunterzuladen.",
+			"nestedPlaylistHint_other": "{{count}} davon sind Wiedergabelisten, keine Videos — füge die Links einzeln ein, um sie herunterzuladen.",
+			"noSelection": "Wähle mindestens ein Video aus, um fortzufahren",
+			"probeLimitAlertDesc": "Arroxy hat mehr als {{count}} Einträge gefunden, daher verbirgt das aktuelle Scan-Limit den Rest.",
+			"probeLimitAlertTitle": "Playlist-Scan ist begrenzt",
+			"probeLimitAlertTitleGeneric": "Scan ist begrenzt",
+			"rangeApply": "Bereich übernehmen",
+			"rangeFrom": "Von",
+			"rangeTo": "Bis",
+			"removeFromListCount_one": "{{count}} aus der Liste entfernen",
+			"removeFromListCount_other": "{{count}} aus der Liste entfernen",
+			"removedCount_one": "{{count}} entfernt",
+			"removedCount_other": "{{count}} entfernt",
+			"restore": "Wiederherstellen",
+			"selectAll": "Alle auswählen",
+			"selectNone": "Keine auswählen",
+			"selectedCount_one": "{{count}} ausgewählt",
+			"selectedCount_other": "{{count}} ausgewählt",
+			"sortApi": "Playlist-Reihenfolge",
+			"sortFetchingDates": "Upload-Daten werden geladen…",
+			"sortLabel": "Sortieren",
+			"sortUploadAsc": "Älteste zuerst",
+			"sortUploadDesc": "Neueste zuerst",
+			"syncApply": "Sync anwenden",
+			"syncChange": "Ordner ändern…",
+			"syncFoundDesc": "{{n}} dieser Videos sind bereits in {{dir}}. Synchronisieren, um nur die neuen herunterzuladen?",
+			"syncFoundTitle": "Bereits im Ordner",
+			"syncNoneDesc": "Keine Videos aus dieser Playlist wurden in {{dir}} gefunden.",
+			"syncNoneDescGeneric": "In {{dir}} wurden keine Videos aus dieser Quelle gefunden.",
+			"syncNoneTitle": "Noch nichts heruntergeladen",
+			"syncScanning": "Ordner wird geprüft…",
+			"thumbnailAlt": "Video-Vorschaubild"
+		},
+		"playlistPresets": {
+			"heading": "Qualität für den Stapel wählen",
+			"itemCount_one": "{{count}} Element",
+			"itemCount_other": "{{count}} Elemente",
+			"subhead": "Jedes Video löst die gewählte Stufe unabhängig auf — heterogene Playlists funktionieren ohne Überraschungen."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Profil zuweisen",
+			"assignTrigger_one": "{{count}} Video zuweisen",
+			"assignTrigger_other": "{{count}} Videos zuweisen",
+			"columnDuration": "Dauer",
+			"columnProfile": "Profil",
+			"editProfile": "{{name}} bearbeiten",
+			"empty": "Keine Einträge entsprechen diesem Filter",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profilfilter",
+			"heading": "Download-Profile zuweisen",
+			"menuDescription_one": "Wählen Sie das Profil für dieses Video.",
+			"menuDescription_other": "Wählen Sie das Profil für diese {{count}} Videos.",
+			"selectedSummary": "{{selected}} von {{total}} ausgewählt"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Global ändern",
+				"chooseFolder": "Zielordner wählen",
+				"chooseIcon": "Profilsymbol wählen",
+				"removeLanguage": "{{code}} entfernen",
+				"reset": "Profil zurücksetzen",
+				"resetDisabledHint": "Dieses Profil verwendet bereits die integrierten Einstellungen",
+				"resetHint": "Integrierte Profileinstellungen wiederherstellen",
+				"save": "Profil speichern",
+				"setOverride": "Profil-Überschreibung festlegen",
+				"setOverrideShort": "Überschreibung festlegen",
+				"useGlobalDefault": "Globalen Standard verwenden",
+				"useLanguageCode": "Sprachcode „{{code}}“ verwenden"
+			},
+			"advanced": "Erweitert",
+			"appSetting": "App-Einstellung verwenden ({{value}})",
+			"audioFormat": {
+				"best": "Beste",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Bis zu 128K",
+				"192": "Bis zu 192K",
+				"320": "Bis zu 320K",
+				"best": "Beste Qualität"
+			},
+			"destination": {
+				"defaultFolder": "Standard-Downloadordner",
+				"defaultFolderWithSubfolder": "Standard-Downloadordner / {{subfolder}}",
+				"global": "Globales Ziel",
+				"globalActive": "Aktiv",
+				"globalInherited": "Geerbt",
+				"override": "Profil-Überschreibung",
+				"overrideChoosing": "Ordner wählen",
+				"overrideNone": "Keine Überschreibung",
+				"overrideNoneNote": "Keine Überschreibung festgelegt. Dieses Profil verwendet das globale Ziel oben.",
+				"overrideSet": "Überschreibt global",
+				"overrideSetNote": "Dieses Profil speichert in seinem eigenen Stammordner, bevor der Unterordner angehängt wird.",
+				"resolved": "Aufgelöstes Ziel"
+			},
+			"dialogDescription": "Eine wiederverwendbare Konfiguration für Schnell-Download, Massen-URLs und Playlists.",
+			"dialogTitle": "Download-Profil",
+			"error": {
+				"changeGlobalDestination": "Globales Ziel konnte nicht geändert werden.",
+				"folderPicker": "Die Ordnerauswahl konnte nicht geöffnet werden. Gib den Pfad manuell ein.",
+				"reset": "Profileinstellungen konnten nicht zurückgesetzt werden.",
+				"save": "Profileinstellungen konnten nicht gespeichert werden."
+			},
+			"field": {
+				"delivery": "Ablage",
+				"fileType": "Dateityp",
+				"goal": "Optimieren für",
+				"icon": "Profilsymbol",
+				"languages": "Sprachen",
+				"name": "Profilname",
+				"nameAndIcon": "Profilname und -symbol",
+				"nativeAudio": "Natives Audio",
+				"overridePath": "Pfad der Profil-Überschreibung",
+				"quality": "Qualität",
+				"resolution": "Auflösung",
+				"source": "Quelle",
+				"subfolderName": "Unterordnername",
+				"subtitleDownloads": "Untertitel-Downloads",
+				"subtitleDownloadsDescription": "Profile fordern Sprachcodes an; die Verfügbarkeit wird für jede URL einzeln ermittelt."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Bei gleicher Größe am schärfsten. Ältere Fernseher, QuickTime und manche Editoren können es nicht abspielen.",
+					"name": "Bestes Bild",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Läuft auf Fernsehern, Handys, WhatsApp, QuickTime und Videoeditoren. YouTube bietet H.264 nur bis 1080p.",
+					"name": "Smart-TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Archiv",
+				"audio": "Audio",
+				"captions": "Untertitel",
+				"classes": "Kurse",
+				"clip": "Clip",
+				"controls": "Regler",
+				"download": "Download",
+				"music": "Musik",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musik oder Podcasts",
+					"label": "Nur Audio"
+				},
+				"subtitlesOnly": {
+					"description": "Nur Untertiteldateien",
+					"label": "Nur Untertitel"
+				},
+				"videoAudio": {
+					"description": "Normale Videodateien",
+					"label": "Video + Audio"
+				},
+				"videoOnly": {
+					"description": "Nur Video ohne Ton",
+					"label": "Video, ohne Audio"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Automatische Untertitel werden als SRT statt ASS gespeichert.",
+				"noLanguageMatches": "Keine passenden Sprachen",
+				"noSubtitles": "Für dieses Profil werden keine Untertiteldateien oder eingebetteten Untertitelspuren angefordert.",
+				"searchLanguages": "Nach Sprachname oder -code suchen",
+				"skippedForOutputType": "Für diesen Ausgabetyp übersprungen.",
+				"subtitleLanguagesRequired": "Wählen Sie mindestens eine Sprache aus.",
+				"subtitleLanguagesRequiredOrOff": "Wählen Sie mindestens eine Sprache aus oder deaktivieren Sie Untertitel-Downloads.",
+				"subtitlesOnly": "Dieses Profil stellt nur Untertiteldateien in die Warteschlange. Video, Audio, SponsorBlock und Medienkonvertierung werden übersprungen."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profile übernehmen das globale Ziel, sofern du keine Profil-Überschreibung festlegst.",
+					"title": "Erweiterte Optionen"
+				},
+				"downloadType": {
+					"description": "Wähle die primäre Art, wie du herunterladen möchtest.",
+					"title": "Download-Typ"
+				},
+				"identity": {
+					"description": "Name und Symbol, die in Schnell-Download, Massen-URLs und Profillisten angezeigt werden.",
+					"title": "Profilidentität"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} aktiviert",
+					"enabledCount_other": "{{count}} aktiviert",
+					"title": "Ausgabeoptionen"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Ordner für dieses Profil wählen"
+			},
+			"skipped": "Übersprungen",
+			"sponsorBlockHint": {
+				"mark": "Markiert Sponsor-Segmente als Kapitel (nicht zerstörend).",
+				"off": "Kein SponsorBlock — Video wird wie hochgeladen abgespielt.",
+				"remove": "Schneidet Sponsor-Segmente mit FFmpeg aus dem Video."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Nur automatisch erzeugte",
+				"manualAndAuto": "Manuell und automatisch",
+				"manualFirst": "Zuerst manuell, dann automatisch",
+				"manualOnly": "Nur manuell"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Hilfe zu {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Vorbereitung abbrechen",
+			"currentFallback": "Aktueller Link",
+			"description": "Arroxy liest den Link und wendet {{profileName}} an.",
+			"failedCount_one": "{{count}} fehlgeschlagen",
+			"failedCount_other": "{{count}} fehlgeschlagen",
+			"phase": {
+				"probing": "Details werden geladen",
+				"queueing": "Wird zur Warteschlange hinzugefügt"
+			},
+			"title": "Schnelldownload wird vorbereitet",
+			"waitHint": "Lass dies geöffnet, während Arroxy die Warteschlange vorbereitet."
+		},
+		"review": {
+			"areas": {
+				"extras": "Extras",
+				"fileName": "Dateiname",
+				"format": "Format",
+				"saveTo": "Ordner",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Untertitel"
+			},
+			"callout": {
+				"body": "Untertitel, SponsorBlock, Extras wie das Thumbnail, Ordner und Dateiname waren früher eigene Schritte. Klicke auf eine Zeile, um sie zu ändern.",
+				"title": "Alle anderen Einstellungen sind jetzt auf dieser Seite"
+			},
+			"changeFormat": "Format ändern",
+			"changed": "Geändert gegenüber {{profile}}: {{areas}}. Gilt nur für diesen Download.",
+			"changedFrom": "Geändert gegenüber {{profile}}:",
+			"fileNameHint": "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt.",
+			"nextTime": {
+				"action": "Als Profil speichern",
+				"defaultName": "{{profile}} (bearbeitet)",
+				"title": "Dieser Download verwendete geänderte Einstellungen. Nächstes Mal verwenden?"
+			},
+			"reset": "Änderungen verwerfen, zurück zu „{{profile}}“",
+			"rows": {
+				"extras": "Extras",
+				"fileName": "Dateiname",
+				"saveTo": "Speicherort",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Untertitel"
+			},
+			"rowsHeading": "Alles andere",
+			"save": {
+				"action": "Profil speichern",
+				"description": "Speichert diese Einstellungen als Profil, das Sie nächstes Mal wählen können. Ihr Profil „Schnelldownload“ bleibt unverändert.",
+				"failed": "Das Profil konnte nicht gespeichert werden.",
+				"nameLabel": "Profilname",
+				"saved": "Als Profil „{{name}}“ gespeichert",
+				"title": "Als Profil speichern"
+			},
+			"saveAsProfile": "Als neues Profil speichern",
+			"update": {
+				"action": "Profil aktualisieren",
+				"builtinNote": "Dies ist ein integriertes Profil. Du kannst seine ursprünglichen Einstellungen im Tab „Profile“ wiederherstellen.",
+				"description": "Ab jetzt verwendet jeder Download mit diesem Profil die neuen Einstellungen.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "„{{profile}}“ aktualisieren?",
+				"updated": "Profil „{{name}}“ aktualisiert"
+			},
+			"updateProfile": "„{{profile}}“ mit diesen Änderungen aktualisieren",
+			"value": {
+				"extrasNone": "Keine",
+				"sponsorBlockOff": "Aus",
+				"subtitlesOff": "Aus"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Füllmaterial",
+				"intro": "Intro",
+				"music_offtopic": "Musik (Off-Topic)",
+				"outro": "Outro",
+				"preview": "Vorschau",
+				"selfpromo": "Eigenwerbung",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategorien",
+			"mode": {
+				"mark": "Als Kapitel markieren",
+				"off": "Aus",
+				"remove": "Segmente entfernen"
+			},
+			"modeHeading": "Sponsor-Filterung",
+			"modeHint": {
+				"mark": "Markiert Sponsor-Segmente als Kapitel (nicht destruktiv).",
+				"off": "Kein SponsorBlock — Video wird unverändert abgespielt.",
+				"remove": "Schneidet Sponsor-Segmente mit FFmpeg aus dem Video."
+			}
+		},
+		"steps": {
+			"confirm": "Bestätigen",
+			"folder": "Speichern",
+			"formats": "Format",
+			"output": "Ausgabe",
+			"playlistItems": "Wiedergabeliste",
+			"playlistItemsGeneric": "Videos",
+			"playlistPresets": "Qualität",
+			"playlistProfiles": "Profile",
+			"review": "Prüfen",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Untertitel",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Auto-Untertitel werden als SRT statt ASS gespeichert — sie werden immer von YouTubes rollenden Cue-Duplikaten bereinigt, was unser ASS-Konverter noch nicht abbilden kann.",
+			"autoBadge": "Auto",
+			"clearAll": "Alle entfernen",
+			"embedNote": "Im Einbettungsmodus wird die Ausgabe als .mkv gespeichert, damit Untertitel-Spuren zuverlässig eingebettet werden.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Keine Untertitel für dieses Video verfügbar",
+			"noMatches": "Keine Sprachen gefunden",
+			"noSelected": "Keine Untertitel ausgewählt",
+			"removeLanguage": "{{name}} entfernen",
+			"saveMode": {
+				"embed": "In Video einbetten",
+				"heading": "Speichern als",
+				"sidecar": "Neben dem Video",
+				"subfolder": "Unterordner subtitles/"
+			},
+			"searchPlaceholder": "Sprachen suchen…",
+			"sectionAuto": "Automatisch generiert",
+			"sectionManual": "Manuell"
+		},
+		"tabsNavAria": "Download-Profil-Navigation",
+		"url": {
+			"advanced": "Erweitert",
+			"analytics": {
+				"toggle": "Tägliches Lebenszeichen senden",
+				"toggleDescription": "Keine Telemetrie. Einmal am Tag sendet ein anonymes Lebenszeichen App-Version, Installationskanal, Betriebssystem, Sprache, Land und ungefähr, wie lange Arroxy schon installiert ist, damit wir aktive und neue Nutzer zählen können. Keine IDs, URLs, Videotitel oder Dateinamen."
+			},
+			"autoRemoveCompleted": {
+				"description": "Nimmt einen Download wenige Sekunden nach dem Abschluss aus der Downloads-Liste. Die Dateien bleiben in deinem Ordner; fehlgeschlagene und abgebrochene Downloads bleiben in der Liste.",
+				"label": "Fertige Downloads automatisch entfernen"
+			},
+			"autoRetry": {
+				"description": "Versucht es nach einem Netzwerk- oder Serverproblem automatisch erneut und wartet vor jedem Versuch länger. Von der Seite blockierte Downloads werden nie automatisch wiederholt.",
+				"label": "Fehlgeschlagene Downloads wiederholen",
+				"unit": "mal"
+			},
+			"bulkButton": "Bulk-URLs",
+			"bulkTooltip": "Mehrere URLs hinzufügen und in die Warteschlange stellen.",
+			"clearAria": "URL löschen",
+			"clipboard": {
+				"autofilledLink": "Link aus der Zwischenablage hinzugefügt",
+				"bulkHint": "Mehrere Links kopiert — über „Bulk-URLs“ hinzufügen",
+				"dialog": {
+					"cancelButton": "Abbrechen"
+				},
+				"replacedLink": "Durch kopierten Link ersetzt",
+				"toggle": "Zwischenablage beobachten",
+				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
+				"undo": "Rückgängig"
+			},
+			"closeToTray": {
+				"toggle": "Beim Schließen in die Taskleiste minimieren",
+				"toggleDescription": "Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird."
+			},
+			"concurrentDownloads": {
+				"description": "Wie viele Einträge der Warteschlange gleichzeitig geladen werden. Mehr auf einmal leert eine lange Warteschlange schneller, erhöht aber die Wahrscheinlichkeit, dass eine Seite dich drosselt.",
+				"label": "Gleichzeitige Downloads",
+				"unit": "Downloads"
+			},
+			"cookies": {
+				"banWarning": "Seiten wie YouTube können Konten markieren — und teils sperren —, deren Cookies von Download-Tools wie Arroxy verwendet werden. Nutze nach Möglichkeit ein Wegwerfkonto.",
+				"browserHelp": "Liest Cookies direkt aus dem Browser. Bei Chromium-basierten Browsern muss der Browser geschlossen sein.",
+				"browserLabel": "Browser",
+				"browserPlaceholder": "Browser wählen…",
+				"choose": "Auswählen…",
+				"clear": "Entfernen",
+				"enabledButNoBrowser": "Wähle einen Browser, um Cookies zu nutzen",
+				"enabledButNoFile": "Wähle eine Datei aus, um Cookies zu nutzen",
+				"exploreDescription": "Verwendet deine Entdecken-Anmeldung nur, wenn ein Download sie braucht.",
+				"exploreDisabled": "Der Entdecken-Tab ist aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht. Schalte ihn unten unter Entdecken ein.",
+				"extensionChrome": "cookies.txt LOKAL holen (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookies-Datei",
+				"helpLink": "Wie exportiere ich Cookies?",
+				"openExplore": "Entdecken öffnen",
+				"placeholder": "Keine Datei ausgewählt",
+				"recommended": "Empfohlen",
+				"risk": "Risiko: Eine cookies.txt enthält alle angemeldeten Sitzungen dieses Browsers — halte sie geheim.",
+				"sourceBrowser": "Browser",
+				"sourceExplore": "Entdecken-Anmeldung",
+				"sourceFile": "Datei",
+				"sourceLabel": "Cookies-Quelle",
+				"sourceOff": "Aus",
+				"toggleDescription": "Hilft bei altersbeschränkten, nur-für-Mitglieder- und kontoprivaten Videos."
+			},
+			"downloadConnections": {
+				"description": "Beschleunigt große Downloads, indem mehrere Teile eines Videos gleichzeitig geladen werden. Höhere Werte erhöhen die Wahrscheinlichkeit, dass eine Seite dich drosselt.",
+				"label": "Download-Verbindungen",
+				"unit": "Verbindungen"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Nur Audio",
+					"subtitles": "Untertitel"
+				},
+				"anySite": {
+					"heading": "2000+ Seiten",
+					"musicPlaylist": "Musik-Playlists",
+					"video": "Videos",
+					"videoPlaylist": "Video-Playlists"
+				},
+				"heading": "Was Arroxy laden kann",
+				"youtube": {
+					"channel": "Kanäle",
+					"heading": "YouTube",
+					"music": "Musik",
+					"playlist": "Wiedergabelisten",
+					"podcast": "Podcasts",
+					"short": "Shorts",
+					"video": "Videos"
+				}
+			},
+			"fetchFormatsTooltip": "Schritt-für-Schritt-Assistent. Wähle Format, Qualität und mehr.",
+			"heading": "Von URL herunterladen",
+			"hotkey": {
+				"changeShortcut": "Kürzel ändern",
+				"conflict": "Dieses Kürzel wird bereits von einer anderen App verwendet — wähle ein anderes.",
+				"hintLabel": "Oder drücke",
+				"hintTooltip": "Kopiere irgendwo einen Videolink, drücke dieses Kürzel, und Arroxy reiht ihn mit deinem aktiven Profil ein — du musst nicht zwischen Fenstern wechseln.",
+				"hintTooltipSettings": "Ändere es in den Einstellungen oder schalte es dort aus.",
+				"recording": "Tasten drücken…",
+				"reset": "Auf Standard zurücksetzen",
+				"sectionDescription": "Lädt jeden kopierten Link aus jeder App herunter, ohne Arroxy zu öffnen.",
+				"sectionTitle": "Globales Tastenkürzel",
+				"test": "Testen",
+				"toggle": "Globales Tastenkürzel aktivieren",
+				"toggleDescription": "Drücke das Kürzel mit einem Video-Link in der Zwischenablage."
+			},
+			"interactiveDownload": "Interaktiver Download",
+			"limitRate": {
+				"activeWarning": "Aktive Downloads behalten ihr aktuelles Limit. Pausieren + Fortsetzen wendet Änderungen an.",
+				"custom": "Benutzerdefiniert…",
+				"customPlaceholder": "z. B. 750K oder 1.5M",
+				"description": "Begrenzt die Bandbreite für Mediendownloads. Die Anfrage-Pausen darunter sind meist der stärkere Hebel gegen Limits.",
+				"invalid": "Nutze eine Zahl mit K oder M (z. B. 500K, 1.5M)",
+				"label": "Download-Geschwindigkeitslimit",
+				"off": "Aus"
+			},
+			"mascotBusy": "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎",
+			"mascotCollection": "Schnelldownload reiht die geladenen Elemente mit {{profileName}} in die Warteschlange ein. Mit „Interaktiver Download“ kannst du die Elemente zuerst ansehen oder auswählen.",
+			"mascotIdle": "Wirf einen Link rein und lass Arroxy ihn holen ✨",
+			"mascotMixed": "Dieser Link verweist auf ein einzelnes Video in einer Sammlung. Arroxy fragt dich, welches du möchtest, bevor es analysiert wird.",
+			"mascotPreparing": "{{quickDownload}} liest diesen Link und wendet {{profileName}} an.",
+			"mascotQueued": "Die Warteschlange bearbeitet diesen Download. Du kannst währenddessen einen weiteren Link einfügen.",
+			"mascotSingle": "Schnelldownload startet einen Download mit {{profileName}}. Für einmalige Änderungen nutze „Interaktiver Download“.",
+			"nativeAudioPreference": {
+				"compatible": "Kompatibles Stereo",
+				"description": "Stereo oder Surround, wenn ein Profil natives Audio wählt. Ein Profil kann das überschreiben.",
+				"label": "Native Audioeinstellung",
+				"surround": "Surround / Dolby bevorzugen"
+			},
+			"networkPacing": {
+				"description": "Fügt bei jedem Download kleine Pausen ein, damit Arroxy die Seite nicht zu aggressiv belastet. Werte in Sekunden.",
+				"fields": {
+					"maxSleepInterval": "Pause vor Medienbeginn: Max",
+					"sleepInterval": "Pause vor Medienbeginn: Min",
+					"sleepRequests": "Pause zwischen Metadaten-Abfragen",
+					"sleepSubtitles": "Pause vor Untertiteldateien"
+				},
+				"heading": "Sanftes Herunterladen",
+				"presetLabel": "Wie vorsichtig soll Arroxy sein?",
+				"presets": {
+					"balanced": "Ausgewogen",
+					"careful": "Vorsichtig",
+					"custom": "Benutzerdefiniert",
+					"off": "Aus"
+				},
+				"summary": "Pausen: {{requests}} zwischen Abfragen, {{downloads}} vor Medienbeginn, {{subtitles}} vor Untertiteldateien.",
+				"tooltip": "Diese Pausen liegen innerhalb jedes Downloads. Wie viele Downloads gleichzeitig laufen, wird separat unter „Gleichzeitige Downloads“ eingestellt.",
+				"tooltips": {
+					"balanced": "Standard. Fügt kurze Pausen zwischen Abfragen und vor Medienbeginn hinzu.",
+					"careful": "Fügt längere Pausen für große Playlists oder Netzwerke ein, die häufig an Limits stoßen.",
+					"custom": "Passe die erweiterten Download-Steuerungen selbst an.",
+					"off": "Nutzt nur die kleinen Basispausen, die Arroxy für Medien und Untertitel beibehält."
+				},
+				"units": {
+					"seconds": "Sek"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "Aktuelles Limit: {{count}} Einträge",
+				"custom": "Benutzerdefiniert…",
+				"customDialogCancel": "Abbrechen",
+				"customDialogDescription": "Verwende eine ganze Zahl von {{min}} bis {{max}}.",
+				"customDialogSave": "Limit speichern",
+				"customDialogTitle": "Benutzerdefiniertes Playlist-Scan-Limit",
+				"customValue": "Benutzerdefiniert: {{count}} Einträge",
+				"description": "Maximale Anzahl der Einträge, die Arroxy beim Öffnen einer Playlist, eines Kanals oder eines Suchergebnisses lädt.",
+				"invalid": "Verwende eine ganze Zahl von 1 bis 5000",
+				"label": "Playlist-Einträge scannen",
+				"option": "{{count}} Einträge",
+				"tooltip": "Arroxy fragt beim Aufbau der Auswahl nur so viele Playlist-, Kanal- oder Suchergebnisse ab."
+			},
+			"playlistScope": {
+				"appLimit": "App-Limit verwenden: {{count}}",
+				"apply": "Anwenden",
+				"applyError": "Dieser Playlist-Bereich konnte nicht angewendet werden: {{message}}",
+				"applyReload": "Anwenden und neu laden",
+				"cancel": "Abbrechen",
+				"change": "Ändern",
+				"dialogDescription": "Lege fest, was Arroxy für diese Playlist lädt.",
+				"dialogTitle": "Playlist-Bereich",
+				"emptyTitle": "Keine Videos in diesem Bereich",
+				"first": "Erste",
+				"invalid": "Verwende ganze Zahlen von 1 bis {{max}}; der Anfang darf nicht größer als das Ende sein.",
+				"itemsLabel": "Zu ladende Einträge",
+				"label": "Playlist-Bereich",
+				"range": "Bereich",
+				"reloading": "Wird neu geladen...",
+				"reset": "Zurücksetzen",
+				"summaryAppLimit": "Erste Einträge laden: {{count}}",
+				"summaryFirst": "Erste Einträge laden: {{count}}",
+				"summaryRange": "Einträge {{from}}-{{to}} laden",
+				"to": "bis"
+			},
+			"profile": {
+				"activeLabel": "Aktives Profil",
+				"badgeBuiltIn": "Integriert",
+				"badgeCustom": "Benutzerdefiniert",
+				"badgeDisabled": "Ausgeblendet",
+				"badgeModified": "Geändert",
+				"changeGlobalDestination": "Globales Ziel ändern",
+				"destinationDetail": {
+					"global": "Verwendet globales Ziel",
+					"globalSubfolder": "Verwendet globales Ziel + Profil-Unterordner",
+					"override": "Verwendet Profil-Überschreibung",
+					"overrideSubfolder": "Verwendet Profil-Überschreibung + Profil-Unterordner"
+				},
+				"destinationFallback": "Ziel",
+				"edit": "Bearbeiten",
+				"editActive": "Aktives Profil bearbeiten",
+				"enableHint": "Ausgeblendete Profile bleiben hier, verschwinden aber aus jeder Profilauswahl.",
+				"enableToggleAria": "Profil in Auswahl anzeigen: {{profileName}}",
+				"lastEnabledHint": "Mindestens ein Profil verfügbar halten.",
+				"manageProfiles": "Profile verwalten",
+				"menuDescription": "Ändere das aktive Profil für Quick Download, Bulk-URLs und Playlists.",
+				"menuTitle": "Profil wechseln",
+				"movableProfile": "verschiebbares Profil",
+				"moveCancelled": "Verschieben abgebrochen. Profil „{{profileName}}“ bleibt an Position {{position}} von {{count}}.",
+				"moveDropped": "Profil „{{profileName}}“ an Position {{position}} von {{count}} abgelegt.",
+				"moveHandleAria": "{{profileName}} verschieben",
+				"moveInstructions": "Zum Verschieben eines Profils Leertaste oder Eingabetaste drücken, mit den Pfeiltasten bewegen und mit Leertaste oder Eingabetaste ablegen. Mit Escape abbrechen.",
+				"moveOver": "Profil „{{profileName}}“ befindet sich über Position {{position}} von {{count}}.",
+				"movePickedUp": "Profil „{{profileName}}“ aufgenommen. Es steht an Position {{position}} von {{count}}.",
+				"newProfile": "Neues Profil",
+				"panelDescription": "Erstelle, wähle, bearbeite oder entferne wiederverwendbare Download-Einstellungen.",
+				"panelTitle": "Download-Profile",
+				"remove": "Entfernen",
+				"reorderHint": "Profil ziehen, um es zu verschieben. Jede Profilauswahl folgt dieser Reihenfolge.",
+				"reset": "Zurücksetzen",
+				"summary": {
+					"aacAudio": "AAC-Audio",
+					"bestAudio": "bestes Audio",
+					"bestVideo": "bestes Video",
+					"noAudio": "kein Audio",
+					"subtitlesOnly": "nur Untertitel",
+					"wavAudio": "WAV-Audio"
+				},
+				"switchAria": "Download-Profil wechseln: {{profileName}}",
+				"switchTitle": "Download-Profil wechseln"
+			},
+			"proxy": {
+				"clear": "Löschen",
+				"description": "Datenverkehr über einen Proxy leiten — nützlich für geo-gesperrte Inhalte.",
+				"label": "Proxy URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Keine dieser URLs konnte vorbereitet werden",
+			"quickDownload": "Schnelldownload",
+			"quickDownloadTooltip": "Wird mit {{profileName}} heruntergeladen",
+			"quickFailed": "Konnte dieses Element nicht hinzufügen: {{error}}",
+			"quickPartialFailed_one": "Was funktioniert hat, wurde eingereiht. {{count}} URL konnte nicht vorbereitet werden.",
+			"quickPartialFailed_other": "Was funktioniert hat, wurde eingereiht. {{count}} URLs konnten nicht vorbereitet werden.",
+			"quickPrepareFailed": "Warteschlangeneintrag konnte nicht vorbereitet werden",
+			"quickPreparing": "Wird vorbereitet",
+			"quickProbeFailed": "Prüfung fehlgeschlagen",
+			"quickQueued": "Zur Warteschlange hinzugefügt",
+			"quickSingleOnly": "Füge eine Video-, Playlist-, Kanal- oder Such-URL ein, um loszulegen.",
+			"settings": {
+				"behaviorDescription": "Globales Verhalten, das auch profilgesteuerte Downloads betrifft.",
+				"behaviorHeading": "Downloadverhalten",
+				"inputHeading": "Eingabe"
+			},
+			"style": {
+				"aurora": {
+					"description": "Glaspaneele über einem bewegten Himmel. Braucht Grafikbeschleunigung.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Ruhige, einfarbige Flächen. Läuft auf jedem Computer flüssig.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Beide Stile gibt es in Hell und Dunkel.",
+				"modeLabel": "Stil",
+				"panelDescription": "So sieht Arroxy aus. Wechsle in der Fußzeile zwischen Hell und Dunkel.",
+				"panelTitle": "Aussehen",
+				"unavailableNotice": "{{style}} braucht Grafikbeschleunigung, die gerade nicht verfügbar ist. Deshalb zeigt Arroxy {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profile",
+				"settings": "Einstellungen"
+			}
 		}
-	},
-	"fileType": {
-		"auto": "Auto",
-		"autoValue": "Auto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Die gewählten Streams bestimmen den Dateityp.",
-			"mp4": "Läuft fast überall. VP9 in MP4 lässt sich in QuickTime nicht als Video abspielen.",
-			"mkv": "Nimmt jeden Codec auf. Manche Fernseher und Handys können MKV nicht öffnen.",
-			"webm": "Offenes Format für Browser. Enthält nur VP9 oder AV1 mit Opus."
-		},
-		"webmBlocked": "WebM kann {{codec}} nicht enthalten. Wähle MKV oder MP4.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM wird bei Smart-TV nicht angeboten: Es kann kein H.264 enthalten.",
-		"mp4CaveatVp9": "VP9 in MP4 lässt sich in QuickTime nicht als Video abspielen. H.264 läuft überall.",
-		"mp4CaveatAv1": "AV1 in MP4 braucht für QuickTime einen neueren Mac. H.264 läuft überall."
-	},
-	"selectionOrder": {
-		"editorTitle": "So wählt dieses Profil aus",
-		"whyTitle": "Warum das Profil das gewählt hat",
-		"whyLabel": "Warum dieser?",
-		"rank": {
-			"h264": {"label": "H.264-Video", "reason": "läuft auf jedem Gerät"},
-			"mp4Streams": {"label": "MP4-Streams", "reason": "bereit für eine MP4-Datei"},
-			"resolutionBest": {"label": "Höchste Auflösung", "reason": "kein Limit gesetzt"},
-			"resolution": {"label": "Bis {{tier}}p", "reason": "dein Limit"},
-			"fps": {"label": "Höchste Bildrate", "reason": "flüssigere Bewegung"},
-			"sitePreference": {"label": "Streams, die die Website nicht abwertet", "reason": "überspringt beschädigte Kopien, solche mit Wasserzeichen und Ersatzkopien"},
-			"original": {"label": "Original-Streams, keine KI-hochskalierten", "reason": "eine hochskalierte Kopie ist höher, bringt aber keine echten Details"},
-			"source": {"label": "Streams mit erhöhter Bitrate zuerst", "reason": "mehr Details bei gleicher Auflösung"},
-			"protocol": {"label": "Direkte Downloads vor gestreamten Kopien", "reason": "gleiches Bild, schneller heruntergeladen"},
-			"codec": {"label": "AV1, dann VP9, dann H.264", "reason": "bei gleicher Größe am schärfsten"},
-			"codecVp9First": {"label": "VP9, dann H.264, dann AV1", "reason": "Codec dieses Profils"},
-			"codecH264First": {"label": "H.264, dann VP9, dann AV1", "reason": "Codec dieses Profils"},
-			"size": {"label": "Größere Datei", "reason": "mehr Details bei gleichen Einstellungen"},
-			"aacSmartTv": {"label": "AAC-Audio", "reason": "läuft überall"},
-			"aacFileType": {"label": "AAC-Audio", "reason": "passt zu MP4-Playern"},
-			"opus": {"label": "Opus-Audio", "reason": "passt zu WebM"},
-			"nativeCompatible": {"label": "Stereo-Audio"},
-			"nativeSurround": {"label": "Surround-Audio, wenn verfügbar"},
-			"nativeSource": {"settings": "aus den Einstellungen", "profile": "dieses Profil"},
-			"hdrSdrFirst": {"label": "SDR vor HDR", "reason": "wirkt auf jedem Bildschirm richtig", "reasonScreen": "dieser Bildschirm zeigt kein HDR"},
-			"hdrFirst": {"label": "HDR vor SDR", "reason": "satteres Bild auf HDR-Bildschirmen", "reasonScreen": "dieser Bildschirm zeigt HDR"}
-		},
-		"summary": {"goal": {"bestPicture": "bestes Bild", "smartTv": "läuft auf jedem Gerät"}, "fileType": {"auto": "Dateityp aus den Streams", "explicit": "speichert als .{{ext}}"}}
-	},
-	"aiUpscaled": {"label": "KI-hochskalierte Streams", "description": "YouTube bietet manche alten Videos in Größen an, die per KI erzeugt wurden. „Überspringen“ behält die Original-Streams; einen hochskalierten kannst du trotzdem von Hand wählen.", "skip": "Überspringen", "allow": "Zulassen"},
-	"videoCodec": {
-		"label": "Video-Codec",
-		"description": "Welcher Codec bei Streams gleicher Höhe zuerst gewählt wird. Auto behält die eigene Reihenfolge von yt-dlp bei, die AV1, den kleinsten, bevorzugt; H.264 läuft auf älteren Fernsehern und Handys.",
-		"smartTv": "Smart-TV nimmt immer H.264.",
-		"auto": "Auto",
-		"vp9": "Zuerst VP9",
-		"h264": "Zuerst H.264"
-	},
-	"hdrPreference": {"label": "HDR-Video", "description": "Auto wählt HDR, wenn dieser Bildschirm es darstellen kann, sonst SDR. HDR wirkt auf normalen Bildschirmen blass.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
+	}
 }

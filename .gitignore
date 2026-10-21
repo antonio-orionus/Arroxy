@@ -72,6 +72,8 @@ opencode.jsonc
 !.agents/skills/remember/**
 !.agents/skills/land/
 !.agents/skills/land/**
+!.agents/skills/orchestrate/
+!.agents/skills/orchestrate/**
 !.agents/skills/translate-arroxy-i18n/
 !.agents/skills/translate-arroxy-i18n/**
 

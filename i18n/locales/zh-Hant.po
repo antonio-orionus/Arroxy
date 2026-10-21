@@ -3520,7 +3520,7 @@ msgstr "音樂"
 
 msgctxt "wizard.profileEditor.icon.podcast"
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "播客"
 
 msgctxt "wizard.profileEditor.icon.video"
 msgid "Video"
@@ -4290,7 +4290,7 @@ msgstr "播放清單"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"
-msgstr "Podcast"
+msgstr "播客"
 
 msgctxt "wizard.url.features.youtube.short"
 msgid "Shorts"
@@ -4806,7 +4806,7 @@ msgstr "透過 Proxy 路由流量——適合有地區限制的內容。"
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "代理伺服器 URL"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

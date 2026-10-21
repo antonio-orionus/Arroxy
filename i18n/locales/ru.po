@@ -893,7 +893,7 @@ msgstr "Настройка не завершена. Некоторые загр�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Аудио (лучшее)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -909,7 +909,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "Аудио ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -989,7 +989,7 @@ msgstr "До 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Лучшее качество"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -1017,7 +1017,7 @@ msgstr "Небольшие файлы для ограниченного траф
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Для медленного интернета"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -1029,7 +1029,7 @@ msgstr "Лучшее доступное видео + аудио для кажд�
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Аудио"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -1037,11 +1037,11 @@ msgstr "Субтитры"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "Видео"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Лучший исходный формат"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -3336,22 +3336,22 @@ msgstr "{{count}} треков"
 #. Plural form "few" for ru: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.playlist.itemCountBulk_few"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} ссылки"
 
 #. Plural form "many" for ru: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCountBulk_many"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} ссылок"
 
 #. Plural form "one" for ru: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} ссылка"
 
 #. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} ссылок"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -4459,7 +4459,7 @@ msgstr "Режим встраивания сохраняет файл как .mk
 
 msgctxt "wizard.subtitles.format.heading"
 msgid "Format"
-msgstr "Format"
+msgstr "Формат"
 
 msgctxt "wizard.subtitles.noLanguages"
 msgid "No subtitles available for this video"
@@ -5271,7 +5271,7 @@ msgstr "Направлять трафик через прокси — полез
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "Адрес прокси"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

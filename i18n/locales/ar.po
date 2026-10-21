@@ -953,7 +953,7 @@ msgstr "لم يكتمل الإعداد. قد تفشل بعض التنزيلات 
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "صوت (الأفضل)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -969,7 +969,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "صوت ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -1049,7 +1049,7 @@ msgstr "حتى 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "أفضل جودة"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -1077,7 +1077,7 @@ msgstr "ملفات صغيرة لعرض نطاق محدود"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "عرض نطاق منخفض"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -1089,7 +1089,7 @@ msgstr "أفضل فيديو + صوت متاح لكل عنصر"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "صوت"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -1097,11 +1097,11 @@ msgstr "الترجمات"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "فيديو"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "الأصلي الأفضل"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -2255,7 +2255,7 @@ msgstr "إخفاء شريط التحديث"
 
 msgctxt "update.download"
 msgid "Download ↗"
-msgstr "Download ↗"
+msgstr "تنزيل ↗"
 
 msgctxt "update.downloadDmg"
 msgid "Download DMG ↗"
@@ -2407,7 +2407,7 @@ msgstr "روابط متعددة"
 
 msgctxt "wizard.confirm.addToQueue"
 msgid "+ Queue"
-msgstr "+ Queue"
+msgstr "+ قائمة الانتظار"
 
 msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
@@ -5581,7 +5581,7 @@ msgstr "توجيه حركة البيانات عبر وكيل — مفيد للم
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "عنوان الوكيل"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

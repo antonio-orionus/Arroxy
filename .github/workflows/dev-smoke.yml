@@ -76,10 +76,29 @@ jobs:
           key: ${{ matrix.os }}-bun-${{ hashFiles('bun.lock') }}
           restore-keys: ${{ matrix.os }}-bun-
 
+      # Bootstrap fetches the host's ffmpeg/ffprobe from outside GitHub (macOS:
+      # ffmpeg.martin-riedl.de), and an outage there used to fail every PR.
+      # Keyed on the pin, so only a pin change needs the network; a restored
+      # payload stamped with another pin is refetched by bootstrap anyway.
+      - name: Restore embedded ffmpeg
+        id: embedded-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: build/embedded
+          key: ${{ runner.os }}-${{ runner.arch }}-embedded-${{ hashFiles('scripts/build/embeddedPin.ts', 'scripts/build/btbnResolver.ts', 'scripts/build/fetch-embedded.sh') }}
+
       - name: Bootstrap checkout
         env:
           BTBN_GITHUB_TOKEN: ${{ github.token }}
         run: bun run bootstrap
+
+      # Saved here rather than at job end, so a failing smoke still keeps it.
+      - name: Save embedded ffmpeg
+        if: steps.embedded-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: build/embedded
+          key: ${{ steps.embedded-cache.outputs.cache-primary-key }}
 
       - name: Inspect checkout readiness
         run: bun run doctor

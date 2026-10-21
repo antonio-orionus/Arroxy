@@ -84,7 +84,8 @@ async function ytDlpFetches(raw: RawMaps, probe: VideoProbeResult, subtitles: Su
 	writeFileSync(infoJson, JSON.stringify(raw))
 	const site = siteForJob(probe.extractor, probe.webpageUrl)
 	const eager = await eagerSubtitleLists([infoJson], site)
-	const lists = eager ?? (await saveSubtitleListing(JSON.stringify(raw), infoJsonDir))
+	const saved = eager ? null : await saveSubtitleListing(JSON.stringify(raw), infoJsonDir)
+	const lists = eager ?? (saved?.kind === 'saved' ? saved.lists : null)
 	if (!lists) throw new Error('fixture lists unreadable')
 	const plan = planSubtitleRun(subtitles, lists, {site, jobId: 'parity'})
 	if (plan.tracks.length === 0) return {languages: [], tracks: [], listed: eager === null}

@@ -4,7 +4,7 @@
 
 - [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
 - [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable only, never a beta; never ask or offer to release.
-- [Orchestrator session](orchestrator-session.md) — when told to orchestrate: dispatch one session per fix, verify findings first, own the `.internal/` backlogs, unblock without asking, flag patch clusters.
+- [Orchestrator session](orchestrator-session.md) — on "orchestrator"/"orchestrate", load the `orchestrate` skill: it holds the standing rules (dispatch, verify first, start sessions yourself, ask only critical decisions, never release Arroxy).
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared and adaptive, auto reviews off: trigger behaviour PRs once on a final head after CI is green, one retry at most, never push mid-review.
 - [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer; add one when a refuted finding would recur.
 - [Squash onto the merge-base](squash-onto-merge-base.md) — never `reset --soft origin/main` (PR #430 reverted 168 files); run `review:check-head` before every land push.

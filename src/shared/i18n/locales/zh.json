@@ -1,714 +1,707 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "dismiss": "关闭", "startOver": "重新开始", "close": "关闭"},
+	"about": {
+		"button": "关于",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · 作者 Antonio Orionus",
+		"openTitle": "关于 Arroxy",
+		"tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。",
+		"thirdPartyNotices": "查看第三方声明",
+		"websiteLink": "官网"
+	},
+	"aiUpscaled": {
+		"allow": "允许",
+		"description": "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。",
+		"label": "AI 放大的流",
+		"skip": "跳过"
+	},
 	"app": {
 		"feedback": "反馈",
+		"feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬",
 		"logs": "日志",
 		"saveDiagnostics": "保存诊断文件",
 		"saveDiagnosticsDescription": "将日志和应用信息汇总到“下载”文件夹中的一个文件里，可直接附加到 GitHub issue。你的用户文件夹名称会被移除；视频链接和标题会保留。",
-		"feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬",
-		"zoomIn": "放大",
-		"zoomOut": "缩小",
+		"styleHint": "新功能：在这里选择 Aurora 或极简",
 		"theme": "主题",
-		"styleHint": "新功能：在这里选择 Aurora 或极简"
+		"zoomIn": "放大",
+		"zoomOut": "缩小"
 	},
-	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "GPLv3 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
-	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
-	"splash": {
-		"greeting": "嘿,欢迎回来!",
-		"warmup": "正在准备下载…",
-		"verifying": "正在检查 {{binary}}…",
-		"verifyFirstCheck": "本版本的首次检查——这次会比较慢，通常需要一分钟左右。",
-		"cancel": "遇到问题？手动设置",
-		"warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。",
-		"setup": {
-			"title": {"firstRun": "首次设置", "media": "正在更新媒体工具", "engine": "正在更新下载引擎"},
-			"stage": {"connecting": "正在连接…", "downloadingBoth": "正在下载下载引擎和媒体工具", "downloadingEngine": "正在下载下载引擎", "downloadingMedia": "正在下载媒体工具", "unpacking": "正在解压媒体工具", "checking": "正在检查一切是否正常"},
-			"bytes": "{{done}} / {{total}}",
-			"left": {"underMinute": "不到 1 分钟", "minutes_other": "约剩 {{count}} 分钟"},
-			"note": {"firstRun": "只需这一次。Arroxy 会保留这些工具并自行更新。", "media": "只需这一次。Arroxy 会保留它们以供日后更新。", "engine": "让下载在网站变化时仍能正常工作。"}
+	"common": {
+		"back": "返回",
+		"cancel": "取消",
+		"close": "关闭",
+		"continue": "继续",
+		"dismiss": "关闭",
+		"loading": "加载中…",
+		"retry": "重试",
+		"startOver": "重新开始"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy 将继续运行并完成活动下载。可在高级设置中更改。",
+			"hide": "最小化到托盘",
+			"message": "关闭时将 Arroxy 最小化到系统托盘？",
+			"quit": "退出",
+			"remember": "不再询问"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "取消下载并退出",
+			"detail": "暂停以便稍后继续，或取消以丢弃进度。",
+			"keep": "继续下载",
+			"message_other": "正在进行 {{count}} 个下载",
+			"pause": "暂停下载并退出"
+		},
+		"rendererCrashed": {
+			"detail": "渲染进程崩溃（{{reason}}）。请重新加载以重试。",
+			"message": "Arroxy 遇到了一个问题",
+			"quit": "退出",
+			"reload": "重新加载"
 		}
 	},
-	"repair": {
-		"title": "初始化需要你的帮助",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "下载引擎", "media": "媒体工具"},
-		"causes": {
-			"downloadFailed": {"title": "无法下载 Arroxy 所需的内容", "body": "请检查网络连接，然后重试。"},
-			"extractFailed": {"title": "下载的文件已损坏", "body": "请重试，重新下载一次。"},
-			"hashFailed": {"title": "下载的文件校验未通过", "body": "请重试，重新下载一次。"},
-			"spawnFailed": {"title": "某个工具缺失或无法启动", "body": "请重试。如果仍然失败，请在下方选择一个可用的副本。"},
-			"permissionDenied": {"title": "系统不允许 Arroxy 运行某个工具", "body": "请重试。如果仍然失败，请在下方选择一个你信任的副本。"},
-			"blockedOrQuarantined": {"title": "杀毒软件拦截了某个工具", "body": "请在杀毒软件或 SmartScreen 中允许 Arroxy，然后重试。"},
-			"badExitCode": {"title": "某个工具运行不正常", "body": "请重试。如果仍然失败，请在下方选择一个可用的副本。"},
-			"timeout": {"title": "某个工具响应时间过长", "body": "首次运行时常因安全扫描而变慢。请重试。"},
-			"pairIncomplete": {"title": "FFmpeg 和 FFprobe 必须一起设置", "body": "请在下方同时选择两者，或将它们恢复为默认。"},
-			"unknown": {"title": "设置过程中出了点问题", "body": "请重试，或打开设置日志查看详情。"}
-		},
-		"installing": {"homebrew": "正在通过 Homebrew 安装…可能需要几分钟。", "winget": "正在通过 WinGet 安装…可能需要几分钟。"},
-		"stopped": {"title": "设置已停止", "body": "请重试，或在下方指定你已有的工具。"},
-		"manual": {"toggle": "手动设置", "intro": "指定你已有的副本，或通过其他方式安装。", "linuxHint": "你也可以用包管理器安装 yt-dlp 和 ffmpeg，然后点击“重试”。"},
-		"actions": {"chooseExecutable": "选择可执行文件", "installWithHomebrew": "使用 Homebrew 安装", "installWithWinget": "使用 WinGet 安装", "resetToDefault": "恢复默认", "retrySetup": "重试", "cancel": "取消", "openDependencyFolder": "打开依赖文件夹", "viewSetupLog": "查看设置日志"}
+	"donate": {
+		"copied": "已复制！",
+		"copyAddress": "复制地址",
+		"description": "Arroxy 免费开源，没有广告，也没有付费版本。捐赠完全自愿，不会换取对路线图的任何影响。",
+		"footerLabel": "捐赠",
+		"footerTooltip": "支持 Arroxy",
+		"qrAlt": "{{coin}} 捐赠地址二维码",
+		"title": "支持 Arroxy",
+		"warning": "加密货币转账不可撤销。请仅通过所示网络发送，并核对完整地址。"
 	},
-	"theme": {"light": "浅色模式", "dark": "深色模式", "system": "跟随系统"},
-	"language": {"label": "语言"},
-	"wizard": {
-		"steps": {"url": "链接", "playlistItems": "播放列表", "playlistItemsGeneric": "视频", "playlistPresets": "画质", "playlistProfiles": "配置", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "输出", "folder": "保存", "confirm": "确认", "review": "查看"},
-		"playlistPresets": {"heading": "选择批量下载画质", "subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。", "itemCount_other": "{{count}} 项"},
-		"playlistProfiles": {
-			"heading": "分配下载配置",
-			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项",
-			"assignTriggerEmpty": "分配配置文件",
-			"assignTrigger_other": "分配给 {{count}} 个视频",
-			"menuDescription_other": "为这 {{count}} 个视频选择配置文件。",
-			"editProfile": "编辑{{name}}",
-			"filtersLabel": "配置筛选",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "配置",
-			"columnDuration": "时长",
-			"empty": "没有符合此筛选条件的项目"
+	"errors": {
+		"noSubtitlesIn": "此视频没有{{languages}}的字幕。",
+		"ytdlp": {
+			"ageRestricted": "该视频有年龄限制,未登录账号无法下载。",
+			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
+			"chunkTransferFailure": "服务器在传输过程中反复中断下载，Arroxy 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
+			"drmProtected": "该视频受 DRM 保护。Arroxy 无法去除 DRM，因此无法下载该文件。",
+			"formatUnavailable": "该视频已不再提供您所选的格式。请重新粘贴链接，并从当前提供的格式中选择。",
+			"geoBlocked": "该视频在你所在的地区不可用。",
+			"ipBlock": "你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。",
+			"loginRequired": "此视频需要已登录的账号。",
+			"missingDependency": "Arroxy 找不到 FFmpeg 或 FFprobe。请重新运行设置，或指定 FFmpeg 位置，然后重试下载。",
+			"network": "网络错误。请检查你的连接并重试。",
+			"noSubtitles": "此视频没有所请求语言的字幕。",
+			"outOfDiskSpace": "磁盘空间不足。请清理空间后重试。",
+			"outputNotWritable": "Arroxy 无法写入下载文件夹。该文件夹可能是只读的、位于已锁定的驱动器上，或被系统的隐私设置阻止。请选择其他文件夹或允许访问，然后重试。",
+			"parse": "无法解析网站的响应。网站可能已更改提供视频的方式。Arroxy 会在启动时更新其下载引擎——请几分钟后再重试，等待修复发布。",
+			"postprocessFailure": "下载已完成，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。",
+			"rateLimit": "网站正在限制来自此连接的请求。",
+			"unavailable": "该视频不可用 — 可能是私有、已删除或受地区限制。",
+			"unknown": "下载失败。请查看下方的原始输出。",
+			"unsupportedUrl": "Arroxy 不支持此 URL。请尝试其他网站的链接。"
+		}
+	},
+	"explore": {
+		"error": {
+			"loadBody": "请检查网络连接，然后重试。",
+			"loadTitle": "此页面未能加载",
+			"openSettings": "打开设置",
+			"proxyBody": "请在设置中检查代理，然后重试。",
+			"proxyTitle": "“探索”无法通过你的代理连接",
+			"retry": "重试"
 		},
-		"playlist": {
-			"heading": "Playlist 视频",
-			"headingGeneric": "要下载的视频",
-			"bulkHeading": "批量 URL",
-			"itemCount_other": "{{count}} 个视频",
-			"itemCountAudio_other": "{{count}} 首曲目",
-			"itemCountBulk_other": "{{count}} 个 URL",
-			"bulkMetadataResolving": "正在获取视频详情… {{done}}/{{total}}",
-			"bulkMetadataOptional": "无需等待 — 现在加入队列的文件在下载时仍会使用真实文件名。",
-			"bulkRowWaiting": "等待中",
-			"bulkRowResolving": "正在获取详情",
-			"bulkRowFailed": "详情不可用",
-			"selectAll": "全选",
-			"selectNone": "取消全选",
-			"sortLabel": "排序",
-			"sortApi": "播放列表顺序",
-			"sortUploadAsc": "最旧优先",
-			"sortUploadDesc": "最新优先",
-			"sortFetchingDates": "正在获取上传日期…",
-			"rangeFrom": "从",
-			"rangeTo": "到",
-			"rangeApply": "应用范围",
-			"selectedCount_other": "已选 {{count}} 个",
-			"noSelection": "请至少选择一个视频以继续",
-			"loadingItems": "正在获取 Playlist…",
-			"loadingItemsGeneric": "正在获取视频…",
-			"loadingPhasePages": "正在扫描频道页面",
-			"loadingPhaseItems": "正在收集视频",
-			"loadingPagesFound_other": "找到 {{count}} 个页面",
-			"loadingLimitHint": "仅限前 {{count}} 个项目",
-			"thumbnailAlt": "视频缩略图",
-			"durationUnknown": "直播",
-			"syncChange": "更改文件夹…",
-			"syncApply": "应用同步",
-			"syncScanning": "正在检查文件夹…",
-			"syncFoundTitle": "已在文件夹中",
-			"syncFoundDesc": "这些视频中有 {{n}} 个已在 {{dir}} 中。要同步以仅下载新视频吗？",
-			"syncNoneTitle": "尚未下载任何内容",
-			"syncNoneDesc": "在 {{dir}} 中未找到此播放列表的视频。",
-			"syncNoneDescGeneric": "在 {{dir}} 中未找到来自此来源的视频。",
-			"alreadyDownloaded": "已下载",
-			"nestedPlaylistBadge": "播放列表",
-			"nestedPlaylistHint_other": "其中 {{count}} 项是播放列表，不是视频 — 逐个粘贴它们的链接即可下载。",
-			"probeLimitAlertTitle": "播放列表扫描已达上限",
-			"probeLimitAlertTitleGeneric": "扫描已达上限",
-			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。",
-			"multiProfileEntry": "为每一项分配配置",
-			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置",
-			"removeFromListCount_other": "从列表中移除 {{count}} 项",
-			"restore": "还原",
-			"removedCount_other": "已移除 {{count}} 项",
-			"allRemovedTitle": "所有项目均已移除",
-			"allRemovedDescription": "恢复它们以继续。"
+		"linkCallout": {
+			"body": "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。",
+			"title": "右键点击链接即可下载"
 		},
-		"bulk": {
-			"title": "批量 URL",
-			"description": "粘贴视频、播放列表、频道、搜索或音频 URL。Arroxy 会在加入队列前清理重复项。",
-			"textareaLabel": "URL 列表",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "就绪",
-			"ignoredCount": "已忽略",
-			"emptyPreview": "粘贴一个或多个 URL 以预览批次。",
-			"needsAtLeastOne": "至少添加一个受支持的 URL 才能继续。",
-			"reject": {"duplicate": "重复"}
+		"linkMenu": {
+			"copyLink": "复制链接",
+			"downloadWith": "使用配置文件下载"
 		},
-		"tabsNavAria": "下载配置导航",
-		"profileSwitchRow": {"helpAria": "{{label}}帮助"},
-		"mixedPrompt": {
-			"title": "此链接包含 Playlist",
-			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
-			"quickBody": "只下载这个视频，或使用当前的快速下载配置将整个播放列表加入队列。",
-			"singleVideo": "就这一个",
-			"quickSingleVideo": "下载此视频",
-			"pickFromPlaylist": "从 Playlist 中挑选",
-			"quickWholePlaylist": "下载整个播放列表",
-			"playlistLimit": "播放列表探测限制：{{count}} 个项目",
-			"quickLimitDescription": "Arroxy 在将播放列表、频道或搜索结果加入队列前最多扫描的条目数。",
-			"singleTooltip": "仅加载此视频，因此会忽略此 URL 附带的播放列表。",
-			"quickSingleTooltip": "将一个下载加入队列，并忽略此 URL 附带的播放列表。",
-			"playlistTooltip": "在显示选择器前，加载播放列表，最多到你的探测限制。",
-			"quickPlaylistTooltip": "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。"
+		"newBadge": "新",
+		"notice": {
+			"body": "在 YouTube 或任何其他网站上查找视频，无需复制链接，直接在这里下载。在这里登录网站，即可下载需要账号的视频。",
+			"continue": "继续",
+			"riskBody": "YouTube 等网站可能会标记、有时甚至封禁用于 Arroxy 等下载工具的账号。请使用可以失去的账号，而不是你的主账号。",
+			"riskTitle": "请使用备用账号登录",
+			"title": "在 Arroxy 中直接浏览网页"
 		},
-		"url": {
-			"playlistScope": {
-				"label": "播放列表范围",
-				"change": "更改",
-				"summaryAppLimit": "加载前 {{count}} 个项目",
-				"summaryFirst": "加载前 {{count}} 个项目",
-				"summaryRange": "加载第 {{from}}-{{to}} 个项目",
-				"dialogTitle": "播放列表范围",
-				"dialogDescription": "选择 Arroxy 为此播放列表加载的内容。",
-				"itemsLabel": "要加载的项目",
-				"appLimit": "使用应用上限：{{count}}",
-				"first": "前",
-				"range": "范围",
-				"to": "至",
-				"invalid": "请使用 1 到 {{max}} 之间的整数项目编号，且起始编号不能大于结束编号。",
-				"applyError": "无法应用该播放列表范围：{{message}}",
-				"reset": "重置",
-				"cancel": "取消",
-				"apply": "应用",
-				"applyReload": "应用并重新加载",
-				"reloading": "正在重新加载...",
-				"emptyTitle": "该范围内没有视频"
-			},
-			"heading": "从 URL 下载",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "配置", "settings": "设置"},
-			"interactiveDownload": "交互式下载",
-			"fetchFormatsTooltip": "分步向导。选择格式、质量等选项。",
-			"quickDownload": "快速下载",
-			"quickDownloadTooltip": "将使用以下配置下载：{{profileName}}",
-			"quickPreparing": "正在准备",
-			"quickQueued": "已加入队列",
-			"quickSingleOnly": "粘贴视频、播放列表、频道或搜索 URL 以开始。",
-			"quickProbeFailed": "探测失败",
-			"quickPrepareFailed": "无法准备队列项目",
-			"quickBulkAllFailed": "这些 URL 都无法准备",
-			"quickFailed": "无法添加此项：{{error}}",
-			"quickPartialFailed_other": "已将可用项目加入队列。{{count}} 个 URL 无法准备。",
-			"profile": {
-				"destinationFallback": "保存位置",
-				"switchAria": "切换下载配置文件：{{profileName}}",
-				"switchTitle": "切换下载配置文件",
-				"activeLabel": "活动配置文件",
-				"editActive": "编辑活动配置文件",
-				"changeGlobalDestination": "更改全局保存位置",
-				"destinationDetail": {"global": "使用全局保存位置", "globalSubfolder": "使用全局保存位置 + 配置子文件夹", "override": "使用配置覆盖", "overrideSubfolder": "使用配置覆盖 + 配置子文件夹"},
-				"summary": {"bestVideo": "最佳视频", "bestAudio": "最佳音频", "aacAudio": "AAC 音频", "wavAudio": "WAV 音频", "noAudio": "无音频", "subtitlesOnly": "仅字幕"},
-				"menuTitle": "切换配置文件",
-				"menuDescription": "更改用于快速下载、批量 URL 和播放列表的活动配置文件。",
-				"newProfile": "新建配置文件",
-				"manageProfiles": "管理配置文件",
-				"panelTitle": "下载配置",
-				"panelDescription": "创建、选择、编辑或移除可重复使用的下载设置。",
-				"badgeCustom": "自定义",
-				"badgeModified": "已修改",
-				"badgeBuiltIn": "内置",
-				"badgeDisabled": "已隐藏",
-				"enableToggleAria": "在选择器中显示配置文件：{{profileName}}",
-				"enableHint": "隐藏的配置文件保留在此，但会从所有选择器中消失。",
-				"reorderHint": "拖动配置文件即可移动。所有配置文件选择器都会按此顺序排列。",
-				"moveHandleAria": "移动 {{profileName}}",
-				"movableProfile": "可移动的配置文件",
-				"moveInstructions": "要移动配置文件，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
-				"movePickedUp": "已拿起 {{profileName}}。当前位于第 {{position}} 个，共 {{count}} 个。",
-				"moveOver": "{{profileName}} 悬停在第 {{position}} 个上，共 {{count}} 个。",
-				"moveDropped": "已将 {{profileName}} 放在第 {{position}} 个，共 {{count}} 个。",
-				"moveCancelled": "已取消移动。{{profileName}} 仍位于第 {{position}} 个，共 {{count}} 个。",
-				"lastEnabledHint": "请至少保留一个可用的配置文件。",
-				"edit": "编辑",
-				"remove": "移除",
-				"reset": "重置"
-			},
-			"bulkButton": "批量 URL",
-			"bulkTooltip": "添加多个 URL 并加入队列。",
-			"features": {
-				"heading": "Arroxy 能下载什么",
-				"youtube": {"heading": "YouTube", "video": "视频", "channel": "频道", "playlist": "播放列表", "short": "Shorts", "music": "音乐", "podcast": "播客"},
-				"anySite": {"heading": "2000+ 个网站", "video": "视频", "videoPlaylist": "视频播放列表", "musicPlaylist": "音乐播放列表"},
-				"always": {"audioOnly": "纯音频", "subtitles": "字幕"}
-			},
-			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
-			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
-			"mascotPreparing": "{{quickDownload}} 正在读取此链接并应用 {{profileName}}。",
-			"mascotQueued": "队列正在处理此下载。处理期间你可以再粘贴一个链接。",
-			"mascotCollection": "快速下载会用 {{profileName}} 将已加载的项目加入队列。交互式下载可让你先查看或选择项目。",
-			"mascotMixed": "此链接指向合集中的某一个视频。解析之前，Arroxy 会询问你想要哪一个。",
-			"mascotSingle": "快速下载会用 {{profileName}} 开始一次下载。需要临时调整时，请使用交互式下载。",
-			"advanced": "高级",
-			"settings": {"inputHeading": "输入", "behaviorHeading": "下载行为", "behaviorDescription": "全局行为，同样影响由配置驱动的下载。"},
-			"clearAria": "清除 URL",
-			"clipboard": {"toggle": "监听剪贴板", "toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。", "autofilledLink": "已从剪贴板添加链接", "bulkHint": "已复制多个链接 — 使用「批量 URL」添加", "replacedLink": "已替换为复制的链接", "undo": "撤销", "dialog": {"cancelButton": "取消"}},
-			"hotkey": {
-				"sectionTitle": "全局快捷键",
-				"sectionDescription": "在任意应用复制链接即可下载，无需打开 Arroxy。",
-				"toggle": "启用全局快捷键",
-				"toggleDescription": "剪贴板中有视频链接时按下快捷键。",
-				"changeShortcut": "更改快捷键",
-				"recording": "请按键…",
-				"test": "测试",
-				"conflict": "此快捷键已被其他应用占用 — 请另选一个。",
-				"hintLabel": "或按",
-				"hintTooltip": "在任意位置复制视频链接，按下此快捷键，Arroxy 就会使用当前配置将其加入队列 — 无需切换窗口。",
-				"hintTooltipSettings": "在设置中更改或关闭它。",
-				"reset": "恢复默认"
-			},
-			"cookies": {
-				"sourceLabel": "Cookies 来源",
-				"sourceOff": "关闭",
-				"sourceFile": "文件",
-				"sourceBrowser": "浏览器",
-				"sourceExplore": "“探索”登录",
-				"recommended": "推荐",
-				"exploreDescription": "仅在下载需要时才使用你在“探索”中的登录。",
-				"exploreDisabled": "“探索”标签页已关闭，因此下载不会使用你在“探索”中的登录。请在下方的“探索”中开启。",
-				"openExplore": "打开“探索”",
-				"toggleDescription": "可帮助下载年龄限制、会员专属和账户私享的视频。",
-				"risk": "风险: cookies.txt 包含该浏览器所有已登录的会话 — 请妥善保管。",
-				"fileLabel": "Cookie 文件",
-				"choose": "选择…",
-				"clear": "清除",
-				"placeholder": "未选择文件",
-				"helpLink": "如何导出 Cookie?",
-				"enabledButNoFile": "请选择一个文件以使用 Cookie",
-				"browserLabel": "浏览器",
-				"browserPlaceholder": "选择浏览器…",
-				"browserHelp": "直接从浏览器读取 cookies。Chromium 系列浏览器使用时必须先关闭。",
-				"enabledButNoBrowser": "请选择一个浏览器以使用 Cookie",
-				"banWarning": "YouTube 等网站可能会标记、有时甚至封禁 Cookie 被 Arroxy 等下载工具使用的账号。建议尽量使用临时小号。",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "本地获取 cookies.txt (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
-			"style": {
-				"panelTitle": "外观",
-				"panelDescription": "Arroxy 的外观。可在底部栏切换浅色和深色。",
-				"modeLabel": "风格",
-				"modeDescription": "两种风格都有浅色和深色。",
-				"aurora": {"label": "Aurora", "description": "动态天空上的玻璃面板。需要图形加速。"},
-				"minimal": {"label": "极简", "description": "纯色、安静的界面。在任何电脑上都运行流畅。"},
-				"unavailableNotice": "{{style}} 需要图形加速，但目前不可用，所以 Arroxy 正在显示{{fallback}}。"
-			},
-			"limitRate": {
-				"label": "下载速度限制",
-				"description": "限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。",
-				"off": "关闭",
-				"custom": "自定义…",
-				"customPlaceholder": "例如 750K 或 1.5M",
-				"invalid": "使用数字并加上 K 或 M（例如 500K、1.5M）",
-				"activeWarning": "正在进行的下载会保留当前限制。暂停再继续即可应用更改。"
-			},
-			"playlistProbeLimit": {
-				"label": "要扫描的播放列表项目数",
-				"description": "打开播放列表、频道或搜索结果时，Arroxy 最多加载的条目数。",
-				"option": "{{count}} 个项目",
-				"current": "当前上限：{{count}} 个项目",
-				"customValue": "自定义：{{count}} 个项目",
-				"custom": "自定义…",
-				"customDialogTitle": "自定义播放列表扫描上限",
-				"customDialogDescription": "请输入 {{min}} 到 {{max}} 之间的整数。",
-				"customDialogCancel": "取消",
-				"customDialogSave": "保存上限",
-				"invalid": "请输入 1 到 5000 之间的整数",
-				"tooltip": "Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
-			},
-			"nativeAudioPreference": {"label": "原生音频偏好", "description": "配置选择原生音频时使用立体声还是环绕声。配置可单独覆盖。", "compatible": "兼容立体声", "surround": "优先环绕声 / Dolby"},
-			"autoRetry": {"label": "重试失败的下载", "description": "在网络或服务器故障后自动重试，每次尝试之间等待更久。被网站拦截的下载永远不会自动重试。", "unit": "次"},
-			"autoRemoveCompleted": {"label": "自动移除已完成的下载", "description": "下载完成几秒后，将其从“下载”列表中移除。文件仍保留在你的文件夹中；失败和已取消的下载会留在列表中。"},
-			"concurrentDownloads": {"label": "同时下载数", "description": "队列中同时下载的项目数量。同时越多，长队列完成越快，但被网站限制的可能性越大。", "unit": "个"},
-			"downloadConnections": {"label": "下载连接数", "description": "同时获取视频的多个部分，加快大文件下载。数值越高，被网站限制的可能性越大。", "unit": "个连接"},
-			"networkPacing": {
-				"heading": "温和下载",
-				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。数值单位为秒。",
-				"presetLabel": "Arroxy 应该多谨慎？",
-				"tooltip": "这些等待发生在每次下载内部。同时进行的下载数量在「同时下载数」中单独设置。",
-				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。",
-				"presets": {"off": "关闭", "balanced": "均衡", "careful": "谨慎", "custom": "自定义"},
-				"tooltips": {"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。", "balanced": "默认。在请求之间和媒体开始前添加短暂停顿。", "careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。", "custom": "自行调整每次下载的高级控制参数。"},
-				"fields": {"sleepRequests": "元数据检查之间的等待", "sleepInterval": "媒体开始前暂停：最小值", "maxSleepInterval": "媒体开始前暂停：最大值", "sleepSubtitles": "字幕文件前等待"},
-				"units": {"seconds": "秒"}
-			},
-			"closeToTray": {"toggle": "关闭时最小化到托盘", "toggleDescription": "关闭窗口后继续在后台下载。"},
-			"analytics": {"toggle": "发送每日心跳", "toggleDescription": "不收集遥测数据。每天一次，匿名心跳会发送应用版本、安装渠道、操作系统、语言、国家/地区，以及 Arroxy 大约是多久前安装的，用于统计活跃用户和新用户。不包含 ID、URL、视频标题或文件名。"}
+		"nudge": {
+			"browser": "下载使用的是浏览器的 Cookies，而不是你在“探索”中的登录。",
+			"file": "下载使用的是你的 Cookies 文件，而不是你在“探索”中的登录。",
+			"notNow": "暂不",
+			"off": "Cookies 已关闭，因此下载不会使用你在“探索”中的登录。",
+			"useExplore": "使用“探索”中的登录"
 		},
-		"quickProgress": {
-			"title": "正在准备快速下载",
-			"description": "Arroxy 正在读取链接并应用 {{profileName}}。",
-			"currentFallback": "当前链接",
-			"waitHint": "Arroxy 准备队列时请保持此窗口打开。",
-			"failedCount_other": "{{count}} 个失败",
-			"cancel": "取消准备",
-			"phase": {"probing": "正在获取详情", "queueing": "正在添加到队列"}
+		"settings": {
+			"description": "在 Arroxy 中浏览 YouTube 或任何其他网站，并登录以访问需要账号的视频。",
+			"idleUnload": "离开时释放内存",
+			"idleUnloadDescription": "在其他标签页停留 5 分钟后，关闭 YouTube 首页或搜索页。返回时会重新加载，需要几秒钟。",
+			"searchEngine": "搜索引擎",
+			"searchEngineDescription": "在地址栏输入的文字将使用此搜索引擎搜索；链接则按输入内容直接打开。",
+			"showTab": "显示“探索”标签页",
+			"showTabDescription": "关闭后，下载也将不再使用你在“探索”中的登录。",
+			"signOut": "退出“探索”登录",
+			"signOutConfirm": "退出登录",
+			"signOutConfirmBody": "这将清除“探索”中所有网站的登录信息和浏览数据。需要账号的下载将失败，直到你重新登录。",
+			"signOutConfirmTitle": "退出“探索”登录？",
+			"signOutDescription": "清除“探索”中所有网站的登录信息和浏览数据。",
+			"title": "探索"
 		},
+		"tabLabel": "探索",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "对于已登录的账号，YouTube 可能会抵制广告拦截。",
+				"aria": "广告拦截",
+				"off": "广告拦截：已关闭 — 点击开启",
+				"on": "广告拦截：已开启 — 点击关闭",
+				"starting": "广告拦截：启动中 — 点击关闭",
+				"unavailable": "广告拦截：不可用，无法下载其过滤列表 — 点击关闭"
+			},
+			"addressAria": "地址",
+			"addressPlaceholder": "使用 {{engine}} 搜索或打开任意网站（Vimeo、Instagram…）",
+			"aria": "当前页面",
+			"back": "后退",
+			"compactLayout": "紧凑布局",
+			"downloadWithProfile": "下载 · {{profileName}}",
+			"forward": "前进",
+			"fullLayout": "显示完整布局",
+			"grabUnavailable": "打开视频、播放列表或频道即可下载",
+			"home": "YouTube 首页",
+			"interactiveHint": "交互式下载：选择格式、字幕等…",
+			"refusedHint": "“探索”无法打开该地址。",
+			"reload": "重新加载",
+			"searchTooLong": "搜索内容太长。",
+			"zoom": {
+				"hint": "页面缩放：{{percent}}%",
+				"in": "放大",
+				"label": "页面缩放",
+				"out": "缩小",
+				"percent": "缩放百分比",
+				"reset": "将缩放重置为 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "自动",
+		"autoValue": "自动 (.{{ext}})",
+		"description": {
+			"auto": "由所选的流决定文件类型。",
+			"mkv": "可容纳任何编码。部分电视和手机无法打开。",
+			"mp4": "几乎在所有设备上都能播放。MP4 中的 VP9 在 QuickTime 中无法播放画面。",
+			"webm": "面向浏览器的开放格式。只能容纳 VP9 或 AV1 搭配 Opus。"
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4 中的 AV1 需要较新的 Mac 才能在 QuickTime 中播放。H.264 在任何地方都能播放。",
+		"mp4CaveatVp9": "MP4 中的 VP9 在 QuickTime 中无法播放画面。H.264 在任何地方都能播放。",
+		"profileMark": "配置",
+		"smartTvNoWebm": "智能电视不提供 WebM：它无法容纳 H.264。",
+		"webm": "WebM",
+		"webmBlocked": "WebM 无法容纳 {{codec}}。请选择 MKV 或 MP4。"
+	},
+	"filenameTemplate": {
+		"description": "选择下载文件的命名方式。点击标记即可插入。使用 / 可将下载内容分类到文件夹。",
+		"error": {
+			"empty": "请输入文件名模板。",
+			"empty-segment": "请删除多余的 / — 每个文件夹都需要名称。",
+			"forbidden-char": "请删除文件名中不允许的字符: \\ : * ? \" < > |",
+			"invalid-segment": "该文件夹名称不被允许。请避免 . 和 .. 以及 CON 之类的保留名称。",
+			"no-unique-token": "请在文件名中加入 {title} 或 {id}，让每个下载都有自己的名称。",
+			"resolution-in-dir": "{resolution} 不能用作文件夹名称 — 画质要到下载开始后才能确定。",
+			"stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。",
+			"too-long": "模板过长。",
+			"unknown-token": "未知标记 {{token}}。"
+		},
+		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
+		"label": "文件名模板",
+		"m3uDisabled": "不可用，因为你的文件名模板未包含 {id}，或将下载内容分类到了文件夹。",
+		"previewPlaylist": "在播放列表中",
+		"previewSingle": "单个视频",
+		"profileOverrideDescription": "留空则沿用全局模板。",
+		"profileOverrideLabel": "文件名模板"
+	},
+	"formatLabel": {
+		"audioFallback": "音频",
+		"audioOnlyDot": "仅音频 · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "自动",
+		"description": "自动模式会在此屏幕能显示 HDR 时选择 HDR，否则选择 SDR。HDR 在普通屏幕上看起来会发灰。",
+		"hdr": "HDR",
+		"label": "HDR 视频",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "语言"
+	},
+	"notifications": {
+		"exploreSignInRetrying_other": "已通过“探索”登录 — 正在重试 {{count}} 个链接",
+		"exploreSignOutFailed": "无法退出“探索”登录，请重试。",
+		"filenameFolderTooDeep": "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。",
+		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。",
+		"folderSelectFailed": "无法打开文件夹选择器。",
+		"hotkey": {
+			"alreadyQueued": "已在队列中 — 未重复添加",
+			"busy": "Arroxy 仍在启动 — 请稍后再试",
+			"cookiesSetup": "请先在 Arroxy 中完成 Cookie 设置，然后再试",
+			"invalidClipboard": "剪贴板中没有链接 — 请先复制一个",
+			"multipleUrls": "已复制多个链接 — 请在 Arroxy 中使用「批量 URL」",
+			"needsReview": "此链接需要你来选择 — 请在 Arroxy 中查看“下载”",
+			"queued": "已从剪贴板添加下载",
+			"submissionFailed": "无法添加该链接 — 请在 Arroxy 中重试"
+		},
+		"playlistFolderRejected": "该文件夹无法用于此播放列表。",
+		"queue": {
+			"skippedAlreadyQueued_other": "{{count}} 个视频已在队列中 — 已跳过"
+		},
+		"quickDownload": {
+			"added": "已添加：{{title}}",
+			"alreadyQueued": "已在队列中",
+			"chooseHowMany_other": "{{count}}+ 个视频 — 选择数量",
+			"failed": "无法准备 {{title}}",
+			"notAdded": "无法添加该链接 — 请重试",
+			"reviewCapped_other": "此列表中有 {{count}}+ 个视频 — 查看后选择",
+			"review_other": "此列表中有 {{count}} 个视频 — 查看后选择",
+			"view": "查看"
+		},
+		"settingsSaveFailed": "无法保存你的设置。",
+		"shellActionFailed": "无法打开该项目。",
+		"warmupFailed": "初始化未完成。在完成之前，部分下载可能会失败。"
+	},
+	"playlistPresets": {
+		"audioFormat": {
+			"best": "音频（最佳）",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "音频 ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "最佳原生音频，不重新编码",
+			"m4a": "转换为 M4A (AAC)",
+			"mp3": "转换为 MP3",
+			"opus": "转换为 Opus"
+		},
+		"mp4Cap": "YouTube 不提供 1080p 以上的 H.264 — 自动限制为 1080p",
 		"subtitles": {
-			"autoBadge": "自动",
-			"noLanguages": "该视频没有字幕",
-			"searchPlaceholder": "搜索语言…",
-			"noMatches": "没有匹配的语言",
-			"clearAll": "清除全部",
-			"noSelected": "未选择字幕",
-			"removeLanguage": "移除{{name}}",
-			"sectionManual": "手动",
-			"sectionAuto": "自动生成",
-			"saveMode": {"heading": "保存方式", "sidecar": "与视频同位置", "embed": "嵌入到视频", "subfolder": "subtitles/ 子文件夹"},
-			"format": {"heading": "Format"},
-			"embedNote": "嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。",
-			"autoAssNote": "自动字幕将保存为 SRT 而非 ASS —— 它们会被清除 YouTube 的滚动重复字幕，但我们的 ASS 转换器目前还无法做到这一点。"
+			"deliveryHeading": "保存方式",
+			"deliveryLoose": "直接保存在保存文件夹中",
+			"languages": "语言",
+			"languagesRequired": "请至少选择一种语言以继续。",
+			"note": "每个视频仅保存字幕文件 — 不下载视频或音频。",
+			"source": "来源"
 		},
-		"sponsorblock": {
-			"modeHeading": "赞助商过滤",
-			"mode": {"off": "关闭", "mark": "标记为章节", "remove": "删除片段"},
-			"modeHint": {"off": "不使用 SponsorBlock — 视频按上传状态播放。", "mark": "将赞助商片段标记为章节（非破坏性）。", "remove": "使用 FFmpeg 从视频中删除赞助商片段。"},
-			"categoriesHeading": "类别",
-			"cat": {"sponsor": "赞助商", "intro": "片头", "outro": "片尾", "selfpromo": "自我宣传", "music_offtopic": "与音乐无关", "preview": "预览", "filler": "填充内容"}
+		"tier": {
+			"144": "最高 144p",
+			"240": "最高 240p",
+			"360": "最高 360p",
+			"480": "最高 480p",
+			"720": "最高 720p",
+			"1080": "最高 1080p",
+			"1440": "最高 1440p",
+			"2160": "最高 4K",
+			"best": "最佳画质"
 		},
-		"formats": {
-			"kind": {"label": "下载内容", "video": "视频 + 音频", "videoOnly": "视频，无音频", "audio": "仅音频", "subtitles": "仅字幕"},
-			"profile": {
-				"calloutTitle": "格式从你的配置文件开始",
-				"calloutBody": "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。",
-				"preselected": "预选自",
-				"tag": "配置",
-				"closestTag": "最接近配置",
-				"switchTitle": "切换配置？",
-				"switchBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由“{{profile}}”选择。保留其他更改，还是全部重置为配置的设置？",
-				"resetAll": "全部重置",
-				"edit": "编辑“{{name}}”",
-				"updatedTitle": "使用更新后的配置？",
-				"updatedBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由更新后的配置选择。保留其他更改，还是全部重置为配置的设置？",
-				"keepEdits": "保留我的更改",
-				"menuDescription": "仅用于本次下载。你的默认配置保持不变。"
-			},
-			"fit": {
-				"tierBelow": "配置要求 {{wanted}}p，但此视频最高只有 {{picked}}p，已选择 {{picked}}p。",
-				"tierAbove": "配置要求 {{wanted}}p，但此视频没有这么低的画质，已选择 {{picked}}p。",
-				"mp4Unavailable": "你的配置是智能电视 (H.264)。此视频不提供 H.264，因此选择了最接近的流。",
-				"noVideo": "此链接没有视频，已选择音频。",
-				"subtitlesMissing": "配置要求 {{languages}} 字幕，但此视频没有。",
-				"webmUnavailable": "你的配置要求 WebM。此视频所选的流包含 WebM 无法容纳的 {{codec}}，因此文件类型为自动。"
-			},
-			"footer": {"download": "下载", "moreActions": "更多下载选项", "addToQueue": "加入队列但不开始", "subtitlesRequired": "请至少选择一种字幕语言。"},
-			"video": "视频",
+		"tierDesc": {
+			"144": "最小的文件",
+			"240": "非常小的文件，低画质",
+			"360": "带宽紧张时的小文件",
+			"480": "低带宽",
+			"720": "文件更小，兼容性广",
+			"1080": "限制为 1080p，每项必要时降级",
+			"1440": "限制为 2K，每项必要时降级",
+			"2160": "限制为 2160p，每项必要时降级",
+			"best": "每个项目可用的最佳视频 + 音频"
+		},
+		"type": {
 			"audio": "音频",
-			"noAudio": "无音频",
-			"withAudio": "含音频",
-			"resolutionUnknown": "分辨率未知",
-			"bitrateValue": "比特率 {{bitrate}}",
-			"marker": {"aiUpscaled": "AI 放大", "aiDubbed": "AI 配音", "audioDescription": "音频描述", "spatialAudio": "空间音频", "vr": "360° / VR", "enhancedBitrate": "增强比特率", "damaged": "已损坏", "watermarked": "带水印"},
-			"keepAudio": "保持原样",
-			"keepAudioMeta": "内置音频",
-			"audioOnly": "仅音频",
-			"sniffing": "正在为你寻找最佳格式…",
-			"loadingHint": "请等待探测完成，播放列表和搜索可能需要一些时间。",
-			"loadingAria": "正在加载格式",
-			"sizeUnknown": "大小未知",
-			"total": "总计",
-			"skipToConfirm": "跳至确认",
-			"skipToConfirmTooltip": "使用您保存的偏好设置完成所有剩余步骤。若要更改某项设置，请逐步继续操作——您的选择将在下次保存。",
-			"quality": {"high": "高质量", "medium": "中等质量", "low": "低质量"},
-			"drc": {"label": "均衡音量（DRC）", "description": "压低响亮的部分、提升安静的部分，适合扬声器和嘈杂环境。", "tag": "音量均衡"},
-			"audioLanguage": "音频语言",
-			"audioLanguageCount_other": "{{count}} 种语言",
-			"convert": {
-				"label": "转换",
-				"bitrate": "比特率",
-				"wavLabel": "WAV (uncompressed)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps，不重新编码",
-				"copyLabelNoBitrate": "{{target}}，不重新编码",
-				"copyNote": "{{kbps}} kbps，与源一致：流已是 {{target}}，因此直接复制，不重新编码",
-				"copyNoteNoBitrate": "与源一致：流已是 {{target}}，因此直接复制，不重新编码",
-				"bitrateCopyHint": "已是 {{target}} 的源会保留自身的流和比特率：直接复制，不重新编码。",
-				"sourceKbps": "源为 {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "YouTube 限制了本次探测",
-				"bodyUnconfigured": "格式列表可能不完整。请在高级设置中配置 cookies，或更换网络后重试。",
-				"bodyDisabled": "Cookies 已配置但未启用。启用后重试可获取完整列表，或更换网络后重试。",
-				"bodyEnabled": "即使使用了 cookies，YouTube 仍然限制了本次探测。请稍后重试或更换网络。",
-				"bodyExplore": "YouTube 限制了此请求。请稍后重试或切换网络。",
-				"retryCta": "重试",
-				"enableRetryCta": "启用 cookies 并重试"
-			},
-			"rateLimit": {
-				"heading": "{{site}} 正在限制此连接的请求",
-				"leadDegraded": "格式列表可能不完整。",
-				"leadFailed": "{{site}} 暂时拒绝了此请求。",
-				"waitUntil": "Arroxy 会等到 {{time}} 再向 {{site}} 发出请求，以便限制解除。",
-				"waitOver": "等待时间已过，你可以再试一次。",
-				"sessionNote": "{{site}} 可能会将此限制保持长达一小时。",
-				"tryNowCta": "立即尝试",
-				"retryCta": "重试"
-			},
-			"cookiesError": {
-				"heading": "Cookies 可能是原因所在",
-				"currentModeLabel": "Cookies 来源",
-				"currentModeFile": "文件",
-				"currentModeBrowser": "浏览器",
-				"currentModeExplore": "“探索”登录",
-				"explanationFile": "你的 cookies 文件可能为空、已过期或格式不正确（Arroxy 需要 Netscape cookies.txt 格式）。请尝试重新导出 cookies、选择其他文件、切换到浏览器模式或关闭 cookies。",
-				"explanationBrowser": "Cookies 直接从浏览器读取。如果浏览器当前正在运行，其 cookie 数据库可能已被锁定（Chromium-family）。浏览器还必须已登录 YouTube。请尝试关闭浏览器、切换到其他浏览器、切换到文件模式或关闭 cookies。",
-				"openSettingsCta": "打开 cookies 设置",
-				"exploreSignIn": {"heading": "此视频可能需要 YouTube 账号", "body": "如果此视频需要 YouTube 账号，请在“探索”中登录后重试。Arroxy 仅在下载需要时才使用该登录。", "cta": "在“探索”中登录"},
-				"exploreSignedIn": {"heading": "已在“探索”中登录", "body": "如果此视频需要账号，Arroxy 会自动使用你在“探索”中的登录。也可能因其他原因而无法使用。"},
-				"exploreOffer": {"heading": "此视频可能需要 YouTube 账号", "body": "通过“探索”登录后，Arroxy 会重试。", "cta": "通过“探索”登录"},
-				"exploreReuse": {"heading": "此视频可能需要 YouTube 账号", "body": "你已在“探索”中登录，但下载目前没有使用该登录。", "cta": "使用我在“探索”中的登录并重试"},
-				"exploreSite": {"heading": "此链接可能需要 {{host}} 的账号", "signInBody": "请在“探索”中登录 {{host}} 后重试。Arroxy 仅在下载需要时才使用该登录。", "offerBody": "请通过“探索”登录 {{host}} 后重试。"},
-				"exploreRefused": {"heading": "即使已在“探索”中登录，网站仍拒绝了此请求", "body": "Arroxy 已经使用你在“探索”中的登录试过了，再次登录也无济于事。可能是网站出现问题，或此账号无法打开。请稍后再试。"},
-				"otherCookiesCta": "改用 Cookie 文件或浏览器…",
-				"needsCookies": {"heading": "此网站需要登录", "body": "Arroxy 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。"},
-				"dpapi": {
-					"heading": "Chrome Cookies 被 Windows 加密阻止",
-					"explanation": "Chrome 127 及更新版本以其他应用在 Windows 上无法读取的方式加密 cookies。请尝试以下任一解决方法。",
-					"fixFirefoxLabel": "切换到 Firefox",
-					"fixFirefoxBody": "Firefox 不使用 App-Bound Encryption。打开 cookies 设置，从浏览器列表中选择 Firefox。",
-					"fixFileLabel": "导出 cookies.txt",
-					"fixFileBody": "使用浏览器扩展从 Chrome 导出 cookies，然后将此应用切换到文件模式并选择导出的文件。",
-					"fixUnsafeLabel": "以禁用 App-Bound Encryption 的方式启动 Chrome",
-					"fixUnsafeBody": "在 Chrome 的启动快捷方式中添加 --disable-features=LockProfileCookieDatabase。警告：这将使之前加密的 cookies 失效，你将被所有网站登出，需要重新登录。",
-					"docsLinkLabel": "yt-dlp 文档（issue #10927）"
-				}
-			},
-			"savesAs": {"label": "保存为", "reset": "WebM 无法容纳 {{codec}}，因此文件类型已改回自动。"}
+			"subtitles": "字幕",
+			"video": "视频"
 		},
-		"folder": {"heading": "保存到", "downloads": "下载", "videos": "影片", "desktop": "桌面", "music": "音乐", "documents": "文档", "pictures": "图片", "home": "主目录", "custom": "自定义…", "subfolder": {"toggle": "保存到子文件夹", "placeholder": "例如 lo-fi rips", "invalid": "文件夹名包含无效字符"}},
-		"output": {
-			"embedChapters": {"label": "嵌入章节", "description": "可在任何现代播放器中导航的章节标记。"},
-			"embedMetadata": {"label": "嵌入元数据", "description": "将标题、艺术家、描述和上传日期写入文件。"},
-			"embedThumbnail": {"label": "嵌入缩略图", "description": "文件内封面图。WebM 视频将重新封装为 MKV；嵌入字幕时跳过。"},
-			"writeDescription": {"label": "保存描述", "description": "将视频描述保存为 .description 文本文件，放在下载文件旁边。"},
-			"writeThumbnail": {"label": "保存缩略图", "description": "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。"},
-			"writeM3u": {"label": "生成 .m3u 播放列表文件", "description": "在视频旁保存 .m3u 播放列表，以便播放器按顺序打开。"}
+		"videoFormat": {
+			"best": "最佳原生格式",
+			"mp4": "智能电视 H.264 MP4"
 		},
-		"review": {
-			"changeFormat": "更改格式",
-			"rowsHeading": "其他设置",
-			"rows": {"subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "附加项", "saveTo": "保存位置", "fileName": "文件名"},
-			"value": {"subtitlesOff": "关闭", "sponsorBlockOff": "关闭", "extrasNone": "无"},
-			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
-			"areas": {"format": "格式", "subtitles": "字幕", "sponsorBlock": "SponsorBlock", "extras": "附加项", "saveTo": "文件夹", "fileName": "文件名"},
-			"updateProfile": "用这些更改更新“{{profile}}”",
-			"saveAsProfile": "另存为新配置",
-			"update": {"title": "更新“{{profile}}”？", "description": "从现在起，使用此配置的每次下载都将使用新设置。", "rows": {"format": "格式"}, "builtinNote": "这是内置配置。你可以在“配置”标签页中恢复其原始设置。", "action": "更新配置", "updated": "已更新配置“{{name}}”"},
-			"callout": {"title": "其他所有设置现在都在此页面", "body": "字幕、SponsorBlock、缩略图等附加项、文件夹和文件名以前是单独的步骤。点击某一行即可更改。"},
-			"reset": "撤销更改，恢复为“{{profile}}”",
-			"changedFrom": "与 {{profile}} 相比的更改：",
-			"save": {"title": "另存为配置", "description": "将这些设置保存为配置，下次可直接选择。快速下载配置保持不变。", "nameLabel": "配置名称", "action": "保存配置", "saved": "已保存为配置“{{name}}”", "failed": "无法保存配置。"},
-			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
-			"nextTime": {"title": "本次下载使用了编辑后的设置。下次继续使用吗？", "action": "另存为配置", "defaultName": "{{profile}}（已编辑）"}
-		},
-		"confirm": {
-			"readyHeadline": "已经准备好下载!",
-			"landIn": "文件将保存至",
-			"landInMultiProfile_other": "将保存到下方的 {{count}} 个目标位置",
-			"labelVideo": "视频",
-			"labelAudio": "音频",
-			"labelSubtitles": "字幕",
-			"subtitlesNone": "—",
-			"labelSaveTo": "保存位置",
-			"labelSize": "大小",
-			"sizeUnknown": "未知",
-			"nothingToDownload": "「仅字幕」预设已启用，但未选择任何字幕语言 — 不会下载任何内容。",
-			"thumbnailEmbedNotSupported": "Thumbnail embed 已跳过 — 输出 container 不支持此功能。",
-			"subtitleEmbedAudioOnly": "Subtitle embed 已改为 sidecar — 纯音频轨道不支持嵌入字幕流。",
-			"audioOnly": "仅音频",
-			"addToQueue": "+ 队列",
-			"addToQueueTooltip": "其他下载完成后开始 — 享受全部带宽",
-			"pullIt": "开始下载! ↓",
-			"pullItTooltip": "立即开始 — 与其他活动下载并行运行",
-			"labelPlaylist": "播放列表",
-			"labelBulk": "批量 URL",
-			"labelPreset": "预设",
-			"labelItems": "项目",
-			"itemsValue_other": "{{total}} 个视频中的 {{count}} 个",
-			"itemsValueAudio_other": "{{total}} 首曲目中的 {{count}} 首",
-			"itemsValueBulk_other": "{{count}} / {{total}} 个 URL",
-			"profileBreakdownHeading": "此批次中的配置",
-			"profileBreakdownCount_other": "{{count}} 项",
-			"subtitleEmbedForcesMkv": "将字幕嵌入视频需要 MKV 文件，因此此下载将保存为 .mkv。"
-		},
-		"profileEditor": {
-			"dialogTitle": "下载配置",
-			"dialogDescription": "一份可复用的设置，适用于快速下载、批量链接和播放列表。",
-			"skipped": "已跳过",
-			"panel": {
-				"identity": {"title": "配置标识", "description": "在快速下载、批量链接和配置列表中显示的名称和图标。"},
-				"downloadType": {"title": "下载类型", "description": "选择你希望使用的主要下载方式。"},
-				"advanced": {"title": "高级选项", "description": "除非你设置配置覆盖，否则配置将沿用全局保存位置。"},
-				"output": {"title": "输出选项", "enabledCount_other": "已启用 {{count}} 项"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "配置名称和图标",
-				"icon": "配置图标",
-				"resolution": "分辨率",
-				"quality": "质量",
-				"source": "来源",
-				"subfolderName": "子文件夹名称",
-				"name": "配置名称",
-				"subtitleDownloads": "字幕下载",
-				"subtitleDownloadsDescription": "配置文件按语言代码请求字幕；是否可用会针对每个 URL 单独判断。",
-				"languages": "语言",
-				"delivery": "保存方式",
-				"overridePath": "配置覆盖路径",
-				"goal": "优化目标",
-				"fileType": "文件类型",
-				"nativeAudio": "原生音频"
-			},
-			"action": {
-				"chooseIcon": "选择配置图标",
-				"setOverride": "设置配置覆盖",
-				"chooseFolder": "选择目标文件夹",
-				"removeLanguage": "移除{{code}}",
-				"useLanguageCode": "使用语言代码“{{code}}”",
-				"changeGlobalShort": "更改全局",
-				"setOverrideShort": "设置覆盖",
-				"useGlobalDefault": "使用全局默认值",
-				"reset": "重置配置",
-				"resetHint": "恢复内置配置设置",
-				"resetDisabledHint": "此配置已使用内置设置",
-				"save": "保存配置"
-			},
-			"placeholder": {"folder": "为此配置选择一个文件夹"},
-			"destination": {
-				"global": "全局保存位置",
-				"override": "配置覆盖",
-				"resolved": "最终保存位置",
-				"defaultFolder": "默认下载文件夹",
-				"defaultFolderWithSubfolder": "默认下载文件夹 / {{subfolder}}",
-				"globalActive": "使用中",
-				"globalInherited": "已沿用",
-				"overrideSet": "覆盖全局",
-				"overrideChoosing": "选择文件夹",
-				"overrideNone": "未设置覆盖",
-				"overrideSetNote": "此配置会先保存到自己的根目录，再添加子文件夹。",
-				"overrideNoneNote": "未设置覆盖。此配置使用上方的全局保存位置。"
-			},
-			"note": {
-				"subtitlesOnly": "此配置仅将字幕文件加入队列。视频、音频、SponsorBlock 和媒体转换均会跳过。",
-				"noSubtitles": "此配置不会请求任何字幕文件或内嵌字幕轨道。",
-				"searchLanguages": "按语言名称或代码搜索",
-				"noLanguageMatches": "没有匹配的语言",
-				"subtitleLanguagesRequired": "请至少选择一种语言。",
-				"subtitleLanguagesRequiredOrOff": "请至少选择一种语言，或关闭字幕下载。",
-				"autoCaptionsSrt": "自动字幕将保存为 SRT 而非 ASS。",
-				"skippedForOutputType": "此输出类型已跳过。"
-			},
-			"error": {"save": "无法保存配置设置。", "changeGlobalDestination": "无法更改全局保存位置。", "reset": "无法重置配置设置。", "folderPicker": "无法打开文件夹选择器，请手动输入路径。"},
-			"mediaMode": {"videoAudio": {"label": "视频 + 音频", "description": "普通视频文件"}, "videoOnly": {"label": "视频，无音频", "description": "仅无声视频"}, "audioOnly": {"label": "仅音频", "description": "音乐或播客"}, "subtitlesOnly": {"label": "仅字幕", "description": "仅字幕文件"}},
-			"icon": {"controls": "控制", "download": "下载", "video": "视频", "captions": "字幕", "audio": "音频", "music": "音乐", "podcast": "播客", "classes": "课程", "clip": "片段", "archive": "存档"},
-			"audioFormat": {"best": "最佳", "wav": "WAV"},
-			"audioQuality": {"128": "最高 128K", "192": "最高 192K", "320": "最高 320K", "best": "最佳质量"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "先手动，后自动", "manualAndAuto": "手动和自动", "manualOnly": "仅手动", "autoOnly": "仅自动生成"},
-			"sponsorBlockHint": {"off": "不使用 SponsorBlock — 视频按上传原样播放。", "mark": "将赞助片段标记为章节（不修改文件）。", "remove": "使用 FFmpeg 从视频中剪除赞助片段。"},
-			"advanced": "高级",
-			"goal": {"bestPicture": {"name": "最佳画质", "tag": "AV1 · VP9", "description": "相同大小下最清晰。较旧的电视、QuickTime 和部分编辑器无法播放。"}, "smartTv": {"name": "智能电视", "tag": "MP4 · H.264", "description": "可在电视、手机、WhatsApp、QuickTime 和视频编辑器中播放。YouTube 仅在 1080p 及以下提供 H.264。"}},
-			"appSetting": "使用应用设置（{{value}}）"
-		},
-		"part": {
-			"switchLabel": "下载多少视频",
-			"whole": "整个视频",
-			"wholeTrack": "整个音轨",
-			"part": "片段",
-			"unavailableSubtitles": "字幕始终覆盖整个视频。",
-			"unavailableDuration": "此视频未提供时长，因此只能整个下载。",
-			"rangeLabel": "视频片段",
-			"start": "开始",
-			"end": "结束",
-			"timeHint": "h:mm:ss、m:ss 或秒数",
-			"length": "{{duration}} 中的 {{length}}",
-			"chapters": "章节",
-			"chapterUntitled": "章节 {{number}}",
-			"exactCut": {"label": "精确剪辑（重新编码，较慢）", "hint": "关闭时，每个剪辑点会落在最近的关键帧上，可能与您输入的时间相差几秒。"},
-			"calloutTitle": "只下载视频的一部分",
-			"calloutBody": "在视频卡片上切换到“片段”，选择起点和终点或某个章节，即可只下载那一段。",
-			"connectionsNote": "片段通过 ffmpeg 下载，因此您的下载连接数和节奏设置不适用于片段。",
-			"urlStart": "您的链接从 {{time}} 开始",
-			"useUrlStart": "用作开始时间",
-			"error": {"startInvalid": "请以 h:mm:ss、m:ss 或秒数输入开始时间。", "endInvalid": "请以 h:mm:ss、m:ss 或秒数输入结束时间。", "startNotBeforeEnd": "开始时间必须早于结束时间。", "endBeyondDuration": "视频在 {{duration}} 结束。"},
-			"downloadBlocked": "请先修正片段的开始和结束时间。",
-			"totalEstimate": "片段，预估",
-			"summary": "片段 {{start}}–{{end}}",
-			"subtitlesFullLength": "整个视频"
+		"videoFormatDesc": {
+			"best": "每个项目可用的最高编解码器",
+			"mp4": "优先 H.264 + AAC，MP4 容器 · 尽力匹配"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "加载中…", "chapters_other": "{{count}} 个章节"},
 	"queue": {
-		"header": "下载",
-		"tabLabel": "下载",
-		"attentionBadge_other": "{{count}} 个下载需要你处理",
-		"choice": {"cappedBody_other": "此播放列表中的视频超过 {{count}} 个。可以全部下载、只下载前 {{count}} 个，或在查看中自行挑选。", "reviewBody_other": "此链接是包含 {{count}} 个视频的列表。查看后即可挑选要下载的内容。", "all": "所有视频", "first": "前 {{count}} 个", "review": "查看"},
-		"tabTip": "下载现在都在下载标签页中 — 随时打开即可查看进度。",
-		"empty": "排队的下载会显示在这里",
-		"filtersLabel": "队列状态筛选",
-		"filterAll": "全部",
-		"selectedActionsLabel": "已选项目",
-		"globalActionsLabel": "所有项目",
-		"selectionSummary": "已选择 {{selected}} · 共 {{total}}",
-		"clearTitle": "清除已完成的下载",
-		"autoRemoveCompleted": {"label": "完成后自动清除", "hint": "每个下载完成几秒后，自动从列表中移除。文件仍保留在你的文件夹中。"},
-		"pauseAllTitle": "暂停所有正在进行的下载",
-		"resumeAllTitle": "继续已暂停的下载并让队列继续运行",
-		"pausedBanner": "队列已暂停 — 等待中的任务在恢复队列之前不会开始",
-		"resumeQueueAction": "恢复队列",
-		"cancelAllTitle": "取消所有正在进行和等待中的下载",
-		"table": {
-			"columns": "列",
-			"title": "标题",
-			"status": "状态",
-			"progress": "进度",
-			"format": "格式",
-			"outputTarget": "输出目标",
-			"artifacts": "输出文件",
-			"size": "大小",
-			"added": "已添加",
-			"finished": "已完成",
-			"notAvailable": "—",
-			"sortBy": "按 {{label}} 排序",
-			"showArtifactsFor": "显示 {{title}} 的文件",
-			"hideArtifactsFor": "隐藏 {{title}} 的文件",
-			"resetColumns": "重置列",
-			"resizeColumn": "调整 {{column}} 列的宽度",
-			"movableColumn": "可移动的列",
-			"moveColumnInstructions": "要移动列，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
-			"columnPickedUp": "已拿起 {{column}} 列。",
-			"columnMovedOver": "{{column}} 列悬停在 {{target}} 列上。",
-			"columnDropped": "已放下 {{column}} 列。",
-			"columnMoveCancelled": "已取消移动 {{column}} 列。"
+		"artifact": {
+			"companion": "伴随文件",
+			"description": "描述",
+			"media": "媒体",
+			"missing": "缺失",
+			"subtitle": "字幕",
+			"thumbnail": "缩略图",
+			"unknown": "文件"
 		},
-		"artifact": {"media": "媒体", "subtitle": "字幕", "thumbnail": "缩略图", "description": "描述", "companion": "伴随文件", "unknown": "文件", "missing": "缺失"},
+		"attentionBadge_other": "{{count}} 个下载需要你处理",
+		"autoRemoveCompleted": {
+			"hint": "每个下载完成几秒后，自动从列表中移除。文件仍保留在你的文件夹中。",
+			"label": "完成后自动清除"
+		},
+		"cancelAllTitle": "取消所有正在进行和等待中的下载",
+		"choice": {
+			"all": "所有视频",
+			"cappedBody_other": "此播放列表中的视频超过 {{count}} 个。可以全部下载、只下载前 {{count}} 个，或在查看中自行挑选。",
+			"first": "前 {{count}} 个",
+			"review": "查看",
+			"reviewBody_other": "此链接是包含 {{count}} 个视频的列表。查看后即可挑选要下载的内容。"
+		},
+		"clearTitle": "清除已完成的下载",
+		"empty": "排队的下载会显示在这里",
+		"filterAll": "全部",
+		"filtersLabel": "队列状态筛选",
+		"globalActionsLabel": "所有项目",
+		"header": "下载",
 		"item": {
-			"defaultError": "下载失败",
-			"retryingSoon": "正在自动重试（第 {{attempt}} 次）",
-			"qualityLimited": "限制为 {{height}}p",
-			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
 			"audioKept": "未移除声音",
 			"audioKeptSubtitlesFailed": "未移除声音 · 部分字幕未能下载",
-			"subtitleLanguagesMissing": "没有{{languages}}的字幕",
-			"pause": "暂停",
-			"resume": "继续",
 			"cancel": "取消",
+			"defaultError": "下载失败",
+			"openDestinationFolder": "打开目标文件夹",
+			"pause": "暂停",
+			"pendingOnly": "仅待处理",
+			"pullNow": "立即下载 — 跳过队列",
+			"qualityLimited": "限制为 {{height}}p",
+			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
+			"remove": "移除",
+			"resume": "继续",
 			"retry": "重试",
+			"retryingSoon": "正在自动重试（第 {{attempt}} 次）",
 			"setLocation": "设置位置",
 			"setLocationHint": "选择待处理项目以设置位置。",
-			"pendingOnly": "仅待处理",
-			"openDestinationFolder": "打开目标文件夹",
-			"remove": "移除",
-			"pullNow": "立即下载 — 跳过队列",
-			"statusProbing": "正在获取详情",
-			"statusNeedsChoice": "需要你来选择",
-			"statusPending": "等待中",
-			"statusRunning": "下载中",
-			"statusHeld": "已挂起",
-			"statusPaused": "已暂停",
+			"statusCancelled": "已取消",
 			"statusDone": "完成",
 			"statusError": "错误",
-			"statusCancelled": "已取消"
+			"statusHeld": "已挂起",
+			"statusNeedsChoice": "需要你来选择",
+			"statusPaused": "已暂停",
+			"statusPending": "等待中",
+			"statusProbing": "正在获取详情",
+			"statusRunning": "下载中",
+			"subtitleLanguagesMissing": "没有{{languages}}的字幕"
+		},
+		"pauseAllTitle": "暂停所有正在进行的下载",
+		"pausedBanner": "队列已暂停 — 等待中的任务在恢复队列之前不会开始",
+		"resumeAllTitle": "继续已暂停的下载并让队列继续运行",
+		"resumeQueueAction": "恢复队列",
+		"selectedActionsLabel": "已选项目",
+		"selectionSummary": "已选择 {{selected}} · 共 {{total}}",
+		"tabLabel": "下载",
+		"tabTip": "下载现在都在下载标签页中 — 随时打开即可查看进度。",
+		"table": {
+			"added": "已添加",
+			"artifacts": "输出文件",
+			"columnDropped": "已放下 {{column}} 列。",
+			"columnMoveCancelled": "已取消移动 {{column}} 列。",
+			"columnMovedOver": "{{column}} 列悬停在 {{target}} 列上。",
+			"columnPickedUp": "已拿起 {{column}} 列。",
+			"columns": "列",
+			"finished": "已完成",
+			"format": "格式",
+			"hideArtifactsFor": "隐藏 {{title}} 的文件",
+			"movableColumn": "可移动的列",
+			"moveColumnInstructions": "要移动列，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
+			"notAvailable": "—",
+			"outputTarget": "输出目标",
+			"progress": "进度",
+			"resetColumns": "重置列",
+			"resizeColumn": "调整 {{column}} 列的宽度",
+			"showArtifactsFor": "显示 {{title}} 的文件",
+			"size": "大小",
+			"sortBy": "按 {{label}} 排序",
+			"status": "状态",
+			"title": "标题"
 		}
 	},
+	"releaseNotes": {
+		"continue": "继续",
+		"description": "你正在运行新的更新。以下是亮点。",
+		"fullNotes": "完整发行说明 ↗",
+		"title": "Arroxy {{version}} 新增内容"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "取消",
+			"chooseExecutable": "选择可执行文件",
+			"installWithHomebrew": "使用 Homebrew 安装",
+			"installWithWinget": "使用 WinGet 安装",
+			"openDependencyFolder": "打开依赖文件夹",
+			"resetToDefault": "恢复默认",
+			"retrySetup": "重试",
+			"viewSetupLog": "查看设置日志"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "请重试。如果仍然失败，请在下方选择一个可用的副本。",
+				"title": "某个工具运行不正常"
+			},
+			"blockedOrQuarantined": {
+				"body": "请在杀毒软件或 SmartScreen 中允许 Arroxy，然后重试。",
+				"title": "杀毒软件拦截了某个工具"
+			},
+			"downloadFailed": {
+				"body": "请检查网络连接，然后重试。",
+				"title": "无法下载 Arroxy 所需的内容"
+			},
+			"extractFailed": {
+				"body": "请重试，重新下载一次。",
+				"title": "下载的文件已损坏"
+			},
+			"hashFailed": {
+				"body": "请重试，重新下载一次。",
+				"title": "下载的文件校验未通过"
+			},
+			"pairIncomplete": {
+				"body": "请在下方同时选择两者，或将它们恢复为默认。",
+				"title": "FFmpeg 和 FFprobe 必须一起设置"
+			},
+			"permissionDenied": {
+				"body": "请重试。如果仍然失败，请在下方选择一个你信任的副本。",
+				"title": "系统不允许 Arroxy 运行某个工具"
+			},
+			"spawnFailed": {
+				"body": "请重试。如果仍然失败，请在下方选择一个可用的副本。",
+				"title": "某个工具缺失或无法启动"
+			},
+			"timeout": {
+				"body": "首次运行时常因安全扫描而变慢。请重试。",
+				"title": "某个工具响应时间过长"
+			},
+			"unknown": {
+				"body": "请重试，或打开设置日志查看详情。",
+				"title": "设置过程中出了点问题"
+			}
+		},
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
+		},
+		"groups": {
+			"engine": "下载引擎",
+			"media": "媒体工具"
+		},
+		"installing": {
+			"homebrew": "正在通过 Homebrew 安装…可能需要几分钟。",
+			"winget": "正在通过 WinGet 安装…可能需要几分钟。"
+		},
+		"manual": {
+			"intro": "指定你已有的副本，或通过其他方式安装。",
+			"linuxHint": "你也可以用包管理器安装 yt-dlp 和 ffmpeg，然后点击“重试”。",
+			"toggle": "手动设置"
+		},
+		"stopped": {
+			"body": "请重试，或在下方指定你已有的工具。",
+			"title": "设置已停止"
+		},
+		"title": "初始化需要你的帮助"
+	},
+	"selectionOrder": {
+		"editorTitle": "此配置的选择方式",
+		"rank": {
+			"aacFileType": {
+				"label": "AAC 音频",
+				"reason": "适配 MP4 播放器"
+			},
+			"aacSmartTv": {
+				"label": "AAC 音频",
+				"reason": "随处可播放"
+			},
+			"codec": {
+				"label": "先 AV1，再 VP9，最后 H.264",
+				"reason": "相同大小下最清晰"
+			},
+			"codecH264First": {
+				"label": "先 H.264，再 VP9，最后 AV1",
+				"reason": "此配置的编解码器"
+			},
+			"codecVp9First": {
+				"label": "先 VP9，再 H.264，最后 AV1",
+				"reason": "此配置的编解码器"
+			},
+			"fps": {
+				"label": "最高帧率",
+				"reason": "动作更流畅"
+			},
+			"h264": {
+				"label": "H.264 视频",
+				"reason": "所有设备都能播放"
+			},
+			"hdrFirst": {
+				"label": "HDR 优先于 SDR",
+				"reason": "在 HDR 屏幕上色彩更丰富",
+				"reasonScreen": "此屏幕支持显示 HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR 优先于 HDR",
+				"reason": "在任何屏幕上都显示正常",
+				"reasonScreen": "此屏幕不支持 HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4 流",
+				"reason": "适合 MP4 文件"
+			},
+			"nativeCompatible": {
+				"label": "立体声音频"
+			},
+			"nativeSource": {
+				"profile": "此配置",
+				"settings": "来自设置"
+			},
+			"nativeSurround": {
+				"label": "环绕声音频（如有）"
+			},
+			"opus": {
+				"label": "Opus 音频",
+				"reason": "适配 WebM"
+			},
+			"original": {
+				"label": "原始流，而非 AI 放大的流",
+				"reason": "放大版分辨率更高，但没有增加真实细节"
+			},
+			"protocol": {
+				"label": "优先选择直接下载，而非流式副本",
+				"reason": "相同画面，下载更快"
+			},
+			"resolution": {
+				"label": "最高 {{tier}}p",
+				"reason": "你的上限"
+			},
+			"resolutionBest": {
+				"label": "最高分辨率",
+				"reason": "未设上限"
+			},
+			"sitePreference": {
+				"label": "网站未降级的流",
+				"reason": "跳过损坏、带水印和备用的副本"
+			},
+			"size": {
+				"label": "更大的文件",
+				"reason": "相同设置下细节更多"
+			},
+			"source": {
+				"label": "优先选择增强比特率流",
+				"reason": "相同分辨率下细节更多"
+			}
+		},
+		"summary": {
+			"fileType": {
+				"auto": "文件类型由流决定",
+				"explicit": "保存为 .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "最佳画质",
+				"smartTv": "所有设备都能播放"
+			}
+		},
+		"whyLabel": "为什么选这个？",
+		"whyTitle": "配置为什么选了这个"
+	},
+	"share": {
+		"copied": "已复制！",
+		"copyLink": "复制链接",
+		"defaultMessage": "Arroxy — 适用于 Windows、macOS 和 Linux 的免费开源视频下载器。支持 YouTube、Vimeo、Twitch 及 2000+ 个网站。\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy 免费且开源。分享它可以帮助更多人发现它。",
+		"footerLabel": "分享",
+		"footerTooltip": "分享 Arroxy",
+		"shareAction": "分享 Arroxy",
+		"title": "分享 Arroxy"
+	},
+	"splash": {
+		"cancel": "遇到问题？手动设置",
+		"greeting": "嘿,欢迎回来!",
+		"setup": {
+			"bytes": "{{done}} / {{total}}",
+			"left": {
+				"minutes_other": "约剩 {{count}} 分钟",
+				"underMinute": "不到 1 分钟"
+			},
+			"note": {
+				"engine": "让下载在网站变化时仍能正常工作。",
+				"firstRun": "只需这一次。Arroxy 会保留这些工具并自行更新。",
+				"media": "只需这一次。Arroxy 会保留它们以供日后更新。"
+			},
+			"stage": {
+				"checking": "正在检查一切是否正常",
+				"connecting": "正在连接…",
+				"downloadingBoth": "正在下载下载引擎和媒体工具",
+				"downloadingEngine": "正在下载下载引擎",
+				"downloadingMedia": "正在下载媒体工具",
+				"unpacking": "正在解压媒体工具"
+			},
+			"title": {
+				"engine": "正在更新下载引擎",
+				"firstRun": "首次设置",
+				"media": "正在更新媒体工具"
+			}
+		},
+		"verifyFirstCheck": "本版本的首次检查——这次会比较慢，通常需要一分钟左右。",
+		"verifying": "正在检查 {{binary}}…",
+		"warmup": "正在准备下载…",
+		"warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"
+	},
+	"status": {
+		"audioKept": "视频已连同声音保存 — 未能移除音频",
+		"audioKeptSubtitlesFailed": "视频已连同声音保存 — 未能移除音频，且部分字幕未能下载",
+		"cancelled": "下载已取消",
+		"complete": "下载完成",
+		"convertingVideo": "正在转换视频…",
+		"diskSpaceInsufficient": "磁盘空间不足 — 需要 {{required}}，当前仅剩 {{free}}",
+		"downloadingBinary": "正在下载二进制 {{name}}…",
+		"downloadingMedia": "正在下载视频和音频…",
+		"embeddingMetadata": "正在嵌入元数据…",
+		"exploreSignedOut": "已退出“探索”登录 — 请重新登录",
+		"extractingAudio": "正在转换音频…",
+		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
+		"fetchingSubtitles": "正在获取字幕…",
+		"mergingFormats": "正在合并音视频…",
+		"mintingToken": "正在生成 YouTube 令牌…",
+		"movingFiles": "正在移动文件…",
+		"noSubtitles": "没有{{languages}}的字幕",
+		"outputNotWritable": "无法保存到 {{dir}} — Arroxy 没有在该处写入的权限",
+		"preparingBinaries": "正在准备二进制文件…",
+		"qualityLimited": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质。稍后重试或换用其他网络可能会有帮助。",
+		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
+		"remintingToken": "正在重新生成令牌…",
+		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…",
+		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "正在使用你在“探索”中的账号登录…",
+		"sleepingBetweenRequests": "等待 {{seconds}} 秒以避免限流…",
+		"startingYtdlp": "正在启动下载引擎…",
+		"subtitleLanguagesMissing": "此视频没有{{languages}}的字幕。视频已保存，但不含这些字幕。",
+		"subtitleLanguagesMissingOthersSaved": "此视频没有{{languages}}的字幕。其他语言已保存。",
+		"subtitlesFailed": "视频已保存 — 部分字幕未能下载",
+		"unknownStartupFailure": "启动下载时出现未知错误",
+		"usedExtractorFallback": "已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定",
+		"ytdlpExitCode": "下载引擎以代码 {{code}} 退出",
+		"ytdlpProcessError": "下载引擎错误：{{error}}"
+	},
+	"theme": {
+		"dark": "深色模式",
+		"light": "浅色模式",
+		"system": "跟随系统"
+	},
+	"titleBar": {
+		"close": "关闭",
+		"maximize": "最大化",
+		"minimize": "最小化",
+		"restore": "还原"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "从剪贴板下载",
+			"open": "打开 Arroxy",
+			"quit": "退出 Arroxy",
+			"statusActive_other": "{{count}}个下载中 · {{percent}}%",
+			"statusIdle": "空闲"
+		},
+		"tooltip": "Arroxy"
+	},
 	"update": {
+		"copied": "命令已复制到剪贴板",
+		"copy": "复制命令到剪贴板",
+		"dismiss": "关闭更新提示",
+		"download": "下载 ↗",
+		"downloadDmg": "下载 DMG ↗",
+		"downloading": "下载中…",
+		"install": "安装并重启",
+		"installFailed": "更新失败",
 		"message": {
 			"generic": "Arroxy {{version}} 可用 — 当前为 {{currentVersion}}。",
 			"homebrew": "Arroxy {{version}} 可用 — 请用 Homebrew 更新。",
@@ -716,262 +709,967 @@
 			"macosDirectHomebrew": "Arroxy {{version}} 可用 — 下载 DMG 或改用 Homebrew。",
 			"portable": "Arroxy {{version}} 可用 — 下载新的构建。"
 		},
-		"install": "安装并重启",
-		"downloading": "下载中…",
+		"retry": "重试",
 		"runAndRestart": "运行并重启",
-		"upgrading": "升级中…",
-		"download": "下载 ↗",
-		"downloadDmg": "下载 DMG ↗",
-		"dismiss": "关闭更新提示",
-		"copy": "复制命令到剪贴板",
-		"copied": "命令已复制到剪贴板",
-		"installFailed": "更新失败",
-		"retry": "重试"
+		"upgrading": "升级中…"
 	},
-	"releaseNotes": {"title": "Arroxy {{version}} 新增内容", "description": "你正在运行新的更新。以下是亮点。", "fullNotes": "完整发行说明 ↗", "continue": "继续"},
-	"status": {
-		"preparingBinaries": "正在准备二进制文件…",
-		"mintingToken": "正在生成 YouTube 令牌…",
-		"remintingToken": "正在重新生成令牌…",
-		"startingYtdlp": "正在启动下载引擎…",
-		"downloadingMedia": "正在下载视频和音频…",
-		"mergingFormats": "正在合并音视频…",
-		"extractingAudio": "正在转换音频…",
-		"convertingVideo": "正在转换视频…",
-		"embeddingMetadata": "正在嵌入元数据…",
-		"movingFiles": "正在移动文件…",
-		"fetchingSubtitles": "正在获取字幕…",
-		"sleepingBetweenRequests": "等待 {{seconds}} 秒以避免限流…",
-		"subtitlesFailed": "视频已保存 — 部分字幕未能下载",
-		"qualityLimited": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质。稍后重试或换用其他网络可能会有帮助。",
-		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
-		"audioKept": "视频已连同声音保存 — 未能移除音频",
-		"audioKeptSubtitlesFailed": "视频已连同声音保存 — 未能移除音频，且部分字幕未能下载",
-		"subtitleLanguagesMissing": "此视频没有{{languages}}的字幕。视频已保存，但不含这些字幕。",
-		"subtitleLanguagesMissingOthersSaved": "此视频没有{{languages}}的字幕。其他语言已保存。",
-		"noSubtitles": "没有{{languages}}的字幕",
-		"cancelled": "下载已取消",
-		"complete": "下载完成",
-		"usedExtractorFallback": "已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定",
-		"ytdlpProcessError": "下载引擎错误：{{error}}",
-		"ytdlpExitCode": "下载引擎以代码 {{code}} 退出",
-		"downloadingBinary": "正在下载二进制 {{name}}…",
-		"unknownStartupFailure": "启动下载时出现未知错误",
-		"diskSpaceInsufficient": "磁盘空间不足 — 需要 {{required}}，当前仅剩 {{free}}",
-		"outputNotWritable": "无法保存到 {{dir}} — Arroxy 没有在该处写入的权限",
-		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…",
-		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "正在使用你在“探索”中的账号登录…",
-		"exploreSignedOut": "已退出“探索”登录 — 请重新登录"
+	"videoCard": {
+		"chapters_other": "{{count}} 个章节",
+		"titlePlaceholder": "加载中…"
 	},
-	"notifications": {
-		"settingsSaveFailed": "无法保存你的设置。",
-		"warmupFailed": "初始化未完成。在完成之前，部分下载可能会失败。",
-		"shellActionFailed": "无法打开该项目。",
-		"folderSelectFailed": "无法打开文件夹选择器。",
-		"exploreSignInRetrying_other": "已通过“探索”登录 — 正在重试 {{count}} 个链接",
-		"exploreSignOutFailed": "无法退出“探索”登录，请重试。",
-		"playlistFolderRejected": "该文件夹无法用于此播放列表。",
-		"filenameFolderTooDeep": "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。",
-		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。",
-		"hotkey": {
-			"queued": "已从剪贴板添加下载",
-			"alreadyQueued": "已在队列中 — 未重复添加",
-			"invalidClipboard": "剪贴板中没有链接 — 请先复制一个",
-			"multipleUrls": "已复制多个链接 — 请在 Arroxy 中使用「批量 URL」",
-			"needsReview": "此链接需要你来选择 — 请在 Arroxy 中查看“下载”",
-			"cookiesSetup": "请先在 Arroxy 中完成 Cookie 设置，然后再试",
-			"busy": "Arroxy 仍在启动 — 请稍后再试",
-			"submissionFailed": "无法添加该链接 — 请在 Arroxy 中重试"
-		},
-		"queue": {"skippedAlreadyQueued_other": "{{count}} 个视频已在队列中 — 已跳过"},
-		"quickDownload": {
-			"added": "已添加：{{title}}",
-			"alreadyQueued": "已在队列中",
-			"failed": "无法准备 {{title}}",
-			"notAdded": "无法添加该链接 — 请重试",
-			"chooseHowMany_other": "{{count}}+ 个视频 — 选择数量",
-			"review_other": "此列表中有 {{count}} 个视频 — 查看后选择",
-			"reviewCapped_other": "此列表中有 {{count}}+ 个视频 — 查看后选择",
-			"view": "查看"
-		}
-	},
-	"errors": {
-		"noSubtitlesIn": "此视频没有{{languages}}的字幕。",
-		"ytdlp": {
-			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
-			"ipBlock": "你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。",
-			"rateLimit": "网站正在限制来自此连接的请求。",
-			"ageRestricted": "该视频有年龄限制,未登录账号无法下载。",
-			"unavailable": "该视频不可用 — 可能是私有、已删除或受地区限制。",
-			"formatUnavailable": "该视频已不再提供您所选的格式。请重新粘贴链接，并从当前提供的格式中选择。",
-			"geoBlocked": "该视频在你所在的地区不可用。",
-			"outOfDiskSpace": "磁盘空间不足。请清理空间后重试。",
-			"outputNotWritable": "Arroxy 无法写入下载文件夹。该文件夹可能是只读的、位于已锁定的驱动器上，或被系统的隐私设置阻止。请选择其他文件夹或允许访问，然后重试。",
-			"unsupportedUrl": "Arroxy 不支持此 URL。请尝试其他网站的链接。",
-			"noSubtitles": "此视频没有所请求语言的字幕。",
-			"chunkTransferFailure": "服务器在传输过程中反复中断下载，Arroxy 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
-			"missingDependency": "Arroxy 找不到 FFmpeg 或 FFprobe。请重新运行设置，或指定 FFmpeg 位置，然后重试下载。",
-			"postprocessFailure": "下载已完成，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。",
-			"parse": "无法解析网站的响应。网站可能已更改提供视频的方式。Arroxy 会在启动时更新其下载引擎——请几分钟后再重试，等待修复发布。",
-			"network": "网络错误。请检查你的连接并重试。",
-			"drmProtected": "该视频受 DRM 保护。Arroxy 无法去除 DRM，因此无法下载该文件。",
-			"loginRequired": "此视频需要已登录的账号。",
-			"unknown": "下载失败。请查看下方的原始输出。"
-		}
-	},
-	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "字幕"},
-		"subtitles": {"note": "每个视频仅保存字幕文件 — 不下载视频或音频。", "languages": "语言", "languagesRequired": "请至少选择一种语言以继续。", "source": "来源", "deliveryHeading": "保存方式", "deliveryLoose": "直接保存在保存文件夹中"},
-		"videoFormat": {"best": "Best codec", "mp4": "智能电视 H.264 MP4"},
-		"videoFormatDesc": {"best": "每个项目可用的最高编解码器", "mp4": "优先 H.264 + AAC，MP4 容器 · 尽力匹配"},
-		"tier": {"144": "最高 144p", "240": "最高 240p", "360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "Best quality"},
-		"tierDesc": {"144": "最小的文件", "240": "非常小的文件，低画质", "360": "带宽紧张时的小文件", "480": "Low bandwidth", "720": "文件更小，兼容性广", "1080": "限制为 1080p，每项必要时降级", "1440": "限制为 2K，每项必要时降级", "2160": "限制为 2160p，每项必要时降级", "best": "每个项目可用的最佳视频 + 音频"},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "最佳原生音频，不重新编码", "mp3": "转换为 MP3", "m4a": "转换为 M4A (AAC)", "opus": "转换为 Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "YouTube 不提供 1080p 以上的 H.264 — 自动限制为 1080p"
-	},
-	"formatLabel": {"audioFallback": "音频", "audioOnlyDot": "仅音频 · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "空闲", "statusActive_other": "{{count}}个下载中 · {{percent}}%", "downloadFromClipboard": "从剪贴板下载", "open": "打开 Arroxy", "quit": "退出 Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_other": "正在进行 {{count}} 个下载", "detail": "暂停以便稍后继续，或取消以丢弃进度。", "confirm": "取消下载并退出", "pause": "暂停下载并退出", "keep": "继续下载"},
-		"closeToTray": {"message": "关闭时将 Arroxy 最小化到系统托盘？", "detail": "Arroxy 将继续运行并完成活动下载。可在高级设置中更改。", "hide": "最小化到托盘", "quit": "退出", "remember": "不再询问"},
-		"rendererCrashed": {"message": "Arroxy 遇到了一个问题", "detail": "渲染进程崩溃（{{reason}}）。请重新加载以重试。", "reload": "重新加载", "quit": "退出"}
-	},
-	"share": {
-		"title": "分享 Arroxy",
-		"description": "Arroxy 免费且开源。分享它可以帮助更多人发现它。",
-		"copyLink": "复制链接",
-		"copied": "已复制！",
-		"defaultMessage": "Arroxy — 适用于 Windows、macOS 和 Linux 的免费开源视频下载器。支持 YouTube、Vimeo、Twitch 及 2000+ 个网站。\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "分享 Arroxy",
-		"footerLabel": "分享",
-		"shareAction": "分享 Arroxy"
-	},
-	"donate": {
-		"title": "支持 Arroxy",
-		"description": "Arroxy 免费开源，没有广告，也没有付费版本。捐赠完全自愿，不会换取对路线图的任何影响。",
-		"footerTooltip": "支持 Arroxy",
-		"footerLabel": "捐赠",
-		"copyAddress": "复制地址",
-		"copied": "已复制！",
-		"qrAlt": "{{coin}} 捐赠地址二维码",
-		"warning": "加密货币转账不可撤销。请仅通过所示网络发送，并核对完整地址。"
-	},
-	"filenameTemplate": {
-		"label": "文件名模板",
-		"description": "选择下载文件的命名方式。点击标记即可插入。使用 / 可将下载内容分类到文件夹。",
-		"profileOverrideLabel": "文件名模板",
-		"profileOverrideDescription": "留空则沿用全局模板。",
-		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
-		"m3uDisabled": "不可用，因为你的文件名模板未包含 {id}，或将下载内容分类到了文件夹。",
-		"previewSingle": "单个视频",
-		"previewPlaylist": "在播放列表中",
-		"error": {
-			"empty": "请输入文件名模板。",
-			"too-long": "模板过长。",
-			"forbidden-char": "请删除文件名中不允许的字符: \\ : * ? \" < > |",
-			"stray-brace": "{ 或 } 未配对 — 标记请写成 {title} 这样的形式。",
-			"no-unique-token": "请在文件名中加入 {title} 或 {id}，让每个下载都有自己的名称。",
-			"unknown-token": "未知标记 {{token}}。",
-			"empty-segment": "请删除多余的 / — 每个文件夹都需要名称。",
-			"invalid-segment": "该文件夹名称不被允许。请避免 . 和 .. 以及 CON 之类的保留名称。",
-			"resolution-in-dir": "{resolution} 不能用作文件夹名称 — 画质要到下载开始后才能确定。"
-		}
-	},
-	"explore": {
-		"tabLabel": "探索",
-		"newBadge": "新",
-		"notice": {
-			"title": "在 Arroxy 中直接浏览网页",
-			"body": "在 YouTube 或任何其他网站上查找视频，无需复制链接，直接在这里下载。在这里登录网站，即可下载需要账号的视频。",
-			"riskTitle": "请使用备用账号登录",
-			"riskBody": "YouTube 等网站可能会标记、有时甚至封禁用于 Arroxy 等下载工具的账号。请使用可以失去的账号，而不是你的主账号。",
-			"continue": "继续"
-		},
-		"nudge": {"off": "Cookies 已关闭，因此下载不会使用你在“探索”中的登录。", "file": "下载使用的是你的 Cookies 文件，而不是你在“探索”中的登录。", "browser": "下载使用的是浏览器的 Cookies，而不是你在“探索”中的登录。", "useExplore": "使用“探索”中的登录", "notNow": "暂不"},
-		"linkCallout": {"title": "右键点击链接即可下载", "body": "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。"},
-		"linkMenu": {"downloadWith": "使用配置文件下载", "copyLink": "复制链接"},
-		"toolbar": {
-			"aria": "当前页面",
-			"back": "后退",
-			"forward": "前进",
-			"reload": "重新加载",
-			"home": "YouTube 首页",
-			"addressAria": "地址",
-			"addressPlaceholder": "使用 {{engine}} 搜索或打开任意网站（Vimeo、Instagram…）",
-			"refusedHint": "“探索”无法打开该地址。",
-			"searchTooLong": "搜索内容太长。",
-			"downloadWithProfile": "下载 · {{profileName}}",
-			"interactiveHint": "交互式下载：选择格式、字幕等…",
-			"grabUnavailable": "打开视频、播放列表或频道即可下载",
-			"compactLayout": "紧凑布局",
-			"fullLayout": "显示完整布局",
-			"zoom": {"label": "页面缩放", "hint": "页面缩放：{{percent}}%", "in": "放大", "out": "缩小", "percent": "缩放百分比", "reset": "将缩放重置为 100%"},
-			"adBlock": {"aria": "广告拦截", "off": "广告拦截：已关闭 — 点击开启", "starting": "广告拦截：启动中 — 点击关闭", "on": "广告拦截：已开启 — 点击关闭", "unavailable": "广告拦截：不可用，无法下载其过滤列表 — 点击关闭", "accountNote": "对于已登录的账号，YouTube 可能会抵制广告拦截。"}
-		},
-		"settings": {
-			"title": "探索",
-			"description": "在 Arroxy 中浏览 YouTube 或任何其他网站，并登录以访问需要账号的视频。",
-			"showTab": "显示“探索”标签页",
-			"showTabDescription": "关闭后，下载也将不再使用你在“探索”中的登录。",
-			"idleUnload": "离开时释放内存",
-			"idleUnloadDescription": "在其他标签页停留 5 分钟后，关闭 YouTube 首页或搜索页。返回时会重新加载，需要几秒钟。",
-			"searchEngine": "搜索引擎",
-			"searchEngineDescription": "在地址栏输入的文字将使用此搜索引擎搜索；链接则按输入内容直接打开。",
-			"signOut": "退出“探索”登录",
-			"signOutDescription": "清除“探索”中所有网站的登录信息和浏览数据。",
-			"signOutConfirmTitle": "退出“探索”登录？",
-			"signOutConfirmBody": "这将清除“探索”中所有网站的登录信息和浏览数据。需要账号的下载将失败，直到你重新登录。",
-			"signOutConfirm": "退出登录"
-		},
-		"error": {"proxyTitle": "“探索”无法通过你的代理连接", "proxyBody": "请在设置中检查代理，然后重试。", "loadTitle": "此页面未能加载", "loadBody": "请检查网络连接，然后重试。", "retry": "重试", "openSettings": "打开设置"}
-	},
-	"fileType": {
+	"videoCodec": {
 		"auto": "自动",
-		"autoValue": "自动 (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "由所选的流决定文件类型。", "mp4": "几乎在所有设备上都能播放。MP4 中的 VP9 在 QuickTime 中无法播放画面。", "mkv": "可容纳任何编码。部分电视和手机无法打开。", "webm": "面向浏览器的开放格式。只能容纳 VP9 或 AV1 搭配 Opus。"},
-		"webmBlocked": "WebM 无法容纳 {{codec}}。请选择 MKV 或 MP4。",
-		"profileMark": "配置",
-		"smartTvNoWebm": "智能电视不提供 WebM：它无法容纳 H.264。",
-		"mp4CaveatVp9": "MP4 中的 VP9 在 QuickTime 中无法播放画面。H.264 在任何地方都能播放。",
-		"mp4CaveatAv1": "MP4 中的 AV1 需要较新的 Mac 才能在 QuickTime 中播放。H.264 在任何地方都能播放。"
+		"description": "在高度相同的流中，优先采用哪种编解码器。自动会沿用 yt-dlp 自身的顺序，该顺序偏好体积最小的 AV1；H.264 可在较旧的电视和手机上播放。",
+		"h264": "优先 H.264",
+		"label": "视频编解码器",
+		"smartTv": "智能电视始终采用 H.264。",
+		"vp9": "优先 VP9"
 	},
-	"selectionOrder": {
-		"editorTitle": "此配置的选择方式",
-		"whyTitle": "配置为什么选了这个",
-		"whyLabel": "为什么选这个？",
-		"rank": {
-			"h264": {"label": "H.264 视频", "reason": "所有设备都能播放"},
-			"mp4Streams": {"label": "MP4 流", "reason": "适合 MP4 文件"},
-			"resolutionBest": {"label": "最高分辨率", "reason": "未设上限"},
-			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
-			"fps": {"label": "最高帧率", "reason": "动作更流畅"},
-			"sitePreference": {"label": "网站未降级的流", "reason": "跳过损坏、带水印和备用的副本"},
-			"original": {"label": "原始流，而非 AI 放大的流", "reason": "放大版分辨率更高，但没有增加真实细节"},
-			"source": {"label": "优先选择增强比特率流", "reason": "相同分辨率下细节更多"},
-			"protocol": {"label": "优先选择直接下载，而非流式副本", "reason": "相同画面，下载更快"},
-			"codec": {"label": "先 AV1，再 VP9，最后 H.264", "reason": "相同大小下最清晰"},
-			"codecVp9First": {"label": "先 VP9，再 H.264，最后 AV1", "reason": "此配置的编解码器"},
-			"codecH264First": {"label": "先 H.264，再 VP9，最后 AV1", "reason": "此配置的编解码器"},
-			"size": {"label": "更大的文件", "reason": "相同设置下细节更多"},
-			"aacSmartTv": {"label": "AAC 音频", "reason": "随处可播放"},
-			"aacFileType": {"label": "AAC 音频", "reason": "适配 MP4 播放器"},
-			"opus": {"label": "Opus 音频", "reason": "适配 WebM"},
-			"nativeCompatible": {"label": "立体声音频"},
-			"nativeSurround": {"label": "环绕声音频（如有）"},
-			"nativeSource": {"settings": "来自设置", "profile": "此配置"},
-			"hdrSdrFirst": {"label": "SDR 优先于 HDR", "reason": "在任何屏幕上都显示正常", "reasonScreen": "此屏幕不支持 HDR"},
-			"hdrFirst": {"label": "HDR 优先于 SDR", "reason": "在 HDR 屏幕上色彩更丰富", "reasonScreen": "此屏幕支持显示 HDR"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "就绪",
+			"description": "粘贴视频、播放列表、频道、搜索或音频 URL。Arroxy 会在加入队列前清理重复项。",
+			"emptyPreview": "粘贴一个或多个 URL 以预览批次。",
+			"ignoredCount": "已忽略",
+			"needsAtLeastOne": "至少添加一个受支持的 URL 才能继续。",
+			"reject": {
+				"duplicate": "重复"
+			},
+			"textareaLabel": "URL 列表",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "批量 URL"
 		},
-		"summary": {"goal": {"bestPicture": "最佳画质", "smartTv": "所有设备都能播放"}, "fileType": {"auto": "文件类型由流决定", "explicit": "保存为 .{{ext}}"}}
-	},
-	"aiUpscaled": {"label": "AI 放大的流", "description": "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。", "skip": "跳过", "allow": "允许"},
-	"videoCodec": {"label": "视频编解码器", "description": "在高度相同的流中，优先采用哪种编解码器。自动会沿用 yt-dlp 自身的顺序，该顺序偏好体积最小的 AV1；H.264 可在较旧的电视和手机上播放。", "smartTv": "智能电视始终采用 H.264。", "auto": "自动", "vp9": "优先 VP9", "h264": "优先 H.264"},
-	"hdrPreference": {"label": "HDR 视频", "description": "自动模式会在此屏幕能显示 HDR 时选择 HDR，否则选择 SDR。HDR 在普通屏幕上看起来会发灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自动"}
+		"confirm": {
+			"addToQueue": "+ 队列",
+			"addToQueueTooltip": "其他下载完成后开始 — 享受全部带宽",
+			"audioOnly": "仅音频",
+			"itemsValueAudio_other": "{{total}} 首曲目中的 {{count}} 首",
+			"itemsValueBulk_other": "{{count}} / {{total}} 个 URL",
+			"itemsValue_other": "{{total}} 个视频中的 {{count}} 个",
+			"labelAudio": "音频",
+			"labelBulk": "批量 URL",
+			"labelItems": "项目",
+			"labelPlaylist": "播放列表",
+			"labelPreset": "预设",
+			"labelSaveTo": "保存位置",
+			"labelSize": "大小",
+			"labelSubtitles": "字幕",
+			"labelVideo": "视频",
+			"landIn": "文件将保存至",
+			"landInMultiProfile_other": "将保存到下方的 {{count}} 个目标位置",
+			"nothingToDownload": "「仅字幕」预设已启用，但未选择任何字幕语言 — 不会下载任何内容。",
+			"profileBreakdownCount_other": "{{count}} 项",
+			"profileBreakdownHeading": "此批次中的配置",
+			"pullIt": "开始下载! ↓",
+			"pullItTooltip": "立即开始 — 与其他活动下载并行运行",
+			"readyHeadline": "已经准备好下载!",
+			"sizeUnknown": "未知",
+			"subtitleEmbedAudioOnly": "Subtitle embed 已改为 sidecar — 纯音频轨道不支持嵌入字幕流。",
+			"subtitleEmbedForcesMkv": "将字幕嵌入视频需要 MKV 文件，因此此下载将保存为 .mkv。",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail embed 已跳过 — 输出 container 不支持此功能。"
+		},
+		"folder": {
+			"custom": "自定义…",
+			"desktop": "桌面",
+			"documents": "文档",
+			"downloads": "下载",
+			"heading": "保存到",
+			"home": "主目录",
+			"music": "音乐",
+			"pictures": "图片",
+			"subfolder": {
+				"invalid": "文件夹名包含无效字符",
+				"placeholder": "例如 lo-fi rips",
+				"toggle": "保存到子文件夹"
+			},
+			"videos": "影片"
+		},
+		"formats": {
+			"audio": "音频",
+			"audioLanguage": "音频语言",
+			"audioLanguageCount_other": "{{count}} 种语言",
+			"audioOnly": "仅音频",
+			"bitrateValue": "比特率 {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies 已配置但未启用。启用后重试可获取完整列表，或更换网络后重试。",
+				"bodyEnabled": "即使使用了 cookies，YouTube 仍然限制了本次探测。请稍后重试或更换网络。",
+				"bodyExplore": "YouTube 限制了此请求。请稍后重试或切换网络。",
+				"bodyUnconfigured": "格式列表可能不完整。请在高级设置中配置 cookies，或更换网络后重试。",
+				"enableRetryCta": "启用 cookies 并重试",
+				"heading": "YouTube 限制了本次探测",
+				"retryCta": "重试"
+			},
+			"convert": {
+				"bitrate": "比特率",
+				"bitrateCopyHint": "已是 {{target}} 的源会保留自身的流和比特率：直接复制，不重新编码。",
+				"copyLabel": "{{target}} {{bitrate}} kbps，不重新编码",
+				"copyLabelNoBitrate": "{{target}}，不重新编码",
+				"copyNote": "{{kbps}} kbps，与源一致：流已是 {{target}}，因此直接复制，不重新编码",
+				"copyNoteNoBitrate": "与源一致：流已是 {{target}}，因此直接复制，不重新编码",
+				"label": "转换",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "源为 {{kbps}} kbps",
+				"wavLabel": "WAV (未压缩)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "浏览器",
+				"currentModeExplore": "“探索”登录",
+				"currentModeFile": "文件",
+				"currentModeLabel": "Cookies 来源",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp 文档（issue #10927）",
+					"explanation": "Chrome 127 及更新版本以其他应用在 Windows 上无法读取的方式加密 cookies。请尝试以下任一解决方法。",
+					"fixFileBody": "使用浏览器扩展从 Chrome 导出 cookies，然后将此应用切换到文件模式并选择导出的文件。",
+					"fixFileLabel": "导出 cookies.txt",
+					"fixFirefoxBody": "Firefox 不使用 App-Bound Encryption。打开 cookies 设置，从浏览器列表中选择 Firefox。",
+					"fixFirefoxLabel": "切换到 Firefox",
+					"fixUnsafeBody": "在 Chrome 的启动快捷方式中添加 --disable-features=LockProfileCookieDatabase。警告：这将使之前加密的 cookies 失效，你将被所有网站登出，需要重新登录。",
+					"fixUnsafeLabel": "以禁用 App-Bound Encryption 的方式启动 Chrome",
+					"heading": "Chrome Cookies 被 Windows 加密阻止"
+				},
+				"explanationBrowser": "Cookies 直接从浏览器读取。如果浏览器当前正在运行，其 cookie 数据库可能已被锁定（Chromium-family）。浏览器还必须已登录 YouTube。请尝试关闭浏览器、切换到其他浏览器、切换到文件模式或关闭 cookies。",
+				"explanationFile": "你的 cookies 文件可能为空、已过期或格式不正确（Arroxy 需要 Netscape cookies.txt 格式）。请尝试重新导出 cookies、选择其他文件、切换到浏览器模式或关闭 cookies。",
+				"exploreOffer": {
+					"body": "通过“探索”登录后，Arroxy 会重试。",
+					"cta": "通过“探索”登录",
+					"heading": "此视频可能需要 YouTube 账号"
+				},
+				"exploreRefused": {
+					"body": "Arroxy 已经使用你在“探索”中的登录试过了，再次登录也无济于事。可能是网站出现问题，或此账号无法打开。请稍后再试。",
+					"heading": "即使已在“探索”中登录，网站仍拒绝了此请求"
+				},
+				"exploreReuse": {
+					"body": "你已在“探索”中登录，但下载目前没有使用该登录。",
+					"cta": "使用我在“探索”中的登录并重试",
+					"heading": "此视频可能需要 YouTube 账号"
+				},
+				"exploreSignIn": {
+					"body": "如果此视频需要 YouTube 账号，请在“探索”中登录后重试。Arroxy 仅在下载需要时才使用该登录。",
+					"cta": "在“探索”中登录",
+					"heading": "此视频可能需要 YouTube 账号"
+				},
+				"exploreSignedIn": {
+					"body": "如果此视频需要账号，Arroxy 会自动使用你在“探索”中的登录。也可能因其他原因而无法使用。",
+					"heading": "已在“探索”中登录"
+				},
+				"exploreSite": {
+					"heading": "此链接可能需要 {{host}} 的账号",
+					"offerBody": "请通过“探索”登录 {{host}} 后重试。",
+					"signInBody": "请在“探索”中登录 {{host}} 后重试。Arroxy 仅在下载需要时才使用该登录。"
+				},
+				"heading": "Cookies 可能是原因所在",
+				"needsCookies": {
+					"body": "Arroxy 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。",
+					"heading": "此网站需要登录"
+				},
+				"openSettingsCta": "打开 cookies 设置",
+				"otherCookiesCta": "改用 Cookie 文件或浏览器…"
+			},
+			"drc": {
+				"description": "压低响亮的部分、提升安静的部分，适合扬声器和嘈杂环境。",
+				"label": "均衡音量（DRC）",
+				"tag": "音量均衡"
+			},
+			"fit": {
+				"mp4Unavailable": "你的配置是智能电视 (H.264)。此视频不提供 H.264，因此选择了最接近的流。",
+				"noVideo": "此链接没有视频，已选择音频。",
+				"subtitlesMissing": "配置要求 {{languages}} 字幕，但此视频没有。",
+				"tierAbove": "配置要求 {{wanted}}p，但此视频没有这么低的画质，已选择 {{picked}}p。",
+				"tierBelow": "配置要求 {{wanted}}p，但此视频最高只有 {{picked}}p，已选择 {{picked}}p。",
+				"webmUnavailable": "你的配置要求 WebM。此视频所选的流包含 WebM 无法容纳的 {{codec}}，因此文件类型为自动。"
+			},
+			"footer": {
+				"addToQueue": "加入队列但不开始",
+				"download": "下载",
+				"moreActions": "更多下载选项",
+				"subtitlesRequired": "请至少选择一种字幕语言。"
+			},
+			"keepAudio": "保持原样",
+			"keepAudioMeta": "内置音频",
+			"kind": {
+				"audio": "仅音频",
+				"label": "下载内容",
+				"subtitles": "仅字幕",
+				"video": "视频 + 音频",
+				"videoOnly": "视频，无音频"
+			},
+			"loadingAria": "正在加载格式",
+			"loadingHint": "请等待探测完成，播放列表和搜索可能需要一些时间。",
+			"marker": {
+				"aiDubbed": "AI 配音",
+				"aiUpscaled": "AI 放大",
+				"audioDescription": "音频描述",
+				"damaged": "已损坏",
+				"enhancedBitrate": "增强比特率",
+				"spatialAudio": "空间音频",
+				"vr": "360° / VR",
+				"watermarked": "带水印"
+			},
+			"noAudio": "无音频",
+			"profile": {
+				"calloutBody": "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。",
+				"calloutTitle": "格式从你的配置文件开始",
+				"closestTag": "最接近配置",
+				"edit": "编辑“{{name}}”",
+				"keepEdits": "保留我的更改",
+				"menuDescription": "仅用于本次下载。你的默认配置保持不变。",
+				"preselected": "预选自",
+				"resetAll": "全部重置",
+				"switchBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由“{{profile}}”选择。保留其他更改，还是全部重置为配置的设置？",
+				"switchTitle": "切换配置？",
+				"tag": "配置",
+				"updatedBody": "你为本次下载更改了{{areas}}。无论哪种方式，视频和音频都由更新后的配置选择。保留其他更改，还是全部重置为配置的设置？",
+				"updatedTitle": "使用更新后的配置？"
+			},
+			"quality": {
+				"high": "高质量",
+				"low": "低质量",
+				"medium": "中等质量"
+			},
+			"rateLimit": {
+				"heading": "{{site}} 正在限制此连接的请求",
+				"leadDegraded": "格式列表可能不完整。",
+				"leadFailed": "{{site}} 暂时拒绝了此请求。",
+				"retryCta": "重试",
+				"sessionNote": "{{site}} 可能会将此限制保持长达一小时。",
+				"tryNowCta": "立即尝试",
+				"waitOver": "等待时间已过，你可以再试一次。",
+				"waitUntil": "Arroxy 会等到 {{time}} 再向 {{site}} 发出请求，以便限制解除。"
+			},
+			"resolutionUnknown": "分辨率未知",
+			"savesAs": {
+				"label": "保存为",
+				"reset": "WebM 无法容纳 {{codec}}，因此文件类型已改回自动。"
+			},
+			"sizeUnknown": "大小未知",
+			"skipToConfirm": "跳至确认",
+			"skipToConfirmTooltip": "使用您保存的偏好设置完成所有剩余步骤。若要更改某项设置，请逐步继续操作——您的选择将在下次保存。",
+			"sniffing": "正在为你寻找最佳格式…",
+			"total": "总计",
+			"video": "视频",
+			"withAudio": "含音频"
+		},
+		"mixedPrompt": {
+			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
+			"pickFromPlaylist": "从 Playlist 中挑选",
+			"playlistLimit": "播放列表探测限制：{{count}} 个项目",
+			"playlistTooltip": "在显示选择器前，加载播放列表，最多到你的探测限制。",
+			"quickBody": "只下载这个视频，或使用当前的快速下载配置将整个播放列表加入队列。",
+			"quickLimitDescription": "Arroxy 在将播放列表、频道或搜索结果加入队列前最多扫描的条目数。",
+			"quickPlaylistTooltip": "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。",
+			"quickSingleTooltip": "将一个下载加入队列，并忽略此 URL 附带的播放列表。",
+			"quickSingleVideo": "下载此视频",
+			"quickWholePlaylist": "下载整个播放列表",
+			"singleTooltip": "仅加载此视频，因此会忽略此 URL 附带的播放列表。",
+			"singleVideo": "就这一个",
+			"title": "此链接包含 Playlist"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "可在任何现代播放器中导航的章节标记。",
+				"label": "嵌入章节"
+			},
+			"embedMetadata": {
+				"description": "将标题、艺术家、描述和上传日期写入文件。",
+				"label": "嵌入元数据"
+			},
+			"embedThumbnail": {
+				"description": "文件内封面图。WebM 视频将重新封装为 MKV；嵌入字幕时跳过。",
+				"label": "嵌入缩略图"
+			},
+			"writeDescription": {
+				"description": "将视频描述保存为 .description 文本文件，放在下载文件旁边。",
+				"label": "保存描述"
+			},
+			"writeM3u": {
+				"description": "在视频旁保存 .m3u 播放列表，以便播放器按顺序打开。",
+				"label": "生成 .m3u 播放列表文件"
+			},
+			"writeThumbnail": {
+				"description": "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。",
+				"label": "保存缩略图"
+			}
+		},
+		"part": {
+			"calloutBody": "在视频卡片上切换到“片段”，选择起点和终点或某个章节，即可只下载那一段。",
+			"calloutTitle": "只下载视频的一部分",
+			"chapterUntitled": "章节 {{number}}",
+			"chapters": "章节",
+			"connectionsNote": "片段通过 ffmpeg 下载，因此您的下载连接数和节奏设置不适用于片段。",
+			"downloadBlocked": "请先修正片段的开始和结束时间。",
+			"end": "结束",
+			"error": {
+				"endBeyondDuration": "视频在 {{duration}} 结束。",
+				"endInvalid": "请以 h:mm:ss、m:ss 或秒数输入结束时间。",
+				"startInvalid": "请以 h:mm:ss、m:ss 或秒数输入开始时间。",
+				"startNotBeforeEnd": "开始时间必须早于结束时间。"
+			},
+			"exactCut": {
+				"hint": "关闭时，每个剪辑点会落在最近的关键帧上，可能与您输入的时间相差几秒。",
+				"label": "精确剪辑（重新编码，较慢）"
+			},
+			"length": "{{duration}} 中的 {{length}}",
+			"part": "片段",
+			"rangeLabel": "视频片段",
+			"start": "开始",
+			"subtitlesFullLength": "整个视频",
+			"summary": "片段 {{start}}–{{end}}",
+			"switchLabel": "下载多少视频",
+			"timeHint": "h:mm:ss、m:ss 或秒数",
+			"totalEstimate": "片段，预估",
+			"unavailableDuration": "此视频未提供时长，因此只能整个下载。",
+			"unavailableSubtitles": "字幕始终覆盖整个视频。",
+			"urlStart": "您的链接从 {{time}} 开始",
+			"useUrlStart": "用作开始时间",
+			"whole": "整个视频",
+			"wholeTrack": "整个音轨"
+		},
+		"playlist": {
+			"allRemovedDescription": "恢复它们以继续。",
+			"allRemovedTitle": "所有项目均已移除",
+			"alreadyDownloaded": "已下载",
+			"bulkHeading": "批量 URL",
+			"bulkMetadataOptional": "无需等待 — 现在加入队列的文件在下载时仍会使用真实文件名。",
+			"bulkMetadataResolving": "正在获取视频详情… {{done}}/{{total}}",
+			"bulkRowFailed": "详情不可用",
+			"bulkRowResolving": "正在获取详情",
+			"bulkRowWaiting": "等待中",
+			"durationUnknown": "直播",
+			"heading": "Playlist 视频",
+			"headingGeneric": "要下载的视频",
+			"itemCountAudio_other": "{{count}} 首曲目",
+			"itemCountBulk_other": "{{count}} 个 URL",
+			"itemCount_other": "{{count}} 个视频",
+			"loadingItems": "正在获取 Playlist…",
+			"loadingItemsGeneric": "正在获取视频…",
+			"loadingLimitHint": "仅限前 {{count}} 个项目",
+			"loadingPagesFound_other": "找到 {{count}} 个页面",
+			"loadingPhaseItems": "正在收集视频",
+			"loadingPhasePages": "正在扫描频道页面",
+			"multiProfileEntry": "为每一项分配配置",
+			"multiProfileEntryTooltip": "跳过画质、SponsorBlock、输出和保存 — 改为为每一项分配下载配置",
+			"nestedPlaylistBadge": "播放列表",
+			"nestedPlaylistHint_other": "其中 {{count}} 项是播放列表，不是视频 — 逐个粘贴它们的链接即可下载。",
+			"noSelection": "请至少选择一个视频以继续",
+			"probeLimitAlertDesc": "Arroxy 发现超过 {{count}} 个项目，当前扫描上限隐藏了其余内容。",
+			"probeLimitAlertTitle": "播放列表扫描已达上限",
+			"probeLimitAlertTitleGeneric": "扫描已达上限",
+			"rangeApply": "应用范围",
+			"rangeFrom": "从",
+			"rangeTo": "到",
+			"removeFromListCount_other": "从列表中移除 {{count}} 项",
+			"removedCount_other": "已移除 {{count}} 项",
+			"restore": "还原",
+			"selectAll": "全选",
+			"selectNone": "取消全选",
+			"selectedCount_other": "已选 {{count}} 个",
+			"sortApi": "播放列表顺序",
+			"sortFetchingDates": "正在获取上传日期…",
+			"sortLabel": "排序",
+			"sortUploadAsc": "最旧优先",
+			"sortUploadDesc": "最新优先",
+			"syncApply": "应用同步",
+			"syncChange": "更改文件夹…",
+			"syncFoundDesc": "这些视频中有 {{n}} 个已在 {{dir}} 中。要同步以仅下载新视频吗？",
+			"syncFoundTitle": "已在文件夹中",
+			"syncNoneDesc": "在 {{dir}} 中未找到此播放列表的视频。",
+			"syncNoneDescGeneric": "在 {{dir}} 中未找到来自此来源的视频。",
+			"syncNoneTitle": "尚未下载任何内容",
+			"syncScanning": "正在检查文件夹…",
+			"thumbnailAlt": "视频缩略图"
+		},
+		"playlistPresets": {
+			"heading": "选择批量下载画质",
+			"itemCount_other": "{{count}} 项",
+			"subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。"
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "分配配置文件",
+			"assignTrigger_other": "分配给 {{count}} 个视频",
+			"columnDuration": "时长",
+			"columnProfile": "配置",
+			"editProfile": "编辑{{name}}",
+			"empty": "没有符合此筛选条件的项目",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "配置筛选",
+			"heading": "分配下载配置",
+			"menuDescription_other": "为这 {{count}} 个视频选择配置文件。",
+			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "更改全局",
+				"chooseFolder": "选择目标文件夹",
+				"chooseIcon": "选择配置图标",
+				"removeLanguage": "移除{{code}}",
+				"reset": "重置配置",
+				"resetDisabledHint": "此配置已使用内置设置",
+				"resetHint": "恢复内置配置设置",
+				"save": "保存配置",
+				"setOverride": "设置配置覆盖",
+				"setOverrideShort": "设置覆盖",
+				"useGlobalDefault": "使用全局默认值",
+				"useLanguageCode": "使用语言代码“{{code}}”"
+			},
+			"advanced": "高级",
+			"appSetting": "使用应用设置（{{value}}）",
+			"audioFormat": {
+				"best": "最佳",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "最高 128K",
+				"192": "最高 192K",
+				"320": "最高 320K",
+				"best": "最佳质量"
+			},
+			"destination": {
+				"defaultFolder": "默认下载文件夹",
+				"defaultFolderWithSubfolder": "默认下载文件夹 / {{subfolder}}",
+				"global": "全局保存位置",
+				"globalActive": "使用中",
+				"globalInherited": "已沿用",
+				"override": "配置覆盖",
+				"overrideChoosing": "选择文件夹",
+				"overrideNone": "未设置覆盖",
+				"overrideNoneNote": "未设置覆盖。此配置使用上方的全局保存位置。",
+				"overrideSet": "覆盖全局",
+				"overrideSetNote": "此配置会先保存到自己的根目录，再添加子文件夹。",
+				"resolved": "最终保存位置"
+			},
+			"dialogDescription": "一份可复用的设置，适用于快速下载、批量链接和播放列表。",
+			"dialogTitle": "下载配置",
+			"error": {
+				"changeGlobalDestination": "无法更改全局保存位置。",
+				"folderPicker": "无法打开文件夹选择器，请手动输入路径。",
+				"reset": "无法重置配置设置。",
+				"save": "无法保存配置设置。"
+			},
+			"field": {
+				"delivery": "保存方式",
+				"fileType": "文件类型",
+				"goal": "优化目标",
+				"icon": "配置图标",
+				"languages": "语言",
+				"name": "配置名称",
+				"nameAndIcon": "配置名称和图标",
+				"nativeAudio": "原生音频",
+				"overridePath": "配置覆盖路径",
+				"quality": "质量",
+				"resolution": "分辨率",
+				"source": "来源",
+				"subfolderName": "子文件夹名称",
+				"subtitleDownloads": "字幕下载",
+				"subtitleDownloadsDescription": "配置文件按语言代码请求字幕；是否可用会针对每个 URL 单独判断。"
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "相同大小下最清晰。较旧的电视、QuickTime 和部分编辑器无法播放。",
+					"name": "最佳画质",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "可在电视、手机、WhatsApp、QuickTime 和视频编辑器中播放。YouTube 仅在 1080p 及以下提供 H.264。",
+					"name": "智能电视",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "存档",
+				"audio": "音频",
+				"captions": "字幕",
+				"classes": "课程",
+				"clip": "片段",
+				"controls": "控制",
+				"download": "下载",
+				"music": "音乐",
+				"podcast": "播客",
+				"video": "视频"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "音乐或播客",
+					"label": "仅音频"
+				},
+				"subtitlesOnly": {
+					"description": "仅字幕文件",
+					"label": "仅字幕"
+				},
+				"videoAudio": {
+					"description": "普通视频文件",
+					"label": "视频 + 音频"
+				},
+				"videoOnly": {
+					"description": "仅无声视频",
+					"label": "视频，无音频"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "自动字幕将保存为 SRT 而非 ASS。",
+				"noLanguageMatches": "没有匹配的语言",
+				"noSubtitles": "此配置不会请求任何字幕文件或内嵌字幕轨道。",
+				"searchLanguages": "按语言名称或代码搜索",
+				"skippedForOutputType": "此输出类型已跳过。",
+				"subtitleLanguagesRequired": "请至少选择一种语言。",
+				"subtitleLanguagesRequiredOrOff": "请至少选择一种语言，或关闭字幕下载。",
+				"subtitlesOnly": "此配置仅将字幕文件加入队列。视频、音频、SponsorBlock 和媒体转换均会跳过。"
+			},
+			"panel": {
+				"advanced": {
+					"description": "除非你设置配置覆盖，否则配置将沿用全局保存位置。",
+					"title": "高级选项"
+				},
+				"downloadType": {
+					"description": "选择你希望使用的主要下载方式。",
+					"title": "下载类型"
+				},
+				"identity": {
+					"description": "在快速下载、批量链接和配置列表中显示的名称和图标。",
+					"title": "配置标识"
+				},
+				"output": {
+					"enabledCount_other": "已启用 {{count}} 项",
+					"title": "输出选项"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "为此配置选择一个文件夹"
+			},
+			"skipped": "已跳过",
+			"sponsorBlockHint": {
+				"mark": "将赞助片段标记为章节（不修改文件）。",
+				"off": "不使用 SponsorBlock — 视频按上传原样播放。",
+				"remove": "使用 FFmpeg 从视频中剪除赞助片段。"
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "仅自动生成",
+				"manualAndAuto": "手动和自动",
+				"manualFirst": "先手动，后自动",
+				"manualOnly": "仅手动"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}}帮助"
+		},
+		"quickProgress": {
+			"cancel": "取消准备",
+			"currentFallback": "当前链接",
+			"description": "Arroxy 正在读取链接并应用 {{profileName}}。",
+			"failedCount_other": "{{count}} 个失败",
+			"phase": {
+				"probing": "正在获取详情",
+				"queueing": "正在添加到队列"
+			},
+			"title": "正在准备快速下载",
+			"waitHint": "Arroxy 准备队列时请保持此窗口打开。"
+		},
+		"review": {
+			"areas": {
+				"extras": "附加项",
+				"fileName": "文件名",
+				"format": "格式",
+				"saveTo": "文件夹",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "字幕"
+			},
+			"callout": {
+				"body": "字幕、SponsorBlock、缩略图等附加项、文件夹和文件名以前是单独的步骤。点击某一行即可更改。",
+				"title": "其他所有设置现在都在此页面"
+			},
+			"changeFormat": "更改格式",
+			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
+			"changedFrom": "与 {{profile}} 相比的更改：",
+			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
+			"nextTime": {
+				"action": "另存为配置",
+				"defaultName": "{{profile}}（已编辑）",
+				"title": "本次下载使用了编辑后的设置。下次继续使用吗？"
+			},
+			"reset": "撤销更改，恢复为“{{profile}}”",
+			"rows": {
+				"extras": "附加项",
+				"fileName": "文件名",
+				"saveTo": "保存位置",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "字幕"
+			},
+			"rowsHeading": "其他设置",
+			"save": {
+				"action": "保存配置",
+				"description": "将这些设置保存为配置，下次可直接选择。快速下载配置保持不变。",
+				"failed": "无法保存配置。",
+				"nameLabel": "配置名称",
+				"saved": "已保存为配置“{{name}}”",
+				"title": "另存为配置"
+			},
+			"saveAsProfile": "另存为新配置",
+			"update": {
+				"action": "更新配置",
+				"builtinNote": "这是内置配置。你可以在“配置”标签页中恢复其原始设置。",
+				"description": "从现在起，使用此配置的每次下载都将使用新设置。",
+				"rows": {
+					"format": "格式"
+				},
+				"title": "更新“{{profile}}”？",
+				"updated": "已更新配置“{{name}}”"
+			},
+			"updateProfile": "用这些更改更新“{{profile}}”",
+			"value": {
+				"extrasNone": "无",
+				"sponsorBlockOff": "关闭",
+				"subtitlesOff": "关闭"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "填充内容",
+				"intro": "片头",
+				"music_offtopic": "与音乐无关",
+				"outro": "片尾",
+				"preview": "预览",
+				"selfpromo": "自我宣传",
+				"sponsor": "赞助商"
+			},
+			"categoriesHeading": "类别",
+			"mode": {
+				"mark": "标记为章节",
+				"off": "关闭",
+				"remove": "删除片段"
+			},
+			"modeHeading": "赞助商过滤",
+			"modeHint": {
+				"mark": "将赞助商片段标记为章节（非破坏性）。",
+				"off": "不使用 SponsorBlock — 视频按上传状态播放。",
+				"remove": "使用 FFmpeg 从视频中删除赞助商片段。"
+			}
+		},
+		"steps": {
+			"confirm": "确认",
+			"folder": "保存",
+			"formats": "格式",
+			"output": "输出",
+			"playlistItems": "播放列表",
+			"playlistItemsGeneric": "视频",
+			"playlistPresets": "画质",
+			"playlistProfiles": "配置",
+			"review": "查看",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "字幕",
+			"url": "链接"
+		},
+		"subtitles": {
+			"autoAssNote": "自动字幕将保存为 SRT 而非 ASS —— 它们会被清除 YouTube 的滚动重复字幕，但我们的 ASS 转换器目前还无法做到这一点。",
+			"autoBadge": "自动",
+			"clearAll": "清除全部",
+			"embedNote": "嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。",
+			"format": {
+				"heading": "格式"
+			},
+			"noLanguages": "该视频没有字幕",
+			"noMatches": "没有匹配的语言",
+			"noSelected": "未选择字幕",
+			"removeLanguage": "移除{{name}}",
+			"saveMode": {
+				"embed": "嵌入到视频",
+				"heading": "保存方式",
+				"sidecar": "与视频同位置",
+				"subfolder": "subtitles/ 子文件夹"
+			},
+			"searchPlaceholder": "搜索语言…",
+			"sectionAuto": "自动生成",
+			"sectionManual": "手动"
+		},
+		"tabsNavAria": "下载配置导航",
+		"url": {
+			"advanced": "高级",
+			"analytics": {
+				"toggle": "发送每日心跳",
+				"toggleDescription": "不收集遥测数据。每天一次，匿名心跳会发送应用版本、安装渠道、操作系统、语言、国家/地区，以及 Arroxy 大约是多久前安装的，用于统计活跃用户和新用户。不包含 ID、URL、视频标题或文件名。"
+			},
+			"autoRemoveCompleted": {
+				"description": "下载完成几秒后，将其从“下载”列表中移除。文件仍保留在你的文件夹中；失败和已取消的下载会留在列表中。",
+				"label": "自动移除已完成的下载"
+			},
+			"autoRetry": {
+				"description": "在网络或服务器故障后自动重试，每次尝试之间等待更久。被网站拦截的下载永远不会自动重试。",
+				"label": "重试失败的下载",
+				"unit": "次"
+			},
+			"bulkButton": "批量 URL",
+			"bulkTooltip": "添加多个 URL 并加入队列。",
+			"clearAria": "清除 URL",
+			"clipboard": {
+				"autofilledLink": "已从剪贴板添加链接",
+				"bulkHint": "已复制多个链接 — 使用「批量 URL」添加",
+				"dialog": {
+					"cancelButton": "取消"
+				},
+				"replacedLink": "已替换为复制的链接",
+				"toggle": "监听剪贴板",
+				"toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。",
+				"undo": "撤销"
+			},
+			"closeToTray": {
+				"toggle": "关闭时最小化到托盘",
+				"toggleDescription": "关闭窗口后继续在后台下载。"
+			},
+			"concurrentDownloads": {
+				"description": "队列中同时下载的项目数量。同时越多，长队列完成越快，但被网站限制的可能性越大。",
+				"label": "同时下载数",
+				"unit": "个"
+			},
+			"cookies": {
+				"banWarning": "YouTube 等网站可能会标记、有时甚至封禁 Cookie 被 Arroxy 等下载工具使用的账号。建议尽量使用临时小号。",
+				"browserHelp": "直接从浏览器读取 cookies。Chromium 系列浏览器使用时必须先关闭。",
+				"browserLabel": "浏览器",
+				"browserPlaceholder": "选择浏览器…",
+				"choose": "选择…",
+				"clear": "清除",
+				"enabledButNoBrowser": "请选择一个浏览器以使用 Cookie",
+				"enabledButNoFile": "请选择一个文件以使用 Cookie",
+				"exploreDescription": "仅在下载需要时才使用你在“探索”中的登录。",
+				"exploreDisabled": "“探索”标签页已关闭，因此下载不会使用你在“探索”中的登录。请在下方的“探索”中开启。",
+				"extensionChrome": "本地获取 cookies.txt (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookie 文件",
+				"helpLink": "如何导出 Cookie?",
+				"openExplore": "打开“探索”",
+				"placeholder": "未选择文件",
+				"recommended": "推荐",
+				"risk": "风险: cookies.txt 包含该浏览器所有已登录的会话 — 请妥善保管。",
+				"sourceBrowser": "浏览器",
+				"sourceExplore": "“探索”登录",
+				"sourceFile": "文件",
+				"sourceLabel": "Cookies 来源",
+				"sourceOff": "关闭",
+				"toggleDescription": "可帮助下载年龄限制、会员专属和账户私享的视频。"
+			},
+			"downloadConnections": {
+				"description": "同时获取视频的多个部分，加快大文件下载。数值越高，被网站限制的可能性越大。",
+				"label": "下载连接数",
+				"unit": "个连接"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "纯音频",
+					"subtitles": "字幕"
+				},
+				"anySite": {
+					"heading": "2000+ 个网站",
+					"musicPlaylist": "音乐播放列表",
+					"video": "视频",
+					"videoPlaylist": "视频播放列表"
+				},
+				"heading": "Arroxy 能下载什么",
+				"youtube": {
+					"channel": "频道",
+					"heading": "YouTube",
+					"music": "音乐",
+					"playlist": "播放列表",
+					"podcast": "播客",
+					"short": "Shorts",
+					"video": "视频"
+				}
+			},
+			"fetchFormatsTooltip": "分步向导。选择格式、质量等选项。",
+			"heading": "从 URL 下载",
+			"hotkey": {
+				"changeShortcut": "更改快捷键",
+				"conflict": "此快捷键已被其他应用占用 — 请另选一个。",
+				"hintLabel": "或按",
+				"hintTooltip": "在任意位置复制视频链接，按下此快捷键，Arroxy 就会使用当前配置将其加入队列 — 无需切换窗口。",
+				"hintTooltipSettings": "在设置中更改或关闭它。",
+				"recording": "请按键…",
+				"reset": "恢复默认",
+				"sectionDescription": "在任意应用复制链接即可下载，无需打开 Arroxy。",
+				"sectionTitle": "全局快捷键",
+				"test": "测试",
+				"toggle": "启用全局快捷键",
+				"toggleDescription": "剪贴板中有视频链接时按下快捷键。"
+			},
+			"interactiveDownload": "交互式下载",
+			"limitRate": {
+				"activeWarning": "正在进行的下载会保留当前限制。暂停再继续即可应用更改。",
+				"custom": "自定义…",
+				"customPlaceholder": "例如 750K 或 1.5M",
+				"description": "限制媒体下载的带宽。下面的请求节奏通常是更强的限速手段。",
+				"invalid": "使用数字并加上 K 或 M（例如 500K、1.5M）",
+				"label": "下载速度限制",
+				"off": "关闭"
+			},
+			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
+			"mascotCollection": "快速下载会用 {{profileName}} 将已加载的项目加入队列。交互式下载可让你先查看或选择项目。",
+			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
+			"mascotMixed": "此链接指向合集中的某一个视频。解析之前，Arroxy 会询问你想要哪一个。",
+			"mascotPreparing": "{{quickDownload}} 正在读取此链接并应用 {{profileName}}。",
+			"mascotQueued": "队列正在处理此下载。处理期间你可以再粘贴一个链接。",
+			"mascotSingle": "快速下载会用 {{profileName}} 开始一次下载。需要临时调整时，请使用交互式下载。",
+			"nativeAudioPreference": {
+				"compatible": "兼容立体声",
+				"description": "配置选择原生音频时使用立体声还是环绕声。配置可单独覆盖。",
+				"label": "原生音频偏好",
+				"surround": "优先环绕声 / Dolby"
+			},
+			"networkPacing": {
+				"description": "在每次下载时添加小等待，使 Arroxy 不会过于频繁地访问网站。数值单位为秒。",
+				"fields": {
+					"maxSleepInterval": "媒体开始前暂停：最大值",
+					"sleepInterval": "媒体开始前暂停：最小值",
+					"sleepRequests": "元数据检查之间的等待",
+					"sleepSubtitles": "字幕文件前等待"
+				},
+				"heading": "温和下载",
+				"presetLabel": "Arroxy 应该多谨慎？",
+				"presets": {
+					"balanced": "均衡",
+					"careful": "谨慎",
+					"custom": "自定义",
+					"off": "关闭"
+				},
+				"summary": "等待：{{requests}} 次检查间隔，{{downloads}} 媒体开始前，{{subtitles}} 字幕文件前。",
+				"tooltip": "这些等待发生在每次下载内部。同时进行的下载数量在「同时下载数」中单独设置。",
+				"tooltips": {
+					"balanced": "默认。在请求之间和媒体开始前添加短暂停顿。",
+					"careful": "为大型播放列表或经常触达限制的网络添加更长的暂停。",
+					"custom": "自行调整每次下载的高级控制参数。",
+					"off": "仅使用 Arroxy 为媒体和字幕保留的小基准暂停。"
+				},
+				"units": {
+					"seconds": "秒"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "当前上限：{{count}} 个项目",
+				"custom": "自定义…",
+				"customDialogCancel": "取消",
+				"customDialogDescription": "请输入 {{min}} 到 {{max}} 之间的整数。",
+				"customDialogSave": "保存上限",
+				"customDialogTitle": "自定义播放列表扫描上限",
+				"customValue": "自定义：{{count}} 个项目",
+				"description": "打开播放列表、频道或搜索结果时，Arroxy 最多加载的条目数。",
+				"invalid": "请输入 1 到 5000 之间的整数",
+				"label": "要扫描的播放列表项目数",
+				"option": "{{count}} 个项目",
+				"tooltip": "Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
+			},
+			"playlistScope": {
+				"appLimit": "使用应用上限：{{count}}",
+				"apply": "应用",
+				"applyError": "无法应用该播放列表范围：{{message}}",
+				"applyReload": "应用并重新加载",
+				"cancel": "取消",
+				"change": "更改",
+				"dialogDescription": "选择 Arroxy 为此播放列表加载的内容。",
+				"dialogTitle": "播放列表范围",
+				"emptyTitle": "该范围内没有视频",
+				"first": "前",
+				"invalid": "请使用 1 到 {{max}} 之间的整数项目编号，且起始编号不能大于结束编号。",
+				"itemsLabel": "要加载的项目",
+				"label": "播放列表范围",
+				"range": "范围",
+				"reloading": "正在重新加载...",
+				"reset": "重置",
+				"summaryAppLimit": "加载前 {{count}} 个项目",
+				"summaryFirst": "加载前 {{count}} 个项目",
+				"summaryRange": "加载第 {{from}}-{{to}} 个项目",
+				"to": "至"
+			},
+			"profile": {
+				"activeLabel": "活动配置文件",
+				"badgeBuiltIn": "内置",
+				"badgeCustom": "自定义",
+				"badgeDisabled": "已隐藏",
+				"badgeModified": "已修改",
+				"changeGlobalDestination": "更改全局保存位置",
+				"destinationDetail": {
+					"global": "使用全局保存位置",
+					"globalSubfolder": "使用全局保存位置 + 配置子文件夹",
+					"override": "使用配置覆盖",
+					"overrideSubfolder": "使用配置覆盖 + 配置子文件夹"
+				},
+				"destinationFallback": "保存位置",
+				"edit": "编辑",
+				"editActive": "编辑活动配置文件",
+				"enableHint": "隐藏的配置文件保留在此，但会从所有选择器中消失。",
+				"enableToggleAria": "在选择器中显示配置文件：{{profileName}}",
+				"lastEnabledHint": "请至少保留一个可用的配置文件。",
+				"manageProfiles": "管理配置文件",
+				"menuDescription": "更改用于快速下载、批量 URL 和播放列表的活动配置文件。",
+				"menuTitle": "切换配置文件",
+				"movableProfile": "可移动的配置文件",
+				"moveCancelled": "已取消移动。{{profileName}} 仍位于第 {{position}} 个，共 {{count}} 个。",
+				"moveDropped": "已将 {{profileName}} 放在第 {{position}} 个，共 {{count}} 个。",
+				"moveHandleAria": "移动 {{profileName}}",
+				"moveInstructions": "要移动配置文件，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
+				"moveOver": "{{profileName}} 悬停在第 {{position}} 个上，共 {{count}} 个。",
+				"movePickedUp": "已拿起 {{profileName}}。当前位于第 {{position}} 个，共 {{count}} 个。",
+				"newProfile": "新建配置文件",
+				"panelDescription": "创建、选择、编辑或移除可重复使用的下载设置。",
+				"panelTitle": "下载配置",
+				"remove": "移除",
+				"reorderHint": "拖动配置文件即可移动。所有配置文件选择器都会按此顺序排列。",
+				"reset": "重置",
+				"summary": {
+					"aacAudio": "AAC 音频",
+					"bestAudio": "最佳音频",
+					"bestVideo": "最佳视频",
+					"noAudio": "无音频",
+					"subtitlesOnly": "仅字幕",
+					"wavAudio": "WAV 音频"
+				},
+				"switchAria": "切换下载配置文件：{{profileName}}",
+				"switchTitle": "切换下载配置文件"
+			},
+			"proxy": {
+				"clear": "清除",
+				"description": "通过代理路由流量 — 适用于地区限制内容。",
+				"label": "代理 URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "这些 URL 都无法准备",
+			"quickDownload": "快速下载",
+			"quickDownloadTooltip": "将使用以下配置下载：{{profileName}}",
+			"quickFailed": "无法添加此项：{{error}}",
+			"quickPartialFailed_other": "已将可用项目加入队列。{{count}} 个 URL 无法准备。",
+			"quickPrepareFailed": "无法准备队列项目",
+			"quickPreparing": "正在准备",
+			"quickProbeFailed": "探测失败",
+			"quickQueued": "已加入队列",
+			"quickSingleOnly": "粘贴视频、播放列表、频道或搜索 URL 以开始。",
+			"settings": {
+				"behaviorDescription": "全局行为，同样影响由配置驱动的下载。",
+				"behaviorHeading": "下载行为",
+				"inputHeading": "输入"
+			},
+			"style": {
+				"aurora": {
+					"description": "动态天空上的玻璃面板。需要图形加速。",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "纯色、安静的界面。在任何电脑上都运行流畅。",
+					"label": "极简"
+				},
+				"modeDescription": "两种风格都有浅色和深色。",
+				"modeLabel": "风格",
+				"panelDescription": "Arroxy 的外观。可在底部栏切换浅色和深色。",
+				"panelTitle": "外观",
+				"unavailableNotice": "{{style}} 需要图形加速，但目前不可用，所以 Arroxy 正在显示{{fallback}}。"
+			},
+			"tabs": {
+				"profiles": "配置",
+				"settings": "设置"
+			}
+		}
+	}
 }

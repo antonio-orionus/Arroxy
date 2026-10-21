@@ -1,7 +1,8 @@
 import {ChevronsUp, Copy, FolderOpen, MapPin, Pause, Play, RotateCcw, Trash2, X} from 'lucide-react'
 import type {ComponentType} from 'react'
 import type {TFunction} from 'i18next'
-import type {QueueItem, QueueSelectionAction} from '@shared/types.js'
+import {queueItemStatusSchema} from '@shared/schemas.js'
+import type {QueueItem, QueueItemStatus, QueueSelectionAction} from '@shared/types.js'
 import {canApplyQueueActionToItem, isNeverStartedPendingItem, type QueueOutputTargetAction} from '@shared/queueActions.js'
 import type {QueueTableColumnId} from './queueTablePreferences.js'
 import type {QueueStatusFilter} from './queueManagerState.js'
@@ -27,16 +28,22 @@ export const SELECTED_ACTIONS: QueueActionDefinition[] = [
 	{id: 'remove', labelKey: 'queue.item.remove', Icon: Trash2, destructive: true}
 ]
 
-export const STATUS_FILTERS: {id: QueueStatusFilter; labelKey: 'queue.filterAll' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'}[] = [
-	{id: 'all', labelKey: 'queue.filterAll'},
-	{id: 'pending', labelKey: 'queue.item.statusPending'},
-	{id: 'running', labelKey: 'queue.item.statusRunning'},
-	{id: 'paused-held', labelKey: 'queue.item.statusHeld'},
-	{id: 'paused-active', labelKey: 'queue.item.statusPaused'},
-	{id: 'done', labelKey: 'queue.item.statusDone'},
-	{id: 'error', labelKey: 'queue.item.statusError'},
-	{id: 'cancelled', labelKey: 'queue.item.statusCancelled'}
-]
+type QueueStatusLabelKey = 'queue.item.statusProbing' | 'queue.item.statusNeedsChoice' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'
+
+export const QUEUE_STATUS_LABEL_KEYS: Record<QueueItemStatus, QueueStatusLabelKey> = {
+	probing: 'queue.item.statusProbing',
+	'needs-choice': 'queue.item.statusNeedsChoice',
+	pending: 'queue.item.statusPending',
+	running: 'queue.item.statusRunning',
+	'paused-held': 'queue.item.statusHeld',
+	'paused-active': 'queue.item.statusPaused',
+	done: 'queue.item.statusDone',
+	error: 'queue.item.statusError',
+	cancelled: 'queue.item.statusCancelled'
+}
+
+// One chip per status, in lifecycle order, so the counts always add up to All.
+export const STATUS_FILTERS: {id: QueueStatusFilter; labelKey: 'queue.filterAll' | QueueStatusLabelKey}[] = [{id: 'all', labelKey: 'queue.filterAll'}, ...queueItemStatusSchema.options.map(status => ({id: status, labelKey: QUEUE_STATUS_LABEL_KEYS[status]}))]
 
 export const COLUMN_LABEL_KEYS: Record<QueueTableColumnId, 'queue.table.title' | 'queue.table.status' | 'queue.table.progress' | 'queue.table.format' | 'queue.table.outputTarget' | 'queue.table.artifacts' | 'queue.table.size' | 'queue.table.added' | 'queue.table.finished'> = {
 	title: 'queue.table.title',

@@ -154,7 +154,9 @@ tracks picked on the Format screen (`SubtitleRequest`,
 `src/shared/subtitleTracks.ts`). Both subtitle phases first get the video's
 complete lists (`src/main/services/phases/subtitleTracks.ts`): the media run's
 or the probe's info-json on a site that lists every track up front
-(`probeListsSubtitleTracks`, YouTube), otherwise a `subtitle-listing` run
+(`probeListsSubtitleTracks`, YouTube; the probe's is copied into the job's temp
+folder first, as for the media run, so its cache path never reaches yt-dlp),
+otherwise a `subtitle-listing` run
 (`-J` with the subtitle flags), saved in the job's temp folder. They plan the
 request over those lists with `planSubtitleTracks`, the rule the Format screen
 previews with, and fetch the planned tracks with `--load-info-json` on the

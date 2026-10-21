@@ -833,7 +833,7 @@ msgstr "ማዋቀር አልተጠናቀቀም። እስኪጠናቀቅ ድረስ
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "ድምጽ (ምርጥ)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -849,7 +849,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "ድምጽ ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -929,7 +929,7 @@ msgstr "እስከ 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "ምርጥ ጥራት"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "ለጠባብ ባንድዊድዝ ትንሽ ፋይሎች"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "ዝቅተኛ ባንድዊድዝ"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -969,7 +969,7 @@ msgstr "ለእያንዳንዱ ንጥል ምርጥ ቪዲዮ + ድምጽ"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "ድምጽ"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -977,11 +977,11 @@ msgstr "ንዑስ ርዕሶች"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "ቪዲዮ"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "ምርጥ ኦሪጅናል"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -2035,7 +2035,7 @@ msgstr "የዝማኔ ሰሌዳ ዝጋ"
 
 msgctxt "update.download"
 msgid "Download ↗"
-msgstr "Download ↗"
+msgstr "ያውርዱ ↗"
 
 msgctxt "update.downloadDmg"
 msgid "Download DMG ↗"
@@ -2167,7 +2167,7 @@ msgstr "ብዙ URLዎች"
 
 msgctxt "wizard.confirm.addToQueue"
 msgid "+ Queue"
-msgstr "+ Queue"
+msgstr "+ ወረፋ"
 
 msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
@@ -3103,7 +3103,7 @@ msgstr "በመጠባበቅ ላይ"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "ቀጥታ"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3136,7 +3136,7 @@ msgstr "{{count}} ዘፈኖች"
 #. Plural form "one" for am: used for counts like 0, 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} አገናኝ"
 
 #. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "wizard.playlist.itemCountBulk_other"
@@ -4025,31 +4025,31 @@ msgstr "ጠፍ"
 
 msgctxt "wizard.sponsorblock.cat.filler"
 msgid "Filler"
-msgstr "Filler"
+msgstr "መሙያ"
 
 msgctxt "wizard.sponsorblock.cat.intro"
 msgid "Intro"
-msgstr "Intro"
+msgstr "መግቢያ"
 
 msgctxt "wizard.sponsorblock.cat.music_offtopic"
 msgid "Music off-topic"
-msgstr "Music off-topic"
+msgstr "ከርዕስ ውጭ ሙዚቃ"
 
 msgctxt "wizard.sponsorblock.cat.outro"
 msgid "Outro"
-msgstr "Outro"
+msgstr "መዝጊያ"
 
 msgctxt "wizard.sponsorblock.cat.preview"
 msgid "Preview"
-msgstr "Preview"
+msgstr "ቅድመ እይታ"
 
 msgctxt "wizard.sponsorblock.cat.selfpromo"
 msgid "Self-promo"
-msgstr "Self-promo"
+msgstr "ራስን ማስተዋወቅ"
 
 msgctxt "wizard.sponsorblock.cat.sponsor"
 msgid "Sponsor"
-msgstr "Sponsor"
+msgstr "ስፖንሰር"
 
 msgctxt "wizard.sponsorblock.categoriesHeading"
 msgid "Categories"
@@ -4445,7 +4445,7 @@ msgstr "የቪዲዮ ዝርዝሮች"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"
-msgstr "Podcasts"
+msgstr "ፖድካስቶች"
 
 msgctxt "wizard.url.features.youtube.short"
 msgid "Shorts"
@@ -4961,7 +4961,7 @@ msgstr "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተ�
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "የፕሮክሲ አድራሻ"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

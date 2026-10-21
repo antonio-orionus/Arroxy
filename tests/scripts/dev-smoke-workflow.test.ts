@@ -38,6 +38,23 @@ describe('dev smoke workflow', () => {
 		expect(workflow).toContain('name: dev-smoke-playwright-${{ matrix.label }}')
 	})
 
+	// The macOS leg fetches ffmpeg from ffmpeg.martin-riedl.de, outside GitHub.
+	// Cached, an outage there fails only a run whose pin changed, not every PR.
+	it('caches the embedded ffmpeg payload around bootstrap, keyed on its pin', async () => {
+		const workflow = await readOptionalWorkflow('.github/workflows/dev-smoke.yml')
+		const restore = workflow.indexOf('uses: actions/cache/restore@')
+		const bootstrap = workflow.indexOf('run: bun run bootstrap')
+		const save = workflow.indexOf('uses: actions/cache/save@')
+
+		expect(restore).toBeGreaterThan(-1)
+		expect(restore).toBeLessThan(bootstrap)
+		expect(save).toBeGreaterThan(bootstrap)
+		expect(save).toBeLessThan(workflow.indexOf('run: bun run test:browser:smoke'))
+		expect(workflow).toContain('path: build/embedded')
+		expect(workflow).toContain("hashFiles('scripts/build/embeddedPin.ts', 'scripts/build/btbnResolver.ts', 'scripts/build/fetch-embedded.sh')")
+		expect(workflow).toContain("if: steps.embedded-cache.outputs.cache-hit != 'true'")
+	})
+
 	it('pins third-party actions to immutable SHAs', async () => {
 		const workflow = await readOptionalWorkflow('.github/workflows/dev-smoke.yml')
 
@@ -45,6 +62,8 @@ describe('dev smoke workflow', () => {
 		expect(workflow).toMatch(/uses: actions\/setup-node@[a-f0-9]{40}/)
 		expect(workflow).toMatch(/uses: oven-sh\/setup-bun@[a-f0-9]{40}/)
 		expect(workflow).toMatch(/uses: actions\/cache@[a-f0-9]{40}/)
-		expect(workflow).not.toMatch(/uses: (?:actions\/checkout|actions\/setup-node|oven-sh\/setup-bun|actions\/cache)@v/)
+		expect(workflow).toMatch(/uses: actions\/cache\/restore@[a-f0-9]{40}/)
+		expect(workflow).toMatch(/uses: actions\/cache\/save@[a-f0-9]{40}/)
+		expect(workflow).not.toMatch(/uses: (?:actions\/checkout|actions\/setup-node|oven-sh\/setup-bun|actions\/cache(?:\/restore|\/save)?)@v/)
 	})
 })

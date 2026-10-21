@@ -144,4 +144,13 @@ describe("VideoPhase — the probe's info-json", () => {
 			await rm(cache, {recursive: true, force: true})
 		}
 	})
+
+	it('is not loaded at all when the copy fails: the cache path never reaches yt-dlp', async () => {
+		const ctx = makeCtx()
+		ctx.active.input = {...ctx.active.input, probeInfoJsonPath: join(tmpdir(), 'arroxy-evicted-$HOME', 'probe.info.json')}
+		await VideoPhase.run(ctx)
+
+		const request = vi.mocked(ctx.ytDlp.run).mock.calls[0]?.[0]
+		expect(request?.kind === 'media' ? request.resume?.loadInfoJsonPath : 'not a media run').toBeUndefined()
+	})
 })

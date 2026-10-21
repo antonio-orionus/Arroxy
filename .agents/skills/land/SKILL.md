@@ -59,7 +59,7 @@ A run that exits 0 or 1 records the branch's diff against main as reviewed (in t
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
-Append each unrelated bug to `.internal/bug-backlog.md` under `## Open` (create the file and its line in `.internal/README.md` if missing): `- **<what breaks>** — \`<file:line>\`. <one-sentence failure scenario>. Found by <tool> reviewing <branch> (<YYYY-MM-DD>).` Skip one already listed. Save with `bun run internal:save`. Without `.internal/`, list them in the final report instead.
+Append each unrelated bug to `.internal/bug-backlog.md` under `## Open` (create the file and its line in `.internal/README.md` if missing): `- **<what breaks>** — \`<file:line>\`. <one-sentence failure scenario>. Found by <tool> reviewing <branch> (<YYYY-MM-DD>).` Skip one already listed. Save with `bun run internal:save`. Without `.internal/`, or when an orchestrating session dispatched this work (its brief says so), list them in the final report instead: the orchestrator owns the backlog.
 verify: `bun run internal:save` pushed, or the bugs are in the report.
 
 ### 7. PR

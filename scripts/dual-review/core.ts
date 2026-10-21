@@ -130,6 +130,18 @@ export interface Checked {
 	by: Engine
 }
 
+// Read-only tools only; the permission mode makes anything else a denial
+// instead of a prompt nobody is there to answer.
+const CLAUDE_TOOLS = ['Read', 'Grep', 'Glob', 'Bash(git diff:*)', 'Bash(git log:*)', 'Bash(git show:*)', 'Bash(git blame:*)', 'mcp__codegraph__codegraph_explore']
+
+// The headless Claude call for a lane or a check. Hooks are off: a user-level
+// PreToolUse hook that rewrites commands (RTK turns `git diff` into
+// `rtk git diff`) leaves them outside the allow-list, so the lane is denied the
+// diff it reviews, and no other hook belongs in a review either.
+export function claudeArgs(prompt: string, schema: OutputJsonSchema): string[] {
+	return ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(schema), '--settings', JSON.stringify({disableAllHooks: true}), '--permission-mode', 'default', '--allowedTools', ...CLAUDE_TOOLS, '--disallowedTools', 'Edit', 'Write', 'NotebookEdit', '--', prompt]
+}
+
 // Why Codex took no part. `missing` and `auth` come from the first failed run;
 // anything else a failed Codex run prints is a real reviewer failure.
 export type CodexUnavailableReason = 'usage-limit' | 'auth' | 'missing'

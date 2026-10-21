@@ -11,3 +11,18 @@ i18n/app.pot linguist-generated
 i18n/locales/*.po linguist-generated
 src/shared/i18n/locales/*.json linguist-generated
 src/shared/i18n/locales/en.json -linguist-generated
+
+# Generated READMEs: readme-src/build.mjs writes every locale's README from
+# readme-src/. The English README.md stays visible, like en.json above.
+docs/readme/*.md linguist-generated
+
+# Lockfile.
+bun.lock linguist-generated
+
+# README screenshots, rebuilt by `bun run screenshots:readme` for every locale
+# at once.
+build/screenshots/** linguist-generated
+
+# README translations. They are prose kept in .mjs modules, so leave them out
+# of the repository's language stats.
+readme-src/locales/*.mjs linguist-documentation

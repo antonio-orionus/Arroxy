@@ -1,819 +1,718 @@
 {
-	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "dismiss": "Dhiisi", "startOver": "Jalqabbii irra deebi'i", "close": "Cufii"},
+	"about": {
+		"button": "Waa'ee",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · Antonio Orionus tiin hojjetame",
+		"openTitle": "Waa'ee Arroxy",
+		"tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.",
+		"thirdPartyNotices": "Beeksisa seera-biroo ilaali",
+		"websiteLink": "Marsariitii"
+	},
+	"aiUpscaled": {
+		"allow": "Hayyami",
+		"description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.",
+		"label": "Tarreessaawwan AI'n guddifaman",
+		"skip": "Darbi"
+	},
 	"app": {
 		"feedback": "Yaada",
+		"feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬",
 		"logs": "Galmee",
 		"saveDiagnostics": "Faayilii qorannoo olkaa'i",
 		"saveDiagnosticsDescription": "Galmee fi odeeffannoo appii faayilii tokko keessatti kuusaa Downloads keessatti walitti qaba, GitHub issue irratti maxxansuuf qophaa'aa. Maqaan kuusaa fayyadamaa kee ni haqama; liinkiiwwan fi mata-dureewwan viidiyoo ni hafu.",
-		"feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬",
-		"zoomIn": "Guddisi",
-		"zoomOut": "Xiqqeessi",
+		"styleHint": "Haaraa: As irratti Aurora yookaan Salphaa filadhu",
 		"theme": "Tiimii",
-		"styleHint": "Haaraa: As irratti Aurora yookaan Salphaa filadhu"
+		"zoomIn": "Guddisi",
+		"zoomOut": "Xiqqeessi"
 	},
-	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus tiin hojjetame", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
-	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
+	"common": {
+		"back": "Duubatti",
+		"cancel": "Haqi",
+		"close": "Cufii",
+		"continue": "Itti fufi",
+		"dismiss": "Dhiisi",
+		"loading": "Fe'amaa jira…",
+		"retry": "Irra deebi'i",
+		"startOver": "Jalqabbii irra deebi'i"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy hojjechuuf itti fufa daawniloodoonnis xumurama. Booda Qindaa'inoota Ammayyaa keessatti jijjiiri.",
+			"hide": "Tiiree irratti dhoksi",
+			"message": "Cufuun Arroxy tiiree irratti dhoksi?",
+			"quit": "Cufii",
+			"remember": "Gara fuula duraatti hin gaafatin"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Daawniloodii Haqi fi Cufii",
+			"detail": "Booda itti fufuuf yeroodhaaf dhaabi, yookaan adeemsa dhiisuuf haqi.",
+			"keep": "Daawniloodii itti fufi",
+			"message_one": "Daawniloodii {{count}} adeemaa jira",
+			"message_other": "Daawniloodoonni {{count}} adeemaa jiru",
+			"pause": "Buusuu dhaabiitii ba’i"
+		},
+		"rendererCrashed": {
+			"detail": "Prosessiin renderer kufee ({{reason}}). Irra deebi'uuf fe'adhu.",
+			"message": "Arroxy rakkoo mudateera",
+			"quit": "Cufii",
+			"reload": "Fe'adhu"
+		}
+	},
+	"donate": {
+		"copied": "Garagalfame!",
+		"copyAddress": "Teessoo waraabi",
+		"description": "Arroxy bilisaa fi eeyyama banaa (open-source) dha; beeksisni yookaan karoorri kaffaltiis hin qabu. Arjiin fedhii irratti hundaa'a; karoora misoomaa irrattis dhiibbaa hin qabu.",
+		"footerLabel": "Arjii",
+		"footerTooltip": "Arroxy deeggaraa",
+		"qrAlt": "Koodii QR teessoo arjii {{coin}}",
+		"title": "Arroxy deeggaraa",
+		"warning": "Kaffaltiin kiriptoo deebi'uu hin danda'u. Neetworkii agarsiifame qofa irratti ergi, teessoo guutuu wal bira qabii ilaali."
+	},
+	"errors": {
+		"noSubtitlesIn": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu.",
+		"ytdlp": {
+			"ageRestricted": "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u.",
+			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf saayitii gama ta'uu danda'a — Arroxy jalqabbii irratti injinii buusuu isaa haaromsa, kanaaf fooyya'iinsi yeroo ba'u ofumaan ni dhufa.",
+			"chunkTransferFailure": "Sarvarri buufannaa giddu-galeessatti kuteera, Arroxy irra deebi'uun yaale booddee kufe. Kun baay'inaan foormaatii viidiyoo guddoo (4K HDR / VP9 bitrate olaanaa) irratti mul'ata. Irra deebi'i, network/VPN jijjiiri, ykn foormaatii qulqullina xiqqaa ta'e filadhu.",
+			"drmProtected": "Viidiyoon kun DRM-iin eegama. Arroxy DRM haquu hin danda'u, kanaafuu faayilichi buufachuu hin danda'amu.",
+			"formatUnavailable": "Viidiyoon kun foormaatii ati filatte hin dhiyeessu. Linkii deebisii maxxansiitii foormaatii amma dhiyaatan keessaa fali.",
+			"geoBlocked": "Viidiyoon kun naanno kee keessatti hin argamu.",
+			"ipBlock": "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",
+			"loginRequired": "Viidiyoon kun akkaawuntii seene barbaada.",
+			"missingDependency": "Arroxy FFmpeg yookaan FFprobe argachuu hin dandeenye. Qindaa'ina irra deebi'ii hojjedhu yookaan bakka FFmpeg kaa'i, ergasii buusuu irra deebi'ii yaali.",
+			"network": "Dogoggora network. Walqunnamtii kee mirkaneessi ergasii irra deebi'i.",
+			"noSubtitles": "Viidiyoon kun afaan gaafataman keessatti axxiinnota hin qabu.",
+			"outOfDiskSpace": "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i.",
+			"outputNotWritable": "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i.",
+			"parse": "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Saayitichi viidiyoo akkamitti akka dhiheessu jijjiirrachuu danda'a. Arroxy yeroo banamu injinii buusuu isaa haaromsa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i.",
+			"postprocessFailure": "Buufannaan xumuramee, garuu post-processing (merge / mux / convert) hin milkoofne. Kun yeroo baay'ee rakkoo ffmpeg yeroo gabaabaa ti — irra deebi'i, yoo itti fufe walitti makamuu foormaatii biraa yaali.",
+			"rateLimit": "Saayitiin gaaffilee walqunnamtii kana irraa dhufan daangessaa jira.",
+			"unavailable": "Viidiyoon kun hin argamu — dhuunfaa, haqame, ykn naannoo-cufaa ta'uu mala.",
+			"unknown": "Buufannaan kufe. Bu’aa raaw’aa armaan gadii ilaali.",
+			"unsupportedUrl": "Arroxy URL kana hin deeggaru. Linkii saayitii biraa yaali."
+		}
+	},
+	"explore": {
+		"error": {
+			"loadBody": "Walitti hidhamiinsa kee ilaali, itti aansuun irra deebi'ii yaali.",
+			"loadTitle": "Fuulli kun hin fe'amne",
+			"openSettings": "Qindaa'inoota bani",
+			"proxyBody": "Proksii Qindaa'inoota keessatti ilaali, itti aansuun irra deebi'ii yaali.",
+			"proxyTitle": "Daawwannaan proksii keetiin walitti hin hidhamu",
+			"retry": "Irra deebi'i"
+		},
+		"linkCallout": {
+			"body": "Fuula irratti liinkii viidiyoo, tarree taphachiisaa ykn channel kamiyyuu irratti right-click godhiitii Profaayilii hojiirra jiruun buufadhu, profaayilii biraa filadhu, ykn Buufata walnaqqee bani.",
+			"title": "Buufachuuf liinkii irratti right-click godhi"
+		},
+		"linkMenu": {
+			"copyLink": "Hidhata garagalchi",
+			"downloadWith": "Profaayiliin buusi"
+		},
+		"newBadge": "Haaraa",
+		"notice": {
+			"body": "Viidiyoo YouTube irratti ykn marsariitii biraa irratti barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as marsariitii tokkotti seeni.",
+			"continue": "Itti fufi",
+			"riskBody": "Marsariitiin akka YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
+			"riskTitle": "Akkaawuntii lammaffaatiin seeni",
+			"title": "Weebii Arroxy keessatti ilaali"
+		},
+		"nudge": {
+			"browser": "Buufannoon cookies browser keetii fayyadama, seensa Daawwannaa hin fayyadamu.",
+			"file": "Buufannoon faayilii cookies keetii fayyadama, seensa Daawwannaa hin fayyadamu.",
+			"notNow": "Amma miti",
+			"off": "Cookies cufamaniiru, kanaaf buufannoon seensa Daawwannaa hin fayyadamu.",
+			"useExplore": "Seensa Daawwannaa fayyadami"
+		},
+		"settings": {
+			"description": "YouTube ykn marsariitii biraa Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
+			"idleUnload": "Yeroo hin jirretti yaadannoo bilisa godhi",
+			"idleUnloadDescription": "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata.",
+			"searchEngine": "Maashinii barbaachaa",
+			"searchEngineDescription": "Barreeffamni sararaa teessoo keessatti barreeffame eessatti akka barbaadamu. Hidhaawwan akkuma barreeffametti ni banamu.",
+			"showTab": "Tab Daawwannaa agarsiisi",
+			"showTabDescription": "Cufuun isaa buufannoon seensa Daawwannaa akka hin fayyadamne ni godha.",
+			"signOut": "Daawwannaa irraa ba'i",
+			"signOutConfirm": "Ba'i",
+			"signOutConfirmBody": "Kun seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa.",
+			"signOutConfirmTitle": "Daawwannaa irraa ba'uu?",
+			"signOutDescription": "Seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa.",
+			"title": "Daawwannaa"
+		},
+		"tabLabel": "Daawwannaa",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a.",
+				"aria": "Dhorkaa beeksisaa",
+				"off": "Dhorkaa beeksisaa: cufaa — banuuf tuqi",
+				"on": "Dhorkaa beeksisaa: banaa — cufuuf tuqi",
+				"starting": "Dhorkaa beeksisaa: eegalaa jira — cufuuf tuqi",
+				"unavailable": "Dhorkaa beeksisaa: hin argamu, tarreewwan filtaraa buufachuun hin danda'amne — cufuuf tuqi"
+			},
+			"addressAria": "Teessoo",
+			"addressPlaceholder": "{{engine}} barbaadi ykn marsariitii kamiyyuu bani (Vimeo, Instagram…)",
+			"aria": "To'annoo browser Daawwannaa",
+			"back": "Duubatti",
+			"compactLayout": "Qindaa'ina gabaabaa",
+			"downloadWithProfile": "Buusi · {{profileName}}",
+			"forward": "Fuuldura",
+			"fullLayout": "Qindaa'ina guutuu agarsiisi",
+			"grabUnavailable": "Buufachuuf viidiyoo, tarree taphachiisaa ykn channel bani",
+			"home": "Mana YouTube",
+			"interactiveHint": "Buufata walnaqqee: formaata, barruu jalaa fi kkf filadhu…",
+			"refusedHint": "Daawwannaan teessoo sana banuu hin danda'u.",
+			"reload": "Fe'adhu",
+			"searchTooLong": "Barbaacha sun dheeraa dha.",
+			"zoom": {
+				"hint": "Guddina fuula: {{percent}}%",
+				"in": "Guddisi",
+				"label": "Guddina fuula",
+				"out": "Xiqqeessi",
+				"percent": "Dhibbeentaa guddinaa",
+				"reset": "Guddina gara 100% deebisi"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Ofumaa",
+		"autoValue": "Ofumaa (.{{ext}})",
+		"description": {
+			"auto": "Tarreessaawwan filataman gosa faayilii murteessu.",
+			"mkv": "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an.",
+			"mp4": "Bakka hundumaatti jechuun ni taphata. VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu.",
+			"webm": "Foormaatii banaa browser'iif. VP9 ykn AV1 Opus waliin qofa qabata."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 MP4 keessa jiru QuickTime keessatti taphachuuf Mac haaraa barbaada. H.264 bakka hundatti ni taphata.",
+		"mp4CaveatVp9": "VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu. H.264 bakka hundatti ni taphata.",
+		"profileMark": "Piroofaayilii",
+		"smartTvNoWebm": "WebM TV smart waliin hin dhiyaatu: H.264 qabachuu hin danda'u.",
+		"webm": "WebM",
+		"webmBlocked": "WebM {{codec}} qabachuu hin danda'u. MKV ykn MP4 filadhu."
+	},
+	"filenameTemplate": {
+		"description": "Faayiloonni buufaman akkamitti akka maqaa argatan filadhu. Galchuuf tokenii tokko cuqaasi. Buufamaawwan gara galmeewwaniitti qooduuf / fayyadami.",
+		"error": {
+			"empty": "Bocquu maqaa faayilii galchi.",
+			"empty-segment": "/ dabalataa haqi — galmeen hundi maqaa barbaada.",
+			"forbidden-char": "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: \\ : * ? \" < > |",
+			"invalid-segment": "Maqaan galmee kun hin hayyamamu. . fi .. akkasumas maqaawwan qabaman akka CON irraa fagaadhu.",
+			"no-unique-token": "Buufamaan hundi maqaa mataa isaa akka qabaatuuf maqaa faayilii irratti {title} yookaan {id} dabali.",
+			"resolution-in-dir": "{resolution} galmee maqaa baasuu hin danda'u — qulqullinni hanga buufamni jalqabutti hin beekamu.",
+			"stray-brace": "{ ykn } hin cufamne — mallattoo akka {title} barreessi.",
+			"too-long": "Bocquun baay'ee dheeraa dha.",
+			"unknown-token": "Mallattoo hin beekamne {{token}}."
+		},
+		"idWarning": "{id} malee, Arroxy wantoota tarree taphaa duraan buufaman adda baasuu ykn tarree .m3u uumuu hin danda'u.",
+		"label": "Bocquu maqaa faayilii",
+		"m3uDisabled": "Hin argamu sababii akkaataan maqaa faayilii kee {id} of keessaa hin qabne yookaan buufamaawwan gara galmeewwaniitti waan qooduuf.",
+		"previewPlaylist": "Tarree taphaa keessatti",
+		"previewSingle": "Viidiyoo tokkicha",
+		"profileOverrideDescription": "Bocquu waliigalaa fayyadamuuf duwwaa dhiisi.",
+		"profileOverrideLabel": "Bocquu maqaa faayilii"
+	},
+	"formatLabel": {
+		"audioFallback": "Sagalee",
+		"audioOnlyDot": "Sagalee qofa · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Ofumaa",
+		"description": "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata.",
+		"hdr": "HDR",
+		"label": "Viidiyoo HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Afaan"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Daawwannaan seenameera — hidhaa 1 irra deebi'ee yaalaa jira",
+		"exploreSignInRetrying_other": "Daawwannaan seenameera — hidhaawwan {{count}} irra deebi'ee yaalaa jira",
+		"exploreSignOutFailed": "Daawwannaa irraa ba'uun hin danda'amne. Irra deebi'ii yaali.",
+		"filenameFolderTooDeep": "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu.",
+		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera.",
+		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
+		"hotkey": {
+			"alreadyQueued": "Kan dura baay'ina keessa jira — kopii hin dabalame",
+			"busy": "Arroxy ammallee eegala jira — yeroo muraasa booda irra deebi'ii yaali",
+			"cookiesSetup": "Arroxy keessatti qindaa'ina cookies xumuri, ergasii irra deebi'ii yaali",
+			"invalidClipboard": "Buufama keessa hidhanni hin jiru — duratti tokko galchee",
+			"multipleUrls": "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami",
+			"needsReview": "Hidhaan kun filannoo kee barbaada — Arroxy keessatti Buufata ilaali",
+			"queued": "Haaromsa buufamaa irraa dabalameera",
+			"submissionFailed": "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
+		},
+		"playlistFolderRejected": "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu.",
+		"queue": {
+			"skippedAlreadyQueued_one": "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera",
+			"skippedAlreadyQueued_other": "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"
+		},
+		"quickDownload": {
+			"added": "Dabalameera: {{title}}",
+			"alreadyQueued": "Duraanuu tarree keessa jira",
+			"chooseHowMany_one": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
+			"chooseHowMany_other": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
+			"failed": "{{title}} qopheessuun hin danda'amne",
+			"notAdded": "Hidhaan sun dabaluu hin dandeenye — irra deebi'ii yaali",
+			"reviewCapped_one": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
+			"reviewCapped_other": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
+			"review_one": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
+			"review_other": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
+			"view": "Ilaali"
+		},
+		"settingsSaveFailed": "Qindaa'ina kee olkaa'uun hin danda'amne.",
+		"shellActionFailed": "Sana banuun hin danda'amne.",
+		"warmupFailed": "Qophiin hin xumuramne. Hanga xumuramutti buufannoowwan tokko tokko kufuu danda'u."
+	},
+	"playlistPresets": {
+		"audioFormat": {
+			"best": "Sagalee (ol’aanaa)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Sagalee ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Sagalee native ol’aanaa, irra deebi’ee hin encode’u",
+			"m4a": "Gara M4A (AAC) jijjiiri",
+			"mp3": "Gara MP3 jijjiiri",
+			"opus": "Gara Opus jijjiiri"
+		},
+		"mp4Cap": "H.264 1080p olii YouTube irratti hin jiru — ofumaan 1080p irratti daangeffama",
+		"subtitles": {
+			"deliveryHeading": "Akkamitti kuusi",
+			"deliveryLoose": "Kallattiin ukaankaa kuusaa keessatti",
+			"languages": "Afaanota",
+			"languagesRequired": "Itti fufuuf yoo xiqqaate afaan tokko filadhu.",
+			"note": "Viidiyoo hundaaf faayiloonni axxiinii qofti ni kuufamu — viidiyoon ykn sagaleen hin buufamu.",
+			"source": "Madda"
+		},
+		"tier": {
+			"144": "Hanga 144p",
+			"240": "Hanga 240p",
+			"360": "Hanga 360p",
+			"480": "Hanga 480p",
+			"720": "Hanga 720p",
+			"1080": "Hanga 1080p",
+			"1440": "Hanga 1440p",
+			"2160": "Hanga 4K",
+			"best": "Qulqullina ol’aanaa"
+		},
+		"tierDesc": {
+			"144": "Faayiloota xiqqoo hunduma irra",
+			"240": "Faayiloota baayyee xiqqaa, qulqullina gadii",
+			"360": "Faayiloota xiqqaa bandwidth xiqqaaf",
+			"480": "Bandwidth xiqqaa",
+			"720": "Faayiloota xiqqaa, walsimsiisa bal’aa",
+			"1080": "Hanga 1080p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
+			"1440": "Hanga 2K daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
+			"2160": "Hanga 2160p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
+			"best": "Viidiyoo + sagalee ol’aanaa tokkoon tokkoon wantaaf"
+		},
+		"type": {
+			"audio": "Sagalee",
+			"subtitles": "Axxiinni",
+			"video": "Viidiyoo"
+		},
+		"videoFormat": {
+			"best": "Foormaata duraanuu ol’aanaa",
+			"mp4": "TV smart H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Codec ol’aanaa argamu tokkoon tokkoon wantaaf",
+			"mp4": "H.264 + AAC filatama, konteenera MP4 · carraa gaarii"
+		}
+	},
+	"queue": {
+		"artifact": {
+			"companion": "Faayilii dabalataa",
+			"description": "Ibsa",
+			"media": "Miidiyaa",
+			"missing": "Hin jiru",
+			"subtitle": "Axxiinsa",
+			"thumbnail": "Suuraa xiqqaa",
+			"unknown": "Faayilii"
+		},
+		"attentionBadge_one": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
+		"attentionBadge_other": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
+		"autoRemoveCompleted": {
+			"hint": "Buufanni tokkoon tokkoon isaa erga xumuramee sekondii muraasa booda tarree irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu.",
+			"label": "Xumurametti ofumaan qulqulleessi"
+		},
+		"cancelAllTitle": "Daawniloodoonni hunda qabsoo jiran fi eegaa jiran addaan kuti",
+		"choice": {
+			"all": "Viidiyoowwan hundaa",
+			"cappedBody_one": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
+			"cappedBody_other": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
+			"first": "Jalqaba {{count}}",
+			"review": "Sakatta'i",
+			"reviewBody_one": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i.",
+			"reviewBody_other": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i."
+		},
+		"clearTitle": "Daawniloodoonni xumuraman haquu",
+		"empty": "Buusawwan tarreeffaman asitti ni mulʼatu",
+		"filterAll": "Hundaa",
+		"filtersLabel": "Calleeffamtoota haala tarree",
+		"globalActionsLabel": "Wantoota hunda",
+		"header": "Buufata",
+		"item": {
+			"audioKept": "Sagaleen hin balleeffamne",
+			"audioKeptSubtitlesFailed": "Sagaleen hin balleeffamne · axxiinnota tokko tokko hin milkoofne",
+			"cancel": "Haqi",
+			"defaultError": "Daawniloodii kufe",
+			"openDestinationFolder": "Galmee itti galu bani",
+			"pause": "Dhaabi",
+			"pendingOnly": "Kan eegaa jiran qofa",
+			"pullNow": "Amma buusi — tarree darbii",
+			"qualityLimited": "{{height}}p tti daangeffame",
+			"qualityLimitedSubtitlesFailed": "{{height}}p tti daangeffame · axxiinnota tokko tokko hin milkoofne",
+			"remove": "Balleessi",
+			"resume": "Itti fufi",
+			"retry": "Irra deebi'ii yaali",
+			"retryingSoon": "ofumaan irra deebi'ee yaalaa jira (yaalii {{attempt}})",
+			"setLocation": "Iddoo qindeessi",
+			"setLocationHint": "Iddoo qindeessuuf wantoota eeggachaa jiran filadhu.",
+			"statusCancelled": "Haqame",
+			"statusDone": "Xumurame",
+			"statusError": "Dogoggora",
+			"statusHeld": "Qabame",
+			"statusNeedsChoice": "Filannoo kee barbaada",
+			"statusPaused": "Dhaabbate",
+			"statusPending": "Eegaa jira",
+			"statusProbing": "Ibsa fidaa jira",
+			"statusRunning": "Buusaa jira",
+			"subtitleLanguagesMissing": "Afaanota {{languages}} keessatti axxiinnotni hin jiru"
+		},
+		"pauseAllTitle": "Daawniloodoonni hunda qabsoo jiran gidduu dhabi",
+		"pausedBanner": "Tarreen dhaabbate — kan eeggaa tarreen itti hin fufin akka hin jalqabin dhaaba",
+		"resumeAllTitle": "Buusuu dhaabbate itti fufi; tarreenis haa deemuu",
+		"resumeQueueAction": "Tarreen itti fufi",
+		"selectedActionsLabel": "Wantoota filataman",
+		"selectionSummary": "{{selected}} filatame · waliigala {{total}}",
+		"tabLabel": "Buufata",
+		"tabTip": "Buusawwan amma caancala Buufata keessa jiru — adeemsa hordofuuf yeroo barbaaddetti bani.",
+		"table": {
+			"added": "Dabalame",
+			"artifacts": "Faayiloota bu'aa",
+			"columnDropped": "Tarjaan {{column}} gadi dhiifameera.",
+			"columnMoveCancelled": "Sochii tarjaa {{column}} haqameera.",
+			"columnMovedOver": "Tarjaan {{column}} tarjaa {{target}} irra jira.",
+			"columnPickedUp": "Tarjaan {{column}} kaafameera.",
+			"columns": "Tarjaalee",
+			"finished": "Xumurame",
+			"format": "Foormaatii",
+			"hideArtifactsFor": "Faayiloota {{title}} dhoksi",
+			"movableColumn": "tarjaa sochoosuun danda'amu",
+			"moveColumnInstructions": "Tarjaa sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi.",
+			"notAvailable": "—",
+			"outputTarget": "Iddoo bu'aa",
+			"progress": "Adeemsa",
+			"resetColumns": "Tarjaalee deebisi",
+			"resizeColumn": "Bal'ina tarjaa {{column}} jijjiiri",
+			"showArtifactsFor": "Faayiloota {{title}} agarsiisi",
+			"size": "Bal'ina",
+			"sortBy": "{{label}} tin tartiibessi",
+			"status": "Haala",
+			"title": "Mata duree"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Itti fufi",
+		"description": "Fooyya'iinsa haaraa fayyadamaa jirta. Kunoo wantoota ijoo.",
+		"fullNotes": "Yaadannoo gadhiisa guutuu ↗",
+		"title": "Arroxy {{version}} keessatti maaltu haaraa dha"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Haqdhaabi",
+			"chooseExecutable": "Faayilii hojjetu filadhu",
+			"installWithHomebrew": "Homebrew dhaan fe’i",
+			"installWithWinget": "WinGet dhaan fe’i",
+			"openDependencyFolder": "Foldarii hirmaannaa bani",
+			"resetToDefault": "Durtii irra deebi'i",
+			"retrySetup": "Irra deebi'ii yaali",
+			"viewSetupLog": "Galmee qindaa'inaa ilaali"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu.",
+				"title": "Meeshaan tokko sirriitti hin hojjetu"
+			},
+			"blockedOrQuarantined": {
+				"body": "Arroxy antivirus yookaan SmartScreen kee keessatti eyyami, ergasii irra deebi'ii yaali.",
+				"title": "Antivirus kee meeshaa tokko dhorke"
+			},
+			"downloadFailed": {
+				"body": "Walquunnamtii interneetii kee mirkaneessi, ergasii irra deebi'ii yaali.",
+				"title": "Waan Arroxy barbaadu buusuu hin dandeenye"
+			},
+			"extractFailed": {
+				"body": "Haaraatti buusuuf irra deebi'ii yaali.",
+				"title": "Buufannoon miidhamee dhufe"
+			},
+			"hashFailed": {
+				"body": "Haaraatti buusuuf irra deebi'ii yaali.",
+				"title": "Buufannoon checksum isaa waliin hin walsimne"
+			},
+			"pairIncomplete": {
+				"body": "Lamaan isaanii gaditti filadhu, yookaan durtiitti deebisi.",
+				"title": "FFmpeg fi FFprobe waliin qindaa'uu qabu"
+			},
+			"permissionDenied": {
+				"body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii amantu gaditti filadhu.",
+				"title": "Sirni kee Arroxy meeshaa tokko akka hojjetu hin eyyamu"
+			},
+			"spawnFailed": {
+				"body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu.",
+				"title": "Meeshaan tokko hin jiru yookaan hin jalqabu"
+			},
+			"timeout": {
+				"body": "Kun yeroo baay'ee yeroo jalqabaatiif sakatta'iinsa nageenyaatiin ta'a. Irra deebi'ii yaali.",
+				"title": "Meeshaan tokko deebii kennuuf yeroo hedduu fudhate"
+			},
+			"unknown": {
+				"body": "Irra deebi'ii yaali, yookaan bal'ina argachuuf galmee qindaa'inaa bani.",
+				"title": "Qindaa'ina keessatti wanti tokko dogoge"
+			}
+		},
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
+		},
+		"groups": {
+			"engine": "Injinii buusuu",
+			"media": "Meeshaalee miidiyaa"
+		},
+		"installing": {
+			"homebrew": "Homebrew'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a.",
+			"winget": "WinGet'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a."
+		},
+		"manual": {
+			"intro": "Arroxy kophiiwwan duraan qabdutti kaa'i, yookaan karaa biraatiin fe'i.",
+			"linuxHint": "yt-dlp fi ffmpeg bulchaa paakeejii keetiin fe'uu dandeessa, ergasii Irra deebi'ii yaali tuqi.",
+			"toggle": "Harkaan qindeessi"
+		},
+		"stopped": {
+			"body": "Irra deebi'ii yaali, yookaan Arroxy meeshaalee duraan qabdutti gaditti kaa'i.",
+			"title": "Qindaa'inni dhaabbateera"
+		},
+		"title": "Qindaa'inni gargaarsa kee gaafata"
+	},
+	"selectionOrder": {
+		"editorTitle": "Piroofaayiliin kun akkamitti filata",
+		"rank": {
+			"aacFileType": {
+				"label": "Sagalee AAC",
+				"reason": "taphattoota MP4 waliin wal sima"
+			},
+			"aacSmartTv": {
+				"label": "Sagalee AAC",
+				"reason": "bakka hundatti ni taphata"
+			},
+			"codec": {
+				"label": "AV1, itti aansee VP9, itti aansee H.264",
+				"reason": "hamma walfakkaatuun baay'ee ifa"
+			},
+			"codecH264First": {
+				"label": "H.264, itti aansee VP9, itti aansee AV1",
+				"reason": "koodeekii piroofaayilii kanaa"
+			},
+			"codecVp9First": {
+				"label": "VP9, itti aansee H.264, itti aansee AV1",
+				"reason": "koodeekii piroofaayilii kanaa"
+			},
+			"fps": {
+				"label": "Saffisa fireemii isa ol'aanaa",
+				"reason": "sochii daran lallaafaa"
+			},
+			"h264": {
+				"label": "Viidiyoo H.264",
+				"reason": "meeshaa hunda irratti ni taphata"
+			},
+			"hdrFirst": {
+				"label": "HDR SDR dura",
+				"reason": "iskiriinii HDR irratti halluu badhaadhaa",
+				"reasonScreen": "iskiriinii kun HDR ni agarsiisa"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR HDR dura",
+				"reason": "iskiriinii kamiyyuu irratti sirriitti mul'ata",
+				"reasonScreen": "iskiriinii kun HDR hin agarsiisu"
+			},
+			"mp4Streams": {
+				"label": "Tarreessaawwan MP4",
+				"reason": "faayilii MP4f qophaa'aa"
+			},
+			"nativeCompatible": {
+				"label": "Sagalee isteeriyoo"
+			},
+			"nativeSource": {
+				"profile": "piroofaayilii kana",
+				"settings": "Qindaaʼinoota irraa"
+			},
+			"nativeSurround": {
+				"label": "Sagalee surround yoo jiraate"
+			},
+			"opus": {
+				"label": "Sagalee Opus",
+				"reason": "WebM waliin wal sima"
+			},
+			"original": {
+				"label": "Tarreessaawwan jalqabaa, kan AI'n guddifaman miti",
+				"reason": "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"
+			},
+			"protocol": {
+				"label": "Buufannaan kallattii kopiiwwan yaaman duraan",
+				"reason": "fakkii walfakkaataa, saffisaan buufame"
+			},
+			"resolution": {
+				"label": "Hanga {{tier}}p",
+				"reason": "daangaa kee"
+			},
+			"resolutionBest": {
+				"label": "Ifa bal'ina isa ol'aanaa",
+				"reason": "daangaan hin kaa'amne"
+			},
+			"sitePreference": {
+				"label": "Tarreessaawwan saayitiin gadi hin buusne",
+				"reason": "garagalchawwan miidhaman, mallattoo bishaanii qabanii fi bakka bu'oo ni darba"
+			},
+			"size": {
+				"label": "Faayilii guddaa",
+				"reason": "qindaaʼina walfakkaataan qulqullina dabalataa"
+			},
+			"source": {
+				"label": "Tarreessaawwan Bitrate fooyya'e duraan",
+				"reason": "bal'ina ifaa walfakkaataan qulqullina dabalataa"
+			}
+		},
+		"summary": {
+			"fileType": {
+				"auto": "gosa faayilii tarreessaawwan irraa",
+				"explicit": "akka .{{ext}}tti kuufama"
+			},
+			"goal": {
+				"bestPicture": "suuraa isa caalu",
+				"smartTv": "meeshaa kamiyyuu irratti ni taphata"
+			}
+		},
+		"whyLabel": "Maaliif kana?",
+		"whyTitle": "Piroofaayiliin maaliif kana filate"
+	},
+	"share": {
+		"copied": "Garagalfame!",
+		"copyLink": "Hidhata garagalchi",
+		"defaultMessage": "Arroxy — Buufataa viidiyoo bilisaa fi madda banaa kan Windows, macOS & Linux. YouTube, Vimeo, Twitch fi saayitiiwwan 2000+ wajjin hojjeta.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy bilisaa fi madda-banaadha. Qoodun namoota baay'ee argachuu ni gargaara.",
+		"footerLabel": "Qoodi",
+		"footerTooltip": "Arroxy qoodi",
+		"shareAction": "Arroxy qoodi",
+		"title": "Arroxy Qoodi"
+	},
 	"splash": {
-		"greeting": "Baga nagaan deebitee!",
-		"warmup": "Buufannoowwan qopheessaa jira…",
-		"verifying": "{{binary}} qoratamaa jira…",
-		"verifyFirstCheck": "Sakatta jalqabaa gosa kanaa — kun suuta jedha. Yeroo baayʼee daqiiqaa tokko fudhata.",
 		"cancel": "Rakkoo qabdaa? Harkaan qindeessi",
-		"warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani.",
+		"greeting": "Baga nagaan deebitee!",
 		"setup": {
-			"title": {"firstRun": "Qindaa'ina yeroo jalqabaa", "media": "Meeshaalee miidiyaa haaromsaa jira", "engine": "Injinii buusuu haaromsaa jira"},
+			"bytes": "{{total}} keessaa {{done}}",
+			"left": {
+				"minutes_one": "daqiiqaa dhiyoo {{count}} hafa",
+				"minutes_other": "daqiiqaa dhiyoo {{count}} hafa",
+				"underMinute": "daqiiqaa tokko gadi hafa"
+			},
+			"note": {
+				"engine": "Saayitoonni yeroo jijjiiraman buufannoon hojjechaa akka jiraatu godha.",
+				"firstRun": "Kun al tokko qofa ta'a. Arroxy meeshaalee kana ofii isaatiin kuusee haaromsa.",
+				"media": "Kun al tokko qofa ta'a. Arroxy haaromsa gara fuulduraatiif kuusa."
+			},
 			"stage": {
+				"checking": "Hundi akka hojjetu mirkaneessaa jira",
 				"connecting": "Wal qabsiisaa jira…",
 				"downloadingBoth": "Injinii buusuu fi meeshaalee miidiyaa buusaa jira",
 				"downloadingEngine": "Injinii buusuu buusaa jira",
 				"downloadingMedia": "Meeshaalee miidiyaa buusaa jira",
-				"unpacking": "Meeshaalee miidiyaa banaa jira",
-				"checking": "Hundi akka hojjetu mirkaneessaa jira"
+				"unpacking": "Meeshaalee miidiyaa banaa jira"
 			},
-			"bytes": "{{total}} keessaa {{done}}",
-			"left": {"underMinute": "daqiiqaa tokko gadi hafa", "minutes_one": "daqiiqaa dhiyoo {{count}} hafa", "minutes_other": "daqiiqaa dhiyoo {{count}} hafa"},
-			"note": {"firstRun": "Kun al tokko qofa ta'a. Arroxy meeshaalee kana ofii isaatiin kuusee haaromsa.", "media": "Kun al tokko qofa ta'a. Arroxy haaromsa gara fuulduraatiif kuusa.", "engine": "Saayitoonni yeroo jijjiiraman buufannoon hojjechaa akka jiraatu godha."}
-		}
-	},
-	"repair": {
-		"title": "Qindaa'inni gargaarsa kee gaafata",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Injinii buusuu", "media": "Meeshaalee miidiyaa"},
-		"causes": {
-			"downloadFailed": {"title": "Waan Arroxy barbaadu buusuu hin dandeenye", "body": "Walquunnamtii interneetii kee mirkaneessi, ergasii irra deebi'ii yaali."},
-			"extractFailed": {"title": "Buufannoon miidhamee dhufe", "body": "Haaraatti buusuuf irra deebi'ii yaali."},
-			"hashFailed": {"title": "Buufannoon checksum isaa waliin hin walsimne", "body": "Haaraatti buusuuf irra deebi'ii yaali."},
-			"spawnFailed": {"title": "Meeshaan tokko hin jiru yookaan hin jalqabu", "body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu."},
-			"permissionDenied": {"title": "Sirni kee Arroxy meeshaa tokko akka hojjetu hin eyyamu", "body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii amantu gaditti filadhu."},
-			"blockedOrQuarantined": {"title": "Antivirus kee meeshaa tokko dhorke", "body": "Arroxy antivirus yookaan SmartScreen kee keessatti eyyami, ergasii irra deebi'ii yaali."},
-			"badExitCode": {"title": "Meeshaan tokko sirriitti hin hojjetu", "body": "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu."},
-			"timeout": {"title": "Meeshaan tokko deebii kennuuf yeroo hedduu fudhate", "body": "Kun yeroo baay'ee yeroo jalqabaatiif sakatta'iinsa nageenyaatiin ta'a. Irra deebi'ii yaali."},
-			"pairIncomplete": {"title": "FFmpeg fi FFprobe waliin qindaa'uu qabu", "body": "Lamaan isaanii gaditti filadhu, yookaan durtiitti deebisi."},
-			"unknown": {"title": "Qindaa'ina keessatti wanti tokko dogoge", "body": "Irra deebi'ii yaali, yookaan bal'ina argachuuf galmee qindaa'inaa bani."}
-		},
-		"installing": {"homebrew": "Homebrew'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a.", "winget": "WinGet'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a."},
-		"stopped": {"title": "Qindaa'inni dhaabbateera", "body": "Irra deebi'ii yaali, yookaan Arroxy meeshaalee duraan qabdutti gaditti kaa'i."},
-		"manual": {"toggle": "Harkaan qindeessi", "intro": "Arroxy kophiiwwan duraan qabdutti kaa'i, yookaan karaa biraatiin fe'i.", "linuxHint": "yt-dlp fi ffmpeg bulchaa paakeejii keetiin fe'uu dandeessa, ergasii Irra deebi'ii yaali tuqi."},
-		"actions": {
-			"chooseExecutable": "Faayilii hojjetu filadhu",
-			"installWithHomebrew": "Homebrew dhaan fe’i",
-			"installWithWinget": "WinGet dhaan fe’i",
-			"resetToDefault": "Durtii irra deebi'i",
-			"retrySetup": "Irra deebi'ii yaali",
-			"cancel": "Haqdhaabi",
-			"openDependencyFolder": "Foldarii hirmaannaa bani",
-			"viewSetupLog": "Galmee qindaa'inaa ilaali"
-		}
-	},
-	"theme": {"light": "Haala iftoomaa", "dark": "Haala gurraacha", "system": "Sirna durtii"},
-	"language": {"label": "Afaan"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Tarree taphachiisaa",
-			"playlistItemsGeneric": "Viidiyoowwan",
-			"playlistPresets": "Qulqullina",
-			"playlistProfiles": "Profaayilota",
-			"formats": "Foormaatii",
-			"subtitles": "Axxiinni",
-			"sponsorblock": "SponsorBlock",
-			"output": "Ba'uu",
-			"folder": "Kuusi",
-			"confirm": "Mirkaneessi",
-			"review": "Sakatta'i"
-		},
-		"playlistPresets": {"heading": "Kutaa gurmuu barbaadi", "subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta.", "itemCount_one": "{{count}} wanta", "itemCount_other": "{{count}} wantota"},
-		"playlistProfiles": {
-			"heading": "Piroofaayilii buufannaa ramaduu",
-			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
-			"assignTriggerEmpty": "Profaayilii ramaduu",
-			"assignTrigger_one": "Viidiyoo {{count}}f ramaduu",
-			"assignTrigger_other": "Viidiyoowwan {{count}}f ramaduu",
-			"menuDescription_one": "Viidiyoo kanaaf profaayilii filadhu.",
-			"menuDescription_other": "Viidiyoowwan {{count}} kanneeniif profaayilii filadhu.",
-			"editProfile": "{{name}} gulaali",
-			"filtersLabel": "Calaltuu piroofaayilii",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Piroofaayilii",
-			"columnDuration": "Turtii",
-			"empty": "Calaltuu kanaan wal simu hin jiru"
-		},
-		"playlist": {
-			"heading": "Wantoota Playlist",
-			"headingGeneric": "Viidiyoowwan buufachuuf",
-			"bulkHeading": "URL hedduu",
-			"itemCount_one": "{{count}} viidiyoo",
-			"itemCount_other": "{{count}} viidiyoowwan",
-			"itemCountAudio_one": "{{count}} weellaa",
-			"itemCountAudio_other": "{{count}} weellaalee",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Ibsa viidiyoo fidaa… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Eeguu hin barbaachisu — faayilonni amma tarree galchan iyyuu buufamanis maqaa isaanii dhugaa argatu.",
-			"bulkRowWaiting": "Eegaa jira",
-			"bulkRowResolving": "Ibsa fidaa jira",
-			"bulkRowFailed": "Ibsi hin argamne",
-			"selectAll": "Hunda filadhu",
-			"selectNone": "Tokkollee hin filin",
-			"sortLabel": "Tartiibessi",
-			"sortApi": "Tartiiba tarree",
-			"sortUploadAsc": "Moofaa jalqaba",
-			"sortUploadDesc": "Haaraa jalqaba",
-			"sortFetchingDates": "Guyyaa fe'umsaa fidaa jira…",
-			"rangeFrom": "Irraa",
-			"rangeTo": "Gara",
-			"rangeApply": "Daangaa hojiirra oolchi",
-			"selectedCount_one": "{{count}} filatame",
-			"selectedCount_other": "{{count}} filataman",
-			"noSelection": "Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu",
-			"loadingItems": "Playlist fidaa jira…",
-			"loadingItemsGeneric": "Viidiyoowwan fidamaa jiru…",
-			"loadingPhasePages": "Fuulota chaanaalii sakattaʼaa jira",
-			"loadingPhaseItems": "Viidiyoowwan walitti qabaa jira",
-			"loadingPagesFound_one": "Fuulli {{count}} argame",
-			"loadingPagesFound_other": "Fuulonni {{count}} argaman",
-			"loadingLimitHint": "Wantoota jalqabaa {{count}} qofatti daangeffame",
-			"thumbnailAlt": "Thumbnail viidiyoo",
-			"durationUnknown": "kallattii",
-			"syncChange": "Galmee jijjiiri…",
-			"syncApply": "Walsimsiisa hojiirra oolchi",
-			"syncScanning": "Galmee sakatta’aa jira…",
-			"syncFoundTitle": "Duraan galmee keessa jira",
-			"syncFoundDesc": "Viidiyoowwan kana keessaa {{n}} duraan {{dir}} keessa jiru. Kan haaraa qofa buufachuuf walsimsiisi?",
-			"syncNoneTitle": "Ammaaf homtuu hin buufamne",
-			"syncNoneDesc": "Viidiyoon playlist kanaa {{dir}} keessatti hin argamne.",
-			"syncNoneDescGeneric": "Viidiyoowwan madda kana irraa {{dir}} keessatti hin argamne.",
-			"alreadyDownloaded": "Duraan buufameera",
-			"nestedPlaylistBadge": "Tarree taphachiisaa",
-			"nestedPlaylistHint_one": "Isaan kana keessaa {{count}} viidiyoo osoo hin taane tarree taphachiisaa dha — buusuuf hidhaa isaa kophaatti maxxansi.",
-			"nestedPlaylistHint_other": "Isaan kana keessaa {{count}} viidiyoowwan osoo hin taane tarreewwan taphachiisaa dha — buusuuf hidhaalee isaanii tokko tokkoon maxxansi.",
-			"probeLimitAlertTitle": "Qorannaan playlist daangeffameera",
-			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
-			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
-			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
-			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi",
-			"removeFromListCount_one": "{{count}} tarreefaa keessaa balleessi",
-			"removeFromListCount_other": "{{count}} tarreefaa keessaa balleessi",
-			"restore": "Deebi'si",
-			"removedCount_one": "{{count}} balleeffame",
-			"removedCount_other": "{{count}} balleeffame",
-			"allRemovedTitle": "Wanti hundinuu balleeffameera",
-			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi."
-		},
-		"bulk": {
-			"title": "URL hedduu",
-			"description": "URL viidiyoo, playlist, channel, barbaacha, yookaan audio maxxansi. Arroxy tarree dura irra deddeebi'oota ni qulqulleessa.",
-			"textareaLabel": "Tarree URL",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Qophaa’e",
-			"ignoredCount": "Tuffatame",
-			"emptyPreview": "Garee ilaaluu dura URL tokko yookaan isaa ol maxxansi.",
-			"needsAtLeastOne": "Itti fufuuf URL deeggaraman yoo xiqqaate tokko dabali.",
-			"reject": {"duplicate": "Irra-deebi"}
-		},
-		"tabsNavAria": "Qajeelfama piroofaayilii buufataa",
-		"profileSwitchRow": {"helpAria": "Gargaarsa {{label}}"},
-		"mixedPrompt": {
-			"title": "Liinkin kun Playlist qaba",
-			"body": "Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.",
-			"quickBody": "Viidiyoo kana qofa buufadhu, yookaan piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun tarree taphachiisaa guutuu gara tarree hojiiitti galchi.",
-			"singleVideo": "Kana qofa",
-			"quickSingleVideo": "Viidiyoo kana buufadhu",
-			"pickFromPlaylist": "Playlist keessaa filadhu",
-			"quickWholePlaylist": "Tarree taphachiisaa guutuu buufadhu",
-			"playlistLimit": "Daangaa sakatta’iinsa playlist: wantoota {{count}}",
-			"quickLimitDescription": "Baay’ina olaanaa wantoota Arroxy tarree taphachiisaa, chaanaalii, yookaan bu’aa barbaacha gara tarree hojiiitti galchuu dura sakatta’u.",
-			"singleTooltip": "Viidiyoo kana qofa fe'a. Playlist URL kanaan hidhame ni tuffatama.",
-			"quickSingleTooltip": "Buufata tokko gara tarree hojiiitti galcha, tarree taphachiisaa URL kanaan walqabate immoo ni dhiisa.",
-			"playlistTooltip": "Filataa agarsiisuu dura playlist hanga daangaa sakatta'iinsa playlist keetii fe'a.",
-			"quickPlaylistTooltip": "Wantoota tarree taphachiisaa fe’aman hunda piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun gara tarree hojiiitti galcha. Sakatta’iinsi daangaa kee yoo ga’e, Arroxy tarree hojiiitti galchuu dura ni gaafata."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Bal'ina tarree taphaa",
-				"change": "Jijjiiri",
-				"summaryAppLimit": "Wantoota jalqabaa fe'i: {{count}}",
-				"summaryFirst": "Wantoota jalqabaa fe'i: {{count}}",
-				"summaryRange": "Wantoota {{from}}-{{to}} fe'i",
-				"dialogTitle": "Bal'ina tarree taphaa",
-				"dialogDescription": "Arroxy playlist kanaaf maal akka fe'u filadhu.",
-				"itemsLabel": "Wantoota fe'amuu qaban",
-				"appLimit": "Daangaa appii fayyadami: {{count}}",
-				"first": "Jalqaba",
-				"range": "Daangaa",
-				"to": "hanga",
-				"invalid": "Lakkoofsota guutuu 1 hanga {{max}} fayyadami; jalqabni dhumaa caalaa hin ta'u.",
-				"applyError": "Bal'ina tarree taphaa sanaa hojiirra oolchuu hin dandeenye: {{message}}",
-				"reset": "Deebisi",
-				"cancel": "Haqi",
-				"apply": "Hojiirra oolchi",
-				"applyReload": "Hojiirra oolchiitii fe'adhu",
-				"reloading": "Fe'aa jira...",
-				"emptyTitle": "Bal'ina sana keessa viidiyoon hin jiru"
-			},
-			"heading": "URL irraa buusi",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "Profaayilota", "settings": "Qindaaʼinoota"},
-			"interactiveDownload": "Buufata walnaqqee",
-			"fetchFormatsTooltip": "Wizard tarkaanfii-tarkaanfiin. Foormaatii, qulqullina fi kan biroo fili.",
-			"quickDownload": "Buufata saffisaa",
-			"quickDownloadTooltip": "{{profileName}} fayyadamuun ni buufata",
-			"quickPreparing": "Qopheessaa jira",
-			"quickQueued": "Tarreetti dabalame",
-			"quickSingleOnly": "Jalqabuuf URL viidiyoo, playlist, channel, yookiin barbaacha maxxansi.",
-			"quickProbeFailed": "Sakatta’iinsi hin milkoofne",
-			"quickPrepareFailed": "Wantoota tarree qopheessuu hin dandeenye",
-			"quickBulkAllFailed": "URL kanniin keessaa tokko illee qopheessuun hin danda’amne",
-			"quickFailed": "Kana dabaluun hin danda’amne: {{error}}",
-			"quickPartialFailed_one": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
-			"quickPartialFailed_other": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
-			"profile": {
-				"destinationFallback": "Bakki itti olkaa'amu",
-				"switchAria": "Profaayilii bu'uuraa buusaa jijjiiri: {{profileName}}",
-				"switchTitle": "Profaayilii bu'uuraa buusaa jijjiiri",
-				"activeLabel": "Profaayilii hojiirra jiru",
-				"editActive": "Profaayilii hojiirra jiru gulaali",
-				"changeGlobalDestination": "Bakki waliigalaa jijjiiri",
-				"destinationDetail": {"global": "Bakka waliigalaa fayyadamaa jira", "globalSubfolder": "Bakka waliigalaa + saab-foldarii piroofaayilii fayyadamaa jira", "override": "Bakka bu'iinsa piroofaayilii fayyadamaa jira", "overrideSubfolder": "Bakka bu'iinsa piroofaayilii + saab-foldarii piroofaayilii fayyadamaa jira"},
-				"summary": {"bestVideo": "viidiyoo isa caalaa gaarii", "bestAudio": "sagalee isa caalaa gaarii", "aacAudio": "sagalee AAC", "wavAudio": "sagalee WAV", "noAudio": "sagalee hin jiru", "subtitlesOnly": "axxiinni qofa"},
-				"menuTitle": "Profaayilii jijjiiri",
-				"menuDescription": "Quick Download, URL baay'ee fi playlist'f profaayilii hojiirra jiru jijjiiri.",
-				"newProfile": "Profaayilii haaraa",
-				"manageProfiles": "Profaayilii bulchi",
-				"panelTitle": "Profaayilota buusuu",
-				"panelDescription": "Qindaaʼinoota buusuu irra deebiin fayyadamuu dandeessu uumi, filadhu, gulaali, yookiin haqi.",
-				"badgeCustom": "Mataakee",
-				"badgeModified": "Fooyyaʼe",
-				"badgeBuiltIn": "Keessaa jiru",
-				"badgeDisabled": "Dhokate",
-				"enableToggleAria": "Profaayilii filannoowwan keessatti argisiisi: {{profileName}}",
-				"enableHint": "Profaayilonni dhokatan as turu, garuu filannoo hunduma irraa badu.",
-				"reorderHint": "Profaayilii sochoosuuf harkisi. Filannoowwan profaayilii hundi tartiiba kana hordofu.",
-				"moveHandleAria": "{{profileName}} sochoosi",
-				"movableProfile": "profaayilii sochoosuun danda'amu",
-				"moveInstructions": "Profaayilii sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi.",
-				"movePickedUp": "{{profileName}} kaafameera. Iddoo {{position}} kan {{count}} keessaa irra jira.",
-				"moveOver": "{{profileName}} iddoo {{position}} kan {{count}} keessaa irra jira.",
-				"moveDropped": "{{profileName}} iddoo {{position}} kan {{count}} keessaa irratti gadi dhiifameera.",
-				"moveCancelled": "Sochiin haqameera. {{profileName}} iddoo {{position}} kan {{count}} keessaa irra turaa jira.",
-				"lastEnabledHint": "Yoo xiqqaate profaayilii tokko jiraachisaa.",
-				"edit": "Gulaali",
-				"remove": "Haqi",
-				"reset": "Deebisi"
-			},
-			"bulkButton": "URL hedduu",
-			"bulkTooltip": "URL hedduu dabaliitii tarree buusutti galchi.",
-			"features": {
-				"heading": "Arroxy maal buufachuu danda'a",
-				"youtube": {"heading": "YouTube", "video": "Viidiyoowwan", "channel": "Channelota", "playlist": "Tarreewwan taphachiisaa", "short": "Shorts", "music": "Muuziqaa", "podcast": "Podcastota"},
-				"anySite": {"heading": "Gareewwan 2000+", "video": "Viidiyoowwan", "videoPlaylist": "Playlist viidiyoo", "musicPlaylist": "Playlist muuziqaa"},
-				"always": {"audioOnly": "Sagalee qofa", "subtitles": "Axxiinni"}
-			},
-			"mascotIdle": "Liinkii galchi; Arroxy haa buusu ✨",
-			"mascotBusy": "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎",
-			"mascotPreparing": "{{quickDownload}} liinkii kana dubbisaa jira, {{profileName}} immoo fayyadamaa jira.",
-			"mascotQueued": "Tarreen buufata kana hojjechaa jira. Yeroo inni hojjetu liinkii biraa maxxansuu dandeessa.",
-			"mascotCollection": "Buufata saffisaan wantoota fe'aman {{profileName}}'n tarreessa. Buufata walnaqqeen duraan akka ilaaltu ykn akka filattu si dandeessisa.",
-			"mascotMixed": "Liinkiin kun viidiyoo tokko cuunfaa keessa jiru agarsiisa. Arroxy qoratuu dura isa kam akka barbaaddu si gaafata.",
-			"mascotSingle": "Buufata saffisaan buufata tokko {{profileName}}'n jalqaba. Jijjiirama yeroo tokkoof buufata walnaqqee fayyadami.",
-			"advanced": "Ammayyaa",
-			"settings": {"inputHeading": "Seensa", "behaviorHeading": "Amala ga’umsa", "behaviorDescription": "Amala waliigalaa piroofaayilii mataan ga’umsa iyyuu."},
-			"clearAria": "URL qulqulleessi",
-			"clipboard": {
-				"toggle": "Kliipboordii hordofi",
-				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
-				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
-				"bulkHint": "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami",
-				"replacedLink": "Liinki waraabbameen bakka buufame",
-				"undo": "Deebisi",
-				"dialog": {"cancelButton": "Haqi"}
-			},
-			"hotkey": {
-				"sectionTitle": "Hotkey addunyaa",
-				"sectionDescription": "Hidha kam iyyuu yoo wallakkeessite, appii kamirraa iyyuu, Arroxy banaa malee daawniloodii godhi.",
-				"toggle": "Hotkey addunyaa bani",
-				"toggleDescription": "Buufamaa keessa hidha viidiyoo yoo jiru, hotkey cuqaasi.",
-				"changeShortcut": "Hotkey jijjiiri",
-				"recording": "Qabduulee cuqaasi…",
-				"test": "Qormeessi",
-				"conflict": "Hotkeyn kun appii biraa qabameera — kan bira filu.",
-				"hintLabel": "Yookaan dhiibi",
-				"hintTooltip": "Bakka kamittiyyuu keessatti hidhaa viidiyoo kooppii godhi, gabaabbata kana dhiibi, Arroxy immoo piroofaayila kee sochii irra jiru fayyadamuun tarree keessa galcha — foddaa jijjiiruun hin barbaachisu.",
-				"hintTooltipSettings": "Qindaa'ina keessatti jijjiiri ykn cufi.",
-				"reset": "Durtii irra deebi'i"
-			},
-			"cookies": {
-				"sourceLabel": "Madda Cookies",
-				"sourceOff": "Dhaabbi",
-				"sourceFile": "Faayilii",
-				"sourceBrowser": "Browser",
-				"sourceExplore": "Seensa Daawwannaa",
-				"recommended": "Kan gorfamu",
-				"exploreDescription": "Buufannoon yoo isa barbaadu qofa seensa Daawwannaa fayyadama.",
-				"exploreDisabled": "Tab Daawwannaa cufameera, kanaaf buufannoon seensa Daawwannaa hin fayyadamu. Gadii Daawwannaa keessatti banii.",
-				"openExplore": "Daawwannaa bani",
-				"toggleDescription": "Viidiyoowwan umuriin-daangeffame, miseensota-qofaaf, fi dhuunfaa ta'e ni gargaara.",
-				"risk": "Balaa: cookies.txt seensa browser sanaa hunda qaba — dhuunfaa ta'ee eegi.",
-				"fileLabel": "Faayilii Cookies",
-				"choose": "Filadhu…",
-				"clear": "Qulqulleessi",
-				"placeholder": "Faayilii hin filanne",
-				"helpLink": "Akkamitti cookies erga?",
-				"enabledButNoFile": "Cookies fayyadamuuf faayilii filadhu",
-				"browserLabel": "Browser",
-				"browserPlaceholder": "Browser filadhu…",
-				"browserHelp": "Cookies browser irraa kallattiin dubbisa. Chromium-gosa browser cufamuu qaba.",
-				"enabledButNoBrowser": "Cookies fayyadamuuf browser filadhu",
-				"banWarning": "YouTube akkawntoota cookies isaanii meeshaalee buufannoo akka Arroxy fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Yoo danda'ame akkawuntii yeroo fayyadami.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "cookies.txt LOCALLY argadhu (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "Geejjiba proxy darbii ergi — qabiyyee mootummaan dhorge argachuuf gargaara.", "placeholder": "http://host:port", "clear": "Haquu"},
-			"style": {
-				"panelTitle": "Mul'ata",
-				"panelDescription": "Akkaataa Arroxy itti mul'atu. Haala iftoomaa fi gurraachaa gara jalaatti jijjiiruu dandeessa.",
-				"modeLabel": "Taatee",
-				"modeDescription": "Taateewwan lamaanuu haala iftoomaa fi gurraachaa qabu.",
-				"aurora": {"label": "Aurora", "description": "Paanaloonni calaqqee samii socho'u irra jiran. Saffisiisaa girafiksii barbaada."},
-				"minimal": {"label": "Salphaa", "description": "Fuulli cimaa fi callisaa. Kompiitara kamittuu irratti salphaatti hojjeta."},
-				"unavailableNotice": "{{style}} saffisiisaa girafiksii barbaada, garuu amma hin argamu, kanaaf Arroxy {{fallback}} agarsiisaa jira."
-			},
-			"limitRate": {
-				"label": "Daangaa saffisa buusuu",
-				"description": "Baandwiidtii buusuu miidiyaa daangeessi. Pacing gaaffii armaan gadii yeroo baay’ee caalaa jabaa dha.",
-				"off": "Dhaamsame",
-				"custom": "Kan mataa keetii…",
-				"customPlaceholder": "fkn. 750K yookiin 1.5M",
-				"invalid": "Lakkoofsa K yookiin M itti aanu fayyadami (fkn. 500K, 1.5M)",
-				"activeWarning": "Buusuuwwan hojiirra jiran daangaa isaanii ammaa qabu. Jijjiiruuf Dhaabi + Itti fufi."
-			},
-			"playlistProbeLimit": {
-				"label": "Wantota playlist qoratamu",
-				"description": "Playlist, chaanaalii, ykn filannoowwan barbaachaa yommuu banamu Arroxy galmeewwan baay'ina meeqa fe'u.",
-				"option": "Wantota {{count}}",
-				"current": "Daangaa ammaa: wantota {{count}}",
-				"customValue": "Mifaan: wantota {{count}}",
-				"custom": "Mifaan…",
-				"customDialogTitle": "Daangaa qorannaa playlist mifaan",
-				"customDialogDescription": "Lakkoofsa guutuu {{min}} hanga {{max}} fayyadami.",
-				"customDialogCancel": "Haquu",
-				"customDialogSave": "Daangaa kuusi",
-				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
-				"tooltip": "Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
-			},
-			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Isteeriyoo ykn surround yeroo piroofaayiliin sagalee dhalootaa filatu. Piroofaayiliin kana jijjiiruu danda'a.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
-			"autoRetry": {"label": "Buufata kufe irra deebi'ii yaali", "description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.", "unit": "yeroo"},
-			"autoRemoveCompleted": {"label": "Buufata xumuraman ofumaan haqi", "description": "Buufanni erga xumuramee sekondii muraasa booda tarree Buufata irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu; buufanni kufe fi dhiisame tarree keessa ni turu."},
-			"concurrentDownloads": {"label": "Buufata yeroo tokkotti", "description": "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala.", "unit": "buufata"},
-			"downloadConnections": {"label": "Walqunnamtii buufataa", "description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.", "unit": "walqunnamtii"},
-			"networkPacing": {
-				"heading": "Buufata laafaa",
-				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiiwwan sekondiidhaan.",
-				"presetLabel": "Arroxy hangam of-eeggachuu qaba?",
-				"tooltip": "Turtiiwwan kunneen buufata tokko tokko keessatti raawwatamu. Buufanni meeqa yeroo tokkotti akka deemu «Buufata yeroo tokkotti» jalatti adda qindeeffama.",
-				"summary": "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura.",
-				"presets": {"off": "Dhaabbi", "balanced": "Walsimu", "careful": "Of-eeggannaa", "custom": "Ofiin qindi'i"},
-				"tooltips": {
-					"off": "Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama.",
-					"balanced": "Durtii. Gaaffiiwwan gidduuttii fi miidiyaan hin jalqabin dura eegaa gabaabaa dabala.",
-					"careful": "Eegaa dheeraaf playlist guddoo ykn network yeroo yeroon daangaa gahu dabalaa.",
-					"custom": "Too'annoo ammayyaa buufata tokko tokkoos ofiin sirreessi."
-				},
-				"fields": {"sleepRequests": "Qorannoo metadata gidduutti eegii", "sleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa xiqqaa", "maxSleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa ol'aanaa", "sleepSubtitles": "Axxiinni faayiloota dura eegii"},
-				"units": {"seconds": "sec"}
-			},
-			"closeToTray": {"toggle": "Cufuun dura tiiree dhoksi", "toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."},
-			"analytics": {
-				"toggle": "Mallattoo guyyaa guyyaan ergi",
-				"toggleDescription": "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame erga, akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
+			"title": {
+				"engine": "Injinii buusuu haaromsaa jira",
+				"firstRun": "Qindaa'ina yeroo jalqabaa",
+				"media": "Meeshaalee miidiyaa haaromsaa jira"
 			}
 		},
-		"quickProgress": {
-			"title": "Buufata saffisaa qopheessaa jira",
-			"description": "Arroxy hidhaa dubbisaa jira, {{profileName}} immoo fayyadamaa jira.",
-			"currentFallback": "Hidha ammaa",
-			"waitHint": "Arroxy tarree qopheessaa jiru kana banaa dhiisi.",
-			"failedCount_one": "{{count}} hin milkoofne",
-			"failedCount_other": "{{count}} hin milkoofne",
-			"cancel": "Qophii haqi",
-			"phase": {"probing": "Ibsa fidaa jira", "queueing": "Tarreetti dabalaa jira"}
-		},
-		"subtitles": {
-			"autoBadge": "Ofumaa",
-			"noLanguages": "Viidiyoo kanaaf axxiinni hin jiru",
-			"searchPlaceholder": "Afaanota barbaadi…",
-			"noMatches": "Afaan hin argatamne",
-			"clearAll": "Hunda qulqulleessi",
-			"noSelected": "Axxiinni hin filamine",
-			"removeLanguage": "{{name}} balleessi",
-			"sectionManual": "Harkaan",
-			"sectionAuto": "Ofumaan uumame",
-			"saveMode": {"heading": "Akkamitti kuusi", "sidecar": "Viidiyoo cinaa", "embed": "Viidiyoo keessatti maksi", "subfolder": "subtitles/ saab-foldarii"},
-			"format": {"heading": "Foormaatii"},
-			"embedNote": "Haalli makuun ba'insa .mkv ta'ee kuusaa fi kuunni sirnaan makama.",
-			"autoAssNote": "Waxaleen ofumaan uumaman ASS osoo hin ta'in SRT ta'ee ni kuufamu — yeroo hundaa YouTube's rolling-cue duplication'n qulqulleeffama."
-		},
-		"sponsorblock": {
-			"modeHeading": "Dhiibbaa gurmeessuu",
-			"mode": {"off": "Dhaabbi", "mark": "Boqonnaa ta'ee mallattaa'i", "remove": "Kutaalee haquu"},
-			"modeHint": {"off": "SponsorBlock hin jiru — viidiyoon akka fe'ametti taphatama.", "mark": "Kutaalee dhiibbaa boqonnaa ta'ee mallattaa'a (miidhaa hin qabne).", "remove": "FFmpeg fayyadamuun kutaalee dhiibbaa muqa."},
-			"categoriesHeading": "Caasaalee",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
-		},
-		"formats": {
-			"kind": {"label": "Maal buufachuu barbaaddaa", "video": "Viidiyoo + sagalee", "videoOnly": "Viidiyoo, sagalee malee", "audio": "Sagalee qofa", "subtitles": "Axxiinni qofa"},
-			"profile": {
-				"calloutTitle": "Formaatonni profaayilii keessan irraa jalqabu",
-				"calloutBody": "Profaayiliin keessan hojiirra jiru istiriimota duraan isiniif filata. Menu irraa profaayilii jijjiiraa, ykn buufata kana osoo hin dhiisin qalamiin tokko sirreessaa.",
-				"preselected": "Duraan filatame, madda:",
-				"tag": "Piroofaayilii",
-				"closestTag": "Piroofaayiliitti dhiyoo",
-				"switchTitle": "Piroofaayilii jijjiiruu?",
-				"switchBody": "Buufata kanaaf {{areas}} jijjiirteetta. “{{profile}}” haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
-				"resetAll": "Hunda deebisi",
-				"edit": "{{name}} gulaali",
-				"updatedTitle": "Piroofaayilii haaromfame fayyadamuu?",
-				"updatedBody": "Buufata kanaaf {{areas}} jijjiirteetta. Piroofaayiliin haaromfame haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
-				"keepEdits": "Jijjiiramoota koo eegi",
-				"menuDescription": "Buufata kanaaf qofa. Piroofaayiliin kee durtii akkuma jirutti hafa."
-			},
-			"fit": {
-				"tierBelow": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun hanga {{picked}}p qofa deema, kanaaf {{picked}}p filatameera.",
-				"tierAbove": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun kan akka kanatti xiqqaate hin qabu, kanaaf {{picked}}p filatameera.",
-				"mp4Unavailable": "Piroofaayiliin kee TV smart (H.264) dha. Viidiyoon kun H.264 hin dhiyeessu, kanaaf tarreessi isa dhihoo filatameera.",
-				"noVideo": "Hidhaan kun viidiyoo hin qabu, kanaaf sagaleen filatameera.",
-				"subtitlesMissing": "Piroofaayiliin kee afaan {{languages}} keessaa axxiinni gaafata. Viidiyoon kun hin qabu.",
-				"webmUnavailable": "Piroofaayiliin kee WebM gaafata. Tarreessaawwan viidiyoo kanaa filataman {{codec}} of keessaa qabu, kan WebM qabachuu hin dandeenye, kanaaf gosti faayilii Ofumaa dha."
-			},
-			"footer": {"download": "Buufata", "moreActions": "Filannoo buufataa dabalataa", "addToQueue": "Osoo hin jalqabin tarreetti dabali", "subtitlesRequired": "Yoo xiqqaate afaan axxiinnii tokko filadhu."},
-			"video": "Viidiyoo",
-			"audio": "Sagalee",
-			"noAudio": "Sagalee hin jiru",
-			"withAudio": "sagalee wajjin",
-			"resolutionUnknown": "Ifa bal'ina hin beekamne",
-			"bitrateValue": "Saaffata bitii {{bitrate}}",
-			"marker": {"aiUpscaled": "AI'n guddifame", "aiDubbed": "AI'n hiikame", "audioDescription": "Ibsa sagaleen", "spatialAudio": "Sagalee iddoo", "vr": "360° / VR", "enhancedBitrate": "Bitrate fooyya'e", "damaged": "Miidhame", "watermarked": "Mallattoo bishaanii qaba"},
-			"keepAudio": "Akka jirutti eegi",
-			"keepAudioMeta": "Sagalee keessoo",
-			"audioOnly": "Sagalee qofa",
-			"sniffing": "Foormaatii caalmaa si barbaachisu barbaaduun jira…",
-			"loadingHint": "Qorannoon xumuramuu hanga eegtu — playlist fi barbaacha yeroo fudhachuu danda'a.",
-			"loadingAria": "Foormaatii fe'amaa jira",
-			"sizeUnknown": "Bal'inni hin beekamne",
-			"total": "Waliigala",
-			"skipToConfirm": "Mirkaneessaatti ce'i",
-			"skipToConfirmTooltip": "Filannoowwan kee kan olkaawaman tarkaanfiiwwan hafan hundaaf fayyadama. Qindaa'ina jijjiiruf, tarkaanfii tarkaanfiin itti fufii — filannoon kee yeroo itti aanuuf olkaawama.",
-			"quality": {"high": "Qulqullina olaanaa", "medium": "Qulqullina giddugaleessaa", "low": "Qulqullina gadi aanaa"},
-			"drc": {"label": "Sagalee walqixxeessi (DRC)", "description": "Kutaalee sagaleen isaanii guddaa ta'e xiqqeessa, kanneen xiqqaa immoo guddisa; spiikarootaa fi kutaalee sagaleen itti baay'atuuf.", "tag": "Sagalee walqixa"},
-			"audioLanguage": "Afaan sagalee",
-			"audioLanguageCount_one": "Afaanota {{count}}",
-			"audioLanguageCount_other": "Afaanota {{count}}",
-			"convert": {
-				"label": "Jijjiiri",
-				"bitrate": "Saaffata bitii",
-				"wavLabel": "WAV (cuqxaa hin taane)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, irra deebi'ee hin encode'amu",
-				"copyLabelNoBitrate": "{{target}}, irra deebi'ee hin encode'amu",
-				"copyNote": "{{kbps}} kbps, akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
-				"copyNoteNoBitrate": "Akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
-				"bitrateCopyHint": "Maddi duraanuu {{target}} ta'e stream fi saaffata bitii isaa mataa isaa ni eeggata: irra deebi'ee encode hin taane, waraabama.",
-				"sourceKbps": "Maddi {{kbps}} kbps dha"
-			},
-			"botWall": {
-				"heading": "YouTube qorannoo kana daangeessee jira",
-				"bodyUnconfigured": "Tarreessi foormaatii guutuu ta'uu dhiisuu danda'a. Qindaa'inoota ammayyaa keessatti cookies qopheessi, ykn netwoorkii jijjiiri achiin irra deebi'i.",
-				"bodyDisabled": "Cookies qindaa'eera garuu dhaabbe jira. Tarreessa guutuu argachuuf cookies dandeessii achiin irra deebi'i, ykn netwoorkii jijjiiri achiin irra deebi'i.",
-				"bodyEnabled": "Cookies waliin illee, YouTube qorannoo kana daangeessee jira. Booda irra deebi'i ykn netwoorkii jijjiiri.",
-				"bodyExplore": "YouTube gaaffii kana daangeesse. Booda irra deebi'i ykn netwoorkii jijjiiri.",
-				"retryCta": "Irra deebi'i",
-				"enableRetryCta": "Cookies dandeessii achiin irra deebi'i"
-			},
-			"rateLimit": {
-				"heading": "{{site}} walqunnamtii kana daangessaa jira",
-				"leadDegraded": "Tarreeffamni bifaa guutuu dhiisuu danda’a.",
-				"leadFailed": "{{site}} gaaffii kana amma fudhachuu dide.",
-				"waitUntil": "Akka daangaan ka’uuf, Arroxy {{site}} irra deebi’ee gaafachuu dura hanga {{time}} eega.",
-				"waitOver": "Eegumsi xumurameera, irra deebi’ee yaaluu dandeessa.",
-				"sessionNote": "{{site}} daangaa kana hanga sa’aa tokkootti turuu danda’a.",
-				"tryNowCta": "Amma yaali",
-				"retryCta": "Irra deebi'i"
-			},
-			"cookiesError": {
-				"heading": "Cookies sababa ta'uu danda'a",
-				"currentModeLabel": "Madda Cookies",
-				"currentModeFile": "Faayilii",
-				"currentModeBrowser": "Browser",
-				"currentModeExplore": "Seensa Daawwannaa",
-				"explanationFile": "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta'uu danda'a (Arroxy Netscape cookies.txt barbaada). Cookies irra deebi'ii ergi, faayilii biraa filadhu, Browser haala jijjiiri, ykn cookies dhaabbi.",
-				"explanationBrowser": "Cookies browser irraa kallattiin dubbifama. Browser yoo amma hojjechaa jiraate, kuusaa cookies isaa cufamuu danda'a (Chromium-gosa). Browser YouTube keessattis seenuu qaba. Browser cufadhu, browser biraa jijjiiri, Faayilii haala jijjiiri, ykn cookies dhaabbi.",
-				"openSettingsCta": "Qindaa'inoota cookies bani",
-				"exploreSignIn": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaadu ni danda'a", "body": "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Daawwannaa keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.", "cta": "Daawwannaa keessatti seeni"},
-				"exploreSignedIn": {"heading": "Daawwannaa keessa seentee jirta", "body": "Viidiyoon kun akkaawuntii kan barbaadu yoo ta'e, Arroxy seensa Daawwannaa ofumaan fayyadama. Sababa biraatiin hin argamu ta'uu danda'a."},
-				"exploreOffer": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessatti seeni, Arroxyn irra deebi'ee yaala.", "cta": "Daawwannaa keessatti seeni"},
-				"exploreReuse": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu.", "cta": "Seensa Daawwannaa koo fayyadamii irra deebi'ii yaali"},
-				"exploreSite": {"heading": "Linkiin kun {{host}} irratti akkaawuntii barbaaduu danda'a", "signInBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.", "offerBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali."},
-				"exploreRefused": {"heading": "Daawwannaa keessa seentee jirtus, saayitiin kun didee", "body": "Arroxy seensa Daawwannaa keessaatiin duraanuu yaaleera; kanaaf irra deebi'ee seenuun hin fayyadu. Saayitiin rakkoo qabaachuu danda'a, yookaan akkaawuntiin kun banuu hin danda'u. Booda irra deebi'ii yaali."},
-				"otherCookiesCta": "Faayilii cookies ykn browser fayyadami…",
-				"needsCookies": {"heading": "Gareewwan kun seensa gaafata", "body": "Arroxy viidiyoo kana mirkaneessuu malee argachuu hin dandeenye. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi."},
-				"dpapi": {
-					"heading": "Cookies Chrome'ii farsimaa Windows'n cufame",
-					"explanation": "Chrome 127 fi itti aanu cookies'a appoonii biroon Windows irratti dubbisuu hin dandeenye ta'een farsima. Furmaata armaan gadii keessaa tokko yaali.",
-					"fixFirefoxLabel": "Firefox fayyadami",
-					"fixFirefoxBody": "Firefox App-Bound Encryption hin fayyadamu. Qindaa'inoota cookies bani achiin tarree browser keessaa Firefox filadhu.",
-					"fixFileLabel": "cookies.txt ergi",
-					"fixFileBody": "Cookies Chrome irraa extension browser waliin ergi, achiin app kana haala Faayilii jijjiiri achiin faayilii ergame filadhu.",
-					"fixUnsafeLabel": "App-Bound Encryption dhaabbatee Chrome jalqabi",
-					"fixUnsafeBody": "--disable-features=LockProfileCookieDatabase gabaabduu jalqabbii Chrome'tti dabaluu. Akeekkachiisa: kunis cookies duraan farsimaman haquu waan taasiseef gareewwan hundarraa ba'uuf fi deebisanii seenuuf dirqisiifama.",
-					"docsLinkLabel": "yt-dlp sanadoota (dhimma #10927)"
-				}
-			},
-			"savesAs": {"label": "Akka kanaatti kuufama", "reset": "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera."}
-		},
-		"folder": {
-			"heading": "Kuusi gara",
-			"downloads": "Buufata",
-			"videos": "Filimii",
-			"desktop": "Desktop",
-			"music": "Muuziqaa",
-			"documents": "Sanadoota",
-			"pictures": "Suuraalee",
-			"home": "Mana",
-			"custom": "Ofiin kaa'i…",
-			"subfolder": {"toggle": "Saab-foldarii keessatti kuusi", "placeholder": "fkn lo-fi rips", "invalid": "Maqaan foldarii mallattoolee sirrii hin qabu"}
-		},
-		"output": {
-			"embedChapters": {"label": "Boqonnaa maksi", "description": "Mallattooleen boqonnaa taphataa ammayyaa kamiyyuu keessatti hojjetu."},
-			"embedMetadata": {"label": "Metadata maksi", "description": "Mata-duree, artist, ibsa, fi guyyaan fe'ame faayilii keessatti barreeffama."},
-			"embedThumbnail": {"label": "Thumbnail maksi", "description": "Suuraa haguugduu faayilii keessa. MP4 / M4A qofa — axxiinni makamuun dura ni darba."},
-			"writeDescription": {"label": "Ibsa kuusi", "description": "Ibsa viidiyoo .description faayilii barreeffamaa ta'ee daawniloodii cinaa ni kuusa."},
-			"writeThumbnail": {"label": "Thumbnail kuusi", "description": "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa."},
-			"writeM3u": {"label": "Faayilii playlist .m3u uumi", "description": "Viidiyoowwan tarreen media player keessatti banamaniif .m3u isaan cinatti kuusi."}
-		},
-		"review": {
-			"changeFormat": "Foormaatii jijjiiri",
-			"rowsHeading": "Kan hafe hunda",
-			"rows": {"subtitles": "Axxiinni", "sponsorBlock": "SponsorBlock", "extras": "Dabalataalee", "saveTo": "Kuusi gara", "fileName": "Maqaa faayilii"},
-			"value": {"subtitlesOff": "Dhaabbi", "sponsorBlockOff": "Dhaabbi", "extrasNone": "Homaa"},
-			"changed": "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola.",
-			"areas": {"format": "foormaatii", "subtitles": "axxiinni", "sponsorBlock": "SponsorBlock", "extras": "dabalataalee", "saveTo": "foldarii", "fileName": "maqaa faayilii"},
-			"updateProfile": "“{{profile}}” jijjiirama kanaan fooyyessi",
-			"saveAsProfile": "Akka piroofaayilii haaraatti olkaa'i",
-			"update": {
-				"title": "“{{profile}}” fooyyessuu?",
-				"description": "Amma booda, buufanni piroofaayilii kanaan godhamu hundi qindaa'ina haaraa fayyadama.",
-				"rows": {"format": "Foormaatii"},
-				"builtinNote": "Kun piroofaayilii keessaa jiruudha. Qindaa'ina isaa jalqabaa caancala Profaayilota keessatti deebisuu dandeessa.",
-				"action": "Piroofaayilii fooyyessi",
-				"updated": "Piroofaayiliin “{{name}}” fooyyeffameera"
-			},
-			"callout": {"title": "Qindaa'inni biroo hundi amma fuula kana irra jira", "body": "Axxiinni, SponsorBlock, dabalataaleen akka thumbnail, foldarii fi maqaan faayilii kanaan dura tarkaanfii addaa turan. Jijjiiruuf sarara tokko cuqaasi."},
-			"reset": "Jijjiirama deebisi, gara “{{profile}}”tti deebi'i",
-			"changedFrom": "{{profile}} irraa jijjiirame:",
-			"save": {
-				"title": "Akka piroofaayiliitti olkaa'i",
-				"description": "Qindaa'inoota kana akka piroofaayiliitti olkaa'a, yeroo itti aanu filachuu dandeessa. Piroofaayiliin Buufata saffisaa kee hin jijjiiramu.",
-				"nameLabel": "Maqaa piroofaayilii",
-				"action": "Piroofaayilii olkaa'i",
-				"saved": "Piroofaayilii “{{name}}” jedhamee olkaa'ameera",
-				"failed": "Piroofaayilii olkaa'uun hin danda'amne."
-			},
-			"fileNameHint": "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama.",
-			"nextTime": {"title": "Buufanni kun qindaa'ina jijjiirame fayyadame. Yeroo itti aanu itti fayyadamtaa?", "action": "Akka piroofaayiliitti olkaa'i", "defaultName": "{{profile}} (jijjiirame)"}
-		},
-		"confirm": {
-			"readyHeadline": "Buusuuf qophii dha!",
-			"landIn": "Faayilin kee bakka kanatti bu'a",
-			"landInMultiProfile_one": "Gara bakka armaan gadiitti bu'a",
-			"landInMultiProfile_other": "Gara bakkoota {{count}} armaan gadiitti ni bu'u",
-			"labelVideo": "Viidiyoo",
-			"labelAudio": "Sagalee",
-			"labelSubtitles": "Axxiinni",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Kuusi gara",
-			"labelSize": "Bal'ina",
-			"sizeUnknown": "Hin beekamne",
-			"nothingToDownload": "Qophiin axxiinni qofa hojjechaa jira garuu afaan hin filamine — waan buufamu hin jiru.",
-			"thumbnailEmbedNotSupported": "Thumbnail embed ni dhiifame — container bu'aa embed hin deeggarre.",
-			"subtitleEmbedAudioOnly": "Subtitle embed gara sidecar jijjiirameera — tarreewwan sagalee tartiiba subtitle embed hin deeggaran.",
-			"audioOnly": "Sagalee qofa",
-			"addToQueue": "+ Queue",
-			"addToQueueTooltip": "Daawniloodoonni biroo xumuramu booda jalqaba — bandwidth guutuu argata",
-			"pullIt": "Buusi! ↓",
-			"pullItTooltip": "Immediately jalqaba — daawniloodoonni biroo waliin hojjeta",
-			"labelPlaylist": "Tarree taphachiisaa",
-			"labelBulk": "URL hedduu",
-			"labelPreset": "Preset",
-			"labelItems": "Wantota",
-			"itemsValue_one": "{{count}} fi {{total}} keessaa viidiyoo",
-			"itemsValue_other": "{{count}} fi {{total}} keessaa viidiyoowwan",
-			"itemsValueAudio_one": "{{count}} fi {{total}} keessaa weellaa",
-			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
-			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
-			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}",
-			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
-			"profileBreakdownCount_one": "{{count}} wanta",
-			"profileBreakdownCount_other": "{{count}} wantota",
-			"subtitleEmbedForcesMkv": "Axxiinni viidiyoo keessatti makaman faayilii MKV barbaadu, kanaaf buufannaan kun akka .mkv tti kuufama."
-		},
-		"profileEditor": {
-			"dialogTitle": "Piroofaayilii buufataa",
-			"dialogDescription": "Buufata Saffisaa, URL Baay'ee fi tarree taphaatiif qindaa'ina irra deebi'anii fayyadamuu danda'an tokko.",
-			"skipped": "Darbameera",
-			"panel": {
-				"identity": {"title": "Eenyummaa piroofaayilii", "description": "Maqaa fi mallattoo Buufata Saffisaa, URL Baay'ee fi tarree piroofaayilii keessatti mul'atu."},
-				"downloadType": {"title": "Gosa buufataa", "description": "Karaa ijoo ittiin buufachuu barbaaddu filadhu."},
-				"advanced": {"title": "Filannoo olaanaa", "description": "Bakka bu'iinsa piroofaayilii yoo hin qindeessine, piroofaayiliin ga'umsa waliigalaa dhaala."},
-				"output": {"title": "Filannoo bahaa", "enabledCount_one": "{{count}} dandeessifame", "enabledCount_other": "{{count}} dandeessifame"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Maqaa fi mallattoo piroofaayilii",
-				"icon": "Mallattoo piroofaayilii",
-				"resolution": "Ifa bal'ina",
-				"quality": "Qulqullina",
-				"source": "Madda",
-				"subfolderName": "Maqaa gale xiqqaa",
-				"name": "Maqaa piroofaayilii",
-				"subtitleDownloads": "Buufata ergaa gadii",
-				"subtitleDownloadsDescription": "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a.",
-				"languages": "Afaanota",
-				"delivery": "Karaa olkaa'uu",
-				"overridePath": "Daandii bakka bu'iinsa piroofaayilii",
-				"goal": "Kan dursa argatu",
-				"fileType": "Gosa faayilii",
-				"nativeAudio": "Sagalee dhalootaa"
-			},
-			"action": {
-				"chooseIcon": "Mallattoo piroofaayilii filadhu",
-				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
-				"chooseFolder": "Galee ga'umsaa filadhu",
-				"removeLanguage": "{{code}} balleessi",
-				"useLanguageCode": "Koodii afaanii “{{code}}” fayyadami",
-				"changeGlobalShort": "Waliigalaa jijjiiri",
-				"setOverrideShort": "Bakka bu'iinsa qindeessi",
-				"useGlobalDefault": "Durtii waliigalaa fayyadami",
-				"reset": "Piroofaayilii haaromsi",
-				"resetHint": "Qindaa'ina piroofaayilii keessaa jiru deebisi",
-				"resetDisabledHint": "Piroofaayiliin kun duraanuu qindaa'ina keessaa jiru fayyadamaa jira",
-				"save": "Piroofaayilii olkaa'i"
-			},
-			"placeholder": {"folder": "Piroofaayilii kanaaf galee filadhu"},
-			"destination": {
-				"global": "Ga'umsa waliigalaa",
-				"override": "Bakka bu'iinsa piroofaayilii",
-				"resolved": "Ga'umsa dhumaa",
-				"defaultFolder": "Galee buufata durtii",
-				"defaultFolderWithSubfolder": "Galee buufata durtii / {{subfolder}}",
-				"globalActive": "Hojiirra jira",
-				"globalInherited": "Dhaalame",
-				"overrideSet": "Waliigalaa bakka bu'a",
-				"overrideChoosing": "Galee filadhu",
-				"overrideNone": "Bakka bu'iinsi hin qabamne",
-				"overrideSetNote": "Piroofaayiliin kun osoo galee xiqqaan hin dabalamin, roota mataa isaatti olkaa'a.",
-				"overrideNoneNote": "Bakka bu'iinsi hin qabamne. Piroofaayiliin kun ga'umsa waliigalaa armaan olii fayyadama."
-			},
-			"note": {
-				"subtitlesOnly": "Piroofaayiliin kun faayilii ergaa gadii qofa tarree keessa kaa'a. Viidiyoon, sagaleen, SponsorBlock fi jijjiirraan miidiyaa ni darbatamu.",
-				"noSubtitles": "Piroofaayilii kanaaf faayiliin ergaa gadii ykn sararri ergaa gadii keessatti galfame hin gaafatamu.",
-				"searchLanguages": "Maqaa afaanii ykn koodiin barbaadi",
-				"noLanguageMatches": "Afaan walsimu hin jiru",
-				"subtitleLanguagesRequired": "Yoo xiqqaate afaan tokko filadhu.",
-				"subtitleLanguagesRequiredOrOff": "Yoo xiqqaate afaan tokko filadhu, ykn buufata ergaa gadii dhaamsi.",
-				"autoCaptionsSrt": "Ergaan gadii ofumaan uumame bakka ASS SRT ta'ee ni olkaa'ama.",
-				"skippedForOutputType": "Gosa bahaa kanaaf darbameera."
-			},
-			"error": {"save": "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne.", "changeGlobalDestination": "Ga'umsa waliigalaa jijjiiruun hin danda'amne.", "reset": "Qindaa'inni piroofaayilii haaromsuun hin danda'amne.", "folderPicker": "Filannoo galee banuun hin danda'amne. Daandii harkaan galchi."},
-			"mediaMode": {
-				"videoAudio": {"label": "Viidiyoo + sagalee", "description": "Faayilii viidiyoo idilee"},
-				"videoOnly": {"label": "Viidiyoo, sagalee malee", "description": "Viidiyoo sagalee hin qabne qofa"},
-				"audioOnly": {"label": "Sagalee qofa", "description": "Muuziqaa ykn poodkaastii"},
-				"subtitlesOnly": {"label": "Axxiinni qofa", "description": "Faayilii ergaa gadii qofa"}
-			},
-			"icon": {"controls": "To'annoo", "download": "Buufata", "video": "Viidiyoo", "captions": "Ergaa gadii", "audio": "Sagalee", "music": "Muuziqaa", "podcast": "Poodkaastii", "classes": "Barnoota", "clip": "Muraa", "archive": "Kuusaa"},
-			"audioFormat": {"best": "Gaarii", "wav": "WAV"},
-			"audioQuality": {"128": "Hanga 128K", "192": "Hanga 192K", "320": "Hanga 320K", "best": "Qulqullina gaarii"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Duraa harkaan, sana booda ofumaan", "manualAndAuto": "Harkaan fi ofumaan", "manualOnly": "Harkaan qofa", "autoOnly": "Kan ofumaan uumaman qofa"},
-			"sponsorBlockHint": {"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.", "mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).", "remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."},
-			"advanced": "Ammayyaa",
-			"goal": {
-				"bestPicture": {"name": "Suuraa isa caalu", "tag": "AV1 · VP9", "description": "Hamma walfakkaatuun baay'ee ifa. TV moofaan, QuickTime fi gulaaltonni tokko tokko taphachiisuu hin danda'an."},
-				"smartTv": {"name": "TV smart", "tag": "MP4 · H.264", "description": "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa."}
-			},
-			"appSetting": "Qindaaʼina appii fayyadami ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Viidiyoo kan hammam",
-			"whole": "Viidiyoo guutuu",
-			"wholeTrack": "Traakii guutuu",
-			"part": "Kutaa",
-			"unavailableSubtitles": "Axxiinniin yeroo hunda viidiyoo guutuu haguuga.",
-			"unavailableDuration": "Viidiyoon kun dheerina isaa hin mul'isu, kanaaf guutuu isaa qofa buufachuun danda'ama.",
-			"rangeLabel": "Kutaa viidiyoo",
-			"start": "Jalqaba",
-			"end": "Xumura",
-			"timeHint": "h:mm:ss, m:ss ykn sekoondii",
-			"length": "{{length}} kan {{duration}}",
-			"chapters": "Boqonnaalee",
-			"chapterUntitled": "Boqonnaa {{number}}",
-			"exactCut": {"label": "Muruu sirrii (deebisee koodii godha, suuta)", "hint": "Cufaa: muruun hunduu keyframe isa dhiyoo irratti kufa, kunis yeroo ati barreessite irraa sekoondii muraasa fagaachuu danda'a."},
-			"calloutTitle": "Kutaa viidiyoo tokko qofa buufadhu",
-			"calloutBody": "Kaardii viidiyoo irratti gara «Kutaa» jijjiiri, jalqabaa fi dhumaa ykn boqonnaa tokko filadhu, achiis kutaa sana qofa buufadhu.",
-			"connectionsNote": "Kutaan ffmpeg-n buufata, kanaaf walitti hidhamiinsi buufataa fi qindaa'inni saffisaa isaaf hin hojjetu.",
-			"urlStart": "Liinkiin kee {{time}} irratti jalqaba",
-			"useUrlStart": "Akka jalqabaatti fayyadami",
-			"error": {"startInvalid": "Jalqaba akka h:mm:ss, m:ss ykn sekoondiitti galchi.", "endInvalid": "Xumura akka h:mm:ss, m:ss ykn sekoondiitti galchi.", "startNotBeforeEnd": "Jalqabni xumura dura ta'uu qaba.", "endBeyondDuration": "Viidiyoon {{duration}} irratti xumurama."},
-			"downloadBlocked": "Dura jalqaba fi xumura kutaa sirreessi.",
-			"totalEstimate": "Kutaa, tilmaamaan",
-			"summary": "Kutaa {{start}}–{{end}}",
-			"subtitlesFullLength": "viidiyoo guutuu"
-		}
+		"verifyFirstCheck": "Sakatta jalqabaa gosa kanaa — kun suuta jedha. Yeroo baayʼee daqiiqaa tokko fudhata.",
+		"verifying": "{{binary}} qoratamaa jira…",
+		"warmup": "Buufannoowwan qopheessaa jira…",
+		"warmupFailedNoDiag": "Qindaa'inni hin milkoofne. Bal'ina argachuuf galmee qindaa'inaa bani."
 	},
-	"videoCard": {"titlePlaceholder": "Fe'amaa jira…", "chapters_one": "Boqonnaa {{count}}", "chapters_other": "Boqonnaalee {{count}}"},
-	"queue": {
-		"header": "Buufata",
-		"tabLabel": "Buufata",
-		"attentionBadge_one": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
-		"attentionBadge_other": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
-		"choice": {
-			"cappedBody_one": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
-			"cappedBody_other": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
-			"reviewBody_one": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i.",
-			"reviewBody_other": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i.",
-			"all": "Viidiyoowwan hundaa",
-			"first": "Jalqaba {{count}}",
-			"review": "Sakatta'i"
+	"status": {
+		"audioKept": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne",
+		"audioKeptSubtitlesFailed": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne",
+		"cancelled": "Daawniloodii haqame",
+		"complete": "Daawniloodii xumurame",
+		"convertingVideo": "Viidiyoo jijjiiramaa jira…",
+		"diskSpaceInsufficient": "Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira",
+		"downloadingBinary": "Faayilii binaryii {{name}} buufaa jira…",
+		"downloadingMedia": "Viidiyoo fi sagalee buufaa jira…",
+		"embeddingMetadata": "Metadata maksamaa jira…",
+		"exploreSignedOut": "Daawwannaa irraa baatee jirta — irra deebi'ii seeni",
+		"extractingAudio": "Sagalee jijjiiramaa jira…",
+		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
+		"fetchingSubtitles": "Axxiinni fidaa jira…",
+		"mergingFormats": "Sagalee fi viidiyoo walitti makaa jira…",
+		"mintingToken": "Tookenii YouTube uumaa jira…",
+		"movingFiles": "Faayiloota daddabarsamaa jira…",
+		"noSubtitles": "Afaanota {{languages}} keessatti axxiinnotni hin jiru",
+		"outputNotWritable": "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu",
+		"preparingBinaries": "Faayiloota binaryii qopheessaa jira…",
+		"qualityLimited": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
+		"remintingToken": "Tookenii irra deebi'ee uumaa jira…",
+		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Herrega Daawwannaa keetiin seenaa jira…",
+		"sleepingBetweenRequests": "Dhiibbaa oolfachuuf sekoondii {{seconds}} eegaa jira…",
+		"startingYtdlp": "Injinii buusuu jalqabaa jira…",
+		"subtitleLanguagesMissing": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Viidiyoon sun osoo axxiinnotni hin jiraatin olkaa'ameera.",
+		"subtitleLanguagesMissingOthersSaved": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Afaanonni kaan olkaa'amaniiru.",
+		"subtitlesFailed": "Viidiyoon kuufame — axxiinnota tokko tokko buufachuu hin danda'amne",
+		"unknownStartupFailure": "Daawniloodii jalqabbii hin beekamne kufee",
+		"usedExtractorFallback": "Haala laafaa ta'een buufame — daawniloodii amanamuuf cookies.txt qopheessi",
+		"ytdlpExitCode": "Injinii buusuun koodii {{code}} wajjin bahe",
+		"ytdlpProcessError": "Dogoggora injinii buusuu: {{error}}"
+	},
+	"theme": {
+		"dark": "Haala gurraacha",
+		"light": "Haala iftoomaa",
+		"system": "Sirna durtii"
+	},
+	"titleBar": {
+		"close": "Cufii",
+		"maximize": "Guddisi",
+		"minimize": "Xiqqeessi",
+		"restore": "Deebi'si"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Buufamaa irraa basii",
+			"open": "Arroxy bani",
+			"quit": "Arroxy cufii",
+			"statusActive_one": "1 buufamaa jira · {{percent}}%",
+			"statusActive_other": "{{count}} buufamaa jiru · {{percent}}%",
+			"statusIdle": "Boqachaa"
 		},
-		"tabTip": "Buusawwan amma caancala Buufata keessa jiru — adeemsa hordofuuf yeroo barbaaddetti bani.",
-		"empty": "Buusawwan tarreeffaman asitti ni mulʼatu",
-		"filtersLabel": "Calleeffamtoota haala tarree",
-		"filterAll": "Hundaa",
-		"selectedActionsLabel": "Wantoota filataman",
-		"globalActionsLabel": "Wantoota hunda",
-		"selectionSummary": "{{selected}} filatame · waliigala {{total}}",
-		"clearTitle": "Daawniloodoonni xumuraman haquu",
-		"autoRemoveCompleted": {"label": "Xumurametti ofumaan qulqulleessi", "hint": "Buufanni tokkoon tokkoon isaa erga xumuramee sekondii muraasa booda tarree irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu."},
-		"pauseAllTitle": "Daawniloodoonni hunda qabsoo jiran gidduu dhabi",
-		"resumeAllTitle": "Buusuu dhaabbate itti fufi; tarreenis haa deemuu",
-		"pausedBanner": "Tarreen dhaabbate — kan eeggaa tarreen itti hin fufin akka hin jalqabin dhaaba",
-		"resumeQueueAction": "Tarreen itti fufi",
-		"cancelAllTitle": "Daawniloodoonni hunda qabsoo jiran fi eegaa jiran addaan kuti",
-		"table": {
-			"columns": "Tarjaalee",
-			"title": "Mata duree",
-			"status": "Haala",
-			"progress": "Adeemsa",
-			"format": "Foormaatii",
-			"outputTarget": "Iddoo bu'aa",
-			"artifacts": "Faayiloota bu'aa",
-			"size": "Bal'ina",
-			"added": "Dabalame",
-			"finished": "Xumurame",
-			"notAvailable": "—",
-			"sortBy": "{{label}} tin tartiibessi",
-			"showArtifactsFor": "Faayiloota {{title}} agarsiisi",
-			"hideArtifactsFor": "Faayiloota {{title}} dhoksi",
-			"resetColumns": "Tarjaalee deebisi",
-			"resizeColumn": "Bal'ina tarjaa {{column}} jijjiiri",
-			"movableColumn": "tarjaa sochoosuun danda'amu",
-			"moveColumnInstructions": "Tarjaa sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi.",
-			"columnPickedUp": "Tarjaan {{column}} kaafameera.",
-			"columnMovedOver": "Tarjaan {{column}} tarjaa {{target}} irra jira.",
-			"columnDropped": "Tarjaan {{column}} gadi dhiifameera.",
-			"columnMoveCancelled": "Sochii tarjaa {{column}} haqameera."
-		},
-		"artifact": {"media": "Miidiyaa", "subtitle": "Axxiinsa", "thumbnail": "Suuraa xiqqaa", "description": "Ibsa", "companion": "Faayilii dabalataa", "unknown": "Faayilii", "missing": "Hin jiru"},
-		"item": {
-			"defaultError": "Daawniloodii kufe",
-			"retryingSoon": "ofumaan irra deebi'ee yaalaa jira (yaalii {{attempt}})",
-			"qualityLimited": "{{height}}p tti daangeffame",
-			"qualityLimitedSubtitlesFailed": "{{height}}p tti daangeffame · axxiinnota tokko tokko hin milkoofne",
-			"audioKept": "Sagaleen hin balleeffamne",
-			"audioKeptSubtitlesFailed": "Sagaleen hin balleeffamne · axxiinnota tokko tokko hin milkoofne",
-			"subtitleLanguagesMissing": "Afaanota {{languages}} keessatti axxiinnotni hin jiru",
-			"pause": "Dhaabi",
-			"resume": "Itti fufi",
-			"cancel": "Haqi",
-			"retry": "Irra deebi'ii yaali",
-			"setLocation": "Iddoo qindeessi",
-			"setLocationHint": "Iddoo qindeessuuf wantoota eeggachaa jiran filadhu.",
-			"pendingOnly": "Kan eegaa jiran qofa",
-			"openDestinationFolder": "Galmee itti galu bani",
-			"remove": "Balleessi",
-			"pullNow": "Amma buusi — tarree darbii",
-			"statusProbing": "Ibsa fidaa jira",
-			"statusNeedsChoice": "Filannoo kee barbaada",
-			"statusPending": "Eegaa jira",
-			"statusRunning": "Buusaa jira",
-			"statusHeld": "Qabame",
-			"statusPaused": "Dhaabbate",
-			"statusDone": "Xumurame",
-			"statusError": "Dogoggora",
-			"statusCancelled": "Haqame"
-		}
+		"tooltip": "Arroxy"
 	},
 	"update": {
+		"copied": "Ajajni kliipboorditti koopii ta'e",
+		"copy": "Ajaja kliipboorditti koopii godhi",
+		"dismiss": "Baanara haaraa cufii",
+		"download": "Download ↗",
+		"downloadDmg": "DMG buusi ↗",
+		"downloading": "Buufamaa jira…",
+		"install": "Facaalikee fi Deebi'i jalqabi",
+		"installFailed": "Haaromsuun hin milkoofne",
 		"message": {
 			"generic": "Arroxy {{version}} ni jira — ati {{currentVersion}} qabda.",
 			"homebrew": "Arroxy {{version}} ni jira — Homebrew-n haaromsi.",
@@ -821,322 +720,988 @@
 			"macosDirectHomebrew": "Arroxy {{version}} ni jira — DMG buusi yookaan gara Homebrew-tti jijjiiri.",
 			"portable": "Arroxy {{version}} ni jira — build haaraa buusi."
 		},
-		"install": "Facaalikee fi Deebi'i jalqabi",
-		"downloading": "Buufamaa jira…",
+		"retry": "Irra deebi'i yaali",
 		"runAndRestart": "Hojii'isi fi Deebi'i jalqabi",
-		"upgrading": "Haaromsaa jira…",
-		"download": "Download ↗",
-		"downloadDmg": "DMG buusi ↗",
-		"dismiss": "Baanara haaraa cufii",
-		"copy": "Ajaja kliipboorditti koopii godhi",
-		"copied": "Ajajni kliipboorditti koopii ta'e",
-		"installFailed": "Haaromsuun hin milkoofne",
-		"retry": "Irra deebi'i yaali"
+		"upgrading": "Haaromsaa jira…"
 	},
-	"releaseNotes": {"title": "Arroxy {{version}} keessatti maaltu haaraa dha", "description": "Fooyya'iinsa haaraa fayyadamaa jirta. Kunoo wantoota ijoo.", "fullNotes": "Yaadannoo gadhiisa guutuu ↗", "continue": "Itti fufi"},
-	"status": {
-		"preparingBinaries": "Faayiloota binaryii qopheessaa jira…",
-		"mintingToken": "Tookenii YouTube uumaa jira…",
-		"remintingToken": "Tookenii irra deebi'ee uumaa jira…",
-		"startingYtdlp": "Injinii buusuu jalqabaa jira…",
-		"downloadingMedia": "Viidiyoo fi sagalee buufaa jira…",
-		"mergingFormats": "Sagalee fi viidiyoo walitti makaa jira…",
-		"extractingAudio": "Sagalee jijjiiramaa jira…",
-		"convertingVideo": "Viidiyoo jijjiiramaa jira…",
-		"embeddingMetadata": "Metadata maksamaa jira…",
-		"movingFiles": "Faayiloota daddabarsamaa jira…",
-		"fetchingSubtitles": "Axxiinni fidaa jira…",
-		"sleepingBetweenRequests": "Dhiibbaa oolfachuuf sekoondii {{seconds}} eegaa jira…",
-		"subtitlesFailed": "Viidiyoon kuufame — axxiinnota tokko tokko buufachuu hin danda'amne",
-		"qualityLimited": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
-		"qualityLimitedSubtitlesFailed": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
-		"audioKept": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne",
-		"audioKeptSubtitlesFailed": "Viidiyoon sagalee isaa wajjin kuufame — sagalee balleessuu hin danda'amne, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne",
-		"subtitleLanguagesMissing": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Viidiyoon sun osoo axxiinnotni hin jiraatin olkaa'ameera.",
-		"subtitleLanguagesMissingOthersSaved": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu. Afaanonni kaan olkaa'amaniiru.",
-		"noSubtitles": "Afaanota {{languages}} keessatti axxiinnotni hin jiru",
-		"cancelled": "Daawniloodii haqame",
-		"complete": "Daawniloodii xumurame",
-		"usedExtractorFallback": "Haala laafaa ta'een buufame — daawniloodii amanamuuf cookies.txt qopheessi",
-		"ytdlpProcessError": "Dogoggora injinii buusuu: {{error}}",
-		"ytdlpExitCode": "Injinii buusuun koodii {{code}} wajjin bahe",
-		"downloadingBinary": "Faayilii binaryii {{name}} buufaa jira…",
-		"unknownStartupFailure": "Daawniloodii jalqabbii hin beekamne kufee",
-		"diskSpaceInsufficient": "Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira",
-		"outputNotWritable": "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu",
-		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
-		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Herrega Daawwannaa keetiin seenaa jira…",
-		"exploreSignedOut": "Daawwannaa irraa baatee jirta — irra deebi'ii seeni"
+	"videoCard": {
+		"chapters_one": "Boqonnaa {{count}}",
+		"chapters_other": "Boqonnaalee {{count}}",
+		"titlePlaceholder": "Fe'amaa jira…"
 	},
-	"notifications": {
-		"settingsSaveFailed": "Qindaa'ina kee olkaa'uun hin danda'amne.",
-		"warmupFailed": "Qophiin hin xumuramne. Hanga xumuramutti buufannoowwan tokko tokko kufuu danda'u.",
-		"shellActionFailed": "Sana banuun hin danda'amne.",
-		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
-		"exploreSignInRetrying_one": "Daawwannaan seenameera — hidhaa 1 irra deebi'ee yaalaa jira",
-		"exploreSignInRetrying_other": "Daawwannaan seenameera — hidhaawwan {{count}} irra deebi'ee yaalaa jira",
-		"exploreSignOutFailed": "Daawwannaa irraa ba'uun hin danda'amne. Irra deebi'ii yaali.",
-		"playlistFolderRejected": "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu.",
-		"filenameFolderTooDeep": "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu.",
-		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera.",
-		"hotkey": {
-			"queued": "Haaromsa buufamaa irraa dabalameera",
-			"alreadyQueued": "Kan dura baay'ina keessa jira — kopii hin dabalame",
-			"invalidClipboard": "Buufama keessa hidhanni hin jiru — duratti tokko galchee",
-			"multipleUrls": "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami",
-			"needsReview": "Hidhaan kun filannoo kee barbaada — Arroxy keessatti Buufata ilaali",
-			"cookiesSetup": "Arroxy keessatti qindaa'ina cookies xumuri, ergasii irra deebi'ii yaali",
-			"busy": "Arroxy ammallee eegala jira — yeroo muraasa booda irra deebi'ii yaali",
-			"submissionFailed": "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
+	"videoCodec": {
+		"auto": "Ofumaa",
+		"description": "Koodeekiin kam sirna dheerina wal fakkaatu keessaa jalqaba fudhatamu. Ofumaan tartiiba yt-dlp mataa isaa eegaa, kan AV1 isa xiqqaa dursu; H.264 TV fi bilbila durii irratti ni taphata.",
+		"h264": "H.264 jalqaba",
+		"label": "Koodeeki viidiyoo",
+		"smartTv": "TV smart yeroo hunda H.264 fudhata.",
+		"vp9": "VP9 jalqaba"
+	},
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Qophaa’e",
+			"description": "URL viidiyoo, playlist, channel, barbaacha, yookaan audio maxxansi. Arroxy tarree dura irra deddeebi'oota ni qulqulleessa.",
+			"emptyPreview": "Garee ilaaluu dura URL tokko yookaan isaa ol maxxansi.",
+			"ignoredCount": "Tuffatame",
+			"needsAtLeastOne": "Itti fufuuf URL deeggaraman yoo xiqqaate tokko dabali.",
+			"reject": {
+				"duplicate": "Irra-deebi"
+			},
+			"textareaLabel": "Tarree URL",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "URL hedduu"
 		},
-		"queue": {"skippedAlreadyQueued_one": "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera", "skippedAlreadyQueued_other": "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"},
-		"quickDownload": {
-			"added": "Dabalameera: {{title}}",
-			"alreadyQueued": "Duraanuu tarree keessa jira",
-			"failed": "{{title}} qopheessuun hin danda'amne",
-			"notAdded": "Hidhaan sun dabaluu hin dandeenye — irra deebi'ii yaali",
-			"chooseHowMany_one": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
-			"chooseHowMany_other": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
-			"review_one": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
-			"review_other": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
-			"reviewCapped_one": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
-			"reviewCapped_other": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
-			"view": "Ilaali"
-		}
-	},
-	"errors": {
-		"noSubtitlesIn": "Viidiyoon kun afaanota {{languages}} keessatti axxiinnota hin qabu.",
-		"ytdlp": {
-			"botBlock": "Eegumsa bot ka'eera. IP fayyadamaa jirtu naannoo datacenter ykn VPN baay'ee fayyadamame irraa ta'uu mala — IP kee jijjiiri ykn VPN endpoint biraa filadhu achiin irra deebi'i. Yoo itti fufe dhabamsiisuu baate, jijjiirra yeroo gabaabaadhaaf saayitii gama ta'uu danda'a — Arroxy jalqabbii irratti injinii buusuu isaa haaromsa, kanaaf fooyya'iinsi yeroo ba'u ofumaan ni dhufa.",
-			"ipBlock": "Teessoon IP kee YouTube'n cufamuu mala. Yeroo booda irra deebi'i ykn VPN fayyadami.",
-			"rateLimit": "Saayitiin gaaffilee walqunnamtii kana irraa dhufan daangessaa jira.",
-			"ageRestricted": "Viidiyoon kun umuriin-daangeffamee seensa malee buufachuu hin danda'u.",
-			"unavailable": "Viidiyoon kun hin argamu — dhuunfaa, haqame, ykn naannoo-cufaa ta'uu mala.",
-			"formatUnavailable": "Viidiyoon kun foormaatii ati filatte hin dhiyeessu. Linkii deebisii maxxansiitii foormaatii amma dhiyaatan keessaa fali.",
-			"geoBlocked": "Viidiyoon kun naanno kee keessatti hin argamu.",
-			"outOfDiskSpace": "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i.",
-			"outputNotWritable": "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i.",
-			"unsupportedUrl": "Arroxy URL kana hin deeggaru. Linkii saayitii biraa yaali.",
-			"noSubtitles": "Viidiyoon kun afaan gaafataman keessatti axxiinnota hin qabu.",
-			"chunkTransferFailure": "Sarvarri buufannaa giddu-galeessatti kuteera, Arroxy irra deebi'uun yaale booddee kufe. Kun baay'inaan foormaatii viidiyoo guddoo (4K HDR / VP9 bitrate olaanaa) irratti mul'ata. Irra deebi'i, network/VPN jijjiiri, ykn foormaatii qulqullina xiqqaa ta'e filadhu.",
-			"missingDependency": "Arroxy FFmpeg yookaan FFprobe argachuu hin dandeenye. Qindaa'ina irra deebi'ii hojjedhu yookaan bakka FFmpeg kaa'i, ergasii buusuu irra deebi'ii yaali.",
-			"postprocessFailure": "Buufannaan xumuramee, garuu post-processing (merge / mux / convert) hin milkoofne. Kun yeroo baay'ee rakkoo ffmpeg yeroo gabaabaa ti — irra deebi'i, yoo itti fufe walitti makamuu foormaatii biraa yaali.",
-			"parse": "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Saayitichi viidiyoo akkamitti akka dhiheessu jijjiirrachuu danda'a. Arroxy yeroo banamu injinii buusuu isaa haaromsa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i.",
-			"network": "Dogoggora network. Walqunnamtii kee mirkaneessi ergasii irra deebi'i.",
-			"drmProtected": "Viidiyoon kun DRM-iin eegama. Arroxy DRM haquu hin danda'u, kanaafuu faayilichi buufachuu hin danda'amu.",
-			"loginRequired": "Viidiyoon kun akkaawuntii seene barbaada.",
-			"unknown": "Buufannaan kufe. Bu’aa raaw’aa armaan gadii ilaali."
-		}
-	},
-	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Axxiinni"},
-		"subtitles": {
-			"note": "Viidiyoo hundaaf faayiloonni axxiinii qofti ni kuufamu — viidiyoon ykn sagaleen hin buufamu.",
-			"languages": "Afaanota",
-			"languagesRequired": "Itti fufuuf yoo xiqqaate afaan tokko filadhu.",
-			"source": "Madda",
-			"deliveryHeading": "Akkamitti kuusi",
-			"deliveryLoose": "Kallattiin ukaankaa kuusaa keessatti"
+		"confirm": {
+			"addToQueue": "+ Queue",
+			"addToQueueTooltip": "Daawniloodoonni biroo xumuramu booda jalqaba — bandwidth guutuu argata",
+			"audioOnly": "Sagalee qofa",
+			"itemsValueAudio_one": "{{count}} fi {{total}} keessaa weellaa",
+			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
+			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
+			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}",
+			"itemsValue_one": "{{count}} fi {{total}} keessaa viidiyoo",
+			"itemsValue_other": "{{count}} fi {{total}} keessaa viidiyoowwan",
+			"labelAudio": "Sagalee",
+			"labelBulk": "URL hedduu",
+			"labelItems": "Wantota",
+			"labelPlaylist": "Tarree taphachiisaa",
+			"labelPreset": "Preset",
+			"labelSaveTo": "Kuusi gara",
+			"labelSize": "Bal'ina",
+			"labelSubtitles": "Axxiinni",
+			"labelVideo": "Viidiyoo",
+			"landIn": "Faayilin kee bakka kanatti bu'a",
+			"landInMultiProfile_one": "Gara bakka armaan gadiitti bu'a",
+			"landInMultiProfile_other": "Gara bakkoota {{count}} armaan gadiitti ni bu'u",
+			"nothingToDownload": "Qophiin axxiinni qofa hojjechaa jira garuu afaan hin filamine — waan buufamu hin jiru.",
+			"profileBreakdownCount_one": "{{count}} wanta",
+			"profileBreakdownCount_other": "{{count}} wantota",
+			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
+			"pullIt": "Buusi! ↓",
+			"pullItTooltip": "Immediately jalqaba — daawniloodoonni biroo waliin hojjeta",
+			"readyHeadline": "Buusuuf qophii dha!",
+			"sizeUnknown": "Hin beekamne",
+			"subtitleEmbedAudioOnly": "Subtitle embed gara sidecar jijjiirameera — tarreewwan sagalee tartiiba subtitle embed hin deeggaran.",
+			"subtitleEmbedForcesMkv": "Axxiinni viidiyoo keessatti makaman faayilii MKV barbaadu, kanaaf buufannaan kun akka .mkv tti kuufama.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail embed ni dhiifame — container bu'aa embed hin deeggarre."
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "TV smart H.264 MP4"},
-		"videoFormatDesc": {"best": "Codec ol’aanaa argamu tokkoon tokkoon wantaaf", "mp4": "H.264 + AAC filatama, konteenera MP4 · carraa gaarii"},
-		"tier": {"144": "Hanga 144p", "240": "Hanga 240p", "360": "Hanga 360p", "480": "Hanga 480p", "720": "Hanga 720p", "1080": "Hanga 1080p", "1440": "Hanga 1440p", "2160": "Hanga 4K", "best": "Best quality"},
-		"tierDesc": {
-			"144": "Faayiloota xiqqoo hunduma irra",
-			"240": "Faayiloota baayyee xiqqaa, qulqullina gadii",
-			"360": "Faayiloota xiqqaa bandwidth xiqqaaf",
-			"480": "Low bandwidth",
-			"720": "Faayiloota xiqqaa, walsimsiisa bal’aa",
-			"1080": "Hanga 1080p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
-			"1440": "Hanga 2K daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
-			"2160": "Hanga 2160p daangeffama, tokkoon tokkoon wantaaf gara gadi deebi’a",
-			"best": "Viidiyoo + sagalee ol’aanaa tokkoon tokkoon wantaaf"
+		"folder": {
+			"custom": "Ofiin kaa'i…",
+			"desktop": "Desktop",
+			"documents": "Sanadoota",
+			"downloads": "Buufata",
+			"heading": "Kuusi gara",
+			"home": "Mana",
+			"music": "Muuziqaa",
+			"pictures": "Suuraalee",
+			"subfolder": {
+				"invalid": "Maqaan foldarii mallattoolee sirrii hin qabu",
+				"placeholder": "fkn lo-fi rips",
+				"toggle": "Saab-foldarii keessatti kuusi"
+			},
+			"videos": "Filimii"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Sagalee native ol’aanaa, irra deebi’ee hin encode’u", "mp3": "Gara MP3 jijjiiri", "m4a": "Gara M4A (AAC) jijjiiri", "opus": "Gara Opus jijjiiri"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 1080p olii YouTube irratti hin jiru — ofumaan 1080p irratti daangeffama"
-	},
-	"formatLabel": {"audioFallback": "Sagalee", "audioOnlyDot": "Sagalee qofa · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boqachaa", "statusActive_one": "1 buufamaa jira · {{percent}}%", "statusActive_other": "{{count}} buufamaa jiru · {{percent}}%", "downloadFromClipboard": "Buufamaa irraa basii", "open": "Arroxy bani", "quit": "Arroxy cufii"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "Daawniloodii {{count}} adeemaa jira",
-			"message_other": "Daawniloodoonni {{count}} adeemaa jiru",
-			"detail": "Booda itti fufuuf yeroodhaaf dhaabi, yookaan adeemsa dhiisuuf haqi.",
-			"confirm": "Daawniloodii Haqi fi Cufii",
-			"pause": "Buusuu dhaabiitii ba’i",
-			"keep": "Daawniloodii itti fufi"
+		"formats": {
+			"audio": "Sagalee",
+			"audioLanguage": "Afaan sagalee",
+			"audioLanguageCount_one": "Afaanota {{count}}",
+			"audioLanguageCount_other": "Afaanota {{count}}",
+			"audioOnly": "Sagalee qofa",
+			"bitrateValue": "Saaffata bitii {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies qindaa'eera garuu dhaabbe jira. Tarreessa guutuu argachuuf cookies dandeessii achiin irra deebi'i, ykn netwoorkii jijjiiri achiin irra deebi'i.",
+				"bodyEnabled": "Cookies waliin illee, YouTube qorannoo kana daangeessee jira. Booda irra deebi'i ykn netwoorkii jijjiiri.",
+				"bodyExplore": "YouTube gaaffii kana daangeesse. Booda irra deebi'i ykn netwoorkii jijjiiri.",
+				"bodyUnconfigured": "Tarreessi foormaatii guutuu ta'uu dhiisuu danda'a. Qindaa'inoota ammayyaa keessatti cookies qopheessi, ykn netwoorkii jijjiiri achiin irra deebi'i.",
+				"enableRetryCta": "Cookies dandeessii achiin irra deebi'i",
+				"heading": "YouTube qorannoo kana daangeessee jira",
+				"retryCta": "Irra deebi'i"
+			},
+			"convert": {
+				"bitrate": "Saaffata bitii",
+				"bitrateCopyHint": "Maddi duraanuu {{target}} ta'e stream fi saaffata bitii isaa mataa isaa ni eeggata: irra deebi'ee encode hin taane, waraabama.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, irra deebi'ee hin encode'amu",
+				"copyLabelNoBitrate": "{{target}}, irra deebi'ee hin encode'amu",
+				"copyNote": "{{kbps}} kbps, akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
+				"copyNoteNoBitrate": "Akkuma maddichaa: stream sun duraanuu {{target}} waan ta'eef, irra deebi'ee encode hin taane, waraabama",
+				"label": "Jijjiiri",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Maddi {{kbps}} kbps dha",
+				"wavLabel": "WAV (cuqxaa hin taane)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Seensa Daawwannaa",
+				"currentModeFile": "Faayilii",
+				"currentModeLabel": "Madda Cookies",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp sanadoota (dhimma #10927)",
+					"explanation": "Chrome 127 fi itti aanu cookies'a appoonii biroon Windows irratti dubbisuu hin dandeenye ta'een farsima. Furmaata armaan gadii keessaa tokko yaali.",
+					"fixFileBody": "Cookies Chrome irraa extension browser waliin ergi, achiin app kana haala Faayilii jijjiiri achiin faayilii ergame filadhu.",
+					"fixFileLabel": "cookies.txt ergi",
+					"fixFirefoxBody": "Firefox App-Bound Encryption hin fayyadamu. Qindaa'inoota cookies bani achiin tarree browser keessaa Firefox filadhu.",
+					"fixFirefoxLabel": "Firefox fayyadami",
+					"fixUnsafeBody": "--disable-features=LockProfileCookieDatabase gabaabduu jalqabbii Chrome'tti dabaluu. Akeekkachiisa: kunis cookies duraan farsimaman haquu waan taasiseef gareewwan hundarraa ba'uuf fi deebisanii seenuuf dirqisiifama.",
+					"fixUnsafeLabel": "App-Bound Encryption dhaabbatee Chrome jalqabi",
+					"heading": "Cookies Chrome'ii farsimaa Windows'n cufame"
+				},
+				"explanationBrowser": "Cookies browser irraa kallattiin dubbifama. Browser yoo amma hojjechaa jiraate, kuusaa cookies isaa cufamuu danda'a (Chromium-gosa). Browser YouTube keessattis seenuu qaba. Browser cufadhu, browser biraa jijjiiri, Faayilii haala jijjiiri, ykn cookies dhaabbi.",
+				"explanationFile": "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta'uu danda'a (Arroxy Netscape cookies.txt barbaada). Cookies irra deebi'ii ergi, faayilii biraa filadhu, Browser haala jijjiiri, ykn cookies dhaabbi.",
+				"exploreOffer": {
+					"body": "Daawwannaa keessatti seeni, Arroxyn irra deebi'ee yaala.",
+					"cta": "Daawwannaa keessatti seeni",
+					"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a"
+				},
+				"exploreRefused": {
+					"body": "Arroxy seensa Daawwannaa keessaatiin duraanuu yaaleera; kanaaf irra deebi'ee seenuun hin fayyadu. Saayitiin rakkoo qabaachuu danda'a, yookaan akkaawuntiin kun banuu hin danda'u. Booda irra deebi'ii yaali.",
+					"heading": "Daawwannaa keessa seentee jirtus, saayitiin kun didee"
+				},
+				"exploreReuse": {
+					"body": "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu.",
+					"cta": "Seensa Daawwannaa koo fayyadamii irra deebi'ii yaali",
+					"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a"
+				},
+				"exploreSignIn": {
+					"body": "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Daawwannaa keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.",
+					"cta": "Daawwannaa keessatti seeni",
+					"heading": "Viidiyoon kun akkaawuntii YouTube barbaadu ni danda'a"
+				},
+				"exploreSignedIn": {
+					"body": "Viidiyoon kun akkaawuntii kan barbaadu yoo ta'e, Arroxy seensa Daawwannaa ofumaan fayyadama. Sababa biraatiin hin argamu ta'uu danda'a.",
+					"heading": "Daawwannaa keessa seentee jirta"
+				},
+				"exploreSite": {
+					"heading": "Linkiin kun {{host}} irratti akkaawuntii barbaaduu danda'a",
+					"offerBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali.",
+					"signInBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa."
+				},
+				"heading": "Cookies sababa ta'uu danda'a",
+				"needsCookies": {
+					"body": "Arroxy viidiyoo kana mirkaneessuu malee argachuu hin dandeenye. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi.",
+					"heading": "Gareewwan kun seensa gaafata"
+				},
+				"openSettingsCta": "Qindaa'inoota cookies bani",
+				"otherCookiesCta": "Faayilii cookies ykn browser fayyadami…"
+			},
+			"drc": {
+				"description": "Kutaalee sagaleen isaanii guddaa ta'e xiqqeessa, kanneen xiqqaa immoo guddisa; spiikarootaa fi kutaalee sagaleen itti baay'atuuf.",
+				"label": "Sagalee walqixxeessi (DRC)",
+				"tag": "Sagalee walqixa"
+			},
+			"fit": {
+				"mp4Unavailable": "Piroofaayiliin kee TV smart (H.264) dha. Viidiyoon kun H.264 hin dhiyeessu, kanaaf tarreessi isa dhihoo filatameera.",
+				"noVideo": "Hidhaan kun viidiyoo hin qabu, kanaaf sagaleen filatameera.",
+				"subtitlesMissing": "Piroofaayiliin kee afaan {{languages}} keessaa axxiinni gaafata. Viidiyoon kun hin qabu.",
+				"tierAbove": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun kan akka kanatti xiqqaate hin qabu, kanaaf {{picked}}p filatameera.",
+				"tierBelow": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun hanga {{picked}}p qofa deema, kanaaf {{picked}}p filatameera.",
+				"webmUnavailable": "Piroofaayiliin kee WebM gaafata. Tarreessaawwan viidiyoo kanaa filataman {{codec}} of keessaa qabu, kan WebM qabachuu hin dandeenye, kanaaf gosti faayilii Ofumaa dha."
+			},
+			"footer": {
+				"addToQueue": "Osoo hin jalqabin tarreetti dabali",
+				"download": "Buufata",
+				"moreActions": "Filannoo buufataa dabalataa",
+				"subtitlesRequired": "Yoo xiqqaate afaan axxiinnii tokko filadhu."
+			},
+			"keepAudio": "Akka jirutti eegi",
+			"keepAudioMeta": "Sagalee keessoo",
+			"kind": {
+				"audio": "Sagalee qofa",
+				"label": "Maal buufachuu barbaaddaa",
+				"subtitles": "Axxiinni qofa",
+				"video": "Viidiyoo + sagalee",
+				"videoOnly": "Viidiyoo, sagalee malee"
+			},
+			"loadingAria": "Foormaatii fe'amaa jira",
+			"loadingHint": "Qorannoon xumuramuu hanga eegtu — playlist fi barbaacha yeroo fudhachuu danda'a.",
+			"marker": {
+				"aiDubbed": "AI'n hiikame",
+				"aiUpscaled": "AI'n guddifame",
+				"audioDescription": "Ibsa sagaleen",
+				"damaged": "Miidhame",
+				"enhancedBitrate": "Bitrate fooyya'e",
+				"spatialAudio": "Sagalee iddoo",
+				"vr": "360° / VR",
+				"watermarked": "Mallattoo bishaanii qaba"
+			},
+			"noAudio": "Sagalee hin jiru",
+			"profile": {
+				"calloutBody": "Profaayiliin keessan hojiirra jiru istiriimota duraan isiniif filata. Menu irraa profaayilii jijjiiraa, ykn buufata kana osoo hin dhiisin qalamiin tokko sirreessaa.",
+				"calloutTitle": "Formaatonni profaayilii keessan irraa jalqabu",
+				"closestTag": "Piroofaayiliitti dhiyoo",
+				"edit": "{{name}} gulaali",
+				"keepEdits": "Jijjiiramoota koo eegi",
+				"menuDescription": "Buufata kanaaf qofa. Piroofaayiliin kee durtii akkuma jirutti hafa.",
+				"preselected": "Duraan filatame, madda:",
+				"resetAll": "Hunda deebisi",
+				"switchBody": "Buufata kanaaf {{areas}} jijjiirteetta. “{{profile}}” haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
+				"switchTitle": "Piroofaayilii jijjiiruu?",
+				"tag": "Piroofaayilii",
+				"updatedBody": "Buufata kanaaf {{areas}} jijjiirteetta. Piroofaayiliin haaromfame haala kamiinuu viidiyoo fi sagalee ni filata. Jijjiiramoota kee kan biroo eegda moo waan hunda gara piroofaayiliitti deebifta?",
+				"updatedTitle": "Piroofaayilii haaromfame fayyadamuu?"
+			},
+			"quality": {
+				"high": "Qulqullina olaanaa",
+				"low": "Qulqullina gadi aanaa",
+				"medium": "Qulqullina giddugaleessaa"
+			},
+			"rateLimit": {
+				"heading": "{{site}} walqunnamtii kana daangessaa jira",
+				"leadDegraded": "Tarreeffamni bifaa guutuu dhiisuu danda’a.",
+				"leadFailed": "{{site}} gaaffii kana amma fudhachuu dide.",
+				"retryCta": "Irra deebi'i",
+				"sessionNote": "{{site}} daangaa kana hanga sa’aa tokkootti turuu danda’a.",
+				"tryNowCta": "Amma yaali",
+				"waitOver": "Eegumsi xumurameera, irra deebi’ee yaaluu dandeessa.",
+				"waitUntil": "Akka daangaan ka’uuf, Arroxy {{site}} irra deebi’ee gaafachuu dura hanga {{time}} eega."
+			},
+			"resolutionUnknown": "Ifa bal'ina hin beekamne",
+			"savesAs": {
+				"label": "Akka kanaatti kuufama",
+				"reset": "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera."
+			},
+			"sizeUnknown": "Bal'inni hin beekamne",
+			"skipToConfirm": "Mirkaneessaatti ce'i",
+			"skipToConfirmTooltip": "Filannoowwan kee kan olkaawaman tarkaanfiiwwan hafan hundaaf fayyadama. Qindaa'ina jijjiiruf, tarkaanfii tarkaanfiin itti fufii — filannoon kee yeroo itti aanuuf olkaawama.",
+			"sniffing": "Foormaatii caalmaa si barbaachisu barbaaduun jira…",
+			"total": "Waliigala",
+			"video": "Viidiyoo",
+			"withAudio": "sagalee wajjin"
 		},
-		"closeToTray": {"message": "Cufuun Arroxy tiiree irratti dhoksi?", "detail": "Arroxy hojjechuuf itti fufa daawniloodoonnis xumurama. Booda Qindaa'inoota Ammayyaa keessatti jijjiiri.", "hide": "Tiiree irratti dhoksi", "quit": "Cufii", "remember": "Gara fuula duraatti hin gaafatin"},
-		"rendererCrashed": {"message": "Arroxy rakkoo mudateera", "detail": "Prosessiin renderer kufee ({{reason}}). Irra deebi'uuf fe'adhu.", "reload": "Fe'adhu", "quit": "Cufii"}
-	},
-	"share": {
-		"title": "Arroxy Qoodi",
-		"description": "Arroxy bilisaa fi madda-banaadha. Qoodun namoota baay'ee argachuu ni gargaara.",
-		"copyLink": "Hidhata garagalchi",
-		"copied": "Garagalfame!",
-		"defaultMessage": "Arroxy — Buufataa viidiyoo bilisaa fi madda banaa kan Windows, macOS & Linux. YouTube, Vimeo, Twitch fi saayitiiwwan 2000+ wajjin hojjeta.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "Arroxy qoodi",
-		"footerLabel": "Qoodi",
-		"shareAction": "Arroxy qoodi"
-	},
-	"donate": {
-		"title": "Arroxy deeggaraa",
-		"description": "Arroxy bilisaa fi eeyyama banaa (open-source) dha; beeksisni yookaan karoorri kaffaltiis hin qabu. Arjiin fedhii irratti hundaa'a; karoora misoomaa irrattis dhiibbaa hin qabu.",
-		"footerTooltip": "Arroxy deeggaraa",
-		"footerLabel": "Arjii",
-		"copyAddress": "Teessoo waraabi",
-		"copied": "Garagalfame!",
-		"qrAlt": "Koodii QR teessoo arjii {{coin}}",
-		"warning": "Kaffaltiin kiriptoo deebi'uu hin danda'u. Neetworkii agarsiifame qofa irratti ergi, teessoo guutuu wal bira qabii ilaali."
-	},
-	"filenameTemplate": {
-		"label": "Bocquu maqaa faayilii",
-		"description": "Faayiloonni buufaman akkamitti akka maqaa argatan filadhu. Galchuuf tokenii tokko cuqaasi. Buufamaawwan gara galmeewwaniitti qooduuf / fayyadami.",
-		"profileOverrideLabel": "Bocquu maqaa faayilii",
-		"profileOverrideDescription": "Bocquu waliigalaa fayyadamuuf duwwaa dhiisi.",
-		"idWarning": "{id} malee, Arroxy wantoota tarree taphaa duraan buufaman adda baasuu ykn tarree .m3u uumuu hin danda'u.",
-		"m3uDisabled": "Hin argamu sababii akkaataan maqaa faayilii kee {id} of keessaa hin qabne yookaan buufamaawwan gara galmeewwaniitti waan qooduuf.",
-		"previewSingle": "Viidiyoo tokkicha",
-		"previewPlaylist": "Tarree taphaa keessatti",
-		"error": {
-			"empty": "Bocquu maqaa faayilii galchi.",
-			"too-long": "Bocquun baay'ee dheeraa dha.",
-			"forbidden-char": "Arfiilee maqaa faayilii keessatti hin hayyamamne haqi: \\ : * ? \" < > |",
-			"stray-brace": "{ ykn } hin cufamne — mallattoo akka {title} barreessi.",
-			"no-unique-token": "Buufamaan hundi maqaa mataa isaa akka qabaatuuf maqaa faayilii irratti {title} yookaan {id} dabali.",
-			"unknown-token": "Mallattoo hin beekamne {{token}}.",
-			"empty-segment": "/ dabalataa haqi — galmeen hundi maqaa barbaada.",
-			"invalid-segment": "Maqaan galmee kun hin hayyamamu. . fi .. akkasumas maqaawwan qabaman akka CON irraa fagaadhu.",
-			"resolution-in-dir": "{resolution} galmee maqaa baasuu hin danda'u — qulqullinni hanga buufamni jalqabutti hin beekamu."
-		}
-	},
-	"explore": {
-		"tabLabel": "Daawwannaa",
-		"newBadge": "Haaraa",
-		"notice": {
-			"title": "Weebii Arroxy keessatti ilaali",
-			"body": "Viidiyoo YouTube irratti ykn marsariitii biraa irratti barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as marsariitii tokkotti seeni.",
-			"riskTitle": "Akkaawuntii lammaffaatiin seeni",
-			"riskBody": "Marsariitiin akka YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
-			"continue": "Itti fufi"
+		"mixedPrompt": {
+			"body": "Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.",
+			"pickFromPlaylist": "Playlist keessaa filadhu",
+			"playlistLimit": "Daangaa sakatta’iinsa playlist: wantoota {{count}}",
+			"playlistTooltip": "Filataa agarsiisuu dura playlist hanga daangaa sakatta'iinsa playlist keetii fe'a.",
+			"quickBody": "Viidiyoo kana qofa buufadhu, yookaan piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun tarree taphachiisaa guutuu gara tarree hojiiitti galchi.",
+			"quickLimitDescription": "Baay’ina olaanaa wantoota Arroxy tarree taphachiisaa, chaanaalii, yookaan bu’aa barbaacha gara tarree hojiiitti galchuu dura sakatta’u.",
+			"quickPlaylistTooltip": "Wantoota tarree taphachiisaa fe’aman hunda piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun gara tarree hojiiitti galcha. Sakatta’iinsi daangaa kee yoo ga’e, Arroxy tarree hojiiitti galchuu dura ni gaafata.",
+			"quickSingleTooltip": "Buufata tokko gara tarree hojiiitti galcha, tarree taphachiisaa URL kanaan walqabate immoo ni dhiisa.",
+			"quickSingleVideo": "Viidiyoo kana buufadhu",
+			"quickWholePlaylist": "Tarree taphachiisaa guutuu buufadhu",
+			"singleTooltip": "Viidiyoo kana qofa fe'a. Playlist URL kanaan hidhame ni tuffatama.",
+			"singleVideo": "Kana qofa",
+			"title": "Liinkin kun Playlist qaba"
 		},
-		"nudge": {
-			"off": "Cookies cufamaniiru, kanaaf buufannoon seensa Daawwannaa hin fayyadamu.",
-			"file": "Buufannoon faayilii cookies keetii fayyadama, seensa Daawwannaa hin fayyadamu.",
-			"browser": "Buufannoon cookies browser keetii fayyadama, seensa Daawwannaa hin fayyadamu.",
-			"useExplore": "Seensa Daawwannaa fayyadami",
-			"notNow": "Amma miti"
-		},
-		"linkCallout": {"title": "Buufachuuf liinkii irratti right-click godhi", "body": "Fuula irratti liinkii viidiyoo, tarree taphachiisaa ykn channel kamiyyuu irratti right-click godhiitii Profaayilii hojiirra jiruun buufadhu, profaayilii biraa filadhu, ykn Buufata walnaqqee bani."},
-		"linkMenu": {"downloadWith": "Profaayiliin buusi", "copyLink": "Hidhata garagalchi"},
-		"toolbar": {
-			"aria": "To'annoo browser Daawwannaa",
-			"back": "Duubatti",
-			"forward": "Fuuldura",
-			"reload": "Fe'adhu",
-			"home": "Mana YouTube",
-			"addressAria": "Teessoo",
-			"addressPlaceholder": "{{engine}} barbaadi ykn marsariitii kamiyyuu bani (Vimeo, Instagram…)",
-			"refusedHint": "Daawwannaan teessoo sana banuu hin danda'u.",
-			"searchTooLong": "Barbaacha sun dheeraa dha.",
-			"downloadWithProfile": "Buusi · {{profileName}}",
-			"interactiveHint": "Buufata walnaqqee: formaata, barruu jalaa fi kkf filadhu…",
-			"grabUnavailable": "Buufachuuf viidiyoo, tarree taphachiisaa ykn channel bani",
-			"compactLayout": "Qindaa'ina gabaabaa",
-			"fullLayout": "Qindaa'ina guutuu agarsiisi",
-			"zoom": {"label": "Guddina fuula", "hint": "Guddina fuula: {{percent}}%", "in": "Guddisi", "out": "Xiqqeessi", "percent": "Dhibbeentaa guddinaa", "reset": "Guddina gara 100% deebisi"},
-			"adBlock": {
-				"aria": "Dhorkaa beeksisaa",
-				"off": "Dhorkaa beeksisaa: cufaa — banuuf tuqi",
-				"starting": "Dhorkaa beeksisaa: eegalaa jira — cufuuf tuqi",
-				"on": "Dhorkaa beeksisaa: banaa — cufuuf tuqi",
-				"unavailable": "Dhorkaa beeksisaa: hin argamu, tarreewwan filtaraa buufachuun hin danda'amne — cufuuf tuqi",
-				"accountNote": "YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a."
+		"output": {
+			"embedChapters": {
+				"description": "Mallattooleen boqonnaa taphataa ammayyaa kamiyyuu keessatti hojjetu.",
+				"label": "Boqonnaa maksi"
+			},
+			"embedMetadata": {
+				"description": "Mata-duree, artist, ibsa, fi guyyaan fe'ame faayilii keessatti barreeffama.",
+				"label": "Metadata maksi"
+			},
+			"embedThumbnail": {
+				"description": "Suuraa haguugduu faayilii keessa. MP4 / M4A qofa — axxiinni makamuun dura ni darba.",
+				"label": "Thumbnail maksi"
+			},
+			"writeDescription": {
+				"description": "Ibsa viidiyoo .description faayilii barreeffamaa ta'ee daawniloodii cinaa ni kuusa.",
+				"label": "Ibsa kuusi"
+			},
+			"writeM3u": {
+				"description": "Viidiyoowwan tarreen media player keessatti banamaniif .m3u isaan cinatti kuusi.",
+				"label": "Faayilii playlist .m3u uumi"
+			},
+			"writeThumbnail": {
+				"description": "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa.",
+				"label": "Thumbnail kuusi"
 			}
 		},
-		"settings": {
-			"title": "Daawwannaa",
-			"description": "YouTube ykn marsariitii biraa Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
-			"showTab": "Tab Daawwannaa agarsiisi",
-			"showTabDescription": "Cufuun isaa buufannoon seensa Daawwannaa akka hin fayyadamne ni godha.",
-			"idleUnload": "Yeroo hin jirretti yaadannoo bilisa godhi",
-			"idleUnloadDescription": "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata.",
-			"searchEngine": "Maashinii barbaachaa",
-			"searchEngineDescription": "Barreeffamni sararaa teessoo keessatti barreeffame eessatti akka barbaadamu. Hidhaawwan akkuma barreeffametti ni banamu.",
-			"signOut": "Daawwannaa irraa ba'i",
-			"signOutDescription": "Seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa.",
-			"signOutConfirmTitle": "Daawwannaa irraa ba'uu?",
-			"signOutConfirmBody": "Kun seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa.",
-			"signOutConfirm": "Ba'i"
+		"part": {
+			"calloutBody": "Kaardii viidiyoo irratti gara «Kutaa» jijjiiri, jalqabaa fi dhumaa ykn boqonnaa tokko filadhu, achiis kutaa sana qofa buufadhu.",
+			"calloutTitle": "Kutaa viidiyoo tokko qofa buufadhu",
+			"chapterUntitled": "Boqonnaa {{number}}",
+			"chapters": "Boqonnaalee",
+			"connectionsNote": "Kutaan ffmpeg-n buufata, kanaaf walitti hidhamiinsi buufataa fi qindaa'inni saffisaa isaaf hin hojjetu.",
+			"downloadBlocked": "Dura jalqaba fi xumura kutaa sirreessi.",
+			"end": "Xumura",
+			"error": {
+				"endBeyondDuration": "Viidiyoon {{duration}} irratti xumurama.",
+				"endInvalid": "Xumura akka h:mm:ss, m:ss ykn sekoondiitti galchi.",
+				"startInvalid": "Jalqaba akka h:mm:ss, m:ss ykn sekoondiitti galchi.",
+				"startNotBeforeEnd": "Jalqabni xumura dura ta'uu qaba."
+			},
+			"exactCut": {
+				"hint": "Cufaa: muruun hunduu keyframe isa dhiyoo irratti kufa, kunis yeroo ati barreessite irraa sekoondii muraasa fagaachuu danda'a.",
+				"label": "Muruu sirrii (deebisee koodii godha, suuta)"
+			},
+			"length": "{{length}} kan {{duration}}",
+			"part": "Kutaa",
+			"rangeLabel": "Kutaa viidiyoo",
+			"start": "Jalqaba",
+			"subtitlesFullLength": "viidiyoo guutuu",
+			"summary": "Kutaa {{start}}–{{end}}",
+			"switchLabel": "Viidiyoo kan hammam",
+			"timeHint": "h:mm:ss, m:ss ykn sekoondii",
+			"totalEstimate": "Kutaa, tilmaamaan",
+			"unavailableDuration": "Viidiyoon kun dheerina isaa hin mul'isu, kanaaf guutuu isaa qofa buufachuun danda'ama.",
+			"unavailableSubtitles": "Axxiinniin yeroo hunda viidiyoo guutuu haguuga.",
+			"urlStart": "Liinkiin kee {{time}} irratti jalqaba",
+			"useUrlStart": "Akka jalqabaatti fayyadami",
+			"whole": "Viidiyoo guutuu",
+			"wholeTrack": "Traakii guutuu"
 		},
-		"error": {
-			"proxyTitle": "Daawwannaan proksii keetiin walitti hin hidhamu",
-			"proxyBody": "Proksii Qindaa'inoota keessatti ilaali, itti aansuun irra deebi'ii yaali.",
-			"loadTitle": "Fuulli kun hin fe'amne",
-			"loadBody": "Walitti hidhamiinsa kee ilaali, itti aansuun irra deebi'ii yaali.",
-			"retry": "Irra deebi'i",
-			"openSettings": "Qindaa'inoota bani"
+		"playlist": {
+			"allRemovedDescription": "Itti fufuudhaaf isaan deebisi.",
+			"allRemovedTitle": "Wanti hundinuu balleeffameera",
+			"alreadyDownloaded": "Duraan buufameera",
+			"bulkHeading": "URL hedduu",
+			"bulkMetadataOptional": "Eeguu hin barbaachisu — faayilonni amma tarree galchan iyyuu buufamanis maqaa isaanii dhugaa argatu.",
+			"bulkMetadataResolving": "Ibsa viidiyoo fidaa… {{done}}/{{total}}",
+			"bulkRowFailed": "Ibsi hin argamne",
+			"bulkRowResolving": "Ibsa fidaa jira",
+			"bulkRowWaiting": "Eegaa jira",
+			"durationUnknown": "kallattii",
+			"heading": "Wantoota Playlist",
+			"headingGeneric": "Viidiyoowwan buufachuuf",
+			"itemCountAudio_one": "{{count}} weellaa",
+			"itemCountAudio_other": "{{count}} weellaalee",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_one": "{{count}} viidiyoo",
+			"itemCount_other": "{{count}} viidiyoowwan",
+			"loadingItems": "Playlist fidaa jira…",
+			"loadingItemsGeneric": "Viidiyoowwan fidamaa jiru…",
+			"loadingLimitHint": "Wantoota jalqabaa {{count}} qofatti daangeffame",
+			"loadingPagesFound_one": "Fuulli {{count}} argame",
+			"loadingPagesFound_other": "Fuulonni {{count}} argaman",
+			"loadingPhaseItems": "Viidiyoowwan walitti qabaa jira",
+			"loadingPhasePages": "Fuulota chaanaalii sakattaʼaa jira",
+			"multiProfileEntry": "Meeshaa tokkoon tokkoon Piroofaayilii ramaduu",
+			"multiProfileEntryTooltip": "Qulqullina, SponsorBlock, Ba'uu, fi Kuusi ni dabarsa — qooda kanaa meeshaa tokkoon tokkoon Piroofaayilii buufannaa ramadi",
+			"nestedPlaylistBadge": "Tarree taphachiisaa",
+			"nestedPlaylistHint_one": "Isaan kana keessaa {{count}} viidiyoo osoo hin taane tarree taphachiisaa dha — buusuuf hidhaa isaa kophaatti maxxansi.",
+			"nestedPlaylistHint_other": "Isaan kana keessaa {{count}} viidiyoowwan osoo hin taane tarreewwan taphachiisaa dha — buusuuf hidhaalee isaanii tokko tokkoon maxxansi.",
+			"noSelection": "Itti fufuuf viidiyoo tokko yoo xiqqaate filadhu",
+			"probeLimitAlertDesc": "Arroxy wantoota {{count}} ol argateera, kanaafuu daangaan qorannaa ammaa kan hafan dhoksaa jira.",
+			"probeLimitAlertTitle": "Qorannaan playlist daangeffameera",
+			"probeLimitAlertTitleGeneric": "Sakatta’iinsi daangeffameera",
+			"rangeApply": "Daangaa hojiirra oolchi",
+			"rangeFrom": "Irraa",
+			"rangeTo": "Gara",
+			"removeFromListCount_one": "{{count}} tarreefaa keessaa balleessi",
+			"removeFromListCount_other": "{{count}} tarreefaa keessaa balleessi",
+			"removedCount_one": "{{count}} balleeffame",
+			"removedCount_other": "{{count}} balleeffame",
+			"restore": "Deebi'si",
+			"selectAll": "Hunda filadhu",
+			"selectNone": "Tokkollee hin filin",
+			"selectedCount_one": "{{count}} filatame",
+			"selectedCount_other": "{{count}} filataman",
+			"sortApi": "Tartiiba tarree",
+			"sortFetchingDates": "Guyyaa fe'umsaa fidaa jira…",
+			"sortLabel": "Tartiibessi",
+			"sortUploadAsc": "Moofaa jalqaba",
+			"sortUploadDesc": "Haaraa jalqaba",
+			"syncApply": "Walsimsiisa hojiirra oolchi",
+			"syncChange": "Galmee jijjiiri…",
+			"syncFoundDesc": "Viidiyoowwan kana keessaa {{n}} duraan {{dir}} keessa jiru. Kan haaraa qofa buufachuuf walsimsiisi?",
+			"syncFoundTitle": "Duraan galmee keessa jira",
+			"syncNoneDesc": "Viidiyoon playlist kanaa {{dir}} keessatti hin argamne.",
+			"syncNoneDescGeneric": "Viidiyoowwan madda kana irraa {{dir}} keessatti hin argamne.",
+			"syncNoneTitle": "Ammaaf homtuu hin buufamne",
+			"syncScanning": "Galmee sakatta’aa jira…",
+			"thumbnailAlt": "Thumbnail viidiyoo"
+		},
+		"playlistPresets": {
+			"heading": "Kutaa gurmuu barbaadi",
+			"itemCount_one": "{{count}} wanta",
+			"itemCount_other": "{{count}} wantota",
+			"subhead": "Viidiyoon hundi sadarkaa filatame ofumaan qorata — playlist garagaraa sodaa malee hojjeta."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Profaayilii ramaduu",
+			"assignTrigger_one": "Viidiyoo {{count}}f ramaduu",
+			"assignTrigger_other": "Viidiyoowwan {{count}}f ramaduu",
+			"columnDuration": "Turtii",
+			"columnProfile": "Piroofaayilii",
+			"editProfile": "{{name}} gulaali",
+			"empty": "Calaltuu kanaan wal simu hin jiru",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Calaltuu piroofaayilii",
+			"heading": "Piroofaayilii buufannaa ramaduu",
+			"menuDescription_one": "Viidiyoo kanaaf profaayilii filadhu.",
+			"menuDescription_other": "Viidiyoowwan {{count}} kanneeniif profaayilii filadhu.",
+			"selectedSummary": "{{total}} keessaa {{selected}} filatameera"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Waliigalaa jijjiiri",
+				"chooseFolder": "Galee ga'umsaa filadhu",
+				"chooseIcon": "Mallattoo piroofaayilii filadhu",
+				"removeLanguage": "{{code}} balleessi",
+				"reset": "Piroofaayilii haaromsi",
+				"resetDisabledHint": "Piroofaayiliin kun duraanuu qindaa'ina keessaa jiru fayyadamaa jira",
+				"resetHint": "Qindaa'ina piroofaayilii keessaa jiru deebisi",
+				"save": "Piroofaayilii olkaa'i",
+				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
+				"setOverrideShort": "Bakka bu'iinsa qindeessi",
+				"useGlobalDefault": "Durtii waliigalaa fayyadami",
+				"useLanguageCode": "Koodii afaanii “{{code}}” fayyadami"
+			},
+			"advanced": "Ammayyaa",
+			"appSetting": "Qindaaʼina appii fayyadami ({{value}})",
+			"audioFormat": {
+				"best": "Gaarii",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Hanga 128K",
+				"192": "Hanga 192K",
+				"320": "Hanga 320K",
+				"best": "Qulqullina gaarii"
+			},
+			"destination": {
+				"defaultFolder": "Galee buufata durtii",
+				"defaultFolderWithSubfolder": "Galee buufata durtii / {{subfolder}}",
+				"global": "Ga'umsa waliigalaa",
+				"globalActive": "Hojiirra jira",
+				"globalInherited": "Dhaalame",
+				"override": "Bakka bu'iinsa piroofaayilii",
+				"overrideChoosing": "Galee filadhu",
+				"overrideNone": "Bakka bu'iinsi hin qabamne",
+				"overrideNoneNote": "Bakka bu'iinsi hin qabamne. Piroofaayiliin kun ga'umsa waliigalaa armaan olii fayyadama.",
+				"overrideSet": "Waliigalaa bakka bu'a",
+				"overrideSetNote": "Piroofaayiliin kun osoo galee xiqqaan hin dabalamin, roota mataa isaatti olkaa'a.",
+				"resolved": "Ga'umsa dhumaa"
+			},
+			"dialogDescription": "Buufata Saffisaa, URL Baay'ee fi tarree taphaatiif qindaa'ina irra deebi'anii fayyadamuu danda'an tokko.",
+			"dialogTitle": "Piroofaayilii buufataa",
+			"error": {
+				"changeGlobalDestination": "Ga'umsa waliigalaa jijjiiruun hin danda'amne.",
+				"folderPicker": "Filannoo galee banuun hin danda'amne. Daandii harkaan galchi.",
+				"reset": "Qindaa'inni piroofaayilii haaromsuun hin danda'amne.",
+				"save": "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne."
+			},
+			"field": {
+				"delivery": "Karaa olkaa'uu",
+				"fileType": "Gosa faayilii",
+				"goal": "Kan dursa argatu",
+				"icon": "Mallattoo piroofaayilii",
+				"languages": "Afaanota",
+				"name": "Maqaa piroofaayilii",
+				"nameAndIcon": "Maqaa fi mallattoo piroofaayilii",
+				"nativeAudio": "Sagalee dhalootaa",
+				"overridePath": "Daandii bakka bu'iinsa piroofaayilii",
+				"quality": "Qulqullina",
+				"resolution": "Ifa bal'ina",
+				"source": "Madda",
+				"subfolderName": "Maqaa gale xiqqaa",
+				"subtitleDownloads": "Buufata ergaa gadii",
+				"subtitleDownloadsDescription": "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Hamma walfakkaatuun baay'ee ifa. TV moofaan, QuickTime fi gulaaltonni tokko tokko taphachiisuu hin danda'an.",
+					"name": "Suuraa isa caalu",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa.",
+					"name": "TV smart",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Kuusaa",
+				"audio": "Sagalee",
+				"captions": "Ergaa gadii",
+				"classes": "Barnoota",
+				"clip": "Muraa",
+				"controls": "To'annoo",
+				"download": "Buufata",
+				"music": "Muuziqaa",
+				"podcast": "Poodkaastii",
+				"video": "Viidiyoo"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Muuziqaa ykn poodkaastii",
+					"label": "Sagalee qofa"
+				},
+				"subtitlesOnly": {
+					"description": "Faayilii ergaa gadii qofa",
+					"label": "Axxiinni qofa"
+				},
+				"videoAudio": {
+					"description": "Faayilii viidiyoo idilee",
+					"label": "Viidiyoo + sagalee"
+				},
+				"videoOnly": {
+					"description": "Viidiyoo sagalee hin qabne qofa",
+					"label": "Viidiyoo, sagalee malee"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Ergaan gadii ofumaan uumame bakka ASS SRT ta'ee ni olkaa'ama.",
+				"noLanguageMatches": "Afaan walsimu hin jiru",
+				"noSubtitles": "Piroofaayilii kanaaf faayiliin ergaa gadii ykn sararri ergaa gadii keessatti galfame hin gaafatamu.",
+				"searchLanguages": "Maqaa afaanii ykn koodiin barbaadi",
+				"skippedForOutputType": "Gosa bahaa kanaaf darbameera.",
+				"subtitleLanguagesRequired": "Yoo xiqqaate afaan tokko filadhu.",
+				"subtitleLanguagesRequiredOrOff": "Yoo xiqqaate afaan tokko filadhu, ykn buufata ergaa gadii dhaamsi.",
+				"subtitlesOnly": "Piroofaayiliin kun faayilii ergaa gadii qofa tarree keessa kaa'a. Viidiyoon, sagaleen, SponsorBlock fi jijjiirraan miidiyaa ni darbatamu."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Bakka bu'iinsa piroofaayilii yoo hin qindeessine, piroofaayiliin ga'umsa waliigalaa dhaala.",
+					"title": "Filannoo olaanaa"
+				},
+				"downloadType": {
+					"description": "Karaa ijoo ittiin buufachuu barbaaddu filadhu.",
+					"title": "Gosa buufataa"
+				},
+				"identity": {
+					"description": "Maqaa fi mallattoo Buufata Saffisaa, URL Baay'ee fi tarree piroofaayilii keessatti mul'atu.",
+					"title": "Eenyummaa piroofaayilii"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} dandeessifame",
+					"enabledCount_other": "{{count}} dandeessifame",
+					"title": "Filannoo bahaa"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Piroofaayilii kanaaf galee filadhu"
+			},
+			"skipped": "Darbameera",
+			"sponsorBlockHint": {
+				"mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).",
+				"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.",
+				"remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Kan ofumaan uumaman qofa",
+				"manualAndAuto": "Harkaan fi ofumaan",
+				"manualFirst": "Duraa harkaan, sana booda ofumaan",
+				"manualOnly": "Harkaan qofa"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Gargaarsa {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Qophii haqi",
+			"currentFallback": "Hidha ammaa",
+			"description": "Arroxy hidhaa dubbisaa jira, {{profileName}} immoo fayyadamaa jira.",
+			"failedCount_one": "{{count}} hin milkoofne",
+			"failedCount_other": "{{count}} hin milkoofne",
+			"phase": {
+				"probing": "Ibsa fidaa jira",
+				"queueing": "Tarreetti dabalaa jira"
+			},
+			"title": "Buufata saffisaa qopheessaa jira",
+			"waitHint": "Arroxy tarree qopheessaa jiru kana banaa dhiisi."
+		},
+		"review": {
+			"areas": {
+				"extras": "dabalataalee",
+				"fileName": "maqaa faayilii",
+				"format": "foormaatii",
+				"saveTo": "foldarii",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "axxiinni"
+			},
+			"callout": {
+				"body": "Axxiinni, SponsorBlock, dabalataaleen akka thumbnail, foldarii fi maqaan faayilii kanaan dura tarkaanfii addaa turan. Jijjiiruuf sarara tokko cuqaasi.",
+				"title": "Qindaa'inni biroo hundi amma fuula kana irra jira"
+			},
+			"changeFormat": "Foormaatii jijjiiri",
+			"changed": "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola.",
+			"changedFrom": "{{profile}} irraa jijjiirame:",
+			"fileNameHint": "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama.",
+			"nextTime": {
+				"action": "Akka piroofaayiliitti olkaa'i",
+				"defaultName": "{{profile}} (jijjiirame)",
+				"title": "Buufanni kun qindaa'ina jijjiirame fayyadame. Yeroo itti aanu itti fayyadamtaa?"
+			},
+			"reset": "Jijjiirama deebisi, gara “{{profile}}”tti deebi'i",
+			"rows": {
+				"extras": "Dabalataalee",
+				"fileName": "Maqaa faayilii",
+				"saveTo": "Kuusi gara",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Axxiinni"
+			},
+			"rowsHeading": "Kan hafe hunda",
+			"save": {
+				"action": "Piroofaayilii olkaa'i",
+				"description": "Qindaa'inoota kana akka piroofaayiliitti olkaa'a, yeroo itti aanu filachuu dandeessa. Piroofaayiliin Buufata saffisaa kee hin jijjiiramu.",
+				"failed": "Piroofaayilii olkaa'uun hin danda'amne.",
+				"nameLabel": "Maqaa piroofaayilii",
+				"saved": "Piroofaayilii “{{name}}” jedhamee olkaa'ameera",
+				"title": "Akka piroofaayiliitti olkaa'i"
+			},
+			"saveAsProfile": "Akka piroofaayilii haaraatti olkaa'i",
+			"update": {
+				"action": "Piroofaayilii fooyyessi",
+				"builtinNote": "Kun piroofaayilii keessaa jiruudha. Qindaa'ina isaa jalqabaa caancala Profaayilota keessatti deebisuu dandeessa.",
+				"description": "Amma booda, buufanni piroofaayilii kanaan godhamu hundi qindaa'ina haaraa fayyadama.",
+				"rows": {
+					"format": "Foormaatii"
+				},
+				"title": "“{{profile}}” fooyyessuu?",
+				"updated": "Piroofaayiliin “{{name}}” fooyyeffameera"
+			},
+			"updateProfile": "“{{profile}}” jijjiirama kanaan fooyyessi",
+			"value": {
+				"extrasNone": "Homaa",
+				"sponsorBlockOff": "Dhaabbi",
+				"subtitlesOff": "Dhaabbi"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Filler",
+				"intro": "Intro",
+				"music_offtopic": "Music off-topic",
+				"outro": "Outro",
+				"preview": "Preview",
+				"selfpromo": "Self-promo",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Caasaalee",
+			"mode": {
+				"mark": "Boqonnaa ta'ee mallattaa'i",
+				"off": "Dhaabbi",
+				"remove": "Kutaalee haquu"
+			},
+			"modeHeading": "Dhiibbaa gurmeessuu",
+			"modeHint": {
+				"mark": "Kutaalee dhiibbaa boqonnaa ta'ee mallattaa'a (miidhaa hin qabne).",
+				"off": "SponsorBlock hin jiru — viidiyoon akka fe'ametti taphatama.",
+				"remove": "FFmpeg fayyadamuun kutaalee dhiibbaa muqa."
+			}
+		},
+		"steps": {
+			"confirm": "Mirkaneessi",
+			"folder": "Kuusi",
+			"formats": "Foormaatii",
+			"output": "Ba'uu",
+			"playlistItems": "Tarree taphachiisaa",
+			"playlistItemsGeneric": "Viidiyoowwan",
+			"playlistPresets": "Qulqullina",
+			"playlistProfiles": "Profaayilota",
+			"review": "Sakatta'i",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Axxiinni",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Waxaleen ofumaan uumaman ASS osoo hin ta'in SRT ta'ee ni kuufamu — yeroo hundaa YouTube's rolling-cue duplication'n qulqulleeffama.",
+			"autoBadge": "Ofumaa",
+			"clearAll": "Hunda qulqulleessi",
+			"embedNote": "Haalli makuun ba'insa .mkv ta'ee kuusaa fi kuunni sirnaan makama.",
+			"format": {
+				"heading": "Foormaatii"
+			},
+			"noLanguages": "Viidiyoo kanaaf axxiinni hin jiru",
+			"noMatches": "Afaan hin argatamne",
+			"noSelected": "Axxiinni hin filamine",
+			"removeLanguage": "{{name}} balleessi",
+			"saveMode": {
+				"embed": "Viidiyoo keessatti maksi",
+				"heading": "Akkamitti kuusi",
+				"sidecar": "Viidiyoo cinaa",
+				"subfolder": "subtitles/ saab-foldarii"
+			},
+			"searchPlaceholder": "Afaanota barbaadi…",
+			"sectionAuto": "Ofumaan uumame",
+			"sectionManual": "Harkaan"
+		},
+		"tabsNavAria": "Qajeelfama piroofaayilii buufataa",
+		"url": {
+			"advanced": "Ammayyaa",
+			"analytics": {
+				"toggle": "Mallattoo guyyaa guyyaan ergi",
+				"toggleDescription": "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame erga, akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
+			},
+			"autoRemoveCompleted": {
+				"description": "Buufanni erga xumuramee sekondii muraasa booda tarree Buufata irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu; buufanni kufe fi dhiisame tarree keessa ni turu.",
+				"label": "Buufata xumuraman ofumaan haqi"
+			},
+			"autoRetry": {
+				"description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.",
+				"label": "Buufata kufe irra deebi'ii yaali",
+				"unit": "yeroo"
+			},
+			"bulkButton": "URL hedduu",
+			"bulkTooltip": "URL hedduu dabaliitii tarree buusutti galchi.",
+			"clearAria": "URL qulqulleessi",
+			"clipboard": {
+				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
+				"bulkHint": "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami",
+				"dialog": {
+					"cancelButton": "Haqi"
+				},
+				"replacedLink": "Liinki waraabbameen bakka buufame",
+				"toggle": "Kliipboordii hordofi",
+				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
+				"undo": "Deebisi"
+			},
+			"closeToTray": {
+				"toggle": "Cufuun dura tiiree dhoksi",
+				"toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."
+			},
+			"concurrentDownloads": {
+				"description": "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala.",
+				"label": "Buufata yeroo tokkotti",
+				"unit": "buufata"
+			},
+			"cookies": {
+				"banWarning": "YouTube akkawntoota cookies isaanii meeshaalee buufannoo akka Arroxy fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Yoo danda'ame akkawuntii yeroo fayyadami.",
+				"browserHelp": "Cookies browser irraa kallattiin dubbisa. Chromium-gosa browser cufamuu qaba.",
+				"browserLabel": "Browser",
+				"browserPlaceholder": "Browser filadhu…",
+				"choose": "Filadhu…",
+				"clear": "Qulqulleessi",
+				"enabledButNoBrowser": "Cookies fayyadamuuf browser filadhu",
+				"enabledButNoFile": "Cookies fayyadamuuf faayilii filadhu",
+				"exploreDescription": "Buufannoon yoo isa barbaadu qofa seensa Daawwannaa fayyadama.",
+				"exploreDisabled": "Tab Daawwannaa cufameera, kanaaf buufannoon seensa Daawwannaa hin fayyadamu. Gadii Daawwannaa keessatti banii.",
+				"extensionChrome": "cookies.txt LOCALLY argadhu (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Faayilii Cookies",
+				"helpLink": "Akkamitti cookies erga?",
+				"openExplore": "Daawwannaa bani",
+				"placeholder": "Faayilii hin filanne",
+				"recommended": "Kan gorfamu",
+				"risk": "Balaa: cookies.txt seensa browser sanaa hunda qaba — dhuunfaa ta'ee eegi.",
+				"sourceBrowser": "Browser",
+				"sourceExplore": "Seensa Daawwannaa",
+				"sourceFile": "Faayilii",
+				"sourceLabel": "Madda Cookies",
+				"sourceOff": "Dhaabbi",
+				"toggleDescription": "Viidiyoowwan umuriin-daangeffame, miseensota-qofaaf, fi dhuunfaa ta'e ni gargaara."
+			},
+			"downloadConnections": {
+				"description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.",
+				"label": "Walqunnamtii buufataa",
+				"unit": "walqunnamtii"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Sagalee qofa",
+					"subtitles": "Axxiinni"
+				},
+				"anySite": {
+					"heading": "Gareewwan 2000+",
+					"musicPlaylist": "Playlist muuziqaa",
+					"video": "Viidiyoowwan",
+					"videoPlaylist": "Playlist viidiyoo"
+				},
+				"heading": "Arroxy maal buufachuu danda'a",
+				"youtube": {
+					"channel": "Channelota",
+					"heading": "YouTube",
+					"music": "Muuziqaa",
+					"playlist": "Tarreewwan taphachiisaa",
+					"podcast": "Podcastota",
+					"short": "Shorts",
+					"video": "Viidiyoowwan"
+				}
+			},
+			"fetchFormatsTooltip": "Wizard tarkaanfii-tarkaanfiin. Foormaatii, qulqullina fi kan biroo fili.",
+			"heading": "URL irraa buusi",
+			"hotkey": {
+				"changeShortcut": "Hotkey jijjiiri",
+				"conflict": "Hotkeyn kun appii biraa qabameera — kan bira filu.",
+				"hintLabel": "Yookaan dhiibi",
+				"hintTooltip": "Bakka kamittiyyuu keessatti hidhaa viidiyoo kooppii godhi, gabaabbata kana dhiibi, Arroxy immoo piroofaayila kee sochii irra jiru fayyadamuun tarree keessa galcha — foddaa jijjiiruun hin barbaachisu.",
+				"hintTooltipSettings": "Qindaa'ina keessatti jijjiiri ykn cufi.",
+				"recording": "Qabduulee cuqaasi…",
+				"reset": "Durtii irra deebi'i",
+				"sectionDescription": "Hidha kam iyyuu yoo wallakkeessite, appii kamirraa iyyuu, Arroxy banaa malee daawniloodii godhi.",
+				"sectionTitle": "Hotkey addunyaa",
+				"test": "Qormeessi",
+				"toggle": "Hotkey addunyaa bani",
+				"toggleDescription": "Buufamaa keessa hidha viidiyoo yoo jiru, hotkey cuqaasi."
+			},
+			"interactiveDownload": "Buufata walnaqqee",
+			"limitRate": {
+				"activeWarning": "Buusuuwwan hojiirra jiran daangaa isaanii ammaa qabu. Jijjiiruuf Dhaabi + Itti fufi.",
+				"custom": "Kan mataa keetii…",
+				"customPlaceholder": "fkn. 750K yookiin 1.5M",
+				"description": "Baandwiidtii buusuu miidiyaa daangeessi. Pacing gaaffii armaan gadii yeroo baay’ee caalaa jabaa dha.",
+				"invalid": "Lakkoofsa K yookiin M itti aanu fayyadami (fkn. 500K, 1.5M)",
+				"label": "Daangaa saffisa buusuu",
+				"off": "Dhaamsame"
+			},
+			"mascotBusy": "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎",
+			"mascotCollection": "Buufata saffisaan wantoota fe'aman {{profileName}}'n tarreessa. Buufata walnaqqeen duraan akka ilaaltu ykn akka filattu si dandeessisa.",
+			"mascotIdle": "Liinkii galchi; Arroxy haa buusu ✨",
+			"mascotMixed": "Liinkiin kun viidiyoo tokko cuunfaa keessa jiru agarsiisa. Arroxy qoratuu dura isa kam akka barbaaddu si gaafata.",
+			"mascotPreparing": "{{quickDownload}} liinkii kana dubbisaa jira, {{profileName}} immoo fayyadamaa jira.",
+			"mascotQueued": "Tarreen buufata kana hojjechaa jira. Yeroo inni hojjetu liinkii biraa maxxansuu dandeessa.",
+			"mascotSingle": "Buufata saffisaan buufata tokko {{profileName}}'n jalqaba. Jijjiirama yeroo tokkoof buufata walnaqqee fayyadami.",
+			"nativeAudioPreference": {
+				"compatible": "Isteeriyoo walsimu",
+				"description": "Isteeriyoo ykn surround yeroo piroofaayiliin sagalee dhalootaa filatu. Piroofaayiliin kana jijjiiruu danda'a.",
+				"label": "Filannoo sagalee dhalootaa",
+				"surround": "Surround / Dolby filadhu"
+			},
+			"networkPacing": {
+				"description": "Buufata tokko tokkotti yeroo gabaabaaf eegaa jira, kanaafuu Arroxy gara saayitichatti garmalee hin dhiibu. Gatiiwwan sekondiidhaan.",
+				"fields": {
+					"maxSleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa ol'aanaa",
+					"sleepInterval": "Miidiyaan jalqabuuf dura gidduu dhabi: isa xiqqaa",
+					"sleepRequests": "Qorannoo metadata gidduutti eegii",
+					"sleepSubtitles": "Axxiinni faayiloota dura eegii"
+				},
+				"heading": "Buufata laafaa",
+				"presetLabel": "Arroxy hangam of-eeggachuu qaba?",
+				"presets": {
+					"balanced": "Walsimu",
+					"careful": "Of-eeggannaa",
+					"custom": "Ofiin qindi'i",
+					"off": "Dhaabbi"
+				},
+				"summary": "Eegumsa: {{requests}} qorannoo gidduutti, {{downloads}} miidiyaa jalqabuuf, {{subtitles}} axxiinni faayiloota dura.",
+				"tooltip": "Turtiiwwan kunneen buufata tokko tokko keessatti raawwatamu. Buufanni meeqa yeroo tokkotti akka deemu «Buufata yeroo tokkotti» jalatti adda qindeeffama.",
+				"tooltips": {
+					"balanced": "Durtii. Gaaffiiwwan gidduuttii fi miidiyaan hin jalqabin dura eegaa gabaabaa dabala.",
+					"careful": "Eegaa dheeraaf playlist guddoo ykn network yeroo yeroon daangaa gahu dabalaa.",
+					"custom": "Too'annoo ammayyaa buufata tokko tokkoos ofiin sirreessi.",
+					"off": "Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama."
+				},
+				"units": {
+					"seconds": "sec"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "Daangaa ammaa: wantota {{count}}",
+				"custom": "Mifaan…",
+				"customDialogCancel": "Haquu",
+				"customDialogDescription": "Lakkoofsa guutuu {{min}} hanga {{max}} fayyadami.",
+				"customDialogSave": "Daangaa kuusi",
+				"customDialogTitle": "Daangaa qorannaa playlist mifaan",
+				"customValue": "Mifaan: wantota {{count}}",
+				"description": "Playlist, chaanaalii, ykn filannoowwan barbaachaa yommuu banamu Arroxy galmeewwan baay'ina meeqa fe'u.",
+				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
+				"label": "Wantota playlist qoratamu",
+				"option": "Wantota {{count}}",
+				"tooltip": "Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
+			},
+			"playlistScope": {
+				"appLimit": "Daangaa appii fayyadami: {{count}}",
+				"apply": "Hojiirra oolchi",
+				"applyError": "Bal'ina tarree taphaa sanaa hojiirra oolchuu hin dandeenye: {{message}}",
+				"applyReload": "Hojiirra oolchiitii fe'adhu",
+				"cancel": "Haqi",
+				"change": "Jijjiiri",
+				"dialogDescription": "Arroxy playlist kanaaf maal akka fe'u filadhu.",
+				"dialogTitle": "Bal'ina tarree taphaa",
+				"emptyTitle": "Bal'ina sana keessa viidiyoon hin jiru",
+				"first": "Jalqaba",
+				"invalid": "Lakkoofsota guutuu 1 hanga {{max}} fayyadami; jalqabni dhumaa caalaa hin ta'u.",
+				"itemsLabel": "Wantoota fe'amuu qaban",
+				"label": "Bal'ina tarree taphaa",
+				"range": "Daangaa",
+				"reloading": "Fe'aa jira...",
+				"reset": "Deebisi",
+				"summaryAppLimit": "Wantoota jalqabaa fe'i: {{count}}",
+				"summaryFirst": "Wantoota jalqabaa fe'i: {{count}}",
+				"summaryRange": "Wantoota {{from}}-{{to}} fe'i",
+				"to": "hanga"
+			},
+			"profile": {
+				"activeLabel": "Profaayilii hojiirra jiru",
+				"badgeBuiltIn": "Keessaa jiru",
+				"badgeCustom": "Mataakee",
+				"badgeDisabled": "Dhokate",
+				"badgeModified": "Fooyyaʼe",
+				"changeGlobalDestination": "Bakki waliigalaa jijjiiri",
+				"destinationDetail": {
+					"global": "Bakka waliigalaa fayyadamaa jira",
+					"globalSubfolder": "Bakka waliigalaa + saab-foldarii piroofaayilii fayyadamaa jira",
+					"override": "Bakka bu'iinsa piroofaayilii fayyadamaa jira",
+					"overrideSubfolder": "Bakka bu'iinsa piroofaayilii + saab-foldarii piroofaayilii fayyadamaa jira"
+				},
+				"destinationFallback": "Bakki itti olkaa'amu",
+				"edit": "Gulaali",
+				"editActive": "Profaayilii hojiirra jiru gulaali",
+				"enableHint": "Profaayilonni dhokatan as turu, garuu filannoo hunduma irraa badu.",
+				"enableToggleAria": "Profaayilii filannoowwan keessatti argisiisi: {{profileName}}",
+				"lastEnabledHint": "Yoo xiqqaate profaayilii tokko jiraachisaa.",
+				"manageProfiles": "Profaayilii bulchi",
+				"menuDescription": "Quick Download, URL baay'ee fi playlist'f profaayilii hojiirra jiru jijjiiri.",
+				"menuTitle": "Profaayilii jijjiiri",
+				"movableProfile": "profaayilii sochoosuun danda'amu",
+				"moveCancelled": "Sochiin haqameera. {{profileName}} iddoo {{position}} kan {{count}} keessaa irra turaa jira.",
+				"moveDropped": "{{profileName}} iddoo {{position}} kan {{count}} keessaa irratti gadi dhiifameera.",
+				"moveHandleAria": "{{profileName}} sochoosi",
+				"moveInstructions": "Profaayilii sochoosuuf Space ykn Enter tuqi, furtuuwwan xiyyaatiin sochoosi, achiis gadi dhiisuuf Space ykn Enter irra deebi'ii tuqi. Haquuf Escape tuqi.",
+				"moveOver": "{{profileName}} iddoo {{position}} kan {{count}} keessaa irra jira.",
+				"movePickedUp": "{{profileName}} kaafameera. Iddoo {{position}} kan {{count}} keessaa irra jira.",
+				"newProfile": "Profaayilii haaraa",
+				"panelDescription": "Qindaaʼinoota buusuu irra deebiin fayyadamuu dandeessu uumi, filadhu, gulaali, yookiin haqi.",
+				"panelTitle": "Profaayilota buusuu",
+				"remove": "Haqi",
+				"reorderHint": "Profaayilii sochoosuuf harkisi. Filannoowwan profaayilii hundi tartiiba kana hordofu.",
+				"reset": "Deebisi",
+				"summary": {
+					"aacAudio": "sagalee AAC",
+					"bestAudio": "sagalee isa caalaa gaarii",
+					"bestVideo": "viidiyoo isa caalaa gaarii",
+					"noAudio": "sagalee hin jiru",
+					"subtitlesOnly": "axxiinni qofa",
+					"wavAudio": "sagalee WAV"
+				},
+				"switchAria": "Profaayilii bu'uuraa buusaa jijjiiri: {{profileName}}",
+				"switchTitle": "Profaayilii bu'uuraa buusaa jijjiiri"
+			},
+			"proxy": {
+				"clear": "Haquu",
+				"description": "Geejjiba proxy darbii ergi — qabiyyee mootummaan dhorge argachuuf gargaara.",
+				"label": "Proxy URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "URL kanniin keessaa tokko illee qopheessuun hin danda’amne",
+			"quickDownload": "Buufata saffisaa",
+			"quickDownloadTooltip": "{{profileName}} fayyadamuun ni buufata",
+			"quickFailed": "Kana dabaluun hin danda’amne: {{error}}",
+			"quickPartialFailed_one": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
+			"quickPartialFailed_other": "Kan hojjete tarreetti dabalame. URL {{count}} qopheessuun hin danda’amne.",
+			"quickPrepareFailed": "Wantoota tarree qopheessuu hin dandeenye",
+			"quickPreparing": "Qopheessaa jira",
+			"quickProbeFailed": "Sakatta’iinsi hin milkoofne",
+			"quickQueued": "Tarreetti dabalame",
+			"quickSingleOnly": "Jalqabuuf URL viidiyoo, playlist, channel, yookiin barbaacha maxxansi.",
+			"settings": {
+				"behaviorDescription": "Amala waliigalaa piroofaayilii mataan ga’umsa iyyuu.",
+				"behaviorHeading": "Amala ga’umsa",
+				"inputHeading": "Seensa"
+			},
+			"style": {
+				"aurora": {
+					"description": "Paanaloonni calaqqee samii socho'u irra jiran. Saffisiisaa girafiksii barbaada.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Fuulli cimaa fi callisaa. Kompiitara kamittuu irratti salphaatti hojjeta.",
+					"label": "Salphaa"
+				},
+				"modeDescription": "Taateewwan lamaanuu haala iftoomaa fi gurraachaa qabu.",
+				"modeLabel": "Taatee",
+				"panelDescription": "Akkaataa Arroxy itti mul'atu. Haala iftoomaa fi gurraachaa gara jalaatti jijjiiruu dandeessa.",
+				"panelTitle": "Mul'ata",
+				"unavailableNotice": "{{style}} saffisiisaa girafiksii barbaada, garuu amma hin argamu, kanaaf Arroxy {{fallback}} agarsiisaa jira."
+			},
+			"tabs": {
+				"profiles": "Profaayilota",
+				"settings": "Qindaaʼinoota"
+			}
 		}
-	},
-	"fileType": {
-		"auto": "Ofumaa",
-		"autoValue": "Ofumaa (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Tarreessaawwan filataman gosa faayilii murteessu.",
-			"mp4": "Bakka hundumaatti jechuun ni taphata. VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu.",
-			"mkv": "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an.",
-			"webm": "Foormaatii banaa browser'iif. VP9 ykn AV1 Opus waliin qofa qabata."
-		},
-		"webmBlocked": "WebM {{codec}} qabachuu hin danda'u. MKV ykn MP4 filadhu.",
-		"profileMark": "Piroofaayilii",
-		"smartTvNoWebm": "WebM TV smart waliin hin dhiyaatu: H.264 qabachuu hin danda'u.",
-		"mp4CaveatVp9": "VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu. H.264 bakka hundatti ni taphata.",
-		"mp4CaveatAv1": "AV1 MP4 keessa jiru QuickTime keessatti taphachuuf Mac haaraa barbaada. H.264 bakka hundatti ni taphata."
-	},
-	"selectionOrder": {
-		"editorTitle": "Piroofaayiliin kun akkamitti filata",
-		"whyTitle": "Piroofaayiliin maaliif kana filate",
-		"whyLabel": "Maaliif kana?",
-		"rank": {
-			"h264": {"label": "Viidiyoo H.264", "reason": "meeshaa hunda irratti ni taphata"},
-			"mp4Streams": {"label": "Tarreessaawwan MP4", "reason": "faayilii MP4f qophaa'aa"},
-			"resolutionBest": {"label": "Ifa bal'ina isa ol'aanaa", "reason": "daangaan hin kaa'amne"},
-			"resolution": {"label": "Hanga {{tier}}p", "reason": "daangaa kee"},
-			"fps": {"label": "Saffisa fireemii isa ol'aanaa", "reason": "sochii daran lallaafaa"},
-			"sitePreference": {"label": "Tarreessaawwan saayitiin gadi hin buusne", "reason": "garagalchawwan miidhaman, mallattoo bishaanii qabanii fi bakka bu'oo ni darba"},
-			"original": {"label": "Tarreessaawwan jalqabaa, kan AI'n guddifaman miti", "reason": "garagalchi guddifame dheeraa dha garuu qulqullina dhugaa hin dabalu"},
-			"source": {"label": "Tarreessaawwan Bitrate fooyya'e duraan", "reason": "bal'ina ifaa walfakkaataan qulqullina dabalataa"},
-			"protocol": {"label": "Buufannaan kallattii kopiiwwan yaaman duraan", "reason": "fakkii walfakkaataa, saffisaan buufame"},
-			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
-			"codecVp9First": {"label": "VP9, itti aansee H.264, itti aansee AV1", "reason": "koodeekii piroofaayilii kanaa"},
-			"codecH264First": {"label": "H.264, itti aansee VP9, itti aansee AV1", "reason": "koodeekii piroofaayilii kanaa"},
-			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
-			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},
-			"aacFileType": {"label": "Sagalee AAC", "reason": "taphattoota MP4 waliin wal sima"},
-			"opus": {"label": "Sagalee Opus", "reason": "WebM waliin wal sima"},
-			"nativeCompatible": {"label": "Sagalee isteeriyoo"},
-			"nativeSurround": {"label": "Sagalee surround yoo jiraate"},
-			"nativeSource": {"settings": "Qindaaʼinoota irraa", "profile": "piroofaayilii kana"},
-			"hdrSdrFirst": {"label": "SDR HDR dura", "reason": "iskiriinii kamiyyuu irratti sirriitti mul'ata", "reasonScreen": "iskiriinii kun HDR hin agarsiisu"},
-			"hdrFirst": {"label": "HDR SDR dura", "reason": "iskiriinii HDR irratti halluu badhaadhaa", "reasonScreen": "iskiriinii kun HDR ni agarsiisa"}
-		},
-		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
-	},
-	"aiUpscaled": {"label": "Tarreessaawwan AI'n guddifaman", "description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.", "skip": "Darbi", "allow": "Hayyami"},
-	"videoCodec": {
-		"label": "Koodeeki viidiyoo",
-		"description": "Koodeekiin kam sirna dheerina wal fakkaatu keessaa jalqaba fudhatamu. Ofumaan tartiiba yt-dlp mataa isaa eegaa, kan AV1 isa xiqqaa dursu; H.264 TV fi bilbila durii irratti ni taphata.",
-		"smartTv": "TV smart yeroo hunda H.264 fudhata.",
-		"auto": "Ofumaa",
-		"vp9": "VP9 jalqaba",
-		"h264": "H.264 jalqaba"
-	},
-	"hdrPreference": {"label": "Viidiyoo HDR", "description": "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata.", "sdr": "SDR", "hdr": "HDR", "auto": "Ofumaa"}
+	}
 }

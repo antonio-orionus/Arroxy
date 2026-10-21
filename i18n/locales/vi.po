@@ -803,7 +803,7 @@ msgstr "Thiết lập chưa hoàn tất. Một số lượt tải xuống có th
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Âm thanh (tốt nhất)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -819,7 +819,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "Âm thanh ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -899,7 +899,7 @@ msgstr "Tối đa 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Chất lượng tốt nhất"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -927,7 +927,7 @@ msgstr "Tệp nhỏ cho băng thông hạn chế"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Băng thông thấp"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -939,7 +939,7 @@ msgstr "Video + âm thanh tốt nhất có sẵn cho từng mục"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Âm thanh"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -951,7 +951,7 @@ msgstr "Video"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Định dạng gốc tốt nhất"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"

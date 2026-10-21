@@ -803,7 +803,7 @@ msgstr "セットアップが完了していません。完了するまで一部
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "音声（最高）"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -819,7 +819,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "音声 ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -899,7 +899,7 @@ msgstr "最大 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "最高画質"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -927,7 +927,7 @@ msgstr "帯域が狭い場合向けの小さいファイル"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "低帯域向け"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -939,7 +939,7 @@ msgstr "各項目で利用可能な最高の動画 + 音声"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "音声"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -947,11 +947,11 @@ msgstr "字幕"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "動画"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "最高のネイティブ形式"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -2130,7 +2130,7 @@ msgstr "全{{total}}曲中{{count}}曲"
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
-msgstr "{{count}} / {{total}} URL"
+msgstr "{{total}} 件中 {{count}} 件の URL"
 
 msgctxt "wizard.confirm.labelAudio"
 msgid "Audio"
@@ -2357,7 +2357,7 @@ msgstr "元の音声は {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (非圧縮)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -3036,7 +3036,7 @@ msgstr "{{count}} 曲"
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} 件の URL"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -3994,7 +3994,7 @@ msgstr "埋め込みモードでは、字幕トラックを確実に埋め込む
 
 msgctxt "wizard.subtitles.format.heading"
 msgid "Format"
-msgstr "Format"
+msgstr "形式"
 
 msgctxt "wizard.subtitles.noLanguages"
 msgid "No subtitles available for this video"
@@ -4806,7 +4806,7 @@ msgstr "プロキシ経由でトラフィックを転送 — 地域制限コン�
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "プロキシ URL"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

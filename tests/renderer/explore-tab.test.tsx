@@ -599,6 +599,26 @@ describe('Explore viewport', () => {
 		await waitFor(() => expect(visibilityCalls()).toEqual([true, false]))
 	})
 
+	// Tally's embed script adds its popup to <body> with no role and removes it on close.
+	it('hides the view while the Tally feedback popup is open', async () => {
+		renderExplore()
+		await waitFor(() => expect(visibilityCalls()).toEqual([true]))
+
+		const popup = document.createElement('div')
+		popup.className = 'tally-popup _layoutModal_1nqjn_188 tally-form-test'
+		popup.innerHTML = '<div><iframe title="Tally Forms"></iframe></div>'
+		popup.dataset.testOverlay = ''
+		act(() => {
+			document.body.appendChild(popup)
+		})
+		await waitFor(() => expect(visibilityCalls()).toEqual([true, false]))
+
+		act(() => {
+			popup.remove()
+		})
+		await waitFor(() => expect(visibilityCalls()).toEqual([true, false, true]))
+	})
+
 	it('catches a dialog that opens between render and the observer attaching', async () => {
 		function OpensDialogBeforeObservers(): null {
 			// Layout effects run before passive ones, where the observers attach.

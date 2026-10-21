@@ -6,7 +6,7 @@ import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {cleanupTempDirByPath} from '../download/cleanup.js'
 import {setupTempDir} from '../download/jobTempDir.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
 import {automaticCaptionPaths, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, clearSubtitleReport, saveSubtitleListing, subtitleFetchRequest, subtitleReportFile} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -89,12 +89,19 @@ export const SubtitleOnlyPhase: Phase = {
 			return {kind: 'done', result}
 		}
 
-		let lists = await eagerSubtitleLists([input.probeInfoJsonPath], site)
+		let lists = await eagerSubtitleLists([await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir, job.id)], site)
 		if (!lists) {
 			const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 			if (listed.kind === 'ended') return listed.outcome
-			lists = await saveSubtitleListing(listed.result.stdout, tempDir)
-			if (!lists) return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
+			const saved = await saveSubtitleListing(listed.result.stdout, tempDir)
+			if (saved.kind === 'not-info-json') return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
+			if (saved.kind === 'unwritable') {
+				logger.warn('the subtitle listing could not be saved', {jobId: job.id, raw: saved.raw})
+				const error: LocalizedError = {kind: 'outputNotWritable', raw: saved.raw}
+				ctx.emitStatus('error', STATUS_KEY.outputNotWritable, {dir: job.outputDir}, error)
+				return {kind: 'hard-failed', error}
+			}
+			lists = saved.lists
 		}
 		// A subtitles-only job saves no media, so the row is named from here.
 		if (lists.title !== null) active.mediaTitle = lists.title

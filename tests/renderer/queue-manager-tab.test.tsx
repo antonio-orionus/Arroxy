@@ -7,6 +7,8 @@ import {i18next} from '@shared/i18n/index.js'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {defaultAppSettings} from '@shared/constants.js'
 import {ok} from '@shared/result.js'
+import {queueItemStatusSchema} from '@shared/schemas.js'
+import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {expectHint} from '../shared/hint.js'
@@ -575,6 +577,22 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('queue-manager-row-done')).toHaveTextContent('Finished video')
 	})
 
+	it('gives every queue status a filter, so the status counts add up to All', () => {
+		const statuses = queueItemStatusSchema.options
+		const unresolved: QueueItem['job'] = {kind: 'unresolved', extractor: '', extractorKey: ''}
+		const placeholder = {probing: {job: unresolved, probeMode: 'video'}, 'needs-choice': {job: unresolved, probeMode: 'playlist', choice: {kind: 'playlist-review', count: 3}}} as const
+		useAppStore.setState({queue: statuses.map(status => makeItem({id: status, title: `${status} video`, status, ...(status === 'probing' || status === 'needs-choice' ? placeholder[status] : {})}))})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-filter-all')).toHaveTextContent(String(statuses.length))
+		for (const status of statuses) expect(screen.getByTestId(`queue-filter-${status}`)).toHaveTextContent('1')
+		fireEvent.click(screen.getByTestId('queue-filter-needs-choice'))
+		expect(screen.getByTestId('queue-filter-needs-choice')).toHaveTextContent('Needs your choice')
+		expect(screen.getByTestId('queue-manager-row-needs-choice')).toBeInTheDocument()
+		expect(screen.queryByTestId('queue-manager-row-pending')).not.toBeInTheDocument()
+	})
+
 	it('keeps filter, selection, expanded artifacts, and column preferences independent', () => {
 		useAppStore.setState({
 			queue: [
@@ -997,6 +1015,16 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('btn-pause-all').textContent).toBe('')
 		expect(screen.getByTestId('btn-resume-first')).toHaveAccessibleName('Resume paused downloads and let the queue keep going')
 		expect(screen.getByTestId('btn-clear-completed')).toHaveAccessibleName('Clear completed downloads')
+	})
+
+	it('titles the selection actions as applying to the selected items', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})]})
+
+		render(<QueueManagerTab />)
+
+		const group = screen.getByRole('group', {name: 'Selected items'})
+		expect(group).toHaveTextContent('Selected items')
+		expect(within(group).getByTestId('queue-action-pause')).toHaveAccessibleName('Pause')
 	})
 
 	it('offers a switch that removes finished downloads automatically, off by default', () => {

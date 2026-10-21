@@ -62,7 +62,10 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 					</Hint>
 				</div>
 				<div className={cn('flex flex-wrap items-center justify-end gap-1 rounded-xl border border-border/70 bg-background/25 p-1.5 transition-opacity', selectedCount === 0 && 'opacity-55')} data-testid="queue-selected-actions">
-					<ButtonGroup className="flex-wrap justify-end" aria-label={t('queue.selectedActionsLabel')}>
+					<ButtonGroup className="flex-wrap items-center justify-end" aria-label={t('queue.selectedActionsLabel')}>
+						<SectionLabel render={<span />} className="px-1">
+							{t('queue.selectedActionsLabel')}
+						</SectionLabel>
 						{SELECTED_ACTIONS.map(action => (
 							<QueueActionButton key={action.id} action={action} disabled={actionButtonDisabled(action.id, selectedItems)} onClick={() => onSelectedAction(action.id)} />
 						))}

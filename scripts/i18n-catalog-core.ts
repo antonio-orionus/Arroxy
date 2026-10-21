@@ -7,7 +7,7 @@ export interface StringLeaf {
 	note?: string
 }
 
-export type CatalogIssueKind = 'missing-entry' | 'stale-source' | 'untranslated' | 'fuzzy' | 'extra-entry'
+export type CatalogIssueKind = 'missing-entry' | 'stale-source' | 'untranslated' | 'fuzzy' | 'latin-only' | 'extra-entry'
 
 export interface CatalogIssue {
 	kind: CatalogIssueKind
@@ -156,6 +156,62 @@ function translated(entry: GetTextTranslation): boolean {
 	return (entry.msgstr[0] ?? '').trim().length > 0
 }
 
+/**
+ * Keys whose translation may be Latin-only text in a non-Latin-script locale: product, file-format
+ * and codec names, URL placeholders. Every other key there must contain the locale's own script.
+ */
+const LATIN_ONLY_ALLOWED_KEYS: ReadonlySet<string> = new Set([
+	'about.githubLink',
+	'fileType.mkv',
+	'fileType.mp4',
+	'fileType.webm',
+	'hdrPreference.hdr',
+	'hdrPreference.sdr',
+	'playlistPresets.audioFormat.mp3',
+	'playlistPresets.audioFormat.opus',
+	'repair.deps.ffmpeg',
+	'repair.deps.ffprobe',
+	'repair.deps.ytDlp',
+	'tray.tooltip',
+	'wizard.bulk.textareaPlaceholder',
+	'wizard.formats.convert.lossyLabel',
+	'wizard.formats.marker.vr',
+	'wizard.profileEditor.audioFormat.wav',
+	'wizard.profileEditor.goal.bestPicture.tag',
+	'wizard.profileEditor.goal.smartTv.tag',
+	'wizard.profileEditor.icon.podcast',
+	'wizard.profileEditor.panel.sponsorBlock.title',
+	'wizard.profileEditor.subtitleFormat.ass',
+	'wizard.profileEditor.subtitleFormat.srt',
+	'wizard.profileEditor.subtitleFormat.vtt',
+	'wizard.review.areas.sponsorBlock',
+	'wizard.review.rows.sponsorBlock',
+	'wizard.steps.sponsorblock',
+	'wizard.steps.url',
+	'wizard.url.cookies.extensionChrome',
+	'wizard.url.cookies.extensionFirefox',
+	'wizard.url.features.youtube.heading',
+	'wizard.url.features.youtube.podcast',
+	'wizard.url.features.youtube.short',
+	'wizard.url.placeholder',
+	'wizard.url.proxy.placeholder',
+	'wizard.url.style.aurora.label'
+])
+const PLACEHOLDER = /\{\{[^}]*\}\}/g
+const LATIN_WORD = /\p{Script=Latin}{2,}/u
+const NON_LATIN_LETTER = /[^\P{L}\p{Script=Latin}]/u
+
+/** Whether `lang` is written in Latin script, by its CLDR likely-subtags script. */
+export function usesLatinScript(lang: string): boolean {
+	return new Intl.Locale(lang).maximize().script === 'Latn'
+}
+
+/** Latin words and no letter of any other script: English copied over, or Serbian in Latin script. */
+function isLatinOnly(text: string): boolean {
+	const prose = text.replace(PLACEHOLDER, '')
+	return LATIN_WORD.test(prose) && !NON_LATIN_LETTER.test(prose)
+}
+
 function matchingEntry(catalog: GetTextTranslations, key: string, source: string): GetTextTranslation | undefined {
 	return catalog.translations[key]?.[source]
 }
@@ -163,6 +219,7 @@ function matchingEntry(catalog: GetTextTranslations, key: string, source: string
 export function validateLocaleCatalog(lang: string, sourceLeaves: readonly StringLeaf[], catalog: GetTextTranslations): CatalogIssue[] {
 	const issues: CatalogIssue[] = []
 	const sourceByPath = leafMap(sourceLeaves)
+	const requiresOwnScript = !usesLatinScript(lang)
 
 	for (const leaf of sourceLeaves) {
 		const context = catalog.translations[leaf.path]
@@ -179,6 +236,7 @@ export function validateLocaleCatalog(lang: string, sourceLeaves: readonly Strin
 
 		if (isFuzzy(entry)) issues.push({kind: 'fuzzy', lang, key: leaf.path})
 		if (!translated(entry)) issues.push({kind: 'untranslated', lang, key: leaf.path})
+		else if (requiresOwnScript && !LATIN_ONLY_ALLOWED_KEYS.has(leaf.path) && isLatinOnly(entry.msgstr[0] ?? '')) issues.push({kind: 'latin-only', lang, key: leaf.path, detail: entry.msgstr[0]})
 	}
 
 	for (const key of Object.keys(catalog.translations)) {
@@ -212,6 +270,42 @@ export function compileLocaleTree(sourceLeaves: readonly StringLeaf[], catalog: 
 		setPath(root, leaf.path, entry?.msgstr[0] ?? '')
 	}
 	return root
+}
+
+// JSON.parse puts integer-like keys first, in numeric order, whatever the file says; sorting them
+// the same way keeps the canonical text identical to what a parse-and-stringify round trip gives.
+const INTEGER_KEY = /^(?:0|[1-9]\d*)$/
+
+function compareLocaleKeys(a: string, b: string): number {
+	const aInteger = INTEGER_KEY.test(a)
+	const bInteger = INTEGER_KEY.test(b)
+	if (aInteger && bInteger) return Number(a) - Number(b)
+	if (aInteger !== bInteger) return aInteger ? -1 : 1
+	if (a === b) return 0
+	return a < b ? -1 : 1
+}
+
+function sortLocaleTree(value: unknown): unknown {
+	if (!isRecord(value)) return value
+	const sorted: Record<string, unknown> = {}
+	for (const key of Object.keys(value).sort(compareLocaleKeys)) sorted[key] = sortLocaleTree(value[key])
+	return sorted
+}
+
+/**
+ * Writes a locale tree in the one text form every locale JSON file is kept in: keys sorted by code unit at every level
+ * (plural `_one`/`_other` siblings stay together), one key per line, tab-indented. Two changes then
+ * conflict only when they touch the same or adjacent keys.
+ */
+export function serializeLocaleTree(tree: Readonly<Record<string, unknown>>): string {
+	return `${JSON.stringify(sortLocaleTree(tree), null, '\t')}\n`
+}
+
+/** `text` rewritten in the canonical form of {@link serializeLocaleTree}. */
+export function canonicalLocaleJson(text: string): string {
+	const value: unknown = JSON.parse(text)
+	if (!isRecord(value)) throw new Error('A locale file must hold a JSON object.')
+	return serializeLocaleTree(value)
 }
 
 export function normalizeCatalog(catalog: GetTextTranslations): GetTextTranslations {
