@@ -286,6 +286,7 @@ export function StepPlaylistProfiles(): ReactNode {
 							rows={rows}
 							virtualRows={virtualRows}
 							scrollRef={scrollRef}
+							measureElement={virtualizer.measureElement}
 							topVirtualPadding={topVirtualPadding}
 							bottomVirtualPadding={bottomVirtualPadding}
 							renderedColumnCount={renderedColumnCount}

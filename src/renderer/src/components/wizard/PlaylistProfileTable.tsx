@@ -21,6 +21,7 @@ interface PlaylistProfileTableProps {
 	rows: Row<PlaylistProfileTableFeatures, PlaylistEntry>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
+	measureElement: (element: Element | null) => void
 	topVirtualPadding: number
 	bottomVirtualPadding: number
 	renderedColumnCount: number
@@ -62,7 +63,7 @@ function PlaylistProfileContextMenuItems({itemIds, menu, onAssign, onReset, onRe
 	)
 }
 
-export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItemIds, contextMenu, selectedIds, interactions, onAssign, onReset, onRemove}: PlaylistProfileTableProps): ReactNode {
+export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, measureElement, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItemIds, contextMenu, selectedIds, interactions, onAssign, onReset, onRemove}: PlaylistProfileTableProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<SelectableVirtualTable
@@ -70,6 +71,7 @@ export function PlaylistProfileTable({table, rows, virtualRows, scrollRef, topVi
 			rows={rows}
 			virtualRows={virtualRows}
 			scrollRef={scrollRef}
+			measureElement={measureElement}
 			topVirtualPadding={topVirtualPadding}
 			bottomVirtualPadding={bottomVirtualPadding}
 			renderedColumnCount={renderedColumnCount}

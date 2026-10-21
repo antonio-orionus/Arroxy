@@ -284,6 +284,7 @@ export function QueueManagerTab(): ReactNode {
 				rows={rows}
 				virtualRows={virtualRows}
 				scrollRef={scrollRef}
+				measureElement={rowVirtualizer.measureElement}
 				topVirtualPadding={topVirtualPadding}
 				bottomVirtualPadding={bottomVirtualPadding}
 				renderedColumnCount={renderedColumnCount}
