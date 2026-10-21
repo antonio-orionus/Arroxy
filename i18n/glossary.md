@@ -9,6 +9,8 @@ The release translation sync hands this file to every translator (`translate-arr
 - **Explore**: the in-app browser tab. A name: use the locale's term below every time, never the English word.
 - **profile** / **download profile**: a saved set of download settings.
 - **queue**: the list of downloads waiting or running.
+- **Original** (a tag on an audio track): the track in the video's own language, as opposed to a dub or an audio description. Translate the adjective as said of an audio track or language, never "original file" or "authentic".
+- Format and codec names (MP4, H.264, SponsorBlock, FFmpeg) stay as written.
 
 ### Profile settings
 
@@ -22,8 +24,6 @@ These words sit side by side in the profile editor, the profile hint and the Upd
 - **Media kinds**: Video + audio, Video, no audio, Audio only, Subtitles only. Use one word for "only" across all of them, the profile names and `audioOnlyDot`.
 - **Summary fragments** (`selectionOrder.summary.*`, `*.short`, `wizard.formats.savesAs.value`) are pieces of a line joined by the app: describe, never command ("saves as", not "save as"), and keep them short.
 - **subfolder**: one spelling per locale.
-- **Original** (a tag on an audio track): the track in the video's own language, as opposed to a dub or an audio description. Translate the adjective as said of an audio track or language, never "original file" or "authentic".
-- Format and codec names (MP4, H.264, SponsorBlock, FFmpeg) stay as written.
 
 ## Per locale
 
