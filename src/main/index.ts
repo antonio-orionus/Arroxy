@@ -48,6 +48,7 @@ import {collectLiveTempDirs, sweepStaleTempDirs} from '@main/services/download/s
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
+import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
 import {createIntakeService} from '@main/intake/createIntakeService.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
@@ -579,7 +580,23 @@ if (hasSingleInstanceLock) {
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
 
-		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
+		// `tray` is assigned further down, so read it lazily rather than capturing
+		// the null it holds right now.
+		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow, {balloonHost: {displayBalloon: body => tray?.displayBalloon(body) ?? false}, installChannel: detectInstallChannel(app.getName())})
+		const hotkeyWindow = hotkeyWindowFromBrowserWindow(mainWindow)
+		// Intake runs in main for the window and the hotkey alike. The hotkey's
+		// outcomes are routed when they happen, by which time `hotkeyService`
+		// (created next, since it hands presses to this intake) exists.
+		const {intake: intakeService, hotkey: hotkeyIntake} = createIntakeService({
+			probeService,
+			queueService,
+			settingsStore,
+			playlistManifestStore,
+			languageRef,
+			mainWindow,
+			hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})
+		})
+		const hotkeyService = new HotkeyService(hotkeyWindow, hotkeyIntake, electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		// A future main-frame navigation/reload destroys the renderer listener.
 		// This event precedes loading, so attaching during the initial load cannot
@@ -592,9 +609,6 @@ if (hasSingleInstanceLock) {
 			// the OS owns real chords and contested-chord coverage stays manual.
 			;(globalThis as Record<string, unknown>).__arroxyHotkeyService = hotkeyService
 		}
-		// `tray` is assigned further down, so read it lazily rather than capturing
-		// the null it holds right now.
-		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow, {balloonHost: {displayBalloon: body => tray?.displayBalloon(body) ?? false}, installChannel: detectInstallChannel(app.getName())})
 		// Keeps the tray item in sync with the chord's registration state; the
 		// tray may not exist yet (it is created later), hence the lazy read.
 		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
@@ -602,8 +616,7 @@ if (hasSingleInstanceLock) {
 
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
-		const intakeService = createIntakeService({probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow})
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu: appMenu.refresh})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu: appMenu.refresh})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)

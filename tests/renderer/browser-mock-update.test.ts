@@ -24,14 +24,16 @@ describe('browser mock updater events', () => {
 		expect(listener).not.toHaveBeenCalled()
 	})
 
-	it('emits a valid hotkey trigger when Test is pressed', async () => {
+	// The mock stands in for main's hotkey intake: Test takes a link in as the
+	// hotkey and acknowledges it as a focused-window toast.
+	it('acknowledges a Test press through the hotkey outcome toast', async () => {
 		installBrowserMock()
 		const listener = vi.fn()
-		window.appApi.events.onHotkeyTrigger(listener)
+		window.appApi.events.onHotkeyOutcome(listener)
 
 		await window.appApi.hotkey.testPress()
 
 		expect(listener).toHaveBeenCalledOnce()
-		expect(listener).toHaveBeenCalledWith({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+		expect(listener).toHaveBeenCalledWith({outcome: 'queued', intakeId: expect.any(String), toast: true})
 	})
 })

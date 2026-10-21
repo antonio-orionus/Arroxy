@@ -8,7 +8,8 @@ import type {ProbeError} from '@shared/types.js'
 
 // What the user hears about. Rows the event names are already in the queue.
 export type QuickDownloadEvent =
-	| {kind: 'added'; itemId: string; title: string}
+	// `intakeId` names the link's intake, as every later outcome of it does.
+	| {kind: 'added'; itemId: string; title: string; intakeId: string}
 	| {kind: 'already-queued'; itemId: string | null}
 	| {kind: 'not-added'}
 	| {kind: 'queued'; itemId: string; skippedAlreadyQueued: number}

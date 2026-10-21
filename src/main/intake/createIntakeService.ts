@@ -12,7 +12,8 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {fail} from '@shared/result.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
-import type {ProbeResult, ProbeError} from '@shared/types.js'
+import type {HotkeyOutcomePayload, ProbeResult, ProbeError} from '@shared/types.js'
+import {HotkeyIntake} from './HotkeyIntake.js'
 import {IntakeService} from './IntakeService.js'
 
 const logger = log.scope('intake')
@@ -24,14 +25,16 @@ export interface IntakeWiring {
 	playlistManifestStore: PlaylistManifestStore
 	languageRef: {current: SupportedLang}
 	mainWindow: BrowserWindow
+	// Where the hotkey's outcomes go to the user (routeHotkeyOutcome).
+	hotkeyFeedback(event: HotkeyOutcomePayload): void
 }
 
 // Composition root for intake: the real probe (behind the same cookies-setup
 // check as the window's probes), queue, settings, manifests and the window's
-// language, with outcomes sent to the window.
-export function createIntakeService(wiring: IntakeWiring): IntakeService {
+// language. The hotkey's outcomes go to its intake, every other one to the window.
+export function createIntakeService(wiring: IntakeWiring): {intake: IntakeService; hotkey: HotkeyIntake} {
 	const {probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow} = wiring
-	return new IntakeService({
+	const intake = new IntakeService({
 		queue: queueService,
 		probe: async ({url, playlistMode, ownerKey, playlistScope}) => {
 			const issue = getIncompleteCookiesConfigIssue((await settingsStore.get()).common)
@@ -49,9 +52,12 @@ export function createIntakeService(wiring: IntakeWiring): IntakeService {
 		text: key => mainT(languageRef.current, key),
 		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator(languageRef.current), languageRef.current),
 		emit: (event: IntakeEvent) => {
+			if (hotkey.hear(event)) return
 			if (!mainWindow.isDestroyed()) mainWindow.webContents.send(IPC_CHANNELS.intakeEvent, event)
 		},
 		platform: process.platform,
 		newId: randomUUID
 	})
+	const hotkey = new HotkeyIntake({intake, notify: event => wiring.hotkeyFeedback(event), newId: randomUUID})
+	return {intake, hotkey}
 }

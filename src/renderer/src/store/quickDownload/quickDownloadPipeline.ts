@@ -8,7 +8,7 @@
 // call carries a request id, and every outcome main reports names the call
 // that caused it, so it reaches that call's feedback. An outcome no call here
 // is waiting for (the window reloaded meanwhile) is still shown, as from the
-// Downloads tab.
+// Downloads tab. The hotkey's outcomes never arrive here: main keeps them.
 
 import {notify} from '@renderer/lib/notify.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'

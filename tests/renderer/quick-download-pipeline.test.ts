@@ -2,7 +2,6 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
-import {handleHotkeyTrigger} from '@renderer/store/wizard/hotkeyTrigger.js'
 import {keptChoiceProbe} from '@renderer/store/quickDownload/quickDownloadPipeline.js'
 import {setNotificationSink, type NotificationActions, type NotificationLevel} from '@renderer/lib/notify.js'
 import {defaultAppSettings} from '@shared/constants.js'
@@ -802,28 +801,5 @@ describe('a probe that needs the user’s choice', () => {
 		const id = queue()[0]?.id ?? ''
 		probe.resolve(ok({...playlist(1), webpageUrl: url}))
 		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}}))
-	})
-})
-
-describe('the global hotkey', () => {
-	it('acknowledges at once and reports a needs-choice playlist as needing review', async () => {
-		const probe = deferredProbe()
-		const settings = defaultAppSettings('/tmp')
-		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 2}}})
-		const pressed = handleHotkeyTrigger({kind: 'single', url: PLAYLIST_URL}, useAppStore.getState)
-		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: PLAYLIST_URL}))
-		probe.resolve(ok(playlist(3)))
-		await pressed
-		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenLastCalledWith({outcome: 'needs-review', url: PLAYLIST_URL}))
-		expect(toasts).toEqual([])
-		expect(queue()[0]?.status).toBe('needs-choice')
-	})
-
-	it('reports a failed probe and leaves a retryable row', async () => {
-		const probe = deferredProbe()
-		await handleHotkeyTrigger({kind: 'single', url: VIDEO_URL}, useAppStore.getState)
-		probe.resolve(fail(BOT_BLOCK))
-		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenLastCalledWith({outcome: 'submission-failed', url: VIDEO_URL}))
-		expect(queue()[0]).toMatchObject({status: 'error', probeMode: 'video'})
 	})
 })

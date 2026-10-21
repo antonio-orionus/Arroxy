@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Could not open the folder picker.",
 		"hotkey": {
 			"alreadyQueued": "Already in the queue — no copy added",
-			"busy": "Arroxy is still starting — try again in a moment",
 			"cookiesSetup": "Finish setting up cookies in Arroxy, then try again",
 			"invalidClipboard": "No link on your clipboard — copy one first",
 			"multipleUrls": "Multiple links copied — use Bulk URLs in Arroxy",

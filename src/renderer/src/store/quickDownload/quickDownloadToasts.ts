@@ -1,5 +1,5 @@
 // The in-app feedback channel of the background quick download: toasts with
-// actions. The hotkey reports its outcomes to main instead (hotkeyTrigger).
+// actions. The hotkey's outcomes never come here: main notifies about them.
 
 import {notify, type QuickDownloadFailureAction} from '@renderer/lib/notify.js'
 import type {CommonSettings, JobAuth, LocalizedError, ProbeError} from '@shared/types.js'

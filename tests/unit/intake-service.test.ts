@@ -130,7 +130,15 @@ describe('IntakeService', () => {
 		expect(row?.title).toBe('Fixture Video')
 		expect(row?.outputDir.startsWith('/wizard-folder')).toBe(true)
 		expect(row?.origin).toEqual({kind: 'window', intakeId: expect.any(String)})
+		// The placement names the intake, as every outcome of it does.
+		expect(placement).toMatchObject({intakeId: row?.origin?.intakeId})
 		expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'queued', itemId: placeholderId, skippedAlreadyQueued: 0}])
+	})
+
+	it("keeps the window's active profile for callers that pin what the window shows", () => {
+		expect(h.intake.windowProfile()).toBeUndefined()
+		h.intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: false, activeProfile: {kind: 'builtin', id: 'audio-only'}})
+		expect(h.intake.windowProfile()).toEqual({kind: 'builtin', id: 'audio-only'})
 	})
 
 	it('stores the pinned profile on the placeholder row', async () => {

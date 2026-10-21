@@ -28,7 +28,6 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			onProgress: vi.fn().mockReturnValue(() => undefined),
 			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
 			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
-			onHotkeyTrigger: vi.fn().mockReturnValue(() => undefined),
 			onMenuAction: vi.fn().mockReturnValue(() => undefined),
 			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
 			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)

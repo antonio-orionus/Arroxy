@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {HotkeyService, classifyHotkeyClipboard, type HotkeyWindow, type ShortcutRegistry} from '@main/services/HotkeyService.js'
+import {HotkeyService, classifyHotkeyClipboard, type HotkeyTriggerIntake, type HotkeyWindow, type ShortcutRegistry} from '@main/services/HotkeyService.js'
+import type {HotkeyTriggerPayload} from '@shared/types.js'
 
 function makeRegistry(): ShortcutRegistry & {handlers: Map<string, () => void>; foreign: Set<string>} {
 	const handlers = new Map<string, () => void>()
@@ -39,6 +40,18 @@ function makeWindow(): HotkeyWindow & {sent: Array<{channel: string; payload: un
 	}
 }
 
+// Where main hands a classified press: the hotkey's intake.
+function makeIntake(): HotkeyTriggerIntake & {taken: HotkeyTriggerPayload[]} {
+	const taken: HotkeyTriggerPayload[] = []
+	return {
+		taken,
+		take: trigger => {
+			taken.push(trigger)
+			return Promise.resolve()
+		}
+	}
+}
+
 function flushMicrotasks(): Promise<void> {
 	return new Promise(resolve => setImmediate(resolve))
 }
@@ -54,7 +67,7 @@ function deferred<T>(): {promise: Promise<T>; resolve(value: T): void} {
 describe('HotkeyService.apply', () => {
 	it('keeps the desired chord inactive until the renderer is ready and unregisters it during reload', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		expect(service.getState()).toEqual({accelerator: null, registered: false})
@@ -68,7 +81,7 @@ describe('HotkeyService.apply', () => {
 
 	it('registers the accelerator when enabled and reports registered state', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 
@@ -78,7 +91,7 @@ describe('HotkeyService.apply', () => {
 
 	it('does not register when disabled', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(false, 'CommandOrControl+Shift+D')
 
@@ -88,7 +101,7 @@ describe('HotkeyService.apply', () => {
 
 	it('unregisters the previous chord when the accelerator changes', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(true, 'CommandOrControl+Alt+H')
@@ -99,7 +112,7 @@ describe('HotkeyService.apply', () => {
 
 	it('unregisters everything on disable', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(false, 'CommandOrControl+Shift+D')
@@ -110,7 +123,7 @@ describe('HotkeyService.apply', () => {
 	it('surfaces a conflict instead of throwing when another app owns the chord', () => {
 		const registry = makeRegistry()
 		registry.foreign.add('CommandOrControl+Shift+D')
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		expect(() => service.apply(true, 'CommandOrControl+Shift+D')).not.toThrow()
 		expect(service.getState()).toEqual({accelerator: 'CommandOrControl+Shift+D', registered: false})
@@ -118,7 +131,7 @@ describe('HotkeyService.apply', () => {
 
 	it('keeps working when the wanted chord is already registered by us', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(true, 'CommandOrControl+Shift+D')
@@ -128,7 +141,7 @@ describe('HotkeyService.apply', () => {
 
 	it('dispose unregisters the chord', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
+		const service = new HotkeyService(makeWindow(), makeIntake(), registry, {readText: () => Promise.resolve('')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.dispose()
@@ -138,50 +151,55 @@ describe('HotkeyService.apply', () => {
 })
 
 describe('HotkeyService.handleTrigger', () => {
-	it('sends a single-URL trigger from clipboard text', async () => {
+	it('hands a single-URL trigger from clipboard text to the intake', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
-		const service = new HotkeyService(window, registry, {readText: () => Promise.resolve('  https://youtu.be/watch?v=one  ')}, {rendererReady: true})
+		const intake = makeIntake()
+		const service = new HotkeyService(window, intake, registry, {readText: () => Promise.resolve('  https://youtu.be/watch?v=one  ')}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		registry.handlers.get('CommandOrControl+Shift+D')!()
 		await flushMicrotasks()
 
-		expect(window.sent).toHaveLength(1)
-		expect(window.sent[0]?.payload).toEqual({kind: 'single', url: 'https://youtu.be/watch?v=one'})
+		expect(intake.taken).toEqual([{kind: 'single', url: 'https://youtu.be/watch?v=one'}])
+		// The press runs in main: nothing goes to the renderer.
+		expect(window.sent).toEqual([])
 	})
 
-	it('sends multiple and empty classifications for non-single clipboards', async () => {
+	it('hands multiple and empty classifications for non-single clipboards to the intake', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
+		const intake = makeIntake()
 		let clipboard = 'https://a.example/1, https://b.example/2'
-		const service = new HotkeyService(window, registry, {readText: () => Promise.resolve(clipboard)}, {rendererReady: true})
+		const service = new HotkeyService(window, intake, registry, {readText: () => Promise.resolve(clipboard)}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		await service.handleTrigger()
 		clipboard = 'no url here'
 		await service.handleTrigger()
 
-		expect(window.sent.map(entry => entry.payload)).toEqual([{kind: 'multiple'}, {kind: 'empty'}])
+		expect(intake.taken).toEqual([{kind: 'multiple'}, {kind: 'empty'}])
 	})
 
 	it('does nothing when not registered', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
-		const service = new HotkeyService(window, registry, {readText: () => Promise.resolve('https://a.example/1')}, {rendererReady: true})
+		const intake = makeIntake()
+		const service = new HotkeyService(window, intake, registry, {readText: () => Promise.resolve('https://a.example/1')}, {rendererReady: true})
 
 		await service.handleTrigger()
 
-		expect(window.sent).toHaveLength(0)
+		expect(intake.taken).toHaveLength(0)
 	})
 
 	// Electron 44 made clipboard.readText() asynchronous: the window or the
 	// chord can go away while the read is pending.
-	it('does not send to a window destroyed while the clipboard read was pending', async () => {
+	it('takes nothing in once the window was destroyed while the clipboard read was pending', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
+		const intake = makeIntake()
 		const read = deferred<string>()
-		const service = new HotkeyService(window, registry, {readText: () => read.promise}, {rendererReady: true})
+		const service = new HotkeyService(window, intake, registry, {readText: () => read.promise}, {rendererReady: true})
 		service.apply(true, 'CommandOrControl+Shift+D')
 
 		const trigger = service.handleTrigger()
@@ -189,14 +207,15 @@ describe('HotkeyService.handleTrigger', () => {
 		read.resolve('https://a.example/1')
 		await trigger
 
-		expect(window.sent).toHaveLength(0)
+		expect(intake.taken).toHaveLength(0)
 	})
 
 	it('drops a trigger whose chord was disposed while the clipboard read was pending', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
+		const intake = makeIntake()
 		const read = deferred<string>()
-		const service = new HotkeyService(window, registry, {readText: () => read.promise}, {rendererReady: true})
+		const service = new HotkeyService(window, intake, registry, {readText: () => read.promise}, {rendererReady: true})
 		service.apply(true, 'CommandOrControl+Shift+D')
 
 		const trigger = service.handleTrigger()
@@ -204,18 +223,38 @@ describe('HotkeyService.handleTrigger', () => {
 		read.resolve('https://a.example/1')
 		await trigger
 
-		expect(window.sent).toHaveLength(0)
+		expect(intake.taken).toHaveLength(0)
 	})
 
 	it('treats a rejected clipboard read as an empty clipboard', async () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
-		const service = new HotkeyService(window, registry, {readText: () => Promise.reject(new Error('clipboard busy'))}, {rendererReady: true})
+		const intake = makeIntake()
+		const service = new HotkeyService(window, intake, registry, {readText: () => Promise.reject(new Error('clipboard busy'))}, {rendererReady: true})
 		service.apply(true, 'CommandOrControl+Shift+D')
 
 		await expect(service.handleTrigger()).resolves.toBeUndefined()
 
-		expect(window.sent.map(entry => entry.payload)).toEqual([{kind: 'empty'}])
+		expect(intake.taken).toEqual([{kind: 'empty'}])
+	})
+})
+
+describe('HotkeyService intake failures and renderer readiness', () => {
+	it('never rejects when the intake does', async () => {
+		const registry = makeRegistry()
+		const service = new HotkeyService(makeWindow(), {take: () => Promise.reject(new Error('boom'))}, registry, {readText: () => Promise.resolve('https://a.example/1')}, {rendererReady: true})
+		service.apply(true, 'CommandOrControl+Shift+D')
+
+		await expect(service.handleTrigger()).resolves.toBeUndefined()
+	})
+
+	// Outcome toasts need a renderer listening: routing reads this to fall back
+	// to an OS notification while the window reloads.
+	it('reports whether the renderer is ready', () => {
+		const service = new HotkeyService(makeWindow(), makeIntake(), makeRegistry(), {readText: () => Promise.resolve('')})
+		expect(service.isRendererReady()).toBe(false)
+		service.setRendererReady(true)
+		expect(service.isRendererReady()).toBe(true)
 	})
 })
 

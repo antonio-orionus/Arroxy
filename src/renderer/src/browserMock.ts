@@ -1,22 +1,6 @@
 import type {AppApi} from '@shared/api.js'
 import {isYouTubeHostname} from '@shared/sites/youtubeHost.js'
-import type {
-	AppSettings,
-	DependencyDiagnostic,
-	DependencyId,
-	HotkeyTriggerPayload,
-	ProbeProgressEvent,
-	ProgressEvent,
-	QueueActionSkippedItem,
-	QueueItem,
-	QueueOutputTargetChangeItemResult,
-	QueueSchedulerEventPayload,
-	QueueSnapshotPayload,
-	StatusEvent,
-	UpdateAvailablePayload,
-	WarmUpOutput,
-	WarmupProgressEvent
-} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {admitAgainstLive, canApplyQueueActionToItem} from '@shared/queueActions.js'
 import {illegalTransition, transition, type QueueEvent} from '@shared/queueTransition.js'
@@ -39,6 +23,7 @@ import {playSetupScript, simulateFirstLaunchDownloads} from './dev/warmupPlaybac
 import {isRtl} from '@shared/i18n/rtl.js'
 import {applyThemeLive, readKnobs} from './dev/browserMockKnobs.js'
 import {createIntakeMock} from './dev/intakeMock.js'
+import {createHotkeyMock} from './dev/hotkeyMock.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
 import {createSiteRequestsMock} from './dev/siteRequestsMock.js'
@@ -150,7 +135,6 @@ export function installBrowserMock(): void {
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
-	const hotkeyTriggerListeners = new Set<(trigger: HotkeyTriggerPayload) => void>()
 	const queueSnapshotListeners = new Set<(event: QueueSnapshotPayload) => void>()
 	const queueAddedListeners = new Set<(event: {items: QueueItem[]; atIdx: number}) => void>()
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
@@ -363,6 +347,12 @@ export function installBrowserMock(): void {
 		return {ok: true, data: normalVideoProbe({webpageUrl: input.url, degraded: simulateBotWall ? {reasons: ['botWall' as const]} : undefined})}
 	}
 
+	const intakeMock = createIntakeMock({probe: input => mock.downloads.probe(input), add: items => mock.queue.cmd.add(items), replaceProbing: input => mock.queue.cmd.replaceProbing(input), items: () => queueItems, transition: applyProbeStageEvent, settings: () => settings})
+	// Registration mirrors the mock setting so the URL screen's hotkey hint is
+	// reviewable in dev:mock; hotkey-conflict overrides only whether the chord
+	// is taken, so recording a new one in that scenario still shows it.
+	const hotkeyMock = createHotkeyMock({intake: intakeMock.hotkey, state: () => ({accelerator: settings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D', registered: scenarioState.hotkeyRegistered ?? settings.common.hotkeyEnabled === true})})
+
 	const mock: AppApi = {
 		app: {
 			warmUp: async input => {
@@ -469,21 +459,9 @@ export function installBrowserMock(): void {
 			}
 		},
 
-		intake: createIntakeMock({probe: input => mock.downloads.probe(input), add: items => mock.queue.cmd.add(items), replaceProbing: input => mock.queue.cmd.replaceProbing(input), items: () => queueItems, transition: applyProbeStageEvent, settings: () => settings}),
+		intake: intakeMock,
 
-		hotkey: {
-			reportOutcome: () => Promise.resolve({ok: true, data: undefined} as const),
-			// Registration mirrors the mock setting so the URL screen's hotkey hint
-			// is reviewable in dev:mock; hotkey-conflict overrides only whether the
-			// chord is taken, so recording a new one in that scenario still shows
-			// the chord the user just picked.
-			getState: () => Promise.resolve({ok: true, data: {accelerator: settings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D', registered: scenarioState.hotkeyRegistered ?? settings.common.hotkeyEnabled === true}} as const),
-			testPress: () => {
-				hotkeyTriggerListeners.forEach(listener => listener({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}))
-				return Promise.resolve({ok: true, data: undefined} as const)
-			},
-			rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)
-		},
+		hotkey: hotkeyMock.api,
 
 		shell: {
 			openFolder: path => {
@@ -549,11 +527,7 @@ export function installBrowserMock(): void {
 				clipboardUrlListeners.add(listener)
 				return () => clipboardUrlListeners.delete(listener)
 			},
-			onHotkeyTrigger: listener => {
-				hotkeyTriggerListeners.add(listener)
-				return () => hotkeyTriggerListeners.delete(listener)
-			},
-			onHotkeyOutcome: () => () => undefined,
+			onHotkeyOutcome: hotkeyMock.onOutcome,
 			onMenuAction: () => () => undefined,
 			onWarmupProgress: listener => {
 				warmupProgressListeners.add(listener)

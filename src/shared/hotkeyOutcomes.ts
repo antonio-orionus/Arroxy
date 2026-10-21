@@ -13,6 +13,5 @@ export const HOTKEY_OUTCOME_COPY = {
 	'multiple-urls': {key: 'notifications.hotkey.multipleUrls', level: 'info'},
 	'needs-review': {key: 'notifications.hotkey.needsReview', level: 'info'},
 	'cookies-setup': {key: 'notifications.hotkey.cookiesSetup', level: 'error'},
-	busy: {key: 'notifications.hotkey.busy', level: 'info'},
 	'submission-failed': {key: 'notifications.hotkey.submissionFailed', level: 'error'}
 } as const satisfies Record<HotkeyOutcome, {key: string; level: 'error' | 'info'}>

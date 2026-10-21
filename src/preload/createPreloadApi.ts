@@ -1,6 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
@@ -48,7 +48,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			resume: input => ipcRenderer.invoke(IPC_CHANNELS.downloadsResume, input)
 		},
 		settings: {get: () => ipcRenderer.invoke(IPC_CHANNELS.settingsGet), update: input => ipcRenderer.invoke(IPC_CHANNELS.settingsUpdate, input)},
-		hotkey: {reportOutcome: input => ipcRenderer.invoke(IPC_CHANNELS.hotkeyReportOutcome, input), getState: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyGetState), testPress: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyTestPress), rendererReady: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyRendererReady)},
+		hotkey: {getState: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyGetState), testPress: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyTestPress), rendererReady: () => ipcRenderer.invoke(IPC_CHANNELS.hotkeyRendererReady)},
 		shell: {openFolder: targetPath => ipcRenderer.invoke(IPC_CHANNELS.shellOpenFolder, targetPath), openExternal: url => ipcRenderer.invoke(IPC_CHANNELS.shellOpenExternal, url), openBinariesDir: () => ipcRenderer.invoke(IPC_CHANNELS.shellOpenBinariesDir)},
 		logs: {openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir), uploadFeedbackDiagnostic: input => ipcRenderer.invoke(IPC_CHANNELS.logsUploadFeedbackDiagnostic, input), saveDiagnostics: () => ipcRenderer.invoke(IPC_CHANNELS.logsSaveDiagnostics)},
 		dialog: {chooseFolder: (defaultPath?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder, defaultPath), chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile), chooseExecutable: binary => ipcRenderer.invoke(IPC_CHANNELS.dialogChooseExecutable, binary)},
@@ -79,13 +79,6 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				ipcRenderer.on(IPC_CHANNELS.eventsClipboardUrl, wrapped)
 				return () => {
 					ipcRenderer.removeListener(IPC_CHANNELS.eventsClipboardUrl, wrapped)
-				}
-			},
-			onHotkeyTrigger: listener => {
-				const wrapped = (_: unknown, trigger: HotkeyTriggerPayload): void => listener(trigger)
-				ipcRenderer.on(IPC_CHANNELS.eventsHotkeyTrigger, wrapped)
-				return () => {
-					ipcRenderer.removeListener(IPC_CHANNELS.eventsHotkeyTrigger, wrapped)
 				}
 			},
 			onMenuAction: listener => {

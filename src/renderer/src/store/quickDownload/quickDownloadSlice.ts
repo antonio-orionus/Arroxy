@@ -2,7 +2,7 @@
 // the URL tab's and Explore's intake, and the Downloads tab's resolution of a
 // placeholder row (Retry, the needs-choice answers). Intake itself runs in
 // main (IntakeService), reached through quickDownloadPipeline; the hotkey's
-// intake is in wizard/hotkeyTrigger.
+// intake runs entirely in main (HotkeyIntake).
 
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'

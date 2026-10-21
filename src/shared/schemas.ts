@@ -327,23 +327,23 @@ export const hotkeyAcceleratorSchema = z
 	.transform(chord => chord.replace(/\+Backquote$/, '+`'))
 export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
 
-// Every hotkey trigger attempt ends in exactly one of these outcomes — no
-// silent paths (the OmniGet #198 lesson). The renderer derives the outcome
-// and reports it back so main can notify on hidden windows.
-export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'cookies-setup', 'busy'])
+// Every hotkey press is acknowledged at once with one of these outcomes, and
+// followed up once more only when its link ends needing the user — no silent
+// paths (the OmniGet #198 lesson). Main runs the press and derives them.
+export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'cookies-setup'])
 export type HotkeyOutcome = z.infer<typeof hotkeyOutcomeSchema>
 
-// The schema validates the renderer→main report payload; main decorates the
-// event it forwards with its own `toast` verdict — focused + on-screen (see
-// hotkeyFeedback) — so the renderer knows whether to surface the toast. Two
-// shapes, explicitly: the report (renderer→main) and the event (main→renderer).
-export const hotkeyOutcomePayloadSchema = z.object({outcome: hotkeyOutcomeSchema, url: z.string().optional()})
+// An outcome and the intake it belongs to (none when the press took no link
+// in), so the ack and its follow-up name the same one. Main adds its `toast`
+// verdict — focused, on-screen and listening (see hotkeyFeedback) — to the
+// event it sends the renderer, which shows the toast only then.
+export const hotkeyOutcomePayloadSchema = z.object({outcome: hotkeyOutcomeSchema, intakeId: z.string().min(1).optional()})
 export type HotkeyOutcomePayload = z.infer<typeof hotkeyOutcomePayloadSchema>
 export const hotkeyOutcomeEventSchema = hotkeyOutcomePayloadSchema.extend({toast: z.boolean()})
 export type HotkeyOutcomeEvent = z.infer<typeof hotkeyOutcomeEventSchema>
 
-// Main reads the clipboard (the renderer cannot while hidden) and sends the
-// pre-classified trigger. Renderer never touches the clipboard for the hotkey.
+// Main reads the clipboard and pre-classifies it; the hotkey's intake (in
+// main too) takes it from there.
 export const hotkeyTriggerSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('single'), url: z.string()}), z.object({kind: z.literal('multiple')}), z.object({kind: z.literal('empty')})])
 export type HotkeyTriggerPayload = z.infer<typeof hotkeyTriggerSchema>
 

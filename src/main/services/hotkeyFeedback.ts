@@ -5,12 +5,13 @@ import log from 'electron-log/main.js'
 import type {HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, SupportedLang} from '@shared/schemas.js'
 import type {HotkeyWindow} from './HotkeyService.js'
 
-// Feedback routing for hotkey outcomes. Exactly one channel per attempt
-// (OmniGet #198: no silent paths; never both channels at once):
+// Feedback routing for hotkey outcomes (the hotkey's intake decides which to
+// send). Exactly one channel per outcome (OmniGet #198: no silent paths; never
+// both channels at once):
 // - the outcome event always reaches the renderer, which shows a sonner toast
-//   when its window is focused;
-// - when the window is hidden or unfocused, main additionally fires an OS
-//   notification (the toast would be invisible).
+//   when its window is focused and listening;
+// - otherwise main fires an OS notification (the toast would be invisible,
+//   or lost to a renderer that is reloading).
 
 export interface HotkeyOsNotifier {
 	show(body: string): void
@@ -22,7 +23,7 @@ function copyForOutcome(outcome: HotkeyOutcome, lang: SupportedLang): string {
 	return mainT(lang, HOTKEY_OUTCOME_COPY[outcome].key)
 }
 
-export function routeHotkeyOutcome(event: HotkeyOutcomePayload, deps: {lang: SupportedLang; window: HotkeyWindow; osNotifier: HotkeyOsNotifier | null}): void {
+export function routeHotkeyOutcome(event: HotkeyOutcomePayload, deps: {lang: SupportedLang; window: HotkeyWindow; osNotifier: HotkeyOsNotifier | null; rendererReady: boolean}): void {
 	if (deps.window.isDestroyed()) {
 		log.warn('[hotkey] outcome dropped — window destroyed', {outcome: event.outcome})
 		return
@@ -31,11 +32,12 @@ export function routeHotkeyOutcome(event: HotkeyOutcomePayload, deps: {lang: Sup
 	// rule: focused AND on-screen → toast, anything else → OS notification
 	// (OmniGet #198). A visible-but-unfocused window cannot show the user a
 	// toast (they are in another app), and a hidden window never fires a DOM
-	// blur, so all three signals are sampled here, when the probe finishes.
-	const toast = deps.window.isVisible() && !deps.window.isMinimized() && deps.window.isFocused()
+	// blur, so all three signals are sampled here, when the outcome is known. A
+	// renderer that is not ready (startup, reload) has no listener for the toast.
+	const toast = deps.rendererReady && deps.window.isVisible() && !deps.window.isMinimized() && deps.window.isFocused()
 	const out: HotkeyOutcomeEvent = {...event, toast}
 	deps.window.send(IPC_CHANNELS.eventsHotkeyOutcome, out)
 	if (toast) return
-	log.info('[hotkey] firing OS notification', {outcome: event.outcome, hasNotifier: deps.osNotifier !== null})
+	log.info('[hotkey] firing OS notification', {outcome: event.outcome, intakeId: event.intakeId, hasNotifier: deps.osNotifier !== null})
 	deps.osNotifier?.show(copyForOutcome(event.outcome, deps.lang))
 }

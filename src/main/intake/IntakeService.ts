@@ -111,9 +111,14 @@ export class IntakeService {
 		this.kept = new KeptProbes(deps.now)
 	}
 
-	// The window reports its wizard folder and screen whenever they change.
+	// The window reports its wizard folder, screen and active profile whenever they change.
 	setWindowContext(context: IntakeWindowContext): void {
 		this.window = context
+	}
+
+	// The profile the window shows as active, once it has said.
+	windowProfile(): DownloadProfileRef | undefined {
+		return this.window.activeProfile
 	}
 
 	// Places the row and starts its probe; resolves once the row is placed (or
@@ -133,7 +138,7 @@ export class IntakeService {
 		}
 		logger.info('link taken in', {itemId: row.id, intakeId: origin.intakeId, origin: origin.kind, playlistMode: request.playlistMode})
 		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title, ...ownTake(row)}, {requestId: request.requestId, origin: origin.kind})
-		return {kind: 'added', itemId: row.id, title: row.title}
+		return {kind: 'added', itemId: row.id, title: row.title, intakeId: origin.intakeId}
 	}
 
 	// A probe-error row probes again, the way it was taken in: with the count

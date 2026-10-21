@@ -6,7 +6,6 @@ import {i18next, isRtl} from '@shared/i18n/index.js'
 import {systemLanguage} from '../systemLanguage.js'
 import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
-import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
 import {bindIntakeEvents} from './quickDownload/quickDownloadPipeline.js'
 import {quickDownloadToasts} from './quickDownload/quickDownloadToasts.js'
@@ -16,7 +15,6 @@ import {recordStartupPick, takeStartupPicks, watchStartupPicks} from './startupP
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
-let unbindHotkeyTrigger: (() => void) | null = null
 let unbindCopiedLinks: (() => void) | null = null
 let unbindIntakeEvents: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
@@ -265,24 +263,16 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				})
 			})
 
-			// Hotkey trigger listener: lifetime-bound like warmup progress. Main
-			// presses the bell; the outcome flows back through reportOutcome.
-			unbindHotkeyTrigger?.()
-			unbindHotkeyTrigger = window.appApi.events.onHotkeyTrigger(trigger => {
-				void handleHotkeyTrigger(trigger, get)
-			})
-
-			// Outcome feedback: the renderer shows a toast only when focused —
-			// main fires the OS notification for hidden/unfocused windows, so
-			// each attempt is acknowledged exactly once through exactly one
-			// channel.
+			// Hotkey outcome toasts: lifetime-bound like warmup progress. A press
+			// runs in main, which decides each outcome and its channel: the toast
+			// here only when this window is focused and listening, otherwise an
+			// OS notification — exactly one channel per outcome.
 			unbindHotkeyOutcome?.()
 			unbindHotkeyOutcome = window.appApi.events.onHotkeyOutcome(event => {
 				if (!event.toast) return
 				notify.hotkeyOutcome(event.outcome)
 			})
-			// Both halves of feedback are now bound. Main may register the chord;
-			// presses during the remaining startup work are acknowledged as busy.
+			// The toast listener is bound: main may register the chord.
 			void window.appApi.hotkey.rendererReady()
 
 			// Lifetime-bound: intake runs in main, and its outcomes come back here.

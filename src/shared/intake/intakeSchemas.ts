@@ -45,7 +45,8 @@ export type IntakeTake = z.infer<typeof intakeTakeSchema>
 export const intakeChooseInputSchema = z.object({requestId: intakeRequestIdSchema, itemId: z.string().min(1), take: intakeTakeSchema})
 export const intakeItemInputSchema = z.object({itemId: z.string().min(1)})
 // What only the window knows and intake needs: the folder its wizard points
-// at (a profile without a fixed folder downloads there) and whether its
-// screen shows HDR (which settles the Auto HDR setting).
-export const intakeWindowContextSchema = z.object({currentOutputDir: z.string(), displayShowsHdr: z.boolean()})
+// at (a profile without a fixed folder downloads there), whether its screen
+// shows HDR (which settles the Auto HDR setting), and the profile it shows as
+// active, which main's settings may not hold yet (a hotkey press pins it).
+export const intakeWindowContextSchema = z.object({currentOutputDir: z.string(), displayShowsHdr: z.boolean(), activeProfile: downloadProfileRefSchema.optional()})
 export type IntakeWindowContext = z.infer<typeof intakeWindowContextSchema>

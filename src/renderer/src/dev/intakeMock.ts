@@ -1,18 +1,20 @@
 // Browser-mock stand-in for main's IntakeService (src/main/intake): the same
 // placeholder row, probe, shared resolution and outcome events, over the mock
-// queue, so quick downloads behave in dev:mock as they do in the app.
+// queue, so quick downloads behave in dev:mock as they do in the app. Links the
+// hotkey takes in (hotkeyMock) keep their outcomes away from the window, as
+// main does.
 
 import i18next from 'i18next'
 import type {AppApi} from '@shared/api.js'
 import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
-import type {IntakeEvent, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
+import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
-import type {IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
+import type {IntakeAddInput, IntakeOriginKind, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type QuickProbeTake} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfileRef, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
@@ -34,17 +36,32 @@ interface Probe {
 	take?: QuickProbeTake
 }
 
+type IntakeOutcomeEvent = Extract<IntakeEvent, {kind: 'outcome'}>
+
+// The hotkey's way in, as main's HotkeyIntake uses IntakeService.
+export interface HotkeyIntakeMock {
+	add(request: IntakeAddInput): Promise<IntakePlacement>
+	windowProfile(): DownloadProfileRef | undefined
+	onEvent(listener: (event: IntakeOutcomeEvent) => void): () => void
+}
+
+export type IntakeMock = AppApi['intake'] & {hotkey: HotkeyIntakeMock}
+
 // The count a row was placed with, and how far its probe looks for it.
 function ownTake(row: QueueItem): Pick<Probe, 'scope' | 'take'> {
 	return row.probeTake ? {scope: scopeForTake(row.probeTake), take: row.probeTake} : {}
 }
 
-export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
+export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 	const listeners = new Set<(event: IntakeEvent) => void>()
+	const hotkeyListeners = new Set<(event: IntakeOutcomeEvent) => void>()
 	const kept = new Map<string, PlaylistProbeResult>()
 	let windowContext: IntakeWindowContext = {currentOutputDir: '', displayShowsHdr: false}
 	const find = (itemId: string): QueueItem | undefined => deps.items().find(item => item.id === itemId)
-	const emit = (event: IntakeEvent): void => listeners.forEach(listener => listener(event))
+	const emit = (event: IntakeEvent): void => {
+		if (event.kind === 'outcome' && event.origin === 'hotkey') hotkeyListeners.forEach(listener => listener(event))
+		else listeners.forEach(listener => listener(event))
+	}
 	const activePinned = (ref: DownloadProfileRef = resolveActiveDownloadProfile(deps.settings().profiles).ref): PinnedDownloadProfile => ({ref, outputContext: {currentOutputDir: windowContext.currentOutputDir, defaultOutputDir: deps.settings().common.defaultOutputDir}})
 	const env = (): QuickProbeEnv => ({
 		newId: () => crypto.randomUUID(),
@@ -78,8 +95,8 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 		}
 	}
 
-	async function runProbe(itemId: string, probe: Probe, requestId: string, answer?: PlaylistProbeResult): Promise<void> {
-		const tell = (outcome: QuickDownloadEvent): void => emit({kind: 'outcome', requestId, intakeId: find(itemId)?.origin?.intakeId ?? null, origin: 'window', outcome})
+	async function runProbe(itemId: string, probe: Probe, requestId: string, origin: IntakeOriginKind, answer?: PlaylistProbeResult): Promise<void> {
+		const tell = (outcome: QuickDownloadEvent): void => emit({kind: 'outcome', requestId, intakeId: find(itemId)?.origin?.intakeId ?? null, origin, outcome})
 		const limit = probe.take?.kind === 'all' ? PLAYLIST_PROBE_LIMIT_MAX : probe.take?.kind === 'first' ? probe.take.count : resolvePlaylistProbeLimit(deps.settings().common)
 		const result = answer ? ok(answer) : await deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(probe.scope ? {playlistScope: probe.scope} : {})})
 		const profile = find(itemId)?.pinnedProfile ?? activePinned()
@@ -93,51 +110,54 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 		const restarted = await deps.transition(itemId, {kind: 'probe-restarted', ...(widen.take ? {probeTake: widen.take} : {})})
 		if (!restarted.ok) return restarted
 		kept.delete(itemId)
-		void runProbe(itemId, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, requestId, answer)
+		void runProbe(itemId, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, requestId, 'window', answer)
 		return restarted
 	}
 
+	async function place({requestId, url, playlistMode, title, profile: requested, take}: IntakeAddInput, originKind: IntakeOriginKind): Promise<IntakePlacement> {
+		const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
+		if (live) return {kind: 'already-queued', itemId: live.id}
+		const intakeId = crypto.randomUUID()
+		const pinned = activePinned(requested)
+		const {profile} = resolveChosenDownloadProfile(pinned.ref, deps.settings().profiles)
+		let outputDir = ''
+		try {
+			outputDir = resolveDownloadProfileOutputDir(profile, pinned.outputContext)
+		} catch {
+			// A fixed folder left blank: the probe's preparation reports it on the row.
+		}
+		const row: QueueItem = {
+			id: crypto.randomUUID(),
+			url,
+			title: title?.trim() ? title.trim() : url,
+			thumbnail: '',
+			outputDir,
+			formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
+			status: QUEUE_STATUS.probing,
+			lane: 'normal',
+			progressPercent: 0,
+			progressDetail: null,
+			lastStatus: null,
+			error: null,
+			addedAt: new Date().toISOString(),
+			finishedAt: null,
+			artifacts: [],
+			writeM3u: false,
+			retryCount: 0,
+			probeMode: playlistMode,
+			...(take ? {probeTake: take} : {}),
+			pinnedProfile: pinned,
+			origin: {kind: originKind, intakeId},
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''}
+		}
+		const added = await deps.add([row])
+		if (!added.ok) return added.error.code === 'conflict' ? {kind: 'already-queued', itemId: null} : {kind: 'not-added'}
+		void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId, originKind)
+		return {kind: 'added', itemId: row.id, title: row.title, intakeId}
+	}
+
 	return {
-		add: async ({requestId, url, playlistMode, title, profile: requested, take}) => {
-			const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
-			if (live) return ok({kind: 'already-queued', itemId: live.id})
-			const pinned = activePinned(requested)
-			const {profile} = resolveChosenDownloadProfile(pinned.ref, deps.settings().profiles)
-			let outputDir = ''
-			try {
-				outputDir = resolveDownloadProfileOutputDir(profile, pinned.outputContext)
-			} catch {
-				// A fixed folder left blank: the probe's preparation reports it on the row.
-			}
-			const row: QueueItem = {
-				id: crypto.randomUUID(),
-				url,
-				title: title?.trim() ? title.trim() : url,
-				thumbnail: '',
-				outputDir,
-				formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
-				status: QUEUE_STATUS.probing,
-				lane: 'normal',
-				progressPercent: 0,
-				progressDetail: null,
-				lastStatus: null,
-				error: null,
-				addedAt: new Date().toISOString(),
-				finishedAt: null,
-				artifacts: [],
-				writeM3u: false,
-				retryCount: 0,
-				probeMode: playlistMode,
-				...(take ? {probeTake: take} : {}),
-				pinnedProfile: pinned,
-				origin: {kind: 'window', intakeId: crypto.randomUUID()},
-				job: {kind: 'unresolved', extractor: '', extractorKey: ''}
-			}
-			const added = await deps.add([row])
-			if (!added.ok) return ok(added.error.code === 'conflict' ? {kind: 'already-queued', itemId: null} : {kind: 'not-added'})
-			void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId)
-			return ok({kind: 'added', itemId: row.id, title: row.title})
-		},
+		add: async request => ok(await place(request, 'window')),
 		retry: ({requestId, itemId}) => {
 			const row = find(itemId)
 			return restart(itemId, requestId, row ? ownTake(row) : {})
@@ -160,6 +180,14 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 		onEvent: listener => {
 			listeners.add(listener)
 			return () => listeners.delete(listener)
+		},
+		hotkey: {
+			add: request => place(request, 'hotkey'),
+			windowProfile: () => windowContext.activeProfile,
+			onEvent: listener => {
+				hotkeyListeners.add(listener)
+				return () => hotkeyListeners.delete(listener)
+			}
 		}
 	}
 }

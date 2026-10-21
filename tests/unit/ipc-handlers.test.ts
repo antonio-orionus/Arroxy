@@ -67,7 +67,7 @@ function makeDeps() {
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
 	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
-	const intakeService = {add: vi.fn().mockResolvedValue({kind: 'added', itemId: 'p1', title: 'Video'}), retry: vi.fn().mockReturnValue({ok: true, data: undefined}), choose: vi.fn().mockReturnValue({ok: true, data: undefined}), keptProbe: vi.fn().mockReturnValue(null), setWindowContext: vi.fn()}
+	const intakeService = {add: vi.fn().mockResolvedValue({kind: 'added', itemId: 'p1', title: 'Video', intakeId: 'i1'}), retry: vi.fn().mockReturnValue({ok: true, data: undefined}), choose: vi.fn().mockReturnValue({ok: true, data: undefined}), keptProbe: vi.fn().mockReturnValue(null), setWindowContext: vi.fn()}
 	return {
 		mainWindow: mainWindow as never,
 		downloadService: downloadService as never,
@@ -87,7 +87,6 @@ function makeDeps() {
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
 		hotkeyService: hotkeyService as never,
-		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn(), applyIdleUnloadSetting: vi.fn(), applyZoomSetting: vi.fn()} as never,
 		siteRequests: {snapshot: vi.fn().mockReturnValue([]), allowOnce: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)} as never,
@@ -371,7 +370,7 @@ describe('registerIpcHandlers', () => {
 
 			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
 			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video'})) as {ok: boolean; data: unknown}
-			expect(added).toEqual({ok: true, data: {kind: 'added', itemId: 'p1', title: 'Video'}})
+			expect(added).toEqual({ok: true, data: {kind: 'added', itemId: 'p1', title: 'Video', intakeId: 'i1'}})
 			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', origin: {kind: 'window'}})
 
 			const refused = (await handler(null, {requestId: 'r2', url: 'file:///etc/passwd', playlistMode: 'video'})) as {ok: boolean}

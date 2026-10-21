@@ -9,6 +9,7 @@ import {buildMockAppApi} from '../shared/mockAppApi.js'
 // The store reports the window's context to main through the watcher it
 // installs at load (useAppStore), so these drive the real store.
 let api: AppApi
+const BALANCED = {kind: 'builtin', id: 'balanced'} as const
 
 beforeEach(() => {
 	api = buildMockAppApi()
@@ -27,10 +28,22 @@ describe('the window context main prepares hotkey links with', () => {
 	// hotkey answers from then, so main must hear the folder from then too.
 	it('reports the wizard folder once settings load, before warmup ends', () => {
 		useAppStore.setState({settings: defaultAppSettings('/tmp'), wizardOutputDir: '/downloads'})
-		expect(api.intake.setWindowContext).toHaveBeenLastCalledWith({currentOutputDir: '/downloads', displayShowsHdr: false})
+		expect(api.intake.setWindowContext).toHaveBeenLastCalledWith({currentOutputDir: '/downloads', displayShowsHdr: false, activeProfile: BALANCED})
 
 		useAppStore.setState({wizardOutputDir: '/videos'})
 		expect(useAppStore.getState().initialized).toBe(false)
-		expect(api.intake.setWindowContext).toHaveBeenLastCalledWith({currentOutputDir: '/videos', displayShowsHdr: false})
+		expect(api.intake.setWindowContext).toHaveBeenLastCalledWith({currentOutputDir: '/videos', displayShowsHdr: false, activeProfile: BALANCED})
+	})
+
+	// A profile pick is saved through a queue of settings writes: main hears the
+	// profile the window shows at once, so a hotkey press pins it.
+	it('reports the profile the window shows as active, as soon as it changes', () => {
+		const settings = defaultAppSettings('/tmp')
+		useAppStore.setState({settings, wizardOutputDir: '/downloads'})
+		useAppStore.setState({settings: {...settings, profiles: {...settings.profiles, active: {kind: 'builtin', id: 'audio-only'}}}})
+		expect(api.intake.setWindowContext).toHaveBeenLastCalledWith({currentOutputDir: '/downloads', displayShowsHdr: false, activeProfile: {kind: 'builtin', id: 'audio-only'}})
+		const calls = vi.mocked(api.intake.setWindowContext).mock.calls.length
+		useAppStore.setState({settings: {...settings, profiles: {...settings.profiles, active: {kind: 'builtin', id: 'audio-only'}}}})
+		expect(api.intake.setWindowContext).toHaveBeenCalledTimes(calls)
 	})
 })

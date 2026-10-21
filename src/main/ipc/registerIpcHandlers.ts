@@ -10,7 +10,6 @@ import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
-import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {SiteRequestState} from '@main/services/SiteRequestState.js'
@@ -44,7 +43,6 @@ export interface IpcDependencies {
 	languageRef: {current: SupportedLang}
 	clipboardWatcher: ClipboardWatcher
 	hotkeyService: HotkeyService
-	hotkeyOsNotifier: HotkeyOsNotifier | null
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
 	siteRequests: SiteRequestState
@@ -59,7 +57,7 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
@@ -67,7 +65,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
 	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged: () => siteRequests.routeChanged(), onMenuStateChanged: refreshAppMenu, onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme)})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
-	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
+	registerHotkeyHandlers({hotkeyService})
 	registerQueueHandlers(queueService, probeService)
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)

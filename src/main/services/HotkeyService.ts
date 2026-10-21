@@ -1,13 +1,12 @@
 import {clipboard as electronClipboard, globalShortcut, type BrowserWindow} from 'electron'
-import {IPC_CHANNELS} from '@shared/ipc.js'
 import {parseBulkUrls} from '@shared/bulkUrls.js'
 import log from 'electron-log/main.js'
 import type {HotkeyState, HotkeyTriggerPayload} from '@shared/schemas.js'
 
 // Main-side global hotkey. Owns chord registration and clipboard
-// pre-classification — the renderer cannot read the clipboard while hidden,
-// so the trigger event carries the payload. Outcome feedback flows the other
-// way via the reportOutcome IPC handler.
+// pre-classification, then hands the press to the hotkey's intake, also in
+// main, which takes the link in and routes its outcomes (HotkeyIntake). The
+// window only shows the outcome toasts it is sent.
 //
 // All Electron seams are ports so tests drive fakes, mirroring
 // ClipboardWatcher's design.
@@ -20,6 +19,11 @@ export interface ShortcutRegistry {
 
 export interface HotkeyClipboardReader {
 	readText(): Promise<string>
+}
+
+// Where a classified press goes: the hotkey's intake.
+export interface HotkeyTriggerIntake {
+	take(trigger: HotkeyTriggerPayload): Promise<void>
 }
 
 export interface HotkeyWindow {
@@ -39,7 +43,7 @@ export function hotkeyWindowFromBrowserWindow(win: BrowserWindow): HotkeyWindow 
 }
 
 // Pre-classification shared with the settings Test button: what the clipboard
-// holds decides which outcome path the renderer will take.
+// holds decides which outcome path the intake will take.
 export function classifyHotkeyClipboard(text: string): HotkeyTriggerPayload {
 	const trimmed = text.trim()
 	if (!trimmed) return {kind: 'empty'}
@@ -59,6 +63,7 @@ export class HotkeyService {
 
 	constructor(
 		private readonly window: HotkeyWindow,
+		private readonly intake: HotkeyTriggerIntake,
 		private readonly registry: ShortcutRegistry = electronShortcutRegistry(),
 		private readonly reader: HotkeyClipboardReader = electronClipboard,
 		options: {rendererReady?: boolean} = {}
@@ -82,12 +87,19 @@ export class HotkeyService {
 		this.reconcile()
 	}
 
-	// Keep the shortcut inactive until the renderer installs its trigger
-	// listener. Startup and reload can otherwise drop a valid press silently.
+	// Keep the shortcut inactive until the renderer listens for outcome
+	// toasts. A press during startup or a reload could otherwise be
+	// acknowledged to nobody.
 	setRendererReady(ready: boolean): void {
 		if (this.rendererReady === ready) return
 		this.rendererReady = ready
 		this.reconcile()
+	}
+
+	// Outcome routing reads this: a renderer that is not listening cannot show
+	// a toast, so a follow-up that lands mid-reload goes out as an OS notification.
+	isRendererReady(): boolean {
+		return this.rendererReady
 	}
 
 	private reconcile(): void {
@@ -111,10 +123,6 @@ export class HotkeyService {
 		}
 		const after = this.getState()
 		if (after.accelerator !== before.accelerator || after.registered !== before.registered) this.notifyStateChange()
-	}
-
-	getWindow(): HotkeyWindow {
-		return this.window
 	}
 
 	getState(): HotkeyState {
@@ -141,10 +149,12 @@ export class HotkeyService {
 			return
 		}
 		const trigger = classifyHotkeyClipboard(text)
-		log.info('[hotkey] trigger dispatched to renderer', {kind: trigger.kind, chars: text.length})
-		// The renderer stays alive while hidden (only occluded/blur throttling
-		// applies), so the trigger flows identically in both cases.
-		this.window.send(IPC_CHANNELS.eventsHotkeyTrigger, trigger)
+		log.info('[hotkey] trigger handed to intake', {kind: trigger.kind, chars: text.length})
+		try {
+			await this.intake.take(trigger)
+		} catch (err) {
+			log.error('[hotkey] intake failed', err)
+		}
 	}
 
 	private isChordLive(): boolean {
