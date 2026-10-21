@@ -14,7 +14,9 @@ export type QuickDownloadEvent =
 	| {kind: 'not-added'}
 	| {kind: 'queued'; itemId: string; skippedAlreadyQueued: number}
 	| {kind: 'nothing-new'; skippedAlreadyQueued: number}
-	| {kind: 'failed'; itemId: string; title: string; probeError: ProbeError | null}
+	// `overRowLimit`: the rows were refused as more than the caller may add
+	// from one link, which the same link would make again.
+	| {kind: 'failed'; itemId: string; title: string; probeError: ProbeError | null; overRowLimit?: true}
 	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice; capped: boolean}
 
 // Where a link landed the moment it was taken in, before its probe answers.

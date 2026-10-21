@@ -367,7 +367,7 @@ describe('IntakeService', () => {
 		await h.intake.add({requestId: 'c1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: {kind: 'localClient', clientId: 'client-1'}})
 		await h.settled()
 		await vi.waitFor(() => expect(h.queue.snapshot()).toEqual([expect.objectContaining({status: 'error', origin: {kind: 'localClient', clientId: 'client-1', intakeId: expect.any(String)}})]))
-		expect(h.events.at(-1)).toMatchObject({kind: 'outcome', requestId: 'c1', origin: 'localClient', outcome: {kind: 'failed', probeError: null}})
+		expect(h.events.at(-1)).toMatchObject({kind: 'outcome', requestId: 'c1', origin: 'localClient', outcome: {kind: 'failed', probeError: null, overRowLimit: true}})
 	})
 
 	// A write that throws is a broken queue port, not a refusal: the row must

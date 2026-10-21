@@ -265,6 +265,12 @@ export class IntakeService {
 					tell({kind: 'already-queued', itemId: this.deps.queue.snapshot().find(item => item.id !== itemId && isLiveQueueItem(item) && urls.has(item.url))?.id ?? null})
 					return
 				}
+				if (replaced.error.code === 'limit') {
+					// More rows than the caller may add from one link: no Retry can fix that.
+					const failed = this.deps.queue.probeFailed(itemId, {kind: 'unknown', raw: replaced.error.message})
+					if (failed.ok) tell({kind: 'failed', itemId, title, probeError: null, overRowLimit: true})
+					return
+				}
 				await this.write(itemId, title, {kind: 'failed', error: {kind: 'unknown', raw: replaced.error.message}, probeError: null}, caller)
 				return
 			}
