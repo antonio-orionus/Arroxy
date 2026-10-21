@@ -162,7 +162,14 @@ function withoutAiUpscaled(selector: string): string {
 // MP4 stream won at any height. Each alternative is tried with H.264 in MP4,
 // then H.264, then as it is, where yt-dlp's own order ranks the rest: the
 // resolution first, then a known codec over none.
-const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)']"
+//
+// The site's preference still has to come first, and a filter can't read it:
+// yt-dlp's numeric filters take no negative value, and a stream with none
+// ranks as -1, the ordinary mark. So the H.264 tiers leave out the copies the
+// extractors name as marked down: YouTube's DAMAGED (truncated, -10) and
+// TikTok's watermarked (-2). One marked down without such a note can still
+// win there over a stream of another codec.
+const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)'][format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
 const MP4_VIDEO = '[ext=mp4]'
 
 function preferredFirst(selector: string, order: SelectionOrder): string {

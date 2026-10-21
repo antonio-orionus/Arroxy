@@ -1,6 +1,6 @@
 // Smart TV's selector: each alternative tried with H.264 in MP4, then H.264,
 // then as it is (an alternative that already asks for MP4 skips the first).
-const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)']"
+const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)'][format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
 
 export function h264First(selector: string): string {
 	return selector

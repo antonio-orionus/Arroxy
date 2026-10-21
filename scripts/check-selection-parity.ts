@@ -232,9 +232,10 @@ const differences = cases.flatMap((testCase, index) => {
 	return same ? [] : [`${testCase.probe} · ${testCase.label}: app ${app}, yt-dlp ${ytDlp}  (-f ${testCase.format}${testCase.sort ? ` -S ${testCase.sort}` : ''})`]
 })
 // Smart TV's intent, held to yt-dlp's own pick: H.264 wherever the site offers
-// it; otherwise yt-dlp's own order, where a constructed probe names the pick
+// a copy it doesn't mark down (DAMAGED, watermarked); otherwise yt-dlp's own order, where a constructed probe names the pick
 // (a stream that names no codec once won there at any height).
 const isH264 = (format: YtDlpSelectableFormat): boolean => /^(?:[hx]264|avc)/i.test(format.vcodec ?? '')
+const isMarkedDown = (format: YtDlpSelectableFormat): boolean => /\b(?:damaged|watermarked)\b/i.test(format.format_note ?? '')
 function smartTvMiss(testCase: Case, answerId: string): string | null {
 	const tier = testCase.label.split(' ')[1]
 	const wanted = Object.entries(CONSTRUCTED_PROBES[testCase.probe]?.smartTv ?? {}).find(([height]) => height === tier)?.[1]
@@ -244,7 +245,7 @@ function smartTvMiss(testCase: Case, answerId: string): string | null {
 		.split('+')
 		.map(id => videos.find(format => format.format_id === id))
 		.find(format => format !== undefined)
-	return picked && videos.some(isH264) && !isH264(picked) ? `took ${picked.format_id} (${picked.vcodec ?? 'no codec'}) though the site offers H.264` : null
+	return picked && videos.some(format => isH264(format) && !isMarkedDown(format)) && !isH264(picked) ? `took ${picked.format_id} (${picked.vcodec ?? 'no codec'}) though the site offers H.264` : null
 }
 const smartTvMisses = cases.flatMap((testCase, index) => {
 	const answer = oracleAnswer(picks[index])

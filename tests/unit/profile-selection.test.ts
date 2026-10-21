@@ -256,6 +256,15 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 		expect(result.notices).toEqual([{kind: 'mp4-unavailable'}])
 	})
 
+	// The site's preference still comes first: YouTube marks a truncated copy
+	// DAMAGED (preference -10), TikTok a watermarked one (-2).
+	it('Smart TV takes no H.264 the site marks down over a stream it does not', () => {
+		const damaged = [rawVideo('137', 1080, {preference: -10, format_note: '1080p, DAMAGED'}), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-1080'), damaged).media.videoFormatId).toBe('399')
+		const watermarked = [muxed('wm', 720, 'h264'), muxed('clean', 720, 'h265')].map((stream, i) => ({...stream, preference: i === 0 ? -2 : -1, ...(i === 0 ? {format_note: 'Download video, watermarked'} : {})}))
+		expect(resolveRaw(builtin('mp4-1080'), watermarked, []).media.videoFormatId).toBe('clean')
+	})
+
 	it('MP4 profiles put the MP4 container before resolution, H.264 in MP4 first', () => {
 		const formats = [video('mov', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mov'}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
 		const result = resolve(builtin('mp4-1080'), formats)

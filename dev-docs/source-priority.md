@@ -154,7 +154,11 @@ alternative is tried with H.264 in MP4, then H.264, then as it is. Under
 that names no codec, above AV1, VP9 and HEVC, and before the resolution, so a
 site without H.264 gave a codec-less stream at any height. With no H.264 the
 rest is yt-dlp's own order: the resolution, then AV1, VP9, HEVC before a
-stream that names no codec. A constructed probe in the selection parity check
+stream that names no codec. Site preference can't be read by a filter (no
+negative values, and a stream without one ranks as -1), so the H.264 tiers
+leave out the copies extractors name as marked down: YouTube's `DAMAGED`
+(-10) and TikTok's `watermarked` (-2). A copy marked down with no such note
+can still win over a healthy stream of another codec. A constructed probe in the selection parity check
 (`scripts/selection-parity/constructedProbes.ts`) holds yt-dlp to that, and
 the check fails where a site offers H.264 and yt-dlp takes another codec.
 
