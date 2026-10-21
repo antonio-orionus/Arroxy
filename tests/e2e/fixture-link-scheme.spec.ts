@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {buildArroxyLink} from '../../src/main/linkScheme/arroxyLink.js'
 import {FIXTURE_VIDEO_IDS, fixtureUrl} from './fixtureHarness.js'
@@ -15,6 +17,14 @@ import {withFixtureProductApp} from './fixtureProductE2E.js'
 
 test.describe.configure({mode: 'serial'})
 
+function mainLog(userDataDir: string): string {
+	try {
+		return fs.readFileSync(path.join(userDataDir, 'logs', 'main.log'), 'utf8')
+	} catch {
+		return ''
+	}
+}
+
 test('a link on the launch command line fills the URL field and queues nothing', async () => {
 	test.setTimeout(90_000)
 	const videoUrl = fixtureUrl(FIXTURE_VIDEO_IDS[0])
@@ -28,7 +38,7 @@ test('a link on the launch command line fills the URL field and queues nothing',
 
 test('a second launch hands its link to the running app, which replaces the field with Undo', async () => {
 	test.setTimeout(120_000)
-	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-link-second-user-', outputPrefix: 'arroxy-fixture-link-second-out-'}, async ({page, urls, queue, launchSecondInstance}) => {
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-link-second-user-', outputPrefix: 'arroxy-fixture-link-second-out-'}, async ({page, urls, queue, userDataDir, launchSecondInstance}) => {
 		const input = page.getByTestId('profiles-main-input')
 		await input.fill('https://example.com/already-here')
 		const videoUrl = urls.video(FIXTURE_VIDEO_IDS[0])
@@ -42,10 +52,10 @@ test('a second launch hands its link to the running app, which replaces the fiel
 		await replacedToast.getByRole('button', {name: 'Undo'}).click()
 		await expect(input).toHaveValue('https://example.com/already-here')
 
-		// A malformed link is dropped: the field keeps what the user typed.
+		// A malformed link is dropped with a log line, and the field keeps what the user typed.
 		const rejected = await launchSecondInstance([`arroxy://open?url=${encodeURIComponent(videoUrl)}&folder=%2Ftmp`])
 		expect(rejected.exitCode).toBe(0)
-		await page.waitForTimeout(1_000)
+		await expect.poll(() => mainLog(userDataDir).match(/arroxy link ignored.*wrongParams/g)?.length ?? 0, {timeout: 10_000}).toBe(1)
 		await expect(input).toHaveValue('https://example.com/already-here')
 
 		await expect(page.getByTestId('step-formats')).toHaveCount(0)

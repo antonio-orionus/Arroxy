@@ -3,24 +3,25 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {ok} from '@shared/result.js'
 import {handleRaw} from '@main/ipc/utils.js'
 import type {LinkInbox} from './LinkInbox.js'
+import {createLinkDelivery, type LinkClipboard} from './linkDelivery.js'
 
 // Connects the inbox to the main window: a link brings the window forward and
 // goes to the renderer, which puts it in the URL field through the copied
-// link. The renderer says when it listens; a reload makes links wait again.
-export function attachLinkInbox(inbox: LinkInbox, window: BrowserWindow, {headless}: {headless: boolean}): void {
+// link. The renderer says when it listens; a reload or a crash makes links
+// wait again.
+export function attachLinkInbox(inbox: LinkInbox, window: BrowserWindow, {clipboard, headless}: {clipboard: LinkClipboard; headless: boolean}): void {
 	handleRaw(IPC_CHANNELS.linksRendererReady, async () => {
 		inbox.rendererReady()
 		return Promise.resolve(ok(undefined))
 	})
-	window.webContents.on('did-start-loading', () => inbox.rendererGone())
-	inbox.attach({
-		deliver: url => {
-			if (window.isDestroyed()) return
-			if (window.isMinimized()) window.restore()
-			// Hidden to the tray, the window must show; a headless E2E window never does.
-			if (!headless && !window.isVisible()) window.show()
-			window.focus()
-			window.webContents.send(IPC_CHANNELS.eventsOpenedLink, url)
-		}
+	window.webContents.on('did-start-navigation', details => {
+		if (details.isMainFrame && !details.isSameDocument) inbox.rendererGone()
 	})
+	window.webContents.on('render-process-gone', () => inbox.rendererGone())
+	const deliver = createLinkDelivery({
+		window: {isDestroyed: () => window.isDestroyed(), isMinimized: () => window.isMinimized(), isVisible: () => window.isVisible(), restore: () => window.restore(), show: () => window.show(), focus: () => window.focus(), sendLink: url => window.webContents.send(IPC_CHANNELS.eventsOpenedLink, url)},
+		clipboard,
+		headless
+	})
+	inbox.attach({deliver: url => void deliver(url)})
 }

@@ -2,6 +2,7 @@ import {afterEach, describe, expect, it, vi, type Mock} from 'vite-plus/test'
 import {buildArroxyLink} from '@main/linkScheme/arroxyLink.js'
 import {LinkInbox, type LinkInboxLog} from '@main/linkScheme/LinkInbox.js'
 import {registerLinkScheme} from '@main/linkScheme/registerLinkScheme.js'
+import {createLinkDelivery, type LinkWindow} from '@main/linkScheme/linkDelivery.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 const FIRST = 'https://www.youtube.com/watch?v=first'
@@ -91,7 +92,7 @@ describe('LinkInbox', () => {
 describe('registerLinkScheme', () => {
 	it('listens for macOS open-url events and reads the launch command line', () => {
 		let openUrl: ((url: string) => void) | null = null
-		const inbox = registerLinkScheme({onOpenUrl: listener => (openUrl = listener), argv: ['/opt/Arroxy/arroxy', buildArroxyLink(FIRST)], log: fakeLog()})
+		const inbox = registerLinkScheme({onOpenUrl: listener => (openUrl = listener), onSecondInstance: vi.fn(), argv: ['/opt/Arroxy/arroxy', buildArroxyLink(FIRST)], log: fakeLog()})
 		expect(inbox).not.toBeNull()
 		expect(openUrl).not.toBeNull()
 		const deliver = vi.fn()
@@ -102,10 +103,54 @@ describe('registerLinkScheme', () => {
 		expect(deliver).toHaveBeenLastCalledWith(SECOND)
 	})
 
+	it('takes the link of a second launch while the app is still starting', () => {
+		let secondInstance: ((argv: readonly string[]) => void) | null = null
+		const inbox = registerLinkScheme({onOpenUrl: vi.fn(), onSecondInstance: listener => (secondInstance = listener), argv: ['/opt/Arroxy/arroxy'], log: fakeLog()})
+		// Startup is still awaiting settings and the queue: no window yet.
+		secondInstance!(['/opt/Arroxy/arroxy', '--', buildArroxyLink(SECOND)])
+		const deliver = vi.fn()
+		inbox?.attach({deliver})
+		inbox?.rendererReady()
+		expect(deliver).toHaveBeenCalledExactlyOnceWith(SECOND)
+	})
+
 	it('stays inert in a release build, although installers register the scheme', async () => {
 		const {registerLinkScheme: register} = await importWithReleaseFlagsOff(() => import('@main/linkScheme/registerLinkScheme.js'))
 		const onOpenUrl = vi.fn()
-		expect(register({onOpenUrl, argv: ['/opt/Arroxy/arroxy', buildArroxyLink(FIRST)], log: fakeLog()})).toBeNull()
+		const onSecondInstance = vi.fn()
+		expect(register({onOpenUrl, onSecondInstance, argv: ['/opt/Arroxy/arroxy', buildArroxyLink(FIRST)], log: fakeLog()})).toBeNull()
 		expect(onOpenUrl).not.toHaveBeenCalled()
+		expect(onSecondInstance).not.toHaveBeenCalled()
+	})
+})
+
+describe('createLinkDelivery', () => {
+	function fakeWindow(state: {visible?: boolean; minimized?: boolean; destroyed?: boolean} = {}): LinkWindow & {calls: string[]} {
+		const calls: string[] = []
+		return {calls, isDestroyed: () => state.destroyed ?? false, isMinimized: () => state.minimized ?? false, isVisible: () => state.visible ?? true, restore: () => calls.push('restore'), show: () => calls.push('show'), focus: () => calls.push('focus'), sendLink: url => calls.push(`send ${url}`)}
+	}
+
+	it('marks the clipboard seen before the window comes forward, then sends the link', async () => {
+		const window = fakeWindow({minimized: true, visible: false})
+		const clipboard = {
+			ignoreCurrentClipboard: vi.fn(() => {
+				window.calls.push('ignore clipboard')
+				return Promise.resolve()
+			})
+		}
+		await createLinkDelivery({window, clipboard, headless: false})(FIRST)
+		expect(window.calls).toEqual(['ignore clipboard', 'restore', 'show', 'focus', `send ${FIRST}`])
+	})
+
+	it('never shows a headless window', async () => {
+		const window = fakeWindow({visible: false})
+		await createLinkDelivery({window, clipboard: {ignoreCurrentClipboard: () => Promise.resolve()}, headless: true})(FIRST)
+		expect(window.calls).toEqual(['focus', `send ${FIRST}`])
+	})
+
+	it('does nothing once the window is gone', async () => {
+		const window = fakeWindow({destroyed: true})
+		await createLinkDelivery({window, clipboard: {ignoreCurrentClipboard: () => Promise.resolve()}, headless: false})(FIRST)
+		expect(window.calls).toEqual([])
 	})
 })

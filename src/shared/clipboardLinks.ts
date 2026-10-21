@@ -13,6 +13,13 @@ function isWebUrl(text: string): boolean {
 	}
 }
 
+// A link handed over as a value rather than as copied text, such as an
+// arroxy:// link's `url`: one whole http(s) URL, kept exactly as given. The
+// copied-text rule below would cut it at a comma or a semicolon.
+export function singleWebLink(text: string): string | null {
+	return BARE_WEB_LINK_RE.test(text) && isWebUrl(text) ? text : null
+}
+
 // What the clipboard watcher may act on. A single link counts only when it is
 // the whole clipboard (surrounding whitespace aside): a link inside a sentence
 // is not definitely meant for Arroxy. Several links in any text form a bulk

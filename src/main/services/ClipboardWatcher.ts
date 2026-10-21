@@ -71,6 +71,20 @@ export class ClipboardWatcher {
 		}
 	}
 
+	// An arroxy:// link the user just opened outranks whatever the clipboard
+	// held before it. Bringing the window forward restarts polling, which would
+	// otherwise offer that older copy and replace the opened link.
+	async ignoreCurrentClipboard(): Promise<void> {
+		// Drop a read already in flight: it may return the older copy.
+		this.generation++
+		this.reading = false
+		try {
+			this.lastSeen = await this.reader.readText()
+		} catch {
+			// Unreadable: the next poll decides as usual.
+		}
+	}
+
 	dispose(): void {
 		this.stop()
 		this.detachAttention()
