@@ -30,7 +30,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Ovaj je prijevod nastao uz pomoć umjetne inteligencije. [Englesko izdanje README-a](../../README.md) mjerodavan je izvor. Pronašli ste pogrešku? [Otvorite PR](../../../../pulls).
 
@@ -77,7 +77,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tamno ili svijetlo, staklo ili čvrsto</b><br/>Četiri izgleda za izbor: staklene ploče nad pokretnim nebom ili mirne čvrste površine, svaka u tamnoj i svijetloj verziji</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxyjev globalni prečac za preuzimanje — Ctrl+Shift+D u sustavima Windows i Linux, Cmd+Shift+D na macOS-u, šalje kopiranu poveznicu izravno u red za preuzimanje" width="760" /></picture><br/><sub><b>Globalni prečac za preuzimanje</b><br/>Kopirajte poveznicu bilo gdje, pritisnite jednom — završit će u redu i počet će se preuzimati</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxyjev globalni prečac za preuzimanje — Ctrl+Shift+D u sustavima Windows i Linux, Cmd+Shift+D na macOS-u, šalje kopiranu poveznicu izravno u red za preuzimanje" width="760" /></picture><br/><sub><b>Globalni prečac za preuzimanje</b><br/>Kopirajte poveznicu bilo gdje, pritisnite jednom — završit će u redu i počet će se preuzimati</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po stavci popisa za reprodukciju</b><br/>Dajte svakom videozapisu vlastiti profil — neke arhivirajte u 4K, ostale preuzmite kao MP3</sub></td>

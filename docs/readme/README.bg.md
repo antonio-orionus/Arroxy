@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Този превод е направен с помощта на ИИ. [Английският README](../../README.md) е основният източник. Намерихте грешка? [Отворете PR](../../../../pulls).
 
@@ -77,7 +77,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Тъмен или светъл, стъкло или плътен</b><br/>Четири вида външен вид: стъклени панели върху движещо се небе или спокойни плътни повърхности, всеки в тъмен и светъл вариант</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Глобален пряк път за изтегляне на Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, който праща копираната връзка направо в опашката за изтегляне" width="760" /></picture><br/><sub><b>Глобален пряк път за изтегляне</b><br/>Копирайте връзка навсякъде, натиснете веднъж — тя влиза в опашката и започва да се изтегля</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Глобален пряк път за изтегляне на Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, който праща копираната връзка направо в опашката за изтегляне" width="760" /></picture><br/><sub><b>Глобален пряк път за изтегляне</b><br/>Копирайте връзка навсякъде, натиснете веднъж — тя влиза в опашката и започва да се изтегля</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили за всеки елемент от плейлист</b><br/>Дайте на всяко видео собствен профил — архивирайте част в 4K, а останалите вземете като MP3</sub></td>

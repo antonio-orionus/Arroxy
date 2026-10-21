@@ -30,7 +30,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Deze vertaling is tot stand gekomen met behulp van AI. De [Engelse README](../../README.md) is de leidende bron. Een fout gevonden? [Open een PR](../../../../pulls).
 
@@ -77,7 +77,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Donker of licht, glas of effen</b><br/>Vier uiterlijken om uit te kiezen: glazen panelen boven een bewegende hemel of rustige effen vlakken, elk in donker en licht</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Algemene downloadsneltoets van Arroxy — Ctrl+Shift+D op Windows en Linux, Cmd+Shift+D op macOS, die de gekopieerde link direct in de downloadwachtrij zet" width="760" /></picture><br/><sub><b>Algemene downloadsneltoets</b><br/>Kopieer overal een link, druk één keer — hij komt in de wachtrij en begint met downloaden</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Algemene downloadsneltoets van Arroxy — Ctrl+Shift+D op Windows en Linux, Cmd+Shift+D op macOS, die de gekopieerde link direct in de downloadwachtrij zet" width="760" /></picture><br/><sub><b>Algemene downloadsneltoets</b><br/>Kopieer overal een link, druk één keer — hij komt in de wachtrij en begint met downloaden</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profielen per afspeellijstitem</b><br/>Geef elke video een eigen profiel — archiveer sommige in 4K, haal de rest binnen als MP3</sub></td>

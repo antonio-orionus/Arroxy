@@ -30,7 +30,7 @@ Ak vám Arroxy ušetrí čas, ⭐ pomôže ostatným, aby ho našli.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Tento preklad vznikol s podporou AI. [Anglické README](../../README.md) je nadradeným zdrojom. Našli ste chybu? [Otvorte PR](../../../../pulls).
 
@@ -77,7 +77,7 @@ Ak vám Arroxy ušetrí čas, ⭐ pomôže ostatným, aby ho našli.
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tmavý alebo svetlý, sklenený alebo plný</b><br/>Štyri vzhľady na výber: sklenené panely nad pohyblivou oblohou alebo pokojné plné plochy, každý v tmavom aj svetlom režime</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Globálna klávesová skratka na sťahovanie v Arroxy — Ctrl+Shift+D vo Windows a Linuxe, Cmd+Shift+D v macOS, ktorá pošle skopírovaný odkaz priamo do radu sťahovania" width="760" /></picture><br/><sub><b>Globálna klávesová skratka na sťahovanie</b><br/>Skopírujte odkaz kdekoľvek, raz stlačte — pristane v rade a začne sa sťahovať</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Globálna klávesová skratka na sťahovanie v Arroxy — Ctrl+Shift+D vo Windows a Linuxe, Cmd+Shift+D v macOS, ktorá pošle skopírovaný odkaz priamo do radu sťahovania" width="760" /></picture><br/><sub><b>Globálna klávesová skratka na sťahovanie</b><br/>Skopírujte odkaz kdekoľvek, raz stlačte — pristane v rade a začne sa sťahovať</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profily pre jednotlivé položky zoznamu skladieb</b><br/>Dajte každému videu vlastný profil — niektoré archivujte v 4K, ostatné stiahnite ako MP3</sub></td>

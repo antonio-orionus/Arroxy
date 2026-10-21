@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 ---
 
@@ -75,7 +75,7 @@
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ងងឹត ឬភ្លឺ កញ្ចក់ ឬរាបស្មើ</b><br/>រូបរាងបួនឲ្យជ្រើសរើស៖ ផ្ទាំងកញ្ចក់លើមេឃដែលកំពុងរំកិល ឬផ្ទៃរាបស្មើស្ងប់ស្ងាត់ ម្យ៉ាងៗមានទាំងងងឹត និងភ្លឺ</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="គ្រាប់ចុចផ្លូវកាត់ទាញយកសកលរបស់ Arroxy — Ctrl+Shift+D លើ Windows និង Linux, Cmd+Shift+D លើ macOS ផ្ញើតំណដែលបានចម្លងដោយផ្ទាល់ទៅជួរទាញយក" width="760" /></picture><br/><sub><b>គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល</b><br/>ចម្លងតំណពីកន្លែងណាក៏ដោយ ចុចម្តង — វាចូលជួរ ហើយចាប់ផ្តើមទាញយក</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="គ្រាប់ចុចផ្លូវកាត់ទាញយកសកលរបស់ Arroxy — Ctrl+Shift+D លើ Windows និង Linux, Cmd+Shift+D លើ macOS ផ្ញើតំណដែលបានចម្លងដោយផ្ទាល់ទៅជួរទាញយក" width="760" /></picture><br/><sub><b>គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល</b><br/>ចម្លងតំណពីកន្លែងណាក៏ដោយ ចុចម្តង — វាចូលជួរ ហើយចាប់ផ្តើមទាញយក</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>ប្រវត្តិរូបបញ្ជីចាក់តាមធាតុនីមួយៗ</b><br/>ផ្តល់ប្រវត្តិរូបផ្ទាល់ខ្លួនដល់វីដេអូនីមួយៗ — រក្សាទុកខ្លះជា 4K យកនៅសល់ជា MP3</sub></td>

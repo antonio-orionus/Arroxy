@@ -30,7 +30,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 ---
 
@@ -75,7 +75,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
     <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ডার্ক বা লাইট, গ্লাস বা সলিড</b><br/>বেছে নেওয়ার মতো চারটি লুক: চলমান আকাশের উপর কাচের প্যানেল বা শান্ত সলিড সারফেস, প্রতিটিই ডার্ক ও লাইটে</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
