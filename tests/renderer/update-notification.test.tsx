@@ -57,6 +57,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			onStateChanged: vi.fn().mockReturnValue(() => undefined),
 			onPointerInView: vi.fn().mockReturnValue(() => undefined)
 		},
+		intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)},
 		siteRequests: {getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}), tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}), onCooldownsChanged: vi.fn().mockReturnValue(() => undefined)},
 		updater: {onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined), install: overrides.install ?? (vi.fn().mockResolvedValue({ok: true}) as () => Promise<{ok: true}>)}
 	} as unknown as AppApi
