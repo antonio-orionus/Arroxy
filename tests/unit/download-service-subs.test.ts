@@ -17,7 +17,7 @@ vi.mock('@main/utils/process', async importOriginal => {
 vi.mock('@main/utils/diskSpace', () => ({checkDiskSpace: vi.fn().mockResolvedValue({ok: true, freeBytes: 1e12, requiredBytes: 0})}))
 
 import {spawnYtDlp, spawnFFmpeg} from '@main/utils/process.js'
-import type {QueueArtifactEvent, StatusEvent, StatusKey} from '@shared/types.js'
+import type {QueueArtifactEvent, RecentJob, StatusEvent, StatusKey} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {SubtitleFormat, SubtitleMode} from '@shared/schemas.js'
 import type {SubtitleRequest} from '@shared/subtitleTracks.js'
@@ -60,14 +60,37 @@ function statusKeys(events: StatusEvent[]): StatusKey[] {
 	return events.map(e => e.statusKey)
 }
 
+// `finished` settles when finalize() writes the job's RecentJob entry, its last
+// step: by then every phase, ffmpeg run, status and temp-file cleanup is done.
+// Tests await it rather than poll, so a slow runner cannot outlast a deadline.
 function makeService() {
 	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/usr/bin/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
-	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
+	const recorded = Promise.withResolvers<void>()
+	const recentJobsStore = {
+		push: vi.fn((_job: RecentJob) => {
+			recorded.resolve()
+			return Promise.resolve()
+		})
+	}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false)
-	return {service, recentJobsStore}
+	return {service, recentJobsStore, finished: recorded.promise}
+}
+
+// finalize() reads the final files' sizes in the background, apart from
+// recording the job, and emits them in one batch: once the first sized event
+// arrives, the whole batch is in.
+function sizedArtifacts(service: DownloadService): Promise<void> {
+	return new Promise(resolve => {
+		const onArtifact = (event: QueueArtifactEvent): void => {
+			if (event.sizeBytes === undefined) return
+			service.off('artifact', onArtifact)
+			resolve()
+		}
+		service.on('artifact', onArtifact)
+	})
 }
 
 // What real yt-dlp does for a subtitle phase's two runs. A listing (`-J`)
@@ -103,12 +126,13 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 		const videoPath = '/tmp/video.mkv'
 		const subPath = '/tmp/video.en.srt'
 		vi.mocked(spawnYtDlp).mockImplementation(((_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) => subtitleRun(args, options?.cwd, {en: {path: subPath}}) ?? makeProcess(0, `[download] Destination: ${videoPath}\n`)) as never)
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
 
 		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}}})})
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
 		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([
 			{path: videoPath, kind: 'media'},
@@ -126,11 +150,12 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 			return makeProcess(exitCode) as never
 		})
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const events = captureStatuses(service)
 
 		await service.start({url: YOUTUBE_URL, outputDir: '/tmp', job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}}})})
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
 		const final = events[events.length - 1]
 		expect(final.statusKey).toBe('subtitlesFailed')
@@ -175,22 +200,22 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 				}
 			})) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
+		const sized = sizedArtifacts(service)
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
-		await vi.waitFor(() => {
-			const sized = new Map(artifacts.filter(artifact => artifact.sizeBytes !== undefined).map(artifact => [artifact.path, artifact.sizeBytes]))
-			expect(sized).toEqual(
-				new Map([
-					[videoPath, 30],
-					[thumbPath, 20],
-					[descriptionPath, 10]
-				])
-			)
-		})
+		await sized
+		expect(new Map(artifacts.filter(artifact => artifact.sizeBytes !== undefined).map(artifact => [artifact.path, artifact.sizeBytes]))).toEqual(
+			new Map([
+				[videoPath, 30],
+				[thumbPath, 20],
+				[descriptionPath, 10]
+			])
+		)
 	})
 
 	it('leaves out a thumbnail yt-dlp deleted after embedding it', async () => {
@@ -203,13 +228,16 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 				}
 			})) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
+		const sized = sizedArtifacts(service)
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
-		await vi.waitFor(() => expect(artifacts.some(artifact => artifact.sizeBytes === 30)).toBe(true))
+		await sized
+		expect(artifacts.some(artifact => artifact.sizeBytes === 30)).toBe(true)
 		expect(new Set(artifacts.map(artifact => artifact.path))).toEqual(new Set([videoPath]))
 	})
 
@@ -229,19 +257,19 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 			})
 		}) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en-orig', auto: true}]}, mode: 'embed', format: 'srt'}})})
-		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
+		// Waiting for the whole job also lets finalize() drain its tempDir and mux
+		// disposables before afterEach() rmSync()s workDir, which would otherwise
+		// race the cleanup and intermittently throw ENOTEMPTY.
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
+		expect(ffmpegCalls).toHaveLength(1)
 
 		const args = ffmpegCalls[0]
 		const firstInputIdx = args.indexOf('-i')
 		expect(args[firstInputIdx + 1]).toBe(finalVideoPath)
 		expect(args[firstInputIdx + 1]).not.toBe(tempVideoPath)
-
-		// Wait for finalize() to fully drain tempDir/mux disposables before the
-		// outer afterEach() rmSync()s workDir — otherwise still-running cleanup
-		// races the synchronous rmSync and intermittently throws ENOTEMPTY.
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 
 	it('passes the post-"already been downloaded" path to ffmpeg when the merged file pre-exists', async () => {
@@ -268,16 +296,14 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 			})
 		}) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '330+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en-orig', auto: true}]}, mode: 'embed', format: 'srt'}})})
-		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
+		expect(ffmpegCalls).toHaveLength(1)
 
 		const args = ffmpegCalls[0]
 		expect(args[args.indexOf('-i') + 1]).toBe(finalVideoPath)
-
-		// See the comment in the previous test — wait for the job to fully
-		// settle before the outer afterEach() rmSync()s workDir.
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 })
 
@@ -322,12 +348,14 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		const ffmpegCalls: string[][] = []
 		mockSuccessfulMux(ffmpegCalls)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
+		const sized = sizedArtifacts(service)
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
-		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
+		expect(ffmpegCalls).toHaveLength(1)
 
 		const args = ffmpegCalls[0]
 		const inputIdxs = args.reduce<number[]>((acc, v, i) => (v === '-i' ? [...acc, i] : acc), [])
@@ -339,12 +367,11 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		expect(() => readFileSync(videoPath)).toThrow()
 		expect(() => readFileSync(subPath)).toThrow()
 		// Announced at completion, then sent again with its size read after the mux.
-		await vi.waitFor(() =>
-			expect(artifacts.map(({path, kind, sizeBytes}) => ({path, kind, sizeBytes}))).toEqual([
-				{path: finalMkv, kind: 'media', sizeBytes: undefined},
-				{path: finalMkv, kind: 'media', sizeBytes: 'muxed-bytes'.length}
-			])
-		)
+		await sized
+		expect(artifacts.map(({path, kind, sizeBytes}) => ({path, kind, sizeBytes}))).toEqual([
+			{path: finalMkv, kind: 'media', sizeBytes: undefined},
+			{path: finalMkv, kind: 'media', sizeBytes: 'muxed-bytes'.length}
+		])
 	})
 
 	it('emits mergingFormats status when the mux phase starts', async () => {
@@ -354,22 +381,17 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never)
 		mockSuccessfulMux()
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const events = captureStatuses(service)
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
-		await vi.waitFor(() => expect(statusKeys(events)).toContain('mergingFormats'))
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
 		const keys = statusKeys(events)
+		expect(keys).toContain('mergingFormats')
 		const fetchIdx = keys.lastIndexOf('fetchingSubtitles')
 		const mergeIdx = keys.lastIndexOf('mergingFormats')
 		expect(mergeIdx).toBeGreaterThan(fetchIdx)
-
-		// Let the mux phase finish and finalize() drain its tempDir disposables
-		// before the outer afterEach() rmSync()s workDir — otherwise the
-		// still-running mux/cleanup work races the synchronous rmSync and
-		// intermittently throws ENOTEMPTY (only reproduces under load, since it
-		// needs the background chain to still be in flight at teardown time).
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 
 	it('cancel during ffmpeg mux kills the ffmpeg process and removes the .muxing.mkv temp file', async () => {
@@ -378,29 +400,28 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		const subPath = join(workDir, 'Title.en.srt')
 		vi.mocked(spawnYtDlp).mockImplementation(makeTwoPhaseSpawn(videoPath, subPath, rolling) as never)
 
-		let ffmpegProc: TranscriptProcess | null = null
+		// The mux calls onSpawn as soon as spawnFFmpeg returns, so by the time this
+		// settles the job holds the process and cancel() can kill it.
+		const ffmpegSpawned = Promise.withResolvers<TranscriptProcess>()
 		vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
 			const proc = createHangingProcess({closeOnKill: null, closeDelayMs: 5})
-			ffmpegProc = proc
 			writeFileSync(args[args.length - 1], 'partial-bytes')
+			ffmpegSpawned.resolve(proc)
 			return proc
 		}) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const startResult = await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '137+251', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'srt'}})})
 		expect(startResult.ok).toBe(true)
 		if (!startResult.ok) return
 
-		await vi.waitFor(() => expect(ffmpegProc).not.toBeNull())
+		const ffmpegProc = await ffmpegSpawned.promise
 		await service.cancel(startResult.data.job.id)
-		await vi.waitFor(() => expect(ffmpegProc?.kill).toHaveBeenCalled())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
-		const tempPath = join(workDir, 'Title.muxing.mkv')
-		await vi.waitFor(() => expect(() => readFileSync(tempPath)).toThrow())
-
-		// See the comment above — wait for the job to fully settle before the
-		// outer afterEach() rmSync()s workDir.
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		expect(ffmpegProc.kill).toHaveBeenCalled()
+		expect(() => readFileSync(join(workDir, 'Title.muxing.mkv'))).toThrow()
 	})
 })
 
@@ -451,14 +472,17 @@ describe('DownloadService — final media path after --remux-video', () => {
 	it('reports the moved .mkv as the media, not the deleted pre-remux file', async () => {
 		const paths = remuxPaths()
 		vi.mocked(spawnYtDlp).mockImplementation(makeRemuxSpawn(paths))
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
+		const sized = sizedArtifacts(service)
 
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv'})})
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 
-		await vi.waitFor(() => expect(artifacts.some(artifact => artifact.kind === 'media' && artifact.sizeBytes !== undefined)).toBe(true))
+		await sized
+		expect(artifacts.some(artifact => artifact.kind === 'media' && artifact.sizeBytes !== undefined)).toBe(true)
 		const media = artifacts.filter(artifact => artifact.kind === 'media' && artifact.fromPath === undefined)
 		expect(new Set(media.map(artifact => artifact.path))).toEqual(new Set([paths.finalMkv]))
 	})
@@ -476,12 +500,13 @@ describe('DownloadService — final media path after --remux-video', () => {
 			})
 		}) as never)
 
-		const {service, recentJobsStore} = makeService()
+		const {service, recentJobsStore, finished} = makeService()
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '18', remuxVideo: 'mkv', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'embed', format: 'srt'}})})
-		await vi.waitFor(() => expect(ffmpegCalls).toHaveLength(1))
+		await finished
+		expect(recentJobsStore.push).toHaveBeenCalledOnce()
+		expect(ffmpegCalls).toHaveLength(1)
 
 		const args = ffmpegCalls[0]
 		expect(args[args.indexOf('-i') + 1]).toBe(paths.finalMkv)
-		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 	})
 })
