@@ -82,7 +82,7 @@
 			"bulkHeading": "一括 URL",
 			"itemCount_other": "{{count}} 本の動画",
 			"itemCountAudio_other": "{{count}} 曲",
-			"itemCountBulk_other": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} 件の URL",
 			"bulkMetadataResolving": "動画の詳細を取得中… {{done}}/{{total}}",
 			"bulkMetadataOptional": "待つ必要はありません — 今キューに追加したファイルも、ダウンロード時には正式な名前になります。",
 			"bulkRowWaiting": "待機中",
@@ -297,7 +297,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt をローカルで取得 (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。", "placeholder": "http://host:port", "clear": "クリア"},
+			"proxy": {"label": "プロキシ URL", "description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。", "placeholder": "http://host:port", "clear": "クリア"},
 			"style": {
 				"panelTitle": "外観",
 				"panelDescription": "Arroxyの見た目です。ライトとダークはフッターで切り替えられます。",
@@ -377,7 +377,7 @@
 			"sectionManual": "手動",
 			"sectionAuto": "自動生成",
 			"saveMode": {"heading": "保存方法", "sidecar": "動画と同じ場所", "embed": "動画に埋め込む", "subfolder": "subtitles/ サブフォルダー"},
-			"format": {"heading": "Format"},
+			"format": {"heading": "形式"},
 			"embedNote": "埋め込みモードでは、字幕トラックを確実に埋め込むため出力は .mkv で保存されます。",
 			"autoAssNote": "自動字幕は ASS ではなく SRT として保存されます — YouTube のローリング・キュー重複を常にクリーンアップしますが、現状 ASS コンバーターではこれを再現できません。"
 		},
@@ -438,7 +438,7 @@
 			"convert": {
 				"label": "変換",
 				"bitrate": "ビットレート",
-				"wavLabel": "WAV (uncompressed)",
+				"wavLabel": "WAV (非圧縮)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps、再エンコードなし",
 				"copyLabelNoBitrate": "{{target}}、再エンコードなし",
@@ -573,7 +573,7 @@
 			"labelItems": "件数",
 			"itemsValue_other": "全{{total}}本中{{count}}本",
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL",
+			"itemsValueBulk_other": "{{total}} 件中 {{count}} 件の URL",
 			"profileBreakdownHeading": "このバッチのプロファイル",
 			"profileBreakdownCount_other": "{{count}} 件",
 			"subtitleEmbedForcesMkv": "動画内に字幕を埋め込むには MKV ファイルが必要なので、.mkv で保存されます。"
@@ -886,25 +886,25 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "字幕"},
+		"type": {"video": "動画", "audio": "音声", "subtitles": "字幕"},
 		"subtitles": {"note": "各動画について字幕ファイルのみを保存します — 動画や音声はダウンロードされません。", "languages": "言語", "languagesRequired": "続行するには少なくとも1つの言語を選択してください。", "source": "ソース", "deliveryHeading": "保存方法", "deliveryLoose": "保存先フォルダーに直接"},
-		"videoFormat": {"best": "Best codec", "mp4": "スマートTV H.264 MP4"},
+		"videoFormat": {"best": "最高のネイティブ形式", "mp4": "スマートTV H.264 MP4"},
 		"videoFormatDesc": {"best": "各項目で利用可能な最高のコーデック", "mp4": "H.264 + AAC を優先、MP4 コンテナ · 可能な範囲で"},
-		"tier": {"144": "最大 144p", "240": "最大 240p", "360": "最大 360p", "480": "最大 480p", "720": "最大 720p", "1080": "最大 1080p", "1440": "最大 1440p", "2160": "最大 4K", "best": "Best quality"},
+		"tier": {"144": "最大 144p", "240": "最大 240p", "360": "最大 360p", "480": "最大 480p", "720": "最大 720p", "1080": "最大 1080p", "1440": "最大 1440p", "2160": "最大 4K", "best": "最高画質"},
 		"tierDesc": {
 			"144": "最小のファイル",
 			"240": "非常に小さいファイル、低画質",
 			"360": "帯域が狭い場合向けの小さいファイル",
-			"480": "Low bandwidth",
+			"480": "低帯域向け",
 			"720": "小さめのファイル、広い互換性",
 			"1080": "1080p までに制限し、項目ごとに下位へフォールバック",
 			"1440": "2K までに制限し、項目ごとに下位へフォールバック",
 			"2160": "2160p までに制限し、項目ごとに下位へフォールバック",
 			"best": "各項目で利用可能な最高の動画 + 音声"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "音声（最高）", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "最高のネイティブ音声、再エンコードなし", "mp3": "MP3 に変換", "m4a": "M4A (AAC) に変換", "opus": "Opus に変換"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "音声 ({{format}} {{kbps}}K)",
 		"mp4Cap": "YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます"
 	},
 	"formatLabel": {"audioFallback": "音声", "audioOnlyDot": "音声のみ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

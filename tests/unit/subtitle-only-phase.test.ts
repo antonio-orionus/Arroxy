@@ -12,6 +12,7 @@ import type {PreparedJob, SubtitleOptions} from '@shared/preparedJob.js'
 import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
+import {planWorkflow} from 'yt-dlp-bridge'
 import {explorePorts} from '../helpers/explorePorts.js'
 
 vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
@@ -136,8 +137,28 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 			url: URL,
 			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).40B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
 			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
-			loadInfoJsonPath: probeInfoJsonPath
+			loadInfoJsonPath: join(tempDir, '_arroxy.probe.info.json')
 		})
+	})
+
+	// The probe's info-json lives in the app's cache, outside the output folder.
+	// yt-dlp expands a `$NAME` in any path it reads, so the fetch loads a copy in
+	// the job's temp folder, by a path relative to the folder it runs in.
+	it("loads a copy of the probe's info-json from the temp folder when the cache path holds a $HOME", async () => {
+		const cache = await mkdtemp(join(tmpdir(), 'arroxy-user$HOME-'))
+		try {
+			const probe = join(cache, 'probe.info.json')
+			await writeFile(probe, JSON.stringify(YOUTUBE_INFO))
+			const ctx = makeCtx({input: input({probeInfoJsonPath: probe})})
+			expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
+			const request = fetchRequest(ctx)
+			expect(request?.kind).toBe('subtitles')
+			if (request?.kind !== 'subtitles') return
+			const {args} = planWorkflow(request)
+			expect(args[args.indexOf('--load-info-json') + 1]).toBe('.arroxy-temp/job-1/_arroxy.probe.info.json')
+		} finally {
+			await rm(cache, {recursive: true, force: true})
+		}
 	})
 
 	it('runs anonymously by default and with the Explore session for an escalated job', async () => {

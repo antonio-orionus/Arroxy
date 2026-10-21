@@ -93,8 +93,8 @@
 			"itemCount_other": "{{count}} ویڈیوز",
 			"itemCountAudio_one": "{{count}} ٹریک",
 			"itemCountAudio_other": "{{count}} ٹریکس",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URLs",
+			"itemCountBulk_one": "{{count}} لنک",
+			"itemCountBulk_other": "{{count}} لنکس",
 			"bulkMetadataResolving": "ویڈیو کی تفصیلات لی جا رہی ہیں… {{done}}/{{total}}",
 			"bulkMetadataOptional": "انتظار کی ضرورت نہیں — ابھی قطار میں لگائی گئی فائلوں کو ڈاؤن لوڈ کے وقت ان کے اصل نام ملیں گے۔",
 			"bulkRowWaiting": "انتظار میں",
@@ -121,7 +121,7 @@
 			"loadingPagesFound_other": "{{count}} صفحات ملے",
 			"loadingLimitHint": "پہلے {{count}} آئٹمز تک محدود",
 			"thumbnailAlt": "ویڈیو تھمب نیل",
-			"durationUnknown": "live",
+			"durationUnknown": "لائیو",
 			"syncChange": "فولڈر تبدیل کریں…",
 			"syncApply": "سنک لاگو کریں",
 			"syncScanning": "فولڈر چیک ہو رہا ہے…",
@@ -315,7 +315,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt مقامی طور پر حاصل کریں (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔", "placeholder": "http://host:port", "clear": "صاف کریں"},
+			"proxy": {"label": "پراکسی ایڈریس", "description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔", "placeholder": "http://host:port", "clear": "صاف کریں"},
 			"style": {
 				"panelTitle": "ظاہری شکل",
 				"panelDescription": "Arroxy کیسا دکھتا ہے۔ نیچے والی پٹی میں لائٹ اور ڈارک کے درمیان بدلیں۔",
@@ -455,7 +455,7 @@
 			"convert": {
 				"label": "کنورٹ کریں",
 				"bitrate": "بٹ ریٹ",
-				"wavLabel": "WAV (uncompressed)",
+				"wavLabel": "WAV (غیر کمپریسڈ)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps، دوبارہ encode نہیں",
 				"copyLabelNoBitrate": "{{target}}، دوبارہ encode نہیں",
@@ -516,13 +516,13 @@
 		},
 		"folder": {
 			"heading": "محفوظ کریں",
-			"downloads": "Downloads",
-			"videos": "Movies",
-			"desktop": "Desktop",
-			"music": "Music",
-			"documents": "Documents",
-			"pictures": "Pictures",
-			"home": "Home",
+			"downloads": "ڈاؤن لوڈز",
+			"videos": "فلمیں",
+			"desktop": "ڈیسک ٹاپ",
+			"music": "موسیقی",
+			"documents": "دستاویزات",
+			"pictures": "تصاویر",
+			"home": "ہوم",
 			"custom": "حسب ضرورت…",
 			"subfolder": {"toggle": "سب فولڈر میں محفوظ کریں", "placeholder": "مثلاً lo-fi rips", "invalid": "فولڈر کے نام میں غلط حروف ہیں"}
 		},
@@ -716,8 +716,8 @@
 	},
 	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…", "chapters_one": "{{count}} چیپٹر", "chapters_other": "{{count}} چیپٹرز"},
 	"queue": {
-		"header": "Downloads",
-		"tabLabel": "Downloads",
+		"header": "ڈاؤن لوڈز",
+		"tabLabel": "ڈاؤن لوڈز",
 		"attentionBadge_one": "{{count}} ڈاؤن لوڈ کو آپ کی توجہ چاہیے",
 		"attentionBadge_other": "{{count}} ڈاؤن لوڈز کو آپ کی توجہ چاہیے",
 		"choice": {
@@ -915,7 +915,7 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "سب ٹائٹلز"},
+		"type": {"video": "ویڈیو", "audio": "آڈیو", "subtitles": "سب ٹائٹلز"},
 		"subtitles": {
 			"note": "ہر ویڈیو کے لیے صرف سب ٹائٹل فائلیں محفوظ ہوتی ہیں — کوئی ویڈیو یا آڈیو ڈاؤن لوڈ نہیں ہوتا۔",
 			"languages": "زبانیں",
@@ -924,23 +924,23 @@
 			"deliveryHeading": "محفوظ کریں بطور",
 			"deliveryLoose": "براہِ راست محفوظ کرنے والے فولڈر میں"
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "سمارٹ TV H.264 MP4"},
+		"videoFormat": {"best": "بہترین اصل", "mp4": "سمارٹ TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک", "mp4": "H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش"},
-		"tier": {"144": "144p تک", "240": "240p تک", "360": "360p تک", "480": "480p تک", "720": "720p تک", "1080": "1080p تک", "1440": "1440p تک", "2160": "4K تک", "best": "Best quality"},
+		"tier": {"144": "144p تک", "240": "240p تک", "360": "360p تک", "480": "480p تک", "720": "720p تک", "1080": "1080p تک", "1440": "1440p تک", "2160": "4K تک", "best": "بہترین معیار"},
 		"tierDesc": {
 			"144": "سب سے چھوٹی ممکن فائلیں",
 			"240": "بہت چھوٹی فائلیں، کم معیار",
 			"360": "محدود بینڈوتھ کے لیے چھوٹی فائلیں",
-			"480": "Low bandwidth",
+			"480": "کم بینڈوتھ",
 			"720": "چھوٹی فائلیں، وسیع مطابقت",
 			"1080": "1080p تک محدود، ہر آئٹم پر ضرورت ہو تو کم",
 			"1440": "2K تک محدود، ہر آئٹم پر ضرورت ہو تو کم",
 			"2160": "2160p تک محدود، ہر آئٹم پر ضرورت ہو تو کم",
 			"best": "ہر آئٹم کے لیے بہترین ویڈیو + آڈیو"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "آڈیو (بہترین)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "بہترین اصل آڈیو، دوبارہ encode نہیں", "mp3": "MP3 میں تبدیل کریں", "m4a": "M4A (AAC) میں تبدیل کریں", "opus": "Opus میں تبدیل کریں"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "آڈیو ({{format}} {{kbps}}K)",
 		"mp4Cap": "YouTube پر 1080p سے اوپر H.264 دستیاب نہیں — خودکار طور پر 1080p تک محدود"
 	},
 	"formatLabel": {"audioFallback": "آڈیو", "audioOnlyDot": "صرف آڈیو · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

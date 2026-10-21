@@ -5199,7 +5199,7 @@ msgstr "משטחים אחידים ושקטים. רץ בקלות בכל מחשב.
 
 msgctxt "wizard.url.style.minimal.label"
 msgid "Minimal"
-msgstr "Minimal"
+msgstr "מינימלי"
 
 msgctxt "wizard.url.style.modeDescription"
 msgid "Both styles come in light and dark."

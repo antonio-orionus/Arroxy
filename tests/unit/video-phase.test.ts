@@ -2,7 +2,7 @@ import {EventEmitter} from 'node:events'
 import {mkdtemp, mkdir, writeFile, rm, access} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {VideoPhase} from '@main/services/phases/VideoPhase.js'
 import {hideTempDirRoot} from '@main/services/download/tempDirVisibility.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -20,6 +20,23 @@ vi.mock('@main/services/download/tempDirVisibility.js', async importOriginal => 
 	const actual = await importOriginal<typeof import('@main/services/download/tempDirVisibility.js')>()
 	return {...actual, hideTempDirRoot: vi.fn()}
 })
+
+// The probe's info-json in the app's cache. A run loads a copy in the job's
+// temp folder, so the file must exist for the copy to be made.
+let probeCache: string
+let PROBE: string
+let STALE: string
+beforeAll(async () => {
+	probeCache = await mkdtemp(join(tmpdir(), 'arroxy-probe-cache-'))
+	PROBE = join(probeCache, 'probe.info.json')
+	STALE = join(probeCache, 'stale.info.json')
+	await writeFile(PROBE, '{"id": "test"}')
+	await writeFile(STALE, '{"id": "test"}')
+})
+afterAll(async () => {
+	await rm(probeCache, {recursive: true, force: true})
+})
+const PROBE_COPY = join('/tmp', '.arroxy-temp', 'job-1', '_arroxy.probe.info.json')
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -124,7 +141,7 @@ describe('VideoPhase', () => {
 	})
 
 	it('keeps the Explore session on the info-json re-extraction fallback', async () => {
-		const ctx = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession', probeInfoJsonPath: '/cache/probe.info.json'}}), explorePorts({signedIn: true}))
+		const ctx = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession', probeInfoJsonPath: PROBE}}), explorePorts({signedIn: true}))
 		ctx.runMock.mockResolvedValueOnce({kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: bad info json', stdout: '', stderr: ''})
 		await VideoPhase.run(ctx)
 		expect(ctx.runMock).toHaveBeenCalledTimes(2)
@@ -169,24 +186,24 @@ describe('VideoPhase', () => {
 	})
 
 	it('fresh single-video start with probeInfoJsonPath passes loadInfoJsonPath to yt-dlp', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath: '/cache/probe.info.json'}})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath: PROBE}})
 
 		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
+		expect(req.resume?.loadInfoJsonPath).toBe(PROBE_COPY)
 	})
 
 	it('pre-media info-json failure retries once without loadInfoJsonPath', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		const outcome = await VideoPhase.run(ctx)
 
 		expect(outcome.kind).toBe('continue')
 		expect(runMock).toHaveBeenCalledTimes(2)
-		expect(runMock.mock.calls[0][0].resume?.loadInfoJsonPath).toBe('/cache/stale.info.json')
+		expect(runMock.mock.calls[0][0].resume?.loadInfoJsonPath).toBe(PROBE_COPY)
 		expect(runMock.mock.calls[1][0].resume?.loadInfoJsonPath).toBeUndefined()
 	})
 
@@ -199,7 +216,7 @@ describe('VideoPhase', () => {
 	it('resets the token session before re-extracting after a network failure', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await VideoPhase.run(ctx)
@@ -214,7 +231,7 @@ describe('VideoPhase', () => {
 	it('resets the token session after a chunk transfer failure too', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(CHUNK_TRANSFER_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await VideoPhase.run(ctx)
@@ -228,7 +245,7 @@ describe('VideoPhase', () => {
 	// process and reports the cancellation late.
 	it('abandons the fallback when the job is cancelled during the session reset', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const invalidateTokenSession = vi.fn().mockImplementation(async () => {
 			active.cancelRequested = true
 			active.controller.abort()
@@ -247,7 +264,7 @@ describe('VideoPhase', () => {
 	it('hands the job signal to the session reset', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await VideoPhase.run(ctx)
@@ -261,7 +278,7 @@ describe('VideoPhase', () => {
 	it('does not reset the token session when the failure is not transport-related', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(EXIT_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await VideoPhase.run(ctx)
@@ -276,7 +293,7 @@ describe('VideoPhase', () => {
 	it('does not reset the token session for a site that does not use PoT', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
-		const input: ResolvedStartDownloadInput = {url: 'https://vimeo.com/123456', outputDir: '/tmp', job: {...BASE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}, probeInfoJsonPath: '/cache/stale.info.json'}
+		const input: ResolvedStartDownloadInput = {url: 'https://vimeo.com/123456', outputDir: '/tmp', job: {...BASE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}, probeInfoJsonPath: STALE}
 		const active = makeActive({input, job: {...makeJob(), url: input.url}})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
@@ -291,7 +308,7 @@ describe('VideoPhase', () => {
 			active.mediaDownloadStarted = true
 			return NETWORK_ERROR
 		})
-		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}, tempDir: '/tmp/arroxy-resume-info-json'})
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: STALE}, tempDir: '/tmp/arroxy-resume-info-json'})
 		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		const outcome = await VideoPhase.run(ctx)
@@ -594,11 +611,11 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		await writeFile(join(expectedTempDir, '_arroxy.info.json'), '{"section_start": 3, "duration": 3}')
 		const job: PreparedJob = {...BASE_JOB, videoPart: {startSeconds: 3, endSeconds: 6, exactCut: false}}
 
-		const ctx = makeRealCtx({tempDir: expectedTempDir, input: {...BASE_INPUT, job, probeInfoJsonPath: '/cache/probe.info.json'}})
+		const ctx = makeRealCtx({tempDir: expectedTempDir, input: {...BASE_INPUT, job, probeInfoJsonPath: PROBE}})
 		await VideoPhase.run(ctx)
 
 		const [req] = ctx.runMock.mock.calls[0]
-		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
+		expect(req.resume?.loadInfoJsonPath).toBe(join(expectedTempDir, '_arroxy.probe.info.json'))
 		expect(req.downloadSections).toEqual(['*3-6'])
 	})
 

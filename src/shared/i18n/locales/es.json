@@ -949,7 +949,7 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtítulos"},
+		"type": {"video": "Vídeo", "audio": "Audio", "subtitles": "Subtítulos"},
 		"subtitles": {
 			"note": "Solo se guardan los archivos de subtítulos de cada vídeo — no se descarga vídeo ni audio.",
 			"languages": "Idiomas",
@@ -958,21 +958,21 @@
 			"deliveryHeading": "Guardar como",
 			"deliveryLoose": "Directamente en la carpeta de destino"
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "TV inteligente H.264 MP4"},
+		"videoFormat": {"best": "Mejor formato nativo", "mp4": "TV inteligente H.264 MP4"},
 		"videoFormatDesc": {"best": "Códec más alto disponible por elemento", "mp4": "H.264 + AAC preferido, contenedor MP4 · mejor esfuerzo"},
-		"tier": {"144": "Hasta 144p", "240": "Hasta 240p", "360": "Hasta 360p", "480": "Hasta 480p", "720": "Hasta 720p", "1080": "Hasta 1080p", "1440": "Hasta 1440p", "2160": "Hasta 4K", "best": "Best quality"},
+		"tier": {"144": "Hasta 144p", "240": "Hasta 240p", "360": "Hasta 360p", "480": "Hasta 480p", "720": "Hasta 720p", "1080": "Hasta 1080p", "1440": "Hasta 1440p", "2160": "Hasta 4K", "best": "Mejor calidad"},
 		"tierDesc": {
 			"144": "Archivos lo más pequeños posible",
 			"240": "Archivos muy pequeños, baja calidad",
 			"360": "Archivos pequeños para ancho de banda limitado",
-			"480": "Low bandwidth",
+			"480": "Poco ancho de banda",
 			"720": "Archivos más pequeños, amplia compatibilidad",
 			"1080": "Limitado a 1080p, baja por elemento si hace falta",
 			"1440": "Limitado a 2K, baja por elemento si hace falta",
 			"2160": "Limitado a 2160p, baja por elemento si hace falta",
 			"best": "Mejor vídeo + audio disponible por elemento"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "Audio (mejor)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "Mejor audio nativo, sin recodificar", "mp3": "Convertir a MP3", "m4a": "Convertir a M4A (AAC)", "opus": "Convertir a Opus"},
 		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 por encima de 1080p no está disponible en YouTube — se limita automáticamente a 1080p"

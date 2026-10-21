@@ -956,7 +956,7 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Sous-titres"},
+		"type": {"video": "Vidéo", "audio": "Audio", "subtitles": "Sous-titres"},
 		"subtitles": {
 			"note": "Seuls les fichiers de sous-titres sont enregistrés pour chaque vidéo — aucune vidéo ni aucun audio n'est téléchargé.",
 			"languages": "Langues",
@@ -965,21 +965,21 @@
 			"deliveryHeading": "Enregistrer en tant que",
 			"deliveryLoose": "Directement dans le dossier de destination"
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "TV connectée H.264 MP4"},
+		"videoFormat": {"best": "Meilleur format natif", "mp4": "TV connectée H.264 MP4"},
 		"videoFormatDesc": {"best": "Codec le plus élevé disponible par élément", "mp4": "H.264 + AAC privilégiés, conteneur MP4 · au mieux"},
-		"tier": {"144": "Jusqu’à 144p", "240": "Jusqu’à 240p", "360": "Jusqu’à 360p", "480": "Jusqu’à 480p", "720": "Jusqu’à 720p", "1080": "Jusqu’à 1080p", "1440": "Jusqu’à 1440p", "2160": "Jusqu’à 4K", "best": "Best quality"},
+		"tier": {"144": "Jusqu’à 144p", "240": "Jusqu’à 240p", "360": "Jusqu’à 360p", "480": "Jusqu’à 480p", "720": "Jusqu’à 720p", "1080": "Jusqu’à 1080p", "1440": "Jusqu’à 1440p", "2160": "Jusqu’à 4K", "best": "Meilleure qualité"},
 		"tierDesc": {
 			"144": "Fichiers les plus petits possibles",
 			"240": "Très petits fichiers, faible qualité",
 			"360": "Petits fichiers pour bande passante limitée",
-			"480": "Low bandwidth",
+			"480": "Faible bande passante",
 			"720": "Fichiers plus petits, large compatibilité",
 			"1080": "Limité à 1080p, baisse par élément si nécessaire",
 			"1440": "Limité à 2K, baisse par élément si nécessaire",
 			"2160": "Limité à 2160p, baisse par élément si nécessaire",
 			"best": "Meilleurs vidéo + audio disponibles par élément"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "Audio (meilleur)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "Meilleur audio natif, sans réencodage", "mp3": "Convertir en MP3", "m4a": "Convertir en M4A (AAC)", "opus": "Convertir en Opus"},
 		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 au-dessus de 1080p n’est pas disponible sur YouTube — limité automatiquement à 1080p"

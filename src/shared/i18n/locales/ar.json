@@ -374,7 +374,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "احصل على cookies.txt محلياً (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.", "placeholder": "http://host:port", "clear": "مسح"},
+			"proxy": {"label": "عنوان الوكيل", "description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.", "placeholder": "http://host:port", "clear": "مسح"},
 			"style": {
 				"panelTitle": "المظهر",
 				"panelDescription": "هكذا يبدو Arroxy. بدّل بين الفاتح والداكن من أسفل النافذة.",
@@ -645,7 +645,7 @@
 			"thumbnailEmbedNotSupported": "تم تخطي Thumbnail embed — لا يدعمه container الإخراج.",
 			"subtitleEmbedAudioOnly": "تم تغيير Subtitle embed إلى sidecar — مسارات الصوت لا تدعم مسارات الترجمة المضمّنة.",
 			"audioOnly": "صوت فقط",
-			"addToQueue": "+ Queue",
+			"addToQueue": "+ قائمة الانتظار",
 			"addToQueueTooltip": "يبدأ عند انتهاء التنزيلات الأخرى — يحصل على كامل عرض النطاق",
 			"pullIt": "اسحبه! ↓",
 			"pullItTooltip": "يبدأ فوراً — يعمل جنباً إلى جنب مع التنزيلات النشطة الأخرى",
@@ -896,7 +896,7 @@
 		"downloading": "جارٍ التنزيل…",
 		"runAndRestart": "تشغيل وإعادة التشغيل",
 		"upgrading": "جارٍ الترقية…",
-		"download": "Download ↗",
+		"download": "تنزيل ↗",
 		"downloadDmg": "تنزيل DMG ↗",
 		"dismiss": "إخفاء شريط التحديث",
 		"copy": "نسخ الأمر إلى الحافظة",
@@ -1025,25 +1025,25 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "الترجمات"},
+		"type": {"video": "فيديو", "audio": "صوت", "subtitles": "الترجمات"},
 		"subtitles": {"note": "يتم حفظ ملفات الترجمة فقط لكل فيديو — لا يتم تنزيل أي فيديو أو صوت.", "languages": "اللغات", "languagesRequired": "اختر لغة واحدة على الأقل للمتابعة.", "source": "المصدر", "deliveryHeading": "حفظ بصيغة", "deliveryLoose": "مباشرةً في مجلد الحفظ"},
-		"videoFormat": {"best": "Best codec", "mp4": "تلفاز ذكي H.264 MP4"},
+		"videoFormat": {"best": "الأصلي الأفضل", "mp4": "تلفاز ذكي H.264 MP4"},
 		"videoFormatDesc": {"best": "أعلى ترميز متاح لكل عنصر", "mp4": "يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة"},
-		"tier": {"144": "حتى 144p", "240": "حتى 240p", "360": "حتى 360p", "480": "حتى 480p", "720": "حتى 720p", "1080": "حتى 1080p", "1440": "حتى 1440p", "2160": "حتى 4K", "best": "Best quality"},
+		"tier": {"144": "حتى 144p", "240": "حتى 240p", "360": "حتى 360p", "480": "حتى 480p", "720": "حتى 720p", "1080": "حتى 1080p", "1440": "حتى 1440p", "2160": "حتى 4K", "best": "أفضل جودة"},
 		"tierDesc": {
 			"144": "أصغر الملفات الممكنة",
 			"240": "ملفات صغيرة جدًا، جودة منخفضة",
 			"360": "ملفات صغيرة لعرض نطاق محدود",
-			"480": "Low bandwidth",
+			"480": "عرض نطاق منخفض",
 			"720": "ملفات أصغر وتوافق واسع",
 			"1080": "محدود عند 1080p ويهبط لكل عنصر عند الحاجة",
 			"1440": "محدود عند 2K ويهبط لكل عنصر عند الحاجة",
 			"2160": "محدود عند 2160p ويهبط لكل عنصر عند الحاجة",
 			"best": "أفضل فيديو + صوت متاح لكل عنصر"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "صوت (الأفضل)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "أفضل صوت أصلي، بلا إعادة ترميز", "mp3": "تحويل إلى MP3", "m4a": "تحويل إلى M4A (AAC)", "opus": "تحويل إلى Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "صوت ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 أعلى من 1080p غير متاح على YouTube — يحد تلقائيًا إلى 1080p"
 	},
 	"formatLabel": {"audioFallback": "صوت", "audioOnlyDot": "صوت فقط · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

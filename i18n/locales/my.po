@@ -803,7 +803,7 @@ msgstr "စနစ်ထည့်သွင်းမှု မပြီးဆု�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "အသံ (အကောင်းဆုံး)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -819,7 +819,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "အသံ ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -899,7 +899,7 @@ msgstr "720p အထိ"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "အကောင်းဆုံး အရည်အသွေး"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -927,7 +927,7 @@ msgstr "bandwidth ကျဉ်းသောအတွက် ဖိုင်သေ�
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "bandwidth နည်း"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -939,7 +939,7 @@ msgstr "အရာတစ်ခုချင်းစီအတွက် အကေ�
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "အသံ"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -947,11 +947,11 @@ msgstr "စာတန်းထိုး"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "ဗီဒီယို"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "အကောင်းဆုံး မူရင်း"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -1980,7 +1980,7 @@ msgstr "အပ်ဒိတ်ကြော်ငြာပိတ်မည်"
 
 msgctxt "update.download"
 msgid "Download ↗"
-msgstr "Download ↗"
+msgstr "ဒေါင်းလုဒ် ↗"
 
 msgctxt "update.downloadDmg"
 msgid "Download DMG ↗"
@@ -2107,7 +2107,7 @@ msgstr "URL အများအပြား"
 
 msgctxt "wizard.confirm.addToQueue"
 msgid "+ Queue"
-msgstr "+ Queue"
+msgstr "+ တန်းစီ"
 
 msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
@@ -2150,7 +2150,7 @@ msgstr "ပလေးလစ်"
 
 msgctxt "wizard.confirm.labelPreset"
 msgid "Preset"
-msgstr "Preset"
+msgstr "ကြိုတင်သတ်မှတ်ချက်"
 
 msgctxt "wizard.confirm.labelSaveTo"
 msgid "Save to"
@@ -2289,7 +2289,7 @@ msgstr "အသံသာ"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
-msgstr "Bitrate {{bitrate}}"
+msgstr "ဘစ်ရိတ် {{bitrate}}"
 
 msgctxt "wizard.formats.botWall.bodyDisabled"
 msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
@@ -2321,7 +2321,7 @@ msgstr "ထပ်ကြိုးစားမည်"
 
 msgctxt "wizard.formats.convert.bitrate"
 msgid "Bitrate"
-msgstr "Bitrate"
+msgstr "ဘစ်ရိတ်"
 
 msgctxt "wizard.formats.convert.bitrateCopyHint"
 msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
@@ -2361,7 +2361,7 @@ msgstr "WAV (ချုံ့မထားသော)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
-msgstr "Browser"
+msgstr "ဘရောက်ဇာ"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
@@ -3013,7 +3013,7 @@ msgstr "စောင့်နေသည်"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "တိုက်ရိုက်"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3036,7 +3036,7 @@ msgstr "{{count}} ခု သီချင်းများ"
 #. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} လင့်ခ်"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -3878,7 +3878,7 @@ msgstr "အဝင်"
 
 msgctxt "wizard.sponsorblock.cat.music_offtopic"
 msgid "Music off-topic"
-msgstr "Music off-topic"
+msgstr "ခေါင်းစဉ်နှင့်မဆိုင်သော ဂီတ"
 
 msgctxt "wizard.sponsorblock.cat.outro"
 msgid "Outro"
@@ -4146,7 +4146,7 @@ msgstr "Browser မှ ကွတ်ကီးများကို တိုက�
 
 msgctxt "wizard.url.cookies.browserLabel"
 msgid "Browser"
-msgstr "Browser"
+msgstr "ဘရောက်ဇာ"
 
 msgctxt "wizard.url.cookies.browserPlaceholder"
 msgid "Pick a browser…"
@@ -4210,7 +4210,7 @@ msgstr "အန္တရာယ်: cookies.txt တွင် ထို browser ၏
 
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
-msgstr "Browser"
+msgstr "ဘရောက်ဇာ"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
@@ -4806,7 +4806,7 @@ msgstr "Proxy မှတဆင့် traffic လမ်းကြောင်းလ
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "Proxy လိပ်စာ"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

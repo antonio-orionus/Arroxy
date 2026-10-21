@@ -77,7 +77,7 @@
 			"itemCount_other": "{{count}} ቪዲዮዎች",
 			"itemCountAudio_one": "{{count}} ዘፈን",
 			"itemCountAudio_other": "{{count}} ዘፈኖች",
-			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_one": "{{count}} አገናኝ",
 			"itemCountBulk_other": "{{count}} URLዎች",
 			"bulkMetadataResolving": "የቪዲዮ ዝርዝሮች በመ 가져오는 ላይ… {{done}}/{{total}}",
 			"bulkMetadataOptional": "መጠበቅ አያስፈልግም — አሁን ወደ ሰልፍ የገቡ ፋይሎች ሲወርዱ ትክክለኛ ስሞቻቸውን ያገኛሉ።",
@@ -105,7 +105,7 @@
 			"loadingPagesFound_other": "{{count}} ገጾች ተገኝተዋል",
 			"loadingLimitHint": "ለመጀመሪያዎቹ {{count}} ንጥሎች ብቻ ተገድቧል",
 			"thumbnailAlt": "የቪዲዮ ድንክ ምስል",
-			"durationUnknown": "live",
+			"durationUnknown": "ቀጥታ",
 			"syncChange": "ፎልደር ቀይር…",
 			"syncApply": "ማመሳሰልን ተግብር",
 			"syncScanning": "ፎልደር በመፈተሽ ላይ…",
@@ -236,7 +236,7 @@
 			"bulkTooltip": "ብዙ URLዎችን ያክሉ እና ወረፋ ውስጥ ያስገቡ።",
 			"features": {
 				"heading": "Arroxy ምን ሊያወርድ ይችላል",
-				"youtube": {"heading": "YouTube", "video": "ቪዲዮዎች", "channel": "ቻናሎች", "playlist": "የቪዲዮ ዝርዝሮች", "short": "Shorts", "music": "ሙዚቃ", "podcast": "Podcasts"},
+				"youtube": {"heading": "YouTube", "video": "ቪዲዮዎች", "channel": "ቻናሎች", "playlist": "የቪዲዮ ዝርዝሮች", "short": "Shorts", "music": "ሙዚቃ", "podcast": "ፖድካስቶች"},
 				"anySite": {"heading": "2000+ ጣቢያዎች", "video": "ቪዲዮዎች", "videoPlaylist": "የቪዲዮ playlists", "musicPlaylist": "የሙዚቃ playlists"},
 				"always": {"audioOnly": "ድምጽ ብቻ", "subtitles": "ንዑስ ርዕሶች"}
 			},
@@ -291,7 +291,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt በቦታህ ላይ ሰበሰብ (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።", "placeholder": "http://host:port", "clear": "አጽዳ"},
+			"proxy": {"label": "የፕሮክሲ አድራሻ", "description": "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።", "placeholder": "http://host:port", "clear": "አጽዳ"},
 			"style": {
 				"panelTitle": "ገጽታ",
 				"panelDescription": "Arroxy እንዴት እንደሚታይ። በግርጌው ውስጥ በብርሃን እና በጨለማ መካከል ይቀያይሩ።",
@@ -373,7 +373,7 @@
 			"mode": {"off": "ጠፍ", "mark": "እንደ ምዕራፎች ምልክት አድርግ", "remove": "ክፍሎችን አስወግድ"},
 			"modeHint": {"off": "ምንም SponsorBlock የለም — ቪዲዮ እንደ ተሰቀለ ይጫወታል።", "mark": "የስፖንሰር ክፍሎችን እንደ ምዕራፎች ምልክት ያደርጋል (አጥፊ ያልሆነ)።", "remove": "FFmpeg ተጠቅሞ የስፖንሰር ክፍሎችን ይቆርጣል።"},
 			"categoriesHeading": "ምድቦች",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
+			"cat": {"sponsor": "ስፖንሰር", "intro": "መግቢያ", "outro": "መዝጊያ", "selfpromo": "ራስን ማስተዋወቅ", "music_offtopic": "ከርዕስ ውጭ ሙዚቃ", "preview": "ቅድመ እይታ", "filler": "መሙያ"}
 		},
 		"formats": {
 			"kind": {"label": "ምን ማውረድ ይፈልጋሉ", "video": "ቪዲዮ + ድምፅ", "videoOnly": "ቪዲዮ፣ ያለ ድምፅ", "audio": "ድምፅ ብቻ", "subtitles": "ንዑስ ርዕሶች ብቻ"},
@@ -527,7 +527,7 @@
 			"thumbnailEmbedNotSupported": "Thumbnail embed ተዘሏል — የውፅዓት container አይደግፈውም።",
 			"subtitleEmbedAudioOnly": "Subtitle embed ወደ sidecar ተቀይሯል — የድምጽ ትራኮች ውስጣዊ subtitle ዥረቶችን አይደግፉም።",
 			"audioOnly": "ድምጽ ብቻ",
-			"addToQueue": "+ Queue",
+			"addToQueue": "+ ወረፋ",
 			"addToQueueTooltip": "ሌሎች ዳውንሎዶች ሲጠናቀቁ ይጀምራል — ሙሉ ባንድዊድዝ ያገኛል",
 			"pullIt": "ሳቡት! ↓",
 			"pullItTooltip": "ወዲያው ይጀምራል — ከሌሎች ዳውንሎዶች ጋር ይሰራል",
@@ -750,7 +750,7 @@
 		"downloading": "እያወረዱ…",
 		"runAndRestart": "አሂድ እና ዳግም ጀምር",
 		"upgrading": "በማዘመን ላይ…",
-		"download": "Download ↗",
+		"download": "ያውርዱ ↗",
 		"downloadDmg": "DMG ያውርዱ ↗",
 		"dismiss": "የዝማኔ ሰሌዳ ዝጋ",
 		"copy": "ትዕዛዝ ወደ ቅጂ ሰሌዳ ቅዳ",
@@ -856,25 +856,25 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "ንዑስ ርዕሶች"},
+		"type": {"video": "ቪዲዮ", "audio": "ድምጽ", "subtitles": "ንዑስ ርዕሶች"},
 		"subtitles": {"note": "ለእያንዳንዱ ቪዲዮ የንዑስ ርዕስ ፋይሎች ብቻ ይቀመጣሉ — ቪዲዮም ሆነ ድምጽ አይወርድም።", "languages": "ቋንቋዎች", "languagesRequired": "ለመቀጠል ቢያንስ አንድ ቋንቋ ይምረጡ።", "source": "ምንጭ", "deliveryHeading": "እንደ አስቀምጥ", "deliveryLoose": "በቀጥታ በማስቀመጫ አቃፊ ውስጥ"},
-		"videoFormat": {"best": "Best codec", "mp4": "ስማርት TV H.264 MP4"},
+		"videoFormat": {"best": "ምርጥ ኦሪጅናል", "mp4": "ስማርት TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ለእያንዳንዱ ንጥል የሚገኝ ከፍተኛ codec", "mp4": "H.264 + AAC ይመረጣል፣ MP4 ኮንቴነር · በተቻለ መጠን"},
-		"tier": {"144": "እስከ 144p", "240": "እስከ 240p", "360": "እስከ 360p", "480": "እስከ 480p", "720": "እስከ 720p", "1080": "እስከ 1080p", "1440": "እስከ 1440p", "2160": "እስከ 4K", "best": "Best quality"},
+		"tier": {"144": "እስከ 144p", "240": "እስከ 240p", "360": "እስከ 360p", "480": "እስከ 480p", "720": "እስከ 720p", "1080": "እስከ 1080p", "1440": "እስከ 1440p", "2160": "እስከ 4K", "best": "ምርጥ ጥራት"},
 		"tierDesc": {
 			"144": "በጣም ትንሽ ሊሆኑ የሚችሉ ፋይሎች",
 			"240": "በጣም ትንሽ ፋይሎች፣ ዝቅተኛ ጥራት",
 			"360": "ለጠባብ ባንድዊድዝ ትንሽ ፋይሎች",
-			"480": "Low bandwidth",
+			"480": "ዝቅተኛ ባንድዊድዝ",
 			"720": "ትንሽ ፋይሎች፣ ሰፊ ተኳኋኝነት",
 			"1080": "በ1080p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል",
 			"1440": "በ2K ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል",
 			"2160": "በ2160p ይገደባል፣ ለእያንዳንዱ ንጥል ዝቅ ይላል",
 			"best": "ለእያንዳንዱ ንጥል ምርጥ ቪዲዮ + ድምጽ"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "ድምጽ (ምርጥ)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "ምርጥ ነባር ድምጽ፣ ዳግም ኮድ አይደረግም", "mp3": "ወደ MP3 ቀይር", "m4a": "ወደ M4A (AAC) ቀይር", "opus": "ወደ Opus ቀይር"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "ድምጽ ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 ከ1080p በላይ በYouTube ላይ አይገኝም — በራስ-ሰር ወደ 1080p ይገደባል"
 	},
 	"formatLabel": {"audioFallback": "ድምጽ", "audioOnlyDot": "ድምጽ ብቻ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

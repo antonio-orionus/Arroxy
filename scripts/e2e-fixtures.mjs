@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-// Single entry point for the fixture product E2E suite on every platform.
+// Single entry point for the Electron E2E suite that gates CI (every spec
+// `scripts/e2eSpecs.mjs` selects: Fixture Product E2E and the Mock Electron
+// smoke specs) on every platform.
 //
 // Two different problems get conflated here, so they are resolved separately:
 //
@@ -16,18 +18,15 @@
 import {spawn} from 'node:child_process'
 import {existsSync, readdirSync} from 'node:fs'
 import path from 'node:path'
+import {E2E_SPEC_DIR, selectGatingSpecs} from './e2eSpecs.mjs'
 
 // Enumerated rather than passed as a glob: the shell used to expand this before
 // Playwright saw it, and Playwright treats positional arguments as regexes, not
-// globs — so a literal `fixture-*.spec.ts` matches nothing.
-const SPEC_DIR = 'tests/e2e'
-const specs = readdirSync(SPEC_DIR)
-	.filter(name => /^fixture-.*\.spec\.ts$/.test(name))
-	.sort()
-	.map(name => path.posix.join(SPEC_DIR, name))
+// globs — so a literal `*.spec.ts` matches nothing.
+const specs = selectGatingSpecs(readdirSync(E2E_SPEC_DIR))
 
 if (specs.length === 0) {
-	console.error(`No fixture specs found in ${SPEC_DIR}/`)
+	console.error(`No E2E specs found in ${E2E_SPEC_DIR}/`)
 	process.exit(1)
 }
 
@@ -66,7 +65,7 @@ if (displayAvailable) env.ARROXY_E2E_HEADLESS = '1'
 // mode — silently dropping the coverage this branch exists to preserve.
 else delete env.ARROXY_E2E_HEADLESS
 
-console.log(displayAvailable ? 'Running fixture E2E with a hidden window (no focus stealing).' : 'Running fixture E2E under xvfb (no display detected).')
+console.log(displayAvailable ? `Running ${specs.length} E2E specs with a hidden window (no focus stealing).` : `Running ${specs.length} E2E specs under xvfb (no display detected).`)
 
 const child = spawn(command, args, {stdio: 'inherit', env})
 child.on('exit', (code, signal) => process.exit(signal ? 1 : (code ?? 1)))

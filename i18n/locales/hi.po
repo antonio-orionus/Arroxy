@@ -833,7 +833,7 @@ msgstr "सेटअप पूरा नहीं हुआ। पूरा ह�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "ऑडियो (सर्वश्रेष्ठ)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -849,7 +849,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "ऑडियो ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -929,7 +929,7 @@ msgstr "720p तक"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "सर्वश्रेष्ठ गुणवत्ता"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "कम बैंडविड्थ के लिए छोटी फ़�
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "कम बैंडविड्थ"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -969,7 +969,7 @@ msgstr "हर आइटम के लिए सर्वश्रेष्ठ �
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "ऑडियो"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -977,7 +977,7 @@ msgstr "उपशीर्षक"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "वीडियो"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
@@ -2447,7 +2447,7 @@ msgstr "स्रोत {{kbps}} kbps है"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (असंपीड़ित)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -3103,7 +3103,7 @@ msgstr "प्रतीक्षा में"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "लाइव"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3136,12 +3136,12 @@ msgstr "{{count}} ट्रैक"
 #. Plural form "one" for hi: used for counts like 0, 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} लिंक"
 
 #. Plural form "other" for hi: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URLs"
+msgstr "{{count}} लिंक"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -4149,7 +4149,7 @@ msgstr "एम्बेड मोड आउटपुट को .mkv के र�
 
 msgctxt "wizard.subtitles.format.heading"
 msgid "Format"
-msgstr "Format"
+msgstr "फॉर्मेट"
 
 msgctxt "wizard.subtitles.noLanguages"
 msgid "No subtitles available for this video"
@@ -4445,7 +4445,7 @@ msgstr "प्लेलिस्ट"
 
 msgctxt "wizard.url.features.youtube.podcast"
 msgid "Podcasts"
-msgstr "Podcast"
+msgstr "पॉडकास्ट"
 
 msgctxt "wizard.url.features.youtube.short"
 msgid "Shorts"
@@ -4961,7 +4961,7 @@ msgstr "प्रॉक्सी के माध्यम से ट्रै�
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "प्रॉक्सी पता"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

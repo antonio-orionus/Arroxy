@@ -3136,12 +3136,12 @@ msgstr "{{count}} قطعه"
 #. Plural form "one" for fa: used for counts like 0, 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} پیوند"
 
 #. Plural form "other" for fa: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} پیوند"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"

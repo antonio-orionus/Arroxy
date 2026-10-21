@@ -1,3 +1,6 @@
+import {copyFile} from 'node:fs/promises'
+import {join} from 'node:path'
+import log from 'electron-log/main.js'
 import {compileFilenameTemplate, DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
@@ -9,6 +12,32 @@ import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 // The info-json a media run writes into the job's temp dir: replayed on resume,
 // and read by the subtitle phase for the video's tracks.
 export const INFO_JSON_NAME = '_arroxy.info.json'
+
+const logger = log.scope('downloads')
+
+// The probe's info-json lives in the app's cache, outside the job's folder.
+// yt-dlp expands a `$NAME` or `%NAME%` in any path it reads, so every run that
+// loads it reads a copy in the job's temp folder, which the bridge passes
+// relative to the folder yt-dlp runs in (ADR 0015). Without a temp folder, or
+// when the copy fails, there is no probe info-json: the cache path never
+// reaches yt-dlp.
+const PROBE_INFO_JSON_NAME = '_arroxy.probe.info.json'
+
+export async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined, tempDir: string | undefined, jobId: string): Promise<string | undefined> {
+	if (!probeInfoJsonPath) return undefined
+	if (!tempDir) {
+		logger.info("no temp folder for a copy of the probe's info-json; extracting afresh", {jobId})
+		return undefined
+	}
+	const copy = join(tempDir, PROBE_INFO_JSON_NAME)
+	return copyFile(probeInfoJsonPath, copy).then(
+		() => copy,
+		(error: unknown) => {
+			logger.warn("could not copy the probe's info-json into the temp folder; extracting afresh", {jobId, code: error instanceof Error && 'code' in error ? String(error.code) : null})
+			return undefined
+		}
+	)
+}
 
 // An escalated job runs on the Explore session or not at all: before each of
 // its spawns the gate is asked again, so signing out, leaving explore mode or
