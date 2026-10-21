@@ -588,7 +588,6 @@
 				"saved": "Saglabāts kā profils “{{name}}”",
 				"failed": "Neizdevās saglabāt profilu."
 			},
-			"fileNameHint": "Marķieri: {title}, {id}, {uploader}, {date}, {resolution}. Paplašinājums tiek pievienots automātiski.",
 			"nextTime": {"title": "Šī lejupielāde izmantoja rediģētus iestatījumus. Izmantot tos nākamreiz?", "action": "Saglabāt kā profilu", "defaultName": "{{profile}} (rediģēts)"}
 		},
 		"confirm": {

@@ -481,6 +481,28 @@ describe('Review — rows', () => {
 		}
 	})
 
+	it('edits the file name with single-video tokens and blocks Download on an invalid template', () => {
+		singleState({wizardReviewRow: 'fileName'})
+		render(<StepReview />)
+		expect(screen.getByTestId('filename-token-uploader')).toBeInTheDocument()
+		expect(screen.queryByTestId('filename-token-playlist_index')).toBeNull()
+		expect(screen.queryByTestId('filename-token-playlist_title')).toBeNull()
+		expect(screen.queryByTestId('filename-token-playlist_id')).toBeNull()
+		expect(screen.getByTestId('btn-download')).not.toHaveAttribute('aria-disabled', 'true')
+
+		fireEvent.change(screen.getByTestId('review-filename-input'), {target: {value: '{titel}'}})
+		expect(screen.getByTestId('filename-template-error').textContent).toContain('titel')
+		expect(screen.getByTestId('btn-download')).toHaveAttribute('aria-disabled', 'true')
+
+		fireEvent.change(screen.getByTestId('review-filename-input'), {target: {value: '{title}'}})
+		expect(screen.queryByTestId('filename-template-error')).toBeNull()
+		expect(screen.getByTestId('filename-template-preview')).toBeInTheDocument()
+		expect(screen.queryByTestId('filename-template-preview-playlist')).toBeNull()
+		// The {id} warning is about playlist sync, which a single video never uses.
+		expect(screen.queryByTestId('filename-template-id-warning')).toBeNull()
+		expect(screen.getByTestId('btn-download')).not.toHaveAttribute('aria-disabled', 'true')
+	})
+
 	it('closes the open row from its header', () => {
 		singleState({wizardReviewRow: 'fileName'})
 		render(<StepReview />)

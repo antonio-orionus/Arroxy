@@ -583,7 +583,6 @@
 				"saved": "Tallennettu profiiliksi ”{{name}}”",
 				"failed": "Profiilia ei voitu tallentaa."
 			},
-			"fileNameHint": "Tunnisteet: {title}, {id}, {uploader}, {date}, {resolution}. Tiedostopääte lisätään puolestasi.",
 			"nextTime": {"title": "Tämä lataus käytti muokattuja asetuksia. Käytetäänkö niitä ensi kerralla?", "action": "Tallenna profiiliksi", "defaultName": "{{profile}} (muokattu)"}
 		},
 		"confirm": {

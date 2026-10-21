@@ -582,7 +582,6 @@
 				"saved": "“{{name}}” profili sifatida saqlandi",
 				"failed": "Profilni saqlab bo'lmadi."
 			},
-			"fileNameHint": "Teglar: {title}, {id}, {uploader}, {date}, {resolution}. Kengaytma avtomatik qo'shiladi.",
 			"nextTime": {"title": "Bu yuklab olishda tahrirlangan sozlamalar ishlatildi. Keyingi safar ham ishlatilsinmi?", "action": "Profil sifatida saqlash", "defaultName": "{{profile}} (tahrirlangan)"}
 		},
 		"confirm": {

@@ -545,7 +545,6 @@
 				"saved": "プロフィール「{{name}}」として保存しました",
 				"failed": "プロフィールを保存できませんでした。"
 			},
-			"fileNameHint": "使えるトークン: {title}、{id}、{uploader}、{date}、{resolution}。拡張子は自動で付きます。",
 			"nextTime": {"title": "このダウンロードでは編集した設定を使いました。次回も使いますか?", "action": "プロフィールとして保存", "defaultName": "{{profile}}（編集済み）"}
 		},
 		"confirm": {

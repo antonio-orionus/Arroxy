@@ -558,7 +558,6 @@
 				"saved": "Imehifadhiwa kama wasifu “{{name}}”",
 				"failed": "Imeshindwa kuhifadhi wasifu."
 			},
-			"fileNameHint": "Tokeni: {title}, {id}, {uploader}, {date}, {resolution}. Kiendelezi huongezwa kiotomatiki.",
 			"nextTime": {"title": "Upakuaji huu ulitumia mipangilio iliyohaririwa. Itumike wakati ujao?", "action": "Hifadhi kama wasifu", "defaultName": "{{profile}} (imehaririwa)"}
 		},
 		"confirm": {

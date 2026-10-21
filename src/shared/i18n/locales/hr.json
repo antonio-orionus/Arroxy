@@ -579,7 +579,6 @@
 				"saved": "Spremljeno kao profil „{{name}}”",
 				"failed": "Profil nije bilo moguće spremiti."
 			},
-			"fileNameHint": "Tokeni: {title}, {id}, {uploader}, {date}, {resolution}. Ekstenzija se dodaje automatski.",
 			"nextTime": {"title": "Ovo je preuzimanje koristilo uređene postavke. Upotrijebiti ih sljedeći put?", "action": "Spremi kao profil", "defaultName": "{{profile}} (uređeno)"}
 		},
 		"confirm": {

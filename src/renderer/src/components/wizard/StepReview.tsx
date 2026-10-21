@@ -1,8 +1,8 @@
-import {useId, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {Captions, FileText, Folder, Layers, Scissors, TriangleAlert, type LucideIcon} from 'lucide-react'
-import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
+import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {selectWizardReviewState, type WizardReviewState} from '../../store/wizard/wizardReviewState.js'
 import type {ReviewRow} from '../../store/wizard/profileApplication.js'
@@ -15,9 +15,8 @@ import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '../u
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
-import {Field, FieldDescription, FieldLabel} from '../ui/field.js'
-import {Input} from '../ui/input.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
+import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 import {WizardFooter} from './WizardFooter.js'
 import {SingleDownloadActions} from './SingleDownloadActions.js'
 import {SubtitleFields} from './SubtitleFields.js'
@@ -38,16 +37,10 @@ const ROW_ICONS = {subtitles: Captions, sponsorBlock: Scissors, extras: Layers, 
 
 function FileNameFields(): ReactNode {
 	const {t} = useTranslation()
-	const id = useId()
 	const template = useAppStore(state => state.wizardFilenameTemplate)
 	const setTemplate = useAppStore(state => state.setWizardFilenameTemplate)
-	return (
-		<Field className="gap-1.5">
-			<FieldLabel htmlFor={id}>{t('wizard.review.rows.fileName')}</FieldLabel>
-			<Input id={id} type="text" value={template} maxLength={FILENAME_TEMPLATE_MAX} onChange={event => setTemplate(event.target.value)} aria-invalid={template.trim() === ''} className="font-mono" data-testid="review-filename-input" />
-			<FieldDescription>{t('wizard.review.fileNameHint')}</FieldDescription>
-		</Field>
-	)
+	const validation = validateFilenameTemplate(template)
+	return <FilenameTemplateField value={template} onChange={setTemplate} error={validation.ok ? null : validation} label={t('wizard.review.rows.fileName')} description={t('filenameTemplate.description')} testId="review-filename-input" singleVideo />
 }
 
 interface ReviewRowItemProps {

@@ -558,7 +558,6 @@
 				"saved": "Disimpan sebagai profil “{{name}}”",
 				"failed": "Tidak dapat menyimpan profil."
 			},
-			"fileNameHint": "Token: {title}, {id}, {uploader}, {date}, {resolution}. Ekstensi ditambahkan otomatis.",
 			"nextTime": {"title": "Unduhan ini memakai pengaturan yang diedit. Pakai lagi lain kali?", "action": "Simpan sebagai profil", "defaultName": "{{profile}} (diedit)"}
 		},
 		"confirm": {

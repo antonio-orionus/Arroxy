@@ -611,7 +611,6 @@
 				"saved": "Įrašyta kaip profilis „{{name}}“",
 				"failed": "Nepavyko įrašyti profilio."
 			},
-			"fileNameHint": "Žymės: {title}, {id}, {uploader}, {date}, {resolution}. Plėtinys pridedamas automatiškai.",
 			"nextTime": {"title": "Šiam atsisiuntimui naudoti pakeisti parametrai. Naudoti juos ir kitą kartą?", "action": "Įrašyti kaip profilį", "defaultName": "{{profile}} (redaguotas)"}
 		},
 		"confirm": {

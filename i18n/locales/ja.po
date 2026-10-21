@@ -3756,10 +3756,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "形式を変更"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "使えるトークン: {title}、{id}、{uploader}、{date}、{resolution}。拡張子は自動で付きます。"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "プロフィールとして保存"

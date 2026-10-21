@@ -610,7 +610,6 @@
 				"saved": "Zapisano jako profil „{{name}}”",
 				"failed": "Nie udało się zapisać profilu."
 			},
-			"fileNameHint": "Znaczniki: {title}, {id}, {uploader}, {date}, {resolution}. Rozszerzenie zostanie dodane automatycznie.",
 			"nextTime": {"title": "To pobranie użyło zmienionych ustawień. Użyć ich następnym razem?", "action": "Zapisz jako profil", "defaultName": "{{profile}} (edytowany)"}
 		},
 		"confirm": {

@@ -605,7 +605,6 @@
 			"reset": "Vrátiť zmeny späť na „{{profile}}“",
 			"changedFrom": "Zmenené oproti profilu {{profile}}:",
 			"save": {"title": "Uložiť ako profil", "description": "Uloží tieto nastavenia ako profil, ktorý si môžete vybrať nabudúce. Váš profil rýchleho sťahovania zostane rovnaký.", "nameLabel": "Názov profilu", "action": "Uložiť profil", "saved": "Uložené ako profil „{{name}}“", "failed": "Profil sa nepodarilo uložiť."},
-			"fileNameHint": "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Prípona sa pridá automaticky.",
 			"nextTime": {"title": "Toto sťahovanie použilo upravené nastavenia. Použiť ich aj nabudúce?", "action": "Uložiť ako profil", "defaultName": "{{profile}} (upravený)"}
 		},
 		"confirm": {

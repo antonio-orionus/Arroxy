@@ -4066,10 +4066,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Промени формат"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Ознаке: {title}, {id}, {uploader}, {date}, {resolution}. Екстензија се додаје аутоматски."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Сачувај као профил"

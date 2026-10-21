@@ -3756,10 +3756,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "變更格式"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "可用權杖：{title}、{id}、{uploader}、{date}、{resolution}。副檔名會自動加上。"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "另存為設定檔"

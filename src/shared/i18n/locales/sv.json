@@ -571,7 +571,6 @@
 				"saved": "Sparad som profilen ”{{name}}”",
 				"failed": "Det gick inte att spara profilen."
 			},
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. Filändelsen läggs till åt dig.",
 			"nextTime": {"title": "Den här hämtningen använde redigerade inställningar. Använda dem nästa gång?", "action": "Spara som profil", "defaultName": "{{profile}} (redigerad)"}
 		},
 		"confirm": {

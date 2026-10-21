@@ -539,7 +539,6 @@
 			"reset": "Undo changes, back to “{{profile}}”",
 			"changedFrom": "Changed from {{profile}}:",
 			"save": {"title": "Save as profile", "description": "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same.", "nameLabel": "Profile name", "action": "Save profile", "saved": "Saved as profile “{{name}}”", "failed": "Couldn't save the profile."},
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you.",
 			"nextTime": {"title": "This download used edited settings. Use them next time?", "action": "Save as profile", "defaultName": "{{profile}} (edited)"}
 		},
 		"confirm": {

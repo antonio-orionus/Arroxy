@@ -578,7 +578,6 @@
 				"saved": "Salvestatud profiilina „{{name}}“",
 				"failed": "Profiili ei õnnestunud salvestada."
 			},
-			"fileNameHint": "Sümbolid: {title}, {id}, {uploader}, {date}, {resolution}. Laiend lisatakse automaatselt.",
 			"nextTime": {"title": "See allalaadimine kasutas muudetud sätteid. Kas kasutada neid järgmisel korral?", "action": "Salvesta profiilina", "defaultName": "{{profile}} (muudetud)"}
 		},
 		"confirm": {

@@ -564,7 +564,6 @@
 			"reset": "Değişiklikleri geri al, “{{profile}}” profiline dön",
 			"changedFrom": "Değişenler ({{profile}} profiline göre):",
 			"save": {"title": "Profil olarak kaydet", "description": "Bu ayarları bir dahaki sefere seçebileceğiniz bir profil olarak kaydeder. Hızlı İndirme profiliniz aynı kalır.", "nameLabel": "Profil adı", "action": "Profili kaydet", "saved": "“{{name}}” profili olarak kaydedildi", "failed": "Profil kaydedilemedi."},
-			"fileNameHint": "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir.",
 			"nextTime": {"title": "Bu indirme düzenlenmiş ayarları kullandı. Bir dahaki sefere de kullanılsın mı?", "action": "Profil olarak kaydet", "defaultName": "{{profile}} (düzenlendi)"}
 		},
 		"confirm": {

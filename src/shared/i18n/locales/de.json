@@ -585,7 +585,6 @@
 				"saved": "Als Profil „{{name}}“ gespeichert",
 				"failed": "Das Profil konnte nicht gespeichert werden."
 			},
-			"fileNameHint": "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt.",
 			"nextTime": {"title": "Dieser Download verwendete geänderte Einstellungen. Nächstes Mal verwenden?", "action": "Als Profil speichern", "defaultName": "{{profile}} (bearbeitet)"}
 		},
 		"confirm": {

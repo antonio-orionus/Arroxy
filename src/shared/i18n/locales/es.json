@@ -584,7 +584,6 @@
 				"saved": "Guardado como perfil «{{name}}»",
 				"failed": "No se pudo guardar el perfil."
 			},
-			"fileNameHint": "Variables: {title}, {id}, {uploader}, {date}, {resolution}. La extensión se añade automáticamente.",
 			"nextTime": {"title": "Esta descarga usó ajustes editados. ¿Usarlos la próxima vez?", "action": "Guardar como perfil", "defaultName": "{{profile}} (editado)"}
 		},
 		"confirm": {

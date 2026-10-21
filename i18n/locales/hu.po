@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Formátum módosítása"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Tokenek: {title}, {id}, {uploader}, {date}, {resolution}. A kiterjesztést automatikusan hozzáadja."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Mentés profilként"

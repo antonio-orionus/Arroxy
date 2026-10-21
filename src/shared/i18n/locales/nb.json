@@ -564,7 +564,6 @@
 			"reset": "Angre endringer, tilbake til «{{profile}}»",
 			"changedFrom": "Endret fra {{profile}}:",
 			"save": {"title": "Lagre som profil", "description": "Beholder disse innstillingene som en profil du kan velge neste gang. Hurtignedlasting-profilen din forblir uendret.", "nameLabel": "Profilnavn", "action": "Lagre profil", "saved": "Lagret som profilen «{{name}}»", "failed": "Kunne ikke lagre profilen."},
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. Filtypen legges til automatisk.",
 			"nextTime": {"title": "Denne nedlastingen brukte endrede innstillinger. Bruke dem neste gang?", "action": "Lagre som profil", "defaultName": "{{profile}} (redigert)"}
 		},
 		"confirm": {

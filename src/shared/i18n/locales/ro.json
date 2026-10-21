@@ -595,7 +595,6 @@
 				"saved": "Salvat ca profil „{{name}}”",
 				"failed": "Profilul nu a putut fi salvat."
 			},
-			"fileNameHint": "Simboluri: {title}, {id}, {uploader}, {date}, {resolution}. Extensia se adaugă automat.",
 			"nextTime": {"title": "Această descărcare a folosit setări editate. Le folosiți și data viitoare?", "action": "Salvează ca profil", "defaultName": "{{profile}} (editat)"}
 		},
 		"confirm": {

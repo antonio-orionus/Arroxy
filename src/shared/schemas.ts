@@ -227,6 +227,8 @@ const downloadProfileOutputSchema = z.discriminatedUnion('kind', [z.object({kind
 export const filenameTokenSchema = z.enum(['title', 'uploader', 'id', 'date', 'year', 'resolution', 'site', 'categories', 'artist', 'album', 'track', 'playlist_index', 'playlist_title', 'playlist_id'])
 export type FilenameToken = z.infer<typeof filenameTokenSchema>
 export const FILENAME_TOKENS = filenameTokenSchema.options
+// Tokens only a playlist entry has a value for; a single video binds them empty.
+export const PLAYLIST_FILENAME_TOKENS = filenameTokenSchema.extract(['playlist_index', 'playlist_title', 'playlist_id']).options
 // Templates are path expressions ({uploader}/{playlist_title}/{title}), so the
 // cap covers several segments rather than one filename.
 export const FILENAME_TEMPLATE_MAX = 200

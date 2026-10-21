@@ -578,7 +578,6 @@
 				"saved": "Salvato come profilo “{{name}}”",
 				"failed": "Impossibile salvare il profilo."
 			},
-			"fileNameHint": "Segnaposto: {title}, {id}, {uploader}, {date}, {resolution}. L’estensione viene aggiunta automaticamente.",
 			"nextTime": {"title": "Questo download ha usato impostazioni modificate. Usarle la prossima volta?", "action": "Salva come profilo", "defaultName": "{{profile}} (modificato)"}
 		},
 		"confirm": {

@@ -1,6 +1,7 @@
 // What still blocks a single-video Download, if anything: Review's Download,
 // and Format's Continue for the parts Format owns.
 
+import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import {isValidSubfolder} from '@renderer/lib/path.js'
 import type {AppState} from '../types.js'
 import {wizardPartValidation} from './videoPart.js'
@@ -19,7 +20,7 @@ export function singleDownloadBlocker(state: ReadinessFields): SingleDownloadBlo
 	if (state.wizardMediaKind === 'video' && state.selectedVideoFormatId === '') return 'media'
 	if (wizardPartValidation(state)?.ok === false) return 'part'
 	if (folderSelectionInvalid(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)) return 'folder'
-	if (state.wizardFilenameTemplate.trim() === '') return 'fileName'
+	if (!validateFilenameTemplate(state.wizardFilenameTemplate).ok) return 'fileName'
 	return null
 }
 

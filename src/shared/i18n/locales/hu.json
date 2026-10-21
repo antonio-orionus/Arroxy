@@ -583,7 +583,6 @@
 				"saved": "Mentve „{{name}}” profilként",
 				"failed": "A profil mentése nem sikerült."
 			},
-			"fileNameHint": "Tokenek: {title}, {id}, {uploader}, {date}, {resolution}. A kiterjesztést automatikusan hozzáadja.",
 			"nextTime": {"title": "Ez a letöltés módosított beállításokat használt. Használja ezeket legközelebb is?", "action": "Mentés profilként", "defaultName": "{{profile}} (szerkesztve)"}
 		},
 		"confirm": {

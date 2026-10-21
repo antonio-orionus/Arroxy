@@ -15,7 +15,7 @@
 import {fitName, renderName, type BudgetFailure, type BudgetPiece, type InFlightFiles} from './nameBudget.js'
 import {templateLiteral} from 'yt-dlp-bridge/output-template'
 import {limitsFor} from './pathLimits.js'
-import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
+import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, PLAYLIST_FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
 import {isYouTubeHostname} from './sites/youtube.js'
 
@@ -363,7 +363,7 @@ export function renderTemplateDirs(template: string, meta: TemplateMetadata): st
 // playlist context at all and `%(playlist_index)s` and friends resolve empty.
 // These bind to whatever Arroxy holds — including nothing, which is the correct
 // answer for a single video and is why no "NA" reaches the disk.
-const ARROXY_OWNED_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playlist_title', 'playlist_id']
+const ARROXY_OWNED_TOKENS: readonly FilenameToken[] = PLAYLIST_FILENAME_TOKENS
 
 // Worst-case width of each token yt-dlp expands itself, charged only when the
 // token actually stays unbound. `uploader` matches the `.60B` cap in

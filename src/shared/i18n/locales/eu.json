@@ -586,7 +586,6 @@
 				"saved": "Profil gisa gorde da: «{{name}}»",
 				"failed": "Ezin izan da profila gorde."
 			},
-			"fileNameHint": "Tokenak: {title}, {id}, {uploader}, {date}, {resolution}. Luzapena automatikoki gehitzen da.",
 			"nextTime": {"title": "Deskarga honek editatutako ezarpenak erabili ditu. Hurrengoan ere erabili nahi dituzu?", "action": "Gorde profil gisa", "defaultName": "{{profile}} (editatua)"}
 		},
 		"confirm": {

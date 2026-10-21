@@ -575,7 +575,6 @@
 				"saved": "Opgeslagen als profiel „{{name}}”",
 				"failed": "Het profiel kon niet worden opgeslagen."
 			},
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. De extensie wordt automatisch toegevoegd.",
 			"nextTime": {"title": "Deze download gebruikte bewerkte instellingen. Volgende keer opnieuw gebruiken?", "action": "Opslaan als profiel", "defaultName": "{{profile}} (bewerkt)"}
 		},
 		"confirm": {

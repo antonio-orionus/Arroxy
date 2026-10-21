@@ -495,7 +495,6 @@
 			"reset": "復原變更，回到「{{profile}}」",
 			"changedFrom": "與 {{profile}} 相比的變更：",
 			"save": {"title": "另存為設定檔", "description": "將這些設定儲存為設定檔，下次可直接選用。快速下載設定檔維持不變。", "nameLabel": "設定檔名稱", "action": "儲存設定檔", "saved": "已儲存為設定檔「{{name}}」", "failed": "無法儲存設定檔。"},
-			"fileNameHint": "可用權杖：{title}、{id}、{uploader}、{date}、{resolution}。副檔名會自動加上。",
 			"nextTime": {"title": "這次下載使用了編輯後的設定。下次繼續使用嗎？", "action": "另存為設定檔", "defaultName": "{{profile}}（已編輯）"}
 		},
 		"confirm": {

@@ -21,6 +21,15 @@ function store(overrides: Partial<AppState> = {}) {
 	return create<AppState>()((set, get) => ({...READY, ...createVideoPartSlice(set, get), ...overrides}) as AppState)
 }
 
+describe('file name readiness', () => {
+	it('blocks Download on any template the editor rejects, not only an empty one', () => {
+		expect(singleDownloadBlocker({...READY, wizardFilenameTemplate: '  '})).toBe('fileName')
+		expect(singleDownloadBlocker({...READY, wizardFilenameTemplate: '{titel} [{id}]'})).toBe('fileName')
+		expect(singleDownloadBlocker({...READY, wizardFilenameTemplate: 'a:b {title}'})).toBe('fileName')
+		expect(singleDownloadBlocker({...READY, wizardFilenameTemplate: '{uploader}/{title}'})).toBeNull()
+	})
+})
+
 describe('part of video in the wizard', () => {
 	it('opens on the whole length and closes back to the whole video', () => {
 		const s = store()

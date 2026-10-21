@@ -536,7 +536,6 @@
 			"reset": "Hoàn tác thay đổi, quay lại “{{profile}}”",
 			"changedFrom": "Khác với {{profile}}:",
 			"save": {"title": "Lưu thành hồ sơ", "description": "Lưu các cài đặt này thành hồ sơ để bạn chọn lần sau. Hồ sơ Tải nhanh của bạn không thay đổi.", "nameLabel": "Tên hồ sơ", "action": "Lưu hồ sơ", "saved": "Đã lưu thành hồ sơ “{{name}}”", "failed": "Không thể lưu hồ sơ."},
-			"fileNameHint": "Mã thay thế: {title}, {id}, {uploader}, {date}, {resolution}. Phần mở rộng được thêm tự động.",
 			"nextTime": {"title": "Lượt tải này dùng cài đặt đã chỉnh sửa. Dùng chúng cho lần sau?", "action": "Lưu thành hồ sơ", "defaultName": "{{profile}} (đã sửa)"}
 		},
 		"confirm": {

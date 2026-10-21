@@ -592,7 +592,6 @@
 			"reset": "Vrátit změny zpět na „{{profile}}“",
 			"changedFrom": "Změněno oproti profilu {{profile}}:",
 			"save": {"title": "Uložit jako profil", "description": "Uloží tato nastavení jako profil, který můžete příště vybrat. Váš profil Rychlého stahování zůstane stejný.", "nameLabel": "Název profilu", "action": "Uložit profil", "saved": "Uloženo jako profil „{{name}}“", "failed": "Profil se nepodařilo uložit."},
-			"fileNameHint": "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Příponu doplníme za vás.",
 			"nextTime": {"title": "Toto stahování použilo upravená nastavení. Použít je i příště?", "action": "Uložit jako profil", "defaultName": "{{profile}} (upraveno)"}
 		},
 		"confirm": {

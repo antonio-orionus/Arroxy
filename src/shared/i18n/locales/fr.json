@@ -591,7 +591,6 @@
 				"saved": "Enregistré comme profil « {{name}} »",
 				"failed": "Impossible d’enregistrer le profil."
 			},
-			"fileNameHint": "Variables : {title}, {id}, {uploader}, {date}, {resolution}. L’extension est ajoutée automatiquement.",
 			"nextTime": {"title": "Ce téléchargement utilisait des réglages modifiés. Les réutiliser la prochaine fois ?", "action": "Enregistrer comme profil", "defaultName": "{{profile}} (modifié)"}
 		},
 		"confirm": {

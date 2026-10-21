@@ -604,7 +604,6 @@
 				"saved": "Shranjeno kot profil „{{name}}“",
 				"failed": "Profila ni bilo mogoče shraniti."
 			},
-			"fileNameHint": "Žetoni: {title}, {id}, {uploader}, {date}, {resolution}. Pripona se doda samodejno.",
 			"nextTime": {"title": "Ta prenos je uporabil urejene nastavitve. Jih uporabim naslednjič?", "action": "Shrani kot profil", "defaultName": "{{profile}} (urejen)"}
 		},
 		"confirm": {

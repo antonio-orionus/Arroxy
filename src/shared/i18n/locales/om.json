@@ -578,7 +578,6 @@
 				"saved": "Piroofaayilii “{{name}}” jedhamee olkaa'ameera",
 				"failed": "Piroofaayilii olkaa'uun hin danda'amne."
 			},
-			"fileNameHint": "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama.",
 			"nextTime": {"title": "Buufanni kun qindaa'ina jijjiirame fayyadame. Yeroo itti aanu itti fayyadamtaa?", "action": "Akka piroofaayiliitti olkaa'i", "defaultName": "{{profile}} (jijjiirame)"}
 		},
 		"confirm": {

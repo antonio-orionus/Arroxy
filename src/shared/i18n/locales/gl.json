@@ -565,7 +565,6 @@
 				"saved": "Gardado como perfil “{{name}}”",
 				"failed": "Non se puido gardar o perfil."
 			},
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. A extensión engádese automaticamente.",
 			"nextTime": {"title": "Esta descarga usou opcións editadas. Queres usalas a próxima vez?", "action": "Gardar como perfil", "defaultName": "{{profile}} (editado)"}
 		},
 		"confirm": {

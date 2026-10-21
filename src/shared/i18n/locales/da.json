@@ -564,7 +564,6 @@
 			"reset": "Fortryd ændringer, tilbage til »{{profile}}«",
 			"changedFrom": "Ændret fra {{profile}}:",
 			"save": {"title": "Gem som profil", "description": "Beholder disse indstillinger som en profil, du kan vælge næste gang. Din profil til Hurtig download forbliver uændret.", "nameLabel": "Profilnavn", "action": "Gem profil", "saved": "Gemt som profilen »{{name}}«", "failed": "Profilen kunne ikke gemmes."},
-			"fileNameHint": "Mærker: {title}, {id}, {uploader}, {date}, {resolution}. Filtypenavnet tilføjes automatisk.",
 			"nextTime": {"title": "Dette download brugte redigerede indstillinger. Vil du bruge dem næste gang?", "action": "Gem som profil", "defaultName": "{{profile}} (redigeret)"}
 		},
 		"confirm": {

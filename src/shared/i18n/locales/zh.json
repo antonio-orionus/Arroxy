@@ -495,7 +495,6 @@
 			"reset": "撤销更改，恢复为“{{profile}}”",
 			"changedFrom": "与 {{profile}} 相比的更改：",
 			"save": {"title": "另存为配置", "description": "将这些设置保存为配置，下次可直接选择。快速下载配置保持不变。", "nameLabel": "配置名称", "action": "保存配置", "saved": "已保存为配置“{{name}}”", "failed": "无法保存配置。"},
-			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
 			"nextTime": {"title": "本次下载使用了编辑后的设置。下次继续使用吗？", "action": "另存为配置", "defaultName": "{{profile}}（已编辑）"}
 		},
 		"confirm": {

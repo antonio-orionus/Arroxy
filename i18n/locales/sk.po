@@ -4221,10 +4221,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Zmeniť formát"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Prípona sa pridá automaticky."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Uložiť ako profil"

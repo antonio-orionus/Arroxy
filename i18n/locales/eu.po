@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Aldatu formatua"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Tokenak: {title}, {id}, {uploader}, {date}, {resolution}. Luzapena automatikoki gehitzen da."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Gorde profil gisa"
