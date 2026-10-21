@@ -54,6 +54,9 @@ Requires Node.js >= 22.13 and ESM.
 
 - **Breaking:** a plan that writes files now carries `cwd`, and every path in its `args` is relative to it. Run it there (`runCommand(…, {cwd: plan.cwd})`): run elsewhere, the files land in the wrong folder. Create the folder first if it may not exist (`mkdir(plan.cwd, {recursive: true})`): yt-dlp used to make it through `--paths home`, and a spawn in a missing folder fails with `ENOENT`. Caller plans run in `output.directory`; `--paths home:` is gone, and `output.tempDirectory`, `-o infojson:`, the subtitle subfolder and a `resume.loadInfoJsonPath` inside the folder become relative. Managed plans run in the output root; the temp root and the download archive are relative when they are inside it. yt-dlp expands `$NAME`, `%NAME%` and `~` in every path it is given, with no escape on POSIX for `--paths`, and strips trailing spaces from `--paths` values. So a folder such as `$HOME`, `%USERPROFILE%` or `Downloads ` (trailing space) wrote somewhere else; now its name never reaches argv.
 - **Breaking:** `output.tempDirectory` must be inside `output.directory`; a plan with one outside it throws.
+- Caller subtitles take planned tracks: `subtitles: {tracks: [{key, auto}], format}`. Each key goes to `--sub-langs` as an exact, case-sensitive, escaped match, and the plan sets `--write-subs` only for a manual track and `--write-auto-subs` only for an automatic caption. The languages form (`languages`, `writeAuto`, `autoOnly`) stays, sent as given, for a caller that cannot plan the tracks; on YouTube a bare code there also matches machine translations.
+- Caller subtitles take `loadInfoJsonPath`: yt-dlp fetches the subtitle URLs stored in that info-json instead of extracting the video again (and extracts it again only if one of them fails). The URL is not passed.
+- New `subtitle-listing` workflow: `-J` with `--write-subs --write-auto-subs --sub-langs all`, which fills `subtitles` and `automatic_captions` for extractors that list them only when asked (Vimeo, TikTok, Bilibili and others) and writes no files. Its JSON on stdout is what a caller plans tracks from, and what `loadInfoJsonPath` then loads. Exhaustive `switch` statements over `WorkflowPlan['kind']` need the new case.
 - New `output.report`: `finalPath` has yt-dlp append the media's absolute path once every postprocessor and the move are done (`--print-to-file after_move:filepath`); `subtitles` has it append `requested_subtitles` as JSON, with each track's `filepath`, also under `--skip-download` (`after_video`). Both files must be inside `output.directory`.
 - New `templateLiteral(text)`, also from the new `yt-dlp-bridge/output-template` subpath: literal text for an output template. Each `%`, `$` and `~` becomes an absent field whose default is that sign (`%(_absent|$)s`), which yt-dlp's expansion cannot see through. `%%` is not used: on Windows, ntpath pairs `%` signs, and a field before a `%%` lets a literal `%NAME%` expand.
 - **Breaking:** progress is read from yt-dlp's numbers, not its human-readable `[download]  42.0% of …` line. The `progress` event no longer carries `percent`, `total`, `speed` or `eta`; it is now only the fallback for other lines (`raw`).
@@ -189,7 +192,7 @@ const plan = planWorkflow(input, { config });
 
 ```ts
 {
-  kind: "probe" | "inspect" | "media" | "audio" | "subtitles" | "thumbnail" | "playlist" | "postprocess" | "expert",
+  kind: "probe" | "subtitle-listing" | "inspect" | "media" | "audio" | "subtitles" | "thumbnail" | "playlist" | "postprocess" | "expert",
   args: string[],
   redactedArgs: string[],
   facts: {

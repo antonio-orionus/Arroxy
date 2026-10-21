@@ -82,11 +82,42 @@ export interface CallerMediaWorkflowInput {
 	resume?: {loadInfoJsonPath?: string; writeInfoJson?: boolean; infoJsonBaseName?: string}
 }
 
+// A subtitle track the caller planned from the video's own lists: the exact
+// key yt-dlp is asked for, and whether it is an automatic caption.
+export interface PlannedSubtitleTrack {
+	key: string
+	auto: boolean
+}
+
+// Language codes or `--sub-langs` regexes, sent as given, for a caller that
+// cannot plan the tracks. On YouTube a bare code also matches machine
+// translations of the automatic captions.
+export interface SubtitleLanguagePattern {
+	languages: string[]
+	writeAuto?: boolean
+	autoOnly?: boolean
+}
+
 export interface CallerSubtitlesWorkflowInput {
 	kind: 'subtitles'
 	url: string
 	output: CallerOutput
-	subtitles: {languages: string[]; format: SubtitleFormat; writeAuto?: boolean; autoOnly?: boolean}
+	// Planned tracks set the write flags themselves: `--write-subs` for a
+	// manual track, `--write-auto-subs` for an automatic caption.
+	subtitles: ({tracks: PlannedSubtitleTrack[]} | SubtitleLanguagePattern) & {format: SubtitleFormat}
+	// An info-json from an earlier run, such as a subtitle listing. yt-dlp
+	// fetches the subtitle URLs stored in it instead of extracting the video
+	// again, and extracts it again only if one of them fails.
+	loadInfoJsonPath?: string
+}
+
+// The video's info-json with every subtitle list filled (`-J` with the
+// subtitle flags): lazy extractors fill `subtitles` and `automatic_captions`
+// only when asked to write or list them. A simulation, so it writes nothing.
+export interface SubtitleListingWorkflowInput {
+	kind: 'subtitle-listing'
+	url: string
+	extractor?: {youtube?: {playerClient?: string[]}}
 }
 
 type ManagedDownloadWorkflowInput = z.input<typeof WorkflowDownloadInputSchema>
@@ -95,7 +126,7 @@ type NormalizedInspectInput = z.infer<typeof WorkflowInspectInputSchema>
 type ManagedPostprocessWorkflowInput = z.input<typeof WorkflowPostprocessInputSchema>
 type ExpertWorkflowInput = z.input<typeof WorkflowExpertInputSchema>
 
-export type WorkflowInput = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput | ManagedDownloadWorkflowInput | ManagedInspectWorkflowInput | ManagedPostprocessWorkflowInput | ExpertWorkflowInput
+export type WorkflowInput = ProbeWorkflowInput | SubtitleListingWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput | ManagedDownloadWorkflowInput | ManagedInspectWorkflowInput | ManagedPostprocessWorkflowInput | ExpertWorkflowInput
 
 export interface PluginPlanningOptions {
 	mode: 'native' | 'disabled' | 'explicit'
@@ -181,6 +212,8 @@ function planWorkflowWithoutRedaction(input: WorkflowInput, options: WorkflowPla
 	switch (kind) {
 		case 'probe':
 			return planProbeWorkflow(input as ProbeWorkflowInput, options)
+		case 'subtitle-listing':
+			return planSubtitleListingWorkflow(input as SubtitleListingWorkflowInput, options)
 		case 'inspect':
 			return planInspectWorkflow(input as ManagedInspectWorkflowInput, options)
 		case 'media':
@@ -225,20 +258,41 @@ function planInspectWorkflow(input: ManagedInspectWorkflowInput, options: Workfl
 	return withFacts({kind: 'inspect', args, redactedArgs: [], facts: {isMediaDownload: false, dependencies: dependencyFacts(new Map([['yt-dlp', ['inspect metadata and lists']]]), optionalInspectDependencies(normalized), options.detectedDependencies), risks: risksForAuth(normalized.auth), sideEffects: []}})
 }
 
+function planSubtitleListingWorkflow(input: SubtitleListingWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
+	const extractorArgs: string[] = []
+	pushJoined(extractorArgs, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
+	const args = [...baseArgs(options), '--dump-single-json', '--no-quiet', '--no-playlist', '--write-subs', '--write-auto-subs', '--sub-langs', 'all', ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
+	return withFacts({kind: 'subtitle-listing', args, redactedArgs: [], facts: {isMediaDownload: false, dependencies: dependencyFacts(new Map([['yt-dlp', ['list subtitle tracks']]]), new Map(), options.detectedDependencies), risks: [], sideEffects: []}})
+}
+
+function escapePythonRegex(value: string): string {
+	return value.replace(/[\\^$.|?*+()[\]{}]/g, '\\$&')
+}
+
+// The `--sub-langs` value and which kinds of track to write. yt-dlp
+// fullmatches each entry case-insensitively, so a planned key goes in a
+// scoped case-sensitive group, escaped. With only --write-auto-subs yt-dlp
+// skips manual tracks, which it would otherwise prefer for the same key.
+function subtitleSelection(subtitles: CallerSubtitlesWorkflowInput['subtitles']): {subLangs: string; manual: boolean; auto: boolean} {
+	if (!('tracks' in subtitles)) return {subLangs: subtitles.languages.join(','), manual: subtitles.autoOnly !== true, auto: requestsAutoSubs(subtitles)}
+	if (subtitles.tracks.length === 0) throw new Error('subtitles.tracks needs at least one track')
+	const keys = [...new Set(subtitles.tracks.map(track => track.key))]
+	return {subLangs: keys.map(key => `(?-i:${escapePythonRegex(key)})`).join(','), manual: subtitles.tracks.some(track => !track.auto), auto: subtitles.tracks.some(track => track.auto)}
+}
+
 function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
-	const effectiveSubtitleFormat = resolveEffectiveSubtitleFormat(input.subtitles)
+	const selection = subtitleSelection(input.subtitles)
+	const effectiveSubtitleFormat = resolveEffectiveSubtitleFormat({format: input.subtitles.format, auto: selection.auto})
 	const template = callerOutputTemplate(input.output)
 	const args = [
 		...baseArgs(options),
 		...progressTemplateArgs(),
 		'--skip-download',
 		'--no-playlist',
-		// With only --write-auto-subs yt-dlp skips manual tracks, which it would
-		// otherwise prefer over an automatic one for the same language.
-		...(input.subtitles.autoOnly ? [] : ['--write-subs']),
+		...(selection.manual ? ['--write-subs'] : []),
 		'--sub-langs',
-		input.subtitles.languages.join(','),
-		...(requestsAutoSubs(input.subtitles) ? ['--write-auto-subs'] : []),
+		selection.subLangs,
+		...(selection.auto ? ['--write-auto-subs'] : []),
 		...sleepSubtitlesArgs(options.pacing),
 		...requestPacingArgs(options.pacing),
 		'--sub-format',
@@ -246,7 +300,8 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 		'--convert-subs',
 		effectiveSubtitleFormat,
 		...callerSubtitlesOutputArgs(input.output),
-		input.url
+		...loadInfoJsonArgs(input.output, input.loadInfoJsonPath),
+		...(input.loadInfoJsonPath ? [] : [input.url])
 	]
 	return withFacts({
 		kind: 'subtitles',
@@ -663,8 +718,8 @@ function requestsAutoSubs(subtitles: {writeAuto?: boolean; autoOnly?: boolean}):
 	return subtitles.writeAuto === true || subtitles.autoOnly === true
 }
 
-function resolveEffectiveSubtitleFormat(input: {format: SubtitleFormat; writeAuto?: boolean; autoOnly?: boolean}): SubtitleFormat {
-	return requestsAutoSubs(input) && input.format === 'ass' ? 'srt' : input.format
+function resolveEffectiveSubtitleFormat(input: {format: SubtitleFormat; auto: boolean}): SubtitleFormat {
+	return input.auto && input.format === 'ass' ? 'srt' : input.format
 }
 
 function resolveEmbedPolicy(input: {metadata: boolean | undefined; thumbnail: boolean | undefined; audioConvert: AudioConvert | undefined}): {metadata: boolean; thumbnail: boolean} {

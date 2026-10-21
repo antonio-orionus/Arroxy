@@ -42,6 +42,7 @@ const managed: WorkflowPlanOptions = {config: {...loadConfig({}), outputRoot: DI
 type Kind = NonNullable<WorkflowInput['kind']>
 const KINDS: Record<Kind, readonly (readonly [WorkflowInput, WorkflowPlanOptions?])[] | 'writes no files'> = {
 	probe: 'writes no files',
+	'subtitle-listing': 'writes no files',
 	inspect: 'writes no files',
 	postprocess: 'writes no files',
 	expert: 'writes no files',
@@ -54,6 +55,7 @@ const KINDS: Record<Kind, readonly (readonly [WorkflowInput, WorkflowPlanOptions
 	subtitles: [
 		[{kind: 'subtitles', url: URL, output: {directory: DIR, report: {subtitles: `${DIR}/_arroxy.subtitles.json`}}, subtitles: {languages: ['en'], format: 'srt'}}],
 		[{kind: 'subtitles', url: URL, output: {directory: DIR, subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'srt'}}],
+		[{kind: 'subtitles', url: URL, output: {directory: DIR, tempDirectory: `${DIR}/.arroxy-temp/job`}, subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'}, loadInfoJsonPath: `${DIR}/.arroxy-temp/job/_arroxy.listing.json`}],
 		[{kind: 'subtitles', url: URL, subtitles: {subLangs: 'en'}}, managed]
 	],
 	audio: [[{kind: 'audio', url: URL}, managed]],

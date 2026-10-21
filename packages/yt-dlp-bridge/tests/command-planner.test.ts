@@ -308,6 +308,72 @@ describe('planWorkflow — template text in -o', () => {
 	})
 })
 
+describe('planWorkflow — planned subtitle tracks', () => {
+	const tracks = (...list: [string, boolean][]) => list.map(([key, auto]) => ({key, auto}))
+
+	it('asks yt-dlp for exactly the planned keys, matched case-sensitively and escaped', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {tracks: tracks(['en-GB', false], ['ja', true], ['a.b', false]), format: 'srt'}})
+
+		expect(adjacent(plan.args, '--sub-langs', '(?-i:en-GB),(?-i:ja),(?-i:a\\.b)')).toBe(true)
+		expect(plan.args).toContain('--write-subs')
+		expect(plan.args).toContain('--write-auto-subs')
+	})
+
+	it('writes manual tracks only for a plan of manual tracks, automatic captions only for a plan of captions', () => {
+		const manual = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {tracks: tracks(['en', false]), format: 'srt'}})
+		const auto = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {tracks: tracks(['en', true]), format: 'ass'}})
+
+		expect(manual.args).toContain('--write-subs')
+		expect(manual.args).not.toContain('--write-auto-subs')
+		expect(auto.args).not.toContain('--write-subs')
+		expect(auto.args).toContain('--write-auto-subs')
+		// yt-dlp downloads automatic captions as SRT when ASS is asked for.
+		expect(auto.facts.effectiveSubtitleFormat).toBe('srt')
+	})
+
+	it('asks once for a key planned as both kinds', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {tracks: tracks(['ja', false], ['ja', true]), format: 'srt'}})
+
+		expect(adjacent(plan.args, '--sub-langs', '(?-i:ja)')).toBe(true)
+	})
+
+	// The stored URLs are reused and nothing is extracted again; the URL itself is not passed.
+	it('fetches from a listing info-json instead of the URL', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp'}, subtitles: {tracks: tracks(['en', false]), format: 'srt'}, loadInfoJsonPath: '/out/.tmp/listing.info.json'})
+
+		expect(adjacent(plan.args, '--load-info-json', '.tmp/listing.info.json')).toBe(true)
+		expect(plan.args).not.toContain(URL)
+	})
+
+	it('refuses a plan with no tracks', () => {
+		expect(() => planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {tracks: [], format: 'srt'}})).toThrow(/at least one track/)
+	})
+})
+
+describe('planWorkflow — subtitle listing', () => {
+	// Lazy extractors fill their subtitle lists only when asked to write or list them;
+	// `-J` keeps it a simulation, so nothing is written.
+	it('dumps the video with every subtitle list filled and writes no files', () => {
+		const plan = planWorkflow({kind: 'subtitle-listing', url: URL})
+
+		expect(plan.args).toContain('--dump-single-json')
+		expect(plan.args).toContain('--no-playlist')
+		expect(plan.args).toContain('--write-subs')
+		expect(plan.args).toContain('--write-auto-subs')
+		expect(adjacent(plan.args, '--sub-langs', 'all')).toBe(true)
+		expect(plan.args.at(-1)).toBe(URL)
+		expect(plan.cwd).toBeUndefined()
+		expect(plan.facts.isMediaDownload).toBe(false)
+		expect(plan.facts.sideEffects).toEqual([])
+	})
+
+	it('passes the YouTube player client like a probe', () => {
+		const plan = planWorkflow({kind: 'subtitle-listing', url: URL, extractor: {youtube: {playerClient: ['web']}}})
+
+		expect(plan.args.some(arg => arg.includes('player_client=web'))).toBe(true)
+	})
+})
+
 describe('planWorkflow — subtitles', () => {
 	it('plans sidecar subtitle downloads', () => {
 		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en', 'ja'], format: 'vtt'}})
