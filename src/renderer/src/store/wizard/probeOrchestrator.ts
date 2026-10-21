@@ -437,6 +437,9 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 				await runProbe(pending, 'video', set, get)
 			} else {
+				// The dialog promises the first N, N being the load limit. A range left
+				// from an earlier list (back never resets it) must not stand in for it.
+				set({playlistScope: {items: {kind: 'app-limit'}}})
 				await runProbe(pending, 'playlist', set, get)
 			}
 		},

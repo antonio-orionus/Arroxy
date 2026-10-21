@@ -247,6 +247,39 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
+	it('answers an Explore prompt with the first N for the list and no take for the video', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const realQuickDownload = useAppStore.getState().quickDownload
+		const quickDownload = vi.fn(async () => {})
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		const settings = defaultAppSettings('/tmp')
+		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 250}}, quickDownload})
+		try {
+			useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'explore'})
+			await useAppStore.getState().dismissMixedPrompt('playlist')
+			expect(quickDownload).toHaveBeenLastCalledWith({url: mixedUrl, entry: 'explore', playlistMode: 'playlist', take: {kind: 'first', count: 250}})
+
+			useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'explore'})
+			await useAppStore.getState().dismissMixedPrompt('video')
+			expect(quickDownload).toHaveBeenLastCalledWith({url: mixedUrl, entry: 'explore', playlistMode: 'video'})
+		} finally {
+			useAppStore.setState({quickDownload: realQuickDownload})
+		}
+	})
+
+	it('loads the first N the Interactive prompt promises, not a custom range left over from an earlier list', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		useAppStore.setState({wizardUrl: mixedUrl, playlistScope: {items: {kind: 'range', from: 10, to: 20}}, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt('playlist')
+
+		expect(api.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}}))
+	})
+
 	it('works on first launch with default profile settings', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
