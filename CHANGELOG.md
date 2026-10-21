@@ -34,6 +34,7 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 - Videos added several links at a time keep more of a long title in their file name. A long-titled playlist video from Vimeo no longer fails with "File name too long".
 - YouTube show links (`youtube.com/show/…`) download as the playlist they are, with its real name and every video, and Explore offers to download them.
 - The feedback form opens in full over Explore, instead of being hidden behind the page.
+- Signing in to Facebook, Instagram or Threads in Explore works with the ad blocker on, instead of returning to the login page or stopping at a security check.
 
 ## 0.7.2
 
