@@ -1,8 +1,7 @@
 import {readFileSync} from 'node:fs'
 import yaml from 'js-yaml'
 import {describe, expect, it} from 'vite-plus/test'
-import {decideIssueAction, MAIN_HEALTH_TITLE, MAIN_REQUIRED_CHECKS, mainHealth, workflowRunIdOf, type CommitInfo, type MainHealth} from '../../scripts/mainHealth.js'
-import type {CheckRun} from '../../scripts/releaseGate.js'
+import {decideIssueAction, MAIN_HEALTH_TITLE, MAIN_REQUIRED_CHECKS, mainHealth, parseBodies, parseCheckRuns, parseCommit, parseIssueNumbers, workflowRunIdOf, type CheckRun, type CommitInfo, type MainHealth} from '../../scripts/mainHealth.js'
 
 const CONTEXTS = MAIN_REQUIRED_CHECKS.map(check => check.context)
 
@@ -69,6 +68,28 @@ describe('mainHealth', () => {
 
 	it('ignores checks that branch protection does not require', () => {
 		expect(mainHealth([...allPassed(), run('electron-builder dist-tag advisory', 'completed', 'failure')])).toEqual({kind: 'green'})
+	})
+})
+
+describe('GitHub response parsers', () => {
+	it('reads check runs and rejects a response without them', () => {
+		expect(parseCheckRuns({total_count: 1, check_runs: [{id: 3, name: 'check', status: 'completed', conclusion: 'failure', html_url: 'u', extra: true}]})).toEqual([{id: 3, name: 'check', status: 'completed', conclusion: 'failure', html_url: 'u'}])
+		expect(parseCheckRuns({check_runs: [{id: 4, name: 'check', status: 'queued', conclusion: null, html_url: null}]})[0]?.conclusion).toBeNull()
+		expect(() => parseCheckRuns({message: 'Not Found'})).toThrow('no check_runs')
+		expect(() => parseCheckRuns({check_runs: [{id: '3', name: 'check', status: 'completed'}]})).toThrow('check run: id')
+	})
+
+	it('names the GitHub login, else the git author, and keeps the subject line only', () => {
+		const raw = {sha: 's', html_url: 'u', author: {login: 'octo'}, commit: {message: 'fix: a thing (#9)\n\nbody', author: {name: 'Octo Cat'}}}
+		expect(parseCommit(raw)).toEqual({sha: 's', subject: 'fix: a thing (#9)', author: 'octo', url: 'u'})
+		expect(parseCommit({...raw, author: null}).author).toBe('Octo Cat')
+		expect(() => parseCommit({sha: 's'})).toThrow()
+	})
+
+	it('flattens paginated issues and comments', () => {
+		expect(parseIssueNumbers([[{number: 4}], [{number: 9}]])).toEqual([4, 9])
+		expect(parseBodies([[{body: 'a'}, {body: null}], [{body: 'b'}]])).toEqual(['a', 'b'])
+		expect(() => parseIssueNumbers([{number: 4}])).toThrow('page is not an array')
 	})
 })
 
@@ -156,6 +177,19 @@ describe('main-health workflow', () => {
 		expect(jobs.some(job => isRecord(job) && job.name === context)).toBe(true)
 		const push = isRecord(file?.on) && isRecord(file.on.push) ? file.on.push : {}
 		expect(push.branches).toContain('main')
+	})
+
+	it('counts every completed run on main except pull requests', () => {
+		const jobs = isRecord(workflow.jobs) ? Object.values(workflow.jobs) : []
+		expect(jobs.map(job => (isRecord(job) ? job.if : undefined))).toEqual(["github.event_name == 'workflow_dispatch' || github.event.workflow_run.event != 'pull_request'"])
+	})
+
+	it('runs without installing dependencies, so a push that breaks the install is still reported', () => {
+		expect(readFileSync('.github/workflows/main-health.yml', 'utf8')).not.toMatch(/run:.*\bbun (install|i)\b/)
+		for (const file of ['scripts/main-health.ts', 'scripts/mainHealth.ts']) {
+			const specifiers = [...readFileSync(file, 'utf8').matchAll(/^import .* from '([^']+)'/gm)].map(match => match[1])
+			for (const specifier of specifiers) expect(specifier, `${file} imports ${specifier}`).toMatch(/^(node:|\.\/mainHealth\.js$)/)
+		}
 	})
 
 	it('holds only the permissions it uses and pins its actions', () => {

@@ -55,7 +55,7 @@ Required checks: `check`, `FFmpeg remux gate`, `E2E fixtures gate`, `Cold start 
 
 ### Red `main` alert
 
-Protection is not strict and there is no merge queue, so two PRs green on an older `main` can break it together, and a docs push straight to `main` is never gated. `main-health.yml` runs whenever a workflow above finishes on a push to `main` and judges the tip of `main`: a required check that failed, timed out or never started opens one issue titled "main is red" (label `main-red`) naming the workflow, commit, author or PR and the job link, and later failures comment on it. Once every required check passes on a later tip it comments and closes the issue. A check whose workflow run was cancelled gives no verdict either way. Dry run: `bun scripts/main-health.ts --dry-run [--sha <commit>]`.
+Protection is not strict and there is no merge queue, so two PRs green on an older `main` can break it together, and a docs push straight to `main` is never gated. `main-health.yml` runs whenever a workflow above finishes on `main` (a push, schedule or manual run, never a PR) and judges the tip of `main`: a required check that failed, timed out or never started opens one issue titled "main is red" (label `main-red`) naming the workflow, commit, author or PR and the job link, and later failures comment on it. Once every required check passes on a later tip it comments and closes the issue. A check whose workflow run was cancelled gives no verdict either way. It runs without `bun install`, so a push that breaks the install is reported too. Dry run: `bun scripts/main-health.ts --dry-run [--sha <commit>]`.
 
 ## Release flow
 

@@ -13,9 +13,7 @@
 
 import {spawnSync} from 'node:child_process'
 import {parseArgs} from 'node:util'
-import {z} from 'zod'
-import {decideIssueAction, MAIN_HEALTH_LABEL, MAIN_REQUIRED_CHECKS, mainHealth, workflowRunIdOf, type CommitInfo, type IssueAction, type OpenIssue} from './mainHealth.js'
-import {checkRunsResponseSchema, type CheckRun} from './releaseGate.js'
+import {decideIssueAction, MAIN_HEALTH_LABEL, MAIN_REQUIRED_CHECKS, mainHealth, parseBodies, parseCheckRuns, parseCommit, parseIssueNumbers, parseWorkflowRunConclusion, workflowRunIdOf, type CheckRun, type IssueAction, type OpenIssue} from './mainHealth.js'
 
 class HealthError extends Error {}
 
@@ -28,38 +26,24 @@ function gh(args: string[], input?: string): string {
 
 const ghJson = (path: string): unknown => JSON.parse(gh(['api', path]))
 // --slurp wraps every page in one outer array.
-const ghPages = (path: string): unknown =>
-	z
-		.array(z.array(z.unknown()))
-		.parse(JSON.parse(gh(['api', '--paginate', '--slurp', path])))
-		.flat()
-
-const commitSchema = z.object({sha: z.string(), html_url: z.string(), author: z.object({login: z.string()}).nullable(), commit: z.object({message: z.string(), author: z.object({name: z.string()}).nullable()})})
-const issueSchema = z.object({number: z.number(), body: z.string().nullable()})
-const commentSchema = z.object({body: z.string().nullable()})
-
-function readCommit(repo: string, ref: string): CommitInfo {
-	const raw = commitSchema.parse(ghJson(`repos/${repo}/commits/${ref}`))
-	return {sha: raw.sha, subject: raw.commit.message.split('\n')[0] ?? '', author: raw.author?.login ?? raw.commit.author?.name ?? 'unknown', url: raw.html_url}
-}
+const ghPages = (path: string): unknown => JSON.parse(gh(['api', '--paginate', '--slurp', path]))
 
 function readCheckRuns(repo: string, sha: string): CheckRun[] {
-	return MAIN_REQUIRED_CHECKS.flatMap(({context}) => checkRunsResponseSchema.parse(ghJson(`repos/${repo}/commits/${sha}/check-runs?check_name=${encodeURIComponent(context)}&filter=all&per_page=100`)).check_runs)
+	return MAIN_REQUIRED_CHECKS.flatMap(({context}) => parseCheckRuns(ghJson(`repos/${repo}/commits/${sha}/check-runs?check_name=${encodeURIComponent(context)}&filter=all&per_page=100`)))
 }
 
 // Only the workflow runs behind a failed check matter; a passing one needs no lookup.
 function readCancelledWorkflowRuns(repo: string, runs: readonly CheckRun[]): Set<number> {
 	const ids = new Set(runs.filter(run => run.status === 'completed' && run.conclusion !== 'success').flatMap(run => workflowRunIdOf(run.html_url) ?? []))
-	return new Set([...ids].filter(id => z.object({conclusion: z.string().nullable()}).parse(ghJson(`repos/${repo}/actions/runs/${id}`)).conclusion === 'cancelled'))
+	return new Set([...ids].filter(id => parseWorkflowRunConclusion(ghJson(`repos/${repo}/actions/runs/${id}`)) === 'cancelled'))
 }
 
 // The oldest open issue with the label is the one; the workflow never opens a second.
 function readOpenIssue(repo: string): OpenIssue | null {
-	const issues = z.array(issueSchema).parse(ghPages(`repos/${repo}/issues?labels=${MAIN_HEALTH_LABEL}&state=open&sort=created&direction=asc&per_page=100`))
-	const [issue] = issues
-	if (issue === undefined) return null
-	const comments = z.array(commentSchema).parse(ghPages(`repos/${repo}/issues/${issue.number}/comments?per_page=100`))
-	return {number: issue.number, texts: [issue.body, ...comments.map(comment => comment.body)].filter(text => text !== null)}
+	const [number] = parseIssueNumbers(ghPages(`repos/${repo}/issues?labels=${MAIN_HEALTH_LABEL}&state=open&sort=created&direction=asc&per_page=100`))
+	if (number === undefined) return null
+	const body = parseBodies([[ghJson(`repos/${repo}/issues/${number}`)]])
+	return {number, texts: [...body, ...parseBodies(ghPages(`repos/${repo}/issues/${number}/comments?per_page=100`))]}
 }
 
 function apply(repo: string, action: IssueAction): void {
@@ -90,7 +74,7 @@ function main(argv: string[]): number {
 	const repo = process.env.GITHUB_REPOSITORY ?? gh(['repo', 'view', '--json', 'nameWithOwner', '-q', '.nameWithOwner']).trim()
 	const repoUrl = `${process.env.GITHUB_SERVER_URL ?? 'https://github.com'}/${repo}`
 
-	const commit = readCommit(repo, values.sha ?? 'heads/main')
+	const commit = parseCommit(ghJson(`repos/${repo}/commits/${values.sha ?? 'heads/main'}`))
 	const runs = readCheckRuns(repo, commit.sha)
 	const health = mainHealth(runs, readCancelledWorkflowRuns(repo, runs))
 	const action = decideIssueAction(health, readOpenIssue(repo), commit, repoUrl)

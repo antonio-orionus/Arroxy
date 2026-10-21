@@ -34,8 +34,9 @@ env:
 jobs:
   report:
     name: Report main health
-    # Scheduled and pull request runs of the same workflows say nothing about `main`.
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.event == 'push'
+    # Pull request runs say nothing about `main`. A push, a schedule or a manual
+    # re-run on `main` can each settle the tip's checks, so all of them count.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.event != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -52,8 +53,8 @@ jobs:
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      # Only zod is needed; skipping lifecycle scripts skips the Electron payload.
-      - run: bun install --frozen-lockfile --ignore-scripts
+      # No `bun install`: the script imports only node: built-ins, so a push that
+      # breaks the install is still reported.
       - name: Open, update or close the main-red issue
         env:
           GH_TOKEN: ${{ github.token }}
