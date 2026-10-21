@@ -77,6 +77,11 @@ describe('changelogProblems', () => {
 		const ahead = CHANGELOG.replace('## 1.2.2', '## 1.2.3\n\n- New.\n\n## 1.2.2')
 		expect(changelogProblems(ahead, '1.2.2')).toEqual([expect.stringMatching(/changelog\.d/)])
 	})
+
+	it('rejects an Unreleased or other section above the newest release', () => {
+		const unreleased = CHANGELOG.replace('## 1.2.2', '## Unreleased\n\n- New.\n\n## 1.2.2')
+		expect(changelogProblems(unreleased, '1.2.2')).toEqual([expect.stringMatching(/## Unreleased.*changelog\.d/)])
+	})
 })
 
 describe('orderFragmentFiles', () => {
@@ -121,6 +126,26 @@ describe('changelog CLI', () => {
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['README.md'])
 		expect(cli('check')).toMatchObject({status: 0})
 		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 0})
+	})
+
+	it('lists each kind in the order its fragments were committed', async () => {
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG})
+		const commitFragment = async (name: string, date: string): Promise<void> => {
+			await fs.writeFile(path.join(root, 'changelog.d', name), `${name}\n`)
+			spawnSync('git', ['add', '-A'], {cwd: root, env: ENV})
+			spawnSync('git', ['commit', '-qm', name], {cwd: root, env: {...ENV, GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date}})
+		}
+		await fs.mkdir(path.join(root, 'changelog.d'))
+		await commitFragment('zebra.fix.md', '2026-01-01T00:00:00Z')
+		await commitFragment('apple.fix.md', '2026-01-02T00:00:00Z')
+		expect(cli('assemble')).toMatchObject({status: 0, stderr: ''})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toContain('- zebra.fix.md\n- apple.fix.md\n')
+	})
+
+	it('warns when git cannot give the merge order', async () => {
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG, 'changelog.d/a.fix.md': 'Fix.\n'})
+		await fs.rm(path.join(root, '.git'), {recursive: true})
+		expect(cli('assemble')).toMatchObject({status: 0, stderr: expect.stringMatching(/file name order/)})
 	})
 
 	it('says there is nothing to release instead of writing an empty section', async () => {

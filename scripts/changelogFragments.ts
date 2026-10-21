@@ -86,9 +86,16 @@ export function insertSection(changelog: string, version: string, section: strin
  * already-released section stay allowed.
  */
 export function changelogProblems(changelog: string, packageVersion: string): string[] {
+	const useFragments = `Unreleased changes go in a ${FRAGMENT_DIR}/<slug>.<kind>.md fragment; see ${FRAGMENT_DIR}/${FRAGMENT_README}`
+	const lines = changelog.split(/\r?\n/).map(line => line.trim())
+	const firstRelease = lines.findIndex(line => VERSION_HEADING.test(line))
+	// A `## Unreleased` (or any section) above the newest release would be
+	// left out of every release's notes.
+	const stray = lines.slice(0, firstRelease === -1 ? lines.length : firstRelease).find(line => /^##\s/.test(line))
+	if (stray !== undefined) return [`CHANGELOG.md: "${stray}" sits above the newest release. ${useFragments}`]
 	const newest = versionHeadings(changelog)[0]
 	if (newest === undefined || newest === packageVersion) return []
-	return [`CHANGELOG.md: its newest section is ## ${newest}, but package.json is ${packageVersion}. Unreleased changes go in a ${FRAGMENT_DIR}/<slug>.<kind>.md fragment; see ${FRAGMENT_DIR}/${FRAGMENT_README}`]
+	return [`CHANGELOG.md: its newest section is ## ${newest}, but package.json is ${packageVersion}. ${useFragments}`]
 }
 
 /**

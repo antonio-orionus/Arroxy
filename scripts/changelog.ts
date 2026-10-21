@@ -32,7 +32,10 @@ const problems = (): string[] => [...fragmentFiles().flatMap(fileProblems), ...c
 
 function gitAddLog(): string {
 	const result = spawnSync('git', ['log', '--diff-filter=A', '--no-renames', '--format=%x00%ct', '--name-only', '--', FRAGMENT_DIR], {encoding: 'utf8'})
-	return result.status === 0 ? result.stdout : ''
+	if (result.status === 0) return result.stdout
+	const reason = result.error?.message ?? result.stderr.trim()
+	console.error(`git log could not give the order fragments merged in (${reason}); listing them in file name order. Reorder the section by hand if it matters.`)
+	return ''
 }
 
 function assemble(requested: string | undefined): void {
