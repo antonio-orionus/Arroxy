@@ -93,7 +93,7 @@ export function ProfileIdentityPanel({profileId, profileName, profileIcon, iconP
 							</ToggleGroup>
 						</PopoverContent>
 					</Popover>
-					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
+					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName} maxLength={80} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
 				</InputGroup>
 			</Field>
 		</Panel>

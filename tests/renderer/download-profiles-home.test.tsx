@@ -187,6 +187,8 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		fireEvent.click(within(screen.getByTestId('profiles-manage-card-balanced')).getByRole('button', {name: 'Edit'}))
 		const name = await screen.findByTestId('profiles-editor-name')
 		expect(name).toHaveValue('Équilibré 720p')
+		// The settings schema refuses longer names; the field never offers one.
+		expect(name).toHaveAttribute('maxLength', '80')
 		fireEvent.change(name, {target: {value: ''}})
 		expect(name).toHaveAttribute('placeholder', 'Équilibré 720p')
 	})
