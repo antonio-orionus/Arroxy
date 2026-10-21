@@ -70,16 +70,39 @@ function makeService() {
 	return {service, recentJobsStore}
 }
 
+// What real yt-dlp does for a subtitle phase's two runs. A listing (`-J`)
+// prints the video's info-json on stdout. A subtitle run writes the file the
+// test names for each key it is asked for (`--sub-langs`) and appends
+// `requested_subtitles` to the report it is asked for (`--print-to-file
+// after_video:…`), whose path is relative to the folder it runs in. Any other
+// run is the media's: null, for the test's own transcript.
+const VIDEO_INFO = {id: 'dQw4w9WgXcQ', title: 'Title', subtitles: {en: [{ext: 'srt'}]}, automatic_captions: {'en-orig': [{ext: 'srt'}], en: [{ext: 'srt'}]}}
+
+function subtitleRun(args: readonly string[], cwd: string | undefined, files: Record<string, {path: string; content?: string}>): TranscriptProcess | null {
+	if (args.includes('--dump-single-json')) return createTranscriptProcess([{stream: 'stdout', data: JSON.stringify(VIDEO_INFO)}, {close: 0}])
+	if (!args.includes('--skip-download')) return null
+	const keys = (args[args.indexOf('--sub-langs') + 1] ?? '').split(',').map(entry => entry.replace(/^\(\?-i:(.*)\)$/, '$1').replace(/\\(.)/g, '$1'))
+	return createTranscriptProcess([{close: 0}], {
+		beforeStart: () => {
+			const report: Record<string, {ext: string; filepath: string}> = {}
+			for (const key of keys) {
+				const file = files[key]
+				if (!file) continue
+				if (file.content !== undefined) writeFileSync(file.path, file.content)
+				report[key] = {ext: 'srt', filepath: file.path}
+			}
+			const at = args.findIndex((arg, index) => arg === '--print-to-file' && args[index + 1]?.startsWith('after_video:'))
+			const reportFile = at === -1 ? undefined : args[at + 2]?.replace(/%\(_absent\|(.)\)s/g, '$1')
+			if (reportFile) appendFileSync(resolve(cwd ?? '.', reportFile), `${JSON.stringify(report)}\n`)
+		}
+	})
+}
+
 describe('DownloadService — subtitle soft-fail finalization', () => {
 	it('emits final media and subtitle artifacts when a job completes', async () => {
 		const videoPath = '/tmp/video.mkv'
 		const subPath = '/tmp/video.en.srt'
-		let callIndex = 0
-		vi.mocked(spawnYtDlp).mockImplementation(() => {
-			const stderr = callIndex === 0 ? `[download] Destination: ${videoPath}\n` : `[download] Destination: ${subPath}\n`
-			callIndex++
-			return makeProcess(0, stderr) as never
-		})
+		vi.mocked(spawnYtDlp).mockImplementation(((_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) => subtitleRun(args, options?.cwd, {en: {path: subPath}}) ?? makeProcess(0, `[download] Destination: ${videoPath}\n`)) as never)
 		const {service, recentJobsStore} = makeService()
 		const artifacts: QueueArtifactEvent[] = []
 		service.on('artifact', event => artifacts.push(event))
@@ -129,17 +152,13 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 	})
 
 	function makeMergerMoveSpawn(tempVideoPath: string, finalVideoPath: string, subPath: string, subContent: string) {
-		let call = 0
-		return () => {
-			const isPhase1 = call === 0
-			call++
-			return createTranscriptProcess([{stream: 'stderr', data: isPhase1 ? `[Merger] Merging formats into "${tempVideoPath}"\n[Metadata] Adding metadata to "${tempVideoPath}"\n[MoveFiles] Moving file "${tempVideoPath}" to "${finalVideoPath}"\n` : `[download] Destination: ${subPath}\n`}, {close: 0}], {
+		return (_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) =>
+			subtitleRun(args, options?.cwd, {en: {path: subPath, content: subContent}}) ??
+			createTranscriptProcess([{stream: 'stderr', data: `[Merger] Merging formats into "${tempVideoPath}"\n[Metadata] Adding metadata to "${tempVideoPath}"\n[MoveFiles] Moving file "${tempVideoPath}" to "${finalVideoPath}"\n`}, {close: 0}], {
 				beforeStart: () => {
-					if (isPhase1) writeFileSync(finalVideoPath, 'fake-merged-bytes')
-					else writeFileSync(subPath, subContent)
+					writeFileSync(finalVideoPath, 'fake-merged-bytes')
 				}
 			})
-		}
 	}
 
 	it('reports thumbnail and description sidecars with their sizes when the job completes', async () => {
@@ -229,17 +248,15 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		const finalVideoPath = join(workDir, 'Title.mkv')
 		const subPath = join(workDir, 'Title.en.srt')
 
-		let call = 0
-		vi.mocked(spawnYtDlp).mockImplementation((() => {
-			const isPhase1 = call === 0
-			call++
-			return createTranscriptProcess([{stream: 'stderr', data: isPhase1 ? `[download] ${finalVideoPath} has already been downloaded\n` : `[download] Destination: ${subPath}\n`}, {close: 0}], {
-				beforeStart: () => {
-					if (isPhase1) writeFileSync(finalVideoPath, 'fake-existing-bytes')
-					else writeFileSync(subPath, 'sub-bytes')
-				}
-			})
-		}) as never)
+		vi.mocked(spawnYtDlp).mockImplementation(
+			((_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) =>
+				subtitleRun(args, options?.cwd, {en: {path: subPath, content: 'sub-bytes'}}) ??
+				createTranscriptProcess([{stream: 'stderr', data: `[download] ${finalVideoPath} has already been downloaded\n`}, {close: 0}], {
+					beforeStart: () => {
+						writeFileSync(finalVideoPath, 'fake-existing-bytes')
+					}
+				})) as never
+		)
 
 		const ffmpegCalls: string[][] = []
 		vi.mocked(spawnFFmpeg).mockImplementation(((_bin: string, args: string[]) => {
@@ -276,17 +293,13 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 	})
 
 	function makeTwoPhaseSpawn(videoPath: string, subPath: string, subContent: string) {
-		let call = 0
-		return () => {
-			const isPhase1 = call === 0
-			call++
-			return createTranscriptProcess([{stream: 'stderr', data: isPhase1 ? `[download] Destination: ${videoPath}\n` : `[download] Destination: ${subPath}\n`}, {close: 0}], {
+		return (_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) =>
+			subtitleRun(args, options?.cwd, {en: {path: subPath, content: subContent}}) ??
+			createTranscriptProcess([{stream: 'stderr', data: `[download] Destination: ${videoPath}\n`}, {close: 0}], {
 				beforeStart: () => {
-					if (isPhase1) writeFileSync(videoPath, 'fake-video-bytes')
-					else writeFileSync(subPath, subContent)
+					writeFileSync(videoPath, 'fake-video-bytes')
 				}
 			})
-		}
 	}
 
 	function mockSuccessfulMux(ffmpegCalls: string[][] = []): void {
@@ -417,19 +430,14 @@ describe('DownloadService — final media path after --remux-video', () => {
 	// destination after a "Remuxing video from …;" prefix, deletes the MP4 and
 	// the move carries the .mkv out of the temp folder.
 	function makeRemuxSpawn(paths: {tempMp4: string; tempMkv: string; finalMkv: string; subPath: string}) {
-		let call = 0
-		return ((_bin: string, args: string[]) => {
-			const isPhase1 = call === 0
-			call++
-			const phase1 = [`[download] Destination: ${paths.tempMp4}`, `[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: ${paths.tempMkv}`, `Deleting original file ${paths.tempMp4} (pass -k to keep)`, `[MoveFiles] Moving file "${paths.tempMkv}" to "${paths.finalMkv}"`].join('\n')
-			return createTranscriptProcess([{stream: 'stdout', data: isPhase1 ? `${phase1}\n` : `[download] Destination: ${paths.subPath}\n`}, {close: 0}], {
+		return ((_bin: string, args: string[], _ffmpeg: string | null, options?: {cwd?: string}) => {
+			const subtitles = subtitleRun(args, options?.cwd, {en: {path: paths.subPath, content: '1\n00:00:00,000 --> 00:00:01,000\nHi\n'}})
+			if (subtitles) return subtitles
+			const media = [`[download] Destination: ${paths.tempMp4}`, `[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: ${paths.tempMkv}`, `Deleting original file ${paths.tempMp4} (pass -k to keep)`, `[MoveFiles] Moving file "${paths.tempMkv}" to "${paths.finalMkv}"`].join('\n')
+			return createTranscriptProcess([{stream: 'stdout', data: `${media}\n`}, {close: 0}], {
 				beforeStart: () => {
-					if (isPhase1) {
-						writeFileSync(paths.finalMkv, 'remuxed-bytes')
-						printFinalPath(args, paths.finalMkv, workDir)
-					} else {
-						writeFileSync(paths.subPath, '1\n00:00:00,000 --> 00:00:01,000\nHi\n')
-					}
+					writeFileSync(paths.finalMkv, 'remuxed-bytes')
+					printFinalPath(args, paths.finalMkv, workDir)
 				}
 			})
 		}) as never

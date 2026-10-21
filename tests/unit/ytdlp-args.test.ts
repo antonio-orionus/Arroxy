@@ -199,7 +199,7 @@ describe('YtDlp — user yt-dlp config and plugins', () => {
 	// directory), the user's own config, and plugins from the user's folders.
 	// None of them may change a run Arroxy planned, whatever kind of run it is.
 	// Keyed by kind, so a new kind of run fails to compile until it is listed.
-	const requests = {probe: probeRequest(), media: mediaRequest(), subtitles: subtitleRequest()} satisfies Record<YtDlpRequest['kind'], YtDlpRequest>
+	const requests = {probe: probeRequest(), 'subtitle-listing': {kind: 'subtitle-listing', url: 'https://www.youtube.com/watch?v=abc'}, media: mediaRequest(), subtitles: subtitleRequest()} satisfies Record<YtDlpRequest['kind'], YtDlpRequest>
 
 	it.each(Object.entries(requests))('%s runs read no config file and load no plugins', async (_kind, req) => {
 		await makeYtDlp().run(req)

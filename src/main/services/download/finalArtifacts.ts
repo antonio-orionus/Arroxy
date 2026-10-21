@@ -15,7 +15,8 @@ export interface FinalArtifact {
 	kind: QueueArtifactKind
 	// Reported only when the file is still on disk at completion.
 	sidecar?: true
-	// The media file's title from the job's info-json.
+	// The video's title from the job's info-json, on its media file (or its
+	// subtitles, when it saved no media).
 	title?: string
 }
 
@@ -28,7 +29,9 @@ export function finalArtifactsOf(active: ActiveDownload): FinalArtifact[] {
 	add(active.mediaPath, 'media', active.mediaTitle ? {title: active.mediaTitle} : {})
 	const embedsSubtitlesIntoMedia = active.input.job.kind !== 'subtitle-only' && active.input.job.subtitles?.mode === 'embed'
 	if (!embedsSubtitlesIntoMedia) {
-		for (const subtitlePath of active.subtitlePaths) add(subtitlePath, 'subtitle')
+		// With no media file, the subtitles carry the title a placeholder row is named from.
+		const subtitleTitle = !active.mediaPath && active.mediaTitle ? {title: active.mediaTitle} : {}
+		for (const subtitlePath of active.subtitlePaths) add(subtitlePath, 'subtitle', subtitleTitle)
 	}
 	for (const sidecarPath of active.sidecarPaths ?? []) add(sidecarPath, artifactKindForPath(sidecarPath), {sidecar: true})
 	return artifacts

@@ -5,7 +5,7 @@ import log from 'electron-log/main.js'
 import {spawnYtDlp} from '@main/utils/process.js'
 import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
-import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat, type WorkflowPlanOptions} from 'yt-dlp-bridge'
+import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat, type SubtitleListingWorkflowInput, type WorkflowPlanOptions} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {createStreamTextReader, killProcessTree} from 'yt-dlp-bridge/runner'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
@@ -41,7 +41,7 @@ function summarizeDependencySourceForLog(source: DependencySource | null | undef
 	return {ytDlpSource: source.kind}
 }
 
-export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
+export type YtDlpRequest = ProbeWorkflowInput | SubtitleListingWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
 
 // The bridge composes the print-to-file request with the run's other paths,
 // relative to the folder yt-dlp runs in (see ytDlpFinalPath.ts).

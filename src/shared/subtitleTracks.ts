@@ -118,22 +118,3 @@ export function planSubtitleTracks(request: SubtitleRequest, maps: SubtitleMaps)
 	const tracks = picked.map(({key, auto}) => ({key, requestKey: requestKeyFor(key, {subtitles: maps.subtitles, fetchesManual}), auto, language: baseLanguage(key)}))
 	return {tracks, missing}
 }
-
-// Which of yt-dlp's subtitle flags a plan needs: `--write-subs` for a manual
-// track, `--write-auto-subs` for an automatic caption.
-export function subtitleFetchFlags(plan: SubtitlePlan): {manual: boolean; auto: boolean} {
-	return {manual: plan.tracks.some(track => !track.auto), auto: plan.tracks.some(track => track.auto)}
-}
-
-// The flags a subtitle source needs when no plan could be made.
-export function sourceFetchFlags(source: DownloadProfileSubtitleSource): {manual: boolean; auto: boolean} {
-	return {manual: source !== 'auto-only', auto: source !== 'manual-only'}
-}
-
-// The map yt-dlp's `process_subtitles` takes a requested key from: the manual
-// subtitles first when it writes them, then the automatic captions.
-export function fetchedTrackFormats<T>(key: string, maps: {subtitles: Record<string, T>; automaticCaptions: Record<string, T>}, fetch: {manual: boolean; auto: boolean}): T | undefined {
-	if (fetch.manual && Object.hasOwn(maps.subtitles, key)) return maps.subtitles[key]
-	if (fetch.auto && Object.hasOwn(maps.automaticCaptions, key)) return maps.automaticCaptions[key]
-	return undefined
-}

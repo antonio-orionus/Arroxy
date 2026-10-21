@@ -1,5 +1,6 @@
 // Artifact ingest with the Layer 2 title backstop. Records the artifact and,
-// when a media file lands on a still-flagged row, backfills the row title from
+// when a media file (or a subtitles-only job's subtitle file) lands on a
+// still-flagged row, backfills the row title from
 // the title the event carries: the one yt-dlp wrote into the job's info-json.
 // The filename is never parsed for it — yt-dlp sanitizes and trims names, and
 // the template decides where the title sits.
@@ -32,9 +33,9 @@ export function ingestQueueArtifactEvent(host: QueueArtifactIngestHost, event: Q
 	const item = findTarget(host, event.jobId)
 	if (!item) return
 	const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal, sizeBytes: event.sizeBytes})
-	// Without a title on the event the placeholder stays. Subtitle-only jobs
-	// emit no media artifact and skip this path by construction.
-	const backfilledTitle = event.kind === 'media' && item.titleIsPlaceholder === true && event.title ? event.title : null
+	// Without a title on the event the placeholder stays. A subtitles-only job
+	// has no media file, so its subtitles carry the title.
+	const backfilledTitle = (event.kind === 'media' || event.kind === 'subtitle') && item.titleIsPlaceholder === true && event.title ? event.title : null
 	host.commitPatch(item.id, `artifact:${event.kind}`, prev => {
 		const applyTitle = (next: QueueItem): QueueItem => (backfilledTitle !== null && next.titleIsPlaceholder === true ? withBackfilledTitle(next, backfilledTitle) : next)
 		if (!event.fromPath) return applyTitle({...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)})

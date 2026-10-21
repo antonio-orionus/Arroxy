@@ -2,7 +2,7 @@
 // regex set, percent extraction, and post-process state machine isolated from
 // DownloadService's orchestration code.
 //
-// Mutates ActiveDownload's `currentFileKind`, `subtitlePaths`, `mediaPath`,
+// Mutates ActiveDownload's `currentFileKind`, `mediaPath`,
 // and `postProcEmitted` — those fields are shared lifecycle state (PhaseExecutor
 // + finalize() also read them), not parser state, so they live on
 // ActiveDownload rather than inside this class.
@@ -114,10 +114,6 @@ function withRunPaths(active: ActiveDownload, event: YtDlpOutputEvent): YtDlpOut
 	}
 }
 
-function rememberSubtitlePath(active: ActiveDownload, path: string): void {
-	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
-}
-
 function replacePath(paths: string[] | undefined, from: string, to: string): string[] | undefined {
 	if (!paths?.includes(from)) return paths
 	return paths.map(path => (path === from ? to : path))
@@ -163,11 +159,8 @@ export class ProgressParser {
 				active.currentFileKind = kind
 				active.lastLoggedProgressStep = undefined
 				active.lastLoggedFfmpegStep = undefined
-				if (kind === 'subtitle') {
-					rememberSubtitlePath(active, path)
-				} else {
-					QueueResumeLifecycle.rememberMediaComponent(active, path)
-				}
+				// A subtitle run's files come from its report (see subtitleTracks.ts).
+				if (kind === 'media') QueueResumeLifecycle.rememberMediaComponent(active, path)
 				this.emitStatus(jobId, 'download', kind === 'subtitle' ? STATUS_KEY.fetchingSubtitles : STATUS_KEY.downloadingMedia)
 				continue
 			}
@@ -179,15 +172,13 @@ export class ProgressParser {
 			}
 
 			if (event.kind === 'already-downloaded') {
-				if (isSubtitleFile(event.path)) rememberSubtitlePath(active, event.path)
-				else QueueResumeLifecycle.rememberMediaComponent(active, event.path)
+				if (!isSubtitleFile(event.path)) QueueResumeLifecycle.rememberMediaComponent(active, event.path)
 				continue
 			}
 
 			if (event.kind === 'move') {
 				if (active.mediaPath === event.from) active.mediaPath = event.to
 				active.mediaComponentPaths = replacePath(active.mediaComponentPaths, event.from, event.to)
-				active.subtitlePaths = replacePath(active.subtitlePaths, event.from, event.to) ?? active.subtitlePaths
 				active.sidecarPaths = replacePath(active.sidecarPaths, event.from, event.to)
 				this.emitArtifact?.({jobId, path: event.to, kind: artifactKindForPath(event.to), fromPath: event.from, at: nowIso()})
 				this.emitPostProcStatus(active, 'movingFiles')

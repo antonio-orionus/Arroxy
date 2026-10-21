@@ -1,11 +1,12 @@
 // Quick Download and the Format screen must fetch the same subtitle tracks for
 // the same profile and video. Each path's job is planned by the subtitle
-// phase's own step over the recorded probe as its info-json, and the yt-dlp
-// request that comes out is run through a model of
-// yt-dlp's own track choice (`YoutubeDL.process_subtitles`: manual tracks
-// first, automatic captions fill in, each `--sub-langs` entry fullmatched
-// case-insensitively against the keys) over the recorded probe's raw maps,
-// so a pattern that also catches YouTube's machine translations shows up here.
+// phase's own steps over the recorded probe as its lists (the info-json on
+// YouTube, a listing elsewhere), the fetch is planned by the bridge, and its
+// argv is run through a model of yt-dlp's own track choice
+// (`YoutubeDL.process_subtitles`: manual tracks first, automatic captions fill
+// in, each `--sub-langs` entry fullmatched case-insensitively against the
+// keys) over the recorded raw maps, so a track that is not the one planned,
+// such as a machine translation, shows up here.
 
 import {mkdtempSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
@@ -32,7 +33,8 @@ import dailymotion from '@renderer/dev/probeSources/dailymotion.json' with {type
 
 vi.mock('@main/services/subtitlePostProcess.js', () => ({logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
-import {resolveSubtitlePlan, subtitleRunRequest} from '@main/services/phases/subtitleTracks.js'
+import {eagerSubtitleLists, planSubtitleRun, saveSubtitleListing, subtitleFetchRequest} from '@main/services/phases/subtitleTracks.js'
+import {planWorkflow} from 'yt-dlp-bridge'
 
 interface RawMaps {
 	subtitles?: Record<string, unknown>
@@ -64,28 +66,40 @@ interface Fetch {
 	// The `--sub-langs` entries, which name the files and embedded tracks.
 	languages: string[]
 	tracks: string[]
-	pattern: boolean
+	// The site's info-json lists no subtitles until asked: a listing run gave them.
+	listed: boolean
+}
+
+function argAfter(args: readonly string[], flag: string): string | undefined {
+	const index = args.indexOf(flag)
+	return index === -1 ? undefined : args[index + 1]
 }
 
 // What a job's subtitle phase asks yt-dlp for, with the probe as its info-json,
 // and the tracks yt-dlp then downloads, per `YoutubeDL.process_subtitles` and
 // `orderedSet_from_options(use_regex=True)`.
 async function ytDlpFetches(raw: RawMaps, probe: VideoProbeResult, subtitles: SubtitleOptions | undefined): Promise<Fetch> {
-	if (!subtitles) return {languages: [], tracks: [], pattern: false}
+	if (!subtitles) return {languages: [], tracks: [], listed: false}
 	const infoJson = join(infoJsonDir, `${probe.videoId}.info.json`)
 	writeFileSync(infoJson, JSON.stringify(raw))
-	const run = await resolveSubtitlePlan(subtitles, {infoJsonPaths: [infoJson], site: siteForJob(probe.extractor, probe.webpageUrl), jobId: 'parity'})
-	const request = subtitleRunRequest(run, subtitles.format)
-	const writeSubs = request.autoOnly !== true
+	const site = siteForJob(probe.extractor, probe.webpageUrl)
+	const eager = await eagerSubtitleLists([infoJson], site)
+	const lists = eager ?? (await saveSubtitleListing(JSON.stringify(raw), infoJsonDir))
+	if (!lists) throw new Error('fixture lists unreadable')
+	const plan = planSubtitleRun(subtitles, lists, {site, jobId: 'parity'})
+	if (plan.tracks.length === 0) return {languages: [], tracks: [], listed: eager === null}
+	const {args} = planWorkflow(subtitleFetchRequest(plan, {url: probe.webpageUrl, output: {directory: infoJsonDir}, format: subtitles.format, lists, tempDir: infoJsonDir}))
+	const writeSubs = args.includes('--write-subs')
 	const available = new Set<string>()
 	if (writeSubs) for (const key of Object.keys(raw.subtitles ?? {})) available.add(key)
-	if (request.writeAuto) for (const key of Object.keys(raw.automatic_captions ?? {})) available.add(key)
+	if (args.includes('--write-auto-subs')) for (const key of Object.keys(raw.automatic_captions ?? {})) available.add(key)
+	const languages = (argAfter(args, '--sub-langs') ?? '').split(',').filter(Boolean)
 	const picked = new Set<string>()
-	for (const pattern of request.languages) {
+	for (const pattern of languages) {
 		const fullmatch = new RegExp(`^(?:${pattern})$`, 'i')
 		for (const key of available) if (fullmatch.test(key)) picked.add(trackId(raw, key, writeSubs))
 	}
-	return {languages: request.languages, tracks: [...picked].sort(), pattern: run.kind === 'pattern'}
+	return {languages, tracks: [...picked].sort(), listed: eager === null}
 }
 
 function profileFor(media: (typeof MEDIA)[number], languages: string[], source: DownloadProfileSubtitleSource): DownloadProfile {
@@ -155,9 +169,8 @@ describe('subtitle tracks: Quick Download vs the Format screen', () => {
 						const quick = await ytDlpFetches(fixture.info, probe, quickJob(probe, profile))
 						expect(interactive.tracks).toEqual(picked.map(key => trackId(fixture.info, key, source !== 'auto-only')).sort())
 						expect(quick.tracks).toEqual(interactive.tracks)
-						// The keys name the files and the embedded tracks, so they match too
-						// (a site that does not list its tracks sends Quick Download's codes).
-						if (!quick.pattern) expect(quick.languages).toEqual(interactive.languages)
+						// The keys name the files and the embedded tracks, so they match too.
+						expect(quick.languages).toEqual(interactive.languages)
 					})
 				}
 	}
@@ -188,12 +201,13 @@ describe('subtitle tracks the user picks on the Format screen', () => {
 // Vimeo, TikTok, Bilibili and others list subtitles only when yt-dlp is asked to
 // write or list them, which a probe never is: their empty maps say nothing.
 describe('a site whose probe does not list every subtitle track', () => {
-	it("sends Quick Download's language codes for yt-dlp to match", async () => {
+	it("queues the profile's languages, and the subtitle phase plans them from a listing", async () => {
 		const probe: VideoProbeResult = {...probeSourceResult('dailymotion'), extractor: 'vimeo', extractorKey: 'Vimeo', webpageUrl: 'https://vimeo.com/1', subtitles: {}, automaticCaptions: {}}
+		const listing: RawMaps = {subtitles: {en: [{ext: 'vtt'}], 'en-x-autogen': [{ext: 'vtt'}]}}
 		for (const media of MEDIA) {
 			const subtitles = quickJob(probe, profileFor(media, ['en'], 'manual-first'))
 			expect(subtitles?.request).toEqual({kind: 'languages', languages: ['en'], source: 'manual-first'})
-			expect((await ytDlpFetches({}, probe, subtitles)).pattern).toBe(true)
+			expect(await ytDlpFetches(listing, probe, subtitles)).toEqual({languages: ['(?-i:en)'], tracks: ['manual:en'], listed: true})
 		}
 	})
 })

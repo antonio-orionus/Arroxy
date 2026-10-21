@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs'
 import {copyFile, mkdir, readFile, rm, stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
-import {dirname, isAbsolute, join, relative, sep} from 'node:path'
+import {isAbsolute, join, relative, sep} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
@@ -11,8 +11,7 @@ import {sabrSkippedClient} from 'ytdlp-errors'
 import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {readInfoJsonTitle} from '../download/infoJsonTitle.js'
-import {TEMP_DIR_NAME} from '../download/cleanup.js'
-import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
+import {setupTempDir} from '../download/jobTempDir.js'
 import type {ActiveDownload, Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut, INFO_JSON_NAME} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
@@ -21,30 +20,6 @@ import {identityFor} from '../exploreGate.js'
 import {settleWithExploreSession} from './signedInFlow.js'
 
 const logger = log.scope('downloads')
-
-async function setupTempDir(outputDir: string, jobId: string, preserve: boolean, overridePath?: string): Promise<string | undefined> {
-	const tempDir = overridePath ?? join(outputDir, TEMP_DIR_NAME, jobId.slice(0, 8))
-	try {
-		if (!preserve) await rm(tempDir, {recursive: true, force: true})
-		// One recursive `mkdir` builds the root and the job directory together, and
-		// its result says which of them was new: it resolves to the first path it
-		// created, or undefined when everything already existed. So a result that
-		// is not the job directory itself means `.arroxy-temp` was just brought
-		// into existence, which is the only moment it needs hiding — cleanup
-		// removes the root again when a job finalizes, so hiding once per session
-		// would leave every later download's folder visible on Windows.
-		//
-		// Deliberately a single call. Creating the root separately leaves a window
-		// in which the startup sweep can `rmdir` an empty root between the two,
-		// after which the second call silently recreates it unhidden.
-		const created = await mkdir(tempDir, {recursive: true})
-		// Cosmetic and Windows-only, so it neither blocks nor can fail the setup.
-		if (created !== undefined && normalizeCreatedPath(created) !== tempDir) await hideTempDirRoot(dirname(tempDir))
-		return tempDir
-	} catch {
-		return undefined
-	}
-}
 
 // yt-dlp runs inside the output folder and is given the temp folder relative
 // to it, so a preserved one resumes only from inside that folder.

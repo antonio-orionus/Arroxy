@@ -55,14 +55,16 @@ manual tracks and the video has one under the bare key, since yt-dlp fills a key
 first; embedding then tags it with the base language and titles it "Auto-generated"
 (ffmpeg writes `en-orig` verbatim, an invalid ISO 639-2 code players show raw). The
 `manual-and-auto` subtitle source picks both tracks (ADR 0014). A job carries its
-subtitle request; the subtitle phase plans it from the media run's or probe's
-info-json (`resolveSubtitlePlan`, ADR 0016). That needs maps that
-list every track, so it runs only where the site adapter sets
-`probeListsSubtitleTracks` (YouTube): extractors using yt-dlp's lazy
-`extract_subtitles` (Vimeo, TikTok, Bilibili, Niconico, PeerTube…) return empty
-maps unless `--write-subs`/`--list-subs` is set, which neither the probe nor
-phase 1 does. Those sites, and a job with no info-json at all (a subtitles-only
-playlist entry), still send the code pattern.
+subtitle request; the subtitle phase plans it from lists that name every track
+(ADR 0016). On YouTube (`probeListsSubtitleTracks`) the media run's or probe's
+info-json has them. Extractors using yt-dlp's lazy `extract_subtitles` (Vimeo,
+TikTok, Bilibili, Niconico, PeerTube…) return empty maps unless
+`--write-subs`/`--list-subs` is set, which neither the probe nor phase 1 does, so
+those sites, and a job with no info-json at all (a subtitles-only playlist
+entry), get a `subtitle-listing` run (`-J` with the subtitle flags) first. No
+path sends a code pattern any more. `--convert-subs` replaces each
+`requested_subtitles` entry and drops its `name`, so track names come from the
+lists, not the run's report.
 
 ## Subtitle source → yt-dlp flags
 

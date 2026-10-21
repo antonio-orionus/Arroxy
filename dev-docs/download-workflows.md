@@ -151,14 +151,16 @@ Five sources feed jobs, and which one applies depends on the path:
 A job carries a subtitle request, never resolved tracks (ADR 0016): a
 profile's, batch's or Quick Download's languages and subtitle source, or the
 tracks picked on the Format screen (`SubtitleRequest`,
-`src/shared/subtitleTracks.ts`). Both subtitle phases start with
-`resolveSubtitlePlan` (`src/main/services/phases/subtitleTracks.ts`), which
-plans the request with `planSubtitleTracks`, the rule the Format screen
-previews with, over the media run's or the probe's info-json. The `--sub-langs`
-entries, the write flags and the mux's language and title per file are read
-off that plan. Only on sites whose info-json lists every track
-(`probeListsSubtitleTracks`, YouTube); elsewhere, or with no info-json at hand,
-a languages request reaches yt-dlp as a pattern of its codes.
+`src/shared/subtitleTracks.ts`). Both subtitle phases first get the video's
+complete lists (`src/main/services/phases/subtitleTracks.ts`): the media run's
+or the probe's info-json on a site that lists every track up front
+(`probeListsSubtitleTracks`, YouTube), otherwise a `subtitle-listing` run
+(`-J` with the subtitle flags), saved in the job's temp folder. They plan the
+request over those lists with `planSubtitleTracks`, the rule the Format screen
+previews with, and fetch the planned tracks with `--load-info-json` on the
+same info-json, so nothing is extracted twice. The written files come from the
+run's report (`requested_subtitles`), never from the log; each file's language
+and embedded title come from the plan, its name from the lists.
 
 The same step decides what a job ends as when the plan lacks languages
 (`missingSubtitles`): a subtitles-only job with none of them fails hard with

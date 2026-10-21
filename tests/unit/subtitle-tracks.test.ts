@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {fetchedTrackFormats, matchesSubtitleLanguage, pickedTrack, planSubtitleTracks, subtitleFetchFlags, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
+import {matchesSubtitleLanguage, pickedTrack, planSubtitleTracks, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
 
 // Track keys observed on a real YouTube video (`yt-dlp --list-subs`), plus
 // regional variants uploaders commonly set. `de-en` is German auto-translated
@@ -105,34 +105,5 @@ describe('pickedTrack', () => {
 		expect(pickedTrack('en', maps)).toEqual({key: 'en', auto: false})
 		expect(pickedTrack('en-orig', maps)).toEqual({key: 'en-orig', auto: true})
 		expect(pickedTrack('constructor', maps)).toEqual({key: 'constructor', auto: true})
-	})
-})
-
-describe('subtitleFetchFlags', () => {
-	it('asks for each kind of track the plan holds', () => {
-		const plan = (auto: boolean[]): SubtitlePlan => ({tracks: auto.map((a, i) => ({key: `k${i}`, requestKey: `k${i}`, auto: a, language: `k${i}`})), missing: []})
-		expect(subtitleFetchFlags(plan([false]))).toEqual({manual: true, auto: false})
-		expect(subtitleFetchFlags(plan([true]))).toEqual({manual: false, auto: true})
-		expect(subtitleFetchFlags(plan([false, true]))).toEqual({manual: true, auto: true})
-		expect(subtitleFetchFlags(plan([]))).toEqual({manual: false, auto: false})
-	})
-})
-
-// yt-dlp's `process_subtitles`: the manual subtitles first when it writes them, then the automatic captions.
-describe('fetchedTrackFormats', () => {
-	const maps = {subtitles: {en: 'manual en'}, automaticCaptions: {en: 'auto en', ja: 'auto ja'}}
-
-	it('takes a key from the manual subtitles before the automatic captions', () => {
-		expect(fetchedTrackFormats('en', maps, {manual: true, auto: true})).toBe('manual en')
-		expect(fetchedTrackFormats('ja', maps, {manual: true, auto: true})).toBe('auto ja')
-	})
-
-	it('skips a kind the run does not write', () => {
-		expect(fetchedTrackFormats('en', maps, {manual: false, auto: true})).toBe('auto en')
-		expect(fetchedTrackFormats('ja', maps, {manual: true, auto: false})).toBeUndefined()
-	})
-
-	it('never takes an Object.prototype member for a key', () => {
-		expect(fetchedTrackFormats('toString', maps, {manual: true, auto: true})).toBeUndefined()
 	})
 })

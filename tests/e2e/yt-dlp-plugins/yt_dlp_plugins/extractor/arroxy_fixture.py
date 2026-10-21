@@ -207,6 +207,15 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                         'name': 'English (Original)',
                     },
                 ],
+                # A machine translation of the English caption, under the bare
+                # code YouTube lists every translation by. Never a planned track.
+                'de': [
+                    {
+                        'url': f'{base_url}/subtitles/{video_id}/de.auto.vtt',
+                        'ext': 'vtt',
+                        'name': 'German',
+                    },
+                ],
             },
             'formats': _fixture_formats(catalog, base_url, video_id, signed_in),
         }

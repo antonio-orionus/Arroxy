@@ -5,7 +5,7 @@
 // the ffmpeg child if a cancel lands mid-mux).
 
 import {extname} from 'node:path'
-import {access, readFile, rename, unlink, writeFile} from 'node:fs/promises'
+import {readFile, rename, unlink, writeFile} from 'node:fs/promises'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import log from 'electron-log/main.js'
 import {dedupeSrt} from './srtDedupe.js'
@@ -14,37 +14,9 @@ import {normalizeCueOverlaps} from './cueOverlap.js'
 import {runFfmpeg} from './ffmpegRun.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
 import {siteForJob} from '@shared/sites/index.js'
-import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
 import {buildCoverExtractArgs, buildSubtitleEmbedArgs, type SubtitleEmbedTrack} from './subtitleEmbedArgs.js'
 
 export const logger = log.scope('subs')
-
-// yt-dlp's `--convert-subs` writes `<stem>.<format>` and deletes the original
-// without printing either path, so the paths scraped from its output still name
-// the deleted pre-conversion file. Point each missing path at the sibling that
-// exists, trying the requested format first.
-export async function resolveConvertedSubtitlePaths(paths: readonly string[], requestedFormat: SubtitleFormat): Promise<string[]> {
-	const formats = [requestedFormat, ...SUBTITLE_FORMATS.filter(format => format !== requestedFormat)]
-	const resolved = await Promise.all(
-		paths.map(async path => {
-			if (await fileExists(path)) return path
-			const stem = path.slice(0, path.length - extname(path).length)
-			for (const format of formats) {
-				const candidate = `${stem}.${format}`
-				if (await fileExists(candidate)) return candidate
-			}
-			return path
-		})
-	)
-	return [...new Set(resolved)]
-}
-
-function fileExists(path: string): Promise<boolean> {
-	return access(path).then(
-		() => true,
-		() => false
-	)
-}
 
 // Post-process the auto-caption files phase 2 wrote. Two passes, in order:
 //

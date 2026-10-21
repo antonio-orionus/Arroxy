@@ -88,7 +88,8 @@ describe('Layer 2 — artifact backstop', () => {
 		expect(qs.snapshot()[0]?.title).toBe('Real Title')
 	})
 
-	it('only a media artifact sets the title', () => {
+	// A subtitles-only job saves no media; its subtitles carry the title (#412's gap).
+	it('a subtitle artifact that carries a title names a subtitles-only row', () => {
 		const ds = new FakeDownloadService()
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
 		qs.add([makeItem({id: 'q-subs', status: 'running', lastJobId: 'job-subs', title: 'Untitled · #5', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
@@ -96,7 +97,19 @@ describe('Layer 2 — artifact backstop', () => {
 		ds.emit('artifact', {...artifactEvent('job-subs', '/downloads/Real Title [abc123].en.srt', 'subtitle'), title: 'Real Title'})
 
 		const [item] = qs.snapshot()
-		expect(item.title).toBe('Untitled · #5')
+		expect(item.title).toBe('Real Title')
+		expect(item.titleIsPlaceholder).toBeFalsy()
+	})
+
+	it('no other artifact sets the title', () => {
+		const ds = new FakeDownloadService()
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-thumb', status: 'running', lastJobId: 'job-thumb', title: 'Untitled · #6', titleIsPlaceholder: true, job: jobWithTemplate(DEFAULT_FILENAME_TEMPLATE)})])
+
+		ds.emit('artifact', {...artifactEvent('job-thumb', '/downloads/Real Title [abc123].jpg', 'thumbnail'), title: 'Real Title'})
+
+		const [item] = qs.snapshot()
+		expect(item.title).toBe('Untitled · #6')
 		expect(item.titleIsPlaceholder).toBe(true)
 	})
 

@@ -428,7 +428,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 				serveBuffer(req, res, JPEG_1X1, 'image/jpeg', false)
 				return
 			}
-			const subtitleMatch = /^\/subtitles\/([^/]+)\/(en|es)(\.auto)?\.vtt$/.exec(requestUrl.pathname)
+			const subtitleMatch = /^\/subtitles\/([^/]+)\/(en|es|de)(\.auto)?\.vtt$/.exec(requestUrl.pathname)
 			if (subtitleMatch) {
 				const videoId = subtitleMatch[1]
 				const lang = subtitleMatch[2]

@@ -1,420 +1,356 @@
 import {EventEmitter} from 'node:events'
-import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {SidecarSubsPhase} from '@main/services/phases/SidecarSubsPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import {ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions, SubtitleOptions} from '@shared/preparedJob.js'
+import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
+import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
 import {explorePorts} from '../helpers/explorePorts.js'
+
+vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
-import type {YtDlpResult} from '@main/services/YtDlp.js'
+const URL = 'https://www.youtube.com/watch?v=test'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({
-	resolveConvertedSubtitlePaths: vi.fn(async (paths: readonly string[]) => [...paths]),
-	postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-	muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}),
-	logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}
-}))
+// A Japanese video on YouTube: an uploaded English track, the Japanese caption
+// under both its keys, and German, a machine translation the plan never picks.
+const YOUTUBE_INFO = {id: 'test', title: 'Video', subtitles: {en: [{ext: 'vtt', name: 'English'}]}, automatic_captions: {'ja-orig': [{ext: 'vtt', name: 'Japanese (Original)'}], ja: [{ext: 'vtt', name: 'Japanese'}], de: [{ext: 'vtt', name: 'German'}], 'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}}
 
-import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '@main/services/subtitlePostProcess.js'
+const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
+const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'fail', stdout: '', stderr: ''}
 
-beforeEach(() => vi.clearAllMocks())
+const subs = (request: SubtitleRequest, mode: SubtitleOptions['mode'] = 'sidecar'): SubtitleOptions => ({request, mode, format: 'srt'})
+const MANUAL_EN = subs({kind: 'tracks', tracks: [{key: 'en', auto: false}]})
+const codes = (languages: string[], source: 'manual-first' | 'manual-and-auto' = 'manual-first'): SubtitleOptions => subs({kind: 'languages', languages, source})
 
-function makeJob(): DownloadJob {
-	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
+let outDir: string
+let tempDir: string
+beforeEach(async () => {
+	vi.clearAllMocks()
+	outDir = await mkdtemp(join(tmpdir(), 'arroxy-sidecar-'))
+	tempDir = join(outDir, '.arroxy-temp', 'job')
+	await mkdir(tempDir, {recursive: true})
+	await writeFile(join(tempDir, '_arroxy.info.json'), JSON.stringify(YOUTUBE_INFO))
+})
+afterEach(async () => {
+	await rm(outDir, {recursive: true, force: true})
+})
+
+function job(subtitles: SubtitleOptions, overrides: Partial<Extract<PreparedJob, {kind: 'single-format'}>> = {}): ResolvedStartDownloadInput['job'] {
+	return {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles, ...overrides}
 }
 
-const BASE_SUBS: SubtitleOptions = {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}
-const AUTO_SUBS: SubtitleOptions = {...BASE_SUBS, request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}}
-const BASE_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: BASE_SUBS}
+function input(overrides: Partial<ResolvedStartDownloadInput> = {}): ResolvedStartDownloadInput {
+	return {url: URL, outputDir: outDir, job: job(MANUAL_EN), ...overrides}
+}
 
-const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
+interface FakeYtDlp {
+	listing?: unknown
+	listingResult?: YtDlpResult
+	fetchResult?: YtDlpResult
+}
 
-function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
-	return {
-		job: makeJob(),
-		input: BASE_INPUT,
+// A listing prints the video's info-json; a subtitle run writes one file per
+// key it was asked for and reports them, as yt-dlp's `requested_subtitles`
+// does after `--convert-subs`: with no track names.
+function fakeRun(fake: FakeYtDlp = {}) {
+	return vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions): Promise<YtDlpResult> => {
+		if (req.kind === 'subtitle-listing') return fake.listingResult ?? {...SUCCESS, stdout: JSON.stringify(fake.listing ?? YOUTUBE_INFO)}
+		if (fake.fetchResult && fake.fetchResult.kind !== 'success') return fake.fetchResult
+		if (req.kind === 'subtitles' && 'tracks' in req.subtitles && req.output.report?.subtitles) {
+			const report = Object.fromEntries(req.subtitles.tracks.map(track => [track.key, {ext: 'srt', filepath: `video.${track.key}.srt`}]))
+			await writeFile(req.output.report.subtitles, `${JSON.stringify(report)}\n`)
+		}
+		return fake.fetchResult ?? SUCCESS
+	})
+}
+
+function makeCtx(opts: {input?: ResolvedStartDownloadInput; active?: Partial<ActiveDownload>; fake?: FakeYtDlp; ffmpegPath?: string | null; signedIn?: boolean} = {}): PhaseContext {
+	const jobRecord: DownloadJob = {id: 'job-1', url: URL, outputDir: outDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
+	const active: ActiveDownload = {
+		job: jobRecord,
+		input: opts.input ?? input(),
 		controller: new AbortController(),
 		get signal(): AbortSignal {
 			return this.controller.signal
 		},
 		cancelRequested: false,
 		pauseRequested: false,
-		subtitlePaths: ['/tmp/video.en.srt'],
-		mediaPath: '/tmp/video.mp4',
+		subtitlePaths: [],
+		mediaPath: join(outDir, 'video.mp4'),
+		tempDir,
 		disposables: new AsyncStack(),
-		...overrides
+		...opts.active
+	}
+	return {
+		active,
+		signal: active.signal,
+		register: d => active.disposables.defer(d),
+		ytDlp: {run: fakeRun(opts.fake), ffmpegPath: opts.ffmpegPath === undefined ? '/fake/ffmpeg' : opts.ffmpegPath} as never,
+		emitStatus: vi.fn(),
+		safeConsume: vi.fn(),
+		cookielessRetry: new CookielessRetry(),
+		...explorePorts({signedIn: opts.signedIn})
 	}
 }
 
-function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
-	const runMock = vi.fn().mockResolvedValue(runResult)
-	const active = makeActive(activeOverrides)
-	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-}
+const runMock = (ctx: PhaseContext) => vi.mocked(ctx.ytDlp.run as ReturnType<typeof fakeRun>)
+const runs = (ctx: PhaseContext) => runMock(ctx).mock.calls
+const fetchRequest = (ctx: PhaseContext) => runs(ctx).find(([req]) => req.kind === 'subtitles')?.[0]
 
-const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
-const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'fail', stdout: '', stderr: ''}
-
-describe('SidecarSubsPhase(embedAfter=false)', () => {
+describe('SidecarSubsPhase: before anything runs', () => {
 	it('parks a paused escalated job whose Explore session is gone instead of soft-failing it', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, pauseRequested: true})
-		const outcome = await SidecarSubsPhase(false).run(ctx)
-		expect(outcome).toEqual({kind: 'paused'})
-		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
+		const ctx = makeCtx({input: input({auth: 'exploreSession'}), active: {pauseRequested: true}})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'paused'})
+		expect(runs(ctx)).toHaveLength(0)
 	})
 
 	it('cancels rather than soft-failing a cancelled escalated job whose session is gone', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, cancelRequested: true})
-		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'cancelled'})
+		expect(await SidecarSubsPhase(false).run(makeCtx({input: input({auth: 'exploreSession'}), active: {cancelRequested: true}}))).toEqual({kind: 'cancelled'})
 	})
 
 	it('soft-fails a signed-out escalated job that is not interrupted', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}})
+		expect(await SidecarSubsPhase(false).run(makeCtx({input: input({auth: 'exploreSession'})}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+	})
+
+	it('soft-fails without a temp folder for the listing and the report', async () => {
+		const ctx = makeCtx({active: {tempDir: undefined}})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(runs(ctx)).toHaveLength(0)
 	})
+})
 
-	it('calls ytDlp.run with kind: subtitles', async () => {
-		const ctx = makeCtx(SUCCESS)
+describe('SidecarSubsPhase: the fetch', () => {
+	it("fetches the planned tracks from the media run's info-json and asks for a report in the temp folder", async () => {
+		const ctx = makeCtx({input: input({job: job(MANUAL_EN, {filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'remove', categories: ['sponsor']}})})})
 		await SidecarSubsPhase(false).run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.kind).toBe('subtitles')
-		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['(?-i:en)'], format: 'srt', writeAuto: false}})
+		expect(runs(ctx)).toHaveLength(1)
+		expect(fetchRequest(ctx)).toEqual({
+			kind: 'subtitles',
+			url: URL,
+			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).120B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
+			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
+			loadInfoJsonPath: join(tempDir, '_arroxy.info.json')
+		})
 	})
 
-	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
-		const anonymous = makeCtx(SUCCESS)
+	it('runs anonymously by default and with the Explore session for an escalated job, through a cooldown', async () => {
+		const anonymous = makeCtx()
 		await SidecarSubsPhase(false).run(anonymous)
-		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1', honorCooldown: false})
+		expect(runs(anonymous)[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1', honorCooldown: false})
 
-		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
+		const signedIn = makeCtx({input: input({auth: 'exploreSession'}), signedIn: true})
 		await SidecarSubsPhase(false).run(signedIn)
-		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1', honorCooldown: false})
+		expect(runs(signedIn)[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1', honorCooldown: false})
 	})
 
-	it('asks for automatic captions only when every planned track is one', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}})
+	it('asks for exactly the tracks the Format screen would pick, never a machine translation', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja', 'de']))})})
 		await SidecarSubsPhase(false).run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
+		expect(fetchRequest(ctx)).toMatchObject({
+			subtitles: {
+				tracks: [
+					{key: 'en', auto: false},
+					{key: 'ja', auto: true}
+				]
+			}
+		})
 	})
 
-	it('falls back to regional-variant selectors for language codes when no info-json is at hand', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, request: {kind: 'languages', languages: ['de'], source: 'manual-only'}}}}})
+	it('emits fetchingSubtitles before running', async () => {
+		const ctx = makeCtx()
 		await SidecarSubsPhase(false).run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles.languages).toEqual([ytDlpSubtitleLanguageSelector('de')])
+		expect(ctx.emitStatus).toHaveBeenCalledWith('download', STATUS_KEY.fetchingSubtitles)
 	})
 
-	describe("language codes with the media run's info-json", () => {
-		// A Japanese video: YouTube lists `en` as a machine translation of the Japanese captions.
-		const JAPANESE_VIDEO = {id: 'test', subtitles: {}, automatic_captions: {ja: [{ext: 'vtt'}], 'ja-orig': [{ext: 'vtt'}], en: [{ext: 'vtt'}]}}
-		const codesJob = (languages: string[]): ResolvedStartDownloadInput['job'] => ({...BASE_JOB, subtitles: {request: {kind: 'languages', languages, source: 'manual-first'}, mode: 'sidecar', format: 'srt'}})
-
-		async function tempDirWithInfoJson(): Promise<string> {
-			const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-			await writeFile(join(dir, '_arroxy.info.json'), JSON.stringify(JAPANESE_VIDEO))
-			return dir
-		}
-
-		it('fetches exactly the tracks the Format screen would pick, never a translation', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
-			await SidecarSubsPhase(false).run(ctx)
-			const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-			expect(req.subtitles.languages).toEqual(['(?-i:ja)'])
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		it('keeps the codes on a site whose info-json does not list subtitles until they are asked for', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const job = {...codesJob(['en']), extractor: 'vimeo', extractorKey: 'Vimeo'}
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, url: 'https://vimeo.com/1', job}})
-			await SidecarSubsPhase(false).run(ctx)
-			const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-			expect(req.subtitles.languages).toEqual([ytDlpSubtitleLanguageSelector('en')])
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		// ADR 0016: the video is saved, so the job ends with a notice naming what it lacks.
-		it('keeps the video and names the languages without running yt-dlp when the video has none of them', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en'])}})
-			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
-			expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		it('fetches the languages the video has, then names the rest', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
-			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		it('embeds the languages the video has, then names the rest', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}, subtitlePaths: ['/tmp/video.ja.srt']})
-			expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'en'}})
-			expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce()
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		it('a failed mux is the subtitle failure, whatever the video lacks', async () => {
-			vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: false})
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(SUCCESS, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}, subtitlePaths: ['/tmp/video.ja.srt']})
-			expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
-			await rm(tempDir, {recursive: true, force: true})
-		})
-
-		it('a failed fetch is still the subtitle failure', async () => {
-			const tempDir = await tempDirWithInfoJson()
-			const ctx = makeCtx(EXIT_ERROR, {tempDir, input: {...BASE_INPUT, job: codesJob(['en', 'ja'])}})
-			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
-			await rm(tempDir, {recursive: true, force: true})
-		})
+	it('takes the written files from the report, inside the output folder', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja']))})})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.en.srt'), join(outDir, 'video.ja.srt')])
 	})
 
-	it('does not forward SponsorBlock config to the subtitle request', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, sponsorBlock: {mode: 'remove', categories: ['sponsor']}}}})
+	it('dedupes only the automatic captions, leaving uploaded tracks as written', async () => {
+		await SidecarSubsPhase(false).run(makeCtx({input: input({job: job(codes(['en', 'ja']))})}))
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL}))
 
-		await SidecarSubsPhase(false).run(ctx)
-
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect((req as {sponsorBlock?: unknown}).sponsorBlock).toBeUndefined()
-	})
-
-	it('forwards the media filenameTemplate so sidecar subtitles match single filenames', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
-		await SidecarSubsPhase(false).run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.output.template).toBe('%(title).120B [%(id)s].%(ext)s')
-	})
-
-	it('emits fetchingSubtitles status before run', async () => {
-		const ctx = makeCtx(SUCCESS)
-		await SidecarSubsPhase(false).run(ctx)
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.fetchingSubtitles)
-	})
-
-	it('success → returns completed', async () => {
-		const outcome = await SidecarSubsPhase(false).run(makeCtx(SUCCESS))
-		expect(outcome.kind).toBe('completed')
-	})
-
-	it('subtitle failure → soft-failed with subtitlesFailed', async () => {
-		const outcome = await SidecarSubsPhase(false).run(makeCtx(EXIT_ERROR))
-		expect(outcome.kind).toBe('soft-failed')
-		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
-	})
-
-	it('success with usedExtractorFallback → sets active.usedExtractorFallback', async () => {
-		const fallbackResult: YtDlpResult = {...SUCCESS, usedExtractorFallback: true}
-		const ctx = makeCtx(fallbackResult)
-		await SidecarSubsPhase(false).run(ctx)
-		expect(ctx.active.usedExtractorFallback).toBe(true)
-	})
-
-	it('no automatic caption → postProcessSubtitleFiles not called', async () => {
-		await SidecarSubsPhase(false).run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: BASE_SUBS}}}))
+		vi.mocked(postProcessSubtitleFiles).mockClear()
+		await SidecarSubsPhase(false).run(makeCtx())
 		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
-	it('an automatic caption → postProcessSubtitleFiles called with subtitlePaths', async () => {
-		const paths = ['/tmp/video.en.srt']
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: paths})
+	it("post-processing's shouldAbort reflects cancelRequested", async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['ja']))})})
 		await SidecarSubsPhase(false).run(ctx)
-		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
-		const [calledPaths, calledOpts] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
-		expect(calledPaths).toEqual(paths)
-		// The site gate reads these — forwarding the wrong ones silently disables
-		// the rolling dedupe or the URL fallback.
-		expect(calledOpts).toMatchObject({extractor: BASE_JOB.extractor, url: BASE_INPUT.url, jobId: expect.any(String)})
-	})
-
-	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: ['/tmp/video.en.srt']})
-		await SidecarSubsPhase(false).run(ctx)
-
-		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0][1].shouldAbort
+		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0]?.[1].shouldAbort
 		expect(shouldAbort?.()).toBe(false)
 		ctx.active.cancelRequested = true
 		expect(shouldAbort?.()).toBe(true)
 	})
 
-	it('embedAfter=false → muxSubtitlesIntoVideo not called', async () => {
-		await SidecarSubsPhase(false).run(makeCtx(SUCCESS))
-		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
+	it('a failed fetch is the subtitle failure', async () => {
+		expect(await SidecarSubsPhase(false).run(makeCtx({fake: {fetchResult: EXIT_ERROR}}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 	})
 
-	it('pauseRequested during subtitle fetch → returns paused (not soft-failed)', async () => {
-		const active = makeActive({cancelRequested: false})
-		const runMock = vi.fn().mockImplementationOnce(async () => {
-			active.pauseRequested = true
-			return EXIT_ERROR // SIGTERM makes yt-dlp exit non-zero
+	it('marks a fetch that used the extractor fallback', async () => {
+		const ctx = makeCtx({fake: {fetchResult: {...SUCCESS, usedExtractorFallback: true}}})
+		await SidecarSubsPhase(false).run(ctx)
+		expect(ctx.active.usedExtractorFallback).toBe(true)
+	})
+
+	it('parks a job paused during the fetch instead of soft-failing it', async () => {
+		const ctx = makeCtx()
+		runMock(ctx).mockImplementationOnce(async () => {
+			ctx.active.pauseRequested = true
+			return EXIT_ERROR
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-		const outcome = await SidecarSubsPhase(false).run(ctx)
-		expect(outcome.kind).toBe('paused')
+		expect((await SidecarSubsPhase(false).run(ctx)).kind).toBe('paused')
+	})
+
+	it('does not mux without embedding', async () => {
+		await SidecarSubsPhase(false).run(makeCtx())
+		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
+	})
+})
+
+// Sites whose info-json lists subtitles only when asked to write them, and a
+// job with no info-json at all, get the lists from a run of their own.
+describe('SidecarSubsPhase: the listing run', () => {
+	const vimeo = (subtitles: SubtitleOptions): ResolvedStartDownloadInput => input({url: 'https://vimeo.com/1', job: job(subtitles, {extractor: 'vimeo', extractorKey: 'Vimeo'})})
+	const VIMEO_INFO = {id: '1', title: 'Clip', subtitles: {de: [{ext: 'vtt', name: 'Deutsch'}]}, automatic_captions: {}}
+
+	it('lists the subtitles on a site without eager lists, then fetches from the saved listing', async () => {
+		const ctx = makeCtx({input: vimeo(codes(['de'])), fake: {listing: VIMEO_INFO}})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+		expect(runs(ctx).map(([req]) => req.kind)).toEqual(['subtitle-listing', 'subtitles'])
+		expect(runs(ctx)[0]?.[0]).toEqual({kind: 'subtitle-listing', url: 'https://vimeo.com/1'})
+		const listing = join(tempDir, '_arroxy.subtitles.info.json')
+		await expect(access(listing)).resolves.toBeUndefined()
+		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'de', auto: false}]}, loadInfoJsonPath: listing})
+	})
+
+	it('lists them on YouTube too when no info-json is readable', async () => {
+		await rm(join(tempDir, '_arroxy.info.json'))
+		const ctx = makeCtx({input: input({job: job(codes(['ja']))})})
+		await SidecarSubsPhase(false).run(ctx)
+		expect(runs(ctx).map(([req]) => req.kind)).toEqual(['subtitle-listing', 'subtitles'])
+		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'ja', auto: true}]}})
+	})
+
+	it('soft-fails when the listing fails or prints no info-json, and fetches nothing', async () => {
+		for (const listingResult of [EXIT_ERROR, {...SUCCESS, stdout: 'not json'}]) {
+			const ctx = makeCtx({input: vimeo(codes(['de'])), fake: {listingResult}})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+			expect(fetchRequest(ctx)).toBeUndefined()
+		}
+	})
+})
+
+// ADR 0016: the video is saved, so the job ends with a notice naming what it lacks.
+describe('SidecarSubsPhase: languages the video lacks', () => {
+	it('keeps the video and names the languages without fetching when the video has none of them', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['fr']))})})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'fr'}})
+		expect(runs(ctx)).toHaveLength(0)
+	})
+
+	it('fetches the languages the video has, then names the rest', async () => {
+		expect(await SidecarSubsPhase(false).run(makeCtx({input: input({job: job(codes(['en', 'fr']))})}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'fr'}})
+	})
+
+	it('embeds the languages the video has, then names the rest; a failed mux is the subtitle failure', async () => {
+		const embed = input({job: job(codes(['en', 'fr']))})
+		expect(await SidecarSubsPhase(true).run(makeCtx({input: embed}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: 'fr'}})
+		expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce()
+
+		vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: false})
+		expect(await SidecarSubsPhase(true).run(makeCtx({input: embed}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 	})
 })
 
 describe('SidecarSubsPhase(embedAfter=true)', () => {
-	it('ffmpeg available + mediaPath + subtitlePaths → calls muxSubtitlesIntoVideo', async () => {
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
-		await SidecarSubsPhase(true).run(ctx)
-		expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce()
+	const muxOpts = () => vi.mocked(muxSubtitlesIntoVideo).mock.calls[0]?.[0]
+
+	it("hands the mux each reported file with its planned track's language and yt-dlp's name for it from the lists", async () => {
+		await SidecarSubsPhase(true).run(makeCtx({input: input({job: job(codes(['en', 'ja']))})}))
+		expect(muxOpts()?.tracks).toEqual([
+			{path: join(outDir, 'video.en.srt'), lang: 'en', name: 'English'},
+			{path: join(outDir, 'video.ja.srt'), lang: 'ja', name: 'Japanese'}
+		])
 	})
 
-	// yt-dlp converts .vtt to the requested format and deletes the original;
-	// muxing the scraped .vtt path failed every embed on YouTube.
-	it('muxes the converted subtitle files, not the deleted pre-conversion paths', async () => {
-		vi.mocked(resolveConvertedSubtitlePaths).mockResolvedValueOnce(['/tmp/video.en.srt', '/tmp/video.es.srt'])
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.vtt', '/tmp/video.es.vtt']})
-		await SidecarSubsPhase(true).run(ctx)
-		expect(resolveConvertedSubtitlePaths).toHaveBeenCalledWith(['/tmp/video.en.vtt', '/tmp/video.es.vtt'], 'srt')
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].tracks.map(track => track.path)).toEqual(['/tmp/video.en.srt', '/tmp/video.es.srt'])
-		expect(ctx.active.subtitlePaths).toEqual(['/tmp/video.en.srt', '/tmp/video.es.srt'])
-	})
-
-	// yt-dlp embeds each track's name as its title; the names come from the
-	// media run's info-json, the one the tracks were resolved from.
-	it("hands the mux each track's language and name from the media run's info-json", async () => {
-		const tempDir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		await writeFile(join(tempDir, '_arroxy.info.json'), JSON.stringify({id: 'test', subtitles: {en: [{ext: 'vtt', name: 'English'}]}, automatic_captions: {}}))
-		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {tempDir}))
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].tracks).toEqual([{path: '/tmp/video.en.srt', lang: 'en', name: 'English'}])
-		await rm(tempDir, {recursive: true, force: true})
-	})
-
-	it("falls back to the probe's info-json for the names", async () => {
-		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		const probeInfoJsonPath = join(dir, 'probe.info.json')
-		await writeFile(probeInfoJsonPath, JSON.stringify({id: 'test', subtitles: {en: [{ext: 'vtt', name: 'English'}]}}))
-		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath}}))
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].tracks).toEqual([{path: '/tmp/video.en.srt', lang: 'en', name: 'English'}])
-		await rm(dir, {recursive: true, force: true})
-	})
-
-	// yt-dlp downloads automatic captions as SRT when ASS is asked for, so the
-	// name is the SRT entry's, as in yt-dlp's own requested_subtitles.
-	it('names each track after the format the subtitle run actually fetched', async () => {
-		const tempDir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		await writeFile(
-			join(tempDir, '_arroxy.info.json'),
-			JSON.stringify({
-				id: 'test',
-				subtitles: {},
-				automatic_captions: {
-					en: [
-						{ext: 'srt', name: 'English SRT'},
-						{ext: 'ass', name: 'English ASS'}
-					]
-				}
-			})
-		)
-		const input: ResolvedStartDownloadInput = {...BASE_INPUT, job: {...BASE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}, mode: 'embed', format: 'ass'}}}
-		await SidecarSubsPhase(true).run(makeCtx({...SUCCESS, effectiveSubtitleFormat: 'srt'}, {tempDir, input}))
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].tracks).toEqual([{path: '/tmp/video.en.srt', lang: 'en', name: 'English SRT'}])
-		await rm(tempDir, {recursive: true, force: true})
-	})
-
-	it('logs that the tracks go untitled when no info-json names them', async () => {
-		await SidecarSubsPhase(true).run(makeCtx(SUCCESS))
-		expect(logger.warn).toHaveBeenCalledWith('embed-mux: no track names — no readable info-json lists these tracks; they are embedded untitled', {jobId: 'job-1'})
+	it('titles the automatic caption beside an uploaded track of its language apart', async () => {
+		await SidecarSubsPhase(true).run(makeCtx({input: input({job: job(codes(['en'], 'manual-and-auto'))})}))
+		expect(muxOpts()?.tracks).toEqual([
+			{path: join(outDir, 'video.en.srt'), lang: 'en', name: 'English'},
+			{path: join(outDir, 'video.en-orig.srt'), lang: 'en', name: 'English (Original)', title: 'Auto-generated'}
+		])
 	})
 
 	it('keeps the cover art only when the job embeds the thumbnail', async () => {
-		await SidecarSubsPhase(true).run(makeCtx(SUCCESS))
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].keepCoverArt).toBe(false)
-
-		const withThumbnail: ResolvedStartDownloadInput = {...BASE_INPUT, job: {...BASE_JOB, embed: {...EMBED_OFF, thumbnail: true}}}
-		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {input: withThumbnail}))
-		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[1][0].keepCoverArt).toBe(true)
+		await SidecarSubsPhase(true).run(makeCtx())
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0]?.[0].keepCoverArt).toBe(false)
+		await SidecarSubsPhase(true).run(makeCtx({input: input({job: job(MANUAL_EN, {embed: {...EMBED_OFF, thumbnail: true}})})}))
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[1]?.[0].keepCoverArt).toBe(true)
 	})
 
-	it('mux success → updates active.mediaPath to muxed output', async () => {
-		vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: true, outputPath: '/tmp/video.mkv'})
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
-		await SidecarSubsPhase(true).run(ctx)
-		expect(ctx.active.mediaPath).toBe('/tmp/video.mkv')
+	it('a muxed file becomes the media path', async () => {
+		vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: true, outputPath: join(outDir, 'video.mkv')})
+		const ctx = makeCtx()
+		expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'completed'})
+		expect(ctx.active.mediaPath).toBe(join(outDir, 'video.mkv'))
 	})
 
-	it('ffmpeg=null → skips mux and returns soft-failed subtitlesFailed', async () => {
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
-		;(ctx.ytDlp as unknown as Record<string, unknown>).ffmpegPath = null
-		const outcome = await SidecarSubsPhase(true).run(ctx)
+	it('soft-fails without muxing when ffmpeg, the video or the reported files are missing', async () => {
+		const noFiles = makeCtx()
+		runMock(noFiles).mockResolvedValue(SUCCESS)
+		for (const ctx of [makeCtx({ffmpegPath: null}), makeCtx({active: {mediaPath: undefined}}), noFiles]) expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(outcome.kind).toBe('soft-failed')
-		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
 	})
 
-	it('mux returns { ok: false } → leaves mediaPath unchanged and returns soft-failed subtitlesFailed', async () => {
+	it('a failed mux leaves the media path and soft-fails', async () => {
 		vi.mocked(muxSubtitlesIntoVideo).mockResolvedValueOnce({ok: false})
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
-		const originalPath = ctx.active.mediaPath
-		const outcome = await SidecarSubsPhase(true).run(ctx)
-		expect(ctx.active.mediaPath).toBe(originalPath)
-		expect(outcome.kind).toBe('soft-failed')
-		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
+		const ctx = makeCtx()
+		const before = ctx.active.mediaPath
+		expect(await SidecarSubsPhase(true).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(ctx.active.mediaPath).toBe(before)
 	})
 
-	it('no mediaPath → skips mux and returns soft-failed subtitlesFailed', async () => {
-		const ctx = makeCtx(SUCCESS, {mediaPath: undefined, subtitlePaths: ['/tmp/video.en.srt']})
-		const outcome = await SidecarSubsPhase(true).run(ctx)
-		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(outcome.kind).toBe('soft-failed')
-		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
-	})
-
-	it('empty subtitlePaths → skips mux and returns soft-failed subtitlesFailed', async () => {
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: []})
-		const outcome = await SidecarSubsPhase(true).run(ctx)
-		expect(muxSubtitlesIntoVideo).not.toHaveBeenCalled()
-		expect(outcome.kind).toBe('soft-failed')
-		if (outcome.kind === 'soft-failed') expect(outcome.status).toBe(STATUS_KEY.subtitlesFailed)
-	})
-
-	it('pauseRequested during embed mux → returns paused (not completed)', async () => {
-		const active = makeActive({cancelRequested: false, mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
-		const runMock = vi.fn().mockResolvedValue(SUCCESS)
+	it('parks a job paused during the mux instead of completing it', async () => {
+		const ctx = makeCtx()
 		vi.mocked(muxSubtitlesIntoVideo).mockImplementationOnce(async opts => {
 			opts.onSpawn(Object.assign(new EventEmitter(), {kill: vi.fn()}) as never)
-			active.pauseRequested = true
+			ctx.active.pauseRequested = true
 			return {ok: true, outputPath: '/tmp/video.mkv'}
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-		const outcome = await SidecarSubsPhase(true).run(ctx)
-		expect(outcome.kind).toBe('paused')
+		expect((await SidecarSubsPhase(true).run(ctx)).kind).toBe('paused')
 	})
 
-	it('emits mergingFormats before mux', async () => {
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
+	it('emits mergingFormats before the mux', async () => {
+		const ctx = makeCtx()
 		await SidecarSubsPhase(true).run(ctx)
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.mergingFormats)
+		expect(ctx.emitStatus).toHaveBeenCalledWith('download', STATUS_KEY.mergingFormats)
 	})
 
-	it('onSpawn from mux sets active.ffmpegProcess; cleared after mux', async () => {
-		let procDuringMux: unknown
+	it("holds the mux's ffmpeg process while it runs and clears it after", async () => {
+		let during: unknown
+		const ctx = makeCtx()
 		vi.mocked(muxSubtitlesIntoVideo).mockImplementationOnce(async opts => {
-			const fakeProc = new EventEmitter()
-			opts.onSpawn(fakeProc as never)
-			procDuringMux = fakeProc
+			opts.onSpawn(new EventEmitter() as never)
+			during = ctx.active.ffmpegProcess
 			return {ok: true, outputPath: '/tmp/video.mkv'}
 		})
-		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
 		await SidecarSubsPhase(true).run(ctx)
-		expect(procDuringMux).toBeDefined()
-		// ffmpegProcess is cleared after mux completes
+		expect(during).toBeDefined()
 		expect(ctx.active.ffmpegProcess).toBeUndefined()
 	})
 })

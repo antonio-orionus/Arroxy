@@ -135,23 +135,23 @@ describe('ProgressParser — stream framing', () => {
 	// on /\r?\n/ glued them into one unparseable blob: the sidecar path was never
 	// recorded, so post-processing had nothing to fix and auto-captions kept their
 	// overlaps. Reported as "playlists break subtitles" — really just a busy pipe.
-	it('records a subtitle destination flushed behind progress redraws', () => {
+	it('reads a destination flushed behind progress redraws', () => {
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
 
 		parser.consume(active, '[download]  50.0% of 10.00MiB at 1.00MiB/s ETA 00:05\r[download]  99.9% of 10.00MiB at 1.00MiB/s ETA 00:00\r[download] Destination: /tmp/video.en.srt\n')
 
-		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+		expect(active.currentFileKind).toBe('subtitle')
 	})
 
 	it('keeps every character of a non-ASCII destination path', () => {
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
-		const path = '/tmp/NzGuL - ین بازی‌ها رابطه‌مونو 😂.en.srt'
+		const path = '/tmp/NzGuL - ین بازی‌ها رابطه‌مونو 😂.mp4'
 
 		parser.consume(active, `[download] Destination: ${path}\n`)
 
-		expect(active.subtitlePaths).toEqual([path])
+		expect(active.mediaPath).toBe(path)
 	})
 })
 
@@ -163,7 +163,8 @@ describe('ProgressParser — subtitle-only progress', () => {
 
 		parser.consume(active, '[download] Destination: /tmp/video.en.srt')
 		expect(active.currentFileKind).toBe('subtitle')
-		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+		// A subtitle run's files come from its report, not from the log.
+		expect(active.subtitlePaths).toEqual([])
 
 		parser.consume(active, '[download] Destination: /tmp/video.mp4')
 		expect(active.currentFileKind).toBe('media')
@@ -183,7 +184,7 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.mediaDownloadStarted).toBe(true)
 		expect(active.mediaComponentPaths).toEqual(['/tmp/video.f137.webm', '/tmp/video.f251.m4a'])
 		expect(active.mediaPath).toBe('/tmp/video.f251.m4a')
-		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+		expect(active.subtitlePaths).toEqual([])
 	})
 
 	it('records already-downloaded media as a resumable media component', () => {
@@ -197,7 +198,7 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.mediaPath).toBe('/tmp/video.f137.webm')
 	})
 
-	it('records already-downloaded subtitles as final subtitle paths', () => {
+	it("leaves already-downloaded subtitles to the run's report", () => {
 		const parser = new ProgressParser(vi.fn(), vi.fn())
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
 
@@ -205,7 +206,7 @@ describe('ProgressParser — subtitle-only progress', () => {
 
 		expect(active.mediaDownloadStarted).toBeUndefined()
 		expect(active.mediaPath).toBeUndefined()
-		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+		expect(active.subtitlePaths).toEqual([])
 	})
 
 	it('emits percent for subtitle file when job is subtitle-only', () => {
@@ -332,7 +333,7 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(active.mediaPath).toBe('/tmp/video.mp3')
 	})
 
-	it('updates moved subtitle paths and emits artifact move events', () => {
+	it('emits artifact move events for moved subtitles', () => {
 		const emitArtifact = vi.fn()
 		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
@@ -340,7 +341,6 @@ describe('ProgressParser — subtitle-only progress', () => {
 		parser.consume(active, '[download] Destination: /tmp/.arroxy-temp/job/video.en.srt')
 		parser.consume(active, '[MoveFiles] Moving file "/tmp/.arroxy-temp/job/video.en.srt" to "/tmp/video.en.srt"')
 
-		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
 		expect(emitArtifact).toHaveBeenCalledWith({jobId: 'job-1', path: '/tmp/video.en.srt', kind: 'subtitle', fromPath: '/tmp/.arroxy-temp/job/video.en.srt', at: '2024-01-01T00:00:00.000Z'})
 	})
 
@@ -408,15 +408,14 @@ describe('ProgressParser — paths relative to the run folder', () => {
 		const {active, emitArtifact} = consumeInRun(['[download] Destination: .arroxy-temp/abc/Clip.f398.mp4', '[download] Destination: Clip.en.srt', '[Merger] Merging formats into ".arroxy-temp/abc/Clip.mp4"', '[MoveFiles] Moving file ".arroxy-temp/abc/Clip.mp4" to "Clip.mp4"'])
 
 		expect(active.mediaComponentPaths).toEqual([inRun('.arroxy-temp/abc/Clip.f398.mp4')])
-		expect(active.subtitlePaths).toEqual([inRun('Clip.en.srt')])
 		expect(active.mediaPath).toBe(inRun('Clip.mp4'))
 		expect(emitArtifact).toHaveBeenCalledWith(expect.objectContaining({path: inRun('Clip.mp4'), fromPath: inRun('.arroxy-temp/abc/Clip.mp4')}))
 	})
 
-	it('resolves already-downloaded files, remux targets and sidecar artifacts against the run folder', () => {
-		const {active} = consumeInRun(['[download] Clip.en.srt has already been downloaded', '[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: Clip.mkv', '[info] Writing video description to: Clip.description'])
+	it('resolves already-downloaded media, remux targets and sidecar artifacts against the run folder', () => {
+		const {active} = consumeInRun(['[download] Clip.f398.mp4 has already been downloaded', '[VideoRemuxer] Remuxing video from mp4 to mkv; Destination: Clip.mkv', '[info] Writing video description to: Clip.description'])
 
-		expect(active.subtitlePaths).toEqual([inRun('Clip.en.srt')])
+		expect(active.mediaComponentPaths).toEqual([inRun('Clip.f398.mp4')])
 		expect(active.mediaPath).toBe(inRun('Clip.mkv'))
 		expect(active.sidecarPaths).toEqual([inRun('Clip.description')])
 	})
@@ -429,8 +428,8 @@ describe('ProgressParser — paths relative to the run folder', () => {
 	})
 
 	it('leaves paths untouched when the run has no folder of its own', () => {
-		const {active} = consumeInRun(['[download] Destination: Clip.en.srt'], {})
+		const {active} = consumeInRun(['[download] Destination: Clip.mp4'], {})
 
-		expect(active.subtitlePaths).toEqual(['Clip.en.srt'])
+		expect(active.mediaPath).toBe('Clip.mp4')
 	})
 })

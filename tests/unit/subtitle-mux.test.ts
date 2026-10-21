@@ -8,21 +8,29 @@ vi.mock('@main/utils/process.js', async importOriginal => {
 	return {...actual, spawnFFmpeg: vi.fn()}
 })
 
-import {access, readFile, writeFile, rename, unlink} from 'node:fs/promises'
+import {readFile, writeFile, rename, unlink} from 'node:fs/promises'
 import {spawnFFmpeg} from '@main/utils/process.js'
-import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
-import {subtitleEmbedTracks, type SubtitleRun} from '@main/services/phases/subtitleTracks.js'
-import {planSubtitleTracks} from '@shared/subtitleTracks.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
 
 const JOB_ID = 'job-1'
 
-// A pattern run's files, matched to the requested codes.
-function embed(paths: string[], languages: string[], names: ReadonlyMap<string, string> = new Map()): ReturnType<typeof subtitleEmbedTracks> {
-	return subtitleEmbedTracks(paths, {kind: 'pattern', languages, fetch: {manual: true, auto: false}}, names)
+// Embed tracks as the subtitle phase hands them over: one language per file,
+// and yt-dlp's name for the track keyed by that language.
+function embed(paths: string[], languages: string[], names: ReadonlyMap<string, string> = new Map()): {path: string; lang: string; name?: string}[] {
+	return paths.map((path, index) => {
+		const lang = languages[index] ?? 'und'
+		const name = names.get(lang)
+		return {path, lang, ...(name ? {name} : {})}
+	})
 }
 
-// Both English tracks of a YouTube video: the automatic caption keeps its `-orig` key.
-const BOTH_ENGLISH: SubtitleRun = {kind: 'plan', plan: planSubtitleTracks({kind: 'languages', languages: ['en'], source: 'manual-and-auto'}, {subtitles: {en: []}, automaticCaptions: {'en-orig': []}}), fetch: {manual: true, auto: true}}
+// Both English tracks of a YouTube video: the automatic caption titled apart.
+function bothEnglish(names: {manual?: string; auto?: string} = {}): {path: string; lang: string; name?: string; title?: string}[] {
+	return [
+		{path: '/tmp/v.en.srt', lang: 'en', ...(names.manual ? {name: names.manual} : {})},
+		{path: '/tmp/v.en-orig.srt', lang: 'en', ...(names.auto ? {name: names.auto} : {}), title: 'Auto-generated'}
+	]
+}
 const YT_URL = 'https://www.youtube.com/watch?v=k1qBgIw8fAQ'
 
 function makeFakeFFmpeg(exitCode: number) {
@@ -185,14 +193,14 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(tags).toEqual(['language=tam', 'language=slo', 'language=may', 'language=ice', 'language=wel', 'language=ger', 'language=fil', 'language=pt-BR'])
 	})
 
-	// An `-orig` key means a manual track in the same language is embedded too:
-	// both get the language's code, and the automatic one a title that tells them apart.
-	it('-orig track → its language code and an Auto-generated title', async () => {
+	// The automatic caption beside a manual track of its language carries the
+	// title that tells the two apart.
+	it('a title set apart → it wins over the name as the title', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 		vi.mocked(rename).mockResolvedValue(undefined)
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
-		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: subtitleEmbedTracks(['/tmp/v.en.srt', '/tmp/v.en-orig.srt'], BOTH_ENGLISH, new Map()), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: bothEnglish(), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
@@ -211,52 +219,12 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(metadata).toEqual(['-metadata:s:s:0 language=en-GB', '-metadata:s:s:0 handler_name=English (United Kingdom)', '-metadata:s:s:0 title=English (United Kingdom)', '-metadata:s:s:1 language=jpn'])
 	})
 
-	// Names go by the key in the file name, which is the track yt-dlp wrote,
-	// not the language code the path was attributed to.
-	it('looks a name up by the track key in the file name', async () => {
-		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
-
-		await muxSubtitlesIntoVideo({
-			ffmpegPath: '/fake/ffmpeg',
-			videoPath: '/tmp/v.mkv',
-			tracks: embed(
-				['/tmp/v.de-DE.srt'],
-				['de'],
-				new Map([
-					['de', 'German'],
-					['de-DE', 'German (Germany)']
-				])
-			),
-			keepCoverArt: false,
-			onSpawn: vi.fn(),
-			jobId: JOB_ID
-		})
-
-		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
-		expect(args).toContain('title=German (Germany)')
-		expect(args).not.toContain('title=German')
-	})
-
 	// The automatic caption beside a manual track keeps the title that tells the
 	// two apart; its name ("English (Original)") still goes in the handler name.
-	it('a named -orig track → Auto-generated title, its name as handler_name', async () => {
+	it('a titled track with a name → the title as title, the name as handler_name', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 
-		await muxSubtitlesIntoVideo({
-			ffmpegPath: '/fake/ffmpeg',
-			videoPath: '/tmp/v.mkv',
-			tracks: subtitleEmbedTracks(
-				['/tmp/v.en.srt', '/tmp/v.en-orig.srt'],
-				BOTH_ENGLISH,
-				new Map([
-					['en', 'English'],
-					['en-orig', 'English (Original)']
-				])
-			),
-			keepCoverArt: false,
-			onSpawn: vi.fn(),
-			jobId: JOB_ID
-		})
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: bothEnglish({manual: 'English', auto: 'English (Original)'}), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		const metadata = args.flatMap((arg, i) => (arg.startsWith('-metadata:s:s:') ? [`${arg} ${args[i + 1]}`] : []))
@@ -269,24 +237,6 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		vi.mocked(unlink).mockResolvedValue(undefined)
 
 		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', tracks: embed(['/tmp/v.und.srt'], ['und']), keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
-
-		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
-		expect(args).toContain('language=und')
-	})
-
-	it('unrecognized path lang → und (detectSubtitleLang returns null)', async () => {
-		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
-		vi.mocked(rename).mockResolvedValue(undefined)
-		vi.mocked(unlink).mockResolvedValue(undefined)
-
-		await muxSubtitlesIntoVideo({
-			ffmpegPath: '/fake/ffmpeg',
-			videoPath: '/tmp/v.mkv',
-			tracks: embed(['/tmp/v.xx.srt'], ['en']), // 'xx' doesn't match 'en'
-			keepCoverArt: false,
-			onSpawn: vi.fn(),
-			jobId: JOB_ID
-		})
 
 		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
 		expect(args).toContain('language=und')
@@ -454,36 +404,3 @@ describe('postProcessSubtitleFiles', () => {
 })
 
 // ─── resolveConvertedSubtitlePaths ───────────────────────────────────────────
-
-describe('resolveConvertedSubtitlePaths', () => {
-	function onDisk(...paths: string[]): void {
-		vi.mocked(access).mockImplementation(async path => {
-			if (!paths.includes(String(path))) throw Object.assign(new Error('ENOENT'), {code: 'ENOENT'})
-		})
-	}
-
-	it('a path yt-dlp converted and deleted → the converted sibling', async () => {
-		onDisk('/tmp/v.en.srt', '/tmp/v.es.srt')
-		expect(await resolveConvertedSubtitlePaths(['/tmp/v.en.vtt', '/tmp/v.es.vtt'], 'srt')).toEqual(['/tmp/v.en.srt', '/tmp/v.es.srt'])
-	})
-
-	it('a path that still exists → unchanged', async () => {
-		onDisk('/tmp/v.en.vtt', '/tmp/v.en.srt')
-		expect(await resolveConvertedSubtitlePaths(['/tmp/v.en.vtt'], 'srt')).toEqual(['/tmp/v.en.vtt'])
-	})
-
-	it('converted to a format other than the requested one → still found', async () => {
-		onDisk('/tmp/v.en.srt')
-		expect(await resolveConvertedSubtitlePaths(['/tmp/v.en.vtt'], 'ass')).toEqual(['/tmp/v.en.srt'])
-	})
-
-	it('nothing on disk → original path kept', async () => {
-		onDisk()
-		expect(await resolveConvertedSubtitlePaths(['/tmp/v.en.vtt'], 'srt')).toEqual(['/tmp/v.en.vtt'])
-	})
-
-	it('two scraped paths for the same converted file → listed once', async () => {
-		onDisk('/tmp/v.en.srt')
-		expect(await resolveConvertedSubtitlePaths(['/tmp/v.en.vtt', '/tmp/v.en.srt'], 'srt')).toEqual(['/tmp/v.en.srt'])
-	})
-})

@@ -1,291 +1,290 @@
 import {EventEmitter} from 'node:events'
-import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, SubtitleOptions} from '@shared/preparedJob.js'
-import type {YtDlpResult} from '@main/services/YtDlp.js'
+import type {SubtitleRequest} from '@shared/subtitleTracks.js'
+import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 import {explorePorts} from '../helpers/explorePorts.js'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({
-	resolveConvertedSubtitlePaths: vi.fn(async (paths: readonly string[]) => [...paths]),
-	postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined),
-	muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}),
-	logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}
-}))
+vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
-import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles} from '@main/services/subtitlePostProcess.js'
 
-beforeEach(() => vi.clearAllMocks())
+const URL = 'https://www.youtube.com/watch?v=test'
 
-function makeJob(): DownloadJob {
-	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
+// A Japanese video on YouTube, as the probe saved it: an uploaded English
+// track, the Japanese caption under both its keys, and a German machine
+// translation the plan never picks.
+const YOUTUBE_INFO = {id: 'test', title: 'The Real Title', subtitles: {en: [{ext: 'vtt', name: 'English'}]}, automatic_captions: {'ja-orig': [{ext: 'vtt'}], ja: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}}
+
+const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
+const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'fail', stdout: '', stderr: ''}
+
+const subs = (request: SubtitleRequest): SubtitleOptions => ({request, mode: 'sidecar', format: 'srt'})
+const MANUAL_EN = subs({kind: 'tracks', tracks: [{key: 'en', auto: false}]})
+const codes = (languages: string[]): SubtitleOptions => subs({kind: 'languages', languages, source: 'manual-first'})
+
+let outDir: string
+let probeInfoJsonPath: string
+beforeEach(async () => {
+	vi.clearAllMocks()
+	outDir = await mkdtemp(join(tmpdir(), 'arroxy-subs-only-'))
+	await mkdir(join(outDir, 'probe'), {recursive: true})
+	probeInfoJsonPath = join(outDir, 'probe', 'probe.info.json')
+	await writeFile(probeInfoJsonPath, JSON.stringify(YOUTUBE_INFO))
+})
+afterEach(async () => {
+	await rm(outDir, {recursive: true, force: true})
+})
+
+function job(subtitles: SubtitleOptions, overrides: Partial<Extract<PreparedJob, {kind: 'subtitle-only'}>> = {}): ResolvedStartDownloadInput['job'] {
+	return {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles, ...overrides}
 }
 
-const BASE_SUBS: SubtitleOptions = {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}
-const AUTO_SUBS: SubtitleOptions = {...BASE_SUBS, request: {kind: 'tracks', tracks: [{key: 'en', auto: true}]}}
-const MIXED_SUBS: SubtitleOptions = {
-	...BASE_SUBS,
-	request: {
-		kind: 'tracks',
-		tracks: [
-			{key: 'en', auto: false},
-			{key: 'ja-orig', auto: true}
-		]
-	}
+function input(overrides: Partial<ResolvedStartDownloadInput> = {}): ResolvedStartDownloadInput {
+	return {url: URL, outputDir: outDir, probeInfoJsonPath, job: job(MANUAL_EN), ...overrides}
 }
-const BASE_JOB: PreparedJob = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: BASE_SUBS}
 
-const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
+interface FakeYtDlp {
+	listing?: unknown
+	listingResult?: YtDlpResult
+	fetchResult?: YtDlpResult
+}
 
-function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
-	return {
-		job: makeJob(),
-		input: BASE_INPUT,
+// A listing prints the video's info-json; a subtitle run writes one file per
+// key it was asked for and reports them, as yt-dlp's `requested_subtitles` does.
+function fakeRun(fake: FakeYtDlp = {}) {
+	return vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions): Promise<YtDlpResult> => {
+		if (req.kind === 'subtitle-listing') return fake.listingResult ?? {...SUCCESS, stdout: JSON.stringify(fake.listing ?? YOUTUBE_INFO)}
+		if (fake.fetchResult && fake.fetchResult.kind !== 'success') return fake.fetchResult
+		if (req.kind === 'subtitles' && 'tracks' in req.subtitles && req.output.report?.subtitles) {
+			const report = Object.fromEntries(req.subtitles.tracks.map(track => [track.key, {ext: 'srt', filepath: `video.${track.key}.srt`}]))
+			await writeFile(req.output.report.subtitles, `${JSON.stringify(report)}\n`)
+		}
+		return fake.fetchResult ?? SUCCESS
+	})
+}
+
+function makeCtx(opts: {input?: ResolvedStartDownloadInput; active?: Partial<ActiveDownload>; fake?: FakeYtDlp; signedIn?: boolean} = {}): PhaseContext {
+	const jobRecord: DownloadJob = {id: 'job-1', url: URL, outputDir: outDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
+	const active: ActiveDownload = {
+		job: jobRecord,
+		input: opts.input ?? input(),
 		controller: new AbortController(),
 		get signal(): AbortSignal {
 			return this.controller.signal
 		},
 		cancelRequested: false,
 		pauseRequested: false,
-		subtitlePaths: ['/tmp/video.en.srt'],
+		subtitlePaths: [],
 		disposables: new AsyncStack(),
-		...overrides
+		...opts.active
 	}
+	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: fakeRun(opts.fake)} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts({signedIn: opts.signedIn})}
 }
 
-function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
-	const runMock = vi.fn().mockResolvedValue(runResult)
-	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock, ffmpegPath: null} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-}
+const runMock = (ctx: PhaseContext) => vi.mocked(ctx.ytDlp.run as ReturnType<typeof fakeRun>)
+const runs = (ctx: PhaseContext) => runMock(ctx).mock.calls
+const fetchRequest = (ctx: PhaseContext) => runs(ctx).find(([req]) => req.kind === 'subtitles')?.[0]
 
-const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
-const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'fail', stdout: '', stderr: ''}
-
-describe('SubtitleOnlyPhase', () => {
-	it('calls ytDlp.run with kind: subtitles', async () => {
-		const ctx = makeCtx(SUCCESS)
-		await SubtitleOnlyPhase.run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.kind).toBe('subtitles')
-		expect(req.url).toBe(BASE_INPUT.url)
-		expect(req.subtitles.languages).toEqual(['(?-i:en)'])
-	})
-
-	it("resolves language codes against the probe's info-json", async () => {
-		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		const probeInfoJsonPath = join(dir, 'probe.info.json')
-		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {'pt-BR': [{ext: 'vtt'}]}, automatic_captions: {'en-orig': [{ext: 'vtt'}], en: [{ext: 'vtt'}], pt: [{ext: 'vtt'}]}}))
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {...BASE_JOB, subtitles: {...BASE_SUBS, request: {kind: 'languages', languages: ['pt', 'en'], source: 'manual-first'}}}}})
-		await SubtitleOnlyPhase.run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles.languages).toEqual(['(?-i:pt-BR)', '(?-i:en)'])
-		await rm(dir, {recursive: true, force: true})
-	})
-
-	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
-		const anonymous = makeCtx(SUCCESS)
-		await SubtitleOnlyPhase.run(anonymous)
-		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
-
-		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
-		await SubtitleOnlyPhase.run(signedIn)
-		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
-	})
-
+describe('SubtitleOnlyPhase: before anything runs', () => {
 	it('parks a paused escalated job whose Explore session is gone instead of failing it', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, pauseRequested: true})
-		const outcome = await SubtitleOnlyPhase.run(ctx)
-		expect(outcome).toEqual({kind: 'paused'})
-		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
-		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalled()
+		const ctx = makeCtx({input: input({auth: 'exploreSession'}), active: {pauseRequested: true}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'paused'})
+		expect(runs(ctx)).toHaveLength(0)
+		expect(ctx.emitStatus).not.toHaveBeenCalled()
 	})
 
 	it('still fails a signed-out escalated job that is not paused', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}})
-		const outcome = await SubtitleOnlyPhase.run(ctx)
-		expect(outcome.kind).toBe('hard-failed')
+		expect((await SubtitleOnlyPhase.run(makeCtx({input: input({auth: 'exploreSession'})}))).kind).toBe('hard-failed')
 	})
 
-	it('asks for automatic captions only when every planned track is one', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}})
+	it('makes the job a temp folder and removes it when the job finalizes', async () => {
+		const ctx = makeCtx()
 		await SubtitleOnlyPhase.run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
+		const {tempDir} = ctx.active
+		expect(tempDir).toBe(join(outDir, '.arroxy-temp', 'job-1'))
+		await ctx.active.disposables[Symbol.asyncDispose]()
+		await expect(access(tempDir!)).rejects.toThrow()
+	})
+})
+
+describe('SubtitleOnlyPhase: the fetch', () => {
+	it("fetches the planned tracks from the probe's info-json and asks for a report in the temp folder", async () => {
+		const ctx = makeCtx({input: input({job: job(MANUAL_EN, {filenameTemplate: '{title} [{id}]'})})})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
+		const tempDir = join(outDir, '.arroxy-temp', 'job-1')
+		expect(runs(ctx)).toHaveLength(1)
+		expect(fetchRequest(ctx)).toEqual({
+			kind: 'subtitles',
+			url: URL,
+			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).120B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
+			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
+			loadInfoJsonPath: probeInfoJsonPath
+		})
 	})
 
-	it('omits autoOnly when the plan holds a manual track too', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: MIXED_SUBS}}})
+	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
+		const anonymous = makeCtx()
+		await SubtitleOnlyPhase.run(anonymous)
+		expect(runs(anonymous)[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
+
+		const signedIn = makeCtx({input: input({auth: 'exploreSession'}), signedIn: true})
+		await SubtitleOnlyPhase.run(signedIn)
+		expect(runs(signedIn)[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
+	})
+
+	it('asks for exactly the tracks the Format screen would pick, never a machine translation', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja', 'de']))})})
 		await SubtitleOnlyPhase.run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.subtitles.autoOnly).toBeUndefined()
+		expect(fetchRequest(ctx)).toMatchObject({
+			subtitles: {
+				tracks: [
+					{key: 'en', auto: false},
+					{key: 'ja', auto: true}
+				]
+			}
+		})
 	})
 
-	it('forwards filenameTemplate for single subtitle-only jobs', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
+	it('takes the written files from the report and names the row from the info-json', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['en']))})})
 		await SubtitleOnlyPhase.run(ctx)
-		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
-		expect(req.output.template).toBe('%(title).120B [%(id)s].%(ext)s')
+		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.en.srt')])
+		expect(ctx.active.mediaTitle).toBe('The Real Title')
 	})
 
-	it('success → returns completed', async () => {
-		const outcome = await SubtitleOnlyPhase.run(makeCtx(SUCCESS))
-		expect(outcome.kind).toBe('completed')
+	it('dedupes only the automatic captions', async () => {
+		const mixed = makeCtx({input: input({job: job(codes(['en', 'ja']))})})
+		await SubtitleOnlyPhase.run(mixed)
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL, jobId: 'job-1'}))
+		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0]?.[1].shouldAbort
+		expect(shouldAbort?.()).toBe(false)
+		mixed.active.cancelRequested = true
+		expect(shouldAbort?.()).toBe(true)
+
+		vi.mocked(postProcessSubtitleFiles).mockClear()
+		await SubtitleOnlyPhase.run(makeCtx())
+		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
-	it('failure → hard-failed with classified error payload', async () => {
-		const ctx = makeCtx(EXIT_ERROR)
+	it('a failed fetch is a hard failure with the classified error', async () => {
+		const ctx = makeCtx({fake: {fetchResult: EXIT_ERROR}})
 		const outcome = await SubtitleOnlyPhase.run(ctx)
 		expect(outcome.kind).toBe('hard-failed')
 		if (outcome.kind === 'hard-failed') expect(outcome.error.kind).toBe('unknown')
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.objectContaining({kind: 'unknown'}))
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.objectContaining({kind: 'unknown'}))
 	})
 
-	it('success with usedExtractorFallback → sets active.usedExtractorFallback', async () => {
-		const ctx = makeCtx({...SUCCESS, usedExtractorFallback: true})
+	it('marks a fetch that used the extractor fallback', async () => {
+		const ctx = makeCtx({fake: {fetchResult: {...SUCCESS, usedExtractorFallback: true}}})
 		await SubtitleOnlyPhase.run(ctx)
 		expect(ctx.active.usedExtractorFallback).toBe(true)
 	})
 
-	it('no automatic caption → postProcessSubtitleFiles not called', async () => {
-		await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: BASE_SUBS}}}))
-		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
-	})
-
-	it('an automatic caption → postProcessSubtitleFiles called after success', async () => {
-		const paths = ['/tmp/video.en.srt']
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: paths})
-		await SubtitleOnlyPhase.run(ctx)
-		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
-		const [calledPaths, calledOpts] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
-		expect(calledPaths).toEqual(paths)
-		// The site gate reads these — forwarding the wrong ones silently disables
-		// the rolling dedupe or the URL fallback.
-		expect(calledOpts).toMatchObject({extractor: BASE_JOB.extractor, url: BASE_INPUT.url, jobId: expect.any(String)})
-	})
-
-	it('post-processes the converted subtitle files, not the deleted pre-conversion paths', async () => {
-		vi.mocked(resolveConvertedSubtitlePaths).mockResolvedValueOnce(['/tmp/video.en.srt'])
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}, subtitlePaths: ['/tmp/video.en.vtt']})
-		await SubtitleOnlyPhase.run(ctx)
-		expect(resolveConvertedSubtitlePaths).toHaveBeenCalledWith(['/tmp/video.en.vtt'], 'srt')
-		expect(vi.mocked(postProcessSubtitleFiles).mock.calls[0][0]).toEqual(['/tmp/video.en.srt'])
-		expect(ctx.active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
-	})
-
-	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: AUTO_SUBS}}})
-		await SubtitleOnlyPhase.run(ctx)
-
-		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0][1].shouldAbort
-		expect(shouldAbort?.()).toBe(false)
-		ctx.active.cancelRequested = true
-		expect(shouldAbort?.()).toBe(true)
-	})
-
-	it('pauseRequested after run → returns paused (not hard-failed)', async () => {
-		const active = makeActive({cancelRequested: false})
-		const runMock = vi.fn().mockImplementationOnce(async () => {
-			active.pauseRequested = true
-			return EXIT_ERROR // SIGTERM makes yt-dlp exit non-zero
+	it('parks a job paused during the fetch, and ends a cancelled one as cancelled', async () => {
+		const paused = makeCtx()
+		runMock(paused).mockImplementationOnce(async () => {
+			paused.active.pauseRequested = true
+			return EXIT_ERROR
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
+		expect((await SubtitleOnlyPhase.run(paused)).kind).toBe('paused')
 
-		const outcome = await SubtitleOnlyPhase.run(ctx)
-		expect(outcome.kind).toBe('paused')
-	})
-
-	it('cancelled after run → returns cancelled', async () => {
-		const ctx: PhaseContext = {active: makeActive({cancelRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-		const runMock = vi.fn().mockImplementationOnce(async () => {
-			ctx.active.cancelRequested = true
+		const cancelled = makeCtx()
+		runMock(cancelled).mockImplementationOnce(async () => {
+			cancelled.active.cancelRequested = true
 			return SUCCESS
 		})
-		ctx.ytDlp = {run: runMock} as never
-
-		const outcome = await SubtitleOnlyPhase.run(ctx)
-		expect(outcome.kind).toBe('cancelled')
+		expect((await SubtitleOnlyPhase.run(cancelled)).kind).toBe('cancelled')
 	})
 
-	it('onMinting(0) → emits mintingToken; onMinting(1) → emits remintingToken', async () => {
-		const runMock = vi.fn().mockImplementation(async (_req, signal) => {
+	it('reports token minting, and nothing when no token is minted', async () => {
+		const minting = makeCtx()
+		runMock(minting).mockImplementationOnce(async (_req, signal) => {
 			signal?.onMinting?.(0)
 			signal?.onMinting?.(1)
 			return SUCCESS
 		})
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
+		await SubtitleOnlyPhase.run(minting)
+		expect(minting.emitStatus).toHaveBeenCalledWith('token', STATUS_KEY.mintingToken)
+		expect(minting.emitStatus).toHaveBeenCalledWith('token', STATUS_KEY.remintingToken)
 
-		await SubtitleOnlyPhase.run(ctx)
-
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('token', STATUS_KEY.mintingToken)
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('token', STATUS_KEY.remintingToken)
+		const quiet = makeCtx()
+		await SubtitleOnlyPhase.run(quiet)
+		expect(quiet.emitStatus).not.toHaveBeenCalledWith('token', expect.anything())
 	})
 
-	it('no onMinting call → no token status emitted', async () => {
-		const runMock = vi.fn().mockImplementation(async (_req, _signal) => SUCCESS)
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-
-		await SubtitleOnlyPhase.run(ctx)
-
-		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalled()
-	})
-
-	it('onSpawn → assigns process, registers SIGKILL disposable, emits fetchingSubtitles', async () => {
+	it('holds the spawned process, kills it on finalize, and says it is fetching subtitles', async () => {
 		const fakeProc = Object.assign(new EventEmitter(), {kill: vi.fn()})
-		const runMock = vi.fn().mockImplementation(async (_req, signal) => {
-			signal?.onSpawn?.(fakeProc)
+		const ctx = makeCtx()
+		runMock(ctx).mockImplementationOnce(async (_req, signal) => {
+			signal?.onSpawn?.(fakeProc as never, outDir)
 			return SUCCESS
 		})
-		const active = makeActive()
-		const registerSpy = vi.fn((d: () => void | Promise<void>) => active.disposables.defer(d))
-		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
-
 		await SubtitleOnlyPhase.run(ctx)
+		expect(ctx.active.ytDlpProcess).toBe(fakeProc)
+		expect(ctx.emitStatus).toHaveBeenCalledWith('download', STATUS_KEY.fetchingSubtitles)
+	})
+})
 
-		expect(active.ytDlpProcess).toBe(fakeProc)
-		expect(registerSpy).toHaveBeenCalled()
-		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('download', STATUS_KEY.fetchingSubtitles)
+// A playlist entry is queued before its video is known and usually has no
+// probe info-json; a site without eager lists has none worth reading.
+describe('SubtitleOnlyPhase: the listing run', () => {
+	it('lists the subtitles when no info-json is at hand, then fetches from the saved listing', async () => {
+		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined, job: job(codes(['ja']))})})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
+		expect(runs(ctx).map(([req]) => req.kind)).toEqual(['subtitle-listing', 'subtitles'])
+		const listing = join(outDir, '.arroxy-temp', 'job-1', '_arroxy.subtitles.info.json')
+		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'ja', auto: true}]}, loadInfoJsonPath: listing})
+		expect(ctx.active.mediaTitle).toBe('The Real Title')
+	})
+
+	it('lists the subtitles on a site whose info-json lists them only when asked', async () => {
+		const vimeo = input({url: 'https://vimeo.com/1', job: job(codes(['de']), {extractor: 'vimeo', extractorKey: 'Vimeo'})})
+		const ctx = makeCtx({input: vimeo, fake: {listing: {id: '1', title: 'Clip', subtitles: {de: [{ext: 'vtt'}]}}}})
+		await SubtitleOnlyPhase.run(ctx)
+		expect(runs(ctx)[0]?.[0]).toEqual({kind: 'subtitle-listing', url: 'https://vimeo.com/1'})
+		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'de', auto: false}]}})
+	})
+
+	it('a failed listing is a hard failure and fetches nothing', async () => {
+		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined}), fake: {listingResult: EXIT_ERROR}})
+		expect((await SubtitleOnlyPhase.run(ctx)).kind).toBe('hard-failed')
+		expect(fetchRequest(ctx)).toBeUndefined()
+	})
+
+	it('a listing that prints no info-json is a hard failure', async () => {
+		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined}), fake: {listingResult: {...SUCCESS, stdout: 'not json'}}})
+		const outcome = await SubtitleOnlyPhase.run(ctx)
+		expect(outcome).toMatchObject({kind: 'hard-failed', error: {kind: 'parse'}})
+		expect(fetchRequest(ctx)).toBeUndefined()
 	})
 })
 
 // ADR 0016: a subtitles-only job none of whose languages is on the video leaves nothing usable.
-describe('SubtitleOnlyPhase — languages the video lacks', () => {
-	async function withProbe(request: SubtitleOptions['request']): Promise<{ctx: PhaseContext; cleanup: () => Promise<void>}> {
-		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		const probeInfoJsonPath = join(dir, 'probe.info.json')
-		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}}))
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, probeInfoJsonPath, job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {...BASE_SUBS, request}}}})
-		return {ctx, cleanup: () => rm(dir, {recursive: true, force: true})}
-	}
-
-	it('fails hard, naming the languages, without running yt-dlp', async () => {
-		const {ctx, cleanup} = await withProbe({kind: 'languages', languages: ['de', 'fr'], source: 'manual-first'})
-		const outcome = await SubtitleOnlyPhase.run(ctx)
-		expect(outcome).toEqual({kind: 'hard-failed', error: {kind: 'noSubtitles', raw: 'No subtitles in the requested languages: de, fr', languageCodes: ['de', 'fr']}})
-		expect(ctx.ytDlp.run).not.toHaveBeenCalled()
+describe('SubtitleOnlyPhase: languages the video lacks', () => {
+	it('fails hard, naming the languages, without fetching', async () => {
+		const ctx = makeCtx({input: input({job: job(codes(['de', 'fr']))})})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'hard-failed', error: {kind: 'noSubtitles', raw: 'No subtitles in the requested languages: de, fr', languageCodes: ['de', 'fr']}})
+		expect(runs(ctx)).toHaveLength(0)
 		expect(ctx.emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.noSubtitles, {languageCodes: 'de,fr'}, expect.objectContaining({kind: 'noSubtitles'}))
-		await cleanup()
 	})
 
 	it('saves the languages the video has and names the rest', async () => {
-		const {ctx, cleanup} = await withProbe({kind: 'languages', languages: ['en', 'de'], source: 'manual-first'})
-		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissingOthersSaved, params: {languageCodes: 'de'}})
-		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[0].subtitles.languages).toEqual(['(?-i:en)'])
-		await cleanup()
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'fr']))})})
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitleLanguagesMissingOthersSaved, params: {languageCodes: 'fr'}})
+		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'en', auto: false}]}})
 	})
 
-	it('a failed fetch still fails the job as before', async () => {
-		const dir = await mkdtemp(join(tmpdir(), 'arroxy-subs-'))
-		const probeInfoJsonPath = join(dir, 'probe.info.json')
-		await writeFile(probeInfoJsonPath, JSON.stringify({subtitles: {en: [{ext: 'vtt'}]}}))
-		const ctx = makeCtx(EXIT_ERROR, {input: {...BASE_INPUT, probeInfoJsonPath, job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {...BASE_SUBS, request: {kind: 'languages', languages: ['en', 'de'], source: 'manual-first'}}}}})
-		expect((await SubtitleOnlyPhase.run(ctx)).kind).toBe('hard-failed')
-		await rm(dir, {recursive: true, force: true})
+	it('a failed fetch still fails the job', async () => {
+		expect((await SubtitleOnlyPhase.run(makeCtx({input: input({job: job(codes(['en', 'fr']))}), fake: {fetchResult: EXIT_ERROR}}))).kind).toBe('hard-failed')
 	})
 })

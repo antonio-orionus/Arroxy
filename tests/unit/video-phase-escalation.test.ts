@@ -38,16 +38,22 @@ const NETWORK: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'netwo
 const COOKIES_REJECTED: YtDlpResult = {...LOGIN_REQUIRED, accountCookiesRejected: true}
 
 let outputDir: string
+// The video's subtitle lists, as the probe saved them: a subtitle phase plans
+// from these instead of listing them with a run of its own.
+let subtitleInfoJson: string
 
 beforeEach(async () => {
 	outputDir = await mkdtemp(join(tmpdir(), 'arroxy-escalation-'))
+	subtitleInfoJson = join(outputDir, 'subtitles.info.json')
+	await writeFile(subtitleInfoJson, JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}}))
 })
 
 afterEach(async () => {
 	await rm(outputDir, {recursive: true, force: true})
 })
 
-function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean}) {
+// `tempDir`: the media run's temp folder, for a subtitle phase run on its own.
+function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
 	const results = [...opts.runs]
 	const run = vi.fn((_req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
 		const next = results.shift()
@@ -57,12 +63,13 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 	const controller = new AbortController()
 	const active: ActiveDownload = {
 		job: {id: 'job-1', url: YOUTUBE_URL, outputDir, status: 'running', createdAt: '', updatedAt: ''},
-		input: {url: YOUTUBE_URL, outputDir, job: YOUTUBE_JOB, ...opts.input},
+		input: {url: YOUTUBE_URL, outputDir, job: YOUTUBE_JOB, ...(opts.input?.job && 'subtitles' in opts.input.job && opts.input.job.subtitles ? {probeInfoJsonPath: subtitleInfoJson} : {}), ...opts.input},
 		controller,
 		signal: controller.signal,
 		cancelRequested: false,
 		pauseRequested: false,
 		subtitlePaths: [],
+		...(opts.tempDir ? {tempDir: outputDir} : {}),
 		disposables: new AsyncStack()
 	}
 	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified})
@@ -273,7 +280,7 @@ describe('rejected cookies on a run that succeeded', () => {
 	})
 
 	it('keeps sidecar subtitles that arrived anyway', async () => {
-		const {ctx, run, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}}, signedIn: true, verified: 'signedOut'})
+		const {ctx, run, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession', job: {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}}, signedIn: true, verified: 'signedOut', tempDir: true})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 		expect(run).toHaveBeenCalledOnce()
@@ -284,7 +291,7 @@ describe('rejected cookies on a sidecar subtitle fetch', () => {
 	const SUBS_JOB: ResolvedStartDownloadInput['job'] = {...YOUTUBE_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
 
 	it('soft-fails, keeping the saved video, when the session turns out signed out', async () => {
-		const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedOut'})
+		const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedOut', tempDir: true})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 		expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		expect(run).toHaveBeenCalledOnce()
@@ -292,7 +299,7 @@ describe('rejected cookies on a sidecar subtitle fetch', () => {
 	})
 
 	it('retries once, signed in, when the session is still good', async () => {
-		const {ctx, run} = makeCtx({runs: [COOKIES_REJECTED, SUCCESS], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedIn'})
+		const {ctx, run} = makeCtx({runs: [COOKIES_REJECTED, SUCCESS], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedIn', tempDir: true})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
 		expect(identities(run)).toEqual(['exploreSession', 'exploreSession'])
 	})

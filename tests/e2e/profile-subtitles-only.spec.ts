@@ -21,7 +21,7 @@
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {DownloadProfile} from '../../src/shared/types.js'
-import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
 function germanProfile(baseId: 'subtitles-only' | 'balanced'): DownloadProfile {
@@ -83,6 +83,66 @@ test('Electron video profile keeps the video and names the subtitle languages it
 			expect(files.listRecursive().filter(file => /\.(srt|vtt|ass)$/.test(file))).toEqual([])
 			expect(files.mediaFiles('mp4').length + files.mediaFiles('webm').length + files.mediaFiles('mkv').length).toBeGreaterThan(0)
 			expect(fixtureServer.telemetry().requests.filter(request => request.kind === 'subtitle' && request.videoId === videoId)).toEqual([])
+		}
+	)
+})
+
+// A playlist entry is queued before its video is known and has no probe
+// info-json, so its subtitle phase used to send the profile's codes to yt-dlp
+// as a pattern, which on YouTube also matches the machine translations. Now
+// it lists each entry's subtitles and plans exact tracks from them.
+const playlistTitles = FIXTURE_PLAYLIST_VIDEO_IDS.map(id => `Fixture Video ${FIXTURE_VIDEO_IDS.indexOf(id) + 1}`)
+
+test('Electron subtitles-only playlist profile plans every entry from a listing and never fetches a machine translation', async () => {
+	test.setTimeout(200_000)
+	const profile = germanProfile('subtitles-only')
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-subs-only-playlist-user-',
+			outputPrefix: 'arroxy-fixture-subs-only-playlist-out-',
+			settings: settings => {
+				settings.profiles.custom = [profile]
+				settings.profiles.active = {kind: 'custom', id: profile.id}
+			}
+		},
+		async ({page, urls, queue, files, fixtureServer}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			for (const title of playlistTitles) {
+				await queue.expectStatus(title, 'error', 180_000)
+				await expect(queue.cardByTitle(title)).toContainText('This video has no subtitles in German.')
+			}
+			expect(files.listRecursive().filter(file => /\.(srt|vtt|ass)$/.test(file))).toEqual([])
+			// Every entry lists German as a machine translation; none is fetched.
+			expect(fixtureServer.telemetry().requests.filter(request => request.kind === 'subtitle')).toEqual([])
+		}
+	)
+})
+
+test('Electron subtitles-only playlist profile fetches each entry its exact English track', async () => {
+	test.setTimeout(200_000)
+	const base = germanProfile('subtitles-only')
+	const profile: DownloadProfile = {...base, id: 'english-subtitles-only', name: 'English subtitles-only', subtitles: {...base.subtitles, languages: ['en']}, subfolder: {enabled: true, name: 'English subtitles-only'}}
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-subs-only-playlist-en-user-',
+			outputPrefix: 'arroxy-fixture-subs-only-playlist-en-out-',
+			settings: settings => {
+				settings.profiles.custom = [profile]
+				settings.profiles.active = {kind: 'custom', id: profile.id}
+			}
+		},
+		async ({page, urls, queue, files, fixtureServer}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			for (const title of playlistTitles) await queue.expectStatus(title, 'done', 180_000)
+
+			expect(files.mediaFiles('.en.srt')).toHaveLength(FIXTURE_PLAYLIST_VIDEO_IDS.length)
+			files.expectMp4Count(0)
+			const fetched = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.status === 200 ? [`${request.videoId}:${request.lang}:${request.track}`] : []))
+			expect(fetched.toSorted((a, b) => a.localeCompare(b))).toEqual(FIXTURE_PLAYLIST_VIDEO_IDS.map(id => `${id}:en:manual`).toSorted((a, b) => a.localeCompare(b)))
 		}
 	)
 })

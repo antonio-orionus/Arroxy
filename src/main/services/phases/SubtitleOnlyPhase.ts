@@ -1,14 +1,24 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
-import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
+import type {LocalizedError} from '@shared/types.js'
+import {postProcessSubtitleFiles, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
+import {cleanupTempDirByPath} from '../download/cleanup.js'
+import {setupTempDir} from '../download/jobTempDir.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
-import {endWithoutFetching, missingSubtitles, resolveSubtitlePlan, subtitleRunRequest} from './subtitleTracks.js'
+import {automaticCaptionPaths, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, clearSubtitleReport, saveSubtitleListing, subtitleFetchRequest, subtitleReportFile} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
-import type {YtDlpResult} from '../YtDlp.js'
+import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
+
+type SettledRun = {kind: 'done'; result: Extract<YtDlpResult, {kind: 'success'}>} | {kind: 'ended'; outcome: PhaseOutcome}
+
+function hardFailure(ctx: PhaseContext, error: LocalizedError, params: Record<string, string>): PhaseOutcome {
+	ctx.emitStatus('error', STATUS_KEY.ytdlpProcessError, params, error)
+	return {kind: 'hard-failed', error}
+}
 
 export const SubtitleOnlyPhase: Phase = {
 	kind: 'subtitle-only',
@@ -31,56 +41,80 @@ export const SubtitleOnlyPhase: Phase = {
 		const refused = await guardSignedInSpawn(ctx)
 		if (refused) return refused
 
-		const run = await resolveSubtitlePlan(subtitles, {infoJsonPaths: [input.probeInfoJsonPath], site, jobId: job.id})
-		const missing = missingSubtitles(run, {subtitlesOnly: true})
+		// The listing and the report live in the job's temp folder, removed when the job finalizes.
+		const tempDir = active.tempDir ?? (await setupTempDir(job.outputDir, job.id, false))
+		if (!tempDir) {
+			const error: LocalizedError = {kind: 'outputNotWritable', raw: `${job.outputDir}: the temp folder could not be created`}
+			ctx.emitStatus('error', STATUS_KEY.outputNotWritable, {dir: job.outputDir}, error)
+			return {kind: 'hard-failed', error}
+		}
+		if (active.tempDir === undefined) {
+			active.tempDir = tempDir
+			ctx.register(() => cleanupTempDirByPath(tempDir))
+		}
+
+		// Either run can be refused for the anonymous identity and escalate: the
+		// identity is read per run, so a retry goes out as the Explore session.
+		const settledRun = async (req: YtDlpRequest): Promise<SettledRun> => {
+			const spawn = async (): Promise<{result: YtDlpResult}> => ({
+				result: await ytDlp.run(
+					req,
+					buildYtDlpSignal(ctx, active, {
+						onMinting: attempt => {
+							ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
+						},
+						onSpawn: () => {
+							ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
+						}
+					}),
+					{identity: identityFor(active.input.auth), jobKey: job.id}
+				)
+			})
+			const first = await spawn()
+			const stopped = interruptedOutcome(active)
+			if (stopped) return {kind: 'ended', outcome: stopped}
+			const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? spawn() : null)})
+			if (settled.kind === 'stopped') return {kind: 'ended', outcome: settled.outcome}
+			if (settled.kind === 'signedOut') return {kind: 'ended', outcome: exploreSignedOut(ctx)}
+			const {result} = settled.run
+			if (result.kind !== 'success') {
+				logger.warn('subtitle-only run failed', {jobId: job.id, run: req.kind, kind: result.kind})
+				const {payload, statusKey, params} = await classifyYtDlpFailure(result, job.outputDir, job.id)
+				ctx.emitStatus('error', statusKey, params, payload)
+				return {kind: 'ended', outcome: {kind: 'hard-failed', error: payload}}
+			}
+			if (result.usedExtractorFallback) active.usedExtractorFallback = true
+			return {kind: 'done', result}
+		}
+
+		let lists = await eagerSubtitleLists([input.probeInfoJsonPath], site)
+		if (!lists) {
+			const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
+			if (listed.kind === 'ended') return listed.outcome
+			lists = await saveSubtitleListing(listed.result.stdout, tempDir)
+			if (!lists) return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
+		}
+		// A subtitles-only job saves no media, so the row is named from here.
+		if (lists.title !== null) active.mediaTitle = lists.title
+
+		const plan = planSubtitleRun(subtitles, lists, {site, jobId: job.id})
+		const missing = missingSubtitles(plan, {subtitlesOnly: true})
 		if (missing.before) {
 			logger.info('Subtitles skipped — this video has no track in the requested languages', {jobId: job.id, request: subtitles.request})
 			return endWithoutFetching(ctx, missing.before)
 		}
 
-		// The identity is read per run: an escalation switches the job to the Explore session.
-		const fetchSubtitles = async (): Promise<{result: YtDlpResult}> => ({
-			result: await ytDlp.run(
-				{
-					kind: 'subtitles',
-					url: input.url,
-					output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-					subtitles: subtitleRunRequest(run, subtitles.format ?? DEFAULTS.subtitleFormat)
-				},
-				buildYtDlpSignal(ctx, active, {
-					onMinting: attempt => {
-						ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
-					},
-					onSpawn: () => {
-						ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
-					}
-				}),
-				{identity: identityFor(active.input.auth), jobKey: job.id}
-			)
-		})
+		const template = compiledOutputTemplate(preparedJob.filenameTemplate)
+		const output = {directory: job.outputDir, subtitleMode: subtitles.mode, ...(template ? {template} : {})}
+		if (!(await clearSubtitleReport(tempDir))) return hardFailure(ctx, {kind: 'outputNotWritable', raw: `${tempDir}: an earlier subtitle report could not be removed`}, {error: 'stale subtitle report'})
+		const fetched = await settledRun(subtitleFetchRequest(plan, {url: input.url, output, format: subtitles.format ?? DEFAULTS.subtitleFormat, lists, tempDir}))
+		if (fetched.kind === 'ended') return fetched.outcome
 
-		const first = await fetchSubtitles()
-		const stopped = interruptedOutcome(active)
-		if (stopped) return stopped
-
-		const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? fetchSubtitles() : null)})
-		if (settled.kind === 'stopped') return settled.outcome
-		if (settled.kind === 'signedOut') return exploreSignedOut(ctx)
-		const {result} = settled.run
-
-		if (result.kind !== 'success') {
-			logger.warn('subtitle-only fetch failed', {jobId: job.id, kind: result.kind})
-			const {payload, statusKey, params} = await classifyYtDlpFailure(result, job.outputDir, job.id)
-			ctx.emitStatus('error', statusKey, params, payload)
-			return {kind: 'hard-failed', error: payload}
-		}
-
-		if (result.usedExtractorFallback) active.usedExtractorFallback = true
-		active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subtitles.format ?? DEFAULTS.subtitleFormat)
-
-		if (run.fetch.auto) {
-			await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
-		}
+		const reported = await readSubtitleReport(subtitleReportFile(tempDir), job.outputDir)
+		if (reported.length === 0) logger.warn('subtitle run reported no written files', {jobId: job.id})
+		active.subtitlePaths = reported.map(entry => entry.path)
+		const captions = automaticCaptionPaths(reported, plan)
+		if (captions.length > 0) await postProcessSubtitleFiles(captions, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
 
 		return missing.after ?? {kind: 'completed'}
 	}
