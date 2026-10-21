@@ -28,7 +28,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
-import {buildYtDlpSignal} from '@main/services/phases/phaseHelpers.js'
+import {buildYtDlpSignal, trackFfmpegProcess} from '@main/services/phases/phaseHelpers.js'
 import {AsyncStack, type ActiveJob, type PhaseContext} from '@main/services/phases/types.js'
 
 const PROBE: YtDlpRequest = {kind: 'probe', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', selection: {playlistMode: 'video'}}
@@ -58,19 +58,22 @@ function leader() {
 }
 
 let proc: ReturnType<typeof leader>
+// Off when taskkill fails to start or is refused: the tree lives on.
+let taskkillEndsTree: boolean
 
 const originalPlatform = process.platform
 
 beforeEach(() => {
 	vi.clearAllMocks()
 	events = []
+	taskkillEndsTree = true
 	Object.defineProperty(process, 'platform', {value: 'win32'})
 	proc = leader()
 	vi.mocked(spawnYtDlp).mockImplementation(() => proc as never)
 	// taskkill /T /F against a live leader ends the whole tree a moment later.
 	vi.mocked(spawn).mockImplementation(((file: string, args: string[]) => {
 		events.push(`${file} ${args.join(' ')}`)
-		if (proc.exitCode === null && proc.signalCode === null) {
+		if (taskkillEndsTree && proc.exitCode === null && proc.signalCode === null) {
 			setTimeout(() => {
 				proc.exitCode = 1
 				events.push('close')
@@ -84,6 +87,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+	vi.useRealTimers()
 	Object.defineProperty(process, 'platform', {value: originalPlatform})
 })
 
@@ -115,6 +119,37 @@ describe('stopping a signed-out yt-dlp run on Windows', () => {
 		await expect(run).resolves.toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
 		expect(events).toEqual([TREE_KILL, 'close'])
 		expect(proc.kill).not.toHaveBeenCalled()
+	})
+
+	it('settles after the grace when the tree kill fails, killing the still-live leader as a last resort', async () => {
+		taskkillEndsTree = false
+		const controller = new AbortController()
+		const run = makeYtDlp().run(MEDIA, {abortSignal: controller.signal})
+		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce())
+		vi.useFakeTimers()
+
+		controller.abort()
+		await vi.advanceTimersByTimeAsync(4_999)
+		expect(proc.kill).not.toHaveBeenCalled()
+		await vi.advanceTimersByTimeAsync(1)
+
+		await expect(run).resolves.toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
+		expect(events).toEqual([TREE_KILL, 'leader-kill:SIGKILL'])
+	})
+
+	it('settles after the grace without signalling a leader that already exited while its tree holds the pipes', async () => {
+		const controller = new AbortController()
+		const run = makeYtDlp().run(MEDIA, {abortSignal: controller.signal})
+		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce())
+		proc.exitCode = 0
+		vi.useFakeTimers()
+
+		controller.abort()
+		await vi.advanceTimersByTimeAsync(5_000)
+
+		await expect(run).resolves.toMatchObject({kind: 'exit-error', rawError: 'Cancelled'})
+		// Its pid may already belong to another process.
+		expect(events).toEqual([])
 	})
 })
 
@@ -151,6 +186,32 @@ describe('a download phase stopping its yt-dlp run on Windows', () => {
 		const ctx = {register, safeConsume: vi.fn()} as unknown as PhaseContext
 
 		buildYtDlpSignal(ctx, active).onSpawn?.(proc as never, undefined)
+		await register.mock.calls[0]?.[0]()
+
+		expect(events).toEqual([TREE_KILL])
+		expect(proc.kill).not.toHaveBeenCalled()
+	})
+})
+
+describe('a download phase stopping its ffmpeg run on Windows', () => {
+	it('tree-kills a run that spawned after cancel was requested', () => {
+		const active = makeActive()
+		active.cancelRequested = true
+		const ctx = {register: vi.fn()} as unknown as PhaseContext
+
+		trackFfmpegProcess(ctx, active)(proc as never)
+
+		expect(active.ffmpegProcess).toBe(proc)
+		expect(events).toEqual([TREE_KILL])
+		expect(proc.kill).not.toHaveBeenCalled()
+	})
+
+	it('tree-kills a run still alive when the job finalizes', async () => {
+		const active = makeActive()
+		const register = vi.fn<(fn: () => void | Promise<void>) => void>()
+		const ctx = {register} as unknown as PhaseContext
+
+		trackFfmpegProcess(ctx, active)(proc as never)
 		await register.mock.calls[0]?.[0]()
 
 		expect(events).toEqual([TREE_KILL])

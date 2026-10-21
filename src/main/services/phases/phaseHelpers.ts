@@ -1,3 +1,4 @@
+import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {copyFile} from 'node:fs/promises'
 import {join} from 'node:path'
 import log from 'electron-log/main.js'
@@ -100,6 +101,22 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 		},
 		onStdout: extraOnStdout ?? (text => ctx.safeConsume(text)),
 		onStderr: extraOnStderr ?? (text => ctx.safeConsume(text))
+	}
+}
+
+// The ffmpeg counterpart of buildYtDlpSignal's onSpawn, for the phases that
+// run ffmpeg on the downloaded file: hold the process on the job so pause and
+// cancel reach it, tree-kill it if cancel came first, and drain it at finalize.
+export function trackFfmpegProcess(ctx: PhaseContext, active: ActiveJob): (proc: ChildProcessWithoutNullStreams) => void {
+	return proc => {
+		active.ffmpegProcess = proc
+		forgetOnExit(proc, () => {
+			if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
+		})
+		if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
+		ctx.register(() => {
+			killJobProcess(proc, 'SIGKILL')
+		})
 	}
 }
 

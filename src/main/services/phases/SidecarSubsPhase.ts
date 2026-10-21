@@ -4,10 +4,9 @@ import type {SubtitlePlan} from '@shared/subtitleTracks.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {join} from 'node:path'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp, trackFfmpegProcess} from './phaseHelpers.js'
 import {automaticCaptionPaths, clearSubtitleReport, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, saveSubtitleListing, subtitleEmbedTracks, subtitleFetchRequest, subtitleReportFile, type ReportedSubtitle, type SubtitleLists} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
-import {forgetOnExit, killJobProcess} from '../download/processControl.js'
 import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
@@ -34,23 +33,7 @@ async function runEmbedMux(ctx: PhaseContext, plan: SubtitlePlan, reported: read
 
 	let result: Awaited<ReturnType<typeof muxSubtitlesIntoVideo>>
 	try {
-		result = await muxSubtitlesIntoVideo({
-			ffmpegPath,
-			videoPath: active.mediaPath,
-			tracks: subtitleEmbedTracks(reported, plan, names),
-			keepCoverArt: preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail,
-			onSpawn: proc => {
-				active.ffmpegProcess = proc
-				forgetOnExit(proc, () => {
-					if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
-				})
-				if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
-				ctx.register(() => {
-					killJobProcess(proc, 'SIGKILL')
-				})
-			},
-			jobId: job.id
-		})
+		result = await muxSubtitlesIntoVideo({ffmpegPath, videoPath: active.mediaPath, tracks: subtitleEmbedTracks(reported, plan, names), keepCoverArt: preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail, onSpawn: trackFfmpegProcess(ctx, active), jobId: job.id})
 	} catch (err) {
 		logger.warn('embed-mux failed unexpectedly', {jobId: job.id, message: err instanceof Error ? err.message : String(err)})
 		return false

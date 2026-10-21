@@ -374,7 +374,24 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			stopped = result()
 			const pending = stopped
 			killProcessTree(proc, 'SIGKILL', ytDlpLog)
-			if (!settled) exitGrace = setTimeout(() => finish(pending), STOPPED_RUN_EXIT_GRACE_MS)
+			if (!settled) exitGrace = setTimeout(() => settleUnclosed(pending), STOPPED_RUN_EXIT_GRACE_MS)
+		}
+
+		// The tree kill did not end the run in time (taskkill failed to start or
+		// was refused, or a descendant still holds the pipes). A leader still
+		// alive gets the direct kill as a last resort; either way the run settles,
+		// and the log says the tree may have outlived it.
+		const settleUnclosed = (result: YtDlpResult): void => {
+			const leaderAlive = proc.exitCode === null && proc.signalCode === null
+			ytDlpLog.warn('stopped run did not close in time; settling anyway', {pid: proc.pid, leaderAlive})
+			if (leaderAlive) {
+				try {
+					proc.kill('SIGKILL')
+				} catch {
+					/* already exited */
+				}
+			}
+			finish(result)
 		}
 
 		// Force-kill the tree if the process exceeds opts.timeoutMs.
