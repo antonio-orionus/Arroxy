@@ -13,6 +13,7 @@ import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {fail} from '@shared/result.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import type {HotkeyOutcomePayload, ProbeResult, ProbeError} from '@shared/types.js'
+import {ControlOutcomes} from './ControlOutcomes.js'
 import {HotkeyIntake} from './HotkeyIntake.js'
 import {IntakeService} from './IntakeService.js'
 
@@ -31,9 +32,11 @@ export interface IntakeWiring {
 
 // Composition root for intake: the real probe (behind the same cookies-setup
 // check as the window's probes), queue, settings, manifests and the window's
-// language. The hotkey's outcomes go to its intake, every other one to the window.
-export function createIntakeService(wiring: IntakeWiring): {intake: IntakeService; hotkey: HotkeyIntake} {
+// language. The hotkey's outcomes go to its intake, a Control API client's to
+// the Control side (which also hears every other outcome), the rest to the window.
+export function createIntakeService(wiring: IntakeWiring): {intake: IntakeService; hotkey: HotkeyIntake; control: ControlOutcomes} {
 	const {probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow} = wiring
+	const control = new ControlOutcomes()
 	const intake = new IntakeService({
 		queue: queueService,
 		probe: async ({url, playlistMode, ownerKey, playlistScope}) => {
@@ -52,12 +55,12 @@ export function createIntakeService(wiring: IntakeWiring): {intake: IntakeServic
 		text: key => mainT(languageRef.current, key),
 		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator(languageRef.current), languageRef.current),
 		emit: (event: IntakeEvent) => {
-			if (hotkey.hear(event)) return
+			if (control.hear(event) || hotkey.hear(event)) return
 			if (!mainWindow.isDestroyed()) mainWindow.webContents.send(IPC_CHANNELS.intakeEvent, event)
 		},
 		platform: process.platform,
 		newId: randomUUID
 	})
 	const hotkey = new HotkeyIntake({intake, notify: event => wiring.hotkeyFeedback(event), newId: randomUUID})
-	return {intake, hotkey}
+	return {intake, hotkey, control}
 }

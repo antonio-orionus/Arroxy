@@ -22,7 +22,9 @@ vi.mock('electron-log/main.js', () => {
 })
 
 // The composition root routes every intake event: the hotkey's outcomes to its
-// intake (and on to the user's notifications), everything else to the window.
+// intake (and on to the user's notifications), a Control API client's to the
+// Control side, everything else to the window. The Control side also hears
+// every other outcome, to follow its clients' intakes whoever acts on them.
 
 const URL = 'https://www.youtube.com/watch?v=one'
 const VIDEO = {kind: 'video', videoId: 'one', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: URL, isAudioOnlySource: false, formats: [], title: 'Fixture Video', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false} as unknown as ProbeResult
@@ -44,7 +46,7 @@ function wired(answer: Result<ProbeResult, ProbeError>) {
 	const send = vi.fn<(channel: string, event: IntakeEvent) => void>()
 	const hotkeyFeedback = vi.fn<(event: HotkeyOutcomePayload) => void>()
 	const window = {destroyed: false}
-	const {intake, hotkey} = createIntakeService({
+	const {intake, hotkey, control} = createIntakeService({
 		probeService: {probe} as unknown as ProbeService,
 		queueService,
 		settingsStore: {get: () => Promise.resolve(settings)} as unknown as SettingsStore,
@@ -59,7 +61,9 @@ function wired(answer: Result<ProbeResult, ProbeError>) {
 			expect(channel).toBe(IPC_CHANNELS.intakeEvent)
 			return event
 		})
-	return {intake, hotkey, probe, send, hotkeyFeedback, window, windowEvents}
+	const controlEvents: IntakeEvent[] = []
+	control.listen(event => controlEvents.push(event))
+	return {intake, hotkey, control, controlEvents, probe, send, hotkeyFeedback, window, windowEvents}
 }
 
 describe('createIntakeService routing', () => {
@@ -87,6 +91,37 @@ describe('createIntakeService routing', () => {
 		await h.hotkey.take({kind: 'single', url: URL})
 		await vi.waitFor(() => expect(h.windowEvents()).toEqual([{kind: 'filename-budget-failed', reason: 'path-too-deep', outputDir: expect.stringMatching(new RegExp(`^${deep}/`))}]))
 		expect(h.hotkeyFeedback.mock.calls.map(([event]) => event.outcome)).toEqual(['queued'])
+	})
+
+	it("sends a Control client's outcome to the Control side, never to the window or the hotkey", async () => {
+		const h = wired(OFFLINE)
+		const placed = await h.intake.add({requestId: 'c1', url: URL, playlistMode: 'video', origin: {kind: 'localClient', clientId: 'client-1'}})
+		expect(placed).toMatchObject({kind: 'added'})
+		await vi.waitFor(() => expect(h.controlEvents).toEqual([{kind: 'outcome', requestId: 'c1', intakeId: placed.kind === 'added' ? placed.intakeId : null, origin: 'localClient', outcome: expect.objectContaining({kind: 'failed'})}]))
+		expect(h.send).not.toHaveBeenCalled()
+		expect(h.hotkeyFeedback).not.toHaveBeenCalled()
+	})
+
+	it('lets the Control side hear the window and hotkey outcomes too, which still reach their callers', async () => {
+		const h = wired(OFFLINE)
+		await h.intake.add({requestId: 'w1', url: URL, playlistMode: 'video', origin: {kind: 'window'}})
+		await vi.waitFor(() => expect(h.windowEvents()).toHaveLength(1))
+		await h.hotkey.take({kind: 'single', url: 'https://www.youtube.com/watch?v=two'})
+		await vi.waitFor(() => expect(h.hotkeyFeedback).toHaveBeenCalledTimes(2))
+		expect(h.controlEvents.map(event => (event.kind === 'outcome' ? [event.origin, event.outcome.kind] : null))).toEqual([
+			['window', 'failed'],
+			['hotkey', 'failed']
+		])
+	})
+
+	// A bug on the Control side must not turn the window's outcome into a probe error.
+	it('still sends the window its outcome when the Control listener throws', async () => {
+		const h = wired(OFFLINE)
+		h.control.listen(() => {
+			throw new Error('broken listener')
+		})
+		await h.intake.add({requestId: 'w1', url: URL, playlistMode: 'video', origin: {kind: 'window'}})
+		await vi.waitFor(() => expect(h.windowEvents()).toEqual([expect.objectContaining({requestId: 'w1', outcome: expect.objectContaining({kind: 'failed', probeError: expect.objectContaining({message: 'offline'})})})]))
 	})
 
 	it('drops window events once the window is destroyed', async () => {
