@@ -39,7 +39,7 @@ export class LineConnection {
 				socket.destroy()
 				reject(error)
 			}
-			const timer = setTimeout(() => onError(new Error(`No answer from ${socketPath} within ${timeoutMs} ms.`)), timeoutMs)
+			const timer = setTimeout(() => onError(Object.assign(new Error(`connect ETIMEDOUT ${socketPath}: no answer within ${timeoutMs} ms`), {code: 'ETIMEDOUT'})), timeoutMs)
 			socket.once('error', onError)
 			socket.once('connect', () => {
 				clearTimeout(timer)

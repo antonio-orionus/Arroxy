@@ -74,7 +74,7 @@ bunx arroxy-mcp resume-all
 bunx arroxy-mcp serve
 ```
 
-Results print as JSON on stdout. An error prints its message and next step on stderr and exits 1; "Arroxy is not running" exits 2. With no command, `arroxy-mcp` serves MCP.
+Results print as JSON on stdout. An error prints its message and next step on stderr and exits 1; "Arroxy is not running" exits 2. That is reserved for no `control.json` at all, or one whose socket is gone: when Arroxy's socket exists but cannot be used (permissions, an unsafe folder, no answer), the error says why and exits 1. With no command, `arroxy-mcp` serves MCP.
 
 ## Where it looks
 
@@ -88,7 +88,7 @@ Arroxy writes `control.json` (the socket path and a per-launch token) into its u
 
 The bridge refuses a Unix socket whose folder is not owned by you or is open to other users, and it checks that the app proves it holds the token before it sends any credential.
 
-The client secrets live in `clients.json` (owner-only), one entry per Arroxy user data folder:
+The client secrets live in `clients.json` (owner-only), one entry per Arroxy user data folder. Every change to it is made under a short-lived `clients.json.lock`, so the command line and an MCP server running at once never lose each other's entries:
 
 | OS | Bridge config |
 | --- | --- |

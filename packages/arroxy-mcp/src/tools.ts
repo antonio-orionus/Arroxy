@@ -67,11 +67,17 @@ function toolResult(outcome: CallOutcome<unknown>): CallToolResult {
 	return result
 }
 
+// The MCP request's abort signal: a client that cancels a call (or gives up on
+// a long wait) closes the Arroxy connection with it.
+interface ToolContext {
+	readonly mcpReq: {readonly signal: AbortSignal}
+}
+
 // Params are checked against the method's schema before anything connects.
-async function callTool(client: ArroxyClient, method: ControlMethod, params: unknown): Promise<CallToolResult> {
+async function callTool(client: ArroxyClient, ctx: ToolContext, method: ControlMethod, params: unknown): Promise<CallToolResult> {
 	const checked = checkParams(method, params)
 	if (!checked.ok) return errorResult(checked.message)
-	return toolResult(await client.callUnchecked(method, checked.params))
+	return toolResult(await client.callUnchecked(method, checked.params, {signal: ctx.mcpReq.signal}))
 }
 
 type Target = {readonly itemId: string} | {readonly intakeId: string}
@@ -94,32 +100,32 @@ export function createArroxyMcpServer(client: ArroxyClient, options: ArroxyMcpSe
 	const newRequestId = options.newRequestId ?? randomUUID
 	const server = new McpServer({name: 'arroxy-mcp', version: ARROXY_MCP_VERSION}, {capabilities: {tools: {listChanged: false}}})
 
-	server.registerTool('arroxy_status', {description: 'Show whether Arroxy is ready, its queue state and site cooldowns, and the download profiles.', inputSchema: statusInput}, async () =>
-		toolResult(await client.session(async session => ({status: await session.request('status', {}), profiles: await session.request('profiles.list', {})})))
+	server.registerTool('arroxy_status', {description: 'Show whether Arroxy is ready, its queue state and site cooldowns, and the download profiles.', inputSchema: statusInput}, async (_args, ctx) =>
+		toolResult(await client.session(async session => ({status: await session.request('status', {}), profiles: await session.request('profiles.list', {})}), {signal: ctx.mcpReq.signal}))
 	)
 
-	server.registerTool('arroxy_add_link', {description: 'Add a link to the Arroxy queue. Returns at once with an intake to follow with arroxy_get or arroxy_wait.', inputSchema: addLinkInput}, args => callTool(client, 'links.add', {...args, requestId: args.requestId ?? newRequestId()}))
+	server.registerTool('arroxy_add_link', {description: 'Add a link to the Arroxy queue. Returns at once with an intake to follow with arroxy_get or arroxy_wait.', inputSchema: addLinkInput}, (args, ctx) => callTool(client, ctx, 'links.add', {...args, requestId: args.requestId ?? newRequestId()}))
 
-	server.registerTool('arroxy_get', {description: 'Read one queue item (itemId) or one intake (intakeId).', inputSchema: getInput}, ({itemId, intakeId}) => {
+	server.registerTool('arroxy_get', {description: 'Read one queue item (itemId) or one intake (intakeId).', inputSchema: getInput}, ({itemId, intakeId}, ctx) => {
 		const target = oneTarget(itemId, intakeId)
 		if (target === null) return errorResult(ONE_TARGET)
-		return 'itemId' in target ? callTool(client, 'queue.get', target) : callTool(client, 'intake.get', target)
+		return 'itemId' in target ? callTool(client, ctx, 'queue.get', target) : callTool(client, ctx, 'intake.get', target)
 	})
 
-	server.registerTool('arroxy_list_queue', {description: 'List the queue, one page at a time. Pass nextCursor back as cursor until it is null.', inputSchema: listQueueInput}, args => callTool(client, 'queue.list', args))
+	server.registerTool('arroxy_list_queue', {description: 'List the queue, one page at a time. Pass nextCursor back as cursor until it is null.', inputSchema: listQueueInput}, (args, ctx) => callTool(client, ctx, 'queue.list', args))
 
-	server.registerTool('arroxy_wait', {description: 'Wait until a queue item or an intake settles or is done, or the timeout passes.', inputSchema: waitInput}, ({itemId, intakeId, until, timeoutMs}) => {
+	server.registerTool('arroxy_wait', {description: 'Wait until a queue item or an intake settles or is done, or the timeout passes.', inputSchema: waitInput}, ({itemId, intakeId, until, timeoutMs}, ctx) => {
 		const target = oneTarget(itemId, intakeId)
 		if (target === null) return errorResult(ONE_TARGET)
-		return callTool(client, 'wait', {...target, until: until ?? 'settled', timeoutMs: timeoutMs ?? DEFAULT_WAIT_TIMEOUT_MS})
+		return callTool(client, ctx, 'wait', {...target, until: until ?? 'settled', timeoutMs: timeoutMs ?? DEFAULT_WAIT_TIMEOUT_MS})
 	})
 
-	server.registerTool('arroxy_item_action', {description: 'Pause, resume, cancel, retry or remove one queue item.', inputSchema: itemActionInput}, ({action, itemId}) => callTool(client, ITEM_METHODS[action], {itemId}))
+	server.registerTool('arroxy_item_action', {description: 'Pause, resume, cancel, retry or remove one queue item.', inputSchema: itemActionInput}, ({action, itemId}, ctx) => callTool(client, ctx, ITEM_METHODS[action], {itemId}))
 
-	server.registerTool('arroxy_queue_action', {description: 'Pause or resume the whole queue.', inputSchema: queueActionInput}, ({action}) => callTool(client, QUEUE_METHODS[action], {}))
+	server.registerTool('arroxy_queue_action', {description: 'Pause or resume the whole queue.', inputSchema: queueActionInput}, ({action}, ctx) => callTool(client, ctx, QUEUE_METHODS[action], {}))
 
-	server.registerTool('arroxy_answer_intake', {description: 'Answer an intake: choose entries for one that needs your choice, retry a failed probe, or cancel it.', inputSchema: answerIntakeInput}, ({action, intakeId, take, count}) =>
-		callTool(client, INTAKE_METHODS[action], action === 'choose' ? {intakeId, take, count} : {intakeId})
+	server.registerTool('arroxy_answer_intake', {description: 'Answer an intake: choose entries for one that needs your choice, retry a failed probe, or cancel it.', inputSchema: answerIntakeInput}, ({action, intakeId, take, count}, ctx) =>
+		callTool(client, ctx, INTAKE_METHODS[action], action === 'choose' ? {intakeId, take, count} : {intakeId})
 	)
 
 	return server

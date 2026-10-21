@@ -47,14 +47,32 @@ const OPTIONS = {
 type Values = ReturnType<typeof parseArgs<{options: typeof OPTIONS; allowPositionals: true; strict: true}>>['values']
 type OptionName = keyof typeof OPTIONS
 
-const ITEM_COMMANDS = {pause: 'queue.pause', resume: 'queue.resume', cancel: 'queue.cancel', retry: 'queue.retry', remove: 'queue.remove'} as const satisfies Record<string, ControlMethod>
+// Maps, not object literals: a command typed by the user must never resolve to
+// an inherited property such as `constructor` or `__proto__`.
+const ITEM_COMMANDS = new Map<string, ControlMethod>([
+	['pause', 'queue.pause'],
+	['resume', 'queue.resume'],
+	['cancel', 'queue.cancel'],
+	['retry', 'queue.retry'],
+	['remove', 'queue.remove']
+])
+
+// Options each command accepts; anything else is a usage error.
+const COMMAND_OPTIONS = new Map<string, readonly OptionName[]>([
+	['serve', []],
+	['status', []],
+	['profiles', []],
+	['queue', ['cursor', 'limit']],
+	['add', ['profile', 'playlist', 'video', 'request-id']],
+	['get', ['intake']],
+	['wait', ['intake', 'until', 'timeout']],
+	['pause-all', []],
+	['resume-all', []],
+	...[...ITEM_COMMANDS.keys()].map((command): [string, readonly OptionName[]] => [command, []])
+])
 
 function usage(message: string): ParsedCommand {
 	return {kind: 'usage', message}
-}
-
-function isItemCommand(command: string): command is keyof typeof ITEM_COMMANDS {
-	return Object.hasOwn(ITEM_COMMANDS, command)
 }
 
 // Checks params against the method's schema, so a bad flag is a usage error
@@ -75,11 +93,8 @@ function profileRef(text: string): {readonly kind: 'builtin' | 'custom'; readonl
 	return match[1] === 'builtin' ? {kind: 'builtin', id: match[2] ?? ''} : {kind: 'custom', id: match[2] ?? ''}
 }
 
-// Options each command accepts; anything else is a usage error.
-const ALLOWED: Readonly<Record<string, readonly OptionName[]>> = {queue: ['cursor', 'limit'], add: ['profile', 'playlist', 'video', 'request-id'], get: ['intake'], wait: ['intake', 'until', 'timeout']}
-
 function unexpectedOption(command: string, values: Values): string | null {
-	const allowed = new Set<string>(['help', 'version', ...(ALLOWED[command] ?? [])])
+	const allowed = new Set<string>(['help', 'version', ...(COMMAND_OPTIONS.get(command) ?? [])])
 	const extra = Object.keys(values).find(name => !allowed.has(name))
 	return extra === undefined ? null : `${command} does not take --${extra}.`
 }
@@ -95,6 +110,7 @@ export function parseCommand(argv: readonly string[], newRequestId: () => string
 	if (values.help === true) return {kind: 'help'}
 	if (values.version === true) return {kind: 'version'}
 	const [command = 'serve', ...rest] = positionals
+	if (!COMMAND_OPTIONS.has(command)) return usage(`Unknown command "${command}".`)
 	const extra = unexpectedOption(command, values)
 	if (extra !== null) return usage(extra)
 	const expect = (count: number, what: string): string | null => (rest.length === count ? null : `${command} takes ${what}.`)
@@ -143,10 +159,11 @@ export function parseCommand(argv: readonly string[], newRequestId: () => string
 			return call('wait', {...target, until: values.until ?? 'settled', timeoutMs: timeoutMs ?? DEFAULT_WAIT_TIMEOUT_MS})
 		}
 		default: {
-			if (!isItemCommand(command)) return usage(`Unknown command "${command}".`)
+			const method = ITEM_COMMANDS.get(command)
+			if (method === undefined) return usage(`Unknown command "${command}".`)
 			const problem = expect(1, 'one itemId')
 			if (problem !== null) return usage(problem)
-			return call(ITEM_COMMANDS[command], {itemId: rest[0]})
+			return call(method, {itemId: rest[0]})
 		}
 	}
 }

@@ -67,6 +67,14 @@ describe('parseCommand', () => {
 			expect(parsed.kind, argv.join(' ')).toBe('usage')
 		}
 	})
+
+	it('refuses names inherited from Object.prototype as commands', () => {
+		for (const command of ['constructor', '__proto__', 'toString', 'hasOwnProperty']) {
+			expect(parse([command]), command).toEqual({kind: 'usage', message: `Unknown command "${command}".`})
+			expect(parse([command, 'q1']).kind, `${command} q1`).toBe('usage')
+			expect(parse([command, '--intake']).kind, `${command} --intake`).toBe('usage')
+		}
+	})
 })
 
 const cleanups: Array<() => Promise<void>> = []

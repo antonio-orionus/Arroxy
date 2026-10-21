@@ -174,4 +174,27 @@ describe('MCP tools against the app', () => {
 
 		expect(app.connections.length).toBe(before)
 	})
+
+	it('closes the Arroxy connection when the MCP client cancels a call', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {wait: () => ({silent: true})}})
+		const client = await connect(box)
+		await allowBridge(app, client)
+		const controller = new AbortController()
+
+		const pending = client.callTool({name: 'arroxy_wait', arguments: {itemId: 'q1', timeoutMs: 240_000}}, {signal: controller.signal})
+		await until(() => app.requests.some(request => request.method === 'wait'))
+		controller.abort()
+		await expect(pending).rejects.toThrow()
+
+		await until(() => app.openConnections() === 0)
+	})
 })
+
+async function until(predicate: () => boolean, timeoutMs = 2000): Promise<void> {
+	const deadline = Date.now() + timeoutMs
+	while (!predicate()) {
+		if (Date.now() > deadline) throw new Error('condition not reached in time')
+		await new Promise(resolve => setTimeout(resolve, 10))
+	}
+}

@@ -3,7 +3,7 @@ import net from 'node:net'
 import path from 'node:path'
 import {CONTROL_DISCOVERY_FILE_NAME, controlError} from 'arroxy-control'
 import {afterEach, describe, expect, it} from 'vite-plus/test'
-import {ArroxyClient, type BridgeFailure, NOT_RUNNING_MESSAGE} from '../src/client'
+import {ArroxyClient, type ArroxyClientOptions, type BridgeFailure, NOT_RUNNING_MESSAGE} from '../src/client'
 import type {BridgeEnvironment} from '../src/environment'
 import {FileSecretStore} from '../src/store'
 import {createSandbox, FakeApp, type FakeAppOptions, type Sandbox} from './fakeApp'
@@ -38,10 +38,12 @@ interface Harness {
 	readonly logs: string[]
 }
 
-function harness(box: Sandbox, overrides: Partial<BridgeEnvironment> = {}): Harness {
+type ClientTuning = Omit<ArroxyClientOptions, 'environment' | 'log'>
+
+function harness(box: Sandbox, tuning: ClientTuning = {}): Harness {
 	const logs: string[] = []
-	const environment = environmentFor(box, overrides)
-	return {client: new ArroxyClient({environment, log: line => logs.push(line)}), store: new FileSecretStore(box.configDir, environment.platform), logs}
+	const environment = environmentFor(box)
+	return {client: new ArroxyClient({...tuning, environment, log: line => logs.push(line)}), store: new FileSecretStore(box.configDir, environment.platform), logs}
 }
 
 function failureOf<T>(outcome: {ok: true; value: T} | {ok: false; failure: BridgeFailure}): BridgeFailure {
@@ -200,16 +202,39 @@ describe('not running', () => {
 		const {client} = harness(box)
 		expect(failureOf(await client.call('status', {})).kind).toBe('notRunning')
 	})
+})
 
-	it.skipIf(isWindows)('when the socket directory is open to other users, without connecting', async () => {
+// A control.json exists, so Arroxy may well be running: say why it could not be
+// reached instead of claiming it is closed.
+describe('unreachable', () => {
+	it.skipIf(isWindows)('names a socket folder open to other users, without connecting', async () => {
 		const box = await sandbox()
 		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
 		await fs.chmod(box.socketDir, 0o755)
-		const {client, logs} = harness(box)
+		const {client} = harness(box)
 
-		expect(failureOf(await client.call('status', {})).kind).toBe('notRunning')
+		const failure = failureOf(await client.call('status', {}))
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain(box.socketDir)
+		expect(failure.message).toContain('open to other users')
+		expect(failure.next).toBeTruthy()
 		expect(app.connections).toEqual([])
-		expect(logs.join('\n')).toContain(box.socketDir)
+	})
+
+	it.skipIf(isWindows)('names a socket this user may not connect to', async () => {
+		const box = await sandbox()
+		const socketPath = box.socketPath('a')
+		await startApp({userDataDir: box.userDataDir, socketPath})
+		await fs.chmod(socketPath, 0o000)
+		const {client} = harness(box)
+
+		const failure = failureOf(await client.call('status', {}))
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain(socketPath)
+		expect(failure.message).toMatch(/EACCES|EPERM/)
+		expect(failure.next).toContain('same user')
 	})
 })
 
@@ -276,5 +301,172 @@ describe('timeouts', () => {
 
 		expect(failure.kind).toBe('failed')
 		expect(failure.message).toContain('handshake')
+	})
+})
+
+async function until(predicate: () => boolean, timeoutMs = 2000): Promise<void> {
+	const deadline = Date.now() + timeoutMs
+	while (!predicate()) {
+		if (Date.now() > deadline) throw new Error('condition not reached in time')
+		await new Promise(resolve => setTimeout(resolve, 10))
+	}
+}
+
+const STATUS = {ready: true, binaries: {ytDlp: 'ready', ffmpeg: 'ready'}, scheduler: 'running', cooldowns: []}
+
+describe('frames', () => {
+	it('skips an event frame that arrives before the response', async () => {
+		const box = await sandbox()
+		const event = {type: 'event', event: 'app.status', seq: 1, bootId: 'b1', data: {status: STATUS}}
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {status: (_params, id) => ({lines: [event, {type: 'response', id, ok: true, result: STATUS}]})}})
+		const {client} = harness(box)
+		await approve(app, client)
+
+		expect(await client.call('status', {})).toEqual({ok: true, value: STATUS})
+	})
+
+	it("surfaces the app's closing handshake_timeout line, whose id is null", async () => {
+		const box = await sandbox()
+		await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handshakeTimeoutOnAuth: true})
+		const {client} = harness(box)
+
+		expect(failureOf(await client.call('status', {}))).toMatchObject({kind: 'control', code: 'handshake_timeout'})
+	})
+})
+
+describe('request deadlines', () => {
+	it('gives up on a request Arroxy never answers', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {status: () => ({silent: true})}})
+		const {client} = harness(box, {requestTimeoutMs: 50})
+		await approve(app, client)
+
+		const started = Date.now()
+		const failure = failureOf(await client.call('status', {}))
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain('did not answer status within 50 ms')
+		expect(Date.now() - started).toBeLessThan(1000)
+		await until(() => app.openConnections() === 0)
+	})
+
+	it('lets wait run for its own timeoutMs plus a margin, not the plain request deadline', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {wait: () => ({silent: true})}})
+		const {client} = harness(box, {requestTimeoutMs: 20, waitTimeoutMarginMs: 100})
+		await approve(app, client)
+
+		const started = Date.now()
+		const failure = failureOf(await client.call('wait', {itemId: 'q1', until: 'done', timeoutMs: 100}))
+
+		expect(failure.message).toContain('did not answer wait within 200 ms')
+		expect(Date.now() - started).toBeGreaterThanOrEqual(190)
+	})
+})
+
+describe('cancellation', () => {
+	it('closes the connection when the caller aborts', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {wait: () => ({silent: true})}})
+		const {client} = harness(box)
+		await approve(app, client)
+		const controller = new AbortController()
+
+		const pending = client.call('wait', {itemId: 'q1', until: 'done', timeoutMs: 240_000}, {signal: controller.signal})
+		await until(() => app.requests.some(request => request.method === 'wait'))
+		controller.abort()
+		const failure = failureOf(await pending)
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain('cancelled')
+		await until(() => app.openConnections() === 0)
+	})
+
+	it('does not connect at all when the signal is already aborted', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client} = harness(box)
+
+		const failure = failureOf(await client.call('status', {}, {signal: AbortSignal.abort()}))
+
+		expect(failure.message).toContain('cancelled')
+		expect(app.connections).toEqual([])
+	})
+})
+
+describe('concurrent calls', () => {
+	it('two calls at once right after Allow both succeed, and the one-time secret survives', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client, store} = harness(box)
+		await client.call('status', {})
+		app.allow(app.pendingApprovals()[0] ?? '')
+
+		const outcomes = await Promise.all([client.call('status', {}), client.call('status', {})])
+
+		expect(outcomes.map(outcome => outcome.ok)).toEqual([true, true])
+		expect(app.registry.secrets.size).toBe(1)
+		expect(await store.get(box.userDataDir)).toEqual({clientId: 'c1', clientSecret: app.registry.secrets.get('c1')})
+	})
+
+	it('two first-time calls at once raise one approval request', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client} = harness(box)
+
+		const outcomes = await Promise.all([client.call('status', {}), client.call('status', {})])
+
+		expect(outcomes.map(outcome => failureOf(outcome).kind)).toEqual(['approvalPending', 'approvalPending'])
+		expect(app.registry.approvals.size).toBe(1)
+	})
+
+	it('two processes at once after Allow: whichever loses the race uses the secret the other saved', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const first = harness(box)
+		const second = harness(box)
+		await first.client.call('status', {})
+		app.allow(app.pendingApprovals()[0] ?? '')
+
+		const outcomes = await Promise.all([first.client.call('status', {}), second.client.call('status', {})])
+
+		expect(outcomes.map(outcome => outcome.ok)).toEqual([true, true])
+		expect(app.registry.secrets.size).toBe(1)
+		expect(await first.store.get(box.userDataDir)).toMatchObject({clientId: 'c1'})
+	})
+})
+
+describe('secret store failures', () => {
+	it.skipIf(isWindows)('finishes the call that collected the secret, then says it could not be saved and how to recover', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client} = harness(box)
+		await client.call('status', {})
+		app.allow(app.pendingApprovals()[0] ?? '')
+		await fs.chmod(box.configDir, 0o500)
+		cleanups.push(() => fs.chmod(box.configDir, 0o700))
+
+		const failure = failureOf(await client.call('links.add', {requestId: 'r-1', url: 'https://example.com/v'}))
+
+		expect(app.requests.map(request => request.method)).toEqual(['links.add'])
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain(box.configDir)
+		expect(failure.next).toContain('remove arroxy-mcp in Arroxy')
+	})
+
+	it.skipIf(isWindows)('reports an unreadable clients.json instead of starting over', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client} = harness(box)
+		await approve(app, client)
+		const file = path.join(box.configDir, 'clients.json')
+		await fs.chmod(file, 0o000)
+		cleanups.push(() => fs.chmod(file, 0o600))
+
+		const failure = failureOf(await client.call('status', {}))
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain(file)
+		expect(app.pendingApprovals()).toEqual([])
 	})
 })

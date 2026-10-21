@@ -10,7 +10,10 @@ import {CONTROL_DISCOVERY_FILE_NAME, CONTROL_METHODS, type ControlError, control
 // a handful of methods. Every test runs against it, never a real Arroxy.
 
 export type FakeAnswer = {readonly result: unknown} | {readonly error: ControlError}
-type FakeHandler = (params: unknown) => FakeAnswer
+// `lines`: written verbatim, for frames a normal answer never sends (an event
+// first, a closing line with a null id). `silent`: never answers.
+type FakeReply = FakeAnswer | {readonly lines: readonly unknown[]} | {readonly silent: true}
+type FakeHandler = (params: unknown, id: string) => FakeReply
 
 // Survives an app restart, like the real app's list of allowed clients.
 export interface FakeClientRegistry {
@@ -29,6 +32,8 @@ export interface FakeAppOptions {
 	readonly forgeServerProof?: boolean
 	readonly registry?: FakeClientRegistry
 	readonly handlers?: Readonly<Record<string, FakeHandler>>
+	// Answer auth with the app's closing handshake_timeout line (id null) and close.
+	readonly handshakeTimeoutOnAuth?: boolean
 }
 
 // Every method each connection received, in order.
@@ -96,6 +101,10 @@ export class FakeApp {
 		this.registry.secrets.delete(clientId)
 	}
 
+	openConnections(): number {
+		return this.sockets.size
+	}
+
 	private accept(socket: net.Socket): void {
 		this.sockets.add(socket)
 		socket.on('close', () => this.sockets.delete(socket))
@@ -131,6 +140,7 @@ export class FakeApp {
 			}
 			if (stage === 'auth') {
 				if (request.method !== 'auth') return void (fail(id, controlError('unauthorized', 'Send auth.')), socket.end())
+				if (this.options.handshakeTimeoutOnAuth) return void (fail(null, controlError('handshake_timeout', 'The handshake took too long.')), socket.end())
 				const answer = await this.authenticate(request.params, serverNonce, clientNonce)
 				if ('error' in answer) return void (fail(id, answer.error), socket.end())
 				stage = 'ready'
@@ -138,7 +148,9 @@ export class FakeApp {
 			}
 			this.requests.push({method, params: request.params})
 			const handler = this.options.handlers?.[method] ?? DEFAULT_HANDLERS[method]
-			const answer = handler ? handler(request.params) : {error: controlError('internal', `The fake app does not answer ${method}.`)}
+			const answer = handler ? handler(request.params, id) : {error: controlError('internal', `The fake app does not answer ${method}.`)}
+			if ('silent' in answer) return
+			if ('lines' in answer) return void answer.lines.forEach(write)
 			if ('error' in answer) return fail(id, answer.error)
 			write({type: 'response', id, ok: true, result: answer.result})
 		}
