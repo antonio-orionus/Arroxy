@@ -100,7 +100,8 @@ async function readPersonalInstructions(repoRoot: string): Promise<string | unde
 async function syncClaudeLocalLink(repoRoot: string, hasPersonalInstructions: boolean): Promise<void> {
 	const link = path.join(repoRoot, CLAUDE_LOCAL)
 	const current = await lstat(link).catch(() => null)
-	const ours = current?.isSymbolicLink() === true && (await readlink(link)) === PERSONAL_INSTRUCTIONS
+	// Windows stores the target with backslashes, so compare normalized paths.
+	const ours = current?.isSymbolicLink() === true && path.normalize(await readlink(link)) === path.normalize(PERSONAL_INSTRUCTIONS)
 	if (current && !ours) {
 		if (hasPersonalInstructions) console.warn(`agents:sync: leaving ${CLAUDE_LOCAL} alone — it is not this sync's link, so Claude Code does not load ${PERSONAL_INSTRUCTIONS}`)
 		return
