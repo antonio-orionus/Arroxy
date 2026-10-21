@@ -283,6 +283,8 @@ knowledge_base:
   code_guidelines:
     enabled: true
     # Read on top of the defaults (AGENTS.md, CLAUDE.md), so refuted findings recorded there stop
-    # coming back. .agents/** stays out of path_filters: it is guidance, not code to review.
+    # coming back. A plain entry would only govern .agents/memory/ (its own directory), which
+    # path_filters excludes; applyTo makes it govern the whole repo.
     filePatterns:
-      - .agents/memory/review-learnings.md
+      - files: .agents/memory/review-learnings.md
+        applyTo: "**/*"
