@@ -38,7 +38,7 @@ Arroxy spans several repositories. This repo is the hub: the others consume what
 | Repository | Owns | Connection to this repo |
 | --- | --- | --- |
 | `arroxy-site` | The public site at arroxy.com: landing page and its copy in every site language | Its download links point at this repo's `releases/latest/download/<asset>`, so a release needs no step there; it deploys to Cloudflare with its own `bun run deploy` |
-| `arroxy-web` (archived) | The old landing site and blog, replaced by `arroxy-site` | Nothing new goes there; the `notify-web-release-manifest` job here still dispatches `arroxy-release` to it |
+| `arroxy-web` (archived) | The old landing site and blog, replaced by `arroxy-site` | None: nothing new goes there, and releases no longer notify it |
 | `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
 | `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as `.internal/`; see below |
 | `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
@@ -179,7 +179,7 @@ The user starts every update (auto-download is off), and every install channel m
 
 Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Releases are stable and cut straight from `main`, the only long-lived branch; a beta is never a step before a stable release.
 
-- **When the user says "release X":** pull `main`, bump `package.json` to X, run `bun run changelog:assemble` to write `## X` into `CHANGELOG.md` from the `changelog.d/` fragments and read it over (memory `changelog-laconic`), run `bun run check`, commit `release: X` and push it, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user.
+- **When the user says "release X":** pull `main`, bump `package.json` to X, run `bun run changelog:assemble` to write `## X` into `CHANGELOG.md` from the `changelog.d/` fragments and read it over (memory `changelog-laconic`), run `bun run check`, commit `release: X`, push it, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user. It tags that release commit, not `main`'s HEAD, once the commit's required checks pass, and waits for them while they run.
 - **Tags go through the wrapper**, which makes them annotated and pushes each one alone; a hand-pushed tag can silently fail to start the pipeline.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 - **PRs write changelog fragments, never `CHANGELOG.md`.** A user-facing PR adds one `changelog.d/<slug>.<kind>.md` ([`changelog.d/README.md`](changelog.d/README.md)), so open PRs never conflict over the changelog; only the `release: X` commit adds a section, and `bun run check` rejects any other. Editing a section already released stays allowed.

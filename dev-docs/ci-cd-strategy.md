@@ -31,6 +31,10 @@
 
 Three tiers (`pr`, `release`, `nightly`), journeys, current state and open defects live in [startup-verification.md](startup-verification.md). Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md).
 
+## Runs on `main` are never cancelled
+
+A pull request cancels its superseded runs. A push to `main` (and every tag, schedule or manual run) gets a concurrency group of its own, keyed by commit, so it neither cancels nor queues behind the next merge and every `main` commit ends with a verdict: the release script tags the release commit only once its required checks passed. `tests/scripts/workflow-concurrency.test.ts` pins this for every workflow that cancels.
+
 ## Path-gated PR suites
 
 Dev Smoke, E2E Cold Start, E2E Fixtures and Windows Installer skip a pull request that cannot affect them, and skip such a push to `main` (the FFmpeg Remux Matrix does the same with its own, narrower filter). A `changes` job asks [`.github/actions/app-changes`](../.github/actions/app-changes/action.yml) and the suite jobs run only when it says so. The action holds one list of files that cannot reach the built, packaged or running app: docs, agent tooling, translation sources, unit tests, the feedback worker. Any other file runs the suites, including a new file nobody listed. A push to `main` is compared with the commit before it, and only when the same workflow's push run on that commit passed; after a failed, cancelled or unfinished run it runs everything, so a docs push never hides a broken commit under a green gate that the release script then trusts. Tags, schedules and manual runs always run everything. `tests/scripts/app-changes-action.test.ts` pins which change sets run which suite.
@@ -50,4 +54,4 @@ Required checks: `check`, `FFmpeg remux gate`, `E2E fixtures gate`, `Cold start 
 
 ## Release flow
 
-Tag `v*` (annotated, via `scripts/release.sh`) publishes to GitHub Releases, Scoop, Homebrew, Winget. Notes come from `CHANGELOG.md` (SSOT). Manual steps: `dev-docs/release-runbook.md`.
+Tag `v*` (annotated, via `scripts/release.sh`, on the `release: X` commit once its required checks passed) publishes to GitHub Releases, Scoop, Homebrew, Winget. Notes come from `CHANGELOG.md` (SSOT). Manual steps: `dev-docs/release-runbook.md`.
