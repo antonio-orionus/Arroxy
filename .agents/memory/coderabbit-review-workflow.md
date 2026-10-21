@@ -26,8 +26,8 @@ the `land` skill) has already checked every PR before it opens.
   build, persistence and settings, the download pipeline. A small, well-tested
   renderer fix can merge on the local reviews alone.
 - **Over 100 files** (counted after `.coderabbit.yaml` path_filters) the review
-  is skipped outright, whatever the plan label says. Split into stacked PRs of
-  ≤100 files, merge them top-down, squash the bottom one into `main`; keep the
+  is skipped outright, whatever the plan label says. Skip the trigger and say
+  so in the PR (land phase 8); never stack PRs to get under the cap. Keep the
   locale exclusion list in `.coderabbit.yaml` complete.
 
 ## When to trigger
@@ -92,7 +92,9 @@ gh api repos/antonio-orionus/Arroxy/issues/<N>/comments --jq '.[].body' | grep -
   marker must equal the pushed head.
 - **Read the file lists, not the summary prose** ("Files selected for
   processing"); the prose is routinely wrong about counts. `.agents/**` is
-  excluded by config, so memory files are never reviewed.
+  excluded by config, so memory files are never reviewed; `review-learnings.md`
+  still reaches CodeRabbit as a code guideline, with the same "no security
+  hardening" scope as the local review.
 
 Check each finding against the code before acting on it, fix what holds, and
 answer the rest in its inline thread (`pulls/<N>/comments/<id>/replies`) with

@@ -6,7 +6,9 @@ metadata:
 ---
 
 `bun run review:dual` pastes everything below the frontmatter into each review
-and verification prompt, so write entries as instructions to a reviewer. Add an
+and verification prompt, and CodeRabbit reads this file as a code guideline
+(`knowledge_base.code_guidelines` in `.coderabbit.yaml`), so write entries as
+instructions to a reviewer. Add an
 entry when a refuted finding (from Claude, Codex or CodeRabbit) would otherwise
 come back on the next change; keep each one line with its reason.
 

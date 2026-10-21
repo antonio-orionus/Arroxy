@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 reviews:
-  profile: assertive
+  profile: chill
   auto_review:
     enabled: false
   high_level_summary_instructions: >-
@@ -10,8 +10,8 @@ reviews:
 
     2. Internal/refactor changes
 
-    3. Risk areas, especially Electron security, release/build behavior, dependency changes, and IPC
-    boundaries
+    3. Risk areas: release/build behavior, dependency changes, IPC contracts, and persisted user
+    data
 
     4. Tests or checks that should be run
 
@@ -64,6 +64,11 @@ reviews:
   tools:
     eslint:
       enabled: false
+    # Secret-leak scanners stay on: a leaked token in a public repo is a real defect, not hardening.
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
   path_filters:
     # Positive filters define the review scope. Keep the normal repo in scope, including dot
     # config/workflow files, then trim generated or noisy paths below.
@@ -235,34 +240,49 @@ reviews:
     - "!src/shared/i18n/locales/ca.json"
     - "!src/shared/i18n/locales/eu.json"
     - "!src/shared/i18n/locales/gl.json"
+  # Same priorities as the local dual review (scripts/dual-review/prompts.ts): correctness, not
+  # security hardening, which the owner ruled out of scope for this desktop app.
   path_instructions:
+    - path: "**/*"
+      instructions: >-
+        Report defects the author would fix: wrong behavior, broken contracts, races, lost data,
+        platform bugs. Do not raise security hardening, threat models or attack scenarios; Arroxy is
+        a desktop app and security review is out of scope. Follow the reviewer rules in
+        .agents/memory/review-learnings.md.
     - path: .github/workflows/**
       instructions: >-
-        Review GitHub Actions for least-privilege permissions, unsafe secret exposure, untrusted PR
-        execution, shell quoting, release/tag correctness, artifact handling, and whether commands
-        can fail silently.
+        Review GitHub Actions for correctness: release/tag behavior, job and needs wiring, artifact
+        handling, shell quoting, and commands that can fail silently. A secret must never reach a
+        log or an artifact.
     - path: scripts/**
       instructions: >-
-        Review shell and Node/Bun scripts for unsafe command construction, unquoted variables, path
-        traversal, platform-specific assumptions, missing error handling, and release/build
-        reproducibility.
+        Review shell and Node/Bun scripts for quoting and word splitting, platform-specific
+        assumptions (macOS, Linux, Windows), missing error handling, commands that can fail
+        silently, and release/build reproducibility.
     - path: src/main/**
       instructions: >-
-        This is Electron main-process code. Prioritize security, IPC boundaries, filesystem access,
-        updater/download behavior, child process usage, path handling, and validation of
-        renderer-provided input.
+        This is Electron main-process code. Prioritize IPC contracts and validation of
+        renderer-provided input where it enters as unknown, filesystem and path handling across
+        platforms, child-process lifecycle, updater/download behavior, and error handling.
     - path: src/preload/**
       instructions: >-
-        This is Electron preload code. Ensure contextBridge exposes the minimum safe API, does not
-        leak Node/Electron primitives, validates IPC inputs, and keeps renderer access constrained.
+        This is Electron preload code. Check that the bridge matches the typed API contract in
+        src/shared and forwards each call to the matching IPC channel.
     - path: src/renderer/**
       instructions: >-
-        Review React/UI code for state correctness, accessibility, i18n regressions, unsafe DOM
-        usage, IPC misuse, race conditions, and user-facing error handling. Avoid style-only
-        nitpicks unless they affect maintainability.
+        Review React/UI code for state correctness, accessibility, i18n regressions, IPC misuse,
+        race conditions, and user-facing error handling. Avoid style-only nitpicks unless they
+        affect maintainability.
     - path: tests/**
       instructions: >-
         Prioritize meaningful coverage, determinism, and whether tests validate behavior. Do not
         nitpick formatting or implementation style unless it makes the test unreliable.
   slop_detection:
     label: needs-human-review
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    # Read on top of the defaults (AGENTS.md, CLAUDE.md), so refuted findings recorded there stop
+    # coming back. .agents/** stays out of path_filters: it is guidance, not code to review.
+    filePatterns:
+      - .agents/memory/review-learnings.md
