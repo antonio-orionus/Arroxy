@@ -1,4 +1,5 @@
-import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
+import {EventEmitter} from 'node:events'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 
 const spawnMock = vi.hoisted(() => vi.fn())
 const existsMock = vi.hoisted(() => vi.fn())
@@ -20,6 +21,9 @@ function setPlatform(platform: NodeJS.Platform): void {
 function spawnedEnv(): NodeJS.ProcessEnv {
 	return spawnMock.mock.calls.at(-1)?.[2].env
 }
+
+// A spawn always hands back a child, which the spawn helpers watch for 'close'.
+beforeEach(() => spawnMock.mockImplementation(() => new EventEmitter()))
 
 afterEach(() => {
 	setPlatform(REAL_PLATFORM)
