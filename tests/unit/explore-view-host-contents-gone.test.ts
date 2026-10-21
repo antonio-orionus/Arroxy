@@ -70,7 +70,7 @@ describe('ExploreViewHost contents gone', () => {
 		expect(secondView().loadURL).toHaveBeenCalledWith(SEARCH)
 	})
 
-	it('the gone view's idle unload deadline does not carry over to the fresh view', async () => {
+	it('an idle unload deadline armed for the gone view does not carry over to the fresh one', async () => {
 		vi.useFakeTimers()
 		try {
 			const h = makeHarness({settings: {exploreIdleUnload: true}, idleUnloadDelayMs: 10_000})
