@@ -5,7 +5,7 @@ import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {AppState} from '@renderer/store/types.js'
-import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission, type PreparedQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
@@ -859,5 +859,39 @@ describe('job auth threading', () => {
 		expect(quick?.items.length).toBeGreaterThan(0)
 		expect(single?.items.length).toBeGreaterThan(0)
 		expect([...(quick?.items ?? []), ...(single?.items ?? [])].every(item => !('auth' in item))).toBe(true)
+	})
+})
+
+// A row hydration probed knows yt-dlp's format ids, so its name needs a smaller
+// in-flight reserve than a flat row's, and keeps more of a long title.
+describe('a playlist row is budgeted from the formats its own probe listed', () => {
+	const TITLE = '日本語'.repeat(100)
+	const PROBED: PlaylistEntry = {
+		...PLAYLIST_ITEMS[0],
+		title: TITLE,
+		probedFormats: [
+			{formatId: '137', ext: 'mp4'},
+			{formatId: '251', ext: 'webm'}
+		]
+	}
+	const FLAT: PlaylistEntry = {...PLAYLIST_ITEMS[1], title: TITLE}
+
+	function templateLengths(prepared: PreparedQueueSubmission | null): number[] {
+		return prepared?.items.map(item => jobFilenameTemplate(item.job)?.length ?? 0) ?? []
+	}
+
+	it('in a manual playlist submission', () => {
+		const [probed = 0, flat = 0] = templateLengths(prepareManualQueueSubmission(manualPlaylistState({playlistItems: [PROBED, FLAT]}), 'normal'))
+		expect(probed).toBeGreaterThan(flat)
+	})
+
+	it('in a multi-profile submission', () => {
+		const [probed = 0, flat = 0] = templateLengths(prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: [PROBED, FLAT]}), 'normal'))
+		expect(probed).toBeGreaterThan(flat)
+	})
+
+	it('in an active-profile playlist submission', () => {
+		const [probed = 0, flat = 0] = templateLengths(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [PROBED, FLAT]}, state(), 'normal', NO_SOURCE))
+		expect(probed).toBeGreaterThan(flat)
 	})
 })

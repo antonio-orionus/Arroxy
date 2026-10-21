@@ -184,7 +184,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	// Per entry, not per playlist: a nesting template may sort entries into
 	// different folders (by uploader, by date) within the same playlist.
 	const baseDir = templateOwnsDirs(undefined, state.settings?.common?.filenameTemplate) ? templateOutputDir(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), template, templateMeta) : resolvePlaylistDir(state)
-	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, baseDir, playlistSelectionInFlight(playlistSelection))
+	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, baseDir, playlistSelectionInFlight(playlistSelection, entry.probedFormats ?? []))
 
 	// A subtitles batch skips the output and SponsorBlock steps, so the wizard
 	// state for them is stale; prepareJob ignores both for subtitle-only jobs.
@@ -342,7 +342,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 			extractorKey: state.wizardExtractorKey,
 			resolved,
 			profile,
-			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir, profileInFlight(resolved, [])),
+			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir, profileInFlight(resolved, entry.probedFormats ?? [])),
 			nativeAudioPreference,
 			hdrPreference,
 			// No playlistGroupId: QueueService only writes an .m3u for grouped items,
@@ -500,7 +500,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
-			filenameTemplate: bindJobFilenameTemplate(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot, profileInFlight(resolved, [])),
+			filenameTemplate: bindJobFilenameTemplate(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot, profileInFlight(resolved, entry.probedFormats ?? [])),
 			nativeAudioPreference,
 			hdrPreference,
 			playlistGroupId,

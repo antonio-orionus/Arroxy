@@ -97,7 +97,7 @@ describe('resolveProfileSelection: video tiers', () => {
 		expect(result.notices).toEqual([{kind: 'video-tier-fallback', wanted: '2160', picked: 720}])
 	})
 
-	it('mp4 profiles prefer H.264 at the tier, like yt-dlp vcodec:h264 sorting', () => {
+	it('mp4 profiles prefer H.264 at the tier, H.264 first in the selector', () => {
 		expect(resolve(builtin('mp4-1080')).media.videoFormatId).toBe('137')
 		expect(resolve(builtin('mp4-720')).media.videoFormatId).toBe('136')
 		expect(resolve(builtin('mp4-720')).notices).toEqual([])
@@ -235,7 +235,37 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 		expect(resolveRaw(builtin('mp4-1080'), raw).media.videoFormatId).toBe('137-hls')
 	})
 
-	it('MP4 profiles put the MP4 container before resolution, like vcodec:h264,ext:mp4,res', () => {
+	// Muxed streams only, on a site with no sort of its own: a stream that names
+	// no codec, and AV1, as Facebook and Instagram serve them.
+	const muxed = (formatId: string, height: number, vcodec?: string): Record<string, unknown> => {
+		const {vcodec: _vcodec, acodec: _acodec, ...stream} = rawVideo(formatId, height)
+		return vcodec === undefined ? stream : {...stream, vcodec, acodec: 'mp4a.40.2'}
+	}
+
+	it('Smart TV takes H.264 first, at any resolution', () => {
+		const raw = [muxed('sd', 360), muxed('h264-480', 480, 'avc1.4d401e'), muxed('av1-1080', 1080, 'av01.0.08M.08')]
+		expect(resolveRaw(builtin('mp4-1080'), raw, []).media.videoFormatId).toBe('h264-480')
+	})
+
+	// `-S vcodec:h264` ranked a stream naming no codec above AV1, VP9 and HEVC,
+	// ahead of the resolution.
+	it("Smart TV without H.264 ranks by yt-dlp's own order, a known codec over none", () => {
+		const raw = [muxed('sd', 360), muxed('hd', 720), muxed('av1-1080', 1080, 'av01.0.08M.08')]
+		const result = resolveRaw(builtin('mp4-1080'), raw, [])
+		expect(result.media.videoFormatId).toBe('av1-1080')
+		expect(result.notices).toEqual([{kind: 'mp4-unavailable'}])
+	})
+
+	// The site's preference still comes first: YouTube marks a truncated copy
+	// DAMAGED (preference -10), TikTok a watermarked one (-2).
+	it('Smart TV takes no H.264 the site marks down over a stream it does not', () => {
+		const damaged = [rawVideo('137', 1080, {preference: -10, format_note: '1080p, DAMAGED'}), rawVideo('399', 1080, {vcodec: 'av01.0.08M.08'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-1080'), damaged).media.videoFormatId).toBe('399')
+		const watermarked = [muxed('wm', 720, 'h264'), muxed('clean', 720, 'h265')].map((stream, i) => ({...stream, preference: i === 0 ? -2 : -1, ...(i === 0 ? {format_note: 'Download video, watermarked'} : {})}))
+		expect(resolveRaw(builtin('mp4-1080'), watermarked, []).media.videoFormatId).toBe('clean')
+	})
+
+	it('MP4 profiles put the MP4 container before resolution, H.264 in MP4 first', () => {
 		const formats = [video('mov', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mov'}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
 		const result = resolve(builtin('mp4-1080'), formats)
 		expect(result.media.videoFormatId).toBe('136')

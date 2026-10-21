@@ -91,17 +91,17 @@ export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata
 }
 
 /**
- * What a download profile has yt-dlp write. `probed` is the probe's format list
- * when the job is one probed video; playlist entries carry none, so their
- * format ids stay unknown until yt-dlp runs.
+ * What a download profile has yt-dlp write. `probed` is the probe's format list:
+ * the video's own, or a playlist row's from its hydration probe. A row from a
+ * flat playlist probe has none, so its format ids stay unknown until yt-dlp runs.
  */
 export function profileInFlight(resolved: ResolvedDownloadProfile, probed: readonly InFlightFormat[]): InFlightFiles {
 	return {formats: resolved.isSubtitleOnly ? [] : requestedFormats(undefined, probed), subtitleLanguages: resolved.subtitles ? requestedSubtitles(resolved.subtitles.request) : []}
 }
 
-/** What a playlist batch has yt-dlp write for each entry. */
-export function playlistSelectionInFlight(selection: PlaylistSelection): InFlightFiles {
-	return selection.kind === 'subtitles' ? {formats: [], subtitleLanguages: selection.languages} : {formats: null, subtitleLanguages: []}
+/** What a playlist batch has yt-dlp write for an entry; `probed` as in profileInFlight. */
+export function playlistSelectionInFlight(selection: PlaylistSelection, probed: readonly InFlightFormat[]): InFlightFiles {
+	return selection.kind === 'subtitles' ? {formats: [], subtitleLanguages: selection.languages} : {formats: requestedFormats(undefined, probed), subtitleLanguages: []}
 }
 
 /** Drop blanks so an absent field collapses its folder rather than emptying it. */

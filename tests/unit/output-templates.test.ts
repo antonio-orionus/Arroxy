@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
-import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs, videoProbeTemplateMeta} from '@renderer/store/wizard/outputTemplates.js'
+import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, singleTemplateMeta, templateOwnsDirs, videoProbeTemplateMeta} from '@renderer/store/wizard/outputTemplates.js'
+import type {PlaylistSelection} from '@shared/schemas.js'
 import type {PlaylistEntry} from '@shared/types.js'
 
 const ENTRY: PlaylistEntry = {id: '7::e1', url: 'https://example.com/e1', title: 'First', thumbnail: '', playlistIndex: 7, videoId: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803'}
@@ -143,5 +144,33 @@ describe('bindJobFilenameTemplate with a part-of-video suffix', () => {
 
 	it('keeps the suffix when a template it cannot use falls back to the default', () => {
 		expect(bindJobFilenameTemplate('{not-a-token}', META, '/tmp', IN_FLIGHT, SUFFIX)).toBe('Clip [abc] [3s-6s]')
+	})
+})
+
+describe('playlistSelectionInFlight', () => {
+	const VIDEO = {kind: 'video', tier: 'best', codec: 'best'} as const
+	const YOUTUBE = [
+		{formatId: '137', ext: 'mp4'},
+		{formatId: '251', ext: 'webm'}
+	]
+
+	it('budgets a row its own probe hydrated from the formats that probe listed', () => {
+		expect(playlistSelectionInFlight(VIDEO, YOUTUBE)).toEqual({formats: YOUTUBE, subtitleLanguages: []})
+	})
+
+	it('leaves a flat row’s formats unknown until yt-dlp runs', () => {
+		expect(playlistSelectionInFlight(VIDEO, [])).toEqual({formats: null, subtitleLanguages: []})
+	})
+
+	it('writes no media for a subtitles batch, whatever the probe listed', () => {
+		const subtitles: PlaylistSelection = {kind: 'subtitles', languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'}
+		expect(playlistSelectionInFlight(subtitles, YOUTUBE)).toEqual({formats: [], subtitleLanguages: ['en']})
+	})
+
+	it('keeps more of a hydrated YouTube row’s title than of a flat row’s', () => {
+		const meta = {title: '日本語'.repeat(100), id: 'dQw4w9WgXcQ'}
+		const hydrated = bindJobFilenameTemplate('{title} [{id}]', meta, '/home/u/Videos', playlistSelectionInFlight(VIDEO, YOUTUBE))
+		const flat = bindJobFilenameTemplate('{title} [{id}]', meta, '/home/u/Videos', playlistSelectionInFlight(VIDEO, []))
+		expect(hydrated.length).toBeGreaterThan(flat.length)
 	})
 })

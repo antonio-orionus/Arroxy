@@ -4,6 +4,7 @@ import {containerArgsFor, effectiveFileType, effectiveNativeAudio, effectiveVide
 import {mediaIntentSchema, type MediaIntent, type NativeAudioPreference, type VideoMediaIntent} from '@shared/schemas.js'
 import {readFileSync} from 'node:fs'
 import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {h264First} from '../shared/smartTvSelectors.js'
 
 // Recorded from the code before the selection order existed: every profile
 // media combination and the yt-dlp spec it produced. Reading each old intent
@@ -60,8 +61,18 @@ function withExtractedBestAudio(spec: Record<string, unknown>): Record<string, u
 	return spec.producesVideo === false && spec.audioConvert === undefined ? {...spec, audioConvert: {target: 'best'}} : spec
 }
 
+// Fixed since the recording: Smart TV's H.264 and MP4 come first in the
+// selector, not as `vcodec:h264,ext:mp4` in -S, which ranked a stream naming no
+// codec above AV1, VP9 and HEVC, and both before the resolution.
+function withSmartTvFiltersFirst(spec: Record<string, unknown>): Record<string, unknown> {
+	const {formatSort: sort, formatSelector: selector, ...rest} = spec
+	if (typeof sort !== 'string' || typeof selector !== 'string' || !sort.startsWith('vcodec:h264,ext:mp4')) return spec
+	const remaining = sort.split(',').slice(2).join(',')
+	return {...rest, formatSelector: h264First(selector), ...(remaining ? {formatSort: remaining} : {})}
+}
+
 function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
-	return withExtractedBestAudio(withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withVideoOnlyFallback(spec)))))
+	return withExtractedBestAudio(withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withSmartTvFiltersFirst(withVideoOnlyFallback(spec))))))
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {
@@ -146,7 +157,7 @@ describe('selectionOrder', () => {
 	it('derives the sort for the new combinations', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'webm'), 'compatible'))).toBe('res:1080,fps,hdr:sdr,acodec:opus')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mkv', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:sdr,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe('res:720,fps,hdr:sdr,acodec:m4a')
 	})
 })
 
@@ -172,7 +183,7 @@ describe('HDR preference', () => {
 	it('defaults to SDR first, and names resolution and fps before hdr so it never trades height for SDR', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible'))).toBe('res:1080,fps,hdr:sdr')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:sdr,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe('res:720,fps,hdr:sdr,acodec:m4a')
 	})
 
 	// A field named in -S outranks every default yt-dlp field, so an audio token
@@ -182,7 +193,7 @@ describe('HDR preference', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:m4a')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'webm', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:opus')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', '1080'), 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:12,acodec:m4a')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible', 'hdr'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:12,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible', 'hdr'))).toBe('res:720,fps,hdr:12,acodec:m4a')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'sdr'))).toBe('res,fps,hdr:sdr,acodec:m4a')
 	})
 

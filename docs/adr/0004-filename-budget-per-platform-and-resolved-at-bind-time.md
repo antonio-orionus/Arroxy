@@ -59,9 +59,13 @@ The reserve for suffixes is resolved at bind time too, from what the job will
 download, because the name on disk during a download is longer than the finished
 name: yt-dlp writes `<name>.f<format_id>.<ext>.part` for split video/audio, and
 `.part-Frag<N>.part` on top for each fragment of a DASH/HLS stream. Format ids
-have no maximum (a recorded DASH id is 22 characters), so a fixed reserve
-overflowed; where the formats are not known yet, a generous allowance stands in.
-The total-path reserve also covers the job temp folder that media downloads into.
+have no maximum (a recorded DASH id is 22 characters, a Vimeo audio id that ends
+in its track's name 63), so a fixed reserve overflowed. The reserve comes from
+the probe's formats wherever Arroxy has one, a playlist row's own hydration probe
+included; only for a flat playlist row does an allowance stand in, with
+yt-dlp's longest permitted extension. The total-path reserve also covers the job
+temp folder that media downloads into. `check:filename-parity` downloads real
+streams through yt-dlp and checks every file it writes against the reserve.
 
 Literal text is not inert in yt-dlp: it runs `expandvars` and `expanduser` over
 the whole `-o` template and every `--paths` value before filling in fields, so a
