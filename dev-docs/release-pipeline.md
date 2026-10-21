@@ -6,7 +6,13 @@ What happens after `bun run release:stable` (or, on an explicit request for a be
 | --- | --- |
 | `.github/workflows/release.yml` | Tag-triggered build, publish, package-manager bumps |
 | `.github/workflows/release_to_winget.yml` | Winget PR on the `released` event |
-| `scripts/release.sh` | Tag guards: branch, clean tree, version, required checks |
+| `scripts/release.sh`, `scripts/release-gate.ts` | Tag guards: branch, clean tree, version, the release commit and its required checks |
+
+## Which commit a stable release tags
+
+A stable tag goes on the release commit, the `release: X` commit on `main` that carries the version bump and changelog, not on `main`'s HEAD. `release.sh` waits until every check branch protection requires on `main` passed on that commit, then pushes the tag alone; work merged after it is in the next release. Nothing downstream assumes the tag is `main`'s HEAD: `verify-version` only requires the tagged commit to be reachable from `origin/main` and its `package.json` to match the tag, every later job works from the tag name, and `notify-web-release-manifest` sends only the tag.
+
+That needs a finished run on every `main` commit, so the CI workflows (`ci.yml`, `e2e-fixtures.yml`, `e2e-cold-start.yml`, `dev-smoke.yml`, `installer-smoke.yml`, `ffmpeg-remux-matrix.yml`) cancel superseded runs only on pull requests. A push to `main` or a tag gets a concurrency group of its own (keyed by commit), so its runs neither cancel nor queue behind the next merge (`tests/scripts/workflow-concurrency.test.ts`). The heavy suites still skip a docs-only push through `.github/actions/app-changes`, when the previous `main` commit's run passed.
 
 ## Job graph
 
