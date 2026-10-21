@@ -86,6 +86,10 @@ jobs:
           cd "${PACKAGE_DIR}"
           bun pm pack --destination "${GITHUB_WORKSPACE}/npm-artifacts"
 
+      # Packing pins ytdlp-errors to its local version, which must already be on npm.
+      - name: Check workspace dependencies are published
+        run: bun scripts/check-packed-dependencies.ts npm-artifacts/*.tgz
+
       - name: Upload registry artifact
         uses: actions/upload-artifact@v7
         with:

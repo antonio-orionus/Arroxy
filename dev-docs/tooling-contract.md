@@ -65,6 +65,7 @@ Package release workflows use `bun pm pack` to build tarballs, then publish thos
 - Publishable packages use `bun pm pack --dry-run` for local pack checks.
 - Publishable package-to-package runtime dependencies may use `workspace:*` only when the dependency name is another local workspace package.
 - Packed package metadata must not contain `workspace:`; `scripts/check-package-publish-metadata.mjs` verifies Bun rewrites internal `workspace:*` dependencies to the exact local package version.
+- Publish a dependency before the package that depends on it. Packing pins `yt-dlp-bridge` to the local `ytdlp-errors` version, so after a `ytdlp-errors` bump its tag must publish first. The bridge publish workflow runs `scripts/check-packed-dependencies.ts` on the packed tarball and fails with "publish ytdlp-errors X first" while the registry lacks that version.
 - The root app is private and may use `workspace:*` for local package development.
 - Keep package-local `vite.config.ts` files for package `test` and `pack` blocks only. They must not define `fmt`, `lint` or `staged`; Vite+ ignores nested format and lint configs. Do not add package-local Oxlint, Oxfmt, ESLint, Biome, or Prettier configs.
 - Do not reintroduce a tool Vite+ already provides (Biome, `oxfmt`, husky, lint-staged, concurrently, tsup, tsdown). `check:tooling-contract` rejects them.
