@@ -1,4 +1,4 @@
-import {useState, type ReactNode} from 'react'
+import {useId, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ChevronDown, Download, Folder, PenLine} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
@@ -72,41 +72,50 @@ function clusterMinHeightClass(compact: boolean, hasDestination: boolean): strin
 
 function QuickDownloadAction({compact, disabled, preparing, profileName, onDownload, testIdPrefix}: {compact: boolean; disabled: boolean; preparing: boolean; profileName: string; onDownload: () => void; testIdPrefix: QuickProfileTestIdPrefix}): ReactNode {
 	const {t} = useTranslation()
+	const descriptionId = useId()
 	// The name only on the face; the profile and (on the URL tab) the global shortcut wait in the hint.
 	// No arrow: Quick Download starts at once, and an arrow means "opens something".
 	return (
-		<Hint
-			label={
-				<span className="flex flex-col items-start gap-1" data-testid={`${testIdPrefix}-quick-download-hint`}>
-					<span>{t('wizard.url.quickDownloadTooltip', {profileName})}</span>
-					{testIdPrefix === 'profiles' ? <GlobalHotkeyHintLine /> : null}
-				</span>
-			}
-		>
-			{/* aria-disabled, not disabled: the hint carries the profile and the shortcut, so it
-			   must open by hover and focus while the button cannot act yet. A click then does nothing. */}
-			<button
-				type="button"
-				aria-disabled={disabled || preparing}
-				aria-busy={preparing}
-				onClick={() => {
-					if (!disabled && !preparing) onDownload()
-				}}
-				className={cn(
-					'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
-					compact ? 'min-h-[4.75rem] px-4 py-3 md:min-h-[5rem] md:basis-[52%]' : 'min-h-[6rem] px-5 py-4 md:m-2 md:me-0 md:min-h-0 md:flex-[0_1_42%] md:self-stretch lg:m-3 lg:me-0 lg:flex-[0_1_38%] lg:px-5 xl:flex-[0_1_36%] xl:px-6',
-					!disabled && !preparing && 'hover:brightness-[1.08] active:translate-y-px',
-					'focus-visible:outline-none',
-					disabled && !preparing && 'cursor-default opacity-55 saturate-[0.65]',
-					preparing && 'cursor-progress'
-				)}
-				data-testid={`${testIdPrefix}-quick-download`}
+		<>
+			<Hint
+				label={
+					<span className="flex flex-col items-start gap-1" data-testid={`${testIdPrefix}-quick-download-hint`}>
+						<span>{t('wizard.url.quickDownloadTooltip', {profileName})}</span>
+						{testIdPrefix === 'profiles' ? <GlobalHotkeyHintLine /> : null}
+					</span>
+				}
 			>
-				<span aria-hidden className="quick-card-overlay pointer-events-none absolute inset-0" />
-				<span className={cn('icon-tile quick-icon-tile relative grid shrink-0 place-items-center rounded-xl [&_svg]:size-6', compact ? 'size-11' : 'size-12 md:size-14 md:[&_svg]:size-7')}>{preparing ? <Spinner aria-hidden className={compact ? 'size-5' : 'size-6 md:size-7'} /> : <Download aria-hidden />}</span>
-				<span className={cn('relative min-w-0', compact ? 'text-title' : 'text-headline')}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
-			</button>
-		</Hint>
+				{/* aria-disabled, not disabled: the hint carries the profile and the shortcut, so it
+			   must open by hover and focus while the button cannot act yet. A click then does nothing. */}
+				<button
+					type="button"
+					aria-disabled={disabled || preparing}
+					aria-busy={preparing}
+					// A hint is not read out: screen readers hear the profile here. The shortcut stays hint-only.
+					aria-describedby={descriptionId}
+					onClick={() => {
+						if (!disabled && !preparing) onDownload()
+					}}
+					className={cn(
+						'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
+						compact ? 'min-h-[4.75rem] px-4 py-3 md:min-h-[5rem] md:basis-[52%]' : 'min-h-[6rem] px-5 py-4 md:m-2 md:me-0 md:min-h-0 md:flex-[0_1_42%] md:self-stretch lg:m-3 lg:me-0 lg:flex-[0_1_38%] lg:px-5 xl:flex-[0_1_36%] xl:px-6',
+						!disabled && !preparing && 'hover:brightness-[1.08] active:translate-y-px',
+						'focus-visible:outline-none',
+						disabled && !preparing && 'cursor-default opacity-55 saturate-[0.65]',
+						preparing && 'cursor-progress'
+					)}
+					data-testid={`${testIdPrefix}-quick-download`}
+				>
+					<span aria-hidden className="quick-card-overlay pointer-events-none absolute inset-0" />
+					<span className={cn('icon-tile quick-icon-tile relative grid shrink-0 place-items-center rounded-xl [&_svg]:size-6', compact ? 'size-11' : 'size-12 md:size-14 md:[&_svg]:size-7')}>{preparing ? <Spinner aria-hidden className={compact ? 'size-5' : 'size-6 md:size-7'} /> : <Download aria-hidden />}</span>
+					<span className={cn('relative min-w-0', compact ? 'text-title' : 'text-headline')}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
+				</button>
+			</Hint>
+			{/* Beside the button, not in it: inside, it would join the button's name. */}
+			<span id={descriptionId} className="sr-only">
+				{t('wizard.url.quickDownloadTooltip', {profileName})}
+			</span>
+		</>
 	)
 }
 

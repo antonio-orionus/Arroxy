@@ -80,6 +80,13 @@ describe('Quick Download action', () => {
 		expect(onDownload).not.toHaveBeenCalled()
 	})
 
+	it('describes the profile to screen readers, since a hint is not read out', () => {
+		mount({common: {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'}})
+		const quick = screen.getByTestId('profiles-quick-download')
+		expect(quick).toHaveAccessibleName('Quick Download')
+		expect(quick).toHaveAccessibleDescription('Will download using: Balanced 720p')
+	})
+
 	it('has no arrow: it starts at once and opens nothing', () => {
 		mount()
 		const quick = screen.getByTestId('profiles-quick-download')
