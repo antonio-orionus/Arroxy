@@ -16,10 +16,20 @@ import {fitName, renderName, type BudgetFailure, type BudgetPiece, type InFlight
 import {templateLiteral} from 'yt-dlp-bridge/output-template'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
-import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
+import {isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
 import {isYouTubeHostname} from './sites/youtube.js'
 
 export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
+
+// The byte cap of each token yt-dlp expands with `.NB`. yt-dlp cuts the value
+// to N bytes and only then sanitizes it (YoutubeDL.prepare_outtmpl), writing
+// each of `"*:<>?|/\` as a 3-byte full-width look-alike, so a capped field can
+// be written at three times its cap. `{title}` is capped too where it is left to
+// yt-dlp: on a bound template whose title Arroxy does not know, and on the
+// unbound fallback path, where there is no metadata to measure. Its 40 bytes
+// written as 120 still fit Linux's 255 beside the longest in-flight suffix.
+const SANITIZED_BYTES_PER_BYTE = 3
+const LATE_TOKEN_CAP = {title: 40, uploader: 20, categories: 20, artist: 20, album: 20, track: 26, playlist_title: 20} as const satisfies Partial<Record<FilenameToken, number>>
 
 // Every mapping below is verified output from yt-dlp 2026.07.04.
 //
@@ -42,29 +52,26 @@ export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 // parse. A bound template carries literal text for every token but
 // `{resolution}`, because yt-dlp's own truncation cannot be trusted to respect
 // a budget: `.NB` truncates before sanitization, and sanitization grows the
-// string (`:` to " -", `|` to a 3-byte full-width form). See nameBudget.ts.
+// string (`:` or `|` to a 3-byte full-width form). See nameBudget.ts.
+//
+// The same table serves a token a bound template still leaves for yt-dlp, so
+// each `.NB` cap is a third of what the budget reserves for that token: N bytes
+// of `|` are written as 3N (LATE_TOKEN_CAP).
 const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {
-	uploader: '%(uploader,channel,creator,uploader_id).60B',
+	uploader: `%(uploader,channel,creator,uploader_id).${LATE_TOKEN_CAP.uploader}B`,
 	id: '%(id)s',
 	date: '%(upload_date>%Y-%m-%d|)s',
 	year: '%(upload_date>%Y|)s',
 	resolution: '%(height&{}p|)s',
 	site: '%(webpage_url_domain|)s',
-	categories: '%(categories.0|).60B',
-	artist: '%(artist,uploader,channel,creator,uploader_id|).60B',
-	album: '%(album|).60B',
-	track: '%(track|).80B',
+	categories: `%(categories.0|).${LATE_TOKEN_CAP.categories}B`,
+	artist: `%(artist,uploader,channel,creator,uploader_id|).${LATE_TOKEN_CAP.artist}B`,
+	album: `%(album|).${LATE_TOKEN_CAP.album}B`,
+	track: `%(track|).${LATE_TOKEN_CAP.track}B`,
 	playlist_index: '%(playlist_index|)03d',
-	playlist_title: '%(playlist_title|).60B',
+	playlist_title: `%(playlist_title|).${LATE_TOKEN_CAP.playlist_title}B`,
 	playlist_id: '%(playlist_id|)s'
 }
-
-// Byte cap for `{title}` on the unbound fallback path only, where there is no
-// metadata to measure and no output directory to budget against. Deliberately
-// pessimistic: it must hold on Linux (the strictest unit, 255 bytes) and
-// survive yt-dlp sanitizing *after* this cap is applied, which can turn one
-// byte into three. The bound path does not use this — it measures real values.
-const FALLBACK_TITLE_BYTES = 120
 
 /**
  * Metadata Arroxy renders directory segments from. Every field is optional
@@ -258,7 +265,7 @@ export function compileFilenameTemplate(template: string): FilenameTemplateCompi
 	// in after expanding.
 	const body = parsed.file
 		.map(segment => {
-			if (segment.kind === 'token') return segment.token === 'title' ? `%(title).${FALLBACK_TITLE_BYTES}B` : TOKEN_FIELDS[segment.token]
+			if (segment.kind === 'token') return segment.token === 'title' ? `%(title).${LATE_TOKEN_CAP.title}B` : TOKEN_FIELDS[segment.token]
 			return templateLiteral(segment.text)
 		})
 		.join('')
@@ -365,12 +372,29 @@ export function renderTemplateDirs(template: string, meta: TemplateMetadata): st
 // answer for a single video and is why no "NA" reaches the disk.
 const ARROXY_OWNED_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playlist_title', 'playlist_id']
 
-// Worst-case width of each token yt-dlp expands itself, charged only when the
-// token actually stays unbound. `uploader` matches the `.60B` cap in
-// TOKEN_FIELDS; `resolution` is exact, since `%(height&{}p|)s` renders at most
-// "4320p"; `id` is an allowance rather than a cap, because playlist dedupe
-// matches the full video id and truncating it would silently break that.
-const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE_BYTES, uploader: 60, id: 24, date: 10, year: 4, resolution: 6, site: 40, categories: 60, artist: 60, album: 60, track: 80, playlist_index: 6, playlist_title: 60, playlist_id: 40}
+// Worst-case width of each token yt-dlp expands itself, as written after it
+// sanitizes the value, charged only when the token actually stays unbound. A
+// capped token reserves its cap three times over (LATE_TOKEN_CAP);
+// `resolution` is exact, since `%(height&{}p|)s` renders at most "4320p"; `id`
+// is an allowance rather than a cap, because playlist dedupe matches the full
+// video id and truncating it would silently break that.
+const sanitized = (cap: number): number => cap * SANITIZED_BYTES_PER_BYTE
+const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {
+	title: sanitized(LATE_TOKEN_CAP.title),
+	uploader: sanitized(LATE_TOKEN_CAP.uploader),
+	id: 24,
+	date: 10,
+	year: 4,
+	resolution: 6,
+	site: 40,
+	categories: sanitized(LATE_TOKEN_CAP.categories),
+	artist: sanitized(LATE_TOKEN_CAP.artist),
+	album: sanitized(LATE_TOKEN_CAP.album),
+	track: sanitized(LATE_TOKEN_CAP.track),
+	playlist_index: 6,
+	playlist_title: sanitized(LATE_TOKEN_CAP.playlist_title),
+	playlist_id: 40
+}
 
 // A bound value becomes literal template text, so anything that would change
 // the template's meaning has to go: separators would invent a folder, braces
@@ -397,14 +421,6 @@ function sanitizeBoundLiteral(value: string): string {
 // finds at download time. Left unbound, yt-dlp walks the same chain itself.
 function boundValue(token: FilenameToken, meta: TemplateMetadata): string {
 	return token === 'artist' ? (meta.artist?.trim() ?? '') : renderToken(token, meta)
-}
-
-// Applied to the assembled name, because both hazards are properties of the
-// whole name rather than of any one token: Windows rejects a name ending in a
-// dot or a space (which truncation can expose), and treats a reserved device
-// name as a device with any extension, so `NUL.mp4` is still the null device.
-function finalizeName(value: string): string {
-	return escapeReservedName(value.replace(/[\s.]+$/, ''))
 }
 
 export interface BindContext {
@@ -458,7 +474,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform), inFlight: ctx.inFlight})
 	if (!fitted.ok) return fitted
 
-	return {ok: true, template: finalizeName(renderName(fitted.pieces)), truncated: fitted.truncated}
+	return {ok: true, template: renderName(fitted.pieces), truncated: fitted.truncated}
 }
 
 /**

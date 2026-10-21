@@ -14,7 +14,7 @@ People who want video, audio, music, playlists, channels, podcasts, or subtitles
 
 ## Product Purpose
 
-Arroxy is a free, GPLv3-licensed desktop GUI around `yt-dlp` + `ffmpeg`. It makes the most capable downloader available usable by people who would never touch a shell, without dumbing it down for those who would. Success: a first-time user pastes a link and gets a correct file with zero configuration; a returning user pulls with their saved profile in one action, or from any app via the global hotkey; a power user reaches every format, audio, subtitle, and playlist control without fighting the UI. Everything runs on the user's machine. The marketing site lives in a separate repo (`arroxy-web`); this product is the app.
+Arroxy is a free, GPLv3-licensed desktop GUI around `yt-dlp` + `ffmpeg`. It makes the most capable downloader available usable by people who would never touch a shell, without dumbing it down for those who would. Success: a first-time user pastes a link and gets a correct file with zero configuration; a returning user pulls with their saved profile in one action, or from any app via the global hotkey; a power user reaches every format, audio, subtitle, and playlist control without fighting the UI. Everything runs on the user's machine. The public site lives in a separate repo (`arroxy-site`); this product is the app.
 
 ## Positioning
 

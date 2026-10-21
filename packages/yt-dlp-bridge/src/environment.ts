@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
-import {loadConfig, type ServerConfig} from './config.js'
+import {expandHome, loadConfig, type ServerConfig} from './config.js'
+import {expandsVariables} from './filesystem.js'
 import {runCommand} from './runner.js'
 import type {DetectedDependency} from './types.js'
 
@@ -49,7 +50,10 @@ async function detectBinary(name: string, command: string, args: string[], requi
 
 function cookieStatus(config: ServerConfig): EnvironmentReport['cookies'] {
 	const status: EnvironmentReport['cookies'] = {fileConfigured: Boolean(config.cookiesFile), browserConfigured: Boolean(config.cookiesFromBrowser)}
-	if (config.cookiesFile) status.fileExists = fs.existsSync(config.cookiesFile)
+	// Where yt-dlp reads it: a relative path from this working directory, which
+	// a plan resolves it against (callerPath), and a leading `~` expanded. A
+	// variable is the yt-dlp child's to expand, so existence is not guessed.
+	if (config.cookiesFile && !expandsVariables(config.cookiesFile)) status.fileExists = fs.existsSync(expandHome(config.cookiesFile))
 	if (config.cookiesFromBrowser) {
 		const browser = config.cookiesFromBrowser.split(':')[0]
 		if (browser) status.browser = browser

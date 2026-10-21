@@ -5,6 +5,7 @@ import {
 	DEFAULT_DOWNLOAD_PROFILE_REF,
 	DEFAULT_DOWNLOAD_PROFILES_PREFS,
 	allDownloadProfiles,
+	downloadProfileFilenameFailure,
 	downloadProfileLabel,
 	downloadProfileOrigin,
 	downloadProfileRefFor,
@@ -441,5 +442,19 @@ describe('download profile order', () => {
 		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'gone', 'balanced').order).toBeUndefined()
 		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'balanced', 'gone').order).toBeUndefined()
 		expect(moveDownloadProfile(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'balanced', 'balanced').order).toBeUndefined()
+	})
+})
+
+describe('download profile filename template', () => {
+	const base = BUILTIN_DOWNLOAD_PROFILES[0]
+
+	it('accepts the inherited template and a custom one that validates', () => {
+		expect(downloadProfileFilenameFailure({...base, filename: {kind: 'default'}})).toBeNull()
+		expect(downloadProfileFilenameFailure({...base, filename: {kind: 'custom', template: '{uploader}/{title} [{id}]'}})).toBeNull()
+	})
+
+	it('names why a custom template does not validate', () => {
+		expect(downloadProfileFilenameFailure({...base, filename: {kind: 'custom', template: '{titel}'}})).toEqual({ok: false, code: 'unknown-token', token: 'titel'})
+		expect(downloadProfileFilenameFailure({...base, filename: {kind: 'custom', template: 'a:b {title}'}})).toEqual({ok: false, code: 'forbidden-char'})
 	})
 })

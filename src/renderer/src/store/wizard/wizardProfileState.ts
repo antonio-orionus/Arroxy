@@ -4,7 +4,8 @@
 
 import {DEFAULTS} from '@shared/constants.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
-import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, downloadProfileFilenameFailure} from '@shared/downloadProfiles.js'
+import {validateFilenameTemplate, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
 import {resolveProfileSelection} from '@shared/profileSelection.js'
 import type {DownloadProfile} from '@shared/types.js'
 import type {AppState} from '../types.js'
@@ -123,12 +124,25 @@ export function switchProfilePatch(profile: DownloadProfile, state: AppState, ke
 	return {...patch, ...settings}
 }
 
+// Why the run's settings can't be kept as a profile, which would fail every
+// download: a file name changed to a template that does not validate. Left
+// alone, the file name is the profile's own, which it may keep even if saved
+// before templates were checked, but which a new profile may not take on.
+export function wizardProfileSaveFailure(state: WizardReviewState, asNew: boolean): FilenameTemplateFailure | null {
+	if (wizardChangedAreas(state).includes('fileName')) {
+		const validation = validateFilenameTemplate(state.wizardFilenameTemplate)
+		return validation.ok ? null : validation
+	}
+	return asNew && state.wizardProfile ? downloadProfileFilenameFailure(state.wizardProfile) : null
+}
+
 // The run's settings as a profile with the given identity, or null when nothing
-// differs from the profile it started from (or this isn't a single-video run).
-function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}): DownloadProfile | null {
+// differs from the profile it started from, the changes can't be kept, or this
+// isn't a single-video run.
+function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}, asNew: boolean): DownloadProfile | null {
 	const base = state.wizardProfile
 	const baseline = state.wizardProfileBaseline
-	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0) return null
+	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0 || wizardProfileSaveFailure(state, asNew)) return null
 	return profileFromWizard(base, baseline, wizardSnapshot(state), state.wizardFormats, {
 		...identity,
 		now: new Date().toISOString(),
@@ -141,13 +155,13 @@ function draftFromWizard(state: WizardReviewState, identity: {id: string; name: 
 
 // The run's settings as a new profile.
 export function editedProfileDraft(state: WizardReviewState, name: string): DownloadProfile | null {
-	return draftFromWizard(state, {id: crypto.randomUUID(), name})
+	return draftFromWizard(state, {id: crypto.randomUUID(), name}, true)
 }
 
 // The profile the run started from, with the run's settings in it. It keeps its
 // identity, so a built-in one is saved as that built-in's override.
 export function updatedProfileDraft(state: WizardReviewState): DownloadProfile | null {
 	const base = state.wizardProfile
-	const draft = base ? draftFromWizard(state, {id: base.id, name: base.name}) : null
+	const draft = base ? draftFromWizard(state, {id: base.id, name: base.name}, false) : null
 	return base && draft ? {...draft, enabled: base.enabled, createdAt: base.createdAt} : null
 }

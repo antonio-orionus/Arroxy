@@ -30,6 +30,36 @@ export function isPathInsideWith(pathImpl: PathImplementation, parent: string, c
 	return relative === '' || (!relative.startsWith('..') && !pathImpl.isAbsolute(relative))
 }
 
+// What os.path.expandvars may change in a path, which yt-dlp's expand_path
+// runs after expanduser. POSIX: `$name`, `${name}`. Windows (ntpath): also a
+// `%name%` pair, `%%`, `$$`, and names with `-`. A lone `%`, a `$` before no
+// name, or a `${` never closed, is literal. Set or not: the child's environment is the caller's.
+const VARIABLE = process.platform === 'win32' ? /%[^%]*%|\$(?:[-\w$]|\{[^}]*\})/ : /\$(?:\w|\{[^}]*\})/
+const LEADING_VARIABLE = process.platform === 'win32' ? /^(?:%[^%]*%|\$(?:[-\w]|\{[^}]*\}))/ : /^\$(?:\w|\{[^}]*\})/
+
+export function expandsVariables(text: string): boolean {
+	return VARIABLE.test(text)
+}
+
+// How yt-dlp reads a path flag: `--cookies` through expand_path,
+// `--netrc-location` through expanduser only, `--plugin-dirs` as given.
+export type YtDlpPathReading = 'expand-path' | 'expand-user' | 'literal'
+
+// A path the caller gives yt-dlp (a cookie jar, a netrc, a plugin folder) is
+// relative to the caller's working directory. A plan with its own `runCwd`
+// (one that writes files) runs elsewhere, so a relative one is made absolute
+// for it, unless yt-dlp's expansion makes it absolute (a leading `~` or
+// variable). The caller's directory must then add nothing yt-dlp would expand.
+export function callerPath(file: string, runCwd: string | undefined, reading: YtDlpPathReading, label: string, cwd: string = process.cwd()): string {
+	if (runCwd === undefined || path.isAbsolute(file)) return file
+	if (reading !== 'literal' && file.startsWith('~')) return file
+	if (reading === 'expand-path') {
+		if (LEADING_VARIABLE.test(file)) return file
+		if (expandsVariables(cwd)) throw new Error(`${label} is relative to a working directory yt-dlp would expand (${cwd}); give an absolute path`)
+	}
+	return path.resolve(cwd, file)
+}
+
 export function hasParentTraversal(input: string): boolean {
 	return input.split(/[\\/]+/).some(part => part === '..')
 }

@@ -318,6 +318,10 @@ _Avoid_: built-in browser, web view, browse tab
 The persistent browsing identity behind Explore, owned by the app and kept separate from the user's own browser. Signing in to Explore signs in this identity; signing out of Explore clears it.
 _Avoid_: Explore account, browser profile
 
+**Sign-in page**:
+A page where an account provider signs the user in or checks a sign-in: a whole host such as Google's account pages, or only some paths on a host that also serves the site, such as Facebook's login and checkpoint pages. Explore's ad blocker never acts on a sign-in page, nor on what it loads.
+_Avoid_: login page, auth host
+
 **Idle unload**:
 Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Off unless the user turns it on: coming back costs a reload. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.
 _Avoid_: suspension, discard, hibernation, sleeping tab
@@ -375,3 +379,9 @@ _Avoid_: provider, implementation, driver, binding
 **Composition root**:
 The single place in a shell where every part is constructed and wired together. Nothing else creates its own dependencies.
 _Avoid_: container, factory, bootstrap, entry point
+
+### Releases
+
+**Release flag**:
+A switch that keeps unfinished work out of what users install while it is built in small steps on the main line. It hides only the ways in, never the work behind them. It is on wherever the work is developed and tested and off in every release, until the work ships; one release later the switch is removed.
+_Avoid_: feature flag, feature toggle, experiment, kill switch

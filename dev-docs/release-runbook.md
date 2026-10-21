@@ -45,7 +45,7 @@ See [`ffmpeg-packages.md`](ffmpeg-packages.md).
 
 - Single long-lived branch: `main`.
 - Every release is a stable tag cut straight from `main`. There is no beta step and no standing pre-release line: `package.json` on `main` holds the last released version until the next `release: X.Y.Z` commit.
-- Feature work happens on short-lived feature branches merged into `main` when ready. De-risk a risky change before it merges (live smoke comparisons, fixture E2E, log-only shadow mode), not with a beta.
+- Feature work happens on short-lived branches merged into `main` in small PRs. Work meant for a later release merges behind a release flag ([`release-flags.md`](release-flags.md)), off in every release build, rather than waiting on a long-lived branch. De-risk a risky change before it merges (live smoke comparisons, fixture E2E, log-only shadow mode), not with a beta.
 
 ## 1. Bump `main` to the release version
 
