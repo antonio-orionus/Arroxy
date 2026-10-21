@@ -303,10 +303,16 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const graphicsPolicyPromise = window.appApi.app.getGraphicsPolicy()
 			const warmUpPromise = window.appApi.app.warmUp()
 			const snapshotPromise = window.appApi.queue.cmd.getSnapshot()
+			// The native menu works over the splash: a language, theme or style
+			// picked during these reads is newer than what they return.
+			const beforeReads = get()
 			const [settingsResult, graphicsPolicyResult] = await Promise.all([settingsPromise, graphicsPolicyPromise])
 
 			if (settingsResult.ok) {
-				const common = settingsResult.data.common ?? ({} as AppSettings['common'])
+				const afterReads = get()
+				const picked: Partial<AppSettings['common']> = {...(afterReads.language !== beforeReads.language && {language: afterReads.language}), ...(afterReads.uiTheme !== beforeReads.uiTheme && {uiTheme: afterReads.uiTheme}), ...(afterReads.uiStyle !== beforeReads.uiStyle && {uiStyle: afterReads.uiStyle})}
+				const settings: AppSettings = {...settingsResult.data, common: {...settingsResult.data.common, ...picked}}
+				const common = settings.common
 				const zoom = common.uiZoom ?? DEFAULTS.uiZoom
 				const theme = common.uiTheme ?? DEFAULTS.uiTheme
 				const persistedLang = common.language
@@ -320,7 +326,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
+				set({settings, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}
