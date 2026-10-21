@@ -66,9 +66,19 @@ const SAME_LANGUAGE_CODES: readonly (readonly string[])[] = [
 	['yi', 'ji']
 ]
 
+// Every spelling of a code, its region or script kept: `he-IL` is also `iw-IL`.
 function sameLanguageCodes(code: string): readonly string[] {
 	const lower = code.toLowerCase()
-	return SAME_LANGUAGE_CODES.find(codes => codes.includes(lower)) ?? [lower]
+	const dash = lower.indexOf('-')
+	const language = dash === -1 ? lower : lower.slice(0, dash)
+	const rest = dash === -1 ? '' : lower.slice(dash)
+	const spellings = SAME_LANGUAGE_CODES.find(codes => codes.includes(language)) ?? [language]
+	return spellings.map(spelling => spelling + rest)
+}
+
+// One spelling per language, so `he` and `iw` tracks count as the same one.
+function oneSpelling(trackKey: string): string {
+	return sameLanguageCodes(trackKey)[0] ?? trackKey.toLowerCase()
 }
 
 function matchesCode(code: string, trackKey: string): boolean {
@@ -108,9 +118,9 @@ function pickLanguages(languages: readonly string[], source: DownloadProfileSubt
 	const missing: string[] = []
 	for (const code of languages) {
 		const manual = source === 'auto-only' ? [] : matchingKeys(code, maps.subtitles)
-		const manualBases = new Set(manual.map(baseLanguage))
+		const manualBases = new Set(manual.map(key => oneSpelling(baseLanguage(key))))
 		const candidates = source === 'manual-only' ? [] : matchingKeys(code, maps.automaticCaptions)
-		const auto = source === 'manual-and-auto' ? candidates : candidates.filter(key => !manualBases.has(baseLanguage(key)))
+		const auto = source === 'manual-and-auto' ? candidates : candidates.filter(key => !manualBases.has(oneSpelling(baseLanguage(key))))
 		const tracks = [...manual.map(key => ({key, auto: false})), ...auto.map(key => ({key, auto: true}))]
 		if (tracks.length === 0) missing.push(code)
 		for (const track of tracks) if (!picked.some(p => p.key === track.key)) picked.push(track)

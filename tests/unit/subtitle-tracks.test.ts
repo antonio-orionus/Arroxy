@@ -120,6 +120,16 @@ describe('language codes with two spellings', () => {
 		expect(matchesSubtitleLanguage('he', 'iw-IL')).toBe(true)
 	})
 
+	it('match with a region on either side', () => {
+		expect(matchesSubtitleLanguage('he-IL', 'iw-IL')).toBe(true)
+		expect(matchesSubtitleLanguage('iw-IL', 'he-IL')).toBe(true)
+	})
+
+	it('count as one language when manual tracks win', () => {
+		const plan = planSubtitleTracks({kind: 'languages', languages: ['he'], source: 'manual-first'}, {subtitles: {he: [{ext: 'vtt'}]}, automaticCaptions: {'iw-orig': [{ext: 'vtt'}]}})
+		expect(plan.tracks.map(track => track.key)).toEqual(['he'])
+	})
+
 	it('match nothing else', () => {
 		expect(matchesSubtitleLanguage('iw', 'id')).toBe(false)
 		expect(matchesSubtitleLanguage('no', 'nl')).toBe(false)
