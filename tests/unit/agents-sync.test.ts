@@ -24,6 +24,17 @@ describe('renderMcpTargets', () => {
 		expect(JSON.parse(targets['.mcp.json'])).toEqual({mcpServers: {codegraph: {type: 'stdio', command: 'codegraph', args: ['serve', '--mcp']}}})
 		expect(targets['.codex/config.toml']).toContain('[mcp_servers."codegraph"]\ncommand = "codegraph"\nargs = ["serve", "--mcp"]\n')
 		expect(JSON.parse(targets['opencode.jsonc'])).toEqual({$schema: 'https://opencode.ai/config.json', mcp: {codegraph: {type: 'local', command: ['codegraph', 'serve', '--mcp'], enabled: true}}})
+		expect(targets['.codex/config.toml']).not.toContain('developer_instructions')
+	})
+
+	it('adds the personal instructions for Codex and OpenCode when there are any', () => {
+		const targets = renderMcpTargets(parseAgentsMcpConfig(codegraph), '# Mine\n\nSay "hi".\n')
+
+		const toml = targets['.codex/config.toml']
+		expect(toml).toContain('developer_instructions = "# Mine\\n\\nSay \\"hi\\".\\n"\n')
+		// A TOML key after a table header would belong to that table, so it must come first.
+		expect(toml.indexOf('developer_instructions')).toBeLessThan(toml.indexOf('[mcp_servers.'))
+		expect(JSON.parse(targets['opencode.jsonc'])).toMatchObject({instructions: ['.internal/AGENTS.md']})
 	})
 })
 
@@ -62,5 +73,34 @@ describe('syncAgents', () => {
 		expect(await readlink(join(root, '.claude/skills/alpha'))).toContain('alpha')
 		await expect(lstat(join(root, '.claude/skills/gone'))).rejects.toThrow()
 		expect((await lstat(join(root, '.claude/skills/local-only'))).isDirectory()).toBe(true)
+	})
+
+	it('wires .internal/AGENTS.md into every tool when it exists', async () => {
+		await mkdir(join(root, '.internal'), {recursive: true})
+		await writeFile(join(root, '.internal/AGENTS.md'), '# Personal rules\n')
+
+		await syncAgents(root)
+		await syncAgents(root)
+
+		expect((await lstat(join(root, 'CLAUDE.local.md'))).isSymbolicLink()).toBe(true)
+		expect(await readFile(join(root, 'CLAUDE.local.md'), 'utf8')).toBe('# Personal rules\n')
+		expect(await readFile(join(root, '.codex/config.toml'), 'utf8')).toContain('developer_instructions = "# Personal rules\\n"')
+		expect(JSON.parse(await readFile(join(root, 'opencode.jsonc'), 'utf8'))).toMatchObject({instructions: ['.internal/AGENTS.md']})
+	})
+
+	it('drops a stale CLAUDE.local.md link without .internal/AGENTS.md, and keeps a hand-written one', async () => {
+		await symlink('.internal/AGENTS.md', join(root, 'CLAUDE.local.md'))
+
+		await syncAgents(root)
+
+		await expect(lstat(join(root, 'CLAUDE.local.md'))).rejects.toThrow()
+		expect(await readFile(join(root, '.codex/config.toml'), 'utf8')).not.toContain('developer_instructions')
+
+		await writeFile(join(root, 'CLAUDE.local.md'), 'mine')
+		await mkdir(join(root, '.internal'), {recursive: true})
+		await writeFile(join(root, '.internal/AGENTS.md'), '# Personal rules\n')
+		await syncAgents(root)
+
+		expect(await readFile(join(root, 'CLAUDE.local.md'), 'utf8')).toBe('mine')
 	})
 })

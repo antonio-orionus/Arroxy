@@ -3,11 +3,14 @@
 // every worktree points at it, so an edit is visible everywhere at once.
 //   link (bootstrap): clone or fast-forward the shared clone, then link it; skips quietly without access.
 //   save:             commit everything in the shared clone, rebase on its remote, push.
+// Both then rerun agents:sync, which wires the personal `.internal/AGENTS.md` into each tool.
 import {execFile} from 'node:child_process'
 import {lstat, readlink, rm, stat, symlink} from 'node:fs/promises'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {promisify} from 'node:util'
+
+import {syncAgents} from './agents-sync.js'
 
 const run = promisify(execFile)
 const LINK_NAME = '.internal'
@@ -79,4 +82,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
 	if (command === 'link') await link(process.cwd())
 	else if (command === 'save') await save(process.cwd(), rest.join(' ') || 'docs: update internal docs')
 	else throw new Error('usage: bun scripts/internal-docs.ts <link|save> [commit message]')
+	// The personal `.internal/AGENTS.md` reaches Codex as a copy, so refresh it whenever the clone may have changed.
+	await syncAgents(process.cwd())
 }

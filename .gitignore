@@ -59,6 +59,7 @@ docs/superpowers/*
 .mcp.json
 opencode.jsonc
 .codex/config.toml
+CLAUDE.local.md
 
 # Project-owned agent memory is tracked. Third-party skills are restored from
 # skills-lock.json via `bun run agents:skills:restore`; only tiny custom skills

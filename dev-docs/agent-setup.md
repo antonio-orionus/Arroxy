@@ -21,6 +21,9 @@ How to run Arroxy with any coding agent without the repo depending on one.
    | `AGENTS.md` | `CLAUDE.md` symlink (tracked) | read natively | read natively |
    | `.agents/skills/*` | links in `.claude/skills/` | read natively | read natively |
    | `.agents/mcp.json` | `.mcp.json` | `.codex/config.toml` | `opencode.jsonc` |
+   | `.internal/AGENTS.md` (untracked) | `CLAUDE.local.md` symlink | copied into `developer_instructions` in `.codex/config.toml` | `instructions` in `opencode.jsonc` |
+
+   `.internal/AGENTS.md` is the maintainer's personal layer: how he works on Arroxy, kept in the private repo so it changes without a PR, and loaded at session start like `AGENTS.md`. The repo never depends on it, and without it these adapters are simply not written. Codex cannot include a file, so it gets a copy: `internal:sync` and `internal:save` rerun `agents:sync` to refresh it.
 
    OpenCode also scans `.claude/skills/`, so it logs a harmless `duplicate skill name` warning for skills reached both ways.
 
