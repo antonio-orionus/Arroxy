@@ -281,7 +281,7 @@ describe('SidecarSubsPhase: the listing run', () => {
 			if (request?.kind !== 'subtitles') throw new Error('no subtitle fetch')
 			expect(request.loadInfoJsonPath).toBe(join(tempDir, '_arroxy.probe.info.json'))
 			const {args} = planWorkflow(request)
-			expect(args[args.indexOf('--load-info-json') + 1]).toBe(join('.arroxy-temp', 'job', '_arroxy.probe.info.json'))
+			expect(args[args.indexOf('--load-info-json') + 1]).toBe('.arroxy-temp/job/_arroxy.probe.info.json')
 		} finally {
 			await rm(cache, {recursive: true, force: true})
 		}

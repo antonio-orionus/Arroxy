@@ -155,7 +155,7 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 			expect(request?.kind).toBe('subtitles')
 			if (request?.kind !== 'subtitles') return
 			const {args} = planWorkflow(request)
-			expect(args[args.indexOf('--load-info-json') + 1]).toBe(join('.arroxy-temp', 'job-1', '_arroxy.probe.info.json'))
+			expect(args[args.indexOf('--load-info-json') + 1]).toBe('.arroxy-temp/job-1/_arroxy.probe.info.json')
 		} finally {
 			await rm(cache, {recursive: true, force: true})
 		}
