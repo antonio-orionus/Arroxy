@@ -140,5 +140,5 @@ Download the pre-release artifacts from GitHub Releases to test them. Afterwards
 - Do not forget `git push origin main` after the version bump; `release:stable` refuses while local `main` is ahead of `origin/main`.
 - `no 'release: X' commit` means the version bump was committed under another subject. Commit a correctly titled `release: X` on top rather than renaming a pushed one.
 - A required check that is missing until the time limit usually means the release commit predates that check, or its workflow never started; `gh run list --commit <sha>` shows what ran. A release commit pushed under later commits is caught before the wait.
-- A rejected tag push leaves no local tag behind: fix the cause and run the release again.
+- A rejected tag push leaves no local tag behind: fix the cause and run the release again. When origin cannot confirm the tag is absent, the script keeps it and says how to check.
 - Tags must be annotated (`git tag -a …`). The `release.sh` wrapper enforces this; manual `git tag NAME` lightweight tags are silently skipped by `git push --follow-tags` and the release pipeline never fires. Push the tag by name (`git push origin refs/tags/vX.Y.Z`), never `--follow-tags` or `--tags`: those also push stale local tags, and GitHub creates no tag events for a push carrying more than three tags.

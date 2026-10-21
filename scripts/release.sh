@@ -167,7 +167,8 @@ git tag -a "$TAG" "$TARGET" -m "release $VERSION"
 # push every stale annotated local tag reachable from main, and GitHub creates
 # no tag events at all when a push carries more than three tags, so the release
 # workflow would never start. A rejected push drops the local tag again, or the
-# next run would refuse at step 5.
+# next run would refuse at step 5, but only once origin confirms it has no such
+# tag: a push can report failure after origin took it.
 if [[ "$MODE" == "stable" ]]; then
   echo "Pushing tag…"
   PUSH=(git push origin "refs/tags/$TAG")
@@ -176,6 +177,13 @@ else
   PUSH=(git push --atomic origin "HEAD:refs/heads/$BRANCH" "refs/tags/$TAG")
 fi
 if ! "${PUSH[@]}"; then
+  ON_ORIGIN=0
+  git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1 || ON_ORIGIN=$?
+  if (( ON_ORIGIN != 2 )); then
+    echo "ERR: the push reported a failure (output above), but origin may hold $TAG anyway; kept the local tag." >&2
+    echo "     Check with 'git ls-remote origin refs/tags/$TAG': if it is there the release has started, else delete the tag ('git tag -d $TAG') and run the release again." >&2
+    exit 1
+  fi
   git tag -d "$TAG" >/dev/null
   echo "ERR: the push was rejected (output above); deleted the local tag $TAG, so the release can run again." >&2
   if [[ "$MODE" == "beta" ]]; then
