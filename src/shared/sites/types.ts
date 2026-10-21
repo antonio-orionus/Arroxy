@@ -30,6 +30,13 @@ export interface ExploreCookie {
 // A hostname rule for an Explore view (the site's own hosts, which hosts are sign-in). `pattern` names a built-in matcher.
 export type HostRule = {kind: 'exact'; host: string} | {kind: 'suffix'; domain: string} | {kind: 'pattern'; pattern: 'google-accounts-cctld' | 'google-consent-cctld' | 'google-cctld'}
 
+// A sign-in page: a whole host, or only the given paths (and below them) on a
+// host that also serves the site's own pages.
+export interface SignInPage {
+	readonly host: HostRule
+	readonly paths?: readonly string[]
+}
+
 export interface SiteExplore {
 	// Where the Explore tab opens for this site.
 	readonly homeUrl: string
@@ -43,6 +50,10 @@ export interface SiteExplore {
 	readonly contentHosts: readonly HostRule[]
 	// The account provider's sign-in and account hosts: the ad blocker never acts on them.
 	readonly signInHosts: readonly HostRule[]
+	// Registrable domains where the ad blocker runs no scriptlets (its cosmetic
+	// and network filters still apply): the site degrades its own pages once
+	// it sees them run.
+	readonly scriptletFreeDomains: readonly string[]
 	// Cookie-consent hops on the way to the site: reached by the site's own
 	// redirects, never as an address typed in the bar.
 	readonly consentHosts: readonly HostRule[]

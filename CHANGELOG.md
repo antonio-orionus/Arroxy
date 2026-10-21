@@ -28,11 +28,13 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 - A download folder named like `$HOME` or `%USERPROFILE%`, or ending in a space, now gets the files, instead of a folder elsewhere with the name expanded.
 - A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
 - Playlist subtitles, and subtitles from sites other than YouTube, are the exact tracks you asked for, never a machine translation. A subtitles-only download is named after its video.
+- With Explore's ad blocker on, YouTube results and grids show view counts and upload dates again.
 - File and folder names keep `$`, `%` and `~` as in the title, instead of look-alike characters.
 - When a video no longer offers the format you picked, Arroxy says so and asks you to pick again, instead of calling the video private, deleted or region-locked.
 - Videos added several links at a time keep more of a long title in their file name. A long-titled playlist video from Vimeo no longer fails with "File name too long".
 - YouTube show links (`youtube.com/show/…`) download as the playlist they are, with its real name and every video, and Explore offers to download them.
 - The feedback form opens in full over Explore, instead of being hidden behind the page.
+- Signing in to Facebook, Instagram or Threads in Explore works with the ad blocker on, instead of returning to the login page or stopping at a security check.
 
 ## 0.7.2
 

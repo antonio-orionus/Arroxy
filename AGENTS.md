@@ -37,12 +37,13 @@ Arroxy spans several repositories. This repo is the hub: the others consume what
 
 | Repository | Owns | Connection to this repo |
 | --- | --- | --- |
-| `arroxy-web` | Landing site, blog, download picker, landing-page copy in every locale | Its `release-manifest` workflow refreshes download metadata from this repo's latest release; the `notify-web-release-manifest` job here dispatches `arroxy-release` to trigger it |
+| `arroxy-site` | The public site at arroxy.com: landing page and its copy in every site language | Its download links point at this repo's `releases/latest/download/<asset>`, so a release needs no step there; it deploys to Cloudflare with its own `bun run deploy` |
+| `arroxy-web` (archived) | The old landing site and blog, replaced by `arroxy-site` | None: nothing new goes there, and releases no longer notify it |
 | `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
 | `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as `.internal/`; see below |
 | `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
 
-The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these (for example, `arroxy-web` commits straight to `main` and opens no PRs).
+The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these.
 
 ## Domain Glossary
 
@@ -59,6 +60,8 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 **No backward compatibility** — Do not prioritize migration paths, backward compatibility shims, or preserving existing implementations. Existing code can be discarded or restructured without ceremony. Skip any "keep for compat" hedging. Delete old types, old components, old state fields without re-exporting or aliasing. Refactor aggressively. No deprecation notices or transitional layers.
 
 **schemas.ts is SSOT for all enum types.** Pattern: `z.enum([...])` → `type Foo = z.infer<…>` → `const FOOS = fooSchema.options`. Don't redeclare as TS union literals. `QUEUE_STATUS` / `STATUS_KEY` live in `schemas.ts` (not `constants.ts`). `DEFAULTS` lives in `constants.ts`.
+
+**Release flags, not long-lived branches.** Work meant for a later release merges to `main` in small PRs behind a release flag, declared in the one typed registry in `src/shared/releaseFlags.ts` and read with `isReleaseFlagOn`. A flag is on in dev, the Scenario Workbench and tests, and off in release builds; it gates only entry points (menu items, buttons, routes, IPC exposure), never the logic behind them. Turning it on for release is one tiny PR, and the flag is deleted in the release after it ships. Details: [`dev-docs/release-flags.md`](dev-docs/release-flags.md).
 
 **TDD for non-trivial changes.** Write failing tests first, implement minimally, then refactor. Skip only for typo fixes and single-line edits.
 
@@ -176,7 +179,7 @@ The user starts every update (auto-download is off), and every install channel m
 
 Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Releases are stable and cut straight from `main`, the only long-lived branch; a beta is never a step before a stable release.
 
-- **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user.
+- **When the user says "release X":** add the `## X` section to `CHANGELOG.md`, bump `package.json` to X, run `bun run check`, commit both as `release: X`, push it, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user. It tags that release commit, not `main`'s HEAD, once the commit's required checks pass, and waits for them while they run.
 - **Tags go through the wrapper**, which makes them annotated and pushes each one alone; a hand-pushed tag can silently fail to start the pipeline.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
@@ -193,4 +196,4 @@ Strategy, dev binaries and licensing: [`dev-docs/binary-distribution.md`](dev-do
 
 ## Updating Public-Facing Content (READMEs)
 
-`README.md` and every `docs/readme/README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Landing-site copy lives in the `arroxy-web` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).
+`README.md` and every `docs/readme/README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Site copy lives in the `arroxy-site` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).

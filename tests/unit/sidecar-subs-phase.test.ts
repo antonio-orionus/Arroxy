@@ -139,7 +139,7 @@ describe('SidecarSubsPhase: the fetch', () => {
 		expect(fetchRequest(ctx)).toEqual({
 			kind: 'subtitles',
 			url: URL,
-			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).120B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
+			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).40B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
 			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
 			loadInfoJsonPath: join(tempDir, '_arroxy.info.json')
 		})
@@ -281,7 +281,7 @@ describe('SidecarSubsPhase: the listing run', () => {
 			if (request?.kind !== 'subtitles') throw new Error('no subtitle fetch')
 			expect(request.loadInfoJsonPath).toBe(join(tempDir, '_arroxy.probe.info.json'))
 			const {args} = planWorkflow(request)
-			expect(args[args.indexOf('--load-info-json') + 1]).toBe('.arroxy-temp/job/_arroxy.probe.info.json')
+			expect(args[args.indexOf('--load-info-json') + 1]).toBe('./.arroxy-temp/job/_arroxy.probe.info.json')
 		} finally {
 			await rm(cache, {recursive: true, force: true})
 		}

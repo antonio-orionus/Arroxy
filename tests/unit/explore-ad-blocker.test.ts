@@ -5,7 +5,7 @@ import log from 'electron-log/main.js'
 import {ElectronBlocker} from '@ghostery/adblocker-electron'
 import {ExploreAdBlocker, type AdBlockEngine} from '@main/services/explore/ExploreAdBlocker.js'
 import type {ExploreAdBlockStatus} from '@shared/schemas.js'
-import {youtubeSite} from '@shared/sites/youtube.js'
+import {EXPLORE_SIGN_IN_PAGES} from '@shared/sites/signInPages.js'
 
 type Handler = (event: unknown, ...args: unknown[]) => unknown
 const ipcHandlers = vi.hoisted(() => new Map<string, Handler>())
@@ -17,7 +17,6 @@ vi.mock('electron', () => ({ipcMain: {handle: vi.fn((channel: string, handler: H
 
 const INJECT = '@ghostery/adblocker/inject-cosmetic-filters'
 const PRELOAD = '/app/out/main/explore-adblock-preload.cjs'
-const SIGN_IN_HOSTS = youtubeSite.explore?.signInHosts ?? []
 
 type RequestListener = (details: Record<string, unknown>, callback: (response: Record<string, unknown>) => void) => void
 
@@ -51,7 +50,7 @@ function makeBlocker(loadEngine: () => Promise<AdBlockEngine | null>, refreshEng
 	const {ses, listeners, session} = fakeSession()
 	const statuses: ExploreAdBlockStatus[] = []
 	const load = vi.fn(loadEngine)
-	const blocker = new ExploreAdBlocker({session: () => session, loadEngine: load, preloadPath: PRELOAD, signInHosts: SIGN_IN_HOSTS, ...(refreshEngine ? {refreshEngine} : {})})
+	const blocker = new ExploreAdBlocker({session: () => session, loadEngine: load, preloadPath: PRELOAD, signInPages: EXPLORE_SIGN_IN_PAGES, ...(refreshEngine ? {refreshEngine} : {})})
 	blocker.onStatusChange(status => statuses.push(status))
 	return {blocker, ses, listeners, session, statuses, load}
 }
@@ -350,7 +349,7 @@ describe('ExploreAdBlocker cosmetic IPC', () => {
 // that would otherwise block or hide something on those hosts.
 // Every sign-in host below has a filter that would block it: the guard, not a
 // gap in the list, is what lets the request through.
-const FILTERS = ['||ads.example^', '||accounts.google.com^$script', '||accounts.google.co.uk^', '||accounts.youtube.com^', '||myaccount.google.com^', 'youtube.com##.ad-banner', 'accounts.google.com##.promo-slot'].join('\n')
+const FILTERS = ['||ads.example^', '||accounts.google.com^$script', '||accounts.google.co.uk^', '||accounts.youtube.com^', '||myaccount.google.com^', 'youtube.com##.ad-banner', 'accounts.google.com##.promo-slot', '/ajax/bz?_', '||instagram.com^/ajax/bz', 'facebook.com##.ego_section'].join('\n')
 
 describe('ExploreAdBlocker never acts on sign-in', () => {
 	async function realEngine() {
@@ -439,5 +438,43 @@ describe('ExploreAdBlocker never acts on sign-in', () => {
 		const site = event('https://www.youtube.com/')
 		await inject(site, 'https://www.youtube.com/')
 		expect(site.sender.insertCSS).toHaveBeenCalledWith(expect.stringContaining('.ad-banner'), {cssOrigin: 'user'})
+	})
+})
+
+// Meta signs in on paths of the hosts that also serve the site, so only those
+// pages are spared: the same request from a Facebook feed is still blocked.
+describe('ExploreAdBlocker never acts on Meta sign-in pages', () => {
+	async function realEngine() {
+		const h = makeBlocker(() => Promise.resolve(ElectronBlocker.parse(FILTERS)))
+		await h.blocker.apply(true)
+		return h
+	}
+
+	const beacon = (pageUrl: string) => ({id: 6, url: `${new URL(pageUrl).origin}/ajax/bz?__a=1`, resourceType: 'xhr', referrer: pageUrl, webContents: pageAt(pageUrl)})
+
+	it('blocks the telemetry beacon on a Facebook or Instagram content page (control)', async () => {
+		const h = await realEngine()
+		for (const pageUrl of ['https://www.facebook.com/', 'https://www.instagram.com/']) expect(request(h.listeners.beforeRequest, beacon(pageUrl)), pageUrl).toEqual({cancel: true})
+	})
+
+	it.each(['https://www.facebook.com/login/', 'https://www.facebook.com/checkpoint/?next', 'https://www.instagram.com/accounts/login/', 'https://www.instagram.com/challenge/action/', 'https://www.threads.com/login'])('blocks nothing the sign-in page %s sends', async pageUrl => {
+		const h = await realEngine()
+		expect(request(h.listeners.beforeRequest, beacon(pageUrl))).toEqual({})
+	})
+
+	it('hides and injects nothing on the Facebook login page, and hides ads on the feed (control)', async () => {
+		const h = await realEngine()
+		const inject = ipcHandlers.get(INJECT)
+		if (!inject) throw new Error('no cosmetic handler')
+		const event = (url: string) => ({sender: {session: h.session, insertCSS: vi.fn(), executeJavaScript: vi.fn(() => Promise.resolve()), isDestroyed: () => false, getURL: () => url}, senderFrame: {url}, frameId: 1, processId: 1})
+
+		const login = event('https://www.facebook.com/login/')
+		await inject(login, 'https://www.facebook.com/login/')
+		expect(login.sender.insertCSS).not.toHaveBeenCalled()
+		expect(login.sender.executeJavaScript).not.toHaveBeenCalled()
+
+		const feed = event('https://www.facebook.com/')
+		await inject(feed, 'https://www.facebook.com/')
+		expect(feed.sender.insertCSS).toHaveBeenCalledWith(expect.stringContaining('.ego_section'), {cssOrigin: 'user'})
 	})
 })

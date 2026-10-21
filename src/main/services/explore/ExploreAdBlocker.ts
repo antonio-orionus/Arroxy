@@ -3,8 +3,8 @@ import type {ElectronBlocker} from '@ghostery/adblocker-electron'
 import log from 'electron-log/main.js'
 import {z} from 'zod'
 import type {ExploreAdBlockStatus} from '@shared/schemas.js'
-import {hostMatches} from '@shared/sites/hostRules.js'
-import type {HostRule} from '@shared/sites/types.js'
+import {isSignInPage} from '@shared/sites/signInPages.js'
+import type {SignInPage} from '@shared/sites/types.js'
 
 const logger = log.scope('explore-adblock')
 
@@ -47,8 +47,8 @@ export interface ExploreAdBlockerDeps {
 	loadEngine: () => Promise<AdBlockEngine | null>
 	// The library's cosmetic preload, as shipped next to the main bundle.
 	preloadPath: string
-	// Sign-in and account hosts: never blocked, never filtered.
-	signInHosts: readonly HostRule[]
+	// Sign-in and account pages: never blocked, never filtered.
+	signInPages: readonly SignInPage[]
 	// Asked daily while blocking is on: a newer engine, or null to keep the
 	// one in use. Absent: no refresh (a fixed filter list).
 	refreshEngine?: () => Promise<AdBlockEngine | null>
@@ -144,12 +144,12 @@ export class ExploreAdBlocker {
 		// The engine is read per request: a refresh swaps it in place.
 		ses.webRequest.onBeforeRequest({urls: ['<all_urls>']}, (details, callback) => {
 			const current = this.hooked?.engine
-			if (!current || this.onSignInHost(details)) callback({})
+			if (!current || this.onSignInPage(details)) callback({})
 			else current.onBeforeRequest(details, callback)
 		})
 		ses.webRequest.onHeadersReceived({urls: ['<all_urls>']}, (details, callback) => {
 			const current = this.hooked?.engine
-			if (!current || this.onSignInHost(details)) callback({})
+			if (!current || this.onSignInPage(details)) callback({})
 			else current.onHeadersReceived(details, callback)
 		})
 		this.hooked = {session: ses, engine, preloadId}
@@ -235,7 +235,7 @@ export class ExploreAdBlocker {
 		}
 	}
 
-	// Fails closed: a page gone, or whose main frame is now on a sign-in host
+	// Fails closed: a page gone, or whose main frame is now on a sign-in page
 	// (the report came from the document it just left), takes no injection.
 	private canInject(page: WebContents): boolean {
 		try {
@@ -296,9 +296,9 @@ export class ExploreAdBlocker {
 		return hooked && event.sender.session === hooked.session ? hooked : null
 	}
 
-	// A request to a sign-in host, or one made by a sign-in page or frame (an
+	// A request to a sign-in page, or one made by a sign-in page or frame (an
 	// embedded sign-in widget included).
-	private onSignInHost(details: OnBeforeRequestListenerDetails | OnHeadersReceivedListenerDetails): boolean {
+	private onSignInPage(details: OnBeforeRequestListenerDetails | OnHeadersReceivedListenerDetails): boolean {
 		if (this.isSignInUrl(details.url)) return true
 		const page = details.webContents
 		if (page !== undefined && !page.isDestroyed() && this.isSignInUrl(page.getURL())) return true
@@ -312,7 +312,7 @@ export class ExploreAdBlocker {
 
 	private isSignInUrl(raw: string): boolean {
 		try {
-			return hostMatches(new URL(raw).hostname, this.deps.signInHosts)
+			return isSignInPage(new URL(raw), this.deps.signInPages)
 		} catch {
 			return false
 		}

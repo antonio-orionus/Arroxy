@@ -1,6 +1,6 @@
 # README pipeline
 
-How the public READMEs are generated, translated, and illustrated. The landing site (`orionus.dev/arroxy/`; the old `arroxy.orionus.dev` 301s there) lives in [antonio-orionus/arroxy-web](https://github.com/antonio-orionus/arroxy-web): change landing copy there, not here.
+How the public READMEs are generated, translated, and illustrated. The public site, arroxy.com, lives in the `arroxy-site` repo: change site copy there, not here. The old `arroxy-web` repo is archived.
 
 | Source | Generates | Command |
 | --- | --- | --- |
@@ -26,7 +26,7 @@ Never hardcode the locale list or count in code, docs or memory. Read the canoni
 | Renderer + main process (i18n) | `SUPPORTED_LANGS` in [`src/shared/schemas.ts`](../src/shared/schemas.ts) | `SupportedLang` (re-exported from [`src/shared/i18n/types.ts`](../src/shared/i18n/types.ts)) |
 | README build | `LOCALES` in [`readme-src/strings.mjs`](../readme-src/strings.mjs) | — |
 
-Both stay in lockstep with the landing site's locale list in `arroxy-web`. `en` is the reference: the build script and the `WidenStrings<EnTranslation>` type diff every other locale against it.
+Both stay in lockstep with each other. The site (`arroxy-site`) has its own, shorter language list and does not constrain them. `en` is the reference: the build script and the `WidenStrings<EnTranslation>` type diff every other locale against it.
 
 ## Screenshots
 

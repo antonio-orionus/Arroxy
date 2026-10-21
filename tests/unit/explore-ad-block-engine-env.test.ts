@@ -23,7 +23,7 @@ describe('loading the ad blocker library', () => {
 		Reflect.deleteProperty(process.env, FLAG)
 		const {loadFilterListEngine} = await import('@main/services/explore/exploreAdBlockEngine.js')
 
-		await loadFilterListEngine('||ads.example^')
+		await loadFilterListEngine('||ads.example^', [])
 
 		expect(process.env[FLAG]).toBeUndefined()
 	})

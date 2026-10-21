@@ -5,6 +5,7 @@ import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPref
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
+import {validateFilenameTemplate, type FilenameTemplateFailure} from './filenameTemplate.js'
 
 const BUILTIN_TIMESTAMP = '2026-06-07T00:00:00.000Z'
 const BUILTIN_PROFILE_EMBED = {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false} as const
@@ -279,6 +280,15 @@ export function resolveFilenameTemplate(profile: DownloadProfile | undefined, gl
 	// which `??` would not do — hence the explicit length check.
 	const trimmed = globalTemplate?.trim() ?? ''
 	return trimmed.length > 0 ? trimmed : DEFAULTS.filenameTemplate
+}
+
+// Why the profile's own filename template is unusable, or null when it is fine
+// or the profile inherits the global one. A profile kept with such a template
+// would fail every download it starts.
+export function downloadProfileFilenameFailure(profile: Pick<DownloadProfile, 'filename'>): FilenameTemplateFailure | null {
+	if (profile.filename.kind !== 'custom') return null
+	const validation = validateFilenameTemplate(profile.filename.template)
+	return validation.ok ? null : validation
 }
 
 export function downloadProfileLabel(profile: DownloadProfile): string {

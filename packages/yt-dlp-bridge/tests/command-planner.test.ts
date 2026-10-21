@@ -49,7 +49,7 @@ describe('planWorkflow — media', () => {
 		expect(plan.args).toContain('--http-chunk-size')
 		expect(adjacent(plan.args, '-f', '137+140')).toBe(true)
 		expect(plan.cwd).toBe('/out')
-		expect(adjacent(plan.args, '--paths', 'temp:.tmp/job')).toBe(true)
+		expect(adjacent(plan.args, '--paths', 'temp:./.tmp/job/')).toBe(true)
 		expect(adjacent(plan.args, '-o', 'infojson:.tmp/job/_arroxy')).toBe(true)
 		expect(plan.args.at(-1)).toBe(URL)
 		expect(plan.facts.isMediaDownload).toBe(true)
@@ -58,7 +58,7 @@ describe('planWorkflow — media', () => {
 	it('plans load-info-json resume without passing the original URL', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp/job'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/out/.tmp/job/_arroxy.info.json'}})
 
-		expect(adjacent(plan.args, '--load-info-json', '.tmp/job/_arroxy.info.json')).toBe(true)
+		expect(adjacent(plan.args, '--load-info-json', './.tmp/job/_arroxy.info.json')).toBe(true)
 		expect(plan.args).not.toContain(URL)
 	})
 
@@ -303,7 +303,7 @@ describe('planWorkflow — template text in -o', () => {
 	it('escapes % in the info-json base name', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: DIR, tempDirectory: `${DIR}/.tmp`}, selection: {formatId: '18'}, resume: {infoJsonBaseName: '50% done'}})
 
-		expect(adjacent(plan.args, '--paths', 'temp:.tmp')).toBe(true)
+		expect(adjacent(plan.args, '--paths', 'temp:./.tmp/')).toBe(true)
 		expect(adjacent(plan.args, '-o', 'infojson:.tmp/50%(_absent|%)s done')).toBe(true)
 	})
 })
@@ -341,7 +341,7 @@ describe('planWorkflow — planned subtitle tracks', () => {
 	it('fetches from a listing info-json instead of the URL', () => {
 		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp'}, subtitles: {tracks: tracks(['en', false]), format: 'srt'}, loadInfoJsonPath: '/out/.tmp/listing.info.json'})
 
-		expect(adjacent(plan.args, '--load-info-json', '.tmp/listing.info.json')).toBe(true)
+		expect(adjacent(plan.args, '--load-info-json', './.tmp/listing.info.json')).toBe(true)
 		expect(plan.args).not.toContain(URL)
 	})
 

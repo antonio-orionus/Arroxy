@@ -26,6 +26,7 @@ import {ExploreAdBlocker} from '@main/services/explore/ExploreAdBlocker.js'
 import {loadFilterListEngine, loadPrebuiltEngine, refreshPrebuiltEngine} from '@main/services/explore/exploreAdBlockEngine.js'
 import {EXPLORE_ADBLOCK_PRELOAD_FILE} from '@main/services/explore/exploreAdBlockPreload.js'
 import {siteById} from '@shared/sites/index.js'
+import {EXPLORE_SIGN_IN_PAGES} from '@shared/sites/signInPages.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {QueueService} from '@main/services/QueueService.js'
@@ -422,13 +423,15 @@ if (hasSingleInstanceLock) {
 
 		// Off until the user turns it on (isExploreAdBlockOn); nothing is loaded or fetched before then.
 		const {exploreAdBlockFilters} = e2eMode
-		const prebuiltLists = {session: exploreSession, cachePath: path.join(app.getPath('userData'), 'explore-adblock', 'engine.bin')}
+		const youtubeExplore = siteById('youtube').explore
+		const scriptletFreeDomains = youtubeExplore?.scriptletFreeDomains ?? []
+		const prebuiltLists = {session: exploreSession, cachePath: path.join(app.getPath('userData'), 'explore-adblock', 'engine.bin'), scriptletFreeDomains}
 		const exploreAdBlocker = new ExploreAdBlocker({
 			session: () => exploreSession.getSession(),
 			preloadPath: path.join(import.meta.dirname, EXPLORE_ADBLOCK_PRELOAD_FILE),
-			signInHosts: siteById('youtube').explore?.signInHosts ?? [],
+			signInPages: EXPLORE_SIGN_IN_PAGES,
 			// The E2E harness's fixed filter list is never refreshed.
-			...(exploreAdBlockFilters === undefined ? {loadEngine: () => loadPrebuiltEngine(prebuiltLists), refreshEngine: () => refreshPrebuiltEngine(prebuiltLists)} : {loadEngine: () => loadFilterListEngine(exploreAdBlockFilters)})
+			...(exploreAdBlockFilters === undefined ? {loadEngine: () => loadPrebuiltEngine(prebuiltLists), refreshEngine: () => refreshPrebuiltEngine(prebuiltLists)} : {loadEngine: () => loadFilterListEngine(exploreAdBlockFilters, scriptletFreeDomains)})
 		})
 		// Created lazily on first show; state changes reach the renderer through the event bridge.
 		const exploreEvents = new ExploreEventBridge(mainWindow)

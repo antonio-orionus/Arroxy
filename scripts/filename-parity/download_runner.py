@@ -25,7 +25,8 @@ def record(event, args):
     if event == 'open':
         path, mode, flags = args
         writes = any(c in mode for c in 'wax+') if isinstance(mode, str) else bool(flags & WRITE_FLAGS)
-        if isinstance(path, str) and writes:
+        # The null device takes the output of yt-dlp's own subprocess probes.
+        if isinstance(path, str) and writes and path != os.devnull:
             written.append(os.path.abspath(path))
     elif event == 'os.rename' and isinstance(args[1], str):
         written.append(os.path.abspath(args[1]))

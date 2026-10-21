@@ -23,11 +23,14 @@ describe('translation completeness at release', () => {
 		expect(qualityGateRuns()).toContain('bun run check:i18n:complete')
 	})
 
-	it('is checked by the release script before it tags, for stable and beta alike', () => {
+	it('is checked by the release script on the commit it tags, for stable and beta alike', () => {
 		const script = readFileSync('scripts/release.sh', 'utf8')
 		const preflight = script.indexOf('check:i18n:complete')
 		expect(preflight).toBeGreaterThan(-1)
 		expect(preflight).toBeLessThan(script.indexOf('git tag -a'))
+		// After the release commit is resolved, outside the stable-only block, against that commit's tree.
+		expect(preflight).toBeGreaterThan(script.indexOf('release-gate.ts" checks'))
+		expect(script).toContain('git worktree add --quiet --detach "$GATE_DIR" "$TARGET"')
 		expect(script).toContain('run the i18n sync first')
 		expect(script).not.toMatch(/check:i18n:complete[^\n]*>\s*\/dev\/null/)
 	})

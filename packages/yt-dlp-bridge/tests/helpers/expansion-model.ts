@@ -53,3 +53,13 @@ export function ytDlpExpandTemplate(template: string, platform: 'posix' | 'nt', 
 export function fillLiteralFields(template: string): string {
 	return template.replace(/%%|%\(_absent\|([^)]*)\)s/g, (whole, fallback: string | undefined) => (whole === '%%' ? '%' : (fallback ?? '')))
 }
+
+// What yt-dlp does to a `--paths` value: strip, then expand_path, with no
+// escape. Other path flags (`--load-info-json`, `--download-archive`) get the
+// same expand_path without the strip; a value this leaves alone is safe there
+// too.
+export function ytDlpExpandPath(value: string, platform: 'posix' | 'nt', env: Env): string {
+	const home = platform === 'nt' ? 'C:\\Users\\model' : '/home/model'
+	const user = expandUser(value.trim(), home)
+	return platform === 'nt' ? ntExpandVars(user, env) : posixExpandVars(user, env)
+}
