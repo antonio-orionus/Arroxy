@@ -14,7 +14,10 @@ Rows reach the queue through two commands, `add` and `replaceProbing`, in
 `src/main/services/QueueService.ts`, which admits, dedupes and commits them.
 Link intake (`src/main/intake/IntakeService.ts`) issues them in main for the
 background single-link path: the placeholder row, then the swap for the
-prepared rows. The renderer issues them over IPC (`queue.cmd.add`,
+prepared rows. The global hotkey reaches intake in main too
+(`src/main/intake/HotkeyIntake.ts`) and never goes through the renderer; its
+outcomes become hotkey notifications and are never sent on `intake:event`.
+The renderer issues them over IPC (`queue.cmd.add`,
 `queue.cmd.replaceProbing`) only from
 `src/renderer/src/store/wizard/queueSubmissionAdapter.ts` (wizard, bulk quick
 run, playlist cap dialog, a needs-choice row's review). It reaches intake
@@ -83,7 +86,7 @@ picker edge sets the active profile that Quick Download uses.
 | QBTN, PICK | Quick Download with the active profile; the arrow switches it | active profile | `DownloadProfilesHome`, `systemSlice.setActiveDownloadProfile` |
 | EXD, EXW | Explore's Download button (quick) and wand (`submitUrl('explore')`, returns to Explore) | active profile / wizard | `ExploreTab`, `probeOrchestrator` |
 | EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |
-| HK | Hotkey chord, tray item, or Settings test press; a mixed URL is forced to its video | active profile | `HotkeyService`, `hotkeyTrigger.ts`, `src/shared/intake/urlIntentPolicy.ts` |
+| HK | Hotkey chord, tray item, or Settings test press, run in main; a mixed URL is forced to its video. Acknowledged at once (queued, or why not), then one follow-up only when the link fails, needs a choice or adds nothing; both keyed by the intake id, as a toast on a focused window or an OS notification | the window's active profile, else main's | `HotkeyService`, `HotkeyIntake`, `src/shared/intake/hotkeyIntake.ts`, `hotkeyFeedback.ts` |
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks video-or-list for mixed URLs | — | `quickDownloadSlice.quickDownload` |
 | PLC → SWAP | In main: places a placeholder row that stores the active profile and the window's folder (`pinnedProfile`) and who took it in (`origin`), probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `IntakeService`, `src/shared/intake/probeResolution.ts` |
 | NC, PE | Rows that need the user: All / first N / Review; Retry / cookies / sign in. All, first N and Retry run in main; the probe a needs-choice row asked about is kept there (bounded) for first N and the review | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice`, `IntakeService` |
@@ -136,7 +139,8 @@ Five sources feed jobs, and which one applies depends on the path:
    a placeholder row at intake, so switching profiles later, a window
    reload or a restart doesn't change queued work. A row saved before rows
    stored it prepares with the active profile. Main learns the wizard's
-   folder and the screen's HDR from the window (`intake.cmd.setWindowContext`).
+   folder, the screen's HDR and the active profile the window shows from the
+   window (`intake.cmd.setWindowContext`); the hotkey pins that profile.
 3. **Per-item profiles:** multi-profile playlist mode.
 4. **Profile pick, then wizard edits (single video):** the active profile
    resolved against the probe (`resolveProfileSelection`,
