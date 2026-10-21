@@ -31,6 +31,16 @@ async function importBlocker(): Promise<Blocker> {
 export interface PrebuiltEngineDeps {
 	session: Pick<ExploreSessionService, 'getSession' | 'whenReady'>
 	cachePath: string
+	scriptletFreeDomains: readonly string[]
+}
+
+// No scriptlet runs on these domains or their subdomains; their cosmetic and
+// network filters still apply. Added to every engine as it is had, never to
+// the cache, so the cache stays the library's own and a change here needs no
+// refetch. A `#@#+js()` exception turns off every scriptlet on its domains.
+function spareScriptlets<T extends ElectronBlocker>(engine: T, domains: readonly string[]): T {
+	if (domains.length > 0) engine.updateFromDiff({added: [`${domains.join(',')}#@#+js()`]})
+	return engine
 }
 
 // Through the Explore session, never Node's fetch: the user's proxy applies,
@@ -89,13 +99,13 @@ async function readStale(blocker: Blocker, path: string): Promise<ElectronBlocke
 export async function loadPrebuiltEngine(deps: PrebuiltEngineDeps): Promise<ElectronBlocker | null> {
 	const blocker = await importBlocker()
 	try {
-		return await blocker.fromPrebuiltAdsAndTracking(sessionFetch(deps.session), weeklyCache(deps.cachePath))
+		return spareScriptlets(await blocker.fromPrebuiltAdsAndTracking(sessionFetch(deps.session), weeklyCache(deps.cachePath)), deps.scriptletFreeDomains)
 	} catch (err) {
 		const stale = await readStale(blocker, deps.cachePath)
 		const error = err instanceof Error ? err.message : String(err)
 		if (stale) logger.warn('explore ad blocker could not refresh its filter lists; using the cached ones', {error})
 		else logger.warn('explore ad blocker unavailable: its filter lists could not be fetched and none are cached', {error})
-		return stale
+		return stale && spareScriptlets(stale, deps.scriptletFreeDomains)
 	}
 }
 
@@ -107,7 +117,7 @@ export async function refreshPrebuiltEngine(deps: PrebuiltEngineDeps): Promise<E
 	const cache = weeklyCache(deps.cachePath)
 	try {
 		// Due by now, so the cache read is skipped: fetch, then write.
-		return await blocker.fromPrebuiltAdsAndTracking(sessionFetch(deps.session), {...cache, read: () => Promise.reject(new Error('refreshing'))})
+		return spareScriptlets(await blocker.fromPrebuiltAdsAndTracking(sessionFetch(deps.session), {...cache, read: () => Promise.reject(new Error('refreshing'))}), deps.scriptletFreeDomains)
 	} catch (err) {
 		logger.warn('explore ad blocker could not refresh its filter lists; keeping the ones in use', {error: err instanceof Error ? err.message : String(err)})
 		return null
@@ -115,6 +125,6 @@ export async function refreshPrebuiltEngine(deps: PrebuiltEngineDeps): Promise<E
 }
 
 // An engine from a filter list's text, with no network: the E2E harness's seed.
-export async function loadFilterListEngine(filters: string): Promise<ElectronBlocker> {
-	return (await importBlocker()).parse(filters)
+export async function loadFilterListEngine(filters: string, scriptletFreeDomains: readonly string[]): Promise<ElectronBlocker> {
+	return spareScriptlets((await importBlocker()).parse(filters), scriptletFreeDomains)
 }

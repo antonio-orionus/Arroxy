@@ -1,10 +1,10 @@
 #!/usr/bin/env bun
 import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join, relative} from 'node:path'
 import {spawnSync, type SpawnSyncReturns} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
-import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, normalizeCatalog, parseCatalog, type CatalogIssue, type StringLeaf, validateLocaleCatalog} from './i18n-catalog-core.js'
+import {buildLocaleCatalog, buildSourceCatalog, canonicalLocaleJson, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, normalizeCatalog, parseCatalog, serializeLocaleTree, type CatalogIssue, type StringLeaf, validateLocaleCatalog} from './i18n-catalog-core.js'
 
 type JsonValue = string | {[key: string]: JsonValue}
 interface JsonObject {
@@ -88,14 +88,18 @@ function syncCatalogs(): void {
 	for (const lang of NON_EN_LANGS) runMsgmerge(lang)
 }
 
-function formatJson(value: JsonObject): string {
-	return `${JSON.stringify(value, null, '\t')}\n`
-}
-
-function formatRuntimeLocaleJson(): void {
-	const result = spawnSync(process.execPath, ['x', 'vp', 'fmt', ...NON_EN_LANGS.map(localeJsonPath)], {stdio: 'inherit'})
-	if (result.error) throw new Error(`Failed to format runtime locale JSON. (${result.error.message})`)
-	if (result.status !== 0) throw new Error(`vp fmt failed for runtime locale JSON with status ${result.status ?? 'unknown'}.`)
+/** Locale files whose text is not canonical; with `writeFiles`, rewrites them so they are. */
+function canonicalizeLocaleFiles({writeFiles}: {writeFiles: boolean}): string[] {
+	const stale: string[] = []
+	for (const lang of SUPPORTED_LANGS) {
+		const path = localeJsonPath(lang)
+		const text = readFileSync(path, 'utf8')
+		const canonical = canonicalLocaleJson(text)
+		if (text === canonical) continue
+		stale.push(relative(process.cwd(), path))
+		if (writeFiles) write(path, canonical)
+	}
+	return stale
 }
 
 function deepEqual(a: unknown, b: unknown): boolean {
@@ -133,7 +137,7 @@ function compileRuntimeLocales({writeFiles}: {writeFiles: boolean}): CatalogIssu
 		if (localeIssues.length > 0) continue
 
 		const compiled = compileLocaleTree(leaves, catalog)
-		if (writeFiles) write(localeJsonPath(lang), formatJson(compiled))
+		if (writeFiles) write(localeJsonPath(lang), serializeLocaleTree(compiled))
 	}
 
 	return issues
@@ -146,6 +150,7 @@ function checkCatalogs(): number {
 	const issues: string[] = []
 
 	if (existingPot !== expectedPot) issues.push(`POT is stale: run bun run i18n:sync`)
+	for (const path of canonicalizeLocaleFiles({writeFiles: false})) issues.push(`${path}: keys must be sorted, one per line: run bun run i18n:format`)
 
 	const catalogIssues = compileRuntimeLocales({writeFiles: false})
 	for (const issue of catalogIssues) issues.push(formatIssue(issue))
@@ -174,7 +179,7 @@ function formatIssue(issue: CatalogIssue): string {
 }
 
 function usage(): never {
-	console.error(`usage: bun scripts/i18n-catalog.ts <extract|bootstrap|sync|compile|check>`)
+	console.error(`usage: bun scripts/i18n-catalog.ts <extract|bootstrap|sync|compile|format|check>`)
 	process.exit(2)
 }
 
@@ -200,7 +205,10 @@ switch (command) {
 			for (const issue of issues) console.error(formatIssue(issue))
 			process.exit(1)
 		}
-		formatRuntimeLocaleJson()
+		break
+	}
+	case 'format': {
+		for (const path of canonicalizeLocaleFiles({writeFiles: true})) console.log(`formatted ${path}`)
 		break
 	}
 	case 'check': {

@@ -7,7 +7,7 @@ Internal engineering docs — feature designs, architecture notes, system maps.
 - `readme-src/` — README source of truth (English plus every supported locale; see [readme-pipeline.md](readme-pipeline.md)).
 - `AGENTS.md` (with `CLAUDE.md` as a symlink) — agent operating notes (tracked, but keep detail here and link out).
 
-Public landing site (`orionus.dev/arroxy/`) lives in a separate repo: [`antonio-orionus/arroxy-web`](https://github.com/antonio-orionus/arroxy-web). Don't put landing content here.
+The public site (arroxy.com) lives in a separate repo, `arroxy-site`. Don't put site content here. The old `arroxy-web` repo is archived.
 
 ## Convention
 

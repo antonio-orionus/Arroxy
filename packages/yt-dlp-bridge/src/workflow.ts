@@ -2,7 +2,7 @@ import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
 import {audioConversionSourceSelector} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
-import {resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
+import {callerPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {callerMediaOutputArgs, callerOutputTemplate, callerSubtitlesOutputArgs, loadInfoJsonArgs, managedDownloadArchiveArgs, managedOutputArgs, type CallerOutput} from './output-target.js'
 import {YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE} from './progress.js'
 import {redactArgs} from './redaction.js'
@@ -246,7 +246,7 @@ function planProbeWorkflow(input: ProbeWorkflowInput, options: WorkflowPlanOptio
 	const scopeArgs = scopePlan ? [scopePlan.ytDlpFlag, scopePlan.ytDlpValue] : []
 	const extractorArgs: string[] = []
 	pushJoined(extractorArgs, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
-	const args = [...baseArgs(options), '--dump-single-json', '--no-quiet', '--flat-playlist', ...modeFlag, ...scopeArgs, ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
+	const args = [...baseArgs(options, undefined), '--dump-single-json', '--no-quiet', '--flat-playlist', ...modeFlag, ...scopeArgs, ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
 	const facts: WorkflowPlanFacts = {isMediaDownload: false, dependencies: dependencyFacts(new Map([['yt-dlp', ['execute probe workflow']]]), new Map(), options.detectedDependencies), risks: [], sideEffects: []}
 	if (scopePlan) facts.playlistScope = scopePlan
 	return withFacts({kind: 'probe', args, redactedArgs: [], facts})
@@ -254,7 +254,7 @@ function planProbeWorkflow(input: ProbeWorkflowInput, options: WorkflowPlanOptio
 
 function planInspectWorkflow(input: ManagedInspectWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
 	const normalized = normalizeInspect(input)
-	const args = [...managedBaseArgs(normalized, options)]
+	const args = [...managedBaseArgs(normalized, undefined, options)]
 	if (normalized.flatPlaylist) args.push('--flat-playlist')
 	if (normalized.inspect === 'metadata') args.push('--dump-json')
 	else if (normalized.inspect === 'single-json') args.push('--dump-single-json')
@@ -266,7 +266,7 @@ function planInspectWorkflow(input: ManagedInspectWorkflowInput, options: Workfl
 function planSubtitleListingWorkflow(input: SubtitleListingWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
 	const extractorArgs: string[] = []
 	pushJoined(extractorArgs, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
-	const args = [...baseArgs(options), '--dump-single-json', '--no-playlist', '--write-subs', '--write-auto-subs', '--sub-langs', 'all', ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
+	const args = [...baseArgs(options, undefined), '--dump-single-json', '--no-playlist', '--write-subs', '--write-auto-subs', '--sub-langs', 'all', ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
 	return withFacts({kind: 'subtitle-listing', args, redactedArgs: [], facts: {isMediaDownload: false, dependencies: dependencyFacts(new Map([['yt-dlp', ['list subtitle tracks']]]), new Map(), options.detectedDependencies), risks: [], sideEffects: []}})
 }
 
@@ -290,7 +290,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 	const effectiveSubtitleFormat = resolveEffectiveSubtitleFormat({format: input.subtitles.format, auto: selection.auto})
 	const template = callerOutputTemplate(input.output)
 	const args = [
-		...baseArgs(options),
+		...baseArgs(options, input.output.directory),
 		...progressTemplateArgs(),
 		'--skip-download',
 		'--no-playlist',
@@ -305,7 +305,7 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 		'--convert-subs',
 		effectiveSubtitleFormat,
 		...callerSubtitlesOutputArgs(input.output),
-		...loadInfoJsonArgs(input.output, input.loadInfoJsonPath),
+		...loadInfoJsonArgs(input.output, input.loadInfoJsonPath, 'loadInfoJsonPath'),
 		...(input.loadInfoJsonPath ? [] : [input.url])
 	]
 	return withFacts({
@@ -326,9 +326,9 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 
 function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
 	const skipDownload = input.selection?.skipDownload === true
-	const args: string[] = [...baseArgs(options), ...progressTemplateArgs(), ...requestedFormatsArgs(), '--no-quiet', '--no-playlist']
+	const args: string[] = [...baseArgs(options, input.output.directory), ...progressTemplateArgs(), ...requestedFormatsArgs(), '--no-quiet', '--no-playlist']
 	const loadInfoJsonPath = input.resume?.loadInfoJsonPath
-	args.push(...loadInfoJsonArgs(input.output, loadInfoJsonPath))
+	args.push(...loadInfoJsonArgs(input.output, loadInfoJsonPath, 'resume.loadInfoJsonPath'))
 	// An explicit caller policy always wins; otherwise the budget follows whether
 	// this attempt replays a pinned info-json plan (see the two policies above).
 	const retryPolicy = options.downloadRetryPolicy ?? (loadInfoJsonPath ? INFO_JSON_DOWNLOAD_RETRY_POLICY : DEFAULT_DOWNLOAD_RETRY_POLICY)
@@ -449,7 +449,7 @@ function planExpertWorkflow(input: ExpertWorkflowInput, options: WorkflowPlanOpt
 }
 
 function buildManagedDownloadArgs(input: NormalizedManagedDownloadInput, policy: ResolvedOutputPolicy, config: ServerConfig, options: WorkflowPlanOptions): string[] {
-	const args = managedBaseArgs(input, options, config)
+	const args = managedBaseArgs(input, policy.outputRoot, options, config)
 
 	args.push(...managedOutputArgs(policy))
 	args.push(policy.allowOverwrite ? '--force-overwrites' : '--no-overwrites')
@@ -480,11 +480,12 @@ function buildManagedDownloadArgs(input: NormalizedManagedDownloadInput, policy:
 	return args
 }
 
-function managedBaseArgs(input: Pick<NormalizedManagedDownloadInput | NormalizedInspectInput, 'auth' | 'network'>, options: WorkflowPlanOptions, config: ServerConfig = options.config ?? loadConfig()): string[] {
-	const args = baseArgs(options)
+// runCwd: the plan's working directory, when it has its own (callerPath).
+function managedBaseArgs(input: Pick<NormalizedManagedDownloadInput | NormalizedInspectInput, 'auth' | 'network'>, runCwd: string | undefined, options: WorkflowPlanOptions, config: ServerConfig = options.config ?? loadConfig()): string[] {
+	const args = baseArgs(options, runCwd)
 	args.push('--no-warnings')
 	appendNetworkArgs(args, input.network)
-	appendAuthArgs(args, input.auth, config)
+	appendAuthArgs(args, input.auth, runCwd, config)
 	return args
 }
 
@@ -499,13 +500,14 @@ function requestedFormatsArgs(): string[] {
 	return ['--print', `before_dl:${YT_DLP_REQUESTED_FORMATS_TEMPLATE}`]
 }
 
-function baseArgs(options: WorkflowPlanOptions): string[] {
+function baseArgs(options: WorkflowPlanOptions, runCwd: string | undefined): string[] {
 	const args: string[] = []
 	if (options.configFiles?.mode === 'disabled') args.push('--ignore-config')
 	if (options.plugins?.mode === 'disabled') args.push('--no-plugin-dirs')
 	if (options.plugins?.mode === 'explicit') {
 		args.push('--no-plugin-dirs')
-		for (const dir of options.plugins.dirs ?? []) args.push('--plugin-dirs', dir)
+		// `default` is yt-dlp's name for its own plugin folders, not a path.
+		for (const dir of options.plugins.dirs ?? []) args.push('--plugin-dirs', dir === 'default' ? dir : callerPath(dir, runCwd, 'literal', 'plugins.dirs'))
 	}
 	return args
 }
@@ -521,7 +523,7 @@ function appendNetworkArgs(args: string[], network: NormalizedInspectInput['netw
 	if (network.forceIpv6) args.push('--force-ipv6')
 }
 
-function appendAuthArgs(args: string[], auth: NormalizedInspectInput['auth'], config: ServerConfig): void {
+function appendAuthArgs(args: string[], auth: NormalizedInspectInput['auth'], runCwd: string | undefined, config: ServerConfig): void {
 	push(args, '--username', auth.username)
 	push(args, '--password', auth.password)
 	push(args, '--twofactor', auth.twofactor)
@@ -531,10 +533,11 @@ function appendAuthArgs(args: string[], auth: NormalizedInspectInput['auth'], co
 	}
 	if (auth.netrcLocation) requireConfigFilePolicy('auth.netrcLocation', config)
 	if (auth.netrcCmd) requireConfigFilePolicy('auth.netrcCmd', config)
-	push(args, '--netrc-location', auth.netrcLocation)
+	push(args, '--netrc-location', auth.netrcLocation ? callerPath(auth.netrcLocation, runCwd, 'expand-user', 'auth.netrcLocation') : undefined)
 	push(args, '--netrc-cmd', auth.netrcCmd)
 	push(args, '--video-password', auth.videoPassword)
-	push(args, '--cookies', configuredOrAllowed(auth.cookiesFile, config.cookiesFile, 'auth.cookiesFile', config))
+	const cookiesFile = configuredOrAllowed(auth.cookiesFile, config.cookiesFile, 'auth.cookiesFile', config)
+	push(args, '--cookies', cookiesFile ? callerPath(cookiesFile, runCwd, 'expand-path', 'auth.cookiesFile') : undefined)
 	push(args, '--cookies-from-browser', configuredOrAllowed(auth.cookiesFromBrowser, config.cookiesFromBrowser, 'auth.cookiesFromBrowser', config))
 }
 

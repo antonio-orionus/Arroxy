@@ -1,926 +1,305 @@
 {
-	"common": {"back": "Tilbage", "cancel": "Annuller", "continue": "Fortsæt", "loading": "Indlæser", "retry": "Prøv igen", "dismiss": "Afvis", "startOver": "Start forfra", "close": "Luk"},
+	"about": {
+		"button": "Om",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · af Antonio Orionus",
+		"openTitle": "Om Arroxy",
+		"tagline": "Hurtig og venlig downloader til YouTube og over 2000 andre websteder.",
+		"thirdPartyNotices": "Vis tredjepartsmeddelelser",
+		"websiteLink": "Websted"
+	},
+	"aiUpscaled": {
+		"allow": "Tillad",
+		"description": "YouTube tilbyder nogle gamle videoer i størrelser, som er lavet med AI. Spring over beholder de originale streams; du kan stadig vælge en opskaleret stream manuelt.",
+		"label": "AI-opskalerede streams",
+		"skip": "Spring over"
+	},
 	"app": {
 		"feedback": "Feedback",
+		"feedbackNudge": "Kan du lide Arroxy? Jeg vil meget gerne høre fra dig! 💬",
 		"logs": "Logfiler",
 		"saveDiagnostics": "Gem diagnosticeringsfil",
 		"saveDiagnosticsDescription": "Samler dine logfiler og appoplysninger i én fil i Downloads, klar til at vedhæfte til et GitHub-issue. Navnet på din brugermappe fjernes; videolinks og titler bevares.",
-		"feedbackNudge": "Kan du lide Arroxy? Jeg vil meget gerne høre fra dig! 💬",
-		"zoomIn": "Zoom ind",
-		"zoomOut": "Zoom ud",
+		"styleHint": "Nyt: vælg Aurora eller Minimal her",
 		"theme": "Tema",
-		"styleHint": "Nyt: vælg Aurora eller Minimal her"
+		"zoomIn": "Zoom ind",
+		"zoomOut": "Zoom ud"
 	},
-	"about": {"button": "Om", "openTitle": "Om Arroxy", "tagline": "Hurtig og venlig downloader til YouTube og over 2000 andre websteder.", "websiteLink": "Websted", "githubLink": "GitHub", "licenseLine": "GPLv3 · af Antonio Orionus", "thirdPartyNotices": "Vis tredjepartsmeddelelser"},
-	"titleBar": {"close": "Luk", "minimize": "Minimer", "maximize": "Maksimer", "restore": "Gendan"},
-	"splash": {
-		"greeting": "Hej, velkommen tilbage!",
-		"warmup": "Klargør downloads…",
-		"verifying": "Kontrollerer {{binary}}…",
-		"verifyFirstCheck": "Første kontrol af denne version — den er langsom. Tager normalt omkring et minut.",
-		"cancel": "Problemer? Konfigurer manuelt",
-		"warmupFailedNoDiag": "Opsætningen mislykkedes. Åbn opsætningsloggen for at se detaljer.",
-		"setup": {
-			"title": {"firstRun": "Førstegangsopsætning", "media": "Opdaterer medieværktøjerne", "engine": "Opdaterer download-motoren"},
-			"stage": {"connecting": "Opretter forbindelse…", "downloadingBoth": "Downloader download-motoren og medieværktøjerne", "downloadingEngine": "Downloader download-motoren", "downloadingMedia": "Downloader medieværktøjerne", "unpacking": "Udpakker medieværktøjerne", "checking": "Kontrollerer, at alt virker"},
-			"bytes": "{{done}} af {{total}}",
-			"left": {"underMinute": "mindre end et minut tilbage", "minutes_one": "ca. {{count}} min. tilbage", "minutes_other": "ca. {{count}} min. tilbage"},
-			"note": {"firstRun": "Det sker kun én gang. Arroxy beholder disse værktøjer og opdaterer dem selv.", "media": "Det sker kun én gang. Arroxy beholder dem til fremtidige opdateringer.", "engine": "Sørger for, at downloads bliver ved med at virke, når websteder ændrer sig."}
+	"common": {
+		"back": "Tilbage",
+		"cancel": "Annuller",
+		"close": "Luk",
+		"continue": "Fortsæt",
+		"dismiss": "Afvis",
+		"loading": "Indlæser",
+		"retry": "Prøv igen",
+		"startOver": "Start forfra"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy kører videre og færdiggør aktive downloads. Du kan ændre dette senere under Avancerede indstillinger.",
+			"hide": "Skjul i systembakken",
+			"message": "Skal Arroxy skjules i systembakken, når du lukker?",
+			"quit": "Afslut",
+			"remember": "Spørg ikke igen"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Annuller downloads og afslut",
+			"detail": "Sæt på pause for at fortsætte senere, eller annuller for at kassere fremskridtet.",
+			"keep": "Fortsæt download",
+			"message_one": "{{count}} download i gang",
+			"message_other": "{{count}} downloads i gang",
+			"pause": "Sæt downloads på pause og afslut"
+		},
+		"rendererCrashed": {
+			"detail": "Renderingsprocessen er gået ned ({{reason}}). Genindlæs for at prøve igen.",
+			"message": "Arroxy stødte på et problem",
+			"quit": "Afslut",
+			"reload": "Genindlæs"
 		}
 	},
-	"repair": {
-		"title": "Opsætningen har brug for din hjælp",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Download-motor", "media": "Medieværktøjer"},
-		"causes": {
-			"downloadFailed": {"title": "Det, Arroxy har brug for, kunne ikke downloades", "body": "Tjek din internetforbindelse, og prøv igen."},
-			"extractFailed": {"title": "Et download ankom beskadiget", "body": "Prøv igen for at downloade det på ny."},
-			"hashFailed": {"title": "Et download matchede ikke sin kontrolsum", "body": "Prøv igen for at downloade det på ny."},
-			"spawnFailed": {"title": "Et værktøj mangler eller vil ikke starte", "body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en fungerende kopi nedenfor."},
-			"permissionDenied": {"title": "Dit system tillader ikke, at Arroxy kører et værktøj", "body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en kopi, du har tillid til, nedenfor."},
-			"blockedOrQuarantined": {"title": "Dit antivirusprogram blokerede et værktøj", "body": "Tillad Arroxy i dit antivirusprogram eller SmartScreen, og prøv derefter igen."},
-			"badExitCode": {"title": "Et værktøj fungerer ikke korrekt", "body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en fungerende kopi nedenfor."},
-			"timeout": {"title": "Et værktøj svarede for langsomt", "body": "Det skyldes ofte en sikkerhedsscanning ved første kørsel. Prøv igen."},
-			"pairIncomplete": {"title": "FFmpeg og FFprobe skal angives sammen", "body": "Vælg begge nedenfor, eller nulstil dem til standard."},
-			"unknown": {"title": "Noget gik galt under opsætningen", "body": "Prøv igen, eller åbn opsætningsloggen for at se detaljer."}
-		},
-		"installing": {"homebrew": "Installerer med Homebrew… Det kan tage et par minutter.", "winget": "Installerer med WinGet… Det kan tage et par minutter."},
-		"stopped": {"title": "Opsætningen stoppede", "body": "Prøv igen, eller peg Arroxy mod værktøjer, du allerede har, nedenfor."},
-		"manual": {"toggle": "Konfigurer manuelt", "intro": "Peg Arroxy mod kopier, du allerede har, eller installer dem på anden måde.", "linuxHint": "Du kan også installere yt-dlp og ffmpeg med din pakkehåndtering og derefter klikke på Prøv igen."},
-		"actions": {
-			"chooseExecutable": "Vælg programfil",
-			"installWithHomebrew": "Installer med Homebrew",
-			"installWithWinget": "Installer med WinGet",
-			"resetToDefault": "Nulstil til standard",
-			"retrySetup": "Prøv igen",
-			"cancel": "Annuller",
-			"openDependencyFolder": "Åbn mappen med afhængigheder",
-			"viewSetupLog": "Vis opsætningslog"
-		}
-	},
-	"theme": {"light": "Lys tilstand", "dark": "Mørk tilstand", "system": "Systemstandard"},
-	"language": {"label": "Sprog"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Afspilningsliste",
-			"playlistItemsGeneric": "Videoer",
-			"playlistPresets": "Kvalitet",
-			"playlistProfiles": "Profiler",
-			"formats": "Format",
-			"subtitles": "Undertekster",
-			"sponsorblock": "SponsorBlock",
-			"output": "Output",
-			"folder": "Gem",
-			"confirm": "Bekræft",
-			"review": "Gennemgang"
-		},
-		"playlistPresets": {"heading": "Vælg kvalitet til partiet", "subhead": "Hver video afgør det valgte niveau uafhængigt — afspilningslister med blandet indhold virker uden overraskelser.", "itemCount_one": "{{count}} element", "itemCount_other": "{{count}} elementer"},
-		"playlistProfiles": {
-			"heading": "Tildel downloadprofiler",
-			"selectedSummary": "{{selected}} af {{total}} valgt",
-			"assignTriggerEmpty": "Tildel profil",
-			"assignTrigger_one": "Tildel til {{count}} video",
-			"assignTrigger_other": "Tildel til {{count}} videoer",
-			"menuDescription_one": "Vælg profilen til denne video.",
-			"menuDescription_other": "Vælg profilen til disse {{count}} videoer.",
-			"editProfile": "Rediger {{name}}",
-			"filtersLabel": "Profilfiltre",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Varighed",
-			"empty": "Ingen elementer matcher dette filter"
-		},
-		"playlist": {
-			"heading": "Elementer i afspilningslisten",
-			"headingGeneric": "Videoer, der skal downloades",
-			"bulkHeading": "Bulk-URL'er",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} videoer",
-			"itemCountAudio_one": "{{count}} nummer",
-			"itemCountAudio_other": "{{count}} numre",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL'er",
-			"bulkMetadataResolving": "Henter videooplysninger… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Du behøver ikke vente — filer, der sættes i kø nu, får stadig deres rigtige navne, når de downloades.",
-			"bulkRowWaiting": "Venter",
-			"bulkRowResolving": "Henter oplysninger",
-			"bulkRowFailed": "Oplysninger utilgængelige",
-			"selectAll": "Vælg alle",
-			"selectNone": "Fravælg alle",
-			"sortLabel": "Sortér",
-			"sortApi": "Rækkefølge i afspilningslisten",
-			"sortUploadAsc": "Ældste først",
-			"sortUploadDesc": "Nyeste først",
-			"sortFetchingDates": "Henter uploaddatoer…",
-			"rangeFrom": "Fra",
-			"rangeTo": "Til",
-			"rangeApply": "Anvend interval",
-			"selectedCount_one": "{{count}} valgt",
-			"selectedCount_other": "{{count}} valgt",
-			"noSelection": "Vælg mindst én video for at fortsætte",
-			"loadingItems": "Henter afspilningsliste…",
-			"loadingItemsGeneric": "Henter videoer…",
-			"loadingPhasePages": "Scanner kanalsider",
-			"loadingPhaseItems": "Indsamler videoer",
-			"loadingPagesFound_one": "{{count}} side fundet",
-			"loadingPagesFound_other": "{{count}} sider fundet",
-			"loadingLimitHint": "Begrænset til de første {{count}} elementer",
-			"thumbnailAlt": "Miniature af video",
-			"durationUnknown": "live",
-			"syncChange": "Skift mappe…",
-			"syncApply": "Anvend synkronisering",
-			"syncScanning": "Kontrollerer mappe…",
-			"syncFoundTitle": "Allerede i mappen",
-			"syncFoundDesc": "{{n}} af disse videoer findes allerede i {{dir}}. Vil du synkronisere for kun at downloade de nye?",
-			"syncNoneTitle": "Intet downloadet endnu",
-			"syncNoneDesc": "Der blev ikke fundet nogen videoer fra denne afspilningsliste i {{dir}}.",
-			"syncNoneDescGeneric": "Der blev ikke fundet nogen videoer fra denne kilde i {{dir}}.",
-			"alreadyDownloaded": "Allerede downloadet",
-			"nestedPlaylistBadge": "Afspilningsliste",
-			"nestedPlaylistHint_one": "{{count}} af disse er en afspilningsliste, ikke en video — indsæt dens link for sig for at downloade den.",
-			"nestedPlaylistHint_other": "{{count}} af disse er afspilningslister, ikke videoer — indsæt deres links ét ad gangen for at downloade dem.",
-			"probeLimitAlertTitle": "Scanningen af afspilningslisten er begrænset",
-			"probeLimitAlertTitleGeneric": "Scanningen er begrænset",
-			"probeLimitAlertDesc": "Viser de første {{count}} elementer. Hæv indlæsningsgrænsen for at se flere.",
-			"multiProfileEntry": "Tildel profiler pr. element",
-			"multiProfileEntryTooltip": "Springer Kvalitet, SponsorBlock, Output og Gem over — tildel i stedet en downloadprofil pr. element",
-			"removeFromListCount_one": "Fjern {{count}} fra listen",
-			"removeFromListCount_other": "Fjern {{count}} fra listen",
-			"restore": "Gendan",
-			"removedCount_one": "{{count}} fjernet",
-			"removedCount_other": "{{count}} fjernet",
-			"allRemovedTitle": "Alle elementer blev fjernet",
-			"allRemovedDescription": "Gendan dem for at fortsætte."
-		},
-		"bulk": {
-			"title": "Bulk-URL'er",
-			"description": "Indsæt URL'er til videoer, afspilningslister, kanaler, søgninger eller lyd. Arroxy fjerner dubletter, før de sættes i kø.",
-			"textareaLabel": "URL-liste",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Klar",
-			"ignoredCount": "Ignoreret",
-			"emptyPreview": "Indsæt en eller flere URL'er for at få vist et eksempel på partiet.",
-			"needsAtLeastOne": "Tilføj mindst én understøttet URL for at fortsætte.",
-			"reject": {"duplicate": "Dublet"}
-		},
-		"tabsNavAria": "Navigation for downloadprofiler",
-		"profileSwitchRow": {"helpAria": "Hjælp til {{label}}"},
-		"mixedPrompt": {
-			"title": "Dette link har en afspilningsliste",
-			"body": "Vil du kun have den video, du klikkede på, eller vælge fra afspilningslisten? Du vælger bestemte videoer eller et interval i næste trin.",
-			"quickBody": "Download kun denne video, eller sæt hele afspilningslisten i kø med din aktive profil til Hurtig download.",
-			"singleVideo": "Kun denne",
-			"quickSingleVideo": "Download denne video",
-			"pickFromPlaylist": "Vælg fra afspilningsliste",
-			"quickWholePlaylist": "Download hele afspilningslisten",
-			"playlistLimit": "Analysegrænse for afspilningslister: {{count}} elementer",
-			"quickLimitDescription": "Maksimalt antal elementer, Arroxy scanner, før en afspilningsliste, en kanal eller et søgeresultat sættes i kø.",
-			"singleTooltip": "Indlæser kun denne video. Afspilningslisten, der hører til denne URL, ignoreres.",
-			"quickSingleTooltip": "Sætter ét download i kø og ignorerer afspilningslisten, der hører til denne URL.",
-			"playlistTooltip": "Indlæser afspilningslisten op til din analysegrænse, før udvælgelsen vises.",
-			"quickPlaylistTooltip": "Sætter alle indlæste elementer i afspilningslisten i kø med den aktive profil til Hurtig download. Hvis scanningen når din grænse, spørger Arroxy, før der sættes i kø."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Omfang af afspilningsliste",
-				"change": "Skift",
-				"summaryAppLimit": "Indlæs første elementer: {{count}}",
-				"summaryFirst": "Indlæs første elementer: {{count}}",
-				"summaryRange": "Indlæs elementer {{from}}-{{to}}",
-				"dialogTitle": "Omfang af afspilningsliste",
-				"dialogDescription": "Vælg, hvad Arroxy indlæser for denne afspilningsliste.",
-				"itemsLabel": "Elementer, der skal indlæses",
-				"appLimit": "Brug appens grænse: {{count}}",
-				"first": "Første",
-				"range": "Interval",
-				"to": "til",
-				"invalid": "Brug hele elementnumre fra 1 til {{max}}, hvor start ikke er højere end slut.",
-				"applyError": "Kunne ikke anvende det omfang af afspilningslisten: {{message}}",
-				"reset": "Nulstil",
-				"cancel": "Annuller",
-				"apply": "Anvend",
-				"applyReload": "Anvend og genindlæs",
-				"reloading": "Genindlæser...",
-				"emptyTitle": "Ingen videoer i det omfang"
-			},
-			"heading": "Download fra URL",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiler", "settings": "Indstillinger"},
-			"interactiveDownload": "Interaktiv download",
-			"fetchFormatsTooltip": "Trin-for-trin-guide. Vælg format, kvalitet og mere.",
-			"quickDownload": "Hurtig download",
-			"quickDownloadTooltip": "Downloader med: {{profileName}}",
-			"quickPreparing": "Klargør",
-			"quickQueued": "Føjet til køen",
-			"quickSingleOnly": "Indsæt en URL til en video, afspilningsliste, kanal eller søgning for at komme i gang.",
-			"quickProbeFailed": "Analysen mislykkedes",
-			"quickPrepareFailed": "Elementet i køen kunne ikke klargøres",
-			"quickBulkAllFailed": "Ingen af disse URL'er kunne klargøres",
-			"quickFailed": "Kunne ikke tilføje denne: {{error}}",
-			"quickPartialFailed_one": "Det, der virkede, er sat i kø. {{count}} URL kunne ikke klargøres.",
-			"quickPartialFailed_other": "Det, der virkede, er sat i kø. {{count}} URL'er kunne ikke klargøres.",
-			"profile": {
-				"destinationFallback": "Mål",
-				"switchAria": "Skift downloadprofil: {{profileName}}",
-				"switchTitle": "Skift downloadprofil",
-				"activeLabel": "Aktiv profil",
-				"editActive": "Rediger aktiv profil",
-				"changeGlobalDestination": "Skift globalt mål",
-				"destinationDetail": {"global": "Bruger globalt mål", "globalSubfolder": "Bruger globalt mål + profilens undermappe", "override": "Bruger tilsidesættelse for profil", "overrideSubfolder": "Bruger tilsidesættelse for profil + profilens undermappe"},
-				"summary": {"bestVideo": "bedste video", "bestAudio": "bedste lyd", "aacAudio": "AAC-lyd", "wavAudio": "WAV-lyd", "noAudio": "ingen lyd", "subtitlesOnly": "kun undertekster"},
-				"menuTitle": "Skift profil",
-				"menuDescription": "Skift den aktive profil til Hurtig download, Bulk-URL'er og afspilningslister.",
-				"newProfile": "Ny profil",
-				"manageProfiles": "Administrer profiler",
-				"panelTitle": "Downloadprofiler",
-				"panelDescription": "Opret, vælg, rediger eller fjern genbrugelige downloadopsætninger.",
-				"badgeCustom": "Brugerdefineret",
-				"badgeModified": "Ændret",
-				"badgeBuiltIn": "Indbygget",
-				"badgeDisabled": "Skjult",
-				"enableToggleAria": "Vis profil i vælgere: {{profileName}}",
-				"enableHint": "Skjulte profiler bliver her, men forsvinder fra alle profilvælgere.",
-				"reorderHint": "Træk en profil for at flytte den. Alle profilvælgere følger denne rækkefølge.",
-				"moveHandleAria": "Flyt {{profileName}}",
-				"movableProfile": "profil, der kan flyttes",
-				"moveInstructions": "Hvis du vil flytte en profil, skal du trykke på mellemrumstasten eller Enter, flytte den med piletasterne og derefter trykke på mellemrumstasten eller Enter for at placere den. Tryk på Esc for at annullere.",
-				"movePickedUp": "{{profileName}} blev samlet op. Den står på position {{position}} af {{count}}.",
-				"moveOver": "{{profileName}} er over position {{position}} af {{count}}.",
-				"moveDropped": "{{profileName}} blev placeret på position {{position}} af {{count}}.",
-				"moveCancelled": "Flytning annulleret. {{profileName}} bliver på position {{position}} af {{count}}.",
-				"lastEnabledHint": "Behold mindst én profil tilgængelig.",
-				"edit": "Rediger",
-				"remove": "Fjern",
-				"reset": "Nulstil"
-			},
-			"bulkButton": "Bulk-URL'er",
-			"bulkTooltip": "Tilføj og sæt flere URL'er i kø.",
-			"features": {
-				"heading": "Hvad Arroxy kan hente",
-				"youtube": {"heading": "YouTube", "video": "Videoer", "channel": "Kanaler", "playlist": "Afspilningslister", "short": "Shorts", "music": "Musik", "podcast": "Podcasts"},
-				"anySite": {"heading": "2000+ websteder", "video": "Videoer", "videoPlaylist": "Videoafspilningslister", "musicPlaylist": "Musikafspilningslister"},
-				"always": {"audioOnly": "Kun lyd", "subtitles": "Undertekster"}
-			},
-			"mascotIdle": "Smid et link, og lad Arroxy hente det ✨",
-			"mascotBusy": "Downloader i baggrunden… Jeg kan multitaske 😎",
-			"mascotPreparing": "{{quickDownload}} læser dette link og anvender {{profileName}}.",
-			"mascotQueued": "Køen håndterer dette download. Du kan indsætte et andet link, mens den arbejder.",
-			"mascotCollection": "Hurtig sætter indlæste elementer i kø med {{profileName}}. Med Interaktiv kan du først gennemse eller vælge elementer.",
-			"mascotMixed": "Dette link peger på én video i en samling. Arroxy spørger, hvilken du vil have, før den analyserer.",
-			"mascotSingle": "Hurtig starter ét download med {{profileName}}. Brug Interaktiv til engangsændringer.",
-			"advanced": "Avanceret",
-			"settings": {"inputHeading": "Input", "behaviorHeading": "Downloadadfærd", "behaviorDescription": "Global adfærd, der også påvirker profilstyrede downloads."},
-			"clearAria": "Ryd URL",
-			"clipboard": {
-				"toggle": "Overvåg udklipsholderen",
-				"toggleDescription": "Udfyld automatisk URL-feltet, når du kopierer et videolink.",
-				"autofilledLink": "Link tilføjet fra udklipsholderen",
-				"bulkHint": "Flere links kopieret — brug Bulk-URL'er for at tilføje dem",
-				"replacedLink": "Erstattet med det kopierede link",
-				"undo": "Fortryd",
-				"dialog": {"cancelButton": "Annuller"}
-			},
-			"hotkey": {
-				"sectionTitle": "Global genvejstast",
-				"sectionDescription": "Download det link, du kopierer, fra en hvilken som helst app uden at åbne Arroxy.",
-				"toggle": "Aktivér global genvejstast",
-				"toggleDescription": "Tryk på genvejen, mens et videolink ligger i udklipsholderen.",
-				"changeShortcut": "Skift genvej",
-				"recording": "Tryk på taster…",
-				"test": "Test",
-				"conflict": "Denne genvej bruges af en anden app — vælg en anden.",
-				"hintLabel": "Eller tryk",
-				"hintTooltip": "Kopiér et videolink et vilkårligt sted, tryk på denne genvej, og Arroxy sætter det i kø med din aktive profil — du behøver ikke skifte vindue.",
-				"hintTooltipSettings": "Skift eller slå den fra under Indstillinger.",
-				"reset": "Nulstil til standard"
-			},
-			"cookies": {
-				"sourceLabel": "Cookiekilde",
-				"sourceOff": "Fra",
-				"sourceFile": "Fil",
-				"sourceBrowser": "Browser",
-				"sourceExplore": "Login i Udforsk",
-				"recommended": "Anbefalet",
-				"exploreDescription": "Bruger kun dit login i Udforsk, når et download har brug for det.",
-				"exploreDisabled": "Fanen Udforsk er slået fra, så downloads bruger ikke dit login i Udforsk. Slå den til under Udforsk nedenfor.",
-				"openExplore": "Åbn Udforsk",
-				"toggleDescription": "Hjælper med aldersbegrænsede videoer, videoer kun for medlemmer og videoer, der er private for kontoen.",
-				"risk": "Risiko: En cookies.txt indeholder alle indloggede sessioner for den browser — hold den privat.",
-				"fileLabel": "Cookiefil",
-				"choose": "Vælg…",
-				"clear": "Ryd",
-				"placeholder": "Ingen fil valgt",
-				"helpLink": "Hvordan eksporterer jeg cookies?",
-				"enabledButNoFile": "Vælg en fil for at bruge cookies",
-				"browserLabel": "Browser",
-				"browserPlaceholder": "Vælg en browser…",
-				"browserHelp": "Læser cookies direkte fra browseren. Browseren skal være lukket for browsere i Chromium-familien.",
-				"enabledButNoBrowser": "Vælg en browser for at bruge cookies",
-				"banWarning": "Websteder som YouTube kan markere — og nogle gange udelukke — konti, hvis cookies bruges af download-værktøjer som Arroxy. Brug om muligt en engangskonto.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Hent cookies.txt LOCALLY (Chrome)"
-			},
-			"proxy": {"label": "Proxy-URL", "description": "Dirigér trafik via en proxy — nyttigt til geobegrænset indhold.", "placeholder": "http://host:port", "clear": "Ryd"},
-			"style": {
-				"panelTitle": "Udseende",
-				"panelDescription": "Sådan ser Arroxy ud. Skift mellem lys og mørk i sidefoden.",
-				"modeLabel": "Stil",
-				"modeDescription": "Begge stilarter fås i lys og mørk.",
-				"aurora": {"label": "Aurora", "description": "Glaspaneler over en bevægelig himmel. Kræver grafikacceleration."},
-				"minimal": {"label": "Minimal", "description": "Solide, rolige flader. Kører let på enhver computer."},
-				"unavailableNotice": "{{style}} kræver grafikacceleration, som ikke er tilgængelig lige nu, så Arroxy viser {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Grænse for downloadhastighed",
-				"description": "Begræns båndbredden til mediedownloads. Tempoet for anmodninger nedenfor er normalt den stærkere løftestang mod hastighedsbegrænsning.",
-				"off": "Fra",
-				"custom": "Brugerdefineret…",
-				"customPlaceholder": "f.eks. 750K eller 1.5M",
-				"invalid": "Brug et tal efterfulgt af K eller M (f.eks. 500K, 1.5M)",
-				"activeWarning": "Aktive downloads beholder deres nuværende grænse. Sæt på pause og genoptag for at anvende ændringer."
-			},
-			"playlistProbeLimit": {
-				"label": "Elementer i afspilningslister, der skal scannes",
-				"description": "Maksimalt antal elementer, Arroxy indlæser, når en afspilningsliste, en kanal eller et søgeresultat åbnes.",
-				"option": "{{count}} elementer",
-				"current": "Nuværende grænse: {{count}} elementer",
-				"customValue": "Brugerdefineret: {{count}} elementer",
-				"custom": "Brugerdefineret…",
-				"customDialogTitle": "Brugerdefineret grænse for scanning af afspilningslister",
-				"customDialogDescription": "Brug et helt tal fra {{min}} til {{max}}.",
-				"customDialogCancel": "Annuller",
-				"customDialogSave": "Gem grænse",
-				"invalid": "Brug et helt tal fra 1 til 5000",
-				"tooltip": "Arroxy beder kun om så mange elementer fra afspilningslister, kanaler eller søgninger, mens udvalget opbygges."
-			},
-			"nativeAudioPreference": {"label": "Præference for original lyd", "description": "Stereo eller surround, når en profil vælger original lyd. En profil kan tilsidesætte det.", "compatible": "Kompatibel stereo", "surround": "Foretræk surround / Dolby"},
-			"autoRetry": {"label": "Prøv mislykkede downloads igen", "description": "Prøver automatisk igen efter et netværks- eller serverhikke og venter længere mellem hvert forsøg. Downloads, som webstedet blokerer, forsøges aldrig igen automatisk.", "unit": "gange"},
-			"autoRemoveCompleted": {"label": "Fjern færdige downloads", "description": "Fjerner et download fra listen Downloads få sekunder efter, at det er færdigt. Filerne bliver i din mappe; mislykkede og annullerede downloads bliver på listen."},
-			"concurrentDownloads": {"label": "Downloads ad gangen", "description": "Hvor mange elementer i køen der downloades samtidig. Flere ad gangen får en lang kø hurtigere igennem, men øger risikoen for, at et websted begrænser dig.", "unit": "downloads"},
-			"downloadConnections": {"label": "Downloadforbindelser", "description": "Fremskynder store downloads ved at hente flere dele af en video på én gang. Højere værdier øger risikoen for, at et websted begrænser dig.", "unit": "forbindelser"},
-			"networkPacing": {
-				"heading": "Skånsomme downloads",
-				"description": "Tilføj små pauser under hvert download, så Arroxy ikke belaster webstedet for aggressivt. Værdierne er i sekunder.",
-				"presetLabel": "Hvor forsigtig skal Arroxy være?",
-				"tooltip": "Disse pauser sker inden i hvert download. Hvor mange downloads der kører samtidig, indstilles separat under Downloads ad gangen.",
-				"summary": "Pauser: {{requests}} mellem kontroller, {{downloads}} før medier starter, {{subtitles}} før undertekstfiler.",
-				"presets": {"off": "Fra", "balanced": "Afbalanceret", "careful": "Forsigtig", "custom": "Tilpasset"},
-				"tooltips": {
-					"off": "Bruger kun de små grundpauser, som Arroxy holder for medier og undertekster.",
-					"balanced": "Standard. Tilføjer korte pauser mellem anmodninger og før medier starter.",
-					"careful": "Tilføjer længere pauser til store afspilningslister eller netværk, der ofte rammer grænser.",
-					"custom": "Finjustér de avancerede kontroller for hvert download selv."
-				},
-				"fields": {"sleepRequests": "Vent mellem metadatakontroller", "sleepInterval": "Pause før medier starter: min.", "maxSleepInterval": "Pause før medier starter: maks.", "sleepSubtitles": "Vent før undertekstfiler"},
-				"units": {"seconds": "sek."}
-			},
-			"closeToTray": {"toggle": "Skjul i systembakken ved lukning", "toggleDescription": "Fortsæt downloads i baggrunden, når du har lukket vinduet."},
-			"analytics": {
-				"toggle": "Send dagligt livstegn",
-				"toggleDescription": "Ingen telemetri. Én gang om dagen sender et anonymt livstegn appversion, installationskanal, operativsystem, sprog, land og omtrent hvor længe siden Arroxy blev installeret, så vi kan tælle aktive og nye brugere. Ingen id'er, URL'er, videotitler eller filnavne."
-			}
-		},
-		"quickProgress": {
-			"title": "Klargør Hurtig download",
-			"description": "Arroxy læser linket og anvender {{profileName}}.",
-			"currentFallback": "Aktuelt link",
-			"waitHint": "Lad dette være åbent, mens Arroxy klargør køen.",
-			"failedCount_one": "{{count}} mislykkedes",
-			"failedCount_other": "{{count}} mislykkedes",
-			"cancel": "Annuller klargøring",
-			"phase": {"probing": "Henter oplysninger", "queueing": "Føjer til køen"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Ingen undertekster tilgængelige for denne video",
-			"searchPlaceholder": "Søg efter sprog…",
-			"noMatches": "Ingen sprog matcher",
-			"clearAll": "Ryd alle",
-			"noSelected": "Ingen undertekster valgt",
-			"removeLanguage": "Fjern {{name}}",
-			"sectionManual": "Manuel",
-			"sectionAuto": "Automatisk genereret",
-			"saveMode": {"heading": "Gem som", "sidecar": "Ved siden af videoen", "embed": "Indlejr i videoen", "subfolder": "Undermappen subtitles/"},
-			"format": {"heading": "Format"},
-			"embedNote": "Indlejringstilstand gemmer outputtet som .mkv, så underteksspor indlejres pålideligt.",
-			"autoAssNote": "Automatiske undertekster gemmes som SRT i stedet for ASS — for YouTube-videoer renses de for gentagelser fra rullende cues, hvilket vores ASS-konverter endnu ikke kan efterligne."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsorfiltrering",
-			"mode": {"off": "Fra", "mark": "Markér som kapitler", "remove": "Fjern segmenter"},
-			"modeHint": {"off": "Ingen SponsorBlock — videoen afspilles, som den blev uploadet.", "mark": "Markerer sponsorsegmenter som kapitler (ikke-destruktivt).", "remove": "Klipper sponsorsegmenter ud af videoen med FFmpeg."},
-			"categoriesHeading": "Kategorier",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Selvpromovering", "music_offtopic": "Musik uden for emnet", "preview": "Forhåndsvisning", "filler": "Fyldindhold"}
-		},
-		"formats": {
-			"kind": {"label": "Hvad skal downloades", "video": "Video + lyd", "videoOnly": "Video, ingen lyd", "audio": "Kun lyd", "subtitles": "Kun undertekster"},
-			"profile": {
-				"calloutTitle": "Formater tager udgangspunkt i din profil",
-				"calloutBody": "Din aktive profil forvælger streamene for dig. Skift profil fra menuen, eller brug blyanten til at justere en uden at forlade dette download.",
-				"preselected": "Forvalgt fra",
-				"tag": "Profil",
-				"closestTag": "Tættest på profilen",
-				"switchTitle": "Skift profil?",
-				"switchBody": "Du har ændret {{areas}} for dette download. »{{profile}}« vælger video og lyd under alle omstændigheder. Vil du beholde dine øvrige ændringer eller nulstille alt til profilen?",
-				"resetAll": "Nulstil alle",
-				"edit": "Rediger {{name}}",
-				"updatedTitle": "Brug den opdaterede profil?",
-				"updatedBody": "Du har ændret {{areas}} for dette download. Den opdaterede profil vælger video og lyd under alle omstændigheder. Vil du beholde dine øvrige ændringer eller nulstille alt til profilen?",
-				"keepEdits": "Behold mine ændringer",
-				"menuDescription": "Kun for dette download. Din standardprofil forbliver uændret."
-			},
-			"fit": {
-				"tierBelow": "Din profil beder om {{wanted}}p. Denne video går kun op til {{picked}}p, så {{picked}}p er valgt.",
-				"tierAbove": "Din profil beder om {{wanted}}p. Denne video har intet så lille, så {{picked}}p er valgt.",
-				"mp4Unavailable": "Din profil er Smart TV (H.264). Denne video tilbyder ikke H.264, så den nærmeste stream er valgt.",
-				"noVideo": "Dette link har ingen video, så lyd er valgt.",
-				"subtitlesMissing": "Din profil beder om undertekster på {{languages}}. Denne video har dem ikke.",
-				"webmUnavailable": "Din profil beder om WebM. Denne videos valgte streams indeholder {{codec}}, som WebM ikke kan rumme, så filtypen er Auto."
-			},
-			"footer": {"download": "Download", "moreActions": "Flere downloadindstillinger", "addToQueue": "Føj til køen uden at starte", "subtitlesRequired": "Vælg mindst ét undertekstsprog."},
-			"video": "Video",
-			"audio": "Lyd",
-			"noAudio": "Ingen lyd",
-			"withAudio": "med lyd",
-			"resolutionUnknown": "Ukendt opløsning",
-			"bitrateValue": "Bitrate {{bitrate}}",
-			"marker": {"aiUpscaled": "AI-opskaleret", "aiDubbed": "AI-dubbet", "audioDescription": "Lydbeskrivelse", "spatialAudio": "Rumlig lyd", "vr": "360° / VR", "enhancedBitrate": "Forbedret bitrate", "damaged": "Beskadiget", "watermarked": "Med vandmærke"},
-			"keepAudio": "Behold som den er",
-			"keepAudioMeta": "Indbygget lyd",
-			"audioOnly": "Kun lyd",
-			"sniffing": "Sporer de bedste formater til dig…",
-			"loadingHint": "Vent, til analysen er færdig — afspilningslister og søgninger kan tage et stykke tid.",
-			"loadingAria": "Indlæser formater",
-			"sizeUnknown": "Størrelse ukendt",
-			"total": "I alt",
-			"skipToConfirm": "Spring til bekræftelse",
-			"skipToConfirmTooltip": "Bruger dine gemte indstillinger til alle resterende trin. Hvis du vil ændre en indstilling, så fortsæt i stedet trin for trin — dit valg gemmes til næste gang.",
-			"quality": {"high": "Høj kvalitet", "medium": "Mellem kvalitet", "low": "Lav kvalitet"},
-			"drc": {"label": "Udjævn lydstyrken (DRC)", "description": "Dæmper høje passager og hæver lave, til højttalere og støjende rum.", "tag": "Jævn lydstyrke"},
-			"audioLanguage": "Lydsprog",
-			"audioLanguageCount_one": "{{count}} sprog",
-			"audioLanguageCount_other": "{{count}} sprog",
-			"convert": {
-				"label": "Konverter",
-				"bitrate": "Bitrate",
-				"wavLabel": "WAV (ukomprimeret)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, ingen genkodning",
-				"copyLabelNoBitrate": "{{target}}, ingen genkodning",
-				"copyNote": "{{kbps}} kbps, som i kilden: streamen er allerede {{target}}, så den kopieres og genkodes ikke",
-				"copyNoteNoBitrate": "Som i kilden: streamen er allerede {{target}}, så den kopieres og genkodes ikke",
-				"bitrateCopyHint": "En kilde, der allerede er {{target}}, beholder sin egen stream og bitrate: den kopieres og genkodes ikke.",
-				"sourceKbps": "Kilden er {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "Analysen blev begrænset",
-				"bodyUnconfigured": "Formatlisten er muligvis ufuldstændig. Konfigurer cookies under avancerede indstillinger, eller skift netværk, og prøv igen.",
-				"bodyDisabled": "Cookies er konfigureret, men slået fra. Slå dem til, og prøv igen for at få den fulde liste, eller skift netværk, og prøv igen.",
-				"bodyEnabled": "Selv med cookies begrænsede YouTube denne analyse. Prøv igen senere, eller skift netværk.",
-				"bodyExplore": "YouTube begrænsede denne anmodning. Prøv igen senere, eller skift netværk.",
-				"retryCta": "Prøv igen",
-				"enableRetryCta": "Aktivér cookies, og prøv igen"
-			},
-			"rateLimit": {
-				"heading": "{{site}} begrænser denne forbindelse",
-				"leadDegraded": "Formatlisten er muligvis ufuldstændig.",
-				"leadFailed": "{{site}} afviste denne anmodning for nu.",
-				"waitUntil": "Arroxy venter til {{time}}, før det spørger {{site}} igen, så begrænsningen kan ophæves.",
-				"waitOver": "Ventetiden er slut, så du kan prøve igen.",
-				"sessionNote": "{{site}} kan opretholde denne begrænsning i op til en time.",
-				"tryNowCta": "Prøv nu",
-				"retryCta": "Prøv igen"
-			},
-			"cookiesError": {
-				"heading": "Cookies kan være årsagen",
-				"currentModeLabel": "Cookiekilde",
-				"currentModeFile": "Fil",
-				"currentModeBrowser": "Browser",
-				"currentModeExplore": "Login i Udforsk",
-				"explanationFile": "Din cookiefil kan være tom, udløbet eller i det forkerte format (Arroxy skal bruge en Netscape cookies.txt-fil). Prøv at eksportere cookies igen, vælge en anden fil, skifte til tilstanden Browser eller slå cookies fra.",
-				"explanationBrowser": "Cookies læses direkte fra browseren. Hvis browseren kører i øjeblikket, kan dens cookiedatabase være låst (Chromium-familien). Browseren skal også være logget ind på YouTube. Prøv at lukke browseren, skifte til en anden browser, skifte til tilstanden Fil eller slå cookies fra.",
-				"openSettingsCta": "Åbn cookieindstillinger",
-				"exploreSignIn": {"heading": "Denne video kræver måske en YouTube-konto", "body": "Hvis denne video kræver en YouTube-konto, så log ind i Udforsk, og prøv igen. Arroxy bruger kun det login, når et download har brug for det.", "cta": "Log ind i Udforsk"},
-				"exploreSignedIn": {"heading": "Logget ind i Udforsk", "body": "Hvis denne video kræver en konto, bruger Arroxy automatisk dit login i Udforsk. Den kan være utilgængelig af en anden årsag."},
-				"exploreOffer": {"heading": "Denne video kræver måske en YouTube-konto", "body": "Log ind i Udforsk, så prøver Arroxy igen.", "cta": "Log ind i Udforsk"},
-				"exploreReuse": {"heading": "Denne video kræver måske en YouTube-konto", "body": "Du er logget ind i Udforsk, men downloads bruger ikke det login lige nu.", "cta": "Brug mit login i Udforsk, og prøv igen"},
-				"exploreSite": {"heading": "Dette link kræver måske en konto på {{host}}", "signInBody": "Log ind på {{host}} i Udforsk, og prøv igen. Arroxy bruger kun det login, når et download har brug for det.", "offerBody": "Log ind på {{host}} via Udforsk, og prøv igen."},
-				"exploreRefused": {"heading": "Webstedet afviste det, selv med dit login i Udforsk", "body": "Arroxy har allerede prøvet det med dit login via Udforsk, så det hjælper ikke at logge ind igen. Webstedet kan have problemer, eller også kan denne konto ikke åbne det. Prøv igen senere."},
-				"otherCookiesCta": "Brug i stedet en cookiefil eller en browser…",
-				"needsCookies": {"heading": "Dette websted kræver login", "body": "Arroxy kunne ikke få adgang til denne video uden godkendelse. Konfigurer cookies under avancerede indstillinger — peg på en browser, du allerede er logget ind i, eller importer en cookies.txt-fil."},
-				"dpapi": {
-					"heading": "Chrome-cookies blokeret af Windows-kryptering",
-					"explanation": "Chrome 127 og nyere krypterer cookies på en måde, som andre apps ikke kan læse på Windows. Prøv en af løsningerne nedenfor.",
-					"fixFirefoxLabel": "Skift til Firefox",
-					"fixFirefoxBody": "Firefox bruger ikke App-Bound Encryption. Åbn cookieindstillingerne, og vælg Firefox på browserlisten.",
-					"fixFileLabel": "Eksportér cookies.txt",
-					"fixFileBody": "Eksportér cookies fra Chrome med en browserudvidelse, skift derefter denne app til tilstanden Fil, og vælg den eksporterede fil.",
-					"fixUnsafeLabel": "Start Chrome med App-Bound Encryption deaktiveret",
-					"fixUnsafeBody": "Tilføj --disable-features=LockProfileCookieDatabase til Chromes startgenvej. Advarsel: Det gør tidligere krypterede cookies ugyldige, så du bliver logget ud af alle websteder og skal logge ind igen.",
-					"docsLinkLabel": "yt-dlp-dokumentation (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "Gemmes som", "reset": "WebM kan ikke rumme {{codec}}, så filtypen blev sat tilbage til Auto."}
-		},
-		"folder": {
-			"heading": "Gem i",
-			"downloads": "Downloads",
-			"videos": "Film",
-			"desktop": "Skrivebord",
-			"music": "Musik",
-			"documents": "Dokumenter",
-			"pictures": "Billeder",
-			"home": "Hjem",
-			"custom": "Brugerdefineret…",
-			"subfolder": {"toggle": "Gem i undermappe", "placeholder": "f.eks. lo-fi-rips", "invalid": "Mappenavnet indeholder ugyldige tegn"}
-		},
-		"output": {
-			"embedChapters": {"label": "Indlejr kapitler", "description": "Kapitelmarkeringer, der kan navigeres i enhver moderne afspiller."},
-			"embedMetadata": {"label": "Indlejr metadata", "description": "Titel, kunstner, beskrivelse og uploaddato skrives ind i filen."},
-			"embedThumbnail": {"label": "Indlejr miniature", "description": "Coverbillede inde i filen. WebM-video remuxes til MKV; springes over, når undertekster indlejres."},
-			"writeDescription": {"label": "Gem beskrivelse", "description": "Gemmer videobeskrivelsen som en .description-tekstfil ved siden af downloadet."},
-			"writeThumbnail": {"label": "Gem miniature", "description": "Gemmer miniaturen som en .jpg-billedfil ved siden af downloadet."},
-			"writeM3u": {"label": "Opret .m3u-afspilningslistefil", "description": "Gem en .m3u-afspilningsliste sammen med videoerne, så de åbnes i rækkefølge i din medieafspiller."}
-		},
-		"review": {
-			"changeFormat": "Skift format",
-			"rowsHeading": "Alt det andet",
-			"rows": {"subtitles": "Undertekster", "sponsorBlock": "SponsorBlock", "extras": "Ekstra", "saveTo": "Gem i", "fileName": "Filnavn"},
-			"value": {"subtitlesOff": "Fra", "sponsorBlockOff": "Fra", "extrasNone": "Ingen"},
-			"changed": "Ændret fra {{profile}}: {{areas}}. Gælder kun for dette download.",
-			"areas": {"format": "format", "subtitles": "undertekster", "sponsorBlock": "SponsorBlock", "extras": "ekstra", "saveTo": "mappe", "fileName": "filnavn"},
-			"updateProfile": "Opdater »{{profile}}« med disse ændringer",
-			"saveAsProfile": "Gem som ny profil",
-			"update": {
-				"title": "Opdater »{{profile}}«?",
-				"description": "Fra nu af bruger hvert download med denne profil de nye indstillinger.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Dette er en indbygget profil. Du kan gendanne dens oprindelige indstillinger under fanen Profiler.",
-				"action": "Opdater profil",
-				"updated": "Profilen »{{name}}« er opdateret"
-			},
-			"callout": {"title": "Alle de andre indstillinger findes nu på denne side", "body": "Undertekster, SponsorBlock, ekstra ting som miniaturen, mappe og filnavn var tidligere separate trin. Klik på en række for at ændre den."},
-			"reset": "Fortryd ændringer, tilbage til »{{profile}}«",
-			"changedFrom": "Ændret fra {{profile}}:",
-			"save": {"title": "Gem som profil", "description": "Beholder disse indstillinger som en profil, du kan vælge næste gang. Din profil til Hurtig download forbliver uændret.", "nameLabel": "Profilnavn", "action": "Gem profil", "saved": "Gemt som profilen »{{name}}«", "failed": "Profilen kunne ikke gemmes."},
-			"nextTime": {"title": "Dette download brugte redigerede indstillinger. Vil du bruge dem næste gang?", "action": "Gem som profil", "defaultName": "{{profile}} (redigeret)"}
-		},
-		"confirm": {
-			"readyHeadline": "Klar til at hente den!",
-			"landIn": "Din fil havner i",
-			"landInMultiProfile_one": "Den havner i målet nedenfor",
-			"landInMultiProfile_other": "De havner i de {{count}} mål nedenfor",
-			"labelVideo": "Video",
-			"labelAudio": "Lyd",
-			"labelSubtitles": "Undertekster",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Gem i",
-			"labelSize": "Størrelse",
-			"sizeUnknown": "Ukendt",
-			"nothingToDownload": "Forudindstillingen Kun undertekster er aktiv, men der er ikke valgt noget undertekstsprog — der downloades ikke noget.",
-			"thumbnailEmbedNotSupported": "Indlejring af miniature blev sprunget over — outputcontaineren understøtter det ikke.",
-			"subtitleEmbedAudioOnly": "Indlejring af undertekster er ændret til separat fil — lydspor understøtter ikke indlejrede undertekststreams.",
-			"audioOnly": "Kun lyd",
-			"addToQueue": "+ Kø",
-			"addToQueueTooltip": "Føjer til køen — starter, når det aktive download er færdigt",
-			"pullIt": "Hent den! ↓",
-			"pullItTooltip": "Springer køen over — starter nu og kører ved siden af andre aktive downloads",
-			"labelPlaylist": "Afspilningsliste",
-			"labelBulk": "Parti",
-			"labelPreset": "Forudindstilling",
-			"labelItems": "Elementer",
-			"itemsValue_one": "{{count}} af {{total}} video",
-			"itemsValue_other": "{{count}} af {{total}} videoer",
-			"itemsValueAudio_one": "{{count}} af {{total}} nummer",
-			"itemsValueAudio_other": "{{count}} af {{total}} numre",
-			"itemsValueBulk_one": "{{count}} af {{total}} URL",
-			"itemsValueBulk_other": "{{count}} af {{total}} URL'er",
-			"profileBreakdownHeading": "Profiler i dette parti",
-			"profileBreakdownCount_one": "{{count}} element",
-			"profileBreakdownCount_other": "{{count}} elementer",
-			"subtitleEmbedForcesMkv": "Undertekster i selve videoen kræver en MKV-fil, så dette download gemmes som .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Downloadprofil",
-			"dialogDescription": "Én genbrugelig opsætning til Hurtig download, Bulk-URL'er og afspilningslister.",
-			"skipped": "Sprunget over",
-			"panel": {
-				"identity": {"title": "Profilidentitet", "description": "Navn og ikon, der vises i Hurtig download, Bulk-URL'er og profillister."},
-				"downloadType": {"title": "Downloadtype", "description": "Vælg den primære måde, du vil downloade på."},
-				"advanced": {"title": "Avancerede indstillinger", "description": "Profiler arver det globale mål, medmindre du angiver en tilsidesættelse for profilen."},
-				"output": {"title": "Outputindstillinger", "enabledCount_one": "{{count}} aktiveret", "enabledCount_other": "{{count}} aktiveret"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profilnavn og ikon",
-				"icon": "Profilikon",
-				"resolution": "Opløsning",
-				"quality": "Kvalitet",
-				"source": "Kilde",
-				"subfolderName": "Navn på undermappe",
-				"name": "Profilnavn",
-				"subtitleDownloads": "Download af undertekster",
-				"subtitleDownloadsDescription": "Profiler anmoder om sprogkoder; tilgængeligheden afgøres for hver URL.",
-				"languages": "Sprog",
-				"delivery": "Levering",
-				"overridePath": "Sti til tilsidesættelse for profil",
-				"goal": "Optimer til",
-				"fileType": "Filtype",
-				"nativeAudio": "Original lyd"
-			},
-			"action": {
-				"chooseIcon": "Vælg profilikon",
-				"setOverride": "Angiv tilsidesættelse for profil",
-				"chooseFolder": "Vælg målmappe",
-				"removeLanguage": "Fjern {{code}}",
-				"useLanguageCode": "Brug sprogkoden »{{code}}«",
-				"changeGlobalShort": "Skift global",
-				"setOverrideShort": "Angiv tilsidesættelse",
-				"useGlobalDefault": "Brug global standard",
-				"reset": "Nulstil profil",
-				"resetHint": "Gendan profilens indbyggede indstillinger",
-				"resetDisabledHint": "Denne profil bruger allerede de indbyggede indstillinger",
-				"save": "Gem profil"
-			},
-			"placeholder": {"folder": "Vælg en mappe til denne profil"},
-			"destination": {
-				"global": "Globalt mål",
-				"override": "Tilsidesættelse for profil",
-				"resolved": "Endeligt mål",
-				"defaultFolder": "Standardmappe til downloads",
-				"defaultFolderWithSubfolder": "Standardmappe til downloads / {{subfolder}}",
-				"globalActive": "Aktiv",
-				"globalInherited": "Nedarvet",
-				"overrideSet": "Tilsidesætter global",
-				"overrideChoosing": "Vælg mappe",
-				"overrideNone": "Ingen tilsidesættelse",
-				"overrideSetNote": "Denne profil gemmer i sin egen rodmappe, før undermappen tilføjes.",
-				"overrideNoneNote": "Ingen tilsidesættelse angivet. Denne profil bruger det globale mål ovenfor."
-			},
-			"note": {
-				"subtitlesOnly": "Denne profil sætter kun undertekstfiler i kø. Video, lyd, SponsorBlock og mediekonvertering springes over.",
-				"noSubtitles": "Der anmodes ikke om undertekstfiler eller indlejrede underteksspor til denne profil.",
-				"searchLanguages": "Søg efter sprognavn eller -kode",
-				"noLanguageMatches": "Ingen matchende sprog",
-				"subtitleLanguagesRequired": "Vælg mindst ét sprog.",
-				"subtitleLanguagesRequiredOrOff": "Vælg mindst ét sprog, eller slå download af undertekster fra.",
-				"autoCaptionsSrt": "Automatiske undertekster gemmes som SRT i stedet for ASS.",
-				"skippedForOutputType": "Springes over for denne outputtype."
-			},
-			"error": {"save": "Kunne ikke gemme profilindstillingerne.", "changeGlobalDestination": "Kunne ikke ændre det globale mål.", "reset": "Kunne ikke nulstille profilindstillingerne.", "folderPicker": "Kunne ikke åbne mappevælgeren. Angiv en sti manuelt."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + lyd", "description": "Almindelige videofiler"},
-				"videoOnly": {"label": "Video, ingen lyd", "description": "Kun lydløs video"},
-				"audioOnly": {"label": "Kun lyd", "description": "Musik eller podcasts"},
-				"subtitlesOnly": {"label": "Kun undertekster", "description": "Kun undertekstfiler"}
-			},
-			"icon": {"controls": "Kontrolknapper", "download": "Download", "video": "Video", "captions": "Undertekster", "audio": "Lyd", "music": "Musik", "podcast": "Podcast", "classes": "Undervisning", "clip": "Klip", "archive": "Arkiv"},
-			"audioFormat": {"best": "Bedste", "wav": "WAV"},
-			"audioQuality": {"128": "Op til 128K", "192": "Op til 192K", "320": "Op til 320K", "best": "Bedste kvalitet"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Manuelle først, derefter automatiske", "manualAndAuto": "Manuelle og automatiske", "manualOnly": "Kun manuelle", "autoOnly": "Kun automatisk genererede"},
-			"sponsorBlockHint": {"off": "Ingen SponsorBlock — videoen afspilles, som den blev uploadet.", "mark": "Markerer sponsorsegmenter som kapitler (ikke-destruktivt).", "remove": "Klipper sponsorsegmenter ud af videoen med FFmpeg."},
-			"advanced": "Avanceret",
-			"goal": {
-				"bestPicture": {"name": "Bedste billede", "tag": "AV1 · VP9", "description": "Skarpest ved en given størrelse. Ældre tv, QuickTime og nogle redigeringsprogrammer kan ikke afspille det."},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Afspilles på tv, telefoner, WhatsApp, QuickTime og videoredigeringsprogrammer. YouTube tilbyder kun H.264 op til 1080p."}
-			},
-			"appSetting": "Brug appindstilling ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Hvor meget af videoen",
-			"whole": "Hele videoen",
-			"wholeTrack": "Hele nummeret",
-			"part": "Udsnit",
-			"unavailableSubtitles": "Undertekster dækker altid hele videoen.",
-			"unavailableDuration": "Denne video oplyser ikke sin længde, så den kan kun downloades i sin helhed.",
-			"rangeLabel": "Udsnit af videoen",
-			"start": "Start",
-			"end": "Slut",
-			"timeHint": "h:mm:ss, m:ss eller sekunder",
-			"length": "{{length}} af {{duration}}",
-			"chapters": "Kapitler",
-			"chapterUntitled": "Kapitel {{number}}",
-			"exactCut": {"label": "Præcist klip (genkoder, langsommere)", "hint": "Fra: hvert klip lander på det nærmeste keyframe, som kan ligge nogle sekunder fra det tidspunkt, du skrev."},
-			"calloutTitle": "Download kun en del af en video",
-			"calloutBody": "Skift til Udsnit på videokortet for at vælge start og slut eller et kapitel og kun downloade det stykke.",
-			"connectionsNote": "Et udsnit downloades via ffmpeg, så dine indstillinger for downloadforbindelser og tempo gælder ikke for det.",
-			"urlStart": "Dit link starter ved {{time}}",
-			"useUrlStart": "Brug som start",
-			"error": {"startInvalid": "Angiv start som h:mm:ss, m:ss eller sekunder.", "endInvalid": "Angiv slut som h:mm:ss, m:ss eller sekunder.", "startNotBeforeEnd": "Start skal ligge før slut.", "endBeyondDuration": "Videoen slutter ved {{duration}}."},
-			"downloadBlocked": "Ret først start og slut på udsnittet.",
-			"totalEstimate": "Udsnit, anslået",
-			"summary": "Udsnit {{start}}–{{end}}",
-			"subtitlesFullLength": "hele videoen"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Indlæser…", "chapters_one": "{{count}} kapitel", "chapters_other": "{{count}} kapitler"},
-	"queue": {
-		"header": "Downloads",
-		"tabLabel": "Downloads",
-		"attentionBadge_one": "{{count}} download kræver din opmærksomhed",
-		"attentionBadge_other": "{{count}} downloads kræver din opmærksomhed",
-		"choice": {
-			"cappedBody_one": "Mere end {{count}} video i denne afspilningsliste. Download dem alle, de første {{count}}, eller vælg i en gennemgang.",
-			"cappedBody_other": "Mere end {{count}} videoer i denne afspilningsliste. Download dem alle, de første {{count}}, eller vælg i en gennemgang.",
-			"reviewBody_one": "Dette link er en liste med {{count}} video. Gennemgå den for at vælge, hvad der skal downloades.",
-			"reviewBody_other": "Dette link er en liste med {{count}} videoer. Gennemgå den for at vælge, hvad der skal downloades.",
-			"all": "Alle videoer",
-			"first": "Første {{count}}",
-			"review": "Gennemgå"
-		},
-		"tabTip": "Downloads findes nu under fanen Downloads — åbn den når som helst for at følge fremskridtet.",
-		"empty": "Downloads i kø vises her",
-		"filtersLabel": "Statusfiltre for køen",
-		"filterAll": "Alle",
-		"selectedActionsLabel": "Valgte elementer",
-		"globalActionsLabel": "Alle elementer",
-		"selectionSummary": "{{selected}} valgt · {{total}} i alt",
-		"clearTitle": "Ryd gennemførte downloads",
-		"autoRemoveCompleted": {"label": "Ryd færdige automatisk", "hint": "Fjern hvert download fra listen få sekunder efter, at det er færdigt. Filerne bliver i din mappe."},
-		"pauseAllTitle": "Sæt alle aktive downloads på pause, og forhindr, at nye starter",
-		"resumeAllTitle": "Genoptag downloads på pause, og lad køen køre videre",
-		"pausedBanner": "Køen er sat på pause — ventende elementer starter ikke, før du genoptager den",
-		"resumeQueueAction": "Genoptag kø",
-		"cancelAllTitle": "Annuller alle aktive og afventende downloads",
-		"table": {
-			"columns": "Kolonner",
-			"title": "Titel",
-			"status": "Status",
-			"progress": "Fremskridt",
-			"format": "Format",
-			"outputTarget": "Outputmål",
-			"artifacts": "Filer",
-			"size": "Størrelse",
-			"added": "Tilføjet",
-			"finished": "Færdiggjort",
-			"notAvailable": "—",
-			"sortBy": "Sortér efter {{label}}",
-			"showArtifactsFor": "Vis filer for {{title}}",
-			"hideArtifactsFor": "Skjul filer for {{title}}",
-			"resetColumns": "Nulstil kolonner",
-			"resizeColumn": "Tilpas bredden på kolonnen {{column}}",
-			"movableColumn": "kolonne, der kan flyttes",
-			"moveColumnInstructions": "Hvis du vil flytte en kolonne, skal du trykke på mellemrumstasten eller Enter, flytte den med piletasterne og derefter trykke på mellemrumstasten eller Enter for at placere den. Tryk på Esc for at annullere.",
-			"columnPickedUp": "Kolonnen {{column}} blev samlet op.",
-			"columnMovedOver": "Kolonnen {{column}} er over {{target}}.",
-			"columnDropped": "Kolonnen {{column}} blev placeret.",
-			"columnMoveCancelled": "Flytningen af kolonnen {{column}} blev annulleret."
-		},
-		"artifact": {"media": "Medie", "subtitle": "Undertekst", "thumbnail": "Miniature", "description": "Beskrivelse", "companion": "Ledsagefil", "unknown": "Fil", "missing": "Mangler"},
-		"item": {
-			"defaultError": "Downloadet mislykkedes",
-			"retryingSoon": "prøver automatisk igen (forsøg {{attempt}})",
-			"qualityLimited": "Begrænset til {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Begrænset til {{height}}p · nogle undertekster mislykkedes",
-			"audioKept": "Lyd ikke fjernet",
-			"audioKeptSubtitlesFailed": "Lyd ikke fjernet · nogle undertekster mislykkedes",
-			"subtitleLanguagesMissing": "Ingen undertekster på {{languages}}",
-			"pause": "Pause",
-			"resume": "Genoptag",
-			"cancel": "Annuller",
-			"retry": "Prøv igen",
-			"setLocation": "Angiv placering",
-			"setLocationHint": "Vælg afventende elementer for at angive placering.",
-			"pendingOnly": "Kun afventende",
-			"openDestinationFolder": "Åbn målmappe",
-			"remove": "Fjern",
-			"pullNow": "Start nu — spring køen over",
-			"statusProbing": "Henter oplysninger",
-			"statusNeedsChoice": "Kræver dit valg",
-			"statusPending": "Venter",
-			"statusRunning": "Downloader",
-			"statusHeld": "Tilbageholdt",
-			"statusPaused": "På pause",
-			"statusDone": "Færdig",
-			"statusError": "Fejl",
-			"statusCancelled": "Annulleret"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} er tilgængelig — du har {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} er tilgængelig — opdater med Homebrew.",
-			"macosDirect": "Arroxy {{version}} er tilgængelig — download den nye DMG.",
-			"macosDirectHomebrew": "Arroxy {{version}} er tilgængelig — download DMG'en, eller skift til Homebrew.",
-			"portable": "Arroxy {{version}} er tilgængelig — download det nye build."
-		},
-		"install": "Installer og genstart",
-		"downloading": "Downloader…",
-		"runAndRestart": "Kør og genstart",
-		"upgrading": "Opgraderer…",
-		"download": "Download ↗",
-		"downloadDmg": "Download DMG ↗",
-		"dismiss": "Luk opdateringsbanner",
-		"copy": "Kopiér kommando til udklipsholderen",
-		"copied": "Kommando kopieret til udklipsholderen",
-		"installFailed": "Opdateringen mislykkedes",
-		"retry": "Prøv igen"
-	},
-	"releaseNotes": {"title": "Nyheder i Arroxy {{version}}", "description": "Du kører en ny opdatering. Her er højdepunkterne.", "fullNotes": "Fuldstændige udgivelsesnoter ↗", "continue": "Fortsæt"},
-	"status": {
-		"preparingBinaries": "Klargør binærfiler…",
-		"mintingToken": "Opretter YouTube-token…",
-		"remintingToken": "Opretter token igen…",
-		"startingYtdlp": "Starter download-motoren…",
-		"downloadingMedia": "Downloader video og lyd…",
-		"mergingFormats": "Fletter lyd og video sammen…",
-		"extractingAudio": "Konverterer lyd…",
-		"convertingVideo": "Konverterer video…",
-		"embeddingMetadata": "Indlejrer metadata…",
-		"movingFiles": "Flytter filer…",
-		"fetchingSubtitles": "Henter undertekster…",
-		"sleepingBetweenRequests": "Venter {{seconds}} s for at undgå hastighedsgrænser…",
-		"subtitlesFailed": "Video gemt — nogle undertekster kunne ikke downloades",
-		"qualityLimited": "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download. Det kan hjælpe at prøve igen senere eller fra et andet netværk.",
-		"qualityLimitedSubtitlesFailed": "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download, og nogle undertekster kunne ikke downloades. Det kan hjælpe at prøve igen senere eller fra et andet netværk.",
-		"audioKept": "Video gemt med lyd — lyden kunne ikke fjernes",
-		"audioKeptSubtitlesFailed": "Video gemt med lyd — lyden kunne ikke fjernes, og nogle undertekster kunne ikke downloades",
-		"subtitleLanguagesMissing": "Denne video har ingen undertekster på {{languages}}. Videoen blev gemt uden dem.",
-		"subtitleLanguagesMissingOthersSaved": "Denne video har ingen undertekster på {{languages}}. De øvrige sprog blev gemt.",
-		"noSubtitles": "Ingen undertekster på {{languages}}",
-		"cancelled": "Download annulleret",
-		"complete": "Download fuldført",
-		"usedExtractorFallback": "Downloadet med lempet udtrækker — konfigurer en cookies.txt for mere pålidelige downloads",
-		"ytdlpProcessError": "Fejl i download-motoren: {{error}}",
-		"ytdlpExitCode": "Download-motoren afsluttede med koden {{code}}",
-		"downloadingBinary": "Downloader binærfilen {{name}}…",
-		"unknownStartupFailure": "Ukendt fejl ved start af download",
-		"diskSpaceInsufficient": "Ikke nok diskplads — {{required}} kræves, kun {{free}} ledig",
-		"outputNotWritable": "Kan ikke gemme i {{dir}} — Arroxy har ikke tilladelse til at skrive der",
-		"fetchingSponsorBlock": "Kontakter SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock er utilgængelig, prøver igen ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Forbindelsen gik i stå, prøver igen ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Logger ind med din konto i Udforsk…",
-		"exploreSignedOut": "Logget ud af Udforsk — log ind igen"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Kunne ikke gemme dine indstillinger.",
-		"warmupFailed": "Opsætningen blev ikke færdig. Nogle downloads kan mislykkes, indtil den er det.",
-		"shellActionFailed": "Kunne ikke åbne det.",
-		"folderSelectFailed": "Kunne ikke åbne mappevælgeren.",
-		"exploreSignInRetrying_one": "Logget ind via Udforsk — prøver 1 link igen",
-		"exploreSignInRetrying_other": "Logget ind via Udforsk — prøver {{count}} links igen",
-		"exploreSignOutFailed": "Kunne ikke logge ud af Udforsk. Prøv igen.",
-		"playlistFolderRejected": "Den mappe kan ikke bruges til denne afspilningsliste.",
-		"filenameFolderTooDeep": "Denne mappe ligger for dybt til dit system. Downloadet kan stadig mislykkes — vælg en mappe, der ligger højere oppe.",
-		"filenameTemplateCannotFit": "Denne videos navn kan ikke rumme alle dele af din skabelon, så standardnavnet blev brugt.",
-		"hotkey": {
-			"queued": "Download sat i kø fra udklipsholderen",
-			"alreadyQueued": "Allerede i køen — ingen kopi tilføjet",
-			"invalidClipboard": "Intet link i udklipsholderen — kopiér et først",
-			"multipleUrls": "Flere links kopieret — brug Bulk-URL'er i Arroxy",
-			"needsReview": "Det link kræver dit valg — se Downloads i Arroxy",
-			"cookiesSetup": "Færdiggør opsætningen af cookies i Arroxy, og prøv derefter igen",
-			"busy": "Arroxy starter stadig — prøv igen om lidt",
-			"submissionFailed": "Kunne ikke tilføje det link — prøv igen i Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video er allerede i køen — sprunget over", "skippedAlreadyQueued_other": "{{count}} videoer er allerede i køen — sprunget over"},
-		"quickDownload": {
-			"added": "Tilføjet: {{title}}",
-			"alreadyQueued": "Allerede i køen",
-			"failed": "Kunne ikke klargøre {{title}}",
-			"notAdded": "Kunne ikke tilføje det link — prøv igen",
-			"chooseHowMany_one": "{{count}}+ video — vælg hvor mange",
-			"chooseHowMany_other": "{{count}}+ videoer — vælg hvor mange",
-			"review_one": "{{count}} video på denne liste — gennemgå for at vælge",
-			"review_other": "{{count}} videoer på denne liste — gennemgå for at vælge",
-			"reviewCapped_one": "{{count}}+ video på denne liste — gennemgå for at vælge",
-			"reviewCapped_other": "{{count}}+ videoer på denne liste — gennemgå for at vælge",
-			"view": "Vis"
-		}
+	"donate": {
+		"copied": "Kopieret!",
+		"copyAddress": "Kopiér adresse",
+		"description": "Arroxy er gratis og open source, uden reklamer og uden betalt niveau. Donationer er frivillige og giver ingen indflydelse på køreplanen.",
+		"footerLabel": "Donér",
+		"footerTooltip": "Støt Arroxy",
+		"qrAlt": "QR-kode til {{coin}}-donationsadressen",
+		"title": "Støt Arroxy",
+		"warning": "Kryptobetalinger kan ikke fortrydes. Send kun på det viste netværk, og sammenlign hele adressen."
 	},
 	"errors": {
 		"noSubtitlesIn": "Denne video har ingen undertekster på {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Botbeskyttelsen blev udløst. Den IP-adresse, du bruger, er højst sandsynligt markeret (datacenterområde eller travlt VPN-udgangspunkt). Skift din IP-adresse, eller vælg et andet VPN-slutpunkt, og prøv igen. Hvis det bliver ved med at fejle, kan det være en midlertidig ændring på webstedets side — Arroxy opdaterer sin download-motor ved start, så rettelsen kommer automatisk, så snart den er udgivet.",
-			"ipBlock": "Din IP-adresse ser ud til at være blokeret. Prøv igen senere, eller brug en VPN.",
-			"rateLimit": "Webstedet begrænser antallet af anmodninger fra denne forbindelse.",
 			"ageRestricted": "Denne video er aldersbegrænset og kan ikke downloades uden en konto, du er logget ind på.",
-			"unavailable": "Denne video er ikke tilgængelig — den kan være privat, slettet eller låst til bestemte områder.",
+			"botBlock": "Botbeskyttelsen blev udløst. Den IP-adresse, du bruger, er højst sandsynligt markeret (datacenterområde eller travlt VPN-udgangspunkt). Skift din IP-adresse, eller vælg et andet VPN-slutpunkt, og prøv igen. Hvis det bliver ved med at fejle, kan det være en midlertidig ændring på webstedets side — Arroxy opdaterer sin download-motor ved start, så rettelsen kommer automatisk, så snart den er udgivet.",
+			"chunkTransferFailure": "Serveren blev ved med at afbryde downloadet midt i overførslen, og Arroxy gav op efter flere forsøg. Det rammer som regel de største videoformater (4K HDR / VP9 med høj bitrate). Prøv igen, skift netværk/VPN, eller vælg et format med lavere opløsning.",
+			"drmProtected": "Denne video er DRM-beskyttet. Arroxy kan ikke fjerne DRM, så filen kan ikke downloades.",
 			"formatUnavailable": "Denne video tilbyder ikke længere det format, du valgte. Indsæt linket igen, og vælg blandt de formater, den tilbyder nu.",
 			"geoBlocked": "Denne video er ikke tilgængelig i dit område.",
+			"ipBlock": "Din IP-adresse ser ud til at være blokeret. Prøv igen senere, eller brug en VPN.",
+			"loginRequired": "Denne video kræver en konto, du er logget ind på.",
+			"missingDependency": "Arroxy kunne ikke finde FFmpeg eller FFprobe. Kør opsætningen igen, eller angiv en FFmpeg-placering, og prøv derefter at downloade igen.",
+			"network": "Netværksfejl. Tjek din forbindelse, og prøv igen.",
+			"noSubtitles": "Denne video har ingen undertekster på de ønskede sprog.",
 			"outOfDiskSpace": "Der er ikke nok diskplads. Frigør plads, og prøv igen.",
 			"outputNotWritable": "Arroxy kan ikke skrive til download-mappen. Den kan være skrivebeskyttet, ligge på et låst drev eller være blokeret af dit systems indstillinger for beskyttelse af personlige oplysninger. Vælg en anden mappe, eller giv adgang, og prøv igen.",
-			"unsupportedUrl": "Arroxy understøtter ikke denne URL. Prøv et link fra et andet websted.",
-			"noSubtitles": "Denne video har ingen undertekster på de ønskede sprog.",
-			"chunkTransferFailure": "Serveren blev ved med at afbryde downloadet midt i overførslen, og Arroxy gav op efter flere forsøg. Det rammer som regel de største videoformater (4K HDR / VP9 med høj bitrate). Prøv igen, skift netværk/VPN, eller vælg et format med lavere opløsning.",
-			"missingDependency": "Arroxy kunne ikke finde FFmpeg eller FFprobe. Kør opsætningen igen, eller angiv en FFmpeg-placering, og prøv derefter at downloade igen.",
-			"postprocessFailure": "Downloadet blev gennemført, men efterbehandlingen (sammenfletning / mux / konvertering) mislykkedes. Det er ofte et midlertidigt ffmpeg-problem — prøv igen, og hvis det fortsætter, så prøv en anden formatkombination.",
 			"parse": "Svaret fra webstedet kunne ikke fortolkes. Webstedet kan have ændret måden, det leverer videoer på. Arroxy opdaterer sin download-motor ved start — prøv igen om et par minutter, når rettelsen er udgivet.",
-			"network": "Netværksfejl. Tjek din forbindelse, og prøv igen.",
-			"drmProtected": "Denne video er DRM-beskyttet. Arroxy kan ikke fjerne DRM, så filen kan ikke downloades.",
-			"loginRequired": "Denne video kræver en konto, du er logget ind på.",
-			"unknown": "Downloadet mislykkedes. Se det rå output nedenfor."
+			"postprocessFailure": "Downloadet blev gennemført, men efterbehandlingen (sammenfletning / mux / konvertering) mislykkedes. Det er ofte et midlertidigt ffmpeg-problem — prøv igen, og hvis det fortsætter, så prøv en anden formatkombination.",
+			"rateLimit": "Webstedet begrænser antallet af anmodninger fra denne forbindelse.",
+			"unavailable": "Denne video er ikke tilgængelig — den kan være privat, slettet eller låst til bestemte områder.",
+			"unknown": "Downloadet mislykkedes. Se det rå output nedenfor.",
+			"unsupportedUrl": "Arroxy understøtter ikke denne URL. Prøv et link fra et andet websted."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Tjek din forbindelse, og prøv igen.",
+			"loadTitle": "Denne side blev ikke indlæst",
+			"openSettings": "Åbn Indstillinger",
+			"proxyBody": "Tjek proxyen i Indstillinger, og prøv igen.",
+			"proxyTitle": "Udforsk kan ikke oprette forbindelse via din proxy",
+			"retry": "Prøv igen"
+		},
+		"linkCallout": {
+			"body": "Højreklik på et vilkårligt video-, afspilningslisten- eller kanallink på siden for at downloade det med din aktive profil, vælge en anden profil eller åbne trin-for-trin-forløbet.",
+			"title": "Højreklik på et link for at downloade det"
+		},
+		"linkMenu": {
+			"copyLink": "Kopiér link",
+			"downloadWith": "Download med"
+		},
+		"newBadge": "Ny",
+		"notice": {
+			"body": "Find en video på YouTube eller et andet websted, og download den herfra — uden at kopiere links. Log ind på et websted her for at downloade videoer, der kræver en konto.",
+			"continue": "Fortsæt",
+			"riskBody": "Websteder som YouTube kan markere — og nogle gange udelukke — konti, der bruges sammen med download-værktøjer som Arroxy. Brug en konto, du kan undvære, ikke din primære.",
+			"riskTitle": "Log ind med en sekundær konto",
+			"title": "Surf på nettet direkte i Arroxy"
+		},
+		"nudge": {
+			"browser": "Downloads bruger din browsers cookies, ikke dit login i Udforsk.",
+			"file": "Downloads bruger din cookiefil, ikke dit login i Udforsk.",
+			"notNow": "Ikke nu",
+			"off": "Cookies er slået fra, så downloads bruger ikke dit login i Udforsk.",
+			"useExplore": "Brug login i Udforsk"
+		},
+		"settings": {
+			"description": "Surf på YouTube eller et andet websted i Arroxy, og log ind for at få adgang til videoer, der kræver en konto.",
+			"idleUnload": "Frigør hukommelse, når du er væk",
+			"idleUnloadDescription": "Efter 5 minutter på en anden fane lukkes YouTubes startside eller søgeside. Når du vender tilbage, indlæses den igen, hvilket tager et par sekunder.",
+			"searchEngine": "Søgemaskine",
+			"searchEngineDescription": "Hvor tekst, der skrives i adresselinjen, søges. Links åbnes som skrevet.",
+			"showTab": "Vis fanen Udforsk",
+			"showTabDescription": "Når du slår den fra, holder downloads også op med at bruge dit login i Udforsk.",
+			"signOut": "Log ud af Udforsk",
+			"signOutConfirm": "Log ud",
+			"signOutConfirmBody": "Dette rydder dine logins og browserdata i Udforsk på alle websteder. Downloads, der kræver en konto, mislykkes, indtil du logger ind igen.",
+			"signOutConfirmTitle": "Log ud af Udforsk?",
+			"signOutDescription": "Rydder dine logins og browserdata i Udforsk på alle websteder.",
+			"title": "Udforsk"
+		},
+		"tabLabel": "Udforsk",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube kan modarbejde reklameblokkere for konti, der er logget ind.",
+				"aria": "Reklameblokering",
+				"off": "Reklameblokering: fra — klik for at slå til",
+				"on": "Reklameblokering: til — klik for at slå fra",
+				"starting": "Reklameblokering: starter — klik for at slå fra",
+				"unavailable": "Reklameblokering: utilgængelig, filterlisterne kunne ikke downloades — klik for at slå fra"
+			},
+			"addressAria": "Adresse",
+			"addressPlaceholder": "Søg på {{engine}}, eller åbn et vilkårligt websted (Vimeo, Instagram…)",
+			"aria": "Browserkontroller i Udforsk",
+			"back": "Tilbage",
+			"compactLayout": "Kompakt layout",
+			"downloadWithProfile": "Download · {{profileName}}",
+			"forward": "Frem",
+			"fullLayout": "Vis fuldt layout",
+			"grabUnavailable": "Åbn en video, afspilningsliste eller kanal for at downloade den",
+			"home": "YouTube-startside",
+			"interactiveHint": "Interaktiv download: vælg format, undertekster med mere…",
+			"refusedHint": "Udforsk kan ikke åbne den adresse.",
+			"reload": "Genindlæs",
+			"searchTooLong": "Den søgning er for lang.",
+			"zoom": {
+				"hint": "Sidezoom: {{percent}} %",
+				"in": "Zoom ind",
+				"label": "Sidezoom",
+				"out": "Zoom ud",
+				"percent": "Zoom i procent",
+				"reset": "Nulstil zoom til 100 %"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"description": {
+			"auto": "De valgte streams bestemmer filtypen.",
+			"mkv": "Kan indeholde enhver codec. Nogle tv og telefoner kan ikke åbne den.",
+			"mp4": "Afspilles næsten overalt. VP9 i en MP4 afspilles ikke som video i QuickTime.",
+			"webm": "Åbent format til browsere. Kan kun indeholde VP9 eller AV1 med Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 i en MP4 kræver en nyere Mac for at kunne afspilles i QuickTime. H.264 afspilles overalt.",
+		"mp4CaveatVp9": "VP9 i en MP4 afspilles ikke som video i QuickTime. H.264 afspilles overalt.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM tilbydes ikke med Smart TV: det kan ikke indeholde H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM kan ikke indeholde {{codec}}. Vælg MKV eller MP4."
+	},
+	"filenameTemplate": {
+		"description": "Vælg, hvordan downloadede filer navngives. Klik på et mærke for at indsætte det. Brug / til at sortere downloads i mapper.",
+		"error": {
+			"empty": "Angiv en skabelon til filnavne.",
+			"empty-segment": "Fjern det overskydende / — alle mapper skal have et navn.",
+			"forbidden-char": "Fjern tegn, der ikke er tilladt i filnavne: \\ : * ? \" < > |",
+			"invalid-segment": "Det mappenavn er ikke tilladt. Undgå . og .. samt reserverede navne som CON.",
+			"no-unique-token": "Tilføj {title} eller {id} til filnavnet, så hvert download får sit eget navn.",
+			"resolution-in-dir": "{resolution} kan ikke navngive en mappe — kvaliteten kendes først, når downloadet starter.",
+			"stray-brace": "Ulukket { eller } — sæt mærker som {title} i tuborgklammer.",
+			"too-long": "Skabelonen er for lang.",
+			"unknown-token": "Ukendt mærke {{token}}."
+		},
+		"idWarning": "Uden {id} kan Arroxy ikke genkende allerede downloadede elementer i afspilningslister eller oprette .m3u-afspilningslister.",
+		"label": "Skabelon til filnavne",
+		"m3uDisabled": "Ikke tilgængelig, fordi din skabelon til filnavne enten ikke indeholder {id} eller sorterer downloads i mapper.",
+		"previewPlaylist": "I en afspilningsliste",
+		"previewSingle": "Enkelt video",
+		"profileOverrideDescription": "Lad feltet stå tomt for at arve den globale skabelon.",
+		"profileOverrideLabel": "Skabelon til filnavne"
+	},
+	"formatLabel": {
+		"audioFallback": "Lyd",
+		"audioOnlyDot": "Kun lyd · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Auto",
+		"description": "Auto vælger HDR, når denne skærm kan vise det, ellers SDR. HDR ser udvasket ud på almindelige skærme.",
+		"hdr": "HDR",
+		"label": "HDR-video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Sprog"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Logget ind via Udforsk — prøver 1 link igen",
+		"exploreSignInRetrying_other": "Logget ind via Udforsk — prøver {{count}} links igen",
+		"exploreSignOutFailed": "Kunne ikke logge ud af Udforsk. Prøv igen.",
+		"filenameFolderTooDeep": "Denne mappe ligger for dybt til dit system. Downloadet kan stadig mislykkes — vælg en mappe, der ligger højere oppe.",
+		"filenameTemplateCannotFit": "Denne videos navn kan ikke rumme alle dele af din skabelon, så standardnavnet blev brugt.",
+		"folderSelectFailed": "Kunne ikke åbne mappevælgeren.",
+		"hotkey": {
+			"alreadyQueued": "Allerede i køen — ingen kopi tilføjet",
+			"busy": "Arroxy starter stadig — prøv igen om lidt",
+			"cookiesSetup": "Færdiggør opsætningen af cookies i Arroxy, og prøv derefter igen",
+			"invalidClipboard": "Intet link i udklipsholderen — kopiér et først",
+			"multipleUrls": "Flere links kopieret — brug Bulk-URL'er i Arroxy",
+			"needsReview": "Det link kræver dit valg — se Downloads i Arroxy",
+			"queued": "Download sat i kø fra udklipsholderen",
+			"submissionFailed": "Kunne ikke tilføje det link — prøv igen i Arroxy"
+		},
+		"playlistFolderRejected": "Den mappe kan ikke bruges til denne afspilningsliste.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} video er allerede i køen — sprunget over",
+			"skippedAlreadyQueued_other": "{{count}} videoer er allerede i køen — sprunget over"
+		},
+		"quickDownload": {
+			"added": "Tilføjet: {{title}}",
+			"alreadyQueued": "Allerede i køen",
+			"chooseHowMany_one": "{{count}}+ video — vælg hvor mange",
+			"chooseHowMany_other": "{{count}}+ videoer — vælg hvor mange",
+			"failed": "Kunne ikke klargøre {{title}}",
+			"notAdded": "Kunne ikke tilføje det link — prøv igen",
+			"reviewCapped_one": "{{count}}+ video på denne liste — gennemgå for at vælge",
+			"reviewCapped_other": "{{count}}+ videoer på denne liste — gennemgå for at vælge",
+			"review_one": "{{count}} video på denne liste — gennemgå for at vælge",
+			"review_other": "{{count}} videoer på denne liste — gennemgå for at vælge",
+			"view": "Vis"
+		},
+		"settingsSaveFailed": "Kunne ikke gemme dine indstillinger.",
+		"shellActionFailed": "Kunne ikke åbne det.",
+		"warmupFailed": "Opsætningen blev ikke færdig. Nogle downloads kan mislykkes, indtil den er det."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Lyd", "subtitles": "Undertekster"},
-		"subtitles": {"note": "Der gemmes kun undertekstfiler for hver video — der downloades hverken video eller lyd.", "languages": "Sprog", "languagesRequired": "Vælg mindst ét sprog for at fortsætte.", "source": "Kilde", "deliveryHeading": "Gem som", "deliveryLoose": "Direkte i gemmemappen"},
-		"videoFormat": {"best": "Bedste originale", "mp4": "Smart TV (H.264 MP4)"},
-		"videoFormatDesc": {"best": "Bedste tilgængelige container og codecs pr. element", "mp4": "Foretræk H.264-video + AAC-lyd i MP4, når det er muligt"},
-		"tier": {"144": "Op til 144p", "240": "Op til 240p", "360": "Op til 360p", "480": "Op til 480p", "720": "Op til 720p", "1080": "Op til 1080p", "1440": "Op til 1440p", "2160": "Op til 4K", "best": "Bedste kvalitet"},
+		"audioFormat": {
+			"best": "Lyd (bedst)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Lyd ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Bedste originale lyd, ingen genkodning",
+			"m4a": "Konvertér til M4A (AAC)",
+			"mp3": "Konvertér til MP3",
+			"opus": "Konvertér til Opus"
+		},
+		"mp4Cap": "H.264 over 1080p er ikke tilgængelig på YouTube — begrænses automatisk til 1080p",
+		"subtitles": {
+			"deliveryHeading": "Gem som",
+			"deliveryLoose": "Direkte i gemmemappen",
+			"languages": "Sprog",
+			"languagesRequired": "Vælg mindst ét sprog for at fortsætte.",
+			"note": "Der gemmes kun undertekstfiler for hver video — der downloades hverken video eller lyd.",
+			"source": "Kilde"
+		},
+		"tier": {
+			"144": "Op til 144p",
+			"240": "Op til 240p",
+			"360": "Op til 360p",
+			"480": "Op til 480p",
+			"720": "Op til 720p",
+			"1080": "Op til 1080p",
+			"1440": "Op til 1440p",
+			"2160": "Op til 4K",
+			"best": "Bedste kvalitet"
+		},
 		"tierDesc": {
 			"144": "Så små filer som muligt",
 			"240": "Meget små filer, lav kvalitet",
@@ -932,171 +311,1396 @@
 			"2160": "Begrænset til 2160p, falder tilbage til lavere pr. element",
 			"best": "Højeste tilgængelige video + lyd pr. element"
 		},
-		"audioFormat": {"best": "Lyd (bedst)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Bedste originale lyd, ingen genkodning", "mp3": "Konvertér til MP3", "m4a": "Konvertér til M4A (AAC)", "opus": "Konvertér til Opus"},
-		"audioFormatBitrate": "Lyd ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 over 1080p er ikke tilgængelig på YouTube — begrænses automatisk til 1080p"
-	},
-	"formatLabel": {"audioFallback": "Lyd", "audioOnlyDot": "Kun lyd · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inaktiv", "statusActive_one": "1 downloader · {{percent}} %", "statusActive_other": "{{count}} downloader · {{percent}} %", "downloadFromClipboard": "Download fra udklipsholderen", "open": "Åbn Arroxy", "quit": "Afslut Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} download i gang",
-			"message_other": "{{count}} downloads i gang",
-			"detail": "Sæt på pause for at fortsætte senere, eller annuller for at kassere fremskridtet.",
-			"confirm": "Annuller downloads og afslut",
-			"pause": "Sæt downloads på pause og afslut",
-			"keep": "Fortsæt download"
+		"type": {
+			"audio": "Lyd",
+			"subtitles": "Undertekster",
+			"video": "Video"
 		},
-		"closeToTray": {"message": "Skal Arroxy skjules i systembakken, når du lukker?", "detail": "Arroxy kører videre og færdiggør aktive downloads. Du kan ændre dette senere under Avancerede indstillinger.", "hide": "Skjul i systembakken", "quit": "Afslut", "remember": "Spørg ikke igen"},
-		"rendererCrashed": {"message": "Arroxy stødte på et problem", "detail": "Renderingsprocessen er gået ned ({{reason}}). Genindlæs for at prøve igen.", "reload": "Genindlæs", "quit": "Afslut"}
-	},
-	"share": {
-		"title": "Del Arroxy",
-		"description": "Arroxy er gratis og open source. Når du deler den, hjælper du flere med at finde den.",
-		"copyLink": "Kopiér link",
-		"copied": "Kopieret!",
-		"defaultMessage": "Arroxy — gratis og open source videodownloader til Windows, macOS og Linux. Virker med YouTube, Vimeo, Twitch og 2000+ websteder.\n4K · HDR · MP3 · Shorts · Undertekster · SponsorBlock",
-		"footerTooltip": "Del Arroxy",
-		"footerLabel": "Del",
-		"shareAction": "Del Arroxy"
-	},
-	"donate": {
-		"title": "Støt Arroxy",
-		"description": "Arroxy er gratis og open source, uden reklamer og uden betalt niveau. Donationer er frivillige og giver ingen indflydelse på køreplanen.",
-		"footerTooltip": "Støt Arroxy",
-		"footerLabel": "Donér",
-		"copyAddress": "Kopiér adresse",
-		"copied": "Kopieret!",
-		"qrAlt": "QR-kode til {{coin}}-donationsadressen",
-		"warning": "Kryptobetalinger kan ikke fortrydes. Send kun på det viste netværk, og sammenlign hele adressen."
-	},
-	"filenameTemplate": {
-		"label": "Skabelon til filnavne",
-		"description": "Vælg, hvordan downloadede filer navngives. Klik på et mærke for at indsætte det. Brug / til at sortere downloads i mapper.",
-		"profileOverrideLabel": "Skabelon til filnavne",
-		"profileOverrideDescription": "Lad feltet stå tomt for at arve den globale skabelon.",
-		"idWarning": "Uden {id} kan Arroxy ikke genkende allerede downloadede elementer i afspilningslister eller oprette .m3u-afspilningslister.",
-		"m3uDisabled": "Ikke tilgængelig, fordi din skabelon til filnavne enten ikke indeholder {id} eller sorterer downloads i mapper.",
-		"previewSingle": "Enkelt video",
-		"previewPlaylist": "I en afspilningsliste",
-		"error": {
-			"empty": "Angiv en skabelon til filnavne.",
-			"too-long": "Skabelonen er for lang.",
-			"forbidden-char": "Fjern tegn, der ikke er tilladt i filnavne: \\ : * ? \" < > |",
-			"stray-brace": "Ulukket { eller } — sæt mærker som {title} i tuborgklammer.",
-			"no-unique-token": "Tilføj {title} eller {id} til filnavnet, så hvert download får sit eget navn.",
-			"unknown-token": "Ukendt mærke {{token}}.",
-			"empty-segment": "Fjern det overskydende / — alle mapper skal have et navn.",
-			"invalid-segment": "Det mappenavn er ikke tilladt. Undgå . og .. samt reserverede navne som CON.",
-			"resolution-in-dir": "{resolution} kan ikke navngive en mappe — kvaliteten kendes først, når downloadet starter."
+		"videoFormat": {
+			"best": "Bedste originale",
+			"mp4": "Smart TV (H.264 MP4)"
+		},
+		"videoFormatDesc": {
+			"best": "Bedste tilgængelige container og codecs pr. element",
+			"mp4": "Foretræk H.264-video + AAC-lyd i MP4, når det er muligt"
 		}
 	},
-	"explore": {
-		"tabLabel": "Udforsk",
-		"newBadge": "Ny",
-		"notice": {
-			"title": "Surf på nettet direkte i Arroxy",
-			"body": "Find en video på YouTube eller et andet websted, og download den herfra — uden at kopiere links. Log ind på et websted her for at downloade videoer, der kræver en konto.",
-			"riskTitle": "Log ind med en sekundær konto",
-			"riskBody": "Websteder som YouTube kan markere — og nogle gange udelukke — konti, der bruges sammen med download-værktøjer som Arroxy. Brug en konto, du kan undvære, ikke din primære.",
-			"continue": "Fortsæt"
+	"queue": {
+		"artifact": {
+			"companion": "Ledsagefil",
+			"description": "Beskrivelse",
+			"media": "Medie",
+			"missing": "Mangler",
+			"subtitle": "Undertekst",
+			"thumbnail": "Miniature",
+			"unknown": "Fil"
 		},
-		"nudge": {"off": "Cookies er slået fra, så downloads bruger ikke dit login i Udforsk.", "file": "Downloads bruger din cookiefil, ikke dit login i Udforsk.", "browser": "Downloads bruger din browsers cookies, ikke dit login i Udforsk.", "useExplore": "Brug login i Udforsk", "notNow": "Ikke nu"},
-		"linkCallout": {"title": "Højreklik på et link for at downloade det", "body": "Højreklik på et vilkårligt video-, afspilningslisten- eller kanallink på siden for at downloade det med din aktive profil, vælge en anden profil eller åbne trin-for-trin-forløbet."},
-		"linkMenu": {"downloadWith": "Download med", "copyLink": "Kopiér link"},
-		"toolbar": {
-			"aria": "Browserkontroller i Udforsk",
-			"back": "Tilbage",
-			"forward": "Frem",
-			"reload": "Genindlæs",
-			"home": "YouTube-startside",
-			"addressAria": "Adresse",
-			"addressPlaceholder": "Søg på {{engine}}, eller åbn et vilkårligt websted (Vimeo, Instagram…)",
-			"refusedHint": "Udforsk kan ikke åbne den adresse.",
-			"searchTooLong": "Den søgning er for lang.",
-			"downloadWithProfile": "Download · {{profileName}}",
-			"interactiveHint": "Interaktiv download: vælg format, undertekster med mere…",
-			"grabUnavailable": "Åbn en video, afspilningsliste eller kanal for at downloade den",
-			"compactLayout": "Kompakt layout",
-			"fullLayout": "Vis fuldt layout",
-			"zoom": {"label": "Sidezoom", "hint": "Sidezoom: {{percent}} %", "in": "Zoom ind", "out": "Zoom ud", "percent": "Zoom i procent", "reset": "Nulstil zoom til 100 %"},
-			"adBlock": {
-				"aria": "Reklameblokering",
-				"off": "Reklameblokering: fra — klik for at slå til",
-				"starting": "Reklameblokering: starter — klik for at slå fra",
-				"on": "Reklameblokering: til — klik for at slå fra",
-				"unavailable": "Reklameblokering: utilgængelig, filterlisterne kunne ikke downloades — klik for at slå fra",
-				"accountNote": "YouTube kan modarbejde reklameblokkere for konti, der er logget ind."
+		"attentionBadge_one": "{{count}} download kræver din opmærksomhed",
+		"attentionBadge_other": "{{count}} downloads kræver din opmærksomhed",
+		"autoRemoveCompleted": {
+			"hint": "Fjern hvert download fra listen få sekunder efter, at det er færdigt. Filerne bliver i din mappe.",
+			"label": "Ryd færdige automatisk"
+		},
+		"cancelAllTitle": "Annuller alle aktive og afventende downloads",
+		"choice": {
+			"all": "Alle videoer",
+			"cappedBody_one": "Mere end {{count}} video i denne afspilningsliste. Download dem alle, de første {{count}}, eller vælg i en gennemgang.",
+			"cappedBody_other": "Mere end {{count}} videoer i denne afspilningsliste. Download dem alle, de første {{count}}, eller vælg i en gennemgang.",
+			"first": "Første {{count}}",
+			"review": "Gennemgå",
+			"reviewBody_one": "Dette link er en liste med {{count}} video. Gennemgå den for at vælge, hvad der skal downloades.",
+			"reviewBody_other": "Dette link er en liste med {{count}} videoer. Gennemgå den for at vælge, hvad der skal downloades."
+		},
+		"clearTitle": "Ryd gennemførte downloads",
+		"empty": "Downloads i kø vises her",
+		"filterAll": "Alle",
+		"filtersLabel": "Statusfiltre for køen",
+		"globalActionsLabel": "Alle elementer",
+		"header": "Downloads",
+		"item": {
+			"audioKept": "Lyd ikke fjernet",
+			"audioKeptSubtitlesFailed": "Lyd ikke fjernet · nogle undertekster mislykkedes",
+			"cancel": "Annuller",
+			"defaultError": "Downloadet mislykkedes",
+			"openDestinationFolder": "Åbn målmappe",
+			"pause": "Pause",
+			"pendingOnly": "Kun afventende",
+			"pullNow": "Start nu — spring køen over",
+			"qualityLimited": "Begrænset til {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Begrænset til {{height}}p · nogle undertekster mislykkedes",
+			"remove": "Fjern",
+			"resume": "Genoptag",
+			"retry": "Prøv igen",
+			"retryingSoon": "prøver automatisk igen (forsøg {{attempt}})",
+			"setLocation": "Angiv placering",
+			"setLocationHint": "Vælg afventende elementer for at angive placering.",
+			"statusCancelled": "Annulleret",
+			"statusDone": "Færdig",
+			"statusError": "Fejl",
+			"statusHeld": "Tilbageholdt",
+			"statusNeedsChoice": "Kræver dit valg",
+			"statusPaused": "På pause",
+			"statusPending": "Venter",
+			"statusProbing": "Henter oplysninger",
+			"statusRunning": "Downloader",
+			"subtitleLanguagesMissing": "Ingen undertekster på {{languages}}"
+		},
+		"pauseAllTitle": "Sæt alle aktive downloads på pause, og forhindr, at nye starter",
+		"pausedBanner": "Køen er sat på pause — ventende elementer starter ikke, før du genoptager den",
+		"resumeAllTitle": "Genoptag downloads på pause, og lad køen køre videre",
+		"resumeQueueAction": "Genoptag kø",
+		"selectedActionsLabel": "Valgte elementer",
+		"selectionSummary": "{{selected}} valgt · {{total}} i alt",
+		"tabLabel": "Downloads",
+		"tabTip": "Downloads findes nu under fanen Downloads — åbn den når som helst for at følge fremskridtet.",
+		"table": {
+			"added": "Tilføjet",
+			"artifacts": "Filer",
+			"columnDropped": "Kolonnen {{column}} blev placeret.",
+			"columnMoveCancelled": "Flytningen af kolonnen {{column}} blev annulleret.",
+			"columnMovedOver": "Kolonnen {{column}} er over {{target}}.",
+			"columnPickedUp": "Kolonnen {{column}} blev samlet op.",
+			"columns": "Kolonner",
+			"finished": "Færdiggjort",
+			"format": "Format",
+			"hideArtifactsFor": "Skjul filer for {{title}}",
+			"movableColumn": "kolonne, der kan flyttes",
+			"moveColumnInstructions": "Hvis du vil flytte en kolonne, skal du trykke på mellemrumstasten eller Enter, flytte den med piletasterne og derefter trykke på mellemrumstasten eller Enter for at placere den. Tryk på Esc for at annullere.",
+			"notAvailable": "—",
+			"outputTarget": "Outputmål",
+			"progress": "Fremskridt",
+			"resetColumns": "Nulstil kolonner",
+			"resizeColumn": "Tilpas bredden på kolonnen {{column}}",
+			"showArtifactsFor": "Vis filer for {{title}}",
+			"size": "Størrelse",
+			"sortBy": "Sortér efter {{label}}",
+			"status": "Status",
+			"title": "Titel"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Fortsæt",
+		"description": "Du kører en ny opdatering. Her er højdepunkterne.",
+		"fullNotes": "Fuldstændige udgivelsesnoter ↗",
+		"title": "Nyheder i Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Annuller",
+			"chooseExecutable": "Vælg programfil",
+			"installWithHomebrew": "Installer med Homebrew",
+			"installWithWinget": "Installer med WinGet",
+			"openDependencyFolder": "Åbn mappen med afhængigheder",
+			"resetToDefault": "Nulstil til standard",
+			"retrySetup": "Prøv igen",
+			"viewSetupLog": "Vis opsætningslog"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en fungerende kopi nedenfor.",
+				"title": "Et værktøj fungerer ikke korrekt"
+			},
+			"blockedOrQuarantined": {
+				"body": "Tillad Arroxy i dit antivirusprogram eller SmartScreen, og prøv derefter igen.",
+				"title": "Dit antivirusprogram blokerede et værktøj"
+			},
+			"downloadFailed": {
+				"body": "Tjek din internetforbindelse, og prøv igen.",
+				"title": "Det, Arroxy har brug for, kunne ikke downloades"
+			},
+			"extractFailed": {
+				"body": "Prøv igen for at downloade det på ny.",
+				"title": "Et download ankom beskadiget"
+			},
+			"hashFailed": {
+				"body": "Prøv igen for at downloade det på ny.",
+				"title": "Et download matchede ikke sin kontrolsum"
+			},
+			"pairIncomplete": {
+				"body": "Vælg begge nedenfor, eller nulstil dem til standard.",
+				"title": "FFmpeg og FFprobe skal angives sammen"
+			},
+			"permissionDenied": {
+				"body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en kopi, du har tillid til, nedenfor.",
+				"title": "Dit system tillader ikke, at Arroxy kører et værktøj"
+			},
+			"spawnFailed": {
+				"body": "Prøv igen. Hvis det bliver ved med at fejle, så vælg en fungerende kopi nedenfor.",
+				"title": "Et værktøj mangler eller vil ikke starte"
+			},
+			"timeout": {
+				"body": "Det skyldes ofte en sikkerhedsscanning ved første kørsel. Prøv igen.",
+				"title": "Et værktøj svarede for langsomt"
+			},
+			"unknown": {
+				"body": "Prøv igen, eller åbn opsætningsloggen for at se detaljer.",
+				"title": "Noget gik galt under opsætningen"
 			}
 		},
-		"settings": {
-			"title": "Udforsk",
-			"description": "Surf på YouTube eller et andet websted i Arroxy, og log ind for at få adgang til videoer, der kræver en konto.",
-			"showTab": "Vis fanen Udforsk",
-			"showTabDescription": "Når du slår den fra, holder downloads også op med at bruge dit login i Udforsk.",
-			"idleUnload": "Frigør hukommelse, når du er væk",
-			"idleUnloadDescription": "Efter 5 minutter på en anden fane lukkes YouTubes startside eller søgeside. Når du vender tilbage, indlæses den igen, hvilket tager et par sekunder.",
-			"searchEngine": "Søgemaskine",
-			"searchEngineDescription": "Hvor tekst, der skrives i adresselinjen, søges. Links åbnes som skrevet.",
-			"signOut": "Log ud af Udforsk",
-			"signOutDescription": "Rydder dine logins og browserdata i Udforsk på alle websteder.",
-			"signOutConfirmTitle": "Log ud af Udforsk?",
-			"signOutConfirmBody": "Dette rydder dine logins og browserdata i Udforsk på alle websteder. Downloads, der kræver en konto, mislykkes, indtil du logger ind igen.",
-			"signOutConfirm": "Log ud"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Udforsk kan ikke oprette forbindelse via din proxy", "proxyBody": "Tjek proxyen i Indstillinger, og prøv igen.", "loadTitle": "Denne side blev ikke indlæst", "loadBody": "Tjek din forbindelse, og prøv igen.", "retry": "Prøv igen", "openSettings": "Åbn Indstillinger"}
-	},
-	"fileType": {
-		"auto": "Auto",
-		"autoValue": "Auto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "De valgte streams bestemmer filtypen.", "mp4": "Afspilles næsten overalt. VP9 i en MP4 afspilles ikke som video i QuickTime.", "mkv": "Kan indeholde enhver codec. Nogle tv og telefoner kan ikke åbne den.", "webm": "Åbent format til browsere. Kan kun indeholde VP9 eller AV1 med Opus."},
-		"webmBlocked": "WebM kan ikke indeholde {{codec}}. Vælg MKV eller MP4.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM tilbydes ikke med Smart TV: det kan ikke indeholde H.264.",
-		"mp4CaveatVp9": "VP9 i en MP4 afspilles ikke som video i QuickTime. H.264 afspilles overalt.",
-		"mp4CaveatAv1": "AV1 i en MP4 kræver en nyere Mac for at kunne afspilles i QuickTime. H.264 afspilles overalt."
+		"groups": {
+			"engine": "Download-motor",
+			"media": "Medieværktøjer"
+		},
+		"installing": {
+			"homebrew": "Installerer med Homebrew… Det kan tage et par minutter.",
+			"winget": "Installerer med WinGet… Det kan tage et par minutter."
+		},
+		"manual": {
+			"intro": "Peg Arroxy mod kopier, du allerede har, eller installer dem på anden måde.",
+			"linuxHint": "Du kan også installere yt-dlp og ffmpeg med din pakkehåndtering og derefter klikke på Prøv igen.",
+			"toggle": "Konfigurer manuelt"
+		},
+		"stopped": {
+			"body": "Prøv igen, eller peg Arroxy mod værktøjer, du allerede har, nedenfor.",
+			"title": "Opsætningen stoppede"
+		},
+		"title": "Opsætningen har brug for din hjælp"
 	},
 	"selectionOrder": {
 		"editorTitle": "Sådan vælger denne profil",
-		"whyTitle": "Hvorfor profilen valgte denne",
-		"whyLabel": "Hvorfor denne?",
 		"rank": {
-			"h264": {"label": "H.264-video", "reason": "afspilles på alle enheder"},
-			"mp4Streams": {"label": "MP4-streams", "reason": "klar til en MP4-fil"},
-			"resolutionBest": {"label": "Højeste opløsning", "reason": "ingen grænse angivet"},
-			"resolution": {"label": "Op til {{tier}}p", "reason": "din grænse"},
-			"fps": {"label": "Højeste billedfrekvens", "reason": "mere jævn bevægelse"},
-			"sitePreference": {"label": "Streams, som webstedet ikke nedprioriterer", "reason": "springer beskadigede kopier, kopier med vandmærke og reservekopier over"},
-			"original": {"label": "Originale streams, ikke AI-opskalerede", "reason": "en opskaleret kopi er højere, men tilføjer ingen reelle detaljer"},
-			"source": {"label": "Streams med forbedret bitrate først", "reason": "flere detaljer ved samme opløsning"},
-			"protocol": {"label": "Direkte downloads før streamede kopier", "reason": "det samme billede, downloadet hurtigere"},
-			"codec": {"label": "AV1, derefter VP9, derefter H.264", "reason": "skarpest ved en given størrelse"},
-			"codecVp9First": {"label": "VP9, derefter H.264, derefter AV1", "reason": "denne profils codec"},
-			"codecH264First": {"label": "H.264, derefter VP9, derefter AV1", "reason": "denne profils codec"},
-			"size": {"label": "Større fil", "reason": "flere detaljer med de samme indstillinger"},
-			"aacSmartTv": {"label": "AAC-lyd", "reason": "afspilles overalt"},
-			"aacFileType": {"label": "AAC-lyd", "reason": "passer til MP4-afspillere"},
-			"opus": {"label": "Opus-lyd", "reason": "passer til WebM"},
-			"nativeCompatible": {"label": "Stereolyd"},
-			"nativeSurround": {"label": "Surroundlyd, når den findes"},
-			"nativeSource": {"settings": "fra Indstillinger", "profile": "denne profil"},
-			"hdrSdrFirst": {"label": "SDR før HDR", "reason": "ser rigtigt ud på enhver skærm", "reasonScreen": "denne skærm viser ikke HDR"},
-			"hdrFirst": {"label": "HDR før SDR", "reason": "rigere farver på HDR-skærme", "reasonScreen": "denne skærm viser HDR"}
+			"aacFileType": {
+				"label": "AAC-lyd",
+				"reason": "passer til MP4-afspillere"
+			},
+			"aacSmartTv": {
+				"label": "AAC-lyd",
+				"reason": "afspilles overalt"
+			},
+			"codec": {
+				"label": "AV1, derefter VP9, derefter H.264",
+				"reason": "skarpest ved en given størrelse"
+			},
+			"codecH264First": {
+				"label": "H.264, derefter VP9, derefter AV1",
+				"reason": "denne profils codec"
+			},
+			"codecVp9First": {
+				"label": "VP9, derefter H.264, derefter AV1",
+				"reason": "denne profils codec"
+			},
+			"fps": {
+				"label": "Højeste billedfrekvens",
+				"reason": "mere jævn bevægelse"
+			},
+			"h264": {
+				"label": "H.264-video",
+				"reason": "afspilles på alle enheder"
+			},
+			"hdrFirst": {
+				"label": "HDR før SDR",
+				"reason": "rigere farver på HDR-skærme",
+				"reasonScreen": "denne skærm viser HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR før HDR",
+				"reason": "ser rigtigt ud på enhver skærm",
+				"reasonScreen": "denne skærm viser ikke HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-streams",
+				"reason": "klar til en MP4-fil"
+			},
+			"nativeCompatible": {
+				"label": "Stereolyd"
+			},
+			"nativeSource": {
+				"profile": "denne profil",
+				"settings": "fra Indstillinger"
+			},
+			"nativeSurround": {
+				"label": "Surroundlyd, når den findes"
+			},
+			"opus": {
+				"label": "Opus-lyd",
+				"reason": "passer til WebM"
+			},
+			"original": {
+				"label": "Originale streams, ikke AI-opskalerede",
+				"reason": "en opskaleret kopi er højere, men tilføjer ingen reelle detaljer"
+			},
+			"protocol": {
+				"label": "Direkte downloads før streamede kopier",
+				"reason": "det samme billede, downloadet hurtigere"
+			},
+			"resolution": {
+				"label": "Op til {{tier}}p",
+				"reason": "din grænse"
+			},
+			"resolutionBest": {
+				"label": "Højeste opløsning",
+				"reason": "ingen grænse angivet"
+			},
+			"sitePreference": {
+				"label": "Streams, som webstedet ikke nedprioriterer",
+				"reason": "springer beskadigede kopier, kopier med vandmærke og reservekopier over"
+			},
+			"size": {
+				"label": "Større fil",
+				"reason": "flere detaljer med de samme indstillinger"
+			},
+			"source": {
+				"label": "Streams med forbedret bitrate først",
+				"reason": "flere detaljer ved samme opløsning"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "bedste billede", "smartTv": "afspilles på alle enheder"}, "fileType": {"auto": "filtype ud fra streams", "explicit": "gemmes som .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "filtype ud fra streams",
+				"explicit": "gemmes som .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "bedste billede",
+				"smartTv": "afspilles på alle enheder"
+			}
+		},
+		"whyLabel": "Hvorfor denne?",
+		"whyTitle": "Hvorfor profilen valgte denne"
 	},
-	"aiUpscaled": {"label": "AI-opskalerede streams", "description": "YouTube tilbyder nogle gamle videoer i størrelser, som er lavet med AI. Spring over beholder de originale streams; du kan stadig vælge en opskaleret stream manuelt.", "skip": "Spring over", "allow": "Tillad"},
+	"share": {
+		"copied": "Kopieret!",
+		"copyLink": "Kopiér link",
+		"defaultMessage": "Arroxy — gratis og open source videodownloader til Windows, macOS og Linux. Virker med YouTube, Vimeo, Twitch og 2000+ websteder.\n4K · HDR · MP3 · Shorts · Undertekster · SponsorBlock",
+		"description": "Arroxy er gratis og open source. Når du deler den, hjælper du flere med at finde den.",
+		"footerLabel": "Del",
+		"footerTooltip": "Del Arroxy",
+		"shareAction": "Del Arroxy",
+		"title": "Del Arroxy"
+	},
+	"splash": {
+		"cancel": "Problemer? Konfigurer manuelt",
+		"greeting": "Hej, velkommen tilbage!",
+		"setup": {
+			"bytes": "{{done}} af {{total}}",
+			"left": {
+				"minutes_one": "ca. {{count}} min. tilbage",
+				"minutes_other": "ca. {{count}} min. tilbage",
+				"underMinute": "mindre end et minut tilbage"
+			},
+			"note": {
+				"engine": "Sørger for, at downloads bliver ved med at virke, når websteder ændrer sig.",
+				"firstRun": "Det sker kun én gang. Arroxy beholder disse værktøjer og opdaterer dem selv.",
+				"media": "Det sker kun én gang. Arroxy beholder dem til fremtidige opdateringer."
+			},
+			"stage": {
+				"checking": "Kontrollerer, at alt virker",
+				"connecting": "Opretter forbindelse…",
+				"downloadingBoth": "Downloader download-motoren og medieværktøjerne",
+				"downloadingEngine": "Downloader download-motoren",
+				"downloadingMedia": "Downloader medieværktøjerne",
+				"unpacking": "Udpakker medieværktøjerne"
+			},
+			"title": {
+				"engine": "Opdaterer download-motoren",
+				"firstRun": "Førstegangsopsætning",
+				"media": "Opdaterer medieværktøjerne"
+			}
+		},
+		"verifyFirstCheck": "Første kontrol af denne version — den er langsom. Tager normalt omkring et minut.",
+		"verifying": "Kontrollerer {{binary}}…",
+		"warmup": "Klargør downloads…",
+		"warmupFailedNoDiag": "Opsætningen mislykkedes. Åbn opsætningsloggen for at se detaljer."
+	},
+	"status": {
+		"audioKept": "Video gemt med lyd — lyden kunne ikke fjernes",
+		"audioKeptSubtitlesFailed": "Video gemt med lyd — lyden kunne ikke fjernes, og nogle undertekster kunne ikke downloades",
+		"cancelled": "Download annulleret",
+		"complete": "Download fuldført",
+		"convertingVideo": "Konverterer video…",
+		"diskSpaceInsufficient": "Ikke nok diskplads — {{required}} kræves, kun {{free}} ledig",
+		"downloadingBinary": "Downloader binærfilen {{name}}…",
+		"downloadingMedia": "Downloader video og lyd…",
+		"embeddingMetadata": "Indlejrer metadata…",
+		"exploreSignedOut": "Logget ud af Udforsk — log ind igen",
+		"extractingAudio": "Konverterer lyd…",
+		"fetchingSponsorBlock": "Kontakter SponsorBlock…",
+		"fetchingSubtitles": "Henter undertekster…",
+		"mergingFormats": "Fletter lyd og video sammen…",
+		"mintingToken": "Opretter YouTube-token…",
+		"movingFiles": "Flytter filer…",
+		"noSubtitles": "Ingen undertekster på {{languages}}",
+		"outputNotWritable": "Kan ikke gemme i {{dir}} — Arroxy har ikke tilladelse til at skrive der",
+		"preparingBinaries": "Klargør binærfiler…",
+		"qualityLimited": "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download. Det kan hjælpe at prøve igen senere eller fra et andet netværk.",
+		"qualityLimitedSubtitlesFailed": "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download, og nogle undertekster kunne ikke downloades. Det kan hjælpe at prøve igen senere eller fra et andet netværk.",
+		"remintingToken": "Opretter token igen…",
+		"retryingSponsorBlock": "SponsorBlock er utilgængelig, prøver igen ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Forbindelsen gik i stå, prøver igen ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Logger ind med din konto i Udforsk…",
+		"sleepingBetweenRequests": "Venter {{seconds}} s for at undgå hastighedsgrænser…",
+		"startingYtdlp": "Starter download-motoren…",
+		"subtitleLanguagesMissing": "Denne video har ingen undertekster på {{languages}}. Videoen blev gemt uden dem.",
+		"subtitleLanguagesMissingOthersSaved": "Denne video har ingen undertekster på {{languages}}. De øvrige sprog blev gemt.",
+		"subtitlesFailed": "Video gemt — nogle undertekster kunne ikke downloades",
+		"unknownStartupFailure": "Ukendt fejl ved start af download",
+		"usedExtractorFallback": "Downloadet med lempet udtrækker — konfigurer en cookies.txt for mere pålidelige downloads",
+		"ytdlpExitCode": "Download-motoren afsluttede med koden {{code}}",
+		"ytdlpProcessError": "Fejl i download-motoren: {{error}}"
+	},
+	"theme": {
+		"dark": "Mørk tilstand",
+		"light": "Lys tilstand",
+		"system": "Systemstandard"
+	},
+	"titleBar": {
+		"close": "Luk",
+		"maximize": "Maksimer",
+		"minimize": "Minimer",
+		"restore": "Gendan"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Download fra udklipsholderen",
+			"open": "Åbn Arroxy",
+			"quit": "Afslut Arroxy",
+			"statusActive_one": "1 downloader · {{percent}} %",
+			"statusActive_other": "{{count}} downloader · {{percent}} %",
+			"statusIdle": "Inaktiv"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Kommando kopieret til udklipsholderen",
+		"copy": "Kopiér kommando til udklipsholderen",
+		"dismiss": "Luk opdateringsbanner",
+		"download": "Download ↗",
+		"downloadDmg": "Download DMG ↗",
+		"downloading": "Downloader…",
+		"install": "Installer og genstart",
+		"installFailed": "Opdateringen mislykkedes",
+		"message": {
+			"generic": "Arroxy {{version}} er tilgængelig — du har {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} er tilgængelig — opdater med Homebrew.",
+			"macosDirect": "Arroxy {{version}} er tilgængelig — download den nye DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} er tilgængelig — download DMG'en, eller skift til Homebrew.",
+			"portable": "Arroxy {{version}} er tilgængelig — download det nye build."
+		},
+		"retry": "Prøv igen",
+		"runAndRestart": "Kør og genstart",
+		"upgrading": "Opgraderer…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} kapitel",
+		"chapters_other": "{{count}} kapitler",
+		"titlePlaceholder": "Indlæser…"
+	},
 	"videoCodec": {
-		"label": "Videocodec",
-		"description": "Hvilken codec der vælges først blandt streams med samme højde. Auto beholder yt-dlp's egen rækkefølge, som foretrækker AV1, den mindste; H.264 afspilles på ældre tv og telefoner.",
-		"smartTv": "Smart TV tager altid H.264.",
 		"auto": "Auto",
-		"vp9": "VP9 først",
-		"h264": "H.264 først"
+		"description": "Hvilken codec der vælges først blandt streams med samme højde. Auto beholder yt-dlp's egen rækkefølge, som foretrækker AV1, den mindste; H.264 afspilles på ældre tv og telefoner.",
+		"h264": "H.264 først",
+		"label": "Videocodec",
+		"smartTv": "Smart TV tager altid H.264.",
+		"vp9": "VP9 først"
 	},
-	"hdrPreference": {"label": "HDR-video", "description": "Auto vælger HDR, når denne skærm kan vise det, ellers SDR. HDR ser udvasket ud på almindelige skærme.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Klar",
+			"description": "Indsæt URL'er til videoer, afspilningslister, kanaler, søgninger eller lyd. Arroxy fjerner dubletter, før de sættes i kø.",
+			"emptyPreview": "Indsæt en eller flere URL'er for at få vist et eksempel på partiet.",
+			"ignoredCount": "Ignoreret",
+			"needsAtLeastOne": "Tilføj mindst én understøttet URL for at fortsætte.",
+			"reject": {
+				"duplicate": "Dublet"
+			},
+			"textareaLabel": "URL-liste",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Bulk-URL'er"
+		},
+		"confirm": {
+			"addToQueue": "+ Kø",
+			"addToQueueTooltip": "Føjer til køen — starter, når det aktive download er færdigt",
+			"audioOnly": "Kun lyd",
+			"itemsValueAudio_one": "{{count}} af {{total}} nummer",
+			"itemsValueAudio_other": "{{count}} af {{total}} numre",
+			"itemsValueBulk_one": "{{count}} af {{total}} URL",
+			"itemsValueBulk_other": "{{count}} af {{total}} URL'er",
+			"itemsValue_one": "{{count}} af {{total}} video",
+			"itemsValue_other": "{{count}} af {{total}} videoer",
+			"labelAudio": "Lyd",
+			"labelBulk": "Parti",
+			"labelItems": "Elementer",
+			"labelPlaylist": "Afspilningsliste",
+			"labelPreset": "Forudindstilling",
+			"labelSaveTo": "Gem i",
+			"labelSize": "Størrelse",
+			"labelSubtitles": "Undertekster",
+			"labelVideo": "Video",
+			"landIn": "Din fil havner i",
+			"landInMultiProfile_one": "Den havner i målet nedenfor",
+			"landInMultiProfile_other": "De havner i de {{count}} mål nedenfor",
+			"nothingToDownload": "Forudindstillingen Kun undertekster er aktiv, men der er ikke valgt noget undertekstsprog — der downloades ikke noget.",
+			"profileBreakdownCount_one": "{{count}} element",
+			"profileBreakdownCount_other": "{{count}} elementer",
+			"profileBreakdownHeading": "Profiler i dette parti",
+			"pullIt": "Hent den! ↓",
+			"pullItTooltip": "Springer køen over — starter nu og kører ved siden af andre aktive downloads",
+			"readyHeadline": "Klar til at hente den!",
+			"sizeUnknown": "Ukendt",
+			"subtitleEmbedAudioOnly": "Indlejring af undertekster er ændret til separat fil — lydspor understøtter ikke indlejrede undertekststreams.",
+			"subtitleEmbedForcesMkv": "Undertekster i selve videoen kræver en MKV-fil, så dette download gemmes som .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Indlejring af miniature blev sprunget over — outputcontaineren understøtter det ikke."
+		},
+		"folder": {
+			"custom": "Brugerdefineret…",
+			"desktop": "Skrivebord",
+			"documents": "Dokumenter",
+			"downloads": "Downloads",
+			"heading": "Gem i",
+			"home": "Hjem",
+			"music": "Musik",
+			"pictures": "Billeder",
+			"subfolder": {
+				"invalid": "Mappenavnet indeholder ugyldige tegn",
+				"placeholder": "f.eks. lo-fi-rips",
+				"toggle": "Gem i undermappe"
+			},
+			"videos": "Film"
+		},
+		"formats": {
+			"audio": "Lyd",
+			"audioLanguage": "Lydsprog",
+			"audioLanguageCount_one": "{{count}} sprog",
+			"audioLanguageCount_other": "{{count}} sprog",
+			"audioOnly": "Kun lyd",
+			"bitrateValue": "Bitrate {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies er konfigureret, men slået fra. Slå dem til, og prøv igen for at få den fulde liste, eller skift netværk, og prøv igen.",
+				"bodyEnabled": "Selv med cookies begrænsede YouTube denne analyse. Prøv igen senere, eller skift netværk.",
+				"bodyExplore": "YouTube begrænsede denne anmodning. Prøv igen senere, eller skift netværk.",
+				"bodyUnconfigured": "Formatlisten er muligvis ufuldstændig. Konfigurer cookies under avancerede indstillinger, eller skift netværk, og prøv igen.",
+				"enableRetryCta": "Aktivér cookies, og prøv igen",
+				"heading": "Analysen blev begrænset",
+				"retryCta": "Prøv igen"
+			},
+			"convert": {
+				"bitrate": "Bitrate",
+				"bitrateCopyHint": "En kilde, der allerede er {{target}}, beholder sin egen stream og bitrate: den kopieres og genkodes ikke.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, ingen genkodning",
+				"copyLabelNoBitrate": "{{target}}, ingen genkodning",
+				"copyNote": "{{kbps}} kbps, som i kilden: streamen er allerede {{target}}, så den kopieres og genkodes ikke",
+				"copyNoteNoBitrate": "Som i kilden: streamen er allerede {{target}}, så den kopieres og genkodes ikke",
+				"label": "Konverter",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Kilden er {{kbps}} kbps",
+				"wavLabel": "WAV (ukomprimeret)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Login i Udforsk",
+				"currentModeFile": "Fil",
+				"currentModeLabel": "Cookiekilde",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp-dokumentation (issue #10927)",
+					"explanation": "Chrome 127 og nyere krypterer cookies på en måde, som andre apps ikke kan læse på Windows. Prøv en af løsningerne nedenfor.",
+					"fixFileBody": "Eksportér cookies fra Chrome med en browserudvidelse, skift derefter denne app til tilstanden Fil, og vælg den eksporterede fil.",
+					"fixFileLabel": "Eksportér cookies.txt",
+					"fixFirefoxBody": "Firefox bruger ikke App-Bound Encryption. Åbn cookieindstillingerne, og vælg Firefox på browserlisten.",
+					"fixFirefoxLabel": "Skift til Firefox",
+					"fixUnsafeBody": "Tilføj --disable-features=LockProfileCookieDatabase til Chromes startgenvej. Advarsel: Det gør tidligere krypterede cookies ugyldige, så du bliver logget ud af alle websteder og skal logge ind igen.",
+					"fixUnsafeLabel": "Start Chrome med App-Bound Encryption deaktiveret",
+					"heading": "Chrome-cookies blokeret af Windows-kryptering"
+				},
+				"explanationBrowser": "Cookies læses direkte fra browseren. Hvis browseren kører i øjeblikket, kan dens cookiedatabase være låst (Chromium-familien). Browseren skal også være logget ind på YouTube. Prøv at lukke browseren, skifte til en anden browser, skifte til tilstanden Fil eller slå cookies fra.",
+				"explanationFile": "Din cookiefil kan være tom, udløbet eller i det forkerte format (Arroxy skal bruge en Netscape cookies.txt-fil). Prøv at eksportere cookies igen, vælge en anden fil, skifte til tilstanden Browser eller slå cookies fra.",
+				"exploreOffer": {
+					"body": "Log ind i Udforsk, så prøver Arroxy igen.",
+					"cta": "Log ind i Udforsk",
+					"heading": "Denne video kræver måske en YouTube-konto"
+				},
+				"exploreRefused": {
+					"body": "Arroxy har allerede prøvet det med dit login via Udforsk, så det hjælper ikke at logge ind igen. Webstedet kan have problemer, eller også kan denne konto ikke åbne det. Prøv igen senere.",
+					"heading": "Webstedet afviste det, selv med dit login i Udforsk"
+				},
+				"exploreReuse": {
+					"body": "Du er logget ind i Udforsk, men downloads bruger ikke det login lige nu.",
+					"cta": "Brug mit login i Udforsk, og prøv igen",
+					"heading": "Denne video kræver måske en YouTube-konto"
+				},
+				"exploreSignIn": {
+					"body": "Hvis denne video kræver en YouTube-konto, så log ind i Udforsk, og prøv igen. Arroxy bruger kun det login, når et download har brug for det.",
+					"cta": "Log ind i Udforsk",
+					"heading": "Denne video kræver måske en YouTube-konto"
+				},
+				"exploreSignedIn": {
+					"body": "Hvis denne video kræver en konto, bruger Arroxy automatisk dit login i Udforsk. Den kan være utilgængelig af en anden årsag.",
+					"heading": "Logget ind i Udforsk"
+				},
+				"exploreSite": {
+					"heading": "Dette link kræver måske en konto på {{host}}",
+					"offerBody": "Log ind på {{host}} via Udforsk, og prøv igen.",
+					"signInBody": "Log ind på {{host}} i Udforsk, og prøv igen. Arroxy bruger kun det login, når et download har brug for det."
+				},
+				"heading": "Cookies kan være årsagen",
+				"needsCookies": {
+					"body": "Arroxy kunne ikke få adgang til denne video uden godkendelse. Konfigurer cookies under avancerede indstillinger — peg på en browser, du allerede er logget ind i, eller importer en cookies.txt-fil.",
+					"heading": "Dette websted kræver login"
+				},
+				"openSettingsCta": "Åbn cookieindstillinger",
+				"otherCookiesCta": "Brug i stedet en cookiefil eller en browser…"
+			},
+			"drc": {
+				"description": "Dæmper høje passager og hæver lave, til højttalere og støjende rum.",
+				"label": "Udjævn lydstyrken (DRC)",
+				"tag": "Jævn lydstyrke"
+			},
+			"fit": {
+				"mp4Unavailable": "Din profil er Smart TV (H.264). Denne video tilbyder ikke H.264, så den nærmeste stream er valgt.",
+				"noVideo": "Dette link har ingen video, så lyd er valgt.",
+				"subtitlesMissing": "Din profil beder om undertekster på {{languages}}. Denne video har dem ikke.",
+				"tierAbove": "Din profil beder om {{wanted}}p. Denne video har intet så lille, så {{picked}}p er valgt.",
+				"tierBelow": "Din profil beder om {{wanted}}p. Denne video går kun op til {{picked}}p, så {{picked}}p er valgt.",
+				"webmUnavailable": "Din profil beder om WebM. Denne videos valgte streams indeholder {{codec}}, som WebM ikke kan rumme, så filtypen er Auto."
+			},
+			"footer": {
+				"addToQueue": "Føj til køen uden at starte",
+				"download": "Download",
+				"moreActions": "Flere downloadindstillinger",
+				"subtitlesRequired": "Vælg mindst ét undertekstsprog."
+			},
+			"keepAudio": "Behold som den er",
+			"keepAudioMeta": "Indbygget lyd",
+			"kind": {
+				"audio": "Kun lyd",
+				"label": "Hvad skal downloades",
+				"subtitles": "Kun undertekster",
+				"video": "Video + lyd",
+				"videoOnly": "Video, ingen lyd"
+			},
+			"loadingAria": "Indlæser formater",
+			"loadingHint": "Vent, til analysen er færdig — afspilningslister og søgninger kan tage et stykke tid.",
+			"marker": {
+				"aiDubbed": "AI-dubbet",
+				"aiUpscaled": "AI-opskaleret",
+				"audioDescription": "Lydbeskrivelse",
+				"damaged": "Beskadiget",
+				"enhancedBitrate": "Forbedret bitrate",
+				"spatialAudio": "Rumlig lyd",
+				"vr": "360° / VR",
+				"watermarked": "Med vandmærke"
+			},
+			"noAudio": "Ingen lyd",
+			"profile": {
+				"calloutBody": "Din aktive profil forvælger streamene for dig. Skift profil fra menuen, eller brug blyanten til at justere en uden at forlade dette download.",
+				"calloutTitle": "Formater tager udgangspunkt i din profil",
+				"closestTag": "Tættest på profilen",
+				"edit": "Rediger {{name}}",
+				"keepEdits": "Behold mine ændringer",
+				"menuDescription": "Kun for dette download. Din standardprofil forbliver uændret.",
+				"preselected": "Forvalgt fra",
+				"resetAll": "Nulstil alle",
+				"switchBody": "Du har ændret {{areas}} for dette download. »{{profile}}« vælger video og lyd under alle omstændigheder. Vil du beholde dine øvrige ændringer eller nulstille alt til profilen?",
+				"switchTitle": "Skift profil?",
+				"tag": "Profil",
+				"updatedBody": "Du har ændret {{areas}} for dette download. Den opdaterede profil vælger video og lyd under alle omstændigheder. Vil du beholde dine øvrige ændringer eller nulstille alt til profilen?",
+				"updatedTitle": "Brug den opdaterede profil?"
+			},
+			"quality": {
+				"high": "Høj kvalitet",
+				"low": "Lav kvalitet",
+				"medium": "Mellem kvalitet"
+			},
+			"rateLimit": {
+				"heading": "{{site}} begrænser denne forbindelse",
+				"leadDegraded": "Formatlisten er muligvis ufuldstændig.",
+				"leadFailed": "{{site}} afviste denne anmodning for nu.",
+				"retryCta": "Prøv igen",
+				"sessionNote": "{{site}} kan opretholde denne begrænsning i op til en time.",
+				"tryNowCta": "Prøv nu",
+				"waitOver": "Ventetiden er slut, så du kan prøve igen.",
+				"waitUntil": "Arroxy venter til {{time}}, før det spørger {{site}} igen, så begrænsningen kan ophæves."
+			},
+			"resolutionUnknown": "Ukendt opløsning",
+			"savesAs": {
+				"label": "Gemmes som",
+				"reset": "WebM kan ikke rumme {{codec}}, så filtypen blev sat tilbage til Auto."
+			},
+			"sizeUnknown": "Størrelse ukendt",
+			"skipToConfirm": "Spring til bekræftelse",
+			"skipToConfirmTooltip": "Bruger dine gemte indstillinger til alle resterende trin. Hvis du vil ændre en indstilling, så fortsæt i stedet trin for trin — dit valg gemmes til næste gang.",
+			"sniffing": "Sporer de bedste formater til dig…",
+			"total": "I alt",
+			"video": "Video",
+			"withAudio": "med lyd"
+		},
+		"mixedPrompt": {
+			"body": "Vil du kun have den video, du klikkede på, eller vælge fra afspilningslisten? Du vælger bestemte videoer eller et interval i næste trin.",
+			"pickFromPlaylist": "Vælg fra afspilningsliste",
+			"playlistLimit": "Analysegrænse for afspilningslister: {{count}} elementer",
+			"playlistTooltip": "Indlæser afspilningslisten op til din analysegrænse, før udvælgelsen vises.",
+			"quickBody": "Download kun denne video, eller sæt hele afspilningslisten i kø med din aktive profil til Hurtig download.",
+			"quickLimitDescription": "Maksimalt antal elementer, Arroxy scanner, før en afspilningsliste, en kanal eller et søgeresultat sættes i kø.",
+			"quickPlaylistTooltip": "Sætter alle indlæste elementer i afspilningslisten i kø med den aktive profil til Hurtig download. Hvis scanningen når din grænse, spørger Arroxy, før der sættes i kø.",
+			"quickSingleTooltip": "Sætter ét download i kø og ignorerer afspilningslisten, der hører til denne URL.",
+			"quickSingleVideo": "Download denne video",
+			"quickWholePlaylist": "Download hele afspilningslisten",
+			"singleTooltip": "Indlæser kun denne video. Afspilningslisten, der hører til denne URL, ignoreres.",
+			"singleVideo": "Kun denne",
+			"title": "Dette link har en afspilningsliste"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Kapitelmarkeringer, der kan navigeres i enhver moderne afspiller.",
+				"label": "Indlejr kapitler"
+			},
+			"embedMetadata": {
+				"description": "Titel, kunstner, beskrivelse og uploaddato skrives ind i filen.",
+				"label": "Indlejr metadata"
+			},
+			"embedThumbnail": {
+				"description": "Coverbillede inde i filen. WebM-video remuxes til MKV; springes over, når undertekster indlejres.",
+				"label": "Indlejr miniature"
+			},
+			"writeDescription": {
+				"description": "Gemmer videobeskrivelsen som en .description-tekstfil ved siden af downloadet.",
+				"label": "Gem beskrivelse"
+			},
+			"writeM3u": {
+				"description": "Gem en .m3u-afspilningsliste sammen med videoerne, så de åbnes i rækkefølge i din medieafspiller.",
+				"label": "Opret .m3u-afspilningslistefil"
+			},
+			"writeThumbnail": {
+				"description": "Gemmer miniaturen som en .jpg-billedfil ved siden af downloadet.",
+				"label": "Gem miniature"
+			}
+		},
+		"part": {
+			"calloutBody": "Skift til Udsnit på videokortet for at vælge start og slut eller et kapitel og kun downloade det stykke.",
+			"calloutTitle": "Download kun en del af en video",
+			"chapterUntitled": "Kapitel {{number}}",
+			"chapters": "Kapitler",
+			"connectionsNote": "Et udsnit downloades via ffmpeg, så dine indstillinger for downloadforbindelser og tempo gælder ikke for det.",
+			"downloadBlocked": "Ret først start og slut på udsnittet.",
+			"end": "Slut",
+			"error": {
+				"endBeyondDuration": "Videoen slutter ved {{duration}}.",
+				"endInvalid": "Angiv slut som h:mm:ss, m:ss eller sekunder.",
+				"startInvalid": "Angiv start som h:mm:ss, m:ss eller sekunder.",
+				"startNotBeforeEnd": "Start skal ligge før slut."
+			},
+			"exactCut": {
+				"hint": "Fra: hvert klip lander på det nærmeste keyframe, som kan ligge nogle sekunder fra det tidspunkt, du skrev.",
+				"label": "Præcist klip (genkoder, langsommere)"
+			},
+			"length": "{{length}} af {{duration}}",
+			"part": "Udsnit",
+			"rangeLabel": "Udsnit af videoen",
+			"start": "Start",
+			"subtitlesFullLength": "hele videoen",
+			"summary": "Udsnit {{start}}–{{end}}",
+			"switchLabel": "Hvor meget af videoen",
+			"timeHint": "h:mm:ss, m:ss eller sekunder",
+			"totalEstimate": "Udsnit, anslået",
+			"unavailableDuration": "Denne video oplyser ikke sin længde, så den kan kun downloades i sin helhed.",
+			"unavailableSubtitles": "Undertekster dækker altid hele videoen.",
+			"urlStart": "Dit link starter ved {{time}}",
+			"useUrlStart": "Brug som start",
+			"whole": "Hele videoen",
+			"wholeTrack": "Hele nummeret"
+		},
+		"playlist": {
+			"allRemovedDescription": "Gendan dem for at fortsætte.",
+			"allRemovedTitle": "Alle elementer blev fjernet",
+			"alreadyDownloaded": "Allerede downloadet",
+			"bulkHeading": "Bulk-URL'er",
+			"bulkMetadataOptional": "Du behøver ikke vente — filer, der sættes i kø nu, får stadig deres rigtige navne, når de downloades.",
+			"bulkMetadataResolving": "Henter videooplysninger… {{done}}/{{total}}",
+			"bulkRowFailed": "Oplysninger utilgængelige",
+			"bulkRowResolving": "Henter oplysninger",
+			"bulkRowWaiting": "Venter",
+			"durationUnknown": "live",
+			"heading": "Elementer i afspilningslisten",
+			"headingGeneric": "Videoer, der skal downloades",
+			"itemCountAudio_one": "{{count}} nummer",
+			"itemCountAudio_other": "{{count}} numre",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL'er",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} videoer",
+			"loadingItems": "Henter afspilningsliste…",
+			"loadingItemsGeneric": "Henter videoer…",
+			"loadingLimitHint": "Begrænset til de første {{count}} elementer",
+			"loadingPagesFound_one": "{{count}} side fundet",
+			"loadingPagesFound_other": "{{count}} sider fundet",
+			"loadingPhaseItems": "Indsamler videoer",
+			"loadingPhasePages": "Scanner kanalsider",
+			"multiProfileEntry": "Tildel profiler pr. element",
+			"multiProfileEntryTooltip": "Springer Kvalitet, SponsorBlock, Output og Gem over — tildel i stedet en downloadprofil pr. element",
+			"nestedPlaylistBadge": "Afspilningsliste",
+			"nestedPlaylistHint_one": "{{count}} af disse er en afspilningsliste, ikke en video — indsæt dens link for sig for at downloade den.",
+			"nestedPlaylistHint_other": "{{count}} af disse er afspilningslister, ikke videoer — indsæt deres links ét ad gangen for at downloade dem.",
+			"noSelection": "Vælg mindst én video for at fortsætte",
+			"probeLimitAlertDesc": "Viser de første {{count}} elementer. Hæv indlæsningsgrænsen for at se flere.",
+			"probeLimitAlertTitle": "Scanningen af afspilningslisten er begrænset",
+			"probeLimitAlertTitleGeneric": "Scanningen er begrænset",
+			"rangeApply": "Anvend interval",
+			"rangeFrom": "Fra",
+			"rangeTo": "Til",
+			"removeFromListCount_one": "Fjern {{count}} fra listen",
+			"removeFromListCount_other": "Fjern {{count}} fra listen",
+			"removedCount_one": "{{count}} fjernet",
+			"removedCount_other": "{{count}} fjernet",
+			"restore": "Gendan",
+			"selectAll": "Vælg alle",
+			"selectNone": "Fravælg alle",
+			"selectedCount_one": "{{count}} valgt",
+			"selectedCount_other": "{{count}} valgt",
+			"sortApi": "Rækkefølge i afspilningslisten",
+			"sortFetchingDates": "Henter uploaddatoer…",
+			"sortLabel": "Sortér",
+			"sortUploadAsc": "Ældste først",
+			"sortUploadDesc": "Nyeste først",
+			"syncApply": "Anvend synkronisering",
+			"syncChange": "Skift mappe…",
+			"syncFoundDesc": "{{n}} af disse videoer findes allerede i {{dir}}. Vil du synkronisere for kun at downloade de nye?",
+			"syncFoundTitle": "Allerede i mappen",
+			"syncNoneDesc": "Der blev ikke fundet nogen videoer fra denne afspilningsliste i {{dir}}.",
+			"syncNoneDescGeneric": "Der blev ikke fundet nogen videoer fra denne kilde i {{dir}}.",
+			"syncNoneTitle": "Intet downloadet endnu",
+			"syncScanning": "Kontrollerer mappe…",
+			"thumbnailAlt": "Miniature af video"
+		},
+		"playlistPresets": {
+			"heading": "Vælg kvalitet til partiet",
+			"itemCount_one": "{{count}} element",
+			"itemCount_other": "{{count}} elementer",
+			"subhead": "Hver video afgør det valgte niveau uafhængigt — afspilningslister med blandet indhold virker uden overraskelser."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Tildel profil",
+			"assignTrigger_one": "Tildel til {{count}} video",
+			"assignTrigger_other": "Tildel til {{count}} videoer",
+			"columnDuration": "Varighed",
+			"columnProfile": "Profil",
+			"editProfile": "Rediger {{name}}",
+			"empty": "Ingen elementer matcher dette filter",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profilfiltre",
+			"heading": "Tildel downloadprofiler",
+			"menuDescription_one": "Vælg profilen til denne video.",
+			"menuDescription_other": "Vælg profilen til disse {{count}} videoer.",
+			"selectedSummary": "{{selected}} af {{total}} valgt"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Skift global",
+				"chooseFolder": "Vælg målmappe",
+				"chooseIcon": "Vælg profilikon",
+				"removeLanguage": "Fjern {{code}}",
+				"reset": "Nulstil profil",
+				"resetDisabledHint": "Denne profil bruger allerede de indbyggede indstillinger",
+				"resetHint": "Gendan profilens indbyggede indstillinger",
+				"save": "Gem profil",
+				"setOverride": "Angiv tilsidesættelse for profil",
+				"setOverrideShort": "Angiv tilsidesættelse",
+				"useGlobalDefault": "Brug global standard",
+				"useLanguageCode": "Brug sprogkoden »{{code}}«"
+			},
+			"advanced": "Avanceret",
+			"appSetting": "Brug appindstilling ({{value}})",
+			"audioFormat": {
+				"best": "Bedste",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Op til 128K",
+				"192": "Op til 192K",
+				"320": "Op til 320K",
+				"best": "Bedste kvalitet"
+			},
+			"destination": {
+				"defaultFolder": "Standardmappe til downloads",
+				"defaultFolderWithSubfolder": "Standardmappe til downloads / {{subfolder}}",
+				"global": "Globalt mål",
+				"globalActive": "Aktiv",
+				"globalInherited": "Nedarvet",
+				"override": "Tilsidesættelse for profil",
+				"overrideChoosing": "Vælg mappe",
+				"overrideNone": "Ingen tilsidesættelse",
+				"overrideNoneNote": "Ingen tilsidesættelse angivet. Denne profil bruger det globale mål ovenfor.",
+				"overrideSet": "Tilsidesætter global",
+				"overrideSetNote": "Denne profil gemmer i sin egen rodmappe, før undermappen tilføjes.",
+				"resolved": "Endeligt mål"
+			},
+			"dialogDescription": "Én genbrugelig opsætning til Hurtig download, Bulk-URL'er og afspilningslister.",
+			"dialogTitle": "Downloadprofil",
+			"error": {
+				"changeGlobalDestination": "Kunne ikke ændre det globale mål.",
+				"folderPicker": "Kunne ikke åbne mappevælgeren. Angiv en sti manuelt.",
+				"reset": "Kunne ikke nulstille profilindstillingerne.",
+				"save": "Kunne ikke gemme profilindstillingerne."
+			},
+			"field": {
+				"delivery": "Levering",
+				"fileType": "Filtype",
+				"goal": "Optimer til",
+				"icon": "Profilikon",
+				"languages": "Sprog",
+				"name": "Profilnavn",
+				"nameAndIcon": "Profilnavn og ikon",
+				"nativeAudio": "Original lyd",
+				"overridePath": "Sti til tilsidesættelse for profil",
+				"quality": "Kvalitet",
+				"resolution": "Opløsning",
+				"source": "Kilde",
+				"subfolderName": "Navn på undermappe",
+				"subtitleDownloads": "Download af undertekster",
+				"subtitleDownloadsDescription": "Profiler anmoder om sprogkoder; tilgængeligheden afgøres for hver URL."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Skarpest ved en given størrelse. Ældre tv, QuickTime og nogle redigeringsprogrammer kan ikke afspille det.",
+					"name": "Bedste billede",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Afspilles på tv, telefoner, WhatsApp, QuickTime og videoredigeringsprogrammer. YouTube tilbyder kun H.264 op til 1080p.",
+					"name": "Smart TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arkiv",
+				"audio": "Lyd",
+				"captions": "Undertekster",
+				"classes": "Undervisning",
+				"clip": "Klip",
+				"controls": "Kontrolknapper",
+				"download": "Download",
+				"music": "Musik",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musik eller podcasts",
+					"label": "Kun lyd"
+				},
+				"subtitlesOnly": {
+					"description": "Kun undertekstfiler",
+					"label": "Kun undertekster"
+				},
+				"videoAudio": {
+					"description": "Almindelige videofiler",
+					"label": "Video + lyd"
+				},
+				"videoOnly": {
+					"description": "Kun lydløs video",
+					"label": "Video, ingen lyd"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Automatiske undertekster gemmes som SRT i stedet for ASS.",
+				"noLanguageMatches": "Ingen matchende sprog",
+				"noSubtitles": "Der anmodes ikke om undertekstfiler eller indlejrede underteksspor til denne profil.",
+				"searchLanguages": "Søg efter sprognavn eller -kode",
+				"skippedForOutputType": "Springes over for denne outputtype.",
+				"subtitleLanguagesRequired": "Vælg mindst ét sprog.",
+				"subtitleLanguagesRequiredOrOff": "Vælg mindst ét sprog, eller slå download af undertekster fra.",
+				"subtitlesOnly": "Denne profil sætter kun undertekstfiler i kø. Video, lyd, SponsorBlock og mediekonvertering springes over."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profiler arver det globale mål, medmindre du angiver en tilsidesættelse for profilen.",
+					"title": "Avancerede indstillinger"
+				},
+				"downloadType": {
+					"description": "Vælg den primære måde, du vil downloade på.",
+					"title": "Downloadtype"
+				},
+				"identity": {
+					"description": "Navn og ikon, der vises i Hurtig download, Bulk-URL'er og profillister.",
+					"title": "Profilidentitet"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} aktiveret",
+					"enabledCount_other": "{{count}} aktiveret",
+					"title": "Outputindstillinger"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Vælg en mappe til denne profil"
+			},
+			"skipped": "Sprunget over",
+			"sponsorBlockHint": {
+				"mark": "Markerer sponsorsegmenter som kapitler (ikke-destruktivt).",
+				"off": "Ingen SponsorBlock — videoen afspilles, som den blev uploadet.",
+				"remove": "Klipper sponsorsegmenter ud af videoen med FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Kun automatisk genererede",
+				"manualAndAuto": "Manuelle og automatiske",
+				"manualFirst": "Manuelle først, derefter automatiske",
+				"manualOnly": "Kun manuelle"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Hjælp til {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Annuller klargøring",
+			"currentFallback": "Aktuelt link",
+			"description": "Arroxy læser linket og anvender {{profileName}}.",
+			"failedCount_one": "{{count}} mislykkedes",
+			"failedCount_other": "{{count}} mislykkedes",
+			"phase": {
+				"probing": "Henter oplysninger",
+				"queueing": "Føjer til køen"
+			},
+			"title": "Klargør Hurtig download",
+			"waitHint": "Lad dette være åbent, mens Arroxy klargør køen."
+		},
+		"review": {
+			"areas": {
+				"extras": "ekstra",
+				"fileName": "filnavn",
+				"format": "format",
+				"saveTo": "mappe",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "undertekster"
+			},
+			"callout": {
+				"body": "Undertekster, SponsorBlock, ekstra ting som miniaturen, mappe og filnavn var tidligere separate trin. Klik på en række for at ændre den.",
+				"title": "Alle de andre indstillinger findes nu på denne side"
+			},
+			"changeFormat": "Skift format",
+			"changed": "Ændret fra {{profile}}: {{areas}}. Gælder kun for dette download.",
+			"changedFrom": "Ændret fra {{profile}}:",
+			"nextTime": {
+				"action": "Gem som profil",
+				"defaultName": "{{profile}} (redigeret)",
+				"title": "Dette download brugte redigerede indstillinger. Vil du bruge dem næste gang?"
+			},
+			"reset": "Fortryd ændringer, tilbage til »{{profile}}«",
+			"rows": {
+				"extras": "Ekstra",
+				"fileName": "Filnavn",
+				"saveTo": "Gem i",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Undertekster"
+			},
+			"rowsHeading": "Alt det andet",
+			"save": {
+				"action": "Gem profil",
+				"description": "Beholder disse indstillinger som en profil, du kan vælge næste gang. Din profil til Hurtig download forbliver uændret.",
+				"failed": "Profilen kunne ikke gemmes.",
+				"nameLabel": "Profilnavn",
+				"saved": "Gemt som profilen »{{name}}«",
+				"title": "Gem som profil"
+			},
+			"saveAsProfile": "Gem som ny profil",
+			"update": {
+				"action": "Opdater profil",
+				"builtinNote": "Dette er en indbygget profil. Du kan gendanne dens oprindelige indstillinger under fanen Profiler.",
+				"description": "Fra nu af bruger hvert download med denne profil de nye indstillinger.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "Opdater »{{profile}}«?",
+				"updated": "Profilen »{{name}}« er opdateret"
+			},
+			"updateProfile": "Opdater »{{profile}}« med disse ændringer",
+			"value": {
+				"extrasNone": "Ingen",
+				"sponsorBlockOff": "Fra",
+				"subtitlesOff": "Fra"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Fyldindhold",
+				"intro": "Intro",
+				"music_offtopic": "Musik uden for emnet",
+				"outro": "Outro",
+				"preview": "Forhåndsvisning",
+				"selfpromo": "Selvpromovering",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategorier",
+			"mode": {
+				"mark": "Markér som kapitler",
+				"off": "Fra",
+				"remove": "Fjern segmenter"
+			},
+			"modeHeading": "Sponsorfiltrering",
+			"modeHint": {
+				"mark": "Markerer sponsorsegmenter som kapitler (ikke-destruktivt).",
+				"off": "Ingen SponsorBlock — videoen afspilles, som den blev uploadet.",
+				"remove": "Klipper sponsorsegmenter ud af videoen med FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Bekræft",
+			"folder": "Gem",
+			"formats": "Format",
+			"output": "Output",
+			"playlistItems": "Afspilningsliste",
+			"playlistItemsGeneric": "Videoer",
+			"playlistPresets": "Kvalitet",
+			"playlistProfiles": "Profiler",
+			"review": "Gennemgang",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Undertekster",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Automatiske undertekster gemmes som SRT i stedet for ASS — for YouTube-videoer renses de for gentagelser fra rullende cues, hvilket vores ASS-konverter endnu ikke kan efterligne.",
+			"autoBadge": "Auto",
+			"clearAll": "Ryd alle",
+			"embedNote": "Indlejringstilstand gemmer outputtet som .mkv, så underteksspor indlejres pålideligt.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Ingen undertekster tilgængelige for denne video",
+			"noMatches": "Ingen sprog matcher",
+			"noSelected": "Ingen undertekster valgt",
+			"removeLanguage": "Fjern {{name}}",
+			"saveMode": {
+				"embed": "Indlejr i videoen",
+				"heading": "Gem som",
+				"sidecar": "Ved siden af videoen",
+				"subfolder": "Undermappen subtitles/"
+			},
+			"searchPlaceholder": "Søg efter sprog…",
+			"sectionAuto": "Automatisk genereret",
+			"sectionManual": "Manuel"
+		},
+		"tabsNavAria": "Navigation for downloadprofiler",
+		"url": {
+			"advanced": "Avanceret",
+			"analytics": {
+				"toggle": "Send dagligt livstegn",
+				"toggleDescription": "Ingen telemetri. Én gang om dagen sender et anonymt livstegn appversion, installationskanal, operativsystem, sprog, land og omtrent hvor længe siden Arroxy blev installeret, så vi kan tælle aktive og nye brugere. Ingen id'er, URL'er, videotitler eller filnavne."
+			},
+			"autoRemoveCompleted": {
+				"description": "Fjerner et download fra listen Downloads få sekunder efter, at det er færdigt. Filerne bliver i din mappe; mislykkede og annullerede downloads bliver på listen.",
+				"label": "Fjern færdige downloads"
+			},
+			"autoRetry": {
+				"description": "Prøver automatisk igen efter et netværks- eller serverhikke og venter længere mellem hvert forsøg. Downloads, som webstedet blokerer, forsøges aldrig igen automatisk.",
+				"label": "Prøv mislykkede downloads igen",
+				"unit": "gange"
+			},
+			"bulkButton": "Bulk-URL'er",
+			"bulkTooltip": "Tilføj og sæt flere URL'er i kø.",
+			"clearAria": "Ryd URL",
+			"clipboard": {
+				"autofilledLink": "Link tilføjet fra udklipsholderen",
+				"bulkHint": "Flere links kopieret — brug Bulk-URL'er for at tilføje dem",
+				"dialog": {
+					"cancelButton": "Annuller"
+				},
+				"replacedLink": "Erstattet med det kopierede link",
+				"toggle": "Overvåg udklipsholderen",
+				"toggleDescription": "Udfyld automatisk URL-feltet, når du kopierer et videolink.",
+				"undo": "Fortryd"
+			},
+			"closeToTray": {
+				"toggle": "Skjul i systembakken ved lukning",
+				"toggleDescription": "Fortsæt downloads i baggrunden, når du har lukket vinduet."
+			},
+			"concurrentDownloads": {
+				"description": "Hvor mange elementer i køen der downloades samtidig. Flere ad gangen får en lang kø hurtigere igennem, men øger risikoen for, at et websted begrænser dig.",
+				"label": "Downloads ad gangen",
+				"unit": "downloads"
+			},
+			"cookies": {
+				"banWarning": "Websteder som YouTube kan markere — og nogle gange udelukke — konti, hvis cookies bruges af download-værktøjer som Arroxy. Brug om muligt en engangskonto.",
+				"browserHelp": "Læser cookies direkte fra browseren. Browseren skal være lukket for browsere i Chromium-familien.",
+				"browserLabel": "Browser",
+				"browserPlaceholder": "Vælg en browser…",
+				"choose": "Vælg…",
+				"clear": "Ryd",
+				"enabledButNoBrowser": "Vælg en browser for at bruge cookies",
+				"enabledButNoFile": "Vælg en fil for at bruge cookies",
+				"exploreDescription": "Bruger kun dit login i Udforsk, når et download har brug for det.",
+				"exploreDisabled": "Fanen Udforsk er slået fra, så downloads bruger ikke dit login i Udforsk. Slå den til under Udforsk nedenfor.",
+				"extensionChrome": "Hent cookies.txt LOCALLY (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookiefil",
+				"helpLink": "Hvordan eksporterer jeg cookies?",
+				"openExplore": "Åbn Udforsk",
+				"placeholder": "Ingen fil valgt",
+				"recommended": "Anbefalet",
+				"risk": "Risiko: En cookies.txt indeholder alle indloggede sessioner for den browser — hold den privat.",
+				"sourceBrowser": "Browser",
+				"sourceExplore": "Login i Udforsk",
+				"sourceFile": "Fil",
+				"sourceLabel": "Cookiekilde",
+				"sourceOff": "Fra",
+				"toggleDescription": "Hjælper med aldersbegrænsede videoer, videoer kun for medlemmer og videoer, der er private for kontoen."
+			},
+			"downloadConnections": {
+				"description": "Fremskynder store downloads ved at hente flere dele af en video på én gang. Højere værdier øger risikoen for, at et websted begrænser dig.",
+				"label": "Downloadforbindelser",
+				"unit": "forbindelser"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Kun lyd",
+					"subtitles": "Undertekster"
+				},
+				"anySite": {
+					"heading": "2000+ websteder",
+					"musicPlaylist": "Musikafspilningslister",
+					"video": "Videoer",
+					"videoPlaylist": "Videoafspilningslister"
+				},
+				"heading": "Hvad Arroxy kan hente",
+				"youtube": {
+					"channel": "Kanaler",
+					"heading": "YouTube",
+					"music": "Musik",
+					"playlist": "Afspilningslister",
+					"podcast": "Podcasts",
+					"short": "Shorts",
+					"video": "Videoer"
+				}
+			},
+			"fetchFormatsTooltip": "Trin-for-trin-guide. Vælg format, kvalitet og mere.",
+			"heading": "Download fra URL",
+			"hotkey": {
+				"changeShortcut": "Skift genvej",
+				"conflict": "Denne genvej bruges af en anden app — vælg en anden.",
+				"hintLabel": "Eller tryk",
+				"hintTooltip": "Kopiér et videolink et vilkårligt sted, tryk på denne genvej, og Arroxy sætter det i kø med din aktive profil — du behøver ikke skifte vindue.",
+				"hintTooltipSettings": "Skift eller slå den fra under Indstillinger.",
+				"recording": "Tryk på taster…",
+				"reset": "Nulstil til standard",
+				"sectionDescription": "Download det link, du kopierer, fra en hvilken som helst app uden at åbne Arroxy.",
+				"sectionTitle": "Global genvejstast",
+				"test": "Test",
+				"toggle": "Aktivér global genvejstast",
+				"toggleDescription": "Tryk på genvejen, mens et videolink ligger i udklipsholderen."
+			},
+			"interactiveDownload": "Interaktiv download",
+			"limitRate": {
+				"activeWarning": "Aktive downloads beholder deres nuværende grænse. Sæt på pause og genoptag for at anvende ændringer.",
+				"custom": "Brugerdefineret…",
+				"customPlaceholder": "f.eks. 750K eller 1.5M",
+				"description": "Begræns båndbredden til mediedownloads. Tempoet for anmodninger nedenfor er normalt den stærkere løftestang mod hastighedsbegrænsning.",
+				"invalid": "Brug et tal efterfulgt af K eller M (f.eks. 500K, 1.5M)",
+				"label": "Grænse for downloadhastighed",
+				"off": "Fra"
+			},
+			"mascotBusy": "Downloader i baggrunden… Jeg kan multitaske 😎",
+			"mascotCollection": "Hurtig sætter indlæste elementer i kø med {{profileName}}. Med Interaktiv kan du først gennemse eller vælge elementer.",
+			"mascotIdle": "Smid et link, og lad Arroxy hente det ✨",
+			"mascotMixed": "Dette link peger på én video i en samling. Arroxy spørger, hvilken du vil have, før den analyserer.",
+			"mascotPreparing": "{{quickDownload}} læser dette link og anvender {{profileName}}.",
+			"mascotQueued": "Køen håndterer dette download. Du kan indsætte et andet link, mens den arbejder.",
+			"mascotSingle": "Hurtig starter ét download med {{profileName}}. Brug Interaktiv til engangsændringer.",
+			"nativeAudioPreference": {
+				"compatible": "Kompatibel stereo",
+				"description": "Stereo eller surround, når en profil vælger original lyd. En profil kan tilsidesætte det.",
+				"label": "Præference for original lyd",
+				"surround": "Foretræk surround / Dolby"
+			},
+			"networkPacing": {
+				"description": "Tilføj små pauser under hvert download, så Arroxy ikke belaster webstedet for aggressivt. Værdierne er i sekunder.",
+				"fields": {
+					"maxSleepInterval": "Pause før medier starter: maks.",
+					"sleepInterval": "Pause før medier starter: min.",
+					"sleepRequests": "Vent mellem metadatakontroller",
+					"sleepSubtitles": "Vent før undertekstfiler"
+				},
+				"heading": "Skånsomme downloads",
+				"presetLabel": "Hvor forsigtig skal Arroxy være?",
+				"presets": {
+					"balanced": "Afbalanceret",
+					"careful": "Forsigtig",
+					"custom": "Tilpasset",
+					"off": "Fra"
+				},
+				"summary": "Pauser: {{requests}} mellem kontroller, {{downloads}} før medier starter, {{subtitles}} før undertekstfiler.",
+				"tooltip": "Disse pauser sker inden i hvert download. Hvor mange downloads der kører samtidig, indstilles separat under Downloads ad gangen.",
+				"tooltips": {
+					"balanced": "Standard. Tilføjer korte pauser mellem anmodninger og før medier starter.",
+					"careful": "Tilføjer længere pauser til store afspilningslister eller netværk, der ofte rammer grænser.",
+					"custom": "Finjustér de avancerede kontroller for hvert download selv.",
+					"off": "Bruger kun de små grundpauser, som Arroxy holder for medier og undertekster."
+				},
+				"units": {
+					"seconds": "sek."
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Nuværende grænse: {{count}} elementer",
+				"custom": "Brugerdefineret…",
+				"customDialogCancel": "Annuller",
+				"customDialogDescription": "Brug et helt tal fra {{min}} til {{max}}.",
+				"customDialogSave": "Gem grænse",
+				"customDialogTitle": "Brugerdefineret grænse for scanning af afspilningslister",
+				"customValue": "Brugerdefineret: {{count}} elementer",
+				"description": "Maksimalt antal elementer, Arroxy indlæser, når en afspilningsliste, en kanal eller et søgeresultat åbnes.",
+				"invalid": "Brug et helt tal fra 1 til 5000",
+				"label": "Elementer i afspilningslister, der skal scannes",
+				"option": "{{count}} elementer",
+				"tooltip": "Arroxy beder kun om så mange elementer fra afspilningslister, kanaler eller søgninger, mens udvalget opbygges."
+			},
+			"playlistScope": {
+				"appLimit": "Brug appens grænse: {{count}}",
+				"apply": "Anvend",
+				"applyError": "Kunne ikke anvende det omfang af afspilningslisten: {{message}}",
+				"applyReload": "Anvend og genindlæs",
+				"cancel": "Annuller",
+				"change": "Skift",
+				"dialogDescription": "Vælg, hvad Arroxy indlæser for denne afspilningsliste.",
+				"dialogTitle": "Omfang af afspilningsliste",
+				"emptyTitle": "Ingen videoer i det omfang",
+				"first": "Første",
+				"invalid": "Brug hele elementnumre fra 1 til {{max}}, hvor start ikke er højere end slut.",
+				"itemsLabel": "Elementer, der skal indlæses",
+				"label": "Omfang af afspilningsliste",
+				"range": "Interval",
+				"reloading": "Genindlæser...",
+				"reset": "Nulstil",
+				"summaryAppLimit": "Indlæs første elementer: {{count}}",
+				"summaryFirst": "Indlæs første elementer: {{count}}",
+				"summaryRange": "Indlæs elementer {{from}}-{{to}}",
+				"to": "til"
+			},
+			"profile": {
+				"activeLabel": "Aktiv profil",
+				"badgeBuiltIn": "Indbygget",
+				"badgeCustom": "Brugerdefineret",
+				"badgeDisabled": "Skjult",
+				"badgeModified": "Ændret",
+				"changeGlobalDestination": "Skift globalt mål",
+				"destinationDetail": {
+					"global": "Bruger globalt mål",
+					"globalSubfolder": "Bruger globalt mål + profilens undermappe",
+					"override": "Bruger tilsidesættelse for profil",
+					"overrideSubfolder": "Bruger tilsidesættelse for profil + profilens undermappe"
+				},
+				"destinationFallback": "Mål",
+				"edit": "Rediger",
+				"editActive": "Rediger aktiv profil",
+				"enableHint": "Skjulte profiler bliver her, men forsvinder fra alle profilvælgere.",
+				"enableToggleAria": "Vis profil i vælgere: {{profileName}}",
+				"lastEnabledHint": "Behold mindst én profil tilgængelig.",
+				"manageProfiles": "Administrer profiler",
+				"menuDescription": "Skift den aktive profil til Hurtig download, Bulk-URL'er og afspilningslister.",
+				"menuTitle": "Skift profil",
+				"movableProfile": "profil, der kan flyttes",
+				"moveCancelled": "Flytning annulleret. {{profileName}} bliver på position {{position}} af {{count}}.",
+				"moveDropped": "{{profileName}} blev placeret på position {{position}} af {{count}}.",
+				"moveHandleAria": "Flyt {{profileName}}",
+				"moveInstructions": "Hvis du vil flytte en profil, skal du trykke på mellemrumstasten eller Enter, flytte den med piletasterne og derefter trykke på mellemrumstasten eller Enter for at placere den. Tryk på Esc for at annullere.",
+				"moveOver": "{{profileName}} er over position {{position}} af {{count}}.",
+				"movePickedUp": "{{profileName}} blev samlet op. Den står på position {{position}} af {{count}}.",
+				"newProfile": "Ny profil",
+				"panelDescription": "Opret, vælg, rediger eller fjern genbrugelige downloadopsætninger.",
+				"panelTitle": "Downloadprofiler",
+				"remove": "Fjern",
+				"reorderHint": "Træk en profil for at flytte den. Alle profilvælgere følger denne rækkefølge.",
+				"reset": "Nulstil",
+				"summary": {
+					"aacAudio": "AAC-lyd",
+					"bestAudio": "bedste lyd",
+					"bestVideo": "bedste video",
+					"noAudio": "ingen lyd",
+					"subtitlesOnly": "kun undertekster",
+					"wavAudio": "WAV-lyd"
+				},
+				"switchAria": "Skift downloadprofil: {{profileName}}",
+				"switchTitle": "Skift downloadprofil"
+			},
+			"proxy": {
+				"clear": "Ryd",
+				"description": "Dirigér trafik via en proxy — nyttigt til geobegrænset indhold.",
+				"label": "Proxy-URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Ingen af disse URL'er kunne klargøres",
+			"quickDownload": "Hurtig download",
+			"quickDownloadTooltip": "Downloader med: {{profileName}}",
+			"quickFailed": "Kunne ikke tilføje denne: {{error}}",
+			"quickPartialFailed_one": "Det, der virkede, er sat i kø. {{count}} URL kunne ikke klargøres.",
+			"quickPartialFailed_other": "Det, der virkede, er sat i kø. {{count}} URL'er kunne ikke klargøres.",
+			"quickPrepareFailed": "Elementet i køen kunne ikke klargøres",
+			"quickPreparing": "Klargør",
+			"quickProbeFailed": "Analysen mislykkedes",
+			"quickQueued": "Føjet til køen",
+			"quickSingleOnly": "Indsæt en URL til en video, afspilningsliste, kanal eller søgning for at komme i gang.",
+			"settings": {
+				"behaviorDescription": "Global adfærd, der også påvirker profilstyrede downloads.",
+				"behaviorHeading": "Downloadadfærd",
+				"inputHeading": "Input"
+			},
+			"style": {
+				"aurora": {
+					"description": "Glaspaneler over en bevægelig himmel. Kræver grafikacceleration.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Solide, rolige flader. Kører let på enhver computer.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Begge stilarter fås i lys og mørk.",
+				"modeLabel": "Stil",
+				"panelDescription": "Sådan ser Arroxy ud. Skift mellem lys og mørk i sidefoden.",
+				"panelTitle": "Udseende",
+				"unavailableNotice": "{{style}} kræver grafikacceleration, som ikke er tilgængelig lige nu, så Arroxy viser {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profiler",
+				"settings": "Indstillinger"
+			}
+		}
+	}
 }

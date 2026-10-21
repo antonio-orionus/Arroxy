@@ -1,976 +1,311 @@
 {
-	"common": {"back": "Înapoi", "cancel": "Anulare", "continue": "Continuare", "loading": "Se încarcă", "retry": "Reîncercați", "dismiss": "Respinge", "startOver": "Reluați de la început", "close": "Închidere"},
+	"about": {
+		"button": "Despre",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · de Antonio Orionus",
+		"openTitle": "Despre Arroxy",
+		"tagline": "Descărcător rapid și prietenos pentru YouTube și peste 2000 de alte site-uri.",
+		"thirdPartyNotices": "Vedeți notificările terților",
+		"websiteLink": "Site web"
+	},
+	"aiUpscaled": {
+		"allow": "Permite",
+		"description": "YouTube oferă unele videoclipuri vechi în dimensiuni create cu IA. Omiterea păstrează fluxurile originale; puteți totuși alege manual unul mărit cu IA.",
+		"label": "Fluxuri mărite cu IA",
+		"skip": "Omite"
+	},
 	"app": {
 		"feedback": "Feedback",
+		"feedbackNudge": "Vă place Arroxy? Aș vrea să aflu părerea dvs.! 💬",
 		"logs": "Jurnale",
 		"saveDiagnostics": "Salvează fișierul de diagnosticare",
 		"saveDiagnosticsDescription": "Pune jurnalele și detaliile aplicației într-un singur fișier în Descărcări, gata de atașat la o problemă GitHub. Numele folderului de utilizator este eliminat; linkurile și titlurile videoclipurilor rămân.",
-		"feedbackNudge": "Vă place Arroxy? Aș vrea să aflu părerea dvs.! 💬",
-		"zoomIn": "Mărire",
-		"zoomOut": "Micșorare",
+		"styleHint": "Nou: alegeți aici Aurora sau Minimal",
 		"theme": "Temă",
-		"styleHint": "Nou: alegeți aici Aurora sau Minimal"
+		"zoomIn": "Mărire",
+		"zoomOut": "Micșorare"
 	},
-	"about": {"button": "Despre", "openTitle": "Despre Arroxy", "tagline": "Descărcător rapid și prietenos pentru YouTube și peste 2000 de alte site-uri.", "websiteLink": "Site web", "githubLink": "GitHub", "licenseLine": "GPLv3 · de Antonio Orionus", "thirdPartyNotices": "Vedeți notificările terților"},
-	"titleBar": {"close": "Închidere", "minimize": "Minimizare", "maximize": "Maximizare", "restore": "Restaurare"},
-	"splash": {
-		"greeting": "Bun venit înapoi!",
-		"warmup": "Se pregătesc descărcările…",
-		"verifying": "Se verifică {{binary}}…",
-		"verifyFirstCheck": "Prima verificare a acestei versiuni — aceasta durează mai mult. De obicei, cam un minut.",
-		"cancel": "Aveți probleme? Configurați manual",
-		"warmupFailedNoDiag": "Configurarea a eșuat. Deschideți jurnalul de configurare pentru detalii.",
-		"setup": {
-			"title": {"firstRun": "Configurare inițială", "media": "Se actualizează instrumentele media", "engine": "Se actualizează motorul de descărcare"},
-			"stage": {
-				"connecting": "Se conectează…",
-				"downloadingBoth": "Se descarcă motorul de descărcare și instrumentele media",
-				"downloadingEngine": "Se descarcă motorul de descărcare",
-				"downloadingMedia": "Se descarcă instrumentele media",
-				"unpacking": "Se despachetează instrumentele media",
-				"checking": "Se verifică dacă totul funcționează"
-			},
-			"bytes": "{{done}} din {{total}}",
-			"left": {"underMinute": "mai durează mai puțin de un minut", "minutes_one": "mai durează aproximativ {{count}} min", "minutes_few": "mai durează aproximativ {{count}} min", "minutes_other": "mai durează aproximativ {{count}} min"},
-			"note": {"firstRun": "Se întâmplă o singură dată. Arroxy păstrează aceste instrumente și le actualizează singur.", "media": "Se întâmplă o singură dată. Arroxy le păstrează pentru actualizările viitoare.", "engine": "Menține descărcările funcționale când site-urile se schimbă."}
+	"common": {
+		"back": "Înapoi",
+		"cancel": "Anulare",
+		"close": "Închidere",
+		"continue": "Continuare",
+		"dismiss": "Respinge",
+		"loading": "Se încarcă",
+		"retry": "Reîncercați",
+		"startOver": "Reluați de la început"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy rămâne pornit și termină descărcările active. Puteți schimba asta mai târziu în setările avansate.",
+			"hide": "Ascunde în bara de sistem",
+			"message": "Ascundeți Arroxy în bara de sistem la închidere?",
+			"quit": "Ieșire",
+			"remember": "Nu mai întreba"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Anulează descărcările și ieși",
+			"detail": "Întrerupeți pentru a relua mai târziu sau anulați pentru a renunța la progres.",
+			"keep": "Continuă descărcarea",
+			"message_few": "{{count}} descărcări în curs",
+			"message_one": "{{count}} descărcare în curs",
+			"message_other": "{{count}} de descărcări în curs",
+			"pause": "Întrerupe descărcările și ieși"
+		},
+		"rendererCrashed": {
+			"detail": "Procesul de randare s-a oprit ({{reason}}). Reîncărcați pentru a încerca din nou.",
+			"message": "Arroxy a întâmpinat o problemă",
+			"quit": "Ieșire",
+			"reload": "Reîncarcă"
 		}
 	},
-	"repair": {
-		"title": "Configurarea are nevoie de ajutorul dvs.",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Motor de descărcare", "media": "Instrumente media"},
-		"causes": {
-			"downloadFailed": {"title": "Nu s-a putut descărca ce are nevoie Arroxy", "body": "Verificați conexiunea la internet, apoi încercați din nou."},
-			"extractFailed": {"title": "O descărcare a ajuns deteriorată", "body": "Încercați din nou pentru a-l descărca de la zero."},
-			"hashFailed": {"title": "O descărcare nu s-a potrivit cu suma de control", "body": "Încercați din nou pentru a-l descărca de la zero."},
-			"spawnFailed": {"title": "Un instrument lipsește sau nu pornește", "body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională."},
-			"permissionDenied": {"title": "Sistemul nu permite Arroxy să ruleze un instrument", "body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie în care aveți încredere."},
-			"blockedOrQuarantined": {"title": "Antivirusul a blocat un instrument", "body": "Permiteți Arroxy în antivirus sau în SmartScreen, apoi încercați din nou."},
-			"badExitCode": {"title": "Un instrument nu funcționează corect", "body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională."},
-			"timeout": {"title": "Un instrument a răspuns prea greu", "body": "Adesea este o scanare de securitate la prima rulare. Încercați din nou."},
-			"pairIncomplete": {"title": "FFmpeg și FFprobe trebuie setate împreună", "body": "Alegeți-le pe amândouă mai jos sau resetați-le la valorile implicite."},
-			"unknown": {"title": "Ceva nu a mers bine la configurare", "body": "Încercați din nou sau deschideți jurnalul de configurare pentru detalii."}
-		},
-		"installing": {"homebrew": "Se instalează cu Homebrew… Poate dura câteva minute.", "winget": "Se instalează cu WinGet… Poate dura câteva minute."},
-		"stopped": {"title": "Configurarea s-a oprit", "body": "Încercați din nou sau indicați-i lui Arroxy mai jos instrumentele pe care le aveți deja."},
-		"manual": {"toggle": "Configurați manual", "intro": "Indicați-i lui Arroxy copiile pe care le aveți deja sau instalați-le altfel.", "linuxHint": "Puteți instala yt-dlp și ffmpeg și cu managerul de pachete, apoi faceți clic pe Încercați din nou."},
-		"actions": {
-			"chooseExecutable": "Alege executabilul",
-			"installWithHomebrew": "Instalează cu Homebrew",
-			"installWithWinget": "Instalează cu WinGet",
-			"resetToDefault": "Resetează la valoarea implicită",
-			"retrySetup": "Încercați din nou",
-			"cancel": "Anulare",
-			"openDependencyFolder": "Deschide folderul dependenței",
-			"viewSetupLog": "Vezi jurnalul de configurare"
-		}
-	},
-	"theme": {"light": "Mod luminos", "dark": "Mod întunecat", "system": "Implicit sistem"},
-	"language": {"label": "Limbă"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Listă",
-			"playlistItemsGeneric": "Videoclipuri",
-			"playlistPresets": "Calitate",
-			"playlistProfiles": "Profiluri",
-			"formats": "Format",
-			"subtitles": "Subtitrări",
-			"sponsorblock": "SponsorBlock",
-			"output": "Ieșire",
-			"folder": "Salvare",
-			"confirm": "Confirmare",
-			"review": "Examinare"
-		},
-		"playlistPresets": {"heading": "Alegeți calitatea pentru lot", "subhead": "Fiecare videoclip rezolvă nivelul ales în mod independent — listele de redare eterogene funcționează fără surprize.", "itemCount_one": "{{count}} element", "itemCount_few": "{{count}} elemente", "itemCount_other": "{{count}} de elemente"},
-		"playlistProfiles": {
-			"heading": "Atribuiți profiluri de descărcare",
-			"selectedSummary": "{{selected}} din {{total}} selectate",
-			"assignTriggerEmpty": "Atribuie profil",
-			"assignTrigger_one": "Atribuie la {{count}} videoclip",
-			"assignTrigger_few": "Atribuie la {{count}} videoclipuri",
-			"assignTrigger_other": "Atribuie la {{count}} de videoclipuri",
-			"menuDescription_one": "Alegeți profilul pentru acest videoclip.",
-			"menuDescription_few": "Alegeți profilul pentru aceste {{count}} videoclipuri.",
-			"menuDescription_other": "Alegeți profilul pentru aceste {{count}} de videoclipuri.",
-			"editProfile": "Editați {{name}}",
-			"filtersLabel": "Filtre de profil",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Durată",
-			"empty": "Niciun element nu se potrivește cu acest filtru"
-		},
-		"playlist": {
-			"heading": "Elementele listei de redare",
-			"headingGeneric": "Videoclipuri de descărcat",
-			"bulkHeading": "URL-uri în bloc",
-			"itemCount_one": "{{count}} videoclip",
-			"itemCount_few": "{{count}} videoclipuri",
-			"itemCount_other": "{{count}} de videoclipuri",
-			"itemCountAudio_one": "{{count}} piesă",
-			"itemCountAudio_few": "{{count}} piese",
-			"itemCountAudio_other": "{{count}} de piese",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_few": "{{count}} URL-uri",
-			"itemCountBulk_other": "{{count}} de URL-uri",
-			"bulkMetadataResolving": "Se preiau detaliile videoclipurilor… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Nu trebuie să așteptați — fișierele puse acum în coadă își primesc numele real la descărcare.",
-			"bulkRowWaiting": "În așteptare",
-			"bulkRowResolving": "Se preiau detaliile",
-			"bulkRowFailed": "Detalii indisponibile",
-			"selectAll": "Selectează tot",
-			"selectNone": "Nu selecta nimic",
-			"sortLabel": "Sortare",
-			"sortApi": "Ordinea listei",
-			"sortUploadAsc": "Cele mai vechi primele",
-			"sortUploadDesc": "Cele mai noi primele",
-			"sortFetchingDates": "Se preiau datele încărcării…",
-			"rangeFrom": "De la",
-			"rangeTo": "Până la",
-			"rangeApply": "Aplică intervalul",
-			"selectedCount_one": "{{count}} selectat",
-			"selectedCount_few": "{{count}} selectate",
-			"selectedCount_other": "{{count}} selectate",
-			"noSelection": "Selectați cel puțin un videoclip pentru a continua",
-			"loadingItems": "Se preia lista de redare…",
-			"loadingItemsGeneric": "Se preiau videoclipurile…",
-			"loadingPhasePages": "Se scanează paginile canalului",
-			"loadingPhaseItems": "Se colectează videoclipurile",
-			"loadingPagesFound_one": "{{count}} pagină găsită",
-			"loadingPagesFound_few": "{{count}} pagini găsite",
-			"loadingPagesFound_other": "{{count}} de pagini găsite",
-			"loadingLimitHint": "Limitat la primele {{count}} elemente",
-			"thumbnailAlt": "Miniatura videoclipului",
-			"durationUnknown": "live",
-			"syncChange": "Schimbă folderul…",
-			"syncApply": "Aplică sincronizarea",
-			"syncScanning": "Se verifică folderul…",
-			"syncFoundTitle": "Deja în folder",
-			"syncFoundDesc": "{{n}} dintre aceste videoclipuri se află deja în {{dir}}. Sincronizați pentru a descărca doar pe cele noi?",
-			"syncNoneTitle": "Nimic descărcat încă",
-			"syncNoneDesc": "Niciun videoclip din această listă de redare nu a fost găsit în {{dir}}.",
-			"syncNoneDescGeneric": "Niciun videoclip din această sursă nu a fost găsit în {{dir}}.",
-			"alreadyDownloaded": "Deja descărcat",
-			"nestedPlaylistBadge": "Listă de redare",
-			"nestedPlaylistHint_one": "{{count}} dintre acestea este o listă de redare, nu un videoclip — lipiți linkul ei separat pentru a o descărca.",
-			"nestedPlaylistHint_few": "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca.",
-			"nestedPlaylistHint_other": "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca.",
-			"probeLimitAlertTitle": "Scanarea listei de redare este limitată",
-			"probeLimitAlertTitleGeneric": "Scanarea este limitată",
-			"probeLimitAlertDesc": "Se afișează primele {{count}} elemente. Măriți limita de încărcare pentru a vedea mai multe.",
-			"multiProfileEntry": "Atribuie profiluri pe element",
-			"multiProfileEntryTooltip": "Omite Calitate, SponsorBlock, Ieșire și Salvare — atribuiți în schimb un profil de descărcare pentru fiecare element",
-			"removeFromListCount_one": "Elimină {{count}} din listă",
-			"removeFromListCount_few": "Elimină {{count}} din listă",
-			"removeFromListCount_other": "Elimină {{count}} din listă",
-			"restore": "Restaurează",
-			"removedCount_one": "{{count}} eliminat",
-			"removedCount_few": "{{count}} eliminate",
-			"removedCount_other": "{{count}} eliminate",
-			"allRemovedTitle": "Toate elementele au fost eliminate",
-			"allRemovedDescription": "Restaurați-le pentru a continua."
-		},
-		"bulk": {
-			"title": "URL-uri în bloc",
-			"description": "Lipiți URL-uri de videoclipuri, liste de redare, canale, căutări sau fișiere audio. Arroxy elimină duplicatele înainte de a le adăuga în coadă.",
-			"textareaLabel": "Listă de URL-uri",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Gata",
-			"ignoredCount": "Ignorate",
-			"emptyPreview": "Lipiți unul sau mai multe URL-uri pentru a previzualiza lotul.",
-			"needsAtLeastOne": "Adăugați cel puțin un URL acceptat pentru a continua.",
-			"reject": {"duplicate": "Duplicat"}
-		},
-		"tabsNavAria": "Navigare între profilurile de descărcare",
-		"profileSwitchRow": {"helpAria": "Ajutor pentru {{label}}"},
-		"mixedPrompt": {
-			"title": "Acest link conține o listă de redare",
-			"body": "Doriți doar videoclipul pe care ați făcut clic sau alegeți din lista de redare? În continuare veți alege videoclipuri anume sau un interval.",
-			"quickBody": "Descărcați doar acest videoclip sau puneți în coadă întreaga listă de redare cu profilul Descărcare rapidă activ.",
-			"singleVideo": "Doar acesta",
-			"quickSingleVideo": "Descarcă acest videoclip",
-			"pickFromPlaylist": "Alege din listă",
-			"quickWholePlaylist": "Descarcă toată lista",
-			"playlistLimit": "Limita de sondare a listei: {{count}} elemente",
-			"quickLimitDescription": "Numărul maxim de intrări pe care Arroxy le scanează înainte de a pune în coadă o listă de redare, un canal sau un rezultat de căutare.",
-			"singleTooltip": "Încarcă doar acest videoclip. Lista de redare atașată acestui URL este ignorată.",
-			"quickSingleTooltip": "Pune în coadă o singură descărcare și ignoră lista de redare atașată acestui URL.",
-			"playlistTooltip": "Încarcă lista de redare, până la limita de sondare a listei, înainte de a afișa selectorul.",
-			"quickPlaylistTooltip": "Pune în coadă fiecare element încărcat al listei cu profilul Descărcare rapidă activ. Dacă scanarea atinge limita, Arroxy întreabă înainte de a le pune în coadă."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Aria listei de redare",
-				"change": "Schimbă",
-				"summaryAppLimit": "Încarcă primele elemente: {{count}}",
-				"summaryFirst": "Încarcă primele elemente: {{count}}",
-				"summaryRange": "Încarcă elementele {{from}}-{{to}}",
-				"dialogTitle": "Aria listei de redare",
-				"dialogDescription": "Alegeți ce încarcă Arroxy pentru această listă de redare.",
-				"itemsLabel": "Elemente de încărcat",
-				"appLimit": "Folosește limita aplicației: {{count}}",
-				"first": "Primele",
-				"range": "Interval",
-				"to": "până la",
-				"invalid": "Folosiți numere întregi de element de la 1 la {{max}}, cu începutul nu mai mare decât sfârșitul.",
-				"applyError": "Nu s-a putut aplica acel interval al listei: {{message}}",
-				"reset": "Resetează",
-				"cancel": "Anulare",
-				"apply": "Aplică",
-				"applyReload": "Aplică și reîncarcă",
-				"reloading": "Se reîncarcă...",
-				"emptyTitle": "Niciun videoclip în această arie"
-			},
-			"heading": "Descărcare de la un URL",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiluri", "settings": "Setări"},
-			"interactiveDownload": "Descărcare interactivă",
-			"fetchFormatsTooltip": "Asistent pas cu pas. Alegeți formatul, calitatea și altele.",
-			"quickDownload": "Descărcare rapidă",
-			"quickDownloadTooltip": "Va descărca folosind: {{profileName}}",
-			"quickPreparing": "Se pregătește",
-			"quickQueued": "Adăugat în coadă",
-			"quickSingleOnly": "Lipiți un URL de videoclip, listă de redare, canal sau căutare pentru a începe.",
-			"quickProbeFailed": "Sondarea a eșuat",
-			"quickPrepareFailed": "Elementul din coadă nu a putut fi pregătit",
-			"quickBulkAllFailed": "Niciunul dintre acele URL-uri nu a putut fi pregătit",
-			"quickFailed": "Nu s-a putut adăuga acesta: {{error}}",
-			"quickPartialFailed_one": "S-au pus în coadă cele reușite. {{count}} URL nu a putut fi pregătit.",
-			"quickPartialFailed_few": "S-au pus în coadă cele reușite. {{count}} URL-uri nu au putut fi pregătite.",
-			"quickPartialFailed_other": "S-au pus în coadă cele reușite. {{count}} de URL-uri nu au putut fi pregătite.",
-			"profile": {
-				"destinationFallback": "Destinație",
-				"switchAria": "Schimbă profilul de descărcare: {{profileName}}",
-				"switchTitle": "Schimbă profilul de descărcare",
-				"activeLabel": "Profil activ",
-				"editActive": "Editează profilul activ",
-				"changeGlobalDestination": "Schimbă destinația globală",
-				"destinationDetail": {"global": "Se folosește destinația globală", "globalSubfolder": "Se folosește destinația globală + subfolderul profilului", "override": "Se folosește suprascrierea profilului", "overrideSubfolder": "Se folosește suprascrierea profilului + subfolderul profilului"},
-				"summary": {"bestVideo": "cel mai bun video", "bestAudio": "cel mai bun audio", "aacAudio": "audio AAC", "wavAudio": "audio WAV", "noAudio": "fără audio", "subtitlesOnly": "doar subtitrări"},
-				"menuTitle": "Schimbă profilul",
-				"menuDescription": "Schimbați profilul activ pentru Descărcare rapidă, URL-uri în bloc și liste de redare.",
-				"newProfile": "Profil nou",
-				"manageProfiles": "Gestionează profilurile",
-				"panelTitle": "Profiluri de descărcare",
-				"panelDescription": "Creați, selectați, editați sau eliminați configurații de descărcare reutilizabile.",
-				"badgeCustom": "Personalizat",
-				"badgeModified": "Modificat",
-				"badgeBuiltIn": "Încorporat",
-				"badgeDisabled": "Ascuns",
-				"enableToggleAria": "Afișează profilul în selectoare: {{profileName}}",
-				"enableHint": "Profilurile ascunse rămân aici, dar dispar din toate selectoarele de profil.",
-				"reorderHint": "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmează această ordine.",
-				"moveHandleAria": "Mută {{profileName}}",
-				"movableProfile": "profil mutabil",
-				"moveInstructions": "Pentru a muta un profil, apăsați Space sau Enter, mutați-l cu tastele săgeată, apoi apăsați Space sau Enter pentru a-l plasa. Apăsați Escape pentru a anula.",
-				"movePickedUp": "{{profileName}} a fost ridicat. Se află pe poziția {{position}} din {{count}}.",
-				"moveOver": "{{profileName}} este peste poziția {{position}} din {{count}}.",
-				"moveDropped": "{{profileName}} a fost plasat pe poziția {{position}} din {{count}}.",
-				"moveCancelled": "Mutare anulată. {{profileName}} rămâne pe poziția {{position}} din {{count}}.",
-				"lastEnabledHint": "Păstrați cel puțin un profil disponibil.",
-				"edit": "Editare",
-				"remove": "Elimină",
-				"reset": "Resetează"
-			},
-			"bulkButton": "URL-uri în bloc",
-			"bulkTooltip": "Adăugați și puneți în coadă mai multe URL-uri.",
-			"features": {
-				"heading": "Ce poate descărca Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Videoclipuri", "channel": "Canale", "playlist": "Liste de redare", "short": "Shorts", "music": "Muzică", "podcast": "Podcasturi"},
-				"anySite": {"heading": "Peste 2000 de site-uri", "video": "Videoclipuri", "videoPlaylist": "Liste de redare video", "musicPlaylist": "Liste de redare muzicale"},
-				"always": {"audioOnly": "Doar audio", "subtitles": "Subtitrări"}
-			},
-			"mascotIdle": "Lăsați un link și Arroxy îl descarcă ✨",
-			"mascotBusy": "Descarc în fundal… pot face mai multe deodată 😎",
-			"mascotPreparing": "{{quickDownload}} citește acest link și aplică {{profileName}}.",
-			"mascotQueued": "Coada se ocupă de această descărcare. Puteți lipi alt link cât timp lucrează.",
-			"mascotCollection": "Descărcarea rapidă pune în coadă elementele încărcate cu {{profileName}}. Descărcarea interactivă vă lasă să inspectați sau să selectați mai întâi elementele.",
-			"mascotMixed": "Acest link duce la un videoclip dintr-o colecție. Arroxy vă va întreba pe care îl doriți înainte de sondare.",
-			"mascotSingle": "Descărcarea rapidă pornește o descărcare cu {{profileName}}. Folosiți Interactiv pentru modificări punctuale.",
-			"advanced": "Avansat",
-			"settings": {"inputHeading": "Intrare", "behaviorHeading": "Comportamentul descărcărilor", "behaviorDescription": "Comportament global care afectează și descărcările conduse de profil."},
-			"clearAria": "Șterge URL-ul",
-			"clipboard": {
-				"toggle": "Urmărește clipboardul",
-				"toggleDescription": "Completează automat câmpul URL când copiați un link de videoclip.",
-				"autofilledLink": "Link adăugat din clipboard",
-				"bulkHint": "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc pentru a le adăuga",
-				"replacedLink": "Înlocuit cu linkul copiat",
-				"undo": "Anulează",
-				"dialog": {"cancelButton": "Anulare"}
-			},
-			"hotkey": {
-				"sectionTitle": "Comandă rapidă globală",
-				"sectionDescription": "Descărcați orice link copiați, din orice aplicație, fără a deschide Arroxy.",
-				"toggle": "Activează comanda rapidă globală",
-				"toggleDescription": "Apăsați comanda rapidă având în clipboard un link de videoclip.",
-				"changeShortcut": "Schimbă comanda rapidă",
-				"recording": "Apăsați tastele…",
-				"test": "Testează",
-				"conflict": "Această comandă rapidă este folosită de altă aplicație — alegeți alta.",
-				"hintLabel": "Sau apăsați",
-				"hintTooltip": "Copiați un link de videoclip oriunde, apăsați această comandă rapidă, iar Arroxy îl pune în coadă cu profilul activ — fără a schimba ferestrele.",
-				"hintTooltipSettings": "Schimbați-o sau dezactivați-o în Setări.",
-				"reset": "Resetează la valoarea implicită"
-			},
-			"cookies": {
-				"sourceLabel": "Sursa cookie-urilor",
-				"sourceOff": "Dezactivat",
-				"sourceFile": "Fișier",
-				"sourceBrowser": "Browser",
-				"sourceExplore": "Conectare Explorare",
-				"recommended": "Recomandat",
-				"exploreDescription": "Folosește conectarea din Explorare doar când o descărcare are nevoie de ea.",
-				"exploreDisabled": "Fila Explorare este dezactivată, deci descărcările nu folosesc conectarea din Explorare. Activați-o în Explorare, mai jos.",
-				"openExplore": "Deschide Explorare",
-				"toggleDescription": "Ajută la videoclipurile cu restricție de vârstă, doar pentru membri sau private în cont.",
-				"risk": "Risc: un fișier cookies.txt conține toate sesiunile conectate din acel browser — păstrați-l privat.",
-				"fileLabel": "Fișier de cookie-uri",
-				"choose": "Alegeți…",
-				"clear": "Șterge",
-				"placeholder": "Niciun fișier selectat",
-				"helpLink": "Cum export cookie-urile?",
-				"enabledButNoFile": "Alegeți un fișier pentru a folosi cookie-urile",
-				"browserLabel": "Browser",
-				"browserPlaceholder": "Alegeți un browser…",
-				"browserHelp": "Citește cookie-urile direct din browser. Pentru browserele din familia Chromium, browserul trebuie să fie închis.",
-				"enabledButNoBrowser": "Alegeți un browser pentru a folosi cookie-urile",
-				"banWarning": "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile ale căror cookie-uri sunt folosite de instrumente de descărcare precum Arroxy. Folosiți un cont de unică folosință când este posibil.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Obțineți cookies.txt LOCAL (Chrome)"
-			},
-			"proxy": {"label": "URL proxy", "description": "Direcționează traficul printr-un proxy — util pentru conținut restricționat geografic.", "placeholder": "http://host:port", "clear": "Șterge"},
-			"style": {
-				"panelTitle": "Aspect",
-				"panelDescription": "Cum arată Arroxy. Comutați între luminos și întunecat din subsol.",
-				"modeLabel": "Stil",
-				"modeDescription": "Ambele stiluri există în variantă luminoasă și întunecată.",
-				"aurora": {"label": "Aurora", "description": "Panouri de sticlă peste un cer în mișcare. Necesită accelerare grafică."},
-				"minimal": {"label": "Minimal", "description": "Suprafețe pline, discrete. Rulează ușor pe orice computer."},
-				"unavailableNotice": "{{style}} necesită accelerare grafică, care nu este disponibilă acum, așa că Arroxy afișează {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Limită de viteză la descărcare",
-				"description": "Limitează lățimea de bandă pentru descărcările media. Ritmul cererilor de mai jos este de obicei pârghia mai puternică împotriva limitării.",
-				"off": "Dezactivat",
-				"custom": "Personalizat…",
-				"customPlaceholder": "ex. 750K sau 1.5M",
-				"invalid": "Folosiți un număr urmat de K sau M (ex. 500K, 1.5M)",
-				"activeWarning": "Descărcările active își păstrează limita curentă. Întrerupeți și reluați pentru a aplica modificările."
-			},
-			"playlistProbeLimit": {
-				"label": "Elemente de scanat din listă",
-				"description": "Numărul maxim de intrări pe care Arroxy le încarcă la deschiderea unei liste de redare, a unui canal sau a unui rezultat de căutare.",
-				"option": "{{count}} elemente",
-				"current": "Limita curentă: {{count}} elemente",
-				"customValue": "Personalizat: {{count}} elemente",
-				"custom": "Personalizat…",
-				"customDialogTitle": "Limită personalizată de scanare a listei",
-				"customDialogDescription": "Folosiți un număr întreg de la {{min}} la {{max}}.",
-				"customDialogCancel": "Anulare",
-				"customDialogSave": "Salvează limita",
-				"invalid": "Folosiți un număr întreg de la 1 la 5000",
-				"tooltip": "Arroxy cere doar atâtea intrări de listă de redare, canal sau căutare cât construiește selectorul."
-			},
-			"nativeAudioPreference": {"label": "Preferință pentru audio nativ", "description": "Stereo sau surround când un profil alege audio nativ. Un profil îl poate suprascrie.", "compatible": "Stereo compatibil", "surround": "Preferă surround / Dolby"},
-			"autoRetry": {"label": "Reîncearcă descărcările eșuate", "description": "Încearcă automat din nou după o defecțiune de rețea sau de server, așteptând tot mai mult între încercări. Descărcările blocate de site nu sunt reîncercate automat.", "unit": "ori"},
-			"autoRemoveCompleted": {"label": "Elimină descărcările finalizate", "description": "Scoate o descărcare din lista Descărcări la câteva secunde după ce se termină. Fișierele rămân în folder; descărcările eșuate și anulate rămân în listă."},
-			"concurrentDownloads": {"label": "Descărcări simultane", "description": "Câte elemente din coadă se descarcă în același timp. Mai multe deodată termină mai repede o coadă lungă, dar cresc șansa ca un site să vă limiteze.", "unit": "descărcări"},
-			"downloadConnections": {"label": "Conexiuni de descărcare", "description": "Accelerează descărcările mari prin preluarea mai multor părți ale unui videoclip deodată. Valorile mai mari cresc șansa ca un site să vă limiteze.", "unit": "conexiuni"},
-			"networkPacing": {
-				"heading": "Descărcări blânde",
-				"description": "Adaugă mici pauze în timpul fiecărei descărcări, ca Arroxy să nu solicite site-ul prea agresiv. Valorile sunt în secunde.",
-				"presetLabel": "Cât de precaut să fie Arroxy?",
-				"tooltip": "Aceste așteptări au loc în interiorul fiecărei descărcări. Câte descărcări rulează simultan se setează separat, la Descărcări simultane.",
-				"summary": "Așteptări: {{requests}} între verificări, {{downloads}} înainte de pornirea media, {{subtitles}} înainte de fișierele de subtitrare.",
-				"presets": {"off": "Dezactivat", "balanced": "Echilibrat", "careful": "Precaut", "custom": "Personalizat"},
-				"tooltips": {
-					"off": "Folosește doar pauzele mici de bază pe care Arroxy le păstrează pentru media și subtitrări.",
-					"balanced": "Implicit. Adaugă pauze scurte între cereri și înainte de pornirea media.",
-					"careful": "Adaugă pauze mai lungi pentru liste de redare mari sau rețele care ating des limitele.",
-					"custom": "Reglați singur comenzile avansate pentru fiecare descărcare."
-				},
-				"fields": {"sleepRequests": "Așteptare între verificările de metadate", "sleepInterval": "Pauză înainte de pornirea media: min.", "maxSleepInterval": "Pauză înainte de pornirea media: max.", "sleepSubtitles": "Așteptare înainte de fișierele de subtitrare"},
-				"units": {"seconds": "s"}
-			},
-			"closeToTray": {"toggle": "Ascunde în bara de sistem la închidere", "toggleDescription": "Continuă descărcările în fundal după închiderea ferestrei."},
-			"analytics": {
-				"toggle": "Trimite semnalul zilnic de activitate",
-				"toggleDescription": "Fără telemetrie. O dată pe zi, un semnal anonim trimite versiunea aplicației, canalul de instalare, sistemul de operare, limba, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Fără ID-uri, URL-uri, titluri de videoclipuri sau nume de fișiere."
-			}
-		},
-		"quickProgress": {
-			"title": "Se pregătește Descărcarea rapidă",
-			"description": "Arroxy citește linkul și aplică {{profileName}}.",
-			"currentFallback": "Linkul curent",
-			"waitHint": "Lăsați aceasta deschisă cât timp Arroxy pregătește coada.",
-			"failedCount_one": "{{count}} eșuată",
-			"failedCount_few": "{{count}} eșuate",
-			"failedCount_other": "{{count}} eșuate",
-			"cancel": "Anulează pregătirea",
-			"phase": {"probing": "Se preiau detaliile", "queueing": "Se adaugă în coadă"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Nu există subtitrări disponibile pentru acest videoclip",
-			"searchPlaceholder": "Căutați limbi…",
-			"noMatches": "Nicio limbă nu se potrivește",
-			"clearAll": "Șterge tot",
-			"noSelected": "Nicio subtitrare selectată",
-			"removeLanguage": "Elimină {{name}}",
-			"sectionManual": "Manuale",
-			"sectionAuto": "Generate automat",
-			"saveMode": {"heading": "Salvează ca", "sidecar": "Lângă videoclip", "embed": "Încorporate în videoclip", "subfolder": "subfolderul subtitles/"},
-			"format": {"heading": "Format"},
-			"embedNote": "Modul încorporare salvează ieșirea ca .mkv, pentru ca pistele de subtitrare să se încorporeze fiabil.",
-			"autoAssNote": "Subtitrările automate vor fi salvate ca SRT în loc de ASS — pentru videoclipurile YouTube sunt curățate de dublarea indicilor derulanți, pe care convertorul nostru ASS nu o poate reproduce încă."
-		},
-		"sponsorblock": {
-			"modeHeading": "Filtrarea sponsorilor",
-			"mode": {"off": "Dezactivat", "mark": "Marchează ca capitole", "remove": "Elimină segmentele"},
-			"modeHint": {"off": "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat.", "mark": "Marchează segmentele sponsorizate drept capitole (nedistructiv).", "remove": "Taie segmentele sponsorizate din videoclip cu FFmpeg."},
-			"categoriesHeading": "Categorii",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Autopromovare", "music_offtopic": "Muzică în afara subiectului", "preview": "Previzualizare", "filler": "Umplutură"}
-		},
-		"formats": {
-			"kind": {"label": "Ce se descarcă", "video": "Video + audio", "videoOnly": "Video, fără audio", "audio": "Doar audio", "subtitles": "Doar subtitrări"},
-			"profile": {
-				"calloutTitle": "Formatele pornesc de la profilul dvs.",
-				"calloutBody": "Profilul activ preselectează fluxurile pentru dvs. Schimbați profilul din meniu sau folosiți creionul pentru a-l ajusta fără a părăsi această descărcare.",
-				"preselected": "Preselectat din",
-				"tag": "Profil",
-				"closestTag": "Cel mai apropiat de profil",
-				"switchTitle": "Schimbați profilul?",
-				"switchBody": "Ați modificat {{areas}} pentru această descărcare. „{{profile}}” alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?",
-				"resetAll": "Resetează tot",
-				"edit": "Editați {{name}}",
-				"updatedTitle": "Folosiți profilul actualizat?",
-				"updatedBody": "Ați modificat {{areas}} pentru această descărcare. Profilul actualizat alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?",
-				"keepEdits": "Păstrează modificările mele",
-				"menuDescription": "Doar pentru această descărcare. Profilul implicit rămâne neschimbat."
-			},
-			"fit": {
-				"tierBelow": "Profilul dvs. cere {{wanted}}p. Acest videoclip ajunge doar până la {{picked}}p, așa că este selectat {{picked}}p.",
-				"tierAbove": "Profilul dvs. cere {{wanted}}p. Acest videoclip nu are nimic atât de mic, așa că este selectat {{picked}}p.",
-				"mp4Unavailable": "Profilul dvs. este Smart TV (H.264). Acest videoclip nu oferă H.264, așa că este selectat cel mai apropiat flux.",
-				"noVideo": "Acest link nu conține video, așa că este selectat audio.",
-				"subtitlesMissing": "Profilul dvs. cere subtitrări în {{languages}}. Acest videoclip nu le are.",
-				"webmUnavailable": "Profilul dvs. cere WebM. Fluxurile alese pentru acest videoclip includ {{codec}}, pe care WebM nu îl poate conține, așa că tipul fișierului este Auto."
-			},
-			"footer": {"download": "Descarcă", "moreActions": "Mai multe opțiuni de descărcare", "addToQueue": "Adaugă în coadă fără a porni", "subtitlesRequired": "Alegeți cel puțin o limbă de subtitrare."},
-			"video": "Video",
-			"audio": "Audio",
-			"noAudio": "Fără audio",
-			"withAudio": "cu audio",
-			"resolutionUnknown": "Rezoluție necunoscută",
-			"bitrateValue": "Bitrate {{bitrate}}",
-			"marker": {"aiUpscaled": "Mărit cu IA", "aiDubbed": "Dublat cu IA", "audioDescription": "Descriere audio", "spatialAudio": "Audio spațial", "vr": "360° / VR", "enhancedBitrate": "Bitrate îmbunătățit", "damaged": "Deteriorat", "watermarked": "Cu filigran"},
-			"keepAudio": "Păstrează ca atare",
-			"keepAudioMeta": "Audio încorporat",
-			"audioOnly": "Doar audio",
-			"sniffing": "Căutăm cele mai bune formate pentru dvs.…",
-			"loadingHint": "Așteptați până se termină sondarea — listele de redare și căutările pot dura.",
-			"loadingAria": "Se încarcă formatele",
-			"sizeUnknown": "Dimensiune necunoscută",
-			"total": "Total",
-			"skipToConfirm": "Treceți la confirmare",
-			"skipToConfirmTooltip": "Folosește preferințele salvate pentru toți pașii rămași. Pentru a schimba o setare, continuați pas cu pas — alegerea dvs. va fi salvată pentru data viitoare.",
-			"quality": {"high": "Calitate ridicată", "medium": "Calitate medie", "low": "Calitate scăzută"},
-			"drc": {"label": "Uniformizează volumul (DRC)", "description": "Părțile tari devin mai line, iar cele line mai tari, pentru difuzoare și încăperi zgomotoase.", "tag": "Volum uniform"},
-			"audioLanguage": "Limba audio",
-			"audioLanguageCount_one": "{{count}} limbă",
-			"audioLanguageCount_few": "{{count}} limbi",
-			"audioLanguageCount_other": "{{count}} de limbi",
-			"convert": {
-				"label": "Conversie",
-				"bitrate": "Bitrate",
-				"wavLabel": "WAV (necomprimat)",
-				"lossyLabel": "{{target}} {{bitrate}} kb/s",
-				"copyLabel": "{{target}} {{bitrate}} kb/s, fără recodificare",
-				"copyLabelNoBitrate": "{{target}}, fără recodificare",
-				"copyNote": "{{kbps}} kb/s, așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat",
-				"copyNoteNoBitrate": "Așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat",
-				"bitrateCopyHint": "O sursă care este deja {{target}} își păstrează fluxul și bitrate-ul: este copiată, nu recodificată.",
-				"sourceKbps": "Sursa are {{kbps}} kb/s"
-			},
-			"botWall": {
-				"heading": "Sondarea a fost limitată",
-				"bodyUnconfigured": "Lista de formate poate fi incompletă. Configurați cookie-urile în setările avansate sau schimbați rețeaua și reîncercați.",
-				"bodyDisabled": "Cookie-urile sunt configurate, dar dezactivate. Activați-le și reîncercați pentru a obține lista completă sau schimbați rețeaua și reîncercați.",
-				"bodyEnabled": "Chiar și cu cookie-uri, YouTube a limitat această sondare. Încercați din nou mai târziu sau schimbați rețeaua.",
-				"bodyExplore": "YouTube a limitat această cerere. Încercați din nou mai târziu sau schimbați rețeaua.",
-				"retryCta": "Reîncercați",
-				"enableRetryCta": "Activează cookie-urile și reîncearcă"
-			},
-			"rateLimit": {
-				"heading": "{{site}} limitează această conexiune",
-				"leadDegraded": "Lista de formate poate fi incompletă.",
-				"leadFailed": "{{site}} a respins această cerere deocamdată.",
-				"waitUntil": "Arroxy așteaptă până la {{time}} înainte de a mai cere ceva de la {{site}}, pentru ca limita să dispară.",
-				"waitOver": "Așteptarea s-a încheiat, deci puteți încerca din nou.",
-				"sessionNote": "{{site}} poate menține această limită până la o oră.",
-				"tryNowCta": "Încercați acum",
-				"retryCta": "Reîncercați"
-			},
-			"cookiesError": {
-				"heading": "Cauza ar putea fi cookie-urile",
-				"currentModeLabel": "Sursa cookie-urilor",
-				"currentModeFile": "Fișier",
-				"currentModeBrowser": "Browser",
-				"currentModeExplore": "Conectare Explorare",
-				"explanationFile": "Fișierul de cookie-uri poate fi gol, expirat sau în format greșit (Arroxy are nevoie de un fișier cookies.txt Netscape). Încercați să exportați din nou cookie-urile, să alegeți alt fișier, să treceți la modul Browser sau să dezactivați cookie-urile.",
-				"explanationBrowser": "Cookie-urile sunt citite direct din browser. Dacă browserul rulează în prezent, baza lui de date de cookie-uri poate fi blocată (familia Chromium). Browserul trebuie să fie conectat și la YouTube. Încercați să închideți browserul, să treceți la alt browser, la modul Fișier sau să dezactivați cookie-urile.",
-				"openSettingsCta": "Deschide setările cookie-urilor",
-				"exploreSignIn": {"heading": "Este posibil ca acest videoclip să necesite un cont YouTube", "body": "Dacă acest videoclip necesită un cont YouTube, conectați-vă în Explorare și reîncercați. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea.", "cta": "Conectați-vă în Explorare"},
-				"exploreSignedIn": {"heading": "Conectat la Explorare", "body": "Dacă acest videoclip necesită un cont, Arroxy folosește automat conectarea dvs. din Explorare. Poate fi indisponibil dintr-un alt motiv."},
-				"exploreOffer": {"heading": "Este posibil ca acest videoclip să necesite un cont YouTube", "body": "Conectați-vă cu Explorare, iar Arroxy va reîncerca.", "cta": "Conectați-vă cu Explorare"},
-				"exploreReuse": {"heading": "Este posibil ca acest videoclip să necesite un cont YouTube", "body": "Sunteți conectat la Explorare, dar descărcările nu folosesc în prezent acea conectare.", "cta": "Folosește conectarea mea din Explorare și reîncearcă"},
-				"exploreSite": {
-					"heading": "Este posibil ca acest link să necesite un cont pe {{host}}",
-					"signInBody": "Conectați-vă la {{host}} în Explorare, apoi încercați din nou. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea.",
-					"offerBody": "Conectați-vă la {{host}} cu Explorare, apoi încercați din nou."
-				},
-				"exploreRefused": {"heading": "Site-ul a refuzat chiar și cu conectarea dvs. din Explorare", "body": "Arroxy a încercat deja conectat prin Explorare, deci o nouă conectare nu va ajuta. Site-ul poate avea probleme sau acest cont nu îl poate deschide. Încercați din nou mai târziu."},
-				"otherCookiesCta": "Folosiți în schimb un fișier de cookie-uri sau un browser…",
-				"needsCookies": {"heading": "Acest site necesită conectare", "body": "Arroxy nu a putut accesa acest videoclip fără autentificare. Configurați cookie-urile în setările avansate — indicați un browser în care sunteți deja conectat sau importați un fișier cookies.txt."},
-				"dpapi": {
-					"heading": "Cookie-urile Chrome sunt blocate de criptarea Windows",
-					"explanation": "Chrome 127 și versiunile mai noi criptează cookie-urile într-un mod pe care alte aplicații nu îl pot citi în Windows. Încercați una dintre soluțiile de mai jos.",
-					"fixFirefoxLabel": "Treceți la Firefox",
-					"fixFirefoxBody": "Firefox nu folosește App-Bound Encryption. Deschideți setările cookie-urilor și alegeți Firefox din lista de browsere.",
-					"fixFileLabel": "Exportați cookies.txt",
-					"fixFileBody": "Exportați cookie-urile din Chrome cu o extensie de browser, apoi comutați această aplicație pe modul Fișier și alegeți fișierul exportat.",
-					"fixUnsafeLabel": "Lansați Chrome cu App-Bound Encryption dezactivat",
-					"fixUnsafeBody": "Adăugați --disable-features=LockProfileCookieDatabase la comanda rapidă de lansare a Chrome. Atenție: aceasta invalidează cookie-urile criptate anterior, deci veți fi deconectat de pe toate site-urile și va trebui să vă conectați din nou.",
-					"docsLinkLabel": "documentația yt-dlp (problema #10927)"
-				}
-			},
-			"savesAs": {"label": "Se salvează ca", "reset": "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto."}
-		},
-		"folder": {
-			"heading": "Salvare în",
-			"downloads": "Descărcări",
-			"videos": "Filme",
-			"desktop": "Desktop",
-			"music": "Muzică",
-			"documents": "Documente",
-			"pictures": "Imagini",
-			"home": "Acasă",
-			"custom": "Personalizat…",
-			"subfolder": {"toggle": "Salvează într-un subfolder", "placeholder": "ex. lo-fi", "invalid": "Numele folderului conține caractere nevalide"}
-		},
-		"output": {
-			"embedChapters": {"label": "Încorporează capitolele", "description": "Marcaje de capitole care pot fi folosite în orice player modern."},
-			"embedMetadata": {"label": "Încorporează metadatele", "description": "Titlul, artistul, descrierea și data încărcării se scriu în fișier."},
-			"embedThumbnail": {"label": "Încorporează miniatura", "description": "Coperta se află în interiorul fișierului. Videoclipul WebM va fi remultiplexat în MKV; se omite când subtitrările sunt încorporate."},
-			"writeDescription": {"label": "Salvează descrierea", "description": "Salvează descrierea videoclipului ca fișier text .description lângă descărcare."},
-			"writeThumbnail": {"label": "Salvează miniatura", "description": "Salvează miniatura ca fișier imagine .jpg lângă descărcare."},
-			"writeM3u": {"label": "Generează fișier de listă .m3u", "description": "Salvează o listă de redare .m3u lângă videoclipuri, ca ele să se deschidă în ordine în playerul media."}
-		},
-		"review": {
-			"changeFormat": "Schimbă formatul",
-			"rowsHeading": "Restul setărilor",
-			"rows": {"subtitles": "Subtitrări", "sponsorBlock": "SponsorBlock", "extras": "Extra", "saveTo": "Salvare în", "fileName": "Nume de fișier"},
-			"value": {"subtitlesOff": "Dezactivate", "sponsorBlockOff": "Dezactivat", "extrasNone": "Niciunul"},
-			"changed": "Modificat față de {{profile}}: {{areas}}. Se aplică doar acestei descărcări.",
-			"areas": {"format": "format", "subtitles": "subtitrări", "sponsorBlock": "SponsorBlock", "extras": "extra", "saveTo": "folder", "fileName": "nume de fișier"},
-			"updateProfile": "Actualizează „{{profile}}” cu aceste modificări",
-			"saveAsProfile": "Salvează ca profil nou",
-			"update": {
-				"title": "Actualizați „{{profile}}”?",
-				"description": "De acum înainte, fiecare descărcare cu acest profil folosește noile setări.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Acesta este un profil încorporat. Îi puteți restaura setările originale în fila Profiluri.",
-				"action": "Actualizează profilul",
-				"updated": "Profil actualizat „{{name}}”"
-			},
-			"callout": {"title": "Toate celelalte setări se află acum pe această pagină", "body": "Subtitrările, SponsorBlock, extrele precum miniatura, folderul și numele fișierului erau înainte pași separați. Faceți clic pe un rând pentru a-l modifica."},
-			"reset": "Anulează modificările, înapoi la „{{profile}}”",
-			"changedFrom": "Modificat față de {{profile}}:",
-			"save": {
-				"title": "Salvează ca profil",
-				"description": "Păstrează aceste setări ca profil pe care îl puteți alege data viitoare. Profilul Descărcare rapidă rămâne neschimbat.",
-				"nameLabel": "Numele profilului",
-				"action": "Salvează profilul",
-				"saved": "Salvat ca profil „{{name}}”",
-				"failed": "Profilul nu a putut fi salvat."
-			},
-			"nextTime": {"title": "Această descărcare a folosit setări editate. Le folosiți și data viitoare?", "action": "Salvează ca profil", "defaultName": "{{profile}} (editat)"}
-		},
-		"confirm": {
-			"readyHeadline": "Gata de descărcare!",
-			"landIn": "Fișierul dvs. va ajunge în",
-			"landInMultiProfile_one": "Va ajunge în destinația de mai jos",
-			"landInMultiProfile_few": "Vor ajunge în cele {{count}} destinații de mai jos",
-			"landInMultiProfile_other": "Vor ajunge în cele {{count}} de destinații de mai jos",
-			"labelVideo": "Video",
-			"labelAudio": "Audio",
-			"labelSubtitles": "Subtitrări",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Salvare în",
-			"labelSize": "Dimensiune",
-			"sizeUnknown": "Necunoscută",
-			"nothingToDownload": "Presetarea Doar subtitrări este activă, dar nu este selectată nicio limbă de subtitrare — nu se va descărca nimic.",
-			"thumbnailEmbedNotSupported": "Încorporarea miniaturii a fost omisă — containerul de ieșire nu o acceptă.",
-			"subtitleEmbedAudioOnly": "Încorporarea subtitrării a fost schimbată în fișier separat — pistele audio nu acceptă fluxuri de subtitrare încorporate.",
-			"audioOnly": "Doar audio",
-			"addToQueue": "+ Coadă",
-			"addToQueueTooltip": "Adaugă în coadă — pornește când se termină descărcarea activă",
-			"pullIt": "Descarcă! ↓",
-			"pullItTooltip": "Sare peste coadă — pornește acum, rulează alături de alte descărcări active",
-			"labelPlaylist": "Listă de redare",
-			"labelBulk": "Lot",
-			"labelPreset": "Presetare",
-			"labelItems": "Elemente",
-			"itemsValue_one": "{{count}} din {{total}} videoclipuri",
-			"itemsValue_few": "{{count}} din {{total}} videoclipuri",
-			"itemsValue_other": "{{count}} din {{total}} videoclipuri",
-			"itemsValueAudio_one": "{{count}} din {{total}} piese",
-			"itemsValueAudio_few": "{{count}} din {{total}} piese",
-			"itemsValueAudio_other": "{{count}} din {{total}} piese",
-			"itemsValueBulk_one": "{{count}} din {{total}} URL-uri",
-			"itemsValueBulk_few": "{{count}} din {{total}} URL-uri",
-			"itemsValueBulk_other": "{{count}} din {{total}} URL-uri",
-			"profileBreakdownHeading": "Profiluri din acest lot",
-			"profileBreakdownCount_one": "{{count}} element",
-			"profileBreakdownCount_few": "{{count}} elemente",
-			"profileBreakdownCount_other": "{{count}} de elemente",
-			"subtitleEmbedForcesMkv": "Subtitrările din interiorul videoclipului necesită un fișier MKV, deci această descărcare se salvează ca .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Profil de descărcare",
-			"dialogDescription": "O configurație reutilizabilă pentru Descărcare rapidă, URL-uri în bloc și liste de redare.",
-			"skipped": "Omis",
-			"panel": {
-				"identity": {"title": "Identitatea profilului", "description": "Numele și pictograma afișate în Descărcare rapidă, URL-uri în bloc și listele de profiluri."},
-				"downloadType": {"title": "Tip de descărcare", "description": "Alegeți modul principal în care doriți să descărcați."},
-				"advanced": {"title": "Opțiuni avansate", "description": "Profilurile moștenesc destinația globală, cu excepția cazului în care setați o suprascriere de profil."},
-				"output": {"title": "Opțiuni de ieșire", "enabledCount_one": "{{count}} activată", "enabledCount_few": "{{count}} activate", "enabledCount_other": "{{count}} activate"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Numele și pictograma profilului",
-				"icon": "Pictograma profilului",
-				"resolution": "Rezoluție",
-				"quality": "Calitate",
-				"source": "Sursă",
-				"subfolderName": "Numele subfolderului",
-				"name": "Numele profilului",
-				"subtitleDownloads": "Descărcări de subtitrări",
-				"subtitleDownloadsDescription": "Profilurile cer coduri de limbă; disponibilitatea se stabilește pentru fiecare URL.",
-				"languages": "Limbi",
-				"delivery": "Livrare",
-				"overridePath": "Calea de suprascriere a profilului",
-				"goal": "Optimizat pentru",
-				"fileType": "Tip de fișier",
-				"nativeAudio": "Audio nativ"
-			},
-			"action": {
-				"chooseIcon": "Alege pictograma profilului",
-				"setOverride": "Setează o suprascriere de profil",
-				"chooseFolder": "Alege folderul de destinație",
-				"removeLanguage": "Elimină {{code}}",
-				"useLanguageCode": "Folosește codul de limbă „{{code}}”",
-				"changeGlobalShort": "Schimbă global",
-				"setOverrideShort": "Setează suprascriere",
-				"useGlobalDefault": "Folosește valoarea globală implicită",
-				"reset": "Resetează profilul",
-				"resetHint": "Restaurează setările încorporate ale profilului",
-				"resetDisabledHint": "Acest profil folosește deja setările încorporate",
-				"save": "Salvează profilul"
-			},
-			"placeholder": {"folder": "Alegeți un folder pentru acest profil"},
-			"destination": {
-				"global": "Destinație globală",
-				"override": "Suprascriere de profil",
-				"resolved": "Destinația rezolvată",
-				"defaultFolder": "Folderul implicit de descărcări",
-				"defaultFolderWithSubfolder": "Folderul implicit de descărcări / {{subfolder}}",
-				"globalActive": "Activă",
-				"globalInherited": "Moștenită",
-				"overrideSet": "Suprascrie destinația globală",
-				"overrideChoosing": "Alegeți folderul",
-				"overrideNone": "Nicio suprascriere setată",
-				"overrideSetNote": "Acest profil se salvează în propria rădăcină, înainte de adăugarea subfolderului.",
-				"overrideNoneNote": "Nicio suprascriere setată. Acest profil folosește destinația globală de mai sus."
-			},
-			"note": {
-				"subtitlesOnly": "Acest profil pune în coadă doar fișiere de subtitrare. Video, audio, SponsorBlock și conversia media sunt omise.",
-				"noSubtitles": "Pentru acest profil nu se vor cere fișiere de subtitrare sau piste de subtitrare încorporate.",
-				"searchLanguages": "Căutați după numele sau codul limbii",
-				"noLanguageMatches": "Nicio limbă corespunzătoare",
-				"subtitleLanguagesRequired": "Alegeți cel puțin o limbă.",
-				"subtitleLanguagesRequiredOrOff": "Alegeți cel puțin o limbă sau dezactivați descărcarea subtitrărilor.",
-				"autoCaptionsSrt": "Subtitrările automate vor fi salvate ca SRT în loc de ASS.",
-				"skippedForOutputType": "Omis pentru acest tip de ieșire."
-			},
-			"error": {"save": "Nu s-au putut salva setările profilului.", "changeGlobalDestination": "Nu s-a putut schimba destinația globală.", "reset": "Nu s-au putut reseta setările profilului.", "folderPicker": "Nu s-a putut deschide selectorul de foldere. Introduceți manual o cale."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + audio", "description": "Fișiere video obișnuite"},
-				"videoOnly": {"label": "Video, fără audio", "description": "Doar video, fără sunet"},
-				"audioOnly": {"label": "Doar audio", "description": "Muzică sau podcasturi"},
-				"subtitlesOnly": {"label": "Doar subtitrări", "description": "Doar fișiere de subtitrare"}
-			},
-			"icon": {"controls": "Comenzi", "download": "Descărcare", "video": "Video", "captions": "Subtitrări", "audio": "Audio", "music": "Muzică", "podcast": "Podcast", "classes": "Cursuri", "clip": "Clip", "archive": "Arhivă"},
-			"audioFormat": {"best": "Cel mai bun", "wav": "WAV"},
-			"audioQuality": {"128": "Până la 128K", "192": "Până la 192K", "320": "Până la 320K", "best": "Cea mai bună calitate"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Întâi manuale, apoi automate", "manualAndAuto": "Manuale și automate", "manualOnly": "Doar manuale", "autoOnly": "Doar generate automat"},
-			"sponsorBlockHint": {"off": "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat.", "mark": "Marchează segmentele sponsorizate drept capitole (nedistructiv).", "remove": "Taie segmentele sponsorizate din videoclip cu FFmpeg."},
-			"advanced": "Avansat",
-			"goal": {
-				"bestPicture": {"name": "Cea mai bună imagine", "tag": "AV1 · VP9", "description": "Cea mai clară imagine la o anumită dimensiune. Televizoarele mai vechi, QuickTime și unele editoare nu o pot reda."},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Se redă pe televizoare, telefoane, WhatsApp, QuickTime și editoare video. YouTube oferă H.264 doar până la 1080p."}
-			},
-			"appSetting": "Folosește setarea aplicației ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Cât din videoclip",
-			"whole": "Tot videoclipul",
-			"wholeTrack": "Toată piesa",
-			"part": "Parte",
-			"unavailableSubtitles": "Subtitrările acoperă întotdeauna tot videoclipul.",
-			"unavailableDuration": "Acest videoclip nu raportează durata, deci poate fi descărcat doar întreg.",
-			"rangeLabel": "Parte din videoclip",
-			"start": "Început",
-			"end": "Sfârșit",
-			"timeHint": "h:mm:ss, m:ss sau secunde",
-			"length": "{{length}} din {{duration}}",
-			"chapters": "Capitole",
-			"chapterUntitled": "Capitolul {{number}}",
-			"exactCut": {"label": "Tăiere exactă (recodifică, mai lent)", "hint": "Dezactivat: fiecare tăietură ajunge la cel mai apropiat cadru-cheie, care poate fi la câteva secunde de ora introdusă."},
-			"calloutTitle": "Descărcați doar o parte dintr-un videoclip",
-			"calloutBody": "Treceți la Parte pe cardul videoclipului pentru a alege un început și un sfârșit sau un capitol și a descărca doar acel fragment.",
-			"connectionsNote": "O parte se descarcă prin ffmpeg, deci conexiunile de descărcare și setările de ritm nu se aplică.",
-			"urlStart": "Linkul dvs. începe la {{time}}",
-			"useUrlStart": "Folosește ca început",
-			"error": {"startInvalid": "Introduceți începutul ca h:mm:ss, m:ss sau secunde.", "endInvalid": "Introduceți sfârșitul ca h:mm:ss, m:ss sau secunde.", "startNotBeforeEnd": "Începutul trebuie să fie înaintea sfârșitului.", "endBeyondDuration": "Videoclipul se termină la {{duration}}."},
-			"downloadBlocked": "Corectați mai întâi începutul și sfârșitul părții.",
-			"totalEstimate": "Parte, estimat",
-			"summary": "Partea {{start}}–{{end}}",
-			"subtitlesFullLength": "tot videoclipul"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Se încarcă…", "chapters_one": "{{count}} capitol", "chapters_few": "{{count}} capitole", "chapters_other": "{{count}} de capitole"},
-	"queue": {
-		"header": "Descărcări",
-		"tabLabel": "Descărcări",
-		"attentionBadge_one": "{{count}} descărcare necesită atenția dvs.",
-		"attentionBadge_few": "{{count}} descărcări necesită atenția dvs.",
-		"attentionBadge_other": "{{count}} de descărcări necesită atenția dvs.",
-		"choice": {
-			"cappedBody_one": "Peste {{count}} videoclip în această listă de redare. Descărcați-le pe toate, primul sau alegeți într-o examinare.",
-			"cappedBody_few": "Peste {{count}} videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare.",
-			"cappedBody_other": "Peste {{count}} de videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare.",
-			"reviewBody_one": "Acest link este o listă de {{count}} videoclip. Examinați-o pentru a alege ce descărcați.",
-			"reviewBody_few": "Acest link este o listă de {{count}} videoclipuri. Examinați-o pentru a alege ce descărcați.",
-			"reviewBody_other": "Acest link este o listă de {{count}} de videoclipuri. Examinați-o pentru a alege ce descărcați.",
-			"all": "Toate videoclipurile",
-			"first": "Primele {{count}}",
-			"review": "Examinare"
-		},
-		"tabTip": "Descărcările se află acum în fila Descărcări — deschideți-o oricând pentru a urmări progresul.",
-		"empty": "Descărcările din coadă vor apărea aici",
-		"filtersLabel": "Filtre după starea cozii",
-		"filterAll": "Toate",
-		"selectedActionsLabel": "Elemente selectate",
-		"globalActionsLabel": "Toate elementele",
-		"selectionSummary": "{{selected}} selectate · {{total}} în total",
-		"clearTitle": "Șterge descărcările finalizate",
-		"autoRemoveCompleted": {"label": "Curăță automat finalizatele", "hint": "Elimină fiecare descărcare din listă la câteva secunde după ce se termină. Fișierele rămân în folder."},
-		"pauseAllTitle": "Întrerupe fiecare descărcare activă și împiedică pornirea altora noi",
-		"resumeAllTitle": "Reia descărcările întrerupte și lasă coada să continue",
-		"pausedBanner": "Coada este în pauză — elementele în așteptare nu vor porni până o reluați",
-		"resumeQueueAction": "Reia coada",
-		"cancelAllTitle": "Anulează toate descărcările active și în așteptare",
-		"table": {
-			"columns": "Coloane",
-			"title": "Titlu",
-			"status": "Stare",
-			"progress": "Progres",
-			"format": "Format",
-			"outputTarget": "Destinație",
-			"artifacts": "Artefacte",
-			"size": "Dimensiune",
-			"added": "Adăugat",
-			"finished": "Finalizat",
-			"notAvailable": "—",
-			"sortBy": "Sortează după {{label}}",
-			"showArtifactsFor": "Afișează artefactele pentru {{title}}",
-			"hideArtifactsFor": "Ascunde artefactele pentru {{title}}",
-			"resetColumns": "Resetează coloanele",
-			"resizeColumn": "Redimensionează coloana {{column}}",
-			"movableColumn": "coloană mutabilă",
-			"moveColumnInstructions": "Pentru a muta o coloană, apăsați Space sau Enter, mutați-o cu tastele săgeată, apoi apăsați Space sau Enter pentru a o plasa. Apăsați Escape pentru a anula.",
-			"columnPickedUp": "Coloana {{column}} a fost ridicată.",
-			"columnMovedOver": "Coloana {{column}} este peste {{target}}.",
-			"columnDropped": "Coloana {{column}} a fost plasată.",
-			"columnMoveCancelled": "Mutarea coloanei {{column}} a fost anulată."
-		},
-		"artifact": {"media": "Media", "subtitle": "Subtitrare", "thumbnail": "Miniatură", "description": "Descriere", "companion": "Însoțitor", "unknown": "Artefact", "missing": "Lipsă"},
-		"item": {
-			"defaultError": "Descărcarea a eșuat",
-			"retryingSoon": "se reîncearcă automat (încercarea {{attempt}})",
-			"qualityLimited": "Limitat la {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Limitat la {{height}}p · unele subtitrări au eșuat",
-			"audioKept": "Sunetul nu a fost eliminat",
-			"audioKeptSubtitlesFailed": "Sunetul nu a fost eliminat · unele subtitrări au eșuat",
-			"subtitleLanguagesMissing": "Fără subtitrări în {{languages}}",
-			"pause": "Pauză",
-			"resume": "Reluare",
-			"cancel": "Anulare",
-			"retry": "Reîncercați",
-			"setLocation": "Setează locația",
-			"setLocationHint": "Selectați elemente în așteptare pentru a seta locația.",
-			"pendingOnly": "Doar în așteptare",
-			"openDestinationFolder": "Deschide folderul de destinație",
-			"remove": "Elimină",
-			"pullNow": "Descarcă acum — sari peste coadă",
-			"statusProbing": "Se preiau detaliile",
-			"statusNeedsChoice": "Necesită alegerea dvs.",
-			"statusPending": "În așteptare",
-			"statusRunning": "Se descarcă",
-			"statusHeld": "Reținută",
-			"statusPaused": "În pauză",
-			"statusDone": "Finalizată",
-			"statusError": "Eroare",
-			"statusCancelled": "Anulată"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} este disponibil — aveți {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} este disponibil — actualizați cu Homebrew.",
-			"macosDirect": "Arroxy {{version}} este disponibil — descărcați noul DMG.",
-			"macosDirectHomebrew": "Arroxy {{version}} este disponibil — descărcați DMG-ul sau treceți la Homebrew.",
-			"portable": "Arroxy {{version}} este disponibil — descărcați noua versiune."
-		},
-		"install": "Instalează și repornește",
-		"downloading": "Se descarcă…",
-		"runAndRestart": "Rulează și repornește",
-		"upgrading": "Se actualizează…",
-		"download": "Descarcă ↗",
-		"downloadDmg": "Descarcă DMG ↗",
-		"dismiss": "Închide bannerul de actualizare",
-		"copy": "Copiază comanda în clipboard",
-		"copied": "Comanda a fost copiată în clipboard",
-		"installFailed": "Actualizarea a eșuat",
-		"retry": "Reîncercați"
-	},
-	"releaseNotes": {"title": "Ce este nou în Arroxy {{version}}", "description": "Rulați o versiune proaspăt actualizată. Iată principalele noutăți.", "fullNotes": "Note complete despre versiune ↗", "continue": "Continuare"},
-	"status": {
-		"preparingBinaries": "Se pregătesc fișierele binare…",
-		"mintingToken": "Se generează jetonul YouTube…",
-		"remintingToken": "Se regenerează jetonul…",
-		"startingYtdlp": "Se pornește motorul de descărcare…",
-		"downloadingMedia": "Se descarcă video și audio…",
-		"mergingFormats": "Se îmbină audio și video…",
-		"extractingAudio": "Se convertește audio…",
-		"convertingVideo": "Se convertește videoclipul…",
-		"embeddingMetadata": "Se încorporează metadatele…",
-		"movingFiles": "Se mută fișierele…",
-		"fetchingSubtitles": "Se preiau subtitrările…",
-		"sleepingBetweenRequests": "Se așteaptă {{seconds}} s pentru a evita limitările de rată…",
-		"subtitlesFailed": "Videoclip salvat — unele subtitrări nu au putut fi descărcate",
-		"qualityLimited": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
-		"qualityLimitedSubtitlesFailed": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
-		"audioKept": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat",
-		"audioKeptSubtitlesFailed": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat, iar unele subtitrări nu au putut fi descărcate",
-		"subtitleLanguagesMissing": "Acest videoclip nu are subtitrări în {{languages}}. Videoclipul a fost salvat fără ele.",
-		"subtitleLanguagesMissingOthersSaved": "Acest videoclip nu are subtitrări în {{languages}}. Celelalte limbi au fost salvate.",
-		"noSubtitles": "Fără subtitrări în {{languages}}",
-		"cancelled": "Descărcare anulată",
-		"complete": "Descărcare finalizată",
-		"usedExtractorFallback": "Descărcat cu extractor relaxat — configurați un cookies.txt pentru descărcări mai fiabile",
-		"ytdlpProcessError": "Eroare a motorului de descărcare: {{error}}",
-		"ytdlpExitCode": "Motorul de descărcare s-a închis cu codul {{code}}",
-		"downloadingBinary": "Se descarcă fișierul binar {{name}}…",
-		"unknownStartupFailure": "Eroare necunoscută la pornirea descărcării",
-		"diskSpaceInsufficient": "Spațiu insuficient pe disc — sunt necesare {{required}}, dar sunt disponibile doar {{free}}",
-		"outputNotWritable": "Nu se poate salva în {{dir}} — Arroxy nu are permisiunea de a scrie acolo",
-		"fetchingSponsorBlock": "Se contactează SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock indisponibil, se reîncearcă ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Conexiune blocată, se reîncearcă ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Conectare cu contul dvs. din Explorare…",
-		"exploreSignedOut": "Deconectat din Explorare — conectați-vă din nou"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Nu s-au putut salva setările.",
-		"warmupFailed": "Configurarea nu s-a încheiat. Unele descărcări pot eșua până atunci.",
-		"shellActionFailed": "Nu s-a putut deschide.",
-		"folderSelectFailed": "Nu s-a putut deschide selectorul de foldere.",
-		"exploreSignInRetrying_one": "Conectat cu Explorare — se reîncearcă 1 link",
-		"exploreSignInRetrying_few": "Conectat cu Explorare — se reîncearcă {{count}} linkuri",
-		"exploreSignInRetrying_other": "Conectat cu Explorare — se reîncearcă {{count}} de linkuri",
-		"exploreSignOutFailed": "Deconectarea din Explorare a eșuat. Încercați din nou.",
-		"playlistFolderRejected": "Acest folder nu poate fi folosit pentru această listă de redare.",
-		"filenameFolderTooDeep": "Acest folder este prea adânc pentru sistemul dvs. Descărcarea poate totuși eșua — alegeți un folder mai puțin adânc.",
-		"filenameTemplateCannotFit": "Numele acestui videoclip nu poate cuprinde toate părțile șablonului dvs., așa că s-a folosit numele implicit.",
-		"hotkey": {
-			"queued": "Descărcare adăugată în coadă din clipboard",
-			"alreadyQueued": "Este deja în coadă — nu s-a adăugat o copie",
-			"invalidClipboard": "Niciun link în clipboard — copiați unul mai întâi",
-			"multipleUrls": "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc în Arroxy",
-			"needsReview": "Acest link necesită alegerea dvs. — vedeți Descărcări în Arroxy",
-			"cookiesSetup": "Terminați configurarea cookie-urilor în Arroxy, apoi încercați din nou",
-			"busy": "Arroxy încă pornește — încercați din nou într-o clipă",
-			"submissionFailed": "Nu s-a putut adăuga linkul — încercați din nou în Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} videoclip este deja în coadă — omis", "skippedAlreadyQueued_few": "{{count}} videoclipuri sunt deja în coadă — omise", "skippedAlreadyQueued_other": "{{count}} de videoclipuri sunt deja în coadă — omise"},
-		"quickDownload": {
-			"added": "Adăugat: {{title}}",
-			"alreadyQueued": "Este deja în coadă",
-			"failed": "Nu s-a putut pregăti {{title}}",
-			"notAdded": "Nu s-a putut adăuga linkul — încercați din nou",
-			"chooseHowMany_one": "{{count}}+ videoclip — alegeți câte",
-			"chooseHowMany_few": "{{count}}+ videoclipuri — alegeți câte",
-			"chooseHowMany_other": "{{count}}+ de videoclipuri — alegeți câte",
-			"review_one": "{{count}} videoclip în această listă — examinați pentru a alege",
-			"review_few": "{{count}} videoclipuri în această listă — examinați pentru a alege",
-			"review_other": "{{count}} de videoclipuri în această listă — examinați pentru a alege",
-			"reviewCapped_one": "{{count}}+ videoclip în această listă — examinați pentru a alege",
-			"reviewCapped_few": "{{count}}+ videoclipuri în această listă — examinați pentru a alege",
-			"reviewCapped_other": "{{count}}+ de videoclipuri în această listă — examinați pentru a alege",
-			"view": "Vizualizare"
-		}
+	"donate": {
+		"copied": "Copiat!",
+		"copyAddress": "Copiază adresa",
+		"description": "Arroxy este gratuit și open-source, fără reclame și fără nivel plătit. Donațiile sunt opționale și nu oferă nicio influență asupra foii de parcurs.",
+		"footerLabel": "Donează",
+		"footerTooltip": "Susțineți Arroxy",
+		"qrAlt": "Cod QR cu adresa de donație {{coin}}",
+		"title": "Susțineți Arroxy",
+		"warning": "Plățile în criptomonede sunt ireversibile. Trimiteți doar în rețeaua afișată și comparați adresa completă."
 	},
 	"errors": {
 		"noSubtitlesIn": "Acest videoclip nu are subtitrări în {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Protecția anti-bot s-a activat. Cel mai probabil IP-ul folosit este semnalat (interval de centru de date sau ieșire VPN aglomerată). Schimbați IP-ul sau alegeți alt punct de ieșire VPN și reîncercați. Dacă tot eșuează, poate fi o schimbare temporară pe partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat după lansare.",
-			"ipBlock": "Adresa dvs. IP pare blocată. Încercați din nou mai târziu sau folosiți un VPN.",
-			"rateLimit": "Site-ul limitează cererile din această conexiune.",
 			"ageRestricted": "Acest videoclip are restricție de vârstă și nu poate fi descărcat fără un cont conectat.",
-			"unavailable": "Acest videoclip nu este disponibil — poate fi privat, șters sau blocat regional.",
+			"botBlock": "Protecția anti-bot s-a activat. Cel mai probabil IP-ul folosit este semnalat (interval de centru de date sau ieșire VPN aglomerată). Schimbați IP-ul sau alegeți alt punct de ieșire VPN și reîncercați. Dacă tot eșuează, poate fi o schimbare temporară pe partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat după lansare.",
+			"chunkTransferFailure": "Serverul a întrerupt descărcarea în mod repetat, iar Arroxy a renunțat după mai multe încercări. Se întâmplă de obicei la cele mai mari formate video (4K HDR / VP9 cu bitrate ridicat). Reîncercați, schimbați rețeaua/VPN-ul sau alegeți un format cu rezoluție mai mică.",
+			"drmProtected": "Acest videoclip este protejat prin DRM. Arroxy nu poate elimina DRM-ul, deci fișierul nu poate fi descărcat.",
 			"formatUnavailable": "Acest videoclip nu mai oferă formatul pe care l-ați ales. Lipiți din nou linkul și alegeți dintre formatele oferite acum.",
 			"geoBlocked": "Acest videoclip nu este disponibil în regiunea dvs.",
+			"ipBlock": "Adresa dvs. IP pare blocată. Încercați din nou mai târziu sau folosiți un VPN.",
+			"loginRequired": "Acest videoclip necesită un cont conectat.",
+			"missingDependency": "Arroxy nu a găsit FFmpeg sau FFprobe. Rulați din nou configurarea sau setați o locație FFmpeg, apoi reîncercați descărcarea.",
+			"network": "Eroare de rețea. Verificați conexiunea și reîncercați.",
+			"noSubtitles": "Acest videoclip nu are subtitrări în limbile solicitate.",
 			"outOfDiskSpace": "Spațiu insuficient pe disc. Eliberați spațiu și reîncercați.",
 			"outputNotWritable": "Arroxy nu poate scrie în folderul de descărcare. Poate fi doar în citire, pe o unitate blocată sau blocat de setările de confidențialitate ale sistemului. Alegeți alt folder sau permiteți accesul, apoi reîncercați.",
-			"unsupportedUrl": "Arroxy nu acceptă acest URL. Încercați un link de pe alt site.",
-			"noSubtitles": "Acest videoclip nu are subtitrări în limbile solicitate.",
-			"chunkTransferFailure": "Serverul a întrerupt descărcarea în mod repetat, iar Arroxy a renunțat după mai multe încercări. Se întâmplă de obicei la cele mai mari formate video (4K HDR / VP9 cu bitrate ridicat). Reîncercați, schimbați rețeaua/VPN-ul sau alegeți un format cu rezoluție mai mică.",
-			"missingDependency": "Arroxy nu a găsit FFmpeg sau FFprobe. Rulați din nou configurarea sau setați o locație FFmpeg, apoi reîncercați descărcarea.",
-			"postprocessFailure": "Descărcarea s-a terminat, dar postprocesarea (îmbinare / multiplexare / conversie) a eșuat. Adesea este o problemă ffmpeg trecătoare — reîncercați, iar dacă persistă, încercați o altă combinație de formate.",
 			"parse": "Nu s-a putut analiza răspunsul site-ului. Este posibil ca site-ul să fi schimbat modul în care oferă videoclipurile. Arroxy își actualizează motorul de descărcare la pornire — reîncercați peste câteva minute, după lansarea remedierii.",
-			"network": "Eroare de rețea. Verificați conexiunea și reîncercați.",
-			"drmProtected": "Acest videoclip este protejat prin DRM. Arroxy nu poate elimina DRM-ul, deci fișierul nu poate fi descărcat.",
-			"loginRequired": "Acest videoclip necesită un cont conectat.",
-			"unknown": "Descărcarea a eșuat. Vedeți ieșirea brută de mai jos."
+			"postprocessFailure": "Descărcarea s-a terminat, dar postprocesarea (îmbinare / multiplexare / conversie) a eșuat. Adesea este o problemă ffmpeg trecătoare — reîncercați, iar dacă persistă, încercați o altă combinație de formate.",
+			"rateLimit": "Site-ul limitează cererile din această conexiune.",
+			"unavailable": "Acest videoclip nu este disponibil — poate fi privat, șters sau blocat regional.",
+			"unknown": "Descărcarea a eșuat. Vedeți ieșirea brută de mai jos.",
+			"unsupportedUrl": "Arroxy nu acceptă acest URL. Încercați un link de pe alt site."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Verificați conexiunea, apoi încercați din nou.",
+			"loadTitle": "Această pagină nu s-a încărcat",
+			"openSettings": "Deschide Setările",
+			"proxyBody": "Verificați proxy-ul din Setări, apoi încercați din nou.",
+			"proxyTitle": "Explorare nu se poate conecta prin proxy-ul dvs.",
+			"retry": "Reîncercați"
+		},
+		"linkCallout": {
+			"body": "Faceți clic dreapta pe orice link de videoclip, listă de redare sau canal din pagină pentru a-l descărca cu profilul activ, a alege alt profil sau a deschide fluxul pas cu pas.",
+			"title": "Faceți clic dreapta pe un link pentru a-l descărca"
+		},
+		"linkMenu": {
+			"copyLink": "Copiază linkul",
+			"downloadWith": "Descarcă cu"
+		},
+		"newBadge": "Nou",
+		"notice": {
+			"body": "Găsiți un videoclip pe YouTube sau pe orice alt site și descărcați-l direct de aici — fără copiat linkuri. Conectați-vă la un site aici pentru a descărca videoclipuri care necesită un cont.",
+			"continue": "Continuare",
+			"riskBody": "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile folosite cu instrumente de descărcare precum Arroxy. Folosiți un cont pe care vi-l permiteți să-l pierdeți, nu pe cel principal.",
+			"riskTitle": "Conectați-vă cu un cont secundar",
+			"title": "Navigați pe web chiar în Arroxy"
+		},
+		"nudge": {
+			"browser": "Descărcările folosesc cookie-urile browserului, nu conectarea din Explorare.",
+			"file": "Descărcările folosesc fișierul de cookie-uri, nu conectarea din Explorare.",
+			"notNow": "Nu acum",
+			"off": "Cookie-urile sunt dezactivate, deci descărcările nu folosesc conectarea din Explorare.",
+			"useExplore": "Folosește conectarea din Explorare"
+		},
+		"settings": {
+			"description": "Navigați pe YouTube sau pe orice alt site în Arroxy și conectați-vă pentru videoclipuri care necesită un cont.",
+			"idleUnload": "Eliberează memoria când sunteți plecat",
+			"idleUnloadDescription": "După 5 minute petrecute în altă filă, închide pagina principală sau de căutare YouTube. La revenire se reîncarcă, ceea ce durează câteva secunde.",
+			"searchEngine": "Motor de căutare",
+			"searchEngineDescription": "Unde se caută textul tastat în bara de adrese. Linkurile se deschid așa cum au fost tastate.",
+			"showTab": "Afișează fila Explorare",
+			"showTabDescription": "Dezactivarea ei oprește și folosirea conectării din Explorare la descărcări.",
+			"signOut": "Deconectare din Explorare",
+			"signOutConfirm": "Deconectare",
+			"signOutConfirmBody": "Această acțiune șterge conectările și datele de navigare din Explorare, pe toate site-urile. Descărcările care necesită un cont vor eșua până vă conectați din nou.",
+			"signOutConfirmTitle": "Vă deconectați din Explorare?",
+			"signOutDescription": "Șterge conectările și datele de navigare din Explorare, pe toate site-urile.",
+			"title": "Explorare"
+		},
+		"tabLabel": "Explorare",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube poate opune rezistență blocantelor de reclame pentru conturile conectate.",
+				"aria": "Blocant de reclame",
+				"off": "Blocant de reclame: oprit — faceți clic pentru a-l porni",
+				"on": "Blocant de reclame: pornit — faceți clic pentru a-l opri",
+				"starting": "Blocant de reclame: se pornește — faceți clic pentru a-l opri",
+				"unavailable": "Blocant de reclame: indisponibil, listele de filtre nu au putut fi descărcate — faceți clic pentru a-l opri"
+			},
+			"addressAria": "Adresă",
+			"addressPlaceholder": "Căutați în {{engine}} sau deschideți orice site (Vimeo, Instagram…)",
+			"aria": "Comenzile browserului Explorare",
+			"back": "Înapoi",
+			"compactLayout": "Aspect compact",
+			"downloadWithProfile": "Descarcă · {{profileName}}",
+			"forward": "Înainte",
+			"fullLayout": "Afișează aspectul complet",
+			"grabUnavailable": "Deschideți un videoclip, o listă de redare sau un canal pentru a-l descărca",
+			"home": "Pagina principală YouTube",
+			"interactiveHint": "Descărcare interactivă: alegeți formatul, subtitrările și altele…",
+			"refusedHint": "Explorare nu poate deschide această adresă.",
+			"reload": "Reîncarcă",
+			"searchTooLong": "Căutarea este prea lungă.",
+			"zoom": {
+				"hint": "Zoom pagină: {{percent}}%",
+				"in": "Mărire",
+				"label": "Zoom pagină",
+				"out": "Micșorare",
+				"percent": "Procent zoom",
+				"reset": "Resetează zoomul la 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"description": {
+			"auto": "Fluxurile alese stabilesc tipul de fișier.",
+			"mkv": "Acceptă orice codec. Unele televizoare și telefoane nu îl pot deschide.",
+			"mp4": "Se redă aproape peste tot. VP9 într-un MP4 nu redă imaginea în QuickTime.",
+			"webm": "Format deschis pentru browsere. Acceptă doar VP9 sau AV1 cu Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 într-un MP4 necesită un Mac recent pentru redare în QuickTime. H.264 se redă peste tot.",
+		"mp4CaveatVp9": "VP9 într-un MP4 nu redă imaginea în QuickTime. H.264 se redă peste tot.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM nu este disponibil cu Smart TV: nu poate conține H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM nu poate conține {{codec}}. Alegeți MKV sau MP4."
+	},
+	"filenameTemplate": {
+		"description": "Alegeți cum sunt denumite fișierele descărcate. Faceți clic pe un simbol pentru a-l insera. Folosiți / pentru a sorta descărcările în foldere.",
+		"error": {
+			"empty": "Introduceți un șablon de nume de fișier.",
+			"empty-segment": "Eliminați / în plus — fiecare folder are nevoie de un nume.",
+			"forbidden-char": "Eliminați caracterele nepermise în numele de fișiere: \\ : * ? \" < > |",
+			"invalid-segment": "Numele de folder nu este permis. Evitați . și .. și numele rezervate, precum CON.",
+			"no-unique-token": "Adăugați {title} sau {id} la numele de fișier, ca fiecare descărcare să aibă un nume propriu.",
+			"resolution-in-dir": "{resolution} nu poate denumi un folder — calitatea nu se cunoaște până la începerea descărcării.",
+			"stray-brace": "{ sau } fără pereche — încadrați simbolurile precum {title}.",
+			"too-long": "Șablonul este prea lung.",
+			"unknown-token": "Simbol necunoscut {{token}}."
+		},
+		"idWarning": "Fără {id}, Arroxy nu poate detecta elementele deja descărcate din listele de redare și nici nu poate genera liste .m3u.",
+		"label": "Șablon nume de fișier",
+		"m3uDisabled": "Indisponibil, deoarece șablonul de nume de fișier fie nu include {id}, fie sortează descărcările în foldere.",
+		"previewPlaylist": "Într-o listă de redare",
+		"previewSingle": "Un singur videoclip",
+		"profileOverrideDescription": "Lăsați gol pentru a moșteni șablonul global.",
+		"profileOverrideLabel": "Șablon nume de fișier"
+	},
+	"formatLabel": {
+		"audioFallback": "Audio",
+		"audioOnlyDot": "Doar audio · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Auto",
+		"description": "Auto alege HDR când ecranul îl poate afișa, altfel SDR. HDR arată șters pe ecranele obișnuite.",
+		"hdr": "HDR",
+		"label": "Video HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Limbă"
+	},
+	"notifications": {
+		"exploreSignInRetrying_few": "Conectat cu Explorare — se reîncearcă {{count}} linkuri",
+		"exploreSignInRetrying_one": "Conectat cu Explorare — se reîncearcă 1 link",
+		"exploreSignInRetrying_other": "Conectat cu Explorare — se reîncearcă {{count}} de linkuri",
+		"exploreSignOutFailed": "Deconectarea din Explorare a eșuat. Încercați din nou.",
+		"filenameFolderTooDeep": "Acest folder este prea adânc pentru sistemul dvs. Descărcarea poate totuși eșua — alegeți un folder mai puțin adânc.",
+		"filenameTemplateCannotFit": "Numele acestui videoclip nu poate cuprinde toate părțile șablonului dvs., așa că s-a folosit numele implicit.",
+		"folderSelectFailed": "Nu s-a putut deschide selectorul de foldere.",
+		"hotkey": {
+			"alreadyQueued": "Este deja în coadă — nu s-a adăugat o copie",
+			"busy": "Arroxy încă pornește — încercați din nou într-o clipă",
+			"cookiesSetup": "Terminați configurarea cookie-urilor în Arroxy, apoi încercați din nou",
+			"invalidClipboard": "Niciun link în clipboard — copiați unul mai întâi",
+			"multipleUrls": "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc în Arroxy",
+			"needsReview": "Acest link necesită alegerea dvs. — vedeți Descărcări în Arroxy",
+			"queued": "Descărcare adăugată în coadă din clipboard",
+			"submissionFailed": "Nu s-a putut adăuga linkul — încercați din nou în Arroxy"
+		},
+		"playlistFolderRejected": "Acest folder nu poate fi folosit pentru această listă de redare.",
+		"queue": {
+			"skippedAlreadyQueued_few": "{{count}} videoclipuri sunt deja în coadă — omise",
+			"skippedAlreadyQueued_one": "{{count}} videoclip este deja în coadă — omis",
+			"skippedAlreadyQueued_other": "{{count}} de videoclipuri sunt deja în coadă — omise"
+		},
+		"quickDownload": {
+			"added": "Adăugat: {{title}}",
+			"alreadyQueued": "Este deja în coadă",
+			"chooseHowMany_few": "{{count}}+ videoclipuri — alegeți câte",
+			"chooseHowMany_one": "{{count}}+ videoclip — alegeți câte",
+			"chooseHowMany_other": "{{count}}+ de videoclipuri — alegeți câte",
+			"failed": "Nu s-a putut pregăti {{title}}",
+			"notAdded": "Nu s-a putut adăuga linkul — încercați din nou",
+			"reviewCapped_few": "{{count}}+ videoclipuri în această listă — examinați pentru a alege",
+			"reviewCapped_one": "{{count}}+ videoclip în această listă — examinați pentru a alege",
+			"reviewCapped_other": "{{count}}+ de videoclipuri în această listă — examinați pentru a alege",
+			"review_few": "{{count}} videoclipuri în această listă — examinați pentru a alege",
+			"review_one": "{{count}} videoclip în această listă — examinați pentru a alege",
+			"review_other": "{{count}} de videoclipuri în această listă — examinați pentru a alege",
+			"view": "Vizualizare"
+		},
+		"settingsSaveFailed": "Nu s-au putut salva setările.",
+		"shellActionFailed": "Nu s-a putut deschide.",
+		"warmupFailed": "Configurarea nu s-a încheiat. Unele descărcări pot eșua până atunci."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitrări"},
+		"audioFormat": {
+			"best": "Audio (cel mai bun)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Cel mai bun audio nativ, fără recodificare",
+			"m4a": "Conversie în M4A (AAC)",
+			"mp3": "Conversie în MP3",
+			"opus": "Conversie în Opus"
+		},
+		"mp4Cap": "H.264 peste 1080p nu este disponibil pe YouTube — limitat automat la 1080p",
 		"subtitles": {
-			"note": "Pentru fiecare videoclip se salvează doar fișierele de subtitrare — nu se descarcă video sau audio.",
+			"deliveryHeading": "Salvează ca",
+			"deliveryLoose": "Direct în folderul de salvare",
 			"languages": "Limbi",
 			"languagesRequired": "Alegeți cel puțin o limbă pentru a continua.",
-			"source": "Sursă",
-			"deliveryHeading": "Salvează ca",
-			"deliveryLoose": "Direct în folderul de salvare"
+			"note": "Pentru fiecare videoclip se salvează doar fișierele de subtitrare — nu se descarcă video sau audio.",
+			"source": "Sursă"
 		},
-		"videoFormat": {"best": "Cel mai bun nativ", "mp4": "MP4 H.264 pentru Smart TV"},
-		"videoFormatDesc": {"best": "Cel mai bun container și cele mai bune codecuri disponibile pentru fiecare element", "mp4": "Preferă video H.264 + audio AAC în MP4 când este posibil"},
-		"tier": {"144": "Până la 144p", "240": "Până la 240p", "360": "Până la 360p", "480": "Până la 480p", "720": "Până la 720p", "1080": "Până la 1080p", "1440": "Până la 1440p", "2160": "Până la 4K", "best": "Cea mai bună calitate"},
+		"tier": {
+			"144": "Până la 144p",
+			"240": "Până la 240p",
+			"360": "Până la 360p",
+			"480": "Până la 480p",
+			"720": "Până la 720p",
+			"1080": "Până la 1080p",
+			"1440": "Până la 1440p",
+			"2160": "Până la 4K",
+			"best": "Cea mai bună calitate"
+		},
 		"tierDesc": {
 			"144": "Cele mai mici fișiere posibile",
 			"240": "Fișiere foarte mici, calitate scăzută",
@@ -982,196 +317,1422 @@
 			"2160": "Limitat la 2160p, trece la o calitate mai mică pentru fiecare element",
 			"best": "Cel mai bun video + audio disponibil pentru fiecare element"
 		},
-		"audioFormat": {"best": "Audio (cel mai bun)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Cel mai bun audio nativ, fără recodificare", "mp3": "Conversie în MP3", "m4a": "Conversie în M4A (AAC)", "opus": "Conversie în Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 peste 1080p nu este disponibil pe YouTube — limitat automat la 1080p"
-	},
-	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Doar audio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {
-		"tooltip": "Arroxy",
-		"menu": {
-			"statusIdle": "Inactiv",
-			"statusActive_one": "1 în descărcare · {{percent}}%",
-			"statusActive_few": "{{count}} în descărcare · {{percent}}%",
-			"statusActive_other": "{{count}} în descărcare · {{percent}}%",
-			"downloadFromClipboard": "Descarcă din clipboard",
-			"open": "Deschide Arroxy",
-			"quit": "Ieșire din Arroxy"
+		"type": {
+			"audio": "Audio",
+			"subtitles": "Subtitrări",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Cel mai bun nativ",
+			"mp4": "MP4 H.264 pentru Smart TV"
+		},
+		"videoFormatDesc": {
+			"best": "Cel mai bun container și cele mai bune codecuri disponibile pentru fiecare element",
+			"mp4": "Preferă video H.264 + audio AAC în MP4 când este posibil"
 		}
 	},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} descărcare în curs",
-			"message_few": "{{count}} descărcări în curs",
-			"message_other": "{{count}} de descărcări în curs",
-			"detail": "Întrerupeți pentru a relua mai târziu sau anulați pentru a renunța la progres.",
-			"confirm": "Anulează descărcările și ieși",
-			"pause": "Întrerupe descărcările și ieși",
-			"keep": "Continuă descărcarea"
+	"queue": {
+		"artifact": {
+			"companion": "Însoțitor",
+			"description": "Descriere",
+			"media": "Media",
+			"missing": "Lipsă",
+			"subtitle": "Subtitrare",
+			"thumbnail": "Miniatură",
+			"unknown": "Artefact"
 		},
-		"closeToTray": {"message": "Ascundeți Arroxy în bara de sistem la închidere?", "detail": "Arroxy rămâne pornit și termină descărcările active. Puteți schimba asta mai târziu în setările avansate.", "hide": "Ascunde în bara de sistem", "quit": "Ieșire", "remember": "Nu mai întreba"},
-		"rendererCrashed": {"message": "Arroxy a întâmpinat o problemă", "detail": "Procesul de randare s-a oprit ({{reason}}). Reîncărcați pentru a încerca din nou.", "reload": "Reîncarcă", "quit": "Ieșire"}
-	},
-	"share": {
-		"title": "Distribuiți Arroxy",
-		"description": "Arroxy este gratuit și open-source. Distribuirea ajută mai multe persoane să-l descopere.",
-		"copyLink": "Copiază linkul",
-		"copied": "Copiat!",
-		"defaultMessage": "Arroxy — program gratuit și open-source de descărcat videoclipuri pentru Windows, macOS și Linux. Funcționează cu YouTube, Vimeo, Twitch și peste 2000 de site-uri.\n4K · HDR · MP3 · Shorts · Subtitrări · SponsorBlock",
-		"footerTooltip": "Distribuiți Arroxy",
-		"footerLabel": "Distribuie",
-		"shareAction": "Distribuiți Arroxy"
-	},
-	"donate": {
-		"title": "Susțineți Arroxy",
-		"description": "Arroxy este gratuit și open-source, fără reclame și fără nivel plătit. Donațiile sunt opționale și nu oferă nicio influență asupra foii de parcurs.",
-		"footerTooltip": "Susțineți Arroxy",
-		"footerLabel": "Donează",
-		"copyAddress": "Copiază adresa",
-		"copied": "Copiat!",
-		"qrAlt": "Cod QR cu adresa de donație {{coin}}",
-		"warning": "Plățile în criptomonede sunt ireversibile. Trimiteți doar în rețeaua afișată și comparați adresa completă."
-	},
-	"filenameTemplate": {
-		"label": "Șablon nume de fișier",
-		"description": "Alegeți cum sunt denumite fișierele descărcate. Faceți clic pe un simbol pentru a-l insera. Folosiți / pentru a sorta descărcările în foldere.",
-		"profileOverrideLabel": "Șablon nume de fișier",
-		"profileOverrideDescription": "Lăsați gol pentru a moșteni șablonul global.",
-		"idWarning": "Fără {id}, Arroxy nu poate detecta elementele deja descărcate din listele de redare și nici nu poate genera liste .m3u.",
-		"m3uDisabled": "Indisponibil, deoarece șablonul de nume de fișier fie nu include {id}, fie sortează descărcările în foldere.",
-		"previewSingle": "Un singur videoclip",
-		"previewPlaylist": "Într-o listă de redare",
-		"error": {
-			"empty": "Introduceți un șablon de nume de fișier.",
-			"too-long": "Șablonul este prea lung.",
-			"forbidden-char": "Eliminați caracterele nepermise în numele de fișiere: \\ : * ? \" < > |",
-			"stray-brace": "{ sau } fără pereche — încadrați simbolurile precum {title}.",
-			"no-unique-token": "Adăugați {title} sau {id} la numele de fișier, ca fiecare descărcare să aibă un nume propriu.",
-			"unknown-token": "Simbol necunoscut {{token}}.",
-			"empty-segment": "Eliminați / în plus — fiecare folder are nevoie de un nume.",
-			"invalid-segment": "Numele de folder nu este permis. Evitați . și .. și numele rezervate, precum CON.",
-			"resolution-in-dir": "{resolution} nu poate denumi un folder — calitatea nu se cunoaște până la începerea descărcării."
+		"attentionBadge_few": "{{count}} descărcări necesită atenția dvs.",
+		"attentionBadge_one": "{{count}} descărcare necesită atenția dvs.",
+		"attentionBadge_other": "{{count}} de descărcări necesită atenția dvs.",
+		"autoRemoveCompleted": {
+			"hint": "Elimină fiecare descărcare din listă la câteva secunde după ce se termină. Fișierele rămân în folder.",
+			"label": "Curăță automat finalizatele"
+		},
+		"cancelAllTitle": "Anulează toate descărcările active și în așteptare",
+		"choice": {
+			"all": "Toate videoclipurile",
+			"cappedBody_few": "Peste {{count}} videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare.",
+			"cappedBody_one": "Peste {{count}} videoclip în această listă de redare. Descărcați-le pe toate, primul sau alegeți într-o examinare.",
+			"cappedBody_other": "Peste {{count}} de videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare.",
+			"first": "Primele {{count}}",
+			"review": "Examinare",
+			"reviewBody_few": "Acest link este o listă de {{count}} videoclipuri. Examinați-o pentru a alege ce descărcați.",
+			"reviewBody_one": "Acest link este o listă de {{count}} videoclip. Examinați-o pentru a alege ce descărcați.",
+			"reviewBody_other": "Acest link este o listă de {{count}} de videoclipuri. Examinați-o pentru a alege ce descărcați."
+		},
+		"clearTitle": "Șterge descărcările finalizate",
+		"empty": "Descărcările din coadă vor apărea aici",
+		"filterAll": "Toate",
+		"filtersLabel": "Filtre după starea cozii",
+		"globalActionsLabel": "Toate elementele",
+		"header": "Descărcări",
+		"item": {
+			"audioKept": "Sunetul nu a fost eliminat",
+			"audioKeptSubtitlesFailed": "Sunetul nu a fost eliminat · unele subtitrări au eșuat",
+			"cancel": "Anulare",
+			"defaultError": "Descărcarea a eșuat",
+			"openDestinationFolder": "Deschide folderul de destinație",
+			"pause": "Pauză",
+			"pendingOnly": "Doar în așteptare",
+			"pullNow": "Descarcă acum — sari peste coadă",
+			"qualityLimited": "Limitat la {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limitat la {{height}}p · unele subtitrări au eșuat",
+			"remove": "Elimină",
+			"resume": "Reluare",
+			"retry": "Reîncercați",
+			"retryingSoon": "se reîncearcă automat (încercarea {{attempt}})",
+			"setLocation": "Setează locația",
+			"setLocationHint": "Selectați elemente în așteptare pentru a seta locația.",
+			"statusCancelled": "Anulată",
+			"statusDone": "Finalizată",
+			"statusError": "Eroare",
+			"statusHeld": "Reținută",
+			"statusNeedsChoice": "Necesită alegerea dvs.",
+			"statusPaused": "În pauză",
+			"statusPending": "În așteptare",
+			"statusProbing": "Se preiau detaliile",
+			"statusRunning": "Se descarcă",
+			"subtitleLanguagesMissing": "Fără subtitrări în {{languages}}"
+		},
+		"pauseAllTitle": "Întrerupe fiecare descărcare activă și împiedică pornirea altora noi",
+		"pausedBanner": "Coada este în pauză — elementele în așteptare nu vor porni până o reluați",
+		"resumeAllTitle": "Reia descărcările întrerupte și lasă coada să continue",
+		"resumeQueueAction": "Reia coada",
+		"selectedActionsLabel": "Elemente selectate",
+		"selectionSummary": "{{selected}} selectate · {{total}} în total",
+		"tabLabel": "Descărcări",
+		"tabTip": "Descărcările se află acum în fila Descărcări — deschideți-o oricând pentru a urmări progresul.",
+		"table": {
+			"added": "Adăugat",
+			"artifacts": "Artefacte",
+			"columnDropped": "Coloana {{column}} a fost plasată.",
+			"columnMoveCancelled": "Mutarea coloanei {{column}} a fost anulată.",
+			"columnMovedOver": "Coloana {{column}} este peste {{target}}.",
+			"columnPickedUp": "Coloana {{column}} a fost ridicată.",
+			"columns": "Coloane",
+			"finished": "Finalizat",
+			"format": "Format",
+			"hideArtifactsFor": "Ascunde artefactele pentru {{title}}",
+			"movableColumn": "coloană mutabilă",
+			"moveColumnInstructions": "Pentru a muta o coloană, apăsați Space sau Enter, mutați-o cu tastele săgeată, apoi apăsați Space sau Enter pentru a o plasa. Apăsați Escape pentru a anula.",
+			"notAvailable": "—",
+			"outputTarget": "Destinație",
+			"progress": "Progres",
+			"resetColumns": "Resetează coloanele",
+			"resizeColumn": "Redimensionează coloana {{column}}",
+			"showArtifactsFor": "Afișează artefactele pentru {{title}}",
+			"size": "Dimensiune",
+			"sortBy": "Sortează după {{label}}",
+			"status": "Stare",
+			"title": "Titlu"
 		}
 	},
-	"explore": {
-		"tabLabel": "Explorare",
-		"newBadge": "Nou",
-		"notice": {
-			"title": "Navigați pe web chiar în Arroxy",
-			"body": "Găsiți un videoclip pe YouTube sau pe orice alt site și descărcați-l direct de aici — fără copiat linkuri. Conectați-vă la un site aici pentru a descărca videoclipuri care necesită un cont.",
-			"riskTitle": "Conectați-vă cu un cont secundar",
-			"riskBody": "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile folosite cu instrumente de descărcare precum Arroxy. Folosiți un cont pe care vi-l permiteți să-l pierdeți, nu pe cel principal.",
-			"continue": "Continuare"
+	"releaseNotes": {
+		"continue": "Continuare",
+		"description": "Rulați o versiune proaspăt actualizată. Iată principalele noutăți.",
+		"fullNotes": "Note complete despre versiune ↗",
+		"title": "Ce este nou în Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Anulare",
+			"chooseExecutable": "Alege executabilul",
+			"installWithHomebrew": "Instalează cu Homebrew",
+			"installWithWinget": "Instalează cu WinGet",
+			"openDependencyFolder": "Deschide folderul dependenței",
+			"resetToDefault": "Resetează la valoarea implicită",
+			"retrySetup": "Încercați din nou",
+			"viewSetupLog": "Vezi jurnalul de configurare"
 		},
-		"nudge": {
-			"off": "Cookie-urile sunt dezactivate, deci descărcările nu folosesc conectarea din Explorare.",
-			"file": "Descărcările folosesc fișierul de cookie-uri, nu conectarea din Explorare.",
-			"browser": "Descărcările folosesc cookie-urile browserului, nu conectarea din Explorare.",
-			"useExplore": "Folosește conectarea din Explorare",
-			"notNow": "Nu acum"
-		},
-		"linkCallout": {"title": "Faceți clic dreapta pe un link pentru a-l descărca", "body": "Faceți clic dreapta pe orice link de videoclip, listă de redare sau canal din pagină pentru a-l descărca cu profilul activ, a alege alt profil sau a deschide fluxul pas cu pas."},
-		"linkMenu": {"downloadWith": "Descarcă cu", "copyLink": "Copiază linkul"},
-		"toolbar": {
-			"aria": "Comenzile browserului Explorare",
-			"back": "Înapoi",
-			"forward": "Înainte",
-			"reload": "Reîncarcă",
-			"home": "Pagina principală YouTube",
-			"addressAria": "Adresă",
-			"addressPlaceholder": "Căutați în {{engine}} sau deschideți orice site (Vimeo, Instagram…)",
-			"refusedHint": "Explorare nu poate deschide această adresă.",
-			"searchTooLong": "Căutarea este prea lungă.",
-			"downloadWithProfile": "Descarcă · {{profileName}}",
-			"interactiveHint": "Descărcare interactivă: alegeți formatul, subtitrările și altele…",
-			"grabUnavailable": "Deschideți un videoclip, o listă de redare sau un canal pentru a-l descărca",
-			"compactLayout": "Aspect compact",
-			"fullLayout": "Afișează aspectul complet",
-			"zoom": {"label": "Zoom pagină", "hint": "Zoom pagină: {{percent}}%", "in": "Mărire", "out": "Micșorare", "percent": "Procent zoom", "reset": "Resetează zoomul la 100%"},
-			"adBlock": {
-				"aria": "Blocant de reclame",
-				"off": "Blocant de reclame: oprit — faceți clic pentru a-l porni",
-				"starting": "Blocant de reclame: se pornește — faceți clic pentru a-l opri",
-				"on": "Blocant de reclame: pornit — faceți clic pentru a-l opri",
-				"unavailable": "Blocant de reclame: indisponibil, listele de filtre nu au putut fi descărcate — faceți clic pentru a-l opri",
-				"accountNote": "YouTube poate opune rezistență blocantelor de reclame pentru conturile conectate."
+		"causes": {
+			"badExitCode": {
+				"body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională.",
+				"title": "Un instrument nu funcționează corect"
+			},
+			"blockedOrQuarantined": {
+				"body": "Permiteți Arroxy în antivirus sau în SmartScreen, apoi încercați din nou.",
+				"title": "Antivirusul a blocat un instrument"
+			},
+			"downloadFailed": {
+				"body": "Verificați conexiunea la internet, apoi încercați din nou.",
+				"title": "Nu s-a putut descărca ce are nevoie Arroxy"
+			},
+			"extractFailed": {
+				"body": "Încercați din nou pentru a-l descărca de la zero.",
+				"title": "O descărcare a ajuns deteriorată"
+			},
+			"hashFailed": {
+				"body": "Încercați din nou pentru a-l descărca de la zero.",
+				"title": "O descărcare nu s-a potrivit cu suma de control"
+			},
+			"pairIncomplete": {
+				"body": "Alegeți-le pe amândouă mai jos sau resetați-le la valorile implicite.",
+				"title": "FFmpeg și FFprobe trebuie setate împreună"
+			},
+			"permissionDenied": {
+				"body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie în care aveți încredere.",
+				"title": "Sistemul nu permite Arroxy să ruleze un instrument"
+			},
+			"spawnFailed": {
+				"body": "Încercați din nou. Dacă tot eșuează, alegeți mai jos o copie funcțională.",
+				"title": "Un instrument lipsește sau nu pornește"
+			},
+			"timeout": {
+				"body": "Adesea este o scanare de securitate la prima rulare. Încercați din nou.",
+				"title": "Un instrument a răspuns prea greu"
+			},
+			"unknown": {
+				"body": "Încercați din nou sau deschideți jurnalul de configurare pentru detalii.",
+				"title": "Ceva nu a mers bine la configurare"
 			}
 		},
-		"settings": {
-			"title": "Explorare",
-			"description": "Navigați pe YouTube sau pe orice alt site în Arroxy și conectați-vă pentru videoclipuri care necesită un cont.",
-			"showTab": "Afișează fila Explorare",
-			"showTabDescription": "Dezactivarea ei oprește și folosirea conectării din Explorare la descărcări.",
-			"idleUnload": "Eliberează memoria când sunteți plecat",
-			"idleUnloadDescription": "După 5 minute petrecute în altă filă, închide pagina principală sau de căutare YouTube. La revenire se reîncarcă, ceea ce durează câteva secunde.",
-			"searchEngine": "Motor de căutare",
-			"searchEngineDescription": "Unde se caută textul tastat în bara de adrese. Linkurile se deschid așa cum au fost tastate.",
-			"signOut": "Deconectare din Explorare",
-			"signOutDescription": "Șterge conectările și datele de navigare din Explorare, pe toate site-urile.",
-			"signOutConfirmTitle": "Vă deconectați din Explorare?",
-			"signOutConfirmBody": "Această acțiune șterge conectările și datele de navigare din Explorare, pe toate site-urile. Descărcările care necesită un cont vor eșua până vă conectați din nou.",
-			"signOutConfirm": "Deconectare"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {
-			"proxyTitle": "Explorare nu se poate conecta prin proxy-ul dvs.",
-			"proxyBody": "Verificați proxy-ul din Setări, apoi încercați din nou.",
-			"loadTitle": "Această pagină nu s-a încărcat",
-			"loadBody": "Verificați conexiunea, apoi încercați din nou.",
-			"retry": "Reîncercați",
-			"openSettings": "Deschide Setările"
-		}
-	},
-	"fileType": {
-		"auto": "Auto",
-		"autoValue": "Auto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "Fluxurile alese stabilesc tipul de fișier.", "mp4": "Se redă aproape peste tot. VP9 într-un MP4 nu redă imaginea în QuickTime.", "mkv": "Acceptă orice codec. Unele televizoare și telefoane nu îl pot deschide.", "webm": "Format deschis pentru browsere. Acceptă doar VP9 sau AV1 cu Opus."},
-		"webmBlocked": "WebM nu poate conține {{codec}}. Alegeți MKV sau MP4.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM nu este disponibil cu Smart TV: nu poate conține H.264.",
-		"mp4CaveatVp9": "VP9 într-un MP4 nu redă imaginea în QuickTime. H.264 se redă peste tot.",
-		"mp4CaveatAv1": "AV1 într-un MP4 necesită un Mac recent pentru redare în QuickTime. H.264 se redă peste tot."
+		"groups": {
+			"engine": "Motor de descărcare",
+			"media": "Instrumente media"
+		},
+		"installing": {
+			"homebrew": "Se instalează cu Homebrew… Poate dura câteva minute.",
+			"winget": "Se instalează cu WinGet… Poate dura câteva minute."
+		},
+		"manual": {
+			"intro": "Indicați-i lui Arroxy copiile pe care le aveți deja sau instalați-le altfel.",
+			"linuxHint": "Puteți instala yt-dlp și ffmpeg și cu managerul de pachete, apoi faceți clic pe Încercați din nou.",
+			"toggle": "Configurați manual"
+		},
+		"stopped": {
+			"body": "Încercați din nou sau indicați-i lui Arroxy mai jos instrumentele pe care le aveți deja.",
+			"title": "Configurarea s-a oprit"
+		},
+		"title": "Configurarea are nevoie de ajutorul dvs."
 	},
 	"selectionOrder": {
 		"editorTitle": "Cum alege acest profil",
-		"whyTitle": "De ce a ales profilul acest flux",
-		"whyLabel": "De ce acesta?",
 		"rank": {
-			"h264": {"label": "Video H.264", "reason": "se redă pe orice dispozitiv"},
-			"mp4Streams": {"label": "Fluxuri MP4", "reason": "pregătite pentru un fișier MP4"},
-			"resolutionBest": {"label": "Cea mai mare rezoluție", "reason": "nicio limită setată"},
-			"resolution": {"label": "Până la {{tier}}p", "reason": "limita dvs."},
-			"fps": {"label": "Cea mai mare rată de cadre", "reason": "mișcare mai fluidă"},
-			"sitePreference": {"label": "Fluxuri pe care site-ul nu le declasează", "reason": "evită copiile deteriorate, cu filigran și de rezervă"},
-			"original": {"label": "Fluxuri originale, nu cele mărite cu IA", "reason": "o copie mărită este mai înaltă, dar nu adaugă detalii reale"},
-			"source": {"label": "Mai întâi fluxurile cu bitrate îmbunătățit", "reason": "mai multe detalii la aceeași rezoluție"},
-			"protocol": {"label": "Descărcări directe înaintea copiilor transmise în flux", "reason": "aceeași imagine, descărcată mai repede"},
-			"codec": {"label": "AV1, apoi VP9, apoi H.264", "reason": "cea mai clară imagine la o anumită dimensiune"},
-			"codecVp9First": {"label": "VP9, apoi H.264, apoi AV1", "reason": "codecul acestui profil"},
-			"codecH264First": {"label": "H.264, apoi VP9, apoi AV1", "reason": "codecul acestui profil"},
-			"size": {"label": "Fișier mai mare", "reason": "mai multe detalii cu aceleași setări"},
-			"aacSmartTv": {"label": "Audio AAC", "reason": "se redă peste tot"},
-			"aacFileType": {"label": "Audio AAC", "reason": "se potrivește playerelor MP4"},
-			"opus": {"label": "Audio Opus", "reason": "se potrivește cu WebM"},
-			"nativeCompatible": {"label": "Audio stereo"},
-			"nativeSurround": {"label": "Audio surround, când este oferit"},
-			"nativeSource": {"settings": "din Setări", "profile": "acest profil"},
-			"hdrSdrFirst": {"label": "SDR înaintea HDR", "reason": "arată corect pe orice ecran", "reasonScreen": "acest ecran nu este HDR"},
-			"hdrFirst": {"label": "HDR înaintea SDR", "reason": "culori mai bogate pe ecranele HDR", "reasonScreen": "acest ecran afișează HDR"}
+			"aacFileType": {
+				"label": "Audio AAC",
+				"reason": "se potrivește playerelor MP4"
+			},
+			"aacSmartTv": {
+				"label": "Audio AAC",
+				"reason": "se redă peste tot"
+			},
+			"codec": {
+				"label": "AV1, apoi VP9, apoi H.264",
+				"reason": "cea mai clară imagine la o anumită dimensiune"
+			},
+			"codecH264First": {
+				"label": "H.264, apoi VP9, apoi AV1",
+				"reason": "codecul acestui profil"
+			},
+			"codecVp9First": {
+				"label": "VP9, apoi H.264, apoi AV1",
+				"reason": "codecul acestui profil"
+			},
+			"fps": {
+				"label": "Cea mai mare rată de cadre",
+				"reason": "mișcare mai fluidă"
+			},
+			"h264": {
+				"label": "Video H.264",
+				"reason": "se redă pe orice dispozitiv"
+			},
+			"hdrFirst": {
+				"label": "HDR înaintea SDR",
+				"reason": "culori mai bogate pe ecranele HDR",
+				"reasonScreen": "acest ecran afișează HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR înaintea HDR",
+				"reason": "arată corect pe orice ecran",
+				"reasonScreen": "acest ecran nu este HDR"
+			},
+			"mp4Streams": {
+				"label": "Fluxuri MP4",
+				"reason": "pregătite pentru un fișier MP4"
+			},
+			"nativeCompatible": {
+				"label": "Audio stereo"
+			},
+			"nativeSource": {
+				"profile": "acest profil",
+				"settings": "din Setări"
+			},
+			"nativeSurround": {
+				"label": "Audio surround, când este oferit"
+			},
+			"opus": {
+				"label": "Audio Opus",
+				"reason": "se potrivește cu WebM"
+			},
+			"original": {
+				"label": "Fluxuri originale, nu cele mărite cu IA",
+				"reason": "o copie mărită este mai înaltă, dar nu adaugă detalii reale"
+			},
+			"protocol": {
+				"label": "Descărcări directe înaintea copiilor transmise în flux",
+				"reason": "aceeași imagine, descărcată mai repede"
+			},
+			"resolution": {
+				"label": "Până la {{tier}}p",
+				"reason": "limita dvs."
+			},
+			"resolutionBest": {
+				"label": "Cea mai mare rezoluție",
+				"reason": "nicio limită setată"
+			},
+			"sitePreference": {
+				"label": "Fluxuri pe care site-ul nu le declasează",
+				"reason": "evită copiile deteriorate, cu filigran și de rezervă"
+			},
+			"size": {
+				"label": "Fișier mai mare",
+				"reason": "mai multe detalii cu aceleași setări"
+			},
+			"source": {
+				"label": "Mai întâi fluxurile cu bitrate îmbunătățit",
+				"reason": "mai multe detalii la aceeași rezoluție"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "cea mai bună imagine", "smartTv": "se redă pe orice dispozitiv"}, "fileType": {"auto": "tipul fișierului din fluxuri", "explicit": "se salvează ca .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "tipul fișierului din fluxuri",
+				"explicit": "se salvează ca .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "cea mai bună imagine",
+				"smartTv": "se redă pe orice dispozitiv"
+			}
+		},
+		"whyLabel": "De ce acesta?",
+		"whyTitle": "De ce a ales profilul acest flux"
 	},
-	"aiUpscaled": {"label": "Fluxuri mărite cu IA", "description": "YouTube oferă unele videoclipuri vechi în dimensiuni create cu IA. Omiterea păstrează fluxurile originale; puteți totuși alege manual unul mărit cu IA.", "skip": "Omite", "allow": "Permite"},
+	"share": {
+		"copied": "Copiat!",
+		"copyLink": "Copiază linkul",
+		"defaultMessage": "Arroxy — program gratuit și open-source de descărcat videoclipuri pentru Windows, macOS și Linux. Funcționează cu YouTube, Vimeo, Twitch și peste 2000 de site-uri.\n4K · HDR · MP3 · Shorts · Subtitrări · SponsorBlock",
+		"description": "Arroxy este gratuit și open-source. Distribuirea ajută mai multe persoane să-l descopere.",
+		"footerLabel": "Distribuie",
+		"footerTooltip": "Distribuiți Arroxy",
+		"shareAction": "Distribuiți Arroxy",
+		"title": "Distribuiți Arroxy"
+	},
+	"splash": {
+		"cancel": "Aveți probleme? Configurați manual",
+		"greeting": "Bun venit înapoi!",
+		"setup": {
+			"bytes": "{{done}} din {{total}}",
+			"left": {
+				"minutes_few": "mai durează aproximativ {{count}} min",
+				"minutes_one": "mai durează aproximativ {{count}} min",
+				"minutes_other": "mai durează aproximativ {{count}} min",
+				"underMinute": "mai durează mai puțin de un minut"
+			},
+			"note": {
+				"engine": "Menține descărcările funcționale când site-urile se schimbă.",
+				"firstRun": "Se întâmplă o singură dată. Arroxy păstrează aceste instrumente și le actualizează singur.",
+				"media": "Se întâmplă o singură dată. Arroxy le păstrează pentru actualizările viitoare."
+			},
+			"stage": {
+				"checking": "Se verifică dacă totul funcționează",
+				"connecting": "Se conectează…",
+				"downloadingBoth": "Se descarcă motorul de descărcare și instrumentele media",
+				"downloadingEngine": "Se descarcă motorul de descărcare",
+				"downloadingMedia": "Se descarcă instrumentele media",
+				"unpacking": "Se despachetează instrumentele media"
+			},
+			"title": {
+				"engine": "Se actualizează motorul de descărcare",
+				"firstRun": "Configurare inițială",
+				"media": "Se actualizează instrumentele media"
+			}
+		},
+		"verifyFirstCheck": "Prima verificare a acestei versiuni — aceasta durează mai mult. De obicei, cam un minut.",
+		"verifying": "Se verifică {{binary}}…",
+		"warmup": "Se pregătesc descărcările…",
+		"warmupFailedNoDiag": "Configurarea a eșuat. Deschideți jurnalul de configurare pentru detalii."
+	},
+	"status": {
+		"audioKept": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat",
+		"audioKeptSubtitlesFailed": "Videoclip salvat cu sunet — sunetul nu a putut fi eliminat, iar unele subtitrări nu au putut fi descărcate",
+		"cancelled": "Descărcare anulată",
+		"complete": "Descărcare finalizată",
+		"convertingVideo": "Se convertește videoclipul…",
+		"diskSpaceInsufficient": "Spațiu insuficient pe disc — sunt necesare {{required}}, dar sunt disponibile doar {{free}}",
+		"downloadingBinary": "Se descarcă fișierul binar {{name}}…",
+		"downloadingMedia": "Se descarcă video și audio…",
+		"embeddingMetadata": "Se încorporează metadatele…",
+		"exploreSignedOut": "Deconectat din Explorare — conectați-vă din nou",
+		"extractingAudio": "Se convertește audio…",
+		"fetchingSponsorBlock": "Se contactează SponsorBlock…",
+		"fetchingSubtitles": "Se preiau subtitrările…",
+		"mergingFormats": "Se îmbină audio și video…",
+		"mintingToken": "Se generează jetonul YouTube…",
+		"movingFiles": "Se mută fișierele…",
+		"noSubtitles": "Fără subtitrări în {{languages}}",
+		"outputNotWritable": "Nu se poate salva în {{dir}} — Arroxy nu are permisiunea de a scrie acolo",
+		"preparingBinaries": "Se pregătesc fișierele binare…",
+		"qualityLimited": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
+		"qualityLimitedSubtitlesFailed": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
+		"remintingToken": "Se regenerează jetonul…",
+		"retryingSponsorBlock": "SponsorBlock indisponibil, se reîncearcă ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Conexiune blocată, se reîncearcă ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Conectare cu contul dvs. din Explorare…",
+		"sleepingBetweenRequests": "Se așteaptă {{seconds}} s pentru a evita limitările de rată…",
+		"startingYtdlp": "Se pornește motorul de descărcare…",
+		"subtitleLanguagesMissing": "Acest videoclip nu are subtitrări în {{languages}}. Videoclipul a fost salvat fără ele.",
+		"subtitleLanguagesMissingOthersSaved": "Acest videoclip nu are subtitrări în {{languages}}. Celelalte limbi au fost salvate.",
+		"subtitlesFailed": "Videoclip salvat — unele subtitrări nu au putut fi descărcate",
+		"unknownStartupFailure": "Eroare necunoscută la pornirea descărcării",
+		"usedExtractorFallback": "Descărcat cu extractor relaxat — configurați un cookies.txt pentru descărcări mai fiabile",
+		"ytdlpExitCode": "Motorul de descărcare s-a închis cu codul {{code}}",
+		"ytdlpProcessError": "Eroare a motorului de descărcare: {{error}}"
+	},
+	"theme": {
+		"dark": "Mod întunecat",
+		"light": "Mod luminos",
+		"system": "Implicit sistem"
+	},
+	"titleBar": {
+		"close": "Închidere",
+		"maximize": "Maximizare",
+		"minimize": "Minimizare",
+		"restore": "Restaurare"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Descarcă din clipboard",
+			"open": "Deschide Arroxy",
+			"quit": "Ieșire din Arroxy",
+			"statusActive_few": "{{count}} în descărcare · {{percent}}%",
+			"statusActive_one": "1 în descărcare · {{percent}}%",
+			"statusActive_other": "{{count}} în descărcare · {{percent}}%",
+			"statusIdle": "Inactiv"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Comanda a fost copiată în clipboard",
+		"copy": "Copiază comanda în clipboard",
+		"dismiss": "Închide bannerul de actualizare",
+		"download": "Descarcă ↗",
+		"downloadDmg": "Descarcă DMG ↗",
+		"downloading": "Se descarcă…",
+		"install": "Instalează și repornește",
+		"installFailed": "Actualizarea a eșuat",
+		"message": {
+			"generic": "Arroxy {{version}} este disponibil — aveți {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} este disponibil — actualizați cu Homebrew.",
+			"macosDirect": "Arroxy {{version}} este disponibil — descărcați noul DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} este disponibil — descărcați DMG-ul sau treceți la Homebrew.",
+			"portable": "Arroxy {{version}} este disponibil — descărcați noua versiune."
+		},
+		"retry": "Reîncercați",
+		"runAndRestart": "Rulează și repornește",
+		"upgrading": "Se actualizează…"
+	},
+	"videoCard": {
+		"chapters_few": "{{count}} capitole",
+		"chapters_one": "{{count}} capitol",
+		"chapters_other": "{{count}} de capitole",
+		"titlePlaceholder": "Se încarcă…"
+	},
 	"videoCodec": {
-		"label": "Codec video",
-		"description": "Ce codec se ia primul dintre fluxurile cu aceeași înălțime. Auto păstrează ordinea proprie yt-dlp, care favorizează AV1, cel mai mic; H.264 se redă pe televizoare și telefoane mai vechi.",
-		"smartTv": "Smart TV ia întotdeauna H.264.",
 		"auto": "Auto",
-		"vp9": "Întâi VP9",
-		"h264": "Întâi H.264"
+		"description": "Ce codec se ia primul dintre fluxurile cu aceeași înălțime. Auto păstrează ordinea proprie yt-dlp, care favorizează AV1, cel mai mic; H.264 se redă pe televizoare și telefoane mai vechi.",
+		"h264": "Întâi H.264",
+		"label": "Codec video",
+		"smartTv": "Smart TV ia întotdeauna H.264.",
+		"vp9": "Întâi VP9"
 	},
-	"hdrPreference": {"label": "Video HDR", "description": "Auto alege HDR când ecranul îl poate afișa, altfel SDR. HDR arată șters pe ecranele obișnuite.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Gata",
+			"description": "Lipiți URL-uri de videoclipuri, liste de redare, canale, căutări sau fișiere audio. Arroxy elimină duplicatele înainte de a le adăuga în coadă.",
+			"emptyPreview": "Lipiți unul sau mai multe URL-uri pentru a previzualiza lotul.",
+			"ignoredCount": "Ignorate",
+			"needsAtLeastOne": "Adăugați cel puțin un URL acceptat pentru a continua.",
+			"reject": {
+				"duplicate": "Duplicat"
+			},
+			"textareaLabel": "Listă de URL-uri",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "URL-uri în bloc"
+		},
+		"confirm": {
+			"addToQueue": "+ Coadă",
+			"addToQueueTooltip": "Adaugă în coadă — pornește când se termină descărcarea activă",
+			"audioOnly": "Doar audio",
+			"itemsValueAudio_few": "{{count}} din {{total}} piese",
+			"itemsValueAudio_one": "{{count}} din {{total}} piese",
+			"itemsValueAudio_other": "{{count}} din {{total}} piese",
+			"itemsValueBulk_few": "{{count}} din {{total}} URL-uri",
+			"itemsValueBulk_one": "{{count}} din {{total}} URL-uri",
+			"itemsValueBulk_other": "{{count}} din {{total}} URL-uri",
+			"itemsValue_few": "{{count}} din {{total}} videoclipuri",
+			"itemsValue_one": "{{count}} din {{total}} videoclipuri",
+			"itemsValue_other": "{{count}} din {{total}} videoclipuri",
+			"labelAudio": "Audio",
+			"labelBulk": "Lot",
+			"labelItems": "Elemente",
+			"labelPlaylist": "Listă de redare",
+			"labelPreset": "Presetare",
+			"labelSaveTo": "Salvare în",
+			"labelSize": "Dimensiune",
+			"labelSubtitles": "Subtitrări",
+			"labelVideo": "Video",
+			"landIn": "Fișierul dvs. va ajunge în",
+			"landInMultiProfile_few": "Vor ajunge în cele {{count}} destinații de mai jos",
+			"landInMultiProfile_one": "Va ajunge în destinația de mai jos",
+			"landInMultiProfile_other": "Vor ajunge în cele {{count}} de destinații de mai jos",
+			"nothingToDownload": "Presetarea Doar subtitrări este activă, dar nu este selectată nicio limbă de subtitrare — nu se va descărca nimic.",
+			"profileBreakdownCount_few": "{{count}} elemente",
+			"profileBreakdownCount_one": "{{count}} element",
+			"profileBreakdownCount_other": "{{count}} de elemente",
+			"profileBreakdownHeading": "Profiluri din acest lot",
+			"pullIt": "Descarcă! ↓",
+			"pullItTooltip": "Sare peste coadă — pornește acum, rulează alături de alte descărcări active",
+			"readyHeadline": "Gata de descărcare!",
+			"sizeUnknown": "Necunoscută",
+			"subtitleEmbedAudioOnly": "Încorporarea subtitrării a fost schimbată în fișier separat — pistele audio nu acceptă fluxuri de subtitrare încorporate.",
+			"subtitleEmbedForcesMkv": "Subtitrările din interiorul videoclipului necesită un fișier MKV, deci această descărcare se salvează ca .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Încorporarea miniaturii a fost omisă — containerul de ieșire nu o acceptă."
+		},
+		"folder": {
+			"custom": "Personalizat…",
+			"desktop": "Desktop",
+			"documents": "Documente",
+			"downloads": "Descărcări",
+			"heading": "Salvare în",
+			"home": "Acasă",
+			"music": "Muzică",
+			"pictures": "Imagini",
+			"subfolder": {
+				"invalid": "Numele folderului conține caractere nevalide",
+				"placeholder": "ex. lo-fi",
+				"toggle": "Salvează într-un subfolder"
+			},
+			"videos": "Filme"
+		},
+		"formats": {
+			"audio": "Audio",
+			"audioLanguage": "Limba audio",
+			"audioLanguageCount_few": "{{count}} limbi",
+			"audioLanguageCount_one": "{{count}} limbă",
+			"audioLanguageCount_other": "{{count}} de limbi",
+			"audioOnly": "Doar audio",
+			"bitrateValue": "Bitrate {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookie-urile sunt configurate, dar dezactivate. Activați-le și reîncercați pentru a obține lista completă sau schimbați rețeaua și reîncercați.",
+				"bodyEnabled": "Chiar și cu cookie-uri, YouTube a limitat această sondare. Încercați din nou mai târziu sau schimbați rețeaua.",
+				"bodyExplore": "YouTube a limitat această cerere. Încercați din nou mai târziu sau schimbați rețeaua.",
+				"bodyUnconfigured": "Lista de formate poate fi incompletă. Configurați cookie-urile în setările avansate sau schimbați rețeaua și reîncercați.",
+				"enableRetryCta": "Activează cookie-urile și reîncearcă",
+				"heading": "Sondarea a fost limitată",
+				"retryCta": "Reîncercați"
+			},
+			"convert": {
+				"bitrate": "Bitrate",
+				"bitrateCopyHint": "O sursă care este deja {{target}} își păstrează fluxul și bitrate-ul: este copiată, nu recodificată.",
+				"copyLabel": "{{target}} {{bitrate}} kb/s, fără recodificare",
+				"copyLabelNoBitrate": "{{target}}, fără recodificare",
+				"copyNote": "{{kbps}} kb/s, așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat",
+				"copyNoteNoBitrate": "Așa cum îl are sursa: fluxul este deja {{target}}, deci este copiat, nu recodificat",
+				"label": "Conversie",
+				"lossyLabel": "{{target}} {{bitrate}} kb/s",
+				"sourceKbps": "Sursa are {{kbps}} kb/s",
+				"wavLabel": "WAV (necomprimat)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Conectare Explorare",
+				"currentModeFile": "Fișier",
+				"currentModeLabel": "Sursa cookie-urilor",
+				"dpapi": {
+					"docsLinkLabel": "documentația yt-dlp (problema #10927)",
+					"explanation": "Chrome 127 și versiunile mai noi criptează cookie-urile într-un mod pe care alte aplicații nu îl pot citi în Windows. Încercați una dintre soluțiile de mai jos.",
+					"fixFileBody": "Exportați cookie-urile din Chrome cu o extensie de browser, apoi comutați această aplicație pe modul Fișier și alegeți fișierul exportat.",
+					"fixFileLabel": "Exportați cookies.txt",
+					"fixFirefoxBody": "Firefox nu folosește App-Bound Encryption. Deschideți setările cookie-urilor și alegeți Firefox din lista de browsere.",
+					"fixFirefoxLabel": "Treceți la Firefox",
+					"fixUnsafeBody": "Adăugați --disable-features=LockProfileCookieDatabase la comanda rapidă de lansare a Chrome. Atenție: aceasta invalidează cookie-urile criptate anterior, deci veți fi deconectat de pe toate site-urile și va trebui să vă conectați din nou.",
+					"fixUnsafeLabel": "Lansați Chrome cu App-Bound Encryption dezactivat",
+					"heading": "Cookie-urile Chrome sunt blocate de criptarea Windows"
+				},
+				"explanationBrowser": "Cookie-urile sunt citite direct din browser. Dacă browserul rulează în prezent, baza lui de date de cookie-uri poate fi blocată (familia Chromium). Browserul trebuie să fie conectat și la YouTube. Încercați să închideți browserul, să treceți la alt browser, la modul Fișier sau să dezactivați cookie-urile.",
+				"explanationFile": "Fișierul de cookie-uri poate fi gol, expirat sau în format greșit (Arroxy are nevoie de un fișier cookies.txt Netscape). Încercați să exportați din nou cookie-urile, să alegeți alt fișier, să treceți la modul Browser sau să dezactivați cookie-urile.",
+				"exploreOffer": {
+					"body": "Conectați-vă cu Explorare, iar Arroxy va reîncerca.",
+					"cta": "Conectați-vă cu Explorare",
+					"heading": "Este posibil ca acest videoclip să necesite un cont YouTube"
+				},
+				"exploreRefused": {
+					"body": "Arroxy a încercat deja conectat prin Explorare, deci o nouă conectare nu va ajuta. Site-ul poate avea probleme sau acest cont nu îl poate deschide. Încercați din nou mai târziu.",
+					"heading": "Site-ul a refuzat chiar și cu conectarea dvs. din Explorare"
+				},
+				"exploreReuse": {
+					"body": "Sunteți conectat la Explorare, dar descărcările nu folosesc în prezent acea conectare.",
+					"cta": "Folosește conectarea mea din Explorare și reîncearcă",
+					"heading": "Este posibil ca acest videoclip să necesite un cont YouTube"
+				},
+				"exploreSignIn": {
+					"body": "Dacă acest videoclip necesită un cont YouTube, conectați-vă în Explorare și reîncercați. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea.",
+					"cta": "Conectați-vă în Explorare",
+					"heading": "Este posibil ca acest videoclip să necesite un cont YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "Dacă acest videoclip necesită un cont, Arroxy folosește automat conectarea dvs. din Explorare. Poate fi indisponibil dintr-un alt motiv.",
+					"heading": "Conectat la Explorare"
+				},
+				"exploreSite": {
+					"heading": "Este posibil ca acest link să necesite un cont pe {{host}}",
+					"offerBody": "Conectați-vă la {{host}} cu Explorare, apoi încercați din nou.",
+					"signInBody": "Conectați-vă la {{host}} în Explorare, apoi încercați din nou. Arroxy folosește acea conectare doar când o descărcare are nevoie de ea."
+				},
+				"heading": "Cauza ar putea fi cookie-urile",
+				"needsCookies": {
+					"body": "Arroxy nu a putut accesa acest videoclip fără autentificare. Configurați cookie-urile în setările avansate — indicați un browser în care sunteți deja conectat sau importați un fișier cookies.txt.",
+					"heading": "Acest site necesită conectare"
+				},
+				"openSettingsCta": "Deschide setările cookie-urilor",
+				"otherCookiesCta": "Folosiți în schimb un fișier de cookie-uri sau un browser…"
+			},
+			"drc": {
+				"description": "Părțile tari devin mai line, iar cele line mai tari, pentru difuzoare și încăperi zgomotoase.",
+				"label": "Uniformizează volumul (DRC)",
+				"tag": "Volum uniform"
+			},
+			"fit": {
+				"mp4Unavailable": "Profilul dvs. este Smart TV (H.264). Acest videoclip nu oferă H.264, așa că este selectat cel mai apropiat flux.",
+				"noVideo": "Acest link nu conține video, așa că este selectat audio.",
+				"subtitlesMissing": "Profilul dvs. cere subtitrări în {{languages}}. Acest videoclip nu le are.",
+				"tierAbove": "Profilul dvs. cere {{wanted}}p. Acest videoclip nu are nimic atât de mic, așa că este selectat {{picked}}p.",
+				"tierBelow": "Profilul dvs. cere {{wanted}}p. Acest videoclip ajunge doar până la {{picked}}p, așa că este selectat {{picked}}p.",
+				"webmUnavailable": "Profilul dvs. cere WebM. Fluxurile alese pentru acest videoclip includ {{codec}}, pe care WebM nu îl poate conține, așa că tipul fișierului este Auto."
+			},
+			"footer": {
+				"addToQueue": "Adaugă în coadă fără a porni",
+				"download": "Descarcă",
+				"moreActions": "Mai multe opțiuni de descărcare",
+				"subtitlesRequired": "Alegeți cel puțin o limbă de subtitrare."
+			},
+			"keepAudio": "Păstrează ca atare",
+			"keepAudioMeta": "Audio încorporat",
+			"kind": {
+				"audio": "Doar audio",
+				"label": "Ce se descarcă",
+				"subtitles": "Doar subtitrări",
+				"video": "Video + audio",
+				"videoOnly": "Video, fără audio"
+			},
+			"loadingAria": "Se încarcă formatele",
+			"loadingHint": "Așteptați până se termină sondarea — listele de redare și căutările pot dura.",
+			"marker": {
+				"aiDubbed": "Dublat cu IA",
+				"aiUpscaled": "Mărit cu IA",
+				"audioDescription": "Descriere audio",
+				"damaged": "Deteriorat",
+				"enhancedBitrate": "Bitrate îmbunătățit",
+				"spatialAudio": "Audio spațial",
+				"vr": "360° / VR",
+				"watermarked": "Cu filigran"
+			},
+			"noAudio": "Fără audio",
+			"profile": {
+				"calloutBody": "Profilul activ preselectează fluxurile pentru dvs. Schimbați profilul din meniu sau folosiți creionul pentru a-l ajusta fără a părăsi această descărcare.",
+				"calloutTitle": "Formatele pornesc de la profilul dvs.",
+				"closestTag": "Cel mai apropiat de profil",
+				"edit": "Editați {{name}}",
+				"keepEdits": "Păstrează modificările mele",
+				"menuDescription": "Doar pentru această descărcare. Profilul implicit rămâne neschimbat.",
+				"preselected": "Preselectat din",
+				"resetAll": "Resetează tot",
+				"switchBody": "Ați modificat {{areas}} pentru această descărcare. „{{profile}}” alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?",
+				"switchTitle": "Schimbați profilul?",
+				"tag": "Profil",
+				"updatedBody": "Ați modificat {{areas}} pentru această descărcare. Profilul actualizat alege oricum video și audio. Păstrați celelalte modificări sau resetați totul la profil?",
+				"updatedTitle": "Folosiți profilul actualizat?"
+			},
+			"quality": {
+				"high": "Calitate ridicată",
+				"low": "Calitate scăzută",
+				"medium": "Calitate medie"
+			},
+			"rateLimit": {
+				"heading": "{{site}} limitează această conexiune",
+				"leadDegraded": "Lista de formate poate fi incompletă.",
+				"leadFailed": "{{site}} a respins această cerere deocamdată.",
+				"retryCta": "Reîncercați",
+				"sessionNote": "{{site}} poate menține această limită până la o oră.",
+				"tryNowCta": "Încercați acum",
+				"waitOver": "Așteptarea s-a încheiat, deci puteți încerca din nou.",
+				"waitUntil": "Arroxy așteaptă până la {{time}} înainte de a mai cere ceva de la {{site}}, pentru ca limita să dispară."
+			},
+			"resolutionUnknown": "Rezoluție necunoscută",
+			"savesAs": {
+				"label": "Se salvează ca",
+				"reset": "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto."
+			},
+			"sizeUnknown": "Dimensiune necunoscută",
+			"skipToConfirm": "Treceți la confirmare",
+			"skipToConfirmTooltip": "Folosește preferințele salvate pentru toți pașii rămași. Pentru a schimba o setare, continuați pas cu pas — alegerea dvs. va fi salvată pentru data viitoare.",
+			"sniffing": "Căutăm cele mai bune formate pentru dvs.…",
+			"total": "Total",
+			"video": "Video",
+			"withAudio": "cu audio"
+		},
+		"mixedPrompt": {
+			"body": "Doriți doar videoclipul pe care ați făcut clic sau alegeți din lista de redare? În continuare veți alege videoclipuri anume sau un interval.",
+			"pickFromPlaylist": "Alege din listă",
+			"playlistLimit": "Limita de sondare a listei: {{count}} elemente",
+			"playlistTooltip": "Încarcă lista de redare, până la limita de sondare a listei, înainte de a afișa selectorul.",
+			"quickBody": "Descărcați doar acest videoclip sau puneți în coadă întreaga listă de redare cu profilul Descărcare rapidă activ.",
+			"quickLimitDescription": "Numărul maxim de intrări pe care Arroxy le scanează înainte de a pune în coadă o listă de redare, un canal sau un rezultat de căutare.",
+			"quickPlaylistTooltip": "Pune în coadă fiecare element încărcat al listei cu profilul Descărcare rapidă activ. Dacă scanarea atinge limita, Arroxy întreabă înainte de a le pune în coadă.",
+			"quickSingleTooltip": "Pune în coadă o singură descărcare și ignoră lista de redare atașată acestui URL.",
+			"quickSingleVideo": "Descarcă acest videoclip",
+			"quickWholePlaylist": "Descarcă toată lista",
+			"singleTooltip": "Încarcă doar acest videoclip. Lista de redare atașată acestui URL este ignorată.",
+			"singleVideo": "Doar acesta",
+			"title": "Acest link conține o listă de redare"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Marcaje de capitole care pot fi folosite în orice player modern.",
+				"label": "Încorporează capitolele"
+			},
+			"embedMetadata": {
+				"description": "Titlul, artistul, descrierea și data încărcării se scriu în fișier.",
+				"label": "Încorporează metadatele"
+			},
+			"embedThumbnail": {
+				"description": "Coperta se află în interiorul fișierului. Videoclipul WebM va fi remultiplexat în MKV; se omite când subtitrările sunt încorporate.",
+				"label": "Încorporează miniatura"
+			},
+			"writeDescription": {
+				"description": "Salvează descrierea videoclipului ca fișier text .description lângă descărcare.",
+				"label": "Salvează descrierea"
+			},
+			"writeM3u": {
+				"description": "Salvează o listă de redare .m3u lângă videoclipuri, ca ele să se deschidă în ordine în playerul media.",
+				"label": "Generează fișier de listă .m3u"
+			},
+			"writeThumbnail": {
+				"description": "Salvează miniatura ca fișier imagine .jpg lângă descărcare.",
+				"label": "Salvează miniatura"
+			}
+		},
+		"part": {
+			"calloutBody": "Treceți la Parte pe cardul videoclipului pentru a alege un început și un sfârșit sau un capitol și a descărca doar acel fragment.",
+			"calloutTitle": "Descărcați doar o parte dintr-un videoclip",
+			"chapterUntitled": "Capitolul {{number}}",
+			"chapters": "Capitole",
+			"connectionsNote": "O parte se descarcă prin ffmpeg, deci conexiunile de descărcare și setările de ritm nu se aplică.",
+			"downloadBlocked": "Corectați mai întâi începutul și sfârșitul părții.",
+			"end": "Sfârșit",
+			"error": {
+				"endBeyondDuration": "Videoclipul se termină la {{duration}}.",
+				"endInvalid": "Introduceți sfârșitul ca h:mm:ss, m:ss sau secunde.",
+				"startInvalid": "Introduceți începutul ca h:mm:ss, m:ss sau secunde.",
+				"startNotBeforeEnd": "Începutul trebuie să fie înaintea sfârșitului."
+			},
+			"exactCut": {
+				"hint": "Dezactivat: fiecare tăietură ajunge la cel mai apropiat cadru-cheie, care poate fi la câteva secunde de ora introdusă.",
+				"label": "Tăiere exactă (recodifică, mai lent)"
+			},
+			"length": "{{length}} din {{duration}}",
+			"part": "Parte",
+			"rangeLabel": "Parte din videoclip",
+			"start": "Început",
+			"subtitlesFullLength": "tot videoclipul",
+			"summary": "Partea {{start}}–{{end}}",
+			"switchLabel": "Cât din videoclip",
+			"timeHint": "h:mm:ss, m:ss sau secunde",
+			"totalEstimate": "Parte, estimat",
+			"unavailableDuration": "Acest videoclip nu raportează durata, deci poate fi descărcat doar întreg.",
+			"unavailableSubtitles": "Subtitrările acoperă întotdeauna tot videoclipul.",
+			"urlStart": "Linkul dvs. începe la {{time}}",
+			"useUrlStart": "Folosește ca început",
+			"whole": "Tot videoclipul",
+			"wholeTrack": "Toată piesa"
+		},
+		"playlist": {
+			"allRemovedDescription": "Restaurați-le pentru a continua.",
+			"allRemovedTitle": "Toate elementele au fost eliminate",
+			"alreadyDownloaded": "Deja descărcat",
+			"bulkHeading": "URL-uri în bloc",
+			"bulkMetadataOptional": "Nu trebuie să așteptați — fișierele puse acum în coadă își primesc numele real la descărcare.",
+			"bulkMetadataResolving": "Se preiau detaliile videoclipurilor… {{done}}/{{total}}",
+			"bulkRowFailed": "Detalii indisponibile",
+			"bulkRowResolving": "Se preiau detaliile",
+			"bulkRowWaiting": "În așteptare",
+			"durationUnknown": "live",
+			"heading": "Elementele listei de redare",
+			"headingGeneric": "Videoclipuri de descărcat",
+			"itemCountAudio_few": "{{count}} piese",
+			"itemCountAudio_one": "{{count}} piesă",
+			"itemCountAudio_other": "{{count}} de piese",
+			"itemCountBulk_few": "{{count}} URL-uri",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} de URL-uri",
+			"itemCount_few": "{{count}} videoclipuri",
+			"itemCount_one": "{{count}} videoclip",
+			"itemCount_other": "{{count}} de videoclipuri",
+			"loadingItems": "Se preia lista de redare…",
+			"loadingItemsGeneric": "Se preiau videoclipurile…",
+			"loadingLimitHint": "Limitat la primele {{count}} elemente",
+			"loadingPagesFound_few": "{{count}} pagini găsite",
+			"loadingPagesFound_one": "{{count}} pagină găsită",
+			"loadingPagesFound_other": "{{count}} de pagini găsite",
+			"loadingPhaseItems": "Se colectează videoclipurile",
+			"loadingPhasePages": "Se scanează paginile canalului",
+			"multiProfileEntry": "Atribuie profiluri pe element",
+			"multiProfileEntryTooltip": "Omite Calitate, SponsorBlock, Ieșire și Salvare — atribuiți în schimb un profil de descărcare pentru fiecare element",
+			"nestedPlaylistBadge": "Listă de redare",
+			"nestedPlaylistHint_few": "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca.",
+			"nestedPlaylistHint_one": "{{count}} dintre acestea este o listă de redare, nu un videoclip — lipiți linkul ei separat pentru a o descărca.",
+			"nestedPlaylistHint_other": "{{count}} dintre acestea sunt liste de redare, nu videoclipuri — lipiți linkurile lor pe rând pentru a le descărca.",
+			"noSelection": "Selectați cel puțin un videoclip pentru a continua",
+			"probeLimitAlertDesc": "Se afișează primele {{count}} elemente. Măriți limita de încărcare pentru a vedea mai multe.",
+			"probeLimitAlertTitle": "Scanarea listei de redare este limitată",
+			"probeLimitAlertTitleGeneric": "Scanarea este limitată",
+			"rangeApply": "Aplică intervalul",
+			"rangeFrom": "De la",
+			"rangeTo": "Până la",
+			"removeFromListCount_few": "Elimină {{count}} din listă",
+			"removeFromListCount_one": "Elimină {{count}} din listă",
+			"removeFromListCount_other": "Elimină {{count}} din listă",
+			"removedCount_few": "{{count}} eliminate",
+			"removedCount_one": "{{count}} eliminat",
+			"removedCount_other": "{{count}} eliminate",
+			"restore": "Restaurează",
+			"selectAll": "Selectează tot",
+			"selectNone": "Nu selecta nimic",
+			"selectedCount_few": "{{count}} selectate",
+			"selectedCount_one": "{{count}} selectat",
+			"selectedCount_other": "{{count}} selectate",
+			"sortApi": "Ordinea listei",
+			"sortFetchingDates": "Se preiau datele încărcării…",
+			"sortLabel": "Sortare",
+			"sortUploadAsc": "Cele mai vechi primele",
+			"sortUploadDesc": "Cele mai noi primele",
+			"syncApply": "Aplică sincronizarea",
+			"syncChange": "Schimbă folderul…",
+			"syncFoundDesc": "{{n}} dintre aceste videoclipuri se află deja în {{dir}}. Sincronizați pentru a descărca doar pe cele noi?",
+			"syncFoundTitle": "Deja în folder",
+			"syncNoneDesc": "Niciun videoclip din această listă de redare nu a fost găsit în {{dir}}.",
+			"syncNoneDescGeneric": "Niciun videoclip din această sursă nu a fost găsit în {{dir}}.",
+			"syncNoneTitle": "Nimic descărcat încă",
+			"syncScanning": "Se verifică folderul…",
+			"thumbnailAlt": "Miniatura videoclipului"
+		},
+		"playlistPresets": {
+			"heading": "Alegeți calitatea pentru lot",
+			"itemCount_few": "{{count}} elemente",
+			"itemCount_one": "{{count}} element",
+			"itemCount_other": "{{count}} de elemente",
+			"subhead": "Fiecare videoclip rezolvă nivelul ales în mod independent — listele de redare eterogene funcționează fără surprize."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Atribuie profil",
+			"assignTrigger_few": "Atribuie la {{count}} videoclipuri",
+			"assignTrigger_one": "Atribuie la {{count}} videoclip",
+			"assignTrigger_other": "Atribuie la {{count}} de videoclipuri",
+			"columnDuration": "Durată",
+			"columnProfile": "Profil",
+			"editProfile": "Editați {{name}}",
+			"empty": "Niciun element nu se potrivește cu acest filtru",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Filtre de profil",
+			"heading": "Atribuiți profiluri de descărcare",
+			"menuDescription_few": "Alegeți profilul pentru aceste {{count}} videoclipuri.",
+			"menuDescription_one": "Alegeți profilul pentru acest videoclip.",
+			"menuDescription_other": "Alegeți profilul pentru aceste {{count}} de videoclipuri.",
+			"selectedSummary": "{{selected}} din {{total}} selectate"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Schimbă global",
+				"chooseFolder": "Alege folderul de destinație",
+				"chooseIcon": "Alege pictograma profilului",
+				"removeLanguage": "Elimină {{code}}",
+				"reset": "Resetează profilul",
+				"resetDisabledHint": "Acest profil folosește deja setările încorporate",
+				"resetHint": "Restaurează setările încorporate ale profilului",
+				"save": "Salvează profilul",
+				"setOverride": "Setează o suprascriere de profil",
+				"setOverrideShort": "Setează suprascriere",
+				"useGlobalDefault": "Folosește valoarea globală implicită",
+				"useLanguageCode": "Folosește codul de limbă „{{code}}”"
+			},
+			"advanced": "Avansat",
+			"appSetting": "Folosește setarea aplicației ({{value}})",
+			"audioFormat": {
+				"best": "Cel mai bun",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Până la 128K",
+				"192": "Până la 192K",
+				"320": "Până la 320K",
+				"best": "Cea mai bună calitate"
+			},
+			"destination": {
+				"defaultFolder": "Folderul implicit de descărcări",
+				"defaultFolderWithSubfolder": "Folderul implicit de descărcări / {{subfolder}}",
+				"global": "Destinație globală",
+				"globalActive": "Activă",
+				"globalInherited": "Moștenită",
+				"override": "Suprascriere de profil",
+				"overrideChoosing": "Alegeți folderul",
+				"overrideNone": "Nicio suprascriere setată",
+				"overrideNoneNote": "Nicio suprascriere setată. Acest profil folosește destinația globală de mai sus.",
+				"overrideSet": "Suprascrie destinația globală",
+				"overrideSetNote": "Acest profil se salvează în propria rădăcină, înainte de adăugarea subfolderului.",
+				"resolved": "Destinația rezolvată"
+			},
+			"dialogDescription": "O configurație reutilizabilă pentru Descărcare rapidă, URL-uri în bloc și liste de redare.",
+			"dialogTitle": "Profil de descărcare",
+			"error": {
+				"changeGlobalDestination": "Nu s-a putut schimba destinația globală.",
+				"folderPicker": "Nu s-a putut deschide selectorul de foldere. Introduceți manual o cale.",
+				"reset": "Nu s-au putut reseta setările profilului.",
+				"save": "Nu s-au putut salva setările profilului."
+			},
+			"field": {
+				"delivery": "Livrare",
+				"fileType": "Tip de fișier",
+				"goal": "Optimizat pentru",
+				"icon": "Pictograma profilului",
+				"languages": "Limbi",
+				"name": "Numele profilului",
+				"nameAndIcon": "Numele și pictograma profilului",
+				"nativeAudio": "Audio nativ",
+				"overridePath": "Calea de suprascriere a profilului",
+				"quality": "Calitate",
+				"resolution": "Rezoluție",
+				"source": "Sursă",
+				"subfolderName": "Numele subfolderului",
+				"subtitleDownloads": "Descărcări de subtitrări",
+				"subtitleDownloadsDescription": "Profilurile cer coduri de limbă; disponibilitatea se stabilește pentru fiecare URL."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Cea mai clară imagine la o anumită dimensiune. Televizoarele mai vechi, QuickTime și unele editoare nu o pot reda.",
+					"name": "Cea mai bună imagine",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Se redă pe televizoare, telefoane, WhatsApp, QuickTime și editoare video. YouTube oferă H.264 doar până la 1080p.",
+					"name": "Smart TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arhivă",
+				"audio": "Audio",
+				"captions": "Subtitrări",
+				"classes": "Cursuri",
+				"clip": "Clip",
+				"controls": "Comenzi",
+				"download": "Descărcare",
+				"music": "Muzică",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Muzică sau podcasturi",
+					"label": "Doar audio"
+				},
+				"subtitlesOnly": {
+					"description": "Doar fișiere de subtitrare",
+					"label": "Doar subtitrări"
+				},
+				"videoAudio": {
+					"description": "Fișiere video obișnuite",
+					"label": "Video + audio"
+				},
+				"videoOnly": {
+					"description": "Doar video, fără sunet",
+					"label": "Video, fără audio"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Subtitrările automate vor fi salvate ca SRT în loc de ASS.",
+				"noLanguageMatches": "Nicio limbă corespunzătoare",
+				"noSubtitles": "Pentru acest profil nu se vor cere fișiere de subtitrare sau piste de subtitrare încorporate.",
+				"searchLanguages": "Căutați după numele sau codul limbii",
+				"skippedForOutputType": "Omis pentru acest tip de ieșire.",
+				"subtitleLanguagesRequired": "Alegeți cel puțin o limbă.",
+				"subtitleLanguagesRequiredOrOff": "Alegeți cel puțin o limbă sau dezactivați descărcarea subtitrărilor.",
+				"subtitlesOnly": "Acest profil pune în coadă doar fișiere de subtitrare. Video, audio, SponsorBlock și conversia media sunt omise."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profilurile moștenesc destinația globală, cu excepția cazului în care setați o suprascriere de profil.",
+					"title": "Opțiuni avansate"
+				},
+				"downloadType": {
+					"description": "Alegeți modul principal în care doriți să descărcați.",
+					"title": "Tip de descărcare"
+				},
+				"identity": {
+					"description": "Numele și pictograma afișate în Descărcare rapidă, URL-uri în bloc și listele de profiluri.",
+					"title": "Identitatea profilului"
+				},
+				"output": {
+					"enabledCount_few": "{{count}} activate",
+					"enabledCount_one": "{{count}} activată",
+					"enabledCount_other": "{{count}} activate",
+					"title": "Opțiuni de ieșire"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Alegeți un folder pentru acest profil"
+			},
+			"skipped": "Omis",
+			"sponsorBlockHint": {
+				"mark": "Marchează segmentele sponsorizate drept capitole (nedistructiv).",
+				"off": "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat.",
+				"remove": "Taie segmentele sponsorizate din videoclip cu FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Doar generate automat",
+				"manualAndAuto": "Manuale și automate",
+				"manualFirst": "Întâi manuale, apoi automate",
+				"manualOnly": "Doar manuale"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Ajutor pentru {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Anulează pregătirea",
+			"currentFallback": "Linkul curent",
+			"description": "Arroxy citește linkul și aplică {{profileName}}.",
+			"failedCount_few": "{{count}} eșuate",
+			"failedCount_one": "{{count}} eșuată",
+			"failedCount_other": "{{count}} eșuate",
+			"phase": {
+				"probing": "Se preiau detaliile",
+				"queueing": "Se adaugă în coadă"
+			},
+			"title": "Se pregătește Descărcarea rapidă",
+			"waitHint": "Lăsați aceasta deschisă cât timp Arroxy pregătește coada."
+		},
+		"review": {
+			"areas": {
+				"extras": "extra",
+				"fileName": "nume de fișier",
+				"format": "format",
+				"saveTo": "folder",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "subtitrări"
+			},
+			"callout": {
+				"body": "Subtitrările, SponsorBlock, extrele precum miniatura, folderul și numele fișierului erau înainte pași separați. Faceți clic pe un rând pentru a-l modifica.",
+				"title": "Toate celelalte setări se află acum pe această pagină"
+			},
+			"changeFormat": "Schimbă formatul",
+			"changed": "Modificat față de {{profile}}: {{areas}}. Se aplică doar acestei descărcări.",
+			"changedFrom": "Modificat față de {{profile}}:",
+			"nextTime": {
+				"action": "Salvează ca profil",
+				"defaultName": "{{profile}} (editat)",
+				"title": "Această descărcare a folosit setări editate. Le folosiți și data viitoare?"
+			},
+			"reset": "Anulează modificările, înapoi la „{{profile}}”",
+			"rows": {
+				"extras": "Extra",
+				"fileName": "Nume de fișier",
+				"saveTo": "Salvare în",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Subtitrări"
+			},
+			"rowsHeading": "Restul setărilor",
+			"save": {
+				"action": "Salvează profilul",
+				"description": "Păstrează aceste setări ca profil pe care îl puteți alege data viitoare. Profilul Descărcare rapidă rămâne neschimbat.",
+				"failed": "Profilul nu a putut fi salvat.",
+				"nameLabel": "Numele profilului",
+				"saved": "Salvat ca profil „{{name}}”",
+				"title": "Salvează ca profil"
+			},
+			"saveAsProfile": "Salvează ca profil nou",
+			"update": {
+				"action": "Actualizează profilul",
+				"builtinNote": "Acesta este un profil încorporat. Îi puteți restaura setările originale în fila Profiluri.",
+				"description": "De acum înainte, fiecare descărcare cu acest profil folosește noile setări.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "Actualizați „{{profile}}”?",
+				"updated": "Profil actualizat „{{name}}”"
+			},
+			"updateProfile": "Actualizează „{{profile}}” cu aceste modificări",
+			"value": {
+				"extrasNone": "Niciunul",
+				"sponsorBlockOff": "Dezactivat",
+				"subtitlesOff": "Dezactivate"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Umplutură",
+				"intro": "Intro",
+				"music_offtopic": "Muzică în afara subiectului",
+				"outro": "Outro",
+				"preview": "Previzualizare",
+				"selfpromo": "Autopromovare",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Categorii",
+			"mode": {
+				"mark": "Marchează ca capitole",
+				"off": "Dezactivat",
+				"remove": "Elimină segmentele"
+			},
+			"modeHeading": "Filtrarea sponsorilor",
+			"modeHint": {
+				"mark": "Marchează segmentele sponsorizate drept capitole (nedistructiv).",
+				"off": "Fără SponsorBlock — videoclipul se redă așa cum a fost încărcat.",
+				"remove": "Taie segmentele sponsorizate din videoclip cu FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Confirmare",
+			"folder": "Salvare",
+			"formats": "Format",
+			"output": "Ieșire",
+			"playlistItems": "Listă",
+			"playlistItemsGeneric": "Videoclipuri",
+			"playlistPresets": "Calitate",
+			"playlistProfiles": "Profiluri",
+			"review": "Examinare",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Subtitrări",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Subtitrările automate vor fi salvate ca SRT în loc de ASS — pentru videoclipurile YouTube sunt curățate de dublarea indicilor derulanți, pe care convertorul nostru ASS nu o poate reproduce încă.",
+			"autoBadge": "Auto",
+			"clearAll": "Șterge tot",
+			"embedNote": "Modul încorporare salvează ieșirea ca .mkv, pentru ca pistele de subtitrare să se încorporeze fiabil.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Nu există subtitrări disponibile pentru acest videoclip",
+			"noMatches": "Nicio limbă nu se potrivește",
+			"noSelected": "Nicio subtitrare selectată",
+			"removeLanguage": "Elimină {{name}}",
+			"saveMode": {
+				"embed": "Încorporate în videoclip",
+				"heading": "Salvează ca",
+				"sidecar": "Lângă videoclip",
+				"subfolder": "subfolderul subtitles/"
+			},
+			"searchPlaceholder": "Căutați limbi…",
+			"sectionAuto": "Generate automat",
+			"sectionManual": "Manuale"
+		},
+		"tabsNavAria": "Navigare între profilurile de descărcare",
+		"url": {
+			"advanced": "Avansat",
+			"analytics": {
+				"toggle": "Trimite semnalul zilnic de activitate",
+				"toggleDescription": "Fără telemetrie. O dată pe zi, un semnal anonim trimite versiunea aplicației, canalul de instalare, sistemul de operare, limba, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Fără ID-uri, URL-uri, titluri de videoclipuri sau nume de fișiere."
+			},
+			"autoRemoveCompleted": {
+				"description": "Scoate o descărcare din lista Descărcări la câteva secunde după ce se termină. Fișierele rămân în folder; descărcările eșuate și anulate rămân în listă.",
+				"label": "Elimină descărcările finalizate"
+			},
+			"autoRetry": {
+				"description": "Încearcă automat din nou după o defecțiune de rețea sau de server, așteptând tot mai mult între încercări. Descărcările blocate de site nu sunt reîncercate automat.",
+				"label": "Reîncearcă descărcările eșuate",
+				"unit": "ori"
+			},
+			"bulkButton": "URL-uri în bloc",
+			"bulkTooltip": "Adăugați și puneți în coadă mai multe URL-uri.",
+			"clearAria": "Șterge URL-ul",
+			"clipboard": {
+				"autofilledLink": "Link adăugat din clipboard",
+				"bulkHint": "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc pentru a le adăuga",
+				"dialog": {
+					"cancelButton": "Anulare"
+				},
+				"replacedLink": "Înlocuit cu linkul copiat",
+				"toggle": "Urmărește clipboardul",
+				"toggleDescription": "Completează automat câmpul URL când copiați un link de videoclip.",
+				"undo": "Anulează"
+			},
+			"closeToTray": {
+				"toggle": "Ascunde în bara de sistem la închidere",
+				"toggleDescription": "Continuă descărcările în fundal după închiderea ferestrei."
+			},
+			"concurrentDownloads": {
+				"description": "Câte elemente din coadă se descarcă în același timp. Mai multe deodată termină mai repede o coadă lungă, dar cresc șansa ca un site să vă limiteze.",
+				"label": "Descărcări simultane",
+				"unit": "descărcări"
+			},
+			"cookies": {
+				"banWarning": "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile ale căror cookie-uri sunt folosite de instrumente de descărcare precum Arroxy. Folosiți un cont de unică folosință când este posibil.",
+				"browserHelp": "Citește cookie-urile direct din browser. Pentru browserele din familia Chromium, browserul trebuie să fie închis.",
+				"browserLabel": "Browser",
+				"browserPlaceholder": "Alegeți un browser…",
+				"choose": "Alegeți…",
+				"clear": "Șterge",
+				"enabledButNoBrowser": "Alegeți un browser pentru a folosi cookie-urile",
+				"enabledButNoFile": "Alegeți un fișier pentru a folosi cookie-urile",
+				"exploreDescription": "Folosește conectarea din Explorare doar când o descărcare are nevoie de ea.",
+				"exploreDisabled": "Fila Explorare este dezactivată, deci descărcările nu folosesc conectarea din Explorare. Activați-o în Explorare, mai jos.",
+				"extensionChrome": "Obțineți cookies.txt LOCAL (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Fișier de cookie-uri",
+				"helpLink": "Cum export cookie-urile?",
+				"openExplore": "Deschide Explorare",
+				"placeholder": "Niciun fișier selectat",
+				"recommended": "Recomandat",
+				"risk": "Risc: un fișier cookies.txt conține toate sesiunile conectate din acel browser — păstrați-l privat.",
+				"sourceBrowser": "Browser",
+				"sourceExplore": "Conectare Explorare",
+				"sourceFile": "Fișier",
+				"sourceLabel": "Sursa cookie-urilor",
+				"sourceOff": "Dezactivat",
+				"toggleDescription": "Ajută la videoclipurile cu restricție de vârstă, doar pentru membri sau private în cont."
+			},
+			"downloadConnections": {
+				"description": "Accelerează descărcările mari prin preluarea mai multor părți ale unui videoclip deodată. Valorile mai mari cresc șansa ca un site să vă limiteze.",
+				"label": "Conexiuni de descărcare",
+				"unit": "conexiuni"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Doar audio",
+					"subtitles": "Subtitrări"
+				},
+				"anySite": {
+					"heading": "Peste 2000 de site-uri",
+					"musicPlaylist": "Liste de redare muzicale",
+					"video": "Videoclipuri",
+					"videoPlaylist": "Liste de redare video"
+				},
+				"heading": "Ce poate descărca Arroxy",
+				"youtube": {
+					"channel": "Canale",
+					"heading": "YouTube",
+					"music": "Muzică",
+					"playlist": "Liste de redare",
+					"podcast": "Podcasturi",
+					"short": "Shorts",
+					"video": "Videoclipuri"
+				}
+			},
+			"fetchFormatsTooltip": "Asistent pas cu pas. Alegeți formatul, calitatea și altele.",
+			"heading": "Descărcare de la un URL",
+			"hotkey": {
+				"changeShortcut": "Schimbă comanda rapidă",
+				"conflict": "Această comandă rapidă este folosită de altă aplicație — alegeți alta.",
+				"hintLabel": "Sau apăsați",
+				"hintTooltip": "Copiați un link de videoclip oriunde, apăsați această comandă rapidă, iar Arroxy îl pune în coadă cu profilul activ — fără a schimba ferestrele.",
+				"hintTooltipSettings": "Schimbați-o sau dezactivați-o în Setări.",
+				"recording": "Apăsați tastele…",
+				"reset": "Resetează la valoarea implicită",
+				"sectionDescription": "Descărcați orice link copiați, din orice aplicație, fără a deschide Arroxy.",
+				"sectionTitle": "Comandă rapidă globală",
+				"test": "Testează",
+				"toggle": "Activează comanda rapidă globală",
+				"toggleDescription": "Apăsați comanda rapidă având în clipboard un link de videoclip."
+			},
+			"interactiveDownload": "Descărcare interactivă",
+			"limitRate": {
+				"activeWarning": "Descărcările active își păstrează limita curentă. Întrerupeți și reluați pentru a aplica modificările.",
+				"custom": "Personalizat…",
+				"customPlaceholder": "ex. 750K sau 1.5M",
+				"description": "Limitează lățimea de bandă pentru descărcările media. Ritmul cererilor de mai jos este de obicei pârghia mai puternică împotriva limitării.",
+				"invalid": "Folosiți un număr urmat de K sau M (ex. 500K, 1.5M)",
+				"label": "Limită de viteză la descărcare",
+				"off": "Dezactivat"
+			},
+			"mascotBusy": "Descarc în fundal… pot face mai multe deodată 😎",
+			"mascotCollection": "Descărcarea rapidă pune în coadă elementele încărcate cu {{profileName}}. Descărcarea interactivă vă lasă să inspectați sau să selectați mai întâi elementele.",
+			"mascotIdle": "Lăsați un link și Arroxy îl descarcă ✨",
+			"mascotMixed": "Acest link duce la un videoclip dintr-o colecție. Arroxy vă va întreba pe care îl doriți înainte de sondare.",
+			"mascotPreparing": "{{quickDownload}} citește acest link și aplică {{profileName}}.",
+			"mascotQueued": "Coada se ocupă de această descărcare. Puteți lipi alt link cât timp lucrează.",
+			"mascotSingle": "Descărcarea rapidă pornește o descărcare cu {{profileName}}. Folosiți Interactiv pentru modificări punctuale.",
+			"nativeAudioPreference": {
+				"compatible": "Stereo compatibil",
+				"description": "Stereo sau surround când un profil alege audio nativ. Un profil îl poate suprascrie.",
+				"label": "Preferință pentru audio nativ",
+				"surround": "Preferă surround / Dolby"
+			},
+			"networkPacing": {
+				"description": "Adaugă mici pauze în timpul fiecărei descărcări, ca Arroxy să nu solicite site-ul prea agresiv. Valorile sunt în secunde.",
+				"fields": {
+					"maxSleepInterval": "Pauză înainte de pornirea media: max.",
+					"sleepInterval": "Pauză înainte de pornirea media: min.",
+					"sleepRequests": "Așteptare între verificările de metadate",
+					"sleepSubtitles": "Așteptare înainte de fișierele de subtitrare"
+				},
+				"heading": "Descărcări blânde",
+				"presetLabel": "Cât de precaut să fie Arroxy?",
+				"presets": {
+					"balanced": "Echilibrat",
+					"careful": "Precaut",
+					"custom": "Personalizat",
+					"off": "Dezactivat"
+				},
+				"summary": "Așteptări: {{requests}} între verificări, {{downloads}} înainte de pornirea media, {{subtitles}} înainte de fișierele de subtitrare.",
+				"tooltip": "Aceste așteptări au loc în interiorul fiecărei descărcări. Câte descărcări rulează simultan se setează separat, la Descărcări simultane.",
+				"tooltips": {
+					"balanced": "Implicit. Adaugă pauze scurte între cereri și înainte de pornirea media.",
+					"careful": "Adaugă pauze mai lungi pentru liste de redare mari sau rețele care ating des limitele.",
+					"custom": "Reglați singur comenzile avansate pentru fiecare descărcare.",
+					"off": "Folosește doar pauzele mici de bază pe care Arroxy le păstrează pentru media și subtitrări."
+				},
+				"units": {
+					"seconds": "s"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Limita curentă: {{count}} elemente",
+				"custom": "Personalizat…",
+				"customDialogCancel": "Anulare",
+				"customDialogDescription": "Folosiți un număr întreg de la {{min}} la {{max}}.",
+				"customDialogSave": "Salvează limita",
+				"customDialogTitle": "Limită personalizată de scanare a listei",
+				"customValue": "Personalizat: {{count}} elemente",
+				"description": "Numărul maxim de intrări pe care Arroxy le încarcă la deschiderea unei liste de redare, a unui canal sau a unui rezultat de căutare.",
+				"invalid": "Folosiți un număr întreg de la 1 la 5000",
+				"label": "Elemente de scanat din listă",
+				"option": "{{count}} elemente",
+				"tooltip": "Arroxy cere doar atâtea intrări de listă de redare, canal sau căutare cât construiește selectorul."
+			},
+			"playlistScope": {
+				"appLimit": "Folosește limita aplicației: {{count}}",
+				"apply": "Aplică",
+				"applyError": "Nu s-a putut aplica acel interval al listei: {{message}}",
+				"applyReload": "Aplică și reîncarcă",
+				"cancel": "Anulare",
+				"change": "Schimbă",
+				"dialogDescription": "Alegeți ce încarcă Arroxy pentru această listă de redare.",
+				"dialogTitle": "Aria listei de redare",
+				"emptyTitle": "Niciun videoclip în această arie",
+				"first": "Primele",
+				"invalid": "Folosiți numere întregi de element de la 1 la {{max}}, cu începutul nu mai mare decât sfârșitul.",
+				"itemsLabel": "Elemente de încărcat",
+				"label": "Aria listei de redare",
+				"range": "Interval",
+				"reloading": "Se reîncarcă...",
+				"reset": "Resetează",
+				"summaryAppLimit": "Încarcă primele elemente: {{count}}",
+				"summaryFirst": "Încarcă primele elemente: {{count}}",
+				"summaryRange": "Încarcă elementele {{from}}-{{to}}",
+				"to": "până la"
+			},
+			"profile": {
+				"activeLabel": "Profil activ",
+				"badgeBuiltIn": "Încorporat",
+				"badgeCustom": "Personalizat",
+				"badgeDisabled": "Ascuns",
+				"badgeModified": "Modificat",
+				"changeGlobalDestination": "Schimbă destinația globală",
+				"destinationDetail": {
+					"global": "Se folosește destinația globală",
+					"globalSubfolder": "Se folosește destinația globală + subfolderul profilului",
+					"override": "Se folosește suprascrierea profilului",
+					"overrideSubfolder": "Se folosește suprascrierea profilului + subfolderul profilului"
+				},
+				"destinationFallback": "Destinație",
+				"edit": "Editare",
+				"editActive": "Editează profilul activ",
+				"enableHint": "Profilurile ascunse rămân aici, dar dispar din toate selectoarele de profil.",
+				"enableToggleAria": "Afișează profilul în selectoare: {{profileName}}",
+				"lastEnabledHint": "Păstrați cel puțin un profil disponibil.",
+				"manageProfiles": "Gestionează profilurile",
+				"menuDescription": "Schimbați profilul activ pentru Descărcare rapidă, URL-uri în bloc și liste de redare.",
+				"menuTitle": "Schimbă profilul",
+				"movableProfile": "profil mutabil",
+				"moveCancelled": "Mutare anulată. {{profileName}} rămâne pe poziția {{position}} din {{count}}.",
+				"moveDropped": "{{profileName}} a fost plasat pe poziția {{position}} din {{count}}.",
+				"moveHandleAria": "Mută {{profileName}}",
+				"moveInstructions": "Pentru a muta un profil, apăsați Space sau Enter, mutați-l cu tastele săgeată, apoi apăsați Space sau Enter pentru a-l plasa. Apăsați Escape pentru a anula.",
+				"moveOver": "{{profileName}} este peste poziția {{position}} din {{count}}.",
+				"movePickedUp": "{{profileName}} a fost ridicat. Se află pe poziția {{position}} din {{count}}.",
+				"newProfile": "Profil nou",
+				"panelDescription": "Creați, selectați, editați sau eliminați configurații de descărcare reutilizabile.",
+				"panelTitle": "Profiluri de descărcare",
+				"remove": "Elimină",
+				"reorderHint": "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmează această ordine.",
+				"reset": "Resetează",
+				"summary": {
+					"aacAudio": "audio AAC",
+					"bestAudio": "cel mai bun audio",
+					"bestVideo": "cel mai bun video",
+					"noAudio": "fără audio",
+					"subtitlesOnly": "doar subtitrări",
+					"wavAudio": "audio WAV"
+				},
+				"switchAria": "Schimbă profilul de descărcare: {{profileName}}",
+				"switchTitle": "Schimbă profilul de descărcare"
+			},
+			"proxy": {
+				"clear": "Șterge",
+				"description": "Direcționează traficul printr-un proxy — util pentru conținut restricționat geografic.",
+				"label": "URL proxy",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Niciunul dintre acele URL-uri nu a putut fi pregătit",
+			"quickDownload": "Descărcare rapidă",
+			"quickDownloadTooltip": "Va descărca folosind: {{profileName}}",
+			"quickFailed": "Nu s-a putut adăuga acesta: {{error}}",
+			"quickPartialFailed_few": "S-au pus în coadă cele reușite. {{count}} URL-uri nu au putut fi pregătite.",
+			"quickPartialFailed_one": "S-au pus în coadă cele reușite. {{count}} URL nu a putut fi pregătit.",
+			"quickPartialFailed_other": "S-au pus în coadă cele reușite. {{count}} de URL-uri nu au putut fi pregătite.",
+			"quickPrepareFailed": "Elementul din coadă nu a putut fi pregătit",
+			"quickPreparing": "Se pregătește",
+			"quickProbeFailed": "Sondarea a eșuat",
+			"quickQueued": "Adăugat în coadă",
+			"quickSingleOnly": "Lipiți un URL de videoclip, listă de redare, canal sau căutare pentru a începe.",
+			"settings": {
+				"behaviorDescription": "Comportament global care afectează și descărcările conduse de profil.",
+				"behaviorHeading": "Comportamentul descărcărilor",
+				"inputHeading": "Intrare"
+			},
+			"style": {
+				"aurora": {
+					"description": "Panouri de sticlă peste un cer în mișcare. Necesită accelerare grafică.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Suprafețe pline, discrete. Rulează ușor pe orice computer.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Ambele stiluri există în variantă luminoasă și întunecată.",
+				"modeLabel": "Stil",
+				"panelDescription": "Cum arată Arroxy. Comutați între luminos și întunecat din subsol.",
+				"panelTitle": "Aspect",
+				"unavailableNotice": "{{style}} necesită accelerare grafică, care nu este disponibilă acum, așa că Arroxy afișează {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profiluri",
+				"settings": "Setări"
+			}
+		}
+	}
 }

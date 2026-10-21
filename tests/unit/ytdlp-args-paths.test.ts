@@ -64,7 +64,7 @@ describe('YtDlp — --paths temp dir (video)', () => {
 
 		expect(args.filter(arg => arg.startsWith('home:'))).toEqual([])
 		const tempIdx = args.indexOf('--paths')
-		expect(args[tempIdx + 1]).toBe('temp:.arroxy-temp/abcd1234')
+		expect(args[tempIdx + 1]).toBe('temp:./.arroxy-temp/abcd1234/')
 	})
 
 	it('when tempDir provided: -o template has no directory prefix', async () => {
@@ -95,7 +95,7 @@ describe('YtDlp — --paths temp dir (video+embed)', () => {
 		await makeYtDlp().run(mediaRequest({tempDir: TEMP_DIR, subtitleLanguages: ['en']}))
 		const args = getArgs()
 		expect(args.filter(arg => arg.startsWith('home:'))).toEqual([])
-		expect(args[args.indexOf('--paths') + 1]).toBe('temp:.arroxy-temp/abcd1234')
+		expect(args[args.indexOf('--paths') + 1]).toBe('temp:./.arroxy-temp/abcd1234/')
 	})
 })
 

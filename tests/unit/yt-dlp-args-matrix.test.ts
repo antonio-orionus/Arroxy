@@ -89,7 +89,7 @@ describe('planWorkflow — info-json (resume hardening)', () => {
 
 	it('video kind w/ loadInfoJsonPath emits --load-info-json <path>', () => {
 		const args = argsFor({kind: 'media', url: 'https://example.com/x', output: {directory: '/tmp/out', tempDirectory: '/tmp/out/.arroxy-temp/abc12345'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/tmp/out/.arroxy-temp/abc12345/_arroxy.info.json'}})
-		expect(adjacent(args, '--load-info-json', '.arroxy-temp/abc12345/_arroxy.info.json')).toBe(true)
+		expect(adjacent(args, '--load-info-json', './.arroxy-temp/abc12345/_arroxy.info.json')).toBe(true)
 	})
 
 	it('video kind w/ loadInfoJsonPath omits the URL (avoids yt-dlp warning)', () => {

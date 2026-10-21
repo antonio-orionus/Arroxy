@@ -51,6 +51,11 @@ describe('youtubeSite.explore', () => {
 		expect(youtubeSite.explore?.cookieDomains).toEqual(['youtube.com'])
 	})
 
+	// Its scriptlets cost every result its view count and upload date (spec: Ad blocker).
+	it('runs no ad-blocker scriptlets on youtube.com', () => {
+		expect(youtubeSite.explore?.scriptletFreeDomains).toEqual(['youtube.com'])
+	})
+
 	it('needs LOGIN_INFO plus a SAPISID-family cookie, as yt-dlp does', () => {
 		const signedIn = youtubeSite.explore!.isSignedIn
 		expect(signedIn([cookie('LOGIN_INFO'), cookie('SAPISID')])).toBe(true)

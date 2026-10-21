@@ -166,7 +166,8 @@ describe('QueueService — download-time escalation', () => {
 		})
 		const resetJob = vi.fn()
 		const ytDlp = {prepare: vi.fn().mockResolvedValue(undefined), run, usesCookies: vi.fn().mockResolvedValue(false), invalidateTokenSession: vi.fn(), ffmpegPath: null}
-		const downloads = new DownloadService(ytDlp as never, {push: vi.fn().mockResolvedValue(undefined)} as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve(true)}, exploreSession: {verifySignedIn: () => Promise.resolve('signedIn' as const)}, spawnGate: {resetJob}})
+		const recentJobs = {push: vi.fn().mockResolvedValue(undefined)}
+		const downloads = new DownloadService(ytDlp as never, recentJobs as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve(true)}, exploreSession: {verifySignedIn: () => Promise.resolve('signedIn' as const)}, spawnGate: {resetJob}})
 		const qs = new QueueService(store, downloads)
 		const jobIds = new Set<string>()
 		downloads.on('status', (event: {jobId: string}) => jobIds.add(event.jobId))
@@ -180,6 +181,13 @@ describe('QueueService — download-time escalation', () => {
 		// The attempt is over, so its signed-in spawn budget is released.
 		expect(jobIds.size).toBe(1)
 		await vi.waitFor(() => expect(resetJob).toHaveBeenCalledWith([...jobIds][0]))
-		await fs.rm(dir, {recursive: true, force: true})
+		// The item turns done before the job finalizes, and finalize removes the
+		// job's temp folder. Its recent-jobs entry is written after that removal, so
+		// wait for it: removing the folder while the job's own removal is running
+		// fails with EPERM on Windows.
+		await vi.waitFor(() => expect(recentJobs.push).toHaveBeenCalledOnce())
+		await expect(fs.access(path.join(dir, '.arroxy-temp'))).rejects.toMatchObject({code: 'ENOENT'})
+		// Backstop for a virus scanner or indexer still holding a handle.
+		await fs.rm(dir, {recursive: true, force: true, maxRetries: 5, retryDelay: 100})
 	})
 })

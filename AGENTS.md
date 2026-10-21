@@ -37,12 +37,13 @@ Arroxy spans several repositories. This repo is the hub: the others consume what
 
 | Repository | Owns | Connection to this repo |
 | --- | --- | --- |
-| `arroxy-web` | Landing site, blog, download picker, landing-page copy in every locale | Its `release-manifest` workflow refreshes download metadata from this repo's latest release; the `notify-web-release-manifest` job here dispatches `arroxy-release` to trigger it |
+| `arroxy-site` | The public site at arroxy.com: landing page and its copy in every site language | Its download links point at this repo's `releases/latest/download/<asset>`, so a release needs no step there; it deploys to Cloudflare with its own `bun run deploy` |
+| `arroxy-web` (archived) | The old landing site and blog, replaced by `arroxy-site` | Nothing new goes there; the `notify-web-release-manifest` job here still dispatches `arroxy-release` to it |
 | `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
 | `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as `.internal/`; see below |
 | `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
 
-The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these (for example, `arroxy-web` commits straight to `main` and opens no PRs).
+The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages. Each repo's own `AGENTS.md` covers its conventions, which differ from these.
 
 ## Domain Glossary
 
@@ -193,4 +194,4 @@ Strategy, dev binaries and licensing: [`dev-docs/binary-distribution.md`](dev-do
 
 ## Updating Public-Facing Content (READMEs)
 
-`README.md` and every `docs/readme/README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Landing-site copy lives in the `arroxy-web` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).
+`README.md` and every `docs/readme/README.{lang}.md` are **generated** from `readme-src/` by `node readme-src/build.mjs`: never edit them, or their `Last updated:` stamp, directly. Every new string goes into every locale (the build fails on key-parity drift), and the locale list or count is never hardcoded anywhere. Site copy lives in the `arroxy-site` repo. Adding a feature line, the canonical locale lists, and regenerating screenshots: [`dev-docs/readme-pipeline.md`](dev-docs/readme-pipeline.md).

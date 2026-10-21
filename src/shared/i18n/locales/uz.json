@@ -1,951 +1,305 @@
 {
-	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "dismiss": "Yopish", "startOver": "Qaytadan boshlash", "close": "Yopish"},
+	"about": {
+		"button": "Dastur haqida",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · muallif: Antonio Orionus",
+		"openTitle": "Arroxy haqida",
+		"tagline": "YouTube va 2000+ boshqa saytlar uchun tez va qulay yuklab oluvchi.",
+		"thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish",
+		"websiteLink": "Veb-sayt"
+	},
+	"aiUpscaled": {
+		"allow": "Ruxsat berish",
+		"description": "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin.",
+		"label": "SI kattalashtirgan oqimlar",
+		"skip": "O'tkazib yuborish"
+	},
 	"app": {
 		"feedback": "Fikr-mulohaza",
+		"feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬",
 		"logs": "Jurnallar",
 		"saveDiagnostics": "Diagnostika faylini saqlash",
 		"saveDiagnosticsDescription": "Jurnallar va ilova ma'lumotlarini Yuklanmalar jildidagi bitta faylga to'playdi, uni GitHub issue'ga biriktirish mumkin. Foydalanuvchi jildingiz nomi olib tashlanadi; video havolalari va sarlavhalari qoladi.",
-		"feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬",
-		"zoomIn": "Kattalashtirish",
-		"zoomOut": "Kichraytirish",
+		"styleHint": "Yangi: bu yerda Aurora yoki Minimalistik uslubini tanlang",
 		"theme": "Mavzu",
-		"styleHint": "Yangi: bu yerda Aurora yoki Minimalistik uslubini tanlang"
+		"zoomIn": "Kattalashtirish",
+		"zoomOut": "Kichraytirish"
 	},
-	"about": {"button": "Dastur haqida", "openTitle": "Arroxy haqida", "tagline": "YouTube va 2000+ boshqa saytlar uchun tez va qulay yuklab oluvchi.", "websiteLink": "Veb-sayt", "githubLink": "GitHub", "licenseLine": "GPLv3 · muallif: Antonio Orionus", "thirdPartyNotices": "Uchinchi tomon bildirishnomalarini ko'rish"},
-	"titleBar": {"close": "Yopish", "minimize": "Kichraytirish", "maximize": "Kattalashtirish", "restore": "Tiklash"},
-	"splash": {
-		"greeting": "Xush kelibsiz, qayta keldingiz!",
-		"warmup": "Yuklab olishlar tayyorlanmoqda…",
-		"verifying": "{{binary}} tekshirilmoqda…",
-		"verifyFirstCheck": "Ushbu versiyaning birinchi tekshiruvi — bu sekin kechadi. Odatda bir daqiqacha.",
-		"cancel": "Muammo bormi? Qo‘lda sozlang",
-		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching.",
-		"setup": {
-			"title": {"firstRun": "Birinchi sozlash", "media": "Media vositalari yangilanmoqda", "engine": "Yuklash mexanizmi yangilanmoqda"},
-			"stage": {
-				"connecting": "Ulanmoqda…",
-				"downloadingBoth": "Yuklash mexanizmi va media vositalari yuklab olinmoqda",
-				"downloadingEngine": "Yuklash mexanizmi yuklab olinmoqda",
-				"downloadingMedia": "Media vositalari yuklab olinmoqda",
-				"unpacking": "Media vositalari ochilmoqda",
-				"checking": "Hammasi ishlayotgani tekshirilmoqda"
-			},
-			"bytes": "{{total}} dan {{done}}",
-			"left": {"underMinute": "bir daqiqadan kam qoldi", "minutes_one": "taxminan {{count}} daqiqa qoldi", "minutes_other": "taxminan {{count}} daqiqa qoldi"},
-			"note": {"firstRun": "Bu bir marta sodir bo'ladi. Arroxy bu vositalarni saqlaydi va o'zi yangilaydi.", "media": "Bu bir marta sodir bo'ladi. Arroxy ularni kelgusi yangilanishlar uchun saqlaydi.", "engine": "Saytlar o'zgarganda yuklab olishlar ishlashda davom etishini ta'minlaydi."}
+	"common": {
+		"back": "Orqaga",
+		"cancel": "Bekor qilish",
+		"close": "Yopish",
+		"continue": "Davom etish",
+		"dismiss": "Yopish",
+		"loading": "Yuklanmoqda…",
+		"retry": "Qayta urinish",
+		"startOver": "Qaytadan boshlash"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy ishlashda davom etadi va faol yuklamalarni yakunlaydi. Buni keyinroq Kengaytirilgan sozlamalarda o'zgartiring.",
+			"hide": "Tizim soatiga yashirish",
+			"message": "Yopilganda Arroxy ni tizim soatiga yashirasizmi?",
+			"quit": "Chiqish",
+			"remember": "Boshqa so'ramaslik"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Yuklamalarni bekor qilish va chiqish",
+			"detail": "Keyin davom ettirish uchun pauza qiling yoki jarayonni tashlab yuborish uchun bekor qiling.",
+			"keep": "Yuklab olishni davom ettirish",
+			"message_one": "{{count}} ta yuklama jarayonda",
+			"message_other": "{{count}} ta yuklama jarayonda",
+			"pause": "Yuklab olishlarni pauzalab chiqish"
+		},
+		"rendererCrashed": {
+			"detail": "Renderlovchi jarayon ishdan chiqdi ({{reason}}). Qayta urinish uchun yangilang.",
+			"message": "Arroxy muammo bilan duch keldi",
+			"quit": "Chiqish",
+			"reload": "Yangilash"
 		}
 	},
-	"repair": {
-		"title": "Sozlash sizning yordamingizga muhtoj",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Yuklash mexanizmi", "media": "Media vositalari"},
-		"causes": {
-			"downloadFailed": {"title": "Arroxy uchun kerakli narsani yuklab bo'lmadi", "body": "Internet aloqangizni tekshiring, so'ng qayta urinib ko'ring."},
-			"extractFailed": {"title": "Yuklab olingan fayl shikastlangan", "body": "Yangidan yuklab olish uchun qayta urinib ko'ring."},
-			"hashFailed": {"title": "Yuklab olingan fayl nazorat yig'indisiga mos kelmadi", "body": "Yangidan yuklab olish uchun qayta urinib ko'ring."},
-			"spawnFailed": {"title": "Vosita topilmadi yoki ishga tushmayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang."},
-			"permissionDenied": {"title": "Tizimingiz Arroxy'ga vositani ishga tushirishga ruxsat bermayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishonchli nusxani tanlang."},
-			"blockedOrQuarantined": {"title": "Antivirusingiz vositani blokladi", "body": "Antivirus yoki SmartScreen'da Arroxy'ga ruxsat bering, so'ng qayta urinib ko'ring."},
-			"badExitCode": {"title": "Vosita to'g'ri ishlamayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang."},
-			"timeout": {"title": "Vosita juda uzoq javob bermadi", "body": "Bu ko'pincha birinchi ishga tushirishdagi xavfsizlik tekshiruvi sabab bo'ladi. Qayta urinib ko'ring."},
-			"pairIncomplete": {"title": "FFmpeg va FFprobe birga sozlanishi kerak", "body": "Quyida ikkalasini tanlang yoki standartga qaytaring."},
-			"unknown": {"title": "Sozlash vaqtida xatolik yuz berdi", "body": "Qayta urinib ko'ring yoki tafsilotlar uchun sozlash jurnalini oching."}
-		},
-		"installing": {"homebrew": "Homebrew orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin.", "winget": "WinGet orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin."},
-		"stopped": {"title": "Sozlash to'xtatildi", "body": "Qayta urinib ko'ring yoki quyida Arroxy'ga sizda mavjud vositalarni ko'rsating."},
-		"manual": {"toggle": "Qo'lda sozlash", "intro": "Arroxy'ga sizda mavjud nusxalarni ko'rsating yoki ularni boshqa usulda o'rnating.", "linuxHint": "yt-dlp va ffmpeg ni paket menejeringiz orqali ham o'rnatib, so'ng Qayta urinib ko'rish tugmasini bosishingiz mumkin."},
-		"actions": {
-			"chooseExecutable": "Bajariladigan faylni tanlash",
-			"installWithHomebrew": "Homebrew bilan o‘rnatish",
-			"installWithWinget": "WinGet bilan o‘rnatish",
-			"resetToDefault": "Standartga qaytarish",
-			"retrySetup": "Qayta urinib ko'rish",
-			"cancel": "Bekor qilish",
-			"openDependencyFolder": "Qaramlik papkasini ochish",
-			"viewSetupLog": "Sozlash jurnalini ko'rish"
-		}
-	},
-	"theme": {"light": "Yorug' rejim", "dark": "Qorong'i rejim", "system": "Tizim standart"},
-	"language": {"label": "Til"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Ijro roʻyxati",
-			"playlistItemsGeneric": "Videolar",
-			"playlistPresets": "Sifat",
-			"playlistProfiles": "Profillar",
-			"formats": "Format",
-			"subtitles": "Subtitrlar",
-			"sponsorblock": "SponsorBlock",
-			"output": "Chiqish",
-			"folder": "Saqlash",
-			"confirm": "Tasdiqlash",
-			"review": "Ko'rib chiqish"
-		},
-		"playlistPresets": {"heading": "Paket uchun sifatni tanlang", "subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi.", "itemCount_one": "{{count}} ta element", "itemCount_other": "{{count}} ta element"},
-		"playlistProfiles": {
-			"heading": "Yuklab olish profillarini belgilash",
-			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi",
-			"assignTriggerEmpty": "Profil belgilash",
-			"assignTrigger_one": "{{count}} ta videoga belgilash",
-			"assignTrigger_other": "{{count}} ta videoga belgilash",
-			"menuDescription_one": "Bu video uchun profilni tanlang.",
-			"menuDescription_other": "Bu {{count}} ta video uchun profilni tanlang.",
-			"editProfile": "{{name}} tahrirlash",
-			"filtersLabel": "Profil filtrlari",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Davomiylik",
-			"empty": "Ushbu filtrga mos keluvchi element yo'q"
-		},
-		"playlist": {
-			"heading": "Playlist elementlari",
-			"headingGeneric": "Yuklab olinadigan videolar",
-			"bulkHeading": "Ommaviy URLlar",
-			"itemCount_one": "{{count}} ta video",
-			"itemCount_other": "{{count}} ta video",
-			"itemCountAudio_one": "{{count}} ta trek",
-			"itemCountAudio_other": "{{count}} ta trek",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Video tafsilotlari olinmoqda… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Kutish shart emas — hozir navbatga qo‘yilgan fayllar yuklab olinganda baribir haqiqiy nomlarini oladi.",
-			"bulkRowWaiting": "Kutilmoqda",
-			"bulkRowResolving": "Tafsilotlar olinmoqda",
-			"bulkRowFailed": "Tafsilotlar mavjud emas",
-			"selectAll": "Hammasini tanlash",
-			"selectNone": "Hammasini bekor qilish",
-			"sortLabel": "Saralash",
-			"sortApi": "Ijro roʻyxati tartibi",
-			"sortUploadAsc": "Avval eskilari",
-			"sortUploadDesc": "Avval yangilari",
-			"sortFetchingDates": "Yuklash sanalari olinmoqda…",
-			"rangeFrom": "Dan",
-			"rangeTo": "Gacha",
-			"rangeApply": "Diapazonni qoʻllash",
-			"selectedCount_one": "{{count}} ta tanlangan",
-			"selectedCount_other": "{{count}} ta tanlangan",
-			"noSelection": "Davom etish uchun kamida bitta videoni tanlang",
-			"loadingItems": "Playlist yuklanmoqda…",
-			"loadingItemsGeneric": "Videolar olinmoqda…",
-			"loadingPhasePages": "Kanal sahifalari skanerlanmoqda",
-			"loadingPhaseItems": "Videolar yig'ilmoqda",
-			"loadingPagesFound_one": "{{count}} sahifa topildi",
-			"loadingPagesFound_other": "{{count}} sahifa topildi",
-			"loadingLimitHint": "Dastlabki {{count}} ta element bilan cheklangan",
-			"thumbnailAlt": "Video muqovasi",
-			"durationUnknown": "jonli",
-			"syncChange": "Jildni o‘zgartirish…",
-			"syncApply": "Sinxronlashni qo‘llash",
-			"syncScanning": "Jild tekshirilmoqda…",
-			"syncFoundTitle": "Allaqachon jildda",
-			"syncFoundDesc": "Bu videolarning {{n}} tasi allaqachon {{dir}} ichida. Faqat yangilarini yuklab olish uchun sinxronlansinmi?",
-			"syncNoneTitle": "Hali hech narsa yuklab olinmagan",
-			"syncNoneDesc": "Bu pleylistdan hech bir video {{dir}} ichida topilmadi.",
-			"syncNoneDescGeneric": "{{dir}} ichida bu manbadan videolar topilmadi.",
-			"alreadyDownloaded": "Allaqachon yuklab olingan",
-			"nestedPlaylistBadge": "Ijro roʻyxati",
-			"nestedPlaylistHint_one": "Bulardan {{count}} tasi video emas, ijro roʻyxati — uni yuklab olish uchun havolasini alohida joylashtiring.",
-			"nestedPlaylistHint_other": "Bulardan {{count}} tasi video emas, ijro roʻyxati — ularni yuklab olish uchun havolalarini bittalab joylashtiring.",
-			"probeLimitAlertTitle": "Pleylist skaneri cheklangan",
-			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
-			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.",
-			"multiProfileEntry": "Har bir element uchun profil belgilash",
-			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi",
-			"removeFromListCount_one": "Ro'yxatdan {{count}} tasini o'chirish",
-			"removeFromListCount_other": "Ro'yxatdan {{count}} tasini o'chirish",
-			"restore": "Tiklash",
-			"removedCount_one": "{{count}} ta o'chirildi",
-			"removedCount_other": "{{count}} ta o'chirildi",
-			"allRemovedTitle": "Barcha elementlar o'chirildi",
-			"allRemovedDescription": "Davom etish uchun ularni tiklang."
-		},
-		"bulk": {
-			"title": "Ommaviy URLlar",
-			"description": "Video, pleylist, kanal, qidiruv yoki audio URLlarini joylashtiring. Arroxy navbatga qo'shishdan oldin dublikatlarni tozalaydi.",
-			"textareaLabel": "URL ro‘yxati",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Tayyor",
-			"ignoredCount": "E’tiborsiz",
-			"emptyPreview": "To‘plamni ko‘rish uchun bitta yoki undan ko‘p URL joylang.",
-			"needsAtLeastOne": "Davom etish uchun kamida bitta qo‘llab-quvvatlanadigan URL qo‘shing.",
-			"reject": {"duplicate": "Takror"}
-		},
-		"tabsNavAria": "Yuklab olish profili navigatsiyasi",
-		"profileSwitchRow": {"helpAria": "{{label}} yordami"},
-		"mixedPrompt": {
-			"title": "Bu havola Playlist ga tegishli",
-			"body": "Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.",
-			"quickBody": "Faqat shu videoni yuklab oling yoki butun pleylistni faol Tez yuklab olish profilingiz bilan navbatga qo‘ying.",
-			"singleVideo": "Faqat shu birini",
-			"quickSingleVideo": "Shu videoni yuklab olish",
-			"pickFromPlaylist": "Playlist dan tanlash",
-			"quickWholePlaylist": "Butun pleylistni yuklab olish",
-			"playlistLimit": "Pleylist tekshiruv chegarasi: {{count}} ta element",
-			"quickLimitDescription": "Pleylist, kanal yoki qidiruv natijasini navbatga qo‘yishdan oldin Arroxy skanerlaydigan eng ko‘p elementlar soni.",
-			"singleTooltip": "Faqat shu videoni yuklaydi. Bu URLga ulangan pleylist e’tiborsiz qoldiriladi.",
-			"quickSingleTooltip": "Bitta yuklab olishni navbatga qo‘yadi va bu URLga biriktirilgan pleylistni e’tiborsiz qoldiradi.",
-			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin pleylistni belgilangan chegaragacha yuklaydi.",
-			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Ijro roʻyxati doirasi",
-				"change": "Oʻzgartirish",
-				"summaryAppLimit": "Dastlabki {{count}} ta elementni yuklash",
-				"summaryFirst": "Dastlabki {{count}} ta elementni yuklash",
-				"summaryRange": "{{from}}-{{to}}-elementlarni yuklash",
-				"dialogTitle": "Ijro roʻyxati doirasi",
-				"dialogDescription": "Arroxy ushbu ijro roʻyxati uchun nimani yuklashini tanlang.",
-				"itemsLabel": "Yuklanadigan elementlar",
-				"appLimit": "Ilova chegarasidan foydalanish: {{count}}",
-				"first": "Birinchi",
-				"range": "Oraliq",
-				"to": "gacha",
-				"invalid": "1 dan {{max}} gacha boʻlgan butun element raqamlarini kiriting; boshlanish oxiridan katta boʻlmasin.",
-				"applyError": "Bu ijro roʻyxati doirasini qoʻllab boʻlmadi: {{message}}",
-				"reset": "Qayta tiklash",
-				"cancel": "Bekor qilish",
-				"apply": "Qoʻllash",
-				"applyReload": "Qoʻllash va qayta yuklash",
-				"reloading": "Qayta yuklanmoqda...",
-				"emptyTitle": "Bu doirada videolar yoʻq"
-			},
-			"heading": "URL orqali yuklab olish",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "Profillar", "settings": "Sozlamalar"},
-			"interactiveDownload": "Interaktiv yuklab olish",
-			"fetchFormatsTooltip": "Bosqichma-bosqich yordamchi. Format, sifat va boshqalarni tanlang.",
-			"quickDownload": "Tez yuklab olish",
-			"quickDownloadTooltip": "{{profileName}} orqali yuklab olinadi",
-			"quickPreparing": "Tayyorlanmoqda",
-			"quickQueued": "Navbatga qo‘shildi",
-			"quickSingleOnly": "Boshlash uchun video, pleylist, kanal yoki qidiruv URL manzilini joylang.",
-			"quickProbeFailed": "Tekshiruv muvaffaqiyatsiz",
-			"quickPrepareFailed": "Navbat elementi tayyorlanmadi",
-			"quickBulkAllFailed": "Bu URLlarning hech birini tayyorlab bo‘lmadi",
-			"quickFailed": "Buni qo‘shib bo‘lmadi: {{error}}",
-			"quickPartialFailed_one": "Ishlagani navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
-			"quickPartialFailed_other": "Ishlaganlari navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
-			"profile": {
-				"destinationFallback": "Manzil",
-				"switchAria": "Yuklab olish profilini almashtirish: {{profileName}}",
-				"switchTitle": "Yuklab olish profilini almashtirish",
-				"activeLabel": "Faol profil",
-				"editActive": "Faol profilni tahrirlash",
-				"changeGlobalDestination": "Umumiy saqlash manzilini o'zgartirish",
-				"destinationDetail": {"global": "Umumiy saqlash manzili ishlatilmoqda", "globalSubfolder": "Umumiy saqlash manzili + profil ichki jildi ishlatilmoqda", "override": "Profil almashtirishi ishlatilmoqda", "overrideSubfolder": "Profil almashtirishi + profil ichki jildi ishlatilmoqda"},
-				"summary": {"bestVideo": "eng yaxshi video", "bestAudio": "eng yaxshi audio", "aacAudio": "AAC audio", "wavAudio": "WAV audio", "noAudio": "audiosiz", "subtitlesOnly": "faqat subtitrlar"},
-				"menuTitle": "Profilni almashtirish",
-				"menuDescription": "Quick Download, ko'p URL va pleylistlar uchun faol profilni o'zgartiring.",
-				"newProfile": "Yangi profil",
-				"manageProfiles": "Profillarni boshqarish",
-				"panelTitle": "Yuklab olish profillari",
-				"panelDescription": "Qayta ishlatiladigan yuklab olish sozlamalarini yarating, tanlang, tahrirlang yoki olib tashlang.",
-				"badgeCustom": "Maxsus",
-				"badgeModified": "O‘zgartirilgan",
-				"badgeBuiltIn": "Ichki",
-				"badgeDisabled": "Yashirin",
-				"enableToggleAria": "Tanlagichlarda profilni ko'rsatish: {{profileName}}",
-				"enableHint": "Yashirin profillar shu yerda qoladi, lekin barcha tanlagichlardan yo'qoladi.",
-				"reorderHint": "Profilni ko‘chirish uchun uni sudrab olib boring. Har bir profil tanlagich shu tartibga amal qiladi.",
-				"moveHandleAria": "{{profileName}} profilini ko‘chirish",
-				"movableProfile": "ko‘chiriladigan profil",
-				"moveInstructions": "Profilni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing.",
-				"movePickedUp": "{{profileName}} profili olindi. U {{count}} tadan {{position}}-o‘rinda.",
-				"moveOver": "{{profileName}} profili {{count}} tadan {{position}}-o‘rin ustida.",
-				"moveDropped": "{{profileName}} profili {{count}} tadan {{position}}-o‘ringa qo‘yildi.",
-				"moveCancelled": "Ko‘chirish bekor qilindi. {{profileName}} profili {{count}} tadan {{position}}-o‘rinda qoladi.",
-				"lastEnabledHint": "Kamida bitta profilni mavjud saqlang.",
-				"edit": "Tahrirlash",
-				"remove": "Olib tashlash",
-				"reset": "Qayta tiklash"
-			},
-			"bulkButton": "Ommaviy URLlar",
-			"bulkTooltip": "Bir nechta URLni qo‘shing va navbatga qo‘ying.",
-			"features": {
-				"heading": "Arroxy nima yuklab olishi mumkin",
-				"youtube": {"heading": "YouTube", "video": "Videolar", "channel": "Kanallar", "playlist": "Ijro roʻyxatlari", "short": "Shortlar", "music": "Musiqa", "podcast": "Podkastlar"},
-				"anySite": {"heading": "2000+ sayt", "video": "Videolar", "videoPlaylist": "Video pleylistlar", "musicPlaylist": "Musiqa pleylistlar"},
-				"always": {"audioOnly": "Faqat audio", "subtitles": "Subtitrlar"}
-			},
-			"mascotIdle": "Havolani tashlang, Arroxy uni tortib olsin ✨",
-			"mascotBusy": "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎",
-			"mascotPreparing": "{{quickDownload}} bu havolani o'qiyapti va {{profileName}} profilini qo'llayapti.",
-			"mascotQueued": "Bu yuklab olishni navbat bajaryapti. U ishlayotganda boshqa havolani qo'yishingiz mumkin.",
-			"mascotCollection": "Tez yuklab olish yuklangan elementlarni {{profileName}} bilan navbatga qo'yadi. Interaktiv yuklab olish avval elementlarni ko'rib chiqish yoki tanlash imkonini beradi.",
-			"mascotMixed": "Bu havola to'plamdagi bitta videoga olib boradi. Tekshirishdan oldin Arroxy qaysi birini xohlayotganingizni so'raydi.",
-			"mascotSingle": "Tez yuklab olish {{profileName}} bilan bitta yuklab olishni boshlaydi. Bir martalik o'zgartirishlar uchun Interaktiv yuklab olishdan foydalaning.",
-			"advanced": "Kengaytirilgan",
-			"settings": {"inputHeading": "Kiritish", "behaviorHeading": "Yuklash xatti-harakati", "behaviorDescription": "Profillar orqali boshqariladigan yuklamalarga ham taʼsir qiluvchi global xatti-harakat."},
-			"clearAria": "URLni tozalash",
-			"clipboard": {
-				"toggle": "Buferga nazar solish",
-				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
-				"autofilledLink": "Havola buferdan qo‘shildi",
-				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
-				"replacedLink": "Nusxalangan havola bilan almashtirildi",
-				"undo": "Bekor qilish",
-				"dialog": {"cancelButton": "Bekor qilish"}
-			},
-			"hotkey": {
-				"sectionTitle": "Global tez tugma",
-				"sectionDescription": "Nusxa olingan havolani, Arroxy ochmasdan, istalgan ilovadan yuklab oling.",
-				"toggle": "Global tez tugmani yoqish",
-				"toggleDescription": "Buferda video havolasi bo‘lganda tez tugmani bosing.",
-				"changeShortcut": "Tez tugmani o‘zgartirish",
-				"recording": "Tugmalarni bosing…",
-				"test": "Sinash",
-				"conflict": "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang.",
-				"hintLabel": "Yoki bosing",
-				"hintTooltip": "Video havolasini istalgan joyda nusxalang, shu yorliqni bosing, Arroxy esa uni faol profilingiz bilan navbatga qo‘shadi — oynalarni almashtirish shart emas.",
-				"hintTooltipSettings": "Uni Sozlamalarda o‘zgartiring yoki o‘chirib qo‘ying.",
-				"reset": "Standartga qaytarish"
-			},
-			"cookies": {
-				"sourceLabel": "Cookies manbai",
-				"sourceOff": "O'chirilgan",
-				"sourceFile": "Fayl",
-				"sourceBrowser": "Brauzer",
-				"sourceExplore": "Kashfiyot orqali kirish",
-				"recommended": "Tavsiya etiladi",
-				"exploreDescription": "Kashfiyot orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
-				"exploreDisabled": "Kashfiyot yorlig'i o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi. Uni quyidagi Kashfiyot bo'limida yoqing.",
-				"openExplore": "Kashfiyotni ochish",
-				"toggleDescription": "Yosh cheklovli, faqat a'zolar uchun va shaxsiy hisob videolari bilan yordam beradi.",
-				"risk": "Xavf: cookies.txt o'sha brauzerning barcha kirgan sessiyalarini o'z ichiga oladi — uni shaxsiy saqlang.",
-				"fileLabel": "Cookies fayli",
-				"choose": "Tanlash…",
-				"clear": "Tozalash",
-				"placeholder": "Fayl tanlanmagan",
-				"helpLink": "Cookiesni qanday eksport qilaman?",
-				"enabledButNoFile": "Cookiesdan foydalanish uchun fayl tanlang",
-				"browserLabel": "Brauzer",
-				"browserPlaceholder": "Brauzer tanlang…",
-				"browserHelp": "Brauzerdan to'g'ridan-to'g'ri cookies o'qiydi. Chromium oilasidagi brauzerlar yopiq bo'lishi kerak.",
-				"enabledButNoBrowser": "Cookiesdan foydalanish uchun brauzer tanlang",
-				"banWarning": "YouTube kabi saytlar cookieslari Arroxy kabi yuklab olish vositalari tomonidan ishlatiladigan hisoblarni belgilashi — va ba'zida taqiqlashi — mumkin. Iloji bo'lsa vaqtinchalik hisob ishlating.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "cookies.txt ni LOKAL olish (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.", "placeholder": "http://host:port", "clear": "Tozalash"},
-			"style": {
-				"panelTitle": "Ko'rinish",
-				"panelDescription": "Arroxy ko'rinishini sozlang. Yorug' va qorong'i rejim o'rtasida pastki qatorda almashtiring.",
-				"modeLabel": "Uslub",
-				"modeDescription": "Ikkala uslub ham yorug' va qorong'i variantda mavjud.",
-				"aurora": {"label": "Aurora", "description": "Harakatlanuvchi osmon ustidagi shishasimon panellar. Grafik tezlatish kerak."},
-				"minimal": {"label": "Minimalistik", "description": "Zich, sokin yuzalar. Istalgan kompyuterda yengil ishlaydi."},
-				"unavailableNotice": "{{style}} uchun grafik tezlatish kerak, hozir u mavjud emas, shuning uchun Arroxy {{fallback}} uslubini ko'rsatmoqda."
-			},
-			"limitRate": {
-				"label": "Yuklab olish tezligi chegarasi",
-				"description": "Media yuklab olishlar uchun tarmoq sarfini cheklang. Quyidagi so‘rov oralig‘i odatda kuchliroq vosita.",
-				"off": "O‘chiq",
-				"custom": "Maxsus…",
-				"customPlaceholder": "mas. 750K yoki 1.5M",
-				"invalid": "K yoki M bilan tugaydigan son kiriting (mas. 500K, 1.5M)",
-				"activeWarning": "Faol yuklab olishlar joriy chegarasini saqlaydi. Qo‘llash uchun Pauza + Davom ettiring."
-			},
-			"playlistProbeLimit": {
-				"label": "Skanerlash uchun pleylist elementlari",
-				"description": "Arroxy pleylist, kanal yoki qidiruv natijasi ochilganda yuklaydigan maksimal yozuvlar soni.",
-				"option": "{{count}} ta element",
-				"current": "Joriy chegara: {{count}} ta element",
-				"customValue": "Maxsus: {{count}} ta element",
-				"custom": "Maxsus…",
-				"customDialogTitle": "Maxsus pleylist skaner chegarasi",
-				"customDialogDescription": "{{min}} dan {{max}} gacha bo'lgan butun son kiriting.",
-				"customDialogCancel": "Bekor qilish",
-				"customDialogSave": "Chegarani saqlash",
-				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
-				"tooltip": "Arroxy tanlagichni qurishda faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
-			},
-			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "Profil asl audioni tanlaganda stereo yoki surround. Profil buni o'zgartirishi mumkin.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
-			"autoRetry": {"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish", "description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.", "unit": "marta"},
-			"autoRemoveCompleted": {"label": "Tugallangan yuklamalarni avtomatik olib tashlash", "description": "Yuklama tugagach, bir necha soniyadan so‘ng uni Yuklamalar ro‘yxatidan olib tashlaydi. Fayllar jildingizda qoladi; muvaffaqiyatsiz va bekor qilingan yuklamalar ro‘yxatda qoladi."},
-			"concurrentDownloads": {"label": "Bir vaqtda yuklamalar", "description": "Navbatdagi nechta element bir vaqtda yuklab olinadi. Bir vaqtda ko'proq bo'lsa uzun navbat tezroq tugaydi, lekin sayt sizni cheklash ehtimoli ortadi.", "unit": "yuklama"},
-			"downloadConnections": {"label": "Yuklab olish ulanishlari", "description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.", "unit": "ulanish"},
-			"networkPacing": {
-				"heading": "Yumshoq yuklamalar",
-				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlari qo'shadi. Qiymatlar soniyalarda.",
-				"presetLabel": "Arroxy qanchalik ehtiyotkor bo‘lsin?",
-				"tooltip": "Bu kutishlar har bir yuklama ichida sodir bo'ladi. Bir vaqtda qancha yuklama ishlashi «Bir vaqtda yuklamalar» bo'limida alohida belgilanadi.",
-				"summary": "Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin.",
-				"presets": {"off": "O'chiriq", "balanced": "Muvozanatli", "careful": "Ehtiyotkor", "custom": "Maxsus"},
-				"tooltips": {
-					"off": "Arroxy media va subtitrlar uchun saqlaydigan kichik asosiy tanaffuslarnigina ishlatadi.",
-					"balanced": "Standart. So'rovlar orasida va media boshlanishidan oldin qisqa tanaffuslar qo'shadi.",
-					"careful": "Katta pleylistlar yoki tez-tez cheklovlarga duch keladigan tarmoqlar uchun uzunroq tanaffuslar qo'shadi.",
-					"custom": "Yuklab olish boshqaruvlarini o'zingiz sozlang."
-				},
-				"fields": {"sleepRequests": "Metadata tekshiruvlari orasidagi kutish", "sleepInterval": "Media boshlanishidan oldingi pauza: min", "maxSleepInterval": "Media boshlanishidan oldingi pauza: maks", "sleepSubtitles": "Subtitr fayllaridan oldin kutish"},
-				"units": {"seconds": "soniya"}
-			},
-			"closeToTray": {"toggle": "Yopilganda tizim soatiga yashirish", "toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."},
-			"analytics": {
-				"toggle": "Kunlik signal yuborish",
-				"toggleDescription": "Telemetriya yo'q. Kuniga bir marta anonim signal ilova versiyasi, o'rnatish kanali, OT, til, mamlakat va Arroxy taxminan qachon o'rnatilganini yuboradi — shunda faol va yangi foydalanuvchilarni sanay olamiz. ID, URL, video sarlavhalari yoki fayl nomlari yo'q."
-			}
-		},
-		"quickProgress": {
-			"title": "Tez yuklab olish tayyorlanmoqda",
-			"description": "Arroxy havolani o‘qiyapti va {{profileName}} profilini qo‘llayapti.",
-			"currentFallback": "Joriy havola",
-			"waitHint": "Arroxy navbatni tayyorlayotganda buni ochiq qoldiring.",
-			"failedCount_one": "{{count}} ta muvaffaqiyatsiz",
-			"failedCount_other": "{{count}} ta muvaffaqiyatsiz",
-			"cancel": "Tayyorlashni bekor qilish",
-			"phase": {"probing": "Tafsilotlar olinmoqda", "queueing": "Navbatga qo‘shilmoqda"}
-		},
-		"subtitles": {
-			"autoBadge": "Avto",
-			"noLanguages": "Bu video uchun subtitrlar mavjud emas",
-			"searchPlaceholder": "Tillarni qidirish…",
-			"noMatches": "Mos til topilmadi",
-			"clearAll": "Hammasini tozalash",
-			"noSelected": "Hech qanday subtitrl tanlanmagan",
-			"removeLanguage": "{{name}}ni olib tashlash",
-			"sectionManual": "Qo'lda",
-			"sectionAuto": "Avtomatik yaratilgan",
-			"saveMode": {"heading": "Saqlash turi", "sidecar": "Videoning yoniga", "embed": "Videoga joylash", "subfolder": "subtitles/ papkachasi"},
-			"format": {"heading": "Format"},
-			"embedNote": "Joylash rejimida chiqish .mkv sifatida saqlanadi, shunda subtitrl treklari ishonchli joylashadi.",
-			"autoAssNote": "Avtomatik sarlavhalar ASS o'rniga SRT sifatida saqlanadi — ular doimo YouTube'ning bizning ASS konvertorimiz hali takrorlay olmagan aylanma replikatsiyadan tozalanadi."
-		},
-		"sponsorblock": {
-			"modeHeading": "Homiy filtrlash",
-			"mode": {"off": "O'chirilgan", "mark": "Boblar sifatida belgilash", "remove": "Segmentlarni olib tashlash"},
-			"modeHint": {"off": "SponsorBlock yo'q — video yuklangan holatda ijro etiladi.", "mark": "Homiy segmentlarini boblar sifatida belgilaydi (vayron qilmaydi).", "remove": "FFmpeg yordamida videodan homiy segmentlarini qirqib tashlaydi."},
-			"categoriesHeading": "Kategoriyalar",
-			"cat": {"sponsor": "Homiy", "intro": "Kirish", "outro": "Chiqish", "selfpromo": "O'z reklamasi", "music_offtopic": "Mavzudan tashqari musiqa", "preview": "Ko'rib chiqish", "filler": "To'ldiruvchi"}
-		},
-		"formats": {
-			"kind": {"label": "Nimani yuklab olish", "video": "Video + audio", "videoOnly": "Video, audiosiz", "audio": "Faqat audio", "subtitles": "Faqat subtitrlar"},
-			"profile": {
-				"calloutTitle": "Formatlar profilingizdan boshlanadi",
-				"calloutBody": "Faol profilingiz oqimlarni siz uchun oldindan tanlaydi. Profilni menyudan almashtiring yoki shu yuklab olishdan chiqmay qalam bilan birini sozlang.",
-				"preselected": "Oldindan tanlangan:",
-				"tag": "Profil",
-				"closestTag": "Profilga eng yaqin",
-				"switchTitle": "Profil almashtirilsinmi?",
-				"switchBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. “{{profile}}” baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
-				"resetAll": "Hammasini tiklash",
-				"edit": "Tahrirlash: {{name}}",
-				"updatedTitle": "Yangilangan profildan foydalanilsinmi?",
-				"updatedBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. Yangilangan profil baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
-				"keepEdits": "O'zgarishlarimni saqlash",
-				"menuDescription": "Faqat shu yuklab olish uchun. Standart profilingiz o'zgarmaydi."
-			},
-			"fit": {
-				"tierBelow": "Profilingiz {{wanted}}p so'raydi. Bu video faqat {{picked}}p gacha, shuning uchun {{picked}}p tanlandi.",
-				"tierAbove": "Profilingiz {{wanted}}p so'raydi. Bu videoda bunchalik past sifat yo'q, shuning uchun {{picked}}p tanlandi.",
-				"mp4Unavailable": "Profilingiz Aqlli TV (H.264). Bu video H.264 taklif qilmaydi, shuning uchun eng yaqin oqim tanlandi.",
-				"noVideo": "Bu havolada video yo'q, shuning uchun audio tanlandi.",
-				"subtitlesMissing": "Profilingiz quyidagi tillarda subtitr so'raydi: {{languages}}. Bu videoda ular yo'q.",
-				"webmUnavailable": "Profilingiz WebM so'raydi. Bu videoning tanlangan oqimlarida {{codec}} bor, uni WebM sig'dira olmaydi, shuning uchun fayl turi Avto."
-			},
-			"footer": {"download": "Yuklab olish", "moreActions": "Yuklab olishning boshqa variantlari", "addToQueue": "Boshlamasdan navbatga qo'shish", "subtitlesRequired": "Kamida bitta subtitr tilini tanlang."},
-			"video": "Video",
-			"audio": "Audio",
-			"noAudio": "Audio yo'q",
-			"withAudio": "audio bilan",
-			"resolutionUnknown": "O'lcham noma'lum",
-			"bitrateValue": "Bit tezligi {{bitrate}}",
-			"marker": {"aiUpscaled": "SI kattalashtirgan", "aiDubbed": "SI dublyaji", "audioDescription": "Audio tavsif", "spatialAudio": "Fazoviy ovoz", "vr": "360° / VR", "enhancedBitrate": "Yuqori bitreyt", "damaged": "Shikastlangan", "watermarked": "Suv belgili"},
-			"keepAudio": "O'zgartirishsiz saqlash",
-			"keepAudioMeta": "Ichki audio",
-			"audioOnly": "Faqat audio",
-			"sniffing": "Siz uchun eng yaxshi formatlarni qidiryapman…",
-			"loadingHint": "Tekshiruv tugaguncha kuting — pleylistlar va qidiruv natijalari biroz vaqt olishi mumkin.",
-			"loadingAria": "Formatlar yuklanmoqda",
-			"sizeUnknown": "Hajm noma'lum",
-			"total": "Jami",
-			"skipToConfirm": "Tasdiqlashga o'tish",
-			"skipToConfirmTooltip": "Qolgan barcha qadamlar uchun saqlangan sozlamalaringizdan foydalanadi. Biror sozlamani o'zgartirish uchun, qadamma-qadam davom eting — tanlovingiz keyingi safar saqlanadi.",
-			"quality": {"high": "Yuqori sifat", "medium": "O'rtacha sifat", "low": "Past sifat"},
-			"drc": {"label": "Ovoz balandligini tekislash (DRC)", "description": "Baland joylarni pasaytiradi, past joylarni ko'taradi — karnaylar va shovqinli xonalar uchun.", "tag": "Tekis ovoz"},
-			"audioLanguage": "Audio tili",
-			"audioLanguageCount_one": "{{count}} ta til",
-			"audioLanguageCount_other": "{{count}} ta til",
-			"convert": {
-				"label": "Konvertatsiya qilish",
-				"bitrate": "Bit tezligi",
-				"wavLabel": "WAV (uncompressed)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, qayta kodlanmaydi",
-				"copyLabelNoBitrate": "{{target}}, qayta kodlanmaydi",
-				"copyNote": "{{kbps}} kbps, manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
-				"copyNoteNoBitrate": "Manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
-				"bitrateCopyHint": "Allaqachon {{target}} bo'lgan manba o'z oqimi va bit tezligini saqlaydi: u qayta kodlanmaydi, nusxalanadi.",
-				"sourceKbps": "Manba {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "YouTube bu tekshiruvni chekladi",
-				"bodyUnconfigured": "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring.",
-				"bodyDisabled": "Cookies sozlangan, lekin o'chirilgan. To'liq ro'yxat uchun ularni yoqing va qayta urinib ko'ring, yoki tarmoqni o'zgartirin.",
-				"bodyEnabled": "Cookies bilan ham YouTube bu tekshiruvni chekladi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
-				"bodyExplore": "YouTube bu so'rovni cheklab qo'ydi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
-				"retryCta": "Qayta urinish",
-				"enableRetryCta": "Cookiesni yoqish va qayta urinish"
-			},
-			"rateLimit": {
-				"heading": "{{site}} bu ulanishni cheklayapti",
-				"leadDegraded": "Formatlar ro‘yxati to‘liq bo‘lmasligi mumkin.",
-				"leadFailed": "{{site}} bu so‘rovni hozircha rad etdi.",
-				"waitUntil": "Cheklov olib tashlanishi uchun Arroxy {{site}} ga qayta murojaat qilishdan oldin {{time}} gacha kutadi.",
-				"waitOver": "Kutish tugadi, qayta urinib ko‘rishingiz mumkin.",
-				"sessionNote": "{{site}} bu cheklovni bir soatgacha saqlab turishi mumkin.",
-				"tryNowCta": "Hozir urinish",
-				"retryCta": "Qayta urinish"
-			},
-			"cookiesError": {
-				"heading": "Sabab cookies bo'lishi mumkin",
-				"currentModeLabel": "Cookies manbai",
-				"currentModeFile": "Fayl",
-				"currentModeBrowser": "Brauzer",
-				"currentModeExplore": "Kashfiyot orqali kirish",
-				"explanationFile": "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (Arroxy Netscape cookies.txt faylini talab qiladi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring.",
-				"explanationBrowser": "Cookies to'g'ridan-to'g'ri brauzerdan o'qiladi. Agar brauzer hozir ochiq bo'lsa, uning cookie ma'lumotlar bazasi qulflangan bo'lishi mumkin (Chromium-family). Brauzer YouTube ga kirgan bo'lishi ham kerak. Brauzerni yoping, boshqa brauzer sinab ko'ring, Fayl rejimiga o'ting yoki cookiesni o'chiring.",
-				"openSettingsCta": "Cookies sozlamalarini ochish",
-				"exploreSignIn": {"heading": "Bu video YouTube hisobini talab qilishi mumkin", "body": "Agar bu video YouTube hisobini talab qilsa, Kashfiyotga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.", "cta": "Kashfiyotga kirish"},
-				"exploreSignedIn": {"heading": "Kashfiyotga kirilgan", "body": "Agar bu video hisob talab qilsa, Arroxy Kashfiyot orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."},
-				"exploreOffer": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Kashfiyot orqali kiring, Arroxy qayta urinib ko'radi.", "cta": "Kashfiyot orqali kirish"},
-				"exploreReuse": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Siz Kashfiyotga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti.", "cta": "Kashfiyot orqali kirishimdan foydalanib, qayta urinish"},
-				"exploreSite": {
-					"heading": "Bu havola uchun {{host}} saytida hisob kerak bo'lishi mumkin",
-					"signInBody": "Kashfiyotda {{host}} saytiga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
-					"offerBody": "Kashfiyot orqali {{host}} saytiga kiring va qayta urinib ko'ring."
-				},
-				"exploreRefused": {"heading": "Sayt Kashfiyotdagi kirishingizga qaramay buni rad etdi", "body": "Arroxy buni Kashfiyot orqali kirgan holda allaqachon sinab ko'rdi, shuning uchun qayta kirish yordam bermaydi. Saytda muammo bo'lishi yoki bu hisob uni ocha olmasligi mumkin. Keyinroq urinib ko'ring."},
-				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…",
-				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "Arroxy bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
-				"dpapi": {
-					"heading": "Chrome cookies Windows shifrlash orqali bloklangan",
-					"explanation": "Chrome 127 va undan yangi versiyalar cookies ni Windows da boshqa ilovalar o'qiy olmaydigan tarzda shifrlaydi. Quyidagi yechimlardan birini sinab ko'ring.",
-					"fixFirefoxLabel": "Firefox ga o'tish",
-					"fixFirefoxBody": "Firefox App-Bound Encryption dan foydalanmaydi. Cookies sozlamalarini oching va brauzer ro'yxatidan Firefox ni tanlang.",
-					"fixFileLabel": "cookies.txt ni eksport qilish",
-					"fixFileBody": "Chrome dan brauzer kengaytmasi yordamida cookies ni eksport qiling, so'ng bu ilovani Fayl rejimiga o'tkazing va eksport qilingan faylni tanlang.",
-					"fixUnsafeLabel": "App-Bound Encryption o'chirilgan holda Chrome ni ishga tushirish",
-					"fixUnsafeBody": "Chrome ishga tushirish yorlig'iga --disable-features=LockProfileCookieDatabase qo'shing. Ogohlantirish: bu oldindan shifrlangan cookies ni bekor qiladi, shuning uchun siz barcha saytlardan chiqib ketasiz va qayta kirishingiz kerak bo'ladi.",
-					"docsLinkLabel": "yt-dlp hujjatlar (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "Saqlash formati", "reset": "WebM {{codec}} ni sig'dira olmaydi, shuning uchun fayl turi Avto ga qaytdi."}
-		},
-		"folder": {
-			"heading": "Saqlash joyi",
-			"downloads": "Yuklamalar",
-			"videos": "Filmlar",
-			"desktop": "Ish stoli",
-			"music": "Musiqa",
-			"documents": "Hujjatlar",
-			"pictures": "Rasmlar",
-			"home": "Uy",
-			"custom": "Maxsus…",
-			"subfolder": {"toggle": "Papkachaga saqlash", "placeholder": "mas. lo-fi rips", "invalid": "Papka nomida noto'g'ri belgilar bor"}
-		},
-		"output": {
-			"embedChapters": {"label": "Boblarni joylashtirish", "description": "Har qanday zamonaviy pleyerda navigatsiya qilinuvchi bob belgilari."},
-			"embedMetadata": {"label": "Metama'lumotlarni joylashtirish", "description": "Sarlavha, ijrochi, tavsif va yuklash sanasi faylga yoziladi."},
-			"embedThumbnail": {"label": "Muqovani joylashtirish", "description": "Fayl ichidagi muqova rasmi. WebM video MKV formatiga o'tkaziladi; subtitrlar joylashtirilganda o'tkazib yuboriladi."},
-			"writeDescription": {"label": "Tavsifni saqlash", "description": "Video tavsifini yuklamaning yoniga .description matn fayli sifatida saqlaydi."},
-			"writeThumbnail": {"label": "Muqovani saqlash", "description": "Muqovani yuklamaning yoniga .jpg rasm fayli sifatida saqlaydi."},
-			"writeM3u": {"label": ".m3u pleylist faylini yaratish", "description": "Videolar media pleerda tartib bilan ochilishi uchun yoniga .m3u pleylistini saqlaydi."}
-		},
-		"review": {
-			"changeFormat": "Formatni o'zgartirish",
-			"rowsHeading": "Qolgan hamma narsa",
-			"rows": {"subtitles": "Subtitrlar", "sponsorBlock": "SponsorBlock", "extras": "Qo'shimchalar", "saveTo": "Saqlash joyi", "fileName": "Fayl nomi"},
-			"value": {"subtitlesOff": "O'chirilgan", "sponsorBlockOff": "O'chirilgan", "extrasNone": "Yo'q"},
-			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
-			"areas": {"format": "format", "subtitles": "subtitrlar", "sponsorBlock": "SponsorBlock", "extras": "qo'shimchalar", "saveTo": "papka", "fileName": "fayl nomi"},
-			"updateProfile": "“{{profile}}” ni shu o'zgarishlar bilan yangilash",
-			"saveAsProfile": "Yangi profil sifatida saqlash",
-			"update": {
-				"title": "“{{profile}}” yangilansinmi?",
-				"description": "Bundan buyon bu profil bilan har bir yuklab olish yangi sozlamalardan foydalanadi.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Bu o'rnatilgan profil. Uning asl sozlamalarini Profillar yorlig'ida tiklashingiz mumkin.",
-				"action": "Profilni yangilash",
-				"updated": "“{{name}}” profili yangilandi"
-			},
-			"callout": {"title": "Qolgan barcha sozlamalar endi shu sahifada", "body": "Subtitrlar, SponsorBlock, muqova kabi qo'shimchalar, papka va fayl nomi avval alohida qadamlar edi. O'zgartirish uchun qatorni bosing."},
-			"reset": "O'zgarishlarni bekor qilish, “{{profile}}” ga qaytish",
-			"changedFrom": "{{profile}} dan o'zgartirilgan:",
-			"save": {
-				"title": "Profil sifatida saqlash",
-				"description": "Bu sozlamalarni keyingi safar tanlash mumkin bo'lgan profil sifatida saqlaydi. Tez yuklab olish profilingiz o'zgarmaydi.",
-				"nameLabel": "Profil nomi",
-				"action": "Profilni saqlash",
-				"saved": "“{{name}}” profili sifatida saqlandi",
-				"failed": "Profilni saqlab bo'lmadi."
-			},
-			"nextTime": {"title": "Bu yuklab olishda tahrirlangan sozlamalar ishlatildi. Keyingi safar ham ishlatilsinmi?", "action": "Profil sifatida saqlash", "defaultName": "{{profile}} (tahrirlangan)"}
-		},
-		"confirm": {
-			"readyHeadline": "Yuklab olishga tayyor!",
-			"landIn": "Faylingiz quyidagi joyga tushadi",
-			"landInMultiProfile_one": "U quyidagi manzilga tushadi",
-			"landInMultiProfile_other": "Ular quyidagi {{count}} ta manzilga tushadi",
-			"labelVideo": "Video",
-			"labelAudio": "Audio",
-			"labelSubtitles": "Subtitrlar",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Saqlash joyi",
-			"labelSize": "Hajm",
-			"sizeUnknown": "Noma'lum",
-			"nothingToDownload": "Faqat subtitrlar oldindan sozlamasi faol, lekin hech qanday subtitrl tili tanlanmagan — hech narsa yuklanmaydi.",
-			"thumbnailEmbedNotSupported": "Thumbnail embed o'tkazib yuborildi — chiqish container uni qo'llab-quvvatlamaydi.",
-			"subtitleEmbedAudioOnly": "Subtitle embed sidecar ga o'zgartirildi — audio treklari ichki subtitle oqimlarini qo'llab-quvvatlamaydi.",
-			"audioOnly": "Faqat audio",
-			"addToQueue": "+ Queue",
-			"addToQueueTooltip": "Boshqa yuklamalar tugaganda boshlanadi — to'liq tarmoq kengligini oladi",
-			"pullIt": "Yuklab ol! ↓",
-			"pullItTooltip": "Darhol boshlanadi — boshqa faol yuklamalar bilan parallel ishlaydi",
-			"labelPlaylist": "Ijro roʻyxati",
-			"labelBulk": "Ommaviy URLlar",
-			"labelPreset": "Sozlama",
-			"labelItems": "Elementlar",
-			"itemsValue_one": "{{total}} ta videoning {{count}} tasi",
-			"itemsValue_other": "{{total}} ta videoning {{count}} tasi",
-			"itemsValueAudio_one": "{{total}} ta trekning {{count}} tasi",
-			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
-			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
-			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi",
-			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
-			"profileBreakdownCount_one": "{{count}} ta element",
-			"profileBreakdownCount_other": "{{count}} ta element",
-			"subtitleEmbedForcesMkv": "Video ichidagi subtitrlar uchun MKV fayl kerak, shuning uchun bu yuklab olish .mkv sifatida saqlanadi."
-		},
-		"profileEditor": {
-			"dialogTitle": "Yuklab olish profili",
-			"dialogDescription": "Tez yuklab olish, Ommaviy URL va pleylistlar uchun qayta ishlatiladigan bitta sozlama.",
-			"skipped": "O'tkazib yuborildi",
-			"panel": {
-				"identity": {"title": "Profil identifikatori", "description": "Tez yuklab olish, Ommaviy URL va profil ro'yxatlarida ko'rinadigan nom va belgi."},
-				"downloadType": {"title": "Yuklab olish turi", "description": "Asosan qanday yuklab olishni xohlashingizni tanlang."},
-				"advanced": {"title": "Kengaytirilgan sozlamalar", "description": "Agar profil almashtirishini belgilamasangiz, profillar umumiy manzilni meros qilib oladi."},
-				"output": {"title": "Chiqish sozlamalari", "enabledCount_one": "{{count}} ta yoqilgan", "enabledCount_other": "{{count}} ta yoqilgan"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profil nomi va belgisi",
-				"icon": "Profil belgisi",
-				"resolution": "Ruxsat",
-				"quality": "Sifat",
-				"source": "Manba",
-				"subfolderName": "Ichki jild nomi",
-				"name": "Profil nomi",
-				"subtitleDownloads": "Subtitr yuklamalari",
-				"subtitleDownloadsDescription": "Profillar til kodlarini so'raydi; mavjudligi har bir URL uchun alohida aniqlanadi.",
-				"languages": "Tillar",
-				"delivery": "Saqlash usuli",
-				"overridePath": "Profil almashtirish yo'li",
-				"goal": "Optimallash maqsadi",
-				"fileType": "Fayl turi",
-				"nativeAudio": "Asl audio"
-			},
-			"action": {
-				"chooseIcon": "Profil belgisini tanlang",
-				"setOverride": "Profil almashtirishini belgilash",
-				"chooseFolder": "Manzil jildini tanlang",
-				"removeLanguage": "{{code}}ni olib tashlash",
-				"useLanguageCode": "“{{code}}” til kodidan foydalanish",
-				"changeGlobalShort": "Umumiyni o'zgartirish",
-				"setOverrideShort": "Almashtirishni belgilash",
-				"useGlobalDefault": "Umumiy standartdan foydalanish",
-				"reset": "Profilni tiklash",
-				"resetHint": "Ichki profil sozlamalarini tiklash",
-				"resetDisabledHint": "Bu profil allaqachon ichki sozlamalardan foydalanmoqda",
-				"save": "Profilni saqlash"
-			},
-			"placeholder": {"folder": "Bu profil uchun jild tanlang"},
-			"destination": {
-				"global": "Umumiy manzil",
-				"override": "Profil almashtirishi",
-				"resolved": "Yakuniy manzil",
-				"defaultFolder": "Standart yuklashlar jildi",
-				"defaultFolderWithSubfolder": "Standart yuklashlar jildi / {{subfolder}}",
-				"globalActive": "Faol",
-				"globalInherited": "Meros qilib olingan",
-				"overrideSet": "Umumiyni almashtiradi",
-				"overrideChoosing": "Jildni tanlang",
-				"overrideNone": "Almashtirish belgilanmagan",
-				"overrideSetNote": "Bu profil pastki jild qo'shilishidan oldin o'z ildiz jildiga saqlaydi.",
-				"overrideNoneNote": "Almashtirish belgilanmagan. Bu profil yuqoridagi umumiy manzildan foydalanadi."
-			},
-			"note": {
-				"subtitlesOnly": "Bu profil faqat subtitr fayllarini navbatga qo'yadi. Video, audio, SponsorBlock va media konvertatsiyasi o'tkazib yuboriladi.",
-				"noSubtitles": "Bu profil uchun na subtitr fayllari, na ichki subtitr yo'llari so'ralmaydi.",
-				"searchLanguages": "Til nomi yoki kodi bo‘yicha qidirish",
-				"noLanguageMatches": "Mos tillar topilmadi",
-				"subtitleLanguagesRequired": "Kamida bitta tilni tanlang.",
-				"subtitleLanguagesRequiredOrOff": "Kamida bitta tilni tanlang yoki subtitr yuklamalarini o‘chiring.",
-				"autoCaptionsSrt": "Avtomatik taglavhalar ASS o'rniga SRT sifatida saqlanadi.",
-				"skippedForOutputType": "Bu chiqish turi uchun o'tkazib yuborildi."
-			},
-			"error": {"save": "Profil sozlamalarini saqlab bo'lmadi.", "changeGlobalDestination": "Umumiy manzilni o'zgartirib bo'lmadi.", "reset": "Profil sozlamalarini tiklab bo'lmadi.", "folderPicker": "Jild tanlagichni ochib bo'lmadi. Yo'lni qo'lda kiriting."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + audio", "description": "Oddiy video fayllar"},
-				"videoOnly": {"label": "Video, audiosiz", "description": "Faqat ovozsiz video"},
-				"audioOnly": {"label": "Faqat audio", "description": "Musiqa yoki podkast"},
-				"subtitlesOnly": {"label": "Faqat subtitrlar", "description": "Faqat taglavha fayllari"}
-			},
-			"icon": {"controls": "Boshqaruvlar", "download": "Yuklab olish", "video": "Video", "captions": "Taglavhalar", "audio": "Audio", "music": "Musiqa", "podcast": "Podkast", "classes": "Darslar", "clip": "Klip", "archive": "Arxiv"},
-			"audioFormat": {"best": "Eng yaxshi", "wav": "WAV"},
-			"audioQuality": {"128": "128K gacha", "192": "192K gacha", "320": "320K gacha", "best": "Eng yaxshi sifat"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Avval qo'lda, keyin avtomatik", "manualAndAuto": "Qo'lda va avtomatik", "manualOnly": "Faqat qo'lda", "autoOnly": "Faqat avtomatik yaratilgan"},
-			"sponsorBlockHint": {"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.", "mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).", "remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."},
-			"advanced": "Kengaytirilgan",
-			"goal": {
-				"bestPicture": {"name": "Eng yaxshi tasvir", "tag": "AV1 · VP9", "description": "Bir xil hajmda eng tiniq. Eski televizorlar, QuickTime va ba'zi muharrirlar uni ijro eta olmaydi."},
-				"smartTv": {"name": "Aqlli TV", "tag": "MP4 · H.264", "description": "Televizorlar, telefonlar, WhatsApp, QuickTime va video muharrirlarida ijro etiladi. YouTube H.264 ni faqat 1080p gacha taklif qiladi."}
-			},
-			"appSetting": "Ilova sozlamasidan foydalanish ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Videoning qancha qismi",
-			"whole": "Butun video",
-			"wholeTrack": "Butun trek",
-			"part": "Qism",
-			"unavailableSubtitles": "Subtitrlar doim butun videoga tegishli bo'ladi.",
-			"unavailableDuration": "Bu video davomiyligini bildirmaydi, shuning uchun uni faqat butunligicha yuklab olish mumkin.",
-			"rangeLabel": "Videoning qismi",
-			"start": "Boshi",
-			"end": "Oxiri",
-			"timeHint": "h:mm:ss, m:ss yoki soniya",
-			"length": "{{duration}} dan {{length}}",
-			"chapters": "Boblar",
-			"chapterUntitled": "{{number}}-bob",
-			"exactCut": {"label": "Aniq kesish (qayta kodlanadi, sekinroq)", "hint": "O'chiq bo'lsa, har bir kesim eng yaqin keyframega tushadi, u siz kiritgan vaqtdan bir necha soniya farq qilishi mumkin."},
-			"calloutTitle": "Videoning faqat bir qismini yuklab oling",
-			"calloutBody": "Video kartasida «Qism»ga o‘ting, boshlanish va tugash yoki bobni tanlang va faqat shu qismni yuklab oling.",
-			"connectionsNote": "Qism ffmpeg orqali yuklab olinadi, shuning uchun yuklab olish ulanishlari va pauza sozlamalari unga tatbiq etilmaydi.",
-			"urlStart": "Havolangiz {{time}} dan boshlanadi",
-			"useUrlStart": "Boshi sifatida ishlatish",
-			"error": {"startInvalid": "Boshini h:mm:ss, m:ss yoki soniyada kiriting.", "endInvalid": "Oxirini h:mm:ss, m:ss yoki soniyada kiriting.", "startNotBeforeEnd": "Boshi oxiridan oldin bo'lishi kerak.", "endBeyondDuration": "Video {{duration}} da tugaydi."},
-			"downloadBlocked": "Avval qismning boshi va oxirini to'g'rilang.",
-			"totalEstimate": "Qism, taxminiy",
-			"summary": "Qism {{start}}–{{end}}",
-			"subtitlesFullLength": "butun video"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Yuklanmoqda…", "chapters_one": "{{count}} ta bob", "chapters_other": "{{count}} ta bob"},
-	"queue": {
-		"header": "Yuklamalar",
-		"tabLabel": "Yuklamalar",
-		"attentionBadge_one": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
-		"attentionBadge_other": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
-		"choice": {
-			"cappedBody_one": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
-			"cappedBody_other": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
-			"reviewBody_one": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing.",
-			"reviewBody_other": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing.",
-			"all": "Barcha videolar",
-			"first": "Birinchi {{count}} ta",
-			"review": "Ko'rib chiqish"
-		},
-		"tabTip": "Yuklab olishlar endi Yuklamalar varag‘ida — jarayonni kuzatish uchun uni istalgan vaqtda oching.",
-		"empty": "Navbatga qo‘shilgan yuklab olishlar shu yerda ko‘rinadi",
-		"filtersLabel": "Navbat holati filtrlari",
-		"filterAll": "Hammasi",
-		"selectedActionsLabel": "Tanlangan elementlar",
-		"globalActionsLabel": "Barcha elementlar",
-		"selectionSummary": "{{selected}} tanlangan · jami {{total}}",
-		"clearTitle": "Tugallangan yuklamalarni tozalash",
-		"autoRemoveCompleted": {"label": "Tugagach avtomatik tozalash", "hint": "Har bir yuklamani tugagach, bir necha soniyadan so‘ng ro‘yxatdan olib tashlaydi. Fayllar jildingizda qoladi."},
-		"pauseAllTitle": "Barcha faol yuklamalarni to'xtatib turish",
-		"resumeAllTitle": "Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish",
-		"pausedBanner": "Navbat pauzada — kutayotgan yuklamalar navbat davom ettirilmaguncha boshlanmaydi",
-		"resumeQueueAction": "Navbatni davom ettirish",
-		"cancelAllTitle": "Barcha faol va kutayotgan yuklamalarni bekor qilish",
-		"table": {
-			"columns": "Ustunlar",
-			"title": "Sarlavha",
-			"status": "Holat",
-			"progress": "Jarayon",
-			"format": "Format",
-			"outputTarget": "Natija manzili",
-			"artifacts": "Natija fayllari",
-			"size": "Hajm",
-			"added": "Qo‘shilgan",
-			"finished": "Tugagan",
-			"notAvailable": "—",
-			"sortBy": "{{label}} bo‘yicha saralash",
-			"showArtifactsFor": "{{title}} uchun fayllarni ko‘rsatish",
-			"hideArtifactsFor": "{{title}} uchun fayllarni yashirish",
-			"resetColumns": "Ustunlarni tiklash",
-			"resizeColumn": "{{column}} ustuni o‘lchamini o‘zgartirish",
-			"movableColumn": "ko‘chiriladigan ustun",
-			"moveColumnInstructions": "Ustunni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing.",
-			"columnPickedUp": "{{column}} ustuni olindi.",
-			"columnMovedOver": "{{column}} ustuni {{target}} ustida.",
-			"columnDropped": "{{column}} ustuni qo‘yildi.",
-			"columnMoveCancelled": "{{column}} ustunini ko‘chirish bekor qilindi."
-		},
-		"artifact": {"media": "Media", "subtitle": "Subtitr", "thumbnail": "Eskiz", "description": "Tavsif", "companion": "Qo‘shimcha fayl", "unknown": "Fayl", "missing": "Yo‘q"},
-		"item": {
-			"defaultError": "Yuklama muvaffaqiyatsiz",
-			"retryingSoon": "avtomatik qayta urinilmoqda ({{attempt}}-urinish)",
-			"qualityLimited": "{{height}}p bilan cheklangan",
-			"qualityLimitedSubtitlesFailed": "{{height}}p bilan cheklangan · ba'zi subtitrlar yuklanmadi",
-			"audioKept": "Tovush olib tashlanmadi",
-			"audioKeptSubtitlesFailed": "Tovush olib tashlanmadi · ba'zi subtitrlar yuklanmadi",
-			"subtitleLanguagesMissing": "{{languages}} tillarida subtitr yo'q",
-			"pause": "To'xtatish",
-			"resume": "Davom ettirish",
-			"cancel": "Bekor qilish",
-			"retry": "Qayta urinish",
-			"setLocation": "Joylashuvni belgilash",
-			"setLocationHint": "Joylashuvni belgilash uchun kutilayotgan elementlarni tanlang.",
-			"pendingOnly": "Faqat kutilayotganlar",
-			"openDestinationFolder": "Manzil papkasini ochish",
-			"remove": "O'chirish",
-			"pullNow": "Hozir yuklab olish — navbatni o‘tkazish",
-			"statusProbing": "Tafsilotlar olinmoqda",
-			"statusNeedsChoice": "Tanlovingiz kerak",
-			"statusPending": "Kutilmoqda",
-			"statusRunning": "Yuklanmoqda",
-			"statusHeld": "Ushlab turilgan",
-			"statusPaused": "Pauzada",
-			"statusDone": "Tayyor",
-			"statusError": "Xato",
-			"statusCancelled": "Bekor qilingan"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor.",
-			"homebrew": "Arroxy {{version}} mavjud — Homebrew orqali yangilang.",
-			"macosDirect": "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling.",
-			"macosDirectHomebrew": "Arroxy {{version}} mavjud — DMG ni yuklab oling yoki Homebrew'ga o'ting.",
-			"portable": "Arroxy {{version}} mavjud — yangi build ni yuklab oling."
-		},
-		"install": "O'rnatish va qayta ishga tushirish",
-		"downloading": "Yuklanmoqda…",
-		"runAndRestart": "Bajarish va qayta ishga tushirish",
-		"upgrading": "Yangilanmoqda…",
-		"download": "Download ↗",
-		"downloadDmg": "DMG yuklab olish ↗",
-		"dismiss": "Yangilanish bannerini yopish",
-		"copy": "Buyruqni buferga nusxalash",
-		"copied": "Buyruq buferga nusxalandi",
-		"installFailed": "Yangilanish muvaffaqiyatsiz",
-		"retry": "Qayta urinish"
-	},
-	"releaseNotes": {"title": "Arroxy {{version}} dagi yangiliklar", "description": "Siz yangi yangilanishdan foydalanmoqdasiz. Asosiy yangiliklar quyida.", "fullNotes": "To'liq reliz qaydlari ↗", "continue": "Davom etish"},
-	"status": {
-		"preparingBinaries": "Ikkilik fayllar tayyorlanmoqda…",
-		"mintingToken": "YouTube tokeni yaratilmoqda…",
-		"remintingToken": "Token qayta yaratilmoqda…",
-		"startingYtdlp": "Yuklash mexanizmi ishga tushmoqda…",
-		"downloadingMedia": "Video va audio yuklanmoqda…",
-		"mergingFormats": "Audio va video birlashtirilmoqda…",
-		"extractingAudio": "Audio konvertatsiya qilinmoqda…",
-		"convertingVideo": "Video konvertatsiya qilinmoqda…",
-		"embeddingMetadata": "Metama'lumotlar joylashtirilmoqda…",
-		"movingFiles": "Fayllar ko'chirilmoqda…",
-		"fetchingSubtitles": "Subtitrlar olinmoqda…",
-		"sleepingBetweenRequests": "Tezlik chegarasidan qochish uchun {{seconds}} soniya kutilmoqda…",
-		"subtitlesFailed": "Video saqlandi — ba'zi subtitrlarni yuklab bo'lmadi",
-		"qualityLimited": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
-		"qualityLimitedSubtitlesFailed": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi va ba'zi subtitrlarni yuklab bo'lmadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
-		"audioKept": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi",
-		"audioKeptSubtitlesFailed": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi va ba'zi subtitrlarni yuklab bo'lmadi",
-		"subtitleLanguagesMissing": "Bu videoda {{languages}} tillarida subtitr yo'q. Video subtitrsiz saqlandi.",
-		"subtitleLanguagesMissingOthersSaved": "Bu videoda {{languages}} tillarida subtitr yo'q. Boshqa tillar saqlandi.",
-		"noSubtitles": "{{languages}} tillarida subtitr yo'q",
-		"cancelled": "Yuklama bekor qilindi",
-		"complete": "Yuklama yakunlandi",
-		"usedExtractorFallback": "Yengilroq ekstraktor bilan yuklab olindi — ishonchli yuklamalar uchun cookies.txt ni sozlang",
-		"ytdlpProcessError": "Yuklash mexanizmi xatosi: {{error}}",
-		"ytdlpExitCode": "Yuklash mexanizmi {{code}} kodi bilan yakunlandi",
-		"downloadingBinary": "{{name}} ikkilik fayli yuklanmoqda…",
-		"unknownStartupFailure": "Noma'lum yuklama ishga tushirish xatosi",
-		"diskSpaceInsufficient": "Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud",
-		"outputNotWritable": "{{dir}} ga saqlab bo'lmaydi — Arroxy'ga u yerga yozishga ruxsat berilmagan",
-		"fetchingSponsorBlock": "SponsorBlock bilan bog'lanilmoqda…",
-		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Kashfiyotdagi hisobingiz bilan kirilmoqda…",
-		"exploreSignedOut": "Kashfiyotdan chiqildi — qaytadan kiring"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Sozlamalaringizni saqlab bo'lmadi.",
-		"warmupFailed": "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiyatsiz bo'lishi mumkin.",
-		"shellActionFailed": "Buni ochib bo'lmadi.",
-		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
-		"exploreSignInRetrying_one": "Kashfiyot orqali kirildi — 1 ta havola qayta uriniladi",
-		"exploreSignInRetrying_other": "Kashfiyot orqali kirildi — {{count}} ta havola qayta uriniladi",
-		"exploreSignOutFailed": "Kashfiyotdan chiqib bo'lmadi. Qayta urinib ko'ring.",
-		"playlistFolderRejected": "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi.",
-		"filenameFolderTooDeep": "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang.",
-		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi.",
-		"hotkey": {
-			"queued": "Yuklab olish navbatga qo'shildi",
-			"alreadyQueued": "Allaqachon navbatda — nusxa qo'shilmadi",
-			"invalidClipboard": "Vaqtinchalik buferda havola yo'q — avval birini nusxalang",
-			"multipleUrls": "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning",
-			"needsReview": "Bu havola sizning tanlovingizni kutmoqda — Arroxy'dagi Yuklamalar bo'limiga qarang",
-			"cookiesSetup": "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring",
-			"busy": "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring",
-			"submissionFailed": "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi", "skippedAlreadyQueued_other": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"},
-		"quickDownload": {
-			"added": "Qo'shildi: {{title}}",
-			"alreadyQueued": "Navbatda allaqachon bor",
-			"failed": "{{title}} tayyorlanmadi",
-			"notAdded": "Bu havolani qo'shib bo'lmadi — qayta urinib ko'ring",
-			"chooseHowMany_one": "{{count}}+ video — nechtasini tanlang",
-			"chooseHowMany_other": "{{count}}+ video — nechtasini tanlang",
-			"review_one": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
-			"review_other": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
-			"reviewCapped_one": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
-			"reviewCapped_other": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
-			"view": "Ko'rish"
-		}
+	"donate": {
+		"copied": "Nusxalandi!",
+		"copyAddress": "Manzilni nusxalash",
+		"description": "Arroxy bepul va ochiq manbali, reklamasiz va pullik tarifsiz. Xayriya ixtiyoriy bo'lib, yo'l xaritasiga hech qanday ta'sir bermaydi.",
+		"footerLabel": "Xayriya",
+		"footerTooltip": "Arroxy ni qo'llab-quvvatlang",
+		"qrAlt": "{{coin}} xayriya manzili QR kodi",
+		"title": "Arroxy ni qo'llab-quvvatlang",
+		"warning": "Kripto to'lovlarni qaytarib bo'lmaydi. Faqat ko'rsatilgan tarmoq orqali yuboring va manzilni to'liq solishtiring."
 	},
 	"errors": {
 		"noSubtitlesIn": "Bu videoda {{languages}} tillarida subtitr yo'q.",
 		"ytdlp": {
-			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu sayt tomonidagi vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi, shuning uchun tuzatish chiqishi bilan avtomatik qo'llaniladi.",
-			"ipBlock": "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
-			"rateLimit": "Sayt bu ulanishdan keladigan so‘rovlarni cheklayapti.",
 			"ageRestricted": "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi.",
-			"unavailable": "Bu video mavjud emas — u shaxsiy, o'chirilgan yoki mintaqa bilan cheklangan bo'lishi mumkin.",
+			"botBlock": "Bot himoyasi ishga tushdi. Siz foydalanayotgan IP manzil, ehtimol, bloklangan (ma'lumot markazi diapazoni yoki band VPN chiqish nuqtasi). IP manzilingizni o'zgartiring yoki boshqa VPN nuqtasini tanlang va qayta urinib ko'ring. Muammo davom etsa, bu sayt tomonidagi vaqtinchalik o'zgarish bo'lishi mumkin — Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi, shuning uchun tuzatish chiqishi bilan avtomatik qo'llaniladi.",
+			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va Arroxy qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
+			"drmProtected": "Bu video DRM bilan himoyalangan. Arroxy DRM ni olib tashlay olmaydi, shuning uchun faylni yuklab bo'lmaydi.",
 			"formatUnavailable": "Bu video endi siz tanlagan formatni taklif qilmaydi. Havolani qayta joylashtiring va hozir taklif qilinayotgan formatlardan tanlang.",
 			"geoBlocked": "Bu video sizning mintaqangizda mavjud emas.",
+			"ipBlock": "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating.",
+			"loginRequired": "Bu video uchun tizimga kirgan hisob kerak.",
+			"missingDependency": "Arroxy FFmpeg yoki FFprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
+			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",
+			"noSubtitles": "Bu videoda so'ralgan tillarda subtitr yo'q.",
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",
-			"unsupportedUrl": "Arroxy bu URL ni qo'llab-quvvatlamaydi. Boshqa saytdan havola sinab ko'ring.",
-			"noSubtitles": "Bu videoda so'ralgan tillarda subtitr yo'q.",
-			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va Arroxy qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
-			"missingDependency": "Arroxy FFmpeg yoki FFprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
-			"postprocessFailure": "Yuklab olish tugadi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
 			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. Sayt videolarni taqdim etish usulini o'zgartirgan bo'lishi mumkin. Arroxy ishga tushganda o'zining yuklash mexanizmini yangilaydi — bir necha daqiqadan so'ng tuzatish chiqqach qayta urinib ko'ring.",
-			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",
-			"drmProtected": "Bu video DRM bilan himoyalangan. Arroxy DRM ni olib tashlay olmaydi, shuning uchun faylni yuklab bo'lmaydi.",
-			"loginRequired": "Bu video uchun tizimga kirgan hisob kerak.",
-			"unknown": "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring."
+			"postprocessFailure": "Yuklab olish tugadi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
+			"rateLimit": "Sayt bu ulanishdan keladigan so‘rovlarni cheklayapti.",
+			"unavailable": "Bu video mavjud emas — u shaxsiy, o'chirilgan yoki mintaqa bilan cheklangan bo'lishi mumkin.",
+			"unknown": "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring.",
+			"unsupportedUrl": "Arroxy bu URL ni qo'llab-quvvatlamaydi. Boshqa saytdan havola sinab ko'ring."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Ulanishni tekshiring, so'ng qayta urinib ko'ring.",
+			"loadTitle": "Bu sahifa yuklanmadi",
+			"openSettings": "Sozlamalarni ochish",
+			"proxyBody": "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring.",
+			"proxyTitle": "Kashfiyot proxy orqali ulana olmaydi",
+			"retry": "Qayta urinish"
+		},
+		"linkCallout": {
+			"body": "Sahifadagi istalgan video, pleylist yoki kanal havolasini sichqonchaning o‘ng tugmasi bilan bosing: faol profil bilan yuklab oling, boshqa profilni tanlang yoki Interaktiv yuklab olishni oching.",
+			"title": "Yuklab olish uchun havolani sichqonchaning o‘ng tugmasi bilan bosing"
+		},
+		"linkMenu": {
+			"copyLink": "Havolani nusxalash",
+			"downloadWith": "Profil bilan yuklab olish"
+		},
+		"newBadge": "Yangi",
+		"notice": {
+			"body": "YouTube yoki boshqa istalgan saytda videoni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda saytga kiring.",
+			"continue": "Davom etish",
+			"riskBody": "YouTube kabi saytlar Arroxy kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
+			"riskTitle": "Qo'shimcha hisob bilan kiring",
+			"title": "Veb-saytlarni Arroxy ichida ko'ring"
+		},
+		"nudge": {
+			"browser": "Yuklab olishlar Kashfiyot orqali kirishni emas, brauzeringiz cookies'idan foydalanadi.",
+			"file": "Yuklab olishlar Kashfiyot orqali kirishni emas, cookies faylingizdan foydalanadi.",
+			"notNow": "Hozir emas",
+			"off": "Cookies o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi.",
+			"useExplore": "Kashfiyot orqali kirishdan foydalanish"
+		},
+		"settings": {
+			"description": "YouTube yoki boshqa istalgan saytni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
+			"idleUnload": "Faol bo'lmaganda xotirani bo'shatish",
+			"idleUnloadDescription": "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi.",
+			"searchEngine": "Qidiruv tizimi",
+			"searchEngineDescription": "Manzil satriga kiritilgan matn shu tizimda qidiriladi. Havolalar kiritilganidek ochiladi.",
+			"showTab": "Kashfiyot yorlig'ini ko'rsatish",
+			"showTabDescription": "O'chirsangiz, yuklab olishlar ham Kashfiyot orqali kirishdan foydalanmaydi.",
+			"signOut": "Kashfiyotdan chiqish",
+			"signOutConfirm": "Chiqish",
+			"signOutConfirmBody": "Bu Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi.",
+			"signOutConfirmTitle": "Kashfiyotdan chiqilsinmi?",
+			"signOutDescription": "Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi.",
+			"title": "Kashfiyot"
+		},
+		"tabLabel": "Kashfiyot",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin.",
+				"aria": "Reklama blokeri",
+				"off": "Reklama blokeri: o'chiq — yoqish uchun bosing",
+				"on": "Reklama blokeri: yoniq — o'chirish uchun bosing",
+				"starting": "Reklama blokeri: ishga tushmoqda — o'chirish uchun bosing",
+				"unavailable": "Reklama blokeri: mavjud emas, filtr ro'yxatlarini yuklab bo'lmadi — o'chirish uchun bosing"
+			},
+			"addressAria": "Manzil",
+			"addressPlaceholder": "{{engine}} orqali qidiring yoki istalgan saytni oching (Vimeo, Instagram…)",
+			"aria": "Kashfiyot brauzer boshqaruvlari",
+			"back": "Orqaga",
+			"compactLayout": "Ixcham ko'rinish",
+			"downloadWithProfile": "Yuklab olish · {{profileName}}",
+			"forward": "Oldinga",
+			"fullLayout": "To'liq ko'rinishni ko'rsatish",
+			"grabUnavailable": "Yuklab olish uchun video, pleylist yoki kanalni oching",
+			"home": "YouTube bosh sahifasi",
+			"interactiveHint": "Interaktiv yuklab olish: format, subtitr va boshqalarni tanlang…",
+			"refusedHint": "Kashfiyot bu manzilni ocha olmaydi.",
+			"reload": "Qayta yuklash",
+			"searchTooLong": "Bu qidiruv juda uzun.",
+			"zoom": {
+				"hint": "Sahifa masshtabi: {{percent}}%",
+				"in": "Kattalashtirish",
+				"label": "Sahifa masshtabi",
+				"out": "Kichraytirish",
+				"percent": "Masshtab foizi",
+				"reset": "Masshtabni 100% ga qaytarish"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Avto",
+		"autoValue": "Avto (.{{ext}})",
+		"description": {
+			"auto": "Fayl turini tanlangan oqimlar belgilaydi.",
+			"mkv": "Har qanday kodekni sig'diradi. Ba'zi televizorlar va telefonlar uni ocha olmaydi.",
+			"mp4": "Deyarli hamma joyda ijro etiladi. QuickTime MP4 ichidagi VP9 videoni ijro etmaydi.",
+			"webm": "Brauzerlar uchun ochiq format. Faqat VP9 yoki AV1 va Opus'ni sig'diradi."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4 ichidagi AV1 QuickTime'da ijro etilishi uchun yangi Mac kerak. H.264 hamma joyda ijro etiladi.",
+		"mp4CaveatVp9": "QuickTime MP4 ichidagi VP9 videoni ijro etmaydi. H.264 hamma joyda ijro etiladi.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "Aqlli TV bilan WebM taklif qilinmaydi: u H.264 ni sig'dira olmaydi.",
+		"webm": "WebM",
+		"webmBlocked": "WebM {{codec}} ni sig'dira olmaydi. MKV yoki MP4 ni tanlang."
+	},
+	"filenameTemplate": {
+		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing. Yuklamalarni papkalarga ajratish uchun / dan foydalaning.",
+		"error": {
+			"empty": "Fayl nomi shablonini kiriting.",
+			"empty-segment": "Ortiqcha / ni olib tashlang — har bir papkaga nom kerak.",
+			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: \\ : * ? \" < > |",
+			"invalid-segment": "Bu papka nomiga ruxsat berilmaydi. . va .. hamda CON kabi band nomlardan saqlaning.",
+			"no-unique-token": "Har bir yuklama o'z nomiga ega bo'lishi uchun fayl nomiga {title} yoki {id} qo'shing.",
+			"resolution-in-dir": "{resolution} papkaga nom bo'la olmaydi — sifat yuklash boshlangunga qadar noma'lum.",
+			"stray-brace": "Yopilmagan { yoki } — tokenlarni {title} kabi yozing.",
+			"too-long": "Shablon juda uzun.",
+			"unknown-token": "Noma'lum token {{token}}."
+		},
+		"idWarning": "{id} bo'lmasa, Arroxy allaqachon yuklab olingan pleylist elementlarini aniqlay olmaydi va .m3u pleylistlar yarata olmaydi.",
+		"label": "Fayl nomi shabloni",
+		"m3uDisabled": "Mavjud emas, chunki fayl nomi shabloningizda {id} yo'q yoki u yuklamalarni papkalarga ajratadi.",
+		"previewPlaylist": "Pleylistda",
+		"previewSingle": "Yakka video",
+		"profileOverrideDescription": "Umumiy shablondan foydalanish uchun bo'sh qoldiring.",
+		"profileOverrideLabel": "Fayl nomi shabloni"
+	},
+	"formatLabel": {
+		"audioFallback": "Audio",
+		"audioOnlyDot": "Faqat audio · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Avto",
+		"description": "Avto rejim bu ekran HDR'ni ko'rsata olsa HDR'ni, aks holda SDR'ni tanlaydi. Oddiy ekranlarda HDR xira ko'rinadi.",
+		"hdr": "HDR",
+		"label": "HDR video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Til"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Kashfiyot orqali kirildi — 1 ta havola qayta uriniladi",
+		"exploreSignInRetrying_other": "Kashfiyot orqali kirildi — {{count}} ta havola qayta uriniladi",
+		"exploreSignOutFailed": "Kashfiyotdan chiqib bo'lmadi. Qayta urinib ko'ring.",
+		"filenameFolderTooDeep": "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang.",
+		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi.",
+		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
+		"hotkey": {
+			"alreadyQueued": "Allaqachon navbatda — nusxa qo'shilmadi",
+			"busy": "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring",
+			"cookiesSetup": "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring",
+			"invalidClipboard": "Vaqtinchalik buferda havola yo'q — avval birini nusxalang",
+			"multipleUrls": "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning",
+			"needsReview": "Bu havola sizning tanlovingizni kutmoqda — Arroxy'dagi Yuklamalar bo'limiga qarang",
+			"queued": "Yuklab olish navbatga qo'shildi",
+			"submissionFailed": "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
+		},
+		"playlistFolderRejected": "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi",
+			"skippedAlreadyQueued_other": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"
+		},
+		"quickDownload": {
+			"added": "Qo'shildi: {{title}}",
+			"alreadyQueued": "Navbatda allaqachon bor",
+			"chooseHowMany_one": "{{count}}+ video — nechtasini tanlang",
+			"chooseHowMany_other": "{{count}}+ video — nechtasini tanlang",
+			"failed": "{{title}} tayyorlanmadi",
+			"notAdded": "Bu havolani qo'shib bo'lmadi — qayta urinib ko'ring",
+			"reviewCapped_one": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
+			"reviewCapped_other": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
+			"review_one": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
+			"review_other": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
+			"view": "Ko'rish"
+		},
+		"settingsSaveFailed": "Sozlamalaringizni saqlab bo'lmadi.",
+		"shellActionFailed": "Buni ochib bo'lmadi.",
+		"warmupFailed": "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiyatsiz bo'lishi mumkin."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitrlar"},
+		"audioFormat": {
+			"best": "Audio (eng yaxshi)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Eng yaxshi asl audio, qayta kodlanmaydi",
+			"m4a": "M4A (AAC) ga aylantirish",
+			"mp3": "MP3 ga aylantirish",
+			"opus": "Opus ga aylantirish"
+		},
+		"mp4Cap": "YouTube’da 1080p dan yuqori H.264 mavjud emas — avtomatik 1080p bilan cheklanadi",
 		"subtitles": {
-			"note": "Har bir video uchun faqat subtitr fayllari saqlanadi — video yoki audio yuklab olinmaydi.",
+			"deliveryHeading": "Saqlash turi",
+			"deliveryLoose": "To'g'ridan-to'g'ri saqlash papkasida",
 			"languages": "Tillar",
 			"languagesRequired": "Davom etish uchun kamida bitta tilni tanlang.",
-			"source": "Manba",
-			"deliveryHeading": "Saqlash turi",
-			"deliveryLoose": "To'g'ridan-to'g'ri saqlash papkasida"
+			"note": "Har bir video uchun faqat subtitr fayllari saqlanadi — video yoki audio yuklab olinmaydi.",
+			"source": "Manba"
 		},
-		"videoFormat": {"best": "Eng yaxshi asl format", "mp4": "Aqlli TV H.264 MP4"},
-		"videoFormatDesc": {"best": "Har bir element uchun mavjud eng yuqori kodek", "mp4": "H.264 + AAC afzal, MP4 konteyner · imkon qadar"},
-		"tier": {"144": "144p gacha", "240": "240p gacha", "360": "360p gacha", "480": "480p gacha", "720": "720p gacha", "1080": "1080p gacha", "1440": "1440p gacha", "2160": "4K gacha", "best": "Eng yaxshi sifat"},
+		"tier": {
+			"144": "144p gacha",
+			"240": "240p gacha",
+			"360": "360p gacha",
+			"480": "480p gacha",
+			"720": "720p gacha",
+			"1080": "1080p gacha",
+			"1440": "1440p gacha",
+			"2160": "4K gacha",
+			"best": "Eng yaxshi sifat"
+		},
 		"tierDesc": {
 			"144": "Eng kichik mumkin bo'lgan fayllar",
 			"240": "Juda kichik fayllar, past sifat",
@@ -957,187 +311,1396 @@
 			"2160": "2160p bilan cheklanadi, har elementda pastroqqa tushadi",
 			"best": "Har bir element uchun eng yaxshi video + audio"
 		},
-		"audioFormat": {"best": "Audio (eng yaxshi)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Eng yaxshi asl audio, qayta kodlanmaydi", "mp3": "MP3 ga aylantirish", "m4a": "M4A (AAC) ga aylantirish", "opus": "Opus ga aylantirish"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "YouTube’da 1080p dan yuqori H.264 mavjud emas — avtomatik 1080p bilan cheklanadi"
-	},
-	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Faqat audio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Faoliyatsiz", "statusActive_one": "1 ta yuklanmoqda · {{percent}}%", "statusActive_other": "{{count}} ta yuklanmoqda · {{percent}}%", "downloadFromClipboard": "Vaqtinchalik buferdan yuklab olish", "open": "Arroxy ni ochish", "quit": "Arroxy dan chiqish"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} ta yuklama jarayonda",
-			"message_other": "{{count}} ta yuklama jarayonda",
-			"detail": "Keyin davom ettirish uchun pauza qiling yoki jarayonni tashlab yuborish uchun bekor qiling.",
-			"confirm": "Yuklamalarni bekor qilish va chiqish",
-			"pause": "Yuklab olishlarni pauzalab chiqish",
-			"keep": "Yuklab olishni davom ettirish"
+		"type": {
+			"audio": "Audio",
+			"subtitles": "Subtitrlar",
+			"video": "Video"
 		},
-		"closeToTray": {"message": "Yopilganda Arroxy ni tizim soatiga yashirasizmi?", "detail": "Arroxy ishlashda davom etadi va faol yuklamalarni yakunlaydi. Buni keyinroq Kengaytirilgan sozlamalarda o'zgartiring.", "hide": "Tizim soatiga yashirish", "quit": "Chiqish", "remember": "Boshqa so'ramaslik"},
-		"rendererCrashed": {"message": "Arroxy muammo bilan duch keldi", "detail": "Renderlovchi jarayon ishdan chiqdi ({{reason}}). Qayta urinish uchun yangilang.", "reload": "Yangilash", "quit": "Chiqish"}
-	},
-	"share": {
-		"title": "Arroxy ni ulashing",
-		"description": "Arroxy bepul va ochiq manbali. Ulashish ko'proq odamlar uni topishiga yordam beradi.",
-		"copyLink": "Havolani nusxalash",
-		"copied": "Nusxalandi!",
-		"defaultMessage": "Arroxy — Windows, macOS va Linux uchun bepul, ochiq manbali video yuklab oluvchi. YouTube, Vimeo, Twitch va 2000+ sayt bilan ishlaydi.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "Arroxy ulashish",
-		"footerLabel": "Ulashish",
-		"shareAction": "Arroxy ulashish"
-	},
-	"donate": {
-		"title": "Arroxy ni qo'llab-quvvatlang",
-		"description": "Arroxy bepul va ochiq manbali, reklamasiz va pullik tarifsiz. Xayriya ixtiyoriy bo'lib, yo'l xaritasiga hech qanday ta'sir bermaydi.",
-		"footerTooltip": "Arroxy ni qo'llab-quvvatlang",
-		"footerLabel": "Xayriya",
-		"copyAddress": "Manzilni nusxalash",
-		"copied": "Nusxalandi!",
-		"qrAlt": "{{coin}} xayriya manzili QR kodi",
-		"warning": "Kripto to'lovlarni qaytarib bo'lmaydi. Faqat ko'rsatilgan tarmoq orqali yuboring va manzilni to'liq solishtiring."
-	},
-	"filenameTemplate": {
-		"label": "Fayl nomi shabloni",
-		"description": "Yuklab olingan fayllar qanday nomlanishini tanlang. Qo'shish uchun tokenni bosing. Yuklamalarni papkalarga ajratish uchun / dan foydalaning.",
-		"profileOverrideLabel": "Fayl nomi shabloni",
-		"profileOverrideDescription": "Umumiy shablondan foydalanish uchun bo'sh qoldiring.",
-		"idWarning": "{id} bo'lmasa, Arroxy allaqachon yuklab olingan pleylist elementlarini aniqlay olmaydi va .m3u pleylistlar yarata olmaydi.",
-		"m3uDisabled": "Mavjud emas, chunki fayl nomi shabloningizda {id} yo'q yoki u yuklamalarni papkalarga ajratadi.",
-		"previewSingle": "Yakka video",
-		"previewPlaylist": "Pleylistda",
-		"error": {
-			"empty": "Fayl nomi shablonini kiriting.",
-			"too-long": "Shablon juda uzun.",
-			"forbidden-char": "Fayl nomlarida ruxsat etilmagan belgilarni olib tashlang: \\ : * ? \" < > |",
-			"stray-brace": "Yopilmagan { yoki } — tokenlarni {title} kabi yozing.",
-			"no-unique-token": "Har bir yuklama o'z nomiga ega bo'lishi uchun fayl nomiga {title} yoki {id} qo'shing.",
-			"unknown-token": "Noma'lum token {{token}}.",
-			"empty-segment": "Ortiqcha / ni olib tashlang — har bir papkaga nom kerak.",
-			"invalid-segment": "Bu papka nomiga ruxsat berilmaydi. . va .. hamda CON kabi band nomlardan saqlaning.",
-			"resolution-in-dir": "{resolution} papkaga nom bo'la olmaydi — sifat yuklash boshlangunga qadar noma'lum."
+		"videoFormat": {
+			"best": "Eng yaxshi asl format",
+			"mp4": "Aqlli TV H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Har bir element uchun mavjud eng yuqori kodek",
+			"mp4": "H.264 + AAC afzal, MP4 konteyner · imkon qadar"
 		}
 	},
-	"explore": {
-		"tabLabel": "Kashfiyot",
-		"newBadge": "Yangi",
-		"notice": {
-			"title": "Veb-saytlarni Arroxy ichida ko'ring",
-			"body": "YouTube yoki boshqa istalgan saytda videoni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda saytga kiring.",
-			"riskTitle": "Qo'shimcha hisob bilan kiring",
-			"riskBody": "YouTube kabi saytlar Arroxy kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
-			"continue": "Davom etish"
+	"queue": {
+		"artifact": {
+			"companion": "Qo‘shimcha fayl",
+			"description": "Tavsif",
+			"media": "Media",
+			"missing": "Yo‘q",
+			"subtitle": "Subtitr",
+			"thumbnail": "Eskiz",
+			"unknown": "Fayl"
 		},
-		"nudge": {
-			"off": "Cookies o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi.",
-			"file": "Yuklab olishlar Kashfiyot orqali kirishni emas, cookies faylingizdan foydalanadi.",
-			"browser": "Yuklab olishlar Kashfiyot orqali kirishni emas, brauzeringiz cookies'idan foydalanadi.",
-			"useExplore": "Kashfiyot orqali kirishdan foydalanish",
-			"notNow": "Hozir emas"
+		"attentionBadge_one": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
+		"attentionBadge_other": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
+		"autoRemoveCompleted": {
+			"hint": "Har bir yuklamani tugagach, bir necha soniyadan so‘ng ro‘yxatdan olib tashlaydi. Fayllar jildingizda qoladi.",
+			"label": "Tugagach avtomatik tozalash"
 		},
-		"linkCallout": {"title": "Yuklab olish uchun havolani sichqonchaning o‘ng tugmasi bilan bosing", "body": "Sahifadagi istalgan video, pleylist yoki kanal havolasini sichqonchaning o‘ng tugmasi bilan bosing: faol profil bilan yuklab oling, boshqa profilni tanlang yoki Interaktiv yuklab olishni oching."},
-		"linkMenu": {"downloadWith": "Profil bilan yuklab olish", "copyLink": "Havolani nusxalash"},
-		"toolbar": {
-			"aria": "Kashfiyot brauzer boshqaruvlari",
-			"back": "Orqaga",
-			"forward": "Oldinga",
-			"reload": "Qayta yuklash",
-			"home": "YouTube bosh sahifasi",
-			"addressAria": "Manzil",
-			"addressPlaceholder": "{{engine}} orqali qidiring yoki istalgan saytni oching (Vimeo, Instagram…)",
-			"refusedHint": "Kashfiyot bu manzilni ocha olmaydi.",
-			"searchTooLong": "Bu qidiruv juda uzun.",
-			"downloadWithProfile": "Yuklab olish · {{profileName}}",
-			"interactiveHint": "Interaktiv yuklab olish: format, subtitr va boshqalarni tanlang…",
-			"grabUnavailable": "Yuklab olish uchun video, pleylist yoki kanalni oching",
-			"compactLayout": "Ixcham ko'rinish",
-			"fullLayout": "To'liq ko'rinishni ko'rsatish",
-			"zoom": {"label": "Sahifa masshtabi", "hint": "Sahifa masshtabi: {{percent}}%", "in": "Kattalashtirish", "out": "Kichraytirish", "percent": "Masshtab foizi", "reset": "Masshtabni 100% ga qaytarish"},
-			"adBlock": {
-				"aria": "Reklama blokeri",
-				"off": "Reklama blokeri: o'chiq — yoqish uchun bosing",
-				"starting": "Reklama blokeri: ishga tushmoqda — o'chirish uchun bosing",
-				"on": "Reklama blokeri: yoniq — o'chirish uchun bosing",
-				"unavailable": "Reklama blokeri: mavjud emas, filtr ro'yxatlarini yuklab bo'lmadi — o'chirish uchun bosing",
-				"accountNote": "YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin."
+		"cancelAllTitle": "Barcha faol va kutayotgan yuklamalarni bekor qilish",
+		"choice": {
+			"all": "Barcha videolar",
+			"cappedBody_one": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
+			"cappedBody_other": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
+			"first": "Birinchi {{count}} ta",
+			"review": "Ko'rib chiqish",
+			"reviewBody_one": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing.",
+			"reviewBody_other": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing."
+		},
+		"clearTitle": "Tugallangan yuklamalarni tozalash",
+		"empty": "Navbatga qo‘shilgan yuklab olishlar shu yerda ko‘rinadi",
+		"filterAll": "Hammasi",
+		"filtersLabel": "Navbat holati filtrlari",
+		"globalActionsLabel": "Barcha elementlar",
+		"header": "Yuklamalar",
+		"item": {
+			"audioKept": "Tovush olib tashlanmadi",
+			"audioKeptSubtitlesFailed": "Tovush olib tashlanmadi · ba'zi subtitrlar yuklanmadi",
+			"cancel": "Bekor qilish",
+			"defaultError": "Yuklama muvaffaqiyatsiz",
+			"openDestinationFolder": "Manzil papkasini ochish",
+			"pause": "To'xtatish",
+			"pendingOnly": "Faqat kutilayotganlar",
+			"pullNow": "Hozir yuklab olish — navbatni o‘tkazish",
+			"qualityLimited": "{{height}}p bilan cheklangan",
+			"qualityLimitedSubtitlesFailed": "{{height}}p bilan cheklangan · ba'zi subtitrlar yuklanmadi",
+			"remove": "O'chirish",
+			"resume": "Davom ettirish",
+			"retry": "Qayta urinish",
+			"retryingSoon": "avtomatik qayta urinilmoqda ({{attempt}}-urinish)",
+			"setLocation": "Joylashuvni belgilash",
+			"setLocationHint": "Joylashuvni belgilash uchun kutilayotgan elementlarni tanlang.",
+			"statusCancelled": "Bekor qilingan",
+			"statusDone": "Tayyor",
+			"statusError": "Xato",
+			"statusHeld": "Ushlab turilgan",
+			"statusNeedsChoice": "Tanlovingiz kerak",
+			"statusPaused": "Pauzada",
+			"statusPending": "Kutilmoqda",
+			"statusProbing": "Tafsilotlar olinmoqda",
+			"statusRunning": "Yuklanmoqda",
+			"subtitleLanguagesMissing": "{{languages}} tillarida subtitr yo'q"
+		},
+		"pauseAllTitle": "Barcha faol yuklamalarni to'xtatib turish",
+		"pausedBanner": "Navbat pauzada — kutayotgan yuklamalar navbat davom ettirilmaguncha boshlanmaydi",
+		"resumeAllTitle": "Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish",
+		"resumeQueueAction": "Navbatni davom ettirish",
+		"selectedActionsLabel": "Tanlangan elementlar",
+		"selectionSummary": "{{selected}} tanlangan · jami {{total}}",
+		"tabLabel": "Yuklamalar",
+		"tabTip": "Yuklab olishlar endi Yuklamalar varag‘ida — jarayonni kuzatish uchun uni istalgan vaqtda oching.",
+		"table": {
+			"added": "Qo‘shilgan",
+			"artifacts": "Natija fayllari",
+			"columnDropped": "{{column}} ustuni qo‘yildi.",
+			"columnMoveCancelled": "{{column}} ustunini ko‘chirish bekor qilindi.",
+			"columnMovedOver": "{{column}} ustuni {{target}} ustida.",
+			"columnPickedUp": "{{column}} ustuni olindi.",
+			"columns": "Ustunlar",
+			"finished": "Tugagan",
+			"format": "Format",
+			"hideArtifactsFor": "{{title}} uchun fayllarni yashirish",
+			"movableColumn": "ko‘chiriladigan ustun",
+			"moveColumnInstructions": "Ustunni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing.",
+			"notAvailable": "—",
+			"outputTarget": "Natija manzili",
+			"progress": "Jarayon",
+			"resetColumns": "Ustunlarni tiklash",
+			"resizeColumn": "{{column}} ustuni o‘lchamini o‘zgartirish",
+			"showArtifactsFor": "{{title}} uchun fayllarni ko‘rsatish",
+			"size": "Hajm",
+			"sortBy": "{{label}} bo‘yicha saralash",
+			"status": "Holat",
+			"title": "Sarlavha"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Davom etish",
+		"description": "Siz yangi yangilanishdan foydalanmoqdasiz. Asosiy yangiliklar quyida.",
+		"fullNotes": "To'liq reliz qaydlari ↗",
+		"title": "Arroxy {{version}} dagi yangiliklar"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Bekor qilish",
+			"chooseExecutable": "Bajariladigan faylni tanlash",
+			"installWithHomebrew": "Homebrew bilan o‘rnatish",
+			"installWithWinget": "WinGet bilan o‘rnatish",
+			"openDependencyFolder": "Qaramlik papkasini ochish",
+			"resetToDefault": "Standartga qaytarish",
+			"retrySetup": "Qayta urinib ko'rish",
+			"viewSetupLog": "Sozlash jurnalini ko'rish"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang.",
+				"title": "Vosita to'g'ri ishlamayapti"
+			},
+			"blockedOrQuarantined": {
+				"body": "Antivirus yoki SmartScreen'da Arroxy'ga ruxsat bering, so'ng qayta urinib ko'ring.",
+				"title": "Antivirusingiz vositani blokladi"
+			},
+			"downloadFailed": {
+				"body": "Internet aloqangizni tekshiring, so'ng qayta urinib ko'ring.",
+				"title": "Arroxy uchun kerakli narsani yuklab bo'lmadi"
+			},
+			"extractFailed": {
+				"body": "Yangidan yuklab olish uchun qayta urinib ko'ring.",
+				"title": "Yuklab olingan fayl shikastlangan"
+			},
+			"hashFailed": {
+				"body": "Yangidan yuklab olish uchun qayta urinib ko'ring.",
+				"title": "Yuklab olingan fayl nazorat yig'indisiga mos kelmadi"
+			},
+			"pairIncomplete": {
+				"body": "Quyida ikkalasini tanlang yoki standartga qaytaring.",
+				"title": "FFmpeg va FFprobe birga sozlanishi kerak"
+			},
+			"permissionDenied": {
+				"body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishonchli nusxani tanlang.",
+				"title": "Tizimingiz Arroxy'ga vositani ishga tushirishga ruxsat bermayapti"
+			},
+			"spawnFailed": {
+				"body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang.",
+				"title": "Vosita topilmadi yoki ishga tushmayapti"
+			},
+			"timeout": {
+				"body": "Bu ko'pincha birinchi ishga tushirishdagi xavfsizlik tekshiruvi sabab bo'ladi. Qayta urinib ko'ring.",
+				"title": "Vosita juda uzoq javob bermadi"
+			},
+			"unknown": {
+				"body": "Qayta urinib ko'ring yoki tafsilotlar uchun sozlash jurnalini oching.",
+				"title": "Sozlash vaqtida xatolik yuz berdi"
 			}
 		},
-		"settings": {
-			"title": "Kashfiyot",
-			"description": "YouTube yoki boshqa istalgan saytni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
-			"showTab": "Kashfiyot yorlig'ini ko'rsatish",
-			"showTabDescription": "O'chirsangiz, yuklab olishlar ham Kashfiyot orqali kirishdan foydalanmaydi.",
-			"idleUnload": "Faol bo'lmaganda xotirani bo'shatish",
-			"idleUnloadDescription": "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi.",
-			"searchEngine": "Qidiruv tizimi",
-			"searchEngineDescription": "Manzil satriga kiritilgan matn shu tizimda qidiriladi. Havolalar kiritilganidek ochiladi.",
-			"signOut": "Kashfiyotdan chiqish",
-			"signOutDescription": "Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi.",
-			"signOutConfirmTitle": "Kashfiyotdan chiqilsinmi?",
-			"signOutConfirmBody": "Bu Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi.",
-			"signOutConfirm": "Chiqish"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Kashfiyot proxy orqali ulana olmaydi", "proxyBody": "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring.", "loadTitle": "Bu sahifa yuklanmadi", "loadBody": "Ulanishni tekshiring, so'ng qayta urinib ko'ring.", "retry": "Qayta urinish", "openSettings": "Sozlamalarni ochish"}
-	},
-	"fileType": {
-		"auto": "Avto",
-		"autoValue": "Avto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Fayl turini tanlangan oqimlar belgilaydi.",
-			"mp4": "Deyarli hamma joyda ijro etiladi. QuickTime MP4 ichidagi VP9 videoni ijro etmaydi.",
-			"mkv": "Har qanday kodekni sig'diradi. Ba'zi televizorlar va telefonlar uni ocha olmaydi.",
-			"webm": "Brauzerlar uchun ochiq format. Faqat VP9 yoki AV1 va Opus'ni sig'diradi."
+		"groups": {
+			"engine": "Yuklash mexanizmi",
+			"media": "Media vositalari"
 		},
-		"webmBlocked": "WebM {{codec}} ni sig'dira olmaydi. MKV yoki MP4 ni tanlang.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "Aqlli TV bilan WebM taklif qilinmaydi: u H.264 ni sig'dira olmaydi.",
-		"mp4CaveatVp9": "QuickTime MP4 ichidagi VP9 videoni ijro etmaydi. H.264 hamma joyda ijro etiladi.",
-		"mp4CaveatAv1": "MP4 ichidagi AV1 QuickTime'da ijro etilishi uchun yangi Mac kerak. H.264 hamma joyda ijro etiladi."
+		"installing": {
+			"homebrew": "Homebrew orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin.",
+			"winget": "WinGet orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin."
+		},
+		"manual": {
+			"intro": "Arroxy'ga sizda mavjud nusxalarni ko'rsating yoki ularni boshqa usulda o'rnating.",
+			"linuxHint": "yt-dlp va ffmpeg ni paket menejeringiz orqali ham o'rnatib, so'ng Qayta urinib ko'rish tugmasini bosishingiz mumkin.",
+			"toggle": "Qo'lda sozlash"
+		},
+		"stopped": {
+			"body": "Qayta urinib ko'ring yoki quyida Arroxy'ga sizda mavjud vositalarni ko'rsating.",
+			"title": "Sozlash to'xtatildi"
+		},
+		"title": "Sozlash sizning yordamingizga muhtoj"
 	},
 	"selectionOrder": {
 		"editorTitle": "Bu profil qanday tanlaydi",
-		"whyTitle": "Profil nega buni tanladi",
-		"whyLabel": "Nega aynan shu?",
 		"rank": {
-			"h264": {"label": "H.264 video", "reason": "har qanday qurilmada ijro etiladi"},
-			"mp4Streams": {"label": "MP4 oqimlari", "reason": "MP4 fayl uchun tayyor"},
-			"resolutionBest": {"label": "Eng yuqori ruxsat", "reason": "chegara belgilanmagan"},
-			"resolution": {"label": "{{tier}}p gacha", "reason": "sizning chegarangiz"},
-			"fps": {"label": "Eng yuqori kadr tezligi", "reason": "silliqroq harakat"},
-			"sitePreference": {"label": "Sayt past baholamagan oqimlar", "reason": "shikastlangan, suv belgili va zaxira nusxalarni o'tkazib yuboradi"},
-			"original": {"label": "Asl oqimlar, SI kattalashtirganlari emas", "reason": "kattalashtirilgan nusxa balandroq, lekin haqiqiy tafsilot qo'shmaydi"},
-			"source": {"label": "Avval yuqori bitreytli oqimlar", "reason": "bir xil ruxsatda ko'proq tafsilot"},
-			"protocol": {"label": "Avval to'g'ridan-to'g'ri yuklab olishlar, keyin oqimli nusxalar", "reason": "bir xil tasvir, tezroq yuklanadi"},
-			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
-			"codecVp9First": {"label": "VP9, keyin H.264, keyin AV1", "reason": "shu profilning kodeki"},
-			"codecH264First": {"label": "H.264, keyin VP9, keyin AV1", "reason": "shu profilning kodeki"},
-			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
-			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
-			"aacFileType": {"label": "AAC audio", "reason": "MP4 pleyerlariga mos"},
-			"opus": {"label": "Opus audio", "reason": "WebM ga mos"},
-			"nativeCompatible": {"label": "Stereo audio"},
-			"nativeSurround": {"label": "Mavjud bo'lsa surround audio"},
-			"nativeSource": {"settings": "Sozlamalardan", "profile": "shu profil"},
-			"hdrSdrFirst": {"label": "HDR'dan oldin SDR", "reason": "har qanday ekranda to'g'ri ko'rinadi", "reasonScreen": "bu ekranda HDR yo'q"},
-			"hdrFirst": {"label": "SDR'dan oldin HDR", "reason": "HDR ekranlarda boyroq ranglar", "reasonScreen": "bu ekran HDR'ni ko'rsatadi"}
+			"aacFileType": {
+				"label": "AAC audio",
+				"reason": "MP4 pleyerlariga mos"
+			},
+			"aacSmartTv": {
+				"label": "AAC audio",
+				"reason": "hamma joyda ijro etiladi"
+			},
+			"codec": {
+				"label": "AV1, keyin VP9, keyin H.264",
+				"reason": "bir xil hajmda eng tiniq"
+			},
+			"codecH264First": {
+				"label": "H.264, keyin VP9, keyin AV1",
+				"reason": "shu profilning kodeki"
+			},
+			"codecVp9First": {
+				"label": "VP9, keyin H.264, keyin AV1",
+				"reason": "shu profilning kodeki"
+			},
+			"fps": {
+				"label": "Eng yuqori kadr tezligi",
+				"reason": "silliqroq harakat"
+			},
+			"h264": {
+				"label": "H.264 video",
+				"reason": "har qanday qurilmada ijro etiladi"
+			},
+			"hdrFirst": {
+				"label": "SDR'dan oldin HDR",
+				"reason": "HDR ekranlarda boyroq ranglar",
+				"reasonScreen": "bu ekran HDR'ni ko'rsatadi"
+			},
+			"hdrSdrFirst": {
+				"label": "HDR'dan oldin SDR",
+				"reason": "har qanday ekranda to'g'ri ko'rinadi",
+				"reasonScreen": "bu ekranda HDR yo'q"
+			},
+			"mp4Streams": {
+				"label": "MP4 oqimlari",
+				"reason": "MP4 fayl uchun tayyor"
+			},
+			"nativeCompatible": {
+				"label": "Stereo audio"
+			},
+			"nativeSource": {
+				"profile": "shu profil",
+				"settings": "Sozlamalardan"
+			},
+			"nativeSurround": {
+				"label": "Mavjud bo'lsa surround audio"
+			},
+			"opus": {
+				"label": "Opus audio",
+				"reason": "WebM ga mos"
+			},
+			"original": {
+				"label": "Asl oqimlar, SI kattalashtirganlari emas",
+				"reason": "kattalashtirilgan nusxa balandroq, lekin haqiqiy tafsilot qo'shmaydi"
+			},
+			"protocol": {
+				"label": "Avval to'g'ridan-to'g'ri yuklab olishlar, keyin oqimli nusxalar",
+				"reason": "bir xil tasvir, tezroq yuklanadi"
+			},
+			"resolution": {
+				"label": "{{tier}}p gacha",
+				"reason": "sizning chegarangiz"
+			},
+			"resolutionBest": {
+				"label": "Eng yuqori ruxsat",
+				"reason": "chegara belgilanmagan"
+			},
+			"sitePreference": {
+				"label": "Sayt past baholamagan oqimlar",
+				"reason": "shikastlangan, suv belgili va zaxira nusxalarni o'tkazib yuboradi"
+			},
+			"size": {
+				"label": "Kattaroq fayl",
+				"reason": "bir xil sozlamalarda ko'proq tafsilot"
+			},
+			"source": {
+				"label": "Avval yuqori bitreytli oqimlar",
+				"reason": "bir xil ruxsatda ko'proq tafsilot"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "eng yaxshi tasvir", "smartTv": "har qanday qurilmada ijro etiladi"}, "fileType": {"auto": "fayl turi oqimlardan", "explicit": ".{{ext}} sifatida saqlanadi"}}
+		"summary": {
+			"fileType": {
+				"auto": "fayl turi oqimlardan",
+				"explicit": ".{{ext}} sifatida saqlanadi"
+			},
+			"goal": {
+				"bestPicture": "eng yaxshi tasvir",
+				"smartTv": "har qanday qurilmada ijro etiladi"
+			}
+		},
+		"whyLabel": "Nega aynan shu?",
+		"whyTitle": "Profil nega buni tanladi"
 	},
-	"aiUpscaled": {
-		"label": "SI kattalashtirgan oqimlar",
-		"description": "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin.",
-		"skip": "O'tkazib yuborish",
-		"allow": "Ruxsat berish"
+	"share": {
+		"copied": "Nusxalandi!",
+		"copyLink": "Havolani nusxalash",
+		"defaultMessage": "Arroxy — Windows, macOS va Linux uchun bepul, ochiq manbali video yuklab oluvchi. YouTube, Vimeo, Twitch va 2000+ sayt bilan ishlaydi.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy bepul va ochiq manbali. Ulashish ko'proq odamlar uni topishiga yordam beradi.",
+		"footerLabel": "Ulashish",
+		"footerTooltip": "Arroxy ulashish",
+		"shareAction": "Arroxy ulashish",
+		"title": "Arroxy ni ulashing"
+	},
+	"splash": {
+		"cancel": "Muammo bormi? Qo‘lda sozlang",
+		"greeting": "Xush kelibsiz, qayta keldingiz!",
+		"setup": {
+			"bytes": "{{total}} dan {{done}}",
+			"left": {
+				"minutes_one": "taxminan {{count}} daqiqa qoldi",
+				"minutes_other": "taxminan {{count}} daqiqa qoldi",
+				"underMinute": "bir daqiqadan kam qoldi"
+			},
+			"note": {
+				"engine": "Saytlar o'zgarganda yuklab olishlar ishlashda davom etishini ta'minlaydi.",
+				"firstRun": "Bu bir marta sodir bo'ladi. Arroxy bu vositalarni saqlaydi va o'zi yangilaydi.",
+				"media": "Bu bir marta sodir bo'ladi. Arroxy ularni kelgusi yangilanishlar uchun saqlaydi."
+			},
+			"stage": {
+				"checking": "Hammasi ishlayotgani tekshirilmoqda",
+				"connecting": "Ulanmoqda…",
+				"downloadingBoth": "Yuklash mexanizmi va media vositalari yuklab olinmoqda",
+				"downloadingEngine": "Yuklash mexanizmi yuklab olinmoqda",
+				"downloadingMedia": "Media vositalari yuklab olinmoqda",
+				"unpacking": "Media vositalari ochilmoqda"
+			},
+			"title": {
+				"engine": "Yuklash mexanizmi yangilanmoqda",
+				"firstRun": "Birinchi sozlash",
+				"media": "Media vositalari yangilanmoqda"
+			}
+		},
+		"verifyFirstCheck": "Ushbu versiyaning birinchi tekshiruvi — bu sekin kechadi. Odatda bir daqiqacha.",
+		"verifying": "{{binary}} tekshirilmoqda…",
+		"warmup": "Yuklab olishlar tayyorlanmoqda…",
+		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."
+	},
+	"status": {
+		"audioKept": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi",
+		"audioKeptSubtitlesFailed": "Video tovushi bilan saqlandi — tovushni olib tashlab bo'lmadi va ba'zi subtitrlarni yuklab bo'lmadi",
+		"cancelled": "Yuklama bekor qilindi",
+		"complete": "Yuklama yakunlandi",
+		"convertingVideo": "Video konvertatsiya qilinmoqda…",
+		"diskSpaceInsufficient": "Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud",
+		"downloadingBinary": "{{name}} ikkilik fayli yuklanmoqda…",
+		"downloadingMedia": "Video va audio yuklanmoqda…",
+		"embeddingMetadata": "Metama'lumotlar joylashtirilmoqda…",
+		"exploreSignedOut": "Kashfiyotdan chiqildi — qaytadan kiring",
+		"extractingAudio": "Audio konvertatsiya qilinmoqda…",
+		"fetchingSponsorBlock": "SponsorBlock bilan bog'lanilmoqda…",
+		"fetchingSubtitles": "Subtitrlar olinmoqda…",
+		"mergingFormats": "Audio va video birlashtirilmoqda…",
+		"mintingToken": "YouTube tokeni yaratilmoqda…",
+		"movingFiles": "Fayllar ko'chirilmoqda…",
+		"noSubtitles": "{{languages}} tillarida subtitr yo'q",
+		"outputNotWritable": "{{dir}} ga saqlab bo'lmaydi — Arroxy'ga u yerga yozishga ruxsat berilmagan",
+		"preparingBinaries": "Ikkilik fayllar tayyorlanmoqda…",
+		"qualityLimited": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi va ba'zi subtitrlarni yuklab bo'lmadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
+		"remintingToken": "Token qayta yaratilmoqda…",
+		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Kashfiyotdagi hisobingiz bilan kirilmoqda…",
+		"sleepingBetweenRequests": "Tezlik chegarasidan qochish uchun {{seconds}} soniya kutilmoqda…",
+		"startingYtdlp": "Yuklash mexanizmi ishga tushmoqda…",
+		"subtitleLanguagesMissing": "Bu videoda {{languages}} tillarida subtitr yo'q. Video subtitrsiz saqlandi.",
+		"subtitleLanguagesMissingOthersSaved": "Bu videoda {{languages}} tillarida subtitr yo'q. Boshqa tillar saqlandi.",
+		"subtitlesFailed": "Video saqlandi — ba'zi subtitrlarni yuklab bo'lmadi",
+		"unknownStartupFailure": "Noma'lum yuklama ishga tushirish xatosi",
+		"usedExtractorFallback": "Yengilroq ekstraktor bilan yuklab olindi — ishonchli yuklamalar uchun cookies.txt ni sozlang",
+		"ytdlpExitCode": "Yuklash mexanizmi {{code}} kodi bilan yakunlandi",
+		"ytdlpProcessError": "Yuklash mexanizmi xatosi: {{error}}"
+	},
+	"theme": {
+		"dark": "Qorong'i rejim",
+		"light": "Yorug' rejim",
+		"system": "Tizim standart"
+	},
+	"titleBar": {
+		"close": "Yopish",
+		"maximize": "Kattalashtirish",
+		"minimize": "Kichraytirish",
+		"restore": "Tiklash"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Vaqtinchalik buferdan yuklab olish",
+			"open": "Arroxy ni ochish",
+			"quit": "Arroxy dan chiqish",
+			"statusActive_one": "1 ta yuklanmoqda · {{percent}}%",
+			"statusActive_other": "{{count}} ta yuklanmoqda · {{percent}}%",
+			"statusIdle": "Faoliyatsiz"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Buyruq buferga nusxalandi",
+		"copy": "Buyruqni buferga nusxalash",
+		"dismiss": "Yangilanish bannerini yopish",
+		"download": "Download ↗",
+		"downloadDmg": "DMG yuklab olish ↗",
+		"downloading": "Yuklanmoqda…",
+		"install": "O'rnatish va qayta ishga tushirish",
+		"installFailed": "Yangilanish muvaffaqiyatsiz",
+		"message": {
+			"generic": "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor.",
+			"homebrew": "Arroxy {{version}} mavjud — Homebrew orqali yangilang.",
+			"macosDirect": "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling.",
+			"macosDirectHomebrew": "Arroxy {{version}} mavjud — DMG ni yuklab oling yoki Homebrew'ga o'ting.",
+			"portable": "Arroxy {{version}} mavjud — yangi build ni yuklab oling."
+		},
+		"retry": "Qayta urinish",
+		"runAndRestart": "Bajarish va qayta ishga tushirish",
+		"upgrading": "Yangilanmoqda…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} ta bob",
+		"chapters_other": "{{count}} ta bob",
+		"titlePlaceholder": "Yuklanmoqda…"
 	},
 	"videoCodec": {
-		"label": "Video kodek",
-		"description": "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto yt-dlp ning o'z tartibini saqlaydi, u eng kichik AV1 ni afzal ko'radi; H.264 eski televizor va telefonlarda ijro etiladi.",
-		"smartTv": "Aqlli TV doim H.264 ni oladi.",
 		"auto": "Avto",
-		"vp9": "Avval VP9",
-		"h264": "Avval H.264"
+		"description": "Bir xil balandlikdagi oqimlar orasidan avval qaysi kodek olinadi. Avto yt-dlp ning o'z tartibini saqlaydi, u eng kichik AV1 ni afzal ko'radi; H.264 eski televizor va telefonlarda ijro etiladi.",
+		"h264": "Avval H.264",
+		"label": "Video kodek",
+		"smartTv": "Aqlli TV doim H.264 ni oladi.",
+		"vp9": "Avval VP9"
 	},
-	"hdrPreference": {"label": "HDR video", "description": "Avto rejim bu ekran HDR'ni ko'rsata olsa HDR'ni, aks holda SDR'ni tanlaydi. Oddiy ekranlarda HDR xira ko'rinadi.", "sdr": "SDR", "hdr": "HDR", "auto": "Avto"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Tayyor",
+			"description": "Video, pleylist, kanal, qidiruv yoki audio URLlarini joylashtiring. Arroxy navbatga qo'shishdan oldin dublikatlarni tozalaydi.",
+			"emptyPreview": "To‘plamni ko‘rish uchun bitta yoki undan ko‘p URL joylang.",
+			"ignoredCount": "E’tiborsiz",
+			"needsAtLeastOne": "Davom etish uchun kamida bitta qo‘llab-quvvatlanadigan URL qo‘shing.",
+			"reject": {
+				"duplicate": "Takror"
+			},
+			"textareaLabel": "URL ro‘yxati",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Ommaviy URLlar"
+		},
+		"confirm": {
+			"addToQueue": "+ Queue",
+			"addToQueueTooltip": "Boshqa yuklamalar tugaganda boshlanadi — to'liq tarmoq kengligini oladi",
+			"audioOnly": "Faqat audio",
+			"itemsValueAudio_one": "{{total}} ta trekning {{count}} tasi",
+			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
+			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
+			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi",
+			"itemsValue_one": "{{total}} ta videoning {{count}} tasi",
+			"itemsValue_other": "{{total}} ta videoning {{count}} tasi",
+			"labelAudio": "Audio",
+			"labelBulk": "Ommaviy URLlar",
+			"labelItems": "Elementlar",
+			"labelPlaylist": "Ijro roʻyxati",
+			"labelPreset": "Sozlama",
+			"labelSaveTo": "Saqlash joyi",
+			"labelSize": "Hajm",
+			"labelSubtitles": "Subtitrlar",
+			"labelVideo": "Video",
+			"landIn": "Faylingiz quyidagi joyga tushadi",
+			"landInMultiProfile_one": "U quyidagi manzilga tushadi",
+			"landInMultiProfile_other": "Ular quyidagi {{count}} ta manzilga tushadi",
+			"nothingToDownload": "Faqat subtitrlar oldindan sozlamasi faol, lekin hech qanday subtitrl tili tanlanmagan — hech narsa yuklanmaydi.",
+			"profileBreakdownCount_one": "{{count}} ta element",
+			"profileBreakdownCount_other": "{{count}} ta element",
+			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
+			"pullIt": "Yuklab ol! ↓",
+			"pullItTooltip": "Darhol boshlanadi — boshqa faol yuklamalar bilan parallel ishlaydi",
+			"readyHeadline": "Yuklab olishga tayyor!",
+			"sizeUnknown": "Noma'lum",
+			"subtitleEmbedAudioOnly": "Subtitle embed sidecar ga o'zgartirildi — audio treklari ichki subtitle oqimlarini qo'llab-quvvatlamaydi.",
+			"subtitleEmbedForcesMkv": "Video ichidagi subtitrlar uchun MKV fayl kerak, shuning uchun bu yuklab olish .mkv sifatida saqlanadi.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail embed o'tkazib yuborildi — chiqish container uni qo'llab-quvvatlamaydi."
+		},
+		"folder": {
+			"custom": "Maxsus…",
+			"desktop": "Ish stoli",
+			"documents": "Hujjatlar",
+			"downloads": "Yuklamalar",
+			"heading": "Saqlash joyi",
+			"home": "Uy",
+			"music": "Musiqa",
+			"pictures": "Rasmlar",
+			"subfolder": {
+				"invalid": "Papka nomida noto'g'ri belgilar bor",
+				"placeholder": "mas. lo-fi rips",
+				"toggle": "Papkachaga saqlash"
+			},
+			"videos": "Filmlar"
+		},
+		"formats": {
+			"audio": "Audio",
+			"audioLanguage": "Audio tili",
+			"audioLanguageCount_one": "{{count}} ta til",
+			"audioLanguageCount_other": "{{count}} ta til",
+			"audioOnly": "Faqat audio",
+			"bitrateValue": "Bit tezligi {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies sozlangan, lekin o'chirilgan. To'liq ro'yxat uchun ularni yoqing va qayta urinib ko'ring, yoki tarmoqni o'zgartirin.",
+				"bodyEnabled": "Cookies bilan ham YouTube bu tekshiruvni chekladi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
+				"bodyExplore": "YouTube bu so'rovni cheklab qo'ydi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
+				"bodyUnconfigured": "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring.",
+				"enableRetryCta": "Cookiesni yoqish va qayta urinish",
+				"heading": "YouTube bu tekshiruvni chekladi",
+				"retryCta": "Qayta urinish"
+			},
+			"convert": {
+				"bitrate": "Bit tezligi",
+				"bitrateCopyHint": "Allaqachon {{target}} bo'lgan manba o'z oqimi va bit tezligini saqlaydi: u qayta kodlanmaydi, nusxalanadi.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, qayta kodlanmaydi",
+				"copyLabelNoBitrate": "{{target}}, qayta kodlanmaydi",
+				"copyNote": "{{kbps}} kbps, manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
+				"copyNoteNoBitrate": "Manbadagidek: oqim allaqachon {{target}}, shuning uchun u qayta kodlanmasdan nusxalanadi",
+				"label": "Konvertatsiya qilish",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Manba {{kbps}} kbps",
+				"wavLabel": "WAV (uncompressed)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Brauzer",
+				"currentModeExplore": "Kashfiyot orqali kirish",
+				"currentModeFile": "Fayl",
+				"currentModeLabel": "Cookies manbai",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp hujjatlar (issue #10927)",
+					"explanation": "Chrome 127 va undan yangi versiyalar cookies ni Windows da boshqa ilovalar o'qiy olmaydigan tarzda shifrlaydi. Quyidagi yechimlardan birini sinab ko'ring.",
+					"fixFileBody": "Chrome dan brauzer kengaytmasi yordamida cookies ni eksport qiling, so'ng bu ilovani Fayl rejimiga o'tkazing va eksport qilingan faylni tanlang.",
+					"fixFileLabel": "cookies.txt ni eksport qilish",
+					"fixFirefoxBody": "Firefox App-Bound Encryption dan foydalanmaydi. Cookies sozlamalarini oching va brauzer ro'yxatidan Firefox ni tanlang.",
+					"fixFirefoxLabel": "Firefox ga o'tish",
+					"fixUnsafeBody": "Chrome ishga tushirish yorlig'iga --disable-features=LockProfileCookieDatabase qo'shing. Ogohlantirish: bu oldindan shifrlangan cookies ni bekor qiladi, shuning uchun siz barcha saytlardan chiqib ketasiz va qayta kirishingiz kerak bo'ladi.",
+					"fixUnsafeLabel": "App-Bound Encryption o'chirilgan holda Chrome ni ishga tushirish",
+					"heading": "Chrome cookies Windows shifrlash orqali bloklangan"
+				},
+				"explanationBrowser": "Cookies to'g'ridan-to'g'ri brauzerdan o'qiladi. Agar brauzer hozir ochiq bo'lsa, uning cookie ma'lumotlar bazasi qulflangan bo'lishi mumkin (Chromium-family). Brauzer YouTube ga kirgan bo'lishi ham kerak. Brauzerni yoping, boshqa brauzer sinab ko'ring, Fayl rejimiga o'ting yoki cookiesni o'chiring.",
+				"explanationFile": "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (Arroxy Netscape cookies.txt faylini talab qiladi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring.",
+				"exploreOffer": {
+					"body": "Kashfiyot orqali kiring, Arroxy qayta urinib ko'radi.",
+					"cta": "Kashfiyot orqali kirish",
+					"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
+				},
+				"exploreRefused": {
+					"body": "Arroxy buni Kashfiyot orqali kirgan holda allaqachon sinab ko'rdi, shuning uchun qayta kirish yordam bermaydi. Saytda muammo bo'lishi yoki bu hisob uni ocha olmasligi mumkin. Keyinroq urinib ko'ring.",
+					"heading": "Sayt Kashfiyotdagi kirishingizga qaramay buni rad etdi"
+				},
+				"exploreReuse": {
+					"body": "Siz Kashfiyotga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti.",
+					"cta": "Kashfiyot orqali kirishimdan foydalanib, qayta urinish",
+					"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
+				},
+				"exploreSignIn": {
+					"body": "Agar bu video YouTube hisobini talab qilsa, Kashfiyotga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
+					"cta": "Kashfiyotga kirish",
+					"heading": "Bu video YouTube hisobini talab qilishi mumkin"
+				},
+				"exploreSignedIn": {
+					"body": "Agar bu video hisob talab qilsa, Arroxy Kashfiyot orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin.",
+					"heading": "Kashfiyotga kirilgan"
+				},
+				"exploreSite": {
+					"heading": "Bu havola uchun {{host}} saytida hisob kerak bo'lishi mumkin",
+					"offerBody": "Kashfiyot orqali {{host}} saytiga kiring va qayta urinib ko'ring.",
+					"signInBody": "Kashfiyotda {{host}} saytiga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
+				},
+				"heading": "Sabab cookies bo'lishi mumkin",
+				"needsCookies": {
+					"body": "Arroxy bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling.",
+					"heading": "Bu sayt tizimga kirish talab qiladi"
+				},
+				"openSettingsCta": "Cookies sozlamalarini ochish",
+				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…"
+			},
+			"drc": {
+				"description": "Baland joylarni pasaytiradi, past joylarni ko'taradi — karnaylar va shovqinli xonalar uchun.",
+				"label": "Ovoz balandligini tekislash (DRC)",
+				"tag": "Tekis ovoz"
+			},
+			"fit": {
+				"mp4Unavailable": "Profilingiz Aqlli TV (H.264). Bu video H.264 taklif qilmaydi, shuning uchun eng yaqin oqim tanlandi.",
+				"noVideo": "Bu havolada video yo'q, shuning uchun audio tanlandi.",
+				"subtitlesMissing": "Profilingiz quyidagi tillarda subtitr so'raydi: {{languages}}. Bu videoda ular yo'q.",
+				"tierAbove": "Profilingiz {{wanted}}p so'raydi. Bu videoda bunchalik past sifat yo'q, shuning uchun {{picked}}p tanlandi.",
+				"tierBelow": "Profilingiz {{wanted}}p so'raydi. Bu video faqat {{picked}}p gacha, shuning uchun {{picked}}p tanlandi.",
+				"webmUnavailable": "Profilingiz WebM so'raydi. Bu videoning tanlangan oqimlarida {{codec}} bor, uni WebM sig'dira olmaydi, shuning uchun fayl turi Avto."
+			},
+			"footer": {
+				"addToQueue": "Boshlamasdan navbatga qo'shish",
+				"download": "Yuklab olish",
+				"moreActions": "Yuklab olishning boshqa variantlari",
+				"subtitlesRequired": "Kamida bitta subtitr tilini tanlang."
+			},
+			"keepAudio": "O'zgartirishsiz saqlash",
+			"keepAudioMeta": "Ichki audio",
+			"kind": {
+				"audio": "Faqat audio",
+				"label": "Nimani yuklab olish",
+				"subtitles": "Faqat subtitrlar",
+				"video": "Video + audio",
+				"videoOnly": "Video, audiosiz"
+			},
+			"loadingAria": "Formatlar yuklanmoqda",
+			"loadingHint": "Tekshiruv tugaguncha kuting — pleylistlar va qidiruv natijalari biroz vaqt olishi mumkin.",
+			"marker": {
+				"aiDubbed": "SI dublyaji",
+				"aiUpscaled": "SI kattalashtirgan",
+				"audioDescription": "Audio tavsif",
+				"damaged": "Shikastlangan",
+				"enhancedBitrate": "Yuqori bitreyt",
+				"spatialAudio": "Fazoviy ovoz",
+				"vr": "360° / VR",
+				"watermarked": "Suv belgili"
+			},
+			"noAudio": "Audio yo'q",
+			"profile": {
+				"calloutBody": "Faol profilingiz oqimlarni siz uchun oldindan tanlaydi. Profilni menyudan almashtiring yoki shu yuklab olishdan chiqmay qalam bilan birini sozlang.",
+				"calloutTitle": "Formatlar profilingizdan boshlanadi",
+				"closestTag": "Profilga eng yaqin",
+				"edit": "Tahrirlash: {{name}}",
+				"keepEdits": "O'zgarishlarimni saqlash",
+				"menuDescription": "Faqat shu yuklab olish uchun. Standart profilingiz o'zgarmaydi.",
+				"preselected": "Oldindan tanlangan:",
+				"resetAll": "Hammasini tiklash",
+				"switchBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. “{{profile}}” baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
+				"switchTitle": "Profil almashtirilsinmi?",
+				"tag": "Profil",
+				"updatedBody": "Bu yuklab olish uchun o'zgartirilgan: {{areas}}. Yangilangan profil baribir video va audioni tanlaydi. Boshqa o'zgarishlaringiz saqlansinmi yoki hammasi profilga qaytarilsinmi?",
+				"updatedTitle": "Yangilangan profildan foydalanilsinmi?"
+			},
+			"quality": {
+				"high": "Yuqori sifat",
+				"low": "Past sifat",
+				"medium": "O'rtacha sifat"
+			},
+			"rateLimit": {
+				"heading": "{{site}} bu ulanishni cheklayapti",
+				"leadDegraded": "Formatlar ro‘yxati to‘liq bo‘lmasligi mumkin.",
+				"leadFailed": "{{site}} bu so‘rovni hozircha rad etdi.",
+				"retryCta": "Qayta urinish",
+				"sessionNote": "{{site}} bu cheklovni bir soatgacha saqlab turishi mumkin.",
+				"tryNowCta": "Hozir urinish",
+				"waitOver": "Kutish tugadi, qayta urinib ko‘rishingiz mumkin.",
+				"waitUntil": "Cheklov olib tashlanishi uchun Arroxy {{site}} ga qayta murojaat qilishdan oldin {{time}} gacha kutadi."
+			},
+			"resolutionUnknown": "O'lcham noma'lum",
+			"savesAs": {
+				"label": "Saqlash formati",
+				"reset": "WebM {{codec}} ni sig'dira olmaydi, shuning uchun fayl turi Avto ga qaytdi."
+			},
+			"sizeUnknown": "Hajm noma'lum",
+			"skipToConfirm": "Tasdiqlashga o'tish",
+			"skipToConfirmTooltip": "Qolgan barcha qadamlar uchun saqlangan sozlamalaringizdan foydalanadi. Biror sozlamani o'zgartirish uchun, qadamma-qadam davom eting — tanlovingiz keyingi safar saqlanadi.",
+			"sniffing": "Siz uchun eng yaxshi formatlarni qidiryapman…",
+			"total": "Jami",
+			"video": "Video",
+			"withAudio": "audio bilan"
+		},
+		"mixedPrompt": {
+			"body": "Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.",
+			"pickFromPlaylist": "Playlist dan tanlash",
+			"playlistLimit": "Pleylist tekshiruv chegarasi: {{count}} ta element",
+			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin pleylistni belgilangan chegaragacha yuklaydi.",
+			"quickBody": "Faqat shu videoni yuklab oling yoki butun pleylistni faol Tez yuklab olish profilingiz bilan navbatga qo‘ying.",
+			"quickLimitDescription": "Pleylist, kanal yoki qidiruv natijasini navbatga qo‘yishdan oldin Arroxy skanerlaydigan eng ko‘p elementlar soni.",
+			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi.",
+			"quickSingleTooltip": "Bitta yuklab olishni navbatga qo‘yadi va bu URLga biriktirilgan pleylistni e’tiborsiz qoldiradi.",
+			"quickSingleVideo": "Shu videoni yuklab olish",
+			"quickWholePlaylist": "Butun pleylistni yuklab olish",
+			"singleTooltip": "Faqat shu videoni yuklaydi. Bu URLga ulangan pleylist e’tiborsiz qoldiriladi.",
+			"singleVideo": "Faqat shu birini",
+			"title": "Bu havola Playlist ga tegishli"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Har qanday zamonaviy pleyerda navigatsiya qilinuvchi bob belgilari.",
+				"label": "Boblarni joylashtirish"
+			},
+			"embedMetadata": {
+				"description": "Sarlavha, ijrochi, tavsif va yuklash sanasi faylga yoziladi.",
+				"label": "Metama'lumotlarni joylashtirish"
+			},
+			"embedThumbnail": {
+				"description": "Fayl ichidagi muqova rasmi. WebM video MKV formatiga o'tkaziladi; subtitrlar joylashtirilganda o'tkazib yuboriladi.",
+				"label": "Muqovani joylashtirish"
+			},
+			"writeDescription": {
+				"description": "Video tavsifini yuklamaning yoniga .description matn fayli sifatida saqlaydi.",
+				"label": "Tavsifni saqlash"
+			},
+			"writeM3u": {
+				"description": "Videolar media pleerda tartib bilan ochilishi uchun yoniga .m3u pleylistini saqlaydi.",
+				"label": ".m3u pleylist faylini yaratish"
+			},
+			"writeThumbnail": {
+				"description": "Muqovani yuklamaning yoniga .jpg rasm fayli sifatida saqlaydi.",
+				"label": "Muqovani saqlash"
+			}
+		},
+		"part": {
+			"calloutBody": "Video kartasida «Qism»ga o‘ting, boshlanish va tugash yoki bobni tanlang va faqat shu qismni yuklab oling.",
+			"calloutTitle": "Videoning faqat bir qismini yuklab oling",
+			"chapterUntitled": "{{number}}-bob",
+			"chapters": "Boblar",
+			"connectionsNote": "Qism ffmpeg orqali yuklab olinadi, shuning uchun yuklab olish ulanishlari va pauza sozlamalari unga tatbiq etilmaydi.",
+			"downloadBlocked": "Avval qismning boshi va oxirini to'g'rilang.",
+			"end": "Oxiri",
+			"error": {
+				"endBeyondDuration": "Video {{duration}} da tugaydi.",
+				"endInvalid": "Oxirini h:mm:ss, m:ss yoki soniyada kiriting.",
+				"startInvalid": "Boshini h:mm:ss, m:ss yoki soniyada kiriting.",
+				"startNotBeforeEnd": "Boshi oxiridan oldin bo'lishi kerak."
+			},
+			"exactCut": {
+				"hint": "O'chiq bo'lsa, har bir kesim eng yaqin keyframega tushadi, u siz kiritgan vaqtdan bir necha soniya farq qilishi mumkin.",
+				"label": "Aniq kesish (qayta kodlanadi, sekinroq)"
+			},
+			"length": "{{duration}} dan {{length}}",
+			"part": "Qism",
+			"rangeLabel": "Videoning qismi",
+			"start": "Boshi",
+			"subtitlesFullLength": "butun video",
+			"summary": "Qism {{start}}–{{end}}",
+			"switchLabel": "Videoning qancha qismi",
+			"timeHint": "h:mm:ss, m:ss yoki soniya",
+			"totalEstimate": "Qism, taxminiy",
+			"unavailableDuration": "Bu video davomiyligini bildirmaydi, shuning uchun uni faqat butunligicha yuklab olish mumkin.",
+			"unavailableSubtitles": "Subtitrlar doim butun videoga tegishli bo'ladi.",
+			"urlStart": "Havolangiz {{time}} dan boshlanadi",
+			"useUrlStart": "Boshi sifatida ishlatish",
+			"whole": "Butun video",
+			"wholeTrack": "Butun trek"
+		},
+		"playlist": {
+			"allRemovedDescription": "Davom etish uchun ularni tiklang.",
+			"allRemovedTitle": "Barcha elementlar o'chirildi",
+			"alreadyDownloaded": "Allaqachon yuklab olingan",
+			"bulkHeading": "Ommaviy URLlar",
+			"bulkMetadataOptional": "Kutish shart emas — hozir navbatga qo‘yilgan fayllar yuklab olinganda baribir haqiqiy nomlarini oladi.",
+			"bulkMetadataResolving": "Video tafsilotlari olinmoqda… {{done}}/{{total}}",
+			"bulkRowFailed": "Tafsilotlar mavjud emas",
+			"bulkRowResolving": "Tafsilotlar olinmoqda",
+			"bulkRowWaiting": "Kutilmoqda",
+			"durationUnknown": "jonli",
+			"heading": "Playlist elementlari",
+			"headingGeneric": "Yuklab olinadigan videolar",
+			"itemCountAudio_one": "{{count}} ta trek",
+			"itemCountAudio_other": "{{count}} ta trek",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_one": "{{count}} ta video",
+			"itemCount_other": "{{count}} ta video",
+			"loadingItems": "Playlist yuklanmoqda…",
+			"loadingItemsGeneric": "Videolar olinmoqda…",
+			"loadingLimitHint": "Dastlabki {{count}} ta element bilan cheklangan",
+			"loadingPagesFound_one": "{{count}} sahifa topildi",
+			"loadingPagesFound_other": "{{count}} sahifa topildi",
+			"loadingPhaseItems": "Videolar yig'ilmoqda",
+			"loadingPhasePages": "Kanal sahifalari skanerlanmoqda",
+			"multiProfileEntry": "Har bir element uchun profil belgilash",
+			"multiProfileEntryTooltip": "Sifat, SponsorBlock, Chiqish va Saqlashni oʻtkazib yuboradi — buning oʻrniga har bir element uchun yuklab olish profilini belgilaydi",
+			"nestedPlaylistBadge": "Ijro roʻyxati",
+			"nestedPlaylistHint_one": "Bulardan {{count}} tasi video emas, ijro roʻyxati — uni yuklab olish uchun havolasini alohida joylashtiring.",
+			"nestedPlaylistHint_other": "Bulardan {{count}} tasi video emas, ijro roʻyxati — ularni yuklab olish uchun havolalarini bittalab joylashtiring.",
+			"noSelection": "Davom etish uchun kamida bitta videoni tanlang",
+			"probeLimitAlertDesc": "Arroxy {{count}} tadan ortiq element topdi, shuning uchun joriy skaner chekovi qolganlarini yashirmoqda.",
+			"probeLimitAlertTitle": "Pleylist skaneri cheklangan",
+			"probeLimitAlertTitleGeneric": "Skanlash cheklangan",
+			"rangeApply": "Diapazonni qoʻllash",
+			"rangeFrom": "Dan",
+			"rangeTo": "Gacha",
+			"removeFromListCount_one": "Ro'yxatdan {{count}} tasini o'chirish",
+			"removeFromListCount_other": "Ro'yxatdan {{count}} tasini o'chirish",
+			"removedCount_one": "{{count}} ta o'chirildi",
+			"removedCount_other": "{{count}} ta o'chirildi",
+			"restore": "Tiklash",
+			"selectAll": "Hammasini tanlash",
+			"selectNone": "Hammasini bekor qilish",
+			"selectedCount_one": "{{count}} ta tanlangan",
+			"selectedCount_other": "{{count}} ta tanlangan",
+			"sortApi": "Ijro roʻyxati tartibi",
+			"sortFetchingDates": "Yuklash sanalari olinmoqda…",
+			"sortLabel": "Saralash",
+			"sortUploadAsc": "Avval eskilari",
+			"sortUploadDesc": "Avval yangilari",
+			"syncApply": "Sinxronlashni qo‘llash",
+			"syncChange": "Jildni o‘zgartirish…",
+			"syncFoundDesc": "Bu videolarning {{n}} tasi allaqachon {{dir}} ichida. Faqat yangilarini yuklab olish uchun sinxronlansinmi?",
+			"syncFoundTitle": "Allaqachon jildda",
+			"syncNoneDesc": "Bu pleylistdan hech bir video {{dir}} ichida topilmadi.",
+			"syncNoneDescGeneric": "{{dir}} ichida bu manbadan videolar topilmadi.",
+			"syncNoneTitle": "Hali hech narsa yuklab olinmagan",
+			"syncScanning": "Jild tekshirilmoqda…",
+			"thumbnailAlt": "Video muqovasi"
+		},
+		"playlistPresets": {
+			"heading": "Paket uchun sifatni tanlang",
+			"itemCount_one": "{{count}} ta element",
+			"itemCount_other": "{{count}} ta element",
+			"subhead": "Har bir video tanlangan darajani mustaqil ravishda hal qiladi — turli xil playlistlar muammosiz ishlaydi."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Profil belgilash",
+			"assignTrigger_one": "{{count}} ta videoga belgilash",
+			"assignTrigger_other": "{{count}} ta videoga belgilash",
+			"columnDuration": "Davomiylik",
+			"columnProfile": "Profil",
+			"editProfile": "{{name}} tahrirlash",
+			"empty": "Ushbu filtrga mos keluvchi element yo'q",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profil filtrlari",
+			"heading": "Yuklab olish profillarini belgilash",
+			"menuDescription_one": "Bu video uchun profilni tanlang.",
+			"menuDescription_other": "Bu {{count}} ta video uchun profilni tanlang.",
+			"selectedSummary": "{{total}} tadan {{selected}} tasi tanlandi"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Umumiyni o'zgartirish",
+				"chooseFolder": "Manzil jildini tanlang",
+				"chooseIcon": "Profil belgisini tanlang",
+				"removeLanguage": "{{code}}ni olib tashlash",
+				"reset": "Profilni tiklash",
+				"resetDisabledHint": "Bu profil allaqachon ichki sozlamalardan foydalanmoqda",
+				"resetHint": "Ichki profil sozlamalarini tiklash",
+				"save": "Profilni saqlash",
+				"setOverride": "Profil almashtirishini belgilash",
+				"setOverrideShort": "Almashtirishni belgilash",
+				"useGlobalDefault": "Umumiy standartdan foydalanish",
+				"useLanguageCode": "“{{code}}” til kodidan foydalanish"
+			},
+			"advanced": "Kengaytirilgan",
+			"appSetting": "Ilova sozlamasidan foydalanish ({{value}})",
+			"audioFormat": {
+				"best": "Eng yaxshi",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "128K gacha",
+				"192": "192K gacha",
+				"320": "320K gacha",
+				"best": "Eng yaxshi sifat"
+			},
+			"destination": {
+				"defaultFolder": "Standart yuklashlar jildi",
+				"defaultFolderWithSubfolder": "Standart yuklashlar jildi / {{subfolder}}",
+				"global": "Umumiy manzil",
+				"globalActive": "Faol",
+				"globalInherited": "Meros qilib olingan",
+				"override": "Profil almashtirishi",
+				"overrideChoosing": "Jildni tanlang",
+				"overrideNone": "Almashtirish belgilanmagan",
+				"overrideNoneNote": "Almashtirish belgilanmagan. Bu profil yuqoridagi umumiy manzildan foydalanadi.",
+				"overrideSet": "Umumiyni almashtiradi",
+				"overrideSetNote": "Bu profil pastki jild qo'shilishidan oldin o'z ildiz jildiga saqlaydi.",
+				"resolved": "Yakuniy manzil"
+			},
+			"dialogDescription": "Tez yuklab olish, Ommaviy URL va pleylistlar uchun qayta ishlatiladigan bitta sozlama.",
+			"dialogTitle": "Yuklab olish profili",
+			"error": {
+				"changeGlobalDestination": "Umumiy manzilni o'zgartirib bo'lmadi.",
+				"folderPicker": "Jild tanlagichni ochib bo'lmadi. Yo'lni qo'lda kiriting.",
+				"reset": "Profil sozlamalarini tiklab bo'lmadi.",
+				"save": "Profil sozlamalarini saqlab bo'lmadi."
+			},
+			"field": {
+				"delivery": "Saqlash usuli",
+				"fileType": "Fayl turi",
+				"goal": "Optimallash maqsadi",
+				"icon": "Profil belgisi",
+				"languages": "Tillar",
+				"name": "Profil nomi",
+				"nameAndIcon": "Profil nomi va belgisi",
+				"nativeAudio": "Asl audio",
+				"overridePath": "Profil almashtirish yo'li",
+				"quality": "Sifat",
+				"resolution": "Ruxsat",
+				"source": "Manba",
+				"subfolderName": "Ichki jild nomi",
+				"subtitleDownloads": "Subtitr yuklamalari",
+				"subtitleDownloadsDescription": "Profillar til kodlarini so'raydi; mavjudligi har bir URL uchun alohida aniqlanadi."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Bir xil hajmda eng tiniq. Eski televizorlar, QuickTime va ba'zi muharrirlar uni ijro eta olmaydi.",
+					"name": "Eng yaxshi tasvir",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Televizorlar, telefonlar, WhatsApp, QuickTime va video muharrirlarida ijro etiladi. YouTube H.264 ni faqat 1080p gacha taklif qiladi.",
+					"name": "Aqlli TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arxiv",
+				"audio": "Audio",
+				"captions": "Taglavhalar",
+				"classes": "Darslar",
+				"clip": "Klip",
+				"controls": "Boshqaruvlar",
+				"download": "Yuklab olish",
+				"music": "Musiqa",
+				"podcast": "Podkast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musiqa yoki podkast",
+					"label": "Faqat audio"
+				},
+				"subtitlesOnly": {
+					"description": "Faqat taglavha fayllari",
+					"label": "Faqat subtitrlar"
+				},
+				"videoAudio": {
+					"description": "Oddiy video fayllar",
+					"label": "Video + audio"
+				},
+				"videoOnly": {
+					"description": "Faqat ovozsiz video",
+					"label": "Video, audiosiz"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Avtomatik taglavhalar ASS o'rniga SRT sifatida saqlanadi.",
+				"noLanguageMatches": "Mos tillar topilmadi",
+				"noSubtitles": "Bu profil uchun na subtitr fayllari, na ichki subtitr yo'llari so'ralmaydi.",
+				"searchLanguages": "Til nomi yoki kodi bo‘yicha qidirish",
+				"skippedForOutputType": "Bu chiqish turi uchun o'tkazib yuborildi.",
+				"subtitleLanguagesRequired": "Kamida bitta tilni tanlang.",
+				"subtitleLanguagesRequiredOrOff": "Kamida bitta tilni tanlang yoki subtitr yuklamalarini o‘chiring.",
+				"subtitlesOnly": "Bu profil faqat subtitr fayllarini navbatga qo'yadi. Video, audio, SponsorBlock va media konvertatsiyasi o'tkazib yuboriladi."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Agar profil almashtirishini belgilamasangiz, profillar umumiy manzilni meros qilib oladi.",
+					"title": "Kengaytirilgan sozlamalar"
+				},
+				"downloadType": {
+					"description": "Asosan qanday yuklab olishni xohlashingizni tanlang.",
+					"title": "Yuklab olish turi"
+				},
+				"identity": {
+					"description": "Tez yuklab olish, Ommaviy URL va profil ro'yxatlarida ko'rinadigan nom va belgi.",
+					"title": "Profil identifikatori"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} ta yoqilgan",
+					"enabledCount_other": "{{count}} ta yoqilgan",
+					"title": "Chiqish sozlamalari"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Bu profil uchun jild tanlang"
+			},
+			"skipped": "O'tkazib yuborildi",
+			"sponsorBlockHint": {
+				"mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).",
+				"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.",
+				"remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Faqat avtomatik yaratilgan",
+				"manualAndAuto": "Qo'lda va avtomatik",
+				"manualFirst": "Avval qo'lda, keyin avtomatik",
+				"manualOnly": "Faqat qo'lda"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}} yordami"
+		},
+		"quickProgress": {
+			"cancel": "Tayyorlashni bekor qilish",
+			"currentFallback": "Joriy havola",
+			"description": "Arroxy havolani o‘qiyapti va {{profileName}} profilini qo‘llayapti.",
+			"failedCount_one": "{{count}} ta muvaffaqiyatsiz",
+			"failedCount_other": "{{count}} ta muvaffaqiyatsiz",
+			"phase": {
+				"probing": "Tafsilotlar olinmoqda",
+				"queueing": "Navbatga qo‘shilmoqda"
+			},
+			"title": "Tez yuklab olish tayyorlanmoqda",
+			"waitHint": "Arroxy navbatni tayyorlayotganda buni ochiq qoldiring."
+		},
+		"review": {
+			"areas": {
+				"extras": "qo'shimchalar",
+				"fileName": "fayl nomi",
+				"format": "format",
+				"saveTo": "papka",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "subtitrlar"
+			},
+			"callout": {
+				"body": "Subtitrlar, SponsorBlock, muqova kabi qo'shimchalar, papka va fayl nomi avval alohida qadamlar edi. O'zgartirish uchun qatorni bosing.",
+				"title": "Qolgan barcha sozlamalar endi shu sahifada"
+			},
+			"changeFormat": "Formatni o'zgartirish",
+			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
+			"changedFrom": "{{profile}} dan o'zgartirilgan:",
+			"nextTime": {
+				"action": "Profil sifatida saqlash",
+				"defaultName": "{{profile}} (tahrirlangan)",
+				"title": "Bu yuklab olishda tahrirlangan sozlamalar ishlatildi. Keyingi safar ham ishlatilsinmi?"
+			},
+			"reset": "O'zgarishlarni bekor qilish, “{{profile}}” ga qaytish",
+			"rows": {
+				"extras": "Qo'shimchalar",
+				"fileName": "Fayl nomi",
+				"saveTo": "Saqlash joyi",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Subtitrlar"
+			},
+			"rowsHeading": "Qolgan hamma narsa",
+			"save": {
+				"action": "Profilni saqlash",
+				"description": "Bu sozlamalarni keyingi safar tanlash mumkin bo'lgan profil sifatida saqlaydi. Tez yuklab olish profilingiz o'zgarmaydi.",
+				"failed": "Profilni saqlab bo'lmadi.",
+				"nameLabel": "Profil nomi",
+				"saved": "“{{name}}” profili sifatida saqlandi",
+				"title": "Profil sifatida saqlash"
+			},
+			"saveAsProfile": "Yangi profil sifatida saqlash",
+			"update": {
+				"action": "Profilni yangilash",
+				"builtinNote": "Bu o'rnatilgan profil. Uning asl sozlamalarini Profillar yorlig'ida tiklashingiz mumkin.",
+				"description": "Bundan buyon bu profil bilan har bir yuklab olish yangi sozlamalardan foydalanadi.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "“{{profile}}” yangilansinmi?",
+				"updated": "“{{name}}” profili yangilandi"
+			},
+			"updateProfile": "“{{profile}}” ni shu o'zgarishlar bilan yangilash",
+			"value": {
+				"extrasNone": "Yo'q",
+				"sponsorBlockOff": "O'chirilgan",
+				"subtitlesOff": "O'chirilgan"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "To'ldiruvchi",
+				"intro": "Kirish",
+				"music_offtopic": "Mavzudan tashqari musiqa",
+				"outro": "Chiqish",
+				"preview": "Ko'rib chiqish",
+				"selfpromo": "O'z reklamasi",
+				"sponsor": "Homiy"
+			},
+			"categoriesHeading": "Kategoriyalar",
+			"mode": {
+				"mark": "Boblar sifatida belgilash",
+				"off": "O'chirilgan",
+				"remove": "Segmentlarni olib tashlash"
+			},
+			"modeHeading": "Homiy filtrlash",
+			"modeHint": {
+				"mark": "Homiy segmentlarini boblar sifatida belgilaydi (vayron qilmaydi).",
+				"off": "SponsorBlock yo'q — video yuklangan holatda ijro etiladi.",
+				"remove": "FFmpeg yordamida videodan homiy segmentlarini qirqib tashlaydi."
+			}
+		},
+		"steps": {
+			"confirm": "Tasdiqlash",
+			"folder": "Saqlash",
+			"formats": "Format",
+			"output": "Chiqish",
+			"playlistItems": "Ijro roʻyxati",
+			"playlistItemsGeneric": "Videolar",
+			"playlistPresets": "Sifat",
+			"playlistProfiles": "Profillar",
+			"review": "Ko'rib chiqish",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Subtitrlar",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Avtomatik sarlavhalar ASS o'rniga SRT sifatida saqlanadi — ular doimo YouTube'ning bizning ASS konvertorimiz hali takrorlay olmagan aylanma replikatsiyadan tozalanadi.",
+			"autoBadge": "Avto",
+			"clearAll": "Hammasini tozalash",
+			"embedNote": "Joylash rejimida chiqish .mkv sifatida saqlanadi, shunda subtitrl treklari ishonchli joylashadi.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Bu video uchun subtitrlar mavjud emas",
+			"noMatches": "Mos til topilmadi",
+			"noSelected": "Hech qanday subtitrl tanlanmagan",
+			"removeLanguage": "{{name}}ni olib tashlash",
+			"saveMode": {
+				"embed": "Videoga joylash",
+				"heading": "Saqlash turi",
+				"sidecar": "Videoning yoniga",
+				"subfolder": "subtitles/ papkachasi"
+			},
+			"searchPlaceholder": "Tillarni qidirish…",
+			"sectionAuto": "Avtomatik yaratilgan",
+			"sectionManual": "Qo'lda"
+		},
+		"tabsNavAria": "Yuklab olish profili navigatsiyasi",
+		"url": {
+			"advanced": "Kengaytirilgan",
+			"analytics": {
+				"toggle": "Kunlik signal yuborish",
+				"toggleDescription": "Telemetriya yo'q. Kuniga bir marta anonim signal ilova versiyasi, o'rnatish kanali, OT, til, mamlakat va Arroxy taxminan qachon o'rnatilganini yuboradi — shunda faol va yangi foydalanuvchilarni sanay olamiz. ID, URL, video sarlavhalari yoki fayl nomlari yo'q."
+			},
+			"autoRemoveCompleted": {
+				"description": "Yuklama tugagach, bir necha soniyadan so‘ng uni Yuklamalar ro‘yxatidan olib tashlaydi. Fayllar jildingizda qoladi; muvaffaqiyatsiz va bekor qilingan yuklamalar ro‘yxatda qoladi.",
+				"label": "Tugallangan yuklamalarni avtomatik olib tashlash"
+			},
+			"autoRetry": {
+				"description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.",
+				"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish",
+				"unit": "marta"
+			},
+			"bulkButton": "Ommaviy URLlar",
+			"bulkTooltip": "Bir nechta URLni qo‘shing va navbatga qo‘ying.",
+			"clearAria": "URLni tozalash",
+			"clipboard": {
+				"autofilledLink": "Havola buferdan qo‘shildi",
+				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
+				"dialog": {
+					"cancelButton": "Bekor qilish"
+				},
+				"replacedLink": "Nusxalangan havola bilan almashtirildi",
+				"toggle": "Buferga nazar solish",
+				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
+				"undo": "Bekor qilish"
+			},
+			"closeToTray": {
+				"toggle": "Yopilganda tizim soatiga yashirish",
+				"toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."
+			},
+			"concurrentDownloads": {
+				"description": "Navbatdagi nechta element bir vaqtda yuklab olinadi. Bir vaqtda ko'proq bo'lsa uzun navbat tezroq tugaydi, lekin sayt sizni cheklash ehtimoli ortadi.",
+				"label": "Bir vaqtda yuklamalar",
+				"unit": "yuklama"
+			},
+			"cookies": {
+				"banWarning": "YouTube kabi saytlar cookieslari Arroxy kabi yuklab olish vositalari tomonidan ishlatiladigan hisoblarni belgilashi — va ba'zida taqiqlashi — mumkin. Iloji bo'lsa vaqtinchalik hisob ishlating.",
+				"browserHelp": "Brauzerdan to'g'ridan-to'g'ri cookies o'qiydi. Chromium oilasidagi brauzerlar yopiq bo'lishi kerak.",
+				"browserLabel": "Brauzer",
+				"browserPlaceholder": "Brauzer tanlang…",
+				"choose": "Tanlash…",
+				"clear": "Tozalash",
+				"enabledButNoBrowser": "Cookiesdan foydalanish uchun brauzer tanlang",
+				"enabledButNoFile": "Cookiesdan foydalanish uchun fayl tanlang",
+				"exploreDescription": "Kashfiyot orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
+				"exploreDisabled": "Kashfiyot yorlig'i o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi. Uni quyidagi Kashfiyot bo'limida yoqing.",
+				"extensionChrome": "cookies.txt ni LOKAL olish (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookies fayli",
+				"helpLink": "Cookiesni qanday eksport qilaman?",
+				"openExplore": "Kashfiyotni ochish",
+				"placeholder": "Fayl tanlanmagan",
+				"recommended": "Tavsiya etiladi",
+				"risk": "Xavf: cookies.txt o'sha brauzerning barcha kirgan sessiyalarini o'z ichiga oladi — uni shaxsiy saqlang.",
+				"sourceBrowser": "Brauzer",
+				"sourceExplore": "Kashfiyot orqali kirish",
+				"sourceFile": "Fayl",
+				"sourceLabel": "Cookies manbai",
+				"sourceOff": "O'chirilgan",
+				"toggleDescription": "Yosh cheklovli, faqat a'zolar uchun va shaxsiy hisob videolari bilan yordam beradi."
+			},
+			"downloadConnections": {
+				"description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.",
+				"label": "Yuklab olish ulanishlari",
+				"unit": "ulanish"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Faqat audio",
+					"subtitles": "Subtitrlar"
+				},
+				"anySite": {
+					"heading": "2000+ sayt",
+					"musicPlaylist": "Musiqa pleylistlar",
+					"video": "Videolar",
+					"videoPlaylist": "Video pleylistlar"
+				},
+				"heading": "Arroxy nima yuklab olishi mumkin",
+				"youtube": {
+					"channel": "Kanallar",
+					"heading": "YouTube",
+					"music": "Musiqa",
+					"playlist": "Ijro roʻyxatlari",
+					"podcast": "Podkastlar",
+					"short": "Shortlar",
+					"video": "Videolar"
+				}
+			},
+			"fetchFormatsTooltip": "Bosqichma-bosqich yordamchi. Format, sifat va boshqalarni tanlang.",
+			"heading": "URL orqali yuklab olish",
+			"hotkey": {
+				"changeShortcut": "Tez tugmani o‘zgartirish",
+				"conflict": "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang.",
+				"hintLabel": "Yoki bosing",
+				"hintTooltip": "Video havolasini istalgan joyda nusxalang, shu yorliqni bosing, Arroxy esa uni faol profilingiz bilan navbatga qo‘shadi — oynalarni almashtirish shart emas.",
+				"hintTooltipSettings": "Uni Sozlamalarda o‘zgartiring yoki o‘chirib qo‘ying.",
+				"recording": "Tugmalarni bosing…",
+				"reset": "Standartga qaytarish",
+				"sectionDescription": "Nusxa olingan havolani, Arroxy ochmasdan, istalgan ilovadan yuklab oling.",
+				"sectionTitle": "Global tez tugma",
+				"test": "Sinash",
+				"toggle": "Global tez tugmani yoqish",
+				"toggleDescription": "Buferda video havolasi bo‘lganda tez tugmani bosing."
+			},
+			"interactiveDownload": "Interaktiv yuklab olish",
+			"limitRate": {
+				"activeWarning": "Faol yuklab olishlar joriy chegarasini saqlaydi. Qo‘llash uchun Pauza + Davom ettiring.",
+				"custom": "Maxsus…",
+				"customPlaceholder": "mas. 750K yoki 1.5M",
+				"description": "Media yuklab olishlar uchun tarmoq sarfini cheklang. Quyidagi so‘rov oralig‘i odatda kuchliroq vosita.",
+				"invalid": "K yoki M bilan tugaydigan son kiriting (mas. 500K, 1.5M)",
+				"label": "Yuklab olish tezligi chegarasi",
+				"off": "O‘chiq"
+			},
+			"mascotBusy": "Fonda yuklanmoqda… Men bir vaqtda ko'p ish qila olaman 😎",
+			"mascotCollection": "Tez yuklab olish yuklangan elementlarni {{profileName}} bilan navbatga qo'yadi. Interaktiv yuklab olish avval elementlarni ko'rib chiqish yoki tanlash imkonini beradi.",
+			"mascotIdle": "Havolani tashlang, Arroxy uni tortib olsin ✨",
+			"mascotMixed": "Bu havola to'plamdagi bitta videoga olib boradi. Tekshirishdan oldin Arroxy qaysi birini xohlayotganingizni so'raydi.",
+			"mascotPreparing": "{{quickDownload}} bu havolani o'qiyapti va {{profileName}} profilini qo'llayapti.",
+			"mascotQueued": "Bu yuklab olishni navbat bajaryapti. U ishlayotganda boshqa havolani qo'yishingiz mumkin.",
+			"mascotSingle": "Tez yuklab olish {{profileName}} bilan bitta yuklab olishni boshlaydi. Bir martalik o'zgartirishlar uchun Interaktiv yuklab olishdan foydalaning.",
+			"nativeAudioPreference": {
+				"compatible": "Mos stereo",
+				"description": "Profil asl audioni tanlaganda stereo yoki surround. Profil buni o'zgartirishi mumkin.",
+				"label": "Asl audio afzalligi",
+				"surround": "Surround / Dolbyni afzal ko‘rish"
+			},
+			"networkPacing": {
+				"description": "Arroxy saytga haddan tashqari agressiv murojaat qilmasligi uchun har bir yuklab olish paytida kichik kutish vaqtlari qo'shadi. Qiymatlar soniyalarda.",
+				"fields": {
+					"maxSleepInterval": "Media boshlanishidan oldingi pauza: maks",
+					"sleepInterval": "Media boshlanishidan oldingi pauza: min",
+					"sleepRequests": "Metadata tekshiruvlari orasidagi kutish",
+					"sleepSubtitles": "Subtitr fayllaridan oldin kutish"
+				},
+				"heading": "Yumshoq yuklamalar",
+				"presetLabel": "Arroxy qanchalik ehtiyotkor bo‘lsin?",
+				"presets": {
+					"balanced": "Muvozanatli",
+					"careful": "Ehtiyotkor",
+					"custom": "Maxsus",
+					"off": "O'chiriq"
+				},
+				"summary": "Kutish: {{requests}} tekshiruvlar orasida, {{downloads}} media boshlanishidan oldin, {{subtitles}} subtitrl fayllaridan oldin.",
+				"tooltip": "Bu kutishlar har bir yuklama ichida sodir bo'ladi. Bir vaqtda qancha yuklama ishlashi «Bir vaqtda yuklamalar» bo'limida alohida belgilanadi.",
+				"tooltips": {
+					"balanced": "Standart. So'rovlar orasida va media boshlanishidan oldin qisqa tanaffuslar qo'shadi.",
+					"careful": "Katta pleylistlar yoki tez-tez cheklovlarga duch keladigan tarmoqlar uchun uzunroq tanaffuslar qo'shadi.",
+					"custom": "Yuklab olish boshqaruvlarini o'zingiz sozlang.",
+					"off": "Arroxy media va subtitrlar uchun saqlaydigan kichik asosiy tanaffuslarnigina ishlatadi."
+				},
+				"units": {
+					"seconds": "soniya"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "Joriy chegara: {{count}} ta element",
+				"custom": "Maxsus…",
+				"customDialogCancel": "Bekor qilish",
+				"customDialogDescription": "{{min}} dan {{max}} gacha bo'lgan butun son kiriting.",
+				"customDialogSave": "Chegarani saqlash",
+				"customDialogTitle": "Maxsus pleylist skaner chegarasi",
+				"customValue": "Maxsus: {{count}} ta element",
+				"description": "Arroxy pleylist, kanal yoki qidiruv natijasi ochilganda yuklaydigan maksimal yozuvlar soni.",
+				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
+				"label": "Skanerlash uchun pleylist elementlari",
+				"option": "{{count}} ta element",
+				"tooltip": "Arroxy tanlagichni qurishda faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
+			},
+			"playlistScope": {
+				"appLimit": "Ilova chegarasidan foydalanish: {{count}}",
+				"apply": "Qoʻllash",
+				"applyError": "Bu ijro roʻyxati doirasini qoʻllab boʻlmadi: {{message}}",
+				"applyReload": "Qoʻllash va qayta yuklash",
+				"cancel": "Bekor qilish",
+				"change": "Oʻzgartirish",
+				"dialogDescription": "Arroxy ushbu ijro roʻyxati uchun nimani yuklashini tanlang.",
+				"dialogTitle": "Ijro roʻyxati doirasi",
+				"emptyTitle": "Bu doirada videolar yoʻq",
+				"first": "Birinchi",
+				"invalid": "1 dan {{max}} gacha boʻlgan butun element raqamlarini kiriting; boshlanish oxiridan katta boʻlmasin.",
+				"itemsLabel": "Yuklanadigan elementlar",
+				"label": "Ijro roʻyxati doirasi",
+				"range": "Oraliq",
+				"reloading": "Qayta yuklanmoqda...",
+				"reset": "Qayta tiklash",
+				"summaryAppLimit": "Dastlabki {{count}} ta elementni yuklash",
+				"summaryFirst": "Dastlabki {{count}} ta elementni yuklash",
+				"summaryRange": "{{from}}-{{to}}-elementlarni yuklash",
+				"to": "gacha"
+			},
+			"profile": {
+				"activeLabel": "Faol profil",
+				"badgeBuiltIn": "Ichki",
+				"badgeCustom": "Maxsus",
+				"badgeDisabled": "Yashirin",
+				"badgeModified": "O‘zgartirilgan",
+				"changeGlobalDestination": "Umumiy saqlash manzilini o'zgartirish",
+				"destinationDetail": {
+					"global": "Umumiy saqlash manzili ishlatilmoqda",
+					"globalSubfolder": "Umumiy saqlash manzili + profil ichki jildi ishlatilmoqda",
+					"override": "Profil almashtirishi ishlatilmoqda",
+					"overrideSubfolder": "Profil almashtirishi + profil ichki jildi ishlatilmoqda"
+				},
+				"destinationFallback": "Manzil",
+				"edit": "Tahrirlash",
+				"editActive": "Faol profilni tahrirlash",
+				"enableHint": "Yashirin profillar shu yerda qoladi, lekin barcha tanlagichlardan yo'qoladi.",
+				"enableToggleAria": "Tanlagichlarda profilni ko'rsatish: {{profileName}}",
+				"lastEnabledHint": "Kamida bitta profilni mavjud saqlang.",
+				"manageProfiles": "Profillarni boshqarish",
+				"menuDescription": "Quick Download, ko'p URL va pleylistlar uchun faol profilni o'zgartiring.",
+				"menuTitle": "Profilni almashtirish",
+				"movableProfile": "ko‘chiriladigan profil",
+				"moveCancelled": "Ko‘chirish bekor qilindi. {{profileName}} profili {{count}} tadan {{position}}-o‘rinda qoladi.",
+				"moveDropped": "{{profileName}} profili {{count}} tadan {{position}}-o‘ringa qo‘yildi.",
+				"moveHandleAria": "{{profileName}} profilini ko‘chirish",
+				"moveInstructions": "Profilni ko‘chirish uchun Probel yoki Enter tugmasini bosing, uni strelka tugmalari bilan siljiting, so‘ng qo‘yish uchun yana Probel yoki Enter tugmasini bosing. Bekor qilish uchun Escape tugmasini bosing.",
+				"moveOver": "{{profileName}} profili {{count}} tadan {{position}}-o‘rin ustida.",
+				"movePickedUp": "{{profileName}} profili olindi. U {{count}} tadan {{position}}-o‘rinda.",
+				"newProfile": "Yangi profil",
+				"panelDescription": "Qayta ishlatiladigan yuklab olish sozlamalarini yarating, tanlang, tahrirlang yoki olib tashlang.",
+				"panelTitle": "Yuklab olish profillari",
+				"remove": "Olib tashlash",
+				"reorderHint": "Profilni ko‘chirish uchun uni sudrab olib boring. Har bir profil tanlagich shu tartibga amal qiladi.",
+				"reset": "Qayta tiklash",
+				"summary": {
+					"aacAudio": "AAC audio",
+					"bestAudio": "eng yaxshi audio",
+					"bestVideo": "eng yaxshi video",
+					"noAudio": "audiosiz",
+					"subtitlesOnly": "faqat subtitrlar",
+					"wavAudio": "WAV audio"
+				},
+				"switchAria": "Yuklab olish profilini almashtirish: {{profileName}}",
+				"switchTitle": "Yuklab olish profilini almashtirish"
+			},
+			"proxy": {
+				"clear": "Tozalash",
+				"description": "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.",
+				"label": "Proxy URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Bu URLlarning hech birini tayyorlab bo‘lmadi",
+			"quickDownload": "Tez yuklab olish",
+			"quickDownloadTooltip": "{{profileName}} orqali yuklab olinadi",
+			"quickFailed": "Buni qo‘shib bo‘lmadi: {{error}}",
+			"quickPartialFailed_one": "Ishlagani navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
+			"quickPartialFailed_other": "Ishlaganlari navbatga qo‘shildi. {{count}} ta URL tayyorlanmadi.",
+			"quickPrepareFailed": "Navbat elementi tayyorlanmadi",
+			"quickPreparing": "Tayyorlanmoqda",
+			"quickProbeFailed": "Tekshiruv muvaffaqiyatsiz",
+			"quickQueued": "Navbatga qo‘shildi",
+			"quickSingleOnly": "Boshlash uchun video, pleylist, kanal yoki qidiruv URL manzilini joylang.",
+			"settings": {
+				"behaviorDescription": "Profillar orqali boshqariladigan yuklamalarga ham taʼsir qiluvchi global xatti-harakat.",
+				"behaviorHeading": "Yuklash xatti-harakati",
+				"inputHeading": "Kiritish"
+			},
+			"style": {
+				"aurora": {
+					"description": "Harakatlanuvchi osmon ustidagi shishasimon panellar. Grafik tezlatish kerak.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Zich, sokin yuzalar. Istalgan kompyuterda yengil ishlaydi.",
+					"label": "Minimalistik"
+				},
+				"modeDescription": "Ikkala uslub ham yorug' va qorong'i variantda mavjud.",
+				"modeLabel": "Uslub",
+				"panelDescription": "Arroxy ko'rinishini sozlang. Yorug' va qorong'i rejim o'rtasida pastki qatorda almashtiring.",
+				"panelTitle": "Ko'rinish",
+				"unavailableNotice": "{{style}} uchun grafik tezlatish kerak, hozir u mavjud emas, shuning uchun Arroxy {{fallback}} uslubini ko'rsatmoqda."
+			},
+			"tabs": {
+				"profiles": "Profillar",
+				"settings": "Sozlamalar"
+			}
+		}
+	}
 }

@@ -128,13 +128,18 @@ const LONG_TITLE = `A playlist entry whose title runs on ${'and on '.repeat(50)}
 const NON_ASCII_TITLE = '日本語のタイトル 🎉 Привет, мир — ünïcödé '.repeat(12)
 // `probed`: whether Arroxy knew the formats when it bound the name, as for one
 // probed video or a hydrated playlist row; a flat playlist row did not.
-const DOWNLOADS: readonly {label: string; title: string; streams: StreamPair; probed: boolean}[] = [
+// `temp`: the temp folder below the download folder, `.arroxy-temp/<job id>`
+// as setupTempDir names it unless given.
+const DOWNLOADS: readonly {label: string; title: string; streams: StreamPair; probed: boolean; temp?: string}[] = [
 	{label: 'long title, flat playlist row', title: LONG_TITLE, streams: YOUTUBE_STREAMS, probed: false},
 	{label: 'long title, hydrated playlist row', title: LONG_TITLE, streams: YOUTUBE_STREAMS, probed: true},
 	{label: 'long format id, flat playlist row', title: LONG_TITLE, streams: VIMEO_STREAMS, probed: false},
 	{label: 'long format id, probed video', title: LONG_TITLE, streams: VIMEO_STREAMS, probed: true},
 	{label: 'non-ASCII title, flat playlist row', title: NON_ASCII_TITLE, streams: YOUTUBE_STREAMS, probed: false},
-	{label: 'non-ASCII title, probed video', title: NON_ASCII_TITLE, streams: VIMEO_STREAMS, probed: true}
+	{label: 'non-ASCII title, probed video', title: NON_ASCII_TITLE, streams: VIMEO_STREAMS, probed: true},
+	// A bridge caller's own temp folder: yt-dlp strips a `--paths` value and
+	// expands a leading `~`, with no escape.
+	{label: 'temp folder yt-dlp would expand', title: 'Ordinary title', streams: YOUTUBE_STREAMS, probed: true, temp: '~/ tmp '}
 ]
 
 interface Download {
@@ -177,6 +182,11 @@ function outputArgs(args: readonly string[]): string[] {
 		if (arg === '--print-to-file') return [arg, (args[index + 1] ?? '').replace(/^\w+:/, 'video:'), args[index + 2] ?? '']
 		return []
 	})
+}
+
+function insideFolder(folder: string, file: string): boolean {
+	const relative = path.relative(folder, file)
+	return relative !== '' && !relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative)
 }
 
 function planCwd(plan: WorkflowPlan): string {
@@ -243,7 +253,7 @@ try {
 		cases.push({label: `${label} · media`, cwd: planCwd(media), expected: path.join(directory, `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(media.args), report: path.join(directory, '.arroxy-tmp', `${title.slice(0, 20)}.txt`)})
 		cases.push({label: `${label} · subtitles in a subfolder`, cwd: planCwd(subtitles), expected: path.join(directory, 'subtitles', `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(subtitles.args)})
 	}
-	const downloads: Download[] = DOWNLOADS.map(({label, title, streams, probed}, index) => {
+	const downloads: Download[] = DOWNLOADS.map(({label, title, streams, probed, temp}, index) => {
 		const infoPath = path.join(work, `download-${index}.info.json`)
 		const info = infoJson(title, 'Ordinary Channel')
 		const formats = [
@@ -259,8 +269,7 @@ try {
 		const compiled = compileFilenameTemplate(bound.template)
 		if (!compiled.ok) throw new Error(`${label}: compile failed (${compiled.code})`)
 		const format = `${streams.video.format_id}+${streams.audio.format_id}`
-		// The temp folder as setupTempDir names it: `.arroxy-temp/<job id, 8 chars>`.
-		const plan = planWorkflow({kind: 'media', url: 'https://parity.invalid', format: {format}, output: {directory: outputDir, template: compiled.template, tempDirectory: path.join(outputDir, '.arroxy-temp', 'parity01')}, resume: {loadInfoJsonPath: infoPath}})
+		const plan = planWorkflow({kind: 'media', url: 'https://parity.invalid', format: {format}, output: {directory: outputDir, template: compiled.template, tempDirectory: path.join(outputDir, temp ?? '.arroxy-temp/parity01')}, resume: {loadInfoJsonPath: infoPath}})
 		return {label: `download · ${label}`, cwd: planCwd(plan), infoJson: infoPath, format, outputArgs: outputArgs(plan.args), outputDir, name: bound.template, reserve: inFlightReserve(inFlight)}
 	})
 	for (const testCase of [...cases, ...downloads]) mkdirSync(testCase.cwd, {recursive: true})
@@ -275,7 +284,11 @@ try {
 		}),
 		downloads: downloads.map(download => ({cwd: download.cwd, info_json: download.infoJson, format: download.format, output_args: download.outputArgs}))
 	})
-	const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV}})
+	// A home folder of its own, so a path that expands `~` lands in the work
+	// folder, outside the run's, and is caught.
+	const home = path.join(work, 'home')
+	mkdirSync(home)
+	const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV, HOME: home}})
 	child.child.stdin?.end(request)
 	const {stdout} = await child
 	const response: unknown = JSON.parse(stdout)
@@ -309,6 +322,10 @@ try {
 			continue
 		}
 		if (!('written' in result) || !Array.isArray(result.written)) throw new Error(`malformed oracle result for ${download.label}`)
+		// Every file the run wrote, temp files included, is inside its folder.
+		for (const file of result.written) {
+			if (typeof file === 'string' && !insideFolder(download.cwd, file)) differences.push(`${download.label}: yt-dlp wrote ${JSON.stringify(path.relative(work, file))}, outside the run's folder`)
+		}
 		const written = result.written.filter((file: unknown): file is string => typeof file === 'string' && path.basename(file).startsWith(download.name))
 		// Without fragments the case would not exercise the longest name.
 		if (!written.some(file => file.includes('.part-Frag'))) differences.push(`${download.label}: yt-dlp wrote no fragment`)

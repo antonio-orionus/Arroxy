@@ -274,7 +274,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'queue-columns', group: 'Queue', title: 'Queue columns', description: 'Rows with varied timestamps for sorting and column visibility review.', kind: 'queue'},
 	{id: 'queue-quick-download', group: 'Queue', title: 'Queue quick download', description: 'Quick download rows: probing with Cancel, a failed probe with its guidance, a capped playlist and a link to review waiting for a choice, and the toasts with actions.', kind: 'queue'},
 	{id: 'queue-attention', group: 'Queue', title: 'Queue needs attention', description: 'Background quick downloads: one preparing, a private video that offers Sign in in Explore, a capped playlist waiting for a choice, the attention badge on the Downloads tab, and a failure toast with View and Retry.', kind: 'queue'},
-	{id: 'queue-large', group: 'Queue', title: 'Queue large', description: '5,000 queued rows for virtualization and scroll performance review.', kind: 'queue'},
+	{id: 'queue-large', group: 'Queue', title: 'Queue large', description: '5,000 queued rows, some finished ones a line taller (a notice plus missing subtitle languages), for virtualization and scroll performance review.', kind: 'queue'},
 	{id: 'diagnostics-all-ok', group: 'Diagnostics', title: 'All OK', description: 'Runnable dependency diagnostics.', kind: 'diagnostics'},
 	{id: 'diagnostics-ytdlp-missing', group: 'Diagnostics', title: 'yt-dlp missing', description: 'Blocking yt-dlp setup failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffmpeg-broken', group: 'Diagnostics', title: 'ffmpeg broken', description: 'Blocking ffmpeg setup failure.', kind: 'diagnostics'},

@@ -69,6 +69,9 @@ export default defineConfig({
 		arrowParens: 'avoid',
 		bracketSpacing: false,
 		objectWrap: 'collapse',
+		// Locale JSON keeps one key per line, sorted (`bun run i18n:format`), so two copy changes
+		// conflict only when they touch the same or adjacent keys.
+		overrides: [{files: ['src/shared/i18n/locales/**'], options: {objectWrap: 'preserve', printWidth: 100}}],
 		// Same scope Biome formatted: source, tests, scripts, packages and root configs.
 		ignorePatterns: [
 			'**/*.md',

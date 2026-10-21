@@ -107,6 +107,15 @@ describe('SavesAsControl', () => {
 		expect(screen.queryByTestId('saves-as-trigger')).not.toBeInTheDocument()
 	})
 
+	it('names no file for audio whose codec only extraction finds out', () => {
+		const hlsAudio: FormatOption = {formatId: '234', label: 'hls audio', ext: 'mp4', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true}
+		useAppStore.setState({wizardMediaKind: 'audio', selectedVideoFormatId: '', wizardFormats: [...FORMATS, hlsAudio], audioSelection: {kind: 'native', formatId: '234'}})
+		const {container} = render(<SavesAsControl />)
+
+		// Extraction lands it as .m4a, .opus or .mp3 by the codec ffprobe finds: never .mp4.
+		expect(container).toBeEmptyDOMElement()
+	})
+
 	it('is hidden for subtitles downloads', () => {
 		useAppStore.setState({wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
 		const {container} = render(<SavesAsControl />)

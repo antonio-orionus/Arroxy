@@ -1,5 +1,5 @@
 import path from 'node:path'
-import {resolveManagedPath, type ResolvedOutputPolicy} from './filesystem.js'
+import {expandsVariables, resolveManagedPath, type ResolvedOutputPolicy} from './filesystem.js'
 import {templateLiteral} from './output-template.js'
 import type {SubtitleMode} from './schemas.js'
 
@@ -18,7 +18,9 @@ export interface CallerOutput {
 	// The file name as an output template: fields, and literal text from
 	// templateLiteral(). Relative to `directory`.
 	template?: string
-	// Inside `directory`, absolute or relative to it.
+	// Inside `directory`, absolute or relative to it. yt-dlp has no escape for
+	// it, so a variable below `directory` (`$NAME`, `%NAME%` on Windows) is
+	// refused.
 	tempDirectory?: string
 	subtitleMode?: SubtitleMode
 	// Files inside `directory` that yt-dlp appends what it wrote to.
@@ -57,6 +59,20 @@ function insideTarget(directory: string, file: string, label: string): string {
 	return relative
 }
 
+// `--paths`, `--load-info-json` and `--download-archive` take no template, so
+// no escape: yt-dlp runs expand_path over them, and strips a `--paths` value
+// first. Behind `./` a leading `~` or space is a folder name; a variable
+// cannot be protected, so it is refused. `--paths` values also end in `/`,
+// which keeps a trailing space.
+function unexpandedRelative(relative: string, label: string): string {
+	if (expandsVariables(relative)) throw new Error(`${label} names a variable yt-dlp would expand (${relative}); it has no escape there`)
+	return `./${relative}`
+}
+
+function unexpandedInside(directory: string, file: string, label: string): string {
+	return unexpandedRelative(insideTarget(directory, file, label), label)
+}
+
 function reportArgs(output: CallerOutput): string[] {
 	const args: string[] = []
 	const {finalPath, subtitles} = output.report ?? {}
@@ -67,15 +83,15 @@ function reportArgs(output: CallerOutput): string[] {
 
 // A file from outside the folder (a probe's info-json) is the caller's own
 // path and goes as given; yt-dlp expands it.
-export function loadInfoJsonArgs(output: CallerOutput, file: string | undefined): string[] {
+export function loadInfoJsonArgs(output: CallerOutput, file: string | undefined, label: string): string[] {
 	if (!file) return []
-	return ['--load-info-json', relativeInside(output.directory, file) ?? file]
+	return ['--load-info-json', relativeInside(output.directory, file) === null ? file : unexpandedInside(output.directory, file, label)]
 }
 
 export function callerMediaOutputArgs(output: CallerOutput, options: CallerMediaOutputOptions): string[] {
 	const template = callerOutputTemplate(output)
 	const temp = output.tempDirectory ? insideTarget(output.directory, output.tempDirectory, 'output.tempDirectory') : undefined
-	const args = temp ? ['--paths', `temp:${temp}`, '-o', template] : ['-o', template]
+	const args = temp ? ['--paths', `temp:${unexpandedInside(output.directory, temp, 'output.tempDirectory')}/`, '-o', template] : ['-o', template]
 	if (temp && !options.skipDownload && options.resume?.writeInfoJson !== false) {
 		args.push('--write-info-json', '-o', `infojson:${templateLiteral(`${temp}/${options.resume?.infoJsonBaseName ?? DEFAULT_INFO_JSON_BASE_NAME}`)}`)
 	}
@@ -88,15 +104,23 @@ export function callerSubtitlesOutputArgs(output: CallerOutput): string[] {
 	return ['-o', output.subtitleMode === 'subfolder' ? `${SUBTITLE_SUBFOLDER}/${template}` : template, ...reportArgs(output)]
 }
 
-// The output root is the run's working directory. A temp root inside it goes
+// The output root is the run's working directory. A path inside it goes
 // relative; one elsewhere is the server's own path and goes as configured.
+function managedPath(policy: ResolvedOutputPolicy, file: string, label: string): string | null {
+	const relative = relativeInside(policy.outputRoot, file)
+	return relative === null ? null : unexpandedRelative(relative, label)
+}
+
+// A temp root that is the output root itself is `./` (path.relative compares
+// as the OS does: without case on Windows).
 export function managedOutputArgs(policy: ResolvedOutputPolicy): string[] {
-	return ['--paths', `temp:${relativeInside(policy.outputRoot, policy.tempRoot) ?? policy.tempRoot}`, '--output', policy.outputTemplate]
+	const temp = path.relative(policy.outputRoot, policy.tempRoot) === '' ? '.' : managedPath(policy, policy.tempRoot, 'tempRoot')
+	return ['--paths', `temp:${temp === null ? policy.tempRoot : `${temp}/`}`, '--output', policy.outputTemplate]
 }
 
 // Relative to the output root unless the server allows any path.
 export function managedDownloadArchiveArgs(policy: ResolvedOutputPolicy, archive: string | undefined, allowArbitraryOutputPaths: boolean): string[] {
 	if (!archive) return []
 	const resolved = resolveManagedPath(policy.outputRoot, archive, 'downloadArchive', allowArbitraryOutputPaths)
-	return ['--download-archive', relativeInside(policy.outputRoot, resolved) ?? resolved]
+	return ['--download-archive', managedPath(policy, resolved, 'downloadArchive') ?? resolved]
 }

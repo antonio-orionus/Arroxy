@@ -1,928 +1,311 @@
 {
-	"common": {"back": "חזרה", "cancel": "ביטול", "continue": "המשך", "loading": "טוען", "retry": "ניסיון חוזר", "dismiss": "סגירה", "startOver": "התחלה מחדש", "close": "סגירה"},
+	"about": {
+		"button": "אודות",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · מאת Antonio Orionus",
+		"openTitle": "אודות Arroxy",
+		"tagline": "מוריד מהיר ונוח עבור YouTube ויותר מ-2000 אתרים נוספים.",
+		"thirdPartyNotices": "הצגת הודעות צד שלישי",
+		"websiteLink": "אתר"
+	},
+	"aiUpscaled": {
+		"allow": "אפשר",
+		"description": "YouTube מציע כמה סרטונים ישנים בגדלים שנוצרו באמצעות AI. “דילוג” שומר על הזרמים המקוריים; עדיין אפשר לבחור ידנית זרם משופר.",
+		"label": "זרמים משופרי AI",
+		"skip": "דילוג"
+	},
 	"app": {
 		"feedback": "משוב",
+		"feedbackNudge": "נהנים מ-Arroxy? אשמח לשמוע מכם! 💬",
 		"logs": "יומנים",
 		"saveDiagnostics": "שמירת קובץ אבחון",
 		"saveDiagnosticsDescription": "מאגד את היומנים ופרטי היישום לקובץ אחד בתיקיית ההורדות, מוכן לצירוף לדיווח ב-GitHub. שם תיקיית המשתמש שלכם מוסר; קישורים וכותרות של סרטונים נשארים.",
-		"feedbackNudge": "נהנים מ-Arroxy? אשמח לשמוע מכם! 💬",
-		"zoomIn": "הגדלה",
-		"zoomOut": "הקטנה",
+		"styleHint": "חדש: בחרו כאן Aurora או Minimal",
 		"theme": "ערכת נושא",
-		"styleHint": "חדש: בחרו כאן Aurora או Minimal"
+		"zoomIn": "הגדלה",
+		"zoomOut": "הקטנה"
 	},
-	"about": {"button": "אודות", "openTitle": "אודות Arroxy", "tagline": "מוריד מהיר ונוח עבור YouTube ויותר מ-2000 אתרים נוספים.", "websiteLink": "אתר", "githubLink": "GitHub", "licenseLine": "GPLv3 · מאת Antonio Orionus", "thirdPartyNotices": "הצגת הודעות צד שלישי"},
-	"titleBar": {"close": "סגירה", "minimize": "מזעור", "maximize": "הגדלה", "restore": "שחזור"},
-	"splash": {
-		"greeting": "ברוכים השבים!",
-		"warmup": "מכין הורדות…",
-		"verifying": "בודק את {{binary}}…",
-		"verifyFirstCheck": "בדיקה ראשונה של גרסה זו — היא איטית. בדרך כלל כדקה.",
-		"cancel": "יש בעיה? הגדירו ידנית",
-		"warmupFailedNoDiag": "ההגדרה נכשלה. פתחו את יומן ההגדרה לפרטים.",
-		"setup": {
-			"title": {"firstRun": "הגדרה בפעם הראשונה", "media": "עדכון כלי המדיה", "engine": "עדכון מנוע ההורדה"},
-			"stage": {"connecting": "מתחבר…", "downloadingBoth": "מוריד את מנוע ההורדה ואת כלי המדיה", "downloadingEngine": "מוריד את מנוע ההורדה", "downloadingMedia": "מוריד את כלי המדיה", "unpacking": "מחלץ את כלי המדיה", "checking": "בודק שהכול עובד"},
-			"bytes": "{{done}} מתוך {{total}}",
-			"left": {"underMinute": "נותרה פחות מדקה", "minutes_one": "נותרה בערך דקה", "minutes_two": "נותרו בערך שתי דקות", "minutes_other": "נותרו בערך {{count}} דקות"},
-			"note": {"firstRun": "זה קורה פעם אחת. Arroxy שומר את הכלים האלה ומעדכן אותם בעצמו.", "media": "זה קורה פעם אחת. Arroxy שומר אותם לעדכונים עתידיים.", "engine": "שומר על תקינות ההורדות כשאתרים משתנים."}
+	"common": {
+		"back": "חזרה",
+		"cancel": "ביטול",
+		"close": "סגירה",
+		"continue": "המשך",
+		"dismiss": "סגירה",
+		"loading": "טוען",
+		"retry": "ניסיון חוזר",
+		"startOver": "התחלה מחדש"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy ממשיך לפעול ומסיים הורדות פעילות. ניתן לשנות זאת בהגדרות מתקדמות.",
+			"hide": "הסתרה למגש",
+			"message": "להסתיר את Arroxy למגש המערכת בעת הסגירה?",
+			"quit": "יציאה",
+			"remember": "לא לשאול שוב"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "ביטול הורדות ויציאה",
+			"detail": "אפשר להשהות כדי להמשיך מאוחר יותר, או לבטל ולמחוק את ההתקדמות.",
+			"keep": "המשך הורדה",
+			"message_one": "הורדה אחת בתהליך",
+			"message_other": "{{count}} הורדות בתהליך",
+			"message_two": "שתי הורדות בתהליך",
+			"pause": "השהיית הורדות ויציאה"
+		},
+		"rendererCrashed": {
+			"detail": "תהליך התצוגה קרס ({{reason}}). יש לטעון מחדש כדי לנסות שוב.",
+			"message": "Arroxy נתקל בבעיה",
+			"quit": "יציאה",
+			"reload": "טעינה מחדש"
 		}
 	},
-	"repair": {
-		"title": "ההגדרה זקוקה לעזרתכם",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "מנוע ההורדה", "media": "כלי מדיה"},
-		"causes": {
-			"downloadFailed": {"title": "לא ניתן היה להוריד את מה ש-Arroxy צריך", "body": "בדקו את חיבור האינטרנט ונסו שוב."},
-			"extractFailed": {"title": "הורדה הגיעה פגומה", "body": "נסו שוב כדי להוריד אותו מחדש."},
-			"hashFailed": {"title": "הורדה לא תאמה את סכום הביקורת שלה", "body": "נסו שוב כדי להוריד אותו מחדש."},
-			"spawnFailed": {"title": "כלי חסר או שאינו מתחיל", "body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין."},
-			"permissionDenied": {"title": "המערכת לא מאפשרת ל-Arroxy להפעיל כלי", "body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק שאתם סומכים עליו."},
-			"blockedOrQuarantined": {"title": "תוכנת האנטי-וירוס חסמה כלי", "body": "אפשרו את Arroxy בתוכנת האנטי-וירוס או ב-SmartScreen ונסו שוב."},
-			"badExitCode": {"title": "כלי אינו פועל כראוי", "body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין."},
-			"timeout": {"title": "כלי התעכב יותר מדי בתגובה", "body": "לעיתים קרובות זו סריקת אבטחה בהפעלה הראשונה. נסו שוב."},
-			"pairIncomplete": {"title": "יש להגדיר את FFmpeg ואת FFprobe יחד", "body": "בחרו את שניהם להלן, או אפסו אותם לברירת המחדל."},
-			"unknown": {"title": "משהו השתבש במהלך ההגדרה", "body": "נסו שוב, או פתחו את יומן ההגדרה לפרטים."}
-		},
-		"installing": {"homebrew": "ההתקנה באמצעות Homebrew מתבצעת… זה עשוי להימשך כמה דקות.", "winget": "ההתקנה באמצעות WinGet מתבצעת… זה עשוי להימשך כמה דקות."},
-		"stopped": {"title": "ההגדרה נעצרה", "body": "נסו שוב, או הפנו את Arroxy להלן לכלים שכבר יש לכם."},
-		"manual": {"toggle": "הגדרה ידנית", "intro": "הפנו את Arroxy לעותקים שכבר יש לכם, או התקינו אותם בדרך אחרת.", "linuxHint": "אפשר גם להתקין את yt-dlp ואת ffmpeg באמצעות מנהל החבילות שלכם, ואז ללחוץ על “ניסיון חוזר”."},
-		"actions": {
-			"chooseExecutable": "בחירת קובץ הפעלה",
-			"installWithHomebrew": "התקנה באמצעות Homebrew",
-			"installWithWinget": "התקנה באמצעות WinGet",
-			"resetToDefault": "איפוס לברירת המחדל",
-			"retrySetup": "ניסיון חוזר",
-			"cancel": "ביטול",
-			"openDependencyFolder": "פתיחת תיקיית התלויות",
-			"viewSetupLog": "הצגת יומן ההגדרה"
-		}
-	},
-	"theme": {"light": "מצב בהיר", "dark": "מצב כהה", "system": "ברירת המחדל של המערכת"},
-	"language": {"label": "שפה"},
-	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "רשימת השמעה", "playlistItemsGeneric": "סרטונים", "playlistPresets": "איכות", "playlistProfiles": "פרופילים", "formats": "פורמט", "subtitles": "כתוביות", "sponsorblock": "SponsorBlock", "output": "פלט", "folder": "שמירה", "confirm": "אישור", "review": "סקירה"},
-		"playlistPresets": {"heading": "בחרו איכות עבור האצווה", "subhead": "כל סרטון מפענח את הרמה שנבחרה בנפרד — רשימות השמעה לא אחידות פועלות ללא הפתעות.", "itemCount_one": "פריט אחד", "itemCount_two": "שני פריטים", "itemCount_other": "{{count}} פריטים"},
-		"playlistProfiles": {
-			"heading": "הקצאת פרופילי הורדה",
-			"selectedSummary": "{{selected}} מתוך {{total}} נבחרו",
-			"assignTriggerEmpty": "הקצאת פרופיל",
-			"assignTrigger_one": "הקצאה לסרטון אחד",
-			"assignTrigger_two": "הקצאה לשני סרטונים",
-			"assignTrigger_other": "הקצאה ל-{{count}} סרטונים",
-			"menuDescription_one": "בחרו את הפרופיל עבור הסרטון הזה.",
-			"menuDescription_two": "בחרו את הפרופיל עבור שני הסרטונים האלה.",
-			"menuDescription_other": "בחרו את הפרופיל עבור {{count}} הסרטונים האלה.",
-			"editProfile": "עריכת {{name}}",
-			"filtersLabel": "מסנני פרופילים",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "פרופיל",
-			"columnDuration": "משך",
-			"empty": "אין פריטים התואמים למסנן זה"
-		},
-		"playlist": {
-			"heading": "פריטי רשימת ההשמעה",
-			"headingGeneric": "סרטונים להורדה",
-			"bulkHeading": "כתובות URL מרובות",
-			"itemCount_one": "סרטון אחד",
-			"itemCount_two": "שני סרטונים",
-			"itemCount_other": "{{count}} סרטונים",
-			"itemCountAudio_one": "רצועה אחת",
-			"itemCountAudio_two": "שתי רצועות",
-			"itemCountAudio_other": "{{count}} רצועות",
-			"itemCountBulk_one": "כתובת URL אחת",
-			"itemCountBulk_two": "שתי כתובות URL",
-			"itemCountBulk_other": "{{count}} כתובות URL",
-			"bulkMetadataResolving": "מאחזר פרטי סרטונים… {{done}}/{{total}}",
-			"bulkMetadataOptional": "אין צורך להמתין — קבצים שנוספו עכשיו לתור יקבלו את שמותיהם האמיתיים בעת ההורדה.",
-			"bulkRowWaiting": "בהמתנה",
-			"bulkRowResolving": "מאחזר פרטים",
-			"bulkRowFailed": "הפרטים אינם זמינים",
-			"selectAll": "בחירת הכול",
-			"selectNone": "ביטול הבחירה",
-			"sortLabel": "מיון",
-			"sortApi": "סדר רשימת ההשמעה",
-			"sortUploadAsc": "הישנים ראשונים",
-			"sortUploadDesc": "החדשים ראשונים",
-			"sortFetchingDates": "מאחזר תאריכי העלאה…",
-			"rangeFrom": "מהפריט",
-			"rangeTo": "עד הפריט",
-			"rangeApply": "החלת טווח",
-			"selectedCount_one": "אחד נבחר",
-			"selectedCount_two": "שניים נבחרו",
-			"selectedCount_other": "{{count}} נבחרו",
-			"noSelection": "בחרו לפחות סרטון אחד כדי להמשיך",
-			"loadingItems": "מאחזר את רשימת ההשמעה…",
-			"loadingItemsGeneric": "מאחזר סרטונים…",
-			"loadingPhasePages": "סורק דפי ערוץ",
-			"loadingPhaseItems": "אוסף סרטונים",
-			"loadingPagesFound_one": "נמצא דף אחד",
-			"loadingPagesFound_two": "נמצאו שני דפים",
-			"loadingPagesFound_other": "נמצאו {{count}} דפים",
-			"loadingLimitHint": "מוגבל ל-{{count}} הפריטים הראשונים",
-			"thumbnailAlt": "תמונה ממוזערת של הסרטון",
-			"durationUnknown": "שידור חי",
-			"syncChange": "שינוי תיקייה…",
-			"syncApply": "החלת סנכרון",
-			"syncScanning": "בודק את התיקייה…",
-			"syncFoundTitle": "כבר בתיקייה",
-			"syncFoundDesc": "{{n}} מהסרטונים האלה כבר נמצאים ב-{{dir}}. לסנכרן כדי להוריד רק את החדשים?",
-			"syncNoneTitle": "עדיין לא הורד דבר",
-			"syncNoneDesc": "לא נמצאו סרטונים מרשימת ההשמעה הזו ב-{{dir}}.",
-			"syncNoneDescGeneric": "לא נמצאו סרטונים מהמקור הזה ב-{{dir}}.",
-			"alreadyDownloaded": "כבר הורד",
-			"nestedPlaylistBadge": "רשימת השמעה",
-			"nestedPlaylistHint_one": "אחד מאלה הוא רשימת השמעה ולא סרטון — הדביקו את הקישור שלו בנפרד כדי להוריד אותו.",
-			"nestedPlaylistHint_two": "שניים מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם.",
-			"nestedPlaylistHint_other": "{{count}} מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם.",
-			"probeLimitAlertTitle": "סריקת רשימת ההשמעה מוגבלת",
-			"probeLimitAlertTitleGeneric": "הסריקה מוגבלת",
-			"probeLimitAlertDesc": "מוצגים {{count}} הפריטים הראשונים. הגדילו את מגבלת הטעינה כדי לראות עוד.",
-			"multiProfileEntry": "הקצאת פרופילים לפי פריט",
-			"multiProfileEntryTooltip": "מדלג על איכות, SponsorBlock, פלט ושמירה — הקצו במקום זאת פרופיל הורדה לכל פריט",
-			"removeFromListCount_one": "הסרת אחד מהרשימה",
-			"removeFromListCount_two": "הסרת שניים מהרשימה",
-			"removeFromListCount_other": "הסרת {{count}} מהרשימה",
-			"restore": "שחזור",
-			"removedCount_one": "אחד הוסר",
-			"removedCount_two": "שניים הוסרו",
-			"removedCount_other": "{{count}} הוסרו",
-			"allRemovedTitle": "כל הפריטים הוסרו",
-			"allRemovedDescription": "שחזרו אותם כדי להמשיך."
-		},
-		"bulk": {
-			"title": "כתובות URL מרובות",
-			"description": "הדביקו כתובות URL של סרטונים, רשימות השמעה, ערוצים, חיפושים או שמע. Arroxy ינקה כפילויות לפני ההוספה לתור.",
-			"textareaLabel": "רשימת כתובות URL",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "מוכנים",
-			"ignoredCount": "התעלמות",
-			"emptyPreview": "הדביקו כתובת URL אחת או יותר כדי להציג תצוגה מקדימה של האצווה.",
-			"needsAtLeastOne": "הוסיפו לפחות כתובת URL נתמכת אחת כדי להמשיך.",
-			"reject": {"duplicate": "כפילות"}
-		},
-		"tabsNavAria": "ניווט בפרופילי הורדה",
-		"profileSwitchRow": {"helpAria": "עזרה: {{label}}"},
-		"mixedPrompt": {
-			"title": "בקישור זה יש רשימת השמעה",
-			"body": "רוצים רק את הסרטון שלחצתם עליו, או לבחור מרשימת ההשמעה? בשלב הבא תבחרו סרטונים מסוימים או טווח.",
-			"quickBody": "הורידו רק את הסרטון הזה, או הוסיפו לתור את כל רשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל.",
-			"singleVideo": "רק זה",
-			"quickSingleVideo": "הורדת הסרטון הזה",
-			"pickFromPlaylist": "בחירה מרשימת ההשמעה",
-			"quickWholePlaylist": "הורדת כל רשימת ההשמעה",
-			"playlistLimit": "מגבלת בדיקת רשימת השמעה: {{count}} פריטים",
-			"quickLimitDescription": "המספר המרבי של פריטים ש-Arroxy סורק לפני הוספה לתור של רשימת השמעה, ערוץ או תוצאות חיפוש.",
-			"singleTooltip": "טוען רק את הסרטון הזה. רשימת ההשמעה המצורפת לכתובת זו אינה נלקחת בחשבון.",
-			"quickSingleTooltip": "מוסיף לתור הורדה אחת ומתעלם מרשימת ההשמעה המצורפת לכתובת זו.",
-			"playlistTooltip": "טוען את רשימת ההשמעה, עד מגבלת הבדיקה שלכם, לפני הצגת הבורר.",
-			"quickPlaylistTooltip": "מוסיף לתור כל פריט שנטען מרשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל. אם הסריקה מגיעה למגבלה שלכם, Arroxy שואל לפני ההוספה לתור."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "טווח רשימת השמעה",
-				"change": "שינוי",
-				"summaryAppLimit": "טעינת הפריטים הראשונים: {{count}}",
-				"summaryFirst": "טעינת הפריטים הראשונים: {{count}}",
-				"summaryRange": "טעינת פריטים {{from}}-{{to}}",
-				"dialogTitle": "טווח רשימת ההשמעה",
-				"dialogDescription": "בחרו מה Arroxy טוען עבור רשימת השמעה זו.",
-				"itemsLabel": "פריטים לטעינה",
-				"appLimit": "שימוש במגבלת היישום: {{count}}",
-				"first": "הראשונים",
-				"range": "טווח",
-				"to": "עד",
-				"invalid": "השתמשו במספרי פריטים שלמים מ-1 עד {{max}}, כאשר ההתחלה אינה גבוהה מהסיום.",
-				"applyError": "לא ניתן היה להחיל את טווח רשימת ההשמעה הזה: {{message}}",
-				"reset": "איפוס",
-				"cancel": "ביטול",
-				"apply": "החלה",
-				"applyReload": "החלה וטעינה מחדש",
-				"reloading": "טוען מחדש...",
-				"emptyTitle": "אין סרטונים בטווח הזה"
-			},
-			"heading": "הורדה מכתובת URL",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "פרופילים", "settings": "הגדרות"},
-			"interactiveDownload": "הורדה אינטראקטיבית",
-			"fetchFormatsTooltip": "אשף שלב אחר שלב. בחירת פורמט, איכות ועוד.",
-			"quickDownload": "הורדה מהירה",
-			"quickDownloadTooltip": "יורד באמצעות: {{profileName}}",
-			"quickPreparing": "מכין",
-			"quickQueued": "נוסף לתור",
-			"quickSingleOnly": "הדביקו כתובת URL של סרטון, רשימת השמעה, ערוץ או חיפוש כדי להתחיל.",
-			"quickProbeFailed": "הבדיקה נכשלה",
-			"quickPrepareFailed": "לא ניתן היה להכין את פריט התור",
-			"quickBulkAllFailed": "לא ניתן היה להכין אף אחת מכתובות ה-URL האלה",
-			"quickFailed": "לא ניתן היה להוסיף את זה: {{error}}",
-			"quickPartialFailed_one": "מה שהצליח נוסף לתור. כתובת URL אחת לא הוכנה.",
-			"quickPartialFailed_two": "מה שהצליח נוסף לתור. שתי כתובות URL לא הוכנו.",
-			"quickPartialFailed_other": "מה שהצליח נוסף לתור. {{count}} כתובות URL לא הוכנו.",
-			"profile": {
-				"destinationFallback": "יעד",
-				"switchAria": "החלפת פרופיל הורדה: {{profileName}}",
-				"switchTitle": "החלפת פרופיל הורדה",
-				"activeLabel": "פרופיל פעיל",
-				"editActive": "עריכת הפרופיל הפעיל",
-				"changeGlobalDestination": "שינוי היעד הגלובלי",
-				"destinationDetail": {"global": "משתמש ביעד הגלובלי", "globalSubfolder": "משתמש ביעד הגלובלי + תיקיית משנה של הפרופיל", "override": "משתמש בעקיפת הפרופיל", "overrideSubfolder": "משתמש בעקיפת הפרופיל + תיקיית משנה של הפרופיל"},
-				"summary": {"bestVideo": "הווידאו הטוב ביותר", "bestAudio": "השמע הטוב ביותר", "aacAudio": "שמע AAC", "wavAudio": "שמע WAV", "noAudio": "ללא שמע", "subtitlesOnly": "כתוביות בלבד"},
-				"menuTitle": "החלפת פרופיל",
-				"menuDescription": "שינוי הפרופיל הפעיל עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה.",
-				"newProfile": "פרופיל חדש",
-				"manageProfiles": "ניהול פרופילים",
-				"panelTitle": "פרופילי הורדה",
-				"panelDescription": "יצירה, בחירה, עריכה או הסרה של הגדרות הורדה לשימוש חוזר.",
-				"badgeCustom": "מותאם אישית",
-				"badgeModified": "שונה",
-				"badgeBuiltIn": "מובנה",
-				"badgeDisabled": "מוסתר",
-				"enableToggleAria": "הצגת הפרופיל בבוררים: {{profileName}}",
-				"enableHint": "פרופילים מוסתרים נשארים כאן אך נעלמים מכל בוררי הפרופילים.",
-				"reorderHint": "גררו פרופיל כדי להזיז אותו. כל בוררי הפרופילים עוקבים אחר הסדר הזה.",
-				"moveHandleAria": "הזזת {{profileName}}",
-				"movableProfile": "פרופיל ניתן להזזה",
-				"moveInstructions": "כדי להזיז פרופיל, הקישו על רווח או על Enter, הזיזו אותו באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותו. הקישו על Escape כדי לבטל.",
-				"movePickedUp": "{{profileName}} נאסף. הוא נמצא במקום {{position}} מתוך {{count}}.",
-				"moveOver": "{{profileName}} נמצא מעל מקום {{position}} מתוך {{count}}.",
-				"moveDropped": "{{profileName}} הונח במקום {{position}} מתוך {{count}}.",
-				"moveCancelled": "ההזזה בוטלה. {{profileName}} נשאר במקום {{position}} מתוך {{count}}.",
-				"lastEnabledHint": "השאירו לפחות פרופיל אחד זמין.",
-				"edit": "עריכה",
-				"remove": "הסרה",
-				"reset": "איפוס"
-			},
-			"bulkButton": "כתובות URL מרובות",
-			"bulkTooltip": "הוספה לתור של כמה כתובות URL.",
-			"features": {
-				"heading": "מה Arroxy יכול להוריד",
-				"youtube": {"heading": "YouTube", "video": "סרטונים", "channel": "ערוצים", "playlist": "רשימות השמעה", "short": "Shorts", "music": "מוזיקה", "podcast": "פודקאסטים"},
-				"anySite": {"heading": "2000+ אתרים", "video": "סרטונים", "videoPlaylist": "רשימות השמעה של וידאו", "musicPlaylist": "רשימות השמעה של מוזיקה"},
-				"always": {"audioOnly": "שמע בלבד", "subtitles": "כתוביות"}
-			},
-			"mascotIdle": "זרקו קישור ותנו ל-Arroxy להוריד ✨",
-			"mascotBusy": "מוריד ברקע… אני יודע לעשות כמה דברים במקביל 😎",
-			"mascotPreparing": "{{quickDownload}}: קריאת הקישור והחלת {{profileName}}.",
-			"mascotQueued": "התור מטפל בהורדה זו. אפשר להדביק קישור נוסף בזמן שהיא פועלת.",
-			"mascotCollection": "המצב המהיר מוסיף לתור את הפריטים שנטענו עם {{profileName}}. המצב האינטראקטיבי מאפשר לבדוק או לבחור פריטים קודם.",
-			"mascotMixed": "קישור זה מצביע על סרטון אחד בתוך אוסף. Arroxy ישאל איזה מהם אתם רוצים לפני הבדיקה.",
-			"mascotSingle": "המצב המהיר מתחיל הורדה אחת עם {{profileName}}. השתמשו במצב האינטראקטיבי לשינויים חד-פעמיים.",
-			"advanced": "מתקדם",
-			"settings": {"inputHeading": "קלט", "behaviorHeading": "התנהגות ההורדה", "behaviorDescription": "התנהגות גלובלית שמשפיעה גם על הורדות מבוססות פרופיל."},
-			"clearAria": "ניקוי כתובת URL",
-			"clipboard": {
-				"toggle": "מעקב אחר הלוח",
-				"toggleDescription": "מילוי אוטומטי של שדה ה-URL כשמעתיקים קישור לסרטון.",
-				"autofilledLink": "הקישור נוסף מהלוח",
-				"bulkHint": "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” כדי להוסיף אותם",
-				"replacedLink": "הוחלף בקישור שהועתק",
-				"undo": "ביטול",
-				"dialog": {"cancelButton": "ביטול"}
-			},
-			"hotkey": {
-				"sectionTitle": "מקש קיצור גלובלי",
-				"sectionDescription": "הורידו כל קישור שהעתקתם, מכל יישום, בלי לפתוח את Arroxy.",
-				"toggle": "הפעלת מקש קיצור גלובלי",
-				"toggleDescription": "הקישו על הקיצור כשיש קישור לסרטון בלוח.",
-				"changeShortcut": "שינוי קיצור",
-				"recording": "הקישו על מקשים…",
-				"test": "בדיקה",
-				"conflict": "קיצור זה תפוס על ידי יישום אחר — בחרו קיצור אחר.",
-				"hintLabel": "או הקישו",
-				"hintTooltip": "העתיקו קישור לסרטון בכל מקום, הקישו על הקיצור הזה ו-Arroxy יוסיף אותו לתור עם הפרופיל הפעיל — בלי לעבור בין חלונות.",
-				"hintTooltipSettings": "אפשר לשנות או לכבות בהגדרות.",
-				"reset": "איפוס לברירת המחדל"
-			},
-			"cookies": {
-				"sourceLabel": "מקור Cookie",
-				"sourceOff": "כבוי",
-				"sourceFile": "קובץ",
-				"sourceBrowser": "דפדפן",
-				"sourceExplore": "התחברות ב“גילוי”",
-				"recommended": "מומלץ",
-				"exploreDescription": "משתמש בהתחברות שלכם ב“גילוי” רק כשהורדה זקוקה לה.",
-				"exploreDisabled": "הכרטיסייה “גילוי” כבויה, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”. הפעילו אותה תחת “גילוי” להלן.",
-				"openExplore": "פתיחת “גילוי”",
-				"toggleDescription": "עוזר עם סרטונים מוגבלי גיל, סרטונים לחברי מועדון בלבד וסרטונים פרטיים בחשבון.",
-				"risk": "סיכון: קובץ cookies.txt מכיל כל הפעלה מחוברת של הדפדפן הזה — שמרו עליו פרטי.",
-				"fileLabel": "קובץ Cookie",
-				"choose": "בחירה…",
-				"clear": "ניקוי",
-				"placeholder": "לא נבחר קובץ",
-				"helpLink": "איך מייצאים קובצי Cookie?",
-				"enabledButNoFile": "בחרו קובץ כדי להשתמש בקובצי Cookie",
-				"browserLabel": "דפדפן",
-				"browserPlaceholder": "בחירת דפדפן…",
-				"browserHelp": "קורא קובצי Cookie ישירות מהדפדפן. בדפדפנים ממשפחת Chromium יש לסגור את הדפדפן.",
-				"enabledButNoBrowser": "בחרו דפדפן כדי להשתמש בקובצי Cookie",
-				"banWarning": "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שקובצי ה-Cookie שלהם משמשים כלי הורדה כמו Arroxy. אם אפשר, השתמשו בחשבון חד-פעמי.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "קבלת cookies.txt מקומית (Chrome)"
-			},
-			"proxy": {"label": "כתובת Proxy", "description": "ניתוב התעבורה דרך שרת Proxy — שימושי לתוכן מוגבל גיאוגרפית.", "placeholder": "http://host:port", "clear": "ניקוי"},
-			"style": {
-				"panelTitle": "מראה",
-				"panelDescription": "איך Arroxy נראה. עברו בין בהיר לכהה בכותרת התחתונה.",
-				"modeLabel": "סגנון",
-				"modeDescription": "שני הסגנונות זמינים בבהיר ובכהה.",
-				"aurora": {"label": "Aurora", "description": "לוחות זכוכית מעל שמיים נעים. דורש האצת גרפיקה."},
-				"minimal": {"label": "מינימלי", "description": "משטחים אחידים ושקטים. רץ בקלות בכל מחשב."},
-				"unavailableNotice": "{{style}} דורש האצת גרפיקה, שאינה זמינה כרגע, ולכן Arroxy מציג {{fallback}}."
-			},
-			"limitRate": {
-				"label": "מגבלת מהירות הורדה",
-				"description": "הגבלת רוחב הפס להורדות מדיה. קצב הבקשות שלהלן הוא בדרך כלל המנוף החזק יותר להגבלת הקצב.",
-				"off": "כבוי",
-				"custom": "מותאם אישית…",
-				"customPlaceholder": "לדוגמה: 750K או 1.5M",
-				"invalid": "השתמשו במספר ואחריו K או M (לדוגמה: 500K, 1.5M)",
-				"activeWarning": "הורדות פעילות שומרות על המגבלה הנוכחית שלהן. השהו וחדשו כדי להחיל שינויים."
-			},
-			"playlistProbeLimit": {
-				"label": "פריטי רשימת השמעה לסריקה",
-				"description": "המספר המרבי של פריטים ש-Arroxy טוען כשפותחים רשימת השמעה, ערוץ או תוצאות חיפוש.",
-				"option": "{{count}} פריטים",
-				"current": "מגבלה נוכחית: {{count}} פריטים",
-				"customValue": "מותאם אישית: {{count}} פריטים",
-				"custom": "מותאם אישית…",
-				"customDialogTitle": "מגבלת סריקת רשימת השמעה מותאמת אישית",
-				"customDialogDescription": "השתמשו במספר שלם מ-{{min}} עד {{max}}.",
-				"customDialogCancel": "ביטול",
-				"customDialogSave": "שמירת מגבלה",
-				"invalid": "השתמשו במספר שלם מ-1 עד 5000",
-				"tooltip": "Arroxy מבקש רק כמות זו של פריטים מרשימת השמעה, ערוץ או חיפוש בעת בניית הבורר."
-			},
-			"nativeAudioPreference": {"label": "העדפת שמע מקורי", "description": "סטריאו או היקפי כשפרופיל בוחר שמע מקורי. פרופיל יכול לעקוף זאת.", "compatible": "סטריאו תואם", "surround": "העדפת היקפי / Dolby"},
-			"autoRetry": {"label": "ניסיון חוזר להורדות שנכשלו", "description": "מנסה שוב אוטומטית לאחר תקלה רגעית ברשת או בשרת, ומחכה זמן ארוך יותר בין ניסיון לניסיון. הורדות שנחסמו על ידי האתר לא יינסו שוב אוטומטית.", "unit": "פעמים"},
-			"autoRemoveCompleted": {"label": "הסרת הורדות שהסתיימו", "description": "מסיר הורדה מרשימת ההורדות כמה שניות אחרי שהיא מסתיימת. הקבצים נשארים בתיקייה שלכם; הורדות שנכשלו או בוטלו נשארות ברשימה."},
-			"concurrentDownloads": {"label": "הורדות בו זמנית", "description": "כמה פריטים מהתור יורדים בו זמנית. ככל שיותר בו זמנית, תור ארוך מסתיים מהר יותר, אך עולה הסיכוי שאתר יגביל אתכם.", "unit": "הורדות"},
-			"downloadConnections": {"label": "חיבורי הורדה", "description": "מאיץ הורדות גדולות על ידי אחזור כמה חלקים של סרטון בו זמנית. ערכים גבוהים מעלים את הסיכוי שאתר יגביל אתכם.", "unit": "חיבורים"},
-			"networkPacing": {
-				"heading": "הורדות עדינות",
-				"description": "הוספת השהיות קטנות במהלך כל הורדה כדי ש-Arroxy לא יפנה לאתר באגרסיביות רבה מדי. הערכים הם בשניות.",
-				"presetLabel": "עד כמה Arroxy צריך להיזהר?",
-				"tooltip": "ההמתנות האלה מתרחשות בתוך כל הורדה. כמה הורדות רצות בו זמנית נקבע בנפרד, תחת “הורדות בו זמנית”.",
-				"summary": "המתנות: {{requests}} בין בדיקות, {{downloads}} לפני תחילת המדיה, {{subtitles}} לפני קובצי כתוביות.",
-				"presets": {"off": "כבוי", "balanced": "מאוזן", "careful": "זהיר", "custom": "מותאם אישית"},
-				"tooltips": {
-					"off": "משתמש רק בהשהיות הבסיס הקטנות ש-Arroxy שומר למדיה ולכתוביות.",
-					"balanced": "ברירת מחדל. מוסיף השהיות קצרות בין בקשות ולפני תחילת המדיה.",
-					"careful": "מוסיף השהיות ארוכות יותר לרשימות השמעה גדולות או לרשתות שנתקלות לעיתים קרובות במגבלות.",
-					"custom": "כוונון עצמאי של הפקדים המתקדמים לכל הורדה."
-				},
-				"fields": {"sleepRequests": "המתנה בין בדיקות מטא-נתונים", "sleepInterval": "השהיה לפני תחילת המדיה: מזערית", "maxSleepInterval": "השהיה לפני תחילת המדיה: מרבית", "sleepSubtitles": "המתנה לפני קובצי כתוביות"},
-				"units": {"seconds": "שנ׳"}
-			},
-			"closeToTray": {"toggle": "הסתרה למגש בעת סגירה", "toggleDescription": "המשך ההורדות ברקע לאחר סגירת החלון."},
-			"analytics": {"toggle": "שליחת פעימת לב יומית", "toggleDescription": "ללא טלמטריה. פעם ביום נשלחת פעימת לב אנונימית עם גרסת היישום, ערוץ ההתקנה, מערכת ההפעלה, השפה, המדינה והזמן המשוער שחלף מאז ההתקנה של Arroxy, כדי שנוכל לספור משתמשים פעילים וחדשים. ללא מזהים, כתובות URL, כותרות סרטונים או שמות קבצים."}
-		},
-		"quickProgress": {
-			"title": "הכנת הורדה מהירה",
-			"description": "Arroxy קורא את הקישור ומחיל את {{profileName}}.",
-			"currentFallback": "הקישור הנוכחי",
-			"waitHint": "השאירו חלון זה פתוח בזמן ש-Arroxy מכין את התור.",
-			"failedCount_one": "אחד נכשל",
-			"failedCount_two": "שניים נכשלו",
-			"failedCount_other": "{{count}} נכשלו",
-			"cancel": "ביטול ההכנה",
-			"phase": {"probing": "אחזור פרטים", "queueing": "הוספה לתור"}
-		},
-		"subtitles": {
-			"autoBadge": "אוטו׳",
-			"noLanguages": "אין כתוביות זמינות לסרטון זה",
-			"searchPlaceholder": "חיפוש שפות…",
-			"noMatches": "אין שפות תואמות",
-			"clearAll": "ניקוי הכול",
-			"noSelected": "לא נבחרו כתוביות",
-			"removeLanguage": "הסרת {{name}}",
-			"sectionManual": "ידניות",
-			"sectionAuto": "נוצרו אוטומטית",
-			"saveMode": {"heading": "שמירה בתור", "sidecar": "ליד הסרטון", "embed": "שילוב בתוך הווידאו", "subfolder": "תיקיית משנה subtitles/"},
-			"format": {"heading": "פורמט"},
-			"embedNote": "מצב השילוב שומר את הפלט כ-.mkv כדי שרצועות הכתוביות ישולבו באופן מהימן.",
-			"autoAssNote": "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS — בסרטוני YouTube הן מנוקות מכפילויות של רמזים מתגלגלים, שממיר ה-ASS שלנו עדיין אינו יכול לשחזר."
-		},
-		"sponsorblock": {
-			"modeHeading": "סינון חסויות",
-			"mode": {"off": "כבוי", "mark": "סימון כפרקים", "remove": "הסרת קטעים"},
-			"modeHint": {"off": "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה.", "mark": "מסמן קטעי חסות כפרקים (לא הרסני).", "remove": "חותך קטעי חסות מהווידאו באמצעות FFmpeg."},
-			"categoriesHeading": "קטגוריות",
-			"cat": {"sponsor": "חסות", "intro": "פתיח", "outro": "סיום", "selfpromo": "קידום עצמי", "music_offtopic": "מוזיקה שאינה קשורה לנושא", "preview": "תצוגה מקדימה", "filler": "מילוי"}
-		},
-		"formats": {
-			"kind": {"label": "מה להוריד", "video": "וידאו + שמע", "videoOnly": "וידאו, ללא שמע", "audio": "שמע בלבד", "subtitles": "כתוביות בלבד"},
-			"profile": {
-				"calloutTitle": "הפורמטים מתחילים מהפרופיל שלכם",
-				"calloutBody": "הפרופיל הפעיל שלכם בוחר מראש את הזרמים עבורכם. החליפו פרופילים מהתפריט, או השתמשו בעיפרון כדי לכוונן פרופיל בלי לצאת מהורדה זו.",
-				"preselected": "נבחר מראש מתוך",
-				"tag": "פרופיל",
-				"closestTag": "הקרוב ביותר לפרופיל",
-				"switchTitle": "להחליף פרופיל?",
-				"switchBody": "שיניתם {{areas}} בהורדה זו. “{{profile}}” בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?",
-				"resetAll": "איפוס הכול",
-				"edit": "עריכת {{name}}",
-				"updatedTitle": "להשתמש בפרופיל המעודכן?",
-				"updatedBody": "שיניתם {{areas}} בהורדה זו. הפרופיל המעודכן בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?",
-				"keepEdits": "שמירת השינויים שלי",
-				"menuDescription": "להורדה זו בלבד. פרופיל ברירת המחדל שלכם נשאר כפי שהוא."
-			},
-			"fit": {
-				"tierBelow": "הפרופיל שלכם מבקש {{wanted}}p. סרטון זה מגיע רק עד {{picked}}p, ולכן נבחר {{picked}}p.",
-				"tierAbove": "הפרופיל שלכם מבקש {{wanted}}p. בסרטון זה אין דבר קטן כל כך, ולכן נבחר {{picked}}p.",
-				"mp4Unavailable": "הפרופיל שלכם הוא טלוויזיה חכמה (H.264). סרטון זה אינו מציע H.264, ולכן נבחר הזרם הקרוב ביותר.",
-				"noVideo": "בקישור זה אין וידאו, ולכן נבחר שמע.",
-				"subtitlesMissing": "הפרופיל שלכם מבקש כתוביות ב-{{languages}}. בסרטון זה אין אותן.",
-				"webmUnavailable": "הפרופיל שלכם מבקש WebM. הזרמים שנבחרו בסרטון זה כוללים {{codec}}, ש-WebM אינו תומך בו, ולכן סוג הקובץ הוא אוטומטי."
-			},
-			"footer": {"download": "הורדה", "moreActions": "אפשרויות הורדה נוספות", "addToQueue": "הוספה לתור ללא התחלה", "subtitlesRequired": "בחרו לפחות שפת כתוביות אחת."},
-			"video": "וידאו",
-			"audio": "שמע",
-			"noAudio": "ללא שמע",
-			"withAudio": "עם שמע",
-			"resolutionUnknown": "רזולוציה לא ידועה",
-			"bitrateValue": "קצב סיביות {{bitrate}}",
-			"marker": {"aiUpscaled": "משופר ב-AI", "aiDubbed": "דובב ב-AI", "audioDescription": "תיאור שמע", "spatialAudio": "שמע מרחבי", "vr": "360° / VR", "enhancedBitrate": "קצב סיביות משופר", "damaged": "פגום", "watermarked": "עם סימן מים"},
-			"keepAudio": "להשאיר כפי שהוא",
-			"keepAudioMeta": "שמע מובנה",
-			"audioOnly": "שמע בלבד",
-			"sniffing": "מחפש עבורכם את הפורמטים הטובים ביותר…",
-			"loadingHint": "המתינו לסיום הבדיקה — רשימות השמעה וחיפושים עשויים להימשך זמן מה.",
-			"loadingAria": "טוען פורמטים",
-			"sizeUnknown": "גודל לא ידוע",
-			"total": "סך הכול",
-			"skipToConfirm": "דילוג לאישור",
-			"skipToConfirmTooltip": "משתמש בהעדפות השמורות שלכם בכל השלבים הנותרים. כדי לשנות הגדרה, המשיכו שלב אחר שלב — הבחירה שלכם תישמר לפעם הבאה.",
-			"quality": {"high": "איכות גבוהה", "medium": "איכות בינונית", "low": "איכות נמוכה"},
-			"drc": {"label": "איזון עוצמת הקול (DRC)", "description": "מנמיך חלקים רועשים ומגביר חלקים שקטים, עבור רמקולים וחדרים רועשים.", "tag": "עוצמה מאוזנת"},
-			"audioLanguage": "שפת שמע",
-			"audioLanguageCount_one": "שפה אחת",
-			"audioLanguageCount_two": "שתי שפות",
-			"audioLanguageCount_other": "{{count}} שפות",
-			"convert": {
-				"label": "המרה",
-				"bitrate": "קצב סיביות",
-				"wavLabel": "WAV (ללא דחיסה)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, ללא קידוד מחדש",
-				"copyLabelNoBitrate": "{{target}}, ללא קידוד מחדש",
-				"copyNote": "{{kbps}} kbps, כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש",
-				"copyNoteNoBitrate": "כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש",
-				"bitrateCopyHint": "מקור שהוא כבר {{target}} שומר על הזרם ועל קצב הסיביות שלו: הוא מועתק, לא מקודד מחדש.",
-				"sourceKbps": "המקור הוא {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "הבדיקה הוגבלה",
-				"bodyUnconfigured": "ייתכן שרשימת הפורמטים חלקית. הגדירו קובצי Cookie בהגדרות מתקדמות, או החליפו רשת ונסו שוב.",
-				"bodyDisabled": "קובצי Cookie מוגדרים אך כבויים. הפעילו אותם ונסו שוב כדי לקבל את הרשימה המלאה, או החליפו רשת ונסו שוב.",
-				"bodyEnabled": "גם עם קובצי Cookie, YouTube הגביל את הבדיקה הזו. נסו שוב מאוחר יותר או החליפו רשת.",
-				"bodyExplore": "YouTube הגביל את הבקשה הזו. נסו שוב מאוחר יותר או החליפו רשת.",
-				"retryCta": "ניסיון חוזר",
-				"enableRetryCta": "הפעלת Cookie וניסיון חוזר"
-			},
-			"rateLimit": {
-				"heading": "{{site}} מגביל את קצב הבקשות מחיבור זה",
-				"leadDegraded": "ייתכן שרשימת הפורמטים חלקית.",
-				"leadFailed": "{{site}} דחה בקשה זו לעת עתה.",
-				"waitUntil": "Arroxy ימתין עד {{time}} לפני שיפנה שוב אל {{site}}, כדי שהמגבלה תוסר.",
-				"waitOver": "ההמתנה הסתיימה, ולכן אפשר לנסות שוב.",
-				"sessionNote": "{{site}} עשוי להשאיר מגבלה זו בתוקף עד שעה.",
-				"tryNowCta": "ניסיון עכשיו",
-				"retryCta": "ניסיון חוזר"
-			},
-			"cookiesError": {
-				"heading": "ייתכן שקובצי Cookie הם הסיבה",
-				"currentModeLabel": "מקור Cookie",
-				"currentModeFile": "קובץ",
-				"currentModeBrowser": "דפדפן",
-				"currentModeExplore": "התחברות ב“גילוי”",
-				"explanationFile": "ייתכן שקובץ ה-Cookie שלכם ריק, שתוקפו פג או שהוא בפורמט שגוי (Arroxy צריך קובץ cookies.txt בפורמט Netscape). נסו לייצא מחדש את קובצי ה-Cookie, לבחור קובץ אחר, לעבור למצב דפדפן או לכבות את קובצי ה-Cookie.",
-				"explanationBrowser": "קובצי Cookie נקראים ישירות מהדפדפן. אם הדפדפן פועל כרגע, ייתכן שמסד הנתונים של קובצי ה-Cookie נעול (משפחת Chromium). הדפדפן צריך להיות מחובר גם ל-YouTube. נסו לסגור את הדפדפן, לעבור לדפדפן אחר, לעבור למצב קובץ או לכבות את קובצי ה-Cookie.",
-				"openSettingsCta": "פתיחת הגדרות Cookie",
-				"exploreSignIn": {"heading": "ייתכן שסרטון זה דורש חשבון YouTube", "body": "אם סרטון זה דורש חשבון YouTube, התחברו ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה.", "cta": "התחברות ב“גילוי”"},
-				"exploreSignedIn": {"heading": "מחוברים ל“גילוי”", "body": "אם סרטון זה דורש חשבון, Arroxy משתמש בהתחברות שלכם ב“גילוי” באופן אוטומטי. ייתכן שהוא אינו זמין מסיבה אחרת."},
-				"exploreOffer": {"heading": "ייתכן שסרטון זה דורש חשבון YouTube", "body": "התחברו ב“גילוי” ו-Arroxy ינסה שוב.", "cta": "התחברות ב“גילוי”"},
-				"exploreReuse": {"heading": "ייתכן שסרטון זה דורש חשבון YouTube", "body": "אתם מחוברים ל“גילוי”, אך ההורדות אינן משתמשות כרגע בהתחברות הזו.", "cta": "שימוש בהתחברות שלי ב“גילוי” וניסיון חוזר"},
-				"exploreSite": {"heading": "ייתכן שקישור זה דורש חשבון ב-{{host}}", "signInBody": "התחברו ל-{{host}} ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה.", "offerBody": "התחברו ל-{{host}} דרך “גילוי” ונסו שוב."},
-				"exploreRefused": {"heading": "האתר סירב גם עם ההתחברות שלכם ב“גילוי”", "body": "Arroxy כבר ניסה זאת כשהוא מחובר דרך “גילוי”, ולכן התחברות נוספת לא תעזור. ייתכן שיש תקלה באתר, או שהחשבון הזה אינו יכול לפתוח אותו. נסו שוב מאוחר יותר."},
-				"otherCookiesCta": "שימוש בקובץ Cookie או בדפדפן במקום זאת…",
-				"needsCookies": {"heading": "אתר זה דורש התחברות", "body": "Arroxy לא הצליח לגשת לסרטון זה ללא אימות. הגדירו קובצי Cookie בהגדרות מתקדמות — הפנו אותם לדפדפן שכבר מחובר, או ייבאו קובץ cookies.txt."},
-				"dpapi": {
-					"heading": "קובצי Cookie של Chrome חסומים על ידי הצפנת Windows",
-					"explanation": "Chrome 127 ואילך מצפין קובצי Cookie באופן שיישומים אחרים אינם יכולים לקרוא ב-Windows. נסו אחד מהפתרונות העוקפים שלהלן.",
-					"fixFirefoxLabel": "מעבר ל-Firefox",
-					"fixFirefoxBody": "Firefox אינו משתמש ב-App-Bound Encryption. פתחו את הגדרות ה-Cookie ובחרו Firefox מרשימת הדפדפנים.",
-					"fixFileLabel": "ייצוא cookies.txt",
-					"fixFileBody": "ייצאו קובצי Cookie מ-Chrome באמצעות תוסף דפדפן, ואז העבירו את היישום למצב קובץ ובחרו את הקובץ שיוצא.",
-					"fixUnsafeLabel": "הפעלת Chrome כשה-App-Bound Encryption מושבת",
-					"fixUnsafeBody": "הוסיפו את --disable-features=LockProfileCookieDatabase לקיצור הדרך להפעלת Chrome. אזהרה: פעולה זו מבטלת קובצי Cookie שהוצפנו בעבר, ולכן תנותקו מכל האתרים ותצטרכו להתחבר מחדש.",
-					"docsLinkLabel": "מסמכי yt-dlp (בעיה #10927)"
-				}
-			},
-			"savesAs": {"label": "נשמר בתור", "reset": "WebM אינו תומך ב-{{codec}}, ולכן סוג הקובץ חזר לאוטומטי."}
-		},
-		"folder": {
-			"heading": "שמירה אל",
-			"downloads": "הורדות",
-			"videos": "סרטים",
-			"desktop": "שולחן העבודה",
-			"music": "מוזיקה",
-			"documents": "מסמכים",
-			"pictures": "תמונות",
-			"home": "בית",
-			"custom": "מותאם אישית…",
-			"subfolder": {"toggle": "שמירה בתוך תיקיית משנה", "placeholder": "לדוגמה: הקלטות lo-fi", "invalid": "שם התיקייה מכיל תווים לא חוקיים"}
-		},
-		"output": {
-			"embedChapters": {"label": "שילוב פרקים", "description": "סימוני פרקים שאפשר לנווט בהם בכל נגן מודרני."},
-			"embedMetadata": {"label": "שילוב מטא-נתונים", "description": "כותרת, אמן, תיאור ותאריך העלאה נכתבים לתוך הקובץ."},
-			"embedThumbnail": {"label": "שילוב תמונה ממוזערת", "description": "תמונת עטיפה בתוך הקובץ. וידאו WebM יועבר ל-MKV ללא קידוד מחדש; מדולג כשכתוביות משולבות."},
-			"writeDescription": {"label": "שמירת תיאור", "description": "שומר את תיאור הסרטון בקובץ טקסט מסוג description לצד ההורדה."},
-			"writeThumbnail": {"label": "שמירת תמונה ממוזערת", "description": "שומר את התמונה הממוזערת כקובץ תמונה מסוג jpg לצד ההורדה."},
-			"writeM3u": {"label": "יצירת קובץ רשימת השמעה בפורמט m3u", "description": "שומר קובץ רשימת השמעה בפורמט m3u לצד הסרטונים, כדי שייפתחו לפי הסדר בנגן המדיה שלכם."}
-		},
-		"review": {
-			"changeFormat": "שינוי פורמט",
-			"rowsHeading": "כל השאר",
-			"rows": {"subtitles": "כתוביות", "sponsorBlock": "SponsorBlock", "extras": "תוספות", "saveTo": "שמירה אל", "fileName": "שם קובץ"},
-			"value": {"subtitlesOff": "כבוי", "sponsorBlockOff": "כבוי", "extrasNone": "ללא"},
-			"changed": "שונה לעומת {{profile}}: {{areas}}. חל על הורדה זו בלבד.",
-			"areas": {"format": "פורמט", "subtitles": "כתוביות", "sponsorBlock": "SponsorBlock", "extras": "תוספות", "saveTo": "תיקייה", "fileName": "שם קובץ"},
-			"updateProfile": "עדכון “{{profile}}” עם שינויים אלה",
-			"saveAsProfile": "שמירה כפרופיל חדש",
-			"update": {"title": "לעדכן את “{{profile}}”?", "description": "מעתה, כל הורדה עם פרופיל זה תשתמש בהגדרות החדשות.", "rows": {"format": "פורמט"}, "builtinNote": "זהו פרופיל מובנה. אפשר לשחזר את ההגדרות המקוריות שלו בכרטיסייה “פרופילים”.", "action": "עדכון פרופיל", "updated": "הפרופיל “{{name}}” עודכן"},
-			"callout": {"title": "כל שאר ההגדרות נמצאות עכשיו בדף זה", "body": "כתוביות, SponsorBlock, תוספות כמו תמונה ממוזערת, תיקייה ושם קובץ היו בעבר שלבים נפרדים. לחצו על שורה כדי לשנות אותה."},
-			"reset": "ביטול השינויים, חזרה ל“{{profile}}”",
-			"changedFrom": "שונה לעומת {{profile}}:",
-			"save": {"title": "שמירה כפרופיל", "description": "שומר הגדרות אלה כפרופיל שאפשר לבחור בפעם הבאה. פרופיל ההורדה המהירה שלכם נשאר כפי שהוא.", "nameLabel": "שם הפרופיל", "action": "שמירת פרופיל", "saved": "נשמר כפרופיל “{{name}}”", "failed": "לא ניתן היה לשמור את הפרופיל."},
-			"nextTime": {"title": "הורדה זו השתמשה בהגדרות שנערכו. להשתמש בהן בפעם הבאה?", "action": "שמירה כפרופיל", "defaultName": "{{profile}} (נערך)"}
-		},
-		"confirm": {
-			"readyHeadline": "הכול מוכן להורדה!",
-			"landIn": "הקובץ שלכם יישמר בתיקייה",
-			"landInMultiProfile_one": "הוא יישמר ביעד שלהלן",
-			"landInMultiProfile_two": "הם יישמרו בשני היעדים שלהלן",
-			"landInMultiProfile_other": "הם יישמרו ב-{{count}} היעדים שלהלן",
-			"labelVideo": "וידאו",
-			"labelAudio": "שמע",
-			"labelSubtitles": "כתוביות",
-			"subtitlesNone": "—",
-			"labelSaveTo": "שמירה אל",
-			"labelSize": "גודל",
-			"sizeUnknown": "לא ידוע",
-			"nothingToDownload": "ההגדרה המוכנה “כתוביות בלבד” פעילה אך לא נבחרה שפת כתוביות — שום דבר לא יורד.",
-			"thumbnailEmbedNotSupported": "שילוב התמונה הממוזערת דולג — סוג קובץ הפלט אינו תומך בכך.",
-			"subtitleEmbedAudioOnly": "שילוב הכתוביות שונה לקובץ נפרד — רצועות שמע אינן תומכות בזרמי כתוביות משולבים.",
-			"audioOnly": "שמע בלבד",
-			"addToQueue": "+ תור",
-			"addToQueueTooltip": "מוסיף לתור — מתחיל כשההורדה הפעילה מסתיימת",
-			"pullIt": "מורידים! ↓",
-			"pullItTooltip": "מדלג על התור — מתחיל עכשיו, פועל לצד הורדות פעילות אחרות",
-			"labelPlaylist": "רשימת השמעה",
-			"labelBulk": "אצווה",
-			"labelPreset": "הגדרה מראש",
-			"labelItems": "פריטים",
-			"itemsValue_one": "סרטון אחד מתוך {{total}}",
-			"itemsValue_two": "שני סרטונים מתוך {{total}}",
-			"itemsValue_other": "{{count}} מתוך {{total}} סרטונים",
-			"itemsValueAudio_one": "רצועה אחת מתוך {{total}}",
-			"itemsValueAudio_two": "שתי רצועות מתוך {{total}}",
-			"itemsValueAudio_other": "{{count}} מתוך {{total}} רצועות",
-			"itemsValueBulk_one": "כתובת URL אחת מתוך {{total}}",
-			"itemsValueBulk_two": "שתי כתובות URL מתוך {{total}}",
-			"itemsValueBulk_other": "{{count}} מתוך {{total}} כתובות URL",
-			"profileBreakdownHeading": "פרופילים באצווה זו",
-			"profileBreakdownCount_one": "פריט אחד",
-			"profileBreakdownCount_two": "שני פריטים",
-			"profileBreakdownCount_other": "{{count}} פריטים",
-			"subtitleEmbedForcesMkv": "כתוביות בתוך הווידאו דורשות קובץ MKV, ולכן הורדה זו נשמרת כ-.mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "פרופיל הורדה",
-			"dialogDescription": "הגדרה אחת לשימוש חוזר עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה.",
-			"skipped": "מדולג",
-			"panel": {
-				"identity": {"title": "זהות הפרופיל", "description": "שם וסמל המוצגים בהורדה מהירה, בכתובות URL מרובות וברשימות הפרופילים."},
-				"downloadType": {"title": "סוג הורדה", "description": "בחרו את הדרך העיקרית שבה אתם רוצים להוריד."},
-				"advanced": {"title": "אפשרויות מתקדמות", "description": "פרופילים יורשים את היעד הגלובלי אלא אם הגדרתם עקיפת פרופיל."},
-				"output": {"title": "אפשרויות פלט", "enabledCount_one": "אחד מופעל", "enabledCount_two": "שניים מופעלים", "enabledCount_other": "{{count}} מופעלים"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "שם וסמל הפרופיל",
-				"icon": "סמל פרופיל",
-				"resolution": "רזולוציה",
-				"quality": "איכות",
-				"source": "מקור",
-				"subfolderName": "שם תיקיית המשנה",
-				"name": "שם הפרופיל",
-				"subtitleDownloads": "הורדות כתוביות",
-				"subtitleDownloadsDescription": "פרופילים מבקשים קודי שפה; הזמינות נקבעת לכל כתובת URL בנפרד.",
-				"languages": "שפות",
-				"delivery": "אופן השמירה",
-				"overridePath": "נתיב עקיפת הפרופיל",
-				"goal": "אופטימיזציה עבור",
-				"fileType": "סוג קובץ",
-				"nativeAudio": "שמע מקורי"
-			},
-			"action": {
-				"chooseIcon": "בחירת סמל פרופיל",
-				"setOverride": "הגדרת עקיפת פרופיל",
-				"chooseFolder": "בחירת תיקיית יעד",
-				"removeLanguage": "הסרת {{code}}",
-				"useLanguageCode": "שימוש בקוד השפה “{{code}}”",
-				"changeGlobalShort": "שינוי גלובלי",
-				"setOverrideShort": "הגדרת עקיפה",
-				"useGlobalDefault": "שימוש בברירת המחדל הגלובלית",
-				"reset": "איפוס פרופיל",
-				"resetHint": "שחזור הגדרות הפרופיל המובנות",
-				"resetDisabledHint": "פרופיל זה כבר משתמש בהגדרות המובנות",
-				"save": "שמירת פרופיל"
-			},
-			"placeholder": {"folder": "בחרו תיקייה עבור פרופיל זה"},
-			"destination": {
-				"global": "יעד גלובלי",
-				"override": "עקיפת פרופיל",
-				"resolved": "היעד הסופי",
-				"defaultFolder": "תיקיית ההורדות המוגדרת כברירת מחדל",
-				"defaultFolderWithSubfolder": "תיקיית ההורדות המוגדרת כברירת מחדל / {{subfolder}}",
-				"globalActive": "פעיל",
-				"globalInherited": "בירושה",
-				"overrideSet": "עוקף את הגלובלי",
-				"overrideChoosing": "בחירת תיקייה",
-				"overrideNone": "לא הוגדרה עקיפה",
-				"overrideSetNote": "פרופיל זה נשמר בשורש משלו לפני הוספת תיקיית המשנה.",
-				"overrideNoneNote": "לא הוגדרה עקיפה. פרופיל זה משתמש ביעד הגלובלי שלמעלה."
-			},
-			"note": {
-				"subtitlesOnly": "פרופיל זה מוסיף לתור קובצי כתוביות בלבד. וידאו, שמע, SponsorBlock והמרת מדיה מדולגים.",
-				"noSubtitles": "לא יתבקשו קובצי כתוביות או רצועות כתוביות משולבות עבור פרופיל זה.",
-				"searchLanguages": "חיפוש לפי שם שפה או קוד",
-				"noLanguageMatches": "אין שפות תואמות",
-				"subtitleLanguagesRequired": "בחרו לפחות שפה אחת.",
-				"subtitleLanguagesRequiredOrOff": "בחרו לפחות שפה אחת, או כבו את הורדות הכתוביות.",
-				"autoCaptionsSrt": "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS.",
-				"skippedForOutputType": "מדולג עבור סוג פלט זה."
-			},
-			"error": {"save": "לא ניתן היה לשמור את הגדרות הפרופיל.", "changeGlobalDestination": "לא ניתן היה לשנות את היעד הגלובלי.", "reset": "לא ניתן היה לאפס את הגדרות הפרופיל.", "folderPicker": "לא ניתן היה לפתוח את בורר התיקיות. הזינו נתיב ידנית."},
-			"mediaMode": {
-				"videoAudio": {"label": "וידאו + שמע", "description": "קובצי וידאו רגילים"},
-				"videoOnly": {"label": "וידאו, ללא שמע", "description": "וידאו שקט בלבד"},
-				"audioOnly": {"label": "שמע בלבד", "description": "מוזיקה או פודקאסטים"},
-				"subtitlesOnly": {"label": "כתוביות בלבד", "description": "קובצי כתוביות בלבד"}
-			},
-			"icon": {"controls": "פקדים", "download": "הורדה", "video": "וידאו", "captions": "כתוביות", "audio": "שמע", "music": "מוזיקה", "podcast": "פודקאסט", "classes": "שיעורים", "clip": "קליפ", "archive": "ארכיון"},
-			"audioFormat": {"best": "הטוב ביותר", "wav": "WAV"},
-			"audioQuality": {"128": "עד 128K", "192": "עד 192K", "320": "עד 320K", "best": "איכות מיטבית"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "ידניות קודם, אחר כך אוטומטיות", "manualAndAuto": "ידניות ואוטומטיות", "manualOnly": "ידניות בלבד", "autoOnly": "אוטומטיות בלבד"},
-			"sponsorBlockHint": {"off": "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה.", "mark": "מסמן קטעי חסות כפרקים (לא הרסני).", "remove": "חותך קטעי חסות מהווידאו באמצעות FFmpeg."},
-			"advanced": "מתקדם",
-			"goal": {
-				"bestPicture": {"name": "התמונה הטובה ביותר", "tag": "AV1 · VP9", "description": "החד ביותר בגודל נתון. טלוויזיות ישנות, QuickTime וחלק מעורכי הווידאו אינם יכולים לנגן אותו."},
-				"smartTv": {"name": "טלוויזיה חכמה", "tag": "MP4 · H.264", "description": "מתנגן בטלוויזיות, בטלפונים, ב-WhatsApp, ב-QuickTime ובעורכי וידאו. YouTube מציע H.264 רק עד 1080p."}
-			},
-			"appSetting": "שימוש בהגדרת היישום ({{value}})"
-		},
-		"part": {
-			"switchLabel": "כמה מהסרטון",
-			"whole": "כל הסרטון",
-			"wholeTrack": "כל הרצועה",
-			"part": "חלק",
-			"unavailableSubtitles": "כתוביות תמיד מכסות את הסרטון כולו.",
-			"unavailableDuration": "סרטון זה אינו מדווח על אורכו, ולכן אפשר להוריד אותו רק במלואו.",
-			"rangeLabel": "חלק מהסרטון",
-			"start": "התחלה",
-			"end": "סיום",
-			"timeHint": "h:mm:ss, m:ss או שניות",
-			"length": "{{length}} מתוך {{duration}}",
-			"chapters": "פרקים",
-			"chapterUntitled": "פרק {{number}}",
-			"exactCut": {"label": "חיתוך מדויק (מקודד מחדש, איטי יותר)", "hint": "כבוי: כל חיתוך נוחת על פריים המפתח הקרוב ביותר, שיכול להיות במרחק כמה שניות מהזמן שהקלדתם."},
-			"calloutTitle": "הורדת חלק מסרטון בלבד",
-			"calloutBody": "עברו אל “חלק” בכרטיס הסרטון כדי לבחור התחלה וסיום, או פרק, ולהוריד רק את הקטע הזה.",
-			"connectionsNote": "חלק מורד באמצעות ffmpeg, ולכן הגדרות חיבורי ההורדה והקצב שלכם אינן חלות עליו.",
-			"urlStart": "הקישור שלכם מתחיל ב-{{time}}",
-			"useUrlStart": "שימוש כהתחלה",
-			"error": {"startInvalid": "הזינו את ההתחלה בפורמט h:mm:ss, m:ss או בשניות.", "endInvalid": "הזינו את הסיום בפורמט h:mm:ss, m:ss או בשניות.", "startNotBeforeEnd": "ההתחלה חייבת לבוא לפני הסיום.", "endBeyondDuration": "הסרטון מסתיים ב-{{duration}}."},
-			"downloadBlocked": "תקנו קודם את ההתחלה והסיום של החלק.",
-			"totalEstimate": "חלק, משוער",
-			"summary": "חלק {{start}}–{{end}}",
-			"subtitlesFullLength": "כל הסרטון"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "טוען…", "chapters_one": "פרק אחד", "chapters_two": "שני פרקים", "chapters_other": "{{count}} פרקים"},
-	"queue": {
-		"header": "הורדות",
-		"tabLabel": "הורדות",
-		"attentionBadge_one": "הורדה אחת דורשת את תשומת לבכם",
-		"attentionBadge_two": "שתי הורדות דורשות את תשומת לבכם",
-		"attentionBadge_other": "{{count}} הורדות דורשות את תשומת לבכם",
-		"choice": {
-			"cappedBody_one": "יש יותר מסרטון אחד ברשימת ההשמעה הזו. אפשר להוריד את כולם, את הראשון או לבחור בסקירה.",
-			"cappedBody_two": "יש יותר משני סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את שני הראשונים או לבחור בסקירה.",
-			"cappedBody_other": "יש יותר מ-{{count}} סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את {{count}} הראשונים או לבחור בסקירה.",
-			"reviewBody_one": "הקישור הזה הוא רשימה של סרטון אחד. סקרו אותה כדי לבחור מה להוריד.",
-			"reviewBody_two": "הקישור הזה הוא רשימה של שני סרטונים. סקרו אותה כדי לבחור מה להוריד.",
-			"reviewBody_other": "הקישור הזה הוא רשימה של {{count}} סרטונים. סקרו אותה כדי לבחור מה להוריד.",
-			"all": "כל הסרטונים",
-			"first": "{{count}} הראשונים",
-			"review": "סקירה"
-		},
-		"tabTip": "ההורדות נמצאות עכשיו בכרטיסייה “הורדות” — פתחו אותה בכל עת כדי לעקוב אחר ההתקדמות.",
-		"empty": "הורדות שבתור יופיעו כאן",
-		"filtersLabel": "מסנני מצב התור",
-		"filterAll": "הכול",
-		"selectedActionsLabel": "פריטים נבחרים",
-		"globalActionsLabel": "כל הפריטים",
-		"selectionSummary": "{{selected}} נבחרו · {{total}} בסך הכול",
-		"clearTitle": "ניקוי הורדות שהושלמו",
-		"autoRemoveCompleted": {"label": "ניקוי אוטומטי של ההורדות שהושלמו", "hint": "הסרת כל הורדה מהרשימה כמה שניות אחרי שהסתיימה. הקבצים נשארים בתיקייה שלכם."},
-		"pauseAllTitle": "השהיית כל ההורדות הפעילות ומניעת התחלה של הורדות חדשות",
-		"resumeAllTitle": "חידוש הורדות מושהות והמשך פעולת התור",
-		"pausedBanner": "התור מושהה — פריטים ממתינים לא יתחילו עד שתחדשו אותו",
-		"resumeQueueAction": "חידוש התור",
-		"cancelAllTitle": "ביטול כל ההורדות הפעילות והממתינות",
-		"table": {
-			"columns": "עמודות",
-			"title": "כותרת",
-			"status": "מצב",
-			"progress": "התקדמות",
-			"format": "פורמט",
-			"outputTarget": "יעד פלט",
-			"artifacts": "קבצים",
-			"size": "גודל",
-			"added": "נוסף",
-			"finished": "הסתיים",
-			"notAvailable": "—",
-			"sortBy": "מיון לפי {{label}}",
-			"showArtifactsFor": "הצגת הקבצים של {{title}}",
-			"hideArtifactsFor": "הסתרת הקבצים של {{title}}",
-			"resetColumns": "איפוס עמודות",
-			"resizeColumn": "שינוי גודל העמודה {{column}}",
-			"movableColumn": "עמודה ניתנת להזזה",
-			"moveColumnInstructions": "כדי להזיז עמודה, הקישו על רווח או על Enter, הזיזו אותה באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותה. הקישו על Escape כדי לבטל.",
-			"columnPickedUp": "העמודה {{column}} נאספה.",
-			"columnMovedOver": "העמודה {{column}} נמצאת מעל {{target}}.",
-			"columnDropped": "העמודה {{column}} שוחררה.",
-			"columnMoveCancelled": "הזזת העמודה {{column}} בוטלה."
-		},
-		"artifact": {"media": "מדיה", "subtitle": "כתובית", "thumbnail": "תמונה ממוזערת", "description": "תיאור", "companion": "נלווה", "unknown": "קובץ", "missing": "חסר"},
-		"item": {
-			"defaultError": "ההורדה נכשלה",
-			"retryingSoon": "ניסיון חוזר אוטומטי (ניסיון {{attempt}})",
-			"qualityLimited": "מוגבל ל-{{height}}p",
-			"qualityLimitedSubtitlesFailed": "מוגבל ל-{{height}}p · חלק מהכתוביות נכשלו",
-			"audioKept": "השמע לא הוסר",
-			"audioKeptSubtitlesFailed": "השמע לא הוסר · חלק מהכתוביות נכשלו",
-			"subtitleLanguagesMissing": "אין כתוביות בשפות הבאות: {{languages}}",
-			"pause": "השהיה",
-			"resume": "חידוש",
-			"cancel": "ביטול",
-			"retry": "ניסיון חוזר",
-			"setLocation": "הגדרת מיקום",
-			"setLocationHint": "בחרו פריטים ממתינים כדי להגדיר מיקום.",
-			"pendingOnly": "ממתינים בלבד",
-			"openDestinationFolder": "פתיחת תיקיית היעד",
-			"remove": "הסרה",
-			"pullNow": "הורדה מיידית — דילוג על התור",
-			"statusProbing": "אחזור פרטים",
-			"statusNeedsChoice": "דורש את בחירתכם",
-			"statusPending": "בהמתנה",
-			"statusRunning": "מוריד",
-			"statusHeld": "מעוכב",
-			"statusPaused": "מושהה",
-			"statusDone": "הושלם",
-			"statusError": "שגיאה",
-			"statusCancelled": "בוטל"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} זמין — הגרסה שלכם היא {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} זמין — עדכנו באמצעות Homebrew.",
-			"macosDirect": "Arroxy {{version}} זמין — הורידו את ה-DMG החדש.",
-			"macosDirectHomebrew": "Arroxy {{version}} זמין — הורידו את ה-DMG או עברו ל-Homebrew.",
-			"portable": "Arroxy {{version}} זמין — הורידו את הגרסה החדשה."
-		},
-		"install": "התקנה והפעלה מחדש",
-		"downloading": "מוריד…",
-		"runAndRestart": "הרצה והפעלה מחדש",
-		"upgrading": "משדרג…",
-		"download": "הורדה ↗",
-		"downloadDmg": "הורדת DMG ↗",
-		"dismiss": "סגירת באנר העדכון",
-		"copy": "העתקת הפקודה ללוח",
-		"copied": "הפקודה הועתקה ללוח",
-		"installFailed": "העדכון נכשל",
-		"retry": "ניסיון חוזר"
-	},
-	"releaseNotes": {"title": "מה חדש ב-Arroxy {{version}}", "description": "אתם מריצים עדכון חדש. הנה הדגשים.", "fullNotes": "הערות מלאות לגרסה ↗", "continue": "המשך"},
-	"status": {
-		"preparingBinaries": "מכין קבצים בינאריים…",
-		"mintingToken": "מנפיק אסימון YouTube…",
-		"remintingToken": "מנפיק אסימון מחדש…",
-		"startingYtdlp": "מפעיל את מנוע ההורדה…",
-		"downloadingMedia": "מוריד וידאו ושמע…",
-		"mergingFormats": "ממזג שמע ווידאו…",
-		"extractingAudio": "ממיר שמע…",
-		"convertingVideo": "ממיר וידאו…",
-		"embeddingMetadata": "משלב מטא-נתונים…",
-		"movingFiles": "מעביר קבצים…",
-		"fetchingSubtitles": "מאחזר כתוביות…",
-		"sleepingBetweenRequests": "ממתין {{seconds}} שניות כדי להימנע ממגבלות קצב…",
-		"subtitlesFailed": "הווידאו נשמר — לא ניתן היה להוריד חלק מהכתוביות",
-		"qualityLimited": "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור.",
-		"qualityLimitedSubtitlesFailed": "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו, ולא ניתן היה להוריד חלק מהכתוביות. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור.",
-		"audioKept": "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע",
-		"audioKeptSubtitlesFailed": "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע, ולא ניתן היה להוריד חלק מהכתוביות",
-		"subtitleLanguagesMissing": "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. הסרטון נשמר בלי כתוביות.",
-		"subtitleLanguagesMissingOthersSaved": "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. שאר השפות נשמרו.",
-		"noSubtitles": "אין כתוביות בשפות הבאות: {{languages}}",
-		"cancelled": "ההורדה בוטלה",
-		"complete": "ההורדה הושלמה",
-		"usedExtractorFallback": "הורד באמצעות מחלץ מקל — הגדירו cookies.txt לשיפור מהימנות ההורדות",
-		"ytdlpProcessError": "שגיאת מנוע ההורדה: {{error}}",
-		"ytdlpExitCode": "מנוע ההורדה הסתיים עם קוד {{code}}",
-		"downloadingBinary": "מוריד את הקובץ הבינארי {{name}}…",
-		"unknownStartupFailure": "כשל לא ידוע בהפעלת ההורדה",
-		"diskSpaceInsufficient": "אין מספיק מקום בדיסק — נדרש {{required}}, זמין רק {{free}}",
-		"outputNotWritable": "אי אפשר לשמור ב-{{dir}} — ל-Arroxy אין הרשאה לכתוב שם",
-		"fetchingSponsorBlock": "פונה אל SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock אינו זמין, מנסה שוב ({{attempt}}/{{total}})…",
-		"retryingTransfer": "החיבור נתקע, מנסה שוב ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "מתחבר עם חשבון “גילוי” שלכם…",
-		"exploreSignedOut": "נותקתם מ“גילוי” — התחברו שוב"
-	},
-	"notifications": {
-		"settingsSaveFailed": "לא ניתן היה לשמור את ההגדרות שלכם.",
-		"warmupFailed": "ההגדרה לא הסתיימה. ייתכן שחלק מההורדות ייכשלו עד שתסתיים.",
-		"shellActionFailed": "לא ניתן היה לפתוח זאת.",
-		"folderSelectFailed": "לא ניתן היה לפתוח את בורר התיקיות.",
-		"exploreSignInRetrying_one": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר לקישור אחד",
-		"exploreSignInRetrying_two": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים",
-		"exploreSignInRetrying_other": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים",
-		"exploreSignOutFailed": "לא ניתן היה להתנתק מ“גילוי”. נסו שוב.",
-		"playlistFolderRejected": "אי אפשר להשתמש בתיקייה הזו עבור רשימת ההשמעה.",
-		"filenameFolderTooDeep": "התיקייה הזו עמוקה מדי עבור המערכת שלכם. ייתכן שההורדה עדיין תיכשל — בחרו תיקייה קצרה יותר.",
-		"filenameTemplateCannotFit": "שם הסרטון הזה אינו יכול להכיל את כל חלקי התבנית שלכם, ולכן נעשה שימוש בשם ברירת המחדל.",
-		"hotkey": {
-			"queued": "ההורדה נוספה לתור מהלוח",
-			"alreadyQueued": "כבר בתור — לא נוסף עותק",
-			"invalidClipboard": "אין קישור בלוח — העתיקו קישור קודם",
-			"multipleUrls": "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” ב-Arroxy",
-			"needsReview": "הקישור הזה דורש את בחירתכם — ראו הורדות ב-Arroxy",
-			"cookiesSetup": "סיימו להגדיר קובצי Cookie ב-Arroxy ונסו שוב",
-			"busy": "Arroxy עדיין מתחיל — נסו שוב בעוד רגע",
-			"submissionFailed": "לא ניתן היה להוסיף את הקישור — נסו שוב ב-Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "סרטון אחד כבר בתור — דולג", "skippedAlreadyQueued_two": "{{count}} סרטונים כבר בתור — דולגו", "skippedAlreadyQueued_other": "{{count}} סרטונים כבר בתור — דולגו"},
-		"quickDownload": {
-			"added": "נוסף: {{title}}",
-			"alreadyQueued": "כבר בתור",
-			"failed": "לא ניתן היה להכין את {{title}}",
-			"notAdded": "לא ניתן היה להוסיף את הקישור — נסו שוב",
-			"chooseHowMany_one": "סרטון אחד ומעלה — בחרו כמה",
-			"chooseHowMany_two": "{{count}}+ סרטונים — בחרו כמה",
-			"chooseHowMany_other": "{{count}}+ סרטונים — בחרו כמה",
-			"review_one": "סרטון אחד ברשימה זו — לסקירה ובחירה",
-			"review_two": "{{count}} סרטונים ברשימה זו — לסקירה ובחירה",
-			"review_other": "{{count}} סרטונים ברשימה זו — לסקירה ובחירה",
-			"reviewCapped_one": "סרטון אחד ומעלה ברשימה זו — לסקירה ובחירה",
-			"reviewCapped_two": "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה",
-			"reviewCapped_other": "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה",
-			"view": "הצגה"
-		}
+	"donate": {
+		"copied": "הועתק!",
+		"copyAddress": "העתקת כתובת",
+		"description": "Arroxy חינמי ובקוד פתוח, ללא פרסומות וללא גרסה בתשלום. התרומות אופציונליות ואינן קונות השפעה על מפת הדרכים.",
+		"footerLabel": "תרומה",
+		"footerTooltip": "תמיכה ב-Arroxy",
+		"qrAlt": "קוד QR של כתובת התרומה ב-{{coin}}",
+		"title": "תמיכה ב-Arroxy",
+		"warning": "תשלומי קריפטו אינם הפיכים. יש לשלוח רק ברשת המוצגת ולהשוות את הכתובת כולה."
 	},
 	"errors": {
 		"noSubtitlesIn": "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "הגנת הבוטים הופעלה. סביר שכתובת ה-IP שבה אתם משתמשים סומנה (טווח של מרכז נתונים או יציאת VPN עמוסה). החליפו כתובת IP או בחרו נקודת יציאה אחרת ב-VPN ונסו שוב. אם הבעיה נמשכת, ייתכן שמדובר בשינוי זמני בצד האתר — Arroxy מעדכן את מנוע ההורדה בכל הפעלה, ולכן התיקון יגיע אוטומטית ברגע שיפורסם.",
-			"ipBlock": "נראה שכתובת ה-IP שלכם חסומה. נסו שוב מאוחר יותר או השתמשו ב-VPN.",
-			"rateLimit": "האתר מגביל את קצב הבקשות מחיבור זה.",
 			"ageRestricted": "סרטון זה מוגבל לפי גיל ואי אפשר להוריד אותו ללא חשבון מחובר.",
-			"unavailable": "סרטון זה אינו זמין — ייתכן שהוא פרטי, נמחק או חסום באזור.",
+			"botBlock": "הגנת הבוטים הופעלה. סביר שכתובת ה-IP שבה אתם משתמשים סומנה (טווח של מרכז נתונים או יציאת VPN עמוסה). החליפו כתובת IP או בחרו נקודת יציאה אחרת ב-VPN ונסו שוב. אם הבעיה נמשכת, ייתכן שמדובר בשינוי זמני בצד האתר — Arroxy מעדכן את מנוע ההורדה בכל הפעלה, ולכן התיקון יגיע אוטומטית ברגע שיפורסם.",
+			"chunkTransferFailure": "השרת המשיך לנתק את ההורדה באמצע, ו-Arroxy ויתר לאחר ניסיונות חוזרים. בעיה זו מופיעה בדרך כלל בפורמטי הווידאו הגדולים ביותר (4K HDR / VP9 בקצב סיביות גבוה). נסו שוב, החליפו רשת או VPN, או בחרו פורמט ברזולוציה נמוכה יותר.",
+			"drmProtected": "סרטון זה מוגן ב-DRM. Arroxy אינו יכול להסיר DRM, ולכן אי אפשר להוריד את הקובץ.",
 			"formatUnavailable": "הסרטון הזה כבר לא מציע את הפורמט שבחרתם. הדביקו שוב את הקישור ובחרו מבין הפורמטים שהוא מציע כעת.",
 			"geoBlocked": "סרטון זה אינו זמין באזור שלכם.",
+			"ipBlock": "נראה שכתובת ה-IP שלכם חסומה. נסו שוב מאוחר יותר או השתמשו ב-VPN.",
+			"loginRequired": "סרטון זה דורש חשבון מחובר.",
+			"missingDependency": "Arroxy לא הצליח למצוא את FFmpeg או את FFprobe. הפעילו את ההגדרה מחדש או הגדירו מיקום ל-FFmpeg, ואז נסו להוריד שוב.",
+			"network": "שגיאת רשת. בדקו את החיבור ונסו שוב.",
+			"noSubtitles": "לסרטון זה אין כתוביות בשפות המבוקשות.",
 			"outOfDiskSpace": "אין מספיק מקום בדיסק. פנו מקום ונסו שוב.",
 			"outputNotWritable": "Arroxy לא יכול לכתוב בתיקיית ההורדות. ייתכן שהיא לקריאה בלבד, נמצאת בכונן נעול או חסומה על ידי הגדרות הפרטיות של המערכת. בחרו תיקייה אחרת או אפשרו גישה, ואז נסו שוב.",
-			"unsupportedUrl": "Arroxy אינו תומך בכתובת זו. נסו קישור מאתר אחר.",
-			"noSubtitles": "לסרטון זה אין כתוביות בשפות המבוקשות.",
-			"chunkTransferFailure": "השרת המשיך לנתק את ההורדה באמצע, ו-Arroxy ויתר לאחר ניסיונות חוזרים. בעיה זו מופיעה בדרך כלל בפורמטי הווידאו הגדולים ביותר (4K HDR / VP9 בקצב סיביות גבוה). נסו שוב, החליפו רשת או VPN, או בחרו פורמט ברזולוציה נמוכה יותר.",
-			"missingDependency": "Arroxy לא הצליח למצוא את FFmpeg או את FFprobe. הפעילו את ההגדרה מחדש או הגדירו מיקום ל-FFmpeg, ואז נסו להוריד שוב.",
-			"postprocessFailure": "ההורדה הסתיימה, אך העיבוד הסופי (מיזוג / שילוב / המרה) נכשל. לעיתים קרובות זו תקלה זמנית ב-ffmpeg — נסו שוב, ואם הבעיה נמשכת נסו שילוב אחר של פורמטים.",
 			"parse": "לא ניתן היה לנתח את התגובה מהאתר. ייתכן שהאתר שינה את אופן הגשת הסרטונים. Arroxy מעדכן את מנוע ההורדה בכל הפעלה — נסו שוב בעוד כמה דקות, לאחר שהתיקון יפורסם.",
-			"network": "שגיאת רשת. בדקו את החיבור ונסו שוב.",
-			"drmProtected": "סרטון זה מוגן ב-DRM. Arroxy אינו יכול להסיר DRM, ולכן אי אפשר להוריד את הקובץ.",
-			"loginRequired": "סרטון זה דורש חשבון מחובר.",
-			"unknown": "ההורדה נכשלה. ראו את הפלט הגולמי למטה."
+			"postprocessFailure": "ההורדה הסתיימה, אך העיבוד הסופי (מיזוג / שילוב / המרה) נכשל. לעיתים קרובות זו תקלה זמנית ב-ffmpeg — נסו שוב, ואם הבעיה נמשכת נסו שילוב אחר של פורמטים.",
+			"rateLimit": "האתר מגביל את קצב הבקשות מחיבור זה.",
+			"unavailable": "סרטון זה אינו זמין — ייתכן שהוא פרטי, נמחק או חסום באזור.",
+			"unknown": "ההורדה נכשלה. ראו את הפלט הגולמי למטה.",
+			"unsupportedUrl": "Arroxy אינו תומך בכתובת זו. נסו קישור מאתר אחר."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "בדקו את החיבור ונסו שוב.",
+			"loadTitle": "הדף לא נטען",
+			"openSettings": "פתיחת הגדרות",
+			"proxyBody": "בדקו את שרת ה-Proxy בהגדרות ונסו שוב.",
+			"proxyTitle": "“גילוי” לא מצליח להתחבר דרך שרת ה-Proxy שלכם",
+			"retry": "ניסיון חוזר"
+		},
+		"linkCallout": {
+			"body": "לחצו לחיצה ימנית על כל קישור לסרטון, לרשימת השמעה או לערוץ בדף כדי להוריד אותו עם הפרופיל הפעיל, לבחור פרופיל אחר או לפתוח את התהליך שלב אחר שלב.",
+			"title": "לחיצה ימנית על קישור כדי להוריד אותו"
+		},
+		"linkMenu": {
+			"copyLink": "העתקת קישור",
+			"downloadWith": "הורדה באמצעות"
+		},
+		"newBadge": "חדש",
+		"notice": {
+			"body": "מצאו סרטון ב-YouTube או באתר אחר והורידו אותו מכאן — בלי להעתיק קישורים. התחברו לאתר כאן כדי להוריד סרטונים שדורשים חשבון.",
+			"continue": "המשך",
+			"riskBody": "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שמשמשים עם כלי הורדה כמו Arroxy. השתמשו בחשבון שאפשר להרשות לעצמכם לאבד, לא בחשבון הראשי.",
+			"riskTitle": "התחברו עם חשבון משני",
+			"title": "גלישה באינטרנט ישירות בתוך Arroxy"
+		},
+		"nudge": {
+			"browser": "ההורדות משתמשות בקובצי ה-Cookie של הדפדפן, לא בהתחברות שלכם ב“גילוי”.",
+			"file": "ההורדות משתמשות בקובץ ה-Cookie שלכם, לא בהתחברות שלכם ב“גילוי”.",
+			"notNow": "לא עכשיו",
+			"off": "קובצי Cookie כבויים, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”.",
+			"useExplore": "שימוש בהתחברות ל“גילוי”"
+		},
+		"settings": {
+			"description": "גלשו ב-YouTube או באתר אחר בתוך Arroxy, והתחברו כדי להוריד סרטונים שדורשים חשבון.",
+			"idleUnload": "שחרור זיכרון בזמן היעדרות",
+			"idleUnloadDescription": "לאחר 5 דקות בכרטיסייה אחרת, דף הבית או דף החיפוש של YouTube נסגר. החזרה אליו טוענת אותו מחדש, מה שנמשך כמה שניות.",
+			"searchEngine": "מנוע חיפוש",
+			"searchEngineDescription": "המקום שבו מתבצע חיפוש של טקסט שהוקלד בשורת הכתובת. קישורים נפתחים כפי שהוקלדו.",
+			"showTab": "הצגת הכרטיסייה “גילוי”",
+			"showTabDescription": "כיבוי האפשרות גם מונע מההורדות להשתמש בהתחברות שלכם ב“גילוי”.",
+			"signOut": "התנתקות מ“גילוי”",
+			"signOutConfirm": "התנתקות",
+			"signOutConfirmBody": "פעולה זו מוחקת את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים. הורדות שדורשות חשבון ייכשלו עד שתתחברו שוב.",
+			"signOutConfirmTitle": "להתנתק מ“גילוי”?",
+			"signOutDescription": "מוחק את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים.",
+			"title": "גילוי"
+		},
+		"tabLabel": "גילוי",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube עשוי להתנגד לחוסמי פרסומות בחשבונות מחוברים.",
+				"aria": "חוסם פרסומות",
+				"off": "חוסם פרסומות: כבוי — לחצו כדי להפעיל",
+				"on": "חוסם פרסומות: פועל — לחצו כדי לכבות",
+				"starting": "חוסם פרסומות: מתחיל — לחצו כדי לכבות",
+				"unavailable": "חוסם פרסומות: לא זמין, לא ניתן היה להוריד את רשימות הסינון שלו — לחצו כדי לכבות"
+			},
+			"addressAria": "כתובת",
+			"addressPlaceholder": "חיפוש ב-{{engine}} או פתיחת כל אתר (Vimeo, Instagram…)",
+			"aria": "פקדי הדפדפן של “גילוי”",
+			"back": "אחורה",
+			"compactLayout": "פריסה קומפקטית",
+			"downloadWithProfile": "הורדה · {{profileName}}",
+			"forward": "קדימה",
+			"fullLayout": "הצגת פריסה מלאה",
+			"grabUnavailable": "פתחו סרטון, רשימת השמעה או ערוץ כדי להוריד אותם",
+			"home": "דף הבית של YouTube",
+			"interactiveHint": "הורדה אינטראקטיבית: בחירת פורמט, כתוביות ועוד…",
+			"refusedHint": "“גילוי” לא יכול לפתוח את הכתובת הזו.",
+			"reload": "רענון",
+			"searchTooLong": "החיפוש ארוך מדי.",
+			"zoom": {
+				"hint": "זום בדף: {{percent}}%",
+				"in": "הגדלה",
+				"label": "זום בדף",
+				"out": "הקטנה",
+				"percent": "אחוז זום",
+				"reset": "איפוס הזום ל-100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "אוטומטי",
+		"autoValue": "אוטומטי (.{{ext}})",
+		"description": {
+			"auto": "הזרמים שנבחרו קובעים את סוג הקובץ.",
+			"mkv": "תומך בכל קודק. חלק מהטלוויזיות והטלפונים לא יכולים לפתוח אותו.",
+			"mp4": "מתנגן כמעט בכל מקום. וידאו VP9 בתוך MP4 לא יתנגן ב-QuickTime.",
+			"webm": "פורמט פתוח לדפדפנים. תומך רק ב-VP9 או AV1 עם Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 בתוך MP4 דורש Mac עדכני כדי להתנגן ב-QuickTime. H.264 מתנגן בכל מקום.",
+		"mp4CaveatVp9": "VP9 בתוך MP4 לא יתנגן כוידאו ב-QuickTime. H.264 מתנגן בכל מקום.",
+		"profileMark": "פרופיל",
+		"smartTvNoWebm": "WebM אינו מוצע עם טלוויזיה חכמה: הוא אינו תומך ב-H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM אינו תומך ב-{{codec}}. בחרו MKV או MP4."
+	},
+	"filenameTemplate": {
+		"description": "בחרו איך יקראו הקבצים שהורדו. לחצו על אסימון כדי להוסיף אותו. השתמשו בתו / כדי למיין הורדות לתיקיות.",
+		"error": {
+			"empty": "הזינו תבנית לשם קובץ.",
+			"empty-segment": "הסירו את התו / העודף — לכל תיקייה חייב להיות שם.",
+			"forbidden-char": "הסירו תווים שאינם מותרים בשמות קבצים: \\ : * ? \" < > |",
+			"invalid-segment": "שם התיקייה הזה אינו מותר. הימנעו מ-. ומ-.. וכן משמות שמורים כמו CON.",
+			"no-unique-token": "הוסיפו {title} או {id} לשם הקובץ כדי שכל הורדה תקבל שם משלה.",
+			"resolution-in-dir": "אי אפשר להשתמש ב-{resolution} כשם של תיקייה — האיכות אינה ידועה עד שההורדה מתחילה.",
+			"stray-brace": "{ או } ללא התאמה — עטפו אסימונים כמו {title}.",
+			"too-long": "התבנית ארוכה מדי.",
+			"unknown-token": "אסימון לא מוכר: {{token}}."
+		},
+		"idWarning": "בלי {id}, Arroxy לא יכול לזהות פריטי רשימת השמעה שכבר הורדו או ליצור רשימות השמעה בפורמט m3u.",
+		"label": "תבנית שם קובץ",
+		"m3uDisabled": "לא זמין מפני שתבנית שם הקובץ שלכם אינה כוללת {id} או ממיינת הורדות לתיקיות.",
+		"previewPlaylist": "ברשימת השמעה",
+		"previewSingle": "סרטון בודד",
+		"profileOverrideDescription": "השאירו ריק כדי לרשת את התבנית הגלובלית.",
+		"profileOverrideLabel": "תבנית שם קובץ"
+	},
+	"formatLabel": {
+		"audioFallback": "שמע",
+		"audioOnlyDot": "שמע בלבד · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "אוטומטי",
+		"description": "במצב אוטומטי נבחר HDR כשהמסך הזה יכול להציג אותו, ואחרת SDR. HDR נראה דהוי במסכים רגילים.",
+		"hdr": "HDR",
+		"label": "וידאו HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "שפה"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר לקישור אחד",
+		"exploreSignInRetrying_other": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים",
+		"exploreSignInRetrying_two": "ההתחברות ב“גילוי” הושלמה — ניסיון חוזר ל-{{count}} קישורים",
+		"exploreSignOutFailed": "לא ניתן היה להתנתק מ“גילוי”. נסו שוב.",
+		"filenameFolderTooDeep": "התיקייה הזו עמוקה מדי עבור המערכת שלכם. ייתכן שההורדה עדיין תיכשל — בחרו תיקייה קצרה יותר.",
+		"filenameTemplateCannotFit": "שם הסרטון הזה אינו יכול להכיל את כל חלקי התבנית שלכם, ולכן נעשה שימוש בשם ברירת המחדל.",
+		"folderSelectFailed": "לא ניתן היה לפתוח את בורר התיקיות.",
+		"hotkey": {
+			"alreadyQueued": "כבר בתור — לא נוסף עותק",
+			"busy": "Arroxy עדיין מתחיל — נסו שוב בעוד רגע",
+			"cookiesSetup": "סיימו להגדיר קובצי Cookie ב-Arroxy ונסו שוב",
+			"invalidClipboard": "אין קישור בלוח — העתיקו קישור קודם",
+			"multipleUrls": "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” ב-Arroxy",
+			"needsReview": "הקישור הזה דורש את בחירתכם — ראו הורדות ב-Arroxy",
+			"queued": "ההורדה נוספה לתור מהלוח",
+			"submissionFailed": "לא ניתן היה להוסיף את הקישור — נסו שוב ב-Arroxy"
+		},
+		"playlistFolderRejected": "אי אפשר להשתמש בתיקייה הזו עבור רשימת ההשמעה.",
+		"queue": {
+			"skippedAlreadyQueued_one": "סרטון אחד כבר בתור — דולג",
+			"skippedAlreadyQueued_other": "{{count}} סרטונים כבר בתור — דולגו",
+			"skippedAlreadyQueued_two": "{{count}} סרטונים כבר בתור — דולגו"
+		},
+		"quickDownload": {
+			"added": "נוסף: {{title}}",
+			"alreadyQueued": "כבר בתור",
+			"chooseHowMany_one": "סרטון אחד ומעלה — בחרו כמה",
+			"chooseHowMany_other": "{{count}}+ סרטונים — בחרו כמה",
+			"chooseHowMany_two": "{{count}}+ סרטונים — בחרו כמה",
+			"failed": "לא ניתן היה להכין את {{title}}",
+			"notAdded": "לא ניתן היה להוסיף את הקישור — נסו שוב",
+			"reviewCapped_one": "סרטון אחד ומעלה ברשימה זו — לסקירה ובחירה",
+			"reviewCapped_other": "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה",
+			"reviewCapped_two": "{{count}}+ סרטונים ברשימה זו — לסקירה ובחירה",
+			"review_one": "סרטון אחד ברשימה זו — לסקירה ובחירה",
+			"review_other": "{{count}} סרטונים ברשימה זו — לסקירה ובחירה",
+			"review_two": "{{count}} סרטונים ברשימה זו — לסקירה ובחירה",
+			"view": "הצגה"
+		},
+		"settingsSaveFailed": "לא ניתן היה לשמור את ההגדרות שלכם.",
+		"shellActionFailed": "לא ניתן היה לפתוח זאת.",
+		"warmupFailed": "ההגדרה לא הסתיימה. ייתכן שחלק מההורדות ייכשלו עד שתסתיים."
+	},
 	"playlistPresets": {
-		"type": {"video": "וידאו", "audio": "שמע", "subtitles": "כתוביות"},
-		"subtitles": {"note": "לכל סרטון נשמרים קובצי כתוביות בלבד — לא מורדים וידאו או שמע.", "languages": "שפות", "languagesRequired": "בחרו לפחות שפה אחת כדי להמשיך.", "source": "מקור", "deliveryHeading": "שמירה בתור", "deliveryLoose": "ישירות בתיקיית השמירה"},
-		"videoFormat": {"best": "הטוב ביותר במקור", "mp4": "טלוויזיה חכמה H.264 MP4"},
-		"videoFormatDesc": {"best": "סוג הקובץ והקודקים הטובים ביותר הזמינים לכל פריט", "mp4": "העדפת וידאו H.264 ושמע AAC בתוך MP4 כשאפשר"},
-		"tier": {"144": "עד 144p", "240": "עד 240p", "360": "עד 360p", "480": "עד 480p", "720": "עד 720p", "1080": "עד 1080p", "1440": "עד 1440p", "2160": "עד 4K", "best": "איכות מיטבית"},
+		"audioFormat": {
+			"best": "שמע (הטוב ביותר)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "שמע ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "השמע המקורי הטוב ביותר, ללא קידוד מחדש",
+			"m4a": "המרה ל-M4A (AAC)",
+			"mp3": "המרה ל-MP3",
+			"opus": "המרה ל-Opus"
+		},
+		"mp4Cap": "H.264 מעל 1080p אינו זמין ב-YouTube — מוגבל אוטומטית ל-1080p",
+		"subtitles": {
+			"deliveryHeading": "שמירה בתור",
+			"deliveryLoose": "ישירות בתיקיית השמירה",
+			"languages": "שפות",
+			"languagesRequired": "בחרו לפחות שפה אחת כדי להמשיך.",
+			"note": "לכל סרטון נשמרים קובצי כתוביות בלבד — לא מורדים וידאו או שמע.",
+			"source": "מקור"
+		},
+		"tier": {
+			"144": "עד 144p",
+			"240": "עד 240p",
+			"360": "עד 360p",
+			"480": "עד 480p",
+			"720": "עד 720p",
+			"1080": "עד 1080p",
+			"1440": "עד 1440p",
+			"2160": "עד 4K",
+			"best": "איכות מיטבית"
+		},
 		"tierDesc": {
 			"144": "הקבצים הקטנים ביותר האפשריים",
 			"240": "קבצים קטנים מאוד, איכות נמוכה",
@@ -934,157 +317,1422 @@
 			"2160": "מוגבל ל-2160p, יורד לאיכות נמוכה יותר לפי פריט",
 			"best": "הווידאו והשמע הגבוהים ביותר הזמינים לכל פריט"
 		},
-		"audioFormat": {"best": "שמע (הטוב ביותר)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "השמע המקורי הטוב ביותר, ללא קידוד מחדש", "mp3": "המרה ל-MP3", "m4a": "המרה ל-M4A (AAC)", "opus": "המרה ל-Opus"},
-		"audioFormatBitrate": "שמע ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 מעל 1080p אינו זמין ב-YouTube — מוגבל אוטומטית ל-1080p"
-	},
-	"formatLabel": {"audioFallback": "שמע", "audioOnlyDot": "שמע בלבד · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "במצב המתנה", "statusActive_one": "הורדה אחת · {{percent}}%", "statusActive_two": "שתי הורדות · {{percent}}%", "statusActive_other": "{{count}} הורדות · {{percent}}%", "downloadFromClipboard": "הורדה מהלוח", "open": "פתיחת Arroxy", "quit": "יציאה מ-Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "הורדה אחת בתהליך", "message_two": "שתי הורדות בתהליך", "message_other": "{{count}} הורדות בתהליך", "detail": "אפשר להשהות כדי להמשיך מאוחר יותר, או לבטל ולמחוק את ההתקדמות.", "confirm": "ביטול הורדות ויציאה", "pause": "השהיית הורדות ויציאה", "keep": "המשך הורדה"},
-		"closeToTray": {"message": "להסתיר את Arroxy למגש המערכת בעת הסגירה?", "detail": "Arroxy ממשיך לפעול ומסיים הורדות פעילות. ניתן לשנות זאת בהגדרות מתקדמות.", "hide": "הסתרה למגש", "quit": "יציאה", "remember": "לא לשאול שוב"},
-		"rendererCrashed": {"message": "Arroxy נתקל בבעיה", "detail": "תהליך התצוגה קרס ({{reason}}). יש לטעון מחדש כדי לנסות שוב.", "reload": "טעינה מחדש", "quit": "יציאה"}
-	},
-	"share": {
-		"title": "שיתוף Arroxy",
-		"description": "Arroxy חינמי ובקוד פתוח. שיתוף עוזר ליותר אנשים לגלות אותו.",
-		"copyLink": "העתקת קישור",
-		"copied": "הועתק!",
-		"defaultMessage": "Arroxy — מוריד וידאו חינמי ובקוד פתוח עבור Windows, macOS ו-Linux. עובד עם YouTube, Vimeo, Twitch ויותר מ-2000 אתרים.\n4K · HDR · MP3 · Shorts · כתוביות · SponsorBlock",
-		"footerTooltip": "שיתוף Arroxy",
-		"footerLabel": "שיתוף",
-		"shareAction": "שיתוף Arroxy"
-	},
-	"donate": {
-		"title": "תמיכה ב-Arroxy",
-		"description": "Arroxy חינמי ובקוד פתוח, ללא פרסומות וללא גרסה בתשלום. התרומות אופציונליות ואינן קונות השפעה על מפת הדרכים.",
-		"footerTooltip": "תמיכה ב-Arroxy",
-		"footerLabel": "תרומה",
-		"copyAddress": "העתקת כתובת",
-		"copied": "הועתק!",
-		"qrAlt": "קוד QR של כתובת התרומה ב-{{coin}}",
-		"warning": "תשלומי קריפטו אינם הפיכים. יש לשלוח רק ברשת המוצגת ולהשוות את הכתובת כולה."
-	},
-	"filenameTemplate": {
-		"label": "תבנית שם קובץ",
-		"description": "בחרו איך יקראו הקבצים שהורדו. לחצו על אסימון כדי להוסיף אותו. השתמשו בתו / כדי למיין הורדות לתיקיות.",
-		"profileOverrideLabel": "תבנית שם קובץ",
-		"profileOverrideDescription": "השאירו ריק כדי לרשת את התבנית הגלובלית.",
-		"idWarning": "בלי {id}, Arroxy לא יכול לזהות פריטי רשימת השמעה שכבר הורדו או ליצור רשימות השמעה בפורמט m3u.",
-		"m3uDisabled": "לא זמין מפני שתבנית שם הקובץ שלכם אינה כוללת {id} או ממיינת הורדות לתיקיות.",
-		"previewSingle": "סרטון בודד",
-		"previewPlaylist": "ברשימת השמעה",
-		"error": {
-			"empty": "הזינו תבנית לשם קובץ.",
-			"too-long": "התבנית ארוכה מדי.",
-			"forbidden-char": "הסירו תווים שאינם מותרים בשמות קבצים: \\ : * ? \" < > |",
-			"stray-brace": "{ או } ללא התאמה — עטפו אסימונים כמו {title}.",
-			"no-unique-token": "הוסיפו {title} או {id} לשם הקובץ כדי שכל הורדה תקבל שם משלה.",
-			"unknown-token": "אסימון לא מוכר: {{token}}.",
-			"empty-segment": "הסירו את התו / העודף — לכל תיקייה חייב להיות שם.",
-			"invalid-segment": "שם התיקייה הזה אינו מותר. הימנעו מ-. ומ-.. וכן משמות שמורים כמו CON.",
-			"resolution-in-dir": "אי אפשר להשתמש ב-{resolution} כשם של תיקייה — האיכות אינה ידועה עד שההורדה מתחילה."
+		"type": {
+			"audio": "שמע",
+			"subtitles": "כתוביות",
+			"video": "וידאו"
+		},
+		"videoFormat": {
+			"best": "הטוב ביותר במקור",
+			"mp4": "טלוויזיה חכמה H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "סוג הקובץ והקודקים הטובים ביותר הזמינים לכל פריט",
+			"mp4": "העדפת וידאו H.264 ושמע AAC בתוך MP4 כשאפשר"
 		}
 	},
-	"explore": {
-		"tabLabel": "גילוי",
-		"newBadge": "חדש",
-		"notice": {
-			"title": "גלישה באינטרנט ישירות בתוך Arroxy",
-			"body": "מצאו סרטון ב-YouTube או באתר אחר והורידו אותו מכאן — בלי להעתיק קישורים. התחברו לאתר כאן כדי להוריד סרטונים שדורשים חשבון.",
-			"riskTitle": "התחברו עם חשבון משני",
-			"riskBody": "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שמשמשים עם כלי הורדה כמו Arroxy. השתמשו בחשבון שאפשר להרשות לעצמכם לאבד, לא בחשבון הראשי.",
-			"continue": "המשך"
+	"queue": {
+		"artifact": {
+			"companion": "נלווה",
+			"description": "תיאור",
+			"media": "מדיה",
+			"missing": "חסר",
+			"subtitle": "כתובית",
+			"thumbnail": "תמונה ממוזערת",
+			"unknown": "קובץ"
 		},
-		"nudge": {"off": "קובצי Cookie כבויים, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”.", "file": "ההורדות משתמשות בקובץ ה-Cookie שלכם, לא בהתחברות שלכם ב“גילוי”.", "browser": "ההורדות משתמשות בקובצי ה-Cookie של הדפדפן, לא בהתחברות שלכם ב“גילוי”.", "useExplore": "שימוש בהתחברות ל“גילוי”", "notNow": "לא עכשיו"},
-		"linkCallout": {"title": "לחיצה ימנית על קישור כדי להוריד אותו", "body": "לחצו לחיצה ימנית על כל קישור לסרטון, לרשימת השמעה או לערוץ בדף כדי להוריד אותו עם הפרופיל הפעיל, לבחור פרופיל אחר או לפתוח את התהליך שלב אחר שלב."},
-		"linkMenu": {"downloadWith": "הורדה באמצעות", "copyLink": "העתקת קישור"},
-		"toolbar": {
-			"aria": "פקדי הדפדפן של “גילוי”",
-			"back": "אחורה",
-			"forward": "קדימה",
-			"reload": "רענון",
-			"home": "דף הבית של YouTube",
-			"addressAria": "כתובת",
-			"addressPlaceholder": "חיפוש ב-{{engine}} או פתיחת כל אתר (Vimeo, Instagram…)",
-			"refusedHint": "“גילוי” לא יכול לפתוח את הכתובת הזו.",
-			"searchTooLong": "החיפוש ארוך מדי.",
-			"downloadWithProfile": "הורדה · {{profileName}}",
-			"interactiveHint": "הורדה אינטראקטיבית: בחירת פורמט, כתוביות ועוד…",
-			"grabUnavailable": "פתחו סרטון, רשימת השמעה או ערוץ כדי להוריד אותם",
-			"compactLayout": "פריסה קומפקטית",
-			"fullLayout": "הצגת פריסה מלאה",
-			"zoom": {"label": "זום בדף", "hint": "זום בדף: {{percent}}%", "in": "הגדלה", "out": "הקטנה", "percent": "אחוז זום", "reset": "איפוס הזום ל-100%"},
-			"adBlock": {
-				"aria": "חוסם פרסומות",
-				"off": "חוסם פרסומות: כבוי — לחצו כדי להפעיל",
-				"starting": "חוסם פרסומות: מתחיל — לחצו כדי לכבות",
-				"on": "חוסם פרסומות: פועל — לחצו כדי לכבות",
-				"unavailable": "חוסם פרסומות: לא זמין, לא ניתן היה להוריד את רשימות הסינון שלו — לחצו כדי לכבות",
-				"accountNote": "YouTube עשוי להתנגד לחוסמי פרסומות בחשבונות מחוברים."
+		"attentionBadge_one": "הורדה אחת דורשת את תשומת לבכם",
+		"attentionBadge_other": "{{count}} הורדות דורשות את תשומת לבכם",
+		"attentionBadge_two": "שתי הורדות דורשות את תשומת לבכם",
+		"autoRemoveCompleted": {
+			"hint": "הסרת כל הורדה מהרשימה כמה שניות אחרי שהסתיימה. הקבצים נשארים בתיקייה שלכם.",
+			"label": "ניקוי אוטומטי של ההורדות שהושלמו"
+		},
+		"cancelAllTitle": "ביטול כל ההורדות הפעילות והממתינות",
+		"choice": {
+			"all": "כל הסרטונים",
+			"cappedBody_one": "יש יותר מסרטון אחד ברשימת ההשמעה הזו. אפשר להוריד את כולם, את הראשון או לבחור בסקירה.",
+			"cappedBody_other": "יש יותר מ-{{count}} סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את {{count}} הראשונים או לבחור בסקירה.",
+			"cappedBody_two": "יש יותר משני סרטונים ברשימת ההשמעה הזו. אפשר להוריד את כולם, את שני הראשונים או לבחור בסקירה.",
+			"first": "{{count}} הראשונים",
+			"review": "סקירה",
+			"reviewBody_one": "הקישור הזה הוא רשימה של סרטון אחד. סקרו אותה כדי לבחור מה להוריד.",
+			"reviewBody_other": "הקישור הזה הוא רשימה של {{count}} סרטונים. סקרו אותה כדי לבחור מה להוריד.",
+			"reviewBody_two": "הקישור הזה הוא רשימה של שני סרטונים. סקרו אותה כדי לבחור מה להוריד."
+		},
+		"clearTitle": "ניקוי הורדות שהושלמו",
+		"empty": "הורדות שבתור יופיעו כאן",
+		"filterAll": "הכול",
+		"filtersLabel": "מסנני מצב התור",
+		"globalActionsLabel": "כל הפריטים",
+		"header": "הורדות",
+		"item": {
+			"audioKept": "השמע לא הוסר",
+			"audioKeptSubtitlesFailed": "השמע לא הוסר · חלק מהכתוביות נכשלו",
+			"cancel": "ביטול",
+			"defaultError": "ההורדה נכשלה",
+			"openDestinationFolder": "פתיחת תיקיית היעד",
+			"pause": "השהיה",
+			"pendingOnly": "ממתינים בלבד",
+			"pullNow": "הורדה מיידית — דילוג על התור",
+			"qualityLimited": "מוגבל ל-{{height}}p",
+			"qualityLimitedSubtitlesFailed": "מוגבל ל-{{height}}p · חלק מהכתוביות נכשלו",
+			"remove": "הסרה",
+			"resume": "חידוש",
+			"retry": "ניסיון חוזר",
+			"retryingSoon": "ניסיון חוזר אוטומטי (ניסיון {{attempt}})",
+			"setLocation": "הגדרת מיקום",
+			"setLocationHint": "בחרו פריטים ממתינים כדי להגדיר מיקום.",
+			"statusCancelled": "בוטל",
+			"statusDone": "הושלם",
+			"statusError": "שגיאה",
+			"statusHeld": "מעוכב",
+			"statusNeedsChoice": "דורש את בחירתכם",
+			"statusPaused": "מושהה",
+			"statusPending": "בהמתנה",
+			"statusProbing": "אחזור פרטים",
+			"statusRunning": "מוריד",
+			"subtitleLanguagesMissing": "אין כתוביות בשפות הבאות: {{languages}}"
+		},
+		"pauseAllTitle": "השהיית כל ההורדות הפעילות ומניעת התחלה של הורדות חדשות",
+		"pausedBanner": "התור מושהה — פריטים ממתינים לא יתחילו עד שתחדשו אותו",
+		"resumeAllTitle": "חידוש הורדות מושהות והמשך פעולת התור",
+		"resumeQueueAction": "חידוש התור",
+		"selectedActionsLabel": "פריטים נבחרים",
+		"selectionSummary": "{{selected}} נבחרו · {{total}} בסך הכול",
+		"tabLabel": "הורדות",
+		"tabTip": "ההורדות נמצאות עכשיו בכרטיסייה “הורדות” — פתחו אותה בכל עת כדי לעקוב אחר ההתקדמות.",
+		"table": {
+			"added": "נוסף",
+			"artifacts": "קבצים",
+			"columnDropped": "העמודה {{column}} שוחררה.",
+			"columnMoveCancelled": "הזזת העמודה {{column}} בוטלה.",
+			"columnMovedOver": "העמודה {{column}} נמצאת מעל {{target}}.",
+			"columnPickedUp": "העמודה {{column}} נאספה.",
+			"columns": "עמודות",
+			"finished": "הסתיים",
+			"format": "פורמט",
+			"hideArtifactsFor": "הסתרת הקבצים של {{title}}",
+			"movableColumn": "עמודה ניתנת להזזה",
+			"moveColumnInstructions": "כדי להזיז עמודה, הקישו על רווח או על Enter, הזיזו אותה באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותה. הקישו על Escape כדי לבטל.",
+			"notAvailable": "—",
+			"outputTarget": "יעד פלט",
+			"progress": "התקדמות",
+			"resetColumns": "איפוס עמודות",
+			"resizeColumn": "שינוי גודל העמודה {{column}}",
+			"showArtifactsFor": "הצגת הקבצים של {{title}}",
+			"size": "גודל",
+			"sortBy": "מיון לפי {{label}}",
+			"status": "מצב",
+			"title": "כותרת"
+		}
+	},
+	"releaseNotes": {
+		"continue": "המשך",
+		"description": "אתם מריצים עדכון חדש. הנה הדגשים.",
+		"fullNotes": "הערות מלאות לגרסה ↗",
+		"title": "מה חדש ב-Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "ביטול",
+			"chooseExecutable": "בחירת קובץ הפעלה",
+			"installWithHomebrew": "התקנה באמצעות Homebrew",
+			"installWithWinget": "התקנה באמצעות WinGet",
+			"openDependencyFolder": "פתיחת תיקיית התלויות",
+			"resetToDefault": "איפוס לברירת המחדל",
+			"retrySetup": "ניסיון חוזר",
+			"viewSetupLog": "הצגת יומן ההגדרה"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין.",
+				"title": "כלי אינו פועל כראוי"
+			},
+			"blockedOrQuarantined": {
+				"body": "אפשרו את Arroxy בתוכנת האנטי-וירוס או ב-SmartScreen ונסו שוב.",
+				"title": "תוכנת האנטי-וירוס חסמה כלי"
+			},
+			"downloadFailed": {
+				"body": "בדקו את חיבור האינטרנט ונסו שוב.",
+				"title": "לא ניתן היה להוריד את מה ש-Arroxy צריך"
+			},
+			"extractFailed": {
+				"body": "נסו שוב כדי להוריד אותו מחדש.",
+				"title": "הורדה הגיעה פגומה"
+			},
+			"hashFailed": {
+				"body": "נסו שוב כדי להוריד אותו מחדש.",
+				"title": "הורדה לא תאמה את סכום הביקורת שלה"
+			},
+			"pairIncomplete": {
+				"body": "בחרו את שניהם להלן, או אפסו אותם לברירת המחדל.",
+				"title": "יש להגדיר את FFmpeg ואת FFprobe יחד"
+			},
+			"permissionDenied": {
+				"body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק שאתם סומכים עליו.",
+				"title": "המערכת לא מאפשרת ל-Arroxy להפעיל כלי"
+			},
+			"spawnFailed": {
+				"body": "נסו שוב. אם הבעיה נמשכת, בחרו להלן עותק תקין.",
+				"title": "כלי חסר או שאינו מתחיל"
+			},
+			"timeout": {
+				"body": "לעיתים קרובות זו סריקת אבטחה בהפעלה הראשונה. נסו שוב.",
+				"title": "כלי התעכב יותר מדי בתגובה"
+			},
+			"unknown": {
+				"body": "נסו שוב, או פתחו את יומן ההגדרה לפרטים.",
+				"title": "משהו השתבש במהלך ההגדרה"
 			}
 		},
-		"settings": {
-			"title": "גילוי",
-			"description": "גלשו ב-YouTube או באתר אחר בתוך Arroxy, והתחברו כדי להוריד סרטונים שדורשים חשבון.",
-			"showTab": "הצגת הכרטיסייה “גילוי”",
-			"showTabDescription": "כיבוי האפשרות גם מונע מההורדות להשתמש בהתחברות שלכם ב“גילוי”.",
-			"idleUnload": "שחרור זיכרון בזמן היעדרות",
-			"idleUnloadDescription": "לאחר 5 דקות בכרטיסייה אחרת, דף הבית או דף החיפוש של YouTube נסגר. החזרה אליו טוענת אותו מחדש, מה שנמשך כמה שניות.",
-			"searchEngine": "מנוע חיפוש",
-			"searchEngineDescription": "המקום שבו מתבצע חיפוש של טקסט שהוקלד בשורת הכתובת. קישורים נפתחים כפי שהוקלדו.",
-			"signOut": "התנתקות מ“גילוי”",
-			"signOutDescription": "מוחק את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים.",
-			"signOutConfirmTitle": "להתנתק מ“גילוי”?",
-			"signOutConfirmBody": "פעולה זו מוחקת את ההתחברויות ואת נתוני הגלישה שלכם ב“גילוי”, בכל האתרים. הורדות שדורשות חשבון ייכשלו עד שתתחברו שוב.",
-			"signOutConfirm": "התנתקות"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "“גילוי” לא מצליח להתחבר דרך שרת ה-Proxy שלכם", "proxyBody": "בדקו את שרת ה-Proxy בהגדרות ונסו שוב.", "loadTitle": "הדף לא נטען", "loadBody": "בדקו את החיבור ונסו שוב.", "retry": "ניסיון חוזר", "openSettings": "פתיחת הגדרות"}
-	},
-	"fileType": {
-		"auto": "אוטומטי",
-		"autoValue": "אוטומטי (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "הזרמים שנבחרו קובעים את סוג הקובץ.", "mp4": "מתנגן כמעט בכל מקום. וידאו VP9 בתוך MP4 לא יתנגן ב-QuickTime.", "mkv": "תומך בכל קודק. חלק מהטלוויזיות והטלפונים לא יכולים לפתוח אותו.", "webm": "פורמט פתוח לדפדפנים. תומך רק ב-VP9 או AV1 עם Opus."},
-		"webmBlocked": "WebM אינו תומך ב-{{codec}}. בחרו MKV או MP4.",
-		"profileMark": "פרופיל",
-		"smartTvNoWebm": "WebM אינו מוצע עם טלוויזיה חכמה: הוא אינו תומך ב-H.264.",
-		"mp4CaveatVp9": "VP9 בתוך MP4 לא יתנגן כוידאו ב-QuickTime. H.264 מתנגן בכל מקום.",
-		"mp4CaveatAv1": "AV1 בתוך MP4 דורש Mac עדכני כדי להתנגן ב-QuickTime. H.264 מתנגן בכל מקום."
+		"groups": {
+			"engine": "מנוע ההורדה",
+			"media": "כלי מדיה"
+		},
+		"installing": {
+			"homebrew": "ההתקנה באמצעות Homebrew מתבצעת… זה עשוי להימשך כמה דקות.",
+			"winget": "ההתקנה באמצעות WinGet מתבצעת… זה עשוי להימשך כמה דקות."
+		},
+		"manual": {
+			"intro": "הפנו את Arroxy לעותקים שכבר יש לכם, או התקינו אותם בדרך אחרת.",
+			"linuxHint": "אפשר גם להתקין את yt-dlp ואת ffmpeg באמצעות מנהל החבילות שלכם, ואז ללחוץ על “ניסיון חוזר”.",
+			"toggle": "הגדרה ידנית"
+		},
+		"stopped": {
+			"body": "נסו שוב, או הפנו את Arroxy להלן לכלים שכבר יש לכם.",
+			"title": "ההגדרה נעצרה"
+		},
+		"title": "ההגדרה זקוקה לעזרתכם"
 	},
 	"selectionOrder": {
 		"editorTitle": "איך הפרופיל הזה בוחר",
-		"whyTitle": "למה הפרופיל בחר בזה",
-		"whyLabel": "למה זה?",
 		"rank": {
-			"h264": {"label": "וידאו H.264", "reason": "מתנגן בכל מכשיר"},
-			"mp4Streams": {"label": "זרמי MP4", "reason": "מוכן לקובץ MP4"},
-			"resolutionBest": {"label": "הרזולוציה הגבוהה ביותר", "reason": "לא הוגדרה מגבלה"},
-			"resolution": {"label": "עד {{tier}}p", "reason": "המגבלה שלכם"},
-			"fps": {"label": "קצב הפריימים הגבוה ביותר", "reason": "תנועה חלקה יותר"},
-			"sitePreference": {"label": "זרמים שהאתר אינו מסמן כנחותים", "reason": "מדלג על עותקים פגומים, עם סימן מים ועל עותקי גיבוי"},
-			"original": {"label": "זרמים מקוריים, לא משופרי AI", "reason": "עותק משופר גבוה יותר אך אינו מוסיף פרטים אמיתיים"},
-			"source": {"label": "זרמים בקצב סיביות משופר קודם", "reason": "יותר פרטים באותה רזולוציה"},
-			"protocol": {"label": "הורדות ישירות לפני עותקים בהזרמה", "reason": "אותה תמונה, מורדת מהר יותר"},
-			"codec": {"label": "AV1, אחר כך VP9, אחר כך H.264", "reason": "החד ביותר בגודל נתון"},
-			"codecVp9First": {"label": "VP9, אחר כך H.264, אחר כך AV1", "reason": "הקודק של הפרופיל הזה"},
-			"codecH264First": {"label": "H.264, אחר כך VP9, אחר כך AV1", "reason": "הקודק של הפרופיל הזה"},
-			"size": {"label": "קובץ גדול יותר", "reason": "יותר פרטים באותן הגדרות"},
-			"aacSmartTv": {"label": "שמע AAC", "reason": "מתנגן בכל מקום"},
-			"aacFileType": {"label": "שמע AAC", "reason": "מתאים לנגני MP4"},
-			"opus": {"label": "שמע Opus", "reason": "מתאים ל-WebM"},
-			"nativeCompatible": {"label": "שמע סטריאו"},
-			"nativeSurround": {"label": "שמע היקפי כשהוא מוצע"},
-			"nativeSource": {"settings": "מההגדרות", "profile": "הפרופיל הזה"},
-			"hdrSdrFirst": {"label": "SDR לפני HDR", "reason": "נראה תקין בכל מסך", "reasonScreen": "המסך הזה אינו HDR"},
-			"hdrFirst": {"label": "HDR לפני SDR", "reason": "צבעים עשירים יותר במסכי HDR", "reasonScreen": "המסך הזה מציג HDR"}
+			"aacFileType": {
+				"label": "שמע AAC",
+				"reason": "מתאים לנגני MP4"
+			},
+			"aacSmartTv": {
+				"label": "שמע AAC",
+				"reason": "מתנגן בכל מקום"
+			},
+			"codec": {
+				"label": "AV1, אחר כך VP9, אחר כך H.264",
+				"reason": "החד ביותר בגודל נתון"
+			},
+			"codecH264First": {
+				"label": "H.264, אחר כך VP9, אחר כך AV1",
+				"reason": "הקודק של הפרופיל הזה"
+			},
+			"codecVp9First": {
+				"label": "VP9, אחר כך H.264, אחר כך AV1",
+				"reason": "הקודק של הפרופיל הזה"
+			},
+			"fps": {
+				"label": "קצב הפריימים הגבוה ביותר",
+				"reason": "תנועה חלקה יותר"
+			},
+			"h264": {
+				"label": "וידאו H.264",
+				"reason": "מתנגן בכל מכשיר"
+			},
+			"hdrFirst": {
+				"label": "HDR לפני SDR",
+				"reason": "צבעים עשירים יותר במסכי HDR",
+				"reasonScreen": "המסך הזה מציג HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR לפני HDR",
+				"reason": "נראה תקין בכל מסך",
+				"reasonScreen": "המסך הזה אינו HDR"
+			},
+			"mp4Streams": {
+				"label": "זרמי MP4",
+				"reason": "מוכן לקובץ MP4"
+			},
+			"nativeCompatible": {
+				"label": "שמע סטריאו"
+			},
+			"nativeSource": {
+				"profile": "הפרופיל הזה",
+				"settings": "מההגדרות"
+			},
+			"nativeSurround": {
+				"label": "שמע היקפי כשהוא מוצע"
+			},
+			"opus": {
+				"label": "שמע Opus",
+				"reason": "מתאים ל-WebM"
+			},
+			"original": {
+				"label": "זרמים מקוריים, לא משופרי AI",
+				"reason": "עותק משופר גבוה יותר אך אינו מוסיף פרטים אמיתיים"
+			},
+			"protocol": {
+				"label": "הורדות ישירות לפני עותקים בהזרמה",
+				"reason": "אותה תמונה, מורדת מהר יותר"
+			},
+			"resolution": {
+				"label": "עד {{tier}}p",
+				"reason": "המגבלה שלכם"
+			},
+			"resolutionBest": {
+				"label": "הרזולוציה הגבוהה ביותר",
+				"reason": "לא הוגדרה מגבלה"
+			},
+			"sitePreference": {
+				"label": "זרמים שהאתר אינו מסמן כנחותים",
+				"reason": "מדלג על עותקים פגומים, עם סימן מים ועל עותקי גיבוי"
+			},
+			"size": {
+				"label": "קובץ גדול יותר",
+				"reason": "יותר פרטים באותן הגדרות"
+			},
+			"source": {
+				"label": "זרמים בקצב סיביות משופר קודם",
+				"reason": "יותר פרטים באותה רזולוציה"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "התמונה הטובה ביותר", "smartTv": "מתנגן בכל מכשיר"}, "fileType": {"auto": "סוג הקובץ נקבע לפי הזרמים", "explicit": "נשמר כ-.{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "סוג הקובץ נקבע לפי הזרמים",
+				"explicit": "נשמר כ-.{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "התמונה הטובה ביותר",
+				"smartTv": "מתנגן בכל מכשיר"
+			}
+		},
+		"whyLabel": "למה זה?",
+		"whyTitle": "למה הפרופיל בחר בזה"
 	},
-	"aiUpscaled": {"label": "זרמים משופרי AI", "description": "YouTube מציע כמה סרטונים ישנים בגדלים שנוצרו באמצעות AI. “דילוג” שומר על הזרמים המקוריים; עדיין אפשר לבחור ידנית זרם משופר.", "skip": "דילוג", "allow": "אפשר"},
-	"videoCodec": {"label": "קודק וידאו", "description": "איזה קודק לבחור קודם בין זרמים באותו גובה. במצב אוטומטי נשמר הסדר של yt-dlp עצמו, שמעדיף את AV1, הקטן ביותר; H.264 מתנגן בטלוויזיות ובטלפונים ישנים יותר.", "smartTv": "טלוויזיה חכמה תמיד בוחר ב-H.264.", "auto": "אוטומטי", "vp9": "VP9 קודם", "h264": "H.264 קודם"},
-	"hdrPreference": {"label": "וידאו HDR", "description": "במצב אוטומטי נבחר HDR כשהמסך הזה יכול להציג אותו, ואחרת SDR. HDR נראה דהוי במסכים רגילים.", "sdr": "SDR", "hdr": "HDR", "auto": "אוטומטי"}
+	"share": {
+		"copied": "הועתק!",
+		"copyLink": "העתקת קישור",
+		"defaultMessage": "Arroxy — מוריד וידאו חינמי ובקוד פתוח עבור Windows, macOS ו-Linux. עובד עם YouTube, Vimeo, Twitch ויותר מ-2000 אתרים.\n4K · HDR · MP3 · Shorts · כתוביות · SponsorBlock",
+		"description": "Arroxy חינמי ובקוד פתוח. שיתוף עוזר ליותר אנשים לגלות אותו.",
+		"footerLabel": "שיתוף",
+		"footerTooltip": "שיתוף Arroxy",
+		"shareAction": "שיתוף Arroxy",
+		"title": "שיתוף Arroxy"
+	},
+	"splash": {
+		"cancel": "יש בעיה? הגדירו ידנית",
+		"greeting": "ברוכים השבים!",
+		"setup": {
+			"bytes": "{{done}} מתוך {{total}}",
+			"left": {
+				"minutes_one": "נותרה בערך דקה",
+				"minutes_other": "נותרו בערך {{count}} דקות",
+				"minutes_two": "נותרו בערך שתי דקות",
+				"underMinute": "נותרה פחות מדקה"
+			},
+			"note": {
+				"engine": "שומר על תקינות ההורדות כשאתרים משתנים.",
+				"firstRun": "זה קורה פעם אחת. Arroxy שומר את הכלים האלה ומעדכן אותם בעצמו.",
+				"media": "זה קורה פעם אחת. Arroxy שומר אותם לעדכונים עתידיים."
+			},
+			"stage": {
+				"checking": "בודק שהכול עובד",
+				"connecting": "מתחבר…",
+				"downloadingBoth": "מוריד את מנוע ההורדה ואת כלי המדיה",
+				"downloadingEngine": "מוריד את מנוע ההורדה",
+				"downloadingMedia": "מוריד את כלי המדיה",
+				"unpacking": "מחלץ את כלי המדיה"
+			},
+			"title": {
+				"engine": "עדכון מנוע ההורדה",
+				"firstRun": "הגדרה בפעם הראשונה",
+				"media": "עדכון כלי המדיה"
+			}
+		},
+		"verifyFirstCheck": "בדיקה ראשונה של גרסה זו — היא איטית. בדרך כלל כדקה.",
+		"verifying": "בודק את {{binary}}…",
+		"warmup": "מכין הורדות…",
+		"warmupFailedNoDiag": "ההגדרה נכשלה. פתחו את יומן ההגדרה לפרטים."
+	},
+	"status": {
+		"audioKept": "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע",
+		"audioKeptSubtitlesFailed": "הווידאו נשמר עם השמע שלו — לא ניתן היה להסיר את השמע, ולא ניתן היה להוריד חלק מהכתוביות",
+		"cancelled": "ההורדה בוטלה",
+		"complete": "ההורדה הושלמה",
+		"convertingVideo": "ממיר וידאו…",
+		"diskSpaceInsufficient": "אין מספיק מקום בדיסק — נדרש {{required}}, זמין רק {{free}}",
+		"downloadingBinary": "מוריד את הקובץ הבינארי {{name}}…",
+		"downloadingMedia": "מוריד וידאו ושמע…",
+		"embeddingMetadata": "משלב מטא-נתונים…",
+		"exploreSignedOut": "נותקתם מ“גילוי” — התחברו שוב",
+		"extractingAudio": "ממיר שמע…",
+		"fetchingSponsorBlock": "פונה אל SponsorBlock…",
+		"fetchingSubtitles": "מאחזר כתוביות…",
+		"mergingFormats": "ממזג שמע ווידאו…",
+		"mintingToken": "מנפיק אסימון YouTube…",
+		"movingFiles": "מעביר קבצים…",
+		"noSubtitles": "אין כתוביות בשפות הבאות: {{languages}}",
+		"outputNotWritable": "אי אפשר לשמור ב-{{dir}} — ל-Arroxy אין הרשאה לכתוב שם",
+		"preparingBinaries": "מכין קבצים בינאריים…",
+		"qualityLimited": "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור.",
+		"qualityLimitedSubtitlesFailed": "נשמר ב-{{height}}p — YouTube מנע איכויות גבוהות יותר עבור הורדה זו, ולא ניתן היה להוריד חלק מהכתוביות. ניסיון חוזר מאוחר יותר או מרשת אחרת עשוי לעזור.",
+		"remintingToken": "מנפיק אסימון מחדש…",
+		"retryingSponsorBlock": "SponsorBlock אינו זמין, מנסה שוב ({{attempt}}/{{total}})…",
+		"retryingTransfer": "החיבור נתקע, מנסה שוב ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "מתחבר עם חשבון “גילוי” שלכם…",
+		"sleepingBetweenRequests": "ממתין {{seconds}} שניות כדי להימנע ממגבלות קצב…",
+		"startingYtdlp": "מפעיל את מנוע ההורדה…",
+		"subtitleLanguagesMissing": "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. הסרטון נשמר בלי כתוביות.",
+		"subtitleLanguagesMissingOthersSaved": "לסרטון זה אין כתוביות בשפות הבאות: {{languages}}. שאר השפות נשמרו.",
+		"subtitlesFailed": "הווידאו נשמר — לא ניתן היה להוריד חלק מהכתוביות",
+		"unknownStartupFailure": "כשל לא ידוע בהפעלת ההורדה",
+		"usedExtractorFallback": "הורד באמצעות מחלץ מקל — הגדירו cookies.txt לשיפור מהימנות ההורדות",
+		"ytdlpExitCode": "מנוע ההורדה הסתיים עם קוד {{code}}",
+		"ytdlpProcessError": "שגיאת מנוע ההורדה: {{error}}"
+	},
+	"theme": {
+		"dark": "מצב כהה",
+		"light": "מצב בהיר",
+		"system": "ברירת המחדל של המערכת"
+	},
+	"titleBar": {
+		"close": "סגירה",
+		"maximize": "הגדלה",
+		"minimize": "מזעור",
+		"restore": "שחזור"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "הורדה מהלוח",
+			"open": "פתיחת Arroxy",
+			"quit": "יציאה מ-Arroxy",
+			"statusActive_one": "הורדה אחת · {{percent}}%",
+			"statusActive_other": "{{count}} הורדות · {{percent}}%",
+			"statusActive_two": "שתי הורדות · {{percent}}%",
+			"statusIdle": "במצב המתנה"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "הפקודה הועתקה ללוח",
+		"copy": "העתקת הפקודה ללוח",
+		"dismiss": "סגירת באנר העדכון",
+		"download": "הורדה ↗",
+		"downloadDmg": "הורדת DMG ↗",
+		"downloading": "מוריד…",
+		"install": "התקנה והפעלה מחדש",
+		"installFailed": "העדכון נכשל",
+		"message": {
+			"generic": "Arroxy {{version}} זמין — הגרסה שלכם היא {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} זמין — עדכנו באמצעות Homebrew.",
+			"macosDirect": "Arroxy {{version}} זמין — הורידו את ה-DMG החדש.",
+			"macosDirectHomebrew": "Arroxy {{version}} זמין — הורידו את ה-DMG או עברו ל-Homebrew.",
+			"portable": "Arroxy {{version}} זמין — הורידו את הגרסה החדשה."
+		},
+		"retry": "ניסיון חוזר",
+		"runAndRestart": "הרצה והפעלה מחדש",
+		"upgrading": "משדרג…"
+	},
+	"videoCard": {
+		"chapters_one": "פרק אחד",
+		"chapters_other": "{{count}} פרקים",
+		"chapters_two": "שני פרקים",
+		"titlePlaceholder": "טוען…"
+	},
+	"videoCodec": {
+		"auto": "אוטומטי",
+		"description": "איזה קודק לבחור קודם בין זרמים באותו גובה. במצב אוטומטי נשמר הסדר של yt-dlp עצמו, שמעדיף את AV1, הקטן ביותר; H.264 מתנגן בטלוויזיות ובטלפונים ישנים יותר.",
+		"h264": "H.264 קודם",
+		"label": "קודק וידאו",
+		"smartTv": "טלוויזיה חכמה תמיד בוחר ב-H.264.",
+		"vp9": "VP9 קודם"
+	},
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "מוכנים",
+			"description": "הדביקו כתובות URL של סרטונים, רשימות השמעה, ערוצים, חיפושים או שמע. Arroxy ינקה כפילויות לפני ההוספה לתור.",
+			"emptyPreview": "הדביקו כתובת URL אחת או יותר כדי להציג תצוגה מקדימה של האצווה.",
+			"ignoredCount": "התעלמות",
+			"needsAtLeastOne": "הוסיפו לפחות כתובת URL נתמכת אחת כדי להמשיך.",
+			"reject": {
+				"duplicate": "כפילות"
+			},
+			"textareaLabel": "רשימת כתובות URL",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "כתובות URL מרובות"
+		},
+		"confirm": {
+			"addToQueue": "+ תור",
+			"addToQueueTooltip": "מוסיף לתור — מתחיל כשההורדה הפעילה מסתיימת",
+			"audioOnly": "שמע בלבד",
+			"itemsValueAudio_one": "רצועה אחת מתוך {{total}}",
+			"itemsValueAudio_other": "{{count}} מתוך {{total}} רצועות",
+			"itemsValueAudio_two": "שתי רצועות מתוך {{total}}",
+			"itemsValueBulk_one": "כתובת URL אחת מתוך {{total}}",
+			"itemsValueBulk_other": "{{count}} מתוך {{total}} כתובות URL",
+			"itemsValueBulk_two": "שתי כתובות URL מתוך {{total}}",
+			"itemsValue_one": "סרטון אחד מתוך {{total}}",
+			"itemsValue_other": "{{count}} מתוך {{total}} סרטונים",
+			"itemsValue_two": "שני סרטונים מתוך {{total}}",
+			"labelAudio": "שמע",
+			"labelBulk": "אצווה",
+			"labelItems": "פריטים",
+			"labelPlaylist": "רשימת השמעה",
+			"labelPreset": "הגדרה מראש",
+			"labelSaveTo": "שמירה אל",
+			"labelSize": "גודל",
+			"labelSubtitles": "כתוביות",
+			"labelVideo": "וידאו",
+			"landIn": "הקובץ שלכם יישמר בתיקייה",
+			"landInMultiProfile_one": "הוא יישמר ביעד שלהלן",
+			"landInMultiProfile_other": "הם יישמרו ב-{{count}} היעדים שלהלן",
+			"landInMultiProfile_two": "הם יישמרו בשני היעדים שלהלן",
+			"nothingToDownload": "ההגדרה המוכנה “כתוביות בלבד” פעילה אך לא נבחרה שפת כתוביות — שום דבר לא יורד.",
+			"profileBreakdownCount_one": "פריט אחד",
+			"profileBreakdownCount_other": "{{count}} פריטים",
+			"profileBreakdownCount_two": "שני פריטים",
+			"profileBreakdownHeading": "פרופילים באצווה זו",
+			"pullIt": "מורידים! ↓",
+			"pullItTooltip": "מדלג על התור — מתחיל עכשיו, פועל לצד הורדות פעילות אחרות",
+			"readyHeadline": "הכול מוכן להורדה!",
+			"sizeUnknown": "לא ידוע",
+			"subtitleEmbedAudioOnly": "שילוב הכתוביות שונה לקובץ נפרד — רצועות שמע אינן תומכות בזרמי כתוביות משולבים.",
+			"subtitleEmbedForcesMkv": "כתוביות בתוך הווידאו דורשות קובץ MKV, ולכן הורדה זו נשמרת כ-.mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "שילוב התמונה הממוזערת דולג — סוג קובץ הפלט אינו תומך בכך."
+		},
+		"folder": {
+			"custom": "מותאם אישית…",
+			"desktop": "שולחן העבודה",
+			"documents": "מסמכים",
+			"downloads": "הורדות",
+			"heading": "שמירה אל",
+			"home": "בית",
+			"music": "מוזיקה",
+			"pictures": "תמונות",
+			"subfolder": {
+				"invalid": "שם התיקייה מכיל תווים לא חוקיים",
+				"placeholder": "לדוגמה: הקלטות lo-fi",
+				"toggle": "שמירה בתוך תיקיית משנה"
+			},
+			"videos": "סרטים"
+		},
+		"formats": {
+			"audio": "שמע",
+			"audioLanguage": "שפת שמע",
+			"audioLanguageCount_one": "שפה אחת",
+			"audioLanguageCount_other": "{{count}} שפות",
+			"audioLanguageCount_two": "שתי שפות",
+			"audioOnly": "שמע בלבד",
+			"bitrateValue": "קצב סיביות {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "קובצי Cookie מוגדרים אך כבויים. הפעילו אותם ונסו שוב כדי לקבל את הרשימה המלאה, או החליפו רשת ונסו שוב.",
+				"bodyEnabled": "גם עם קובצי Cookie, YouTube הגביל את הבדיקה הזו. נסו שוב מאוחר יותר או החליפו רשת.",
+				"bodyExplore": "YouTube הגביל את הבקשה הזו. נסו שוב מאוחר יותר או החליפו רשת.",
+				"bodyUnconfigured": "ייתכן שרשימת הפורמטים חלקית. הגדירו קובצי Cookie בהגדרות מתקדמות, או החליפו רשת ונסו שוב.",
+				"enableRetryCta": "הפעלת Cookie וניסיון חוזר",
+				"heading": "הבדיקה הוגבלה",
+				"retryCta": "ניסיון חוזר"
+			},
+			"convert": {
+				"bitrate": "קצב סיביות",
+				"bitrateCopyHint": "מקור שהוא כבר {{target}} שומר על הזרם ועל קצב הסיביות שלו: הוא מועתק, לא מקודד מחדש.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, ללא קידוד מחדש",
+				"copyLabelNoBitrate": "{{target}}, ללא קידוד מחדש",
+				"copyNote": "{{kbps}} kbps, כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש",
+				"copyNoteNoBitrate": "כפי שבמקור: הזרם כבר {{target}}, ולכן הוא מועתק ולא מקודד מחדש",
+				"label": "המרה",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "המקור הוא {{kbps}} kbps",
+				"wavLabel": "WAV (ללא דחיסה)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "דפדפן",
+				"currentModeExplore": "התחברות ב“גילוי”",
+				"currentModeFile": "קובץ",
+				"currentModeLabel": "מקור Cookie",
+				"dpapi": {
+					"docsLinkLabel": "מסמכי yt-dlp (בעיה #10927)",
+					"explanation": "Chrome 127 ואילך מצפין קובצי Cookie באופן שיישומים אחרים אינם יכולים לקרוא ב-Windows. נסו אחד מהפתרונות העוקפים שלהלן.",
+					"fixFileBody": "ייצאו קובצי Cookie מ-Chrome באמצעות תוסף דפדפן, ואז העבירו את היישום למצב קובץ ובחרו את הקובץ שיוצא.",
+					"fixFileLabel": "ייצוא cookies.txt",
+					"fixFirefoxBody": "Firefox אינו משתמש ב-App-Bound Encryption. פתחו את הגדרות ה-Cookie ובחרו Firefox מרשימת הדפדפנים.",
+					"fixFirefoxLabel": "מעבר ל-Firefox",
+					"fixUnsafeBody": "הוסיפו את --disable-features=LockProfileCookieDatabase לקיצור הדרך להפעלת Chrome. אזהרה: פעולה זו מבטלת קובצי Cookie שהוצפנו בעבר, ולכן תנותקו מכל האתרים ותצטרכו להתחבר מחדש.",
+					"fixUnsafeLabel": "הפעלת Chrome כשה-App-Bound Encryption מושבת",
+					"heading": "קובצי Cookie של Chrome חסומים על ידי הצפנת Windows"
+				},
+				"explanationBrowser": "קובצי Cookie נקראים ישירות מהדפדפן. אם הדפדפן פועל כרגע, ייתכן שמסד הנתונים של קובצי ה-Cookie נעול (משפחת Chromium). הדפדפן צריך להיות מחובר גם ל-YouTube. נסו לסגור את הדפדפן, לעבור לדפדפן אחר, לעבור למצב קובץ או לכבות את קובצי ה-Cookie.",
+				"explanationFile": "ייתכן שקובץ ה-Cookie שלכם ריק, שתוקפו פג או שהוא בפורמט שגוי (Arroxy צריך קובץ cookies.txt בפורמט Netscape). נסו לייצא מחדש את קובצי ה-Cookie, לבחור קובץ אחר, לעבור למצב דפדפן או לכבות את קובצי ה-Cookie.",
+				"exploreOffer": {
+					"body": "התחברו ב“גילוי” ו-Arroxy ינסה שוב.",
+					"cta": "התחברות ב“גילוי”",
+					"heading": "ייתכן שסרטון זה דורש חשבון YouTube"
+				},
+				"exploreRefused": {
+					"body": "Arroxy כבר ניסה זאת כשהוא מחובר דרך “גילוי”, ולכן התחברות נוספת לא תעזור. ייתכן שיש תקלה באתר, או שהחשבון הזה אינו יכול לפתוח אותו. נסו שוב מאוחר יותר.",
+					"heading": "האתר סירב גם עם ההתחברות שלכם ב“גילוי”"
+				},
+				"exploreReuse": {
+					"body": "אתם מחוברים ל“גילוי”, אך ההורדות אינן משתמשות כרגע בהתחברות הזו.",
+					"cta": "שימוש בהתחברות שלי ב“גילוי” וניסיון חוזר",
+					"heading": "ייתכן שסרטון זה דורש חשבון YouTube"
+				},
+				"exploreSignIn": {
+					"body": "אם סרטון זה דורש חשבון YouTube, התחברו ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה.",
+					"cta": "התחברות ב“גילוי”",
+					"heading": "ייתכן שסרטון זה דורש חשבון YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "אם סרטון זה דורש חשבון, Arroxy משתמש בהתחברות שלכם ב“גילוי” באופן אוטומטי. ייתכן שהוא אינו זמין מסיבה אחרת.",
+					"heading": "מחוברים ל“גילוי”"
+				},
+				"exploreSite": {
+					"heading": "ייתכן שקישור זה דורש חשבון ב-{{host}}",
+					"offerBody": "התחברו ל-{{host}} דרך “גילוי” ונסו שוב.",
+					"signInBody": "התחברו ל-{{host}} ב“גילוי” ונסו שוב. Arroxy משתמש בהתחברות הזו רק כשהורדה זקוקה לה."
+				},
+				"heading": "ייתכן שקובצי Cookie הם הסיבה",
+				"needsCookies": {
+					"body": "Arroxy לא הצליח לגשת לסרטון זה ללא אימות. הגדירו קובצי Cookie בהגדרות מתקדמות — הפנו אותם לדפדפן שכבר מחובר, או ייבאו קובץ cookies.txt.",
+					"heading": "אתר זה דורש התחברות"
+				},
+				"openSettingsCta": "פתיחת הגדרות Cookie",
+				"otherCookiesCta": "שימוש בקובץ Cookie או בדפדפן במקום זאת…"
+			},
+			"drc": {
+				"description": "מנמיך חלקים רועשים ומגביר חלקים שקטים, עבור רמקולים וחדרים רועשים.",
+				"label": "איזון עוצמת הקול (DRC)",
+				"tag": "עוצמה מאוזנת"
+			},
+			"fit": {
+				"mp4Unavailable": "הפרופיל שלכם הוא טלוויזיה חכמה (H.264). סרטון זה אינו מציע H.264, ולכן נבחר הזרם הקרוב ביותר.",
+				"noVideo": "בקישור זה אין וידאו, ולכן נבחר שמע.",
+				"subtitlesMissing": "הפרופיל שלכם מבקש כתוביות ב-{{languages}}. בסרטון זה אין אותן.",
+				"tierAbove": "הפרופיל שלכם מבקש {{wanted}}p. בסרטון זה אין דבר קטן כל כך, ולכן נבחר {{picked}}p.",
+				"tierBelow": "הפרופיל שלכם מבקש {{wanted}}p. סרטון זה מגיע רק עד {{picked}}p, ולכן נבחר {{picked}}p.",
+				"webmUnavailable": "הפרופיל שלכם מבקש WebM. הזרמים שנבחרו בסרטון זה כוללים {{codec}}, ש-WebM אינו תומך בו, ולכן סוג הקובץ הוא אוטומטי."
+			},
+			"footer": {
+				"addToQueue": "הוספה לתור ללא התחלה",
+				"download": "הורדה",
+				"moreActions": "אפשרויות הורדה נוספות",
+				"subtitlesRequired": "בחרו לפחות שפת כתוביות אחת."
+			},
+			"keepAudio": "להשאיר כפי שהוא",
+			"keepAudioMeta": "שמע מובנה",
+			"kind": {
+				"audio": "שמע בלבד",
+				"label": "מה להוריד",
+				"subtitles": "כתוביות בלבד",
+				"video": "וידאו + שמע",
+				"videoOnly": "וידאו, ללא שמע"
+			},
+			"loadingAria": "טוען פורמטים",
+			"loadingHint": "המתינו לסיום הבדיקה — רשימות השמעה וחיפושים עשויים להימשך זמן מה.",
+			"marker": {
+				"aiDubbed": "דובב ב-AI",
+				"aiUpscaled": "משופר ב-AI",
+				"audioDescription": "תיאור שמע",
+				"damaged": "פגום",
+				"enhancedBitrate": "קצב סיביות משופר",
+				"spatialAudio": "שמע מרחבי",
+				"vr": "360° / VR",
+				"watermarked": "עם סימן מים"
+			},
+			"noAudio": "ללא שמע",
+			"profile": {
+				"calloutBody": "הפרופיל הפעיל שלכם בוחר מראש את הזרמים עבורכם. החליפו פרופילים מהתפריט, או השתמשו בעיפרון כדי לכוונן פרופיל בלי לצאת מהורדה זו.",
+				"calloutTitle": "הפורמטים מתחילים מהפרופיל שלכם",
+				"closestTag": "הקרוב ביותר לפרופיל",
+				"edit": "עריכת {{name}}",
+				"keepEdits": "שמירת השינויים שלי",
+				"menuDescription": "להורדה זו בלבד. פרופיל ברירת המחדל שלכם נשאר כפי שהוא.",
+				"preselected": "נבחר מראש מתוך",
+				"resetAll": "איפוס הכול",
+				"switchBody": "שיניתם {{areas}} בהורדה זו. “{{profile}}” בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?",
+				"switchTitle": "להחליף פרופיל?",
+				"tag": "פרופיל",
+				"updatedBody": "שיניתם {{areas}} בהורדה זו. הפרופיל המעודכן בוחר את הווידאו והשמע בכל מקרה. לשמור את שאר השינויים, או לאפס הכול לפרופיל?",
+				"updatedTitle": "להשתמש בפרופיל המעודכן?"
+			},
+			"quality": {
+				"high": "איכות גבוהה",
+				"low": "איכות נמוכה",
+				"medium": "איכות בינונית"
+			},
+			"rateLimit": {
+				"heading": "{{site}} מגביל את קצב הבקשות מחיבור זה",
+				"leadDegraded": "ייתכן שרשימת הפורמטים חלקית.",
+				"leadFailed": "{{site}} דחה בקשה זו לעת עתה.",
+				"retryCta": "ניסיון חוזר",
+				"sessionNote": "{{site}} עשוי להשאיר מגבלה זו בתוקף עד שעה.",
+				"tryNowCta": "ניסיון עכשיו",
+				"waitOver": "ההמתנה הסתיימה, ולכן אפשר לנסות שוב.",
+				"waitUntil": "Arroxy ימתין עד {{time}} לפני שיפנה שוב אל {{site}}, כדי שהמגבלה תוסר."
+			},
+			"resolutionUnknown": "רזולוציה לא ידועה",
+			"savesAs": {
+				"label": "נשמר בתור",
+				"reset": "WebM אינו תומך ב-{{codec}}, ולכן סוג הקובץ חזר לאוטומטי."
+			},
+			"sizeUnknown": "גודל לא ידוע",
+			"skipToConfirm": "דילוג לאישור",
+			"skipToConfirmTooltip": "משתמש בהעדפות השמורות שלכם בכל השלבים הנותרים. כדי לשנות הגדרה, המשיכו שלב אחר שלב — הבחירה שלכם תישמר לפעם הבאה.",
+			"sniffing": "מחפש עבורכם את הפורמטים הטובים ביותר…",
+			"total": "סך הכול",
+			"video": "וידאו",
+			"withAudio": "עם שמע"
+		},
+		"mixedPrompt": {
+			"body": "רוצים רק את הסרטון שלחצתם עליו, או לבחור מרשימת ההשמעה? בשלב הבא תבחרו סרטונים מסוימים או טווח.",
+			"pickFromPlaylist": "בחירה מרשימת ההשמעה",
+			"playlistLimit": "מגבלת בדיקת רשימת השמעה: {{count}} פריטים",
+			"playlistTooltip": "טוען את רשימת ההשמעה, עד מגבלת הבדיקה שלכם, לפני הצגת הבורר.",
+			"quickBody": "הורידו רק את הסרטון הזה, או הוסיפו לתור את כל רשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל.",
+			"quickLimitDescription": "המספר המרבי של פריטים ש-Arroxy סורק לפני הוספה לתור של רשימת השמעה, ערוץ או תוצאות חיפוש.",
+			"quickPlaylistTooltip": "מוסיף לתור כל פריט שנטען מרשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל. אם הסריקה מגיעה למגבלה שלכם, Arroxy שואל לפני ההוספה לתור.",
+			"quickSingleTooltip": "מוסיף לתור הורדה אחת ומתעלם מרשימת ההשמעה המצורפת לכתובת זו.",
+			"quickSingleVideo": "הורדת הסרטון הזה",
+			"quickWholePlaylist": "הורדת כל רשימת ההשמעה",
+			"singleTooltip": "טוען רק את הסרטון הזה. רשימת ההשמעה המצורפת לכתובת זו אינה נלקחת בחשבון.",
+			"singleVideo": "רק זה",
+			"title": "בקישור זה יש רשימת השמעה"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "סימוני פרקים שאפשר לנווט בהם בכל נגן מודרני.",
+				"label": "שילוב פרקים"
+			},
+			"embedMetadata": {
+				"description": "כותרת, אמן, תיאור ותאריך העלאה נכתבים לתוך הקובץ.",
+				"label": "שילוב מטא-נתונים"
+			},
+			"embedThumbnail": {
+				"description": "תמונת עטיפה בתוך הקובץ. וידאו WebM יועבר ל-MKV ללא קידוד מחדש; מדולג כשכתוביות משולבות.",
+				"label": "שילוב תמונה ממוזערת"
+			},
+			"writeDescription": {
+				"description": "שומר את תיאור הסרטון בקובץ טקסט מסוג description לצד ההורדה.",
+				"label": "שמירת תיאור"
+			},
+			"writeM3u": {
+				"description": "שומר קובץ רשימת השמעה בפורמט m3u לצד הסרטונים, כדי שייפתחו לפי הסדר בנגן המדיה שלכם.",
+				"label": "יצירת קובץ רשימת השמעה בפורמט m3u"
+			},
+			"writeThumbnail": {
+				"description": "שומר את התמונה הממוזערת כקובץ תמונה מסוג jpg לצד ההורדה.",
+				"label": "שמירת תמונה ממוזערת"
+			}
+		},
+		"part": {
+			"calloutBody": "עברו אל “חלק” בכרטיס הסרטון כדי לבחור התחלה וסיום, או פרק, ולהוריד רק את הקטע הזה.",
+			"calloutTitle": "הורדת חלק מסרטון בלבד",
+			"chapterUntitled": "פרק {{number}}",
+			"chapters": "פרקים",
+			"connectionsNote": "חלק מורד באמצעות ffmpeg, ולכן הגדרות חיבורי ההורדה והקצב שלכם אינן חלות עליו.",
+			"downloadBlocked": "תקנו קודם את ההתחלה והסיום של החלק.",
+			"end": "סיום",
+			"error": {
+				"endBeyondDuration": "הסרטון מסתיים ב-{{duration}}.",
+				"endInvalid": "הזינו את הסיום בפורמט h:mm:ss, m:ss או בשניות.",
+				"startInvalid": "הזינו את ההתחלה בפורמט h:mm:ss, m:ss או בשניות.",
+				"startNotBeforeEnd": "ההתחלה חייבת לבוא לפני הסיום."
+			},
+			"exactCut": {
+				"hint": "כבוי: כל חיתוך נוחת על פריים המפתח הקרוב ביותר, שיכול להיות במרחק כמה שניות מהזמן שהקלדתם.",
+				"label": "חיתוך מדויק (מקודד מחדש, איטי יותר)"
+			},
+			"length": "{{length}} מתוך {{duration}}",
+			"part": "חלק",
+			"rangeLabel": "חלק מהסרטון",
+			"start": "התחלה",
+			"subtitlesFullLength": "כל הסרטון",
+			"summary": "חלק {{start}}–{{end}}",
+			"switchLabel": "כמה מהסרטון",
+			"timeHint": "h:mm:ss, m:ss או שניות",
+			"totalEstimate": "חלק, משוער",
+			"unavailableDuration": "סרטון זה אינו מדווח על אורכו, ולכן אפשר להוריד אותו רק במלואו.",
+			"unavailableSubtitles": "כתוביות תמיד מכסות את הסרטון כולו.",
+			"urlStart": "הקישור שלכם מתחיל ב-{{time}}",
+			"useUrlStart": "שימוש כהתחלה",
+			"whole": "כל הסרטון",
+			"wholeTrack": "כל הרצועה"
+		},
+		"playlist": {
+			"allRemovedDescription": "שחזרו אותם כדי להמשיך.",
+			"allRemovedTitle": "כל הפריטים הוסרו",
+			"alreadyDownloaded": "כבר הורד",
+			"bulkHeading": "כתובות URL מרובות",
+			"bulkMetadataOptional": "אין צורך להמתין — קבצים שנוספו עכשיו לתור יקבלו את שמותיהם האמיתיים בעת ההורדה.",
+			"bulkMetadataResolving": "מאחזר פרטי סרטונים… {{done}}/{{total}}",
+			"bulkRowFailed": "הפרטים אינם זמינים",
+			"bulkRowResolving": "מאחזר פרטים",
+			"bulkRowWaiting": "בהמתנה",
+			"durationUnknown": "שידור חי",
+			"heading": "פריטי רשימת ההשמעה",
+			"headingGeneric": "סרטונים להורדה",
+			"itemCountAudio_one": "רצועה אחת",
+			"itemCountAudio_other": "{{count}} רצועות",
+			"itemCountAudio_two": "שתי רצועות",
+			"itemCountBulk_one": "כתובת URL אחת",
+			"itemCountBulk_other": "{{count}} כתובות URL",
+			"itemCountBulk_two": "שתי כתובות URL",
+			"itemCount_one": "סרטון אחד",
+			"itemCount_other": "{{count}} סרטונים",
+			"itemCount_two": "שני סרטונים",
+			"loadingItems": "מאחזר את רשימת ההשמעה…",
+			"loadingItemsGeneric": "מאחזר סרטונים…",
+			"loadingLimitHint": "מוגבל ל-{{count}} הפריטים הראשונים",
+			"loadingPagesFound_one": "נמצא דף אחד",
+			"loadingPagesFound_other": "נמצאו {{count}} דפים",
+			"loadingPagesFound_two": "נמצאו שני דפים",
+			"loadingPhaseItems": "אוסף סרטונים",
+			"loadingPhasePages": "סורק דפי ערוץ",
+			"multiProfileEntry": "הקצאת פרופילים לפי פריט",
+			"multiProfileEntryTooltip": "מדלג על איכות, SponsorBlock, פלט ושמירה — הקצו במקום זאת פרופיל הורדה לכל פריט",
+			"nestedPlaylistBadge": "רשימת השמעה",
+			"nestedPlaylistHint_one": "אחד מאלה הוא רשימת השמעה ולא סרטון — הדביקו את הקישור שלו בנפרד כדי להוריד אותו.",
+			"nestedPlaylistHint_other": "{{count}} מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם.",
+			"nestedPlaylistHint_two": "שניים מאלה הם רשימות השמעה ולא סרטונים — הדביקו את הקישורים שלהם אחד אחד כדי להוריד אותם.",
+			"noSelection": "בחרו לפחות סרטון אחד כדי להמשיך",
+			"probeLimitAlertDesc": "מוצגים {{count}} הפריטים הראשונים. הגדילו את מגבלת הטעינה כדי לראות עוד.",
+			"probeLimitAlertTitle": "סריקת רשימת ההשמעה מוגבלת",
+			"probeLimitAlertTitleGeneric": "הסריקה מוגבלת",
+			"rangeApply": "החלת טווח",
+			"rangeFrom": "מהפריט",
+			"rangeTo": "עד הפריט",
+			"removeFromListCount_one": "הסרת אחד מהרשימה",
+			"removeFromListCount_other": "הסרת {{count}} מהרשימה",
+			"removeFromListCount_two": "הסרת שניים מהרשימה",
+			"removedCount_one": "אחד הוסר",
+			"removedCount_other": "{{count}} הוסרו",
+			"removedCount_two": "שניים הוסרו",
+			"restore": "שחזור",
+			"selectAll": "בחירת הכול",
+			"selectNone": "ביטול הבחירה",
+			"selectedCount_one": "אחד נבחר",
+			"selectedCount_other": "{{count}} נבחרו",
+			"selectedCount_two": "שניים נבחרו",
+			"sortApi": "סדר רשימת ההשמעה",
+			"sortFetchingDates": "מאחזר תאריכי העלאה…",
+			"sortLabel": "מיון",
+			"sortUploadAsc": "הישנים ראשונים",
+			"sortUploadDesc": "החדשים ראשונים",
+			"syncApply": "החלת סנכרון",
+			"syncChange": "שינוי תיקייה…",
+			"syncFoundDesc": "{{n}} מהסרטונים האלה כבר נמצאים ב-{{dir}}. לסנכרן כדי להוריד רק את החדשים?",
+			"syncFoundTitle": "כבר בתיקייה",
+			"syncNoneDesc": "לא נמצאו סרטונים מרשימת ההשמעה הזו ב-{{dir}}.",
+			"syncNoneDescGeneric": "לא נמצאו סרטונים מהמקור הזה ב-{{dir}}.",
+			"syncNoneTitle": "עדיין לא הורד דבר",
+			"syncScanning": "בודק את התיקייה…",
+			"thumbnailAlt": "תמונה ממוזערת של הסרטון"
+		},
+		"playlistPresets": {
+			"heading": "בחרו איכות עבור האצווה",
+			"itemCount_one": "פריט אחד",
+			"itemCount_other": "{{count}} פריטים",
+			"itemCount_two": "שני פריטים",
+			"subhead": "כל סרטון מפענח את הרמה שנבחרה בנפרד — רשימות השמעה לא אחידות פועלות ללא הפתעות."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "הקצאת פרופיל",
+			"assignTrigger_one": "הקצאה לסרטון אחד",
+			"assignTrigger_other": "הקצאה ל-{{count}} סרטונים",
+			"assignTrigger_two": "הקצאה לשני סרטונים",
+			"columnDuration": "משך",
+			"columnProfile": "פרופיל",
+			"editProfile": "עריכת {{name}}",
+			"empty": "אין פריטים התואמים למסנן זה",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "מסנני פרופילים",
+			"heading": "הקצאת פרופילי הורדה",
+			"menuDescription_one": "בחרו את הפרופיל עבור הסרטון הזה.",
+			"menuDescription_other": "בחרו את הפרופיל עבור {{count}} הסרטונים האלה.",
+			"menuDescription_two": "בחרו את הפרופיל עבור שני הסרטונים האלה.",
+			"selectedSummary": "{{selected}} מתוך {{total}} נבחרו"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "שינוי גלובלי",
+				"chooseFolder": "בחירת תיקיית יעד",
+				"chooseIcon": "בחירת סמל פרופיל",
+				"removeLanguage": "הסרת {{code}}",
+				"reset": "איפוס פרופיל",
+				"resetDisabledHint": "פרופיל זה כבר משתמש בהגדרות המובנות",
+				"resetHint": "שחזור הגדרות הפרופיל המובנות",
+				"save": "שמירת פרופיל",
+				"setOverride": "הגדרת עקיפת פרופיל",
+				"setOverrideShort": "הגדרת עקיפה",
+				"useGlobalDefault": "שימוש בברירת המחדל הגלובלית",
+				"useLanguageCode": "שימוש בקוד השפה “{{code}}”"
+			},
+			"advanced": "מתקדם",
+			"appSetting": "שימוש בהגדרת היישום ({{value}})",
+			"audioFormat": {
+				"best": "הטוב ביותר",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "עד 128K",
+				"192": "עד 192K",
+				"320": "עד 320K",
+				"best": "איכות מיטבית"
+			},
+			"destination": {
+				"defaultFolder": "תיקיית ההורדות המוגדרת כברירת מחדל",
+				"defaultFolderWithSubfolder": "תיקיית ההורדות המוגדרת כברירת מחדל / {{subfolder}}",
+				"global": "יעד גלובלי",
+				"globalActive": "פעיל",
+				"globalInherited": "בירושה",
+				"override": "עקיפת פרופיל",
+				"overrideChoosing": "בחירת תיקייה",
+				"overrideNone": "לא הוגדרה עקיפה",
+				"overrideNoneNote": "לא הוגדרה עקיפה. פרופיל זה משתמש ביעד הגלובלי שלמעלה.",
+				"overrideSet": "עוקף את הגלובלי",
+				"overrideSetNote": "פרופיל זה נשמר בשורש משלו לפני הוספת תיקיית המשנה.",
+				"resolved": "היעד הסופי"
+			},
+			"dialogDescription": "הגדרה אחת לשימוש חוזר עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה.",
+			"dialogTitle": "פרופיל הורדה",
+			"error": {
+				"changeGlobalDestination": "לא ניתן היה לשנות את היעד הגלובלי.",
+				"folderPicker": "לא ניתן היה לפתוח את בורר התיקיות. הזינו נתיב ידנית.",
+				"reset": "לא ניתן היה לאפס את הגדרות הפרופיל.",
+				"save": "לא ניתן היה לשמור את הגדרות הפרופיל."
+			},
+			"field": {
+				"delivery": "אופן השמירה",
+				"fileType": "סוג קובץ",
+				"goal": "אופטימיזציה עבור",
+				"icon": "סמל פרופיל",
+				"languages": "שפות",
+				"name": "שם הפרופיל",
+				"nameAndIcon": "שם וסמל הפרופיל",
+				"nativeAudio": "שמע מקורי",
+				"overridePath": "נתיב עקיפת הפרופיל",
+				"quality": "איכות",
+				"resolution": "רזולוציה",
+				"source": "מקור",
+				"subfolderName": "שם תיקיית המשנה",
+				"subtitleDownloads": "הורדות כתוביות",
+				"subtitleDownloadsDescription": "פרופילים מבקשים קודי שפה; הזמינות נקבעת לכל כתובת URL בנפרד."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "החד ביותר בגודל נתון. טלוויזיות ישנות, QuickTime וחלק מעורכי הווידאו אינם יכולים לנגן אותו.",
+					"name": "התמונה הטובה ביותר",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "מתנגן בטלוויזיות, בטלפונים, ב-WhatsApp, ב-QuickTime ובעורכי וידאו. YouTube מציע H.264 רק עד 1080p.",
+					"name": "טלוויזיה חכמה",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "ארכיון",
+				"audio": "שמע",
+				"captions": "כתוביות",
+				"classes": "שיעורים",
+				"clip": "קליפ",
+				"controls": "פקדים",
+				"download": "הורדה",
+				"music": "מוזיקה",
+				"podcast": "פודקאסט",
+				"video": "וידאו"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "מוזיקה או פודקאסטים",
+					"label": "שמע בלבד"
+				},
+				"subtitlesOnly": {
+					"description": "קובצי כתוביות בלבד",
+					"label": "כתוביות בלבד"
+				},
+				"videoAudio": {
+					"description": "קובצי וידאו רגילים",
+					"label": "וידאו + שמע"
+				},
+				"videoOnly": {
+					"description": "וידאו שקט בלבד",
+					"label": "וידאו, ללא שמע"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS.",
+				"noLanguageMatches": "אין שפות תואמות",
+				"noSubtitles": "לא יתבקשו קובצי כתוביות או רצועות כתוביות משולבות עבור פרופיל זה.",
+				"searchLanguages": "חיפוש לפי שם שפה או קוד",
+				"skippedForOutputType": "מדולג עבור סוג פלט זה.",
+				"subtitleLanguagesRequired": "בחרו לפחות שפה אחת.",
+				"subtitleLanguagesRequiredOrOff": "בחרו לפחות שפה אחת, או כבו את הורדות הכתוביות.",
+				"subtitlesOnly": "פרופיל זה מוסיף לתור קובצי כתוביות בלבד. וידאו, שמע, SponsorBlock והמרת מדיה מדולגים."
+			},
+			"panel": {
+				"advanced": {
+					"description": "פרופילים יורשים את היעד הגלובלי אלא אם הגדרתם עקיפת פרופיל.",
+					"title": "אפשרויות מתקדמות"
+				},
+				"downloadType": {
+					"description": "בחרו את הדרך העיקרית שבה אתם רוצים להוריד.",
+					"title": "סוג הורדה"
+				},
+				"identity": {
+					"description": "שם וסמל המוצגים בהורדה מהירה, בכתובות URL מרובות וברשימות הפרופילים.",
+					"title": "זהות הפרופיל"
+				},
+				"output": {
+					"enabledCount_one": "אחד מופעל",
+					"enabledCount_other": "{{count}} מופעלים",
+					"enabledCount_two": "שניים מופעלים",
+					"title": "אפשרויות פלט"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "בחרו תיקייה עבור פרופיל זה"
+			},
+			"skipped": "מדולג",
+			"sponsorBlockHint": {
+				"mark": "מסמן קטעי חסות כפרקים (לא הרסני).",
+				"off": "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה.",
+				"remove": "חותך קטעי חסות מהווידאו באמצעות FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "אוטומטיות בלבד",
+				"manualAndAuto": "ידניות ואוטומטיות",
+				"manualFirst": "ידניות קודם, אחר כך אוטומטיות",
+				"manualOnly": "ידניות בלבד"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "עזרה: {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "ביטול ההכנה",
+			"currentFallback": "הקישור הנוכחי",
+			"description": "Arroxy קורא את הקישור ומחיל את {{profileName}}.",
+			"failedCount_one": "אחד נכשל",
+			"failedCount_other": "{{count}} נכשלו",
+			"failedCount_two": "שניים נכשלו",
+			"phase": {
+				"probing": "אחזור פרטים",
+				"queueing": "הוספה לתור"
+			},
+			"title": "הכנת הורדה מהירה",
+			"waitHint": "השאירו חלון זה פתוח בזמן ש-Arroxy מכין את התור."
+		},
+		"review": {
+			"areas": {
+				"extras": "תוספות",
+				"fileName": "שם קובץ",
+				"format": "פורמט",
+				"saveTo": "תיקייה",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "כתוביות"
+			},
+			"callout": {
+				"body": "כתוביות, SponsorBlock, תוספות כמו תמונה ממוזערת, תיקייה ושם קובץ היו בעבר שלבים נפרדים. לחצו על שורה כדי לשנות אותה.",
+				"title": "כל שאר ההגדרות נמצאות עכשיו בדף זה"
+			},
+			"changeFormat": "שינוי פורמט",
+			"changed": "שונה לעומת {{profile}}: {{areas}}. חל על הורדה זו בלבד.",
+			"changedFrom": "שונה לעומת {{profile}}:",
+			"nextTime": {
+				"action": "שמירה כפרופיל",
+				"defaultName": "{{profile}} (נערך)",
+				"title": "הורדה זו השתמשה בהגדרות שנערכו. להשתמש בהן בפעם הבאה?"
+			},
+			"reset": "ביטול השינויים, חזרה ל“{{profile}}”",
+			"rows": {
+				"extras": "תוספות",
+				"fileName": "שם קובץ",
+				"saveTo": "שמירה אל",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "כתוביות"
+			},
+			"rowsHeading": "כל השאר",
+			"save": {
+				"action": "שמירת פרופיל",
+				"description": "שומר הגדרות אלה כפרופיל שאפשר לבחור בפעם הבאה. פרופיל ההורדה המהירה שלכם נשאר כפי שהוא.",
+				"failed": "לא ניתן היה לשמור את הפרופיל.",
+				"nameLabel": "שם הפרופיל",
+				"saved": "נשמר כפרופיל “{{name}}”",
+				"title": "שמירה כפרופיל"
+			},
+			"saveAsProfile": "שמירה כפרופיל חדש",
+			"update": {
+				"action": "עדכון פרופיל",
+				"builtinNote": "זהו פרופיל מובנה. אפשר לשחזר את ההגדרות המקוריות שלו בכרטיסייה “פרופילים”.",
+				"description": "מעתה, כל הורדה עם פרופיל זה תשתמש בהגדרות החדשות.",
+				"rows": {
+					"format": "פורמט"
+				},
+				"title": "לעדכן את “{{profile}}”?",
+				"updated": "הפרופיל “{{name}}” עודכן"
+			},
+			"updateProfile": "עדכון “{{profile}}” עם שינויים אלה",
+			"value": {
+				"extrasNone": "ללא",
+				"sponsorBlockOff": "כבוי",
+				"subtitlesOff": "כבוי"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "מילוי",
+				"intro": "פתיח",
+				"music_offtopic": "מוזיקה שאינה קשורה לנושא",
+				"outro": "סיום",
+				"preview": "תצוגה מקדימה",
+				"selfpromo": "קידום עצמי",
+				"sponsor": "חסות"
+			},
+			"categoriesHeading": "קטגוריות",
+			"mode": {
+				"mark": "סימון כפרקים",
+				"off": "כבוי",
+				"remove": "הסרת קטעים"
+			},
+			"modeHeading": "סינון חסויות",
+			"modeHint": {
+				"mark": "מסמן קטעי חסות כפרקים (לא הרסני).",
+				"off": "ללא SponsorBlock — הווידאו מתנגן כפי שהועלה.",
+				"remove": "חותך קטעי חסות מהווידאו באמצעות FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "אישור",
+			"folder": "שמירה",
+			"formats": "פורמט",
+			"output": "פלט",
+			"playlistItems": "רשימת השמעה",
+			"playlistItemsGeneric": "סרטונים",
+			"playlistPresets": "איכות",
+			"playlistProfiles": "פרופילים",
+			"review": "סקירה",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "כתוביות",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "כתוביות אוטומטיות יישמרו כ-SRT במקום ASS — בסרטוני YouTube הן מנוקות מכפילויות של רמזים מתגלגלים, שממיר ה-ASS שלנו עדיין אינו יכול לשחזר.",
+			"autoBadge": "אוטו׳",
+			"clearAll": "ניקוי הכול",
+			"embedNote": "מצב השילוב שומר את הפלט כ-.mkv כדי שרצועות הכתוביות ישולבו באופן מהימן.",
+			"format": {
+				"heading": "פורמט"
+			},
+			"noLanguages": "אין כתוביות זמינות לסרטון זה",
+			"noMatches": "אין שפות תואמות",
+			"noSelected": "לא נבחרו כתוביות",
+			"removeLanguage": "הסרת {{name}}",
+			"saveMode": {
+				"embed": "שילוב בתוך הווידאו",
+				"heading": "שמירה בתור",
+				"sidecar": "ליד הסרטון",
+				"subfolder": "תיקיית משנה subtitles/"
+			},
+			"searchPlaceholder": "חיפוש שפות…",
+			"sectionAuto": "נוצרו אוטומטית",
+			"sectionManual": "ידניות"
+		},
+		"tabsNavAria": "ניווט בפרופילי הורדה",
+		"url": {
+			"advanced": "מתקדם",
+			"analytics": {
+				"toggle": "שליחת פעימת לב יומית",
+				"toggleDescription": "ללא טלמטריה. פעם ביום נשלחת פעימת לב אנונימית עם גרסת היישום, ערוץ ההתקנה, מערכת ההפעלה, השפה, המדינה והזמן המשוער שחלף מאז ההתקנה של Arroxy, כדי שנוכל לספור משתמשים פעילים וחדשים. ללא מזהים, כתובות URL, כותרות סרטונים או שמות קבצים."
+			},
+			"autoRemoveCompleted": {
+				"description": "מסיר הורדה מרשימת ההורדות כמה שניות אחרי שהיא מסתיימת. הקבצים נשארים בתיקייה שלכם; הורדות שנכשלו או בוטלו נשארות ברשימה.",
+				"label": "הסרת הורדות שהסתיימו"
+			},
+			"autoRetry": {
+				"description": "מנסה שוב אוטומטית לאחר תקלה רגעית ברשת או בשרת, ומחכה זמן ארוך יותר בין ניסיון לניסיון. הורדות שנחסמו על ידי האתר לא יינסו שוב אוטומטית.",
+				"label": "ניסיון חוזר להורדות שנכשלו",
+				"unit": "פעמים"
+			},
+			"bulkButton": "כתובות URL מרובות",
+			"bulkTooltip": "הוספה לתור של כמה כתובות URL.",
+			"clearAria": "ניקוי כתובת URL",
+			"clipboard": {
+				"autofilledLink": "הקישור נוסף מהלוח",
+				"bulkHint": "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” כדי להוסיף אותם",
+				"dialog": {
+					"cancelButton": "ביטול"
+				},
+				"replacedLink": "הוחלף בקישור שהועתק",
+				"toggle": "מעקב אחר הלוח",
+				"toggleDescription": "מילוי אוטומטי של שדה ה-URL כשמעתיקים קישור לסרטון.",
+				"undo": "ביטול"
+			},
+			"closeToTray": {
+				"toggle": "הסתרה למגש בעת סגירה",
+				"toggleDescription": "המשך ההורדות ברקע לאחר סגירת החלון."
+			},
+			"concurrentDownloads": {
+				"description": "כמה פריטים מהתור יורדים בו זמנית. ככל שיותר בו זמנית, תור ארוך מסתיים מהר יותר, אך עולה הסיכוי שאתר יגביל אתכם.",
+				"label": "הורדות בו זמנית",
+				"unit": "הורדות"
+			},
+			"cookies": {
+				"banWarning": "אתרים כמו YouTube עלולים לסמן — ולעיתים לחסום — חשבונות שקובצי ה-Cookie שלהם משמשים כלי הורדה כמו Arroxy. אם אפשר, השתמשו בחשבון חד-פעמי.",
+				"browserHelp": "קורא קובצי Cookie ישירות מהדפדפן. בדפדפנים ממשפחת Chromium יש לסגור את הדפדפן.",
+				"browserLabel": "דפדפן",
+				"browserPlaceholder": "בחירת דפדפן…",
+				"choose": "בחירה…",
+				"clear": "ניקוי",
+				"enabledButNoBrowser": "בחרו דפדפן כדי להשתמש בקובצי Cookie",
+				"enabledButNoFile": "בחרו קובץ כדי להשתמש בקובצי Cookie",
+				"exploreDescription": "משתמש בהתחברות שלכם ב“גילוי” רק כשהורדה זקוקה לה.",
+				"exploreDisabled": "הכרטיסייה “גילוי” כבויה, ולכן ההורדות אינן משתמשות בהתחברות שלכם ב“גילוי”. הפעילו אותה תחת “גילוי” להלן.",
+				"extensionChrome": "קבלת cookies.txt מקומית (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "קובץ Cookie",
+				"helpLink": "איך מייצאים קובצי Cookie?",
+				"openExplore": "פתיחת “גילוי”",
+				"placeholder": "לא נבחר קובץ",
+				"recommended": "מומלץ",
+				"risk": "סיכון: קובץ cookies.txt מכיל כל הפעלה מחוברת של הדפדפן הזה — שמרו עליו פרטי.",
+				"sourceBrowser": "דפדפן",
+				"sourceExplore": "התחברות ב“גילוי”",
+				"sourceFile": "קובץ",
+				"sourceLabel": "מקור Cookie",
+				"sourceOff": "כבוי",
+				"toggleDescription": "עוזר עם סרטונים מוגבלי גיל, סרטונים לחברי מועדון בלבד וסרטונים פרטיים בחשבון."
+			},
+			"downloadConnections": {
+				"description": "מאיץ הורדות גדולות על ידי אחזור כמה חלקים של סרטון בו זמנית. ערכים גבוהים מעלים את הסיכוי שאתר יגביל אתכם.",
+				"label": "חיבורי הורדה",
+				"unit": "חיבורים"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "שמע בלבד",
+					"subtitles": "כתוביות"
+				},
+				"anySite": {
+					"heading": "2000+ אתרים",
+					"musicPlaylist": "רשימות השמעה של מוזיקה",
+					"video": "סרטונים",
+					"videoPlaylist": "רשימות השמעה של וידאו"
+				},
+				"heading": "מה Arroxy יכול להוריד",
+				"youtube": {
+					"channel": "ערוצים",
+					"heading": "YouTube",
+					"music": "מוזיקה",
+					"playlist": "רשימות השמעה",
+					"podcast": "פודקאסטים",
+					"short": "Shorts",
+					"video": "סרטונים"
+				}
+			},
+			"fetchFormatsTooltip": "אשף שלב אחר שלב. בחירת פורמט, איכות ועוד.",
+			"heading": "הורדה מכתובת URL",
+			"hotkey": {
+				"changeShortcut": "שינוי קיצור",
+				"conflict": "קיצור זה תפוס על ידי יישום אחר — בחרו קיצור אחר.",
+				"hintLabel": "או הקישו",
+				"hintTooltip": "העתיקו קישור לסרטון בכל מקום, הקישו על הקיצור הזה ו-Arroxy יוסיף אותו לתור עם הפרופיל הפעיל — בלי לעבור בין חלונות.",
+				"hintTooltipSettings": "אפשר לשנות או לכבות בהגדרות.",
+				"recording": "הקישו על מקשים…",
+				"reset": "איפוס לברירת המחדל",
+				"sectionDescription": "הורידו כל קישור שהעתקתם, מכל יישום, בלי לפתוח את Arroxy.",
+				"sectionTitle": "מקש קיצור גלובלי",
+				"test": "בדיקה",
+				"toggle": "הפעלת מקש קיצור גלובלי",
+				"toggleDescription": "הקישו על הקיצור כשיש קישור לסרטון בלוח."
+			},
+			"interactiveDownload": "הורדה אינטראקטיבית",
+			"limitRate": {
+				"activeWarning": "הורדות פעילות שומרות על המגבלה הנוכחית שלהן. השהו וחדשו כדי להחיל שינויים.",
+				"custom": "מותאם אישית…",
+				"customPlaceholder": "לדוגמה: 750K או 1.5M",
+				"description": "הגבלת רוחב הפס להורדות מדיה. קצב הבקשות שלהלן הוא בדרך כלל המנוף החזק יותר להגבלת הקצב.",
+				"invalid": "השתמשו במספר ואחריו K או M (לדוגמה: 500K, 1.5M)",
+				"label": "מגבלת מהירות הורדה",
+				"off": "כבוי"
+			},
+			"mascotBusy": "מוריד ברקע… אני יודע לעשות כמה דברים במקביל 😎",
+			"mascotCollection": "המצב המהיר מוסיף לתור את הפריטים שנטענו עם {{profileName}}. המצב האינטראקטיבי מאפשר לבדוק או לבחור פריטים קודם.",
+			"mascotIdle": "זרקו קישור ותנו ל-Arroxy להוריד ✨",
+			"mascotMixed": "קישור זה מצביע על סרטון אחד בתוך אוסף. Arroxy ישאל איזה מהם אתם רוצים לפני הבדיקה.",
+			"mascotPreparing": "{{quickDownload}}: קריאת הקישור והחלת {{profileName}}.",
+			"mascotQueued": "התור מטפל בהורדה זו. אפשר להדביק קישור נוסף בזמן שהיא פועלת.",
+			"mascotSingle": "המצב המהיר מתחיל הורדה אחת עם {{profileName}}. השתמשו במצב האינטראקטיבי לשינויים חד-פעמיים.",
+			"nativeAudioPreference": {
+				"compatible": "סטריאו תואם",
+				"description": "סטריאו או היקפי כשפרופיל בוחר שמע מקורי. פרופיל יכול לעקוף זאת.",
+				"label": "העדפת שמע מקורי",
+				"surround": "העדפת היקפי / Dolby"
+			},
+			"networkPacing": {
+				"description": "הוספת השהיות קטנות במהלך כל הורדה כדי ש-Arroxy לא יפנה לאתר באגרסיביות רבה מדי. הערכים הם בשניות.",
+				"fields": {
+					"maxSleepInterval": "השהיה לפני תחילת המדיה: מרבית",
+					"sleepInterval": "השהיה לפני תחילת המדיה: מזערית",
+					"sleepRequests": "המתנה בין בדיקות מטא-נתונים",
+					"sleepSubtitles": "המתנה לפני קובצי כתוביות"
+				},
+				"heading": "הורדות עדינות",
+				"presetLabel": "עד כמה Arroxy צריך להיזהר?",
+				"presets": {
+					"balanced": "מאוזן",
+					"careful": "זהיר",
+					"custom": "מותאם אישית",
+					"off": "כבוי"
+				},
+				"summary": "המתנות: {{requests}} בין בדיקות, {{downloads}} לפני תחילת המדיה, {{subtitles}} לפני קובצי כתוביות.",
+				"tooltip": "ההמתנות האלה מתרחשות בתוך כל הורדה. כמה הורדות רצות בו זמנית נקבע בנפרד, תחת “הורדות בו זמנית”.",
+				"tooltips": {
+					"balanced": "ברירת מחדל. מוסיף השהיות קצרות בין בקשות ולפני תחילת המדיה.",
+					"careful": "מוסיף השהיות ארוכות יותר לרשימות השמעה גדולות או לרשתות שנתקלות לעיתים קרובות במגבלות.",
+					"custom": "כוונון עצמאי של הפקדים המתקדמים לכל הורדה.",
+					"off": "משתמש רק בהשהיות הבסיס הקטנות ש-Arroxy שומר למדיה ולכתוביות."
+				},
+				"units": {
+					"seconds": "שנ׳"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "מגבלה נוכחית: {{count}} פריטים",
+				"custom": "מותאם אישית…",
+				"customDialogCancel": "ביטול",
+				"customDialogDescription": "השתמשו במספר שלם מ-{{min}} עד {{max}}.",
+				"customDialogSave": "שמירת מגבלה",
+				"customDialogTitle": "מגבלת סריקת רשימת השמעה מותאמת אישית",
+				"customValue": "מותאם אישית: {{count}} פריטים",
+				"description": "המספר המרבי של פריטים ש-Arroxy טוען כשפותחים רשימת השמעה, ערוץ או תוצאות חיפוש.",
+				"invalid": "השתמשו במספר שלם מ-1 עד 5000",
+				"label": "פריטי רשימת השמעה לסריקה",
+				"option": "{{count}} פריטים",
+				"tooltip": "Arroxy מבקש רק כמות זו של פריטים מרשימת השמעה, ערוץ או חיפוש בעת בניית הבורר."
+			},
+			"playlistScope": {
+				"appLimit": "שימוש במגבלת היישום: {{count}}",
+				"apply": "החלה",
+				"applyError": "לא ניתן היה להחיל את טווח רשימת ההשמעה הזה: {{message}}",
+				"applyReload": "החלה וטעינה מחדש",
+				"cancel": "ביטול",
+				"change": "שינוי",
+				"dialogDescription": "בחרו מה Arroxy טוען עבור רשימת השמעה זו.",
+				"dialogTitle": "טווח רשימת ההשמעה",
+				"emptyTitle": "אין סרטונים בטווח הזה",
+				"first": "הראשונים",
+				"invalid": "השתמשו במספרי פריטים שלמים מ-1 עד {{max}}, כאשר ההתחלה אינה גבוהה מהסיום.",
+				"itemsLabel": "פריטים לטעינה",
+				"label": "טווח רשימת השמעה",
+				"range": "טווח",
+				"reloading": "טוען מחדש...",
+				"reset": "איפוס",
+				"summaryAppLimit": "טעינת הפריטים הראשונים: {{count}}",
+				"summaryFirst": "טעינת הפריטים הראשונים: {{count}}",
+				"summaryRange": "טעינת פריטים {{from}}-{{to}}",
+				"to": "עד"
+			},
+			"profile": {
+				"activeLabel": "פרופיל פעיל",
+				"badgeBuiltIn": "מובנה",
+				"badgeCustom": "מותאם אישית",
+				"badgeDisabled": "מוסתר",
+				"badgeModified": "שונה",
+				"changeGlobalDestination": "שינוי היעד הגלובלי",
+				"destinationDetail": {
+					"global": "משתמש ביעד הגלובלי",
+					"globalSubfolder": "משתמש ביעד הגלובלי + תיקיית משנה של הפרופיל",
+					"override": "משתמש בעקיפת הפרופיל",
+					"overrideSubfolder": "משתמש בעקיפת הפרופיל + תיקיית משנה של הפרופיל"
+				},
+				"destinationFallback": "יעד",
+				"edit": "עריכה",
+				"editActive": "עריכת הפרופיל הפעיל",
+				"enableHint": "פרופילים מוסתרים נשארים כאן אך נעלמים מכל בוררי הפרופילים.",
+				"enableToggleAria": "הצגת הפרופיל בבוררים: {{profileName}}",
+				"lastEnabledHint": "השאירו לפחות פרופיל אחד זמין.",
+				"manageProfiles": "ניהול פרופילים",
+				"menuDescription": "שינוי הפרופיל הפעיל עבור הורדה מהירה, כתובות URL מרובות ורשימות השמעה.",
+				"menuTitle": "החלפת פרופיל",
+				"movableProfile": "פרופיל ניתן להזזה",
+				"moveCancelled": "ההזזה בוטלה. {{profileName}} נשאר במקום {{position}} מתוך {{count}}.",
+				"moveDropped": "{{profileName}} הונח במקום {{position}} מתוך {{count}}.",
+				"moveHandleAria": "הזזת {{profileName}}",
+				"moveInstructions": "כדי להזיז פרופיל, הקישו על רווח או על Enter, הזיזו אותו באמצעות מקשי החצים, ואז הקישו על רווח או על Enter כדי להניח אותו. הקישו על Escape כדי לבטל.",
+				"moveOver": "{{profileName}} נמצא מעל מקום {{position}} מתוך {{count}}.",
+				"movePickedUp": "{{profileName}} נאסף. הוא נמצא במקום {{position}} מתוך {{count}}.",
+				"newProfile": "פרופיל חדש",
+				"panelDescription": "יצירה, בחירה, עריכה או הסרה של הגדרות הורדה לשימוש חוזר.",
+				"panelTitle": "פרופילי הורדה",
+				"remove": "הסרה",
+				"reorderHint": "גררו פרופיל כדי להזיז אותו. כל בוררי הפרופילים עוקבים אחר הסדר הזה.",
+				"reset": "איפוס",
+				"summary": {
+					"aacAudio": "שמע AAC",
+					"bestAudio": "השמע הטוב ביותר",
+					"bestVideo": "הווידאו הטוב ביותר",
+					"noAudio": "ללא שמע",
+					"subtitlesOnly": "כתוביות בלבד",
+					"wavAudio": "שמע WAV"
+				},
+				"switchAria": "החלפת פרופיל הורדה: {{profileName}}",
+				"switchTitle": "החלפת פרופיל הורדה"
+			},
+			"proxy": {
+				"clear": "ניקוי",
+				"description": "ניתוב התעבורה דרך שרת Proxy — שימושי לתוכן מוגבל גיאוגרפית.",
+				"label": "כתובת Proxy",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "לא ניתן היה להכין אף אחת מכתובות ה-URL האלה",
+			"quickDownload": "הורדה מהירה",
+			"quickDownloadTooltip": "יורד באמצעות: {{profileName}}",
+			"quickFailed": "לא ניתן היה להוסיף את זה: {{error}}",
+			"quickPartialFailed_one": "מה שהצליח נוסף לתור. כתובת URL אחת לא הוכנה.",
+			"quickPartialFailed_other": "מה שהצליח נוסף לתור. {{count}} כתובות URL לא הוכנו.",
+			"quickPartialFailed_two": "מה שהצליח נוסף לתור. שתי כתובות URL לא הוכנו.",
+			"quickPrepareFailed": "לא ניתן היה להכין את פריט התור",
+			"quickPreparing": "מכין",
+			"quickProbeFailed": "הבדיקה נכשלה",
+			"quickQueued": "נוסף לתור",
+			"quickSingleOnly": "הדביקו כתובת URL של סרטון, רשימת השמעה, ערוץ או חיפוש כדי להתחיל.",
+			"settings": {
+				"behaviorDescription": "התנהגות גלובלית שמשפיעה גם על הורדות מבוססות פרופיל.",
+				"behaviorHeading": "התנהגות ההורדה",
+				"inputHeading": "קלט"
+			},
+			"style": {
+				"aurora": {
+					"description": "לוחות זכוכית מעל שמיים נעים. דורש האצת גרפיקה.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "משטחים אחידים ושקטים. רץ בקלות בכל מחשב.",
+					"label": "מינימלי"
+				},
+				"modeDescription": "שני הסגנונות זמינים בבהיר ובכהה.",
+				"modeLabel": "סגנון",
+				"panelDescription": "איך Arroxy נראה. עברו בין בהיר לכהה בכותרת התחתונה.",
+				"panelTitle": "מראה",
+				"unavailableNotice": "{{style}} דורש האצת גרפיקה, שאינה זמינה כרגע, ולכן Arroxy מציג {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "פרופילים",
+				"settings": "הגדרות"
+			}
+		}
+	}
 }

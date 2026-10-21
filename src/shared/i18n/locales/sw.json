@@ -1,927 +1,305 @@
 {
-	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "dismiss": "Funga", "startOver": "Anza upya", "close": "Funga"},
+	"about": {
+		"button": "Kuhusu",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · na Antonio Orionus",
+		"openTitle": "Kuhusu Arroxy",
+		"tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.",
+		"thirdPartyNotices": "Tazama notisi za wengine",
+		"websiteLink": "Tovuti"
+	},
+	"aiUpscaled": {
+		"allow": "Ruhusu",
+		"description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.",
+		"label": "Mikondo iliyokuzwa kwa AI",
+		"skip": "Ruka"
+	},
 	"app": {
 		"feedback": "Maoni",
+		"feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬",
 		"logs": "Kumbukumbu",
 		"saveDiagnostics": "Hifadhi faili la uchunguzi",
 		"saveDiagnosticsDescription": "Huweka kumbukumbu na maelezo ya programu katika faili moja ndani ya folda ya Downloads, tayari kuambatishwa kwenye issue ya GitHub. Jina la folda yako ya mtumiaji huondolewa; viungo na majina ya video hubaki.",
-		"feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬",
-		"zoomIn": "Kuza",
-		"zoomOut": "Punguza",
+		"styleHint": "Mpya: chagua Aurora au Rahisi hapa",
 		"theme": "Mandhari",
-		"styleHint": "Mpya: chagua Aurora au Rahisi hapa"
+		"zoomIn": "Kuza",
+		"zoomOut": "Punguza"
 	},
-	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "GPLv3 · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
-	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
-	"splash": {
-		"greeting": "Hujambo, karibu tena!",
-		"warmup": "Inaandaa vipakuliwa…",
-		"verifying": "Inakagua {{binary}}…",
-		"verifyFirstCheck": "Ukaguzi wa kwanza wa toleo hili — huu ni wa polepole. Kwa kawaida huchukua takribani dakika moja.",
-		"cancel": "Una tatizo? Sanidi mwenyewe",
-		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi.",
-		"setup": {
-			"title": {"firstRun": "Usanidi wa mara ya kwanza", "media": "Inasasisha zana za midia", "engine": "Inasasisha injini ya upakuaji"},
-			"stage": {"connecting": "Inaunganisha…", "downloadingBoth": "Inapakua injini ya upakuaji na zana za midia", "downloadingEngine": "Inapakua injini ya upakuaji", "downloadingMedia": "Inapakua zana za midia", "unpacking": "Inafungua zana za midia", "checking": "Inakagua kama kila kitu kinafanya kazi"},
-			"bytes": "{{done}} kati ya {{total}}",
-			"left": {"underMinute": "imesalia chini ya dakika moja", "minutes_one": "takriban dakika {{count}} imesalia", "minutes_other": "takriban dakika {{count}} zimesalia"},
-			"note": {"firstRun": "Hii hutokea mara moja tu. Arroxy huhifadhi zana hizi na kuzisasisha yenyewe.", "media": "Hii hutokea mara moja tu. Arroxy huzihifadhi kwa masasisho yajayo.", "engine": "Huweka upakuaji ukifanya kazi tovuti zinapobadilika."}
+	"common": {
+		"back": "Rudi",
+		"cancel": "Ghairi",
+		"close": "Funga",
+		"continue": "Endelea",
+		"dismiss": "Funga",
+		"loading": "Inapakia…",
+		"retry": "Jaribu tena",
+		"startOver": "Anza upya"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy inaendelea kufanya kazi na kukamilisha vipakuzi vinavyofanya kazi. Badilisha hii baadaye katika mipangilio ya Hali ya juu.",
+			"hide": "Ficha kwenye tray",
+			"message": "Ficha Arroxy kwenye tray ya mfumo ukifunga?",
+			"quit": "Toka",
+			"remember": "Usiulize tena"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Ghairi Vipakuzi na Toka",
+			"detail": "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo.",
+			"keep": "Endelea Kupakua",
+			"message_one": "Upakuaji {{count}} unaendelea",
+			"message_other": "Vipakuzi {{count}} vinavyoendelea",
+			"pause": "Sitisha vipakuliwa na uondoke"
+		},
+		"rendererCrashed": {
+			"detail": "Mchakato wa uonyeshaji umeanguka ({{reason}}). Pakia upya ujaribu tena.",
+			"message": "Arroxy imekutana na tatizo",
+			"quit": "Toka",
+			"reload": "Pakia upya"
 		}
 	},
-	"repair": {
-		"title": "Usanidi unahitaji msaada wako",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Injini ya upakuaji", "media": "Zana za midia"},
-		"causes": {
-			"downloadFailed": {"title": "Imeshindwa kupakua kinachohitajika na Arroxy", "body": "Angalia muunganisho wako wa intaneti, kisha jaribu tena."},
-			"extractFailed": {"title": "Faili iliyopakuliwa imefika ikiwa imeharibika", "body": "Jaribu tena ili kuipakua upya."},
-			"hashFailed": {"title": "Faili iliyopakuliwa haikulingana na checksum yake", "body": "Jaribu tena ili kuipakua upya."},
-			"spawnFailed": {"title": "Zana haipo au haiwezi kuanza", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."},
-			"permissionDenied": {"title": "Mfumo wako hauruhusu Arroxy kuendesha zana", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala unayoiamini hapa chini."},
-			"blockedOrQuarantined": {"title": "Antivirus yako imezuia zana", "body": "Ruhusu Arroxy kwenye antivirus au SmartScreen yako, kisha jaribu tena."},
-			"badExitCode": {"title": "Zana haifanyi kazi vizuri", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."},
-			"timeout": {"title": "Zana ilichukua muda mrefu kujibu", "body": "Mara nyingi hii ni ukaguzi wa usalama unapoendesha mara ya kwanza. Jaribu tena."},
-			"pairIncomplete": {"title": "FFmpeg na FFprobe lazima ziwekwe pamoja", "body": "Chagua zote mbili hapa chini, au zirejeshe kwenye chaguo-msingi."},
-			"unknown": {"title": "Hitilafu imetokea wakati wa usanidi", "body": "Jaribu tena, au fungua kumbukumbu ya usanidi kwa maelezo zaidi."}
-		},
-		"installing": {"homebrew": "Inasakinisha kwa Homebrew… Hii inaweza kuchukua dakika chache.", "winget": "Inasakinisha kwa WinGet… Hii inaweza kuchukua dakika chache."},
-		"stopped": {"title": "Usanidi umesimamishwa", "body": "Jaribu tena, au elekeza Arroxy kwenye zana ulizonazo tayari hapa chini."},
-		"manual": {"toggle": "Sanidi mwenyewe", "intro": "Elekeza Arroxy kwenye nakala ulizonazo tayari, au zisakinishe kwa njia nyingine.", "linuxHint": "Unaweza pia kusakinisha yt-dlp na ffmpeg kwa kidhibiti cha vifurushi, kisha ubofye Jaribu tena."},
-		"actions": {
-			"chooseExecutable": "Chagua faili inayotekelezwa",
-			"installWithHomebrew": "Sakinisha kwa Homebrew",
-			"installWithWinget": "Sakinisha kwa WinGet",
-			"resetToDefault": "Rejesha chaguo-msingi",
-			"retrySetup": "Jaribu tena",
-			"cancel": "Ghairi",
-			"openDependencyFolder": "Fungua saraka ya utegemezi",
-			"viewSetupLog": "Angalia kumbukumbu ya usanidi"
-		}
-	},
-	"theme": {"light": "Hali ya mwanga", "dark": "Hali ya giza", "system": "Chaguo-msingi la mfumo"},
-	"language": {"label": "Lugha"},
-	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Orodha ya kucheza", "playlistItemsGeneric": "Video", "playlistPresets": "Ubora", "playlistProfiles": "Wasifu", "formats": "Umbizo", "subtitles": "Manukuu", "sponsorblock": "SponsorBlock", "output": "Matokeo", "folder": "Hifadhi", "confirm": "Thibitisha", "review": "Kagua"},
-		"playlistPresets": {"heading": "Chagua ubora wa kundi", "subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao.", "itemCount_one": "{{count}} kipande", "itemCount_other": "{{count}} vipande"},
-		"playlistProfiles": {
-			"heading": "Weka wasifu wa upakuaji",
-			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
-			"assignTriggerEmpty": "Weka wasifu",
-			"assignTrigger_one": "Weka kwa video {{count}}",
-			"assignTrigger_other": "Weka kwa video {{count}}",
-			"menuDescription_one": "Chagua wasifu wa video hii.",
-			"menuDescription_other": "Chagua wasifu wa video hizi {{count}}.",
-			"editProfile": "Hariri {{name}}",
-			"filtersLabel": "Vichujio vya wasifu",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Wasifu",
-			"columnDuration": "Muda",
-			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki"
-		},
-		"playlist": {
-			"heading": "Vipande vya Playlist",
-			"headingGeneric": "Video za kupakua",
-			"bulkHeading": "URL nyingi",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} video",
-			"itemCountAudio_one": "{{count}} wimbo",
-			"itemCountAudio_other": "{{count}} nyimbo",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Inaleta maelezo ya video… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Hakuna haja ya kungoja — faili zinazowekwa kwenye foleni sasa bado zitapata majina yao halisi zinapopakuliwa.",
-			"bulkRowWaiting": "Inasubiri",
-			"bulkRowResolving": "Inaleta maelezo",
-			"bulkRowFailed": "Maelezo hayapatikani",
-			"selectAll": "Chagua yote",
-			"selectNone": "Futa uchaguzi wote",
-			"sortLabel": "Panga",
-			"sortApi": "Mpangilio wa orodha",
-			"sortUploadAsc": "Za zamani kwanza",
-			"sortUploadDesc": "Mpya kwanza",
-			"sortFetchingDates": "Inapata tarehe za kupakia…",
-			"rangeFrom": "Kutoka",
-			"rangeTo": "Hadi",
-			"rangeApply": "Tumia masafa",
-			"selectedCount_one": "{{count}} imechaguliwa",
-			"selectedCount_other": "{{count}} zimechaguliwa",
-			"noSelection": "Chagua angalau video moja ili kuendelea",
-			"loadingItems": "Inapata Playlist…",
-			"loadingItemsGeneric": "Inaleta video…",
-			"loadingPhasePages": "Inakagua kurasa za kituo",
-			"loadingPhaseItems": "Inakusanya video",
-			"loadingPagesFound_one": "Ukurasa {{count}} umepatikana",
-			"loadingPagesFound_other": "Kurasa {{count}} zimepatikana",
-			"loadingLimitHint": "Imewekewa kikomo cha vipengee {{count}} vya kwanza",
-			"thumbnailAlt": "Picha ndogo ya video",
-			"durationUnknown": "live",
-			"syncChange": "Badilisha folda…",
-			"syncApply": "Tekeleza usawazishaji",
-			"syncScanning": "Inakagua folda…",
-			"syncFoundTitle": "Tayari ipo kwenye folda",
-			"syncFoundDesc": "{{n}} kati ya video hizi tayari zipo kwenye {{dir}}. Sawazisha ili kupakua mpya pekee?",
-			"syncNoneTitle": "Hakuna kilichopakuliwa bado",
-			"syncNoneDesc": "Hakuna video kutoka orodha hii ya kucheza zilizopatikana kwenye {{dir}}.",
-			"syncNoneDescGeneric": "Hakuna video kutoka chanzo hiki zilizopatikana katika {{dir}}.",
-			"alreadyDownloaded": "Tayari imepakuliwa",
-			"nestedPlaylistBadge": "Orodha ya kucheza",
-			"nestedPlaylistHint_one": "{{count}} kati ya hizi ni orodha ya kucheza, si video — bandika kiungo chake peke yake ili kuipakua.",
-			"nestedPlaylistHint_other": "{{count}} kati ya hizi ni orodha za kucheza, si video — bandika viungo vyake kimoja baada ya kingine ili kuzipakua.",
-			"probeLimitAlertTitle": "Skani ya playlist imefungwa",
-			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
-			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
-			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
-			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele",
-			"removeFromListCount_one": "Ondoa {{count}} kwenye orodha",
-			"removeFromListCount_other": "Ondoa {{count}} kwenye orodha",
-			"restore": "Rejesha",
-			"removedCount_one": "{{count}} zimeondolewa",
-			"removedCount_other": "{{count}} zimeondolewa",
-			"allRemovedTitle": "Vipengee vyote vimeondolewa",
-			"allRemovedDescription": "Virejeshe ili kuendelea."
-		},
-		"bulk": {
-			"title": "URL nyingi",
-			"description": "Bandika URL za video, orodha ya kucheza, kituo, utafutaji, au sauti. Arroxy itaondoa nakala kabla ya kuweka kwenye foleni.",
-			"textareaLabel": "Orodha ya URL",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Tayari",
-			"ignoredCount": "Zimepuuzwa",
-			"emptyPreview": "Bandika URL moja au zaidi ili kuona kundi.",
-			"needsAtLeastOne": "Ongeza angalau URL moja inayotumika ili kuendelea.",
-			"reject": {"duplicate": "Imerudiwa"}
-		},
-		"tabsNavAria": "Urambazaji wa wasifu wa upakuaji",
-		"profileSwitchRow": {"helpAria": "Msaada wa {{label}}"},
-		"mixedPrompt": {
-			"title": "Kiungo hiki kina Playlist",
-			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
-			"quickBody": "Pakua video hii pekee, au ongeza orodha yote ya kucheza kwenye foleni kwa wasifu wako amilifu wa Upakuaji wa haraka.",
-			"singleVideo": "Hii tu",
-			"quickSingleVideo": "Pakua video hii",
-			"pickFromPlaylist": "Chagua kutoka Playlist",
-			"quickWholePlaylist": "Pakua orodha yote ya kucheza",
-			"playlistLimit": "Kikomo cha kuchunguza playlist: vipengee {{count}}",
-			"quickLimitDescription": "Idadi ya juu ya vipengee ambavyo Arroxy hukagua kabla ya kuongeza orodha ya kucheza, kituo au matokeo ya utafutaji kwenye foleni.",
-			"singleTooltip": "Hupakia video hii pekee. Playlist iliyounganishwa na URL hii inapuuzwa.",
-			"quickSingleTooltip": "Huongeza upakuaji mmoja kwenye foleni na kupuuza orodha ya kucheza iliyoambatishwa kwenye URL hii.",
-			"playlistTooltip": "Hupakia playlist, hadi kikomo chako cha ukaguzi wa playlist, kabla ya kuonyesha kichaguaji.",
-			"quickPlaylistTooltip": "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Wigo wa orodha ya kucheza",
-				"change": "Badilisha",
-				"summaryAppLimit": "Pakia vipande vya kwanza: {{count}}",
-				"summaryFirst": "Pakia vipande vya kwanza: {{count}}",
-				"summaryRange": "Pakia vipande {{from}}-{{to}}",
-				"dialogTitle": "Wigo wa orodha ya kucheza",
-				"dialogDescription": "Chagua kile ambacho Arroxy inapakia kwa playlist hii.",
-				"itemsLabel": "Vipande vya kupakia",
-				"appLimit": "Tumia kikomo cha programu: {{count}}",
-				"first": "Za kwanza",
-				"range": "Masafa",
-				"to": "hadi",
-				"invalid": "Tumia nambari kamili za vipande kuanzia 1 hadi {{max}}, ambapo mwanzo si mkubwa kuliko mwisho.",
-				"applyError": "Haikuweza kutekeleza wigo huo wa orodha ya kucheza: {{message}}",
-				"reset": "Weka upya",
-				"cancel": "Ghairi",
-				"apply": "Tekeleza",
-				"applyReload": "Tekeleza na upakie upya",
-				"reloading": "Inapakia upya...",
-				"emptyTitle": "Hakuna video katika wigo huo"
-			},
-			"heading": "Pakua kutoka URL",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "Wasifu", "settings": "Mipangilio"},
-			"interactiveDownload": "Upakuaji shirikishi",
-			"fetchFormatsTooltip": "Mchawi wa hatua kwa hatua. Chagua umbizo, ubora na mengine.",
-			"quickDownload": "Upakuaji wa haraka",
-			"quickDownloadTooltip": "Itapakua kwa kutumia: {{profileName}}",
-			"quickPreparing": "Inaandaa",
-			"quickQueued": "Imeongezwa kwenye foleni",
-			"quickSingleOnly": "Bandika URL ya video, orodha ya kucheza, kituo au utafutaji ili kuanza.",
-			"quickProbeFailed": "Uchunguzi umeshindikana",
-			"quickPrepareFailed": "Kipengee cha foleni hakikuweza kuandaliwa",
-			"quickBulkAllFailed": "Hakuna URL kati ya hizi iliyoweza kuandaliwa",
-			"quickFailed": "Haikuweza kuongeza hii: {{error}}",
-			"quickPartialFailed_one": "Kilichofanya kazi kimeongezwa kwenye foleni. URL {{count}} haikuweza kuandaliwa.",
-			"quickPartialFailed_other": "Vilivyofanya kazi vimeongezwa kwenye foleni. URL {{count}} hazikuweza kuandaliwa.",
-			"profile": {
-				"destinationFallback": "Mahali pa kuhifadhi",
-				"switchAria": "Badilisha wasifu wa kupakua: {{profileName}}",
-				"switchTitle": "Badilisha wasifu wa kupakua",
-				"activeLabel": "Wasifu unaotumika",
-				"editActive": "Hariri wasifu unaotumika",
-				"changeGlobalDestination": "Badilisha mahali pa kuhifadhi kwa jumla",
-				"destinationDetail": {"global": "Inatumia mahali pa kuhifadhi kwa jumla", "globalSubfolder": "Inatumia mahali pa kuhifadhi kwa jumla + saraka ndogo ya wasifu", "override": "Inatumia ubatilishaji wa wasifu", "overrideSubfolder": "Inatumia ubatilishaji wa wasifu + saraka ndogo ya wasifu"},
-				"summary": {"bestVideo": "video bora", "bestAudio": "sauti bora", "aacAudio": "sauti ya AAC", "wavAudio": "sauti ya WAV", "noAudio": "bila sauti", "subtitlesOnly": "manukuu peke yake"},
-				"menuTitle": "Badilisha wasifu",
-				"menuDescription": "Badilisha wasifu unaotumika kwa Quick Download, URL nyingi na orodha za kucheza.",
-				"newProfile": "Wasifu mpya",
-				"manageProfiles": "Dhibiti wasifu",
-				"panelTitle": "Wasifu wa upakuaji",
-				"panelDescription": "Unda, chagua, hariri, au ondoa mipangilio ya upakuaji inayoweza kutumika tena.",
-				"badgeCustom": "Maalum",
-				"badgeModified": "Imebadilishwa",
-				"badgeBuiltIn": "Imejengwa ndani",
-				"badgeDisabled": "Imefichwa",
-				"enableToggleAria": "Onyesha wasifu kwenye vichaguzi: {{profileName}}",
-				"enableHint": "Wasifu uliofichwa unabaki hapa lakini unatoweka kwenye vichaguzi vyote.",
-				"reorderHint": "Buruta wasifu ili kuusogeza. Kila kichaguzi cha wasifu kinafuata mpangilio huu.",
-				"moveHandleAria": "Sogeza {{profileName}}",
-				"movableProfile": "wasifu unaoweza kusogezwa",
-				"moveInstructions": "Ili kusogeza wasifu, bonyeza Spacebar au Enter, usogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuuachia. Bonyeza Escape ili kughairi.",
-				"movePickedUp": "Wasifu wa {{profileName}} umeshikwa. Uko kwenye nafasi ya {{position}} kati ya {{count}}.",
-				"moveOver": "Wasifu wa {{profileName}} uko juu ya nafasi ya {{position}} kati ya {{count}}.",
-				"moveDropped": "Wasifu wa {{profileName}} umeachiwa kwenye nafasi ya {{position}} kati ya {{count}}.",
-				"moveCancelled": "Kusogeza kumeghairiwa. Wasifu wa {{profileName}} unabaki kwenye nafasi ya {{position}} kati ya {{count}}.",
-				"lastEnabledHint": "Weka angalau wasifu mmoja unapatikana.",
-				"edit": "Hariri",
-				"remove": "Ondoa",
-				"reset": "Weka upya"
-			},
-			"bulkButton": "URL nyingi",
-			"bulkTooltip": "Ongeza na weka foleni URL nyingi.",
-			"features": {
-				"heading": "Arroxy inaweza kupakua nini",
-				"youtube": {"heading": "YouTube", "video": "Video", "channel": "Vituo", "playlist": "Orodha za kucheza", "short": "Shorts", "music": "Muziki", "podcast": "Podcasts"},
-				"anySite": {"heading": "Tovuti 2000+", "video": "Video", "videoPlaylist": "Playlists za video", "musicPlaylist": "Playlists za muziki"},
-				"always": {"audioOnly": "Sauti peke yake", "subtitles": "Manukuu"}
-			},
-			"mascotIdle": "Weka kiungo, Arroxy aipakue ✨",
-			"mascotBusy": "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎",
-			"mascotPreparing": "{{quickDownload}} inasoma kiungo hiki na kutumia {{profileName}}.",
-			"mascotQueued": "Foleni inashughulikia upakuaji huu. Unaweza kubandika kiungo kingine wakati inafanya kazi.",
-			"mascotCollection": "Upakuaji wa haraka huweka vipengee vilivyopakiwa kwenye foleni kwa kutumia {{profileName}}. Upakuaji shirikishi hukuruhusu kukagua au kuchagua vipengee kwanza.",
-			"mascotMixed": "Kiungo hiki kinaelekeza kwenye video moja ndani ya mkusanyiko. Arroxy itakuuliza ni ipi unayotaka kabla ya kuchunguza.",
-			"mascotSingle": "Upakuaji wa haraka huanzisha upakuaji mmoja kwa kutumia {{profileName}}. Tumia upakuaji shirikishi kwa mabadiliko ya mara moja.",
-			"advanced": "Hali ya juu",
-			"settings": {"inputHeading": "Ingizo", "behaviorHeading": "Tabia ya kupakua", "behaviorDescription": "Tabia ya jumla inayothibiti pia upakuaji unaotumia wasifu."},
-			"clearAria": "Futa URL",
-			"clipboard": {
-				"toggle": "Angalia ubao wa kunakili",
-				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
-				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
-				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
-				"replacedLink": "Imebadilishwa na kiungo kilichonakiliwa",
-				"undo": "Tendua",
-				"dialog": {"cancelButton": "Ghairi"}
-			},
-			"hotkey": {
-				"sectionTitle": "Njia ya mkato ya kimataifa",
-				"sectionDescription": "Pakua kiungo chochote unachonakili, kutoka programu yoyote, bila kufungua Arroxy.",
-				"toggle": "Washa njia ya mkato ya kimataifa",
-				"toggleDescription": "Bonyeza njia ya mkato ukiwa na kiungo cha video kwenye ubao wa kunakili.",
-				"changeShortcut": "Badilisha njia ya mkato",
-				"recording": "Bonyeza vitufe…",
-				"test": "Jaribu",
-				"conflict": "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine.",
-				"hintLabel": "Au bonyeza",
-				"hintTooltip": "Nakili kiungo cha video popote, bonyeza njia hii ya mkato, na Arroxy itakiweka kwenye foleni kwa kutumia wasifu wako unaotumika — huhitaji kubadilisha madirisha.",
-				"hintTooltipSettings": "Badilisha au izime katika Mipangilio.",
-				"reset": "Rejesha chaguo-msingi"
-			},
-			"cookies": {
-				"sourceLabel": "Chanzo cha vidakuzi",
-				"sourceOff": "Zima",
-				"sourceFile": "Faili",
-				"sourceBrowser": "Kivinjari",
-				"sourceExplore": "Kuingia kwenye Gundua",
-				"recommended": "Inapendekezwa",
-				"exploreDescription": "Hutumia kuingia kwako kwenye Gundua tu pale upakuaji unapohitaji.",
-				"exploreDisabled": "Kichupo cha Gundua kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua. Kiwashe katika sehemu ya Gundua hapa chini.",
-				"openExplore": "Fungua Gundua",
-				"toggleDescription": "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi.",
-				"risk": "Hatari: cookies.txt ina vikao vyote vilivyoingia kwa kivinjari hicho — weka siri.",
-				"fileLabel": "Faili ya vidakuzi",
-				"choose": "Chagua…",
-				"clear": "Futa",
-				"placeholder": "Hakuna faili iliyochaguliwa",
-				"helpLink": "Ninasafirisha vidakuzi vipi?",
-				"enabledButNoFile": "Chagua faili kutumia vidakuzi",
-				"browserLabel": "Kivinjari",
-				"browserPlaceholder": "Chagua kivinjari…",
-				"browserHelp": "Inasoma vidakuzi moja kwa moja kutoka kwenye kivinjari. Kivinjari lazima kifungwe kwa vivinjari vya familia ya Chromium.",
-				"enabledButNoBrowser": "Chagua kivinjari kutumia vidakuzi",
-				"banWarning": "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti ambazo vidakuzi vyake vinatumiwa na zana za kupakua kama Arroxy. Tumia akaunti ya majaribio iwezekanavyo.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.", "placeholder": "http://host:port", "clear": "Futa"},
-			"style": {
-				"panelTitle": "Mwonekano",
-				"panelDescription": "Jinsi Arroxy inavyoonekana. Badilisha kati ya mwanga na giza chini ya dirisha.",
-				"modeLabel": "Mtindo",
-				"modeDescription": "Mitindo yote miwili ina toleo la mwanga na la giza.",
-				"aurora": {"label": "Aurora", "description": "Paneli za kioo juu ya anga linalosogea. Zinahitaji uongezaji kasi wa michoro."},
-				"minimal": {"label": "Rahisi", "description": "Nyuso imara na tulivu. Inafanya kazi kwa wepesi kwenye kompyuta yoyote."},
-				"unavailableNotice": "{{style}} inahitaji uongezaji kasi wa michoro, ambao haupatikani sasa hivi, kwa hiyo Arroxy inaonyesha {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Kikomo cha kasi ya kupakua",
-				"description": "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.",
-				"off": "Imezimwa",
-				"custom": "Maalum…",
-				"customPlaceholder": "mf. 750K au 1.5M",
-				"invalid": "Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)",
-				"activeWarning": "Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko."
-			},
-			"playlistProbeLimit": {
-				"label": "Vipande vya playlist vya kuskanisha",
-				"description": "Idadi ya juu ya maingizo ambayo Arroxy hupakia wakati playlist, kituo, au matokeo ya utafutaji yanafunguliwa.",
-				"option": "Vipande {{count}}",
-				"current": "Kikomo cha sasa: vipande {{count}}",
-				"customValue": "Maalum: vipande {{count}}",
-				"custom": "Maalum…",
-				"customDialogTitle": "Kikomo maalum cha skani ya playlist",
-				"customDialogDescription": "Tumia nambari nzima kutoka {{min}} hadi {{max}}.",
-				"customDialogCancel": "Ghairi",
-				"customDialogSave": "Hifadhi kikomo",
-				"invalid": "Tumia nambari nzima kutoka 1 hadi 5000",
-				"tooltip": "Arroxy huomba idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguaji."
-			},
-			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Stereo au surround wasifu unapochagua sauti asili. Wasifu unaweza kubatilisha hili.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
-			"autoRetry": {"label": "Jaribu tena upakuaji ulioshindwa", "description": "Hujaribu tena kiotomatiki baada ya hitilafu ya mtandao au seva, ikisubiri muda mrefu zaidi kabla ya kila jaribio. Upakuaji uliozuiwa na tovuti haujaribiwi tena kiotomatiki.", "unit": "mara"},
-			"autoRemoveCompleted": {"label": "Ondoa kiotomatiki vipakuzi vilivyokamilika", "description": "Huondoa kipakuzi kwenye orodha ya Vipakuliwa sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako; vipakuzi vilivyoshindwa na vilivyoghairiwa hubaki kwenye orodha."},
-			"concurrentDownloads": {"label": "Upakuaji kwa wakati mmoja", "description": "Ni vipengee vingapi vya foleni vinapakuliwa kwa wakati mmoja. Vingi kwa wakati mmoja humaliza foleni ndefu haraka, lakini huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "upakuaji"},
-			"downloadConnections": {"label": "Miunganisho ya upakuaji", "description": "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "miunganisho"},
-			"networkPacing": {
-				"heading": "Upakuaji wa taratibu",
-				"description": "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde.",
-				"presetLabel": "Arroxy iwe makini kiasi gani?",
-				"tooltip": "Vipindi hivi vya kusubiri hutokea ndani ya kila upakuaji. Upakuaji mangapi unaendelea kwa wakati mmoja huwekwa kando, katika «Upakuaji kwa wakati mmoja».",
-				"summary": "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu.",
-				"presets": {"off": "Zima", "balanced": "Uwiano", "careful": "Uangalifu", "custom": "Maalum"},
-				"tooltips": {
-					"off": "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa media na manukuu.",
-					"balanced": "Chaguo-msingi. Inaongeza mapumziko mafupi kati ya maombi na kabla ya media kuanza.",
-					"careful": "Inaongeza mapumziko marefu kwa playlists kubwa au mitandao inayofikia vikwazo mara kwa mara.",
-					"custom": "Rekebisha mwenyewe udhibiti wa hali ya juu wa kila upakuaji."
-				},
-				"fields": {"sleepRequests": "Pumzika kati ya ukaguzi wa metadata", "sleepInterval": "Pumzika kabla ya media kuanza: kiwango cha chini", "maxSleepInterval": "Pumzika kabla ya media kuanza: kiwango cha juu", "sleepSubtitles": "Pumzika kabla ya faili za manukuu"},
-				"units": {"seconds": "sek"}
-			},
-			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
-			"analytics": {
-				"toggle": "Tuma ishara ya kila siku",
-				"toggleDescription": "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
-			}
-		},
-		"quickProgress": {
-			"title": "Inaandaa Upakuaji wa haraka",
-			"description": "Arroxy inasoma kiungo na kutumia {{profileName}}.",
-			"currentFallback": "Kiungo cha sasa",
-			"waitHint": "Acha hii ikiwa wazi wakati Arroxy inaandaa foleni.",
-			"failedCount_one": "{{count}} imeshindwa",
-			"failedCount_other": "{{count}} zimeshindwa",
-			"cancel": "Ghairi maandalizi",
-			"phase": {"probing": "Inaleta maelezo", "queueing": "Inaongeza kwenye foleni"}
-		},
-		"subtitles": {
-			"autoBadge": "Otomatiki",
-			"noLanguages": "Hakuna manukuu yanayopatikana kwa video hii",
-			"searchPlaceholder": "Tafuta lugha…",
-			"noMatches": "Hakuna lugha zinazolingana",
-			"clearAll": "Futa yote",
-			"noSelected": "Hakuna manukuu yaliyochaguliwa",
-			"removeLanguage": "Ondoa {{name}}",
-			"sectionManual": "Ya mkono",
-			"sectionAuto": "Yaliyoundwa otomatiki",
-			"saveMode": {"heading": "Hifadhi kama", "sidecar": "Karibu na video", "embed": "Ingiza kwenye video", "subfolder": "subtitles/ saraka ndogo"},
-			"format": {"heading": "Umbizo"},
-			"embedNote": "Hali ya kuingiza inahifadhi matokeo kama .mkv ili nyimbo za manukuu ziingizwe kwa uaminifu.",
-			"autoAssNote": "Maandishi ya otomatiki yatahifadhiwa kama SRT badala ya ASS — husafishwa daima kutokana na urudiaji wa kielelezo cha YouTube, ambao kibadilishaji chetu cha ASS bado hakiwezi kunakili."
-		},
-		"sponsorblock": {
-			"modeHeading": "Uchujaji wa mdhamini",
-			"mode": {"off": "Zima", "mark": "Weka alama kama sura", "remove": "Ondoa sehemu"},
-			"modeHint": {"off": "Hakuna SponsorBlock — video inacheza kama ilivyopakiwa.", "mark": "Inaweka alama sehemu za mdhamini kama sura (bila uharibifu).", "remove": "Hukata sehemu za mdhamini kutoka kwenye video kwa kutumia FFmpeg."},
-			"categoriesHeading": "Kategoria",
-			"cat": {"sponsor": "Mdhamini", "intro": "Utangulizi", "outro": "Mwisho", "selfpromo": "Kujitangaza", "music_offtopic": "Music off-topic", "preview": "Muhtasari", "filler": "Kijazio"}
-		},
-		"formats": {
-			"kind": {"label": "Cha kupakua", "video": "Video + sauti", "videoOnly": "Video, bila sauti", "audio": "Sauti pekee", "subtitles": "Manukuu peke yake"},
-			"profile": {
-				"calloutTitle": "Miundo huanza na wasifu wako",
-				"calloutBody": "Wasifu wako unaotumika huchagua mitiririko kwa ajili yako. Badilisha wasifu kutoka kwenye menyu, au tumia penseli kurekebisha mmoja bila kuondoka kwenye upakuaji huu.",
-				"preselected": "Imechaguliwa awali kutoka",
-				"tag": "Wasifu",
-				"closestTag": "Karibu zaidi na wasifu",
-				"switchTitle": "Badilisha wasifu?",
-				"switchBody": "Ulibadilisha {{areas}} kwa upakuaji huu. “{{profile}}” huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
-				"resetAll": "Weka upya yote",
-				"edit": "Hariri {{name}}",
-				"updatedTitle": "Tumia wasifu uliosasishwa?",
-				"updatedBody": "Ulibadilisha {{areas}} kwa upakuaji huu. Wasifu uliosasishwa huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
-				"keepEdits": "Baki na mabadiliko yangu",
-				"menuDescription": "Kwa upakuaji huu tu. Wasifu wako chaguomsingi unabaki kama ulivyo."
-			},
-			"fit": {
-				"tierBelow": "Wasifu wako unaomba {{wanted}}p. Video hii inafika {{picked}}p tu, kwa hivyo {{picked}}p imechaguliwa.",
-				"tierAbove": "Wasifu wako unaomba {{wanted}}p. Video hii haina kitu kidogo hivyo, kwa hivyo {{picked}}p imechaguliwa.",
-				"mp4Unavailable": "Wasifu wako ni Runinga janja (H.264). Video hii haitoi H.264, kwa hivyo mkondo ulio karibu zaidi umechaguliwa.",
-				"noVideo": "Kiungo hiki hakina video, kwa hivyo sauti imechaguliwa.",
-				"subtitlesMissing": "Wasifu wako unaomba manukuu katika {{languages}}. Video hii haina.",
-				"webmUnavailable": "Wasifu wako unaomba WebM. Mikondo iliyochaguliwa ya video hii ina {{codec}}, ambayo WebM haiwezi kubeba, kwa hivyo aina ya faili ni Otomatiki."
-			},
-			"footer": {"download": "Pakua", "moreActions": "Chaguo zaidi za upakuaji", "addToQueue": "Ongeza kwenye foleni bila kuanza", "subtitlesRequired": "Chagua angalau lugha moja ya manukuu."},
-			"video": "Video",
-			"audio": "Sauti",
-			"noAudio": "Hakuna sauti",
-			"withAudio": "yenye sauti",
-			"resolutionUnknown": "Azimio halijulikani",
-			"bitrateValue": "Kiwango cha biti {{bitrate}}",
-			"marker": {"aiUpscaled": "Imekuzwa kwa AI", "aiDubbed": "Imetafsiriwa na AI", "audioDescription": "Maelezo kwa sauti", "spatialAudio": "Sauti ya anga", "vr": "360° / VR", "enhancedBitrate": "Bitrate iliyoboreshwa", "damaged": "Imeharibika", "watermarked": "Ina alama-maji"},
-			"keepAudio": "Acha kama ilivyo",
-			"keepAudioMeta": "Sauti iliyojengwa ndani",
-			"audioOnly": "Sauti peke yake",
-			"sniffing": "Natafuta maumbo bora kwako…",
-			"loadingHint": "Tafadhali subiri hadi uchunguzi ukamilike — orodha za kuimba na utafutaji vinaweza kuchukua muda.",
-			"loadingAria": "Inapakia maumbo",
-			"sizeUnknown": "Ukubwa haujulikani",
-			"total": "Jumla",
-			"skipToConfirm": "Ruka hadi uthibitisho",
-			"skipToConfirmTooltip": "Inatumia mapendeleo yako yaliyohifadhiwa kwa hatua zote zilizobaki. Ili kubadilisha mipangilio, endelea hatua kwa hatua badala yake — chaguo lako litahifadhiwa kwa wakati ujao.",
-			"quality": {"high": "Ubora wa juu", "medium": "Ubora wa kati", "low": "Ubora wa chini"},
-			"drc": {"label": "Sawazisha sauti (DRC)", "description": "Hupunguza sehemu zenye sauti kubwa na kuongeza zenye sauti ndogo, kwa spika na vyumba vyenye kelele.", "tag": "Sauti sawa"},
-			"audioLanguage": "Lugha ya sauti",
-			"audioLanguageCount_one": "Lugha {{count}}",
-			"audioLanguageCount_other": "Lugha {{count}}",
-			"convert": {
-				"label": "Badilisha",
-				"bitrate": "Kiwango cha biti",
-				"wavLabel": "WAV (uncompressed)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, bila kusimba upya",
-				"copyLabelNoBitrate": "{{target}}, bila kusimba upya",
-				"copyNote": "{{kbps}} kbps, kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
-				"copyNoteNoBitrate": "Kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
-				"bitrateCopyHint": "Chanzo ambacho tayari ni {{target}} huhifadhi mkondo na kiwango cha biti chake: kinanakiliwa, hakisimbwi upya.",
-				"sourceKbps": "Chanzo ni {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "YouTube ilipunguza uchunguzi huu",
-				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",
-				"bodyDisabled": "Vidakuzi vimesanidiwa lakini vimezimwa. Viwashe na ujaribu tena kupata orodha kamili, au badilisha mtandao na ujaribu tena.",
-				"bodyEnabled": "Hata na vidakuzi, YouTube ilipunguza uchunguzi huu. Jaribu tena baadaye au badilisha mtandao.",
-				"bodyExplore": "YouTube imezuia ombi hili. Jaribu tena baadaye au badilisha mtandao.",
-				"retryCta": "Jaribu tena",
-				"enableRetryCta": "Washa vidakuzi na ujaribu tena"
-			},
-			"rateLimit": {
-				"heading": "{{site}} inazuia maombi ya muunganisho huu",
-				"leadDegraded": "Orodha ya miundo inaweza kuwa haijakamilika.",
-				"leadFailed": "{{site}} imekataa ombi hili kwa sasa.",
-				"waitUntil": "Arroxy inasubiri hadi {{time}} kabla ya kuuliza {{site}} tena, ili kizuizi kiondoke.",
-				"waitOver": "Muda wa kusubiri umekwisha, unaweza kujaribu tena.",
-				"sessionNote": "{{site}} inaweza kudumisha kizuizi hiki hadi saa moja.",
-				"tryNowCta": "Jaribu sasa",
-				"retryCta": "Jaribu tena"
-			},
-			"cookiesError": {
-				"heading": "Vidakuzi vinaweza kuwa sababu",
-				"currentModeLabel": "Chanzo cha vidakuzi",
-				"currentModeFile": "Faili",
-				"currentModeBrowser": "Kivinjari",
-				"currentModeExplore": "Kuingia kwenye Gundua",
-				"explanationFile": "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (Arroxy inahitaji faili ya Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi.",
-				"explanationBrowser": "Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi.",
-				"openSettingsCta": "Fungua mipangilio ya vidakuzi",
-				"exploreSignIn": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji.", "cta": "Ingia kwenye Gundua"},
-				"exploreSignedIn": {"heading": "Umeingia kwenye Gundua", "body": "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Gundua kiotomatiki. Huenda isipatikane kwa sababu nyingine."},
-				"exploreOffer": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Ingia kwenye Gundua na Arroxy itajaribu tena.", "cta": "Ingia kwenye Gundua"},
-				"exploreReuse": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Umeingia kwenye Gundua, lakini upakuaji hautumii kuingia huko kwa sasa.", "cta": "Tumia kuingia kwangu kwenye Gundua na ujaribu tena"},
-				"exploreSite": {"heading": "Kiungo hiki kinaweza kuhitaji akaunti kwenye {{host}}", "signInBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji.", "offerBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena."},
-				"exploreRefused": {"heading": "Tovuti imekataa hili hata ukiwa umeingia kwenye Gundua", "body": "Arroxy tayari ilijaribu ukiwa umeingia kupitia Gundua, kwa hivyo kuingia tena hakutasaidia. Huenda tovuti ina hitilafu, au akaunti hii haiwezi kuifungua. Jaribu tena baadaye."},
-				"otherCookiesCta": "Tumia faili ya vidakuzi au kivinjari badala yake…",
-				"needsCookies": {"heading": "Tovuti hii inahitaji kuingia", "body": "Arroxy haikuweza kufikia video hii bila uthibitisho. Sanidi vidakuzi katika mipangilio ya hali ya juu — ielekeze kwenye kivinjari ambacho tayari umeingia, au ingiza faili ya cookies.txt."},
-				"dpapi": {
-					"heading": "Vidakuzi vya Chrome vimezuiwa na usimbaji fiche wa Windows",
-					"explanation": "Chrome 127 na toleo jipya zaidi husimba fiche vidakuzi kwa njia ambayo programu nyingine haziwezi kusoma kwenye Windows. Jaribu moja ya masuluhisho yaliyo hapa chini.",
-					"fixFirefoxLabel": "Badilisha kwenda Firefox",
-					"fixFirefoxBody": "Firefox haitumii App-Bound Encryption. Fungua mipangilio ya vidakuzi na uchague Firefox kutoka kwenye orodha ya vivinjari.",
-					"fixFileLabel": "Safirisha cookies.txt",
-					"fixFileBody": "Safirisha vidakuzi kutoka Chrome kwa kutumia kiendelezi cha kivinjari, kisha ubadilishe programu hii hadi hali ya Faili na uchague faili iliyosafirishwa.",
-					"fixUnsafeLabel": "Zindua Chrome huku App-Bound Encryption imezimwa",
-					"fixUnsafeBody": "Ongeza --disable-features=LockProfileCookieDatabase kwenye mkato wa kuzindua Chrome. Onyo: hii inabatilisha vidakuzi vilivyosimbwa fiche hapo awali, kwa hivyo utaondolewa katika kila tovuti na itabidi uingie tena.",
-					"docsLinkLabel": "yt-dlp nyaraka (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "Huhifadhiwa kama", "reset": "WebM haiwezi kubeba {{codec}}, kwa hivyo aina ya faili imerudi kuwa Otomatiki."}
-		},
-		"folder": {
-			"heading": "Hifadhi kwenye",
-			"downloads": "Vipakuliwa",
-			"videos": "Sinema",
-			"desktop": "Eneo kazi",
-			"music": "Muziki",
-			"documents": "Hati",
-			"pictures": "Picha",
-			"home": "Nyumbani",
-			"custom": "Maalum…",
-			"subfolder": {"toggle": "Hifadhi ndani ya saraka ndogo", "placeholder": "mfano lo-fi rips", "invalid": "Jina la saraka lina herufi batili"}
-		},
-		"output": {
-			"embedChapters": {"label": "Ingiza sura", "description": "Alama za sura zinazoweza kuabiriwa katika kichezaji chochote cha kisasa."},
-			"embedMetadata": {"label": "Ingiza metadata", "description": "Kichwa, msanii, maelezo, na tarehe ya kupakia vimeandikwa kwenye faili."},
-			"embedThumbnail": {"label": "Ingiza picha ndogo", "description": "Sanaa ya jalada ndani ya faili. Video ya WebM itabadilishwa kuwa MKV; hupitishwa wakati manukuu yanaingizwa."},
-			"writeDescription": {"label": "Hifadhi maelezo", "description": "Inahifadhi maelezo ya video kama faili ya maandishi ya .description karibu na kipakuliwa."},
-			"writeThumbnail": {"label": "Hifadhi picha ndogo", "description": "Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa."},
-			"writeM3u": {"label": "Tengeneza faili ya playlist .m3u", "description": "Hifadhi playlist ya .m3u pamoja na video ili zifunguke kwa mpangilio kwenye kicheza media."}
-		},
-		"review": {
-			"changeFormat": "Badilisha umbizo",
-			"rowsHeading": "Mengine yote",
-			"rows": {"subtitles": "Manukuu", "sponsorBlock": "SponsorBlock", "extras": "Vya ziada", "saveTo": "Hifadhi kwenye", "fileName": "Jina la faili"},
-			"value": {"subtitlesOff": "Zima", "sponsorBlockOff": "Zima", "extrasNone": "Hakuna"},
-			"changed": "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu.",
-			"areas": {"format": "umbizo", "subtitles": "manukuu", "sponsorBlock": "SponsorBlock", "extras": "vya ziada", "saveTo": "folda", "fileName": "jina la faili"},
-			"updateProfile": "Sasisha “{{profile}}” kwa mabadiliko haya",
-			"saveAsProfile": "Hifadhi kama wasifu mpya",
-			"update": {
-				"title": "Sasisha “{{profile}}”?",
-				"description": "Kuanzia sasa, kila upakuaji kwa wasifu huu utatumia mipangilio mipya.",
-				"rows": {"format": "Umbizo"},
-				"builtinNote": "Huu ni wasifu uliojengwa ndani. Unaweza kurejesha mipangilio yake asili kwenye kichupo cha Wasifu.",
-				"action": "Sasisha wasifu",
-				"updated": "Wasifu “{{name}}” umesasishwa"
-			},
-			"callout": {"title": "Mipangilio mingine yote sasa iko kwenye ukurasa huu", "body": "Manukuu, SponsorBlock, vya ziada kama picha ndogo, folda na jina la faili zamani zilikuwa hatua tofauti. Bofya safu ili kuibadilisha."},
-			"reset": "Tendua mabadiliko, rudi kwa “{{profile}}”",
-			"changedFrom": "Imebadilishwa kutoka {{profile}}:",
-			"save": {
-				"title": "Hifadhi kama wasifu",
-				"description": "Huhifadhi mipangilio hii kama wasifu unaoweza kuchagua wakati ujao. Wasifu wako wa Upakuaji wa haraka hubaki vilevile.",
-				"nameLabel": "Jina la wasifu",
-				"action": "Hifadhi wasifu",
-				"saved": "Imehifadhiwa kama wasifu “{{name}}”",
-				"failed": "Imeshindwa kuhifadhi wasifu."
-			},
-			"nextTime": {"title": "Upakuaji huu ulitumia mipangilio iliyohaririwa. Itumike wakati ujao?", "action": "Hifadhi kama wasifu", "defaultName": "{{profile}} (imehaririwa)"}
-		},
-		"confirm": {
-			"readyHeadline": "Iko tayari kupakua!",
-			"landIn": "Faili yako itawekwa kwenye",
-			"landInMultiProfile_one": "Itafika kwenye lengwa lililo hapa chini",
-			"landInMultiProfile_other": "Zitafika kwenye malengwa {{count}} yaliyo hapa chini",
-			"labelVideo": "Video",
-			"labelAudio": "Sauti",
-			"labelSubtitles": "Manukuu",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Hifadhi kwenye",
-			"labelSize": "Ukubwa",
-			"sizeUnknown": "Haijulikani",
-			"nothingToDownload": "Mpangilio wa manukuu peke yake umewashwa lakini hakuna lugha ya manukuu iliyochaguliwa — hakuna kitakachopakiwa.",
-			"thumbnailEmbedNotSupported": "Thumbnail embed imerukwa — container ya matokeo hauitumii.",
-			"subtitleEmbedAudioOnly": "Subtitle embed imebadilishwa kuwa sidecar — nyimbo za sauti hazitumii mtiririko wa manukuu uliowekwa ndani.",
-			"audioOnly": "Sauti peke yake",
-			"addToQueue": "+ Queue",
-			"addToQueueTooltip": "Inaanza vipakuzi vingine vikishamaliza — inapata upanuzi kamili",
-			"pullIt": "Pakua sasa! ↓",
-			"pullItTooltip": "Inaanza mara moja — inafanya kazi pamoja na vipakuzi vingine vinavyofanya kazi",
-			"labelPlaylist": "Orodha ya kucheza",
-			"labelBulk": "URL nyingi",
-			"labelPreset": "Mpangilio",
-			"labelItems": "Vipande",
-			"itemsValue_one": "{{count}} kati ya {{total}} video",
-			"itemsValue_other": "{{count}} kati ya {{total}} video",
-			"itemsValueAudio_one": "{{count}} kati ya {{total}} wimbo",
-			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
-			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
-			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL",
-			"profileBreakdownHeading": "Wasifu katika kundi hili",
-			"profileBreakdownCount_one": "{{count}} kipande",
-			"profileBreakdownCount_other": "{{count}} vipande",
-			"subtitleEmbedForcesMkv": "Manukuu ndani ya video yanahitaji faili ya MKV, kwa hivyo upakuaji huu unahifadhiwa kama .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Wasifu wa upakuaji",
-			"dialogDescription": "Mpangilio mmoja unaoweza kutumika tena kwa Upakuaji wa Haraka, URL za Wingi na orodha za kucheza.",
-			"skipped": "Imerukwa",
-			"panel": {
-				"identity": {"title": "Utambulisho wa wasifu", "description": "Jina na aikoni zinazoonyeshwa katika Upakuaji wa Haraka, URL za Wingi na orodha za wasifu."},
-				"downloadType": {"title": "Aina ya upakuaji", "description": "Chagua njia kuu unayotaka kupakua."},
-				"advanced": {"title": "Chaguo za kina", "description": "Wasifu hurithi lengo la jumla isipokuwa uweke ubatilishaji wa wasifu."},
-				"output": {"title": "Chaguo za matokeo", "enabledCount_one": "{{count}} zimewashwa", "enabledCount_other": "{{count}} zimewashwa"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Jina na aikoni ya wasifu",
-				"icon": "Aikoni ya wasifu",
-				"resolution": "Azimio",
-				"quality": "Ubora",
-				"source": "Chanzo",
-				"subfolderName": "Jina la folda ndogo",
-				"name": "Jina la wasifu",
-				"subtitleDownloads": "Upakuaji wa manukuu",
-				"subtitleDownloadsDescription": "Wasifu huomba misimbo ya lugha; upatikanaji huamuliwa kwa kila URL.",
-				"languages": "Lugha",
-				"delivery": "Njia ya kuhifadhi",
-				"overridePath": "Njia ya ubatilishaji wa wasifu",
-				"goal": "Boresha kwa",
-				"fileType": "Aina ya faili",
-				"nativeAudio": "Sauti asili"
-			},
-			"action": {
-				"chooseIcon": "Chagua aikoni ya wasifu",
-				"setOverride": "Weka ubatilishaji wa wasifu",
-				"chooseFolder": "Chagua folda lengwa",
-				"removeLanguage": "Ondoa {{code}}",
-				"useLanguageCode": "Tumia msimbo wa lugha “{{code}}”",
-				"changeGlobalShort": "Badilisha ya jumla",
-				"setOverrideShort": "Weka ubatilishaji",
-				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
-				"reset": "Weka upya wasifu",
-				"resetHint": "Rejesha mipangilio ya wasifu iliyojengwa ndani",
-				"resetDisabledHint": "Wasifu huu tayari unatumia mipangilio iliyojengwa ndani",
-				"save": "Hifadhi wasifu"
-			},
-			"placeholder": {"folder": "Chagua folda kwa wasifu huu"},
-			"destination": {
-				"global": "Lengo la jumla",
-				"override": "Ubatilishaji wa wasifu",
-				"resolved": "Lengo la mwisho",
-				"defaultFolder": "Folda chaguomsingi ya vipakuliwa",
-				"defaultFolderWithSubfolder": "Folda chaguomsingi ya vipakuliwa / {{subfolder}}",
-				"globalActive": "Inatumika",
-				"globalInherited": "Imerithiwa",
-				"overrideSet": "Inabatilisha jumla",
-				"overrideChoosing": "Chagua folda",
-				"overrideNone": "Hakuna ubatilishaji",
-				"overrideSetNote": "Wasifu huu huhifadhi kwenye mzizi wake yenyewe kabla ya folda ndogo kuongezwa.",
-				"overrideNoneNote": "Hakuna ubatilishaji uliowekwa. Wasifu huu hutumia lengo la jumla lililo juu."
-			},
-			"note": {
-				"subtitlesOnly": "Wasifu huu huweka foleni faili za manukuu pekee. Video, sauti, SponsorBlock na ubadilishaji wa media hurukwa.",
-				"noSubtitles": "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa.",
-				"searchLanguages": "Tafuta kwa jina au msimbo wa lugha",
-				"noLanguageMatches": "Hakuna lugha zinazolingana",
-				"subtitleLanguagesRequired": "Chagua angalau lugha moja.",
-				"subtitleLanguagesRequiredOrOff": "Chagua angalau lugha moja, au zima upakuaji wa manukuu.",
-				"autoCaptionsSrt": "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS.",
-				"skippedForOutputType": "Imerukwa kwa aina hii ya matokeo."
-			},
-			"error": {"save": "Imeshindwa kuhifadhi mipangilio ya wasifu.", "changeGlobalDestination": "Imeshindwa kubadilisha lengo la jumla.", "reset": "Imeshindwa kuweka upya mipangilio ya wasifu.", "folderPicker": "Haikuweza kufungua kichagua folda. Weka njia mwenyewe."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + sauti", "description": "Faili za kawaida za video"},
-				"videoOnly": {"label": "Video, bila sauti", "description": "Video isiyo na sauti pekee"},
-				"audioOnly": {"label": "Sauti pekee", "description": "Muziki au podikasti"},
-				"subtitlesOnly": {"label": "Manukuu peke yake", "description": "Faili za manukuu pekee"}
-			},
-			"icon": {"controls": "Vidhibiti", "download": "Pakua", "video": "Video", "captions": "Manukuu", "audio": "Sauti", "music": "Muziki", "podcast": "Podikasti", "classes": "Masomo", "clip": "Kipande", "archive": "Kumbukumbu"},
-			"audioFormat": {"best": "Bora", "wav": "WAV"},
-			"audioQuality": {"128": "Hadi 128K", "192": "Hadi 192K", "320": "Hadi 320K", "best": "Ubora bora"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki", "manualAndAuto": "Kwa mkono na kiotomatiki", "manualOnly": "Kwa mkono pekee", "autoOnly": "Zilizotengenezwa kiotomatiki pekee"},
-			"sponsorBlockHint": {"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.", "mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).", "remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."},
-			"advanced": "Hali ya juu",
-			"goal": {
-				"bestPicture": {"name": "Picha bora", "tag": "AV1 · VP9", "description": "Kali zaidi kwa ukubwa uleule. Runinga za zamani, QuickTime na baadhi ya vihariri haviwezi kuicheza."},
-				"smartTv": {"name": "Runinga janja", "tag": "MP4 · H.264", "description": "Hucheza kwenye runinga, simu, WhatsApp, QuickTime na vihariri vya video. YouTube hutoa H.264 hadi 1080p tu."}
-			},
-			"appSetting": "Tumia mpangilio wa programu ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Kiasi cha video",
-			"whole": "Video nzima",
-			"wholeTrack": "Wimbo mzima",
-			"part": "Sehemu",
-			"unavailableSubtitles": "Manukuu daima hujumuisha video nzima.",
-			"unavailableDuration": "Video hii haitoi urefu wake, kwa hiyo inaweza kupakuliwa nzima tu.",
-			"rangeLabel": "Sehemu ya video",
-			"start": "Mwanzo",
-			"end": "Mwisho",
-			"timeHint": "h:mm:ss, m:ss au sekunde",
-			"length": "{{length}} kati ya {{duration}}",
-			"chapters": "Sura",
-			"chapterUntitled": "Sura ya {{number}}",
-			"exactCut": {"label": "Ukataji kamili (husimba upya, polepole zaidi)", "hint": "Imezimwa: kila ukataji hutua kwenye fremu kuu iliyo karibu zaidi, ambayo inaweza kuwa sekunde chache kutoka muda uliouandika."},
-			"calloutTitle": "Pakua sehemu tu ya video",
-			"calloutBody": "Badilisha hadi «Sehemu» kwenye kadi ya video ili kuchagua mwanzo na mwisho, au sura, kisha upakue kipande hicho tu.",
-			"connectionsNote": "Sehemu hupakuliwa kupitia ffmpeg, kwa hiyo miunganisho yako ya upakuaji na mipangilio ya kasi haitumiki kwake.",
-			"urlStart": "Kiungo chako kinaanzia {{time}}",
-			"useUrlStart": "Tumia kama mwanzo",
-			"error": {"startInvalid": "Weka mwanzo kama h:mm:ss, m:ss au sekunde.", "endInvalid": "Weka mwisho kama h:mm:ss, m:ss au sekunde.", "startNotBeforeEnd": "Mwanzo lazima uwe kabla ya mwisho.", "endBeyondDuration": "Video inaisha kwenye {{duration}}."},
-			"downloadBlocked": "Rekebisha kwanza mwanzo na mwisho wa sehemu.",
-			"totalEstimate": "Sehemu, makadirio",
-			"summary": "Sehemu {{start}}–{{end}}",
-			"subtitlesFullLength": "video nzima"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Inapakia…", "chapters_one": "Sura {{count}}", "chapters_other": "Sura {{count}}"},
-	"queue": {
-		"header": "Vipakuliwa",
-		"tabLabel": "Vipakuliwa",
-		"attentionBadge_one": "Upakuaji {{count}} unahitaji umakini wako",
-		"attentionBadge_other": "Upakuaji {{count}} unahitaji umakini wako",
-		"choice": {
-			"cappedBody_one": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
-			"cappedBody_other": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
-			"reviewBody_one": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua.",
-			"reviewBody_other": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua.",
-			"all": "Video zote",
-			"first": "{{count}} za kwanza",
-			"review": "Kagua"
-		},
-		"tabTip": "Vipakuliwa sasa viko kwenye kichupo cha Vipakuliwa — kifungue wakati wowote kufuatilia maendeleo.",
-		"empty": "Vipakuliwa vilivyowekwa kwenye foleni vitaonekana hapa",
-		"filtersLabel": "Vichujio vya hali ya foleni",
-		"filterAll": "Zote",
-		"selectedActionsLabel": "Vipengee vilivyochaguliwa",
-		"globalActionsLabel": "Vipengee vyote",
-		"selectionSummary": "{{selected}} zimechaguliwa · jumla {{total}}",
-		"clearTitle": "Futa vipakuzi vilivyokamilika",
-		"autoRemoveCompleted": {"label": "Futa kiotomatiki ikikamilika", "hint": "Huondoa kila kipakuzi kwenye orodha sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako."},
-		"pauseAllTitle": "Simamisha vipakuzi vyote vinavyoendelea",
-		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
-		"pausedBanner": "Foleni imesimamishwa — vipakuzi vinavyosubiri havitaanza hadi ukiendeleza",
-		"resumeQueueAction": "Endeleza foleni",
-		"cancelAllTitle": "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri",
-		"table": {
-			"columns": "Safu wima",
-			"title": "Kichwa",
-			"status": "Hali",
-			"progress": "Maendeleo",
-			"format": "Umbizo",
-			"outputTarget": "Lengo la matokeo",
-			"artifacts": "Faili za matokeo",
-			"size": "Ukubwa",
-			"added": "Imeongezwa",
-			"finished": "Imekamilika",
-			"notAvailable": "—",
-			"sortBy": "Panga kwa {{label}}",
-			"showArtifactsFor": "Onyesha faili za {{title}}",
-			"hideArtifactsFor": "Ficha faili za {{title}}",
-			"resetColumns": "Weka upya safu wima",
-			"resizeColumn": "Badilisha ukubwa wa safu wima ya {{column}}",
-			"movableColumn": "safu wima inayoweza kusogezwa",
-			"moveColumnInstructions": "Ili kusogeza safu wima, bonyeza Spacebar au Enter, isogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuiachia. Bonyeza Escape ili kughairi.",
-			"columnPickedUp": "Safu wima ya {{column}} imeshikwa.",
-			"columnMovedOver": "Safu wima ya {{column}} iko juu ya {{target}}.",
-			"columnDropped": "Safu wima ya {{column}} imeachiwa.",
-			"columnMoveCancelled": "Kusogeza safu wima ya {{column}} kumeghairiwa."
-		},
-		"artifact": {"media": "Midia", "subtitle": "Manukuu", "thumbnail": "Kijipicha", "description": "Maelezo", "companion": "Faili saidizi", "unknown": "Faili", "missing": "Haipo"},
-		"item": {
-			"defaultError": "Upakuaji umeshindwa",
-			"retryingSoon": "inajaribu tena kiotomatiki (jaribio {{attempt}})",
-			"qualityLimited": "Imedhibitiwa kwa {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Imedhibitiwa kwa {{height}}p · baadhi ya manukuu yameshindwa",
-			"audioKept": "Sauti haijaondolewa",
-			"audioKeptSubtitlesFailed": "Sauti haijaondolewa · baadhi ya manukuu yameshindwa",
-			"subtitleLanguagesMissing": "Hakuna manukuu katika lugha: {{languages}}",
-			"pause": "Simamisha",
-			"resume": "Endelea",
-			"cancel": "Ghairi",
-			"retry": "Jaribu tena",
-			"setLocation": "Weka mahali",
-			"setLocationHint": "Chagua vipengee vinavyosubiri ili kuweka mahali.",
-			"pendingOnly": "Vinavyosubiri pekee",
-			"openDestinationFolder": "Fungua folda lengwa",
-			"remove": "Ondoa",
-			"pullNow": "Pakua sasa — ruka foleni",
-			"statusProbing": "Inaleta maelezo",
-			"statusNeedsChoice": "Inahitaji chaguo lako",
-			"statusPending": "Inasubiri",
-			"statusRunning": "Inapakua",
-			"statusHeld": "Imeshikiliwa",
-			"statusPaused": "Imesitishwa",
-			"statusDone": "Imekamilika",
-			"statusError": "Hitilafu",
-			"statusCancelled": "Imeghairiwa"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} inapatikana — una {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} inapatikana — sasisha kwa Homebrew.",
-			"macosDirect": "Arroxy {{version}} inapatikana — pakua DMG mpya.",
-			"macosDirectHomebrew": "Arroxy {{version}} inapatikana — pakua DMG au hamia Homebrew.",
-			"portable": "Arroxy {{version}} inapatikana — pakua build mpya."
-		},
-		"install": "Sakinisha na Uanzishe Upya",
-		"downloading": "Inapakua…",
-		"runAndRestart": "Endesha na Uanzishe Upya",
-		"upgrading": "Inasasisha…",
-		"download": "Download ↗",
-		"downloadDmg": "Pakua DMG ↗",
-		"dismiss": "Funga bango la sasisho",
-		"copy": "Nakili amri kwenye ubao wa kunakili",
-		"copied": "Amri imenakiliwa kwenye ubao wa kunakili",
-		"installFailed": "Sasisho limeshindwa",
-		"retry": "Jaribu tena"
-	},
-	"releaseNotes": {"title": "Nini kipya katika Arroxy {{version}}", "description": "Unatumia sasisho jipya. Haya ndiyo mambo muhimu.", "fullNotes": "Maelezo kamili ya toleo ↗", "continue": "Endelea"},
-	"status": {
-		"preparingBinaries": "Inaandaa faili za binary…",
-		"mintingToken": "Inatengeneza tokeni ya YouTube…",
-		"remintingToken": "Inatengeneza upya tokeni…",
-		"startingYtdlp": "Inaanzisha injini ya upakuaji…",
-		"downloadingMedia": "Inapakua video na sauti…",
-		"mergingFormats": "Inachanganya sauti na video…",
-		"extractingAudio": "Inabadilisha sauti…",
-		"convertingVideo": "Inabadilisha video…",
-		"embeddingMetadata": "Inaingiza metadata…",
-		"movingFiles": "Inahamisha faili…",
-		"fetchingSubtitles": "Inapata manukuu…",
-		"sleepingBetweenRequests": "Inasubiri sekunde {{seconds}} kuepuka vikwazo vya kiwango…",
-		"subtitlesFailed": "Video imehifadhiwa — baadhi ya manukuu hayakuweza kupakuliwa",
-		"qualityLimited": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
-		"qualityLimitedSubtitlesFailed": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
-		"audioKept": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa",
-		"audioKeptSubtitlesFailed": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa, na baadhi ya manukuu hayakuweza kupakuliwa",
-		"subtitleLanguagesMissing": "Video hii haina manukuu katika lugha: {{languages}}. Video ilihifadhiwa bila hayo.",
-		"subtitleLanguagesMissingOthersSaved": "Video hii haina manukuu katika lugha: {{languages}}. Lugha nyingine zilihifadhiwa.",
-		"noSubtitles": "Hakuna manukuu katika lugha: {{languages}}",
-		"cancelled": "Upakuaji umeghairiwa",
-		"complete": "Upakuaji umekamilika",
-		"usedExtractorFallback": "Imepakiwa kwa kiboreshaji laini — weka cookies.txt kwa upakuaji wa kuaminika zaidi",
-		"ytdlpProcessError": "Hitilafu ya injini ya upakuaji: {{error}}",
-		"ytdlpExitCode": "Injini ya upakuaji ilitoka na msimbo {{code}}",
-		"downloadingBinary": "Inapakua binary ya {{name}}…",
-		"unknownStartupFailure": "Kushindwa kwa kuanzisha pasijulikane",
-		"diskSpaceInsufficient": "Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana",
-		"outputNotWritable": "Haiwezekani kuhifadhi kwenye {{dir}} — Arroxy hairuhusiwi kuandika hapo",
-		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Inaingia kwa akaunti yako ya Gundua…",
-		"exploreSignedOut": "Umetoka kwenye Gundua — ingia tena"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Haikuweza kuhifadhi mipangilio yako.",
-		"warmupFailed": "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamilike.",
-		"shellActionFailed": "Haikuweza kufungua hiyo.",
-		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
-		"exploreSignInRetrying_one": "Umeingia kwenye Gundua — inajaribu tena kiungo 1",
-		"exploreSignInRetrying_other": "Umeingia kwenye Gundua — inajaribu tena viungo {{count}}",
-		"exploreSignOutFailed": "Imeshindwa kutoka kwenye Gundua. Jaribu tena.",
-		"playlistFolderRejected": "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza.",
-		"filenameFolderTooDeep": "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi.",
-		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika.",
-		"hotkey": {
-			"queued": "Pakio limeongezwa kutoka kwenye ubao wa kunakili",
-			"alreadyQueued": "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa",
-			"invalidClipboard": "Hakuna kiungo kwenye ubao wa kunakili — nakili moja kwanza",
-			"multipleUrls": "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy",
-			"needsReview": "Kiungo hicho kinahitaji chaguo lako — tazama Vipakuliwa katika Arroxy",
-			"cookiesSetup": "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena",
-			"busy": "Arroxy bado inaanza — jaribu tena baada ya muda mfupi",
-			"submissionFailed": "Kiungo hicho hakiweza kuongezwa — jaribu tena katika Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "Video {{count}} tayari iko kwenye foleni — imerukwa", "skippedAlreadyQueued_other": "Video {{count}} tayari ziko kwenye foleni — zimerukwa"},
-		"quickDownload": {
-			"added": "Imeongezwa: {{title}}",
-			"alreadyQueued": "Tayari kwenye foleni",
-			"failed": "Imeshindwa kuandaa {{title}}",
-			"notAdded": "Kiungo hicho hakikuweza kuongezwa — jaribu tena",
-			"chooseHowMany_one": "Video {{count}}+ — chagua ngapi",
-			"chooseHowMany_other": "Video {{count}}+ — chagua ngapi",
-			"review_one": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
-			"review_other": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
-			"reviewCapped_one": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
-			"reviewCapped_other": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
-			"view": "Tazama"
-		}
+	"donate": {
+		"copied": "Imenakiliwa!",
+		"copyAddress": "Nakili anwani",
+		"description": "Arroxy ni bure na chanzo huria, bila matangazo wala mpango wa kulipia. Michango ni ya hiari na haitoi ushawishi wowote kwenye ramani ya maendeleo.",
+		"footerLabel": "Changia",
+		"footerTooltip": "Saidia Arroxy",
+		"qrAlt": "Msimbo wa QR wa anwani ya mchango ya {{coin}}",
+		"title": "Saidia Arroxy",
+		"warning": "Malipo ya kripto hayawezi kurudishwa. Tuma kwa mtandao ulioonyeshwa pekee na linganisha anwani nzima."
 	},
 	"errors": {
 		"noSubtitlesIn": "Video hii haina manukuu katika lugha: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa tovuti — Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara yakitolewa.",
-			"ipBlock": "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.",
-			"rateLimit": "Tovuti inazuia maombi kutoka kwa muunganisho huu.",
 			"ageRestricted": "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia.",
-			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
+			"botBlock": "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa tovuti — Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara yakitolewa.",
+			"chunkTransferFailure": "Seva iliendelea kukatiza upakuaji katikati, na Arroxy ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini.",
+			"drmProtected": "Video hii inalindwa na DRM. Arroxy haiwezi kuondoa DRM, kwa hivyo faili haiwezi kupakuliwa.",
 			"formatUnavailable": "Video hii haitoi tena umbizo ulilochagua. Bandika kiungo tena na uchague kutoka kwenye miundo inayotolewa sasa.",
 			"geoBlocked": "Video hii haipatikani katika eneo lako.",
+			"ipBlock": "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN.",
+			"loginRequired": "Video hii inahitaji akaunti iliyoingia.",
+			"missingDependency": "Arroxy haikuweza kupata FFmpeg wala FFprobe. Endesha usanidi tena au weka eneo la FFmpeg, kisha jaribu kupakua tena.",
+			"network": "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena.",
+			"noSubtitles": "Video hii haina manukuu katika lugha zilizoombwa.",
 			"outOfDiskSpace": "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena.",
 			"outputNotWritable": "Arroxy haiwezi kuandika kwenye folda ya vipakuliwa. Huenda ni ya kusoma tu, iko kwenye diski iliyofungwa, au imezuiwa na mipangilio ya faragha ya mfumo wako. Chagua folda nyingine au ruhusu ufikiaji, kisha ujaribu tena.",
-			"unsupportedUrl": "Arroxy haitumii URL hii. Jaribu kiungo kutoka tovuti nyingine.",
-			"noSubtitles": "Video hii haina manukuu katika lugha zilizoombwa.",
-			"chunkTransferFailure": "Seva iliendelea kukatiza upakuaji katikati, na Arroxy ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini.",
-			"missingDependency": "Arroxy haikuweza kupata FFmpeg wala FFprobe. Endesha usanidi tena au weka eneo la FFmpeg, kisha jaribu kupakua tena.",
-			"postprocessFailure": "Upakuaji ulimalizika, lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo.",
 			"parse": "Haikuwezekana kuchanganua jibu kutoka tovuti. Tovuti inaweza kuwa imebadilisha jinsi inavyotoa video. Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi — jaribu tena baada ya dakika chache marekebisho yatakapotolewa.",
-			"network": "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena.",
-			"drmProtected": "Video hii inalindwa na DRM. Arroxy haiwezi kuondoa DRM, kwa hivyo faili haiwezi kupakuliwa.",
-			"loginRequired": "Video hii inahitaji akaunti iliyoingia.",
-			"unknown": "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini."
+			"postprocessFailure": "Upakuaji ulimalizika, lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo.",
+			"rateLimit": "Tovuti inazuia maombi kutoka kwa muunganisho huu.",
+			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
+			"unknown": "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini.",
+			"unsupportedUrl": "Arroxy haitumii URL hii. Jaribu kiungo kutoka tovuti nyingine."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Angalia muunganisho wako, kisha jaribu tena.",
+			"loadTitle": "Ukurasa huu haukupakia",
+			"openSettings": "Fungua Mipangilio",
+			"proxyBody": "Angalia proksi katika Mipangilio, kisha jaribu tena.",
+			"proxyTitle": "Gundua haiwezi kuunganisha kupitia proksi yako",
+			"retry": "Jaribu tena"
+		},
+		"linkCallout": {
+			"body": "Bofya kulia kiungo chochote cha video, orodha ya kucheza au kituo kwenye ukurasa ili kukipakua kwa wasifu unaotumika, kuchagua wasifu mwingine, au kufungua upakuaji shirikishi.",
+			"title": "Bofya kulia kiungo ili kukipakua"
+		},
+		"linkMenu": {
+			"copyLink": "Nakili kiungo",
+			"downloadWith": "Pakua kwa"
+		},
+		"newBadge": "Mpya",
+		"notice": {
+			"body": "Tafuta video kwenye YouTube au tovuti nyingine yoyote na uipakue kutoka hapa — bila kunakili viungo. Ingia kwenye tovuti hapa ili kupakua video zinazohitaji akaunti.",
+			"continue": "Endelea",
+			"riskBody": "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu.",
+			"riskTitle": "Ingia kwa akaunti ya pili",
+			"title": "Vinjari wavuti ndani ya Arroxy"
+		},
+		"nudge": {
+			"browser": "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Gundua.",
+			"file": "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Gundua.",
+			"notNow": "Si sasa",
+			"off": "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua.",
+			"useExplore": "Tumia kuingia kwenye Gundua"
+		},
+		"settings": {
+			"description": "Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy, na uingie kwa video zinazohitaji akaunti.",
+			"idleUnload": "Achilia kumbukumbu ukiwa mbali",
+			"idleUnloadDescription": "Baada ya dakika 5 kwenye kichupo kingine, hufunga ukurasa wa mwanzo au wa utafutaji wa YouTube. Ukirudi, hupakiwa upya, jambo linalochukua sekunde chache.",
+			"searchEngine": "Injini ya utafutaji",
+			"searchEngineDescription": "Maandishi yanayoandikwa kwenye upau wa anwani hutafutwa kwa injini hii. Viungo hufunguka kama vilivyoandikwa.",
+			"showTab": "Onyesha kichupo cha Gundua",
+			"showTabDescription": "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Gundua.",
+			"signOut": "Toka kwenye Gundua",
+			"signOutConfirm": "Toka",
+			"signOutConfirmBody": "Hii inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena.",
+			"signOutConfirmTitle": "Utoke kwenye Gundua?",
+			"signOutDescription": "Inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti.",
+			"title": "Gundua"
+		},
+		"tabLabel": "Gundua",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia.",
+				"aria": "Kizuia matangazo",
+				"off": "Kizuia matangazo: kimezimwa — bofya ili kukiwasha",
+				"on": "Kizuia matangazo: kimewashwa — bofya ili kukizima",
+				"starting": "Kizuia matangazo: kinaanza — bofya ili kukizima",
+				"unavailable": "Kizuia matangazo: hakipatikani, orodha zake za vichujio hazikuweza kupakuliwa — bofya ili kukizima"
+			},
+			"addressAria": "Anwani",
+			"addressPlaceholder": "Tafuta kwenye {{engine}} au fungua tovuti yoyote (Vimeo, Instagram…)",
+			"aria": "Vidhibiti vya kivinjari cha Gundua",
+			"back": "Rudi",
+			"compactLayout": "Mpangilio mshikamano",
+			"downloadWithProfile": "Pakua · {{profileName}}",
+			"forward": "Mbele",
+			"fullLayout": "Onyesha mpangilio kamili",
+			"grabUnavailable": "Fungua video, orodha ya kucheza au kituo ili kupakua",
+			"home": "Mwanzo wa YouTube",
+			"interactiveHint": "Upakuaji shirikishi: chagua fomati, manukuu na zaidi…",
+			"refusedHint": "Gundua haiwezi kufungua anwani hiyo.",
+			"reload": "Pakia upya",
+			"searchTooLong": "Utafutaji huo ni mrefu mno.",
+			"zoom": {
+				"hint": "Ukuzaji wa ukurasa: {{percent}}%",
+				"in": "Kuza",
+				"label": "Ukuzaji wa ukurasa",
+				"out": "Punguza",
+				"percent": "Asilimia ya ukuzaji",
+				"reset": "Rejesha ukuzaji kuwa 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Otomatiki",
+		"autoValue": "Otomatiki (.{{ext}})",
+		"description": {
+			"auto": "Mikondo iliyochaguliwa huamua aina ya faili.",
+			"mkv": "Hubeba kodeki yoyote. Baadhi ya runinga na simu haziwezi kuifungua.",
+			"mp4": "Hucheza karibu kila mahali. VP9 ndani ya MP4 haichezi video katika QuickTime.",
+			"webm": "Umbizo huria kwa vivinjari. Hubeba VP9 au AV1 pamoja na Opus tu."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 ndani ya MP4 inahitaji Mac mpya ili icheze katika QuickTime. H.264 hucheza kila mahali.",
+		"mp4CaveatVp9": "VP9 ndani ya MP4 haichezi video katika QuickTime. H.264 hucheza kila mahali.",
+		"profileMark": "Wasifu",
+		"smartTvNoWebm": "WebM haitolewi kwa Runinga janja: haiwezi kubeba H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM haiwezi kubeba {{codec}}. Chagua MKV au MP4."
+	},
+	"filenameTemplate": {
+		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza. Tumia / kupanga vipakuliwa katika folda.",
+		"error": {
+			"empty": "Weka kiolezo cha jina la faili.",
+			"empty-segment": "Ondoa / ya ziada — kila folda inahitaji jina.",
+			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: \\ : * ? \" < > |",
+			"invalid-segment": "Jina hilo la folda haliruhusiwi. Epuka . na .. na majina yaliyohifadhiwa kama CON.",
+			"no-unique-token": "Ongeza {title} au {id} kwenye jina la faili ili kila upakuaji upate jina lake.",
+			"resolution-in-dir": "{resolution} haiwezi kutaja folda — ubora haujulikani hadi upakuaji uanze.",
+			"stray-brace": "{ au } isiyofungwa — andika tokeni kama {title}.",
+			"too-long": "Kiolezo ni kirefu mno.",
+			"unknown-token": "Tokeni isiyojulikana {{token}}."
+		},
+		"idWarning": "Bila {id}, Arroxy haiwezi kutambua vipengee vya orodha vilivyopakuliwa tayari wala kutengeneza orodha za .m3u.",
+		"label": "Kiolezo cha jina la faili",
+		"m3uDisabled": "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id} au kinapanga vipakuliwa katika folda.",
+		"previewPlaylist": "Katika orodha ya kucheza",
+		"previewSingle": "Video moja",
+		"profileOverrideDescription": "Acha wazi ili kutumia kiolezo cha jumla.",
+		"profileOverrideLabel": "Kiolezo cha jina la faili"
+	},
+	"formatLabel": {
+		"audioFallback": "Sauti",
+		"audioOnlyDot": "Sauti peke yake · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Otomatiki",
+		"description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.",
+		"hdr": "HDR",
+		"label": "Video ya HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Lugha"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Umeingia kwenye Gundua — inajaribu tena kiungo 1",
+		"exploreSignInRetrying_other": "Umeingia kwenye Gundua — inajaribu tena viungo {{count}}",
+		"exploreSignOutFailed": "Imeshindwa kutoka kwenye Gundua. Jaribu tena.",
+		"filenameFolderTooDeep": "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi.",
+		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika.",
+		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
+		"hotkey": {
+			"alreadyQueued": "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa",
+			"busy": "Arroxy bado inaanza — jaribu tena baada ya muda mfupi",
+			"cookiesSetup": "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena",
+			"invalidClipboard": "Hakuna kiungo kwenye ubao wa kunakili — nakili moja kwanza",
+			"multipleUrls": "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy",
+			"needsReview": "Kiungo hicho kinahitaji chaguo lako — tazama Vipakuliwa katika Arroxy",
+			"queued": "Pakio limeongezwa kutoka kwenye ubao wa kunakili",
+			"submissionFailed": "Kiungo hicho hakiweza kuongezwa — jaribu tena katika Arroxy"
+		},
+		"playlistFolderRejected": "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza.",
+		"queue": {
+			"skippedAlreadyQueued_one": "Video {{count}} tayari iko kwenye foleni — imerukwa",
+			"skippedAlreadyQueued_other": "Video {{count}} tayari ziko kwenye foleni — zimerukwa"
+		},
+		"quickDownload": {
+			"added": "Imeongezwa: {{title}}",
+			"alreadyQueued": "Tayari kwenye foleni",
+			"chooseHowMany_one": "Video {{count}}+ — chagua ngapi",
+			"chooseHowMany_other": "Video {{count}}+ — chagua ngapi",
+			"failed": "Imeshindwa kuandaa {{title}}",
+			"notAdded": "Kiungo hicho hakikuweza kuongezwa — jaribu tena",
+			"reviewCapped_one": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
+			"reviewCapped_other": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
+			"review_one": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
+			"review_other": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
+			"view": "Tazama"
+		},
+		"settingsSaveFailed": "Haikuweza kuhifadhi mipangilio yako.",
+		"shellActionFailed": "Haikuweza kufungua hiyo.",
+		"warmupFailed": "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamilike."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Sauti", "subtitles": "Manukuu"},
+		"audioFormat": {
+			"best": "Sauti (bora)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Sauti ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Sauti bora asilia, bila kusimba upya",
+			"m4a": "Geuza kuwa M4A (AAC)",
+			"mp3": "Geuza kuwa MP3",
+			"opus": "Geuza kuwa Opus"
+		},
+		"mp4Cap": "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p",
 		"subtitles": {
-			"note": "Ni faili za manukuu pekee zinazohifadhiwa kwa kila video — hakuna video wala sauti inayopakuliwa.",
+			"deliveryHeading": "Hifadhi kama",
+			"deliveryLoose": "Moja kwa moja kwenye folda ya kuhifadhi",
 			"languages": "Lugha",
 			"languagesRequired": "Chagua angalau lugha moja ili kuendelea.",
-			"source": "Chanzo",
-			"deliveryHeading": "Hifadhi kama",
-			"deliveryLoose": "Moja kwa moja kwenye folda ya kuhifadhi"
+			"note": "Ni faili za manukuu pekee zinazohifadhiwa kwa kila video — hakuna video wala sauti inayopakuliwa.",
+			"source": "Chanzo"
 		},
-		"videoFormat": {"best": "Umbizo asilia bora", "mp4": "Runinga janja H.264 MP4"},
-		"videoFormatDesc": {"best": "Kodeki bora inayopatikana kwa kila kipengee", "mp4": "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"},
-		"tier": {"144": "Hadi 144p", "240": "Hadi 240p", "360": "Hadi 360p", "480": "Hadi 480p", "720": "Hadi 720p", "1080": "Hadi 1080p", "1440": "Hadi 1440p", "2160": "Hadi 4K", "best": "Ubora wa juu zaidi"},
+		"tier": {
+			"144": "Hadi 144p",
+			"240": "Hadi 240p",
+			"360": "Hadi 360p",
+			"480": "Hadi 480p",
+			"720": "Hadi 720p",
+			"1080": "Hadi 1080p",
+			"1440": "Hadi 1440p",
+			"2160": "Hadi 4K",
+			"best": "Ubora wa juu zaidi"
+		},
 		"tierDesc": {
 			"144": "Faili ndogo kabisa zinazowezekana",
 			"240": "Faili ndogo sana, ubora wa chini",
@@ -933,170 +311,1396 @@
 			"2160": "Imepunguzwa hadi 2160p, hushuka kwa kila kipengee ikihitajika",
 			"best": "Video + sauti bora inayopatikana kwa kila kipengee"
 		},
-		"audioFormat": {"best": "Sauti (bora)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Sauti bora asilia, bila kusimba upya", "mp3": "Geuza kuwa MP3", "m4a": "Geuza kuwa M4A (AAC)", "opus": "Geuza kuwa Opus"},
-		"audioFormatBitrate": "Sauti ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p"
-	},
-	"formatLabel": {"audioFallback": "Sauti", "audioOnlyDot": "Sauti peke yake · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Tulivu", "statusActive_one": "1 inapakua · {{percent}}%", "statusActive_other": "{{count}} zinapakua · {{percent}}%", "downloadFromClipboard": "Pakia kutoka kwenye ubao wa kunakili", "open": "Fungua Arroxy", "quit": "Funga Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "Upakuaji {{count}} unaendelea", "message_other": "Vipakuzi {{count}} vinavyoendelea", "detail": "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo.", "confirm": "Ghairi Vipakuzi na Toka", "pause": "Sitisha vipakuliwa na uondoke", "keep": "Endelea Kupakua"},
-		"closeToTray": {"message": "Ficha Arroxy kwenye tray ya mfumo ukifunga?", "detail": "Arroxy inaendelea kufanya kazi na kukamilisha vipakuzi vinavyofanya kazi. Badilisha hii baadaye katika mipangilio ya Hali ya juu.", "hide": "Ficha kwenye tray", "quit": "Toka", "remember": "Usiulize tena"},
-		"rendererCrashed": {"message": "Arroxy imekutana na tatizo", "detail": "Mchakato wa uonyeshaji umeanguka ({{reason}}). Pakia upya ujaribu tena.", "reload": "Pakia upya", "quit": "Toka"}
-	},
-	"share": {
-		"title": "Shiriki Arroxy",
-		"description": "Arroxy ni ya bure na chanzo wazi. Kushiriki husaidia watu wengi zaidi kuigundua.",
-		"copyLink": "Nakili kiungo",
-		"copied": "Imenakiliwa!",
-		"defaultMessage": "Arroxy — Kipakuzi cha video cha chanzo wazi cha bure kwa Windows, macOS na Linux. Hufanya kazi na YouTube, Vimeo, Twitch na tovuti 2000+.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "Shiriki Arroxy",
-		"footerLabel": "Shiriki",
-		"shareAction": "Shiriki Arroxy"
-	},
-	"donate": {
-		"title": "Saidia Arroxy",
-		"description": "Arroxy ni bure na chanzo huria, bila matangazo wala mpango wa kulipia. Michango ni ya hiari na haitoi ushawishi wowote kwenye ramani ya maendeleo.",
-		"footerTooltip": "Saidia Arroxy",
-		"footerLabel": "Changia",
-		"copyAddress": "Nakili anwani",
-		"copied": "Imenakiliwa!",
-		"qrAlt": "Msimbo wa QR wa anwani ya mchango ya {{coin}}",
-		"warning": "Malipo ya kripto hayawezi kurudishwa. Tuma kwa mtandao ulioonyeshwa pekee na linganisha anwani nzima."
-	},
-	"filenameTemplate": {
-		"label": "Kiolezo cha jina la faili",
-		"description": "Chagua jinsi faili zilizopakuliwa zinavyopewa majina. Bofya tokeni ili kuiingiza. Tumia / kupanga vipakuliwa katika folda.",
-		"profileOverrideLabel": "Kiolezo cha jina la faili",
-		"profileOverrideDescription": "Acha wazi ili kutumia kiolezo cha jumla.",
-		"idWarning": "Bila {id}, Arroxy haiwezi kutambua vipengee vya orodha vilivyopakuliwa tayari wala kutengeneza orodha za .m3u.",
-		"m3uDisabled": "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id} au kinapanga vipakuliwa katika folda.",
-		"previewSingle": "Video moja",
-		"previewPlaylist": "Katika orodha ya kucheza",
-		"error": {
-			"empty": "Weka kiolezo cha jina la faili.",
-			"too-long": "Kiolezo ni kirefu mno.",
-			"forbidden-char": "Ondoa herufi zisizoruhusiwa katika majina ya faili: \\ : * ? \" < > |",
-			"stray-brace": "{ au } isiyofungwa — andika tokeni kama {title}.",
-			"no-unique-token": "Ongeza {title} au {id} kwenye jina la faili ili kila upakuaji upate jina lake.",
-			"unknown-token": "Tokeni isiyojulikana {{token}}.",
-			"empty-segment": "Ondoa / ya ziada — kila folda inahitaji jina.",
-			"invalid-segment": "Jina hilo la folda haliruhusiwi. Epuka . na .. na majina yaliyohifadhiwa kama CON.",
-			"resolution-in-dir": "{resolution} haiwezi kutaja folda — ubora haujulikani hadi upakuaji uanze."
+		"type": {
+			"audio": "Sauti",
+			"subtitles": "Manukuu",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Umbizo asilia bora",
+			"mp4": "Runinga janja H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Kodeki bora inayopatikana kwa kila kipengee",
+			"mp4": "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"
 		}
 	},
-	"explore": {
-		"tabLabel": "Gundua",
-		"newBadge": "Mpya",
-		"notice": {
-			"title": "Vinjari wavuti ndani ya Arroxy",
-			"body": "Tafuta video kwenye YouTube au tovuti nyingine yoyote na uipakue kutoka hapa — bila kunakili viungo. Ingia kwenye tovuti hapa ili kupakua video zinazohitaji akaunti.",
-			"riskTitle": "Ingia kwa akaunti ya pili",
-			"riskBody": "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama Arroxy. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu.",
-			"continue": "Endelea"
+	"queue": {
+		"artifact": {
+			"companion": "Faili saidizi",
+			"description": "Maelezo",
+			"media": "Midia",
+			"missing": "Haipo",
+			"subtitle": "Manukuu",
+			"thumbnail": "Kijipicha",
+			"unknown": "Faili"
 		},
-		"nudge": {
-			"off": "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua.",
-			"file": "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Gundua.",
-			"browser": "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Gundua.",
-			"useExplore": "Tumia kuingia kwenye Gundua",
-			"notNow": "Si sasa"
+		"attentionBadge_one": "Upakuaji {{count}} unahitaji umakini wako",
+		"attentionBadge_other": "Upakuaji {{count}} unahitaji umakini wako",
+		"autoRemoveCompleted": {
+			"hint": "Huondoa kila kipakuzi kwenye orodha sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako.",
+			"label": "Futa kiotomatiki ikikamilika"
 		},
-		"linkCallout": {"title": "Bofya kulia kiungo ili kukipakua", "body": "Bofya kulia kiungo chochote cha video, orodha ya kucheza au kituo kwenye ukurasa ili kukipakua kwa wasifu unaotumika, kuchagua wasifu mwingine, au kufungua upakuaji shirikishi."},
-		"linkMenu": {"downloadWith": "Pakua kwa", "copyLink": "Nakili kiungo"},
-		"toolbar": {
-			"aria": "Vidhibiti vya kivinjari cha Gundua",
-			"back": "Rudi",
-			"forward": "Mbele",
-			"reload": "Pakia upya",
-			"home": "Mwanzo wa YouTube",
-			"addressAria": "Anwani",
-			"addressPlaceholder": "Tafuta kwenye {{engine}} au fungua tovuti yoyote (Vimeo, Instagram…)",
-			"refusedHint": "Gundua haiwezi kufungua anwani hiyo.",
-			"searchTooLong": "Utafutaji huo ni mrefu mno.",
-			"downloadWithProfile": "Pakua · {{profileName}}",
-			"interactiveHint": "Upakuaji shirikishi: chagua fomati, manukuu na zaidi…",
-			"grabUnavailable": "Fungua video, orodha ya kucheza au kituo ili kupakua",
-			"compactLayout": "Mpangilio mshikamano",
-			"fullLayout": "Onyesha mpangilio kamili",
-			"zoom": {"label": "Ukuzaji wa ukurasa", "hint": "Ukuzaji wa ukurasa: {{percent}}%", "in": "Kuza", "out": "Punguza", "percent": "Asilimia ya ukuzaji", "reset": "Rejesha ukuzaji kuwa 100%"},
-			"adBlock": {
-				"aria": "Kizuia matangazo",
-				"off": "Kizuia matangazo: kimezimwa — bofya ili kukiwasha",
-				"starting": "Kizuia matangazo: kinaanza — bofya ili kukizima",
-				"on": "Kizuia matangazo: kimewashwa — bofya ili kukizima",
-				"unavailable": "Kizuia matangazo: hakipatikani, orodha zake za vichujio hazikuweza kupakuliwa — bofya ili kukizima",
-				"accountNote": "YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia."
+		"cancelAllTitle": "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri",
+		"choice": {
+			"all": "Video zote",
+			"cappedBody_one": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
+			"cappedBody_other": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
+			"first": "{{count}} za kwanza",
+			"review": "Kagua",
+			"reviewBody_one": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua.",
+			"reviewBody_other": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua."
+		},
+		"clearTitle": "Futa vipakuzi vilivyokamilika",
+		"empty": "Vipakuliwa vilivyowekwa kwenye foleni vitaonekana hapa",
+		"filterAll": "Zote",
+		"filtersLabel": "Vichujio vya hali ya foleni",
+		"globalActionsLabel": "Vipengee vyote",
+		"header": "Vipakuliwa",
+		"item": {
+			"audioKept": "Sauti haijaondolewa",
+			"audioKeptSubtitlesFailed": "Sauti haijaondolewa · baadhi ya manukuu yameshindwa",
+			"cancel": "Ghairi",
+			"defaultError": "Upakuaji umeshindwa",
+			"openDestinationFolder": "Fungua folda lengwa",
+			"pause": "Simamisha",
+			"pendingOnly": "Vinavyosubiri pekee",
+			"pullNow": "Pakua sasa — ruka foleni",
+			"qualityLimited": "Imedhibitiwa kwa {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Imedhibitiwa kwa {{height}}p · baadhi ya manukuu yameshindwa",
+			"remove": "Ondoa",
+			"resume": "Endelea",
+			"retry": "Jaribu tena",
+			"retryingSoon": "inajaribu tena kiotomatiki (jaribio {{attempt}})",
+			"setLocation": "Weka mahali",
+			"setLocationHint": "Chagua vipengee vinavyosubiri ili kuweka mahali.",
+			"statusCancelled": "Imeghairiwa",
+			"statusDone": "Imekamilika",
+			"statusError": "Hitilafu",
+			"statusHeld": "Imeshikiliwa",
+			"statusNeedsChoice": "Inahitaji chaguo lako",
+			"statusPaused": "Imesitishwa",
+			"statusPending": "Inasubiri",
+			"statusProbing": "Inaleta maelezo",
+			"statusRunning": "Inapakua",
+			"subtitleLanguagesMissing": "Hakuna manukuu katika lugha: {{languages}}"
+		},
+		"pauseAllTitle": "Simamisha vipakuzi vyote vinavyoendelea",
+		"pausedBanner": "Foleni imesimamishwa — vipakuzi vinavyosubiri havitaanza hadi ukiendeleza",
+		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
+		"resumeQueueAction": "Endeleza foleni",
+		"selectedActionsLabel": "Vipengee vilivyochaguliwa",
+		"selectionSummary": "{{selected}} zimechaguliwa · jumla {{total}}",
+		"tabLabel": "Vipakuliwa",
+		"tabTip": "Vipakuliwa sasa viko kwenye kichupo cha Vipakuliwa — kifungue wakati wowote kufuatilia maendeleo.",
+		"table": {
+			"added": "Imeongezwa",
+			"artifacts": "Faili za matokeo",
+			"columnDropped": "Safu wima ya {{column}} imeachiwa.",
+			"columnMoveCancelled": "Kusogeza safu wima ya {{column}} kumeghairiwa.",
+			"columnMovedOver": "Safu wima ya {{column}} iko juu ya {{target}}.",
+			"columnPickedUp": "Safu wima ya {{column}} imeshikwa.",
+			"columns": "Safu wima",
+			"finished": "Imekamilika",
+			"format": "Umbizo",
+			"hideArtifactsFor": "Ficha faili za {{title}}",
+			"movableColumn": "safu wima inayoweza kusogezwa",
+			"moveColumnInstructions": "Ili kusogeza safu wima, bonyeza Spacebar au Enter, isogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuiachia. Bonyeza Escape ili kughairi.",
+			"notAvailable": "—",
+			"outputTarget": "Lengo la matokeo",
+			"progress": "Maendeleo",
+			"resetColumns": "Weka upya safu wima",
+			"resizeColumn": "Badilisha ukubwa wa safu wima ya {{column}}",
+			"showArtifactsFor": "Onyesha faili za {{title}}",
+			"size": "Ukubwa",
+			"sortBy": "Panga kwa {{label}}",
+			"status": "Hali",
+			"title": "Kichwa"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Endelea",
+		"description": "Unatumia sasisho jipya. Haya ndiyo mambo muhimu.",
+		"fullNotes": "Maelezo kamili ya toleo ↗",
+		"title": "Nini kipya katika Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Ghairi",
+			"chooseExecutable": "Chagua faili inayotekelezwa",
+			"installWithHomebrew": "Sakinisha kwa Homebrew",
+			"installWithWinget": "Sakinisha kwa WinGet",
+			"openDependencyFolder": "Fungua saraka ya utegemezi",
+			"resetToDefault": "Rejesha chaguo-msingi",
+			"retrySetup": "Jaribu tena",
+			"viewSetupLog": "Angalia kumbukumbu ya usanidi"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini.",
+				"title": "Zana haifanyi kazi vizuri"
+			},
+			"blockedOrQuarantined": {
+				"body": "Ruhusu Arroxy kwenye antivirus au SmartScreen yako, kisha jaribu tena.",
+				"title": "Antivirus yako imezuia zana"
+			},
+			"downloadFailed": {
+				"body": "Angalia muunganisho wako wa intaneti, kisha jaribu tena.",
+				"title": "Imeshindwa kupakua kinachohitajika na Arroxy"
+			},
+			"extractFailed": {
+				"body": "Jaribu tena ili kuipakua upya.",
+				"title": "Faili iliyopakuliwa imefika ikiwa imeharibika"
+			},
+			"hashFailed": {
+				"body": "Jaribu tena ili kuipakua upya.",
+				"title": "Faili iliyopakuliwa haikulingana na checksum yake"
+			},
+			"pairIncomplete": {
+				"body": "Chagua zote mbili hapa chini, au zirejeshe kwenye chaguo-msingi.",
+				"title": "FFmpeg na FFprobe lazima ziwekwe pamoja"
+			},
+			"permissionDenied": {
+				"body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala unayoiamini hapa chini.",
+				"title": "Mfumo wako hauruhusu Arroxy kuendesha zana"
+			},
+			"spawnFailed": {
+				"body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini.",
+				"title": "Zana haipo au haiwezi kuanza"
+			},
+			"timeout": {
+				"body": "Mara nyingi hii ni ukaguzi wa usalama unapoendesha mara ya kwanza. Jaribu tena.",
+				"title": "Zana ilichukua muda mrefu kujibu"
+			},
+			"unknown": {
+				"body": "Jaribu tena, au fungua kumbukumbu ya usanidi kwa maelezo zaidi.",
+				"title": "Hitilafu imetokea wakati wa usanidi"
 			}
 		},
-		"settings": {
-			"title": "Gundua",
-			"description": "Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy, na uingie kwa video zinazohitaji akaunti.",
-			"showTab": "Onyesha kichupo cha Gundua",
-			"showTabDescription": "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Gundua.",
-			"idleUnload": "Achilia kumbukumbu ukiwa mbali",
-			"idleUnloadDescription": "Baada ya dakika 5 kwenye kichupo kingine, hufunga ukurasa wa mwanzo au wa utafutaji wa YouTube. Ukirudi, hupakiwa upya, jambo linalochukua sekunde chache.",
-			"searchEngine": "Injini ya utafutaji",
-			"searchEngineDescription": "Maandishi yanayoandikwa kwenye upau wa anwani hutafutwa kwa injini hii. Viungo hufunguka kama vilivyoandikwa.",
-			"signOut": "Toka kwenye Gundua",
-			"signOutDescription": "Inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti.",
-			"signOutConfirmTitle": "Utoke kwenye Gundua?",
-			"signOutConfirmBody": "Hii inafuta akaunti ulizoingia na data ya kuvinjari ndani ya Gundua, kwenye kila tovuti. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena.",
-			"signOutConfirm": "Toka"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Gundua haiwezi kuunganisha kupitia proksi yako", "proxyBody": "Angalia proksi katika Mipangilio, kisha jaribu tena.", "loadTitle": "Ukurasa huu haukupakia", "loadBody": "Angalia muunganisho wako, kisha jaribu tena.", "retry": "Jaribu tena", "openSettings": "Fungua Mipangilio"}
-	},
-	"fileType": {
-		"auto": "Otomatiki",
-		"autoValue": "Otomatiki (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "Mikondo iliyochaguliwa huamua aina ya faili.", "mp4": "Hucheza karibu kila mahali. VP9 ndani ya MP4 haichezi video katika QuickTime.", "mkv": "Hubeba kodeki yoyote. Baadhi ya runinga na simu haziwezi kuifungua.", "webm": "Umbizo huria kwa vivinjari. Hubeba VP9 au AV1 pamoja na Opus tu."},
-		"webmBlocked": "WebM haiwezi kubeba {{codec}}. Chagua MKV au MP4.",
-		"profileMark": "Wasifu",
-		"smartTvNoWebm": "WebM haitolewi kwa Runinga janja: haiwezi kubeba H.264.",
-		"mp4CaveatVp9": "VP9 ndani ya MP4 haichezi video katika QuickTime. H.264 hucheza kila mahali.",
-		"mp4CaveatAv1": "AV1 ndani ya MP4 inahitaji Mac mpya ili icheze katika QuickTime. H.264 hucheza kila mahali."
+		"groups": {
+			"engine": "Injini ya upakuaji",
+			"media": "Zana za midia"
+		},
+		"installing": {
+			"homebrew": "Inasakinisha kwa Homebrew… Hii inaweza kuchukua dakika chache.",
+			"winget": "Inasakinisha kwa WinGet… Hii inaweza kuchukua dakika chache."
+		},
+		"manual": {
+			"intro": "Elekeza Arroxy kwenye nakala ulizonazo tayari, au zisakinishe kwa njia nyingine.",
+			"linuxHint": "Unaweza pia kusakinisha yt-dlp na ffmpeg kwa kidhibiti cha vifurushi, kisha ubofye Jaribu tena.",
+			"toggle": "Sanidi mwenyewe"
+		},
+		"stopped": {
+			"body": "Jaribu tena, au elekeza Arroxy kwenye zana ulizonazo tayari hapa chini.",
+			"title": "Usanidi umesimamishwa"
+		},
+		"title": "Usanidi unahitaji msaada wako"
 	},
 	"selectionOrder": {
 		"editorTitle": "Jinsi wasifu huu unavyochagua",
-		"whyTitle": "Kwa nini wasifu ulichagua hii",
-		"whyLabel": "Kwa nini hii?",
 		"rank": {
-			"h264": {"label": "Video ya H.264", "reason": "hucheza kwenye kila kifaa"},
-			"mp4Streams": {"label": "Mikondo ya MP4", "reason": "tayari kwa faili ya MP4"},
-			"resolutionBest": {"label": "Azimio la juu zaidi", "reason": "hakuna kikomo kilichowekwa"},
-			"resolution": {"label": "Hadi {{tier}}p", "reason": "kikomo chako"},
-			"fps": {"label": "Kasi ya juu zaidi ya fremu", "reason": "mwendo laini zaidi"},
-			"sitePreference": {"label": "Mikondo isiyoshushwa na tovuti", "reason": "huruka nakala zilizoharibika, zenye alama-maji na za akiba"},
-			"original": {"label": "Mikondo asili, si iliyokuzwa kwa AI", "reason": "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"},
-			"source": {"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza", "reason": "maelezo zaidi kwa azimio lilelile"},
-			"protocol": {"label": "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko", "reason": "picha ileile, inapakuliwa haraka zaidi"},
-			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
-			"codecVp9First": {"label": "VP9, kisha H.264, kisha AV1", "reason": "kodeki ya wasifu huu"},
-			"codecH264First": {"label": "H.264, kisha VP9, kisha AV1", "reason": "kodeki ya wasifu huu"},
-			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
-			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
-			"aacFileType": {"label": "Sauti ya AAC", "reason": "inafaa vichezaji vya MP4"},
-			"opus": {"label": "Sauti ya Opus", "reason": "inafaa WebM"},
-			"nativeCompatible": {"label": "Sauti ya stereo"},
-			"nativeSurround": {"label": "Sauti ya surround inapopatikana"},
-			"nativeSource": {"settings": "kutoka Mipangilio", "profile": "wasifu huu"},
-			"hdrSdrFirst": {"label": "SDR kabla ya HDR", "reason": "huonekana sawa kwenye skrini yoyote", "reasonScreen": "skrini hii haina HDR"},
-			"hdrFirst": {"label": "HDR kabla ya SDR", "reason": "rangi angavu zaidi kwenye skrini za HDR", "reasonScreen": "skrini hii inaonyesha HDR"}
+			"aacFileType": {
+				"label": "Sauti ya AAC",
+				"reason": "inafaa vichezaji vya MP4"
+			},
+			"aacSmartTv": {
+				"label": "Sauti ya AAC",
+				"reason": "hucheza kila mahali"
+			},
+			"codec": {
+				"label": "AV1, kisha VP9, kisha H.264",
+				"reason": "kali zaidi kwa ukubwa uleule"
+			},
+			"codecH264First": {
+				"label": "H.264, kisha VP9, kisha AV1",
+				"reason": "kodeki ya wasifu huu"
+			},
+			"codecVp9First": {
+				"label": "VP9, kisha H.264, kisha AV1",
+				"reason": "kodeki ya wasifu huu"
+			},
+			"fps": {
+				"label": "Kasi ya juu zaidi ya fremu",
+				"reason": "mwendo laini zaidi"
+			},
+			"h264": {
+				"label": "Video ya H.264",
+				"reason": "hucheza kwenye kila kifaa"
+			},
+			"hdrFirst": {
+				"label": "HDR kabla ya SDR",
+				"reason": "rangi angavu zaidi kwenye skrini za HDR",
+				"reasonScreen": "skrini hii inaonyesha HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR kabla ya HDR",
+				"reason": "huonekana sawa kwenye skrini yoyote",
+				"reasonScreen": "skrini hii haina HDR"
+			},
+			"mp4Streams": {
+				"label": "Mikondo ya MP4",
+				"reason": "tayari kwa faili ya MP4"
+			},
+			"nativeCompatible": {
+				"label": "Sauti ya stereo"
+			},
+			"nativeSource": {
+				"profile": "wasifu huu",
+				"settings": "kutoka Mipangilio"
+			},
+			"nativeSurround": {
+				"label": "Sauti ya surround inapopatikana"
+			},
+			"opus": {
+				"label": "Sauti ya Opus",
+				"reason": "inafaa WebM"
+			},
+			"original": {
+				"label": "Mikondo asili, si iliyokuzwa kwa AI",
+				"reason": "nakala iliyokuzwa ni ndefu zaidi lakini haiongezi maelezo halisi"
+			},
+			"protocol": {
+				"label": "Upakuaji wa moja kwa moja kwanza, kisha nakala za mitiririko",
+				"reason": "picha ileile, inapakuliwa haraka zaidi"
+			},
+			"resolution": {
+				"label": "Hadi {{tier}}p",
+				"reason": "kikomo chako"
+			},
+			"resolutionBest": {
+				"label": "Azimio la juu zaidi",
+				"reason": "hakuna kikomo kilichowekwa"
+			},
+			"sitePreference": {
+				"label": "Mikondo isiyoshushwa na tovuti",
+				"reason": "huruka nakala zilizoharibika, zenye alama-maji na za akiba"
+			},
+			"size": {
+				"label": "Faili kubwa zaidi",
+				"reason": "maelezo zaidi kwa mipangilio ileile"
+			},
+			"source": {
+				"label": "Mitiririko yenye bitrate iliyoboreshwa kwanza",
+				"reason": "maelezo zaidi kwa azimio lilelile"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "aina ya faili kutoka kwa mikondo",
+				"explicit": "huhifadhiwa kama .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "picha bora",
+				"smartTv": "hucheza kwenye kifaa chochote"
+			}
+		},
+		"whyLabel": "Kwa nini hii?",
+		"whyTitle": "Kwa nini wasifu ulichagua hii"
 	},
-	"aiUpscaled": {"label": "Mikondo iliyokuzwa kwa AI", "description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.", "skip": "Ruka", "allow": "Ruhusu"},
+	"share": {
+		"copied": "Imenakiliwa!",
+		"copyLink": "Nakili kiungo",
+		"defaultMessage": "Arroxy — Kipakuzi cha video cha chanzo wazi cha bure kwa Windows, macOS na Linux. Hufanya kazi na YouTube, Vimeo, Twitch na tovuti 2000+.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy ni ya bure na chanzo wazi. Kushiriki husaidia watu wengi zaidi kuigundua.",
+		"footerLabel": "Shiriki",
+		"footerTooltip": "Shiriki Arroxy",
+		"shareAction": "Shiriki Arroxy",
+		"title": "Shiriki Arroxy"
+	},
+	"splash": {
+		"cancel": "Una tatizo? Sanidi mwenyewe",
+		"greeting": "Hujambo, karibu tena!",
+		"setup": {
+			"bytes": "{{done}} kati ya {{total}}",
+			"left": {
+				"minutes_one": "takriban dakika {{count}} imesalia",
+				"minutes_other": "takriban dakika {{count}} zimesalia",
+				"underMinute": "imesalia chini ya dakika moja"
+			},
+			"note": {
+				"engine": "Huweka upakuaji ukifanya kazi tovuti zinapobadilika.",
+				"firstRun": "Hii hutokea mara moja tu. Arroxy huhifadhi zana hizi na kuzisasisha yenyewe.",
+				"media": "Hii hutokea mara moja tu. Arroxy huzihifadhi kwa masasisho yajayo."
+			},
+			"stage": {
+				"checking": "Inakagua kama kila kitu kinafanya kazi",
+				"connecting": "Inaunganisha…",
+				"downloadingBoth": "Inapakua injini ya upakuaji na zana za midia",
+				"downloadingEngine": "Inapakua injini ya upakuaji",
+				"downloadingMedia": "Inapakua zana za midia",
+				"unpacking": "Inafungua zana za midia"
+			},
+			"title": {
+				"engine": "Inasasisha injini ya upakuaji",
+				"firstRun": "Usanidi wa mara ya kwanza",
+				"media": "Inasasisha zana za midia"
+			}
+		},
+		"verifyFirstCheck": "Ukaguzi wa kwanza wa toleo hili — huu ni wa polepole. Kwa kawaida huchukua takribani dakika moja.",
+		"verifying": "Inakagua {{binary}}…",
+		"warmup": "Inaandaa vipakuliwa…",
+		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+	},
+	"status": {
+		"audioKept": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa",
+		"audioKeptSubtitlesFailed": "Video imehifadhiwa pamoja na sauti — sauti haikuweza kuondolewa, na baadhi ya manukuu hayakuweza kupakuliwa",
+		"cancelled": "Upakuaji umeghairiwa",
+		"complete": "Upakuaji umekamilika",
+		"convertingVideo": "Inabadilisha video…",
+		"diskSpaceInsufficient": "Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana",
+		"downloadingBinary": "Inapakua binary ya {{name}}…",
+		"downloadingMedia": "Inapakua video na sauti…",
+		"embeddingMetadata": "Inaingiza metadata…",
+		"exploreSignedOut": "Umetoka kwenye Gundua — ingia tena",
+		"extractingAudio": "Inabadilisha sauti…",
+		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
+		"fetchingSubtitles": "Inapata manukuu…",
+		"mergingFormats": "Inachanganya sauti na video…",
+		"mintingToken": "Inatengeneza tokeni ya YouTube…",
+		"movingFiles": "Inahamisha faili…",
+		"noSubtitles": "Hakuna manukuu katika lugha: {{languages}}",
+		"outputNotWritable": "Haiwezekani kuhifadhi kwenye {{dir}} — Arroxy hairuhusiwi kuandika hapo",
+		"preparingBinaries": "Inaandaa faili za binary…",
+		"qualityLimited": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
+		"qualityLimitedSubtitlesFailed": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
+		"remintingToken": "Inatengeneza upya tokeni…",
+		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Inaingia kwa akaunti yako ya Gundua…",
+		"sleepingBetweenRequests": "Inasubiri sekunde {{seconds}} kuepuka vikwazo vya kiwango…",
+		"startingYtdlp": "Inaanzisha injini ya upakuaji…",
+		"subtitleLanguagesMissing": "Video hii haina manukuu katika lugha: {{languages}}. Video ilihifadhiwa bila hayo.",
+		"subtitleLanguagesMissingOthersSaved": "Video hii haina manukuu katika lugha: {{languages}}. Lugha nyingine zilihifadhiwa.",
+		"subtitlesFailed": "Video imehifadhiwa — baadhi ya manukuu hayakuweza kupakuliwa",
+		"unknownStartupFailure": "Kushindwa kwa kuanzisha pasijulikane",
+		"usedExtractorFallback": "Imepakiwa kwa kiboreshaji laini — weka cookies.txt kwa upakuaji wa kuaminika zaidi",
+		"ytdlpExitCode": "Injini ya upakuaji ilitoka na msimbo {{code}}",
+		"ytdlpProcessError": "Hitilafu ya injini ya upakuaji: {{error}}"
+	},
+	"theme": {
+		"dark": "Hali ya giza",
+		"light": "Hali ya mwanga",
+		"system": "Chaguo-msingi la mfumo"
+	},
+	"titleBar": {
+		"close": "Funga",
+		"maximize": "Panua",
+		"minimize": "Punguza",
+		"restore": "Rejesha"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Pakia kutoka kwenye ubao wa kunakili",
+			"open": "Fungua Arroxy",
+			"quit": "Funga Arroxy",
+			"statusActive_one": "1 inapakua · {{percent}}%",
+			"statusActive_other": "{{count}} zinapakua · {{percent}}%",
+			"statusIdle": "Tulivu"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Amri imenakiliwa kwenye ubao wa kunakili",
+		"copy": "Nakili amri kwenye ubao wa kunakili",
+		"dismiss": "Funga bango la sasisho",
+		"download": "Download ↗",
+		"downloadDmg": "Pakua DMG ↗",
+		"downloading": "Inapakua…",
+		"install": "Sakinisha na Uanzishe Upya",
+		"installFailed": "Sasisho limeshindwa",
+		"message": {
+			"generic": "Arroxy {{version}} inapatikana — una {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} inapatikana — sasisha kwa Homebrew.",
+			"macosDirect": "Arroxy {{version}} inapatikana — pakua DMG mpya.",
+			"macosDirectHomebrew": "Arroxy {{version}} inapatikana — pakua DMG au hamia Homebrew.",
+			"portable": "Arroxy {{version}} inapatikana — pakua build mpya."
+		},
+		"retry": "Jaribu tena",
+		"runAndRestart": "Endesha na Uanzishe Upya",
+		"upgrading": "Inasasisha…"
+	},
+	"videoCard": {
+		"chapters_one": "Sura {{count}}",
+		"chapters_other": "Sura {{count}}",
+		"titlePlaceholder": "Inapakia…"
+	},
 	"videoCodec": {
-		"label": "Kodeki ya video",
-		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huhifadhi mpangilio wa yt-dlp wenyewe, unaopendelea AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
-		"smartTv": "Runinga janja huchukua H.264 kila wakati.",
 		"auto": "Otomatiki",
-		"vp9": "VP9 kwanza",
-		"h264": "H.264 kwanza"
+		"description": "Kodeki ipi ichukuliwe kwanza kati ya mitiririko yenye urefu sawa. Otomatiki huhifadhi mpangilio wa yt-dlp wenyewe, unaopendelea AV1, ndogo zaidi; H.264 huchezwa kwenye TV na simu za zamani.",
+		"h264": "H.264 kwanza",
+		"label": "Kodeki ya video",
+		"smartTv": "Runinga janja huchukua H.264 kila wakati.",
+		"vp9": "VP9 kwanza"
 	},
-	"hdrPreference": {"label": "Video ya HDR", "description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatiki"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Tayari",
+			"description": "Bandika URL za video, orodha ya kucheza, kituo, utafutaji, au sauti. Arroxy itaondoa nakala kabla ya kuweka kwenye foleni.",
+			"emptyPreview": "Bandika URL moja au zaidi ili kuona kundi.",
+			"ignoredCount": "Zimepuuzwa",
+			"needsAtLeastOne": "Ongeza angalau URL moja inayotumika ili kuendelea.",
+			"reject": {
+				"duplicate": "Imerudiwa"
+			},
+			"textareaLabel": "Orodha ya URL",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "URL nyingi"
+		},
+		"confirm": {
+			"addToQueue": "+ Queue",
+			"addToQueueTooltip": "Inaanza vipakuzi vingine vikishamaliza — inapata upanuzi kamili",
+			"audioOnly": "Sauti peke yake",
+			"itemsValueAudio_one": "{{count}} kati ya {{total}} wimbo",
+			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
+			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
+			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL",
+			"itemsValue_one": "{{count}} kati ya {{total}} video",
+			"itemsValue_other": "{{count}} kati ya {{total}} video",
+			"labelAudio": "Sauti",
+			"labelBulk": "URL nyingi",
+			"labelItems": "Vipande",
+			"labelPlaylist": "Orodha ya kucheza",
+			"labelPreset": "Mpangilio",
+			"labelSaveTo": "Hifadhi kwenye",
+			"labelSize": "Ukubwa",
+			"labelSubtitles": "Manukuu",
+			"labelVideo": "Video",
+			"landIn": "Faili yako itawekwa kwenye",
+			"landInMultiProfile_one": "Itafika kwenye lengwa lililo hapa chini",
+			"landInMultiProfile_other": "Zitafika kwenye malengwa {{count}} yaliyo hapa chini",
+			"nothingToDownload": "Mpangilio wa manukuu peke yake umewashwa lakini hakuna lugha ya manukuu iliyochaguliwa — hakuna kitakachopakiwa.",
+			"profileBreakdownCount_one": "{{count}} kipande",
+			"profileBreakdownCount_other": "{{count}} vipande",
+			"profileBreakdownHeading": "Wasifu katika kundi hili",
+			"pullIt": "Pakua sasa! ↓",
+			"pullItTooltip": "Inaanza mara moja — inafanya kazi pamoja na vipakuzi vingine vinavyofanya kazi",
+			"readyHeadline": "Iko tayari kupakua!",
+			"sizeUnknown": "Haijulikani",
+			"subtitleEmbedAudioOnly": "Subtitle embed imebadilishwa kuwa sidecar — nyimbo za sauti hazitumii mtiririko wa manukuu uliowekwa ndani.",
+			"subtitleEmbedForcesMkv": "Manukuu ndani ya video yanahitaji faili ya MKV, kwa hivyo upakuaji huu unahifadhiwa kama .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail embed imerukwa — container ya matokeo hauitumii."
+		},
+		"folder": {
+			"custom": "Maalum…",
+			"desktop": "Eneo kazi",
+			"documents": "Hati",
+			"downloads": "Vipakuliwa",
+			"heading": "Hifadhi kwenye",
+			"home": "Nyumbani",
+			"music": "Muziki",
+			"pictures": "Picha",
+			"subfolder": {
+				"invalid": "Jina la saraka lina herufi batili",
+				"placeholder": "mfano lo-fi rips",
+				"toggle": "Hifadhi ndani ya saraka ndogo"
+			},
+			"videos": "Sinema"
+		},
+		"formats": {
+			"audio": "Sauti",
+			"audioLanguage": "Lugha ya sauti",
+			"audioLanguageCount_one": "Lugha {{count}}",
+			"audioLanguageCount_other": "Lugha {{count}}",
+			"audioOnly": "Sauti peke yake",
+			"bitrateValue": "Kiwango cha biti {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Vidakuzi vimesanidiwa lakini vimezimwa. Viwashe na ujaribu tena kupata orodha kamili, au badilisha mtandao na ujaribu tena.",
+				"bodyEnabled": "Hata na vidakuzi, YouTube ilipunguza uchunguzi huu. Jaribu tena baadaye au badilisha mtandao.",
+				"bodyExplore": "YouTube imezuia ombi hili. Jaribu tena baadaye au badilisha mtandao.",
+				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",
+				"enableRetryCta": "Washa vidakuzi na ujaribu tena",
+				"heading": "YouTube ilipunguza uchunguzi huu",
+				"retryCta": "Jaribu tena"
+			},
+			"convert": {
+				"bitrate": "Kiwango cha biti",
+				"bitrateCopyHint": "Chanzo ambacho tayari ni {{target}} huhifadhi mkondo na kiwango cha biti chake: kinanakiliwa, hakisimbwi upya.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, bila kusimba upya",
+				"copyLabelNoBitrate": "{{target}}, bila kusimba upya",
+				"copyNote": "{{kbps}} kbps, kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"copyNoteNoBitrate": "Kama chanzo kilivyo: mkondo tayari ni {{target}}, kwa hivyo unanakiliwa, haujasimbwa upya",
+				"label": "Badilisha",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Chanzo ni {{kbps}} kbps",
+				"wavLabel": "WAV (uncompressed)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Kivinjari",
+				"currentModeExplore": "Kuingia kwenye Gundua",
+				"currentModeFile": "Faili",
+				"currentModeLabel": "Chanzo cha vidakuzi",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp nyaraka (issue #10927)",
+					"explanation": "Chrome 127 na toleo jipya zaidi husimba fiche vidakuzi kwa njia ambayo programu nyingine haziwezi kusoma kwenye Windows. Jaribu moja ya masuluhisho yaliyo hapa chini.",
+					"fixFileBody": "Safirisha vidakuzi kutoka Chrome kwa kutumia kiendelezi cha kivinjari, kisha ubadilishe programu hii hadi hali ya Faili na uchague faili iliyosafirishwa.",
+					"fixFileLabel": "Safirisha cookies.txt",
+					"fixFirefoxBody": "Firefox haitumii App-Bound Encryption. Fungua mipangilio ya vidakuzi na uchague Firefox kutoka kwenye orodha ya vivinjari.",
+					"fixFirefoxLabel": "Badilisha kwenda Firefox",
+					"fixUnsafeBody": "Ongeza --disable-features=LockProfileCookieDatabase kwenye mkato wa kuzindua Chrome. Onyo: hii inabatilisha vidakuzi vilivyosimbwa fiche hapo awali, kwa hivyo utaondolewa katika kila tovuti na itabidi uingie tena.",
+					"fixUnsafeLabel": "Zindua Chrome huku App-Bound Encryption imezimwa",
+					"heading": "Vidakuzi vya Chrome vimezuiwa na usimbaji fiche wa Windows"
+				},
+				"explanationBrowser": "Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi.",
+				"explanationFile": "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (Arroxy inahitaji faili ya Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi.",
+				"exploreOffer": {
+					"body": "Ingia kwenye Gundua na Arroxy itajaribu tena.",
+					"cta": "Ingia kwenye Gundua",
+					"heading": "Video hii inaweza kuhitaji akaunti ya YouTube"
+				},
+				"exploreRefused": {
+					"body": "Arroxy tayari ilijaribu ukiwa umeingia kupitia Gundua, kwa hivyo kuingia tena hakutasaidia. Huenda tovuti ina hitilafu, au akaunti hii haiwezi kuifungua. Jaribu tena baadaye.",
+					"heading": "Tovuti imekataa hili hata ukiwa umeingia kwenye Gundua"
+				},
+				"exploreReuse": {
+					"body": "Umeingia kwenye Gundua, lakini upakuaji hautumii kuingia huko kwa sasa.",
+					"cta": "Tumia kuingia kwangu kwenye Gundua na ujaribu tena",
+					"heading": "Video hii inaweza kuhitaji akaunti ya YouTube"
+				},
+				"exploreSignIn": {
+					"body": "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji.",
+					"cta": "Ingia kwenye Gundua",
+					"heading": "Video hii inaweza kuhitaji akaunti ya YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Gundua kiotomatiki. Huenda isipatikane kwa sababu nyingine.",
+					"heading": "Umeingia kwenye Gundua"
+				},
+				"exploreSite": {
+					"heading": "Kiungo hiki kinaweza kuhitaji akaunti kwenye {{host}}",
+					"offerBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena.",
+					"signInBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji."
+				},
+				"heading": "Vidakuzi vinaweza kuwa sababu",
+				"needsCookies": {
+					"body": "Arroxy haikuweza kufikia video hii bila uthibitisho. Sanidi vidakuzi katika mipangilio ya hali ya juu — ielekeze kwenye kivinjari ambacho tayari umeingia, au ingiza faili ya cookies.txt.",
+					"heading": "Tovuti hii inahitaji kuingia"
+				},
+				"openSettingsCta": "Fungua mipangilio ya vidakuzi",
+				"otherCookiesCta": "Tumia faili ya vidakuzi au kivinjari badala yake…"
+			},
+			"drc": {
+				"description": "Hupunguza sehemu zenye sauti kubwa na kuongeza zenye sauti ndogo, kwa spika na vyumba vyenye kelele.",
+				"label": "Sawazisha sauti (DRC)",
+				"tag": "Sauti sawa"
+			},
+			"fit": {
+				"mp4Unavailable": "Wasifu wako ni Runinga janja (H.264). Video hii haitoi H.264, kwa hivyo mkondo ulio karibu zaidi umechaguliwa.",
+				"noVideo": "Kiungo hiki hakina video, kwa hivyo sauti imechaguliwa.",
+				"subtitlesMissing": "Wasifu wako unaomba manukuu katika {{languages}}. Video hii haina.",
+				"tierAbove": "Wasifu wako unaomba {{wanted}}p. Video hii haina kitu kidogo hivyo, kwa hivyo {{picked}}p imechaguliwa.",
+				"tierBelow": "Wasifu wako unaomba {{wanted}}p. Video hii inafika {{picked}}p tu, kwa hivyo {{picked}}p imechaguliwa.",
+				"webmUnavailable": "Wasifu wako unaomba WebM. Mikondo iliyochaguliwa ya video hii ina {{codec}}, ambayo WebM haiwezi kubeba, kwa hivyo aina ya faili ni Otomatiki."
+			},
+			"footer": {
+				"addToQueue": "Ongeza kwenye foleni bila kuanza",
+				"download": "Pakua",
+				"moreActions": "Chaguo zaidi za upakuaji",
+				"subtitlesRequired": "Chagua angalau lugha moja ya manukuu."
+			},
+			"keepAudio": "Acha kama ilivyo",
+			"keepAudioMeta": "Sauti iliyojengwa ndani",
+			"kind": {
+				"audio": "Sauti pekee",
+				"label": "Cha kupakua",
+				"subtitles": "Manukuu peke yake",
+				"video": "Video + sauti",
+				"videoOnly": "Video, bila sauti"
+			},
+			"loadingAria": "Inapakia maumbo",
+			"loadingHint": "Tafadhali subiri hadi uchunguzi ukamilike — orodha za kuimba na utafutaji vinaweza kuchukua muda.",
+			"marker": {
+				"aiDubbed": "Imetafsiriwa na AI",
+				"aiUpscaled": "Imekuzwa kwa AI",
+				"audioDescription": "Maelezo kwa sauti",
+				"damaged": "Imeharibika",
+				"enhancedBitrate": "Bitrate iliyoboreshwa",
+				"spatialAudio": "Sauti ya anga",
+				"vr": "360° / VR",
+				"watermarked": "Ina alama-maji"
+			},
+			"noAudio": "Hakuna sauti",
+			"profile": {
+				"calloutBody": "Wasifu wako unaotumika huchagua mitiririko kwa ajili yako. Badilisha wasifu kutoka kwenye menyu, au tumia penseli kurekebisha mmoja bila kuondoka kwenye upakuaji huu.",
+				"calloutTitle": "Miundo huanza na wasifu wako",
+				"closestTag": "Karibu zaidi na wasifu",
+				"edit": "Hariri {{name}}",
+				"keepEdits": "Baki na mabadiliko yangu",
+				"menuDescription": "Kwa upakuaji huu tu. Wasifu wako chaguomsingi unabaki kama ulivyo.",
+				"preselected": "Imechaguliwa awali kutoka",
+				"resetAll": "Weka upya yote",
+				"switchBody": "Ulibadilisha {{areas}} kwa upakuaji huu. “{{profile}}” huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
+				"switchTitle": "Badilisha wasifu?",
+				"tag": "Wasifu",
+				"updatedBody": "Ulibadilisha {{areas}} kwa upakuaji huu. Wasifu uliosasishwa huchagua video na sauti kwa vyovyote vile. Ubaki na mabadiliko yako mengine, au uweke upya kila kitu kulingana na wasifu?",
+				"updatedTitle": "Tumia wasifu uliosasishwa?"
+			},
+			"quality": {
+				"high": "Ubora wa juu",
+				"low": "Ubora wa chini",
+				"medium": "Ubora wa kati"
+			},
+			"rateLimit": {
+				"heading": "{{site}} inazuia maombi ya muunganisho huu",
+				"leadDegraded": "Orodha ya miundo inaweza kuwa haijakamilika.",
+				"leadFailed": "{{site}} imekataa ombi hili kwa sasa.",
+				"retryCta": "Jaribu tena",
+				"sessionNote": "{{site}} inaweza kudumisha kizuizi hiki hadi saa moja.",
+				"tryNowCta": "Jaribu sasa",
+				"waitOver": "Muda wa kusubiri umekwisha, unaweza kujaribu tena.",
+				"waitUntil": "Arroxy inasubiri hadi {{time}} kabla ya kuuliza {{site}} tena, ili kizuizi kiondoke."
+			},
+			"resolutionUnknown": "Azimio halijulikani",
+			"savesAs": {
+				"label": "Huhifadhiwa kama",
+				"reset": "WebM haiwezi kubeba {{codec}}, kwa hivyo aina ya faili imerudi kuwa Otomatiki."
+			},
+			"sizeUnknown": "Ukubwa haujulikani",
+			"skipToConfirm": "Ruka hadi uthibitisho",
+			"skipToConfirmTooltip": "Inatumia mapendeleo yako yaliyohifadhiwa kwa hatua zote zilizobaki. Ili kubadilisha mipangilio, endelea hatua kwa hatua badala yake — chaguo lako litahifadhiwa kwa wakati ujao.",
+			"sniffing": "Natafuta maumbo bora kwako…",
+			"total": "Jumla",
+			"video": "Video",
+			"withAudio": "yenye sauti"
+		},
+		"mixedPrompt": {
+			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
+			"pickFromPlaylist": "Chagua kutoka Playlist",
+			"playlistLimit": "Kikomo cha kuchunguza playlist: vipengee {{count}}",
+			"playlistTooltip": "Hupakia playlist, hadi kikomo chako cha ukaguzi wa playlist, kabla ya kuonyesha kichaguaji.",
+			"quickBody": "Pakua video hii pekee, au ongeza orodha yote ya kucheza kwenye foleni kwa wasifu wako amilifu wa Upakuaji wa haraka.",
+			"quickLimitDescription": "Idadi ya juu ya vipengee ambavyo Arroxy hukagua kabla ya kuongeza orodha ya kucheza, kituo au matokeo ya utafutaji kwenye foleni.",
+			"quickPlaylistTooltip": "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni.",
+			"quickSingleTooltip": "Huongeza upakuaji mmoja kwenye foleni na kupuuza orodha ya kucheza iliyoambatishwa kwenye URL hii.",
+			"quickSingleVideo": "Pakua video hii",
+			"quickWholePlaylist": "Pakua orodha yote ya kucheza",
+			"singleTooltip": "Hupakia video hii pekee. Playlist iliyounganishwa na URL hii inapuuzwa.",
+			"singleVideo": "Hii tu",
+			"title": "Kiungo hiki kina Playlist"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Alama za sura zinazoweza kuabiriwa katika kichezaji chochote cha kisasa.",
+				"label": "Ingiza sura"
+			},
+			"embedMetadata": {
+				"description": "Kichwa, msanii, maelezo, na tarehe ya kupakia vimeandikwa kwenye faili.",
+				"label": "Ingiza metadata"
+			},
+			"embedThumbnail": {
+				"description": "Sanaa ya jalada ndani ya faili. Video ya WebM itabadilishwa kuwa MKV; hupitishwa wakati manukuu yanaingizwa.",
+				"label": "Ingiza picha ndogo"
+			},
+			"writeDescription": {
+				"description": "Inahifadhi maelezo ya video kama faili ya maandishi ya .description karibu na kipakuliwa.",
+				"label": "Hifadhi maelezo"
+			},
+			"writeM3u": {
+				"description": "Hifadhi playlist ya .m3u pamoja na video ili zifunguke kwa mpangilio kwenye kicheza media.",
+				"label": "Tengeneza faili ya playlist .m3u"
+			},
+			"writeThumbnail": {
+				"description": "Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa.",
+				"label": "Hifadhi picha ndogo"
+			}
+		},
+		"part": {
+			"calloutBody": "Badilisha hadi «Sehemu» kwenye kadi ya video ili kuchagua mwanzo na mwisho, au sura, kisha upakue kipande hicho tu.",
+			"calloutTitle": "Pakua sehemu tu ya video",
+			"chapterUntitled": "Sura ya {{number}}",
+			"chapters": "Sura",
+			"connectionsNote": "Sehemu hupakuliwa kupitia ffmpeg, kwa hiyo miunganisho yako ya upakuaji na mipangilio ya kasi haitumiki kwake.",
+			"downloadBlocked": "Rekebisha kwanza mwanzo na mwisho wa sehemu.",
+			"end": "Mwisho",
+			"error": {
+				"endBeyondDuration": "Video inaisha kwenye {{duration}}.",
+				"endInvalid": "Weka mwisho kama h:mm:ss, m:ss au sekunde.",
+				"startInvalid": "Weka mwanzo kama h:mm:ss, m:ss au sekunde.",
+				"startNotBeforeEnd": "Mwanzo lazima uwe kabla ya mwisho."
+			},
+			"exactCut": {
+				"hint": "Imezimwa: kila ukataji hutua kwenye fremu kuu iliyo karibu zaidi, ambayo inaweza kuwa sekunde chache kutoka muda uliouandika.",
+				"label": "Ukataji kamili (husimba upya, polepole zaidi)"
+			},
+			"length": "{{length}} kati ya {{duration}}",
+			"part": "Sehemu",
+			"rangeLabel": "Sehemu ya video",
+			"start": "Mwanzo",
+			"subtitlesFullLength": "video nzima",
+			"summary": "Sehemu {{start}}–{{end}}",
+			"switchLabel": "Kiasi cha video",
+			"timeHint": "h:mm:ss, m:ss au sekunde",
+			"totalEstimate": "Sehemu, makadirio",
+			"unavailableDuration": "Video hii haitoi urefu wake, kwa hiyo inaweza kupakuliwa nzima tu.",
+			"unavailableSubtitles": "Manukuu daima hujumuisha video nzima.",
+			"urlStart": "Kiungo chako kinaanzia {{time}}",
+			"useUrlStart": "Tumia kama mwanzo",
+			"whole": "Video nzima",
+			"wholeTrack": "Wimbo mzima"
+		},
+		"playlist": {
+			"allRemovedDescription": "Virejeshe ili kuendelea.",
+			"allRemovedTitle": "Vipengee vyote vimeondolewa",
+			"alreadyDownloaded": "Tayari imepakuliwa",
+			"bulkHeading": "URL nyingi",
+			"bulkMetadataOptional": "Hakuna haja ya kungoja — faili zinazowekwa kwenye foleni sasa bado zitapata majina yao halisi zinapopakuliwa.",
+			"bulkMetadataResolving": "Inaleta maelezo ya video… {{done}}/{{total}}",
+			"bulkRowFailed": "Maelezo hayapatikani",
+			"bulkRowResolving": "Inaleta maelezo",
+			"bulkRowWaiting": "Inasubiri",
+			"durationUnknown": "live",
+			"heading": "Vipande vya Playlist",
+			"headingGeneric": "Video za kupakua",
+			"itemCountAudio_one": "{{count}} wimbo",
+			"itemCountAudio_other": "{{count}} nyimbo",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} video",
+			"loadingItems": "Inapata Playlist…",
+			"loadingItemsGeneric": "Inaleta video…",
+			"loadingLimitHint": "Imewekewa kikomo cha vipengee {{count}} vya kwanza",
+			"loadingPagesFound_one": "Ukurasa {{count}} umepatikana",
+			"loadingPagesFound_other": "Kurasa {{count}} zimepatikana",
+			"loadingPhaseItems": "Inakusanya video",
+			"loadingPhasePages": "Inakagua kurasa za kituo",
+			"multiProfileEntry": "Weka wasifu kwa kila kipengele",
+			"multiProfileEntryTooltip": "Inaruka Ubora, SponsorBlock, Matokeo, na Hifadhi — badala yake weka wasifu wa upakuaji kwa kila kipengele",
+			"nestedPlaylistBadge": "Orodha ya kucheza",
+			"nestedPlaylistHint_one": "{{count}} kati ya hizi ni orodha ya kucheza, si video — bandika kiungo chake peke yake ili kuipakua.",
+			"nestedPlaylistHint_other": "{{count}} kati ya hizi ni orodha za kucheza, si video — bandika viungo vyake kimoja baada ya kingine ili kuzipakua.",
+			"noSelection": "Chagua angalau video moja ili kuendelea",
+			"probeLimitAlertDesc": "Arroxy imepata zaidi ya vipande {{count}}, kwa hivyo kikomo cha skani cha sasa kinaficha vilivyobaki.",
+			"probeLimitAlertTitle": "Skani ya playlist imefungwa",
+			"probeLimitAlertTitleGeneric": "Uchanganuzi umewekewa kikomo",
+			"rangeApply": "Tumia masafa",
+			"rangeFrom": "Kutoka",
+			"rangeTo": "Hadi",
+			"removeFromListCount_one": "Ondoa {{count}} kwenye orodha",
+			"removeFromListCount_other": "Ondoa {{count}} kwenye orodha",
+			"removedCount_one": "{{count}} zimeondolewa",
+			"removedCount_other": "{{count}} zimeondolewa",
+			"restore": "Rejesha",
+			"selectAll": "Chagua yote",
+			"selectNone": "Futa uchaguzi wote",
+			"selectedCount_one": "{{count}} imechaguliwa",
+			"selectedCount_other": "{{count}} zimechaguliwa",
+			"sortApi": "Mpangilio wa orodha",
+			"sortFetchingDates": "Inapata tarehe za kupakia…",
+			"sortLabel": "Panga",
+			"sortUploadAsc": "Za zamani kwanza",
+			"sortUploadDesc": "Mpya kwanza",
+			"syncApply": "Tekeleza usawazishaji",
+			"syncChange": "Badilisha folda…",
+			"syncFoundDesc": "{{n}} kati ya video hizi tayari zipo kwenye {{dir}}. Sawazisha ili kupakua mpya pekee?",
+			"syncFoundTitle": "Tayari ipo kwenye folda",
+			"syncNoneDesc": "Hakuna video kutoka orodha hii ya kucheza zilizopatikana kwenye {{dir}}.",
+			"syncNoneDescGeneric": "Hakuna video kutoka chanzo hiki zilizopatikana katika {{dir}}.",
+			"syncNoneTitle": "Hakuna kilichopakuliwa bado",
+			"syncScanning": "Inakagua folda…",
+			"thumbnailAlt": "Picha ndogo ya video"
+		},
+		"playlistPresets": {
+			"heading": "Chagua ubora wa kundi",
+			"itemCount_one": "{{count}} kipande",
+			"itemCount_other": "{{count}} vipande",
+			"subhead": "Kila video inatatua kiwango kilichochaguliwa kwa kujitegemea — playlists tofauti hufanya kazi bila mshangao."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Weka wasifu",
+			"assignTrigger_one": "Weka kwa video {{count}}",
+			"assignTrigger_other": "Weka kwa video {{count}}",
+			"columnDuration": "Muda",
+			"columnProfile": "Wasifu",
+			"editProfile": "Hariri {{name}}",
+			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Vichujio vya wasifu",
+			"heading": "Weka wasifu wa upakuaji",
+			"menuDescription_one": "Chagua wasifu wa video hii.",
+			"menuDescription_other": "Chagua wasifu wa video hizi {{count}}.",
+			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Badilisha ya jumla",
+				"chooseFolder": "Chagua folda lengwa",
+				"chooseIcon": "Chagua aikoni ya wasifu",
+				"removeLanguage": "Ondoa {{code}}",
+				"reset": "Weka upya wasifu",
+				"resetDisabledHint": "Wasifu huu tayari unatumia mipangilio iliyojengwa ndani",
+				"resetHint": "Rejesha mipangilio ya wasifu iliyojengwa ndani",
+				"save": "Hifadhi wasifu",
+				"setOverride": "Weka ubatilishaji wa wasifu",
+				"setOverrideShort": "Weka ubatilishaji",
+				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
+				"useLanguageCode": "Tumia msimbo wa lugha “{{code}}”"
+			},
+			"advanced": "Hali ya juu",
+			"appSetting": "Tumia mpangilio wa programu ({{value}})",
+			"audioFormat": {
+				"best": "Bora",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Hadi 128K",
+				"192": "Hadi 192K",
+				"320": "Hadi 320K",
+				"best": "Ubora bora"
+			},
+			"destination": {
+				"defaultFolder": "Folda chaguomsingi ya vipakuliwa",
+				"defaultFolderWithSubfolder": "Folda chaguomsingi ya vipakuliwa / {{subfolder}}",
+				"global": "Lengo la jumla",
+				"globalActive": "Inatumika",
+				"globalInherited": "Imerithiwa",
+				"override": "Ubatilishaji wa wasifu",
+				"overrideChoosing": "Chagua folda",
+				"overrideNone": "Hakuna ubatilishaji",
+				"overrideNoneNote": "Hakuna ubatilishaji uliowekwa. Wasifu huu hutumia lengo la jumla lililo juu.",
+				"overrideSet": "Inabatilisha jumla",
+				"overrideSetNote": "Wasifu huu huhifadhi kwenye mzizi wake yenyewe kabla ya folda ndogo kuongezwa.",
+				"resolved": "Lengo la mwisho"
+			},
+			"dialogDescription": "Mpangilio mmoja unaoweza kutumika tena kwa Upakuaji wa Haraka, URL za Wingi na orodha za kucheza.",
+			"dialogTitle": "Wasifu wa upakuaji",
+			"error": {
+				"changeGlobalDestination": "Imeshindwa kubadilisha lengo la jumla.",
+				"folderPicker": "Haikuweza kufungua kichagua folda. Weka njia mwenyewe.",
+				"reset": "Imeshindwa kuweka upya mipangilio ya wasifu.",
+				"save": "Imeshindwa kuhifadhi mipangilio ya wasifu."
+			},
+			"field": {
+				"delivery": "Njia ya kuhifadhi",
+				"fileType": "Aina ya faili",
+				"goal": "Boresha kwa",
+				"icon": "Aikoni ya wasifu",
+				"languages": "Lugha",
+				"name": "Jina la wasifu",
+				"nameAndIcon": "Jina na aikoni ya wasifu",
+				"nativeAudio": "Sauti asili",
+				"overridePath": "Njia ya ubatilishaji wa wasifu",
+				"quality": "Ubora",
+				"resolution": "Azimio",
+				"source": "Chanzo",
+				"subfolderName": "Jina la folda ndogo",
+				"subtitleDownloads": "Upakuaji wa manukuu",
+				"subtitleDownloadsDescription": "Wasifu huomba misimbo ya lugha; upatikanaji huamuliwa kwa kila URL."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Kali zaidi kwa ukubwa uleule. Runinga za zamani, QuickTime na baadhi ya vihariri haviwezi kuicheza.",
+					"name": "Picha bora",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Hucheza kwenye runinga, simu, WhatsApp, QuickTime na vihariri vya video. YouTube hutoa H.264 hadi 1080p tu.",
+					"name": "Runinga janja",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Kumbukumbu",
+				"audio": "Sauti",
+				"captions": "Manukuu",
+				"classes": "Masomo",
+				"clip": "Kipande",
+				"controls": "Vidhibiti",
+				"download": "Pakua",
+				"music": "Muziki",
+				"podcast": "Podikasti",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Muziki au podikasti",
+					"label": "Sauti pekee"
+				},
+				"subtitlesOnly": {
+					"description": "Faili za manukuu pekee",
+					"label": "Manukuu peke yake"
+				},
+				"videoAudio": {
+					"description": "Faili za kawaida za video",
+					"label": "Video + sauti"
+				},
+				"videoOnly": {
+					"description": "Video isiyo na sauti pekee",
+					"label": "Video, bila sauti"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS.",
+				"noLanguageMatches": "Hakuna lugha zinazolingana",
+				"noSubtitles": "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa.",
+				"searchLanguages": "Tafuta kwa jina au msimbo wa lugha",
+				"skippedForOutputType": "Imerukwa kwa aina hii ya matokeo.",
+				"subtitleLanguagesRequired": "Chagua angalau lugha moja.",
+				"subtitleLanguagesRequiredOrOff": "Chagua angalau lugha moja, au zima upakuaji wa manukuu.",
+				"subtitlesOnly": "Wasifu huu huweka foleni faili za manukuu pekee. Video, sauti, SponsorBlock na ubadilishaji wa media hurukwa."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Wasifu hurithi lengo la jumla isipokuwa uweke ubatilishaji wa wasifu.",
+					"title": "Chaguo za kina"
+				},
+				"downloadType": {
+					"description": "Chagua njia kuu unayotaka kupakua.",
+					"title": "Aina ya upakuaji"
+				},
+				"identity": {
+					"description": "Jina na aikoni zinazoonyeshwa katika Upakuaji wa Haraka, URL za Wingi na orodha za wasifu.",
+					"title": "Utambulisho wa wasifu"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} zimewashwa",
+					"enabledCount_other": "{{count}} zimewashwa",
+					"title": "Chaguo za matokeo"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Chagua folda kwa wasifu huu"
+			},
+			"skipped": "Imerukwa",
+			"sponsorBlockHint": {
+				"mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).",
+				"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.",
+				"remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Zilizotengenezwa kiotomatiki pekee",
+				"manualAndAuto": "Kwa mkono na kiotomatiki",
+				"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki",
+				"manualOnly": "Kwa mkono pekee"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Msaada wa {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Ghairi maandalizi",
+			"currentFallback": "Kiungo cha sasa",
+			"description": "Arroxy inasoma kiungo na kutumia {{profileName}}.",
+			"failedCount_one": "{{count}} imeshindwa",
+			"failedCount_other": "{{count}} zimeshindwa",
+			"phase": {
+				"probing": "Inaleta maelezo",
+				"queueing": "Inaongeza kwenye foleni"
+			},
+			"title": "Inaandaa Upakuaji wa haraka",
+			"waitHint": "Acha hii ikiwa wazi wakati Arroxy inaandaa foleni."
+		},
+		"review": {
+			"areas": {
+				"extras": "vya ziada",
+				"fileName": "jina la faili",
+				"format": "umbizo",
+				"saveTo": "folda",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "manukuu"
+			},
+			"callout": {
+				"body": "Manukuu, SponsorBlock, vya ziada kama picha ndogo, folda na jina la faili zamani zilikuwa hatua tofauti. Bofya safu ili kuibadilisha.",
+				"title": "Mipangilio mingine yote sasa iko kwenye ukurasa huu"
+			},
+			"changeFormat": "Badilisha umbizo",
+			"changed": "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu.",
+			"changedFrom": "Imebadilishwa kutoka {{profile}}:",
+			"nextTime": {
+				"action": "Hifadhi kama wasifu",
+				"defaultName": "{{profile}} (imehaririwa)",
+				"title": "Upakuaji huu ulitumia mipangilio iliyohaririwa. Itumike wakati ujao?"
+			},
+			"reset": "Tendua mabadiliko, rudi kwa “{{profile}}”",
+			"rows": {
+				"extras": "Vya ziada",
+				"fileName": "Jina la faili",
+				"saveTo": "Hifadhi kwenye",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Manukuu"
+			},
+			"rowsHeading": "Mengine yote",
+			"save": {
+				"action": "Hifadhi wasifu",
+				"description": "Huhifadhi mipangilio hii kama wasifu unaoweza kuchagua wakati ujao. Wasifu wako wa Upakuaji wa haraka hubaki vilevile.",
+				"failed": "Imeshindwa kuhifadhi wasifu.",
+				"nameLabel": "Jina la wasifu",
+				"saved": "Imehifadhiwa kama wasifu “{{name}}”",
+				"title": "Hifadhi kama wasifu"
+			},
+			"saveAsProfile": "Hifadhi kama wasifu mpya",
+			"update": {
+				"action": "Sasisha wasifu",
+				"builtinNote": "Huu ni wasifu uliojengwa ndani. Unaweza kurejesha mipangilio yake asili kwenye kichupo cha Wasifu.",
+				"description": "Kuanzia sasa, kila upakuaji kwa wasifu huu utatumia mipangilio mipya.",
+				"rows": {
+					"format": "Umbizo"
+				},
+				"title": "Sasisha “{{profile}}”?",
+				"updated": "Wasifu “{{name}}” umesasishwa"
+			},
+			"updateProfile": "Sasisha “{{profile}}” kwa mabadiliko haya",
+			"value": {
+				"extrasNone": "Hakuna",
+				"sponsorBlockOff": "Zima",
+				"subtitlesOff": "Zima"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Kijazio",
+				"intro": "Utangulizi",
+				"music_offtopic": "Music off-topic",
+				"outro": "Mwisho",
+				"preview": "Muhtasari",
+				"selfpromo": "Kujitangaza",
+				"sponsor": "Mdhamini"
+			},
+			"categoriesHeading": "Kategoria",
+			"mode": {
+				"mark": "Weka alama kama sura",
+				"off": "Zima",
+				"remove": "Ondoa sehemu"
+			},
+			"modeHeading": "Uchujaji wa mdhamini",
+			"modeHint": {
+				"mark": "Inaweka alama sehemu za mdhamini kama sura (bila uharibifu).",
+				"off": "Hakuna SponsorBlock — video inacheza kama ilivyopakiwa.",
+				"remove": "Hukata sehemu za mdhamini kutoka kwenye video kwa kutumia FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Thibitisha",
+			"folder": "Hifadhi",
+			"formats": "Umbizo",
+			"output": "Matokeo",
+			"playlistItems": "Orodha ya kucheza",
+			"playlistItemsGeneric": "Video",
+			"playlistPresets": "Ubora",
+			"playlistProfiles": "Wasifu",
+			"review": "Kagua",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Manukuu",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Maandishi ya otomatiki yatahifadhiwa kama SRT badala ya ASS — husafishwa daima kutokana na urudiaji wa kielelezo cha YouTube, ambao kibadilishaji chetu cha ASS bado hakiwezi kunakili.",
+			"autoBadge": "Otomatiki",
+			"clearAll": "Futa yote",
+			"embedNote": "Hali ya kuingiza inahifadhi matokeo kama .mkv ili nyimbo za manukuu ziingizwe kwa uaminifu.",
+			"format": {
+				"heading": "Umbizo"
+			},
+			"noLanguages": "Hakuna manukuu yanayopatikana kwa video hii",
+			"noMatches": "Hakuna lugha zinazolingana",
+			"noSelected": "Hakuna manukuu yaliyochaguliwa",
+			"removeLanguage": "Ondoa {{name}}",
+			"saveMode": {
+				"embed": "Ingiza kwenye video",
+				"heading": "Hifadhi kama",
+				"sidecar": "Karibu na video",
+				"subfolder": "subtitles/ saraka ndogo"
+			},
+			"searchPlaceholder": "Tafuta lugha…",
+			"sectionAuto": "Yaliyoundwa otomatiki",
+			"sectionManual": "Ya mkono"
+		},
+		"tabsNavAria": "Urambazaji wa wasifu wa upakuaji",
+		"url": {
+			"advanced": "Hali ya juu",
+			"analytics": {
+				"toggle": "Tuma ishara ya kila siku",
+				"toggleDescription": "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
+			},
+			"autoRemoveCompleted": {
+				"description": "Huondoa kipakuzi kwenye orodha ya Vipakuliwa sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako; vipakuzi vilivyoshindwa na vilivyoghairiwa hubaki kwenye orodha.",
+				"label": "Ondoa kiotomatiki vipakuzi vilivyokamilika"
+			},
+			"autoRetry": {
+				"description": "Hujaribu tena kiotomatiki baada ya hitilafu ya mtandao au seva, ikisubiri muda mrefu zaidi kabla ya kila jaribio. Upakuaji uliozuiwa na tovuti haujaribiwi tena kiotomatiki.",
+				"label": "Jaribu tena upakuaji ulioshindwa",
+				"unit": "mara"
+			},
+			"bulkButton": "URL nyingi",
+			"bulkTooltip": "Ongeza na weka foleni URL nyingi.",
+			"clearAria": "Futa URL",
+			"clipboard": {
+				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
+				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
+				"dialog": {
+					"cancelButton": "Ghairi"
+				},
+				"replacedLink": "Imebadilishwa na kiungo kilichonakiliwa",
+				"toggle": "Angalia ubao wa kunakili",
+				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
+				"undo": "Tendua"
+			},
+			"closeToTray": {
+				"toggle": "Ficha kwenye tray ukifunga",
+				"toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."
+			},
+			"concurrentDownloads": {
+				"description": "Ni vipengee vingapi vya foleni vinapakuliwa kwa wakati mmoja. Vingi kwa wakati mmoja humaliza foleni ndefu haraka, lakini huongeza uwezekano wa tovuti kukuwekea mipaka.",
+				"label": "Upakuaji kwa wakati mmoja",
+				"unit": "upakuaji"
+			},
+			"cookies": {
+				"banWarning": "Tovuti kama YouTube zinaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti ambazo vidakuzi vyake vinatumiwa na zana za kupakua kama Arroxy. Tumia akaunti ya majaribio iwezekanavyo.",
+				"browserHelp": "Inasoma vidakuzi moja kwa moja kutoka kwenye kivinjari. Kivinjari lazima kifungwe kwa vivinjari vya familia ya Chromium.",
+				"browserLabel": "Kivinjari",
+				"browserPlaceholder": "Chagua kivinjari…",
+				"choose": "Chagua…",
+				"clear": "Futa",
+				"enabledButNoBrowser": "Chagua kivinjari kutumia vidakuzi",
+				"enabledButNoFile": "Chagua faili kutumia vidakuzi",
+				"exploreDescription": "Hutumia kuingia kwako kwenye Gundua tu pale upakuaji unapohitaji.",
+				"exploreDisabled": "Kichupo cha Gundua kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua. Kiwashe katika sehemu ya Gundua hapa chini.",
+				"extensionChrome": "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Faili ya vidakuzi",
+				"helpLink": "Ninasafirisha vidakuzi vipi?",
+				"openExplore": "Fungua Gundua",
+				"placeholder": "Hakuna faili iliyochaguliwa",
+				"recommended": "Inapendekezwa",
+				"risk": "Hatari: cookies.txt ina vikao vyote vilivyoingia kwa kivinjari hicho — weka siri.",
+				"sourceBrowser": "Kivinjari",
+				"sourceExplore": "Kuingia kwenye Gundua",
+				"sourceFile": "Faili",
+				"sourceLabel": "Chanzo cha vidakuzi",
+				"sourceOff": "Zima",
+				"toggleDescription": "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi."
+			},
+			"downloadConnections": {
+				"description": "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka.",
+				"label": "Miunganisho ya upakuaji",
+				"unit": "miunganisho"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Sauti peke yake",
+					"subtitles": "Manukuu"
+				},
+				"anySite": {
+					"heading": "Tovuti 2000+",
+					"musicPlaylist": "Playlists za muziki",
+					"video": "Video",
+					"videoPlaylist": "Playlists za video"
+				},
+				"heading": "Arroxy inaweza kupakua nini",
+				"youtube": {
+					"channel": "Vituo",
+					"heading": "YouTube",
+					"music": "Muziki",
+					"playlist": "Orodha za kucheza",
+					"podcast": "Podcasts",
+					"short": "Shorts",
+					"video": "Video"
+				}
+			},
+			"fetchFormatsTooltip": "Mchawi wa hatua kwa hatua. Chagua umbizo, ubora na mengine.",
+			"heading": "Pakua kutoka URL",
+			"hotkey": {
+				"changeShortcut": "Badilisha njia ya mkato",
+				"conflict": "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine.",
+				"hintLabel": "Au bonyeza",
+				"hintTooltip": "Nakili kiungo cha video popote, bonyeza njia hii ya mkato, na Arroxy itakiweka kwenye foleni kwa kutumia wasifu wako unaotumika — huhitaji kubadilisha madirisha.",
+				"hintTooltipSettings": "Badilisha au izime katika Mipangilio.",
+				"recording": "Bonyeza vitufe…",
+				"reset": "Rejesha chaguo-msingi",
+				"sectionDescription": "Pakua kiungo chochote unachonakili, kutoka programu yoyote, bila kufungua Arroxy.",
+				"sectionTitle": "Njia ya mkato ya kimataifa",
+				"test": "Jaribu",
+				"toggle": "Washa njia ya mkato ya kimataifa",
+				"toggleDescription": "Bonyeza njia ya mkato ukiwa na kiungo cha video kwenye ubao wa kunakili."
+			},
+			"interactiveDownload": "Upakuaji shirikishi",
+			"limitRate": {
+				"activeWarning": "Vipakuliwa vinavyoendelea huhifadhi kikomo cha sasa. Sitisha + Endelea ili kutumia mabadiliko.",
+				"custom": "Maalum…",
+				"customPlaceholder": "mf. 750K au 1.5M",
+				"description": "Dhibiti bandwidth ya vipakuliwa vya media. Udhibiti wa maombi hapa chini mara nyingi una nguvu zaidi.",
+				"invalid": "Tumia nambari ikifuatiwa na K au M (mf. 500K, 1.5M)",
+				"label": "Kikomo cha kasi ya kupakua",
+				"off": "Imezimwa"
+			},
+			"mascotBusy": "Inapakua nyuma ya pazia… Ninaweza kufanya mambo mengi kwa wakati mmoja 😎",
+			"mascotCollection": "Upakuaji wa haraka huweka vipengee vilivyopakiwa kwenye foleni kwa kutumia {{profileName}}. Upakuaji shirikishi hukuruhusu kukagua au kuchagua vipengee kwanza.",
+			"mascotIdle": "Weka kiungo, Arroxy aipakue ✨",
+			"mascotMixed": "Kiungo hiki kinaelekeza kwenye video moja ndani ya mkusanyiko. Arroxy itakuuliza ni ipi unayotaka kabla ya kuchunguza.",
+			"mascotPreparing": "{{quickDownload}} inasoma kiungo hiki na kutumia {{profileName}}.",
+			"mascotQueued": "Foleni inashughulikia upakuaji huu. Unaweza kubandika kiungo kingine wakati inafanya kazi.",
+			"mascotSingle": "Upakuaji wa haraka huanzisha upakuaji mmoja kwa kutumia {{profileName}}. Tumia upakuaji shirikishi kwa mabadiliko ya mara moja.",
+			"nativeAudioPreference": {
+				"compatible": "Stereo inayooendana",
+				"description": "Stereo au surround wasifu unapochagua sauti asili. Wasifu unaweza kubatilisha hili.",
+				"label": "Upendeleo wa sauti asili",
+				"surround": "Pendelea surround / Dolby"
+			},
+			"networkPacing": {
+				"description": "Inaongeza mapumziko madogo wakati wa kila upakuaji ili Arroxy isishambue tovuti. Maadili ni sekunde.",
+				"fields": {
+					"maxSleepInterval": "Pumzika kabla ya media kuanza: kiwango cha juu",
+					"sleepInterval": "Pumzika kabla ya media kuanza: kiwango cha chini",
+					"sleepRequests": "Pumzika kati ya ukaguzi wa metadata",
+					"sleepSubtitles": "Pumzika kabla ya faili za manukuu"
+				},
+				"heading": "Upakuaji wa taratibu",
+				"presetLabel": "Arroxy iwe makini kiasi gani?",
+				"presets": {
+					"balanced": "Uwiano",
+					"careful": "Uangalifu",
+					"custom": "Maalum",
+					"off": "Zima"
+				},
+				"summary": "Mapumziko: {{requests}} kati ya ukaguzi, {{downloads}} kabla ya media kuanza, {{subtitles}} kabla ya faili za manukuu.",
+				"tooltip": "Vipindi hivi vya kusubiri hutokea ndani ya kila upakuaji. Upakuaji mangapi unaendelea kwa wakati mmoja huwekwa kando, katika «Upakuaji kwa wakati mmoja».",
+				"tooltips": {
+					"balanced": "Chaguo-msingi. Inaongeza mapumziko mafupi kati ya maombi na kabla ya media kuanza.",
+					"careful": "Inaongeza mapumziko marefu kwa playlists kubwa au mitandao inayofikia vikwazo mara kwa mara.",
+					"custom": "Rekebisha mwenyewe udhibiti wa hali ya juu wa kila upakuaji.",
+					"off": "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa media na manukuu."
+				},
+				"units": {
+					"seconds": "sek"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "Kikomo cha sasa: vipande {{count}}",
+				"custom": "Maalum…",
+				"customDialogCancel": "Ghairi",
+				"customDialogDescription": "Tumia nambari nzima kutoka {{min}} hadi {{max}}.",
+				"customDialogSave": "Hifadhi kikomo",
+				"customDialogTitle": "Kikomo maalum cha skani ya playlist",
+				"customValue": "Maalum: vipande {{count}}",
+				"description": "Idadi ya juu ya maingizo ambayo Arroxy hupakia wakati playlist, kituo, au matokeo ya utafutaji yanafunguliwa.",
+				"invalid": "Tumia nambari nzima kutoka 1 hadi 5000",
+				"label": "Vipande vya playlist vya kuskanisha",
+				"option": "Vipande {{count}}",
+				"tooltip": "Arroxy huomba idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguaji."
+			},
+			"playlistScope": {
+				"appLimit": "Tumia kikomo cha programu: {{count}}",
+				"apply": "Tekeleza",
+				"applyError": "Haikuweza kutekeleza wigo huo wa orodha ya kucheza: {{message}}",
+				"applyReload": "Tekeleza na upakie upya",
+				"cancel": "Ghairi",
+				"change": "Badilisha",
+				"dialogDescription": "Chagua kile ambacho Arroxy inapakia kwa playlist hii.",
+				"dialogTitle": "Wigo wa orodha ya kucheza",
+				"emptyTitle": "Hakuna video katika wigo huo",
+				"first": "Za kwanza",
+				"invalid": "Tumia nambari kamili za vipande kuanzia 1 hadi {{max}}, ambapo mwanzo si mkubwa kuliko mwisho.",
+				"itemsLabel": "Vipande vya kupakia",
+				"label": "Wigo wa orodha ya kucheza",
+				"range": "Masafa",
+				"reloading": "Inapakia upya...",
+				"reset": "Weka upya",
+				"summaryAppLimit": "Pakia vipande vya kwanza: {{count}}",
+				"summaryFirst": "Pakia vipande vya kwanza: {{count}}",
+				"summaryRange": "Pakia vipande {{from}}-{{to}}",
+				"to": "hadi"
+			},
+			"profile": {
+				"activeLabel": "Wasifu unaotumika",
+				"badgeBuiltIn": "Imejengwa ndani",
+				"badgeCustom": "Maalum",
+				"badgeDisabled": "Imefichwa",
+				"badgeModified": "Imebadilishwa",
+				"changeGlobalDestination": "Badilisha mahali pa kuhifadhi kwa jumla",
+				"destinationDetail": {
+					"global": "Inatumia mahali pa kuhifadhi kwa jumla",
+					"globalSubfolder": "Inatumia mahali pa kuhifadhi kwa jumla + saraka ndogo ya wasifu",
+					"override": "Inatumia ubatilishaji wa wasifu",
+					"overrideSubfolder": "Inatumia ubatilishaji wa wasifu + saraka ndogo ya wasifu"
+				},
+				"destinationFallback": "Mahali pa kuhifadhi",
+				"edit": "Hariri",
+				"editActive": "Hariri wasifu unaotumika",
+				"enableHint": "Wasifu uliofichwa unabaki hapa lakini unatoweka kwenye vichaguzi vyote.",
+				"enableToggleAria": "Onyesha wasifu kwenye vichaguzi: {{profileName}}",
+				"lastEnabledHint": "Weka angalau wasifu mmoja unapatikana.",
+				"manageProfiles": "Dhibiti wasifu",
+				"menuDescription": "Badilisha wasifu unaotumika kwa Quick Download, URL nyingi na orodha za kucheza.",
+				"menuTitle": "Badilisha wasifu",
+				"movableProfile": "wasifu unaoweza kusogezwa",
+				"moveCancelled": "Kusogeza kumeghairiwa. Wasifu wa {{profileName}} unabaki kwenye nafasi ya {{position}} kati ya {{count}}.",
+				"moveDropped": "Wasifu wa {{profileName}} umeachiwa kwenye nafasi ya {{position}} kati ya {{count}}.",
+				"moveHandleAria": "Sogeza {{profileName}}",
+				"moveInstructions": "Ili kusogeza wasifu, bonyeza Spacebar au Enter, usogeze kwa vitufe vya mishale, kisha bonyeza Spacebar au Enter ili kuuachia. Bonyeza Escape ili kughairi.",
+				"moveOver": "Wasifu wa {{profileName}} uko juu ya nafasi ya {{position}} kati ya {{count}}.",
+				"movePickedUp": "Wasifu wa {{profileName}} umeshikwa. Uko kwenye nafasi ya {{position}} kati ya {{count}}.",
+				"newProfile": "Wasifu mpya",
+				"panelDescription": "Unda, chagua, hariri, au ondoa mipangilio ya upakuaji inayoweza kutumika tena.",
+				"panelTitle": "Wasifu wa upakuaji",
+				"remove": "Ondoa",
+				"reorderHint": "Buruta wasifu ili kuusogeza. Kila kichaguzi cha wasifu kinafuata mpangilio huu.",
+				"reset": "Weka upya",
+				"summary": {
+					"aacAudio": "sauti ya AAC",
+					"bestAudio": "sauti bora",
+					"bestVideo": "video bora",
+					"noAudio": "bila sauti",
+					"subtitlesOnly": "manukuu peke yake",
+					"wavAudio": "sauti ya WAV"
+				},
+				"switchAria": "Badilisha wasifu wa kupakua: {{profileName}}",
+				"switchTitle": "Badilisha wasifu wa kupakua"
+			},
+			"proxy": {
+				"clear": "Futa",
+				"description": "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.",
+				"label": "Proxy URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Hakuna URL kati ya hizi iliyoweza kuandaliwa",
+			"quickDownload": "Upakuaji wa haraka",
+			"quickDownloadTooltip": "Itapakua kwa kutumia: {{profileName}}",
+			"quickFailed": "Haikuweza kuongeza hii: {{error}}",
+			"quickPartialFailed_one": "Kilichofanya kazi kimeongezwa kwenye foleni. URL {{count}} haikuweza kuandaliwa.",
+			"quickPartialFailed_other": "Vilivyofanya kazi vimeongezwa kwenye foleni. URL {{count}} hazikuweza kuandaliwa.",
+			"quickPrepareFailed": "Kipengee cha foleni hakikuweza kuandaliwa",
+			"quickPreparing": "Inaandaa",
+			"quickProbeFailed": "Uchunguzi umeshindikana",
+			"quickQueued": "Imeongezwa kwenye foleni",
+			"quickSingleOnly": "Bandika URL ya video, orodha ya kucheza, kituo au utafutaji ili kuanza.",
+			"settings": {
+				"behaviorDescription": "Tabia ya jumla inayothibiti pia upakuaji unaotumia wasifu.",
+				"behaviorHeading": "Tabia ya kupakua",
+				"inputHeading": "Ingizo"
+			},
+			"style": {
+				"aurora": {
+					"description": "Paneli za kioo juu ya anga linalosogea. Zinahitaji uongezaji kasi wa michoro.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Nyuso imara na tulivu. Inafanya kazi kwa wepesi kwenye kompyuta yoyote.",
+					"label": "Rahisi"
+				},
+				"modeDescription": "Mitindo yote miwili ina toleo la mwanga na la giza.",
+				"modeLabel": "Mtindo",
+				"panelDescription": "Jinsi Arroxy inavyoonekana. Badilisha kati ya mwanga na giza chini ya dirisha.",
+				"panelTitle": "Mwonekano",
+				"unavailableNotice": "{{style}} inahitaji uongezaji kasi wa michoro, ambao haupatikani sasa hivi, kwa hiyo Arroxy inaonyesha {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Wasifu",
+				"settings": "Mipangilio"
+			}
+		}
+	}
 }

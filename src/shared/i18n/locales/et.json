@@ -1,940 +1,305 @@
 {
-	"common": {"back": "Tagasi", "cancel": "Loobu", "continue": "Jätka", "loading": "Laadimine", "retry": "Proovi uuesti", "dismiss": "Sule", "startOver": "Alusta otsast", "close": "Sulge"},
+	"about": {
+		"button": "Teave",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · autor Antonio Orionus",
+		"openTitle": "Teave Arroxy kohta",
+		"tagline": "Kiire ja mugav allalaadija YouTube’i ja 2000+ muu saidi jaoks.",
+		"thirdPartyNotices": "Kuva kolmandate osapoolte teatised",
+		"websiteLink": "Veebisait"
+	},
+	"aiUpscaled": {
+		"allow": "Luba",
+		"description": "YouTube pakub mõnda vana videot tehisintellektiga loodud suurustes. „Jäta vahele“ säilitab originaalvood; skaleeritud voo saate ikkagi käsitsi valida.",
+		"label": "Tehisintellektiga skaleeritud voogud",
+		"skip": "Jäta vahele"
+	},
 	"app": {
 		"feedback": "Tagasiside",
+		"feedbackNudge": "Kas Arroxy meeldib? Kuulaksin hea meelega teie arvamust! 💬",
 		"logs": "Logid",
 		"saveDiagnostics": "Salvesta diagnostikafail",
 		"saveDiagnosticsDescription": "Paneb teie logid ja rakenduse andmed ühte faili kausta Allalaadimised, mis on valmis GitHubi probleemiaruandele lisamiseks. Teie kasutajakausta nimi eemaldatakse; videolingid ja pealkirjad jäävad alles.",
-		"feedbackNudge": "Kas Arroxy meeldib? Kuulaksin hea meelega teie arvamust! 💬",
-		"zoomIn": "Suumi sisse",
-		"zoomOut": "Suumi välja",
+		"styleHint": "Uus: valige siin Aurora või Minimaalne",
 		"theme": "Kujundus",
-		"styleHint": "Uus: valige siin Aurora või Minimaalne"
+		"zoomIn": "Suumi sisse",
+		"zoomOut": "Suumi välja"
 	},
-	"about": {"button": "Teave", "openTitle": "Teave Arroxy kohta", "tagline": "Kiire ja mugav allalaadija YouTube’i ja 2000+ muu saidi jaoks.", "websiteLink": "Veebisait", "githubLink": "GitHub", "licenseLine": "GPLv3 · autor Antonio Orionus", "thirdPartyNotices": "Kuva kolmandate osapoolte teatised"},
-	"titleBar": {"close": "Sulge", "minimize": "Minimeeri", "maximize": "Maksimeeri", "restore": "Taasta"},
-	"splash": {
-		"greeting": "Tere tulemast tagasi!",
-		"warmup": "Allalaadimiste ettevalmistamine…",
-		"verifying": "{{binary}} kontrollimine…",
-		"verifyFirstCheck": "Selle versiooni esimene kontroll – see on aeglane. Tavaliselt umbes minut.",
-		"cancel": "Probleeme? Seadistage käsitsi",
-		"warmupFailedNoDiag": "Seadistamine ebaõnnestus. Üksikasjade nägemiseks avage seadistuslogi.",
-		"setup": {
-			"title": {"firstRun": "Esmakordne seadistus", "media": "Meediatööriistade uuendamine", "engine": "Allalaadimismootori uuendamine"},
-			"stage": {
-				"connecting": "Ühendamine…",
-				"downloadingBoth": "Allalaadimismootori ja meediatööriistade allalaadimine",
-				"downloadingEngine": "Allalaadimismootori allalaadimine",
-				"downloadingMedia": "Meediatööriistade allalaadimine",
-				"unpacking": "Meediatööriistade lahtipakkimine",
-				"checking": "Kontrollimine, kas kõik töötab"
-			},
-			"bytes": "{{done}} / {{total}}",
-			"left": {"underMinute": "alla minuti jäänud", "minutes_one": "umbes {{count}} min jäänud", "minutes_other": "umbes {{count}} min jäänud"},
-			"note": {"firstRun": "See juhtub ainult üks kord. Arroxy hoiab need tööriistad alles ja uuendab neid ise.", "media": "See juhtub ainult üks kord. Arroxy hoiab need tulevaste uuenduste jaoks alles.", "engine": "Hoiab allalaadimised töökorras, kui saidid muutuvad."}
+	"common": {
+		"back": "Tagasi",
+		"cancel": "Loobu",
+		"close": "Sulge",
+		"continue": "Jätka",
+		"dismiss": "Sule",
+		"loading": "Laadimine",
+		"retry": "Proovi uuesti",
+		"startOver": "Alusta otsast"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy jääb tööle ja lõpetab aktiivsed allalaadimised. Seda saab hiljem muuta täpsemates sätetes.",
+			"hide": "Peida salve",
+			"message": "Kas peita Arroxy sulgemisel süsteemisalve?",
+			"quit": "Välju",
+			"remember": "Ära enam küsi"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Tühista allalaadimised ja välju",
+			"detail": "Peatage, et hiljem jätkata, või tühistage, et edenemine kaotada.",
+			"keep": "Jätka allalaadimist",
+			"message_one": "{{count}} allalaadimine pooleli",
+			"message_other": "{{count}} allalaadimist pooleli",
+			"pause": "Peata allalaadimised ja välju"
+		},
+		"rendererCrashed": {
+			"detail": "Renderdusprotsess jooksis kokku ({{reason}}). Uuesti proovimiseks laadige uuesti.",
+			"message": "Arroxys tekkis probleem",
+			"quit": "Välju",
+			"reload": "Laadi uuesti"
 		}
 	},
-	"repair": {
-		"title": "Seadistamine vajab teie abi",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Allalaadimismootor", "media": "Meediatööriistad"},
-		"causes": {
-			"downloadFailed": {"title": "Arroxy vajaliku allalaadimine ebaõnnestus", "body": "Kontrollige oma internetiühendust ja proovige uuesti."},
-			"extractFailed": {"title": "Allalaadimine jõudis kohale kahjustatuna", "body": "Proovige uuesti, et see värskelt alla laadida."},
-			"hashFailed": {"title": "Allalaadimine ei vastanud oma kontrollsummale", "body": "Proovige uuesti, et see värskelt alla laadida."},
-			"spawnFailed": {"title": "Tööriist puudub või ei käivitu", "body": "Proovige uuesti. Kui see kordub, valige allpool töötav koopia."},
-			"permissionDenied": {"title": "Teie süsteem ei luba Arroxyl tööriista käivitada", "body": "Proovige uuesti. Kui see kordub, valige allpool usaldusväärne koopia."},
-			"blockedOrQuarantined": {"title": "Teie viirusetõrje blokeeris tööriista", "body": "Lubage Arroxy oma viirusetõrjes või SmartScreenis ja proovige uuesti."},
-			"badExitCode": {"title": "Tööriist ei tööta korralikult", "body": "Proovige uuesti. Kui see kordub, valige allpool töötav koopia."},
-			"timeout": {"title": "Tööriist vastas liiga kaua", "body": "Sageli on põhjuseks esmakäivituse turvaskannimine. Proovige uuesti."},
-			"pairIncomplete": {"title": "FFmpeg ja FFprobe tuleb määrata koos", "body": "Valige allpool mõlemad või lähtestage need vaikeväärtustele."},
-			"unknown": {"title": "Seadistamisel läks midagi valesti", "body": "Proovige uuesti või avage üksikasjade nägemiseks seadistuslogi."}
-		},
-		"installing": {"homebrew": "Installimine Homebrew’ga… See võib võtta paar minutit.", "winget": "Installimine WinGet’iga… See võib võtta paar minutit."},
-		"stopped": {"title": "Seadistamine peatus", "body": "Proovige uuesti või suunake Arroxy allpool juba olemasolevatele tööriistadele."},
-		"manual": {"toggle": "Seadista käsitsi", "intro": "Suunake Arroxy juba olemasolevatele koopiatele või installige need muul viisil.", "linuxHint": "Võite yt-dlp ja ffmpegi installida ka oma paketihalduriga ning seejärel klõpsata nuppu Proovi uuesti."},
-		"actions": {
-			"chooseExecutable": "Vali käivitusfail",
-			"installWithHomebrew": "Installi Homebrew’ga",
-			"installWithWinget": "Installi WinGet’iga",
-			"resetToDefault": "Lähtesta vaikeväärtusele",
-			"retrySetup": "Proovi uuesti",
-			"cancel": "Loobu",
-			"openDependencyFolder": "Ava sõltuvuse kaust",
-			"viewSetupLog": "Kuva seadistuslogi"
-		}
-	},
-	"theme": {"light": "Hele režiim", "dark": "Tume režiim", "system": "Süsteemi vaikesäte"},
-	"language": {"label": "Keel"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Esitusloend",
-			"playlistItemsGeneric": "Videod",
-			"playlistPresets": "Kvaliteet",
-			"playlistProfiles": "Profiilid",
-			"formats": "Vorming",
-			"subtitles": "Subtiitrid",
-			"sponsorblock": "SponsorBlock",
-			"output": "Väljund",
-			"folder": "Salvesta",
-			"confirm": "Kinnita",
-			"review": "Ülevaade"
-		},
-		"playlistPresets": {"heading": "Valige partii kvaliteet", "subhead": "Iga video lahendab valitud astme eraldi – erinevatest videotest koosnevad esitusloendid töötavad üllatusteta.", "itemCount_one": "{{count}} üksus", "itemCount_other": "{{count}} üksust"},
-		"playlistProfiles": {
-			"heading": "Määrake allalaadimisprofiilid",
-			"selectedSummary": "{{selected}} / {{total}} valitud",
-			"assignTriggerEmpty": "Määra profiil",
-			"assignTrigger_one": "Määra {{count}} videole",
-			"assignTrigger_other": "Määra {{count}} videole",
-			"menuDescription_one": "Valige selle video profiil.",
-			"menuDescription_other": "Valige nende {{count}} video profiil.",
-			"editProfile": "Muuda profiili {{name}}",
-			"filtersLabel": "Profiilifiltrid",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profiil",
-			"columnDuration": "Kestus",
-			"empty": "Ükski üksus ei vasta sellele filtrile"
-		},
-		"playlist": {
-			"heading": "Esitusloendi üksused",
-			"headingGeneric": "Allalaaditavad videod",
-			"bulkHeading": "Hulgi-URL-id",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} videot",
-			"itemCountAudio_one": "{{count}} lugu",
-			"itemCountAudio_other": "{{count}} lugu",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL-i",
-			"bulkMetadataResolving": "Videote üksikasjade toomine… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Ootamine pole vajalik – nüüd järjekorda pandud failid saavad oma tegelikud nimed allalaadimisel.",
-			"bulkRowWaiting": "Ootab",
-			"bulkRowResolving": "Üksikasjade toomine",
-			"bulkRowFailed": "Üksikasjad pole saadaval",
-			"selectAll": "Vali kõik",
-			"selectNone": "Tühista valik",
-			"sortLabel": "Sordi",
-			"sortApi": "Esitusloendi järjekord",
-			"sortUploadAsc": "Vanimad enne",
-			"sortUploadDesc": "Uusimad enne",
-			"sortFetchingDates": "Üleslaadimiskuupäevade toomine…",
-			"rangeFrom": "Alates",
-			"rangeTo": "Kuni",
-			"rangeApply": "Rakenda vahemik",
-			"selectedCount_one": "{{count}} valitud",
-			"selectedCount_other": "{{count}} valitud",
-			"noSelection": "Jätkamiseks valige vähemalt üks video",
-			"loadingItems": "Esitusloendi toomine…",
-			"loadingItemsGeneric": "Videote toomine…",
-			"loadingPhasePages": "Kanali lehtede skannimine",
-			"loadingPhaseItems": "Videote kogumine",
-			"loadingPagesFound_one": "Leitud {{count}} leht",
-			"loadingPagesFound_other": "Leitud {{count}} lehte",
-			"loadingLimitHint": "Piiratud esimese {{count}} üksusega",
-			"thumbnailAlt": "Video pisipilt",
-			"durationUnknown": "otse",
-			"syncChange": "Muuda kausta…",
-			"syncApply": "Rakenda sünkroonimine",
-			"syncScanning": "Kausta kontrollimine…",
-			"syncFoundTitle": "Juba kaustas",
-			"syncFoundDesc": "{{n}} neist videotest on juba kaustas {{dir}}. Kas sünkroonida, et laadida alla ainult uued?",
-			"syncNoneTitle": "Midagi pole veel alla laaditud",
-			"syncNoneDesc": "Kaustast {{dir}} ei leitud ühtegi selle esitusloendi videot.",
-			"syncNoneDescGeneric": "Kaustast {{dir}} ei leitud ühtegi selle allika videot.",
-			"alreadyDownloaded": "Juba alla laaditud",
-			"nestedPlaylistBadge": "Esitusloend",
-			"nestedPlaylistHint_one": "{{count}} neist on esitusloend, mitte video – allalaadimiseks kleepige selle link eraldi.",
-			"nestedPlaylistHint_other": "{{count}} neist on esitusloendid, mitte videod – allalaadimiseks kleepige nende lingid ükshaaval.",
-			"probeLimitAlertTitle": "Esitusloendi skannimine on piiratud",
-			"probeLimitAlertTitleGeneric": "Skannimine on piiratud",
-			"probeLimitAlertDesc": "Kuvatakse esimesed {{count}} üksust. Rohkema nägemiseks suurendage laadimispiiri.",
-			"multiProfileEntry": "Määra profiilid üksustele",
-			"multiProfileEntryTooltip": "Jätab vahele Kvaliteedi, SponsorBlocki, Väljundi ja Salvestamise – määrake hoopis iga üksuse jaoks allalaadimisprofiil",
-			"removeFromListCount_one": "Eemalda {{count}} loendist",
-			"removeFromListCount_other": "Eemalda {{count}} loendist",
-			"restore": "Taasta",
-			"removedCount_one": "{{count}} eemaldatud",
-			"removedCount_other": "{{count}} eemaldatud",
-			"allRemovedTitle": "Kõik üksused eemaldati",
-			"allRemovedDescription": "Jätkamiseks taastage need."
-		},
-		"bulk": {
-			"title": "Hulgi-URL-id",
-			"description": "Kleepige video-, esitusloendi-, kanali-, otsingu- või heli-URL-id. Arroxy puhastab dubleerivad enne järjekorda lisamist.",
-			"textareaLabel": "URL-ide loend",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Valmis",
-			"ignoredCount": "Eiratud",
-			"emptyPreview": "Partii eelvaate nägemiseks kleepige üks või mitu URL-i.",
-			"needsAtLeastOne": "Jätkamiseks lisage vähemalt üks toetatud URL.",
-			"reject": {"duplicate": "Duplikaat"}
-		},
-		"tabsNavAria": "Allalaadimisprofiili navigeerimine",
-		"profileSwitchRow": {"helpAria": "{{label}} – abi"},
-		"mixedPrompt": {
-			"title": "Sellel lingil on esitusloend",
-			"body": "Kas soovite ainult videot, millel klõpsasite, või valida esitusloendist? Järgmisena valite konkreetsed videod või vahemiku.",
-			"quickBody": "Laadige alla ainult see video või pange kogu esitusloend järjekorda oma aktiivse kiirallalaadimise profiiliga.",
-			"singleVideo": "Ainult see",
-			"quickSingleVideo": "Laadi see video alla",
-			"pickFromPlaylist": "Vali esitusloendist",
-			"quickWholePlaylist": "Laadi kogu esitusloend alla",
-			"playlistLimit": "Esitusloendi päringu piir: {{count}} üksust",
-			"quickLimitDescription": "Maksimaalne kirjete arv, mida Arroxy skannib enne esitusloendi, kanali või otsingutulemuse järjekorda lisamist.",
-			"singleTooltip": "Laadib ainult selle video. Sellele URL-ile lisatud esitusloendit eiratakse.",
-			"quickSingleTooltip": "Lisab järjekorda ühe allalaadimise ja eirab sellele URL-ile lisatud esitusloendit.",
-			"playlistTooltip": "Laadib esitusloendi kuni teie esitusloendi päringu piirini, enne kui valija kuvatakse.",
-			"quickPlaylistTooltip": "Lisab järjekorda iga laaditud esitusloendi üksuse aktiivse kiirallalaadimise profiiliga. Kui skannimine jõuab teie piirini, küsib Arroxy enne järjekorda lisamist."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Esitusloendi ulatus",
-				"change": "Muuda",
-				"summaryAppLimit": "Laadi esimesed üksused: {{count}}",
-				"summaryFirst": "Laadi esimesed üksused: {{count}}",
-				"summaryRange": "Laadi üksused {{from}}-{{to}}",
-				"dialogTitle": "Esitusloendi ulatus",
-				"dialogDescription": "Valige, mida Arroxy selle esitusloendi jaoks laadib.",
-				"itemsLabel": "Laaditavad üksused",
-				"appLimit": "Kasuta rakenduse piirangut: {{count}}",
-				"first": "Esimesed",
-				"range": "Vahemik",
-				"to": "kuni",
-				"invalid": "Kasutage üksuste täisnumbreid vahemikus 1 kuni {{max}}, kusjuures algus ei tohi olla lõpust suurem.",
-				"applyError": "Seda esitusloendi ulatust ei õnnestunud rakendada: {{message}}",
-				"reset": "Lähtesta",
-				"cancel": "Loobu",
-				"apply": "Rakenda",
-				"applyReload": "Rakenda ja laadi uuesti",
-				"reloading": "Uuesti laadimine...",
-				"emptyTitle": "Selles ulatuses pole ühtegi videot"
-			},
-			"heading": "Laadi alla URL-ilt",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiilid", "settings": "Sätted"},
-			"interactiveDownload": "Interaktiivne allalaadimine",
-			"fetchFormatsTooltip": "Samm-sammuline viisard. Valige vorming, kvaliteet ja muu.",
-			"quickDownload": "Kiirallalaadimine",
-			"quickDownloadTooltip": "Laaditakse alla profiiliga: {{profileName}}",
-			"quickPreparing": "Ettevalmistamine",
-			"quickQueued": "Lisatud järjekorda",
-			"quickSingleOnly": "Alustamiseks kleepige video, esitusloendi, kanali või otsingu URL.",
-			"quickProbeFailed": "Päring ebaõnnestus",
-			"quickPrepareFailed": "Järjekorra üksust ei õnnestunud ette valmistada",
-			"quickBulkAllFailed": "Ühtegi neist URL-idest ei õnnestunud ette valmistada",
-			"quickFailed": "Seda ei õnnestunud lisada: {{error}}",
-			"quickPartialFailed_one": "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus.",
-			"quickPartialFailed_other": "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus.",
-			"profile": {
-				"destinationFallback": "Sihtkoht",
-				"switchAria": "Vaheta allalaadimisprofiili: {{profileName}}",
-				"switchTitle": "Vaheta allalaadimisprofiili",
-				"activeLabel": "Aktiivne profiil",
-				"editActive": "Muuda aktiivset profiili",
-				"changeGlobalDestination": "Muuda globaalset sihtkohta",
-				"destinationDetail": {"global": "Kasutab globaalset sihtkohta", "globalSubfolder": "Kasutab globaalset sihtkohta + profiili alamkausta", "override": "Kasutab profiili alistust", "overrideSubfolder": "Kasutab profiili alistust + profiili alamkausta"},
-				"summary": {"bestVideo": "parim video", "bestAudio": "parim heli", "aacAudio": "AAC-heli", "wavAudio": "WAV-heli", "noAudio": "heli puudub", "subtitlesOnly": "ainult subtiitrid"},
-				"menuTitle": "Vaheta profiili",
-				"menuDescription": "Muutke kiirallalaadimise, hulgi-URL-ide ja esitusloendite aktiivset profiili.",
-				"newProfile": "Uus profiil",
-				"manageProfiles": "Halda profiile",
-				"panelTitle": "Allalaadimisprofiilid",
-				"panelDescription": "Looge, valige, muutke või eemaldage taaskasutatavaid allalaadimisseadistusi.",
-				"badgeCustom": "Kohandatud",
-				"badgeModified": "Muudetud",
-				"badgeBuiltIn": "Sisseehitatud",
-				"badgeDisabled": "Peidetud",
-				"enableToggleAria": "Kuva profiil valijates: {{profileName}}",
-				"enableHint": "Peidetud profiilid jäävad siia, kuid kaovad kõigist profiilivalijatest.",
-				"reorderHint": "Lohistage profiil teisaldamiseks. Kõik profiilivalijad järgivad seda järjekorda.",
-				"moveHandleAria": "Teisalda {{profileName}}",
-				"movableProfile": "teisaldatav profiil",
-				"moveInstructions": "Profiili teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi.",
-				"movePickedUp": "{{profileName}} võeti kätte. See on positsioonil {{position}} / {{count}}.",
-				"moveOver": "{{profileName}} on positsiooni {{position}} / {{count}} kohal.",
-				"moveDropped": "{{profileName}} asetati positsioonile {{position}} / {{count}}.",
-				"moveCancelled": "Teisaldamine tühistati. {{profileName}} jääb positsioonile {{position}} / {{count}}.",
-				"lastEnabledHint": "Jätke vähemalt üks profiil saadavale.",
-				"edit": "Muuda",
-				"remove": "Eemalda",
-				"reset": "Lähtesta"
-			},
-			"bulkButton": "Hulgi-URL-id",
-			"bulkTooltip": "Lisa ja pane järjekorda mitu URL-i.",
-			"features": {
-				"heading": "Mida Arroxy suudab alla laadida",
-				"youtube": {"heading": "YouTube", "video": "Videod", "channel": "Kanalid", "playlist": "Esitusloendid", "short": "Shorts", "music": "Muusika", "podcast": "Taskuhäälingud"},
-				"anySite": {"heading": "2000+ saiti", "video": "Videod", "videoPlaylist": "Video esitusloendid", "musicPlaylist": "Muusika esitusloendid"},
-				"always": {"audioOnly": "Ainult heli", "subtitles": "Subtiitrid"}
-			},
-			"mascotIdle": "Kleepige link ja las Arroxy selle alla laeb ✨",
-			"mascotBusy": "Allalaadimine taustal… Oskan mitut asja korraga 😎",
-			"mascotPreparing": "{{quickDownload}} loeb seda linki ja rakendab profiili {{profileName}}.",
-			"mascotQueued": "Järjekord tegeleb selle allalaadimisega. Kuni see töötab, võite kleepida järgmise lingi.",
-			"mascotCollection": "Kiire paneb laaditud üksused järjekorda profiiliga {{profileName}}. Interaktiivne laseb üksusi enne uurida või valida.",
-			"mascotMixed": "See link osutab ühele videole kollektsioonis. Arroxy küsib enne päringut, millist soovite.",
-			"mascotSingle": "Kiire alustab ühe allalaadimise profiiliga {{profileName}}. Ühekordsete muudatuste jaoks kasutage Interaktiivset.",
-			"advanced": "Täpsemalt",
-			"settings": {"inputHeading": "Sisend", "behaviorHeading": "Allalaadimise käitumine", "behaviorDescription": "Globaalne käitumine, mis mõjutab ka profiilipõhiseid allalaadimisi."},
-			"clearAria": "Tühjenda URL",
-			"clipboard": {
-				"toggle": "Jälgi lõikelauda",
-				"toggleDescription": "Täidab URL-välja automaatselt, kui kopeerite videolingi.",
-				"autofilledLink": "Link lisati lõikelaualt",
-				"bulkHint": "Kopeeritud mitu linki – nende lisamiseks kasutage Hulgi-URL-e",
-				"replacedLink": "Asendati kopeeritud lingiga",
-				"undo": "Võta tagasi",
-				"dialog": {"cancelButton": "Loobu"}
-			},
-			"hotkey": {
-				"sectionTitle": "Globaalne kiirklahv",
-				"sectionDescription": "Laadige alla iga kopeeritud link mis tahes rakendusest, Arroxyt avamata.",
-				"toggle": "Luba globaalne kiirklahv",
-				"toggleDescription": "Vajutage otseteed, kui lõikelaual on videolink.",
-				"changeShortcut": "Muuda otseteed",
-				"recording": "Vajutage klahve…",
-				"test": "Testi",
-				"conflict": "Selle otsetee on võtnud mõni teine rakendus – valige teine.",
-				"hintLabel": "Või vajutage",
-				"hintTooltip": "Kopeerige videolink kus tahes, vajutage seda otseteed ja Arroxy paneb selle teie aktiivse profiiliga järjekorda – akent vahetama ei pea.",
-				"hintTooltipSettings": "Muutke või lülitage välja jaotises Sätted.",
-				"reset": "Lähtesta vaikeväärtusele"
-			},
-			"cookies": {
-				"sourceLabel": "Küpsiste allikas",
-				"sourceOff": "Väljas",
-				"sourceFile": "Fail",
-				"sourceBrowser": "Brauser",
-				"sourceExplore": "Avasta sisselogimine",
-				"recommended": "Soovitatav",
-				"exploreDescription": "Kasutab teie Avasta sisselogimist ainult siis, kui allalaadimine seda vajab.",
-				"exploreDisabled": "Vahekaart Avasta on väljas, seega allalaadimised ei kasuta teie Avasta sisselogimist. Lülitage see sisse allpool jaotises Avasta.",
-				"openExplore": "Ava Avasta",
-				"toggleDescription": "Aitab vanusepiiranguga, ainult liikmetele mõeldud ja konto privaatsete videote puhul.",
-				"risk": "Risk: cookies.txt sisaldab kõiki selle brauseri sisselogitud seansse – hoidke see privaatsena.",
-				"fileLabel": "Küpsisefail",
-				"choose": "Vali…",
-				"clear": "Tühjenda",
-				"placeholder": "Faili pole valitud",
-				"helpLink": "Kuidas küpsiseid eksportida?",
-				"enabledButNoFile": "Küpsiste kasutamiseks valige fail",
-				"browserLabel": "Brauser",
-				"browserPlaceholder": "Valige brauser…",
-				"browserHelp": "Loeb küpsised otse brauserist. Chromiumi-perekonna brauserite puhul peab brauser olema suletud.",
-				"enabledButNoBrowser": "Küpsiste kasutamiseks valige brauser",
-				"banWarning": "Sellised saidid nagu YouTube võivad märgistada ja vahel ka blokeerida kontosid, mille küpsiseid kasutavad allalaadimistööriistad, nagu Arroxy. Kasutage võimaluse korral ühekordset kontot.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Hangi cookies.txt LOCALLY (Chrome)"
-			},
-			"proxy": {"label": "Puhverserveri URL", "description": "Suunab liikluse läbi puhverserveri – kasulik piirkonnapõhiselt piiratud sisu jaoks.", "placeholder": "http://host:port", "clear": "Tühjenda"},
-			"style": {
-				"panelTitle": "Välimus",
-				"panelDescription": "Kuidas Arroxy välja näeb. Heleda ja tumeda vahel lülitate jaluses.",
-				"modeLabel": "Stiil",
-				"modeDescription": "Mõlemad stiilid on olemas heleda ja tumedana.",
-				"aurora": {"label": "Aurora", "description": "Klaaspaneelid liikuva taeva kohal. Vajab graafikakiirendust."},
-				"minimal": {"label": "Minimaalne", "description": "Ühtlased, vaiksed pinnad. Töötab kergelt igas arvutis."},
-				"unavailableNotice": "{{style}} vajab graafikakiirendust, mis pole praegu saadaval, seega kuvab Arroxy stiili {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Allalaadimiskiiruse piirang",
-				"description": "Piirab meediafailide allalaadimise ribalaiust. Allolev päringute tempo on tavaliselt tugevam piiramisviis.",
-				"off": "Väljas",
-				"custom": "Kohandatud…",
-				"customPlaceholder": "nt 750K või 1.5M",
-				"invalid": "Kasutage arvu, millele järgneb K või M (nt 500K, 1.5M)",
-				"activeWarning": "Aktiivsed allalaadimised säilitavad oma praeguse piirangu. Muudatuste rakendamiseks peatage ja jätkake."
-			},
-			"playlistProbeLimit": {
-				"label": "Skannitavaid esitusloendi üksusi",
-				"description": "Maksimaalne kirjete arv, mille Arroxy laadib esitusloendi, kanali või otsingutulemuse avamisel.",
-				"option": "{{count}} üksust",
-				"current": "Praegune piirang: {{count}} üksust",
-				"customValue": "Kohandatud: {{count}} üksust",
-				"custom": "Kohandatud…",
-				"customDialogTitle": "Esitusloendi skannimise kohandatud piirang",
-				"customDialogDescription": "Kasutage täisarvu vahemikus {{min}} kuni {{max}}.",
-				"customDialogCancel": "Loobu",
-				"customDialogSave": "Salvesta piirang",
-				"invalid": "Kasutage täisarvu vahemikus 1 kuni 5000",
-				"tooltip": "Arroxy küsib valija koostamisel ainult nii palju esitusloendi, kanali või otsingu kirjeid."
-			},
-			"nativeAudioPreference": {"label": "Algse heli eelistus", "description": "Stereo või ruumiheli, kui profiil valib algse heli. Profiil võib selle alistada.", "compatible": "Ühilduv stereo", "surround": "Eelista ruumiheli / Dolbyt"},
-			"autoRetry": {"label": "Proovi ebaõnnestunud allalaadimisi uuesti", "description": "Proovib pärast võrgu- või serverikatkestust automaatselt uuesti, oodates iga katse vahel kauem. Saidi poolt blokeeritud allalaadimisi ei proovita automaatselt uuesti.", "unit": "korda"},
-			"autoRemoveCompleted": {"label": "Eemalda lõpetatud allalaadimised", "description": "Eemaldab allalaadimise loendist Allalaadimised mõni sekund pärast selle lõppu. Failid jäävad teie kausta; ebaõnnestunud ja tühistatud allalaadimised jäävad loendisse."},
-			"concurrentDownloads": {"label": "Allalaadimisi korraga", "description": "Mitu järjekorra üksust laaditakse korraga alla. Rohkem korraga lõpetab pika järjekorra kiiremini, kuid suurendab võimalust, et sait teid piirab.", "unit": "allalaadimist"},
-			"downloadConnections": {"label": "Allalaadimisühendused", "description": "Kiirendab suuri allalaadimisi, tuues korraga mitu video osa. Suuremad väärtused suurendavad võimalust, et sait teid piirab.", "unit": "ühendust"},
-			"networkPacing": {
-				"heading": "Õrn allalaadimine",
-				"description": "Lisab iga allalaadimise ajal väikesed ooteajad, et Arroxy ei koormaks saiti liiga agressiivselt. Väärtused on sekundites.",
-				"presetLabel": "Kui ettevaatlik peaks Arroxy olema?",
-				"tooltip": "Need ooteajad toimuvad iga allalaadimise sees. Mitu allalaadimist korraga töötab, määratakse eraldi valikus Allalaadimisi korraga.",
-				"summary": "Ooteajad: {{requests}} kontrollide vahel, {{downloads}} enne meedia algust, {{subtitles}} enne subtiitrifaile.",
-				"presets": {"off": "Väljas", "balanced": "Tasakaalustatud", "careful": "Ettevaatlik", "custom": "Kohandatud"},
-				"tooltips": {
-					"off": "Kasutab ainult väikesi põhipause, mida Arroxy meedia ja subtiitrite jaoks hoiab.",
-					"balanced": "Vaikimisi. Lisab lühikesed pausid päringute vahele ja enne meedia algust.",
-					"careful": "Lisab pikemad pausid suurte esitusloendite või sageli piirangutesse jooksvate võrkude jaoks.",
-					"custom": "Kohandage täpsemad allalaadimiskohased juhtelemendid ise."
-				},
-				"fields": {"sleepRequests": "Ooteaeg metaandmete kontrollide vahel", "sleepInterval": "Paus enne meedia algust: min", "maxSleepInterval": "Paus enne meedia algust: maks", "sleepSubtitles": "Ooteaeg enne subtiitrifaile"},
-				"units": {"seconds": "sek"}
-			},
-			"closeToTray": {"toggle": "Peida sulgemisel salve", "toggleDescription": "Jätkab allalaadimisi taustal pärast akna sulgemist."},
-			"analytics": {
-				"toggle": "Saada igapäevane elumärk",
-				"toggleDescription": "Telemeetriat pole. Kord päevas saadab anonüümne elumärk rakenduse versiooni, installikanali, OS-i, keele, riigi ja ligikaudu selle, kui ammu Arroxy installiti, et saaksime lugeda aktiivseid ja uusi kasutajaid. Ei mingeid ID-sid, URL-e, videopealkirju ega failinimesid."
-			}
-		},
-		"quickProgress": {
-			"title": "Kiirallalaadimise ettevalmistamine",
-			"description": "Arroxy loeb linki ja rakendab profiili {{profileName}}.",
-			"currentFallback": "Praegune link",
-			"waitHint": "Hoidke see avatuna, kuni Arroxy järjekorda ette valmistab.",
-			"failedCount_one": "{{count}} ebaõnnestus",
-			"failedCount_other": "{{count}} ebaõnnestus",
-			"cancel": "Tühista ettevalmistus",
-			"phase": {"probing": "Üksikasjade toomine", "queueing": "Järjekorda lisamine"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Sellel videol pole subtiitreid",
-			"searchPlaceholder": "Otsi keeli…",
-			"noMatches": "Ükski keel ei vasta",
-			"clearAll": "Tühjenda kõik",
-			"noSelected": "Subtiitreid pole valitud",
-			"removeLanguage": "Eemalda {{name}}",
-			"sectionManual": "Käsitsi",
-			"sectionAuto": "Automaatselt loodud",
-			"saveMode": {"heading": "Salvesta kui", "sidecar": "Video kõrvale", "embed": "Manusta videosse", "subfolder": "alamkaust subtitles/"},
-			"format": {"heading": "Vorming"},
-			"embedNote": "Manustamisrežiim salvestab väljundi failina .mkv, et subtiitrivood manustuksid usaldusväärselt.",
-			"autoAssNote": "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na – YouTube’i videote puhul puhastatakse need kordustest, mida meie ASS-teisendaja veel järgi teha ei oska."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsorite filtreerimine",
-			"mode": {"off": "Väljas", "mark": "Märgi peatükkidena", "remove": "Eemalda lõigud"},
-			"modeHint": {"off": "SponsorBlocki pole – video esitatakse üleslaaditud kujul.", "mark": "Märgib sponsorilõigud peatükkidena (mittepurustav).", "remove": "Lõikab sponsorilõigud FFmpegi abil videost välja."},
-			"categoriesHeading": "Kategooriad",
-			"cat": {"sponsor": "Sponsor", "intro": "Sissejuhatus", "outro": "Lõpuosa", "selfpromo": "Enesereklaam", "music_offtopic": "Teemaväline muusika", "preview": "Eelvaade", "filler": "Täitematerjal"}
-		},
-		"formats": {
-			"kind": {"label": "Mida alla laadida", "video": "Video + heli", "videoOnly": "Video, ilma helita", "audio": "Ainult heli", "subtitles": "Ainult subtiitrid"},
-			"profile": {
-				"calloutTitle": "Vormingud lähtuvad teie profiilist",
-				"calloutBody": "Teie aktiivne profiil valib vood teie eest ette. Vahetage profiile menüüst või kasutage pliiatsit, et ühte kohandada, lahkumata sellest allalaadimisest.",
-				"preselected": "Eelvalitud profiilist",
-				"tag": "Profiil",
-				"closestTag": "Profiilile lähim",
-				"switchTitle": "Kas vahetada profiili?",
-				"switchBody": "Muutsite selle allalaadimise jaoks: {{areas}}. Profiil „{{profile}}“ valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?",
-				"resetAll": "Lähtesta kõik",
-				"edit": "Muuda profiili {{name}}",
-				"updatedTitle": "Kas kasutada uuendatud profiili?",
-				"updatedBody": "Muutsite selle allalaadimise jaoks: {{areas}}. Uuendatud profiil valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?",
-				"keepEdits": "Säilita minu muudatused",
-				"menuDescription": "Ainult selle allalaadimise jaoks. Teie vaikeprofiil jääb samaks."
-			},
-			"fit": {
-				"tierBelow": "Teie profiil küsib {{wanted}}p. See video ulatub ainult kuni {{picked}}p-ni, seega valiti {{picked}}p.",
-				"tierAbove": "Teie profiil küsib {{wanted}}p. Sellel videol pole nii väikest, seega valiti {{picked}}p.",
-				"mp4Unavailable": "Teie profiil on Nutiteler (H.264). See video ei paku H.264, seega valiti lähim voog.",
-				"noVideo": "Sellel lingil pole videot, seega valiti heli.",
-				"subtitlesMissing": "Teie profiil küsib subtiitreid keeltes {{languages}}. Sellel videol neid pole.",
-				"webmUnavailable": "Teie profiil küsib WebM-i. Selle video valitud voogude hulgas on {{codec}}, mida WebM ei mahuta, seega on failitüüp Automaatne."
-			},
-			"footer": {"download": "Laadi alla", "moreActions": "Veel allalaadimisvalikuid", "addToQueue": "Lisa järjekorda ilma alustamata", "subtitlesRequired": "Valige vähemalt üks subtiitrikeel."},
-			"video": "Video",
-			"audio": "Heli",
-			"noAudio": "Heli puudub",
-			"withAudio": "heliga",
-			"resolutionUnknown": "Tundmatu eraldusvõime",
-			"bitrateValue": "Bitikiirus {{bitrate}}",
-			"marker": {"aiUpscaled": "Tehisintellektiga skaleeritud", "aiDubbed": "Tehisintellektiga dubleeritud", "audioDescription": "Helikirjeldus", "spatialAudio": "Ruumiheli", "vr": "360° / VR", "enhancedBitrate": "Suurendatud bitikiirus", "damaged": "Kahjustatud", "watermarked": "Vesimärgiga"},
-			"keepAudio": "Jäta nagu on",
-			"keepAudioMeta": "Sisseehitatud heli",
-			"audioOnly": "Ainult heli",
-			"sniffing": "Otsin teile parimaid vorminguid…",
-			"loadingHint": "Oodake, kuni päring lõpeb – esitusloendid ja otsingud võivad võtta aega.",
-			"loadingAria": "Vormingute laadimine",
-			"sizeUnknown": "Suurus teadmata",
-			"total": "Kokku",
-			"skipToConfirm": "Jätka kinnitamiseni",
-			"skipToConfirmTooltip": "Kasutab kõigi ülejäänud sammude jaoks teie salvestatud eelistusi. Sätte muutmiseks jätkake hoopis samm-sammult – teie valik salvestatakse järgmiseks korraks.",
-			"quality": {"high": "Kõrge kvaliteet", "medium": "Keskmine kvaliteet", "low": "Madal kvaliteet"},
-			"drc": {"label": "Tasanda valjuvus (DRC)", "description": "Vaigistab valjud kohad ja tõstab vaiksed, kõlarite ja lärmakate ruumide jaoks.", "tag": "Tasandatud valjuvus"},
-			"audioLanguage": "Heli keel",
-			"audioLanguageCount_one": "{{count}} keel",
-			"audioLanguageCount_other": "{{count}} keelt",
-			"convert": {
-				"label": "Teisenda",
-				"bitrate": "Bitikiirus",
-				"wavLabel": "WAV (pakkimata)",
-				"lossyLabel": "{{target}} {{bitrate}} kbit/s",
-				"copyLabel": "{{target}} {{bitrate}} kbit/s, ilma ümberkodeerimiseta",
-				"copyLabelNoBitrate": "{{target}}, ilma ümberkodeerimiseta",
-				"copyNote": "{{kbps}} kbit/s, nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber",
-				"copyNoteNoBitrate": "Nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber",
-				"bitrateCopyHint": "Allikas, mis on juba {{target}}, säilitab oma voo ja bitikiiruse: see kopeeritakse, mitte ei kodeerita ümber.",
-				"sourceKbps": "Allikas on {{kbps}} kbit/s"
-			},
-			"botWall": {
-				"heading": "Päring oli piiratud",
-				"bodyUnconfigured": "Vormingute loend võib olla puudulik. Seadistage küpsised täpsemates sätetes või vahetage võrku ja proovige uuesti.",
-				"bodyDisabled": "Küpsised on seadistatud, kuid välja lülitatud. Täieliku loendi saamiseks lülitage need sisse ja proovige uuesti või vahetage võrku ja proovige uuesti.",
-				"bodyEnabled": "Isegi küpsistega piiras YouTube seda päringut. Proovige hiljem uuesti või vahetage võrku.",
-				"bodyExplore": "YouTube piiras seda päringut. Proovige hiljem uuesti või vahetage võrku.",
-				"retryCta": "Proovi uuesti",
-				"enableRetryCta": "Luba küpsised ja proovi uuesti"
-			},
-			"rateLimit": {
-				"heading": "{{site}} piirab selle ühenduse päringuid",
-				"leadDegraded": "Vormingute loend võib olla puudulik.",
-				"leadFailed": "{{site}} lükkas selle päringu praegu tagasi.",
-				"waitUntil": "Arroxy ootab kuni {{time}}, enne kui {{site}} käest uuesti küsib, et piirang saaks lõppeda.",
-				"waitOver": "Ooteaeg on möödas, seega võite uuesti proovida.",
-				"sessionNote": "{{site}} võib seda piirangut hoida kuni tund aega.",
-				"tryNowCta": "Proovi kohe",
-				"retryCta": "Proovi uuesti"
-			},
-			"cookiesError": {
-				"heading": "Põhjuseks võivad olla küpsised",
-				"currentModeLabel": "Küpsiste allikas",
-				"currentModeFile": "Fail",
-				"currentModeBrowser": "Brauser",
-				"currentModeExplore": "Avasta sisselogimine",
-				"explanationFile": "Teie küpsisefail võib olla tühi, aegunud või vales vormingus (Arroxy vajab Netscape’i cookies.txt-faili). Proovige küpsised uuesti eksportida, valida teine fail, lülituda režiimi Brauser või küpsised välja lülitada.",
-				"explanationBrowser": "Küpsised loetakse otse brauserist. Kui brauser töötab, võib selle küpsiseandmebaas olla lukus (Chromiumi-perekond). Brauser peab olema ka YouTube’i sisse logitud. Proovige brauser sulgeda, lülituda teisele brauserile, lülituda režiimi Fail või küpsised välja lülitada.",
-				"openSettingsCta": "Ava küpsiste sätted",
-				"exploreSignIn": {"heading": "See video võib vajada YouTube’i kontot", "body": "Kui see video vajab YouTube’i kontot, logige Avastas sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab.", "cta": "Logi sisse Avastas"},
-				"exploreSignedIn": {"heading": "Avastas sisse logitud", "body": "Kui see video vajab kontot, kasutab Arroxy automaatselt teie Avasta sisselogimist. Video võib olla kättesaamatu ka muul põhjusel."},
-				"exploreOffer": {"heading": "See video võib vajada YouTube’i kontot", "body": "Logige Avastas sisse ja Arroxy proovib uuesti.", "cta": "Logi Avastas sisse"},
-				"exploreReuse": {"heading": "See video võib vajada YouTube’i kontot", "body": "Olete Avastas sisse logitud, kuid allalaadimised ei kasuta praegu seda sisselogimist.", "cta": "Kasuta minu Avasta sisselogimist ja proovi uuesti"},
-				"exploreSite": {"heading": "See link võib vajada kontot saidil {{host}}", "signInBody": "Logige Avastas saiti {{host}} sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab.", "offerBody": "Logige Avastas saiti {{host}} sisse ja proovige uuesti."},
-				"exploreRefused": {"heading": "Sait keeldus sellest isegi teie Avasta sisselogimisega", "body": "Arroxy proovis seda juba Avasta kaudu sisse logituna, seega ei aita uuesti sisselogimine. Saidil võib olla probleeme või see konto ei saa seda avada. Proovige hiljem uuesti."},
-				"otherCookiesCta": "Kasuta hoopis küpsisefaili või brauserit…",
-				"needsCookies": {"heading": "See sait nõuab sisselogimist", "body": "Arroxy ei pääsenud sellele videole ilma autentimiseta ligi. Seadistage täpsemates sätetes küpsised – suunake need brauserile, kuhu olete juba sisse logitud, või importige fail cookies.txt."},
-				"dpapi": {
-					"heading": "Windowsi krüptimine blokeeris Chrome’i küpsised",
-					"explanation": "Chrome 127 ja uuemad krüptivad küpsiseid viisil, mida teised rakendused Windowsis lugeda ei saa. Proovige üht allolevat lahendust.",
-					"fixFirefoxLabel": "Lülitu Firefoxile",
-					"fixFirefoxBody": "Firefox ei kasuta App-Bound Encryptionit. Avage küpsiste sätted ja valige brauserite loendist Firefox.",
-					"fixFileLabel": "Ekspordi cookies.txt",
-					"fixFileBody": "Eksportige küpsised Chrome’ist brauserilaiendiga, seejärel lülitage see rakendus režiimi Fail ja valige eksporditud fail.",
-					"fixUnsafeLabel": "Käivita Chrome keelatud App-Bound Encryptioniga",
-					"fixUnsafeBody": "Lisage Chrome’i käivitusstaldusele --disable-features=LockProfileCookieDatabase. Hoiatus: see muudab varem krüptitud küpsised kehtetuks, mistõttu logitakse teid kõigilt saitidelt välja ja peate uuesti sisse logima.",
-					"docsLinkLabel": "yt-dlp dokumentatsioon (probleem #10927)"
-				}
-			},
-			"savesAs": {"label": "Salvestatakse kui", "reset": "WebM ei mahuta koodekit {{codec}}, seega naasis failitüüp väärtusele Automaatne."}
-		},
-		"folder": {
-			"heading": "Salvesta kausta",
-			"downloads": "Allalaadimised",
-			"videos": "Filmid",
-			"desktop": "Töölaud",
-			"music": "Muusika",
-			"documents": "Dokumendid",
-			"pictures": "Pildid",
-			"home": "Kodu",
-			"custom": "Kohandatud…",
-			"subfolder": {"toggle": "Salvesta alamkausta", "placeholder": "nt lo-fi rip’id", "invalid": "Kausta nimes on kehtetuid märke"}
-		},
-		"output": {
-			"embedChapters": {"label": "Manusta peatükid", "description": "Peatükimärgid, mida saab navigeerida igas kaasaegses pleieris."},
-			"embedMetadata": {"label": "Manusta metaandmed", "description": "Pealkiri, esitaja, kirjeldus ja üleslaadimiskuupäev kirjutatakse faili."},
-			"embedThumbnail": {"label": "Manusta pisipilt", "description": "Kaanepilt faili sees. WebM-video pakitakse ümber MKV-ks; jäetakse vahele, kui subtiitrid on manustatud."},
-			"writeDescription": {"label": "Salvesta kirjeldus", "description": "Salvestab video kirjelduse tekstifailina .description allalaadimise kõrvale."},
-			"writeThumbnail": {"label": "Salvesta pisipilt", "description": "Salvestab pisipildi .jpg pildifailina allalaadimise kõrvale."},
-			"writeM3u": {"label": "Loo .m3u esitusloendi fail", "description": "Salvestab videote kõrvale .m3u esitusloendi, et need avanevad teie meediapleieris õiges järjekorras."}
-		},
-		"review": {
-			"changeFormat": "Muuda vormingut",
-			"rowsHeading": "Kõik muu",
-			"rows": {"subtitles": "Subtiitrid", "sponsorBlock": "SponsorBlock", "extras": "Lisad", "saveTo": "Salvesta kausta", "fileName": "Failinimi"},
-			"value": {"subtitlesOff": "Väljas", "sponsorBlockOff": "Väljas", "extrasNone": "Puuduvad"},
-			"changed": "Muudetud profiilist {{profile}}: {{areas}}. Kehtib ainult sellele allalaadimisele.",
-			"areas": {"format": "vorming", "subtitles": "subtiitrid", "sponsorBlock": "SponsorBlock", "extras": "lisad", "saveTo": "kaust", "fileName": "failinimi"},
-			"updateProfile": "Uuenda profiili „{{profile}}“ nende muudatustega",
-			"saveAsProfile": "Salvesta uue profiilina",
-			"update": {
-				"title": "Kas uuendada profiili „{{profile}}“?",
-				"description": "Edaspidi kasutab iga selle profiiliga allalaadimine uusi sätteid.",
-				"rows": {"format": "Vorming"},
-				"builtinNote": "See on sisseehitatud profiil. Selle algsed sätted saab taastada vahekaardil Profiilid.",
-				"action": "Uuenda profiili",
-				"updated": "Profiil „{{name}}“ uuendati"
-			},
-			"callout": {"title": "Kõik muud sätted on nüüd siin lehel", "body": "Subtiitrid, SponsorBlock, lisad nagu pisipilt, kaust ja failinimi olid varem eraldi sammud. Muutmiseks klõpsake real."},
-			"reset": "Võta muudatused tagasi, tagasi profiilile „{{profile}}“",
-			"changedFrom": "Muudetud profiilist {{profile}}:",
-			"save": {
-				"title": "Salvesta profiilina",
-				"description": "Säilitab need sätted profiilina, mille saate järgmisel korral valida. Teie kiirallalaadimise profiil jääb samaks.",
-				"nameLabel": "Profiili nimi",
-				"action": "Salvesta profiil",
-				"saved": "Salvestatud profiilina „{{name}}“",
-				"failed": "Profiili ei õnnestunud salvestada."
-			},
-			"nextTime": {"title": "See allalaadimine kasutas muudetud sätteid. Kas kasutada neid järgmisel korral?", "action": "Salvesta profiilina", "defaultName": "{{profile}} (muudetud)"}
-		},
-		"confirm": {
-			"readyHeadline": "Valmis allalaadimiseks!",
-			"landIn": "Teie fail salvestatakse kausta",
-			"landInMultiProfile_one": "See salvestatakse allolevasse sihtkohta",
-			"landInMultiProfile_other": "Need salvestatakse allolevatesse sihtkohtadesse ({{count}})",
-			"labelVideo": "Video",
-			"labelAudio": "Heli",
-			"labelSubtitles": "Subtiitrid",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Salvesta kausta",
-			"labelSize": "Suurus",
-			"sizeUnknown": "Teadmata",
-			"nothingToDownload": "Aktiivne on ainult subtiitrite eelseadistus, kuid ühtegi subtiitrikeelt pole valitud – midagi ei laadita alla.",
-			"thumbnailEmbedNotSupported": "Pisipildi manustamine jäeti vahele – väljundkonteiner ei toeta seda.",
-			"subtitleEmbedAudioOnly": "Subtiitrite manustamine muudeti eraldi failiks – helifailid ei toeta manustatud subtiitrivoogusid.",
-			"audioOnly": "Ainult heli",
-			"addToQueue": "+ Järjekorda",
-			"addToQueueTooltip": "Lisab järjekorda – algab, kui aktiivne allalaadimine lõpeb",
-			"pullIt": "Lae alla! ↓",
-			"pullItTooltip": "Jätab järjekorra vahele – algab kohe ja töötab koos teiste aktiivsete allalaadimistega",
-			"labelPlaylist": "Esitusloend",
-			"labelBulk": "Partii",
-			"labelPreset": "Eelseadistus",
-			"labelItems": "Üksused",
-			"itemsValue_one": "{{count}} / {{total}} video",
-			"itemsValue_other": "{{count}} / {{total}} videost",
-			"itemsValueAudio_one": "{{count}} / {{total}} lugu",
-			"itemsValueAudio_other": "{{count}} / {{total}} loost",
-			"itemsValueBulk_one": "{{count}} / {{total}} URL",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL-ist",
-			"profileBreakdownHeading": "Selle partii profiilid",
-			"profileBreakdownCount_one": "{{count}} üksus",
-			"profileBreakdownCount_other": "{{count}} üksust",
-			"subtitleEmbedForcesMkv": "Video sisse manustatud subtiitrid vajavad MKV-faili, seega salvestatakse see allalaadimine failina .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Allalaadimisprofiil",
-			"dialogDescription": "Üks taaskasutatav seadistus kiirallalaadimisele, hulgi-URL-idele ja esitusloenditele.",
-			"skipped": "Vahele jäetud",
-			"panel": {
-				"identity": {"title": "Profiili identiteet", "description": "Nimi ja ikoon, mida kuvatakse kiirallalaadimises, hulgi-URL-ides ja profiililoendites."},
-				"downloadType": {"title": "Allalaadimise tüüp", "description": "Valige peamine allalaadimisviis."},
-				"advanced": {"title": "Täpsemad valikud", "description": "Profiilid pärivad globaalse sihtkoha, kui te profiili alistust ei määra."},
-				"output": {"title": "Väljundi valikud", "enabledCount_one": "{{count}} lubatud", "enabledCount_other": "{{count}} lubatud"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profiili nimi ja ikoon",
-				"icon": "Profiili ikoon",
-				"resolution": "Eraldusvõime",
-				"quality": "Kvaliteet",
-				"source": "Allikas",
-				"subfolderName": "Alamkausta nimi",
-				"name": "Profiili nimi",
-				"subtitleDownloads": "Subtiitrite allalaadimised",
-				"subtitleDownloadsDescription": "Profiilid küsivad keelekoode; saadavus selgitatakse välja iga URL-i puhul.",
-				"languages": "Keeled",
-				"delivery": "Edastus",
-				"overridePath": "Profiili alistuse tee",
-				"goal": "Optimeeri selleks",
-				"fileType": "Failitüüp",
-				"nativeAudio": "Algne heli"
-			},
-			"action": {
-				"chooseIcon": "Vali profiili ikoon",
-				"setOverride": "Määra profiili alistus",
-				"chooseFolder": "Vali sihtkaust",
-				"removeLanguage": "Eemalda {{code}}",
-				"useLanguageCode": "Kasuta keelekoodi „{{code}}“",
-				"changeGlobalShort": "Muuda globaalset",
-				"setOverrideShort": "Määra alistus",
-				"useGlobalDefault": "Kasuta globaalset vaikeväärtust",
-				"reset": "Lähtesta profiil",
-				"resetHint": "Taasta profiili sisseehitatud sätted",
-				"resetDisabledHint": "See profiil kasutab juba sisseehitatud sätteid",
-				"save": "Salvesta profiil"
-			},
-			"placeholder": {"folder": "Valige selle profiili kaust"},
-			"destination": {
-				"global": "Globaalne sihtkoht",
-				"override": "Profiili alistus",
-				"resolved": "Lahendatud sihtkoht",
-				"defaultFolder": "Vaikimisi allalaadimiskaust",
-				"defaultFolderWithSubfolder": "Vaikimisi allalaadimiskaust / {{subfolder}}",
-				"globalActive": "Aktiivne",
-				"globalInherited": "Päritud",
-				"overrideSet": "Alistab globaalse",
-				"overrideChoosing": "Vali kaust",
-				"overrideNone": "Alistust pole määratud",
-				"overrideSetNote": "See profiil salvestab oma juurkausta, enne kui alamkaust lisatakse.",
-				"overrideNoneNote": "Alistust pole määratud. See profiil kasutab ülal olevat globaalset sihtkohta."
-			},
-			"note": {
-				"subtitlesOnly": "See profiil lisab järjekorda ainult subtiitrifailid. Video, heli, SponsorBlock ja meediateisendus jäetakse vahele.",
-				"noSubtitles": "Selle profiili jaoks ei küsita subtiitrifaile ega manustatud subtiitrivoogusid.",
-				"searchLanguages": "Otsige keele nime või koodi järgi",
-				"noLanguageMatches": "Sobivaid keeli pole",
-				"subtitleLanguagesRequired": "Valige vähemalt üks keel.",
-				"subtitleLanguagesRequiredOrOff": "Valige vähemalt üks keel või lülitage subtiitrite allalaadimine välja.",
-				"autoCaptionsSrt": "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na.",
-				"skippedForOutputType": "Selle väljundi tüübi puhul vahele jäetud."
-			},
-			"error": {"save": "Profiili sätteid ei õnnestunud salvestada.", "changeGlobalDestination": "Globaalset sihtkohta ei õnnestunud muuta.", "reset": "Profiili sätteid ei õnnestunud lähtestada.", "folderPicker": "Kaustavalijat ei õnnestunud avada. Sisestage tee käsitsi."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + heli", "description": "Tavalised videofailid"},
-				"videoOnly": {"label": "Video, ilma helita", "description": "Ainult hääletu video"},
-				"audioOnly": {"label": "Ainult heli", "description": "Muusika või taskuhäälingud"},
-				"subtitlesOnly": {"label": "Ainult subtiitrid", "description": "Ainult subtiitrifailid"}
-			},
-			"icon": {"controls": "Juhtnupud", "download": "Allalaadimine", "video": "Video", "captions": "Pealdised", "audio": "Heli", "music": "Muusika", "podcast": "Taskuhääling", "classes": "Tunnid", "clip": "Klipp", "archive": "Arhiiv"},
-			"audioFormat": {"best": "Parim", "wav": "WAV"},
-			"audioQuality": {"128": "Kuni 128K", "192": "Kuni 192K", "320": "Kuni 320K", "best": "Parim kvaliteet"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Esmalt käsitsi, siis automaatsed", "manualAndAuto": "Käsitsi ja automaatsed", "manualOnly": "Ainult käsitsi", "autoOnly": "Ainult automaatselt loodud"},
-			"sponsorBlockHint": {"off": "SponsorBlocki pole – video esitatakse üleslaaditud kujul.", "mark": "Märgib sponsorilõigud peatükkidena (mittepurustav).", "remove": "Lõikab sponsorilõigud FFmpegi abil videost välja."},
-			"advanced": "Täpsemalt",
-			"goal": {
-				"bestPicture": {"name": "Parim pilt", "tag": "AV1 · VP9", "description": "Teravaim antud suuruse juures. Vanemad telerid, QuickTime ja mõned redaktorid ei saa seda esitada."},
-				"smartTv": {"name": "Nutiteler", "tag": "MP4 · H.264", "description": "Töötab teleritel, telefonides, WhatsAppis, QuickTime’is ja videoredaktorites. YouTube pakub H.264 ainult kuni 1080p-ni."}
-			},
-			"appSetting": "Kasuta rakenduse sätet ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Kui suur osa videost",
-			"whole": "Kogu video",
-			"wholeTrack": "Kogu lugu",
-			"part": "Osa",
-			"unavailableSubtitles": "Subtiitrid hõlmavad alati kogu videot.",
-			"unavailableDuration": "See video ei teata oma pikkust, seega saab selle alla laadida ainult tervikuna.",
-			"rangeLabel": "Osa videost",
-			"start": "Algus",
-			"end": "Lõpp",
-			"timeHint": "h:mm:ss, m:ss või sekundid",
-			"length": "{{length}} / {{duration}}",
-			"chapters": "Peatükid",
-			"chapterUntitled": "Peatükk {{number}}",
-			"exactCut": {"label": "Täpne lõige (kodeerib ümber, aeglasem)", "hint": "Väljas: iga lõige satub lähimale võtmekaadrile, mis võib sisestatud ajast erineda mõne sekundi võrra."},
-			"calloutTitle": "Laadige alla ainult osa videost",
-			"calloutBody": "Lülituge video kaardil valikule Osa, et valida algus ja lõpp või peatükk ning laadida alla ainult see lõik.",
-			"connectionsNote": "Osa laaditakse alla ffmpegi kaudu, seega ei kehti sellele teie allalaadimisühenduste ja tempo sätted.",
-			"urlStart": "Teie link algab ajal {{time}}",
-			"useUrlStart": "Kasuta algusena",
-			"error": {"startInvalid": "Sisestage algus kujul h:mm:ss, m:ss või sekunditena.", "endInvalid": "Sisestage lõpp kujul h:mm:ss, m:ss või sekunditena.", "startNotBeforeEnd": "Algus peab olema enne lõppu.", "endBeyondDuration": "Video lõpeb ajal {{duration}}."},
-			"downloadBlocked": "Parandage kõigepealt osa algus ja lõpp.",
-			"totalEstimate": "Osa, hinnanguliselt",
-			"summary": "Osa {{start}}–{{end}}",
-			"subtitlesFullLength": "kogu video"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Laadimine…", "chapters_one": "{{count}} peatükk", "chapters_other": "{{count}} peatükki"},
-	"queue": {
-		"header": "Allalaadimised",
-		"tabLabel": "Allalaadimised",
-		"attentionBadge_one": "{{count}} allalaadimine vajab teie tähelepanu",
-		"attentionBadge_other": "{{count}} allalaadimist vajab teie tähelepanu",
-		"choice": {
-			"cappedBody_one": "Selles esitusloendis on rohkem kui {{count}} video. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses.",
-			"cappedBody_other": "Selles esitusloendis on rohkem kui {{count}} videot. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses.",
-			"reviewBody_one": "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida.",
-			"reviewBody_other": "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida.",
-			"all": "Kõik videod",
-			"first": "Esimesed {{count}}",
-			"review": "Vaata üle"
-		},
-		"tabTip": "Allalaadimised asuvad nüüd vahekaardil Allalaadimised – avage see igal ajal edenemise jälgimiseks.",
-		"empty": "Järjekorda pandud allalaadimised ilmuvad siia",
-		"filtersLabel": "Järjekorra olekufiltrid",
-		"filterAll": "Kõik",
-		"selectedActionsLabel": "Valitud üksused",
-		"globalActionsLabel": "Kõik üksused",
-		"selectionSummary": "{{selected}} valitud · {{total}} kokku",
-		"clearTitle": "Tühjenda lõpetatud allalaadimised",
-		"autoRemoveCompleted": {"label": "Tühjenda valmis automaatselt", "hint": "Eemaldab iga allalaadimise loendist mõni sekund pärast selle lõppu. Failid jäävad teie kausta."},
-		"pauseAllTitle": "Peata kõik aktiivsed allalaadimised ja takista uute algust",
-		"resumeAllTitle": "Jätka peatatud allalaadimisi ja lase järjekorral edasi minna",
-		"pausedBanner": "Järjekord on peatatud – ootel üksused ei käivitu, kuni selle jätkate",
-		"resumeQueueAction": "Jätka järjekorda",
-		"cancelAllTitle": "Tühista kõik aktiivsed ja ootel allalaadimised",
-		"table": {
-			"columns": "Veerud",
-			"title": "Pealkiri",
-			"status": "Olek",
-			"progress": "Edenemine",
-			"format": "Vorming",
-			"outputTarget": "Sihtkaust",
-			"artifacts": "Artefaktid",
-			"size": "Suurus",
-			"added": "Lisatud",
-			"finished": "Lõpetatud",
-			"notAvailable": "—",
-			"sortBy": "Sordi: {{label}}",
-			"showArtifactsFor": "Kuva artefaktid: {{title}}",
-			"hideArtifactsFor": "Peida artefaktid: {{title}}",
-			"resetColumns": "Lähtesta veerud",
-			"resizeColumn": "Muuda veeru {{column}} suurust",
-			"movableColumn": "teisaldatav veerg",
-			"moveColumnInstructions": "Veeru teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi.",
-			"columnPickedUp": "Veerg „{{column}}“ võeti kätte.",
-			"columnMovedOver": "Veerg „{{column}}“ on veeru „{{target}}“ kohal.",
-			"columnDropped": "Veerg „{{column}}“ asetati maha.",
-			"columnMoveCancelled": "Veeru „{{column}}“ teisaldamine tühistati."
-		},
-		"artifact": {"media": "Meedia", "subtitle": "Subtiitrid", "thumbnail": "Pisipilt", "description": "Kirjeldus", "companion": "Kaasfail", "unknown": "Artefakt", "missing": "Puudub"},
-		"item": {
-			"defaultError": "Allalaadimine ebaõnnestus",
-			"retryingSoon": "proovin automaatselt uuesti (katse {{attempt}})",
-			"qualityLimited": "Piiratud: {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Piiratud: {{height}}p · mõned subtiitrid ebaõnnestusid",
-			"audioKept": "Heli pole eemaldatud",
-			"audioKeptSubtitlesFailed": "Heli pole eemaldatud · mõned subtiitrid ebaõnnestusid",
-			"subtitleLanguagesMissing": "Subtiitreid pole keeltes: {{languages}}",
-			"pause": "Peata",
-			"resume": "Jätka",
-			"cancel": "Tühista",
-			"retry": "Proovi uuesti",
-			"setLocation": "Määra asukoht",
-			"setLocationHint": "Asukoha määramiseks valige ootel üksused.",
-			"pendingOnly": "Ainult ootel",
-			"openDestinationFolder": "Ava sihtkaust",
-			"remove": "Eemalda",
-			"pullNow": "Käivita kohe – jäta järjekord vahele",
-			"statusProbing": "Üksikasjade toomine",
-			"statusNeedsChoice": "Vajab teie valikut",
-			"statusPending": "Ootab",
-			"statusRunning": "Allalaadimine",
-			"statusHeld": "Tagasi hoitud",
-			"statusPaused": "Peatatud",
-			"statusDone": "Valmis",
-			"statusError": "Tõrge",
-			"statusCancelled": "Tühistatud"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} on saadaval – teil on {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} on saadaval – uuendage Homebrew’ga.",
-			"macosDirect": "Arroxy {{version}} on saadaval – laadige alla uus DMG.",
-			"macosDirectHomebrew": "Arroxy {{version}} on saadaval – laadige alla DMG või minge üle Homebrew’le.",
-			"portable": "Arroxy {{version}} on saadaval – laadige alla uus järk."
-		},
-		"install": "Installi ja taaskäivita",
-		"downloading": "Allalaadimine…",
-		"runAndRestart": "Käivita ja taaskäivita",
-		"upgrading": "Uuendamine…",
-		"download": "Laadi alla ↗",
-		"downloadDmg": "Laadi alla DMG ↗",
-		"dismiss": "Sule uuenduse riba",
-		"copy": "Kopeeri käsk lõikelauale",
-		"copied": "Käsk kopeeriti lõikelauale",
-		"installFailed": "Uuendamine ebaõnnestus",
-		"retry": "Proovi uuesti"
-	},
-	"releaseNotes": {"title": "Mis on Arroxy versioonis {{version}} uut", "description": "Kasutate värsket uuendust. Siin on peamised uuendused.", "fullNotes": "Täielikud väljalaskemärkmed ↗", "continue": "Jätka"},
-	"status": {
-		"preparingBinaries": "Binaarfailide ettevalmistamine…",
-		"mintingToken": "YouTube’i tunnuse loomine…",
-		"remintingToken": "Tunnuse uuesti loomine…",
-		"startingYtdlp": "Allalaadimismootori käivitamine…",
-		"downloadingMedia": "Video ja heli allalaadimine…",
-		"mergingFormats": "Heli ja video ühendamine…",
-		"extractingAudio": "Heli teisendamine…",
-		"convertingVideo": "Video teisendamine…",
-		"embeddingMetadata": "Metaandmete manustamine…",
-		"movingFiles": "Failide teisaldamine…",
-		"fetchingSubtitles": "Subtiitrite toomine…",
-		"sleepingBetweenRequests": "Ootan {{seconds}} s, et vältida kiiruspiiranguid…",
-		"subtitlesFailed": "Video salvestati – mõnda subtiitrit ei õnnestunud alla laadida",
-		"qualityLimited": "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid. Abi võib olla hilisemast katsest või teisest võrgust.",
-		"qualityLimitedSubtitlesFailed": "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid ja mõnda subtiitrit ei õnnestunud alla laadida. Abi võib olla hilisemast katsest või teisest võrgust.",
-		"audioKept": "Video salvestati heliga – heli eemaldamine ebaõnnestus",
-		"audioKeptSubtitlesFailed": "Video salvestati heliga – heli eemaldamine ebaõnnestus ja mõnda subtiitrit ei õnnestunud alla laadida",
-		"subtitleLanguagesMissing": "Sellel videol pole subtiitreid keeltes: {{languages}}. Video salvestati ilma nendeta.",
-		"subtitleLanguagesMissingOthersSaved": "Sellel videol pole subtiitreid keeltes: {{languages}}. Ülejäänud keeled salvestati.",
-		"noSubtitles": "Subtiitreid pole keeltes: {{languages}}",
-		"cancelled": "Allalaadimine tühistati",
-		"complete": "Allalaadimine lõppes",
-		"usedExtractorFallback": "Alla laaditud lihtsustatud ekstraktoriga – usaldusväärsemaks allalaadimiseks seadistage cookies.txt",
-		"ytdlpProcessError": "Allalaadimismootori tõrge: {{error}}",
-		"ytdlpExitCode": "Allalaadimismootor lõpetas koodiga {{code}}",
-		"downloadingBinary": "Binaarfaili {{name}} allalaadimine…",
-		"unknownStartupFailure": "Allalaadimise käivitamine ebaõnnestus tundmatul põhjusel",
-		"diskSpaceInsufficient": "Kettaruumi pole piisavalt – vaja {{required}}, saadaval vaid {{free}}",
-		"outputNotWritable": "Kausta {{dir}} ei saa salvestada – Arroxyl pole sinna kirjutamise luba",
-		"fetchingSponsorBlock": "SponsorBlockiga ühendumine…",
-		"retryingSponsorBlock": "SponsorBlock pole saadaval, proovin uuesti ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Ühendus soikus, proovin uuesti ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Sisselogimine teie Avasta kontoga…",
-		"exploreSignedOut": "Avastast välja logitud – logige uuesti sisse"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Teie sätteid ei õnnestunud salvestada.",
-		"warmupFailed": "Seadistus ei lõppenud. Mõned allalaadimised võivad ebaõnnestuda, kuni see lõpeb.",
-		"shellActionFailed": "Seda ei õnnestunud avada.",
-		"folderSelectFailed": "Kaustavalija avamine ebaõnnestus.",
-		"exploreSignInRetrying_one": "Avastas sisse logitud – proovin 1 linki uuesti",
-		"exploreSignInRetrying_other": "Avastas sisse logitud – proovin {{count}} linki uuesti",
-		"exploreSignOutFailed": "Avastast väljalogimine ebaõnnestus. Proovige uuesti.",
-		"playlistFolderRejected": "Seda kausta ei saa selle esitusloendi jaoks kasutada.",
-		"filenameFolderTooDeep": "See kaust on teie süsteemi jaoks liiga sügaval. Allalaadimine võib endiselt ebaõnnestuda – valige lühem kaust.",
-		"filenameTemplateCannotFit": "Selle video nimesse ei mahu kõik teie malli osad, seega kasutati vaikenime.",
-		"hotkey": {
-			"queued": "Allalaadimine lisati lõikelaualt järjekorda",
-			"alreadyQueued": "Juba järjekorras – koopiat ei lisatud",
-			"invalidClipboard": "Lõikelaual pole linki – kopeerige kõigepealt mõni",
-			"multipleUrls": "Kopeeritud mitu linki – kasutage Arroxys valikut Hulgi-URL-id",
-			"needsReview": "See link vajab teie valikut – vaadake Arroxys jaotist Allalaadimised",
-			"cookiesSetup": "Lõpetage Arroxys küpsiste seadistamine ja proovige uuesti",
-			"busy": "Arroxy alles käivitub – proovige hetke pärast uuesti",
-			"submissionFailed": "Linki ei õnnestunud lisada – proovige Arroxys uuesti"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video on juba järjekorras – vahele jäetud", "skippedAlreadyQueued_other": "{{count}} videot on juba järjekorras – vahele jäetud"},
-		"quickDownload": {
-			"added": "Lisatud: {{title}}",
-			"alreadyQueued": "Juba järjekorras",
-			"failed": "Üksuse {{title}} ettevalmistamine ebaõnnestus",
-			"notAdded": "Linki ei õnnestunud lisada – proovige uuesti",
-			"chooseHowMany_one": "{{count}}+ video – valige, mitu",
-			"chooseHowMany_other": "{{count}}+ videot – valige, mitu",
-			"review_one": "{{count}} video selles loendis – valimiseks vaadake üle",
-			"review_other": "{{count}} videot selles loendis – valimiseks vaadake üle",
-			"reviewCapped_one": "{{count}}+ video selles loendis – valimiseks vaadake üle",
-			"reviewCapped_other": "{{count}}+ videot selles loendis – valimiseks vaadake üle",
-			"view": "Kuva"
-		}
+	"donate": {
+		"copied": "Kopeeritud!",
+		"copyAddress": "Kopeeri aadress",
+		"description": "Arroxy on tasuta ja avatud lähtekoodiga, ilma reklaamide ja tasulise versioonita. Annetused on vabatahtlikud ega anna mõju arenduskavale.",
+		"footerLabel": "Anneta",
+		"footerTooltip": "Toeta Arroxyt",
+		"qrAlt": "{{coin}} annetusaadressi QR-kood",
+		"title": "Toeta Arroxyt",
+		"warning": "Krüptomaksed on tagasipööramatud. Saatke ainult kuvatud võrgus ja kontrollige kogu aadressi."
 	},
 	"errors": {
 		"noSubtitlesIn": "Sellel videol pole subtiitreid keeltes: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Käivitus robotitõrje. Tõenäoliselt on teie kasutatav IP märgistatud (andmekeskuse vahemik või hõivatud VPN-i väljund). Vahetage IP-aadressi või valige teine VPN-i lõpp-punkt ja proovige uuesti. Kui tõrge kordub, võib tegu olla saidipoolse ajutise muudatusega – Arroxy uuendab käivitamisel oma allalaadimismootorit, seega jõuab parandus automaatselt kohale, kui see ilmub.",
-			"ipBlock": "Teie IP-aadress paistab olevat blokeeritud. Proovige hiljem uuesti või kasutage VPN-i.",
-			"rateLimit": "Sait piirab selle ühenduse päringute arvu.",
 			"ageRestricted": "See video on vanusepiiranguga ja seda ei saa ilma sisselogitud kontota alla laadida.",
-			"unavailable": "See video pole saadaval – see võib olla privaatne, kustutatud või piirkonnapõhiselt lukustatud.",
+			"botBlock": "Käivitus robotitõrje. Tõenäoliselt on teie kasutatav IP märgistatud (andmekeskuse vahemik või hõivatud VPN-i väljund). Vahetage IP-aadressi või valige teine VPN-i lõpp-punkt ja proovige uuesti. Kui tõrge kordub, võib tegu olla saidipoolse ajutise muudatusega – Arroxy uuendab käivitamisel oma allalaadimismootorit, seega jõuab parandus automaatselt kohale, kui see ilmub.",
+			"chunkTransferFailure": "Server katkestas allalaadimise korduvalt poole pealt ja Arroxy loobus pärast korduskatseid. Seda juhtub tavaliselt suurimate videovormingutega (4K HDR / suure bitikiirusega VP9). Proovige uuesti, vahetage võrku/VPN-i või valige väiksema eraldusvõimega vorming.",
+			"drmProtected": "See video on DRM-kaitsega. Arroxy ei saa DRM-i eemaldada, seega faili alla laadida ei saa.",
 			"formatUnavailable": "See video ei paku enam teie valitud vormingut. Kleepige link uuesti ja valige vormingute hulgast, mida see praegu pakub.",
 			"geoBlocked": "See video pole teie piirkonnas saadaval.",
+			"ipBlock": "Teie IP-aadress paistab olevat blokeeritud. Proovige hiljem uuesti või kasutage VPN-i.",
+			"loginRequired": "See video nõuab sisselogitud kontot.",
+			"missingDependency": "Arroxy ei leidnud FFmpegi ega FFprobe’i. Käivitage seadistus uuesti või määrake FFmpegi asukoht ning proovige allalaadimist uuesti.",
+			"network": "Võrgutõrge. Kontrollige ühendust ja proovige uuesti.",
+			"noSubtitles": "Sellel videol pole subtiitreid soovitud keeltes.",
 			"outOfDiskSpace": "Kettaruumi pole piisavalt. Vabastage ruumi ja proovige uuesti.",
 			"outputNotWritable": "Arroxy ei saa allalaadimiskausta kirjutada. See võib olla kirjutuskaitstud, lukustatud draivil või blokeeritud süsteemi privaatsussätete poolt. Valige teine kaust või lubage juurdepääs ning proovige uuesti.",
-			"unsupportedUrl": "Arroxy ei toeta seda URL-i. Proovige linki mõnelt teiselt saidilt.",
-			"noSubtitles": "Sellel videol pole subtiitreid soovitud keeltes.",
-			"chunkTransferFailure": "Server katkestas allalaadimise korduvalt poole pealt ja Arroxy loobus pärast korduskatseid. Seda juhtub tavaliselt suurimate videovormingutega (4K HDR / suure bitikiirusega VP9). Proovige uuesti, vahetage võrku/VPN-i või valige väiksema eraldusvõimega vorming.",
-			"missingDependency": "Arroxy ei leidnud FFmpegi ega FFprobe’i. Käivitage seadistus uuesti või määrake FFmpegi asukoht ning proovige allalaadimist uuesti.",
-			"postprocessFailure": "Allalaadimine lõppes, kuid järeltöötlus (ühendamine / muksimine / teisendamine) ebaõnnestus. Sageli on see ajutine ffmpegi probleem – proovige uuesti ja kui see kordub, katsetage teist vormingute kombinatsiooni.",
 			"parse": "Saidi vastust ei õnnestunud töödelda. Sait võib olla videote esitamise viisi muutnud. Arroxy uuendab käivitamisel oma allalaadimismootorit – proovige mõne minuti pärast uuesti, kui parandus on ilmunud.",
-			"network": "Võrgutõrge. Kontrollige ühendust ja proovige uuesti.",
-			"drmProtected": "See video on DRM-kaitsega. Arroxy ei saa DRM-i eemaldada, seega faili alla laadida ei saa.",
-			"loginRequired": "See video nõuab sisselogitud kontot.",
-			"unknown": "Allalaadimine ebaõnnestus. Vaadake allpool toorväljundit."
+			"postprocessFailure": "Allalaadimine lõppes, kuid järeltöötlus (ühendamine / muksimine / teisendamine) ebaõnnestus. Sageli on see ajutine ffmpegi probleem – proovige uuesti ja kui see kordub, katsetage teist vormingute kombinatsiooni.",
+			"rateLimit": "Sait piirab selle ühenduse päringute arvu.",
+			"unavailable": "See video pole saadaval – see võib olla privaatne, kustutatud või piirkonnapõhiselt lukustatud.",
+			"unknown": "Allalaadimine ebaõnnestus. Vaadake allpool toorväljundit.",
+			"unsupportedUrl": "Arroxy ei toeta seda URL-i. Proovige linki mõnelt teiselt saidilt."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Kontrollige ühendust ja proovige uuesti.",
+			"loadTitle": "See leht ei laadinud",
+			"openSettings": "Ava sätted",
+			"proxyBody": "Kontrollige sätetes puhverserverit ja proovige uuesti.",
+			"proxyTitle": "Avasta ei saa teie puhverserveri kaudu ühendust",
+			"retry": "Proovi uuesti"
+		},
+		"linkCallout": {
+			"body": "Paremklõpsake lehel mis tahes video-, esitusloendi- või kanalilinki, et see oma aktiivse profiiliga alla laadida, valida teine profiil või avada samm-sammuline voog.",
+			"title": "Allalaadimiseks paremklõpsake linki"
+		},
+		"linkMenu": {
+			"copyLink": "Kopeeri link",
+			"downloadWith": "Laadi alla profiiliga"
+		},
+		"newBadge": "Uus",
+		"notice": {
+			"body": "Leidke video YouTube’ist või mõnelt muult saidilt ja laadige see siit alla – linke pole vaja kopeerida. Logige siin saiti sisse, et alla laadida videoid, mis nõuavad kontot.",
+			"continue": "Jätka",
+			"riskBody": "Sellised saidid nagu YouTube võivad Arroxy-sugusete allalaadimistööriistadega kasutatud kontosid märgistada ja vahel ka blokeerida. Kasutage kontot, mille kaotamine ei kahjusta, mitte põhikontot.",
+			"riskTitle": "Logige sisse teisese kontoga",
+			"title": "Sirvige veebi otse Arroxys"
+		},
+		"nudge": {
+			"browser": "Allalaadimised kasutavad teie brauseri küpsiseid, mitte Avasta sisselogimist.",
+			"file": "Allalaadimised kasutavad teie küpsisefaili, mitte Avasta sisselogimist.",
+			"notNow": "Mitte praegu",
+			"off": "Küpsised on välja lülitatud, seega allalaadimised ei kasuta Avasta sisselogimist.",
+			"useExplore": "Kasuta Avasta sisselogimist"
+		},
+		"settings": {
+			"description": "Sirvige Arroxys YouTube’i või mis tahes muud saiti ja logige sisse videote jaoks, mis nõuavad kontot.",
+			"idleUnload": "Vabasta mälu eemal olles",
+			"idleUnloadDescription": "Pärast 5 minutit teisel vahekaardil suletakse YouTube’i avaleht või otsinguleht. Tagasi tulles laaditakse see uuesti, mis võtab paar sekundit.",
+			"searchEngine": "Otsingumootor",
+			"searchEngineDescription": "Kus otsitakse aadressiribale sisestatud teksti. Lingid avatakse sisestatud kujul.",
+			"showTab": "Kuva vahekaart Avasta",
+			"showTabDescription": "Väljalülitamisel lõpetavad allalaadimised ka Avasta sisselogimise kasutamise.",
+			"signOut": "Logi Avastast välja",
+			"signOutConfirm": "Logi välja",
+			"signOutConfirmBody": "See kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel. Kontot nõudvad allalaadimised ebaõnnestuvad, kuni logite uuesti sisse.",
+			"signOutConfirmTitle": "Kas logida Avastast välja?",
+			"signOutDescription": "Kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel.",
+			"title": "Avasta"
+		},
+		"tabLabel": "Avasta",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube võib sisselogitud kontode puhul reklaamiblokeerijatele vastu töötada.",
+				"aria": "Reklaamiblokeerija",
+				"off": "Reklaamiblokeerija: väljas – klõpsake sisselülitamiseks",
+				"on": "Reklaamiblokeerija: sees – klõpsake väljalülitamiseks",
+				"starting": "Reklaamiblokeerija: käivitub – klõpsake väljalülitamiseks",
+				"unavailable": "Reklaamiblokeerija: pole saadaval, selle filtriloendeid ei õnnestunud alla laadida – klõpsake väljalülitamiseks"
+			},
+			"addressAria": "Aadress",
+			"addressPlaceholder": "Otsige {{engine}} või avage mis tahes sait (Vimeo, Instagram…)",
+			"aria": "Avasta brauseri juhtelemendid",
+			"back": "Tagasi",
+			"compactLayout": "Kompaktne paigutus",
+			"downloadWithProfile": "Laadi alla · {{profileName}}",
+			"forward": "Edasi",
+			"fullLayout": "Kuva täielik paigutus",
+			"grabUnavailable": "Allalaadimiseks avage video, esitusloend või kanal",
+			"home": "YouTube’i avaleht",
+			"interactiveHint": "Interaktiivne allalaadimine: valige vorming, subtiitrid ja muu…",
+			"refusedHint": "Avasta ei saa seda aadressi avada.",
+			"reload": "Laadi uuesti",
+			"searchTooLong": "See otsing on liiga pikk.",
+			"zoom": {
+				"hint": "Lehe suum: {{percent}}%",
+				"in": "Suumi sisse",
+				"label": "Lehe suum",
+				"out": "Suumi välja",
+				"percent": "Suumi protsent",
+				"reset": "Lähtesta suum 100%-le"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Automaatne",
+		"autoValue": "Automaatne (.{{ext}})",
+		"description": {
+			"auto": "Failitüübi määravad valitud voogud.",
+			"mkv": "Mahutab mis tahes koodeki. Mõned telerid ja telefonid ei saa seda avada.",
+			"mp4": "Esitatav peaaegu kõikjal. MP4 sees olevat VP9 ei esitata QuickTime’is videona.",
+			"webm": "Avatud vorming brauseritele. Mahutab ainult VP9 või AV1 koos Opusega."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4 sees olev AV1 vajab QuickTime’is esitamiseks uuemat Maci. H.264 töötab kõikjal.",
+		"mp4CaveatVp9": "MP4 sees olevat VP9 ei esitata QuickTime’is videona. H.264 töötab kõikjal.",
+		"profileMark": "Profiil",
+		"smartTvNoWebm": "WebM pole Nutiteleri puhul saadaval: see ei mahuta H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM ei mahuta koodekit {{codec}}. Valige MKV või MP4."
+	},
+	"filenameTemplate": {
+		"description": "Valige, kuidas allalaaditud faile nimetatakse. Sisestamiseks klõpsake sümbolit. Allalaadimiste kaustadesse sortimiseks kasutage märki /.",
+		"error": {
+			"empty": "Sisestage failinime mall.",
+			"empty-segment": "Eemaldage üleliigne / – igal kaustal peab olema nimi.",
+			"forbidden-char": "Eemaldage märgid, mis pole failinimedes lubatud: \\ : * ? \" < > |",
+			"invalid-segment": "See kaustanimi pole lubatud. Vältige märke . ja .. ning reserveeritud nimesid, nagu CON.",
+			"no-unique-token": "Lisage failinimele {title} või {id}, et iga allalaadimine saaks oma nime.",
+			"resolution-in-dir": "{resolution} ei sobi kausta nimeks – kvaliteet selgub alles allalaadimise algul.",
+			"stray-brace": "Sobitamata { või } – ümbritsege sümbolid, nagu {title}.",
+			"too-long": "Mall on liiga pikk.",
+			"unknown-token": "Tundmatu sümbol {{token}}."
+		},
+		"idWarning": "Ilma {id}-ta ei saa Arroxy tuvastada juba allalaaditud esitusloendi üksusi ega luua .m3u esitusloendeid.",
+		"label": "Failinime mall",
+		"m3uDisabled": "Pole saadaval, sest teie failinime mall kas ei sisalda {id}-d või sorteerib allalaadimised kaustadesse.",
+		"previewPlaylist": "Esitusloendis",
+		"previewSingle": "Üksik video",
+		"profileOverrideDescription": "Globaalse malli pärimiseks jätke tühjaks.",
+		"profileOverrideLabel": "Failinime mall"
+	},
+	"formatLabel": {
+		"audioFallback": "Heli",
+		"audioOnlyDot": "Ainult heli · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Automaatne",
+		"description": "Automaatne valib HDR-i, kui see ekraan suudab seda kuvada, muidu SDR-i. HDR näeb tavaekraanidel luitunud välja.",
+		"hdr": "HDR",
+		"label": "HDR-video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Keel"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Avastas sisse logitud – proovin 1 linki uuesti",
+		"exploreSignInRetrying_other": "Avastas sisse logitud – proovin {{count}} linki uuesti",
+		"exploreSignOutFailed": "Avastast väljalogimine ebaõnnestus. Proovige uuesti.",
+		"filenameFolderTooDeep": "See kaust on teie süsteemi jaoks liiga sügaval. Allalaadimine võib endiselt ebaõnnestuda – valige lühem kaust.",
+		"filenameTemplateCannotFit": "Selle video nimesse ei mahu kõik teie malli osad, seega kasutati vaikenime.",
+		"folderSelectFailed": "Kaustavalija avamine ebaõnnestus.",
+		"hotkey": {
+			"alreadyQueued": "Juba järjekorras – koopiat ei lisatud",
+			"busy": "Arroxy alles käivitub – proovige hetke pärast uuesti",
+			"cookiesSetup": "Lõpetage Arroxys küpsiste seadistamine ja proovige uuesti",
+			"invalidClipboard": "Lõikelaual pole linki – kopeerige kõigepealt mõni",
+			"multipleUrls": "Kopeeritud mitu linki – kasutage Arroxys valikut Hulgi-URL-id",
+			"needsReview": "See link vajab teie valikut – vaadake Arroxys jaotist Allalaadimised",
+			"queued": "Allalaadimine lisati lõikelaualt järjekorda",
+			"submissionFailed": "Linki ei õnnestunud lisada – proovige Arroxys uuesti"
+		},
+		"playlistFolderRejected": "Seda kausta ei saa selle esitusloendi jaoks kasutada.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} video on juba järjekorras – vahele jäetud",
+			"skippedAlreadyQueued_other": "{{count}} videot on juba järjekorras – vahele jäetud"
+		},
+		"quickDownload": {
+			"added": "Lisatud: {{title}}",
+			"alreadyQueued": "Juba järjekorras",
+			"chooseHowMany_one": "{{count}}+ video – valige, mitu",
+			"chooseHowMany_other": "{{count}}+ videot – valige, mitu",
+			"failed": "Üksuse {{title}} ettevalmistamine ebaõnnestus",
+			"notAdded": "Linki ei õnnestunud lisada – proovige uuesti",
+			"reviewCapped_one": "{{count}}+ video selles loendis – valimiseks vaadake üle",
+			"reviewCapped_other": "{{count}}+ videot selles loendis – valimiseks vaadake üle",
+			"review_one": "{{count}} video selles loendis – valimiseks vaadake üle",
+			"review_other": "{{count}} videot selles loendis – valimiseks vaadake üle",
+			"view": "Kuva"
+		},
+		"settingsSaveFailed": "Teie sätteid ei õnnestunud salvestada.",
+		"shellActionFailed": "Seda ei õnnestunud avada.",
+		"warmupFailed": "Seadistus ei lõppenud. Mõned allalaadimised võivad ebaõnnestuda, kuni see lõpeb."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Heli", "subtitles": "Subtiitrid"},
-		"subtitles": {"note": "Iga video kohta salvestatakse ainult subtiitrifailid – videot ega heli ei laadita alla.", "languages": "Keeled", "languagesRequired": "Jätkamiseks valige vähemalt üks keel.", "source": "Allikas", "deliveryHeading": "Salvesta kui", "deliveryLoose": "Otse salvestuskausta"},
-		"videoFormat": {"best": "Parim algne", "mp4": "Nutiteleri H.264 MP4"},
-		"videoFormatDesc": {"best": "Parim saadaolev konteiner ja koodekid iga üksuse kohta", "mp4": "Eelista võimaluse korral MP4 sees H.264 videot + AAC heli"},
-		"tier": {"144": "Kuni 144p", "240": "Kuni 240p", "360": "Kuni 360p", "480": "Kuni 480p", "720": "Kuni 720p", "1080": "Kuni 1080p", "1440": "Kuni 1440p", "2160": "Kuni 4K", "best": "Parim kvaliteet"},
+		"audioFormat": {
+			"best": "Heli (parim)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Heli ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Algne parim heli, ilma ümberkodeerimiseta",
+			"m4a": "Teisenda M4A-ks (AAC)",
+			"mp3": "Teisenda MP3-ks",
+			"opus": "Teisenda Opuseks"
+		},
+		"mp4Cap": "H.264 üle 1080p pole YouTube’is saadaval – piiratakse automaatselt 1080p-ga",
+		"subtitles": {
+			"deliveryHeading": "Salvesta kui",
+			"deliveryLoose": "Otse salvestuskausta",
+			"languages": "Keeled",
+			"languagesRequired": "Jätkamiseks valige vähemalt üks keel.",
+			"note": "Iga video kohta salvestatakse ainult subtiitrifailid – videot ega heli ei laadita alla.",
+			"source": "Allikas"
+		},
+		"tier": {
+			"144": "Kuni 144p",
+			"240": "Kuni 240p",
+			"360": "Kuni 360p",
+			"480": "Kuni 480p",
+			"720": "Kuni 720p",
+			"1080": "Kuni 1080p",
+			"1440": "Kuni 1440p",
+			"2160": "Kuni 4K",
+			"best": "Parim kvaliteet"
+		},
 		"tierDesc": {
 			"144": "Võimalikult väikesed failid",
 			"240": "Väga väikesed failid, madal kvaliteet",
@@ -946,177 +311,1396 @@
 			"2160": "Piiratud 2160p-ga, üksuse kohta langeb vajadusel madalamale",
 			"best": "Parim saadaolev video + heli iga üksuse kohta"
 		},
-		"audioFormat": {"best": "Heli (parim)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Algne parim heli, ilma ümberkodeerimiseta", "mp3": "Teisenda MP3-ks", "m4a": "Teisenda M4A-ks (AAC)", "opus": "Teisenda Opuseks"},
-		"audioFormatBitrate": "Heli ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 üle 1080p pole YouTube’is saadaval – piiratakse automaatselt 1080p-ga"
-	},
-	"formatLabel": {"audioFallback": "Heli", "audioOnlyDot": "Ainult heli · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Jõudeolek", "statusActive_one": "Allalaadimisel: 1 · {{percent}}%", "statusActive_other": "Allalaadimisel: {{count}} · {{percent}}%", "downloadFromClipboard": "Laadi alla lõikelaualt", "open": "Ava Arroxy", "quit": "Välju Arroxyst"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} allalaadimine pooleli",
-			"message_other": "{{count}} allalaadimist pooleli",
-			"detail": "Peatage, et hiljem jätkata, või tühistage, et edenemine kaotada.",
-			"confirm": "Tühista allalaadimised ja välju",
-			"pause": "Peata allalaadimised ja välju",
-			"keep": "Jätka allalaadimist"
+		"type": {
+			"audio": "Heli",
+			"subtitles": "Subtiitrid",
+			"video": "Video"
 		},
-		"closeToTray": {"message": "Kas peita Arroxy sulgemisel süsteemisalve?", "detail": "Arroxy jääb tööle ja lõpetab aktiivsed allalaadimised. Seda saab hiljem muuta täpsemates sätetes.", "hide": "Peida salve", "quit": "Välju", "remember": "Ära enam küsi"},
-		"rendererCrashed": {"message": "Arroxys tekkis probleem", "detail": "Renderdusprotsess jooksis kokku ({{reason}}). Uuesti proovimiseks laadige uuesti.", "reload": "Laadi uuesti", "quit": "Välju"}
-	},
-	"share": {
-		"title": "Jaga Arroxyt",
-		"description": "Arroxy on tasuta ja avatud lähtekoodiga. Jagamine aitab seda rohkematel inimestel avastada.",
-		"copyLink": "Kopeeri link",
-		"copied": "Kopeeritud!",
-		"defaultMessage": "Arroxy — tasuta avatud lähtekoodiga videoallalaadija Windowsile, macOS-ile ja Linuxile. Töötab YouTube’i, Vimeo, Twitchi ja 2000+ saidiga.\n4K · HDR · MP3 · Shorts · Subtiitrid · SponsorBlock",
-		"footerTooltip": "Jaga Arroxyt",
-		"footerLabel": "Jaga",
-		"shareAction": "Jaga Arroxyt"
-	},
-	"donate": {
-		"title": "Toeta Arroxyt",
-		"description": "Arroxy on tasuta ja avatud lähtekoodiga, ilma reklaamide ja tasulise versioonita. Annetused on vabatahtlikud ega anna mõju arenduskavale.",
-		"footerTooltip": "Toeta Arroxyt",
-		"footerLabel": "Anneta",
-		"copyAddress": "Kopeeri aadress",
-		"copied": "Kopeeritud!",
-		"qrAlt": "{{coin}} annetusaadressi QR-kood",
-		"warning": "Krüptomaksed on tagasipööramatud. Saatke ainult kuvatud võrgus ja kontrollige kogu aadressi."
-	},
-	"filenameTemplate": {
-		"label": "Failinime mall",
-		"description": "Valige, kuidas allalaaditud faile nimetatakse. Sisestamiseks klõpsake sümbolit. Allalaadimiste kaustadesse sortimiseks kasutage märki /.",
-		"profileOverrideLabel": "Failinime mall",
-		"profileOverrideDescription": "Globaalse malli pärimiseks jätke tühjaks.",
-		"idWarning": "Ilma {id}-ta ei saa Arroxy tuvastada juba allalaaditud esitusloendi üksusi ega luua .m3u esitusloendeid.",
-		"m3uDisabled": "Pole saadaval, sest teie failinime mall kas ei sisalda {id}-d või sorteerib allalaadimised kaustadesse.",
-		"previewSingle": "Üksik video",
-		"previewPlaylist": "Esitusloendis",
-		"error": {
-			"empty": "Sisestage failinime mall.",
-			"too-long": "Mall on liiga pikk.",
-			"forbidden-char": "Eemaldage märgid, mis pole failinimedes lubatud: \\ : * ? \" < > |",
-			"stray-brace": "Sobitamata { või } – ümbritsege sümbolid, nagu {title}.",
-			"no-unique-token": "Lisage failinimele {title} või {id}, et iga allalaadimine saaks oma nime.",
-			"unknown-token": "Tundmatu sümbol {{token}}.",
-			"empty-segment": "Eemaldage üleliigne / – igal kaustal peab olema nimi.",
-			"invalid-segment": "See kaustanimi pole lubatud. Vältige märke . ja .. ning reserveeritud nimesid, nagu CON.",
-			"resolution-in-dir": "{resolution} ei sobi kausta nimeks – kvaliteet selgub alles allalaadimise algul."
+		"videoFormat": {
+			"best": "Parim algne",
+			"mp4": "Nutiteleri H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Parim saadaolev konteiner ja koodekid iga üksuse kohta",
+			"mp4": "Eelista võimaluse korral MP4 sees H.264 videot + AAC heli"
 		}
 	},
-	"explore": {
-		"tabLabel": "Avasta",
-		"newBadge": "Uus",
-		"notice": {
-			"title": "Sirvige veebi otse Arroxys",
-			"body": "Leidke video YouTube’ist või mõnelt muult saidilt ja laadige see siit alla – linke pole vaja kopeerida. Logige siin saiti sisse, et alla laadida videoid, mis nõuavad kontot.",
-			"riskTitle": "Logige sisse teisese kontoga",
-			"riskBody": "Sellised saidid nagu YouTube võivad Arroxy-sugusete allalaadimistööriistadega kasutatud kontosid märgistada ja vahel ka blokeerida. Kasutage kontot, mille kaotamine ei kahjusta, mitte põhikontot.",
-			"continue": "Jätka"
+	"queue": {
+		"artifact": {
+			"companion": "Kaasfail",
+			"description": "Kirjeldus",
+			"media": "Meedia",
+			"missing": "Puudub",
+			"subtitle": "Subtiitrid",
+			"thumbnail": "Pisipilt",
+			"unknown": "Artefakt"
 		},
-		"nudge": {
-			"off": "Küpsised on välja lülitatud, seega allalaadimised ei kasuta Avasta sisselogimist.",
-			"file": "Allalaadimised kasutavad teie küpsisefaili, mitte Avasta sisselogimist.",
-			"browser": "Allalaadimised kasutavad teie brauseri küpsiseid, mitte Avasta sisselogimist.",
-			"useExplore": "Kasuta Avasta sisselogimist",
-			"notNow": "Mitte praegu"
+		"attentionBadge_one": "{{count}} allalaadimine vajab teie tähelepanu",
+		"attentionBadge_other": "{{count}} allalaadimist vajab teie tähelepanu",
+		"autoRemoveCompleted": {
+			"hint": "Eemaldab iga allalaadimise loendist mõni sekund pärast selle lõppu. Failid jäävad teie kausta.",
+			"label": "Tühjenda valmis automaatselt"
 		},
-		"linkCallout": {"title": "Allalaadimiseks paremklõpsake linki", "body": "Paremklõpsake lehel mis tahes video-, esitusloendi- või kanalilinki, et see oma aktiivse profiiliga alla laadida, valida teine profiil või avada samm-sammuline voog."},
-		"linkMenu": {"downloadWith": "Laadi alla profiiliga", "copyLink": "Kopeeri link"},
-		"toolbar": {
-			"aria": "Avasta brauseri juhtelemendid",
-			"back": "Tagasi",
-			"forward": "Edasi",
-			"reload": "Laadi uuesti",
-			"home": "YouTube’i avaleht",
-			"addressAria": "Aadress",
-			"addressPlaceholder": "Otsige {{engine}} või avage mis tahes sait (Vimeo, Instagram…)",
-			"refusedHint": "Avasta ei saa seda aadressi avada.",
-			"searchTooLong": "See otsing on liiga pikk.",
-			"downloadWithProfile": "Laadi alla · {{profileName}}",
-			"interactiveHint": "Interaktiivne allalaadimine: valige vorming, subtiitrid ja muu…",
-			"grabUnavailable": "Allalaadimiseks avage video, esitusloend või kanal",
-			"compactLayout": "Kompaktne paigutus",
-			"fullLayout": "Kuva täielik paigutus",
-			"zoom": {"label": "Lehe suum", "hint": "Lehe suum: {{percent}}%", "in": "Suumi sisse", "out": "Suumi välja", "percent": "Suumi protsent", "reset": "Lähtesta suum 100%-le"},
-			"adBlock": {
-				"aria": "Reklaamiblokeerija",
-				"off": "Reklaamiblokeerija: väljas – klõpsake sisselülitamiseks",
-				"starting": "Reklaamiblokeerija: käivitub – klõpsake väljalülitamiseks",
-				"on": "Reklaamiblokeerija: sees – klõpsake väljalülitamiseks",
-				"unavailable": "Reklaamiblokeerija: pole saadaval, selle filtriloendeid ei õnnestunud alla laadida – klõpsake väljalülitamiseks",
-				"accountNote": "YouTube võib sisselogitud kontode puhul reklaamiblokeerijatele vastu töötada."
+		"cancelAllTitle": "Tühista kõik aktiivsed ja ootel allalaadimised",
+		"choice": {
+			"all": "Kõik videod",
+			"cappedBody_one": "Selles esitusloendis on rohkem kui {{count}} video. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses.",
+			"cappedBody_other": "Selles esitusloendis on rohkem kui {{count}} videot. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses.",
+			"first": "Esimesed {{count}}",
+			"review": "Vaata üle",
+			"reviewBody_one": "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida.",
+			"reviewBody_other": "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida."
+		},
+		"clearTitle": "Tühjenda lõpetatud allalaadimised",
+		"empty": "Järjekorda pandud allalaadimised ilmuvad siia",
+		"filterAll": "Kõik",
+		"filtersLabel": "Järjekorra olekufiltrid",
+		"globalActionsLabel": "Kõik üksused",
+		"header": "Allalaadimised",
+		"item": {
+			"audioKept": "Heli pole eemaldatud",
+			"audioKeptSubtitlesFailed": "Heli pole eemaldatud · mõned subtiitrid ebaõnnestusid",
+			"cancel": "Tühista",
+			"defaultError": "Allalaadimine ebaõnnestus",
+			"openDestinationFolder": "Ava sihtkaust",
+			"pause": "Peata",
+			"pendingOnly": "Ainult ootel",
+			"pullNow": "Käivita kohe – jäta järjekord vahele",
+			"qualityLimited": "Piiratud: {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Piiratud: {{height}}p · mõned subtiitrid ebaõnnestusid",
+			"remove": "Eemalda",
+			"resume": "Jätka",
+			"retry": "Proovi uuesti",
+			"retryingSoon": "proovin automaatselt uuesti (katse {{attempt}})",
+			"setLocation": "Määra asukoht",
+			"setLocationHint": "Asukoha määramiseks valige ootel üksused.",
+			"statusCancelled": "Tühistatud",
+			"statusDone": "Valmis",
+			"statusError": "Tõrge",
+			"statusHeld": "Tagasi hoitud",
+			"statusNeedsChoice": "Vajab teie valikut",
+			"statusPaused": "Peatatud",
+			"statusPending": "Ootab",
+			"statusProbing": "Üksikasjade toomine",
+			"statusRunning": "Allalaadimine",
+			"subtitleLanguagesMissing": "Subtiitreid pole keeltes: {{languages}}"
+		},
+		"pauseAllTitle": "Peata kõik aktiivsed allalaadimised ja takista uute algust",
+		"pausedBanner": "Järjekord on peatatud – ootel üksused ei käivitu, kuni selle jätkate",
+		"resumeAllTitle": "Jätka peatatud allalaadimisi ja lase järjekorral edasi minna",
+		"resumeQueueAction": "Jätka järjekorda",
+		"selectedActionsLabel": "Valitud üksused",
+		"selectionSummary": "{{selected}} valitud · {{total}} kokku",
+		"tabLabel": "Allalaadimised",
+		"tabTip": "Allalaadimised asuvad nüüd vahekaardil Allalaadimised – avage see igal ajal edenemise jälgimiseks.",
+		"table": {
+			"added": "Lisatud",
+			"artifacts": "Artefaktid",
+			"columnDropped": "Veerg „{{column}}“ asetati maha.",
+			"columnMoveCancelled": "Veeru „{{column}}“ teisaldamine tühistati.",
+			"columnMovedOver": "Veerg „{{column}}“ on veeru „{{target}}“ kohal.",
+			"columnPickedUp": "Veerg „{{column}}“ võeti kätte.",
+			"columns": "Veerud",
+			"finished": "Lõpetatud",
+			"format": "Vorming",
+			"hideArtifactsFor": "Peida artefaktid: {{title}}",
+			"movableColumn": "teisaldatav veerg",
+			"moveColumnInstructions": "Veeru teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi.",
+			"notAvailable": "—",
+			"outputTarget": "Sihtkaust",
+			"progress": "Edenemine",
+			"resetColumns": "Lähtesta veerud",
+			"resizeColumn": "Muuda veeru {{column}} suurust",
+			"showArtifactsFor": "Kuva artefaktid: {{title}}",
+			"size": "Suurus",
+			"sortBy": "Sordi: {{label}}",
+			"status": "Olek",
+			"title": "Pealkiri"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Jätka",
+		"description": "Kasutate värsket uuendust. Siin on peamised uuendused.",
+		"fullNotes": "Täielikud väljalaskemärkmed ↗",
+		"title": "Mis on Arroxy versioonis {{version}} uut"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Loobu",
+			"chooseExecutable": "Vali käivitusfail",
+			"installWithHomebrew": "Installi Homebrew’ga",
+			"installWithWinget": "Installi WinGet’iga",
+			"openDependencyFolder": "Ava sõltuvuse kaust",
+			"resetToDefault": "Lähtesta vaikeväärtusele",
+			"retrySetup": "Proovi uuesti",
+			"viewSetupLog": "Kuva seadistuslogi"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Proovige uuesti. Kui see kordub, valige allpool töötav koopia.",
+				"title": "Tööriist ei tööta korralikult"
+			},
+			"blockedOrQuarantined": {
+				"body": "Lubage Arroxy oma viirusetõrjes või SmartScreenis ja proovige uuesti.",
+				"title": "Teie viirusetõrje blokeeris tööriista"
+			},
+			"downloadFailed": {
+				"body": "Kontrollige oma internetiühendust ja proovige uuesti.",
+				"title": "Arroxy vajaliku allalaadimine ebaõnnestus"
+			},
+			"extractFailed": {
+				"body": "Proovige uuesti, et see värskelt alla laadida.",
+				"title": "Allalaadimine jõudis kohale kahjustatuna"
+			},
+			"hashFailed": {
+				"body": "Proovige uuesti, et see värskelt alla laadida.",
+				"title": "Allalaadimine ei vastanud oma kontrollsummale"
+			},
+			"pairIncomplete": {
+				"body": "Valige allpool mõlemad või lähtestage need vaikeväärtustele.",
+				"title": "FFmpeg ja FFprobe tuleb määrata koos"
+			},
+			"permissionDenied": {
+				"body": "Proovige uuesti. Kui see kordub, valige allpool usaldusväärne koopia.",
+				"title": "Teie süsteem ei luba Arroxyl tööriista käivitada"
+			},
+			"spawnFailed": {
+				"body": "Proovige uuesti. Kui see kordub, valige allpool töötav koopia.",
+				"title": "Tööriist puudub või ei käivitu"
+			},
+			"timeout": {
+				"body": "Sageli on põhjuseks esmakäivituse turvaskannimine. Proovige uuesti.",
+				"title": "Tööriist vastas liiga kaua"
+			},
+			"unknown": {
+				"body": "Proovige uuesti või avage üksikasjade nägemiseks seadistuslogi.",
+				"title": "Seadistamisel läks midagi valesti"
 			}
 		},
-		"settings": {
-			"title": "Avasta",
-			"description": "Sirvige Arroxys YouTube’i või mis tahes muud saiti ja logige sisse videote jaoks, mis nõuavad kontot.",
-			"showTab": "Kuva vahekaart Avasta",
-			"showTabDescription": "Väljalülitamisel lõpetavad allalaadimised ka Avasta sisselogimise kasutamise.",
-			"idleUnload": "Vabasta mälu eemal olles",
-			"idleUnloadDescription": "Pärast 5 minutit teisel vahekaardil suletakse YouTube’i avaleht või otsinguleht. Tagasi tulles laaditakse see uuesti, mis võtab paar sekundit.",
-			"searchEngine": "Otsingumootor",
-			"searchEngineDescription": "Kus otsitakse aadressiribale sisestatud teksti. Lingid avatakse sisestatud kujul.",
-			"signOut": "Logi Avastast välja",
-			"signOutDescription": "Kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel.",
-			"signOutConfirmTitle": "Kas logida Avastast välja?",
-			"signOutConfirmBody": "See kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel. Kontot nõudvad allalaadimised ebaõnnestuvad, kuni logite uuesti sisse.",
-			"signOutConfirm": "Logi välja"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Avasta ei saa teie puhverserveri kaudu ühendust", "proxyBody": "Kontrollige sätetes puhverserverit ja proovige uuesti.", "loadTitle": "See leht ei laadinud", "loadBody": "Kontrollige ühendust ja proovige uuesti.", "retry": "Proovi uuesti", "openSettings": "Ava sätted"}
-	},
-	"fileType": {
-		"auto": "Automaatne",
-		"autoValue": "Automaatne (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "Failitüübi määravad valitud voogud.", "mp4": "Esitatav peaaegu kõikjal. MP4 sees olevat VP9 ei esitata QuickTime’is videona.", "mkv": "Mahutab mis tahes koodeki. Mõned telerid ja telefonid ei saa seda avada.", "webm": "Avatud vorming brauseritele. Mahutab ainult VP9 või AV1 koos Opusega."},
-		"webmBlocked": "WebM ei mahuta koodekit {{codec}}. Valige MKV või MP4.",
-		"profileMark": "Profiil",
-		"smartTvNoWebm": "WebM pole Nutiteleri puhul saadaval: see ei mahuta H.264.",
-		"mp4CaveatVp9": "MP4 sees olevat VP9 ei esitata QuickTime’is videona. H.264 töötab kõikjal.",
-		"mp4CaveatAv1": "MP4 sees olev AV1 vajab QuickTime’is esitamiseks uuemat Maci. H.264 töötab kõikjal."
+		"groups": {
+			"engine": "Allalaadimismootor",
+			"media": "Meediatööriistad"
+		},
+		"installing": {
+			"homebrew": "Installimine Homebrew’ga… See võib võtta paar minutit.",
+			"winget": "Installimine WinGet’iga… See võib võtta paar minutit."
+		},
+		"manual": {
+			"intro": "Suunake Arroxy juba olemasolevatele koopiatele või installige need muul viisil.",
+			"linuxHint": "Võite yt-dlp ja ffmpegi installida ka oma paketihalduriga ning seejärel klõpsata nuppu Proovi uuesti.",
+			"toggle": "Seadista käsitsi"
+		},
+		"stopped": {
+			"body": "Proovige uuesti või suunake Arroxy allpool juba olemasolevatele tööriistadele.",
+			"title": "Seadistamine peatus"
+		},
+		"title": "Seadistamine vajab teie abi"
 	},
 	"selectionOrder": {
 		"editorTitle": "Kuidas see profiil valib",
-		"whyTitle": "Miks profiil selle valis",
-		"whyLabel": "Miks see?",
 		"rank": {
-			"h264": {"label": "H.264-video", "reason": "töötab igas seadmes"},
-			"mp4Streams": {"label": "MP4-voogud", "reason": "valmis MP4-failiks"},
-			"resolutionBest": {"label": "Kõrgeim eraldusvõime", "reason": "piirangut pole määratud"},
-			"resolution": {"label": "Kuni {{tier}}p", "reason": "teie piirang"},
-			"fps": {"label": "Kõrgeim kaadrisagedus", "reason": "sujuvam liikumine"},
-			"sitePreference": {"label": "Vood, mida sait ei märgi halvemaks", "reason": "jätab vahele kahjustatud, vesimärgiga ja varukoopiad"},
-			"original": {"label": "Originaalvood, mitte tehisintellektiga skaleeritud", "reason": "skaleeritud koopia on kõrgem, kuid ei lisa tegelikku detaili"},
-			"source": {"label": "Suurendatud bitikiirusega vood esimesena", "reason": "rohkem detaili samal eraldusvõimel"},
-			"protocol": {"label": "Otseallalaadimised enne voogedastatud koopiaid", "reason": "sama pilt, kiiremini alla laaditud"},
-			"codec": {"label": "AV1, siis VP9, siis H.264", "reason": "teravaim antud suuruse juures"},
-			"codecVp9First": {"label": "VP9, siis H.264, siis AV1", "reason": "selle profiili koodek"},
-			"codecH264First": {"label": "H.264, siis VP9, siis AV1", "reason": "selle profiili koodek"},
-			"size": {"label": "Suurem fail", "reason": "rohkem detaili samade sätete juures"},
-			"aacSmartTv": {"label": "AAC-heli", "reason": "töötab kõikjal"},
-			"aacFileType": {"label": "AAC-heli", "reason": "sobib MP4-pleieritele"},
-			"opus": {"label": "Opus-heli", "reason": "sobib WebM-i"},
-			"nativeCompatible": {"label": "Stereoheli"},
-			"nativeSurround": {"label": "Ruumiheli, kui seda pakutakse"},
-			"nativeSource": {"settings": "sätetest", "profile": "see profiil"},
-			"hdrSdrFirst": {"label": "SDR enne HDR-i", "reason": "näeb õige välja igal ekraanil", "reasonScreen": "see ekraan pole HDR"},
-			"hdrFirst": {"label": "HDR enne SDR-i", "reason": "rikkalikumad värvid HDR-ekraanidel", "reasonScreen": "see ekraan kuvab HDR-i"}
+			"aacFileType": {
+				"label": "AAC-heli",
+				"reason": "sobib MP4-pleieritele"
+			},
+			"aacSmartTv": {
+				"label": "AAC-heli",
+				"reason": "töötab kõikjal"
+			},
+			"codec": {
+				"label": "AV1, siis VP9, siis H.264",
+				"reason": "teravaim antud suuruse juures"
+			},
+			"codecH264First": {
+				"label": "H.264, siis VP9, siis AV1",
+				"reason": "selle profiili koodek"
+			},
+			"codecVp9First": {
+				"label": "VP9, siis H.264, siis AV1",
+				"reason": "selle profiili koodek"
+			},
+			"fps": {
+				"label": "Kõrgeim kaadrisagedus",
+				"reason": "sujuvam liikumine"
+			},
+			"h264": {
+				"label": "H.264-video",
+				"reason": "töötab igas seadmes"
+			},
+			"hdrFirst": {
+				"label": "HDR enne SDR-i",
+				"reason": "rikkalikumad värvid HDR-ekraanidel",
+				"reasonScreen": "see ekraan kuvab HDR-i"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR enne HDR-i",
+				"reason": "näeb õige välja igal ekraanil",
+				"reasonScreen": "see ekraan pole HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-voogud",
+				"reason": "valmis MP4-failiks"
+			},
+			"nativeCompatible": {
+				"label": "Stereoheli"
+			},
+			"nativeSource": {
+				"profile": "see profiil",
+				"settings": "sätetest"
+			},
+			"nativeSurround": {
+				"label": "Ruumiheli, kui seda pakutakse"
+			},
+			"opus": {
+				"label": "Opus-heli",
+				"reason": "sobib WebM-i"
+			},
+			"original": {
+				"label": "Originaalvood, mitte tehisintellektiga skaleeritud",
+				"reason": "skaleeritud koopia on kõrgem, kuid ei lisa tegelikku detaili"
+			},
+			"protocol": {
+				"label": "Otseallalaadimised enne voogedastatud koopiaid",
+				"reason": "sama pilt, kiiremini alla laaditud"
+			},
+			"resolution": {
+				"label": "Kuni {{tier}}p",
+				"reason": "teie piirang"
+			},
+			"resolutionBest": {
+				"label": "Kõrgeim eraldusvõime",
+				"reason": "piirangut pole määratud"
+			},
+			"sitePreference": {
+				"label": "Vood, mida sait ei märgi halvemaks",
+				"reason": "jätab vahele kahjustatud, vesimärgiga ja varukoopiad"
+			},
+			"size": {
+				"label": "Suurem fail",
+				"reason": "rohkem detaili samade sätete juures"
+			},
+			"source": {
+				"label": "Suurendatud bitikiirusega vood esimesena",
+				"reason": "rohkem detaili samal eraldusvõimel"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "parim pilt", "smartTv": "töötab igas seadmes"}, "fileType": {"auto": "failitüüp tuleb voogudest", "explicit": "salvestatakse kui .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "failitüüp tuleb voogudest",
+				"explicit": "salvestatakse kui .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "parim pilt",
+				"smartTv": "töötab igas seadmes"
+			}
+		},
+		"whyLabel": "Miks see?",
+		"whyTitle": "Miks profiil selle valis"
 	},
-	"aiUpscaled": {"label": "Tehisintellektiga skaleeritud voogud", "description": "YouTube pakub mõnda vana videot tehisintellektiga loodud suurustes. „Jäta vahele“ säilitab originaalvood; skaleeritud voo saate ikkagi käsitsi valida.", "skip": "Jäta vahele", "allow": "Luba"},
+	"share": {
+		"copied": "Kopeeritud!",
+		"copyLink": "Kopeeri link",
+		"defaultMessage": "Arroxy — tasuta avatud lähtekoodiga videoallalaadija Windowsile, macOS-ile ja Linuxile. Töötab YouTube’i, Vimeo, Twitchi ja 2000+ saidiga.\n4K · HDR · MP3 · Shorts · Subtiitrid · SponsorBlock",
+		"description": "Arroxy on tasuta ja avatud lähtekoodiga. Jagamine aitab seda rohkematel inimestel avastada.",
+		"footerLabel": "Jaga",
+		"footerTooltip": "Jaga Arroxyt",
+		"shareAction": "Jaga Arroxyt",
+		"title": "Jaga Arroxyt"
+	},
+	"splash": {
+		"cancel": "Probleeme? Seadistage käsitsi",
+		"greeting": "Tere tulemast tagasi!",
+		"setup": {
+			"bytes": "{{done}} / {{total}}",
+			"left": {
+				"minutes_one": "umbes {{count}} min jäänud",
+				"minutes_other": "umbes {{count}} min jäänud",
+				"underMinute": "alla minuti jäänud"
+			},
+			"note": {
+				"engine": "Hoiab allalaadimised töökorras, kui saidid muutuvad.",
+				"firstRun": "See juhtub ainult üks kord. Arroxy hoiab need tööriistad alles ja uuendab neid ise.",
+				"media": "See juhtub ainult üks kord. Arroxy hoiab need tulevaste uuenduste jaoks alles."
+			},
+			"stage": {
+				"checking": "Kontrollimine, kas kõik töötab",
+				"connecting": "Ühendamine…",
+				"downloadingBoth": "Allalaadimismootori ja meediatööriistade allalaadimine",
+				"downloadingEngine": "Allalaadimismootori allalaadimine",
+				"downloadingMedia": "Meediatööriistade allalaadimine",
+				"unpacking": "Meediatööriistade lahtipakkimine"
+			},
+			"title": {
+				"engine": "Allalaadimismootori uuendamine",
+				"firstRun": "Esmakordne seadistus",
+				"media": "Meediatööriistade uuendamine"
+			}
+		},
+		"verifyFirstCheck": "Selle versiooni esimene kontroll – see on aeglane. Tavaliselt umbes minut.",
+		"verifying": "{{binary}} kontrollimine…",
+		"warmup": "Allalaadimiste ettevalmistamine…",
+		"warmupFailedNoDiag": "Seadistamine ebaõnnestus. Üksikasjade nägemiseks avage seadistuslogi."
+	},
+	"status": {
+		"audioKept": "Video salvestati heliga – heli eemaldamine ebaõnnestus",
+		"audioKeptSubtitlesFailed": "Video salvestati heliga – heli eemaldamine ebaõnnestus ja mõnda subtiitrit ei õnnestunud alla laadida",
+		"cancelled": "Allalaadimine tühistati",
+		"complete": "Allalaadimine lõppes",
+		"convertingVideo": "Video teisendamine…",
+		"diskSpaceInsufficient": "Kettaruumi pole piisavalt – vaja {{required}}, saadaval vaid {{free}}",
+		"downloadingBinary": "Binaarfaili {{name}} allalaadimine…",
+		"downloadingMedia": "Video ja heli allalaadimine…",
+		"embeddingMetadata": "Metaandmete manustamine…",
+		"exploreSignedOut": "Avastast välja logitud – logige uuesti sisse",
+		"extractingAudio": "Heli teisendamine…",
+		"fetchingSponsorBlock": "SponsorBlockiga ühendumine…",
+		"fetchingSubtitles": "Subtiitrite toomine…",
+		"mergingFormats": "Heli ja video ühendamine…",
+		"mintingToken": "YouTube’i tunnuse loomine…",
+		"movingFiles": "Failide teisaldamine…",
+		"noSubtitles": "Subtiitreid pole keeltes: {{languages}}",
+		"outputNotWritable": "Kausta {{dir}} ei saa salvestada – Arroxyl pole sinna kirjutamise luba",
+		"preparingBinaries": "Binaarfailide ettevalmistamine…",
+		"qualityLimited": "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid. Abi võib olla hilisemast katsest või teisest võrgust.",
+		"qualityLimitedSubtitlesFailed": "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid ja mõnda subtiitrit ei õnnestunud alla laadida. Abi võib olla hilisemast katsest või teisest võrgust.",
+		"remintingToken": "Tunnuse uuesti loomine…",
+		"retryingSponsorBlock": "SponsorBlock pole saadaval, proovin uuesti ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Ühendus soikus, proovin uuesti ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Sisselogimine teie Avasta kontoga…",
+		"sleepingBetweenRequests": "Ootan {{seconds}} s, et vältida kiiruspiiranguid…",
+		"startingYtdlp": "Allalaadimismootori käivitamine…",
+		"subtitleLanguagesMissing": "Sellel videol pole subtiitreid keeltes: {{languages}}. Video salvestati ilma nendeta.",
+		"subtitleLanguagesMissingOthersSaved": "Sellel videol pole subtiitreid keeltes: {{languages}}. Ülejäänud keeled salvestati.",
+		"subtitlesFailed": "Video salvestati – mõnda subtiitrit ei õnnestunud alla laadida",
+		"unknownStartupFailure": "Allalaadimise käivitamine ebaõnnestus tundmatul põhjusel",
+		"usedExtractorFallback": "Alla laaditud lihtsustatud ekstraktoriga – usaldusväärsemaks allalaadimiseks seadistage cookies.txt",
+		"ytdlpExitCode": "Allalaadimismootor lõpetas koodiga {{code}}",
+		"ytdlpProcessError": "Allalaadimismootori tõrge: {{error}}"
+	},
+	"theme": {
+		"dark": "Tume režiim",
+		"light": "Hele režiim",
+		"system": "Süsteemi vaikesäte"
+	},
+	"titleBar": {
+		"close": "Sulge",
+		"maximize": "Maksimeeri",
+		"minimize": "Minimeeri",
+		"restore": "Taasta"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Laadi alla lõikelaualt",
+			"open": "Ava Arroxy",
+			"quit": "Välju Arroxyst",
+			"statusActive_one": "Allalaadimisel: 1 · {{percent}}%",
+			"statusActive_other": "Allalaadimisel: {{count}} · {{percent}}%",
+			"statusIdle": "Jõudeolek"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Käsk kopeeriti lõikelauale",
+		"copy": "Kopeeri käsk lõikelauale",
+		"dismiss": "Sule uuenduse riba",
+		"download": "Laadi alla ↗",
+		"downloadDmg": "Laadi alla DMG ↗",
+		"downloading": "Allalaadimine…",
+		"install": "Installi ja taaskäivita",
+		"installFailed": "Uuendamine ebaõnnestus",
+		"message": {
+			"generic": "Arroxy {{version}} on saadaval – teil on {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} on saadaval – uuendage Homebrew’ga.",
+			"macosDirect": "Arroxy {{version}} on saadaval – laadige alla uus DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} on saadaval – laadige alla DMG või minge üle Homebrew’le.",
+			"portable": "Arroxy {{version}} on saadaval – laadige alla uus järk."
+		},
+		"retry": "Proovi uuesti",
+		"runAndRestart": "Käivita ja taaskäivita",
+		"upgrading": "Uuendamine…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} peatükk",
+		"chapters_other": "{{count}} peatükki",
+		"titlePlaceholder": "Laadimine…"
+	},
 	"videoCodec": {
-		"label": "Videokoodek",
-		"description": "Millist koodekit eelistada sama kõrgusega voogude seas. Automaatne jätab yt-dlp enda järjekorra, mis eelistab väikseimat, AV1; H.264 töötab vanemates teleritest ja telefonides.",
-		"smartTv": "Nutiteler võtab alati H.264.",
 		"auto": "Automaatne",
-		"vp9": "VP9 esimesena",
-		"h264": "H.264 esimesena"
+		"description": "Millist koodekit eelistada sama kõrgusega voogude seas. Automaatne jätab yt-dlp enda järjekorra, mis eelistab väikseimat, AV1; H.264 töötab vanemates teleritest ja telefonides.",
+		"h264": "H.264 esimesena",
+		"label": "Videokoodek",
+		"smartTv": "Nutiteler võtab alati H.264.",
+		"vp9": "VP9 esimesena"
 	},
-	"hdrPreference": {"label": "HDR-video", "description": "Automaatne valib HDR-i, kui see ekraan suudab seda kuvada, muidu SDR-i. HDR näeb tavaekraanidel luitunud välja.", "sdr": "SDR", "hdr": "HDR", "auto": "Automaatne"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Valmis",
+			"description": "Kleepige video-, esitusloendi-, kanali-, otsingu- või heli-URL-id. Arroxy puhastab dubleerivad enne järjekorda lisamist.",
+			"emptyPreview": "Partii eelvaate nägemiseks kleepige üks või mitu URL-i.",
+			"ignoredCount": "Eiratud",
+			"needsAtLeastOne": "Jätkamiseks lisage vähemalt üks toetatud URL.",
+			"reject": {
+				"duplicate": "Duplikaat"
+			},
+			"textareaLabel": "URL-ide loend",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Hulgi-URL-id"
+		},
+		"confirm": {
+			"addToQueue": "+ Järjekorda",
+			"addToQueueTooltip": "Lisab järjekorda – algab, kui aktiivne allalaadimine lõpeb",
+			"audioOnly": "Ainult heli",
+			"itemsValueAudio_one": "{{count}} / {{total}} lugu",
+			"itemsValueAudio_other": "{{count}} / {{total}} loost",
+			"itemsValueBulk_one": "{{count}} / {{total}} URL",
+			"itemsValueBulk_other": "{{count}} / {{total}} URL-ist",
+			"itemsValue_one": "{{count}} / {{total}} video",
+			"itemsValue_other": "{{count}} / {{total}} videost",
+			"labelAudio": "Heli",
+			"labelBulk": "Partii",
+			"labelItems": "Üksused",
+			"labelPlaylist": "Esitusloend",
+			"labelPreset": "Eelseadistus",
+			"labelSaveTo": "Salvesta kausta",
+			"labelSize": "Suurus",
+			"labelSubtitles": "Subtiitrid",
+			"labelVideo": "Video",
+			"landIn": "Teie fail salvestatakse kausta",
+			"landInMultiProfile_one": "See salvestatakse allolevasse sihtkohta",
+			"landInMultiProfile_other": "Need salvestatakse allolevatesse sihtkohtadesse ({{count}})",
+			"nothingToDownload": "Aktiivne on ainult subtiitrite eelseadistus, kuid ühtegi subtiitrikeelt pole valitud – midagi ei laadita alla.",
+			"profileBreakdownCount_one": "{{count}} üksus",
+			"profileBreakdownCount_other": "{{count}} üksust",
+			"profileBreakdownHeading": "Selle partii profiilid",
+			"pullIt": "Lae alla! ↓",
+			"pullItTooltip": "Jätab järjekorra vahele – algab kohe ja töötab koos teiste aktiivsete allalaadimistega",
+			"readyHeadline": "Valmis allalaadimiseks!",
+			"sizeUnknown": "Teadmata",
+			"subtitleEmbedAudioOnly": "Subtiitrite manustamine muudeti eraldi failiks – helifailid ei toeta manustatud subtiitrivoogusid.",
+			"subtitleEmbedForcesMkv": "Video sisse manustatud subtiitrid vajavad MKV-faili, seega salvestatakse see allalaadimine failina .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Pisipildi manustamine jäeti vahele – väljundkonteiner ei toeta seda."
+		},
+		"folder": {
+			"custom": "Kohandatud…",
+			"desktop": "Töölaud",
+			"documents": "Dokumendid",
+			"downloads": "Allalaadimised",
+			"heading": "Salvesta kausta",
+			"home": "Kodu",
+			"music": "Muusika",
+			"pictures": "Pildid",
+			"subfolder": {
+				"invalid": "Kausta nimes on kehtetuid märke",
+				"placeholder": "nt lo-fi rip’id",
+				"toggle": "Salvesta alamkausta"
+			},
+			"videos": "Filmid"
+		},
+		"formats": {
+			"audio": "Heli",
+			"audioLanguage": "Heli keel",
+			"audioLanguageCount_one": "{{count}} keel",
+			"audioLanguageCount_other": "{{count}} keelt",
+			"audioOnly": "Ainult heli",
+			"bitrateValue": "Bitikiirus {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Küpsised on seadistatud, kuid välja lülitatud. Täieliku loendi saamiseks lülitage need sisse ja proovige uuesti või vahetage võrku ja proovige uuesti.",
+				"bodyEnabled": "Isegi küpsistega piiras YouTube seda päringut. Proovige hiljem uuesti või vahetage võrku.",
+				"bodyExplore": "YouTube piiras seda päringut. Proovige hiljem uuesti või vahetage võrku.",
+				"bodyUnconfigured": "Vormingute loend võib olla puudulik. Seadistage küpsised täpsemates sätetes või vahetage võrku ja proovige uuesti.",
+				"enableRetryCta": "Luba küpsised ja proovi uuesti",
+				"heading": "Päring oli piiratud",
+				"retryCta": "Proovi uuesti"
+			},
+			"convert": {
+				"bitrate": "Bitikiirus",
+				"bitrateCopyHint": "Allikas, mis on juba {{target}}, säilitab oma voo ja bitikiiruse: see kopeeritakse, mitte ei kodeerita ümber.",
+				"copyLabel": "{{target}} {{bitrate}} kbit/s, ilma ümberkodeerimiseta",
+				"copyLabelNoBitrate": "{{target}}, ilma ümberkodeerimiseta",
+				"copyNote": "{{kbps}} kbit/s, nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber",
+				"copyNoteNoBitrate": "Nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber",
+				"label": "Teisenda",
+				"lossyLabel": "{{target}} {{bitrate}} kbit/s",
+				"sourceKbps": "Allikas on {{kbps}} kbit/s",
+				"wavLabel": "WAV (pakkimata)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Brauser",
+				"currentModeExplore": "Avasta sisselogimine",
+				"currentModeFile": "Fail",
+				"currentModeLabel": "Küpsiste allikas",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp dokumentatsioon (probleem #10927)",
+					"explanation": "Chrome 127 ja uuemad krüptivad küpsiseid viisil, mida teised rakendused Windowsis lugeda ei saa. Proovige üht allolevat lahendust.",
+					"fixFileBody": "Eksportige küpsised Chrome’ist brauserilaiendiga, seejärel lülitage see rakendus režiimi Fail ja valige eksporditud fail.",
+					"fixFileLabel": "Ekspordi cookies.txt",
+					"fixFirefoxBody": "Firefox ei kasuta App-Bound Encryptionit. Avage küpsiste sätted ja valige brauserite loendist Firefox.",
+					"fixFirefoxLabel": "Lülitu Firefoxile",
+					"fixUnsafeBody": "Lisage Chrome’i käivitusstaldusele --disable-features=LockProfileCookieDatabase. Hoiatus: see muudab varem krüptitud küpsised kehtetuks, mistõttu logitakse teid kõigilt saitidelt välja ja peate uuesti sisse logima.",
+					"fixUnsafeLabel": "Käivita Chrome keelatud App-Bound Encryptioniga",
+					"heading": "Windowsi krüptimine blokeeris Chrome’i küpsised"
+				},
+				"explanationBrowser": "Küpsised loetakse otse brauserist. Kui brauser töötab, võib selle küpsiseandmebaas olla lukus (Chromiumi-perekond). Brauser peab olema ka YouTube’i sisse logitud. Proovige brauser sulgeda, lülituda teisele brauserile, lülituda režiimi Fail või küpsised välja lülitada.",
+				"explanationFile": "Teie küpsisefail võib olla tühi, aegunud või vales vormingus (Arroxy vajab Netscape’i cookies.txt-faili). Proovige küpsised uuesti eksportida, valida teine fail, lülituda režiimi Brauser või küpsised välja lülitada.",
+				"exploreOffer": {
+					"body": "Logige Avastas sisse ja Arroxy proovib uuesti.",
+					"cta": "Logi Avastas sisse",
+					"heading": "See video võib vajada YouTube’i kontot"
+				},
+				"exploreRefused": {
+					"body": "Arroxy proovis seda juba Avasta kaudu sisse logituna, seega ei aita uuesti sisselogimine. Saidil võib olla probleeme või see konto ei saa seda avada. Proovige hiljem uuesti.",
+					"heading": "Sait keeldus sellest isegi teie Avasta sisselogimisega"
+				},
+				"exploreReuse": {
+					"body": "Olete Avastas sisse logitud, kuid allalaadimised ei kasuta praegu seda sisselogimist.",
+					"cta": "Kasuta minu Avasta sisselogimist ja proovi uuesti",
+					"heading": "See video võib vajada YouTube’i kontot"
+				},
+				"exploreSignIn": {
+					"body": "Kui see video vajab YouTube’i kontot, logige Avastas sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab.",
+					"cta": "Logi sisse Avastas",
+					"heading": "See video võib vajada YouTube’i kontot"
+				},
+				"exploreSignedIn": {
+					"body": "Kui see video vajab kontot, kasutab Arroxy automaatselt teie Avasta sisselogimist. Video võib olla kättesaamatu ka muul põhjusel.",
+					"heading": "Avastas sisse logitud"
+				},
+				"exploreSite": {
+					"heading": "See link võib vajada kontot saidil {{host}}",
+					"offerBody": "Logige Avastas saiti {{host}} sisse ja proovige uuesti.",
+					"signInBody": "Logige Avastas saiti {{host}} sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab."
+				},
+				"heading": "Põhjuseks võivad olla küpsised",
+				"needsCookies": {
+					"body": "Arroxy ei pääsenud sellele videole ilma autentimiseta ligi. Seadistage täpsemates sätetes küpsised – suunake need brauserile, kuhu olete juba sisse logitud, või importige fail cookies.txt.",
+					"heading": "See sait nõuab sisselogimist"
+				},
+				"openSettingsCta": "Ava küpsiste sätted",
+				"otherCookiesCta": "Kasuta hoopis küpsisefaili või brauserit…"
+			},
+			"drc": {
+				"description": "Vaigistab valjud kohad ja tõstab vaiksed, kõlarite ja lärmakate ruumide jaoks.",
+				"label": "Tasanda valjuvus (DRC)",
+				"tag": "Tasandatud valjuvus"
+			},
+			"fit": {
+				"mp4Unavailable": "Teie profiil on Nutiteler (H.264). See video ei paku H.264, seega valiti lähim voog.",
+				"noVideo": "Sellel lingil pole videot, seega valiti heli.",
+				"subtitlesMissing": "Teie profiil küsib subtiitreid keeltes {{languages}}. Sellel videol neid pole.",
+				"tierAbove": "Teie profiil küsib {{wanted}}p. Sellel videol pole nii väikest, seega valiti {{picked}}p.",
+				"tierBelow": "Teie profiil küsib {{wanted}}p. See video ulatub ainult kuni {{picked}}p-ni, seega valiti {{picked}}p.",
+				"webmUnavailable": "Teie profiil küsib WebM-i. Selle video valitud voogude hulgas on {{codec}}, mida WebM ei mahuta, seega on failitüüp Automaatne."
+			},
+			"footer": {
+				"addToQueue": "Lisa järjekorda ilma alustamata",
+				"download": "Laadi alla",
+				"moreActions": "Veel allalaadimisvalikuid",
+				"subtitlesRequired": "Valige vähemalt üks subtiitrikeel."
+			},
+			"keepAudio": "Jäta nagu on",
+			"keepAudioMeta": "Sisseehitatud heli",
+			"kind": {
+				"audio": "Ainult heli",
+				"label": "Mida alla laadida",
+				"subtitles": "Ainult subtiitrid",
+				"video": "Video + heli",
+				"videoOnly": "Video, ilma helita"
+			},
+			"loadingAria": "Vormingute laadimine",
+			"loadingHint": "Oodake, kuni päring lõpeb – esitusloendid ja otsingud võivad võtta aega.",
+			"marker": {
+				"aiDubbed": "Tehisintellektiga dubleeritud",
+				"aiUpscaled": "Tehisintellektiga skaleeritud",
+				"audioDescription": "Helikirjeldus",
+				"damaged": "Kahjustatud",
+				"enhancedBitrate": "Suurendatud bitikiirus",
+				"spatialAudio": "Ruumiheli",
+				"vr": "360° / VR",
+				"watermarked": "Vesimärgiga"
+			},
+			"noAudio": "Heli puudub",
+			"profile": {
+				"calloutBody": "Teie aktiivne profiil valib vood teie eest ette. Vahetage profiile menüüst või kasutage pliiatsit, et ühte kohandada, lahkumata sellest allalaadimisest.",
+				"calloutTitle": "Vormingud lähtuvad teie profiilist",
+				"closestTag": "Profiilile lähim",
+				"edit": "Muuda profiili {{name}}",
+				"keepEdits": "Säilita minu muudatused",
+				"menuDescription": "Ainult selle allalaadimise jaoks. Teie vaikeprofiil jääb samaks.",
+				"preselected": "Eelvalitud profiilist",
+				"resetAll": "Lähtesta kõik",
+				"switchBody": "Muutsite selle allalaadimise jaoks: {{areas}}. Profiil „{{profile}}“ valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?",
+				"switchTitle": "Kas vahetada profiili?",
+				"tag": "Profiil",
+				"updatedBody": "Muutsite selle allalaadimise jaoks: {{areas}}. Uuendatud profiil valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?",
+				"updatedTitle": "Kas kasutada uuendatud profiili?"
+			},
+			"quality": {
+				"high": "Kõrge kvaliteet",
+				"low": "Madal kvaliteet",
+				"medium": "Keskmine kvaliteet"
+			},
+			"rateLimit": {
+				"heading": "{{site}} piirab selle ühenduse päringuid",
+				"leadDegraded": "Vormingute loend võib olla puudulik.",
+				"leadFailed": "{{site}} lükkas selle päringu praegu tagasi.",
+				"retryCta": "Proovi uuesti",
+				"sessionNote": "{{site}} võib seda piirangut hoida kuni tund aega.",
+				"tryNowCta": "Proovi kohe",
+				"waitOver": "Ooteaeg on möödas, seega võite uuesti proovida.",
+				"waitUntil": "Arroxy ootab kuni {{time}}, enne kui {{site}} käest uuesti küsib, et piirang saaks lõppeda."
+			},
+			"resolutionUnknown": "Tundmatu eraldusvõime",
+			"savesAs": {
+				"label": "Salvestatakse kui",
+				"reset": "WebM ei mahuta koodekit {{codec}}, seega naasis failitüüp väärtusele Automaatne."
+			},
+			"sizeUnknown": "Suurus teadmata",
+			"skipToConfirm": "Jätka kinnitamiseni",
+			"skipToConfirmTooltip": "Kasutab kõigi ülejäänud sammude jaoks teie salvestatud eelistusi. Sätte muutmiseks jätkake hoopis samm-sammult – teie valik salvestatakse järgmiseks korraks.",
+			"sniffing": "Otsin teile parimaid vorminguid…",
+			"total": "Kokku",
+			"video": "Video",
+			"withAudio": "heliga"
+		},
+		"mixedPrompt": {
+			"body": "Kas soovite ainult videot, millel klõpsasite, või valida esitusloendist? Järgmisena valite konkreetsed videod või vahemiku.",
+			"pickFromPlaylist": "Vali esitusloendist",
+			"playlistLimit": "Esitusloendi päringu piir: {{count}} üksust",
+			"playlistTooltip": "Laadib esitusloendi kuni teie esitusloendi päringu piirini, enne kui valija kuvatakse.",
+			"quickBody": "Laadige alla ainult see video või pange kogu esitusloend järjekorda oma aktiivse kiirallalaadimise profiiliga.",
+			"quickLimitDescription": "Maksimaalne kirjete arv, mida Arroxy skannib enne esitusloendi, kanali või otsingutulemuse järjekorda lisamist.",
+			"quickPlaylistTooltip": "Lisab järjekorda iga laaditud esitusloendi üksuse aktiivse kiirallalaadimise profiiliga. Kui skannimine jõuab teie piirini, küsib Arroxy enne järjekorda lisamist.",
+			"quickSingleTooltip": "Lisab järjekorda ühe allalaadimise ja eirab sellele URL-ile lisatud esitusloendit.",
+			"quickSingleVideo": "Laadi see video alla",
+			"quickWholePlaylist": "Laadi kogu esitusloend alla",
+			"singleTooltip": "Laadib ainult selle video. Sellele URL-ile lisatud esitusloendit eiratakse.",
+			"singleVideo": "Ainult see",
+			"title": "Sellel lingil on esitusloend"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Peatükimärgid, mida saab navigeerida igas kaasaegses pleieris.",
+				"label": "Manusta peatükid"
+			},
+			"embedMetadata": {
+				"description": "Pealkiri, esitaja, kirjeldus ja üleslaadimiskuupäev kirjutatakse faili.",
+				"label": "Manusta metaandmed"
+			},
+			"embedThumbnail": {
+				"description": "Kaanepilt faili sees. WebM-video pakitakse ümber MKV-ks; jäetakse vahele, kui subtiitrid on manustatud.",
+				"label": "Manusta pisipilt"
+			},
+			"writeDescription": {
+				"description": "Salvestab video kirjelduse tekstifailina .description allalaadimise kõrvale.",
+				"label": "Salvesta kirjeldus"
+			},
+			"writeM3u": {
+				"description": "Salvestab videote kõrvale .m3u esitusloendi, et need avanevad teie meediapleieris õiges järjekorras.",
+				"label": "Loo .m3u esitusloendi fail"
+			},
+			"writeThumbnail": {
+				"description": "Salvestab pisipildi .jpg pildifailina allalaadimise kõrvale.",
+				"label": "Salvesta pisipilt"
+			}
+		},
+		"part": {
+			"calloutBody": "Lülituge video kaardil valikule Osa, et valida algus ja lõpp või peatükk ning laadida alla ainult see lõik.",
+			"calloutTitle": "Laadige alla ainult osa videost",
+			"chapterUntitled": "Peatükk {{number}}",
+			"chapters": "Peatükid",
+			"connectionsNote": "Osa laaditakse alla ffmpegi kaudu, seega ei kehti sellele teie allalaadimisühenduste ja tempo sätted.",
+			"downloadBlocked": "Parandage kõigepealt osa algus ja lõpp.",
+			"end": "Lõpp",
+			"error": {
+				"endBeyondDuration": "Video lõpeb ajal {{duration}}.",
+				"endInvalid": "Sisestage lõpp kujul h:mm:ss, m:ss või sekunditena.",
+				"startInvalid": "Sisestage algus kujul h:mm:ss, m:ss või sekunditena.",
+				"startNotBeforeEnd": "Algus peab olema enne lõppu."
+			},
+			"exactCut": {
+				"hint": "Väljas: iga lõige satub lähimale võtmekaadrile, mis võib sisestatud ajast erineda mõne sekundi võrra.",
+				"label": "Täpne lõige (kodeerib ümber, aeglasem)"
+			},
+			"length": "{{length}} / {{duration}}",
+			"part": "Osa",
+			"rangeLabel": "Osa videost",
+			"start": "Algus",
+			"subtitlesFullLength": "kogu video",
+			"summary": "Osa {{start}}–{{end}}",
+			"switchLabel": "Kui suur osa videost",
+			"timeHint": "h:mm:ss, m:ss või sekundid",
+			"totalEstimate": "Osa, hinnanguliselt",
+			"unavailableDuration": "See video ei teata oma pikkust, seega saab selle alla laadida ainult tervikuna.",
+			"unavailableSubtitles": "Subtiitrid hõlmavad alati kogu videot.",
+			"urlStart": "Teie link algab ajal {{time}}",
+			"useUrlStart": "Kasuta algusena",
+			"whole": "Kogu video",
+			"wholeTrack": "Kogu lugu"
+		},
+		"playlist": {
+			"allRemovedDescription": "Jätkamiseks taastage need.",
+			"allRemovedTitle": "Kõik üksused eemaldati",
+			"alreadyDownloaded": "Juba alla laaditud",
+			"bulkHeading": "Hulgi-URL-id",
+			"bulkMetadataOptional": "Ootamine pole vajalik – nüüd järjekorda pandud failid saavad oma tegelikud nimed allalaadimisel.",
+			"bulkMetadataResolving": "Videote üksikasjade toomine… {{done}}/{{total}}",
+			"bulkRowFailed": "Üksikasjad pole saadaval",
+			"bulkRowResolving": "Üksikasjade toomine",
+			"bulkRowWaiting": "Ootab",
+			"durationUnknown": "otse",
+			"heading": "Esitusloendi üksused",
+			"headingGeneric": "Allalaaditavad videod",
+			"itemCountAudio_one": "{{count}} lugu",
+			"itemCountAudio_other": "{{count}} lugu",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL-i",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} videot",
+			"loadingItems": "Esitusloendi toomine…",
+			"loadingItemsGeneric": "Videote toomine…",
+			"loadingLimitHint": "Piiratud esimese {{count}} üksusega",
+			"loadingPagesFound_one": "Leitud {{count}} leht",
+			"loadingPagesFound_other": "Leitud {{count}} lehte",
+			"loadingPhaseItems": "Videote kogumine",
+			"loadingPhasePages": "Kanali lehtede skannimine",
+			"multiProfileEntry": "Määra profiilid üksustele",
+			"multiProfileEntryTooltip": "Jätab vahele Kvaliteedi, SponsorBlocki, Väljundi ja Salvestamise – määrake hoopis iga üksuse jaoks allalaadimisprofiil",
+			"nestedPlaylistBadge": "Esitusloend",
+			"nestedPlaylistHint_one": "{{count}} neist on esitusloend, mitte video – allalaadimiseks kleepige selle link eraldi.",
+			"nestedPlaylistHint_other": "{{count}} neist on esitusloendid, mitte videod – allalaadimiseks kleepige nende lingid ükshaaval.",
+			"noSelection": "Jätkamiseks valige vähemalt üks video",
+			"probeLimitAlertDesc": "Kuvatakse esimesed {{count}} üksust. Rohkema nägemiseks suurendage laadimispiiri.",
+			"probeLimitAlertTitle": "Esitusloendi skannimine on piiratud",
+			"probeLimitAlertTitleGeneric": "Skannimine on piiratud",
+			"rangeApply": "Rakenda vahemik",
+			"rangeFrom": "Alates",
+			"rangeTo": "Kuni",
+			"removeFromListCount_one": "Eemalda {{count}} loendist",
+			"removeFromListCount_other": "Eemalda {{count}} loendist",
+			"removedCount_one": "{{count}} eemaldatud",
+			"removedCount_other": "{{count}} eemaldatud",
+			"restore": "Taasta",
+			"selectAll": "Vali kõik",
+			"selectNone": "Tühista valik",
+			"selectedCount_one": "{{count}} valitud",
+			"selectedCount_other": "{{count}} valitud",
+			"sortApi": "Esitusloendi järjekord",
+			"sortFetchingDates": "Üleslaadimiskuupäevade toomine…",
+			"sortLabel": "Sordi",
+			"sortUploadAsc": "Vanimad enne",
+			"sortUploadDesc": "Uusimad enne",
+			"syncApply": "Rakenda sünkroonimine",
+			"syncChange": "Muuda kausta…",
+			"syncFoundDesc": "{{n}} neist videotest on juba kaustas {{dir}}. Kas sünkroonida, et laadida alla ainult uued?",
+			"syncFoundTitle": "Juba kaustas",
+			"syncNoneDesc": "Kaustast {{dir}} ei leitud ühtegi selle esitusloendi videot.",
+			"syncNoneDescGeneric": "Kaustast {{dir}} ei leitud ühtegi selle allika videot.",
+			"syncNoneTitle": "Midagi pole veel alla laaditud",
+			"syncScanning": "Kausta kontrollimine…",
+			"thumbnailAlt": "Video pisipilt"
+		},
+		"playlistPresets": {
+			"heading": "Valige partii kvaliteet",
+			"itemCount_one": "{{count}} üksus",
+			"itemCount_other": "{{count}} üksust",
+			"subhead": "Iga video lahendab valitud astme eraldi – erinevatest videotest koosnevad esitusloendid töötavad üllatusteta."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Määra profiil",
+			"assignTrigger_one": "Määra {{count}} videole",
+			"assignTrigger_other": "Määra {{count}} videole",
+			"columnDuration": "Kestus",
+			"columnProfile": "Profiil",
+			"editProfile": "Muuda profiili {{name}}",
+			"empty": "Ükski üksus ei vasta sellele filtrile",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profiilifiltrid",
+			"heading": "Määrake allalaadimisprofiilid",
+			"menuDescription_one": "Valige selle video profiil.",
+			"menuDescription_other": "Valige nende {{count}} video profiil.",
+			"selectedSummary": "{{selected}} / {{total}} valitud"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Muuda globaalset",
+				"chooseFolder": "Vali sihtkaust",
+				"chooseIcon": "Vali profiili ikoon",
+				"removeLanguage": "Eemalda {{code}}",
+				"reset": "Lähtesta profiil",
+				"resetDisabledHint": "See profiil kasutab juba sisseehitatud sätteid",
+				"resetHint": "Taasta profiili sisseehitatud sätted",
+				"save": "Salvesta profiil",
+				"setOverride": "Määra profiili alistus",
+				"setOverrideShort": "Määra alistus",
+				"useGlobalDefault": "Kasuta globaalset vaikeväärtust",
+				"useLanguageCode": "Kasuta keelekoodi „{{code}}“"
+			},
+			"advanced": "Täpsemalt",
+			"appSetting": "Kasuta rakenduse sätet ({{value}})",
+			"audioFormat": {
+				"best": "Parim",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Kuni 128K",
+				"192": "Kuni 192K",
+				"320": "Kuni 320K",
+				"best": "Parim kvaliteet"
+			},
+			"destination": {
+				"defaultFolder": "Vaikimisi allalaadimiskaust",
+				"defaultFolderWithSubfolder": "Vaikimisi allalaadimiskaust / {{subfolder}}",
+				"global": "Globaalne sihtkoht",
+				"globalActive": "Aktiivne",
+				"globalInherited": "Päritud",
+				"override": "Profiili alistus",
+				"overrideChoosing": "Vali kaust",
+				"overrideNone": "Alistust pole määratud",
+				"overrideNoneNote": "Alistust pole määratud. See profiil kasutab ülal olevat globaalset sihtkohta.",
+				"overrideSet": "Alistab globaalse",
+				"overrideSetNote": "See profiil salvestab oma juurkausta, enne kui alamkaust lisatakse.",
+				"resolved": "Lahendatud sihtkoht"
+			},
+			"dialogDescription": "Üks taaskasutatav seadistus kiirallalaadimisele, hulgi-URL-idele ja esitusloenditele.",
+			"dialogTitle": "Allalaadimisprofiil",
+			"error": {
+				"changeGlobalDestination": "Globaalset sihtkohta ei õnnestunud muuta.",
+				"folderPicker": "Kaustavalijat ei õnnestunud avada. Sisestage tee käsitsi.",
+				"reset": "Profiili sätteid ei õnnestunud lähtestada.",
+				"save": "Profiili sätteid ei õnnestunud salvestada."
+			},
+			"field": {
+				"delivery": "Edastus",
+				"fileType": "Failitüüp",
+				"goal": "Optimeeri selleks",
+				"icon": "Profiili ikoon",
+				"languages": "Keeled",
+				"name": "Profiili nimi",
+				"nameAndIcon": "Profiili nimi ja ikoon",
+				"nativeAudio": "Algne heli",
+				"overridePath": "Profiili alistuse tee",
+				"quality": "Kvaliteet",
+				"resolution": "Eraldusvõime",
+				"source": "Allikas",
+				"subfolderName": "Alamkausta nimi",
+				"subtitleDownloads": "Subtiitrite allalaadimised",
+				"subtitleDownloadsDescription": "Profiilid küsivad keelekoode; saadavus selgitatakse välja iga URL-i puhul."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Teravaim antud suuruse juures. Vanemad telerid, QuickTime ja mõned redaktorid ei saa seda esitada.",
+					"name": "Parim pilt",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Töötab teleritel, telefonides, WhatsAppis, QuickTime’is ja videoredaktorites. YouTube pakub H.264 ainult kuni 1080p-ni.",
+					"name": "Nutiteler",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arhiiv",
+				"audio": "Heli",
+				"captions": "Pealdised",
+				"classes": "Tunnid",
+				"clip": "Klipp",
+				"controls": "Juhtnupud",
+				"download": "Allalaadimine",
+				"music": "Muusika",
+				"podcast": "Taskuhääling",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Muusika või taskuhäälingud",
+					"label": "Ainult heli"
+				},
+				"subtitlesOnly": {
+					"description": "Ainult subtiitrifailid",
+					"label": "Ainult subtiitrid"
+				},
+				"videoAudio": {
+					"description": "Tavalised videofailid",
+					"label": "Video + heli"
+				},
+				"videoOnly": {
+					"description": "Ainult hääletu video",
+					"label": "Video, ilma helita"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na.",
+				"noLanguageMatches": "Sobivaid keeli pole",
+				"noSubtitles": "Selle profiili jaoks ei küsita subtiitrifaile ega manustatud subtiitrivoogusid.",
+				"searchLanguages": "Otsige keele nime või koodi järgi",
+				"skippedForOutputType": "Selle väljundi tüübi puhul vahele jäetud.",
+				"subtitleLanguagesRequired": "Valige vähemalt üks keel.",
+				"subtitleLanguagesRequiredOrOff": "Valige vähemalt üks keel või lülitage subtiitrite allalaadimine välja.",
+				"subtitlesOnly": "See profiil lisab järjekorda ainult subtiitrifailid. Video, heli, SponsorBlock ja meediateisendus jäetakse vahele."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profiilid pärivad globaalse sihtkoha, kui te profiili alistust ei määra.",
+					"title": "Täpsemad valikud"
+				},
+				"downloadType": {
+					"description": "Valige peamine allalaadimisviis.",
+					"title": "Allalaadimise tüüp"
+				},
+				"identity": {
+					"description": "Nimi ja ikoon, mida kuvatakse kiirallalaadimises, hulgi-URL-ides ja profiililoendites.",
+					"title": "Profiili identiteet"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} lubatud",
+					"enabledCount_other": "{{count}} lubatud",
+					"title": "Väljundi valikud"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Valige selle profiili kaust"
+			},
+			"skipped": "Vahele jäetud",
+			"sponsorBlockHint": {
+				"mark": "Märgib sponsorilõigud peatükkidena (mittepurustav).",
+				"off": "SponsorBlocki pole – video esitatakse üleslaaditud kujul.",
+				"remove": "Lõikab sponsorilõigud FFmpegi abil videost välja."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Ainult automaatselt loodud",
+				"manualAndAuto": "Käsitsi ja automaatsed",
+				"manualFirst": "Esmalt käsitsi, siis automaatsed",
+				"manualOnly": "Ainult käsitsi"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}} – abi"
+		},
+		"quickProgress": {
+			"cancel": "Tühista ettevalmistus",
+			"currentFallback": "Praegune link",
+			"description": "Arroxy loeb linki ja rakendab profiili {{profileName}}.",
+			"failedCount_one": "{{count}} ebaõnnestus",
+			"failedCount_other": "{{count}} ebaõnnestus",
+			"phase": {
+				"probing": "Üksikasjade toomine",
+				"queueing": "Järjekorda lisamine"
+			},
+			"title": "Kiirallalaadimise ettevalmistamine",
+			"waitHint": "Hoidke see avatuna, kuni Arroxy järjekorda ette valmistab."
+		},
+		"review": {
+			"areas": {
+				"extras": "lisad",
+				"fileName": "failinimi",
+				"format": "vorming",
+				"saveTo": "kaust",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "subtiitrid"
+			},
+			"callout": {
+				"body": "Subtiitrid, SponsorBlock, lisad nagu pisipilt, kaust ja failinimi olid varem eraldi sammud. Muutmiseks klõpsake real.",
+				"title": "Kõik muud sätted on nüüd siin lehel"
+			},
+			"changeFormat": "Muuda vormingut",
+			"changed": "Muudetud profiilist {{profile}}: {{areas}}. Kehtib ainult sellele allalaadimisele.",
+			"changedFrom": "Muudetud profiilist {{profile}}:",
+			"nextTime": {
+				"action": "Salvesta profiilina",
+				"defaultName": "{{profile}} (muudetud)",
+				"title": "See allalaadimine kasutas muudetud sätteid. Kas kasutada neid järgmisel korral?"
+			},
+			"reset": "Võta muudatused tagasi, tagasi profiilile „{{profile}}“",
+			"rows": {
+				"extras": "Lisad",
+				"fileName": "Failinimi",
+				"saveTo": "Salvesta kausta",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Subtiitrid"
+			},
+			"rowsHeading": "Kõik muu",
+			"save": {
+				"action": "Salvesta profiil",
+				"description": "Säilitab need sätted profiilina, mille saate järgmisel korral valida. Teie kiirallalaadimise profiil jääb samaks.",
+				"failed": "Profiili ei õnnestunud salvestada.",
+				"nameLabel": "Profiili nimi",
+				"saved": "Salvestatud profiilina „{{name}}“",
+				"title": "Salvesta profiilina"
+			},
+			"saveAsProfile": "Salvesta uue profiilina",
+			"update": {
+				"action": "Uuenda profiili",
+				"builtinNote": "See on sisseehitatud profiil. Selle algsed sätted saab taastada vahekaardil Profiilid.",
+				"description": "Edaspidi kasutab iga selle profiiliga allalaadimine uusi sätteid.",
+				"rows": {
+					"format": "Vorming"
+				},
+				"title": "Kas uuendada profiili „{{profile}}“?",
+				"updated": "Profiil „{{name}}“ uuendati"
+			},
+			"updateProfile": "Uuenda profiili „{{profile}}“ nende muudatustega",
+			"value": {
+				"extrasNone": "Puuduvad",
+				"sponsorBlockOff": "Väljas",
+				"subtitlesOff": "Väljas"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Täitematerjal",
+				"intro": "Sissejuhatus",
+				"music_offtopic": "Teemaväline muusika",
+				"outro": "Lõpuosa",
+				"preview": "Eelvaade",
+				"selfpromo": "Enesereklaam",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategooriad",
+			"mode": {
+				"mark": "Märgi peatükkidena",
+				"off": "Väljas",
+				"remove": "Eemalda lõigud"
+			},
+			"modeHeading": "Sponsorite filtreerimine",
+			"modeHint": {
+				"mark": "Märgib sponsorilõigud peatükkidena (mittepurustav).",
+				"off": "SponsorBlocki pole – video esitatakse üleslaaditud kujul.",
+				"remove": "Lõikab sponsorilõigud FFmpegi abil videost välja."
+			}
+		},
+		"steps": {
+			"confirm": "Kinnita",
+			"folder": "Salvesta",
+			"formats": "Vorming",
+			"output": "Väljund",
+			"playlistItems": "Esitusloend",
+			"playlistItemsGeneric": "Videod",
+			"playlistPresets": "Kvaliteet",
+			"playlistProfiles": "Profiilid",
+			"review": "Ülevaade",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Subtiitrid",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na – YouTube’i videote puhul puhastatakse need kordustest, mida meie ASS-teisendaja veel järgi teha ei oska.",
+			"autoBadge": "Auto",
+			"clearAll": "Tühjenda kõik",
+			"embedNote": "Manustamisrežiim salvestab väljundi failina .mkv, et subtiitrivood manustuksid usaldusväärselt.",
+			"format": {
+				"heading": "Vorming"
+			},
+			"noLanguages": "Sellel videol pole subtiitreid",
+			"noMatches": "Ükski keel ei vasta",
+			"noSelected": "Subtiitreid pole valitud",
+			"removeLanguage": "Eemalda {{name}}",
+			"saveMode": {
+				"embed": "Manusta videosse",
+				"heading": "Salvesta kui",
+				"sidecar": "Video kõrvale",
+				"subfolder": "alamkaust subtitles/"
+			},
+			"searchPlaceholder": "Otsi keeli…",
+			"sectionAuto": "Automaatselt loodud",
+			"sectionManual": "Käsitsi"
+		},
+		"tabsNavAria": "Allalaadimisprofiili navigeerimine",
+		"url": {
+			"advanced": "Täpsemalt",
+			"analytics": {
+				"toggle": "Saada igapäevane elumärk",
+				"toggleDescription": "Telemeetriat pole. Kord päevas saadab anonüümne elumärk rakenduse versiooni, installikanali, OS-i, keele, riigi ja ligikaudu selle, kui ammu Arroxy installiti, et saaksime lugeda aktiivseid ja uusi kasutajaid. Ei mingeid ID-sid, URL-e, videopealkirju ega failinimesid."
+			},
+			"autoRemoveCompleted": {
+				"description": "Eemaldab allalaadimise loendist Allalaadimised mõni sekund pärast selle lõppu. Failid jäävad teie kausta; ebaõnnestunud ja tühistatud allalaadimised jäävad loendisse.",
+				"label": "Eemalda lõpetatud allalaadimised"
+			},
+			"autoRetry": {
+				"description": "Proovib pärast võrgu- või serverikatkestust automaatselt uuesti, oodates iga katse vahel kauem. Saidi poolt blokeeritud allalaadimisi ei proovita automaatselt uuesti.",
+				"label": "Proovi ebaõnnestunud allalaadimisi uuesti",
+				"unit": "korda"
+			},
+			"bulkButton": "Hulgi-URL-id",
+			"bulkTooltip": "Lisa ja pane järjekorda mitu URL-i.",
+			"clearAria": "Tühjenda URL",
+			"clipboard": {
+				"autofilledLink": "Link lisati lõikelaualt",
+				"bulkHint": "Kopeeritud mitu linki – nende lisamiseks kasutage Hulgi-URL-e",
+				"dialog": {
+					"cancelButton": "Loobu"
+				},
+				"replacedLink": "Asendati kopeeritud lingiga",
+				"toggle": "Jälgi lõikelauda",
+				"toggleDescription": "Täidab URL-välja automaatselt, kui kopeerite videolingi.",
+				"undo": "Võta tagasi"
+			},
+			"closeToTray": {
+				"toggle": "Peida sulgemisel salve",
+				"toggleDescription": "Jätkab allalaadimisi taustal pärast akna sulgemist."
+			},
+			"concurrentDownloads": {
+				"description": "Mitu järjekorra üksust laaditakse korraga alla. Rohkem korraga lõpetab pika järjekorra kiiremini, kuid suurendab võimalust, et sait teid piirab.",
+				"label": "Allalaadimisi korraga",
+				"unit": "allalaadimist"
+			},
+			"cookies": {
+				"banWarning": "Sellised saidid nagu YouTube võivad märgistada ja vahel ka blokeerida kontosid, mille küpsiseid kasutavad allalaadimistööriistad, nagu Arroxy. Kasutage võimaluse korral ühekordset kontot.",
+				"browserHelp": "Loeb küpsised otse brauserist. Chromiumi-perekonna brauserite puhul peab brauser olema suletud.",
+				"browserLabel": "Brauser",
+				"browserPlaceholder": "Valige brauser…",
+				"choose": "Vali…",
+				"clear": "Tühjenda",
+				"enabledButNoBrowser": "Küpsiste kasutamiseks valige brauser",
+				"enabledButNoFile": "Küpsiste kasutamiseks valige fail",
+				"exploreDescription": "Kasutab teie Avasta sisselogimist ainult siis, kui allalaadimine seda vajab.",
+				"exploreDisabled": "Vahekaart Avasta on väljas, seega allalaadimised ei kasuta teie Avasta sisselogimist. Lülitage see sisse allpool jaotises Avasta.",
+				"extensionChrome": "Hangi cookies.txt LOCALLY (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Küpsisefail",
+				"helpLink": "Kuidas küpsiseid eksportida?",
+				"openExplore": "Ava Avasta",
+				"placeholder": "Faili pole valitud",
+				"recommended": "Soovitatav",
+				"risk": "Risk: cookies.txt sisaldab kõiki selle brauseri sisselogitud seansse – hoidke see privaatsena.",
+				"sourceBrowser": "Brauser",
+				"sourceExplore": "Avasta sisselogimine",
+				"sourceFile": "Fail",
+				"sourceLabel": "Küpsiste allikas",
+				"sourceOff": "Väljas",
+				"toggleDescription": "Aitab vanusepiiranguga, ainult liikmetele mõeldud ja konto privaatsete videote puhul."
+			},
+			"downloadConnections": {
+				"description": "Kiirendab suuri allalaadimisi, tuues korraga mitu video osa. Suuremad väärtused suurendavad võimalust, et sait teid piirab.",
+				"label": "Allalaadimisühendused",
+				"unit": "ühendust"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Ainult heli",
+					"subtitles": "Subtiitrid"
+				},
+				"anySite": {
+					"heading": "2000+ saiti",
+					"musicPlaylist": "Muusika esitusloendid",
+					"video": "Videod",
+					"videoPlaylist": "Video esitusloendid"
+				},
+				"heading": "Mida Arroxy suudab alla laadida",
+				"youtube": {
+					"channel": "Kanalid",
+					"heading": "YouTube",
+					"music": "Muusika",
+					"playlist": "Esitusloendid",
+					"podcast": "Taskuhäälingud",
+					"short": "Shorts",
+					"video": "Videod"
+				}
+			},
+			"fetchFormatsTooltip": "Samm-sammuline viisard. Valige vorming, kvaliteet ja muu.",
+			"heading": "Laadi alla URL-ilt",
+			"hotkey": {
+				"changeShortcut": "Muuda otseteed",
+				"conflict": "Selle otsetee on võtnud mõni teine rakendus – valige teine.",
+				"hintLabel": "Või vajutage",
+				"hintTooltip": "Kopeerige videolink kus tahes, vajutage seda otseteed ja Arroxy paneb selle teie aktiivse profiiliga järjekorda – akent vahetama ei pea.",
+				"hintTooltipSettings": "Muutke või lülitage välja jaotises Sätted.",
+				"recording": "Vajutage klahve…",
+				"reset": "Lähtesta vaikeväärtusele",
+				"sectionDescription": "Laadige alla iga kopeeritud link mis tahes rakendusest, Arroxyt avamata.",
+				"sectionTitle": "Globaalne kiirklahv",
+				"test": "Testi",
+				"toggle": "Luba globaalne kiirklahv",
+				"toggleDescription": "Vajutage otseteed, kui lõikelaual on videolink."
+			},
+			"interactiveDownload": "Interaktiivne allalaadimine",
+			"limitRate": {
+				"activeWarning": "Aktiivsed allalaadimised säilitavad oma praeguse piirangu. Muudatuste rakendamiseks peatage ja jätkake.",
+				"custom": "Kohandatud…",
+				"customPlaceholder": "nt 750K või 1.5M",
+				"description": "Piirab meediafailide allalaadimise ribalaiust. Allolev päringute tempo on tavaliselt tugevam piiramisviis.",
+				"invalid": "Kasutage arvu, millele järgneb K või M (nt 500K, 1.5M)",
+				"label": "Allalaadimiskiiruse piirang",
+				"off": "Väljas"
+			},
+			"mascotBusy": "Allalaadimine taustal… Oskan mitut asja korraga 😎",
+			"mascotCollection": "Kiire paneb laaditud üksused järjekorda profiiliga {{profileName}}. Interaktiivne laseb üksusi enne uurida või valida.",
+			"mascotIdle": "Kleepige link ja las Arroxy selle alla laeb ✨",
+			"mascotMixed": "See link osutab ühele videole kollektsioonis. Arroxy küsib enne päringut, millist soovite.",
+			"mascotPreparing": "{{quickDownload}} loeb seda linki ja rakendab profiili {{profileName}}.",
+			"mascotQueued": "Järjekord tegeleb selle allalaadimisega. Kuni see töötab, võite kleepida järgmise lingi.",
+			"mascotSingle": "Kiire alustab ühe allalaadimise profiiliga {{profileName}}. Ühekordsete muudatuste jaoks kasutage Interaktiivset.",
+			"nativeAudioPreference": {
+				"compatible": "Ühilduv stereo",
+				"description": "Stereo või ruumiheli, kui profiil valib algse heli. Profiil võib selle alistada.",
+				"label": "Algse heli eelistus",
+				"surround": "Eelista ruumiheli / Dolbyt"
+			},
+			"networkPacing": {
+				"description": "Lisab iga allalaadimise ajal väikesed ooteajad, et Arroxy ei koormaks saiti liiga agressiivselt. Väärtused on sekundites.",
+				"fields": {
+					"maxSleepInterval": "Paus enne meedia algust: maks",
+					"sleepInterval": "Paus enne meedia algust: min",
+					"sleepRequests": "Ooteaeg metaandmete kontrollide vahel",
+					"sleepSubtitles": "Ooteaeg enne subtiitrifaile"
+				},
+				"heading": "Õrn allalaadimine",
+				"presetLabel": "Kui ettevaatlik peaks Arroxy olema?",
+				"presets": {
+					"balanced": "Tasakaalustatud",
+					"careful": "Ettevaatlik",
+					"custom": "Kohandatud",
+					"off": "Väljas"
+				},
+				"summary": "Ooteajad: {{requests}} kontrollide vahel, {{downloads}} enne meedia algust, {{subtitles}} enne subtiitrifaile.",
+				"tooltip": "Need ooteajad toimuvad iga allalaadimise sees. Mitu allalaadimist korraga töötab, määratakse eraldi valikus Allalaadimisi korraga.",
+				"tooltips": {
+					"balanced": "Vaikimisi. Lisab lühikesed pausid päringute vahele ja enne meedia algust.",
+					"careful": "Lisab pikemad pausid suurte esitusloendite või sageli piirangutesse jooksvate võrkude jaoks.",
+					"custom": "Kohandage täpsemad allalaadimiskohased juhtelemendid ise.",
+					"off": "Kasutab ainult väikesi põhipause, mida Arroxy meedia ja subtiitrite jaoks hoiab."
+				},
+				"units": {
+					"seconds": "sek"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Praegune piirang: {{count}} üksust",
+				"custom": "Kohandatud…",
+				"customDialogCancel": "Loobu",
+				"customDialogDescription": "Kasutage täisarvu vahemikus {{min}} kuni {{max}}.",
+				"customDialogSave": "Salvesta piirang",
+				"customDialogTitle": "Esitusloendi skannimise kohandatud piirang",
+				"customValue": "Kohandatud: {{count}} üksust",
+				"description": "Maksimaalne kirjete arv, mille Arroxy laadib esitusloendi, kanali või otsingutulemuse avamisel.",
+				"invalid": "Kasutage täisarvu vahemikus 1 kuni 5000",
+				"label": "Skannitavaid esitusloendi üksusi",
+				"option": "{{count}} üksust",
+				"tooltip": "Arroxy küsib valija koostamisel ainult nii palju esitusloendi, kanali või otsingu kirjeid."
+			},
+			"playlistScope": {
+				"appLimit": "Kasuta rakenduse piirangut: {{count}}",
+				"apply": "Rakenda",
+				"applyError": "Seda esitusloendi ulatust ei õnnestunud rakendada: {{message}}",
+				"applyReload": "Rakenda ja laadi uuesti",
+				"cancel": "Loobu",
+				"change": "Muuda",
+				"dialogDescription": "Valige, mida Arroxy selle esitusloendi jaoks laadib.",
+				"dialogTitle": "Esitusloendi ulatus",
+				"emptyTitle": "Selles ulatuses pole ühtegi videot",
+				"first": "Esimesed",
+				"invalid": "Kasutage üksuste täisnumbreid vahemikus 1 kuni {{max}}, kusjuures algus ei tohi olla lõpust suurem.",
+				"itemsLabel": "Laaditavad üksused",
+				"label": "Esitusloendi ulatus",
+				"range": "Vahemik",
+				"reloading": "Uuesti laadimine...",
+				"reset": "Lähtesta",
+				"summaryAppLimit": "Laadi esimesed üksused: {{count}}",
+				"summaryFirst": "Laadi esimesed üksused: {{count}}",
+				"summaryRange": "Laadi üksused {{from}}-{{to}}",
+				"to": "kuni"
+			},
+			"profile": {
+				"activeLabel": "Aktiivne profiil",
+				"badgeBuiltIn": "Sisseehitatud",
+				"badgeCustom": "Kohandatud",
+				"badgeDisabled": "Peidetud",
+				"badgeModified": "Muudetud",
+				"changeGlobalDestination": "Muuda globaalset sihtkohta",
+				"destinationDetail": {
+					"global": "Kasutab globaalset sihtkohta",
+					"globalSubfolder": "Kasutab globaalset sihtkohta + profiili alamkausta",
+					"override": "Kasutab profiili alistust",
+					"overrideSubfolder": "Kasutab profiili alistust + profiili alamkausta"
+				},
+				"destinationFallback": "Sihtkoht",
+				"edit": "Muuda",
+				"editActive": "Muuda aktiivset profiili",
+				"enableHint": "Peidetud profiilid jäävad siia, kuid kaovad kõigist profiilivalijatest.",
+				"enableToggleAria": "Kuva profiil valijates: {{profileName}}",
+				"lastEnabledHint": "Jätke vähemalt üks profiil saadavale.",
+				"manageProfiles": "Halda profiile",
+				"menuDescription": "Muutke kiirallalaadimise, hulgi-URL-ide ja esitusloendite aktiivset profiili.",
+				"menuTitle": "Vaheta profiili",
+				"movableProfile": "teisaldatav profiil",
+				"moveCancelled": "Teisaldamine tühistati. {{profileName}} jääb positsioonile {{position}} / {{count}}.",
+				"moveDropped": "{{profileName}} asetati positsioonile {{position}} / {{count}}.",
+				"moveHandleAria": "Teisalda {{profileName}}",
+				"moveInstructions": "Profiili teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi.",
+				"moveOver": "{{profileName}} on positsiooni {{position}} / {{count}} kohal.",
+				"movePickedUp": "{{profileName}} võeti kätte. See on positsioonil {{position}} / {{count}}.",
+				"newProfile": "Uus profiil",
+				"panelDescription": "Looge, valige, muutke või eemaldage taaskasutatavaid allalaadimisseadistusi.",
+				"panelTitle": "Allalaadimisprofiilid",
+				"remove": "Eemalda",
+				"reorderHint": "Lohistage profiil teisaldamiseks. Kõik profiilivalijad järgivad seda järjekorda.",
+				"reset": "Lähtesta",
+				"summary": {
+					"aacAudio": "AAC-heli",
+					"bestAudio": "parim heli",
+					"bestVideo": "parim video",
+					"noAudio": "heli puudub",
+					"subtitlesOnly": "ainult subtiitrid",
+					"wavAudio": "WAV-heli"
+				},
+				"switchAria": "Vaheta allalaadimisprofiili: {{profileName}}",
+				"switchTitle": "Vaheta allalaadimisprofiili"
+			},
+			"proxy": {
+				"clear": "Tühjenda",
+				"description": "Suunab liikluse läbi puhverserveri – kasulik piirkonnapõhiselt piiratud sisu jaoks.",
+				"label": "Puhverserveri URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Ühtegi neist URL-idest ei õnnestunud ette valmistada",
+			"quickDownload": "Kiirallalaadimine",
+			"quickDownloadTooltip": "Laaditakse alla profiiliga: {{profileName}}",
+			"quickFailed": "Seda ei õnnestunud lisada: {{error}}",
+			"quickPartialFailed_one": "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus.",
+			"quickPartialFailed_other": "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus.",
+			"quickPrepareFailed": "Järjekorra üksust ei õnnestunud ette valmistada",
+			"quickPreparing": "Ettevalmistamine",
+			"quickProbeFailed": "Päring ebaõnnestus",
+			"quickQueued": "Lisatud järjekorda",
+			"quickSingleOnly": "Alustamiseks kleepige video, esitusloendi, kanali või otsingu URL.",
+			"settings": {
+				"behaviorDescription": "Globaalne käitumine, mis mõjutab ka profiilipõhiseid allalaadimisi.",
+				"behaviorHeading": "Allalaadimise käitumine",
+				"inputHeading": "Sisend"
+			},
+			"style": {
+				"aurora": {
+					"description": "Klaaspaneelid liikuva taeva kohal. Vajab graafikakiirendust.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Ühtlased, vaiksed pinnad. Töötab kergelt igas arvutis.",
+					"label": "Minimaalne"
+				},
+				"modeDescription": "Mõlemad stiilid on olemas heleda ja tumedana.",
+				"modeLabel": "Stiil",
+				"panelDescription": "Kuidas Arroxy välja näeb. Heleda ja tumeda vahel lülitate jaluses.",
+				"panelTitle": "Välimus",
+				"unavailableNotice": "{{style}} vajab graafikakiirendust, mis pole praegu saadaval, seega kuvab Arroxy stiili {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profiilid",
+				"settings": "Sätted"
+			}
+		}
+	}
 }

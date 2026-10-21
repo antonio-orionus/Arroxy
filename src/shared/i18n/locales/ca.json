@@ -1,963 +1,311 @@
 {
-	"common": {"back": "Enrere", "cancel": "Cancel·la", "continue": "Continua", "loading": "S'està carregant", "retry": "Torna-ho a provar", "dismiss": "Descarta", "startOver": "Torna a començar", "close": "Tanca"},
+	"about": {
+		"button": "Quant a",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · per Antonio Orionus",
+		"openTitle": "Quant a Arroxy",
+		"tagline": "Un descarregador ràpid i amable per a YouTube i més de 2000 llocs més.",
+		"thirdPartyNotices": "Mostra els avisos de tercers",
+		"websiteLink": "Lloc web"
+	},
+	"aiUpscaled": {
+		"allow": "Permet",
+		"description": "YouTube ofereix alguns vídeos antics en mides generades amb IA. Omet conserva els fluxos originals; encara pots triar-ne un d'escalat a mà.",
+		"label": "Fluxos escalats amb IA",
+		"skip": "Omet"
+	},
 	"app": {
 		"feedback": "Comentaris",
+		"feedbackNudge": "T'agrada Arroxy? M'encantaria saber la teva opinió! 💬",
 		"logs": "Registres",
 		"saveDiagnostics": "Desa el fitxer de diagnòstic",
 		"saveDiagnosticsDescription": "Reuneix els registres i les dades de l'aplicació en un sol fitxer a Descàrregues, a punt per adjuntar-lo a una incidència de GitHub. S'elimina el nom de la teva carpeta d'usuari; els enllaços i els títols dels vídeos es conserven.",
-		"feedbackNudge": "T'agrada Arroxy? M'encantaria saber la teva opinió! 💬",
-		"zoomIn": "Amplia",
-		"zoomOut": "Redueix",
+		"styleHint": "Novetat: tria Aurora o Minimal aquí",
 		"theme": "Tema",
-		"styleHint": "Novetat: tria Aurora o Minimal aquí"
+		"zoomIn": "Amplia",
+		"zoomOut": "Redueix"
 	},
-	"about": {"button": "Quant a", "openTitle": "Quant a Arroxy", "tagline": "Un descarregador ràpid i amable per a YouTube i més de 2000 llocs més.", "websiteLink": "Lloc web", "githubLink": "GitHub", "licenseLine": "GPLv3 · per Antonio Orionus", "thirdPartyNotices": "Mostra els avisos de tercers"},
-	"titleBar": {"close": "Tanca", "minimize": "Minimitza", "maximize": "Maximitza", "restore": "Restaura"},
-	"splash": {
-		"greeting": "Hola, ja has tornat!",
-		"warmup": "Preparant les descàrregues…",
-		"verifying": "Comprovant {{binary}}…",
-		"verifyFirstCheck": "Primera comprovació d'aquesta versió: aquesta és lenta. Normalment dura un minut aproximadament.",
-		"cancel": "Tens problemes? Configura-ho manualment",
-		"warmupFailedNoDiag": "La configuració ha fallat. Obre el registre de configuració per veure'n els detalls.",
-		"setup": {
-			"title": {"firstRun": "Configuració inicial", "media": "Actualitzant les eines multimèdia", "engine": "Actualitzant el motor de descàrrega"},
-			"stage": {
-				"connecting": "Connectant…",
-				"downloadingBoth": "Baixant el motor de descàrrega i les eines multimèdia",
-				"downloadingEngine": "Baixant el motor de descàrrega",
-				"downloadingMedia": "Baixant les eines multimèdia",
-				"unpacking": "Descomprimint les eines multimèdia",
-				"checking": "Comprovant que tot funciona"
-			},
-			"bytes": "{{done}} de {{total}}",
-			"left": {"underMinute": "queda menys d'un minut", "minutes_one": "queda aproximadament {{count}} min", "minutes_many": "queden uns {{count}} de min", "minutes_other": "queden uns {{count}} min"},
-			"note": {"firstRun": "Això només passa una vegada. Arroxy conserva aquestes eines i les actualitza ell mateix.", "media": "Això només passa una vegada. Arroxy les conserva per a futures actualitzacions.", "engine": "Fa que les descàrregues continuïn funcionant quan els llocs canvien."}
+	"common": {
+		"back": "Enrere",
+		"cancel": "Cancel·la",
+		"close": "Tanca",
+		"continue": "Continua",
+		"dismiss": "Descarta",
+		"loading": "S'està carregant",
+		"retry": "Torna-ho a provar",
+		"startOver": "Torna a començar"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy continua en execució i acaba les descàrregues actives. Pots canviar-ho més endavant a la configuració avançada.",
+			"hide": "Amaga a la safata",
+			"message": "Vols amagar Arroxy a la safata del sistema en tancar?",
+			"quit": "Surt",
+			"remember": "No m'ho tornis a preguntar"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Cancel·la les descàrregues i surt",
+			"detail": "Posa-les en pausa per reprendre-les més tard o cancel·la-les per descartar el progrés.",
+			"keep": "Continua descarregant",
+			"message_many": "{{count}} de descàrregues en curs",
+			"message_one": "{{count}} descàrrega en curs",
+			"message_other": "{{count}} descàrregues en curs",
+			"pause": "Posa en pausa les descàrregues i surt"
+		},
+		"rendererCrashed": {
+			"detail": "El procés de renderització ha fallat ({{reason}}). Torna a carregar per tornar-ho a provar.",
+			"message": "Arroxy ha trobat un problema",
+			"quit": "Surt",
+			"reload": "Torna a carregar"
 		}
 	},
-	"repair": {
-		"title": "La configuració necessita ajuda",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Motor de descàrrega", "media": "Eines multimèdia"},
-		"causes": {
-			"downloadFailed": {"title": "No s'ha pogut baixar el que Arroxy necessita", "body": "Comprova la connexió a internet i torna-ho a provar."},
-			"extractFailed": {"title": "S'ha rebut una descàrrega malmesa", "body": "Torna-ho a provar per baixar-ho de nou."},
-			"hashFailed": {"title": "Una descàrrega no coincidia amb la suma de verificació", "body": "Torna-ho a provar per baixar-ho de nou."},
-			"spawnFailed": {"title": "Falta una eina o no s'inicia", "body": "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota."},
-			"permissionDenied": {"title": "El sistema no deixa que Arroxy executi una eina", "body": "Torna-ho a provar. Si continua fallant, tria a sota una còpia de confiança."},
-			"blockedOrQuarantined": {"title": "L'antivirus ha bloquejat una eina", "body": "Permet Arroxy a l'antivirus o a SmartScreen i torna-ho a provar."},
-			"badExitCode": {"title": "Una eina no funciona bé", "body": "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota."},
-			"timeout": {"title": "Una eina ha trigat massa a respondre", "body": "Sovint és una anàlisi de seguretat en la primera execució. Torna-ho a provar."},
-			"pairIncomplete": {"title": "FFmpeg i FFprobe s'han de definir junts", "body": "Tria'ls tots dos a sota o restableix-ne els valors predeterminats."},
-			"unknown": {"title": "Alguna cosa ha anat malament durant la configuració", "body": "Torna-ho a provar o obre el registre de configuració per veure'n els detalls."}
-		},
-		"installing": {"homebrew": "S'està instal·lant amb Homebrew… Pot trigar uns minuts.", "winget": "S'està instal·lant amb WinGet… Pot trigar uns minuts."},
-		"stopped": {"title": "La configuració s'ha aturat", "body": "Torna-ho a provar o indica a Arroxy a sota les eines que ja tens."},
-		"manual": {"toggle": "Configura-ho manualment", "intro": "Indica a Arroxy les còpies que ja tens o instal·la-les d'una altra manera.", "linuxHint": "També pots instal·lar yt-dlp i ffmpeg amb el gestor de paquets i després fer clic a Torna-ho a provar."},
-		"actions": {
-			"chooseExecutable": "Tria l'executable",
-			"installWithHomebrew": "Instal·la amb Homebrew",
-			"installWithWinget": "Instal·la amb WinGet",
-			"resetToDefault": "Restableix els valors predeterminats",
-			"retrySetup": "Torna-ho a provar",
-			"cancel": "Cancel·la",
-			"openDependencyFolder": "Obre la carpeta de dependències",
-			"viewSetupLog": "Mostra el registre de configuració"
-		}
-	},
-	"theme": {"light": "Mode clar", "dark": "Mode fosc", "system": "Predeterminat del sistema"},
-	"language": {"label": "Idioma"},
-	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "Llista", "playlistItemsGeneric": "Vídeos", "playlistPresets": "Qualitat", "playlistProfiles": "Perfils", "formats": "Format", "subtitles": "Subtítols", "sponsorblock": "SponsorBlock", "output": "Sortida", "folder": "Desa", "confirm": "Confirma", "review": "Revisa"},
-		"playlistPresets": {"heading": "Tria la qualitat del lot", "subhead": "Cada vídeo resol el nivell triat per separat: les llistes heterogènies funcionen sense sorpreses.", "itemCount_one": "{{count}} element", "itemCount_many": "{{count}} d'elements", "itemCount_other": "{{count}} elements"},
-		"playlistProfiles": {
-			"heading": "Assigna perfils de descàrrega",
-			"selectedSummary": "{{selected}} de {{total}} seleccionats",
-			"assignTriggerEmpty": "Assigna un perfil",
-			"assignTrigger_one": "Assigna a {{count}} vídeo",
-			"assignTrigger_many": "Assigna a {{count}} de vídeos",
-			"assignTrigger_other": "Assigna a {{count}} vídeos",
-			"menuDescription_one": "Tria el perfil d'aquest vídeo.",
-			"menuDescription_many": "Tria el perfil d'aquests {{count}} de vídeos.",
-			"menuDescription_other": "Tria el perfil d'aquests {{count}} vídeos.",
-			"editProfile": "Edita {{name}}",
-			"filtersLabel": "Filtres de perfil",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Perfil",
-			"columnDuration": "Durada",
-			"empty": "Cap element coincideix amb aquest filtre"
-		},
-		"playlist": {
-			"heading": "Elements de la llista",
-			"headingGeneric": "Vídeos per baixar",
-			"bulkHeading": "URL en bloc",
-			"itemCount_one": "{{count}} vídeo",
-			"itemCount_many": "{{count}} de vídeos",
-			"itemCount_other": "{{count}} vídeos",
-			"itemCountAudio_one": "{{count}} pista",
-			"itemCountAudio_many": "{{count}} de pistes",
-			"itemCountAudio_other": "{{count}} pistes",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_many": "{{count}} d'URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Obtenint els detalls dels vídeos… {{done}}/{{total}}",
-			"bulkMetadataOptional": "No cal esperar: els fitxers que posis a la cua ara també rebran el nom real quan es baixin.",
-			"bulkRowWaiting": "En espera",
-			"bulkRowResolving": "Obtenint detalls",
-			"bulkRowFailed": "Detalls no disponibles",
-			"selectAll": "Selecciona-ho tot",
-			"selectNone": "No en seleccionis cap",
-			"sortLabel": "Ordena",
-			"sortApi": "Ordre de la llista",
-			"sortUploadAsc": "Primer els més antics",
-			"sortUploadDesc": "Primer els més recents",
-			"sortFetchingDates": "Obtenint les dates de pujada…",
-			"rangeFrom": "Des de",
-			"rangeTo": "Fins a",
-			"rangeApply": "Aplica l'interval",
-			"selectedCount_one": "{{count}} seleccionat",
-			"selectedCount_many": "{{count}} seleccionats",
-			"selectedCount_other": "{{count}} seleccionats",
-			"noSelection": "Selecciona almenys un vídeo per continuar",
-			"loadingItems": "Obtenint la llista de reproducció…",
-			"loadingItemsGeneric": "Obtenint els vídeos…",
-			"loadingPhasePages": "Examinant les pàgines del canal",
-			"loadingPhaseItems": "Recollint vídeos",
-			"loadingPagesFound_one": "{{count}} pàgina trobada",
-			"loadingPagesFound_many": "{{count}} de pàgines trobades",
-			"loadingPagesFound_other": "{{count}} pàgines trobades",
-			"loadingLimitHint": "Limitat als primers {{count}} elements",
-			"thumbnailAlt": "Miniatura del vídeo",
-			"durationUnknown": "en directe",
-			"syncChange": "Canvia la carpeta…",
-			"syncApply": "Aplica la sincronització",
-			"syncScanning": "Comprovant la carpeta…",
-			"syncFoundTitle": "Ja són a la carpeta",
-			"syncFoundDesc": "{{n}} d'aquests vídeos ja són a {{dir}}. Vols sincronitzar per baixar només els nous?",
-			"syncNoneTitle": "Encara no s'ha baixat res",
-			"syncNoneDesc": "No s'ha trobat cap vídeo d'aquesta llista de reproducció a {{dir}}.",
-			"syncNoneDescGeneric": "No s'ha trobat cap vídeo d'aquesta font a {{dir}}.",
-			"alreadyDownloaded": "Ja baixat",
-			"nestedPlaylistBadge": "Llista de reproducció",
-			"nestedPlaylistHint_one": "{{count}} d'aquests és una llista de reproducció, no un vídeo: enganxa'n l'enllaç per separat per baixar-la.",
-			"nestedPlaylistHint_many": "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les.",
-			"nestedPlaylistHint_other": "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les.",
-			"probeLimitAlertTitle": "L'exploració de la llista té un límit",
-			"probeLimitAlertTitleGeneric": "L'exploració té un límit",
-			"probeLimitAlertDesc": "Es mostren els primers {{count}} elements. Augmenta el límit de càrrega per veure'n més.",
-			"multiProfileEntry": "Assigna perfils per element",
-			"multiProfileEntryTooltip": "Omet Qualitat, SponsorBlock, Sortida i Desa: assigna un perfil de descàrrega per a cada element",
-			"removeFromListCount_one": "Elimina {{count}} de la llista",
-			"removeFromListCount_many": "Elimina {{count}} de la llista",
-			"removeFromListCount_other": "Elimina {{count}} de la llista",
-			"restore": "Restaura",
-			"removedCount_one": "{{count}} eliminat",
-			"removedCount_many": "{{count}} eliminats",
-			"removedCount_other": "{{count}} eliminats",
-			"allRemovedTitle": "S'han eliminat tots els elements",
-			"allRemovedDescription": "Restaura'ls per continuar."
-		},
-		"bulk": {
-			"title": "URL en bloc",
-			"description": "Enganxa URL de vídeos, llistes de reproducció, canals, cerques o àudios. Arroxy eliminarà els duplicats abans d'afegir-los a la cua.",
-			"textareaLabel": "Llista d'URL",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "A punt",
-			"ignoredCount": "Ignorades",
-			"emptyPreview": "Enganxa una o més URL per previsualitzar el lot.",
-			"needsAtLeastOne": "Afegeix almenys una URL compatible per continuar.",
-			"reject": {"duplicate": "Duplicada"}
-		},
-		"tabsNavAria": "Navegació dels perfils de descàrrega",
-		"profileSwitchRow": {"helpAria": "Ajuda de {{label}}"},
-		"mixedPrompt": {
-			"title": "Aquest enllaç té una llista de reproducció",
-			"body": "Vols només el vídeo en què has fet clic o triar de la llista de reproducció? A continuació triaràs vídeos concrets o un interval.",
-			"quickBody": "Descarrega només aquest vídeo o posa a la cua tota la llista de reproducció amb el perfil de Descàrrega ràpida actiu.",
-			"singleVideo": "Només aquest",
-			"quickSingleVideo": "Descarrega aquest vídeo",
-			"pickFromPlaylist": "Tria de la llista",
-			"quickWholePlaylist": "Descarrega tota la llista",
-			"playlistLimit": "Límit d'anàlisi de la llista: {{count}} elements",
-			"quickLimitDescription": "Nombre màxim d'entrades que Arroxy examina abans de posar a la cua una llista de reproducció, un canal o els resultats d'una cerca.",
-			"singleTooltip": "Carrega només aquest vídeo. S'ignora la llista de reproducció associada a aquesta URL.",
-			"quickSingleTooltip": "Posa a la cua una descàrrega i ignora la llista de reproducció associada a aquesta URL.",
-			"playlistTooltip": "Carrega la llista de reproducció, fins al límit d'anàlisi, abans de mostrar el selector.",
-			"quickPlaylistTooltip": "Posa a la cua tots els elements carregats de la llista amb el perfil de Descàrrega ràpida actiu. Si l'exploració arriba al límit, Arroxy et pregunta abans d'afegir-los."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Abast de la llista",
-				"change": "Canvia",
-				"summaryAppLimit": "Carrega els primers elements: {{count}}",
-				"summaryFirst": "Carrega els primers elements: {{count}}",
-				"summaryRange": "Carrega els elements {{from}}-{{to}}",
-				"dialogTitle": "Abast de la llista",
-				"dialogDescription": "Tria què carrega Arroxy d'aquesta llista de reproducció.",
-				"itemsLabel": "Elements per carregar",
-				"appLimit": "Usa el límit de l'aplicació: {{count}}",
-				"first": "Els primers",
-				"range": "Interval",
-				"to": "fins a",
-				"invalid": "Fes servir números d'element enters de l'1 a {{max}}, amb l'inici no superior al final.",
-				"applyError": "No s'ha pogut aplicar aquest abast de la llista: {{message}}",
-				"reset": "Restableix",
-				"cancel": "Cancel·la",
-				"apply": "Aplica",
-				"applyReload": "Aplica i torna a carregar",
-				"reloading": "Tornant a carregar...",
-				"emptyTitle": "No hi ha cap vídeo en aquest abast"
-			},
-			"heading": "Descarrega des d'una URL",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Perfils", "settings": "Configuració"},
-			"interactiveDownload": "Descàrrega interactiva",
-			"fetchFormatsTooltip": "Assistent pas a pas. Tria el format, la qualitat i més.",
-			"quickDownload": "Descàrrega ràpida",
-			"quickDownloadTooltip": "Es descarregarà amb: {{profileName}}",
-			"quickPreparing": "Preparant",
-			"quickQueued": "Afegit a la cua",
-			"quickSingleOnly": "Enganxa l'URL d'un vídeo, una llista de reproducció, un canal o una cerca per començar.",
-			"quickProbeFailed": "L'anàlisi ha fallat",
-			"quickPrepareFailed": "No s'ha pogut preparar l'element de la cua",
-			"quickBulkAllFailed": "No s'ha pogut preparar cap d'aquestes URL",
-			"quickFailed": "No s'ha pogut afegir aquest: {{error}}",
-			"quickPartialFailed_one": "S'ha posat a la cua el que ha funcionat. No s'ha pogut preparar {{count}} URL.",
-			"quickPartialFailed_many": "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} d'URL.",
-			"quickPartialFailed_other": "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} URL.",
-			"profile": {
-				"destinationFallback": "Destinació",
-				"switchAria": "Canvia el perfil de descàrrega: {{profileName}}",
-				"switchTitle": "Canvia el perfil de descàrrega",
-				"activeLabel": "Perfil actiu",
-				"editActive": "Edita el perfil actiu",
-				"changeGlobalDestination": "Canvia la destinació global",
-				"destinationDetail": {"global": "Usa la destinació global", "globalSubfolder": "Usa la destinació global + la subcarpeta del perfil", "override": "Usa la substitució del perfil", "overrideSubfolder": "Usa la substitució del perfil + la subcarpeta del perfil"},
-				"summary": {"bestVideo": "el millor vídeo", "bestAudio": "el millor àudio", "aacAudio": "àudio AAC", "wavAudio": "àudio WAV", "noAudio": "sense àudio", "subtitlesOnly": "només subtítols"},
-				"menuTitle": "Canvia de perfil",
-				"menuDescription": "Canvia el perfil actiu de la Descàrrega ràpida, les URL en bloc i les llistes de reproducció.",
-				"newProfile": "Perfil nou",
-				"manageProfiles": "Gestiona els perfils",
-				"panelTitle": "Perfils de descàrrega",
-				"panelDescription": "Crea, selecciona, edita o elimina configuracions de descàrrega reutilitzables.",
-				"badgeCustom": "Personalitzat",
-				"badgeModified": "Modificat",
-				"badgeBuiltIn": "Integrat",
-				"badgeDisabled": "Ocult",
-				"enableToggleAria": "Mostra el perfil als selectors: {{profileName}}",
-				"enableHint": "Els perfils ocults es queden aquí, però desapareixen de tots els selectors de perfil.",
-				"reorderHint": "Arrossega un perfil per moure'l. Tots els selectors de perfil segueixen aquest ordre.",
-				"moveHandleAria": "Mou {{profileName}}",
-				"movableProfile": "perfil que es pot moure",
-				"moveInstructions": "Per moure un perfil, prem Espai o Retorn, mou-lo amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-lo anar. Prem Escape per cancel·lar.",
-				"movePickedUp": "S'ha agafat {{profileName}}. És a la posició {{position}} de {{count}}.",
-				"moveOver": "{{profileName}} és sobre la posició {{position}} de {{count}}.",
-				"moveDropped": "S'ha deixat {{profileName}} a la posició {{position}} de {{count}}.",
-				"moveCancelled": "Moviment cancel·lat. {{profileName}} es queda a la posició {{position}} de {{count}}.",
-				"lastEnabledHint": "Mantén almenys un perfil disponible.",
-				"edit": "Edita",
-				"remove": "Elimina",
-				"reset": "Restableix"
-			},
-			"bulkButton": "URL en bloc",
-			"bulkTooltip": "Afegeix i posa a la cua diverses URL.",
-			"features": {
-				"heading": "Què pot baixar Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Vídeos", "channel": "Canals", "playlist": "Llistes de reproducció", "short": "Shorts", "music": "Música", "podcast": "Pòdcasts"},
-				"anySite": {"heading": "Més de 2000 llocs", "video": "Vídeos", "videoPlaylist": "Llistes de vídeo", "musicPlaylist": "Llistes de música"},
-				"always": {"audioOnly": "Només àudio", "subtitles": "Subtítols"}
-			},
-			"mascotIdle": "Deixa un enllaç i Arroxy s'encarrega de baixar-lo ✨",
-			"mascotBusy": "Descarregant en segon pla… Puc fer diverses coses alhora 😎",
-			"mascotPreparing": "{{quickDownload}} està llegint aquest enllaç i aplicant {{profileName}}.",
-			"mascotQueued": "La cua s'ocupa d'aquesta descàrrega. Pots enganxar un altre enllaç mentre treballa.",
-			"mascotCollection": "La descàrrega ràpida posa a la cua els elements carregats amb {{profileName}}. La interactiva et deixa inspeccionar-los o seleccionar-los abans.",
-			"mascotMixed": "Aquest enllaç apunta a un vídeo dins d'una col·lecció. Arroxy et preguntarà quin vols abans d'analitzar-lo.",
-			"mascotSingle": "La descàrrega ràpida comença una descàrrega amb {{profileName}}. Fes servir la interactiva per a canvis puntuals.",
-			"advanced": "Avançat",
-			"settings": {"inputHeading": "Entrada", "behaviorHeading": "Comportament de descàrrega", "behaviorDescription": "Comportament global que també afecta les descàrregues basades en perfils."},
-			"clearAria": "Esborra l'URL",
-			"clipboard": {
-				"toggle": "Vigila el porta-retalls",
-				"toggleDescription": "Emplena automàticament el camp d'URL quan copies l'enllaç d'un vídeo.",
-				"autofilledLink": "Enllaç afegit des del porta-retalls",
-				"bulkHint": "S'han copiat diversos enllaços: fes servir URL en bloc per afegir-los",
-				"replacedLink": "Substituït per l'enllaç copiat",
-				"undo": "Desfés",
-				"dialog": {"cancelButton": "Cancel·la"}
-			},
-			"hotkey": {
-				"sectionTitle": "Drecera global",
-				"sectionDescription": "Descarrega qualsevol enllaç que copiïs, des de qualsevol aplicació, sense obrir Arroxy.",
-				"toggle": "Activa la drecera global",
-				"toggleDescription": "Prem la drecera amb l'enllaç d'un vídeo al porta-retalls.",
-				"changeShortcut": "Canvia la drecera",
-				"recording": "Prem les tecles…",
-				"test": "Prova",
-				"conflict": "Una altra aplicació ja fa servir aquesta drecera: tria'n una altra.",
-				"hintLabel": "O prem",
-				"hintTooltip": "Copia l'enllaç d'un vídeo en qualsevol lloc, prem aquesta drecera i Arroxy el posa a la cua amb el teu perfil actiu, sense canviar de finestra.",
-				"hintTooltipSettings": "Canvia-la o desactiva-la a la configuració.",
-				"reset": "Restableix el valor predeterminat"
-			},
-			"cookies": {
-				"sourceLabel": "Font de les galetes",
-				"sourceOff": "Desactivada",
-				"sourceFile": "Fitxer",
-				"sourceBrowser": "Navegador",
-				"sourceExplore": "Inici de sessió a Explora",
-				"recommended": "Recomanat",
-				"exploreDescription": "Fa servir el teu inici de sessió a Explora només quan una descàrrega el necessita.",
-				"exploreDisabled": "La pestanya Explora està desactivada, així que les descàrregues no fan servir el teu inici de sessió a Explora. Activa-la a Explora, més avall.",
-				"openExplore": "Obre Explora",
-				"toggleDescription": "Ajuda amb els vídeos amb restricció d'edat, només per a membres i privats d'un compte.",
-				"risk": "Risc: un cookies.txt conté totes les sessions iniciades d'aquell navegador; mantén-lo en privat.",
-				"fileLabel": "Fitxer de galetes",
-				"choose": "Tria…",
-				"clear": "Esborra",
-				"placeholder": "Cap fitxer seleccionat",
-				"helpLink": "Com puc exportar les galetes?",
-				"enabledButNoFile": "Tria un fitxer per fer servir les galetes",
-				"browserLabel": "Navegador",
-				"browserPlaceholder": "Tria un navegador…",
-				"browserHelp": "Llegeix les galetes directament del navegador. El navegador ha d'estar tancat en els navegadors de la família Chromium.",
-				"enabledButNoBrowser": "Tria un navegador per fer servir les galetes",
-				"banWarning": "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes les galetes dels quals fan servir eines de descàrrega com Arroxy. Fes servir un compte d'usar i llençar quan sigui possible.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Get cookies.txt LOCALLY, extensió per a Chrome"
-			},
-			"proxy": {"label": "URL del servidor intermediari", "description": "Encamina el trànsit mitjançant un servidor intermediari: útil per a contingut amb restriccions geogràfiques.", "placeholder": "http://host:port", "clear": "Esborra"},
-			"style": {
-				"panelTitle": "Aparença",
-				"panelDescription": "Com es veu Arroxy. Canvia entre clar i fosc al peu de pàgina.",
-				"modeLabel": "Estil",
-				"modeDescription": "Tots dos estils tenen versió clara i fosca.",
-				"aurora": {"label": "Aurora", "description": "Panells de vidre sobre un cel en moviment. Requereix acceleració gràfica."},
-				"minimal": {"label": "Minimal", "description": "Superfícies sòlides i discretes. Funciona de manera lleugera en qualsevol ordinador."},
-				"unavailableNotice": "{{style}} requereix acceleració gràfica, que ara no és disponible, així que Arroxy mostra {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Límit de velocitat de descàrrega",
-				"description": "Limita l'ample de banda de les descàrregues multimèdia. El ritme de sol·licituds de sota sol ser la palanca més efectiva contra els límits.",
-				"off": "Desactivat",
-				"custom": "Personalitzat…",
-				"customPlaceholder": "p. ex., 750K o 1.5M",
-				"invalid": "Fes servir un nombre seguit de K o M (p. ex., 500K, 1.5M)",
-				"activeWarning": "Les descàrregues actives conserven el límit actual. Posa-les en pausa i reprèn-les per aplicar els canvis."
-			},
-			"playlistProbeLimit": {
-				"label": "Elements de la llista per explorar",
-				"description": "Nombre màxim d'entrades que Arroxy carrega quan s'obre una llista de reproducció, un canal o els resultats d'una cerca.",
-				"option": "{{count}} elements",
-				"current": "Límit actual: {{count}} elements",
-				"customValue": "Personalitzat: {{count}} elements",
-				"custom": "Personalitzat…",
-				"customDialogTitle": "Límit personalitzat d'exploració de llistes",
-				"customDialogDescription": "Fes servir un nombre enter de {{min}} a {{max}}.",
-				"customDialogCancel": "Cancel·la",
-				"customDialogSave": "Desa el límit",
-				"invalid": "Fes servir un nombre enter de l'1 al 5000",
-				"tooltip": "Arroxy només demana aquest nombre d'entrades de la llista de reproducció, el canal o la cerca mentre construeix el selector."
-			},
-			"nativeAudioPreference": {"label": "Preferència d'àudio original", "description": "Estèreo o envoltant quan un perfil tria l'àudio original. Un perfil ho pot substituir.", "compatible": "Estèreo compatible", "surround": "Prefereix envoltant / Dolby"},
-			"autoRetry": {"label": "Reintenta les descàrregues fallides", "description": "Ho torna a provar automàticament després d'un problema passatger de xarxa o de servidor, esperant més entre cada intent. Les descàrregues bloquejades pel lloc no es tornen a provar mai automàticament.", "unit": "vegades"},
-			"autoRemoveCompleted": {"label": "Elimina les descàrregues acabades", "description": "Treu una descàrrega de la llista de Descàrregues uns segons després d'acabar. Els fitxers es queden a la carpeta; les descàrregues fallides i cancel·lades es queden a la llista."},
-			"concurrentDownloads": {"label": "Descàrregues alhora", "description": "Quants elements de la cua es baixen alhora. Com més alhora, més aviat s'acaba una cua llarga, però augmenta la probabilitat que un lloc et limiti.", "unit": "descàrregues"},
-			"downloadConnections": {"label": "Connexions de descàrrega", "description": "Accelera les descàrregues grans baixant diverses parts d'un vídeo alhora. Els valors alts augmenten la probabilitat que un lloc et limiti.", "unit": "connexions"},
-			"networkPacing": {
-				"heading": "Descàrregues suaus",
-				"description": "Afegeix petites esperes durant cada descàrrega perquè Arroxy no pressioni el lloc massa. Els valors són en segons.",
-				"presetLabel": "Quanta cautela ha de tenir Arroxy?",
-				"tooltip": "Aquestes esperes es fan dins de cada descàrrega. Quantes descàrregues s'executen alhora s'estableix per separat, a Descàrregues alhora.",
-				"summary": "Esperes: {{requests}} entre comprovacions, {{downloads}} abans que comenci el contingut, {{subtitles}} abans dels fitxers de subtítols.",
-				"presets": {"off": "Desactivada", "balanced": "Equilibrada", "careful": "Cautelosa", "custom": "Personalitzada"},
-				"tooltips": {
-					"off": "Només fa servir les petites pauses de base que Arroxy manté per al contingut i els subtítols.",
-					"balanced": "Predeterminada. Afegeix pauses curtes entre sol·licituds i abans que comenci el contingut.",
-					"careful": "Afegeix pauses més llargues per a llistes de reproducció grans o xarxes que topen sovint amb límits.",
-					"custom": "Ajusta tu mateix els controls avançats de cada descàrrega."
-				},
-				"fields": {"sleepRequests": "Espera entre comprovacions de metadades", "sleepInterval": "Pausa abans que comenci el contingut: mín.", "maxSleepInterval": "Pausa abans que comenci el contingut: màx.", "sleepSubtitles": "Espera abans dels fitxers de subtítols"},
-				"units": {"seconds": "s"}
-			},
-			"closeToTray": {"toggle": "Amaga a la safata en tancar", "toggleDescription": "Continua les descàrregues en segon pla després de tancar la finestra."},
-			"analytics": {
-				"toggle": "Envia el senyal diari",
-				"toggleDescription": "Sense telemetria. Un cop al dia, un senyal anònim envia la versió de l'aplicació, el canal d'instal·lació, el sistema operatiu, l'idioma, el país i aproximadament fa quant que s'ha instal·lat Arroxy, per poder comptar els usuaris actius i nous. Sense identificadors, URL, títols de vídeos ni noms de fitxers."
-			}
-		},
-		"quickProgress": {
-			"title": "Preparant la Descàrrega ràpida",
-			"description": "Arroxy està llegint l'enllaç i aplicant {{profileName}}.",
-			"currentFallback": "Enllaç actual",
-			"waitHint": "Deixa això obert mentre Arroxy prepara la cua.",
-			"failedCount_one": "{{count}} ha fallat",
-			"failedCount_many": "{{count}} han fallat",
-			"failedCount_other": "{{count}} han fallat",
-			"cancel": "Cancel·la la preparació",
-			"phase": {"probing": "Obtenint detalls", "queueing": "Afegint a la cua"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Aquest vídeo no té subtítols disponibles",
-			"searchPlaceholder": "Cerca idiomes…",
-			"noMatches": "Cap idioma coincideix",
-			"clearAll": "Esborra-ho tot",
-			"noSelected": "Cap subtítol seleccionat",
-			"removeLanguage": "Elimina {{name}}",
-			"sectionManual": "Manuals",
-			"sectionAuto": "Autogenerats",
-			"saveMode": {"heading": "Desa com a", "sidecar": "Al costat del vídeo", "embed": "Incrusta al vídeo", "subfolder": "Subcarpeta subtitles/"},
-			"format": {"heading": "Format"},
-			"embedNote": "El mode d'incrustació desa la sortida com a .mkv perquè les pistes de subtítols s'incrustin de manera fiable.",
-			"autoAssNote": "Els subtítols automàtics es desaran com a SRT en lloc d'ASS: als vídeos de YouTube se'ls treu la duplicació de les indicacions rodants, cosa que el nostre convertidor d'ASS encara no pot replicar."
-		},
-		"sponsorblock": {
-			"modeHeading": "Filtratge de patrocinis",
-			"mode": {"off": "Desactivat", "mark": "Marca com a capítols", "remove": "Elimina els segments"},
-			"modeHint": {"off": "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar.", "mark": "Marca els segments de patrocini com a capítols (no destructiu).", "remove": "Talla els segments de patrocini del vídeo amb FFmpeg."},
-			"categoriesHeading": "Categories",
-			"cat": {"sponsor": "Patrocini", "intro": "Introducció", "outro": "Final", "selfpromo": "Autopromoció", "music_offtopic": "Música fora de tema", "preview": "Avançament", "filler": "Farciment"}
-		},
-		"formats": {
-			"kind": {"label": "Què vols baixar", "video": "Vídeo + àudio", "videoOnly": "Vídeo, sense àudio", "audio": "Només àudio", "subtitles": "Només subtítols"},
-			"profile": {
-				"calloutTitle": "Els formats parteixen del teu perfil",
-				"calloutBody": "El teu perfil actiu preselecciona els fluxos per tu. Canvia de perfil des del menú o fes servir el llapis per ajustar-ne un sense sortir d'aquesta descàrrega.",
-				"preselected": "Preseleccionat de",
-				"tag": "Perfil",
-				"closestTag": "El més proper al perfil",
-				"switchTitle": "Vols canviar de perfil?",
-				"switchBody": "Has canviat {{areas}} per a aquesta descàrrega. «{{profile}}» tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?",
-				"resetAll": "Restableix-ho tot",
-				"edit": "Edita {{name}}",
-				"updatedTitle": "Vols usar el perfil actualitzat?",
-				"updatedBody": "Has canviat {{areas}} per a aquesta descàrrega. El perfil actualitzat tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?",
-				"keepEdits": "Conserva els meus canvis",
-				"menuDescription": "Només per a aquesta descàrrega. El teu perfil predeterminat no canvia."
-			},
-			"fit": {
-				"tierBelow": "El teu perfil demana {{wanted}}p. Aquest vídeo només arriba a {{picked}}p, així que se selecciona {{picked}}p.",
-				"tierAbove": "El teu perfil demana {{wanted}}p. Aquest vídeo no té res tan petit, així que se selecciona {{picked}}p.",
-				"mp4Unavailable": "El teu perfil és Smart TV (H.264). Aquest vídeo no ofereix H.264, així que se selecciona el flux més proper.",
-				"noVideo": "Aquest enllaç no té vídeo, així que se selecciona l'àudio.",
-				"subtitlesMissing": "El teu perfil demana subtítols en {{languages}}. Aquest vídeo no en té.",
-				"webmUnavailable": "El teu perfil demana WebM. Els fluxos triats d'aquest vídeo inclouen {{codec}}, que WebM no pot contenir, així que el tipus de fitxer és Automàtic."
-			},
-			"footer": {"download": "Descarrega", "moreActions": "Més opcions de descàrrega", "addToQueue": "Afegeix a la cua sense començar", "subtitlesRequired": "Tria almenys un idioma de subtítols."},
-			"video": "Vídeo",
-			"audio": "Àudio",
-			"noAudio": "Sense àudio",
-			"withAudio": "amb àudio",
-			"resolutionUnknown": "Resolució desconeguda",
-			"bitrateValue": "Taxa de bits {{bitrate}}",
-			"marker": {"aiUpscaled": "Escalat amb IA", "aiDubbed": "Doblat amb IA", "audioDescription": "Audiodescripció", "spatialAudio": "Àudio espacial", "vr": "360° / VR", "enhancedBitrate": "Taxa de bits millorada", "damaged": "Malmès", "watermarked": "Amb marca d'aigua"},
-			"keepAudio": "Deixa-ho tal qual",
-			"keepAudioMeta": "Àudio integrat",
-			"audioOnly": "Només àudio",
-			"sniffing": "Buscant els millors formats per a tu…",
-			"loadingHint": "Espera que acabi l'anàlisi: les llistes de reproducció i les cerques poden trigar una mica.",
-			"loadingAria": "Carregant els formats",
-			"sizeUnknown": "Mida desconeguda",
-			"total": "Total",
-			"skipToConfirm": "Salta a la confirmació",
-			"skipToConfirmTooltip": "Usa les preferències desades per a tots els passos restants. Per canviar una opció, continua pas a pas: la teva elecció es desarà per a la propera vegada.",
-			"quality": {"high": "Qualitat alta", "medium": "Qualitat mitjana", "low": "Qualitat baixa"},
-			"drc": {"label": "Uniformitza el volum (DRC)", "description": "Suavitza les parts fortes i reforça les fluixes, per a altaveus i entorns sorollosos.", "tag": "Volum uniforme"},
-			"audioLanguage": "Idioma de l'àudio",
-			"audioLanguageCount_one": "{{count}} idioma",
-			"audioLanguageCount_many": "{{count}} d'idiomes",
-			"audioLanguageCount_other": "{{count}} idiomes",
-			"convert": {
-				"label": "Converteix",
-				"bitrate": "Taxa de bits",
-				"wavLabel": "WAV (sense comprimir)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, sense recodificar",
-				"copyLabelNoBitrate": "{{target}}, sense recodificar",
-				"copyNote": "{{kbps}} kbps, tal com els té la font: el flux ja és {{target}}, així que es copia, no es recodifica",
-				"copyNoteNoBitrate": "Tal com el té la font: el flux ja és {{target}}, així que es copia, no es recodifica",
-				"bitrateCopyHint": "Una font que ja és {{target}} conserva el seu flux i la seva taxa de bits: es copia, no es recodifica.",
-				"sourceKbps": "La font és de {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "L'anàlisi s'ha limitat",
-				"bodyUnconfigured": "És possible que la llista de formats estigui incompleta. Configura les galetes a la configuració avançada, o canvia de xarxa i torna-ho a provar.",
-				"bodyDisabled": "Les galetes estan configurades però desactivades. Activa-les i torna-ho a provar per obtenir la llista completa, o canvia de xarxa i torna-ho a provar.",
-				"bodyEnabled": "Fins i tot amb galetes, YouTube ha limitat aquesta anàlisi. Torna-ho a provar més tard o canvia de xarxa.",
-				"bodyExplore": "YouTube ha limitat aquesta sol·licitud. Torna-ho a provar més tard o canvia de xarxa.",
-				"retryCta": "Torna-ho a provar",
-				"enableRetryCta": "Activa les galetes i torna-ho a provar"
-			},
-			"rateLimit": {
-				"heading": "{{site}} està limitant aquesta connexió",
-				"leadDegraded": "És possible que la llista de formats estigui incompleta.",
-				"leadFailed": "{{site}} ha rebutjat aquesta sol·licitud de moment.",
-				"waitUntil": "Arroxy espera fins a les {{time}} abans de tornar a consultar {{site}}, perquè el límit es pugui aixecar.",
-				"waitOver": "L'espera ha acabat, així que ja ho pots tornar a provar.",
-				"sessionNote": "{{site}} pot mantenir aquest límit fins a una hora.",
-				"tryNowCta": "Prova ara",
-				"retryCta": "Torna-ho a provar"
-			},
-			"cookiesError": {
-				"heading": "Les galetes podrien ser la causa",
-				"currentModeLabel": "Font de les galetes",
-				"currentModeFile": "Fitxer",
-				"currentModeBrowser": "Navegador",
-				"currentModeExplore": "Inici de sessió a Explora",
-				"explanationFile": "Pot ser que el fitxer de galetes sigui buit, hagi caducat o tingui un format incorrecte (Arroxy necessita un cookies.txt en format Netscape). Prova de tornar a exportar les galetes, de triar un altre fitxer, de passar al mode Navegador o de desactivar les galetes.",
-				"explanationBrowser": "Les galetes es llegeixen directament del navegador. Si el navegador s'està executant, la seva base de dades de galetes pot estar bloquejada (família Chromium). A més, el navegador ha de tenir la sessió iniciada a YouTube. Prova de tancar el navegador, de canviar a un altre navegador, de passar al mode Fitxer o de desactivar les galetes.",
-				"openSettingsCta": "Obre la configuració de les galetes",
-				"exploreSignIn": {
-					"heading": "És possible que aquest vídeo necessiti un compte de YouTube",
-					"body": "Si aquest vídeo necessita un compte de YouTube, inicia la sessió a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita.",
-					"cta": "Inicia la sessió a Explora"
-				},
-				"exploreSignedIn": {"heading": "Sessió iniciada a Explora", "body": "Si aquest vídeo necessita un compte, Arroxy fa servir automàticament el teu inici de sessió a Explora. Pot ser que no estigui disponible per un altre motiu."},
-				"exploreOffer": {"heading": "És possible que aquest vídeo necessiti un compte de YouTube", "body": "Inicia la sessió a Explora i Arroxy ho tornarà a provar.", "cta": "Inicia la sessió a Explora"},
-				"exploreReuse": {"heading": "És possible que aquest vídeo necessiti un compte de YouTube", "body": "Tens la sessió iniciada a Explora, però ara mateix les descàrregues no fan servir aquest inici de sessió.", "cta": "Usa el meu inici de sessió a Explora i torna-ho a provar"},
-				"exploreSite": {
-					"heading": "És possible que aquest enllaç necessiti un compte a {{host}}",
-					"signInBody": "Inicia la sessió a {{host}} a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita.",
-					"offerBody": "Inicia la sessió a {{host}} amb Explora i torna-ho a provar."
-				},
-				"exploreRefused": {
-					"heading": "El lloc ho ha rebutjat fins i tot amb el teu inici de sessió a Explora",
-					"body": "Arroxy ja ho ha provat amb la sessió iniciada a Explora, així que tornar-hi a iniciar la sessió no ajudarà. Potser el lloc té problemes o aquest compte no hi pot accedir. Torna-ho a provar més tard."
-				},
-				"otherCookiesCta": "Usa un fitxer de galetes o un navegador…",
-				"needsCookies": {"heading": "Aquest lloc requereix iniciar la sessió", "body": "Arroxy no ha pogut accedir a aquest vídeo sense autenticació. Configura les galetes a la configuració avançada: apunta a un navegador amb la sessió ja iniciada o importa un fitxer cookies.txt."},
-				"dpapi": {
-					"heading": "Galetes de Chrome bloquejades pel xifratge de Windows",
-					"explanation": "Chrome 127 i posteriors xifra les galetes d'una manera que altres aplicacions no poden llegir a Windows. Prova una de les solucions alternatives següents.",
-					"fixFirefoxLabel": "Canvia a Firefox",
-					"fixFirefoxBody": "Firefox no fa servir App-Bound Encryption. Obre la configuració de les galetes i tria Firefox a la llista de navegadors.",
-					"fixFileLabel": "Exporta cookies.txt",
-					"fixFileBody": "Exporta les galetes de Chrome amb una extensió del navegador, passa després aquesta aplicació al mode Fitxer i tria el fitxer exportat.",
-					"fixUnsafeLabel": "Inicia Chrome amb App-Bound Encryption desactivat",
-					"fixUnsafeBody": "Afegeix --disable-features=LockProfileCookieDatabase a la drecera d'inici de Chrome. Atenció: això invalida les galetes xifrades anteriorment, de manera que se't tancarà la sessió a tots els llocs i hauràs de tornar-hi a iniciar.",
-					"docsLinkLabel": "Documentació de yt-dlp (incidència #10927)"
-				}
-			},
-			"savesAs": {"label": "Es desa com a", "reset": "WebM no pot contenir {{codec}}, així que el tipus de fitxer ha tornat a Automàtic."}
-		},
-		"folder": {
-			"heading": "Desa a",
-			"downloads": "Descàrregues",
-			"videos": "Pel·lícules",
-			"desktop": "Escriptori",
-			"music": "Música",
-			"documents": "Documents",
-			"pictures": "Imatges",
-			"home": "Inici",
-			"custom": "Personalitzada…",
-			"subfolder": {"toggle": "Desa dins d'una subcarpeta", "placeholder": "p. ex., extractes lo-fi", "invalid": "El nom de la carpeta té caràcters no vàlids"}
-		},
-		"output": {
-			"embedChapters": {"label": "Incrusta els capítols", "description": "Marcadors de capítol que es poden navegar en qualsevol reproductor modern."},
-			"embedMetadata": {"label": "Incrusta les metadades", "description": "Títol, artista, descripció i data de pujada escrits dins del fitxer."},
-			"embedThumbnail": {"label": "Incrusta la miniatura", "description": "Portada dins del fitxer. El vídeo WebM es remultiplexarà a MKV; s'omet quan s'incrusten subtítols."},
-			"writeDescription": {"label": "Desa la descripció", "description": "Desa la descripció del vídeo en un fitxer de text .description al costat de la descàrrega."},
-			"writeThumbnail": {"label": "Desa la miniatura", "description": "Desa la miniatura com a fitxer d'imatge .jpg al costat de la descàrrega."},
-			"writeM3u": {"label": "Genera un fitxer de llista .m3u", "description": "Desa una llista de reproducció .m3u al costat dels vídeos perquè s'obrin en ordre al reproductor multimèdia."}
-		},
-		"review": {
-			"changeFormat": "Canvia el format",
-			"rowsHeading": "Tota la resta",
-			"rows": {"subtitles": "Subtítols", "sponsorBlock": "SponsorBlock", "extras": "Extres", "saveTo": "Desa a", "fileName": "Nom del fitxer"},
-			"value": {"subtitlesOff": "Desactivats", "sponsorBlockOff": "Desactivat", "extrasNone": "Cap"},
-			"changed": "Canviat respecte de {{profile}}: {{areas}}. S'aplica només a aquesta descàrrega.",
-			"areas": {"format": "format", "subtitles": "subtítols", "sponsorBlock": "SponsorBlock", "extras": "extres", "saveTo": "carpeta", "fileName": "nom del fitxer"},
-			"updateProfile": "Actualitza «{{profile}}» amb aquests canvis",
-			"saveAsProfile": "Desa com a perfil nou",
-			"update": {
-				"title": "Vols actualitzar «{{profile}}»?",
-				"description": "A partir d'ara, totes les descàrregues amb aquest perfil faran servir la configuració nova.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Aquest és un perfil integrat. Pots restaurar-ne la configuració original a la pestanya Perfils.",
-				"action": "Actualitza el perfil",
-				"updated": "S'ha actualitzat el perfil «{{name}}»"
-			},
-			"callout": {"title": "Tota la resta de la configuració ara és en aquesta pàgina", "body": "Els subtítols, SponsorBlock, els extres com la miniatura, la carpeta i el nom del fitxer eren passos separats. Fes clic en una fila per canviar-la."},
-			"reset": "Desfés els canvis i torna a «{{profile}}»",
-			"changedFrom": "Canviat respecte de {{profile}}:",
-			"save": {
-				"title": "Desa com a perfil",
-				"description": "Conserva aquesta configuració com a perfil que podràs triar la propera vegada. El teu perfil de Descàrrega ràpida no canvia.",
-				"nameLabel": "Nom del perfil",
-				"action": "Desa el perfil",
-				"saved": "Desat com a perfil «{{name}}»",
-				"failed": "No s'ha pogut desar el perfil."
-			},
-			"nextTime": {"title": "Aquesta descàrrega ha fet servir una configuració editada. La vols usar la propera vegada?", "action": "Desa com a perfil", "defaultName": "{{profile}} (editat)"}
-		},
-		"confirm": {
-			"readyHeadline": "A punt per descarregar!",
-			"landIn": "El fitxer es desarà a",
-			"landInMultiProfile_one": "Es desarà a la destinació següent",
-			"landInMultiProfile_many": "Es desaran a les {{count}} de destinacions següents",
-			"landInMultiProfile_other": "Es desaran a les {{count}} destinacions següents",
-			"labelVideo": "Vídeo",
-			"labelAudio": "Àudio",
-			"labelSubtitles": "Subtítols",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Desa a",
-			"labelSize": "Mida",
-			"sizeUnknown": "Desconeguda",
-			"nothingToDownload": "El predefinit només subtítols és actiu, però no hi ha cap idioma de subtítols seleccionat: no es baixarà res.",
-			"thumbnailEmbedNotSupported": "S'ha omès la incrustació de la miniatura: el contenidor de sortida no l'admet.",
-			"subtitleEmbedAudioOnly": "La incrustació de subtítols s'ha canviat a fitxer extern: les pistes d'àudio no admeten fluxos de subtítols incrustats.",
-			"audioOnly": "Només àudio",
-			"addToQueue": "+ Cua",
-			"addToQueueTooltip": "Afegeix a la cua: comença quan acabi la descàrrega activa",
-			"pullIt": "Descarrega! ↓",
-			"pullItTooltip": "Salta la cua: comença ara i s'executa amb les altres descàrregues actives",
-			"labelPlaylist": "Llista de reproducció",
-			"labelBulk": "Lot",
-			"labelPreset": "Predefinit",
-			"labelItems": "Elements",
-			"itemsValue_one": "{{count}} de {{total}} vídeo",
-			"itemsValue_many": "{{count}} de {{total}} vídeos",
-			"itemsValue_other": "{{count}} de {{total}} vídeos",
-			"itemsValueAudio_one": "{{count}} de {{total}} pista",
-			"itemsValueAudio_many": "{{count}} de {{total}} pistes",
-			"itemsValueAudio_other": "{{count}} de {{total}} pistes",
-			"itemsValueBulk_one": "{{count}} de {{total}} URL",
-			"itemsValueBulk_many": "{{count}} de {{total}} URL",
-			"itemsValueBulk_other": "{{count}} de {{total}} URL",
-			"profileBreakdownHeading": "Perfils d'aquest lot",
-			"profileBreakdownCount_one": "{{count}} element",
-			"profileBreakdownCount_many": "{{count}} d'elements",
-			"profileBreakdownCount_other": "{{count}} elements",
-			"subtitleEmbedForcesMkv": "Els subtítols dins del vídeo requereixen un fitxer MKV, així que aquesta descàrrega es desa com a .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Perfil de descàrrega",
-			"dialogDescription": "Una configuració reutilitzable per a la Descàrrega ràpida, les URL en bloc i les llistes de reproducció.",
-			"skipped": "Omès",
-			"panel": {
-				"identity": {"title": "Identitat del perfil", "description": "Nom i icona que es mostren a la Descàrrega ràpida, les URL en bloc i les llistes de perfils."},
-				"downloadType": {"title": "Tipus de descàrrega", "description": "Tria la forma principal en què vols baixar."},
-				"advanced": {"title": "Opcions avançades", "description": "Els perfils hereten la destinació global tret que defineixis una substitució del perfil."},
-				"output": {"title": "Opcions de sortida", "enabledCount_one": "{{count}} activada", "enabledCount_many": "{{count}} activades", "enabledCount_other": "{{count}} activades"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Nom i icona del perfil",
-				"icon": "Icona del perfil",
-				"resolution": "Resolució",
-				"quality": "Qualitat",
-				"source": "Font",
-				"subfolderName": "Nom de la subcarpeta",
-				"name": "Nom del perfil",
-				"subtitleDownloads": "Descàrrega de subtítols",
-				"subtitleDownloadsDescription": "Els perfils demanen codis d'idioma; la disponibilitat es resol per a cada URL.",
-				"languages": "Idiomes",
-				"delivery": "Lliurament",
-				"overridePath": "Ruta de substitució del perfil",
-				"goal": "Optimitza per a",
-				"fileType": "Tipus de fitxer",
-				"nativeAudio": "Àudio original"
-			},
-			"action": {
-				"chooseIcon": "Tria la icona del perfil",
-				"setOverride": "Defineix una substitució del perfil",
-				"chooseFolder": "Tria la carpeta de destinació",
-				"removeLanguage": "Elimina {{code}}",
-				"useLanguageCode": "Usa el codi d'idioma «{{code}}»",
-				"changeGlobalShort": "Canvia el global",
-				"setOverrideShort": "Defineix substitució",
-				"useGlobalDefault": "Usa el valor global predeterminat",
-				"reset": "Restableix el perfil",
-				"resetHint": "Restaura la configuració integrada del perfil",
-				"resetDisabledHint": "Aquest perfil ja fa servir la configuració integrada",
-				"save": "Desa el perfil"
-			},
-			"placeholder": {"folder": "Tria una carpeta per a aquest perfil"},
-			"destination": {
-				"global": "Destinació global",
-				"override": "Substitució del perfil",
-				"resolved": "Destinació resultant",
-				"defaultFolder": "Carpeta de descàrregues predeterminada",
-				"defaultFolderWithSubfolder": "Carpeta de descàrregues predeterminada / {{subfolder}}",
-				"globalActive": "Activa",
-				"globalInherited": "Heretada",
-				"overrideSet": "Substitueix el global",
-				"overrideChoosing": "Tria una carpeta",
-				"overrideNone": "Sense substitució",
-				"overrideSetNote": "Aquest perfil es desa a la seva pròpia arrel abans que s'afegeixi la subcarpeta.",
-				"overrideNoneNote": "No hi ha cap substitució. Aquest perfil fa servir la destinació global de dalt."
-			},
-			"note": {
-				"subtitlesOnly": "Aquest perfil només posa a la cua fitxers de subtítols. S'ometen el vídeo, l'àudio, SponsorBlock i la conversió multimèdia.",
-				"noSubtitles": "No es demanaran fitxers de subtítols ni pistes de subtítols incrustades per a aquest perfil.",
-				"searchLanguages": "Cerca pel nom o el codi de l'idioma",
-				"noLanguageMatches": "Cap idioma coincident",
-				"subtitleLanguagesRequired": "Tria almenys un idioma.",
-				"subtitleLanguagesRequiredOrOff": "Tria almenys un idioma o desactiva la descàrrega de subtítols.",
-				"autoCaptionsSrt": "Els subtítols automàtics es desaran com a SRT en lloc d'ASS.",
-				"skippedForOutputType": "S'omet per a aquest tipus de sortida."
-			},
-			"error": {"save": "No s'ha pogut desar la configuració del perfil.", "changeGlobalDestination": "No s'ha pogut canviar la destinació global.", "reset": "No s'ha pogut restablir la configuració del perfil.", "folderPicker": "No s'ha pogut obrir el selector de carpetes. Introdueix una ruta manualment."},
-			"mediaMode": {
-				"videoAudio": {"label": "Vídeo + àudio", "description": "Fitxers de vídeo normals"},
-				"videoOnly": {"label": "Vídeo, sense àudio", "description": "Només vídeo mut"},
-				"audioOnly": {"label": "Només àudio", "description": "Música o pòdcasts"},
-				"subtitlesOnly": {"label": "Només subtítols", "description": "Només fitxers de subtítols"}
-			},
-			"icon": {"controls": "Controls", "download": "Descàrrega", "video": "Vídeo", "captions": "Llegendes", "audio": "Àudio", "music": "Música", "podcast": "Pòdcast", "classes": "Classes", "clip": "Clip", "archive": "Arxiu"},
-			"audioFormat": {"best": "El millor", "wav": "WAV"},
-			"audioQuality": {"128": "Fins a 128K", "192": "Fins a 192K", "320": "Fins a 320K", "best": "Màxima qualitat"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Primer manuals, després automàtics", "manualAndAuto": "Manuals i automàtics", "manualOnly": "Només manuals", "autoOnly": "Només autogenerats"},
-			"sponsorBlockHint": {"off": "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar.", "mark": "Marca els segments de patrocini com a capítols (no destructiu).", "remove": "Talla els segments de patrocini del vídeo amb FFmpeg."},
-			"advanced": "Avançat",
-			"goal": {
-				"bestPicture": {"name": "Millor imatge", "tag": "AV1 · VP9", "description": "La més nítida per a una mida determinada. Els televisors antics, QuickTime i alguns editors no la poden reproduir."},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Es reprodueix en televisors, telèfons, WhatsApp, QuickTime i editors de vídeo. YouTube ofereix H.264 només fins a 1080p."}
-			},
-			"appSetting": "Usa la configuració de l'aplicació ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Quant del vídeo",
-			"whole": "Vídeo sencer",
-			"wholeTrack": "Pista sencera",
-			"part": "Fragment",
-			"unavailableSubtitles": "Els subtítols sempre cobreixen tot el vídeo.",
-			"unavailableDuration": "Aquest vídeo no indica la durada, així que només es pot baixar sencer.",
-			"rangeLabel": "Fragment del vídeo",
-			"start": "Inici",
-			"end": "Final",
-			"timeHint": "h:mm:ss, m:ss o segons",
-			"length": "{{length}} de {{duration}}",
-			"chapters": "Capítols",
-			"chapterUntitled": "Capítol {{number}}",
-			"exactCut": {"label": "Tall exacte (recodifica, més lent)", "hint": "Desactivat: cada tall s'ajusta al fotograma clau més proper, que pot ser a uns quants segons del temps que has escrit."},
-			"calloutTitle": "Descarrega només un fragment d'un vídeo",
-			"calloutBody": "Canvia a Fragment a la targeta del vídeo per triar un inici i un final, o un capítol, i baixar només aquest tram.",
-			"connectionsNote": "Un fragment es baixa mitjançant ffmpeg, així que no se li apliquen les connexions de descàrrega ni la configuració de ritme.",
-			"urlStart": "El teu enllaç comença a {{time}}",
-			"useUrlStart": "Usa com a inici",
-			"error": {"startInvalid": "Introdueix l'inici com h:mm:ss, m:ss o segons.", "endInvalid": "Introdueix el final com h:mm:ss, m:ss o segons.", "startNotBeforeEnd": "L'inici ha de ser abans del final.", "endBeyondDuration": "El vídeo acaba a {{duration}}."},
-			"downloadBlocked": "Corregeix primer l'inici i el final del fragment.",
-			"totalEstimate": "Fragment, estimat",
-			"summary": "Fragment {{start}}–{{end}}",
-			"subtitlesFullLength": "vídeo sencer"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Carregant…", "chapters_one": "{{count}} capítol", "chapters_many": "{{count}} de capítols", "chapters_other": "{{count}} capítols"},
-	"queue": {
-		"header": "Descàrregues",
-		"tabLabel": "Descàrregues",
-		"attentionBadge_one": "{{count}} descàrrega necessita la teva atenció",
-		"attentionBadge_many": "{{count}} de descàrregues necessiten la teva atenció",
-		"attentionBadge_other": "{{count}} descàrregues necessiten la teva atenció",
-		"choice": {
-			"cappedBody_one": "Més de {{count}} vídeo en aquesta llista de reproducció. Baixa'ls tots, el primer {{count}} o tria'ls en una revisió.",
-			"cappedBody_many": "Més de {{count}} de vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió.",
-			"cappedBody_other": "Més de {{count}} vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió.",
-			"reviewBody_one": "Aquest enllaç és una llista de {{count}} vídeo. Revisa'l per triar què vols baixar.",
-			"reviewBody_many": "Aquest enllaç és una llista de {{count}} de vídeos. Revisa'l per triar què vols baixar.",
-			"reviewBody_other": "Aquest enllaç és una llista de {{count}} vídeos. Revisa'l per triar què vols baixar.",
-			"all": "Tots els vídeos",
-			"first": "Els primers {{count}}",
-			"review": "Revisa"
-		},
-		"tabTip": "Ara les descàrregues són a la pestanya Descàrregues: obre-la quan vulguis per veure'n el progrés.",
-		"empty": "Les descàrregues en cua apareixeran aquí",
-		"filtersLabel": "Filtres d'estat de la cua",
-		"filterAll": "Totes",
-		"selectedActionsLabel": "Elements seleccionats",
-		"globalActionsLabel": "Tots els elements",
-		"selectionSummary": "{{selected}} seleccionats · {{total}} en total",
-		"clearTitle": "Esborra les descàrregues completades",
-		"autoRemoveCompleted": {"label": "Neteja automàtica", "hint": "Elimina cada descàrrega de la llista uns segons després d'acabar. Els fitxers es queden a la carpeta."},
-		"pauseAllTitle": "Posa en pausa totes les descàrregues actives i evita que en comencin de noves",
-		"resumeAllTitle": "Reprèn les descàrregues en pausa i deixa que la cua continuï",
-		"pausedBanner": "La cua està en pausa: els elements en espera no començaran fins que no la reprenguis",
-		"resumeQueueAction": "Reprèn la cua",
-		"cancelAllTitle": "Cancel·la totes les descàrregues actives i pendents",
-		"table": {
-			"columns": "Columnes",
-			"title": "Títol",
-			"status": "Estat",
-			"progress": "Progrés",
-			"format": "Format",
-			"outputTarget": "Destinació",
-			"artifacts": "Artefactes",
-			"size": "Mida",
-			"added": "Afegit",
-			"finished": "Acabat",
-			"notAvailable": "—",
-			"sortBy": "Ordena per {{label}}",
-			"showArtifactsFor": "Mostra els artefactes de {{title}}",
-			"hideArtifactsFor": "Amaga els artefactes de {{title}}",
-			"resetColumns": "Restableix les columnes",
-			"resizeColumn": "Canvia la mida de la columna {{column}}",
-			"movableColumn": "columna que es pot moure",
-			"moveColumnInstructions": "Per moure una columna, prem Espai o Retorn, mou-la amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-la anar. Prem Escape per cancel·lar.",
-			"columnPickedUp": "S'ha agafat la columna {{column}}.",
-			"columnMovedOver": "La columna {{column}} és sobre {{target}}.",
-			"columnDropped": "S'ha deixat anar la columna {{column}}.",
-			"columnMoveCancelled": "S'ha cancel·lat el moviment de la columna {{column}}."
-		},
-		"artifact": {"media": "Contingut", "subtitle": "Subtítol", "thumbnail": "Miniatura", "description": "Descripció", "companion": "Complement", "unknown": "Artefacte", "missing": "Falta"},
-		"item": {
-			"defaultError": "La descàrrega ha fallat",
-			"retryingSoon": "es torna a provar automàticament (intent {{attempt}})",
-			"qualityLimited": "Limitat a {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Limitat a {{height}}p · han fallat alguns subtítols",
-			"audioKept": "So no eliminat",
-			"audioKeptSubtitlesFailed": "So no eliminat · han fallat alguns subtítols",
-			"subtitleLanguagesMissing": "Sense subtítols en {{languages}}",
-			"pause": "Pausa",
-			"resume": "Reprèn",
-			"cancel": "Cancel·la",
-			"retry": "Torna-ho a provar",
-			"setLocation": "Defineix la ubicació",
-			"setLocationHint": "Selecciona elements pendents per definir la ubicació.",
-			"pendingOnly": "Només pendents",
-			"openDestinationFolder": "Obre la carpeta de destinació",
-			"remove": "Elimina",
-			"pullNow": "Descarrega ara: salta la cua",
-			"statusProbing": "Obtenint detalls",
-			"statusNeedsChoice": "Requereix la teva decisió",
-			"statusPending": "En espera",
-			"statusRunning": "Descarregant",
-			"statusHeld": "Retinguda",
-			"statusPaused": "En pausa",
-			"statusDone": "Feta",
-			"statusError": "Error",
-			"statusCancelled": "Cancel·lada"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} ja és disponible: tens la {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} ja és disponible: actualitza amb Homebrew.",
-			"macosDirect": "Arroxy {{version}} ja és disponible: baixa el DMG nou.",
-			"macosDirectHomebrew": "Arroxy {{version}} ja és disponible: baixa el DMG o canvia a Homebrew.",
-			"portable": "Arroxy {{version}} ja és disponible: baixa la compilació nova."
-		},
-		"install": "Instal·la i reinicia",
-		"downloading": "Baixant…",
-		"runAndRestart": "Executa i reinicia",
-		"upgrading": "Actualitzant…",
-		"download": "Baixa ↗",
-		"downloadDmg": "Baixa el DMG ↗",
-		"dismiss": "Descarta el bàner d'actualització",
-		"copy": "Copia l'ordre al porta-retalls",
-		"copied": "Ordre copiada al porta-retalls",
-		"installFailed": "L'actualització ha fallat",
-		"retry": "Torna-ho a provar"
-	},
-	"releaseNotes": {"title": "Novetats d'Arroxy {{version}}", "description": "Acabes d'actualitzar. Aquests són els aspectes destacats.", "fullNotes": "Notes de la versió completes ↗", "continue": "Continua"},
-	"status": {
-		"preparingBinaries": "Preparant els binaris…",
-		"mintingToken": "Generant el testimoni de YouTube…",
-		"remintingToken": "Tornant a generar el testimoni…",
-		"startingYtdlp": "Iniciant el motor de descàrrega…",
-		"downloadingMedia": "Baixant vídeo i àudio…",
-		"mergingFormats": "Combinant àudio i vídeo…",
-		"extractingAudio": "Convertint l'àudio…",
-		"convertingVideo": "Convertint el vídeo…",
-		"embeddingMetadata": "Incrustant les metadades…",
-		"movingFiles": "Movent els fitxers…",
-		"fetchingSubtitles": "Obtenint els subtítols…",
-		"sleepingBetweenRequests": "Esperant {{seconds}} s per evitar els límits de sol·licituds…",
-		"subtitlesFailed": "Vídeo desat: no s'han pogut baixar alguns subtítols",
-		"qualityLimited": "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa.",
-		"qualityLimitedSubtitlesFailed": "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega i no s'han pogut baixar alguns subtítols. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa.",
-		"audioKept": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio",
-		"audioKeptSubtitlesFailed": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio ni baixar alguns subtítols",
-		"subtitleLanguagesMissing": "Aquest vídeo no té subtítols en {{languages}}. El vídeo s'ha desat sense subtítols.",
-		"subtitleLanguagesMissingOthersSaved": "Aquest vídeo no té subtítols en {{languages}}. Els altres idiomes s'han desat.",
-		"noSubtitles": "Sense subtítols en {{languages}}",
-		"cancelled": "Descàrrega cancel·lada",
-		"complete": "Descàrrega completada",
-		"usedExtractorFallback": "Baixat amb un extractor flexible: configura un cookies.txt per a descàrregues més fiables",
-		"ytdlpProcessError": "Error del motor de descàrrega: {{error}}",
-		"ytdlpExitCode": "El motor de descàrrega ha acabat amb el codi {{code}}",
-		"downloadingBinary": "Baixant el binari de {{name}}…",
-		"unknownStartupFailure": "Error d'inici de descàrrega desconegut",
-		"diskSpaceInsufficient": "No hi ha prou espai al disc: calen {{required}} i només n'hi ha {{free}} de lliures",
-		"outputNotWritable": "No es pot desar a {{dir}}: Arroxy no té permís per escriure-hi",
-		"fetchingSponsorBlock": "Contactant amb SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock no disponible, es reintenta ({{attempt}}/{{total}})…",
-		"retryingTransfer": "La connexió s'ha encallat, es reintenta ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Iniciant la sessió amb el teu compte d'Explora…",
-		"exploreSignedOut": "Sessió d'Explora tancada: torna a iniciar-la"
-	},
-	"notifications": {
-		"settingsSaveFailed": "No s'ha pogut desar la configuració.",
-		"warmupFailed": "La preparació no ha acabat. Algunes descàrregues poden fallar fins que acabi.",
-		"shellActionFailed": "No s'ha pogut obrir.",
-		"folderSelectFailed": "No s'ha pogut obrir el selector de carpetes.",
-		"exploreSignInRetrying_one": "Sessió iniciada a Explora: es torna a provar 1 enllaç",
-		"exploreSignInRetrying_many": "Sessió iniciada a Explora: es tornen a provar {{count}} d'enllaços",
-		"exploreSignInRetrying_other": "Sessió iniciada a Explora: es tornen a provar {{count}} enllaços",
-		"exploreSignOutFailed": "No s'ha pogut tancar la sessió d'Explora. Torna-ho a provar.",
-		"playlistFolderRejected": "Aquesta carpeta no es pot fer servir per a aquesta llista de reproducció.",
-		"filenameFolderTooDeep": "Aquesta carpeta és massa profunda per al teu sistema. La descàrrega encara podria fallar: tria una carpeta més curta.",
-		"filenameTemplateCannotFit": "El nom d'aquest vídeo no pot encabir totes les parts de la plantilla, així que s'ha fet servir el nom predeterminat.",
-		"hotkey": {
-			"queued": "Descàrrega afegida a la cua des del porta-retalls",
-			"alreadyQueued": "Ja és a la cua: no s'ha afegit cap còpia",
-			"invalidClipboard": "No hi ha cap enllaç al porta-retalls: copia'n un primer",
-			"multipleUrls": "S'han copiat diversos enllaços: fes servir URL en bloc a Arroxy",
-			"needsReview": "Aquest enllaç requereix la teva decisió: consulta Descàrregues a Arroxy",
-			"cookiesSetup": "Acaba de configurar les galetes a Arroxy i torna-ho a provar",
-			"busy": "Arroxy encara s'està iniciant: torna-ho a provar d'aquí a un moment",
-			"submissionFailed": "No s'ha pogut afegir l'enllaç: torna-ho a provar a Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo ja és a la cua: s'ha omès", "skippedAlreadyQueued_many": "{{count}} de vídeos ja són a la cua: s'han omès", "skippedAlreadyQueued_other": "{{count}} vídeos ja són a la cua: s'han omès"},
-		"quickDownload": {
-			"added": "Afegit: {{title}}",
-			"alreadyQueued": "Ja és a la cua",
-			"failed": "No s'ha pogut preparar {{title}}",
-			"notAdded": "No s'ha pogut afegir l'enllaç: torna-ho a provar",
-			"chooseHowMany_one": "{{count}}+ vídeo: tria quants",
-			"chooseHowMany_many": "{{count}}+ de vídeos: tria quants",
-			"chooseHowMany_other": "{{count}}+ vídeos: tria quants",
-			"review_one": "{{count}} vídeo en aquesta llista: revisa per triar",
-			"review_many": "{{count}} de vídeos en aquesta llista: revisa per triar",
-			"review_other": "{{count}} vídeos en aquesta llista: revisa per triar",
-			"reviewCapped_one": "{{count}}+ vídeo en aquesta llista: revisa per triar",
-			"reviewCapped_many": "{{count}}+ de vídeos en aquesta llista: revisa per triar",
-			"reviewCapped_other": "{{count}}+ vídeos en aquesta llista: revisa per triar",
-			"view": "Mostra"
-		}
+	"donate": {
+		"copied": "Copiada!",
+		"copyAddress": "Copia l'adreça",
+		"description": "Arroxy és gratuït i de codi obert, sense anuncis ni nivell de pagament. Les donacions són opcionals i no donen cap influència sobre el full de ruta.",
+		"footerLabel": "Dona",
+		"footerTooltip": "Dona suport a Arroxy",
+		"qrAlt": "Codi QR de l'adreça de donació de {{coin}}",
+		"title": "Dona suport a Arroxy",
+		"warning": "Els pagaments amb criptomonedes són irreversibles. Envia només a la xarxa indicada i compara l'adreça sencera."
 	},
 	"errors": {
 		"noSubtitlesIn": "Aquest vídeo no té subtítols en {{languages}}.",
 		"ytdlp": {
-			"botBlock": "S'ha activat la protecció contra robots. És molt probable que la IP que fas servir estigui marcada (rang d'un centre de dades o sortida d'una VPN saturada). Canvia d'IP o tria un altre punt de sortida de la VPN i torna-ho a provar. Si continua fallant, pot ser un canvi temporal al lloc: Arroxy actualitza el seu motor de descàrrega en iniciar-se, de manera que la correcció arribarà automàticament quan es publiqui.",
-			"ipBlock": "Sembla que la teva adreça IP està bloquejada. Torna-ho a provar més tard o fes servir una VPN.",
-			"rateLimit": "El lloc està limitant les sol·licituds d'aquesta connexió.",
 			"ageRestricted": "Aquest vídeo té restricció d'edat i no es pot baixar sense un compte amb la sessió iniciada.",
-			"unavailable": "Aquest vídeo no està disponible: pot ser privat, haver estat suprimit o estar bloquejat per regió.",
+			"botBlock": "S'ha activat la protecció contra robots. És molt probable que la IP que fas servir estigui marcada (rang d'un centre de dades o sortida d'una VPN saturada). Canvia d'IP o tria un altre punt de sortida de la VPN i torna-ho a provar. Si continua fallant, pot ser un canvi temporal al lloc: Arroxy actualitza el seu motor de descàrrega en iniciar-se, de manera que la correcció arribarà automàticament quan es publiqui.",
+			"chunkTransferFailure": "El servidor va tallar la descàrrega repetidament a mig camí i Arroxy s'ha rendit després de reintentar-ho. Sol passar amb els formats de vídeo més grans (4K HDR / VP9 d'alta taxa de bits). Torna-ho a provar, canvia de xarxa o de VPN, o tria un format de resolució més baixa.",
+			"drmProtected": "Aquest vídeo està protegit amb DRM. Arroxy no pot eliminar el DRM, per això el fitxer no es pot baixar.",
 			"formatUnavailable": "Aquest vídeo ja no ofereix el format que has triat. Torna a enganxar l'enllaç i tria entre els formats que ofereix ara.",
 			"geoBlocked": "Aquest vídeo no està disponible a la teva regió.",
+			"ipBlock": "Sembla que la teva adreça IP està bloquejada. Torna-ho a provar més tard o fes servir una VPN.",
+			"loginRequired": "Aquest vídeo requereix un compte amb la sessió iniciada.",
+			"missingDependency": "Arroxy no ha trobat FFmpeg ni FFprobe. Torna a executar la configuració o indica la ubicació de FFmpeg i després torna a provar la descàrrega.",
+			"network": "Error de xarxa. Comprova la connexió i torna-ho a provar.",
+			"noSubtitles": "Aquest vídeo no té subtítols en els idiomes sol·licitats.",
 			"outOfDiskSpace": "No hi ha prou espai al disc. Allibera espai i torna-ho a provar.",
 			"outputNotWritable": "Arroxy no pot escriure a la carpeta de descàrregues. Potser és de només lectura, és en una unitat bloquejada o la configuració de privadesa del sistema la bloqueja. Tria una altra carpeta o permet-ne l'accés i torna-ho a provar.",
-			"unsupportedUrl": "Arroxy no admet aquesta URL. Prova amb un enllaç d'un altre lloc.",
-			"noSubtitles": "Aquest vídeo no té subtítols en els idiomes sol·licitats.",
-			"chunkTransferFailure": "El servidor va tallar la descàrrega repetidament a mig camí i Arroxy s'ha rendit després de reintentar-ho. Sol passar amb els formats de vídeo més grans (4K HDR / VP9 d'alta taxa de bits). Torna-ho a provar, canvia de xarxa o de VPN, o tria un format de resolució més baixa.",
-			"missingDependency": "Arroxy no ha trobat FFmpeg ni FFprobe. Torna a executar la configuració o indica la ubicació de FFmpeg i després torna a provar la descàrrega.",
-			"postprocessFailure": "La descàrrega ha acabat, però ha fallat el postprocessament (combinació / mux / conversió). Sovint és un problema passatger de ffmpeg: torna-ho a provar i, si persisteix, prova una altra combinació de formats.",
 			"parse": "No s'ha pogut interpretar la resposta del lloc. Potser el lloc ha canviat la manera de servir els vídeos. Arroxy actualitza el seu motor de descàrrega en iniciar-se: torna-ho a provar d'aquí a uns minuts, quan es publiqui la correcció.",
-			"network": "Error de xarxa. Comprova la connexió i torna-ho a provar.",
-			"drmProtected": "Aquest vídeo està protegit amb DRM. Arroxy no pot eliminar el DRM, per això el fitxer no es pot baixar.",
-			"loginRequired": "Aquest vídeo requereix un compte amb la sessió iniciada.",
-			"unknown": "La descàrrega ha fallat. Consulta la sortida original a sota."
+			"postprocessFailure": "La descàrrega ha acabat, però ha fallat el postprocessament (combinació / mux / conversió). Sovint és un problema passatger de ffmpeg: torna-ho a provar i, si persisteix, prova una altra combinació de formats.",
+			"rateLimit": "El lloc està limitant les sol·licituds d'aquesta connexió.",
+			"unavailable": "Aquest vídeo no està disponible: pot ser privat, haver estat suprimit o estar bloquejat per regió.",
+			"unknown": "La descàrrega ha fallat. Consulta la sortida original a sota.",
+			"unsupportedUrl": "Arroxy no admet aquesta URL. Prova amb un enllaç d'un altre lloc."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Comprova la connexió i torna-ho a provar.",
+			"loadTitle": "Aquesta pàgina no s'ha carregat",
+			"openSettings": "Obre la configuració",
+			"proxyBody": "Comprova el servidor intermediari a la configuració i torna-ho a provar.",
+			"proxyTitle": "Explora no es pot connectar mitjançant el servidor intermediari",
+			"retry": "Torna-ho a provar"
+		},
+		"linkCallout": {
+			"body": "Fes clic amb el botó dret en qualsevol enllaç de vídeo, llista de reproducció o canal de la pàgina per baixar-lo amb el perfil actiu, triar-ne un altre o obrir el flux pas a pas.",
+			"title": "Fes clic dret en un enllaç per baixar-lo"
+		},
+		"linkMenu": {
+			"copyLink": "Copia l'enllaç",
+			"downloadWith": "Descarrega amb"
+		},
+		"newBadge": "Nou",
+		"notice": {
+			"body": "Troba un vídeo a YouTube o a qualsevol altre lloc i baixa'l des d'aquí, sense copiar enllaços. Inicia la sessió en un lloc per baixar vídeos que requereixen un compte.",
+			"continue": "Continua",
+			"riskBody": "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes que s'utilitzen amb eines de descàrrega com Arroxy. Fes servir un compte que et puguis permetre perdre, no el principal.",
+			"riskTitle": "Inicia la sessió amb un compte secundari",
+			"title": "Navega per la web sense sortir d'Arroxy"
+		},
+		"nudge": {
+			"browser": "Les descàrregues fan servir les galetes del navegador, no el teu inici de sessió a Explora.",
+			"file": "Les descàrregues fan servir el fitxer de galetes, no el teu inici de sessió a Explora.",
+			"notNow": "Ara no",
+			"off": "Les galetes estan desactivades, així que les descàrregues no fan servir el teu inici de sessió a Explora.",
+			"useExplore": "Usa l'inici de sessió d'Explora"
+		},
+		"settings": {
+			"description": "Navega per YouTube o per qualsevol altre lloc dins d'Arroxy i inicia la sessió per accedir als vídeos que requereixen un compte.",
+			"idleUnload": "Allibera memòria quan no hi siguis",
+			"idleUnloadDescription": "Després de 5 minuts en una altra pestanya, tanca la pàgina d'inici o de cerca de YouTube. En tornar, es torna a carregar, cosa que triga uns segons.",
+			"searchEngine": "Motor de cerca",
+			"searchEngineDescription": "On es cerca el text escrit a la barra d'adreces. Els enllaços s'obren tal com els escrius.",
+			"showTab": "Mostra la pestanya Explora",
+			"showTabDescription": "Si la desactives, les descàrregues també deixen de fer servir el teu inici de sessió a Explora.",
+			"signOut": "Tanca la sessió d'Explora",
+			"signOutConfirm": "Tanca la sessió",
+			"signOutConfirmBody": "S'esborren els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs. Les descàrregues que requereixin un compte fallaran fins que tornis a iniciar la sessió.",
+			"signOutConfirmTitle": "Vols tancar la sessió d'Explora?",
+			"signOutDescription": "Esborra els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs.",
+			"title": "Explora"
+		},
+		"tabLabel": "Explora",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "És possible que YouTube posi traves als blocadors d'anuncis als comptes amb la sessió iniciada.",
+				"aria": "Blocador d'anuncis",
+				"off": "Blocador d'anuncis: desactivat — fes clic per activar-lo",
+				"on": "Blocador d'anuncis: activat — fes clic per desactivar-lo",
+				"starting": "Blocador d'anuncis: iniciant-se — fes clic per desactivar-lo",
+				"unavailable": "Blocador d'anuncis: no disponible, no s'han pogut baixar les llistes de filtres — fes clic per desactivar-lo"
+			},
+			"addressAria": "Adreça",
+			"addressPlaceholder": "Cerca a {{engine}} o obre qualsevol lloc (Vimeo, Instagram…)",
+			"aria": "Controls del navegador d'Explora",
+			"back": "Enrere",
+			"compactLayout": "Disseny compacte",
+			"downloadWithProfile": "Descarrega · {{profileName}}",
+			"forward": "Endavant",
+			"fullLayout": "Mostra el disseny complet",
+			"grabUnavailable": "Obre un vídeo, una llista de reproducció o un canal per baixar-lo",
+			"home": "Inici de YouTube",
+			"interactiveHint": "Descàrrega interactiva: tria el format, els subtítols i més…",
+			"refusedHint": "Explora no pot obrir aquesta adreça.",
+			"reload": "Torna a carregar",
+			"searchTooLong": "Aquesta cerca és massa llarga.",
+			"zoom": {
+				"hint": "Zoom de la pàgina: {{percent}}%",
+				"in": "Amplia",
+				"label": "Zoom de la pàgina",
+				"out": "Redueix",
+				"percent": "Percentatge de zoom",
+				"reset": "Restableix el zoom al 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Automàtic",
+		"autoValue": "Automàtic (.{{ext}})",
+		"description": {
+			"auto": "Els fluxos triats determinen el tipus de fitxer.",
+			"mkv": "Admet qualsevol còdec. Alguns televisors i telèfons no el poden obrir.",
+			"mp4": "Es reprodueix gairebé a tot arreu. El VP9 en un MP4 no es veu a QuickTime.",
+			"webm": "Format obert per als navegadors. Només admet VP9 o AV1 amb Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "L'AV1 en un MP4 requereix un Mac recent per reproduir-se a QuickTime. L'H.264 es reprodueix a tot arreu.",
+		"mp4CaveatVp9": "El VP9 en un MP4 no es veu a QuickTime. L'H.264 es reprodueix a tot arreu.",
+		"profileMark": "Perfil",
+		"smartTvNoWebm": "WebM no s'ofereix amb Smart TV: no pot contenir H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM no pot contenir {{codec}}. Tria MKV o MP4."
+	},
+	"filenameTemplate": {
+		"description": "Tria com es posen els noms als fitxers baixats. Fes clic en una variable per inserir-la. Fes servir / per classificar les descàrregues en carpetes.",
+		"error": {
+			"empty": "Introdueix una plantilla de nom de fitxer.",
+			"empty-segment": "Elimina la / sobrera: cada carpeta necessita un nom.",
+			"forbidden-char": "Elimina els caràcters que no es permeten als noms de fitxer: \\ : * ? \" < > |",
+			"invalid-segment": "Aquest nom de carpeta no es permet. Evita . i .. i noms reservats com CON.",
+			"no-unique-token": "Afegeix {title} o {id} al nom del fitxer perquè cada descàrrega tingui un nom propi.",
+			"resolution-in-dir": "{resolution} no pot donar nom a una carpeta: la qualitat no es coneix fins que comença la descàrrega.",
+			"stray-brace": "{ o } sense aparellar: posa les variables entre claus, com {title}.",
+			"too-long": "La plantilla és massa llarga.",
+			"unknown-token": "Variable desconeguda {{token}}."
+		},
+		"idWarning": "Sense {id}, Arroxy no pot detectar els elements de llistes de reproducció ja baixats ni generar llistes .m3u.",
+		"label": "Plantilla de nom de fitxer",
+		"m3uDisabled": "No disponible perquè la plantilla de nom de fitxer no inclou {id} o classifica les descàrregues en carpetes.",
+		"previewPlaylist": "En una llista de reproducció",
+		"previewSingle": "Un sol vídeo",
+		"profileOverrideDescription": "Deixa-ho buit per heretar la plantilla global.",
+		"profileOverrideLabel": "Plantilla de nom de fitxer"
+	},
+	"formatLabel": {
+		"audioFallback": "Àudio",
+		"audioOnlyDot": "Només àudio · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Automàtic",
+		"description": "Automàtic tria HDR quan aquesta pantalla el pot mostrar i, si no, SDR. L'HDR es veu apagat en pantalles normals.",
+		"hdr": "HDR",
+		"label": "Vídeo HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Idioma"
+	},
+	"notifications": {
+		"exploreSignInRetrying_many": "Sessió iniciada a Explora: es tornen a provar {{count}} d'enllaços",
+		"exploreSignInRetrying_one": "Sessió iniciada a Explora: es torna a provar 1 enllaç",
+		"exploreSignInRetrying_other": "Sessió iniciada a Explora: es tornen a provar {{count}} enllaços",
+		"exploreSignOutFailed": "No s'ha pogut tancar la sessió d'Explora. Torna-ho a provar.",
+		"filenameFolderTooDeep": "Aquesta carpeta és massa profunda per al teu sistema. La descàrrega encara podria fallar: tria una carpeta més curta.",
+		"filenameTemplateCannotFit": "El nom d'aquest vídeo no pot encabir totes les parts de la plantilla, així que s'ha fet servir el nom predeterminat.",
+		"folderSelectFailed": "No s'ha pogut obrir el selector de carpetes.",
+		"hotkey": {
+			"alreadyQueued": "Ja és a la cua: no s'ha afegit cap còpia",
+			"busy": "Arroxy encara s'està iniciant: torna-ho a provar d'aquí a un moment",
+			"cookiesSetup": "Acaba de configurar les galetes a Arroxy i torna-ho a provar",
+			"invalidClipboard": "No hi ha cap enllaç al porta-retalls: copia'n un primer",
+			"multipleUrls": "S'han copiat diversos enllaços: fes servir URL en bloc a Arroxy",
+			"needsReview": "Aquest enllaç requereix la teva decisió: consulta Descàrregues a Arroxy",
+			"queued": "Descàrrega afegida a la cua des del porta-retalls",
+			"submissionFailed": "No s'ha pogut afegir l'enllaç: torna-ho a provar a Arroxy"
+		},
+		"playlistFolderRejected": "Aquesta carpeta no es pot fer servir per a aquesta llista de reproducció.",
+		"queue": {
+			"skippedAlreadyQueued_many": "{{count}} de vídeos ja són a la cua: s'han omès",
+			"skippedAlreadyQueued_one": "{{count}} vídeo ja és a la cua: s'ha omès",
+			"skippedAlreadyQueued_other": "{{count}} vídeos ja són a la cua: s'han omès"
+		},
+		"quickDownload": {
+			"added": "Afegit: {{title}}",
+			"alreadyQueued": "Ja és a la cua",
+			"chooseHowMany_many": "{{count}}+ de vídeos: tria quants",
+			"chooseHowMany_one": "{{count}}+ vídeo: tria quants",
+			"chooseHowMany_other": "{{count}}+ vídeos: tria quants",
+			"failed": "No s'ha pogut preparar {{title}}",
+			"notAdded": "No s'ha pogut afegir l'enllaç: torna-ho a provar",
+			"reviewCapped_many": "{{count}}+ de vídeos en aquesta llista: revisa per triar",
+			"reviewCapped_one": "{{count}}+ vídeo en aquesta llista: revisa per triar",
+			"reviewCapped_other": "{{count}}+ vídeos en aquesta llista: revisa per triar",
+			"review_many": "{{count}} de vídeos en aquesta llista: revisa per triar",
+			"review_one": "{{count}} vídeo en aquesta llista: revisa per triar",
+			"review_other": "{{count}} vídeos en aquesta llista: revisa per triar",
+			"view": "Mostra"
+		},
+		"settingsSaveFailed": "No s'ha pogut desar la configuració.",
+		"shellActionFailed": "No s'ha pogut obrir.",
+		"warmupFailed": "La preparació no ha acabat. Algunes descàrregues poden fallar fins que acabi."
+	},
 	"playlistPresets": {
-		"type": {"video": "Vídeo", "audio": "Àudio", "subtitles": "Subtítols"},
-		"subtitles": {"note": "Només es desen els fitxers de subtítols de cada vídeo: no es baixa cap vídeo ni àudio.", "languages": "Idiomes", "languagesRequired": "Tria almenys un idioma per continuar.", "source": "Font", "deliveryHeading": "Desa com a", "deliveryLoose": "Directament a la carpeta de destinació"},
-		"videoFormat": {"best": "El millor original", "mp4": "MP4 H.264 per a Smart TV"},
-		"videoFormatDesc": {"best": "El millor contenidor i còdecs disponibles de cada element", "mp4": "Prefereix vídeo H.264 + àudio AAC en MP4 sempre que sigui possible"},
-		"tier": {"144": "Fins a 144p", "240": "Fins a 240p", "360": "Fins a 360p", "480": "Fins a 480p", "720": "Fins a 720p", "1080": "Fins a 1080p", "1440": "Fins a 1440p", "2160": "Fins a 4K", "best": "Màxima qualitat"},
+		"audioFormat": {
+			"best": "Àudio (el millor)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Àudio ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "El millor àudio original, sense recodificar",
+			"m4a": "Converteix a M4A (AAC)",
+			"mp3": "Converteix a MP3",
+			"opus": "Converteix a Opus"
+		},
+		"mp4Cap": "L'H.264 per sobre de 1080p no està disponible a YouTube: es limita automàticament a 1080p",
+		"subtitles": {
+			"deliveryHeading": "Desa com a",
+			"deliveryLoose": "Directament a la carpeta de destinació",
+			"languages": "Idiomes",
+			"languagesRequired": "Tria almenys un idioma per continuar.",
+			"note": "Només es desen els fitxers de subtítols de cada vídeo: no es baixa cap vídeo ni àudio.",
+			"source": "Font"
+		},
+		"tier": {
+			"144": "Fins a 144p",
+			"240": "Fins a 240p",
+			"360": "Fins a 360p",
+			"480": "Fins a 480p",
+			"720": "Fins a 720p",
+			"1080": "Fins a 1080p",
+			"1440": "Fins a 1440p",
+			"2160": "Fins a 4K",
+			"best": "Màxima qualitat"
+		},
 		"tierDesc": {
 			"144": "Els fitxers més petits possibles",
 			"240": "Fitxers molt petits, qualitat baixa",
@@ -969,193 +317,1422 @@
 			"2160": "Limitat a 2160p; en cada element baixa a una resolució inferior si cal",
 			"best": "El millor vídeo + àudio disponible de cada element"
 		},
-		"audioFormat": {"best": "Àudio (el millor)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "El millor àudio original, sense recodificar", "mp3": "Converteix a MP3", "m4a": "Converteix a M4A (AAC)", "opus": "Converteix a Opus"},
-		"audioFormatBitrate": "Àudio ({{format}} {{kbps}}K)",
-		"mp4Cap": "L'H.264 per sobre de 1080p no està disponible a YouTube: es limita automàticament a 1080p"
-	},
-	"formatLabel": {"audioFallback": "Àudio", "audioOnlyDot": "Només àudio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {
-		"tooltip": "Arroxy",
-		"menu": {"statusIdle": "Inactiu", "statusActive_one": "1 descarregant · {{percent}}%", "statusActive_many": "{{count}} descarregant · {{percent}}%", "statusActive_other": "{{count}} descarregant · {{percent}}%", "downloadFromClipboard": "Descarrega del porta-retalls", "open": "Obre Arroxy", "quit": "Surt d'Arroxy"}
-	},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} descàrrega en curs",
-			"message_many": "{{count}} de descàrregues en curs",
-			"message_other": "{{count}} descàrregues en curs",
-			"detail": "Posa-les en pausa per reprendre-les més tard o cancel·la-les per descartar el progrés.",
-			"confirm": "Cancel·la les descàrregues i surt",
-			"pause": "Posa en pausa les descàrregues i surt",
-			"keep": "Continua descarregant"
+		"type": {
+			"audio": "Àudio",
+			"subtitles": "Subtítols",
+			"video": "Vídeo"
 		},
-		"closeToTray": {"message": "Vols amagar Arroxy a la safata del sistema en tancar?", "detail": "Arroxy continua en execució i acaba les descàrregues actives. Pots canviar-ho més endavant a la configuració avançada.", "hide": "Amaga a la safata", "quit": "Surt", "remember": "No m'ho tornis a preguntar"},
-		"rendererCrashed": {"message": "Arroxy ha trobat un problema", "detail": "El procés de renderització ha fallat ({{reason}}). Torna a carregar per tornar-ho a provar.", "reload": "Torna a carregar", "quit": "Surt"}
-	},
-	"share": {
-		"title": "Comparteix Arroxy",
-		"description": "Arroxy és gratuït i de codi obert. Compartir-lo ajuda que més gent el descobreixi.",
-		"copyLink": "Copia l'enllaç",
-		"copied": "Copiat!",
-		"defaultMessage": "Arroxy: descarregador de vídeo gratuït i de codi obert per a Windows, macOS i Linux. Funciona amb YouTube, Vimeo, Twitch i més de 2000 llocs.\n4K · HDR · MP3 · Shorts · Subtítols · SponsorBlock",
-		"footerTooltip": "Comparteix Arroxy",
-		"footerLabel": "Comparteix",
-		"shareAction": "Comparteix Arroxy"
-	},
-	"donate": {
-		"title": "Dona suport a Arroxy",
-		"description": "Arroxy és gratuït i de codi obert, sense anuncis ni nivell de pagament. Les donacions són opcionals i no donen cap influència sobre el full de ruta.",
-		"footerTooltip": "Dona suport a Arroxy",
-		"footerLabel": "Dona",
-		"copyAddress": "Copia l'adreça",
-		"copied": "Copiada!",
-		"qrAlt": "Codi QR de l'adreça de donació de {{coin}}",
-		"warning": "Els pagaments amb criptomonedes són irreversibles. Envia només a la xarxa indicada i compara l'adreça sencera."
-	},
-	"filenameTemplate": {
-		"label": "Plantilla de nom de fitxer",
-		"description": "Tria com es posen els noms als fitxers baixats. Fes clic en una variable per inserir-la. Fes servir / per classificar les descàrregues en carpetes.",
-		"profileOverrideLabel": "Plantilla de nom de fitxer",
-		"profileOverrideDescription": "Deixa-ho buit per heretar la plantilla global.",
-		"idWarning": "Sense {id}, Arroxy no pot detectar els elements de llistes de reproducció ja baixats ni generar llistes .m3u.",
-		"m3uDisabled": "No disponible perquè la plantilla de nom de fitxer no inclou {id} o classifica les descàrregues en carpetes.",
-		"previewSingle": "Un sol vídeo",
-		"previewPlaylist": "En una llista de reproducció",
-		"error": {
-			"empty": "Introdueix una plantilla de nom de fitxer.",
-			"too-long": "La plantilla és massa llarga.",
-			"forbidden-char": "Elimina els caràcters que no es permeten als noms de fitxer: \\ : * ? \" < > |",
-			"stray-brace": "{ o } sense aparellar: posa les variables entre claus, com {title}.",
-			"no-unique-token": "Afegeix {title} o {id} al nom del fitxer perquè cada descàrrega tingui un nom propi.",
-			"unknown-token": "Variable desconeguda {{token}}.",
-			"empty-segment": "Elimina la / sobrera: cada carpeta necessita un nom.",
-			"invalid-segment": "Aquest nom de carpeta no es permet. Evita . i .. i noms reservats com CON.",
-			"resolution-in-dir": "{resolution} no pot donar nom a una carpeta: la qualitat no es coneix fins que comença la descàrrega."
+		"videoFormat": {
+			"best": "El millor original",
+			"mp4": "MP4 H.264 per a Smart TV"
+		},
+		"videoFormatDesc": {
+			"best": "El millor contenidor i còdecs disponibles de cada element",
+			"mp4": "Prefereix vídeo H.264 + àudio AAC en MP4 sempre que sigui possible"
 		}
 	},
-	"explore": {
-		"tabLabel": "Explora",
-		"newBadge": "Nou",
-		"notice": {
-			"title": "Navega per la web sense sortir d'Arroxy",
-			"body": "Troba un vídeo a YouTube o a qualsevol altre lloc i baixa'l des d'aquí, sense copiar enllaços. Inicia la sessió en un lloc per baixar vídeos que requereixen un compte.",
-			"riskTitle": "Inicia la sessió amb un compte secundari",
-			"riskBody": "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes que s'utilitzen amb eines de descàrrega com Arroxy. Fes servir un compte que et puguis permetre perdre, no el principal.",
-			"continue": "Continua"
+	"queue": {
+		"artifact": {
+			"companion": "Complement",
+			"description": "Descripció",
+			"media": "Contingut",
+			"missing": "Falta",
+			"subtitle": "Subtítol",
+			"thumbnail": "Miniatura",
+			"unknown": "Artefacte"
 		},
-		"nudge": {
-			"off": "Les galetes estan desactivades, així que les descàrregues no fan servir el teu inici de sessió a Explora.",
-			"file": "Les descàrregues fan servir el fitxer de galetes, no el teu inici de sessió a Explora.",
-			"browser": "Les descàrregues fan servir les galetes del navegador, no el teu inici de sessió a Explora.",
-			"useExplore": "Usa l'inici de sessió d'Explora",
-			"notNow": "Ara no"
+		"attentionBadge_many": "{{count}} de descàrregues necessiten la teva atenció",
+		"attentionBadge_one": "{{count}} descàrrega necessita la teva atenció",
+		"attentionBadge_other": "{{count}} descàrregues necessiten la teva atenció",
+		"autoRemoveCompleted": {
+			"hint": "Elimina cada descàrrega de la llista uns segons després d'acabar. Els fitxers es queden a la carpeta.",
+			"label": "Neteja automàtica"
 		},
-		"linkCallout": {"title": "Fes clic dret en un enllaç per baixar-lo", "body": "Fes clic amb el botó dret en qualsevol enllaç de vídeo, llista de reproducció o canal de la pàgina per baixar-lo amb el perfil actiu, triar-ne un altre o obrir el flux pas a pas."},
-		"linkMenu": {"downloadWith": "Descarrega amb", "copyLink": "Copia l'enllaç"},
-		"toolbar": {
-			"aria": "Controls del navegador d'Explora",
-			"back": "Enrere",
-			"forward": "Endavant",
-			"reload": "Torna a carregar",
-			"home": "Inici de YouTube",
-			"addressAria": "Adreça",
-			"addressPlaceholder": "Cerca a {{engine}} o obre qualsevol lloc (Vimeo, Instagram…)",
-			"refusedHint": "Explora no pot obrir aquesta adreça.",
-			"searchTooLong": "Aquesta cerca és massa llarga.",
-			"downloadWithProfile": "Descarrega · {{profileName}}",
-			"interactiveHint": "Descàrrega interactiva: tria el format, els subtítols i més…",
-			"grabUnavailable": "Obre un vídeo, una llista de reproducció o un canal per baixar-lo",
-			"compactLayout": "Disseny compacte",
-			"fullLayout": "Mostra el disseny complet",
-			"zoom": {"label": "Zoom de la pàgina", "hint": "Zoom de la pàgina: {{percent}}%", "in": "Amplia", "out": "Redueix", "percent": "Percentatge de zoom", "reset": "Restableix el zoom al 100%"},
-			"adBlock": {
-				"aria": "Blocador d'anuncis",
-				"off": "Blocador d'anuncis: desactivat — fes clic per activar-lo",
-				"starting": "Blocador d'anuncis: iniciant-se — fes clic per desactivar-lo",
-				"on": "Blocador d'anuncis: activat — fes clic per desactivar-lo",
-				"unavailable": "Blocador d'anuncis: no disponible, no s'han pogut baixar les llistes de filtres — fes clic per desactivar-lo",
-				"accountNote": "És possible que YouTube posi traves als blocadors d'anuncis als comptes amb la sessió iniciada."
+		"cancelAllTitle": "Cancel·la totes les descàrregues actives i pendents",
+		"choice": {
+			"all": "Tots els vídeos",
+			"cappedBody_many": "Més de {{count}} de vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió.",
+			"cappedBody_one": "Més de {{count}} vídeo en aquesta llista de reproducció. Baixa'ls tots, el primer {{count}} o tria'ls en una revisió.",
+			"cappedBody_other": "Més de {{count}} vídeos en aquesta llista de reproducció. Baixa'ls tots, els primers {{count}} o tria'ls en una revisió.",
+			"first": "Els primers {{count}}",
+			"review": "Revisa",
+			"reviewBody_many": "Aquest enllaç és una llista de {{count}} de vídeos. Revisa'l per triar què vols baixar.",
+			"reviewBody_one": "Aquest enllaç és una llista de {{count}} vídeo. Revisa'l per triar què vols baixar.",
+			"reviewBody_other": "Aquest enllaç és una llista de {{count}} vídeos. Revisa'l per triar què vols baixar."
+		},
+		"clearTitle": "Esborra les descàrregues completades",
+		"empty": "Les descàrregues en cua apareixeran aquí",
+		"filterAll": "Totes",
+		"filtersLabel": "Filtres d'estat de la cua",
+		"globalActionsLabel": "Tots els elements",
+		"header": "Descàrregues",
+		"item": {
+			"audioKept": "So no eliminat",
+			"audioKeptSubtitlesFailed": "So no eliminat · han fallat alguns subtítols",
+			"cancel": "Cancel·la",
+			"defaultError": "La descàrrega ha fallat",
+			"openDestinationFolder": "Obre la carpeta de destinació",
+			"pause": "Pausa",
+			"pendingOnly": "Només pendents",
+			"pullNow": "Descarrega ara: salta la cua",
+			"qualityLimited": "Limitat a {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limitat a {{height}}p · han fallat alguns subtítols",
+			"remove": "Elimina",
+			"resume": "Reprèn",
+			"retry": "Torna-ho a provar",
+			"retryingSoon": "es torna a provar automàticament (intent {{attempt}})",
+			"setLocation": "Defineix la ubicació",
+			"setLocationHint": "Selecciona elements pendents per definir la ubicació.",
+			"statusCancelled": "Cancel·lada",
+			"statusDone": "Feta",
+			"statusError": "Error",
+			"statusHeld": "Retinguda",
+			"statusNeedsChoice": "Requereix la teva decisió",
+			"statusPaused": "En pausa",
+			"statusPending": "En espera",
+			"statusProbing": "Obtenint detalls",
+			"statusRunning": "Descarregant",
+			"subtitleLanguagesMissing": "Sense subtítols en {{languages}}"
+		},
+		"pauseAllTitle": "Posa en pausa totes les descàrregues actives i evita que en comencin de noves",
+		"pausedBanner": "La cua està en pausa: els elements en espera no començaran fins que no la reprenguis",
+		"resumeAllTitle": "Reprèn les descàrregues en pausa i deixa que la cua continuï",
+		"resumeQueueAction": "Reprèn la cua",
+		"selectedActionsLabel": "Elements seleccionats",
+		"selectionSummary": "{{selected}} seleccionats · {{total}} en total",
+		"tabLabel": "Descàrregues",
+		"tabTip": "Ara les descàrregues són a la pestanya Descàrregues: obre-la quan vulguis per veure'n el progrés.",
+		"table": {
+			"added": "Afegit",
+			"artifacts": "Artefactes",
+			"columnDropped": "S'ha deixat anar la columna {{column}}.",
+			"columnMoveCancelled": "S'ha cancel·lat el moviment de la columna {{column}}.",
+			"columnMovedOver": "La columna {{column}} és sobre {{target}}.",
+			"columnPickedUp": "S'ha agafat la columna {{column}}.",
+			"columns": "Columnes",
+			"finished": "Acabat",
+			"format": "Format",
+			"hideArtifactsFor": "Amaga els artefactes de {{title}}",
+			"movableColumn": "columna que es pot moure",
+			"moveColumnInstructions": "Per moure una columna, prem Espai o Retorn, mou-la amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-la anar. Prem Escape per cancel·lar.",
+			"notAvailable": "—",
+			"outputTarget": "Destinació",
+			"progress": "Progrés",
+			"resetColumns": "Restableix les columnes",
+			"resizeColumn": "Canvia la mida de la columna {{column}}",
+			"showArtifactsFor": "Mostra els artefactes de {{title}}",
+			"size": "Mida",
+			"sortBy": "Ordena per {{label}}",
+			"status": "Estat",
+			"title": "Títol"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Continua",
+		"description": "Acabes d'actualitzar. Aquests són els aspectes destacats.",
+		"fullNotes": "Notes de la versió completes ↗",
+		"title": "Novetats d'Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Cancel·la",
+			"chooseExecutable": "Tria l'executable",
+			"installWithHomebrew": "Instal·la amb Homebrew",
+			"installWithWinget": "Instal·la amb WinGet",
+			"openDependencyFolder": "Obre la carpeta de dependències",
+			"resetToDefault": "Restableix els valors predeterminats",
+			"retrySetup": "Torna-ho a provar",
+			"viewSetupLog": "Mostra el registre de configuració"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota.",
+				"title": "Una eina no funciona bé"
+			},
+			"blockedOrQuarantined": {
+				"body": "Permet Arroxy a l'antivirus o a SmartScreen i torna-ho a provar.",
+				"title": "L'antivirus ha bloquejat una eina"
+			},
+			"downloadFailed": {
+				"body": "Comprova la connexió a internet i torna-ho a provar.",
+				"title": "No s'ha pogut baixar el que Arroxy necessita"
+			},
+			"extractFailed": {
+				"body": "Torna-ho a provar per baixar-ho de nou.",
+				"title": "S'ha rebut una descàrrega malmesa"
+			},
+			"hashFailed": {
+				"body": "Torna-ho a provar per baixar-ho de nou.",
+				"title": "Una descàrrega no coincidia amb la suma de verificació"
+			},
+			"pairIncomplete": {
+				"body": "Tria'ls tots dos a sota o restableix-ne els valors predeterminats.",
+				"title": "FFmpeg i FFprobe s'han de definir junts"
+			},
+			"permissionDenied": {
+				"body": "Torna-ho a provar. Si continua fallant, tria a sota una còpia de confiança.",
+				"title": "El sistema no deixa que Arroxy executi una eina"
+			},
+			"spawnFailed": {
+				"body": "Torna-ho a provar. Si continua fallant, tria una còpia que funcioni a sota.",
+				"title": "Falta una eina o no s'inicia"
+			},
+			"timeout": {
+				"body": "Sovint és una anàlisi de seguretat en la primera execució. Torna-ho a provar.",
+				"title": "Una eina ha trigat massa a respondre"
+			},
+			"unknown": {
+				"body": "Torna-ho a provar o obre el registre de configuració per veure'n els detalls.",
+				"title": "Alguna cosa ha anat malament durant la configuració"
 			}
 		},
-		"settings": {
-			"title": "Explora",
-			"description": "Navega per YouTube o per qualsevol altre lloc dins d'Arroxy i inicia la sessió per accedir als vídeos que requereixen un compte.",
-			"showTab": "Mostra la pestanya Explora",
-			"showTabDescription": "Si la desactives, les descàrregues també deixen de fer servir el teu inici de sessió a Explora.",
-			"idleUnload": "Allibera memòria quan no hi siguis",
-			"idleUnloadDescription": "Després de 5 minuts en una altra pestanya, tanca la pàgina d'inici o de cerca de YouTube. En tornar, es torna a carregar, cosa que triga uns segons.",
-			"searchEngine": "Motor de cerca",
-			"searchEngineDescription": "On es cerca el text escrit a la barra d'adreces. Els enllaços s'obren tal com els escrius.",
-			"signOut": "Tanca la sessió d'Explora",
-			"signOutDescription": "Esborra els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs.",
-			"signOutConfirmTitle": "Vols tancar la sessió d'Explora?",
-			"signOutConfirmBody": "S'esborren els teus inicis de sessió i les dades de navegació d'Explora, de tots els llocs. Les descàrregues que requereixin un compte fallaran fins que tornis a iniciar la sessió.",
-			"signOutConfirm": "Tanca la sessió"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {
-			"proxyTitle": "Explora no es pot connectar mitjançant el servidor intermediari",
-			"proxyBody": "Comprova el servidor intermediari a la configuració i torna-ho a provar.",
-			"loadTitle": "Aquesta pàgina no s'ha carregat",
-			"loadBody": "Comprova la connexió i torna-ho a provar.",
-			"retry": "Torna-ho a provar",
-			"openSettings": "Obre la configuració"
-		}
-	},
-	"fileType": {
-		"auto": "Automàtic",
-		"autoValue": "Automàtic (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Els fluxos triats determinen el tipus de fitxer.",
-			"mp4": "Es reprodueix gairebé a tot arreu. El VP9 en un MP4 no es veu a QuickTime.",
-			"mkv": "Admet qualsevol còdec. Alguns televisors i telèfons no el poden obrir.",
-			"webm": "Format obert per als navegadors. Només admet VP9 o AV1 amb Opus."
+		"groups": {
+			"engine": "Motor de descàrrega",
+			"media": "Eines multimèdia"
 		},
-		"webmBlocked": "WebM no pot contenir {{codec}}. Tria MKV o MP4.",
-		"profileMark": "Perfil",
-		"smartTvNoWebm": "WebM no s'ofereix amb Smart TV: no pot contenir H.264.",
-		"mp4CaveatVp9": "El VP9 en un MP4 no es veu a QuickTime. L'H.264 es reprodueix a tot arreu.",
-		"mp4CaveatAv1": "L'AV1 en un MP4 requereix un Mac recent per reproduir-se a QuickTime. L'H.264 es reprodueix a tot arreu."
+		"installing": {
+			"homebrew": "S'està instal·lant amb Homebrew… Pot trigar uns minuts.",
+			"winget": "S'està instal·lant amb WinGet… Pot trigar uns minuts."
+		},
+		"manual": {
+			"intro": "Indica a Arroxy les còpies que ja tens o instal·la-les d'una altra manera.",
+			"linuxHint": "També pots instal·lar yt-dlp i ffmpeg amb el gestor de paquets i després fer clic a Torna-ho a provar.",
+			"toggle": "Configura-ho manualment"
+		},
+		"stopped": {
+			"body": "Torna-ho a provar o indica a Arroxy a sota les eines que ja tens.",
+			"title": "La configuració s'ha aturat"
+		},
+		"title": "La configuració necessita ajuda"
 	},
 	"selectionOrder": {
 		"editorTitle": "Com tria aquest perfil",
-		"whyTitle": "Per què el perfil ha triat això",
-		"whyLabel": "Per què aquest?",
 		"rank": {
-			"h264": {"label": "Vídeo H.264", "reason": "es reprodueix a tots els dispositius"},
-			"mp4Streams": {"label": "Fluxos MP4", "reason": "a punt per a un fitxer MP4"},
-			"resolutionBest": {"label": "Màxima resolució", "reason": "sense cap límit definit"},
-			"resolution": {"label": "Fins a {{tier}}p", "reason": "el teu límit"},
-			"fps": {"label": "Màxima taxa de fotogrames", "reason": "moviment més fluid"},
-			"sitePreference": {"label": "Fluxos que el lloc no desprestigia", "reason": "evita còpies malmeses, amb marca d'aigua o de recanvi"},
-			"original": {"label": "Fluxos originals, no escalats amb IA", "reason": "una còpia escalada és més alta, però no hi afegeix cap detall real"},
-			"source": {"label": "Primer els fluxos amb taxa de bits millorada", "reason": "més detall amb la mateixa resolució"},
-			"protocol": {"label": "Descàrregues directes abans que còpies en streaming", "reason": "la mateixa imatge, baixada més de pressa"},
-			"codec": {"label": "AV1, després VP9 i després H.264", "reason": "la millor nitidesa per a una mida determinada"},
-			"codecVp9First": {"label": "VP9, després H.264 i després AV1", "reason": "còdec d'aquest perfil"},
-			"codecH264First": {"label": "H.264, després VP9 i després AV1", "reason": "còdec d'aquest perfil"},
-			"size": {"label": "Fitxer més gran", "reason": "més detall amb la mateixa configuració"},
-			"aacSmartTv": {"label": "Àudio AAC", "reason": "es reprodueix a tot arreu"},
-			"aacFileType": {"label": "Àudio AAC", "reason": "s'adapta als reproductors MP4"},
-			"opus": {"label": "Àudio Opus", "reason": "s'adapta a WebM"},
-			"nativeCompatible": {"label": "Àudio estèreo"},
-			"nativeSurround": {"label": "Àudio envoltant si n'hi ha"},
-			"nativeSource": {"settings": "de la configuració", "profile": "aquest perfil"},
-			"hdrSdrFirst": {"label": "SDR abans que HDR", "reason": "es veu bé en qualsevol pantalla", "reasonScreen": "aquesta pantalla no és HDR"},
-			"hdrFirst": {"label": "HDR abans que SDR", "reason": "colors més rics en pantalles HDR", "reasonScreen": "aquesta pantalla mostra HDR"}
+			"aacFileType": {
+				"label": "Àudio AAC",
+				"reason": "s'adapta als reproductors MP4"
+			},
+			"aacSmartTv": {
+				"label": "Àudio AAC",
+				"reason": "es reprodueix a tot arreu"
+			},
+			"codec": {
+				"label": "AV1, després VP9 i després H.264",
+				"reason": "la millor nitidesa per a una mida determinada"
+			},
+			"codecH264First": {
+				"label": "H.264, després VP9 i després AV1",
+				"reason": "còdec d'aquest perfil"
+			},
+			"codecVp9First": {
+				"label": "VP9, després H.264 i després AV1",
+				"reason": "còdec d'aquest perfil"
+			},
+			"fps": {
+				"label": "Màxima taxa de fotogrames",
+				"reason": "moviment més fluid"
+			},
+			"h264": {
+				"label": "Vídeo H.264",
+				"reason": "es reprodueix a tots els dispositius"
+			},
+			"hdrFirst": {
+				"label": "HDR abans que SDR",
+				"reason": "colors més rics en pantalles HDR",
+				"reasonScreen": "aquesta pantalla mostra HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR abans que HDR",
+				"reason": "es veu bé en qualsevol pantalla",
+				"reasonScreen": "aquesta pantalla no és HDR"
+			},
+			"mp4Streams": {
+				"label": "Fluxos MP4",
+				"reason": "a punt per a un fitxer MP4"
+			},
+			"nativeCompatible": {
+				"label": "Àudio estèreo"
+			},
+			"nativeSource": {
+				"profile": "aquest perfil",
+				"settings": "de la configuració"
+			},
+			"nativeSurround": {
+				"label": "Àudio envoltant si n'hi ha"
+			},
+			"opus": {
+				"label": "Àudio Opus",
+				"reason": "s'adapta a WebM"
+			},
+			"original": {
+				"label": "Fluxos originals, no escalats amb IA",
+				"reason": "una còpia escalada és més alta, però no hi afegeix cap detall real"
+			},
+			"protocol": {
+				"label": "Descàrregues directes abans que còpies en streaming",
+				"reason": "la mateixa imatge, baixada més de pressa"
+			},
+			"resolution": {
+				"label": "Fins a {{tier}}p",
+				"reason": "el teu límit"
+			},
+			"resolutionBest": {
+				"label": "Màxima resolució",
+				"reason": "sense cap límit definit"
+			},
+			"sitePreference": {
+				"label": "Fluxos que el lloc no desprestigia",
+				"reason": "evita còpies malmeses, amb marca d'aigua o de recanvi"
+			},
+			"size": {
+				"label": "Fitxer més gran",
+				"reason": "més detall amb la mateixa configuració"
+			},
+			"source": {
+				"label": "Primer els fluxos amb taxa de bits millorada",
+				"reason": "més detall amb la mateixa resolució"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "la millor imatge", "smartTv": "es reprodueix a qualsevol dispositiu"}, "fileType": {"auto": "tipus de fitxer segons els fluxos", "explicit": "es desa com a .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "tipus de fitxer segons els fluxos",
+				"explicit": "es desa com a .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "la millor imatge",
+				"smartTv": "es reprodueix a qualsevol dispositiu"
+			}
+		},
+		"whyLabel": "Per què aquest?",
+		"whyTitle": "Per què el perfil ha triat això"
 	},
-	"aiUpscaled": {"label": "Fluxos escalats amb IA", "description": "YouTube ofereix alguns vídeos antics en mides generades amb IA. Omet conserva els fluxos originals; encara pots triar-ne un d'escalat a mà.", "skip": "Omet", "allow": "Permet"},
+	"share": {
+		"copied": "Copiat!",
+		"copyLink": "Copia l'enllaç",
+		"defaultMessage": "Arroxy: descarregador de vídeo gratuït i de codi obert per a Windows, macOS i Linux. Funciona amb YouTube, Vimeo, Twitch i més de 2000 llocs.\n4K · HDR · MP3 · Shorts · Subtítols · SponsorBlock",
+		"description": "Arroxy és gratuït i de codi obert. Compartir-lo ajuda que més gent el descobreixi.",
+		"footerLabel": "Comparteix",
+		"footerTooltip": "Comparteix Arroxy",
+		"shareAction": "Comparteix Arroxy",
+		"title": "Comparteix Arroxy"
+	},
+	"splash": {
+		"cancel": "Tens problemes? Configura-ho manualment",
+		"greeting": "Hola, ja has tornat!",
+		"setup": {
+			"bytes": "{{done}} de {{total}}",
+			"left": {
+				"minutes_many": "queden uns {{count}} de min",
+				"minutes_one": "queda aproximadament {{count}} min",
+				"minutes_other": "queden uns {{count}} min",
+				"underMinute": "queda menys d'un minut"
+			},
+			"note": {
+				"engine": "Fa que les descàrregues continuïn funcionant quan els llocs canvien.",
+				"firstRun": "Això només passa una vegada. Arroxy conserva aquestes eines i les actualitza ell mateix.",
+				"media": "Això només passa una vegada. Arroxy les conserva per a futures actualitzacions."
+			},
+			"stage": {
+				"checking": "Comprovant que tot funciona",
+				"connecting": "Connectant…",
+				"downloadingBoth": "Baixant el motor de descàrrega i les eines multimèdia",
+				"downloadingEngine": "Baixant el motor de descàrrega",
+				"downloadingMedia": "Baixant les eines multimèdia",
+				"unpacking": "Descomprimint les eines multimèdia"
+			},
+			"title": {
+				"engine": "Actualitzant el motor de descàrrega",
+				"firstRun": "Configuració inicial",
+				"media": "Actualitzant les eines multimèdia"
+			}
+		},
+		"verifyFirstCheck": "Primera comprovació d'aquesta versió: aquesta és lenta. Normalment dura un minut aproximadament.",
+		"verifying": "Comprovant {{binary}}…",
+		"warmup": "Preparant les descàrregues…",
+		"warmupFailedNoDiag": "La configuració ha fallat. Obre el registre de configuració per veure'n els detalls."
+	},
+	"status": {
+		"audioKept": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio",
+		"audioKeptSubtitlesFailed": "Vídeo desat amb el so: no s'ha pogut eliminar l'àudio ni baixar alguns subtítols",
+		"cancelled": "Descàrrega cancel·lada",
+		"complete": "Descàrrega completada",
+		"convertingVideo": "Convertint el vídeo…",
+		"diskSpaceInsufficient": "No hi ha prou espai al disc: calen {{required}} i només n'hi ha {{free}} de lliures",
+		"downloadingBinary": "Baixant el binari de {{name}}…",
+		"downloadingMedia": "Baixant vídeo i àudio…",
+		"embeddingMetadata": "Incrustant les metadades…",
+		"exploreSignedOut": "Sessió d'Explora tancada: torna a iniciar-la",
+		"extractingAudio": "Convertint l'àudio…",
+		"fetchingSponsorBlock": "Contactant amb SponsorBlock…",
+		"fetchingSubtitles": "Obtenint els subtítols…",
+		"mergingFormats": "Combinant àudio i vídeo…",
+		"mintingToken": "Generant el testimoni de YouTube…",
+		"movingFiles": "Movent els fitxers…",
+		"noSubtitles": "Sense subtítols en {{languages}}",
+		"outputNotWritable": "No es pot desar a {{dir}}: Arroxy no té permís per escriure-hi",
+		"preparingBinaries": "Preparant els binaris…",
+		"qualityLimited": "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa.",
+		"qualityLimitedSubtitlesFailed": "Desat a {{height}}p: YouTube ha retingut les qualitats superiors per a aquesta descàrrega i no s'han pogut baixar alguns subtítols. Pot ajudar tornar-ho a provar més tard o des d'una altra xarxa.",
+		"remintingToken": "Tornant a generar el testimoni…",
+		"retryingSponsorBlock": "SponsorBlock no disponible, es reintenta ({{attempt}}/{{total}})…",
+		"retryingTransfer": "La connexió s'ha encallat, es reintenta ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Iniciant la sessió amb el teu compte d'Explora…",
+		"sleepingBetweenRequests": "Esperant {{seconds}} s per evitar els límits de sol·licituds…",
+		"startingYtdlp": "Iniciant el motor de descàrrega…",
+		"subtitleLanguagesMissing": "Aquest vídeo no té subtítols en {{languages}}. El vídeo s'ha desat sense subtítols.",
+		"subtitleLanguagesMissingOthersSaved": "Aquest vídeo no té subtítols en {{languages}}. Els altres idiomes s'han desat.",
+		"subtitlesFailed": "Vídeo desat: no s'han pogut baixar alguns subtítols",
+		"unknownStartupFailure": "Error d'inici de descàrrega desconegut",
+		"usedExtractorFallback": "Baixat amb un extractor flexible: configura un cookies.txt per a descàrregues més fiables",
+		"ytdlpExitCode": "El motor de descàrrega ha acabat amb el codi {{code}}",
+		"ytdlpProcessError": "Error del motor de descàrrega: {{error}}"
+	},
+	"theme": {
+		"dark": "Mode fosc",
+		"light": "Mode clar",
+		"system": "Predeterminat del sistema"
+	},
+	"titleBar": {
+		"close": "Tanca",
+		"maximize": "Maximitza",
+		"minimize": "Minimitza",
+		"restore": "Restaura"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Descarrega del porta-retalls",
+			"open": "Obre Arroxy",
+			"quit": "Surt d'Arroxy",
+			"statusActive_many": "{{count}} descarregant · {{percent}}%",
+			"statusActive_one": "1 descarregant · {{percent}}%",
+			"statusActive_other": "{{count}} descarregant · {{percent}}%",
+			"statusIdle": "Inactiu"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Ordre copiada al porta-retalls",
+		"copy": "Copia l'ordre al porta-retalls",
+		"dismiss": "Descarta el bàner d'actualització",
+		"download": "Baixa ↗",
+		"downloadDmg": "Baixa el DMG ↗",
+		"downloading": "Baixant…",
+		"install": "Instal·la i reinicia",
+		"installFailed": "L'actualització ha fallat",
+		"message": {
+			"generic": "Arroxy {{version}} ja és disponible: tens la {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} ja és disponible: actualitza amb Homebrew.",
+			"macosDirect": "Arroxy {{version}} ja és disponible: baixa el DMG nou.",
+			"macosDirectHomebrew": "Arroxy {{version}} ja és disponible: baixa el DMG o canvia a Homebrew.",
+			"portable": "Arroxy {{version}} ja és disponible: baixa la compilació nova."
+		},
+		"retry": "Torna-ho a provar",
+		"runAndRestart": "Executa i reinicia",
+		"upgrading": "Actualitzant…"
+	},
+	"videoCard": {
+		"chapters_many": "{{count}} de capítols",
+		"chapters_one": "{{count}} capítol",
+		"chapters_other": "{{count}} capítols",
+		"titlePlaceholder": "Carregant…"
+	},
 	"videoCodec": {
-		"label": "Còdec de vídeo",
-		"description": "Quin còdec s'agafa primer entre fluxos de la mateixa alçada. Automàtic manté l'ordre propi de yt-dlp, que afavoreix l'AV1, el més petit; l'H.264 es reprodueix en televisors i telèfons més antics.",
-		"smartTv": "Smart TV sempre agafa H.264.",
 		"auto": "Automàtic",
-		"vp9": "Primer VP9",
-		"h264": "Primer H.264"
+		"description": "Quin còdec s'agafa primer entre fluxos de la mateixa alçada. Automàtic manté l'ordre propi de yt-dlp, que afavoreix l'AV1, el més petit; l'H.264 es reprodueix en televisors i telèfons més antics.",
+		"h264": "Primer H.264",
+		"label": "Còdec de vídeo",
+		"smartTv": "Smart TV sempre agafa H.264.",
+		"vp9": "Primer VP9"
 	},
-	"hdrPreference": {"label": "Vídeo HDR", "description": "Automàtic tria HDR quan aquesta pantalla el pot mostrar i, si no, SDR. L'HDR es veu apagat en pantalles normals.", "sdr": "SDR", "hdr": "HDR", "auto": "Automàtic"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "A punt",
+			"description": "Enganxa URL de vídeos, llistes de reproducció, canals, cerques o àudios. Arroxy eliminarà els duplicats abans d'afegir-los a la cua.",
+			"emptyPreview": "Enganxa una o més URL per previsualitzar el lot.",
+			"ignoredCount": "Ignorades",
+			"needsAtLeastOne": "Afegeix almenys una URL compatible per continuar.",
+			"reject": {
+				"duplicate": "Duplicada"
+			},
+			"textareaLabel": "Llista d'URL",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "URL en bloc"
+		},
+		"confirm": {
+			"addToQueue": "+ Cua",
+			"addToQueueTooltip": "Afegeix a la cua: comença quan acabi la descàrrega activa",
+			"audioOnly": "Només àudio",
+			"itemsValueAudio_many": "{{count}} de {{total}} pistes",
+			"itemsValueAudio_one": "{{count}} de {{total}} pista",
+			"itemsValueAudio_other": "{{count}} de {{total}} pistes",
+			"itemsValueBulk_many": "{{count}} de {{total}} URL",
+			"itemsValueBulk_one": "{{count}} de {{total}} URL",
+			"itemsValueBulk_other": "{{count}} de {{total}} URL",
+			"itemsValue_many": "{{count}} de {{total}} vídeos",
+			"itemsValue_one": "{{count}} de {{total}} vídeo",
+			"itemsValue_other": "{{count}} de {{total}} vídeos",
+			"labelAudio": "Àudio",
+			"labelBulk": "Lot",
+			"labelItems": "Elements",
+			"labelPlaylist": "Llista de reproducció",
+			"labelPreset": "Predefinit",
+			"labelSaveTo": "Desa a",
+			"labelSize": "Mida",
+			"labelSubtitles": "Subtítols",
+			"labelVideo": "Vídeo",
+			"landIn": "El fitxer es desarà a",
+			"landInMultiProfile_many": "Es desaran a les {{count}} de destinacions següents",
+			"landInMultiProfile_one": "Es desarà a la destinació següent",
+			"landInMultiProfile_other": "Es desaran a les {{count}} destinacions següents",
+			"nothingToDownload": "El predefinit només subtítols és actiu, però no hi ha cap idioma de subtítols seleccionat: no es baixarà res.",
+			"profileBreakdownCount_many": "{{count}} d'elements",
+			"profileBreakdownCount_one": "{{count}} element",
+			"profileBreakdownCount_other": "{{count}} elements",
+			"profileBreakdownHeading": "Perfils d'aquest lot",
+			"pullIt": "Descarrega! ↓",
+			"pullItTooltip": "Salta la cua: comença ara i s'executa amb les altres descàrregues actives",
+			"readyHeadline": "A punt per descarregar!",
+			"sizeUnknown": "Desconeguda",
+			"subtitleEmbedAudioOnly": "La incrustació de subtítols s'ha canviat a fitxer extern: les pistes d'àudio no admeten fluxos de subtítols incrustats.",
+			"subtitleEmbedForcesMkv": "Els subtítols dins del vídeo requereixen un fitxer MKV, així que aquesta descàrrega es desa com a .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "S'ha omès la incrustació de la miniatura: el contenidor de sortida no l'admet."
+		},
+		"folder": {
+			"custom": "Personalitzada…",
+			"desktop": "Escriptori",
+			"documents": "Documents",
+			"downloads": "Descàrregues",
+			"heading": "Desa a",
+			"home": "Inici",
+			"music": "Música",
+			"pictures": "Imatges",
+			"subfolder": {
+				"invalid": "El nom de la carpeta té caràcters no vàlids",
+				"placeholder": "p. ex., extractes lo-fi",
+				"toggle": "Desa dins d'una subcarpeta"
+			},
+			"videos": "Pel·lícules"
+		},
+		"formats": {
+			"audio": "Àudio",
+			"audioLanguage": "Idioma de l'àudio",
+			"audioLanguageCount_many": "{{count}} d'idiomes",
+			"audioLanguageCount_one": "{{count}} idioma",
+			"audioLanguageCount_other": "{{count}} idiomes",
+			"audioOnly": "Només àudio",
+			"bitrateValue": "Taxa de bits {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Les galetes estan configurades però desactivades. Activa-les i torna-ho a provar per obtenir la llista completa, o canvia de xarxa i torna-ho a provar.",
+				"bodyEnabled": "Fins i tot amb galetes, YouTube ha limitat aquesta anàlisi. Torna-ho a provar més tard o canvia de xarxa.",
+				"bodyExplore": "YouTube ha limitat aquesta sol·licitud. Torna-ho a provar més tard o canvia de xarxa.",
+				"bodyUnconfigured": "És possible que la llista de formats estigui incompleta. Configura les galetes a la configuració avançada, o canvia de xarxa i torna-ho a provar.",
+				"enableRetryCta": "Activa les galetes i torna-ho a provar",
+				"heading": "L'anàlisi s'ha limitat",
+				"retryCta": "Torna-ho a provar"
+			},
+			"convert": {
+				"bitrate": "Taxa de bits",
+				"bitrateCopyHint": "Una font que ja és {{target}} conserva el seu flux i la seva taxa de bits: es copia, no es recodifica.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, sense recodificar",
+				"copyLabelNoBitrate": "{{target}}, sense recodificar",
+				"copyNote": "{{kbps}} kbps, tal com els té la font: el flux ja és {{target}}, així que es copia, no es recodifica",
+				"copyNoteNoBitrate": "Tal com el té la font: el flux ja és {{target}}, així que es copia, no es recodifica",
+				"label": "Converteix",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "La font és de {{kbps}} kbps",
+				"wavLabel": "WAV (sense comprimir)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Navegador",
+				"currentModeExplore": "Inici de sessió a Explora",
+				"currentModeFile": "Fitxer",
+				"currentModeLabel": "Font de les galetes",
+				"dpapi": {
+					"docsLinkLabel": "Documentació de yt-dlp (incidència #10927)",
+					"explanation": "Chrome 127 i posteriors xifra les galetes d'una manera que altres aplicacions no poden llegir a Windows. Prova una de les solucions alternatives següents.",
+					"fixFileBody": "Exporta les galetes de Chrome amb una extensió del navegador, passa després aquesta aplicació al mode Fitxer i tria el fitxer exportat.",
+					"fixFileLabel": "Exporta cookies.txt",
+					"fixFirefoxBody": "Firefox no fa servir App-Bound Encryption. Obre la configuració de les galetes i tria Firefox a la llista de navegadors.",
+					"fixFirefoxLabel": "Canvia a Firefox",
+					"fixUnsafeBody": "Afegeix --disable-features=LockProfileCookieDatabase a la drecera d'inici de Chrome. Atenció: això invalida les galetes xifrades anteriorment, de manera que se't tancarà la sessió a tots els llocs i hauràs de tornar-hi a iniciar.",
+					"fixUnsafeLabel": "Inicia Chrome amb App-Bound Encryption desactivat",
+					"heading": "Galetes de Chrome bloquejades pel xifratge de Windows"
+				},
+				"explanationBrowser": "Les galetes es llegeixen directament del navegador. Si el navegador s'està executant, la seva base de dades de galetes pot estar bloquejada (família Chromium). A més, el navegador ha de tenir la sessió iniciada a YouTube. Prova de tancar el navegador, de canviar a un altre navegador, de passar al mode Fitxer o de desactivar les galetes.",
+				"explanationFile": "Pot ser que el fitxer de galetes sigui buit, hagi caducat o tingui un format incorrecte (Arroxy necessita un cookies.txt en format Netscape). Prova de tornar a exportar les galetes, de triar un altre fitxer, de passar al mode Navegador o de desactivar les galetes.",
+				"exploreOffer": {
+					"body": "Inicia la sessió a Explora i Arroxy ho tornarà a provar.",
+					"cta": "Inicia la sessió a Explora",
+					"heading": "És possible que aquest vídeo necessiti un compte de YouTube"
+				},
+				"exploreRefused": {
+					"body": "Arroxy ja ho ha provat amb la sessió iniciada a Explora, així que tornar-hi a iniciar la sessió no ajudarà. Potser el lloc té problemes o aquest compte no hi pot accedir. Torna-ho a provar més tard.",
+					"heading": "El lloc ho ha rebutjat fins i tot amb el teu inici de sessió a Explora"
+				},
+				"exploreReuse": {
+					"body": "Tens la sessió iniciada a Explora, però ara mateix les descàrregues no fan servir aquest inici de sessió.",
+					"cta": "Usa el meu inici de sessió a Explora i torna-ho a provar",
+					"heading": "És possible que aquest vídeo necessiti un compte de YouTube"
+				},
+				"exploreSignIn": {
+					"body": "Si aquest vídeo necessita un compte de YouTube, inicia la sessió a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita.",
+					"cta": "Inicia la sessió a Explora",
+					"heading": "És possible que aquest vídeo necessiti un compte de YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "Si aquest vídeo necessita un compte, Arroxy fa servir automàticament el teu inici de sessió a Explora. Pot ser que no estigui disponible per un altre motiu.",
+					"heading": "Sessió iniciada a Explora"
+				},
+				"exploreSite": {
+					"heading": "És possible que aquest enllaç necessiti un compte a {{host}}",
+					"offerBody": "Inicia la sessió a {{host}} amb Explora i torna-ho a provar.",
+					"signInBody": "Inicia la sessió a {{host}} a Explora i torna-ho a provar. Arroxy només fa servir aquest inici de sessió quan una descàrrega el necessita."
+				},
+				"heading": "Les galetes podrien ser la causa",
+				"needsCookies": {
+					"body": "Arroxy no ha pogut accedir a aquest vídeo sense autenticació. Configura les galetes a la configuració avançada: apunta a un navegador amb la sessió ja iniciada o importa un fitxer cookies.txt.",
+					"heading": "Aquest lloc requereix iniciar la sessió"
+				},
+				"openSettingsCta": "Obre la configuració de les galetes",
+				"otherCookiesCta": "Usa un fitxer de galetes o un navegador…"
+			},
+			"drc": {
+				"description": "Suavitza les parts fortes i reforça les fluixes, per a altaveus i entorns sorollosos.",
+				"label": "Uniformitza el volum (DRC)",
+				"tag": "Volum uniforme"
+			},
+			"fit": {
+				"mp4Unavailable": "El teu perfil és Smart TV (H.264). Aquest vídeo no ofereix H.264, així que se selecciona el flux més proper.",
+				"noVideo": "Aquest enllaç no té vídeo, així que se selecciona l'àudio.",
+				"subtitlesMissing": "El teu perfil demana subtítols en {{languages}}. Aquest vídeo no en té.",
+				"tierAbove": "El teu perfil demana {{wanted}}p. Aquest vídeo no té res tan petit, així que se selecciona {{picked}}p.",
+				"tierBelow": "El teu perfil demana {{wanted}}p. Aquest vídeo només arriba a {{picked}}p, així que se selecciona {{picked}}p.",
+				"webmUnavailable": "El teu perfil demana WebM. Els fluxos triats d'aquest vídeo inclouen {{codec}}, que WebM no pot contenir, així que el tipus de fitxer és Automàtic."
+			},
+			"footer": {
+				"addToQueue": "Afegeix a la cua sense començar",
+				"download": "Descarrega",
+				"moreActions": "Més opcions de descàrrega",
+				"subtitlesRequired": "Tria almenys un idioma de subtítols."
+			},
+			"keepAudio": "Deixa-ho tal qual",
+			"keepAudioMeta": "Àudio integrat",
+			"kind": {
+				"audio": "Només àudio",
+				"label": "Què vols baixar",
+				"subtitles": "Només subtítols",
+				"video": "Vídeo + àudio",
+				"videoOnly": "Vídeo, sense àudio"
+			},
+			"loadingAria": "Carregant els formats",
+			"loadingHint": "Espera que acabi l'anàlisi: les llistes de reproducció i les cerques poden trigar una mica.",
+			"marker": {
+				"aiDubbed": "Doblat amb IA",
+				"aiUpscaled": "Escalat amb IA",
+				"audioDescription": "Audiodescripció",
+				"damaged": "Malmès",
+				"enhancedBitrate": "Taxa de bits millorada",
+				"spatialAudio": "Àudio espacial",
+				"vr": "360° / VR",
+				"watermarked": "Amb marca d'aigua"
+			},
+			"noAudio": "Sense àudio",
+			"profile": {
+				"calloutBody": "El teu perfil actiu preselecciona els fluxos per tu. Canvia de perfil des del menú o fes servir el llapis per ajustar-ne un sense sortir d'aquesta descàrrega.",
+				"calloutTitle": "Els formats parteixen del teu perfil",
+				"closestTag": "El més proper al perfil",
+				"edit": "Edita {{name}}",
+				"keepEdits": "Conserva els meus canvis",
+				"menuDescription": "Només per a aquesta descàrrega. El teu perfil predeterminat no canvia.",
+				"preselected": "Preseleccionat de",
+				"resetAll": "Restableix-ho tot",
+				"switchBody": "Has canviat {{areas}} per a aquesta descàrrega. «{{profile}}» tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?",
+				"switchTitle": "Vols canviar de perfil?",
+				"tag": "Perfil",
+				"updatedBody": "Has canviat {{areas}} per a aquesta descàrrega. El perfil actualitzat tria el vídeo i l'àudio en qualsevol cas. Vols conservar la resta de canvis o restablir-ho tot al perfil?",
+				"updatedTitle": "Vols usar el perfil actualitzat?"
+			},
+			"quality": {
+				"high": "Qualitat alta",
+				"low": "Qualitat baixa",
+				"medium": "Qualitat mitjana"
+			},
+			"rateLimit": {
+				"heading": "{{site}} està limitant aquesta connexió",
+				"leadDegraded": "És possible que la llista de formats estigui incompleta.",
+				"leadFailed": "{{site}} ha rebutjat aquesta sol·licitud de moment.",
+				"retryCta": "Torna-ho a provar",
+				"sessionNote": "{{site}} pot mantenir aquest límit fins a una hora.",
+				"tryNowCta": "Prova ara",
+				"waitOver": "L'espera ha acabat, així que ja ho pots tornar a provar.",
+				"waitUntil": "Arroxy espera fins a les {{time}} abans de tornar a consultar {{site}}, perquè el límit es pugui aixecar."
+			},
+			"resolutionUnknown": "Resolució desconeguda",
+			"savesAs": {
+				"label": "Es desa com a",
+				"reset": "WebM no pot contenir {{codec}}, així que el tipus de fitxer ha tornat a Automàtic."
+			},
+			"sizeUnknown": "Mida desconeguda",
+			"skipToConfirm": "Salta a la confirmació",
+			"skipToConfirmTooltip": "Usa les preferències desades per a tots els passos restants. Per canviar una opció, continua pas a pas: la teva elecció es desarà per a la propera vegada.",
+			"sniffing": "Buscant els millors formats per a tu…",
+			"total": "Total",
+			"video": "Vídeo",
+			"withAudio": "amb àudio"
+		},
+		"mixedPrompt": {
+			"body": "Vols només el vídeo en què has fet clic o triar de la llista de reproducció? A continuació triaràs vídeos concrets o un interval.",
+			"pickFromPlaylist": "Tria de la llista",
+			"playlistLimit": "Límit d'anàlisi de la llista: {{count}} elements",
+			"playlistTooltip": "Carrega la llista de reproducció, fins al límit d'anàlisi, abans de mostrar el selector.",
+			"quickBody": "Descarrega només aquest vídeo o posa a la cua tota la llista de reproducció amb el perfil de Descàrrega ràpida actiu.",
+			"quickLimitDescription": "Nombre màxim d'entrades que Arroxy examina abans de posar a la cua una llista de reproducció, un canal o els resultats d'una cerca.",
+			"quickPlaylistTooltip": "Posa a la cua tots els elements carregats de la llista amb el perfil de Descàrrega ràpida actiu. Si l'exploració arriba al límit, Arroxy et pregunta abans d'afegir-los.",
+			"quickSingleTooltip": "Posa a la cua una descàrrega i ignora la llista de reproducció associada a aquesta URL.",
+			"quickSingleVideo": "Descarrega aquest vídeo",
+			"quickWholePlaylist": "Descarrega tota la llista",
+			"singleTooltip": "Carrega només aquest vídeo. S'ignora la llista de reproducció associada a aquesta URL.",
+			"singleVideo": "Només aquest",
+			"title": "Aquest enllaç té una llista de reproducció"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Marcadors de capítol que es poden navegar en qualsevol reproductor modern.",
+				"label": "Incrusta els capítols"
+			},
+			"embedMetadata": {
+				"description": "Títol, artista, descripció i data de pujada escrits dins del fitxer.",
+				"label": "Incrusta les metadades"
+			},
+			"embedThumbnail": {
+				"description": "Portada dins del fitxer. El vídeo WebM es remultiplexarà a MKV; s'omet quan s'incrusten subtítols.",
+				"label": "Incrusta la miniatura"
+			},
+			"writeDescription": {
+				"description": "Desa la descripció del vídeo en un fitxer de text .description al costat de la descàrrega.",
+				"label": "Desa la descripció"
+			},
+			"writeM3u": {
+				"description": "Desa una llista de reproducció .m3u al costat dels vídeos perquè s'obrin en ordre al reproductor multimèdia.",
+				"label": "Genera un fitxer de llista .m3u"
+			},
+			"writeThumbnail": {
+				"description": "Desa la miniatura com a fitxer d'imatge .jpg al costat de la descàrrega.",
+				"label": "Desa la miniatura"
+			}
+		},
+		"part": {
+			"calloutBody": "Canvia a Fragment a la targeta del vídeo per triar un inici i un final, o un capítol, i baixar només aquest tram.",
+			"calloutTitle": "Descarrega només un fragment d'un vídeo",
+			"chapterUntitled": "Capítol {{number}}",
+			"chapters": "Capítols",
+			"connectionsNote": "Un fragment es baixa mitjançant ffmpeg, així que no se li apliquen les connexions de descàrrega ni la configuració de ritme.",
+			"downloadBlocked": "Corregeix primer l'inici i el final del fragment.",
+			"end": "Final",
+			"error": {
+				"endBeyondDuration": "El vídeo acaba a {{duration}}.",
+				"endInvalid": "Introdueix el final com h:mm:ss, m:ss o segons.",
+				"startInvalid": "Introdueix l'inici com h:mm:ss, m:ss o segons.",
+				"startNotBeforeEnd": "L'inici ha de ser abans del final."
+			},
+			"exactCut": {
+				"hint": "Desactivat: cada tall s'ajusta al fotograma clau més proper, que pot ser a uns quants segons del temps que has escrit.",
+				"label": "Tall exacte (recodifica, més lent)"
+			},
+			"length": "{{length}} de {{duration}}",
+			"part": "Fragment",
+			"rangeLabel": "Fragment del vídeo",
+			"start": "Inici",
+			"subtitlesFullLength": "vídeo sencer",
+			"summary": "Fragment {{start}}–{{end}}",
+			"switchLabel": "Quant del vídeo",
+			"timeHint": "h:mm:ss, m:ss o segons",
+			"totalEstimate": "Fragment, estimat",
+			"unavailableDuration": "Aquest vídeo no indica la durada, així que només es pot baixar sencer.",
+			"unavailableSubtitles": "Els subtítols sempre cobreixen tot el vídeo.",
+			"urlStart": "El teu enllaç comença a {{time}}",
+			"useUrlStart": "Usa com a inici",
+			"whole": "Vídeo sencer",
+			"wholeTrack": "Pista sencera"
+		},
+		"playlist": {
+			"allRemovedDescription": "Restaura'ls per continuar.",
+			"allRemovedTitle": "S'han eliminat tots els elements",
+			"alreadyDownloaded": "Ja baixat",
+			"bulkHeading": "URL en bloc",
+			"bulkMetadataOptional": "No cal esperar: els fitxers que posis a la cua ara també rebran el nom real quan es baixin.",
+			"bulkMetadataResolving": "Obtenint els detalls dels vídeos… {{done}}/{{total}}",
+			"bulkRowFailed": "Detalls no disponibles",
+			"bulkRowResolving": "Obtenint detalls",
+			"bulkRowWaiting": "En espera",
+			"durationUnknown": "en directe",
+			"heading": "Elements de la llista",
+			"headingGeneric": "Vídeos per baixar",
+			"itemCountAudio_many": "{{count}} de pistes",
+			"itemCountAudio_one": "{{count}} pista",
+			"itemCountAudio_other": "{{count}} pistes",
+			"itemCountBulk_many": "{{count}} d'URL",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_many": "{{count}} de vídeos",
+			"itemCount_one": "{{count}} vídeo",
+			"itemCount_other": "{{count}} vídeos",
+			"loadingItems": "Obtenint la llista de reproducció…",
+			"loadingItemsGeneric": "Obtenint els vídeos…",
+			"loadingLimitHint": "Limitat als primers {{count}} elements",
+			"loadingPagesFound_many": "{{count}} de pàgines trobades",
+			"loadingPagesFound_one": "{{count}} pàgina trobada",
+			"loadingPagesFound_other": "{{count}} pàgines trobades",
+			"loadingPhaseItems": "Recollint vídeos",
+			"loadingPhasePages": "Examinant les pàgines del canal",
+			"multiProfileEntry": "Assigna perfils per element",
+			"multiProfileEntryTooltip": "Omet Qualitat, SponsorBlock, Sortida i Desa: assigna un perfil de descàrrega per a cada element",
+			"nestedPlaylistBadge": "Llista de reproducció",
+			"nestedPlaylistHint_many": "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les.",
+			"nestedPlaylistHint_one": "{{count}} d'aquests és una llista de reproducció, no un vídeo: enganxa'n l'enllaç per separat per baixar-la.",
+			"nestedPlaylistHint_other": "{{count}} d'aquests són llistes de reproducció, no vídeos: enganxa'n els enllaços d'un en un per baixar-les.",
+			"noSelection": "Selecciona almenys un vídeo per continuar",
+			"probeLimitAlertDesc": "Es mostren els primers {{count}} elements. Augmenta el límit de càrrega per veure'n més.",
+			"probeLimitAlertTitle": "L'exploració de la llista té un límit",
+			"probeLimitAlertTitleGeneric": "L'exploració té un límit",
+			"rangeApply": "Aplica l'interval",
+			"rangeFrom": "Des de",
+			"rangeTo": "Fins a",
+			"removeFromListCount_many": "Elimina {{count}} de la llista",
+			"removeFromListCount_one": "Elimina {{count}} de la llista",
+			"removeFromListCount_other": "Elimina {{count}} de la llista",
+			"removedCount_many": "{{count}} eliminats",
+			"removedCount_one": "{{count}} eliminat",
+			"removedCount_other": "{{count}} eliminats",
+			"restore": "Restaura",
+			"selectAll": "Selecciona-ho tot",
+			"selectNone": "No en seleccionis cap",
+			"selectedCount_many": "{{count}} seleccionats",
+			"selectedCount_one": "{{count}} seleccionat",
+			"selectedCount_other": "{{count}} seleccionats",
+			"sortApi": "Ordre de la llista",
+			"sortFetchingDates": "Obtenint les dates de pujada…",
+			"sortLabel": "Ordena",
+			"sortUploadAsc": "Primer els més antics",
+			"sortUploadDesc": "Primer els més recents",
+			"syncApply": "Aplica la sincronització",
+			"syncChange": "Canvia la carpeta…",
+			"syncFoundDesc": "{{n}} d'aquests vídeos ja són a {{dir}}. Vols sincronitzar per baixar només els nous?",
+			"syncFoundTitle": "Ja són a la carpeta",
+			"syncNoneDesc": "No s'ha trobat cap vídeo d'aquesta llista de reproducció a {{dir}}.",
+			"syncNoneDescGeneric": "No s'ha trobat cap vídeo d'aquesta font a {{dir}}.",
+			"syncNoneTitle": "Encara no s'ha baixat res",
+			"syncScanning": "Comprovant la carpeta…",
+			"thumbnailAlt": "Miniatura del vídeo"
+		},
+		"playlistPresets": {
+			"heading": "Tria la qualitat del lot",
+			"itemCount_many": "{{count}} d'elements",
+			"itemCount_one": "{{count}} element",
+			"itemCount_other": "{{count}} elements",
+			"subhead": "Cada vídeo resol el nivell triat per separat: les llistes heterogènies funcionen sense sorpreses."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Assigna un perfil",
+			"assignTrigger_many": "Assigna a {{count}} de vídeos",
+			"assignTrigger_one": "Assigna a {{count}} vídeo",
+			"assignTrigger_other": "Assigna a {{count}} vídeos",
+			"columnDuration": "Durada",
+			"columnProfile": "Perfil",
+			"editProfile": "Edita {{name}}",
+			"empty": "Cap element coincideix amb aquest filtre",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Filtres de perfil",
+			"heading": "Assigna perfils de descàrrega",
+			"menuDescription_many": "Tria el perfil d'aquests {{count}} de vídeos.",
+			"menuDescription_one": "Tria el perfil d'aquest vídeo.",
+			"menuDescription_other": "Tria el perfil d'aquests {{count}} vídeos.",
+			"selectedSummary": "{{selected}} de {{total}} seleccionats"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Canvia el global",
+				"chooseFolder": "Tria la carpeta de destinació",
+				"chooseIcon": "Tria la icona del perfil",
+				"removeLanguage": "Elimina {{code}}",
+				"reset": "Restableix el perfil",
+				"resetDisabledHint": "Aquest perfil ja fa servir la configuració integrada",
+				"resetHint": "Restaura la configuració integrada del perfil",
+				"save": "Desa el perfil",
+				"setOverride": "Defineix una substitució del perfil",
+				"setOverrideShort": "Defineix substitució",
+				"useGlobalDefault": "Usa el valor global predeterminat",
+				"useLanguageCode": "Usa el codi d'idioma «{{code}}»"
+			},
+			"advanced": "Avançat",
+			"appSetting": "Usa la configuració de l'aplicació ({{value}})",
+			"audioFormat": {
+				"best": "El millor",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Fins a 128K",
+				"192": "Fins a 192K",
+				"320": "Fins a 320K",
+				"best": "Màxima qualitat"
+			},
+			"destination": {
+				"defaultFolder": "Carpeta de descàrregues predeterminada",
+				"defaultFolderWithSubfolder": "Carpeta de descàrregues predeterminada / {{subfolder}}",
+				"global": "Destinació global",
+				"globalActive": "Activa",
+				"globalInherited": "Heretada",
+				"override": "Substitució del perfil",
+				"overrideChoosing": "Tria una carpeta",
+				"overrideNone": "Sense substitució",
+				"overrideNoneNote": "No hi ha cap substitució. Aquest perfil fa servir la destinació global de dalt.",
+				"overrideSet": "Substitueix el global",
+				"overrideSetNote": "Aquest perfil es desa a la seva pròpia arrel abans que s'afegeixi la subcarpeta.",
+				"resolved": "Destinació resultant"
+			},
+			"dialogDescription": "Una configuració reutilitzable per a la Descàrrega ràpida, les URL en bloc i les llistes de reproducció.",
+			"dialogTitle": "Perfil de descàrrega",
+			"error": {
+				"changeGlobalDestination": "No s'ha pogut canviar la destinació global.",
+				"folderPicker": "No s'ha pogut obrir el selector de carpetes. Introdueix una ruta manualment.",
+				"reset": "No s'ha pogut restablir la configuració del perfil.",
+				"save": "No s'ha pogut desar la configuració del perfil."
+			},
+			"field": {
+				"delivery": "Lliurament",
+				"fileType": "Tipus de fitxer",
+				"goal": "Optimitza per a",
+				"icon": "Icona del perfil",
+				"languages": "Idiomes",
+				"name": "Nom del perfil",
+				"nameAndIcon": "Nom i icona del perfil",
+				"nativeAudio": "Àudio original",
+				"overridePath": "Ruta de substitució del perfil",
+				"quality": "Qualitat",
+				"resolution": "Resolució",
+				"source": "Font",
+				"subfolderName": "Nom de la subcarpeta",
+				"subtitleDownloads": "Descàrrega de subtítols",
+				"subtitleDownloadsDescription": "Els perfils demanen codis d'idioma; la disponibilitat es resol per a cada URL."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "La més nítida per a una mida determinada. Els televisors antics, QuickTime i alguns editors no la poden reproduir.",
+					"name": "Millor imatge",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Es reprodueix en televisors, telèfons, WhatsApp, QuickTime i editors de vídeo. YouTube ofereix H.264 només fins a 1080p.",
+					"name": "Smart TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arxiu",
+				"audio": "Àudio",
+				"captions": "Llegendes",
+				"classes": "Classes",
+				"clip": "Clip",
+				"controls": "Controls",
+				"download": "Descàrrega",
+				"music": "Música",
+				"podcast": "Pòdcast",
+				"video": "Vídeo"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Música o pòdcasts",
+					"label": "Només àudio"
+				},
+				"subtitlesOnly": {
+					"description": "Només fitxers de subtítols",
+					"label": "Només subtítols"
+				},
+				"videoAudio": {
+					"description": "Fitxers de vídeo normals",
+					"label": "Vídeo + àudio"
+				},
+				"videoOnly": {
+					"description": "Només vídeo mut",
+					"label": "Vídeo, sense àudio"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Els subtítols automàtics es desaran com a SRT en lloc d'ASS.",
+				"noLanguageMatches": "Cap idioma coincident",
+				"noSubtitles": "No es demanaran fitxers de subtítols ni pistes de subtítols incrustades per a aquest perfil.",
+				"searchLanguages": "Cerca pel nom o el codi de l'idioma",
+				"skippedForOutputType": "S'omet per a aquest tipus de sortida.",
+				"subtitleLanguagesRequired": "Tria almenys un idioma.",
+				"subtitleLanguagesRequiredOrOff": "Tria almenys un idioma o desactiva la descàrrega de subtítols.",
+				"subtitlesOnly": "Aquest perfil només posa a la cua fitxers de subtítols. S'ometen el vídeo, l'àudio, SponsorBlock i la conversió multimèdia."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Els perfils hereten la destinació global tret que defineixis una substitució del perfil.",
+					"title": "Opcions avançades"
+				},
+				"downloadType": {
+					"description": "Tria la forma principal en què vols baixar.",
+					"title": "Tipus de descàrrega"
+				},
+				"identity": {
+					"description": "Nom i icona que es mostren a la Descàrrega ràpida, les URL en bloc i les llistes de perfils.",
+					"title": "Identitat del perfil"
+				},
+				"output": {
+					"enabledCount_many": "{{count}} activades",
+					"enabledCount_one": "{{count}} activada",
+					"enabledCount_other": "{{count}} activades",
+					"title": "Opcions de sortida"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Tria una carpeta per a aquest perfil"
+			},
+			"skipped": "Omès",
+			"sponsorBlockHint": {
+				"mark": "Marca els segments de patrocini com a capítols (no destructiu).",
+				"off": "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar.",
+				"remove": "Talla els segments de patrocini del vídeo amb FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Només autogenerats",
+				"manualAndAuto": "Manuals i automàtics",
+				"manualFirst": "Primer manuals, després automàtics",
+				"manualOnly": "Només manuals"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Ajuda de {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Cancel·la la preparació",
+			"currentFallback": "Enllaç actual",
+			"description": "Arroxy està llegint l'enllaç i aplicant {{profileName}}.",
+			"failedCount_many": "{{count}} han fallat",
+			"failedCount_one": "{{count}} ha fallat",
+			"failedCount_other": "{{count}} han fallat",
+			"phase": {
+				"probing": "Obtenint detalls",
+				"queueing": "Afegint a la cua"
+			},
+			"title": "Preparant la Descàrrega ràpida",
+			"waitHint": "Deixa això obert mentre Arroxy prepara la cua."
+		},
+		"review": {
+			"areas": {
+				"extras": "extres",
+				"fileName": "nom del fitxer",
+				"format": "format",
+				"saveTo": "carpeta",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "subtítols"
+			},
+			"callout": {
+				"body": "Els subtítols, SponsorBlock, els extres com la miniatura, la carpeta i el nom del fitxer eren passos separats. Fes clic en una fila per canviar-la.",
+				"title": "Tota la resta de la configuració ara és en aquesta pàgina"
+			},
+			"changeFormat": "Canvia el format",
+			"changed": "Canviat respecte de {{profile}}: {{areas}}. S'aplica només a aquesta descàrrega.",
+			"changedFrom": "Canviat respecte de {{profile}}:",
+			"nextTime": {
+				"action": "Desa com a perfil",
+				"defaultName": "{{profile}} (editat)",
+				"title": "Aquesta descàrrega ha fet servir una configuració editada. La vols usar la propera vegada?"
+			},
+			"reset": "Desfés els canvis i torna a «{{profile}}»",
+			"rows": {
+				"extras": "Extres",
+				"fileName": "Nom del fitxer",
+				"saveTo": "Desa a",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Subtítols"
+			},
+			"rowsHeading": "Tota la resta",
+			"save": {
+				"action": "Desa el perfil",
+				"description": "Conserva aquesta configuració com a perfil que podràs triar la propera vegada. El teu perfil de Descàrrega ràpida no canvia.",
+				"failed": "No s'ha pogut desar el perfil.",
+				"nameLabel": "Nom del perfil",
+				"saved": "Desat com a perfil «{{name}}»",
+				"title": "Desa com a perfil"
+			},
+			"saveAsProfile": "Desa com a perfil nou",
+			"update": {
+				"action": "Actualitza el perfil",
+				"builtinNote": "Aquest és un perfil integrat. Pots restaurar-ne la configuració original a la pestanya Perfils.",
+				"description": "A partir d'ara, totes les descàrregues amb aquest perfil faran servir la configuració nova.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "Vols actualitzar «{{profile}}»?",
+				"updated": "S'ha actualitzat el perfil «{{name}}»"
+			},
+			"updateProfile": "Actualitza «{{profile}}» amb aquests canvis",
+			"value": {
+				"extrasNone": "Cap",
+				"sponsorBlockOff": "Desactivat",
+				"subtitlesOff": "Desactivats"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Farciment",
+				"intro": "Introducció",
+				"music_offtopic": "Música fora de tema",
+				"outro": "Final",
+				"preview": "Avançament",
+				"selfpromo": "Autopromoció",
+				"sponsor": "Patrocini"
+			},
+			"categoriesHeading": "Categories",
+			"mode": {
+				"mark": "Marca com a capítols",
+				"off": "Desactivat",
+				"remove": "Elimina els segments"
+			},
+			"modeHeading": "Filtratge de patrocinis",
+			"modeHint": {
+				"mark": "Marca els segments de patrocini com a capítols (no destructiu).",
+				"off": "Sense SponsorBlock: el vídeo es reprodueix tal com es va pujar.",
+				"remove": "Talla els segments de patrocini del vídeo amb FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Confirma",
+			"folder": "Desa",
+			"formats": "Format",
+			"output": "Sortida",
+			"playlistItems": "Llista",
+			"playlistItemsGeneric": "Vídeos",
+			"playlistPresets": "Qualitat",
+			"playlistProfiles": "Perfils",
+			"review": "Revisa",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Subtítols",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Els subtítols automàtics es desaran com a SRT en lloc d'ASS: als vídeos de YouTube se'ls treu la duplicació de les indicacions rodants, cosa que el nostre convertidor d'ASS encara no pot replicar.",
+			"autoBadge": "Auto",
+			"clearAll": "Esborra-ho tot",
+			"embedNote": "El mode d'incrustació desa la sortida com a .mkv perquè les pistes de subtítols s'incrustin de manera fiable.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Aquest vídeo no té subtítols disponibles",
+			"noMatches": "Cap idioma coincideix",
+			"noSelected": "Cap subtítol seleccionat",
+			"removeLanguage": "Elimina {{name}}",
+			"saveMode": {
+				"embed": "Incrusta al vídeo",
+				"heading": "Desa com a",
+				"sidecar": "Al costat del vídeo",
+				"subfolder": "Subcarpeta subtitles/"
+			},
+			"searchPlaceholder": "Cerca idiomes…",
+			"sectionAuto": "Autogenerats",
+			"sectionManual": "Manuals"
+		},
+		"tabsNavAria": "Navegació dels perfils de descàrrega",
+		"url": {
+			"advanced": "Avançat",
+			"analytics": {
+				"toggle": "Envia el senyal diari",
+				"toggleDescription": "Sense telemetria. Un cop al dia, un senyal anònim envia la versió de l'aplicació, el canal d'instal·lació, el sistema operatiu, l'idioma, el país i aproximadament fa quant que s'ha instal·lat Arroxy, per poder comptar els usuaris actius i nous. Sense identificadors, URL, títols de vídeos ni noms de fitxers."
+			},
+			"autoRemoveCompleted": {
+				"description": "Treu una descàrrega de la llista de Descàrregues uns segons després d'acabar. Els fitxers es queden a la carpeta; les descàrregues fallides i cancel·lades es queden a la llista.",
+				"label": "Elimina les descàrregues acabades"
+			},
+			"autoRetry": {
+				"description": "Ho torna a provar automàticament després d'un problema passatger de xarxa o de servidor, esperant més entre cada intent. Les descàrregues bloquejades pel lloc no es tornen a provar mai automàticament.",
+				"label": "Reintenta les descàrregues fallides",
+				"unit": "vegades"
+			},
+			"bulkButton": "URL en bloc",
+			"bulkTooltip": "Afegeix i posa a la cua diverses URL.",
+			"clearAria": "Esborra l'URL",
+			"clipboard": {
+				"autofilledLink": "Enllaç afegit des del porta-retalls",
+				"bulkHint": "S'han copiat diversos enllaços: fes servir URL en bloc per afegir-los",
+				"dialog": {
+					"cancelButton": "Cancel·la"
+				},
+				"replacedLink": "Substituït per l'enllaç copiat",
+				"toggle": "Vigila el porta-retalls",
+				"toggleDescription": "Emplena automàticament el camp d'URL quan copies l'enllaç d'un vídeo.",
+				"undo": "Desfés"
+			},
+			"closeToTray": {
+				"toggle": "Amaga a la safata en tancar",
+				"toggleDescription": "Continua les descàrregues en segon pla després de tancar la finestra."
+			},
+			"concurrentDownloads": {
+				"description": "Quants elements de la cua es baixen alhora. Com més alhora, més aviat s'acaba una cua llarga, però augmenta la probabilitat que un lloc et limiti.",
+				"label": "Descàrregues alhora",
+				"unit": "descàrregues"
+			},
+			"cookies": {
+				"banWarning": "Llocs com YouTube poden marcar, i de vegades bloquejar, els comptes les galetes dels quals fan servir eines de descàrrega com Arroxy. Fes servir un compte d'usar i llençar quan sigui possible.",
+				"browserHelp": "Llegeix les galetes directament del navegador. El navegador ha d'estar tancat en els navegadors de la família Chromium.",
+				"browserLabel": "Navegador",
+				"browserPlaceholder": "Tria un navegador…",
+				"choose": "Tria…",
+				"clear": "Esborra",
+				"enabledButNoBrowser": "Tria un navegador per fer servir les galetes",
+				"enabledButNoFile": "Tria un fitxer per fer servir les galetes",
+				"exploreDescription": "Fa servir el teu inici de sessió a Explora només quan una descàrrega el necessita.",
+				"exploreDisabled": "La pestanya Explora està desactivada, així que les descàrregues no fan servir el teu inici de sessió a Explora. Activa-la a Explora, més avall.",
+				"extensionChrome": "Get cookies.txt LOCALLY, extensió per a Chrome",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Fitxer de galetes",
+				"helpLink": "Com puc exportar les galetes?",
+				"openExplore": "Obre Explora",
+				"placeholder": "Cap fitxer seleccionat",
+				"recommended": "Recomanat",
+				"risk": "Risc: un cookies.txt conté totes les sessions iniciades d'aquell navegador; mantén-lo en privat.",
+				"sourceBrowser": "Navegador",
+				"sourceExplore": "Inici de sessió a Explora",
+				"sourceFile": "Fitxer",
+				"sourceLabel": "Font de les galetes",
+				"sourceOff": "Desactivada",
+				"toggleDescription": "Ajuda amb els vídeos amb restricció d'edat, només per a membres i privats d'un compte."
+			},
+			"downloadConnections": {
+				"description": "Accelera les descàrregues grans baixant diverses parts d'un vídeo alhora. Els valors alts augmenten la probabilitat que un lloc et limiti.",
+				"label": "Connexions de descàrrega",
+				"unit": "connexions"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Només àudio",
+					"subtitles": "Subtítols"
+				},
+				"anySite": {
+					"heading": "Més de 2000 llocs",
+					"musicPlaylist": "Llistes de música",
+					"video": "Vídeos",
+					"videoPlaylist": "Llistes de vídeo"
+				},
+				"heading": "Què pot baixar Arroxy",
+				"youtube": {
+					"channel": "Canals",
+					"heading": "YouTube",
+					"music": "Música",
+					"playlist": "Llistes de reproducció",
+					"podcast": "Pòdcasts",
+					"short": "Shorts",
+					"video": "Vídeos"
+				}
+			},
+			"fetchFormatsTooltip": "Assistent pas a pas. Tria el format, la qualitat i més.",
+			"heading": "Descarrega des d'una URL",
+			"hotkey": {
+				"changeShortcut": "Canvia la drecera",
+				"conflict": "Una altra aplicació ja fa servir aquesta drecera: tria'n una altra.",
+				"hintLabel": "O prem",
+				"hintTooltip": "Copia l'enllaç d'un vídeo en qualsevol lloc, prem aquesta drecera i Arroxy el posa a la cua amb el teu perfil actiu, sense canviar de finestra.",
+				"hintTooltipSettings": "Canvia-la o desactiva-la a la configuració.",
+				"recording": "Prem les tecles…",
+				"reset": "Restableix el valor predeterminat",
+				"sectionDescription": "Descarrega qualsevol enllaç que copiïs, des de qualsevol aplicació, sense obrir Arroxy.",
+				"sectionTitle": "Drecera global",
+				"test": "Prova",
+				"toggle": "Activa la drecera global",
+				"toggleDescription": "Prem la drecera amb l'enllaç d'un vídeo al porta-retalls."
+			},
+			"interactiveDownload": "Descàrrega interactiva",
+			"limitRate": {
+				"activeWarning": "Les descàrregues actives conserven el límit actual. Posa-les en pausa i reprèn-les per aplicar els canvis.",
+				"custom": "Personalitzat…",
+				"customPlaceholder": "p. ex., 750K o 1.5M",
+				"description": "Limita l'ample de banda de les descàrregues multimèdia. El ritme de sol·licituds de sota sol ser la palanca més efectiva contra els límits.",
+				"invalid": "Fes servir un nombre seguit de K o M (p. ex., 500K, 1.5M)",
+				"label": "Límit de velocitat de descàrrega",
+				"off": "Desactivat"
+			},
+			"mascotBusy": "Descarregant en segon pla… Puc fer diverses coses alhora 😎",
+			"mascotCollection": "La descàrrega ràpida posa a la cua els elements carregats amb {{profileName}}. La interactiva et deixa inspeccionar-los o seleccionar-los abans.",
+			"mascotIdle": "Deixa un enllaç i Arroxy s'encarrega de baixar-lo ✨",
+			"mascotMixed": "Aquest enllaç apunta a un vídeo dins d'una col·lecció. Arroxy et preguntarà quin vols abans d'analitzar-lo.",
+			"mascotPreparing": "{{quickDownload}} està llegint aquest enllaç i aplicant {{profileName}}.",
+			"mascotQueued": "La cua s'ocupa d'aquesta descàrrega. Pots enganxar un altre enllaç mentre treballa.",
+			"mascotSingle": "La descàrrega ràpida comença una descàrrega amb {{profileName}}. Fes servir la interactiva per a canvis puntuals.",
+			"nativeAudioPreference": {
+				"compatible": "Estèreo compatible",
+				"description": "Estèreo o envoltant quan un perfil tria l'àudio original. Un perfil ho pot substituir.",
+				"label": "Preferència d'àudio original",
+				"surround": "Prefereix envoltant / Dolby"
+			},
+			"networkPacing": {
+				"description": "Afegeix petites esperes durant cada descàrrega perquè Arroxy no pressioni el lloc massa. Els valors són en segons.",
+				"fields": {
+					"maxSleepInterval": "Pausa abans que comenci el contingut: màx.",
+					"sleepInterval": "Pausa abans que comenci el contingut: mín.",
+					"sleepRequests": "Espera entre comprovacions de metadades",
+					"sleepSubtitles": "Espera abans dels fitxers de subtítols"
+				},
+				"heading": "Descàrregues suaus",
+				"presetLabel": "Quanta cautela ha de tenir Arroxy?",
+				"presets": {
+					"balanced": "Equilibrada",
+					"careful": "Cautelosa",
+					"custom": "Personalitzada",
+					"off": "Desactivada"
+				},
+				"summary": "Esperes: {{requests}} entre comprovacions, {{downloads}} abans que comenci el contingut, {{subtitles}} abans dels fitxers de subtítols.",
+				"tooltip": "Aquestes esperes es fan dins de cada descàrrega. Quantes descàrregues s'executen alhora s'estableix per separat, a Descàrregues alhora.",
+				"tooltips": {
+					"balanced": "Predeterminada. Afegeix pauses curtes entre sol·licituds i abans que comenci el contingut.",
+					"careful": "Afegeix pauses més llargues per a llistes de reproducció grans o xarxes que topen sovint amb límits.",
+					"custom": "Ajusta tu mateix els controls avançats de cada descàrrega.",
+					"off": "Només fa servir les petites pauses de base que Arroxy manté per al contingut i els subtítols."
+				},
+				"units": {
+					"seconds": "s"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Límit actual: {{count}} elements",
+				"custom": "Personalitzat…",
+				"customDialogCancel": "Cancel·la",
+				"customDialogDescription": "Fes servir un nombre enter de {{min}} a {{max}}.",
+				"customDialogSave": "Desa el límit",
+				"customDialogTitle": "Límit personalitzat d'exploració de llistes",
+				"customValue": "Personalitzat: {{count}} elements",
+				"description": "Nombre màxim d'entrades que Arroxy carrega quan s'obre una llista de reproducció, un canal o els resultats d'una cerca.",
+				"invalid": "Fes servir un nombre enter de l'1 al 5000",
+				"label": "Elements de la llista per explorar",
+				"option": "{{count}} elements",
+				"tooltip": "Arroxy només demana aquest nombre d'entrades de la llista de reproducció, el canal o la cerca mentre construeix el selector."
+			},
+			"playlistScope": {
+				"appLimit": "Usa el límit de l'aplicació: {{count}}",
+				"apply": "Aplica",
+				"applyError": "No s'ha pogut aplicar aquest abast de la llista: {{message}}",
+				"applyReload": "Aplica i torna a carregar",
+				"cancel": "Cancel·la",
+				"change": "Canvia",
+				"dialogDescription": "Tria què carrega Arroxy d'aquesta llista de reproducció.",
+				"dialogTitle": "Abast de la llista",
+				"emptyTitle": "No hi ha cap vídeo en aquest abast",
+				"first": "Els primers",
+				"invalid": "Fes servir números d'element enters de l'1 a {{max}}, amb l'inici no superior al final.",
+				"itemsLabel": "Elements per carregar",
+				"label": "Abast de la llista",
+				"range": "Interval",
+				"reloading": "Tornant a carregar...",
+				"reset": "Restableix",
+				"summaryAppLimit": "Carrega els primers elements: {{count}}",
+				"summaryFirst": "Carrega els primers elements: {{count}}",
+				"summaryRange": "Carrega els elements {{from}}-{{to}}",
+				"to": "fins a"
+			},
+			"profile": {
+				"activeLabel": "Perfil actiu",
+				"badgeBuiltIn": "Integrat",
+				"badgeCustom": "Personalitzat",
+				"badgeDisabled": "Ocult",
+				"badgeModified": "Modificat",
+				"changeGlobalDestination": "Canvia la destinació global",
+				"destinationDetail": {
+					"global": "Usa la destinació global",
+					"globalSubfolder": "Usa la destinació global + la subcarpeta del perfil",
+					"override": "Usa la substitució del perfil",
+					"overrideSubfolder": "Usa la substitució del perfil + la subcarpeta del perfil"
+				},
+				"destinationFallback": "Destinació",
+				"edit": "Edita",
+				"editActive": "Edita el perfil actiu",
+				"enableHint": "Els perfils ocults es queden aquí, però desapareixen de tots els selectors de perfil.",
+				"enableToggleAria": "Mostra el perfil als selectors: {{profileName}}",
+				"lastEnabledHint": "Mantén almenys un perfil disponible.",
+				"manageProfiles": "Gestiona els perfils",
+				"menuDescription": "Canvia el perfil actiu de la Descàrrega ràpida, les URL en bloc i les llistes de reproducció.",
+				"menuTitle": "Canvia de perfil",
+				"movableProfile": "perfil que es pot moure",
+				"moveCancelled": "Moviment cancel·lat. {{profileName}} es queda a la posició {{position}} de {{count}}.",
+				"moveDropped": "S'ha deixat {{profileName}} a la posició {{position}} de {{count}}.",
+				"moveHandleAria": "Mou {{profileName}}",
+				"moveInstructions": "Per moure un perfil, prem Espai o Retorn, mou-lo amb les tecles de fletxa i torna a prémer Espai o Retorn per deixar-lo anar. Prem Escape per cancel·lar.",
+				"moveOver": "{{profileName}} és sobre la posició {{position}} de {{count}}.",
+				"movePickedUp": "S'ha agafat {{profileName}}. És a la posició {{position}} de {{count}}.",
+				"newProfile": "Perfil nou",
+				"panelDescription": "Crea, selecciona, edita o elimina configuracions de descàrrega reutilitzables.",
+				"panelTitle": "Perfils de descàrrega",
+				"remove": "Elimina",
+				"reorderHint": "Arrossega un perfil per moure'l. Tots els selectors de perfil segueixen aquest ordre.",
+				"reset": "Restableix",
+				"summary": {
+					"aacAudio": "àudio AAC",
+					"bestAudio": "el millor àudio",
+					"bestVideo": "el millor vídeo",
+					"noAudio": "sense àudio",
+					"subtitlesOnly": "només subtítols",
+					"wavAudio": "àudio WAV"
+				},
+				"switchAria": "Canvia el perfil de descàrrega: {{profileName}}",
+				"switchTitle": "Canvia el perfil de descàrrega"
+			},
+			"proxy": {
+				"clear": "Esborra",
+				"description": "Encamina el trànsit mitjançant un servidor intermediari: útil per a contingut amb restriccions geogràfiques.",
+				"label": "URL del servidor intermediari",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "No s'ha pogut preparar cap d'aquestes URL",
+			"quickDownload": "Descàrrega ràpida",
+			"quickDownloadTooltip": "Es descarregarà amb: {{profileName}}",
+			"quickFailed": "No s'ha pogut afegir aquest: {{error}}",
+			"quickPartialFailed_many": "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} d'URL.",
+			"quickPartialFailed_one": "S'ha posat a la cua el que ha funcionat. No s'ha pogut preparar {{count}} URL.",
+			"quickPartialFailed_other": "S'ha posat a la cua el que ha funcionat. No s'han pogut preparar {{count}} URL.",
+			"quickPrepareFailed": "No s'ha pogut preparar l'element de la cua",
+			"quickPreparing": "Preparant",
+			"quickProbeFailed": "L'anàlisi ha fallat",
+			"quickQueued": "Afegit a la cua",
+			"quickSingleOnly": "Enganxa l'URL d'un vídeo, una llista de reproducció, un canal o una cerca per començar.",
+			"settings": {
+				"behaviorDescription": "Comportament global que també afecta les descàrregues basades en perfils.",
+				"behaviorHeading": "Comportament de descàrrega",
+				"inputHeading": "Entrada"
+			},
+			"style": {
+				"aurora": {
+					"description": "Panells de vidre sobre un cel en moviment. Requereix acceleració gràfica.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Superfícies sòlides i discretes. Funciona de manera lleugera en qualsevol ordinador.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Tots dos estils tenen versió clara i fosca.",
+				"modeLabel": "Estil",
+				"panelDescription": "Com es veu Arroxy. Canvia entre clar i fosc al peu de pàgina.",
+				"panelTitle": "Aparença",
+				"unavailableNotice": "{{style}} requereix acceleració gràfica, que ara no és disponible, així que Arroxy mostra {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Perfils",
+				"settings": "Configuració"
+			}
+		}
+	}
 }

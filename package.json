@@ -104,6 +104,7 @@
 		"i18n:extract": "bun scripts/i18n-catalog.ts extract",
 		"i18n:sync": "bun scripts/i18n-catalog.ts sync",
 		"i18n:compile": "bun scripts/i18n-catalog.ts compile",
+		"i18n:format": "bun scripts/i18n-catalog.ts format",
 		"i18n:check": "bun scripts/i18n-catalog.ts check",
 		"check:app": "bun scripts/check-app-i18n.ts --strict && bun run i18n:check",
 		"check:app:unused": "bun scripts/check-app-i18n-unused.ts",

@@ -23,6 +23,7 @@ interface QueueManagerTableProps {
 	rows: Row<QueueTableFeatures, QueueItem>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
+	measureElement: (element: Element | null) => void
 	topVirtualPadding: number
 	bottomVirtualPadding: number
 	renderedColumnCount: number
@@ -86,6 +87,7 @@ export function QueueManagerTable({
 	rows,
 	virtualRows,
 	scrollRef,
+	measureElement,
 	topVirtualPadding,
 	bottomVirtualPadding,
 	renderedColumnCount,
@@ -106,6 +108,7 @@ export function QueueManagerTable({
 			rows={rows}
 			virtualRows={virtualRows}
 			scrollRef={scrollRef}
+			measureElement={measureElement}
 			topVirtualPadding={topVirtualPadding}
 			bottomVirtualPadding={bottomVirtualPadding}
 			renderedColumnCount={renderedColumnCount}

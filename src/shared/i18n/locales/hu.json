@@ -1,945 +1,305 @@
 {
-	"common": {"back": "Vissza", "cancel": "Mégse", "continue": "Folytatás", "loading": "Betöltés", "retry": "Újra", "dismiss": "Elvetés", "startOver": "Újrakezdés", "close": "Bezárás"},
+	"about": {
+		"button": "Névjegy",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · készítette: Antonio Orionus",
+		"openTitle": "Az Arroxy névjegye",
+		"tagline": "Gyors, kényelmes letöltő a YouTube-hoz és több mint 2000 másik webhelyhez.",
+		"thirdPartyNotices": "Harmadik féltől származó közlemények megtekintése",
+		"websiteLink": "Webhely"
+	},
+	"aiUpscaled": {
+		"allow": "Engedélyezés",
+		"description": "A YouTube egyes régi videókat MI-vel készített méretekben is kínál. A Kihagyás megtartja az eredeti adatfolyamokat; felskálázottat továbbra is kiválaszthat kézzel.",
+		"label": "MI-vel felskálázott adatfolyamok",
+		"skip": "Kihagyás"
+	},
 	"app": {
 		"feedback": "Visszajelzés",
+		"feedbackNudge": "Tetszik az Arroxy? Szívesen meghallgatom a véleményét! 💬",
 		"logs": "Naplók",
 		"saveDiagnostics": "Diagnosztikai fájl mentése",
 		"saveDiagnosticsDescription": "A naplókat és az alkalmazás adatait egyetlen fájlba menti a Letöltések mappába, amelyet csatolhat egy GitHub-hibajelentéshez. A felhasználói mappa neve eltávolításra kerül; a videók hivatkozásai és címei megmaradnak.",
-		"feedbackNudge": "Tetszik az Arroxy? Szívesen meghallgatom a véleményét! 💬",
-		"zoomIn": "Nagyítás",
-		"zoomOut": "Kicsinyítés",
+		"styleHint": "Új: itt választhat az Aurora és a Minimal között",
 		"theme": "Téma",
-		"styleHint": "Új: itt választhat az Aurora és a Minimal között"
+		"zoomIn": "Nagyítás",
+		"zoomOut": "Kicsinyítés"
 	},
-	"about": {
-		"button": "Névjegy",
-		"openTitle": "Az Arroxy névjegye",
-		"tagline": "Gyors, kényelmes letöltő a YouTube-hoz és több mint 2000 másik webhelyhez.",
-		"websiteLink": "Webhely",
-		"githubLink": "GitHub",
-		"licenseLine": "GPLv3 · készítette: Antonio Orionus",
-		"thirdPartyNotices": "Harmadik féltől származó közlemények megtekintése"
+	"common": {
+		"back": "Vissza",
+		"cancel": "Mégse",
+		"close": "Bezárás",
+		"continue": "Folytatás",
+		"dismiss": "Elvetés",
+		"loading": "Betöltés",
+		"retry": "Újra",
+		"startOver": "Újrakezdés"
 	},
-	"titleBar": {"close": "Bezárás", "minimize": "Minimalizálás", "maximize": "Maximalizálás", "restore": "Visszaállítás"},
-	"splash": {
-		"greeting": "Üdv újra!",
-		"warmup": "Letöltések előkészítése…",
-		"verifying": "{{binary}} ellenőrzése…",
-		"verifyFirstCheck": "Ennek a verziónak az első ellenőrzése – ez lassú. Általában körülbelül egy perc.",
-		"cancel": "Gondja akadt? Kézi beállítás",
-		"warmupFailedNoDiag": "A telepítés sikertelen. A részletekért nyissa meg a telepítési naplót.",
-		"setup": {
-			"title": {"firstRun": "Első beállítás", "media": "A médiaeszközök frissítése", "engine": "A letöltőmotor frissítése"},
-			"stage": {"connecting": "Kapcsolódás…", "downloadingBoth": "A letöltőmotor és a médiaeszközök letöltése", "downloadingEngine": "A letöltőmotor letöltése", "downloadingMedia": "A médiaeszközök letöltése", "unpacking": "A médiaeszközök kicsomagolása", "checking": "Annak ellenőrzése, hogy minden működik"},
-			"bytes": "{{done}} / {{total}}",
-			"left": {"underMinute": "kevesebb mint egy perc van hátra", "minutes_one": "kb. {{count}} perc van hátra", "minutes_other": "kb. {{count}} perc van hátra"},
-			"note": {"firstRun": "Ez egyszer történik meg. Az Arroxy megtartja ezeket az eszközöket, és maga frissíti őket.", "media": "Ez egyszer történik meg. Az Arroxy megtartja őket a későbbi frissítésekhez.", "engine": "Ettől működnek tovább a letöltések, ha a webhelyek változnak."}
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Az Arroxy tovább fut, és befejezi az aktív letöltéseket. Ezt később módosíthatja a Speciális beállításoknál.",
+			"hide": "Elrejtés a tálcára",
+			"message": "Elrejti az Arroxyt a tálcára bezáráskor?",
+			"quit": "Kilépés",
+			"remember": "Ne kérdezze újra"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Letöltések megszakítása és kilépés",
+			"detail": "Szüneteltessen a későbbi folytatáshoz, vagy szakítson meg a haladás elvetéséhez.",
+			"keep": "Letöltés folytatása",
+			"message_one": "{{count}} letöltés folyamatban",
+			"message_other": "{{count}} letöltés folyamatban",
+			"pause": "Letöltések szüneteltetése és kilépés"
+		},
+		"rendererCrashed": {
+			"detail": "A megjelenítő folyamat összeomlott ({{reason}}). Az újrapróbáláshoz töltse be újra.",
+			"message": "Az Arroxy problémába ütközött",
+			"quit": "Kilépés",
+			"reload": "Újratöltés"
 		}
 	},
-	"repair": {
-		"title": "A telepítéshez segítség kell",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Letöltőmotor", "media": "Médiaeszközök"},
-		"causes": {
-			"downloadFailed": {"title": "Nem sikerült letölteni az Arroxy működéséhez szükséges elemeket", "body": "Ellenőrizze az internetkapcsolatot, majd próbálja újra."},
-			"extractFailed": {"title": "Egy letöltés sérülten érkezett meg", "body": "Próbálja újra a friss letöltéshez."},
-			"hashFailed": {"title": "Egy letöltés nem egyezett az ellenőrzőösszegével", "body": "Próbálja újra a friss letöltéshez."},
-			"spawnFailed": {"title": "Egy eszköz hiányzik, vagy nem indul el", "body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy működő példányt."},
-			"permissionDenied": {"title": "A rendszer nem engedi, hogy az Arroxy futtasson egy eszközt", "body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy megbízható példányt."},
-			"blockedOrQuarantined": {"title": "A víruskereső letiltott egy eszközt", "body": "Engedélyezze az Arroxyt a víruskeresőben vagy a SmartScreenben, majd próbálja újra."},
-			"badExitCode": {"title": "Egy eszköz nem működik megfelelően", "body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy működő példányt."},
-			"timeout": {"title": "Egy eszköz túl sokáig nem válaszolt", "body": "Ez gyakran az első futtatáskori biztonsági vizsgálat miatt van. Próbálja újra."},
-			"pairIncomplete": {"title": "Az FFmpeg és az FFprobe csak együtt adható meg", "body": "Válassza ki mindkettőt alább, vagy állítsa vissza az alapértelmezést."},
-			"unknown": {"title": "Hiba történt a telepítés során", "body": "Próbálja újra, vagy nyissa meg a telepítési naplót a részletekért."}
-		},
-		"installing": {"homebrew": "Telepítés Homebrew-val… Ez eltarthat néhány percig.", "winget": "Telepítés WinGettel… Ez eltarthat néhány percig."},
-		"stopped": {"title": "A telepítés leállt", "body": "Próbálja újra, vagy adja meg alább az Arroxynak a már meglévő eszközöket."},
-		"manual": {"toggle": "Kézi beállítás", "intro": "Adja meg az Arroxynak a már meglévő példányokat, vagy telepítse őket más módon.", "linuxHint": "A yt-dlp-t és az ffmpeg-et a csomagkezelővel is telepítheti, majd kattintson a Próbálja újra gombra."},
-		"actions": {
-			"chooseExecutable": "Végrehajtható fájl kiválasztása",
-			"installWithHomebrew": "Telepítés Homebrew-val",
-			"installWithWinget": "Telepítés WinGettel",
-			"resetToDefault": "Alapértelmezés visszaállítása",
-			"retrySetup": "Próbálja újra",
-			"cancel": "Mégse",
-			"openDependencyFolder": "Függőségi mappa megnyitása",
-			"viewSetupLog": "Telepítési napló megtekintése"
-		}
-	},
-	"theme": {"light": "Világos mód", "dark": "Sötét mód", "system": "Rendszer alapértelmezése"},
-	"language": {"label": "Nyelv"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Lista",
-			"playlistItemsGeneric": "Videók",
-			"playlistPresets": "Minőség",
-			"playlistProfiles": "Profilok",
-			"formats": "Formátum",
-			"subtitles": "Feliratok",
-			"sponsorblock": "SponsorBlock",
-			"output": "Kimenet",
-			"folder": "Mentés",
-			"confirm": "Megerősítés",
-			"review": "Áttekintés"
-		},
-		"playlistPresets": {"heading": "Válasszon minőséget a köteghez", "subhead": "Minden videó külön oldja fel a kiválasztott szintet – az egyenetlen lejátszási listák is meglepetések nélkül működnek.", "itemCount_one": "{{count}} elem", "itemCount_other": "{{count}} elem"},
-		"playlistProfiles": {
-			"heading": "Letöltési profilok hozzárendelése",
-			"selectedSummary": "{{selected}} / {{total}} kijelölve",
-			"assignTriggerEmpty": "Profil hozzárendelése",
-			"assignTrigger_one": "Hozzárendelés {{count}} videóhoz",
-			"assignTrigger_other": "Hozzárendelés {{count}} videóhoz",
-			"menuDescription_one": "Válassza ki a videó profilját.",
-			"menuDescription_other": "Válassza ki a profilt ehhez a(z) {{count}} videóhoz.",
-			"editProfile": "{{name}} szerkesztése",
-			"filtersLabel": "Profilszűrők",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Hossz",
-			"empty": "Egy elem sem felel meg ennek a szűrőnek"
-		},
-		"playlist": {
-			"heading": "Lejátszási lista elemei",
-			"headingGeneric": "Letöltendő videók",
-			"bulkHeading": "Tömeges URL-ek",
-			"itemCount_one": "{{count}} videó",
-			"itemCount_other": "{{count}} videó",
-			"itemCountAudio_one": "{{count}} szám",
-			"itemCountAudio_other": "{{count}} szám",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Videóadatok lekérése… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Nem kell várni – a most sorba állított fájlok letöltéskor így is megkapják valódi nevüket.",
-			"bulkRowWaiting": "Várakozik",
-			"bulkRowResolving": "Adatok lekérése",
-			"bulkRowFailed": "Nem érhetők el az adatok",
-			"selectAll": "Összes kijelölése",
-			"selectNone": "Kijelölés megszüntetése",
-			"sortLabel": "Rendezés",
-			"sortApi": "Lista sorrendje",
-			"sortUploadAsc": "Legrégebbi elöl",
-			"sortUploadDesc": "Legújabb elöl",
-			"sortFetchingDates": "Feltöltési dátumok lekérése…",
-			"rangeFrom": "Ettől",
-			"rangeTo": "Eddig",
-			"rangeApply": "Tartomány alkalmazása",
-			"selectedCount_one": "{{count}} kijelölve",
-			"selectedCount_other": "{{count}} kijelölve",
-			"noSelection": "A folytatáshoz jelöljön ki legalább egy videót",
-			"loadingItems": "Lejátszási lista lekérése…",
-			"loadingItemsGeneric": "Videók lekérése…",
-			"loadingPhasePages": "Csatornaoldalak vizsgálata",
-			"loadingPhaseItems": "Videók gyűjtése",
-			"loadingPagesFound_one": "{{count}} oldal található",
-			"loadingPagesFound_other": "{{count}} oldal található",
-			"loadingLimitHint": "Az első {{count}} elemre korlátozva",
-			"thumbnailAlt": "Videó miniatűrje",
-			"durationUnknown": "élő",
-			"syncChange": "Mappa módosítása…",
-			"syncApply": "Szinkronizálás alkalmazása",
-			"syncScanning": "Mappa ellenőrzése…",
-			"syncFoundTitle": "Már a mappában",
-			"syncFoundDesc": "Ezek közül a videók közül {{n}} már itt van: {{dir}}. Szinkronizál, hogy csak az újak töltődjenek le?",
-			"syncNoneTitle": "Még nincs letöltve semmi",
-			"syncNoneDesc": "Ebből a lejátszási listából egy videó sem található itt: {{dir}}.",
-			"syncNoneDescGeneric": "Ebből a forrásból egy videó sem található itt: {{dir}}.",
-			"alreadyDownloaded": "Már letöltve",
-			"nestedPlaylistBadge": "Lejátszási lista",
-			"nestedPlaylistHint_one": "Ezek közül {{count}} lejátszási lista, nem videó – a letöltéséhez illessze be a hivatkozását külön.",
-			"nestedPlaylistHint_other": "Ezek közül {{count}} lejátszási lista, nem videó – a letöltésükhöz illessze be a hivatkozásaikat egyenként.",
-			"probeLimitAlertTitle": "A lejátszási lista vizsgálata korlátozott",
-			"probeLimitAlertTitleGeneric": "A vizsgálat korlátozott",
-			"probeLimitAlertDesc": "Az első {{count}} elem látható. A többi megtekintéséhez növelje a betöltési korlátot.",
-			"multiProfileEntry": "Profilok hozzárendelése elemenként",
-			"multiProfileEntryTooltip": "Kihagyja a Minőség, SponsorBlock, Kimenet és Mentés lépést – helyette elemenként rendel hozzá letöltési profilt",
-			"removeFromListCount_one": "{{count}} eltávolítása a listáról",
-			"removeFromListCount_other": "{{count}} eltávolítása a listáról",
-			"restore": "Visszaállítás",
-			"removedCount_one": "{{count}} eltávolítva",
-			"removedCount_other": "{{count}} eltávolítva",
-			"allRemovedTitle": "Minden elem el lett távolítva",
-			"allRemovedDescription": "A folytatáshoz állítsa vissza őket."
-		},
-		"bulk": {
-			"title": "Tömeges URL-ek",
-			"description": "Illesszen be videó-, lejátszási lista-, csatorna-, keresési vagy hang-URL-eket. Az Arroxy a sorba állítás előtt eltávolítja az ismétlődéseket.",
-			"textareaLabel": "URL-lista",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Kész",
-			"ignoredCount": "Figyelmen kívül hagyva",
-			"emptyPreview": "Illesszen be egy vagy több URL-t a köteg előnézetéhez.",
-			"needsAtLeastOne": "A folytatáshoz adjon meg legalább egy támogatott URL-t.",
-			"reject": {"duplicate": "Ismétlődés"}
-		},
-		"tabsNavAria": "Letöltési profil navigáció",
-		"profileSwitchRow": {"helpAria": "{{label}} súgó"},
-		"mixedPrompt": {
-			"title": "Ez a hivatkozás lejátszási listát tartalmaz",
-			"body": "Csak a rákattintott videót szeretné, vagy a lejátszási listából választana? Ezután kiválaszthat konkrét videókat vagy egy tartományt.",
-			"quickBody": "Töltse le csak ezt a videót, vagy állítsa sorba a teljes lejátszási listát az aktív Gyorsletöltés profillal.",
-			"singleVideo": "Csak ez",
-			"quickSingleVideo": "Ennek a videónak a letöltése",
-			"pickFromPlaylist": "Választás a listából",
-			"quickWholePlaylist": "Teljes lejátszási lista letöltése",
-			"playlistLimit": "Lejátszási lista lekérdezési korlátja: {{count}} elem",
-			"quickLimitDescription": "Legfeljebb ennyi elemet vizsgál az Arroxy, mielőtt sorba állít egy lejátszási listát, csatornát vagy keresési eredményt.",
-			"singleTooltip": "Csak ezt a videót tölti be. Az URL-hez tartozó lejátszási listát figyelmen kívül hagyja.",
-			"quickSingleTooltip": "Egy letöltést állít sorba, és figyelmen kívül hagyja az URL-hez tartozó lejátszási listát.",
-			"playlistTooltip": "Betölti a lejátszási listát a lekérdezési korlátig, mielőtt megjeleníti a választót.",
-			"quickPlaylistTooltip": "Az aktív Gyorsletöltés profillal sorba állítja a lejátszási lista minden betöltött elemét. Ha a vizsgálat eléri a korlátot, az Arroxy rákérdez a sorba állítás előtt."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Lejátszási lista tartománya",
-				"change": "Módosítás",
-				"summaryAppLimit": "Az első elemek betöltése: {{count}}",
-				"summaryFirst": "Az első elemek betöltése: {{count}}",
-				"summaryRange": "{{from}}–{{to}}. elem betöltése",
-				"dialogTitle": "Lejátszási lista tartománya",
-				"dialogDescription": "Válassza ki, mit töltsön be az Arroxy ebből a lejátszási listából.",
-				"itemsLabel": "Betöltendő elemek",
-				"appLimit": "Alkalmazáskorlát használata: {{count}}",
-				"first": "Első",
-				"range": "Tartomány",
-				"to": "–",
-				"invalid": "Egész elemszámokat adjon meg 1 és {{max}} között, a kezdet ne legyen nagyobb a végnél.",
-				"applyError": "A lejátszási lista tartományát nem sikerült alkalmazni: {{message}}",
-				"reset": "Visszaállítás",
-				"cancel": "Mégse",
-				"apply": "Alkalmaz",
-				"applyReload": "Alkalmazás és újratöltés",
-				"reloading": "Újratöltés...",
-				"emptyTitle": "Nincs videó ebben a tartományban"
-			},
-			"heading": "Letöltés URL-ről",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profilok", "settings": "Beállítások"},
-			"interactiveDownload": "Interaktív letöltés",
-			"fetchFormatsTooltip": "Lépésenkénti varázsló. Formátum, minőség és egyebek kiválasztása.",
-			"quickDownload": "Gyorsletöltés",
-			"quickDownloadTooltip": "Letöltés ezzel a profillal: {{profileName}}",
-			"quickPreparing": "Előkészítés",
-			"quickQueued": "Hozzáadva a sorhoz",
-			"quickSingleOnly": "A kezdéshez illesszen be egy videó-, lejátszási lista-, csatorna- vagy keresési URL-t.",
-			"quickProbeFailed": "A lekérdezés sikertelen",
-			"quickPrepareFailed": "A sorelemet nem sikerült előkészíteni",
-			"quickBulkAllFailed": "Egyik URL-t sem sikerült előkészíteni",
-			"quickFailed": "Ezt nem sikerült hozzáadni: {{error}}",
-			"quickPartialFailed_one": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
-			"quickPartialFailed_other": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
-			"profile": {
-				"destinationFallback": "Célmappa",
-				"switchAria": "Letöltési profil váltása: {{profileName}}",
-				"switchTitle": "Letöltési profil váltása",
-				"activeLabel": "Aktív profil",
-				"editActive": "Aktív profil szerkesztése",
-				"changeGlobalDestination": "Globális célmappa módosítása",
-				"destinationDetail": {"global": "A globális célmappát használja", "globalSubfolder": "A globális célmappát + a profil almappáját használja", "override": "A profilfelülbírálást használja", "overrideSubfolder": "A profilfelülbírálást + a profil almappáját használja"},
-				"summary": {"bestVideo": "legjobb videó", "bestAudio": "legjobb hang", "aacAudio": "AAC hang", "wavAudio": "WAV hang", "noAudio": "hang nélkül", "subtitlesOnly": "csak feliratok"},
-				"menuTitle": "Profilváltás",
-				"menuDescription": "Módosítja az aktív profilt a Gyorsletöltéshez, a Tömeges URL-ekhez és a lejátszási listákhoz.",
-				"newProfile": "Új profil",
-				"manageProfiles": "Profilok kezelése",
-				"panelTitle": "Letöltési profilok",
-				"panelDescription": "Újrahasználható letöltési beállítások létrehozása, kiválasztása, szerkesztése vagy eltávolítása.",
-				"badgeCustom": "Egyéni",
-				"badgeModified": "Módosított",
-				"badgeBuiltIn": "Beépített",
-				"badgeDisabled": "Rejtett",
-				"enableToggleAria": "Profil megjelenítése a választókban: {{profileName}}",
-				"enableHint": "A rejtett profilok itt megmaradnak, de eltűnnek minden profilválasztóból.",
-				"reorderHint": "Húzza a profilt az áthelyezéshez. Minden profilválasztó ezt a sorrendet követi.",
-				"moveHandleAria": "{{profileName}} áthelyezése",
-				"movableProfile": "áthelyezhető profil",
-				"moveInstructions": "Profil áthelyezéséhez nyomja meg a Szóközt vagy az Entert, mozgassa a nyílbillentyűkkel, majd a Szóköz vagy az Enter megnyomásával engedje el. A megszakításhoz nyomja meg az Escape billentyűt.",
-				"movePickedUp": "A(z) {{profileName}} felvéve. A(z) {{count}} közül a(z) {{position}}. helyen van.",
-				"moveOver": "A(z) {{profileName}} a(z) {{count}} közül a(z) {{position}}. hely fölött van.",
-				"moveDropped": "A(z) {{profileName}} elengedve a(z) {{count}} közül a(z) {{position}}. helyen.",
-				"moveCancelled": "Áthelyezés megszakítva. A(z) {{profileName}} a(z) {{count}} közül a(z) {{position}}. helyen marad.",
-				"lastEnabledHint": "Legalább egy profilnak elérhetőnek kell maradnia.",
-				"edit": "Szerkesztés",
-				"remove": "Eltávolítás",
-				"reset": "Visszaállítás"
-			},
-			"bulkButton": "Tömeges URL-ek",
-			"bulkTooltip": "Több URL hozzáadása és sorba állítása.",
-			"features": {
-				"heading": "Mit tölthet le az Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Videók", "channel": "Csatornák", "playlist": "Lejátszási listák", "short": "Shorts", "music": "Zene", "podcast": "Podcastok"},
-				"anySite": {"heading": "2000+ webhely", "video": "Videók", "videoPlaylist": "Videólejátszási listák", "musicPlaylist": "Zenei lejátszási listák"},
-				"always": {"audioOnly": "Csak hang", "subtitles": "Feliratok"}
-			},
-			"mascotIdle": "Dobjon be egy hivatkozást, és az Arroxy letölti ✨",
-			"mascotBusy": "Letöltés a háttérben… többfeladatos vagyok 😎",
-			"mascotPreparing": "A(z) {{quickDownload}} beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
-			"mascotQueued": "A sor kezeli ezt a letöltést. Beilleszthet egy újabb hivatkozást, amíg dolgozik.",
-			"mascotCollection": "A Gyors a betöltött elemeket a(z) {{profileName}} profillal állítja sorba. Az Interaktívval előbb megvizsgálhatja vagy kijelölheti az elemeket.",
-			"mascotMixed": "Ez a hivatkozás egy gyűjtemény egyik videójára mutat. Az Arroxy lekérdezés előtt megkérdezi, melyiket szeretné.",
-			"mascotSingle": "A Gyors egy letöltést indít a(z) {{profileName}} profillal. Egyszeri módosításokhoz használja az Interaktívot.",
-			"advanced": "Speciális",
-			"settings": {"inputHeading": "Bevitel", "behaviorHeading": "Letöltési viselkedés", "behaviorDescription": "Globális viselkedés, amely a profilvezérelt letöltéseket is érinti."},
-			"clearAria": "URL törlése",
-			"clipboard": {
-				"toggle": "Vágólap figyelése",
-				"toggleDescription": "Automatikusan kitölti az URL-mezőt, amikor videóhivatkozást másol.",
-				"autofilledLink": "Hivatkozás hozzáadva a vágólapról",
-				"bulkHint": "Több hivatkozás van másolva – a hozzáadásukhoz használja a Tömeges URL-eket",
-				"replacedLink": "Lecserélve a másolt hivatkozásra",
-				"undo": "Visszavonás",
-				"dialog": {"cancelButton": "Mégse"}
-			},
-			"hotkey": {
-				"sectionTitle": "Globális gyorsbillentyű",
-				"sectionDescription": "Bármely alkalmazásból letölti a kimásolt hivatkozást, az Arroxy megnyitása nélkül.",
-				"toggle": "Globális gyorsbillentyű engedélyezése",
-				"toggleDescription": "Nyomja meg a billentyűparancsot, amikor a vágólapon videóhivatkozás van.",
-				"changeShortcut": "Billentyűparancs módosítása",
-				"recording": "Nyomja meg a billentyűket…",
-				"test": "Teszt",
-				"conflict": "Ezt a billentyűparancsot egy másik alkalmazás használja – válasszon másikat.",
-				"hintLabel": "Vagy nyomja meg:",
-				"hintTooltip": "Másoljon ki egy videóhivatkozást bárhol, nyomja meg ezt a billentyűparancsot, és az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül.",
-				"hintTooltipSettings": "Módosíthatja vagy kikapcsolhatja a Beállításokban.",
-				"reset": "Alapértelmezés visszaállítása"
-			},
-			"cookies": {
-				"sourceLabel": "Sütiforrás",
-				"sourceOff": "Ki",
-				"sourceFile": "Fájl",
-				"sourceBrowser": "Böngésző",
-				"sourceExplore": "Felfedezés-bejelentkezés",
-				"recommended": "Ajánlott",
-				"exploreDescription": "A Felfedezés-bejelentkezést csak akkor használja, ha a letöltéshez szükséges.",
-				"exploreDisabled": "A Felfedezés lap ki van kapcsolva, ezért a letöltések nem használják a Felfedezés bejelentkezését. Kapcsolja be lent, a Felfedezés alatt.",
-				"openExplore": "Felfedezés megnyitása",
-				"toggleDescription": "Segít a korhatáros, csak tagoknak szóló és fiókhoz kötött privát videóknál.",
-				"risk": "Kockázat: a cookies.txt a böngésző minden bejelentkezett munkamenetét tartalmazza – tartsa titokban.",
-				"fileLabel": "Sütifájl",
-				"choose": "Kiválasztás…",
-				"clear": "Törlés",
-				"placeholder": "Nincs kiválasztott fájl",
-				"helpLink": "Hogyan exportálhatom a sütiket?",
-				"enabledButNoFile": "A sütik használatához válasszon fájlt",
-				"browserLabel": "Böngésző",
-				"browserPlaceholder": "Válasszon böngészőt…",
-				"browserHelp": "A sütiket közvetlenül a böngészőből olvassa be. A Chromium-családú böngészőknek zárva kell lenniük.",
-				"enabledButNoBrowser": "A sütik használatához válasszon böngészőt",
-				"banWarning": "Az olyan webhelyek, mint a YouTube, megjelölhetik – és olykor ki is tilthatják – azokat a fiókokat, amelyek sütijeit az Arroxyhoz hasonló letöltőeszközök használják. Ha lehet, használjon eldobható fiókot.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Get cookies.txt LOCALLY (Chrome-hoz)"
-			},
-			"proxy": {"label": "Proxy URL", "description": "A forgalmat proxyn keresztül irányítja – hasznos földrajzilag korlátozott tartalmakhoz.", "placeholder": "http://host:port", "clear": "Törlés"},
-			"style": {
-				"panelTitle": "Megjelenés",
-				"panelDescription": "Az Arroxy megjelenése. A világos és sötét mód között a láblécben válthat.",
-				"modeLabel": "Stílus",
-				"modeDescription": "Mindkét stílus világos és sötét változatban is elérhető.",
-				"aurora": {"label": "Aurora", "description": "Üvegpanelek mozgó égbolt fölött. Grafikus gyorsítást igényel."},
-				"minimal": {"label": "Minimal", "description": "Tömör, nyugodt felületek. Bármely számítógépen könnyen fut."},
-				"unavailableNotice": "A(z) {{style}} grafikus gyorsítást igényel, amely jelenleg nem érhető el, ezért az Arroxy a(z) {{fallback}} stílust mutatja."
-			},
-			"limitRate": {
-				"label": "Letöltési sebességkorlát",
-				"description": "A médialetöltések sávszélességét korlátozza. Az alábbi kéréskésleltetés általában erősebb eszköz a sebességkorlátozás ellen.",
-				"off": "Ki",
-				"custom": "Egyéni…",
-				"customPlaceholder": "pl. 750K vagy 1.5M",
-				"invalid": "Számot adjon meg, utána K vagy M jelzéssel (pl. 500K, 1.5M)",
-				"activeWarning": "Az aktív letöltések megtartják a jelenlegi korlátjukat. A módosítás alkalmazásához szüneteltesse, majd folytassa őket."
-			},
-			"playlistProbeLimit": {
-				"label": "Vizsgálandó lejátszási listaelemek",
-				"description": "Legfeljebb ennyi bejegyzést tölt be az Arroxy, amikor lejátszási listát, csatornát vagy keresési eredményt nyit meg.",
-				"option": "{{count}} elem",
-				"current": "Jelenlegi korlát: {{count}} elem",
-				"customValue": "Egyéni: {{count}} elem",
-				"custom": "Egyéni…",
-				"customDialogTitle": "Egyéni lejátszási lista vizsgálati korlát",
-				"customDialogDescription": "Egész számot adjon meg {{min}} és {{max}} között.",
-				"customDialogCancel": "Mégse",
-				"customDialogSave": "Korlát mentése",
-				"invalid": "Egész számot adjon meg 1 és 5000 között",
-				"tooltip": "Az Arroxy a választó összeállításakor csak ennyi lejátszási lista-, csatorna- vagy keresési bejegyzést kér le."
-			},
-			"nativeAudioPreference": {"label": "Eredeti hang előnyben részesítése", "description": "Sztereó vagy térhatású hang, amikor egy profil eredeti hangot választ. A profil felülbírálhatja.", "compatible": "Kompatibilis sztereó", "surround": "Térhatású / Dolby előnyben"},
-			"autoRetry": {"label": "Sikertelen letöltések újrapróbálása", "description": "Hálózati vagy kiszolgálói hiba után automatikusan újrapróbálja, az egyes próbálkozások között egyre hosszabb ideig várva. A webhely által letiltott letöltéseket soha nem próbálja újra automatikusan.", "unit": "alkalom"},
-			"autoRemoveCompleted": {"label": "Befejezett letöltések eltávolítása", "description": "A letöltést néhány másodperccel a befejezése után leveszi a Letöltések listáról. A fájlok a mappában maradnak; a sikertelen és megszakított letöltések a listán maradnak."},
-			"concurrentDownloads": {"label": "Egyidejű letöltések", "description": "Hány sorba állított elem töltődik le egyszerre. Több egyidejű letöltés hamarabb végez egy hosszú sorral, de nő az esélye, hogy a webhely korlátozza.", "unit": "letöltés"},
-			"downloadConnections": {"label": "Letöltési kapcsolatok", "description": "Felgyorsítja a nagy letöltéseket azáltal, hogy a videó több részét egyszerre tölti le. A magasabb értékek növelik az esélyét, hogy a webhely korlátozza.", "unit": "kapcsolat"},
-			"networkPacing": {
-				"heading": "Kíméletes letöltés",
-				"description": "Kis várakozásokat iktat be az egyes letöltések során, hogy az Arroxy ne terhelje túl agresszíven a webhelyet. Az értékek másodpercben vannak megadva.",
-				"presetLabel": "Mennyire legyen óvatos az Arroxy?",
-				"tooltip": "Ezek a várakozások az egyes letöltéseken belül történnek. Az egyidejűleg futó letöltések számát külön, az Egyidejű letöltések alatt lehet beállítani.",
-				"summary": "Várakozások: {{requests}} az ellenőrzések között, {{downloads}} a média indítása előtt, {{subtitles}} a feliratfájlok előtt.",
-				"presets": {"off": "Ki", "balanced": "Kiegyensúlyozott", "careful": "Óvatos", "custom": "Egyéni"},
-				"tooltips": {
-					"off": "Csak azokat a kis alapszüneteket használja, amelyeket az Arroxy a médiához és a feliratokhoz megtart.",
-					"balanced": "Alapértelmezett. Rövid szüneteket iktat be a kérések között és a média indítása előtt.",
-					"careful": "Hosszabb szüneteket iktat be nagy lejátszási listákhoz vagy gyakran korlátozott hálózatokhoz.",
-					"custom": "Maga hangolhatja a letöltésenkénti speciális vezérlőket."
-				},
-				"fields": {"sleepRequests": "Várakozás a metaadat-ellenőrzések között", "sleepInterval": "Szünet a média indítása előtt: min.", "maxSleepInterval": "Szünet a média indítása előtt: max.", "sleepSubtitles": "Várakozás a feliratfájlok előtt"},
-				"units": {"seconds": "mp"}
-			},
-			"closeToTray": {"toggle": "Elrejtés a tálcára bezáráskor", "toggleDescription": "A letöltések az ablak bezárása után a háttérben folytatódnak."},
-			"analytics": {
-				"toggle": "Napi jelzés küldése",
-				"toggleDescription": "Nincs telemetria. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
-			}
-		},
-		"quickProgress": {
-			"title": "Gyorsletöltés előkészítése",
-			"description": "Az Arroxy beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
-			"currentFallback": "Aktuális hivatkozás",
-			"waitHint": "Hagyja nyitva, amíg az Arroxy előkészíti a sort.",
-			"failedCount_one": "{{count}} sikertelen",
-			"failedCount_other": "{{count}} sikertelen",
-			"cancel": "Előkészítés megszakítása",
-			"phase": {"probing": "Részletek lekérése", "queueing": "Hozzáadás a sorhoz"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Ehhez a videóhoz nincs elérhető felirat",
-			"searchPlaceholder": "Nyelvek keresése…",
-			"noMatches": "Nincs egyező nyelv",
-			"clearAll": "Összes törlése",
-			"noSelected": "Nincs kijelölt felirat",
-			"removeLanguage": "{{name}} eltávolítása",
-			"sectionManual": "Kézi",
-			"sectionAuto": "Automatikusan generált",
-			"saveMode": {"heading": "Mentés mint", "sidecar": "A videó mellé", "embed": "Beágyazás a videóba", "subfolder": "subtitles/ almappába"},
-			"format": {"heading": "Formátum"},
-			"embedNote": "Beágyazáskor a kimenet .mkv fájlként kerül mentésre, hogy a feliratsávok megbízhatóan beágyazódjanak.",
-			"autoAssNote": "Az automatikus feliratok ASS helyett SRT formátumban lesznek mentve – a YouTube-videóknál megtisztítjuk őket a gördülő felirat-ismétlődéstől, amelyet az ASS-konvertálónk még nem tud megvalósítani."
-		},
-		"sponsorblock": {
-			"modeHeading": "Szponzorok szűrése",
-			"mode": {"off": "Ki", "mark": "Megjelölés fejezetként", "remove": "Szakaszok eltávolítása"},
-			"modeHint": {"off": "Nincs SponsorBlock – a videó a feltöltött módon játszódik le.", "mark": "A szponzori szakaszokat fejezetként jelöli meg (nem destruktív).", "remove": "Kivágja a szponzori szakaszokat a videóból az FFmpeg segítségével."},
-			"categoriesHeading": "Kategóriák",
-			"cat": {"sponsor": "Szponzor", "intro": "Bevezető", "outro": "Zárás", "selfpromo": "Önreklám", "music_offtopic": "Témán kívüli zene", "preview": "Előzetes", "filler": "Töltelék"}
-		},
-		"formats": {
-			"kind": {"label": "Mit szeretne letölteni", "video": "Videó + hang", "videoOnly": "Videó, hang nélkül", "audio": "Csak hang", "subtitles": "Csak feliratok"},
-			"profile": {
-				"calloutTitle": "A formátumok a profiljából indulnak",
-				"calloutBody": "Az aktív profil előre kiválasztja Önnek az adatfolyamokat. Profilt a menüből válthat, vagy a ceruzával finomhangolhat egyet anélkül, hogy elhagyná ezt a letöltést.",
-				"preselected": "Előre kiválasztva innen:",
-				"tag": "Profil",
-				"closestTag": "Legközelebb a profilhoz",
-				"switchTitle": "Profilváltás?",
-				"switchBody": "Módosította ezt: {{areas}} ennél a letöltésnél. A(z) „{{profile}}” így is kiválasztja a videót és a hangot. Megtartja a többi módosítást, vagy mindent visszaállít a profilra?",
-				"resetAll": "Összes visszaállítása",
-				"edit": "{{name}} szerkesztése",
-				"updatedTitle": "A frissített profil használata?",
-				"updatedBody": "Módosította ezt: {{areas}} ennél a letöltésnél. A frissített profil így is kiválasztja a videót és a hangot. Megtartja a többi módosítást, vagy mindent visszaállít a profilra?",
-				"keepEdits": "Módosítások megtartása",
-				"menuDescription": "Csak ehhez a letöltéshez. Az alapértelmezett profil változatlan marad."
-			},
-			"fit": {
-				"tierBelow": "A profilja {{wanted}}p felbontást kér. Ez a videó csak {{picked}}p-ig terjed, ezért {{picked}}p van kiválasztva.",
-				"tierAbove": "A profilja {{wanted}}p felbontást kér. Ennél kisebb nem érhető el ennél a videónál, ezért {{picked}}p van kiválasztva.",
-				"mp4Unavailable": "A profilja Okostévé (H.264). Ez a videó nem kínál H.264-et, ezért a legközelebbi adatfolyam van kiválasztva.",
-				"noVideo": "Ennek a hivatkozásnak nincs videója, ezért a hang van kiválasztva.",
-				"subtitlesMissing": "A profilja feliratot kér a következő nyelveken: {{languages}}. Ez a videó nem rendelkezik ilyennel.",
-				"webmUnavailable": "A profilja WebM-et kér. A videó kiválasztott adatfolyamai között {{codec}} is van, amelyet a WebM nem tud tárolni, ezért a fájltípus Automatikus."
-			},
-			"footer": {"download": "Letöltés", "moreActions": "További letöltési lehetőségek", "addToQueue": "Hozzáadás a sorhoz indítás nélkül", "subtitlesRequired": "Válasszon legalább egy feliratnyelvet."},
-			"video": "Videó",
-			"audio": "Hang",
-			"noAudio": "Hang nélkül",
-			"withAudio": "hanggal",
-			"resolutionUnknown": "Ismeretlen felbontás",
-			"bitrateValue": "Bitráta: {{bitrate}}",
-			"marker": {"aiUpscaled": "MI-vel felskálázva", "aiDubbed": "MI-szinkron", "audioDescription": "Hangleírás", "spatialAudio": "Térhatású hang", "vr": "360° / VR", "enhancedBitrate": "Megnövelt bitráta", "damaged": "Sérült", "watermarked": "Vízjeles"},
-			"keepAudio": "Változatlanul",
-			"keepAudioMeta": "Beépített hang",
-			"audioOnly": "Csak hang",
-			"sniffing": "A legjobb formátumok felkutatása…",
-			"loadingHint": "Várjon, amíg a lekérdezés befejeződik – a lejátszási listák és keresések eltarthatnak egy ideig.",
-			"loadingAria": "Formátumok betöltése",
-			"sizeUnknown": "Ismeretlen méret",
-			"total": "Összesen",
-			"skipToConfirm": "Ugrás a megerősítésre",
-			"skipToConfirmTooltip": "A hátralévő lépésekhez a mentett beállításokat használja. Beállítás módosításához haladjon lépésenként – a választása a következő alkalomra mentésre kerül.",
-			"quality": {"high": "Magas minőség", "medium": "Közepes minőség", "low": "Alacsony minőség"},
-			"drc": {"label": "Hangerő kiegyenlítése (DRC)", "description": "Halkítja a hangos részeket, és erősíti a halkakat – hangszórókhoz és zajos környezethez.", "tag": "Kiegyenlített hangerő"},
-			"audioLanguage": "Hang nyelve",
-			"audioLanguageCount_one": "{{count}} nyelv",
-			"audioLanguageCount_other": "{{count}} nyelv",
-			"convert": {
-				"label": "Konvertálás",
-				"bitrate": "Bitráta",
-				"wavLabel": "WAV (tömörítetlen)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, újrakódolás nélkül",
-				"copyLabelNoBitrate": "{{target}}, újrakódolás nélkül",
-				"copyNote": "{{kbps}} kbps, ahogy a forrásban van: az adatfolyam már {{target}} formátumú, ezért másolásra kerül, nem kódolódik újra",
-				"copyNoteNoBitrate": "Ahogy a forrásban van: az adatfolyam már {{target}} formátumú, ezért másolásra kerül, nem kódolódik újra",
-				"bitrateCopyHint": "A már {{target}} formátumú forrás megtartja saját adatfolyamát és bitrátáját: másolásra kerül, nem kódolódik újra.",
-				"sourceKbps": "A forrás {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "A lekérdezés korlátozva lett",
-				"bodyUnconfigured": "A formátumlista hiányos lehet. Állítsa be a sütiket a speciális beállításokban, vagy váltson hálózatot, és próbálja újra.",
-				"bodyDisabled": "A sütik be vannak állítva, de ki vannak kapcsolva. Kapcsolja be őket, és próbálja újra a teljes listáért, vagy váltson hálózatot, és próbálja újra.",
-				"bodyEnabled": "A sütikkel együtt is korlátozta a YouTube ezt a lekérdezést. Próbálja újra később, vagy váltson hálózatot.",
-				"bodyExplore": "A YouTube korlátozta ezt a kérést. Próbálja újra később, vagy váltson hálózatot.",
-				"retryCta": "Újra",
-				"enableRetryCta": "Sütik bekapcsolása és újra"
-			},
-			"rateLimit": {
-				"heading": "A(z) {{site}} korlátozza ezt a kapcsolatot",
-				"leadDegraded": "A formátumlista hiányos lehet.",
-				"leadFailed": "A(z) {{site}} egyelőre elutasította ezt a kérést.",
-				"waitUntil": "Az Arroxy {{time}}-ig vár, mielőtt újra megkérdezné a(z) {{site}} webhelyet, hogy a korlátozás feloldódhasson.",
-				"waitOver": "A várakozásnak vége, újra próbálkozhat.",
-				"sessionNote": "A(z) {{site}} akár egy óráig is fenntarthatja ezt a korlátozást.",
-				"tryNowCta": "Próba most",
-				"retryCta": "Újra"
-			},
-			"cookiesError": {
-				"heading": "A sütik lehetnek az okai",
-				"currentModeLabel": "Sütiforrás",
-				"currentModeFile": "Fájl",
-				"currentModeBrowser": "Böngésző",
-				"currentModeExplore": "Felfedezés-bejelentkezés",
-				"explanationFile": "A sütifájl lehet, hogy üres, lejárt vagy rossz formátumú (az Arroxynak Netscape cookies.txt fájl kell). Próbálja újra exportálni a sütiket, másik fájlt választani, Böngésző módra váltani, vagy kikapcsolni a sütiket.",
-				"explanationBrowser": "A sütik közvetlenül a böngészőből kerülnek beolvasásra. Ha a böngésző éppen fut, a sütiadatbázisa zárolva lehet (Chromium-család). A böngészőnek be kell lennie jelentkezve a YouTube-ra. Próbálja meg bezárni a böngészőt, másik böngészőre váltani, Fájl módra váltani, vagy kikapcsolni a sütiket.",
-				"openSettingsCta": "Sütibeállítások megnyitása",
-				"exploreSignIn": {"heading": "Ehhez a videóhoz YouTube-fiók kellhet", "body": "Ha ehhez a videóhoz YouTube-fiók kell, jelentkezzen be a Felfedezésben, és próbálja újra. Az Arroxy ezt a bejelentkezést csak akkor használja, ha a letöltéshez szükséges.", "cta": "Bejelentkezés a Felfedezésben"},
-				"exploreSignedIn": {"heading": "Bejelentkezve a Felfedezésben", "body": "Ha ehhez a videóhoz fiók kell, az Arroxy automatikusan a Felfedezés-bejelentkezését használja. Lehet, hogy más okból nem érhető el."},
-				"exploreOffer": {"heading": "Ehhez a videóhoz YouTube-fiók kellhet", "body": "Jelentkezzen be a Felfedezéssel, és az Arroxy újrapróbálja.", "cta": "Bejelentkezés a Felfedezéssel"},
-				"exploreReuse": {"heading": "Ehhez a videóhoz YouTube-fiók kellhet", "body": "Be van jelentkezve a Felfedezésben, de a letöltések jelenleg nem használják ezt a bejelentkezést.", "cta": "Felfedezés-bejelentkezés használata és újra"},
-				"exploreSite": {
-					"heading": "Ehhez a hivatkozáshoz fiók kellhet itt: {{host}}",
-					"signInBody": "Jelentkezzen be ide: {{host}} a Felfedezésben, majd próbálja újra. Az Arroxy ezt a bejelentkezést csak akkor használja, ha a letöltéshez szükséges.",
-					"offerBody": "Jelentkezzen be ide: {{host}} a Felfedezéssel, majd próbálja újra."
-				},
-				"exploreRefused": {"heading": "A webhely a Felfedezés-bejelentkezéssel is elutasította", "body": "Az Arroxy már megpróbálta a Felfedezésen keresztül bejelentkezve, így az újbóli bejelentkezés nem segít. Lehet, hogy a webhelynek van problémája, vagy ez a fiók nem tudja megnyitni. Próbálja újra később."},
-				"otherCookiesCta": "Inkább sütifájl vagy böngésző használata…",
-				"needsCookies": {"heading": "Ehhez a webhelyhez bejelentkezés szükséges", "body": "Az Arroxy nem tudta elérni ezt a videót hitelesítés nélkül. Állítsa be a sütiket a speciális beállításokban – adjon meg egy böngészőt, amelybe már be van jelentkezve, vagy importáljon egy cookies.txt fájlt."},
-				"dpapi": {
-					"heading": "A Chrome sütiit blokkolja a Windows titkosítása",
-					"explanation": "A Chrome 127 és újabb verziói Windowson olyan módon titkosítják a sütiket, hogy más alkalmazások nem tudják olvasni őket. Próbálja ki az alábbi megoldások egyikét.",
-					"fixFirefoxLabel": "Váltás Firefoxra",
-					"fixFirefoxBody": "A Firefox nem használ App-Bound Encryption titkosítást. Nyissa meg a sütibeállításokat, és válassza a Firefoxot a böngészők listájából.",
-					"fixFileLabel": "cookies.txt exportálása",
-					"fixFileBody": "Exportálja a sütiket a Chrome-ból egy böngészőbővítménnyel, majd állítsa át az alkalmazást Fájl módra, és válassza ki az exportált fájlt.",
-					"fixUnsafeLabel": "Chrome indítása letiltott App-Bound Encryptionnel",
-					"fixUnsafeBody": "Adja hozzá a --disable-features=LockProfileCookieDatabase kapcsolót a Chrome indítóparancsikonjához. Figyelem: ez érvényteleníti a korábban titkosított sütiket, így minden webhelyről kijelentkezik, és újra be kell jelentkeznie.",
-					"docsLinkLabel": "yt-dlp dokumentáció (#10927. hibajegy)"
-				}
-			},
-			"savesAs": {"label": "Mentés mint", "reset": "A WebM nem tud {{codec}} kodeket tárolni, ezért a fájltípus visszaállt Automatikusra."}
-		},
-		"folder": {
-			"heading": "Mentés ide",
-			"downloads": "Letöltések",
-			"videos": "Filmek",
-			"desktop": "Asztal",
-			"music": "Zene",
-			"documents": "Dokumentumok",
-			"pictures": "Képek",
-			"home": "Saját mappa",
-			"custom": "Egyéni…",
-			"subfolder": {"toggle": "Mentés almappába", "placeholder": "pl. lo-fi felvételek", "invalid": "A mappanév érvénytelen karaktereket tartalmaz"}
-		},
-		"output": {
-			"embedChapters": {"label": "Fejezetek beágyazása", "description": "Fejezetjelölők, amelyek között bármely modern lejátszóban lehet navigálni."},
-			"embedMetadata": {"label": "Metaadatok beágyazása", "description": "A cím, az előadó, a leírás és a feltöltés dátuma a fájlba kerül."},
-			"embedThumbnail": {"label": "Miniatűr beágyazása", "description": "Borítókép a fájlon belül. A WebM-videó MKV-ba lesz átcsomagolva; feliratok beágyazásakor kimarad."},
-			"writeDescription": {"label": "Leírás mentése", "description": "A videó leírását .description szövegfájlba menti a letöltés mellé."},
-			"writeThumbnail": {"label": "Miniatűr mentése", "description": "A miniatűrt .jpg képfájlként menti a letöltés mellé."},
-			"writeM3u": {"label": ".m3u lejátszási lista létrehozása", "description": "A videók mellé .m3u lejátszási listát ment, hogy a médialejátszóban sorrendben nyíljanak meg."}
-		},
-		"review": {
-			"changeFormat": "Formátum módosítása",
-			"rowsHeading": "Minden más",
-			"rows": {"subtitles": "Feliratok", "sponsorBlock": "SponsorBlock", "extras": "Extrák", "saveTo": "Mentés ide", "fileName": "Fájlnév"},
-			"value": {"subtitlesOff": "Ki", "sponsorBlockOff": "Ki", "extrasNone": "Nincs"},
-			"changed": "Módosítva a(z) {{profile}} profilhoz képest: {{areas}}. Csak erre a letöltésre vonatkozik.",
-			"areas": {"format": "formátum", "subtitles": "feliratok", "sponsorBlock": "SponsorBlock", "extras": "extrák", "saveTo": "mappa", "fileName": "fájlnév"},
-			"updateProfile": "A(z) „{{profile}}” frissítése ezekkel a módosításokkal",
-			"saveAsProfile": "Mentés új profilként",
-			"update": {
-				"title": "Frissíti a(z) „{{profile}}” profilt?",
-				"description": "Mostantól minden, ezzel a profillal végzett letöltés az új beállításokat használja.",
-				"rows": {"format": "Formátum"},
-				"builtinNote": "Ez egy beépített profil. Az eredeti beállításokat a Profilok lapon állíthatja vissza.",
-				"action": "Profil frissítése",
-				"updated": "Frissített profil: „{{name}}”"
-			},
-			"callout": {"title": "Az összes többi beállítás mostantól ezen az oldalon van", "body": "A feliratok, a SponsorBlock, az extrák (például a miniatűr), a mappa és a fájlnév korábban külön lépések voltak. Kattintson egy sorra a módosításhoz."},
-			"reset": "Módosítások visszavonása, vissza ehhez: „{{profile}}”",
-			"changedFrom": "Módosítva a(z) {{profile}} profilhoz képest:",
-			"save": {
-				"title": "Mentés profilként",
-				"description": "Ezeket a beállításokat profilként megtartja, amelyet legközelebb kiválaszthat. A Gyorsletöltés profilja változatlan marad.",
-				"nameLabel": "Profilnév",
-				"action": "Profil mentése",
-				"saved": "Mentve „{{name}}” profilként",
-				"failed": "A profil mentése nem sikerült."
-			},
-			"nextTime": {"title": "Ez a letöltés módosított beállításokat használt. Használja ezeket legközelebb is?", "action": "Mentés profilként", "defaultName": "{{profile}} (szerkesztve)"}
-		},
-		"confirm": {
-			"readyHeadline": "Indulhat a letöltés!",
-			"landIn": "A fájl ide kerül:",
-			"landInMultiProfile_one": "A lenti célmappába kerül",
-			"landInMultiProfile_other": "A lenti {{count}} célmappába kerülnek",
-			"labelVideo": "Videó",
-			"labelAudio": "Hang",
-			"labelSubtitles": "Feliratok",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Mentés ide",
-			"labelSize": "Méret",
-			"sizeUnknown": "Ismeretlen",
-			"nothingToDownload": "A Csak feliratok előbeállítás aktív, de nincs kiválasztva feliratnyelv – semmi sem fog letöltődni.",
-			"thumbnailEmbedNotSupported": "A miniatűr beágyazása kimaradt – a kimeneti tároló nem támogatja.",
-			"subtitleEmbedAudioOnly": "A felirat beágyazása külön fájlra változott – a hangsávok nem támogatják a beágyazott feliratfolyamokat.",
-			"audioOnly": "Csak hang",
-			"addToQueue": "+ Sor",
-			"addToQueueTooltip": "Hozzáadás a sorhoz – az aktív letöltés befejezésekor indul",
-			"pullIt": "Letöltés! ↓",
-			"pullItTooltip": "Kihagyja a sort – azonnal indul, az egyéb aktív letöltésekkel együtt fut",
-			"labelPlaylist": "Lejátszási lista",
-			"labelBulk": "Köteg",
-			"labelPreset": "Előbeállítás",
-			"labelItems": "Elemek",
-			"itemsValue_one": "{{count}} / {{total}} videó",
-			"itemsValue_other": "{{count}} / {{total}} videó",
-			"itemsValueAudio_one": "{{count}} / {{total}} szám",
-			"itemsValueAudio_other": "{{count}} / {{total}} szám",
-			"itemsValueBulk_one": "{{count}} / {{total}} URL",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL",
-			"profileBreakdownHeading": "Profilok ebben a kötegben",
-			"profileBreakdownCount_one": "{{count}} elem",
-			"profileBreakdownCount_other": "{{count}} elem",
-			"subtitleEmbedForcesMkv": "A videóba ágyazott feliratokhoz MKV-fájl kell, ezért ez a letöltés .mkv fájlként kerül mentésre."
-		},
-		"profileEditor": {
-			"dialogTitle": "Letöltési profil",
-			"dialogDescription": "Egy újrahasználható beállítás a Gyorsletöltéshez, a Tömeges URL-ekhez és a lejátszási listákhoz.",
-			"skipped": "Kihagyva",
-			"panel": {
-				"identity": {"title": "Profil azonosítása", "description": "A Gyorsletöltésben, a Tömeges URL-ekben és a profillistákban megjelenő név és ikon."},
-				"downloadType": {"title": "Letöltés típusa", "description": "Válassza ki a letöltés elsődleges módját."},
-				"advanced": {"title": "Speciális beállítások", "description": "A profilok örökölik a globális célmappát, hacsak nem állít be profilfelülbírálást."},
-				"output": {"title": "Kimeneti beállítások", "enabledCount_one": "{{count}} engedélyezve", "enabledCount_other": "{{count}} engedélyezve"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profilnév és ikon",
-				"icon": "Profilikon",
-				"resolution": "Felbontás",
-				"quality": "Minőség",
-				"source": "Forrás",
-				"subfolderName": "Almappa neve",
-				"name": "Profilnév",
-				"subtitleDownloads": "Feliratletöltések",
-				"subtitleDownloadsDescription": "A profilok nyelvkódokat kérnek; az elérhetőség URL-enként dől el.",
-				"languages": "Nyelvek",
-				"delivery": "Mentés módja",
-				"overridePath": "Profil felülbíráló elérési útja",
-				"goal": "Optimalizálás erre",
-				"fileType": "Fájltípus",
-				"nativeAudio": "Eredeti hang"
-			},
-			"action": {
-				"chooseIcon": "Profilikon kiválasztása",
-				"setOverride": "Profilfelülbírálás beállítása",
-				"chooseFolder": "Célmappa kiválasztása",
-				"removeLanguage": "{{code}} eltávolítása",
-				"useLanguageCode": "„{{code}}” nyelvkód használata",
-				"changeGlobalShort": "Globális módosítása",
-				"setOverrideShort": "Felülbírálás",
-				"useGlobalDefault": "Globális alapértelmezés használata",
-				"reset": "Profil visszaállítása",
-				"resetHint": "A beépített profilbeállítások visszaállítása",
-				"resetDisabledHint": "Ez a profil már a beépített beállításokat használja",
-				"save": "Profil mentése"
-			},
-			"placeholder": {"folder": "Válasszon mappát ehhez a profilhoz"},
-			"destination": {
-				"global": "Globális célmappa",
-				"override": "Profilfelülbírálás",
-				"resolved": "Feloldott célmappa",
-				"defaultFolder": "Alapértelmezett letöltési mappa",
-				"defaultFolderWithSubfolder": "Alapértelmezett letöltési mappa / {{subfolder}}",
-				"globalActive": "Aktív",
-				"globalInherited": "Örökölt",
-				"overrideSet": "Felülbírálja a globálisat",
-				"overrideChoosing": "Mappa kiválasztása",
-				"overrideNone": "Nincs felülbírálás",
-				"overrideSetNote": "Ez a profil a saját gyökérmappájába ment, mielőtt az almappa hozzáadódik.",
-				"overrideNoneNote": "Nincs felülbírálás beállítva. Ez a profil a fenti globális célmappát használja."
-			},
-			"note": {
-				"subtitlesOnly": "Ez a profil csak feliratfájlokat állít sorba. A videó, a hang, a SponsorBlock és a médiakonvertálás kimarad.",
-				"noSubtitles": "Ehhez a profilhoz nem lesznek kérve feliratfájlok vagy beágyazott feliratsávok.",
-				"searchLanguages": "Keresés nyelvnév vagy kód alapján",
-				"noLanguageMatches": "Nincs egyező nyelv",
-				"subtitleLanguagesRequired": "Válasszon legalább egy nyelvet.",
-				"subtitleLanguagesRequiredOrOff": "Válasszon legalább egy nyelvet, vagy kapcsolja ki a feliratletöltést.",
-				"autoCaptionsSrt": "Az automatikus feliratok ASS helyett SRT formátumban lesznek mentve.",
-				"skippedForOutputType": "Ennél a kimeneti típusnál kimarad."
-			},
-			"error": {"save": "A profilbeállítások mentése nem sikerült.", "changeGlobalDestination": "A globális célmappa módosítása nem sikerült.", "reset": "A profilbeállítások visszaállítása nem sikerült.", "folderPicker": "A mappaválasztó megnyitása nem sikerült. Adja meg kézzel az elérési utat."},
-			"mediaMode": {
-				"videoAudio": {"label": "Videó + hang", "description": "Hagyományos videófájlok"},
-				"videoOnly": {"label": "Videó, hang nélkül", "description": "Csak néma videó"},
-				"audioOnly": {"label": "Csak hang", "description": "Zene vagy podcastok"},
-				"subtitlesOnly": {"label": "Csak feliratok", "description": "Csak feliratfájlok"}
-			},
-			"icon": {"controls": "Vezérlők", "download": "Letöltés", "video": "Videó", "captions": "Feliratok", "audio": "Hang", "music": "Zene", "podcast": "Podcast", "classes": "Órák", "clip": "Klip", "archive": "Archívum"},
-			"audioFormat": {"best": "Legjobb", "wav": "WAV"},
-			"audioQuality": {"128": "Legfeljebb 128K", "192": "Legfeljebb 192K", "320": "Legfeljebb 320K", "best": "Legjobb minőség"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Előbb kézi, utána automatikus", "manualAndAuto": "Kézi és automatikus", "manualOnly": "Csak kézi", "autoOnly": "Csak automatikusan generált"},
-			"sponsorBlockHint": {"off": "Nincs SponsorBlock – a videó a feltöltött módon játszódik le.", "mark": "A szponzori szakaszokat fejezetként jelöli meg (nem destruktív).", "remove": "Kivágja a szponzori szakaszokat a videóból az FFmpeg segítségével."},
-			"advanced": "Speciális",
-			"goal": {
-				"bestPicture": {"name": "Legjobb kép", "tag": "AV1 · VP9", "description": "A legélesebb adott méretnél. Régebbi tévék, a QuickTime és egyes szerkesztők nem tudják lejátszani."},
-				"smartTv": {"name": "Okostévé", "tag": "MP4 · H.264", "description": "Lejátszható tévéken, telefonokon, WhatsAppban, QuickTime-ban és videószerkesztőkben. A YouTube csak 1080p-ig kínál H.264-et."}
-			},
-			"appSetting": "Alkalmazásbeállítás használata ({{value}})"
-		},
-		"part": {
-			"switchLabel": "A videó mekkora része",
-			"whole": "Teljes videó",
-			"wholeTrack": "Teljes szám",
-			"part": "Rész",
-			"unavailableSubtitles": "A feliratok mindig a teljes videóra vonatkoznak.",
-			"unavailableDuration": "Ez a videó nem jelzi a hosszát, ezért csak egészében tölthető le.",
-			"rangeLabel": "A videó egy része",
-			"start": "Kezdet",
-			"end": "Vége",
-			"timeHint": "ó:pp:mm, p:mm vagy másodperc",
-			"length": "{{length}} / {{duration}}",
-			"chapters": "Fejezetek",
-			"chapterUntitled": "{{number}}. fejezet",
-			"exactCut": {"label": "Pontos vágás (újrakódol, lassabb)", "hint": "Kikapcsolva: minden vágás a legközelebbi kulcsképkockára esik, ami néhány másodpercre lehet a beírt időponttól."},
-			"calloutTitle": "Csak a videó egy részének letöltése",
-			"calloutBody": "Váltson a videókártyán a Rész beállításra, hogy kezdő- és végpontot vagy fejezetet válasszon, és csak azt a szakaszt töltse le.",
-			"connectionsNote": "A rész letöltése az ffmpegen keresztül történik, ezért a letöltési kapcsolatokra és az ütemezésre vonatkozó beállítások nem érvényesek rá.",
-			"urlStart": "A hivatkozás itt kezdődik: {{time}}",
-			"useUrlStart": "Használat kezdetként",
-			"error": {"startInvalid": "A kezdetet ó:pp:mm, p:mm vagy másodperc formában adja meg.", "endInvalid": "A véget ó:pp:mm, p:mm vagy másodperc formában adja meg.", "startNotBeforeEnd": "A kezdetnek a vég előtt kell lennie.", "endBeyondDuration": "A videó {{duration}} időpontban ér véget."},
-			"downloadBlocked": "Előbb javítsa ki a rész kezdetét és végét.",
-			"totalEstimate": "Rész, becsült",
-			"summary": "Rész: {{start}}–{{end}}",
-			"subtitlesFullLength": "teljes videó"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Betöltés…", "chapters_one": "{{count}} fejezet", "chapters_other": "{{count}} fejezet"},
-	"queue": {
-		"header": "Letöltések",
-		"tabLabel": "Letöltések",
-		"attentionBadge_one": "{{count}} letöltés figyelmet igényel",
-		"attentionBadge_other": "{{count}} letöltés figyelmet igényel",
-		"choice": {
-			"cappedBody_one": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
-			"cappedBody_other": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
-			"reviewBody_one": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le.",
-			"reviewBody_other": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le.",
-			"all": "Minden videó",
-			"first": "Első {{count}}",
-			"review": "Áttekintés"
-		},
-		"tabTip": "A letöltések mostantól a Letöltések lapon találhatók – bármikor megnyithatja a haladás követéséhez.",
-		"empty": "A sorba állított letöltések itt jelennek meg",
-		"filtersLabel": "Sor állapotszűrői",
-		"filterAll": "Mind",
-		"selectedActionsLabel": "Kijelölt elemek",
-		"globalActionsLabel": "Minden elem",
-		"selectionSummary": "{{selected}} kijelölve · összesen {{total}}",
-		"clearTitle": "Befejezett letöltések törlése",
-		"autoRemoveCompleted": {"label": "Kész elemek törlése", "hint": "Minden letöltést eltávolít a listáról néhány másodperccel a befejezése után. A fájlok a mappában maradnak."},
-		"pauseAllTitle": "Minden aktív letöltés szüneteltetése, és az újak indításának leállítása",
-		"resumeAllTitle": "A szüneteltetett letöltések folytatása, és a sor továbbfuttatása",
-		"pausedBanner": "A sor szünetel – a várakozó elemek nem indulnak el, amíg nem folytatja",
-		"resumeQueueAction": "Sor folytatása",
-		"cancelAllTitle": "Az összes aktív és függőben lévő letöltés megszakítása",
-		"table": {
-			"columns": "Oszlopok",
-			"title": "Cím",
-			"status": "Állapot",
-			"progress": "Folyamat",
-			"format": "Formátum",
-			"outputTarget": "Célmappa",
-			"artifacts": "Mellékletek",
-			"size": "Méret",
-			"added": "Hozzáadva",
-			"finished": "Befejezve",
-			"notAvailable": "—",
-			"sortBy": "Rendezés: {{label}}",
-			"showArtifactsFor": "Mellékletek megjelenítése: {{title}}",
-			"hideArtifactsFor": "Mellékletek elrejtése: {{title}}",
-			"resetColumns": "Oszlopok visszaállítása",
-			"resizeColumn": "{{column}} oszlop átméretezése",
-			"movableColumn": "áthelyezhető oszlop",
-			"moveColumnInstructions": "Oszlop áthelyezéséhez nyomja meg a Szóközt vagy az Entert, mozgassa a nyílbillentyűkkel, majd a Szóköz vagy az Enter megnyomásával engedje el. A megszakításhoz nyomja meg az Escape billentyűt.",
-			"columnPickedUp": "A(z) {{column}} oszlop felvéve.",
-			"columnMovedOver": "A(z) {{column}} oszlop a(z) {{target}} fölött van.",
-			"columnDropped": "A(z) {{column}} oszlop elengedve.",
-			"columnMoveCancelled": "A(z) {{column}} oszlop áthelyezése megszakítva."
-		},
-		"artifact": {"media": "Média", "subtitle": "Felirat", "thumbnail": "Miniatűr", "description": "Leírás", "companion": "Kísérő", "unknown": "Melléklet", "missing": "Hiányzik"},
-		"item": {
-			"defaultError": "A letöltés sikertelen",
-			"retryingSoon": "automatikus újrapróbálás (próbálkozás: {{attempt}})",
-			"qualityLimited": "Korlátozva: {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Korlátozva: {{height}}p · egyes feliratok sikertelenek",
-			"audioKept": "A hang megmaradt",
-			"audioKeptSubtitlesFailed": "A hang megmaradt · egyes feliratok sikertelenek",
-			"subtitleLanguagesMissing": "Nincs felirat a következő nyelveken: {{languages}}",
-			"pause": "Szünet",
-			"resume": "Folytatás",
-			"cancel": "Mégse",
-			"retry": "Újra",
-			"setLocation": "Hely megadása",
-			"setLocationHint": "A hely megadásához válasszon ki függőben lévő elemeket.",
-			"pendingOnly": "Csak függőben lévők",
-			"openDestinationFolder": "Célmappa megnyitása",
-			"remove": "Eltávolítás",
-			"pullNow": "Letöltés most – sor átugrása",
-			"statusProbing": "Részletek lekérése",
-			"statusNeedsChoice": "Döntés szükséges",
-			"statusPending": "Várakozik",
-			"statusRunning": "Letöltés",
-			"statusHeld": "Visszatartva",
-			"statusPaused": "Szüneteltetve",
-			"statusDone": "Kész",
-			"statusError": "Hiba",
-			"statusCancelled": "Megszakítva"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Elérhető az Arroxy {{version}} – Ön a(z) {{currentVersion}} verziót használja.",
-			"homebrew": "Elérhető az Arroxy {{version}} – frissítsen Homebrew-val.",
-			"macosDirect": "Elérhető az Arroxy {{version}} – töltse le az új DMG-t.",
-			"macosDirectHomebrew": "Elérhető az Arroxy {{version}} – töltse le a DMG-t, vagy váltson Homebrew-ra.",
-			"portable": "Elérhető az Arroxy {{version}} – töltse le az új buildet."
-		},
-		"install": "Telepítés és újraindítás",
-		"downloading": "Letöltés…",
-		"runAndRestart": "Futtatás és újraindítás",
-		"upgrading": "Frissítés…",
-		"download": "Letöltés ↗",
-		"downloadDmg": "DMG letöltése ↗",
-		"dismiss": "Frissítési sáv elvetése",
-		"copy": "Parancs másolása a vágólapra",
-		"copied": "Parancs a vágólapra másolva",
-		"installFailed": "A frissítés sikertelen",
-		"retry": "Újra"
-	},
-	"releaseNotes": {"title": "Újdonságok az Arroxy {{version}} verzióban", "description": "Frissen frissített verziót használ. Íme a legfontosabb újdonságok.", "fullNotes": "Teljes kiadási jegyzék ↗", "continue": "Folytatás"},
-	"status": {
-		"preparingBinaries": "Binárisok előkészítése…",
-		"mintingToken": "YouTube-token előállítása…",
-		"remintingToken": "Token újbóli előállítása…",
-		"startingYtdlp": "A letöltőmotor indítása…",
-		"downloadingMedia": "Videó és hang letöltése…",
-		"mergingFormats": "Hang és videó egyesítése…",
-		"extractingAudio": "Hang konvertálása…",
-		"convertingVideo": "Videó konvertálása…",
-		"embeddingMetadata": "Metaadatok beágyazása…",
-		"movingFiles": "Fájlok áthelyezése…",
-		"fetchingSubtitles": "Feliratok lekérése…",
-		"sleepingBetweenRequests": "Várakozás {{seconds}} mp-ig a sebességkorlát elkerülése érdekében…",
-		"subtitlesFailed": "A videó mentve – egyes feliratokat nem sikerült letölteni",
-		"qualityLimited": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később vagy másik hálózatról próbálja újra.",
-		"qualityLimitedSubtitlesFailed": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később vagy másik hálózatról próbálja újra.",
-		"audioKept": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani",
-		"audioKeptSubtitlesFailed": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani, és egyes feliratokat nem sikerült letölteni",
-		"subtitleLanguagesMissing": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A videó felirat nélkül lett mentve.",
-		"subtitleLanguagesMissingOthersSaved": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A többi nyelv mentésre került.",
-		"noSubtitles": "Nincs felirat a következő nyelveken: {{languages}}",
-		"cancelled": "A letöltés megszakítva",
-		"complete": "A letöltés kész",
-		"usedExtractorFallback": "Letöltve megengedőbb kinyerővel – a megbízhatóbb letöltésekhez állítson be cookies.txt fájlt",
-		"ytdlpProcessError": "Letöltőmotor-hiba: {{error}}",
-		"ytdlpExitCode": "A letöltőmotor kilépett a következő kóddal: {{code}}",
-		"downloadingBinary": "{{name}} bináris letöltése…",
-		"unknownStartupFailure": "Ismeretlen letöltésindítási hiba",
-		"diskSpaceInsufficient": "Nincs elég lemezterület – szükséges: {{required}}, elérhető: {{free}}",
-		"outputNotWritable": "Nem menthető ide: {{dir}} – az Arroxynak nincs írási engedélye",
-		"fetchingSponsorBlock": "Kapcsolódás a SponsorBlockhoz…",
-		"retryingSponsorBlock": "A SponsorBlock nem érhető el, újrapróbálás ({{attempt}}/{{total}})…",
-		"retryingTransfer": "A kapcsolat elakadt, újrapróbálás ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Bejelentkezés a Felfedezés-fiókjával…",
-		"exploreSignedOut": "Kijelentkezett a Felfedezésből – jelentkezzen be újra"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Nem sikerült menteni a beállításokat.",
-		"warmupFailed": "A telepítés nem fejeződött be. Egyes letöltések sikertelenek lehetnek, amíg be nem fejeződik.",
-		"shellActionFailed": "Nem sikerült megnyitni.",
-		"folderSelectFailed": "Nem sikerült megnyitni a mappaválasztót.",
-		"exploreSignInRetrying_one": "Bejelentkezve a Felfedezésben – 1 hivatkozás újrapróbálása",
-		"exploreSignInRetrying_other": "Bejelentkezve a Felfedezésben – {{count}} hivatkozás újrapróbálása",
-		"exploreSignOutFailed": "Nem sikerült kijelentkezni a Felfedezésből. Próbálja újra.",
-		"playlistFolderRejected": "Ez a mappa nem használható ehhez a lejátszási listához.",
-		"filenameFolderTooDeep": "Ez a mappa túl mélyen van a rendszer számára. A letöltés még így is sikertelen lehet – válasszon rövidebb elérési útú mappát.",
-		"filenameTemplateCannotFit": "A videó neve nem fér el a sablon minden részében, ezért az alapértelmezett nevet használtuk.",
-		"hotkey": {
-			"queued": "Letöltés sorba állítva a vágólapról",
-			"alreadyQueued": "Már a sorban van – másolat nem lett hozzáadva",
-			"invalidClipboard": "Nincs hivatkozás a vágólapon – előbb másoljon egyet",
-			"multipleUrls": "Több hivatkozás van másolva – használja az Arroxy Tömeges URL-ek funkcióját",
-			"needsReview": "Ehhez a hivatkozáshoz az Ön döntése kell – lásd a Letöltések lapot az Arroxyban",
-			"cookiesSetup": "Fejezze be a sütik beállítását az Arroxyban, majd próbálja újra",
-			"busy": "Az Arroxy még indul – próbálja újra egy pillanat múlva",
-			"submissionFailed": "Nem sikerült hozzáadni a hivatkozást – próbálja újra az Arroxyban"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} videó már a sorban van – kihagyva", "skippedAlreadyQueued_other": "{{count}} videó már a sorban van – kihagyva"},
-		"quickDownload": {
-			"added": "Hozzáadva: {{title}}",
-			"alreadyQueued": "Már a sorban van",
-			"failed": "Nem sikerült előkészíteni: {{title}}",
-			"notAdded": "Nem sikerült hozzáadni a hivatkozást – próbálja újra",
-			"chooseHowMany_one": "{{count}}+ videó – válassza ki, mennyit",
-			"chooseHowMany_other": "{{count}}+ videó – válassza ki, mennyit",
-			"review_one": "{{count}} videó van ezen a listán – áttekintéssel választhat",
-			"review_other": "{{count}} videó van ezen a listán – áttekintéssel választhat",
-			"reviewCapped_one": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
-			"reviewCapped_other": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
-			"view": "Megtekintés"
-		}
+	"donate": {
+		"copied": "Másolva!",
+		"copyAddress": "Cím másolása",
+		"description": "Az Arroxy ingyenes és nyílt forráskódú, hirdetések és fizetős szint nélkül. Az adományok önkéntesek, és nem adnak beleszólást a fejlesztési tervekbe.",
+		"footerLabel": "Adomány",
+		"footerTooltip": "Az Arroxy támogatása",
+		"qrAlt": "{{coin}} adományozási cím QR-kódja",
+		"title": "Az Arroxy támogatása",
+		"warning": "A kriptovalutás fizetések visszavonhatatlanok. Csak a megjelenített hálózaton küldjön, és a teljes címet hasonlítsa össze."
 	},
 	"errors": {
 		"noSubtitlesIn": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "A botvédelem működésbe lépett. A használt IP-címet valószínűleg megjelölték (adatközponti tartomány vagy túlterhelt VPN-kilépő). Módosítsa az IP-címét, vagy válasszon másik VPN-végpontot, majd próbálja újra. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik.",
-			"ipBlock": "Úgy tűnik, az IP-címe le van tiltva. Próbálja újra később, vagy használjon VPN-t.",
-			"rateLimit": "A webhely korlátozza az erről a kapcsolatról érkező kéréseket.",
 			"ageRestricted": "Ez a videó korhatáros, és bejelentkezett fiók nélkül nem tölthető le.",
-			"unavailable": "Ez a videó nem érhető el – lehet, hogy privát, törölték, vagy régiózárolt.",
+			"botBlock": "A botvédelem működésbe lépett. A használt IP-címet valószínűleg megjelölték (adatközponti tartomány vagy túlterhelt VPN-kilépő). Módosítsa az IP-címét, vagy válasszon másik VPN-végpontot, majd próbálja újra. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik.",
+			"chunkTransferFailure": "A kiszolgáló többször megszakította a letöltést közben, és az Arroxy az újrapróbálkozások után feladta. Ez általában a legnagyobb videóformátumoknál fordul elő (4K HDR / nagy bitrátájú VP9). Próbálja újra, váltson hálózatot/VPN-t, vagy válasszon kisebb felbontású formátumot.",
+			"drmProtected": "Ez a videó DRM-védelemmel rendelkezik. Az Arroxy nem tudja eltávolítani a DRM-et, így a fájl nem tölthető le.",
 			"formatUnavailable": "Ez a videó már nem kínálja az Ön által kiválasztott formátumot. Illessze be újra a hivatkozást, és válasszon a most elérhető formátumok közül.",
 			"geoBlocked": "Ez a videó az Ön régiójában nem érhető el.",
+			"ipBlock": "Úgy tűnik, az IP-címe le van tiltva. Próbálja újra később, vagy használjon VPN-t.",
+			"loginRequired": "Ehhez a videóhoz bejelentkezett fiók szükséges.",
+			"missingDependency": "Az Arroxy nem találja az FFmpeg vagy az FFprobe programot. Futtassa újra a telepítést, vagy adja meg az FFmpeg helyét, majd próbálja újra a letöltést.",
+			"network": "Hálózati hiba. Ellenőrizze a kapcsolatot, és próbálja újra.",
+			"noSubtitles": "Ehhez a videóhoz nem érhető el felirat a kért nyelveken.",
 			"outOfDiskSpace": "Nincs elég szabad lemezterület. Szabadítson fel helyet, és próbálja újra.",
 			"outputNotWritable": "Az Arroxy nem tud írni a letöltési mappába. Lehet, hogy csak olvasható, zárolt meghajtón van, vagy a rendszer adatvédelmi beállításai blokkolják. Válasszon másik mappát, vagy engedélyezze a hozzáférést, majd próbálja újra.",
-			"unsupportedUrl": "Az Arroxy nem támogatja ezt az URL-t. Próbáljon meg egy másik webhelyről származó hivatkozást.",
-			"noSubtitles": "Ehhez a videóhoz nem érhető el felirat a kért nyelveken.",
-			"chunkTransferFailure": "A kiszolgáló többször megszakította a letöltést közben, és az Arroxy az újrapróbálkozások után feladta. Ez általában a legnagyobb videóformátumoknál fordul elő (4K HDR / nagy bitrátájú VP9). Próbálja újra, váltson hálózatot/VPN-t, vagy válasszon kisebb felbontású formátumot.",
-			"missingDependency": "Az Arroxy nem találja az FFmpeg vagy az FFprobe programot. Futtassa újra a telepítést, vagy adja meg az FFmpeg helyét, majd próbálja újra a letöltést.",
-			"postprocessFailure": "A letöltés befejeződött, de az utófeldolgozás (egyesítés / muxolás / konvertálás) sikertelen volt. Gyakran ideiglenes ffmpeg-hiba áll a háttérben – próbálja újra, és ha továbbra is fennáll, válasszon másik formátumkombinációt.",
 			"parse": "A webhely válasza nem dolgozható fel. Lehet, hogy a webhely megváltoztatta a videók kiszolgálásának módját. Az Arroxy induláskor frissíti a letöltőmotort – próbálja újra néhány perc múlva, amint megjelenik a javítás.",
-			"network": "Hálózati hiba. Ellenőrizze a kapcsolatot, és próbálja újra.",
-			"drmProtected": "Ez a videó DRM-védelemmel rendelkezik. Az Arroxy nem tudja eltávolítani a DRM-et, így a fájl nem tölthető le.",
-			"loginRequired": "Ehhez a videóhoz bejelentkezett fiók szükséges.",
-			"unknown": "A letöltés sikertelen. Lásd a nyers kimenetet lent."
+			"postprocessFailure": "A letöltés befejeződött, de az utófeldolgozás (egyesítés / muxolás / konvertálás) sikertelen volt. Gyakran ideiglenes ffmpeg-hiba áll a háttérben – próbálja újra, és ha továbbra is fennáll, válasszon másik formátumkombinációt.",
+			"rateLimit": "A webhely korlátozza az erről a kapcsolatról érkező kéréseket.",
+			"unavailable": "Ez a videó nem érhető el – lehet, hogy privát, törölték, vagy régiózárolt.",
+			"unknown": "A letöltés sikertelen. Lásd a nyers kimenetet lent.",
+			"unsupportedUrl": "Az Arroxy nem támogatja ezt az URL-t. Próbáljon meg egy másik webhelyről származó hivatkozást."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Ellenőrizze a kapcsolatot, majd próbálja újra.",
+			"loadTitle": "Az oldal nem töltődött be",
+			"openSettings": "Beállítások megnyitása",
+			"proxyBody": "Ellenőrizze a proxyt a Beállításokban, majd próbálja újra.",
+			"proxyTitle": "A Felfedezés nem tud kapcsolódni a proxyn keresztül",
+			"retry": "Újra"
+		},
+		"linkCallout": {
+			"body": "Kattintson jobb gombbal bármelyik videó-, lejátszási lista- vagy csatornahivatkozásra az oldalon, hogy letöltse az aktív profillal, másik profilt válasszon, vagy megnyissa a lépésenkénti folyamatot.",
+			"title": "Jobb kattintás egy hivatkozásra a letöltéshez"
+		},
+		"linkMenu": {
+			"copyLink": "Hivatkozás másolása",
+			"downloadWith": "Letöltés ezzel:"
+		},
+		"newBadge": "Új",
+		"notice": {
+			"body": "Keressen videót a YouTube-on vagy bármely más webhelyen, és töltse le innen – hivatkozások másolása nélkül. Jelentkezzen be itt egy webhelyre a fiókot igénylő videók letöltéséhez.",
+			"continue": "Folytatás",
+			"riskBody": "Az olyan webhelyek, mint a YouTube, megjelölhetik – és olykor ki is tilthatják – az Arroxyhoz hasonló letöltőeszközökkel használt fiókokat. Olyan fiókot használjon, amelynek elvesztését megengedheti magának, ne a fő fiókját.",
+			"riskTitle": "Jelentkezzen be másodlagos fiókkal",
+			"title": "Böngésszen a weben közvetlenül az Arroxyban"
+		},
+		"nudge": {
+			"browser": "A letöltések a böngésző sütijeit használják, nem a Felfedezés bejelentkezését.",
+			"file": "A letöltések a sütifájlt használják, nem a Felfedezés bejelentkezését.",
+			"notNow": "Most nem",
+			"off": "A sütik ki vannak kapcsolva, ezért a letöltések nem használják a Felfedezés bejelentkezését.",
+			"useExplore": "Felfedezés-bejelentkezés használata"
+		},
+		"settings": {
+			"description": "Böngésszen a YouTube-on vagy bármely más webhelyen az Arroxyban, és jelentkezzen be a fiókot igénylő videókhoz.",
+			"idleUnload": "Memória felszabadítása távollétben",
+			"idleUnloadDescription": "Ha 5 percig másik lapon van, bezárja a YouTube kezdőlapját vagy keresési oldalát. Visszatéréskor újratölti, ami néhány másodpercig tart.",
+			"searchEngine": "Keresőmotor",
+			"searchEngineDescription": "Ebben keres a címsorba beírt szöveg. A hivatkozások a beírt módon nyílnak meg.",
+			"showTab": "A Felfedezés lap megjelenítése",
+			"showTabDescription": "Kikapcsolva a letöltések sem használják a Felfedezés bejelentkezését.",
+			"signOut": "Kijelentkezés a Felfedezésből",
+			"signOutConfirm": "Kijelentkezés",
+			"signOutConfirmBody": "Ez minden webhelyen törli a bejelentkezéseket és a böngészési adatokat a Felfedezésben. A fiókot igénylő letöltések mindaddig sikertelenek lesznek, amíg újra be nem jelentkezik.",
+			"signOutConfirmTitle": "Kijelentkezik a Felfedezésből?",
+			"signOutDescription": "Minden webhelyen törli a bejelentkezéseket és a böngészési adatokat a Felfedezésben.",
+			"title": "Felfedezés"
+		},
+		"tabLabel": "Felfedezés",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "A YouTube ellenállhat a hirdetésblokkolóknak a bejelentkezett fiókoknál.",
+				"aria": "Hirdetésblokkoló",
+				"off": "Hirdetésblokkoló: ki – kattintson a bekapcsoláshoz",
+				"on": "Hirdetésblokkoló: be – kattintson a kikapcsoláshoz",
+				"starting": "Hirdetésblokkoló: indul – kattintson a kikapcsoláshoz",
+				"unavailable": "Hirdetésblokkoló: nem érhető el, a szűrőlistákat nem sikerült letölteni – kattintson a kikapcsoláshoz"
+			},
+			"addressAria": "Cím",
+			"addressPlaceholder": "Keresés itt: {{engine}}, vagy nyisson meg bármely webhelyet (Vimeo, Instagram…)",
+			"aria": "A Felfedezés böngészővezérlői",
+			"back": "Vissza",
+			"compactLayout": "Kompakt elrendezés",
+			"downloadWithProfile": "Letöltés · {{profileName}}",
+			"forward": "Előre",
+			"fullLayout": "Teljes elrendezés megjelenítése",
+			"grabUnavailable": "Nyisson meg egy videót, lejátszási listát vagy csatornát a letöltéshez",
+			"home": "YouTube kezdőlap",
+			"interactiveHint": "Interaktív letöltés: formátum, feliratok és egyebek kiválasztása…",
+			"refusedHint": "A Felfedezés nem tudja megnyitni ezt a címet.",
+			"reload": "Újratöltés",
+			"searchTooLong": "Ez a keresés túl hosszú.",
+			"zoom": {
+				"hint": "Oldal nagyítása: {{percent}}%",
+				"in": "Nagyítás",
+				"label": "Oldal nagyítása",
+				"out": "Kicsinyítés",
+				"percent": "Nagyítás százalékban",
+				"reset": "Nagyítás visszaállítása 100%-ra"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Automatikus",
+		"autoValue": "Automatikus (.{{ext}})",
+		"description": {
+			"auto": "A fájltípust a kiválasztott adatfolyamok határozzák meg.",
+			"mkv": "Bármilyen kodeket tárol. Egyes tévék és telefonok nem tudják megnyitni.",
+			"mp4": "Szinte mindenhol lejátszható. Az MP4-be csomagolt VP9 videója nem játszható le a QuickTime-ban.",
+			"webm": "Nyílt formátum böngészőkhöz. Csak VP9-et vagy AV1-et tárol Opus hanggal."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "Az MP4-be csomagolt AV1 lejátszásához a QuickTime-ban újabb Mac szükséges. A H.264 mindenhol lejátszható.",
+		"mp4CaveatVp9": "Az MP4-be csomagolt VP9 videója nem játszható le a QuickTime-ban. A H.264 mindenhol lejátszható.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "A WebM nem érhető el Okostévé profilnál: nem tud H.264-et tárolni.",
+		"webm": "WebM",
+		"webmBlocked": "A WebM nem tud {{codec}} kodeket tárolni. Válasszon MKV-t vagy MP4-et."
+	},
+	"filenameTemplate": {
+		"description": "Adja meg, hogyan legyenek elnevezve a letöltött fájlok. Egy tokenre kattintva beszúrhatja. A / használatával mappákba rendezheti a letöltéseket.",
+		"error": {
+			"empty": "Adjon meg egy fájlnévsablont.",
+			"empty-segment": "Távolítsa el a felesleges / jelet – minden mappának nevet kell adni.",
+			"forbidden-char": "Távolítsa el a fájlnevekben nem engedélyezett karaktereket: \\ : * ? \" < > |",
+			"invalid-segment": "Ez a mappanév nem engedélyezett. Kerülje a . és .. nevet, valamint a lefoglalt neveket, például a CON-t.",
+			"no-unique-token": "Adja hozzá a {title} vagy {id} tokent a fájlnévhez, hogy minden letöltés saját nevet kapjon.",
+			"resolution-in-dir": "A {resolution} nem lehet mappanév – a minőség csak a letöltés indulásakor derül ki.",
+			"stray-brace": "Pár nélküli { vagy } – a tokeneket tegye kapcsos zárójelbe, például {title}.",
+			"too-long": "A sablon túl hosszú.",
+			"unknown-token": "Ismeretlen token: {{token}}."
+		},
+		"idWarning": "A {id} nélkül az Arroxy nem ismeri fel a már letöltött lejátszási listaelemeket, és nem tud .m3u lejátszási listákat létrehozni.",
+		"label": "Fájlnévsablon",
+		"m3uDisabled": "Nem érhető el, mert a fájlnévsablon nem tartalmazza a {id} tokent, vagy mappákba rendezi a letöltéseket.",
+		"previewPlaylist": "Lejátszási listában",
+		"previewSingle": "Egyetlen videó",
+		"profileOverrideDescription": "Hagyja üresen a globális sablon öröklésához.",
+		"profileOverrideLabel": "Fájlnévsablon"
+	},
+	"formatLabel": {
+		"audioFallback": "Hang",
+		"audioOnlyDot": "Csak hang · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Automatikus",
+		"description": "Az Automatikus HDR-t választ, ha a képernyő meg tudja jeleníteni, egyébként SDR-t. A HDR halványnak tűnik a hagyományos képernyőkön.",
+		"hdr": "HDR",
+		"label": "HDR-videó",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Nyelv"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Bejelentkezve a Felfedezésben – 1 hivatkozás újrapróbálása",
+		"exploreSignInRetrying_other": "Bejelentkezve a Felfedezésben – {{count}} hivatkozás újrapróbálása",
+		"exploreSignOutFailed": "Nem sikerült kijelentkezni a Felfedezésből. Próbálja újra.",
+		"filenameFolderTooDeep": "Ez a mappa túl mélyen van a rendszer számára. A letöltés még így is sikertelen lehet – válasszon rövidebb elérési útú mappát.",
+		"filenameTemplateCannotFit": "A videó neve nem fér el a sablon minden részében, ezért az alapértelmezett nevet használtuk.",
+		"folderSelectFailed": "Nem sikerült megnyitni a mappaválasztót.",
+		"hotkey": {
+			"alreadyQueued": "Már a sorban van – másolat nem lett hozzáadva",
+			"busy": "Az Arroxy még indul – próbálja újra egy pillanat múlva",
+			"cookiesSetup": "Fejezze be a sütik beállítását az Arroxyban, majd próbálja újra",
+			"invalidClipboard": "Nincs hivatkozás a vágólapon – előbb másoljon egyet",
+			"multipleUrls": "Több hivatkozás van másolva – használja az Arroxy Tömeges URL-ek funkcióját",
+			"needsReview": "Ehhez a hivatkozáshoz az Ön döntése kell – lásd a Letöltések lapot az Arroxyban",
+			"queued": "Letöltés sorba állítva a vágólapról",
+			"submissionFailed": "Nem sikerült hozzáadni a hivatkozást – próbálja újra az Arroxyban"
+		},
+		"playlistFolderRejected": "Ez a mappa nem használható ehhez a lejátszási listához.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} videó már a sorban van – kihagyva",
+			"skippedAlreadyQueued_other": "{{count}} videó már a sorban van – kihagyva"
+		},
+		"quickDownload": {
+			"added": "Hozzáadva: {{title}}",
+			"alreadyQueued": "Már a sorban van",
+			"chooseHowMany_one": "{{count}}+ videó – válassza ki, mennyit",
+			"chooseHowMany_other": "{{count}}+ videó – válassza ki, mennyit",
+			"failed": "Nem sikerült előkészíteni: {{title}}",
+			"notAdded": "Nem sikerült hozzáadni a hivatkozást – próbálja újra",
+			"reviewCapped_one": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
+			"reviewCapped_other": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
+			"review_one": "{{count}} videó van ezen a listán – áttekintéssel választhat",
+			"review_other": "{{count}} videó van ezen a listán – áttekintéssel választhat",
+			"view": "Megtekintés"
+		},
+		"settingsSaveFailed": "Nem sikerült menteni a beállításokat.",
+		"shellActionFailed": "Nem sikerült megnyitni.",
+		"warmupFailed": "A telepítés nem fejeződött be. Egyes letöltések sikertelenek lehetnek, amíg be nem fejeződik."
+	},
 	"playlistPresets": {
-		"type": {"video": "Videó", "audio": "Hang", "subtitles": "Feliratok"},
-		"subtitles": {"note": "Videónként csak a feliratfájlok kerülnek mentésre – videó vagy hang nem töltődik le.", "languages": "Nyelvek", "languagesRequired": "A folytatáshoz válasszon legalább egy nyelvet.", "source": "Forrás", "deliveryHeading": "Mentés mint", "deliveryLoose": "Közvetlenül a mentési mappába"},
-		"videoFormat": {"best": "Legjobb eredeti", "mp4": "Okostévé H.264 MP4"},
-		"videoFormatDesc": {"best": "Elemenként a legjobb elérhető tároló és kodekek", "mp4": "Lehetőség szerint H.264 videó + AAC hang MP4-ben"},
-		"tier": {"144": "Legfeljebb 144p", "240": "Legfeljebb 240p", "360": "Legfeljebb 360p", "480": "Legfeljebb 480p", "720": "Legfeljebb 720p", "1080": "Legfeljebb 1080p", "1440": "Legfeljebb 1440p", "2160": "Legfeljebb 4K", "best": "Legjobb minőség"},
+		"audioFormat": {
+			"best": "Hang (legjobb)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Hang ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Eredeti legjobb hang, újrakódolás nélkül",
+			"m4a": "Átalakítás M4A (AAC) formátumba",
+			"mp3": "Átalakítás MP3 formátumba",
+			"opus": "Átalakítás Opus formátumba"
+		},
+		"mp4Cap": "A YouTube-on nincs 1080p feletti H.264 – automatikusan 1080p-re korlátozva",
+		"subtitles": {
+			"deliveryHeading": "Mentés mint",
+			"deliveryLoose": "Közvetlenül a mentési mappába",
+			"languages": "Nyelvek",
+			"languagesRequired": "A folytatáshoz válasszon legalább egy nyelvet.",
+			"note": "Videónként csak a feliratfájlok kerülnek mentésre – videó vagy hang nem töltődik le.",
+			"source": "Forrás"
+		},
+		"tier": {
+			"144": "Legfeljebb 144p",
+			"240": "Legfeljebb 240p",
+			"360": "Legfeljebb 360p",
+			"480": "Legfeljebb 480p",
+			"720": "Legfeljebb 720p",
+			"1080": "Legfeljebb 1080p",
+			"1440": "Legfeljebb 1440p",
+			"2160": "Legfeljebb 4K",
+			"best": "Legjobb minőség"
+		},
 		"tierDesc": {
 			"144": "A lehető legkisebb fájlok",
 			"240": "Nagyon kis fájlok, alacsony minőség",
@@ -951,182 +311,1396 @@
 			"2160": "2160p-re korlátozva, elemenként alacsonyabbra vált, ha kell",
 			"best": "Elemenként a legjobb elérhető videó + hang"
 		},
-		"audioFormat": {"best": "Hang (legjobb)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Eredeti legjobb hang, újrakódolás nélkül", "mp3": "Átalakítás MP3 formátumba", "m4a": "Átalakítás M4A (AAC) formátumba", "opus": "Átalakítás Opus formátumba"},
-		"audioFormatBitrate": "Hang ({{format}} {{kbps}}K)",
-		"mp4Cap": "A YouTube-on nincs 1080p feletti H.264 – automatikusan 1080p-re korlátozva"
-	},
-	"formatLabel": {"audioFallback": "Hang", "audioOnlyDot": "Csak hang · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Tétlen", "statusActive_one": "1 letöltés folyamatban · {{percent}}%", "statusActive_other": "{{count}} letöltés folyamatban · {{percent}}%", "downloadFromClipboard": "Letöltés a vágólapról", "open": "Az Arroxy megnyitása", "quit": "Kilépés az Arroxyból"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} letöltés folyamatban",
-			"message_other": "{{count}} letöltés folyamatban",
-			"detail": "Szüneteltessen a későbbi folytatáshoz, vagy szakítson meg a haladás elvetéséhez.",
-			"confirm": "Letöltések megszakítása és kilépés",
-			"pause": "Letöltések szüneteltetése és kilépés",
-			"keep": "Letöltés folytatása"
+		"type": {
+			"audio": "Hang",
+			"subtitles": "Feliratok",
+			"video": "Videó"
 		},
-		"closeToTray": {"message": "Elrejti az Arroxyt a tálcára bezáráskor?", "detail": "Az Arroxy tovább fut, és befejezi az aktív letöltéseket. Ezt később módosíthatja a Speciális beállításoknál.", "hide": "Elrejtés a tálcára", "quit": "Kilépés", "remember": "Ne kérdezze újra"},
-		"rendererCrashed": {"message": "Az Arroxy problémába ütközött", "detail": "A megjelenítő folyamat összeomlott ({{reason}}). Az újrapróbáláshoz töltse be újra.", "reload": "Újratöltés", "quit": "Kilépés"}
-	},
-	"share": {
-		"title": "Az Arroxy megosztása",
-		"description": "Az Arroxy ingyenes és nyílt forráskódú. A megosztással többen felfedezhetik.",
-		"copyLink": "Hivatkozás másolása",
-		"copied": "Másolva!",
-		"defaultMessage": "Arroxy – ingyenes, nyílt forráskódú videóletöltő Windowsra, macOS-re és Linuxra. Működik a YouTube-bal, a Vimeóval, a Twitch-csel és több mint 2000 webhellyel.\n4K · HDR · MP3 · Shorts · Feliratok · SponsorBlock",
-		"footerTooltip": "Az Arroxy megosztása",
-		"footerLabel": "Megosztás",
-		"shareAction": "Az Arroxy megosztása"
-	},
-	"donate": {
-		"title": "Az Arroxy támogatása",
-		"description": "Az Arroxy ingyenes és nyílt forráskódú, hirdetések és fizetős szint nélkül. Az adományok önkéntesek, és nem adnak beleszólást a fejlesztési tervekbe.",
-		"footerTooltip": "Az Arroxy támogatása",
-		"footerLabel": "Adomány",
-		"copyAddress": "Cím másolása",
-		"copied": "Másolva!",
-		"qrAlt": "{{coin}} adományozási cím QR-kódja",
-		"warning": "A kriptovalutás fizetések visszavonhatatlanok. Csak a megjelenített hálózaton küldjön, és a teljes címet hasonlítsa össze."
-	},
-	"filenameTemplate": {
-		"label": "Fájlnévsablon",
-		"description": "Adja meg, hogyan legyenek elnevezve a letöltött fájlok. Egy tokenre kattintva beszúrhatja. A / használatával mappákba rendezheti a letöltéseket.",
-		"profileOverrideLabel": "Fájlnévsablon",
-		"profileOverrideDescription": "Hagyja üresen a globális sablon öröklésához.",
-		"idWarning": "A {id} nélkül az Arroxy nem ismeri fel a már letöltött lejátszási listaelemeket, és nem tud .m3u lejátszási listákat létrehozni.",
-		"m3uDisabled": "Nem érhető el, mert a fájlnévsablon nem tartalmazza a {id} tokent, vagy mappákba rendezi a letöltéseket.",
-		"previewSingle": "Egyetlen videó",
-		"previewPlaylist": "Lejátszási listában",
-		"error": {
-			"empty": "Adjon meg egy fájlnévsablont.",
-			"too-long": "A sablon túl hosszú.",
-			"forbidden-char": "Távolítsa el a fájlnevekben nem engedélyezett karaktereket: \\ : * ? \" < > |",
-			"stray-brace": "Pár nélküli { vagy } – a tokeneket tegye kapcsos zárójelbe, például {title}.",
-			"no-unique-token": "Adja hozzá a {title} vagy {id} tokent a fájlnévhez, hogy minden letöltés saját nevet kapjon.",
-			"unknown-token": "Ismeretlen token: {{token}}.",
-			"empty-segment": "Távolítsa el a felesleges / jelet – minden mappának nevet kell adni.",
-			"invalid-segment": "Ez a mappanév nem engedélyezett. Kerülje a . és .. nevet, valamint a lefoglalt neveket, például a CON-t.",
-			"resolution-in-dir": "A {resolution} nem lehet mappanév – a minőség csak a letöltés indulásakor derül ki."
+		"videoFormat": {
+			"best": "Legjobb eredeti",
+			"mp4": "Okostévé H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Elemenként a legjobb elérhető tároló és kodekek",
+			"mp4": "Lehetőség szerint H.264 videó + AAC hang MP4-ben"
 		}
 	},
-	"explore": {
-		"tabLabel": "Felfedezés",
-		"newBadge": "Új",
-		"notice": {
-			"title": "Böngésszen a weben közvetlenül az Arroxyban",
-			"body": "Keressen videót a YouTube-on vagy bármely más webhelyen, és töltse le innen – hivatkozások másolása nélkül. Jelentkezzen be itt egy webhelyre a fiókot igénylő videók letöltéséhez.",
-			"riskTitle": "Jelentkezzen be másodlagos fiókkal",
-			"riskBody": "Az olyan webhelyek, mint a YouTube, megjelölhetik – és olykor ki is tilthatják – az Arroxyhoz hasonló letöltőeszközökkel használt fiókokat. Olyan fiókot használjon, amelynek elvesztését megengedheti magának, ne a fő fiókját.",
-			"continue": "Folytatás"
+	"queue": {
+		"artifact": {
+			"companion": "Kísérő",
+			"description": "Leírás",
+			"media": "Média",
+			"missing": "Hiányzik",
+			"subtitle": "Felirat",
+			"thumbnail": "Miniatűr",
+			"unknown": "Melléklet"
 		},
-		"nudge": {
-			"off": "A sütik ki vannak kapcsolva, ezért a letöltések nem használják a Felfedezés bejelentkezését.",
-			"file": "A letöltések a sütifájlt használják, nem a Felfedezés bejelentkezését.",
-			"browser": "A letöltések a böngésző sütijeit használják, nem a Felfedezés bejelentkezését.",
-			"useExplore": "Felfedezés-bejelentkezés használata",
-			"notNow": "Most nem"
+		"attentionBadge_one": "{{count}} letöltés figyelmet igényel",
+		"attentionBadge_other": "{{count}} letöltés figyelmet igényel",
+		"autoRemoveCompleted": {
+			"hint": "Minden letöltést eltávolít a listáról néhány másodperccel a befejezése után. A fájlok a mappában maradnak.",
+			"label": "Kész elemek törlése"
 		},
-		"linkCallout": {"title": "Jobb kattintás egy hivatkozásra a letöltéshez", "body": "Kattintson jobb gombbal bármelyik videó-, lejátszási lista- vagy csatornahivatkozásra az oldalon, hogy letöltse az aktív profillal, másik profilt válasszon, vagy megnyissa a lépésenkénti folyamatot."},
-		"linkMenu": {"downloadWith": "Letöltés ezzel:", "copyLink": "Hivatkozás másolása"},
-		"toolbar": {
-			"aria": "A Felfedezés böngészővezérlői",
-			"back": "Vissza",
-			"forward": "Előre",
-			"reload": "Újratöltés",
-			"home": "YouTube kezdőlap",
-			"addressAria": "Cím",
-			"addressPlaceholder": "Keresés itt: {{engine}}, vagy nyisson meg bármely webhelyet (Vimeo, Instagram…)",
-			"refusedHint": "A Felfedezés nem tudja megnyitni ezt a címet.",
-			"searchTooLong": "Ez a keresés túl hosszú.",
-			"downloadWithProfile": "Letöltés · {{profileName}}",
-			"interactiveHint": "Interaktív letöltés: formátum, feliratok és egyebek kiválasztása…",
-			"grabUnavailable": "Nyisson meg egy videót, lejátszási listát vagy csatornát a letöltéshez",
-			"compactLayout": "Kompakt elrendezés",
-			"fullLayout": "Teljes elrendezés megjelenítése",
-			"zoom": {"label": "Oldal nagyítása", "hint": "Oldal nagyítása: {{percent}}%", "in": "Nagyítás", "out": "Kicsinyítés", "percent": "Nagyítás százalékban", "reset": "Nagyítás visszaállítása 100%-ra"},
-			"adBlock": {
-				"aria": "Hirdetésblokkoló",
-				"off": "Hirdetésblokkoló: ki – kattintson a bekapcsoláshoz",
-				"starting": "Hirdetésblokkoló: indul – kattintson a kikapcsoláshoz",
-				"on": "Hirdetésblokkoló: be – kattintson a kikapcsoláshoz",
-				"unavailable": "Hirdetésblokkoló: nem érhető el, a szűrőlistákat nem sikerült letölteni – kattintson a kikapcsoláshoz",
-				"accountNote": "A YouTube ellenállhat a hirdetésblokkolóknak a bejelentkezett fiókoknál."
+		"cancelAllTitle": "Az összes aktív és függőben lévő letöltés megszakítása",
+		"choice": {
+			"all": "Minden videó",
+			"cappedBody_one": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
+			"cappedBody_other": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
+			"first": "Első {{count}}",
+			"review": "Áttekintés",
+			"reviewBody_one": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le.",
+			"reviewBody_other": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le."
+		},
+		"clearTitle": "Befejezett letöltések törlése",
+		"empty": "A sorba állított letöltések itt jelennek meg",
+		"filterAll": "Mind",
+		"filtersLabel": "Sor állapotszűrői",
+		"globalActionsLabel": "Minden elem",
+		"header": "Letöltések",
+		"item": {
+			"audioKept": "A hang megmaradt",
+			"audioKeptSubtitlesFailed": "A hang megmaradt · egyes feliratok sikertelenek",
+			"cancel": "Mégse",
+			"defaultError": "A letöltés sikertelen",
+			"openDestinationFolder": "Célmappa megnyitása",
+			"pause": "Szünet",
+			"pendingOnly": "Csak függőben lévők",
+			"pullNow": "Letöltés most – sor átugrása",
+			"qualityLimited": "Korlátozva: {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Korlátozva: {{height}}p · egyes feliratok sikertelenek",
+			"remove": "Eltávolítás",
+			"resume": "Folytatás",
+			"retry": "Újra",
+			"retryingSoon": "automatikus újrapróbálás (próbálkozás: {{attempt}})",
+			"setLocation": "Hely megadása",
+			"setLocationHint": "A hely megadásához válasszon ki függőben lévő elemeket.",
+			"statusCancelled": "Megszakítva",
+			"statusDone": "Kész",
+			"statusError": "Hiba",
+			"statusHeld": "Visszatartva",
+			"statusNeedsChoice": "Döntés szükséges",
+			"statusPaused": "Szüneteltetve",
+			"statusPending": "Várakozik",
+			"statusProbing": "Részletek lekérése",
+			"statusRunning": "Letöltés",
+			"subtitleLanguagesMissing": "Nincs felirat a következő nyelveken: {{languages}}"
+		},
+		"pauseAllTitle": "Minden aktív letöltés szüneteltetése, és az újak indításának leállítása",
+		"pausedBanner": "A sor szünetel – a várakozó elemek nem indulnak el, amíg nem folytatja",
+		"resumeAllTitle": "A szüneteltetett letöltések folytatása, és a sor továbbfuttatása",
+		"resumeQueueAction": "Sor folytatása",
+		"selectedActionsLabel": "Kijelölt elemek",
+		"selectionSummary": "{{selected}} kijelölve · összesen {{total}}",
+		"tabLabel": "Letöltések",
+		"tabTip": "A letöltések mostantól a Letöltések lapon találhatók – bármikor megnyithatja a haladás követéséhez.",
+		"table": {
+			"added": "Hozzáadva",
+			"artifacts": "Mellékletek",
+			"columnDropped": "A(z) {{column}} oszlop elengedve.",
+			"columnMoveCancelled": "A(z) {{column}} oszlop áthelyezése megszakítva.",
+			"columnMovedOver": "A(z) {{column}} oszlop a(z) {{target}} fölött van.",
+			"columnPickedUp": "A(z) {{column}} oszlop felvéve.",
+			"columns": "Oszlopok",
+			"finished": "Befejezve",
+			"format": "Formátum",
+			"hideArtifactsFor": "Mellékletek elrejtése: {{title}}",
+			"movableColumn": "áthelyezhető oszlop",
+			"moveColumnInstructions": "Oszlop áthelyezéséhez nyomja meg a Szóközt vagy az Entert, mozgassa a nyílbillentyűkkel, majd a Szóköz vagy az Enter megnyomásával engedje el. A megszakításhoz nyomja meg az Escape billentyűt.",
+			"notAvailable": "—",
+			"outputTarget": "Célmappa",
+			"progress": "Folyamat",
+			"resetColumns": "Oszlopok visszaállítása",
+			"resizeColumn": "{{column}} oszlop átméretezése",
+			"showArtifactsFor": "Mellékletek megjelenítése: {{title}}",
+			"size": "Méret",
+			"sortBy": "Rendezés: {{label}}",
+			"status": "Állapot",
+			"title": "Cím"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Folytatás",
+		"description": "Frissen frissített verziót használ. Íme a legfontosabb újdonságok.",
+		"fullNotes": "Teljes kiadási jegyzék ↗",
+		"title": "Újdonságok az Arroxy {{version}} verzióban"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Mégse",
+			"chooseExecutable": "Végrehajtható fájl kiválasztása",
+			"installWithHomebrew": "Telepítés Homebrew-val",
+			"installWithWinget": "Telepítés WinGettel",
+			"openDependencyFolder": "Függőségi mappa megnyitása",
+			"resetToDefault": "Alapértelmezés visszaállítása",
+			"retrySetup": "Próbálja újra",
+			"viewSetupLog": "Telepítési napló megtekintése"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy működő példányt.",
+				"title": "Egy eszköz nem működik megfelelően"
+			},
+			"blockedOrQuarantined": {
+				"body": "Engedélyezze az Arroxyt a víruskeresőben vagy a SmartScreenben, majd próbálja újra.",
+				"title": "A víruskereső letiltott egy eszközt"
+			},
+			"downloadFailed": {
+				"body": "Ellenőrizze az internetkapcsolatot, majd próbálja újra.",
+				"title": "Nem sikerült letölteni az Arroxy működéséhez szükséges elemeket"
+			},
+			"extractFailed": {
+				"body": "Próbálja újra a friss letöltéshez.",
+				"title": "Egy letöltés sérülten érkezett meg"
+			},
+			"hashFailed": {
+				"body": "Próbálja újra a friss letöltéshez.",
+				"title": "Egy letöltés nem egyezett az ellenőrzőösszegével"
+			},
+			"pairIncomplete": {
+				"body": "Válassza ki mindkettőt alább, vagy állítsa vissza az alapértelmezést.",
+				"title": "Az FFmpeg és az FFprobe csak együtt adható meg"
+			},
+			"permissionDenied": {
+				"body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy megbízható példányt.",
+				"title": "A rendszer nem engedi, hogy az Arroxy futtasson egy eszközt"
+			},
+			"spawnFailed": {
+				"body": "Próbálja újra. Ha továbbra is sikertelen, válasszon alább egy működő példányt.",
+				"title": "Egy eszköz hiányzik, vagy nem indul el"
+			},
+			"timeout": {
+				"body": "Ez gyakran az első futtatáskori biztonsági vizsgálat miatt van. Próbálja újra.",
+				"title": "Egy eszköz túl sokáig nem válaszolt"
+			},
+			"unknown": {
+				"body": "Próbálja újra, vagy nyissa meg a telepítési naplót a részletekért.",
+				"title": "Hiba történt a telepítés során"
 			}
 		},
-		"settings": {
-			"title": "Felfedezés",
-			"description": "Böngésszen a YouTube-on vagy bármely más webhelyen az Arroxyban, és jelentkezzen be a fiókot igénylő videókhoz.",
-			"showTab": "A Felfedezés lap megjelenítése",
-			"showTabDescription": "Kikapcsolva a letöltések sem használják a Felfedezés bejelentkezését.",
-			"idleUnload": "Memória felszabadítása távollétben",
-			"idleUnloadDescription": "Ha 5 percig másik lapon van, bezárja a YouTube kezdőlapját vagy keresési oldalát. Visszatéréskor újratölti, ami néhány másodpercig tart.",
-			"searchEngine": "Keresőmotor",
-			"searchEngineDescription": "Ebben keres a címsorba beírt szöveg. A hivatkozások a beírt módon nyílnak meg.",
-			"signOut": "Kijelentkezés a Felfedezésből",
-			"signOutDescription": "Minden webhelyen törli a bejelentkezéseket és a böngészési adatokat a Felfedezésben.",
-			"signOutConfirmTitle": "Kijelentkezik a Felfedezésből?",
-			"signOutConfirmBody": "Ez minden webhelyen törli a bejelentkezéseket és a böngészési adatokat a Felfedezésben. A fiókot igénylő letöltések mindaddig sikertelenek lesznek, amíg újra be nem jelentkezik.",
-			"signOutConfirm": "Kijelentkezés"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "A Felfedezés nem tud kapcsolódni a proxyn keresztül", "proxyBody": "Ellenőrizze a proxyt a Beállításokban, majd próbálja újra.", "loadTitle": "Az oldal nem töltődött be", "loadBody": "Ellenőrizze a kapcsolatot, majd próbálja újra.", "retry": "Újra", "openSettings": "Beállítások megnyitása"}
-	},
-	"fileType": {
-		"auto": "Automatikus",
-		"autoValue": "Automatikus (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "A fájltípust a kiválasztott adatfolyamok határozzák meg.",
-			"mp4": "Szinte mindenhol lejátszható. Az MP4-be csomagolt VP9 videója nem játszható le a QuickTime-ban.",
-			"mkv": "Bármilyen kodeket tárol. Egyes tévék és telefonok nem tudják megnyitni.",
-			"webm": "Nyílt formátum böngészőkhöz. Csak VP9-et vagy AV1-et tárol Opus hanggal."
+		"groups": {
+			"engine": "Letöltőmotor",
+			"media": "Médiaeszközök"
 		},
-		"webmBlocked": "A WebM nem tud {{codec}} kodeket tárolni. Válasszon MKV-t vagy MP4-et.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "A WebM nem érhető el Okostévé profilnál: nem tud H.264-et tárolni.",
-		"mp4CaveatVp9": "Az MP4-be csomagolt VP9 videója nem játszható le a QuickTime-ban. A H.264 mindenhol lejátszható.",
-		"mp4CaveatAv1": "Az MP4-be csomagolt AV1 lejátszásához a QuickTime-ban újabb Mac szükséges. A H.264 mindenhol lejátszható."
+		"installing": {
+			"homebrew": "Telepítés Homebrew-val… Ez eltarthat néhány percig.",
+			"winget": "Telepítés WinGettel… Ez eltarthat néhány percig."
+		},
+		"manual": {
+			"intro": "Adja meg az Arroxynak a már meglévő példányokat, vagy telepítse őket más módon.",
+			"linuxHint": "A yt-dlp-t és az ffmpeg-et a csomagkezelővel is telepítheti, majd kattintson a Próbálja újra gombra.",
+			"toggle": "Kézi beállítás"
+		},
+		"stopped": {
+			"body": "Próbálja újra, vagy adja meg alább az Arroxynak a már meglévő eszközöket.",
+			"title": "A telepítés leállt"
+		},
+		"title": "A telepítéshez segítség kell"
 	},
 	"selectionOrder": {
 		"editorTitle": "Hogyan választ ez a profil",
-		"whyTitle": "Miért ezt választotta a profil",
-		"whyLabel": "Miért ez?",
 		"rank": {
-			"h264": {"label": "H.264 videó", "reason": "minden eszközön lejátszható"},
-			"mp4Streams": {"label": "MP4-adatfolyamok", "reason": "MP4-fájlhoz előkészítve"},
-			"resolutionBest": {"label": "Legnagyobb felbontás", "reason": "nincs korlát megadva"},
-			"resolution": {"label": "Legfeljebb {{tier}}p", "reason": "az Ön korlátja"},
-			"fps": {"label": "Legnagyobb képkockasebesség", "reason": "simább mozgás"},
-			"sitePreference": {"label": "A webhely által nem lejjebb sorolt adatfolyamok", "reason": "kihagyja a sérült, vízjeles és tartalék példányokat"},
-			"original": {"label": "Eredeti adatfolyamok, nem MI-vel felskálázottak", "reason": "a felskálázott példány nagyobb, de valódi részletet nem ad hozzá"},
-			"source": {"label": "Megnövelt bitrátájú adatfolyamok előre", "reason": "több részlet ugyanazon a felbontáson"},
-			"protocol": {"label": "Közvetlen letöltések a streamelt példányok előtt", "reason": "ugyanaz a kép, gyorsabban letöltve"},
-			"codec": {"label": "AV1, majd VP9, majd H.264", "reason": "adott méretnél a legélesebb"},
-			"codecVp9First": {"label": "VP9, majd H.264, majd AV1", "reason": "a profil kodekje"},
-			"codecH264First": {"label": "H.264, majd VP9, majd AV1", "reason": "a profil kodekje"},
-			"size": {"label": "Nagyobb fájl", "reason": "több részlet ugyanazokkal a beállításokkal"},
-			"aacSmartTv": {"label": "AAC hang", "reason": "mindenhol lejátszható"},
-			"aacFileType": {"label": "AAC hang", "reason": "megfelel az MP4-lejátszóknak"},
-			"opus": {"label": "Opus hang", "reason": "megfelel a WebM-nek"},
-			"nativeCompatible": {"label": "Sztereó hang"},
-			"nativeSurround": {"label": "Térhatású hang, ha van"},
-			"nativeSource": {"settings": "a Beállításokból", "profile": "ez a profil"},
-			"hdrSdrFirst": {"label": "SDR a HDR előtt", "reason": "bármely képernyőn jól néz ki", "reasonScreen": "ez a képernyő nem HDR"},
-			"hdrFirst": {"label": "HDR az SDR előtt", "reason": "gazdagabb színek HDR-képernyőkön", "reasonScreen": "ez a képernyő megjeleníti a HDR-t"}
+			"aacFileType": {
+				"label": "AAC hang",
+				"reason": "megfelel az MP4-lejátszóknak"
+			},
+			"aacSmartTv": {
+				"label": "AAC hang",
+				"reason": "mindenhol lejátszható"
+			},
+			"codec": {
+				"label": "AV1, majd VP9, majd H.264",
+				"reason": "adott méretnél a legélesebb"
+			},
+			"codecH264First": {
+				"label": "H.264, majd VP9, majd AV1",
+				"reason": "a profil kodekje"
+			},
+			"codecVp9First": {
+				"label": "VP9, majd H.264, majd AV1",
+				"reason": "a profil kodekje"
+			},
+			"fps": {
+				"label": "Legnagyobb képkockasebesség",
+				"reason": "simább mozgás"
+			},
+			"h264": {
+				"label": "H.264 videó",
+				"reason": "minden eszközön lejátszható"
+			},
+			"hdrFirst": {
+				"label": "HDR az SDR előtt",
+				"reason": "gazdagabb színek HDR-képernyőkön",
+				"reasonScreen": "ez a képernyő megjeleníti a HDR-t"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR a HDR előtt",
+				"reason": "bármely képernyőn jól néz ki",
+				"reasonScreen": "ez a képernyő nem HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-adatfolyamok",
+				"reason": "MP4-fájlhoz előkészítve"
+			},
+			"nativeCompatible": {
+				"label": "Sztereó hang"
+			},
+			"nativeSource": {
+				"profile": "ez a profil",
+				"settings": "a Beállításokból"
+			},
+			"nativeSurround": {
+				"label": "Térhatású hang, ha van"
+			},
+			"opus": {
+				"label": "Opus hang",
+				"reason": "megfelel a WebM-nek"
+			},
+			"original": {
+				"label": "Eredeti adatfolyamok, nem MI-vel felskálázottak",
+				"reason": "a felskálázott példány nagyobb, de valódi részletet nem ad hozzá"
+			},
+			"protocol": {
+				"label": "Közvetlen letöltések a streamelt példányok előtt",
+				"reason": "ugyanaz a kép, gyorsabban letöltve"
+			},
+			"resolution": {
+				"label": "Legfeljebb {{tier}}p",
+				"reason": "az Ön korlátja"
+			},
+			"resolutionBest": {
+				"label": "Legnagyobb felbontás",
+				"reason": "nincs korlát megadva"
+			},
+			"sitePreference": {
+				"label": "A webhely által nem lejjebb sorolt adatfolyamok",
+				"reason": "kihagyja a sérült, vízjeles és tartalék példányokat"
+			},
+			"size": {
+				"label": "Nagyobb fájl",
+				"reason": "több részlet ugyanazokkal a beállításokkal"
+			},
+			"source": {
+				"label": "Megnövelt bitrátájú adatfolyamok előre",
+				"reason": "több részlet ugyanazon a felbontáson"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "legjobb kép", "smartTv": "minden eszközön lejátszható"}, "fileType": {"auto": "a fájltípus az adatfolyamokból adódik", "explicit": "mentés: .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "a fájltípus az adatfolyamokból adódik",
+				"explicit": "mentés: .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "legjobb kép",
+				"smartTv": "minden eszközön lejátszható"
+			}
+		},
+		"whyLabel": "Miért ez?",
+		"whyTitle": "Miért ezt választotta a profil"
 	},
-	"aiUpscaled": {"label": "MI-vel felskálázott adatfolyamok", "description": "A YouTube egyes régi videókat MI-vel készített méretekben is kínál. A Kihagyás megtartja az eredeti adatfolyamokat; felskálázottat továbbra is kiválaszthat kézzel.", "skip": "Kihagyás", "allow": "Engedélyezés"},
+	"share": {
+		"copied": "Másolva!",
+		"copyLink": "Hivatkozás másolása",
+		"defaultMessage": "Arroxy – ingyenes, nyílt forráskódú videóletöltő Windowsra, macOS-re és Linuxra. Működik a YouTube-bal, a Vimeóval, a Twitch-csel és több mint 2000 webhellyel.\n4K · HDR · MP3 · Shorts · Feliratok · SponsorBlock",
+		"description": "Az Arroxy ingyenes és nyílt forráskódú. A megosztással többen felfedezhetik.",
+		"footerLabel": "Megosztás",
+		"footerTooltip": "Az Arroxy megosztása",
+		"shareAction": "Az Arroxy megosztása",
+		"title": "Az Arroxy megosztása"
+	},
+	"splash": {
+		"cancel": "Gondja akadt? Kézi beállítás",
+		"greeting": "Üdv újra!",
+		"setup": {
+			"bytes": "{{done}} / {{total}}",
+			"left": {
+				"minutes_one": "kb. {{count}} perc van hátra",
+				"minutes_other": "kb. {{count}} perc van hátra",
+				"underMinute": "kevesebb mint egy perc van hátra"
+			},
+			"note": {
+				"engine": "Ettől működnek tovább a letöltések, ha a webhelyek változnak.",
+				"firstRun": "Ez egyszer történik meg. Az Arroxy megtartja ezeket az eszközöket, és maga frissíti őket.",
+				"media": "Ez egyszer történik meg. Az Arroxy megtartja őket a későbbi frissítésekhez."
+			},
+			"stage": {
+				"checking": "Annak ellenőrzése, hogy minden működik",
+				"connecting": "Kapcsolódás…",
+				"downloadingBoth": "A letöltőmotor és a médiaeszközök letöltése",
+				"downloadingEngine": "A letöltőmotor letöltése",
+				"downloadingMedia": "A médiaeszközök letöltése",
+				"unpacking": "A médiaeszközök kicsomagolása"
+			},
+			"title": {
+				"engine": "A letöltőmotor frissítése",
+				"firstRun": "Első beállítás",
+				"media": "A médiaeszközök frissítése"
+			}
+		},
+		"verifyFirstCheck": "Ennek a verziónak az első ellenőrzése – ez lassú. Általában körülbelül egy perc.",
+		"verifying": "{{binary}} ellenőrzése…",
+		"warmup": "Letöltések előkészítése…",
+		"warmupFailedNoDiag": "A telepítés sikertelen. A részletekért nyissa meg a telepítési naplót."
+	},
+	"status": {
+		"audioKept": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani",
+		"audioKeptSubtitlesFailed": "A videó hanggal együtt mentve – a hangot nem sikerült eltávolítani, és egyes feliratokat nem sikerült letölteni",
+		"cancelled": "A letöltés megszakítva",
+		"complete": "A letöltés kész",
+		"convertingVideo": "Videó konvertálása…",
+		"diskSpaceInsufficient": "Nincs elég lemezterület – szükséges: {{required}}, elérhető: {{free}}",
+		"downloadingBinary": "{{name}} bináris letöltése…",
+		"downloadingMedia": "Videó és hang letöltése…",
+		"embeddingMetadata": "Metaadatok beágyazása…",
+		"exploreSignedOut": "Kijelentkezett a Felfedezésből – jelentkezzen be újra",
+		"extractingAudio": "Hang konvertálása…",
+		"fetchingSponsorBlock": "Kapcsolódás a SponsorBlockhoz…",
+		"fetchingSubtitles": "Feliratok lekérése…",
+		"mergingFormats": "Hang és videó egyesítése…",
+		"mintingToken": "YouTube-token előállítása…",
+		"movingFiles": "Fájlok áthelyezése…",
+		"noSubtitles": "Nincs felirat a következő nyelveken: {{languages}}",
+		"outputNotWritable": "Nem menthető ide: {{dir}} – az Arroxynak nincs írási engedélye",
+		"preparingBinaries": "Binárisok előkészítése…",
+		"qualityLimited": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később vagy másik hálózatról próbálja újra.",
+		"qualityLimitedSubtitlesFailed": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később vagy másik hálózatról próbálja újra.",
+		"remintingToken": "Token újbóli előállítása…",
+		"retryingSponsorBlock": "A SponsorBlock nem érhető el, újrapróbálás ({{attempt}}/{{total}})…",
+		"retryingTransfer": "A kapcsolat elakadt, újrapróbálás ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Bejelentkezés a Felfedezés-fiókjával…",
+		"sleepingBetweenRequests": "Várakozás {{seconds}} mp-ig a sebességkorlát elkerülése érdekében…",
+		"startingYtdlp": "A letöltőmotor indítása…",
+		"subtitleLanguagesMissing": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A videó felirat nélkül lett mentve.",
+		"subtitleLanguagesMissingOthersSaved": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}. A többi nyelv mentésre került.",
+		"subtitlesFailed": "A videó mentve – egyes feliratokat nem sikerült letölteni",
+		"unknownStartupFailure": "Ismeretlen letöltésindítási hiba",
+		"usedExtractorFallback": "Letöltve megengedőbb kinyerővel – a megbízhatóbb letöltésekhez állítson be cookies.txt fájlt",
+		"ytdlpExitCode": "A letöltőmotor kilépett a következő kóddal: {{code}}",
+		"ytdlpProcessError": "Letöltőmotor-hiba: {{error}}"
+	},
+	"theme": {
+		"dark": "Sötét mód",
+		"light": "Világos mód",
+		"system": "Rendszer alapértelmezése"
+	},
+	"titleBar": {
+		"close": "Bezárás",
+		"maximize": "Maximalizálás",
+		"minimize": "Minimalizálás",
+		"restore": "Visszaállítás"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Letöltés a vágólapról",
+			"open": "Az Arroxy megnyitása",
+			"quit": "Kilépés az Arroxyból",
+			"statusActive_one": "1 letöltés folyamatban · {{percent}}%",
+			"statusActive_other": "{{count}} letöltés folyamatban · {{percent}}%",
+			"statusIdle": "Tétlen"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Parancs a vágólapra másolva",
+		"copy": "Parancs másolása a vágólapra",
+		"dismiss": "Frissítési sáv elvetése",
+		"download": "Letöltés ↗",
+		"downloadDmg": "DMG letöltése ↗",
+		"downloading": "Letöltés…",
+		"install": "Telepítés és újraindítás",
+		"installFailed": "A frissítés sikertelen",
+		"message": {
+			"generic": "Elérhető az Arroxy {{version}} – Ön a(z) {{currentVersion}} verziót használja.",
+			"homebrew": "Elérhető az Arroxy {{version}} – frissítsen Homebrew-val.",
+			"macosDirect": "Elérhető az Arroxy {{version}} – töltse le az új DMG-t.",
+			"macosDirectHomebrew": "Elérhető az Arroxy {{version}} – töltse le a DMG-t, vagy váltson Homebrew-ra.",
+			"portable": "Elérhető az Arroxy {{version}} – töltse le az új buildet."
+		},
+		"retry": "Újra",
+		"runAndRestart": "Futtatás és újraindítás",
+		"upgrading": "Frissítés…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} fejezet",
+		"chapters_other": "{{count}} fejezet",
+		"titlePlaceholder": "Betöltés…"
+	},
 	"videoCodec": {
-		"label": "Videokodek",
-		"description": "Melyik kodeket részesíti előnyben az azonos magasságú adatfolyamok között. Az Automatikus megtartja a yt-dlp saját sorrendjét, amely az AV1-et, a legkisebbet kedveli; a H.264 régebbi tévéken és telefonokon is lejátszható.",
-		"smartTv": "Az Okostévé mindig H.264-et választ.",
 		"auto": "Automatikus",
-		"vp9": "VP9 előre",
-		"h264": "H.264 előre"
+		"description": "Melyik kodeket részesíti előnyben az azonos magasságú adatfolyamok között. Az Automatikus megtartja a yt-dlp saját sorrendjét, amely az AV1-et, a legkisebbet kedveli; a H.264 régebbi tévéken és telefonokon is lejátszható.",
+		"h264": "H.264 előre",
+		"label": "Videokodek",
+		"smartTv": "Az Okostévé mindig H.264-et választ.",
+		"vp9": "VP9 előre"
 	},
-	"hdrPreference": {"label": "HDR-videó", "description": "Az Automatikus HDR-t választ, ha a képernyő meg tudja jeleníteni, egyébként SDR-t. A HDR halványnak tűnik a hagyományos képernyőkön.", "sdr": "SDR", "hdr": "HDR", "auto": "Automatikus"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Kész",
+			"description": "Illesszen be videó-, lejátszási lista-, csatorna-, keresési vagy hang-URL-eket. Az Arroxy a sorba állítás előtt eltávolítja az ismétlődéseket.",
+			"emptyPreview": "Illesszen be egy vagy több URL-t a köteg előnézetéhez.",
+			"ignoredCount": "Figyelmen kívül hagyva",
+			"needsAtLeastOne": "A folytatáshoz adjon meg legalább egy támogatott URL-t.",
+			"reject": {
+				"duplicate": "Ismétlődés"
+			},
+			"textareaLabel": "URL-lista",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Tömeges URL-ek"
+		},
+		"confirm": {
+			"addToQueue": "+ Sor",
+			"addToQueueTooltip": "Hozzáadás a sorhoz – az aktív letöltés befejezésekor indul",
+			"audioOnly": "Csak hang",
+			"itemsValueAudio_one": "{{count}} / {{total}} szám",
+			"itemsValueAudio_other": "{{count}} / {{total}} szám",
+			"itemsValueBulk_one": "{{count}} / {{total}} URL",
+			"itemsValueBulk_other": "{{count}} / {{total}} URL",
+			"itemsValue_one": "{{count}} / {{total}} videó",
+			"itemsValue_other": "{{count}} / {{total}} videó",
+			"labelAudio": "Hang",
+			"labelBulk": "Köteg",
+			"labelItems": "Elemek",
+			"labelPlaylist": "Lejátszási lista",
+			"labelPreset": "Előbeállítás",
+			"labelSaveTo": "Mentés ide",
+			"labelSize": "Méret",
+			"labelSubtitles": "Feliratok",
+			"labelVideo": "Videó",
+			"landIn": "A fájl ide kerül:",
+			"landInMultiProfile_one": "A lenti célmappába kerül",
+			"landInMultiProfile_other": "A lenti {{count}} célmappába kerülnek",
+			"nothingToDownload": "A Csak feliratok előbeállítás aktív, de nincs kiválasztva feliratnyelv – semmi sem fog letöltődni.",
+			"profileBreakdownCount_one": "{{count}} elem",
+			"profileBreakdownCount_other": "{{count}} elem",
+			"profileBreakdownHeading": "Profilok ebben a kötegben",
+			"pullIt": "Letöltés! ↓",
+			"pullItTooltip": "Kihagyja a sort – azonnal indul, az egyéb aktív letöltésekkel együtt fut",
+			"readyHeadline": "Indulhat a letöltés!",
+			"sizeUnknown": "Ismeretlen",
+			"subtitleEmbedAudioOnly": "A felirat beágyazása külön fájlra változott – a hangsávok nem támogatják a beágyazott feliratfolyamokat.",
+			"subtitleEmbedForcesMkv": "A videóba ágyazott feliratokhoz MKV-fájl kell, ezért ez a letöltés .mkv fájlként kerül mentésre.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "A miniatűr beágyazása kimaradt – a kimeneti tároló nem támogatja."
+		},
+		"folder": {
+			"custom": "Egyéni…",
+			"desktop": "Asztal",
+			"documents": "Dokumentumok",
+			"downloads": "Letöltések",
+			"heading": "Mentés ide",
+			"home": "Saját mappa",
+			"music": "Zene",
+			"pictures": "Képek",
+			"subfolder": {
+				"invalid": "A mappanév érvénytelen karaktereket tartalmaz",
+				"placeholder": "pl. lo-fi felvételek",
+				"toggle": "Mentés almappába"
+			},
+			"videos": "Filmek"
+		},
+		"formats": {
+			"audio": "Hang",
+			"audioLanguage": "Hang nyelve",
+			"audioLanguageCount_one": "{{count}} nyelv",
+			"audioLanguageCount_other": "{{count}} nyelv",
+			"audioOnly": "Csak hang",
+			"bitrateValue": "Bitráta: {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "A sütik be vannak állítva, de ki vannak kapcsolva. Kapcsolja be őket, és próbálja újra a teljes listáért, vagy váltson hálózatot, és próbálja újra.",
+				"bodyEnabled": "A sütikkel együtt is korlátozta a YouTube ezt a lekérdezést. Próbálja újra később, vagy váltson hálózatot.",
+				"bodyExplore": "A YouTube korlátozta ezt a kérést. Próbálja újra később, vagy váltson hálózatot.",
+				"bodyUnconfigured": "A formátumlista hiányos lehet. Állítsa be a sütiket a speciális beállításokban, vagy váltson hálózatot, és próbálja újra.",
+				"enableRetryCta": "Sütik bekapcsolása és újra",
+				"heading": "A lekérdezés korlátozva lett",
+				"retryCta": "Újra"
+			},
+			"convert": {
+				"bitrate": "Bitráta",
+				"bitrateCopyHint": "A már {{target}} formátumú forrás megtartja saját adatfolyamát és bitrátáját: másolásra kerül, nem kódolódik újra.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, újrakódolás nélkül",
+				"copyLabelNoBitrate": "{{target}}, újrakódolás nélkül",
+				"copyNote": "{{kbps}} kbps, ahogy a forrásban van: az adatfolyam már {{target}} formátumú, ezért másolásra kerül, nem kódolódik újra",
+				"copyNoteNoBitrate": "Ahogy a forrásban van: az adatfolyam már {{target}} formátumú, ezért másolásra kerül, nem kódolódik újra",
+				"label": "Konvertálás",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "A forrás {{kbps}} kbps",
+				"wavLabel": "WAV (tömörítetlen)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Böngésző",
+				"currentModeExplore": "Felfedezés-bejelentkezés",
+				"currentModeFile": "Fájl",
+				"currentModeLabel": "Sütiforrás",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp dokumentáció (#10927. hibajegy)",
+					"explanation": "A Chrome 127 és újabb verziói Windowson olyan módon titkosítják a sütiket, hogy más alkalmazások nem tudják olvasni őket. Próbálja ki az alábbi megoldások egyikét.",
+					"fixFileBody": "Exportálja a sütiket a Chrome-ból egy böngészőbővítménnyel, majd állítsa át az alkalmazást Fájl módra, és válassza ki az exportált fájlt.",
+					"fixFileLabel": "cookies.txt exportálása",
+					"fixFirefoxBody": "A Firefox nem használ App-Bound Encryption titkosítást. Nyissa meg a sütibeállításokat, és válassza a Firefoxot a böngészők listájából.",
+					"fixFirefoxLabel": "Váltás Firefoxra",
+					"fixUnsafeBody": "Adja hozzá a --disable-features=LockProfileCookieDatabase kapcsolót a Chrome indítóparancsikonjához. Figyelem: ez érvényteleníti a korábban titkosított sütiket, így minden webhelyről kijelentkezik, és újra be kell jelentkeznie.",
+					"fixUnsafeLabel": "Chrome indítása letiltott App-Bound Encryptionnel",
+					"heading": "A Chrome sütiit blokkolja a Windows titkosítása"
+				},
+				"explanationBrowser": "A sütik közvetlenül a böngészőből kerülnek beolvasásra. Ha a böngésző éppen fut, a sütiadatbázisa zárolva lehet (Chromium-család). A böngészőnek be kell lennie jelentkezve a YouTube-ra. Próbálja meg bezárni a böngészőt, másik böngészőre váltani, Fájl módra váltani, vagy kikapcsolni a sütiket.",
+				"explanationFile": "A sütifájl lehet, hogy üres, lejárt vagy rossz formátumú (az Arroxynak Netscape cookies.txt fájl kell). Próbálja újra exportálni a sütiket, másik fájlt választani, Böngésző módra váltani, vagy kikapcsolni a sütiket.",
+				"exploreOffer": {
+					"body": "Jelentkezzen be a Felfedezéssel, és az Arroxy újrapróbálja.",
+					"cta": "Bejelentkezés a Felfedezéssel",
+					"heading": "Ehhez a videóhoz YouTube-fiók kellhet"
+				},
+				"exploreRefused": {
+					"body": "Az Arroxy már megpróbálta a Felfedezésen keresztül bejelentkezve, így az újbóli bejelentkezés nem segít. Lehet, hogy a webhelynek van problémája, vagy ez a fiók nem tudja megnyitni. Próbálja újra később.",
+					"heading": "A webhely a Felfedezés-bejelentkezéssel is elutasította"
+				},
+				"exploreReuse": {
+					"body": "Be van jelentkezve a Felfedezésben, de a letöltések jelenleg nem használják ezt a bejelentkezést.",
+					"cta": "Felfedezés-bejelentkezés használata és újra",
+					"heading": "Ehhez a videóhoz YouTube-fiók kellhet"
+				},
+				"exploreSignIn": {
+					"body": "Ha ehhez a videóhoz YouTube-fiók kell, jelentkezzen be a Felfedezésben, és próbálja újra. Az Arroxy ezt a bejelentkezést csak akkor használja, ha a letöltéshez szükséges.",
+					"cta": "Bejelentkezés a Felfedezésben",
+					"heading": "Ehhez a videóhoz YouTube-fiók kellhet"
+				},
+				"exploreSignedIn": {
+					"body": "Ha ehhez a videóhoz fiók kell, az Arroxy automatikusan a Felfedezés-bejelentkezését használja. Lehet, hogy más okból nem érhető el.",
+					"heading": "Bejelentkezve a Felfedezésben"
+				},
+				"exploreSite": {
+					"heading": "Ehhez a hivatkozáshoz fiók kellhet itt: {{host}}",
+					"offerBody": "Jelentkezzen be ide: {{host}} a Felfedezéssel, majd próbálja újra.",
+					"signInBody": "Jelentkezzen be ide: {{host}} a Felfedezésben, majd próbálja újra. Az Arroxy ezt a bejelentkezést csak akkor használja, ha a letöltéshez szükséges."
+				},
+				"heading": "A sütik lehetnek az okai",
+				"needsCookies": {
+					"body": "Az Arroxy nem tudta elérni ezt a videót hitelesítés nélkül. Állítsa be a sütiket a speciális beállításokban – adjon meg egy böngészőt, amelybe már be van jelentkezve, vagy importáljon egy cookies.txt fájlt.",
+					"heading": "Ehhez a webhelyhez bejelentkezés szükséges"
+				},
+				"openSettingsCta": "Sütibeállítások megnyitása",
+				"otherCookiesCta": "Inkább sütifájl vagy böngésző használata…"
+			},
+			"drc": {
+				"description": "Halkítja a hangos részeket, és erősíti a halkakat – hangszórókhoz és zajos környezethez.",
+				"label": "Hangerő kiegyenlítése (DRC)",
+				"tag": "Kiegyenlített hangerő"
+			},
+			"fit": {
+				"mp4Unavailable": "A profilja Okostévé (H.264). Ez a videó nem kínál H.264-et, ezért a legközelebbi adatfolyam van kiválasztva.",
+				"noVideo": "Ennek a hivatkozásnak nincs videója, ezért a hang van kiválasztva.",
+				"subtitlesMissing": "A profilja feliratot kér a következő nyelveken: {{languages}}. Ez a videó nem rendelkezik ilyennel.",
+				"tierAbove": "A profilja {{wanted}}p felbontást kér. Ennél kisebb nem érhető el ennél a videónál, ezért {{picked}}p van kiválasztva.",
+				"tierBelow": "A profilja {{wanted}}p felbontást kér. Ez a videó csak {{picked}}p-ig terjed, ezért {{picked}}p van kiválasztva.",
+				"webmUnavailable": "A profilja WebM-et kér. A videó kiválasztott adatfolyamai között {{codec}} is van, amelyet a WebM nem tud tárolni, ezért a fájltípus Automatikus."
+			},
+			"footer": {
+				"addToQueue": "Hozzáadás a sorhoz indítás nélkül",
+				"download": "Letöltés",
+				"moreActions": "További letöltési lehetőségek",
+				"subtitlesRequired": "Válasszon legalább egy feliratnyelvet."
+			},
+			"keepAudio": "Változatlanul",
+			"keepAudioMeta": "Beépített hang",
+			"kind": {
+				"audio": "Csak hang",
+				"label": "Mit szeretne letölteni",
+				"subtitles": "Csak feliratok",
+				"video": "Videó + hang",
+				"videoOnly": "Videó, hang nélkül"
+			},
+			"loadingAria": "Formátumok betöltése",
+			"loadingHint": "Várjon, amíg a lekérdezés befejeződik – a lejátszási listák és keresések eltarthatnak egy ideig.",
+			"marker": {
+				"aiDubbed": "MI-szinkron",
+				"aiUpscaled": "MI-vel felskálázva",
+				"audioDescription": "Hangleírás",
+				"damaged": "Sérült",
+				"enhancedBitrate": "Megnövelt bitráta",
+				"spatialAudio": "Térhatású hang",
+				"vr": "360° / VR",
+				"watermarked": "Vízjeles"
+			},
+			"noAudio": "Hang nélkül",
+			"profile": {
+				"calloutBody": "Az aktív profil előre kiválasztja Önnek az adatfolyamokat. Profilt a menüből válthat, vagy a ceruzával finomhangolhat egyet anélkül, hogy elhagyná ezt a letöltést.",
+				"calloutTitle": "A formátumok a profiljából indulnak",
+				"closestTag": "Legközelebb a profilhoz",
+				"edit": "{{name}} szerkesztése",
+				"keepEdits": "Módosítások megtartása",
+				"menuDescription": "Csak ehhez a letöltéshez. Az alapértelmezett profil változatlan marad.",
+				"preselected": "Előre kiválasztva innen:",
+				"resetAll": "Összes visszaállítása",
+				"switchBody": "Módosította ezt: {{areas}} ennél a letöltésnél. A(z) „{{profile}}” így is kiválasztja a videót és a hangot. Megtartja a többi módosítást, vagy mindent visszaállít a profilra?",
+				"switchTitle": "Profilváltás?",
+				"tag": "Profil",
+				"updatedBody": "Módosította ezt: {{areas}} ennél a letöltésnél. A frissített profil így is kiválasztja a videót és a hangot. Megtartja a többi módosítást, vagy mindent visszaállít a profilra?",
+				"updatedTitle": "A frissített profil használata?"
+			},
+			"quality": {
+				"high": "Magas minőség",
+				"low": "Alacsony minőség",
+				"medium": "Közepes minőség"
+			},
+			"rateLimit": {
+				"heading": "A(z) {{site}} korlátozza ezt a kapcsolatot",
+				"leadDegraded": "A formátumlista hiányos lehet.",
+				"leadFailed": "A(z) {{site}} egyelőre elutasította ezt a kérést.",
+				"retryCta": "Újra",
+				"sessionNote": "A(z) {{site}} akár egy óráig is fenntarthatja ezt a korlátozást.",
+				"tryNowCta": "Próba most",
+				"waitOver": "A várakozásnak vége, újra próbálkozhat.",
+				"waitUntil": "Az Arroxy {{time}}-ig vár, mielőtt újra megkérdezné a(z) {{site}} webhelyet, hogy a korlátozás feloldódhasson."
+			},
+			"resolutionUnknown": "Ismeretlen felbontás",
+			"savesAs": {
+				"label": "Mentés mint",
+				"reset": "A WebM nem tud {{codec}} kodeket tárolni, ezért a fájltípus visszaállt Automatikusra."
+			},
+			"sizeUnknown": "Ismeretlen méret",
+			"skipToConfirm": "Ugrás a megerősítésre",
+			"skipToConfirmTooltip": "A hátralévő lépésekhez a mentett beállításokat használja. Beállítás módosításához haladjon lépésenként – a választása a következő alkalomra mentésre kerül.",
+			"sniffing": "A legjobb formátumok felkutatása…",
+			"total": "Összesen",
+			"video": "Videó",
+			"withAudio": "hanggal"
+		},
+		"mixedPrompt": {
+			"body": "Csak a rákattintott videót szeretné, vagy a lejátszási listából választana? Ezután kiválaszthat konkrét videókat vagy egy tartományt.",
+			"pickFromPlaylist": "Választás a listából",
+			"playlistLimit": "Lejátszási lista lekérdezési korlátja: {{count}} elem",
+			"playlistTooltip": "Betölti a lejátszási listát a lekérdezési korlátig, mielőtt megjeleníti a választót.",
+			"quickBody": "Töltse le csak ezt a videót, vagy állítsa sorba a teljes lejátszási listát az aktív Gyorsletöltés profillal.",
+			"quickLimitDescription": "Legfeljebb ennyi elemet vizsgál az Arroxy, mielőtt sorba állít egy lejátszási listát, csatornát vagy keresési eredményt.",
+			"quickPlaylistTooltip": "Az aktív Gyorsletöltés profillal sorba állítja a lejátszási lista minden betöltött elemét. Ha a vizsgálat eléri a korlátot, az Arroxy rákérdez a sorba állítás előtt.",
+			"quickSingleTooltip": "Egy letöltést állít sorba, és figyelmen kívül hagyja az URL-hez tartozó lejátszási listát.",
+			"quickSingleVideo": "Ennek a videónak a letöltése",
+			"quickWholePlaylist": "Teljes lejátszási lista letöltése",
+			"singleTooltip": "Csak ezt a videót tölti be. Az URL-hez tartozó lejátszási listát figyelmen kívül hagyja.",
+			"singleVideo": "Csak ez",
+			"title": "Ez a hivatkozás lejátszási listát tartalmaz"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Fejezetjelölők, amelyek között bármely modern lejátszóban lehet navigálni.",
+				"label": "Fejezetek beágyazása"
+			},
+			"embedMetadata": {
+				"description": "A cím, az előadó, a leírás és a feltöltés dátuma a fájlba kerül.",
+				"label": "Metaadatok beágyazása"
+			},
+			"embedThumbnail": {
+				"description": "Borítókép a fájlon belül. A WebM-videó MKV-ba lesz átcsomagolva; feliratok beágyazásakor kimarad.",
+				"label": "Miniatűr beágyazása"
+			},
+			"writeDescription": {
+				"description": "A videó leírását .description szövegfájlba menti a letöltés mellé.",
+				"label": "Leírás mentése"
+			},
+			"writeM3u": {
+				"description": "A videók mellé .m3u lejátszási listát ment, hogy a médialejátszóban sorrendben nyíljanak meg.",
+				"label": ".m3u lejátszási lista létrehozása"
+			},
+			"writeThumbnail": {
+				"description": "A miniatűrt .jpg képfájlként menti a letöltés mellé.",
+				"label": "Miniatűr mentése"
+			}
+		},
+		"part": {
+			"calloutBody": "Váltson a videókártyán a Rész beállításra, hogy kezdő- és végpontot vagy fejezetet válasszon, és csak azt a szakaszt töltse le.",
+			"calloutTitle": "Csak a videó egy részének letöltése",
+			"chapterUntitled": "{{number}}. fejezet",
+			"chapters": "Fejezetek",
+			"connectionsNote": "A rész letöltése az ffmpegen keresztül történik, ezért a letöltési kapcsolatokra és az ütemezésre vonatkozó beállítások nem érvényesek rá.",
+			"downloadBlocked": "Előbb javítsa ki a rész kezdetét és végét.",
+			"end": "Vége",
+			"error": {
+				"endBeyondDuration": "A videó {{duration}} időpontban ér véget.",
+				"endInvalid": "A véget ó:pp:mm, p:mm vagy másodperc formában adja meg.",
+				"startInvalid": "A kezdetet ó:pp:mm, p:mm vagy másodperc formában adja meg.",
+				"startNotBeforeEnd": "A kezdetnek a vég előtt kell lennie."
+			},
+			"exactCut": {
+				"hint": "Kikapcsolva: minden vágás a legközelebbi kulcsképkockára esik, ami néhány másodpercre lehet a beírt időponttól.",
+				"label": "Pontos vágás (újrakódol, lassabb)"
+			},
+			"length": "{{length}} / {{duration}}",
+			"part": "Rész",
+			"rangeLabel": "A videó egy része",
+			"start": "Kezdet",
+			"subtitlesFullLength": "teljes videó",
+			"summary": "Rész: {{start}}–{{end}}",
+			"switchLabel": "A videó mekkora része",
+			"timeHint": "ó:pp:mm, p:mm vagy másodperc",
+			"totalEstimate": "Rész, becsült",
+			"unavailableDuration": "Ez a videó nem jelzi a hosszát, ezért csak egészében tölthető le.",
+			"unavailableSubtitles": "A feliratok mindig a teljes videóra vonatkoznak.",
+			"urlStart": "A hivatkozás itt kezdődik: {{time}}",
+			"useUrlStart": "Használat kezdetként",
+			"whole": "Teljes videó",
+			"wholeTrack": "Teljes szám"
+		},
+		"playlist": {
+			"allRemovedDescription": "A folytatáshoz állítsa vissza őket.",
+			"allRemovedTitle": "Minden elem el lett távolítva",
+			"alreadyDownloaded": "Már letöltve",
+			"bulkHeading": "Tömeges URL-ek",
+			"bulkMetadataOptional": "Nem kell várni – a most sorba állított fájlok letöltéskor így is megkapják valódi nevüket.",
+			"bulkMetadataResolving": "Videóadatok lekérése… {{done}}/{{total}}",
+			"bulkRowFailed": "Nem érhetők el az adatok",
+			"bulkRowResolving": "Adatok lekérése",
+			"bulkRowWaiting": "Várakozik",
+			"durationUnknown": "élő",
+			"heading": "Lejátszási lista elemei",
+			"headingGeneric": "Letöltendő videók",
+			"itemCountAudio_one": "{{count}} szám",
+			"itemCountAudio_other": "{{count}} szám",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_one": "{{count}} videó",
+			"itemCount_other": "{{count}} videó",
+			"loadingItems": "Lejátszási lista lekérése…",
+			"loadingItemsGeneric": "Videók lekérése…",
+			"loadingLimitHint": "Az első {{count}} elemre korlátozva",
+			"loadingPagesFound_one": "{{count}} oldal található",
+			"loadingPagesFound_other": "{{count}} oldal található",
+			"loadingPhaseItems": "Videók gyűjtése",
+			"loadingPhasePages": "Csatornaoldalak vizsgálata",
+			"multiProfileEntry": "Profilok hozzárendelése elemenként",
+			"multiProfileEntryTooltip": "Kihagyja a Minőség, SponsorBlock, Kimenet és Mentés lépést – helyette elemenként rendel hozzá letöltési profilt",
+			"nestedPlaylistBadge": "Lejátszási lista",
+			"nestedPlaylistHint_one": "Ezek közül {{count}} lejátszási lista, nem videó – a letöltéséhez illessze be a hivatkozását külön.",
+			"nestedPlaylistHint_other": "Ezek közül {{count}} lejátszási lista, nem videó – a letöltésükhöz illessze be a hivatkozásaikat egyenként.",
+			"noSelection": "A folytatáshoz jelöljön ki legalább egy videót",
+			"probeLimitAlertDesc": "Az első {{count}} elem látható. A többi megtekintéséhez növelje a betöltési korlátot.",
+			"probeLimitAlertTitle": "A lejátszási lista vizsgálata korlátozott",
+			"probeLimitAlertTitleGeneric": "A vizsgálat korlátozott",
+			"rangeApply": "Tartomány alkalmazása",
+			"rangeFrom": "Ettől",
+			"rangeTo": "Eddig",
+			"removeFromListCount_one": "{{count}} eltávolítása a listáról",
+			"removeFromListCount_other": "{{count}} eltávolítása a listáról",
+			"removedCount_one": "{{count}} eltávolítva",
+			"removedCount_other": "{{count}} eltávolítva",
+			"restore": "Visszaállítás",
+			"selectAll": "Összes kijelölése",
+			"selectNone": "Kijelölés megszüntetése",
+			"selectedCount_one": "{{count}} kijelölve",
+			"selectedCount_other": "{{count}} kijelölve",
+			"sortApi": "Lista sorrendje",
+			"sortFetchingDates": "Feltöltési dátumok lekérése…",
+			"sortLabel": "Rendezés",
+			"sortUploadAsc": "Legrégebbi elöl",
+			"sortUploadDesc": "Legújabb elöl",
+			"syncApply": "Szinkronizálás alkalmazása",
+			"syncChange": "Mappa módosítása…",
+			"syncFoundDesc": "Ezek közül a videók közül {{n}} már itt van: {{dir}}. Szinkronizál, hogy csak az újak töltődjenek le?",
+			"syncFoundTitle": "Már a mappában",
+			"syncNoneDesc": "Ebből a lejátszási listából egy videó sem található itt: {{dir}}.",
+			"syncNoneDescGeneric": "Ebből a forrásból egy videó sem található itt: {{dir}}.",
+			"syncNoneTitle": "Még nincs letöltve semmi",
+			"syncScanning": "Mappa ellenőrzése…",
+			"thumbnailAlt": "Videó miniatűrje"
+		},
+		"playlistPresets": {
+			"heading": "Válasszon minőséget a köteghez",
+			"itemCount_one": "{{count}} elem",
+			"itemCount_other": "{{count}} elem",
+			"subhead": "Minden videó külön oldja fel a kiválasztott szintet – az egyenetlen lejátszási listák is meglepetések nélkül működnek."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Profil hozzárendelése",
+			"assignTrigger_one": "Hozzárendelés {{count}} videóhoz",
+			"assignTrigger_other": "Hozzárendelés {{count}} videóhoz",
+			"columnDuration": "Hossz",
+			"columnProfile": "Profil",
+			"editProfile": "{{name}} szerkesztése",
+			"empty": "Egy elem sem felel meg ennek a szűrőnek",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profilszűrők",
+			"heading": "Letöltési profilok hozzárendelése",
+			"menuDescription_one": "Válassza ki a videó profilját.",
+			"menuDescription_other": "Válassza ki a profilt ehhez a(z) {{count}} videóhoz.",
+			"selectedSummary": "{{selected}} / {{total}} kijelölve"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Globális módosítása",
+				"chooseFolder": "Célmappa kiválasztása",
+				"chooseIcon": "Profilikon kiválasztása",
+				"removeLanguage": "{{code}} eltávolítása",
+				"reset": "Profil visszaállítása",
+				"resetDisabledHint": "Ez a profil már a beépített beállításokat használja",
+				"resetHint": "A beépített profilbeállítások visszaállítása",
+				"save": "Profil mentése",
+				"setOverride": "Profilfelülbírálás beállítása",
+				"setOverrideShort": "Felülbírálás",
+				"useGlobalDefault": "Globális alapértelmezés használata",
+				"useLanguageCode": "„{{code}}” nyelvkód használata"
+			},
+			"advanced": "Speciális",
+			"appSetting": "Alkalmazásbeállítás használata ({{value}})",
+			"audioFormat": {
+				"best": "Legjobb",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Legfeljebb 128K",
+				"192": "Legfeljebb 192K",
+				"320": "Legfeljebb 320K",
+				"best": "Legjobb minőség"
+			},
+			"destination": {
+				"defaultFolder": "Alapértelmezett letöltési mappa",
+				"defaultFolderWithSubfolder": "Alapértelmezett letöltési mappa / {{subfolder}}",
+				"global": "Globális célmappa",
+				"globalActive": "Aktív",
+				"globalInherited": "Örökölt",
+				"override": "Profilfelülbírálás",
+				"overrideChoosing": "Mappa kiválasztása",
+				"overrideNone": "Nincs felülbírálás",
+				"overrideNoneNote": "Nincs felülbírálás beállítva. Ez a profil a fenti globális célmappát használja.",
+				"overrideSet": "Felülbírálja a globálisat",
+				"overrideSetNote": "Ez a profil a saját gyökérmappájába ment, mielőtt az almappa hozzáadódik.",
+				"resolved": "Feloldott célmappa"
+			},
+			"dialogDescription": "Egy újrahasználható beállítás a Gyorsletöltéshez, a Tömeges URL-ekhez és a lejátszási listákhoz.",
+			"dialogTitle": "Letöltési profil",
+			"error": {
+				"changeGlobalDestination": "A globális célmappa módosítása nem sikerült.",
+				"folderPicker": "A mappaválasztó megnyitása nem sikerült. Adja meg kézzel az elérési utat.",
+				"reset": "A profilbeállítások visszaállítása nem sikerült.",
+				"save": "A profilbeállítások mentése nem sikerült."
+			},
+			"field": {
+				"delivery": "Mentés módja",
+				"fileType": "Fájltípus",
+				"goal": "Optimalizálás erre",
+				"icon": "Profilikon",
+				"languages": "Nyelvek",
+				"name": "Profilnév",
+				"nameAndIcon": "Profilnév és ikon",
+				"nativeAudio": "Eredeti hang",
+				"overridePath": "Profil felülbíráló elérési útja",
+				"quality": "Minőség",
+				"resolution": "Felbontás",
+				"source": "Forrás",
+				"subfolderName": "Almappa neve",
+				"subtitleDownloads": "Feliratletöltések",
+				"subtitleDownloadsDescription": "A profilok nyelvkódokat kérnek; az elérhetőség URL-enként dől el."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "A legélesebb adott méretnél. Régebbi tévék, a QuickTime és egyes szerkesztők nem tudják lejátszani.",
+					"name": "Legjobb kép",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Lejátszható tévéken, telefonokon, WhatsAppban, QuickTime-ban és videószerkesztőkben. A YouTube csak 1080p-ig kínál H.264-et.",
+					"name": "Okostévé",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Archívum",
+				"audio": "Hang",
+				"captions": "Feliratok",
+				"classes": "Órák",
+				"clip": "Klip",
+				"controls": "Vezérlők",
+				"download": "Letöltés",
+				"music": "Zene",
+				"podcast": "Podcast",
+				"video": "Videó"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Zene vagy podcastok",
+					"label": "Csak hang"
+				},
+				"subtitlesOnly": {
+					"description": "Csak feliratfájlok",
+					"label": "Csak feliratok"
+				},
+				"videoAudio": {
+					"description": "Hagyományos videófájlok",
+					"label": "Videó + hang"
+				},
+				"videoOnly": {
+					"description": "Csak néma videó",
+					"label": "Videó, hang nélkül"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Az automatikus feliratok ASS helyett SRT formátumban lesznek mentve.",
+				"noLanguageMatches": "Nincs egyező nyelv",
+				"noSubtitles": "Ehhez a profilhoz nem lesznek kérve feliratfájlok vagy beágyazott feliratsávok.",
+				"searchLanguages": "Keresés nyelvnév vagy kód alapján",
+				"skippedForOutputType": "Ennél a kimeneti típusnál kimarad.",
+				"subtitleLanguagesRequired": "Válasszon legalább egy nyelvet.",
+				"subtitleLanguagesRequiredOrOff": "Válasszon legalább egy nyelvet, vagy kapcsolja ki a feliratletöltést.",
+				"subtitlesOnly": "Ez a profil csak feliratfájlokat állít sorba. A videó, a hang, a SponsorBlock és a médiakonvertálás kimarad."
+			},
+			"panel": {
+				"advanced": {
+					"description": "A profilok örökölik a globális célmappát, hacsak nem állít be profilfelülbírálást.",
+					"title": "Speciális beállítások"
+				},
+				"downloadType": {
+					"description": "Válassza ki a letöltés elsődleges módját.",
+					"title": "Letöltés típusa"
+				},
+				"identity": {
+					"description": "A Gyorsletöltésben, a Tömeges URL-ekben és a profillistákban megjelenő név és ikon.",
+					"title": "Profil azonosítása"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} engedélyezve",
+					"enabledCount_other": "{{count}} engedélyezve",
+					"title": "Kimeneti beállítások"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Válasszon mappát ehhez a profilhoz"
+			},
+			"skipped": "Kihagyva",
+			"sponsorBlockHint": {
+				"mark": "A szponzori szakaszokat fejezetként jelöli meg (nem destruktív).",
+				"off": "Nincs SponsorBlock – a videó a feltöltött módon játszódik le.",
+				"remove": "Kivágja a szponzori szakaszokat a videóból az FFmpeg segítségével."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Csak automatikusan generált",
+				"manualAndAuto": "Kézi és automatikus",
+				"manualFirst": "Előbb kézi, utána automatikus",
+				"manualOnly": "Csak kézi"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}} súgó"
+		},
+		"quickProgress": {
+			"cancel": "Előkészítés megszakítása",
+			"currentFallback": "Aktuális hivatkozás",
+			"description": "Az Arroxy beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
+			"failedCount_one": "{{count}} sikertelen",
+			"failedCount_other": "{{count}} sikertelen",
+			"phase": {
+				"probing": "Részletek lekérése",
+				"queueing": "Hozzáadás a sorhoz"
+			},
+			"title": "Gyorsletöltés előkészítése",
+			"waitHint": "Hagyja nyitva, amíg az Arroxy előkészíti a sort."
+		},
+		"review": {
+			"areas": {
+				"extras": "extrák",
+				"fileName": "fájlnév",
+				"format": "formátum",
+				"saveTo": "mappa",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "feliratok"
+			},
+			"callout": {
+				"body": "A feliratok, a SponsorBlock, az extrák (például a miniatűr), a mappa és a fájlnév korábban külön lépések voltak. Kattintson egy sorra a módosításhoz.",
+				"title": "Az összes többi beállítás mostantól ezen az oldalon van"
+			},
+			"changeFormat": "Formátum módosítása",
+			"changed": "Módosítva a(z) {{profile}} profilhoz képest: {{areas}}. Csak erre a letöltésre vonatkozik.",
+			"changedFrom": "Módosítva a(z) {{profile}} profilhoz képest:",
+			"nextTime": {
+				"action": "Mentés profilként",
+				"defaultName": "{{profile}} (szerkesztve)",
+				"title": "Ez a letöltés módosított beállításokat használt. Használja ezeket legközelebb is?"
+			},
+			"reset": "Módosítások visszavonása, vissza ehhez: „{{profile}}”",
+			"rows": {
+				"extras": "Extrák",
+				"fileName": "Fájlnév",
+				"saveTo": "Mentés ide",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Feliratok"
+			},
+			"rowsHeading": "Minden más",
+			"save": {
+				"action": "Profil mentése",
+				"description": "Ezeket a beállításokat profilként megtartja, amelyet legközelebb kiválaszthat. A Gyorsletöltés profilja változatlan marad.",
+				"failed": "A profil mentése nem sikerült.",
+				"nameLabel": "Profilnév",
+				"saved": "Mentve „{{name}}” profilként",
+				"title": "Mentés profilként"
+			},
+			"saveAsProfile": "Mentés új profilként",
+			"update": {
+				"action": "Profil frissítése",
+				"builtinNote": "Ez egy beépített profil. Az eredeti beállításokat a Profilok lapon állíthatja vissza.",
+				"description": "Mostantól minden, ezzel a profillal végzett letöltés az új beállításokat használja.",
+				"rows": {
+					"format": "Formátum"
+				},
+				"title": "Frissíti a(z) „{{profile}}” profilt?",
+				"updated": "Frissített profil: „{{name}}”"
+			},
+			"updateProfile": "A(z) „{{profile}}” frissítése ezekkel a módosításokkal",
+			"value": {
+				"extrasNone": "Nincs",
+				"sponsorBlockOff": "Ki",
+				"subtitlesOff": "Ki"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Töltelék",
+				"intro": "Bevezető",
+				"music_offtopic": "Témán kívüli zene",
+				"outro": "Zárás",
+				"preview": "Előzetes",
+				"selfpromo": "Önreklám",
+				"sponsor": "Szponzor"
+			},
+			"categoriesHeading": "Kategóriák",
+			"mode": {
+				"mark": "Megjelölés fejezetként",
+				"off": "Ki",
+				"remove": "Szakaszok eltávolítása"
+			},
+			"modeHeading": "Szponzorok szűrése",
+			"modeHint": {
+				"mark": "A szponzori szakaszokat fejezetként jelöli meg (nem destruktív).",
+				"off": "Nincs SponsorBlock – a videó a feltöltött módon játszódik le.",
+				"remove": "Kivágja a szponzori szakaszokat a videóból az FFmpeg segítségével."
+			}
+		},
+		"steps": {
+			"confirm": "Megerősítés",
+			"folder": "Mentés",
+			"formats": "Formátum",
+			"output": "Kimenet",
+			"playlistItems": "Lista",
+			"playlistItemsGeneric": "Videók",
+			"playlistPresets": "Minőség",
+			"playlistProfiles": "Profilok",
+			"review": "Áttekintés",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Feliratok",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Az automatikus feliratok ASS helyett SRT formátumban lesznek mentve – a YouTube-videóknál megtisztítjuk őket a gördülő felirat-ismétlődéstől, amelyet az ASS-konvertálónk még nem tud megvalósítani.",
+			"autoBadge": "Auto",
+			"clearAll": "Összes törlése",
+			"embedNote": "Beágyazáskor a kimenet .mkv fájlként kerül mentésre, hogy a feliratsávok megbízhatóan beágyazódjanak.",
+			"format": {
+				"heading": "Formátum"
+			},
+			"noLanguages": "Ehhez a videóhoz nincs elérhető felirat",
+			"noMatches": "Nincs egyező nyelv",
+			"noSelected": "Nincs kijelölt felirat",
+			"removeLanguage": "{{name}} eltávolítása",
+			"saveMode": {
+				"embed": "Beágyazás a videóba",
+				"heading": "Mentés mint",
+				"sidecar": "A videó mellé",
+				"subfolder": "subtitles/ almappába"
+			},
+			"searchPlaceholder": "Nyelvek keresése…",
+			"sectionAuto": "Automatikusan generált",
+			"sectionManual": "Kézi"
+		},
+		"tabsNavAria": "Letöltési profil navigáció",
+		"url": {
+			"advanced": "Speciális",
+			"analytics": {
+				"toggle": "Napi jelzés küldése",
+				"toggleDescription": "Nincs telemetria. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
+			},
+			"autoRemoveCompleted": {
+				"description": "A letöltést néhány másodperccel a befejezése után leveszi a Letöltések listáról. A fájlok a mappában maradnak; a sikertelen és megszakított letöltések a listán maradnak.",
+				"label": "Befejezett letöltések eltávolítása"
+			},
+			"autoRetry": {
+				"description": "Hálózati vagy kiszolgálói hiba után automatikusan újrapróbálja, az egyes próbálkozások között egyre hosszabb ideig várva. A webhely által letiltott letöltéseket soha nem próbálja újra automatikusan.",
+				"label": "Sikertelen letöltések újrapróbálása",
+				"unit": "alkalom"
+			},
+			"bulkButton": "Tömeges URL-ek",
+			"bulkTooltip": "Több URL hozzáadása és sorba állítása.",
+			"clearAria": "URL törlése",
+			"clipboard": {
+				"autofilledLink": "Hivatkozás hozzáadva a vágólapról",
+				"bulkHint": "Több hivatkozás van másolva – a hozzáadásukhoz használja a Tömeges URL-eket",
+				"dialog": {
+					"cancelButton": "Mégse"
+				},
+				"replacedLink": "Lecserélve a másolt hivatkozásra",
+				"toggle": "Vágólap figyelése",
+				"toggleDescription": "Automatikusan kitölti az URL-mezőt, amikor videóhivatkozást másol.",
+				"undo": "Visszavonás"
+			},
+			"closeToTray": {
+				"toggle": "Elrejtés a tálcára bezáráskor",
+				"toggleDescription": "A letöltések az ablak bezárása után a háttérben folytatódnak."
+			},
+			"concurrentDownloads": {
+				"description": "Hány sorba állított elem töltődik le egyszerre. Több egyidejű letöltés hamarabb végez egy hosszú sorral, de nő az esélye, hogy a webhely korlátozza.",
+				"label": "Egyidejű letöltések",
+				"unit": "letöltés"
+			},
+			"cookies": {
+				"banWarning": "Az olyan webhelyek, mint a YouTube, megjelölhetik – és olykor ki is tilthatják – azokat a fiókokat, amelyek sütijeit az Arroxyhoz hasonló letöltőeszközök használják. Ha lehet, használjon eldobható fiókot.",
+				"browserHelp": "A sütiket közvetlenül a böngészőből olvassa be. A Chromium-családú böngészőknek zárva kell lenniük.",
+				"browserLabel": "Böngésző",
+				"browserPlaceholder": "Válasszon böngészőt…",
+				"choose": "Kiválasztás…",
+				"clear": "Törlés",
+				"enabledButNoBrowser": "A sütik használatához válasszon böngészőt",
+				"enabledButNoFile": "A sütik használatához válasszon fájlt",
+				"exploreDescription": "A Felfedezés-bejelentkezést csak akkor használja, ha a letöltéshez szükséges.",
+				"exploreDisabled": "A Felfedezés lap ki van kapcsolva, ezért a letöltések nem használják a Felfedezés bejelentkezését. Kapcsolja be lent, a Felfedezés alatt.",
+				"extensionChrome": "Get cookies.txt LOCALLY (Chrome-hoz)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Sütifájl",
+				"helpLink": "Hogyan exportálhatom a sütiket?",
+				"openExplore": "Felfedezés megnyitása",
+				"placeholder": "Nincs kiválasztott fájl",
+				"recommended": "Ajánlott",
+				"risk": "Kockázat: a cookies.txt a böngésző minden bejelentkezett munkamenetét tartalmazza – tartsa titokban.",
+				"sourceBrowser": "Böngésző",
+				"sourceExplore": "Felfedezés-bejelentkezés",
+				"sourceFile": "Fájl",
+				"sourceLabel": "Sütiforrás",
+				"sourceOff": "Ki",
+				"toggleDescription": "Segít a korhatáros, csak tagoknak szóló és fiókhoz kötött privát videóknál."
+			},
+			"downloadConnections": {
+				"description": "Felgyorsítja a nagy letöltéseket azáltal, hogy a videó több részét egyszerre tölti le. A magasabb értékek növelik az esélyét, hogy a webhely korlátozza.",
+				"label": "Letöltési kapcsolatok",
+				"unit": "kapcsolat"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Csak hang",
+					"subtitles": "Feliratok"
+				},
+				"anySite": {
+					"heading": "2000+ webhely",
+					"musicPlaylist": "Zenei lejátszási listák",
+					"video": "Videók",
+					"videoPlaylist": "Videólejátszási listák"
+				},
+				"heading": "Mit tölthet le az Arroxy",
+				"youtube": {
+					"channel": "Csatornák",
+					"heading": "YouTube",
+					"music": "Zene",
+					"playlist": "Lejátszási listák",
+					"podcast": "Podcastok",
+					"short": "Shorts",
+					"video": "Videók"
+				}
+			},
+			"fetchFormatsTooltip": "Lépésenkénti varázsló. Formátum, minőség és egyebek kiválasztása.",
+			"heading": "Letöltés URL-ről",
+			"hotkey": {
+				"changeShortcut": "Billentyűparancs módosítása",
+				"conflict": "Ezt a billentyűparancsot egy másik alkalmazás használja – válasszon másikat.",
+				"hintLabel": "Vagy nyomja meg:",
+				"hintTooltip": "Másoljon ki egy videóhivatkozást bárhol, nyomja meg ezt a billentyűparancsot, és az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül.",
+				"hintTooltipSettings": "Módosíthatja vagy kikapcsolhatja a Beállításokban.",
+				"recording": "Nyomja meg a billentyűket…",
+				"reset": "Alapértelmezés visszaállítása",
+				"sectionDescription": "Bármely alkalmazásból letölti a kimásolt hivatkozást, az Arroxy megnyitása nélkül.",
+				"sectionTitle": "Globális gyorsbillentyű",
+				"test": "Teszt",
+				"toggle": "Globális gyorsbillentyű engedélyezése",
+				"toggleDescription": "Nyomja meg a billentyűparancsot, amikor a vágólapon videóhivatkozás van."
+			},
+			"interactiveDownload": "Interaktív letöltés",
+			"limitRate": {
+				"activeWarning": "Az aktív letöltések megtartják a jelenlegi korlátjukat. A módosítás alkalmazásához szüneteltesse, majd folytassa őket.",
+				"custom": "Egyéni…",
+				"customPlaceholder": "pl. 750K vagy 1.5M",
+				"description": "A médialetöltések sávszélességét korlátozza. Az alábbi kéréskésleltetés általában erősebb eszköz a sebességkorlátozás ellen.",
+				"invalid": "Számot adjon meg, utána K vagy M jelzéssel (pl. 500K, 1.5M)",
+				"label": "Letöltési sebességkorlát",
+				"off": "Ki"
+			},
+			"mascotBusy": "Letöltés a háttérben… többfeladatos vagyok 😎",
+			"mascotCollection": "A Gyors a betöltött elemeket a(z) {{profileName}} profillal állítja sorba. Az Interaktívval előbb megvizsgálhatja vagy kijelölheti az elemeket.",
+			"mascotIdle": "Dobjon be egy hivatkozást, és az Arroxy letölti ✨",
+			"mascotMixed": "Ez a hivatkozás egy gyűjtemény egyik videójára mutat. Az Arroxy lekérdezés előtt megkérdezi, melyiket szeretné.",
+			"mascotPreparing": "A(z) {{quickDownload}} beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
+			"mascotQueued": "A sor kezeli ezt a letöltést. Beilleszthet egy újabb hivatkozást, amíg dolgozik.",
+			"mascotSingle": "A Gyors egy letöltést indít a(z) {{profileName}} profillal. Egyszeri módosításokhoz használja az Interaktívot.",
+			"nativeAudioPreference": {
+				"compatible": "Kompatibilis sztereó",
+				"description": "Sztereó vagy térhatású hang, amikor egy profil eredeti hangot választ. A profil felülbírálhatja.",
+				"label": "Eredeti hang előnyben részesítése",
+				"surround": "Térhatású / Dolby előnyben"
+			},
+			"networkPacing": {
+				"description": "Kis várakozásokat iktat be az egyes letöltések során, hogy az Arroxy ne terhelje túl agresszíven a webhelyet. Az értékek másodpercben vannak megadva.",
+				"fields": {
+					"maxSleepInterval": "Szünet a média indítása előtt: max.",
+					"sleepInterval": "Szünet a média indítása előtt: min.",
+					"sleepRequests": "Várakozás a metaadat-ellenőrzések között",
+					"sleepSubtitles": "Várakozás a feliratfájlok előtt"
+				},
+				"heading": "Kíméletes letöltés",
+				"presetLabel": "Mennyire legyen óvatos az Arroxy?",
+				"presets": {
+					"balanced": "Kiegyensúlyozott",
+					"careful": "Óvatos",
+					"custom": "Egyéni",
+					"off": "Ki"
+				},
+				"summary": "Várakozások: {{requests}} az ellenőrzések között, {{downloads}} a média indítása előtt, {{subtitles}} a feliratfájlok előtt.",
+				"tooltip": "Ezek a várakozások az egyes letöltéseken belül történnek. Az egyidejűleg futó letöltések számát külön, az Egyidejű letöltések alatt lehet beállítani.",
+				"tooltips": {
+					"balanced": "Alapértelmezett. Rövid szüneteket iktat be a kérések között és a média indítása előtt.",
+					"careful": "Hosszabb szüneteket iktat be nagy lejátszási listákhoz vagy gyakran korlátozott hálózatokhoz.",
+					"custom": "Maga hangolhatja a letöltésenkénti speciális vezérlőket.",
+					"off": "Csak azokat a kis alapszüneteket használja, amelyeket az Arroxy a médiához és a feliratokhoz megtart."
+				},
+				"units": {
+					"seconds": "mp"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Jelenlegi korlát: {{count}} elem",
+				"custom": "Egyéni…",
+				"customDialogCancel": "Mégse",
+				"customDialogDescription": "Egész számot adjon meg {{min}} és {{max}} között.",
+				"customDialogSave": "Korlát mentése",
+				"customDialogTitle": "Egyéni lejátszási lista vizsgálati korlát",
+				"customValue": "Egyéni: {{count}} elem",
+				"description": "Legfeljebb ennyi bejegyzést tölt be az Arroxy, amikor lejátszási listát, csatornát vagy keresési eredményt nyit meg.",
+				"invalid": "Egész számot adjon meg 1 és 5000 között",
+				"label": "Vizsgálandó lejátszási listaelemek",
+				"option": "{{count}} elem",
+				"tooltip": "Az Arroxy a választó összeállításakor csak ennyi lejátszási lista-, csatorna- vagy keresési bejegyzést kér le."
+			},
+			"playlistScope": {
+				"appLimit": "Alkalmazáskorlát használata: {{count}}",
+				"apply": "Alkalmaz",
+				"applyError": "A lejátszási lista tartományát nem sikerült alkalmazni: {{message}}",
+				"applyReload": "Alkalmazás és újratöltés",
+				"cancel": "Mégse",
+				"change": "Módosítás",
+				"dialogDescription": "Válassza ki, mit töltsön be az Arroxy ebből a lejátszási listából.",
+				"dialogTitle": "Lejátszási lista tartománya",
+				"emptyTitle": "Nincs videó ebben a tartományban",
+				"first": "Első",
+				"invalid": "Egész elemszámokat adjon meg 1 és {{max}} között, a kezdet ne legyen nagyobb a végnél.",
+				"itemsLabel": "Betöltendő elemek",
+				"label": "Lejátszási lista tartománya",
+				"range": "Tartomány",
+				"reloading": "Újratöltés...",
+				"reset": "Visszaállítás",
+				"summaryAppLimit": "Az első elemek betöltése: {{count}}",
+				"summaryFirst": "Az első elemek betöltése: {{count}}",
+				"summaryRange": "{{from}}–{{to}}. elem betöltése",
+				"to": "–"
+			},
+			"profile": {
+				"activeLabel": "Aktív profil",
+				"badgeBuiltIn": "Beépített",
+				"badgeCustom": "Egyéni",
+				"badgeDisabled": "Rejtett",
+				"badgeModified": "Módosított",
+				"changeGlobalDestination": "Globális célmappa módosítása",
+				"destinationDetail": {
+					"global": "A globális célmappát használja",
+					"globalSubfolder": "A globális célmappát + a profil almappáját használja",
+					"override": "A profilfelülbírálást használja",
+					"overrideSubfolder": "A profilfelülbírálást + a profil almappáját használja"
+				},
+				"destinationFallback": "Célmappa",
+				"edit": "Szerkesztés",
+				"editActive": "Aktív profil szerkesztése",
+				"enableHint": "A rejtett profilok itt megmaradnak, de eltűnnek minden profilválasztóból.",
+				"enableToggleAria": "Profil megjelenítése a választókban: {{profileName}}",
+				"lastEnabledHint": "Legalább egy profilnak elérhetőnek kell maradnia.",
+				"manageProfiles": "Profilok kezelése",
+				"menuDescription": "Módosítja az aktív profilt a Gyorsletöltéshez, a Tömeges URL-ekhez és a lejátszási listákhoz.",
+				"menuTitle": "Profilváltás",
+				"movableProfile": "áthelyezhető profil",
+				"moveCancelled": "Áthelyezés megszakítva. A(z) {{profileName}} a(z) {{count}} közül a(z) {{position}}. helyen marad.",
+				"moveDropped": "A(z) {{profileName}} elengedve a(z) {{count}} közül a(z) {{position}}. helyen.",
+				"moveHandleAria": "{{profileName}} áthelyezése",
+				"moveInstructions": "Profil áthelyezéséhez nyomja meg a Szóközt vagy az Entert, mozgassa a nyílbillentyűkkel, majd a Szóköz vagy az Enter megnyomásával engedje el. A megszakításhoz nyomja meg az Escape billentyűt.",
+				"moveOver": "A(z) {{profileName}} a(z) {{count}} közül a(z) {{position}}. hely fölött van.",
+				"movePickedUp": "A(z) {{profileName}} felvéve. A(z) {{count}} közül a(z) {{position}}. helyen van.",
+				"newProfile": "Új profil",
+				"panelDescription": "Újrahasználható letöltési beállítások létrehozása, kiválasztása, szerkesztése vagy eltávolítása.",
+				"panelTitle": "Letöltési profilok",
+				"remove": "Eltávolítás",
+				"reorderHint": "Húzza a profilt az áthelyezéshez. Minden profilválasztó ezt a sorrendet követi.",
+				"reset": "Visszaállítás",
+				"summary": {
+					"aacAudio": "AAC hang",
+					"bestAudio": "legjobb hang",
+					"bestVideo": "legjobb videó",
+					"noAudio": "hang nélkül",
+					"subtitlesOnly": "csak feliratok",
+					"wavAudio": "WAV hang"
+				},
+				"switchAria": "Letöltési profil váltása: {{profileName}}",
+				"switchTitle": "Letöltési profil váltása"
+			},
+			"proxy": {
+				"clear": "Törlés",
+				"description": "A forgalmat proxyn keresztül irányítja – hasznos földrajzilag korlátozott tartalmakhoz.",
+				"label": "Proxy URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Egyik URL-t sem sikerült előkészíteni",
+			"quickDownload": "Gyorsletöltés",
+			"quickDownloadTooltip": "Letöltés ezzel a profillal: {{profileName}}",
+			"quickFailed": "Ezt nem sikerült hozzáadni: {{error}}",
+			"quickPartialFailed_one": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
+			"quickPartialFailed_other": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
+			"quickPrepareFailed": "A sorelemet nem sikerült előkészíteni",
+			"quickPreparing": "Előkészítés",
+			"quickProbeFailed": "A lekérdezés sikertelen",
+			"quickQueued": "Hozzáadva a sorhoz",
+			"quickSingleOnly": "A kezdéshez illesszen be egy videó-, lejátszási lista-, csatorna- vagy keresési URL-t.",
+			"settings": {
+				"behaviorDescription": "Globális viselkedés, amely a profilvezérelt letöltéseket is érinti.",
+				"behaviorHeading": "Letöltési viselkedés",
+				"inputHeading": "Bevitel"
+			},
+			"style": {
+				"aurora": {
+					"description": "Üvegpanelek mozgó égbolt fölött. Grafikus gyorsítást igényel.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Tömör, nyugodt felületek. Bármely számítógépen könnyen fut.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Mindkét stílus világos és sötét változatban is elérhető.",
+				"modeLabel": "Stílus",
+				"panelDescription": "Az Arroxy megjelenése. A világos és sötét mód között a láblécben válthat.",
+				"panelTitle": "Megjelenés",
+				"unavailableNotice": "A(z) {{style}} grafikus gyorsítást igényel, amely jelenleg nem érhető el, ezért az Arroxy a(z) {{fallback}} stílust mutatja."
+			},
+			"tabs": {
+				"profiles": "Profilok",
+				"settings": "Beállítások"
+			}
+		}
+	}
 }

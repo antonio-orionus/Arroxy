@@ -1,908 +1,299 @@
 {
-	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "dismiss": "Tutup", "startOver": "Mulai dari awal", "close": "Tutup"},
+	"about": {
+		"button": "Tentang",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · oleh Antonio Orionus",
+		"openTitle": "Tentang Arroxy",
+		"tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.",
+		"thirdPartyNotices": "Lihat pemberitahuan pihak ketiga",
+		"websiteLink": "Situs web"
+	},
+	"aiUpscaled": {
+		"allow": "Izinkan",
+		"description": "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual.",
+		"label": "Stream hasil upscale AI",
+		"skip": "Lewati"
+	},
 	"app": {
 		"feedback": "Masukan",
+		"feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬",
 		"logs": "Log",
 		"saveDiagnostics": "Simpan file diagnostik",
 		"saveDiagnosticsDescription": "Menggabungkan log dan detail aplikasi ke dalam satu file di folder Unduhan, siap dilampirkan ke issue GitHub. Nama folder pengguna dihapus; tautan dan judul video tetap ada.",
-		"feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬",
-		"zoomIn": "Perbesar",
-		"zoomOut": "Perkecil",
+		"styleHint": "Baru: pilih Aurora atau Minimalis di sini",
 		"theme": "Tema",
-		"styleHint": "Baru: pilih Aurora atau Minimalis di sini"
+		"zoomIn": "Perbesar",
+		"zoomOut": "Perkecil"
 	},
-	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "GPLv3 · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
-	"titleBar": {"close": "Menutup", "minimize": "Memperkecil", "maximize": "Maksimalkan", "restore": "Memulihkan"},
-	"splash": {
-		"greeting": "Hei, selamat datang kembali!",
-		"warmup": "Mempersiapkan unduhan…",
-		"verifying": "Memeriksa {{binary}}…",
-		"verifyFirstCheck": "Pemeriksaan pertama versi ini — yang ini lambat. Biasanya sekitar satu menit.",
-		"cancel": "Ada masalah? Atur secara manual",
-		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya.",
-		"setup": {
-			"title": {"firstRun": "Penyiapan pertama kali", "media": "Memperbarui alat media", "engine": "Memperbarui mesin pengunduh"},
-			"stage": {"connecting": "Menghubungkan…", "downloadingBoth": "Mengunduh mesin pengunduh dan alat media", "downloadingEngine": "Mengunduh mesin pengunduh", "downloadingMedia": "Mengunduh alat media", "unpacking": "Mengekstrak alat media", "checking": "Memeriksa semuanya berfungsi"},
-			"bytes": "{{done}} dari {{total}}",
-			"left": {"underMinute": "sisa kurang dari semenit", "minutes_other": "sisa sekitar {{count}} mnt"},
-			"note": {"firstRun": "Ini hanya terjadi sekali. Arroxy menyimpan alat ini dan memperbaruinya sendiri.", "media": "Ini hanya terjadi sekali. Arroxy menyimpannya untuk pembaruan berikutnya.", "engine": "Menjaga unduhan tetap berjalan saat situs berubah."}
+	"common": {
+		"back": "Kembali",
+		"cancel": "Membatalkan",
+		"close": "Tutup",
+		"continue": "Melanjutkan",
+		"dismiss": "Tutup",
+		"loading": "Memuat…",
+		"retry": "Mencoba kembali",
+		"startOver": "Mulai dari awal"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy terus berjalan dan menyelesaikan pengunduhan aktif. Ubah ini nanti di Pengaturan lanjutan.",
+			"hide": "Sembunyikan ke baki",
+			"message": "Sembunyikan Arroxy ke baki sistem saat menutup?",
+			"quit": "Berhenti",
+			"remember": "Jangan bertanya lagi"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Batalkan Unduhan & Keluar",
+			"detail": "Jeda untuk melanjutkan nanti, atau batalkan untuk membuang kemajuan.",
+			"keep": "Terus Mengunduh",
+			"message_other": "Pengunduhan {{count}} sedang berlangsung",
+			"pause": "Jeda Unduhan & Keluar"
+		},
+		"rendererCrashed": {
+			"detail": "Proses penyaji macet ({{reason}}). Muat ulang untuk mencoba lagi.",
+			"message": "Arroxy mengalami masalah",
+			"quit": "Berhenti",
+			"reload": "Muat ulang"
 		}
 	},
-	"repair": {
-		"title": "Penyiapan membutuhkan bantuan Anda",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "penyelidikan FF"},
-		"groups": {"engine": "Mesin pengunduh", "media": "Alat media"},
-		"causes": {
-			"downloadFailed": {"title": "Tidak dapat mengunduh yang dibutuhkan Arroxy", "body": "Periksa koneksi internet Anda, lalu coba lagi."},
-			"extractFailed": {"title": "Unduhan tiba dalam keadaan rusak", "body": "Coba lagi untuk mengunduhnya ulang."},
-			"hashFailed": {"title": "Unduhan tidak cocok dengan checksum-nya", "body": "Coba lagi untuk mengunduhnya ulang."},
-			"spawnFailed": {"title": "Sebuah alat hilang atau tidak bisa dimulai", "body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."},
-			"permissionDenied": {"title": "Sistem Anda tidak mengizinkan Arroxy menjalankan sebuah alat", "body": "Coba lagi. Jika terus gagal, pilih salinan yang Anda percaya di bawah."},
-			"blockedOrQuarantined": {"title": "Antivirus Anda memblokir sebuah alat", "body": "Izinkan Arroxy di antivirus atau SmartScreen Anda, lalu coba lagi."},
-			"badExitCode": {"title": "Sebuah alat tidak berfungsi dengan benar", "body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."},
-			"timeout": {"title": "Sebuah alat terlalu lama merespons", "body": "Ini sering terjadi karena pemindaian keamanan saat pertama kali dijalankan. Coba lagi."},
-			"pairIncomplete": {"title": "FFmpeg dan FFprobe harus diatur bersamaan", "body": "Pilih keduanya di bawah, atau atur ulang ke default."},
-			"unknown": {"title": "Terjadi kesalahan saat penyiapan", "body": "Coba lagi, atau buka log pengaturan untuk detailnya."}
-		},
-		"installing": {"homebrew": "Menginstal dengan Homebrew… Ini bisa memakan waktu beberapa menit.", "winget": "Menginstal dengan WinGet… Ini bisa memakan waktu beberapa menit."},
-		"stopped": {"title": "Penyiapan dihentikan", "body": "Coba lagi, atau arahkan Arroxy ke alat yang sudah Anda miliki di bawah."},
-		"manual": {"toggle": "Atur secara manual", "intro": "Arahkan Arroxy ke salinan yang sudah Anda miliki, atau instal dengan cara lain.", "linuxHint": "Anda juga bisa menginstal yt-dlp dan ffmpeg lewat pengelola paket, lalu klik Coba lagi."},
-		"actions": {
-			"chooseExecutable": "Pilih yang dapat dieksekusi",
-			"installWithHomebrew": "Instal dengan Homebrew",
-			"installWithWinget": "Instal dengan WinGet",
-			"resetToDefault": "Atur ulang ke default",
-			"retrySetup": "Coba lagi",
-			"cancel": "Membatalkan",
-			"openDependencyFolder": "Buka folder ketergantungan",
-			"viewSetupLog": "Lihat log pengaturan"
-		}
-	},
-	"theme": {"light": "Modus ringan", "dark": "Mode gelap", "system": "Bawaan sistem"},
-	"language": {"label": "Bahasa"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Daftar putar",
-			"playlistItemsGeneric": "Video",
-			"playlistPresets": "Kualitas",
-			"playlistProfiles": "Profil",
-			"formats": "Format",
-			"subtitles": "Subtitle",
-			"sponsorblock": "SponsorBlock",
-			"output": "Keluaran",
-			"folder": "Menyimpan",
-			"confirm": "Mengonfirmasi",
-			"review": "Tinjau"
-		},
-		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_other": "item {{count}}"},
-		"playlistProfiles": {
-			"heading": "Tetapkan profil unduhan",
-			"selectedSummary": "{{selected}} dari {{total}} dipilih",
-			"assignTriggerEmpty": "Tetapkan profil",
-			"assignTrigger_other": "Tetapkan ke {{count}} video",
-			"menuDescription_other": "Pilih profil untuk {{count}} video ini.",
-			"editProfile": "Edit {{name}}",
-			"filtersLabel": "Filter profil",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Durasi",
-			"empty": "Tidak ada item yang cocok dengan filter ini"
-		},
-		"playlist": {
-			"heading": "Item daftar putar",
-			"headingGeneric": "Video untuk diunduh",
-			"bulkHeading": "URL massal",
-			"itemCount_other": "video {{count}}",
-			"itemCountAudio_other": "trek {{count}}",
-			"itemCountBulk_other": "URL {{count}}",
-			"bulkMetadataResolving": "Mengambil detail video… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Tidak perlu menunggu — file yang antre sekarang tetap mendapatkan nama aslinya saat diunduh.",
-			"bulkRowWaiting": "Menunggu",
-			"bulkRowResolving": "Mengambil detail",
-			"bulkRowFailed": "Detail tidak tersedia",
-			"selectAll": "Pilih semua",
-			"selectNone": "Pilih tidak ada",
-			"sortLabel": "Urutkan",
-			"sortApi": "Urutan daftar putar",
-			"sortUploadAsc": "Terlama dulu",
-			"sortUploadDesc": "Terbaru dulu",
-			"sortFetchingDates": "Mengambil tanggal unggah…",
-			"rangeFrom": "Dari",
-			"rangeTo": "Ke",
-			"rangeApply": "Terapkan rentang",
-			"selectedCount_other": "{{count}} dipilih",
-			"noSelection": "Pilih setidaknya satu video untuk melanjutkan",
-			"loadingItems": "Mengambil daftar putar…",
-			"loadingItemsGeneric": "Mengambil video…",
-			"loadingPhasePages": "Memindai halaman saluran",
-			"loadingPhaseItems": "Mengumpulkan video",
-			"loadingPagesFound_other": "{{count}} halaman ditemukan",
-			"loadingLimitHint": "Terbatas untuk item {{count}} pertama",
-			"thumbnailAlt": "Gambar kecil video",
-			"durationUnknown": "hidup",
-			"syncChange": "Ganti map…",
-			"syncApply": "Terapkan sinkronisasi",
-			"syncScanning": "Memeriksa folder…",
-			"syncFoundTitle": "Sudah ada di folder",
-			"syncFoundDesc": "{{n}} dari video ini sudah ada di {{dir}}. Sinkronkan untuk hanya mengunduh yang baru?",
-			"syncNoneTitle": "Belum ada yang diunduh",
-			"syncNoneDesc": "Tidak ada video dari daftar putar ini yang ditemukan di {{dir}}.",
-			"syncNoneDescGeneric": "Tidak ada video dari sumber ini yang ditemukan di {{dir}}.",
-			"alreadyDownloaded": "Sudah diunduh",
-			"nestedPlaylistBadge": "Daftar putar",
-			"nestedPlaylistHint_other": "{{count}} di antaranya adalah daftar putar, bukan video — tempel tautannya satu per satu untuk mengunduhnya.",
-			"probeLimitAlertTitle": "Pemindaian daftar putar dibatasi",
-			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
-			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
-			"multiProfileEntry": "Tetapkan profil per item",
-			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
-			"removeFromListCount_other": "Hapus {{count}} dari daftar",
-			"restore": "Pulihkan",
-			"removedCount_other": "{{count}} dihapus",
-			"allRemovedTitle": "Semua item telah dihapus",
-			"allRemovedDescription": "Pulihkan untuk melanjutkan."
-		},
-		"bulk": {
-			"title": "URL massal",
-			"description": "Tempelkan URL video, daftar putar, saluran, penelusuran, atau audio. Arroxy akan membersihkan duplikat sebelum mengantri.",
-			"textareaLabel": "Daftar URL",
-			"textareaPlaceholder": "https://contoh.id/video-1\nhttps://contoh.id/video-2\nhttps://contoh.id/video-3",
-			"acceptedCount": "Siap",
-			"ignoredCount": "Diabaikan",
-			"emptyPreview": "Tempelkan satu atau lebih URL untuk melihat pratinjau kumpulan.",
-			"needsAtLeastOne": "Tambahkan setidaknya satu URL yang didukung untuk melanjutkan.",
-			"reject": {"duplicate": "Duplikat"}
-		},
-		"tabsNavAria": "Navigasi profil unduhan",
-		"profileSwitchRow": {"helpAria": "Bantuan {{label}}"},
-		"mixedPrompt": {
-			"title": "Tautan ini memiliki daftar putar",
-			"body": "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu.",
-			"quickBody": "Unduh video ini saja, atau masukkan seluruh daftar putar ke dalam antrean dengan profil Unduh Cepat Anda yang aktif.",
-			"singleVideo": "Hanya yang ini",
-			"quickSingleVideo": "Unduh video ini",
-			"pickFromPlaylist": "Pilih dari daftar putar",
-			"quickWholePlaylist": "Unduh seluruh daftar putar",
-			"playlistLimit": "Batas pemeriksaan daftar putar: item {{count}}",
-			"quickLimitDescription": "Entri maksimum yang dipindai Arroxy sebelum mengantri daftar putar, saluran, atau hasil pencarian.",
-			"singleTooltip": "Hanya memuat video ini. Daftar putar yang terlampir pada URL ini diabaikan.",
-			"quickSingleTooltip": "Mengantri satu unduhan dan mengabaikan daftar putar yang terlampir pada URL ini.",
-			"playlistTooltip": "Memuat daftar putar, hingga batas pemeriksaan daftar putar Anda, sebelum menampilkan alat pilih.",
-			"quickPlaylistTooltip": "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Cakupan daftar putar",
-				"change": "Ubah",
-				"summaryAppLimit": "Muat {{count}} item pertama",
-				"summaryFirst": "Muat {{count}} item pertama",
-				"summaryRange": "Muat item {{from}}-{{to}}",
-				"dialogTitle": "Cakupan daftar putar",
-				"dialogDescription": "Pilih apa yang dimuat Arroxy untuk daftar putar ini.",
-				"itemsLabel": "Item yang dimuat",
-				"appLimit": "Gunakan batas aplikasi: {{count}}",
-				"first": "Pertama",
-				"range": "Rentang",
-				"to": "sampai",
-				"invalid": "Gunakan bilangan bulat dari 1 hingga {{max}}, dengan awal tidak lebih besar dari akhir.",
-				"applyError": "Tidak dapat menerapkan cakupan daftar putar itu: {{message}}",
-				"reset": "Atur ulang",
-				"cancel": "Membatalkan",
-				"apply": "Terapkan",
-				"applyReload": "Terapkan dan muat ulang",
-				"reloading": "Memuat ulang...",
-				"emptyTitle": "Tidak ada video dalam cakupan itu"
-			},
-			"heading": "Unduh dari URL",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profil", "settings": "Pengaturan"},
-			"interactiveDownload": "Unduhan Interaktif",
-			"fetchFormatsTooltip": "Panduan langkah demi langkah. Pilih format, kualitas, dan lainnya.",
-			"quickDownload": "Unduh Cepat",
-			"quickDownloadTooltip": "Akan diunduh menggunakan: {{profileName}}",
-			"quickPreparing": "Mempersiapkan",
-			"quickQueued": "Ditambahkan ke antrean",
-			"quickSingleOnly": "Tempelkan video, daftar putar, saluran, atau URL pencarian untuk memulai.",
-			"quickProbeFailed": "Penyelidikan gagal",
-			"quickPrepareFailed": "Item antrean tidak dapat disiapkan",
-			"quickBulkAllFailed": "Tak satu pun dari URL tersebut dapat disiapkan",
-			"quickFailed": "Tidak dapat menambahkan yang ini: {{error}}",
-			"quickPartialFailed_other": "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan.",
-			"profile": {
-				"destinationFallback": "Tujuan",
-				"switchAria": "Ganti profil unduhan: {{profileName}}",
-				"switchTitle": "Ganti profil unduhan",
-				"activeLabel": "Profil aktif",
-				"editActive": "Edit profil aktif",
-				"changeGlobalDestination": "Ubah tujuan global",
-				"destinationDetail": {"global": "Memakai tujuan global", "globalSubfolder": "Memakai tujuan global + subfolder profil", "override": "Memakai penggantian profil", "overrideSubfolder": "Memakai penggantian profil + subfolder profil"},
-				"summary": {"bestVideo": "video terbaik", "bestAudio": "audio terbaik", "aacAudio": "audio AAC", "wavAudio": "audio WAV", "noAudio": "tanpa audio", "subtitlesOnly": "hanya subtitel"},
-				"menuTitle": "Ganti profil",
-				"menuDescription": "Ubah profil aktif untuk Unduhan Cepat, URL Massal, dan daftar putar.",
-				"newProfile": "Profil baru",
-				"manageProfiles": "Kelola profil",
-				"panelTitle": "Unduh Profil",
-				"panelDescription": "Buat, pilih, edit, atau hapus pengaturan unduhan yang dapat digunakan kembali.",
-				"badgeCustom": "Kebiasaan",
-				"badgeModified": "Dimodifikasi",
-				"badgeBuiltIn": "Bawaan",
-				"badgeDisabled": "Disembunyikan",
-				"enableToggleAria": "Tampilkan profil di pemilih: {{profileName}}",
-				"enableHint": "Profil tersembunyi tetap di sini tetapi hilang dari semua pemilih.",
-				"reorderHint": "Seret profil untuk memindahkannya. Semua pemilih profil mengikuti urutan ini.",
-				"moveHandleAria": "Pindahkan {{profileName}}",
-				"movableProfile": "profil yang dapat dipindahkan",
-				"moveInstructions": "Untuk memindahkan profil, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan.",
-				"movePickedUp": "Profil {{profileName}} diangkat. Posisinya {{position}} dari {{count}}.",
-				"moveOver": "Profil {{profileName}} berada di atas posisi {{position}} dari {{count}}.",
-				"moveDropped": "Profil {{profileName}} dilepas di posisi {{position}} dari {{count}}.",
-				"moveCancelled": "Pemindahan dibatalkan. Profil {{profileName}} tetap di posisi {{position}} dari {{count}}.",
-				"lastEnabledHint": "Pertahankan setidaknya satu profil tersedia.",
-				"edit": "Sunting",
-				"remove": "Menghapus",
-				"reset": "Mengatur ulang"
-			},
-			"bulkButton": "URL massal",
-			"bulkTooltip": "Tambahkan dan antri beberapa URL.",
-			"features": {
-				"heading": "Apa yang bisa ditarik Arroxy",
-				"youtube": {"heading": "YouTube", "video": "Video", "channel": "Saluran", "playlist": "Daftar Putar", "short": "Shorts", "music": "Musik", "podcast": "Podcast"},
-				"anySite": {"heading": "2000+ situs", "video": "Video", "videoPlaylist": "Daftar putar video", "musicPlaylist": "Daftar putar musik"},
-				"always": {"audioOnly": "Hanya audio", "subtitles": "Subtitle"}
-			},
-			"mascotIdle": "Letakkan tautan dan biarkan Arroxy menariknya ✨",
-			"mascotBusy": "Mengunduh di latar belakang… Saya bisa melakukan banyak tugas 😎",
-			"mascotPreparing": "{{quickDownload}} sedang membaca tautan ini dan menerapkan {{profileName}}.",
-			"mascotQueued": "Antrean sedang menangani unduhan ini. Anda bisa menempelkan tautan lain selagi berjalan.",
-			"mascotCollection": "Unduh Cepat mengantrekan item yang dimuat dengan {{profileName}}. Unduhan Interaktif memungkinkan Anda memeriksa atau memilih item terlebih dahulu.",
-			"mascotMixed": "Tautan ini mengarah ke satu video di dalam koleksi. Arroxy akan menanyakan video mana yang Anda mau sebelum memeriksanya.",
-			"mascotSingle": "Unduh Cepat memulai satu unduhan dengan {{profileName}}. Gunakan Unduhan Interaktif untuk perubahan sekali pakai.",
-			"advanced": "Canggih",
-			"settings": {"inputHeading": "Masukan", "behaviorHeading": "Perilaku unduhan", "behaviorDescription": "Perilaku global yang juga memengaruhi unduhan yang digerakkan oleh profil."},
-			"clearAria": "Hapus URL",
-			"clipboard": {
-				"toggle": "Tonton papan klip",
-				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
-				"autofilledLink": "Tautan ditambahkan dari clipboard",
-				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
-				"replacedLink": "Diganti dengan tautan yang disalin",
-				"undo": "Urungkan",
-				"dialog": {"cancelButton": "Membatalkan"}
-			},
-			"hotkey": {
-				"sectionTitle": "Pintasan global",
-				"sectionDescription": "Unduh tautan apa pun yang Anda salin, dari aplikasi mana pun, tanpa membuka Arroxy.",
-				"toggle": "Aktifkan pintasan global",
-				"toggleDescription": "Tekan pintasan dengan tautan video di papan klip.",
-				"changeShortcut": "Ubah pintasan",
-				"recording": "Tekan tombol…",
-				"test": "Uji",
-				"conflict": "Pintasan ini dipakai aplikasi lain — pilih yang lain.",
-				"hintLabel": "Atau tekan",
-				"hintTooltip": "Salin tautan video di mana saja, tekan pintasan ini, dan Arroxy akan memasukkannya ke antrean dengan profil aktif Anda — tidak perlu berpindah jendela.",
-				"hintTooltipSettings": "Ubah atau nonaktifkan di Pengaturan.",
-				"reset": "Atur ulang ke default"
-			},
-			"cookies": {
-				"sourceLabel": "Sumber cookie",
-				"sourceOff": "Mati",
-				"sourceFile": "Mengajukan",
-				"sourceBrowser": "Peramban",
-				"sourceExplore": "Login Jelajahi",
-				"recommended": "Disarankan",
-				"exploreDescription": "Memakai login Jelajahi hanya saat unduhan membutuhkannya.",
-				"exploreDisabled": "Tab Jelajahi nonaktif, jadi unduhan tidak memakai login Jelajahi Anda. Aktifkan di bagian Jelajahi di bawah.",
-				"openExplore": "Buka Jelajahi",
-				"toggleDescription": "Membantu dengan video dengan batasan usia, khusus anggota, dan akun pribadi.",
-				"risk": "Risiko: cookies.txt berisi setiap sesi login untuk browser tersebut — jaga kerahasiaannya.",
-				"fileLabel": "File cookie",
-				"choose": "Memilih…",
-				"clear": "Jernih",
-				"placeholder": "Tidak ada berkas yang dipilih",
-				"helpLink": "Bagaimana cara mengekspor cookie?",
-				"enabledButNoFile": "Pilih file untuk menggunakan cookie",
-				"browserLabel": "Peramban",
-				"browserPlaceholder": "Pilih peramban…",
-				"browserHelp": "Membaca cookie langsung dari browser. Browser harus ditutup untuk browser keluarga Chromium.",
-				"enabledButNoBrowser": "Pilih browser untuk menggunakan cookie",
-				"banWarning": "Situs seperti YouTube mungkin menandai — dan terkadang melarang — akun yang cookie-nya digunakan oleh alat pengunduh seperti Arroxy. Gunakan akun sekali pakai jika memungkinkan.",
-				"extensionFirefox": "cookie.txt (Firefox)",
-				"extensionChrome": "Dapatkan cookies.txt SECARA LOKAL (Chrome)"
-			},
-			"proxy": {"label": "URL proksi", "description": "Rutekan lalu lintas melalui proxy — berguna untuk konten yang dibatasi secara geografis.", "placeholder": "http://host:port", "clear": "Jernih"},
-			"style": {
-				"panelTitle": "Tampilan",
-				"panelDescription": "Tampilan Arroxy. Beralih antara terang dan gelap di footer.",
-				"modeLabel": "Gaya",
-				"modeDescription": "Kedua gaya tersedia dalam mode terang dan gelap.",
-				"aurora": {"label": "Aurora", "description": "Panel kaca di atas langit yang bergerak. Butuh akselerasi grafis."},
-				"minimal": {"label": "Minimalis", "description": "Permukaan polos yang tenang. Ringan dijalankan di komputer apa pun."},
-				"unavailableNotice": "{{style}} butuh akselerasi grafis, yang saat ini tidak tersedia, jadi Arroxy menampilkan {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Batas kecepatan unduh",
-				"description": "Batasi bandwidth untuk pengunduhan media. Kecepatan permintaan di bawah biasanya merupakan tuas batas tarif yang lebih kuat.",
-				"off": "Mati",
-				"custom": "Kebiasaan…",
-				"customPlaceholder": "misalnya 750K atau 1,5M",
-				"invalid": "Gunakan angka yang diikuti K atau M (misalnya 500K, 1,5M)",
-				"activeWarning": "Unduhan aktif mempertahankan batasnya saat ini. Jeda + Lanjutkan untuk menerapkan perubahan."
-			},
-			"playlistProbeLimit": {
-				"label": "Item daftar putar untuk dipindai",
-				"description": "Entri maksimum Arroxy dimuat saat daftar putar, saluran, atau hasil pencarian dibuka.",
-				"option": "item {{count}}",
-				"current": "Batas saat ini: item {{count}}",
-				"customValue": "Kustom: item {{count}}",
-				"custom": "Kebiasaan…",
-				"customDialogTitle": "Batas pemindaian daftar putar khusus",
-				"customDialogDescription": "Gunakan bilangan bulat dari {{min}} hingga {{max}}.",
-				"customDialogCancel": "Membatalkan",
-				"customDialogSave": "Simpan batas",
-				"invalid": "Gunakan bilangan bulat dari 1 hingga 5000",
-				"tooltip": "Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
-			},
-			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Stereo atau surround saat profil memilih audio asli. Profil bisa menimpanya.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
-			"autoRetry": {"label": "Coba lagi unduhan yang gagal", "description": "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis.", "unit": "kali"},
-			"autoRemoveCompleted": {"label": "Hapus otomatis unduhan yang selesai", "description": "Menghapus unduhan dari daftar Unduhan beberapa detik setelah selesai. File tetap ada di folder Anda; unduhan yang gagal dan dibatalkan tetap ada di daftar."},
-			"concurrentDownloads": {"label": "Unduhan sekaligus", "description": "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda.", "unit": "unduhan"},
-			"downloadConnections": {"label": "Koneksi unduhan", "description": "Mempercepat unduhan besar dengan mengambil beberapa bagian video sekaligus. Nilai lebih tinggi meningkatkan kemungkinan situs membatasi Anda.", "unit": "koneksi"},
-			"networkPacing": {
-				"heading": "Unduhan yang lembut",
-				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilai dalam detik.",
-				"presetLabel": "Seberapa hati-hati Arroxy?",
-				"tooltip": "Waktu tunggu ini terjadi di dalam setiap unduhan. Berapa banyak unduhan yang berjalan bersamaan diatur terpisah, di «Unduhan sekaligus».",
-				"summary": "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle.",
-				"presets": {"off": "Mati", "balanced": "Seimbang", "careful": "Hati-hati", "custom": "Kebiasaan"},
-				"tooltips": {
-					"off": "Hanya menggunakan jeda dasar kecil yang disimpan Arroxy untuk media dan subtitle.",
-					"balanced": "Bawaan. Menambahkan jeda singkat antar permintaan dan sebelum media dimulai.",
-					"careful": "Menambahkan jeda lebih lama untuk daftar putar besar atau jaringan yang sering mencapai batas.",
-					"custom": "Sesuaikan sendiri kontrol per-unduhan tingkat lanjut."
-				},
-				"fields": {"sleepRequests": "Tunggu di antara pemeriksaan metadata", "sleepInterval": "Jeda sebelum media dimulai: min", "maxSleepInterval": "Jeda sebelum media dimulai: maks", "sleepSubtitles": "Tunggu sebelum file subtitle"},
-				"units": {"seconds": "detik"}
-			},
-			"closeToTray": {"toggle": "Sembunyikan ke baki saat ditutup", "toggleDescription": "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."},
-			"analytics": {
-				"toggle": "Kirim sinyal harian",
-				"toggleDescription": "Tanpa telemetri. Sekali sehari, sinyal anonim mengirim versi aplikasi, saluran instalasi, OS, bahasa, negara, dan kira-kira sudah berapa lama Arroxy terpasang agar kami bisa menghitung pengguna aktif dan baru. Tanpa ID, URL, judul video, atau nama file."
-			}
-		},
-		"quickProgress": {
-			"title": "Mempersiapkan Unduhan Cepat",
-			"description": "Arroxy sedang membaca tautan dan menerapkan {{profileName}}.",
-			"currentFallback": "Tautan saat ini",
-			"waitHint": "Biarkan ini tetap terbuka sementara Arroxy menyiapkan antrian.",
-			"failedCount_other": "{{count}} gagal",
-			"cancel": "Batalkan persiapan",
-			"phase": {"probing": "Mengambil detail", "queueing": "Menambah antrian"}
-		},
-		"subtitles": {
-			"autoBadge": "Otomatis",
-			"noLanguages": "Tidak ada subtitle yang tersedia untuk video ini",
-			"searchPlaceholder": "Cari bahasa…",
-			"noMatches": "Tidak ada bahasa yang cocok",
-			"clearAll": "Hapus semuanya",
-			"noSelected": "Tidak ada subtitle yang dipilih",
-			"removeLanguage": "Hapus {{name}}",
-			"sectionManual": "Manual",
-			"sectionAuto": "Dibuat secara otomatis",
-			"saveMode": {"heading": "Simpan sebagai", "sidecar": "Di sebelah video", "embed": "Sematkan ke dalam video", "subfolder": "subtitle/subfolder"},
-			"format": {"heading": "Format"},
-			"embedNote": "Mode penyematan menyimpan keluaran sebagai .mkv sehingga trek subtitle dapat disematkan dengan andal.",
-			"autoAssNote": "Teks otomatis akan disimpan sebagai SRT, bukan ASS — untuk video YouTube, teks tersebut dibersihkan dari duplikasi isyarat, yang belum dapat ditiru oleh konverter ASS kami."
-		},
-		"sponsorblock": {
-			"modeHeading": "Penyaringan sponsor",
-			"mode": {"off": "Mati", "mark": "Tandai sebagai bab", "remove": "Hapus segmen"},
-			"modeHint": {"off": "Tidak ada SponsorBlock — video diputar saat diunggah.", "mark": "Menandai segmen sponsor sebagai bab (tidak merusak).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."},
-			"categoriesHeading": "Kategori",
-			"cat": {"sponsor": "Sponsor", "intro": "Pendahuluan", "outro": "luar", "selfpromo": "Promosi diri", "music_offtopic": "Musik di luar topik", "preview": "Pratinjau", "filler": "Pengisi"}
-		},
-		"formats": {
-			"kind": {"label": "Yang diunduh", "video": "Video + audio", "videoOnly": "Video, tanpa audio", "audio": "Hanya audio", "subtitles": "Hanya subtitle"},
-			"profile": {
-				"calloutTitle": "Format dimulai dari profil Anda",
-				"calloutBody": "Profil aktif Anda memilihkan stream lebih dulu. Ganti profil lewat menu, atau pakai ikon pensil untuk menyesuaikan satu profil tanpa keluar dari unduhan ini.",
-				"preselected": "Dipilih sebelumnya dari",
-				"tag": "Profil",
-				"closestTag": "Terdekat dengan profil",
-				"switchTitle": "Ganti profil?",
-				"switchBody": "Anda mengubah {{areas}} untuk unduhan ini. “{{profile}}” tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
-				"resetAll": "Atur ulang semua",
-				"edit": "Edit {{name}}",
-				"updatedTitle": "Gunakan profil yang diperbarui?",
-				"updatedBody": "Anda mengubah {{areas}} untuk unduhan ini. Profil yang diperbarui tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
-				"keepEdits": "Pertahankan perubahan saya",
-				"menuDescription": "Hanya untuk unduhan ini. Profil default Anda tetap seperti semula."
-			},
-			"fit": {
-				"tierBelow": "Profil Anda meminta {{wanted}}p. Video ini hanya sampai {{picked}}p, jadi {{picked}}p dipilih.",
-				"tierAbove": "Profil Anda meminta {{wanted}}p. Video ini tidak punya yang sekecil itu, jadi {{picked}}p dipilih.",
-				"mp4Unavailable": "Profil Anda adalah TV Pintar (H.264). Video ini tidak menyediakan H.264, jadi stream terdekat yang dipilih.",
-				"noVideo": "Tautan ini tidak memiliki video, jadi audio dipilih.",
-				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya.",
-				"webmUnavailable": "Profil Anda meminta WebM. Stream terpilih video ini mencakup {{codec}}, yang tidak didukung WebM, jadi jenis file diatur ke Otomatis."
-			},
-			"footer": {"download": "Unduh", "moreActions": "Opsi unduhan lainnya", "addToQueue": "Tambahkan ke antrean tanpa memulai", "subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."},
-			"video": "Video",
-			"audio": "Audio",
-			"noAudio": "Tidak ada audio",
-			"withAudio": "dengan audio",
-			"resolutionUnknown": "Resolusi tidak diketahui",
-			"bitrateValue": "Kecepatan bit {{bitrate}}",
-			"marker": {"aiUpscaled": "Upscale AI", "aiDubbed": "Sulih suara AI", "audioDescription": "Deskripsi audio", "spatialAudio": "Audio spasial", "vr": "360° / VR", "enhancedBitrate": "Bitrate ditingkatkan", "damaged": "Rusak", "watermarked": "Bertanda air"},
-			"keepAudio": "Tetap apa adanya",
-			"keepAudioMeta": "Audio bawaan",
-			"audioOnly": "Hanya audio",
-			"sniffing": "Menemukan format terbaik untuk Anda…",
-			"loadingHint": "Harap tunggu hingga pemeriksaan selesai — daftar putar dan penelusuran dapat memakan waktu cukup lama.",
-			"loadingAria": "Memuat format",
-			"sizeUnknown": "Ukuran tidak diketahui",
-			"total": "Total",
-			"skipToConfirm": "Lewati untuk mengonfirmasi",
-			"skipToConfirmTooltip": "Menggunakan preferensi tersimpan Anda untuk semua langkah selanjutnya. Untuk mengubah pengaturan, lanjutkan langkah demi langkah — pilihan Anda akan disimpan untuk waktu berikutnya.",
-			"quality": {"high": "Kualitas tinggi", "medium": "Kualitas sedang", "low": "Kualitas rendah"},
-			"drc": {"label": "Ratakan volume (DRC)", "description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.", "tag": "Volume rata"},
-			"audioLanguage": "Bahasa audio",
-			"audioLanguageCount_other": "{{count}} bahasa",
-			"convert": {
-				"label": "Mengubah",
-				"bitrate": "Kecepatan bit",
-				"wavLabel": "WAV (tidak terkompresi)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, tanpa pengkodean ulang",
-				"copyLabelNoBitrate": "{{target}}, tanpa pengkodean ulang",
-				"copyNote": "{{kbps}} kbps, sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
-				"copyNoteNoBitrate": "Sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
-				"bitrateCopyHint": "Sumber yang sudah berformat {{target}} mempertahankan stream dan bitrate-nya sendiri: disalin tanpa pengkodean ulang.",
-				"sourceKbps": "Sumber {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "Penyelidikan terbatas",
-				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",
-				"bodyDisabled": "Cookie dikonfigurasikan tetapi dimatikan. Aktifkan dan coba lagi untuk mendapatkan daftar lengkap, atau ubah jaringan dan coba lagi.",
-				"bodyEnabled": "Bahkan dengan cookie, YouTube membatasi penyelidikan ini. Coba lagi nanti atau ganti jaringan.",
-				"bodyExplore": "YouTube membatasi permintaan ini. Coba lagi nanti atau ganti jaringan.",
-				"retryCta": "Mencoba kembali",
-				"enableRetryCta": "Aktifkan cookie dan coba lagi"
-			},
-			"rateLimit": {
-				"heading": "{{site}} membatasi koneksi ini",
-				"leadDegraded": "Daftar format mungkin tidak lengkap.",
-				"leadFailed": "{{site}} menolak permintaan ini untuk sementara.",
-				"waitUntil": "Arroxy menunggu sampai {{time}} sebelum menghubungi {{site}} lagi, agar batasnya sempat pulih.",
-				"waitOver": "Waktu tunggu sudah habis, Anda bisa mencoba lagi.",
-				"sessionNote": "{{site}} dapat mempertahankan batas ini hingga satu jam.",
-				"tryNowCta": "Coba sekarang",
-				"retryCta": "Mencoba kembali"
-			},
-			"cookiesError": {
-				"heading": "Cookie mungkin menjadi penyebabnya",
-				"currentModeLabel": "Sumber cookie",
-				"currentModeFile": "Berkas",
-				"currentModeBrowser": "Peramban",
-				"currentModeExplore": "Login Jelajahi",
-				"explanationFile": "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (Arroxy memerlukan file Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie.",
-				"explanationBrowser": "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie.",
-				"openSettingsCta": "Buka pengaturan cookie",
-				"exploreSignIn": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Jika video ini memerlukan akun YouTube, masuk di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya.", "cta": "Masuk di Jelajahi"},
-				"exploreSignedIn": {"heading": "Sudah masuk ke Jelajahi", "body": "Jika video ini memerlukan akun, Arroxy otomatis memakai login Jelajahi Anda. Video mungkin juga tidak tersedia karena alasan lain."},
-				"exploreOffer": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Masuk di Jelajahi dan Arroxy akan mencobanya lagi.", "cta": "Masuk di Jelajahi"},
-				"exploreReuse": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu.", "cta": "Pakai login Jelajahi saya dan coba lagi"},
-				"exploreSite": {"heading": "Tautan ini mungkin memerlukan akun {{host}}", "signInBody": "Masuk ke {{host}} di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya.", "offerBody": "Masuk ke {{host}} dengan Jelajahi lalu coba lagi."},
-				"exploreRefused": {"heading": "Situs menolaknya meski Anda sudah masuk di Jelajahi", "body": "Arroxy sudah mencobanya dalam keadaan masuk lewat Jelajahi, jadi masuk lagi tidak akan membantu. Situs mungkin sedang bermasalah, atau akun ini tidak bisa membukanya. Coba lagi nanti."},
-				"otherCookiesCta": "Gunakan file cookie atau peramban sebagai gantinya…",
-				"needsCookies": {"heading": "Situs ini memerlukan proses masuk", "body": "Arroxy tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."},
-				"dpapi": {
-					"heading": "Cookie Chrome diblokir oleh enkripsi Windows",
-					"explanation": "Chrome 127 dan yang lebih baru mengenkripsi cookie dengan cara yang tidak dapat dibaca oleh aplikasi lain di Windows. Cobalah salah satu solusi di bawah ini.",
-					"fixFirefoxLabel": "Beralih ke Firefox",
-					"fixFirefoxBody": "Firefox tidak menggunakan Enkripsi Terikat Aplikasi. Buka pengaturan cookie dan pilih Firefox dari daftar browser.",
-					"fixFileLabel": "Ekspor cookie.txt",
-					"fixFileBody": "Ekspor cookie dari Chrome dengan ekstensi browser, lalu alihkan aplikasi ini ke mode File dan pilih file yang diekspor.",
-					"fixUnsafeLabel": "Luncurkan Chrome dengan Enkripsi Terikat Aplikasi dinonaktifkan",
-					"fixUnsafeBody": "Tambahkan --disable-features=LockProfileCookieDatabase ke pintasan peluncuran Chrome. Peringatan: ini akan membatalkan cookie yang dienkripsi sebelumnya, jadi Anda akan keluar dari setiap situs dan harus masuk lagi.",
-					"docsLinkLabel": "Dokumen yt-dlp (terbitan #10927)"
-				}
-			},
-			"savesAs": {"label": "Simpan sebagai", "reset": "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis."}
-		},
-		"folder": {
-			"heading": "Simpan ke",
-			"downloads": "Unduhan",
-			"videos": "Film",
-			"desktop": "Desktop",
-			"music": "Musik",
-			"documents": "Dokumen",
-			"pictures": "Gambar",
-			"home": "Rumah",
-			"custom": "Kebiasaan…",
-			"subfolder": {"toggle": "Simpan di dalam subfolder", "placeholder": "misalnya robekan lo-fi", "invalid": "Nama folder memiliki karakter yang tidak valid"}
-		},
-		"output": {
-			"embedChapters": {"label": "Sematkan bab", "description": "Penanda bab dapat dinavigasi di pemain modern mana pun."},
-			"embedMetadata": {"label": "Sematkan metadata", "description": "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file."},
-			"embedThumbnail": {"label": "Sematkan gambar mini", "description": "Sampul seni di dalam file. Video WebM akan di-remix ke MKV; dilewati ketika subtitle tertanam."},
-			"writeDescription": {"label": "Simpan deskripsi", "description": "Menyimpan deskripsi video sebagai file teks .description di sebelah unduhan."},
-			"writeThumbnail": {"label": "Simpan gambar kecil", "description": "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan."},
-			"writeM3u": {"label": "Hasilkan file daftar putar .m3u", "description": "Simpan daftar putar .m3u di samping video agar dapat dibuka secara berurutan di pemutar media Anda."}
-		},
-		"review": {
-			"changeFormat": "Ubah format",
-			"rowsHeading": "Lainnya",
-			"rows": {"subtitles": "Subtitle", "sponsorBlock": "SponsorBlock", "extras": "Tambahan", "saveTo": "Simpan ke", "fileName": "Nama file"},
-			"value": {"subtitlesOff": "Mati", "sponsorBlockOff": "Mati", "extrasNone": "Tidak ada"},
-			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
-			"areas": {"format": "format", "subtitles": "subtitle", "sponsorBlock": "SponsorBlock", "extras": "tambahan", "saveTo": "folder", "fileName": "nama file"},
-			"updateProfile": "Perbarui “{{profile}}” dengan perubahan ini",
-			"saveAsProfile": "Simpan sebagai profil baru",
-			"update": {
-				"title": "Perbarui “{{profile}}”?",
-				"description": "Mulai sekarang, setiap unduhan dengan profil ini memakai pengaturan baru.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Ini profil bawaan. Anda dapat memulihkan pengaturan aslinya di tab Profil.",
-				"action": "Perbarui profil",
-				"updated": "Profil “{{name}}” diperbarui"
-			},
-			"callout": {"title": "Semua pengaturan lainnya kini ada di halaman ini", "body": "Subtitle, SponsorBlock, tambahan seperti gambar kecil, folder, dan nama file dulu merupakan langkah terpisah. Klik baris untuk mengubahnya."},
-			"reset": "Urungkan perubahan, kembali ke “{{profile}}”",
-			"changedFrom": "Diubah dari {{profile}}:",
-			"save": {
-				"title": "Simpan sebagai profil",
-				"description": "Menyimpan pengaturan ini sebagai profil yang bisa Anda pilih lain kali. Profil Unduh Cepat Anda tidak berubah.",
-				"nameLabel": "Nama profil",
-				"action": "Simpan profil",
-				"saved": "Disimpan sebagai profil “{{name}}”",
-				"failed": "Tidak dapat menyimpan profil."
-			},
-			"nextTime": {"title": "Unduhan ini memakai pengaturan yang diedit. Pakai lagi lain kali?", "action": "Simpan sebagai profil", "defaultName": "{{profile}} (diedit)"}
-		},
-		"confirm": {
-			"readyHeadline": "Siap untuk menariknya!",
-			"landIn": "File Anda akan masuk",
-			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
-			"labelVideo": "Video",
-			"labelAudio": "Audio",
-			"labelSubtitles": "Subtitle",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Simpan ke",
-			"labelSize": "Ukuran",
-			"sizeUnknown": "Tidak dikenal",
-			"nothingToDownload": "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh.",
-			"thumbnailEmbedNotSupported": "Penyematan gambar mini dilewati — wadah keluaran tidak mendukungnya.",
-			"subtitleEmbedAudioOnly": "Penyematan subtitle diubah menjadi sidecar — trek audio tidak mendukung aliran subtitle yang disematkan.",
-			"audioOnly": "Hanya audio",
-			"addToQueue": "+ Antrian",
-			"addToQueueTooltip": "Menambah antrian — dimulai saat pengunduhan aktif selesai",
-			"pullIt": "Tarik! ↓",
-			"pullItTooltip": "Melewati antrean — dimulai sekarang, berjalan bersama unduhan aktif lainnya",
-			"labelPlaylist": "Daftar putar",
-			"labelBulk": "Kelompok",
-			"labelPreset": "Prasetel",
-			"labelItems": "Barang",
-			"itemsValue_other": "{{count}} dari video {{total}}",
-			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
-			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
-			"profileBreakdownHeading": "Profil dalam batch ini",
-			"profileBreakdownCount_other": "item {{count}}",
-			"subtitleEmbedForcesMkv": "Subtitle di dalam video memerlukan file MKV, jadi unduhan ini disimpan sebagai .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Profil unduhan",
-			"dialogDescription": "Satu pengaturan yang dapat dipakai ulang untuk Unduh Cepat, URL Massal, dan playlist.",
-			"skipped": "Dilewati",
-			"panel": {
-				"identity": {"title": "Identitas profil", "description": "Nama dan ikon yang tampil di Unduh Cepat, URL Massal, dan daftar profil."},
-				"downloadType": {"title": "Jenis unduhan", "description": "Pilih cara utama Anda ingin mengunduh."},
-				"advanced": {"title": "Opsi lanjutan", "description": "Profil mewarisi tujuan global kecuali Anda mengatur penggantian profil."},
-				"output": {"title": "Opsi keluaran", "enabledCount_other": "{{count}} aktif"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Nama dan ikon profil",
-				"icon": "Ikon profil",
-				"resolution": "Resolusi",
-				"quality": "Kualitas",
-				"source": "Sumber",
-				"subfolderName": "Nama subfolder",
-				"name": "Nama profil",
-				"subtitleDownloads": "Unduhan subtitel",
-				"subtitleDownloadsDescription": "Profil meminta kode bahasa; ketersediaannya ditentukan untuk setiap URL.",
-				"languages": "Bahasa",
-				"delivery": "Cara penyimpanan",
-				"overridePath": "Jalur penggantian profil",
-				"goal": "Optimalkan untuk",
-				"fileType": "Jenis file",
-				"nativeAudio": "Audio asli"
-			},
-			"action": {
-				"chooseIcon": "Pilih ikon profil",
-				"setOverride": "Atur penggantian profil",
-				"chooseFolder": "Pilih folder tujuan",
-				"removeLanguage": "Hapus {{code}}",
-				"useLanguageCode": "Gunakan kode bahasa “{{code}}”",
-				"changeGlobalShort": "Ubah global",
-				"setOverrideShort": "Atur penggantian",
-				"useGlobalDefault": "Gunakan default global",
-				"reset": "Setel ulang profil",
-				"resetHint": "Pulihkan pengaturan profil bawaan",
-				"resetDisabledHint": "Profil ini sudah menggunakan pengaturan bawaan",
-				"save": "Simpan profil"
-			},
-			"placeholder": {"folder": "Pilih folder untuk profil ini"},
-			"destination": {
-				"global": "Tujuan global",
-				"override": "Penggantian profil",
-				"resolved": "Tujuan akhir",
-				"defaultFolder": "Folder unduhan default",
-				"defaultFolderWithSubfolder": "Folder unduhan default / {{subfolder}}",
-				"globalActive": "Aktif",
-				"globalInherited": "Diwarisi",
-				"overrideSet": "Menggantikan global",
-				"overrideChoosing": "Pilih folder",
-				"overrideNone": "Tanpa penggantian",
-				"overrideSetNote": "Profil ini menyimpan ke root-nya sendiri sebelum subfolder ditambahkan.",
-				"overrideNoneNote": "Penggantian belum diatur. Profil ini memakai tujuan global di atas."
-			},
-			"note": {
-				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati.",
-				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
-				"searchLanguages": "Cari berdasarkan nama atau kode bahasa",
-				"noLanguageMatches": "Tidak ada bahasa yang cocok",
-				"subtitleLanguagesRequired": "Pilih setidaknya satu bahasa.",
-				"subtitleLanguagesRequiredOrOff": "Pilih setidaknya satu bahasa, atau nonaktifkan unduhan subtitel.",
-				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
-				"skippedForOutputType": "Dilewati untuk jenis keluaran ini."
-			},
-			"error": {"save": "Tidak dapat menyimpan pengaturan profil.", "changeGlobalDestination": "Tidak dapat mengubah tujuan global.", "reset": "Tidak dapat menyetel ulang pengaturan profil.", "folderPicker": "Tidak dapat membuka pemilih folder. Masukkan jalur secara manual."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + audio", "description": "Berkas video biasa"},
-				"videoOnly": {"label": "Video, tanpa audio", "description": "Hanya video tanpa suara"},
-				"audioOnly": {"label": "Hanya audio", "description": "Musik atau podcast"},
-				"subtitlesOnly": {"label": "Hanya subtitle", "description": "Hanya berkas teks"}
-			},
-			"icon": {"controls": "Kontrol", "download": "Unduh", "video": "Video", "captions": "Teks", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kelas", "clip": "Klip", "archive": "Arsip"},
-			"audioFormat": {"best": "Terbaik", "wav": "WAV"},
-			"audioQuality": {"128": "Hingga 128K", "192": "Hingga 192K", "320": "Hingga 320K", "best": "Kualitas terbaik"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Manual dulu, lalu otomatis", "manualAndAuto": "Manual dan otomatis", "manualOnly": "Hanya manual", "autoOnly": "Hanya hasil otomatis"},
-			"sponsorBlockHint": {"off": "Tanpa SponsorBlock — video diputar apa adanya.", "mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."},
-			"advanced": "Canggih",
-			"goal": {
-				"bestPicture": {"name": "Gambar terbaik", "tag": "AV1 · VP9", "description": "Paling tajam pada ukuran yang sama. TV lama, QuickTime, dan sebagian editor tidak bisa memutarnya."},
-				"smartTv": {"name": "TV Pintar", "tag": "MP4 · H.264", "description": "Bisa diputar di TV, ponsel, WhatsApp, QuickTime, dan editor video. YouTube hanya menyediakan H.264 hingga 1080p."}
-			},
-			"appSetting": "Gunakan pengaturan aplikasi ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Seberapa banyak video",
-			"whole": "Seluruh video",
-			"wholeTrack": "Seluruh trek",
-			"part": "Bagian",
-			"unavailableSubtitles": "Subtitle selalu mencakup seluruh video.",
-			"unavailableDuration": "Video ini tidak melaporkan durasinya, jadi hanya bisa diunduh utuh.",
-			"rangeLabel": "Bagian video",
-			"start": "Mulai",
-			"end": "Selesai",
-			"timeHint": "h:mm:ss, m:ss, atau detik",
-			"length": "{{length}} dari {{duration}}",
-			"chapters": "Bab",
-			"chapterUntitled": "Bab {{number}}",
-			"exactCut": {"label": "Potongan tepat (encode ulang, lebih lambat)", "hint": "Nonaktif: setiap potongan jatuh di keyframe terdekat, yang bisa berselisih beberapa detik dari waktu yang Anda ketik."},
-			"calloutTitle": "Unduh sebagian video saja",
-			"calloutBody": "Beralih ke «Bagian» di kartu video untuk memilih awal dan akhir, atau satu bab, lalu unduh potongan itu saja.",
-			"connectionsNote": "Sebuah bagian diunduh melalui ffmpeg, jadi koneksi unduhan dan pengaturan kecepatan Anda tidak berlaku.",
-			"urlStart": "Tautan Anda dimulai pada {{time}}",
-			"useUrlStart": "Gunakan sebagai awal",
-			"error": {"startInvalid": "Masukkan waktu mulai sebagai h:mm:ss, m:ss, atau detik.", "endInvalid": "Masukkan waktu selesai sebagai h:mm:ss, m:ss, atau detik.", "startNotBeforeEnd": "Waktu mulai harus sebelum waktu selesai.", "endBeyondDuration": "Video berakhir pada {{duration}}."},
-			"downloadBlocked": "Perbaiki dulu waktu mulai dan selesai bagian tersebut.",
-			"totalEstimate": "Bagian, perkiraan",
-			"summary": "Bagian {{start}}–{{end}}",
-			"subtitlesFullLength": "seluruh video"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Memuat…", "chapters_other": "{{count}} bab"},
-	"queue": {
-		"header": "Unduhan",
-		"tabLabel": "Unduhan",
-		"attentionBadge_other": "{{count}} unduhan memerlukan perhatian Anda",
-		"choice": {
-			"cappedBody_other": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
-			"reviewBody_other": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh.",
-			"all": "Semua video",
-			"first": "{{count}} pertama",
-			"review": "Tinjau"
-		},
-		"tabTip": "Unduhan langsung ada di tab Unduhan sekarang — buka kapan saja untuk melacak kemajuan.",
-		"empty": "Unduhan yang antri akan muncul di sini",
-		"filtersLabel": "Filter status antrian",
-		"filterAll": "Semua",
-		"selectedActionsLabel": "Item yang dipilih",
-		"globalActionsLabel": "Semua item",
-		"selectionSummary": "{{selected}} dipilih · {{total}} total",
-		"clearTitle": "Hapus unduhan yang sudah selesai",
-		"autoRemoveCompleted": {"label": "Bersihkan otomatis", "hint": "Menghapus setiap unduhan dari daftar beberapa detik setelah selesai. File tetap ada di folder Anda."},
-		"pauseAllTitle": "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru",
-		"resumeAllTitle": "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan",
-		"pausedBanner": "Antrean dijeda — item yang menunggu tidak akan dimulai sampai Anda melanjutkannya",
-		"resumeQueueAction": "Lanjutkan antrean",
-		"cancelAllTitle": "Batalkan semua unduhan yang aktif dan tertunda",
-		"table": {
-			"columns": "Kolom",
-			"title": "Judul",
-			"status": "Status",
-			"progress": "Kemajuan",
-			"format": "Format",
-			"outputTarget": "Sasaran keluaran",
-			"artifacts": "Artefak",
-			"size": "Ukuran",
-			"added": "Ditambahkan",
-			"finished": "Selesai",
-			"notAvailable": "—",
-			"sortBy": "Urutkan berdasarkan {{label}}",
-			"showArtifactsFor": "Tampilkan artefak untuk {{title}}",
-			"hideArtifactsFor": "Sembunyikan artefak untuk {{title}}",
-			"resetColumns": "Atur ulang kolom",
-			"resizeColumn": "Ubah ukuran kolom {{column}}",
-			"movableColumn": "kolom yang dapat dipindahkan",
-			"moveColumnInstructions": "Untuk memindahkan kolom, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan.",
-			"columnPickedUp": "Kolom {{column}} diangkat.",
-			"columnMovedOver": "Kolom {{column}} berada di atas {{target}}.",
-			"columnDropped": "Kolom {{column}} dilepas.",
-			"columnMoveCancelled": "Pemindahan kolom {{column}} dibatalkan."
-		},
-		"artifact": {"media": "Media", "subtitle": "Subjudul", "thumbnail": "gambar kecil", "description": "Keterangan", "companion": "Pendamping", "unknown": "Artefak", "missing": "Hilang"},
-		"item": {
-			"defaultError": "Pengunduhan gagal",
-			"retryingSoon": "mencoba lagi otomatis (percobaan {{attempt}})",
-			"qualityLimited": "Dibatasi ke {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Dibatasi ke {{height}}p · beberapa subtitle gagal",
-			"audioKept": "Suara tidak dihapus",
-			"audioKeptSubtitlesFailed": "Suara tidak dihapus · beberapa subtitle gagal",
-			"subtitleLanguagesMissing": "Tidak ada subtitle dalam bahasa: {{languages}}",
-			"pause": "Berhenti sebentar",
-			"resume": "Melanjutkan",
-			"cancel": "Membatalkan",
-			"retry": "Mencoba kembali",
-			"setLocation": "Tetapkan lokasi",
-			"setLocationHint": "Pilih item yang tertunda untuk mengatur lokasi.",
-			"pendingOnly": "Hanya menunggu keputusan",
-			"openDestinationFolder": "Buka folder tujuan",
-			"remove": "Menghapus",
-			"pullNow": "Tarik sekarang — lewati antrian",
-			"statusProbing": "Mengambil detail",
-			"statusNeedsChoice": "Perlu pilihan Anda",
-			"statusPending": "Menunggu",
-			"statusRunning": "Mengunduh",
-			"statusHeld": "Dipegang",
-			"statusPaused": "Dijeda",
-			"statusDone": "Selesai",
-			"statusError": "Kesalahan",
-			"statusCancelled": "Dibatalkan"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} tersedia — perbarui dengan Homebrew.",
-			"macosDirect": "Arroxy {{version}} tersedia — unduh DMG baru.",
-			"macosDirectHomebrew": "Arroxy {{version}} tersedia — unduh DMG atau beralih ke Homebrew.",
-			"portable": "Arroxy {{version}} tersedia — unduh build baru."
-		},
-		"install": "Instal & Mulai Ulang",
-		"downloading": "Mengunduh…",
-		"runAndRestart": "Jalankan & Mulai Ulang",
-		"upgrading": "Memperbarui…",
-		"download": "Unduh ↗",
-		"downloadDmg": "Unduh DMG ↗",
-		"dismiss": "Tutup spanduk pembaruan",
-		"copy": "Salin perintah ke clipboard",
-		"copied": "Perintah disalin ke clipboard",
-		"installFailed": "Pembaruan gagal",
-		"retry": "Mencoba kembali"
-	},
-	"releaseNotes": {"title": "Apa yang baru di Arroxy {{version}}", "description": "Anda menjalankan pembaruan baru. Berikut adalah hal-hal penting.", "fullNotes": "Catatan rilis lengkap ↗", "continue": "Melanjutkan"},
-	"status": {
-		"preparingBinaries": "Mempersiapkan biner…",
-		"mintingToken": "Mencetak token YouTube…",
-		"remintingToken": "Mencetak ulang token…",
-		"startingYtdlp": "Memulai mesin pengunduh…",
-		"downloadingMedia": "Mengunduh video & audio…",
-		"mergingFormats": "Menggabungkan audio dan video…",
-		"extractingAudio": "Mengonversi audio…",
-		"convertingVideo": "Mengonversi video…",
-		"embeddingMetadata": "Menyematkan metadata…",
-		"movingFiles": "Memindahkan file…",
-		"fetchingSubtitles": "Mengambil subtitle…",
-		"sleepingBetweenRequests": "Menunggu {{seconds}} untuk menghindari batas kecepatan…",
-		"subtitlesFailed": "Video disimpan — beberapa subtitle tidak dapat diunduh",
-		"qualityLimited": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
-		"qualityLimitedSubtitlesFailed": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini, dan beberapa subtitle tidak dapat diunduh. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
-		"audioKept": "Video disimpan beserta suaranya — audio tidak dapat dihapus",
-		"audioKeptSubtitlesFailed": "Video disimpan beserta suaranya — audio tidak dapat dihapus, dan beberapa subtitle tidak dapat diunduh",
-		"subtitleLanguagesMissing": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Video disimpan tanpa subtitle tersebut.",
-		"subtitleLanguagesMissingOthersSaved": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Bahasa lainnya telah disimpan.",
-		"noSubtitles": "Tidak ada subtitle dalam bahasa: {{languages}}",
-		"cancelled": "Pengunduhan dibatalkan",
-		"complete": "Pengunduhan selesai",
-		"usedExtractorFallback": "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal",
-		"ytdlpProcessError": "Kesalahan mesin pengunduh: {{error}}",
-		"ytdlpExitCode": "Mesin pengunduh keluar dengan kode {{code}}",
-		"downloadingBinary": "Mengunduh biner {{name}}…",
-		"unknownStartupFailure": "Kegagalan startup pengunduhan yang tidak diketahui",
-		"diskSpaceInsufficient": "Ruang disk tidak cukup — memerlukan {{required}}, hanya tersedia {{free}}",
-		"outputNotWritable": "Tidak dapat menyimpan ke {{dir}} — Arroxy tidak diizinkan menulis di sana",
-		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Masuk dengan akun Jelajahi Anda…",
-		"exploreSignedOut": "Keluar dari Jelajahi — masuk lagi"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Tidak dapat menyimpan pengaturan Anda.",
-		"warmupFailed": "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai.",
-		"shellActionFailed": "Tidak dapat membuka itu.",
-		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
-		"exploreSignInRetrying_other": "Masuk dengan Jelajahi — mencoba ulang {{count}} tautan",
-		"exploreSignOutFailed": "Tidak dapat keluar dari Jelajahi. Coba lagi.",
-		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
-		"filenameFolderTooDeep": "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek.",
-		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan.",
-		"hotkey": {
-			"queued": "Unduhan ditambahkan dari papan klip",
-			"alreadyQueued": "Sudah ada di antrean — tidak ada salinan ditambahkan",
-			"invalidClipboard": "Tidak ada tautan di papan klip — salin satu dulu",
-			"multipleUrls": "Beberapa tautan disalin — gunakan “URL massal” di Arroxy",
-			"needsReview": "Tautan itu perlu pilihan Anda — lihat Unduhan di Arroxy",
-			"cookiesSetup": "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi",
-			"busy": "Arroxy masih memulai — coba lagi sebentar lagi",
-			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"},
-		"quickDownload": {
-			"added": "Ditambahkan: {{title}}",
-			"alreadyQueued": "Sudah ada di antrean",
-			"failed": "Tidak dapat menyiapkan {{title}}",
-			"notAdded": "Tautan itu tidak bisa ditambahkan — coba lagi",
-			"chooseHowMany_other": "{{count}}+ video — pilih jumlahnya",
-			"review_other": "{{count}} video dalam daftar ini — tinjau untuk memilih",
-			"reviewCapped_other": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
-			"view": "Lihat"
-		}
+	"donate": {
+		"copied": "Disalin!",
+		"copyAddress": "Salin alamat",
+		"description": "Arroxy gratis dan open source, tanpa iklan maupun paket berbayar. Donasi bersifat opsional dan tidak memberi pengaruh pada roadmap.",
+		"footerLabel": "Donasi",
+		"footerTooltip": "Dukung Arroxy",
+		"qrAlt": "Kode QR alamat donasi {{coin}}",
+		"title": "Dukung Arroxy",
+		"warning": "Pembayaran kripto tidak dapat dibatalkan. Kirim hanya melalui jaringan yang ditampilkan dan bandingkan seluruh alamat."
 	},
 	"errors": {
 		"noSubtitlesIn": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui mesin pengunduhnya saat peluncuran, sehingga perbaikan diterapkan secara otomatis setelah dirilis.",
-			"ipBlock": "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN.",
-			"rateLimit": "Situs ini membatasi permintaan dari koneksi ini.",
 			"ageRestricted": "Video ini dikenai pembatasan usia dan tidak dapat diunduh tanpa akun yang masuk.",
-			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
+			"botBlock": "Perlindungan bot dipicu. IP yang Anda gunakan kemungkinan besar ditandai (rentang pusat data atau pintu keluar VPN yang sibuk). Ubah IP Anda atau pilih titik akhir VPN lain dan coba lagi. Jika terus gagal, ini mungkin merupakan perubahan sementara di sisi situs — Arroxy memperbarui mesin pengunduhnya saat peluncuran, sehingga perbaikan diterapkan secara otomatis setelah dirilis.",
+			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan Arroxy menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
+			"drmProtected": "Video ini dilindungi DRM. Arroxy tidak dapat menghapus DRM, sehingga file tidak dapat diunduh.",
 			"formatUnavailable": "Video ini tidak lagi menawarkan format yang Anda pilih. Tempel tautan itu lagi, lalu pilih dari format yang tersedia sekarang.",
 			"geoBlocked": "Video ini tidak tersedia di wilayah Anda.",
+			"ipBlock": "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN.",
+			"loginRequired": "Video ini memerlukan akun yang sudah masuk.",
+			"missingDependency": "Arroxy tidak dapat menemukan FFmpeg atau FFprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi.",
+			"network": "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",
+			"noSubtitles": "Video ini tidak memiliki subtitle dalam bahasa yang diminta.",
 			"outOfDiskSpace": "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi.",
 			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",
-			"unsupportedUrl": "Arroxy tidak mendukung URL ini. Coba tautan dari situs lain.",
-			"noSubtitles": "Video ini tidak memiliki subtitle dalam bahasa yang diminta.",
-			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan Arroxy menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
-			"missingDependency": "Arroxy tidak dapat menemukan FFmpeg atau FFprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi.",
-			"postprocessFailure": "Unduhan selesai, tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain.",
 			"parse": "Tidak dapat menguraikan respons dari situs. Situs mungkin telah mengubah cara menyajikan video. Arroxy memperbarui mesin pengunduhnya saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dirilis.",
-			"network": "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",
-			"drmProtected": "Video ini dilindungi DRM. Arroxy tidak dapat menghapus DRM, sehingga file tidak dapat diunduh.",
-			"loginRequired": "Video ini memerlukan akun yang sudah masuk.",
-			"unknown": "Pengunduhan gagal. Lihat keluaran mentahnya di bawah."
+			"postprocessFailure": "Unduhan selesai, tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain.",
+			"rateLimit": "Situs ini membatasi permintaan dari koneksi ini.",
+			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
+			"unknown": "Pengunduhan gagal. Lihat keluaran mentahnya di bawah.",
+			"unsupportedUrl": "Arroxy tidak mendukung URL ini. Coba tautan dari situs lain."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Periksa koneksi Anda, lalu coba lagi.",
+			"loadTitle": "Halaman ini tidak termuat",
+			"openSettings": "Buka Pengaturan",
+			"proxyBody": "Periksa proxy di Pengaturan, lalu coba lagi.",
+			"proxyTitle": "Jelajahi tidak dapat terhubung melalui proxy Anda",
+			"retry": "Mencoba kembali"
+		},
+		"linkCallout": {
+			"body": "Klik kanan tautan video, playlist, atau kanal mana pun di halaman untuk mengunduhnya dengan profil aktif, memilih profil lain, atau membuka Unduhan Interaktif.",
+			"title": "Klik kanan tautan untuk mengunduhnya"
+		},
+		"linkMenu": {
+			"copyLink": "Salin tautan",
+			"downloadWith": "Unduh dengan"
+		},
+		"newBadge": "Baru",
+		"notice": {
+			"body": "Temukan video di YouTube atau situs lain dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke suatu situs di sini untuk mengunduh video yang memerlukan akun.",
+			"continue": "Lanjutkan",
+			"riskBody": "Situs seperti YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama.",
+			"riskTitle": "Masuk dengan akun sekunder",
+			"title": "Jelajahi web langsung di dalam Arroxy"
+		},
+		"nudge": {
+			"browser": "Unduhan memakai cookie peramban Anda, bukan login Jelajahi.",
+			"file": "Unduhan memakai berkas cookie Anda, bukan login Jelajahi.",
+			"notNow": "Nanti saja",
+			"off": "Cookie nonaktif, jadi unduhan tidak memakai login Jelajahi Anda.",
+			"useExplore": "Pakai login Jelajahi"
+		},
+		"settings": {
+			"description": "Jelajahi YouTube atau situs lain di dalam Arroxy, dan masuk untuk video yang memerlukan akun.",
+			"idleUnload": "Kosongkan memori saat ditinggal",
+			"idleUnloadDescription": "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik.",
+			"searchEngine": "Mesin pencari",
+			"searchEngineDescription": "Tempat teks yang diketik di bilah alamat dicari. Tautan dibuka sesuai yang diketik.",
+			"showTab": "Tampilkan tab Jelajahi",
+			"showTabDescription": "Menonaktifkannya juga menghentikan unduhan memakai login Jelajahi Anda.",
+			"signOut": "Keluar dari Jelajahi",
+			"signOutConfirm": "Keluar",
+			"signOutConfirmBody": "Ini menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi.",
+			"signOutConfirmTitle": "Keluar dari Jelajahi?",
+			"signOutDescription": "Menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs.",
+			"title": "Jelajahi"
+		},
+		"tabLabel": "Jelajahi",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk.",
+				"aria": "Pemblokir iklan",
+				"off": "Pemblokir iklan: nonaktif — klik untuk mengaktifkan",
+				"on": "Pemblokir iklan: aktif — klik untuk menonaktifkan",
+				"starting": "Pemblokir iklan: memulai — klik untuk menonaktifkan",
+				"unavailable": "Pemblokir iklan: tidak tersedia, daftar filternya tidak dapat diunduh — klik untuk menonaktifkan"
+			},
+			"addressAria": "Alamat",
+			"addressPlaceholder": "Cari di {{engine}} atau buka situs apa pun (Vimeo, Instagram…)",
+			"aria": "Kontrol peramban Jelajahi",
+			"back": "Kembali",
+			"compactLayout": "Tata letak ringkas",
+			"downloadWithProfile": "Unduh · {{profileName}}",
+			"forward": "Maju",
+			"fullLayout": "Tampilkan tata letak penuh",
+			"grabUnavailable": "Buka video, playlist, atau kanal untuk mengunduhnya",
+			"home": "Beranda YouTube",
+			"interactiveHint": "Unduhan Interaktif: pilih format, subtitle, dan lainnya…",
+			"refusedHint": "Jelajahi tidak dapat membuka alamat itu.",
+			"reload": "Muat ulang",
+			"searchTooLong": "Pencarian itu terlalu panjang.",
+			"zoom": {
+				"hint": "Zoom halaman: {{percent}}%",
+				"in": "Perbesar",
+				"label": "Zoom halaman",
+				"out": "Perkecil",
+				"percent": "Persentase zoom",
+				"reset": "Setel ulang zoom ke 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Otomatis",
+		"autoValue": "Otomatis (.{{ext}})",
+		"description": {
+			"auto": "Stream yang dipilih menentukan jenis file.",
+			"mkv": "Mendukung codec apa pun. Sebagian TV dan ponsel tidak bisa membukanya.",
+			"mp4": "Bisa diputar di hampir semua perangkat. VP9 dalam MP4 tidak akan menampilkan video di QuickTime.",
+			"webm": "Format terbuka untuk browser. Hanya mendukung VP9 atau AV1 dengan Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 dalam MP4 memerlukan Mac yang cukup baru agar bisa diputar di QuickTime. H.264 bisa diputar di mana saja.",
+		"mp4CaveatVp9": "VP9 dalam MP4 tidak akan menampilkan video di QuickTime. H.264 bisa diputar di mana saja.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM tidak tersedia untuk TV Pintar: tidak mendukung H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM tidak mendukung {{codec}}. Pilih MKV atau MP4."
+	},
+	"filenameTemplate": {
+		"description": "Pilih cara penamaan berkas yang diunduh. Klik token untuk menyisipkannya. Gunakan / untuk memilah unduhan ke dalam folder.",
+		"error": {
+			"empty": "Masukkan templat nama berkas.",
+			"empty-segment": "Hapus / yang berlebih — setiap folder butuh nama.",
+			"forbidden-char": "Hapus karakter yang tidak diizinkan dalam nama berkas: \\ : * ? \" < > |",
+			"invalid-segment": "Nama folder itu tidak diizinkan. Hindari . dan .. serta nama khusus seperti CON.",
+			"no-unique-token": "Tambahkan {title} atau {id} ke nama berkas agar setiap unduhan punya nama sendiri.",
+			"resolution-in-dir": "{resolution} tidak bisa menamai folder — kualitas baru diketahui saat unduhan dimulai.",
+			"stray-brace": "{ atau } tidak berpasangan — tulis token seperti {title}.",
+			"too-long": "Templat terlalu panjang.",
+			"unknown-token": "Token tidak dikenal {{token}}."
+		},
+		"idWarning": "Tanpa {id}, Arroxy tidak dapat mendeteksi item playlist yang sudah diunduh atau membuat playlist .m3u.",
+		"label": "Templat nama berkas",
+		"m3uDisabled": "Tidak tersedia karena templat nama berkasmu tidak menyertakan {id} atau memilah unduhan ke dalam folder.",
+		"previewPlaylist": "Dalam playlist",
+		"previewSingle": "Video tunggal",
+		"profileOverrideDescription": "Biarkan kosong untuk mengikuti templat global.",
+		"profileOverrideLabel": "Templat nama berkas"
+	},
+	"formatLabel": {
+		"audioFallback": "Audio",
+		"audioOnlyDot": "Audio saja · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Otomatis",
+		"description": "Otomatis memilih HDR jika layar ini bisa menampilkannya, jika tidak memakai SDR. HDR tampak pucat di layar biasa.",
+		"hdr": "HDR",
+		"label": "Video HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Bahasa"
+	},
+	"notifications": {
+		"exploreSignInRetrying_other": "Masuk dengan Jelajahi — mencoba ulang {{count}} tautan",
+		"exploreSignOutFailed": "Tidak dapat keluar dari Jelajahi. Coba lagi.",
+		"filenameFolderTooDeep": "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek.",
+		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan.",
+		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
+		"hotkey": {
+			"alreadyQueued": "Sudah ada di antrean — tidak ada salinan ditambahkan",
+			"busy": "Arroxy masih memulai — coba lagi sebentar lagi",
+			"cookiesSetup": "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi",
+			"invalidClipboard": "Tidak ada tautan di papan klip — salin satu dulu",
+			"multipleUrls": "Beberapa tautan disalin — gunakan “URL massal” di Arroxy",
+			"needsReview": "Tautan itu perlu pilihan Anda — lihat Unduhan di Arroxy",
+			"queued": "Unduhan ditambahkan dari papan klip",
+			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
+		},
+		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
+		"queue": {
+			"skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"
+		},
+		"quickDownload": {
+			"added": "Ditambahkan: {{title}}",
+			"alreadyQueued": "Sudah ada di antrean",
+			"chooseHowMany_other": "{{count}}+ video — pilih jumlahnya",
+			"failed": "Tidak dapat menyiapkan {{title}}",
+			"notAdded": "Tautan itu tidak bisa ditambahkan — coba lagi",
+			"reviewCapped_other": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
+			"review_other": "{{count}} video dalam daftar ini — tinjau untuk memilih",
+			"view": "Lihat"
+		},
+		"settingsSaveFailed": "Tidak dapat menyimpan pengaturan Anda.",
+		"shellActionFailed": "Tidak dapat membuka itu.",
+		"warmupFailed": "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitle"},
-		"subtitles": {"note": "Hanya file subtitle yang disimpan untuk setiap video — video dan audio tidak diunduh.", "languages": "Bahasa", "languagesRequired": "Pilih setidaknya satu bahasa untuk melanjutkan.", "source": "Sumber", "deliveryHeading": "Simpan sebagai", "deliveryLoose": "Langsung di folder penyimpanan"},
-		"videoFormat": {"best": "Asli terbaik", "mp4": "TV Pintar H.264 MP4"},
-		"videoFormatDesc": {"best": "Wadah dan codec terbaik yang tersedia per item", "mp4": "Lebih suka video H.264 + audio AAC dalam MP4 jika memungkinkan"},
-		"tier": {"144": "Hingga 144p", "240": "Hingga 240p", "360": "Hingga 360p", "480": "Hingga 480p", "720": "Hingga 720p", "1080": "Hingga 1080p", "1440": "Hingga 1440p", "2160": "Hingga 4K", "best": "Kualitas terbaik"},
+		"audioFormat": {
+			"best": "Audio (terbaik)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Audio asli terbaik, tanpa pengkodean ulang",
+			"m4a": "Konversikan ke M4A (AAC)",
+			"mp3": "Konversikan ke MP3",
+			"opus": "Konversikan ke Opus"
+		},
+		"mp4Cap": "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis",
+		"subtitles": {
+			"deliveryHeading": "Simpan sebagai",
+			"deliveryLoose": "Langsung di folder penyimpanan",
+			"languages": "Bahasa",
+			"languagesRequired": "Pilih setidaknya satu bahasa untuk melanjutkan.",
+			"note": "Hanya file subtitle yang disimpan untuk setiap video — video dan audio tidak diunduh.",
+			"source": "Sumber"
+		},
+		"tier": {
+			"144": "Hingga 144p",
+			"240": "Hingga 240p",
+			"360": "Hingga 360p",
+			"480": "Hingga 480p",
+			"720": "Hingga 720p",
+			"1080": "Hingga 1080p",
+			"1440": "Hingga 1440p",
+			"2160": "Hingga 4K",
+			"best": "Kualitas terbaik"
+		},
 		"tierDesc": {
 			"144": "File terkecil yang memungkinkan",
 			"240": "File sangat kecil, kualitas rendah",
@@ -914,169 +305,1370 @@
 			"2160": "Dibatasi pada 2160p, turun kembali ke lebih rendah per item",
 			"best": "Video + audio tertinggi yang tersedia per item"
 		},
-		"audioFormat": {"best": "Audio (terbaik)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Audio asli terbaik, tanpa pengkodean ulang", "mp3": "Konversikan ke MP3", "m4a": "Konversikan ke M4A (AAC)", "opus": "Konversikan ke Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis"
-	},
-	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Audio saja · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Menganggur", "statusActive_other": "Pengunduhan {{count}} · {{percent}}%", "downloadFromClipboard": "Unduh dari papan klip", "open": "Buka Arroxy", "quit": "Keluar dari Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_other": "Pengunduhan {{count}} sedang berlangsung", "detail": "Jeda untuk melanjutkan nanti, atau batalkan untuk membuang kemajuan.", "confirm": "Batalkan Unduhan & Keluar", "pause": "Jeda Unduhan & Keluar", "keep": "Terus Mengunduh"},
-		"closeToTray": {"message": "Sembunyikan Arroxy ke baki sistem saat menutup?", "detail": "Arroxy terus berjalan dan menyelesaikan pengunduhan aktif. Ubah ini nanti di Pengaturan lanjutan.", "hide": "Sembunyikan ke baki", "quit": "Berhenti", "remember": "Jangan bertanya lagi"},
-		"rendererCrashed": {"message": "Arroxy mengalami masalah", "detail": "Proses penyaji macet ({{reason}}). Muat ulang untuk mencoba lagi.", "reload": "Muat ulang", "quit": "Berhenti"}
-	},
-	"share": {
-		"title": "Bagikan Arroxy",
-		"description": "Arroxy gratis dan bersumber terbuka. Berbagi membantu lebih banyak orang menemukannya.",
-		"copyLink": "Salin tautan",
-		"copied": "Disalin!",
-		"defaultMessage": "Arroxy — pengunduh video sumber terbuka gratis untuk Windows, macOS & Linux. Bekerja dengan situs YouTube, Vimeo, Twitch, dan 2000+.\n4K · HDR · MP3 · Shorts · Terjemahan · SponsorBlock",
-		"footerTooltip": "Bagikan Arroxy",
-		"footerLabel": "Membagikan",
-		"shareAction": "Bagikan Arroxy"
-	},
-	"donate": {
-		"title": "Dukung Arroxy",
-		"description": "Arroxy gratis dan open source, tanpa iklan maupun paket berbayar. Donasi bersifat opsional dan tidak memberi pengaruh pada roadmap.",
-		"footerTooltip": "Dukung Arroxy",
-		"footerLabel": "Donasi",
-		"copyAddress": "Salin alamat",
-		"copied": "Disalin!",
-		"qrAlt": "Kode QR alamat donasi {{coin}}",
-		"warning": "Pembayaran kripto tidak dapat dibatalkan. Kirim hanya melalui jaringan yang ditampilkan dan bandingkan seluruh alamat."
-	},
-	"filenameTemplate": {
-		"label": "Templat nama berkas",
-		"description": "Pilih cara penamaan berkas yang diunduh. Klik token untuk menyisipkannya. Gunakan / untuk memilah unduhan ke dalam folder.",
-		"profileOverrideLabel": "Templat nama berkas",
-		"profileOverrideDescription": "Biarkan kosong untuk mengikuti templat global.",
-		"idWarning": "Tanpa {id}, Arroxy tidak dapat mendeteksi item playlist yang sudah diunduh atau membuat playlist .m3u.",
-		"m3uDisabled": "Tidak tersedia karena templat nama berkasmu tidak menyertakan {id} atau memilah unduhan ke dalam folder.",
-		"previewSingle": "Video tunggal",
-		"previewPlaylist": "Dalam playlist",
-		"error": {
-			"empty": "Masukkan templat nama berkas.",
-			"too-long": "Templat terlalu panjang.",
-			"forbidden-char": "Hapus karakter yang tidak diizinkan dalam nama berkas: \\ : * ? \" < > |",
-			"stray-brace": "{ atau } tidak berpasangan — tulis token seperti {title}.",
-			"no-unique-token": "Tambahkan {title} atau {id} ke nama berkas agar setiap unduhan punya nama sendiri.",
-			"unknown-token": "Token tidak dikenal {{token}}.",
-			"empty-segment": "Hapus / yang berlebih — setiap folder butuh nama.",
-			"invalid-segment": "Nama folder itu tidak diizinkan. Hindari . dan .. serta nama khusus seperti CON.",
-			"resolution-in-dir": "{resolution} tidak bisa menamai folder — kualitas baru diketahui saat unduhan dimulai."
+		"type": {
+			"audio": "Audio",
+			"subtitles": "Subtitle",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Asli terbaik",
+			"mp4": "TV Pintar H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Wadah dan codec terbaik yang tersedia per item",
+			"mp4": "Lebih suka video H.264 + audio AAC dalam MP4 jika memungkinkan"
 		}
 	},
-	"explore": {
-		"tabLabel": "Jelajahi",
-		"newBadge": "Baru",
-		"notice": {
-			"title": "Jelajahi web langsung di dalam Arroxy",
-			"body": "Temukan video di YouTube atau situs lain dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke suatu situs di sini untuk mengunduh video yang memerlukan akun.",
-			"riskTitle": "Masuk dengan akun sekunder",
-			"riskBody": "Situs seperti YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama.",
-			"continue": "Lanjutkan"
+	"queue": {
+		"artifact": {
+			"companion": "Pendamping",
+			"description": "Keterangan",
+			"media": "Media",
+			"missing": "Hilang",
+			"subtitle": "Subjudul",
+			"thumbnail": "gambar kecil",
+			"unknown": "Artefak"
 		},
-		"nudge": {"off": "Cookie nonaktif, jadi unduhan tidak memakai login Jelajahi Anda.", "file": "Unduhan memakai berkas cookie Anda, bukan login Jelajahi.", "browser": "Unduhan memakai cookie peramban Anda, bukan login Jelajahi.", "useExplore": "Pakai login Jelajahi", "notNow": "Nanti saja"},
-		"linkCallout": {"title": "Klik kanan tautan untuk mengunduhnya", "body": "Klik kanan tautan video, playlist, atau kanal mana pun di halaman untuk mengunduhnya dengan profil aktif, memilih profil lain, atau membuka Unduhan Interaktif."},
-		"linkMenu": {"downloadWith": "Unduh dengan", "copyLink": "Salin tautan"},
-		"toolbar": {
-			"aria": "Kontrol peramban Jelajahi",
-			"back": "Kembali",
-			"forward": "Maju",
-			"reload": "Muat ulang",
-			"home": "Beranda YouTube",
-			"addressAria": "Alamat",
-			"addressPlaceholder": "Cari di {{engine}} atau buka situs apa pun (Vimeo, Instagram…)",
-			"refusedHint": "Jelajahi tidak dapat membuka alamat itu.",
-			"searchTooLong": "Pencarian itu terlalu panjang.",
-			"downloadWithProfile": "Unduh · {{profileName}}",
-			"interactiveHint": "Unduhan Interaktif: pilih format, subtitle, dan lainnya…",
-			"grabUnavailable": "Buka video, playlist, atau kanal untuk mengunduhnya",
-			"compactLayout": "Tata letak ringkas",
-			"fullLayout": "Tampilkan tata letak penuh",
-			"zoom": {"label": "Zoom halaman", "hint": "Zoom halaman: {{percent}}%", "in": "Perbesar", "out": "Perkecil", "percent": "Persentase zoom", "reset": "Setel ulang zoom ke 100%"},
-			"adBlock": {
-				"aria": "Pemblokir iklan",
-				"off": "Pemblokir iklan: nonaktif — klik untuk mengaktifkan",
-				"starting": "Pemblokir iklan: memulai — klik untuk menonaktifkan",
-				"on": "Pemblokir iklan: aktif — klik untuk menonaktifkan",
-				"unavailable": "Pemblokir iklan: tidak tersedia, daftar filternya tidak dapat diunduh — klik untuk menonaktifkan",
-				"accountNote": "YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk."
+		"attentionBadge_other": "{{count}} unduhan memerlukan perhatian Anda",
+		"autoRemoveCompleted": {
+			"hint": "Menghapus setiap unduhan dari daftar beberapa detik setelah selesai. File tetap ada di folder Anda.",
+			"label": "Bersihkan otomatis"
+		},
+		"cancelAllTitle": "Batalkan semua unduhan yang aktif dan tertunda",
+		"choice": {
+			"all": "Semua video",
+			"cappedBody_other": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
+			"first": "{{count}} pertama",
+			"review": "Tinjau",
+			"reviewBody_other": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh."
+		},
+		"clearTitle": "Hapus unduhan yang sudah selesai",
+		"empty": "Unduhan yang antri akan muncul di sini",
+		"filterAll": "Semua",
+		"filtersLabel": "Filter status antrian",
+		"globalActionsLabel": "Semua item",
+		"header": "Unduhan",
+		"item": {
+			"audioKept": "Suara tidak dihapus",
+			"audioKeptSubtitlesFailed": "Suara tidak dihapus · beberapa subtitle gagal",
+			"cancel": "Membatalkan",
+			"defaultError": "Pengunduhan gagal",
+			"openDestinationFolder": "Buka folder tujuan",
+			"pause": "Berhenti sebentar",
+			"pendingOnly": "Hanya menunggu keputusan",
+			"pullNow": "Tarik sekarang — lewati antrian",
+			"qualityLimited": "Dibatasi ke {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Dibatasi ke {{height}}p · beberapa subtitle gagal",
+			"remove": "Menghapus",
+			"resume": "Melanjutkan",
+			"retry": "Mencoba kembali",
+			"retryingSoon": "mencoba lagi otomatis (percobaan {{attempt}})",
+			"setLocation": "Tetapkan lokasi",
+			"setLocationHint": "Pilih item yang tertunda untuk mengatur lokasi.",
+			"statusCancelled": "Dibatalkan",
+			"statusDone": "Selesai",
+			"statusError": "Kesalahan",
+			"statusHeld": "Dipegang",
+			"statusNeedsChoice": "Perlu pilihan Anda",
+			"statusPaused": "Dijeda",
+			"statusPending": "Menunggu",
+			"statusProbing": "Mengambil detail",
+			"statusRunning": "Mengunduh",
+			"subtitleLanguagesMissing": "Tidak ada subtitle dalam bahasa: {{languages}}"
+		},
+		"pauseAllTitle": "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru",
+		"pausedBanner": "Antrean dijeda — item yang menunggu tidak akan dimulai sampai Anda melanjutkannya",
+		"resumeAllTitle": "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan",
+		"resumeQueueAction": "Lanjutkan antrean",
+		"selectedActionsLabel": "Item yang dipilih",
+		"selectionSummary": "{{selected}} dipilih · {{total}} total",
+		"tabLabel": "Unduhan",
+		"tabTip": "Unduhan langsung ada di tab Unduhan sekarang — buka kapan saja untuk melacak kemajuan.",
+		"table": {
+			"added": "Ditambahkan",
+			"artifacts": "Artefak",
+			"columnDropped": "Kolom {{column}} dilepas.",
+			"columnMoveCancelled": "Pemindahan kolom {{column}} dibatalkan.",
+			"columnMovedOver": "Kolom {{column}} berada di atas {{target}}.",
+			"columnPickedUp": "Kolom {{column}} diangkat.",
+			"columns": "Kolom",
+			"finished": "Selesai",
+			"format": "Format",
+			"hideArtifactsFor": "Sembunyikan artefak untuk {{title}}",
+			"movableColumn": "kolom yang dapat dipindahkan",
+			"moveColumnInstructions": "Untuk memindahkan kolom, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan.",
+			"notAvailable": "—",
+			"outputTarget": "Sasaran keluaran",
+			"progress": "Kemajuan",
+			"resetColumns": "Atur ulang kolom",
+			"resizeColumn": "Ubah ukuran kolom {{column}}",
+			"showArtifactsFor": "Tampilkan artefak untuk {{title}}",
+			"size": "Ukuran",
+			"sortBy": "Urutkan berdasarkan {{label}}",
+			"status": "Status",
+			"title": "Judul"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Melanjutkan",
+		"description": "Anda menjalankan pembaruan baru. Berikut adalah hal-hal penting.",
+		"fullNotes": "Catatan rilis lengkap ↗",
+		"title": "Apa yang baru di Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Membatalkan",
+			"chooseExecutable": "Pilih yang dapat dieksekusi",
+			"installWithHomebrew": "Instal dengan Homebrew",
+			"installWithWinget": "Instal dengan WinGet",
+			"openDependencyFolder": "Buka folder ketergantungan",
+			"resetToDefault": "Atur ulang ke default",
+			"retrySetup": "Coba lagi",
+			"viewSetupLog": "Lihat log pengaturan"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah.",
+				"title": "Sebuah alat tidak berfungsi dengan benar"
+			},
+			"blockedOrQuarantined": {
+				"body": "Izinkan Arroxy di antivirus atau SmartScreen Anda, lalu coba lagi.",
+				"title": "Antivirus Anda memblokir sebuah alat"
+			},
+			"downloadFailed": {
+				"body": "Periksa koneksi internet Anda, lalu coba lagi.",
+				"title": "Tidak dapat mengunduh yang dibutuhkan Arroxy"
+			},
+			"extractFailed": {
+				"body": "Coba lagi untuk mengunduhnya ulang.",
+				"title": "Unduhan tiba dalam keadaan rusak"
+			},
+			"hashFailed": {
+				"body": "Coba lagi untuk mengunduhnya ulang.",
+				"title": "Unduhan tidak cocok dengan checksum-nya"
+			},
+			"pairIncomplete": {
+				"body": "Pilih keduanya di bawah, atau atur ulang ke default.",
+				"title": "FFmpeg dan FFprobe harus diatur bersamaan"
+			},
+			"permissionDenied": {
+				"body": "Coba lagi. Jika terus gagal, pilih salinan yang Anda percaya di bawah.",
+				"title": "Sistem Anda tidak mengizinkan Arroxy menjalankan sebuah alat"
+			},
+			"spawnFailed": {
+				"body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah.",
+				"title": "Sebuah alat hilang atau tidak bisa dimulai"
+			},
+			"timeout": {
+				"body": "Ini sering terjadi karena pemindaian keamanan saat pertama kali dijalankan. Coba lagi.",
+				"title": "Sebuah alat terlalu lama merespons"
+			},
+			"unknown": {
+				"body": "Coba lagi, atau buka log pengaturan untuk detailnya.",
+				"title": "Terjadi kesalahan saat penyiapan"
 			}
 		},
-		"settings": {
-			"title": "Jelajahi",
-			"description": "Jelajahi YouTube atau situs lain di dalam Arroxy, dan masuk untuk video yang memerlukan akun.",
-			"showTab": "Tampilkan tab Jelajahi",
-			"showTabDescription": "Menonaktifkannya juga menghentikan unduhan memakai login Jelajahi Anda.",
-			"idleUnload": "Kosongkan memori saat ditinggal",
-			"idleUnloadDescription": "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik.",
-			"searchEngine": "Mesin pencari",
-			"searchEngineDescription": "Tempat teks yang diketik di bilah alamat dicari. Tautan dibuka sesuai yang diketik.",
-			"signOut": "Keluar dari Jelajahi",
-			"signOutDescription": "Menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs.",
-			"signOutConfirmTitle": "Keluar dari Jelajahi?",
-			"signOutConfirmBody": "Ini menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi.",
-			"signOutConfirm": "Keluar"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "penyelidikan FF",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Jelajahi tidak dapat terhubung melalui proxy Anda", "proxyBody": "Periksa proxy di Pengaturan, lalu coba lagi.", "loadTitle": "Halaman ini tidak termuat", "loadBody": "Periksa koneksi Anda, lalu coba lagi.", "retry": "Mencoba kembali", "openSettings": "Buka Pengaturan"}
-	},
-	"fileType": {
-		"auto": "Otomatis",
-		"autoValue": "Otomatis (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Stream yang dipilih menentukan jenis file.",
-			"mp4": "Bisa diputar di hampir semua perangkat. VP9 dalam MP4 tidak akan menampilkan video di QuickTime.",
-			"mkv": "Mendukung codec apa pun. Sebagian TV dan ponsel tidak bisa membukanya.",
-			"webm": "Format terbuka untuk browser. Hanya mendukung VP9 atau AV1 dengan Opus."
+		"groups": {
+			"engine": "Mesin pengunduh",
+			"media": "Alat media"
 		},
-		"webmBlocked": "WebM tidak mendukung {{codec}}. Pilih MKV atau MP4.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM tidak tersedia untuk TV Pintar: tidak mendukung H.264.",
-		"mp4CaveatVp9": "VP9 dalam MP4 tidak akan menampilkan video di QuickTime. H.264 bisa diputar di mana saja.",
-		"mp4CaveatAv1": "AV1 dalam MP4 memerlukan Mac yang cukup baru agar bisa diputar di QuickTime. H.264 bisa diputar di mana saja."
+		"installing": {
+			"homebrew": "Menginstal dengan Homebrew… Ini bisa memakan waktu beberapa menit.",
+			"winget": "Menginstal dengan WinGet… Ini bisa memakan waktu beberapa menit."
+		},
+		"manual": {
+			"intro": "Arahkan Arroxy ke salinan yang sudah Anda miliki, atau instal dengan cara lain.",
+			"linuxHint": "Anda juga bisa menginstal yt-dlp dan ffmpeg lewat pengelola paket, lalu klik Coba lagi.",
+			"toggle": "Atur secara manual"
+		},
+		"stopped": {
+			"body": "Coba lagi, atau arahkan Arroxy ke alat yang sudah Anda miliki di bawah.",
+			"title": "Penyiapan dihentikan"
+		},
+		"title": "Penyiapan membutuhkan bantuan Anda"
 	},
 	"selectionOrder": {
 		"editorTitle": "Cara profil ini memilih",
-		"whyTitle": "Mengapa profil memilih ini",
-		"whyLabel": "Mengapa ini?",
 		"rank": {
-			"h264": {"label": "Video H.264", "reason": "bisa diputar di semua perangkat"},
-			"mp4Streams": {"label": "Stream MP4", "reason": "siap untuk file MP4"},
-			"resolutionBest": {"label": "Resolusi tertinggi", "reason": "tanpa batas"},
-			"resolution": {"label": "Hingga {{tier}}p", "reason": "batas Anda"},
-			"fps": {"label": "Frame rate tertinggi", "reason": "gerakan lebih halus"},
-			"sitePreference": {"label": "Stream yang tidak diberi prioritas rendah oleh situs", "reason": "melewati salinan rusak, bertanda air, dan cadangan"},
-			"original": {"label": "Stream asli, bukan hasil upscale AI", "reason": "salinan upscale lebih tinggi tetapi tidak menambah detail nyata"},
-			"source": {"label": "Stream dengan bitrate ditingkatkan lebih dulu", "reason": "detail lebih banyak pada resolusi yang sama"},
-			"protocol": {"label": "Unduhan langsung sebelum salinan stream", "reason": "gambar yang sama, diunduh lebih cepat"},
-			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
-			"codecVp9First": {"label": "VP9, lalu H.264, lalu AV1", "reason": "codec profil ini"},
-			"codecH264First": {"label": "H.264, lalu VP9, lalu AV1", "reason": "codec profil ini"},
-			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
-			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},
-			"aacFileType": {"label": "Audio AAC", "reason": "cocok untuk pemutar MP4"},
-			"opus": {"label": "Audio Opus", "reason": "cocok untuk WebM"},
-			"nativeCompatible": {"label": "Audio stereo"},
-			"nativeSurround": {"label": "Audio surround jika tersedia"},
-			"nativeSource": {"settings": "dari Pengaturan", "profile": "profil ini"},
-			"hdrSdrFirst": {"label": "SDR sebelum HDR", "reason": "tampil baik di layar apa pun", "reasonScreen": "layar ini bukan HDR"},
-			"hdrFirst": {"label": "HDR sebelum SDR", "reason": "warna lebih kaya di layar HDR", "reasonScreen": "layar ini menampilkan HDR"}
+			"aacFileType": {
+				"label": "Audio AAC",
+				"reason": "cocok untuk pemutar MP4"
+			},
+			"aacSmartTv": {
+				"label": "Audio AAC",
+				"reason": "bisa diputar di mana saja"
+			},
+			"codec": {
+				"label": "AV1, lalu VP9, lalu H.264",
+				"reason": "paling tajam pada ukuran yang sama"
+			},
+			"codecH264First": {
+				"label": "H.264, lalu VP9, lalu AV1",
+				"reason": "codec profil ini"
+			},
+			"codecVp9First": {
+				"label": "VP9, lalu H.264, lalu AV1",
+				"reason": "codec profil ini"
+			},
+			"fps": {
+				"label": "Frame rate tertinggi",
+				"reason": "gerakan lebih halus"
+			},
+			"h264": {
+				"label": "Video H.264",
+				"reason": "bisa diputar di semua perangkat"
+			},
+			"hdrFirst": {
+				"label": "HDR sebelum SDR",
+				"reason": "warna lebih kaya di layar HDR",
+				"reasonScreen": "layar ini menampilkan HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR sebelum HDR",
+				"reason": "tampil baik di layar apa pun",
+				"reasonScreen": "layar ini bukan HDR"
+			},
+			"mp4Streams": {
+				"label": "Stream MP4",
+				"reason": "siap untuk file MP4"
+			},
+			"nativeCompatible": {
+				"label": "Audio stereo"
+			},
+			"nativeSource": {
+				"profile": "profil ini",
+				"settings": "dari Pengaturan"
+			},
+			"nativeSurround": {
+				"label": "Audio surround jika tersedia"
+			},
+			"opus": {
+				"label": "Audio Opus",
+				"reason": "cocok untuk WebM"
+			},
+			"original": {
+				"label": "Stream asli, bukan hasil upscale AI",
+				"reason": "salinan upscale lebih tinggi tetapi tidak menambah detail nyata"
+			},
+			"protocol": {
+				"label": "Unduhan langsung sebelum salinan stream",
+				"reason": "gambar yang sama, diunduh lebih cepat"
+			},
+			"resolution": {
+				"label": "Hingga {{tier}}p",
+				"reason": "batas Anda"
+			},
+			"resolutionBest": {
+				"label": "Resolusi tertinggi",
+				"reason": "tanpa batas"
+			},
+			"sitePreference": {
+				"label": "Stream yang tidak diberi prioritas rendah oleh situs",
+				"reason": "melewati salinan rusak, bertanda air, dan cadangan"
+			},
+			"size": {
+				"label": "File lebih besar",
+				"reason": "detail lebih banyak pada pengaturan yang sama"
+			},
+			"source": {
+				"label": "Stream dengan bitrate ditingkatkan lebih dulu",
+				"reason": "detail lebih banyak pada resolusi yang sama"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "jenis file mengikuti stream",
+				"explicit": "disimpan sebagai .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "gambar terbaik",
+				"smartTv": "bisa diputar di perangkat apa pun"
+			}
+		},
+		"whyLabel": "Mengapa ini?",
+		"whyTitle": "Mengapa profil memilih ini"
 	},
-	"aiUpscaled": {"label": "Stream hasil upscale AI", "description": "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual.", "skip": "Lewati", "allow": "Izinkan"},
+	"share": {
+		"copied": "Disalin!",
+		"copyLink": "Salin tautan",
+		"defaultMessage": "Arroxy — pengunduh video sumber terbuka gratis untuk Windows, macOS & Linux. Bekerja dengan situs YouTube, Vimeo, Twitch, dan 2000+.\n4K · HDR · MP3 · Shorts · Terjemahan · SponsorBlock",
+		"description": "Arroxy gratis dan bersumber terbuka. Berbagi membantu lebih banyak orang menemukannya.",
+		"footerLabel": "Membagikan",
+		"footerTooltip": "Bagikan Arroxy",
+		"shareAction": "Bagikan Arroxy",
+		"title": "Bagikan Arroxy"
+	},
+	"splash": {
+		"cancel": "Ada masalah? Atur secara manual",
+		"greeting": "Hei, selamat datang kembali!",
+		"setup": {
+			"bytes": "{{done}} dari {{total}}",
+			"left": {
+				"minutes_other": "sisa sekitar {{count}} mnt",
+				"underMinute": "sisa kurang dari semenit"
+			},
+			"note": {
+				"engine": "Menjaga unduhan tetap berjalan saat situs berubah.",
+				"firstRun": "Ini hanya terjadi sekali. Arroxy menyimpan alat ini dan memperbaruinya sendiri.",
+				"media": "Ini hanya terjadi sekali. Arroxy menyimpannya untuk pembaruan berikutnya."
+			},
+			"stage": {
+				"checking": "Memeriksa semuanya berfungsi",
+				"connecting": "Menghubungkan…",
+				"downloadingBoth": "Mengunduh mesin pengunduh dan alat media",
+				"downloadingEngine": "Mengunduh mesin pengunduh",
+				"downloadingMedia": "Mengunduh alat media",
+				"unpacking": "Mengekstrak alat media"
+			},
+			"title": {
+				"engine": "Memperbarui mesin pengunduh",
+				"firstRun": "Penyiapan pertama kali",
+				"media": "Memperbarui alat media"
+			}
+		},
+		"verifyFirstCheck": "Pemeriksaan pertama versi ini — yang ini lambat. Biasanya sekitar satu menit.",
+		"verifying": "Memeriksa {{binary}}…",
+		"warmup": "Mempersiapkan unduhan…",
+		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
+	},
+	"status": {
+		"audioKept": "Video disimpan beserta suaranya — audio tidak dapat dihapus",
+		"audioKeptSubtitlesFailed": "Video disimpan beserta suaranya — audio tidak dapat dihapus, dan beberapa subtitle tidak dapat diunduh",
+		"cancelled": "Pengunduhan dibatalkan",
+		"complete": "Pengunduhan selesai",
+		"convertingVideo": "Mengonversi video…",
+		"diskSpaceInsufficient": "Ruang disk tidak cukup — memerlukan {{required}}, hanya tersedia {{free}}",
+		"downloadingBinary": "Mengunduh biner {{name}}…",
+		"downloadingMedia": "Mengunduh video & audio…",
+		"embeddingMetadata": "Menyematkan metadata…",
+		"exploreSignedOut": "Keluar dari Jelajahi — masuk lagi",
+		"extractingAudio": "Mengonversi audio…",
+		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
+		"fetchingSubtitles": "Mengambil subtitle…",
+		"mergingFormats": "Menggabungkan audio dan video…",
+		"mintingToken": "Mencetak token YouTube…",
+		"movingFiles": "Memindahkan file…",
+		"noSubtitles": "Tidak ada subtitle dalam bahasa: {{languages}}",
+		"outputNotWritable": "Tidak dapat menyimpan ke {{dir}} — Arroxy tidak diizinkan menulis di sana",
+		"preparingBinaries": "Mempersiapkan biner…",
+		"qualityLimited": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
+		"qualityLimitedSubtitlesFailed": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini, dan beberapa subtitle tidak dapat diunduh. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
+		"remintingToken": "Mencetak ulang token…",
+		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Masuk dengan akun Jelajahi Anda…",
+		"sleepingBetweenRequests": "Menunggu {{seconds}} untuk menghindari batas kecepatan…",
+		"startingYtdlp": "Memulai mesin pengunduh…",
+		"subtitleLanguagesMissing": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Video disimpan tanpa subtitle tersebut.",
+		"subtitleLanguagesMissingOthersSaved": "Video ini tidak memiliki subtitle dalam bahasa: {{languages}}. Bahasa lainnya telah disimpan.",
+		"subtitlesFailed": "Video disimpan — beberapa subtitle tidak dapat diunduh",
+		"unknownStartupFailure": "Kegagalan startup pengunduhan yang tidak diketahui",
+		"usedExtractorFallback": "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal",
+		"ytdlpExitCode": "Mesin pengunduh keluar dengan kode {{code}}",
+		"ytdlpProcessError": "Kesalahan mesin pengunduh: {{error}}"
+	},
+	"theme": {
+		"dark": "Mode gelap",
+		"light": "Modus ringan",
+		"system": "Bawaan sistem"
+	},
+	"titleBar": {
+		"close": "Menutup",
+		"maximize": "Maksimalkan",
+		"minimize": "Memperkecil",
+		"restore": "Memulihkan"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Unduh dari papan klip",
+			"open": "Buka Arroxy",
+			"quit": "Keluar dari Arroxy",
+			"statusActive_other": "Pengunduhan {{count}} · {{percent}}%",
+			"statusIdle": "Menganggur"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Perintah disalin ke clipboard",
+		"copy": "Salin perintah ke clipboard",
+		"dismiss": "Tutup spanduk pembaruan",
+		"download": "Unduh ↗",
+		"downloadDmg": "Unduh DMG ↗",
+		"downloading": "Mengunduh…",
+		"install": "Instal & Mulai Ulang",
+		"installFailed": "Pembaruan gagal",
+		"message": {
+			"generic": "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} tersedia — perbarui dengan Homebrew.",
+			"macosDirect": "Arroxy {{version}} tersedia — unduh DMG baru.",
+			"macosDirectHomebrew": "Arroxy {{version}} tersedia — unduh DMG atau beralih ke Homebrew.",
+			"portable": "Arroxy {{version}} tersedia — unduh build baru."
+		},
+		"retry": "Mencoba kembali",
+		"runAndRestart": "Jalankan & Mulai Ulang",
+		"upgrading": "Memperbarui…"
+	},
+	"videoCard": {
+		"chapters_other": "{{count}} bab",
+		"titlePlaceholder": "Memuat…"
+	},
 	"videoCodec": {
-		"label": "Codec video",
-		"description": "Codec mana yang diambil lebih dulu di antara stream dengan tinggi yang sama. Otomatis mempertahankan urutan bawaan yt-dlp, yang mengutamakan AV1, yang terkecil; H.264 diputar di TV dan ponsel lama.",
-		"smartTv": "TV Pintar selalu memakai H.264.",
 		"auto": "Otomatis",
-		"vp9": "VP9 dulu",
-		"h264": "H.264 dulu"
+		"description": "Codec mana yang diambil lebih dulu di antara stream dengan tinggi yang sama. Otomatis mempertahankan urutan bawaan yt-dlp, yang mengutamakan AV1, yang terkecil; H.264 diputar di TV dan ponsel lama.",
+		"h264": "H.264 dulu",
+		"label": "Codec video",
+		"smartTv": "TV Pintar selalu memakai H.264.",
+		"vp9": "VP9 dulu"
 	},
-	"hdrPreference": {"label": "Video HDR", "description": "Otomatis memilih HDR jika layar ini bisa menampilkannya, jika tidak memakai SDR. HDR tampak pucat di layar biasa.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatis"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Siap",
+			"description": "Tempelkan URL video, daftar putar, saluran, penelusuran, atau audio. Arroxy akan membersihkan duplikat sebelum mengantri.",
+			"emptyPreview": "Tempelkan satu atau lebih URL untuk melihat pratinjau kumpulan.",
+			"ignoredCount": "Diabaikan",
+			"needsAtLeastOne": "Tambahkan setidaknya satu URL yang didukung untuk melanjutkan.",
+			"reject": {
+				"duplicate": "Duplikat"
+			},
+			"textareaLabel": "Daftar URL",
+			"textareaPlaceholder": "https://contoh.id/video-1\nhttps://contoh.id/video-2\nhttps://contoh.id/video-3",
+			"title": "URL massal"
+		},
+		"confirm": {
+			"addToQueue": "+ Antrian",
+			"addToQueueTooltip": "Menambah antrian — dimulai saat pengunduhan aktif selesai",
+			"audioOnly": "Hanya audio",
+			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
+			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
+			"itemsValue_other": "{{count}} dari video {{total}}",
+			"labelAudio": "Audio",
+			"labelBulk": "Kelompok",
+			"labelItems": "Barang",
+			"labelPlaylist": "Daftar putar",
+			"labelPreset": "Prasetel",
+			"labelSaveTo": "Simpan ke",
+			"labelSize": "Ukuran",
+			"labelSubtitles": "Subtitle",
+			"labelVideo": "Video",
+			"landIn": "File Anda akan masuk",
+			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
+			"nothingToDownload": "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh.",
+			"profileBreakdownCount_other": "item {{count}}",
+			"profileBreakdownHeading": "Profil dalam batch ini",
+			"pullIt": "Tarik! ↓",
+			"pullItTooltip": "Melewati antrean — dimulai sekarang, berjalan bersama unduhan aktif lainnya",
+			"readyHeadline": "Siap untuk menariknya!",
+			"sizeUnknown": "Tidak dikenal",
+			"subtitleEmbedAudioOnly": "Penyematan subtitle diubah menjadi sidecar — trek audio tidak mendukung aliran subtitle yang disematkan.",
+			"subtitleEmbedForcesMkv": "Subtitle di dalam video memerlukan file MKV, jadi unduhan ini disimpan sebagai .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Penyematan gambar mini dilewati — wadah keluaran tidak mendukungnya."
+		},
+		"folder": {
+			"custom": "Kebiasaan…",
+			"desktop": "Desktop",
+			"documents": "Dokumen",
+			"downloads": "Unduhan",
+			"heading": "Simpan ke",
+			"home": "Rumah",
+			"music": "Musik",
+			"pictures": "Gambar",
+			"subfolder": {
+				"invalid": "Nama folder memiliki karakter yang tidak valid",
+				"placeholder": "misalnya robekan lo-fi",
+				"toggle": "Simpan di dalam subfolder"
+			},
+			"videos": "Film"
+		},
+		"formats": {
+			"audio": "Audio",
+			"audioLanguage": "Bahasa audio",
+			"audioLanguageCount_other": "{{count}} bahasa",
+			"audioOnly": "Hanya audio",
+			"bitrateValue": "Kecepatan bit {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookie dikonfigurasikan tetapi dimatikan. Aktifkan dan coba lagi untuk mendapatkan daftar lengkap, atau ubah jaringan dan coba lagi.",
+				"bodyEnabled": "Bahkan dengan cookie, YouTube membatasi penyelidikan ini. Coba lagi nanti atau ganti jaringan.",
+				"bodyExplore": "YouTube membatasi permintaan ini. Coba lagi nanti atau ganti jaringan.",
+				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",
+				"enableRetryCta": "Aktifkan cookie dan coba lagi",
+				"heading": "Penyelidikan terbatas",
+				"retryCta": "Mencoba kembali"
+			},
+			"convert": {
+				"bitrate": "Kecepatan bit",
+				"bitrateCopyHint": "Sumber yang sudah berformat {{target}} mempertahankan stream dan bitrate-nya sendiri: disalin tanpa pengkodean ulang.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, tanpa pengkodean ulang",
+				"copyLabelNoBitrate": "{{target}}, tanpa pengkodean ulang",
+				"copyNote": "{{kbps}} kbps, sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"copyNoteNoBitrate": "Sesuai sumbernya: stream sudah berformat {{target}}, jadi disalin tanpa pengkodean ulang",
+				"label": "Mengubah",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Sumber {{kbps}} kbps",
+				"wavLabel": "WAV (tidak terkompresi)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Peramban",
+				"currentModeExplore": "Login Jelajahi",
+				"currentModeFile": "Berkas",
+				"currentModeLabel": "Sumber cookie",
+				"dpapi": {
+					"docsLinkLabel": "Dokumen yt-dlp (terbitan #10927)",
+					"explanation": "Chrome 127 dan yang lebih baru mengenkripsi cookie dengan cara yang tidak dapat dibaca oleh aplikasi lain di Windows. Cobalah salah satu solusi di bawah ini.",
+					"fixFileBody": "Ekspor cookie dari Chrome dengan ekstensi browser, lalu alihkan aplikasi ini ke mode File dan pilih file yang diekspor.",
+					"fixFileLabel": "Ekspor cookie.txt",
+					"fixFirefoxBody": "Firefox tidak menggunakan Enkripsi Terikat Aplikasi. Buka pengaturan cookie dan pilih Firefox dari daftar browser.",
+					"fixFirefoxLabel": "Beralih ke Firefox",
+					"fixUnsafeBody": "Tambahkan --disable-features=LockProfileCookieDatabase ke pintasan peluncuran Chrome. Peringatan: ini akan membatalkan cookie yang dienkripsi sebelumnya, jadi Anda akan keluar dari setiap situs dan harus masuk lagi.",
+					"fixUnsafeLabel": "Luncurkan Chrome dengan Enkripsi Terikat Aplikasi dinonaktifkan",
+					"heading": "Cookie Chrome diblokir oleh enkripsi Windows"
+				},
+				"explanationBrowser": "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie.",
+				"explanationFile": "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (Arroxy memerlukan file Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie.",
+				"exploreOffer": {
+					"body": "Masuk di Jelajahi dan Arroxy akan mencobanya lagi.",
+					"cta": "Masuk di Jelajahi",
+					"heading": "Video ini mungkin memerlukan akun YouTube"
+				},
+				"exploreRefused": {
+					"body": "Arroxy sudah mencobanya dalam keadaan masuk lewat Jelajahi, jadi masuk lagi tidak akan membantu. Situs mungkin sedang bermasalah, atau akun ini tidak bisa membukanya. Coba lagi nanti.",
+					"heading": "Situs menolaknya meski Anda sudah masuk di Jelajahi"
+				},
+				"exploreReuse": {
+					"body": "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu.",
+					"cta": "Pakai login Jelajahi saya dan coba lagi",
+					"heading": "Video ini mungkin memerlukan akun YouTube"
+				},
+				"exploreSignIn": {
+					"body": "Jika video ini memerlukan akun YouTube, masuk di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya.",
+					"cta": "Masuk di Jelajahi",
+					"heading": "Video ini mungkin memerlukan akun YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "Jika video ini memerlukan akun, Arroxy otomatis memakai login Jelajahi Anda. Video mungkin juga tidak tersedia karena alasan lain.",
+					"heading": "Sudah masuk ke Jelajahi"
+				},
+				"exploreSite": {
+					"heading": "Tautan ini mungkin memerlukan akun {{host}}",
+					"offerBody": "Masuk ke {{host}} dengan Jelajahi lalu coba lagi.",
+					"signInBody": "Masuk ke {{host}} di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya."
+				},
+				"heading": "Cookie mungkin menjadi penyebabnya",
+				"needsCookies": {
+					"body": "Arroxy tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt.",
+					"heading": "Situs ini memerlukan proses masuk"
+				},
+				"openSettingsCta": "Buka pengaturan cookie",
+				"otherCookiesCta": "Gunakan file cookie atau peramban sebagai gantinya…"
+			},
+			"drc": {
+				"description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.",
+				"label": "Ratakan volume (DRC)",
+				"tag": "Volume rata"
+			},
+			"fit": {
+				"mp4Unavailable": "Profil Anda adalah TV Pintar (H.264). Video ini tidak menyediakan H.264, jadi stream terdekat yang dipilih.",
+				"noVideo": "Tautan ini tidak memiliki video, jadi audio dipilih.",
+				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya.",
+				"tierAbove": "Profil Anda meminta {{wanted}}p. Video ini tidak punya yang sekecil itu, jadi {{picked}}p dipilih.",
+				"tierBelow": "Profil Anda meminta {{wanted}}p. Video ini hanya sampai {{picked}}p, jadi {{picked}}p dipilih.",
+				"webmUnavailable": "Profil Anda meminta WebM. Stream terpilih video ini mencakup {{codec}}, yang tidak didukung WebM, jadi jenis file diatur ke Otomatis."
+			},
+			"footer": {
+				"addToQueue": "Tambahkan ke antrean tanpa memulai",
+				"download": "Unduh",
+				"moreActions": "Opsi unduhan lainnya",
+				"subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."
+			},
+			"keepAudio": "Tetap apa adanya",
+			"keepAudioMeta": "Audio bawaan",
+			"kind": {
+				"audio": "Hanya audio",
+				"label": "Yang diunduh",
+				"subtitles": "Hanya subtitle",
+				"video": "Video + audio",
+				"videoOnly": "Video, tanpa audio"
+			},
+			"loadingAria": "Memuat format",
+			"loadingHint": "Harap tunggu hingga pemeriksaan selesai — daftar putar dan penelusuran dapat memakan waktu cukup lama.",
+			"marker": {
+				"aiDubbed": "Sulih suara AI",
+				"aiUpscaled": "Upscale AI",
+				"audioDescription": "Deskripsi audio",
+				"damaged": "Rusak",
+				"enhancedBitrate": "Bitrate ditingkatkan",
+				"spatialAudio": "Audio spasial",
+				"vr": "360° / VR",
+				"watermarked": "Bertanda air"
+			},
+			"noAudio": "Tidak ada audio",
+			"profile": {
+				"calloutBody": "Profil aktif Anda memilihkan stream lebih dulu. Ganti profil lewat menu, atau pakai ikon pensil untuk menyesuaikan satu profil tanpa keluar dari unduhan ini.",
+				"calloutTitle": "Format dimulai dari profil Anda",
+				"closestTag": "Terdekat dengan profil",
+				"edit": "Edit {{name}}",
+				"keepEdits": "Pertahankan perubahan saya",
+				"menuDescription": "Hanya untuk unduhan ini. Profil default Anda tetap seperti semula.",
+				"preselected": "Dipilih sebelumnya dari",
+				"resetAll": "Atur ulang semua",
+				"switchBody": "Anda mengubah {{areas}} untuk unduhan ini. “{{profile}}” tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
+				"switchTitle": "Ganti profil?",
+				"tag": "Profil",
+				"updatedBody": "Anda mengubah {{areas}} untuk unduhan ini. Profil yang diperbarui tetap memilih video dan audio. Pertahankan perubahan lain, atau atur ulang semuanya ke profil?",
+				"updatedTitle": "Gunakan profil yang diperbarui?"
+			},
+			"quality": {
+				"high": "Kualitas tinggi",
+				"low": "Kualitas rendah",
+				"medium": "Kualitas sedang"
+			},
+			"rateLimit": {
+				"heading": "{{site}} membatasi koneksi ini",
+				"leadDegraded": "Daftar format mungkin tidak lengkap.",
+				"leadFailed": "{{site}} menolak permintaan ini untuk sementara.",
+				"retryCta": "Mencoba kembali",
+				"sessionNote": "{{site}} dapat mempertahankan batas ini hingga satu jam.",
+				"tryNowCta": "Coba sekarang",
+				"waitOver": "Waktu tunggu sudah habis, Anda bisa mencoba lagi.",
+				"waitUntil": "Arroxy menunggu sampai {{time}} sebelum menghubungi {{site}} lagi, agar batasnya sempat pulih."
+			},
+			"resolutionUnknown": "Resolusi tidak diketahui",
+			"savesAs": {
+				"label": "Simpan sebagai",
+				"reset": "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis."
+			},
+			"sizeUnknown": "Ukuran tidak diketahui",
+			"skipToConfirm": "Lewati untuk mengonfirmasi",
+			"skipToConfirmTooltip": "Menggunakan preferensi tersimpan Anda untuk semua langkah selanjutnya. Untuk mengubah pengaturan, lanjutkan langkah demi langkah — pilihan Anda akan disimpan untuk waktu berikutnya.",
+			"sniffing": "Menemukan format terbaik untuk Anda…",
+			"total": "Total",
+			"video": "Video",
+			"withAudio": "dengan audio"
+		},
+		"mixedPrompt": {
+			"body": "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu.",
+			"pickFromPlaylist": "Pilih dari daftar putar",
+			"playlistLimit": "Batas pemeriksaan daftar putar: item {{count}}",
+			"playlistTooltip": "Memuat daftar putar, hingga batas pemeriksaan daftar putar Anda, sebelum menampilkan alat pilih.",
+			"quickBody": "Unduh video ini saja, atau masukkan seluruh daftar putar ke dalam antrean dengan profil Unduh Cepat Anda yang aktif.",
+			"quickLimitDescription": "Entri maksimum yang dipindai Arroxy sebelum mengantri daftar putar, saluran, atau hasil pencarian.",
+			"quickPlaylistTooltip": "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri.",
+			"quickSingleTooltip": "Mengantri satu unduhan dan mengabaikan daftar putar yang terlampir pada URL ini.",
+			"quickSingleVideo": "Unduh video ini",
+			"quickWholePlaylist": "Unduh seluruh daftar putar",
+			"singleTooltip": "Hanya memuat video ini. Daftar putar yang terlampir pada URL ini diabaikan.",
+			"singleVideo": "Hanya yang ini",
+			"title": "Tautan ini memiliki daftar putar"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Penanda bab dapat dinavigasi di pemain modern mana pun.",
+				"label": "Sematkan bab"
+			},
+			"embedMetadata": {
+				"description": "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file.",
+				"label": "Sematkan metadata"
+			},
+			"embedThumbnail": {
+				"description": "Sampul seni di dalam file. Video WebM akan di-remix ke MKV; dilewati ketika subtitle tertanam.",
+				"label": "Sematkan gambar mini"
+			},
+			"writeDescription": {
+				"description": "Menyimpan deskripsi video sebagai file teks .description di sebelah unduhan.",
+				"label": "Simpan deskripsi"
+			},
+			"writeM3u": {
+				"description": "Simpan daftar putar .m3u di samping video agar dapat dibuka secara berurutan di pemutar media Anda.",
+				"label": "Hasilkan file daftar putar .m3u"
+			},
+			"writeThumbnail": {
+				"description": "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan.",
+				"label": "Simpan gambar kecil"
+			}
+		},
+		"part": {
+			"calloutBody": "Beralih ke «Bagian» di kartu video untuk memilih awal dan akhir, atau satu bab, lalu unduh potongan itu saja.",
+			"calloutTitle": "Unduh sebagian video saja",
+			"chapterUntitled": "Bab {{number}}",
+			"chapters": "Bab",
+			"connectionsNote": "Sebuah bagian diunduh melalui ffmpeg, jadi koneksi unduhan dan pengaturan kecepatan Anda tidak berlaku.",
+			"downloadBlocked": "Perbaiki dulu waktu mulai dan selesai bagian tersebut.",
+			"end": "Selesai",
+			"error": {
+				"endBeyondDuration": "Video berakhir pada {{duration}}.",
+				"endInvalid": "Masukkan waktu selesai sebagai h:mm:ss, m:ss, atau detik.",
+				"startInvalid": "Masukkan waktu mulai sebagai h:mm:ss, m:ss, atau detik.",
+				"startNotBeforeEnd": "Waktu mulai harus sebelum waktu selesai."
+			},
+			"exactCut": {
+				"hint": "Nonaktif: setiap potongan jatuh di keyframe terdekat, yang bisa berselisih beberapa detik dari waktu yang Anda ketik.",
+				"label": "Potongan tepat (encode ulang, lebih lambat)"
+			},
+			"length": "{{length}} dari {{duration}}",
+			"part": "Bagian",
+			"rangeLabel": "Bagian video",
+			"start": "Mulai",
+			"subtitlesFullLength": "seluruh video",
+			"summary": "Bagian {{start}}–{{end}}",
+			"switchLabel": "Seberapa banyak video",
+			"timeHint": "h:mm:ss, m:ss, atau detik",
+			"totalEstimate": "Bagian, perkiraan",
+			"unavailableDuration": "Video ini tidak melaporkan durasinya, jadi hanya bisa diunduh utuh.",
+			"unavailableSubtitles": "Subtitle selalu mencakup seluruh video.",
+			"urlStart": "Tautan Anda dimulai pada {{time}}",
+			"useUrlStart": "Gunakan sebagai awal",
+			"whole": "Seluruh video",
+			"wholeTrack": "Seluruh trek"
+		},
+		"playlist": {
+			"allRemovedDescription": "Pulihkan untuk melanjutkan.",
+			"allRemovedTitle": "Semua item telah dihapus",
+			"alreadyDownloaded": "Sudah diunduh",
+			"bulkHeading": "URL massal",
+			"bulkMetadataOptional": "Tidak perlu menunggu — file yang antre sekarang tetap mendapatkan nama aslinya saat diunduh.",
+			"bulkMetadataResolving": "Mengambil detail video… {{done}}/{{total}}",
+			"bulkRowFailed": "Detail tidak tersedia",
+			"bulkRowResolving": "Mengambil detail",
+			"bulkRowWaiting": "Menunggu",
+			"durationUnknown": "hidup",
+			"heading": "Item daftar putar",
+			"headingGeneric": "Video untuk diunduh",
+			"itemCountAudio_other": "trek {{count}}",
+			"itemCountBulk_other": "URL {{count}}",
+			"itemCount_other": "video {{count}}",
+			"loadingItems": "Mengambil daftar putar…",
+			"loadingItemsGeneric": "Mengambil video…",
+			"loadingLimitHint": "Terbatas untuk item {{count}} pertama",
+			"loadingPagesFound_other": "{{count}} halaman ditemukan",
+			"loadingPhaseItems": "Mengumpulkan video",
+			"loadingPhasePages": "Memindai halaman saluran",
+			"multiProfileEntry": "Tetapkan profil per item",
+			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
+			"nestedPlaylistBadge": "Daftar putar",
+			"nestedPlaylistHint_other": "{{count}} di antaranya adalah daftar putar, bukan video — tempel tautannya satu per satu untuk mengunduhnya.",
+			"noSelection": "Pilih setidaknya satu video untuk melanjutkan",
+			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
+			"probeLimitAlertTitle": "Pemindaian daftar putar dibatasi",
+			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
+			"rangeApply": "Terapkan rentang",
+			"rangeFrom": "Dari",
+			"rangeTo": "Ke",
+			"removeFromListCount_other": "Hapus {{count}} dari daftar",
+			"removedCount_other": "{{count}} dihapus",
+			"restore": "Pulihkan",
+			"selectAll": "Pilih semua",
+			"selectNone": "Pilih tidak ada",
+			"selectedCount_other": "{{count}} dipilih",
+			"sortApi": "Urutan daftar putar",
+			"sortFetchingDates": "Mengambil tanggal unggah…",
+			"sortLabel": "Urutkan",
+			"sortUploadAsc": "Terlama dulu",
+			"sortUploadDesc": "Terbaru dulu",
+			"syncApply": "Terapkan sinkronisasi",
+			"syncChange": "Ganti map…",
+			"syncFoundDesc": "{{n}} dari video ini sudah ada di {{dir}}. Sinkronkan untuk hanya mengunduh yang baru?",
+			"syncFoundTitle": "Sudah ada di folder",
+			"syncNoneDesc": "Tidak ada video dari daftar putar ini yang ditemukan di {{dir}}.",
+			"syncNoneDescGeneric": "Tidak ada video dari sumber ini yang ditemukan di {{dir}}.",
+			"syncNoneTitle": "Belum ada yang diunduh",
+			"syncScanning": "Memeriksa folder…",
+			"thumbnailAlt": "Gambar kecil video"
+		},
+		"playlistPresets": {
+			"heading": "Pilih kualitas untuk batch tersebut",
+			"itemCount_other": "item {{count}}",
+			"subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Tetapkan profil",
+			"assignTrigger_other": "Tetapkan ke {{count}} video",
+			"columnDuration": "Durasi",
+			"columnProfile": "Profil",
+			"editProfile": "Edit {{name}}",
+			"empty": "Tidak ada item yang cocok dengan filter ini",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Filter profil",
+			"heading": "Tetapkan profil unduhan",
+			"menuDescription_other": "Pilih profil untuk {{count}} video ini.",
+			"selectedSummary": "{{selected}} dari {{total}} dipilih"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Ubah global",
+				"chooseFolder": "Pilih folder tujuan",
+				"chooseIcon": "Pilih ikon profil",
+				"removeLanguage": "Hapus {{code}}",
+				"reset": "Setel ulang profil",
+				"resetDisabledHint": "Profil ini sudah menggunakan pengaturan bawaan",
+				"resetHint": "Pulihkan pengaturan profil bawaan",
+				"save": "Simpan profil",
+				"setOverride": "Atur penggantian profil",
+				"setOverrideShort": "Atur penggantian",
+				"useGlobalDefault": "Gunakan default global",
+				"useLanguageCode": "Gunakan kode bahasa “{{code}}”"
+			},
+			"advanced": "Canggih",
+			"appSetting": "Gunakan pengaturan aplikasi ({{value}})",
+			"audioFormat": {
+				"best": "Terbaik",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Hingga 128K",
+				"192": "Hingga 192K",
+				"320": "Hingga 320K",
+				"best": "Kualitas terbaik"
+			},
+			"destination": {
+				"defaultFolder": "Folder unduhan default",
+				"defaultFolderWithSubfolder": "Folder unduhan default / {{subfolder}}",
+				"global": "Tujuan global",
+				"globalActive": "Aktif",
+				"globalInherited": "Diwarisi",
+				"override": "Penggantian profil",
+				"overrideChoosing": "Pilih folder",
+				"overrideNone": "Tanpa penggantian",
+				"overrideNoneNote": "Penggantian belum diatur. Profil ini memakai tujuan global di atas.",
+				"overrideSet": "Menggantikan global",
+				"overrideSetNote": "Profil ini menyimpan ke root-nya sendiri sebelum subfolder ditambahkan.",
+				"resolved": "Tujuan akhir"
+			},
+			"dialogDescription": "Satu pengaturan yang dapat dipakai ulang untuk Unduh Cepat, URL Massal, dan playlist.",
+			"dialogTitle": "Profil unduhan",
+			"error": {
+				"changeGlobalDestination": "Tidak dapat mengubah tujuan global.",
+				"folderPicker": "Tidak dapat membuka pemilih folder. Masukkan jalur secara manual.",
+				"reset": "Tidak dapat menyetel ulang pengaturan profil.",
+				"save": "Tidak dapat menyimpan pengaturan profil."
+			},
+			"field": {
+				"delivery": "Cara penyimpanan",
+				"fileType": "Jenis file",
+				"goal": "Optimalkan untuk",
+				"icon": "Ikon profil",
+				"languages": "Bahasa",
+				"name": "Nama profil",
+				"nameAndIcon": "Nama dan ikon profil",
+				"nativeAudio": "Audio asli",
+				"overridePath": "Jalur penggantian profil",
+				"quality": "Kualitas",
+				"resolution": "Resolusi",
+				"source": "Sumber",
+				"subfolderName": "Nama subfolder",
+				"subtitleDownloads": "Unduhan subtitel",
+				"subtitleDownloadsDescription": "Profil meminta kode bahasa; ketersediaannya ditentukan untuk setiap URL."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Paling tajam pada ukuran yang sama. TV lama, QuickTime, dan sebagian editor tidak bisa memutarnya.",
+					"name": "Gambar terbaik",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Bisa diputar di TV, ponsel, WhatsApp, QuickTime, dan editor video. YouTube hanya menyediakan H.264 hingga 1080p.",
+					"name": "TV Pintar",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arsip",
+				"audio": "Audio",
+				"captions": "Teks",
+				"classes": "Kelas",
+				"clip": "Klip",
+				"controls": "Kontrol",
+				"download": "Unduh",
+				"music": "Musik",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musik atau podcast",
+					"label": "Hanya audio"
+				},
+				"subtitlesOnly": {
+					"description": "Hanya berkas teks",
+					"label": "Hanya subtitle"
+				},
+				"videoAudio": {
+					"description": "Berkas video biasa",
+					"label": "Video + audio"
+				},
+				"videoOnly": {
+					"description": "Hanya video tanpa suara",
+					"label": "Video, tanpa audio"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
+				"noLanguageMatches": "Tidak ada bahasa yang cocok",
+				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
+				"searchLanguages": "Cari berdasarkan nama atau kode bahasa",
+				"skippedForOutputType": "Dilewati untuk jenis keluaran ini.",
+				"subtitleLanguagesRequired": "Pilih setidaknya satu bahasa.",
+				"subtitleLanguagesRequiredOrOff": "Pilih setidaknya satu bahasa, atau nonaktifkan unduhan subtitel.",
+				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profil mewarisi tujuan global kecuali Anda mengatur penggantian profil.",
+					"title": "Opsi lanjutan"
+				},
+				"downloadType": {
+					"description": "Pilih cara utama Anda ingin mengunduh.",
+					"title": "Jenis unduhan"
+				},
+				"identity": {
+					"description": "Nama dan ikon yang tampil di Unduh Cepat, URL Massal, dan daftar profil.",
+					"title": "Identitas profil"
+				},
+				"output": {
+					"enabledCount_other": "{{count}} aktif",
+					"title": "Opsi keluaran"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Pilih folder untuk profil ini"
+			},
+			"skipped": "Dilewati",
+			"sponsorBlockHint": {
+				"mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).",
+				"off": "Tanpa SponsorBlock — video diputar apa adanya.",
+				"remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Hanya hasil otomatis",
+				"manualAndAuto": "Manual dan otomatis",
+				"manualFirst": "Manual dulu, lalu otomatis",
+				"manualOnly": "Hanya manual"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Bantuan {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Batalkan persiapan",
+			"currentFallback": "Tautan saat ini",
+			"description": "Arroxy sedang membaca tautan dan menerapkan {{profileName}}.",
+			"failedCount_other": "{{count}} gagal",
+			"phase": {
+				"probing": "Mengambil detail",
+				"queueing": "Menambah antrian"
+			},
+			"title": "Mempersiapkan Unduhan Cepat",
+			"waitHint": "Biarkan ini tetap terbuka sementara Arroxy menyiapkan antrian."
+		},
+		"review": {
+			"areas": {
+				"extras": "tambahan",
+				"fileName": "nama file",
+				"format": "format",
+				"saveTo": "folder",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "subtitle"
+			},
+			"callout": {
+				"body": "Subtitle, SponsorBlock, tambahan seperti gambar kecil, folder, dan nama file dulu merupakan langkah terpisah. Klik baris untuk mengubahnya.",
+				"title": "Semua pengaturan lainnya kini ada di halaman ini"
+			},
+			"changeFormat": "Ubah format",
+			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
+			"changedFrom": "Diubah dari {{profile}}:",
+			"nextTime": {
+				"action": "Simpan sebagai profil",
+				"defaultName": "{{profile}} (diedit)",
+				"title": "Unduhan ini memakai pengaturan yang diedit. Pakai lagi lain kali?"
+			},
+			"reset": "Urungkan perubahan, kembali ke “{{profile}}”",
+			"rows": {
+				"extras": "Tambahan",
+				"fileName": "Nama file",
+				"saveTo": "Simpan ke",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Subtitle"
+			},
+			"rowsHeading": "Lainnya",
+			"save": {
+				"action": "Simpan profil",
+				"description": "Menyimpan pengaturan ini sebagai profil yang bisa Anda pilih lain kali. Profil Unduh Cepat Anda tidak berubah.",
+				"failed": "Tidak dapat menyimpan profil.",
+				"nameLabel": "Nama profil",
+				"saved": "Disimpan sebagai profil “{{name}}”",
+				"title": "Simpan sebagai profil"
+			},
+			"saveAsProfile": "Simpan sebagai profil baru",
+			"update": {
+				"action": "Perbarui profil",
+				"builtinNote": "Ini profil bawaan. Anda dapat memulihkan pengaturan aslinya di tab Profil.",
+				"description": "Mulai sekarang, setiap unduhan dengan profil ini memakai pengaturan baru.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "Perbarui “{{profile}}”?",
+				"updated": "Profil “{{name}}” diperbarui"
+			},
+			"updateProfile": "Perbarui “{{profile}}” dengan perubahan ini",
+			"value": {
+				"extrasNone": "Tidak ada",
+				"sponsorBlockOff": "Mati",
+				"subtitlesOff": "Mati"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Pengisi",
+				"intro": "Pendahuluan",
+				"music_offtopic": "Musik di luar topik",
+				"outro": "luar",
+				"preview": "Pratinjau",
+				"selfpromo": "Promosi diri",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategori",
+			"mode": {
+				"mark": "Tandai sebagai bab",
+				"off": "Mati",
+				"remove": "Hapus segmen"
+			},
+			"modeHeading": "Penyaringan sponsor",
+			"modeHint": {
+				"mark": "Menandai segmen sponsor sebagai bab (tidak merusak).",
+				"off": "Tidak ada SponsorBlock — video diputar saat diunggah.",
+				"remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Mengonfirmasi",
+			"folder": "Menyimpan",
+			"formats": "Format",
+			"output": "Keluaran",
+			"playlistItems": "Daftar putar",
+			"playlistItemsGeneric": "Video",
+			"playlistPresets": "Kualitas",
+			"playlistProfiles": "Profil",
+			"review": "Tinjau",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Subtitle",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Teks otomatis akan disimpan sebagai SRT, bukan ASS — untuk video YouTube, teks tersebut dibersihkan dari duplikasi isyarat, yang belum dapat ditiru oleh konverter ASS kami.",
+			"autoBadge": "Otomatis",
+			"clearAll": "Hapus semuanya",
+			"embedNote": "Mode penyematan menyimpan keluaran sebagai .mkv sehingga trek subtitle dapat disematkan dengan andal.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Tidak ada subtitle yang tersedia untuk video ini",
+			"noMatches": "Tidak ada bahasa yang cocok",
+			"noSelected": "Tidak ada subtitle yang dipilih",
+			"removeLanguage": "Hapus {{name}}",
+			"saveMode": {
+				"embed": "Sematkan ke dalam video",
+				"heading": "Simpan sebagai",
+				"sidecar": "Di sebelah video",
+				"subfolder": "subtitle/subfolder"
+			},
+			"searchPlaceholder": "Cari bahasa…",
+			"sectionAuto": "Dibuat secara otomatis",
+			"sectionManual": "Manual"
+		},
+		"tabsNavAria": "Navigasi profil unduhan",
+		"url": {
+			"advanced": "Canggih",
+			"analytics": {
+				"toggle": "Kirim sinyal harian",
+				"toggleDescription": "Tanpa telemetri. Sekali sehari, sinyal anonim mengirim versi aplikasi, saluran instalasi, OS, bahasa, negara, dan kira-kira sudah berapa lama Arroxy terpasang agar kami bisa menghitung pengguna aktif dan baru. Tanpa ID, URL, judul video, atau nama file."
+			},
+			"autoRemoveCompleted": {
+				"description": "Menghapus unduhan dari daftar Unduhan beberapa detik setelah selesai. File tetap ada di folder Anda; unduhan yang gagal dan dibatalkan tetap ada di daftar.",
+				"label": "Hapus otomatis unduhan yang selesai"
+			},
+			"autoRetry": {
+				"description": "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis.",
+				"label": "Coba lagi unduhan yang gagal",
+				"unit": "kali"
+			},
+			"bulkButton": "URL massal",
+			"bulkTooltip": "Tambahkan dan antri beberapa URL.",
+			"clearAria": "Hapus URL",
+			"clipboard": {
+				"autofilledLink": "Tautan ditambahkan dari clipboard",
+				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
+				"dialog": {
+					"cancelButton": "Membatalkan"
+				},
+				"replacedLink": "Diganti dengan tautan yang disalin",
+				"toggle": "Tonton papan klip",
+				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
+				"undo": "Urungkan"
+			},
+			"closeToTray": {
+				"toggle": "Sembunyikan ke baki saat ditutup",
+				"toggleDescription": "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."
+			},
+			"concurrentDownloads": {
+				"description": "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda.",
+				"label": "Unduhan sekaligus",
+				"unit": "unduhan"
+			},
+			"cookies": {
+				"banWarning": "Situs seperti YouTube mungkin menandai — dan terkadang melarang — akun yang cookie-nya digunakan oleh alat pengunduh seperti Arroxy. Gunakan akun sekali pakai jika memungkinkan.",
+				"browserHelp": "Membaca cookie langsung dari browser. Browser harus ditutup untuk browser keluarga Chromium.",
+				"browserLabel": "Peramban",
+				"browserPlaceholder": "Pilih peramban…",
+				"choose": "Memilih…",
+				"clear": "Jernih",
+				"enabledButNoBrowser": "Pilih browser untuk menggunakan cookie",
+				"enabledButNoFile": "Pilih file untuk menggunakan cookie",
+				"exploreDescription": "Memakai login Jelajahi hanya saat unduhan membutuhkannya.",
+				"exploreDisabled": "Tab Jelajahi nonaktif, jadi unduhan tidak memakai login Jelajahi Anda. Aktifkan di bagian Jelajahi di bawah.",
+				"extensionChrome": "Dapatkan cookies.txt SECARA LOKAL (Chrome)",
+				"extensionFirefox": "cookie.txt (Firefox)",
+				"fileLabel": "File cookie",
+				"helpLink": "Bagaimana cara mengekspor cookie?",
+				"openExplore": "Buka Jelajahi",
+				"placeholder": "Tidak ada berkas yang dipilih",
+				"recommended": "Disarankan",
+				"risk": "Risiko: cookies.txt berisi setiap sesi login untuk browser tersebut — jaga kerahasiaannya.",
+				"sourceBrowser": "Peramban",
+				"sourceExplore": "Login Jelajahi",
+				"sourceFile": "Mengajukan",
+				"sourceLabel": "Sumber cookie",
+				"sourceOff": "Mati",
+				"toggleDescription": "Membantu dengan video dengan batasan usia, khusus anggota, dan akun pribadi."
+			},
+			"downloadConnections": {
+				"description": "Mempercepat unduhan besar dengan mengambil beberapa bagian video sekaligus. Nilai lebih tinggi meningkatkan kemungkinan situs membatasi Anda.",
+				"label": "Koneksi unduhan",
+				"unit": "koneksi"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Hanya audio",
+					"subtitles": "Subtitle"
+				},
+				"anySite": {
+					"heading": "2000+ situs",
+					"musicPlaylist": "Daftar putar musik",
+					"video": "Video",
+					"videoPlaylist": "Daftar putar video"
+				},
+				"heading": "Apa yang bisa ditarik Arroxy",
+				"youtube": {
+					"channel": "Saluran",
+					"heading": "YouTube",
+					"music": "Musik",
+					"playlist": "Daftar Putar",
+					"podcast": "Podcast",
+					"short": "Shorts",
+					"video": "Video"
+				}
+			},
+			"fetchFormatsTooltip": "Panduan langkah demi langkah. Pilih format, kualitas, dan lainnya.",
+			"heading": "Unduh dari URL",
+			"hotkey": {
+				"changeShortcut": "Ubah pintasan",
+				"conflict": "Pintasan ini dipakai aplikasi lain — pilih yang lain.",
+				"hintLabel": "Atau tekan",
+				"hintTooltip": "Salin tautan video di mana saja, tekan pintasan ini, dan Arroxy akan memasukkannya ke antrean dengan profil aktif Anda — tidak perlu berpindah jendela.",
+				"hintTooltipSettings": "Ubah atau nonaktifkan di Pengaturan.",
+				"recording": "Tekan tombol…",
+				"reset": "Atur ulang ke default",
+				"sectionDescription": "Unduh tautan apa pun yang Anda salin, dari aplikasi mana pun, tanpa membuka Arroxy.",
+				"sectionTitle": "Pintasan global",
+				"test": "Uji",
+				"toggle": "Aktifkan pintasan global",
+				"toggleDescription": "Tekan pintasan dengan tautan video di papan klip."
+			},
+			"interactiveDownload": "Unduhan Interaktif",
+			"limitRate": {
+				"activeWarning": "Unduhan aktif mempertahankan batasnya saat ini. Jeda + Lanjutkan untuk menerapkan perubahan.",
+				"custom": "Kebiasaan…",
+				"customPlaceholder": "misalnya 750K atau 1,5M",
+				"description": "Batasi bandwidth untuk pengunduhan media. Kecepatan permintaan di bawah biasanya merupakan tuas batas tarif yang lebih kuat.",
+				"invalid": "Gunakan angka yang diikuti K atau M (misalnya 500K, 1,5M)",
+				"label": "Batas kecepatan unduh",
+				"off": "Mati"
+			},
+			"mascotBusy": "Mengunduh di latar belakang… Saya bisa melakukan banyak tugas 😎",
+			"mascotCollection": "Unduh Cepat mengantrekan item yang dimuat dengan {{profileName}}. Unduhan Interaktif memungkinkan Anda memeriksa atau memilih item terlebih dahulu.",
+			"mascotIdle": "Letakkan tautan dan biarkan Arroxy menariknya ✨",
+			"mascotMixed": "Tautan ini mengarah ke satu video di dalam koleksi. Arroxy akan menanyakan video mana yang Anda mau sebelum memeriksanya.",
+			"mascotPreparing": "{{quickDownload}} sedang membaca tautan ini dan menerapkan {{profileName}}.",
+			"mascotQueued": "Antrean sedang menangani unduhan ini. Anda bisa menempelkan tautan lain selagi berjalan.",
+			"mascotSingle": "Unduh Cepat memulai satu unduhan dengan {{profileName}}. Gunakan Unduhan Interaktif untuk perubahan sekali pakai.",
+			"nativeAudioPreference": {
+				"compatible": "Stereo yang kompatibel",
+				"description": "Stereo atau surround saat profil memilih audio asli. Profil bisa menimpanya.",
+				"label": "Preferensi audio asli",
+				"surround": "Lebih suka surround / Dolby"
+			},
+			"networkPacing": {
+				"description": "Tambahkan sedikit waktu tunggu setiap kali mengunduh sehingga Arroxy tidak masuk ke situs terlalu agresif. Nilai dalam detik.",
+				"fields": {
+					"maxSleepInterval": "Jeda sebelum media dimulai: maks",
+					"sleepInterval": "Jeda sebelum media dimulai: min",
+					"sleepRequests": "Tunggu di antara pemeriksaan metadata",
+					"sleepSubtitles": "Tunggu sebelum file subtitle"
+				},
+				"heading": "Unduhan yang lembut",
+				"presetLabel": "Seberapa hati-hati Arroxy?",
+				"presets": {
+					"balanced": "Seimbang",
+					"careful": "Hati-hati",
+					"custom": "Kebiasaan",
+					"off": "Mati"
+				},
+				"summary": "Menunggu: {{requests}} di antara pemeriksaan, {{downloads}} sebelum media dimulai, {{subtitles}} sebelum file subtitle.",
+				"tooltip": "Waktu tunggu ini terjadi di dalam setiap unduhan. Berapa banyak unduhan yang berjalan bersamaan diatur terpisah, di «Unduhan sekaligus».",
+				"tooltips": {
+					"balanced": "Bawaan. Menambahkan jeda singkat antar permintaan dan sebelum media dimulai.",
+					"careful": "Menambahkan jeda lebih lama untuk daftar putar besar atau jaringan yang sering mencapai batas.",
+					"custom": "Sesuaikan sendiri kontrol per-unduhan tingkat lanjut.",
+					"off": "Hanya menggunakan jeda dasar kecil yang disimpan Arroxy untuk media dan subtitle."
+				},
+				"units": {
+					"seconds": "detik"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Batas saat ini: item {{count}}",
+				"custom": "Kebiasaan…",
+				"customDialogCancel": "Membatalkan",
+				"customDialogDescription": "Gunakan bilangan bulat dari {{min}} hingga {{max}}.",
+				"customDialogSave": "Simpan batas",
+				"customDialogTitle": "Batas pemindaian daftar putar khusus",
+				"customValue": "Kustom: item {{count}}",
+				"description": "Entri maksimum Arroxy dimuat saat daftar putar, saluran, atau hasil pencarian dibuka.",
+				"invalid": "Gunakan bilangan bulat dari 1 hingga 5000",
+				"label": "Item daftar putar untuk dipindai",
+				"option": "item {{count}}",
+				"tooltip": "Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
+			},
+			"playlistScope": {
+				"appLimit": "Gunakan batas aplikasi: {{count}}",
+				"apply": "Terapkan",
+				"applyError": "Tidak dapat menerapkan cakupan daftar putar itu: {{message}}",
+				"applyReload": "Terapkan dan muat ulang",
+				"cancel": "Membatalkan",
+				"change": "Ubah",
+				"dialogDescription": "Pilih apa yang dimuat Arroxy untuk daftar putar ini.",
+				"dialogTitle": "Cakupan daftar putar",
+				"emptyTitle": "Tidak ada video dalam cakupan itu",
+				"first": "Pertama",
+				"invalid": "Gunakan bilangan bulat dari 1 hingga {{max}}, dengan awal tidak lebih besar dari akhir.",
+				"itemsLabel": "Item yang dimuat",
+				"label": "Cakupan daftar putar",
+				"range": "Rentang",
+				"reloading": "Memuat ulang...",
+				"reset": "Atur ulang",
+				"summaryAppLimit": "Muat {{count}} item pertama",
+				"summaryFirst": "Muat {{count}} item pertama",
+				"summaryRange": "Muat item {{from}}-{{to}}",
+				"to": "sampai"
+			},
+			"profile": {
+				"activeLabel": "Profil aktif",
+				"badgeBuiltIn": "Bawaan",
+				"badgeCustom": "Kebiasaan",
+				"badgeDisabled": "Disembunyikan",
+				"badgeModified": "Dimodifikasi",
+				"changeGlobalDestination": "Ubah tujuan global",
+				"destinationDetail": {
+					"global": "Memakai tujuan global",
+					"globalSubfolder": "Memakai tujuan global + subfolder profil",
+					"override": "Memakai penggantian profil",
+					"overrideSubfolder": "Memakai penggantian profil + subfolder profil"
+				},
+				"destinationFallback": "Tujuan",
+				"edit": "Sunting",
+				"editActive": "Edit profil aktif",
+				"enableHint": "Profil tersembunyi tetap di sini tetapi hilang dari semua pemilih.",
+				"enableToggleAria": "Tampilkan profil di pemilih: {{profileName}}",
+				"lastEnabledHint": "Pertahankan setidaknya satu profil tersedia.",
+				"manageProfiles": "Kelola profil",
+				"menuDescription": "Ubah profil aktif untuk Unduhan Cepat, URL Massal, dan daftar putar.",
+				"menuTitle": "Ganti profil",
+				"movableProfile": "profil yang dapat dipindahkan",
+				"moveCancelled": "Pemindahan dibatalkan. Profil {{profileName}} tetap di posisi {{position}} dari {{count}}.",
+				"moveDropped": "Profil {{profileName}} dilepas di posisi {{position}} dari {{count}}.",
+				"moveHandleAria": "Pindahkan {{profileName}}",
+				"moveInstructions": "Untuk memindahkan profil, tekan Spasi atau Enter, geser dengan tombol panah, lalu tekan Spasi atau Enter untuk melepaskannya. Tekan Escape untuk membatalkan.",
+				"moveOver": "Profil {{profileName}} berada di atas posisi {{position}} dari {{count}}.",
+				"movePickedUp": "Profil {{profileName}} diangkat. Posisinya {{position}} dari {{count}}.",
+				"newProfile": "Profil baru",
+				"panelDescription": "Buat, pilih, edit, atau hapus pengaturan unduhan yang dapat digunakan kembali.",
+				"panelTitle": "Unduh Profil",
+				"remove": "Menghapus",
+				"reorderHint": "Seret profil untuk memindahkannya. Semua pemilih profil mengikuti urutan ini.",
+				"reset": "Mengatur ulang",
+				"summary": {
+					"aacAudio": "audio AAC",
+					"bestAudio": "audio terbaik",
+					"bestVideo": "video terbaik",
+					"noAudio": "tanpa audio",
+					"subtitlesOnly": "hanya subtitel",
+					"wavAudio": "audio WAV"
+				},
+				"switchAria": "Ganti profil unduhan: {{profileName}}",
+				"switchTitle": "Ganti profil unduhan"
+			},
+			"proxy": {
+				"clear": "Jernih",
+				"description": "Rutekan lalu lintas melalui proxy — berguna untuk konten yang dibatasi secara geografis.",
+				"label": "URL proksi",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Tak satu pun dari URL tersebut dapat disiapkan",
+			"quickDownload": "Unduh Cepat",
+			"quickDownloadTooltip": "Akan diunduh menggunakan: {{profileName}}",
+			"quickFailed": "Tidak dapat menambahkan yang ini: {{error}}",
+			"quickPartialFailed_other": "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan.",
+			"quickPrepareFailed": "Item antrean tidak dapat disiapkan",
+			"quickPreparing": "Mempersiapkan",
+			"quickProbeFailed": "Penyelidikan gagal",
+			"quickQueued": "Ditambahkan ke antrean",
+			"quickSingleOnly": "Tempelkan video, daftar putar, saluran, atau URL pencarian untuk memulai.",
+			"settings": {
+				"behaviorDescription": "Perilaku global yang juga memengaruhi unduhan yang digerakkan oleh profil.",
+				"behaviorHeading": "Perilaku unduhan",
+				"inputHeading": "Masukan"
+			},
+			"style": {
+				"aurora": {
+					"description": "Panel kaca di atas langit yang bergerak. Butuh akselerasi grafis.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Permukaan polos yang tenang. Ringan dijalankan di komputer apa pun.",
+					"label": "Minimalis"
+				},
+				"modeDescription": "Kedua gaya tersedia dalam mode terang dan gelap.",
+				"modeLabel": "Gaya",
+				"panelDescription": "Tampilan Arroxy. Beralih antara terang dan gelap di footer.",
+				"panelTitle": "Tampilan",
+				"unavailableNotice": "{{style}} butuh akselerasi grafis, yang saat ini tidak tersedia, jadi Arroxy menampilkan {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profil",
+				"settings": "Pengaturan"
+			}
+		}
+	}
 }

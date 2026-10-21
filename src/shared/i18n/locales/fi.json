@@ -1,945 +1,305 @@
 {
-	"common": {"back": "Takaisin", "cancel": "Peruuta", "continue": "Jatka", "loading": "Ladataan", "retry": "Yritä uudelleen", "dismiss": "Hylkää", "startOver": "Aloita alusta", "close": "Sulje"},
+	"about": {
+		"button": "Tietoja",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · tekijä Antonio Orionus",
+		"openTitle": "Tietoja Arroxysta",
+		"tagline": "Nopea ja helppokäyttöinen lataaja YouTubelle ja yli 2000 muulle sivustolle.",
+		"thirdPartyNotices": "Näytä kolmannen osapuolen ilmoitukset",
+		"websiteLink": "Verkkosivusto"
+	},
+	"aiUpscaled": {
+		"allow": "Salli",
+		"description": "YouTube tarjoaa joitakin vanhoja videoita tekoälyllä tehtyinä suurempina versioina. Ohita säilyttää alkuperäiset virrat; voit silti valita skaalatun version käsin.",
+		"label": "Tekoälyllä skaalatut virrat",
+		"skip": "Ohita"
+	},
 	"app": {
 		"feedback": "Palaute",
+		"feedbackNudge": "Pidätkö Arroxysta? Kuulisin mielelläni palautettasi! 💬",
 		"logs": "Lokit",
 		"saveDiagnostics": "Tallenna diagnostiikkatiedosto",
 		"saveDiagnosticsDescription": "Kokoaa lokit ja sovelluksen tiedot yhteen tiedostoon Lataukset-kansioon, valmiina liitettäväksi GitHub-ongelmailmoitukseen. Käyttäjäkansiosi nimi poistetaan; videoiden linkit ja nimet säilyvät.",
-		"feedbackNudge": "Pidätkö Arroxysta? Kuulisin mielelläni palautettasi! 💬",
-		"zoomIn": "Lähennä",
-		"zoomOut": "Loitonna",
+		"styleHint": "Uutta: valitse Aurora tai Minimal täältä",
 		"theme": "Teema",
-		"styleHint": "Uutta: valitse Aurora tai Minimal täältä"
+		"zoomIn": "Lähennä",
+		"zoomOut": "Loitonna"
 	},
-	"about": {
-		"button": "Tietoja",
-		"openTitle": "Tietoja Arroxysta",
-		"tagline": "Nopea ja helppokäyttöinen lataaja YouTubelle ja yli 2000 muulle sivustolle.",
-		"websiteLink": "Verkkosivusto",
-		"githubLink": "GitHub",
-		"licenseLine": "GPLv3 · tekijä Antonio Orionus",
-		"thirdPartyNotices": "Näytä kolmannen osapuolen ilmoitukset"
+	"common": {
+		"back": "Takaisin",
+		"cancel": "Peruuta",
+		"close": "Sulje",
+		"continue": "Jatka",
+		"dismiss": "Hylkää",
+		"loading": "Ladataan",
+		"retry": "Yritä uudelleen",
+		"startOver": "Aloita alusta"
 	},
-	"titleBar": {"close": "Sulje", "minimize": "Pienennä", "maximize": "Suurenna", "restore": "Palauta"},
-	"splash": {
-		"greeting": "Hei, tervetuloa takaisin!",
-		"warmup": "Valmistellaan latauksia…",
-		"verifying": "Tarkistetaan {{binary}}…",
-		"verifyFirstCheck": "Tämän version ensimmäinen tarkistus – tämä on hidas. Yleensä noin minuutti.",
-		"cancel": "Ongelmia? Määritä manuaalisesti",
-		"warmupFailedNoDiag": "Asennus epäonnistui. Katso lisätiedot asennuslokista.",
-		"setup": {
-			"title": {"firstRun": "Ensimmäisen käyttökerran asennus", "media": "Päivitetään mediatyökaluja", "engine": "Päivitetään latausmoottoria"},
-			"stage": {"connecting": "Yhdistetään…", "downloadingBoth": "Ladataan latausmoottoria ja mediatyökaluja", "downloadingEngine": "Ladataan latausmoottoria", "downloadingMedia": "Ladataan mediatyökaluja", "unpacking": "Puretaan mediatyökaluja", "checking": "Tarkistetaan, että kaikki toimii"},
-			"bytes": "{{done}} / {{total}}",
-			"left": {"underMinute": "alle minuutti jäljellä", "minutes_one": "noin {{count}} min jäljellä", "minutes_other": "noin {{count}} min jäljellä"},
-			"note": {"firstRun": "Tämä tapahtuu vain kerran. Arroxy säilyttää nämä työkalut ja päivittää ne itse.", "media": "Tämä tapahtuu vain kerran. Arroxy säilyttää ne tulevia päivityksiä varten.", "engine": "Pitää lataukset toimivina, kun sivustot muuttuvat."}
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy jatkaa toimintaansa ja viimeistelee käynnissä olevat lataukset. Voit muuttaa tämän myöhemmin lisäasetuksista.",
+			"hide": "Piilota ilmaisinalueelle",
+			"message": "Piilotetaanko Arroxy ilmaisinalueelle suljettaessa?",
+			"quit": "Lopeta",
+			"remember": "Älä kysy uudelleen"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Peruuta lataukset ja lopeta",
+			"detail": "Keskeytä jatkaaksesi myöhemmin tai peruuta hylätäksesi edistymisen.",
+			"keep": "Jatka latausta",
+			"message_one": "{{count}} lataus käynnissä",
+			"message_other": "{{count}} latausta käynnissä",
+			"pause": "Keskeytä lataukset ja lopeta"
+		},
+		"rendererCrashed": {
+			"detail": "Renderöintiprosessi kaatui ({{reason}}). Yritä uudelleen lataamalla sovellus uudelleen.",
+			"message": "Arroxy kohtasi ongelman",
+			"quit": "Lopeta",
+			"reload": "Lataa uudelleen"
 		}
 	},
-	"repair": {
-		"title": "Asennus tarvitsee apuasi",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Latausmoottori", "media": "Mediatyökalut"},
-		"causes": {
-			"downloadFailed": {"title": "Arroxyn tarvitsemaa ei voitu ladata", "body": "Tarkista internetyhteytesi ja yritä uudelleen."},
-			"extractFailed": {"title": "Lataus saapui vioittuneena", "body": "Yritä uudelleen, niin se ladataan alusta."},
-			"hashFailed": {"title": "Lataus ei vastannut tarkistussummaansa", "body": "Yritä uudelleen, niin se ladataan alusta."},
-			"spawnFailed": {"title": "Työkalu puuttuu tai ei käynnisty", "body": "Yritä uudelleen. Jos virhe toistuu, valitse toimiva kopio alta."},
-			"permissionDenied": {"title": "Järjestelmäsi ei salli Arroxyn suorittaa työkalua", "body": "Yritä uudelleen. Jos virhe toistuu, valitse alta luotettava kopio."},
-			"blockedOrQuarantined": {"title": "Virustorjunta esti työkalun", "body": "Salli Arroxy virustorjunnassasi tai SmartScreenissä ja yritä uudelleen."},
-			"badExitCode": {"title": "Työkalu ei toimi oikein", "body": "Yritä uudelleen. Jos virhe toistuu, valitse toimiva kopio alta."},
-			"timeout": {"title": "Työkalu vastasi liian hitaasti", "body": "Tämä johtuu usein tietoturvatarkistuksesta ensimmäisellä käynnistyskerralla. Yritä uudelleen."},
-			"pairIncomplete": {"title": "FFmpeg ja FFprobe on määritettävä yhdessä", "body": "Valitse molemmat alta tai palauta ne oletuksiin."},
-			"unknown": {"title": "Asennuksessa tapahtui virhe", "body": "Yritä uudelleen tai avaa asennusloki saadaksesi lisätietoja."}
-		},
-		"installing": {"homebrew": "Asennetaan Homebrew-ohjelmalla… Tämä voi kestää muutaman minuutin.", "winget": "Asennetaan WinGet-ohjelmalla… Tämä voi kestää muutaman minuutin."},
-		"stopped": {"title": "Asennus pysähtyi", "body": "Yritä uudelleen tai valitse alta työkalut, jotka sinulla jo on."},
-		"manual": {"toggle": "Määritä manuaalisesti", "intro": "Valitse Arroxylle kopiot, jotka sinulla jo on, tai asenna ne muulla tavalla.", "linuxHint": "Voit myös asentaa yt-dlp:n ja ffmpegin paketinhallinnalla ja napsauttaa sitten Yritä uudelleen."},
-		"actions": {
-			"chooseExecutable": "Valitse suoritettava tiedosto",
-			"installWithHomebrew": "Asenna Homebrew-ohjelmalla",
-			"installWithWinget": "Asenna WinGet-ohjelmalla",
-			"resetToDefault": "Palauta oletus",
-			"retrySetup": "Yritä uudelleen",
-			"cancel": "Peruuta",
-			"openDependencyFolder": "Avaa riippuvuuskansio",
-			"viewSetupLog": "Näytä asennusloki"
-		}
-	},
-	"theme": {"light": "Vaalea tila", "dark": "Tumma tila", "system": "Järjestelmän oletus"},
-	"language": {"label": "Kieli"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Soittolista",
-			"playlistItemsGeneric": "Videot",
-			"playlistPresets": "Laatu",
-			"playlistProfiles": "Profiilit",
-			"formats": "Muoto",
-			"subtitles": "Tekstitykset",
-			"sponsorblock": "SponsorBlock",
-			"output": "Tuloste",
-			"folder": "Tallenna",
-			"confirm": "Vahvista",
-			"review": "Tarkistus"
-		},
-		"playlistPresets": {"heading": "Valitse erän laatu", "subhead": "Jokainen video ratkaisee valitun tason itsenäisesti – epäyhtenäiset soittolistat toimivat yllätyksittä.", "itemCount_one": "{{count}} kohde", "itemCount_other": "{{count}} kohdetta"},
-		"playlistProfiles": {
-			"heading": "Määritä latausprofiilit",
-			"selectedSummary": "{{selected}} / {{total}} valittu",
-			"assignTriggerEmpty": "Määritä profiili",
-			"assignTrigger_one": "Määritä {{count}} videolle",
-			"assignTrigger_other": "Määritä {{count}} videolle",
-			"menuDescription_one": "Valitse profiili tälle videolle.",
-			"menuDescription_other": "Valitse profiili näille {{count}} videolle.",
-			"editProfile": "Muokkaa: {{name}}",
-			"filtersLabel": "Profiilisuodattimet",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profiili",
-			"columnDuration": "Kesto",
-			"empty": "Mikään kohde ei vastaa tätä suodatinta"
-		},
-		"playlist": {
-			"heading": "Soittolistan kohteet",
-			"headingGeneric": "Ladattavat videot",
-			"bulkHeading": "Useita URL-osoitteita",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} videota",
-			"itemCountAudio_one": "{{count}} kappale",
-			"itemCountAudio_other": "{{count}} kappaletta",
-			"itemCountBulk_one": "{{count}} URL-osoite",
-			"itemCountBulk_other": "{{count}} URL-osoitetta",
-			"bulkMetadataResolving": "Haetaan videoiden tietoja… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Odottaminen ei ole tarpeen – nyt jonoon lisätyt tiedostot saavat oikeat nimensä latauksen aikana.",
-			"bulkRowWaiting": "Odottaa",
-			"bulkRowResolving": "Haetaan tietoja",
-			"bulkRowFailed": "Tiedot eivät saatavilla",
-			"selectAll": "Valitse kaikki",
-			"selectNone": "Poista valinnat",
-			"sortLabel": "Lajittelu",
-			"sortApi": "Soittolistan järjestys",
-			"sortUploadAsc": "Vanhimmat ensin",
-			"sortUploadDesc": "Uusimmat ensin",
-			"sortFetchingDates": "Haetaan lisäyspäiviä…",
-			"rangeFrom": "Mistä",
-			"rangeTo": "Mihin",
-			"rangeApply": "Käytä aluetta",
-			"selectedCount_one": "{{count}} valittu",
-			"selectedCount_other": "{{count}} valittu",
-			"noSelection": "Valitse vähintään yksi video jatkaaksesi",
-			"loadingItems": "Haetaan soittolistaa…",
-			"loadingItemsGeneric": "Haetaan videoita…",
-			"loadingPhasePages": "Skannataan kanavan sivuja",
-			"loadingPhaseItems": "Kerätään videoita",
-			"loadingPagesFound_one": "{{count}} sivu löytyi",
-			"loadingPagesFound_other": "{{count}} sivua löytyi",
-			"loadingLimitHint": "Rajoitus: ensimmäiset {{count}} kohdetta",
-			"thumbnailAlt": "Videon pikkukuva",
-			"durationUnknown": "suora",
-			"syncChange": "Vaihda kansio…",
-			"syncApply": "Käytä synkronointia",
-			"syncScanning": "Tarkistetaan kansiota…",
-			"syncFoundTitle": "Jo kansiossa",
-			"syncFoundDesc": "{{n}} näistä videoista on jo kansiossa {{dir}}. Synkronoidaanko, jotta ladataan vain uudet?",
-			"syncNoneTitle": "Mitään ei ole vielä ladattu",
-			"syncNoneDesc": "Mitään tämän soittolistan videota ei löytynyt kansiosta {{dir}}.",
-			"syncNoneDescGeneric": "Mitään tämän lähteen videota ei löytynyt kansiosta {{dir}}.",
-			"alreadyDownloaded": "Jo ladattu",
-			"nestedPlaylistBadge": "Soittolista",
-			"nestedPlaylistHint_one": "{{count}} näistä on soittolista, ei video – liitä sen linkki erikseen ladataksesi sen.",
-			"nestedPlaylistHint_other": "{{count}} näistä on soittolistoja, ei videoita – liitä niiden linkit yksi kerrallaan ladataksesi ne.",
-			"probeLimitAlertTitle": "Soittolistan tarkistus on rajattu",
-			"probeLimitAlertTitleGeneric": "Tarkistus on rajattu",
-			"probeLimitAlertDesc": "Näytetään ensimmäiset {{count}} kohdetta. Suurenna latausrajaa nähdäksesi lisää.",
-			"multiProfileEntry": "Määritä profiilit kohteittain",
-			"multiProfileEntryTooltip": "Ohittaa vaiheet Laatu, SponsorBlock, Tuloste ja Tallennus – määritä sen sijaan latausprofiili kohteittain",
-			"removeFromListCount_one": "Poista {{count}} luettelosta",
-			"removeFromListCount_other": "Poista {{count}} luettelosta",
-			"restore": "Palauta",
-			"removedCount_one": "{{count}} poistettu",
-			"removedCount_other": "{{count}} poistettu",
-			"allRemovedTitle": "Kaikki kohteet poistettiin",
-			"allRemovedDescription": "Palauta ne jatkaaksesi."
-		},
-		"bulk": {
-			"title": "Useita URL-osoitteita",
-			"description": "Liitä video-, soittolista-, kanava-, haku- tai ääni-URL-osoitteita. Arroxy poistaa kaksoiskappaleet ennen jonoon lisäämistä.",
-			"textareaLabel": "URL-luettelo",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Valmiit",
-			"ignoredCount": "Ohitetut",
-			"emptyPreview": "Liitä yksi tai useampi URL-osoite nähdäksesi erän esikatselun.",
-			"needsAtLeastOne": "Lisää vähintään yksi tuettu URL-osoite jatkaaksesi.",
-			"reject": {"duplicate": "Kaksoiskappale"}
-		},
-		"tabsNavAria": "Latausprofiilin navigointi",
-		"profileSwitchRow": {"helpAria": "Ohje: {{label}}"},
-		"mixedPrompt": {
-			"title": "Tässä linkissä on soittolista",
-			"body": "Haluatko vain napsauttamasi videon vai valita soittolistasta? Valitset seuraavaksi tietyt videot tai alueen.",
-			"quickBody": "Lataa vain tämä video tai lisää koko soittolista jonoon aktiivisella Pikalataus-profiilillasi.",
-			"singleVideo": "Vain tämä",
-			"quickSingleVideo": "Lataa tämä video",
-			"pickFromPlaylist": "Valitse soittolistasta",
-			"quickWholePlaylist": "Lataa koko soittolista",
-			"playlistLimit": "Soittolistan tarkistusraja: {{count}} kohdetta",
-			"quickLimitDescription": "Enimmäismäärä kohteita, jotka Arroxy tarkistaa ennen soittolistan, kanavan tai hakutuloksen lisäämistä jonoon.",
-			"singleTooltip": "Lataa vain tämän videon. Tähän URL-osoitteeseen liitetty soittolista ohitetaan.",
-			"quickSingleTooltip": "Lisää jonoon yhden latauksen ja ohittaa tähän URL-osoitteeseen liitetyn soittolistan.",
-			"playlistTooltip": "Lataa soittolistan tarkistusrajaasi asti ennen valitsimen näyttämistä.",
-			"quickPlaylistTooltip": "Lisää jonoon kaikki ladatut soittolistan kohteet aktiivisella Pikalataus-profiililla. Jos tarkistus yltää rajaasi, Arroxy kysyy ennen jonoon lisäämistä."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Soittolistan rajaus",
-				"change": "Muuta",
-				"summaryAppLimit": "Lataa ensimmäiset kohteet: {{count}}",
-				"summaryFirst": "Lataa ensimmäiset kohteet: {{count}}",
-				"summaryRange": "Lataa kohteet {{from}}–{{to}}",
-				"dialogTitle": "Soittolistan rajaus",
-				"dialogDescription": "Valitse, mitä Arroxy lataa tästä soittolistasta.",
-				"itemsLabel": "Ladattavat kohteet",
-				"appLimit": "Käytä sovelluksen rajaa: {{count}}",
-				"first": "Ensimmäiset",
-				"range": "Alue",
-				"to": "asti",
-				"invalid": "Käytä kokonaisia kohdenumeroita väliltä 1–{{max}}, alun ollessa enintään lopun suuruinen.",
-				"applyError": "Soittolistan rajausta ei voitu käyttää: {{message}}",
-				"reset": "Palauta",
-				"cancel": "Peruuta",
-				"apply": "Käytä",
-				"applyReload": "Käytä ja lataa uudelleen",
-				"reloading": "Ladataan uudelleen...",
-				"emptyTitle": "Tässä rajauksessa ei ole videoita"
-			},
-			"heading": "Lataa URL-osoitteesta",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiilit", "settings": "Asetukset"},
-			"interactiveDownload": "Ohjattu lataus",
-			"fetchFormatsTooltip": "Vaiheittainen ohjattu toiminto. Valitse muoto, laatu ja muuta.",
-			"quickDownload": "Pikalataus",
-			"quickDownloadTooltip": "Lataa profiililla: {{profileName}}",
-			"quickPreparing": "Valmistellaan",
-			"quickQueued": "Lisätty jonoon",
-			"quickSingleOnly": "Aloita liittämällä video-, soittolista-, kanava- tai haku-URL.",
-			"quickProbeFailed": "Tietojen haku epäonnistui",
-			"quickPrepareFailed": "Jonon kohdetta ei voitu valmistella",
-			"quickBulkAllFailed": "Mitään näistä URL-osoitteista ei voitu valmistella",
-			"quickFailed": "Tätä ei voitu lisätä: {{error}}",
-			"quickPartialFailed_one": "Toimivat lisättiin jonoon. Yhtä URL-osoitetta ei voitu valmistella.",
-			"quickPartialFailed_other": "Toimivat lisättiin jonoon. {{count}} URL-osoitetta ei voitu valmistella.",
-			"profile": {
-				"destinationFallback": "Kohde",
-				"switchAria": "Vaihda latausprofiilia: {{profileName}}",
-				"switchTitle": "Vaihda latausprofiilia",
-				"activeLabel": "Aktiivinen profiili",
-				"editActive": "Muokkaa aktiivista profiilia",
-				"changeGlobalDestination": "Muuta yleistä kohdetta",
-				"destinationDetail": {"global": "Käytössä yleinen kohde", "globalSubfolder": "Käytössä yleinen kohde + profiilin alikansio", "override": "Käytössä profiilin ohitus", "overrideSubfolder": "Käytössä profiilin ohitus + profiilin alikansio"},
-				"summary": {"bestVideo": "paras video", "bestAudio": "paras ääni", "aacAudio": "AAC-ääni", "wavAudio": "WAV-ääni", "noAudio": "ei ääntä", "subtitlesOnly": "vain tekstitykset"},
-				"menuTitle": "Vaihda profiilia",
-				"menuDescription": "Vaihda aktiivinen profiili Pikalataukselle, useille URL-osoitteille ja soittolistoille.",
-				"newProfile": "Uusi profiili",
-				"manageProfiles": "Hallitse profiileja",
-				"panelTitle": "Latausprofiilit",
-				"panelDescription": "Luo, valitse, muokkaa tai poista uudelleenkäytettäviä latausmäärityksiä.",
-				"badgeCustom": "Mukautettu",
-				"badgeModified": "Muokattu",
-				"badgeBuiltIn": "Sisäänrakennettu",
-				"badgeDisabled": "Piilotettu",
-				"enableToggleAria": "Näytä profiili valitsimissa: {{profileName}}",
-				"enableHint": "Piilotetut profiilit pysyvät täällä mutta katoavat kaikista profiilinvalitsimista.",
-				"reorderHint": "Siirrä profiilia vetämällä. Jokainen profiilinvalitsin noudattaa tätä järjestystä.",
-				"moveHandleAria": "Siirrä {{profileName}}",
-				"movableProfile": "siirrettävä profiili",
-				"moveInstructions": "Siirrä profiilia painamalla välilyöntiä tai Enteriä, siirrä sitä nuolinäppäimillä ja pudota se painamalla välilyöntiä tai Enteriä. Peruuta painamalla Esc-näppäintä.",
-				"movePickedUp": "{{profileName}} poimittu. Se on sijainnissa {{position}} / {{count}}.",
-				"moveOver": "{{profileName}} on sijainnin {{position}} / {{count}} päällä.",
-				"moveDropped": "{{profileName}} pudotettu sijaintiin {{position}} / {{count}}.",
-				"moveCancelled": "Siirto peruttu. {{profileName}} pysyy sijainnissa {{position}} / {{count}}.",
-				"lastEnabledHint": "Pidä vähintään yksi profiili saatavilla.",
-				"edit": "Muokkaa",
-				"remove": "Poista",
-				"reset": "Palauta"
-			},
-			"bulkButton": "Useita URL-osoitteita",
-			"bulkTooltip": "Lisää useita URL-osoitteita jonoon.",
-			"features": {
-				"heading": "Mitä Arroxy voi ladata",
-				"youtube": {"heading": "YouTube", "video": "Videot", "channel": "Kanavat", "playlist": "Soittolistat", "short": "Shorts", "music": "Musiikki", "podcast": "Podcastit"},
-				"anySite": {"heading": "2000+ sivustoa", "video": "Videot", "videoPlaylist": "Videosoittolistat", "musicPlaylist": "Musiikkisoittolistat"},
-				"always": {"audioOnly": "Vain ääni", "subtitles": "Tekstitykset"}
-			},
-			"mascotIdle": "Pudota linkki ja anna Arroxyn hoitaa loput ✨",
-			"mascotBusy": "Ladataan taustalla… osaan tehdä montaa asiaa yhtä aikaa 😎",
-			"mascotPreparing": "{{quickDownload}} lukee tätä linkkiä ja käyttää profiilia {{profileName}}.",
-			"mascotQueued": "Jono käsittelee tätä latausta. Voit liittää toisen linkin sen ollessa käynnissä.",
-			"mascotCollection": "Pikalataus lisää ladatut kohteet jonoon profiililla {{profileName}}. Ohjatussa voit ensin tarkastella tai valita kohteita.",
-			"mascotMixed": "Tämä linkki osoittaa yhteen videoon kokoelman sisällä. Arroxy kysyy, minkä haluat, ennen tietojen hakua.",
-			"mascotSingle": "Pikalataus aloittaa yhden latauksen profiililla {{profileName}}. Käytä Ohjattua kertaluonteisiin muutoksiin.",
-			"advanced": "Lisäasetukset",
-			"settings": {"inputHeading": "Syöte", "behaviorHeading": "Latausten toiminta", "behaviorDescription": "Yleinen toiminta, joka vaikuttaa myös profiilipohjaisiin latauksiin."},
-			"clearAria": "Tyhjennä URL",
-			"clipboard": {
-				"toggle": "Seuraa leikepöytää",
-				"toggleDescription": "Täyttää URL-kentän automaattisesti, kun kopioit videolinkin.",
-				"autofilledLink": "Linkki lisätty leikepöydältä",
-				"bulkHint": "Useita linkkejä kopioitu – lisää ne Useita URL-osoitteita -toiminnolla",
-				"replacedLink": "Korvattu kopioidulla linkillä",
-				"undo": "Kumoa",
-				"dialog": {"cancelButton": "Peruuta"}
-			},
-			"hotkey": {
-				"sectionTitle": "Yleinen pikanäppäin",
-				"sectionDescription": "Lataa mikä tahansa kopioimasi linkki mistä tahansa sovelluksesta avaamatta Arroxya.",
-				"toggle": "Ota yleinen pikanäppäin käyttöön",
-				"toggleDescription": "Paina pikanäppäintä, kun leikepöydällä on videolinkki.",
-				"changeShortcut": "Vaihda pikanäppäin",
-				"recording": "Paina näppäimiä…",
-				"test": "Testaa",
-				"conflict": "Toinen sovellus käyttää tätä pikanäppäintä – valitse toinen.",
-				"hintLabel": "Tai paina",
-				"hintTooltip": "Kopioi videolinkki mistä tahansa, paina tätä pikanäppäintä, ja Arroxy lisää sen jonoon aktiivisella profiilillasi – ikkunaa ei tarvitse vaihtaa.",
-				"hintTooltipSettings": "Muuta tai poista käytöstä Asetuksissa.",
-				"reset": "Palauta oletus"
-			},
-			"cookies": {
-				"sourceLabel": "Evästeiden lähde",
-				"sourceOff": "Pois",
-				"sourceFile": "Tiedosto",
-				"sourceBrowser": "Selain",
-				"sourceExplore": "Tutki-kirjautuminen",
-				"recommended": "Suositeltu",
-				"exploreDescription": "Käyttää Tutki-kirjautumistasi vain, kun lataus sitä tarvitsee.",
-				"exploreDisabled": "Tutki-välilehti on pois päältä, joten lataukset eivät käytä Tutki-kirjautumistasi. Ota se käyttöön alla kohdassa Tutki.",
-				"openExplore": "Avaa Tutki",
-				"toggleDescription": "Auttaa ikärajoitettujen, vain jäsenille tarkoitettujen ja tiliin sidottujen yksityisten videoiden kanssa.",
-				"risk": "Riski: cookies.txt sisältää kaikki kyseisen selaimen kirjautuneet istunnot – pidä se yksityisenä.",
-				"fileLabel": "Evästetiedosto",
-				"choose": "Valitse…",
-				"clear": "Tyhjennä",
-				"placeholder": "Tiedostoa ei ole valittu",
-				"helpLink": "Miten viet evästeet?",
-				"enabledButNoFile": "Valitse tiedosto käyttääksesi evästeitä",
-				"browserLabel": "Selain",
-				"browserPlaceholder": "Valitse selain…",
-				"browserHelp": "Lukee evästeet suoraan selaimesta. Selaimen on oltava suljettuna Chromium-pohjaisilla selaimilla.",
-				"enabledButNoBrowser": "Valitse selain käyttääksesi evästeitä",
-				"banWarning": "Sivustot kuten YouTube voivat merkitä – ja joskus estää – tilejä, joiden evästeitä Arroxyn kaltaiset latausohjelmat käyttävät. Käytä mahdollisuuksien mukaan kertakäyttötiliä.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Get cookies.txt LOCALLY (Chrome-selaimelle)"
-			},
-			"proxy": {"label": "Välityspalvelimen URL", "description": "Reititä liikenne välityspalvelimen kautta – hyödyllinen alueelle rajatulle sisällölle.", "placeholder": "http://host:port", "clear": "Tyhjennä"},
-			"style": {
-				"panelTitle": "Ulkoasu",
-				"panelDescription": "Arroxyn ulkoasu. Vaihda vaalean ja tumman välillä alatunnisteessa.",
-				"modeLabel": "Tyyli",
-				"modeDescription": "Molemmat tyylit ovat saatavilla vaaleina ja tummina.",
-				"aurora": {"label": "Aurora", "description": "Lasipaneeleja liikkuvan taivaan päällä. Vaatii grafiikkakiihdytyksen."},
-				"minimal": {"label": "Minimal", "description": "Tasaisia, rauhallisia pintoja. Toimii kevyesti millä tahansa tietokoneella."},
-				"unavailableNotice": "{{style}} vaatii grafiikkakiihdytyksen, joka ei ole nyt käytettävissä, joten Arroxy näyttää tyylin {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Latausnopeuden raja",
-				"description": "Rajoita median latausten kaistanleveyttä. Pyyntöjen tahdistus alla on yleensä tehokkaampi tapa välttää rajoituksia.",
-				"off": "Pois",
-				"custom": "Mukautettu…",
-				"customPlaceholder": "esim. 750K tai 1.5M",
-				"invalid": "Käytä lukua, jota seuraa K tai M (esim. 500K, 1.5M)",
-				"activeWarning": "Aktiiviset lataukset säilyttävät nykyisen rajansa. Ota muutokset käyttöön keskeyttämällä ja jatkamalla."
-			},
-			"playlistProbeLimit": {
-				"label": "Tarkistettavat soittolistan kohteet",
-				"description": "Enimmäismäärä kohteita, jotka Arroxy lataa, kun soittolista, kanava tai hakutulos avataan.",
-				"option": "{{count}} kohdetta",
-				"current": "Nykyinen raja: {{count}} kohdetta",
-				"customValue": "Mukautettu: {{count}} kohdetta",
-				"custom": "Mukautettu…",
-				"customDialogTitle": "Mukautettu soittolistan tarkistusraja",
-				"customDialogDescription": "Käytä kokonaislukua väliltä {{min}}–{{max}}.",
-				"customDialogCancel": "Peruuta",
-				"customDialogSave": "Tallenna raja",
-				"invalid": "Käytä kokonaislukua väliltä 1–5000",
-				"tooltip": "Arroxy pyytää valitsinta rakentaessaan vain näin monta soittolistan, kanavan tai haun kohdetta."
-			},
-			"nativeAudioPreference": {"label": "Alkuperäisen äänen valinta", "description": "Stereo tai surround, kun profiili valitsee alkuperäisen äänen. Profiili voi ohittaa tämän.", "compatible": "Yhteensopiva stereo", "surround": "Suosi surroundia / Dolbya"},
-			"autoRetry": {"label": "Yritä epäonnistuneita latauksia uudelleen", "description": "Yrittää automaattisesti uudelleen verkko- tai palvelinhäiriön jälkeen odottaen yritysten välillä yhä pidempään. Sivuston estämiä latauksia ei koskaan yritetä automaattisesti uudelleen.", "unit": "kertaa"},
-			"autoRemoveCompleted": {"label": "Poista valmistuneet lataukset", "description": "Poistaa latauksen Lataukset-luettelosta muutaman sekunnin kuluttua sen valmistumisesta. Tiedostot pysyvät kansiossasi; epäonnistuneet ja peruutetut lataukset pysyvät luettelossa."},
-			"concurrentDownloads": {"label": "Lataukset kerralla", "description": "Kuinka monta jonossa olevaa kohdetta ladataan samaan aikaan. Useampi kerralla saa pitkän jonon valmiiksi aiemmin, mutta lisää riskiä, että sivusto rajoittaa sinua.", "unit": "latausta"},
-			"downloadConnections": {"label": "Latausyhteydet", "description": "Nopeuttaa suuria latauksia hakemalla videon useita osia kerralla. Korkeammat arvot lisäävät riskiä, että sivusto rajoittaa sinua.", "unit": "yhteyttä"},
-			"networkPacing": {
-				"heading": "Hellävaraiset lataukset",
-				"description": "Lisää pieniä odotuksia jokaisen latauksen aikana, jotta Arroxy ei kuormita sivustoa liian aggressiivisesti. Arvot ovat sekunteja.",
-				"presetLabel": "Kuinka varovainen Arroxyn pitäisi olla?",
-				"tooltip": "Nämä odotukset tapahtuvat jokaisen latauksen sisällä. Samanaikaisesti käynnissä olevien latausten määrä asetetaan erikseen kohdassa Lataukset kerralla.",
-				"summary": "Odotukset: {{requests}} tarkistusten välillä, {{downloads}} ennen median alkua, {{subtitles}} ennen tekstitystiedostoja.",
-				"presets": {"off": "Pois", "balanced": "Tasapainoinen", "careful": "Varovainen", "custom": "Mukautettu"},
-				"tooltips": {
-					"off": "Käyttää vain pieniä perustaukoja, jotka Arroxy pitää mediaa ja tekstityksiä varten.",
-					"balanced": "Oletus. Lisää lyhyitä taukoja pyyntöjen välille ja ennen median alkua.",
-					"careful": "Lisää pidempiä taukoja suurille soittolistoille tai verkoille, jotka törmäävät usein rajoituksiin.",
-					"custom": "Säädä latauskohtaiset lisäasetukset itse."
-				},
-				"fields": {"sleepRequests": "Odotus tietojen tarkistusten välillä", "sleepInterval": "Tauko ennen median alkua: vähintään", "maxSleepInterval": "Tauko ennen median alkua: enintään", "sleepSubtitles": "Odotus ennen tekstitystiedostoja"},
-				"units": {"seconds": "s"}
-			},
-			"closeToTray": {"toggle": "Piilota ilmaisinalueelle suljettaessa", "toggleDescription": "Jatka latauksia taustalla ikkunan sulkemisen jälkeen."},
-			"analytics": {
-				"toggle": "Lähetä päivittäinen elonmerkki",
-				"toggleDescription": "Ei telemetriaa. Kerran päivässä nimetön elonmerkki lähettää sovelluksen version, asennuskanavan, käyttöjärjestelmän, kielen, maan ja suunnilleen sen, kuinka kauan Arroxy on ollut asennettuna, jotta voimme laskea aktiiviset ja uudet käyttäjät. Ei tunnisteita, URL-osoitteita, videoiden nimiä eikä tiedostonimiä."
-			}
-		},
-		"quickProgress": {
-			"title": "Valmistellaan Pikalatausta",
-			"description": "Arroxy lukee linkkiä ja käyttää profiilia {{profileName}}.",
-			"currentFallback": "Nykyinen linkki",
-			"waitHint": "Pidä tämä auki, kunnes Arroxy valmistelee jonon.",
-			"failedCount_one": "{{count}} epäonnistui",
-			"failedCount_other": "{{count}} epäonnistui",
-			"cancel": "Peruuta valmistelu",
-			"phase": {"probing": "Haetaan tietoja", "queueing": "Lisätään jonoon"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Tälle videolle ei ole tekstityksiä",
-			"searchPlaceholder": "Hae kieliä…",
-			"noMatches": "Ei vastaavia kieliä",
-			"clearAll": "Tyhjennä kaikki",
-			"noSelected": "Tekstityksiä ei ole valittu",
-			"removeLanguage": "Poista {{name}}",
-			"sectionManual": "Manuaaliset",
-			"sectionAuto": "Automaattisesti luodut",
-			"saveMode": {"heading": "Tallennustapa", "sidecar": "Videon viereen", "embed": "Upota videoon", "subfolder": "subtitles/-alikansio"},
-			"format": {"heading": "Muoto"},
-			"embedNote": "Upotustila tallentaa tuloksen .mkv-tiedostona, jotta tekstitysraidat upotetaan luotettavasti.",
-			"autoAssNote": "Automaattiset tekstitykset tallennetaan SRT-muodossa ASS:n sijaan – YouTube-videoilla niistä poistetaan vierivien vihjeiden kaksoistoisto, jota ASS-muuntimemme ei vielä osaa toistaa."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsorien suodatus",
-			"mode": {"off": "Pois", "mark": "Merkitse luvuiksi", "remove": "Poista jaksot"},
-			"modeHint": {"off": "Ei SponsorBlockia – video toistuu sellaisena kuin se on ladattu.", "mark": "Merkitsee sponsorisegmentit luvuiksi (ei-tuhoava).", "remove": "Leikkaa sponsorisegmentit pois videosta FFmpegillä."},
-			"categoriesHeading": "Luokat",
-			"cat": {"sponsor": "Sponsori", "intro": "Intro", "outro": "Outro", "selfpromo": "Omamainos", "music_offtopic": "Aiheeseen kuulumaton musiikki", "preview": "Esikatselu", "filler": "Täyte"}
-		},
-		"formats": {
-			"kind": {"label": "Mitä ladataan", "video": "Video + ääni", "videoOnly": "Video, ei ääntä", "audio": "Vain ääni", "subtitles": "Vain tekstitykset"},
-			"profile": {
-				"calloutTitle": "Muodot lähtevät profiilistasi",
-				"calloutBody": "Aktiivinen profiilisi valitsee virrat puolestasi. Vaihda profiilia valikosta tai säädä sitä kynäkuvakkeella poistumatta tästä latauksesta.",
-				"preselected": "Esivalittu profiilista",
-				"tag": "Profiili",
-				"closestTag": "Lähinnä profiilia",
-				"switchTitle": "Vaihdetaanko profiili?",
-				"switchBody": "Muutit tässä latauksessa seuraavia: {{areas}}. Profiili ”{{profile}}” valitsee videon ja äänen joka tapauksessa. Säilytetäänkö muut muutoksesi vai palautetaanko kaikki profiilin mukaisiksi?",
-				"resetAll": "Palauta kaikki",
-				"edit": "Muokkaa: {{name}}",
-				"updatedTitle": "Käytetäänkö päivitettyä profiilia?",
-				"updatedBody": "Muutit tässä latauksessa seuraavia: {{areas}}. Päivitetty profiili valitsee videon ja äänen joka tapauksessa. Säilytetäänkö muut muutoksesi vai palautetaanko kaikki profiilin mukaisiksi?",
-				"keepEdits": "Säilytä muutokseni",
-				"menuDescription": "Vain tälle lataukselle. Oletusprofiilisi pysyy ennallaan."
-			},
-			"fit": {
-				"tierBelow": "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämä video yltää vain {{picked}}p:hen, joten valittuna on {{picked}}p.",
-				"tierAbove": "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tässä videossa ei ole niin pientä, joten valittuna on {{picked}}p.",
-				"mp4Unavailable": "Profiilisi on Smart TV (H.264). Tämä video ei tarjoa H.264:ää, joten valittuna on lähin virta.",
-				"noVideo": "Tässä linkissä ei ole videota, joten ääni on valittu.",
-				"subtitlesMissing": "Profiilisi pyytää tekstityksiä kielillä {{languages}}. Tällä videolla niitä ei ole.",
-				"webmUnavailable": "Profiilisi pyytää WebM:ää. Tämän videon valittuihin virtoihin kuuluu {{codec}}, jota WebM ei voi sisältää, joten tiedostotyyppi on Auto."
-			},
-			"footer": {"download": "Lataa", "moreActions": "Lisää lataustoimintoja", "addToQueue": "Lisää jonoon aloittamatta", "subtitlesRequired": "Valitse vähintään yksi tekstityskieli."},
-			"video": "Video",
-			"audio": "Ääni",
-			"noAudio": "Ei ääntä",
-			"withAudio": "äänellä",
-			"resolutionUnknown": "Tuntematon tarkkuus",
-			"bitrateValue": "Bittinopeus {{bitrate}}",
-			"marker": {"aiUpscaled": "Tekoälyllä skaalattu", "aiDubbed": "Tekoälydubattu", "audioDescription": "Äänikuvaus", "spatialAudio": "Tilaääni", "vr": "360° / VR", "enhancedBitrate": "Parannettu bittinopeus", "damaged": "Vioittunut", "watermarked": "Vesileimattu"},
-			"keepAudio": "Säilytä sellaisenaan",
-			"keepAudioMeta": "Sisäänrakennettu ääni",
-			"audioOnly": "Vain ääni",
-			"sniffing": "Etsitään sinulle parhaita muotoja…",
-			"loadingHint": "Odota, kunnes tietojen haku päättyy – soittolistat ja haut voivat kestää hetken.",
-			"loadingAria": "Ladataan muotoja",
-			"sizeUnknown": "Koko tuntematon",
-			"total": "Yhteensä",
-			"skipToConfirm": "Siirry vahvistukseen",
-			"skipToConfirmTooltip": "Käyttää tallennettuja asetuksiasi kaikissa jäljellä olevissa vaiheissa. Jos haluat muuttaa asetusta, jatka sen sijaan vaihe vaiheelta – valintasi tallennetaan seuraavaa kertaa varten.",
-			"quality": {"high": "Korkea laatu", "medium": "Keskitason laatu", "low": "Matala laatu"},
-			"drc": {"label": "Tasaa äänenvoimakkuus (DRC)", "description": "Hiljentää kovia kohtia ja voimistaa hiljaisia, kaiuttimille ja meluisiin tiloihin.", "tag": "Tasainen äänenvoimakkuus"},
-			"audioLanguage": "Äänen kieli",
-			"audioLanguageCount_one": "{{count}} kieli",
-			"audioLanguageCount_other": "{{count}} kieltä",
-			"convert": {
-				"label": "Muunna",
-				"bitrate": "Bittinopeus",
-				"wavLabel": "WAV (pakkaamaton)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps, ei uudelleenkoodausta",
-				"copyLabelNoBitrate": "{{target}}, ei uudelleenkoodausta",
-				"copyNote": "{{kbps}} kbps, kuten lähteessä: virta on jo {{target}}, joten se kopioidaan eikä koodata uudelleen",
-				"copyNoteNoBitrate": "Kuten lähteessä: virta on jo {{target}}, joten se kopioidaan eikä koodata uudelleen",
-				"bitrateCopyHint": "Lähde, joka on jo {{target}}, säilyttää oman virtansa ja bittinopeutensa: se kopioidaan, ei koodata uudelleen.",
-				"sourceKbps": "Lähde on {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "Tietojen hakua rajoitettiin",
-				"bodyUnconfigured": "Muotoluettelo voi olla epätäydellinen. Määritä evästeet lisäasetuksissa tai vaihda verkkoa ja yritä uudelleen.",
-				"bodyDisabled": "Evästeet on määritetty, mutta ne ovat pois käytöstä. Ota ne käyttöön ja yritä uudelleen saadaksesi koko luettelon tai vaihda verkkoa ja yritä uudelleen.",
-				"bodyEnabled": "Evästeistä huolimatta YouTube rajoitti tätä tietojen hakua. Yritä myöhemmin uudelleen tai vaihda verkkoa.",
-				"bodyExplore": "YouTube rajoitti tätä pyyntöä. Yritä myöhemmin uudelleen tai vaihda verkkoa.",
-				"retryCta": "Yritä uudelleen",
-				"enableRetryCta": "Ota evästeet käyttöön ja yritä uudelleen"
-			},
-			"rateLimit": {
-				"heading": "Sivusto {{site}} rajoittaa tämän yhteyden pyyntöjä",
-				"leadDegraded": "Muotoluettelo voi olla epätäydellinen.",
-				"leadFailed": "Sivusto {{site}} hylkäsi tämän pyynnön toistaiseksi.",
-				"waitUntil": "Arroxy odottaa kello {{time}} asti, ennen kuin ottaa uudelleen yhteyttä sivustoon {{site}}, jotta rajoitus ehtii purkautua.",
-				"waitOver": "Odotus on ohi, joten voit yrittää uudelleen.",
-				"sessionNote": "Sivusto {{site}} voi pitää tämän rajoituksen voimassa jopa tunnin.",
-				"tryNowCta": "Yritä nyt",
-				"retryCta": "Yritä uudelleen"
-			},
-			"cookiesError": {
-				"heading": "Evästeet voivat olla syynä",
-				"currentModeLabel": "Evästeiden lähde",
-				"currentModeFile": "Tiedosto",
-				"currentModeBrowser": "Selain",
-				"currentModeExplore": "Tutki-kirjautuminen",
-				"explanationFile": "Evästetiedostosi voi olla tyhjä, vanhentunut tai väärässä muodossa (Arroxy tarvitsee Netscape-muotoisen cookies.txt-tiedoston). Kokeile viedä evästeet uudelleen, valita toinen tiedosto, vaihtaa Selain-tilaan tai poistaa evästeet käytöstä.",
-				"explanationBrowser": "Evästeet luetaan suoraan selaimesta. Jos selain on parhaillaan käynnissä, sen evästetietokanta voi olla lukittu (Chromium-pohjaiset selaimet). Selaimen on myös oltava kirjautuneena YouTubeen. Kokeile sulkea selain, vaihtaa toiseen selaimeen, vaihtaa Tiedosto-tilaan tai poistaa evästeet käytöstä.",
-				"openSettingsCta": "Avaa evästeasetukset",
-				"exploreSignIn": {"heading": "Tämä video voi vaatia YouTube-tilin", "body": "Jos tämä video vaatii YouTube-tilin, kirjaudu sisään Tutki-näkymässä ja yritä uudelleen. Arroxy käyttää tuota kirjautumista vain, kun lataus sitä tarvitsee.", "cta": "Kirjaudu Tutki-näkymässä"},
-				"exploreSignedIn": {"heading": "Kirjautunut Tutki-näkymään", "body": "Jos tämä video vaatii tilin, Arroxy käyttää Tutki-kirjautumistasi automaattisesti. Video voi olla poissa käytöstä jostain muusta syystä."},
-				"exploreOffer": {"heading": "Tämä video voi vaatia YouTube-tilin", "body": "Kirjaudu sisään Tutki-näkymässä, niin Arroxy yrittää sitä uudelleen.", "cta": "Kirjaudu Tutki-näkymässä"},
-				"exploreReuse": {"heading": "Tämä video voi vaatia YouTube-tilin", "body": "Olet kirjautunut Tutki-näkymään, mutta lataukset eivät tällä hetkellä käytä tuota kirjautumista.", "cta": "Käytä Tutki-kirjautumistani ja yritä uudelleen"},
-				"exploreSite": {
-					"heading": "Tämä linkki voi vaatia tilin sivustolla {{host}}",
-					"signInBody": "Kirjaudu sivustolle {{host}} Tutki-näkymässä ja yritä sitten uudelleen. Arroxy käyttää tuota kirjautumista vain, kun lataus sitä tarvitsee.",
-					"offerBody": "Kirjaudu sivustolle {{host}} Tutki-näkymässä ja yritä sitten uudelleen."
-				},
-				"exploreRefused": {"heading": "Sivusto kieltäytyi tästä Tutki-kirjautumisesta huolimatta", "body": "Arroxy yritti jo sisäänkirjautuneena Tutki-näkymän kautta, joten uusi kirjautuminen ei auta. Sivustolla voi olla ongelmia, tai tämä tili ei voi avata sitä. Yritä myöhemmin uudelleen."},
-				"otherCookiesCta": "Käytä sen sijaan evästetiedostoa tai selainta…",
-				"needsCookies": {"heading": "Tämä sivusto vaatii kirjautumisen", "body": "Arroxy ei päässyt käsiksi tähän videoon ilman todennusta. Määritä evästeet lisäasetuksissa – osoita selain, johon olet jo kirjautunut, tai tuo cookies.txt-tiedosto."},
-				"dpapi": {
-					"heading": "Windowsin salaus esti Chromen evästeet",
-					"explanation": "Chrome 127 ja uudemmat salaavat evästeet tavalla, jota muut sovellukset eivät voi lukea Windowsissa. Kokeile jotakin alla olevista kiertotavoista.",
-					"fixFirefoxLabel": "Vaihda Firefoxiin",
-					"fixFirefoxBody": "Firefox ei käytä App-Bound Encryptionia. Avaa evästeasetukset ja valitse Firefox selainluettelosta.",
-					"fixFileLabel": "Vie cookies.txt",
-					"fixFileBody": "Vie evästeet Chromesta selainlaajennuksella, vaihda sitten tämä sovellus Tiedosto-tilaan ja valitse viety tiedosto.",
-					"fixUnsafeLabel": "Käynnistä Chrome App-Bound Encryption poistettuna käytöstä",
-					"fixUnsafeBody": "Lisää --disable-features=LockProfileCookieDatabase Chromen käynnistyspikakuvakkeeseen. Varoitus: tämä mitätöi aiemmin salatut evästeet, joten kirjaudut ulos kaikilta sivustoilta ja joudut kirjautumaan uudelleen sisään.",
-					"docsLinkLabel": "yt-dlp:n ohjeet (ongelma #10927)"
-				}
-			},
-			"savesAs": {"label": "Tallentuu muodossa", "reset": "WebM ei voi sisältää koodekkia {{codec}}, joten tiedostotyypiksi palautettiin Auto."}
-		},
-		"folder": {
-			"heading": "Tallenna kohteeseen",
-			"downloads": "Lataukset",
-			"videos": "Elokuvat",
-			"desktop": "Työpöytä",
-			"music": "Musiikki",
-			"documents": "Asiakirjat",
-			"pictures": "Kuvat",
-			"home": "Koti",
-			"custom": "Mukautettu…",
-			"subfolder": {"toggle": "Tallenna alikansioon", "placeholder": "esim. lo-fi-tallenteet", "invalid": "Kansion nimessä on virheellisiä merkkejä"}
-		},
-		"output": {
-			"embedChapters": {"label": "Upota luvut", "description": "Lukumerkit, joiden avulla voi siirtyä missä tahansa nykyaikaisessa soittimessa."},
-			"embedMetadata": {"label": "Upota metatiedot", "description": "Nimi, esittäjä, kuvaus ja lisäyspäivä kirjoitetaan tiedostoon."},
-			"embedThumbnail": {"label": "Upota pikkukuva", "description": "Kansikuva tiedoston sisällä. WebM-video muunnetaan MKV:ksi; ohitetaan, jos tekstitykset upotetaan."},
-			"writeDescription": {"label": "Tallenna kuvaus", "description": "Tallentaa videon kuvauksen .description-tekstitiedostona latauksen viereen."},
-			"writeThumbnail": {"label": "Tallenna pikkukuva", "description": "Tallentaa pikkukuvan .jpg-kuvatiedostona latauksen viereen."},
-			"writeM3u": {"label": "Luo .m3u-soittolistatiedosto", "description": "Tallenna .m3u-soittolista videoiden viereen, jotta ne avautuvat järjestyksessä mediasoittimessa."}
-		},
-		"review": {
-			"changeFormat": "Muuta muotoa",
-			"rowsHeading": "Kaikki muu",
-			"rows": {"subtitles": "Tekstitykset", "sponsorBlock": "SponsorBlock", "extras": "Lisäosat", "saveTo": "Tallennuskohde", "fileName": "Tiedostonimi"},
-			"value": {"subtitlesOff": "Pois", "sponsorBlockOff": "Pois", "extrasNone": "Ei mitään"},
-			"changed": "Muutettu profiilista {{profile}}: {{areas}}. Koskee vain tätä latausta.",
-			"areas": {"format": "muoto", "subtitles": "tekstitykset", "sponsorBlock": "SponsorBlock", "extras": "lisäosat", "saveTo": "kansio", "fileName": "tiedostonimi"},
-			"updateProfile": "Päivitä ”{{profile}}” näillä muutoksilla",
-			"saveAsProfile": "Tallenna uutena profiilina",
-			"update": {
-				"title": "Päivitetäänkö ”{{profile}}”?",
-				"description": "Tästä lähtien jokainen tätä profiilia käyttävä lataus käyttää uusia asetuksia.",
-				"rows": {"format": "Muoto"},
-				"builtinNote": "Tämä on sisäänrakennettu profiili. Voit palauttaa sen alkuperäiset asetukset Profiilit-välilehdellä.",
-				"action": "Päivitä profiili",
-				"updated": "Profiili ”{{name}}” päivitetty"
-			},
-			"callout": {"title": "Kaikki muut asetukset ovat nyt tällä sivulla", "body": "Tekstitykset, SponsorBlock, lisäosat kuten pikkukuva, kansio ja tiedostonimi olivat aiemmin erillisiä vaiheita. Muuta niitä napsauttamalla riviä."},
-			"reset": "Kumoa muutokset, takaisin profiiliin ”{{profile}}”",
-			"changedFrom": "Muutettu profiilista {{profile}}:",
-			"save": {
-				"title": "Tallenna profiiliksi",
-				"description": "Säilyttää nämä asetukset profiilina, jonka voit valita ensi kerralla. Pikalataus-profiilisi pysyy samana.",
-				"nameLabel": "Profiilin nimi",
-				"action": "Tallenna profiili",
-				"saved": "Tallennettu profiiliksi ”{{name}}”",
-				"failed": "Profiilia ei voitu tallentaa."
-			},
-			"nextTime": {"title": "Tämä lataus käytti muokattuja asetuksia. Käytetäänkö niitä ensi kerralla?", "action": "Tallenna profiiliksi", "defaultName": "{{profile}} (muokattu)"}
-		},
-		"confirm": {
-			"readyHeadline": "Valmis latausta varten!",
-			"landIn": "Tiedostosi tallentuu kansioon",
-			"landInMultiProfile_one": "Se tallentuu alla olevaan kohteeseen",
-			"landInMultiProfile_other": "Ne tallentuvat {{count}} alla olevaan kohteeseen",
-			"labelVideo": "Video",
-			"labelAudio": "Ääni",
-			"labelSubtitles": "Tekstitykset",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Tallennuskohde",
-			"labelSize": "Koko",
-			"sizeUnknown": "Tuntematon",
-			"nothingToDownload": "Vain tekstitykset -esiasetus on käytössä, mutta tekstityskieltä ei ole valittu – mitään ei ladata.",
-			"thumbnailEmbedNotSupported": "Pikkukuvan upotus ohitettu – tulostiedostotyyppi ei tue sitä.",
-			"subtitleEmbedAudioOnly": "Tekstityksen upotus vaihdettu erilliseksi tiedostoksi – äänitiedostot eivät tue upotettuja tekstitysvirtoja.",
-			"audioOnly": "Vain ääni",
-			"addToQueue": "+ Jono",
-			"addToQueueTooltip": "Lisää jonoon – alkaa, kun aktiivinen lataus päättyy",
-			"pullIt": "Aloita nyt ↓",
-			"pullItTooltip": "Ohittaa jonon – alkaa heti ja toimii muiden aktiivisten latausten rinnalla",
-			"labelPlaylist": "Soittolista",
-			"labelBulk": "Erä",
-			"labelPreset": "Esiasetus",
-			"labelItems": "Kohteet",
-			"itemsValue_one": "{{count}} / {{total}} videota",
-			"itemsValue_other": "{{count}} / {{total}} videota",
-			"itemsValueAudio_one": "{{count}} / {{total}} kappaletta",
-			"itemsValueAudio_other": "{{count}} / {{total}} kappaletta",
-			"itemsValueBulk_one": "{{count}} / {{total}} URL-osoitetta",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL-osoitetta",
-			"profileBreakdownHeading": "Tämän erän profiilit",
-			"profileBreakdownCount_one": "{{count}} kohde",
-			"profileBreakdownCount_other": "{{count}} kohdetta",
-			"subtitleEmbedForcesMkv": "Videon sisällä olevat tekstitykset vaativat MKV-tiedoston, joten tämä lataus tallentuu muodossa .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Latausprofiili",
-			"dialogDescription": "Yksi uudelleenkäytettävä määritys Pikalataukselle, useille URL-osoitteille ja soittolistoille.",
-			"skipped": "Ohitettu",
-			"panel": {
-				"identity": {"title": "Profiilin tunnistetiedot", "description": "Nimi ja kuvake näkyvät Pikalatauksessa, Useita URL-osoitteita -toiminnossa ja profiililuetteloissa."},
-				"downloadType": {"title": "Latauksen tyyppi", "description": "Valitse ensisijainen latausmuoto."},
-				"advanced": {"title": "Lisäasetukset", "description": "Profiilit perivät yleisen kohteen, ellet aseta profiilin ohitusta."},
-				"output": {"title": "Tulosteen asetukset", "enabledCount_one": "{{count}} käytössä", "enabledCount_other": "{{count}} käytössä"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profiilin nimi ja kuvake",
-				"icon": "Profiilin kuvake",
-				"resolution": "Tarkkuus",
-				"quality": "Laatu",
-				"source": "Lähde",
-				"subfolderName": "Alikansion nimi",
-				"name": "Profiilin nimi",
-				"subtitleDownloads": "Tekstitysten lataus",
-				"subtitleDownloadsDescription": "Profiilit pyytävät kielikoodeja; saatavuus ratkaistaan kunkin URL-osoitteen kohdalla.",
-				"languages": "Kielet",
-				"delivery": "Toimitus",
-				"overridePath": "Profiilin ohituspolku",
-				"goal": "Optimoi kohteelle",
-				"fileType": "Tiedostotyyppi",
-				"nativeAudio": "Alkuperäinen ääni"
-			},
-			"action": {
-				"chooseIcon": "Valitse profiilin kuvake",
-				"setOverride": "Aseta profiilin ohitus",
-				"chooseFolder": "Valitse kohdekansio",
-				"removeLanguage": "Poista {{code}}",
-				"useLanguageCode": "Käytä kielikoodia ”{{code}}”",
-				"changeGlobalShort": "Muuta yleistä",
-				"setOverrideShort": "Aseta ohitus",
-				"useGlobalDefault": "Käytä yleistä oletusta",
-				"reset": "Palauta profiili",
-				"resetHint": "Palauta sisäänrakennetun profiilin asetukset",
-				"resetDisabledHint": "Tämä profiili käyttää jo sisäänrakennettuja asetuksia",
-				"save": "Tallenna profiili"
-			},
-			"placeholder": {"folder": "Valitse kansio tälle profiilille"},
-			"destination": {
-				"global": "Yleinen kohde",
-				"override": "Profiilin ohitus",
-				"resolved": "Lopullinen kohde",
-				"defaultFolder": "Oletuslatauskansio",
-				"defaultFolderWithSubfolder": "Oletuslatauskansio / {{subfolder}}",
-				"globalActive": "Aktiivinen",
-				"globalInherited": "Peritty",
-				"overrideSet": "Ohittaa yleisen",
-				"overrideChoosing": "Valitse kansio",
-				"overrideNone": "Ohitusta ei ole asetettu",
-				"overrideSetNote": "Tämä profiili tallentaa omaan juurikansioonsa ennen alikansion lisäämistä.",
-				"overrideNoneNote": "Ohitusta ei ole asetettu. Tämä profiili käyttää yllä olevaa yleistä kohdetta."
-			},
-			"note": {
-				"subtitlesOnly": "Tämä profiili lisää jonoon vain tekstitystiedostoja. Video, ääni, SponsorBlock ja median muunnos ohitetaan.",
-				"noSubtitles": "Tälle profiilille ei pyydetä tekstitystiedostoja eikä upotettuja tekstitysraitoja.",
-				"searchLanguages": "Hae kielen nimellä tai koodilla",
-				"noLanguageMatches": "Ei vastaavia kieliä",
-				"subtitleLanguagesRequired": "Valitse vähintään yksi kieli.",
-				"subtitleLanguagesRequiredOrOff": "Valitse vähintään yksi kieli tai poista tekstitysten lataus käytöstä.",
-				"autoCaptionsSrt": "Automaattiset tekstitykset tallennetaan SRT-muodossa ASS:n sijaan.",
-				"skippedForOutputType": "Ohitetaan tälle tulostetyypille."
-			},
-			"error": {"save": "Profiilin asetuksia ei voitu tallentaa.", "changeGlobalDestination": "Yleistä kohdetta ei voitu muuttaa.", "reset": "Profiilin asetuksia ei voitu palauttaa.", "folderPicker": "Kansionvalitsinta ei voitu avata. Anna polku käsin."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + ääni", "description": "Tavalliset videotiedostot"},
-				"videoOnly": {"label": "Video, ei ääntä", "description": "Vain äänetön video"},
-				"audioOnly": {"label": "Vain ääni", "description": "Musiikki tai podcastit"},
-				"subtitlesOnly": {"label": "Vain tekstitykset", "description": "Vain tekstitystiedostot"}
-			},
-			"icon": {"controls": "Säätimet", "download": "Lataus", "video": "Video", "captions": "Tekstitykset", "audio": "Ääni", "music": "Musiikki", "podcast": "Podcast", "classes": "Kurssit", "clip": "Klippi", "archive": "Arkisto"},
-			"audioFormat": {"best": "Paras", "wav": "WAV"},
-			"audioQuality": {"128": "Enintään 128K", "192": "Enintään 192K", "320": "Enintään 320K", "best": "Paras laatu"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Ensin manuaaliset, sitten automaattiset", "manualAndAuto": "Manuaaliset ja automaattiset", "manualOnly": "Vain manuaaliset", "autoOnly": "Vain automaattisesti luodut"},
-			"sponsorBlockHint": {"off": "Ei SponsorBlockia – video toistuu sellaisena kuin se on ladattu.", "mark": "Merkitsee sponsorisegmentit luvuiksi (ei-tuhoava).", "remove": "Leikkaa sponsorisegmentit pois videosta FFmpegillä."},
-			"advanced": "Lisäasetukset",
-			"goal": {
-				"bestPicture": {"name": "Paras kuva", "tag": "AV1 · VP9", "description": "Terävin samalla koolla. Vanhemmat televisiot, QuickTime ja jotkin editorit eivät voi toistaa sitä."},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Toimii televisioissa, puhelimissa, WhatsAppissa, QuickTimessa ja videoeditoreissa. YouTube tarjoaa H.264:n vain 1080p:hen asti."}
-			},
-			"appSetting": "Käytä sovelluksen asetusta ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Kuinka paljon videosta",
-			"whole": "Koko video",
-			"wholeTrack": "Koko kappale",
-			"part": "Osa",
-			"unavailableSubtitles": "Tekstitykset kattavat aina koko videon.",
-			"unavailableDuration": "Tämä video ei ilmoita pituuttaan, joten se voidaan ladata vain kokonaisena.",
-			"rangeLabel": "Videon osa",
-			"start": "Alku",
-			"end": "Loppu",
-			"timeHint": "h:mm:ss, m:ss tai sekunteina",
-			"length": "{{length}} / {{duration}}",
-			"chapters": "Luvut",
-			"chapterUntitled": "Luku {{number}}",
-			"exactCut": {"label": "Tarkka leikkaus (koodaa uudelleen, hitaampi)", "hint": "Pois: jokainen leikkaus osuu lähimpään avainkuvaan, joka voi olla muutaman sekunnin päässä kirjoittamastasi ajasta."},
-			"calloutTitle": "Lataa vain osa videosta",
-			"calloutBody": "Vaihda videokortissa kohtaan Osa valitaksesi alun ja lopun tai luvun ja lataa vain kyseinen kohta.",
-			"connectionsNote": "Osa ladataan ffmpegin kautta, joten latausyhteyksien ja tahdistuksen asetukset eivät koske sitä.",
-			"urlStart": "Linkkisi alkaa kohdasta {{time}}",
-			"useUrlStart": "Käytä alkuna",
-			"error": {"startInvalid": "Anna alku muodossa h:mm:ss, m:ss tai sekunteina.", "endInvalid": "Anna loppu muodossa h:mm:ss, m:ss tai sekunteina.", "startNotBeforeEnd": "Alun on oltava ennen loppua.", "endBeyondDuration": "Video päättyy kohtaan {{duration}}."},
-			"downloadBlocked": "Korjaa ensin osan alku ja loppu.",
-			"totalEstimate": "Osa, arvio",
-			"summary": "Osa {{start}}–{{end}}",
-			"subtitlesFullLength": "koko video"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Ladataan…", "chapters_one": "{{count}} luku", "chapters_other": "{{count}} lukua"},
-	"queue": {
-		"header": "Lataukset",
-		"tabLabel": "Lataukset",
-		"attentionBadge_one": "{{count}} lataus vaatii huomiotasi",
-		"attentionBadge_other": "{{count}} latausta vaatii huomiotasi",
-		"choice": {
-			"cappedBody_one": "Tässä soittolistassa on yli {{count}} video. Lataa kaikki, ensimmäiset {{count}} tai valitse tarkistamalla.",
-			"cappedBody_other": "Tässä soittolistassa on yli {{count}} videota. Lataa kaikki, ensimmäiset {{count}} tai valitse tarkistamalla.",
-			"reviewBody_one": "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat.",
-			"reviewBody_other": "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat.",
-			"all": "Kaikki videot",
-			"first": "Ensimmäiset {{count}}",
-			"review": "Tarkista"
-		},
-		"tabTip": "Lataukset ovat nyt Lataukset-välilehdellä – avaa se milloin tahansa seurataksesi edistymistä.",
-		"empty": "Jonossa olevat lataukset näkyvät tässä",
-		"filtersLabel": "Jonon tilasuodattimet",
-		"filterAll": "Kaikki",
-		"selectedActionsLabel": "Valitut kohteet",
-		"globalActionsLabel": "Kaikki kohteet",
-		"selectionSummary": "{{selected}} valittu · {{total}} yhteensä",
-		"clearTitle": "Tyhjennä valmistuneet lataukset",
-		"autoRemoveCompleted": {"label": "Tyhjennä valmiit", "hint": "Poista kukin lataus luettelosta muutaman sekunnin kuluttua sen valmistumisesta. Tiedostot pysyvät kansiossasi."},
-		"pauseAllTitle": "Keskeytä kaikki aktiiviset lataukset ja estä uusien alkaminen",
-		"resumeAllTitle": "Jatka keskeytettyjä latauksia ja anna jonon edetä",
-		"pausedBanner": "Jono on keskeytetty – odottavat kohteet eivät käynnisty, ennen kuin jatkat sitä",
-		"resumeQueueAction": "Jatka jonoa",
-		"cancelAllTitle": "Peruuta kaikki aktiiviset ja odottavat lataukset",
-		"table": {
-			"columns": "Sarakkeet",
-			"title": "Nimi",
-			"status": "Tila",
-			"progress": "Edistyminen",
-			"format": "Muoto",
-			"outputTarget": "Kohde",
-			"artifacts": "Tiedostot",
-			"size": "Koko",
-			"added": "Lisätty",
-			"finished": "Valmistunut",
-			"notAvailable": "—",
-			"sortBy": "Lajittele: {{label}}",
-			"showArtifactsFor": "Näytä tiedostot: {{title}}",
-			"hideArtifactsFor": "Piilota tiedostot: {{title}}",
-			"resetColumns": "Palauta sarakkeet",
-			"resizeColumn": "Muuta sarakkeen {{column}} kokoa",
-			"movableColumn": "siirrettävä sarake",
-			"moveColumnInstructions": "Siirrä saraketta painamalla välilyöntiä tai Enteriä, siirrä sitä nuolinäppäimillä ja pudota se painamalla välilyöntiä tai Enteriä. Peruuta painamalla Esc-näppäintä.",
-			"columnPickedUp": "Sarake {{column}} poimittu.",
-			"columnMovedOver": "Sarake {{column}} on kohteen {{target}} päällä.",
-			"columnDropped": "Sarake {{column}} pudotettu.",
-			"columnMoveCancelled": "Sarakkeen {{column}} siirto peruttiin."
-		},
-		"artifact": {"media": "Media", "subtitle": "Tekstitys", "thumbnail": "Pikkukuva", "description": "Kuvaus", "companion": "Oheistiedosto", "unknown": "Tiedosto", "missing": "Puuttuu"},
-		"item": {
-			"defaultError": "Lataus epäonnistui",
-			"retryingSoon": "yritetään automaattisesti uudelleen (yritys {{attempt}})",
-			"qualityLimited": "Rajoitettu: {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Rajoitettu: {{height}}p · joitakin tekstityksiä ei saatu",
-			"audioKept": "Ääntä ei poistettu",
-			"audioKeptSubtitlesFailed": "Ääntä ei poistettu · joitakin tekstityksiä ei saatu",
-			"subtitleLanguagesMissing": "Ei tekstityksiä kielillä: {{languages}}",
-			"pause": "Keskeytä",
-			"resume": "Jatka",
-			"cancel": "Peruuta",
-			"retry": "Yritä uudelleen",
-			"setLocation": "Aseta sijainti",
-			"setLocationHint": "Valitse odottavat kohteet asettaaksesi sijainnin.",
-			"pendingOnly": "Vain odottavat",
-			"openDestinationFolder": "Avaa kohdekansio",
-			"remove": "Poista",
-			"pullNow": "Aloita nyt – ohita jono",
-			"statusProbing": "Haetaan tietoja",
-			"statusNeedsChoice": "Tarvitsee valintasi",
-			"statusPending": "Odottaa",
-			"statusRunning": "Ladataan",
-			"statusHeld": "Pidossa",
-			"statusPaused": "Keskeytetty",
-			"statusDone": "Valmis",
-			"statusError": "Virhe",
-			"statusCancelled": "Peruttu"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} on saatavilla – sinulla on {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} on saatavilla – päivitä Homebrew-ohjelmalla.",
-			"macosDirect": "Arroxy {{version}} on saatavilla – lataa uusi DMG.",
-			"macosDirectHomebrew": "Arroxy {{version}} on saatavilla – lataa DMG tai siirry käyttämään Homebrew-ohjelmaa.",
-			"portable": "Arroxy {{version}} on saatavilla – lataa uusi versio."
-		},
-		"install": "Asenna ja käynnistä uudelleen",
-		"downloading": "Ladataan…",
-		"runAndRestart": "Suorita ja käynnistä uudelleen",
-		"upgrading": "Päivitetään…",
-		"download": "Lataa ↗",
-		"downloadDmg": "Lataa DMG ↗",
-		"dismiss": "Hylkää päivitysilmoitus",
-		"copy": "Kopioi komento leikepöydälle",
-		"copied": "Komento kopioitu leikepöydälle",
-		"installFailed": "Päivitys epäonnistui",
-		"retry": "Yritä uudelleen"
-	},
-	"releaseNotes": {"title": "Uutta Arroxyn versiossa {{version}}", "description": "Käytössäsi on tuore päivitys. Tässä tärkeimmät uudet asiat.", "fullNotes": "Kaikki julkaisutiedot ↗", "continue": "Jatka"},
-	"status": {
-		"preparingBinaries": "Valmistellaan binäärejä…",
-		"mintingToken": "Luodaan YouTube-tunnusta…",
-		"remintingToken": "Luodaan tunnusta uudelleen…",
-		"startingYtdlp": "Käynnistetään latausmoottoria…",
-		"downloadingMedia": "Ladataan videota ja ääntä…",
-		"mergingFormats": "Yhdistetään ääntä ja kuvaa…",
-		"extractingAudio": "Muunnetaan ääntä…",
-		"convertingVideo": "Muunnetaan videota…",
-		"embeddingMetadata": "Upotetaan metatietoja…",
-		"movingFiles": "Siirretään tiedostoja…",
-		"fetchingSubtitles": "Haetaan tekstityksiä…",
-		"sleepingBetweenRequests": "Odotetaan {{seconds}} s nopeusrajoitusten välttämiseksi…",
-		"subtitlesFailed": "Video tallennettu – joitakin tekstityksiä ei voitu ladata",
-		"qualityLimited": "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa.",
-		"qualityLimitedSubtitlesFailed": "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta, eikä joitakin tekstityksiä voitu ladata. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa.",
-		"audioKept": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa",
-		"audioKeptSubtitlesFailed": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa, eikä joitakin tekstityksiä voitu ladata",
-		"subtitleLanguagesMissing": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Video tallennettiin ilman niitä.",
-		"subtitleLanguagesMissingOthersSaved": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Muut kielet tallennettiin.",
-		"noSubtitles": "Ei tekstityksiä kielillä: {{languages}}",
-		"cancelled": "Lataus peruttu",
-		"complete": "Lataus valmis",
-		"usedExtractorFallback": "Ladattu kevennetyllä poimijalla – määritä cookies.txt luotettavampia latauksia varten",
-		"ytdlpProcessError": "Latausmoottorin virhe: {{error}}",
-		"ytdlpExitCode": "Latausmoottori päättyi koodilla {{code}}",
-		"downloadingBinary": "Ladataan {{name}}-binääriä…",
-		"unknownStartupFailure": "Latauksen käynnistys epäonnistui tuntemattomasta syystä",
-		"diskSpaceInsufficient": "Levytila ei riitä – tarvitaan {{required}}, vapaana vain {{free}}",
-		"outputNotWritable": "Tallennus kansioon {{dir}} ei onnistu – Arroxylla ei ole kirjoitusoikeutta sinne",
-		"fetchingSponsorBlock": "Yhdistetään SponsorBlockiin…",
-		"retryingSponsorBlock": "SponsorBlock ei ole käytettävissä, yritetään uudelleen ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Yhteys jumiutui, yritetään uudelleen ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Kirjaudutaan sisään Tutki-tililläsi…",
-		"exploreSignedOut": "Uloskirjautunut Tutki-näkymästä – kirjaudu uudelleen sisään"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Asetuksia ei voitu tallentaa.",
-		"warmupFailed": "Asennus ei valmistunut. Jotkin lataukset voivat epäonnistua, kunnes se valmistuu.",
-		"shellActionFailed": "Sitä ei voitu avata.",
-		"folderSelectFailed": "Kansionvalitsinta ei voitu avata.",
-		"exploreSignInRetrying_one": "Kirjautuminen Tutki-näkymässä onnistui – yritetään 1 linkkiä uudelleen",
-		"exploreSignInRetrying_other": "Kirjautuminen Tutki-näkymässä onnistui – yritetään {{count}} linkkiä uudelleen",
-		"exploreSignOutFailed": "Uloskirjautuminen Tutki-näkymästä epäonnistui. Yritä uudelleen.",
-		"playlistFolderRejected": "Tätä kansiota ei voi käyttää tälle soittolistalle.",
-		"filenameFolderTooDeep": "Tämä kansio on liian syvällä järjestelmällesi. Lataus voi silti epäonnistua – valitse lyhyempi kansio.",
-		"filenameTemplateCannotFit": "Tämän videon nimeen ei mahdu mallisi kaikkia osia, joten käytettiin oletusnimeä.",
-		"hotkey": {
-			"queued": "Lataus lisätty jonoon leikepöydältä",
-			"alreadyQueued": "On jo jonossa – kopiota ei lisätty",
-			"invalidClipboard": "Leikepöydällä ei ole linkkiä – kopioi ensin yksi",
-			"multipleUrls": "Useita linkkejä kopioitu – käytä Arroxyssa Useita URL-osoitteita -toimintoa",
-			"needsReview": "Tämä linkki tarvitsee valintasi – katso Lataukset Arroxyssa",
-			"cookiesSetup": "Viimeistele evästeiden määritys Arroxyssa ja yritä sitten uudelleen",
-			"busy": "Arroxy on vielä käynnistymässä – yritä hetken kuluttua uudelleen",
-			"submissionFailed": "Linkkiä ei voitu lisätä – yritä uudelleen Arroxyssa"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video on jo jonossa – ohitettu", "skippedAlreadyQueued_other": "{{count}} videota on jo jonossa – ohitettu"},
-		"quickDownload": {
-			"added": "Lisätty: {{title}}",
-			"alreadyQueued": "On jo jonossa",
-			"failed": "Valmistelu epäonnistui: {{title}}",
-			"notAdded": "Linkkiä ei voitu lisätä – yritä uudelleen",
-			"chooseHowMany_one": "{{count}}+ video – valitse kuinka monta",
-			"chooseHowMany_other": "{{count}}+ videota – valitse kuinka monta",
-			"review_one": "{{count}} video tässä luettelossa – valitse tarkistamalla",
-			"review_other": "{{count}} videota tässä luettelossa – valitse tarkistamalla",
-			"reviewCapped_one": "{{count}}+ video tässä luettelossa – valitse tarkistamalla",
-			"reviewCapped_other": "{{count}}+ videota tässä luettelossa – valitse tarkistamalla",
-			"view": "Näytä"
-		}
+	"donate": {
+		"copied": "Kopioitu!",
+		"copyAddress": "Kopioi osoite",
+		"description": "Arroxy on ilmainen ja avoimen lähdekoodin sovellus, jossa ei ole mainoksia eikä maksullista tasoa. Lahjoitukset ovat vapaaehtoisia, eivätkä ne anna vaikutusvaltaa kehityssuunnitelmaan.",
+		"footerLabel": "Lahjoita",
+		"footerTooltip": "Tue Arroxya",
+		"qrAlt": "{{coin}}-lahjoitusosoitteen QR-koodi",
+		"title": "Tue Arroxya",
+		"warning": "Kryptovaluuttamaksut ovat peruuttamattomia. Lähetä vain näytetyssä verkossa ja vertaa koko osoite."
 	},
 	"errors": {
 		"noSubtitlesIn": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Bottisuojaus lauennut. IP-osoitteesi on todennäköisesti merkitty epäilyttäväksi (palvelinkeskuksen osoitealue tai ruuhkainen VPN-poistumispiste). Vaihda IP-osoitetta tai valitse eri VPN-päätepiste ja yritä uudelleen. Jos virhe toistuu, kyseessä voi olla sivuston tilapäinen muutos – Arroxy päivittää latausmoottorinsa käynnistyessään, joten korjaus tulee automaattisesti, kun se julkaistaan.",
-			"ipBlock": "IP-osoitteesi näyttää olevan estetty. Yritä myöhemmin uudelleen tai käytä VPN:ää.",
-			"rateLimit": "Sivusto rajoittaa tämän yhteyden pyyntöjä.",
 			"ageRestricted": "Tämä video on ikärajoitettu, eikä sitä voi ladata ilman sisäänkirjautunutta tiliä.",
-			"unavailable": "Tämä video ei ole saatavilla – se voi olla yksityinen, poistettu tai alueeseen lukittu.",
+			"botBlock": "Bottisuojaus lauennut. IP-osoitteesi on todennäköisesti merkitty epäilyttäväksi (palvelinkeskuksen osoitealue tai ruuhkainen VPN-poistumispiste). Vaihda IP-osoitetta tai valitse eri VPN-päätepiste ja yritä uudelleen. Jos virhe toistuu, kyseessä voi olla sivuston tilapäinen muutos – Arroxy päivittää latausmoottorinsa käynnistyessään, joten korjaus tulee automaattisesti, kun se julkaistaan.",
+			"chunkTransferFailure": "Palvelin katkaisi latauksen toistuvasti kesken siirron, ja Arroxy luovutti uudelleenyritysten jälkeen. Tämä koskee yleensä suurimpia videomuotoja (4K HDR / suuren bittinopeuden VP9). Yritä uudelleen, vaihda verkkoa tai VPN:ää tai valitse pienemmän tarkkuuden muoto.",
+			"drmProtected": "Tämä video on DRM-suojattu. Arroxy ei voi poistaa DRM-suojausta, joten tiedostoa ei voi ladata.",
 			"formatUnavailable": "Tämä video ei enää tarjoa valitsemaasi muotoa. Liitä linkki uudelleen ja valitse muoto niistä, joita se nyt tarjoaa.",
 			"geoBlocked": "Tämä video ei ole saatavilla alueellasi.",
+			"ipBlock": "IP-osoitteesi näyttää olevan estetty. Yritä myöhemmin uudelleen tai käytä VPN:ää.",
+			"loginRequired": "Tämä video vaatii sisäänkirjautuneen tilin.",
+			"missingDependency": "Arroxy ei löytänyt FFmpegiä tai FFprobea. Suorita asennus uudelleen tai määritä FFmpegin sijainti ja yritä latausta uudelleen.",
+			"network": "Verkkovirhe. Tarkista yhteytesi ja yritä uudelleen.",
+			"noSubtitles": "Tällä videolla ei ole tekstityksiä pyydetyillä kielillä.",
 			"outOfDiskSpace": "Levytila ei riitä. Vapauta tilaa ja yritä uudelleen.",
 			"outputNotWritable": "Arroxy ei voi kirjoittaa latauskansioon. Se voi olla vain luku -tilassa, lukitulla asemalla tai järjestelmäsi tietosuoja-asetusten estämä. Valitse toinen kansio tai salli käyttöoikeus ja yritä uudelleen.",
-			"unsupportedUrl": "Arroxy ei tue tätä URL-osoitetta. Kokeile toisen sivuston linkkiä.",
-			"noSubtitles": "Tällä videolla ei ole tekstityksiä pyydetyillä kielillä.",
-			"chunkTransferFailure": "Palvelin katkaisi latauksen toistuvasti kesken siirron, ja Arroxy luovutti uudelleenyritysten jälkeen. Tämä koskee yleensä suurimpia videomuotoja (4K HDR / suuren bittinopeuden VP9). Yritä uudelleen, vaihda verkkoa tai VPN:ää tai valitse pienemmän tarkkuuden muoto.",
-			"missingDependency": "Arroxy ei löytänyt FFmpegiä tai FFprobea. Suorita asennus uudelleen tai määritä FFmpegin sijainti ja yritä latausta uudelleen.",
-			"postprocessFailure": "Lataus valmistui, mutta jälkikäsittely (yhdistäminen / muunnos) epäonnistui. Usein kyseessä on tilapäinen ffmpeg-ongelma – yritä uudelleen, ja jos ongelma jatkuu, kokeile toista muotoyhdistelmää.",
 			"parse": "Sivuston vastausta ei voitu jäsentää. Sivusto on voinut muuttaa tapaansa tarjota videoita. Arroxy päivittää latausmoottorinsa käynnistyessään – yritä uudelleen muutaman minuutin kuluttua, kun korjaus on julkaistu.",
-			"network": "Verkkovirhe. Tarkista yhteytesi ja yritä uudelleen.",
-			"drmProtected": "Tämä video on DRM-suojattu. Arroxy ei voi poistaa DRM-suojausta, joten tiedostoa ei voi ladata.",
-			"loginRequired": "Tämä video vaatii sisäänkirjautuneen tilin.",
-			"unknown": "Lataus epäonnistui. Katso raakatuloste alta."
+			"postprocessFailure": "Lataus valmistui, mutta jälkikäsittely (yhdistäminen / muunnos) epäonnistui. Usein kyseessä on tilapäinen ffmpeg-ongelma – yritä uudelleen, ja jos ongelma jatkuu, kokeile toista muotoyhdistelmää.",
+			"rateLimit": "Sivusto rajoittaa tämän yhteyden pyyntöjä.",
+			"unavailable": "Tämä video ei ole saatavilla – se voi olla yksityinen, poistettu tai alueeseen lukittu.",
+			"unknown": "Lataus epäonnistui. Katso raakatuloste alta.",
+			"unsupportedUrl": "Arroxy ei tue tätä URL-osoitetta. Kokeile toisen sivuston linkkiä."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Tarkista yhteytesi ja yritä uudelleen.",
+			"loadTitle": "Sivua ei voitu ladata",
+			"openSettings": "Avaa asetukset",
+			"proxyBody": "Tarkista välityspalvelin asetuksista ja yritä uudelleen.",
+			"proxyTitle": "Tutki-näkymä ei saa yhteyttä välityspalvelimesi kautta",
+			"retry": "Yritä uudelleen"
+		},
+		"linkCallout": {
+			"body": "Napsauta mitä tahansa sivun video-, soittolista- tai kanavalinkkiä hiiren kakkospainikkeella ladataksesi sen aktiivisella profiilillasi, valitaksesi toisen profiilin tai avataksesi vaiheittaisen kulun.",
+			"title": "Lataa napsauttamalla linkkiä hiiren kakkospainikkeella"
+		},
+		"linkMenu": {
+			"copyLink": "Kopioi linkki",
+			"downloadWith": "Lataa profiililla"
+		},
+		"newBadge": "Uusi",
+		"notice": {
+			"body": "Etsi video YouTubesta tai miltä tahansa muulta sivustolta ja lataa se tästä – linkkejä ei tarvitse kopioida. Kirjaudu sivustolle täällä ladataksesi videoita, jotka vaativat tilin.",
+			"continue": "Jatka",
+			"riskBody": "Sivustot kuten YouTube voivat merkitä – ja joskus estää – tilejä, joita käytetään Arroxyn kaltaisten latausohjelmien kanssa. Käytä tiliä, jonka menettäminen ei haittaa, älä pääasiallista tiliäsi.",
+			"riskTitle": "Kirjaudu toissijaisella tilillä",
+			"title": "Selaa verkkoa suoraan Arroxyssa"
+		},
+		"nudge": {
+			"browser": "Lataukset käyttävät selaimesi evästeitä, eivät Tutki-kirjautumistasi.",
+			"file": "Lataukset käyttävät evästetiedostoasi, eivät Tutki-kirjautumistasi.",
+			"notNow": "Ei nyt",
+			"off": "Evästeet ovat pois käytöstä, joten lataukset eivät käytä Tutki-kirjautumistasi.",
+			"useExplore": "Käytä Tutki-kirjautumista"
+		},
+		"settings": {
+			"description": "Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä ja kirjaudu sisään videoita varten, jotka vaativat tilin.",
+			"idleUnload": "Vapauta muistia poissa ollessa",
+			"idleUnloadDescription": "Kun olet ollut 5 minuuttia toisella välilehdellä, YouTuben etusivu tai hakusivu suljetaan. Kun palaat, se latautuu uudelleen, mikä kestää muutaman sekunnin.",
+			"searchEngine": "Hakukone",
+			"searchEngineDescription": "Missä osoitepalkkiin kirjoitettua tekstiä haetaan. Linkit avataan sellaisenaan.",
+			"showTab": "Näytä Tutki-välilehti",
+			"showTabDescription": "Kun tämä on pois päältä, lataukset eivät myöskään käytä Tutki-kirjautumistasi.",
+			"signOut": "Kirjaudu ulos Tutki-näkymästä",
+			"signOutConfirm": "Kirjaudu ulos",
+			"signOutConfirmBody": "Tämä tyhjentää kirjautumisesi ja selaustietosi Tutki-näkymässä kaikilta sivustoilta. Tilin vaativat lataukset epäonnistuvat, kunnes kirjaudut uudelleen sisään.",
+			"signOutConfirmTitle": "Kirjaudutaanko ulos Tutki-näkymästä?",
+			"signOutDescription": "Tyhjentää kirjautumisesi ja selaustietosi Tutki-näkymässä kaikilta sivustoilta.",
+			"title": "Tutki"
+		},
+		"tabLabel": "Tutki",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube voi vastustaa mainosten estoa sisäänkirjautuneilla tileillä.",
+				"aria": "Mainosten esto",
+				"off": "Mainosten esto: pois – ota käyttöön napsauttamalla",
+				"on": "Mainosten esto: päällä – poista käytöstä napsauttamalla",
+				"starting": "Mainosten esto: käynnistyy – poista käytöstä napsauttamalla",
+				"unavailable": "Mainosten esto: ei käytettävissä, sen suodatinlistoja ei voitu ladata – poista käytöstä napsauttamalla"
+			},
+			"addressAria": "Osoite",
+			"addressPlaceholder": "Hae palvelusta {{engine}} tai avaa mikä tahansa sivusto (Vimeo, Instagram…)",
+			"aria": "Tutki-selaimen ohjaimet",
+			"back": "Takaisin",
+			"compactLayout": "Tiivis asettelu",
+			"downloadWithProfile": "Lataa · {{profileName}}",
+			"forward": "Eteenpäin",
+			"fullLayout": "Näytä koko asettelu",
+			"grabUnavailable": "Avaa video, soittolista tai kanava ladataksesi sen",
+			"home": "YouTuben etusivu",
+			"interactiveHint": "Ohjattu lataus: valitse muoto, tekstitykset ja muuta…",
+			"refusedHint": "Tutki-näkymä ei voi avata kyseistä osoitetta.",
+			"reload": "Lataa uudelleen",
+			"searchTooLong": "Haku on liian pitkä.",
+			"zoom": {
+				"hint": "Sivun zoomaus: {{percent}} %",
+				"in": "Lähennä",
+				"label": "Sivun zoomaus",
+				"out": "Loitonna",
+				"percent": "Zoomausprosentti",
+				"reset": "Palauta zoomaus 100 %:iin"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"description": {
+			"auto": "Valitut virrat määrittävät tiedostotyypin.",
+			"mkv": "Sisältää minkä tahansa koodekin. Jotkin televisiot ja puhelimet eivät voi avata sitä.",
+			"mp4": "Toimii lähes kaikkialla. MP4:ään pakattu VP9 ei toista videota QuickTimessa.",
+			"webm": "Selaimille tarkoitettu avoin muoto. Sisältää vain VP9:ää tai AV1:tä Opus-äänellä."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4:ään pakattu AV1 vaatii QuickTime-toistoon uuden Macin. H.264 toimii kaikkialla.",
+		"mp4CaveatVp9": "MP4:ään pakattu VP9 ei toista videota QuickTimessa. H.264 toimii kaikkialla.",
+		"profileMark": "Profiili",
+		"smartTvNoWebm": "WebM ei ole käytettävissä Smart TV -profiilissa: se ei voi sisältää H.264:ää.",
+		"webm": "WebM",
+		"webmBlocked": "WebM ei voi sisältää koodekkia {{codec}}. Valitse MKV tai MP4."
+	},
+	"filenameTemplate": {
+		"description": "Valitse, miten ladatut tiedostot nimetään. Lisää tunniste napsauttamalla sitä. Käytä merkkiä / lajitellaksesi lataukset kansioihin.",
+		"error": {
+			"empty": "Anna tiedostonimen malli.",
+			"empty-segment": "Poista ylimääräinen / – jokaisella kansiolla on oltava nimi.",
+			"forbidden-char": "Poista merkit, joita tiedostonimissä ei sallita: \\ : * ? \" < > |",
+			"invalid-segment": "Tämä kansion nimi ei ole sallittu. Vältä nimiä . ja .. sekä varattuja nimiä kuten CON.",
+			"no-unique-token": "Lisää {title} tai {id} tiedostonimeen, jotta jokainen lataus saa oman nimensä.",
+			"resolution-in-dir": "{resolution} ei voi nimetä kansiota – laatu ei ole tiedossa, ennen kuin lataus alkaa.",
+			"stray-brace": "Pariton { tai } – kirjoita tunnisteet muodossa {title}.",
+			"too-long": "Malli on liian pitkä.",
+			"unknown-token": "Tuntematon tunniste {{token}}."
+		},
+		"idWarning": "Ilman {id}-tunnistetta Arroxy ei voi havaita jo ladattuja soittolistan kohteita eikä luoda .m3u-soittolistoja.",
+		"label": "Tiedostonimen malli",
+		"m3uDisabled": "Ei käytettävissä, koska tiedostonimen mallissa ei ole {id}-tunnistetta tai se lajittelee lataukset kansioihin.",
+		"previewPlaylist": "Soittolistassa",
+		"previewSingle": "Yksittäinen video",
+		"profileOverrideDescription": "Jätä tyhjäksi, jos haluat käyttää yleistä mallia.",
+		"profileOverrideLabel": "Tiedostonimen malli"
+	},
+	"formatLabel": {
+		"audioFallback": "Ääni",
+		"audioOnlyDot": "Vain ääni · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Auto",
+		"description": "Auto valitsee HDR:n, kun tämä näyttö pystyy näyttämään sen, muuten SDR:n. HDR näyttää haalealta tavallisilla näytöillä.",
+		"hdr": "HDR",
+		"label": "HDR-video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Kieli"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Kirjautuminen Tutki-näkymässä onnistui – yritetään 1 linkkiä uudelleen",
+		"exploreSignInRetrying_other": "Kirjautuminen Tutki-näkymässä onnistui – yritetään {{count}} linkkiä uudelleen",
+		"exploreSignOutFailed": "Uloskirjautuminen Tutki-näkymästä epäonnistui. Yritä uudelleen.",
+		"filenameFolderTooDeep": "Tämä kansio on liian syvällä järjestelmällesi. Lataus voi silti epäonnistua – valitse lyhyempi kansio.",
+		"filenameTemplateCannotFit": "Tämän videon nimeen ei mahdu mallisi kaikkia osia, joten käytettiin oletusnimeä.",
+		"folderSelectFailed": "Kansionvalitsinta ei voitu avata.",
+		"hotkey": {
+			"alreadyQueued": "On jo jonossa – kopiota ei lisätty",
+			"busy": "Arroxy on vielä käynnistymässä – yritä hetken kuluttua uudelleen",
+			"cookiesSetup": "Viimeistele evästeiden määritys Arroxyssa ja yritä sitten uudelleen",
+			"invalidClipboard": "Leikepöydällä ei ole linkkiä – kopioi ensin yksi",
+			"multipleUrls": "Useita linkkejä kopioitu – käytä Arroxyssa Useita URL-osoitteita -toimintoa",
+			"needsReview": "Tämä linkki tarvitsee valintasi – katso Lataukset Arroxyssa",
+			"queued": "Lataus lisätty jonoon leikepöydältä",
+			"submissionFailed": "Linkkiä ei voitu lisätä – yritä uudelleen Arroxyssa"
+		},
+		"playlistFolderRejected": "Tätä kansiota ei voi käyttää tälle soittolistalle.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} video on jo jonossa – ohitettu",
+			"skippedAlreadyQueued_other": "{{count}} videota on jo jonossa – ohitettu"
+		},
+		"quickDownload": {
+			"added": "Lisätty: {{title}}",
+			"alreadyQueued": "On jo jonossa",
+			"chooseHowMany_one": "{{count}}+ video – valitse kuinka monta",
+			"chooseHowMany_other": "{{count}}+ videota – valitse kuinka monta",
+			"failed": "Valmistelu epäonnistui: {{title}}",
+			"notAdded": "Linkkiä ei voitu lisätä – yritä uudelleen",
+			"reviewCapped_one": "{{count}}+ video tässä luettelossa – valitse tarkistamalla",
+			"reviewCapped_other": "{{count}}+ videota tässä luettelossa – valitse tarkistamalla",
+			"review_one": "{{count}} video tässä luettelossa – valitse tarkistamalla",
+			"review_other": "{{count}} videota tässä luettelossa – valitse tarkistamalla",
+			"view": "Näytä"
+		},
+		"settingsSaveFailed": "Asetuksia ei voitu tallentaa.",
+		"shellActionFailed": "Sitä ei voitu avata.",
+		"warmupFailed": "Asennus ei valmistunut. Jotkin lataukset voivat epäonnistua, kunnes se valmistuu."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Ääni", "subtitles": "Tekstitykset"},
-		"subtitles": {"note": "Jokaisesta videosta tallennetaan vain tekstitystiedostot – videota tai ääntä ei ladata.", "languages": "Kielet", "languagesRequired": "Valitse vähintään yksi kieli jatkaaksesi.", "source": "Lähde", "deliveryHeading": "Tallennustapa", "deliveryLoose": "Suoraan tallennuskansioon"},
-		"videoFormat": {"best": "Paras alkuperäinen", "mp4": "Smart TV: H.264 MP4"},
-		"videoFormatDesc": {"best": "Paras saatavilla oleva tiedostotyyppi ja koodekit kohdetta kohden", "mp4": "Suosii H.264-videota + AAC-ääntä MP4:ssä, kun mahdollista"},
-		"tier": {"144": "Enintään 144p", "240": "Enintään 240p", "360": "Enintään 360p", "480": "Enintään 480p", "720": "Enintään 720p", "1080": "Enintään 1080p", "1440": "Enintään 1440p", "2160": "Enintään 4K", "best": "Paras laatu"},
+		"audioFormat": {
+			"best": "Ääni (paras)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Ääni ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Alkuperäinen paras ääni, ei uudelleenkoodausta",
+			"m4a": "Muunna M4A-muotoon (AAC)",
+			"mp3": "Muunna MP3-muotoon",
+			"opus": "Muunna Opus-muotoon"
+		},
+		"mp4Cap": "H.264 yli 1080p:n ei ole saatavilla YouTubessa – rajoitettu automaattisesti 1080p:hen",
+		"subtitles": {
+			"deliveryHeading": "Tallennustapa",
+			"deliveryLoose": "Suoraan tallennuskansioon",
+			"languages": "Kielet",
+			"languagesRequired": "Valitse vähintään yksi kieli jatkaaksesi.",
+			"note": "Jokaisesta videosta tallennetaan vain tekstitystiedostot – videota tai ääntä ei ladata.",
+			"source": "Lähde"
+		},
+		"tier": {
+			"144": "Enintään 144p",
+			"240": "Enintään 240p",
+			"360": "Enintään 360p",
+			"480": "Enintään 480p",
+			"720": "Enintään 720p",
+			"1080": "Enintään 1080p",
+			"1440": "Enintään 1440p",
+			"2160": "Enintään 4K",
+			"best": "Paras laatu"
+		},
 		"tierDesc": {
 			"144": "Pienimmät mahdolliset tiedostot",
 			"240": "Hyvin pienet tiedostot, matala laatu",
@@ -951,175 +311,1396 @@
 			"2160": "Rajoitettu 2160p:hen, laskee tarvittaessa alemmas kohdekohtaisesti",
 			"best": "Paras saatavilla oleva video + ääni kohdetta kohden"
 		},
-		"audioFormat": {"best": "Ääni (paras)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Alkuperäinen paras ääni, ei uudelleenkoodausta", "mp3": "Muunna MP3-muotoon", "m4a": "Muunna M4A-muotoon (AAC)", "opus": "Muunna Opus-muotoon"},
-		"audioFormatBitrate": "Ääni ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 yli 1080p:n ei ole saatavilla YouTubessa – rajoitettu automaattisesti 1080p:hen"
-	},
-	"formatLabel": {"audioFallback": "Ääni", "audioOnlyDot": "Vain ääni · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ei toimintaa", "statusActive_one": "1 latautuu · {{percent}} %", "statusActive_other": "{{count}} latautuu · {{percent}} %", "downloadFromClipboard": "Lataa leikepöydältä", "open": "Avaa Arroxy", "quit": "Lopeta Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} lataus käynnissä", "message_other": "{{count}} latausta käynnissä", "detail": "Keskeytä jatkaaksesi myöhemmin tai peruuta hylätäksesi edistymisen.", "confirm": "Peruuta lataukset ja lopeta", "pause": "Keskeytä lataukset ja lopeta", "keep": "Jatka latausta"},
-		"closeToTray": {"message": "Piilotetaanko Arroxy ilmaisinalueelle suljettaessa?", "detail": "Arroxy jatkaa toimintaansa ja viimeistelee käynnissä olevat lataukset. Voit muuttaa tämän myöhemmin lisäasetuksista.", "hide": "Piilota ilmaisinalueelle", "quit": "Lopeta", "remember": "Älä kysy uudelleen"},
-		"rendererCrashed": {"message": "Arroxy kohtasi ongelman", "detail": "Renderöintiprosessi kaatui ({{reason}}). Yritä uudelleen lataamalla sovellus uudelleen.", "reload": "Lataa uudelleen", "quit": "Lopeta"}
-	},
-	"share": {
-		"title": "Jaa Arroxy",
-		"description": "Arroxy on ilmainen ja avoimen lähdekoodin sovellus. Jakaminen auttaa useampia löytämään sen.",
-		"copyLink": "Kopioi linkki",
-		"copied": "Kopioitu!",
-		"defaultMessage": "Arroxy – ilmainen avoimen lähdekoodin videolataaja Windowsille, macOS:lle ja Linuxille. Toimii YouTuben, Vimeon, Twitchin ja yli 2000 sivuston kanssa.\n4K · HDR · MP3 · Shorts · Tekstitykset · SponsorBlock",
-		"footerTooltip": "Jaa Arroxy",
-		"footerLabel": "Jaa",
-		"shareAction": "Jaa Arroxy"
-	},
-	"donate": {
-		"title": "Tue Arroxya",
-		"description": "Arroxy on ilmainen ja avoimen lähdekoodin sovellus, jossa ei ole mainoksia eikä maksullista tasoa. Lahjoitukset ovat vapaaehtoisia, eivätkä ne anna vaikutusvaltaa kehityssuunnitelmaan.",
-		"footerTooltip": "Tue Arroxya",
-		"footerLabel": "Lahjoita",
-		"copyAddress": "Kopioi osoite",
-		"copied": "Kopioitu!",
-		"qrAlt": "{{coin}}-lahjoitusosoitteen QR-koodi",
-		"warning": "Kryptovaluuttamaksut ovat peruuttamattomia. Lähetä vain näytetyssä verkossa ja vertaa koko osoite."
-	},
-	"filenameTemplate": {
-		"label": "Tiedostonimen malli",
-		"description": "Valitse, miten ladatut tiedostot nimetään. Lisää tunniste napsauttamalla sitä. Käytä merkkiä / lajitellaksesi lataukset kansioihin.",
-		"profileOverrideLabel": "Tiedostonimen malli",
-		"profileOverrideDescription": "Jätä tyhjäksi, jos haluat käyttää yleistä mallia.",
-		"idWarning": "Ilman {id}-tunnistetta Arroxy ei voi havaita jo ladattuja soittolistan kohteita eikä luoda .m3u-soittolistoja.",
-		"m3uDisabled": "Ei käytettävissä, koska tiedostonimen mallissa ei ole {id}-tunnistetta tai se lajittelee lataukset kansioihin.",
-		"previewSingle": "Yksittäinen video",
-		"previewPlaylist": "Soittolistassa",
-		"error": {
-			"empty": "Anna tiedostonimen malli.",
-			"too-long": "Malli on liian pitkä.",
-			"forbidden-char": "Poista merkit, joita tiedostonimissä ei sallita: \\ : * ? \" < > |",
-			"stray-brace": "Pariton { tai } – kirjoita tunnisteet muodossa {title}.",
-			"no-unique-token": "Lisää {title} tai {id} tiedostonimeen, jotta jokainen lataus saa oman nimensä.",
-			"unknown-token": "Tuntematon tunniste {{token}}.",
-			"empty-segment": "Poista ylimääräinen / – jokaisella kansiolla on oltava nimi.",
-			"invalid-segment": "Tämä kansion nimi ei ole sallittu. Vältä nimiä . ja .. sekä varattuja nimiä kuten CON.",
-			"resolution-in-dir": "{resolution} ei voi nimetä kansiota – laatu ei ole tiedossa, ennen kuin lataus alkaa."
+		"type": {
+			"audio": "Ääni",
+			"subtitles": "Tekstitykset",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Paras alkuperäinen",
+			"mp4": "Smart TV: H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Paras saatavilla oleva tiedostotyyppi ja koodekit kohdetta kohden",
+			"mp4": "Suosii H.264-videota + AAC-ääntä MP4:ssä, kun mahdollista"
 		}
 	},
-	"explore": {
-		"tabLabel": "Tutki",
-		"newBadge": "Uusi",
-		"notice": {
-			"title": "Selaa verkkoa suoraan Arroxyssa",
-			"body": "Etsi video YouTubesta tai miltä tahansa muulta sivustolta ja lataa se tästä – linkkejä ei tarvitse kopioida. Kirjaudu sivustolle täällä ladataksesi videoita, jotka vaativat tilin.",
-			"riskTitle": "Kirjaudu toissijaisella tilillä",
-			"riskBody": "Sivustot kuten YouTube voivat merkitä – ja joskus estää – tilejä, joita käytetään Arroxyn kaltaisten latausohjelmien kanssa. Käytä tiliä, jonka menettäminen ei haittaa, älä pääasiallista tiliäsi.",
-			"continue": "Jatka"
+	"queue": {
+		"artifact": {
+			"companion": "Oheistiedosto",
+			"description": "Kuvaus",
+			"media": "Media",
+			"missing": "Puuttuu",
+			"subtitle": "Tekstitys",
+			"thumbnail": "Pikkukuva",
+			"unknown": "Tiedosto"
 		},
-		"nudge": {
-			"off": "Evästeet ovat pois käytöstä, joten lataukset eivät käytä Tutki-kirjautumistasi.",
-			"file": "Lataukset käyttävät evästetiedostoasi, eivät Tutki-kirjautumistasi.",
-			"browser": "Lataukset käyttävät selaimesi evästeitä, eivät Tutki-kirjautumistasi.",
-			"useExplore": "Käytä Tutki-kirjautumista",
-			"notNow": "Ei nyt"
+		"attentionBadge_one": "{{count}} lataus vaatii huomiotasi",
+		"attentionBadge_other": "{{count}} latausta vaatii huomiotasi",
+		"autoRemoveCompleted": {
+			"hint": "Poista kukin lataus luettelosta muutaman sekunnin kuluttua sen valmistumisesta. Tiedostot pysyvät kansiossasi.",
+			"label": "Tyhjennä valmiit"
 		},
-		"linkCallout": {"title": "Lataa napsauttamalla linkkiä hiiren kakkospainikkeella", "body": "Napsauta mitä tahansa sivun video-, soittolista- tai kanavalinkkiä hiiren kakkospainikkeella ladataksesi sen aktiivisella profiilillasi, valitaksesi toisen profiilin tai avataksesi vaiheittaisen kulun."},
-		"linkMenu": {"downloadWith": "Lataa profiililla", "copyLink": "Kopioi linkki"},
-		"toolbar": {
-			"aria": "Tutki-selaimen ohjaimet",
-			"back": "Takaisin",
-			"forward": "Eteenpäin",
-			"reload": "Lataa uudelleen",
-			"home": "YouTuben etusivu",
-			"addressAria": "Osoite",
-			"addressPlaceholder": "Hae palvelusta {{engine}} tai avaa mikä tahansa sivusto (Vimeo, Instagram…)",
-			"refusedHint": "Tutki-näkymä ei voi avata kyseistä osoitetta.",
-			"searchTooLong": "Haku on liian pitkä.",
-			"downloadWithProfile": "Lataa · {{profileName}}",
-			"interactiveHint": "Ohjattu lataus: valitse muoto, tekstitykset ja muuta…",
-			"grabUnavailable": "Avaa video, soittolista tai kanava ladataksesi sen",
-			"compactLayout": "Tiivis asettelu",
-			"fullLayout": "Näytä koko asettelu",
-			"zoom": {"label": "Sivun zoomaus", "hint": "Sivun zoomaus: {{percent}} %", "in": "Lähennä", "out": "Loitonna", "percent": "Zoomausprosentti", "reset": "Palauta zoomaus 100 %:iin"},
-			"adBlock": {
-				"aria": "Mainosten esto",
-				"off": "Mainosten esto: pois – ota käyttöön napsauttamalla",
-				"starting": "Mainosten esto: käynnistyy – poista käytöstä napsauttamalla",
-				"on": "Mainosten esto: päällä – poista käytöstä napsauttamalla",
-				"unavailable": "Mainosten esto: ei käytettävissä, sen suodatinlistoja ei voitu ladata – poista käytöstä napsauttamalla",
-				"accountNote": "YouTube voi vastustaa mainosten estoa sisäänkirjautuneilla tileillä."
+		"cancelAllTitle": "Peruuta kaikki aktiiviset ja odottavat lataukset",
+		"choice": {
+			"all": "Kaikki videot",
+			"cappedBody_one": "Tässä soittolistassa on yli {{count}} video. Lataa kaikki, ensimmäiset {{count}} tai valitse tarkistamalla.",
+			"cappedBody_other": "Tässä soittolistassa on yli {{count}} videota. Lataa kaikki, ensimmäiset {{count}} tai valitse tarkistamalla.",
+			"first": "Ensimmäiset {{count}}",
+			"review": "Tarkista",
+			"reviewBody_one": "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat.",
+			"reviewBody_other": "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat."
+		},
+		"clearTitle": "Tyhjennä valmistuneet lataukset",
+		"empty": "Jonossa olevat lataukset näkyvät tässä",
+		"filterAll": "Kaikki",
+		"filtersLabel": "Jonon tilasuodattimet",
+		"globalActionsLabel": "Kaikki kohteet",
+		"header": "Lataukset",
+		"item": {
+			"audioKept": "Ääntä ei poistettu",
+			"audioKeptSubtitlesFailed": "Ääntä ei poistettu · joitakin tekstityksiä ei saatu",
+			"cancel": "Peruuta",
+			"defaultError": "Lataus epäonnistui",
+			"openDestinationFolder": "Avaa kohdekansio",
+			"pause": "Keskeytä",
+			"pendingOnly": "Vain odottavat",
+			"pullNow": "Aloita nyt – ohita jono",
+			"qualityLimited": "Rajoitettu: {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Rajoitettu: {{height}}p · joitakin tekstityksiä ei saatu",
+			"remove": "Poista",
+			"resume": "Jatka",
+			"retry": "Yritä uudelleen",
+			"retryingSoon": "yritetään automaattisesti uudelleen (yritys {{attempt}})",
+			"setLocation": "Aseta sijainti",
+			"setLocationHint": "Valitse odottavat kohteet asettaaksesi sijainnin.",
+			"statusCancelled": "Peruttu",
+			"statusDone": "Valmis",
+			"statusError": "Virhe",
+			"statusHeld": "Pidossa",
+			"statusNeedsChoice": "Tarvitsee valintasi",
+			"statusPaused": "Keskeytetty",
+			"statusPending": "Odottaa",
+			"statusProbing": "Haetaan tietoja",
+			"statusRunning": "Ladataan",
+			"subtitleLanguagesMissing": "Ei tekstityksiä kielillä: {{languages}}"
+		},
+		"pauseAllTitle": "Keskeytä kaikki aktiiviset lataukset ja estä uusien alkaminen",
+		"pausedBanner": "Jono on keskeytetty – odottavat kohteet eivät käynnisty, ennen kuin jatkat sitä",
+		"resumeAllTitle": "Jatka keskeytettyjä latauksia ja anna jonon edetä",
+		"resumeQueueAction": "Jatka jonoa",
+		"selectedActionsLabel": "Valitut kohteet",
+		"selectionSummary": "{{selected}} valittu · {{total}} yhteensä",
+		"tabLabel": "Lataukset",
+		"tabTip": "Lataukset ovat nyt Lataukset-välilehdellä – avaa se milloin tahansa seurataksesi edistymistä.",
+		"table": {
+			"added": "Lisätty",
+			"artifacts": "Tiedostot",
+			"columnDropped": "Sarake {{column}} pudotettu.",
+			"columnMoveCancelled": "Sarakkeen {{column}} siirto peruttiin.",
+			"columnMovedOver": "Sarake {{column}} on kohteen {{target}} päällä.",
+			"columnPickedUp": "Sarake {{column}} poimittu.",
+			"columns": "Sarakkeet",
+			"finished": "Valmistunut",
+			"format": "Muoto",
+			"hideArtifactsFor": "Piilota tiedostot: {{title}}",
+			"movableColumn": "siirrettävä sarake",
+			"moveColumnInstructions": "Siirrä saraketta painamalla välilyöntiä tai Enteriä, siirrä sitä nuolinäppäimillä ja pudota se painamalla välilyöntiä tai Enteriä. Peruuta painamalla Esc-näppäintä.",
+			"notAvailable": "—",
+			"outputTarget": "Kohde",
+			"progress": "Edistyminen",
+			"resetColumns": "Palauta sarakkeet",
+			"resizeColumn": "Muuta sarakkeen {{column}} kokoa",
+			"showArtifactsFor": "Näytä tiedostot: {{title}}",
+			"size": "Koko",
+			"sortBy": "Lajittele: {{label}}",
+			"status": "Tila",
+			"title": "Nimi"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Jatka",
+		"description": "Käytössäsi on tuore päivitys. Tässä tärkeimmät uudet asiat.",
+		"fullNotes": "Kaikki julkaisutiedot ↗",
+		"title": "Uutta Arroxyn versiossa {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Peruuta",
+			"chooseExecutable": "Valitse suoritettava tiedosto",
+			"installWithHomebrew": "Asenna Homebrew-ohjelmalla",
+			"installWithWinget": "Asenna WinGet-ohjelmalla",
+			"openDependencyFolder": "Avaa riippuvuuskansio",
+			"resetToDefault": "Palauta oletus",
+			"retrySetup": "Yritä uudelleen",
+			"viewSetupLog": "Näytä asennusloki"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Yritä uudelleen. Jos virhe toistuu, valitse toimiva kopio alta.",
+				"title": "Työkalu ei toimi oikein"
+			},
+			"blockedOrQuarantined": {
+				"body": "Salli Arroxy virustorjunnassasi tai SmartScreenissä ja yritä uudelleen.",
+				"title": "Virustorjunta esti työkalun"
+			},
+			"downloadFailed": {
+				"body": "Tarkista internetyhteytesi ja yritä uudelleen.",
+				"title": "Arroxyn tarvitsemaa ei voitu ladata"
+			},
+			"extractFailed": {
+				"body": "Yritä uudelleen, niin se ladataan alusta.",
+				"title": "Lataus saapui vioittuneena"
+			},
+			"hashFailed": {
+				"body": "Yritä uudelleen, niin se ladataan alusta.",
+				"title": "Lataus ei vastannut tarkistussummaansa"
+			},
+			"pairIncomplete": {
+				"body": "Valitse molemmat alta tai palauta ne oletuksiin.",
+				"title": "FFmpeg ja FFprobe on määritettävä yhdessä"
+			},
+			"permissionDenied": {
+				"body": "Yritä uudelleen. Jos virhe toistuu, valitse alta luotettava kopio.",
+				"title": "Järjestelmäsi ei salli Arroxyn suorittaa työkalua"
+			},
+			"spawnFailed": {
+				"body": "Yritä uudelleen. Jos virhe toistuu, valitse toimiva kopio alta.",
+				"title": "Työkalu puuttuu tai ei käynnisty"
+			},
+			"timeout": {
+				"body": "Tämä johtuu usein tietoturvatarkistuksesta ensimmäisellä käynnistyskerralla. Yritä uudelleen.",
+				"title": "Työkalu vastasi liian hitaasti"
+			},
+			"unknown": {
+				"body": "Yritä uudelleen tai avaa asennusloki saadaksesi lisätietoja.",
+				"title": "Asennuksessa tapahtui virhe"
 			}
 		},
-		"settings": {
-			"title": "Tutki",
-			"description": "Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä ja kirjaudu sisään videoita varten, jotka vaativat tilin.",
-			"showTab": "Näytä Tutki-välilehti",
-			"showTabDescription": "Kun tämä on pois päältä, lataukset eivät myöskään käytä Tutki-kirjautumistasi.",
-			"idleUnload": "Vapauta muistia poissa ollessa",
-			"idleUnloadDescription": "Kun olet ollut 5 minuuttia toisella välilehdellä, YouTuben etusivu tai hakusivu suljetaan. Kun palaat, se latautuu uudelleen, mikä kestää muutaman sekunnin.",
-			"searchEngine": "Hakukone",
-			"searchEngineDescription": "Missä osoitepalkkiin kirjoitettua tekstiä haetaan. Linkit avataan sellaisenaan.",
-			"signOut": "Kirjaudu ulos Tutki-näkymästä",
-			"signOutDescription": "Tyhjentää kirjautumisesi ja selaustietosi Tutki-näkymässä kaikilta sivustoilta.",
-			"signOutConfirmTitle": "Kirjaudutaanko ulos Tutki-näkymästä?",
-			"signOutConfirmBody": "Tämä tyhjentää kirjautumisesi ja selaustietosi Tutki-näkymässä kaikilta sivustoilta. Tilin vaativat lataukset epäonnistuvat, kunnes kirjaudut uudelleen sisään.",
-			"signOutConfirm": "Kirjaudu ulos"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Tutki-näkymä ei saa yhteyttä välityspalvelimesi kautta", "proxyBody": "Tarkista välityspalvelin asetuksista ja yritä uudelleen.", "loadTitle": "Sivua ei voitu ladata", "loadBody": "Tarkista yhteytesi ja yritä uudelleen.", "retry": "Yritä uudelleen", "openSettings": "Avaa asetukset"}
-	},
-	"fileType": {
-		"auto": "Auto",
-		"autoValue": "Auto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {
-			"auto": "Valitut virrat määrittävät tiedostotyypin.",
-			"mp4": "Toimii lähes kaikkialla. MP4:ään pakattu VP9 ei toista videota QuickTimessa.",
-			"mkv": "Sisältää minkä tahansa koodekin. Jotkin televisiot ja puhelimet eivät voi avata sitä.",
-			"webm": "Selaimille tarkoitettu avoin muoto. Sisältää vain VP9:ää tai AV1:tä Opus-äänellä."
+		"groups": {
+			"engine": "Latausmoottori",
+			"media": "Mediatyökalut"
 		},
-		"webmBlocked": "WebM ei voi sisältää koodekkia {{codec}}. Valitse MKV tai MP4.",
-		"profileMark": "Profiili",
-		"smartTvNoWebm": "WebM ei ole käytettävissä Smart TV -profiilissa: se ei voi sisältää H.264:ää.",
-		"mp4CaveatVp9": "MP4:ään pakattu VP9 ei toista videota QuickTimessa. H.264 toimii kaikkialla.",
-		"mp4CaveatAv1": "MP4:ään pakattu AV1 vaatii QuickTime-toistoon uuden Macin. H.264 toimii kaikkialla."
+		"installing": {
+			"homebrew": "Asennetaan Homebrew-ohjelmalla… Tämä voi kestää muutaman minuutin.",
+			"winget": "Asennetaan WinGet-ohjelmalla… Tämä voi kestää muutaman minuutin."
+		},
+		"manual": {
+			"intro": "Valitse Arroxylle kopiot, jotka sinulla jo on, tai asenna ne muulla tavalla.",
+			"linuxHint": "Voit myös asentaa yt-dlp:n ja ffmpegin paketinhallinnalla ja napsauttaa sitten Yritä uudelleen.",
+			"toggle": "Määritä manuaalisesti"
+		},
+		"stopped": {
+			"body": "Yritä uudelleen tai valitse alta työkalut, jotka sinulla jo on.",
+			"title": "Asennus pysähtyi"
+		},
+		"title": "Asennus tarvitsee apuasi"
 	},
 	"selectionOrder": {
 		"editorTitle": "Näin tämä profiili valitsee",
-		"whyTitle": "Miksi profiili valitsi tämän",
-		"whyLabel": "Miksi tämä?",
 		"rank": {
-			"h264": {"label": "H.264-video", "reason": "toimii kaikilla laitteilla"},
-			"mp4Streams": {"label": "MP4-virrat", "reason": "valmiina MP4-tiedostoon"},
-			"resolutionBest": {"label": "Suurin tarkkuus", "reason": "rajaa ei ole asetettu"},
-			"resolution": {"label": "Enintään {{tier}}p", "reason": "rajasi"},
-			"fps": {"label": "Suurin kuvataajuus", "reason": "sulavampi liike"},
-			"sitePreference": {"label": "Virrat, joita sivusto ei merkitse huonommiksi", "reason": "ohittaa vioittuneet, vesileimatut ja varakopiot"},
-			"original": {"label": "Alkuperäiset virrat, ei tekoälyllä skaalattuja", "reason": "skaalattu kopio on korkeampi mutta ei lisää todellisia yksityiskohtia"},
-			"source": {"label": "Parannetun bittinopeuden virrat ensin", "reason": "enemmän yksityiskohtia samalla tarkkuudella"},
-			"protocol": {"label": "Suorat lataukset ennen suoratoistettuja kopioita", "reason": "sama kuva, ladataan nopeammin"},
-			"codec": {"label": "AV1, sitten VP9, sitten H.264", "reason": "terävin samalla koolla"},
-			"codecVp9First": {"label": "VP9, sitten H.264, sitten AV1", "reason": "tämän profiilin koodekki"},
-			"codecH264First": {"label": "H.264, sitten VP9, sitten AV1", "reason": "tämän profiilin koodekki"},
-			"size": {"label": "Suurempi tiedosto", "reason": "enemmän yksityiskohtia samoilla asetuksilla"},
-			"aacSmartTv": {"label": "AAC-ääni", "reason": "toimii kaikkialla"},
-			"aacFileType": {"label": "AAC-ääni", "reason": "sopii MP4-soittimiin"},
-			"opus": {"label": "Opus-ääni", "reason": "sopii WebM:ään"},
-			"nativeCompatible": {"label": "Stereoääni"},
-			"nativeSurround": {"label": "Surround-ääni, kun saatavilla"},
-			"nativeSource": {"settings": "asetuksista", "profile": "tämä profiili"},
-			"hdrSdrFirst": {"label": "SDR ennen HDR:ää", "reason": "näyttää oikealta millä tahansa näytöllä", "reasonScreen": "tämä näyttö ei ole HDR"},
-			"hdrFirst": {"label": "HDR ennen SDR:ää", "reason": "rikkaammat värit HDR-näytöillä", "reasonScreen": "tämä näyttö tukee HDR:ää"}
+			"aacFileType": {
+				"label": "AAC-ääni",
+				"reason": "sopii MP4-soittimiin"
+			},
+			"aacSmartTv": {
+				"label": "AAC-ääni",
+				"reason": "toimii kaikkialla"
+			},
+			"codec": {
+				"label": "AV1, sitten VP9, sitten H.264",
+				"reason": "terävin samalla koolla"
+			},
+			"codecH264First": {
+				"label": "H.264, sitten VP9, sitten AV1",
+				"reason": "tämän profiilin koodekki"
+			},
+			"codecVp9First": {
+				"label": "VP9, sitten H.264, sitten AV1",
+				"reason": "tämän profiilin koodekki"
+			},
+			"fps": {
+				"label": "Suurin kuvataajuus",
+				"reason": "sulavampi liike"
+			},
+			"h264": {
+				"label": "H.264-video",
+				"reason": "toimii kaikilla laitteilla"
+			},
+			"hdrFirst": {
+				"label": "HDR ennen SDR:ää",
+				"reason": "rikkaammat värit HDR-näytöillä",
+				"reasonScreen": "tämä näyttö tukee HDR:ää"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR ennen HDR:ää",
+				"reason": "näyttää oikealta millä tahansa näytöllä",
+				"reasonScreen": "tämä näyttö ei ole HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-virrat",
+				"reason": "valmiina MP4-tiedostoon"
+			},
+			"nativeCompatible": {
+				"label": "Stereoääni"
+			},
+			"nativeSource": {
+				"profile": "tämä profiili",
+				"settings": "asetuksista"
+			},
+			"nativeSurround": {
+				"label": "Surround-ääni, kun saatavilla"
+			},
+			"opus": {
+				"label": "Opus-ääni",
+				"reason": "sopii WebM:ään"
+			},
+			"original": {
+				"label": "Alkuperäiset virrat, ei tekoälyllä skaalattuja",
+				"reason": "skaalattu kopio on korkeampi mutta ei lisää todellisia yksityiskohtia"
+			},
+			"protocol": {
+				"label": "Suorat lataukset ennen suoratoistettuja kopioita",
+				"reason": "sama kuva, ladataan nopeammin"
+			},
+			"resolution": {
+				"label": "Enintään {{tier}}p",
+				"reason": "rajasi"
+			},
+			"resolutionBest": {
+				"label": "Suurin tarkkuus",
+				"reason": "rajaa ei ole asetettu"
+			},
+			"sitePreference": {
+				"label": "Virrat, joita sivusto ei merkitse huonommiksi",
+				"reason": "ohittaa vioittuneet, vesileimatut ja varakopiot"
+			},
+			"size": {
+				"label": "Suurempi tiedosto",
+				"reason": "enemmän yksityiskohtia samoilla asetuksilla"
+			},
+			"source": {
+				"label": "Parannetun bittinopeuden virrat ensin",
+				"reason": "enemmän yksityiskohtia samalla tarkkuudella"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "paras kuva", "smartTv": "toimii millä tahansa laitteella"}, "fileType": {"auto": "tiedostotyyppi virroista", "explicit": "tallentuu muodossa .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "tiedostotyyppi virroista",
+				"explicit": "tallentuu muodossa .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "paras kuva",
+				"smartTv": "toimii millä tahansa laitteella"
+			}
+		},
+		"whyLabel": "Miksi tämä?",
+		"whyTitle": "Miksi profiili valitsi tämän"
 	},
-	"aiUpscaled": {"label": "Tekoälyllä skaalatut virrat", "description": "YouTube tarjoaa joitakin vanhoja videoita tekoälyllä tehtyinä suurempina versioina. Ohita säilyttää alkuperäiset virrat; voit silti valita skaalatun version käsin.", "skip": "Ohita", "allow": "Salli"},
+	"share": {
+		"copied": "Kopioitu!",
+		"copyLink": "Kopioi linkki",
+		"defaultMessage": "Arroxy – ilmainen avoimen lähdekoodin videolataaja Windowsille, macOS:lle ja Linuxille. Toimii YouTuben, Vimeon, Twitchin ja yli 2000 sivuston kanssa.\n4K · HDR · MP3 · Shorts · Tekstitykset · SponsorBlock",
+		"description": "Arroxy on ilmainen ja avoimen lähdekoodin sovellus. Jakaminen auttaa useampia löytämään sen.",
+		"footerLabel": "Jaa",
+		"footerTooltip": "Jaa Arroxy",
+		"shareAction": "Jaa Arroxy",
+		"title": "Jaa Arroxy"
+	},
+	"splash": {
+		"cancel": "Ongelmia? Määritä manuaalisesti",
+		"greeting": "Hei, tervetuloa takaisin!",
+		"setup": {
+			"bytes": "{{done}} / {{total}}",
+			"left": {
+				"minutes_one": "noin {{count}} min jäljellä",
+				"minutes_other": "noin {{count}} min jäljellä",
+				"underMinute": "alle minuutti jäljellä"
+			},
+			"note": {
+				"engine": "Pitää lataukset toimivina, kun sivustot muuttuvat.",
+				"firstRun": "Tämä tapahtuu vain kerran. Arroxy säilyttää nämä työkalut ja päivittää ne itse.",
+				"media": "Tämä tapahtuu vain kerran. Arroxy säilyttää ne tulevia päivityksiä varten."
+			},
+			"stage": {
+				"checking": "Tarkistetaan, että kaikki toimii",
+				"connecting": "Yhdistetään…",
+				"downloadingBoth": "Ladataan latausmoottoria ja mediatyökaluja",
+				"downloadingEngine": "Ladataan latausmoottoria",
+				"downloadingMedia": "Ladataan mediatyökaluja",
+				"unpacking": "Puretaan mediatyökaluja"
+			},
+			"title": {
+				"engine": "Päivitetään latausmoottoria",
+				"firstRun": "Ensimmäisen käyttökerran asennus",
+				"media": "Päivitetään mediatyökaluja"
+			}
+		},
+		"verifyFirstCheck": "Tämän version ensimmäinen tarkistus – tämä on hidas. Yleensä noin minuutti.",
+		"verifying": "Tarkistetaan {{binary}}…",
+		"warmup": "Valmistellaan latauksia…",
+		"warmupFailedNoDiag": "Asennus epäonnistui. Katso lisätiedot asennuslokista."
+	},
+	"status": {
+		"audioKept": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa",
+		"audioKeptSubtitlesFailed": "Video tallennettu äänen kanssa – ääntä ei voitu poistaa, eikä joitakin tekstityksiä voitu ladata",
+		"cancelled": "Lataus peruttu",
+		"complete": "Lataus valmis",
+		"convertingVideo": "Muunnetaan videota…",
+		"diskSpaceInsufficient": "Levytila ei riitä – tarvitaan {{required}}, vapaana vain {{free}}",
+		"downloadingBinary": "Ladataan {{name}}-binääriä…",
+		"downloadingMedia": "Ladataan videota ja ääntä…",
+		"embeddingMetadata": "Upotetaan metatietoja…",
+		"exploreSignedOut": "Uloskirjautunut Tutki-näkymästä – kirjaudu uudelleen sisään",
+		"extractingAudio": "Muunnetaan ääntä…",
+		"fetchingSponsorBlock": "Yhdistetään SponsorBlockiin…",
+		"fetchingSubtitles": "Haetaan tekstityksiä…",
+		"mergingFormats": "Yhdistetään ääntä ja kuvaa…",
+		"mintingToken": "Luodaan YouTube-tunnusta…",
+		"movingFiles": "Siirretään tiedostoja…",
+		"noSubtitles": "Ei tekstityksiä kielillä: {{languages}}",
+		"outputNotWritable": "Tallennus kansioon {{dir}} ei onnistu – Arroxylla ei ole kirjoitusoikeutta sinne",
+		"preparingBinaries": "Valmistellaan binäärejä…",
+		"qualityLimited": "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa.",
+		"qualityLimitedSubtitlesFailed": "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta, eikä joitakin tekstityksiä voitu ladata. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa.",
+		"remintingToken": "Luodaan tunnusta uudelleen…",
+		"retryingSponsorBlock": "SponsorBlock ei ole käytettävissä, yritetään uudelleen ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Yhteys jumiutui, yritetään uudelleen ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Kirjaudutaan sisään Tutki-tililläsi…",
+		"sleepingBetweenRequests": "Odotetaan {{seconds}} s nopeusrajoitusten välttämiseksi…",
+		"startingYtdlp": "Käynnistetään latausmoottoria…",
+		"subtitleLanguagesMissing": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Video tallennettiin ilman niitä.",
+		"subtitleLanguagesMissingOthersSaved": "Tällä videolla ei ole tekstityksiä kielillä: {{languages}}. Muut kielet tallennettiin.",
+		"subtitlesFailed": "Video tallennettu – joitakin tekstityksiä ei voitu ladata",
+		"unknownStartupFailure": "Latauksen käynnistys epäonnistui tuntemattomasta syystä",
+		"usedExtractorFallback": "Ladattu kevennetyllä poimijalla – määritä cookies.txt luotettavampia latauksia varten",
+		"ytdlpExitCode": "Latausmoottori päättyi koodilla {{code}}",
+		"ytdlpProcessError": "Latausmoottorin virhe: {{error}}"
+	},
+	"theme": {
+		"dark": "Tumma tila",
+		"light": "Vaalea tila",
+		"system": "Järjestelmän oletus"
+	},
+	"titleBar": {
+		"close": "Sulje",
+		"maximize": "Suurenna",
+		"minimize": "Pienennä",
+		"restore": "Palauta"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Lataa leikepöydältä",
+			"open": "Avaa Arroxy",
+			"quit": "Lopeta Arroxy",
+			"statusActive_one": "1 latautuu · {{percent}} %",
+			"statusActive_other": "{{count}} latautuu · {{percent}} %",
+			"statusIdle": "Ei toimintaa"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Komento kopioitu leikepöydälle",
+		"copy": "Kopioi komento leikepöydälle",
+		"dismiss": "Hylkää päivitysilmoitus",
+		"download": "Lataa ↗",
+		"downloadDmg": "Lataa DMG ↗",
+		"downloading": "Ladataan…",
+		"install": "Asenna ja käynnistä uudelleen",
+		"installFailed": "Päivitys epäonnistui",
+		"message": {
+			"generic": "Arroxy {{version}} on saatavilla – sinulla on {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} on saatavilla – päivitä Homebrew-ohjelmalla.",
+			"macosDirect": "Arroxy {{version}} on saatavilla – lataa uusi DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} on saatavilla – lataa DMG tai siirry käyttämään Homebrew-ohjelmaa.",
+			"portable": "Arroxy {{version}} on saatavilla – lataa uusi versio."
+		},
+		"retry": "Yritä uudelleen",
+		"runAndRestart": "Suorita ja käynnistä uudelleen",
+		"upgrading": "Päivitetään…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} luku",
+		"chapters_other": "{{count}} lukua",
+		"titlePlaceholder": "Ladataan…"
+	},
 	"videoCodec": {
-		"label": "Videokoodekki",
-		"description": "Mikä koodekki otetaan ensin samankorkuisista virroista. Auto säilyttää yt-dlp:n oman järjestyksen, joka suosii AV1:tä, pienintä; H.264 toimii vanhemmilla televisioilla ja puhelimilla.",
-		"smartTv": "Smart TV ottaa aina H.264:n.",
 		"auto": "Auto",
-		"vp9": "VP9 ensin",
-		"h264": "H.264 ensin"
+		"description": "Mikä koodekki otetaan ensin samankorkuisista virroista. Auto säilyttää yt-dlp:n oman järjestyksen, joka suosii AV1:tä, pienintä; H.264 toimii vanhemmilla televisioilla ja puhelimilla.",
+		"h264": "H.264 ensin",
+		"label": "Videokoodekki",
+		"smartTv": "Smart TV ottaa aina H.264:n.",
+		"vp9": "VP9 ensin"
 	},
-	"hdrPreference": {"label": "HDR-video", "description": "Auto valitsee HDR:n, kun tämä näyttö pystyy näyttämään sen, muuten SDR:n. HDR näyttää haalealta tavallisilla näytöillä.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Valmiit",
+			"description": "Liitä video-, soittolista-, kanava-, haku- tai ääni-URL-osoitteita. Arroxy poistaa kaksoiskappaleet ennen jonoon lisäämistä.",
+			"emptyPreview": "Liitä yksi tai useampi URL-osoite nähdäksesi erän esikatselun.",
+			"ignoredCount": "Ohitetut",
+			"needsAtLeastOne": "Lisää vähintään yksi tuettu URL-osoite jatkaaksesi.",
+			"reject": {
+				"duplicate": "Kaksoiskappale"
+			},
+			"textareaLabel": "URL-luettelo",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Useita URL-osoitteita"
+		},
+		"confirm": {
+			"addToQueue": "+ Jono",
+			"addToQueueTooltip": "Lisää jonoon – alkaa, kun aktiivinen lataus päättyy",
+			"audioOnly": "Vain ääni",
+			"itemsValueAudio_one": "{{count}} / {{total}} kappaletta",
+			"itemsValueAudio_other": "{{count}} / {{total}} kappaletta",
+			"itemsValueBulk_one": "{{count}} / {{total}} URL-osoitetta",
+			"itemsValueBulk_other": "{{count}} / {{total}} URL-osoitetta",
+			"itemsValue_one": "{{count}} / {{total}} videota",
+			"itemsValue_other": "{{count}} / {{total}} videota",
+			"labelAudio": "Ääni",
+			"labelBulk": "Erä",
+			"labelItems": "Kohteet",
+			"labelPlaylist": "Soittolista",
+			"labelPreset": "Esiasetus",
+			"labelSaveTo": "Tallennuskohde",
+			"labelSize": "Koko",
+			"labelSubtitles": "Tekstitykset",
+			"labelVideo": "Video",
+			"landIn": "Tiedostosi tallentuu kansioon",
+			"landInMultiProfile_one": "Se tallentuu alla olevaan kohteeseen",
+			"landInMultiProfile_other": "Ne tallentuvat {{count}} alla olevaan kohteeseen",
+			"nothingToDownload": "Vain tekstitykset -esiasetus on käytössä, mutta tekstityskieltä ei ole valittu – mitään ei ladata.",
+			"profileBreakdownCount_one": "{{count}} kohde",
+			"profileBreakdownCount_other": "{{count}} kohdetta",
+			"profileBreakdownHeading": "Tämän erän profiilit",
+			"pullIt": "Aloita nyt ↓",
+			"pullItTooltip": "Ohittaa jonon – alkaa heti ja toimii muiden aktiivisten latausten rinnalla",
+			"readyHeadline": "Valmis latausta varten!",
+			"sizeUnknown": "Tuntematon",
+			"subtitleEmbedAudioOnly": "Tekstityksen upotus vaihdettu erilliseksi tiedostoksi – äänitiedostot eivät tue upotettuja tekstitysvirtoja.",
+			"subtitleEmbedForcesMkv": "Videon sisällä olevat tekstitykset vaativat MKV-tiedoston, joten tämä lataus tallentuu muodossa .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Pikkukuvan upotus ohitettu – tulostiedostotyyppi ei tue sitä."
+		},
+		"folder": {
+			"custom": "Mukautettu…",
+			"desktop": "Työpöytä",
+			"documents": "Asiakirjat",
+			"downloads": "Lataukset",
+			"heading": "Tallenna kohteeseen",
+			"home": "Koti",
+			"music": "Musiikki",
+			"pictures": "Kuvat",
+			"subfolder": {
+				"invalid": "Kansion nimessä on virheellisiä merkkejä",
+				"placeholder": "esim. lo-fi-tallenteet",
+				"toggle": "Tallenna alikansioon"
+			},
+			"videos": "Elokuvat"
+		},
+		"formats": {
+			"audio": "Ääni",
+			"audioLanguage": "Äänen kieli",
+			"audioLanguageCount_one": "{{count}} kieli",
+			"audioLanguageCount_other": "{{count}} kieltä",
+			"audioOnly": "Vain ääni",
+			"bitrateValue": "Bittinopeus {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Evästeet on määritetty, mutta ne ovat pois käytöstä. Ota ne käyttöön ja yritä uudelleen saadaksesi koko luettelon tai vaihda verkkoa ja yritä uudelleen.",
+				"bodyEnabled": "Evästeistä huolimatta YouTube rajoitti tätä tietojen hakua. Yritä myöhemmin uudelleen tai vaihda verkkoa.",
+				"bodyExplore": "YouTube rajoitti tätä pyyntöä. Yritä myöhemmin uudelleen tai vaihda verkkoa.",
+				"bodyUnconfigured": "Muotoluettelo voi olla epätäydellinen. Määritä evästeet lisäasetuksissa tai vaihda verkkoa ja yritä uudelleen.",
+				"enableRetryCta": "Ota evästeet käyttöön ja yritä uudelleen",
+				"heading": "Tietojen hakua rajoitettiin",
+				"retryCta": "Yritä uudelleen"
+			},
+			"convert": {
+				"bitrate": "Bittinopeus",
+				"bitrateCopyHint": "Lähde, joka on jo {{target}}, säilyttää oman virtansa ja bittinopeutensa: se kopioidaan, ei koodata uudelleen.",
+				"copyLabel": "{{target}} {{bitrate}} kbps, ei uudelleenkoodausta",
+				"copyLabelNoBitrate": "{{target}}, ei uudelleenkoodausta",
+				"copyNote": "{{kbps}} kbps, kuten lähteessä: virta on jo {{target}}, joten se kopioidaan eikä koodata uudelleen",
+				"copyNoteNoBitrate": "Kuten lähteessä: virta on jo {{target}}, joten se kopioidaan eikä koodata uudelleen",
+				"label": "Muunna",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "Lähde on {{kbps}} kbps",
+				"wavLabel": "WAV (pakkaamaton)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Selain",
+				"currentModeExplore": "Tutki-kirjautuminen",
+				"currentModeFile": "Tiedosto",
+				"currentModeLabel": "Evästeiden lähde",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp:n ohjeet (ongelma #10927)",
+					"explanation": "Chrome 127 ja uudemmat salaavat evästeet tavalla, jota muut sovellukset eivät voi lukea Windowsissa. Kokeile jotakin alla olevista kiertotavoista.",
+					"fixFileBody": "Vie evästeet Chromesta selainlaajennuksella, vaihda sitten tämä sovellus Tiedosto-tilaan ja valitse viety tiedosto.",
+					"fixFileLabel": "Vie cookies.txt",
+					"fixFirefoxBody": "Firefox ei käytä App-Bound Encryptionia. Avaa evästeasetukset ja valitse Firefox selainluettelosta.",
+					"fixFirefoxLabel": "Vaihda Firefoxiin",
+					"fixUnsafeBody": "Lisää --disable-features=LockProfileCookieDatabase Chromen käynnistyspikakuvakkeeseen. Varoitus: tämä mitätöi aiemmin salatut evästeet, joten kirjaudut ulos kaikilta sivustoilta ja joudut kirjautumaan uudelleen sisään.",
+					"fixUnsafeLabel": "Käynnistä Chrome App-Bound Encryption poistettuna käytöstä",
+					"heading": "Windowsin salaus esti Chromen evästeet"
+				},
+				"explanationBrowser": "Evästeet luetaan suoraan selaimesta. Jos selain on parhaillaan käynnissä, sen evästetietokanta voi olla lukittu (Chromium-pohjaiset selaimet). Selaimen on myös oltava kirjautuneena YouTubeen. Kokeile sulkea selain, vaihtaa toiseen selaimeen, vaihtaa Tiedosto-tilaan tai poistaa evästeet käytöstä.",
+				"explanationFile": "Evästetiedostosi voi olla tyhjä, vanhentunut tai väärässä muodossa (Arroxy tarvitsee Netscape-muotoisen cookies.txt-tiedoston). Kokeile viedä evästeet uudelleen, valita toinen tiedosto, vaihtaa Selain-tilaan tai poistaa evästeet käytöstä.",
+				"exploreOffer": {
+					"body": "Kirjaudu sisään Tutki-näkymässä, niin Arroxy yrittää sitä uudelleen.",
+					"cta": "Kirjaudu Tutki-näkymässä",
+					"heading": "Tämä video voi vaatia YouTube-tilin"
+				},
+				"exploreRefused": {
+					"body": "Arroxy yritti jo sisäänkirjautuneena Tutki-näkymän kautta, joten uusi kirjautuminen ei auta. Sivustolla voi olla ongelmia, tai tämä tili ei voi avata sitä. Yritä myöhemmin uudelleen.",
+					"heading": "Sivusto kieltäytyi tästä Tutki-kirjautumisesta huolimatta"
+				},
+				"exploreReuse": {
+					"body": "Olet kirjautunut Tutki-näkymään, mutta lataukset eivät tällä hetkellä käytä tuota kirjautumista.",
+					"cta": "Käytä Tutki-kirjautumistani ja yritä uudelleen",
+					"heading": "Tämä video voi vaatia YouTube-tilin"
+				},
+				"exploreSignIn": {
+					"body": "Jos tämä video vaatii YouTube-tilin, kirjaudu sisään Tutki-näkymässä ja yritä uudelleen. Arroxy käyttää tuota kirjautumista vain, kun lataus sitä tarvitsee.",
+					"cta": "Kirjaudu Tutki-näkymässä",
+					"heading": "Tämä video voi vaatia YouTube-tilin"
+				},
+				"exploreSignedIn": {
+					"body": "Jos tämä video vaatii tilin, Arroxy käyttää Tutki-kirjautumistasi automaattisesti. Video voi olla poissa käytöstä jostain muusta syystä.",
+					"heading": "Kirjautunut Tutki-näkymään"
+				},
+				"exploreSite": {
+					"heading": "Tämä linkki voi vaatia tilin sivustolla {{host}}",
+					"offerBody": "Kirjaudu sivustolle {{host}} Tutki-näkymässä ja yritä sitten uudelleen.",
+					"signInBody": "Kirjaudu sivustolle {{host}} Tutki-näkymässä ja yritä sitten uudelleen. Arroxy käyttää tuota kirjautumista vain, kun lataus sitä tarvitsee."
+				},
+				"heading": "Evästeet voivat olla syynä",
+				"needsCookies": {
+					"body": "Arroxy ei päässyt käsiksi tähän videoon ilman todennusta. Määritä evästeet lisäasetuksissa – osoita selain, johon olet jo kirjautunut, tai tuo cookies.txt-tiedosto.",
+					"heading": "Tämä sivusto vaatii kirjautumisen"
+				},
+				"openSettingsCta": "Avaa evästeasetukset",
+				"otherCookiesCta": "Käytä sen sijaan evästetiedostoa tai selainta…"
+			},
+			"drc": {
+				"description": "Hiljentää kovia kohtia ja voimistaa hiljaisia, kaiuttimille ja meluisiin tiloihin.",
+				"label": "Tasaa äänenvoimakkuus (DRC)",
+				"tag": "Tasainen äänenvoimakkuus"
+			},
+			"fit": {
+				"mp4Unavailable": "Profiilisi on Smart TV (H.264). Tämä video ei tarjoa H.264:ää, joten valittuna on lähin virta.",
+				"noVideo": "Tässä linkissä ei ole videota, joten ääni on valittu.",
+				"subtitlesMissing": "Profiilisi pyytää tekstityksiä kielillä {{languages}}. Tällä videolla niitä ei ole.",
+				"tierAbove": "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tässä videossa ei ole niin pientä, joten valittuna on {{picked}}p.",
+				"tierBelow": "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämä video yltää vain {{picked}}p:hen, joten valittuna on {{picked}}p.",
+				"webmUnavailable": "Profiilisi pyytää WebM:ää. Tämän videon valittuihin virtoihin kuuluu {{codec}}, jota WebM ei voi sisältää, joten tiedostotyyppi on Auto."
+			},
+			"footer": {
+				"addToQueue": "Lisää jonoon aloittamatta",
+				"download": "Lataa",
+				"moreActions": "Lisää lataustoimintoja",
+				"subtitlesRequired": "Valitse vähintään yksi tekstityskieli."
+			},
+			"keepAudio": "Säilytä sellaisenaan",
+			"keepAudioMeta": "Sisäänrakennettu ääni",
+			"kind": {
+				"audio": "Vain ääni",
+				"label": "Mitä ladataan",
+				"subtitles": "Vain tekstitykset",
+				"video": "Video + ääni",
+				"videoOnly": "Video, ei ääntä"
+			},
+			"loadingAria": "Ladataan muotoja",
+			"loadingHint": "Odota, kunnes tietojen haku päättyy – soittolistat ja haut voivat kestää hetken.",
+			"marker": {
+				"aiDubbed": "Tekoälydubattu",
+				"aiUpscaled": "Tekoälyllä skaalattu",
+				"audioDescription": "Äänikuvaus",
+				"damaged": "Vioittunut",
+				"enhancedBitrate": "Parannettu bittinopeus",
+				"spatialAudio": "Tilaääni",
+				"vr": "360° / VR",
+				"watermarked": "Vesileimattu"
+			},
+			"noAudio": "Ei ääntä",
+			"profile": {
+				"calloutBody": "Aktiivinen profiilisi valitsee virrat puolestasi. Vaihda profiilia valikosta tai säädä sitä kynäkuvakkeella poistumatta tästä latauksesta.",
+				"calloutTitle": "Muodot lähtevät profiilistasi",
+				"closestTag": "Lähinnä profiilia",
+				"edit": "Muokkaa: {{name}}",
+				"keepEdits": "Säilytä muutokseni",
+				"menuDescription": "Vain tälle lataukselle. Oletusprofiilisi pysyy ennallaan.",
+				"preselected": "Esivalittu profiilista",
+				"resetAll": "Palauta kaikki",
+				"switchBody": "Muutit tässä latauksessa seuraavia: {{areas}}. Profiili ”{{profile}}” valitsee videon ja äänen joka tapauksessa. Säilytetäänkö muut muutoksesi vai palautetaanko kaikki profiilin mukaisiksi?",
+				"switchTitle": "Vaihdetaanko profiili?",
+				"tag": "Profiili",
+				"updatedBody": "Muutit tässä latauksessa seuraavia: {{areas}}. Päivitetty profiili valitsee videon ja äänen joka tapauksessa. Säilytetäänkö muut muutoksesi vai palautetaanko kaikki profiilin mukaisiksi?",
+				"updatedTitle": "Käytetäänkö päivitettyä profiilia?"
+			},
+			"quality": {
+				"high": "Korkea laatu",
+				"low": "Matala laatu",
+				"medium": "Keskitason laatu"
+			},
+			"rateLimit": {
+				"heading": "Sivusto {{site}} rajoittaa tämän yhteyden pyyntöjä",
+				"leadDegraded": "Muotoluettelo voi olla epätäydellinen.",
+				"leadFailed": "Sivusto {{site}} hylkäsi tämän pyynnön toistaiseksi.",
+				"retryCta": "Yritä uudelleen",
+				"sessionNote": "Sivusto {{site}} voi pitää tämän rajoituksen voimassa jopa tunnin.",
+				"tryNowCta": "Yritä nyt",
+				"waitOver": "Odotus on ohi, joten voit yrittää uudelleen.",
+				"waitUntil": "Arroxy odottaa kello {{time}} asti, ennen kuin ottaa uudelleen yhteyttä sivustoon {{site}}, jotta rajoitus ehtii purkautua."
+			},
+			"resolutionUnknown": "Tuntematon tarkkuus",
+			"savesAs": {
+				"label": "Tallentuu muodossa",
+				"reset": "WebM ei voi sisältää koodekkia {{codec}}, joten tiedostotyypiksi palautettiin Auto."
+			},
+			"sizeUnknown": "Koko tuntematon",
+			"skipToConfirm": "Siirry vahvistukseen",
+			"skipToConfirmTooltip": "Käyttää tallennettuja asetuksiasi kaikissa jäljellä olevissa vaiheissa. Jos haluat muuttaa asetusta, jatka sen sijaan vaihe vaiheelta – valintasi tallennetaan seuraavaa kertaa varten.",
+			"sniffing": "Etsitään sinulle parhaita muotoja…",
+			"total": "Yhteensä",
+			"video": "Video",
+			"withAudio": "äänellä"
+		},
+		"mixedPrompt": {
+			"body": "Haluatko vain napsauttamasi videon vai valita soittolistasta? Valitset seuraavaksi tietyt videot tai alueen.",
+			"pickFromPlaylist": "Valitse soittolistasta",
+			"playlistLimit": "Soittolistan tarkistusraja: {{count}} kohdetta",
+			"playlistTooltip": "Lataa soittolistan tarkistusrajaasi asti ennen valitsimen näyttämistä.",
+			"quickBody": "Lataa vain tämä video tai lisää koko soittolista jonoon aktiivisella Pikalataus-profiilillasi.",
+			"quickLimitDescription": "Enimmäismäärä kohteita, jotka Arroxy tarkistaa ennen soittolistan, kanavan tai hakutuloksen lisäämistä jonoon.",
+			"quickPlaylistTooltip": "Lisää jonoon kaikki ladatut soittolistan kohteet aktiivisella Pikalataus-profiililla. Jos tarkistus yltää rajaasi, Arroxy kysyy ennen jonoon lisäämistä.",
+			"quickSingleTooltip": "Lisää jonoon yhden latauksen ja ohittaa tähän URL-osoitteeseen liitetyn soittolistan.",
+			"quickSingleVideo": "Lataa tämä video",
+			"quickWholePlaylist": "Lataa koko soittolista",
+			"singleTooltip": "Lataa vain tämän videon. Tähän URL-osoitteeseen liitetty soittolista ohitetaan.",
+			"singleVideo": "Vain tämä",
+			"title": "Tässä linkissä on soittolista"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Lukumerkit, joiden avulla voi siirtyä missä tahansa nykyaikaisessa soittimessa.",
+				"label": "Upota luvut"
+			},
+			"embedMetadata": {
+				"description": "Nimi, esittäjä, kuvaus ja lisäyspäivä kirjoitetaan tiedostoon.",
+				"label": "Upota metatiedot"
+			},
+			"embedThumbnail": {
+				"description": "Kansikuva tiedoston sisällä. WebM-video muunnetaan MKV:ksi; ohitetaan, jos tekstitykset upotetaan.",
+				"label": "Upota pikkukuva"
+			},
+			"writeDescription": {
+				"description": "Tallentaa videon kuvauksen .description-tekstitiedostona latauksen viereen.",
+				"label": "Tallenna kuvaus"
+			},
+			"writeM3u": {
+				"description": "Tallenna .m3u-soittolista videoiden viereen, jotta ne avautuvat järjestyksessä mediasoittimessa.",
+				"label": "Luo .m3u-soittolistatiedosto"
+			},
+			"writeThumbnail": {
+				"description": "Tallentaa pikkukuvan .jpg-kuvatiedostona latauksen viereen.",
+				"label": "Tallenna pikkukuva"
+			}
+		},
+		"part": {
+			"calloutBody": "Vaihda videokortissa kohtaan Osa valitaksesi alun ja lopun tai luvun ja lataa vain kyseinen kohta.",
+			"calloutTitle": "Lataa vain osa videosta",
+			"chapterUntitled": "Luku {{number}}",
+			"chapters": "Luvut",
+			"connectionsNote": "Osa ladataan ffmpegin kautta, joten latausyhteyksien ja tahdistuksen asetukset eivät koske sitä.",
+			"downloadBlocked": "Korjaa ensin osan alku ja loppu.",
+			"end": "Loppu",
+			"error": {
+				"endBeyondDuration": "Video päättyy kohtaan {{duration}}.",
+				"endInvalid": "Anna loppu muodossa h:mm:ss, m:ss tai sekunteina.",
+				"startInvalid": "Anna alku muodossa h:mm:ss, m:ss tai sekunteina.",
+				"startNotBeforeEnd": "Alun on oltava ennen loppua."
+			},
+			"exactCut": {
+				"hint": "Pois: jokainen leikkaus osuu lähimpään avainkuvaan, joka voi olla muutaman sekunnin päässä kirjoittamastasi ajasta.",
+				"label": "Tarkka leikkaus (koodaa uudelleen, hitaampi)"
+			},
+			"length": "{{length}} / {{duration}}",
+			"part": "Osa",
+			"rangeLabel": "Videon osa",
+			"start": "Alku",
+			"subtitlesFullLength": "koko video",
+			"summary": "Osa {{start}}–{{end}}",
+			"switchLabel": "Kuinka paljon videosta",
+			"timeHint": "h:mm:ss, m:ss tai sekunteina",
+			"totalEstimate": "Osa, arvio",
+			"unavailableDuration": "Tämä video ei ilmoita pituuttaan, joten se voidaan ladata vain kokonaisena.",
+			"unavailableSubtitles": "Tekstitykset kattavat aina koko videon.",
+			"urlStart": "Linkkisi alkaa kohdasta {{time}}",
+			"useUrlStart": "Käytä alkuna",
+			"whole": "Koko video",
+			"wholeTrack": "Koko kappale"
+		},
+		"playlist": {
+			"allRemovedDescription": "Palauta ne jatkaaksesi.",
+			"allRemovedTitle": "Kaikki kohteet poistettiin",
+			"alreadyDownloaded": "Jo ladattu",
+			"bulkHeading": "Useita URL-osoitteita",
+			"bulkMetadataOptional": "Odottaminen ei ole tarpeen – nyt jonoon lisätyt tiedostot saavat oikeat nimensä latauksen aikana.",
+			"bulkMetadataResolving": "Haetaan videoiden tietoja… {{done}}/{{total}}",
+			"bulkRowFailed": "Tiedot eivät saatavilla",
+			"bulkRowResolving": "Haetaan tietoja",
+			"bulkRowWaiting": "Odottaa",
+			"durationUnknown": "suora",
+			"heading": "Soittolistan kohteet",
+			"headingGeneric": "Ladattavat videot",
+			"itemCountAudio_one": "{{count}} kappale",
+			"itemCountAudio_other": "{{count}} kappaletta",
+			"itemCountBulk_one": "{{count}} URL-osoite",
+			"itemCountBulk_other": "{{count}} URL-osoitetta",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} videota",
+			"loadingItems": "Haetaan soittolistaa…",
+			"loadingItemsGeneric": "Haetaan videoita…",
+			"loadingLimitHint": "Rajoitus: ensimmäiset {{count}} kohdetta",
+			"loadingPagesFound_one": "{{count}} sivu löytyi",
+			"loadingPagesFound_other": "{{count}} sivua löytyi",
+			"loadingPhaseItems": "Kerätään videoita",
+			"loadingPhasePages": "Skannataan kanavan sivuja",
+			"multiProfileEntry": "Määritä profiilit kohteittain",
+			"multiProfileEntryTooltip": "Ohittaa vaiheet Laatu, SponsorBlock, Tuloste ja Tallennus – määritä sen sijaan latausprofiili kohteittain",
+			"nestedPlaylistBadge": "Soittolista",
+			"nestedPlaylistHint_one": "{{count}} näistä on soittolista, ei video – liitä sen linkki erikseen ladataksesi sen.",
+			"nestedPlaylistHint_other": "{{count}} näistä on soittolistoja, ei videoita – liitä niiden linkit yksi kerrallaan ladataksesi ne.",
+			"noSelection": "Valitse vähintään yksi video jatkaaksesi",
+			"probeLimitAlertDesc": "Näytetään ensimmäiset {{count}} kohdetta. Suurenna latausrajaa nähdäksesi lisää.",
+			"probeLimitAlertTitle": "Soittolistan tarkistus on rajattu",
+			"probeLimitAlertTitleGeneric": "Tarkistus on rajattu",
+			"rangeApply": "Käytä aluetta",
+			"rangeFrom": "Mistä",
+			"rangeTo": "Mihin",
+			"removeFromListCount_one": "Poista {{count}} luettelosta",
+			"removeFromListCount_other": "Poista {{count}} luettelosta",
+			"removedCount_one": "{{count}} poistettu",
+			"removedCount_other": "{{count}} poistettu",
+			"restore": "Palauta",
+			"selectAll": "Valitse kaikki",
+			"selectNone": "Poista valinnat",
+			"selectedCount_one": "{{count}} valittu",
+			"selectedCount_other": "{{count}} valittu",
+			"sortApi": "Soittolistan järjestys",
+			"sortFetchingDates": "Haetaan lisäyspäiviä…",
+			"sortLabel": "Lajittelu",
+			"sortUploadAsc": "Vanhimmat ensin",
+			"sortUploadDesc": "Uusimmat ensin",
+			"syncApply": "Käytä synkronointia",
+			"syncChange": "Vaihda kansio…",
+			"syncFoundDesc": "{{n}} näistä videoista on jo kansiossa {{dir}}. Synkronoidaanko, jotta ladataan vain uudet?",
+			"syncFoundTitle": "Jo kansiossa",
+			"syncNoneDesc": "Mitään tämän soittolistan videota ei löytynyt kansiosta {{dir}}.",
+			"syncNoneDescGeneric": "Mitään tämän lähteen videota ei löytynyt kansiosta {{dir}}.",
+			"syncNoneTitle": "Mitään ei ole vielä ladattu",
+			"syncScanning": "Tarkistetaan kansiota…",
+			"thumbnailAlt": "Videon pikkukuva"
+		},
+		"playlistPresets": {
+			"heading": "Valitse erän laatu",
+			"itemCount_one": "{{count}} kohde",
+			"itemCount_other": "{{count}} kohdetta",
+			"subhead": "Jokainen video ratkaisee valitun tason itsenäisesti – epäyhtenäiset soittolistat toimivat yllätyksittä."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Määritä profiili",
+			"assignTrigger_one": "Määritä {{count}} videolle",
+			"assignTrigger_other": "Määritä {{count}} videolle",
+			"columnDuration": "Kesto",
+			"columnProfile": "Profiili",
+			"editProfile": "Muokkaa: {{name}}",
+			"empty": "Mikään kohde ei vastaa tätä suodatinta",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profiilisuodattimet",
+			"heading": "Määritä latausprofiilit",
+			"menuDescription_one": "Valitse profiili tälle videolle.",
+			"menuDescription_other": "Valitse profiili näille {{count}} videolle.",
+			"selectedSummary": "{{selected}} / {{total}} valittu"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Muuta yleistä",
+				"chooseFolder": "Valitse kohdekansio",
+				"chooseIcon": "Valitse profiilin kuvake",
+				"removeLanguage": "Poista {{code}}",
+				"reset": "Palauta profiili",
+				"resetDisabledHint": "Tämä profiili käyttää jo sisäänrakennettuja asetuksia",
+				"resetHint": "Palauta sisäänrakennetun profiilin asetukset",
+				"save": "Tallenna profiili",
+				"setOverride": "Aseta profiilin ohitus",
+				"setOverrideShort": "Aseta ohitus",
+				"useGlobalDefault": "Käytä yleistä oletusta",
+				"useLanguageCode": "Käytä kielikoodia ”{{code}}”"
+			},
+			"advanced": "Lisäasetukset",
+			"appSetting": "Käytä sovelluksen asetusta ({{value}})",
+			"audioFormat": {
+				"best": "Paras",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Enintään 128K",
+				"192": "Enintään 192K",
+				"320": "Enintään 320K",
+				"best": "Paras laatu"
+			},
+			"destination": {
+				"defaultFolder": "Oletuslatauskansio",
+				"defaultFolderWithSubfolder": "Oletuslatauskansio / {{subfolder}}",
+				"global": "Yleinen kohde",
+				"globalActive": "Aktiivinen",
+				"globalInherited": "Peritty",
+				"override": "Profiilin ohitus",
+				"overrideChoosing": "Valitse kansio",
+				"overrideNone": "Ohitusta ei ole asetettu",
+				"overrideNoneNote": "Ohitusta ei ole asetettu. Tämä profiili käyttää yllä olevaa yleistä kohdetta.",
+				"overrideSet": "Ohittaa yleisen",
+				"overrideSetNote": "Tämä profiili tallentaa omaan juurikansioonsa ennen alikansion lisäämistä.",
+				"resolved": "Lopullinen kohde"
+			},
+			"dialogDescription": "Yksi uudelleenkäytettävä määritys Pikalataukselle, useille URL-osoitteille ja soittolistoille.",
+			"dialogTitle": "Latausprofiili",
+			"error": {
+				"changeGlobalDestination": "Yleistä kohdetta ei voitu muuttaa.",
+				"folderPicker": "Kansionvalitsinta ei voitu avata. Anna polku käsin.",
+				"reset": "Profiilin asetuksia ei voitu palauttaa.",
+				"save": "Profiilin asetuksia ei voitu tallentaa."
+			},
+			"field": {
+				"delivery": "Toimitus",
+				"fileType": "Tiedostotyyppi",
+				"goal": "Optimoi kohteelle",
+				"icon": "Profiilin kuvake",
+				"languages": "Kielet",
+				"name": "Profiilin nimi",
+				"nameAndIcon": "Profiilin nimi ja kuvake",
+				"nativeAudio": "Alkuperäinen ääni",
+				"overridePath": "Profiilin ohituspolku",
+				"quality": "Laatu",
+				"resolution": "Tarkkuus",
+				"source": "Lähde",
+				"subfolderName": "Alikansion nimi",
+				"subtitleDownloads": "Tekstitysten lataus",
+				"subtitleDownloadsDescription": "Profiilit pyytävät kielikoodeja; saatavuus ratkaistaan kunkin URL-osoitteen kohdalla."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Terävin samalla koolla. Vanhemmat televisiot, QuickTime ja jotkin editorit eivät voi toistaa sitä.",
+					"name": "Paras kuva",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Toimii televisioissa, puhelimissa, WhatsAppissa, QuickTimessa ja videoeditoreissa. YouTube tarjoaa H.264:n vain 1080p:hen asti.",
+					"name": "Smart TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arkisto",
+				"audio": "Ääni",
+				"captions": "Tekstitykset",
+				"classes": "Kurssit",
+				"clip": "Klippi",
+				"controls": "Säätimet",
+				"download": "Lataus",
+				"music": "Musiikki",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musiikki tai podcastit",
+					"label": "Vain ääni"
+				},
+				"subtitlesOnly": {
+					"description": "Vain tekstitystiedostot",
+					"label": "Vain tekstitykset"
+				},
+				"videoAudio": {
+					"description": "Tavalliset videotiedostot",
+					"label": "Video + ääni"
+				},
+				"videoOnly": {
+					"description": "Vain äänetön video",
+					"label": "Video, ei ääntä"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Automaattiset tekstitykset tallennetaan SRT-muodossa ASS:n sijaan.",
+				"noLanguageMatches": "Ei vastaavia kieliä",
+				"noSubtitles": "Tälle profiilille ei pyydetä tekstitystiedostoja eikä upotettuja tekstitysraitoja.",
+				"searchLanguages": "Hae kielen nimellä tai koodilla",
+				"skippedForOutputType": "Ohitetaan tälle tulostetyypille.",
+				"subtitleLanguagesRequired": "Valitse vähintään yksi kieli.",
+				"subtitleLanguagesRequiredOrOff": "Valitse vähintään yksi kieli tai poista tekstitysten lataus käytöstä.",
+				"subtitlesOnly": "Tämä profiili lisää jonoon vain tekstitystiedostoja. Video, ääni, SponsorBlock ja median muunnos ohitetaan."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profiilit perivät yleisen kohteen, ellet aseta profiilin ohitusta.",
+					"title": "Lisäasetukset"
+				},
+				"downloadType": {
+					"description": "Valitse ensisijainen latausmuoto.",
+					"title": "Latauksen tyyppi"
+				},
+				"identity": {
+					"description": "Nimi ja kuvake näkyvät Pikalatauksessa, Useita URL-osoitteita -toiminnossa ja profiililuetteloissa.",
+					"title": "Profiilin tunnistetiedot"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} käytössä",
+					"enabledCount_other": "{{count}} käytössä",
+					"title": "Tulosteen asetukset"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Valitse kansio tälle profiilille"
+			},
+			"skipped": "Ohitettu",
+			"sponsorBlockHint": {
+				"mark": "Merkitsee sponsorisegmentit luvuiksi (ei-tuhoava).",
+				"off": "Ei SponsorBlockia – video toistuu sellaisena kuin se on ladattu.",
+				"remove": "Leikkaa sponsorisegmentit pois videosta FFmpegillä."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Vain automaattisesti luodut",
+				"manualAndAuto": "Manuaaliset ja automaattiset",
+				"manualFirst": "Ensin manuaaliset, sitten automaattiset",
+				"manualOnly": "Vain manuaaliset"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Ohje: {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Peruuta valmistelu",
+			"currentFallback": "Nykyinen linkki",
+			"description": "Arroxy lukee linkkiä ja käyttää profiilia {{profileName}}.",
+			"failedCount_one": "{{count}} epäonnistui",
+			"failedCount_other": "{{count}} epäonnistui",
+			"phase": {
+				"probing": "Haetaan tietoja",
+				"queueing": "Lisätään jonoon"
+			},
+			"title": "Valmistellaan Pikalatausta",
+			"waitHint": "Pidä tämä auki, kunnes Arroxy valmistelee jonon."
+		},
+		"review": {
+			"areas": {
+				"extras": "lisäosat",
+				"fileName": "tiedostonimi",
+				"format": "muoto",
+				"saveTo": "kansio",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "tekstitykset"
+			},
+			"callout": {
+				"body": "Tekstitykset, SponsorBlock, lisäosat kuten pikkukuva, kansio ja tiedostonimi olivat aiemmin erillisiä vaiheita. Muuta niitä napsauttamalla riviä.",
+				"title": "Kaikki muut asetukset ovat nyt tällä sivulla"
+			},
+			"changeFormat": "Muuta muotoa",
+			"changed": "Muutettu profiilista {{profile}}: {{areas}}. Koskee vain tätä latausta.",
+			"changedFrom": "Muutettu profiilista {{profile}}:",
+			"nextTime": {
+				"action": "Tallenna profiiliksi",
+				"defaultName": "{{profile}} (muokattu)",
+				"title": "Tämä lataus käytti muokattuja asetuksia. Käytetäänkö niitä ensi kerralla?"
+			},
+			"reset": "Kumoa muutokset, takaisin profiiliin ”{{profile}}”",
+			"rows": {
+				"extras": "Lisäosat",
+				"fileName": "Tiedostonimi",
+				"saveTo": "Tallennuskohde",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Tekstitykset"
+			},
+			"rowsHeading": "Kaikki muu",
+			"save": {
+				"action": "Tallenna profiili",
+				"description": "Säilyttää nämä asetukset profiilina, jonka voit valita ensi kerralla. Pikalataus-profiilisi pysyy samana.",
+				"failed": "Profiilia ei voitu tallentaa.",
+				"nameLabel": "Profiilin nimi",
+				"saved": "Tallennettu profiiliksi ”{{name}}”",
+				"title": "Tallenna profiiliksi"
+			},
+			"saveAsProfile": "Tallenna uutena profiilina",
+			"update": {
+				"action": "Päivitä profiili",
+				"builtinNote": "Tämä on sisäänrakennettu profiili. Voit palauttaa sen alkuperäiset asetukset Profiilit-välilehdellä.",
+				"description": "Tästä lähtien jokainen tätä profiilia käyttävä lataus käyttää uusia asetuksia.",
+				"rows": {
+					"format": "Muoto"
+				},
+				"title": "Päivitetäänkö ”{{profile}}”?",
+				"updated": "Profiili ”{{name}}” päivitetty"
+			},
+			"updateProfile": "Päivitä ”{{profile}}” näillä muutoksilla",
+			"value": {
+				"extrasNone": "Ei mitään",
+				"sponsorBlockOff": "Pois",
+				"subtitlesOff": "Pois"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Täyte",
+				"intro": "Intro",
+				"music_offtopic": "Aiheeseen kuulumaton musiikki",
+				"outro": "Outro",
+				"preview": "Esikatselu",
+				"selfpromo": "Omamainos",
+				"sponsor": "Sponsori"
+			},
+			"categoriesHeading": "Luokat",
+			"mode": {
+				"mark": "Merkitse luvuiksi",
+				"off": "Pois",
+				"remove": "Poista jaksot"
+			},
+			"modeHeading": "Sponsorien suodatus",
+			"modeHint": {
+				"mark": "Merkitsee sponsorisegmentit luvuiksi (ei-tuhoava).",
+				"off": "Ei SponsorBlockia – video toistuu sellaisena kuin se on ladattu.",
+				"remove": "Leikkaa sponsorisegmentit pois videosta FFmpegillä."
+			}
+		},
+		"steps": {
+			"confirm": "Vahvista",
+			"folder": "Tallenna",
+			"formats": "Muoto",
+			"output": "Tuloste",
+			"playlistItems": "Soittolista",
+			"playlistItemsGeneric": "Videot",
+			"playlistPresets": "Laatu",
+			"playlistProfiles": "Profiilit",
+			"review": "Tarkistus",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Tekstitykset",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Automaattiset tekstitykset tallennetaan SRT-muodossa ASS:n sijaan – YouTube-videoilla niistä poistetaan vierivien vihjeiden kaksoistoisto, jota ASS-muuntimemme ei vielä osaa toistaa.",
+			"autoBadge": "Auto",
+			"clearAll": "Tyhjennä kaikki",
+			"embedNote": "Upotustila tallentaa tuloksen .mkv-tiedostona, jotta tekstitysraidat upotetaan luotettavasti.",
+			"format": {
+				"heading": "Muoto"
+			},
+			"noLanguages": "Tälle videolle ei ole tekstityksiä",
+			"noMatches": "Ei vastaavia kieliä",
+			"noSelected": "Tekstityksiä ei ole valittu",
+			"removeLanguage": "Poista {{name}}",
+			"saveMode": {
+				"embed": "Upota videoon",
+				"heading": "Tallennustapa",
+				"sidecar": "Videon viereen",
+				"subfolder": "subtitles/-alikansio"
+			},
+			"searchPlaceholder": "Hae kieliä…",
+			"sectionAuto": "Automaattisesti luodut",
+			"sectionManual": "Manuaaliset"
+		},
+		"tabsNavAria": "Latausprofiilin navigointi",
+		"url": {
+			"advanced": "Lisäasetukset",
+			"analytics": {
+				"toggle": "Lähetä päivittäinen elonmerkki",
+				"toggleDescription": "Ei telemetriaa. Kerran päivässä nimetön elonmerkki lähettää sovelluksen version, asennuskanavan, käyttöjärjestelmän, kielen, maan ja suunnilleen sen, kuinka kauan Arroxy on ollut asennettuna, jotta voimme laskea aktiiviset ja uudet käyttäjät. Ei tunnisteita, URL-osoitteita, videoiden nimiä eikä tiedostonimiä."
+			},
+			"autoRemoveCompleted": {
+				"description": "Poistaa latauksen Lataukset-luettelosta muutaman sekunnin kuluttua sen valmistumisesta. Tiedostot pysyvät kansiossasi; epäonnistuneet ja peruutetut lataukset pysyvät luettelossa.",
+				"label": "Poista valmistuneet lataukset"
+			},
+			"autoRetry": {
+				"description": "Yrittää automaattisesti uudelleen verkko- tai palvelinhäiriön jälkeen odottaen yritysten välillä yhä pidempään. Sivuston estämiä latauksia ei koskaan yritetä automaattisesti uudelleen.",
+				"label": "Yritä epäonnistuneita latauksia uudelleen",
+				"unit": "kertaa"
+			},
+			"bulkButton": "Useita URL-osoitteita",
+			"bulkTooltip": "Lisää useita URL-osoitteita jonoon.",
+			"clearAria": "Tyhjennä URL",
+			"clipboard": {
+				"autofilledLink": "Linkki lisätty leikepöydältä",
+				"bulkHint": "Useita linkkejä kopioitu – lisää ne Useita URL-osoitteita -toiminnolla",
+				"dialog": {
+					"cancelButton": "Peruuta"
+				},
+				"replacedLink": "Korvattu kopioidulla linkillä",
+				"toggle": "Seuraa leikepöytää",
+				"toggleDescription": "Täyttää URL-kentän automaattisesti, kun kopioit videolinkin.",
+				"undo": "Kumoa"
+			},
+			"closeToTray": {
+				"toggle": "Piilota ilmaisinalueelle suljettaessa",
+				"toggleDescription": "Jatka latauksia taustalla ikkunan sulkemisen jälkeen."
+			},
+			"concurrentDownloads": {
+				"description": "Kuinka monta jonossa olevaa kohdetta ladataan samaan aikaan. Useampi kerralla saa pitkän jonon valmiiksi aiemmin, mutta lisää riskiä, että sivusto rajoittaa sinua.",
+				"label": "Lataukset kerralla",
+				"unit": "latausta"
+			},
+			"cookies": {
+				"banWarning": "Sivustot kuten YouTube voivat merkitä – ja joskus estää – tilejä, joiden evästeitä Arroxyn kaltaiset latausohjelmat käyttävät. Käytä mahdollisuuksien mukaan kertakäyttötiliä.",
+				"browserHelp": "Lukee evästeet suoraan selaimesta. Selaimen on oltava suljettuna Chromium-pohjaisilla selaimilla.",
+				"browserLabel": "Selain",
+				"browserPlaceholder": "Valitse selain…",
+				"choose": "Valitse…",
+				"clear": "Tyhjennä",
+				"enabledButNoBrowser": "Valitse selain käyttääksesi evästeitä",
+				"enabledButNoFile": "Valitse tiedosto käyttääksesi evästeitä",
+				"exploreDescription": "Käyttää Tutki-kirjautumistasi vain, kun lataus sitä tarvitsee.",
+				"exploreDisabled": "Tutki-välilehti on pois päältä, joten lataukset eivät käytä Tutki-kirjautumistasi. Ota se käyttöön alla kohdassa Tutki.",
+				"extensionChrome": "Get cookies.txt LOCALLY (Chrome-selaimelle)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Evästetiedosto",
+				"helpLink": "Miten viet evästeet?",
+				"openExplore": "Avaa Tutki",
+				"placeholder": "Tiedostoa ei ole valittu",
+				"recommended": "Suositeltu",
+				"risk": "Riski: cookies.txt sisältää kaikki kyseisen selaimen kirjautuneet istunnot – pidä se yksityisenä.",
+				"sourceBrowser": "Selain",
+				"sourceExplore": "Tutki-kirjautuminen",
+				"sourceFile": "Tiedosto",
+				"sourceLabel": "Evästeiden lähde",
+				"sourceOff": "Pois",
+				"toggleDescription": "Auttaa ikärajoitettujen, vain jäsenille tarkoitettujen ja tiliin sidottujen yksityisten videoiden kanssa."
+			},
+			"downloadConnections": {
+				"description": "Nopeuttaa suuria latauksia hakemalla videon useita osia kerralla. Korkeammat arvot lisäävät riskiä, että sivusto rajoittaa sinua.",
+				"label": "Latausyhteydet",
+				"unit": "yhteyttä"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Vain ääni",
+					"subtitles": "Tekstitykset"
+				},
+				"anySite": {
+					"heading": "2000+ sivustoa",
+					"musicPlaylist": "Musiikkisoittolistat",
+					"video": "Videot",
+					"videoPlaylist": "Videosoittolistat"
+				},
+				"heading": "Mitä Arroxy voi ladata",
+				"youtube": {
+					"channel": "Kanavat",
+					"heading": "YouTube",
+					"music": "Musiikki",
+					"playlist": "Soittolistat",
+					"podcast": "Podcastit",
+					"short": "Shorts",
+					"video": "Videot"
+				}
+			},
+			"fetchFormatsTooltip": "Vaiheittainen ohjattu toiminto. Valitse muoto, laatu ja muuta.",
+			"heading": "Lataa URL-osoitteesta",
+			"hotkey": {
+				"changeShortcut": "Vaihda pikanäppäin",
+				"conflict": "Toinen sovellus käyttää tätä pikanäppäintä – valitse toinen.",
+				"hintLabel": "Tai paina",
+				"hintTooltip": "Kopioi videolinkki mistä tahansa, paina tätä pikanäppäintä, ja Arroxy lisää sen jonoon aktiivisella profiilillasi – ikkunaa ei tarvitse vaihtaa.",
+				"hintTooltipSettings": "Muuta tai poista käytöstä Asetuksissa.",
+				"recording": "Paina näppäimiä…",
+				"reset": "Palauta oletus",
+				"sectionDescription": "Lataa mikä tahansa kopioimasi linkki mistä tahansa sovelluksesta avaamatta Arroxya.",
+				"sectionTitle": "Yleinen pikanäppäin",
+				"test": "Testaa",
+				"toggle": "Ota yleinen pikanäppäin käyttöön",
+				"toggleDescription": "Paina pikanäppäintä, kun leikepöydällä on videolinkki."
+			},
+			"interactiveDownload": "Ohjattu lataus",
+			"limitRate": {
+				"activeWarning": "Aktiiviset lataukset säilyttävät nykyisen rajansa. Ota muutokset käyttöön keskeyttämällä ja jatkamalla.",
+				"custom": "Mukautettu…",
+				"customPlaceholder": "esim. 750K tai 1.5M",
+				"description": "Rajoita median latausten kaistanleveyttä. Pyyntöjen tahdistus alla on yleensä tehokkaampi tapa välttää rajoituksia.",
+				"invalid": "Käytä lukua, jota seuraa K tai M (esim. 500K, 1.5M)",
+				"label": "Latausnopeuden raja",
+				"off": "Pois"
+			},
+			"mascotBusy": "Ladataan taustalla… osaan tehdä montaa asiaa yhtä aikaa 😎",
+			"mascotCollection": "Pikalataus lisää ladatut kohteet jonoon profiililla {{profileName}}. Ohjatussa voit ensin tarkastella tai valita kohteita.",
+			"mascotIdle": "Pudota linkki ja anna Arroxyn hoitaa loput ✨",
+			"mascotMixed": "Tämä linkki osoittaa yhteen videoon kokoelman sisällä. Arroxy kysyy, minkä haluat, ennen tietojen hakua.",
+			"mascotPreparing": "{{quickDownload}} lukee tätä linkkiä ja käyttää profiilia {{profileName}}.",
+			"mascotQueued": "Jono käsittelee tätä latausta. Voit liittää toisen linkin sen ollessa käynnissä.",
+			"mascotSingle": "Pikalataus aloittaa yhden latauksen profiililla {{profileName}}. Käytä Ohjattua kertaluonteisiin muutoksiin.",
+			"nativeAudioPreference": {
+				"compatible": "Yhteensopiva stereo",
+				"description": "Stereo tai surround, kun profiili valitsee alkuperäisen äänen. Profiili voi ohittaa tämän.",
+				"label": "Alkuperäisen äänen valinta",
+				"surround": "Suosi surroundia / Dolbya"
+			},
+			"networkPacing": {
+				"description": "Lisää pieniä odotuksia jokaisen latauksen aikana, jotta Arroxy ei kuormita sivustoa liian aggressiivisesti. Arvot ovat sekunteja.",
+				"fields": {
+					"maxSleepInterval": "Tauko ennen median alkua: enintään",
+					"sleepInterval": "Tauko ennen median alkua: vähintään",
+					"sleepRequests": "Odotus tietojen tarkistusten välillä",
+					"sleepSubtitles": "Odotus ennen tekstitystiedostoja"
+				},
+				"heading": "Hellävaraiset lataukset",
+				"presetLabel": "Kuinka varovainen Arroxyn pitäisi olla?",
+				"presets": {
+					"balanced": "Tasapainoinen",
+					"careful": "Varovainen",
+					"custom": "Mukautettu",
+					"off": "Pois"
+				},
+				"summary": "Odotukset: {{requests}} tarkistusten välillä, {{downloads}} ennen median alkua, {{subtitles}} ennen tekstitystiedostoja.",
+				"tooltip": "Nämä odotukset tapahtuvat jokaisen latauksen sisällä. Samanaikaisesti käynnissä olevien latausten määrä asetetaan erikseen kohdassa Lataukset kerralla.",
+				"tooltips": {
+					"balanced": "Oletus. Lisää lyhyitä taukoja pyyntöjen välille ja ennen median alkua.",
+					"careful": "Lisää pidempiä taukoja suurille soittolistoille tai verkoille, jotka törmäävät usein rajoituksiin.",
+					"custom": "Säädä latauskohtaiset lisäasetukset itse.",
+					"off": "Käyttää vain pieniä perustaukoja, jotka Arroxy pitää mediaa ja tekstityksiä varten."
+				},
+				"units": {
+					"seconds": "s"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Nykyinen raja: {{count}} kohdetta",
+				"custom": "Mukautettu…",
+				"customDialogCancel": "Peruuta",
+				"customDialogDescription": "Käytä kokonaislukua väliltä {{min}}–{{max}}.",
+				"customDialogSave": "Tallenna raja",
+				"customDialogTitle": "Mukautettu soittolistan tarkistusraja",
+				"customValue": "Mukautettu: {{count}} kohdetta",
+				"description": "Enimmäismäärä kohteita, jotka Arroxy lataa, kun soittolista, kanava tai hakutulos avataan.",
+				"invalid": "Käytä kokonaislukua väliltä 1–5000",
+				"label": "Tarkistettavat soittolistan kohteet",
+				"option": "{{count}} kohdetta",
+				"tooltip": "Arroxy pyytää valitsinta rakentaessaan vain näin monta soittolistan, kanavan tai haun kohdetta."
+			},
+			"playlistScope": {
+				"appLimit": "Käytä sovelluksen rajaa: {{count}}",
+				"apply": "Käytä",
+				"applyError": "Soittolistan rajausta ei voitu käyttää: {{message}}",
+				"applyReload": "Käytä ja lataa uudelleen",
+				"cancel": "Peruuta",
+				"change": "Muuta",
+				"dialogDescription": "Valitse, mitä Arroxy lataa tästä soittolistasta.",
+				"dialogTitle": "Soittolistan rajaus",
+				"emptyTitle": "Tässä rajauksessa ei ole videoita",
+				"first": "Ensimmäiset",
+				"invalid": "Käytä kokonaisia kohdenumeroita väliltä 1–{{max}}, alun ollessa enintään lopun suuruinen.",
+				"itemsLabel": "Ladattavat kohteet",
+				"label": "Soittolistan rajaus",
+				"range": "Alue",
+				"reloading": "Ladataan uudelleen...",
+				"reset": "Palauta",
+				"summaryAppLimit": "Lataa ensimmäiset kohteet: {{count}}",
+				"summaryFirst": "Lataa ensimmäiset kohteet: {{count}}",
+				"summaryRange": "Lataa kohteet {{from}}–{{to}}",
+				"to": "asti"
+			},
+			"profile": {
+				"activeLabel": "Aktiivinen profiili",
+				"badgeBuiltIn": "Sisäänrakennettu",
+				"badgeCustom": "Mukautettu",
+				"badgeDisabled": "Piilotettu",
+				"badgeModified": "Muokattu",
+				"changeGlobalDestination": "Muuta yleistä kohdetta",
+				"destinationDetail": {
+					"global": "Käytössä yleinen kohde",
+					"globalSubfolder": "Käytössä yleinen kohde + profiilin alikansio",
+					"override": "Käytössä profiilin ohitus",
+					"overrideSubfolder": "Käytössä profiilin ohitus + profiilin alikansio"
+				},
+				"destinationFallback": "Kohde",
+				"edit": "Muokkaa",
+				"editActive": "Muokkaa aktiivista profiilia",
+				"enableHint": "Piilotetut profiilit pysyvät täällä mutta katoavat kaikista profiilinvalitsimista.",
+				"enableToggleAria": "Näytä profiili valitsimissa: {{profileName}}",
+				"lastEnabledHint": "Pidä vähintään yksi profiili saatavilla.",
+				"manageProfiles": "Hallitse profiileja",
+				"menuDescription": "Vaihda aktiivinen profiili Pikalataukselle, useille URL-osoitteille ja soittolistoille.",
+				"menuTitle": "Vaihda profiilia",
+				"movableProfile": "siirrettävä profiili",
+				"moveCancelled": "Siirto peruttu. {{profileName}} pysyy sijainnissa {{position}} / {{count}}.",
+				"moveDropped": "{{profileName}} pudotettu sijaintiin {{position}} / {{count}}.",
+				"moveHandleAria": "Siirrä {{profileName}}",
+				"moveInstructions": "Siirrä profiilia painamalla välilyöntiä tai Enteriä, siirrä sitä nuolinäppäimillä ja pudota se painamalla välilyöntiä tai Enteriä. Peruuta painamalla Esc-näppäintä.",
+				"moveOver": "{{profileName}} on sijainnin {{position}} / {{count}} päällä.",
+				"movePickedUp": "{{profileName}} poimittu. Se on sijainnissa {{position}} / {{count}}.",
+				"newProfile": "Uusi profiili",
+				"panelDescription": "Luo, valitse, muokkaa tai poista uudelleenkäytettäviä latausmäärityksiä.",
+				"panelTitle": "Latausprofiilit",
+				"remove": "Poista",
+				"reorderHint": "Siirrä profiilia vetämällä. Jokainen profiilinvalitsin noudattaa tätä järjestystä.",
+				"reset": "Palauta",
+				"summary": {
+					"aacAudio": "AAC-ääni",
+					"bestAudio": "paras ääni",
+					"bestVideo": "paras video",
+					"noAudio": "ei ääntä",
+					"subtitlesOnly": "vain tekstitykset",
+					"wavAudio": "WAV-ääni"
+				},
+				"switchAria": "Vaihda latausprofiilia: {{profileName}}",
+				"switchTitle": "Vaihda latausprofiilia"
+			},
+			"proxy": {
+				"clear": "Tyhjennä",
+				"description": "Reititä liikenne välityspalvelimen kautta – hyödyllinen alueelle rajatulle sisällölle.",
+				"label": "Välityspalvelimen URL",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Mitään näistä URL-osoitteista ei voitu valmistella",
+			"quickDownload": "Pikalataus",
+			"quickDownloadTooltip": "Lataa profiililla: {{profileName}}",
+			"quickFailed": "Tätä ei voitu lisätä: {{error}}",
+			"quickPartialFailed_one": "Toimivat lisättiin jonoon. Yhtä URL-osoitetta ei voitu valmistella.",
+			"quickPartialFailed_other": "Toimivat lisättiin jonoon. {{count}} URL-osoitetta ei voitu valmistella.",
+			"quickPrepareFailed": "Jonon kohdetta ei voitu valmistella",
+			"quickPreparing": "Valmistellaan",
+			"quickProbeFailed": "Tietojen haku epäonnistui",
+			"quickQueued": "Lisätty jonoon",
+			"quickSingleOnly": "Aloita liittämällä video-, soittolista-, kanava- tai haku-URL.",
+			"settings": {
+				"behaviorDescription": "Yleinen toiminta, joka vaikuttaa myös profiilipohjaisiin latauksiin.",
+				"behaviorHeading": "Latausten toiminta",
+				"inputHeading": "Syöte"
+			},
+			"style": {
+				"aurora": {
+					"description": "Lasipaneeleja liikkuvan taivaan päällä. Vaatii grafiikkakiihdytyksen.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Tasaisia, rauhallisia pintoja. Toimii kevyesti millä tahansa tietokoneella.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Molemmat tyylit ovat saatavilla vaaleina ja tummina.",
+				"modeLabel": "Tyyli",
+				"panelDescription": "Arroxyn ulkoasu. Vaihda vaalean ja tumman välillä alatunnisteessa.",
+				"panelTitle": "Ulkoasu",
+				"unavailableNotice": "{{style}} vaatii grafiikkakiihdytyksen, joka ei ole nyt käytettävissä, joten Arroxy näyttää tyylin {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profiilit",
+				"settings": "Asetukset"
+			}
+		}
+	}
 }

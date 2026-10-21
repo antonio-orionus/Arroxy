@@ -43,6 +43,10 @@ export interface SiteExplore {
 	readonly contentHosts: readonly HostRule[]
 	// The account provider's sign-in and account hosts: the ad blocker never acts on them.
 	readonly signInHosts: readonly HostRule[]
+	// Registrable domains where the ad blocker runs no scriptlets (its cosmetic
+	// and network filters still apply): the site degrades its own pages once
+	// it sees them run.
+	readonly scriptletFreeDomains: readonly string[]
 	// Cookie-consent hops on the way to the site: reached by the site's own
 	// redirects, never as an address typed in the bar.
 	readonly consentHosts: readonly HostRule[]

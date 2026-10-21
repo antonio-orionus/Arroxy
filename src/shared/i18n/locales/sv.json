@@ -1,933 +1,305 @@
 {
-	"common": {"back": "Tillbaka", "cancel": "Avbryt", "continue": "Fortsätt", "loading": "Läser in", "retry": "Försök igen", "dismiss": "Avfärda", "startOver": "Börja om", "close": "Stäng"},
+	"about": {
+		"button": "Om",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · av Antonio Orionus",
+		"openTitle": "Om Arroxy",
+		"tagline": "Snabb och smidig hämtare för YouTube och över 2 000 andra webbplatser.",
+		"thirdPartyNotices": "Visa meddelanden om tredjepartskod",
+		"websiteLink": "Webbplats"
+	},
+	"aiUpscaled": {
+		"allow": "Tillåt",
+		"description": "YouTube erbjuder vissa gamla videor i storlekar som skapats med AI. Hoppa över behåller originalströmmarna, och du kan fortfarande välja en uppskalad ström manuellt.",
+		"label": "AI-uppskalade strömmar",
+		"skip": "Hoppa över"
+	},
 	"app": {
 		"feedback": "Feedback",
+		"feedbackNudge": "Gillar du Arroxy? Jag vill gärna höra från dig! 💬",
 		"logs": "Loggar",
 		"saveDiagnostics": "Spara diagnostikfil",
 		"saveDiagnosticsDescription": "Samlar dina loggar och appinformation i en fil i Hämtade filer, redo att bifogas i ett GitHub-ärende. Namnet på din användarmapp tas bort, men videolänkar och titlar finns kvar.",
-		"feedbackNudge": "Gillar du Arroxy? Jag vill gärna höra från dig! 💬",
-		"zoomIn": "Zooma in",
-		"zoomOut": "Zooma ut",
+		"styleHint": "Nytt: välj Aurora eller Minimal här",
 		"theme": "Tema",
-		"styleHint": "Nytt: välj Aurora eller Minimal här"
+		"zoomIn": "Zooma in",
+		"zoomOut": "Zooma ut"
 	},
-	"about": {"button": "Om", "openTitle": "Om Arroxy", "tagline": "Snabb och smidig hämtare för YouTube och över 2 000 andra webbplatser.", "websiteLink": "Webbplats", "githubLink": "GitHub", "licenseLine": "GPLv3 · av Antonio Orionus", "thirdPartyNotices": "Visa meddelanden om tredjepartskod"},
-	"titleBar": {"close": "Stäng", "minimize": "Minimera", "maximize": "Maximera", "restore": "Återställ"},
-	"splash": {
-		"greeting": "Hej, välkommen tillbaka!",
-		"warmup": "Förbereder hämtningar …",
-		"verifying": "Kontrollerar {{binary}} …",
-		"verifyFirstCheck": "Första kontrollen av den här versionen – den här tar lång tid. Vanligtvis ungefär en minut.",
-		"cancel": "Problem? Konfigurera manuellt",
-		"warmupFailedNoDiag": "Installationen misslyckades. Öppna installationsloggen för mer information.",
-		"setup": {
-			"title": {"firstRun": "Första konfigurationen", "media": "Uppdaterar mediaverktygen", "engine": "Uppdaterar hämtningsmotorn"},
-			"stage": {"connecting": "Ansluter …", "downloadingBoth": "Hämtar hämtningsmotorn och mediaverktygen", "downloadingEngine": "Hämtar hämtningsmotorn", "downloadingMedia": "Hämtar mediaverktygen", "unpacking": "Packar upp mediaverktygen", "checking": "Kontrollerar att allt fungerar"},
-			"bytes": "{{done}} av {{total}}",
-			"left": {"underMinute": "mindre än en minut kvar", "minutes_one": "ungefär {{count}} min kvar", "minutes_other": "ungefär {{count}} min kvar"},
-			"note": {"firstRun": "Det här sker bara en gång. Arroxy behåller de här verktygen och uppdaterar dem själv.", "media": "Det här sker bara en gång. Arroxy behåller dem för framtida uppdateringar.", "engine": "Håller hämtningarna igång när webbplatser ändras."}
+	"common": {
+		"back": "Tillbaka",
+		"cancel": "Avbryt",
+		"close": "Stäng",
+		"continue": "Fortsätt",
+		"dismiss": "Avfärda",
+		"loading": "Läser in",
+		"retry": "Försök igen",
+		"startOver": "Börja om"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy fortsätter att köras och slutför pågående hämtningar. Du kan ändra detta senare i de avancerade inställningarna.",
+			"hide": "Dölj i systemfältet",
+			"message": "Dölja Arroxy i systemfältet när fönstret stängs?",
+			"quit": "Avsluta",
+			"remember": "Fråga inte igen"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "Avbryt hämtningar och avsluta",
+			"detail": "Pausa för att återuppta senare, eller avbryt för att förkasta förloppet.",
+			"keep": "Fortsätt hämta",
+			"message_one": "{{count}} hämtning pågår",
+			"message_other": "{{count}} hämtningar pågår",
+			"pause": "Pausa hämtningar och avsluta"
+		},
+		"rendererCrashed": {
+			"detail": "Renderingsprocessen kraschade ({{reason}}). Läs in igen för att försöka på nytt.",
+			"message": "Arroxy stötte på ett problem",
+			"quit": "Avsluta",
+			"reload": "Läs in igen"
 		}
 	},
-	"repair": {
-		"title": "Installationen behöver din hjälp",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "Hämtningsmotor", "media": "Mediaverktyg"},
-		"causes": {
-			"downloadFailed": {"title": "Det gick inte att hämta det Arroxy behöver", "body": "Kontrollera din internetanslutning och försök igen."},
-			"extractFailed": {"title": "En hämtad fil var skadad", "body": "Försök igen för att hämta den på nytt."},
-			"hashFailed": {"title": "En hämtad fil matchade inte sin kontrollsumma", "body": "Försök igen för att hämta den på nytt."},
-			"spawnFailed": {"title": "Ett verktyg saknas eller startar inte", "body": "Försök igen. Om det fortsätter att misslyckas väljer du en fungerande kopia nedan."},
-			"permissionDenied": {"title": "Ditt system låter inte Arroxy köra ett verktyg", "body": "Försök igen. Om det fortsätter att misslyckas väljer du en kopia du litar på nedan."},
-			"blockedOrQuarantined": {"title": "Ditt antivirusprogram blockerade ett verktyg", "body": "Tillåt Arroxy i ditt antivirusprogram eller SmartScreen och försök sedan igen."},
-			"badExitCode": {"title": "Ett verktyg fungerar inte som det ska", "body": "Försök igen. Om det fortsätter att misslyckas väljer du en fungerande kopia nedan."},
-			"timeout": {"title": "Ett verktyg svarade inte i tid", "body": "Det här beror ofta på en säkerhetsskanning vid första körningen. Försök igen."},
-			"pairIncomplete": {"title": "FFmpeg och FFprobe måste anges tillsammans", "body": "Välj båda nedan eller återställ dem till standard."},
-			"unknown": {"title": "Något gick fel under installationen", "body": "Försök igen eller öppna installationsloggen för mer information."}
-		},
-		"installing": {"homebrew": "Installerar med Homebrew … Det kan ta några minuter.", "winget": "Installerar med WinGet … Det kan ta några minuter."},
-		"stopped": {"title": "Installationen stoppades", "body": "Försök igen eller peka Arroxy mot verktyg du redan har nedan."},
-		"manual": {"toggle": "Konfigurera manuellt", "intro": "Peka Arroxy mot kopior du redan har, eller installera dem på annat sätt.", "linuxHint": "Du kan också installera yt-dlp och ffmpeg med pakethanteraren och sedan klicka på Försök igen."},
-		"actions": {
-			"chooseExecutable": "Välj körbar fil",
-			"installWithHomebrew": "Installera med Homebrew",
-			"installWithWinget": "Installera med WinGet",
-			"resetToDefault": "Återställ till standard",
-			"retrySetup": "Försök igen",
-			"cancel": "Avbryt",
-			"openDependencyFolder": "Öppna beroendemappen",
-			"viewSetupLog": "Visa installationsloggen"
-		}
-	},
-	"theme": {"light": "Ljust läge", "dark": "Mörkt läge", "system": "Systemstandard"},
-	"language": {"label": "Språk"},
-	"wizard": {
-		"steps": {
-			"url": "Webbadress",
-			"playlistItems": "Spellista",
-			"playlistItemsGeneric": "Videor",
-			"playlistPresets": "Kvalitet",
-			"playlistProfiles": "Profiler",
-			"formats": "Format",
-			"subtitles": "Undertexter",
-			"sponsorblock": "SponsorBlock",
-			"output": "Utdata",
-			"folder": "Spara",
-			"confirm": "Bekräfta",
-			"review": "Granska"
-		},
-		"playlistPresets": {"heading": "Välj kvalitet för batchen", "subhead": "Varje video löser den valda nivån för sig – blandade spellistor fungerar utan överraskningar.", "itemCount_one": "{{count}} objekt", "itemCount_other": "{{count}} objekt"},
-		"playlistProfiles": {
-			"heading": "Tilldela hämtningsprofiler",
-			"selectedSummary": "{{selected}} av {{total}} markerade",
-			"assignTriggerEmpty": "Tilldela profil",
-			"assignTrigger_one": "Tilldela {{count}} video",
-			"assignTrigger_other": "Tilldela {{count}} videor",
-			"menuDescription_one": "Välj profil för den här videon.",
-			"menuDescription_other": "Välj profil för de här {{count}} videorna.",
-			"editProfile": "Redigera {{name}}",
-			"filtersLabel": "Profilfilter",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Längd",
-			"empty": "Inga objekt matchar det här filtret"
-		},
-		"playlist": {
-			"heading": "Spellisteobjekt",
-			"headingGeneric": "Videor att hämta",
-			"bulkHeading": "Flera webbadresser",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} videor",
-			"itemCountAudio_one": "{{count}} spår",
-			"itemCountAudio_other": "{{count}} spår",
-			"itemCountBulk_one": "{{count}} webbadress",
-			"itemCountBulk_other": "{{count}} webbadresser",
-			"bulkMetadataResolving": "Hämtar videoinformation … {{done}}/{{total}}",
-			"bulkMetadataOptional": "Du behöver inte vänta – filer som köas nu får ändå sina riktiga namn när de hämtas.",
-			"bulkRowWaiting": "Väntar",
-			"bulkRowResolving": "Hämtar information",
-			"bulkRowFailed": "Information otillgänglig",
-			"selectAll": "Markera alla",
-			"selectNone": "Avmarkera alla",
-			"sortLabel": "Sortera",
-			"sortApi": "Spellistans ordning",
-			"sortUploadAsc": "Äldsta först",
-			"sortUploadDesc": "Nyaste först",
-			"sortFetchingDates": "Hämtar uppladdningsdatum …",
-			"rangeFrom": "Från",
-			"rangeTo": "Till",
-			"rangeApply": "Tillämpa intervall",
-			"selectedCount_one": "{{count}} markerad",
-			"selectedCount_other": "{{count}} markerade",
-			"noSelection": "Markera minst en video för att fortsätta",
-			"loadingItems": "Hämtar spellista …",
-			"loadingItemsGeneric": "Hämtar videor …",
-			"loadingPhasePages": "Skannar kanalsidor",
-			"loadingPhaseItems": "Samlar in videor",
-			"loadingPagesFound_one": "{{count}} sida hittades",
-			"loadingPagesFound_other": "{{count}} sidor hittades",
-			"loadingLimitHint": "Begränsad till de första {{count}} objekten",
-			"thumbnailAlt": "Videominiatyr",
-			"durationUnknown": "live",
-			"syncChange": "Ändra mapp …",
-			"syncApply": "Tillämpa synkronisering",
-			"syncScanning": "Kontrollerar mappen …",
-			"syncFoundTitle": "Finns redan i mappen",
-			"syncFoundDesc": "{{n}} av de här videorna finns redan i {{dir}}. Synkronisera för att bara hämta de nya?",
-			"syncNoneTitle": "Inget hämtat ännu",
-			"syncNoneDesc": "Inga videor från den här spellistan hittades i {{dir}}.",
-			"syncNoneDescGeneric": "Inga videor från den här källan hittades i {{dir}}.",
-			"alreadyDownloaded": "Redan hämtad",
-			"nestedPlaylistBadge": "Spellista",
-			"nestedPlaylistHint_one": "{{count}} av dessa är en spellista, inte en video – klistra in dess länk separat för att hämta den.",
-			"nestedPlaylistHint_other": "{{count}} av dessa är spellistor, inte videor – klistra in deras länkar en i taget för att hämta dem.",
-			"probeLimitAlertTitle": "Spellisteskanningen är begränsad",
-			"probeLimitAlertTitleGeneric": "Skanningen är begränsad",
-			"probeLimitAlertDesc": "Visar de första {{count}} objekten. Höj inläsningsgränsen för att se fler.",
-			"multiProfileEntry": "Tilldela profiler per objekt",
-			"multiProfileEntryTooltip": "Hoppar över Kvalitet, SponsorBlock, Utdata och Spara – tilldela i stället en hämtningsprofil per objekt",
-			"removeFromListCount_one": "Ta bort {{count}} från listan",
-			"removeFromListCount_other": "Ta bort {{count}} från listan",
-			"restore": "Återställ",
-			"removedCount_one": "{{count}} borttagen",
-			"removedCount_other": "{{count}} borttagna",
-			"allRemovedTitle": "Alla objekt togs bort",
-			"allRemovedDescription": "Återställ dem för att fortsätta."
-		},
-		"bulk": {
-			"title": "Flera webbadresser",
-			"description": "Klistra in webbadresser till videor, spellistor, kanaler, sökningar eller ljud. Arroxy rensar dubbletter innan de köas.",
-			"textareaLabel": "Lista över webbadresser",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "Klara",
-			"ignoredCount": "Ignorerade",
-			"emptyPreview": "Klistra in en eller flera webbadresser för att förhandsgranska batchen.",
-			"needsAtLeastOne": "Lägg till minst en webbadress som stöds för att fortsätta.",
-			"reject": {"duplicate": "Dubblett"}
-		},
-		"tabsNavAria": "Navigering för hämtningsprofiler",
-		"profileSwitchRow": {"helpAria": "Hjälp för {{label}}"},
-		"mixedPrompt": {
-			"title": "Den här länken har en spellista",
-			"body": "Vill du ha bara videon du klickade på, eller välja från spellistan? Därefter väljer du specifika videor eller ett intervall.",
-			"quickBody": "Hämta bara den här videon eller köa hela spellistan med din aktiva profil för snabbhämtning.",
-			"singleVideo": "Bara den här",
-			"quickSingleVideo": "Hämta den här videon",
-			"pickFromPlaylist": "Välj från spellistan",
-			"quickWholePlaylist": "Hämta hela spellistan",
-			"playlistLimit": "Gräns för spellisteanalys: {{count}} objekt",
-			"quickLimitDescription": "Maximalt antal poster som Arroxy skannar innan en spellista, kanal eller ett sökresultat köas.",
-			"singleTooltip": "Läser bara in den här videon. Spellistan som hör till den här webbadressen ignoreras.",
-			"quickSingleTooltip": "Köar en hämtning och ignorerar spellistan som hör till den här webbadressen.",
-			"playlistTooltip": "Läser in spellistan, upp till din gräns för spellisteanalys, innan väljaren visas.",
-			"quickPlaylistTooltip": "Köar alla inlästa spellisteobjekt med den aktiva profilen för snabbhämtning. Om skanningen når din gräns frågar Arroxy innan något köas."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Spellisteomfång",
-				"change": "Ändra",
-				"summaryAppLimit": "Läs in de första objekten: {{count}}",
-				"summaryFirst": "Läs in de första objekten: {{count}}",
-				"summaryRange": "Läs in objekt {{from}}–{{to}}",
-				"dialogTitle": "Spellisteomfång",
-				"dialogDescription": "Välj vad Arroxy läser in för den här spellistan.",
-				"itemsLabel": "Objekt att läsa in",
-				"appLimit": "Använd appens gräns: {{count}}",
-				"first": "Första",
-				"range": "Intervall",
-				"to": "till",
-				"invalid": "Använd hela objektnummer från 1 till {{max}}, där starten inte är högre än slutet.",
-				"applyError": "Det gick inte att tillämpa det spellisteomfånget: {{message}}",
-				"reset": "Återställ",
-				"cancel": "Avbryt",
-				"apply": "Tillämpa",
-				"applyReload": "Tillämpa och läs in igen",
-				"reloading": "Läser in igen ...",
-				"emptyTitle": "Inga videor i det omfånget"
-			},
-			"heading": "Hämta från webbadress",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiler", "settings": "Inställningar"},
-			"interactiveDownload": "Interaktiv hämtning",
-			"fetchFormatsTooltip": "Stegvis guide. Välj format, kvalitet och mer.",
-			"quickDownload": "Snabbhämtning",
-			"quickDownloadTooltip": "Hämtar med: {{profileName}}",
-			"quickPreparing": "Förbereder",
-			"quickQueued": "Tillagd i kön",
-			"quickSingleOnly": "Klistra in en webbadress till en video, spellista, kanal eller sökning för att komma igång.",
-			"quickProbeFailed": "Analysen misslyckades",
-			"quickPrepareFailed": "Köobjektet kunde inte förberedas",
-			"quickBulkAllFailed": "Ingen av de webbadresserna kunde förberedas",
-			"quickFailed": "Det gick inte att lägga till den här: {{error}}",
-			"quickPartialFailed_one": "Köade det som fungerade. {{count}} webbadress kunde inte förberedas.",
-			"quickPartialFailed_other": "Köade det som fungerade. {{count}} webbadresser kunde inte förberedas.",
-			"profile": {
-				"destinationFallback": "Mål",
-				"switchAria": "Byt hämtningsprofil: {{profileName}}",
-				"switchTitle": "Byt hämtningsprofil",
-				"activeLabel": "Aktiv profil",
-				"editActive": "Redigera aktiv profil",
-				"changeGlobalDestination": "Ändra globalt mål",
-				"destinationDetail": {"global": "Använder globalt mål", "globalSubfolder": "Använder globalt mål + profilens undermapp", "override": "Använder profilåsidosättning", "overrideSubfolder": "Använder profilåsidosättning + profilens undermapp"},
-				"summary": {"bestVideo": "bästa video", "bestAudio": "bästa ljud", "aacAudio": "AAC-ljud", "wavAudio": "WAV-ljud", "noAudio": "inget ljud", "subtitlesOnly": "endast undertexter"},
-				"menuTitle": "Byt profil",
-				"menuDescription": "Ändra den aktiva profilen för snabbhämtning, flera webbadresser och spellistor.",
-				"newProfile": "Ny profil",
-				"manageProfiles": "Hantera profiler",
-				"panelTitle": "Hämtningsprofiler",
-				"panelDescription": "Skapa, välj, redigera eller ta bort återanvändbara hämtningskonfigurationer.",
-				"badgeCustom": "Anpassad",
-				"badgeModified": "Ändrad",
-				"badgeBuiltIn": "Inbyggd",
-				"badgeDisabled": "Dold",
-				"enableToggleAria": "Visa profil i väljare: {{profileName}}",
-				"enableHint": "Dolda profiler finns kvar här men försvinner från alla profilväljare.",
-				"reorderHint": "Dra en profil för att flytta den. Alla profilväljare följer den här ordningen.",
-				"moveHandleAria": "Flytta {{profileName}}",
-				"movableProfile": "flyttbar profil",
-				"moveInstructions": "Om du vill flytta en profil trycker du på Blanksteg eller Retur, flyttar den med piltangenterna och trycker sedan på Blanksteg eller Retur för att släppa den. Tryck på Escape för att avbryta.",
-				"movePickedUp": "{{profileName}} plockades upp. Den ligger på plats {{position}} av {{count}}.",
-				"moveOver": "{{profileName}} ligger över plats {{position}} av {{count}}.",
-				"moveDropped": "{{profileName}} släpptes på plats {{position}} av {{count}}.",
-				"moveCancelled": "Flyttningen avbröts. {{profileName}} stannar på plats {{position}} av {{count}}.",
-				"lastEnabledHint": "Behåll minst en profil tillgänglig.",
-				"edit": "Redigera",
-				"remove": "Ta bort",
-				"reset": "Återställ"
-			},
-			"bulkButton": "Flera webbadresser",
-			"bulkTooltip": "Lägg till och köa flera webbadresser.",
-			"features": {
-				"heading": "Vad Arroxy kan hämta",
-				"youtube": {"heading": "YouTube", "video": "Videor", "channel": "Kanaler", "playlist": "Spellistor", "short": "Shorts", "music": "Musik", "podcast": "Poddar"},
-				"anySite": {"heading": "Över 2 000 webbplatser", "video": "Videor", "videoPlaylist": "Videospellistor", "musicPlaylist": "Musikspellistor"},
-				"always": {"audioOnly": "Endast ljud", "subtitles": "Undertexter"}
-			},
-			"mascotIdle": "Släpp en länk så hämtar Arroxy den ✨",
-			"mascotBusy": "Hämtar i bakgrunden … jag kan göra flera saker samtidigt 😎",
-			"mascotPreparing": "{{quickDownload}} läser den här länken och tillämpar {{profileName}}.",
-			"mascotQueued": "Kön hanterar den här hämtningen. Du kan klistra in en annan länk medan den arbetar.",
-			"mascotCollection": "Snabbhämtning köar inlästa objekt med {{profileName}}. Interaktiv hämtning låter dig granska eller markera objekt först.",
-			"mascotMixed": "Den här länken pekar på en video i en samling. Arroxy frågar vilken du vill ha innan analysen.",
-			"mascotSingle": "Snabbhämtning startar en hämtning med {{profileName}}. Använd Interaktiv hämtning för engångsändringar.",
-			"advanced": "Avancerat",
-			"settings": {"inputHeading": "Inmatning", "behaviorHeading": "Hämtningsbeteende", "behaviorDescription": "Globalt beteende som även påverkar profilstyrda hämtningar."},
-			"clearAria": "Rensa webbadress",
-			"clipboard": {
-				"toggle": "Bevaka Urklipp",
-				"toggleDescription": "Fyll i webbadressfältet automatiskt när du kopierar en videolänk.",
-				"autofilledLink": "Länk tillagd från Urklipp",
-				"bulkHint": "Flera länkar kopierades – använd Flera webbadresser för att lägga till dem",
-				"replacedLink": "Ersatt med kopierad länk",
-				"undo": "Ångra",
-				"dialog": {"cancelButton": "Avbryt"}
-			},
-			"hotkey": {
-				"sectionTitle": "Globalt kortkommando",
-				"sectionDescription": "Hämta vilken länk du än kopierar, från vilken app som helst, utan att öppna Arroxy.",
-				"toggle": "Aktivera globalt kortkommando",
-				"toggleDescription": "Tryck på kortkommandot med en videolänk i Urklipp.",
-				"changeShortcut": "Ändra kortkommando",
-				"recording": "Tryck på tangenter …",
-				"test": "Testa",
-				"conflict": "Det här kortkommandot används av en annan app – välj ett annat.",
-				"hintLabel": "Eller tryck på",
-				"hintTooltip": "Kopiera en videolänk var som helst, tryck på det här kortkommandot så köar Arroxy den med din aktiva profil – du behöver inte byta fönster.",
-				"hintTooltipSettings": "Ändra eller stäng av i Inställningar.",
-				"reset": "Återställ till standard"
-			},
-			"cookies": {
-				"sourceLabel": "Cookiekälla",
-				"sourceOff": "Av",
-				"sourceFile": "Fil",
-				"sourceBrowser": "Webbläsare",
-				"sourceExplore": "Inloggning i Utforska",
-				"recommended": "Rekommenderas",
-				"exploreDescription": "Använder din inloggning i Utforska bara när en hämtning behöver den.",
-				"exploreDisabled": "Fliken Utforska är avstängd, så hämtningar använder inte din inloggning i Utforska. Slå på den under Utforska nedan.",
-				"openExplore": "Öppna Utforska",
-				"toggleDescription": "Hjälper med åldersbegränsade videor, videor för medlemmar och kontoprivata videor.",
-				"risk": "Risk: en cookies.txt innehåller alla inloggade sessioner för den webbläsaren – håll den privat.",
-				"fileLabel": "Cookiefil",
-				"choose": "Välj …",
-				"clear": "Rensa",
-				"placeholder": "Ingen fil vald",
-				"helpLink": "Hur exporterar jag cookies?",
-				"enabledButNoFile": "Välj en fil för att använda cookies",
-				"browserLabel": "Webbläsare",
-				"browserPlaceholder": "Välj en webbläsare …",
-				"browserHelp": "Läser cookies direkt från webbläsaren. Webbläsaren måste vara stängd för Chromium-baserade webbläsare.",
-				"enabledButNoBrowser": "Välj en webbläsare för att använda cookies",
-				"banWarning": "Webbplatser som YouTube kan flagga, och ibland spärra, konton vars cookies används av hämtningsverktyg som Arroxy. Använd om möjligt ett engångskonto.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "Hämta cookies.txt LOKALT (Chrome)"
-			},
-			"proxy": {"label": "Proxyadress", "description": "Dirigera trafik via en proxy – användbart för geobegränsat innehåll.", "placeholder": "http://värd:port", "clear": "Rensa"},
-			"style": {
-				"panelTitle": "Utseende",
-				"panelDescription": "Hur Arroxy ser ut. Växla mellan ljust och mörkt i sidfoten.",
-				"modeLabel": "Stil",
-				"modeDescription": "Båda stilarna finns i ljust och mörkt läge.",
-				"aurora": {"label": "Aurora", "description": "Glaspaneler över en rörlig himmel. Kräver grafikacceleration."},
-				"minimal": {"label": "Minimal", "description": "Solida, lugna ytor. Går lätt på alla datorer."},
-				"unavailableNotice": "{{style}} kräver grafikacceleration, som inte är tillgänglig just nu, så Arroxy visar {{fallback}}."
-			},
-			"limitRate": {
-				"label": "Hastighetsgräns för hämtning",
-				"description": "Begränsa bandbredden för mediehämtningar. Tempot för förfrågningar nedan är oftast det starkare spaket mot begränsningar.",
-				"off": "Av",
-				"custom": "Anpassad …",
-				"customPlaceholder": "t.ex. 750K eller 1,5M",
-				"invalid": "Använd ett tal följt av K eller M (t.ex. 500K, 1,5M)",
-				"activeWarning": "Aktiva hämtningar behåller sin nuvarande gräns. Pausa och återuppta för att tillämpa ändringar."
-			},
-			"playlistProbeLimit": {
-				"label": "Spellisteobjekt att skanna",
-				"description": "Maximalt antal poster som Arroxy läser in när en spellista, kanal eller ett sökresultat öppnas.",
-				"option": "{{count}} objekt",
-				"current": "Aktuell gräns: {{count}} objekt",
-				"customValue": "Anpassad: {{count}} objekt",
-				"custom": "Anpassad …",
-				"customDialogTitle": "Anpassad gräns för spellisteskanning",
-				"customDialogDescription": "Använd ett heltal från {{min}} till {{max}}.",
-				"customDialogCancel": "Avbryt",
-				"customDialogSave": "Spara gräns",
-				"invalid": "Använd ett heltal från 1 till 5000",
-				"tooltip": "Arroxy begär bara så här många spellisto-, kanal- eller sökposter när väljaren byggs."
-			},
-			"nativeAudioPreference": {"label": "Inställning för originalljud", "description": "Stereo eller surround när en profil väljer originalljud. En profil kan åsidosätta det.", "compatible": "Kompatibelt stereoljud", "surround": "Föredra surround / Dolby"},
-			"autoRetry": {"label": "Försök igen med misslyckade hämtningar", "description": "Försöker automatiskt igen efter ett nätverks- eller serverhickup, med längre väntetid mellan varje försök. Hämtningar som webbplatsen blockerar försöks aldrig om automatiskt.", "unit": "gånger"},
-			"autoRemoveCompleted": {"label": "Ta bort slutförda hämtningar", "description": "Tar bort en hämtning från listan Hämtningar några sekunder efter att den är klar. Filerna finns kvar i din mapp; misslyckade och avbrutna hämtningar stannar kvar i listan."},
-			"concurrentDownloads": {"label": "Samtidiga hämtningar", "description": "Hur många köade objekt som hämtas samtidigt. Fler samtidiga gör att en lång kö blir klar snabbare, men ökar risken att en webbplats begränsar dig.", "unit": "hämtningar"},
-			"downloadConnections": {"label": "Hämtningsanslutningar", "description": "Snabbar upp stora hämtningar genom att hämta flera delar av en video samtidigt. Högre värden ökar risken att en webbplats begränsar dig.", "unit": "anslutningar"},
-			"networkPacing": {
-				"heading": "Skonsamma hämtningar",
-				"description": "Lägg till små pauser under varje hämtning så att Arroxy inte belastar webbplatsen för hårt. Värdena anges i sekunder.",
-				"presetLabel": "Hur försiktig ska Arroxy vara?",
-				"tooltip": "De här pauserna sker inom varje hämtning. Hur många hämtningar som körs samtidigt anges separat, under Samtidiga hämtningar.",
-				"summary": "Pauser: {{requests}} mellan kontroller, {{downloads}} innan media startar, {{subtitles}} före undertextfiler.",
-				"presets": {"off": "Av", "balanced": "Balanserad", "careful": "Försiktig", "custom": "Anpassad"},
-				"tooltips": {
-					"off": "Använder bara de små grundpauser som Arroxy behåller för media och undertexter.",
-					"balanced": "Standard. Lägger till korta pauser mellan förfrågningar och innan media startar.",
-					"careful": "Lägger till längre pauser för stora spellistor eller nätverk som ofta når gränser.",
-					"custom": "Justera de avancerade kontrollerna per hämtning själv."
-				},
-				"fields": {"sleepRequests": "Vänta mellan metadatakontroller", "sleepInterval": "Paus innan media startar: min", "maxSleepInterval": "Paus innan media startar: max", "sleepSubtitles": "Vänta före undertextfiler"},
-				"units": {"seconds": "s"}
-			},
-			"closeToTray": {"toggle": "Dölj i systemfältet vid stängning", "toggleDescription": "Fortsätt hämta i bakgrunden efter att fönstret stängts."},
-			"analytics": {
-				"toggle": "Skicka daglig hjärtslagssignal",
-				"toggleDescription": "Ingen telemetri. En gång om dagen skickar en anonym hjärtslagssignal appversion, installationskanal, operativsystem, språk, land och ungefär hur länge sedan Arroxy installerades, så att vi kan räkna aktiva och nya användare. Inga ID:n, webbadresser, videotitlar eller filnamn."
-			}
-		},
-		"quickProgress": {
-			"title": "Förbereder snabbhämtning",
-			"description": "Arroxy läser länken och tillämpar {{profileName}}.",
-			"currentFallback": "Aktuell länk",
-			"waitHint": "Låt den här vara öppen medan Arroxy förbereder kön.",
-			"failedCount_one": "{{count}} misslyckades",
-			"failedCount_other": "{{count}} misslyckades",
-			"cancel": "Avbryt förberedelsen",
-			"phase": {"probing": "Hämtar information", "queueing": "Lägger till i kön"}
-		},
-		"subtitles": {
-			"autoBadge": "Auto",
-			"noLanguages": "Inga undertexter finns för den här videon",
-			"searchPlaceholder": "Sök språk …",
-			"noMatches": "Inga språk matchar",
-			"clearAll": "Rensa alla",
-			"noSelected": "Inga undertexter valda",
-			"removeLanguage": "Ta bort {{name}}",
-			"sectionManual": "Manuella",
-			"sectionAuto": "Automatiskt genererade",
-			"saveMode": {"heading": "Spara som", "sidecar": "Bredvid videon", "embed": "Bädda in i videon", "subfolder": "Undermappen subtitles/"},
-			"format": {"heading": "Format"},
-			"embedNote": "Inbäddningsläget sparar utdata som .mkv så att undertextspår bäddas in tillförlitligt.",
-			"autoAssNote": "Automatisk textning sparas som SRT i stället för ASS – för YouTube-videor rensas den från dubbletter orsakade av rullande textrader, vilket vår ASS-konverterare inte kan göra än."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsorfiltrering",
-			"mode": {"off": "Av", "mark": "Markera som kapitel", "remove": "Ta bort segment"},
-			"modeHint": {"off": "Ingen SponsorBlock – videon spelas som den laddades upp.", "mark": "Markerar sponsorsegment som kapitel (icke-destruktivt).", "remove": "Klipper bort sponsorsegment från videon med FFmpeg."},
-			"categoriesHeading": "Kategorier",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Egenreklam", "music_offtopic": "Musik utanför ämnet", "preview": "Förhandsvisning", "filler": "Utfyllnad"}
-		},
-		"formats": {
-			"kind": {"label": "Vad som ska hämtas", "video": "Video + ljud", "videoOnly": "Video, inget ljud", "audio": "Endast ljud", "subtitles": "Endast undertexter"},
-			"profile": {
-				"calloutTitle": "Formaten utgår från din profil",
-				"calloutBody": "Din aktiva profil förväljer strömmarna åt dig. Byt profil från menyn, eller använd pennan för att justera en utan att lämna den här hämtningen.",
-				"preselected": "Förvald från",
-				"tag": "Profil",
-				"closestTag": "Närmast profilen",
-				"switchTitle": "Byta profil?",
-				"switchBody": "Du ändrade {{areas}} för den här hämtningen. ”{{profile}}” väljer video och ljud oavsett. Vill du behålla dina andra ändringar eller återställa allt till profilen?",
-				"resetAll": "Återställ alla",
-				"edit": "Redigera {{name}}",
-				"updatedTitle": "Använda den uppdaterade profilen?",
-				"updatedBody": "Du ändrade {{areas}} för den här hämtningen. Den uppdaterade profilen väljer video och ljud oavsett. Vill du behålla dina andra ändringar eller återställa allt till profilen?",
-				"keepEdits": "Behåll mina ändringar",
-				"menuDescription": "Endast för den här hämtningen. Din standardprofil förblir oförändrad."
-			},
-			"fit": {
-				"tierBelow": "Din profil begär {{wanted}}p. Den här videon går bara upp till {{picked}}p, så {{picked}}p är valt.",
-				"tierAbove": "Din profil begär {{wanted}}p. Den här videon har inget så litet, så {{picked}}p är valt.",
-				"mp4Unavailable": "Din profil är Smart TV (H.264). Den här videon erbjuder inte H.264, så den närmaste strömmen är vald.",
-				"noVideo": "Den här länken har ingen video, så ljud är valt.",
-				"subtitlesMissing": "Din profil begär undertexter på {{languages}}. Den här videon har inga.",
-				"webmUnavailable": "Din profil begär WebM. De valda strömmarna i den här videon innehåller {{codec}}, som WebM inte kan rymma, så filtypen är Auto."
-			},
-			"footer": {"download": "Hämta", "moreActions": "Fler hämtningsalternativ", "addToQueue": "Lägg till i kön utan att starta", "subtitlesRequired": "Välj minst ett undertextspråk."},
-			"video": "Video",
-			"audio": "Ljud",
-			"noAudio": "Inget ljud",
-			"withAudio": "med ljud",
-			"resolutionUnknown": "Okänd upplösning",
-			"bitrateValue": "Bithastighet {{bitrate}}",
-			"marker": {"aiUpscaled": "AI-uppskalad", "aiDubbed": "AI-dubbad", "audioDescription": "Syntolkning", "spatialAudio": "Rumsligt ljud", "vr": "360° / VR", "enhancedBitrate": "Förbättrad bithastighet", "damaged": "Skadad", "watermarked": "Vattenstämplad"},
-			"keepAudio": "Behåll som det är",
-			"keepAudioMeta": "Inbyggt ljud",
-			"audioOnly": "Endast ljud",
-			"sniffing": "Letar upp de bästa formaten åt dig …",
-			"loadingHint": "Vänta tills analysen är klar – spellistor och sökningar kan ta en stund.",
-			"loadingAria": "Läser in format",
-			"sizeUnknown": "Okänd storlek",
-			"total": "Totalt",
-			"skipToConfirm": "Hoppa till bekräftelse",
-			"skipToConfirmTooltip": "Använder dina sparade inställningar för alla återstående steg. Om du vill ändra en inställning fortsätter du steg för steg – ditt val sparas till nästa gång.",
-			"quality": {"high": "Hög kvalitet", "medium": "Medelhög kvalitet", "low": "Låg kvalitet"},
-			"drc": {"label": "Jämna ut ljudstyrkan (DRC)", "description": "Dämpar höga partier och höjer låga, för högtalare och bullriga rum.", "tag": "Jämn ljudstyrka"},
-			"audioLanguage": "Ljudspråk",
-			"audioLanguageCount_one": "{{count}} språk",
-			"audioLanguageCount_other": "{{count}} språk",
-			"convert": {
-				"label": "Konvertera",
-				"bitrate": "Bithastighet",
-				"wavLabel": "WAV (okomprimerad)",
-				"lossyLabel": "{{target}} {{bitrate}} kbit/s",
-				"copyLabel": "{{target}} {{bitrate}} kbit/s, ingen omkodning",
-				"copyLabelNoBitrate": "{{target}}, ingen omkodning",
-				"copyNote": "{{kbps}} kbit/s, som i källan: strömmen är redan {{target}}, så den kopieras, den kodas inte om",
-				"copyNoteNoBitrate": "Som i källan: strömmen är redan {{target}}, så den kopieras, den kodas inte om",
-				"bitrateCopyHint": "En källa som redan är {{target}} behåller sin egen ström och bithastighet: den kopieras, den kodas inte om.",
-				"sourceKbps": "Källan är {{kbps}} kbit/s"
-			},
-			"botWall": {
-				"heading": "Analysen begränsades",
-				"bodyUnconfigured": "Formatlistan kan vara ofullständig. Konfigurera cookies i de avancerade inställningarna, eller byt nätverk och försök igen.",
-				"bodyDisabled": "Cookies är konfigurerade men avstängda. Aktivera dem och försök igen för att få hela listan, eller byt nätverk och försök igen.",
-				"bodyEnabled": "Även med cookies begränsade YouTube den här analysen. Försök igen senare eller byt nätverk.",
-				"bodyExplore": "YouTube begränsade den här förfrågan. Försök igen senare eller byt nätverk.",
-				"retryCta": "Försök igen",
-				"enableRetryCta": "Aktivera cookies och försök igen"
-			},
-			"rateLimit": {
-				"heading": "{{site}} begränsar den här anslutningen",
-				"leadDegraded": "Formatlistan kan vara ofullständig.",
-				"leadFailed": "{{site}} avvisade den här förfrågan tills vidare.",
-				"waitUntil": "Arroxy väntar till {{time}} innan {{site}} tillfrågas igen, så att begränsningen kan hävas.",
-				"waitOver": "Väntetiden är över, så du kan försöka igen.",
-				"sessionNote": "{{site}} kan behålla den här begränsningen i upp till en timme.",
-				"tryNowCta": "Försök nu",
-				"retryCta": "Försök igen"
-			},
-			"cookiesError": {
-				"heading": "Cookies kan vara orsaken",
-				"currentModeLabel": "Cookiekälla",
-				"currentModeFile": "Fil",
-				"currentModeBrowser": "Webbläsare",
-				"currentModeExplore": "Inloggning i Utforska",
-				"explanationFile": "Din cookiefil kan vara tom, utgången eller ha fel format (Arroxy behöver en cookies.txt i Netscape-format). Prova att exportera cookies på nytt, välja en annan fil, byta till läget Webbläsare eller stänga av cookies.",
-				"explanationBrowser": "Cookies läses direkt från webbläsaren. Om webbläsaren körs just nu kan dess cookiedatabas vara låst (Chromium-familjen). Webbläsaren måste också vara inloggad på YouTube. Prova att stänga webbläsaren, byta till en annan webbläsare, byta till läget Fil eller stänga av cookies.",
-				"openSettingsCta": "Öppna cookieinställningar",
-				"exploreSignIn": {"heading": "Den här videon kan kräva ett YouTube-konto", "body": "Om videon kräver ett YouTube-konto loggar du in i Utforska och försöker igen. Arroxy använder den inloggningen bara när en hämtning behöver den.", "cta": "Logga in i Utforska"},
-				"exploreSignedIn": {"heading": "Inloggad i Utforska", "body": "Om videon kräver ett konto använder Arroxy automatiskt din inloggning i Utforska. Den kan vara otillgänglig av ett annat skäl."},
-				"exploreOffer": {"heading": "Den här videon kan kräva ett YouTube-konto", "body": "Logga in med Utforska så försöker Arroxy igen.", "cta": "Logga in med Utforska"},
-				"exploreReuse": {"heading": "Den här videon kan kräva ett YouTube-konto", "body": "Du är inloggad i Utforska, men hämtningar använder inte den inloggningen just nu.", "cta": "Använd min inloggning i Utforska och försök igen"},
-				"exploreSite": {"heading": "Den här länken kan kräva ett konto på {{host}}", "signInBody": "Logga in på {{host}} i Utforska och försök sedan igen. Arroxy använder den inloggningen bara när en hämtning behöver den.", "offerBody": "Logga in på {{host}} med Utforska och försök sedan igen."},
-				"exploreRefused": {"heading": "Webbplatsen nekade detta även med din inloggning i Utforska", "body": "Arroxy har redan försökt inloggad via Utforska, så det hjälper inte att logga in igen. Webbplatsen kan ha problem, eller så kan det här kontot inte öppna den. Försök igen senare."},
-				"otherCookiesCta": "Använd en cookiefil eller webbläsare i stället …",
-				"needsCookies": {"heading": "Den här webbplatsen kräver inloggning", "body": "Arroxy kunde inte komma åt den här videon utan autentisering. Konfigurera cookies i de avancerade inställningarna – peka dem mot en webbläsare som du redan är inloggad i eller importera en cookies.txt-fil."},
-				"dpapi": {
-					"heading": "Chrome-cookies blockeras av Windows-kryptering",
-					"explanation": "Chrome 127 och senare krypterar cookies på ett sätt som andra appar inte kan läsa i Windows. Prova en av lösningarna nedan.",
-					"fixFirefoxLabel": "Byt till Firefox",
-					"fixFirefoxBody": "Firefox använder inte App-Bound Encryption. Öppna cookieinställningarna och välj Firefox i webbläsarlistan.",
-					"fixFileLabel": "Exportera cookies.txt",
-					"fixFileBody": "Exportera cookies från Chrome med ett webbläsartillägg, byt sedan den här appen till läget Fil och välj den exporterade filen.",
-					"fixUnsafeLabel": "Starta Chrome med App-Bound Encryption avstängt",
-					"fixUnsafeBody": "Lägg till --disable-features=LockProfileCookieDatabase i Chromes startgenväg. Varning: det gör tidigare krypterade cookies ogiltiga, så du loggas ut från alla webbplatser och måste logga in igen.",
-					"docsLinkLabel": "yt-dlp-dokumentation (ärende #10927)"
-				}
-			},
-			"savesAs": {"label": "Sparas som", "reset": "WebM kan inte rymma {{codec}}, så filtypen återgick till Auto."}
-		},
-		"folder": {
-			"heading": "Spara i",
-			"downloads": "Hämtade filer",
-			"videos": "Filmer",
-			"desktop": "Skrivbord",
-			"music": "Musik",
-			"documents": "Dokument",
-			"pictures": "Bilder",
-			"home": "Hem",
-			"custom": "Anpassad …",
-			"subfolder": {"toggle": "Spara i undermapp", "placeholder": "t.ex. lo-fi-rips", "invalid": "Mappnamnet innehåller ogiltiga tecken"}
-		},
-		"output": {
-			"embedChapters": {"label": "Bädda in kapitel", "description": "Kapitelmarkeringar som går att navigera i alla moderna spelare."},
-			"embedMetadata": {"label": "Bädda in metadata", "description": "Titel, artist, beskrivning och uppladdningsdatum skrivs in i filen."},
-			"embedThumbnail": {"label": "Bädda in miniatyr", "description": "Omslagsbild inuti filen. WebM-video remuxas till MKV; hoppas över när undertexter bäddas in."},
-			"writeDescription": {"label": "Spara beskrivning", "description": "Sparar videons beskrivning som en .description-textfil bredvid hämtningen."},
-			"writeThumbnail": {"label": "Spara miniatyr", "description": "Sparar miniatyren som en .jpg-bildfil bredvid hämtningen."},
-			"writeM3u": {"label": "Skapa .m3u-spellistefil", "description": "Spara en .m3u-spellista bredvid videorna så att de öppnas i ordning i din mediespelare."}
-		},
-		"review": {
-			"changeFormat": "Ändra format",
-			"rowsHeading": "Allt annat",
-			"rows": {"subtitles": "Undertexter", "sponsorBlock": "SponsorBlock", "extras": "Extrafunktioner", "saveTo": "Spara i", "fileName": "Filnamn"},
-			"value": {"subtitlesOff": "Av", "sponsorBlockOff": "Av", "extrasNone": "Inga"},
-			"changed": "Ändrat från {{profile}}: {{areas}}. Gäller bara den här hämtningen.",
-			"areas": {"format": "format", "subtitles": "undertexter", "sponsorBlock": "SponsorBlock", "extras": "extrafunktioner", "saveTo": "mapp", "fileName": "filnamn"},
-			"updateProfile": "Uppdatera ”{{profile}}” med de här ändringarna",
-			"saveAsProfile": "Spara som ny profil",
-			"update": {
-				"title": "Uppdatera ”{{profile}}”?",
-				"description": "Från och med nu använder varje hämtning med den här profilen de nya inställningarna.",
-				"rows": {"format": "Format"},
-				"builtinNote": "Det här är en inbyggd profil. Du kan återställa dess ursprungliga inställningar på fliken Profiler.",
-				"action": "Uppdatera profil",
-				"updated": "Profilen ”{{name}}” uppdaterades"
-			},
-			"callout": {"title": "Alla andra inställningar finns nu på den här sidan", "body": "Undertexter, SponsorBlock, extrafunktioner som miniatyr, mapp och filnamn var tidigare separata steg. Klicka på en rad för att ändra den."},
-			"reset": "Ångra ändringar, tillbaka till ”{{profile}}”",
-			"changedFrom": "Ändrat från {{profile}}:",
-			"save": {
-				"title": "Spara som profil",
-				"description": "Behåller de här inställningarna som en profil du kan välja nästa gång. Din profil för snabbhämtning förblir oförändrad.",
-				"nameLabel": "Profilnamn",
-				"action": "Spara profil",
-				"saved": "Sparad som profilen ”{{name}}”",
-				"failed": "Det gick inte att spara profilen."
-			},
-			"nextTime": {"title": "Den här hämtningen använde redigerade inställningar. Använda dem nästa gång?", "action": "Spara som profil", "defaultName": "{{profile}} (redigerad)"}
-		},
-		"confirm": {
-			"readyHeadline": "Redo att hämta!",
-			"landIn": "Din fil hamnar i",
-			"landInMultiProfile_one": "Den hamnar i målet nedan",
-			"landInMultiProfile_other": "De hamnar i de {{count}} målen nedan",
-			"labelVideo": "Video",
-			"labelAudio": "Ljud",
-			"labelSubtitles": "Undertexter",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Spara i",
-			"labelSize": "Storlek",
-			"sizeUnknown": "Okänd",
-			"nothingToDownload": "Förinställningen Endast undertexter är aktiv men inget undertextspråk är valt – ingenting kommer att hämtas.",
-			"thumbnailEmbedNotSupported": "Inbäddning av miniatyr hoppades över – utdatabehållaren stöder det inte.",
-			"subtitleEmbedAudioOnly": "Inbäddning av undertexter ändrades till separat fil – ljudspår stöder inte inbäddade undertextströmmar.",
-			"audioOnly": "Endast ljud",
-			"addToQueue": "+ Kö",
-			"addToQueueTooltip": "Lägger till i kön – startar när den aktiva hämtningen är klar",
-			"pullIt": "Hämta! ↓",
-			"pullItTooltip": "Hoppar över kön – startar nu och körs vid sidan av andra aktiva hämtningar",
-			"labelPlaylist": "Spellista",
-			"labelBulk": "Batch",
-			"labelPreset": "Förinställning",
-			"labelItems": "Objekt",
-			"itemsValue_one": "{{count}} av {{total}} video",
-			"itemsValue_other": "{{count}} av {{total}} videor",
-			"itemsValueAudio_one": "{{count}} av {{total}} spår",
-			"itemsValueAudio_other": "{{count}} av {{total}} spår",
-			"itemsValueBulk_one": "{{count}} av {{total}} webbadress",
-			"itemsValueBulk_other": "{{count}} av {{total}} webbadresser",
-			"profileBreakdownHeading": "Profiler i den här batchen",
-			"profileBreakdownCount_one": "{{count}} objekt",
-			"profileBreakdownCount_other": "{{count}} objekt",
-			"subtitleEmbedForcesMkv": "Undertexter i videon kräver en MKV-fil, så den här hämtningen sparas som .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "Hämtningsprofil",
-			"dialogDescription": "En återanvändbar konfiguration för snabbhämtning, flera webbadresser och spellistor.",
-			"skipped": "Hoppad över",
-			"panel": {
-				"identity": {"title": "Profilidentitet", "description": "Namn och ikon som visas i snabbhämtning, flera webbadresser och profillistor."},
-				"downloadType": {"title": "Hämtningstyp", "description": "Välj det huvudsakliga sättet du vill hämta på."},
-				"advanced": {"title": "Avancerade alternativ", "description": "Profiler ärver det globala målet om du inte anger en profilåsidosättning."},
-				"output": {"title": "Utdataalternativ", "enabledCount_one": "{{count}} aktiverat", "enabledCount_other": "{{count}} aktiverade"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profilnamn och ikon",
-				"icon": "Profilikon",
-				"resolution": "Upplösning",
-				"quality": "Kvalitet",
-				"source": "Källa",
-				"subfolderName": "Undermappens namn",
-				"name": "Profilnamn",
-				"subtitleDownloads": "Undertextshämtningar",
-				"subtitleDownloadsDescription": "Profiler begär språkkoder; tillgängligheten avgörs för varje webbadress.",
-				"languages": "Språk",
-				"delivery": "Leverans",
-				"overridePath": "Sökväg för profilåsidosättning",
-				"goal": "Optimera för",
-				"fileType": "Filtyp",
-				"nativeAudio": "Originalljud"
-			},
-			"action": {
-				"chooseIcon": "Välj profilikon",
-				"setOverride": "Ange profilåsidosättning",
-				"chooseFolder": "Välj målmapp",
-				"removeLanguage": "Ta bort {{code}}",
-				"useLanguageCode": "Använd språkkoden ”{{code}}”",
-				"changeGlobalShort": "Ändra globalt",
-				"setOverrideShort": "Ange åsidosättning",
-				"useGlobalDefault": "Använd globalt standardvärde",
-				"reset": "Återställ profil",
-				"resetHint": "Återställ profilens inbyggda inställningar",
-				"resetDisabledHint": "Den här profilen använder redan de inbyggda inställningarna",
-				"save": "Spara profil"
-			},
-			"placeholder": {"folder": "Välj en mapp för den här profilen"},
-			"destination": {
-				"global": "Globalt mål",
-				"override": "Profilåsidosättning",
-				"resolved": "Slutligt mål",
-				"defaultFolder": "Standardmapp för hämtningar",
-				"defaultFolderWithSubfolder": "Standardmapp för hämtningar / {{subfolder}}",
-				"globalActive": "Aktivt",
-				"globalInherited": "Ärvt",
-				"overrideSet": "Åsidosätter globalt",
-				"overrideChoosing": "Välj mapp",
-				"overrideNone": "Ingen åsidosättning angiven",
-				"overrideSetNote": "Den här profilen sparar i sin egen rotmapp innan undermappen läggs till.",
-				"overrideNoneNote": "Ingen åsidosättning angiven. Den här profilen använder det globala målet ovan."
-			},
-			"note": {
-				"subtitlesOnly": "Den här profilen köar bara undertextfiler. Video, ljud, SponsorBlock och mediekonvertering hoppas över.",
-				"noSubtitles": "Inga undertextfiler eller inbäddade undertextspår begärs för den här profilen.",
-				"searchLanguages": "Sök efter språknamn eller kod",
-				"noLanguageMatches": "Inga matchande språk",
-				"subtitleLanguagesRequired": "Välj minst ett språk.",
-				"subtitleLanguagesRequiredOrOff": "Välj minst ett språk eller stäng av undertextshämtningar.",
-				"autoCaptionsSrt": "Automatisk textning sparas som SRT i stället för ASS.",
-				"skippedForOutputType": "Hoppas över för den här utdatatypen."
-			},
-			"error": {"save": "Det gick inte att spara profilinställningarna.", "changeGlobalDestination": "Det gick inte att ändra det globala målet.", "reset": "Det gick inte att återställa profilinställningarna.", "folderPicker": "Det gick inte att öppna mappväljaren. Ange en sökväg manuellt."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + ljud", "description": "Vanliga videofiler"},
-				"videoOnly": {"label": "Video, inget ljud", "description": "Endast ljudlös video"},
-				"audioOnly": {"label": "Endast ljud", "description": "Musik eller poddar"},
-				"subtitlesOnly": {"label": "Endast undertexter", "description": "Endast textningsfiler"}
-			},
-			"icon": {"controls": "Kontroller", "download": "Hämta", "video": "Video", "captions": "Textning", "audio": "Ljud", "music": "Musik", "podcast": "Podcast", "classes": "Lektioner", "clip": "Klipp", "archive": "Arkiv"},
-			"audioFormat": {"best": "Bästa", "wav": "WAV"},
-			"audioQuality": {"128": "Upp till 128K", "192": "Upp till 192K", "320": "Upp till 320K", "best": "Bästa kvalitet"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Manuella först, sedan automatiska", "manualAndAuto": "Manuella och automatiska", "manualOnly": "Endast manuella", "autoOnly": "Endast automatiskt genererade"},
-			"sponsorBlockHint": {"off": "Ingen SponsorBlock – videon spelas som den laddades upp.", "mark": "Markerar sponsorsegment som kapitel (icke-destruktivt).", "remove": "Klipper bort sponsorsegment från videon med FFmpeg."},
-			"advanced": "Avancerat",
-			"goal": {
-				"bestPicture": {"name": "Bästa bild", "tag": "AV1 · VP9", "description": "Skarpast vid en given storlek. Äldre tv-apparater, QuickTime och vissa redigeringsprogram kan inte spela upp den."},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Spelas upp på tv-apparater, telefoner, WhatsApp, QuickTime och videoredigerare. YouTube erbjuder H.264 bara upp till 1080p."}
-			},
-			"appSetting": "Använd appinställningen ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Hur mycket av videon",
-			"whole": "Hela videon",
-			"wholeTrack": "Hela spåret",
-			"part": "Del",
-			"unavailableSubtitles": "Undertexter omfattar alltid hela videon.",
-			"unavailableDuration": "Den här videon anger inte sin längd, så den kan bara hämtas i sin helhet.",
-			"rangeLabel": "Del av videon",
-			"start": "Start",
-			"end": "Slut",
-			"timeHint": "h:mm:ss, m:ss eller sekunder",
-			"length": "{{length}} av {{duration}}",
-			"chapters": "Kapitel",
-			"chapterUntitled": "Kapitel {{number}}",
-			"exactCut": {"label": "Exakt klipp (kodar om, långsammare)", "hint": "Av: varje klipp hamnar på närmaste nyckelbild, som kan ligga några sekunder från den tid du skrev."},
-			"calloutTitle": "Hämta bara en del av en video",
-			"calloutBody": "Växla till Del på videokortet för att välja en start och ett slut, eller ett kapitel, och hämta bara den sträckan.",
-			"connectionsNote": "En del hämtas via ffmpeg, så dina inställningar för hämtningsanslutningar och tempo gäller inte för den.",
-			"urlStart": "Din länk startar vid {{time}}",
-			"useUrlStart": "Använd som start",
-			"error": {"startInvalid": "Ange starten som h:mm:ss, m:ss eller sekunder.", "endInvalid": "Ange slutet som h:mm:ss, m:ss eller sekunder.", "startNotBeforeEnd": "Starten måste komma före slutet.", "endBeyondDuration": "Videon slutar vid {{duration}}."},
-			"downloadBlocked": "Åtgärda först start och slut för delen.",
-			"totalEstimate": "Del, uppskattad",
-			"summary": "Del {{start}}–{{end}}",
-			"subtitlesFullLength": "hela videon"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Läser in …", "chapters_one": "{{count}} kapitel", "chapters_other": "{{count}} kapitel"},
-	"queue": {
-		"header": "Hämtningar",
-		"tabLabel": "Hämtningar",
-		"attentionBadge_one": "{{count}} hämtning behöver din uppmärksamhet",
-		"attentionBadge_other": "{{count}} hämtningar behöver din uppmärksamhet",
-		"choice": {
-			"cappedBody_one": "Fler än {{count}} video i den här spellistan. Hämta alla, de första {{count}} eller välj i en granskning.",
-			"cappedBody_other": "Fler än {{count}} videor i den här spellistan. Hämta alla, de första {{count}} eller välj i en granskning.",
-			"reviewBody_one": "Den här länken är en lista med {{count}} video. Granska den för att välja vad som ska hämtas.",
-			"reviewBody_other": "Den här länken är en lista med {{count}} videor. Granska den för att välja vad som ska hämtas.",
-			"all": "Alla videor",
-			"first": "Första {{count}}",
-			"review": "Granska"
-		},
-		"tabTip": "Hämtningar finns nu på fliken Hämtningar – öppna den när som helst för att följa förloppet.",
-		"empty": "Köade hämtningar visas här",
-		"filtersLabel": "Statusfilter för kön",
-		"filterAll": "Alla",
-		"selectedActionsLabel": "Markerade objekt",
-		"globalActionsLabel": "Alla objekt",
-		"selectionSummary": "{{selected}} markerade · {{total}} totalt",
-		"clearTitle": "Rensa slutförda hämtningar",
-		"autoRemoveCompleted": {"label": "Rensa klara automatiskt", "hint": "Ta bort varje hämtning från listan några sekunder efter att den är klar. Filerna finns kvar i din mapp."},
-		"pauseAllTitle": "Pausa alla aktiva hämtningar och hindra nya från att starta",
-		"resumeAllTitle": "Återuppta pausade hämtningar och låt kön fortsätta",
-		"pausedBanner": "Kön är pausad – väntande objekt startar inte förrän du återupptar den",
-		"resumeQueueAction": "Återuppta kön",
-		"cancelAllTitle": "Avbryt alla aktiva och väntande hämtningar",
-		"table": {
-			"columns": "Kolumner",
-			"title": "Titel",
-			"status": "Status",
-			"progress": "Förlopp",
-			"format": "Format",
-			"outputTarget": "Utdatamål",
-			"artifacts": "Artefakter",
-			"size": "Storlek",
-			"added": "Tillagd",
-			"finished": "Slutförd",
-			"notAvailable": "—",
-			"sortBy": "Sortera efter {{label}}",
-			"showArtifactsFor": "Visa artefakter för {{title}}",
-			"hideArtifactsFor": "Dölj artefakter för {{title}}",
-			"resetColumns": "Återställ kolumner",
-			"resizeColumn": "Ändra storlek på kolumnen {{column}}",
-			"movableColumn": "flyttbar kolumn",
-			"moveColumnInstructions": "Om du vill flytta en kolumn trycker du på Blanksteg eller Retur, flyttar den med piltangenterna och trycker sedan på Blanksteg eller Retur för att släppa den. Tryck på Escape för att avbryta.",
-			"columnPickedUp": "Kolumnen {{column}} plockades upp.",
-			"columnMovedOver": "Kolumnen {{column}} ligger över {{target}}.",
-			"columnDropped": "Kolumnen {{column}} släpptes.",
-			"columnMoveCancelled": "Flyttningen av kolumnen {{column}} avbröts."
-		},
-		"artifact": {"media": "Media", "subtitle": "Undertext", "thumbnail": "Miniatyr", "description": "Beskrivning", "companion": "Följefil", "unknown": "Artefakt", "missing": "Saknas"},
-		"item": {
-			"defaultError": "Hämtningen misslyckades",
-			"retryingSoon": "försöker igen automatiskt (försök {{attempt}})",
-			"qualityLimited": "Begränsad till {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Begränsad till {{height}}p · vissa undertexter misslyckades",
-			"audioKept": "Ljudet togs inte bort",
-			"audioKeptSubtitlesFailed": "Ljudet togs inte bort · vissa undertexter misslyckades",
-			"subtitleLanguagesMissing": "Inga undertexter på {{languages}}",
-			"pause": "Pausa",
-			"resume": "Återuppta",
-			"cancel": "Avbryt",
-			"retry": "Försök igen",
-			"setLocation": "Ange plats",
-			"setLocationHint": "Markera väntande objekt för att ange plats.",
-			"pendingOnly": "Endast väntande",
-			"openDestinationFolder": "Öppna målmappen",
-			"remove": "Ta bort",
-			"pullNow": "Hämta nu – hoppa över kön",
-			"statusProbing": "Hämtar information",
-			"statusNeedsChoice": "Behöver ditt val",
-			"statusPending": "Väntar",
-			"statusRunning": "Hämtar",
-			"statusHeld": "Pausad i kön",
-			"statusPaused": "Pausad",
-			"statusDone": "Klar",
-			"statusError": "Fel",
-			"statusCancelled": "Avbruten"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} är tillgängligt – du har {{currentVersion}}.",
-			"homebrew": "Arroxy {{version}} är tillgängligt – uppdatera med Homebrew.",
-			"macosDirect": "Arroxy {{version}} är tillgängligt – hämta den nya DMG-filen.",
-			"macosDirectHomebrew": "Arroxy {{version}} är tillgängligt – hämta DMG-filen eller byt till Homebrew.",
-			"portable": "Arroxy {{version}} är tillgängligt – hämta den nya versionen."
-		},
-		"install": "Installera och starta om",
-		"downloading": "Hämtar …",
-		"runAndRestart": "Kör och starta om",
-		"upgrading": "Uppgraderar …",
-		"download": "Hämta ↗",
-		"downloadDmg": "Hämta DMG ↗",
-		"dismiss": "Stäng uppdateringsbanderollen",
-		"copy": "Kopiera kommandot till Urklipp",
-		"copied": "Kommandot kopierades till Urklipp",
-		"installFailed": "Uppdateringen misslyckades",
-		"retry": "Försök igen"
-	},
-	"releaseNotes": {"title": "Nytt i Arroxy {{version}}", "description": "Du kör en ny uppdatering. Här är höjdpunkterna.", "fullNotes": "Fullständiga versionsanteckningar ↗", "continue": "Fortsätt"},
-	"status": {
-		"preparingBinaries": "Förbereder binärfiler …",
-		"mintingToken": "Skapar YouTube-token …",
-		"remintingToken": "Skapar token på nytt …",
-		"startingYtdlp": "Startar hämtningsmotorn …",
-		"downloadingMedia": "Hämtar video och ljud …",
-		"mergingFormats": "Sammanfogar ljud och video …",
-		"extractingAudio": "Konverterar ljud …",
-		"convertingVideo": "Konverterar video …",
-		"embeddingMetadata": "Bäddar in metadata …",
-		"movingFiles": "Flyttar filer …",
-		"fetchingSubtitles": "Hämtar undertexter …",
-		"sleepingBetweenRequests": "Väntar {{seconds}} s för att undvika begränsningar …",
-		"subtitlesFailed": "Videon sparades – vissa undertexter kunde inte hämtas",
-		"qualityLimited": "Sparad i {{height}}p – YouTube höll inne högre kvaliteter för den här hämtningen. Det kan hjälpa att försöka igen senare eller från ett annat nätverk.",
-		"qualityLimitedSubtitlesFailed": "Sparad i {{height}}p – YouTube höll inne högre kvaliteter för den här hämtningen, och vissa undertexter kunde inte hämtas. Det kan hjälpa att försöka igen senare eller från ett annat nätverk.",
-		"audioKept": "Videon sparades med ljud – ljudet kunde inte tas bort",
-		"audioKeptSubtitlesFailed": "Videon sparades med ljud – ljudet kunde inte tas bort, och vissa undertexter kunde inte hämtas",
-		"subtitleLanguagesMissing": "Den här videon har inga undertexter på {{languages}}. Videon sparades utan dem.",
-		"subtitleLanguagesMissingOthersSaved": "Den här videon har inga undertexter på {{languages}}. De andra språken sparades.",
-		"noSubtitles": "Inga undertexter på {{languages}}",
-		"cancelled": "Hämtningen avbröts",
-		"complete": "Hämtningen är klar",
-		"usedExtractorFallback": "Hämtades med lättad extraktor – konfigurera en cookies.txt för mer tillförlitliga hämtningar",
-		"ytdlpProcessError": "Fel i hämtningsmotorn: {{error}}",
-		"ytdlpExitCode": "Hämtningsmotorn avslutades med koden {{code}}",
-		"downloadingBinary": "Hämtar binärfilen {{name}} …",
-		"unknownStartupFailure": "Okänt fel vid start av hämtningen",
-		"diskSpaceInsufficient": "Inte tillräckligt med diskutrymme – {{required}} behövs, bara {{free}} är ledigt",
-		"outputNotWritable": "Det går inte att spara i {{dir}} – Arroxy får inte skriva där",
-		"fetchingSponsorBlock": "Kontaktar SponsorBlock …",
-		"retryingSponsorBlock": "SponsorBlock är otillgängligt, försöker igen ({{attempt}}/{{total}}) …",
-		"retryingTransfer": "Anslutningen stannade av, försöker igen ({{attempt}}/{{total}}) …",
-		"signingInWithExplore": "Loggar in med ditt Utforska-konto …",
-		"exploreSignedOut": "Utloggad från Utforska – logga in igen"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Det gick inte att spara dina inställningar.",
-		"warmupFailed": "Installationen slutfördes inte. Vissa hämtningar kan misslyckas tills den är klar.",
-		"shellActionFailed": "Det gick inte att öppna det.",
-		"folderSelectFailed": "Det gick inte att öppna mappväljaren.",
-		"exploreSignInRetrying_one": "Inloggad med Utforska – försöker igen med 1 länk",
-		"exploreSignInRetrying_other": "Inloggad med Utforska – försöker igen med {{count}} länkar",
-		"exploreSignOutFailed": "Det gick inte att logga ut från Utforska. Försök igen.",
-		"playlistFolderRejected": "Den mappen kan inte användas för den här spellistan.",
-		"filenameFolderTooDeep": "Den här mappen ligger för djupt för ditt system. Hämtningen kan ändå misslyckas – välj en kortare mapp.",
-		"filenameTemplateCannotFit": "Videons namn rymmer inte alla delar av din mall, så standardnamnet användes.",
-		"hotkey": {
-			"queued": "Hämtning köad från Urklipp",
-			"alreadyQueued": "Finns redan i kön – ingen kopia lades till",
-			"invalidClipboard": "Ingen länk i Urklipp – kopiera en först",
-			"multipleUrls": "Flera länkar kopierades – använd Flera webbadresser i Arroxy",
-			"needsReview": "Den länken behöver ditt val – se Hämtningar i Arroxy",
-			"cookiesSetup": "Slutför konfigureringen av cookies i Arroxy och försök sedan igen",
-			"busy": "Arroxy startar fortfarande – försök igen om en stund",
-			"submissionFailed": "Det gick inte att lägga till länken – försök igen i Arroxy"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video finns redan i kön – hoppades över", "skippedAlreadyQueued_other": "{{count}} videor finns redan i kön – hoppades över"},
-		"quickDownload": {
-			"added": "Tillagd: {{title}}",
-			"alreadyQueued": "Finns redan i kön",
-			"failed": "Det gick inte att förbereda {{title}}",
-			"notAdded": "Det gick inte att lägga till länken – försök igen",
-			"chooseHowMany_one": "{{count}}+ video – välj hur många",
-			"chooseHowMany_other": "{{count}}+ videor – välj hur många",
-			"review_one": "{{count}} video i den här listan – granska för att välja",
-			"review_other": "{{count}} videor i den här listan – granska för att välja",
-			"reviewCapped_one": "{{count}}+ video i den här listan – granska för att välja",
-			"reviewCapped_other": "{{count}}+ videor i den här listan – granska för att välja",
-			"view": "Visa"
-		}
+	"donate": {
+		"copied": "Kopierad!",
+		"copyAddress": "Kopiera adress",
+		"description": "Arroxy är gratis och öppen källkod, utan reklam eller betalnivå. Donationer är frivilliga och ger inget inflytande över färdplanen.",
+		"footerLabel": "Donera",
+		"footerTooltip": "Stöd Arroxy",
+		"qrAlt": "QR-kod för donationsadressen ({{coin}})",
+		"title": "Stöd Arroxy",
+		"warning": "Kryptobetalningar kan inte ångras. Skicka bara i det nätverk som visas och jämför hela adressen."
 	},
 	"errors": {
 		"noSubtitlesIn": "Den här videon har inga undertexter på {{languages}}.",
 		"ytdlp": {
-			"botBlock": "Botskyddet utlöstes. IP-adressen du använder är troligen flaggad (datacenterintervall eller en hårt belastad VPN-utgång). Byt IP-adress eller välj en annan VPN-slutpunkt och försök igen. Om det fortsätter att misslyckas kan det vara en tillfällig ändring hos webbplatsen. Arroxy uppdaterar sin hämtningsmotor vid start, så åtgärden installeras automatiskt när den släpps.",
-			"ipBlock": "Din IP-adress verkar vara blockerad. Försök igen senare eller använd en VPN.",
-			"rateLimit": "Webbplatsen begränsar antalet förfrågningar från den här anslutningen.",
 			"ageRestricted": "Den här videon är åldersbegränsad och kan inte hämtas utan ett inloggat konto.",
-			"unavailable": "Den här videon är inte tillgänglig. Den kan vara privat, borttagen eller regionslåst.",
+			"botBlock": "Botskyddet utlöstes. IP-adressen du använder är troligen flaggad (datacenterintervall eller en hårt belastad VPN-utgång). Byt IP-adress eller välj en annan VPN-slutpunkt och försök igen. Om det fortsätter att misslyckas kan det vara en tillfällig ändring hos webbplatsen. Arroxy uppdaterar sin hämtningsmotor vid start, så åtgärden installeras automatiskt när den släpps.",
+			"chunkTransferFailure": "Servern fortsatte att avbryta hämtningen mitt i strömmen, och Arroxy gav upp efter flera försök. Det drabbar oftast de största videoformaten (4K HDR / VP9 med hög bithastighet). Försök igen, byt nätverk/VPN eller välj ett format med lägre upplösning.",
+			"drmProtected": "Den här videon är DRM-skyddad. Arroxy kan inte ta bort DRM, så filen kan inte hämtas.",
 			"formatUnavailable": "Den här videon erbjuder inte längre formatet du valde. Klistra in länken igen och välj bland de format den erbjuder nu.",
 			"geoBlocked": "Den här videon är inte tillgänglig i din region.",
+			"ipBlock": "Din IP-adress verkar vara blockerad. Försök igen senare eller använd en VPN.",
+			"loginRequired": "Den här videon kräver ett inloggat konto.",
+			"missingDependency": "Arroxy hittade inte FFmpeg eller FFprobe. Kör installationen igen eller ange en FFmpeg-plats och försök sedan hämta igen.",
+			"network": "Nätverksfel. Kontrollera din anslutning och försök igen.",
+			"noSubtitles": "Den här videon har inga undertexter på de begärda språken.",
 			"outOfDiskSpace": "Det finns inte tillräckligt med diskutrymme. Frigör utrymme och försök igen.",
 			"outputNotWritable": "Arroxy kan inte skriva till hämtningsmappen. Den kan vara skrivskyddad, ligga på en låst enhet eller blockeras av systemets sekretessinställningar. Välj en annan mapp eller ge åtkomst och försök igen.",
-			"unsupportedUrl": "Arroxy stöder inte den här webbadressen. Prova en länk från en annan webbplats.",
-			"noSubtitles": "Den här videon har inga undertexter på de begärda språken.",
-			"chunkTransferFailure": "Servern fortsatte att avbryta hämtningen mitt i strömmen, och Arroxy gav upp efter flera försök. Det drabbar oftast de största videoformaten (4K HDR / VP9 med hög bithastighet). Försök igen, byt nätverk/VPN eller välj ett format med lägre upplösning.",
-			"missingDependency": "Arroxy hittade inte FFmpeg eller FFprobe. Kör installationen igen eller ange en FFmpeg-plats och försök sedan hämta igen.",
-			"postprocessFailure": "Hämtningen slutfördes, men efterbearbetningen (sammanfogning / mux / konvertering) misslyckades. Ofta är det ett tillfälligt ffmpeg-problem. Försök igen, och om det kvarstår kan du prova en annan formatkombination.",
 			"parse": "Det gick inte att tolka svaret från webbplatsen. Webbplatsen kan ha ändrat hur den levererar videor. Arroxy uppdaterar sin hämtningsmotor vid start. Försök igen om några minuter när åtgärden har släppts.",
-			"network": "Nätverksfel. Kontrollera din anslutning och försök igen.",
-			"drmProtected": "Den här videon är DRM-skyddad. Arroxy kan inte ta bort DRM, så filen kan inte hämtas.",
-			"loginRequired": "Den här videon kräver ett inloggat konto.",
-			"unknown": "Hämtningen misslyckades. Se råa utdata nedan."
+			"postprocessFailure": "Hämtningen slutfördes, men efterbearbetningen (sammanfogning / mux / konvertering) misslyckades. Ofta är det ett tillfälligt ffmpeg-problem. Försök igen, och om det kvarstår kan du prova en annan formatkombination.",
+			"rateLimit": "Webbplatsen begränsar antalet förfrågningar från den här anslutningen.",
+			"unavailable": "Den här videon är inte tillgänglig. Den kan vara privat, borttagen eller regionslåst.",
+			"unknown": "Hämtningen misslyckades. Se råa utdata nedan.",
+			"unsupportedUrl": "Arroxy stöder inte den här webbadressen. Prova en länk från en annan webbplats."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Kontrollera din anslutning och försök igen.",
+			"loadTitle": "Sidan lästes inte in",
+			"openSettings": "Öppna Inställningar",
+			"proxyBody": "Kontrollera proxyn i Inställningar och försök igen.",
+			"proxyTitle": "Utforska kan inte ansluta via din proxy",
+			"retry": "Försök igen"
+		},
+		"linkCallout": {
+			"body": "Högerklicka på en video-, spellist- eller kanallänk på sidan för att hämta den med din aktiva profil, välja en annan profil eller öppna stegvis hämtning.",
+			"title": "Högerklicka på en länk för att hämta den"
+		},
+		"linkMenu": {
+			"copyLink": "Kopiera länk",
+			"downloadWith": "Hämta med"
+		},
+		"newBadge": "Ny",
+		"notice": {
+			"body": "Hitta en video på YouTube eller någon annan webbplats och hämta den härifrån, utan att kopiera länkar. Logga in på en webbplats här för att hämta videor som kräver ett konto.",
+			"continue": "Fortsätt",
+			"riskBody": "Webbplatser som YouTube kan flagga, och ibland spärra, konton som används med hämtningsverktyg som Arroxy. Använd ett konto du kan klara dig utan, inte ditt huvudkonto.",
+			"riskTitle": "Logga in med ett sekundärt konto",
+			"title": "Surfa på webben direkt i Arroxy"
+		},
+		"nudge": {
+			"browser": "Hämtningar använder webbläsarens cookies, inte din inloggning i Utforska.",
+			"file": "Hämtningar använder din cookiefil, inte din inloggning i Utforska.",
+			"notNow": "Inte nu",
+			"off": "Cookies är av, så hämtningar använder inte din inloggning i Utforska.",
+			"useExplore": "Använd inloggningen i Utforska"
+		},
+		"settings": {
+			"description": "Surfa på YouTube eller någon annan webbplats i Arroxy och logga in för videor som kräver ett konto.",
+			"idleUnload": "Frigör minne när du är borta",
+			"idleUnloadDescription": "Efter 5 minuter på en annan flik stängs YouTubes startsida eller sökresultat. När du kommer tillbaka läses sidan in igen, vilket tar några sekunder.",
+			"searchEngine": "Sökmotor",
+			"searchEngineDescription": "Var text som skrivs i adressfältet söks. Länkar öppnas som de skrivs.",
+			"showTab": "Visa fliken Utforska",
+			"showTabDescription": "Om du stänger av den slutar hämtningar också att använda din inloggning i Utforska.",
+			"signOut": "Logga ut från Utforska",
+			"signOutConfirm": "Logga ut",
+			"signOutConfirmBody": "Detta rensar dina inloggningar och din webbhistorik i Utforska, på alla webbplatser. Hämtningar som kräver ett konto misslyckas tills du loggar in igen.",
+			"signOutConfirmTitle": "Logga ut från Utforska?",
+			"signOutDescription": "Rensar dina inloggningar och din webbhistorik i Utforska, på alla webbplatser.",
+			"title": "Utforska"
+		},
+		"tabLabel": "Utforska",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube kan göra motstånd mot annonsblockerare för inloggade konton.",
+				"aria": "Annonsblockerare",
+				"off": "Annonsblockerare: av – klicka för att slå på",
+				"on": "Annonsblockerare: på – klicka för att stänga av",
+				"starting": "Annonsblockerare: startar – klicka för att stänga av",
+				"unavailable": "Annonsblockerare: otillgänglig, filterlistorna kunde inte hämtas – klicka för att stänga av"
+			},
+			"addressAria": "Adress",
+			"addressPlaceholder": "Sök på {{engine}} eller öppna valfri webbplats (Vimeo, Instagram …)",
+			"aria": "Webbläsarkontroller för Utforska",
+			"back": "Tillbaka",
+			"compactLayout": "Kompakt layout",
+			"downloadWithProfile": "Hämta · {{profileName}}",
+			"forward": "Framåt",
+			"fullLayout": "Visa full layout",
+			"grabUnavailable": "Öppna en video, spellista eller kanal för att hämta den",
+			"home": "YouTubes startsida",
+			"interactiveHint": "Interaktiv hämtning: välj format, undertexter med mera …",
+			"refusedHint": "Utforska kan inte öppna den adressen.",
+			"reload": "Läs in igen",
+			"searchTooLong": "Sökningen är för lång.",
+			"zoom": {
+				"hint": "Sidzoom: {{percent}} %",
+				"in": "Zooma in",
+				"label": "Sidzoom",
+				"out": "Zooma ut",
+				"percent": "Zoomprocent",
+				"reset": "Återställ zoomen till 100 %"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"description": {
+			"auto": "De valda strömmarna avgör filtypen.",
+			"mkv": "Rymmer alla codecs. Vissa tv-apparater och telefoner kan inte öppna den.",
+			"mp4": "Spelas upp nästan överallt. VP9 i en MP4 spelas inte upp som video i QuickTime.",
+			"webm": "Öppet format för webbläsare. Rymmer bara VP9 eller AV1 med Opus."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "AV1 i en MP4 kräver en ny Mac för uppspelning i QuickTime. H.264 spelas upp överallt.",
+		"mp4CaveatVp9": "VP9 i en MP4 spelas inte upp som video i QuickTime. H.264 spelas upp överallt.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM erbjuds inte med Smart TV: det kan inte rymma H.264.",
+		"webm": "WebM",
+		"webmBlocked": "WebM kan inte rymma {{codec}}. Välj MKV eller MP4."
+	},
+	"filenameTemplate": {
+		"description": "Välj hur hämtade filer ska namnges. Klicka på en token för att infoga den. Använd / för att sortera hämtningar i mappar.",
+		"error": {
+			"empty": "Ange en filnamnsmall.",
+			"empty-segment": "Ta bort det extra / – varje mapp måste ha ett namn.",
+			"forbidden-char": "Ta bort tecken som inte är tillåtna i filnamn: \\ : * ? \" < > |",
+			"invalid-segment": "Det mappnamnet är inte tillåtet. Undvik . och .. samt reserverade namn som CON.",
+			"no-unique-token": "Lägg till {title} eller {id} i filnamnet så att varje hämtning får ett eget namn.",
+			"resolution-in-dir": "{resolution} kan inte namnge en mapp – kvaliteten är inte känd förrän hämtningen startar.",
+			"stray-brace": "Obalanserad { eller } – omslut tokens som {title}.",
+			"too-long": "Mallen är för lång.",
+			"unknown-token": "Okänd token {{token}}."
+		},
+		"idWarning": "Utan {id} kan Arroxy inte upptäcka spellisteobjekt som redan hämtats eller skapa .m3u-spellistor.",
+		"label": "Filnamnsmall",
+		"m3uDisabled": "Otillgängligt eftersom din filnamnsmall antingen inte innehåller {id} eller sorterar hämtningar i mappar.",
+		"previewPlaylist": "I en spellista",
+		"previewSingle": "Enskild video",
+		"profileOverrideDescription": "Lämna tomt för att ärva den globala mallen.",
+		"profileOverrideLabel": "Filnamnsmall"
+	},
+	"formatLabel": {
+		"audioFallback": "Ljud",
+		"audioOnlyDot": "Endast ljud · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Auto",
+		"description": "Auto väljer HDR när den här skärmen kan visa det, annars SDR. HDR ser urblekt ut på vanliga skärmar.",
+		"hdr": "HDR",
+		"label": "HDR-video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Språk"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Inloggad med Utforska – försöker igen med 1 länk",
+		"exploreSignInRetrying_other": "Inloggad med Utforska – försöker igen med {{count}} länkar",
+		"exploreSignOutFailed": "Det gick inte att logga ut från Utforska. Försök igen.",
+		"filenameFolderTooDeep": "Den här mappen ligger för djupt för ditt system. Hämtningen kan ändå misslyckas – välj en kortare mapp.",
+		"filenameTemplateCannotFit": "Videons namn rymmer inte alla delar av din mall, så standardnamnet användes.",
+		"folderSelectFailed": "Det gick inte att öppna mappväljaren.",
+		"hotkey": {
+			"alreadyQueued": "Finns redan i kön – ingen kopia lades till",
+			"busy": "Arroxy startar fortfarande – försök igen om en stund",
+			"cookiesSetup": "Slutför konfigureringen av cookies i Arroxy och försök sedan igen",
+			"invalidClipboard": "Ingen länk i Urklipp – kopiera en först",
+			"multipleUrls": "Flera länkar kopierades – använd Flera webbadresser i Arroxy",
+			"needsReview": "Den länken behöver ditt val – se Hämtningar i Arroxy",
+			"queued": "Hämtning köad från Urklipp",
+			"submissionFailed": "Det gick inte att lägga till länken – försök igen i Arroxy"
+		},
+		"playlistFolderRejected": "Den mappen kan inte användas för den här spellistan.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} video finns redan i kön – hoppades över",
+			"skippedAlreadyQueued_other": "{{count}} videor finns redan i kön – hoppades över"
+		},
+		"quickDownload": {
+			"added": "Tillagd: {{title}}",
+			"alreadyQueued": "Finns redan i kön",
+			"chooseHowMany_one": "{{count}}+ video – välj hur många",
+			"chooseHowMany_other": "{{count}}+ videor – välj hur många",
+			"failed": "Det gick inte att förbereda {{title}}",
+			"notAdded": "Det gick inte att lägga till länken – försök igen",
+			"reviewCapped_one": "{{count}}+ video i den här listan – granska för att välja",
+			"reviewCapped_other": "{{count}}+ videor i den här listan – granska för att välja",
+			"review_one": "{{count}} video i den här listan – granska för att välja",
+			"review_other": "{{count}} videor i den här listan – granska för att välja",
+			"view": "Visa"
+		},
+		"settingsSaveFailed": "Det gick inte att spara dina inställningar.",
+		"shellActionFailed": "Det gick inte att öppna det.",
+		"warmupFailed": "Installationen slutfördes inte. Vissa hämtningar kan misslyckas tills den är klar."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Ljud", "subtitles": "Undertexter"},
-		"subtitles": {"note": "Bara undertextfiler sparas för varje video – ingen video eller inget ljud hämtas.", "languages": "Språk", "languagesRequired": "Välj minst ett språk för att fortsätta.", "source": "Källa", "deliveryHeading": "Spara som", "deliveryLoose": "Direkt i sparmappen"},
-		"videoFormat": {"best": "Bästa originalformat", "mp4": "H.264 MP4 för Smart TV"},
-		"videoFormatDesc": {"best": "Bästa tillgängliga behållare och codecs per objekt", "mp4": "Föredra H.264-video + AAC-ljud i MP4 när det är möjligt"},
-		"tier": {"144": "Upp till 144p", "240": "Upp till 240p", "360": "Upp till 360p", "480": "Upp till 480p", "720": "Upp till 720p", "1080": "Upp till 1080p", "1440": "Upp till 1440p", "2160": "Upp till 4K", "best": "Bästa kvalitet"},
+		"audioFormat": {
+			"best": "Ljud (bästa)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Ljud ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Bästa originalljud, ingen omkodning",
+			"m4a": "Konvertera till M4A (AAC)",
+			"mp3": "Konvertera till MP3",
+			"opus": "Konvertera till Opus"
+		},
+		"mp4Cap": "H.264 över 1080p finns inte på YouTube – begränsas automatiskt till 1080p",
+		"subtitles": {
+			"deliveryHeading": "Spara som",
+			"deliveryLoose": "Direkt i sparmappen",
+			"languages": "Språk",
+			"languagesRequired": "Välj minst ett språk för att fortsätta.",
+			"note": "Bara undertextfiler sparas för varje video – ingen video eller inget ljud hämtas.",
+			"source": "Källa"
+		},
+		"tier": {
+			"144": "Upp till 144p",
+			"240": "Upp till 240p",
+			"360": "Upp till 360p",
+			"480": "Upp till 480p",
+			"720": "Upp till 720p",
+			"1080": "Upp till 1080p",
+			"1440": "Upp till 1440p",
+			"2160": "Upp till 4K",
+			"best": "Bästa kvalitet"
+		},
 		"tierDesc": {
 			"144": "Minsta möjliga filer",
 			"240": "Mycket små filer, låg kvalitet",
@@ -939,170 +311,1396 @@
 			"2160": "Begränsas till 2160p, går ner till lägre per objekt",
 			"best": "Högsta tillgängliga video + ljud per objekt"
 		},
-		"audioFormat": {"best": "Ljud (bästa)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Bästa originalljud, ingen omkodning", "mp3": "Konvertera till MP3", "m4a": "Konvertera till M4A (AAC)", "opus": "Konvertera till Opus"},
-		"audioFormatBitrate": "Ljud ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 över 1080p finns inte på YouTube – begränsas automatiskt till 1080p"
-	},
-	"formatLabel": {"audioFallback": "Ljud", "audioOnlyDot": "Endast ljud · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inaktiv", "statusActive_one": "1 hämtas · {{percent}} %", "statusActive_other": "{{count}} hämtas · {{percent}} %", "downloadFromClipboard": "Hämta från Urklipp", "open": "Öppna Arroxy", "quit": "Avsluta Arroxy"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} hämtning pågår", "message_other": "{{count}} hämtningar pågår", "detail": "Pausa för att återuppta senare, eller avbryt för att förkasta förloppet.", "confirm": "Avbryt hämtningar och avsluta", "pause": "Pausa hämtningar och avsluta", "keep": "Fortsätt hämta"},
-		"closeToTray": {"message": "Dölja Arroxy i systemfältet när fönstret stängs?", "detail": "Arroxy fortsätter att köras och slutför pågående hämtningar. Du kan ändra detta senare i de avancerade inställningarna.", "hide": "Dölj i systemfältet", "quit": "Avsluta", "remember": "Fråga inte igen"},
-		"rendererCrashed": {"message": "Arroxy stötte på ett problem", "detail": "Renderingsprocessen kraschade ({{reason}}). Läs in igen för att försöka på nytt.", "reload": "Läs in igen", "quit": "Avsluta"}
-	},
-	"share": {
-		"title": "Dela Arroxy",
-		"description": "Arroxy är gratis och har öppen källkod. Genom att dela hjälper du fler att upptäcka det.",
-		"copyLink": "Kopiera länk",
-		"copied": "Kopierad!",
-		"defaultMessage": "Arroxy – gratis hämtare med öppen källkod för video, för Windows, macOS och Linux. Fungerar med YouTube, Vimeo, Twitch och över 2 000 webbplatser.\n4K · HDR · MP3 · Shorts · Undertexter · SponsorBlock",
-		"footerTooltip": "Dela Arroxy",
-		"footerLabel": "Dela",
-		"shareAction": "Dela Arroxy"
-	},
-	"donate": {
-		"title": "Stöd Arroxy",
-		"description": "Arroxy är gratis och öppen källkod, utan reklam eller betalnivå. Donationer är frivilliga och ger inget inflytande över färdplanen.",
-		"footerTooltip": "Stöd Arroxy",
-		"footerLabel": "Donera",
-		"copyAddress": "Kopiera adress",
-		"copied": "Kopierad!",
-		"qrAlt": "QR-kod för donationsadressen ({{coin}})",
-		"warning": "Kryptobetalningar kan inte ångras. Skicka bara i det nätverk som visas och jämför hela adressen."
-	},
-	"filenameTemplate": {
-		"label": "Filnamnsmall",
-		"description": "Välj hur hämtade filer ska namnges. Klicka på en token för att infoga den. Använd / för att sortera hämtningar i mappar.",
-		"profileOverrideLabel": "Filnamnsmall",
-		"profileOverrideDescription": "Lämna tomt för att ärva den globala mallen.",
-		"idWarning": "Utan {id} kan Arroxy inte upptäcka spellisteobjekt som redan hämtats eller skapa .m3u-spellistor.",
-		"m3uDisabled": "Otillgängligt eftersom din filnamnsmall antingen inte innehåller {id} eller sorterar hämtningar i mappar.",
-		"previewSingle": "Enskild video",
-		"previewPlaylist": "I en spellista",
-		"error": {
-			"empty": "Ange en filnamnsmall.",
-			"too-long": "Mallen är för lång.",
-			"forbidden-char": "Ta bort tecken som inte är tillåtna i filnamn: \\ : * ? \" < > |",
-			"stray-brace": "Obalanserad { eller } – omslut tokens som {title}.",
-			"no-unique-token": "Lägg till {title} eller {id} i filnamnet så att varje hämtning får ett eget namn.",
-			"unknown-token": "Okänd token {{token}}.",
-			"empty-segment": "Ta bort det extra / – varje mapp måste ha ett namn.",
-			"invalid-segment": "Det mappnamnet är inte tillåtet. Undvik . och .. samt reserverade namn som CON.",
-			"resolution-in-dir": "{resolution} kan inte namnge en mapp – kvaliteten är inte känd förrän hämtningen startar."
+		"type": {
+			"audio": "Ljud",
+			"subtitles": "Undertexter",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "Bästa originalformat",
+			"mp4": "H.264 MP4 för Smart TV"
+		},
+		"videoFormatDesc": {
+			"best": "Bästa tillgängliga behållare och codecs per objekt",
+			"mp4": "Föredra H.264-video + AAC-ljud i MP4 när det är möjligt"
 		}
 	},
-	"explore": {
-		"tabLabel": "Utforska",
-		"newBadge": "Ny",
-		"notice": {
-			"title": "Surfa på webben direkt i Arroxy",
-			"body": "Hitta en video på YouTube eller någon annan webbplats och hämta den härifrån, utan att kopiera länkar. Logga in på en webbplats här för att hämta videor som kräver ett konto.",
-			"riskTitle": "Logga in med ett sekundärt konto",
-			"riskBody": "Webbplatser som YouTube kan flagga, och ibland spärra, konton som används med hämtningsverktyg som Arroxy. Använd ett konto du kan klara dig utan, inte ditt huvudkonto.",
-			"continue": "Fortsätt"
+	"queue": {
+		"artifact": {
+			"companion": "Följefil",
+			"description": "Beskrivning",
+			"media": "Media",
+			"missing": "Saknas",
+			"subtitle": "Undertext",
+			"thumbnail": "Miniatyr",
+			"unknown": "Artefakt"
 		},
-		"nudge": {
-			"off": "Cookies är av, så hämtningar använder inte din inloggning i Utforska.",
-			"file": "Hämtningar använder din cookiefil, inte din inloggning i Utforska.",
-			"browser": "Hämtningar använder webbläsarens cookies, inte din inloggning i Utforska.",
-			"useExplore": "Använd inloggningen i Utforska",
-			"notNow": "Inte nu"
+		"attentionBadge_one": "{{count}} hämtning behöver din uppmärksamhet",
+		"attentionBadge_other": "{{count}} hämtningar behöver din uppmärksamhet",
+		"autoRemoveCompleted": {
+			"hint": "Ta bort varje hämtning från listan några sekunder efter att den är klar. Filerna finns kvar i din mapp.",
+			"label": "Rensa klara automatiskt"
 		},
-		"linkCallout": {"title": "Högerklicka på en länk för att hämta den", "body": "Högerklicka på en video-, spellist- eller kanallänk på sidan för att hämta den med din aktiva profil, välja en annan profil eller öppna stegvis hämtning."},
-		"linkMenu": {"downloadWith": "Hämta med", "copyLink": "Kopiera länk"},
-		"toolbar": {
-			"aria": "Webbläsarkontroller för Utforska",
-			"back": "Tillbaka",
-			"forward": "Framåt",
-			"reload": "Läs in igen",
-			"home": "YouTubes startsida",
-			"addressAria": "Adress",
-			"addressPlaceholder": "Sök på {{engine}} eller öppna valfri webbplats (Vimeo, Instagram …)",
-			"refusedHint": "Utforska kan inte öppna den adressen.",
-			"searchTooLong": "Sökningen är för lång.",
-			"downloadWithProfile": "Hämta · {{profileName}}",
-			"interactiveHint": "Interaktiv hämtning: välj format, undertexter med mera …",
-			"grabUnavailable": "Öppna en video, spellista eller kanal för att hämta den",
-			"compactLayout": "Kompakt layout",
-			"fullLayout": "Visa full layout",
-			"zoom": {"label": "Sidzoom", "hint": "Sidzoom: {{percent}} %", "in": "Zooma in", "out": "Zooma ut", "percent": "Zoomprocent", "reset": "Återställ zoomen till 100 %"},
-			"adBlock": {
-				"aria": "Annonsblockerare",
-				"off": "Annonsblockerare: av – klicka för att slå på",
-				"starting": "Annonsblockerare: startar – klicka för att stänga av",
-				"on": "Annonsblockerare: på – klicka för att stänga av",
-				"unavailable": "Annonsblockerare: otillgänglig, filterlistorna kunde inte hämtas – klicka för att stänga av",
-				"accountNote": "YouTube kan göra motstånd mot annonsblockerare för inloggade konton."
+		"cancelAllTitle": "Avbryt alla aktiva och väntande hämtningar",
+		"choice": {
+			"all": "Alla videor",
+			"cappedBody_one": "Fler än {{count}} video i den här spellistan. Hämta alla, de första {{count}} eller välj i en granskning.",
+			"cappedBody_other": "Fler än {{count}} videor i den här spellistan. Hämta alla, de första {{count}} eller välj i en granskning.",
+			"first": "Första {{count}}",
+			"review": "Granska",
+			"reviewBody_one": "Den här länken är en lista med {{count}} video. Granska den för att välja vad som ska hämtas.",
+			"reviewBody_other": "Den här länken är en lista med {{count}} videor. Granska den för att välja vad som ska hämtas."
+		},
+		"clearTitle": "Rensa slutförda hämtningar",
+		"empty": "Köade hämtningar visas här",
+		"filterAll": "Alla",
+		"filtersLabel": "Statusfilter för kön",
+		"globalActionsLabel": "Alla objekt",
+		"header": "Hämtningar",
+		"item": {
+			"audioKept": "Ljudet togs inte bort",
+			"audioKeptSubtitlesFailed": "Ljudet togs inte bort · vissa undertexter misslyckades",
+			"cancel": "Avbryt",
+			"defaultError": "Hämtningen misslyckades",
+			"openDestinationFolder": "Öppna målmappen",
+			"pause": "Pausa",
+			"pendingOnly": "Endast väntande",
+			"pullNow": "Hämta nu – hoppa över kön",
+			"qualityLimited": "Begränsad till {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Begränsad till {{height}}p · vissa undertexter misslyckades",
+			"remove": "Ta bort",
+			"resume": "Återuppta",
+			"retry": "Försök igen",
+			"retryingSoon": "försöker igen automatiskt (försök {{attempt}})",
+			"setLocation": "Ange plats",
+			"setLocationHint": "Markera väntande objekt för att ange plats.",
+			"statusCancelled": "Avbruten",
+			"statusDone": "Klar",
+			"statusError": "Fel",
+			"statusHeld": "Pausad i kön",
+			"statusNeedsChoice": "Behöver ditt val",
+			"statusPaused": "Pausad",
+			"statusPending": "Väntar",
+			"statusProbing": "Hämtar information",
+			"statusRunning": "Hämtar",
+			"subtitleLanguagesMissing": "Inga undertexter på {{languages}}"
+		},
+		"pauseAllTitle": "Pausa alla aktiva hämtningar och hindra nya från att starta",
+		"pausedBanner": "Kön är pausad – väntande objekt startar inte förrän du återupptar den",
+		"resumeAllTitle": "Återuppta pausade hämtningar och låt kön fortsätta",
+		"resumeQueueAction": "Återuppta kön",
+		"selectedActionsLabel": "Markerade objekt",
+		"selectionSummary": "{{selected}} markerade · {{total}} totalt",
+		"tabLabel": "Hämtningar",
+		"tabTip": "Hämtningar finns nu på fliken Hämtningar – öppna den när som helst för att följa förloppet.",
+		"table": {
+			"added": "Tillagd",
+			"artifacts": "Artefakter",
+			"columnDropped": "Kolumnen {{column}} släpptes.",
+			"columnMoveCancelled": "Flyttningen av kolumnen {{column}} avbröts.",
+			"columnMovedOver": "Kolumnen {{column}} ligger över {{target}}.",
+			"columnPickedUp": "Kolumnen {{column}} plockades upp.",
+			"columns": "Kolumner",
+			"finished": "Slutförd",
+			"format": "Format",
+			"hideArtifactsFor": "Dölj artefakter för {{title}}",
+			"movableColumn": "flyttbar kolumn",
+			"moveColumnInstructions": "Om du vill flytta en kolumn trycker du på Blanksteg eller Retur, flyttar den med piltangenterna och trycker sedan på Blanksteg eller Retur för att släppa den. Tryck på Escape för att avbryta.",
+			"notAvailable": "—",
+			"outputTarget": "Utdatamål",
+			"progress": "Förlopp",
+			"resetColumns": "Återställ kolumner",
+			"resizeColumn": "Ändra storlek på kolumnen {{column}}",
+			"showArtifactsFor": "Visa artefakter för {{title}}",
+			"size": "Storlek",
+			"sortBy": "Sortera efter {{label}}",
+			"status": "Status",
+			"title": "Titel"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Fortsätt",
+		"description": "Du kör en ny uppdatering. Här är höjdpunkterna.",
+		"fullNotes": "Fullständiga versionsanteckningar ↗",
+		"title": "Nytt i Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "Avbryt",
+			"chooseExecutable": "Välj körbar fil",
+			"installWithHomebrew": "Installera med Homebrew",
+			"installWithWinget": "Installera med WinGet",
+			"openDependencyFolder": "Öppna beroendemappen",
+			"resetToDefault": "Återställ till standard",
+			"retrySetup": "Försök igen",
+			"viewSetupLog": "Visa installationsloggen"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Försök igen. Om det fortsätter att misslyckas väljer du en fungerande kopia nedan.",
+				"title": "Ett verktyg fungerar inte som det ska"
+			},
+			"blockedOrQuarantined": {
+				"body": "Tillåt Arroxy i ditt antivirusprogram eller SmartScreen och försök sedan igen.",
+				"title": "Ditt antivirusprogram blockerade ett verktyg"
+			},
+			"downloadFailed": {
+				"body": "Kontrollera din internetanslutning och försök igen.",
+				"title": "Det gick inte att hämta det Arroxy behöver"
+			},
+			"extractFailed": {
+				"body": "Försök igen för att hämta den på nytt.",
+				"title": "En hämtad fil var skadad"
+			},
+			"hashFailed": {
+				"body": "Försök igen för att hämta den på nytt.",
+				"title": "En hämtad fil matchade inte sin kontrollsumma"
+			},
+			"pairIncomplete": {
+				"body": "Välj båda nedan eller återställ dem till standard.",
+				"title": "FFmpeg och FFprobe måste anges tillsammans"
+			},
+			"permissionDenied": {
+				"body": "Försök igen. Om det fortsätter att misslyckas väljer du en kopia du litar på nedan.",
+				"title": "Ditt system låter inte Arroxy köra ett verktyg"
+			},
+			"spawnFailed": {
+				"body": "Försök igen. Om det fortsätter att misslyckas väljer du en fungerande kopia nedan.",
+				"title": "Ett verktyg saknas eller startar inte"
+			},
+			"timeout": {
+				"body": "Det här beror ofta på en säkerhetsskanning vid första körningen. Försök igen.",
+				"title": "Ett verktyg svarade inte i tid"
+			},
+			"unknown": {
+				"body": "Försök igen eller öppna installationsloggen för mer information.",
+				"title": "Något gick fel under installationen"
 			}
 		},
-		"settings": {
-			"title": "Utforska",
-			"description": "Surfa på YouTube eller någon annan webbplats i Arroxy och logga in för videor som kräver ett konto.",
-			"showTab": "Visa fliken Utforska",
-			"showTabDescription": "Om du stänger av den slutar hämtningar också att använda din inloggning i Utforska.",
-			"idleUnload": "Frigör minne när du är borta",
-			"idleUnloadDescription": "Efter 5 minuter på en annan flik stängs YouTubes startsida eller sökresultat. När du kommer tillbaka läses sidan in igen, vilket tar några sekunder.",
-			"searchEngine": "Sökmotor",
-			"searchEngineDescription": "Var text som skrivs i adressfältet söks. Länkar öppnas som de skrivs.",
-			"signOut": "Logga ut från Utforska",
-			"signOutDescription": "Rensar dina inloggningar och din webbhistorik i Utforska, på alla webbplatser.",
-			"signOutConfirmTitle": "Logga ut från Utforska?",
-			"signOutConfirmBody": "Detta rensar dina inloggningar och din webbhistorik i Utforska, på alla webbplatser. Hämtningar som kräver ett konto misslyckas tills du loggar in igen.",
-			"signOutConfirm": "Logga ut"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Utforska kan inte ansluta via din proxy", "proxyBody": "Kontrollera proxyn i Inställningar och försök igen.", "loadTitle": "Sidan lästes inte in", "loadBody": "Kontrollera din anslutning och försök igen.", "retry": "Försök igen", "openSettings": "Öppna Inställningar"}
-	},
-	"fileType": {
-		"auto": "Auto",
-		"autoValue": "Auto (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "De valda strömmarna avgör filtypen.", "mp4": "Spelas upp nästan överallt. VP9 i en MP4 spelas inte upp som video i QuickTime.", "mkv": "Rymmer alla codecs. Vissa tv-apparater och telefoner kan inte öppna den.", "webm": "Öppet format för webbläsare. Rymmer bara VP9 eller AV1 med Opus."},
-		"webmBlocked": "WebM kan inte rymma {{codec}}. Välj MKV eller MP4.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM erbjuds inte med Smart TV: det kan inte rymma H.264.",
-		"mp4CaveatVp9": "VP9 i en MP4 spelas inte upp som video i QuickTime. H.264 spelas upp överallt.",
-		"mp4CaveatAv1": "AV1 i en MP4 kräver en ny Mac för uppspelning i QuickTime. H.264 spelas upp överallt."
+		"groups": {
+			"engine": "Hämtningsmotor",
+			"media": "Mediaverktyg"
+		},
+		"installing": {
+			"homebrew": "Installerar med Homebrew … Det kan ta några minuter.",
+			"winget": "Installerar med WinGet … Det kan ta några minuter."
+		},
+		"manual": {
+			"intro": "Peka Arroxy mot kopior du redan har, eller installera dem på annat sätt.",
+			"linuxHint": "Du kan också installera yt-dlp och ffmpeg med pakethanteraren och sedan klicka på Försök igen.",
+			"toggle": "Konfigurera manuellt"
+		},
+		"stopped": {
+			"body": "Försök igen eller peka Arroxy mot verktyg du redan har nedan.",
+			"title": "Installationen stoppades"
+		},
+		"title": "Installationen behöver din hjälp"
 	},
 	"selectionOrder": {
 		"editorTitle": "Så väljer den här profilen",
-		"whyTitle": "Varför profilen valde den här",
-		"whyLabel": "Varför den här?",
 		"rank": {
-			"h264": {"label": "H.264-video", "reason": "spelas upp på alla enheter"},
-			"mp4Streams": {"label": "MP4-strömmar", "reason": "redo för en MP4-fil"},
-			"resolutionBest": {"label": "Högsta upplösning", "reason": "ingen gräns angiven"},
-			"resolution": {"label": "Upp till {{tier}}p", "reason": "din gräns"},
-			"fps": {"label": "Högsta bildfrekvens", "reason": "mjukare rörelser"},
-			"sitePreference": {"label": "Strömmar som webbplatsen inte nedgraderar", "reason": "hoppar över skadade, vattenstämplade och reservkopior"},
-			"original": {"label": "Originalströmmar, inte AI-uppskalade", "reason": "en uppskalad kopia är högre men tillför ingen verklig detalj"},
-			"source": {"label": "Strömmar med förbättrad bithastighet först", "reason": "mer detaljer vid samma upplösning"},
-			"protocol": {"label": "Direkthämtningar före strömmade kopior", "reason": "samma bild, hämtad snabbare"},
-			"codec": {"label": "AV1, sedan VP9, sedan H.264", "reason": "skarpast vid en given storlek"},
-			"codecVp9First": {"label": "VP9, sedan H.264, sedan AV1", "reason": "den här profilens codec"},
-			"codecH264First": {"label": "H.264, sedan VP9, sedan AV1", "reason": "den här profilens codec"},
-			"size": {"label": "Större fil", "reason": "mer detaljer med samma inställningar"},
-			"aacSmartTv": {"label": "AAC-ljud", "reason": "spelas upp överallt"},
-			"aacFileType": {"label": "AAC-ljud", "reason": "passar MP4-spelare"},
-			"opus": {"label": "Opus-ljud", "reason": "passar WebM"},
-			"nativeCompatible": {"label": "Stereoljud"},
-			"nativeSurround": {"label": "Surroundljud när det erbjuds"},
-			"nativeSource": {"settings": "från Inställningar", "profile": "den här profilen"},
-			"hdrSdrFirst": {"label": "SDR före HDR", "reason": "ser rätt ut på alla skärmar", "reasonScreen": "den här skärmen är inte HDR"},
-			"hdrFirst": {"label": "HDR före SDR", "reason": "rikare färger på HDR-skärmar", "reasonScreen": "den här skärmen visar HDR"}
+			"aacFileType": {
+				"label": "AAC-ljud",
+				"reason": "passar MP4-spelare"
+			},
+			"aacSmartTv": {
+				"label": "AAC-ljud",
+				"reason": "spelas upp överallt"
+			},
+			"codec": {
+				"label": "AV1, sedan VP9, sedan H.264",
+				"reason": "skarpast vid en given storlek"
+			},
+			"codecH264First": {
+				"label": "H.264, sedan VP9, sedan AV1",
+				"reason": "den här profilens codec"
+			},
+			"codecVp9First": {
+				"label": "VP9, sedan H.264, sedan AV1",
+				"reason": "den här profilens codec"
+			},
+			"fps": {
+				"label": "Högsta bildfrekvens",
+				"reason": "mjukare rörelser"
+			},
+			"h264": {
+				"label": "H.264-video",
+				"reason": "spelas upp på alla enheter"
+			},
+			"hdrFirst": {
+				"label": "HDR före SDR",
+				"reason": "rikare färger på HDR-skärmar",
+				"reasonScreen": "den här skärmen visar HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR före HDR",
+				"reason": "ser rätt ut på alla skärmar",
+				"reasonScreen": "den här skärmen är inte HDR"
+			},
+			"mp4Streams": {
+				"label": "MP4-strömmar",
+				"reason": "redo för en MP4-fil"
+			},
+			"nativeCompatible": {
+				"label": "Stereoljud"
+			},
+			"nativeSource": {
+				"profile": "den här profilen",
+				"settings": "från Inställningar"
+			},
+			"nativeSurround": {
+				"label": "Surroundljud när det erbjuds"
+			},
+			"opus": {
+				"label": "Opus-ljud",
+				"reason": "passar WebM"
+			},
+			"original": {
+				"label": "Originalströmmar, inte AI-uppskalade",
+				"reason": "en uppskalad kopia är högre men tillför ingen verklig detalj"
+			},
+			"protocol": {
+				"label": "Direkthämtningar före strömmade kopior",
+				"reason": "samma bild, hämtad snabbare"
+			},
+			"resolution": {
+				"label": "Upp till {{tier}}p",
+				"reason": "din gräns"
+			},
+			"resolutionBest": {
+				"label": "Högsta upplösning",
+				"reason": "ingen gräns angiven"
+			},
+			"sitePreference": {
+				"label": "Strömmar som webbplatsen inte nedgraderar",
+				"reason": "hoppar över skadade, vattenstämplade och reservkopior"
+			},
+			"size": {
+				"label": "Större fil",
+				"reason": "mer detaljer med samma inställningar"
+			},
+			"source": {
+				"label": "Strömmar med förbättrad bithastighet först",
+				"reason": "mer detaljer vid samma upplösning"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "bästa bild", "smartTv": "spelas upp på alla enheter"}, "fileType": {"auto": "filtyp från strömmarna", "explicit": "sparas som .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "filtyp från strömmarna",
+				"explicit": "sparas som .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "bästa bild",
+				"smartTv": "spelas upp på alla enheter"
+			}
+		},
+		"whyLabel": "Varför den här?",
+		"whyTitle": "Varför profilen valde den här"
 	},
-	"aiUpscaled": {"label": "AI-uppskalade strömmar", "description": "YouTube erbjuder vissa gamla videor i storlekar som skapats med AI. Hoppa över behåller originalströmmarna, och du kan fortfarande välja en uppskalad ström manuellt.", "skip": "Hoppa över", "allow": "Tillåt"},
+	"share": {
+		"copied": "Kopierad!",
+		"copyLink": "Kopiera länk",
+		"defaultMessage": "Arroxy – gratis hämtare med öppen källkod för video, för Windows, macOS och Linux. Fungerar med YouTube, Vimeo, Twitch och över 2 000 webbplatser.\n4K · HDR · MP3 · Shorts · Undertexter · SponsorBlock",
+		"description": "Arroxy är gratis och har öppen källkod. Genom att dela hjälper du fler att upptäcka det.",
+		"footerLabel": "Dela",
+		"footerTooltip": "Dela Arroxy",
+		"shareAction": "Dela Arroxy",
+		"title": "Dela Arroxy"
+	},
+	"splash": {
+		"cancel": "Problem? Konfigurera manuellt",
+		"greeting": "Hej, välkommen tillbaka!",
+		"setup": {
+			"bytes": "{{done}} av {{total}}",
+			"left": {
+				"minutes_one": "ungefär {{count}} min kvar",
+				"minutes_other": "ungefär {{count}} min kvar",
+				"underMinute": "mindre än en minut kvar"
+			},
+			"note": {
+				"engine": "Håller hämtningarna igång när webbplatser ändras.",
+				"firstRun": "Det här sker bara en gång. Arroxy behåller de här verktygen och uppdaterar dem själv.",
+				"media": "Det här sker bara en gång. Arroxy behåller dem för framtida uppdateringar."
+			},
+			"stage": {
+				"checking": "Kontrollerar att allt fungerar",
+				"connecting": "Ansluter …",
+				"downloadingBoth": "Hämtar hämtningsmotorn och mediaverktygen",
+				"downloadingEngine": "Hämtar hämtningsmotorn",
+				"downloadingMedia": "Hämtar mediaverktygen",
+				"unpacking": "Packar upp mediaverktygen"
+			},
+			"title": {
+				"engine": "Uppdaterar hämtningsmotorn",
+				"firstRun": "Första konfigurationen",
+				"media": "Uppdaterar mediaverktygen"
+			}
+		},
+		"verifyFirstCheck": "Första kontrollen av den här versionen – den här tar lång tid. Vanligtvis ungefär en minut.",
+		"verifying": "Kontrollerar {{binary}} …",
+		"warmup": "Förbereder hämtningar …",
+		"warmupFailedNoDiag": "Installationen misslyckades. Öppna installationsloggen för mer information."
+	},
+	"status": {
+		"audioKept": "Videon sparades med ljud – ljudet kunde inte tas bort",
+		"audioKeptSubtitlesFailed": "Videon sparades med ljud – ljudet kunde inte tas bort, och vissa undertexter kunde inte hämtas",
+		"cancelled": "Hämtningen avbröts",
+		"complete": "Hämtningen är klar",
+		"convertingVideo": "Konverterar video …",
+		"diskSpaceInsufficient": "Inte tillräckligt med diskutrymme – {{required}} behövs, bara {{free}} är ledigt",
+		"downloadingBinary": "Hämtar binärfilen {{name}} …",
+		"downloadingMedia": "Hämtar video och ljud …",
+		"embeddingMetadata": "Bäddar in metadata …",
+		"exploreSignedOut": "Utloggad från Utforska – logga in igen",
+		"extractingAudio": "Konverterar ljud …",
+		"fetchingSponsorBlock": "Kontaktar SponsorBlock …",
+		"fetchingSubtitles": "Hämtar undertexter …",
+		"mergingFormats": "Sammanfogar ljud och video …",
+		"mintingToken": "Skapar YouTube-token …",
+		"movingFiles": "Flyttar filer …",
+		"noSubtitles": "Inga undertexter på {{languages}}",
+		"outputNotWritable": "Det går inte att spara i {{dir}} – Arroxy får inte skriva där",
+		"preparingBinaries": "Förbereder binärfiler …",
+		"qualityLimited": "Sparad i {{height}}p – YouTube höll inne högre kvaliteter för den här hämtningen. Det kan hjälpa att försöka igen senare eller från ett annat nätverk.",
+		"qualityLimitedSubtitlesFailed": "Sparad i {{height}}p – YouTube höll inne högre kvaliteter för den här hämtningen, och vissa undertexter kunde inte hämtas. Det kan hjälpa att försöka igen senare eller från ett annat nätverk.",
+		"remintingToken": "Skapar token på nytt …",
+		"retryingSponsorBlock": "SponsorBlock är otillgängligt, försöker igen ({{attempt}}/{{total}}) …",
+		"retryingTransfer": "Anslutningen stannade av, försöker igen ({{attempt}}/{{total}}) …",
+		"signingInWithExplore": "Loggar in med ditt Utforska-konto …",
+		"sleepingBetweenRequests": "Väntar {{seconds}} s för att undvika begränsningar …",
+		"startingYtdlp": "Startar hämtningsmotorn …",
+		"subtitleLanguagesMissing": "Den här videon har inga undertexter på {{languages}}. Videon sparades utan dem.",
+		"subtitleLanguagesMissingOthersSaved": "Den här videon har inga undertexter på {{languages}}. De andra språken sparades.",
+		"subtitlesFailed": "Videon sparades – vissa undertexter kunde inte hämtas",
+		"unknownStartupFailure": "Okänt fel vid start av hämtningen",
+		"usedExtractorFallback": "Hämtades med lättad extraktor – konfigurera en cookies.txt för mer tillförlitliga hämtningar",
+		"ytdlpExitCode": "Hämtningsmotorn avslutades med koden {{code}}",
+		"ytdlpProcessError": "Fel i hämtningsmotorn: {{error}}"
+	},
+	"theme": {
+		"dark": "Mörkt läge",
+		"light": "Ljust läge",
+		"system": "Systemstandard"
+	},
+	"titleBar": {
+		"close": "Stäng",
+		"maximize": "Maximera",
+		"minimize": "Minimera",
+		"restore": "Återställ"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Hämta från Urklipp",
+			"open": "Öppna Arroxy",
+			"quit": "Avsluta Arroxy",
+			"statusActive_one": "1 hämtas · {{percent}} %",
+			"statusActive_other": "{{count}} hämtas · {{percent}} %",
+			"statusIdle": "Inaktiv"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Kommandot kopierades till Urklipp",
+		"copy": "Kopiera kommandot till Urklipp",
+		"dismiss": "Stäng uppdateringsbanderollen",
+		"download": "Hämta ↗",
+		"downloadDmg": "Hämta DMG ↗",
+		"downloading": "Hämtar …",
+		"install": "Installera och starta om",
+		"installFailed": "Uppdateringen misslyckades",
+		"message": {
+			"generic": "Arroxy {{version}} är tillgängligt – du har {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} är tillgängligt – uppdatera med Homebrew.",
+			"macosDirect": "Arroxy {{version}} är tillgängligt – hämta den nya DMG-filen.",
+			"macosDirectHomebrew": "Arroxy {{version}} är tillgängligt – hämta DMG-filen eller byt till Homebrew.",
+			"portable": "Arroxy {{version}} är tillgängligt – hämta den nya versionen."
+		},
+		"retry": "Försök igen",
+		"runAndRestart": "Kör och starta om",
+		"upgrading": "Uppgraderar …"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} kapitel",
+		"chapters_other": "{{count}} kapitel",
+		"titlePlaceholder": "Läser in …"
+	},
 	"videoCodec": {
-		"label": "Videocodec",
-		"description": "Vilken codec som ska väljas först bland strömmar med samma höjd. Auto behåller yt-dlp:s egen ordning, som föredrar AV1, den minsta; H.264 spelas upp på äldre tv-apparater och telefoner.",
-		"smartTv": "Smart TV väljer alltid H.264.",
 		"auto": "Auto",
-		"vp9": "VP9 först",
-		"h264": "H.264 först"
+		"description": "Vilken codec som ska väljas först bland strömmar med samma höjd. Auto behåller yt-dlp:s egen ordning, som föredrar AV1, den minsta; H.264 spelas upp på äldre tv-apparater och telefoner.",
+		"h264": "H.264 först",
+		"label": "Videocodec",
+		"smartTv": "Smart TV väljer alltid H.264.",
+		"vp9": "VP9 först"
 	},
-	"hdrPreference": {"label": "HDR-video", "description": "Auto väljer HDR när den här skärmen kan visa det, annars SDR. HDR ser urblekt ut på vanliga skärmar.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Klara",
+			"description": "Klistra in webbadresser till videor, spellistor, kanaler, sökningar eller ljud. Arroxy rensar dubbletter innan de köas.",
+			"emptyPreview": "Klistra in en eller flera webbadresser för att förhandsgranska batchen.",
+			"ignoredCount": "Ignorerade",
+			"needsAtLeastOne": "Lägg till minst en webbadress som stöds för att fortsätta.",
+			"reject": {
+				"duplicate": "Dubblett"
+			},
+			"textareaLabel": "Lista över webbadresser",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "Flera webbadresser"
+		},
+		"confirm": {
+			"addToQueue": "+ Kö",
+			"addToQueueTooltip": "Lägger till i kön – startar när den aktiva hämtningen är klar",
+			"audioOnly": "Endast ljud",
+			"itemsValueAudio_one": "{{count}} av {{total}} spår",
+			"itemsValueAudio_other": "{{count}} av {{total}} spår",
+			"itemsValueBulk_one": "{{count}} av {{total}} webbadress",
+			"itemsValueBulk_other": "{{count}} av {{total}} webbadresser",
+			"itemsValue_one": "{{count}} av {{total}} video",
+			"itemsValue_other": "{{count}} av {{total}} videor",
+			"labelAudio": "Ljud",
+			"labelBulk": "Batch",
+			"labelItems": "Objekt",
+			"labelPlaylist": "Spellista",
+			"labelPreset": "Förinställning",
+			"labelSaveTo": "Spara i",
+			"labelSize": "Storlek",
+			"labelSubtitles": "Undertexter",
+			"labelVideo": "Video",
+			"landIn": "Din fil hamnar i",
+			"landInMultiProfile_one": "Den hamnar i målet nedan",
+			"landInMultiProfile_other": "De hamnar i de {{count}} målen nedan",
+			"nothingToDownload": "Förinställningen Endast undertexter är aktiv men inget undertextspråk är valt – ingenting kommer att hämtas.",
+			"profileBreakdownCount_one": "{{count}} objekt",
+			"profileBreakdownCount_other": "{{count}} objekt",
+			"profileBreakdownHeading": "Profiler i den här batchen",
+			"pullIt": "Hämta! ↓",
+			"pullItTooltip": "Hoppar över kön – startar nu och körs vid sidan av andra aktiva hämtningar",
+			"readyHeadline": "Redo att hämta!",
+			"sizeUnknown": "Okänd",
+			"subtitleEmbedAudioOnly": "Inbäddning av undertexter ändrades till separat fil – ljudspår stöder inte inbäddade undertextströmmar.",
+			"subtitleEmbedForcesMkv": "Undertexter i videon kräver en MKV-fil, så den här hämtningen sparas som .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Inbäddning av miniatyr hoppades över – utdatabehållaren stöder det inte."
+		},
+		"folder": {
+			"custom": "Anpassad …",
+			"desktop": "Skrivbord",
+			"documents": "Dokument",
+			"downloads": "Hämtade filer",
+			"heading": "Spara i",
+			"home": "Hem",
+			"music": "Musik",
+			"pictures": "Bilder",
+			"subfolder": {
+				"invalid": "Mappnamnet innehåller ogiltiga tecken",
+				"placeholder": "t.ex. lo-fi-rips",
+				"toggle": "Spara i undermapp"
+			},
+			"videos": "Filmer"
+		},
+		"formats": {
+			"audio": "Ljud",
+			"audioLanguage": "Ljudspråk",
+			"audioLanguageCount_one": "{{count}} språk",
+			"audioLanguageCount_other": "{{count}} språk",
+			"audioOnly": "Endast ljud",
+			"bitrateValue": "Bithastighet {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies är konfigurerade men avstängda. Aktivera dem och försök igen för att få hela listan, eller byt nätverk och försök igen.",
+				"bodyEnabled": "Även med cookies begränsade YouTube den här analysen. Försök igen senare eller byt nätverk.",
+				"bodyExplore": "YouTube begränsade den här förfrågan. Försök igen senare eller byt nätverk.",
+				"bodyUnconfigured": "Formatlistan kan vara ofullständig. Konfigurera cookies i de avancerade inställningarna, eller byt nätverk och försök igen.",
+				"enableRetryCta": "Aktivera cookies och försök igen",
+				"heading": "Analysen begränsades",
+				"retryCta": "Försök igen"
+			},
+			"convert": {
+				"bitrate": "Bithastighet",
+				"bitrateCopyHint": "En källa som redan är {{target}} behåller sin egen ström och bithastighet: den kopieras, den kodas inte om.",
+				"copyLabel": "{{target}} {{bitrate}} kbit/s, ingen omkodning",
+				"copyLabelNoBitrate": "{{target}}, ingen omkodning",
+				"copyNote": "{{kbps}} kbit/s, som i källan: strömmen är redan {{target}}, så den kopieras, den kodas inte om",
+				"copyNoteNoBitrate": "Som i källan: strömmen är redan {{target}}, så den kopieras, den kodas inte om",
+				"label": "Konvertera",
+				"lossyLabel": "{{target}} {{bitrate}} kbit/s",
+				"sourceKbps": "Källan är {{kbps}} kbit/s",
+				"wavLabel": "WAV (okomprimerad)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Webbläsare",
+				"currentModeExplore": "Inloggning i Utforska",
+				"currentModeFile": "Fil",
+				"currentModeLabel": "Cookiekälla",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp-dokumentation (ärende #10927)",
+					"explanation": "Chrome 127 och senare krypterar cookies på ett sätt som andra appar inte kan läsa i Windows. Prova en av lösningarna nedan.",
+					"fixFileBody": "Exportera cookies från Chrome med ett webbläsartillägg, byt sedan den här appen till läget Fil och välj den exporterade filen.",
+					"fixFileLabel": "Exportera cookies.txt",
+					"fixFirefoxBody": "Firefox använder inte App-Bound Encryption. Öppna cookieinställningarna och välj Firefox i webbläsarlistan.",
+					"fixFirefoxLabel": "Byt till Firefox",
+					"fixUnsafeBody": "Lägg till --disable-features=LockProfileCookieDatabase i Chromes startgenväg. Varning: det gör tidigare krypterade cookies ogiltiga, så du loggas ut från alla webbplatser och måste logga in igen.",
+					"fixUnsafeLabel": "Starta Chrome med App-Bound Encryption avstängt",
+					"heading": "Chrome-cookies blockeras av Windows-kryptering"
+				},
+				"explanationBrowser": "Cookies läses direkt från webbläsaren. Om webbläsaren körs just nu kan dess cookiedatabas vara låst (Chromium-familjen). Webbläsaren måste också vara inloggad på YouTube. Prova att stänga webbläsaren, byta till en annan webbläsare, byta till läget Fil eller stänga av cookies.",
+				"explanationFile": "Din cookiefil kan vara tom, utgången eller ha fel format (Arroxy behöver en cookies.txt i Netscape-format). Prova att exportera cookies på nytt, välja en annan fil, byta till läget Webbläsare eller stänga av cookies.",
+				"exploreOffer": {
+					"body": "Logga in med Utforska så försöker Arroxy igen.",
+					"cta": "Logga in med Utforska",
+					"heading": "Den här videon kan kräva ett YouTube-konto"
+				},
+				"exploreRefused": {
+					"body": "Arroxy har redan försökt inloggad via Utforska, så det hjälper inte att logga in igen. Webbplatsen kan ha problem, eller så kan det här kontot inte öppna den. Försök igen senare.",
+					"heading": "Webbplatsen nekade detta även med din inloggning i Utforska"
+				},
+				"exploreReuse": {
+					"body": "Du är inloggad i Utforska, men hämtningar använder inte den inloggningen just nu.",
+					"cta": "Använd min inloggning i Utforska och försök igen",
+					"heading": "Den här videon kan kräva ett YouTube-konto"
+				},
+				"exploreSignIn": {
+					"body": "Om videon kräver ett YouTube-konto loggar du in i Utforska och försöker igen. Arroxy använder den inloggningen bara när en hämtning behöver den.",
+					"cta": "Logga in i Utforska",
+					"heading": "Den här videon kan kräva ett YouTube-konto"
+				},
+				"exploreSignedIn": {
+					"body": "Om videon kräver ett konto använder Arroxy automatiskt din inloggning i Utforska. Den kan vara otillgänglig av ett annat skäl.",
+					"heading": "Inloggad i Utforska"
+				},
+				"exploreSite": {
+					"heading": "Den här länken kan kräva ett konto på {{host}}",
+					"offerBody": "Logga in på {{host}} med Utforska och försök sedan igen.",
+					"signInBody": "Logga in på {{host}} i Utforska och försök sedan igen. Arroxy använder den inloggningen bara när en hämtning behöver den."
+				},
+				"heading": "Cookies kan vara orsaken",
+				"needsCookies": {
+					"body": "Arroxy kunde inte komma åt den här videon utan autentisering. Konfigurera cookies i de avancerade inställningarna – peka dem mot en webbläsare som du redan är inloggad i eller importera en cookies.txt-fil.",
+					"heading": "Den här webbplatsen kräver inloggning"
+				},
+				"openSettingsCta": "Öppna cookieinställningar",
+				"otherCookiesCta": "Använd en cookiefil eller webbläsare i stället …"
+			},
+			"drc": {
+				"description": "Dämpar höga partier och höjer låga, för högtalare och bullriga rum.",
+				"label": "Jämna ut ljudstyrkan (DRC)",
+				"tag": "Jämn ljudstyrka"
+			},
+			"fit": {
+				"mp4Unavailable": "Din profil är Smart TV (H.264). Den här videon erbjuder inte H.264, så den närmaste strömmen är vald.",
+				"noVideo": "Den här länken har ingen video, så ljud är valt.",
+				"subtitlesMissing": "Din profil begär undertexter på {{languages}}. Den här videon har inga.",
+				"tierAbove": "Din profil begär {{wanted}}p. Den här videon har inget så litet, så {{picked}}p är valt.",
+				"tierBelow": "Din profil begär {{wanted}}p. Den här videon går bara upp till {{picked}}p, så {{picked}}p är valt.",
+				"webmUnavailable": "Din profil begär WebM. De valda strömmarna i den här videon innehåller {{codec}}, som WebM inte kan rymma, så filtypen är Auto."
+			},
+			"footer": {
+				"addToQueue": "Lägg till i kön utan att starta",
+				"download": "Hämta",
+				"moreActions": "Fler hämtningsalternativ",
+				"subtitlesRequired": "Välj minst ett undertextspråk."
+			},
+			"keepAudio": "Behåll som det är",
+			"keepAudioMeta": "Inbyggt ljud",
+			"kind": {
+				"audio": "Endast ljud",
+				"label": "Vad som ska hämtas",
+				"subtitles": "Endast undertexter",
+				"video": "Video + ljud",
+				"videoOnly": "Video, inget ljud"
+			},
+			"loadingAria": "Läser in format",
+			"loadingHint": "Vänta tills analysen är klar – spellistor och sökningar kan ta en stund.",
+			"marker": {
+				"aiDubbed": "AI-dubbad",
+				"aiUpscaled": "AI-uppskalad",
+				"audioDescription": "Syntolkning",
+				"damaged": "Skadad",
+				"enhancedBitrate": "Förbättrad bithastighet",
+				"spatialAudio": "Rumsligt ljud",
+				"vr": "360° / VR",
+				"watermarked": "Vattenstämplad"
+			},
+			"noAudio": "Inget ljud",
+			"profile": {
+				"calloutBody": "Din aktiva profil förväljer strömmarna åt dig. Byt profil från menyn, eller använd pennan för att justera en utan att lämna den här hämtningen.",
+				"calloutTitle": "Formaten utgår från din profil",
+				"closestTag": "Närmast profilen",
+				"edit": "Redigera {{name}}",
+				"keepEdits": "Behåll mina ändringar",
+				"menuDescription": "Endast för den här hämtningen. Din standardprofil förblir oförändrad.",
+				"preselected": "Förvald från",
+				"resetAll": "Återställ alla",
+				"switchBody": "Du ändrade {{areas}} för den här hämtningen. ”{{profile}}” väljer video och ljud oavsett. Vill du behålla dina andra ändringar eller återställa allt till profilen?",
+				"switchTitle": "Byta profil?",
+				"tag": "Profil",
+				"updatedBody": "Du ändrade {{areas}} för den här hämtningen. Den uppdaterade profilen väljer video och ljud oavsett. Vill du behålla dina andra ändringar eller återställa allt till profilen?",
+				"updatedTitle": "Använda den uppdaterade profilen?"
+			},
+			"quality": {
+				"high": "Hög kvalitet",
+				"low": "Låg kvalitet",
+				"medium": "Medelhög kvalitet"
+			},
+			"rateLimit": {
+				"heading": "{{site}} begränsar den här anslutningen",
+				"leadDegraded": "Formatlistan kan vara ofullständig.",
+				"leadFailed": "{{site}} avvisade den här förfrågan tills vidare.",
+				"retryCta": "Försök igen",
+				"sessionNote": "{{site}} kan behålla den här begränsningen i upp till en timme.",
+				"tryNowCta": "Försök nu",
+				"waitOver": "Väntetiden är över, så du kan försöka igen.",
+				"waitUntil": "Arroxy väntar till {{time}} innan {{site}} tillfrågas igen, så att begränsningen kan hävas."
+			},
+			"resolutionUnknown": "Okänd upplösning",
+			"savesAs": {
+				"label": "Sparas som",
+				"reset": "WebM kan inte rymma {{codec}}, så filtypen återgick till Auto."
+			},
+			"sizeUnknown": "Okänd storlek",
+			"skipToConfirm": "Hoppa till bekräftelse",
+			"skipToConfirmTooltip": "Använder dina sparade inställningar för alla återstående steg. Om du vill ändra en inställning fortsätter du steg för steg – ditt val sparas till nästa gång.",
+			"sniffing": "Letar upp de bästa formaten åt dig …",
+			"total": "Totalt",
+			"video": "Video",
+			"withAudio": "med ljud"
+		},
+		"mixedPrompt": {
+			"body": "Vill du ha bara videon du klickade på, eller välja från spellistan? Därefter väljer du specifika videor eller ett intervall.",
+			"pickFromPlaylist": "Välj från spellistan",
+			"playlistLimit": "Gräns för spellisteanalys: {{count}} objekt",
+			"playlistTooltip": "Läser in spellistan, upp till din gräns för spellisteanalys, innan väljaren visas.",
+			"quickBody": "Hämta bara den här videon eller köa hela spellistan med din aktiva profil för snabbhämtning.",
+			"quickLimitDescription": "Maximalt antal poster som Arroxy skannar innan en spellista, kanal eller ett sökresultat köas.",
+			"quickPlaylistTooltip": "Köar alla inlästa spellisteobjekt med den aktiva profilen för snabbhämtning. Om skanningen når din gräns frågar Arroxy innan något köas.",
+			"quickSingleTooltip": "Köar en hämtning och ignorerar spellistan som hör till den här webbadressen.",
+			"quickSingleVideo": "Hämta den här videon",
+			"quickWholePlaylist": "Hämta hela spellistan",
+			"singleTooltip": "Läser bara in den här videon. Spellistan som hör till den här webbadressen ignoreras.",
+			"singleVideo": "Bara den här",
+			"title": "Den här länken har en spellista"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Kapitelmarkeringar som går att navigera i alla moderna spelare.",
+				"label": "Bädda in kapitel"
+			},
+			"embedMetadata": {
+				"description": "Titel, artist, beskrivning och uppladdningsdatum skrivs in i filen.",
+				"label": "Bädda in metadata"
+			},
+			"embedThumbnail": {
+				"description": "Omslagsbild inuti filen. WebM-video remuxas till MKV; hoppas över när undertexter bäddas in.",
+				"label": "Bädda in miniatyr"
+			},
+			"writeDescription": {
+				"description": "Sparar videons beskrivning som en .description-textfil bredvid hämtningen.",
+				"label": "Spara beskrivning"
+			},
+			"writeM3u": {
+				"description": "Spara en .m3u-spellista bredvid videorna så att de öppnas i ordning i din mediespelare.",
+				"label": "Skapa .m3u-spellistefil"
+			},
+			"writeThumbnail": {
+				"description": "Sparar miniatyren som en .jpg-bildfil bredvid hämtningen.",
+				"label": "Spara miniatyr"
+			}
+		},
+		"part": {
+			"calloutBody": "Växla till Del på videokortet för att välja en start och ett slut, eller ett kapitel, och hämta bara den sträckan.",
+			"calloutTitle": "Hämta bara en del av en video",
+			"chapterUntitled": "Kapitel {{number}}",
+			"chapters": "Kapitel",
+			"connectionsNote": "En del hämtas via ffmpeg, så dina inställningar för hämtningsanslutningar och tempo gäller inte för den.",
+			"downloadBlocked": "Åtgärda först start och slut för delen.",
+			"end": "Slut",
+			"error": {
+				"endBeyondDuration": "Videon slutar vid {{duration}}.",
+				"endInvalid": "Ange slutet som h:mm:ss, m:ss eller sekunder.",
+				"startInvalid": "Ange starten som h:mm:ss, m:ss eller sekunder.",
+				"startNotBeforeEnd": "Starten måste komma före slutet."
+			},
+			"exactCut": {
+				"hint": "Av: varje klipp hamnar på närmaste nyckelbild, som kan ligga några sekunder från den tid du skrev.",
+				"label": "Exakt klipp (kodar om, långsammare)"
+			},
+			"length": "{{length}} av {{duration}}",
+			"part": "Del",
+			"rangeLabel": "Del av videon",
+			"start": "Start",
+			"subtitlesFullLength": "hela videon",
+			"summary": "Del {{start}}–{{end}}",
+			"switchLabel": "Hur mycket av videon",
+			"timeHint": "h:mm:ss, m:ss eller sekunder",
+			"totalEstimate": "Del, uppskattad",
+			"unavailableDuration": "Den här videon anger inte sin längd, så den kan bara hämtas i sin helhet.",
+			"unavailableSubtitles": "Undertexter omfattar alltid hela videon.",
+			"urlStart": "Din länk startar vid {{time}}",
+			"useUrlStart": "Använd som start",
+			"whole": "Hela videon",
+			"wholeTrack": "Hela spåret"
+		},
+		"playlist": {
+			"allRemovedDescription": "Återställ dem för att fortsätta.",
+			"allRemovedTitle": "Alla objekt togs bort",
+			"alreadyDownloaded": "Redan hämtad",
+			"bulkHeading": "Flera webbadresser",
+			"bulkMetadataOptional": "Du behöver inte vänta – filer som köas nu får ändå sina riktiga namn när de hämtas.",
+			"bulkMetadataResolving": "Hämtar videoinformation … {{done}}/{{total}}",
+			"bulkRowFailed": "Information otillgänglig",
+			"bulkRowResolving": "Hämtar information",
+			"bulkRowWaiting": "Väntar",
+			"durationUnknown": "live",
+			"heading": "Spellisteobjekt",
+			"headingGeneric": "Videor att hämta",
+			"itemCountAudio_one": "{{count}} spår",
+			"itemCountAudio_other": "{{count}} spår",
+			"itemCountBulk_one": "{{count}} webbadress",
+			"itemCountBulk_other": "{{count}} webbadresser",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} videor",
+			"loadingItems": "Hämtar spellista …",
+			"loadingItemsGeneric": "Hämtar videor …",
+			"loadingLimitHint": "Begränsad till de första {{count}} objekten",
+			"loadingPagesFound_one": "{{count}} sida hittades",
+			"loadingPagesFound_other": "{{count}} sidor hittades",
+			"loadingPhaseItems": "Samlar in videor",
+			"loadingPhasePages": "Skannar kanalsidor",
+			"multiProfileEntry": "Tilldela profiler per objekt",
+			"multiProfileEntryTooltip": "Hoppar över Kvalitet, SponsorBlock, Utdata och Spara – tilldela i stället en hämtningsprofil per objekt",
+			"nestedPlaylistBadge": "Spellista",
+			"nestedPlaylistHint_one": "{{count}} av dessa är en spellista, inte en video – klistra in dess länk separat för att hämta den.",
+			"nestedPlaylistHint_other": "{{count}} av dessa är spellistor, inte videor – klistra in deras länkar en i taget för att hämta dem.",
+			"noSelection": "Markera minst en video för att fortsätta",
+			"probeLimitAlertDesc": "Visar de första {{count}} objekten. Höj inläsningsgränsen för att se fler.",
+			"probeLimitAlertTitle": "Spellisteskanningen är begränsad",
+			"probeLimitAlertTitleGeneric": "Skanningen är begränsad",
+			"rangeApply": "Tillämpa intervall",
+			"rangeFrom": "Från",
+			"rangeTo": "Till",
+			"removeFromListCount_one": "Ta bort {{count}} från listan",
+			"removeFromListCount_other": "Ta bort {{count}} från listan",
+			"removedCount_one": "{{count}} borttagen",
+			"removedCount_other": "{{count}} borttagna",
+			"restore": "Återställ",
+			"selectAll": "Markera alla",
+			"selectNone": "Avmarkera alla",
+			"selectedCount_one": "{{count}} markerad",
+			"selectedCount_other": "{{count}} markerade",
+			"sortApi": "Spellistans ordning",
+			"sortFetchingDates": "Hämtar uppladdningsdatum …",
+			"sortLabel": "Sortera",
+			"sortUploadAsc": "Äldsta först",
+			"sortUploadDesc": "Nyaste först",
+			"syncApply": "Tillämpa synkronisering",
+			"syncChange": "Ändra mapp …",
+			"syncFoundDesc": "{{n}} av de här videorna finns redan i {{dir}}. Synkronisera för att bara hämta de nya?",
+			"syncFoundTitle": "Finns redan i mappen",
+			"syncNoneDesc": "Inga videor från den här spellistan hittades i {{dir}}.",
+			"syncNoneDescGeneric": "Inga videor från den här källan hittades i {{dir}}.",
+			"syncNoneTitle": "Inget hämtat ännu",
+			"syncScanning": "Kontrollerar mappen …",
+			"thumbnailAlt": "Videominiatyr"
+		},
+		"playlistPresets": {
+			"heading": "Välj kvalitet för batchen",
+			"itemCount_one": "{{count}} objekt",
+			"itemCount_other": "{{count}} objekt",
+			"subhead": "Varje video löser den valda nivån för sig – blandade spellistor fungerar utan överraskningar."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Tilldela profil",
+			"assignTrigger_one": "Tilldela {{count}} video",
+			"assignTrigger_other": "Tilldela {{count}} videor",
+			"columnDuration": "Längd",
+			"columnProfile": "Profil",
+			"editProfile": "Redigera {{name}}",
+			"empty": "Inga objekt matchar det här filtret",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profilfilter",
+			"heading": "Tilldela hämtningsprofiler",
+			"menuDescription_one": "Välj profil för den här videon.",
+			"menuDescription_other": "Välj profil för de här {{count}} videorna.",
+			"selectedSummary": "{{selected}} av {{total}} markerade"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Ändra globalt",
+				"chooseFolder": "Välj målmapp",
+				"chooseIcon": "Välj profilikon",
+				"removeLanguage": "Ta bort {{code}}",
+				"reset": "Återställ profil",
+				"resetDisabledHint": "Den här profilen använder redan de inbyggda inställningarna",
+				"resetHint": "Återställ profilens inbyggda inställningar",
+				"save": "Spara profil",
+				"setOverride": "Ange profilåsidosättning",
+				"setOverrideShort": "Ange åsidosättning",
+				"useGlobalDefault": "Använd globalt standardvärde",
+				"useLanguageCode": "Använd språkkoden ”{{code}}”"
+			},
+			"advanced": "Avancerat",
+			"appSetting": "Använd appinställningen ({{value}})",
+			"audioFormat": {
+				"best": "Bästa",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "Upp till 128K",
+				"192": "Upp till 192K",
+				"320": "Upp till 320K",
+				"best": "Bästa kvalitet"
+			},
+			"destination": {
+				"defaultFolder": "Standardmapp för hämtningar",
+				"defaultFolderWithSubfolder": "Standardmapp för hämtningar / {{subfolder}}",
+				"global": "Globalt mål",
+				"globalActive": "Aktivt",
+				"globalInherited": "Ärvt",
+				"override": "Profilåsidosättning",
+				"overrideChoosing": "Välj mapp",
+				"overrideNone": "Ingen åsidosättning angiven",
+				"overrideNoneNote": "Ingen åsidosättning angiven. Den här profilen använder det globala målet ovan.",
+				"overrideSet": "Åsidosätter globalt",
+				"overrideSetNote": "Den här profilen sparar i sin egen rotmapp innan undermappen läggs till.",
+				"resolved": "Slutligt mål"
+			},
+			"dialogDescription": "En återanvändbar konfiguration för snabbhämtning, flera webbadresser och spellistor.",
+			"dialogTitle": "Hämtningsprofil",
+			"error": {
+				"changeGlobalDestination": "Det gick inte att ändra det globala målet.",
+				"folderPicker": "Det gick inte att öppna mappväljaren. Ange en sökväg manuellt.",
+				"reset": "Det gick inte att återställa profilinställningarna.",
+				"save": "Det gick inte att spara profilinställningarna."
+			},
+			"field": {
+				"delivery": "Leverans",
+				"fileType": "Filtyp",
+				"goal": "Optimera för",
+				"icon": "Profilikon",
+				"languages": "Språk",
+				"name": "Profilnamn",
+				"nameAndIcon": "Profilnamn och ikon",
+				"nativeAudio": "Originalljud",
+				"overridePath": "Sökväg för profilåsidosättning",
+				"quality": "Kvalitet",
+				"resolution": "Upplösning",
+				"source": "Källa",
+				"subfolderName": "Undermappens namn",
+				"subtitleDownloads": "Undertextshämtningar",
+				"subtitleDownloadsDescription": "Profiler begär språkkoder; tillgängligheten avgörs för varje webbadress."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Skarpast vid en given storlek. Äldre tv-apparater, QuickTime och vissa redigeringsprogram kan inte spela upp den.",
+					"name": "Bästa bild",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "Spelas upp på tv-apparater, telefoner, WhatsApp, QuickTime och videoredigerare. YouTube erbjuder H.264 bara upp till 1080p.",
+					"name": "Smart TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arkiv",
+				"audio": "Ljud",
+				"captions": "Textning",
+				"classes": "Lektioner",
+				"clip": "Klipp",
+				"controls": "Kontroller",
+				"download": "Hämta",
+				"music": "Musik",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Musik eller poddar",
+					"label": "Endast ljud"
+				},
+				"subtitlesOnly": {
+					"description": "Endast textningsfiler",
+					"label": "Endast undertexter"
+				},
+				"videoAudio": {
+					"description": "Vanliga videofiler",
+					"label": "Video + ljud"
+				},
+				"videoOnly": {
+					"description": "Endast ljudlös video",
+					"label": "Video, inget ljud"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Automatisk textning sparas som SRT i stället för ASS.",
+				"noLanguageMatches": "Inga matchande språk",
+				"noSubtitles": "Inga undertextfiler eller inbäddade undertextspår begärs för den här profilen.",
+				"searchLanguages": "Sök efter språknamn eller kod",
+				"skippedForOutputType": "Hoppas över för den här utdatatypen.",
+				"subtitleLanguagesRequired": "Välj minst ett språk.",
+				"subtitleLanguagesRequiredOrOff": "Välj minst ett språk eller stäng av undertextshämtningar.",
+				"subtitlesOnly": "Den här profilen köar bara undertextfiler. Video, ljud, SponsorBlock och mediekonvertering hoppas över."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profiler ärver det globala målet om du inte anger en profilåsidosättning.",
+					"title": "Avancerade alternativ"
+				},
+				"downloadType": {
+					"description": "Välj det huvudsakliga sättet du vill hämta på.",
+					"title": "Hämtningstyp"
+				},
+				"identity": {
+					"description": "Namn och ikon som visas i snabbhämtning, flera webbadresser och profillistor.",
+					"title": "Profilidentitet"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} aktiverat",
+					"enabledCount_other": "{{count}} aktiverade",
+					"title": "Utdataalternativ"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Välj en mapp för den här profilen"
+			},
+			"skipped": "Hoppad över",
+			"sponsorBlockHint": {
+				"mark": "Markerar sponsorsegment som kapitel (icke-destruktivt).",
+				"off": "Ingen SponsorBlock – videon spelas som den laddades upp.",
+				"remove": "Klipper bort sponsorsegment från videon med FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Endast automatiskt genererade",
+				"manualAndAuto": "Manuella och automatiska",
+				"manualFirst": "Manuella först, sedan automatiska",
+				"manualOnly": "Endast manuella"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "Hjälp för {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "Avbryt förberedelsen",
+			"currentFallback": "Aktuell länk",
+			"description": "Arroxy läser länken och tillämpar {{profileName}}.",
+			"failedCount_one": "{{count}} misslyckades",
+			"failedCount_other": "{{count}} misslyckades",
+			"phase": {
+				"probing": "Hämtar information",
+				"queueing": "Lägger till i kön"
+			},
+			"title": "Förbereder snabbhämtning",
+			"waitHint": "Låt den här vara öppen medan Arroxy förbereder kön."
+		},
+		"review": {
+			"areas": {
+				"extras": "extrafunktioner",
+				"fileName": "filnamn",
+				"format": "format",
+				"saveTo": "mapp",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "undertexter"
+			},
+			"callout": {
+				"body": "Undertexter, SponsorBlock, extrafunktioner som miniatyr, mapp och filnamn var tidigare separata steg. Klicka på en rad för att ändra den.",
+				"title": "Alla andra inställningar finns nu på den här sidan"
+			},
+			"changeFormat": "Ändra format",
+			"changed": "Ändrat från {{profile}}: {{areas}}. Gäller bara den här hämtningen.",
+			"changedFrom": "Ändrat från {{profile}}:",
+			"nextTime": {
+				"action": "Spara som profil",
+				"defaultName": "{{profile}} (redigerad)",
+				"title": "Den här hämtningen använde redigerade inställningar. Använda dem nästa gång?"
+			},
+			"reset": "Ångra ändringar, tillbaka till ”{{profile}}”",
+			"rows": {
+				"extras": "Extrafunktioner",
+				"fileName": "Filnamn",
+				"saveTo": "Spara i",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Undertexter"
+			},
+			"rowsHeading": "Allt annat",
+			"save": {
+				"action": "Spara profil",
+				"description": "Behåller de här inställningarna som en profil du kan välja nästa gång. Din profil för snabbhämtning förblir oförändrad.",
+				"failed": "Det gick inte att spara profilen.",
+				"nameLabel": "Profilnamn",
+				"saved": "Sparad som profilen ”{{name}}”",
+				"title": "Spara som profil"
+			},
+			"saveAsProfile": "Spara som ny profil",
+			"update": {
+				"action": "Uppdatera profil",
+				"builtinNote": "Det här är en inbyggd profil. Du kan återställa dess ursprungliga inställningar på fliken Profiler.",
+				"description": "Från och med nu använder varje hämtning med den här profilen de nya inställningarna.",
+				"rows": {
+					"format": "Format"
+				},
+				"title": "Uppdatera ”{{profile}}”?",
+				"updated": "Profilen ”{{name}}” uppdaterades"
+			},
+			"updateProfile": "Uppdatera ”{{profile}}” med de här ändringarna",
+			"value": {
+				"extrasNone": "Inga",
+				"sponsorBlockOff": "Av",
+				"subtitlesOff": "Av"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Utfyllnad",
+				"intro": "Intro",
+				"music_offtopic": "Musik utanför ämnet",
+				"outro": "Outro",
+				"preview": "Förhandsvisning",
+				"selfpromo": "Egenreklam",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategorier",
+			"mode": {
+				"mark": "Markera som kapitel",
+				"off": "Av",
+				"remove": "Ta bort segment"
+			},
+			"modeHeading": "Sponsorfiltrering",
+			"modeHint": {
+				"mark": "Markerar sponsorsegment som kapitel (icke-destruktivt).",
+				"off": "Ingen SponsorBlock – videon spelas som den laddades upp.",
+				"remove": "Klipper bort sponsorsegment från videon med FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "Bekräfta",
+			"folder": "Spara",
+			"formats": "Format",
+			"output": "Utdata",
+			"playlistItems": "Spellista",
+			"playlistItemsGeneric": "Videor",
+			"playlistPresets": "Kvalitet",
+			"playlistProfiles": "Profiler",
+			"review": "Granska",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Undertexter",
+			"url": "Webbadress"
+		},
+		"subtitles": {
+			"autoAssNote": "Automatisk textning sparas som SRT i stället för ASS – för YouTube-videor rensas den från dubbletter orsakade av rullande textrader, vilket vår ASS-konverterare inte kan göra än.",
+			"autoBadge": "Auto",
+			"clearAll": "Rensa alla",
+			"embedNote": "Inbäddningsläget sparar utdata som .mkv så att undertextspår bäddas in tillförlitligt.",
+			"format": {
+				"heading": "Format"
+			},
+			"noLanguages": "Inga undertexter finns för den här videon",
+			"noMatches": "Inga språk matchar",
+			"noSelected": "Inga undertexter valda",
+			"removeLanguage": "Ta bort {{name}}",
+			"saveMode": {
+				"embed": "Bädda in i videon",
+				"heading": "Spara som",
+				"sidecar": "Bredvid videon",
+				"subfolder": "Undermappen subtitles/"
+			},
+			"searchPlaceholder": "Sök språk …",
+			"sectionAuto": "Automatiskt genererade",
+			"sectionManual": "Manuella"
+		},
+		"tabsNavAria": "Navigering för hämtningsprofiler",
+		"url": {
+			"advanced": "Avancerat",
+			"analytics": {
+				"toggle": "Skicka daglig hjärtslagssignal",
+				"toggleDescription": "Ingen telemetri. En gång om dagen skickar en anonym hjärtslagssignal appversion, installationskanal, operativsystem, språk, land och ungefär hur länge sedan Arroxy installerades, så att vi kan räkna aktiva och nya användare. Inga ID:n, webbadresser, videotitlar eller filnamn."
+			},
+			"autoRemoveCompleted": {
+				"description": "Tar bort en hämtning från listan Hämtningar några sekunder efter att den är klar. Filerna finns kvar i din mapp; misslyckade och avbrutna hämtningar stannar kvar i listan.",
+				"label": "Ta bort slutförda hämtningar"
+			},
+			"autoRetry": {
+				"description": "Försöker automatiskt igen efter ett nätverks- eller serverhickup, med längre väntetid mellan varje försök. Hämtningar som webbplatsen blockerar försöks aldrig om automatiskt.",
+				"label": "Försök igen med misslyckade hämtningar",
+				"unit": "gånger"
+			},
+			"bulkButton": "Flera webbadresser",
+			"bulkTooltip": "Lägg till och köa flera webbadresser.",
+			"clearAria": "Rensa webbadress",
+			"clipboard": {
+				"autofilledLink": "Länk tillagd från Urklipp",
+				"bulkHint": "Flera länkar kopierades – använd Flera webbadresser för att lägga till dem",
+				"dialog": {
+					"cancelButton": "Avbryt"
+				},
+				"replacedLink": "Ersatt med kopierad länk",
+				"toggle": "Bevaka Urklipp",
+				"toggleDescription": "Fyll i webbadressfältet automatiskt när du kopierar en videolänk.",
+				"undo": "Ångra"
+			},
+			"closeToTray": {
+				"toggle": "Dölj i systemfältet vid stängning",
+				"toggleDescription": "Fortsätt hämta i bakgrunden efter att fönstret stängts."
+			},
+			"concurrentDownloads": {
+				"description": "Hur många köade objekt som hämtas samtidigt. Fler samtidiga gör att en lång kö blir klar snabbare, men ökar risken att en webbplats begränsar dig.",
+				"label": "Samtidiga hämtningar",
+				"unit": "hämtningar"
+			},
+			"cookies": {
+				"banWarning": "Webbplatser som YouTube kan flagga, och ibland spärra, konton vars cookies används av hämtningsverktyg som Arroxy. Använd om möjligt ett engångskonto.",
+				"browserHelp": "Läser cookies direkt från webbläsaren. Webbläsaren måste vara stängd för Chromium-baserade webbläsare.",
+				"browserLabel": "Webbläsare",
+				"browserPlaceholder": "Välj en webbläsare …",
+				"choose": "Välj …",
+				"clear": "Rensa",
+				"enabledButNoBrowser": "Välj en webbläsare för att använda cookies",
+				"enabledButNoFile": "Välj en fil för att använda cookies",
+				"exploreDescription": "Använder din inloggning i Utforska bara när en hämtning behöver den.",
+				"exploreDisabled": "Fliken Utforska är avstängd, så hämtningar använder inte din inloggning i Utforska. Slå på den under Utforska nedan.",
+				"extensionChrome": "Hämta cookies.txt LOKALT (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookiefil",
+				"helpLink": "Hur exporterar jag cookies?",
+				"openExplore": "Öppna Utforska",
+				"placeholder": "Ingen fil vald",
+				"recommended": "Rekommenderas",
+				"risk": "Risk: en cookies.txt innehåller alla inloggade sessioner för den webbläsaren – håll den privat.",
+				"sourceBrowser": "Webbläsare",
+				"sourceExplore": "Inloggning i Utforska",
+				"sourceFile": "Fil",
+				"sourceLabel": "Cookiekälla",
+				"sourceOff": "Av",
+				"toggleDescription": "Hjälper med åldersbegränsade videor, videor för medlemmar och kontoprivata videor."
+			},
+			"downloadConnections": {
+				"description": "Snabbar upp stora hämtningar genom att hämta flera delar av en video samtidigt. Högre värden ökar risken att en webbplats begränsar dig.",
+				"label": "Hämtningsanslutningar",
+				"unit": "anslutningar"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Endast ljud",
+					"subtitles": "Undertexter"
+				},
+				"anySite": {
+					"heading": "Över 2 000 webbplatser",
+					"musicPlaylist": "Musikspellistor",
+					"video": "Videor",
+					"videoPlaylist": "Videospellistor"
+				},
+				"heading": "Vad Arroxy kan hämta",
+				"youtube": {
+					"channel": "Kanaler",
+					"heading": "YouTube",
+					"music": "Musik",
+					"playlist": "Spellistor",
+					"podcast": "Poddar",
+					"short": "Shorts",
+					"video": "Videor"
+				}
+			},
+			"fetchFormatsTooltip": "Stegvis guide. Välj format, kvalitet och mer.",
+			"heading": "Hämta från webbadress",
+			"hotkey": {
+				"changeShortcut": "Ändra kortkommando",
+				"conflict": "Det här kortkommandot används av en annan app – välj ett annat.",
+				"hintLabel": "Eller tryck på",
+				"hintTooltip": "Kopiera en videolänk var som helst, tryck på det här kortkommandot så köar Arroxy den med din aktiva profil – du behöver inte byta fönster.",
+				"hintTooltipSettings": "Ändra eller stäng av i Inställningar.",
+				"recording": "Tryck på tangenter …",
+				"reset": "Återställ till standard",
+				"sectionDescription": "Hämta vilken länk du än kopierar, från vilken app som helst, utan att öppna Arroxy.",
+				"sectionTitle": "Globalt kortkommando",
+				"test": "Testa",
+				"toggle": "Aktivera globalt kortkommando",
+				"toggleDescription": "Tryck på kortkommandot med en videolänk i Urklipp."
+			},
+			"interactiveDownload": "Interaktiv hämtning",
+			"limitRate": {
+				"activeWarning": "Aktiva hämtningar behåller sin nuvarande gräns. Pausa och återuppta för att tillämpa ändringar.",
+				"custom": "Anpassad …",
+				"customPlaceholder": "t.ex. 750K eller 1,5M",
+				"description": "Begränsa bandbredden för mediehämtningar. Tempot för förfrågningar nedan är oftast det starkare spaket mot begränsningar.",
+				"invalid": "Använd ett tal följt av K eller M (t.ex. 500K, 1,5M)",
+				"label": "Hastighetsgräns för hämtning",
+				"off": "Av"
+			},
+			"mascotBusy": "Hämtar i bakgrunden … jag kan göra flera saker samtidigt 😎",
+			"mascotCollection": "Snabbhämtning köar inlästa objekt med {{profileName}}. Interaktiv hämtning låter dig granska eller markera objekt först.",
+			"mascotIdle": "Släpp en länk så hämtar Arroxy den ✨",
+			"mascotMixed": "Den här länken pekar på en video i en samling. Arroxy frågar vilken du vill ha innan analysen.",
+			"mascotPreparing": "{{quickDownload}} läser den här länken och tillämpar {{profileName}}.",
+			"mascotQueued": "Kön hanterar den här hämtningen. Du kan klistra in en annan länk medan den arbetar.",
+			"mascotSingle": "Snabbhämtning startar en hämtning med {{profileName}}. Använd Interaktiv hämtning för engångsändringar.",
+			"nativeAudioPreference": {
+				"compatible": "Kompatibelt stereoljud",
+				"description": "Stereo eller surround när en profil väljer originalljud. En profil kan åsidosätta det.",
+				"label": "Inställning för originalljud",
+				"surround": "Föredra surround / Dolby"
+			},
+			"networkPacing": {
+				"description": "Lägg till små pauser under varje hämtning så att Arroxy inte belastar webbplatsen för hårt. Värdena anges i sekunder.",
+				"fields": {
+					"maxSleepInterval": "Paus innan media startar: max",
+					"sleepInterval": "Paus innan media startar: min",
+					"sleepRequests": "Vänta mellan metadatakontroller",
+					"sleepSubtitles": "Vänta före undertextfiler"
+				},
+				"heading": "Skonsamma hämtningar",
+				"presetLabel": "Hur försiktig ska Arroxy vara?",
+				"presets": {
+					"balanced": "Balanserad",
+					"careful": "Försiktig",
+					"custom": "Anpassad",
+					"off": "Av"
+				},
+				"summary": "Pauser: {{requests}} mellan kontroller, {{downloads}} innan media startar, {{subtitles}} före undertextfiler.",
+				"tooltip": "De här pauserna sker inom varje hämtning. Hur många hämtningar som körs samtidigt anges separat, under Samtidiga hämtningar.",
+				"tooltips": {
+					"balanced": "Standard. Lägger till korta pauser mellan förfrågningar och innan media startar.",
+					"careful": "Lägger till längre pauser för stora spellistor eller nätverk som ofta når gränser.",
+					"custom": "Justera de avancerade kontrollerna per hämtning själv.",
+					"off": "Använder bara de små grundpauser som Arroxy behåller för media och undertexter."
+				},
+				"units": {
+					"seconds": "s"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Aktuell gräns: {{count}} objekt",
+				"custom": "Anpassad …",
+				"customDialogCancel": "Avbryt",
+				"customDialogDescription": "Använd ett heltal från {{min}} till {{max}}.",
+				"customDialogSave": "Spara gräns",
+				"customDialogTitle": "Anpassad gräns för spellisteskanning",
+				"customValue": "Anpassad: {{count}} objekt",
+				"description": "Maximalt antal poster som Arroxy läser in när en spellista, kanal eller ett sökresultat öppnas.",
+				"invalid": "Använd ett heltal från 1 till 5000",
+				"label": "Spellisteobjekt att skanna",
+				"option": "{{count}} objekt",
+				"tooltip": "Arroxy begär bara så här många spellisto-, kanal- eller sökposter när väljaren byggs."
+			},
+			"playlistScope": {
+				"appLimit": "Använd appens gräns: {{count}}",
+				"apply": "Tillämpa",
+				"applyError": "Det gick inte att tillämpa det spellisteomfånget: {{message}}",
+				"applyReload": "Tillämpa och läs in igen",
+				"cancel": "Avbryt",
+				"change": "Ändra",
+				"dialogDescription": "Välj vad Arroxy läser in för den här spellistan.",
+				"dialogTitle": "Spellisteomfång",
+				"emptyTitle": "Inga videor i det omfånget",
+				"first": "Första",
+				"invalid": "Använd hela objektnummer från 1 till {{max}}, där starten inte är högre än slutet.",
+				"itemsLabel": "Objekt att läsa in",
+				"label": "Spellisteomfång",
+				"range": "Intervall",
+				"reloading": "Läser in igen ...",
+				"reset": "Återställ",
+				"summaryAppLimit": "Läs in de första objekten: {{count}}",
+				"summaryFirst": "Läs in de första objekten: {{count}}",
+				"summaryRange": "Läs in objekt {{from}}–{{to}}",
+				"to": "till"
+			},
+			"profile": {
+				"activeLabel": "Aktiv profil",
+				"badgeBuiltIn": "Inbyggd",
+				"badgeCustom": "Anpassad",
+				"badgeDisabled": "Dold",
+				"badgeModified": "Ändrad",
+				"changeGlobalDestination": "Ändra globalt mål",
+				"destinationDetail": {
+					"global": "Använder globalt mål",
+					"globalSubfolder": "Använder globalt mål + profilens undermapp",
+					"override": "Använder profilåsidosättning",
+					"overrideSubfolder": "Använder profilåsidosättning + profilens undermapp"
+				},
+				"destinationFallback": "Mål",
+				"edit": "Redigera",
+				"editActive": "Redigera aktiv profil",
+				"enableHint": "Dolda profiler finns kvar här men försvinner från alla profilväljare.",
+				"enableToggleAria": "Visa profil i väljare: {{profileName}}",
+				"lastEnabledHint": "Behåll minst en profil tillgänglig.",
+				"manageProfiles": "Hantera profiler",
+				"menuDescription": "Ändra den aktiva profilen för snabbhämtning, flera webbadresser och spellistor.",
+				"menuTitle": "Byt profil",
+				"movableProfile": "flyttbar profil",
+				"moveCancelled": "Flyttningen avbröts. {{profileName}} stannar på plats {{position}} av {{count}}.",
+				"moveDropped": "{{profileName}} släpptes på plats {{position}} av {{count}}.",
+				"moveHandleAria": "Flytta {{profileName}}",
+				"moveInstructions": "Om du vill flytta en profil trycker du på Blanksteg eller Retur, flyttar den med piltangenterna och trycker sedan på Blanksteg eller Retur för att släppa den. Tryck på Escape för att avbryta.",
+				"moveOver": "{{profileName}} ligger över plats {{position}} av {{count}}.",
+				"movePickedUp": "{{profileName}} plockades upp. Den ligger på plats {{position}} av {{count}}.",
+				"newProfile": "Ny profil",
+				"panelDescription": "Skapa, välj, redigera eller ta bort återanvändbara hämtningskonfigurationer.",
+				"panelTitle": "Hämtningsprofiler",
+				"remove": "Ta bort",
+				"reorderHint": "Dra en profil för att flytta den. Alla profilväljare följer den här ordningen.",
+				"reset": "Återställ",
+				"summary": {
+					"aacAudio": "AAC-ljud",
+					"bestAudio": "bästa ljud",
+					"bestVideo": "bästa video",
+					"noAudio": "inget ljud",
+					"subtitlesOnly": "endast undertexter",
+					"wavAudio": "WAV-ljud"
+				},
+				"switchAria": "Byt hämtningsprofil: {{profileName}}",
+				"switchTitle": "Byt hämtningsprofil"
+			},
+			"proxy": {
+				"clear": "Rensa",
+				"description": "Dirigera trafik via en proxy – användbart för geobegränsat innehåll.",
+				"label": "Proxyadress",
+				"placeholder": "http://värd:port"
+			},
+			"quickBulkAllFailed": "Ingen av de webbadresserna kunde förberedas",
+			"quickDownload": "Snabbhämtning",
+			"quickDownloadTooltip": "Hämtar med: {{profileName}}",
+			"quickFailed": "Det gick inte att lägga till den här: {{error}}",
+			"quickPartialFailed_one": "Köade det som fungerade. {{count}} webbadress kunde inte förberedas.",
+			"quickPartialFailed_other": "Köade det som fungerade. {{count}} webbadresser kunde inte förberedas.",
+			"quickPrepareFailed": "Köobjektet kunde inte förberedas",
+			"quickPreparing": "Förbereder",
+			"quickProbeFailed": "Analysen misslyckades",
+			"quickQueued": "Tillagd i kön",
+			"quickSingleOnly": "Klistra in en webbadress till en video, spellista, kanal eller sökning för att komma igång.",
+			"settings": {
+				"behaviorDescription": "Globalt beteende som även påverkar profilstyrda hämtningar.",
+				"behaviorHeading": "Hämtningsbeteende",
+				"inputHeading": "Inmatning"
+			},
+			"style": {
+				"aurora": {
+					"description": "Glaspaneler över en rörlig himmel. Kräver grafikacceleration.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Solida, lugna ytor. Går lätt på alla datorer.",
+					"label": "Minimal"
+				},
+				"modeDescription": "Båda stilarna finns i ljust och mörkt läge.",
+				"modeLabel": "Stil",
+				"panelDescription": "Hur Arroxy ser ut. Växla mellan ljust och mörkt i sidfoten.",
+				"panelTitle": "Utseende",
+				"unavailableNotice": "{{style}} kräver grafikacceleration, som inte är tillgänglig just nu, så Arroxy visar {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "Profiler",
+				"settings": "Inställningar"
+			}
+		}
+	}
 }
