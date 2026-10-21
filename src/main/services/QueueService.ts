@@ -37,11 +37,12 @@ import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queueAdmission.js'
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
+import {pauseEach} from './download/queuePauseEach.js'
 import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
 import {checkQueueArtifactsOnDisk} from './download/queueArtifactDiskCheck.js'
 import {describeMutation, isProgressOnlyMutation, statusSummary, type Mutation} from './download/queueMutation.js'
-import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
+import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSchedulerCommandFailure, QueueSchedulerCommandResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
 
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
@@ -254,27 +255,23 @@ export class QueueService extends EventEmitter {
 		return ok(undefined)
 	}
 
-	async pauseAll(): Promise<void> {
+	// Reports each running item it paused and each one it could not.
+	async pauseAll(): Promise<QueueSchedulerCommandResult> {
 		// Flip the pause flag FIRST so per-item commits below can't re-trigger an
 		// auto-spawn of the next pending item (the "pause all → next one starts" bug).
 		this.setSchedulerPaused(true)
 		this.sleep.clear()
 		const running = this.items.filter(i => i.status === QUEUE_STATUS.running)
 		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
-		for (const item of running) {
-			try {
-				const result = await this.pause(item.id)
-				if (!result.ok) {
-					logger.warn('pauseAll: failed to pause item', {itemId: item.id, error: result.error.message})
-				}
-			} catch (err) {
-				logger.warn('pauseAll: unexpected error pausing item', {itemId: item.id, error: err instanceof Error ? err.message : String(err)})
-			}
-		}
+		const {done, failed} = await pauseEach(
+			running.map(i => i.id),
+			itemId => this.pause(itemId)
+		)
 		// Ensure the flag itself reaches disk even if no items needed pausing
 		// (e.g. queue had only pending items).
 		this.persist()
 		logger.info('pauseAll done', {snapshot: this.statusSummary()})
+		return this.schedulerCommandResult(done, failed)
 	}
 
 	// Global "resume queue" — counterpart to pauseAll. Clears the scheduler
@@ -284,7 +281,7 @@ export class QueueService extends EventEmitter {
 	// per item — that path bypasses the cap (it's the explicit-user path) and
 	// would spawn every paused-active in parallel.
 	// eslint-disable-next-line @typescript-eslint/require-await -- async for IPC parity
-	async resumeAll(): Promise<void> {
+	async resumeAll(): Promise<QueueSchedulerCommandResult> {
 		this.setSchedulerPaused(false)
 		const held = this.items.filter(i => i.status === QUEUE_STATUS.pausedHeld)
 		const pausedActive = this.items.filter(i => i.status === QUEUE_STATUS.pausedActive)
@@ -307,6 +304,15 @@ export class QueueService extends EventEmitter {
 		this.recomputeSchedule()
 		this.persist()
 		logger.info('resumeAll done', {snapshot: this.statusSummary()})
+		// Moving a row back to pending cannot fail, so nothing lands in `failed`.
+		const done = [...held, ...pausedActive].map(i => i.id)
+		return this.schedulerCommandResult(done, [])
+	}
+
+	// Reads the flag at the end, not the intent: a resume that lands while a
+	// pause-all awaits its items leaves the scheduler running.
+	private schedulerCommandResult(done: string[], failed: QueueSchedulerCommandFailure[]): QueueSchedulerCommandResult {
+		return {scheduler: this.schedulerPaused ? 'paused' : 'running', done, failed}
 	}
 
 	// Live-applied from the settings IPC handler, so a change takes effect on

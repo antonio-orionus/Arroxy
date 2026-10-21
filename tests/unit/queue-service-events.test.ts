@@ -471,6 +471,37 @@ describe('pauseAll', () => {
 		expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('running')
 		expect(qs.snapshot().find(i => i.id === 'b')?.status).toBe('paused-active')
 	})
+
+	it('reports which item failed to pause and why, keeping its error kind', async () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'a', status: 'running', lastJobId: 'job-a'}), makeItem({id: 'b', status: 'running', lastJobId: 'job-b'}), makeItem({id: 'c', status: 'pending'})])
+		ds.pause = vi.fn().mockImplementation((jobId: string) => Promise.resolve(jobId === 'job-a' ? fail(createAppError('ipc', 'pause failed')) : ok({paused: true, tempDir: '/tmp/y'})))
+
+		const outcome = await qs.pauseAll()
+
+		expect(outcome).toEqual({scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: expect.objectContaining({code: 'ipc', message: 'pause failed'})}]})
+	})
+
+	it('reports an item whose pause threw as failed with the unknown kind', async () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'a', status: 'running', lastJobId: 'job-a'})])
+		ds.pause = vi.fn().mockRejectedValue(new Error('unexpected throw'))
+
+		const outcome = await qs.pauseAll()
+
+		expect(outcome).toEqual({scheduler: 'paused', done: [], failed: [{itemId: 'a', error: expect.objectContaining({code: 'unknown', message: 'unexpected throw'})}]})
+	})
+})
+
+describe('resumeAll', () => {
+	it('reports every held and paused-active item it moved back to pending', async () => {
+		const {qs} = makeService()
+		qs.add([makeItem({id: 'held', status: 'paused-held'}), makeItem({id: 'active', status: 'paused-active', lastJobId: 'job-active', tempDir: '/tmp/a'}), makeItem({id: 'done', status: 'done'})])
+
+		const outcome = await qs.resumeAll()
+
+		expect(outcome).toEqual({scheduler: 'running', done: ['held', 'active'], failed: []})
+	})
 })
 
 describe('QueueService — POST_DOWNLOAD_PHASES progress gate', () => {

@@ -28,6 +28,7 @@ import type {
 	ProbeResult,
 	ProgressEvent,
 	SiteCooldown,
+	QueueSchedulerCommandResult,
 	QueueSelectionAction,
 	QueueSelectionCommandResult,
 	QueueOutputTargetChangeResult,
@@ -122,8 +123,8 @@ export interface AppApi {
 			setLane(input: {itemId: string; lane: QueueLane}): Promise<Result<void>>
 			applySelectionAction(input: {action: QueueSelectionAction; itemIds: string[]}): Promise<Result<QueueSelectionCommandResult>>
 			changeOutputTarget(input: {itemIds: string[]; outputDir: string}): Promise<Result<QueueOutputTargetChangeResult>>
-			pauseAll(): Promise<Result<void>>
-			resumeAll(): Promise<Result<void>>
+			pauseAll(): Promise<Result<QueueSchedulerCommandResult>>
+			resumeAll(): Promise<Result<QueueSchedulerCommandResult>>
 		}
 		events: {
 			onSnapshot(listener: (event: QueueSnapshotPayload) => void): () => void
