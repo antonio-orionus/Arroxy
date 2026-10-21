@@ -83,7 +83,11 @@ export interface CallerMediaWorkflowInput {
 }
 
 // A subtitle track the caller planned from the video's own lists: the exact
-// key yt-dlp is asked for, and whether it is an automatic caption.
+// key yt-dlp is asked for, and whether it is an automatic caption. The write
+// flags cover the whole run, and yt-dlp takes a key from the manual tracks
+// first whenever it writes them: in a plan with both kinds, ask for an
+// automatic caption only under a key the video's manual tracks lack
+// (YouTube lists each original-language caption under `<lang>-orig` too).
 export interface PlannedSubtitleTrack {
 	key: string
 	auto: boolean
