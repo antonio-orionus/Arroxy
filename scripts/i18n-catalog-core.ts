@@ -170,6 +170,19 @@ function translated(entry: GetTextTranslation): boolean {
  * Keys whose translation may be Latin-only text in a non-Latin-script locale: product, file-format
  * and codec names, URL placeholders. Every other key there must contain the locale's own script.
  */
+/**
+ * Standard format names a locale may keep exactly as English writes them ("4K UHD 2160p", "Full HD
+ * 1080p", "Smart TV 720p"): in Latin script in a non-Latin locale, and identical to the English.
+ */
+export const KEPT_AS_WRITTEN_KEYS: ReadonlySet<string> = new Set([
+	'wizard.url.profile.builtinName.best-1440',
+	'wizard.url.profile.builtinName.best-2160',
+	'wizard.url.profile.builtinName.hd-1080',
+	'wizard.url.profile.builtinName.mp4-1080',
+	'wizard.url.profile.builtinName.mp4-720',
+	'wizard.url.profile.builtinName.mp4-480'
+])
+
 const LATIN_ONLY_ALLOWED_KEYS: ReadonlySet<string> = new Set([
 	'about.githubLink',
 	'fileType.mkv',
@@ -204,10 +217,7 @@ const LATIN_ONLY_ALLOWED_KEYS: ReadonlySet<string> = new Set([
 	'wizard.url.features.youtube.podcast',
 	'wizard.url.features.youtube.short',
 	'wizard.url.placeholder',
-	// Standard video format names: "4K UHD 2160p", "QHD 1440p", "Full HD 1080p".
-	'wizard.url.profile.builtinName.best-1440',
-	'wizard.url.profile.builtinName.best-2160',
-	'wizard.url.profile.builtinName.hd-1080',
+	...KEPT_AS_WRITTEN_KEYS,
 	'wizard.url.proxy.placeholder',
 	'wizard.url.style.aurora.label'
 ])

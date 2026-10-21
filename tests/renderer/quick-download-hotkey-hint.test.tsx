@@ -6,6 +6,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings, HotkeyRegistrationStatus} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {movePointerOntoTooltip} from '../shared/tooltipPointer.js'
 import {TooltipProvider} from '@renderer/components/ui/tooltip.js'
 
 // The hint is a promise to the user: pressing this chord queues the clipboard
@@ -17,14 +18,14 @@ function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings
 	return {...base, common: {...base.common, ...common}}
 }
 
-function mount(common: Partial<AppSettings['common']> = {}, registration?: HotkeyRegistrationStatus, size: 'default' | 'compact' = 'default', testIdPrefix: 'profiles' | 'bulk' = 'profiles'): void {
+function mount(common: Partial<AppSettings['common']> = {}, registration?: HotkeyRegistrationStatus, size: 'default' | 'compact' = 'default', testIdPrefix: 'profiles' | 'bulk' = 'profiles', onDownload = vi.fn()): void {
 	const mockApi = buildMockAppApi()
 	Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
 	const settings = buildSettings(common)
 	useAppStore.setState({initialized: true, initializing: false, settings, hotkeyRegistration: registration ?? (settings.common.hotkeyEnabled ? 'registered' : 'off')})
 	render(
 		<TooltipProvider>
-			<QuickProfileControl disabled={false} onDownload={vi.fn()} onEditProfile={vi.fn()} onManageProfiles={vi.fn()} onNewProfile={vi.fn()} onPickProfile={vi.fn()} preparing={false} size={size} testIdPrefix={testIdPrefix} />
+			<QuickProfileControl disabled={false} onDownload={onDownload} onEditProfile={vi.fn()} onManageProfiles={vi.fn()} onNewProfile={vi.fn()} onPickProfile={vi.fn()} preparing={false} size={size} testIdPrefix={testIdPrefix} />
 		</TooltipProvider>
 	)
 }
@@ -57,9 +58,36 @@ describe('quick download hotkey hint', () => {
 		const hint = await screen.findByTestId('quick-download-hotkey-hint')
 		fireEvent.mouseEnter(hint)
 
+		// The one tooltip with an action in it stays open while the pointer moves onto it.
+		await movePointerOntoTooltip(hint, 'Change or turn it off in Settings.')
+		const action = screen.getByRole('button', {name: 'Change or turn it off in Settings.'})
+		expect(action.closest('[data-slot="tooltip-content"]')).toHaveClass('pointer-events-auto', 'select-text')
+		fireEvent.click(action)
+
+		expect(openAdvancedSettings).toHaveBeenCalledWith('hotkey')
+	})
+
+	// The tooltip renders inside the Quick Download button: its Settings action
+	// opens Settings only, never also a download.
+	it('opens Settings from the tooltip without starting a download', async () => {
+		const openAdvancedSettings = vi.fn()
+		const onDownload = vi.fn()
+		useAppStore.setState({openAdvancedSettings})
+		mount({hotkeyEnabled: true}, undefined, 'default', 'profiles', onDownload)
+		fireEvent.mouseEnter(await screen.findByTestId('quick-download-hotkey-hint'))
 		fireEvent.click(await screen.findByRole('button', {name: 'Change or turn it off in Settings.'}))
 
 		expect(openAdvancedSettings).toHaveBeenCalledWith('hotkey')
+		expect(onDownload).not.toHaveBeenCalled()
+	})
+
+	it('never starts a download from a click anywhere in the tooltip', async () => {
+		const onDownload = vi.fn()
+		mount({hotkeyEnabled: true}, undefined, 'default', 'profiles', onDownload)
+		fireEvent.mouseEnter(await screen.findByTestId('quick-download-hotkey-hint'))
+		fireEvent.click(await screen.findByText('Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows.'))
+
+		expect(onDownload).not.toHaveBeenCalled()
 	})
 
 	it('stays hidden while the hotkey is disabled', () => {

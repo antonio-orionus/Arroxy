@@ -1,0 +1,1 @@
+Tooltips no longer get in the way: they close as soon as the pointer leaves what they describe, never catch the pointer or select their text, and match the light or dark theme instead of showing white in dark mode.
