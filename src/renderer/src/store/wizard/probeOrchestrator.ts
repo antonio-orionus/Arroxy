@@ -30,6 +30,7 @@ import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
 import {canScanPlaylistFolder} from './outputTemplates.js'
+import {blockerReviewRow, singleDownloadBlocker} from './singleDownloadReadiness.js'
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {
 	return {
@@ -579,7 +580,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		openReview: row => {
 			const state = get()
-			set({wizardStep: 'confirm', wizardReviewRow: row})
+			set({wizardStep: 'confirm', wizardReviewRow: row ?? blockerReviewRow(singleDownloadBlocker(state))})
 			logStep('advance', state.wizardStep, 'confirm', pickWizardSnapshot(get()))
 		},
 

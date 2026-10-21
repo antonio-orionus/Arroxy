@@ -4,6 +4,7 @@
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import {isValidSubfolder} from '@renderer/lib/path.js'
 import type {AppState} from '../types.js'
+import type {ReviewRow} from './profileApplication.js'
 import {wizardPartValidation} from './videoPart.js'
 
 export type SingleDownloadBlocker = 'media' | 'part' | 'subtitles' | 'folder' | 'fileName'
@@ -29,6 +30,14 @@ export function singleDownloadBlocker(state: ReadinessFields): SingleDownloadBlo
 export function blockerHintKey(blocker: SingleDownloadBlocker | null): 'wizard.formats.footer.subtitlesRequired' | 'wizard.part.downloadBlocked' | null {
 	if (blocker === 'subtitles') return 'wizard.formats.footer.subtitlesRequired'
 	if (blocker === 'part') return 'wizard.part.downloadBlocked'
+	return null
+}
+
+// The Review row that fixes a blocker, opened on arrival so a setting carried
+// in from a profile shows its error instead of silently disabling Download.
+export function blockerReviewRow(blocker: SingleDownloadBlocker | null): ReviewRow | null {
+	if (blocker === 'folder') return 'saveTo'
+	if (blocker === 'fileName') return 'fileName'
 	return null
 }
 

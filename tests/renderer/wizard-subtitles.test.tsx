@@ -503,6 +503,22 @@ describe('Review — rows', () => {
 		expect(screen.getByTestId('btn-download')).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
+	it('opens on the row that blocks Download, so its error is in view', () => {
+		singleState({wizardStep: 'formats', wizardReviewRow: null, wizardFilenameTemplate: '{titel}'})
+		useAppStore.getState().openReview(null)
+		expect(useAppStore.getState().wizardReviewRow).toBe('fileName')
+		render(<StepReview />)
+		expect(screen.getByTestId('filename-template-error')).toBeInTheDocument()
+
+		singleState({wizardStep: 'formats', wizardReviewRow: null, wizardOutputDir: ''})
+		useAppStore.getState().openReview(null)
+		expect(useAppStore.getState().wizardReviewRow).toBe('saveTo')
+
+		singleState({wizardStep: 'formats', wizardReviewRow: null})
+		useAppStore.getState().openReview(null)
+		expect(useAppStore.getState().wizardReviewRow).toBeNull()
+	})
+
 	it('closes the open row from its header', () => {
 		singleState({wizardReviewRow: 'fileName'})
 		render(<StepReview />)
