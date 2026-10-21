@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "すでにキューにあります — 追加されていません"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy はまだ起動中です — しばらくしてからもう一度お試しください"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy で Cookie の設定を完了してから、もう一度お試しください"
@@ -4597,6 +4593,14 @@ msgstr "Arroxyがメディアと字幕のために保持している小さなベ
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "秒"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "リンクをArroxyで開きました"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxyで開いたリンクに置き換えました"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

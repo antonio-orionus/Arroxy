@@ -751,10 +751,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Jau eilėje – kopija nepridėta"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy dar paleidžiama – pabandykite po akimirkos"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Užbaikite slapukų sąranką Arroxy ir bandykite dar kartą"
@@ -5092,6 +5088,14 @@ msgstr "Naudoja tik nedideles bazines pauzes, kurias Arroxy palieka medijai ir s
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "s"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Nuoroda atidaryta programoje Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Pakeista programoje Arroxy atidaryta nuoroda"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Már a sorban van – másolat nem lett hozzáadva"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Az Arroxy még indul – próbálja újra egy pillanat múlva"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Fejezze be a sütik beállítását az Arroxyban, majd próbálja újra"
@@ -4762,6 +4758,14 @@ msgstr "Csak azokat a kis alapszüneteket használja, amelyeket az Arroxy a méd
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "mp"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Hivatkozás megnyitva az Arroxyban"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Lecserélve az Arroxyban megnyitott hivatkozásra"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

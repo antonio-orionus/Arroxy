@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Не вдалося відкрити вибір теки.",
 		"hotkey": {
 			"alreadyQueued": "Вже в черзі — копію не додано",
-			"busy": "Arroxy ще запускається — спробуй за мить",
 			"cookiesSetup": "Заверши налаштування cookies в Arroxy і спробуй ще раз",
 			"invalidClipboard": "У буфері обміну немає посилання — скопіюйте його спочатку",
 			"multipleUrls": "Скопійовано кілька посилань — скористайтеся «Масові URL» в Arroxy",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "сек"
 				}
+			},
+			"openedLink": {
+				"added": "Посилання відкрито в Arroxy",
+				"replaced": "Замінено посиланням, відкритим в Arroxy"
 			},
 			"pasteLink": "Вставити посилання",
 			"placeholder": "https://www.youtube.com/watch?v=...",

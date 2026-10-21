@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Não foi possível abrir o seletor de pastas.",
 		"hotkey": {
 			"alreadyQueued": "Já está na fila — nenhuma cópia adicionada",
-			"busy": "O Arroxy ainda está iniciando — tente novamente em instantes",
 			"cookiesSetup": "Termine de configurar os cookies no Arroxy e tente novamente",
 			"invalidClipboard": "Não há link na área de transferência — copie um primeiro",
 			"multipleUrls": "Vários links copiados — use “URLs em lote” no Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Link aberto no Arroxy",
+				"replaced": "Substituído pelo link aberto no Arroxy"
 			},
 			"pasteLink": "Colar link",
 			"placeholder": "https://...",

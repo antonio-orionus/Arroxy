@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Nepavyko atverti aplanko parinkiklio.",
 		"hotkey": {
 			"alreadyQueued": "Jau eilėje – kopija nepridėta",
-			"busy": "Arroxy dar paleidžiama – pabandykite po akimirkos",
 			"cookiesSetup": "Užbaikite slapukų sąranką Arroxy ir bandykite dar kartą",
 			"invalidClipboard": "Iškarpinėje nėra nuorodos – pirmiausia nukopijuokite",
 			"multipleUrls": "Nukopijuota kelios nuorodos – naudokite Arroxy skiltį „Kelios nuorodos“",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Nuoroda atidaryta programoje Arroxy",
+				"replaced": "Pakeista programoje Arroxy atidaryta nuoroda"
 			},
 			"pasteLink": "Įklijuoti nuorodą",
 			"placeholder": "https://...",

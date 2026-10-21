@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Juba järjekorras – koopiat ei lisatud"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy alles käivitub – proovige hetke pärast uuesti"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Lõpetage Arroxys küpsiste seadistamine ja proovige uuesti"
@@ -4762,6 +4758,14 @@ msgstr "Kasutab ainult väikesi põhipause, mida Arroxy meedia ja subtiitrite ja
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sek"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Link avati Arroxys"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Asendati Arroxys avatud lingiga"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

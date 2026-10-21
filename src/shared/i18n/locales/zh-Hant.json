@@ -235,7 +235,6 @@
 		"folderSelectFailed": "無法開啟資料夾選擇器。",
 		"hotkey": {
 			"alreadyQueued": "已在佇列中——未新增副本",
-			"busy": "Arroxy 仍在啟動 — 請稍後再試",
 			"cookiesSetup": "請先在 Arroxy 中完成 Cookie 設定，然後再試",
 			"invalidClipboard": "剪貼簿中沒有連結——請先複製一個連結",
 			"multipleUrls": "已複製多個連結——請使用 Arroxy 的「批次 URL」",
@@ -1577,6 +1576,10 @@
 				"units": {
 					"seconds": "秒"
 				}
+			},
+			"openedLink": {
+				"added": "已在 Arroxy 中開啟連結",
+				"replaced": "已替換為在 Arroxy 中開啟的連結"
 			},
 			"pasteLink": "貼上連結",
 			"placeholder": "https://...",

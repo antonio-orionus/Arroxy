@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Izbirnika map ni bilo mogoče odpreti.",
 		"hotkey": {
 			"alreadyQueued": "Že v vrsti — kopija ni dodana",
-			"busy": "Arroxy se še zaganja — poskusite znova čez trenutek",
 			"cookiesSetup": "Dokončajte nastavitev piškotkov v programu Arroxy in poskusite znova",
 			"invalidClipboard": "V odložišču ni povezave — najprej jo kopirajte",
 			"multipleUrls": "Kopiranih je več povezav — uporabite Več naslovov URL v programu Arroxy",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Povezava odprta v Arroxy",
+				"replaced": "Zamenjano s povezavo, odprto v Arroxy"
 			},
 			"pasteLink": "Prilepite povezavo",
 			"placeholder": "https://...",

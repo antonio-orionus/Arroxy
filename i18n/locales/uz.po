@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Allaqachon navbatda — nusxa qo'shilmadi"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring"
@@ -4762,6 +4758,14 @@ msgstr "Arroxy media va subtitrlar uchun saqlaydigan kichik asosiy tanaffuslarni
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "soniya"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Havola Arroxy ilovasida ochildi"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy ilovasida ochilgan havola bilan almashtirildi"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

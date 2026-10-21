@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "이미 대기열에 있음 — 사본을 추가하지 않았습니다"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy가 아직 시작하는 중입니다 — 잠시 후 다시 시도하세요"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy에서 쿠키 설정을 마친 뒤 다시 시도하세요"
@@ -4597,6 +4593,14 @@ msgstr "Arroxy가 미디어와 자막에 적용하는 최소한의 기본 대기
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "초"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Arroxy에서 링크를 열었습니다"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy에서 연 링크로 바꿨습니다"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

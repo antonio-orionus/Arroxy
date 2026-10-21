@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Kan dura baay'ina keessa jira — kopii hin dabalame"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy ammallee eegala jira — yeroo muraasa booda irra deebi'ii yaali"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy keessatti qindaa'ina cookies xumuri, ergasii irra deebi'ii yaali"
@@ -4762,6 +4758,14 @@ msgstr "Arroxy miidiyaa fi axxiinni qofaaf eegaa xiqaa qabaatutu fayyadama."
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sec"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Liinkiin Arroxy keessatti banameera"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Liinkii Arroxy keessatti banameen bakka buufameera"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

@@ -741,10 +741,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Este deja în coadă — nu s-a adăugat o copie"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy încă pornește — încercați din nou într-o clipă"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Terminați configurarea cookie-urilor în Arroxy, apoi încercați din nou"
@@ -4927,6 +4923,14 @@ msgstr "Folosește doar pauzele mici de bază pe care Arroxy le păstrează pent
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "s"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Link deschis în Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Înlocuit cu linkul deschis în Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

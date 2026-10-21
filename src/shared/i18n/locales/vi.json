@@ -235,7 +235,6 @@
 		"folderSelectFailed": "Không thể mở trình chọn thư mục.",
 		"hotkey": {
 			"alreadyQueued": "Đã có trong hàng đợi — không thêm bản sao",
-			"busy": "Arroxy vẫn đang khởi động — hãy thử lại sau giây lát",
 			"cookiesSetup": "Hãy hoàn tất thiết lập cookie trong Arroxy rồi thử lại",
 			"invalidClipboard": "Không có liên kết nào trong bảng nhớ tạm — hãy sao chép một liên kết trước",
 			"multipleUrls": "Đã sao chép nhiều liên kết — dùng “URL hàng loạt” trong Arroxy",
@@ -1577,6 +1576,10 @@
 				"units": {
 					"seconds": "giây"
 				}
+			},
+			"openedLink": {
+				"added": "Đã mở liên kết trong Arroxy",
+				"replaced": "Đã thay bằng liên kết được mở trong Arroxy"
 			},
 			"pasteLink": "Dán liên kết",
 			"placeholder": "https://www.youtube.com/watch?v=...",

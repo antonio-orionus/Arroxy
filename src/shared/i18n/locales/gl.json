@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Non se puido abrir o selector de cartafoles.",
 		"hotkey": {
 			"alreadyQueued": "Xa está na cola: non se engadiu ningunha copia",
-			"busy": "Arroxy aínda está iniciándose: tenta de novo nun momento",
 			"cookiesSetup": "Remata a configuración das cookies en Arroxy e tenta de novo",
 			"invalidClipboard": "Non hai ningunha ligazón no portapapeis: copia unha primeiro",
 			"multipleUrls": "Copiáronse varias ligazóns: usa URLs en lote en Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Ligazón aberta en Arroxy",
+				"replaced": "Substituída pola ligazón aberta en Arroxy"
 			},
 			"pasteLink": "Pegar ligazón",
 			"placeholder": "https://...",

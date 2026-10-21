@@ -239,7 +239,6 @@
 		"folderSelectFailed": "No s'ha pogut obrir el selector de carpetes.",
 		"hotkey": {
 			"alreadyQueued": "Ja és a la cua: no s'ha afegit cap còpia",
-			"busy": "Arroxy encara s'està iniciant: torna-ho a provar d'aquí a un moment",
 			"cookiesSetup": "Acaba de configurar les galetes a Arroxy i torna-ho a provar",
 			"invalidClipboard": "No hi ha cap enllaç al porta-retalls: copia'n un primer",
 			"multipleUrls": "S'han copiat diversos enllaços: fes servir URL en bloc a Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Enllaç obert a Arroxy",
+				"replaced": "Substituït per l'enllaç obert a Arroxy"
 			},
 			"pasteLink": "Enganxa l'enllaç",
 			"placeholder": "https://...",

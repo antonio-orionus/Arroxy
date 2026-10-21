@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Kansionvalitsinta ei voitu avata.",
 		"hotkey": {
 			"alreadyQueued": "On jo jonossa – kopiota ei lisätty",
-			"busy": "Arroxy on vielä käynnistymässä – yritä hetken kuluttua uudelleen",
 			"cookiesSetup": "Viimeistele evästeiden määritys Arroxyssa ja yritä sitten uudelleen",
 			"invalidClipboard": "Leikepöydällä ei ole linkkiä – kopioi ensin yksi",
 			"multipleUrls": "Useita linkkejä kopioitu – käytä Arroxyssa Useita URL-osoitteita -toimintoa",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Linkki avattu Arroxyssa",
+				"replaced": "Korvattu Arroxyssa avatulla linkillä"
 			},
 			"pasteLink": "Liitä linkki",
 			"placeholder": "https://...",

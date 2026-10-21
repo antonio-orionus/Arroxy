@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Die Ordnerauswahl konnte nicht geöffnet werden.",
 		"hotkey": {
 			"alreadyQueued": "Bereits in der Warteschlange — keine Kopie hinzugefügt",
-			"busy": "Arroxy startet noch — versuche es gleich erneut",
 			"cookiesSetup": "Schließe die Cookie-Einrichtung in Arroxy ab und versuche es dann erneut",
 			"invalidClipboard": "Kein Link in der Zwischenablage — kopiere zuerst einen",
 			"multipleUrls": "Mehrere Links kopiert — „Bulk-URLs“ in Arroxy verwenden",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "Sek"
 				}
+			},
+			"openedLink": {
+				"added": "Link in Arroxy geöffnet",
+				"replaced": "Durch den in Arroxy geöffneten Link ersetzt"
 			},
 			"pasteLink": "Link einfügen",
 			"placeholder": "https://www.youtube.com/watch?v=...",

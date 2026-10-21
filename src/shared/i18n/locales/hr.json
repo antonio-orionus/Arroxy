@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Odabir mape nije se mogao otvoriti.",
 		"hotkey": {
 			"alreadyQueued": "Već je u redu — kopija nije dodana",
-			"busy": "Arroxy se još pokreće — pokušajte ponovo za trenutak",
 			"cookiesSetup": "Dovršite postavljanje kolačića u Arroxyju pa pokušajte ponovo",
 			"invalidClipboard": "U međuspremniku nema poveznice — prvo je kopirajte",
 			"multipleUrls": "Kopirano je više poveznica — upotrijebite Više URL-ova u Arroxyju",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Poveznica otvorena u aplikaciji Arroxy",
+				"replaced": "Zamijenjeno poveznicom otvorenom u aplikaciji Arroxy"
 			},
 			"pasteLink": "Zalijepi poveznicu",
 			"placeholder": "https://...",

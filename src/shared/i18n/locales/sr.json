@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Није могуће отворити бирач фасцикли.",
 		"hotkey": {
 			"alreadyQueued": "Већ је у реду — копија није додата",
-			"busy": "Arroxy се још покреће — покушај поново за тренутак",
 			"cookiesSetup": "Заврши подешавање cookies у Arroxy, па покушај поново",
 			"invalidClipboard": "Нема везе у остави — прво копирајте једну",
 			"multipleUrls": "Копирано је више линкова — користите «Групни URL-ови» у Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "сек"
 				}
+			},
+			"openedLink": {
+				"added": "Линк отворен у Arroxy",
+				"replaced": "Замењено линком отвореним у Arroxy"
 			},
 			"pasteLink": "Налепи линк",
 			"placeholder": "https://www.youtube.com/watch?v=...",

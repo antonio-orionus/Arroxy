@@ -237,7 +237,6 @@
 		"folderSelectFailed": "انتخابگر پوشه باز نشد.",
 		"hotkey": {
 			"alreadyQueued": "از قبل در صف است — نسخه‌ای افزوده نشد",
-			"busy": "Arroxy هنوز در حال راه‌اندازی است — کمی بعد دوباره تلاش کنید",
 			"cookiesSetup": "تنظیم کوکی‌ها را در Arroxy کامل کنید و دوباره تلاش کنید",
 			"invalidClipboard": "پیوندی در کلیپ‌بورد نیست — ابتدا یک پیوند کپی کنید",
 			"multipleUrls": "چند پیوند کپی شده است — از «URLهای گروهی» در Arroxy استفاده کنید",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "ثانیه"
 				}
+			},
+			"openedLink": {
+				"added": "پیوند در Arroxy باز شد",
+				"replaced": "با پیوندِ بازشده در Arroxy جایگزین شد"
 			},
 			"pasteLink": "جای‌گذاری پیوند",
 			"placeholder": "https://...",

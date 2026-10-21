@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "មានក្នុងជួររួចហើយ — មិនបានបន្ថែមច្បាប់ចម្លងទេ"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy នៅតែកំពុងចាប់ផ្តើម — ព្យាយាមម្តងទៀតបន្តិចទៀត"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "បញ្ចប់ការរៀបចំ cookies ក្នុង Arroxy បន្ទាប់មកព្យាយាមម្តងទៀត"
@@ -4597,6 +4593,14 @@ msgstr "ប្រើតែការផ្អាកមូលដ្ឋានតូ
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "វិនាទី"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "បានបើកតំណក្នុង Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "បានជំនួសដោយតំណដែលបានបើកក្នុង Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

@@ -235,7 +235,6 @@
 		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
 		"hotkey": {
 			"alreadyQueued": "Sudah ada di antrean — tidak ada salinan ditambahkan",
-			"busy": "Arroxy masih memulai — coba lagi sebentar lagi",
 			"cookiesSetup": "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi",
 			"invalidClipboard": "Tidak ada tautan di papan klip — salin satu dulu",
 			"multipleUrls": "Beberapa tautan disalin — gunakan “URL massal” di Arroxy",
@@ -1577,6 +1576,10 @@
 				"units": {
 					"seconds": "detik"
 				}
+			},
+			"openedLink": {
+				"added": "Tautan dibuka di Arroxy",
+				"replaced": "Diganti dengan tautan yang dibuka di Arroxy"
 			},
 			"pasteLink": "Tempel tautan",
 			"placeholder": "https://...",

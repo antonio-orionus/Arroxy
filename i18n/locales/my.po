@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "အလျှံတွင် ရှိပြီးသား — မိတ္တူ ထပ်ထည့်ထားခြင်း မရှိပါ"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy စတင်နေဆဲဖြစ်သည် — ခဏနောက်မှ ပြန်စမ်းကြည့်ပါ"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy တွင် cookie ဆက်တင်ကို အပြီးသတ်ပြီး ပြန်စမ်းကြည့်ပါ"
@@ -4597,6 +4593,14 @@ msgstr "Arroxy သည် media နှင့် စာတန်းထိုးမ
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "စက္ကန့်"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "လင့်ခ်ကို Arroxy တွင် ဖွင့်ထားသည်"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy တွင် ဖွင့်ထားသော လင့်ခ်ဖြင့် အစားထိုးထားသည်"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

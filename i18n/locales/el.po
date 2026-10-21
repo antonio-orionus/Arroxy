@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Είναι ήδη στην ουρά — δεν προστέθηκε αντίγραφο"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Το Arroxy ξεκινά ακόμα — δοκίμασε ξανά σε λίγο"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Ολοκλήρωσε τη ρύθμιση των cookies στο Arroxy και δοκίμασε ξανά"
@@ -4762,6 +4758,14 @@ msgstr "Χρησιμοποιεί μόνο τις μικρές βασικές π�
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "δευτ."
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Ο σύνδεσμος άνοιξε στο Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Αντικαταστάθηκε με τον σύνδεσμο που άνοιξε στο Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

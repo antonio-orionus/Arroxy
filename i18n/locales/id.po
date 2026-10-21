@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Sudah ada di antrean — tidak ada salinan ditambahkan"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy masih memulai — coba lagi sebentar lagi"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi"
@@ -4597,6 +4593,14 @@ msgstr "Hanya menggunakan jeda dasar kecil yang disimpan Arroxy untuk media dan 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "detik"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Tautan dibuka di Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Diganti dengan tautan yang dibuka di Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

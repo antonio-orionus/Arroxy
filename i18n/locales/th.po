@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "อยู่ในคิวแล้ว — ไม่ได้เพิ่มสำเนา"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy ยังกำลังเริ่มต้นอยู่ — ลองอีกครั้งในอีกสักครู่"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "ตั้งค่าคุกกี้ใน Arroxy ให้เสร็จ แล้วลองอีกครั้ง"
@@ -4597,6 +4593,14 @@ msgstr "ใช้เฉพาะช่วงพักพื้นฐานสั
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "วินาที"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "เปิดลิงก์ใน Arroxy แล้ว"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "แทนที่ด้วยลิงก์ที่เปิดใน Arroxy แล้ว"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Nem sikerült megnyitni a mappaválasztót.",
 		"hotkey": {
 			"alreadyQueued": "Már a sorban van – másolat nem lett hozzáadva",
-			"busy": "Az Arroxy még indul – próbálja újra egy pillanat múlva",
 			"cookiesSetup": "Fejezze be a sütik beállítását az Arroxyban, majd próbálja újra",
 			"invalidClipboard": "Nincs hivatkozás a vágólapon – előbb másoljon egyet",
 			"multipleUrls": "Több hivatkozás van másolva – használja az Arroxy Tömeges URL-ek funkcióját",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "mp"
 				}
+			},
+			"openedLink": {
+				"added": "Hivatkozás megnyitva az Arroxyban",
+				"replaced": "Lecserélve az Arroxyban megnyitott hivatkozásra"
 			},
 			"pasteLink": "Hivatkozás beillesztése",
 			"placeholder": "https://...",

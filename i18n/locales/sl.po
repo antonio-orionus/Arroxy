@@ -751,10 +751,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Že v vrsti — kopija ni dodana"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy se še zaganja — poskusite znova čez trenutek"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Dokončajte nastavitev piškotkov v programu Arroxy in poskusite znova"
@@ -5092,6 +5088,14 @@ msgstr "Uporabi samo majhne osnovne premore, ki jih Arroxy ohranja za medije in 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "s"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Povezava odprta v Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Zamenjano s povezavo, odprto v Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

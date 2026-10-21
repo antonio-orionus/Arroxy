@@ -237,7 +237,6 @@
 		"folderSelectFailed": "De mapkiezer kon niet worden geopend.",
 		"hotkey": {
 			"alreadyQueued": "Staat al in de wachtrij — geen kopie toegevoegd",
-			"busy": "Arroxy is nog bezig met opstarten — probeer het zo opnieuw",
 			"cookiesSetup": "Rond de cookie-instelling in Arroxy af en probeer het opnieuw",
 			"invalidClipboard": "Geen link op je klembord — kopieer er eerst een",
 			"multipleUrls": "Meerdere links gekopieerd — gebruik Meerdere URL’s in Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sec"
 				}
+			},
+			"openedLink": {
+				"added": "Link geopend in Arroxy",
+				"replaced": "Vervangen door de link die in Arroxy is geopend"
 			},
 			"pasteLink": "Link plakken",
 			"placeholder": "https://...",

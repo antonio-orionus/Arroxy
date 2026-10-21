@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Zaten kuyrukta — kopya eklenmedi"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy hâlâ başlıyor — birazdan yeniden dene"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy'de çerez kurulumunu bitir, sonra yeniden dene"
@@ -4762,6 +4758,14 @@ msgstr "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklam
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sn"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Bağlantı Arroxy’de açıldı"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy’de açılan bağlantıyla değiştirildi"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

@@ -237,7 +237,6 @@
 		"folderSelectFailed": "د پوښۍ ټاکونکی نه شو پرانیستل کېدی.",
 		"hotkey": {
 			"alreadyQueued": "لا دمخې کې شته — کاپي نه ده اضافه شوې",
-			"busy": "Arroxy لا پیلېږي — یو څو شېبې وروسته بیا هڅه وکړئ",
 			"cookiesSetup": "په Arroxy کې د کوکیزو تنظیم بشپړ کړئ، بیا هڅه وکړئ",
 			"invalidClipboard": "په کاپي بورد کې لینک نشته — لومړی یو کاپي کړئ",
 			"multipleUrls": "ډېر لینکونه کاپي شوي دي — په Arroxy کې «ډېر URLونه» وکاروئ",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "ثا"
 				}
+			},
+			"openedLink": {
+				"added": "لینک په Arroxy کې پرانیستل شو",
+				"replaced": "په Arroxy کې له پرانیستل شوي لینک سره بدل شو"
 			},
 			"pasteLink": "لینک ونښلوئ",
 			"placeholder": "https://www.youtube.com/watch?v=...",

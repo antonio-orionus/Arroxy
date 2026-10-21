@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "لا دمخې کې شته — کاپي نه ده اضافه شوې"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy لا پیلېږي — یو څو شېبې وروسته بیا هڅه وکړئ"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "په Arroxy کې د کوکیزو تنظیم بشپړ کړئ، بیا هڅه وکړئ"
@@ -4762,6 +4758,14 @@ msgstr "یوازې هغه کوچني اساسي وقفې کاروي چې Arroxy 
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "ثا"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "لینک په Arroxy کې پرانیستل شو"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "په Arroxy کې له پرانیستل شوي لینک سره بدل شو"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

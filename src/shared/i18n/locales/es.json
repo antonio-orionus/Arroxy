@@ -239,7 +239,6 @@
 		"folderSelectFailed": "No se pudo abrir el selector de carpetas.",
 		"hotkey": {
 			"alreadyQueued": "Ya está en la cola — no se añadió otra copia",
-			"busy": "Arroxy aún se está iniciando — inténtalo de nuevo en un momento",
 			"cookiesSetup": "Termina de configurar las cookies en Arroxy y vuelve a intentarlo",
 			"invalidClipboard": "No hay ningún enlace en el portapapeles — copia uno primero",
 			"multipleUrls": "Se copiaron varios enlaces — usa «URLs en lote» en Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "seg"
 				}
+			},
+			"openedLink": {
+				"added": "Enlace abierto en Arroxy",
+				"replaced": "Sustituido por el enlace abierto en Arroxy"
 			},
 			"pasteLink": "Pegar enlace",
 			"placeholder": "https://www.youtube.com/watch?v=...",

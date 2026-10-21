@@ -235,7 +235,6 @@
 		"folderSelectFailed": "เปิดตัวเลือกโฟลเดอร์ไม่ได้",
 		"hotkey": {
 			"alreadyQueued": "อยู่ในคิวแล้ว — ไม่ได้เพิ่มสำเนา",
-			"busy": "Arroxy ยังกำลังเริ่มต้นอยู่ — ลองอีกครั้งในอีกสักครู่",
 			"cookiesSetup": "ตั้งค่าคุกกี้ใน Arroxy ให้เสร็จ แล้วลองอีกครั้ง",
 			"invalidClipboard": "ไม่มีลิงก์ในคลิปบอร์ด — คัดลอกลิงก์ก่อน",
 			"multipleUrls": "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มใน Arroxy",
@@ -1577,6 +1576,10 @@
 				"units": {
 					"seconds": "วินาที"
 				}
+			},
+			"openedLink": {
+				"added": "เปิดลิงก์ใน Arroxy แล้ว",
+				"replaced": "แทนที่ด้วยลิงก์ที่เปิดใน Arroxy แล้ว"
 			},
 			"pasteLink": "วางลิงก์",
 			"placeholder": "https://...",

@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Nu s-a putut deschide selectorul de foldere.",
 		"hotkey": {
 			"alreadyQueued": "Este deja în coadă — nu s-a adăugat o copie",
-			"busy": "Arroxy încă pornește — încercați din nou într-o clipă",
 			"cookiesSetup": "Terminați configurarea cookie-urilor în Arroxy, apoi încercați din nou",
 			"invalidClipboard": "Niciun link în clipboard — copiați unul mai întâi",
 			"multipleUrls": "Au fost copiate mai multe linkuri — folosiți URL-uri în bloc în Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Link deschis în Arroxy",
+				"replaced": "Înlocuit cu linkul deschis în Arroxy"
 			},
 			"pasteLink": "Lipiți linkul",
 			"placeholder": "https://...",

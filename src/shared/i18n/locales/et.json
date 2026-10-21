@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Kaustavalija avamine ebaõnnestus.",
 		"hotkey": {
 			"alreadyQueued": "Juba järjekorras – koopiat ei lisatud",
-			"busy": "Arroxy alles käivitub – proovige hetke pärast uuesti",
 			"cookiesSetup": "Lõpetage Arroxys küpsiste seadistamine ja proovige uuesti",
 			"invalidClipboard": "Lõikelaual pole linki – kopeerige kõigepealt mõni",
 			"multipleUrls": "Kopeeritud mitu linki – kasutage Arroxys valikut Hulgi-URL-id",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sek"
 				}
+			},
+			"openedLink": {
+				"added": "Link avati Arroxys",
+				"replaced": "Asendati Arroxys avatud lingiga"
 			},
 			"pasteLink": "Kleebi link",
 			"placeholder": "https://...",

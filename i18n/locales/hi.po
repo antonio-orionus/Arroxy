@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "पहले से कतार में है — कोई कॉपी नहीं जोड़ी गई"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy अभी शुरू हो रहा है — थोड़ी देर में फिर कोशिश करें"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Arroxy में कुकी सेटअप पूरा करें, फिर दोबारा कोशिश करें"
@@ -4762,6 +4758,14 @@ msgstr "केवल वे छोटे बेसलाइन पॉज़ उ�
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "से."
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "लिंक Arroxy में खोला गया"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy में खोले गए लिंक से बदला गया"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

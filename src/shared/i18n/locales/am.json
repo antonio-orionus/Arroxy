@@ -237,7 +237,6 @@
 		"folderSelectFailed": "የአቃፊ መምረጫን መክፈት አልተቻለም።",
 		"hotkey": {
 			"alreadyQueued": "ቀድሞ በወረፋ ውስጥ ነው — ቅጂ አልተጨመረም",
-			"busy": "Arroxy አሁንም እየጀመረ ነው — ከጥቂት ጊዜ በኋላ እንደገና ይሞክሩ",
 			"cookiesSetup": "በArroxy ውስጥ የCookies ማዋቀሩን ይጨርሱ፣ ከዚያ እንደገና ይሞክሩ",
 			"invalidClipboard": "በቅጂ ሰሌዳ ላይ አገናኝ የለም — መጀመሪያ አንዱን ይቅዱ",
 			"multipleUrls": "ብዙ አገናኞች ተቀድተዋል — በArroxy ውስጥ «ብዙ URLዎች»ን ይጠቀሙ",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "ሰከንድ"
 				}
+			},
+			"openedLink": {
+				"added": "አገናኝ በArroxy ተከፍቷል",
+				"replaced": "በArroxy በተከፈተው አገናኝ ተተክቷል"
 			},
 			"pasteLink": "አገናኝ ይለጥፉ",
 			"placeholder": "https://www.youtube.com/watch?v=...",

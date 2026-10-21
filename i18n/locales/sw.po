@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy bado inaanza — jaribu tena baada ya muda mfupi"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena"
@@ -4762,6 +4758,14 @@ msgstr "Inatumia mapumziko madogo ya msingi tu ambayo Arroxy inayashikilia kwa m
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sek"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Kiungo kimefunguliwa katika Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Kimebadilishwa na kiungo kilichofunguliwa katika Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

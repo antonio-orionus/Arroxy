@@ -239,7 +239,6 @@
 		"folderSelectFailed": "לא ניתן היה לפתוח את בורר התיקיות.",
 		"hotkey": {
 			"alreadyQueued": "כבר בתור — לא נוסף עותק",
-			"busy": "Arroxy עדיין מתחיל — נסו שוב בעוד רגע",
 			"cookiesSetup": "סיימו להגדיר קובצי Cookie ב-Arroxy ונסו שוב",
 			"invalidClipboard": "אין קישור בלוח — העתיקו קישור קודם",
 			"multipleUrls": "הועתקו כמה קישורים — השתמשו ב“כתובות URL מרובות” ב-Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "שנ׳"
 				}
+			},
+			"openedLink": {
+				"added": "הקישור נפתח ב-Arroxy",
+				"replaced": "הוחלף בקישור שנפתח ב-Arroxy"
 			},
 			"pasteLink": "הדבקת קישור",
 			"placeholder": "https://...",

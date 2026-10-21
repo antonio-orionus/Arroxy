@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Neizdevās atvērt mapes izvēles logu.",
 		"hotkey": {
 			"alreadyQueued": "Jau rindā — kopija netika pievienota",
-			"busy": "Arroxy vēl startē — mēģiniet pēc brīža",
 			"cookiesSetup": "Pabeidziet sīkfailu iestatīšanu Arroxy un mēģiniet vēlreiz",
 			"invalidClipboard": "Starpliktuvē nav saites — vispirms nokopējiet kādu",
 			"multipleUrls": "Nokopētas vairākas saites — izmantojiet Arroxy funkciju Vairāki URL",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Saite atvērta lietotnē Arroxy",
+				"replaced": "Aizstāts ar lietotnē Arroxy atvērto saiti"
 			},
 			"pasteLink": "Ielīmēt saiti",
 			"placeholder": "https://...",

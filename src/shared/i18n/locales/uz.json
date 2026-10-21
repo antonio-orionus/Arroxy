@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
 		"hotkey": {
 			"alreadyQueued": "Allaqachon navbatda — nusxa qo'shilmadi",
-			"busy": "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring",
 			"cookiesSetup": "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring",
 			"invalidClipboard": "Vaqtinchalik buferda havola yo'q — avval birini nusxalang",
 			"multipleUrls": "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "soniya"
 				}
+			},
+			"openedLink": {
+				"added": "Havola Arroxy ilovasida ochildi",
+				"replaced": "Arroxy ilovasida ochilgan havola bilan almashtirildi"
 			},
 			"pasteLink": "Havolani joylash",
 			"placeholder": "https://www.youtube.com/watch?v=...",

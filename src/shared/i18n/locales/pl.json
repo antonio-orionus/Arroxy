@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Nie udało się otworzyć okna wyboru folderu.",
 		"hotkey": {
 			"alreadyQueued": "Już jest w kolejce — nie dodano kopii",
-			"busy": "Arroxy jeszcze się uruchamia — spróbuj ponownie za chwilę",
 			"cookiesSetup": "Dokończ konfigurację plików cookie w Arroxy, a potem spróbuj ponownie",
 			"invalidClipboard": "Brak linku w schowku — najpierw go skopiuj",
 			"multipleUrls": "Skopiowano wiele linków — użyj funkcji Wiele adresów URL w Arroxy",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Link otwarty w Arroxy",
+				"replaced": "Zastąpiono linkiem otwartym w Arroxy"
 			},
 			"pasteLink": "Wklej link",
 			"placeholder": "https://...",

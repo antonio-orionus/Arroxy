@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Nepodařilo se otevřít výběr složky.",
 		"hotkey": {
 			"alreadyQueued": "Už je ve frontě – kopie nebyla přidána",
-			"busy": "Arroxy se stále spouští – zkuste to za chvíli",
 			"cookiesSetup": "Dokončete v Arroxy nastavení cookies a zkuste to znovu",
 			"invalidClipboard": "Ve schránce není žádný odkaz – nejprve nějaký zkopírujte",
 			"multipleUrls": "Zkopírováno více odkazů – použijte v Arroxy Hromadné URL",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Odkaz otevřen v Arroxy",
+				"replaced": "Nahrazeno odkazem otevřeným v Arroxy"
 			},
 			"pasteLink": "Vložit odkaz",
 			"placeholder": "https://...",

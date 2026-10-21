@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
 		"hotkey": {
 			"alreadyQueued": "Kan dura baay'ina keessa jira — kopii hin dabalame",
-			"busy": "Arroxy ammallee eegala jira — yeroo muraasa booda irra deebi'ii yaali",
 			"cookiesSetup": "Arroxy keessatti qindaa'ina cookies xumuri, ergasii irra deebi'ii yaali",
 			"invalidClipboard": "Buufama keessa hidhanni hin jiru — duratti tokko galchee",
 			"multipleUrls": "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sec"
 				}
+			},
+			"openedLink": {
+				"added": "Liinkiin Arroxy keessatti banameera",
+				"replaced": "Liinkii Arroxy keessatti banameen bakka buufameera"
 			},
 			"pasteLink": "Liinkii maxxansi",
 			"placeholder": "https://www.youtube.com/watch?v=...",

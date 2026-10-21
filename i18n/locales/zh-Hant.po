@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "已在佇列中——未新增副本"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy 仍在啟動 — 請稍後再試"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "請先在 Arroxy 中完成 Cookie 設定，然後再試"
@@ -4597,6 +4593,14 @@ msgstr "只使用 Arroxy 為媒體與字幕保留的少量基本等待。"
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "秒"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "已在 Arroxy 中開啟連結"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "已替換為在 Arroxy 中開啟的連結"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

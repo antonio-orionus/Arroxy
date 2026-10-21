@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Jada ilaran dago — ez da kopiarik gehitu"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy oraindik abiarazten ari da — saiatu berriro une batean"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Amaitu Arroxy-n cookie-en konfigurazioa eta saiatu berriro"
@@ -4762,6 +4758,14 @@ msgstr "Arroxy-k multimedia eta azpitituluetarako gordetzen dituen oinarrizko et
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "s"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Esteka Arroxy aplikazioan ireki da"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Arroxy aplikazioan irekitako estekarekin ordezkatu da"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

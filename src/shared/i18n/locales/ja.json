@@ -235,7 +235,6 @@
 		"folderSelectFailed": "フォルダー選択を開けませんでした。",
 		"hotkey": {
 			"alreadyQueued": "すでにキューにあります — 追加されていません",
-			"busy": "Arroxy はまだ起動中です — しばらくしてからもう一度お試しください",
 			"cookiesSetup": "Arroxy で Cookie の設定を完了してから、もう一度お試しください",
 			"invalidClipboard": "クリップボードにリンクがありません — 先にコピーしてください",
 			"multipleUrls": "複数のリンクがコピーされました — Arroxyの「一括 URL」を使ってください",
@@ -1577,6 +1576,10 @@
 				"units": {
 					"seconds": "秒"
 				}
+			},
+			"openedLink": {
+				"added": "リンクをArroxyで開きました",
+				"replaced": "Arroxyで開いたリンクに置き換えました"
 			},
 			"pasteLink": "リンクを貼り付け",
 			"placeholder": "https://www.youtube.com/watch?v=...",

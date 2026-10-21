@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Klasör seçici açılamadı.",
 		"hotkey": {
 			"alreadyQueued": "Zaten kuyrukta — kopya eklenmedi",
-			"busy": "Arroxy hâlâ başlıyor — birazdan yeniden dene",
 			"cookiesSetup": "Arroxy'de çerez kurulumunu bitir, sonra yeniden dene",
 			"invalidClipboard": "Panoda bağlantı yok — önce bir tane kopyalayın",
 			"multipleUrls": "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sn"
 				}
+			},
+			"openedLink": {
+				"added": "Bağlantı Arroxy’de açıldı",
+				"replaced": "Arroxy’de açılan bağlantıyla değiştirildi"
 			},
 			"pasteLink": "Bağlantıyı yapıştır",
 			"placeholder": "https://...",

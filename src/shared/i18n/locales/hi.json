@@ -237,7 +237,6 @@
 		"folderSelectFailed": "फ़ोल्डर चयनकर्ता नहीं खोला जा सका।",
 		"hotkey": {
 			"alreadyQueued": "पहले से कतार में है — कोई कॉपी नहीं जोड़ी गई",
-			"busy": "Arroxy अभी शुरू हो रहा है — थोड़ी देर में फिर कोशिश करें",
 			"cookiesSetup": "Arroxy में कुकी सेटअप पूरा करें, फिर दोबारा कोशिश करें",
 			"invalidClipboard": "क्लिपबोर्ड में कोई लिंक नहीं है — पहले एक कॉपी करें",
 			"multipleUrls": "कई लिंक कॉपी हो गए हैं — Arroxy में “बल्क URLs” का उपयोग करें",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "से."
 				}
+			},
+			"openedLink": {
+				"added": "लिंक Arroxy में खोला गया",
+				"replaced": "Arroxy में खोले गए लिंक से बदला गया"
 			},
 			"pasteLink": "लिंक पेस्ट करें",
 			"placeholder": "https://www.youtube.com/watch?v=...",

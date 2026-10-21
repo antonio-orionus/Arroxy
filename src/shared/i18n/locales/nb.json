@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Kunne ikke åpne mappevelgeren.",
 		"hotkey": {
 			"alreadyQueued": "Allerede i køen – ingen kopi lagt til",
-			"busy": "Arroxy starter fortsatt – prøv igjen om et øyeblikk",
 			"cookiesSetup": "Fullfør oppsettet av informasjonskapsler i Arroxy, og prøv igjen",
 			"invalidClipboard": "Ingen lenke på utklippstavlen – kopier en først",
 			"multipleUrls": "Flere lenker kopiert – bruk Flere nettadresser i Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sek"
 				}
+			},
+			"openedLink": {
+				"added": "Lenke åpnet i Arroxy",
+				"replaced": "Erstattet med lenken åpnet i Arroxy"
 			},
 			"pasteLink": "Lim inn lenke",
 			"placeholder": "https://...",

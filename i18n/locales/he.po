@@ -741,10 +741,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "כבר בתור — לא נוסף עותק"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy עדיין מתחיל — נסו שוב בעוד רגע"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "סיימו להגדיר קובצי Cookie ב-Arroxy ונסו שוב"
@@ -4927,6 +4923,14 @@ msgstr "משתמש רק בהשהיות הבסיס הקטנות ש-Arroxy שומ�
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "שנ׳"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "הקישור נפתח ב-Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "הוחלף בקישור שנפתח ב-Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

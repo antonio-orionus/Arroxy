@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Kunne ikke åbne mappevælgeren.",
 		"hotkey": {
 			"alreadyQueued": "Allerede i køen — ingen kopi tilføjet",
-			"busy": "Arroxy starter stadig — prøv igen om lidt",
 			"cookiesSetup": "Færdiggør opsætningen af cookies i Arroxy, og prøv derefter igen",
 			"invalidClipboard": "Intet link i udklipsholderen — kopiér et først",
 			"multipleUrls": "Flere links kopieret — brug Bulk-URL'er i Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sek."
 				}
+			},
+			"openedLink": {
+				"added": "Link åbnet i Arroxy",
+				"replaced": "Erstattet med linket åbnet i Arroxy"
 			},
 			"pasteLink": "Indsæt link",
 			"placeholder": "https://...",

@@ -721,10 +721,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Đã có trong hàng đợi — không thêm bản sao"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy vẫn đang khởi động — hãy thử lại sau giây lát"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Hãy hoàn tất thiết lập cookie trong Arroxy rồi thử lại"
@@ -4597,6 +4593,14 @@ msgstr "Chỉ sử dụng các khoảng dừng cơ bản nhỏ mà Arroxy duy tr
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "giây"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Đã mở liên kết trong Arroxy"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Đã thay bằng liên kết được mở trong Arroxy"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"

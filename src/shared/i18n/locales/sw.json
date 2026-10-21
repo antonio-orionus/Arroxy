@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
 		"hotkey": {
 			"alreadyQueued": "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa",
-			"busy": "Arroxy bado inaanza — jaribu tena baada ya muda mfupi",
 			"cookiesSetup": "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena",
 			"invalidClipboard": "Hakuna kiungo kwenye ubao wa kunakili — nakili moja kwanza",
 			"multipleUrls": "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "sek"
 				}
+			},
+			"openedLink": {
+				"added": "Kiungo kimefunguliwa katika Arroxy",
+				"replaced": "Kimebadilishwa na kiungo kilichofunguliwa katika Arroxy"
 			},
 			"pasteLink": "Bandika kiungo",
 			"placeholder": "https://www.youtube.com/watch?v=...",

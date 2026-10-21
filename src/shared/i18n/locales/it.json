@@ -239,7 +239,6 @@
 		"folderSelectFailed": "Impossibile aprire il selettore di cartelle.",
 		"hotkey": {
 			"alreadyQueued": "Già in coda — nessuna copia aggiunta",
-			"busy": "Arroxy si sta ancora avviando — riprova tra un attimo",
 			"cookiesSetup": "Completa la configurazione dei cookie in Arroxy, poi riprova",
 			"invalidClipboard": "Nessun link negli appunti: copiane prima uno",
 			"multipleUrls": "Sono stati copiati più link: usa URL multipli in Arroxy",
@@ -1643,6 +1642,10 @@
 				"units": {
 					"seconds": "sec"
 				}
+			},
+			"openedLink": {
+				"added": "Link aperto in Arroxy",
+				"replaced": "Sostituito con il link aperto in Arroxy"
 			},
 			"pasteLink": "Incolla link",
 			"placeholder": "https://...",

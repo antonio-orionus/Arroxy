@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Nepodarilo sa otvoriť výber priečinka.",
 		"hotkey": {
 			"alreadyQueued": "Už je v rade – kópia sa nepridala",
-			"busy": "Arroxy sa ešte spúšťa – skúste to o chvíľu znova",
 			"cookiesSetup": "Dokončite nastavenie súborov cookie v aplikácii Arroxy a skúste to znova",
 			"invalidClipboard": "V schránke nie je žiadny odkaz – najprv ho skopírujte",
 			"multipleUrls": "Skopírovaných je viac odkazov – použite Hromadné adresy URL v aplikácii Arroxy",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Odkaz otvorený v Arroxy",
+				"replaced": "Nahradené odkazom otvoreným v Arroxy"
 			},
 			"pasteLink": "Vložiť odkaz",
 			"placeholder": "https://...",

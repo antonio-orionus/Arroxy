@@ -245,7 +245,6 @@
 		"folderSelectFailed": "تعذّر فتح مُحدِّد المجلدات.",
 		"hotkey": {
 			"alreadyQueued": "في قائمة الانتظار بالفعل — لم تُضف نسخة",
-			"busy": "ما يزال Arroxy يبدأ التشغيل — حاول مجددًا بعد لحظة",
 			"cookiesSetup": "أكمل إعداد الكوكيز في Arroxy ثم حاول مجددًا",
 			"invalidClipboard": "لا يوجد رابط في الحافظة — انسخ رابطًا أولاً",
 			"multipleUrls": "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy",
@@ -1742,6 +1741,10 @@
 				"units": {
 					"seconds": "ث"
 				}
+			},
+			"openedLink": {
+				"added": "تم فتح الرابط في Arroxy",
+				"replaced": "تم الاستبدال بالرابط المفتوح في Arroxy"
 			},
 			"pasteLink": "لصق الرابط",
 			"placeholder": "https://www.youtube.com/watch?v=...",

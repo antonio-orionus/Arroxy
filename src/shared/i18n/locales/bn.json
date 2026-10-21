@@ -237,7 +237,6 @@
 		"folderSelectFailed": "ফোল্ডার নির্বাচক খোলা যায়নি।",
 		"hotkey": {
 			"alreadyQueued": "ইতিমধ্যে সারিতে আছে — কপি যোগ করা হয়নি",
-			"busy": "Arroxy এখনও চালু হচ্ছে — একটু পরে আবার চেষ্টা করুন",
 			"cookiesSetup": "Arroxy-তে কুকিজ সেটআপ শেষ করুন, তারপর আবার চেষ্টা করুন",
 			"invalidClipboard": "ক্লিপবোর্ডে কোনো লিংক নেই — আগে একটি কপি করুন",
 			"multipleUrls": "একাধিক লিংক কপি হয়েছে — Arroxy-তে “বাল্ক URL” ব্যবহার করুন",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "সে"
 				}
+			},
+			"openedLink": {
+				"added": "লিংক Arroxy-তে খোলা হয়েছে",
+				"replaced": "Arroxy-তে খোলা লিংক দিয়ে প্রতিস্থাপিত"
 			},
 			"pasteLink": "লিংক পেস্ট করুন",
 			"placeholder": "https://www.youtube.com/watch?v=...",

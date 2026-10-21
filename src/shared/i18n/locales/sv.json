@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Det gick inte att öppna mappväljaren.",
 		"hotkey": {
 			"alreadyQueued": "Finns redan i kön – ingen kopia lades till",
-			"busy": "Arroxy startar fortfarande – försök igen om en stund",
 			"cookiesSetup": "Slutför konfigureringen av cookies i Arroxy och försök sedan igen",
 			"invalidClipboard": "Ingen länk i Urklipp – kopiera en först",
 			"multipleUrls": "Flera länkar kopierades – använd Flera webbadresser i Arroxy",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Länk öppnad i Arroxy",
+				"replaced": "Ersatt med länken som öppnades i Arroxy"
 			},
 			"pasteLink": "Klistra in länk",
 			"placeholder": "https://...",

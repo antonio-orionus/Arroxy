@@ -237,7 +237,6 @@
 		"folderSelectFailed": "Ezin izan da karpeta-hautatzailea ireki.",
 		"hotkey": {
 			"alreadyQueued": "Jada ilaran dago — ez da kopiarik gehitu",
-			"busy": "Arroxy oraindik abiarazten ari da — saiatu berriro une batean",
 			"cookiesSetup": "Amaitu Arroxy-n cookie-en konfigurazioa eta saiatu berriro",
 			"invalidClipboard": "Ez dago estekarik arbelean — kopiatu bat lehenik",
 			"multipleUrls": "Esteka anitz kopiatu dira — erabili Arroxy-ko URL masiboak",
@@ -1610,6 +1609,10 @@
 				"units": {
 					"seconds": "s"
 				}
+			},
+			"openedLink": {
+				"added": "Esteka Arroxy aplikazioan ireki da",
+				"replaced": "Arroxy aplikazioan irekitako estekarekin ordezkatu da"
 			},
 			"pasteLink": "Itsatsi esteka",
 			"placeholder": "https://...",

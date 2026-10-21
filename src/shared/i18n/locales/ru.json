@@ -241,7 +241,6 @@
 		"folderSelectFailed": "Не удалось открыть выбор папки.",
 		"hotkey": {
 			"alreadyQueued": "Уже в очереди — копия не добавлена",
-			"busy": "Arroxy ещё запускается — повтори через мгновение",
 			"cookiesSetup": "Закончи настройку cookies в Arroxy и повтори",
 			"invalidClipboard": "В буфере обмена нет ссылки — скопируйте её сначала",
 			"multipleUrls": "Скопировано несколько ссылок — используйте «Массовые URL» в Arroxy",
@@ -1676,6 +1675,10 @@
 				"units": {
 					"seconds": "сек"
 				}
+			},
+			"openedLink": {
+				"added": "Ссылка открыта в Arroxy",
+				"replaced": "Заменено ссылкой, открытой в Arroxy"
 			},
 			"pasteLink": "Вставить ссылку",
 			"placeholder": "https://www.youtube.com/watch?v=...",

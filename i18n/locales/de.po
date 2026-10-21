@@ -731,10 +731,6 @@ msgctxt "notifications.hotkey.alreadyQueued"
 msgid "Already in the queue — no copy added"
 msgstr "Bereits in der Warteschlange — keine Kopie hinzugefügt"
 
-msgctxt "notifications.hotkey.busy"
-msgid "Arroxy is still starting — try again in a moment"
-msgstr "Arroxy startet noch — versuche es gleich erneut"
-
 msgctxt "notifications.hotkey.cookiesSetup"
 msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr "Schließe die Cookie-Einrichtung in Arroxy ab und versuche es dann erneut"
@@ -4762,6 +4758,14 @@ msgstr "Nutzt nur die kleinen Basispausen, die Arroxy für Medien und Untertitel
 msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "Sek"
+
+msgctxt "wizard.url.openedLink.added"
+msgid "Link opened in Arroxy"
+msgstr "Link in Arroxy geöffnet"
+
+msgctxt "wizard.url.openedLink.replaced"
+msgid "Replaced with the link opened in Arroxy"
+msgstr "Durch den in Arroxy geöffneten Link ersetzt"
 
 msgctxt "wizard.url.pasteLink"
 msgid "Paste link"
