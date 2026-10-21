@@ -44,8 +44,14 @@ async function scrollJumps(page: Page): Promise<Jump[]> {
 			const before = row.getBoundingClientRect().top
 			const from = scroller.scrollTop
 			scroller.scrollTop = from + STEP
-			await frame()
-			await frame()
+			// Settled once the row and the scroll offset hold still for a frame.
+			let settled = ''
+			for (let wait = 0; wait < 20; wait++) {
+				await frame()
+				const position = `${scroller.scrollTop}:${scroller.querySelector(`[data-testid="${id}"]`)?.getBoundingClientRect().top}`
+				if (position === settled) break
+				settled = position
+			}
 			const moved = scroller.scrollTop - from
 			const after = scroller.querySelector<HTMLElement>(`[data-testid="${id}"]`)
 			const drift = after ? before - moved - after.getBoundingClientRect().top : Number.POSITIVE_INFINITY
@@ -70,6 +76,17 @@ test('an open artifacts list scrolls with the queue, without jumps', async ({pag
 		.getByRole('button', {name: /show artifacts/i})
 		.click()
 	await expect(page.getByTestId('queue-artifacts-queue-large-4995')).toBeVisible()
+
+	expect(await scrollJumps(page)).toEqual([])
+})
+
+// A filter moves rows that stay mounted to new positions: their measured sizes
+// must follow the row, not the position it held. (Chromium re-measured them in
+// every case tried, so this guards the path rather than reproducing a failure.)
+test('rows a filter moves keep their own heights, without jumps', async ({page}) => {
+	await openLargeQueue(page)
+	await page.getByTestId('queue-filter-done').click()
+	await expect(page.getByTestId('queue-manager-row-queue-large-4990')).toBeVisible()
 
 	expect(await scrollJumps(page)).toEqual([])
 })

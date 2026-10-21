@@ -137,9 +137,11 @@ export function StepPlaylistProfiles(): ReactNode {
 	const table = useTable({features: playlistProfileTableFeatures, data: filteredItems, columns: PLAYLIST_PROFILE_COLUMNS, getRowId: entry => entry.id})
 	const rows = table.getRowModel().rows
 	const interactions = useRowSelectionInteractions({orderedIds: filteredIds, selection, dispatch: dispatchSelection})
+	// Measured sizes follow the row (see QueueManagerTab).
+	const getRowKey = useCallback((index: number) => rows[index]?.id ?? index, [rows])
 	// TanStack Virtual returns function-bearing objects that React Compiler cannot safely memoize.
 	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const virtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 48, overscan: 8})
+	const virtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 48, getItemKey: getRowKey, overscan: 8})
 	const virtualRows = virtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]
 	const lastVirtualRow = virtualRows.at(-1)
