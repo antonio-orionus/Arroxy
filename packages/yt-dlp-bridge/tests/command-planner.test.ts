@@ -367,6 +367,11 @@ describe('planWorkflow — subtitle listing', () => {
 		expect(plan.facts.sideEffects).toEqual([])
 	})
 
+	// `--no-quiet` would print yt-dlp's messages to stdout ahead of the JSON.
+	it('keeps stdout to the JSON document, to be saved for --load-info-json', () => {
+		expect(planWorkflow({kind: 'subtitle-listing', url: URL}).args).not.toContain('--no-quiet')
+	})
+
 	it('passes the YouTube player client like a probe', () => {
 		const plan = planWorkflow({kind: 'subtitle-listing', url: URL, extractor: {youtube: {playerClient: ['web']}}})
 

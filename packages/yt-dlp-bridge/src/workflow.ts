@@ -117,7 +117,8 @@ export interface CallerSubtitlesWorkflowInput {
 
 // The video's info-json with every subtitle list filled (`-J` with the
 // subtitle flags): lazy extractors fill `subtitles` and `automatic_captions`
-// only when asked to write or list them. A simulation, so it writes nothing.
+// only when asked to write or list them. A simulation, so it writes nothing,
+// and quiet, so stdout is the one JSON document (`--load-info-json` takes it).
 export interface SubtitleListingWorkflowInput {
 	kind: 'subtitle-listing'
 	url: string
@@ -265,7 +266,7 @@ function planInspectWorkflow(input: ManagedInspectWorkflowInput, options: Workfl
 function planSubtitleListingWorkflow(input: SubtitleListingWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
 	const extractorArgs: string[] = []
 	pushJoined(extractorArgs, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
-	const args = [...baseArgs(options), '--dump-single-json', '--no-quiet', '--no-playlist', '--write-subs', '--write-auto-subs', '--sub-langs', 'all', ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
+	const args = [...baseArgs(options), '--dump-single-json', '--no-playlist', '--write-subs', '--write-auto-subs', '--sub-langs', 'all', ...requestPacingArgs(options.pacing), ...extractorArgs, input.url]
 	return withFacts({kind: 'subtitle-listing', args, redactedArgs: [], facts: {isMediaDownload: false, dependencies: dependencyFacts(new Map([['yt-dlp', ['list subtitle tracks']]]), new Map(), options.detectedDependencies), risks: [], sideEffects: []}})
 }
 
