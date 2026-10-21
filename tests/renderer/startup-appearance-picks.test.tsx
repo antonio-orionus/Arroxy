@@ -14,7 +14,7 @@ type GraphicsPolicyResult = Awaited<ReturnType<MockApi['app']['getGraphicsPolicy
 
 function persisted(): AppSettings {
 	const base = defaultAppSettings('/tmp')
-	return {...base, common: {...base.common, language: 'en', uiTheme: 'light', uiStyle: 'aurora'}}
+	return {...base, common: {...base.common, language: 'de', uiTheme: 'light', uiStyle: 'aurora'}}
 }
 
 describe('initialize', () => {
@@ -50,12 +50,28 @@ describe('initialize', () => {
 		expect(vi.mocked(api.app.setLanguage).mock.calls.at(-1)).toEqual(['fr'])
 	})
 
+	it('keeps a pick that matches the value the store started with', async () => {
+		const starting = useAppStore.getState().initialize()
+		await Promise.resolve()
+
+		// Saved theme is light; the store starts at system, so this pick changes nothing until the reads land.
+		useAppStore.getState().setUiTheme('system')
+		useAppStore.getState().setLanguage('fr')
+		useAppStore.getState().setLanguage('en')
+		resolveGraphicsPolicy(ok({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}))
+		await starting
+
+		const state = useAppStore.getState()
+		expect([state.language, state.uiTheme]).toEqual(['en', 'system'])
+		expect(state.settings?.common).toMatchObject({language: 'en', uiTheme: 'system'})
+	})
+
 	it('applies the saved language, theme and style when nothing was picked', async () => {
 		const starting = useAppStore.getState().initialize()
 		resolveGraphicsPolicy(ok({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}))
 		await starting
 
 		const state = useAppStore.getState()
-		expect([state.language, state.uiTheme, state.uiStyle]).toEqual(['en', 'light', 'aurora'])
+		expect([state.language, state.uiTheme, state.uiStyle]).toEqual(['de', 'light', 'aurora'])
 	})
 })

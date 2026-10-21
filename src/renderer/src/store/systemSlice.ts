@@ -10,6 +10,7 @@ import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
 import {notify} from '../lib/notify.js'
 import {EMPTY_WARMUP_DOWNLOADS, trackWarmupDownloads} from './warmupDownloads.js'
+import {recordStartupPick, takeStartupPicks, watchStartupPicks} from './startupPicks.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
@@ -305,12 +306,11 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const snapshotPromise = window.appApi.queue.cmd.getSnapshot()
 			// The native menu works over the splash: a language, theme or style
 			// picked during these reads is newer than what they return.
-			const beforeReads = get()
+			watchStartupPicks()
 			const [settingsResult, graphicsPolicyResult] = await Promise.all([settingsPromise, graphicsPolicyPromise])
+			const picked = takeStartupPicks()
 
 			if (settingsResult.ok) {
-				const afterReads = get()
-				const picked: Partial<AppSettings['common']> = {...(afterReads.language !== beforeReads.language && {language: afterReads.language}), ...(afterReads.uiTheme !== beforeReads.uiTheme && {uiTheme: afterReads.uiTheme}), ...(afterReads.uiStyle !== beforeReads.uiStyle && {uiStyle: afterReads.uiStyle})}
 				const settings: AppSettings = {...settingsResult.data, common: {...settingsResult.data.common, ...picked}}
 				const common = settings.common
 				const zoom = common.uiZoom ?? DEFAULTS.uiZoom
@@ -528,6 +528,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setLanguage: lang => {
+			recordStartupPick({language: lang})
 			set({language: lang})
 			document.documentElement.lang = lang
 			document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr'

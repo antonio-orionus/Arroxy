@@ -3,6 +3,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {resolveEffectiveStyle, type BackdropAvailability} from '../styles/registry.js'
 import type {UiStyle} from '@shared/schemas.js'
 import type {AppState, GetState, SetState, UiSlice} from './types.js'
+import {recordStartupPick} from './startupPicks.js'
 
 export function createUiSlice(set: SetState, get: GetState): UiSlice {
 	return {
@@ -26,6 +27,7 @@ export function createUiSlice(set: SetState, get: GetState): UiSlice {
 		},
 
 		setUiTheme: theme => {
+			recordStartupPick({uiTheme: theme})
 			set({uiTheme: theme})
 			void window.appApi.settings.update({common: {uiTheme: theme}}).then(result => {
 				if (!result.ok) console.error('[settings] uiTheme save failed', result.error)
@@ -33,6 +35,7 @@ export function createUiSlice(set: SetState, get: GetState): UiSlice {
 		},
 
 		setUiStyle: style => {
+			recordStartupPick({uiStyle: style})
 			set({uiStyle: style})
 			void window.appApi.settings.update({common: {uiStyle: style}}).then(result => {
 				if (!result.ok) console.error('[settings] uiStyle save failed', result.error)
