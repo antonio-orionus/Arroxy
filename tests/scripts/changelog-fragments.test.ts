@@ -126,6 +126,10 @@ describe('changelog CLI', () => {
 			await fs.writeFile(path.join(root, file), contents)
 		}
 		spawnSync('git', ['init', '-q'], {cwd: root, env: ENV})
+		// assemble asks origin whether a version is tagged.
+		spawnSync('git', ['init', '-q', '--bare', `${root}.git`], {env: ENV})
+		spawnSync('git', ['remote', 'add', 'origin', `${root}.git`], {cwd: root, env: ENV})
+		tempDirs.push(`${root}.git`)
 		const script = path.resolve('scripts/changelog.ts')
 		return {root, cli: (...args) => spawnSync('bun', [script, ...args], {cwd: root, encoding: 'utf8', env: ENV})}
 	}
@@ -216,6 +220,26 @@ describe('changelog CLI', () => {
 		await fs.writeFile(path.join(root, 'changelog.d', 'a.fix.md'), 'Fix.\n')
 		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/v1\.2\.3.*bump package\.json/)})
 		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(released)
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['a.fix.md'])
+	})
+
+	it('keeps the fragments when the version is tagged only on origin', async () => {
+		const released = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Released fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': released, 'changelog.d/a.fix.md': 'Fix.\n'})
+		spawnSync('git', ['commit', '-qm', 'release: 1.2.3', '--allow-empty'], {cwd: root, env: ENV})
+		spawnSync('git', ['tag', '-a', 'v1.2.3', '-m', 'release 1.2.3'], {cwd: root, env: ENV})
+		spawnSync('git', ['push', '-q', 'origin', 'refs/tags/v1.2.3'], {cwd: root, env: ENV})
+		spawnSync('git', ['tag', '-d', 'v1.2.3'], {cwd: root, env: ENV})
+		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/v1\.2\.3.*bump package\.json/)})
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['a.fix.md'])
+	})
+
+	it('keeps the fragments when origin cannot say whether the version is tagged', async () => {
+		const assembled = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': assembled, 'changelog.d/a.fix.md': 'New fix.\n'})
+		spawnSync('git', ['remote', 'set-url', 'origin', path.join(root, 'missing.git')], {cwd: root, env: ENV})
+		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/Could not ask origin whether v1\.2\.3 exists/)})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(assembled)
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['a.fix.md'])
 	})
 

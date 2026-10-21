@@ -38,25 +38,31 @@ describe('findReleaseCommit', () => {
 })
 
 describe('pushOfCommit', () => {
-	// A linear history c1 <- c2 <- c3 <- c4; `contains` answers whether a push's
-	// before..after range holds the commit, or null when git cannot tell.
+	// A linear history c1 <- c2 <- c3 <- c4, as `git merge-base --is-ancestor`
+	// sees it: null for a commit git does not know.
 	const order = ['c1', 'c2', 'c3', 'c4']
-	const contains = (activity: RepoActivity, sha: string): boolean | null => (order.includes(activity.before) ? order.indexOf(activity.before) < order.indexOf(sha) && order.indexOf(sha) <= order.indexOf(activity.after) : null)
+	const isAncestor = (ancestor: string, descendant: string): boolean | null => (order.includes(ancestor) && order.includes(descendant) ? order.indexOf(ancestor) <= order.indexOf(descendant) : null)
 	const push = (before: string, after: string, activity_type = 'push'): RepoActivity => ({before, after, activity_type})
 
 	it('finds a commit that was the head of its own push', () => {
-		expect(pushOfCommit([push('c2', 'c4'), push('c1', 'c2')], 'c2', contains)).toEqual({kind: 'head'})
-		expect(pushOfCommit([push('c1', 'c2', 'pr_merge')], 'c2', contains)).toEqual({kind: 'head'})
+		expect(pushOfCommit([push('c2', 'c4'), push('c1', 'c2')], 'c2', isAncestor)).toEqual({kind: 'head'})
+		expect(pushOfCommit([push('c1', 'c2', 'pr_merge')], 'c2', isAncestor)).toEqual({kind: 'head'})
 	})
 
 	it('finds a commit pushed under later commits, which GitHub runs no push workflows on', () => {
-		expect(pushOfCommit([push('c3', 'c4'), push('c1', 'c3')], 'c2', contains)).toEqual({kind: 'buried', head: 'c3'})
+		expect(pushOfCommit([push('c3', 'c4'), push('c1', 'c3')], 'c2', isAncestor)).toEqual({kind: 'buried', head: 'c3'})
+		expect(pushOfCommit([push('0000000', 'c3', 'branch_creation')], 'c2', isAncestor)).toEqual({kind: 'buried', head: 'c3'})
+	})
+
+	it('does not blame a later push whose range starts at or after the commit', () => {
+		expect(pushOfCommit([push('c2', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('c3', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
 	})
 
 	it('cannot tell when no recorded push carried the commit, or git does not know a push', () => {
-		expect(pushOfCommit([], 'c2', contains)).toEqual({kind: 'unknown'})
-		expect(pushOfCommit([push('c3', 'c4')], 'c2', contains)).toEqual({kind: 'unknown'})
-		expect(pushOfCommit([push('gone', 'c4')], 'c2', contains)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('gone', 'c4')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
+		expect(pushOfCommit([push('c1', 'gone')], 'c2', isAncestor)).toEqual({kind: 'unknown'})
 	})
 })
 

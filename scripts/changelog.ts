@@ -42,14 +42,15 @@ function gitAddLog(): string {
 }
 
 // The tag of a released version, locally or on origin; null when neither has
-// it. Origin is asked too, since the tag may come from another machine.
+// it. Origin is asked too, since the tag may come from another machine, and an
+// unanswered lookup stops: extending a released section would lose its notes.
 function releaseTag(version: string): string | null {
 	const tag = `v${version}`
 	if (spawnSync('git', ['rev-parse', '--verify', '--quiet', `refs/tags/${tag}`]).status === 0) return tag
 	const remote = spawnSync('git', ['ls-remote', '--exit-code', '--tags', 'origin', `refs/tags/${tag}`], {encoding: 'utf8', timeout: 30_000})
 	if (remote.status === 0) return tag
-	if (remote.status !== 2) console.error(`Could not ask origin whether ${tag} exists (${remote.error?.message ?? remote.stderr.trim()}); checked local tags only.`)
-	return null
+	if (remote.status === 2) return null
+	fail(`Could not ask origin whether ${tag} exists (${remote.error?.message ?? remote.stderr.trim()}), so ## ${version} may already be released. Run it again once origin answers. The fragments are kept.`)
 }
 
 function assemble(requested: string | undefined): void {

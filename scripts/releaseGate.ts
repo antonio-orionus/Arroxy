@@ -33,13 +33,24 @@ export const repoActivitiesSchema = z.array(repoActivitySchema)
 
 export type PushVerdict = {kind: 'head'} | {kind: 'buried'; head: string} | {kind: 'unknown'}
 
+export type IsAncestor = (ancestor: string, descendant: string) => boolean | null
+
+// Whether a push's before..after range holds the commit; null when git does not
+// know the push's commits (a force push dropped them, or the fetch is stale).
+function pushContains(activity: RepoActivity, sha: string, isAncestor: IsAncestor): boolean | null {
+	const inAfter = isAncestor(sha, activity.after)
+	if (inAfter !== true) return inAfter
+	if (/^0+$/.test(activity.before)) return true
+	const inBefore = isAncestor(sha, activity.before)
+	return inBefore === null ? null : !inBefore
+}
+
 // GitHub runs push workflows on a push's head commit only, so a commit that
 // reached main under later commits of the same push never gets a check run.
-// `contains` says whether an activity's before..after range holds the commit,
-// or null when git does not know its commits.
-export function pushOfCommit(activities: readonly RepoActivity[], sha: string, contains: (activity: RepoActivity, sha: string) => boolean | null): PushVerdict {
+// `isAncestor` answers as `git merge-base --is-ancestor` does.
+export function pushOfCommit(activities: readonly RepoActivity[], sha: string, isAncestor: IsAncestor): PushVerdict {
 	if (activities.some(activity => activity.after === sha)) return {kind: 'head'}
-	const carrier = activities.find(activity => contains(activity, sha) === true)
+	const carrier = activities.find(activity => pushContains(activity, sha, isAncestor) === true)
 	return carrier === undefined ? {kind: 'unknown'} : {kind: 'buried', head: carrier.after}
 }
 

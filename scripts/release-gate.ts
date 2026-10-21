@@ -13,7 +13,7 @@
 import {spawnSync} from 'node:child_process'
 import {parseArgs} from 'node:util'
 import {z} from 'zod'
-import {checkRunsResponseSchema, findReleaseCommit, pushOfCommit, repoActivitiesSchema, waitForRequiredChecks, type CheckRun, type CheckState, type PushVerdict, type RepoActivity} from './releaseGate.js'
+import {checkRunsResponseSchema, findReleaseCommit, pushOfCommit, repoActivitiesSchema, waitForRequiredChecks, type CheckRun, type CheckState, type PushVerdict} from './releaseGate.js'
 
 const POLL_INTERVAL_MS = 30_000
 
@@ -49,22 +49,12 @@ const isAncestor = (ancestor: string, descendant: string): boolean | null => {
 	return result.status === 0 ? true : result.status === 1 ? false : null
 }
 
-// Whether a push's before..after range holds the commit; null when git does not
-// know the push's commits (a force push dropped them, or the fetch is stale).
-function pushContains(activity: RepoActivity, sha: string): boolean | null {
-	const inAfter = isAncestor(sha, activity.after)
-	if (inAfter !== true) return inAfter
-	if (/^0+$/.test(activity.before)) return true
-	const inBefore = isAncestor(sha, activity.before)
-	return inBefore === null ? null : !inBefore
-}
-
 // Main's pushes from GitHub, every page: a busy day fills one. Unknown when
 // they cannot be read, so the gate then waits as it would without them.
 function pushOfReleaseCommit(repo: string, commit: string): PushVerdict {
 	try {
 		const pages = z.array(repoActivitiesSchema).parse(ghJson(`repos/${repo}/activity?ref=refs/heads/main&per_page=100`, '--paginate', '--slurp'))
-		return pushOfCommit(pages.flat(), commit, pushContains)
+		return pushOfCommit(pages.flat(), commit, isAncestor)
 	} catch (error) {
 		console.error(`Could not read main's push history (${error instanceof Error ? error.message : String(error)}); waiting on checks as usual.`)
 		return {kind: 'unknown'}
