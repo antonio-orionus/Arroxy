@@ -1,5 +1,6 @@
 import type {BulkUrlKind} from './schemas.js'
-import {isYouTubeContainerId, isYouTubeHostname} from './sites/youtube.js'
+import {isYouTubeContainerId} from './sites/youtube.js'
+import {isYouTubeHostname} from './sites/youtubeHost.js'
 
 export type UrlIntent = {kind: 'obvious-single'; url: string; site: 'youtube' | 'other'} | {kind: 'obvious-collection'; url: string; collection: 'playlist' | 'channel' | 'search'} | {kind: 'mixed'; url: string; reason: 'youtube-video-with-list'} | {kind: 'unknown'; url: string}
 

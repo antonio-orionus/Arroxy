@@ -80,7 +80,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			await retryTargetNow(target, get)
 		},
 
-		quickDownload: async ({url, entry, title, playlistMode}) => {
+		quickDownload: async ({url, entry, title, playlistMode, take}) => {
 			const cleaned = cleanQuickDownloadUrl(url)
 			if (!cleaned) return
 			// Decisions that need no probe stay upfront, as a dialog.
@@ -104,7 +104,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			// The profile this window shows as active, which main may not have saved yet.
 			const profiles = get().settings?.profiles
 			const profile = profiles ? resolveActiveDownloadProfile(profiles).ref : undefined
-			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {}), ...(profile ? {profile} : {})}, event => {
+			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {}), ...(profile ? {profile} : {}), ...(take ? {take} : {})}, event => {
 				if (event.kind === 'added' || event.kind === 'already-queued') placed = true
 				toasts(event)
 			})

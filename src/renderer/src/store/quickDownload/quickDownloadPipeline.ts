@@ -14,6 +14,7 @@ import {notify} from '@renderer/lib/notify.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import type {Result} from '@shared/result.js'
 import type {IntakeTake} from '@shared/intake/intakeSchemas.js'
+import type {QuickProbeTake} from '@shared/schemas.js'
 import type {DownloadProfileRef, PlaylistProbeResult, ProbePlaylistMode} from '@shared/types.js'
 import {generateId} from '../helpers.js'
 
@@ -28,6 +29,9 @@ export interface QuickDownloadRequest {
 	// The profile the window has active. A pick is saved through a queue of
 	// settings writes, so main may not hold it yet; the row pins this one.
 	profile?: DownloadProfileRef
+	// How much of a collection to keep, when the user already chose. Main keeps
+	// it on the row, so Retry and a restart keep to it and nothing asks again.
+	take?: QuickProbeTake
 }
 
 export type QuickDownloadFeedback = (event: QuickDownloadEvent) => void
@@ -94,7 +98,7 @@ export function bindIntakeEvents(unclaimed: () => QuickDownloadFeedback): () => 
 export async function placeQuickDownload(request: QuickDownloadRequest, feedback: QuickDownloadFeedback): Promise<string | null> {
 	const requestId = generateId()
 	wait(requestId, feedback, false)
-	const answer = await window.appApi.intake.add({requestId, url: request.url, playlistMode: request.playlistMode, ...(request.title ? {title: request.title} : {}), ...(request.profile ? {profile: request.profile} : {})}).catch((error: unknown) => {
+	const answer = await window.appApi.intake.add({requestId, url: request.url, playlistMode: request.playlistMode, ...(request.title ? {title: request.title} : {}), ...(request.profile ? {profile: request.profile} : {}), ...(request.take ? {take: request.take} : {})}).catch((error: unknown) => {
 		console.error('[quick-download] taking the link in failed', error)
 		return null
 	})

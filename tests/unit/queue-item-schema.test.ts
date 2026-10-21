@@ -23,4 +23,19 @@ describe('queue item schema', () => {
 		const candidate = {...makeItem({id: 'bad-flag', status: 'pending'}), titleIsPlaceholder: false}
 		expect(queueItemSchema.safeParse(candidate).success).toBe(false)
 	})
+
+	it('accepts probeTake on a placeholder and refuses it on a resolved row', () => {
+		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+		const placeholder = {...makeItem({id: 'probing', status: 'probing', probeMode: 'playlist', job: unresolved})}
+		expect(queueItemSchema.safeParse({...placeholder, probeTake: {kind: 'first', count: 100}}).success).toBe(true)
+		expect(queueItemSchema.safeParse({...placeholder, probeTake: {kind: 'all'}}).success).toBe(true)
+		expect(queueItemSchema.safeParse({...placeholder, probeTake: {kind: 'first', count: 0}}).success).toBe(false)
+		expect(queueItemSchema.safeParse({...makeItem({id: 'resolved', status: 'pending'}), probeTake: {kind: 'first', count: 100}}).success).toBe(false)
+	})
+
+	it('still loads a saved placeholder that has no probeTake', () => {
+		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+		const parsed = queueItemSchema.safeParse(makeItem({id: 'old', status: 'probing', probeMode: 'video', job: unresolved}))
+		expect(parsed.success && parsed.data.probeTake).toBeUndefined()
+	})
 })

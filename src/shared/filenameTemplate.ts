@@ -17,7 +17,7 @@ import {templateLiteral} from 'yt-dlp-bridge/output-template'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, PLAYLIST_FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
-import {isYouTubeHostname} from './sites/youtube.js'
+import {isYouTubeHostname} from './sites/youtubeHost.js'
 
 export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 

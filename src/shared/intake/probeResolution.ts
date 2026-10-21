@@ -5,14 +5,11 @@
 
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {PinnedDownloadProfile} from './intakeSchemas.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
-import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
+import type {LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
 import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
-
-// The user's answer to a needs-choice row, applied to a fresh or kept probe.
-export type QuickProbeTake = {kind: 'first'; count: number} | {kind: 'all'}
 
 export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
@@ -22,6 +19,11 @@ export type QuickProbeResolution =
 	| {kind: 'needs-choice'; choice: QueueChoice; capped: boolean; title: string; probe: PlaylistProbeResult}
 	// `probeError` is null when the probe succeeded and preparing the rows failed.
 	| {kind: 'failed'; error: LocalizedError; probeError: ProbeError | null}
+
+// How far a probe looks for a take: exactly N, or as wide as the load ceiling.
+export function scopeForTake(take: QuickProbeTake): PlaylistScope {
+	return {items: {kind: 'first', count: take.kind === 'first' ? take.count : PLAYLIST_PROBE_LIMIT_MAX}}
+}
 
 export interface QuickProbeContext {
 	// The row's link: names the video when the probe gives no page, and with
@@ -33,6 +35,9 @@ export interface QuickProbeContext {
 	// The load limit the probe ran with. It fetches one entry past it, so a
 	// longer result means the collection goes on.
 	limit: number
+	// What the user chose to keep (their answer to a needs-choice row, or the
+	// count picked at intake): applied to a fresh or kept probe, and it
+	// settles the size question, so a collection that goes on is not asked about.
 	take?: QuickProbeTake
 	// The profile the row was placed with; the active one when it is unknown
 	// (a row restored after a restart).

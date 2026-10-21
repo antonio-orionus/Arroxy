@@ -549,6 +549,11 @@ export function fixtureUrl(videoId: string): string {
 	return `https://www.youtube.com/watch?v=${videoId}`
 }
 
+// A video opened from inside the fixture playlist: YouTube's `watch?v=…&list=…`.
+export function fixtureVideoInPlaylistUrl(videoId: string): string {
+	return `https://www.youtube.com/watch?v=${videoId}&list=${FIXTURE_PLAYLIST_ID}`
+}
+
 export function fixturePlaylistUrl(): string {
 	return `https://www.youtube.com/playlist?list=${FIXTURE_PLAYLIST_ID}`
 }

@@ -18,6 +18,8 @@ interface Props {
 	disabled?: boolean
 	showCurrent?: boolean
 	onLimitChanged?: (limit: number) => void | Promise<void>
+	// Told when a save starts and ends, so a caller can hold an action that reads the limit.
+	onSavingChange?: (saving: boolean) => void
 }
 
 const CUSTOM_VALUE = 'custom'
@@ -26,7 +28,7 @@ function isPreset(value: number): boolean {
 	return (PLAYLIST_PROBE_LIMIT_PRESETS as readonly number[]).includes(value)
 }
 
-export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged}: Props): ReactNode {
+export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged, onSavingChange}: Props): ReactNode {
 	const {t} = useTranslation()
 	const {settings, setPlaylistProbeLimit} = useAppStore(useShallow(state => ({settings: state.settings, setPlaylistProbeLimit: state.setPlaylistProbeLimit})))
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
@@ -65,6 +67,7 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 		if (pendingLimitRef.current === nextLimit) return
 		pendingLimitRef.current = nextLimit
 		setSaving(true)
+		onSavingChange?.(true)
 		try {
 			await setPlaylistProbeLimit(nextLimit)
 			const persistedLimit = resolvePlaylistProbeLimit(useAppStore.getState().settings?.common)
@@ -74,6 +77,7 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 		} finally {
 			pendingLimitRef.current = null
 			setSaving(false)
+			onSavingChange?.(false)
 		}
 	}
 

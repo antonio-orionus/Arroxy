@@ -151,6 +151,72 @@ describe('Quick Download from the URL tab', () => {
 	})
 })
 
+// A count the user chose (P2-R37 intake dialog) rides on the placeholder row, so
+// the probe, a Retry and a restart all keep to it and nothing asks "how many?" again.
+describe('a quick download with a chosen count', () => {
+	const MIXED_URL = 'https://www.youtube.com/watch?v=abc&list=PLtest'
+
+	// Whether any row asked for a choice while the test ran.
+	function watchForChoices(): () => boolean {
+		let asked = false
+		const stop = useAppStore.subscribe(state => {
+			if (state.queue.some(item => item.status === 'needs-choice')) asked = true
+		})
+		return () => {
+			stop()
+			return asked
+		}
+	}
+
+	it('sends the take to main, which keeps it on the row and probes only that many', async () => {
+		const probe = deferredProbe()
+		await useAppStore.getState().quickDownload({url: MIXED_URL, entry: 'url-tab', playlistMode: 'playlist', take: {kind: 'first', count: 2}})
+
+		expect(api.intake.add).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 2}}))
+		expect(queue()[0]).toMatchObject({probeMode: 'playlist', probeTake: {kind: 'first', count: 2}})
+		await vi.waitFor(() => expect(probe.calls[0]).toMatchObject({playlistMode: 'playlist', playlistScope: {items: {kind: 'first', count: 2}}}))
+	})
+
+	it('queues the taken entries with no choice even when the list goes on', async () => {
+		const probe = deferredProbe()
+		const askedForChoice = watchForChoices()
+		await useAppStore.getState().quickDownload({url: MIXED_URL, entry: 'url-tab', playlistMode: 'playlist', take: {kind: 'first', count: 2}})
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
+		probe.resolve(ok(playlist(5)))
+
+		await vi.waitFor(() => expect(queue().map(item => item.status)).toEqual(['pending', 'pending']))
+		expect(askedForChoice()).toBe(false)
+		expect(queue()).toHaveLength(2)
+	})
+
+	it('probes the whole list for an All take', async () => {
+		const probe = deferredProbe()
+		await useAppStore.getState().quickDownload({url: MIXED_URL, entry: 'url-tab', playlistMode: 'playlist', take: {kind: 'all'}})
+		expect(queue()[0]).toMatchObject({probeTake: {kind: 'all'}})
+		await vi.waitFor(() => expect(probe.calls[0]).toMatchObject({playlistScope: {items: {kind: 'first', count: 5000}}}))
+	})
+
+	it('places no take on a row that was given none', async () => {
+		deferredProbe()
+		await useAppStore.getState().quickDownload({url: MIXED_URL, entry: 'url-tab', playlistMode: 'playlist'})
+		expect(queue()[0]).not.toHaveProperty('probeTake')
+	})
+
+	it('Retry of a restored probe-error row reuses its probeTake', async () => {
+		const probe = deferredProbe()
+		const askedForChoice = watchForChoices()
+		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'error', url: MIXED_URL, title: MIXED_URL, error: BOT_BLOCK.error, probeMode: 'playlist', probeTake: {kind: 'first', count: 2}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
+		const retrying = useAppStore.getState().retryQuickDownloadRow('restored')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
+		expect(probe.calls[0]).toMatchObject({playlistMode: 'playlist', ownerKey: 'restored', playlistScope: {items: {kind: 'first', count: 2}}})
+		probe.resolve(ok(playlist(5)))
+		await retrying
+
+		await vi.waitFor(() => expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2']))
+		expect(askedForChoice()).toBe(false)
+	})
+})
+
 // The wizard's own cancel (a new URL, Enter, leaving for cookie settings)
 // reaches main as probeCancel(), which aborts unkeyed probes only (see
 // probe-service tests). Here main is modelled that way: a placeholder's keyed

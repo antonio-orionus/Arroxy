@@ -16,6 +16,7 @@ import {
 	fixturePlaylistUrl,
 	fixtureRepeatedPlaylistUrl,
 	fixtureUrl,
+	fixtureVideoInPlaylistUrl,
 	runProcess,
 	startDenyProxy,
 	startFixtureServer,
@@ -53,6 +54,7 @@ interface FixtureYtDlpOptions {
 
 interface UrlHelpers {
 	video: (videoId: string) => string
+	videoInPlaylist: (videoId: string) => string
 	playlist: () => string
 	repeatedPlaylist: () => string
 	overlapPlaylist: () => string
@@ -98,7 +100,7 @@ export interface FixtureYtDlpContext {
 }
 
 function urls(): UrlHelpers {
-	return {video: fixtureUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
+	return {video: fixtureUrl, videoInPlaylist: fixtureVideoInPlaylistUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
 }
 
 function queue(page: Page): QueueHelpers {

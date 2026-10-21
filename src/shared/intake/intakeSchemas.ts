@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {downloadProfileRefSchema, probePlaylistModeSchema, webUrlSchema} from '@shared/schemas.js'
+import {downloadProfileRefSchema, probePlaylistModeSchema, quickProbeTakeSchema, webUrlSchema} from '@shared/schemas.js'
 
 // Link intake (Control API step zero): taking a link in, probing it in the
 // background and queueing what it finds runs in main. `window` is the app's
@@ -24,7 +24,8 @@ const intakeRequestIdSchema = z.string().min(1).max(128)
 // a long one is cut, never a reason to refuse the link.
 const INTAKE_TITLE_MAX = 2048
 // `profile`: the caller's active profile, which main's settings may not hold
-// yet (the window saves a pick through a queue of settings writes).
+// yet (the window saves a pick through a queue of settings writes). `take`:
+// how much of a collection to keep, when the user already chose.
 export const intakeAddInputSchema = z.object({
 	requestId: intakeRequestIdSchema,
 	url: webUrlSchema,
@@ -33,7 +34,8 @@ export const intakeAddInputSchema = z.object({
 		.string()
 		.transform(title => title.slice(0, INTAKE_TITLE_MAX))
 		.optional(),
-	profile: downloadProfileRefSchema.optional()
+	profile: downloadProfileRefSchema.optional(),
+	take: quickProbeTakeSchema.optional()
 })
 export type IntakeAddInput = z.input<typeof intakeAddInputSchema>
 export const intakeRetryInputSchema = z.object({requestId: intakeRequestIdSchema, itemId: z.string().min(1)})

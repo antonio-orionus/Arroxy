@@ -236,10 +236,20 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
 
 
 class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
-    _VALID_URL = rf'https?://(?:www\.)?youtube\.com/playlist\?list=(?P<id>{_fixture_playlist_id_pattern()})(?:[&#].*)?$'
+    # Both a playlist page and a video opened inside one (`watch?v=…&list=…`):
+    # yt-dlp's YouTube video extractor declines any link with a list, so the
+    # tab extractor takes it, as it does on the real site.
+    _VALID_URL = rf'https?://(?:www\.)?youtube\.com/(?:playlist|watch)\?(?:[^#]+&)?list=(?P<id>{_fixture_playlist_id_pattern()})(?:[&#].*)?$'
 
     def _real_extract(self, url):
         playlist_id = self._match_id(url)
+        # The same split yt-dlp's tab extractor makes: --no-playlist keeps just
+        # the video, --yes-playlist (the default) loads its playlist.
+        video_id = urllib.parse.parse_qs(urllib.parse.urlparse(url).query).get('v', [None])[0]
+        if video_id:
+            if not self._yes_playlist(playlist_id, video_id):
+                return self.url_result(f'https://www.youtube.com/watch?v={video_id}', ArroxyFixtureYoutubeIE, video_id)
+            url = f'https://www.youtube.com/playlist?list={playlist_id}'
         catalog = _fixture_catalog()
         playlist = next((candidate for candidate in _fixture_playlists(catalog) if candidate['id'] == playlist_id), None)
         if playlist is None:

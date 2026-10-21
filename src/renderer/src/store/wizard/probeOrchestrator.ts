@@ -11,6 +11,7 @@
 import type {PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, ProbeResult, WizardTransition} from '@shared/types.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
+import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
@@ -423,13 +424,24 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set({mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null})
 			if (!pending) return
 			if (source === 'url-tab' || source === 'explore') {
-				await get().quickDownload({url: pending, entry: source, playlistMode: choice})
+				// The list option takes the first N, N being the load limit as it is
+				// now: the dialog's selector may have just changed it.
+				if (choice === 'video') {
+					await get().quickDownload({url: pending, entry: source, playlistMode: 'video'})
+				} else {
+					await get().quickDownload({url: pending, entry: source, playlistMode: 'playlist', take: {kind: 'first', count: resolvePlaylistProbeLimit(get().settings?.common)}})
+				}
 				return
 			}
+			// The prompt opens before submitWizardUrl's own cookie guard runs, so
+			// both answers check the cookie setup here.
+			if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 			if (choice === 'video') {
-				if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 				await runProbe(pending, 'video', set, get)
 			} else {
+				// The dialog promises the first N, N being the load limit. A range left
+				// from an earlier list (back never resets it) must not stand in for it.
+				set({playlistScope: {items: {kind: 'app-limit'}}})
 				await runProbe(pending, 'playlist', set, get)
 			}
 		},

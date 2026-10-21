@@ -970,20 +970,40 @@
 			"video": "Video",
 			"withAudio": "with audio"
 		},
-		"mixedPrompt": {
-			"body": "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next.",
-			"pickFromPlaylist": "Pick from playlist",
-			"playlistLimit": "Playlist probe limit: {{count}} items",
-			"playlistTooltip": "Loads the playlist, up to your playlist probe limit, before showing the picker.",
-			"quickBody": "Download only this video, or queue the whole playlist with your active Quick Download profile.",
-			"quickLimitDescription": "Maximum entries Arroxy scans before queueing a playlist, channel, or search result.",
-			"quickPlaylistTooltip": "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing.",
-			"quickSingleTooltip": "Queues one download and ignores the playlist attached to this URL.",
-			"quickSingleVideo": "Download this video",
-			"quickWholePlaylist": "Download whole playlist",
-			"singleTooltip": "Loads only this video. The playlist attached to this URL is ignored.",
-			"singleVideo": "Just this one",
-			"title": "This link has a playlist"
+		"listPrompt": {
+			"escHint": "Esc cancels. Nothing loads until you choose.",
+			"interactiveSubtitle": "Choose formats yourself",
+			"justThisVideo": "Just this video",
+			"justThisVideoInteractiveHint": "Opens its formats",
+			"justThisVideoQuickHint": "Loads one video",
+			"listInteractiveHint": "Loads up to {{count}} to choose from",
+			"listOption": {
+				"album": "The album, first",
+				"liked": "Your liked videos, first",
+				"mix": "The Mix, first",
+				"playlist": "The playlist, first",
+				"uploads": "The uploads, first",
+				"watchLater": "Watch later, first"
+			},
+			"listQuickHint": "Loads up to {{count}}, then downloads them",
+			"mixNote": "A Mix changes every time you open it.",
+			"pickOption": {
+				"album": "Pick from the album, first",
+				"liked": "Pick from your liked videos, first",
+				"mix": "Pick from the Mix, first",
+				"playlist": "Pick from the playlist, first",
+				"uploads": "Pick from the uploads, first",
+				"watchLater": "Pick from Watch later, first"
+			},
+			"title": {
+				"album": "Download from this album",
+				"liked": "Download from your liked videos",
+				"mix": "Download from this Mix",
+				"playlist": "Download from this playlist",
+				"uploads": "Download from this channel's uploads",
+				"watchLater": "Download from Watch later"
+			},
+			"withProfile": "With {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
@@ -1609,8 +1629,7 @@
 				"description": "Maximum entries Arroxy loads when a playlist, channel, or search result is opened.",
 				"invalid": "Use a whole number from 1 to 5000",
 				"label": "Playlist items to scan",
-				"option": "{{count}} items",
-				"tooltip": "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+				"option": "{{count}} items"
 			},
 			"playlistScope": {
 				"appLimit": "Use app limit: {{count}}",
