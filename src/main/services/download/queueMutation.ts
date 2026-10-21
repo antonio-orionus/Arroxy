@@ -5,7 +5,12 @@
 import type {QueueItem} from '@shared/types.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 
-export type Mutation = {kind: 'add'; items: QueueItem[]} | {kind: 'event'; itemId: string; evt: QueueEvent} | {kind: 'patch'; itemId: string; patcher: (item: QueueItem) => QueueItem; reason: string} | {kind: 'remove'; itemId: string}
+// Why a row left the queue, on every 'removed' emit: a placeholder the user
+// cancelled or removed is gone for good; one its probe swapped for prepared
+// rows (`replaced`) or for none (`nothingNew`) lives on as its intake's outcome.
+export type QueueRemovalReason = 'cancelled' | 'removed' | 'replaced' | 'nothingNew' | 'autoRemoved'
+
+export type Mutation = {kind: 'add'; items: QueueItem[]} | {kind: 'event'; itemId: string; evt: QueueEvent} | {kind: 'patch'; itemId: string; patcher: (item: QueueItem) => QueueItem; reason: string} | {kind: 'remove'; itemId: string; reason: QueueRemovalReason}
 
 // One line per status:lane pair, plus scheduler bookkeeping — used for the
 // post-mortem log lines on every mutation.
@@ -37,6 +42,6 @@ export function describeMutation(m: Mutation): string {
 		case 'patch':
 			return `patch[${m.itemId}:${m.reason}]`
 		case 'remove':
-			return `remove[${m.itemId}]`
+			return `remove[${m.itemId}:${m.reason}]`
 	}
 }

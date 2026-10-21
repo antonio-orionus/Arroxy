@@ -82,7 +82,7 @@ describe('QueueService — remove completed downloads automatically', () => {
 		await vi.advanceTimersByTimeAsync(1)
 		await flush()
 		expect(qs.snapshot()).toHaveLength(0)
-		expect(removed).toHaveBeenCalledWith({itemId: 'a'})
+		expect(removed).toHaveBeenCalledWith({itemId: 'a', reason: 'autoRemoved'})
 	})
 
 	it('leaves a failed download in the list', async () => {

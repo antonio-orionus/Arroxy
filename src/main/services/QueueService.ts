@@ -107,14 +107,14 @@ export class QueueService extends EventEmitter {
 		cooldownRemainingMs: item => this.siteCooldown.remainingMs(item, Date.now())
 	})
 	// Takes a finished download out of the list after a short delay, when on.
-	private readonly autoRemove = new QueueAutoRemove({findItem: itemId => this.findItem(itemId), remove: itemId => this.remove(itemId)})
+	private readonly autoRemove = new QueueAutoRemove({findItem: itemId => this.findItem(itemId), remove: itemId => this.remove(itemId, 'autoRemoved')})
 	private probeAbortHook: (itemId: string) => void = () => undefined
 	private readonly probeLifecycle = new QueueProbeLifecycle({
 		items: () => this.items,
 		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
 		commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt}),
 		abortProbe: itemId => this.probeAbortHook(itemId),
-		commitRemove: itemId => this.commit({kind: 'remove', itemId}),
+		commitRemove: (itemId, reason) => this.commit({kind: 'remove', itemId, reason}),
 		commitAdd: items => this.commit({kind: 'add', items}),
 		rowsPerIntake: origin => this.intakeAdmission(origin)
 	})
@@ -396,7 +396,7 @@ export class QueueService extends EventEmitter {
 				try {
 					for (const id of ids) {
 						const item = this.findItem(id)
-						if (item && this.probeLifecycle.discard(item)) continue
+						if (item && this.probeLifecycle.discard(item, 'cancelled')) continue
 						if (item) await this.artifactCleanup.cleanup(item)
 						const jobId = item?.lastJobId
 						if (jobId) this.forgetProgressState(jobId)
@@ -414,7 +414,7 @@ export class QueueService extends EventEmitter {
 		}
 
 		const item = this.findItem(itemId)
-		if (!item || this.probeLifecycle.discard(item)) return ok(undefined)
+		if (!item || this.probeLifecycle.discard(item, 'cancelled')) return ok(undefined)
 		this.autoRetry.clear(itemId)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
@@ -478,7 +478,7 @@ export class QueueService extends EventEmitter {
 			if (item) await this.artifactCleanup.cleanup(item)
 		}
 		await this.inBulk(() => {
-			for (const id of idsToRemove) this.commit({kind: 'remove', itemId: id})
+			for (const id of idsToRemove) this.commit({kind: 'remove', itemId: id, reason: 'removed'})
 		})
 		return ok(undefined)
 	}
@@ -497,9 +497,9 @@ export class QueueService extends EventEmitter {
 		return this.inBulk(() => changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir))
 	}
 
-	async remove(itemId: string): Promise<Result<void>> {
+	async remove(itemId: string, reason: 'removed' | 'autoRemoved' = 'removed'): Promise<Result<void>> {
 		const item = this.findItem(itemId)
-		if (!item || this.probeLifecycle.discard(item)) return ok(undefined)
+		if (!item || this.probeLifecycle.discard(item, 'removed')) return ok(undefined)
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
@@ -511,7 +511,7 @@ export class QueueService extends EventEmitter {
 		this.autoRetry.clear(itemId)
 		this.autoRemove.clear(itemId)
 		await this.artifactCleanup.cleanup(item)
-		this.commit({kind: 'remove', itemId})
+		this.commit({kind: 'remove', itemId, reason})
 		return ok(undefined)
 	}
 
@@ -650,7 +650,7 @@ export class QueueService extends EventEmitter {
 				this.items.splice(idx, 1)
 				this.persist()
 				this.progress.drop(mutation.itemId)
-				this.emit('removed', {itemId: mutation.itemId})
+				this.emit('removed', {itemId: mutation.itemId, reason: mutation.reason})
 				break
 			}
 		}

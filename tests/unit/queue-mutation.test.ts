@@ -13,7 +13,7 @@ describe('isProgressOnlyMutation', () => {
 		expect(isProgressOnlyMutation({kind: 'event', itemId: 'a', evt: {kind: 'started', lastJobId: 'job'}})).toBe(false)
 		expect(isProgressOnlyMutation({kind: 'event', itemId: 'a', evt: {kind: 'cancelled'}})).toBe(false)
 		expect(isProgressOnlyMutation({kind: 'add', items: []})).toBe(false)
-		expect(isProgressOnlyMutation({kind: 'remove', itemId: 'a'})).toBe(false)
+		expect(isProgressOnlyMutation({kind: 'remove', itemId: 'a', reason: 'removed'})).toBe(false)
 		expect(isProgressOnlyMutation({kind: 'patch', itemId: 'a', patcher: item => item, reason: 'title'})).toBe(false)
 	})
 })

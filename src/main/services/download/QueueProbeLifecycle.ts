@@ -16,6 +16,7 @@ import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './queueAdmission.js'
+import type {QueueRemovalReason} from './queueMutation.js'
 import type {JobAuth, QueueChoice, QuickProbeTake} from '@shared/schemas.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
@@ -28,7 +29,7 @@ export interface QueueProbeLifecycleDeps {
 	abortProbe: (itemId: string) => void
 	// Raw commit seams for the atomic swap: remove + add run back-to-back with
 	// no await between them, so no other command can interleave.
-	commitRemove: (itemId: string) => void
+	commitRemove: (itemId: string, reason: QueueRemovalReason) => void
 	commitAdd: (items: QueueItem[]) => void
 	// How many rows one intake may become, by who took it in; null for no limit.
 	rowsPerIntake: (origin: IntakeOrigin) => number | null
@@ -60,10 +61,10 @@ export class QueueProbeLifecycle {
 
 	// Cancel and Remove of a placeholder: abort its probe, drop the row.
 	// Returns false for every other row, which the caller handles itself.
-	discard(item: QueueItem): boolean {
+	discard(item: QueueItem, reason: 'cancelled' | 'removed'): boolean {
 		if (item.status !== QUEUE_STATUS.probing && item.status !== QUEUE_STATUS.needsChoice) return false
 		if (item.status === QUEUE_STATUS.probing) this.deps.abortProbe(item.id)
-		this.deps.commitRemove(item.id)
+		this.deps.commitRemove(item.id, reason)
 		return true
 	}
 
@@ -118,7 +119,7 @@ export class QueueProbeLifecycle {
 		const {origin} = placeholder
 		const limit = origin ? this.deps.rowsPerIntake(origin) : null
 		if (limit !== null && admitted.length > limit) return fail(createAppError('limit', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
-		this.deps.commitRemove(itemId)
+		this.deps.commitRemove(itemId, admitted.length === 0 ? 'nothingNew' : 'replaced')
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
 		const queued = withPlaceholderId(itemId, items, origin ? admitted.map(item => ({...item, origin})) : admitted)
 		this.deps.commitAdd(queued)
