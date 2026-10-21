@@ -17,6 +17,7 @@ import {OptionCard} from '../shared/OptionCard.js'
 import {Panel} from '../shared/Panel.js'
 import {ProfileSelect} from './ProfileSelect.js'
 import type {SelectOption} from './profileSelectOptions.js'
+import {AI_UPSCALED_LABEL_KEYS, FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from '@renderer/lib/videoLabels.js'
 
 // Each goal is a plain name, a technical tag and a tooltip with the reason and
 // the catch (the Two-Audience Rule in DESIGN.md).
@@ -25,12 +26,7 @@ const GOAL_META = {
 	'smart-tv': {nameKey: 'wizard.profileEditor.goal.smartTv.name', tagKey: 'wizard.profileEditor.goal.smartTv.tag', descriptionKey: 'wizard.profileEditor.goal.smartTv.description'}
 } as const satisfies Record<VideoGoal, {nameKey: ParseKeys; tagKey: ParseKeys; descriptionKey: ParseKeys}>
 
-const FILE_TYPE_LABEL_KEYS = {auto: 'fileType.auto', mp4: 'fileType.mp4', mkv: 'fileType.mkv', webm: 'fileType.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 const FILE_TYPE_DESCRIPTION_KEYS = {auto: 'fileType.description.auto', mp4: 'fileType.description.mp4', mkv: 'fileType.description.mkv', webm: 'fileType.description.webm'} as const satisfies Record<VideoFileType, ParseKeys>
-
-const AI_UPSCALED_LABEL_KEYS = {skip: 'aiUpscaled.skip', allow: 'aiUpscaled.allow'} as const satisfies Record<AiUpscaled, ParseKeys>
-const VIDEO_CODEC_LABEL_KEYS = {auto: 'videoCodec.auto', vp9: 'videoCodec.vp9', h264: 'videoCodec.h264'} as const satisfies Record<DownloadProfileVideoCodec, ParseKeys>
-const HDR_LABEL_KEYS = {auto: 'hdrPreference.auto', sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrSetting, ParseKeys>
 
 const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
 const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_TIERS.has(option.value))
@@ -59,8 +55,8 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdr
 	const videoCodecOptions: SelectOption<DownloadProfileVideoCodec>[] = [{value: 'auto', labelKey: VIDEO_CODEC_LABEL_KEYS.auto}, ...VIDEO_CODEC_PREFERENCES.map(value => ({value, labelKey: VIDEO_CODEC_LABEL_KEYS[value], disabled: !videoCodecAllowed(goal, fileType, value)}))]
 	const nativeAudioOptions: SelectOption<DownloadProfileNativeAudio>[] = [
 		{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(`wizard.url.nativeAudioPreference.${globalNativeAudioPreference}`)}},
-		{value: 'compatible', labelKey: 'wizard.url.nativeAudioPreference.compatible'},
-		{value: 'surround', labelKey: 'wizard.url.nativeAudioPreference.surround'}
+		{value: 'compatible', labelKey: NATIVE_AUDIO_LABEL_KEYS.compatible},
+		{value: 'surround', labelKey: NATIVE_AUDIO_LABEL_KEYS.surround}
 	]
 	const hdrOptions: SelectOption<DownloadProfileHdr>[] = [{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(HDR_LABEL_KEYS[globalHdrSetting])}}, ...HDR_PREFERENCES.map(value => ({value, labelKey: HDR_LABEL_KEYS[value]}))]
 	const fileTypeDescription = t(FILE_TYPE_DESCRIPTION_KEYS[fileType])

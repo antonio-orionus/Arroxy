@@ -5,7 +5,7 @@ import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import type {CommonSettings, DownloadProfile} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {formatList, resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import type {TranslationPort} from '../../lib/translation.js'
 import type {ChangedArea} from './profileApplication.js'
 import {EMBED_FIELDS, EMBED_OPTION_KEYS, SPONSOR_BLOCK_MODE_LABEL_KEYS} from '@renderer/lib/outputLabels.js'
@@ -18,6 +18,8 @@ export interface ProfileDiffRow {
 
 export interface ProfileDiffContext {
 	t: TranslationPort
+	// The UI language, for language names and list separators.
+	language: string
 	// A profile's format in the app language (profileFormatLabel).
 	profileFormat: (profile: DownloadProfile) => string
 	defaultOutputDir: string
@@ -33,7 +35,19 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 	const baseDir = profile.output.kind === 'fixed' ? profile.output.dir : ctx.defaultOutputDir
 	return {
 		format: ctx.profileFormat(profile),
-		subtitles: subtitlesOn ? [subtitles.languages.join(', '), subtitles.mode === 'embed' ? null : subtitles.format.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode])].filter(Boolean).join(' · ') : t('wizard.review.value.subtitlesOff'),
+		subtitles: subtitlesOn
+			? [
+					formatList(
+						subtitles.languages.map(code => resolveSubtitleLabel(code, {}, {}, ctx.language)),
+						ctx.language,
+						'conjunction'
+					),
+					subtitles.mode === 'embed' ? null : subtitles.format.toUpperCase(),
+					t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode])
+				]
+					.filter(Boolean)
+					.join(' · ')
+			: t('wizard.review.value.subtitlesOff'),
 		// The categories too: changing only them is an edit the update must show.
 		sponsorBlock: sponsorBlock.mode === 'off' ? t('wizard.review.value.sponsorBlockOff') : [t(SPONSOR_BLOCK_MODE_LABEL_KEYS[sponsorBlock.mode]), sponsorBlock.categories.map(category => t(`wizard.sponsorblock.cat.${category}`)).join(', ')].filter(Boolean).join(' · '),
 		extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'),

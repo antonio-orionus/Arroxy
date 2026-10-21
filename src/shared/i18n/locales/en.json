@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Allow",
+		"allowedSummary": "AI-upscaled allowed",
 		"description": "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand.",
 		"label": "AI-upscaled streams",
 		"skip": "Skip"

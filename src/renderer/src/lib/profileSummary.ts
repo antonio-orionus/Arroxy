@@ -4,6 +4,7 @@ import type {DownloadProfile} from '@shared/types.js'
 import {EMBED_FIELDS, EMBED_OPTION_KEYS} from './outputLabels.js'
 import {formatList, resolveSubtitleLabel} from './subtitleLabel.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
+import {FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from './videoLabels.js'
 
 // What a profile does, in the app language, for its hint and every one-line
 // description of it (a queue row's format, the profile update diff). Names say
@@ -13,8 +14,6 @@ export interface ProfileSummaryRow {
 	label: string
 	value: string
 }
-
-const FILE_TYPE_LABEL_KEYS = {mp4: 'fileType.mp4', mkv: 'fileType.mkv', webm: 'fileType.webm'} as const
 
 function subtitleLanguages(languages: readonly string[], language: string): string {
 	return formatList(
@@ -39,6 +38,11 @@ function mediaValue(profile: DownloadProfile, t: TFunction, language: string): s
 		case 'video-only': {
 			const parts = [t(`playlistPresets.tier.${media.tier}`), t(media.goal === 'smart-tv' ? 'wizard.profileEditor.goal.smartTv.name' : 'wizard.profileEditor.goal.bestPicture.name')]
 			if (media.fileType !== 'auto') parts.push(t(FILE_TYPE_LABEL_KEYS[media.fileType]))
+			// Advanced settings only when the profile overrides them.
+			if (media.videoCodec !== undefined) parts.push(t(VIDEO_CODEC_LABEL_KEYS[media.videoCodec]))
+			if (media.hdr?.kind === 'custom') parts.push(t(HDR_LABEL_KEYS[media.hdr.preference]))
+			if (media.aiUpscaled === 'allow') parts.push(t('aiUpscaled.allowedSummary'))
+			if (media.kind === 'video-audio' && media.audio.native.kind === 'custom') parts.push(t(NATIVE_AUDIO_LABEL_KEYS[media.audio.native.preference]))
 			if (media.kind === 'video-only') parts.push(t('wizard.formats.noAudio'))
 			return parts.join(' · ')
 		}

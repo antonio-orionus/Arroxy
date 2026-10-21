@@ -25,6 +25,12 @@ describe('profile format label', () => {
 		expect(en(builtin('subtitles-only'))).toBe('Subtitles only · English · SRT')
 	})
 
+	it('names the advanced video settings a profile overrides, and only those', () => {
+		const tuned: DownloadProfile = {...builtin('hd-1080'), media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', videoCodec: 'h264', hdr: {kind: 'custom', preference: 'sdr'}, aiUpscaled: 'allow', audio: {native: {kind: 'custom', preference: 'surround'}}}}
+		expect(en(tuned)).toBe('Up to 1080p · Best picture · H.264 first · SDR · AI-upscaled allowed · Prefer surround / Dolby')
+		expect(en(builtin('hd-1080'))).toBe('Up to 1080p · Best picture')
+	})
+
 	it('uses the default bitrate for a lossy audio profile with none set', () => {
 		expect(en({...builtin('audio-only'), media: {kind: 'audio-only', audio: {format: 'mp3'}}})).toBe('Audio only · MP3 192 kbps')
 	})
