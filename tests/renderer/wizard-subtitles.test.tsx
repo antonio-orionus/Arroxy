@@ -479,7 +479,7 @@ describe('Review — rows', () => {
 		}
 	})
 
-	it('lists the changed areas with the language\'s own separators', () => {
+	it("lists the changed areas with the language's own separators", () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
 		singleState({wizardReviewRow: null, wizardProfile: profile})
 		useAppStore.setState({wizardProfileBaseline: wizardSnapshot(selectWizardReviewState(useAppStore.getState()))})

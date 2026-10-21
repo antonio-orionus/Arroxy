@@ -3,11 +3,10 @@ import type {MenuItemConstructorOptions} from 'electron'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {exploreLinkMenuTemplate, type ExploreLinkMenuDeps} from '@main/services/explore/exploreLinkMenu.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
-import {downloadProfileName} from '@shared/downloadProfileName.js'
-import {mainT} from '@main/i18n.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
 import type {ExploreLinkAction} from '@shared/exploreSchemas.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
+import {englishProfileName} from '../shared/profileNames.js'
 
 // Right-clicking a link in the Explore page: the bar's Download, profile
 // switch and Interactive, for the link instead of the page. Only links the
@@ -44,8 +43,6 @@ function customProfile(name: string, enabled = true): DownloadProfile {
 	return {...base, id: `custom-${name}`, name, enabled}
 }
 
-const englishName = (profile: DownloadProfile): string => downloadProfileName(profile, key => mainT('en', key))
-
 describe('Explore link menu', () => {
 	it('offers no menu without a web link (plain page, image, text)', () => {
 		const {deps} = harness()
@@ -70,13 +67,13 @@ describe('Explore link menu', () => {
 		const active = resolveActiveDownloadProfile(undefined).profile
 		const template = exploreLinkMenuTemplate(WATCH, deps)
 
-		expect(template?.map(entry => entry.label ?? entry.type)).toEqual([`Download · ${englishName(active)}`, 'Download with', 'separator', 'Interactive Download: choose format, subtitles and more…', 'separator', 'Copy link'])
+		expect(template?.map(entry => entry.label ?? entry.type)).toEqual([`Download · ${englishProfileName(active)}`, 'Download with', 'separator', 'Interactive Download: choose format, subtitles and more…', 'separator', 'Copy link'])
 	})
 
 	it('Download sends the link with the active profile', () => {
 		const {deps, sent} = harness()
 		const active = resolveActiveDownloadProfile(undefined).profile
-		click(item(exploreLinkMenuTemplate(WATCH, deps), `Download · ${englishName(active)}`))
+		click(item(exploreLinkMenuTemplate(WATCH, deps), `Download · ${englishProfileName(active)}`))
 
 		expect(sent).toEqual([{kind: 'download', url: WATCH}])
 	})
@@ -84,7 +81,7 @@ describe('Explore link menu', () => {
 	it('Download sends a show link as the playlist it is', () => {
 		const {deps, sent} = harness()
 		const active = resolveActiveDownloadProfile(undefined).profile
-		click(item(exploreLinkMenuTemplate('https://www.youtube.com/show/VLPL1?sbp=abc', deps), `Download · ${englishName(active)}`))
+		click(item(exploreLinkMenuTemplate('https://www.youtube.com/show/VLPL1?sbp=abc', deps), `Download · ${englishProfileName(active)}`))
 
 		expect(sent).toEqual([{kind: 'download', url: 'https://www.youtube.com/playlist?list=PL1'}])
 	})
@@ -94,11 +91,11 @@ describe('Explore link menu', () => {
 		const {deps} = harness(prefs)
 		const profiles = submenu(item(exploreLinkMenuTemplate(WATCH, deps), 'Download with'))
 
-		expect(profiles.map(entry => entry.label)).toEqual(enabledDownloadProfiles(prefs).map(englishName))
+		expect(profiles.map(entry => entry.label)).toEqual(enabledDownloadProfiles(prefs).map(englishProfileName))
 		expect(profiles.map(entry => entry.label)).toContain('Podcasts')
 		expect(profiles.map(entry => entry.label)).not.toContain('Hidden')
 		const checked = profiles.filter(entry => entry.checked === true).map(entry => entry.label)
-		expect(checked).toEqual([englishName(resolveActiveDownloadProfile(prefs).profile)])
+		expect(checked).toEqual([englishProfileName(resolveActiveDownloadProfile(prefs).profile)])
 	})
 
 	it('Download with follows the saved profile order, like every in-app picker', () => {

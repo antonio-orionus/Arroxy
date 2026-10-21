@@ -38,6 +38,7 @@ export type {
 	QueueArtifactKind,
 	QueueSelectionAction,
 	QueueActionSkippedItem,
+	QueueSchedulerState,
 	AudioConvertTarget,
 	AudioBitrate,
 	AudioTrackQuality,
@@ -95,6 +96,7 @@ import type {
 	QueueArtifactKind,
 	QueueSelectionAction,
 	QueueActionSkippedItem as SchemaQueueActionSkippedItem,
+	QueueSchedulerState,
 	DownloadProfilesPrefs,
 	ProbeOtherErrorCode,
 	AppErrorCode,
@@ -301,6 +303,19 @@ export interface QueueSelectionCommandResult {
 	action: QueueSelectionAction
 	appliedIds: string[]
 	skipped: SchemaQueueActionSkippedItem[]
+}
+
+// Outcome of a whole-queue pause or resume: where it left the scheduler, the
+// items it moved, and each item it could not move with that item's own error.
+export interface QueueSchedulerCommandResult {
+	scheduler: QueueSchedulerState
+	done: string[]
+	failed: QueueSchedulerCommandFailure[]
+}
+
+export interface QueueSchedulerCommandFailure {
+	itemId: string
+	error: AppError
 }
 
 export interface QueueOutputTargetMovedArtifact {

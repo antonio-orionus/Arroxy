@@ -7,6 +7,7 @@ import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent} from
 import {Separator} from '../ui/separator.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
+import {EMBED_OPTION_KEYS} from '@renderer/lib/outputLabels.js'
 
 // The embed and sidecar switches: the batch wizard's Output step and the
 // single-video Review's Extras row.
@@ -45,16 +46,16 @@ export function OutputFields(): ReactNode {
 	return (
 		<div className="flex flex-col gap-1.5">
 			<div className="flex flex-col gap-3 py-1">
-				<SettingSwitch id="output-embed-chapters" label={t('wizard.output.embedChapters.label')} description={t('wizard.output.embedChapters.description')} checked={wizardEmbedChapters} onCheckedChange={setEmbedChapters} testId="embed-chapters-toggle" />
-				<SettingSwitch id="output-embed-metadata" label={t('wizard.output.embedMetadata.label')} description={t('wizard.output.embedMetadata.description')} checked={wizardEmbedMetadata} onCheckedChange={setEmbedMetadata} testId="embed-metadata-toggle" />
-				{showEmbedThumbnail ? <SettingSwitch id="output-embed-thumbnail" label={t('wizard.output.embedThumbnail.label')} description={t('wizard.output.embedThumbnail.description')} checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} testId="embed-thumbnail-toggle" /> : null}
+				<SettingSwitch id="output-embed-chapters" label={t(EMBED_OPTION_KEYS.chapters.labelKey)} description={t(EMBED_OPTION_KEYS.chapters.descriptionKey)} checked={wizardEmbedChapters} onCheckedChange={setEmbedChapters} testId="embed-chapters-toggle" />
+				<SettingSwitch id="output-embed-metadata" label={t(EMBED_OPTION_KEYS.metadata.labelKey)} description={t(EMBED_OPTION_KEYS.metadata.descriptionKey)} checked={wizardEmbedMetadata} onCheckedChange={setEmbedMetadata} testId="embed-metadata-toggle" />
+				{showEmbedThumbnail ? <SettingSwitch id="output-embed-thumbnail" label={t(EMBED_OPTION_KEYS.thumbnail.labelKey)} description={t(EMBED_OPTION_KEYS.thumbnail.descriptionKey)} checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} testId="embed-thumbnail-toggle" /> : null}
 			</div>
 
 			<Separator className="my-1.5" />
 
 			<div className="flex flex-col gap-3 py-1">
-				<SettingSwitch id="output-write-description" label={t('wizard.output.writeDescription.label')} description={t('wizard.output.writeDescription.description')} checked={wizardWriteDescription} onCheckedChange={setWriteDescription} testId="write-description-toggle" />
-				<SettingSwitch id="output-write-thumbnail" label={t('wizard.output.writeThumbnail.label')} description={t('wizard.output.writeThumbnail.description')} checked={wizardWriteThumbnail} onCheckedChange={setWriteThumbnail} testId="write-thumbnail-toggle" />
+				<SettingSwitch id="output-write-description" label={t(EMBED_OPTION_KEYS.description.labelKey)} description={t(EMBED_OPTION_KEYS.description.descriptionKey)} checked={wizardWriteDescription} onCheckedChange={setWriteDescription} testId="write-description-toggle" />
+				<SettingSwitch id="output-write-thumbnail" label={t(EMBED_OPTION_KEYS.thumbnailSidecar.labelKey)} description={t(EMBED_OPTION_KEYS.thumbnailSidecar.descriptionKey)} checked={wizardWriteThumbnail} onCheckedChange={setWriteThumbnail} testId="write-thumbnail-toggle" />
 			</div>
 
 			{isPlaylist && (

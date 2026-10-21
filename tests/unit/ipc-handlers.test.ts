@@ -58,7 +58,9 @@ function makeDeps() {
 		remove: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		applySelectionAction: vi.fn().mockResolvedValue({ok: true, data: {action: 'pause', appliedIds: ['a'], skipped: []}}),
 		changeOutputTarget: vi.fn().mockResolvedValue({ok: true, data: {outputDir: '/new', items: [], skipped: []}}),
-		snapshotPayload: vi.fn().mockReturnValue({items: [], schedulerPaused: false})
+		snapshotPayload: vi.fn().mockReturnValue({items: [], schedulerPaused: false}),
+		pauseAll: vi.fn().mockResolvedValue({scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: {code: 'ipc', message: 'pause failed'}}]}),
+		resumeAll: vi.fn().mockResolvedValue({scheduler: 'running', done: ['a', 'b'], failed: []})
 	})
 	const settingsStore = {
 		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, playlist: {}}),
@@ -418,6 +420,26 @@ describe('registerIpcHandlers', () => {
 
 			expect(result.ok).toBe(false)
 			expect(deps._raw.queueService.changeOutputTarget).not.toHaveBeenCalled()
+		})
+
+		it('queue:cmd:pauseAll returns which items paused and which failed', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdPauseAll)!.fn
+			const result = (await handler(null, undefined)) as {ok: boolean; data?: unknown}
+
+			expect(result).toEqual({ok: true, data: {scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: {code: 'ipc', message: 'pause failed'}}]}})
+		})
+
+		it('queue:cmd:resumeAll returns the items it moved back to pending', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdResumeAll)!.fn
+			const result = (await handler(null, undefined)) as {ok: boolean; data?: unknown}
+
+			expect(result).toEqual({ok: true, data: {scheduler: 'running', done: ['a', 'b'], failed: []}})
 		})
 
 		it('downloads:probe rejects incomplete cookies config before probing', async () => {

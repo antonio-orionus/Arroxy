@@ -168,8 +168,7 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 
 	handleRaw(IPC_CHANNELS.queueCmdPauseAll, async () => {
 		try {
-			await queueService.pauseAll()
-			return ok(undefined)
+			return ok(await queueService.pauseAll())
 		} catch (err) {
 			return toUnknownFailure(err)
 		}
@@ -177,8 +176,7 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 
 	handleRaw(IPC_CHANNELS.queueCmdResumeAll, async () => {
 		try {
-			await queueService.resumeAll()
-			return ok(undefined)
+			return ok(await queueService.resumeAll())
 		} catch (err) {
 			return toUnknownFailure(err)
 		}

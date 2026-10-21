@@ -9,8 +9,7 @@ import {SPONSORBLOCK_CATEGORIES, SPONSORBLOCK_MODES} from '@shared/schemas.js'
 import type {SponsorBlockMode} from '@shared/types.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {CheckRow} from '../shared/CheckRow.js'
-
-const SB_MODE_LABEL_KEYS = {off: 'wizard.sponsorblock.mode.off', mark: 'wizard.sponsorblock.mode.mark', remove: 'wizard.sponsorblock.mode.remove'} as const satisfies Record<SponsorBlockMode, string>
+import {SPONSOR_BLOCK_MODE_LABEL_KEYS} from '@renderer/lib/outputLabels.js'
 
 const SB_MODE_HINT_KEYS = {off: 'wizard.sponsorblock.modeHint.off', mark: 'wizard.sponsorblock.modeHint.mark', remove: 'wizard.sponsorblock.modeHint.remove'} as const satisfies Record<SponsorBlockMode, string>
 
@@ -48,7 +47,7 @@ export function SponsorBlockFields(): ReactNode {
 				>
 					{SPONSORBLOCK_MODES.map(mode => (
 						<ToggleGroupItem key={mode} value={mode}>
-							{t(SB_MODE_LABEL_KEYS[mode])}
+							{t(SPONSOR_BLOCK_MODE_LABEL_KEYS[mode])}
 						</ToggleGroupItem>
 					))}
 				</ToggleGroup>
