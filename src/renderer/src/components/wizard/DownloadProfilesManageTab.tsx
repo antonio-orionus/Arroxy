@@ -158,9 +158,6 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 						<Icon />
 					</IconTile>
 					<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
-						<span id={summaryId} className="sr-only">
-							{profileFormatLabel(profile, t, i18n.language)}
-						</span>
 						<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
 							<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
 								{nameOf(profile)}
@@ -172,6 +169,9 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 					</span>
 				</button>
 			</Hint>
+			<span id={summaryId} className="sr-only">
+				{profileFormatLabel(profile, t, i18n.language)}
+			</span>
 			<div className="mt-3 flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
 				<Button
 					ref={setActivatorNodeRef}

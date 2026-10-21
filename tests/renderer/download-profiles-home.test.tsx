@@ -212,6 +212,7 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		render(<DownloadProfilesHome />)
 		expect(visibleText(screen.getByTestId('profiles-manage-card-mp4-720'))).not.toContain('Up to 720p')
 		expect(screen.getByTestId('profiles-manage-card-mp4-720-picker')).toHaveAccessibleDescription('Up to 720p · Smart TV')
+		expect(screen.getByTestId('profiles-manage-card-mp4-720-picker')).not.toHaveAccessibleName(/Up to 720p/)
 
 		hover(screen.getByTestId('profiles-manage-card-mp4-720-picker'))
 		const hint = await screen.findByTestId('profile-summary-mp4-720', undefined, {timeout: 2000})
