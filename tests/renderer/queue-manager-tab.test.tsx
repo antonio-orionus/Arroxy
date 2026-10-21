@@ -999,6 +999,16 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('btn-clear-completed')).toHaveAccessibleName('Clear completed downloads')
 	})
 
+	it('titles the selection actions as applying to the selected items', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})]})
+
+		render(<QueueManagerTab />)
+
+		const group = screen.getByRole('group', {name: 'Selected items'})
+		expect(group).toHaveTextContent('Selected items')
+		expect(within(group).getByTestId('queue-action-pause')).toHaveAccessibleName('Pause')
+	})
+
 	it('offers a switch that removes finished downloads automatically, off by default', () => {
 		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})], settings: defaultAppSettings('/tmp')})
 
