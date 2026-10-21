@@ -12,14 +12,14 @@
 
 import log from 'electron-log/main.js'
 import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
-import {resolvePinnedQuickProbe, type QuickProbeEnv, type QuickProbeResolution, type QuickProbeTake} from '@shared/intake/probeResolution.js'
+import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import type {PlaylistManifestPayload} from '@shared/queueSubmission.js'
 import {fail, type Result} from '@shared/result.js'
 import type {IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
-import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice} from '@shared/schemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {KeptProbes} from './KeptProbes.js'
@@ -72,6 +72,10 @@ export interface IntakeAddRequest {
 	// through a queue of settings writes, so main's settings may not hold it
 	// yet; without one, the row pins the profile active in main's settings.
 	profile?: DownloadProfileRef
+	// How much of a collection to keep, when the user already chose (the
+	// Mixed URL prompt's list answer). Kept on the row, so a Retry and a
+	// restart keep to it and nothing asks "how many?" again.
+	take?: QuickProbeTake
 	origin: {kind: IntakeOriginKind; clientId?: string}
 }
 
@@ -127,21 +131,23 @@ export class IntakeService {
 			return {kind: 'not-added'}
 		}
 		logger.info('link taken in', {itemId: row.id, intakeId: origin.intakeId, origin: origin.kind, playlistMode: request.playlistMode})
-		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title}, {requestId: request.requestId, origin: origin.kind})
+		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title, ...ownTake(row)}, {requestId: request.requestId, origin: origin.kind})
 		return {kind: 'added', itemId: row.id, title: row.title}
 	}
 
-	// A probe-error row probes again, the way it was taken in.
+	// A probe-error row probes again, the way it was taken in: with the count
+	// it was placed with, if any.
 	retry(call: IntakeCall): Result<void> {
 		const row = this.placeholder(call.itemId)
 		const restarted = this.deps.queue.reprobe(call.itemId)
 		if (!restarted.ok || !row) return restarted
 		this.kept.forget(call.itemId)
-		void this.runProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title}, call)
+		void this.runProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title, ...ownTake(row)}, call)
 		return restarted
 	}
 
 	// A needs-choice row's answer: every video, or the first N it was offered.
+	// The answer overrides any count the row was placed with.
 	choose(call: IntakeCall & {take: IntakeTake}): Result<void> {
 		const row = this.placeholder(call.itemId)
 		// A refused answer leaves the row as it is: restarting it here would
@@ -149,10 +155,10 @@ export class IntakeService {
 		if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return fail(createAppError('validation', `queue item ${call.itemId} is not waiting for a choice`))
 		const kept = this.kept.get(call.itemId)
 		const probe = {url: row.url, playlistMode: row.probeMode, title: row.title}
-		if (call.take === 'all') return this.reprobe(row, {...probe, scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}}, call)
+		if (call.take === 'all') return this.reprobe(row, {...probe, scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}}, call)
 		if (row.choice.kind !== 'playlist-cap') return fail(createAppError('validation', 'only a playlist over the load limit offers its first videos'))
 		const take = {kind: 'first', count: row.choice.loaded} as const
-		if (!kept) return this.reprobe(row, {...probe, scope: {items: take}, take}, call)
+		if (!kept) return this.reprobe(row, {...probe, scope: scopeForTake(take), take}, call)
 		// The kept probe already holds the first N: no second probe. The row
 		// still goes back to probing, so a failure can land on it as usual.
 		const restarted = this.deps.queue.reprobe(call.itemId)
@@ -334,6 +340,7 @@ export class IntakeService {
 			writeM3u: false,
 			retryCount: 0,
 			probeMode: request.playlistMode,
+			...(request.take ? {probeTake: request.take} : {}),
 			pinnedProfile: pinned,
 			origin,
 			job: {kind: 'unresolved', extractor: '', extractorKey: ''}
@@ -358,6 +365,11 @@ export class IntakeService {
 }
 
 type PlaceholderRow = QueueItem & {probeMode: ProbePlaylistMode}
+
+// The count a row was placed with, and how far its probe looks for it.
+function ownTake(row: QueueItem): Pick<PlaceholderProbe, 'scope' | 'take'> {
+	return row.probeTake ? {scope: scopeForTake(row.probeTake), take: row.probeTake} : {}
+}
 
 function failedResolution(error: unknown): QuickProbeResolution {
 	return {kind: 'failed', error: {kind: 'unknown', raw: error instanceof Error ? error.message : String(error)}, probeError: null}

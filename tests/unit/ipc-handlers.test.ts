@@ -399,6 +399,21 @@ describe('registerIpcHandlers', () => {
 			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}, origin: {kind: 'window'}})
 		})
 
+		it('intake:cmd:add passes on the count the user chose, and refuses one out of range', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const mixed = 'https://www.youtube.com/watch?v=abc&list=PLtest'
+			const added = (await handler(null, {requestId: 'r1', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 25}})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 25}, origin: {kind: 'window'}})
+
+			const refused = (await handler(null, {requestId: 'r2', url: mixed, playlistMode: 'playlist', take: {kind: 'first', count: 0}})) as {ok: boolean}
+			expect(refused.ok).toBe(false)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledOnce()
+		})
+
 		// A page title is only a hint until the probe knows the real one: a long
 		// one is cut, never a reason to refuse the link.
 		it('intake:cmd:add takes a link in with a very long title, cut to 2048 characters', async () => {

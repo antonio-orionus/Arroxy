@@ -292,6 +292,100 @@ describe('IntakeService', () => {
 		expect(outcomes(h).at(-1)).toMatchObject({requestId: 'r1', kind: 'failed'})
 	})
 
+	// A count the user chose at intake (the Mixed URL prompt's list answer)
+	// rides on the placeholder row: the first probe, a Retry and one after a
+	// restart keep to it, and nothing asks "how many?" again.
+	describe('a link taken in with a chosen count', () => {
+		const MIXED_URL = 'https://www.youtube.com/watch?v=abc&list=PLtest'
+
+		it('keeps the count on the row and probes only that many, queueing them without a choice', async () => {
+			h.answer(ok(playlist(3)))
+			const placement = await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 2}, origin: WINDOW})
+			const itemId = placement.kind === 'added' ? placement.itemId : ''
+			expect(h.queue.snapshot()[0]).toMatchObject({id: itemId, status: 'probing', probeMode: 'playlist', probeTake: {kind: 'first', count: 2}})
+			await vi.waitFor(() => expect(h.probes).toEqual([{url: MIXED_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 2}}}]))
+
+			await h.settled()
+			expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+			expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'queued', itemId, skippedAlreadyQueued: 0}])
+		})
+
+		it('probes as wide as the load ceiling for an All take', async () => {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+			h.answer(ok(playlist(3)))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'all'}, origin: WINDOW})
+			expect(h.queue.snapshot()[0]?.probeTake).toEqual({kind: 'all'})
+			await h.settled()
+			expect(h.probes[0]?.playlistScope).toEqual({items: {kind: 'first', count: 5000}})
+			expect(h.queue.snapshot()).toHaveLength(3)
+		})
+
+		it('places no count on a row that was given none', async () => {
+			h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', origin: WINDOW})
+			await h.settled()
+			expect(h.queue.snapshot()[0]).not.toHaveProperty('probeTake')
+			expect(h.probes[0]).not.toHaveProperty('playlistScope')
+		})
+
+		it("a Retry keeps the row's count and its scope", async () => {
+			h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 2}, origin: WINDOW})
+			await h.settled()
+			const itemId = h.queue.snapshot()[0]?.id ?? ''
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'error', probeTake: {kind: 'first', count: 2}})
+
+			h.answer(ok(playlist(5)))
+			expect(h.intake.retry({requestId: 'r2', itemId, origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: MIXED_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 2}}})
+			expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+			expect(outcomes(h).at(-1)).toEqual({requestId: 'r2', kind: 'queued', itemId, skippedAlreadyQueued: 0})
+		})
+
+		it('a Retry of a restored probe-error row keeps the count saved on it', async () => {
+			const restored = makeItem({id: 'restored', status: 'error', url: MIXED_URL, title: MIXED_URL, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'playlist', probeTake: {kind: 'first', count: 2}, error: {kind: 'unknown', raw: 'App restarted while fetching video details'}})
+			h.queue.add([restored])
+			h.answer(ok(playlist(5)))
+			expect(h.intake.retry({requestId: 'r1', itemId: 'restored', origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes).toEqual([{url: MIXED_URL, playlistMode: 'playlist', ownerKey: 'restored', playlistScope: {items: {kind: 'first', count: 2}}}])
+			expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+		})
+
+		// Resolution never asks about a row that has a count, but the queue lets
+		// one wait for a choice; the answer then decides, not the count it was placed with.
+		it('a widening choice overrides the count the row was placed with', async () => {
+			h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 2}, origin: WINDOW})
+			await h.settled()
+			const itemId = h.queue.snapshot()[0]?.id ?? ''
+			expect(h.queue.reprobe(itemId).ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 4}, 'Road trip mix').ok).toBe(true)
+
+			h.answer(ok(playlist(5)))
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'all'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: MIXED_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 5000}}})
+			expect(h.queue.snapshot()).toHaveLength(5)
+		})
+
+		it('a First N choice probes the N it offered, not the count the row was placed with', async () => {
+			h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 2}, origin: WINDOW})
+			await h.settled()
+			const itemId = h.queue.snapshot()[0]?.id ?? ''
+			expect(h.queue.reprobe(itemId).ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 4}, 'Road trip mix').ok).toBe(true)
+
+			h.answer(ok(playlist(5)))
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: MIXED_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 4}}})
+			expect(h.queue.snapshot()).toHaveLength(4)
+		})
+	})
+
 	it('a failure with no words of its own reads the localized fallback', async () => {
 		h.answer(fail({kind: 'other', code: 'unknown', message: ''}))
 		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})

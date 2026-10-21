@@ -6,14 +6,14 @@ import i18next from 'i18next'
 import type {AppApi} from '@shared/api.js'
 import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import type {IntakeEvent, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
-import {resolvePinnedQuickProbe, type QuickProbeEnv, type QuickProbeResolution, type QuickProbeTake} from '@shared/intake/probeResolution.js'
+import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
-import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS} from '@shared/schemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type QuickProbeTake} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfileRef, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
 export interface IntakeMockDeps {
@@ -32,6 +32,11 @@ interface Probe {
 	title: string
 	scope?: PlaylistScope
 	take?: QuickProbeTake
+}
+
+// The count a row was placed with, and how far its probe looks for it.
+function ownTake(row: QueueItem): Pick<Probe, 'scope' | 'take'> {
+	return row.probeTake ? {scope: scopeForTake(row.probeTake), take: row.probeTake} : {}
 }
 
 export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
@@ -93,7 +98,7 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 	}
 
 	return {
-		add: async ({requestId, url, playlistMode, title, profile: requested}) => {
+		add: async ({requestId, url, playlistMode, title, profile: requested, take}) => {
 			const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
 			if (live) return ok({kind: 'already-queued', itemId: live.id})
 			const pinned = activePinned(requested)
@@ -123,24 +128,29 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 				writeM3u: false,
 				retryCount: 0,
 				probeMode: playlistMode,
+				...(take ? {probeTake: take} : {}),
 				pinnedProfile: pinned,
 				origin: {kind: 'window', intakeId: crypto.randomUUID()},
 				job: {kind: 'unresolved', extractor: '', extractorKey: ''}
 			}
 			const added = await deps.add([row])
 			if (!added.ok) return ok(added.error.code === 'conflict' ? {kind: 'already-queued', itemId: null} : {kind: 'not-added'})
-			void runProbe(row.id, {url, playlistMode, title: row.title}, requestId)
+			void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId)
 			return ok({kind: 'added', itemId: row.id, title: row.title})
 		},
-		retry: ({requestId, itemId}) => restart(itemId, requestId, {}),
+		retry: ({requestId, itemId}) => {
+			const row = find(itemId)
+			return restart(itemId, requestId, row ? ownTake(row) : {})
+		},
 		choose: ({requestId, itemId, take}) => {
 			const row = find(itemId)
 			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} is not waiting for a choice`}))
 			const {choice} = row
-			if (take === 'all') return restart(itemId, requestId, {scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}})
+			// The answer overrides any count the row was placed with.
+			if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
 			if (choice.kind !== 'playlist-cap') return Promise.resolve(fail({code: 'validation', message: 'only a playlist over the load limit offers its first videos'}))
 			const first = {kind: 'first', count: choice.loaded} as const
-			return restart(itemId, requestId, {scope: {items: first}, take: first}, kept.get(itemId))
+			return restart(itemId, requestId, {scope: scopeForTake(first), take: first}, kept.get(itemId))
 		},
 		keptProbe: ({itemId}) => Promise.resolve(ok(kept.get(itemId) ?? null)),
 		setWindowContext: context => {
