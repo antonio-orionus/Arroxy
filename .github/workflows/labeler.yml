@@ -1,0 +1,25 @@
+name: Labeler
+
+# pull_request_target so fork and Dependabot PRs get a token that can add
+# labels. It checks out nothing from the PR: the action reads only the changed
+# file list and the config on the base branch.
+on:
+  pull_request_target:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+permissions:
+  contents: read
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    # issues: write lets the action create a configured label that does not
+    # exist yet (tests, i18n) instead of failing the run.
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0

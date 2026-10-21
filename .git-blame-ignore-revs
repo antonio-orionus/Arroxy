@@ -1,0 +1,8 @@
+# Formatter sweeps that GitHub's blame view skips, so a line is attributed to
+# the commit that last changed what it says. Locally:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Switch lint and format tooling to Biome and Oxlint
+85d753113a56b1f7632e87b55bea56d3246eff7d
+# style: prettier formatting from previous commit
+86c631ef083e411e30602a03be205acca0667a03
