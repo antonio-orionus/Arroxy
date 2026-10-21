@@ -1,6 +1,7 @@
 import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import {audioConversionOutcome} from 'yt-dlp-bridge/audio-conversion'
 import {fileTypeFits, mp4Caveat, type Mp4Caveat} from '@shared/fileTypeFit.js'
+import {EXTRACTED_AUDIO_CONTAINER} from '@shared/thumbnailEmbed.js'
 import {compatibleExt} from '@shared/ytdlp/compatibleExt.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AppState} from '../types.js'
@@ -13,7 +14,8 @@ import type {AppState} from '../types.js'
  * - subtitle-only → no media container
  * - audio convert → target format ('mp3', 'm4a', 'opus', 'wav')
  * - audio mode native or keep as-is → `--audio-format best`'s container
- *   (a WebM's Opus lands as .opus)
+ *   (a WebM's Opus lands as .opus); for a stream naming no codec, the
+ *   extracted-audio container yt-dlp names at download
  * - audio-only native beside no video pick → format's own ext
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
  * - video + a chosen file type → that type (WebM only when the streams fit,
@@ -29,12 +31,14 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
 	if (audioSelection.kind === 'convert-lossy') return audioSelection.target
 	// Audio mode extracts with `--audio-format best`: the codec's own container
-	// (a WebM's Opus lands as .opus), keep as-is that of its combined file.
+	// (a WebM's Opus lands as .opus), keep as-is that of its combined file. A
+	// stream naming no codec is named at download, never as its .mp4 or .webm.
 	if (mediaKind === 'audio' && (audioSelection.kind === 'native' || audioSelection.kind === 'extract')) {
 		// Keep as-is that names no file leaves the pick to yt-dlp: no guess from the list's order.
 		const named = audioSelection.formatId
 		const source = named === undefined ? undefined : wizardFormats.find(f => f.formatId === named)
-		return (source ? audioConversionOutcome('best', {ext: source.ext, acodec: source.audioCodec})?.ext : undefined) ?? (audioSelection.kind === 'native' ? (source?.ext ?? 'unknown') : 'unknown')
+		if (!source) return 'unknown'
+		return audioConversionOutcome('best', {ext: source.ext, acodec: source.audioCodec})?.ext ?? EXTRACTED_AUDIO_CONTAINER
 	}
 
 	if (selectedVideoFormatId === '') {
