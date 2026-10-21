@@ -17,8 +17,8 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 
@@ -58,41 +58,41 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Razišči</b><br/>Brskajte po YouTubu ali katerem koli drugem spletnem mestu v programu Arroxy in prenesite stran, na kateri ste, z aktivnim profilom</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Razišči</b><br/>Brskajte po YouTubu ali katerem koli drugem spletnem mestu v programu Arroxy in prenesite stran, na kateri ste, z aktivnim profilom</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prvi zaslon Razišči</b><br/>Kratek pogled na Razišči in zakaj je sekundarni račun varnejša prijava</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prenosi vam povedo, kaj potrebuje vas</b><br/>Povezave se pripravljajo v ozadju; neuspela ponudi rešitev, dolg seznam predvajanja počaka na vašo izbiro</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prvi zaslon Razišči</b><br/>Kratek pogled na Razišči in zakaj je sekundarni račun varnejša prijava</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prenosi vam povedo, kaj potrebuje vas</b><br/>Povezave se pripravljajo v ozadju; neuspela ponudi rešitev, dolg seznam predvajanja počaka na vašo izbiro</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prenesite samo del videoposnetka</b><br/>Izberite začetek in konec ali poglavje — Arroxy shrani samo ta obseg</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prenesite samo del videoposnetka</b><br/>Izberite začetek in konec ali poglavje — Arroxy shrani samo ta obseg</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR pri 60 sličicah/s</b><br/>Vsaka ločljivost, kodek in tok HDR, ki ga videoposnetek ponuja, drug ob drugem</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR pri 60 sličicah/s</b><br/>Vsaka ločljivost, kodek in tok HDR, ki ga videoposnetek ponuja, drug ob drugem</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Urejevalnik profilov</b><br/>Prilagodite profil: vrsto datoteke, ločljivost, podnapise, cilj, predlogo imena datoteke in več</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Urejevalnik profilov</b><br/>Prilagodite profil: vrsto datoteke, ločljivost, podnapise, cilj, predlogo imena datoteke in več</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Temno ali svetlo, steklo ali polno</b><br/>Štirje videzi na izbiro: steklene plošče nad gibajočim se nebom ali mirne polne površine, vsak v temni in svetli različici</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Temno ali svetlo, steklo ali polno</b><br/>Štirje videzi na izbiro: steklene plošče nad gibajočim se nebom ali mirne polne površine, vsak v temni in svetli različici</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Splošna bližnjica za prenos v Arroxy — Ctrl+Shift+D v sistemih Windows in Linux, Cmd+Shift+D v macOS, ki kopirano povezavo pošlje neposredno v vrsto prenosov" width="760" /></picture><br/><sub><b>Splošna bližnjica za prenos</b><br/>Kjer koli kopirajte povezavo, enkrat pritisnite — pristane v vrsti in se začne prenašati</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po elementih seznama predvajanja</b><br/>Vsakemu videoposnetku dajte lasten profil — nekatere arhivirajte v 4K, preostale prenesite kot MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/sl/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po elementih seznama predvajanja</b><br/>Vsakemu videoposnetku dajte lasten profil — nekatere arhivirajte v 4K, preostale prenesite kot MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Domača stran hitrega prenosa</b><br/>Prilepite URL in ga takoj prenesite z aktivnim profilom</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Večkrat uporabni profili prenosa</b><br/>Shranite prednastavitve formata, kakovosti in izhoda — uporabite jih pri vsakem prenosu</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Domača stran hitrega prenosa</b><br/>Prilepite URL in ga takoj prenesite z aktivnim profilom</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Večkrat uporabni profili prenosa</b><br/>Shranite prednastavitve formata, kakovosti in izhoda — uporabite jih pri vsakem prenosu</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Večjezični zvočni posnetki</b><br/>Izberite točen jezik zvoka, ki ga videoposnetek ponuja</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Prostorski / Dolby zvok</b><br/>Posnetki 5.1 in Dolby so zaznani in ohranjeni</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Večjezični zvočni posnetki</b><br/>Izberite točen jezik zvoka, ki ga videoposnetek ponuja</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Prostorski / Dolby zvok</b><br/>Posnetki 5.1 in Dolby so zaznani in ohranjeni</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Način več naslovov URL</b><br/>Prilepite seznam, samodejno odstranite dvojnike in vse dodajte v vrsto naenkrat</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Vzporedna vrsta prenosov</b><br/>Več prenosov hkrati z napredkom v živo</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Način več naslovov URL</b><br/>Prilepite seznam, samodejno odstranite dvojnike in vse dodajte v vrsto naenkrat</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/sl/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Vzporedna vrsta prenosov</b><br/>Več prenosov hkrati z napredkom v živo</sub></td>
   </tr>
 </table>
 

@@ -17,8 +17,8 @@
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](../../README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../../../pulls) ได้เลย
 
@@ -58,41 +58,41 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube หรือเว็บไซต์อื่นใดใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>เรียกดู YouTube หรือเว็บไซต์อื่นใดใน Arroxy แล้วดาวน์โหลดหน้าที่กำลังดูด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>หน้าแรกของ Explore</b><br/>แนะนำ Explore สั้น ๆ และเหตุผลที่บัญชีสำรองปลอดภัยกว่าสำหรับการเข้าสู่ระบบ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>แท็บดาวน์โหลดบอกว่าอะไรต้องให้คุณจัดการ</b><br/>ลิงก์เตรียมข้อมูลเบื้องหลัง ลิงก์ที่ล้มเหลวจะเสนอวิธีแก้ และเพลย์ลิสต์ยาวจะรอให้คุณเลือก</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>หน้าแรกของ Explore</b><br/>แนะนำ Explore สั้น ๆ และเหตุผลที่บัญชีสำรองปลอดภัยกว่าสำหรับการเข้าสู่ระบบ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>แท็บดาวน์โหลดบอกว่าอะไรต้องให้คุณจัดการ</b><br/>ลิงก์เตรียมข้อมูลเบื้องหลัง ลิงก์ที่ล้มเหลวจะเสนอวิธีแก้ และเพลย์ลิสต์ยาวจะรอให้คุณเลือก</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ดาวน์โหลดเฉพาะบางส่วนของวิดีโอ</b><br/>เลือกจุดเริ่มต้นและจุดสิ้นสุด หรือเลือกบท — Arroxy จะบันทึกเฉพาะช่วงนั้น</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ดาวน์โหลดเฉพาะบางส่วนของวิดีโอ</b><br/>เลือกจุดเริ่มต้นและจุดสิ้นสุด หรือเลือกบท — Arroxy จะบันทึกเฉพาะช่วงนั้น</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR ที่ 60 fps</b><br/>ทุกความละเอียด โคเดก และสตรีม HDR ที่วิดีโอมี เรียงเคียงกัน</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR ที่ 60 fps</b><br/>ทุกความละเอียด โคเดก และสตรีม HDR ที่วิดีโอมี เรียงเคียงกัน</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ตัวแก้ไขโปรไฟล์</b><br/>ปรับแต่งโปรไฟล์: ชนิดไฟล์ ความละเอียด คำบรรยาย ปลายทาง เทมเพลตชื่อไฟล์ และอื่น ๆ</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ตัวแก้ไขโปรไฟล์</b><br/>ปรับแต่งโปรไฟล์: ชนิดไฟล์ ความละเอียด คำบรรยาย ปลายทาง เทมเพลตชื่อไฟล์ และอื่น ๆ</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>มืดหรือสว่าง กระจกหรือเรียบ</b><br/>สี่รูปลักษณ์ให้เลือก: แผงกระจกบนท้องฟ้าที่เคลื่อนไหว หรือพื้นผิวเรียบสงบ ทั้งแบบมืดและสว่าง</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>มืดหรือสว่าง กระจกหรือเรียบ</b><br/>สี่รูปลักษณ์ให้เลือก: แผงกระจกบนท้องฟ้าที่เคลื่อนไหว หรือพื้นผิวเรียบสงบ ทั้งแบบมืดและสว่าง</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>โปรไฟล์แยกต่อรายการเพลย์ลิสต์</b><br/>ให้แต่ละวิดีโอใช้โปรไฟล์ของตัวเอง — เก็บบางรายการเป็น 4K และที่เหลือเป็น MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/th/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>โปรไฟล์แยกต่อรายการเพลย์ลิสต์</b><br/>ให้แต่ละวิดีโอใช้โปรไฟล์ของตัวเอง — เก็บบางรายการเป็น 4K และที่เหลือเป็น MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>หน้าดาวน์โหลดด่วน</b><br/>วาง URL แล้วดาวน์โหลดทันทีด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>โปรไฟล์ดาวน์โหลดที่ใช้ซ้ำได้</b><br/>บันทึกรูปแบบ คุณภาพ และปลายทาง แล้วใช้ซ้ำในแต่ละงาน</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>หน้าดาวน์โหลดด่วน</b><br/>วาง URL แล้วดาวน์โหลดทันทีด้วยโปรไฟล์ที่ใช้งานอยู่</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>โปรไฟล์ดาวน์โหลดที่ใช้ซ้ำได้</b><br/>บันทึกรูปแบบ คุณภาพ และปลายทาง แล้วใช้ซ้ำในแต่ละงาน</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>แทร็กเสียงหลายภาษา</b><br/>เลือกภาษาเสียงที่มากับวิดีโอได้อย่างแม่นยำ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>เสียง surround / Dolby</b><br/>ตรวจพบและเก็บแทร็ก 5.1 กับ Dolby ไว้</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>แทร็กเสียงหลายภาษา</b><br/>เลือกภาษาเสียงที่มากับวิดีโอได้อย่างแม่นยำ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>เสียง surround / Dolby</b><br/>ตรวจพบและเก็บแทร็ก 5.1 กับ Dolby ไว้</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>โหมด URL จำนวนมาก</b><br/>วางรายการ ลบรายการซ้ำอัตโนมัติ แล้วเพิ่มทั้งหมดเข้าคิว</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>คิวดาวน์โหลดแบบขนาน</b><br/>ดาวน์โหลดหลายงานพร้อมกันพร้อมความคืบหน้าแบบสด</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>โหมด URL จำนวนมาก</b><br/>วางรายการ ลบรายการซ้ำอัตโนมัติ แล้วเพิ่มทั้งหมดเข้าคิว</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/th/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>คิวดาวน์โหลดแบบขนาน</b><br/>ดาวน์โหลดหลายงานพร้อมกันพร้อมความคืบหน้าแบบสด</sub></td>
   </tr>
 </table>
 

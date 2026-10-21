@@ -17,8 +17,8 @@ Laadige alla videoid, Shortse, muusikat, kanaleid, taskuhäälinguid või helilu
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 See tõlge valmis tehisintellekti toel. [Ingliskeelne README](../../README.md) on esmane allikas. Leidsite vea? [Avage PR](../../../../pulls).
 
@@ -58,41 +58,41 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Avasta</b><br/>Sirvige YouTube’i või mis tahes muud saiti Arroxys ja laadige leht, millel olete, alla oma aktiivse profiiliga</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Avasta</b><br/>Sirvige YouTube’i või mis tahes muud saiti Arroxys ja laadige leht, millel olete, alla oma aktiivse profiiliga</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Avasta esimene ekraan</b><br/>Kiire ülevaade Avastast ja miks teisene konto on turvalisem sisselogimine</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Allalaadimised ütlevad, mis vajab teid</b><br/>Lingid valmistatakse ette taustal; ebaõnnestunud link pakub lahendust, pikk esitusloend ootab teie valikut</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Avasta esimene ekraan</b><br/>Kiire ülevaade Avastast ja miks teisene konto on turvalisem sisselogimine</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Allalaadimised ütlevad, mis vajab teid</b><br/>Lingid valmistatakse ette taustal; ebaõnnestunud link pakub lahendust, pikk esitusloend ootab teie valikut</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Laadige alla ainult osa videost</b><br/>Valige algus ja lõpp või peatükk — Arroxy salvestab ainult selle vahemiku</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Laadige alla ainult osa videost</b><br/>Valige algus ja lõpp või peatükk — Arroxy salvestab ainult selle vahemiku</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 kaadrit sekundis</b><br/>Iga eraldusvõime, koodek ja HDR-voog, mida video pakub, kõrvuti</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 kaadrit sekundis</b><br/>Iga eraldusvõime, koodek ja HDR-voog, mida video pakub, kõrvuti</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profiiliredaktor</b><br/>Kohandage profiili: failitüüp, eraldusvõime, subtiitrid, sihtkoht, failinime mall ja muu</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profiiliredaktor</b><br/>Kohandage profiili: failitüüp, eraldusvõime, subtiitrid, sihtkoht, failinime mall ja muu</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tume või hele, klaas või ühtlane</b><br/>Neli ilmet valida: klaaspaneelid liikuva taeva kohal või vaiksed ühtlased pinnad, kumbki tumedana ja heledana</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tume või hele, klaas või ühtlane</b><br/>Neli ilmet valida: klaaspaneelid liikuva taeva kohal või vaiksed ühtlased pinnad, kumbki tumedana ja heledana</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy globaalne allalaadimise kiirklahv — Ctrl+Shift+D Windowsis ja Linuxis, Cmd+Shift+D macOS-is, saadab kopeeritud lingi otse allalaadimisjärjekorda" width="760" /></picture><br/><sub><b>Globaalne allalaadimise kiirklahv</b><br/>Kopeerige link kus tahes, vajutage üks kord — see jõuab järjekorda ja allalaadimine algab</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Esitusloendi üksuste profiilid</b><br/>Andke igale videole oma profiil — arhiveerige mõned 4K-s, ülejäänud tõmmake MP3-na</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Esitusloendi üksuste profiilid</b><br/>Andke igale videole oma profiil — arhiveerige mõned 4K-s, ülejäänud tõmmake MP3-na</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Kiirallalaadimise avaleht</b><br/>Kleepige URL ja tõmmake see kohe alla oma aktiivse profiiliga</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Taaskasutatavad allalaadimisprofiilid</b><br/>Salvestage vormingu, kvaliteedi ja väljundi eelseadistused — kasutage iga allalaadimise puhul uuesti</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Kiirallalaadimise avaleht</b><br/>Kleepige URL ja tõmmake see kohe alla oma aktiivse profiiliga</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Taaskasutatavad allalaadimisprofiilid</b><br/>Salvestage vormingu, kvaliteedi ja väljundi eelseadistused — kasutage iga allalaadimise puhul uuesti</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Mitmekeelsed helirajad</b><br/>Valige täpne helikeel, mida video pakub</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Ruumi- / Dolby-heli</b><br/>5.1 ja Dolby rajad tuvastatakse ja säilitatakse</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Mitmekeelsed helirajad</b><br/>Valige täpne helikeel, mida video pakub</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Ruumi- / Dolby-heli</b><br/>5.1 ja Dolby rajad tuvastatakse ja säilitatakse</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Hulgi-URL-ide režiim</b><br/>Kleepige loend, dubleerivad eemaldatakse automaatselt, pange kõik korraga järjekorda</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralleelne allalaadimisjärjekord</b><br/>Mitu allalaadimist korraga reaalajas edenemisega</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Hulgi-URL-ide režiim</b><br/>Kleepige loend, dubleerivad eemaldatakse automaatselt, pange kõik korraga järjekorda</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralleelne allalaadimisjärjekord</b><br/>Mitu allalaadimist korraga reaalajas edenemisega</sub></td>
   </tr>
 </table>
 

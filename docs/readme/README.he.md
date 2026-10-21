@@ -17,8 +17,8 @@
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 תרגום זה נוצר בסיוע AI. [ה-README באנגלית](../../README.md) הוא המקור המחייב. מצאתם שגיאה? [פתחו PR](../../../../pulls).
 
@@ -58,41 +58,41 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>גילוי</b><br/>גלשו ב-YouTube או בכל אתר אחר בתוך Arroxy והורידו את הדף שבו אתם נמצאים עם הפרופיל הפעיל</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>גילוי</b><br/>גלשו ב-YouTube או בכל אתר אחר בתוך Arroxy והורידו את הדף שבו אתם נמצאים עם הפרופיל הפעיל</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>המסך הראשון של גילוי</b><br/>מבט קצר על “גילוי”, ולמה חשבון משני הוא ההתחברות הבטוחה יותר</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>“הורדות” אומר לכם מה דורש אתכם</b><br/>קישורים מתכוננים ברקע; קישור שנכשל מציע את התיקון שלו, ורשימת השמעה ארוכה ממתינה לבחירתכם</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>המסך הראשון של גילוי</b><br/>מבט קצר על “גילוי”, ולמה חשבון משני הוא ההתחברות הבטוחה יותר</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>“הורדות” אומר לכם מה דורש אתכם</b><br/>קישורים מתכוננים ברקע; קישור שנכשל מציע את התיקון שלו, ורשימת השמעה ארוכה ממתינה לבחירתכם</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>הורדת חלק מסרטון בלבד</b><br/>בחרו התחלה וסיום, או פרק — Arroxy שומר רק את הטווח הזה</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>הורדת חלק מסרטון בלבד</b><br/>בחרו התחלה וסיום, או פרק — Arroxy שומר רק את הטווח הזה</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR ב-60 פריימים לשנייה</b><br/>כל רזולוציה, קודק וזרם HDR שהסרטון מציע, זה לצד זה</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR ב-60 פריימים לשנייה</b><br/>כל רזולוציה, קודק וזרם HDR שהסרטון מציע, זה לצד זה</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>עורך הפרופילים</b><br/>כווננו פרופיל: סוג קובץ, רזולוציה, כתוביות, יעד, תבנית שם קובץ ועוד</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>עורך הפרופילים</b><br/>כווננו פרופיל: סוג קובץ, רזולוציה, כתוביות, יעד, תבנית שם קובץ ועוד</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>כהה או בהיר, זכוכית או אחיד</b><br/>ארבעה מראות לבחירה: לוחות זכוכית מעל שמיים נעים או משטחים אחידים ושקטים, כל אחד בכהה ובבהיר</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>כהה או בהיר, זכוכית או אחיד</b><br/>ארבעה מראות לבחירה: לוחות זכוכית מעל שמיים נעים או משטחים אחידים ושקטים, כל אחד בכהה ובבהיר</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="מקש קיצור גלובלי להורדה ב-Arroxy — Ctrl+Shift+D ב-Windows וב-Linux, Cmd+Shift+D ב-macOS, ששולח את הקישור שהועתק ישירות לתור ההורדות" width="760" /></picture><br/><sub><b>מקש קיצור גלובלי להורדה</b><br/>העתיקו קישור בכל מקום, הקישו פעם אחת — הוא נוסף לתור ומתחיל להיות מורד</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>פרופילים לכל פריט ברשימת השמעה</b><br/>תנו לכל סרטון פרופיל משלו — ארכבו חלק ב-4K והורידו את השאר כ-MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/he/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>פרופילים לכל פריט ברשימת השמעה</b><br/>תנו לכל סרטון פרופיל משלו — ארכבו חלק ב-4K והורידו את השאר כ-MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>מסך הבית של הורדה מהירה</b><br/>הדביקו כתובת URL והורידו אותה מיד עם הפרופיל הפעיל</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>פרופילי הורדה לשימוש חוזר</b><br/>שמרו הגדרות מוכנות של פורמט, איכות ופלט — והשתמשו בהן בכל הורדה</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>מסך הבית של הורדה מהירה</b><br/>הדביקו כתובת URL והורידו אותה מיד עם הפרופיל הפעיל</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>פרופילי הורדה לשימוש חוזר</b><br/>שמרו הגדרות מוכנות של פורמט, איכות ופלט — והשתמשו בהן בכל הורדה</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>רצועות שמע בכמה שפות</b><br/>בחרו את שפת השמע המדויקת שהסרטון מגיע איתה</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>שמע היקפי / Dolby</b><br/>רצועות 5.1 ו-Dolby מזוהות ונשמרות</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>רצועות שמע בכמה שפות</b><br/>בחרו את שפת השמע המדויקת שהסרטון מגיע איתה</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>שמע היקפי / Dolby</b><br/>רצועות 5.1 ו-Dolby מזוהות ונשמרות</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>מצב כתובות URL מרובות</b><br/>הדביקו רשימה, הסירו כפילויות אוטומטית, והוסיפו את כולן לתור בבת אחת</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>תור הורדות מקבילי</b><br/>כמה הורדות בו זמנית עם התקדמות חיה</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>מצב כתובות URL מרובות</b><br/>הדביקו רשימה, הסירו כפילויות אוטומטית, והוסיפו את כולן לתור בבת אחת</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/he/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>תור הורדות מקבילי</b><br/>כמה הורדות בו זמנית עם התקדמות חיה</sub></td>
   </tr>
 </table>
 

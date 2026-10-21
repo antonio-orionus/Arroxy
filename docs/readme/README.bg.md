@@ -17,8 +17,8 @@
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Този превод е направен с помощта на ИИ. [Английският README](../../README.md) е основният източник. Намерихте грешка? [Отворете PR](../../../../pulls).
 
@@ -58,41 +58,41 @@
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Разглеждане</b><br/>Разглеждайте YouTube или друг сайт в Arroxy и изтегляйте страницата, на която сте, с активния си профил</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Разглеждане</b><br/>Разглеждайте YouTube или друг сайт в Arroxy и изтегляйте страницата, на която сте, с активния си профил</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Първият екран на „Разглеждане“</b><br/>Бърз поглед към „Разглеждане“ и защо резервният акаунт е по-безопасният избор за вход</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>„Изтегляния“ ви казва какво се нуждае от вас</b><br/>Връзките се подготвят на заден план; неуспялата предлага поправка, дългият плейлист чака вашия избор</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Първият екран на „Разглеждане“</b><br/>Бърз поглед към „Разглеждане“ и защо резервният акаунт е по-безопасният избор за вход</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>„Изтегляния“ ви казва какво се нуждае от вас</b><br/>Връзките се подготвят на заден план; неуспялата предлага поправка, дългият плейлист чака вашия избор</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Изтеглете само част от видео</b><br/>Изберете начало и край или глава — Arroxy запазва само този диапазон</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Изтеглете само част от видео</b><br/>Изберете начало и край или глава — Arroxy запазва само този диапазон</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR при 60 fps</b><br/>Всяка разделителна способност, кодек и HDR поток, които видеото предлага, един до друг</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR при 60 fps</b><br/>Всяка разделителна способност, кодек и HDR поток, които видеото предлага, един до друг</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Редактор на профили</b><br/>Нагласете профил: тип на файла, разделителна способност, субтитри, местоназначение, шаблон за име на файл и други</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Редактор на профили</b><br/>Нагласете профил: тип на файла, разделителна способност, субтитри, местоназначение, шаблон за име на файл и други</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Тъмен или светъл, стъкло или плътен</b><br/>Четири вида външен вид: стъклени панели върху движещо се небе или спокойни плътни повърхности, всеки в тъмен и светъл вариант</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Тъмен или светъл, стъкло или плътен</b><br/>Четири вида външен вид: стъклени панели върху движещо се небе или спокойни плътни повърхности, всеки в тъмен и светъл вариант</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Глобален пряк път за изтегляне на Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, който праща копираната връзка направо в опашката за изтегляне" width="760" /></picture><br/><sub><b>Глобален пряк път за изтегляне</b><br/>Копирайте връзка навсякъде, натиснете веднъж — тя влиза в опашката и започва да се изтегля</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили за всеки елемент от плейлист</b><br/>Дайте на всяко видео собствен профил — архивирайте част в 4K, а останалите вземете като MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/bg/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Профили за всеки елемент от плейлист</b><br/>Дайте на всяко видео собствен профил — архивирайте част в 4K, а останалите вземете като MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Начало на „Бързо изтегляне“</b><br/>Поставете адрес и го изтеглете веднага с активния си профил</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Преизползваеми профили за изтегляне</b><br/>Запазете формат, качество и настройки на изхода — използвайте ги за всяко изтегляне</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Начало на „Бързо изтегляне“</b><br/>Поставете адрес и го изтеглете веднага с активния си профил</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Преизползваеми профили за изтегляне</b><br/>Запазете формат, качество и настройки на изхода — използвайте ги за всяко изтегляне</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Аудиозаписи на няколко езика</b><br/>Изберете точния език на аудиото, с който идва видеото</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Съраунд / Dolby аудио</b><br/>Записите 5.1 и Dolby се разпознават и запазват</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Аудиозаписи на няколко езика</b><br/>Изберете точния език на аудиото, с който идва видеото</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Съраунд / Dolby аудио</b><br/>Записите 5.1 и Dolby се разпознават и запазват</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим „Много адреси“</b><br/>Поставете списък, дубликатите се премахват автоматично, добавете всичко в опашката наведнъж</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Успоредна опашка за изтегляне</b><br/>Няколко изтегляния наведнъж с напредък на живо</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Режим „Много адреси“</b><br/>Поставете списък, дубликатите се премахват автоматично, добавете всичко в опашката наведнъж</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/bg/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Успоредна опашка за изтегляне</b><br/>Няколко изтегляния наведнъж с напредък на живо</sub></td>
   </tr>
 </table>
 
