@@ -33,14 +33,16 @@ export function listedAudioFormats(formats: readonly FormatOption[], keepIds: re
 	return listed.filter(format => shown.has(format))
 }
 
-// What each named track of the listed streams shows: its language in the UI
-// language. YouTube's note ("English original (default)") is English whatever
-// the UI language, and other sites give a bare code ("ru"). A track keeps the
-// site's text where Intl can't name the language, or where its name would read
-// the same as another track's (a commentary in English).
-export function audioTrackNames(listed: readonly FormatOption[], uiLanguage: string): Map<string, string> {
+// What each named track shows: its language in the UI language. YouTube's note
+// ("English original (default)") is English whatever the UI language, and other
+// sites give a bare code ("ru"). Tracks are named among the streams the list
+// shows with nothing picked, so every surface names them alike: a hidden copy
+// the list keeps only as a pick (YouTube's HLS copy, with its own note) has no
+// entry and shows its note. A track also keeps the site's text where Intl can't
+// name the language, or where its name would read the same as another track's.
+export function audioTrackNames(formats: readonly FormatOption[], uiLanguage: string): Map<string, string> {
 	const languages = new Map<string, string | undefined>()
-	for (const format of listed) {
+	for (const format of listedAudioFormats(formats, [])) {
 		const track = trackOf(format)
 		if (track && !languages.has(track)) languages.set(track, format.audioLanguage)
 	}

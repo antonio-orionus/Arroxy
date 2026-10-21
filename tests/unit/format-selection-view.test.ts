@@ -286,6 +286,16 @@ describe('selectView — media kinds', () => {
 			expect(audio.trackNames).toEqual({Commentary: 'Commentary', English: 'English', 'English (director)': 'English (director)', 'Track 4': 'Track 4'})
 		})
 
+		it('names a track alike whichever of its copies is picked, as the review does', () => {
+			// YouTube's HLS copy has no codec and its own note for the same language.
+			const formats = [track('251-2', {audioLanguage: 'en-US', audioTrackLabel: 'English (US) original (default)'}), track('233', {audioLanguage: 'en-US', audioTrackLabel: 'American English - original (original)', audioCodec: undefined}), track('251-1', {audioLanguage: 'de', audioTrackLabel: 'German'})]
+			const pickingCopy = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '233'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats, language: 'ru'}).audio
+
+			expect(pickingCopy.tracks).toContain('American English - original (original)')
+			expect(pickingCopy.trackNames['English (US) original (default)']).toBe('Американский английский')
+			expect(pickingCopy.trackNames['American English - original (original)']).toBeUndefined()
+		})
+
 		it("keeps the site's text where a name would match another track's fallback", () => {
 			const audio = view([track('a', {audioLanguage: 'en', audioTrackLabel: 'English (default)'}), track('b', {audioLanguage: 'qaa', audioTrackLabel: 'English'})], 'en')
 

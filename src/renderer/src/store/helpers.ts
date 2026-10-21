@@ -1,6 +1,6 @@
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import {formatLanguageList} from '@renderer/lib/subtitleLabel.js'
-import {audioTrackNames, listedAudioFormats} from '@renderer/lib/audioTracks.js'
+import {audioTrackNames} from '@renderer/lib/audioTracks.js'
 import type {AudioConvert, FormatOption, LocalizedError, ProbeError, StatusSnapshot, WizardMediaKind} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
@@ -62,11 +62,11 @@ export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: 
 
 // A stream's label leads with its track's note ("English original (default) ·
 // webm · …", as the probe builds it); the track shows the name the language
-// picker gives it, named among the same listed streams.
+// picker gives it.
 function nativeAudioLabel(format: FormatOption, audioFormats: FormatOption[]): string {
 	const track = format.audioTrackLabel
 	if (!track || !format.label.startsWith(`${track} · `)) return format.label
-	const name = audioTrackNames(listedAudioFormats(audioFormats, [format.formatId]), i18next.language).get(track) ?? track
+	const name = audioTrackNames(audioFormats, i18next.language).get(track) ?? track
 	return `${name}${format.label.slice(track.length)}`
 }
 

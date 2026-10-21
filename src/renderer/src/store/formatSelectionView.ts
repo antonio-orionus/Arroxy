@@ -450,8 +450,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	// The stream a conversion converts stays listed too, even as a folded copy:
 	// the one it names, else the one yt-dlp picks.
 	const conversionSourceId = audioSelection.kind === 'convert-lossy' || audioSelection.kind === 'convert-lossless' ? (selectedConversionSource(conversionSelection, audioSelection.target, audioSelection.sourceFormatId)?.formatId ?? null) : null
-	const listedAudio = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId])
-	const audioRows = listedAudio.map(format => nativeAudioRow(format, profileAudioId, scale))
+	const audioRows = listedAudioFormats(wizardFormats, [nativeAudioId, profileAudioId, conversionSourceId]).map(format => nativeAudioRow(format, profileAudioId, scale))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]
 	const convertTargets = convertDisabled ? [] : AUDIO_CONVERT_TARGETS.map(spec => spec.target)
@@ -470,7 +469,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			hasDrcTwins: lines.some(line => line.variants.some(row => row.twinId !== null)),
 			tracks: namedTracks.length > 1 ? namedTracks : [],
 			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, namedTracks) : null,
-			trackNames: Object.fromEntries(audioTrackNames(listedAudio, state.language ?? 'en')),
+			trackNames: Object.fromEntries(audioTrackNames(wizardFormats, state.language ?? 'en')),
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
 			extractOffered,
