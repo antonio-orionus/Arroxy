@@ -2701,6 +2701,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Förbättrad bithastighet"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Original"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Rumsligt ljud"

@@ -2881,6 +2881,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Підвищений бітрейт"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Оригінал"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Просторовий звук"

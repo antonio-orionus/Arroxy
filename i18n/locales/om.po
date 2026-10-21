@@ -2701,6 +2701,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Bitrate fooyya'e"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Kan jalqabaa"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Sagalee iddoo"

@@ -9,6 +9,7 @@ The release translation sync hands this file to every translator (`translate-arr
 - **Explore**: the in-app browser tab. A name: use the locale's term below every time, never the English word.
 - **profile** / **download profile**: a saved set of download settings.
 - **queue**: the list of downloads waiting or running.
+- **Original** (a tag on an audio track): the track in the video's own language, as opposed to a dub or an audio description. Translate the adjective as said of an audio track or language, never "original file" or "authentic".
 - Format and codec names (MP4, H.264, SponsorBlock, FFmpeg) stay as written.
 
 ## Per locale

@@ -3061,6 +3061,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "معدل بت محسّن"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "أصلي"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "صوت مكاني"

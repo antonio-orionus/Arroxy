@@ -2701,6 +2701,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "উন্নত বিটরেট"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "মূল"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "স্পেশিয়াল অডিও"

@@ -2791,6 +2791,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Uzlabota bitrate"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Oriģināls"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Telpiskais audio"

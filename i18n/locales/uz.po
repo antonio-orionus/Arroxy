@@ -2701,6 +2701,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Yuqori bitreyt"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Asl"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Fazoviy ovoz"

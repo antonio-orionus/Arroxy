@@ -2791,6 +2791,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Poboljšana brzina prijenosa"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Izvorno"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Prostorni zvuk"

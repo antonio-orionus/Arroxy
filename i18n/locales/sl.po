@@ -2881,6 +2881,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Izboljšana bitna hitrost"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Izvirno"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Prostorski zvok"

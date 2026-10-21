@@ -2611,6 +2611,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "향상된 비트레이트"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "원어"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "공간 음향"

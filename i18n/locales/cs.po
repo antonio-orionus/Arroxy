@@ -2881,6 +2881,10 @@ msgctxt "wizard.formats.marker.enhancedBitrate"
 msgid "Enhanced bitrate"
 msgstr "Vylepšený datový tok"
 
+msgctxt "wizard.formats.marker.original"
+msgid "Original"
+msgstr "Původní"
+
 msgctxt "wizard.formats.marker.spatialAudio"
 msgid "Spatial audio"
 msgstr "Prostorový zvuk"
