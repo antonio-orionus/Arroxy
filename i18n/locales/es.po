@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Permitir"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Streams reescalados con IA permitidos"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube ofrece algunos vídeos antiguos en tamaños creados con IA. «Omitir» conserva los streams originales; aun así puedes elegir uno reescalado a mano."
@@ -2233,10 +2237,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Empieza cuando terminen otras descargas — usa todo el ancho de banda"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Solo audio"
-
 #. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValue_many"
 msgid "{{count}} of {{total}} videos"
@@ -2338,8 +2338,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Se guardarán en los {{count}} destinos de abajo"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "El ajuste preestablecido Solo subtítulos está activo pero no hay ningún idioma de subtítulos seleccionado — no se descargará nada."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "El perfil Solo subtítulos está activo, pero no hay ningún idioma de subtítulos seleccionado — no se descargará nada."
 
 #. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.profileBreakdownCount_many"
@@ -2462,10 +2462,6 @@ msgstr "{{count}} idioma"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} idiomas"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Solo audio"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2919,6 +2915,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM no admite {{codec}}, así que el tipo de archivo volvió a Auto."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Se guarda como .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Tamaño desconocido"
@@ -2947,57 +2947,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "con audio"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc cancela. No se carga nada hasta que elijas."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Elegir de la Playlist"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Elige tú mismo los formatos"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Límite de análisis de playlist: {{count}} elementos"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Solo este vídeo"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Carga la playlist, hasta tu límite de análisis, antes de mostrar el selector."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Abre sus formatos"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Descarga solo este video o pon toda la lista en cola con tu perfil de Descarga rápida activo."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Carga un vídeo"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Cantidad máxima de elementos que Arroxy escanea antes de poner en cola una lista, un canal o un resultado de búsqueda."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Carga hasta {{count}} para que elijas"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Pone en cola cada elemento cargado de la lista con el perfil de Descarga rápida activo. Si el escaneo alcanza tu límite, Arroxy pregunta antes de ponerlos en cola."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "El álbum, los primeros"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Pone en cola una descarga e ignora la lista adjunta a esta URL."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Tus vídeos que te gustan, los primeros"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Descargar este video"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "El Mix, los primeros"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Descargar toda la lista"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "La playlist, los primeros"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Carga solo este vídeo. Se ignora la playlist adjunta a esta URL."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Los vídeos subidos, los primeros"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Solo este"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "Ver más tarde, los primeros"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Este enlace tiene una Playlist"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Carga hasta {{count}} y luego los descarga"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Un Mix cambia cada vez que lo abres."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Elegir del álbum, entre los primeros"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Elegir de tus vídeos que te gustan, entre los primeros"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Elegir del Mix, entre los primeros"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Elegir de la playlist, entre los primeros"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Elegir de los vídeos subidos, entre los primeros"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Elegir de Ver más tarde, entre los primeros"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Descargar de este álbum"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Descargar de tus vídeos que te gustan"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Descargar de este Mix"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Descargar de esta playlist"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Descargar de los vídeos subidos de este canal"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Descargar de Ver más tarde"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Con {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3007,6 +3063,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Incrustar capítulos"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "capítulos"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Título, artista, descripción y fecha de subida escritos en el archivo."
@@ -3014,6 +3074,10 @@ msgstr "Título, artista, descripción y fecha de subida escritos en el archivo.
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Incrustar metadatos"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "metadatos"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3023,6 +3087,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Incrustar miniatura"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "carátula"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Guarda la descripción del vídeo como archivo .description junto a la descarga."
@@ -3030,6 +3098,10 @@ msgstr "Guarda la descripción del vídeo como archivo .description junto a la d
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Guardar descripción"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "archivo de descripción"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3046,6 +3118,10 @@ msgstr "Guarda la miniatura como archivo .jpg junto a la descarga."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Guardar miniatura"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "archivo de miniatura"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3455,6 +3531,48 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Miniatura del video"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Cambiar el límite de carga"
+
+#. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistCap.description_many"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy ha cargado {{count}} de elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear."
+
+#. Plural form "one" for es: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy ha cargado {{count}} elemento con el límite actual de {{limit}}. Pon en cola el elemento cargado ahora, o aumenta el límite y vuelve a escanear."
+
+#. Plural form "other" for es: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy ha cargado {{count}} elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear."
+
+#. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistCap.descriptionWithTitle_many"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ha cargado {{count}} de elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear."
+
+#. Plural form "one" for es: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ha cargado {{count}} elemento con el límite actual de {{limit}}. Pon en cola el elemento cargado ahora, o aumenta el límite y vuelve a escanear."
+
+#. Plural form "other" for es: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ha cargado {{count}} elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Poner en cola los elementos cargados"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "El escaneo de la playlist está limitado"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Elige la calidad para el lote"
@@ -3623,6 +3741,10 @@ msgstr "Hasta 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Mejor calidad"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Nuevo perfil"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3824,33 +3946,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Música o pódcasts"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Solo audio"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Solo archivos de subtítulos"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Solo subtítulos"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Archivos de vídeo normales"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Vídeo + audio"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Solo vídeo sin sonido"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Vídeo, sin audio"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4874,10 +4980,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} elementos"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Usar el límite de la app: {{count}}"
@@ -5118,6 +5220,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Nuevo perfil"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Este perfil guarda en una carpeta que no está definida. Elige una carpeta en el perfil o vuelve a la predeterminada."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Crea, selecciona, edita o elimina configuraciones de descarga reutilizables."
@@ -5137,30 +5243,6 @@ msgstr "Arrastra un perfil para moverlo. Todos los selectores de perfil siguen e
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Restablecer"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "audio AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "mejor audio"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "mejor vídeo"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "sin audio"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "solo subtítulos"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "audio WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Izinkan",
+		"allowedSummary": "Upscale AI diizinkan",
 		"description": "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual.",
 		"label": "Stream hasil upscale AI",
 		"skip": "Lewati"
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ Antrian",
 			"addToQueueTooltip": "Menambah antrian — dimulai saat pengunduhan aktif selesai",
-			"audioOnly": "Hanya audio",
 			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
 			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
 			"itemsValue_other": "{{count}} dari video {{total}}",
@@ -757,7 +757,7 @@
 			"labelVideo": "Video",
 			"landIn": "File Anda akan masuk",
 			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
-			"nothingToDownload": "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh.",
+			"nothingToDownload": "Profil Hanya subtitle aktif, tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh.",
 			"profileBreakdownCount_other": "item {{count}}",
 			"profileBreakdownHeading": "Profil dalam batch ini",
 			"pullIt": "Tarik! ↓",
@@ -789,7 +789,6 @@
 			"audio": "Audio",
 			"audioLanguage": "Bahasa audio",
 			"audioLanguageCount_other": "{{count}} bahasa",
-			"audioOnly": "Hanya audio",
 			"bitrateValue": "Kecepatan bit {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookie dikonfigurasikan tetapi dimatikan. Aktifkan dan coba lagi untuk mendapatkan daftar lengkap, atau ubah jaringan dan coba lagi.",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "Resolusi tidak diketahui",
 			"savesAs": {
 				"label": "Simpan sebagai",
-				"reset": "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis."
+				"reset": "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis.",
+				"value": "Disimpan sebagai .{{ext}}"
 			},
 			"sizeUnknown": "Ukuran tidak diketahui",
 			"skipToConfirm": "Lewati untuk mengonfirmasi",
@@ -951,37 +951,61 @@
 			"video": "Video",
 			"withAudio": "dengan audio"
 		},
-		"mixedPrompt": {
-			"body": "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu.",
-			"pickFromPlaylist": "Pilih dari daftar putar",
-			"playlistLimit": "Batas pemeriksaan daftar putar: item {{count}}",
-			"playlistTooltip": "Memuat daftar putar, hingga batas pemeriksaan daftar putar Anda, sebelum menampilkan alat pilih.",
-			"quickBody": "Unduh video ini saja, atau masukkan seluruh daftar putar ke dalam antrean dengan profil Unduh Cepat Anda yang aktif.",
-			"quickLimitDescription": "Entri maksimum yang dipindai Arroxy sebelum mengantri daftar putar, saluran, atau hasil pencarian.",
-			"quickPlaylistTooltip": "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri.",
-			"quickSingleTooltip": "Mengantri satu unduhan dan mengabaikan daftar putar yang terlampir pada URL ini.",
-			"quickSingleVideo": "Unduh video ini",
-			"quickWholePlaylist": "Unduh seluruh daftar putar",
-			"singleTooltip": "Hanya memuat video ini. Daftar putar yang terlampir pada URL ini diabaikan.",
-			"singleVideo": "Hanya yang ini",
-			"title": "Tautan ini memiliki daftar putar"
+		"listPrompt": {
+			"escHint": "Esc untuk membatalkan. Tidak ada yang dimuat sampai Anda memilih.",
+			"interactiveSubtitle": "Pilih format sendiri",
+			"justThisVideo": "Hanya video ini",
+			"justThisVideoInteractiveHint": "Membuka daftar formatnya",
+			"justThisVideoQuickHint": "Memuat satu video",
+			"listInteractiveHint": "Memuat hingga {{count}} untuk dipilih",
+			"listOption": {
+				"album": "Dari awal album",
+				"liked": "Dari awal video yang Anda sukai",
+				"mix": "Dari awal Mix",
+				"playlist": "Dari awal daftar putar",
+				"uploads": "Dari awal unggahan",
+				"watchLater": "Dari awal Tonton nanti"
+			},
+			"listQuickHint": "Memuat hingga {{count}}, lalu mengunduhnya",
+			"mixNote": "Mix berubah setiap kali Anda membukanya.",
+			"pickOption": {
+				"album": "Pilih dari awal album",
+				"liked": "Pilih dari awal video yang Anda sukai",
+				"mix": "Pilih dari awal Mix",
+				"playlist": "Pilih dari awal daftar putar",
+				"uploads": "Pilih dari awal unggahan",
+				"watchLater": "Pilih dari awal Tonton nanti"
+			},
+			"title": {
+				"album": "Unduh dari album ini",
+				"liked": "Unduh dari video yang Anda sukai",
+				"mix": "Unduh dari Mix ini",
+				"playlist": "Unduh dari daftar putar ini",
+				"uploads": "Unduh dari unggahan saluran ini",
+				"watchLater": "Unduh dari Tonton nanti"
+			},
+			"withProfile": "Dengan {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Penanda bab dapat dinavigasi di pemain modern mana pun.",
-				"label": "Sematkan bab"
+				"label": "Sematkan bab",
+				"short": "Bab"
 			},
 			"embedMetadata": {
 				"description": "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file.",
-				"label": "Sematkan metadata"
+				"label": "Sematkan metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Sampul seni di dalam file. Video WebM akan di-remix ke MKV; dilewati ketika subtitle tertanam.",
-				"label": "Sematkan gambar mini"
+				"label": "Sematkan gambar mini",
+				"short": "Sampul"
 			},
 			"writeDescription": {
 				"description": "Menyimpan deskripsi video sebagai file teks .description di sebelah unduhan.",
-				"label": "Simpan deskripsi"
+				"label": "Simpan deskripsi",
+				"short": "File deskripsi"
 			},
 			"writeM3u": {
 				"description": "Simpan daftar putar .m3u di samping video agar dapat dibuka secara berurutan di pemutar media Anda.",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan.",
-				"label": "Simpan gambar kecil"
+				"label": "Simpan gambar kecil",
+				"short": "File gambar mini"
 			}
 		},
 		"part": {
@@ -1080,6 +1105,13 @@
 			"syncScanning": "Memeriksa folder…",
 			"thumbnailAlt": "Gambar kecil video"
 		},
+		"playlistCap": {
+			"changeLimit": "Ubah batas pemuatan",
+			"descriptionWithTitle_other": "<title/>: Arroxy memuat {{count}} item sesuai batas saat ini, yaitu {{limit}}. Tambahkan item yang dimuat ke antrean sekarang, atau naikkan batas lalu pindai lagi.",
+			"description_other": "Arroxy memuat {{count}} item sesuai batas saat ini, yaitu {{limit}}. Tambahkan item yang dimuat ke antrean sekarang, atau naikkan batas lalu pindai lagi.",
+			"queueLoaded": "Tambahkan item yang dimuat ke antrean",
+			"title": "Pemindaian daftar putar dibatasi"
+		},
 		"playlistPresets": {
 			"heading": "Pilih kualitas untuk batch tersebut",
 			"itemCount_other": "item {{count}}",
@@ -1125,6 +1157,7 @@
 				"320": "Hingga 320K",
 				"best": "Kualitas terbaik"
 			},
+			"defaultName": "Profil baru",
 			"destination": {
 				"defaultFolder": "Folder unduhan default",
 				"defaultFolderWithSubfolder": "Folder unduhan default / {{subfolder}}",
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musik atau podcast",
-					"label": "Hanya audio"
+					"description": "Musik atau podcast"
 				},
 				"subtitlesOnly": {
-					"description": "Hanya berkas teks",
-					"label": "Hanya subtitle"
+					"description": "Hanya berkas teks"
 				},
 				"videoAudio": {
-					"description": "Berkas video biasa",
-					"label": "Video + audio"
+					"description": "Berkas video biasa"
 				},
 				"videoOnly": {
-					"description": "Hanya video tanpa suara",
-					"label": "Video, tanpa audio"
+					"description": "Hanya video tanpa suara"
 				}
 			},
 			"note": {
@@ -1562,8 +1591,7 @@
 				"description": "Entri maksimum Arroxy dimuat saat daftar putar, saluran, atau hasil pencarian dibuka.",
 				"invalid": "Gunakan bilangan bulat dari 1 hingga 5000",
 				"label": "Item daftar putar untuk dipindai",
-				"option": "item {{count}}",
-				"tooltip": "Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
+				"option": "item {{count}}"
 			},
 			"playlistScope": {
 				"appLimit": "Gunakan batas aplikasi: {{count}}",
@@ -1632,19 +1660,12 @@
 				"moveOver": "Profil {{profileName}} berada di atas posisi {{position}} dari {{count}}.",
 				"movePickedUp": "Profil {{profileName}} diangkat. Posisinya {{position}} dari {{count}}.",
 				"newProfile": "Profil baru",
+				"outputMissing": "Profil ini menyimpan ke folder yang belum diatur. Pilih folder di profil, atau kembalikan ke default.",
 				"panelDescription": "Buat, pilih, edit, atau hapus pengaturan unduhan yang dapat digunakan kembali.",
 				"panelTitle": "Unduh Profil",
 				"remove": "Menghapus",
 				"reorderHint": "Seret profil untuk memindahkannya. Semua pemilih profil mengikuti urutan ini.",
 				"reset": "Mengatur ulang",
-				"summary": {
-					"aacAudio": "audio AAC",
-					"bestAudio": "audio terbaik",
-					"bestVideo": "video terbaik",
-					"noAudio": "tanpa audio",
-					"subtitlesOnly": "hanya subtitel",
-					"wavAudio": "audio WAV"
-				},
 				"switchAria": "Ganti profil unduhan: {{profileName}}",
 				"switchTitle": "Ganti profil unduhan"
 			},

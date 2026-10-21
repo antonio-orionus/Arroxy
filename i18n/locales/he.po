@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "אפשר"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "זרמים משופרי AI מותרים"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube מציע כמה סרטונים ישנים בגדלים שנוצרו באמצעות AI. “דילוג” שומר על הזרמים המקוריים; עדיין אפשר לבחור ידנית זרם משופר."
@@ -2233,10 +2237,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "מוסיף לתור — מתחיל כשההורדה הפעילה מסתיימת"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "שמע בלבד"
-
 #. Plural form "one" for he: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2338,8 +2338,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "הם יישמרו בשני היעדים שלהלן"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "ההגדרה המוכנה “כתוביות בלבד” פעילה אך לא נבחרה שפת כתוביות — שום דבר לא יורד."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "הפרופיל “כתוביות בלבד” פעיל, אך לא נבחרה שפת כתוביות — שום דבר לא יורד."
 
 #. Plural form "one" for he: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2462,10 +2462,6 @@ msgstr "{{count}} שפות"
 msgctxt "wizard.formats.audioLanguageCount_two"
 msgid "{{count}} languages"
 msgstr "שתי שפות"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "שמע בלבד"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2919,6 +2915,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM אינו תומך ב-{{codec}}, ולכן סוג הקובץ חזר לאוטומטי."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "נשמר כ-.{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "גודל לא ידוע"
@@ -2947,57 +2947,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "עם שמע"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "רוצים רק את הסרטון שלחצתם עליו, או לבחור מרשימת ההשמעה? בשלב הבא תבחרו סרטונים מסוימים או טווח."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc מבטל. שום דבר לא נטען עד שתבחרו."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "בחירה מרשימת ההשמעה"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "בחירת הפורמטים בעצמכם"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "מגבלת בדיקת רשימת השמעה: {{count}} פריטים"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "רק הסרטון הזה"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "טוען את רשימת ההשמעה, עד מגבלת הבדיקה שלכם, לפני הצגת הבורר."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "פותח את הפורמטים שלו"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "הורידו רק את הסרטון הזה, או הוסיפו לתור את כל רשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "טוען סרטון אחד"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "המספר המרבי של פריטים ש-Arroxy סורק לפני הוספה לתור של רשימת השמעה, ערוץ או תוצאות חיפוש."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "טוען עד {{count}} לבחירה"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "מוסיף לתור כל פריט שנטען מרשימת ההשמעה עם פרופיל ההורדה המהירה הפעיל. אם הסריקה מגיעה למגבלה שלכם, Arroxy שואל לפני ההוספה לתור."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "הפריטים הראשונים באלבום"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "מוסיף לתור הורדה אחת ומתעלם מרשימת ההשמעה המצורפת לכתובת זו."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "הפריטים הראשונים בסרטונים שאהבתם"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "הורדת הסרטון הזה"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "הפריטים הראשונים במיקס"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "הורדת כל רשימת ההשמעה"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "הפריטים הראשונים ברשימת ההשמעה"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "טוען רק את הסרטון הזה. רשימת ההשמעה המצורפת לכתובת זו אינה נלקחת בחשבון."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "הפריטים הראשונים בהעלאות"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "רק זה"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "הפריטים הראשונים ב“לצפייה בהמשך”"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "בקישור זה יש רשימת השמעה"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "טוען עד {{count}} ואז מוריד אותם"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "מיקס משתנה בכל פעם שפותחים אותו."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "בחירה מהפריטים הראשונים באלבום"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "בחירה מהפריטים הראשונים בסרטונים שאהבתם"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "בחירה מהפריטים הראשונים במיקס"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "בחירה מהפריטים הראשונים ברשימת ההשמעה"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "בחירה מהפריטים הראשונים בהעלאות"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "בחירה מהפריטים הראשונים ב“לצפייה בהמשך”"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "הורדה מהאלבום הזה"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "הורדה מהסרטונים שאהבתם"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "הורדה מהמיקס הזה"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "הורדה מרשימת ההשמעה הזו"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "הורדה מההעלאות של הערוץ הזה"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "הורדה מ“לצפייה בהמשך”"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "עם {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3007,6 +3063,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "שילוב פרקים"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "פרקים"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "כותרת, אמן, תיאור ותאריך העלאה נכתבים לתוך הקובץ."
@@ -3014,6 +3074,10 @@ msgstr "כותרת, אמן, תיאור ותאריך העלאה נכתבים לת
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "שילוב מטא-נתונים"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "מטא-נתונים"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3023,6 +3087,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "שילוב תמונה ממוזערת"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "תמונת עטיפה"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "שומר את תיאור הסרטון בקובץ טקסט מסוג description לצד ההורדה."
@@ -3030,6 +3098,10 @@ msgstr "שומר את תיאור הסרטון בקובץ טקסט מסוג descr
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "שמירת תיאור"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "קובץ תיאור"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3046,6 +3118,10 @@ msgstr "שומר את התמונה הממוזערת כקובץ תמונה מסו
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "שמירת תמונה ממוזערת"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "קובץ תמונה ממוזערת"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3455,6 +3531,48 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "תמונה ממוזערת של הסרטון"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "שינוי מגבלת הטעינה"
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy טען {{count}} פריט לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריט שנטען לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy טען {{count}} פריטים לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריטים שנטענו לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlistCap.description_two"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy טען {{count}} פריטים לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריטים שנטענו לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+#. Plural form "one" for he: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy טען {{count}} פריט לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריט שנטען לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+#. Plural form "other" for he: used for counts like 0, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy טען {{count}} פריטים לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריטים שנטענו לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+#. Plural form "two" for he: used for counts like 2.
+msgctxt "wizard.playlistCap.descriptionWithTitle_two"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy טען {{count}} פריטים לפי המגבלה הנוכחית של {{limit}}. אפשר להוסיף עכשיו את הפריטים שנטענו לתור, או להגדיל את המגבלה ולסרוק שוב."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "הוספת הפריטים שנטענו לתור"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "סריקת רשימת ההשמעה מוגבלת"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "בחרו איכות עבור האצווה"
@@ -3623,6 +3741,10 @@ msgstr "עד 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "איכות מיטבית"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "פרופיל חדש"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3824,33 +3946,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "מוזיקה או פודקאסטים"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "שמע בלבד"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "קובצי כתוביות בלבד"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "כתוביות בלבד"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "קובצי וידאו רגילים"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "וידאו + שמע"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "וידאו שקט בלבד"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "וידאו, ללא שמע"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4874,10 +4980,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} פריטים"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy מבקש רק כמות זו של פריטים מרשימת השמעה, ערוץ או חיפוש בעת בניית הבורר."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "שימוש במגבלת היישום: {{count}}"
@@ -5118,6 +5220,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "פרופיל חדש"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "הפרופיל הזה שומר לתיקייה שלא הוגדרה. בחרו תיקייה בפרופיל, או החזירו אותה לברירת המחדל."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "יצירה, בחירה, עריכה או הסרה של הגדרות הורדה לשימוש חוזר."
@@ -5137,30 +5243,6 @@ msgstr "גררו פרופיל כדי להזיז אותו. כל בוררי הפר
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "איפוס"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "שמע AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "השמע הטוב ביותר"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "הווידאו הטוב ביותר"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "ללא שמע"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "כתוביות בלבד"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "שמע WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

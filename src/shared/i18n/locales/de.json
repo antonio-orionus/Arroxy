@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Zulassen",
+		"allowedSummary": "KI-hochskalierte Streams erlaubt",
 		"description": "YouTube bietet manche alten Videos in Größen an, die per KI erzeugt wurden. „Überspringen“ behält die Original-Streams; einen hochskalierten kannst du trotzdem von Hand wählen.",
 		"label": "KI-hochskalierte Streams",
 		"skip": "Überspringen"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Warteschlange",
 			"addToQueueTooltip": "Startet, wenn andere Downloads fertig sind — volle Bandbreite",
-			"audioOnly": "Nur Audio",
 			"itemsValueAudio_one": "{{count}} von {{total}} Titel",
 			"itemsValueAudio_other": "{{count}} von {{total}} Titeln",
 			"itemsValueBulk_one": "{{count}} von {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Deine Datei landet in",
 			"landInMultiProfile_one": "Es landet im Ziel unten",
 			"landInMultiProfile_other": "Sie landen in den {{count}} Zielen unten",
-			"nothingToDownload": "Das Voreinstellung „Nur Untertitel\" ist aktiv, aber keine Untertitelsprache ausgewählt – es wird nichts heruntergeladen.",
+			"nothingToDownload": "Das Profil „Nur Untertitel“ ist aktiv, aber es ist keine Untertitelsprache ausgewählt — es wird nichts heruntergeladen.",
 			"profileBreakdownCount_one": "{{count}} Element",
 			"profileBreakdownCount_other": "{{count}} Elemente",
 			"profileBreakdownHeading": "Profile in diesem Stapel",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Audiosprache",
 			"audioLanguageCount_one": "{{count}} Sprache",
 			"audioLanguageCount_other": "{{count}} Sprachen",
-			"audioOnly": "Nur Audio",
 			"bitrateValue": "Bitrate: {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies sind konfiguriert, aber deaktiviert. Aktiviere sie und versuche es erneut für die vollständige Liste, oder wechsle das Netzwerk.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Unbekannte Auflösung",
 			"savesAs": {
 				"label": "Speichern als",
-				"reset": "WebM kann {{codec}} nicht enthalten, deshalb ist der Dateityp wieder Auto."
+				"reset": "WebM kann {{codec}} nicht enthalten, deshalb ist der Dateityp wieder Auto.",
+				"value": "Wird als .{{ext}} gespeichert"
 			},
 			"sizeUnknown": "Größe unbekannt",
 			"skipToConfirm": "Zur Bestätigung überspringen",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "mit Audio"
 		},
-		"mixedPrompt": {
-			"body": "Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.",
-			"pickFromPlaylist": "Aus Playlist auswählen",
-			"playlistLimit": "Playlist-Prüflimit: {{count}} Einträge",
-			"playlistTooltip": "Lädt die Playlist bis zu deinem Playlist-Prüflimit, bevor die Auswahl angezeigt wird.",
-			"quickBody": "Lade nur dieses Video herunter oder stelle die ganze Playlist mit deinem aktiven Schnelldownload-Profil in die Warteschlange.",
-			"quickLimitDescription": "Maximale Anzahl der Einträge, die Arroxy scannt, bevor eine Playlist, ein Kanal oder ein Suchergebnis in die Warteschlange kommt.",
-			"quickPlaylistTooltip": "Stellt jeden geladenen Playlist-Eintrag mit dem aktiven Schnelldownload-Profil in die Warteschlange. Wenn der Scan dein Limit erreicht, fragt Arroxy vor dem Einreihen nach.",
-			"quickSingleTooltip": "Stellt einen Download in die Warteschlange und ignoriert die Playlist, die an diese URL angehängt ist.",
-			"quickSingleVideo": "Dieses Video herunterladen",
-			"quickWholePlaylist": "Ganze Playlist herunterladen",
-			"singleTooltip": "Lädt nur dieses Video. Die an diese URL angehängte Playlist wird ignoriert.",
-			"singleVideo": "Nur dieses eine",
-			"title": "Dieser Link enthält eine Playlist"
+		"listPrompt": {
+			"escHint": "Esc bricht ab. Es wird nichts geladen, bis du eine Wahl triffst.",
+			"interactiveSubtitle": "Formate selbst wählen",
+			"justThisVideo": "Nur dieses Video",
+			"justThisVideoInteractiveHint": "Öffnet die Formate des Videos",
+			"justThisVideoQuickHint": "Lädt ein Video",
+			"listInteractiveHint": "Lädt bis zu {{count}} zur Auswahl",
+			"listOption": {
+				"album": "Das Album, die ersten",
+				"liked": "Deine „Gefällt mir“-Videos, die ersten",
+				"mix": "Der Mix, die ersten",
+				"playlist": "Die Playlist, die ersten",
+				"uploads": "Die Uploads, die ersten",
+				"watchLater": "Später ansehen, die ersten"
+			},
+			"listQuickHint": "Lädt bis zu {{count}} und startet dann den Download",
+			"mixNote": "Ein Mix ändert sich bei jedem Öffnen.",
+			"pickOption": {
+				"album": "Aus dem Album wählen, die ersten",
+				"liked": "Aus deinen „Gefällt mir“-Videos wählen, die ersten",
+				"mix": "Aus dem Mix wählen, die ersten",
+				"playlist": "Aus der Playlist wählen, die ersten",
+				"uploads": "Aus den Uploads wählen, die ersten",
+				"watchLater": "Aus „Später ansehen“ wählen, die ersten"
+			},
+			"title": {
+				"album": "Aus diesem Album herunterladen",
+				"liked": "Aus deinen „Gefällt mir“-Videos herunterladen",
+				"mix": "Aus diesem Mix herunterladen",
+				"playlist": "Aus dieser Playlist herunterladen",
+				"uploads": "Aus den Uploads dieses Kanals herunterladen",
+				"watchLater": "Aus „Später ansehen“ herunterladen"
+			},
+			"withProfile": "Mit {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Kapitelmarkierungen, navigierbar in jedem modernen Player.",
-				"label": "Kapitel einbetten"
+				"label": "Kapitel einbetten",
+				"short": "Kapitel"
 			},
 			"embedMetadata": {
 				"description": "Titel, Künstler, Beschreibung und Upload-Datum in die Datei schreiben.",
-				"label": "Metadaten einbetten"
+				"label": "Metadaten einbetten",
+				"short": "Metadaten"
 			},
 			"embedThumbnail": {
 				"description": "Cover-Art in der Datei. WebM-Video wird zu MKV remuxed; wird übersprungen, wenn Untertitel eingebettet werden.",
-				"label": "Thumbnail einbetten"
+				"label": "Thumbnail einbetten",
+				"short": "Cover-Art"
 			},
 			"writeDescription": {
 				"description": "Speichert die Videobeschreibung als .description-Datei neben dem Download.",
-				"label": "Beschreibung speichern"
+				"label": "Beschreibung speichern",
+				"short": "Beschreibungsdatei"
 			},
 			"writeM3u": {
 				"description": "Speichert eine .m3u-Playlist neben den Videos, damit sie in Reihenfolge im Mediaplayer geöffnet werden.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Speichert das Thumbnail als .jpg-Bilddatei neben dem Download.",
-				"label": "Thumbnail speichern"
+				"label": "Thumbnail speichern",
+				"short": "Thumbnail-Datei"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Ordner wird geprüft…",
 			"thumbnailAlt": "Video-Vorschaubild"
 		},
+		"playlistCap": {
+			"changeLimit": "Ladelimit ändern",
+			"descriptionWithTitle_one": "<title/>: Arroxy hat {{count}} Eintrag mit dem aktuellen Limit von {{limit}} geladen. Reihe den geladenen Eintrag jetzt ein oder erhöhe das Limit und scanne erneut.",
+			"descriptionWithTitle_other": "<title/>: Arroxy hat {{count}} Einträge mit dem aktuellen Limit von {{limit}} geladen. Reihe die geladenen Einträge jetzt ein oder erhöhe das Limit und scanne erneut.",
+			"description_one": "Arroxy hat {{count}} Eintrag mit dem aktuellen Limit von {{limit}} geladen. Reihe den geladenen Eintrag jetzt ein oder erhöhe das Limit und scanne erneut.",
+			"description_other": "Arroxy hat {{count}} Einträge mit dem aktuellen Limit von {{limit}} geladen. Reihe die geladenen Einträge jetzt ein oder erhöhe das Limit und scanne erneut.",
+			"queueLoaded": "Geladene Einträge einreihen",
+			"title": "Playlist-Scan ist begrenzt"
+		},
 		"playlistPresets": {
 			"heading": "Qualität für den Stapel wählen",
 			"itemCount_one": "{{count}} Element",
@@ -1154,6 +1188,7 @@
 				"320": "Bis zu 320K",
 				"best": "Beste Qualität"
 			},
+			"defaultName": "Neues Profil",
 			"destination": {
 				"defaultFolder": "Standard-Downloadordner",
 				"defaultFolderWithSubfolder": "Standard-Downloadordner / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musik oder Podcasts",
-					"label": "Nur Audio"
+					"description": "Musik oder Podcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Nur Untertiteldateien",
-					"label": "Nur Untertitel"
+					"description": "Nur Untertiteldateien"
 				},
 				"videoAudio": {
-					"description": "Normale Videodateien",
-					"label": "Video + Audio"
+					"description": "Normale Videodateien"
 				},
 				"videoOnly": {
-					"description": "Nur Video ohne Ton",
-					"label": "Video, ohne Audio"
+					"description": "Nur Video ohne Ton"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Maximale Anzahl der Einträge, die Arroxy beim Öffnen einer Playlist, eines Kanals oder eines Suchergebnisses lädt.",
 				"invalid": "Verwende eine ganze Zahl von 1 bis 5000",
 				"label": "Playlist-Einträge scannen",
-				"option": "{{count}} Einträge",
-				"tooltip": "Arroxy fragt beim Aufbau der Auswahl nur so viele Playlist-, Kanal- oder Suchergebnisse ab."
+				"option": "{{count}} Einträge"
 			},
 			"playlistScope": {
 				"appLimit": "App-Limit verwenden: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "Profil „{{profileName}}“ befindet sich über Position {{position}} von {{count}}.",
 				"movePickedUp": "Profil „{{profileName}}“ aufgenommen. Es steht an Position {{position}} von {{count}}.",
 				"newProfile": "Neues Profil",
+				"outputMissing": "Dieses Profil speichert in einem Ordner, der nicht festgelegt ist. Wähle im Profil einen Ordner oder setze es auf den Standard zurück.",
 				"panelDescription": "Erstelle, wähle, bearbeite oder entferne wiederverwendbare Download-Einstellungen.",
 				"panelTitle": "Download-Profile",
 				"remove": "Entfernen",
 				"reorderHint": "Profil ziehen, um es zu verschieben. Jede Profilauswahl folgt dieser Reihenfolge.",
 				"reset": "Zurücksetzen",
-				"summary": {
-					"aacAudio": "AAC-Audio",
-					"bestAudio": "bestes Audio",
-					"bestVideo": "bestes Video",
-					"noAudio": "kein Audio",
-					"subtitlesOnly": "nur Untertitel",
-					"wavAudio": "WAV-Audio"
-				},
 				"switchAria": "Download-Profil wechseln: {{profileName}}",
 				"switchTitle": "Download-Profil wechseln"
 			},

@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Izinkan"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Upscale AI diizinkan"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube menyediakan beberapa video lama dalam ukuran yang dibuat dengan AI. Lewati mempertahankan stream asli; Anda tetap bisa memilih stream hasil upscale secara manual."
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Menambah antrian — dimulai saat pengunduhan aktif selesai"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Hanya audio"
-
 #. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Akan masuk ke {{count}} tujuan di bawah"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Prasetel khusus subtitle aktif tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Profil Hanya subtitle aktif, tetapi tidak ada bahasa subtitle yang dipilih — tidak ada yang akan diunduh."
 
 #. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2282,10 +2282,6 @@ msgstr "Bahasa audio"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} bahasa"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Hanya audio"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Disimpan sebagai .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Ukuran tidak diketahui"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "dengan audio"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Ingin hanya video yang Anda klik, atau pilih dari playlist? Selanjutnya Anda akan memilih video atau rentang tertentu."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc untuk membatalkan. Tidak ada yang dimuat sampai Anda memilih."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Pilih dari daftar putar"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Pilih format sendiri"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Batas pemeriksaan daftar putar: item {{count}}"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Hanya video ini"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Memuat daftar putar, hingga batas pemeriksaan daftar putar Anda, sebelum menampilkan alat pilih."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Membuka daftar formatnya"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Unduh video ini saja, atau masukkan seluruh daftar putar ke dalam antrean dengan profil Unduh Cepat Anda yang aktif."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Memuat satu video"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Entri maksimum yang dipindai Arroxy sebelum mengantri daftar putar, saluran, atau hasil pencarian."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Memuat hingga {{count}} untuk dipilih"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Dari awal album"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Mengantri satu unduhan dan mengabaikan daftar putar yang terlampir pada URL ini."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Dari awal video yang Anda sukai"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Unduh video ini"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Dari awal Mix"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Unduh seluruh daftar putar"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Dari awal daftar putar"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Hanya memuat video ini. Daftar putar yang terlampir pada URL ini diabaikan."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Dari awal unggahan"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Hanya yang ini"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "Dari awal Tonton nanti"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Tautan ini memiliki daftar putar"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Memuat hingga {{count}}, lalu mengunduhnya"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Mix berubah setiap kali Anda membukanya."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Pilih dari awal album"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Pilih dari awal video yang Anda sukai"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Pilih dari awal Mix"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Pilih dari awal daftar putar"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Pilih dari awal unggahan"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Pilih dari awal Tonton nanti"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Unduh dari album ini"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Unduh dari video yang Anda sukai"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Unduh dari Mix ini"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Unduh dari daftar putar ini"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Unduh dari unggahan saluran ini"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Unduh dari Tonton nanti"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Dengan {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Sematkan bab"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "Bab"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file."
@@ -2834,6 +2894,10 @@ msgstr "Judul, artis, deskripsi, dan tanggal upload ditulis ke dalam file."
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Sematkan metadata"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "Metadata"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Sematkan gambar mini"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "Sampul"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Menyimpan deskripsi video sebagai file teks .description di sebelah unduhan."
@@ -2850,6 +2918,10 @@ msgstr "Menyimpan deskripsi video sebagai file teks .description di sebelah undu
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Simpan deskripsi"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "File deskripsi"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Simpan gambar kecil"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "File gambar mini"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Gambar kecil video"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Ubah batas pemuatan"
+
+#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy memuat {{count}} item sesuai batas saat ini, yaitu {{limit}}. Tambahkan item yang dimuat ke antrean sekarang, atau naikkan batas lalu pindai lagi."
+
+#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy memuat {{count}} item sesuai batas saat ini, yaitu {{limit}}. Tambahkan item yang dimuat ke antrean sekarang, atau naikkan batas lalu pindai lagi."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Tambahkan item yang dimuat ke antrean"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Pemindaian daftar putar dibatasi"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Pilih kualitas untuk batch tersebut"
@@ -3333,6 +3431,10 @@ msgstr "Hingga 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Kualitas terbaik"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Profil baru"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Musik atau podcast"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Hanya audio"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Hanya berkas teks"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Hanya subtitle"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Berkas video biasa"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Video + audio"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Hanya video tanpa suara"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Video, tanpa audio"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "item {{count}}"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Gunakan batas aplikasi: {{count}}"
@@ -4808,6 +4890,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profil baru"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Profil ini menyimpan ke folder yang belum diatur. Pilih folder di profil, atau kembalikan ke default."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Buat, pilih, edit, atau hapus pengaturan unduhan yang dapat digunakan kembali."
@@ -4827,30 +4913,6 @@ msgstr "Seret profil untuk memindahkannya. Semua pemilih profil mengikuti urutan
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Mengatur ulang"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "audio AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "audio terbaik"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "video terbaik"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "tanpa audio"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "hanya subtitel"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "audio WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

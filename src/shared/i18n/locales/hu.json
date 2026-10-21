@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Engedélyezés",
+		"allowedSummary": "MI-vel felskálázott adatfolyamok engedélyezve",
 		"description": "A YouTube egyes régi videókat MI-vel készített méretekben is kínál. A Kihagyás megtartja az eredeti adatfolyamokat; felskálázottat továbbra is kiválaszthat kézzel.",
 		"label": "MI-vel felskálázott adatfolyamok",
 		"skip": "Kihagyás"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Sor",
 			"addToQueueTooltip": "Hozzáadás a sorhoz – az aktív letöltés befejezésekor indul",
-			"audioOnly": "Csak hang",
 			"itemsValueAudio_one": "{{count}} / {{total}} szám",
 			"itemsValueAudio_other": "{{count}} / {{total}} szám",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "A fájl ide kerül:",
 			"landInMultiProfile_one": "A lenti célmappába kerül",
 			"landInMultiProfile_other": "A lenti {{count}} célmappába kerülnek",
-			"nothingToDownload": "A Csak feliratok előbeállítás aktív, de nincs kiválasztva feliratnyelv – semmi sem fog letöltődni.",
+			"nothingToDownload": "A „Csak feliratok” profil aktív, de nincs feliratnyelv kiválasztva – semmi sem lesz letöltve.",
 			"profileBreakdownCount_one": "{{count}} elem",
 			"profileBreakdownCount_other": "{{count}} elem",
 			"profileBreakdownHeading": "Profilok ebben a kötegben",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Hang nyelve",
 			"audioLanguageCount_one": "{{count}} nyelv",
 			"audioLanguageCount_other": "{{count}} nyelv",
-			"audioOnly": "Csak hang",
 			"bitrateValue": "Bitráta: {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "A sütik be vannak állítva, de ki vannak kapcsolva. Kapcsolja be őket, és próbálja újra a teljes listáért, vagy váltson hálózatot, és próbálja újra.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Ismeretlen felbontás",
 			"savesAs": {
 				"label": "Mentés mint",
-				"reset": "A WebM nem tud {{codec}} kodeket tárolni, ezért a fájltípus visszaállt Automatikusra."
+				"reset": "A WebM nem tud {{codec}} kodeket tárolni, ezért a fájltípus visszaállt Automatikusra.",
+				"value": ".{{ext}} fájlként mentődik"
 			},
 			"sizeUnknown": "Ismeretlen méret",
 			"skipToConfirm": "Ugrás a megerősítésre",
@@ -969,37 +969,61 @@
 			"video": "Videó",
 			"withAudio": "hanggal"
 		},
-		"mixedPrompt": {
-			"body": "Csak a rákattintott videót szeretné, vagy a lejátszási listából választana? Ezután kiválaszthat konkrét videókat vagy egy tartományt.",
-			"pickFromPlaylist": "Választás a listából",
-			"playlistLimit": "Lejátszási lista lekérdezési korlátja: {{count}} elem",
-			"playlistTooltip": "Betölti a lejátszási listát a lekérdezési korlátig, mielőtt megjeleníti a választót.",
-			"quickBody": "Töltse le csak ezt a videót, vagy állítsa sorba a teljes lejátszási listát az aktív Gyorsletöltés profillal.",
-			"quickLimitDescription": "Legfeljebb ennyi elemet vizsgál az Arroxy, mielőtt sorba állít egy lejátszási listát, csatornát vagy keresési eredményt.",
-			"quickPlaylistTooltip": "Az aktív Gyorsletöltés profillal sorba állítja a lejátszási lista minden betöltött elemét. Ha a vizsgálat eléri a korlátot, az Arroxy rákérdez a sorba állítás előtt.",
-			"quickSingleTooltip": "Egy letöltést állít sorba, és figyelmen kívül hagyja az URL-hez tartozó lejátszási listát.",
-			"quickSingleVideo": "Ennek a videónak a letöltése",
-			"quickWholePlaylist": "Teljes lejátszási lista letöltése",
-			"singleTooltip": "Csak ezt a videót tölti be. Az URL-hez tartozó lejátszási listát figyelmen kívül hagyja.",
-			"singleVideo": "Csak ez",
-			"title": "Ez a hivatkozás lejátszási listát tartalmaz"
+		"listPrompt": {
+			"escHint": "Az Esc megszakítja. Semmi sem töltődik be, amíg nem választ.",
+			"interactiveSubtitle": "Válassza ki Ön a formátumokat",
+			"justThisVideo": "Csak ez a videó",
+			"justThisVideoInteractiveHint": "Megnyitja a formátumait",
+			"justThisVideoQuickHint": "Egy videót tölt be",
+			"listInteractiveHint": "Legfeljebb {{count}} betöltése a választáshoz",
+			"listOption": {
+				"album": "Az album, az első",
+				"liked": "A kedvelt videók, az első",
+				"mix": "A Mix, az első",
+				"playlist": "A lejátszási lista, az első",
+				"uploads": "A feltöltések, az első",
+				"watchLater": "A „Megtekintés később” lista, az első"
+			},
+			"listQuickHint": "Legfeljebb {{count}} betöltése, majd letöltése",
+			"mixNote": "A Mix minden megnyitáskor megváltozik.",
+			"pickOption": {
+				"album": "Választás az albumból, az első",
+				"liked": "Választás a kedvelt videókból, az első",
+				"mix": "Választás a Mixből, az első",
+				"playlist": "Választás a lejátszási listából, az első",
+				"uploads": "Választás a feltöltésekből, az első",
+				"watchLater": "Választás a „Megtekintés később” listából, az első"
+			},
+			"title": {
+				"album": "Letöltés ebből az albumból",
+				"liked": "Letöltés a kedvelt videókból",
+				"mix": "Letöltés ebből a Mixből",
+				"playlist": "Letöltés ebből a lejátszási listából",
+				"uploads": "Letöltés ennek a csatornának a feltöltéseiből",
+				"watchLater": "Letöltés a „Megtekintés később” listából"
+			},
+			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Fejezetjelölők, amelyek között bármely modern lejátszóban lehet navigálni.",
-				"label": "Fejezetek beágyazása"
+				"label": "Fejezetek beágyazása",
+				"short": "fejezetek"
 			},
 			"embedMetadata": {
 				"description": "A cím, az előadó, a leírás és a feltöltés dátuma a fájlba kerül.",
-				"label": "Metaadatok beágyazása"
+				"label": "Metaadatok beágyazása",
+				"short": "metaadatok"
 			},
 			"embedThumbnail": {
 				"description": "Borítókép a fájlon belül. A WebM-videó MKV-ba lesz átcsomagolva; feliratok beágyazásakor kimarad.",
-				"label": "Miniatűr beágyazása"
+				"label": "Miniatűr beágyazása",
+				"short": "borítókép"
 			},
 			"writeDescription": {
 				"description": "A videó leírását .description szövegfájlba menti a letöltés mellé.",
-				"label": "Leírás mentése"
+				"label": "Leírás mentése",
+				"short": "leírásfájl"
 			},
 			"writeM3u": {
 				"description": "A videók mellé .m3u lejátszási listát ment, hogy a médialejátszóban sorrendben nyíljanak meg.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "A miniatűrt .jpg képfájlként menti a letöltés mellé.",
-				"label": "Miniatűr mentése"
+				"label": "Miniatűr mentése",
+				"short": "miniatűrfájl"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Mappa ellenőrzése…",
 			"thumbnailAlt": "Videó miniatűrje"
 		},
+		"playlistCap": {
+			"changeLimit": "Betöltési korlát módosítása",
+			"descriptionWithTitle_one": "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra.",
+			"descriptionWithTitle_other": "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra.",
+			"description_one": "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra.",
+			"description_other": "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra.",
+			"queueLoaded": "Betöltött elemek sorba tétele",
+			"title": "A lejátszási lista beolvasása korlátozva van"
+		},
 		"playlistPresets": {
 			"heading": "Válasszon minőséget a köteghez",
 			"itemCount_one": "{{count}} elem",
@@ -1154,6 +1188,7 @@
 				"320": "Legfeljebb 320K",
 				"best": "Legjobb minőség"
 			},
+			"defaultName": "Új profil",
 			"destination": {
 				"defaultFolder": "Alapértelmezett letöltési mappa",
 				"defaultFolderWithSubfolder": "Alapértelmezett letöltési mappa / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Zene vagy podcastok",
-					"label": "Csak hang"
+					"description": "Zene vagy podcastok"
 				},
 				"subtitlesOnly": {
-					"description": "Csak feliratfájlok",
-					"label": "Csak feliratok"
+					"description": "Csak feliratfájlok"
 				},
 				"videoAudio": {
-					"description": "Hagyományos videófájlok",
-					"label": "Videó + hang"
+					"description": "Hagyományos videófájlok"
 				},
 				"videoOnly": {
-					"description": "Csak néma videó",
-					"label": "Videó, hang nélkül"
+					"description": "Csak néma videó"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Legfeljebb ennyi bejegyzést tölt be az Arroxy, amikor lejátszási listát, csatornát vagy keresési eredményt nyit meg.",
 				"invalid": "Egész számot adjon meg 1 és 5000 között",
 				"label": "Vizsgálandó lejátszási listaelemek",
-				"option": "{{count}} elem",
-				"tooltip": "Az Arroxy a választó összeállításakor csak ennyi lejátszási lista-, csatorna- vagy keresési bejegyzést kér le."
+				"option": "{{count}} elem"
 			},
 			"playlistScope": {
 				"appLimit": "Alkalmazáskorlát használata: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "A(z) {{profileName}} a(z) {{count}} közül a(z) {{position}}. hely fölött van.",
 				"movePickedUp": "A(z) {{profileName}} felvéve. A(z) {{count}} közül a(z) {{position}}. helyen van.",
 				"newProfile": "Új profil",
+				"outputMissing": "Ez a profil olyan mappába menti a fájlokat, amely nincs beállítva. Válasszon mappát a profilban, vagy állítsa vissza az alapértelmezettre.",
 				"panelDescription": "Újrahasználható letöltési beállítások létrehozása, kiválasztása, szerkesztése vagy eltávolítása.",
 				"panelTitle": "Letöltési profilok",
 				"remove": "Eltávolítás",
 				"reorderHint": "Húzza a profilt az áthelyezéshez. Minden profilválasztó ezt a sorrendet követi.",
 				"reset": "Visszaállítás",
-				"summary": {
-					"aacAudio": "AAC hang",
-					"bestAudio": "legjobb hang",
-					"bestVideo": "legjobb videó",
-					"noAudio": "hang nélkül",
-					"subtitlesOnly": "csak feliratok",
-					"wavAudio": "WAV hang"
-				},
 				"switchAria": "Letöltési profil váltása: {{profileName}}",
 				"switchTitle": "Letöltési profil váltása"
 			},

@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "許可",
+		"allowedSummary": "AI アップスケールを許可",
 		"description": "YouTube は一部の古い動画を、AI で作ったサイズでも提供しています。「スキップ」では元のストリームを使います。アップスケール版を手動で選ぶこともできます。",
 		"label": "AI アップスケールのストリーム",
 		"skip": "スキップ"
@@ -101,12 +102,12 @@
 			"retry": "再試行"
 		},
 		"linkCallout": {
-			"body": "ページ内の動画・プレイリスト・チャンネルのリンクを右クリックすると、アクティブなプロファイルでダウンロードしたり、別のプロファイルを選んだり、インタラクティブダウンロードを開いたりできます。",
+			"body": "ページ内の動画・プレイリスト・チャンネルのリンクを右クリックすると、アクティブなプロフィールでダウンロードしたり、別のプロフィールを選んだり、インタラクティブダウンロードを開いたりできます。",
 			"title": "リンクを右クリックしてダウンロード"
 		},
 		"linkMenu": {
 			"copyLink": "リンクをコピー",
-			"downloadWith": "プロファイルでダウンロード"
+			"downloadWith": "プロフィールでダウンロード"
 		},
 		"newBadge": "新着",
 		"notice": {
@@ -292,7 +293,7 @@
 			"1080": "最大 1080p",
 			"1440": "最大 1440p",
 			"2160": "最大 4K",
-			"best": "最高画質"
+			"best": "最高品質"
 		},
 		"tierDesc": {
 			"144": "最小のファイル",
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ キュー",
 			"addToQueueTooltip": "他のダウンロードが終わってから開始 — 帯域幅をフル活用",
-			"audioOnly": "音声のみ",
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
 			"itemsValueBulk_other": "{{total}} 件中 {{count}} 件の URL",
 			"itemsValue_other": "全{{total}}本中{{count}}本",
@@ -757,9 +757,9 @@
 			"labelVideo": "動画",
 			"landIn": "ファイルの保存先:",
 			"landInMultiProfile_other": "下の{{count}}件の保存先に保存されます",
-			"nothingToDownload": "字幕のみプリセットが有効ですが字幕言語が選択されていません — 何もダウンロードされません。",
+			"nothingToDownload": "「字幕のみ」プロフィールが有効ですが、字幕の言語が選択されていません — 何もダウンロードされません。",
 			"profileBreakdownCount_other": "{{count}} 件",
-			"profileBreakdownHeading": "このバッチのプロファイル",
+			"profileBreakdownHeading": "このバッチのプロフィール",
 			"pullIt": "取得! ↓",
 			"pullItTooltip": "すぐ開始 — 他のアクティブなダウンロードと並行実行",
 			"readyHeadline": "ダウンロード準備完了!",
@@ -781,7 +781,7 @@
 			"subfolder": {
 				"invalid": "フォルダ名に無効な文字が含まれています",
 				"placeholder": "例: lo-fi rips",
-				"toggle": "サブフォルダに保存"
+				"toggle": "サブフォルダーに保存"
 			},
 			"videos": "ムービー"
 		},
@@ -789,7 +789,6 @@
 			"audio": "音声",
 			"audioLanguage": "音声の言語",
 			"audioLanguageCount_other": "{{count}} 言語",
-			"audioOnly": "音声のみ",
 			"bitrateValue": "ビットレート {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookieは設定されていますが無効になっています。有効にして再試行すると完全な一覧を取得できます。または、ネットワークを変えて再試行してください。",
@@ -909,8 +908,8 @@
 			},
 			"noAudio": "音声なし",
 			"profile": {
-				"calloutBody": "アクティブなプロファイルが、ストリームをあらかじめ選んでくれます。メニューからプロファイルを切り替えたり、鉛筆アイコンでこのダウンロードを離れずにプロファイルを調整したりできます。",
-				"calloutTitle": "フォーマットはプロファイルから始まります",
+				"calloutBody": "アクティブなプロフィールが、ストリームをあらかじめ選んでくれます。メニューからプロフィールを切り替えたり、鉛筆アイコンでこのダウンロードを離れずにプロフィールを調整したりできます。",
+				"calloutTitle": "フォーマットはプロフィールから始まります",
 				"closestTag": "プロフィールに最も近い",
 				"edit": "{{name}} を編集",
 				"keepEdits": "変更を残す",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "解像度不明",
 			"savesAs": {
 				"label": "保存形式",
-				"reset": "WebM では {{codec}} を格納できないため、ファイル形式を自動に戻しました。"
+				"reset": "WebM では {{codec}} を格納できないため、ファイル形式を自動に戻しました。",
+				"value": ".{{ext}} として保存されます"
 			},
 			"sizeUnknown": "サイズ不明",
 			"skipToConfirm": "確認へスキップ",
@@ -951,37 +951,61 @@
 			"video": "動画",
 			"withAudio": "音声付き"
 		},
-		"mixedPrompt": {
-			"body": "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。",
-			"pickFromPlaylist": "Playlist から選ぶ",
-			"playlistLimit": "プレイリスト取得上限: {{count}} 件",
-			"playlistTooltip": "選択画面を表示する前に、プレイリストを上限まで読み込みます。",
-			"quickBody": "この動画だけをダウンロードするか、有効なクイックダウンロードプロファイルでプレイリスト全体をキューに追加します。",
-			"quickLimitDescription": "プレイリスト、チャンネル、検索結果をキューに追加する前に Arroxy がスキャンする最大項目数です。",
-			"quickPlaylistTooltip": "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。",
-			"quickSingleTooltip": "1 件のダウンロードをキューに追加し、この URL に付いているプレイリストは無視します。",
-			"quickSingleVideo": "この動画をダウンロード",
-			"quickWholePlaylist": "プレイリスト全体をダウンロード",
-			"singleTooltip": "この動画だけを読み込みます。この URL に付いたプレイリストは無視されます。",
-			"singleVideo": "この1本だけ",
-			"title": "このリンクは Playlist に含まれています"
+		"listPrompt": {
+			"escHint": "Esc でキャンセルします。選ぶまで何も読み込まれません。",
+			"interactiveSubtitle": "形式を自分で選びます",
+			"justThisVideo": "この動画だけ",
+			"justThisVideoInteractiveHint": "形式の選択画面を開きます",
+			"justThisVideoQuickHint": "動画を 1 本読み込みます",
+			"listInteractiveHint": "最大 {{count}} 件を読み込んで選びます",
+			"listOption": {
+				"album": "アルバムの先頭",
+				"liked": "高く評価した動画の先頭",
+				"mix": "ミックスの先頭",
+				"playlist": "プレイリストの先頭",
+				"uploads": "アップロード動画の先頭",
+				"watchLater": "「後で見る」の先頭"
+			},
+			"listQuickHint": "最大 {{count}} 件を読み込んで、ダウンロードします",
+			"mixNote": "ミックスは開くたびに内容が変わります。",
+			"pickOption": {
+				"album": "アルバムの先頭から選ぶ",
+				"liked": "高く評価した動画の先頭から選ぶ",
+				"mix": "ミックスの先頭から選ぶ",
+				"playlist": "プレイリストの先頭から選ぶ",
+				"uploads": "アップロード動画の先頭から選ぶ",
+				"watchLater": "「後で見る」の先頭から選ぶ"
+			},
+			"title": {
+				"album": "このアルバムからダウンロード",
+				"liked": "高く評価した動画からダウンロード",
+				"mix": "このミックスからダウンロード",
+				"playlist": "このプレイリストからダウンロード",
+				"uploads": "このチャンネルのアップロード動画からダウンロード",
+				"watchLater": "「後で見る」からダウンロード"
+			},
+			"withProfile": "{{profileName}} を使用"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "現代のプレーヤーでナビゲートできるチャプターマーカー。",
-				"label": "チャプターを埋め込む"
+				"label": "チャプターを埋め込む",
+				"short": "チャプター"
 			},
 			"embedMetadata": {
 				"description": "タイトル、アーティスト、説明、アップロード日をファイルに書き込みます。",
-				"label": "メタデータを埋め込む"
+				"label": "メタデータを埋め込む",
+				"short": "メタデータ"
 			},
 			"embedThumbnail": {
 				"description": "ファイル内のカバーアート。WebM動画はMKVに再パッケージされます。字幕を埋め込む場合はスキップ。",
-				"label": "サムネイルを埋め込む"
+				"label": "サムネイルを埋め込む",
+				"short": "カバーアート"
 			},
 			"writeDescription": {
 				"description": "動画の説明を .description テキストファイルとしてダウンロードの隣に保存します。",
-				"label": "説明を保存"
+				"label": "説明を保存",
+				"short": "説明ファイル"
 			},
 			"writeM3u": {
 				"description": "動画の横に .m3u プレイリストを保存し、メディアプレーヤーで順番に開けるようにします。",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "サムネイルを .jpg 画像ファイルとしてダウンロードの隣に保存します。",
-				"label": "サムネイルを保存"
+				"label": "サムネイルを保存",
+				"short": "サムネイルファイル"
 			}
 		},
 		"part": {
@@ -1048,8 +1073,8 @@
 			"loadingPagesFound_other": "{{count}} ページが見つかりました",
 			"loadingPhaseItems": "動画を収集中",
 			"loadingPhasePages": "チャンネルページをスキャン中",
-			"multiProfileEntry": "アイテムごとにプロファイルを割り当て",
-			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます",
+			"multiProfileEntry": "アイテムごとにプロフィールを割り当て",
+			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロフィールを割り当てます",
 			"nestedPlaylistBadge": "プレイリスト",
 			"nestedPlaylistHint_other": "このうち {{count}} 件は動画ではなくプレイリストです — ダウンロードするにはリンクを 1 つずつ貼り付けてください。",
 			"noSelection": "続行するには少なくとも1本の動画を選択してください",
@@ -1080,22 +1105,29 @@
 			"syncScanning": "フォルダーを確認中…",
 			"thumbnailAlt": "動画サムネイル"
 		},
+		"playlistCap": {
+			"changeLimit": "読み込み上限を変更",
+			"descriptionWithTitle_other": "<title/>: 現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。",
+			"description_other": "現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。",
+			"queueLoaded": "読み込んだ項目をキューに追加",
+			"title": "プレイリストのスキャンが上限に達しました"
+		},
 		"playlistPresets": {
 			"heading": "バッチの画質を選択",
 			"itemCount_other": "{{count}} 件",
 			"subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。"
 		},
 		"playlistProfiles": {
-			"assignTriggerEmpty": "プロファイルを割り当て",
+			"assignTriggerEmpty": "プロフィールを割り当て",
 			"assignTrigger_other": "{{count}} 本の動画に割り当て",
 			"columnDuration": "再生時間",
-			"columnProfile": "プロファイル",
+			"columnProfile": "プロフィール",
 			"editProfile": "{{name}} を編集",
 			"empty": "このフィルターに一致する項目はありません",
 			"filterChip": "{{name}} · {{count}}",
-			"filtersLabel": "プロファイルフィルター",
-			"heading": "ダウンロードプロファイルを割り当て",
-			"menuDescription_other": "これら {{count}} 本の動画のプロファイルを選択します。",
+			"filtersLabel": "プロフィールフィルター",
+			"heading": "ダウンロードプロフィールを割り当て",
+			"menuDescription_other": "これら {{count}} 本の動画のプロフィールを選択します。",
 			"selectedSummary": "{{total}} 件中 {{selected}} 件を選択"
 		},
 		"profileEditor": {
@@ -1125,6 +1157,7 @@
 				"320": "最大 320K",
 				"best": "最高品質"
 			},
+			"defaultName": "新しいプロフィール",
 			"destination": {
 				"defaultFolder": "既定のダウンロードフォルダー",
 				"defaultFolderWithSubfolder": "既定のダウンロードフォルダー / {{subfolder}}",
@@ -1162,7 +1195,7 @@
 				"source": "ソース",
 				"subfolderName": "サブフォルダー名",
 				"subtitleDownloads": "字幕のダウンロード",
-				"subtitleDownloadsDescription": "プロファイルは言語コードで指定します。利用できるかは URL ごとに判定されます。"
+				"subtitleDownloadsDescription": "プロフィールは言語コードで指定します。利用できるかは URL ごとに判定されます。"
 			},
 			"goal": {
 				"bestPicture": {
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "音楽やポッドキャスト",
-					"label": "音声のみ"
+					"description": "音楽やポッドキャスト"
 				},
 				"subtitlesOnly": {
-					"description": "字幕ファイルのみ",
-					"label": "字幕のみ"
+					"description": "字幕ファイルのみ"
 				},
 				"videoAudio": {
-					"description": "通常の動画ファイル",
-					"label": "動画 + 音声"
+					"description": "通常の動画ファイル"
 				},
 				"videoOnly": {
-					"description": "音声なしの動画のみ",
-					"label": "動画、音声なし"
+					"description": "音声なしの動画のみ"
 				}
 			},
 			"note": {
@@ -1314,7 +1343,7 @@
 			"saveAsProfile": "新しいプロフィールとして保存",
 			"update": {
 				"action": "プロフィールを更新",
-				"builtinNote": "これは組み込みのプロフィールです。元の設定は「プロファイル」タブで復元できます。",
+				"builtinNote": "これは組み込みのプロフィールです。元の設定は「プロフィール」タブで復元できます。",
 				"description": "今後、このプロフィールを使うすべてのダウンロードで新しい設定が使われます。",
 				"rows": {
 					"format": "形式"
@@ -1360,7 +1389,7 @@
 			"playlistItems": "プレイリスト",
 			"playlistItemsGeneric": "動画",
 			"playlistPresets": "画質",
-			"playlistProfiles": "プロファイル",
+			"playlistProfiles": "プロフィール",
 			"review": "確認",
 			"sponsorblock": "SponsorBlock",
 			"subtitles": "字幕",
@@ -1562,8 +1591,7 @@
 				"description": "プレイリスト、チャンネル、または検索結果を開いたときに Arroxy が読み込む最大エントリ数。",
 				"invalid": "1 から 5000 の整数を入力してください",
 				"label": "スキャンするプレイリストの項目数",
-				"option": "{{count}} 件",
-				"tooltip": "Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
+				"option": "{{count}} 件"
 			},
 			"playlistScope": {
 				"appLimit": "アプリの上限を使用: {{count}}",
@@ -1588,7 +1616,7 @@
 				"to": "〜"
 			},
 			"profile": {
-				"activeLabel": "アクティブなプロファイル",
+				"activeLabel": "アクティブなプロフィール",
 				"badgeBuiltIn": "組み込み",
 				"badgeCustom": "カスタム",
 				"badgeDisabled": "非表示",
@@ -1617,36 +1645,29 @@
 				},
 				"destinationFallback": "保存先",
 				"edit": "編集",
-				"editActive": "アクティブなプロファイルを編集",
-				"enableHint": "非表示のプロファイルはここに残りますが、すべてのピッカーから消えます。",
-				"enableToggleAria": "ピッカーでプロファイルを表示: {{profileName}}",
-				"lastEnabledHint": "少なくとも1つのプロファイルを有効にしてください。",
-				"manageProfiles": "プロファイルを管理",
-				"menuDescription": "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロファイルを変更します。",
-				"menuTitle": "プロファイルを切り替え",
-				"movableProfile": "移動可能なプロファイル",
+				"editActive": "アクティブなプロフィールを編集",
+				"enableHint": "非表示のプロフィールはここに残りますが、すべてのピッカーから消えます。",
+				"enableToggleAria": "ピッカーでプロフィールを表示: {{profileName}}",
+				"lastEnabledHint": "少なくとも1つのプロフィールを有効にしてください。",
+				"manageProfiles": "プロフィールを管理",
+				"menuDescription": "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロフィールを変更します。",
+				"menuTitle": "プロフィールを切り替え",
+				"movableProfile": "移動可能なプロフィール",
 				"moveCancelled": "移動をキャンセルしました。{{profileName}}は{{count}}件中{{position}}番目のままです。",
 				"moveDropped": "{{profileName}}を{{count}}件中{{position}}番目に配置しました。",
 				"moveHandleAria": "{{profileName}}を移動",
-				"moveInstructions": "プロファイルを移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。",
+				"moveInstructions": "プロフィールを移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。",
 				"moveOver": "{{profileName}}は{{count}}件中{{position}}番目の位置の上にあります。",
 				"movePickedUp": "{{profileName}}をつかみました。{{count}}件中{{position}}番目の位置です。",
-				"newProfile": "新しいプロファイル",
+				"newProfile": "新しいプロフィール",
+				"outputMissing": "このプロフィールの保存先フォルダーが設定されていません。プロフィールでフォルダーを選ぶか、既定に戻してください。",
 				"panelDescription": "再利用できるダウンロード設定を作成、選択、編集、削除します。",
-				"panelTitle": "ダウンロードプロファイル",
+				"panelTitle": "ダウンロードプロフィール",
 				"remove": "削除",
-				"reorderHint": "プロファイルをドラッグして移動します。すべてのピッカーがこの順序に従います。",
+				"reorderHint": "プロフィールをドラッグして移動します。すべてのピッカーがこの順序に従います。",
 				"reset": "リセット",
-				"summary": {
-					"aacAudio": "AAC 音声",
-					"bestAudio": "最高音質の音声",
-					"bestVideo": "最高画質の動画",
-					"noAudio": "音声なし",
-					"subtitlesOnly": "字幕のみ",
-					"wavAudio": "WAV 音声"
-				},
-				"switchAria": "ダウンロードプロファイルを切り替え: {{profileName}}",
-				"switchTitle": "ダウンロードプロファイルを切り替え"
+				"switchAria": "ダウンロードプロフィールを切り替え: {{profileName}}",
+				"switchTitle": "ダウンロードプロフィールを切り替え"
 			},
 			"proxy": {
 				"clear": "クリア",
@@ -1684,7 +1705,7 @@
 				"unavailableNotice": "{{style}}にはグラフィックスアクセラレーションが必要ですが、今は使えないため、Arroxyは{{fallback}}を表示しています。"
 			},
 			"tabs": {
-				"profiles": "プロファイル",
+				"profiles": "プロフィール",
 				"settings": "設定"
 			}
 		}

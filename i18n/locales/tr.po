@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "İzin ver"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "YZ ile büyütülenlere izin verildi"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz."
@@ -2173,10 +2177,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Kuyruğa ekler — etkin indirme bittiğinde başlar"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Yalnızca ses"
-
 #. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2258,8 +2258,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Aşağıdaki {{count}} hedefe inecek"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Yalnızca altyazı profili etkin ama altyazı dili seçilmedi — indirilecek bir şey yok."
 
 #. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2372,10 +2372,6 @@ msgstr "{{count}} dil"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} dil"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Yalnızca ses"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2829,6 +2825,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr ".{{ext}} olarak kaydedilir"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Boyut bilinmiyor"
@@ -2857,57 +2857,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "sesli"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc iptal eder. Seçim yapılana kadar hiçbir şey yüklenmez."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Oynatma listesinden seç"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Biçimleri kendin seç"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Oynatma listesi denetim sınırı: {{count}} öğe"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Yalnızca bu video"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Seçiciyi göstermeden önce oynatma listesini, oynatma listesi denetim sınırına kadar yükler."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Biçimlerini açar"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Yalnızca bu videoyu indir veya etkin Hızlı İndirme profilinle tüm oynatma listesini kuyruğa al."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Tek bir video yükler"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Arroxy’nin bir oynatma listesini, kanalı veya arama sonucunu kuyruğa almadan önce taradığı en fazla kayıt sayısı."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Seçmek için en fazla {{count}} yükler"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Albümün ilk"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Bir indirme kuyruğa alır ve bu URL’ye bağlı oynatma listesini yoksayar."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Beğendiğin videoların ilk"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Bu videoyu indir"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Mix’in ilk"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Tüm oynatma listesini indir"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Oynatma listesinin ilk"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Yalnızca bu videoyu yükler. Bu URL’ye bağlı oynatma listesi yoksayılır."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Yüklemelerin ilk"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Sadece bu"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "“Daha sonra izle”nin ilk"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Bu bağlantıda bir oynatma listesi var"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "En fazla {{count}} yükler, sonra indirir"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Mix her açıldığında değişir."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Seç: albümün ilk"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Seç: beğendiğin videoların ilk"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Seç: Mix’in ilk"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Seç: oynatma listesinin ilk"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Seç: yüklemelerin ilk"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Seç: “Daha sonra izle”nin ilk"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Bu albümden indir"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Beğendiğin videolardan indir"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Bu Mix’ten indir"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Bu oynatma listesinden indir"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Bu kanalın yüklemelerinden indir"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "“Daha sonra izle”den indir"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "{{profileName}} ile"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2917,6 +2973,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Bölümleri göm"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "Bölümler"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır."
@@ -2924,6 +2984,10 @@ msgstr "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır."
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Meta verileri göm"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "Meta veriler"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2933,6 +2997,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Küçük resmi göm"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "Kapak resmi"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Video açıklamasını indirmenin yanına .description metin dosyası olarak kaydeder."
@@ -2940,6 +3008,10 @@ msgstr "Video açıklamasını indirmenin yanına .description metin dosyası ol
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Açıklamayı kaydet"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "Açıklama dosyası"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2956,6 +3028,10 @@ msgstr "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kayded
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Küçük resmi kaydet"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "Küçük resim dosyası"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3325,6 +3401,38 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Video küçük resmi"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Yükleme sınırını değiştir"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Yüklenenleri kuyruğa ekle"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Oynatma listesi taraması sınırlandı"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Toplu indirme için kalite seç"
@@ -3478,6 +3586,10 @@ msgstr "320K'ya kadar"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "En iyi kalite"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Yeni profil"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3679,33 +3791,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Müzik veya podcast"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Yalnızca ses"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Yalnızca altyazı dosyaları"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Yalnızca altyazılar"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Normal video dosyaları"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Video + ses"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Yalnızca sessiz video"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Video, sessiz"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4719,10 +4815,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} öğe"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Uygulama sınırını kullan: {{count}}"
@@ -4963,6 +5055,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Yeni profil"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Bu profil, ayarlanmamış bir klasöre kaydediyor. Profilde bir klasör seç ya da varsayılana döndür."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Yeniden kullanılabilir indirme kurulumları oluştur, seç, düzenle veya kaldır."
@@ -4982,30 +5078,6 @@ msgstr "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sır
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Sıfırla"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC ses"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "en iyi ses"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "en iyi video"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "ses yok"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "yalnızca altyazılar"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV ses"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

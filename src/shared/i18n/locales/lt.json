@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Leisti",
+		"allowedSummary": "DI išdidinti srautai leidžiami",
 		"description": "YouTube kai kuriuos senus vaizdo įrašus siūlo dydžiais, sukurtais naudojant dirbtinį intelektą. Pasirinkus „Praleisti“, paliekami originalūs srautai; išdidintą srautą vis tiek galite pasirinkti rankiniu būdu.",
 		"label": "DI išdidinti srautai",
 		"skip": "Praleisti"
@@ -778,7 +779,6 @@
 		"confirm": {
 			"addToQueue": "+ Eilė",
 			"addToQueueTooltip": "Įtraukia į eilę – prasidės, kai baigsis aktyvus atsisiuntimas",
-			"audioOnly": "Tik garsas",
 			"itemsValueAudio_few": "{{count}} iš {{total}} takelių",
 			"itemsValueAudio_many": "{{count}} iš {{total}} takelių",
 			"itemsValueAudio_one": "{{count}} iš {{total}} takelių",
@@ -805,7 +805,7 @@
 			"landInMultiProfile_many": "Jie bus įrašyti į {{count}} toliau nurodytas paskirtis",
 			"landInMultiProfile_one": "Jis bus įrašytas į toliau nurodytą paskirtį",
 			"landInMultiProfile_other": "Jie bus įrašyti į {{count}} toliau nurodytų paskirčių",
-			"nothingToDownload": "Aktyvus šablonas „Tik subtitrai“, tačiau nepasirinkta nė viena subtitrų kalba – nieko nebus atsisiųsta.",
+			"nothingToDownload": "Aktyvus profilis „Tik subtitrai“, bet nepasirinkta jokia subtitrų kalba – nieko nebus atsisiųsta.",
 			"profileBreakdownCount_few": "{{count}} elementai",
 			"profileBreakdownCount_many": "{{count}} elemento",
 			"profileBreakdownCount_one": "{{count}} elementas",
@@ -843,7 +843,6 @@
 			"audioLanguageCount_many": "{{count}} kalbos",
 			"audioLanguageCount_one": "{{count}} kalba",
 			"audioLanguageCount_other": "{{count}} kalbų",
-			"audioOnly": "Tik garsas",
 			"bitrateValue": "Sparta {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Slapukai sukonfigūruoti, bet išjungti. Įjunkite juos ir bandykite dar kartą, kad gautumėte visą sąrašą, arba pakeiskite tinklą ir bandykite dar kartą.",
@@ -995,7 +994,8 @@
 			"resolutionUnknown": "Nežinoma skiriamoji geba",
 			"savesAs": {
 				"label": "Įrašoma kaip",
-				"reset": "WebM negali talpinti {{codec}}, todėl failo tipas grąžintas į „Automatinis“."
+				"reset": "WebM negali talpinti {{codec}}, todėl failo tipas grąžintas į „Automatinis“.",
+				"value": "Įrašoma kaip .{{ext}}"
 			},
 			"sizeUnknown": "Dydis nežinomas",
 			"skipToConfirm": "Pereiti prie patvirtinimo",
@@ -1005,37 +1005,61 @@
 			"video": "Vaizdas",
 			"withAudio": "su garsu"
 		},
-		"mixedPrompt": {
-			"body": "Norite tik spustelėto vaizdo įrašo ar pasirinkti iš grojaraščio? Toliau pasirinksite konkrečius vaizdo įrašus arba intervalą.",
-			"pickFromPlaylist": "Pasirinkti iš grojaraščio",
-			"playlistLimit": "Grojaraščio nuskaitymo riba: {{count}} elementų",
-			"playlistTooltip": "Įkelia grojaraštį iki jūsų grojaraščio nuskaitymo ribos, prieš parodydama parinkiklį.",
-			"quickBody": "Atsisiųskite tik šį vaizdo įrašą arba įtraukite į eilę visą grojaraštį naudodami aktyvų greitojo atsisiuntimo profilį.",
-			"quickLimitDescription": "Didžiausias įrašų skaičius, kurį Arroxy nuskaito prieš įtraukdama grojaraštį, kanalą ar paieškos rezultatą į eilę.",
-			"quickPlaylistTooltip": "Įtraukia į eilę visus įkeltus grojaraščio elementus naudodama aktyvų greitojo atsisiuntimo profilį. Jei nuskaitymas pasiekia jūsų ribą, Arroxy paklaus prieš įtraukdama į eilę.",
-			"quickSingleTooltip": "Įtraukia į eilę vieną atsisiuntimą ir ignoruoja prie šio URL prijungtą grojaraštį.",
-			"quickSingleVideo": "Atsisiųsti šį vaizdo įrašą",
-			"quickWholePlaylist": "Atsisiųsti visą grojaraštį",
-			"singleTooltip": "Įkelia tik šį vaizdo įrašą. Prie šio URL prijungtas grojaraštis ignoruojamas.",
-			"singleVideo": "Tik šį",
-			"title": "Šioje nuorodoje yra grojaraštis"
+		"listPrompt": {
+			"escHint": "Esc atšaukia. Niekas neįkeliama, kol nepasirinksite.",
+			"interactiveSubtitle": "Formatus pasirinkite patys",
+			"justThisVideo": "Tik šis vaizdo įrašas",
+			"justThisVideoInteractiveHint": "Atveria jo formatus",
+			"justThisVideoQuickHint": "Įkelia vieną vaizdo įrašą",
+			"listInteractiveHint": "Įkelia iki {{count}}, kad galėtumėte rinktis",
+			"listOption": {
+				"album": "Albumas, pirmieji",
+				"liked": "Patikę vaizdo įrašai, pirmieji",
+				"mix": "Mix, pirmieji",
+				"playlist": "Grojaraštis, pirmieji",
+				"uploads": "Kanalo įkėlimai, pirmieji",
+				"watchLater": "„Žiūrėti vėliau“, pirmieji"
+			},
+			"listQuickHint": "Įkelia iki {{count}}, tada juos atsisiunčia",
+			"mixNote": "Mix pasikeičia kaskart, kai jį atidarote.",
+			"pickOption": {
+				"album": "Rinktis iš albumo, iš pirmųjų",
+				"liked": "Rinktis iš patikusių vaizdo įrašų, iš pirmųjų",
+				"mix": "Rinktis iš Mix, iš pirmųjų",
+				"playlist": "Rinktis iš grojaraščio, iš pirmųjų",
+				"uploads": "Rinktis iš kanalo įkėlimų, iš pirmųjų",
+				"watchLater": "Rinktis iš „Žiūrėti vėliau“, iš pirmųjų"
+			},
+			"title": {
+				"album": "Atsisiuntimas iš šio albumo",
+				"liked": "Atsisiuntimas iš patikusių vaizdo įrašų",
+				"mix": "Atsisiuntimas iš šio Mix",
+				"playlist": "Atsisiuntimas iš šio grojaraščio",
+				"uploads": "Atsisiuntimas iš šio kanalo įkėlimų",
+				"watchLater": "Atsisiuntimas iš „Žiūrėti vėliau“"
+			},
+			"withProfile": "Profilis: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Skyrių žymos, pasiekiamos bet kuriame šiuolaikiniame grotuve.",
-				"label": "Įterpti skyrius"
+				"label": "Įterpti skyrius",
+				"short": "skyriai"
 			},
 			"embedMetadata": {
 				"description": "Pavadinimas, atlikėjas, aprašas ir įkėlimo data įrašomi į failą.",
-				"label": "Įterpti metaduomenis"
+				"label": "Įterpti metaduomenis",
+				"short": "metaduomenys"
 			},
 			"embedThumbnail": {
 				"description": "Viršelio paveikslėlis failo viduje. WebM vaizdo įrašas bus perpakuotas į MKV; praleidžiama, kai įterpiami subtitrai.",
-				"label": "Įterpti miniatiūrą"
+				"label": "Įterpti miniatiūrą",
+				"short": "viršelis"
 			},
 			"writeDescription": {
 				"description": "Įrašo vaizdo įrašo aprašą kaip .description tekstinį failą šalia atsisiuntimo.",
-				"label": "Įrašyti aprašą"
+				"label": "Įrašyti aprašą",
+				"short": "aprašo failas"
 			},
 			"writeM3u": {
 				"description": "Įrašo .m3u grojaraštį kartu su vaizdo įrašais, kad jie atsidarytų eilės tvarka jūsų medijos grotuve.",
@@ -1043,7 +1067,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Įrašo miniatiūrą kaip .jpg paveikslėlio failą šalia atsisiuntimo.",
-				"label": "Įrašyti miniatiūrą"
+				"label": "Įrašyti miniatiūrą",
+				"short": "miniatiūros failas"
 			}
 		},
 		"part": {
@@ -1158,6 +1183,19 @@
 			"syncScanning": "Tikrinamas aplankas…",
 			"thumbnailAlt": "Vaizdo įrašo miniatiūra"
 		},
+		"playlistCap": {
+			"changeLimit": "Keisti įkėlimo ribą",
+			"descriptionWithTitle_few": "<title/>: Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"descriptionWithTitle_many": "<title/>: Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"descriptionWithTitle_one": "<title/>: Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"descriptionWithTitle_other": "<title/>: Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"description_few": "Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"description_many": "Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"description_one": "Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"description_other": "Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
+			"queueLoaded": "Įtraukti įkeltus elementus į eilę",
+			"title": "Grojaraščio nuskaitymas apribotas"
+		},
 		"playlistPresets": {
 			"heading": "Pasirinkite paketo kokybę",
 			"itemCount_few": "{{count}} elementai",
@@ -1212,6 +1250,7 @@
 				"320": "Iki 320K",
 				"best": "Geriausia kokybė"
 			},
+			"defaultName": "Naujas profilis",
 			"destination": {
 				"defaultFolder": "Numatytasis atsisiuntimų aplankas",
 				"defaultFolderWithSubfolder": "Numatytasis atsisiuntimų aplankas / {{subfolder}}",
@@ -1277,20 +1316,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muzika ar tinklalaidės",
-					"label": "Tik garsas"
+					"description": "Muzika ar tinklalaidės"
 				},
 				"subtitlesOnly": {
-					"description": "Tik subtitrų failai",
-					"label": "Tik subtitrai"
+					"description": "Tik subtitrų failai"
 				},
 				"videoAudio": {
-					"description": "Įprasti vaizdo failai",
-					"label": "Vaizdas + garsas"
+					"description": "Įprasti vaizdo failai"
 				},
 				"videoOnly": {
-					"description": "Tik nebylus vaizdas",
-					"label": "Vaizdas be garso"
+					"description": "Tik nebylus vaizdas"
 				}
 			},
 			"note": {
@@ -1655,8 +1690,7 @@
 				"description": "Didžiausias įrašų skaičius, kurį Arroxy įkelia atvėrus grojaraštį, kanalą ar paieškos rezultatą.",
 				"invalid": "Naudokite sveikąjį skaičių nuo 1 iki 5000",
 				"label": "Nuskaitomi grojaraščio elementai",
-				"option": "{{count}} elementų",
-				"tooltip": "Kurdama parinkiklį Arroxy prašo tik tiek grojaraščio, kanalo ar paieškos įrašų."
+				"option": "{{count}} elementų"
 			},
 			"playlistScope": {
 				"appLimit": "Naudoti programos ribą: {{count}}",
@@ -1725,19 +1759,12 @@
 				"moveOver": "{{profileName}} yra virš {{position}} vietos iš {{count}}.",
 				"movePickedUp": "Paimtas {{profileName}}. Jis yra {{position}} vietoje iš {{count}}.",
 				"newProfile": "Naujas profilis",
+				"outputMissing": "Šis profilis įrašo į aplanką, kuris nenustatytas. Pasirinkite aplanką profilyje arba grąžinkite numatytąjį.",
 				"panelDescription": "Kurkite, pasirinkite, redaguokite ar šalinkite pakartotinai naudojamas atsisiuntimo sąrankas.",
 				"panelTitle": "Atsisiuntimo profiliai",
 				"remove": "Pašalinti",
 				"reorderHint": "Vilkite profilį, kad jį perkeltumėte. Visi profilių parinkikliai laikosi šios tvarkos.",
 				"reset": "Atkurti",
-				"summary": {
-					"aacAudio": "AAC garsas",
-					"bestAudio": "geriausias garsas",
-					"bestVideo": "geriausias vaizdas",
-					"noAudio": "be garso",
-					"subtitlesOnly": "tik subtitrai",
-					"wavAudio": "WAV garsas"
-				},
 				"switchAria": "Perjungti atsisiuntimo profilį: {{profileName}}",
 				"switchTitle": "Perjungti atsisiuntimo profilį"
 			},

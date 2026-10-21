@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Cho phép",
+		"allowedSummary": "Cho phép nâng cấp bằng AI",
 		"description": "YouTube cung cấp một số video cũ ở các kích thước được tạo bằng AI. Bỏ qua sẽ giữ các luồng gốc; bạn vẫn có thể tự chọn một luồng đã nâng cấp.",
 		"label": "Luồng nâng cấp bằng AI",
 		"skip": "Bỏ qua"
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ Hàng đợi",
 			"addToQueueTooltip": "Bắt đầu khi các tải xuống khác hoàn tất — sử dụng toàn bộ băng thông",
-			"audioOnly": "Chỉ âm thanh",
 			"itemsValueAudio_other": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueBulk_other": "{{count}} trên {{total}} URL",
 			"itemsValue_other": "{{count}} trong {{total}} video",
@@ -757,7 +757,7 @@
 			"labelVideo": "Video",
 			"landIn": "Tệp của bạn sẽ được lưu vào",
 			"landInMultiProfile_other": "Sẽ được lưu vào {{count}} điểm đến bên dưới",
-			"nothingToDownload": "Cài đặt chỉ phụ đề đang hoạt động nhưng chưa chọn ngôn ngữ phụ đề nào — sẽ không có gì được tải xuống.",
+			"nothingToDownload": "Hồ sơ “Chỉ phụ đề” đang hoạt động nhưng chưa chọn ngôn ngữ phụ đề nào — sẽ không có gì được tải xuống.",
 			"profileBreakdownCount_other": "{{count}} mục",
 			"profileBreakdownHeading": "Hồ sơ trong lô này",
 			"pullIt": "Tải về! ↓",
@@ -789,7 +789,6 @@
 			"audio": "Âm thanh",
 			"audioLanguage": "Ngôn ngữ âm thanh",
 			"audioLanguageCount_other": "{{count}} ngôn ngữ",
-			"audioOnly": "Chỉ âm thanh",
 			"bitrateValue": "Tốc độ bit {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies đã được cấu hình nhưng đang tắt. Bật lên và thử lại để có danh sách đầy đủ, hoặc đổi mạng và thử lại.",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "Không rõ độ phân giải",
 			"savesAs": {
 				"label": "Lưu thành",
-				"reset": "WebM không chứa được {{codec}}, nên loại tệp đã quay về Tự động."
+				"reset": "WebM không chứa được {{codec}}, nên loại tệp đã quay về Tự động.",
+				"value": "Được lưu thành .{{ext}}"
 			},
 			"sizeUnknown": "Không biết kích thước",
 			"skipToConfirm": "Bỏ qua đến xác nhận",
@@ -951,37 +951,61 @@
 			"video": "Video",
 			"withAudio": "có âm thanh"
 		},
-		"mixedPrompt": {
-			"body": "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.",
-			"pickFromPlaylist": "Chọn từ Playlist",
-			"playlistLimit": "Giới hạn dò playlist: {{count}} mục",
-			"playlistTooltip": "Tải playlist đến giới hạn dò playlist của bạn trước khi hiện bộ chọn.",
-			"quickBody": "Chỉ tải video này, hoặc đưa toàn bộ playlist vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động.",
-			"quickLimitDescription": "Số mục tối đa Arroxy quét trước khi đưa playlist, kênh hoặc kết quả tìm kiếm vào hàng đợi.",
-			"quickPlaylistTooltip": "Đưa mọi mục playlist đã tải vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động. Nếu lần quét chạm giới hạn của bạn, Arroxy sẽ hỏi trước khi đưa vào hàng đợi.",
-			"quickSingleTooltip": "Đưa một lượt tải vào hàng đợi và bỏ qua playlist gắn với URL này.",
-			"quickSingleVideo": "Tải video này",
-			"quickWholePlaylist": "Tải toàn bộ playlist",
-			"singleTooltip": "Chỉ tải video này. Playlist gắn với URL này sẽ bị bỏ qua.",
-			"singleVideo": "Chỉ cái này thôi",
-			"title": "Liên kết này có Playlist"
+		"listPrompt": {
+			"escHint": "Nhấn Esc để hủy. Sẽ không tải gì cho đến khi bạn chọn.",
+			"interactiveSubtitle": "Tự chọn định dạng",
+			"justThisVideo": "Chỉ video này",
+			"justThisVideoInteractiveHint": "Mở các định dạng của video",
+			"justThisVideoQuickHint": "Tải một video",
+			"listInteractiveHint": "Tải tối đa {{count}} mục để bạn chọn",
+			"listOption": {
+				"album": "Phần đầu của album",
+				"liked": "Phần đầu của video đã thích",
+				"mix": "Phần đầu của Mix",
+				"playlist": "Phần đầu của danh sách phát",
+				"uploads": "Phần đầu của video đã tải lên",
+				"watchLater": "Phần đầu của Xem sau"
+			},
+			"listQuickHint": "Tải tối đa {{count}} mục rồi tải xuống",
+			"mixNote": "Mix thay đổi mỗi lần bạn mở.",
+			"pickOption": {
+				"album": "Chọn từ phần đầu của album",
+				"liked": "Chọn từ phần đầu của video đã thích",
+				"mix": "Chọn từ phần đầu của Mix",
+				"playlist": "Chọn từ phần đầu của danh sách phát",
+				"uploads": "Chọn từ phần đầu của video đã tải lên",
+				"watchLater": "Chọn từ phần đầu của Xem sau"
+			},
+			"title": {
+				"album": "Tải xuống từ album này",
+				"liked": "Tải xuống từ video đã thích của bạn",
+				"mix": "Tải xuống từ Mix này",
+				"playlist": "Tải xuống từ danh sách phát này",
+				"uploads": "Tải xuống từ video đã tải lên của kênh này",
+				"watchLater": "Tải xuống từ Xem sau"
+			},
+			"withProfile": "Dùng {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Các mốc chương có thể điều hướng trong mọi trình phát hiện đại.",
-				"label": "Nhúng chương"
+				"label": "Nhúng chương",
+				"short": "Chương"
 			},
 			"embedMetadata": {
 				"description": "Tiêu đề, nghệ sĩ, mô tả và ngày tải lên được ghi vào tệp.",
-				"label": "Nhúng metadata"
+				"label": "Nhúng metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Ảnh bìa bên trong tệp. Video WebM sẽ được remux sang MKV; bỏ qua khi có phụ đề được nhúng.",
-				"label": "Nhúng hình thu nhỏ"
+				"label": "Nhúng hình thu nhỏ",
+				"short": "Ảnh bìa"
 			},
 			"writeDescription": {
 				"description": "Lưu mô tả video dưới dạng tệp văn bản .description cạnh tệp tải xuống.",
-				"label": "Lưu mô tả"
+				"label": "Lưu mô tả",
+				"short": "Tệp mô tả"
 			},
 			"writeM3u": {
 				"description": "Lưu playlist .m3u cạnh các video để mở đúng thứ tự trong trình phát.",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Lưu hình thu nhỏ dưới dạng tệp ảnh .jpg cạnh tệp tải xuống.",
-				"label": "Lưu hình thu nhỏ"
+				"label": "Lưu hình thu nhỏ",
+				"short": "Tệp hình thu nhỏ"
 			}
 		},
 		"part": {
@@ -1080,6 +1105,13 @@
 			"syncScanning": "Đang kiểm tra thư mục…",
 			"thumbnailAlt": "Hình thu nhỏ video"
 		},
+		"playlistCap": {
+			"changeLimit": "Đổi giới hạn tải",
+			"descriptionWithTitle_other": "<title/>: Arroxy đã tải {{count}} mục theo giới hạn hiện tại là {{limit}}. Bạn có thể thêm các mục đã tải vào hàng đợi ngay, hoặc tăng giới hạn rồi quét lại.",
+			"description_other": "Arroxy đã tải {{count}} mục theo giới hạn hiện tại là {{limit}}. Bạn có thể thêm các mục đã tải vào hàng đợi ngay, hoặc tăng giới hạn rồi quét lại.",
+			"queueLoaded": "Thêm các mục đã tải vào hàng đợi",
+			"title": "Quét danh sách phát đã bị giới hạn"
+		},
 		"playlistPresets": {
 			"heading": "Chọn chất lượng cho lô",
 			"itemCount_other": "{{count}} mục",
@@ -1125,6 +1157,7 @@
 				"320": "Tối đa 320K",
 				"best": "Chất lượng tốt nhất"
 			},
+			"defaultName": "Hồ sơ mới",
 			"destination": {
 				"defaultFolder": "Thư mục tải xuống mặc định",
 				"defaultFolderWithSubfolder": "Thư mục tải xuống mặc định / {{subfolder}}",
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Nhạc hoặc podcast",
-					"label": "Chỉ âm thanh"
+					"description": "Nhạc hoặc podcast"
 				},
 				"subtitlesOnly": {
-					"description": "Chỉ tệp phụ đề",
-					"label": "Chỉ phụ đề"
+					"description": "Chỉ tệp phụ đề"
 				},
 				"videoAudio": {
-					"description": "Tệp video thông thường",
-					"label": "Video + âm thanh"
+					"description": "Tệp video thông thường"
 				},
 				"videoOnly": {
-					"description": "Chỉ video không tiếng",
-					"label": "Video, không âm thanh"
+					"description": "Chỉ video không tiếng"
 				}
 			},
 			"note": {
@@ -1562,8 +1591,7 @@
 				"description": "Số mục tối đa Arroxy tải khi mở một playlist, kênh hoặc kết quả tìm kiếm.",
 				"invalid": "Nhập số nguyên từ 1 đến 5000",
 				"label": "Số mục playlist cần quét",
-				"option": "{{count}} mục",
-				"tooltip": "Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
+				"option": "{{count}} mục"
 			},
 			"playlistScope": {
 				"appLimit": "Dùng giới hạn của ứng dụng: {{count}}",
@@ -1632,19 +1660,12 @@
 				"moveOver": "Hồ sơ {{profileName}} đang ở trên vị trí {{position}} trên {{count}}.",
 				"movePickedUp": "Đã nhấc hồ sơ {{profileName}}. Hồ sơ đang ở vị trí {{position}} trên {{count}}.",
 				"newProfile": "Hồ sơ mới",
+				"outputMissing": "Hồ sơ này lưu vào một thư mục chưa được đặt. Hãy chọn thư mục trong hồ sơ, hoặc đặt lại về mặc định.",
 				"panelDescription": "Tạo, chọn, chỉnh sửa hoặc xóa các thiết lập tải xuống có thể dùng lại.",
 				"panelTitle": "Hồ sơ tải xuống",
 				"remove": "Xóa",
 				"reorderHint": "Kéo một hồ sơ để di chuyển. Mọi bộ chọn hồ sơ đều theo thứ tự này.",
 				"reset": "Đặt lại",
-				"summary": {
-					"aacAudio": "âm thanh AAC",
-					"bestAudio": "âm thanh tốt nhất",
-					"bestVideo": "video tốt nhất",
-					"noAudio": "không có âm thanh",
-					"subtitlesOnly": "chỉ phụ đề",
-					"wavAudio": "âm thanh WAV"
-				},
 				"switchAria": "Đổi hồ sơ tải xuống: {{profileName}}",
 				"switchTitle": "Đổi hồ sơ tải xuống"
 			},

@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Permite"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Fluxuri mărite cu IA permise"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube oferă unele videoclipuri vechi în dimensiuni create cu IA. Omiterea păstrează fluxurile originale; puteți totuși alege manual unul mărit cu IA."
@@ -2233,10 +2237,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Adaugă în coadă — pornește când se termină descărcarea activă"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Doar audio"
-
 #. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValue_few"
 msgid "{{count}} of {{total}} videos"
@@ -2338,8 +2338,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Vor ajunge în cele {{count}} de destinații de mai jos"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Presetarea Doar subtitrări este activă, dar nu este selectată nicio limbă de subtitrare — nu se va descărca nimic."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Profilul „Doar subtitrări” este activ, dar nu este selectată nicio limbă pentru subtitrări – nu se va descărca nimic."
 
 #. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.profileBreakdownCount_few"
@@ -2462,10 +2462,6 @@ msgstr "{{count}} limbă"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} de limbi"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Doar audio"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2919,6 +2915,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Se salvează ca .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Dimensiune necunoscută"
@@ -2947,57 +2947,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "cu audio"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Doriți doar videoclipul pe care ați făcut clic sau alegeți din lista de redare? În continuare veți alege videoclipuri anume sau un interval."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc anulează. Nu se încarcă nimic până nu alegeți."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Alege din listă"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Alegeți singur formatele"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Limita de sondare a listei: {{count}} elemente"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Doar acest videoclip"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Încarcă lista de redare, până la limita de sondare a listei, înainte de a afișa selectorul."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Deschide formatele sale"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Descărcați doar acest videoclip sau puneți în coadă întreaga listă de redare cu profilul Descărcare rapidă activ."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Încarcă un videoclip"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Numărul maxim de intrări pe care Arroxy le scanează înainte de a pune în coadă o listă de redare, un canal sau un rezultat de căutare."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Încarcă până la {{count}}, dintre care să alegeți"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Pune în coadă fiecare element încărcat al listei cu profilul Descărcare rapidă activ. Dacă scanarea atinge limita, Arroxy întreabă înainte de a le pune în coadă."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Albumul, primele"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Pune în coadă o singură descărcare și ignoră lista de redare atașată acestui URL."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Videoclipurile apreciate, primele"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Descarcă acest videoclip"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Mixul, primele"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Descarcă toată lista"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Lista de redare, primele"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Încarcă doar acest videoclip. Lista de redare atașată acestui URL este ignorată."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Încărcările, primele"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Doar acesta"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "„Redă mai târziu”, primele"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Acest link conține o listă de redare"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Încarcă până la {{count}}, apoi le descarcă"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Un Mix se schimbă de fiecare dată când îl deschideți."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Alegere din album, din primele"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Alegere din videoclipurile apreciate, din primele"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Alegere din Mix, din primele"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Alegere din lista de redare, din primele"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Alegere din încărcări, din primele"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Alegere din „Redă mai târziu”, din primele"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Descărcare din acest album"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Descărcare din videoclipurile apreciate"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Descărcare din acest Mix"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Descărcare din această listă de redare"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Descărcare din încărcările acestui canal"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Descărcare din „Redă mai târziu”"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Profil: {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3007,6 +3063,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Încorporează capitolele"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "capitole"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Titlul, artistul, descrierea și data încărcării se scriu în fișier."
@@ -3014,6 +3074,10 @@ msgstr "Titlul, artistul, descrierea și data încărcării se scriu în fișier
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Încorporează metadatele"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "metadate"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3023,6 +3087,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Încorporează miniatura"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "copertă"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Salvează descrierea videoclipului ca fișier text .description lângă descărcare."
@@ -3030,6 +3098,10 @@ msgstr "Salvează descrierea videoclipului ca fișier text .description lângă 
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Salvează descrierea"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "fișier de descriere"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3046,6 +3118,10 @@ msgstr "Salvează miniatura ca fișier imagine .jpg lângă descărcare."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Salvează miniatura"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "fișier de miniatură"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3455,6 +3531,48 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Miniatura videoclipului"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Schimbă limita de încărcare"
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.description_few"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou."
+
+#. Plural form "few" for ro: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.descriptionWithTitle_few"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou."
+
+#. Plural form "one" for ro: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou."
+
+#. Plural form "other" for ro: used for counts like 20, 21, 22, 23, 24, 25.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Adaugă în coadă elementele încărcate"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Scanarea listei de redare este limitată"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Alegeți calitatea pentru lot"
@@ -3623,6 +3741,10 @@ msgstr "Până la 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Cea mai bună calitate"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Profil nou"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3824,33 +3946,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Muzică sau podcasturi"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Doar audio"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Doar fișiere de subtitrare"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Doar subtitrări"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Fișiere video obișnuite"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Video + audio"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Doar video, fără sunet"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Video, fără audio"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4874,10 +4980,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} elemente"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy cere doar atâtea intrări de listă de redare, canal sau căutare cât construiește selectorul."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Folosește limita aplicației: {{count}}"
@@ -5118,6 +5220,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profil nou"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Acest profil salvează într-un folder care nu este setat. Alegeți un folder în profil sau reveniți la cel implicit."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Creați, selectați, editați sau eliminați configurații de descărcare reutilizabile."
@@ -5137,30 +5243,6 @@ msgstr "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmeaz�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Resetează"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "audio AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "cel mai bun audio"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "cel mai bun video"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "fără audio"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "doar subtitrări"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "audio WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

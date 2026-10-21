@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Ruhusu",
+		"allowedSummary": "Mikondo iliyokuzwa kwa AI imeruhusiwa",
 		"description": "YouTube hutoa baadhi ya video za zamani kwa ukubwa uliotengenezwa na AI. Ruka huhifadhi mikondo asili; bado unaweza kuchagua mkondo uliokuzwa kwa mkono.",
 		"label": "Mikondo iliyokuzwa kwa AI",
 		"skip": "Ruka"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Queue",
 			"addToQueueTooltip": "Inaanza vipakuzi vingine vikishamaliza — inapata upanuzi kamili",
-			"audioOnly": "Sauti peke yake",
 			"itemsValueAudio_one": "{{count}} kati ya {{total}} wimbo",
 			"itemsValueAudio_other": "{{count}} kati ya {{total}} nyimbo",
 			"itemsValueBulk_one": "{{count}} kati ya {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Faili yako itawekwa kwenye",
 			"landInMultiProfile_one": "Itafika kwenye lengwa lililo hapa chini",
 			"landInMultiProfile_other": "Zitafika kwenye malengwa {{count}} yaliyo hapa chini",
-			"nothingToDownload": "Mpangilio wa manukuu peke yake umewashwa lakini hakuna lugha ya manukuu iliyochaguliwa — hakuna kitakachopakiwa.",
+			"nothingToDownload": "Wasifu wa Manukuu peke yake umewashwa lakini hakuna lugha ya manukuu iliyochaguliwa — hakuna kitakachopakuliwa.",
 			"profileBreakdownCount_one": "{{count}} kipande",
 			"profileBreakdownCount_other": "{{count}} vipande",
 			"profileBreakdownHeading": "Wasifu katika kundi hili",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Lugha ya sauti",
 			"audioLanguageCount_one": "Lugha {{count}}",
 			"audioLanguageCount_other": "Lugha {{count}}",
-			"audioOnly": "Sauti peke yake",
 			"bitrateValue": "Kiwango cha biti {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Vidakuzi vimesanidiwa lakini vimezimwa. Viwashe na ujaribu tena kupata orodha kamili, au badilisha mtandao na ujaribu tena.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Azimio halijulikani",
 			"savesAs": {
 				"label": "Huhifadhiwa kama",
-				"reset": "WebM haiwezi kubeba {{codec}}, kwa hivyo aina ya faili imerudi kuwa Otomatiki."
+				"reset": "WebM haiwezi kubeba {{codec}}, kwa hivyo aina ya faili imerudi kuwa Otomatiki.",
+				"value": "Huhifadhiwa kama .{{ext}}"
 			},
 			"sizeUnknown": "Ukubwa haujulikani",
 			"skipToConfirm": "Ruka hadi uthibitisho",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "yenye sauti"
 		},
-		"mixedPrompt": {
-			"body": "Unataka video uliyobofya tu, au uchague kutoka Playlist? Hatua inayofuata utachagua video maalum au anuwai.",
-			"pickFromPlaylist": "Chagua kutoka Playlist",
-			"playlistLimit": "Kikomo cha kuchunguza playlist: vipengee {{count}}",
-			"playlistTooltip": "Hupakia playlist, hadi kikomo chako cha ukaguzi wa playlist, kabla ya kuonyesha kichaguaji.",
-			"quickBody": "Pakua video hii pekee, au ongeza orodha yote ya kucheza kwenye foleni kwa wasifu wako amilifu wa Upakuaji wa haraka.",
-			"quickLimitDescription": "Idadi ya juu ya vipengee ambavyo Arroxy hukagua kabla ya kuongeza orodha ya kucheza, kituo au matokeo ya utafutaji kwenye foleni.",
-			"quickPlaylistTooltip": "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni.",
-			"quickSingleTooltip": "Huongeza upakuaji mmoja kwenye foleni na kupuuza orodha ya kucheza iliyoambatishwa kwenye URL hii.",
-			"quickSingleVideo": "Pakua video hii",
-			"quickWholePlaylist": "Pakua orodha yote ya kucheza",
-			"singleTooltip": "Hupakia video hii pekee. Playlist iliyounganishwa na URL hii inapuuzwa.",
-			"singleVideo": "Hii tu",
-			"title": "Kiungo hiki kina Playlist"
+		"listPrompt": {
+			"escHint": "Esc hughairi. Hakuna kinachopakiwa hadi uchague.",
+			"interactiveSubtitle": "Chagua miundo mwenyewe",
+			"justThisVideo": "Video hii tu",
+			"justThisVideoInteractiveHint": "Hufungua miundo yake",
+			"justThisVideoQuickHint": "Hupakia video moja",
+			"listInteractiveHint": "Hupakia hadi {{count}} za kuchagua",
+			"listOption": {
+				"album": "Mwanzo wa albamu",
+				"liked": "Mwanzo wa video ulizopenda",
+				"mix": "Mwanzo wa Mix",
+				"playlist": "Mwanzo wa playlist",
+				"uploads": "Mwanzo wa video zilizopakiwa",
+				"watchLater": "Mwanzo wa Tazama baadaye"
+			},
+			"listQuickHint": "Hupakia hadi {{count}}, kisha huzipakua",
+			"mixNote": "Mix hubadilika kila unapoifungua.",
+			"pickOption": {
+				"album": "Chagua kutoka mwanzo wa albamu",
+				"liked": "Chagua kutoka mwanzo wa video ulizopenda",
+				"mix": "Chagua kutoka mwanzo wa Mix",
+				"playlist": "Chagua kutoka mwanzo wa playlist",
+				"uploads": "Chagua kutoka mwanzo wa video zilizopakiwa",
+				"watchLater": "Chagua kutoka mwanzo wa Tazama baadaye"
+			},
+			"title": {
+				"album": "Pakua kutoka albamu hii",
+				"liked": "Pakua kutoka video ulizopenda",
+				"mix": "Pakua kutoka Mix hii",
+				"playlist": "Pakua kutoka playlist hii",
+				"uploads": "Pakua kutoka video zilizopakiwa kwenye kituo hiki",
+				"watchLater": "Pakua kutoka Tazama baadaye"
+			},
+			"withProfile": "Kwa {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Alama za sura zinazoweza kuabiriwa katika kichezaji chochote cha kisasa.",
-				"label": "Ingiza sura"
+				"label": "Ingiza sura",
+				"short": "Sura"
 			},
 			"embedMetadata": {
 				"description": "Kichwa, msanii, maelezo, na tarehe ya kupakia vimeandikwa kwenye faili.",
-				"label": "Ingiza metadata"
+				"label": "Ingiza metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Sanaa ya jalada ndani ya faili. Video ya WebM itabadilishwa kuwa MKV; hupitishwa wakati manukuu yanaingizwa.",
-				"label": "Ingiza picha ndogo"
+				"label": "Ingiza picha ndogo",
+				"short": "Picha ya jalada"
 			},
 			"writeDescription": {
 				"description": "Inahifadhi maelezo ya video kama faili ya maandishi ya .description karibu na kipakuliwa.",
-				"label": "Hifadhi maelezo"
+				"label": "Hifadhi maelezo",
+				"short": "Faili ya maelezo"
 			},
 			"writeM3u": {
 				"description": "Hifadhi playlist ya .m3u pamoja na video ili zifunguke kwa mpangilio kwenye kicheza media.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa.",
-				"label": "Hifadhi picha ndogo"
+				"label": "Hifadhi picha ndogo",
+				"short": "Faili ya picha ndogo"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Inakagua folda…",
 			"thumbnailAlt": "Picha ndogo ya video"
 		},
+		"playlistCap": {
+			"changeLimit": "Badilisha kikomo cha upakiaji",
+			"descriptionWithTitle_one": "<title/>: Arroxy imepakia kipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka kipande kilichopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena.",
+			"descriptionWithTitle_other": "<title/>: Arroxy imepakia vipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka vipande vilivyopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena.",
+			"description_one": "Arroxy imepakia kipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka kipande kilichopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena.",
+			"description_other": "Arroxy imepakia vipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka vipande vilivyopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena.",
+			"queueLoaded": "Weka vilivyopakiwa kwenye foleni",
+			"title": "Skani ya playlist imefikia kikomo"
+		},
 		"playlistPresets": {
 			"heading": "Chagua ubora wa kundi",
 			"itemCount_one": "{{count}} kipande",
@@ -1154,6 +1188,7 @@
 				"320": "Hadi 320K",
 				"best": "Ubora bora"
 			},
+			"defaultName": "Wasifu mpya",
 			"destination": {
 				"defaultFolder": "Folda chaguomsingi ya vipakuliwa",
 				"defaultFolderWithSubfolder": "Folda chaguomsingi ya vipakuliwa / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muziki au podikasti",
-					"label": "Sauti pekee"
+					"description": "Muziki au podikasti"
 				},
 				"subtitlesOnly": {
-					"description": "Faili za manukuu pekee",
-					"label": "Manukuu peke yake"
+					"description": "Faili za manukuu pekee"
 				},
 				"videoAudio": {
-					"description": "Faili za kawaida za video",
-					"label": "Video + sauti"
+					"description": "Faili za kawaida za video"
 				},
 				"videoOnly": {
-					"description": "Video isiyo na sauti pekee",
-					"label": "Video, bila sauti"
+					"description": "Video isiyo na sauti pekee"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Idadi ya juu ya maingizo ambayo Arroxy hupakia wakati playlist, kituo, au matokeo ya utafutaji yanafunguliwa.",
 				"invalid": "Tumia nambari nzima kutoka 1 hadi 5000",
 				"label": "Vipande vya playlist vya kuskanisha",
-				"option": "Vipande {{count}}",
-				"tooltip": "Arroxy huomba idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguaji."
+				"option": "Vipande {{count}}"
 			},
 			"playlistScope": {
 				"appLimit": "Tumia kikomo cha programu: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "Wasifu wa {{profileName}} uko juu ya nafasi ya {{position}} kati ya {{count}}.",
 				"movePickedUp": "Wasifu wa {{profileName}} umeshikwa. Uko kwenye nafasi ya {{position}} kati ya {{count}}.",
 				"newProfile": "Wasifu mpya",
+				"outputMissing": "Wasifu huu huhifadhi kwenye folda ambayo haijawekwa. Chagua folda kwenye wasifu, au uirudishe kwenye chaguo-msingi.",
 				"panelDescription": "Unda, chagua, hariri, au ondoa mipangilio ya upakuaji inayoweza kutumika tena.",
 				"panelTitle": "Wasifu wa upakuaji",
 				"remove": "Ondoa",
 				"reorderHint": "Buruta wasifu ili kuusogeza. Kila kichaguzi cha wasifu kinafuata mpangilio huu.",
 				"reset": "Weka upya",
-				"summary": {
-					"aacAudio": "sauti ya AAC",
-					"bestAudio": "sauti bora",
-					"bestVideo": "video bora",
-					"noAudio": "bila sauti",
-					"subtitlesOnly": "manukuu peke yake",
-					"wavAudio": "sauti ya WAV"
-				},
 				"switchAria": "Badilisha wasifu wa kupakua: {{profileName}}",
 				"switchTitle": "Badilisha wasifu wa kupakua"
 			},

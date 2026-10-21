@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "허용"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "AI 업스케일 허용"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube는 일부 오래된 동영상을 AI로 만든 크기로도 제공합니다. 건너뛰기를 선택하면 원본 스트림을 유지하며, 업스케일된 스트림을 직접 고를 수도 있습니다."
@@ -899,7 +903,7 @@ msgstr "최대 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "최고 화질"
+msgstr "최고 품질"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "대기열에 추가합니다. 진행 중인 다운로드가 끝나면 시작됩니다"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "오디오만"
-
 #. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "아래 {{count}}개 대상에 저장됩니다"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "자막 전용 프리셋이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "‘자막만’ 프로필이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다."
 
 #. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2282,10 +2282,6 @@ msgstr "오디오 언어"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "언어 {{count}}개"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "오디오만"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM에는 {{codec}}을(를) 담을 수 없어 파일 형식을 자동으로 되돌렸습니다."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr ".{{ext}} 형식으로 저장됩니다"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "크기 알 수 없음"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "오디오 포함"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "클릭한 동영상만 받을까요, 아니면 재생목록에서 선택할까요? 다음 단계에서 특정 동영상이나 범위를 선택할 수 있습니다."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc를 누르면 취소됩니다. 선택하기 전에는 아무것도 불러오지 않습니다."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "재생목록에서 선택"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "형식을 직접 선택합니다"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "재생목록 분석 제한: {{count}}개 항목"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "이 동영상만"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "선택 화면을 표시하기 전에 재생목록을 분석 제한까지 불러옵니다."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "형식 선택 화면을 엽니다"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "이 동영상만 다운로드하거나 활성 빠른 다운로드 프로필로 전체 재생목록을 대기열에 추가합니다."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "동영상 1개를 불러옵니다"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Arroxy가 재생목록, 채널 또는 검색 결과를 대기열에 추가하기 전에 분석할 최대 항목 수입니다."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "최대 {{count}}개를 불러와 선택합니다"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "불러온 모든 재생목록 항목을 활성 빠른 다운로드 프로필로 대기열에 추가합니다. 분석이 제한에 도달하면 Arroxy가 추가 전에 확인합니다."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "앨범의 앞부분"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "하나의 다운로드만 대기열에 추가하고 이 URL에 연결된 재생목록은 무시합니다."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "좋아요 표시한 동영상의 앞부분"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "이 동영상 다운로드"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "믹스의 앞부분"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "전체 재생목록 다운로드"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "재생목록의 앞부분"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "이 동영상만 불러옵니다. 이 URL에 연결된 재생목록은 무시됩니다."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "업로드한 동영상의 앞부분"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "이 항목만"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "나중에 볼 동영상의 앞부분"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "이 링크에 재생목록이 있습니다"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "최대 {{count}}개를 불러온 뒤 다운로드합니다"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "믹스는 열 때마다 내용이 바뀝니다."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "앨범의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "좋아요 표시한 동영상의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "믹스의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "재생목록의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "업로드한 동영상의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "나중에 볼 동영상의 앞부분에서 선택"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "이 앨범에서 다운로드"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "좋아요 표시한 동영상에서 다운로드"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "이 믹스에서 다운로드"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "이 재생목록에서 다운로드"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "이 채널의 업로드에서 다운로드"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "나중에 볼 동영상에서 다운로드"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "{{profileName}} 사용"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "챕터 포함"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "챕터"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "제목, 아티스트, 설명 및 업로드 날짜를 파일에 기록합니다."
@@ -2834,6 +2894,10 @@ msgstr "제목, 아티스트, 설명 및 업로드 날짜를 파일에 기록합
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "메타데이터 포함"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "메타데이터"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "미리보기 이미지 포함"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "커버 아트"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "동영상 설명을 다운로드 옆에 .description 텍스트 파일로 저장합니다."
@@ -2850,6 +2918,10 @@ msgstr "동영상 설명을 다운로드 옆에 .description 텍스트 파일로
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "설명 저장"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "설명 파일"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "미리보기 이미지를 다운로드 옆에 .jpg 이미지 파일로 �
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "미리보기 이미지 저장"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "미리보기 이미지 파일"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "동영상 미리보기 이미지"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "불러오기 제한 변경"
+
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요."
+
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: 현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "불러온 항목 대기열에 추가"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "재생목록 분석 제한됨"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "일괄 작업의 화질 선택"
@@ -3332,7 +3430,11 @@ msgstr "최대 320K"
 
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
-msgstr "최고 화질"
+msgstr "최고 음질"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "새 프로필"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "음악 또는 팟캐스트"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "오디오만"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "자막 파일만"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "자막만"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "일반 동영상 파일"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "동영상 + 오디오"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "오디오 없는 동영상만"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "동영상, 오디오 없음"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}}개 항목"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "앱 제한 사용: {{count}}"
@@ -4808,6 +4890,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "새 프로필"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "이 프로필이 저장할 폴더가 설정되지 않았습니다. 프로필에서 폴더를 선택하거나 기본값으로 되돌리세요."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "재사용 가능한 다운로드 설정을 만들고 선택하고 편집하거나 제거합니다."
@@ -4827,30 +4913,6 @@ msgstr "프로필을 드래그하여 이동하세요. 모든 프로필 선택기
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "재설정"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC 오디오"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "최고 음질 오디오"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "최고 화질 동영상"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "오디오 없음"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "자막만"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV 오디오"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

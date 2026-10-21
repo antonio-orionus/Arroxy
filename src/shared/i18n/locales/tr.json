@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "İzin ver",
+		"allowedSummary": "YZ ile büyütülenlere izin verildi",
 		"description": "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz.",
 		"label": "YZ ile büyütülmüş akışlar",
 		"skip": "Atla"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Kuyruk",
 			"addToQueueTooltip": "Kuyruğa ekler — etkin indirme bittiğinde başlar",
-			"audioOnly": "Yalnızca ses",
 			"itemsValueAudio_one": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
 			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
@@ -773,7 +773,7 @@
 			"landIn": "Dosyan şuraya düşecek",
 			"landInMultiProfile_one": "Aşağıdaki hedefe inecek",
 			"landInMultiProfile_other": "Aşağıdaki {{count}} hedefe inecek",
-			"nothingToDownload": "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok.",
+			"nothingToDownload": "Yalnızca altyazı profili etkin ama altyazı dili seçilmedi — indirilecek bir şey yok.",
 			"profileBreakdownCount_one": "{{count}} öğe",
 			"profileBreakdownCount_other": "{{count}} öğe",
 			"profileBreakdownHeading": "Bu gruptaki profiller",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Ses dili",
 			"audioLanguageCount_one": "{{count}} dil",
 			"audioLanguageCount_other": "{{count}} dil",
-			"audioOnly": "Yalnızca ses",
 			"bitrateValue": "Bit hızı {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Çerezler yapılandırılmış ama kapalı. Tam listeyi almak için etkinleştirip tekrar dene ya da ağı değiştirip tekrar dene.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Boyut bilinmiyor",
 			"savesAs": {
 				"label": "Şu olarak kaydedilir",
-				"reset": "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü."
+				"reset": "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü.",
+				"value": ".{{ext}} olarak kaydedilir"
 			},
 			"sizeUnknown": "Boyut bilinmiyor",
 			"skipToConfirm": "Onaya atla",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "sesli"
 		},
-		"mixedPrompt": {
-			"body": "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin.",
-			"pickFromPlaylist": "Oynatma listesinden seç",
-			"playlistLimit": "Oynatma listesi denetim sınırı: {{count}} öğe",
-			"playlistTooltip": "Seçiciyi göstermeden önce oynatma listesini, oynatma listesi denetim sınırına kadar yükler.",
-			"quickBody": "Yalnızca bu videoyu indir veya etkin Hızlı İndirme profilinle tüm oynatma listesini kuyruğa al.",
-			"quickLimitDescription": "Arroxy’nin bir oynatma listesini, kanalı veya arama sonucunu kuyruğa almadan önce taradığı en fazla kayıt sayısı.",
-			"quickPlaylistTooltip": "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar.",
-			"quickSingleTooltip": "Bir indirme kuyruğa alır ve bu URL’ye bağlı oynatma listesini yoksayar.",
-			"quickSingleVideo": "Bu videoyu indir",
-			"quickWholePlaylist": "Tüm oynatma listesini indir",
-			"singleTooltip": "Yalnızca bu videoyu yükler. Bu URL’ye bağlı oynatma listesi yoksayılır.",
-			"singleVideo": "Sadece bu",
-			"title": "Bu bağlantıda bir oynatma listesi var"
+		"listPrompt": {
+			"escHint": "Esc iptal eder. Seçim yapılana kadar hiçbir şey yüklenmez.",
+			"interactiveSubtitle": "Biçimleri kendin seç",
+			"justThisVideo": "Yalnızca bu video",
+			"justThisVideoInteractiveHint": "Biçimlerini açar",
+			"justThisVideoQuickHint": "Tek bir video yükler",
+			"listInteractiveHint": "Seçmek için en fazla {{count}} yükler",
+			"listOption": {
+				"album": "Albümün ilk",
+				"liked": "Beğendiğin videoların ilk",
+				"mix": "Mix’in ilk",
+				"playlist": "Oynatma listesinin ilk",
+				"uploads": "Yüklemelerin ilk",
+				"watchLater": "“Daha sonra izle”nin ilk"
+			},
+			"listQuickHint": "En fazla {{count}} yükler, sonra indirir",
+			"mixNote": "Mix her açıldığında değişir.",
+			"pickOption": {
+				"album": "Seç: albümün ilk",
+				"liked": "Seç: beğendiğin videoların ilk",
+				"mix": "Seç: Mix’in ilk",
+				"playlist": "Seç: oynatma listesinin ilk",
+				"uploads": "Seç: yüklemelerin ilk",
+				"watchLater": "Seç: “Daha sonra izle”nin ilk"
+			},
+			"title": {
+				"album": "Bu albümden indir",
+				"liked": "Beğendiğin videolardan indir",
+				"mix": "Bu Mix’ten indir",
+				"playlist": "Bu oynatma listesinden indir",
+				"uploads": "Bu kanalın yüklemelerinden indir",
+				"watchLater": "“Daha sonra izle”den indir"
+			},
+			"withProfile": "{{profileName}} ile"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Her modern oynatıcıda gezilebilir bölüm işaretleri.",
-				"label": "Bölümleri göm"
+				"label": "Bölümleri göm",
+				"short": "Bölümler"
 			},
 			"embedMetadata": {
 				"description": "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır.",
-				"label": "Meta verileri göm"
+				"label": "Meta verileri göm",
+				"short": "Meta veriler"
 			},
 			"embedThumbnail": {
 				"description": "Dosyanın içinde kapak görseli. WebM video MKV’ye yeniden paketlenir; altyazılar gömülüyse atlanır.",
-				"label": "Küçük resmi göm"
+				"label": "Küçük resmi göm",
+				"short": "Kapak resmi"
 			},
 			"writeDescription": {
 				"description": "Video açıklamasını indirmenin yanına .description metin dosyası olarak kaydeder.",
-				"label": "Açıklamayı kaydet"
+				"label": "Açıklamayı kaydet",
+				"short": "Açıklama dosyası"
 			},
 			"writeM3u": {
 				"description": "Videoların medya oynatıcında sırayla açılması için yanlarına bir .m3u oynatma listesi kaydet.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kaydeder.",
-				"label": "Küçük resmi kaydet"
+				"label": "Küçük resmi kaydet",
+				"short": "Küçük resim dosyası"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Klasör kontrol ediliyor…",
 			"thumbnailAlt": "Video küçük resmi"
 		},
+		"playlistCap": {
+			"changeLimit": "Yükleme sınırını değiştir",
+			"descriptionWithTitle_one": "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara.",
+			"descriptionWithTitle_other": "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara.",
+			"description_one": "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara.",
+			"description_other": "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara.",
+			"queueLoaded": "Yüklenenleri kuyruğa ekle",
+			"title": "Oynatma listesi taraması sınırlandı"
+		},
 		"playlistPresets": {
 			"heading": "Toplu indirme için kalite seç",
 			"itemCount_one": "{{count}} öğe",
@@ -1154,6 +1188,7 @@
 				"320": "320K'ya kadar",
 				"best": "En iyi kalite"
 			},
+			"defaultName": "Yeni profil",
 			"destination": {
 				"defaultFolder": "Varsayılan indirme klasörü",
 				"defaultFolderWithSubfolder": "Varsayılan indirme klasörü / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Müzik veya podcast",
-					"label": "Yalnızca ses"
+					"description": "Müzik veya podcast"
 				},
 				"subtitlesOnly": {
-					"description": "Yalnızca altyazı dosyaları",
-					"label": "Yalnızca altyazılar"
+					"description": "Yalnızca altyazı dosyaları"
 				},
 				"videoAudio": {
-					"description": "Normal video dosyaları",
-					"label": "Video + ses"
+					"description": "Normal video dosyaları"
 				},
 				"videoOnly": {
-					"description": "Yalnızca sessiz video",
-					"label": "Video, sessiz"
+					"description": "Yalnızca sessiz video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Bir oynatma listesi, kanal veya arama sonucu açıldığında Arroxy’nin yükleyeceği en fazla kayıt sayısı.",
 				"invalid": "1 ile 5000 arasında bir tam sayı kullan",
 				"label": "Taranacak oynatma listesi öğeleri",
-				"option": "{{count}} öğe",
-				"tooltip": "Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
+				"option": "{{count}} öğe"
 			},
 			"playlistScope": {
 				"appLimit": "Uygulama sınırını kullan: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} profili {{count}} içinde {{position}}. sıranın üzerinde.",
 				"movePickedUp": "{{profileName}} profili alındı. {{count}} içinde {{position}}. sırada.",
 				"newProfile": "Yeni profil",
+				"outputMissing": "Bu profil, ayarlanmamış bir klasöre kaydediyor. Profilde bir klasör seç ya da varsayılana döndür.",
 				"panelDescription": "Yeniden kullanılabilir indirme kurulumları oluştur, seç, düzenle veya kaldır.",
 				"panelTitle": "İndirme Profilleri",
 				"remove": "Kaldır",
 				"reorderHint": "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sırayı izler.",
 				"reset": "Sıfırla",
-				"summary": {
-					"aacAudio": "AAC ses",
-					"bestAudio": "en iyi ses",
-					"bestVideo": "en iyi video",
-					"noAudio": "ses yok",
-					"subtitlesOnly": "yalnızca altyazılar",
-					"wavAudio": "WAV ses"
-				},
 				"switchAria": "İndirme profilini değiştir: {{profileName}}",
 				"switchTitle": "İndirme profilini değiştir"
 			},

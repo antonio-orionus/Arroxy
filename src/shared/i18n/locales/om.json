@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Hayyami",
+		"allowedSummary": "Tarreessaawwan AI'n guddifaman ni hayyamamu",
 		"description": "YouTube viidiyoowwan durii tokko tokko hamma AI'n hojjetameen dhiyeessa. Darbi tarreessaawwan jalqabaa eega; ammas kan AI'n guddifame harkaan filachuu dandeessa.",
 		"label": "Tarreessaawwan AI'n guddifaman",
 		"skip": "Darbi"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Queue",
 			"addToQueueTooltip": "Daawniloodoonni biroo xumuramu booda jalqaba — bandwidth guutuu argata",
-			"audioOnly": "Sagalee qofa",
 			"itemsValueAudio_one": "{{count}} fi {{total}} keessaa weellaa",
 			"itemsValueAudio_other": "{{count}} fi {{total}} keessaa weellaalee",
 			"itemsValueBulk_one": "{{count}} URL keessaa {{total}}",
@@ -773,7 +773,7 @@
 			"landIn": "Faayilin kee bakka kanatti bu'a",
 			"landInMultiProfile_one": "Gara bakka armaan gadiitti bu'a",
 			"landInMultiProfile_other": "Gara bakkoota {{count}} armaan gadiitti ni bu'u",
-			"nothingToDownload": "Qophiin axxiinni qofa hojjechaa jira garuu afaan hin filamine — waan buufamu hin jiru.",
+			"nothingToDownload": "Piroofaayiliin “Axxiinni qofa” hojiirra jira, garuu afaan axxiinaa tokkollee hin filatamne — homtuu hin buufamu.",
 			"profileBreakdownCount_one": "{{count}} wanta",
 			"profileBreakdownCount_other": "{{count}} wantota",
 			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Afaan sagalee",
 			"audioLanguageCount_one": "Afaanota {{count}}",
 			"audioLanguageCount_other": "Afaanota {{count}}",
-			"audioOnly": "Sagalee qofa",
 			"bitrateValue": "Saaffata bitii {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies qindaa'eera garuu dhaabbe jira. Tarreessa guutuu argachuuf cookies dandeessii achiin irra deebi'i, ykn netwoorkii jijjiiri achiin irra deebi'i.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Ifa bal'ina hin beekamne",
 			"savesAs": {
 				"label": "Akka kanaatti kuufama",
-				"reset": "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera."
+				"reset": "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera.",
+				"value": "Akka .{{ext}} tti kuufama"
 			},
 			"sizeUnknown": "Bal'inni hin beekamne",
 			"skipToConfirm": "Mirkaneessaatti ce'i",
@@ -969,37 +969,61 @@
 			"video": "Viidiyoo",
 			"withAudio": "sagalee wajjin"
 		},
-		"mixedPrompt": {
-			"body": "Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.",
-			"pickFromPlaylist": "Playlist keessaa filadhu",
-			"playlistLimit": "Daangaa sakatta’iinsa playlist: wantoota {{count}}",
-			"playlistTooltip": "Filataa agarsiisuu dura playlist hanga daangaa sakatta'iinsa playlist keetii fe'a.",
-			"quickBody": "Viidiyoo kana qofa buufadhu, yookaan piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun tarree taphachiisaa guutuu gara tarree hojiiitti galchi.",
-			"quickLimitDescription": "Baay’ina olaanaa wantoota Arroxy tarree taphachiisaa, chaanaalii, yookaan bu’aa barbaacha gara tarree hojiiitti galchuu dura sakatta’u.",
-			"quickPlaylistTooltip": "Wantoota tarree taphachiisaa fe’aman hunda piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun gara tarree hojiiitti galcha. Sakatta’iinsi daangaa kee yoo ga’e, Arroxy tarree hojiiitti galchuu dura ni gaafata.",
-			"quickSingleTooltip": "Buufata tokko gara tarree hojiiitti galcha, tarree taphachiisaa URL kanaan walqabate immoo ni dhiisa.",
-			"quickSingleVideo": "Viidiyoo kana buufadhu",
-			"quickWholePlaylist": "Tarree taphachiisaa guutuu buufadhu",
-			"singleTooltip": "Viidiyoo kana qofa fe'a. Playlist URL kanaan hidhame ni tuffatama.",
-			"singleVideo": "Kana qofa",
-			"title": "Liinkin kun Playlist qaba"
+		"listPrompt": {
+			"escHint": "Esc ni haqa. Hanga ati filattutti homtuu hin fe'amu.",
+			"interactiveSubtitle": "Foormaatii mataa kee filadhu",
+			"justThisVideo": "Viidiyoo kana qofa",
+			"justThisVideoInteractiveHint": "Foormaatiiwwan isaa ni banti",
+			"justThisVideoQuickHint": "Viidiyoo tokko ni fe'a",
+			"listInteractiveHint": "Filachuuf hanga {{count}} ni fe'a",
+			"listOption": {
+				"album": "Wantoota jalqabaa albamii",
+				"liked": "Wantoota jalqabaa viidiyoowwan ati jaalatte",
+				"mix": "Wantoota jalqabaa Mix",
+				"playlist": "Wantoota jalqabaa tarree taphachiisaa",
+				"uploads": "Wantoota jalqabaa viidiyoowwan olkaa'aman",
+				"watchLater": "Wantoota jalqabaa “Booda ilaali”"
+			},
+			"listQuickHint": "Hanga {{count}} ni fe'a, achiis ni buusa",
+			"mixNote": "Mix yeroo ati bantu hundumaa ni jijjiirama.",
+			"pickOption": {
+				"album": "Wantoota jalqabaa albamii keessaa filadhu",
+				"liked": "Wantoota jalqabaa viidiyoowwan ati jaalatte keessaa filadhu",
+				"mix": "Wantoota jalqabaa Mix keessaa filadhu",
+				"playlist": "Wantoota jalqabaa tarree taphachiisaa keessaa filadhu",
+				"uploads": "Wantoota jalqabaa viidiyoowwan olkaa'aman keessaa filadhu",
+				"watchLater": "Wantoota jalqabaa “Booda ilaali” keessaa filadhu"
+			},
+			"title": {
+				"album": "Albamii kana irraa buusi",
+				"liked": "Viidiyoowwan ati jaalatte irraa buusi",
+				"mix": "Mix kana irraa buusi",
+				"playlist": "Tarree taphachiisaa kana irraa buusi",
+				"uploads": "Viidiyoowwan olkaa'aman chaanaalii kanaa irraa buusi",
+				"watchLater": "“Booda ilaali” irraa buusi"
+			},
+			"withProfile": "{{profileName}} wajjin"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Mallattooleen boqonnaa taphataa ammayyaa kamiyyuu keessatti hojjetu.",
-				"label": "Boqonnaa maksi"
+				"label": "Boqonnaa maksi",
+				"short": "Boqonnaalee"
 			},
 			"embedMetadata": {
 				"description": "Mata-duree, artist, ibsa, fi guyyaan fe'ame faayilii keessatti barreeffama.",
-				"label": "Metadata maksi"
+				"label": "Metadata maksi",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
-				"description": "Suuraa haguugduu faayilii keessa. MP4 / M4A qofa — axxiinni makamuun dura ni darba.",
-				"label": "Thumbnail maksi"
+				"description": "Suuraa haguugduu faayilii keessa. Viidiyoon WebM gara MKV tti jijjiirama; axxiinni makamuun yeroo jiru ni darba.",
+				"label": "Thumbnail maksi",
+				"short": "Suuraa haguugduu"
 			},
 			"writeDescription": {
 				"description": "Ibsa viidiyoo .description faayilii barreeffamaa ta'ee daawniloodii cinaa ni kuusa.",
-				"label": "Ibsa kuusi"
+				"label": "Ibsa kuusi",
+				"short": "Faayilii ibsaa"
 			},
 			"writeM3u": {
 				"description": "Viidiyoowwan tarreen media player keessatti banamaniif .m3u isaan cinatti kuusi.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa.",
-				"label": "Thumbnail kuusi"
+				"label": "Thumbnail kuusi",
+				"short": "Faayilii thumbnail"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Galmee sakatta’aa jira…",
 			"thumbnailAlt": "Thumbnail viidiyoo"
 		},
+		"playlistCap": {
+			"changeLimit": "Daangaa fe'uu jijjiiri",
+			"descriptionWithTitle_one": "<title/>: Arroxy daangaa ammaa {{limit}} fayyadamee wanta {{count}} fe'e. Wanta fe'ame amma tarreetti ida'i, yookaan daangaa guddisii deebi'ii qoradhu.",
+			"descriptionWithTitle_other": "<title/>: Arroxy daangaa ammaa {{limit}} fayyadamee wantoota {{count}} fe'e. Wantoota fe'aman amma tarreetti ida'i, yookaan daangaa guddisii deebi'ii qoradhu.",
+			"description_one": "Arroxy daangaa ammaa {{limit}} fayyadamee wanta {{count}} fe'e. Wanta fe'ame amma tarreetti ida'i, yookaan daangaa guddisii deebi'ii qoradhu.",
+			"description_other": "Arroxy daangaa ammaa {{limit}} fayyadamee wantoota {{count}} fe'e. Wantoota fe'aman amma tarreetti ida'i, yookaan daangaa guddisii deebi'ii qoradhu.",
+			"queueLoaded": "Wantoota fe'aman tarreetti ida'i",
+			"title": "Qorannaan tarree taphachiisaa daangeffameera"
+		},
 		"playlistPresets": {
 			"heading": "Kutaa gurmuu barbaadi",
 			"itemCount_one": "{{count}} wanta",
@@ -1154,6 +1188,7 @@
 				"320": "Hanga 320K",
 				"best": "Qulqullina gaarii"
 			},
+			"defaultName": "Piroofaayilii haaraa",
 			"destination": {
 				"defaultFolder": "Galee buufata durtii",
 				"defaultFolderWithSubfolder": "Galee buufata durtii / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muuziqaa ykn poodkaastii",
-					"label": "Sagalee qofa"
+					"description": "Muuziqaa ykn poodkaastii"
 				},
 				"subtitlesOnly": {
-					"description": "Faayilii ergaa gadii qofa",
-					"label": "Axxiinni qofa"
+					"description": "Faayilii ergaa gadii qofa"
 				},
 				"videoAudio": {
-					"description": "Faayilii viidiyoo idilee",
-					"label": "Viidiyoo + sagalee"
+					"description": "Faayilii viidiyoo idilee"
 				},
 				"videoOnly": {
-					"description": "Viidiyoo sagalee hin qabne qofa",
-					"label": "Viidiyoo, sagalee malee"
+					"description": "Viidiyoo sagalee hin qabne qofa"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Playlist, chaanaalii, ykn filannoowwan barbaachaa yommuu banamu Arroxy galmeewwan baay'ina meeqa fe'u.",
 				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
 				"label": "Wantota playlist qoratamu",
-				"option": "Wantota {{count}}",
-				"tooltip": "Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
+				"option": "Wantota {{count}}"
 			},
 			"playlistScope": {
 				"appLimit": "Daangaa appii fayyadami: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} iddoo {{position}} kan {{count}} keessaa irra jira.",
 				"movePickedUp": "{{profileName}} kaafameera. Iddoo {{position}} kan {{count}} keessaa irra jira.",
 				"newProfile": "Profaayilii haaraa",
+				"outputMissing": "Piroofaayiliin kun galee hin murtoofne keessatti kuusa. Piroofaayilii keessatti galee filadhu, yookaan gara durtii deebisi.",
 				"panelDescription": "Qindaaʼinoota buusuu irra deebiin fayyadamuu dandeessu uumi, filadhu, gulaali, yookiin haqi.",
 				"panelTitle": "Profaayilota buusuu",
 				"remove": "Haqi",
 				"reorderHint": "Profaayilii sochoosuuf harkisi. Filannoowwan profaayilii hundi tartiiba kana hordofu.",
 				"reset": "Deebisi",
-				"summary": {
-					"aacAudio": "sagalee AAC",
-					"bestAudio": "sagalee isa caalaa gaarii",
-					"bestVideo": "viidiyoo isa caalaa gaarii",
-					"noAudio": "sagalee hin jiru",
-					"subtitlesOnly": "axxiinni qofa",
-					"wavAudio": "sagalee WAV"
-				},
 				"switchAria": "Profaayilii bu'uuraa buusaa jijjiiri: {{profileName}}",
 				"switchTitle": "Profaayilii bu'uuraa buusaa jijjiiri"
 			},

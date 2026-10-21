@@ -9,6 +9,19 @@ The release translation sync hands this file to every translator (`translate-arr
 - **Explore**: the in-app browser tab. A name: use the locale's term below every time, never the English word.
 - **profile** / **download profile**: a saved set of download settings.
 - **queue**: the list of downloads waiting or running.
+
+### Profile settings
+
+These words sit side by side in the profile editor, the profile hint and the Update dialog, so each must stay distinct from its neighbours in every locale.
+
+- **Best quality** (the top resolution choice, `playlistPresets.tier.best`) and **Best picture** (a goal: pick the sharpest stream, `goal.bestPicture`) are different settings. Never use the same words for both; "quality" is not "picture".
+- **Best quality** for audio (`audioQuality.best`) is about sound: never "picture" or "image" quality.
+- **Smart TV**: the goal that picks files any device plays. Use one form for it as a setting, the same in the built-in profile names and the editor.
+- **Up to {N}p**: a resolution ceiling. 2160p is shown as "4K".
+- **Built-in profile names** (`wizard.url.profile.builtinName.*`) are names, title-like. A built-in name may match an editor option (e.g. "Audio only"); that is intended.
+- **Media kinds**: Video + audio, Video, no audio, Audio only, Subtitles only. Use one word for "only" across all of them, the profile names and `audioOnlyDot`.
+- **Summary fragments** (`selectionOrder.summary.*`, `*.short`, `wizard.formats.savesAs.value`) are pieces of a line joined by the app: describe, never command ("saves as", not "save as"), and keep them short.
+- **subfolder**: one spelling per locale.
 - **Original** (a tag on an audio track): the track in the video's own language, as opposed to a dub or an audio description. Translate the adjective as said of an audio track or language, never "original file" or "authentic".
 - Format and codec names (MP4, H.264, SponsorBlock, FFmpeg) stay as written.
 

@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Дозволяти"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Дозволено потоки, збільшені ШІ"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube пропонує деякі старі відео в розмірах, створених за допомогою ШІ. «Пропускати» залишає оригінальні потоки; збільшений потік усе одно можна вибрати вручну."
@@ -677,7 +681,7 @@ msgstr "Аудіо"
 
 msgctxt "formatLabel.audioOnlyDot"
 msgid "Audio only · {{audio}}"
-msgstr "Тільки аудіо · {{audio}}"
+msgstr "Лише аудіо · {{audio}}"
 
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
@@ -2293,10 +2297,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Запуститься, коли завершаться інші завантаження — на повній швидкості"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Тільки аудіо"
-
 #. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.confirm.itemsValue_few"
 msgid "{{count}} of {{total}} videos"
@@ -2418,8 +2418,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Вони потраплять у {{count}} місця призначення нижче"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Пресет «Тільки субтитри» активний, але мову субтитрів не вибрано — нічого не буде завантажено."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Активний профіль «Лише субтитри», але мову субтитрів не вибрано — нічого не буде завантажено."
 
 #. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.confirm.profileBreakdownCount_few"
@@ -2552,10 +2552,6 @@ msgstr "Мов: {{count}}"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "Мов: {{count}}"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Тільки аудіо"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2843,7 +2839,7 @@ msgstr "Що завантажувати"
 
 msgctxt "wizard.formats.kind.subtitles"
 msgid "Subtitles only"
-msgstr "Тільки субтитри"
+msgstr "Лише субтитри"
 
 msgctxt "wizard.formats.kind.video"
 msgid "Video + audio"
@@ -3009,6 +3005,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM не вміщує {{codec}}, тож тип файлу повернувся до Авто."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "зберігається як .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Розмір невідомий"
@@ -3037,57 +3037,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "з аудіо"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Хочеш завантажити лише те відео, на яке натиснув, чи вибрати з Playlist? Далі зможеш вказати конкретні відео або діапазон."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc — скасувати. Доки не вибереш варіант, нічого не завантажиться."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Вибрати з Playlist"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Вибір форматів вручну"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Ліміт перевірки плейлиста: {{count}} елементів"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Лише це відео"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Завантажує плейлист до твого ліміту, перш ніж показати вибір."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Відкриє його формати"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Завантажити лише це відео або поставити весь плейлист у чергу з активним профілем Швидкого завантаження."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Підвантажить одне відео"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Максимальна кількість записів, які Arroxy сканує перед додаванням плейлиста, каналу або результату пошуку в чергу."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Підвантажить до {{count}} на вибір"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Додає в чергу кожен завантажений елемент плейлиста з активним профілем Швидкого завантаження. Якщо сканування досягне твого ліміту, Arroxy запитає перед додаванням у чергу."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Альбом, перші"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Додає в чергу одне завантаження й ігнорує плейлист, прикріплений до цього URL."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Вподобані відео, перші"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Завантажити це відео"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Мікс, перші"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Завантажити весь плейлист"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Плейлист, перші"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Завантажує лише це відео. Плейлист, прикріплений до цього URL, ігнорується."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Відео каналу, перші"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Лише це одне"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "«Дивитися пізніше», перші"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Це посилання з Playlist"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Підвантажить до {{count}}, а потім завантажить їх"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Мікс змінюється щоразу, коли ти його відкриваєш."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Вибрати з альбому, перші"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Вибрати з вподобаних відео, перші"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Вибрати з Міксу, перші"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Вибрати з плейлиста, перші"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Вибрати з відео каналу, перші"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Вибрати з «Дивитися пізніше», перші"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Завантажити з цього альбому"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Завантажити з вподобаних відео"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Завантажити з цього Міксу"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Завантажити з цього плейлиста"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Завантажити відео цього каналу"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Завантажити з «Дивитися пізніше»"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "З профілем «{{profileName}}»"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3097,6 +3153,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Вбудувати розділи"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "Розділи"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Назва, виконавець, опис і дата завантаження записуються у файл."
@@ -3104,6 +3164,10 @@ msgstr "Назва, виконавець, опис і дата завантаж�
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Вбудувати метадані"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "Метадані"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3113,6 +3177,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Вбудувати мініатюру"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "Обкладинка"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Зберігає опис відео як файл .description поруч із завантаженням."
@@ -3120,6 +3188,10 @@ msgstr "Зберігає опис відео як файл .description пору
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Зберегти опис"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "Файл опису"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3136,6 +3208,10 @@ msgstr "Зберігає мініатюру як файл .jpg поруч із �
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Зберегти мініатюру"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "Файл мініатюри"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3585,6 +3661,58 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Мініатюра відео"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Змінити ліміт підвантаження"
+
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistCap.description_few"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy підвантажив {{count}} елементи за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistCap.description_many"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy підвантажив {{count}} елементів за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy підвантажив {{count}} елемент за поточним лімітом {{limit}}. Додай підвантажений елемент до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy підвантажив {{count}} елемента за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistCap.descriptionWithTitle_few"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy підвантажив {{count}} елементи за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistCap.descriptionWithTitle_many"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy підвантажив {{count}} елементів за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy підвантажив {{count}} елемент за поточним лімітом {{limit}}. Додай підвантажений елемент до черги зараз або збільш ліміт і скануй знову."
+
+#. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy підвантажив {{count}} елемента за поточним лімітом {{limit}}. Додай підвантажені елементи до черги зараз або збільш ліміт і скануй знову."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Додати підвантажені до черги"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Сканування плейлиста обмежено"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Вибери якість для пакетного завантаження"
@@ -3768,6 +3896,10 @@ msgstr "До 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Найкраща якість"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Новий профіль"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3969,33 +4101,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Музика або подкасти"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Лише аудіо"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Лише файли субтитрів"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Тільки субтитри"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Звичайні відеофайли"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Відео + аудіо"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Лише відео без звуку"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Відео, без аудіо"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4719,7 +4835,7 @@ msgstr "з'єднань"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
-msgstr "Тільки аудіо"
+msgstr "Лише аудіо"
 
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
@@ -5029,10 +5145,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} елементів"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy запитує лише таку кількість записів плейлиста, каналу або пошуку під час побудови вибірки."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Використати ліміт застосунку: {{count}}"
@@ -5183,7 +5295,7 @@ msgstr "Малий файл 480p"
 
 msgctxt "wizard.url.profile.builtinName.subtitles-only"
 msgid "Subtitles only"
-msgstr "Тільки субтитри"
+msgstr "Лише субтитри"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"
@@ -5273,6 +5385,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Новий профіль"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Цей профіль зберігає в теку, яку не задано. Вибери теку в профілі або поверни значення за замовчуванням."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Створюйте, вибирайте, редагуйте або видаляйте багаторазові налаштування завантаження."
@@ -5292,30 +5408,6 @@ msgstr "Перетягніть профіль, щоб перемістити й�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Скинути"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "аудіо AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "найкраще аудіо"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "найкраще відео"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "без аудіо"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "лише субтитри"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "аудіо WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

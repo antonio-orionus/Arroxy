@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Atļaut"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Ar MI uzlabotas straumes atļautas"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube piedāvā dažus vecus videoklipus izmēros, ko tas izveidojis ar MI. Opcija “Izlaist” saglabā oriģinālās straumes; uzlabotu straumi joprojām var izvēlēties pats."
@@ -2233,10 +2237,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Pievieno rindai — sākas, kad aktīvā lejupielāde pabeigta"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Tikai audio"
-
 #. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2338,8 +2338,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Tie nonāks tālāk norādītajos galamērķos ({{count}})"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Ir aktīva sagatave “Tikai subtitri”, bet nav izvēlēta neviena subtitru valoda — nekas netiks lejupielādēts."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Ir aktīvs profils “Tikai subtitri”, bet nav izvēlēta neviena subtitru valoda — nekas netiks lejupielādēts."
 
 #. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2462,10 +2462,6 @@ msgstr "{{count}} valodas"
 msgctxt "wizard.formats.audioLanguageCount_zero"
 msgid "{{count}} languages"
 msgstr "{{count}} valodu"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Tikai audio"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2919,6 +2915,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM nevar saturēt {{codec}}, tāpēc faila tips atgriezts uz Automātiski."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Saglabājas kā .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Izmērs nezināms"
@@ -2947,57 +2947,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "ar audio"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Vēlaties tikai video, uz kura noklikšķinājāt, vai izvēlēties no atskaņošanas saraksta? Nākamajā solī izvēlēsieties konkrētus video vai diapazonu."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc atceļ. Nekas netiek ielādēts, kamēr neizvēlaties."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Izvēlēties no saraksta"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Formātus izvēlieties paši"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Atskaņošanas saraksta pārbaudes limits (vienumi): {{count}}"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Tikai šis video"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Ielādē atskaņošanas sarakstu līdz jūsu atskaņošanas saraksta pārbaudes limitam, pirms parāda izvēles logu."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Atver tā formātus"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Lejupielādēt tikai šo video vai pievienot rindai visu atskaņošanas sarakstu ar aktīvo ātrās lejupielādes profilu."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Ielādē vienu video"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Maksimālais ierakstu skaits, ko Arroxy pārbauda, pirms pievieno rindai atskaņošanas sarakstu, kanālu vai meklēšanas rezultātu."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Ielādē līdz {{count}}, lai izvēlētos"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Pievieno rindai katru ielādēto atskaņošanas saraksta vienumu ar aktīvo ātrās lejupielādes profilu. Ja pārbaude sasniedz jūsu limitu, Arroxy pirms pievienošanas jautā."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Albums, pirmie"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Pievieno rindai vienu lejupielādi un ignorē šim URL pievienoto atskaņošanas sarakstu."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Jums patikušie video, pirmie"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Lejupielādēt šo video"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Mix, pirmie"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Lejupielādēt visu sarakstu"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Atskaņošanas saraksts, pirmie"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Ielādē tikai šo video. Šim URL pievienotais atskaņošanas saraksts tiek ignorēts."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Kanāla augšupielādētie video, pirmie"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Tikai šo"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "“Skatīties vēlāk”, pirmie"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Šajā saitē ir atskaņošanas saraksts"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Ielādē līdz {{count}}, pēc tam tos lejupielādē"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Mix mainās katru reizi, kad to atverat."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Izvēlēties no albuma, no pirmajiem"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Izvēlēties no jums patikušajiem video, no pirmajiem"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Izvēlēties no Mix, no pirmajiem"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Izvēlēties no atskaņošanas saraksta, no pirmajiem"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Izvēlēties no kanāla augšupielādētajiem video, no pirmajiem"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Izvēlēties no “Skatīties vēlāk”, no pirmajiem"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Lejupielādēt no šī albuma"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Lejupielādēt no jums patikušajiem video"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Lejupielādēt no šī Mix"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Lejupielādēt no šī atskaņošanas saraksta"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Lejupielādēt no šī kanāla augšupielādētajiem video"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Lejupielādēt no “Skatīties vēlāk”"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Profils: {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3007,6 +3063,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Iegult nodaļas"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "nodaļas"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Nosaukums, izpildītājs, apraksts un augšupielādes datums tiek ierakstīti failā."
@@ -3014,6 +3074,10 @@ msgstr "Nosaukums, izpildītājs, apraksts un augšupielādes datums tiek ieraks
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Iegult metadatus"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "metadati"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3023,6 +3087,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Iegult sīktēlu"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "vāka attēls"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Saglabā video aprakstu .description teksta failā līdzās lejupielādei."
@@ -3030,6 +3098,10 @@ msgstr "Saglabā video aprakstu .description teksta failā līdzās lejupielāde
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Saglabāt aprakstu"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "apraksta fails"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3046,6 +3118,10 @@ msgstr "Saglabā sīktēlu kā .jpg attēla failu līdzās lejupielādei."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Saglabāt sīktēlu"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "sīktēla fails"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3455,6 +3531,48 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Video sīktēls"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Mainīt ielādes limitu"
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistCap.description_zero"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+#. Plural form "one" for lv: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+#. Plural form "other" for lv: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+#. Plural form "zero" for lv: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlistCap.descriptionWithTitle_zero"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Pievienot ielādētos vienumus rindai"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Atskaņošanas saraksta pārbaude ir ierobežota"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Izvēlieties pakotnes kvalitāti"
@@ -3623,6 +3741,10 @@ msgstr "Līdz 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Labākā kvalitāte"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Jauns profils"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3824,33 +3946,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Mūzika vai podkāsti"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Tikai audio"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Tikai parakstu faili"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Tikai subtitri"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Parasti video faili"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Video + audio"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Tikai video bez skaņas"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Video, bez audio"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4874,10 +4980,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} vienumi"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy, veidojot izvēles logu, pieprasa tikai tik daudz atskaņošanas saraksta, kanāla vai meklēšanas ierakstu."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Izmantot lietotnes limitu: {{count}}"
@@ -5118,6 +5220,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Jauns profils"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Šis profils saglabā mapē, kas nav iestatīta. Izvēlieties mapi profilā vai atgrieziet noklusējuma mapi."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Izveidojiet, izvēlieties, rediģējiet vai noņemiet atkārtoti izmantojamas lejupielādes konfigurācijas."
@@ -5137,30 +5243,6 @@ msgstr "Velciet profilu, lai to pārvietotu. Visi profilu izvēles saraksti seko
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Atiestatīt"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC audio"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "labākais audio"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "labākais video"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "bez audio"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "tikai subtitri"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV audio"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

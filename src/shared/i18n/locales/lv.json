@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Atļaut",
+		"allowedSummary": "Ar MI uzlabotas straumes atļautas",
 		"description": "YouTube piedāvā dažus vecus videoklipus izmēros, ko tas izveidojis ar MI. Opcija “Izlaist” saglabā oriģinālās straumes; uzlabotu straumi joprojām var izvēlēties pats.",
 		"label": "Ar MI uzlabotas straumes",
 		"skip": "Izlaist"
@@ -766,7 +767,6 @@
 		"confirm": {
 			"addToQueue": "+ Rindā",
 			"addToQueueTooltip": "Pievieno rindai — sākas, kad aktīvā lejupielāde pabeigta",
-			"audioOnly": "Tikai audio",
 			"itemsValueAudio_one": "{{count}} no {{total}} celiņiem",
 			"itemsValueAudio_other": "{{count}} no {{total}} celiņiem",
 			"itemsValueAudio_zero": "{{count}} no {{total}} celiņiem",
@@ -789,7 +789,7 @@
 			"landInMultiProfile_one": "Tas nonāks tālāk norādītajā galamērķī",
 			"landInMultiProfile_other": "Tie nonāks tālāk norādītajos galamērķos ({{count}})",
 			"landInMultiProfile_zero": "Tie nonāks tālāk norādītajos galamērķos ({{count}})",
-			"nothingToDownload": "Ir aktīva sagatave “Tikai subtitri”, bet nav izvēlēta neviena subtitru valoda — nekas netiks lejupielādēts.",
+			"nothingToDownload": "Ir aktīvs profils “Tikai subtitri”, bet nav izvēlēta neviena subtitru valoda — nekas netiks lejupielādēts.",
 			"profileBreakdownCount_one": "{{count}} vienums",
 			"profileBreakdownCount_other": "{{count}} vienumi",
 			"profileBreakdownCount_zero": "{{count}} vienumu",
@@ -825,7 +825,6 @@
 			"audioLanguageCount_one": "{{count}} valoda",
 			"audioLanguageCount_other": "{{count}} valodas",
 			"audioLanguageCount_zero": "{{count}} valodu",
-			"audioOnly": "Tikai audio",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Sīkfaili ir konfigurēti, bet izslēgti. Ieslēdziet tos un mēģiniet vēlreiz, lai iegūtu pilnu sarakstu, vai nomainiet tīklu un mēģiniet vēlreiz.",
@@ -977,7 +976,8 @@
 			"resolutionUnknown": "Nezināma izšķirtspēja",
 			"savesAs": {
 				"label": "Saglabā kā",
-				"reset": "WebM nevar saturēt {{codec}}, tāpēc faila tips atgriezts uz Automātiski."
+				"reset": "WebM nevar saturēt {{codec}}, tāpēc faila tips atgriezts uz Automātiski.",
+				"value": "Saglabājas kā .{{ext}}"
 			},
 			"sizeUnknown": "Izmērs nezināms",
 			"skipToConfirm": "Pāriet uz apstiprināšanu",
@@ -987,37 +987,61 @@
 			"video": "Video",
 			"withAudio": "ar audio"
 		},
-		"mixedPrompt": {
-			"body": "Vēlaties tikai video, uz kura noklikšķinājāt, vai izvēlēties no atskaņošanas saraksta? Nākamajā solī izvēlēsieties konkrētus video vai diapazonu.",
-			"pickFromPlaylist": "Izvēlēties no saraksta",
-			"playlistLimit": "Atskaņošanas saraksta pārbaudes limits (vienumi): {{count}}",
-			"playlistTooltip": "Ielādē atskaņošanas sarakstu līdz jūsu atskaņošanas saraksta pārbaudes limitam, pirms parāda izvēles logu.",
-			"quickBody": "Lejupielādēt tikai šo video vai pievienot rindai visu atskaņošanas sarakstu ar aktīvo ātrās lejupielādes profilu.",
-			"quickLimitDescription": "Maksimālais ierakstu skaits, ko Arroxy pārbauda, pirms pievieno rindai atskaņošanas sarakstu, kanālu vai meklēšanas rezultātu.",
-			"quickPlaylistTooltip": "Pievieno rindai katru ielādēto atskaņošanas saraksta vienumu ar aktīvo ātrās lejupielādes profilu. Ja pārbaude sasniedz jūsu limitu, Arroxy pirms pievienošanas jautā.",
-			"quickSingleTooltip": "Pievieno rindai vienu lejupielādi un ignorē šim URL pievienoto atskaņošanas sarakstu.",
-			"quickSingleVideo": "Lejupielādēt šo video",
-			"quickWholePlaylist": "Lejupielādēt visu sarakstu",
-			"singleTooltip": "Ielādē tikai šo video. Šim URL pievienotais atskaņošanas saraksts tiek ignorēts.",
-			"singleVideo": "Tikai šo",
-			"title": "Šajā saitē ir atskaņošanas saraksts"
+		"listPrompt": {
+			"escHint": "Esc atceļ. Nekas netiek ielādēts, kamēr neizvēlaties.",
+			"interactiveSubtitle": "Formātus izvēlieties paši",
+			"justThisVideo": "Tikai šis video",
+			"justThisVideoInteractiveHint": "Atver tā formātus",
+			"justThisVideoQuickHint": "Ielādē vienu video",
+			"listInteractiveHint": "Ielādē līdz {{count}}, lai izvēlētos",
+			"listOption": {
+				"album": "Albums, pirmie",
+				"liked": "Jums patikušie video, pirmie",
+				"mix": "Mix, pirmie",
+				"playlist": "Atskaņošanas saraksts, pirmie",
+				"uploads": "Kanāla augšupielādētie video, pirmie",
+				"watchLater": "“Skatīties vēlāk”, pirmie"
+			},
+			"listQuickHint": "Ielādē līdz {{count}}, pēc tam tos lejupielādē",
+			"mixNote": "Mix mainās katru reizi, kad to atverat.",
+			"pickOption": {
+				"album": "Izvēlēties no albuma, no pirmajiem",
+				"liked": "Izvēlēties no jums patikušajiem video, no pirmajiem",
+				"mix": "Izvēlēties no Mix, no pirmajiem",
+				"playlist": "Izvēlēties no atskaņošanas saraksta, no pirmajiem",
+				"uploads": "Izvēlēties no kanāla augšupielādētajiem video, no pirmajiem",
+				"watchLater": "Izvēlēties no “Skatīties vēlāk”, no pirmajiem"
+			},
+			"title": {
+				"album": "Lejupielādēt no šī albuma",
+				"liked": "Lejupielādēt no jums patikušajiem video",
+				"mix": "Lejupielādēt no šī Mix",
+				"playlist": "Lejupielādēt no šī atskaņošanas saraksta",
+				"uploads": "Lejupielādēt no šī kanāla augšupielādētajiem video",
+				"watchLater": "Lejupielādēt no “Skatīties vēlāk”"
+			},
+			"withProfile": "Profils: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Nodaļu atzīmes, pa kurām var pārvietoties jebkurā mūsdienu atskaņotājā.",
-				"label": "Iegult nodaļas"
+				"label": "Iegult nodaļas",
+				"short": "nodaļas"
 			},
 			"embedMetadata": {
 				"description": "Nosaukums, izpildītājs, apraksts un augšupielādes datums tiek ierakstīti failā.",
-				"label": "Iegult metadatus"
+				"label": "Iegult metadatus",
+				"short": "metadati"
 			},
 			"embedThumbnail": {
 				"description": "Vāka attēls faila iekšpusē. WebM video tiks pārpakots uz MKV; izlaists, ja ir iegulti subtitri.",
-				"label": "Iegult sīktēlu"
+				"label": "Iegult sīktēlu",
+				"short": "vāka attēls"
 			},
 			"writeDescription": {
 				"description": "Saglabā video aprakstu .description teksta failā līdzās lejupielādei.",
-				"label": "Saglabāt aprakstu"
+				"label": "Saglabāt aprakstu",
+				"short": "apraksta fails"
 			},
 			"writeM3u": {
 				"description": "Saglabā .m3u atskaņošanas sarakstu līdzās video, lai tie multivides atskaņotājā atvērtos pareizā secībā.",
@@ -1025,7 +1049,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Saglabā sīktēlu kā .jpg attēla failu līdzās lejupielādei.",
-				"label": "Saglabāt sīktēlu"
+				"label": "Saglabāt sīktēlu",
+				"short": "sīktēla fails"
 			}
 		},
 		"part": {
@@ -1132,6 +1157,17 @@
 			"syncScanning": "Pārbauda mapi…",
 			"thumbnailAlt": "Video sīktēls"
 		},
+		"playlistCap": {
+			"changeLimit": "Mainīt ielādes limitu",
+			"descriptionWithTitle_one": "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"descriptionWithTitle_other": "<title/>: Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"descriptionWithTitle_zero": "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"description_one": "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"description_other": "Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"description_zero": "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
+			"queueLoaded": "Pievienot ielādētos vienumus rindai",
+			"title": "Atskaņošanas saraksta pārbaude ir ierobežota"
+		},
 		"playlistPresets": {
 			"heading": "Izvēlieties pakotnes kvalitāti",
 			"itemCount_one": "{{count}} vienums",
@@ -1183,6 +1219,7 @@
 				"320": "Līdz 320K",
 				"best": "Labākā kvalitāte"
 			},
+			"defaultName": "Jauns profils",
 			"destination": {
 				"defaultFolder": "Noklusējuma lejupielāžu mape",
 				"defaultFolderWithSubfolder": "Noklusējuma lejupielāžu mape / {{subfolder}}",
@@ -1248,20 +1285,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Mūzika vai podkāsti",
-					"label": "Tikai audio"
+					"description": "Mūzika vai podkāsti"
 				},
 				"subtitlesOnly": {
-					"description": "Tikai parakstu faili",
-					"label": "Tikai subtitri"
+					"description": "Tikai parakstu faili"
 				},
 				"videoAudio": {
-					"description": "Parasti video faili",
-					"label": "Video + audio"
+					"description": "Parasti video faili"
 				},
 				"videoOnly": {
-					"description": "Tikai video bez skaņas",
-					"label": "Video, bez audio"
+					"description": "Tikai video bez skaņas"
 				}
 			},
 			"note": {
@@ -1624,8 +1657,7 @@
 				"description": "Maksimālais ierakstu skaits, ko Arroxy ielādē, atverot atskaņošanas sarakstu, kanālu vai meklēšanas rezultātu.",
 				"invalid": "Izmantojiet veselu skaitli no 1 līdz 5000",
 				"label": "Pārbaudāmie atskaņošanas saraksta vienumi",
-				"option": "{{count}} vienumi",
-				"tooltip": "Arroxy, veidojot izvēles logu, pieprasa tikai tik daudz atskaņošanas saraksta, kanāla vai meklēšanas ierakstu."
+				"option": "{{count}} vienumi"
 			},
 			"playlistScope": {
 				"appLimit": "Izmantot lietotnes limitu: {{count}}",
@@ -1694,19 +1726,12 @@
 				"moveOver": "{{profileName}} atrodas virs pozīcijas {{position}} no {{count}}.",
 				"movePickedUp": "Pacelts {{profileName}}. Tas atrodas pozīcijā {{position}} no {{count}}.",
 				"newProfile": "Jauns profils",
+				"outputMissing": "Šis profils saglabā mapē, kas nav iestatīta. Izvēlieties mapi profilā vai atgrieziet noklusējuma mapi.",
 				"panelDescription": "Izveidojiet, izvēlieties, rediģējiet vai noņemiet atkārtoti izmantojamas lejupielādes konfigurācijas.",
 				"panelTitle": "Lejupielādes profili",
 				"remove": "Noņemt",
 				"reorderHint": "Velciet profilu, lai to pārvietotu. Visi profilu izvēles saraksti seko šai secībai.",
 				"reset": "Atiestatīt",
-				"summary": {
-					"aacAudio": "AAC audio",
-					"bestAudio": "labākais audio",
-					"bestVideo": "labākais video",
-					"noAudio": "bez audio",
-					"subtitlesOnly": "tikai subtitri",
-					"wavAudio": "WAV audio"
-				},
 				"switchAria": "Pārslēgt lejupielādes profilu: {{profileName}}",
 				"switchTitle": "Pārslēgt lejupielādes profilu"
 			},

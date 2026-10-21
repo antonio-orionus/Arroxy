@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "允許"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "已允許 AI 放大"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。"
@@ -899,7 +903,7 @@ msgstr "最高 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "最佳畫質"
+msgstr "最佳品質"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "加入佇列——進行中的下載完成後開始"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "僅音訊"
-
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "它們將儲存至下方 {{count}} 個目的地"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "已啟用「僅字幕」預設集，但未選擇字幕語言——不會下載任何內容。"
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "已啟用「僅字幕」設定檔，但未選擇字幕語言——不會下載任何內容。"
 
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2282,10 +2282,6 @@ msgstr "音訊語言"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} 種語言"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "僅音訊"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM 無法容納 {{codec}}，因此檔案類型已改回自動。"
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "將儲存為 .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "大小未知"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "含音訊"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "只要你點選的影片，還是要從播放清單中挑選？下一步可選擇特定影片或範圍。"
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "按 Esc 取消。選擇之前不會載入任何內容。"
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "從播放清單選取"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "自行選擇格式"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "播放清單探查上限：{{count}} 個項目"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "僅此影片"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "先載入播放清單至設定的探查上限，再顯示選取器。"
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "開啟其格式選項"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "只下載此影片，或使用目前的「快速下載」設定檔將整個播放清單加入佇列。"
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "載入一部影片"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Arroxy 將播放清單、頻道或搜尋結果加入佇列前最多掃描的項目數。"
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "最多載入 {{count}} 個供你選擇"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "使用目前的「快速下載」設定檔，將所有已載入的播放清單項目加入佇列。若掃描達到上限，Arroxy 會先詢問再加入。"
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "專輯的前幾項"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "只加入一個下載，並忽略此 URL 所附的播放清單。"
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "喜歡的影片的前幾項"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "下載此影片"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "合輯的前幾項"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "下載整個播放清單"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "播放清單的前幾項"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "僅載入此影片，會忽略此 URL 所附的播放清單。"
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "上傳內容的前幾項"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "只要這個"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "「稍後觀看」的前幾項"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "此連結包含播放清單"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "最多載入 {{count}} 個，然後下載"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "合輯每次開啟時內容都會變動。"
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "從專輯的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "從喜歡的影片的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "從合輯的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "從播放清單的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "從上傳內容的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "從「稍後觀看」的前幾項中選擇"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "從此專輯下載"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "從喜歡的影片下載"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "從此合輯下載"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "從此播放清單下載"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "從此頻道的上傳內容下載"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "從「稍後觀看」下載"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "使用 {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "嵌入章節"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "章節"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "將標題、藝人、描述與上傳日期寫入檔案。"
@@ -2834,6 +2894,10 @@ msgstr "將標題、藝人、描述與上傳日期寫入檔案。"
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "嵌入中繼資料"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "中繼資料"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "嵌入縮圖"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "封面"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "將影片描述儲存為下載檔案旁的 .description 文字檔。"
@@ -2850,6 +2918,10 @@ msgstr "將影片描述儲存為下載檔案旁的 .description 文字檔。"
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "儲存描述"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "描述檔案"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "將縮圖儲存為下載檔案旁的 .jpg 圖片。"
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "儲存縮圖"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "縮圖檔案"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "影片縮圖"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "變更載入上限"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>：Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。"
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "將已載入的項目加入佇列"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "播放清單掃描有上限"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "選擇批次畫質"
@@ -3332,7 +3430,11 @@ msgstr "最高 320K"
 
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
-msgstr "最佳畫質"
+msgstr "最佳音質"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "新增設定檔"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "音樂或 Podcast"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "僅音訊"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "僅字幕檔案"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "僅字幕"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "一般影片檔案"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "影片 + 音訊"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "僅無聲影片"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "影片，無音訊"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} 個項目"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy 建立選取器時只會要求這麼多播放清單、頻道或搜尋項目。"
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "使用應用程式上限：{{count}}"
@@ -4686,7 +4768,7 @@ msgstr "4K UHD 2160p"
 
 msgctxt "wizard.url.profile.builtinName.best-quality"
 msgid "Best available"
-msgstr "最佳畫質"
+msgstr "最佳品質"
 
 msgctxt "wizard.url.profile.builtinName.hd-1080"
 msgid "Full HD 1080p"
@@ -4808,6 +4890,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "新增設定檔"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "此設定檔儲存到的資料夾尚未設定。請在設定檔中選擇資料夾，或將其還原為預設值。"
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "建立、選取、編輯或移除可重複使用的下載設定。"
@@ -4827,30 +4913,6 @@ msgstr "拖曳設定檔即可移動。所有設定檔選取器都會依照這個
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "重設"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC 音訊"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "最佳音訊"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "最佳影片"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "無音訊"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "僅字幕"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV 音訊"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

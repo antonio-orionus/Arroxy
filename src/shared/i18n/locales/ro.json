@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Permite",
+		"allowedSummary": "Fluxuri mărite cu IA permise",
 		"description": "YouTube oferă unele videoclipuri vechi în dimensiuni create cu IA. Omiterea păstrează fluxurile originale; puteți totuși alege manual unul mărit cu IA.",
 		"label": "Fluxuri mărite cu IA",
 		"skip": "Omite"
@@ -766,7 +767,6 @@
 		"confirm": {
 			"addToQueue": "+ Coadă",
 			"addToQueueTooltip": "Adaugă în coadă — pornește când se termină descărcarea activă",
-			"audioOnly": "Doar audio",
 			"itemsValueAudio_few": "{{count}} din {{total}} piese",
 			"itemsValueAudio_one": "{{count}} din {{total}} piese",
 			"itemsValueAudio_other": "{{count}} din {{total}} piese",
@@ -789,7 +789,7 @@
 			"landInMultiProfile_few": "Vor ajunge în cele {{count}} destinații de mai jos",
 			"landInMultiProfile_one": "Va ajunge în destinația de mai jos",
 			"landInMultiProfile_other": "Vor ajunge în cele {{count}} de destinații de mai jos",
-			"nothingToDownload": "Presetarea Doar subtitrări este activă, dar nu este selectată nicio limbă de subtitrare — nu se va descărca nimic.",
+			"nothingToDownload": "Profilul „Doar subtitrări” este activ, dar nu este selectată nicio limbă pentru subtitrări – nu se va descărca nimic.",
 			"profileBreakdownCount_few": "{{count}} elemente",
 			"profileBreakdownCount_one": "{{count}} element",
 			"profileBreakdownCount_other": "{{count}} de elemente",
@@ -825,7 +825,6 @@
 			"audioLanguageCount_few": "{{count}} limbi",
 			"audioLanguageCount_one": "{{count}} limbă",
 			"audioLanguageCount_other": "{{count}} de limbi",
-			"audioOnly": "Doar audio",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookie-urile sunt configurate, dar dezactivate. Activați-le și reîncercați pentru a obține lista completă sau schimbați rețeaua și reîncercați.",
@@ -977,7 +976,8 @@
 			"resolutionUnknown": "Rezoluție necunoscută",
 			"savesAs": {
 				"label": "Se salvează ca",
-				"reset": "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto."
+				"reset": "WebM nu poate conține {{codec}}, așa că tipul fișierului a revenit la Auto.",
+				"value": "Se salvează ca .{{ext}}"
 			},
 			"sizeUnknown": "Dimensiune necunoscută",
 			"skipToConfirm": "Treceți la confirmare",
@@ -987,37 +987,61 @@
 			"video": "Video",
 			"withAudio": "cu audio"
 		},
-		"mixedPrompt": {
-			"body": "Doriți doar videoclipul pe care ați făcut clic sau alegeți din lista de redare? În continuare veți alege videoclipuri anume sau un interval.",
-			"pickFromPlaylist": "Alege din listă",
-			"playlistLimit": "Limita de sondare a listei: {{count}} elemente",
-			"playlistTooltip": "Încarcă lista de redare, până la limita de sondare a listei, înainte de a afișa selectorul.",
-			"quickBody": "Descărcați doar acest videoclip sau puneți în coadă întreaga listă de redare cu profilul Descărcare rapidă activ.",
-			"quickLimitDescription": "Numărul maxim de intrări pe care Arroxy le scanează înainte de a pune în coadă o listă de redare, un canal sau un rezultat de căutare.",
-			"quickPlaylistTooltip": "Pune în coadă fiecare element încărcat al listei cu profilul Descărcare rapidă activ. Dacă scanarea atinge limita, Arroxy întreabă înainte de a le pune în coadă.",
-			"quickSingleTooltip": "Pune în coadă o singură descărcare și ignoră lista de redare atașată acestui URL.",
-			"quickSingleVideo": "Descarcă acest videoclip",
-			"quickWholePlaylist": "Descarcă toată lista",
-			"singleTooltip": "Încarcă doar acest videoclip. Lista de redare atașată acestui URL este ignorată.",
-			"singleVideo": "Doar acesta",
-			"title": "Acest link conține o listă de redare"
+		"listPrompt": {
+			"escHint": "Esc anulează. Nu se încarcă nimic până nu alegeți.",
+			"interactiveSubtitle": "Alegeți singur formatele",
+			"justThisVideo": "Doar acest videoclip",
+			"justThisVideoInteractiveHint": "Deschide formatele sale",
+			"justThisVideoQuickHint": "Încarcă un videoclip",
+			"listInteractiveHint": "Încarcă până la {{count}}, dintre care să alegeți",
+			"listOption": {
+				"album": "Albumul, primele",
+				"liked": "Videoclipurile apreciate, primele",
+				"mix": "Mixul, primele",
+				"playlist": "Lista de redare, primele",
+				"uploads": "Încărcările, primele",
+				"watchLater": "„Redă mai târziu”, primele"
+			},
+			"listQuickHint": "Încarcă până la {{count}}, apoi le descarcă",
+			"mixNote": "Un Mix se schimbă de fiecare dată când îl deschideți.",
+			"pickOption": {
+				"album": "Alegere din album, din primele",
+				"liked": "Alegere din videoclipurile apreciate, din primele",
+				"mix": "Alegere din Mix, din primele",
+				"playlist": "Alegere din lista de redare, din primele",
+				"uploads": "Alegere din încărcări, din primele",
+				"watchLater": "Alegere din „Redă mai târziu”, din primele"
+			},
+			"title": {
+				"album": "Descărcare din acest album",
+				"liked": "Descărcare din videoclipurile apreciate",
+				"mix": "Descărcare din acest Mix",
+				"playlist": "Descărcare din această listă de redare",
+				"uploads": "Descărcare din încărcările acestui canal",
+				"watchLater": "Descărcare din „Redă mai târziu”"
+			},
+			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Marcaje de capitole care pot fi folosite în orice player modern.",
-				"label": "Încorporează capitolele"
+				"label": "Încorporează capitolele",
+				"short": "capitole"
 			},
 			"embedMetadata": {
 				"description": "Titlul, artistul, descrierea și data încărcării se scriu în fișier.",
-				"label": "Încorporează metadatele"
+				"label": "Încorporează metadatele",
+				"short": "metadate"
 			},
 			"embedThumbnail": {
 				"description": "Coperta se află în interiorul fișierului. Videoclipul WebM va fi remultiplexat în MKV; se omite când subtitrările sunt încorporate.",
-				"label": "Încorporează miniatura"
+				"label": "Încorporează miniatura",
+				"short": "copertă"
 			},
 			"writeDescription": {
 				"description": "Salvează descrierea videoclipului ca fișier text .description lângă descărcare.",
-				"label": "Salvează descrierea"
+				"label": "Salvează descrierea",
+				"short": "fișier de descriere"
 			},
 			"writeM3u": {
 				"description": "Salvează o listă de redare .m3u lângă videoclipuri, ca ele să se deschidă în ordine în playerul media.",
@@ -1025,7 +1049,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Salvează miniatura ca fișier imagine .jpg lângă descărcare.",
-				"label": "Salvează miniatura"
+				"label": "Salvează miniatura",
+				"short": "fișier de miniatură"
 			}
 		},
 		"part": {
@@ -1132,6 +1157,17 @@
 			"syncScanning": "Se verifică folderul…",
 			"thumbnailAlt": "Miniatura videoclipului"
 		},
+		"playlistCap": {
+			"changeLimit": "Schimbă limita de încărcare",
+			"descriptionWithTitle_few": "<title/>: Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
+			"descriptionWithTitle_one": "<title/>: Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou.",
+			"descriptionWithTitle_other": "<title/>: Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
+			"description_few": "Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
+			"description_one": "Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou.",
+			"description_other": "Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
+			"queueLoaded": "Adaugă în coadă elementele încărcate",
+			"title": "Scanarea listei de redare este limitată"
+		},
 		"playlistPresets": {
 			"heading": "Alegeți calitatea pentru lot",
 			"itemCount_few": "{{count}} elemente",
@@ -1183,6 +1219,7 @@
 				"320": "Până la 320K",
 				"best": "Cea mai bună calitate"
 			},
+			"defaultName": "Profil nou",
 			"destination": {
 				"defaultFolder": "Folderul implicit de descărcări",
 				"defaultFolderWithSubfolder": "Folderul implicit de descărcări / {{subfolder}}",
@@ -1248,20 +1285,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muzică sau podcasturi",
-					"label": "Doar audio"
+					"description": "Muzică sau podcasturi"
 				},
 				"subtitlesOnly": {
-					"description": "Doar fișiere de subtitrare",
-					"label": "Doar subtitrări"
+					"description": "Doar fișiere de subtitrare"
 				},
 				"videoAudio": {
-					"description": "Fișiere video obișnuite",
-					"label": "Video + audio"
+					"description": "Fișiere video obișnuite"
 				},
 				"videoOnly": {
-					"description": "Doar video, fără sunet",
-					"label": "Video, fără audio"
+					"description": "Doar video, fără sunet"
 				}
 			},
 			"note": {
@@ -1624,8 +1657,7 @@
 				"description": "Numărul maxim de intrări pe care Arroxy le încarcă la deschiderea unei liste de redare, a unui canal sau a unui rezultat de căutare.",
 				"invalid": "Folosiți un număr întreg de la 1 la 5000",
 				"label": "Elemente de scanat din listă",
-				"option": "{{count}} elemente",
-				"tooltip": "Arroxy cere doar atâtea intrări de listă de redare, canal sau căutare cât construiește selectorul."
+				"option": "{{count}} elemente"
 			},
 			"playlistScope": {
 				"appLimit": "Folosește limita aplicației: {{count}}",
@@ -1694,19 +1726,12 @@
 				"moveOver": "{{profileName}} este peste poziția {{position}} din {{count}}.",
 				"movePickedUp": "{{profileName}} a fost ridicat. Se află pe poziția {{position}} din {{count}}.",
 				"newProfile": "Profil nou",
+				"outputMissing": "Acest profil salvează într-un folder care nu este setat. Alegeți un folder în profil sau reveniți la cel implicit.",
 				"panelDescription": "Creați, selectați, editați sau eliminați configurații de descărcare reutilizabile.",
 				"panelTitle": "Profiluri de descărcare",
 				"remove": "Elimină",
 				"reorderHint": "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmează această ordine.",
 				"reset": "Resetează",
-				"summary": {
-					"aacAudio": "audio AAC",
-					"bestAudio": "cel mai bun audio",
-					"bestVideo": "cel mai bun video",
-					"noAudio": "fără audio",
-					"subtitlesOnly": "doar subtitrări",
-					"wavAudio": "audio WAV"
-				},
 				"switchAria": "Schimbă profilul de descărcare: {{profileName}}",
 				"switchTitle": "Schimbă profilul de descărcare"
 			},

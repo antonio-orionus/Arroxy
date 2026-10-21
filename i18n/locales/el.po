@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Επιτρέπεται"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Επιτρέπονται ροές με αναβάθμιση ΤΝ"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "Το YouTube προσφέρει ορισμένα παλιά βίντεο σε μεγέθη που δημιούργησε με ΤΝ. Η «Παράλειψη» κρατά τις αρχικές ροές· μπορείτε ακόμη να επιλέξετε χειροκίνητα μια ροή με αναβάθμιση."
@@ -2173,10 +2177,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Ξεκινά όταν ολοκληρωθούν άλλες λήψεις — αποκτά πλήρες εύρος ζώνης"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Μόνο ήχος"
-
 #. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2258,8 +2258,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Θα αποθηκευτούν στους {{count}} παρακάτω προορισμούς"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Η προεπιλογή «μόνο υπότιτλοι» είναι ενεργή αλλά δεν έχει επιλεγεί γλώσσα — τίποτα δεν θα ληφθεί."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Το προφίλ «Μόνο υπότιτλοι» είναι ενεργό, αλλά δεν έχει επιλεγεί γλώσσα υποτίτλων — δεν θα γίνει καμία λήψη."
 
 #. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2372,10 +2372,6 @@ msgstr "{{count}} γλώσσα"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} γλώσσες"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Μόνο ήχος"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2829,6 +2825,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "Το WebM δεν υποστηρίζει {{codec}}, οπότε ο τύπος αρχείου επανήλθε σε Αυτόματο."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Αποθηκεύεται ως .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Άγνωστο μέγεθος"
@@ -2857,57 +2857,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "με ήχο"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Θέλεις μόνο το βίντεο που έκανες κλικ, ή να επιλέξεις από την playlist; Θα διαλέξεις συγκεκριμένα βίντεο ή εύρος στη συνέχεια."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Το Esc ακυρώνει. Δεν φορτώνεται τίποτα μέχρι να διαλέξεις."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Επιλογή από την playlist"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Διάλεξε εσύ τις μορφές"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Όριο ελέγχου playlist: {{count}} στοιχεία"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Μόνο αυτό το βίντεο"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Φορτώνει την playlist, μέχρι το όριο ελέγχου playlist που έχεις ορίσει, πριν εμφανίσει τον επιλογέα."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Ανοίγει τις μορφές του"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Κατέβασε μόνο αυτό το βίντεο ή βάλε ολόκληρη τη λίστα αναπαραγωγής στην ουρά με το ενεργό προφίλ Γρήγορης λήψης."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Φορτώνει ένα βίντεο"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Ο μέγιστος αριθμός στοιχείων που σαρώνει το Arroxy πριν βάλει στην ουρά μια λίστα αναπαραγωγής, ένα κανάλι ή ένα αποτέλεσμα αναζήτησης."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Φορτώνει έως {{count}} για να διαλέξεις"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Βάζει κάθε φορτωμένο στοιχείο της λίστας στην ουρά με το ενεργό προφίλ Γρήγορης λήψης. Αν η σάρωση φτάσει το όριό σου, το Arroxy θα ρωτήσει πριν βάλει στοιχεία στην ουρά."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Το άλμπουμ, τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Βάζει μία λήψη στην ουρά και αγνοεί τη λίστα αναπαραγωγής που είναι συνδεδεμένη με αυτό το URL."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Τα βίντεο που σου αρέσουν, τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Λήψη αυτού του βίντεο"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Το Mix, τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Λήψη ολόκληρης λίστας αναπαραγωγής"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Η λίστα αναπαραγωγής, τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Φορτώνει μόνο αυτό το βίντεο. Η playlist που συνδέεται με αυτό το URL αγνοείται."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Τα ανεβασμένα βίντεο, τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Μόνο αυτό"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "Η λίστα «Παρακολούθηση αργότερα», τα πρώτα"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Αυτός ο σύνδεσμος έχει playlist"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Φορτώνει έως {{count}} και μετά τα κατεβάζει"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Ένα Mix αλλάζει κάθε φορά που το ανοίγεις."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Επιλογή από το άλμπουμ, από τα πρώτα"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Επιλογή από τα βίντεο που σου αρέσουν, από τα πρώτα"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Επιλογή από το Mix, από τα πρώτα"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Επιλογή από τη λίστα αναπαραγωγής, από τα πρώτα"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Επιλογή από τα ανεβασμένα βίντεο, από τα πρώτα"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Επιλογή από την «Παρακολούθηση αργότερα», από τα πρώτα"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Λήψη από αυτό το άλμπουμ"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Λήψη από τα βίντεο που σου αρέσουν"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Λήψη από αυτό το Mix"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Λήψη από αυτή τη λίστα αναπαραγωγής"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Λήψη από τα ανεβασμένα βίντεο αυτού του καναλιού"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Λήψη από την «Παρακολούθηση αργότερα»"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Με το προφίλ {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2917,6 +2973,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Ενσωμάτωση κεφαλαίων"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "κεφάλαια"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Τίτλος, καλλιτέχνης, περιγραφή και ημερομηνία ανάρτησης εγγράφονται στο αρχείο."
@@ -2924,6 +2984,10 @@ msgstr "Τίτλος, καλλιτέχνης, περιγραφή και ημερ
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Ενσωμάτωση μεταδεδομένων"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "μεταδεδομένα"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2933,6 +2997,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Ενσωμάτωση μικρογραφίας"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "εξώφυλλο"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Αποθηκεύει την περιγραφή του βίντεο ως αρχείο κειμένου .description δίπλα στη λήψη."
@@ -2940,6 +3008,10 @@ msgstr "Αποθηκεύει την περιγραφή του βίντεο ως 
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Αποθήκευση περιγραφής"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "αρχείο περιγραφής"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2956,6 +3028,10 @@ msgstr "Αποθηκεύει τη μικρογραφία ως αρχείο ει�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Αποθήκευση μικρογραφίας"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "αρχείο μικρογραφίας"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3325,6 +3401,38 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Μικρογραφία βίντεο"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Αλλαγή ορίου φόρτωσης"
+
+#. Plural form "one" for el: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Το Arroxy φόρτωσε {{count}} στοιχείο με το τρέχον όριο των {{limit}}. Βάλε τώρα στην ουρά το φορτωμένο στοιχείο ή αύξησε το όριο και σάρωσε ξανά."
+
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Το Arroxy φόρτωσε {{count}} στοιχεία με το τρέχον όριο των {{limit}}. Βάλε τώρα στην ουρά τα φορτωμένα στοιχεία ή αύξησε το όριο και σάρωσε ξανά."
+
+#. Plural form "one" for el: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Το Arroxy φόρτωσε {{count}} στοιχείο με το τρέχον όριο των {{limit}}. Βάλε τώρα στην ουρά το φορτωμένο στοιχείο ή αύξησε το όριο και σάρωσε ξανά."
+
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Το Arroxy φόρτωσε {{count}} στοιχεία με το τρέχον όριο των {{limit}}. Βάλε τώρα στην ουρά τα φορτωμένα στοιχεία ή αύξησε το όριο και σάρωσε ξανά."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Προσθήκη φορτωμένων στην ουρά"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Η σάρωση playlist έχει περιοριστεί"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Επιλογή ποιότητας για την ομαδική λήψη"
@@ -3478,6 +3586,10 @@ msgstr "Έως 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Καλύτερη ποιότητα"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Νέο προφίλ"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3679,33 +3791,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Μουσική ή podcast"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Μόνο ήχος"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Μόνο αρχεία υποτίτλων"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Μόνο υπότιτλοι"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Κανονικά αρχεία βίντεο"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Βίντεο + ήχος"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Μόνο βίντεο χωρίς ήχο"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Βίντεο, χωρίς ήχο"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4719,10 +4815,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} στοιχεία"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Το Arroxy ζητά μόνο τόσες εγγραφές playlist, καναλιού ή αναζήτησης κατά τη δημιουργία του επιλογέα."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Χρήση ορίου εφαρμογής: {{count}}"
@@ -4963,6 +5055,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Νέο προφίλ"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Αυτό το προφίλ αποθηκεύει σε φάκελο που δεν έχει οριστεί. Διάλεξε έναν φάκελο στο προφίλ ή επανάφερέ το στην προεπιλογή."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Δημιουργήστε, επιλέξτε, επεξεργαστείτε ή αφαιρέστε επαναχρησιμοποιήσιμες ρυθμίσεις λήψης."
@@ -4982,30 +5078,6 @@ msgstr "Σύρε ένα προφίλ για να το μετακινήσεις. 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Επαναφορά"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "ήχος AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "καλύτερος ήχος"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "καλύτερο βίντεο"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "χωρίς ήχο"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "μόνο υπότιτλοι"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "ήχος WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

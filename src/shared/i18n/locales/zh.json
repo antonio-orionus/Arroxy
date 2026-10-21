@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "允许",
+		"allowedSummary": "已允许 AI 放大",
 		"description": "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。",
 		"label": "AI 放大的流",
 		"skip": "跳过"
@@ -101,12 +102,12 @@
 			"retry": "重试"
 		},
 		"linkCallout": {
-			"body": "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。",
+			"body": "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置下载、改选其他配置，或打开交互式下载。",
 			"title": "右键点击链接即可下载"
 		},
 		"linkMenu": {
 			"copyLink": "复制链接",
-			"downloadWith": "使用配置文件下载"
+			"downloadWith": "使用配置下载"
 		},
 		"newBadge": "新",
 		"notice": {
@@ -292,7 +293,7 @@
 			"1080": "最高 1080p",
 			"1440": "最高 1440p",
 			"2160": "最高 4K",
-			"best": "最佳画质"
+			"best": "最佳质量"
 		},
 		"tierDesc": {
 			"144": "最小的文件",
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ 队列",
 			"addToQueueTooltip": "其他下载完成后开始 — 享受全部带宽",
-			"audioOnly": "仅音频",
 			"itemsValueAudio_other": "{{total}} 首曲目中的 {{count}} 首",
 			"itemsValueBulk_other": "{{count}} / {{total}} 个 URL",
 			"itemsValue_other": "{{total}} 个视频中的 {{count}} 个",
@@ -757,7 +757,7 @@
 			"labelVideo": "视频",
 			"landIn": "文件将保存至",
 			"landInMultiProfile_other": "将保存到下方的 {{count}} 个目标位置",
-			"nothingToDownload": "「仅字幕」预设已启用，但未选择任何字幕语言 — 不会下载任何内容。",
+			"nothingToDownload": "已启用“仅字幕”配置，但未选择任何字幕语言 — 不会下载任何内容。",
 			"profileBreakdownCount_other": "{{count}} 项",
 			"profileBreakdownHeading": "此批次中的配置",
 			"pullIt": "开始下载! ↓",
@@ -789,7 +789,6 @@
 			"audio": "音频",
 			"audioLanguage": "音频语言",
 			"audioLanguageCount_other": "{{count}} 种语言",
-			"audioOnly": "仅音频",
 			"bitrateValue": "比特率 {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies 已配置但未启用。启用后重试可获取完整列表，或更换网络后重试。",
@@ -909,8 +908,8 @@
 			},
 			"noAudio": "无音频",
 			"profile": {
-				"calloutBody": "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。",
-				"calloutTitle": "格式从你的配置文件开始",
+				"calloutBody": "活动配置会为你预先选好流。可从菜单切换配置，或用铅笔图标在不离开本次下载的情况下调整配置。",
+				"calloutTitle": "格式从你的配置开始",
 				"closestTag": "最接近配置",
 				"edit": "编辑“{{name}}”",
 				"keepEdits": "保留我的更改",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "分辨率未知",
 			"savesAs": {
 				"label": "保存为",
-				"reset": "WebM 无法容纳 {{codec}}，因此文件类型已改回自动。"
+				"reset": "WebM 无法容纳 {{codec}}，因此文件类型已改回自动。",
+				"value": "将保存为 .{{ext}}"
 			},
 			"sizeUnknown": "大小未知",
 			"skipToConfirm": "跳至确认",
@@ -951,37 +951,61 @@
 			"video": "视频",
 			"withAudio": "含音频"
 		},
-		"mixedPrompt": {
-			"body": "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。",
-			"pickFromPlaylist": "从 Playlist 中挑选",
-			"playlistLimit": "播放列表探测限制：{{count}} 个项目",
-			"playlistTooltip": "在显示选择器前，加载播放列表，最多到你的探测限制。",
-			"quickBody": "只下载这个视频，或使用当前的快速下载配置将整个播放列表加入队列。",
-			"quickLimitDescription": "Arroxy 在将播放列表、频道或搜索结果加入队列前最多扫描的条目数。",
-			"quickPlaylistTooltip": "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。",
-			"quickSingleTooltip": "将一个下载加入队列，并忽略此 URL 附带的播放列表。",
-			"quickSingleVideo": "下载此视频",
-			"quickWholePlaylist": "下载整个播放列表",
-			"singleTooltip": "仅加载此视频，因此会忽略此 URL 附带的播放列表。",
-			"singleVideo": "就这一个",
-			"title": "此链接包含 Playlist"
+		"listPrompt": {
+			"escHint": "按 Esc 取消。选择之前不会加载任何内容。",
+			"interactiveSubtitle": "自行选择格式",
+			"justThisVideo": "仅此视频",
+			"justThisVideoInteractiveHint": "打开其格式选项",
+			"justThisVideoQuickHint": "加载一个视频",
+			"listInteractiveHint": "加载最多 {{count}} 个供你选择",
+			"listOption": {
+				"album": "专辑的前几项",
+				"liked": "你赞过的视频的前几项",
+				"mix": "合辑的前几项",
+				"playlist": "播放列表的前几项",
+				"uploads": "上传内容的前几项",
+				"watchLater": "“稍后观看”的前几项"
+			},
+			"listQuickHint": "加载最多 {{count}} 个，然后下载",
+			"mixNote": "合辑每次打开时内容都会变化。",
+			"pickOption": {
+				"album": "从专辑的前几项中选择",
+				"liked": "从你赞过的视频的前几项中选择",
+				"mix": "从合辑的前几项中选择",
+				"playlist": "从播放列表的前几项中选择",
+				"uploads": "从上传内容的前几项中选择",
+				"watchLater": "从“稍后观看”的前几项中选择"
+			},
+			"title": {
+				"album": "从此专辑下载",
+				"liked": "从你赞过的视频下载",
+				"mix": "从此合辑下载",
+				"playlist": "从此播放列表下载",
+				"uploads": "从此频道的上传内容下载",
+				"watchLater": "从“稍后观看”下载"
+			},
+			"withProfile": "使用 {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "可在任何现代播放器中导航的章节标记。",
-				"label": "嵌入章节"
+				"label": "嵌入章节",
+				"short": "章节"
 			},
 			"embedMetadata": {
 				"description": "将标题、艺术家、描述和上传日期写入文件。",
-				"label": "嵌入元数据"
+				"label": "嵌入元数据",
+				"short": "元数据"
 			},
 			"embedThumbnail": {
 				"description": "文件内封面图。WebM 视频将重新封装为 MKV；嵌入字幕时跳过。",
-				"label": "嵌入缩略图"
+				"label": "嵌入缩略图",
+				"short": "封面"
 			},
 			"writeDescription": {
 				"description": "将视频描述保存为 .description 文本文件，放在下载文件旁边。",
-				"label": "保存描述"
+				"label": "保存描述",
+				"short": "描述文件"
 			},
 			"writeM3u": {
 				"description": "在视频旁保存 .m3u 播放列表，以便播放器按顺序打开。",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。",
-				"label": "保存缩略图"
+				"label": "保存缩略图",
+				"short": "缩略图文件"
 			}
 		},
 		"part": {
@@ -1080,13 +1105,20 @@
 			"syncScanning": "正在检查文件夹…",
 			"thumbnailAlt": "视频缩略图"
 		},
+		"playlistCap": {
+			"changeLimit": "更改加载上限",
+			"descriptionWithTitle_other": "<title/>：Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。",
+			"description_other": "Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。",
+			"queueLoaded": "将已加载的项目加入队列",
+			"title": "播放列表扫描已达上限"
+		},
 		"playlistPresets": {
 			"heading": "选择批量下载画质",
 			"itemCount_other": "{{count}} 项",
 			"subhead": "每个视频独立匹配所选画质档位——混合内容的播放列表也能正常处理，无意外。"
 		},
 		"playlistProfiles": {
-			"assignTriggerEmpty": "分配配置文件",
+			"assignTriggerEmpty": "分配配置",
 			"assignTrigger_other": "分配给 {{count}} 个视频",
 			"columnDuration": "时长",
 			"columnProfile": "配置",
@@ -1095,7 +1127,7 @@
 			"filterChip": "{{name}} · {{count}}",
 			"filtersLabel": "配置筛选",
 			"heading": "分配下载配置",
-			"menuDescription_other": "为这 {{count}} 个视频选择配置文件。",
+			"menuDescription_other": "为这 {{count}} 个视频选择配置。",
 			"selectedSummary": "已选择 {{total}} 项中的 {{selected}} 项"
 		},
 		"profileEditor": {
@@ -1125,6 +1157,7 @@
 				"320": "最高 320K",
 				"best": "最佳质量"
 			},
+			"defaultName": "新建配置",
 			"destination": {
 				"defaultFolder": "默认下载文件夹",
 				"defaultFolderWithSubfolder": "默认下载文件夹 / {{subfolder}}",
@@ -1162,7 +1195,7 @@
 				"source": "来源",
 				"subfolderName": "子文件夹名称",
 				"subtitleDownloads": "字幕下载",
-				"subtitleDownloadsDescription": "配置文件按语言代码请求字幕；是否可用会针对每个 URL 单独判断。"
+				"subtitleDownloadsDescription": "配置按语言代码请求字幕；是否可用会针对每个 URL 单独判断。"
 			},
 			"goal": {
 				"bestPicture": {
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "音乐或播客",
-					"label": "仅音频"
+					"description": "音乐或播客"
 				},
 				"subtitlesOnly": {
-					"description": "仅字幕文件",
-					"label": "仅字幕"
+					"description": "仅字幕文件"
 				},
 				"videoAudio": {
-					"description": "普通视频文件",
-					"label": "视频 + 音频"
+					"description": "普通视频文件"
 				},
 				"videoOnly": {
-					"description": "仅无声视频",
-					"label": "视频，无音频"
+					"description": "仅无声视频"
 				}
 			},
 			"note": {
@@ -1462,7 +1491,7 @@
 			},
 			"features": {
 				"always": {
-					"audioOnly": "纯音频",
+					"audioOnly": "仅音频",
 					"subtitles": "字幕"
 				},
 				"anySite": {
@@ -1562,8 +1591,7 @@
 				"description": "打开播放列表、频道或搜索结果时，Arroxy 最多加载的条目数。",
 				"invalid": "请输入 1 到 5000 之间的整数",
 				"label": "要扫描的播放列表项目数",
-				"option": "{{count}} 个项目",
-				"tooltip": "Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
+				"option": "{{count}} 个项目"
 			},
 			"playlistScope": {
 				"appLimit": "使用应用上限：{{count}}",
@@ -1588,7 +1616,7 @@
 				"to": "至"
 			},
 			"profile": {
-				"activeLabel": "活动配置文件",
+				"activeLabel": "活动配置",
 				"badgeBuiltIn": "内置",
 				"badgeCustom": "自定义",
 				"badgeDisabled": "已隐藏",
@@ -1598,7 +1626,7 @@
 					"balanced": "均衡 720p",
 					"best-1440": "QHD 1440p",
 					"best-2160": "4K UHD 2160p",
-					"best-quality": "最佳画质",
+					"best-quality": "最佳质量",
 					"hd-1080": "Full HD 1080p",
 					"low-144": "最低画质 144p",
 					"low-240": "省流量 240p",
@@ -1617,36 +1645,29 @@
 				},
 				"destinationFallback": "保存位置",
 				"edit": "编辑",
-				"editActive": "编辑活动配置文件",
-				"enableHint": "隐藏的配置文件保留在此，但会从所有选择器中消失。",
-				"enableToggleAria": "在选择器中显示配置文件：{{profileName}}",
-				"lastEnabledHint": "请至少保留一个可用的配置文件。",
-				"manageProfiles": "管理配置文件",
-				"menuDescription": "更改用于快速下载、批量 URL 和播放列表的活动配置文件。",
-				"menuTitle": "切换配置文件",
-				"movableProfile": "可移动的配置文件",
+				"editActive": "编辑活动配置",
+				"enableHint": "隐藏的配置保留在此，但会从所有选择器中消失。",
+				"enableToggleAria": "在选择器中显示配置：{{profileName}}",
+				"lastEnabledHint": "请至少保留一个可用的配置。",
+				"manageProfiles": "管理配置",
+				"menuDescription": "更改用于快速下载、批量 URL 和播放列表的活动配置。",
+				"menuTitle": "切换配置",
+				"movableProfile": "可移动的配置",
 				"moveCancelled": "已取消移动。{{profileName}} 仍位于第 {{position}} 个，共 {{count}} 个。",
 				"moveDropped": "已将 {{profileName}} 放在第 {{position}} 个，共 {{count}} 个。",
 				"moveHandleAria": "移动 {{profileName}}",
-				"moveInstructions": "要移动配置文件，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
+				"moveInstructions": "要移动配置，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。",
 				"moveOver": "{{profileName}} 悬停在第 {{position}} 个上，共 {{count}} 个。",
 				"movePickedUp": "已拿起 {{profileName}}。当前位于第 {{position}} 个，共 {{count}} 个。",
-				"newProfile": "新建配置文件",
+				"newProfile": "新建配置",
+				"outputMissing": "此配置保存到的文件夹尚未设置。请在配置中选择一个文件夹，或将其恢复为默认值。",
 				"panelDescription": "创建、选择、编辑或移除可重复使用的下载设置。",
 				"panelTitle": "下载配置",
 				"remove": "移除",
-				"reorderHint": "拖动配置文件即可移动。所有配置文件选择器都会按此顺序排列。",
+				"reorderHint": "拖动配置即可移动。所有配置选择器都会按此顺序排列。",
 				"reset": "重置",
-				"summary": {
-					"aacAudio": "AAC 音频",
-					"bestAudio": "最佳音频",
-					"bestVideo": "最佳视频",
-					"noAudio": "无音频",
-					"subtitlesOnly": "仅字幕",
-					"wavAudio": "WAV 音频"
-				},
-				"switchAria": "切换下载配置文件：{{profileName}}",
-				"switchTitle": "切换下载配置文件"
+				"switchAria": "切换下载配置：{{profileName}}",
+				"switchTitle": "切换下载配置"
 			},
 			"proxy": {
 				"clear": "清除",

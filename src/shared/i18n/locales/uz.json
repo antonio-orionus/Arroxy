@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Ruxsat berish",
+		"allowedSummary": "SI kattalashtirgan oqimlarga ruxsat",
 		"description": "YouTube ba'zi eski videolarni sun'iy intellekt yordamida yaratilgan o'lchamlarda taklif qiladi. “O'tkazib yuborish” asl oqimlarni saqlaydi; kattalashtirilgan oqimni baribir qo'lda tanlashingiz mumkin.",
 		"label": "SI kattalashtirgan oqimlar",
 		"skip": "O'tkazib yuborish"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Queue",
 			"addToQueueTooltip": "Boshqa yuklamalar tugaganda boshlanadi — to'liq tarmoq kengligini oladi",
-			"audioOnly": "Faqat audio",
 			"itemsValueAudio_one": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueAudio_other": "{{total}} ta trekning {{count}} tasi",
 			"itemsValueBulk_one": "{{total}} URLdan {{count}} tasi",
@@ -773,7 +773,7 @@
 			"landIn": "Faylingiz quyidagi joyga tushadi",
 			"landInMultiProfile_one": "U quyidagi manzilga tushadi",
 			"landInMultiProfile_other": "Ular quyidagi {{count}} ta manzilga tushadi",
-			"nothingToDownload": "Faqat subtitrlar oldindan sozlamasi faol, lekin hech qanday subtitrl tili tanlanmagan — hech narsa yuklanmaydi.",
+			"nothingToDownload": "«Faqat subtitrlar» profili faol, lekin subtitr tili tanlanmagan — hech narsa yuklab olinmaydi.",
 			"profileBreakdownCount_one": "{{count}} ta element",
 			"profileBreakdownCount_other": "{{count}} ta element",
 			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Audio tili",
 			"audioLanguageCount_one": "{{count}} ta til",
 			"audioLanguageCount_other": "{{count}} ta til",
-			"audioOnly": "Faqat audio",
 			"bitrateValue": "Bit tezligi {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies sozlangan, lekin o'chirilgan. To'liq ro'yxat uchun ularni yoqing va qayta urinib ko'ring, yoki tarmoqni o'zgartirin.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "O'lcham noma'lum",
 			"savesAs": {
 				"label": "Saqlash formati",
-				"reset": "WebM {{codec}} ni sig'dira olmaydi, shuning uchun fayl turi Avto ga qaytdi."
+				"reset": "WebM {{codec}} ni sig'dira olmaydi, shuning uchun fayl turi Avto ga qaytdi.",
+				"value": ".{{ext}} sifatida saqlanadi"
 			},
 			"sizeUnknown": "Hajm noma'lum",
 			"skipToConfirm": "Tasdiqlashga o'tish",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "audio bilan"
 		},
-		"mixedPrompt": {
-			"body": "Faqat bosilgan videoni olasizmi yoki Playlist dan tanlaysizmi? Keyingi qadamda aniq videolar yoki diapazon tanlanadi.",
-			"pickFromPlaylist": "Playlist dan tanlash",
-			"playlistLimit": "Pleylist tekshiruv chegarasi: {{count}} ta element",
-			"playlistTooltip": "Tanlagichni ko‘rsatishdan oldin pleylistni belgilangan chegaragacha yuklaydi.",
-			"quickBody": "Faqat shu videoni yuklab oling yoki butun pleylistni faol Tez yuklab olish profilingiz bilan navbatga qo‘ying.",
-			"quickLimitDescription": "Pleylist, kanal yoki qidiruv natijasini navbatga qo‘yishdan oldin Arroxy skanerlaydigan eng ko‘p elementlar soni.",
-			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi.",
-			"quickSingleTooltip": "Bitta yuklab olishni navbatga qo‘yadi va bu URLga biriktirilgan pleylistni e’tiborsiz qoldiradi.",
-			"quickSingleVideo": "Shu videoni yuklab olish",
-			"quickWholePlaylist": "Butun pleylistni yuklab olish",
-			"singleTooltip": "Faqat shu videoni yuklaydi. Bu URLga ulangan pleylist e’tiborsiz qoldiriladi.",
-			"singleVideo": "Faqat shu birini",
-			"title": "Bu havola Playlist ga tegishli"
+		"listPrompt": {
+			"escHint": "Esc bekor qiladi. Siz tanlamaguningizcha hech narsa yuklanmaydi.",
+			"interactiveSubtitle": "Formatlarni o'zingiz tanlang",
+			"justThisVideo": "Faqat shu video",
+			"justThisVideoInteractiveHint": "Formatlarini ochadi",
+			"justThisVideoQuickHint": "Bitta videoni yuklaydi",
+			"listInteractiveHint": "Tanlash uchun {{count}} tagacha yuklaydi",
+			"listOption": {
+				"album": "Albomning boshidan",
+				"liked": "Yoqtirgan videolaringiz boshidan",
+				"mix": "Mix boshidan",
+				"playlist": "Pleylist boshidan",
+				"uploads": "Yuklangan videolar boshidan",
+				"watchLater": "«Keyinroq ko'rish» boshidan"
+			},
+			"listQuickHint": "{{count}} tagacha yuklaydi, so'ng ularni yuklab oladi",
+			"mixNote": "Mix har safar ochganingizda o'zgaradi.",
+			"pickOption": {
+				"album": "Albomning boshidan tanlash",
+				"liked": "Yoqtirgan videolaringiz boshidan tanlash",
+				"mix": "Mix boshidan tanlash",
+				"playlist": "Pleylist boshidan tanlash",
+				"uploads": "Yuklangan videolar boshidan tanlash",
+				"watchLater": "«Keyinroq ko'rish» boshidan tanlash"
+			},
+			"title": {
+				"album": "Ushbu albomdan yuklab olish",
+				"liked": "Yoqtirgan videolaringizdan yuklab olish",
+				"mix": "Ushbu Mix dan yuklab olish",
+				"playlist": "Ushbu pleylistdan yuklab olish",
+				"uploads": "Ushbu kanalning yuklangan videolaridan yuklab olish",
+				"watchLater": "«Keyinroq ko'rish»dan yuklab olish"
+			},
+			"withProfile": "{{profileName}} bilan"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Har qanday zamonaviy pleyerda navigatsiya qilinuvchi bob belgilari.",
-				"label": "Boblarni joylashtirish"
+				"label": "Boblarni joylashtirish",
+				"short": "Boblar"
 			},
 			"embedMetadata": {
 				"description": "Sarlavha, ijrochi, tavsif va yuklash sanasi faylga yoziladi.",
-				"label": "Metama'lumotlarni joylashtirish"
+				"label": "Metama'lumotlarni joylashtirish",
+				"short": "Metama'lumotlar"
 			},
 			"embedThumbnail": {
 				"description": "Fayl ichidagi muqova rasmi. WebM video MKV formatiga o'tkaziladi; subtitrlar joylashtirilganda o'tkazib yuboriladi.",
-				"label": "Muqovani joylashtirish"
+				"label": "Muqovani joylashtirish",
+				"short": "Muqova"
 			},
 			"writeDescription": {
 				"description": "Video tavsifini yuklamaning yoniga .description matn fayli sifatida saqlaydi.",
-				"label": "Tavsifni saqlash"
+				"label": "Tavsifni saqlash",
+				"short": "Tavsif fayli"
 			},
 			"writeM3u": {
 				"description": "Videolar media pleerda tartib bilan ochilishi uchun yoniga .m3u pleylistini saqlaydi.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Muqovani yuklamaning yoniga .jpg rasm fayli sifatida saqlaydi.",
-				"label": "Muqovani saqlash"
+				"label": "Muqovani saqlash",
+				"short": "Muqova fayli"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Jild tekshirilmoqda…",
 			"thumbnailAlt": "Video muqovasi"
 		},
+		"playlistCap": {
+			"changeLimit": "Yuklash chegarasini o'zgartirish",
+			"descriptionWithTitle_one": "<title/>: Arroxy joriy chegara {{limit}} bo'yicha {{count}} ta element yukladi. Yuklangan elementni hozir navbatga qo'shing yoki chegarani oshirib, qayta skanerlang.",
+			"descriptionWithTitle_other": "<title/>: Arroxy joriy chegara {{limit}} bo'yicha {{count}} ta element yukladi. Yuklangan elementlarni hozir navbatga qo'shing yoki chegarani oshirib, qayta skanerlang.",
+			"description_one": "Arroxy joriy chegara {{limit}} bo'yicha {{count}} ta element yukladi. Yuklangan elementni hozir navbatga qo'shing yoki chegarani oshirib, qayta skanerlang.",
+			"description_other": "Arroxy joriy chegara {{limit}} bo'yicha {{count}} ta element yukladi. Yuklangan elementlarni hozir navbatga qo'shing yoki chegarani oshirib, qayta skanerlang.",
+			"queueLoaded": "Yuklanganlarni navbatga qo'shish",
+			"title": "Pleylist skaneri chegaraga yetdi"
+		},
 		"playlistPresets": {
 			"heading": "Paket uchun sifatni tanlang",
 			"itemCount_one": "{{count}} ta element",
@@ -1154,6 +1188,7 @@
 				"320": "320K gacha",
 				"best": "Eng yaxshi sifat"
 			},
+			"defaultName": "Yangi profil",
 			"destination": {
 				"defaultFolder": "Standart yuklashlar jildi",
 				"defaultFolderWithSubfolder": "Standart yuklashlar jildi / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musiqa yoki podkast",
-					"label": "Faqat audio"
+					"description": "Musiqa yoki podkast"
 				},
 				"subtitlesOnly": {
-					"description": "Faqat taglavha fayllari",
-					"label": "Faqat subtitrlar"
+					"description": "Faqat taglavha fayllari"
 				},
 				"videoAudio": {
-					"description": "Oddiy video fayllar",
-					"label": "Video + audio"
+					"description": "Oddiy video fayllar"
 				},
 				"videoOnly": {
-					"description": "Faqat ovozsiz video",
-					"label": "Video, audiosiz"
+					"description": "Faqat ovozsiz video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Arroxy pleylist, kanal yoki qidiruv natijasi ochilganda yuklaydigan maksimal yozuvlar soni.",
 				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
 				"label": "Skanerlash uchun pleylist elementlari",
-				"option": "{{count}} ta element",
-				"tooltip": "Arroxy tanlagichni qurishda faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
+				"option": "{{count}} ta element"
 			},
 			"playlistScope": {
 				"appLimit": "Ilova chegarasidan foydalanish: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} profili {{count}} tadan {{position}}-o‘rin ustida.",
 				"movePickedUp": "{{profileName}} profili olindi. U {{count}} tadan {{position}}-o‘rinda.",
 				"newProfile": "Yangi profil",
+				"outputMissing": "Bu profil belgilanmagan jildga saqlaydi. Profilda jildni tanlang yoki uni standartga qaytaring.",
 				"panelDescription": "Qayta ishlatiladigan yuklab olish sozlamalarini yarating, tanlang, tahrirlang yoki olib tashlang.",
 				"panelTitle": "Yuklab olish profillari",
 				"remove": "Olib tashlash",
 				"reorderHint": "Profilni ko‘chirish uchun uni sudrab olib boring. Har bir profil tanlagich shu tartibga amal qiladi.",
 				"reset": "Qayta tiklash",
-				"summary": {
-					"aacAudio": "AAC audio",
-					"bestAudio": "eng yaxshi audio",
-					"bestVideo": "eng yaxshi video",
-					"noAudio": "audiosiz",
-					"subtitlesOnly": "faqat subtitrlar",
-					"wavAudio": "WAV audio"
-				},
 				"switchAria": "Yuklab olish profilini almashtirish: {{profileName}}",
 				"switchTitle": "Yuklab olish profilini almashtirish"
 			},

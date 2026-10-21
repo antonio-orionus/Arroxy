@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Povoliť",
+		"allowedSummary": "Streamy zväčšené pomocou AI sú povolené",
 		"description": "YouTube ponúka niektoré staré videá vo veľkostiach, ktoré vytvoril pomocou AI. Možnosť Preskočiť ponechá pôvodné streamy; zväčšený stream si môžete stále vybrať ručne.",
 		"label": "Streamy zväčšené pomocou AI",
 		"skip": "Preskočiť"
@@ -778,7 +779,6 @@
 		"confirm": {
 			"addToQueue": "+ Rad",
 			"addToQueueTooltip": "Pridá do radu – spustí sa po dokončení aktívneho sťahovania",
-			"audioOnly": "Iba zvuk",
 			"itemsValueAudio_few": "{{count}} z {{total}} stôp",
 			"itemsValueAudio_many": "{{count}} z {{total}} stôp",
 			"itemsValueAudio_one": "{{count}} z {{total}} stôp",
@@ -805,7 +805,7 @@
 			"landInMultiProfile_many": "Uložia sa do {{count}} cieľov nižšie",
 			"landInMultiProfile_one": "Uloží sa do cieľa nižšie",
 			"landInMultiProfile_other": "Uložia sa do {{count}} cieľov nižšie",
-			"nothingToDownload": "Je aktívna predvoľba Iba titulky, ale nie je vybraný žiadny jazyk titulkov – nič sa nestiahne.",
+			"nothingToDownload": "Je aktívny profil „Iba titulky“, ale nie je vybraný žiadny jazyk titulkov – nič sa nestiahne.",
 			"profileBreakdownCount_few": "{{count}} položky",
 			"profileBreakdownCount_many": "{{count}} položky",
 			"profileBreakdownCount_one": "{{count}} položka",
@@ -843,7 +843,6 @@
 			"audioLanguageCount_many": "{{count}} jazyka",
 			"audioLanguageCount_one": "{{count}} jazyk",
 			"audioLanguageCount_other": "{{count}} jazykov",
-			"audioOnly": "Iba zvuk",
 			"bitrateValue": "Bitová rýchlosť {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Súbory cookie sú nastavené, ale vypnuté. Zapnite ich a skúste to znova, aby ste získali úplný zoznam, alebo zmeňte sieť a skúste to znova.",
@@ -995,7 +994,8 @@
 			"resolutionUnknown": "Neznáme rozlíšenie",
 			"savesAs": {
 				"label": "Uloží sa ako",
-				"reset": "WebM nepojme {{codec}}, preto sa typ súboru vrátil na Auto."
+				"reset": "WebM nepojme {{codec}}, preto sa typ súboru vrátil na Auto.",
+				"value": "uloží sa ako .{{ext}}"
 			},
 			"sizeUnknown": "Veľkosť nie je známa",
 			"skipToConfirm": "Preskočiť na potvrdenie",
@@ -1005,37 +1005,61 @@
 			"video": "Video",
 			"withAudio": "so zvukom"
 		},
-		"mixedPrompt": {
-			"body": "Chcete iba video, na ktoré ste klikli, alebo vybrať zo zoznamu skladieb? Konkrétne videá alebo rozsah vyberiete v ďalšom kroku.",
-			"pickFromPlaylist": "Vybrať zo zoznamu skladieb",
-			"playlistLimit": "Limit načítania zoznamu skladieb: {{count}}",
-			"playlistTooltip": "Pred zobrazením výberu načíta zoznam skladieb až do limitu načítania zoznamu skladieb.",
-			"quickBody": "Stiahnite iba toto video, alebo zaraďte do radu celý zoznam skladieb s aktívnym profilom rýchleho sťahovania.",
-			"quickLimitDescription": "Maximálny počet položiek, ktoré Arroxy prehľadá pred zaradením zoznamu skladieb, kanála alebo výsledku vyhľadávania do radu.",
-			"quickPlaylistTooltip": "Zaradí do radu všetky načítané položky zoznamu skladieb s aktívnym profilom rýchleho sťahovania. Ak prehľadávanie dosiahne váš limit, Arroxy sa pred zaradením do radu opýta.",
-			"quickSingleTooltip": "Zaradí do radu jedno sťahovanie a ignoruje zoznam skladieb priradený k tejto adrese URL.",
-			"quickSingleVideo": "Stiahnuť toto video",
-			"quickWholePlaylist": "Stiahnuť celý zoznam skladieb",
-			"singleTooltip": "Načíta iba toto video. Zoznam skladieb priradený k tejto adrese URL sa ignoruje.",
-			"singleVideo": "Iba toto",
-			"title": "Tento odkaz obsahuje zoznam skladieb"
+		"listPrompt": {
+			"escHint": "Esc akciu zruší. Kým nevyberiete, nič sa nenačíta.",
+			"interactiveSubtitle": "Formáty zvolíte sami",
+			"justThisVideo": "Iba toto video",
+			"justThisVideoInteractiveHint": "Otvorí jeho formáty",
+			"justThisVideoQuickHint": "Načíta jedno video",
+			"listInteractiveHint": "Načíta až {{count}} na výber",
+			"listOption": {
+				"album": "Album, prvých",
+				"liked": "Vaše obľúbené videá, prvých",
+				"mix": "Mix, prvých",
+				"playlist": "Zoznam skladieb, prvých",
+				"uploads": "Nahrané videá, prvých",
+				"watchLater": "„Pozrieť neskôr“, prvých"
+			},
+			"listQuickHint": "Načíta až {{count}} a potom ich stiahne",
+			"mixNote": "Mix sa mení pri každom otvorení.",
+			"pickOption": {
+				"album": "Vybrať z albumu, prvých",
+				"liked": "Vybrať z obľúbených videí, prvých",
+				"mix": "Vybrať z Mixu, prvých",
+				"playlist": "Vybrať zo zoznamu skladieb, prvých",
+				"uploads": "Vybrať z nahraných videí, prvých",
+				"watchLater": "Vybrať z „Pozrieť neskôr“, prvých"
+			},
+			"title": {
+				"album": "Stiahnuť z tohto albumu",
+				"liked": "Stiahnuť z obľúbených videí",
+				"mix": "Stiahnuť z tohto Mixu",
+				"playlist": "Stiahnuť z tohto zoznamu skladieb",
+				"uploads": "Stiahnuť nahrané videá tohto kanála",
+				"watchLater": "Stiahnuť z „Pozrieť neskôr“"
+			},
+			"withProfile": "S profilom {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Značky kapitol, v ktorých sa dá navigovať v každom modernom prehrávači.",
-				"label": "Vložiť kapitoly"
+				"label": "Vložiť kapitoly",
+				"short": "Kapitoly"
 			},
 			"embedMetadata": {
 				"description": "Do súboru sa zapíše názov, interpret, popis a dátum nahratia.",
-				"label": "Vložiť metadáta"
+				"label": "Vložiť metadáta",
+				"short": "Metadáta"
 			},
 			"embedThumbnail": {
 				"description": "Obal vnútri súboru. Video WebM sa premuxuje do MKV; pri vložených titulkoch sa preskočí.",
-				"label": "Vložiť miniatúru"
+				"label": "Vložiť miniatúru",
+				"short": "Obal"
 			},
 			"writeDescription": {
 				"description": "Uloží popis videa ako textový súbor .description vedľa stiahnutého súboru.",
-				"label": "Uložiť popis"
+				"label": "Uložiť popis",
+				"short": "Súbor s popisom"
 			},
 			"writeM3u": {
 				"description": "Uloží zoznam skladieb .m3u vedľa videí, aby sa vo vašom prehrávači otvorili v správnom poradí.",
@@ -1043,7 +1067,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Uloží miniatúru ako obrázok .jpg vedľa stiahnutého súboru.",
-				"label": "Uložiť miniatúru"
+				"label": "Uložiť miniatúru",
+				"short": "Súbor s miniatúrou"
 			}
 		},
 		"part": {
@@ -1158,6 +1183,19 @@
 			"syncScanning": "Kontroluje sa priečinok…",
 			"thumbnailAlt": "Miniatúra videa"
 		},
+		"playlistCap": {
+			"changeLimit": "Zmeniť limit načítania",
+			"descriptionWithTitle_few": "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"descriptionWithTitle_many": "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"descriptionWithTitle_one": "<title/>: Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"descriptionWithTitle_other": "<title/>: Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"description_few": "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"description_many": "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"description_one": "Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"description_other": "Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
+			"queueLoaded": "Zaradiť načítané do radu",
+			"title": "Prehľadávanie zoznamu skladieb je obmedzené"
+		},
 		"playlistPresets": {
 			"heading": "Vyberte kvalitu pre dávku",
 			"itemCount_few": "{{count}} položky",
@@ -1212,6 +1250,7 @@
 				"320": "Až do 320K",
 				"best": "Najlepšia kvalita"
 			},
+			"defaultName": "Nový profil",
 			"destination": {
 				"defaultFolder": "Predvolený priečinok na sťahovanie",
 				"defaultFolderWithSubfolder": "Predvolený priečinok na sťahovanie / {{subfolder}}",
@@ -1277,20 +1316,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Hudba alebo podcasty",
-					"label": "Iba zvuk"
+					"description": "Hudba alebo podcasty"
 				},
 				"subtitlesOnly": {
-					"description": "Iba súbory titulkov",
-					"label": "Iba titulky"
+					"description": "Iba súbory titulkov"
 				},
 				"videoAudio": {
-					"description": "Bežné videosúbory",
-					"label": "Video + zvuk"
+					"description": "Bežné videosúbory"
 				},
 				"videoOnly": {
-					"description": "Iba video bez zvuku",
-					"label": "Video bez zvuku"
+					"description": "Iba video bez zvuku"
 				}
 			},
 			"note": {
@@ -1655,8 +1690,7 @@
 				"description": "Maximálny počet položiek, ktoré Arroxy načíta pri otvorení zoznamu skladieb, kanála alebo výsledku vyhľadávania.",
 				"invalid": "Použite celé číslo od 1 do 5000",
 				"label": "Položky zoznamu skladieb na prehľadanie",
-				"option": "{{count}} položiek",
-				"tooltip": "Arroxy si pri vytváraní výberu vyžiada iba tento počet položiek zoznamu skladieb, kanála alebo vyhľadávania."
+				"option": "{{count}} položiek"
 			},
 			"playlistScope": {
 				"appLimit": "Použiť limit aplikácie: {{count}}",
@@ -1725,19 +1759,12 @@
 				"moveOver": "{{profileName}} je nad pozíciou {{position}} z {{count}}.",
 				"movePickedUp": "{{profileName}} bol zdvihnutý. Je na pozícii {{position}} z {{count}}.",
 				"newProfile": "Nový profil",
+				"outputMissing": "Tento profil ukladá do priečinka, ktorý nie je nastavený. Vyberte v profile priečinok alebo vráťte predvolené nastavenie.",
 				"panelDescription": "Vytvárajte, vyberajte, upravujte alebo odstraňujte opakovane použiteľné nastavenia sťahovania.",
 				"panelTitle": "Profily sťahovania",
 				"remove": "Odstrániť",
 				"reorderHint": "Presuňte profil potiahnutím. Všetky výbery profilov dodržiavajú toto poradie.",
 				"reset": "Obnoviť",
-				"summary": {
-					"aacAudio": "zvuk AAC",
-					"bestAudio": "najlepší zvuk",
-					"bestVideo": "najlepšie video",
-					"noAudio": "bez zvuku",
-					"subtitlesOnly": "iba titulky",
-					"wavAudio": "zvuk WAV"
-				},
 				"switchAria": "Prepnúť profil sťahovania: {{profileName}}",
 				"switchTitle": "Prepnúť profil sťahovania"
 			},

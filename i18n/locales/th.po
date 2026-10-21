@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "อนุญาต"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "อนุญาตการอัปสเกลด้วย AI"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube มีวิดีโอเก่าบางรายการในขนาดที่สร้างด้วย AI การข้ามจะคงสตรีมต้นฉบับไว้ และคุณยังเลือกสตรีมที่อัปสเกลเองได้"
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "เพิ่มลงคิว — เริ่มเมื่อการดาวน์โหลดที่ทำงานอยู่เสร็จ"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "เฉพาะเสียง"
-
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "ไฟล์จะอยู่ในปลายทาง {{count}} แห่งด้านล่าง"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "ค่าที่ตั้งไว้เฉพาะคำบรรยายทำงานอยู่ แต่ไม่ได้เลือกภาษาคำบรรยาย — จะไม่มีการดาวน์โหลดใด ๆ"
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "โปรไฟล์ “เฉพาะคำบรรยาย” ทำงานอยู่ แต่ไม่ได้เลือกภาษาคำบรรยาย — จะไม่มีอะไรถูกดาวน์โหลด"
 
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2282,10 +2282,6 @@ msgstr "ภาษาเสียง"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} ภาษา"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "เฉพาะเสียง"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM รองรับ {{codec}} ไม่ได้ ประเภทไฟล์จึงกลับไปเป็นอัตโนมัติ"
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "จะบันทึกเป็น .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "ไม่ทราบขนาด"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "มีเสียง"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "ต้องการเฉพาะวิดีโอที่คลิก หรือเลือกจากเพลย์ลิสต์? ขั้นตอนถัดไปคุณจะเลือกวิดีโอหรือช่วงที่ต้องการได้"
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "กด Esc เพื่อยกเลิก จะยังไม่โหลดอะไรจนกว่าคุณจะเลือก"
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "เลือกจากเพลย์ลิสต์"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "เลือกรูปแบบเอง"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "ขีดจำกัดการตรวจสอบเพลย์ลิสต์: {{count}} รายการ"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "เฉพาะวิดีโอนี้"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "โหลดเพลย์ลิสต์ตามขีดจำกัดการตรวจสอบเพลย์ลิสต์ของคุณ ก่อนแสดงตัวเลือก"
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "เปิดหน้ารูปแบบของวิดีโอ"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "ดาวน์โหลดเฉพาะวิดีโอนี้ หรือเพิ่มทั้งเพลย์ลิสต์ลงคิวด้วยโปรไฟล์ดาวน์โหลดด่วนที่ใช้อยู่"
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "โหลดวิดีโอเดียว"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "จำนวนรายการสูงสุดที่ Arroxy ตรวจสอบก่อนเพิ่มเพลย์ลิสต์ ช่อง หรือผลการค้นหาลงคิว"
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "โหลดสูงสุด {{count}} รายการให้คุณเลือก"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "เพิ่มทุกรายการในเพลย์ลิสต์ที่โหลดแล้วลงคิวด้วยโปรไฟล์ดาวน์โหลดด่วน หากการตรวจสอบถึงขีดจำกัด Arroxy จะถามก่อนเพิ่ม"
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "ช่วงต้นของอัลบั้ม"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "เพิ่มการดาวน์โหลดหนึ่งรายการและละเว้นเพลย์ลิสต์ที่แนบกับ URL นี้"
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "ช่วงต้นของวิดีโอที่ถูกใจ"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "ดาวน์โหลดวิดีโอนี้"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "ช่วงต้นของมิกซ์"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "ดาวน์โหลดทั้งเพลย์ลิสต์"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "ช่วงต้นของเพลย์ลิสต์"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "โหลดเฉพาะวิดีโอนี้ เพลย์ลิสต์ที่แนบกับ URL นี้จะถูกละเว้น"
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "ช่วงต้นของวิดีโอที่อัปโหลด"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "เฉพาะรายการนี้"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "ช่วงต้นของ “ดูภายหลัง”"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "ลิงก์นี้มีเพลย์ลิสต์"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "โหลดสูงสุด {{count}} รายการ แล้วดาวน์โหลด"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "มิกซ์จะเปลี่ยนไปทุกครั้งที่คุณเปิด"
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "เลือกจากช่วงต้นของอัลบั้ม"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "เลือกจากช่วงต้นของวิดีโอที่ถูกใจ"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "เลือกจากช่วงต้นของมิกซ์"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "เลือกจากช่วงต้นของเพลย์ลิสต์"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "เลือกจากช่วงต้นของวิดีโอที่อัปโหลด"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "เลือกจากช่วงต้นของ “ดูภายหลัง”"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "ดาวน์โหลดจากอัลบั้มนี้"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "ดาวน์โหลดจากวิดีโอที่ถูกใจของคุณ"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "ดาวน์โหลดจากมิกซ์นี้"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "ดาวน์โหลดจากเพลย์ลิสต์นี้"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "ดาวน์โหลดจากวิดีโอที่อัปโหลดของช่องนี้"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "ดาวน์โหลดจาก “ดูภายหลัง”"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "ใช้ {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "ฝังบท"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "บท"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "เขียนชื่อ ศิลปิน คำอธิบาย และวันที่อัปโหลดลงในไฟล์"
@@ -2834,6 +2894,10 @@ msgstr "เขียนชื่อ ศิลปิน คำอธิบาย 
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "ฝังข้อมูลเมตา"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "ข้อมูลเมตา"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "ฝังภาพขนาดย่อ"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "ภาพปก"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "บันทึกคำอธิบายวิดีโอเป็นไฟล์ข้อความ .description ไว้ข้างไฟล์ดาวน์โหลด"
@@ -2850,6 +2918,10 @@ msgstr "บันทึกคำอธิบายวิดีโอเป็น
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "บันทึกคำอธิบาย"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "ไฟล์คำอธิบาย"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "บันทึกภาพขนาดย่อเป็นไฟล์
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "บันทึกภาพขนาดย่อ"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "ไฟล์ภาพขนาดย่อ"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "ภาพขนาดย่อของวิดีโอ"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "เปลี่ยนขีดจำกัดการโหลด"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy โหลดไป {{count}} รายการตามขีดจำกัดปัจจุบันที่ {{limit}} คุณจะเพิ่มรายการที่โหลดแล้วลงในคิวตอนนี้ หรือเพิ่มขีดจำกัดแล้วตรวจสอบใหม่ก็ได้"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy โหลดไป {{count}} รายการตามขีดจำกัดปัจจุบันที่ {{limit}} คุณจะเพิ่มรายการที่โหลดแล้วลงในคิวตอนนี้ หรือเพิ่มขีดจำกัดแล้วตรวจสอบใหม่ก็ได้"
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "เพิ่มรายการที่โหลดแล้วลงในคิว"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "การตรวจสอบเพลย์ลิสต์มีขีดจำกัด"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "เลือกคุณภาพสำหรับชุดงาน"
@@ -3333,6 +3431,10 @@ msgstr "สูงสุด 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "คุณภาพดีที่สุด"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "โปรไฟล์ใหม่"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "เพลงหรือพอดแคสต์"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "เฉพาะเสียง"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "เฉพาะไฟล์คำบรรยาย"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "เฉพาะคำบรรยาย"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "ไฟล์วิดีโอปกติ"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "วิดีโอ + เสียง"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "เฉพาะวิดีโอไม่มีเสียง"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "วิดีโอ ไม่มีเสียง"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} รายการ"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy จะขอรายการเพลย์ลิสต์ ช่อง หรือผลการค้นหาเพียงเท่านี้ขณะสร้างตัวเลือก"
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "ใช้ขีดจำกัดของแอป: {{count}}"
@@ -4808,6 +4890,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "โปรไฟล์ใหม่"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "โปรไฟล์นี้บันทึกไปยังโฟลเดอร์ที่ยังไม่ได้ตั้งค่า เลือกโฟลเดอร์ในโปรไฟล์ หรือตั้งกลับเป็นค่าเริ่มต้น"
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "สร้าง เลือก แก้ไข หรือลบการตั้งค่าดาวน์โหลดที่ใช้ซ้ำได้"
@@ -4827,30 +4913,6 @@ msgstr "ลากโปรไฟล์เพื่อย้าย ตัวเ�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "รีเซ็ต"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "เสียง AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "เสียงที่ดีที่สุด"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "วิดีโอที่ดีที่สุด"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "ไม่มีเสียง"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "เฉพาะคำบรรยาย"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "เสียง WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

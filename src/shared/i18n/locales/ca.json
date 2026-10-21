@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Permet",
+		"allowedSummary": "Fluxos escalats amb IA permesos",
 		"description": "YouTube ofereix alguns vídeos antics en mides generades amb IA. Omet conserva els fluxos originals; encara pots triar-ne un d'escalat a mà.",
 		"label": "Fluxos escalats amb IA",
 		"skip": "Omet"
@@ -766,7 +767,6 @@
 		"confirm": {
 			"addToQueue": "+ Cua",
 			"addToQueueTooltip": "Afegeix a la cua: comença quan acabi la descàrrega activa",
-			"audioOnly": "Només àudio",
 			"itemsValueAudio_many": "{{count}} de {{total}} pistes",
 			"itemsValueAudio_one": "{{count}} de {{total}} pista",
 			"itemsValueAudio_other": "{{count}} de {{total}} pistes",
@@ -789,7 +789,7 @@
 			"landInMultiProfile_many": "Es desaran a les {{count}} de destinacions següents",
 			"landInMultiProfile_one": "Es desarà a la destinació següent",
 			"landInMultiProfile_other": "Es desaran a les {{count}} destinacions següents",
-			"nothingToDownload": "El predefinit només subtítols és actiu, però no hi ha cap idioma de subtítols seleccionat: no es baixarà res.",
+			"nothingToDownload": "El perfil Només subtítols és actiu, però no hi ha cap idioma de subtítols seleccionat: no es baixarà res.",
 			"profileBreakdownCount_many": "{{count}} d'elements",
 			"profileBreakdownCount_one": "{{count}} element",
 			"profileBreakdownCount_other": "{{count}} elements",
@@ -825,7 +825,6 @@
 			"audioLanguageCount_many": "{{count}} d'idiomes",
 			"audioLanguageCount_one": "{{count}} idioma",
 			"audioLanguageCount_other": "{{count}} idiomes",
-			"audioOnly": "Només àudio",
 			"bitrateValue": "Taxa de bits {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Les galetes estan configurades però desactivades. Activa-les i torna-ho a provar per obtenir la llista completa, o canvia de xarxa i torna-ho a provar.",
@@ -977,7 +976,8 @@
 			"resolutionUnknown": "Resolució desconeguda",
 			"savesAs": {
 				"label": "Es desa com a",
-				"reset": "WebM no pot contenir {{codec}}, així que el tipus de fitxer ha tornat a Automàtic."
+				"reset": "WebM no pot contenir {{codec}}, així que el tipus de fitxer ha tornat a Automàtic.",
+				"value": "Es desa com a .{{ext}}"
 			},
 			"sizeUnknown": "Mida desconeguda",
 			"skipToConfirm": "Salta a la confirmació",
@@ -987,37 +987,61 @@
 			"video": "Vídeo",
 			"withAudio": "amb àudio"
 		},
-		"mixedPrompt": {
-			"body": "Vols només el vídeo en què has fet clic o triar de la llista de reproducció? A continuació triaràs vídeos concrets o un interval.",
-			"pickFromPlaylist": "Tria de la llista",
-			"playlistLimit": "Límit d'anàlisi de la llista: {{count}} elements",
-			"playlistTooltip": "Carrega la llista de reproducció, fins al límit d'anàlisi, abans de mostrar el selector.",
-			"quickBody": "Descarrega només aquest vídeo o posa a la cua tota la llista de reproducció amb el perfil de Descàrrega ràpida actiu.",
-			"quickLimitDescription": "Nombre màxim d'entrades que Arroxy examina abans de posar a la cua una llista de reproducció, un canal o els resultats d'una cerca.",
-			"quickPlaylistTooltip": "Posa a la cua tots els elements carregats de la llista amb el perfil de Descàrrega ràpida actiu. Si l'exploració arriba al límit, Arroxy et pregunta abans d'afegir-los.",
-			"quickSingleTooltip": "Posa a la cua una descàrrega i ignora la llista de reproducció associada a aquesta URL.",
-			"quickSingleVideo": "Descarrega aquest vídeo",
-			"quickWholePlaylist": "Descarrega tota la llista",
-			"singleTooltip": "Carrega només aquest vídeo. S'ignora la llista de reproducció associada a aquesta URL.",
-			"singleVideo": "Només aquest",
-			"title": "Aquest enllaç té una llista de reproducció"
+		"listPrompt": {
+			"escHint": "Esc cancel·la. No es carrega res fins que triïs.",
+			"interactiveSubtitle": "Tria tu els formats",
+			"justThisVideo": "Només aquest vídeo",
+			"justThisVideoInteractiveHint": "Obre’n els formats",
+			"justThisVideoQuickHint": "Carrega un vídeo",
+			"listInteractiveHint": "Carrega fins a {{count}} perquè triïs",
+			"listOption": {
+				"album": "L’àlbum, els primers",
+				"liked": "Els teus vídeos que t’agraden, els primers",
+				"mix": "El Mix, els primers",
+				"playlist": "La llista, els primers",
+				"uploads": "Els vídeos penjats, els primers",
+				"watchLater": "Mira-ho més tard, els primers"
+			},
+			"listQuickHint": "Carrega fins a {{count}} i després els baixa",
+			"mixNote": "Un Mix canvia cada cop que l’obres.",
+			"pickOption": {
+				"album": "Tria de l’àlbum, entre els primers",
+				"liked": "Tria dels teus vídeos que t’agraden, entre els primers",
+				"mix": "Tria del Mix, entre els primers",
+				"playlist": "Tria de la llista, entre els primers",
+				"uploads": "Tria dels vídeos penjats, entre els primers",
+				"watchLater": "Tria de Mira-ho més tard, entre els primers"
+			},
+			"title": {
+				"album": "Descarrega d’aquest àlbum",
+				"liked": "Descarrega dels teus vídeos que t’agraden",
+				"mix": "Descarrega d’aquest Mix",
+				"playlist": "Descarrega d’aquesta llista",
+				"uploads": "Descarrega dels vídeos penjats d’aquest canal",
+				"watchLater": "Descarrega de Mira-ho més tard"
+			},
+			"withProfile": "Amb {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Marcadors de capítol que es poden navegar en qualsevol reproductor modern.",
-				"label": "Incrusta els capítols"
+				"label": "Incrusta els capítols",
+				"short": "capítols"
 			},
 			"embedMetadata": {
 				"description": "Títol, artista, descripció i data de pujada escrits dins del fitxer.",
-				"label": "Incrusta les metadades"
+				"label": "Incrusta les metadades",
+				"short": "metadades"
 			},
 			"embedThumbnail": {
 				"description": "Portada dins del fitxer. El vídeo WebM es remultiplexarà a MKV; s'omet quan s'incrusten subtítols.",
-				"label": "Incrusta la miniatura"
+				"label": "Incrusta la miniatura",
+				"short": "coberta"
 			},
 			"writeDescription": {
 				"description": "Desa la descripció del vídeo en un fitxer de text .description al costat de la descàrrega.",
-				"label": "Desa la descripció"
+				"label": "Desa la descripció",
+				"short": "fitxer de descripció"
 			},
 			"writeM3u": {
 				"description": "Desa una llista de reproducció .m3u al costat dels vídeos perquè s'obrin en ordre al reproductor multimèdia.",
@@ -1025,7 +1049,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Desa la miniatura com a fitxer d'imatge .jpg al costat de la descàrrega.",
-				"label": "Desa la miniatura"
+				"label": "Desa la miniatura",
+				"short": "fitxer de miniatura"
 			}
 		},
 		"part": {
@@ -1132,6 +1157,17 @@
 			"syncScanning": "Comprovant la carpeta…",
 			"thumbnailAlt": "Miniatura del vídeo"
 		},
+		"playlistCap": {
+			"changeLimit": "Canvia el límit de càrrega",
+			"descriptionWithTitle_many": "<title/>: Arroxy ha carregat {{count}} d’elements amb el límit actual de {{limit}}. Afegeix ara a la cua els elements carregats, o augmenta el límit i torna a explorar.",
+			"descriptionWithTitle_one": "<title/>: Arroxy ha carregat {{count}} element amb el límit actual de {{limit}}. Afegeix ara a la cua l’element carregat, o augmenta el límit i torna a explorar.",
+			"descriptionWithTitle_other": "<title/>: Arroxy ha carregat {{count}} elements amb el límit actual de {{limit}}. Afegeix ara a la cua els elements carregats, o augmenta el límit i torna a explorar.",
+			"description_many": "Arroxy ha carregat {{count}} d’elements amb el límit actual de {{limit}}. Afegeix ara a la cua els elements carregats, o augmenta el límit i torna a explorar.",
+			"description_one": "Arroxy ha carregat {{count}} element amb el límit actual de {{limit}}. Afegeix ara a la cua l’element carregat, o augmenta el límit i torna a explorar.",
+			"description_other": "Arroxy ha carregat {{count}} elements amb el límit actual de {{limit}}. Afegeix ara a la cua els elements carregats, o augmenta el límit i torna a explorar.",
+			"queueLoaded": "Afegeix a la cua els elements carregats",
+			"title": "L’exploració de la llista té un límit"
+		},
 		"playlistPresets": {
 			"heading": "Tria la qualitat del lot",
 			"itemCount_many": "{{count}} d'elements",
@@ -1183,6 +1219,7 @@
 				"320": "Fins a 320K",
 				"best": "Màxima qualitat"
 			},
+			"defaultName": "Perfil nou",
 			"destination": {
 				"defaultFolder": "Carpeta de descàrregues predeterminada",
 				"defaultFolderWithSubfolder": "Carpeta de descàrregues predeterminada / {{subfolder}}",
@@ -1248,20 +1285,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Música o pòdcasts",
-					"label": "Només àudio"
+					"description": "Música o pòdcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Només fitxers de subtítols",
-					"label": "Només subtítols"
+					"description": "Només fitxers de subtítols"
 				},
 				"videoAudio": {
-					"description": "Fitxers de vídeo normals",
-					"label": "Vídeo + àudio"
+					"description": "Fitxers de vídeo normals"
 				},
 				"videoOnly": {
-					"description": "Només vídeo mut",
-					"label": "Vídeo, sense àudio"
+					"description": "Només vídeo mut"
 				}
 			},
 			"note": {
@@ -1624,8 +1657,7 @@
 				"description": "Nombre màxim d'entrades que Arroxy carrega quan s'obre una llista de reproducció, un canal o els resultats d'una cerca.",
 				"invalid": "Fes servir un nombre enter de l'1 al 5000",
 				"label": "Elements de la llista per explorar",
-				"option": "{{count}} elements",
-				"tooltip": "Arroxy només demana aquest nombre d'entrades de la llista de reproducció, el canal o la cerca mentre construeix el selector."
+				"option": "{{count}} elements"
 			},
 			"playlistScope": {
 				"appLimit": "Usa el límit de l'aplicació: {{count}}",
@@ -1694,19 +1726,12 @@
 				"moveOver": "{{profileName}} és sobre la posició {{position}} de {{count}}.",
 				"movePickedUp": "S'ha agafat {{profileName}}. És a la posició {{position}} de {{count}}.",
 				"newProfile": "Perfil nou",
+				"outputMissing": "Aquest perfil desa en una carpeta que no està definida. Tria una carpeta al perfil o torna a la predeterminada.",
 				"panelDescription": "Crea, selecciona, edita o elimina configuracions de descàrrega reutilitzables.",
 				"panelTitle": "Perfils de descàrrega",
 				"remove": "Elimina",
 				"reorderHint": "Arrossega un perfil per moure'l. Tots els selectors de perfil segueixen aquest ordre.",
 				"reset": "Restableix",
-				"summary": {
-					"aacAudio": "àudio AAC",
-					"bestAudio": "el millor àudio",
-					"bestVideo": "el millor vídeo",
-					"noAudio": "sense àudio",
-					"subtitlesOnly": "només subtítols",
-					"wavAudio": "àudio WAV"
-				},
 				"switchAria": "Canvia el perfil de descàrrega: {{profileName}}",
 				"switchTitle": "Canvia el perfil de descàrrega"
 			},

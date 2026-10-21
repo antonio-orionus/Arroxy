@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Baimendu",
+		"allowedSummary": "AA bidez handitutako korronteak baimenduta",
 		"description": "YouTubek bideo zahar batzuk adimen artifizialaz sortutako tamainetan eskaintzen ditu. «Saltatu» aukerak jatorrizko korronteak mantentzen ditu; hala ere, handitutako bat eskuz aukera dezakezu.",
 		"label": "AA bidez handitutako korronteak",
 		"skip": "Saltatu"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Ilara",
 			"addToQueueTooltip": "Ilarara gehitzen du — aktibo dagoen deskarga amaitzen denean hasten da",
-			"audioOnly": "Audioa soilik",
 			"itemsValueAudio_one": "{{count}} / {{total}} pista",
 			"itemsValueAudio_other": "{{count}} / {{total}} pista",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Zure fitxategia hemen gordeko da",
 			"landInMultiProfile_one": "Beheko helburuan gordeko da",
 			"landInMultiProfile_other": "Beheko {{count}} helburuetan gordeko dira",
-			"nothingToDownload": "«Azpitituluak soilik» aurrezarpena aktibo dago baina ez da azpititulu-hizkuntzarik hautatu — ez da ezer deskargatuko.",
+			"nothingToDownload": "«Azpitituluak soilik» profila aktibo dago, baina ez da azpititulu-hizkuntzarik hautatu — ez da ezer deskargatuko.",
 			"profileBreakdownCount_one": "{{count}} elementu",
 			"profileBreakdownCount_other": "{{count}} elementu",
 			"profileBreakdownHeading": "Multzo honetako profilak",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Audio-hizkuntza",
 			"audioLanguageCount_one": "{{count}} hizkuntza",
 			"audioLanguageCount_other": "{{count}} hizkuntza",
-			"audioOnly": "Audioa soilik",
 			"bitrateValue": "Bit-tasa: {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookie-ak konfiguratuta daude baina desaktibatuta. Aktibatu eta saiatu berriro zerrenda osoa lortzeko, edo aldatu sarea eta saiatu berriro.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Bereizmen ezezaguna",
 			"savesAs": {
 				"label": "Gordetzen da honela",
-				"reset": "WebM-k ezin du {{codec}} onartu, beraz fitxategi-mota Automatikora itzuli da."
+				"reset": "WebM-k ezin du {{codec}} onartu, beraz fitxategi-mota Automatikora itzuli da.",
+				"value": ".{{ext}} gisa gordetzen da"
 			},
 			"sizeUnknown": "Tamaina ezezaguna",
 			"skipToConfirm": "Saltatu berrespenera",
@@ -969,37 +969,61 @@
 			"video": "Bideoa",
 			"withAudio": "audioarekin"
 		},
-		"mixedPrompt": {
-			"body": "Klik egin duzun bideoa bakarrik nahi duzu, ala erreprodukzio-zerrendatik aukeratu? Hurrengo urratsean bideo zehatzak edo tarte bat aukeratuko dituzu.",
-			"pickFromPlaylist": "Aukeratu erreprodukzio-zerrendatik",
-			"playlistLimit": "Erreprodukzio-zerrendaren azterketa-muga: {{count}} elementu",
-			"playlistTooltip": "Erreprodukzio-zerrenda kargatzen du, zure azterketa-mugara arte, hautatzailea erakutsi aurretik.",
-			"quickBody": "Deskargatu bideo hau bakarrik, edo jarri ilaran erreprodukzio-zerrenda osoa zure Deskarga bizkorreko profil aktiboarekin.",
-			"quickLimitDescription": "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-emaitza bat ilaran jarri aurretik aztertzen duen gehieneko sarrera kopurua.",
-			"quickPlaylistTooltip": "Kargatutako erreprodukzio-zerrendako elementu guztiak ilaran jartzen ditu Deskarga bizkorreko profil aktiboarekin. Azterketak zure muga jotzen badu, Arroxy-k galdetuko du ilaran jarri aurretik.",
-			"quickSingleTooltip": "Deskarga bat jartzen du ilaran eta URL honi lotutako erreprodukzio-zerrenda alde batera uzten du.",
-			"quickSingleVideo": "Deskargatu bideo hau",
-			"quickWholePlaylist": "Deskargatu erreprodukzio-zerrenda osoa",
-			"singleTooltip": "Bideo hau bakarrik kargatzen du. URL honi lotutako erreprodukzio-zerrenda alde batera uzten da.",
-			"singleVideo": "Hau bakarrik",
-			"title": "Esteka honek erreprodukzio-zerrenda bat du"
+		"listPrompt": {
+			"escHint": "Esc sakatuta bertan behera geratzen da. Ez da ezer kargatzen aukeratu arte.",
+			"interactiveSubtitle": "Aukeratu formatuak zuk zeuk",
+			"justThisVideo": "Bideo hau bakarrik",
+			"justThisVideoInteractiveHint": "Bere formatuak irekitzen ditu",
+			"justThisVideoQuickHint": "Bideo bat kargatzen du",
+			"listInteractiveHint": "{{count}} arte kargatzen ditu, zuk aukera dezazun",
+			"listOption": {
+				"album": "Albuma, lehenengo",
+				"liked": "Gustatu zaizkizun bideoak, lehenengo",
+				"mix": "Mix-a, lehenengo",
+				"playlist": "Erreprodukzio-zerrenda, lehenengo",
+				"uploads": "Igotako bideoak, lehenengo",
+				"watchLater": "Ikusi geroago, lehenengo"
+			},
+			"listQuickHint": "{{count}} arte kargatzen ditu, eta gero deskargatzen ditu",
+			"mixNote": "Mix bat aldatu egiten da irekitzen duzun bakoitzean.",
+			"pickOption": {
+				"album": "Aukeratu albumetik, lehenengoen artean",
+				"liked": "Aukeratu gustatu zaizkizun bideoetatik, lehenengoen artean",
+				"mix": "Aukeratu Mix-etik, lehenengoen artean",
+				"playlist": "Aukeratu erreprodukzio-zerrendatik, lehenengoen artean",
+				"uploads": "Aukeratu igotako bideoetatik, lehenengoen artean",
+				"watchLater": "Aukeratu Ikusi geroago zerrendatik, lehenengoen artean"
+			},
+			"title": {
+				"album": "Deskargatu album honetatik",
+				"liked": "Deskargatu gustatu zaizkizun bideoetatik",
+				"mix": "Deskargatu Mix honetatik",
+				"playlist": "Deskargatu erreprodukzio-zerrenda honetatik",
+				"uploads": "Deskargatu kanal honetan igotako bideoetatik",
+				"watchLater": "Deskargatu Ikusi geroago zerrendatik"
+			},
+			"withProfile": "Honekin: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Edozein erreproduzitzaile modernotan nabigatu daitezkeen kapitulu-markak.",
-				"label": "Txertatu kapituluak"
+				"label": "Txertatu kapituluak",
+				"short": "kapituluak"
 			},
 			"embedMetadata": {
 				"description": "Izenburua, artista, deskribapena eta igotze-data fitxategian idazten dira.",
-				"label": "Txertatu metadatuak"
+				"label": "Txertatu metadatuak",
+				"short": "metadatuak"
 			},
 			"embedThumbnail": {
 				"description": "Azala fitxategiaren barruan. WebM bideoa MKV formatura remuxatuko da; azpitituluak txertatzen direnean saltatu egiten da.",
-				"label": "Txertatu miniatura"
+				"label": "Txertatu miniatura",
+				"short": "azala"
 			},
 			"writeDescription": {
 				"description": "Bideoaren deskribapena .description testu-fitxategi gisa gordetzen du deskargaren ondoan.",
-				"label": "Gorde deskribapena"
+				"label": "Gorde deskribapena",
+				"short": "deskribapen-fitxategia"
 			},
 			"writeM3u": {
 				"description": "Gorde .m3u erreprodukzio-zerrenda bat bideoen ondoan, zure multimedia-erreproduzitzailean ordenan ireki daitezen.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Miniatura .jpg irudi-fitxategi gisa gordetzen du deskargaren ondoan.",
-				"label": "Gorde miniatura"
+				"label": "Gorde miniatura",
+				"short": "miniatura-fitxategia"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Karpeta egiaztatzen…",
 			"thumbnailAlt": "Bideoaren miniatura"
 		},
+		"playlistCap": {
+			"changeLimit": "Aldatu kargatzeko muga",
+			"descriptionWithTitle_one": "<title/>: Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro.",
+			"descriptionWithTitle_other": "<title/>: Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro.",
+			"description_one": "Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro.",
+			"description_other": "Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro.",
+			"queueLoaded": "Jarri ilaran kargatutako elementuak",
+			"title": "Erreprodukzio-zerrendaren azterketa mugatuta dago"
+		},
 		"playlistPresets": {
 			"heading": "Aukeratu multzoaren kalitatea",
 			"itemCount_one": "{{count}} elementu",
@@ -1154,6 +1188,7 @@
 				"320": "320K arte",
 				"best": "Kalitate onena"
 			},
+			"defaultName": "Profil berria",
 			"destination": {
 				"defaultFolder": "Deskargen karpeta lehenetsia",
 				"defaultFolderWithSubfolder": "Deskargen karpeta lehenetsia / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musika edo podcastak",
-					"label": "Audioa soilik"
+					"description": "Musika edo podcastak"
 				},
 				"subtitlesOnly": {
-					"description": "Azpititulu-fitxategiak soilik",
-					"label": "Azpitituluak soilik"
+					"description": "Azpititulu-fitxategiak soilik"
 				},
 				"videoAudio": {
-					"description": "Bideo-fitxategi arruntak",
-					"label": "Bideoa + audioa"
+					"description": "Bideo-fitxategi arruntak"
 				},
 				"videoOnly": {
-					"description": "Bideo mutua soilik",
-					"label": "Bideoa, audiorik gabe"
+					"description": "Bideo mutua soilik"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-emaitza bat irekitzean kargatzen duen gehieneko sarrera kopurua.",
 				"invalid": "Erabili 1 eta 5000 arteko zenbaki osoa",
 				"label": "Aztertzeko erreprodukzio-zerrendako elementuak",
-				"option": "{{count}} elementu",
-				"tooltip": "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-sarrera kopuru hau bakarrik eskatzen du hautatzailea eraikitzean."
+				"option": "{{count}} elementu"
 			},
 			"playlistScope": {
 				"appLimit": "Erabili aplikazioaren muga: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "Gainean: {{profileName}}, posizioa: {{position}} / {{count}}.",
 				"movePickedUp": "Hartu da: {{profileName}}. Posizioa: {{position}} / {{count}}.",
 				"newProfile": "Profil berria",
+				"outputMissing": "Profil honek definitu gabeko karpeta batean gordetzen du. Aukeratu karpeta bat profilean, edo itzuli lehenetsira.",
 				"panelDescription": "Sortu, hautatu, editatu edo kendu berrerabil daitezkeen deskarga-konfigurazioak.",
 				"panelTitle": "Deskarga-profilak",
 				"remove": "Kendu",
 				"reorderHint": "Arrastatu profil bat mugitzeko. Profil-hautatzaile guztiek ordena hau jarraitzen dute.",
 				"reset": "Berrezarri",
-				"summary": {
-					"aacAudio": "AAC audioa",
-					"bestAudio": "audio onena",
-					"bestVideo": "bideo onena",
-					"noAudio": "audiorik gabe",
-					"subtitlesOnly": "azpitituluak soilik",
-					"wavAudio": "WAV audioa"
-				},
 				"switchAria": "Aldatu deskarga-profila: {{profileName}}",
 				"switchTitle": "Aldatu deskarga-profila"
 			},

@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "允许"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "已允许 AI 放大"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube 会为部分老视频提供用 AI 生成的尺寸。选择“跳过”会保留原始流；你仍可手动选择放大后的流。"
@@ -314,7 +318,7 @@ msgstr "重试"
 
 msgctxt "explore.linkCallout.body"
 msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
-msgstr "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置文件下载、改选其他配置，或打开交互式下载。"
+msgstr "在页面上任意视频、播放列表或频道链接上点击右键，即可用活动配置下载、改选其他配置，或打开交互式下载。"
 
 msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
@@ -326,7 +330,7 @@ msgstr "复制链接"
 
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
-msgstr "使用配置文件下载"
+msgstr "使用配置下载"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -899,7 +903,7 @@ msgstr "最高 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "最佳画质"
+msgstr "最佳质量"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "其他下载完成后开始 — 享受全部带宽"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "仅音频"
-
 #. Plural form "other" for zh: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "将保存到下方的 {{count}} 个目标位置"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "「仅字幕」预设已启用，但未选择任何字幕语言 — 不会下载任何内容。"
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "已启用“仅字幕”配置，但未选择任何字幕语言 — 不会下载任何内容。"
 
 #. Plural form "other" for zh: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2282,10 +2282,6 @@ msgstr "音频语言"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} 种语言"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "仅音频"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2633,11 +2629,11 @@ msgstr "无音频"
 
 msgctxt "wizard.formats.profile.calloutBody"
 msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
-msgstr "活动配置文件会为你预先选好流。可从菜单切换配置文件，或用铅笔图标在不离开本次下载的情况下调整配置文件。"
+msgstr "活动配置会为你预先选好流。可从菜单切换配置，或用铅笔图标在不离开本次下载的情况下调整配置。"
 
 msgctxt "wizard.formats.profile.calloutTitle"
 msgid "Formats start from your profile"
-msgstr "格式从你的配置文件开始"
+msgstr "格式从你的配置开始"
 
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM 无法容纳 {{codec}}，因此文件类型已改回自动。"
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "将保存为 .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "大小未知"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "含音频"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "只想下载你点击的那个视频，还是从 Playlist 中挑选？下一步可以选择特定视频或指定范围。"
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "按 Esc 取消。选择之前不会加载任何内容。"
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "从 Playlist 中挑选"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "自行选择格式"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "播放列表探测限制：{{count}} 个项目"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "仅此视频"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "在显示选择器前，加载播放列表，最多到你的探测限制。"
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "打开其格式选项"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "只下载这个视频，或使用当前的快速下载配置将整个播放列表加入队列。"
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "加载一个视频"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Arroxy 在将播放列表、频道或搜索结果加入队列前最多扫描的条目数。"
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "加载最多 {{count}} 个供你选择"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。"
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "专辑的前几项"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "将一个下载加入队列，并忽略此 URL 附带的播放列表。"
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "你赞过的视频的前几项"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "下载此视频"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "合辑的前几项"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "下载整个播放列表"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "播放列表的前几项"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "仅加载此视频，因此会忽略此 URL 附带的播放列表。"
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "上传内容的前几项"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "就这一个"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "“稍后观看”的前几项"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "此链接包含 Playlist"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "加载最多 {{count}} 个，然后下载"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "合辑每次打开时内容都会变化。"
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "从专辑的前几项中选择"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "从你赞过的视频的前几项中选择"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "从合辑的前几项中选择"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "从播放列表的前几项中选择"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "从上传内容的前几项中选择"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "从“稍后观看”的前几项中选择"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "从此专辑下载"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "从你赞过的视频下载"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "从此合辑下载"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "从此播放列表下载"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "从此频道的上传内容下载"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "从“稍后观看”下载"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "使用 {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "嵌入章节"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "章节"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "将标题、艺术家、描述和上传日期写入文件。"
@@ -2834,6 +2894,10 @@ msgstr "将标题、艺术家、描述和上传日期写入文件。"
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "嵌入元数据"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "元数据"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "嵌入缩略图"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "封面"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "将视频描述保存为 .description 文本文件，放在下载文件旁边。"
@@ -2850,6 +2918,10 @@ msgstr "将视频描述保存为 .description 文本文件，放在下载文件�
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "保存描述"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "描述文件"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。"
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "保存缩略图"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "缩略图文件"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "视频缩略图"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "更改加载上限"
+
+#. Plural form "other" for zh: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。"
+
+#. Plural form "other" for zh: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>：Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。"
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "将已加载的项目加入队列"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "播放列表扫描已达上限"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "选择批量下载画质"
@@ -3215,7 +3313,7 @@ msgstr "分配给 {{count}} 个视频"
 
 msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
 msgid "Assign profile"
-msgstr "分配配置文件"
+msgstr "分配配置"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -3248,7 +3346,7 @@ msgstr "分配下载配置"
 #. Plural form "other" for zh: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.menuDescription_other"
 msgid "Pick the profile for these {{count}} videos."
-msgstr "为这 {{count}} 个视频选择配置文件。"
+msgstr "为这 {{count}} 个视频选择配置。"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3333,6 +3431,10 @@ msgstr "最高 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "最佳质量"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "新建配置"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3464,7 +3566,7 @@ msgstr "字幕下载"
 
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
-msgstr "配置文件按语言代码请求字幕；是否可用会针对每个 URL 单独判断。"
+msgstr "配置按语言代码请求字幕；是否可用会针对每个 URL 单独判断。"
 
 msgctxt "wizard.profileEditor.goal.bestPicture.description"
 msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "音乐或播客"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "仅音频"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "仅字幕文件"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "仅字幕"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "普通视频文件"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "视频 + 音频"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "仅无声视频"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "视频，无音频"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4254,7 +4340,7 @@ msgstr "个连接"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
-msgstr "纯音频"
+msgstr "仅音频"
 
 msgctxt "wizard.url.features.always.subtitles"
 msgid "Subtitles"
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} 个项目"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "使用应用上限：{{count}}"
@@ -4650,7 +4732,7 @@ msgstr "至"
 
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
-msgstr "活动配置文件"
+msgstr "活动配置"
 
 msgctxt "wizard.url.profile.badgeBuiltIn"
 msgid "Built-in"
@@ -4686,7 +4768,7 @@ msgstr "4K UHD 2160p"
 
 msgctxt "wizard.url.profile.builtinName.best-quality"
 msgid "Best available"
-msgstr "最佳画质"
+msgstr "最佳质量"
 
 msgctxt "wizard.url.profile.builtinName.hd-1080"
 msgid "Full HD 1080p"
@@ -4750,35 +4832,35 @@ msgstr "编辑"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
-msgstr "编辑活动配置文件"
+msgstr "编辑活动配置"
 
 msgctxt "wizard.url.profile.enableHint"
 msgid "Hidden profiles stay here but disappear from every profile picker."
-msgstr "隐藏的配置文件保留在此，但会从所有选择器中消失。"
+msgstr "隐藏的配置保留在此，但会从所有选择器中消失。"
 
 msgctxt "wizard.url.profile.enableToggleAria"
 msgid "Show profile in pickers: {{profileName}}"
-msgstr "在选择器中显示配置文件：{{profileName}}"
+msgstr "在选择器中显示配置：{{profileName}}"
 
 msgctxt "wizard.url.profile.lastEnabledHint"
 msgid "Keep at least one profile available."
-msgstr "请至少保留一个可用的配置文件。"
+msgstr "请至少保留一个可用的配置。"
 
 msgctxt "wizard.url.profile.manageProfiles"
 msgid "Manage profiles"
-msgstr "管理配置文件"
+msgstr "管理配置"
 
 msgctxt "wizard.url.profile.menuDescription"
 msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
-msgstr "更改用于快速下载、批量 URL 和播放列表的活动配置文件。"
+msgstr "更改用于快速下载、批量 URL 和播放列表的活动配置。"
 
 msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
-msgstr "切换配置文件"
+msgstr "切换配置"
 
 msgctxt "wizard.url.profile.movableProfile"
 msgid "movable profile"
-msgstr "可移动的配置文件"
+msgstr "可移动的配置"
 
 msgctxt "wizard.url.profile.moveCancelled"
 msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
@@ -4794,7 +4876,7 @@ msgstr "移动 {{profileName}}"
 
 msgctxt "wizard.url.profile.moveInstructions"
 msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
-msgstr "要移动配置文件，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。"
+msgstr "要移动配置，请按空格键或 Enter 键，用方向键移动，然后再按空格键或 Enter 键放下。按 Esc 键取消。"
 
 msgctxt "wizard.url.profile.moveOver"
 msgid "{{profileName}} is over position {{position}} of {{count}}."
@@ -4806,7 +4888,11 @@ msgstr "已拿起 {{profileName}}。当前位于第 {{position}} 个，共 {{cou
 
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
-msgstr "新建配置文件"
+msgstr "新建配置"
+
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "此配置保存到的文件夹尚未设置。请在配置中选择一个文件夹，或将其恢复为默认值。"
 
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
@@ -4822,43 +4908,19 @@ msgstr "移除"
 
 msgctxt "wizard.url.profile.reorderHint"
 msgid "Drag a profile to move it. Every profile picker follows this order."
-msgstr "拖动配置文件即可移动。所有配置文件选择器都会按此顺序排列。"
+msgstr "拖动配置即可移动。所有配置选择器都会按此顺序排列。"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "重置"
 
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC 音频"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "最佳音频"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "最佳视频"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "无音频"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "仅字幕"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV 音频"
-
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
-msgstr "切换下载配置文件：{{profileName}}"
+msgstr "切换下载配置：{{profileName}}"
 
 msgctxt "wizard.url.profile.switchTitle"
 msgid "Switch download profile"
-msgstr "切换下载配置文件"
+msgstr "切换下载配置"
 
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"

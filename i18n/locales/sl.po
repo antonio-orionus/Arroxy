@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Dovoli"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "Toki, povečani z umetno inteligenco, dovoljeni"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube nekatere stare videoposnetke ponuja v velikostih, ki jih je ustvarila umetna inteligenca. Z možnostjo Preskoči ohranite izvirne tokove; povečanega lahko še vedno izberete ročno."
@@ -2293,10 +2297,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Doda v vrsto — začne se, ko se aktivni prenos konča"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Samo zvok"
-
 #. Plural form "few" for sl: used for counts like 3, 4, 103, 104.
 msgctxt "wizard.confirm.itemsValue_few"
 msgid "{{count}} of {{total}} videos"
@@ -2418,8 +2418,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Shranjeno bo v {{count}} spodnji mapi"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "Aktivna je prednastavitev samo s podnapisi, vendar noben jezik podnapisov ni izbran — nič ne bo preneseno."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Aktiven je profil „Samo podnapisi“, vendar ni izbran noben jezik podnapisov – nič ne bo preneseno."
 
 #. Plural form "few" for sl: used for counts like 3, 4, 103, 104.
 msgctxt "wizard.confirm.profileBreakdownCount_few"
@@ -2552,10 +2552,6 @@ msgstr "{{count}} jezikov"
 msgctxt "wizard.formats.audioLanguageCount_two"
 msgid "{{count}} languages"
 msgstr "{{count}} jezika"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Samo zvok"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -3009,6 +3005,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM ne podpira {{codec}}, zato se je vrsta datoteke vrnila na Samodejno."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "Shrani se kot .{{ext}}"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Velikost neznana"
@@ -3037,57 +3037,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "z zvokom"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Želite samo videoposnetek, na katerega ste kliknili, ali izbiro s seznama predvajanja? Naslednje bo sledila izbira določenih videoposnetkov ali obsega."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc prekliče. Nič se ne naloži, dokler ne izberete."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Izberi s seznama predvajanja"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Formate izberite sami"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Omejitev sondiranja seznama predvajanja: {{count}} elementov"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Samo ta videoposnetek"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Naloži seznam predvajanja do vaše omejitve sondiranja, preden prikaže izbirnik."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Odpre njegove formate"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Prenesite samo ta videoposnetek ali dodajte v vrsto celoten seznam predvajanja z aktivnim profilom hitrega prenosa."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Naloži en videoposnetek"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Največje število vnosov, ki jih Arroxy pregleda, preden doda v vrsto seznam predvajanja, kanal ali rezultat iskanja."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "Naloži do {{count}} za izbiro"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "V vrsto doda vse naložene elemente seznama predvajanja z aktivnim profilom hitrega prenosa. Če pregled doseže vašo omejitev, Arroxy vpraša, preden doda v vrsto."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Album, prvih"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "V vrsto doda en prenos in prezre seznam predvajanja, pripet temu naslovu URL."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Videoposnetki, ki so vam všeč, prvih"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Prenesi ta videoposnetek"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Mix, prvih"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Prenesi celoten seznam predvajanja"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Seznam predvajanja, prvih"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Naloži samo ta videoposnetek. Seznam predvajanja, pripet temu naslovu URL, je prezrt."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Objave kanala, prvih"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Samo tega"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "„Ogled pozneje“, prvih"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Ta povezava vsebuje seznam predvajanja"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "Naloži do {{count}}, nato jih prenese"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Mix se spremeni ob vsakem odprtju."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Izbira iz albuma, od prvih"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Izbira med videoposnetki, ki so vam všeč, od prvih"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Izbira iz Mixa, od prvih"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Izbira iz seznama predvajanja, od prvih"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Izbira iz objav kanala, od prvih"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Izbira iz „Ogled pozneje“, od prvih"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Prenos iz tega albuma"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Prenos iz videoposnetkov, ki so vam všeč"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Prenos iz tega Mixa"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Prenos iz tega seznama predvajanja"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Prenos iz objav tega kanala"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Prenos iz „Ogled pozneje“"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Profil: {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -3097,6 +3153,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Vdelaj poglavja"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "poglavja"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Naslov, izvajalec, opis in datum nalaganja se zapišejo v datoteko."
@@ -3104,6 +3164,10 @@ msgstr "Naslov, izvajalec, opis in datum nalaganja se zapišejo v datoteko."
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Vdelaj metapodatke"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "metapodatki"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -3113,6 +3177,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Vdelaj sličico"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "naslovnica"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Shrani opis videoposnetka kot besedilno datoteko .description poleg prenosa."
@@ -3120,6 +3188,10 @@ msgstr "Shrani opis videoposnetka kot besedilno datoteko .description poleg pren
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Shrani opis"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "datoteka z opisom"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -3136,6 +3208,10 @@ msgstr "Shrani sličico kot slikovno datoteko .jpg poleg prenosa."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Shrani sličico"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "datoteka s sličico"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3585,6 +3661,58 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Sličica videoposnetka"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Spremeni omejitev nalaganja"
+
+#. Plural form "few" for sl: used for counts like 3, 4, 103, 104.
+msgctxt "wizard.playlistCap.description_few"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "one" for sl: used for counts like 1, 101.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "other" for sl: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "two" for sl: used for counts like 2, 102.
+msgctxt "wizard.playlistCap.description_two"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "few" for sl: used for counts like 3, 4, 103, 104.
+msgctxt "wizard.playlistCap.descriptionWithTitle_few"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "one" for sl: used for counts like 1, 101.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "other" for sl: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+#. Plural form "two" for sl: used for counts like 2, 102.
+msgctxt "wizard.playlistCap.descriptionWithTitle_two"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Dodaj naložene elemente v vrsto"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Pregled seznama predvajanja je omejen"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Izberite kakovost za paket"
@@ -3768,6 +3896,10 @@ msgstr "Do 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Najboljša kakovost"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Nov profil"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3969,33 +4101,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Glasba ali podkasti"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Samo zvok"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Samo datoteke s podnapisi"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Samo podnapisi"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Navadne video datoteke"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Video + zvok"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Samo nem video"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Video, brez zvoka"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -5029,10 +5145,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} elementov"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy ob gradnji izbirnika zahteva samo toliko vnosov seznama predvajanja, kanala ali iskanja."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Uporabi omejitev aplikacije: {{count}}"
@@ -5273,6 +5385,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Nov profil"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Ta profil shranjuje v mapo, ki ni nastavljena. Izberite mapo v profilu ali ga ponastavite na privzeto."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Ustvarite, izberite, uredite ali odstranite večkrat uporabne nastavitve prenosa."
@@ -5292,30 +5408,6 @@ msgstr "Povlecite profil, da ga premaknete. Vsi izbirniki profilov sledijo temu 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Ponastavi"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "zvok AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "najboljši zvok"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "najboljši video"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "brez zvoka"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "samo podnapisi"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "zvok WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

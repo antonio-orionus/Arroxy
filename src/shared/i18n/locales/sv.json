@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Tillåt",
+		"allowedSummary": "AI-uppskalade strömmar tillåtna",
 		"description": "YouTube erbjuder vissa gamla videor i storlekar som skapats med AI. Hoppa över behåller originalströmmarna, och du kan fortfarande välja en uppskalad ström manuellt.",
 		"label": "AI-uppskalade strömmar",
 		"skip": "Hoppa över"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Kö",
 			"addToQueueTooltip": "Lägger till i kön – startar när den aktiva hämtningen är klar",
-			"audioOnly": "Endast ljud",
 			"itemsValueAudio_one": "{{count}} av {{total}} spår",
 			"itemsValueAudio_other": "{{count}} av {{total}} spår",
 			"itemsValueBulk_one": "{{count}} av {{total}} webbadress",
@@ -773,7 +773,7 @@
 			"landIn": "Din fil hamnar i",
 			"landInMultiProfile_one": "Den hamnar i målet nedan",
 			"landInMultiProfile_other": "De hamnar i de {{count}} målen nedan",
-			"nothingToDownload": "Förinställningen Endast undertexter är aktiv men inget undertextspråk är valt – ingenting kommer att hämtas.",
+			"nothingToDownload": "Profilen ”Endast undertexter” är aktiv, men inget undertextspråk är valt — ingenting hämtas.",
 			"profileBreakdownCount_one": "{{count}} objekt",
 			"profileBreakdownCount_other": "{{count}} objekt",
 			"profileBreakdownHeading": "Profiler i den här batchen",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Ljudspråk",
 			"audioLanguageCount_one": "{{count}} språk",
 			"audioLanguageCount_other": "{{count}} språk",
-			"audioOnly": "Endast ljud",
 			"bitrateValue": "Bithastighet {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies är konfigurerade men avstängda. Aktivera dem och försök igen för att få hela listan, eller byt nätverk och försök igen.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Okänd upplösning",
 			"savesAs": {
 				"label": "Sparas som",
-				"reset": "WebM kan inte rymma {{codec}}, så filtypen återgick till Auto."
+				"reset": "WebM kan inte rymma {{codec}}, så filtypen återgick till Auto.",
+				"value": "Sparas som .{{ext}}"
 			},
 			"sizeUnknown": "Okänd storlek",
 			"skipToConfirm": "Hoppa till bekräftelse",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "med ljud"
 		},
-		"mixedPrompt": {
-			"body": "Vill du ha bara videon du klickade på, eller välja från spellistan? Därefter väljer du specifika videor eller ett intervall.",
-			"pickFromPlaylist": "Välj från spellistan",
-			"playlistLimit": "Gräns för spellisteanalys: {{count}} objekt",
-			"playlistTooltip": "Läser in spellistan, upp till din gräns för spellisteanalys, innan väljaren visas.",
-			"quickBody": "Hämta bara den här videon eller köa hela spellistan med din aktiva profil för snabbhämtning.",
-			"quickLimitDescription": "Maximalt antal poster som Arroxy skannar innan en spellista, kanal eller ett sökresultat köas.",
-			"quickPlaylistTooltip": "Köar alla inlästa spellisteobjekt med den aktiva profilen för snabbhämtning. Om skanningen når din gräns frågar Arroxy innan något köas.",
-			"quickSingleTooltip": "Köar en hämtning och ignorerar spellistan som hör till den här webbadressen.",
-			"quickSingleVideo": "Hämta den här videon",
-			"quickWholePlaylist": "Hämta hela spellistan",
-			"singleTooltip": "Läser bara in den här videon. Spellistan som hör till den här webbadressen ignoreras.",
-			"singleVideo": "Bara den här",
-			"title": "Den här länken har en spellista"
+		"listPrompt": {
+			"escHint": "Esc avbryter. Ingenting läses in förrän du väljer.",
+			"interactiveSubtitle": "Välj format själv",
+			"justThisVideo": "Bara den här videon",
+			"justThisVideoInteractiveHint": "Öppnar videons format",
+			"justThisVideoQuickHint": "Läser in en video",
+			"listInteractiveHint": "Läser in upp till {{count}} att välja bland",
+			"listOption": {
+				"album": "Albumet, de första",
+				"liked": "Dina gillade videor, de första",
+				"mix": "Mixen, de första",
+				"playlist": "Spellistan, de första",
+				"uploads": "Uppladdningarna, de första",
+				"watchLater": "Titta senare, de första"
+			},
+			"listQuickHint": "Läser in upp till {{count}} och hämtar dem sedan",
+			"mixNote": "En Mix ändras varje gång du öppnar den.",
+			"pickOption": {
+				"album": "Välj från albumet, de första",
+				"liked": "Välj bland dina gillade videor, de första",
+				"mix": "Välj från Mixen, de första",
+				"playlist": "Välj från spellistan, de första",
+				"uploads": "Välj bland uppladdningarna, de första",
+				"watchLater": "Välj från Titta senare, de första"
+			},
+			"title": {
+				"album": "Hämta från det här albumet",
+				"liked": "Hämta från dina gillade videor",
+				"mix": "Hämta från den här Mixen",
+				"playlist": "Hämta från den här spellistan",
+				"uploads": "Hämta från den här kanalens uppladdningar",
+				"watchLater": "Hämta från Titta senare"
+			},
+			"withProfile": "Med {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Kapitelmarkeringar som går att navigera i alla moderna spelare.",
-				"label": "Bädda in kapitel"
+				"label": "Bädda in kapitel",
+				"short": "kapitel"
 			},
 			"embedMetadata": {
 				"description": "Titel, artist, beskrivning och uppladdningsdatum skrivs in i filen.",
-				"label": "Bädda in metadata"
+				"label": "Bädda in metadata",
+				"short": "metadata"
 			},
 			"embedThumbnail": {
 				"description": "Omslagsbild inuti filen. WebM-video remuxas till MKV; hoppas över när undertexter bäddas in.",
-				"label": "Bädda in miniatyr"
+				"label": "Bädda in miniatyr",
+				"short": "omslagsbild"
 			},
 			"writeDescription": {
 				"description": "Sparar videons beskrivning som en .description-textfil bredvid hämtningen.",
-				"label": "Spara beskrivning"
+				"label": "Spara beskrivning",
+				"short": "beskrivningsfil"
 			},
 			"writeM3u": {
 				"description": "Spara en .m3u-spellista bredvid videorna så att de öppnas i ordning i din mediespelare.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Sparar miniatyren som en .jpg-bildfil bredvid hämtningen.",
-				"label": "Spara miniatyr"
+				"label": "Spara miniatyr",
+				"short": "miniatyrfil"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Kontrollerar mappen …",
 			"thumbnailAlt": "Videominiatyr"
 		},
+		"playlistCap": {
+			"changeLimit": "Ändra inläsningsgräns",
+			"descriptionWithTitle_one": "<title/>: Arroxy läste in {{count}} objekt med den nuvarande gränsen på {{limit}}. Lägg det inlästa objektet i kön nu, eller höj gränsen och skanna igen.",
+			"descriptionWithTitle_other": "<title/>: Arroxy läste in {{count}} objekt med den nuvarande gränsen på {{limit}}. Lägg de inlästa objekten i kön nu, eller höj gränsen och skanna igen.",
+			"description_one": "Arroxy läste in {{count}} objekt med den nuvarande gränsen på {{limit}}. Lägg det inlästa objektet i kön nu, eller höj gränsen och skanna igen.",
+			"description_other": "Arroxy läste in {{count}} objekt med den nuvarande gränsen på {{limit}}. Lägg de inlästa objekten i kön nu, eller höj gränsen och skanna igen.",
+			"queueLoaded": "Lägg inlästa objekt i kön",
+			"title": "Spellisteskanningen är begränsad"
+		},
 		"playlistPresets": {
 			"heading": "Välj kvalitet för batchen",
 			"itemCount_one": "{{count}} objekt",
@@ -1154,6 +1188,7 @@
 				"320": "Upp till 320K",
 				"best": "Bästa kvalitet"
 			},
+			"defaultName": "Ny profil",
 			"destination": {
 				"defaultFolder": "Standardmapp för hämtningar",
 				"defaultFolderWithSubfolder": "Standardmapp för hämtningar / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musik eller poddar",
-					"label": "Endast ljud"
+					"description": "Musik eller poddar"
 				},
 				"subtitlesOnly": {
-					"description": "Endast textningsfiler",
-					"label": "Endast undertexter"
+					"description": "Endast textningsfiler"
 				},
 				"videoAudio": {
-					"description": "Vanliga videofiler",
-					"label": "Video + ljud"
+					"description": "Vanliga videofiler"
 				},
 				"videoOnly": {
-					"description": "Endast ljudlös video",
-					"label": "Video, inget ljud"
+					"description": "Endast ljudlös video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Maximalt antal poster som Arroxy läser in när en spellista, kanal eller ett sökresultat öppnas.",
 				"invalid": "Använd ett heltal från 1 till 5000",
 				"label": "Spellisteobjekt att skanna",
-				"option": "{{count}} objekt",
-				"tooltip": "Arroxy begär bara så här många spellisto-, kanal- eller sökposter när väljaren byggs."
+				"option": "{{count}} objekt"
 			},
 			"playlistScope": {
 				"appLimit": "Använd appens gräns: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} ligger över plats {{position}} av {{count}}.",
 				"movePickedUp": "{{profileName}} plockades upp. Den ligger på plats {{position}} av {{count}}.",
 				"newProfile": "Ny profil",
+				"outputMissing": "Den här profilen sparar i en mapp som inte är angiven. Välj en mapp i profilen eller återställ den till standard.",
 				"panelDescription": "Skapa, välj, redigera eller ta bort återanvändbara hämtningskonfigurationer.",
 				"panelTitle": "Hämtningsprofiler",
 				"remove": "Ta bort",
 				"reorderHint": "Dra en profil för att flytta den. Alla profilväljare följer den här ordningen.",
 				"reset": "Återställ",
-				"summary": {
-					"aacAudio": "AAC-ljud",
-					"bestAudio": "bästa ljud",
-					"bestVideo": "bästa video",
-					"noAudio": "inget ljud",
-					"subtitlesOnly": "endast undertexter",
-					"wavAudio": "WAV-ljud"
-				},
 				"switchAria": "Byt hämtningsprofil: {{profileName}}",
 				"switchTitle": "Byt hämtningsprofil"
 			},

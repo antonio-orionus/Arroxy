@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Toestaan",
+		"allowedSummary": "Met AI opgeschaalde streams toegestaan",
 		"description": "YouTube biedt sommige oude video’s aan in formaten die het met AI heeft gemaakt. Met Overslaan blijven de originele streams behouden; je kunt een opgeschaalde stream nog steeds handmatig kiezen.",
 		"label": "Met AI opgeschaalde streams",
 		"skip": "Overslaan"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Wachtrij",
 			"addToQueueTooltip": "Voegt toe aan de wachtrij — start zodra de actieve download klaar is",
-			"audioOnly": "Alleen audio",
 			"itemsValueAudio_one": "{{count}} van {{total}} track",
 			"itemsValueAudio_other": "{{count}} van {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} van {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Je bestand komt terecht in",
 			"landInMultiProfile_one": "Het komt terecht in de bestemming hieronder",
 			"landInMultiProfile_other": "Ze komen terecht in de {{count}} bestemmingen hieronder",
-			"nothingToDownload": "De voorinstelling Alleen ondertitels is actief, maar er is geen ondertiteltaal geselecteerd — er wordt niets gedownload.",
+			"nothingToDownload": "Het profiel ‘Alleen ondertitels’ is actief, maar er is geen ondertiteltaal geselecteerd — er wordt niets gedownload.",
 			"profileBreakdownCount_one": "{{count}} item",
 			"profileBreakdownCount_other": "{{count}} items",
 			"profileBreakdownHeading": "Profielen in deze batch",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Audiotaal",
 			"audioLanguageCount_one": "{{count}} taal",
 			"audioLanguageCount_other": "{{count}} talen",
-			"audioOnly": "Alleen audio",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies zijn ingesteld maar uitgeschakeld. Schakel ze in en probeer het opnieuw voor de volledige lijst, of wissel van netwerk en probeer opnieuw.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Onbekende resolutie",
 			"savesAs": {
 				"label": "Opslaan als",
-				"reset": "WebM kan {{codec}} niet bevatten, dus het bestandstype is teruggezet op Automatisch."
+				"reset": "WebM kan {{codec}} niet bevatten, dus het bestandstype is teruggezet op Automatisch.",
+				"value": "Wordt opgeslagen als .{{ext}}"
 			},
 			"sizeUnknown": "Grootte onbekend",
 			"skipToConfirm": "Naar bevestigen",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "met audio"
 		},
-		"mixedPrompt": {
-			"body": "Alleen de video waarop je klikte, of kiezen uit de afspeellijst? Daarna kies je specifieke video’s of een bereik.",
-			"pickFromPlaylist": "Kiezen uit afspeellijst",
-			"playlistLimit": "Analyselimiet afspeellijst: {{count}} items",
-			"playlistTooltip": "Laadt de afspeellijst, tot je analyselimiet voor afspeellijsten, voordat de keuzelijst verschijnt.",
-			"quickBody": "Download alleen deze video, of zet de hele afspeellijst in de wachtrij met je actieve profiel voor Snel downloaden.",
-			"quickLimitDescription": "Maximaal aantal items dat Arroxy scant voordat een afspeellijst, kanaal of zoekresultaat in de wachtrij komt.",
-			"quickPlaylistTooltip": "Zet elk geladen afspeellijstitem in de wachtrij met het actieve profiel voor Snel downloaden. Als de scan je limiet bereikt, vraagt Arroxy eerst om bevestiging.",
-			"quickSingleTooltip": "Zet één download in de wachtrij en negeert de afspeellijst bij deze URL.",
-			"quickSingleVideo": "Deze video downloaden",
-			"quickWholePlaylist": "Hele afspeellijst downloaden",
-			"singleTooltip": "Laadt alleen deze video. De afspeellijst bij deze URL wordt genegeerd.",
-			"singleVideo": "Alleen deze",
-			"title": "Deze link bevat een afspeellijst"
+		"listPrompt": {
+			"escHint": "Esc annuleert. Er wordt niets geladen totdat je kiest.",
+			"interactiveSubtitle": "Kies zelf de formaten",
+			"justThisVideo": "Alleen deze video",
+			"justThisVideoInteractiveHint": "Opent de formaten van de video",
+			"justThisVideoQuickHint": "Laadt één video",
+			"listInteractiveHint": "Laadt er maximaal {{count}} om uit te kiezen",
+			"listOption": {
+				"album": "Het album, de eerste",
+				"liked": "Je video’s die je leuk vindt, de eerste",
+				"mix": "De Mix, de eerste",
+				"playlist": "De afspeellijst, de eerste",
+				"uploads": "De uploads, de eerste",
+				"watchLater": "Later bekijken, de eerste"
+			},
+			"listQuickHint": "Laadt er maximaal {{count}} en downloadt ze daarna",
+			"mixNote": "Een Mix verandert elke keer dat je hem opent.",
+			"pickOption": {
+				"album": "Kiezen uit het album, de eerste",
+				"liked": "Kiezen uit je video’s die je leuk vindt, de eerste",
+				"mix": "Kiezen uit de Mix, de eerste",
+				"playlist": "Kiezen uit de afspeellijst, de eerste",
+				"uploads": "Kiezen uit de uploads, de eerste",
+				"watchLater": "Kiezen uit Later bekijken, de eerste"
+			},
+			"title": {
+				"album": "Downloaden uit dit album",
+				"liked": "Downloaden uit je video’s die je leuk vindt",
+				"mix": "Downloaden uit deze Mix",
+				"playlist": "Downloaden uit deze afspeellijst",
+				"uploads": "Downloaden uit de uploads van dit kanaal",
+				"watchLater": "Downloaden uit Later bekijken"
+			},
+			"withProfile": "Met {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Hoofdstukmarkeringen waarmee je in elke moderne speler kunt navigeren.",
-				"label": "Hoofdstukken insluiten"
+				"label": "Hoofdstukken insluiten",
+				"short": "hoofdstukken"
 			},
 			"embedMetadata": {
 				"description": "Titel, artiest, beschrijving en uploaddatum worden in het bestand geschreven.",
-				"label": "Metagegevens insluiten"
+				"label": "Metagegevens insluiten",
+				"short": "metagegevens"
 			},
 			"embedThumbnail": {
 				"description": "Albumhoes in het bestand. WebM-video wordt omgezet naar MKV; overgeslagen wanneer ondertitels worden ingesloten.",
-				"label": "Miniatuur insluiten"
+				"label": "Miniatuur insluiten",
+				"short": "albumhoes"
 			},
 			"writeDescription": {
 				"description": "Slaat de videobeschrijving op als .description-tekstbestand naast de download.",
-				"label": "Beschrijving opslaan"
+				"label": "Beschrijving opslaan",
+				"short": "beschrijvingsbestand"
 			},
 			"writeM3u": {
 				"description": "Sla een .m3u-afspeellijst naast de video’s op zodat ze in je mediaspeler op volgorde openen.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Slaat de miniatuur op als .jpg-afbeeldingsbestand naast de download.",
-				"label": "Miniatuur opslaan"
+				"label": "Miniatuur opslaan",
+				"short": "miniatuurbestand"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Map controleren…",
 			"thumbnailAlt": "Miniatuur van video"
 		},
+		"playlistCap": {
+			"changeLimit": "Laadlimiet wijzigen",
+			"descriptionWithTitle_one": "<title/>: Arroxy heeft {{count}} item geladen met de huidige limiet van {{limit}}. Zet het geladen item nu in de wachtrij of verhoog de limiet en scan opnieuw.",
+			"descriptionWithTitle_other": "<title/>: Arroxy heeft {{count}} items geladen met de huidige limiet van {{limit}}. Zet de geladen items nu in de wachtrij of verhoog de limiet en scan opnieuw.",
+			"description_one": "Arroxy heeft {{count}} item geladen met de huidige limiet van {{limit}}. Zet het geladen item nu in de wachtrij of verhoog de limiet en scan opnieuw.",
+			"description_other": "Arroxy heeft {{count}} items geladen met de huidige limiet van {{limit}}. Zet de geladen items nu in de wachtrij of verhoog de limiet en scan opnieuw.",
+			"queueLoaded": "Geladen items in wachtrij zetten",
+			"title": "Scan van afspeellijst is beperkt"
+		},
 		"playlistPresets": {
 			"heading": "Kies de kwaliteit voor de batch",
 			"itemCount_one": "{{count}} item",
@@ -1154,6 +1188,7 @@
 				"320": "Tot 320K",
 				"best": "Beste kwaliteit"
 			},
+			"defaultName": "Nieuw profiel",
 			"destination": {
 				"defaultFolder": "Standaardmap voor downloads",
 				"defaultFolderWithSubfolder": "Standaardmap voor downloads / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muziek of podcasts",
-					"label": "Alleen audio"
+					"description": "Muziek of podcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Alleen ondertitelbestanden",
-					"label": "Alleen ondertitels"
+					"description": "Alleen ondertitelbestanden"
 				},
 				"videoAudio": {
-					"description": "Gewone videobestanden",
-					"label": "Video + audio"
+					"description": "Gewone videobestanden"
 				},
 				"videoOnly": {
-					"description": "Alleen stille video",
-					"label": "Video, geen audio"
+					"description": "Alleen stille video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Maximaal aantal items dat Arroxy laadt wanneer een afspeellijst, kanaal of zoekresultaat wordt geopend.",
 				"invalid": "Gebruik een geheel getal van 1 tot 5000",
 				"label": "Te scannen afspeellijstitems",
-				"option": "{{count}} items",
-				"tooltip": "Arroxy vraagt bij het opbouwen van de keuzelijst slechts zoveel afspeellijst-, kanaal- of zoekitems op."
+				"option": "{{count}} items"
 			},
 			"playlistScope": {
 				"appLimit": "App-limiet gebruiken: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} staat boven positie {{position}} van {{count}}.",
 				"movePickedUp": "{{profileName}} opgepakt. Het staat op positie {{position}} van {{count}}.",
 				"newProfile": "Nieuw profiel",
+				"outputMissing": "Dit profiel slaat op in een map die niet is ingesteld. Kies een map in het profiel of zet het terug op de standaard.",
 				"panelDescription": "Maak herbruikbare downloadconfiguraties, selecteer, bewerk of verwijder ze.",
 				"panelTitle": "Downloadprofielen",
 				"remove": "Verwijderen",
 				"reorderHint": "Sleep een profiel om het te verplaatsen. Elke profielkeuzelijst volgt deze volgorde.",
 				"reset": "Herstellen",
-				"summary": {
-					"aacAudio": "AAC-audio",
-					"bestAudio": "beste audio",
-					"bestVideo": "beste video",
-					"noAudio": "geen audio",
-					"subtitlesOnly": "alleen ondertitels",
-					"wavAudio": "WAV-audio"
-				},
 				"switchAria": "Van downloadprofiel wisselen: {{profileName}}",
 				"switchTitle": "Van downloadprofiel wisselen"
 			},

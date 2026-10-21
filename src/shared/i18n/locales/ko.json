@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "허용",
+		"allowedSummary": "AI 업스케일 허용",
 		"description": "YouTube는 일부 오래된 동영상을 AI로 만든 크기로도 제공합니다. 건너뛰기를 선택하면 원본 스트림을 유지하며, 업스케일된 스트림을 직접 고를 수도 있습니다.",
 		"label": "AI 업스케일 스트림",
 		"skip": "건너뛰기"
@@ -292,7 +293,7 @@
 			"1080": "최대 1080p",
 			"1440": "최대 1440p",
 			"2160": "최대 4K",
-			"best": "최고 화질"
+			"best": "최고 품질"
 		},
 		"tierDesc": {
 			"144": "가능한 가장 작은 파일",
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ 대기열",
 			"addToQueueTooltip": "대기열에 추가합니다. 진행 중인 다운로드가 끝나면 시작됩니다",
-			"audioOnly": "오디오만",
 			"itemsValueAudio_other": "{{total}}개 트랙 중 {{count}}개",
 			"itemsValueBulk_other": "{{total}}개 URL 중 {{count}}개",
 			"itemsValue_other": "{{total}}개 동영상 중 {{count}}개",
@@ -757,7 +757,7 @@
 			"labelVideo": "동영상",
 			"landIn": "파일 저장 위치",
 			"landInMultiProfile_other": "아래 {{count}}개 대상에 저장됩니다",
-			"nothingToDownload": "자막 전용 프리셋이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다.",
+			"nothingToDownload": "‘자막만’ 프로필이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다.",
 			"profileBreakdownCount_other": "{{count}}개 항목",
 			"profileBreakdownHeading": "이 일괄 작업의 프로필",
 			"pullIt": "받기! ↓",
@@ -789,7 +789,6 @@
 			"audio": "오디오",
 			"audioLanguage": "오디오 언어",
 			"audioLanguageCount_other": "언어 {{count}}개",
-			"audioOnly": "오디오만",
 			"bitrateValue": "비트레이트 {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "쿠키가 설정되었지만 꺼져 있습니다. 전체 목록을 받으려면 쿠키를 켜고 다시 시도하거나 네트워크를 바꿔 보세요.",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "해상도 알 수 없음",
 			"savesAs": {
 				"label": "저장 형식",
-				"reset": "WebM에는 {{codec}}을(를) 담을 수 없어 파일 형식을 자동으로 되돌렸습니다."
+				"reset": "WebM에는 {{codec}}을(를) 담을 수 없어 파일 형식을 자동으로 되돌렸습니다.",
+				"value": ".{{ext}} 형식으로 저장됩니다"
 			},
 			"sizeUnknown": "크기 알 수 없음",
 			"skipToConfirm": "확인으로 건너뛰기",
@@ -951,37 +951,61 @@
 			"video": "동영상",
 			"withAudio": "오디오 포함"
 		},
-		"mixedPrompt": {
-			"body": "클릭한 동영상만 받을까요, 아니면 재생목록에서 선택할까요? 다음 단계에서 특정 동영상이나 범위를 선택할 수 있습니다.",
-			"pickFromPlaylist": "재생목록에서 선택",
-			"playlistLimit": "재생목록 분석 제한: {{count}}개 항목",
-			"playlistTooltip": "선택 화면을 표시하기 전에 재생목록을 분석 제한까지 불러옵니다.",
-			"quickBody": "이 동영상만 다운로드하거나 활성 빠른 다운로드 프로필로 전체 재생목록을 대기열에 추가합니다.",
-			"quickLimitDescription": "Arroxy가 재생목록, 채널 또는 검색 결과를 대기열에 추가하기 전에 분석할 최대 항목 수입니다.",
-			"quickPlaylistTooltip": "불러온 모든 재생목록 항목을 활성 빠른 다운로드 프로필로 대기열에 추가합니다. 분석이 제한에 도달하면 Arroxy가 추가 전에 확인합니다.",
-			"quickSingleTooltip": "하나의 다운로드만 대기열에 추가하고 이 URL에 연결된 재생목록은 무시합니다.",
-			"quickSingleVideo": "이 동영상 다운로드",
-			"quickWholePlaylist": "전체 재생목록 다운로드",
-			"singleTooltip": "이 동영상만 불러옵니다. 이 URL에 연결된 재생목록은 무시됩니다.",
-			"singleVideo": "이 항목만",
-			"title": "이 링크에 재생목록이 있습니다"
+		"listPrompt": {
+			"escHint": "Esc를 누르면 취소됩니다. 선택하기 전에는 아무것도 불러오지 않습니다.",
+			"interactiveSubtitle": "형식을 직접 선택합니다",
+			"justThisVideo": "이 동영상만",
+			"justThisVideoInteractiveHint": "형식 선택 화면을 엽니다",
+			"justThisVideoQuickHint": "동영상 1개를 불러옵니다",
+			"listInteractiveHint": "최대 {{count}}개를 불러와 선택합니다",
+			"listOption": {
+				"album": "앨범의 앞부분",
+				"liked": "좋아요 표시한 동영상의 앞부분",
+				"mix": "믹스의 앞부분",
+				"playlist": "재생목록의 앞부분",
+				"uploads": "업로드한 동영상의 앞부분",
+				"watchLater": "나중에 볼 동영상의 앞부분"
+			},
+			"listQuickHint": "최대 {{count}}개를 불러온 뒤 다운로드합니다",
+			"mixNote": "믹스는 열 때마다 내용이 바뀝니다.",
+			"pickOption": {
+				"album": "앨범의 앞부분에서 선택",
+				"liked": "좋아요 표시한 동영상의 앞부분에서 선택",
+				"mix": "믹스의 앞부분에서 선택",
+				"playlist": "재생목록의 앞부분에서 선택",
+				"uploads": "업로드한 동영상의 앞부분에서 선택",
+				"watchLater": "나중에 볼 동영상의 앞부분에서 선택"
+			},
+			"title": {
+				"album": "이 앨범에서 다운로드",
+				"liked": "좋아요 표시한 동영상에서 다운로드",
+				"mix": "이 믹스에서 다운로드",
+				"playlist": "이 재생목록에서 다운로드",
+				"uploads": "이 채널의 업로드에서 다운로드",
+				"watchLater": "나중에 볼 동영상에서 다운로드"
+			},
+			"withProfile": "{{profileName}} 사용"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "최신 플레이어에서 탐색할 수 있는 챕터 마커입니다.",
-				"label": "챕터 포함"
+				"label": "챕터 포함",
+				"short": "챕터"
 			},
 			"embedMetadata": {
 				"description": "제목, 아티스트, 설명 및 업로드 날짜를 파일에 기록합니다.",
-				"label": "메타데이터 포함"
+				"label": "메타데이터 포함",
+				"short": "메타데이터"
 			},
 			"embedThumbnail": {
 				"description": "파일 안에 표지 이미지를 넣습니다. WebM 동영상은 MKV로 리먹싱되며, 자막을 포함할 때는 건너뜁니다.",
-				"label": "미리보기 이미지 포함"
+				"label": "미리보기 이미지 포함",
+				"short": "커버 아트"
 			},
 			"writeDescription": {
 				"description": "동영상 설명을 다운로드 옆에 .description 텍스트 파일로 저장합니다.",
-				"label": "설명 저장"
+				"label": "설명 저장",
+				"short": "설명 파일"
 			},
 			"writeM3u": {
 				"description": "동영상 옆에 .m3u 재생목록을 저장하여 미디어 플레이어에서 순서대로 열리게 합니다.",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "미리보기 이미지를 다운로드 옆에 .jpg 이미지 파일로 저장합니다.",
-				"label": "미리보기 이미지 저장"
+				"label": "미리보기 이미지 저장",
+				"short": "미리보기 이미지 파일"
 			}
 		},
 		"part": {
@@ -1080,6 +1105,13 @@
 			"syncScanning": "폴더 확인 중…",
 			"thumbnailAlt": "동영상 미리보기 이미지"
 		},
+		"playlistCap": {
+			"changeLimit": "불러오기 제한 변경",
+			"descriptionWithTitle_other": "<title/>: 현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요.",
+			"description_other": "현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요.",
+			"queueLoaded": "불러온 항목 대기열에 추가",
+			"title": "재생목록 분석 제한됨"
+		},
 		"playlistPresets": {
 			"heading": "일괄 작업의 화질 선택",
 			"itemCount_other": "{{count}}개 항목",
@@ -1123,8 +1155,9 @@
 				"128": "최대 128K",
 				"192": "최대 192K",
 				"320": "최대 320K",
-				"best": "최고 화질"
+				"best": "최고 음질"
 			},
+			"defaultName": "새 프로필",
 			"destination": {
 				"defaultFolder": "기본 다운로드 폴더",
 				"defaultFolderWithSubfolder": "기본 다운로드 폴더 / {{subfolder}}",
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "음악 또는 팟캐스트",
-					"label": "오디오만"
+					"description": "음악 또는 팟캐스트"
 				},
 				"subtitlesOnly": {
-					"description": "자막 파일만",
-					"label": "자막만"
+					"description": "자막 파일만"
 				},
 				"videoAudio": {
-					"description": "일반 동영상 파일",
-					"label": "동영상 + 오디오"
+					"description": "일반 동영상 파일"
 				},
 				"videoOnly": {
-					"description": "오디오 없는 동영상만",
-					"label": "동영상, 오디오 없음"
+					"description": "오디오 없는 동영상만"
 				}
 			},
 			"note": {
@@ -1562,8 +1591,7 @@
 				"description": "재생목록, 채널 또는 검색 결과를 열 때 Arroxy가 불러올 최대 항목 수입니다.",
 				"invalid": "1부터 5000까지의 정수를 사용하세요",
 				"label": "분석할 재생목록 항목",
-				"option": "{{count}}개 항목",
-				"tooltip": "Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
+				"option": "{{count}}개 항목"
 			},
 			"playlistScope": {
 				"appLimit": "앱 제한 사용: {{count}}",
@@ -1632,19 +1660,12 @@
 				"moveOver": "{{profileName}} 프로필이 {{count}}개 중 {{position}}번째 위치 위에 있습니다.",
 				"movePickedUp": "{{profileName}} 프로필을 집었습니다. {{count}}개 중 {{position}}번째 위치입니다.",
 				"newProfile": "새 프로필",
+				"outputMissing": "이 프로필이 저장할 폴더가 설정되지 않았습니다. 프로필에서 폴더를 선택하거나 기본값으로 되돌리세요.",
 				"panelDescription": "재사용 가능한 다운로드 설정을 만들고 선택하고 편집하거나 제거합니다.",
 				"panelTitle": "다운로드 프로필",
 				"remove": "제거",
 				"reorderHint": "프로필을 드래그하여 이동하세요. 모든 프로필 선택기가 이 순서를 따릅니다.",
 				"reset": "재설정",
-				"summary": {
-					"aacAudio": "AAC 오디오",
-					"bestAudio": "최고 음질 오디오",
-					"bestVideo": "최고 화질 동영상",
-					"noAudio": "오디오 없음",
-					"subtitlesOnly": "자막만",
-					"wavAudio": "WAV 오디오"
-				},
 				"switchAria": "다운로드 프로필 전환: {{profileName}}",
 				"switchTitle": "다운로드 프로필 전환"
 			},

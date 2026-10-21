@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Permitir",
+		"allowedSummary": "Streams reescalados con IA permitidos",
 		"description": "YouTube ofrece algunos vídeos antiguos en tamaños creados con IA. «Omitir» conserva los streams originales; aun así puedes elegir uno reescalado a mano.",
 		"label": "Streams reescalados con IA",
 		"skip": "Omitir"
@@ -766,7 +767,6 @@
 		"confirm": {
 			"addToQueue": "+ Cola",
 			"addToQueueTooltip": "Empieza cuando terminen otras descargas — usa todo el ancho de banda",
-			"audioOnly": "Solo audio",
 			"itemsValueAudio_many": "{{count}} de {{total}} pistas",
 			"itemsValueAudio_one": "{{count}} de {{total}} pista",
 			"itemsValueAudio_other": "{{count}} de {{total}} pistas",
@@ -789,7 +789,7 @@
 			"landInMultiProfile_many": "Se guardarán en los {{count}} de destinos de abajo",
 			"landInMultiProfile_one": "Se guardará en el destino de abajo",
 			"landInMultiProfile_other": "Se guardarán en los {{count}} destinos de abajo",
-			"nothingToDownload": "El ajuste preestablecido Solo subtítulos está activo pero no hay ningún idioma de subtítulos seleccionado — no se descargará nada.",
+			"nothingToDownload": "El perfil Solo subtítulos está activo, pero no hay ningún idioma de subtítulos seleccionado — no se descargará nada.",
 			"profileBreakdownCount_many": "{{count}} de elementos",
 			"profileBreakdownCount_one": "{{count}} elemento",
 			"profileBreakdownCount_other": "{{count}} elementos",
@@ -825,7 +825,6 @@
 			"audioLanguageCount_many": "{{count}} de idiomas",
 			"audioLanguageCount_one": "{{count}} idioma",
 			"audioLanguageCount_other": "{{count}} idiomas",
-			"audioOnly": "Solo audio",
 			"bitrateValue": "Tasa de bits {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Las cookies están configuradas pero desactivadas. Actívalas y vuelve a intentarlo para obtener la lista completa, o cambia de red e inténtalo de nuevo.",
@@ -977,7 +976,8 @@
 			"resolutionUnknown": "Resolución desconocida",
 			"savesAs": {
 				"label": "Guardar como",
-				"reset": "WebM no admite {{codec}}, así que el tipo de archivo volvió a Auto."
+				"reset": "WebM no admite {{codec}}, así que el tipo de archivo volvió a Auto.",
+				"value": "Se guarda como .{{ext}}"
 			},
 			"sizeUnknown": "Tamaño desconocido",
 			"skipToConfirm": "Saltar a confirmar",
@@ -987,37 +987,61 @@
 			"video": "Vídeo",
 			"withAudio": "con audio"
 		},
-		"mixedPrompt": {
-			"body": "¿Solo el video en el que hiciste clic o prefieres elegir de la Playlist? En el siguiente paso podrás seleccionar videos concretos o un rango.",
-			"pickFromPlaylist": "Elegir de la Playlist",
-			"playlistLimit": "Límite de análisis de playlist: {{count}} elementos",
-			"playlistTooltip": "Carga la playlist, hasta tu límite de análisis, antes de mostrar el selector.",
-			"quickBody": "Descarga solo este video o pon toda la lista en cola con tu perfil de Descarga rápida activo.",
-			"quickLimitDescription": "Cantidad máxima de elementos que Arroxy escanea antes de poner en cola una lista, un canal o un resultado de búsqueda.",
-			"quickPlaylistTooltip": "Pone en cola cada elemento cargado de la lista con el perfil de Descarga rápida activo. Si el escaneo alcanza tu límite, Arroxy pregunta antes de ponerlos en cola.",
-			"quickSingleTooltip": "Pone en cola una descarga e ignora la lista adjunta a esta URL.",
-			"quickSingleVideo": "Descargar este video",
-			"quickWholePlaylist": "Descargar toda la lista",
-			"singleTooltip": "Carga solo este vídeo. Se ignora la playlist adjunta a esta URL.",
-			"singleVideo": "Solo este",
-			"title": "Este enlace tiene una Playlist"
+		"listPrompt": {
+			"escHint": "Esc cancela. No se carga nada hasta que elijas.",
+			"interactiveSubtitle": "Elige tú mismo los formatos",
+			"justThisVideo": "Solo este vídeo",
+			"justThisVideoInteractiveHint": "Abre sus formatos",
+			"justThisVideoQuickHint": "Carga un vídeo",
+			"listInteractiveHint": "Carga hasta {{count}} para que elijas",
+			"listOption": {
+				"album": "El álbum, los primeros",
+				"liked": "Tus vídeos que te gustan, los primeros",
+				"mix": "El Mix, los primeros",
+				"playlist": "La playlist, los primeros",
+				"uploads": "Los vídeos subidos, los primeros",
+				"watchLater": "Ver más tarde, los primeros"
+			},
+			"listQuickHint": "Carga hasta {{count}} y luego los descarga",
+			"mixNote": "Un Mix cambia cada vez que lo abres.",
+			"pickOption": {
+				"album": "Elegir del álbum, entre los primeros",
+				"liked": "Elegir de tus vídeos que te gustan, entre los primeros",
+				"mix": "Elegir del Mix, entre los primeros",
+				"playlist": "Elegir de la playlist, entre los primeros",
+				"uploads": "Elegir de los vídeos subidos, entre los primeros",
+				"watchLater": "Elegir de Ver más tarde, entre los primeros"
+			},
+			"title": {
+				"album": "Descargar de este álbum",
+				"liked": "Descargar de tus vídeos que te gustan",
+				"mix": "Descargar de este Mix",
+				"playlist": "Descargar de esta playlist",
+				"uploads": "Descargar de los vídeos subidos de este canal",
+				"watchLater": "Descargar de Ver más tarde"
+			},
+			"withProfile": "Con {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Marcadores de capítulo navegables en cualquier reproductor moderno.",
-				"label": "Incrustar capítulos"
+				"label": "Incrustar capítulos",
+				"short": "capítulos"
 			},
 			"embedMetadata": {
 				"description": "Título, artista, descripción y fecha de subida escritos en el archivo.",
-				"label": "Incrustar metadatos"
+				"label": "Incrustar metadatos",
+				"short": "metadatos"
 			},
 			"embedThumbnail": {
 				"description": "Portada dentro del archivo. El vídeo WebM se remultiplexará a MKV; se omite al incrustar subtítulos.",
-				"label": "Incrustar miniatura"
+				"label": "Incrustar miniatura",
+				"short": "carátula"
 			},
 			"writeDescription": {
 				"description": "Guarda la descripción del vídeo como archivo .description junto a la descarga.",
-				"label": "Guardar descripción"
+				"label": "Guardar descripción",
+				"short": "archivo de descripción"
 			},
 			"writeM3u": {
 				"description": "Guarda una playlist .m3u junto a los vídeos para abrirlos en orden en tu reproductor.",
@@ -1025,7 +1049,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Guarda la miniatura como archivo .jpg junto a la descarga.",
-				"label": "Guardar miniatura"
+				"label": "Guardar miniatura",
+				"short": "archivo de miniatura"
 			}
 		},
 		"part": {
@@ -1132,6 +1157,17 @@
 			"syncScanning": "Comprobando carpeta…",
 			"thumbnailAlt": "Miniatura del video"
 		},
+		"playlistCap": {
+			"changeLimit": "Cambiar el límite de carga",
+			"descriptionWithTitle_many": "<title/>: Arroxy ha cargado {{count}} de elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear.",
+			"descriptionWithTitle_one": "<title/>: Arroxy ha cargado {{count}} elemento con el límite actual de {{limit}}. Pon en cola el elemento cargado ahora, o aumenta el límite y vuelve a escanear.",
+			"descriptionWithTitle_other": "<title/>: Arroxy ha cargado {{count}} elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear.",
+			"description_many": "Arroxy ha cargado {{count}} de elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear.",
+			"description_one": "Arroxy ha cargado {{count}} elemento con el límite actual de {{limit}}. Pon en cola el elemento cargado ahora, o aumenta el límite y vuelve a escanear.",
+			"description_other": "Arroxy ha cargado {{count}} elementos con el límite actual de {{limit}}. Pon en cola los elementos cargados ahora, o aumenta el límite y vuelve a escanear.",
+			"queueLoaded": "Poner en cola los elementos cargados",
+			"title": "El escaneo de la playlist está limitado"
+		},
 		"playlistPresets": {
 			"heading": "Elige la calidad para el lote",
 			"itemCount_many": "{{count}} de elementos",
@@ -1183,6 +1219,7 @@
 				"320": "Hasta 320K",
 				"best": "Mejor calidad"
 			},
+			"defaultName": "Nuevo perfil",
 			"destination": {
 				"defaultFolder": "Carpeta de descargas predeterminada",
 				"defaultFolderWithSubfolder": "Carpeta de descargas predeterminada / {{subfolder}}",
@@ -1248,20 +1285,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Música o pódcasts",
-					"label": "Solo audio"
+					"description": "Música o pódcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Solo archivos de subtítulos",
-					"label": "Solo subtítulos"
+					"description": "Solo archivos de subtítulos"
 				},
 				"videoAudio": {
-					"description": "Archivos de vídeo normales",
-					"label": "Vídeo + audio"
+					"description": "Archivos de vídeo normales"
 				},
 				"videoOnly": {
-					"description": "Solo vídeo sin sonido",
-					"label": "Vídeo, sin audio"
+					"description": "Solo vídeo sin sonido"
 				}
 			},
 			"note": {
@@ -1624,8 +1657,7 @@
 				"description": "Número máximo de entradas que Arroxy carga al abrir una playlist, canal o resultado de búsqueda.",
 				"invalid": "Usa un número entero del 1 al 5000",
 				"label": "Elementos de playlist a escanear",
-				"option": "{{count}} elementos",
-				"tooltip": "Arroxy solo solicita este número de entradas de playlist, canal o búsqueda al construir el selector."
+				"option": "{{count}} elementos"
 			},
 			"playlistScope": {
 				"appLimit": "Usar el límite de la app: {{count}}",
@@ -1694,19 +1726,12 @@
 				"moveOver": "El perfil {{profileName}} está sobre la posición {{position}} de {{count}}.",
 				"movePickedUp": "Perfil {{profileName}} recogido. Está en la posición {{position}} de {{count}}.",
 				"newProfile": "Nuevo perfil",
+				"outputMissing": "Este perfil guarda en una carpeta que no está definida. Elige una carpeta en el perfil o vuelve a la predeterminada.",
 				"panelDescription": "Crea, selecciona, edita o elimina configuraciones de descarga reutilizables.",
 				"panelTitle": "Perfiles de descarga",
 				"remove": "Eliminar",
 				"reorderHint": "Arrastra un perfil para moverlo. Todos los selectores de perfil siguen este orden.",
 				"reset": "Restablecer",
-				"summary": {
-					"aacAudio": "audio AAC",
-					"bestAudio": "mejor audio",
-					"bestVideo": "mejor vídeo",
-					"noAudio": "sin audio",
-					"subtitlesOnly": "solo subtítulos",
-					"wavAudio": "audio WAV"
-				},
 				"switchAria": "Cambiar perfil de descarga: {{profileName}}",
 				"switchTitle": "Cambiar perfil de descarga"
 			},

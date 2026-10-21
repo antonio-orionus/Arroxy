@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Luba",
+		"allowedSummary": "Tehisintellektiga skaleeritud voogud lubatud",
 		"description": "YouTube pakub mõnda vana videot tehisintellektiga loodud suurustes. „Jäta vahele“ säilitab originaalvood; skaleeritud voo saate ikkagi käsitsi valida.",
 		"label": "Tehisintellektiga skaleeritud voogud",
 		"skip": "Jäta vahele"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Järjekorda",
 			"addToQueueTooltip": "Lisab järjekorda – algab, kui aktiivne allalaadimine lõpeb",
-			"audioOnly": "Ainult heli",
 			"itemsValueAudio_one": "{{count}} / {{total}} lugu",
 			"itemsValueAudio_other": "{{count}} / {{total}} loost",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Teie fail salvestatakse kausta",
 			"landInMultiProfile_one": "See salvestatakse allolevasse sihtkohta",
 			"landInMultiProfile_other": "Need salvestatakse allolevatesse sihtkohtadesse ({{count}})",
-			"nothingToDownload": "Aktiivne on ainult subtiitrite eelseadistus, kuid ühtegi subtiitrikeelt pole valitud – midagi ei laadita alla.",
+			"nothingToDownload": "Profiil „Ainult subtiitrid“ on aktiivne, kuid ühtegi subtiitrite keelt pole valitud — midagi ei laadita alla.",
 			"profileBreakdownCount_one": "{{count}} üksus",
 			"profileBreakdownCount_other": "{{count}} üksust",
 			"profileBreakdownHeading": "Selle partii profiilid",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Heli keel",
 			"audioLanguageCount_one": "{{count}} keel",
 			"audioLanguageCount_other": "{{count}} keelt",
-			"audioOnly": "Ainult heli",
 			"bitrateValue": "Bitikiirus {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Küpsised on seadistatud, kuid välja lülitatud. Täieliku loendi saamiseks lülitage need sisse ja proovige uuesti või vahetage võrku ja proovige uuesti.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Tundmatu eraldusvõime",
 			"savesAs": {
 				"label": "Salvestatakse kui",
-				"reset": "WebM ei mahuta koodekit {{codec}}, seega naasis failitüüp väärtusele Automaatne."
+				"reset": "WebM ei mahuta koodekit {{codec}}, seega naasis failitüüp väärtusele Automaatne.",
+				"value": "Salvestatakse kui .{{ext}}"
 			},
 			"sizeUnknown": "Suurus teadmata",
 			"skipToConfirm": "Jätka kinnitamiseni",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "heliga"
 		},
-		"mixedPrompt": {
-			"body": "Kas soovite ainult videot, millel klõpsasite, või valida esitusloendist? Järgmisena valite konkreetsed videod või vahemiku.",
-			"pickFromPlaylist": "Vali esitusloendist",
-			"playlistLimit": "Esitusloendi päringu piir: {{count}} üksust",
-			"playlistTooltip": "Laadib esitusloendi kuni teie esitusloendi päringu piirini, enne kui valija kuvatakse.",
-			"quickBody": "Laadige alla ainult see video või pange kogu esitusloend järjekorda oma aktiivse kiirallalaadimise profiiliga.",
-			"quickLimitDescription": "Maksimaalne kirjete arv, mida Arroxy skannib enne esitusloendi, kanali või otsingutulemuse järjekorda lisamist.",
-			"quickPlaylistTooltip": "Lisab järjekorda iga laaditud esitusloendi üksuse aktiivse kiirallalaadimise profiiliga. Kui skannimine jõuab teie piirini, küsib Arroxy enne järjekorda lisamist.",
-			"quickSingleTooltip": "Lisab järjekorda ühe allalaadimise ja eirab sellele URL-ile lisatud esitusloendit.",
-			"quickSingleVideo": "Laadi see video alla",
-			"quickWholePlaylist": "Laadi kogu esitusloend alla",
-			"singleTooltip": "Laadib ainult selle video. Sellele URL-ile lisatud esitusloendit eiratakse.",
-			"singleVideo": "Ainult see",
-			"title": "Sellel lingil on esitusloend"
+		"listPrompt": {
+			"escHint": "Esc tühistab. Midagi ei laadita, enne kui valite.",
+			"interactiveSubtitle": "Valige vormingud ise",
+			"justThisVideo": "Ainult see video",
+			"justThisVideoInteractiveHint": "Avab video vormingud",
+			"justThisVideoQuickHint": "Laadib ühe video",
+			"listInteractiveHint": "Laadib kuni {{count}}, mille seast valida",
+			"listOption": {
+				"album": "Album, esimesed",
+				"liked": "Teie meeldinud videod, esimesed",
+				"mix": "Mix, esimesed",
+				"playlist": "Esitusloend, esimesed",
+				"uploads": "Üleslaaditud videod, esimesed",
+				"watchLater": "Vaata hiljem, esimesed"
+			},
+			"listQuickHint": "Laadib kuni {{count}} ja laadib need seejärel alla",
+			"mixNote": "Mix muutub iga kord, kui selle avate.",
+			"pickOption": {
+				"album": "Valige albumist, esimesed",
+				"liked": "Valige meeldinud videote seast, esimesed",
+				"mix": "Valige Mixist, esimesed",
+				"playlist": "Valige esitusloendist, esimesed",
+				"uploads": "Valige üleslaaditud videote seast, esimesed",
+				"watchLater": "Valige loendist Vaata hiljem, esimesed"
+			},
+			"title": {
+				"album": "Allalaadimine sellest albumist",
+				"liked": "Allalaadimine meeldinud videotest",
+				"mix": "Allalaadimine sellest Mixist",
+				"playlist": "Allalaadimine sellest esitusloendist",
+				"uploads": "Allalaadimine selle kanali üleslaaditud videotest",
+				"watchLater": "Allalaadimine loendist Vaata hiljem"
+			},
+			"withProfile": "Profiiliga {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Peatükimärgid, mida saab navigeerida igas kaasaegses pleieris.",
-				"label": "Manusta peatükid"
+				"label": "Manusta peatükid",
+				"short": "peatükid"
 			},
 			"embedMetadata": {
 				"description": "Pealkiri, esitaja, kirjeldus ja üleslaadimiskuupäev kirjutatakse faili.",
-				"label": "Manusta metaandmed"
+				"label": "Manusta metaandmed",
+				"short": "metaandmed"
 			},
 			"embedThumbnail": {
 				"description": "Kaanepilt faili sees. WebM-video pakitakse ümber MKV-ks; jäetakse vahele, kui subtiitrid on manustatud.",
-				"label": "Manusta pisipilt"
+				"label": "Manusta pisipilt",
+				"short": "kaanepilt"
 			},
 			"writeDescription": {
 				"description": "Salvestab video kirjelduse tekstifailina .description allalaadimise kõrvale.",
-				"label": "Salvesta kirjeldus"
+				"label": "Salvesta kirjeldus",
+				"short": "kirjeldusfail"
 			},
 			"writeM3u": {
 				"description": "Salvestab videote kõrvale .m3u esitusloendi, et need avanevad teie meediapleieris õiges järjekorras.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Salvestab pisipildi .jpg pildifailina allalaadimise kõrvale.",
-				"label": "Salvesta pisipilt"
+				"label": "Salvesta pisipilt",
+				"short": "pisipildifail"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Kausta kontrollimine…",
 			"thumbnailAlt": "Video pisipilt"
 		},
+		"playlistCap": {
+			"changeLimit": "Muuda laadimispiiri",
+			"descriptionWithTitle_one": "<title/>: Arroxy laadis {{count}} üksuse praeguse piiri ({{limit}}) alusel. Lisage laaditud üksus praegu järjekorda või suurendage piiri ja skannige uuesti.",
+			"descriptionWithTitle_other": "<title/>: Arroxy laadis {{count}} üksust praeguse piiri ({{limit}}) alusel. Lisage laaditud üksused praegu järjekorda või suurendage piiri ja skannige uuesti.",
+			"description_one": "Arroxy laadis {{count}} üksuse praeguse piiri ({{limit}}) alusel. Lisage laaditud üksus praegu järjekorda või suurendage piiri ja skannige uuesti.",
+			"description_other": "Arroxy laadis {{count}} üksust praeguse piiri ({{limit}}) alusel. Lisage laaditud üksused praegu järjekorda või suurendage piiri ja skannige uuesti.",
+			"queueLoaded": "Lisa laaditud üksused järjekorda",
+			"title": "Esitusloendi skannimine on piiratud"
+		},
 		"playlistPresets": {
 			"heading": "Valige partii kvaliteet",
 			"itemCount_one": "{{count}} üksus",
@@ -1154,6 +1188,7 @@
 				"320": "Kuni 320K",
 				"best": "Parim kvaliteet"
 			},
+			"defaultName": "Uus profiil",
 			"destination": {
 				"defaultFolder": "Vaikimisi allalaadimiskaust",
 				"defaultFolderWithSubfolder": "Vaikimisi allalaadimiskaust / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Muusika või taskuhäälingud",
-					"label": "Ainult heli"
+					"description": "Muusika või taskuhäälingud"
 				},
 				"subtitlesOnly": {
-					"description": "Ainult subtiitrifailid",
-					"label": "Ainult subtiitrid"
+					"description": "Ainult subtiitrifailid"
 				},
 				"videoAudio": {
-					"description": "Tavalised videofailid",
-					"label": "Video + heli"
+					"description": "Tavalised videofailid"
 				},
 				"videoOnly": {
-					"description": "Ainult hääletu video",
-					"label": "Video, ilma helita"
+					"description": "Ainult hääletu video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Maksimaalne kirjete arv, mille Arroxy laadib esitusloendi, kanali või otsingutulemuse avamisel.",
 				"invalid": "Kasutage täisarvu vahemikus 1 kuni 5000",
 				"label": "Skannitavaid esitusloendi üksusi",
-				"option": "{{count}} üksust",
-				"tooltip": "Arroxy küsib valija koostamisel ainult nii palju esitusloendi, kanali või otsingu kirjeid."
+				"option": "{{count}} üksust"
 			},
 			"playlistScope": {
 				"appLimit": "Kasuta rakenduse piirangut: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} on positsiooni {{position}} / {{count}} kohal.",
 				"movePickedUp": "{{profileName}} võeti kätte. See on positsioonil {{position}} / {{count}}.",
 				"newProfile": "Uus profiil",
+				"outputMissing": "See profiil salvestab kausta, mida pole määratud. Valige profiilis kaust või lähtestage see vaikeväärtusele.",
 				"panelDescription": "Looge, valige, muutke või eemaldage taaskasutatavaid allalaadimisseadistusi.",
 				"panelTitle": "Allalaadimisprofiilid",
 				"remove": "Eemalda",
 				"reorderHint": "Lohistage profiil teisaldamiseks. Kõik profiilivalijad järgivad seda järjekorda.",
 				"reset": "Lähtesta",
-				"summary": {
-					"aacAudio": "AAC-heli",
-					"bestAudio": "parim heli",
-					"bestVideo": "parim video",
-					"noAudio": "heli puudub",
-					"subtitlesOnly": "ainult subtiitrid",
-					"wavAudio": "WAV-heli"
-				},
 				"switchAria": "Vaheta allalaadimisprofiili: {{profileName}}",
 				"switchTitle": "Vaheta allalaadimisprofiili"
 			},

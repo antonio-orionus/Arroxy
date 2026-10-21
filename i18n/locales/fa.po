@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "اجازه دادن"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "جریان‌های ارتقایافته با هوش مصنوعی مجازند"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube برخی ویدیوهای قدیمی را در اندازه‌هایی ارائه می‌کند که با هوش مصنوعی ساخته است. «رد کردن» جریان‌های اصلی را نگه می‌دارد؛ همچنان می‌توانید یک جریان ارتقایافته را دستی انتخاب کنید."
@@ -2173,10 +2177,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "به صف اضافه می‌کند — پس از پایان دانلود فعال شروع می‌شود"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "فقط صدا"
-
 #. Plural form "one" for fa: used for counts like 0, 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2258,8 +2258,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "در {{count}} مقصد زیر ذخیره می‌شوند"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "پیش‌تنظیم «فقط زیرنویس» فعال است، اما هیچ زبان زیرنویسی انتخاب نشده — چیزی دانلود نخواهد شد."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "نمایهٔ «فقط زیرنویس» فعال است، اما هیچ زبان زیرنویسی انتخاب نشده — چیزی دانلود نخواهد شد."
 
 #. Plural form "one" for fa: used for counts like 0, 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2372,10 +2372,6 @@ msgstr "{{count}} زبان"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} زبان"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "فقط صدا"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2829,6 +2825,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM نمی‌تواند {{codec}} را در خود جا دهد، پس نوع فایل به خودکار برگشت."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr "به‌صورت .{{ext}} ذخیره می‌شود"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "اندازه نامشخص"
@@ -2857,57 +2857,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "همراه صدا"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "فقط ویدیویی را که کلیک کردید می‌خواهید، یا از فهرست پخش انتخاب می‌کنید؟ در مرحلهٔ بعد می‌توانید ویدیوهای مشخص یا یک بازه را برگزینید."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc لغو می‌کند. تا انتخاب نکنید چیزی بارگیری نمی‌شود."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "انتخاب از فهرست پخش"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "قالب‌ها را خودتان انتخاب کنید"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "محدودیت بررسی فهرست پخش: {{count}} مورد"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "فقط همین ویدیو"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "پیش از نمایش انتخابگر، فهرست پخش را تا سقف بررسی شما بارگیری می‌کند."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "قالب‌های آن را باز می‌کند"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "فقط همین ویدیو را دانلود کنید، یا کل فهرست پخش را با نمایهٔ فعال «دانلود سریع» به صف بیفزایید."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "یک ویدیو را بارگیری می‌کند"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "بیشترین تعداد مواردی که Arroxy پیش از صف‌کردن فهرست پخش، کانال یا نتیجهٔ جستجو بررسی می‌کند."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "تا {{count}} مورد را برای انتخاب بارگیری می‌کند"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "همهٔ موارد بارگیری‌شدهٔ فهرست پخش را با نمایهٔ فعال «دانلود سریع» به صف می‌افزاید. اگر بررسی به سقف برسد، Arroxy پیش از افزودن سؤال می‌کند."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "موارد نخست آلبوم"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "یک دانلود را به صف می‌افزاید و فهرست پخش پیوست این URL را نادیده می‌گیرد."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "موارد نخست ویدیوهای پسندیدهٔ شما"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "دانلود این ویدیو"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "موارد نخست میکس"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "دانلود کل فهرست پخش"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "موارد نخست فهرست پخش"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "فقط همین ویدیو را بارگیری می‌کند. فهرست پخش پیوست این URL نادیده گرفته می‌شود."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "موارد نخست ویدیوهای بارگذاری‌شده"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "فقط همین"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "موارد نخست «تماشا در آینده»"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "این پیوند یک فهرست پخش دارد"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "تا {{count}} مورد را بارگیری می‌کند و سپس دانلود می‌کند"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "میکس هر بار که آن را باز می‌کنید تغییر می‌کند."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "انتخاب از موارد نخست آلبوم"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "انتخاب از موارد نخست ویدیوهای پسندیدهٔ شما"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "انتخاب از موارد نخست میکس"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "انتخاب از موارد نخست فهرست پخش"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "انتخاب از موارد نخست ویدیوهای بارگذاری‌شده"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "انتخاب از موارد نخست «تماشا در آینده»"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "دانلود از این آلبوم"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "دانلود از ویدیوهای پسندیدهٔ شما"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "دانلود از این میکس"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "دانلود از این فهرست پخش"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "دانلود از ویدیوهای بارگذاری‌شدهٔ این کانال"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "دانلود از «تماشا در آینده»"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "با {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2917,6 +2973,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "جاسازی فصل‌ها"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "فصل‌ها"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "عنوان، هنرمند، توضیحات و تاریخ بارگذاری در فایل نوشته می‌شوند."
@@ -2924,6 +2984,10 @@ msgstr "عنوان، هنرمند، توضیحات و تاریخ بارگذار�
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "جاسازی فراداده"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "فراداده"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2933,6 +2997,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "جاسازی تصویر بندانگشتی"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "تصویر جلد"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "توضیحات ویدیو را به‌صورت فایل متنی .description کنار دانلود ذخیره می‌کند."
@@ -2940,6 +3008,10 @@ msgstr "توضیحات ویدیو را به‌صورت فایل متنی .descri
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "ذخیرهٔ توضیحات"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "فایل توضیحات"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2956,6 +3028,10 @@ msgstr "تصویر بندانگشتی را به‌صورت فایل .jpg کنا�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "ذخیرهٔ تصویر بندانگشتی"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "فایل تصویر بندانگشتی"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3325,6 +3401,38 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "تصویر بندانگشتی ویدیو"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "تغییر سقف بارگیری"
+
+#. Plural form "one" for fa: used for counts like 0, 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy با سقف فعلی {{limit}}، {{count}} مورد را بارگیری کرد. اکنون مورد بارگیری‌شده را به صف اضافه کنید، یا سقف را بالا ببرید و دوباره بررسی کنید."
+
+#. Plural form "other" for fa: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy با سقف فعلی {{limit}}، {{count}} مورد را بارگیری کرد. اکنون موارد بارگیری‌شده را به صف اضافه کنید، یا سقف را بالا ببرید و دوباره بررسی کنید."
+
+#. Plural form "one" for fa: used for counts like 0, 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy با سقف فعلی {{limit}}، {{count}} مورد را بارگیری کرد. اکنون مورد بارگیری‌شده را به صف اضافه کنید، یا سقف را بالا ببرید و دوباره بررسی کنید."
+
+#. Plural form "other" for fa: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy با سقف فعلی {{limit}}، {{count}} مورد را بارگیری کرد. اکنون موارد بارگیری‌شده را به صف اضافه کنید، یا سقف را بالا ببرید و دوباره بررسی کنید."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "افزودن موارد بارگیری‌شده به صف"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "بررسی فهرست پخش محدود شده است"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "انتخاب کیفیت برای گروه"
@@ -3478,6 +3586,10 @@ msgstr "تا 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "بهترین کیفیت"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "نمایهٔ جدید"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3679,33 +3791,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "موسیقی یا پادکست"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "فقط صدا"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "فقط فایل‌های زیرنویس"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "فقط زیرنویس"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "فایل‌های ویدیویی معمولی"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "ویدیو + صدا"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "فقط ویدیوی بی‌صدا"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "ویدیو، بدون صدا"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4719,10 +4815,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} مورد"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy هنگام ساخت انتخابگر فقط همین تعداد مورد از فهرست پخش، کانال یا جستجو درخواست می‌کند."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "استفاده از محدودیت برنامه: {{count}}"
@@ -4963,6 +5055,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "نمایهٔ جدید"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "این نمایه در پوشه‌ای ذخیره می‌کند که تنظیم نشده است. در نمایه یک پوشه انتخاب کنید یا آن را به پیش‌فرض برگردانید."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "راه‌اندازی‌های دانلود قابل استفادهٔ دوباره را بسازید، انتخاب کنید، ویرایش یا حذف کنید."
@@ -4982,30 +5078,6 @@ msgstr "برای جابه‌جایی یک نمایه، آن را بکشید. ه�
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "بازنشانی"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "صدای AAC"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "بهترین صدا"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "بهترین ویدیو"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "بدون صدا"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "فقط زیرنویس"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "صدای WAV"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

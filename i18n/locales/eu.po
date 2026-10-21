@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "Baimendu"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "AA bidez handitutako korronteak baimenduta"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTubek bideo zahar batzuk adimen artifizialaz sortutako tamainetan eskaintzen ditu. «Saltatu» aukerak jatorrizko korronteak mantentzen ditu; hala ere, handitutako bat eskuz aukera dezakezu."
@@ -2173,10 +2177,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "Ilarara gehitzen du — aktibo dagoen deskarga amaitzen denean hasten da"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "Audioa soilik"
-
 #. Plural form "one" for eu: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
@@ -2258,8 +2258,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "Beheko {{count}} helburuetan gordeko dira"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "«Azpitituluak soilik» aurrezarpena aktibo dago baina ez da azpititulu-hizkuntzarik hautatu — ez da ezer deskargatuko."
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "«Azpitituluak soilik» profila aktibo dago, baina ez da azpititulu-hizkuntzarik hautatu — ez da ezer deskargatuko."
 
 #. Plural form "one" for eu: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
@@ -2372,10 +2372,6 @@ msgstr "{{count}} hizkuntza"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} hizkuntza"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "Audioa soilik"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2829,6 +2825,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM-k ezin du {{codec}} onartu, beraz fitxategi-mota Automatikora itzuli da."
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr ".{{ext}} gisa gordetzen da"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "Tamaina ezezaguna"
@@ -2857,57 +2857,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "audioarekin"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "Klik egin duzun bideoa bakarrik nahi duzu, ala erreprodukzio-zerrendatik aukeratu? Hurrengo urratsean bideo zehatzak edo tarte bat aukeratuko dituzu."
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc sakatuta bertan behera geratzen da. Ez da ezer kargatzen aukeratu arte."
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Aukeratu erreprodukzio-zerrendatik"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "Aukeratu formatuak zuk zeuk"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "Erreprodukzio-zerrendaren azterketa-muga: {{count}} elementu"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "Bideo hau bakarrik"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "Erreprodukzio-zerrenda kargatzen du, zure azterketa-mugara arte, hautatzailea erakutsi aurretik."
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "Bere formatuak irekitzen ditu"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "Deskargatu bideo hau bakarrik, edo jarri ilaran erreprodukzio-zerrenda osoa zure Deskarga bizkorreko profil aktiboarekin."
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "Bideo bat kargatzen du"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-emaitza bat ilaran jarri aurretik aztertzen duen gehieneko sarrera kopurua."
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "{{count}} arte kargatzen ditu, zuk aukera dezazun"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "Kargatutako erreprodukzio-zerrendako elementu guztiak ilaran jartzen ditu Deskarga bizkorreko profil aktiboarekin. Azterketak zure muga jotzen badu, Arroxy-k galdetuko du ilaran jarri aurretik."
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "Albuma, lehenengo"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "Deskarga bat jartzen du ilaran eta URL honi lotutako erreprodukzio-zerrenda alde batera uzten du."
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "Gustatu zaizkizun bideoak, lehenengo"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "Deskargatu bideo hau"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "Mix-a, lehenengo"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "Deskargatu erreprodukzio-zerrenda osoa"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "Erreprodukzio-zerrenda, lehenengo"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "Bideo hau bakarrik kargatzen du. URL honi lotutako erreprodukzio-zerrenda alde batera uzten da."
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "Igotako bideoak, lehenengo"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "Hau bakarrik"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "Ikusi geroago, lehenengo"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "Esteka honek erreprodukzio-zerrenda bat du"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "{{count}} arte kargatzen ditu, eta gero deskargatzen ditu"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "Mix bat aldatu egiten da irekitzen duzun bakoitzean."
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "Aukeratu albumetik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "Aukeratu gustatu zaizkizun bideoetatik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "Aukeratu Mix-etik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "Aukeratu erreprodukzio-zerrendatik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "Aukeratu igotako bideoetatik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "Aukeratu Ikusi geroago zerrendatik, lehenengoen artean"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "Deskargatu album honetatik"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "Deskargatu gustatu zaizkizun bideoetatik"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "Deskargatu Mix honetatik"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "Deskargatu erreprodukzio-zerrenda honetatik"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "Deskargatu kanal honetan igotako bideoetatik"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "Deskargatu Ikusi geroago zerrendatik"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "Honekin: {{profileName}}"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2917,6 +2973,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "Txertatu kapituluak"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "kapituluak"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "Izenburua, artista, deskribapena eta igotze-data fitxategian idazten dira."
@@ -2924,6 +2984,10 @@ msgstr "Izenburua, artista, deskribapena eta igotze-data fitxategian idazten dir
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "Txertatu metadatuak"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "metadatuak"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2933,6 +2997,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "Txertatu miniatura"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "azala"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "Bideoaren deskribapena .description testu-fitxategi gisa gordetzen du deskargaren ondoan."
@@ -2940,6 +3008,10 @@ msgstr "Bideoaren deskribapena .description testu-fitxategi gisa gordetzen du de
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "Gorde deskribapena"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "deskribapen-fitxategia"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2956,6 +3028,10 @@ msgstr "Miniatura .jpg irudi-fitxategi gisa gordetzen du deskargaren ondoan."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Gorde miniatura"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "miniatura-fitxategia"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3325,6 +3401,38 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Bideoaren miniatura"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "Aldatu kargatzeko muga"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlistCap.description_one"
+msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro."
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlistCap.descriptionWithTitle_one"
+msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro."
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "Jarri ilaran kargatutako elementuak"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "Erreprodukzio-zerrendaren azterketa mugatuta dago"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Aukeratu multzoaren kalitatea"
@@ -3478,6 +3586,10 @@ msgstr "320K arte"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "Kalitate onena"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "Profil berria"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3679,33 +3791,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "Musika edo podcastak"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "Audioa soilik"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "Azpititulu-fitxategiak soilik"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "Azpitituluak soilik"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "Bideo-fitxategi arruntak"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "Bideoa + audioa"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "Bideo mutua soilik"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "Bideoa, audiorik gabe"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -4719,10 +4815,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} elementu"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-sarrera kopuru hau bakarrik eskatzen du hautatzailea eraikitzean."
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "Erabili aplikazioaren muga: {{count}}"
@@ -4963,6 +5055,10 @@ msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
 msgstr "Profil berria"
 
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "Profil honek definitu gabeko karpeta batean gordetzen du. Aukeratu karpeta bat profilean, edo itzuli lehenetsira."
+
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
 msgstr "Sortu, hautatu, editatu edo kendu berrerabil daitezkeen deskarga-konfigurazioak."
@@ -4982,30 +5078,6 @@ msgstr "Arrastatu profil bat mugitzeko. Profil-hautatzaile guztiek ordena hau ja
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Berrezarri"
-
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC audioa"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "audio onena"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "bideo onena"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "audiorik gabe"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "azpitituluak soilik"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV audioa"
 
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"

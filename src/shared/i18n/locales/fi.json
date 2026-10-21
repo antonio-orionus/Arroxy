@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Salli",
+		"allowedSummary": "Tekoälyllä skaalatut virrat sallittu",
 		"description": "YouTube tarjoaa joitakin vanhoja videoita tekoälyllä tehtyinä suurempina versioina. Ohita säilyttää alkuperäiset virrat; voit silti valita skaalatun version käsin.",
 		"label": "Tekoälyllä skaalatut virrat",
 		"skip": "Ohita"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Jono",
 			"addToQueueTooltip": "Lisää jonoon – alkaa, kun aktiivinen lataus päättyy",
-			"audioOnly": "Vain ääni",
 			"itemsValueAudio_one": "{{count}} / {{total}} kappaletta",
 			"itemsValueAudio_other": "{{count}} / {{total}} kappaletta",
 			"itemsValueBulk_one": "{{count}} / {{total}} URL-osoitetta",
@@ -773,7 +773,7 @@
 			"landIn": "Tiedostosi tallentuu kansioon",
 			"landInMultiProfile_one": "Se tallentuu alla olevaan kohteeseen",
 			"landInMultiProfile_other": "Ne tallentuvat {{count}} alla olevaan kohteeseen",
-			"nothingToDownload": "Vain tekstitykset -esiasetus on käytössä, mutta tekstityskieltä ei ole valittu – mitään ei ladata.",
+			"nothingToDownload": "Profiili ”Vain tekstitykset” on aktiivinen, mutta tekstityskieltä ei ole valittu — mitään ei ladata.",
 			"profileBreakdownCount_one": "{{count}} kohde",
 			"profileBreakdownCount_other": "{{count}} kohdetta",
 			"profileBreakdownHeading": "Tämän erän profiilit",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Äänen kieli",
 			"audioLanguageCount_one": "{{count}} kieli",
 			"audioLanguageCount_other": "{{count}} kieltä",
-			"audioOnly": "Vain ääni",
 			"bitrateValue": "Bittinopeus {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Evästeet on määritetty, mutta ne ovat pois käytöstä. Ota ne käyttöön ja yritä uudelleen saadaksesi koko luettelon tai vaihda verkkoa ja yritä uudelleen.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Tuntematon tarkkuus",
 			"savesAs": {
 				"label": "Tallentuu muodossa",
-				"reset": "WebM ei voi sisältää koodekkia {{codec}}, joten tiedostotyypiksi palautettiin Auto."
+				"reset": "WebM ei voi sisältää koodekkia {{codec}}, joten tiedostotyypiksi palautettiin Auto.",
+				"value": "Tallentuu muodossa .{{ext}}"
 			},
 			"sizeUnknown": "Koko tuntematon",
 			"skipToConfirm": "Siirry vahvistukseen",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "äänellä"
 		},
-		"mixedPrompt": {
-			"body": "Haluatko vain napsauttamasi videon vai valita soittolistasta? Valitset seuraavaksi tietyt videot tai alueen.",
-			"pickFromPlaylist": "Valitse soittolistasta",
-			"playlistLimit": "Soittolistan tarkistusraja: {{count}} kohdetta",
-			"playlistTooltip": "Lataa soittolistan tarkistusrajaasi asti ennen valitsimen näyttämistä.",
-			"quickBody": "Lataa vain tämä video tai lisää koko soittolista jonoon aktiivisella Pikalataus-profiilillasi.",
-			"quickLimitDescription": "Enimmäismäärä kohteita, jotka Arroxy tarkistaa ennen soittolistan, kanavan tai hakutuloksen lisäämistä jonoon.",
-			"quickPlaylistTooltip": "Lisää jonoon kaikki ladatut soittolistan kohteet aktiivisella Pikalataus-profiililla. Jos tarkistus yltää rajaasi, Arroxy kysyy ennen jonoon lisäämistä.",
-			"quickSingleTooltip": "Lisää jonoon yhden latauksen ja ohittaa tähän URL-osoitteeseen liitetyn soittolistan.",
-			"quickSingleVideo": "Lataa tämä video",
-			"quickWholePlaylist": "Lataa koko soittolista",
-			"singleTooltip": "Lataa vain tämän videon. Tähän URL-osoitteeseen liitetty soittolista ohitetaan.",
-			"singleVideo": "Vain tämä",
-			"title": "Tässä linkissä on soittolista"
+		"listPrompt": {
+			"escHint": "Esc peruuttaa. Mitään ei haeta, ennen kuin valitset.",
+			"interactiveSubtitle": "Valitse muodot itse",
+			"justThisVideo": "Vain tämä video",
+			"justThisVideoInteractiveHint": "Avaa videon muodot",
+			"justThisVideoQuickHint": "Hakee yhden videon",
+			"listInteractiveHint": "Hakee enintään {{count}}, joista valita",
+			"listOption": {
+				"album": "Albumi, ensimmäiset",
+				"liked": "Tykkäämäsi videot, ensimmäiset",
+				"mix": "Mix, ensimmäiset",
+				"playlist": "Soittolista, ensimmäiset",
+				"uploads": "Kanavan videot, ensimmäiset",
+				"watchLater": "Katso myöhemmin -lista, ensimmäiset"
+			},
+			"listQuickHint": "Hakee enintään {{count}} ja lataa ne sitten",
+			"mixNote": "Mix muuttuu joka kerta, kun avaat sen.",
+			"pickOption": {
+				"album": "Valitse albumista, ensimmäiset",
+				"liked": "Valitse tykkäämistäsi videoista, ensimmäiset",
+				"mix": "Valitse Mixistä, ensimmäiset",
+				"playlist": "Valitse soittolistasta, ensimmäiset",
+				"uploads": "Valitse kanavan videoista, ensimmäiset",
+				"watchLater": "Valitse Katso myöhemmin -listasta, ensimmäiset"
+			},
+			"title": {
+				"album": "Lataa tästä albumista",
+				"liked": "Lataa tykkäämistäsi videoista",
+				"mix": "Lataa tästä Mixistä",
+				"playlist": "Lataa tästä soittolistasta",
+				"uploads": "Lataa kanavan videoista",
+				"watchLater": "Lataa Katso myöhemmin -listasta"
+			},
+			"withProfile": "Profiililla {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Lukumerkit, joiden avulla voi siirtyä missä tahansa nykyaikaisessa soittimessa.",
-				"label": "Upota luvut"
+				"label": "Upota luvut",
+				"short": "luvut"
 			},
 			"embedMetadata": {
 				"description": "Nimi, esittäjä, kuvaus ja lisäyspäivä kirjoitetaan tiedostoon.",
-				"label": "Upota metatiedot"
+				"label": "Upota metatiedot",
+				"short": "metatiedot"
 			},
 			"embedThumbnail": {
 				"description": "Kansikuva tiedoston sisällä. WebM-video muunnetaan MKV:ksi; ohitetaan, jos tekstitykset upotetaan.",
-				"label": "Upota pikkukuva"
+				"label": "Upota pikkukuva",
+				"short": "kansikuva"
 			},
 			"writeDescription": {
 				"description": "Tallentaa videon kuvauksen .description-tekstitiedostona latauksen viereen.",
-				"label": "Tallenna kuvaus"
+				"label": "Tallenna kuvaus",
+				"short": "kuvaustiedosto"
 			},
 			"writeM3u": {
 				"description": "Tallenna .m3u-soittolista videoiden viereen, jotta ne avautuvat järjestyksessä mediasoittimessa.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Tallentaa pikkukuvan .jpg-kuvatiedostona latauksen viereen.",
-				"label": "Tallenna pikkukuva"
+				"label": "Tallenna pikkukuva",
+				"short": "pikkukuvatiedosto"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Tarkistetaan kansiota…",
 			"thumbnailAlt": "Videon pikkukuva"
 		},
+		"playlistCap": {
+			"changeLimit": "Muuta latausrajaa",
+			"descriptionWithTitle_one": "<title/>: Arroxy haki {{count}} kohteen nykyisellä rajalla {{limit}}. Lisää haettu kohde jonoon nyt tai suurenna rajaa ja tarkista uudelleen.",
+			"descriptionWithTitle_other": "<title/>: Arroxy haki {{count}} kohdetta nykyisellä rajalla {{limit}}. Lisää haetut kohteet jonoon nyt tai suurenna rajaa ja tarkista uudelleen.",
+			"description_one": "Arroxy haki {{count}} kohteen nykyisellä rajalla {{limit}}. Lisää haettu kohde jonoon nyt tai suurenna rajaa ja tarkista uudelleen.",
+			"description_other": "Arroxy haki {{count}} kohdetta nykyisellä rajalla {{limit}}. Lisää haetut kohteet jonoon nyt tai suurenna rajaa ja tarkista uudelleen.",
+			"queueLoaded": "Lisää haetut kohteet jonoon",
+			"title": "Soittolistan tarkistus on rajattu"
+		},
 		"playlistPresets": {
 			"heading": "Valitse erän laatu",
 			"itemCount_one": "{{count}} kohde",
@@ -1154,6 +1188,7 @@
 				"320": "Enintään 320K",
 				"best": "Paras laatu"
 			},
+			"defaultName": "Uusi profiili",
 			"destination": {
 				"defaultFolder": "Oletuslatauskansio",
 				"defaultFolderWithSubfolder": "Oletuslatauskansio / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musiikki tai podcastit",
-					"label": "Vain ääni"
+					"description": "Musiikki tai podcastit"
 				},
 				"subtitlesOnly": {
-					"description": "Vain tekstitystiedostot",
-					"label": "Vain tekstitykset"
+					"description": "Vain tekstitystiedostot"
 				},
 				"videoAudio": {
-					"description": "Tavalliset videotiedostot",
-					"label": "Video + ääni"
+					"description": "Tavalliset videotiedostot"
 				},
 				"videoOnly": {
-					"description": "Vain äänetön video",
-					"label": "Video, ei ääntä"
+					"description": "Vain äänetön video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Enimmäismäärä kohteita, jotka Arroxy lataa, kun soittolista, kanava tai hakutulos avataan.",
 				"invalid": "Käytä kokonaislukua väliltä 1–5000",
 				"label": "Tarkistettavat soittolistan kohteet",
-				"option": "{{count}} kohdetta",
-				"tooltip": "Arroxy pyytää valitsinta rakentaessaan vain näin monta soittolistan, kanavan tai haun kohdetta."
+				"option": "{{count}} kohdetta"
 			},
 			"playlistScope": {
 				"appLimit": "Käytä sovelluksen rajaa: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} on sijainnin {{position}} / {{count}} päällä.",
 				"movePickedUp": "{{profileName}} poimittu. Se on sijainnissa {{position}} / {{count}}.",
 				"newProfile": "Uusi profiili",
+				"outputMissing": "Tämä profiili tallentaa kansioon, jota ei ole määritetty. Valitse profiilille kansio tai palauta se oletukseen.",
 				"panelDescription": "Luo, valitse, muokkaa tai poista uudelleenkäytettäviä latausmäärityksiä.",
 				"panelTitle": "Latausprofiilit",
 				"remove": "Poista",
 				"reorderHint": "Siirrä profiilia vetämällä. Jokainen profiilinvalitsin noudattaa tätä järjestystä.",
 				"reset": "Palauta",
-				"summary": {
-					"aacAudio": "AAC-ääni",
-					"bestAudio": "paras ääni",
-					"bestVideo": "paras video",
-					"noAudio": "ei ääntä",
-					"subtitlesOnly": "vain tekstitykset",
-					"wavAudio": "WAV-ääni"
-				},
 				"switchAria": "Vaihda latausprofiilia: {{profileName}}",
 				"switchTitle": "Vaihda latausprofiilia"
 			},

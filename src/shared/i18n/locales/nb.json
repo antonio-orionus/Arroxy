@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Tillat",
+		"allowedSummary": "KI-oppskalerte strømmer tillatt",
 		"description": "YouTube tilbyr noen gamle videoer i størrelser som er laget med KI. Hopp over beholder originalstrømmene, og du kan fortsatt velge en oppskalert strøm manuelt.",
 		"label": "KI-oppskalerte strømmer",
 		"skip": "Hopp over"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Kø",
 			"addToQueueTooltip": "Legges i køen – starter når den aktive nedlastingen er ferdig",
-			"audioOnly": "Bare lyd",
 			"itemsValueAudio_one": "{{count}} av {{total}} spor",
 			"itemsValueAudio_other": "{{count}} av {{total}} spor",
 			"itemsValueBulk_one": "{{count}} av {{total}} nettadresse",
@@ -773,7 +773,7 @@
 			"landIn": "Filen din havner i",
 			"landInMultiProfile_one": "Den havner i målmappen nedenfor",
 			"landInMultiProfile_other": "De havner i de {{count}} målmappene nedenfor",
-			"nothingToDownload": "Forhåndsvalget Bare undertekster er aktivt, men ingen undertekstspråk er valgt – ingenting blir lastet ned.",
+			"nothingToDownload": "Profilen «Bare undertekster» er aktiv, men det er ikke valgt noe undertekstspråk — ingenting lastes ned.",
 			"profileBreakdownCount_one": "{{count}} element",
 			"profileBreakdownCount_other": "{{count}} elementer",
 			"profileBreakdownHeading": "Profiler i denne gruppen",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Lydspråk",
 			"audioLanguageCount_one": "{{count}} språk",
 			"audioLanguageCount_other": "{{count}} språk",
-			"audioOnly": "Bare lyd",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Informasjonskapsler er konfigurert, men slått av. Slå dem på og prøv på nytt for å få hele listen, eller bytt nettverk og prøv på nytt.",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "Ukjent oppløsning",
 			"savesAs": {
 				"label": "Lagres som",
-				"reset": "WebM kan ikke inneholde {{codec}}, så filtypen ble satt tilbake til Auto."
+				"reset": "WebM kan ikke inneholde {{codec}}, så filtypen ble satt tilbake til Auto.",
+				"value": "Lagres som .{{ext}}"
 			},
 			"sizeUnknown": "Ukjent størrelse",
 			"skipToConfirm": "Gå rett til bekreftelse",
@@ -969,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "med lyd"
 		},
-		"mixedPrompt": {
-			"body": "Vil du ha bare videoen du klikket på, eller velge fra spillelisten? Du velger bestemte videoer eller et område i neste trinn.",
-			"pickFromPlaylist": "Velg fra spilleliste",
-			"playlistLimit": "Skannegrense for spilleliste: {{count}} elementer",
-			"playlistTooltip": "Laster inn spillelisten, opptil skannegrensen din for spillelister, før utvalget vises.",
-			"quickBody": "Last ned bare denne videoen, eller legg hele spillelisten i køen med den aktive Hurtignedlasting-profilen din.",
-			"quickLimitDescription": "Maksimalt antall oppføringer Arroxy skanner før en spilleliste, kanal eller et søkeresultat legges i køen.",
-			"quickPlaylistTooltip": "Legger alle innlastede spillelisteelementer i køen med den aktive Hurtignedlasting-profilen. Hvis skanningen når grensen din, spør Arroxy før den legger dem i køen.",
-			"quickSingleTooltip": "Legger én nedlasting i køen og ignorerer spillelisten som hører til denne nettadressen.",
-			"quickSingleVideo": "Last ned denne videoen",
-			"quickWholePlaylist": "Last ned hele spillelisten",
-			"singleTooltip": "Laster inn bare denne videoen. Spillelisten som hører til denne nettadressen, ignoreres.",
-			"singleVideo": "Bare denne",
-			"title": "Denne lenken har en spilleliste"
+		"listPrompt": {
+			"escHint": "Esc avbryter. Ingenting lastes inn før du velger.",
+			"interactiveSubtitle": "Velg formater selv",
+			"justThisVideo": "Bare denne videoen",
+			"justThisVideoInteractiveHint": "Åpner videoens formater",
+			"justThisVideoQuickHint": "Laster inn én video",
+			"listInteractiveHint": "Laster inn opptil {{count}} du kan velge blant",
+			"listOption": {
+				"album": "Albumet, de første",
+				"liked": "Dine likte videoer, de første",
+				"mix": "Mixen, de første",
+				"playlist": "Spillelisten, de første",
+				"uploads": "Opplastingene, de første",
+				"watchLater": "Se senere, de første"
+			},
+			"listQuickHint": "Laster inn opptil {{count}} og laster dem deretter ned",
+			"mixNote": "En Mix endrer seg hver gang du åpner den.",
+			"pickOption": {
+				"album": "Velg fra albumet, de første",
+				"liked": "Velg blant dine likte videoer, de første",
+				"mix": "Velg fra Mixen, de første",
+				"playlist": "Velg fra spillelisten, de første",
+				"uploads": "Velg blant opplastingene, de første",
+				"watchLater": "Velg fra Se senere, de første"
+			},
+			"title": {
+				"album": "Last ned fra dette albumet",
+				"liked": "Last ned fra dine likte videoer",
+				"mix": "Last ned fra denne Mixen",
+				"playlist": "Last ned fra denne spillelisten",
+				"uploads": "Last ned fra denne kanalens opplastinger",
+				"watchLater": "Last ned fra Se senere"
+			},
+			"withProfile": "Med {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Kapittelmarkører som kan navigeres i alle moderne spillere.",
-				"label": "Bygg inn kapitler"
+				"label": "Bygg inn kapitler",
+				"short": "kapitler"
 			},
 			"embedMetadata": {
 				"description": "Tittel, artist, beskrivelse og opplastingsdato skrives inn i filen.",
-				"label": "Bygg inn metadata"
+				"label": "Bygg inn metadata",
+				"short": "metadata"
 			},
 			"embedThumbnail": {
 				"description": "Omslagsbilde inni filen. WebM-video remuxes til MKV; hoppes over når undertekster bygges inn.",
-				"label": "Bygg inn miniatyrbilde"
+				"label": "Bygg inn miniatyrbilde",
+				"short": "omslagsbilde"
 			},
 			"writeDescription": {
 				"description": "Lagrer videobeskrivelsen som en .description-tekstfil ved siden av nedlastingen.",
-				"label": "Lagre beskrivelse"
+				"label": "Lagre beskrivelse",
+				"short": "beskrivelsesfil"
 			},
 			"writeM3u": {
 				"description": "Lagre en .m3u-spilleliste sammen med videoene, slik at de åpnes i rekkefølge i mediespilleren.",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Lagrer miniatyrbildet som en .jpg-bildefil ved siden av nedlastingen.",
-				"label": "Lagre miniatyrbilde"
+				"label": "Lagre miniatyrbilde",
+				"short": "miniatyrbildefil"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "Kontrollerer mappen …",
 			"thumbnailAlt": "Miniatyrbilde av videoen"
 		},
+		"playlistCap": {
+			"changeLimit": "Endre innlastingsgrense",
+			"descriptionWithTitle_one": "<title/>: Arroxy lastet inn {{count}} element med den gjeldende grensen på {{limit}}. Legg det innlastede elementet i køen nå, eller øk grensen og skann på nytt.",
+			"descriptionWithTitle_other": "<title/>: Arroxy lastet inn {{count}} elementer med den gjeldende grensen på {{limit}}. Legg de innlastede elementene i køen nå, eller øk grensen og skann på nytt.",
+			"description_one": "Arroxy lastet inn {{count}} element med den gjeldende grensen på {{limit}}. Legg det innlastede elementet i køen nå, eller øk grensen og skann på nytt.",
+			"description_other": "Arroxy lastet inn {{count}} elementer med den gjeldende grensen på {{limit}}. Legg de innlastede elementene i køen nå, eller øk grensen og skann på nytt.",
+			"queueLoaded": "Legg innlastede elementer i køen",
+			"title": "Spillelisteskanningen er begrenset"
+		},
 		"playlistPresets": {
 			"heading": "Velg kvalitet for gruppen",
 			"itemCount_one": "{{count}} element",
@@ -1154,6 +1188,7 @@
 				"320": "Opptil 320K",
 				"best": "Best kvalitet"
 			},
+			"defaultName": "Ny profil",
 			"destination": {
 				"defaultFolder": "Standard nedlastingsmappe",
 				"defaultFolderWithSubfolder": "Standard nedlastingsmappe / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Musikk eller podkaster",
-					"label": "Bare lyd"
+					"description": "Musikk eller podkaster"
 				},
 				"subtitlesOnly": {
-					"description": "Bare undertekstfiler",
-					"label": "Bare undertekster"
+					"description": "Bare undertekstfiler"
 				},
 				"videoAudio": {
-					"description": "Vanlige videofiler",
-					"label": "Video + lyd"
+					"description": "Vanlige videofiler"
 				},
 				"videoOnly": {
-					"description": "Bare lydløs video",
-					"label": "Video, uten lyd"
+					"description": "Bare lydløs video"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Maksimalt antall oppføringer Arroxy laster inn når en spilleliste, kanal eller et søkeresultat åpnes.",
 				"invalid": "Bruk et heltall fra 1 til 5000",
 				"label": "Spilleliste-elementer som skal skannes",
-				"option": "{{count}} elementer",
-				"tooltip": "Arroxy ber bare om så mange spilleliste-, kanal- eller søkeoppføringer mens utvalget bygges."
+				"option": "{{count}} elementer"
 			},
 			"playlistScope": {
 				"appLimit": "Bruk appgrensen: {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} er over plass {{position}} av {{count}}.",
 				"movePickedUp": "Tok opp {{profileName}}. Den står på plass {{position}} av {{count}}.",
 				"newProfile": "Ny profil",
+				"outputMissing": "Denne profilen lagrer i en mappe som ikke er angitt. Velg en mappe i profilen, eller sett den tilbake til standard.",
 				"panelDescription": "Opprett, velg, rediger eller fjern gjenbrukbare nedlastingsoppsett.",
 				"panelTitle": "Nedlastingsprofiler",
 				"remove": "Fjern",
 				"reorderHint": "Dra en profil for å flytte den. Alle profilvelgere følger denne rekkefølgen.",
 				"reset": "Tilbakestill",
-				"summary": {
-					"aacAudio": "AAC-lyd",
-					"bestAudio": "beste lyd",
-					"bestVideo": "beste video",
-					"noAudio": "ingen lyd",
-					"subtitlesOnly": "bare undertekster",
-					"wavAudio": "WAV-lyd"
-				},
 				"switchAria": "Bytt nedlastingsprofil: {{profileName}}",
 				"switchTitle": "Bytt nedlastingsprofil"
 			},

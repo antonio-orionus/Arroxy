@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Dovoli",
+		"allowedSummary": "Toki, povečani z umetno inteligenco, dovoljeni",
 		"description": "YouTube nekatere stare videoposnetke ponuja v velikostih, ki jih je ustvarila umetna inteligenca. Z možnostjo Preskoči ohranite izvirne tokove; povečanega lahko še vedno izberete ročno.",
 		"label": "Toki, povečani z umetno inteligenco",
 		"skip": "Preskoči"
@@ -778,7 +779,6 @@
 		"confirm": {
 			"addToQueue": "+ Vrsta",
 			"addToQueueTooltip": "Doda v vrsto — začne se, ko se aktivni prenos konča",
-			"audioOnly": "Samo zvok",
 			"itemsValueAudio_few": "{{count}} od {{total}} skladb",
 			"itemsValueAudio_one": "{{count}} od {{total}} skladb",
 			"itemsValueAudio_other": "{{count}} od {{total}} skladb",
@@ -805,7 +805,7 @@
 			"landInMultiProfile_one": "Shranjeno bo v spodnjo mapo",
 			"landInMultiProfile_other": "Shranjeno bo v {{count}} spodnjih map",
 			"landInMultiProfile_two": "Shranjeno bo v {{count}} spodnji mapi",
-			"nothingToDownload": "Aktivna je prednastavitev samo s podnapisi, vendar noben jezik podnapisov ni izbran — nič ne bo preneseno.",
+			"nothingToDownload": "Aktiven je profil „Samo podnapisi“, vendar ni izbran noben jezik podnapisov – nič ne bo preneseno.",
 			"profileBreakdownCount_few": "{{count}} elementi",
 			"profileBreakdownCount_one": "{{count}} element",
 			"profileBreakdownCount_other": "{{count}} elementov",
@@ -843,7 +843,6 @@
 			"audioLanguageCount_one": "{{count}} jezik",
 			"audioLanguageCount_other": "{{count}} jezikov",
 			"audioLanguageCount_two": "{{count}} jezika",
-			"audioOnly": "Samo zvok",
 			"bitrateValue": "Bitna hitrost {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Piškotki so nastavljeni, vendar izklopljeni. Vklopite jih in poskusite znova, da dobite celoten seznam, ali zamenjajte omrežje in poskusite znova.",
@@ -995,7 +994,8 @@
 			"resolutionUnknown": "Neznana ločljivost",
 			"savesAs": {
 				"label": "Shrani kot",
-				"reset": "WebM ne podpira {{codec}}, zato se je vrsta datoteke vrnila na Samodejno."
+				"reset": "WebM ne podpira {{codec}}, zato se je vrsta datoteke vrnila na Samodejno.",
+				"value": "Shrani se kot .{{ext}}"
 			},
 			"sizeUnknown": "Velikost neznana",
 			"skipToConfirm": "Preskoči na potrditev",
@@ -1005,37 +1005,61 @@
 			"video": "Video",
 			"withAudio": "z zvokom"
 		},
-		"mixedPrompt": {
-			"body": "Želite samo videoposnetek, na katerega ste kliknili, ali izbiro s seznama predvajanja? Naslednje bo sledila izbira določenih videoposnetkov ali obsega.",
-			"pickFromPlaylist": "Izberi s seznama predvajanja",
-			"playlistLimit": "Omejitev sondiranja seznama predvajanja: {{count}} elementov",
-			"playlistTooltip": "Naloži seznam predvajanja do vaše omejitve sondiranja, preden prikaže izbirnik.",
-			"quickBody": "Prenesite samo ta videoposnetek ali dodajte v vrsto celoten seznam predvajanja z aktivnim profilom hitrega prenosa.",
-			"quickLimitDescription": "Največje število vnosov, ki jih Arroxy pregleda, preden doda v vrsto seznam predvajanja, kanal ali rezultat iskanja.",
-			"quickPlaylistTooltip": "V vrsto doda vse naložene elemente seznama predvajanja z aktivnim profilom hitrega prenosa. Če pregled doseže vašo omejitev, Arroxy vpraša, preden doda v vrsto.",
-			"quickSingleTooltip": "V vrsto doda en prenos in prezre seznam predvajanja, pripet temu naslovu URL.",
-			"quickSingleVideo": "Prenesi ta videoposnetek",
-			"quickWholePlaylist": "Prenesi celoten seznam predvajanja",
-			"singleTooltip": "Naloži samo ta videoposnetek. Seznam predvajanja, pripet temu naslovu URL, je prezrt.",
-			"singleVideo": "Samo tega",
-			"title": "Ta povezava vsebuje seznam predvajanja"
+		"listPrompt": {
+			"escHint": "Esc prekliče. Nič se ne naloži, dokler ne izberete.",
+			"interactiveSubtitle": "Formate izberite sami",
+			"justThisVideo": "Samo ta videoposnetek",
+			"justThisVideoInteractiveHint": "Odpre njegove formate",
+			"justThisVideoQuickHint": "Naloži en videoposnetek",
+			"listInteractiveHint": "Naloži do {{count}} za izbiro",
+			"listOption": {
+				"album": "Album, prvih",
+				"liked": "Videoposnetki, ki so vam všeč, prvih",
+				"mix": "Mix, prvih",
+				"playlist": "Seznam predvajanja, prvih",
+				"uploads": "Objave kanala, prvih",
+				"watchLater": "„Ogled pozneje“, prvih"
+			},
+			"listQuickHint": "Naloži do {{count}}, nato jih prenese",
+			"mixNote": "Mix se spremeni ob vsakem odprtju.",
+			"pickOption": {
+				"album": "Izbira iz albuma, od prvih",
+				"liked": "Izbira med videoposnetki, ki so vam všeč, od prvih",
+				"mix": "Izbira iz Mixa, od prvih",
+				"playlist": "Izbira iz seznama predvajanja, od prvih",
+				"uploads": "Izbira iz objav kanala, od prvih",
+				"watchLater": "Izbira iz „Ogled pozneje“, od prvih"
+			},
+			"title": {
+				"album": "Prenos iz tega albuma",
+				"liked": "Prenos iz videoposnetkov, ki so vam všeč",
+				"mix": "Prenos iz tega Mixa",
+				"playlist": "Prenos iz tega seznama predvajanja",
+				"uploads": "Prenos iz objav tega kanala",
+				"watchLater": "Prenos iz „Ogled pozneje“"
+			},
+			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Oznake poglavij, po katerih lahko krmarite v vsakem sodobnem predvajalniku.",
-				"label": "Vdelaj poglavja"
+				"label": "Vdelaj poglavja",
+				"short": "poglavja"
 			},
 			"embedMetadata": {
 				"description": "Naslov, izvajalec, opis in datum nalaganja se zapišejo v datoteko.",
-				"label": "Vdelaj metapodatke"
+				"label": "Vdelaj metapodatke",
+				"short": "metapodatki"
 			},
 			"embedThumbnail": {
 				"description": "Naslovnica znotraj datoteke. Video WebM bo remultipleksiran v MKV; preskočeno, če so vdelani podnapisi.",
-				"label": "Vdelaj sličico"
+				"label": "Vdelaj sličico",
+				"short": "naslovnica"
 			},
 			"writeDescription": {
 				"description": "Shrani opis videoposnetka kot besedilno datoteko .description poleg prenosa.",
-				"label": "Shrani opis"
+				"label": "Shrani opis",
+				"short": "datoteka z opisom"
 			},
 			"writeM3u": {
 				"description": "Shrani seznam predvajanja .m3u ob videoposnetkih, da se v predvajalniku odprejo po vrstnem redu.",
@@ -1043,7 +1067,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Shrani sličico kot slikovno datoteko .jpg poleg prenosa.",
-				"label": "Shrani sličico"
+				"label": "Shrani sličico",
+				"short": "datoteka s sličico"
 			}
 		},
 		"part": {
@@ -1158,6 +1183,19 @@
 			"syncScanning": "Preverjanje mape …",
 			"thumbnailAlt": "Sličica videoposnetka"
 		},
+		"playlistCap": {
+			"changeLimit": "Spremeni omejitev nalaganja",
+			"descriptionWithTitle_few": "<title/>: Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"descriptionWithTitle_one": "<title/>: Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"descriptionWithTitle_other": "<title/>: Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"descriptionWithTitle_two": "<title/>: Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"description_few": "Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"description_one": "Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"description_other": "Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"description_two": "Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
+			"queueLoaded": "Dodaj naložene elemente v vrsto",
+			"title": "Pregled seznama predvajanja je omejen"
+		},
 		"playlistPresets": {
 			"heading": "Izberite kakovost za paket",
 			"itemCount_few": "{{count}} elementi",
@@ -1212,6 +1250,7 @@
 				"320": "Do 320K",
 				"best": "Najboljša kakovost"
 			},
+			"defaultName": "Nov profil",
 			"destination": {
 				"defaultFolder": "Privzeta mapa za prenose",
 				"defaultFolderWithSubfolder": "Privzeta mapa za prenose / {{subfolder}}",
@@ -1277,20 +1316,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Glasba ali podkasti",
-					"label": "Samo zvok"
+					"description": "Glasba ali podkasti"
 				},
 				"subtitlesOnly": {
-					"description": "Samo datoteke s podnapisi",
-					"label": "Samo podnapisi"
+					"description": "Samo datoteke s podnapisi"
 				},
 				"videoAudio": {
-					"description": "Navadne video datoteke",
-					"label": "Video + zvok"
+					"description": "Navadne video datoteke"
 				},
 				"videoOnly": {
-					"description": "Samo nem video",
-					"label": "Video, brez zvoka"
+					"description": "Samo nem video"
 				}
 			},
 			"note": {
@@ -1655,8 +1690,7 @@
 				"description": "Največje število vnosov, ki jih Arroxy naloži ob odprtju seznama predvajanja, kanala ali rezultata iskanja.",
 				"invalid": "Uporabite celo število od 1 do 5000",
 				"label": "Elementi seznama predvajanja za pregled",
-				"option": "{{count}} elementov",
-				"tooltip": "Arroxy ob gradnji izbirnika zahteva samo toliko vnosov seznama predvajanja, kanala ali iskanja."
+				"option": "{{count}} elementov"
 			},
 			"playlistScope": {
 				"appLimit": "Uporabi omejitev aplikacije: {{count}}",
@@ -1725,19 +1759,12 @@
 				"moveOver": "{{profileName}} je nad mestom {{position}} od {{count}}.",
 				"movePickedUp": "{{profileName}} pobran. Je na mestu {{position}} od {{count}}.",
 				"newProfile": "Nov profil",
+				"outputMissing": "Ta profil shranjuje v mapo, ki ni nastavljena. Izberite mapo v profilu ali ga ponastavite na privzeto.",
 				"panelDescription": "Ustvarite, izberite, uredite ali odstranite večkrat uporabne nastavitve prenosa.",
 				"panelTitle": "Profili prenosa",
 				"remove": "Odstrani",
 				"reorderHint": "Povlecite profil, da ga premaknete. Vsi izbirniki profilov sledijo temu vrstnemu redu.",
 				"reset": "Ponastavi",
-				"summary": {
-					"aacAudio": "zvok AAC",
-					"bestAudio": "najboljši zvok",
-					"bestVideo": "najboljši video",
-					"noAudio": "brez zvoka",
-					"subtitlesOnly": "samo podnapisi",
-					"wavAudio": "zvok WAV"
-				},
 				"switchAria": "Zamenjaj profil prenosa: {{profileName}}",
 				"switchTitle": "Zamenjaj profil prenosa"
 			},

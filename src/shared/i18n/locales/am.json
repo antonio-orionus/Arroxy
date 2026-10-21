@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "ፍቀድ",
+		"allowedSummary": "በAI የተሰፉ ዥረቶች ተፈቅደዋል",
 		"description": "YouTube አንዳንድ የቆዩ ቪዲዮዎችን በAI በተሠሩ መጠኖች ያቀርባል። ዝለል የመጀመሪያዎቹን ዥረቶች ይይዛል፤ በAI የተሰፋውን ዥረት ግን አሁንም በእጅ መምረጥ ይችላሉ።",
 		"label": "በAI የተሰፉ ዥረቶች",
 		"skip": "ዝለል"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ ወረፋ",
 			"addToQueueTooltip": "ሌሎች ዳውንሎዶች ሲጠናቀቁ ይጀምራል — ሙሉ ባንድዊድዝ ያገኛል",
-			"audioOnly": "ድምጽ ብቻ",
 			"itemsValueAudio_one": "{{count}} ከ {{total}} ዘፈን",
 			"itemsValueAudio_other": "{{count}} ከ {{total}} ዘፈኖች",
 			"itemsValueBulk_one": "{{count}} ከ{{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "ፋይልዎ እዚህ ይወርዳል",
 			"landInMultiProfile_one": "ከታች ወዳለው መድረሻ ይወርዳል",
 			"landInMultiProfile_other": "{{count}} መድረሻዎች ከታች ይወርዳሉ",
-			"nothingToDownload": "ንዑስ ርዕስ ብቻ ቅድመ-ቅንብር ነቅቷል ነገር ግን ምንም ቋንቋ አልተመረጠም — ምንም አይዳውንሎድም።",
+			"nothingToDownload": "“ንዑስ ርዕሶች ብቻ” መገለጫ ንቁ ነው፣ ነገር ግን ምንም የንዑስ ርዕስ ቋንቋ አልተመረጠም — ምንም አይወርድም።",
 			"profileBreakdownCount_one": "{{count}} ንጥል",
 			"profileBreakdownCount_other": "{{count}} ንጥሎች",
 			"profileBreakdownHeading": "በዚህ ስብስብ ውስጥ ያሉ መገለጫዎች",
@@ -807,7 +807,6 @@
 			"audioLanguage": "የድምፅ ቋንቋ",
 			"audioLanguageCount_one": "{{count}} ቋንቋ",
 			"audioLanguageCount_other": "{{count}} ቋንቋዎች",
-			"audioOnly": "ድምጽ ብቻ",
 			"bitrateValue": "ቢትሬት {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies ተዘጋጅቷል ነገር ግን ጠፍ ነው። ያስቡ እና እንደገና ሞክሩ፣ ወይም አውታረ መረብ ቀይሩ።",
@@ -959,7 +958,8 @@
 			"resolutionUnknown": "ጥራት መጠን አይታወቅም",
 			"savesAs": {
 				"label": "የሚቀመጠው እንደ",
-				"reset": "WebM {{codec}} መያዝ ስለማይችል የፋይሉ አይነት ወደ ራስ-ሰር ተመልሷል።"
+				"reset": "WebM {{codec}} መያዝ ስለማይችል የፋይሉ አይነት ወደ ራስ-ሰር ተመልሷል።",
+				"value": ".{{ext}} ተብሎ ይቀመጣል"
 			},
 			"sizeUnknown": "መጠን አይታወቅም",
 			"skipToConfirm": "ወደ ማረጋገጫ ዝለል",
@@ -969,37 +969,61 @@
 			"video": "ቪዲዮ",
 			"withAudio": "ከድምፅ ጋር"
 		},
-		"mixedPrompt": {
-			"body": "የጠቀሱትን ቪዲዮ ብቻ ይፈልጋሉ፣ ወይስ ከ Playlist ይምረጣሉ? በቀጣዩ ደረጃ የተወሰኑ ቪዲዮዎችን ወይም ክልል ይምረጣሉ።",
-			"pickFromPlaylist": "ከ Playlist ምረጥ",
-			"playlistLimit": "የፕሌይሊስት መፈተሻ ገደብ፦ {{count}} ንጥሎች",
-			"playlistTooltip": "አስመራጩን ከማሳየቱ በፊት playlist-ን እስከ የplaylist መመርመሪያ ገደብዎ ድረስ ይጭናል።",
-			"quickBody": "ይህን ቪዲዮ ብቻ አውርድ፣ ወይም ሙሉ ፕሌይሊስቱን በንቁው ፈጣን ማውረድ ፕሮፋይልህ ወደ ወረፋ አክል።",
-			"quickLimitDescription": "Arroxy ፕሌይሊስት፣ ቻናል ወይም የፍለጋ ውጤት ወደ ወረፋ ከማከሉ በፊት የሚቃኘው ከፍተኛ የንጥሎች ብዛት።",
-			"quickPlaylistTooltip": "እያንዳንዱን የተጫነ የፕሌይሊስት ንጥል በንቁው ፈጣን ማውረድ ፕሮፋይል ወደ ወረፋ ያክላል። ቅኝቱ ገደብህን ከደረሰ፣ Arroxy ወደ ወረፋ ከማከሉ በፊት ይጠይቃል።",
-			"quickSingleTooltip": "አንድ ማውረድ ወደ ወረፋ ያክላል እና ከዚህ URL ጋር የተያያዘውን ፕሌይሊስት ይተዋል።",
-			"quickSingleVideo": "ይህን ቪዲዮ አውርድ",
-			"quickWholePlaylist": "ሙሉ ፕሌይሊስቱን አውርድ",
-			"singleTooltip": "ይህን ቪዲዮ ብቻ ይጭናል። ከዚህ URL ጋር የተያያዘው playlist ይታለፋል።",
-			"singleVideo": "ይህን ብቻ",
-			"title": "ይህ ሊንክ Playlist አለው"
+		"listPrompt": {
+			"escHint": "Esc ይሰርዛል። እስኪመርጡ ድረስ ምንም አይጫንም።",
+			"interactiveSubtitle": "ቅርጸቶችን ራስዎ ይምረጡ",
+			"justThisVideo": "ይህን ቪዲዮ ብቻ",
+			"justThisVideoInteractiveHint": "ቅርጸቶቹን ይከፍታል",
+			"justThisVideoQuickHint": "አንድ ቪዲዮ ይጭናል",
+			"listInteractiveHint": "ለመምረጥ እስከ {{count}} ድረስ ይጭናል",
+			"listOption": {
+				"album": "የአልበሙ የመጀመሪያ ንጥሎች",
+				"liked": "የወደዷቸው ቪዲዮዎች የመጀመሪያ ንጥሎች",
+				"mix": "የMix የመጀመሪያ ንጥሎች",
+				"playlist": "የቪዲዮ ዝርዝሩ የመጀመሪያ ንጥሎች",
+				"uploads": "የሰቀላዎቹ የመጀመሪያ ንጥሎች",
+				"watchLater": "የ“በኋላ ይመልከቱ” የመጀመሪያ ንጥሎች"
+			},
+			"listQuickHint": "እስከ {{count}} ድረስ ይጭናል፣ ከዚያ ያወርዳቸዋል",
+			"mixNote": "Mix በከፈቱት ቁጥር ይለወጣል።",
+			"pickOption": {
+				"album": "ከአልበሙ የመጀመሪያ ንጥሎች ይምረጡ",
+				"liked": "ከወደዷቸው ቪዲዮዎች የመጀመሪያ ንጥሎች ይምረጡ",
+				"mix": "ከMix የመጀመሪያ ንጥሎች ይምረጡ",
+				"playlist": "ከቪዲዮ ዝርዝሩ የመጀመሪያ ንጥሎች ይምረጡ",
+				"uploads": "ከሰቀላዎቹ የመጀመሪያ ንጥሎች ይምረጡ",
+				"watchLater": "ከ“በኋላ ይመልከቱ” የመጀመሪያ ንጥሎች ይምረጡ"
+			},
+			"title": {
+				"album": "ከዚህ አልበም ያውርዱ",
+				"liked": "ከወደዷቸው ቪዲዮዎች ያውርዱ",
+				"mix": "ከዚህ Mix ያውርዱ",
+				"playlist": "ከዚህ የቪዲዮ ዝርዝር ያውርዱ",
+				"uploads": "ከዚህ ቻናል ሰቀላዎች ያውርዱ",
+				"watchLater": "ከ“በኋላ ይመልከቱ” ያውርዱ"
+			},
+			"withProfile": "ከ{{profileName}} ጋር"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "ምዕራፍ ምልክቶች በማናቸውም ዘመናዊ ተጫዋች ሊሰሩ ይችላሉ።",
-				"label": "ምዕራፎች ክተት"
+				"label": "ምዕራፎች ክተት",
+				"short": "ምዕራፎች"
 			},
 			"embedMetadata": {
 				"description": "ርዕስ፣ አርቲስት፣ መግለጫ እና የቀን ቀን ወደ ፋይሉ ይፃፋሉ።",
-				"label": "ሜታዳታ ክተት"
+				"label": "ሜታዳታ ክተት",
+				"short": "ሜታዳታ"
 			},
 			"embedThumbnail": {
 				"description": "የሽፋን ስዕል ውስጥ ፋይሉ። WebM ቪዲዮ ወደ MKV ይቀየራል፤ ንዑስ ርዕሶቹ ሲካተቱ ይዘለሉ።",
-				"label": "ድንክ ምስል ክተት"
+				"label": "ድንክ ምስል ክተት",
+				"short": "የሽፋን ስዕል"
 			},
 			"writeDescription": {
 				"description": "የቪዲዮ መግለጫን እንደ .description የጽሑፍ ፋይል ከዳውንሎዱ ጎን ያስቀምጣል።",
-				"label": "መግለጫ አስቀምጥ"
+				"label": "መግለጫ አስቀምጥ",
+				"short": "የመግለጫ ፋይል"
 			},
 			"writeM3u": {
 				"description": "ቪዲዮዎች በሚዲያ አጫዋች በቅደም ተከተል እንዲከፈቱ .m3u playlist ከእነሱ ጋር ያስቀምጣል።",
@@ -1007,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "ድንክ ምስሉን እንደ .jpg ምስል ፋይል ከዳውንሎዱ ጎን ያስቀምጣል።",
-				"label": "ድንክ ምስል አስቀምጥ"
+				"label": "ድንክ ምስል አስቀምጥ",
+				"short": "የድንክ ምስል ፋይል"
 			}
 		},
 		"part": {
@@ -1106,6 +1131,15 @@
 			"syncScanning": "ፎልደር በመፈተሽ ላይ…",
 			"thumbnailAlt": "የቪዲዮ ድንክ ምስል"
 		},
+		"playlistCap": {
+			"changeLimit": "የመጫን ገደብ ቀይር",
+			"descriptionWithTitle_one": "<title/>: Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥል ጭኗል። የተጫነውን ንጥል አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።",
+			"descriptionWithTitle_other": "<title/>: Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥሎች ጭኗል። የተጫኑትን ንጥሎች አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።",
+			"description_one": "Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥል ጭኗል። የተጫነውን ንጥል አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።",
+			"description_other": "Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥሎች ጭኗል። የተጫኑትን ንጥሎች አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።",
+			"queueLoaded": "የተጫኑ ንጥሎችን ወደ ወረፋ አክል",
+			"title": "የቪዲዮ ዝርዝር ቃኝት ተገድቧል"
+		},
 		"playlistPresets": {
 			"heading": "ለቡድኑ ጥራት ይምረጡ",
 			"itemCount_one": "{{count}} ንጥል",
@@ -1154,6 +1188,7 @@
 				"320": "እስከ 320K",
 				"best": "ምርጥ ጥራት"
 			},
+			"defaultName": "አዲስ መገለጫ",
 			"destination": {
 				"defaultFolder": "ነባሪ የውርዶች አቃፊ",
 				"defaultFolderWithSubfolder": "ነባሪ የውርዶች አቃፊ / {{subfolder}}",
@@ -1219,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "ሙዚቃ ወይም ፖድካስት",
-					"label": "ድምፅ ብቻ"
+					"description": "ሙዚቃ ወይም ፖድካስት"
 				},
 				"subtitlesOnly": {
-					"description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ",
-					"label": "ንዑስ ርዕሶች ብቻ"
+					"description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"
 				},
 				"videoAudio": {
-					"description": "መደበኛ የቪዲዮ ፋይሎች",
-					"label": "ቪዲዮ + ድምፅ"
+					"description": "መደበኛ የቪዲዮ ፋይሎች"
 				},
 				"videoOnly": {
-					"description": "ድምፅ የሌለው ቪዲዮ ብቻ",
-					"label": "ቪዲዮ፣ ያለ ድምፅ"
+					"description": "ድምፅ የሌለው ቪዲዮ ብቻ"
 				}
 			},
 			"note": {
@@ -1593,8 +1624,7 @@
 				"description": "Arroxy playlist፣ ቻናል፣ ወይም የፍለጋ ውጤት ሲከፍት የሚጭነው ከፍተኛ ቁጥር።",
 				"invalid": "ከ1 እስከ 5000 ሙሉ ቁጥር ይጠቀሙ",
 				"label": "ሊቃኙ የ Playlist ንጥሎች",
-				"option": "{{count}} ንጥሎች",
-				"tooltip": "አስመራጩን ሲገነባ Arroxy ይህን ያህል የplaylist፣ የቻናል ወይም የፍለጋ ግቤቶችን ብቻ ይጠይቃል።"
+				"option": "{{count}} ንጥሎች"
 			},
 			"playlistScope": {
 				"appLimit": "የመተግበሪያውን ገደብ ተጠቀም፦ {{count}}",
@@ -1663,19 +1693,12 @@
 				"moveOver": "{{profileName}} ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ነው።",
 				"movePickedUp": "{{profileName}} ተነሳ። ከ{{count}} ውስጥ በ{{position}}ኛ ቦታ ላይ ነው።",
 				"newProfile": "አዲስ መገለጫ",
+				"outputMissing": "ይህ መገለጫ ያልተዘጋጀ አቃፊ ውስጥ ያስቀምጣል። በመገለጫው ውስጥ አቃፊ ይምረጡ፣ ወይም ወደ ነባሪው ይመልሱት።",
 				"panelDescription": "እንደገና ሊጠቀሙባቸው የሚችሉ የማውረድ ቅንብሮችን ይፍጠሩ፣ ይምረጡ፣ ያርትዑ ወይም ያስወግዱ።",
 				"panelTitle": "የማውረድ መገለጫዎች",
 				"remove": "አስወግድ",
 				"reorderHint": "መገለጫን ለማንቀሳቀስ ይጎትቱት። እያንዳንዱ መገለጫ መምረጫ ይህን ቅደም ተከተል ይከተላል።",
 				"reset": "ዳግም አስጀምር",
-				"summary": {
-					"aacAudio": "AAC ድምጽ",
-					"bestAudio": "ምርጥ ድምጽ",
-					"bestVideo": "ምርጥ ቪዲዮ",
-					"noAudio": "ምንም ድምጽ የለም",
-					"subtitlesOnly": "ንዑስ ርዕሶች ብቻ",
-					"wavAudio": "WAV ድምጽ"
-				},
 				"switchAria": "የማውረጃ መገለጫ ቀይር፦ {{profileName}}",
 				"switchTitle": "የማውረጃ መገለጫ ቀይር"
 			},

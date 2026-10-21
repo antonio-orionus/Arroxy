@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "允許",
+		"allowedSummary": "已允許 AI 放大",
 		"description": "YouTube 會為部分舊影片提供以 AI 產生的尺寸。選擇「略過」會保留原始串流；你仍可手動挑選放大後的串流。",
 		"label": "AI 放大的串流",
 		"skip": "略過"
@@ -292,7 +293,7 @@
 			"1080": "最高 1080p",
 			"1440": "最高 1440p",
 			"2160": "最高 4K",
-			"best": "最佳畫質"
+			"best": "最佳品質"
 		},
 		"tierDesc": {
 			"144": "盡可能最小的檔案",
@@ -742,7 +743,6 @@
 		"confirm": {
 			"addToQueue": "+ 佇列",
 			"addToQueueTooltip": "加入佇列——進行中的下載完成後開始",
-			"audioOnly": "僅音訊",
 			"itemsValueAudio_other": "{{count}}／{{total}} 個音軌",
 			"itemsValueBulk_other": "{{count}}／{{total}} 個 URL",
 			"itemsValue_other": "{{count}}／{{total}} 部影片",
@@ -757,7 +757,7 @@
 			"labelVideo": "影片",
 			"landIn": "你的檔案將儲存至",
 			"landInMultiProfile_other": "它們將儲存至下方 {{count}} 個目的地",
-			"nothingToDownload": "已啟用「僅字幕」預設集，但未選擇字幕語言——不會下載任何內容。",
+			"nothingToDownload": "已啟用「僅字幕」設定檔，但未選擇字幕語言——不會下載任何內容。",
 			"profileBreakdownCount_other": "{{count}} 個項目",
 			"profileBreakdownHeading": "此批次中的設定檔",
 			"pullIt": "下載吧！↓",
@@ -789,7 +789,6 @@
 			"audio": "音訊",
 			"audioLanguage": "音訊語言",
 			"audioLanguageCount_other": "{{count}} 種語言",
-			"audioOnly": "僅音訊",
 			"bitrateValue": "位元率 {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookie 已設定但目前關閉。請啟用後重試以取得完整清單，或切換網路後重試。",
@@ -941,7 +940,8 @@
 			"resolutionUnknown": "解析度未知",
 			"savesAs": {
 				"label": "儲存為",
-				"reset": "WebM 無法容納 {{codec}}，因此檔案類型已改回自動。"
+				"reset": "WebM 無法容納 {{codec}}，因此檔案類型已改回自動。",
+				"value": "將儲存為 .{{ext}}"
 			},
 			"sizeUnknown": "大小未知",
 			"skipToConfirm": "跳至確認",
@@ -951,37 +951,61 @@
 			"video": "影片",
 			"withAudio": "含音訊"
 		},
-		"mixedPrompt": {
-			"body": "只要你點選的影片，還是要從播放清單中挑選？下一步可選擇特定影片或範圍。",
-			"pickFromPlaylist": "從播放清單選取",
-			"playlistLimit": "播放清單探查上限：{{count}} 個項目",
-			"playlistTooltip": "先載入播放清單至設定的探查上限，再顯示選取器。",
-			"quickBody": "只下載此影片，或使用目前的「快速下載」設定檔將整個播放清單加入佇列。",
-			"quickLimitDescription": "Arroxy 將播放清單、頻道或搜尋結果加入佇列前最多掃描的項目數。",
-			"quickPlaylistTooltip": "使用目前的「快速下載」設定檔，將所有已載入的播放清單項目加入佇列。若掃描達到上限，Arroxy 會先詢問再加入。",
-			"quickSingleTooltip": "只加入一個下載，並忽略此 URL 所附的播放清單。",
-			"quickSingleVideo": "下載此影片",
-			"quickWholePlaylist": "下載整個播放清單",
-			"singleTooltip": "僅載入此影片，會忽略此 URL 所附的播放清單。",
-			"singleVideo": "只要這個",
-			"title": "此連結包含播放清單"
+		"listPrompt": {
+			"escHint": "按 Esc 取消。選擇之前不會載入任何內容。",
+			"interactiveSubtitle": "自行選擇格式",
+			"justThisVideo": "僅此影片",
+			"justThisVideoInteractiveHint": "開啟其格式選項",
+			"justThisVideoQuickHint": "載入一部影片",
+			"listInteractiveHint": "最多載入 {{count}} 個供你選擇",
+			"listOption": {
+				"album": "專輯的前幾項",
+				"liked": "喜歡的影片的前幾項",
+				"mix": "合輯的前幾項",
+				"playlist": "播放清單的前幾項",
+				"uploads": "上傳內容的前幾項",
+				"watchLater": "「稍後觀看」的前幾項"
+			},
+			"listQuickHint": "最多載入 {{count}} 個，然後下載",
+			"mixNote": "合輯每次開啟時內容都會變動。",
+			"pickOption": {
+				"album": "從專輯的前幾項中選擇",
+				"liked": "從喜歡的影片的前幾項中選擇",
+				"mix": "從合輯的前幾項中選擇",
+				"playlist": "從播放清單的前幾項中選擇",
+				"uploads": "從上傳內容的前幾項中選擇",
+				"watchLater": "從「稍後觀看」的前幾項中選擇"
+			},
+			"title": {
+				"album": "從此專輯下載",
+				"liked": "從喜歡的影片下載",
+				"mix": "從此合輯下載",
+				"playlist": "從此播放清單下載",
+				"uploads": "從此頻道的上傳內容下載",
+				"watchLater": "從「稍後觀看」下載"
+			},
+			"withProfile": "使用 {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "可在任何現代播放器中導覽的章節標記。",
-				"label": "嵌入章節"
+				"label": "嵌入章節",
+				"short": "章節"
 			},
 			"embedMetadata": {
 				"description": "將標題、藝人、描述與上傳日期寫入檔案。",
-				"label": "嵌入中繼資料"
+				"label": "嵌入中繼資料",
+				"short": "中繼資料"
 			},
 			"embedThumbnail": {
 				"description": "將封面圖片放入檔案。WebM 影片會重新封裝為 MKV；嵌入字幕時會略過。",
-				"label": "嵌入縮圖"
+				"label": "嵌入縮圖",
+				"short": "封面"
 			},
 			"writeDescription": {
 				"description": "將影片描述儲存為下載檔案旁的 .description 文字檔。",
-				"label": "儲存描述"
+				"label": "儲存描述",
+				"short": "描述檔案"
 			},
 			"writeM3u": {
 				"description": "在影片旁儲存 .m3u 播放清單，讓媒體播放器依序開啟影片。",
@@ -989,7 +1013,8 @@
 			},
 			"writeThumbnail": {
 				"description": "將縮圖儲存為下載檔案旁的 .jpg 圖片。",
-				"label": "儲存縮圖"
+				"label": "儲存縮圖",
+				"short": "縮圖檔案"
 			}
 		},
 		"part": {
@@ -1080,6 +1105,13 @@
 			"syncScanning": "正在檢查資料夾…",
 			"thumbnailAlt": "影片縮圖"
 		},
+		"playlistCap": {
+			"changeLimit": "變更載入上限",
+			"descriptionWithTitle_other": "<title/>：Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。",
+			"description_other": "Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。",
+			"queueLoaded": "將已載入的項目加入佇列",
+			"title": "播放清單掃描有上限"
+		},
 		"playlistPresets": {
 			"heading": "選擇批次畫質",
 			"itemCount_other": "{{count}} 個項目",
@@ -1123,8 +1155,9 @@
 				"128": "最高 128K",
 				"192": "最高 192K",
 				"320": "最高 320K",
-				"best": "最佳畫質"
+				"best": "最佳音質"
 			},
+			"defaultName": "新增設定檔",
 			"destination": {
 				"defaultFolder": "預設下載資料夾",
 				"defaultFolderWithSubfolder": "預設下載資料夾 / {{subfolder}}",
@@ -1190,20 +1223,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "音樂或 Podcast",
-					"label": "僅音訊"
+					"description": "音樂或 Podcast"
 				},
 				"subtitlesOnly": {
-					"description": "僅字幕檔案",
-					"label": "僅字幕"
+					"description": "僅字幕檔案"
 				},
 				"videoAudio": {
-					"description": "一般影片檔案",
-					"label": "影片 + 音訊"
+					"description": "一般影片檔案"
 				},
 				"videoOnly": {
-					"description": "僅無聲影片",
-					"label": "影片，無音訊"
+					"description": "僅無聲影片"
 				}
 			},
 			"note": {
@@ -1562,8 +1591,7 @@
 				"description": "Arroxy 開啟播放清單、頻道或搜尋結果時最多載入的項目數。",
 				"invalid": "請使用 1 到 5000 之間的整數",
 				"label": "要掃描的播放清單項目",
-				"option": "{{count}} 個項目",
-				"tooltip": "Arroxy 建立選取器時只會要求這麼多播放清單、頻道或搜尋項目。"
+				"option": "{{count}} 個項目"
 			},
 			"playlistScope": {
 				"appLimit": "使用應用程式上限：{{count}}",
@@ -1598,7 +1626,7 @@
 					"balanced": "平衡 720p",
 					"best-1440": "QHD 1440p",
 					"best-2160": "4K UHD 2160p",
-					"best-quality": "最佳畫質",
+					"best-quality": "最佳品質",
 					"hd-1080": "Full HD 1080p",
 					"low-144": "最低畫質 144p",
 					"low-240": "省流量 240p",
@@ -1632,19 +1660,12 @@
 				"moveOver": "{{profileName}} 懸停在第 {{position}} 個上，共 {{count}} 個。",
 				"movePickedUp": "已拿起 {{profileName}}。目前位於第 {{position}} 個，共 {{count}} 個。",
 				"newProfile": "新增設定檔",
+				"outputMissing": "此設定檔儲存到的資料夾尚未設定。請在設定檔中選擇資料夾，或將其還原為預設值。",
 				"panelDescription": "建立、選取、編輯或移除可重複使用的下載設定。",
 				"panelTitle": "下載設定檔",
 				"remove": "移除",
 				"reorderHint": "拖曳設定檔即可移動。所有設定檔選取器都會依照這個順序排列。",
 				"reset": "重設",
-				"summary": {
-					"aacAudio": "AAC 音訊",
-					"bestAudio": "最佳音訊",
-					"bestVideo": "最佳影片",
-					"noAudio": "無音訊",
-					"subtitlesOnly": "僅字幕",
-					"wavAudio": "WAV 音訊"
-				},
 				"switchAria": "切換下載設定檔：{{profileName}}",
 				"switchTitle": "切換下載設定檔"
 			},

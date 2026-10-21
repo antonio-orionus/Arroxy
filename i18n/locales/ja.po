@@ -39,6 +39,10 @@ msgctxt "aiUpscaled.allow"
 msgid "Allow"
 msgstr "許可"
 
+msgctxt "aiUpscaled.allowedSummary"
+msgid "AI-upscaled allowed"
+msgstr "AI アップスケールを許可"
+
 msgctxt "aiUpscaled.description"
 msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
 msgstr "YouTube は一部の古い動画を、AI で作ったサイズでも提供しています。「スキップ」では元のストリームを使います。アップスケール版を手動で選ぶこともできます。"
@@ -314,7 +318,7 @@ msgstr "再試行"
 
 msgctxt "explore.linkCallout.body"
 msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
-msgstr "ページ内の動画・プレイリスト・チャンネルのリンクを右クリックすると、アクティブなプロファイルでダウンロードしたり、別のプロファイルを選んだり、インタラクティブダウンロードを開いたりできます。"
+msgstr "ページ内の動画・プレイリスト・チャンネルのリンクを右クリックすると、アクティブなプロフィールでダウンロードしたり、別のプロフィールを選んだり、インタラクティブダウンロードを開いたりできます。"
 
 msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
@@ -326,7 +330,7 @@ msgstr "リンクをコピー"
 
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
-msgstr "プロファイルでダウンロード"
+msgstr "プロフィールでダウンロード"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -899,7 +903,7 @@ msgstr "最大 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "最高画質"
+msgstr "最高品質"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -2113,10 +2117,6 @@ msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
 msgstr "他のダウンロードが終わってから開始 — 帯域幅をフル活用"
 
-msgctxt "wizard.confirm.audioOnly"
-msgid "Audio only"
-msgstr "音声のみ"
-
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
@@ -2178,8 +2178,8 @@ msgid "They'll land in the {{count}} destinations below"
 msgstr "下の{{count}}件の保存先に保存されます"
 
 msgctxt "wizard.confirm.nothingToDownload"
-msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
-msgstr "字幕のみプリセットが有効ですが字幕言語が選択されていません — 何もダウンロードされません。"
+msgid "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "「字幕のみ」プロフィールが有効ですが、字幕の言語が選択されていません — 何もダウンロードされません。"
 
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
@@ -2188,7 +2188,7 @@ msgstr "{{count}} 件"
 
 msgctxt "wizard.confirm.profileBreakdownHeading"
 msgid "Profiles in this batch"
-msgstr "このバッチのプロファイル"
+msgstr "このバッチのプロフィール"
 
 msgctxt "wizard.confirm.pullIt"
 msgid "Pull it! ↓"
@@ -2264,7 +2264,7 @@ msgstr "例: lo-fi rips"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
-msgstr "サブフォルダに保存"
+msgstr "サブフォルダーに保存"
 
 msgctxt "wizard.folder.videos"
 msgid "Movies"
@@ -2282,10 +2282,6 @@ msgstr "音声の言語"
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} 言語"
-
-msgctxt "wizard.formats.audioOnly"
-msgid "Audio only"
-msgstr "音声のみ"
 
 msgctxt "wizard.formats.bitrateValue"
 msgid "Bitrate {{bitrate}}"
@@ -2633,11 +2629,11 @@ msgstr "音声なし"
 
 msgctxt "wizard.formats.profile.calloutBody"
 msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
-msgstr "アクティブなプロファイルが、ストリームをあらかじめ選んでくれます。メニューからプロファイルを切り替えたり、鉛筆アイコンでこのダウンロードを離れずにプロファイルを調整したりできます。"
+msgstr "アクティブなプロフィールが、ストリームをあらかじめ選んでくれます。メニューからプロフィールを切り替えたり、鉛筆アイコンでこのダウンロードを離れずにプロフィールを調整したりできます。"
 
 msgctxt "wizard.formats.profile.calloutTitle"
 msgid "Formats start from your profile"
-msgstr "フォーマットはプロファイルから始まります"
+msgstr "フォーマットはプロフィールから始まります"
 
 msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
@@ -2739,6 +2735,10 @@ msgctxt "wizard.formats.savesAs.reset"
 msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
 msgstr "WebM では {{codec}} を格納できないため、ファイル形式を自動に戻しました。"
 
+msgctxt "wizard.formats.savesAs.value"
+msgid "Saves as .{{ext}}"
+msgstr ".{{ext}} として保存されます"
+
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
 msgstr "サイズ不明"
@@ -2767,57 +2767,113 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "音声付き"
 
-msgctxt "wizard.mixedPrompt.body"
-msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
-msgstr "クリックした動画だけをダウンロードしますか？それとも Playlist から選びますか？次のステップで特定の動画や範囲を選択できます。"
+msgctxt "wizard.listPrompt.escHint"
+msgid "Esc cancels. Nothing loads until you choose."
+msgstr "Esc でキャンセルします。選ぶまで何も読み込まれません。"
 
-msgctxt "wizard.mixedPrompt.pickFromPlaylist"
-msgid "Pick from playlist"
-msgstr "Playlist から選ぶ"
+msgctxt "wizard.listPrompt.interactiveSubtitle"
+msgid "Choose formats yourself"
+msgstr "形式を自分で選びます"
 
-msgctxt "wizard.mixedPrompt.playlistLimit"
-msgid "Playlist probe limit: {{count}} items"
-msgstr "プレイリスト取得上限: {{count}} 件"
+msgctxt "wizard.listPrompt.justThisVideo"
+msgid "Just this video"
+msgstr "この動画だけ"
 
-msgctxt "wizard.mixedPrompt.playlistTooltip"
-msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
-msgstr "選択画面を表示する前に、プレイリストを上限まで読み込みます。"
+msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
+msgid "Opens its formats"
+msgstr "形式の選択画面を開きます"
 
-msgctxt "wizard.mixedPrompt.quickBody"
-msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
-msgstr "この動画だけをダウンロードするか、有効なクイックダウンロードプロファイルでプレイリスト全体をキューに追加します。"
+msgctxt "wizard.listPrompt.justThisVideoQuickHint"
+msgid "Loads one video"
+msgstr "動画を 1 本読み込みます"
 
-msgctxt "wizard.mixedPrompt.quickLimitDescription"
-msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
-msgstr "プレイリスト、チャンネル、検索結果をキューに追加する前に Arroxy がスキャンする最大項目数です。"
+msgctxt "wizard.listPrompt.listInteractiveHint"
+msgid "Loads up to {{count}} to choose from"
+msgstr "最大 {{count}} 件を読み込んで選びます"
 
-msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
-msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
-msgstr "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。"
+msgctxt "wizard.listPrompt.listOption.album"
+msgid "The album, first"
+msgstr "アルバムの先頭"
 
-msgctxt "wizard.mixedPrompt.quickSingleTooltip"
-msgid "Queues one download and ignores the playlist attached to this URL."
-msgstr "1 件のダウンロードをキューに追加し、この URL に付いているプレイリストは無視します。"
+msgctxt "wizard.listPrompt.listOption.liked"
+msgid "Your liked videos, first"
+msgstr "高く評価した動画の先頭"
 
-msgctxt "wizard.mixedPrompt.quickSingleVideo"
-msgid "Download this video"
-msgstr "この動画をダウンロード"
+msgctxt "wizard.listPrompt.listOption.mix"
+msgid "The Mix, first"
+msgstr "ミックスの先頭"
 
-msgctxt "wizard.mixedPrompt.quickWholePlaylist"
-msgid "Download whole playlist"
-msgstr "プレイリスト全体をダウンロード"
+msgctxt "wizard.listPrompt.listOption.playlist"
+msgid "The playlist, first"
+msgstr "プレイリストの先頭"
 
-msgctxt "wizard.mixedPrompt.singleTooltip"
-msgid "Loads only this video. The playlist attached to this URL is ignored."
-msgstr "この動画だけを読み込みます。この URL に付いたプレイリストは無視されます。"
+msgctxt "wizard.listPrompt.listOption.uploads"
+msgid "The uploads, first"
+msgstr "アップロード動画の先頭"
 
-msgctxt "wizard.mixedPrompt.singleVideo"
-msgid "Just this one"
-msgstr "この1本だけ"
+msgctxt "wizard.listPrompt.listOption.watchLater"
+msgid "Watch later, first"
+msgstr "「後で見る」の先頭"
 
-msgctxt "wizard.mixedPrompt.title"
-msgid "This link has a playlist"
-msgstr "このリンクは Playlist に含まれています"
+msgctxt "wizard.listPrompt.listQuickHint"
+msgid "Loads up to {{count}}, then downloads them"
+msgstr "最大 {{count}} 件を読み込んで、ダウンロードします"
+
+msgctxt "wizard.listPrompt.mixNote"
+msgid "A Mix changes every time you open it."
+msgstr "ミックスは開くたびに内容が変わります。"
+
+msgctxt "wizard.listPrompt.pickOption.album"
+msgid "Pick from the album, first"
+msgstr "アルバムの先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.pickOption.liked"
+msgid "Pick from your liked videos, first"
+msgstr "高く評価した動画の先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.pickOption.mix"
+msgid "Pick from the Mix, first"
+msgstr "ミックスの先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.pickOption.playlist"
+msgid "Pick from the playlist, first"
+msgstr "プレイリストの先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.pickOption.uploads"
+msgid "Pick from the uploads, first"
+msgstr "アップロード動画の先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.pickOption.watchLater"
+msgid "Pick from Watch later, first"
+msgstr "「後で見る」の先頭から選ぶ"
+
+msgctxt "wizard.listPrompt.title.album"
+msgid "Download from this album"
+msgstr "このアルバムからダウンロード"
+
+msgctxt "wizard.listPrompt.title.liked"
+msgid "Download from your liked videos"
+msgstr "高く評価した動画からダウンロード"
+
+msgctxt "wizard.listPrompt.title.mix"
+msgid "Download from this Mix"
+msgstr "このミックスからダウンロード"
+
+msgctxt "wizard.listPrompt.title.playlist"
+msgid "Download from this playlist"
+msgstr "このプレイリストからダウンロード"
+
+msgctxt "wizard.listPrompt.title.uploads"
+msgid "Download from this channel's uploads"
+msgstr "このチャンネルのアップロード動画からダウンロード"
+
+msgctxt "wizard.listPrompt.title.watchLater"
+msgid "Download from Watch later"
+msgstr "「後で見る」からダウンロード"
+
+msgctxt "wizard.listPrompt.withProfile"
+msgid "With {{profileName}}"
+msgstr "{{profileName}} を使用"
 
 msgctxt "wizard.output.embedChapters.description"
 msgid "Chapter markers navigable in any modern player."
@@ -2827,6 +2883,10 @@ msgctxt "wizard.output.embedChapters.label"
 msgid "Embed chapters"
 msgstr "チャプターを埋め込む"
 
+msgctxt "wizard.output.embedChapters.short"
+msgid "Chapters"
+msgstr "チャプター"
+
 msgctxt "wizard.output.embedMetadata.description"
 msgid "Title, artist, description, and upload date written into the file."
 msgstr "タイトル、アーティスト、説明、アップロード日をファイルに書き込みます。"
@@ -2834,6 +2894,10 @@ msgstr "タイトル、アーティスト、説明、アップロード日をフ
 msgctxt "wizard.output.embedMetadata.label"
 msgid "Embed metadata"
 msgstr "メタデータを埋め込む"
+
+msgctxt "wizard.output.embedMetadata.short"
+msgid "Metadata"
+msgstr "メタデータ"
 
 msgctxt "wizard.output.embedThumbnail.description"
 msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
@@ -2843,6 +2907,10 @@ msgctxt "wizard.output.embedThumbnail.label"
 msgid "Embed thumbnail"
 msgstr "サムネイルを埋め込む"
 
+msgctxt "wizard.output.embedThumbnail.short"
+msgid "Cover art"
+msgstr "カバーアート"
+
 msgctxt "wizard.output.writeDescription.description"
 msgid "Saves the video description as a .description text file next to the download."
 msgstr "動画の説明を .description テキストファイルとしてダウンロードの隣に保存します。"
@@ -2850,6 +2918,10 @@ msgstr "動画の説明を .description テキストファイルとしてダウ�
 msgctxt "wizard.output.writeDescription.label"
 msgid "Save description"
 msgstr "説明を保存"
+
+msgctxt "wizard.output.writeDescription.short"
+msgid "Description file"
+msgstr "説明ファイル"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
@@ -2866,6 +2938,10 @@ msgstr "サムネイルを .jpg 画像ファイルとしてダウンロードの
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "サムネイルを保存"
+
+msgctxt "wizard.output.writeThumbnail.short"
+msgid "Thumbnail file"
+msgstr "サムネイルファイル"
 
 msgctxt "wizard.part.calloutBody"
 msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
@@ -3069,11 +3145,11 @@ msgstr "チャンネルページをスキャン中"
 
 msgctxt "wizard.playlist.multiProfileEntry"
 msgid "Assign profiles per item"
-msgstr "アイテムごとにプロファイルを割り当て"
+msgstr "アイテムごとにプロフィールを割り当て"
 
 msgctxt "wizard.playlist.multiProfileEntryTooltip"
 msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
-msgstr "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます"
+msgstr "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロフィールを割り当てます"
 
 msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
@@ -3195,6 +3271,28 @@ msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "動画サムネイル"
 
+msgctxt "wizard.playlistCap.changeLimit"
+msgid "Change load limit"
+msgstr "読み込み上限を変更"
+
+#. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.description_other"
+msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。"
+
+#. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistCap.descriptionWithTitle_other"
+msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
+msgstr "<title/>: 現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。"
+
+msgctxt "wizard.playlistCap.queueLoaded"
+msgid "Queue loaded items"
+msgstr "読み込んだ項目をキューに追加"
+
+msgctxt "wizard.playlistCap.title"
+msgid "Playlist scan is capped"
+msgstr "プレイリストのスキャンが上限に達しました"
+
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "バッチの画質を選択"
@@ -3215,7 +3313,7 @@ msgstr "{{count}} 本の動画に割り当て"
 
 msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
 msgid "Assign profile"
-msgstr "プロファイルを割り当て"
+msgstr "プロフィールを割り当て"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -3223,7 +3321,7 @@ msgstr "再生時間"
 
 msgctxt "wizard.playlistProfiles.columnProfile"
 msgid "Profile"
-msgstr "プロファイル"
+msgstr "プロフィール"
 
 msgctxt "wizard.playlistProfiles.editProfile"
 msgid "Edit {{name}}"
@@ -3239,16 +3337,16 @@ msgstr "{{name}} · {{count}}"
 
 msgctxt "wizard.playlistProfiles.filtersLabel"
 msgid "Profile filters"
-msgstr "プロファイルフィルター"
+msgstr "プロフィールフィルター"
 
 msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
-msgstr "ダウンロードプロファイルを割り当て"
+msgstr "ダウンロードプロフィールを割り当て"
 
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistProfiles.menuDescription_other"
 msgid "Pick the profile for these {{count}} videos."
-msgstr "これら {{count}} 本の動画のプロファイルを選択します。"
+msgstr "これら {{count}} 本の動画のプロフィールを選択します。"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3333,6 +3431,10 @@ msgstr "最大 320K"
 msgctxt "wizard.profileEditor.audioQuality.best"
 msgid "Best quality"
 msgstr "最高品質"
+
+msgctxt "wizard.profileEditor.defaultName"
+msgid "New profile"
+msgstr "新しいプロフィール"
 
 msgctxt "wizard.profileEditor.destination.defaultFolder"
 msgid "Default downloads folder"
@@ -3464,7 +3566,7 @@ msgstr "字幕のダウンロード"
 
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
-msgstr "プロファイルは言語コードで指定します。利用できるかは URL ごとに判定されます。"
+msgstr "プロフィールは言語コードで指定します。利用できるかは URL ごとに判定されます。"
 
 msgctxt "wizard.profileEditor.goal.bestPicture.description"
 msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
@@ -3534,33 +3636,17 @@ msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
 msgid "Music or podcasts"
 msgstr "音楽やポッドキャスト"
 
-msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
-msgid "Audio only"
-msgstr "音声のみ"
-
 msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
 msgid "Caption files only"
 msgstr "字幕ファイルのみ"
-
-msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
-msgid "Subtitles only"
-msgstr "字幕のみ"
 
 msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
 msgid "Normal video files"
 msgstr "通常の動画ファイル"
 
-msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
-msgid "Video + audio"
-msgstr "動画 + 音声"
-
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
 msgid "Silent video only"
 msgstr "音声なしの動画のみ"
-
-msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
-msgid "Video, no audio"
-msgstr "動画、音声なし"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -3834,7 +3920,7 @@ msgstr "プロフィールを更新"
 
 msgctxt "wizard.review.update.builtinNote"
 msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
-msgstr "これは組み込みのプロフィールです。元の設定は「プロファイル」タブで復元できます。"
+msgstr "これは組み込みのプロフィールです。元の設定は「プロフィール」タブで復元できます。"
 
 msgctxt "wizard.review.update.description"
 msgid "From now on, every download with this profile uses the new settings."
@@ -3958,7 +4044,7 @@ msgstr "画質"
 
 msgctxt "wizard.steps.playlistProfiles"
 msgid "Profiles"
-msgstr "プロファイル"
+msgstr "プロフィール"
 
 msgctxt "wizard.steps.review"
 msgid "Review"
@@ -4564,10 +4650,6 @@ msgctxt "wizard.url.playlistProbeLimit.option"
 msgid "{{count}} items"
 msgstr "{{count}} 件"
 
-msgctxt "wizard.url.playlistProbeLimit.tooltip"
-msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
-msgstr "Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
-
 msgctxt "wizard.url.playlistScope.appLimit"
 msgid "Use app limit: {{count}}"
 msgstr "アプリの上限を使用: {{count}}"
@@ -4650,7 +4732,7 @@ msgstr "〜"
 
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
-msgstr "アクティブなプロファイル"
+msgstr "アクティブなプロフィール"
 
 msgctxt "wizard.url.profile.badgeBuiltIn"
 msgid "Built-in"
@@ -4750,35 +4832,35 @@ msgstr "編集"
 
 msgctxt "wizard.url.profile.editActive"
 msgid "Edit active profile"
-msgstr "アクティブなプロファイルを編集"
+msgstr "アクティブなプロフィールを編集"
 
 msgctxt "wizard.url.profile.enableHint"
 msgid "Hidden profiles stay here but disappear from every profile picker."
-msgstr "非表示のプロファイルはここに残りますが、すべてのピッカーから消えます。"
+msgstr "非表示のプロフィールはここに残りますが、すべてのピッカーから消えます。"
 
 msgctxt "wizard.url.profile.enableToggleAria"
 msgid "Show profile in pickers: {{profileName}}"
-msgstr "ピッカーでプロファイルを表示: {{profileName}}"
+msgstr "ピッカーでプロフィールを表示: {{profileName}}"
 
 msgctxt "wizard.url.profile.lastEnabledHint"
 msgid "Keep at least one profile available."
-msgstr "少なくとも1つのプロファイルを有効にしてください。"
+msgstr "少なくとも1つのプロフィールを有効にしてください。"
 
 msgctxt "wizard.url.profile.manageProfiles"
 msgid "Manage profiles"
-msgstr "プロファイルを管理"
+msgstr "プロフィールを管理"
 
 msgctxt "wizard.url.profile.menuDescription"
 msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
-msgstr "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロファイルを変更します。"
+msgstr "クイックダウンロード、一括 URL、プレイリストで使うアクティブなプロフィールを変更します。"
 
 msgctxt "wizard.url.profile.menuTitle"
 msgid "Switch profile"
-msgstr "プロファイルを切り替え"
+msgstr "プロフィールを切り替え"
 
 msgctxt "wizard.url.profile.movableProfile"
 msgid "movable profile"
-msgstr "移動可能なプロファイル"
+msgstr "移動可能なプロフィール"
 
 msgctxt "wizard.url.profile.moveCancelled"
 msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
@@ -4794,7 +4876,7 @@ msgstr "{{profileName}}を移動"
 
 msgctxt "wizard.url.profile.moveInstructions"
 msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
-msgstr "プロファイルを移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。"
+msgstr "プロフィールを移動するには、スペースキーまたはEnterキーを押し、矢印キーで移動してから、スペースキーまたはEnterキーを押して配置します。キャンセルするにはEscキーを押します。"
 
 msgctxt "wizard.url.profile.moveOver"
 msgid "{{profileName}} is over position {{position}} of {{count}}."
@@ -4806,7 +4888,11 @@ msgstr "{{profileName}}をつかみました。{{count}}件中{{position}}番目
 
 msgctxt "wizard.url.profile.newProfile"
 msgid "New profile"
-msgstr "新しいプロファイル"
+msgstr "新しいプロフィール"
+
+msgctxt "wizard.url.profile.outputMissing"
+msgid "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default."
+msgstr "このプロフィールの保存先フォルダーが設定されていません。プロフィールでフォルダーを選ぶか、既定に戻してください。"
 
 msgctxt "wizard.url.profile.panelDescription"
 msgid "Create, select, edit, or remove reusable download setups."
@@ -4814,7 +4900,7 @@ msgstr "再利用できるダウンロード設定を作成、選択、編集、
 
 msgctxt "wizard.url.profile.panelTitle"
 msgid "Download Profiles"
-msgstr "ダウンロードプロファイル"
+msgstr "ダウンロードプロフィール"
 
 msgctxt "wizard.url.profile.remove"
 msgid "Remove"
@@ -4822,43 +4908,19 @@ msgstr "削除"
 
 msgctxt "wizard.url.profile.reorderHint"
 msgid "Drag a profile to move it. Every profile picker follows this order."
-msgstr "プロファイルをドラッグして移動します。すべてのピッカーがこの順序に従います。"
+msgstr "プロフィールをドラッグして移動します。すべてのピッカーがこの順序に従います。"
 
 msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "リセット"
 
-msgctxt "wizard.url.profile.summary.aacAudio"
-msgid "AAC audio"
-msgstr "AAC 音声"
-
-msgctxt "wizard.url.profile.summary.bestAudio"
-msgid "best audio"
-msgstr "最高音質の音声"
-
-msgctxt "wizard.url.profile.summary.bestVideo"
-msgid "best video"
-msgstr "最高画質の動画"
-
-msgctxt "wizard.url.profile.summary.noAudio"
-msgid "no audio"
-msgstr "音声なし"
-
-msgctxt "wizard.url.profile.summary.subtitlesOnly"
-msgid "subtitles only"
-msgstr "字幕のみ"
-
-msgctxt "wizard.url.profile.summary.wavAudio"
-msgid "WAV audio"
-msgstr "WAV 音声"
-
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
-msgstr "ダウンロードプロファイルを切り替え: {{profileName}}"
+msgstr "ダウンロードプロフィールを切り替え: {{profileName}}"
 
 msgctxt "wizard.url.profile.switchTitle"
 msgid "Switch download profile"
-msgstr "ダウンロードプロファイルを切り替え"
+msgstr "ダウンロードプロフィールを切り替え"
 
 msgctxt "wizard.url.proxy.clear"
 msgid "Clear"
@@ -4963,7 +5025,7 @@ msgstr "{{style}}にはグラフィックスアクセラレーションが必要
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"
-msgstr "プロファイル"
+msgstr "プロフィール"
 
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
