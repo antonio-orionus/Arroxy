@@ -17,15 +17,11 @@ import {mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {existsSync} from 'node:fs'
 import {homedir, tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {isAudioConvertTargetLossy} from '../src/shared/audioTargets.js'
-import {mediaIntentSpec, playlistSelectionToMediaIntent} from '../src/shared/mediaIntent.js'
-import {AUDIO_BITRATES, PLAYLIST_VIDEO_TIERS, playlistAudioFormatSchema, type AudioBitrate, type AudioConvert, type PlaylistSelection} from '../src/shared/schemas.js'
-import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
+import {planWorkflow} from 'yt-dlp-bridge'
+import {describeSelection, parseSelectedInfo, reqFor, smokeCases, validate} from './playlistPresetSmoke.js'
 
 const DEFAULT_URL = 'https://www.youtube.com/watch?v=WO2b03Zdu4Q&pp=ygUCNGvSBwkJIwsBhyohjO8%3D'
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari'
-const OUTPUT_TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
-const UI_REACHABLE_MP4_TIERS = ['1080', '720', '480', '360', '240', '144'] as const
 const RUN_TIMEOUT_MS = 120_000
 
 type ExtractorStrategy = 'auto' | 'vanilla' | 'fallback'
@@ -45,24 +41,6 @@ interface RunResult {
 	stdout: string
 	stderr: string
 	durationMs: number
-}
-
-interface FormatInfo {
-	format_id?: string
-	ext?: string
-	height?: number
-	vcodec?: string
-	acodec?: string
-}
-
-interface SelectedInfo extends FormatInfo {
-	title?: string
-	requested_formats?: FormatInfo[]
-}
-
-interface SmokeCase {
-	name: string
-	selection: PlaylistSelection
 }
 
 function parseArgs(argv: string[]): CliArgs {
@@ -190,130 +168,6 @@ async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, nodeP
 
 	const tail = last?.stderr.trim().split('\n').slice(-4).join('\n') ?? 'unknown probe failure'
 	throw new Error(`Initial YouTube probe failed.\n${tail}`)
-}
-
-function reqFor(selection: PlaylistSelection, outputDir: string, infoJsonPath: string, url: string): WorkflowInput {
-	const intent = playlistSelectionToMediaIntent(selection)
-	if (!intent) throw new Error(`smoke case has no media intent: ${JSON.stringify(selection)}`)
-	const spec = mediaIntentSpec(intent)
-	return {
-		kind: 'media',
-		url,
-		output: {directory: outputDir, template: OUTPUT_TEMPLATE},
-		selection: {formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat},
-		...(spec.audioConvert ? {audio: {convert: bridgeAudioConvert(spec.audioConvert)}} : {}),
-		resume: {loadInfoJsonPath: infoJsonPath}
-	}
-}
-
-function bridgeAudioConvert(input: AudioConvert): BridgeAudioConvert {
-	return {...input, lossy: isAudioConvertTargetLossy(input.target)}
-}
-
-function smokeCases(): SmokeCase[] {
-	const cases: SmokeCase[] = [
-		...PLAYLIST_VIDEO_TIERS.map(tier => ({name: `video best ${tier}`, selection: {kind: 'video' as const, tier, codec: 'best' as const}})),
-		...UI_REACHABLE_MP4_TIERS.map(tier => ({name: `video mp4 ${tier}`, selection: {kind: 'video' as const, tier, codec: 'mp4' as const}})),
-		{name: 'audio best', selection: {kind: 'audio', format: 'best'}}
-	]
-
-	for (const format of playlistAudioFormatSchema.options) {
-		if (format === 'best') continue
-		for (const bitrateKbps of AUDIO_BITRATES) {
-			cases.push({name: `audio ${format} ${bitrateKbps}K`, selection: {kind: 'audio', format, bitrateKbps}})
-		}
-	}
-
-	cases.push({name: 'audio mp3 default bitrate', selection: {kind: 'audio', format: 'mp3'}})
-	return cases
-}
-
-function parseSelectedInfo(json: string): SelectedInfo | null {
-	try {
-		const parsed: unknown = JSON.parse(json)
-		if (!isRecord(parsed)) return null
-		const selected: SelectedInfo = {title: readString(parsed.title), format_id: readString(parsed.format_id), ext: readString(parsed.ext), height: readNumber(parsed.height), vcodec: readString(parsed.vcodec), acodec: readString(parsed.acodec)}
-		if (Array.isArray(parsed.requested_formats)) {
-			selected.requested_formats = parsed.requested_formats.filter(isRecord).map(f => ({format_id: readString(f.format_id), ext: readString(f.ext), height: readNumber(f.height), vcodec: readString(f.vcodec), acodec: readString(f.acodec)}))
-		}
-		return selected
-	} catch {
-		return null
-	}
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-	return typeof value === 'object' && value !== null
-}
-
-function readString(value: unknown): string | undefined {
-	return typeof value === 'string' ? value : undefined
-}
-
-function readNumber(value: unknown): number | undefined {
-	return typeof value === 'number' ? value : undefined
-}
-
-function selectedVideo(info: SelectedInfo): FormatInfo | null {
-	const requested = info.requested_formats?.find(f => f.vcodec !== undefined && f.vcodec !== 'none')
-	if (requested) return requested
-	return info.vcodec !== undefined && info.vcodec !== 'none' ? info : null
-}
-
-function selectedAudio(info: SelectedInfo): FormatInfo | null {
-	const requested = info.requested_formats?.find(f => f.acodec !== undefined && f.acodec !== 'none')
-	if (requested) return requested
-	return info.acodec !== undefined && info.acodec !== 'none' ? info : null
-}
-
-function assertArgValue(args: string[], flag: string, expected: string): string | null {
-	const idx = args.indexOf(flag)
-	if (idx < 0) return `missing ${flag}`
-	return args[idx + 1] === expected ? null : `${flag} expected ${expected}, got ${args[idx + 1] ?? '<missing>'}`
-}
-
-function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo): string[] {
-	const failures: string[] = []
-	if (caseDef.selection.kind === 'video') {
-		const video = selectedVideo(info)
-		if (!video) {
-			failures.push('yt-dlp selected no video stream')
-			return failures
-		}
-		if (caseDef.selection.tier !== 'best' && video.height !== undefined && video.height > Number(caseDef.selection.tier)) {
-			failures.push(`height ${video.height} exceeds requested cap ${caseDef.selection.tier}`)
-		}
-		if (caseDef.selection.codec === 'mp4') {
-			if (info.ext !== 'mp4') failures.push(`merged ext expected mp4, got ${info.ext ?? '<missing>'}`)
-			if (video.vcodec === undefined || !/^(avc|h264)/i.test(video.vcodec)) failures.push(`video codec expected H.264/AVC preference, got ${video.vcodec ?? '<missing>'}`)
-			failures.push(...[assertArgValue(args, '--merge-output-format', 'mp4')].filter((s): s is string => s !== null))
-		}
-		return failures
-	}
-
-	// Smoke cases cover media selections only; a subtitles batch has no stream to inspect.
-	if (caseDef.selection.kind !== 'audio') return [`unsupported smoke selection: ${caseDef.selection.kind}`]
-	const audio = selectedAudio(info)
-	const video = selectedVideo(info)
-	if (!audio) failures.push('yt-dlp selected no audio stream')
-	if (video) failures.push(`audio preset selected a video stream (${video.format_id ?? video.vcodec ?? 'unknown'})`)
-	failures.push(...[assertArgValue(args, '-f', 'bestaudio/best')].filter((s): s is string => s !== null))
-
-	if (caseDef.selection.format === 'best') {
-		if (args.includes('-x')) failures.push('audio best should not extract/convert')
-		return failures
-	}
-
-	const expectedBitrate: AudioBitrate = caseDef.selection.bitrateKbps ?? 192
-	failures.push(...[args.includes('-x') ? null : 'missing -x', assertArgValue(args, '--audio-format', caseDef.selection.format), assertArgValue(args, '--audio-quality', `${expectedBitrate}K`)].filter((s): s is string => s !== null))
-	return failures
-}
-
-function describeSelection(info: SelectedInfo): string {
-	const video = selectedVideo(info)
-	const audio = selectedAudio(info)
-	const parts = [`ext=${info.ext ?? '?'}`, video ? `v=${video.vcodec ?? '?'}@${video.height ?? '?'}p` : 'v=none', audio ? `a=${audio.acodec ?? '?'}` : 'a=none']
-	return parts.join('  ')
 }
 
 async function main(): Promise<void> {
