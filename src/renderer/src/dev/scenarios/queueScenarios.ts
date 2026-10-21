@@ -75,7 +75,7 @@ function buildLargeQueueItems(): QueueItem[] {
 			status,
 			progressPercent: status === QUEUE_STATUS.done ? 100 : status === QUEUE_STATUS.pending ? 0 : (n * 7) % 100,
 			progressDetail: status === QUEUE_STATUS.pending || status === QUEUE_STATUS.done ? null : `Waiting in large queue ${n}`,
-			lastStatus: null,
+			lastStatus: status === QUEUE_STATUS.done && n % 10 === 0 ? {key: STATUS_KEY.audioKept, params: {languageCodes: 'de,fr'}} : null,
 			addedAt: new Date(Date.UTC(2026, 5, 19, 10, 0, index)).toISOString(),
 			finishedAt: status === QUEUE_STATUS.done || status === QUEUE_STATUS.error ? new Date(Date.UTC(2026, 5, 19, 11, 0, index)).toISOString() : null,
 			error: status === QUEUE_STATUS.error ? {kind: 'network', raw: 'Large queue fixture failure'} : null,

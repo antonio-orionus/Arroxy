@@ -207,9 +207,12 @@ export function QueueManagerTab(): ReactNode {
 	const rows = table.getRowModel().rows
 	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
 	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	// Measured sizes follow the row, as the row groups do: keyed by position, a
+	// row a sort or filter moves would take the size of the row it replaced.
+	const getRowKey = useCallback((index: number) => rows[index]?.id ?? index, [rows])
 	// TanStack Virtual returns function-bearing objects that React Compiler cannot safely memoize.
 	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const rowVirtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 62, overscan: 8})
+	const rowVirtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 62, getItemKey: getRowKey, overscan: 8})
 	const virtualRows = rowVirtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]
 	const lastVirtualRow = virtualRows.at(-1)
@@ -284,6 +287,7 @@ export function QueueManagerTab(): ReactNode {
 				rows={rows}
 				virtualRows={virtualRows}
 				scrollRef={scrollRef}
+				measureElement={rowVirtualizer.measureElement}
 				topVirtualPadding={topVirtualPadding}
 				bottomVirtualPadding={bottomVirtualPadding}
 				renderedColumnCount={renderedColumnCount}

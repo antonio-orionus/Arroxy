@@ -126,7 +126,7 @@ describe('filesystem policy', () => {
 		expect(policy.outputRoot).toBe(path.join(config.outputRoot, 'playlist'))
 		expect(policy.tempRoot).toBe(path.join(config.tempRoot, 'job-1'))
 		expect(plan.cwd).toBe(policy.outputRoot)
-		expect(args[archiveIndex + 1]).toBe('archive.txt')
+		expect(args[archiveIndex + 1]).toBe('./archive.txt')
 	})
 
 	it('treats blank env vars as unset', () => {

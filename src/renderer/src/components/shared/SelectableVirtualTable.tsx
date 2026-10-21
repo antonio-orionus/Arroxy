@@ -9,6 +9,11 @@
 // through the feature-agnostic `row_getVisibleCells`, which honours column
 // visibility when the caller registers it and returns every cell otherwise.
 //
+// Each virtual item (a row plus any extra rows the caller renders under it)
+// is its own row group, handed to the virtualizer's `measureElement`: an item
+// taller than the estimate would otherwise leave the padding rows sized for
+// rows that are not there, and the visible rows jump as the item scrolls out.
+//
 // The row carries a named `group/row` class so a caller's cell markup can
 // reveal a hover/focus-only control with `group-hover/row:` without this
 // component knowing anything about that control.
@@ -30,6 +35,8 @@ export interface SelectableVirtualTableProps<TFeatures extends TableFeatures, T 
 	rows: Row<TFeatures, T>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
+	// The virtualizer's `measureElement`, given each item's row group.
+	measureElement: (element: Element | null) => void
 	topVirtualPadding: number
 	bottomVirtualPadding: number
 	renderedColumnCount: number
@@ -65,6 +72,7 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 	rows,
 	virtualRows,
 	scrollRef,
+	measureElement,
 	topVirtualPadding,
 	bottomVirtualPadding,
 	renderedColumnCount,
@@ -101,65 +109,71 @@ export function SelectableVirtualTable<TFeatures extends TableFeatures, T extend
 						)
 					)}
 				</TableHeader>
-				<TableBody>
-					{rows.length === 0 ? (
+				{rows.length === 0 ? (
+					<TableBody>
 						<TableRow>
 							<TableCell colSpan={renderedColumnCount} className="h-36 text-center text-sm text-muted-foreground">
 								{emptyLabel}
 							</TableCell>
 						</TableRow>
-					) : (
-						<>
-							{topVirtualPadding > 0 ? (
+					</TableBody>
+				) : (
+					<>
+						{topVirtualPadding > 0 ? (
+							<TableBody>
 								<TableRow aria-hidden="true" className="border-0 hover:bg-transparent">
 									<TableCell colSpan={renderedColumnCount} className="p-0" style={{height: topVirtualPadding}} />
 								</TableRow>
-							) : null}
-							{virtualRows.map(virtualRow => {
-								const row = rows[virtualRow.index]
-								if (!row) return null
-								const rowId = getRowId(row)
-								const selected = selectedIds.has(rowId)
-								return (
-									<Fragment key={row.id}>
-										<ContextMenu>
-											<ContextMenuTrigger
-												render={
-													<TableRow
-														aria-selected={selected}
-														data-state={selected ? 'selected' : undefined}
-														data-testid={rowTestId(rowId)}
-														{...(rowDataAttributes?.(row) ?? {})}
-														tabIndex={0}
-														onClick={event => interactions.onRowClick(rowId, event)}
-														onContextMenu={() => interactions.openContextMenuForRow(rowId)}
-														onKeyDown={event => runRowKeyboardToggle(event, () => interactions.onKeyboardToggle(rowId))}
-														onPointerDown={event => interactions.onRowPointerDown(rowId, event)}
-														onPointerEnter={event => interactions.onRowPointerEnter(rowId, event)}
-														className={cn('group/row cursor-pointer border-border/60 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', selected && 'queue-manager-row-selected')}
-													>
-														{row_getVisibleCells(row).map(cell => (
-															<TableCell key={cell.id} className={cn('min-w-0 overflow-hidden px-3 py-2', columnClass(cell.column.id))}>
-																{flexRender(cell.column.columnDef.cell, cell.getContext())}
-															</TableCell>
-														))}
-													</TableRow>
-												}
-											/>
-											{renderContextMenu(rowId)}
-										</ContextMenu>
-										{renderExtraRows?.(row)}
-									</Fragment>
-								)
-							})}
-							{bottomVirtualPadding > 0 ? (
+							</TableBody>
+						) : null}
+						{virtualRows.map(virtualRow => {
+							const row = rows[virtualRow.index]
+							if (!row) return null
+							const rowId = getRowId(row)
+							const selected = selectedIds.has(rowId)
+							return (
+								// A plain row group: TableBody drops the border of its last row, which here
+								// is only right for the table's last row.
+								<tbody key={row.id} ref={measureElement} data-index={virtualRow.index} data-slot="table-body" className="last:[&_tr:last-child]:border-0">
+									<ContextMenu>
+										<ContextMenuTrigger
+											render={
+												<TableRow
+													aria-selected={selected}
+													data-state={selected ? 'selected' : undefined}
+													data-testid={rowTestId(rowId)}
+													{...(rowDataAttributes?.(row) ?? {})}
+													tabIndex={0}
+													onClick={event => interactions.onRowClick(rowId, event)}
+													onContextMenu={() => interactions.openContextMenuForRow(rowId)}
+													onKeyDown={event => runRowKeyboardToggle(event, () => interactions.onKeyboardToggle(rowId))}
+													onPointerDown={event => interactions.onRowPointerDown(rowId, event)}
+													onPointerEnter={event => interactions.onRowPointerEnter(rowId, event)}
+													className={cn('group/row cursor-pointer border-border/60 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', selected && 'queue-manager-row-selected')}
+												>
+													{row_getVisibleCells(row).map(cell => (
+														<TableCell key={cell.id} className={cn('min-w-0 overflow-hidden px-3 py-2', columnClass(cell.column.id))}>
+															{flexRender(cell.column.columnDef.cell, cell.getContext())}
+														</TableCell>
+													))}
+												</TableRow>
+											}
+										/>
+										{renderContextMenu(rowId)}
+									</ContextMenu>
+									{renderExtraRows?.(row)}
+								</tbody>
+							)
+						})}
+						{bottomVirtualPadding > 0 ? (
+							<TableBody>
 								<TableRow aria-hidden="true" className="border-0 hover:bg-transparent">
 									<TableCell colSpan={renderedColumnCount} className="p-0" style={{height: bottomVirtualPadding}} />
 								</TableRow>
-							) : null}
-						</>
-					)}
-				</TableBody>
+							</TableBody>
+						) : null}
+					</>
+				)}
 			</Table>
 		</div>
 	)

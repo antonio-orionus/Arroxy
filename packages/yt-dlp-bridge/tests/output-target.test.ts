@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {loadConfig} from '../src/config.js'
 import {planWorkflow, templateLiteral, type WorkflowInput, type WorkflowPlanOptions} from '../src/index.js'
-import {fillLiteralFields, ytDlpExpandTemplate} from './helpers/expansion-model.js'
+import {fillLiteralFields, ytDlpExpandPath, ytDlpExpandTemplate} from './helpers/expansion-model.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const ENV = {HOME: '/home/u', USERPROFILE: 'C:\\Users\\u', USERNAME: 'u', ARROXY_PARITY: 'EXPANDED', 'USERNAME-x': 'dash'}
@@ -80,7 +80,7 @@ describe('output target: relative argv', () => {
 
 		expect(plan.cwd).toBe('/out')
 		expect(plan.args).not.toContain('home:/out')
-		expect(adjacent(plan.args, '--paths', 'temp:.arroxy-temp/job')).toBe(true)
+		expect(adjacent(plan.args, '--paths', 'temp:./.arroxy-temp/job/')).toBe(true)
 		expect(adjacent(plan.args, '-o', '%(title).200B.%(ext)s')).toBe(true)
 		expect(adjacent(plan.args, '-o', 'infojson:.arroxy-temp/job/_arroxy')).toBe(true)
 		expect(plan.args.join('\n')).toContain(['--print-to-file', 'after_move:filepath', '.arroxy-temp/job/_arroxy.final-path.txt'].join('\n'))
@@ -89,8 +89,8 @@ describe('output target: relative argv', () => {
 	it('takes paths already relative to the folder as they are', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '.arroxy-temp/job', report: {finalPath: '.arroxy-temp/job/final.txt'}}, resume: {loadInfoJsonPath: '.arroxy-temp/job/_arroxy.info.json'}})
 
-		expect(adjacent(plan.args, '--paths', 'temp:.arroxy-temp/job')).toBe(true)
-		expect(adjacent(plan.args, '--load-info-json', '.arroxy-temp/job/_arroxy.info.json')).toBe(true)
+		expect(adjacent(plan.args, '--paths', 'temp:./.arroxy-temp/job/')).toBe(true)
+		expect(adjacent(plan.args, '--load-info-json', './.arroxy-temp/job/_arroxy.info.json')).toBe(true)
 		expect(adjacent(plan.args, 'after_move:filepath', '.arroxy-temp/job/final.txt')).toBe(true)
 	})
 
@@ -128,9 +128,61 @@ describe('output target: relative argv', () => {
 
 		expect(inside.cwd).toBe('/srv/out')
 		expect(inside.args.some(arg => arg.startsWith('home:'))).toBe(false)
-		expect(adjacent(inside.args, '--paths', 'temp:.tmp')).toBe(true)
-		expect(adjacent(inside.args, '--download-archive', 'archive.txt')).toBe(true)
+		expect(adjacent(inside.args, '--paths', 'temp:./.tmp/')).toBe(true)
+		expect(adjacent(inside.args, '--download-archive', './archive.txt')).toBe(true)
 		expect(outside.cwd).toBe('/srv/out')
 		expect(adjacent(outside.args, '--paths', 'temp:/srv/tmp')).toBe(true)
+	})
+})
+
+// `--paths`, `--load-info-json` and `--download-archive` have no escape: yt-dlp
+// strips a `--paths` value and runs expand_path over all three.
+describe('output target: path flags yt-dlp would expand', () => {
+	function pathValue(args: readonly string[], flag: string): string {
+		const index = args.indexOf(flag)
+		expect(index, `${flag} in ${JSON.stringify(args)}`).toBeGreaterThanOrEqual(0)
+		return (args[index + 1] ?? '').replace(/^temp:/, '')
+	}
+
+	it.each(['~', '~/.tmp', '~root/x', ' lead', 'trail ', '~ both '])('keeps a temp folder %j inside the folder on both OSes', name => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: `/out/${name}`}, resume: {loadInfoJsonPath: `/out/${name}/_arroxy.info.json`}})
+
+		for (const flag of ['--paths', '--load-info-json']) {
+			const value = pathValue(plan.args, flag)
+			for (const platform of ['posix', 'nt'] as const) expect(ytDlpExpandPath(value, platform, ENV), `${platform} ${flag} ${JSON.stringify(value)}`).toBe(value.trim())
+			expect(value.trim(), flag).toBe(value)
+		}
+		expect(pathValue(plan.args, '--paths')).toBe(`./${name}/`)
+		expect(pathValue(plan.args, '--load-info-json')).toBe(`./${name}/_arroxy.info.json`)
+	})
+
+	// expandvars acts on `$name` and `${name}` on POSIX, and also on `%name%`,
+	// `%%` and `$$` on Windows. A `%`, or a `$` before no name, is literal on POSIX.
+	const EXPANDS = ['$HOME', 'a $ARROXY_PARITY b', '${HOME}', '$$x', ...(process.platform === 'win32' ? ['%USERPROFILE%', '50%% off', '$$ sign'] : [])]
+	const LITERAL = ['100%', '$ sign', 'x$', '${draft', ...(process.platform === 'win32' ? [] : ['%USERPROFILE%', '50%% off', '$$ sign'])]
+
+	it.each(EXPANDS)('refuses an in-folder path %j, since these flags have no escape', name => {
+		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: `/out/${name}`}})).toThrow(/output\.tempDirectory/)
+		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, resume: {loadInfoJsonPath: `/out/${name}/i.json`}})).toThrow(/resume\.loadInfoJsonPath/)
+		expect(() => planWorkflow({kind: 'playlist', url: URL, selection: {downloadArchive: `${name}.txt`}}, {config: {...loadConfig({}), outputRoot: '/srv/out', tempRoot: '/srv/out/.tmp'}})).toThrow(/downloadArchive/)
+		expect(() => planWorkflow({kind: 'media', url: URL}, {config: {...loadConfig({}), outputRoot: '/srv/out', tempRoot: `/srv/out/${name}`}})).toThrow(/tempRoot/)
+	})
+
+	it.each(LITERAL)('keeps %j, which expansion leaves alone here', name => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: `/out/${name}`}})
+		expect(adjacent(plan.args, '--paths', `temp:./${name}/`)).toBe(true)
+	})
+
+	it('keeps a managed temp root and archive inside the root behind ./', () => {
+		const plan = planWorkflow({kind: 'playlist', url: URL, selection: {downloadArchive: '~/archive.txt'}}, {config: {...loadConfig({}), outputRoot: '/srv/out', tempRoot: '/srv/out/~'}})
+
+		expect(adjacent(plan.args, '--paths', 'temp:./~/')).toBe(true)
+		expect(adjacent(plan.args, '--download-archive', './~/archive.txt')).toBe(true)
+	})
+
+	it('runs a managed temp root that is the output root itself as ./', () => {
+		const plan = planWorkflow({kind: 'media', url: URL}, {config: {...loadConfig({}), outputRoot: '/srv/Down $HOME', tempRoot: '/srv/Down $HOME'}})
+
+		expect(adjacent(plan.args, '--paths', 'temp:./')).toBe(true)
 	})
 })
