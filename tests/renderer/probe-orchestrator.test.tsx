@@ -201,6 +201,7 @@ describe('quickDownload', () => {
 	it('resumes quick download in single-video mode when the mixed URL prompt chooses the video', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
+		armQueue(api)
 		window.appApi = api
 
 		const settings = defaultAppSettings('/tmp/downloads')
@@ -210,7 +211,7 @@ describe('quickDownload', () => {
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 		await useAppStore.getState().dismissMixedPrompt('video')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video', ownerKey: expect.any(String)})
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video', ownerKey: expect.any(String)}))
 		const [queued] = await swapped(api)
 		expect(queued).toMatchObject({
 			url: VIDEO_PROBE.webpageUrl,
@@ -229,6 +230,7 @@ describe('quickDownload', () => {
 	it('queues the whole playlist when quick download mixed URL prompt chooses the playlist', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		armQueue(api)
 		window.appApi = api
 
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
@@ -237,7 +239,7 @@ describe('quickDownload', () => {
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 		await useAppStore.getState().dismissMixedPrompt('playlist')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', ownerKey: expect.any(String)})
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', ownerKey: expect.any(String)}))
 		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
@@ -248,6 +250,7 @@ describe('quickDownload', () => {
 	it('works on first launch with default profile settings', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
+		armQueue(api)
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp/first-launch-downloads', settings: defaultAppSettings('/tmp/first-launch-downloads')})
@@ -272,12 +275,13 @@ describe('quickDownload', () => {
 	it('queues every loaded playlist entry with the active profile', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		armQueue(api)
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
 		await useAppStore.getState().quickDownload({url: 'https://www.youtube.com/playlist?list=PLtest', entry: 'url-tab'})
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', ownerKey: expect.any(String)})
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', ownerKey: expect.any(String)}))
 		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)

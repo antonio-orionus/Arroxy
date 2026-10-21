@@ -4,6 +4,7 @@ import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {installCanvasMocks} from '../shared/mockWebgl.js'
+import {armQueue} from '../shared/quickDownloadHarness.js'
 import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {BASE_STYLE} from '@renderer/styles/registry.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
@@ -175,8 +176,12 @@ describe('App renderer', () => {
 	})
 
 	it('renders quick download and prepares a link in the background, with no modal', async () => {
-		let resolveProbe!: (value: Awaited<ReturnType<typeof mockAppApi.downloads.probe>>) => void
-		vi.mocked(mockAppApi.downloads.probe).mockReturnValue(
+		// Intake runs in main: its own IntakeService, on a queue projected into the store.
+		const api = buildMockAppApi()
+		armQueue(api)
+		window.appApi = api
+		let resolveProbe!: (value: Awaited<ReturnType<typeof api.downloads.probe>>) => void
+		vi.mocked(api.downloads.probe).mockReturnValue(
 			new Promise(resolve => {
 				resolveProbe = resolve
 			})
@@ -220,8 +225,8 @@ describe('App renderer', () => {
 
 		// The link becomes a probing row in Downloads at once; the field clears
 		// for the next link, and nothing blocks the window.
-		await waitFor(() => expect(mockAppApi.queue.cmd.add).toHaveBeenCalledTimes(1))
-		expect(vi.mocked(mockAppApi.queue.cmd.add).mock.calls[0]?.[0][0]).toMatchObject({status: 'probing', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+		await waitFor(() => expect(api.intake.add).toHaveBeenCalledTimes(1))
+		await waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'probing', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}]))
 		await waitFor(() => expect(input).toHaveValue(''))
 		expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
 		expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
@@ -247,7 +252,7 @@ describe('App renderer', () => {
 			}
 		})
 
-		await waitFor(() => expect(mockAppApi.queue.cmd.replaceProbing).toHaveBeenCalledTimes(1))
+		await waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalledTimes(1))
 	})
 
 	it('explains profile destination overrides on the active profile card', async () => {

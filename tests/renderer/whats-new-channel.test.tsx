@@ -54,7 +54,11 @@ describe('useWhatsNewDialog', () => {
 		window.appVersion = '1.2.0'
 		const settings = {...defaultAppSettings('/tmp'), common: {...defaultAppSettings('/tmp').common, launchCount: 3, lastReleaseNotesVersionShown: '1.1.0'}}
 		const updatedSettings = {...settings, common: {...settings.common, lastReleaseNotesVersionShown: '1.2.0'}}
-		window.appApi = {settings: {update: vi.fn().mockResolvedValue(ok(updatedSettings))}, shell: {openExternal: vi.fn().mockResolvedValue(ok({opened: true}))}, intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)}} as never
+		window.appApi = {
+			settings: {update: vi.fn().mockResolvedValue(ok(updatedSettings))},
+			shell: {openExternal: vi.fn().mockResolvedValue(ok({opened: true}))},
+			intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)}
+		} as never
 		useAppStore.setState({initialized: true, initializing: false, splashDismissed: true, settings})
 	})
 

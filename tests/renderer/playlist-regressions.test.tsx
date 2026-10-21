@@ -4,6 +4,7 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {ok} from '../shared/fixtures.js'
 import {buildAppSettings} from '../shared/settingsFixtures.js'
+import {armQueue} from '../shared/quickDownloadHarness.js'
 import type {PlaylistEntry, StatusEvent} from '@shared/types.js'
 
 const PLAYLIST_ENTRIES: PlaylistEntry[] = [
@@ -177,6 +178,8 @@ describe('playlist regressions', () => {
 	it('active profile single downloads honor the global filename template', async () => {
 		const api = buildMockApi({filenameTemplate: '{title}'})
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok({kind: 'video', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: 'https://youtube.com/watch?v=abc123', isAudioOnlySource: false, formats: [], title: 'Single Video', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false}))
+		// Intake runs in main: its own IntakeService, on a queue projected into the store.
+		armQueue(api as never)
 		window.appApi = api as never
 
 		await useAppStore.getState().initialize()

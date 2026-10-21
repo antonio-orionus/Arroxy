@@ -16,9 +16,11 @@ import {armQueue} from '../shared/quickDownloadHarness.js'
 // rest is queued, and the user is told how many were skipped. Everything already
 // queued is neither a failure nor an empty selection.
 
-const URL_A = 'https://youtu.be/a'
-const URL_B = 'https://youtu.be/b'
-const URL_C = 'https://youtu.be/c'
+// Real-shaped video ids: main's queue admission refuses a URL that reads as a
+// collection, and a bare `youtu.be/c` reads as a channel's /c/ path.
+const URL_A = 'https://youtu.be/aaaaaaaaaaa'
+const URL_B = 'https://youtu.be/bbbbbbbbbbb'
+const URL_C = 'https://youtu.be/ccccccccccc'
 const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLtest'
 
 const ENTRIES: PlaylistEntry[] = [URL_A, URL_B, URL_C].map((url, index) => ({id: `e${index + 1}`, title: `Entry ${index + 1}`, url, thumbnail: '', duration: 60, playlistIndex: index + 1, videoId: `e${index + 1}`}))
