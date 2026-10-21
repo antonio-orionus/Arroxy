@@ -4,11 +4,20 @@ import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {spawn} from 'node:child_process'
 import {stopActiveProcesses} from '@main/services/download/processControl.js'
+import {spawnFFmpeg} from '@main/utils/process.js'
 
 vi.mock('node:child_process', () => ({spawn: vi.fn()}))
 
 function child(state: {exitCode?: number | null; signalCode?: NodeJS.Signals | null}): ChildProcessWithoutNullStreams {
 	return Object.assign(new EventEmitter(), {pid: 4242, exitCode: state.exitCode ?? null, signalCode: state.signalCode ?? null, kill: vi.fn()}) as unknown as ChildProcessWithoutNullStreams
+}
+
+// Spawned the way a job spawns its children, then closed.
+function closed(proc: ChildProcessWithoutNullStreams): ChildProcessWithoutNullStreams {
+	vi.mocked(spawn).mockReturnValueOnce(proc)
+	spawnFFmpeg('/fake/ffmpeg', [])
+	proc.emit('close', 0, null)
+	return proc
 }
 
 const processKill = vi.spyOn(process, 'kill').mockImplementation(() => true)
@@ -27,9 +36,9 @@ describe('stopActiveProcesses', () => {
 		expect(processKill).toHaveBeenCalledWith(-4242, 'SIGTERM')
 	})
 
-	it('never signals a child that already exited or was killed: its pid may have been reused', () => {
-		const exited = child({exitCode: 0})
-		const signalled = child({signalCode: 'SIGKILL'})
+	it('never signals a child whose tree already closed: its pid may have been reused', () => {
+		const exited = closed(child({exitCode: 0}))
+		const signalled = closed(child({signalCode: 'SIGKILL'}))
 		stopActiveProcesses({ytDlpProcess: exited, ffmpegProcess: signalled})
 		expect(processKill).not.toHaveBeenCalled()
 		expect(exited.kill).not.toHaveBeenCalled()

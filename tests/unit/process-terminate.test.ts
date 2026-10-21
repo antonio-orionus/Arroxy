@@ -13,7 +13,7 @@ vi.mock('node:child_process', async importOriginal => {
 	return {...actual, spawn: vi.fn()}
 })
 
-import {TERMINATE_GRACE_MS, terminateProcessTree} from '@main/utils/process.js'
+import {spawnFFmpeg, spawnYtDlp, TERMINATE_GRACE_MS, terminateProcessTree} from '@main/utils/process.js'
 
 function child(): ChildProcessWithoutNullStreams & {exitCode: number | null; signalCode: NodeJS.Signals | null} {
 	return Object.assign(new EventEmitter(), {pid: 4242, exitCode: null, signalCode: null, kill: vi.fn()}) as never
@@ -78,15 +78,38 @@ describe.skipIf(process.platform === 'win32')('terminateProcessTree on Unix', ()
 	})
 
 	// A job's finalize drain stops every child it spawned, most of them long closed.
-	it('leaves a child that had already exited alone, with nothing armed', () => {
+	it('leaves a child that already closed alone, with nothing armed', () => {
 		const proc = child()
+		vi.mocked(spawn).mockReturnValue(proc)
+		spawnFFmpeg('/fake/ffmpeg', [])
 		proc.exitCode = 0
+		proc.emit('exit', 0, null)
+		proc.emit('close', 0, null)
 
 		terminateProcessTree(proc)
 		vi.advanceTimersByTime(TERMINATE_GRACE_MS)
 
 		expect(processKill).not.toHaveBeenCalled()
 		expect(vi.getTimerCount()).toBe(0)
+	})
+
+	// Stopped after the leader exited but before the tree closed: a descendant
+	// still holds the pipes, so its group still exists and still needs stopping.
+	it('stops the group of a leader that exited while its tree is still open', () => {
+		const proc = child()
+		vi.mocked(spawn).mockReturnValue(proc)
+		spawnYtDlp('/fake/yt-dlp', [], null)
+		proc.exitCode = 0
+		proc.emit('exit', 0, null)
+
+		terminateProcessTree(proc)
+		expect(processKill.mock.calls).toEqual([[-4242, 'SIGTERM']])
+		vi.advanceTimersByTime(TERMINATE_GRACE_MS)
+
+		expect(processKill.mock.calls).toEqual([
+			[-4242, 'SIGTERM'],
+			[-4242, 'SIGKILL']
+		])
 	})
 
 	it('survives a group that is already gone when the grace runs out', () => {
