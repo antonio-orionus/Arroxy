@@ -272,6 +272,42 @@ export function compileLocaleTree(sourceLeaves: readonly StringLeaf[], catalog: 
 	return root
 }
 
+// JSON.parse puts integer-like keys first, in numeric order, whatever the file says; sorting them
+// the same way keeps the canonical text identical to what a parse-and-stringify round trip gives.
+const INTEGER_KEY = /^(?:0|[1-9]\d*)$/
+
+function compareLocaleKeys(a: string, b: string): number {
+	const aInteger = INTEGER_KEY.test(a)
+	const bInteger = INTEGER_KEY.test(b)
+	if (aInteger && bInteger) return Number(a) - Number(b)
+	if (aInteger !== bInteger) return aInteger ? -1 : 1
+	if (a === b) return 0
+	return a < b ? -1 : 1
+}
+
+function sortLocaleTree(value: unknown): unknown {
+	if (!isRecord(value)) return value
+	const sorted: Record<string, unknown> = {}
+	for (const key of Object.keys(value).sort(compareLocaleKeys)) sorted[key] = sortLocaleTree(value[key])
+	return sorted
+}
+
+/**
+ * Writes a locale tree in the one text form every locale JSON file is kept in: keys sorted by code unit at every level
+ * (plural `_one`/`_other` siblings stay together), one key per line, tab-indented. Two changes then
+ * conflict only when they touch the same or adjacent keys.
+ */
+export function serializeLocaleTree(tree: Readonly<Record<string, unknown>>): string {
+	return `${JSON.stringify(sortLocaleTree(tree), null, '\t')}\n`
+}
+
+/** `text` rewritten in the canonical form of {@link serializeLocaleTree}. */
+export function canonicalLocaleJson(text: string): string {
+	const value: unknown = JSON.parse(text)
+	if (!isRecord(value)) throw new Error('A locale file must hold a JSON object.')
+	return serializeLocaleTree(value)
+}
+
 export function normalizeCatalog(catalog: GetTextTranslations): GetTextTranslations {
 	const activeCatalog: GetTextTranslations = {...catalog}
 	delete activeCatalog.obsolete

@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {audioCodecName, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import {VIDEO_FILE_TYPES} from '@shared/schemas.js'
+import {EXTRACTED_AUDIO_CONTAINER} from '@shared/thumbnailEmbed.js'
 import type {VideoFileType} from '@shared/types.js'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {resolveOutputContainer} from '../../../store/wizard/resolveContainer.js'
@@ -37,8 +38,9 @@ export function SavesAsControl(): ReactNode {
 	)
 	if (mediaKind === 'audio') {
 		// An audio download has no file type to choose: it is the stream's own, or the conversion's.
+		// No line when yt-dlp names it at download, from a codec only ffprobe finds.
 		const audioExt = resolveOutputContainer('', audioSelection, subtitleMode, formats, mediaKind, embedThumbnail, 'auto')
-		if (audioExt === 'unknown') return null
+		if (audioExt === 'unknown' || audioExt === EXTRACTED_AUDIO_CONTAINER) return null
 		return (
 			<span className="inline-flex items-center gap-x-2" data-testid="saves-as">
 				<span>{t('wizard.formats.savesAs.label')}</span>

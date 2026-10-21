@@ -1,932 +1,305 @@
 {
-	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "loading": "لوڈ ہو رہا ہے…", "retry": "دوبارہ کوشش کریں", "dismiss": "بند کریں", "startOver": "دوبارہ شروع کریں", "close": "بند کریں"},
+	"about": {
+		"button": "کے بارے میں",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · از Antonio Orionus",
+		"openTitle": "Arroxy کے بارے میں",
+		"tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔",
+		"thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں",
+		"websiteLink": "ویب سائٹ"
+	},
+	"aiUpscaled": {
+		"allow": "اجازت دیں",
+		"description": "YouTube کچھ پرانی ویڈیوز ایسے سائزز میں پیش کرتا ہے جو اس نے AI سے بنائے ہیں۔ “چھوڑ دیں” اصل اسٹریمز رکھتا ہے؛ آپ پھر بھی کوئی اپ اسکیل شدہ اسٹریم خود چن سکتے ہیں۔",
+		"label": "AI سے اپ اسکیل شدہ اسٹریمز",
+		"skip": "چھوڑ دیں"
+	},
 	"app": {
 		"feedback": "فیڈبیک",
+		"feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬",
 		"logs": "لاگز",
 		"saveDiagnostics": "تشخیصی فائل محفوظ کریں",
 		"saveDiagnosticsDescription": "آپ کے لاگز اور ایپ کی تفصیلات کو Downloads فولڈر میں ایک فائل میں جمع کرتا ہے، جو GitHub issue کے ساتھ منسلک کرنے کے لیے تیار ہوتی ہے۔ آپ کے یوزر فولڈر کا نام ہٹا دیا جاتا ہے؛ ویڈیو لنکس اور عنوانات برقرار رہتے ہیں۔",
-		"feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬",
-		"zoomIn": "زوم اِن",
-		"zoomOut": "زوم آؤٹ",
+		"styleHint": "نیا: یہاں سے Aurora یا سادہ منتخب کریں",
 		"theme": "تھیم",
-		"styleHint": "نیا: یہاں سے Aurora یا سادہ منتخب کریں"
+		"zoomIn": "زوم اِن",
+		"zoomOut": "زوم آؤٹ"
 	},
-	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "GPLv3 · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
-	"titleBar": {"close": "بند کریں", "minimize": "چھوٹا کریں", "maximize": "بڑا کریں", "restore": "بحال کریں"},
-	"splash": {
-		"greeting": "ارے، خوش آمدید!",
-		"warmup": "ڈاؤن لوڈز تیار کیے جا رہے ہیں…",
-		"verifying": "{{binary}} کی جانچ ہو رہی ہے…",
-		"verifyFirstCheck": "اس ورژن کی پہلی جانچ — یہ سست ہے۔ عام طور پر تقریباً ایک منٹ۔",
-		"cancel": "مسئلہ ہو رہا ہے؟ دستی طور پر سیٹ اپ کریں",
-		"warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔",
-		"setup": {
-			"title": {"firstRun": "پہلی بار کا سیٹ اپ", "media": "میڈیا ٹولز اپ ڈیٹ ہو رہے ہیں", "engine": "ڈاؤن لوڈ انجن اپ ڈیٹ ہو رہا ہے"},
-			"stage": {
-				"connecting": "منسلک ہو رہا ہے…",
-				"downloadingBoth": "ڈاؤن لوڈ انجن اور میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں",
-				"downloadingEngine": "ڈاؤن لوڈ انجن ڈاؤن لوڈ ہو رہا ہے",
-				"downloadingMedia": "میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں",
-				"unpacking": "میڈیا ٹولز کھولے جا رہے ہیں",
-				"checking": "جانچ رہا ہے کہ سب کچھ کام کر رہا ہے"
-			},
-			"bytes": "{{total}} میں سے {{done}}",
-			"left": {"underMinute": "ایک منٹ سے کم باقی", "minutes_one": "تقریباً {{count}} منٹ باقی", "minutes_other": "تقریباً {{count}} منٹ باقی"},
-			"note": {"firstRun": "یہ صرف ایک بار ہوتا ہے۔ Arroxy ان ٹولز کو رکھتا ہے اور خود اپ ڈیٹ کرتا ہے۔", "media": "یہ صرف ایک بار ہوتا ہے۔ Arroxy انہیں آئندہ اپ ڈیٹس کے لیے رکھتا ہے۔", "engine": "سائٹس بدلنے پر بھی ڈاؤن لوڈز کو چلتا رکھتا ہے۔"}
+	"common": {
+		"back": "واپس",
+		"cancel": "منسوخ کریں",
+		"close": "بند کریں",
+		"continue": "جاری رکھیں",
+		"dismiss": "بند کریں",
+		"loading": "لوڈ ہو رہا ہے…",
+		"retry": "دوبارہ کوشش کریں",
+		"startOver": "دوبارہ شروع کریں"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy چلتا رہتا ہے اور ایکٹو ڈاؤن لوڈز مکمل کرتا ہے۔ یہ بعد میں ایڈوانسڈ سیٹنگز سے بدلیں۔",
+			"hide": "ٹرے میں چھپائیں",
+			"message": "بند کرتے وقت Arroxy کو سسٹم ٹرے میں چھپائیں؟",
+			"quit": "بند کریں",
+			"remember": "دوبارہ مت پوچھیں"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "ڈاؤن لوڈز منسوخ کریں اور بند کریں",
+			"detail": "بعد میں دوبارہ شروع کرنے کے لیے موقوف کریں، یا پیش رفت ضائع کرنے کے لیے منسوخ کریں۔",
+			"keep": "ڈاؤن لوڈ جاری رکھیں",
+			"message_one": "{{count}} ڈاؤن لوڈ جاری ہے",
+			"message_other": "{{count}} ڈاؤن لوڈز جاری ہیں",
+			"pause": "ڈاؤن لوڈز روک کر بند کریں"
+		},
+		"rendererCrashed": {
+			"detail": "رینڈرر پراسیس کریش ہو گیا ({{reason}})۔ دوبارہ کوشش کرنے کے لیے ری لوڈ کریں۔",
+			"message": "Arroxy کو ایک مسئلے کا سامنا ہوا",
+			"quit": "بند کریں",
+			"reload": "ری لوڈ"
 		}
 	},
-	"repair": {
-		"title": "سیٹ اپ کو آپ کی مدد چاہیے",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "ڈاؤن لوڈ انجن", "media": "میڈیا ٹولز"},
-		"causes": {
-			"downloadFailed": {"title": "Arroxy کو درکار چیز ڈاؤن لوڈ نہیں ہو سکی", "body": "اپنا انٹرنیٹ کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔"},
-			"extractFailed": {"title": "ایک ڈاؤن لوڈ خراب حالت میں پہنچا", "body": "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔"},
-			"hashFailed": {"title": "ایک ڈاؤن لوڈ اپنے چیک سم سے میل نہیں کھایا", "body": "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔"},
-			"spawnFailed": {"title": "ایک ٹول موجود نہیں یا شروع نہیں ہو رہا", "body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔"},
-			"permissionDenied": {"title": "آپ کا سسٹم Arroxy کو ایک ٹول چلانے نہیں دے رہا", "body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی قابلِ اعتماد کاپی منتخب کریں۔"},
-			"blockedOrQuarantined": {"title": "آپ کے اینٹی وائرس نے ایک ٹول کو بلاک کر دیا", "body": "اپنے اینٹی وائرس یا SmartScreen میں Arroxy کو اجازت دیں، پھر دوبارہ کوشش کریں۔"},
-			"badExitCode": {"title": "ایک ٹول ٹھیک سے کام نہیں کر رہا", "body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔"},
-			"timeout": {"title": "ایک ٹول نے جواب دینے میں بہت دیر لگائی", "body": "پہلی بار چلانے پر اکثر یہ سکیورٹی اسکین کی وجہ سے ہوتا ہے۔ دوبارہ کوشش کریں۔"},
-			"pairIncomplete": {"title": "FFmpeg اور FFprobe کو ایک ساتھ مقرر کرنا ضروری ہے", "body": "نیچے سے دونوں منتخب کریں، یا انہیں ڈیفالٹ پر واپس لے جائیں۔"},
-			"unknown": {"title": "سیٹ اپ کے دوران کچھ غلط ہو گیا", "body": "دوبارہ کوشش کریں، یا تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"}
-		},
-		"installing": {"homebrew": "Homebrew کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔", "winget": "WinGet کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔"},
-		"stopped": {"title": "سیٹ اپ رک گیا", "body": "دوبارہ کوشش کریں، یا نیچے Arroxy کو ان ٹولز کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں۔"},
-		"manual": {"toggle": "دستی طور پر سیٹ اپ کریں", "intro": "Arroxy کو ان کاپیوں کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں، یا انہیں کسی اور طریقے سے انسٹال کریں۔", "linuxHint": "آپ yt-dlp اور ffmpeg کو اپنے پیکج مینیجر سے بھی انسٹال کر سکتے ہیں، پھر «دوبارہ کوشش کریں» پر کلک کریں۔"},
-		"actions": {
-			"chooseExecutable": "فائل منتخب کریں",
-			"installWithHomebrew": "Homebrew سے انسٹال کریں",
-			"installWithWinget": "WinGet سے انسٹال کریں",
-			"resetToDefault": "ڈیفالٹ پر واپس جائیں",
-			"retrySetup": "دوبارہ کوشش کریں",
-			"cancel": "منسوخ کریں",
-			"openDependencyFolder": "ڈیپنڈینسی فولڈر کھولیں",
-			"viewSetupLog": "سیٹ اپ لاگ دیکھیں"
-		}
-	},
-	"theme": {"light": "لائٹ موڈ", "dark": "ڈارک موڈ", "system": "سسٹم ڈیفالٹ"},
-	"language": {"label": "زبان"},
-	"wizard": {
-		"steps": {"url": "URL", "playlistItems": "پلے لسٹ", "playlistItemsGeneric": "ویڈیوز", "playlistPresets": "معیار", "playlistProfiles": "پروفائلز", "formats": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorblock": "SponsorBlock", "output": "آؤٹ پٹ", "folder": "محفوظ کریں", "confirm": "تصدیق", "review": "جائزہ"},
-		"playlistPresets": {"heading": "بیچ کے لیے کوالٹی منتخب کریں", "subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔", "itemCount_one": "{{count}} آئٹم", "itemCount_other": "{{count}} آئٹمز"},
-		"playlistProfiles": {
-			"heading": "ڈاؤن لوڈ پروفائلز تفویض کریں",
-			"selectedSummary": "{{total}} میں سے {{selected}} منتخب",
-			"assignTriggerEmpty": "پروفائل تفویض کریں",
-			"assignTrigger_one": "{{count}} ویڈیو کو تفویض کریں",
-			"assignTrigger_other": "{{count}} ویڈیوز کو تفویض کریں",
-			"menuDescription_one": "اس ویڈیو کے لیے پروفائل منتخب کریں۔",
-			"menuDescription_other": "ان {{count}} ویڈیوز کے لیے پروفائل منتخب کریں۔",
-			"editProfile": "{{name}} میں ترمیم کریں",
-			"filtersLabel": "پروفائل فلٹرز",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "پروفائل",
-			"columnDuration": "دورانیہ",
-			"empty": "کوئی آئٹم اس فلٹر سے مماثل نہیں"
-		},
-		"playlist": {
-			"heading": "Playlist آئٹمز",
-			"headingGeneric": "ڈاؤن لوڈ کے لیے ویڈیوز",
-			"bulkHeading": "متعدد URLs",
-			"itemCount_one": "{{count}} ویڈیو",
-			"itemCount_other": "{{count}} ویڈیوز",
-			"itemCountAudio_one": "{{count}} ٹریک",
-			"itemCountAudio_other": "{{count}} ٹریکس",
-			"itemCountBulk_one": "{{count}} لنک",
-			"itemCountBulk_other": "{{count}} لنکس",
-			"bulkMetadataResolving": "ویڈیو کی تفصیلات لی جا رہی ہیں… {{done}}/{{total}}",
-			"bulkMetadataOptional": "انتظار کی ضرورت نہیں — ابھی قطار میں لگائی گئی فائلوں کو ڈاؤن لوڈ کے وقت ان کے اصل نام ملیں گے۔",
-			"bulkRowWaiting": "انتظار میں",
-			"bulkRowResolving": "تفصیلات لی جا رہی ہیں",
-			"bulkRowFailed": "تفصیلات دستیاب نہیں",
-			"selectAll": "سب منتخب کریں",
-			"selectNone": "کوئی نہیں منتخب کریں",
-			"sortLabel": "ترتیب",
-			"sortApi": "پلے لسٹ کی ترتیب",
-			"sortUploadAsc": "سب سے پرانا پہلے",
-			"sortUploadDesc": "سب سے نیا پہلے",
-			"sortFetchingDates": "اپ لوڈ کی تاریخیں لائی جا رہی ہیں…",
-			"rangeFrom": "سے",
-			"rangeTo": "تک",
-			"rangeApply": "رینج لگائیں",
-			"selectedCount_one": "{{count}} منتخب",
-			"selectedCount_other": "{{count}} منتخب",
-			"noSelection": "جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں",
-			"loadingItems": "Playlist لائی جا رہی ہے…",
-			"loadingItemsGeneric": "ویڈیوز حاصل ہو رہی ہیں…",
-			"loadingPhasePages": "چینل صفحات اسکین ہو رہے ہیں",
-			"loadingPhaseItems": "ویڈیوز جمع ہو رہی ہیں",
-			"loadingPagesFound_one": "{{count}} صفحہ ملا",
-			"loadingPagesFound_other": "{{count}} صفحات ملے",
-			"loadingLimitHint": "پہلے {{count}} آئٹمز تک محدود",
-			"thumbnailAlt": "ویڈیو تھمب نیل",
-			"durationUnknown": "لائیو",
-			"syncChange": "فولڈر تبدیل کریں…",
-			"syncApply": "سنک لاگو کریں",
-			"syncScanning": "فولڈر چیک ہو رہا ہے…",
-			"syncFoundTitle": "فولڈر میں پہلے سے موجود",
-			"syncFoundDesc": "ان ویڈیوز میں سے {{n}} پہلے ہی {{dir}} میں موجود ہیں۔ صرف نئی ویڈیوز ڈاؤن لوڈ کرنے کے لیے سنک کریں؟",
-			"syncNoneTitle": "ابھی تک کچھ ڈاؤن لوڈ نہیں ہوا",
-			"syncNoneDesc": "اس پلے لسٹ کی کوئی ویڈیوز {{dir}} میں نہیں ملیں۔",
-			"syncNoneDescGeneric": "{{dir}} میں اس ماخذ کی کوئی ویڈیو نہیں ملی۔",
-			"alreadyDownloaded": "پہلے سے ڈاؤن لوڈ شدہ",
-			"nestedPlaylistBadge": "پلے لسٹ",
-			"nestedPlaylistHint_one": "ان میں سے {{count}} پلے لسٹ ہے، ویڈیو نہیں — اسے ڈاؤن لوڈ کرنے کے لیے اس کا لنک الگ سے پیسٹ کریں۔",
-			"nestedPlaylistHint_other": "ان میں سے {{count}} پلے لسٹیں ہیں، ویڈیوز نہیں — انہیں ڈاؤن لوڈ کرنے کے لیے ان کے لنک ایک ایک کر کے پیسٹ کریں۔",
-			"probeLimitAlertTitle": "Playlist اسکین محدود ہے",
-			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
-			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
-			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
-			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں",
-			"removeFromListCount_one": "فہرست سے {{count}} ہٹائیں",
-			"removeFromListCount_other": "فہرست سے {{count}} ہٹائیں",
-			"restore": "بحال کریں",
-			"removedCount_one": "{{count}} ہٹا دیے گئے",
-			"removedCount_other": "{{count}} ہٹا دیے گئے",
-			"allRemovedTitle": "تمام آئٹمز ہٹا دیے گئے",
-			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں۔"
-		},
-		"bulk": {
-			"title": "متعدد URLs",
-			"description": "ویڈیو، پلے لسٹ، چینل، تلاش، یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقلیں صاف کرے گا۔",
-			"textareaLabel": "URL فہرست",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "تیار",
-			"ignoredCount": "نظر انداز",
-			"emptyPreview": "بیچ دیکھنے کے لیے ایک یا زیادہ URLs پیسٹ کریں۔",
-			"needsAtLeastOne": "جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔",
-			"reject": {"duplicate": "نقل"}
-		},
-		"tabsNavAria": "ڈاؤن لوڈ پروفائل نیویگیشن",
-		"profileSwitchRow": {"helpAria": "{{label}} مدد"},
-		"mixedPrompt": {
-			"title": "اس لنک میں Playlist ہے",
-			"body": "کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔",
-			"quickBody": "صرف یہ ویڈیو ڈاؤن لوڈ کریں، یا اپنی فعال فوری ڈاؤن لوڈ پروفائل کے ساتھ پوری پلے لسٹ کو قطار میں شامل کریں۔",
-			"singleVideo": "صرف یہ ایک",
-			"quickSingleVideo": "یہ ویڈیو ڈاؤن لوڈ کریں",
-			"pickFromPlaylist": "Playlist سے انتخاب",
-			"quickWholePlaylist": "پوری پلے لسٹ ڈاؤن لوڈ کریں",
-			"playlistLimit": "پلے لسٹ جانچ حد: {{count}} آئٹمز",
-			"quickLimitDescription": "پلے لسٹ، چینل یا تلاش کے نتیجے کو قطار میں شامل کرنے سے پہلے Arroxy جتنی زیادہ سے زیادہ آئٹمز اسکین کرتا ہے۔",
-			"singleTooltip": "صرف یہی ویڈیو لوڈ کرتا ہے۔ اس URL سے منسلک پلے لسٹ نظر انداز کر دی جاتی ہے۔",
-			"quickSingleTooltip": "ایک ڈاؤن لوڈ کو قطار میں شامل کرتا ہے اور اس URL سے منسلک پلے لسٹ کو نظرانداز کرتا ہے۔",
-			"playlistTooltip": "انتخاب دکھانے سے پہلے پلے لسٹ کو آپ کی مقرر کردہ حد تک لوڈ کرتا ہے۔",
-			"quickPlaylistTooltip": "فعال فوری ڈاؤن لوڈ پروفائل کے ساتھ لوڈ کی گئی ہر پلے لسٹ آئٹم کو قطار میں شامل کرتا ہے۔ اگر اسکین آپ کی حد تک پہنچ جائے تو Arroxy قطار میں شامل کرنے سے پہلے پوچھے گا۔"
-		},
-		"url": {
-			"playlistScope": {
-				"label": "پلے لسٹ کا دائرہ",
-				"change": "تبدیل کریں",
-				"summaryAppLimit": "پہلے {{count}} آئٹمز لوڈ کریں",
-				"summaryFirst": "پہلے {{count}} آئٹمز لوڈ کریں",
-				"summaryRange": "آئٹمز {{from}}-{{to}} لوڈ کریں",
-				"dialogTitle": "پلے لسٹ کا دائرہ",
-				"dialogDescription": "منتخب کریں کہ Arroxy اس پلے لسٹ کے لیے کیا لوڈ کرے۔",
-				"itemsLabel": "لوڈ کرنے کے آئٹمز",
-				"appLimit": "ایپ کی حد استعمال کریں: {{count}}",
-				"first": "پہلے",
-				"range": "رینج",
-				"to": "تا",
-				"invalid": "1 سے {{max}} تک پورے آئٹم نمبر استعمال کریں، شروع کا نمبر آخر سے زیادہ نہ ہو۔",
-				"applyError": "وہ پلے لسٹ دائرہ لاگو نہیں ہو سکا: {{message}}",
-				"reset": "ری سیٹ کریں",
-				"cancel": "منسوخ کریں",
-				"apply": "لاگو کریں",
-				"applyReload": "لاگو کریں اور ری لوڈ کریں",
-				"reloading": "ری لوڈ ہو رہا ہے...",
-				"emptyTitle": "اس دائرے میں کوئی ویڈیو نہیں"
-			},
-			"heading": "URL سے ڈاؤن لوڈ کریں",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "پروفائلز", "settings": "ترتیبات"},
-			"interactiveDownload": "انٹرایکٹو ڈاؤن لوڈ",
-			"fetchFormatsTooltip": "مرحلہ وار وزرڈ۔ فارمیٹ، معیار اور مزید چیزیں منتخب کریں۔",
-			"quickDownload": "فوری ڈاؤن لوڈ",
-			"quickDownloadTooltip": "{{profileName}} استعمال کرتے ہوئے ڈاؤن لوڈ ہوگا",
-			"quickPreparing": "تیاری ہو رہی ہے",
-			"quickQueued": "قطار میں شامل ہو گیا",
-			"quickSingleOnly": "شروع کرنے کے لیے ویڈیو، پلے لسٹ، چینل یا تلاش کا URL پیسٹ کریں۔",
-			"quickProbeFailed": "جانچ ناکام ہوگئی",
-			"quickPrepareFailed": "قطار آئٹم تیار نہیں کیا جا سکا",
-			"quickBulkAllFailed": "ان URLs میں سے کوئی بھی تیار نہیں کیا جا سکا",
-			"quickFailed": "یہ شامل نہیں ہو سکا: {{error}}",
-			"quickPartialFailed_one": "جو کام کر گیا اسے قطار میں شامل کر دیا گیا۔ {{count}} URL تیار نہیں ہو سکا۔",
-			"quickPartialFailed_other": "جو کام کر گئے انہیں قطار میں شامل کر دیا گیا۔ {{count}} URLs تیار نہیں ہو سکے۔",
-			"profile": {
-				"destinationFallback": "منزل",
-				"switchAria": "ڈاؤن لوڈ پروفائل تبدیل کریں: {{profileName}}",
-				"switchTitle": "ڈاؤن لوڈ پروفائل تبدیل کریں",
-				"activeLabel": "فعال پروفائل",
-				"editActive": "فعال پروفائل میں ترمیم کریں",
-				"changeGlobalDestination": "عالمی منزل تبدیل کریں",
-				"destinationDetail": {"global": "عالمی منزل استعمال ہو رہی ہے", "globalSubfolder": "عالمی منزل + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے", "override": "پروفائل اووررائیڈ استعمال ہو رہا ہے", "overrideSubfolder": "پروفائل اووررائیڈ + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے"},
-				"summary": {"bestVideo": "بہترین ویڈیو", "bestAudio": "بہترین آڈیو", "aacAudio": "AAC آڈیو", "wavAudio": "WAV آڈیو", "noAudio": "کوئی آڈیو نہیں", "subtitlesOnly": "صرف سب ٹائٹلز"},
-				"menuTitle": "پروفائل تبدیل کریں",
-				"menuDescription": "Quick Download، متعدد URLs اور پلے لسٹس کے لیے فعال پروفائل تبدیل کریں۔",
-				"newProfile": "نیا پروفائل",
-				"manageProfiles": "پروفائلز کا نظم کریں",
-				"panelTitle": "ڈاؤن لوڈ پروفائلز",
-				"panelDescription": "دوبارہ استعمال ہونے والی ڈاؤن لوڈ ترتیبات بنائیں، منتخب کریں، ترمیم کریں، یا ہٹائیں۔",
-				"badgeCustom": "حسب ضرورت",
-				"badgeModified": "ترمیم شدہ",
-				"badgeBuiltIn": "بلٹ اِن",
-				"badgeDisabled": "پوشیدہ",
-				"enableToggleAria": "چنندہ میں پروفائل دکھائیں: {{profileName}}",
-				"enableHint": "پوشیدہ پروفائلز یہیں رہتے ہیں لیکن ہر چنندہ سے غائب ہو جاتے ہیں۔",
-				"reorderHint": "کسی پروفائل کو منتقل کرنے کے لیے اسے گھسیٹیں۔ ہر پروفائل چنندہ اسی ترتیب کی پیروی کرتا ہے۔",
-				"moveHandleAria": "{{profileName}} کو منتقل کریں",
-				"movableProfile": "منتقل ہونے والا پروفائل",
-				"moveInstructions": "پروفائل کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔",
-				"movePickedUp": "{{profileName}} پروفائل اٹھایا گیا۔ یہ {{count}} میں سے {{position}} نمبر پر ہے۔",
-				"moveOver": "{{profileName}} پروفائل {{count}} میں سے {{position}} نمبر کے اوپر ہے۔",
-				"moveDropped": "{{profileName}} پروفائل {{count}} میں سے {{position}} نمبر پر چھوڑ دیا گیا۔",
-				"moveCancelled": "منتقلی منسوخ کر دی گئی۔ {{profileName}} پروفائل {{count}} میں سے {{position}} نمبر پر ہی رہتا ہے۔",
-				"lastEnabledHint": "کم از کم ایک پروفائل دستیاب رکھیں۔",
-				"edit": "ترمیم کریں",
-				"remove": "ہٹائیں",
-				"reset": "ری سیٹ کریں"
-			},
-			"bulkButton": "متعدد URLs",
-			"bulkTooltip": "متعدد URLs شامل کریں اور قطار میں ڈالیں۔",
-			"features": {
-				"heading": "Arroxy کیا لا سکتا ہے",
-				"youtube": {"heading": "YouTube", "video": "ویڈیوز", "channel": "چینلز", "playlist": "پلے لسٹس", "short": "Shorts", "music": "موسیقی", "podcast": "پوڈکاسٹ"},
-				"anySite": {"heading": "2000+ سائٹس", "video": "ویڈیوز", "videoPlaylist": "ویڈیو پلے لسٹس", "musicPlaylist": "میوزک پلے لسٹس"},
-				"always": {"audioOnly": "صرف آڈیو", "subtitles": "سب ٹائٹلز"}
-			},
-			"mascotIdle": "ایک لنک ڈالیں اور Arroxy کو اسے کھینچ لانے دیں ✨",
-			"mascotBusy": "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎",
-			"mascotPreparing": "{{quickDownload}} یہ لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔",
-			"mascotQueued": "قطار یہ ڈاؤن لوڈ سنبھال رہی ہے۔ اس دوران آپ دوسرا لنک پیسٹ کر سکتے ہیں۔",
-			"mascotCollection": "فوری ڈاؤن لوڈ لوڈ ہو چکی آئٹمز کو {{profileName}} کے ساتھ قطار میں لگاتا ہے۔ انٹرایکٹو ڈاؤن لوڈ آپ کو پہلے آئٹمز دیکھنے یا منتخب کرنے دیتا ہے۔",
-			"mascotMixed": "یہ لنک کسی کلیکشن کی ایک ویڈیو کی طرف جاتا ہے۔ جانچ سے پہلے Arroxy پوچھے گا کہ آپ کون سی چاہتے ہیں۔",
-			"mascotSingle": "فوری ڈاؤن لوڈ {{profileName}} کے ساتھ ایک ڈاؤن لوڈ شروع کرتا ہے۔ ایک بار کی تبدیلیوں کے لیے انٹرایکٹو ڈاؤن لوڈ استعمال کریں۔",
-			"advanced": "ایڈوانسڈ",
-			"settings": {"inputHeading": "اندراج", "behaviorHeading": "ڈاؤن لوڈ کا رویہ", "behaviorDescription": "یہ عمومی ترتیب پروفائل کے ذریعے ہونے والی ڈاؤن لوڈ پر بھی اثر ڈالتی ہے۔"},
-			"clearAria": "URL صاف کریں",
-			"clipboard": {
-				"toggle": "کلپ بورڈ پر نظر رکھیں",
-				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
-				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
-				"bulkHint": "متعدد لنکس کاپی ہو گئے — شامل کرنے کے لیے “متعدد URLs” استعمال کریں",
-				"replacedLink": "کاپی شدہ لنک سے بدل دیا گیا",
-				"undo": "واپس کریں",
-				"dialog": {"cancelButton": "منسوخ کریں"}
-			},
-			"hotkey": {
-				"sectionTitle": "گلوبل ہاٹ کی",
-				"sectionDescription": "جو بھی لنک کاپی کریں، کسی بھی ایپ سے ڈاؤن لوڈ کریں — Arroxy کھلے بغیر۔",
-				"toggle": "گلوبل ہاٹ کی چالو کریں",
-				"toggleDescription": "کلپ بورڈ میں ویڈیو لنک ہونے پر شارٹ کٹ دبائیں۔",
-				"changeShortcut": "شارٹ کٹ تبدیل کریں",
-				"recording": "کلیدیں دبائیں…",
-				"test": "جانچیں",
-				"conflict": "یہ شارٹ کٹ کسی اور ایپ کے پاس ہے — دوسری منتخب کریں۔",
-				"hintLabel": "یا دبائیں",
-				"hintTooltip": "کہیں بھی ویڈیو لنک کاپی کریں، یہ شارٹ کٹ دبائیں، اور Arroxy اسے آپ کے فعال پروفائل کے ساتھ قطار میں شامل کر دے گا — ونڈوز بدلنے کی ضرورت نہیں۔",
-				"hintTooltipSettings": "سیٹنگز میں اسے تبدیل کریں یا بند کریں۔",
-				"reset": "ڈیفالٹ پر واپس جائیں"
-			},
-			"cookies": {
-				"sourceLabel": "Cookies کا ذریعہ",
-				"sourceOff": "بند",
-				"sourceFile": "فائل",
-				"sourceBrowser": "براؤزر",
-				"sourceExplore": "دریافت کا سائن ان",
-				"recommended": "تجویز کردہ",
-				"exploreDescription": "صرف تب دریافت کا سائن ان استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔",
-				"exploreDisabled": "دریافت ٹیب بند ہے، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔ اسے نیچے دریافت میں آن کریں۔",
-				"openExplore": "دریافت کھولیں",
-				"toggleDescription": "عمر کی پابندی والی، صرف ممبرز والی، اور اکاؤنٹ پرائیویٹ ویڈیوز کے لیے مددگار۔",
-				"risk": "خطرہ: cookies.txt میں اس براؤزر کے ہر لاگ اِن سیشن کی معلومات ہوتی ہیں — اسے پرائیویٹ رکھیں۔",
-				"fileLabel": "Cookies فائل",
-				"choose": "منتخب کریں…",
-				"clear": "صاف کریں",
-				"placeholder": "کوئی فائل منتخب نہیں",
-				"helpLink": "cookies کیسے ایکسپورٹ کروں؟",
-				"enabledButNoFile": "cookies استعمال کرنے کے لیے فائل منتخب کریں",
-				"browserLabel": "براؤزر",
-				"browserPlaceholder": "براؤزر منتخب کریں…",
-				"browserHelp": "براؤزر سے براہ راست cookies پڑھتا ہے۔ Chromium خاندان کے براؤزرز بند ہونے چاہئیں۔",
-				"enabledButNoBrowser": "cookies استعمال کرنے کے لیے براؤزر منتخب کریں",
-				"banWarning": "YouTube جیسی سائٹس ان اکاؤنٹس کو فلیگ — اور کبھی کبھار بین — کر سکتی ہیں جن کے cookies Arroxy جیسے ڈاؤن لوڈ ٹولز کے ذریعے استعمال ہوں۔ ممکن ہو تو ٹمپریری اکاؤنٹ استعمال کریں۔",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "cookies.txt مقامی طور پر حاصل کریں (Chrome)"
-			},
-			"proxy": {"label": "پراکسی ایڈریس", "description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔", "placeholder": "http://host:port", "clear": "صاف کریں"},
-			"style": {
-				"panelTitle": "ظاہری شکل",
-				"panelDescription": "Arroxy کیسا دکھتا ہے۔ نیچے والی پٹی میں لائٹ اور ڈارک کے درمیان بدلیں۔",
-				"modeLabel": "اسٹائل",
-				"modeDescription": "دونوں اسٹائل لائٹ اور ڈارک میں دستیاب ہیں۔",
-				"aurora": {"label": "Aurora", "description": "حرکت کرتے آسمان پر شیشے جیسے پینل۔ گرافکس ایکسلریشن درکار ہے۔"},
-				"minimal": {"label": "سادہ", "description": "ٹھوس، پرسکون سطحیں۔ ہر کمپیوٹر پر ہلکا چلتا ہے۔"},
-				"unavailableNotice": "{{style}} کو گرافکس ایکسلریشن درکار ہے جو اس وقت دستیاب نہیں، اس لیے Arroxy {{fallback}} دکھا رہا ہے۔"
-			},
-			"limitRate": {
-				"label": "ڈاؤن لوڈ رفتار حد",
-				"description": "میڈیا ڈاؤن لوڈز کے لیے بینڈوڈتھ محدود کریں۔ نیچے درخواستوں کی رفتار عام طور پر زیادہ مضبوط حد ہے۔",
-				"off": "بند",
-				"custom": "حسب ضرورت…",
-				"customPlaceholder": "مثلاً 750K یا 1.5M",
-				"invalid": "K یا M کے ساتھ ایک نمبر استعمال کریں (مثلاً 500K، 1.5M)",
-				"activeWarning": "فعال ڈاؤن لوڈز اپنی موجودہ حد رکھتے ہیں۔ لاگو کرنے کے لیے توقف + جاری رکھیں۔"
-			},
-			"playlistProbeLimit": {
-				"label": "اسکین کرنے کے لیے Playlist آئٹمز",
-				"description": "Arroxy کی زیادہ سے زیادہ اندراجات جو playlist، چینل، یا تلاش کا نتیجہ کھولنے پر لوڈ کرتا ہے۔",
-				"option": "{{count}} آئٹمز",
-				"current": "موجودہ لمٹ: {{count}} آئٹمز",
-				"customValue": "حسب ضرورت: {{count}} آئٹمز",
-				"custom": "حسب ضرورت…",
-				"customDialogTitle": "حسب ضرورت Playlist اسکین لمٹ",
-				"customDialogDescription": "{{min}} سے {{max}} تک پورا عدد استعمال کریں۔",
-				"customDialogCancel": "منسوخ کریں",
-				"customDialogSave": "لمٹ محفوظ کریں",
-				"invalid": "1 سے 5000 تک پورا عدد استعمال کریں",
-				"tooltip": "Arroxy پِکر بناتے وقت صرف اتنے playlist، چینل، یا تلاش کے اندراجات مانگتا ہے۔"
-			},
-			"nativeAudioPreference": {"label": "نیٹو آڈیو ترجیح", "description": "جب پروفائل نیٹو آڈیو چنے تو اسٹیریو یا سراؤنڈ۔ پروفائل اسے بدل سکتی ہے۔", "compatible": "مطابقت پذیر اسٹیریو", "surround": "سراؤنڈ / Dolby کو ترجیح دیں"},
-			"autoRetry": {"label": "ناکام ڈاؤن لوڈز دوبارہ آزمائیں", "description": "نیٹ ورک یا سرور کی خرابی کے بعد خود بخود دوبارہ کوشش کرتا ہے، ہر کوشش سے پہلے زیادہ انتظار کرتے ہوئے۔ سائٹ کی جانب سے بلاک کردہ ڈاؤن لوڈز کبھی خود بخود دوبارہ نہیں آزمائے جاتے۔", "unit": "بار"},
-			"autoRemoveCompleted": {"label": "مکمل ڈاؤن لوڈز خودکار طور پر ہٹائیں", "description": "ڈاؤن لوڈ مکمل ہونے کے چند سیکنڈ بعد اسے فہرست سے ہٹا دیتا ہے۔ فائلیں آپ کے فولڈر میں رہتی ہیں؛ ناکام اور منسوخ ڈاؤن لوڈز فہرست میں رہتی ہیں۔"},
-			"concurrentDownloads": {"label": "ایک وقت میں ڈاؤن لوڈز", "description": "قطار کی کتنی اشیاء ایک ہی وقت میں ڈاؤن لوڈ ہوں۔ ایک ساتھ زیادہ سے لمبی قطار جلد مکمل ہوتی ہے، مگر سائٹ کی جانب سے محدود کیے جانے کا امکان بڑھتا ہے۔", "unit": "ڈاؤن لوڈز"},
-			"downloadConnections": {"label": "ڈاؤن لوڈ کنکشنز", "description": "ایک ساتھ ویڈیو کے کئی حصے حاصل کر کے بڑی ڈاؤن لوڈز کو تیز کرتا ہے۔ زیادہ اقدار سے سائٹ کی جانب سے محدود کیے جانے کا امکان بڑھتا ہے۔", "unit": "کنکشنز"},
-			"networkPacing": {
-				"heading": "آہستہ ڈاؤن لوڈز",
-				"description": "ہر ڈاؤن لوڈ کے دوران چھوٹے وقفے شامل کرتا ہے تاکہ Arroxy سائٹ پر زیادہ دباؤ نہ ڈالے۔ قدریں سیکنڈ میں ہیں۔",
-				"presetLabel": "Arroxy کتنی احتیاط کرے؟",
-				"tooltip": "یہ وقفے ہر ڈاؤن لوڈ کے اندر ہوتے ہیں۔ ایک وقت میں کتنے ڈاؤن لوڈز چلیں یہ «ایک وقت میں ڈاؤن لوڈز» میں الگ سے طے ہوتا ہے۔",
-				"summary": "انتظار: {{requests}} چیک کرنے کے درمیان، {{downloads}} میڈیا شروع ہونے سے پہلے، {{subtitles}} سب ٹائٹل فائلوں سے پہلے۔",
-				"presets": {"off": "بند", "balanced": "متوازن", "careful": "محتاط", "custom": "حسب ضرورت"},
-				"tooltips": {
-					"off": "صرف وہ چھوٹے بنیادی وقفے استعمال کرتا ہے جو Arroxy میڈیا اور سب ٹائٹلز کے لیے رکھتا ہے۔",
-					"balanced": "پہلے سے طے شدہ۔ درخواستوں کے درمیان اور میڈیا شروع ہونے سے پہلے مختصر وقفے شامل کرتا ہے۔",
-					"careful": "بڑی پلے لسٹس یا ان نیٹ ورکس کے لیے زیادہ وقفے شامل کرتا ہے جو اکثر حدود تک پہنچتے ہیں۔",
-					"custom": "فی ڈاؤن لوڈ ایڈوانسڈ کنٹرولز خود ترتیب دیں۔"
-				},
-				"fields": {"sleepRequests": "میٹا ڈیٹا چیکس کے درمیان انتظار", "sleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: کم از کم", "maxSleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: زیادہ سے زیادہ", "sleepSubtitles": "سب ٹائٹل فائلوں سے پہلے انتظار"},
-				"units": {"seconds": "سیکنڈ"}
-			},
-			"closeToTray": {"toggle": "بند کرنے پر ٹرے میں چھپائیں", "toggleDescription": "ونڈو بند ہونے کے بعد بیک گراؤنڈ میں ڈاؤن لوڈز جاری رکھیں۔"},
-			"analytics": {"toggle": "روزانہ سگنل بھیجیں", "toggleDescription": "کوئی ٹیلی میٹری نہیں۔ دن میں ایک بار ایک گمنام سگنل ایپ ورژن، انسٹال چینل، OS، زبان، ملک اور تقریباً یہ کہ Arroxy کو انسٹال ہوئے کتنا عرصہ ہوا بھیجتا ہے تاکہ ہم فعال اور نئے صارفین گن سکیں۔ کوئی ID، URL، ویڈیو عنوان یا فائل نام نہیں۔"}
-		},
-		"quickProgress": {
-			"title": "فوری ڈاؤن لوڈ کی تیاری",
-			"description": "Arroxy لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔",
-			"currentFallback": "موجودہ لنک",
-			"waitHint": "Arroxy قطار تیار کرے تب تک اسے کھلا رکھیں۔",
-			"failedCount_one": "{{count}} ناکام",
-			"failedCount_other": "{{count}} ناکام",
-			"cancel": "تیاری منسوخ کریں",
-			"phase": {"probing": "تفصیلات حاصل کی جا رہی ہیں", "queueing": "قطار میں شامل کیا جا رہا ہے"}
-		},
-		"subtitles": {
-			"autoBadge": "آٹو",
-			"noLanguages": "اس ویڈیو کے لیے کوئی سب ٹائٹلز دستیاب نہیں",
-			"searchPlaceholder": "زبانیں تلاش کریں…",
-			"noMatches": "کوئی زبان میچ نہیں ہوئی",
-			"clearAll": "سب صاف کریں",
-			"noSelected": "کوئی سب ٹائٹل منتخب نہیں",
-			"removeLanguage": "{{name}} ہٹائیں",
-			"sectionManual": "دستی",
-			"sectionAuto": "خودکار",
-			"saveMode": {"heading": "محفوظ کریں بطور", "sidecar": "ویڈیو کے ساتھ", "embed": "ویڈیو میں شامل کریں", "subfolder": "subtitles/ سب فولڈر"},
-			"format": {"heading": "فارمیٹ"},
-			"embedNote": "Embed موڈ آؤٹ پٹ کو .mkv کے طور پر محفوظ کرتا ہے تاکہ سب ٹائٹل ٹریکس قابل اعتماد طور پر شامل ہوں۔",
-			"autoAssNote": "آٹو کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے — انہیں ہمیشہ YouTube کے رولنگ کیو ڈپلیکیشن سے صاف کیا جاتا ہے، جسے ہمارا ASS کنورٹر ابھی نقل نہیں کر سکتا۔"
-		},
-		"sponsorblock": {
-			"modeHeading": "سپانسر فلٹرنگ",
-			"mode": {"off": "بند", "mark": "چیپٹرز کے طور پر مارک کریں", "remove": "سیگمنٹس ہٹائیں"},
-			"modeHint": {"off": "کوئی SponsorBlock نہیں — ویڈیو ویسے ہی چلے گی جیسے اپلوڈ ہوئی۔", "mark": "سپانسر سیگمنٹس کو چیپٹرز کے طور پر مارک کرتا ہے (نقصان رہت)۔", "remove": "FFmpeg سے ویڈیو سے سپانسر سیگمنٹس کاٹ دیتا ہے۔"},
-			"categoriesHeading": "کیٹیگریز",
-			"cat": {"sponsor": "سپانسر", "intro": "انٹرو", "outro": "آؤٹرو", "selfpromo": "سیلف پرومو", "music_offtopic": "موسیقی غیر متعلقہ", "preview": "پری ویو", "filler": "فِلر"}
-		},
-		"formats": {
-			"kind": {"label": "کیا ڈاؤن لوڈ کرنا ہے", "video": "ویڈیو + آڈیو", "videoOnly": "ویڈیو، بغیر آڈیو", "audio": "صرف آڈیو", "subtitles": "صرف سب ٹائٹلز"},
-			"profile": {
-				"calloutTitle": "فارمیٹس آپ کے پروفائل سے شروع ہوتے ہیں",
-				"calloutBody": "آپ کا فعال پروفائل آپ کے لیے اسٹریمز پہلے سے منتخب کر دیتا ہے۔ مینو سے پروفائل بدلیں، یا اس ڈاؤن لوڈ سے نکلے بغیر پنسل سے کسی پروفائل کو ٹھیک کریں۔",
-				"preselected": "پہلے سے منتخب، ماخذ:",
-				"tag": "پروفائل",
-				"closestTag": "پروفائل کے قریب ترین",
-				"switchTitle": "پروفائل تبدیل کریں؟",
-				"switchBody": "آپ نے اس ڈاؤن لوڈ کے لیے {{areas}} تبدیل کیے۔ “{{profile}}” ہر صورت میں ویڈیو اور آڈیو چنتا ہے۔ اپنی باقی تبدیلیاں رکھیں، یا سب کچھ پروفائل پر ری سیٹ کریں؟",
-				"resetAll": "سب ری سیٹ کریں",
-				"edit": "{{name}} میں ترمیم کریں",
-				"updatedTitle": "اپ ڈیٹ شدہ پروفائل استعمال کریں؟",
-				"updatedBody": "آپ نے اس ڈاؤن لوڈ کے لیے {{areas}} تبدیل کیے۔ اپ ڈیٹ شدہ پروفائل ہر صورت میں ویڈیو اور آڈیو چنتا ہے۔ اپنی باقی تبدیلیاں رکھیں، یا سب کچھ پروفائل پر ری سیٹ کریں؟",
-				"keepEdits": "میری تبدیلیاں رکھیں",
-				"menuDescription": "صرف اس ڈاؤن لوڈ کے لیے۔ آپ کا ڈیفالٹ پروفائل جیسا ہے ویسا ہی رہے گا۔"
-			},
-			"fit": {
-				"tierBelow": "آپ کا پروفائل {{wanted}}p مانگتا ہے۔ یہ ویڈیو صرف {{picked}}p تک جاتی ہے، اس لیے {{picked}}p منتخب کیا گیا ہے۔",
-				"tierAbove": "آپ کا پروفائل {{wanted}}p مانگتا ہے۔ اس ویڈیو میں اتنا چھوٹا کچھ نہیں، اس لیے {{picked}}p منتخب کیا گیا ہے۔",
-				"mp4Unavailable": "آپ کی پروفائل سمارٹ TV (H.264) ہے۔ یہ ویڈیو H.264 فراہم نہیں کرتی، اس لیے قریب ترین اسٹریم منتخب کی گئی ہے۔",
-				"noVideo": "اس لنک میں ویڈیو نہیں ہے، اس لیے آڈیو منتخب کی گئی ہے۔",
-				"subtitlesMissing": "آپ کا پروفائل {{languages}} میں سب ٹائٹلز مانگتا ہے۔ اس ویڈیو میں یہ موجود نہیں۔",
-				"webmUnavailable": "آپ کی پروفائل WebM مانگتی ہے۔ اس ویڈیو کی منتخب اسٹریمز میں {{codec}} شامل ہے، جو WebM میں نہیں آ سکتا، اس لیے فائل کی قسم آٹو ہے۔"
-			},
-			"footer": {"download": "ڈاؤن لوڈ", "moreActions": "مزید ڈاؤن لوڈ اختیارات", "addToQueue": "شروع کیے بغیر قطار میں شامل کریں", "subtitlesRequired": "کم از کم ایک سب ٹائٹل زبان منتخب کریں۔"},
-			"video": "ویڈیو",
-			"audio": "آڈیو",
-			"noAudio": "کوئی آڈیو نہیں",
-			"withAudio": "آڈیو کے ساتھ",
-			"resolutionUnknown": "ریزولوشن نامعلوم",
-			"bitrateValue": "بٹ ریٹ {{bitrate}}",
-			"marker": {"aiUpscaled": "AI اپ اسکیل شدہ", "aiDubbed": "AI ڈب شدہ", "audioDescription": "صوتی وضاحت", "spatialAudio": "اسپیشل آڈیو", "vr": "360° / VR", "enhancedBitrate": "بہتر بٹ ریٹ", "damaged": "خراب", "watermarked": "واٹرمارک والا"},
-			"keepAudio": "جیسا ہے ویسا رکھیں",
-			"keepAudioMeta": "بلٹ اِن آڈیو",
-			"audioOnly": "صرف آڈیو",
-			"sniffing": "آپ کے لیے بہترین فارمیٹس ڈھونڈ رہا ہوں…",
-			"loadingHint": "براہ کرم پروبنگ مکمل ہونے تک انتظار کریں — پلے لسٹس اور تلاش میں کچھ وقت لگ سکتا ہے۔",
-			"loadingAria": "فارمیٹس لوڈ ہو رہے ہیں",
-			"sizeUnknown": "سائز نامعلوم",
-			"total": "کل",
-			"skipToConfirm": "تصدیق تک جائیں",
-			"skipToConfirmTooltip": "باقی تمام مراحل کے لیے آپ کی محفوظ ترجیحات استعمال کرتا ہے۔ کوئی ترتیب تبدیل کرنے کے لیے، قدم بہ قدم جاری رکھیں — آپ کا انتخاب اگلی بار کے لیے محفوظ ہو جائے گا۔",
-			"quality": {"high": "اعلیٰ معیار", "medium": "درمیانی معیار", "low": "کم معیار"},
-			"drc": {"label": "آواز کی سطح برابر کریں (DRC)", "description": "اونچے حصوں کو دھیما اور دھیمے حصوں کو اونچا کرتا ہے، اسپیکرز اور شور والی جگہوں کے لیے۔", "tag": "برابر آواز"},
-			"audioLanguage": "آڈیو کی زبان",
-			"audioLanguageCount_one": "{{count}} زبان",
-			"audioLanguageCount_other": "{{count}} زبانیں",
-			"convert": {
-				"label": "کنورٹ کریں",
-				"bitrate": "بٹ ریٹ",
-				"wavLabel": "WAV (غیر کمپریسڈ)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps، دوبارہ encode نہیں",
-				"copyLabelNoBitrate": "{{target}}، دوبارہ encode نہیں",
-				"copyNote": "{{kbps}} kbps، جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
-				"copyNoteNoBitrate": "جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
-				"bitrateCopyHint": "جو ماخذ پہلے ہی {{target}} ہو وہ اپنی سٹریم اور بٹ ریٹ برقرار رکھتا ہے: اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا۔",
-				"sourceKbps": "ماخذ {{kbps}} kbps ہے"
-			},
-			"botWall": {
-				"heading": "YouTube نے یہ پروب محدود کر دی",
-				"bodyUnconfigured": "فارمیٹ کی فہرست نامکمل ہو سکتی ہے۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
-				"bodyDisabled": "Cookies ترتیب دی گئی ہیں لیکن بند ہیں۔ مکمل فہرست کے لیے انہیں فعال کریں اور دوبارہ کوشش کریں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
-				"bodyEnabled": "Cookies کے ساتھ بھی YouTube نے یہ پروب محدود کی۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
-				"bodyExplore": "YouTube نے اس درخواست کو محدود کر دیا۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
-				"retryCta": "دوبارہ کوشش کریں",
-				"enableRetryCta": "Cookies فعال کریں اور دوبارہ کوشش کریں"
-			},
-			"rateLimit": {
-				"heading": "{{site}} اس کنکشن کی درخواستیں محدود کر رہا ہے",
-				"leadDegraded": "فارمیٹس کی فہرست نامکمل ہو سکتی ہے۔",
-				"leadFailed": "{{site}} نے فی الحال یہ درخواست واپس کر دی۔",
-				"waitUntil": "حد ختم ہونے کے لیے Arroxy دوبارہ {{site}} سے پوچھنے سے پہلے {{time}} تک انتظار کرتا ہے۔",
-				"waitOver": "انتظار ختم ہو گیا، اب آپ دوبارہ کوشش کر سکتے ہیں۔",
-				"sessionNote": "{{site}} یہ حد ایک گھنٹے تک برقرار رکھ سکتا ہے۔",
-				"tryNowCta": "ابھی آزمائیں",
-				"retryCta": "دوبارہ کوشش کریں"
-			},
-			"cookiesError": {
-				"heading": "Cookies وجہ ہو سکتی ہیں",
-				"currentModeLabel": "Cookies کا ذریعہ",
-				"currentModeFile": "فائل",
-				"currentModeBrowser": "براؤزر",
-				"currentModeExplore": "دریافت کا سائن ان",
-				"explanationFile": "آپ کی cookies فائل خالی، میعاد ختم، یا غلط فارمیٹ میں ہو سکتی ہے (Arroxy کو Netscape cookies.txt فائل درکار ہے)۔ cookies دوبارہ ایکسپورٹ کریں، مختلف فائل منتخب کریں، براؤزر موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
-				"explanationBrowser": "Cookies براہ راست براؤزر سے پڑھی جاتی ہیں۔ اگر براؤزر ابھی چل رہا ہے تو اس کا cookie ڈیٹا بیس لاک ہو سکتا ہے (Chromium-family)۔ براؤزر کا YouTube میں سائن اِن ہونا بھی ضروری ہے۔ براؤزر بند کریں، کوئی مختلف براؤزر آزمائیں، فائل موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
-				"openSettingsCta": "Cookies سیٹنگز کھولیں",
-				"exploreSignIn": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "اگر اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہے تو دریافت میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔", "cta": "دریافت میں سائن ان کریں"},
-				"exploreSignedIn": {"heading": "دریافت میں سائن ان ہیں", "body": "اگر اس ویڈیو کے لیے اکاؤنٹ درکار ہے تو Arroxy خود بخود دریافت میں آپ کا سائن ان استعمال کرتا ہے۔ یہ کسی اور وجہ سے دستیاب نہیں ہو سکتی۔"},
-				"exploreOffer": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "دریافت کے ذریعے سائن ان کریں اور Arroxy دوبارہ کوشش کرے گا۔", "cta": "دریافت کے ذریعے سائن ان کریں"},
-				"exploreReuse": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "آپ دریافت میں سائن ان ہیں، لیکن ڈاؤن لوڈز اس وقت اس سائن ان کو استعمال نہیں کر رہے۔", "cta": "دریافت کا سائن ان استعمال کریں اور دوبارہ کوشش کریں"},
-				"exploreSite": {"heading": "اس لنک کے لیے {{host}} پر اکاؤنٹ درکار ہو سکتا ہے", "signInBody": "{{host}} پر دریافت میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔", "offerBody": "{{host}} پر دریافت کے ذریعے سائن ان کریں اور دوبارہ کوشش کریں۔"},
-				"exploreRefused": {"heading": "سائٹ نے دریافت میں آپ کے سائن ان کے باوجود اسے مسترد کر دیا", "body": "Arroxy پہلے ہی دریافت کے ذریعے سائن ان کے ساتھ کوشش کر چکا ہے، اس لیے دوبارہ سائن ان کرنے سے مدد نہیں ملے گی۔ ممکن ہے سائٹ میں مسئلہ ہو یا یہ اکاؤنٹ اسے نہ کھول سکتا ہو۔ بعد میں دوبارہ کوشش کریں۔"},
-				"otherCookiesCta": "اس کے بجائے Cookies فائل یا براؤزر استعمال کریں…",
-				"needsCookies": {"heading": "اس سائٹ کو سائن اِن ضروری ہے", "body": "Arroxy تصدیق کے بغیر اس ویڈیو تک رسائی حاصل نہیں کر سکا۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں — کسی ایسے براؤزر کی طرف اشارہ کریں جس میں آپ پہلے سے سائن اِن ہوں، یا cookies.txt فائل درآمد کریں۔"},
-				"dpapi": {
-					"heading": "Chrome cookies ونڈوز انکرپشن کے ذریعے بلاک ہیں",
-					"explanation": "Chrome 127 اور اس سے نئے ورژن cookies کو اس طرح انکرپٹ کرتے ہیں کہ دوسری ایپس Windows پر انہیں پڑھ نہیں سکتیں۔ نیچے دیے گئے حلوں میں سے ایک آزمائیں۔",
-					"fixFirefoxLabel": "Firefox پر سوئچ کریں",
-					"fixFirefoxBody": "Firefox، App-Bound Encryption استعمال نہیں کرتا۔ Cookies سیٹنگز کھولیں اور براؤزر کی فہرست سے Firefox منتخب کریں۔",
-					"fixFileLabel": "cookies.txt ایکسپورٹ کریں",
-					"fixFileBody": "کسی براؤزر ایکسٹینشن سے Chrome سے cookies ایکسپورٹ کریں، پھر اس ایپ کو فائل موڈ پر سوئچ کریں اور ایکسپورٹ کی گئی فائل منتخب کریں۔",
-					"fixUnsafeLabel": "App-Bound Encryption غیر فعال کر کے Chrome لانچ کریں",
-					"fixUnsafeBody": "Chrome کی لانچ شارٹ کٹ میں --disable-features=LockProfileCookieDatabase شامل کریں۔ انتباہ: اس سے پہلے سے انکرپٹ cookies ختم ہو جاتی ہیں، اس لیے آپ ہر سائٹ سے لاگ آؤٹ ہو جائیں گے اور دوبارہ لاگ ان کرنا ہو گا۔",
-					"docsLinkLabel": "yt-dlp دستاویزات (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "بطور محفوظ", "reset": "WebM میں {{codec}} نہیں آ سکتا، اس لیے فائل کی قسم واپس آٹو ہو گئی۔"}
-		},
-		"folder": {
-			"heading": "محفوظ کریں",
-			"downloads": "ڈاؤن لوڈز",
-			"videos": "فلمیں",
-			"desktop": "ڈیسک ٹاپ",
-			"music": "موسیقی",
-			"documents": "دستاویزات",
-			"pictures": "تصاویر",
-			"home": "ہوم",
-			"custom": "حسب ضرورت…",
-			"subfolder": {"toggle": "سب فولڈر میں محفوظ کریں", "placeholder": "مثلاً lo-fi rips", "invalid": "فولڈر کے نام میں غلط حروف ہیں"}
-		},
-		"output": {
-			"embedChapters": {"label": "چیپٹرز شامل کریں", "description": "چیپٹر مارکرز کسی بھی جدید پلیئر میں نیویگیٹ کیے جا سکتے ہیں۔"},
-			"embedMetadata": {"label": "میٹا ڈیٹا شامل کریں", "description": "عنوان، فنکار، تفصیل، اور اپلوڈ کی تاریخ فائل میں لکھی جاتی ہے۔"},
-			"embedThumbnail": {"label": "تھمب نیل شامل کریں", "description": "فائل میں کور آرٹ۔ WebM ویڈیو کو MKV میں ری مکس کیا جائے گا؛ جب سب ٹائٹلز شامل ہوں تو چھوڑ دیا جاتا ہے۔"},
-			"writeDescription": {"label": "تفصیل محفوظ کریں", "description": "ویڈیو کی تفصیل کو ڈاؤن لوڈ کے ساتھ .description ٹیکسٹ فائل کے طور پر محفوظ کرتا ہے۔"},
-			"writeThumbnail": {"label": "تھمب نیل محفوظ کریں", "description": "تھمب نیل کو ڈاؤن لوڈ کے ساتھ .jpg امیج فائل کے طور پر محفوظ کرتا ہے۔"},
-			"writeM3u": {"label": ".m3u پلے لسٹ فائل بنائیں", "description": "ویڈیوز کے ساتھ .m3u پلے لسٹ محفوظ کرتا ہے تاکہ وہ میڈیا پلیئر میں ترتیب سے کھلیں۔"}
-		},
-		"review": {
-			"changeFormat": "فارمیٹ تبدیل کریں",
-			"rowsHeading": "باقی سب کچھ",
-			"rows": {"subtitles": "سب ٹائٹلز", "sponsorBlock": "SponsorBlock", "extras": "اضافی", "saveTo": "محفوظ کریں", "fileName": "فائل نام"},
-			"value": {"subtitlesOff": "بند", "sponsorBlockOff": "بند", "extrasNone": "کوئی نہیں"},
-			"changed": "{{profile}} سے تبدیل: {{areas}}۔ صرف اس ڈاؤن لوڈ پر لاگو ہوتا ہے۔",
-			"areas": {"format": "فارمیٹ", "subtitles": "سب ٹائٹلز", "sponsorBlock": "SponsorBlock", "extras": "اضافی", "saveTo": "فولڈر", "fileName": "فائل نام"},
-			"updateProfile": "“{{profile}}” کو ان تبدیلیوں سے اپ ڈیٹ کریں",
-			"saveAsProfile": "نئے پروفائل کے طور پر محفوظ کریں",
-			"update": {
-				"title": "“{{profile}}” اپ ڈیٹ کریں؟",
-				"description": "اب سے، اس پروفائل والا ہر ڈاؤن لوڈ نئی ترتیبات استعمال کرے گا۔",
-				"rows": {"format": "فارمیٹ"},
-				"builtinNote": "یہ ایک بلٹ اِن پروفائل ہے۔ آپ اس کی اصل ترتیبات “پروفائلز” ٹیب میں بحال کر سکتے ہیں۔",
-				"action": "پروفائل اپ ڈیٹ کریں",
-				"updated": "پروفائل “{{name}}” اپ ڈیٹ ہو گیا"
-			},
-			"callout": {"title": "باقی تمام ترتیبات اب اسی صفحے پر ہیں", "body": "سب ٹائٹلز، SponsorBlock، تھمب نیل جیسی اضافی چیزیں، فولڈر اور فائل نام پہلے الگ الگ مراحل تھے۔ تبدیل کرنے کے لیے کسی قطار پر کلک کریں۔"},
-			"reset": "تبدیلیاں واپس لیں، “{{profile}}” پر واپس جائیں",
-			"changedFrom": "{{profile}} سے تبدیل:",
-			"save": {
-				"title": "پروفائل کے طور پر محفوظ کریں",
-				"description": "ان ترتیبات کو پروفائل کے طور پر محفوظ کرتا ہے جسے آپ اگلی بار منتخب کر سکتے ہیں۔ آپ کا فوری ڈاؤن لوڈ پروفائل جوں کا توں رہتا ہے۔",
-				"nameLabel": "پروفائل کا نام",
-				"action": "پروفائل محفوظ کریں",
-				"saved": "پروفائل “{{name}}” کے طور پر محفوظ ہو گیا",
-				"failed": "پروفائل محفوظ نہیں ہو سکا۔"
-			},
-			"fileNameHint": "ٹوکنز: {title}، {id}، {uploader}، {date}، {resolution}۔ ایکسٹینشن خود بخود شامل ہو جاتی ہے۔",
-			"nextTime": {"title": "اس ڈاؤن لوڈ میں ترمیم شدہ ترتیبات استعمال ہوئیں۔ کیا اگلی بار انہیں استعمال کریں؟", "action": "پروفائل کے طور پر محفوظ کریں", "defaultName": "{{profile}} (ترمیم شدہ)"}
-		},
-		"confirm": {
-			"readyHeadline": "لانے کے لیے تیار!",
-			"landIn": "آپ کی فائل یہاں پہنچے گی",
-			"landInMultiProfile_one": "یہ نیچے دی گئی منزل میں پہنچے گی",
-			"landInMultiProfile_other": "یہ نیچے دی گئی {{count}} منزلوں میں پہنچیں گی",
-			"labelVideo": "ویڈیو",
-			"labelAudio": "آڈیو",
-			"labelSubtitles": "سب ٹائٹلز",
-			"subtitlesNone": "—",
-			"labelSaveTo": "محفوظ کریں",
-			"labelSize": "سائز",
-			"sizeUnknown": "نامعلوم",
-			"nothingToDownload": "صرف سب ٹائٹلز پری سیٹ ایکٹیو ہے لیکن کوئی سب ٹائٹل زبان منتخب نہیں — کچھ ڈاؤن لوڈ نہیں ہو گا۔",
-			"thumbnailEmbedNotSupported": "Thumbnail embed چھوڑ دیا گیا — آؤٹ پٹ container اسے سپورٹ نہیں کرتا۔",
-			"subtitleEmbedAudioOnly": "Subtitle embed کو sidecar میں تبدیل کر دیا گیا — آڈیو ٹریکس اندرونی subtitle سٹریمز کو سپورٹ نہیں کرتے۔",
-			"audioOnly": "صرف آڈیو",
-			"addToQueue": "+ قطار",
-			"addToQueueTooltip": "دوسرے ڈاؤن لوڈز ختم ہونے پر شروع ہو گا — مکمل بینڈوڈتھ ملے گی",
-			"pullIt": "لے آؤ! ↓",
-			"pullItTooltip": "فوراً شروع ہو گا — دوسرے ایکٹو ڈاؤن لوڈز کے ساتھ چلے گا",
-			"labelPlaylist": "پلے لسٹ",
-			"labelBulk": "متعدد URLs",
-			"labelPreset": "پریسیٹ",
-			"labelItems": "آئٹمز",
-			"itemsValue_one": "{{total}} میں سے {{count}} ویڈیو",
-			"itemsValue_other": "{{total}} میں سے {{count}} ویڈیوز",
-			"itemsValueAudio_one": "{{total}} میں سے {{count}} ٹریک",
-			"itemsValueAudio_other": "{{total}} میں سے {{count}} ٹریکس",
-			"itemsValueBulk_one": "{{total}} میں سے {{count}} URL",
-			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs",
-			"profileBreakdownHeading": "اس بیچ میں پروفائلز",
-			"profileBreakdownCount_one": "{{count}} آئٹم",
-			"profileBreakdownCount_other": "{{count}} آئٹمز",
-			"subtitleEmbedForcesMkv": "ویڈیو کے اندر سب ٹائٹلز کے لیے MKV فائل چاہیے، اس لیے یہ ڈاؤن لوڈ .mkv کے طور پر محفوظ ہوگا۔"
-		},
-		"profileEditor": {
-			"dialogTitle": "ڈاؤن لوڈ پروفائل",
-			"dialogDescription": "کوئیک ڈاؤن لوڈ، بلک URLs اور پلے لسٹس کے لیے ایک دوبارہ قابلِ استعمال سیٹ اپ۔",
-			"skipped": "چھوڑ دیا گیا",
-			"panel": {
-				"identity": {"title": "پروفائل شناخت", "description": "کوئیک ڈاؤن لوڈ، بلک URLs اور پروفائل فہرستوں میں دکھایا جانے والا نام اور آئیکن۔"},
-				"downloadType": {"title": "ڈاؤن لوڈ کی قسم", "description": "منتخب کریں کہ آپ بنیادی طور پر کس طرح ڈاؤن لوڈ کرنا چاہتے ہیں۔"},
-				"advanced": {"title": "اعلیٰ اختیارات", "description": "جب تک آپ پروفائل اووررائیڈ مقرر نہ کریں، پروفائلز عالمی منزل ہی اپناتے ہیں۔"},
-				"output": {"title": "آؤٹ پٹ اختیارات", "enabledCount_one": "{{count}} فعال", "enabledCount_other": "{{count}} فعال"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "پروفائل کا نام اور آئیکن",
-				"icon": "پروفائل آئیکن",
-				"resolution": "ریزولوشن",
-				"quality": "معیار",
-				"source": "ماخذ",
-				"subfolderName": "ذیلی فولڈر کا نام",
-				"name": "پروفائل کا نام",
-				"subtitleDownloads": "سب ٹائٹل ڈاؤن لوڈز",
-				"subtitleDownloadsDescription": "پروفائلز زبان کے کوڈ طلب کرتے ہیں؛ دستیابی ہر URL کے لیے الگ طے ہوتی ہے۔",
-				"languages": "زبانیں",
-				"delivery": "محفوظ کرنے کا طریقہ",
-				"overridePath": "پروفائل اووررائیڈ راستہ",
-				"goal": "مقصد",
-				"fileType": "فائل کی قسم",
-				"nativeAudio": "نیٹو آڈیو"
-			},
-			"action": {
-				"chooseIcon": "پروفائل آئیکن منتخب کریں",
-				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
-				"chooseFolder": "منزل فولڈر منتخب کریں",
-				"removeLanguage": "{{code}} ہٹائیں",
-				"useLanguageCode": "زبان کا کوڈ “{{code}}” استعمال کریں",
-				"changeGlobalShort": "عالمی تبدیل کریں",
-				"setOverrideShort": "اووررائیڈ مقرر کریں",
-				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",
-				"reset": "پروفائل ری سیٹ کریں",
-				"resetHint": "بلٹ اِن پروفائل ترتیبات بحال کریں",
-				"resetDisabledHint": "یہ پروفائل پہلے سے بلٹ اِن ترتیبات استعمال کر رہا ہے",
-				"save": "پروفائل محفوظ کریں"
-			},
-			"placeholder": {"folder": "اس پروفائل کے لیے ایک فولڈر منتخب کریں"},
-			"destination": {
-				"global": "عالمی منزل",
-				"override": "پروفائل اووررائیڈ",
-				"resolved": "حتمی منزل",
-				"defaultFolder": "ڈیفالٹ ڈاؤن لوڈز فولڈر",
-				"defaultFolderWithSubfolder": "ڈیفالٹ ڈاؤن لوڈز فولڈر / {{subfolder}}",
-				"globalActive": "فعال",
-				"globalInherited": "وراثت میں ملا",
-				"overrideSet": "عالمی کو اووررائیڈ کرتا ہے",
-				"overrideChoosing": "فولڈر منتخب کریں",
-				"overrideNone": "کوئی اووررائیڈ مقرر نہیں",
-				"overrideSetNote": "یہ پروفائل ذیلی فولڈر شامل ہونے سے پہلے اپنے ہی روٹ میں محفوظ کرتا ہے۔",
-				"overrideNoneNote": "کوئی اووررائیڈ مقرر نہیں۔ یہ پروفائل اوپر والی عالمی منزل استعمال کرتا ہے۔"
-			},
-			"note": {
-				"subtitlesOnly": "یہ پروفائل صرف سب ٹائٹل فائلیں قطار میں شامل کرتا ہے۔ ویڈیو، آڈیو، SponsorBlock اور میڈیا کنورژن چھوڑ دیے جاتے ہیں۔",
-				"noSubtitles": "اس پروفائل کے لیے نہ سب ٹائٹل فائلیں اور نہ ایمبیڈڈ سب ٹائٹل ٹریکس طلب کیے جائیں گے۔",
-				"searchLanguages": "زبان کے نام یا کوڈ سے تلاش کریں",
-				"noLanguageMatches": "کوئی مماثل زبان نہیں",
-				"subtitleLanguagesRequired": "کم از کم ایک زبان منتخب کریں۔",
-				"subtitleLanguagesRequiredOrOff": "کم از کم ایک زبان منتخب کریں، یا سب ٹائٹل ڈاؤن لوڈز بند کریں۔",
-				"autoCaptionsSrt": "خودکار کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے۔",
-				"skippedForOutputType": "اس آؤٹ پٹ قسم کے لیے چھوڑ دیا گیا۔"
-			},
-			"error": {"save": "پروفائل کی ترتیبات محفوظ نہیں ہو سکیں۔", "changeGlobalDestination": "عالمی منزل تبدیل نہیں کی جا سکی۔", "reset": "پروفائل کی ترتیبات ری سیٹ نہیں ہو سکیں۔", "folderPicker": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔ راستہ خود درج کریں۔"},
-			"mediaMode": {
-				"videoAudio": {"label": "ویڈیو + آڈیو", "description": "عام ویڈیو فائلیں"},
-				"videoOnly": {"label": "ویڈیو، بغیر آڈیو", "description": "صرف بغیر آواز ویڈیو"},
-				"audioOnly": {"label": "صرف آڈیو", "description": "موسیقی یا پوڈکاسٹ"},
-				"subtitlesOnly": {"label": "صرف سب ٹائٹلز", "description": "صرف کیپشن فائلیں"}
-			},
-			"icon": {"controls": "کنٹرولز", "download": "ڈاؤن لوڈ", "video": "ویڈیو", "captions": "کیپشنز", "audio": "آڈیو", "music": "موسیقی", "podcast": "پوڈکاسٹ", "classes": "کلاسز", "clip": "کلپ", "archive": "آرکائیو"},
-			"audioFormat": {"best": "بہترین", "wav": "WAV"},
-			"audioQuality": {"128": "128K تک", "192": "192K تک", "320": "320K تک", "best": "بہترین معیار"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "پہلے دستی، پھر خودکار", "manualAndAuto": "دستی اور خودکار", "manualOnly": "صرف دستی", "autoOnly": "صرف خودکار تیار کردہ"},
-			"sponsorBlockHint": {"off": "SponsorBlock نہیں — ویڈیو جیسے اپ لوڈ ہوئی ویسے ہی چلے گی۔", "mark": "سپانسر حصوں کو ابواب کے طور پر نشان زد کرتا ہے (فائل تبدیل نہیں ہوتی)۔", "remove": "FFmpeg کے ذریعے ویڈیو سے سپانسر حصے کاٹ دیتا ہے۔"},
-			"advanced": "ایڈوانسڈ",
-			"goal": {
-				"bestPicture": {"name": "بہترین تصویر", "tag": "AV1 · VP9", "description": "ایک ہی سائز میں سب سے واضح۔ پرانے ٹی وی، QuickTime اور کچھ ایڈیٹرز اسے نہیں چلا سکتے۔"},
-				"smartTv": {"name": "سمارٹ TV", "tag": "MP4 · H.264", "description": "ٹی وی، فون، WhatsApp، QuickTime اور ویڈیو ایڈیٹرز پر چلتی ہے۔ YouTube صرف 1080p تک H.264 فراہم کرتا ہے۔"}
-			},
-			"appSetting": "ایپ کی ترتیب استعمال کریں ({{value}})"
-		},
-		"part": {
-			"switchLabel": "ویڈیو کا کتنا حصہ",
-			"whole": "پوری ویڈیو",
-			"wholeTrack": "پورا ٹریک",
-			"part": "حصہ",
-			"unavailableSubtitles": "سب ٹائٹلز ہمیشہ پوری ویڈیو کے ہوتے ہیں۔",
-			"unavailableDuration": "یہ ویڈیو اپنا دورانیہ نہیں بتاتی، اس لیے اسے صرف پوری ڈاؤن لوڈ کیا جا سکتا ہے۔",
-			"rangeLabel": "ویڈیو کا حصہ",
-			"start": "آغاز",
-			"end": "اختتام",
-			"timeHint": "h:mm:ss، m:ss یا سیکنڈ",
-			"length": "{{duration}} میں سے {{length}}",
-			"chapters": "چیپٹرز",
-			"chapterUntitled": "چیپٹر {{number}}",
-			"exactCut": {"label": "درست کٹ (دوبارہ انکوڈ ہوتا ہے، سست)", "hint": "بند ہو تو ہر کٹ قریب ترین کی فریم پر لگتا ہے، جو آپ کے لکھے وقت سے چند سیکنڈ دور ہو سکتا ہے۔"},
-			"calloutTitle": "ویڈیو کا صرف ایک حصہ ڈاؤن لوڈ کریں",
-			"calloutBody": "ویڈیو کارڈ پر «حصہ» پر جائیں، آغاز اور اختتام یا ایک باب منتخب کریں، اور صرف وہی حصہ ڈاؤن لوڈ کریں۔",
-			"connectionsNote": "حصہ ffmpeg کے ذریعے ڈاؤن لوڈ ہوتا ہے، اس لیے آپ کے ڈاؤن لوڈ کنکشنز اور وقفے کی ترتیبات اس پر لاگو نہیں ہوتیں۔",
-			"urlStart": "آپ کا لنک {{time}} سے شروع ہوتا ہے",
-			"useUrlStart": "آغاز کے طور پر استعمال کریں",
-			"error": {"startInvalid": "آغاز کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔", "endInvalid": "اختتام کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔", "startNotBeforeEnd": "آغاز اختتام سے پہلے ہونا چاہیے۔", "endBeyondDuration": "ویڈیو {{duration}} پر ختم ہوتی ہے۔"},
-			"downloadBlocked": "پہلے حصے کا آغاز اور اختتام درست کریں۔",
-			"totalEstimate": "حصہ، تخمینی",
-			"summary": "حصہ {{start}}–{{end}}",
-			"subtitlesFullLength": "پوری ویڈیو"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…", "chapters_one": "{{count}} چیپٹر", "chapters_other": "{{count}} چیپٹرز"},
-	"queue": {
-		"header": "ڈاؤن لوڈز",
-		"tabLabel": "ڈاؤن لوڈز",
-		"attentionBadge_one": "{{count}} ڈاؤن لوڈ کو آپ کی توجہ چاہیے",
-		"attentionBadge_other": "{{count}} ڈاؤن لوڈز کو آپ کی توجہ چاہیے",
-		"choice": {
-			"cappedBody_one": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیو ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
-			"cappedBody_other": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیوز ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
-			"reviewBody_one": "یہ لنک {{count}} ویڈیو کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔",
-			"reviewBody_other": "یہ لنک {{count}} ویڈیوز کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔",
-			"all": "تمام ویڈیوز",
-			"first": "پہلے {{count}}",
-			"review": "جائزہ"
-		},
-		"tabTip": "ڈاؤن لوڈز اب Downloads ٹیب میں ہیں — پیش رفت دیکھنے کے لیے اسے کسی بھی وقت کھولیں۔",
-		"empty": "قطار میں شامل ڈاؤن لوڈز یہاں ظاہر ہوں گے",
-		"filtersLabel": "قطار کی حالت کے فلٹرز",
-		"filterAll": "سب",
-		"selectedActionsLabel": "منتخب آئٹمز",
-		"globalActionsLabel": "تمام آئٹمز",
-		"selectionSummary": "{{selected}} منتخب · کل {{total}}",
-		"clearTitle": "مکمل ڈاؤن لوڈز صاف کریں",
-		"autoRemoveCompleted": {"label": "مکمل ہونے پر خودکار صاف", "hint": "ہر ڈاؤن لوڈ کو مکمل ہونے کے چند سیکنڈ بعد فہرست سے ہٹا دیتا ہے۔ فائلیں آپ کے فولڈر میں رہتی ہیں۔"},
-		"pauseAllTitle": "تمام فعال ڈاؤن لوڈز کو عارضی طور پر روکیں",
-		"resumeAllTitle": "رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں",
-		"pausedBanner": "قطار موقوف ہے — منتظر ڈاؤن لوڈز قطار دوبارہ شروع ہونے تک شروع نہیں ہوں گے",
-		"resumeQueueAction": "قطار دوبارہ شروع کریں",
-		"cancelAllTitle": "تمام فعال اور زیر التواء ڈاؤن لوڈز منسوخ کریں",
-		"table": {
-			"columns": "کالمز",
-			"title": "عنوان",
-			"status": "حالت",
-			"progress": "پیش رفت",
-			"format": "فارمیٹ",
-			"outputTarget": "آؤٹ پٹ منزل",
-			"artifacts": "آؤٹ پٹ فائلیں",
-			"size": "سائز",
-			"added": "شامل کیا گیا",
-			"finished": "مکمل ہوا",
-			"notAvailable": "—",
-			"sortBy": "{{label}} کے لحاظ سے ترتیب دیں",
-			"showArtifactsFor": "{{title}} کی فائلیں دکھائیں",
-			"hideArtifactsFor": "{{title}} کی فائلیں چھپائیں",
-			"resetColumns": "کالمز ری سیٹ کریں",
-			"resizeColumn": "{{column}} کالم کا سائز تبدیل کریں",
-			"movableColumn": "منتقل ہونے والا کالم",
-			"moveColumnInstructions": "کالم کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔",
-			"columnPickedUp": "{{column}} کالم اٹھایا گیا۔",
-			"columnMovedOver": "{{column}} کالم {{target}} کے اوپر ہے۔",
-			"columnDropped": "{{column}} کالم چھوڑ دیا گیا۔",
-			"columnMoveCancelled": "{{column}} کالم کو منتقل کرنا منسوخ کر دیا گیا۔"
-		},
-		"artifact": {"media": "میڈیا", "subtitle": "سب ٹائٹل", "thumbnail": "تھمب نیل", "description": "تفصیل", "companion": "ساتھ والی فائل", "unknown": "فائل", "missing": "غائب"},
-		"item": {
-			"defaultError": "ڈاؤن لوڈ ناکام",
-			"retryingSoon": "خود بخود دوبارہ کوشش جاری ہے (کوشش {{attempt}})",
-			"qualityLimited": "{{height}}p تک محدود",
-			"qualityLimitedSubtitlesFailed": "{{height}}p تک محدود · کچھ سب ٹائٹلز ناکام",
-			"audioKept": "آواز نہیں ہٹائی گئی",
-			"audioKeptSubtitlesFailed": "آواز نہیں ہٹائی گئی · کچھ سب ٹائٹلز ناکام",
-			"subtitleLanguagesMissing": "{{languages}} میں سب ٹائٹلز موجود نہیں",
-			"pause": "روکیں",
-			"resume": "دوبارہ شروع کریں",
-			"cancel": "منسوخ کریں",
-			"retry": "دوبارہ کوشش کریں",
-			"setLocation": "مقام مقرر کریں",
-			"setLocationHint": "مقام مقرر کرنے کے لیے زیرِ انتظار آئٹمز منتخب کریں۔",
-			"pendingOnly": "صرف زیرِ التوا",
-			"openDestinationFolder": "منزل فولڈر کھولیں",
-			"remove": "ہٹائیں",
-			"pullNow": "اب ڈاؤن لوڈ — قطار چھوڑیں",
-			"statusProbing": "تفصیلات لی جا رہی ہیں",
-			"statusNeedsChoice": "آپ کا انتخاب درکار ہے",
-			"statusPending": "منتظر",
-			"statusRunning": "ڈاؤن لوڈ ہو رہا ہے",
-			"statusHeld": "روکا گیا",
-			"statusPaused": "توقف شدہ",
-			"statusDone": "مکمل",
-			"statusError": "خرابی",
-			"statusCancelled": "منسوخ"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔",
-			"homebrew": "Arroxy {{version}} دستیاب ہے — Homebrew سے اپ ڈیٹ کریں۔",
-			"macosDirect": "Arroxy {{version}} دستیاب ہے — نیا DMG ڈاؤن لوڈ کریں۔",
-			"macosDirectHomebrew": "Arroxy {{version}} دستیاب ہے — DMG ڈاؤن لوڈ کریں یا Homebrew پر منتقل ہوں۔",
-			"portable": "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ کریں۔"
-		},
-		"install": "انسٹال اور ری اسٹارٹ",
-		"downloading": "ڈاؤن لوڈ ہو رہا ہے…",
-		"runAndRestart": "چلائیں اور ری اسٹارٹ کریں",
-		"upgrading": "اپ گریڈ ہو رہا ہے…",
-		"download": "ڈاؤن لوڈ ↗",
-		"downloadDmg": "DMG ڈاؤن لوڈ کریں ↗",
-		"dismiss": "اپ ڈیٹ بینر برخاست کریں",
-		"copy": "کمانڈ کلپ بورڈ پر کاپی کریں",
-		"copied": "کمانڈ کلپ بورڈ پر کاپی ہو گئی",
-		"installFailed": "اپ ڈیٹ ناکام",
-		"retry": "دوبارہ کوشش کریں"
-	},
-	"releaseNotes": {"title": "Arroxy {{version}} میں نیا کیا ہے", "description": "آپ ایک تازہ اپ ڈیٹ استعمال کر رہے ہیں۔ اہم نکات یہ ہیں۔", "fullNotes": "مکمل ریلیز نوٹس ↗", "continue": "جاری رکھیں"},
-	"status": {
-		"preparingBinaries": "بائنریز تیار کی جا رہی ہیں…",
-		"mintingToken": "YouTube ٹوکن بنایا جا رہا ہے…",
-		"remintingToken": "ٹوکن دوبارہ بنایا جا رہا ہے…",
-		"startingYtdlp": "ڈاؤن لوڈ انجن شروع ہو رہا ہے…",
-		"downloadingMedia": "ویڈیو اور آڈیو ڈاؤن لوڈ ہو رہی ہے…",
-		"mergingFormats": "آڈیو اور ویڈیو ضم ہو رہی ہیں…",
-		"extractingAudio": "آڈیو کنورٹ ہو رہی ہے…",
-		"convertingVideo": "ویڈیو کنورٹ ہو رہی ہے…",
-		"embeddingMetadata": "میٹا ڈیٹا شامل ہو رہا ہے…",
-		"movingFiles": "فائلیں منتقل ہو رہی ہیں…",
-		"fetchingSubtitles": "سب ٹائٹلز لائے جا رہے ہیں…",
-		"sleepingBetweenRequests": "ریٹ لمٹس سے بچنے کے لیے {{seconds}} سیکنڈ انتظار…",
-		"subtitlesFailed": "ویڈیو محفوظ ہو گئی — کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے",
-		"qualityLimited": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
-		"qualityLimitedSubtitlesFailed": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی، اور کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
-		"audioKept": "ویڈیو آواز کے ساتھ محفوظ ہو گئی — آواز ہٹائی نہ جا سکی",
-		"audioKeptSubtitlesFailed": "ویڈیو آواز کے ساتھ محفوظ ہو گئی — آواز ہٹائی نہ جا سکی، اور کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے",
-		"subtitleLanguagesMissing": "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ ویڈیو ان کے بغیر محفوظ کی گئی۔",
-		"subtitleLanguagesMissingOthersSaved": "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ باقی زبانیں محفوظ کر لی گئیں۔",
-		"noSubtitles": "{{languages}} میں سب ٹائٹلز موجود نہیں",
-		"cancelled": "ڈاؤن لوڈ منسوخ",
-		"complete": "ڈاؤن لوڈ مکمل",
-		"usedExtractorFallback": "ریلیکسڈ ایکسٹریکٹر سے ڈاؤن لوڈ ہوا — زیادہ قابل اعتماد ڈاؤن لوڈز کے لیے cookies.txt سیٹ اپ کریں",
-		"ytdlpProcessError": "ڈاؤن لوڈ انجن میں خرابی: {{error}}",
-		"ytdlpExitCode": "ڈاؤن لوڈ انجن کوڈ {{code}} کے ساتھ ختم ہوا",
-		"downloadingBinary": "{{name}} بائنری ڈاؤن لوڈ ہو رہی ہے…",
-		"unknownStartupFailure": "نامعلوم ڈاؤن لوڈ اسٹارٹ اپ ناکامی",
-		"diskSpaceInsufficient": "ڈسک میں کافی جگہ نہیں — {{required}} درکار ہے، صرف {{free}} دستیاب ہے",
-		"outputNotWritable": "{{dir}} میں محفوظ نہیں کیا جا سکتا — Arroxy کو وہاں لکھنے کی اجازت نہیں",
-		"fetchingSponsorBlock": "SponsorBlock سے رابطہ ہو رہا ہے…",
-		"retryingSponsorBlock": "SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…",
-		"retryingTransfer": "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "دریافت میں آپ کے اکاؤنٹ سے سائن ان ہو رہا ہے…",
-		"exploreSignedOut": "دریافت سے سائن آؤٹ ہو گیا — دوبارہ سائن ان کریں"
-	},
-	"notifications": {
-		"settingsSaveFailed": "آپ کی ترتیبات محفوظ نہیں ہو سکیں۔",
-		"warmupFailed": "سیٹ اپ مکمل نہیں ہوا۔ مکمل ہونے تک کچھ ڈاؤن لوڈز ناکام ہو سکتے ہیں۔",
-		"shellActionFailed": "اسے کھولا نہیں جا سکا۔",
-		"folderSelectFailed": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔",
-		"exploreSignInRetrying_one": "دریافت کے ذریعے سائن ان ہو گیا — 1 لنک دوبارہ آزمایا جا رہا ہے",
-		"exploreSignInRetrying_other": "دریافت کے ذریعے سائن ان ہو گیا — {{count}} لنکس دوبارہ آزمائے جا رہے ہیں",
-		"exploreSignOutFailed": "دریافت سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
-		"playlistFolderRejected": "یہ فولڈر اس پلے لسٹ کے لیے استعمال نہیں ہو سکتا۔",
-		"filenameFolderTooDeep": "یہ فولڈر آپ کے سسٹم کے لیے بہت گہرا ہے۔ ڈاؤن لوڈ پھر بھی ناکام ہو سکتا ہے — چھوٹا فولڈر منتخب کریں۔",
-		"filenameTemplateCannotFit": "اس ویڈیو کا نام آپ کے ٹیمپلیٹ کے ہر حصے میں نہیں سماتا، اس لیے پہلے سے طے شدہ نام استعمال کیا گیا۔",
-		"hotkey": {
-			"queued": "کلپ بورڈ سے ڈاؤن لوڈ شامل کر دیا گیا",
-			"alreadyQueued": "پہلے سے قطار میں ہے — کوئی کاپی شامل نہیں ہوئی",
-			"invalidClipboard": "کلپ بورڈ میں کوئی لنک نہیں — پہلے ایک کاپی کریں",
-			"multipleUrls": "متعدد لنکس کاپی ہو گئے — Arroxy میں “متعدد URLs” استعمال کریں",
-			"needsReview": "اس لنک کے لیے آپ کا انتخاب درکار ہے — Arroxy میں Downloads دیکھیں",
-			"cookiesSetup": "Arroxy میں Cookies کی سیٹ اپ مکمل کریں، پھر دوبارہ کوشش کریں",
-			"busy": "Arroxy ابھی شروع ہو رہا ہے — ذرا دیر بعد دوبارہ کوشش کریں",
-			"submissionFailed": "یہ لنک شامل نہیں ہو سکا — Arroxy میں دوبارہ کوشش کریں"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} ویڈیو پہلے سے قطار میں ہے — چھوڑ دی گئی", "skippedAlreadyQueued_other": "{{count}} ویڈیوز پہلے سے قطار میں ہیں — چھوڑ دی گئیں"},
-		"quickDownload": {
-			"added": "شامل ہو گیا: {{title}}",
-			"alreadyQueued": "پہلے سے قطار میں ہے",
-			"failed": "{{title}} تیار نہیں ہو سکا",
-			"notAdded": "یہ لنک شامل نہیں ہو سکا — دوبارہ کوشش کریں",
-			"chooseHowMany_one": "{{count}}+ ویڈیو — منتخب کریں کتنے",
-			"chooseHowMany_other": "{{count}}+ ویڈیوز — منتخب کریں کتنے",
-			"review_one": "اس فہرست میں {{count}} ویڈیو — چننے کے لیے جائزہ لیں",
-			"review_other": "اس فہرست میں {{count}} ویڈیوز — چننے کے لیے جائزہ لیں",
-			"reviewCapped_one": "اس فہرست میں {{count}}+ ویڈیو — چننے کے لیے جائزہ لیں",
-			"reviewCapped_other": "اس فہرست میں {{count}}+ ویڈیوز — چننے کے لیے جائزہ لیں",
-			"view": "دیکھیں"
-		}
+	"donate": {
+		"copied": "کاپی ہو گیا!",
+		"copyAddress": "پتہ کاپی کریں",
+		"description": "Arroxy مفت اور اوپن سورس ہے، اس میں کوئی اشتہار یا ادائیگی والا پلان نہیں۔ عطیات اختیاری ہیں اور روڈ میپ پر کوئی اثر نہیں دیتے۔",
+		"footerLabel": "عطیہ",
+		"footerTooltip": "Arroxy کی مدد کریں",
+		"qrAlt": "{{coin}} عطیہ کے پتے کا QR کوڈ",
+		"title": "Arroxy کی مدد کریں",
+		"warning": "کرپٹو ادائیگیاں واپس نہیں ہو سکتیں۔ صرف دکھائے گئے نیٹ ورک پر بھیجیں اور پورا پتہ ملا کر دیکھیں۔"
 	},
 	"errors": {
 		"noSubtitlesIn": "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔",
 		"ytdlp": {
-			"botBlock": "بوٹ پروٹیکشن فعال ہو گئی۔ آپ کا IP ممکنہ طور پر فلیگ کیا گیا ہے (ڈیٹا سینٹر رینج یا مصروف VPN ایگزٹ)۔ اپنا IP تبدیل کریں یا کوئی مختلف VPN اینڈ پوائنٹ منتخب کریں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہے تو یہ سائٹ کی طرف سے ایک عارضی تبدیلی ہو سکتی ہے — Arroxy لانچ پر اپنا ڈاؤن لوڈ انجن اپ ڈیٹ کرتا ہے، اس لیے جیسے ہی حل جاری ہو، یہ خود بخود لاگو ہو جائے گا۔",
-			"ipBlock": "آپ کا IP ایڈریس YouTube کی جانب سے بلاک شدہ لگتا ہے۔ بعد میں دوبارہ کوشش کریں یا VPN استعمال کریں۔",
-			"rateLimit": "سائٹ اس کنکشن سے آنے والی درخواستیں محدود کر رہی ہے۔",
 			"ageRestricted": "یہ ویڈیو عمر کی پابندی کے ساتھ ہے اور سائن اِن اکاؤنٹ کے بغیر ڈاؤن لوڈ نہیں ہو سکتی۔",
-			"unavailable": "یہ ویڈیو دستیاب نہیں — ہو سکتا ہے پرائیویٹ، ڈیلیٹ، یا ریجن لاکڈ ہو۔",
+			"botBlock": "بوٹ پروٹیکشن فعال ہو گئی۔ آپ کا IP ممکنہ طور پر فلیگ کیا گیا ہے (ڈیٹا سینٹر رینج یا مصروف VPN ایگزٹ)۔ اپنا IP تبدیل کریں یا کوئی مختلف VPN اینڈ پوائنٹ منتخب کریں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہے تو یہ سائٹ کی طرف سے ایک عارضی تبدیلی ہو سکتی ہے — Arroxy لانچ پر اپنا ڈاؤن لوڈ انجن اپ ڈیٹ کرتا ہے، اس لیے جیسے ہی حل جاری ہو، یہ خود بخود لاگو ہو جائے گا۔",
+			"chunkTransferFailure": "سرور بار بار ڈاؤن لوڈ درمیان میں کاٹتا رہا اور کئی بار کوشش کے بعد Arroxy نے ہار مان لی۔ یہ عموماً سب سے بڑے ویڈیو فارمیٹس (4K HDR / زیادہ بٹ ریٹ VP9) میں ہوتا ہے۔ دوبارہ کوشش کریں، نیٹ ورک/VPN تبدیل کریں، یا کم ریزولیوشن فارمیٹ چنیں۔",
+			"drmProtected": "یہ ویڈیو DRM سے محفوظ ہے۔ Arroxy DRM نہیں ہٹا سکتا، اس لیے فائل ڈاؤن لوڈ نہیں ہو سکتی۔",
 			"formatUnavailable": "یہ ویڈیو اب آپ کا منتخب کردہ فارمیٹ پیش نہیں کرتی۔ لنک دوبارہ پیسٹ کریں اور جو فارمیٹس اب دستیاب ہیں ان میں سے چنیں۔",
 			"geoBlocked": "یہ ویڈیو آپ کے ریجن میں دستیاب نہیں۔",
+			"ipBlock": "آپ کا IP ایڈریس YouTube کی جانب سے بلاک شدہ لگتا ہے۔ بعد میں دوبارہ کوشش کریں یا VPN استعمال کریں۔",
+			"loginRequired": "اس ویڈیو کے لیے سائن ان اکاؤنٹ درکار ہے۔",
+			"missingDependency": "Arroxy کو FFmpeg یا FFprobe نہیں ملا۔ سیٹ اپ دوبارہ چلائیں یا FFmpeg کا مقام مقرر کریں، پھر ڈاؤن لوڈ دوبارہ آزمائیں۔",
+			"network": "نیٹ ورک کی خرابی۔ اپنا کنکشن چیک کر کے دوبارہ کوشش کریں۔",
+			"noSubtitles": "اس ویڈیو میں درخواست کردہ زبانوں میں سب ٹائٹلز موجود نہیں ہیں۔",
 			"outOfDiskSpace": "ڈسک میں کافی جگہ نہیں۔ جگہ خالی کر کے دوبارہ کوشش کریں۔",
 			"outputNotWritable": "Arroxy ڈاؤن لوڈ فولڈر میں نہیں لکھ سکتا۔ ہو سکتا ہے وہ صرف پڑھنے کے لیے ہو، کسی لاک شدہ ڈرائیو پر ہو، یا آپ کے سسٹم کی رازداری کی ترتیبات نے اسے روک رکھا ہو۔ کوئی دوسرا فولڈر منتخب کریں یا رسائی کی اجازت دیں، پھر دوبارہ کوشش کریں۔",
-			"unsupportedUrl": "Arroxy اس URL کو سپورٹ نہیں کرتا۔ کسی دوسری سائٹ کا لنک آزمائیں۔",
-			"noSubtitles": "اس ویڈیو میں درخواست کردہ زبانوں میں سب ٹائٹلز موجود نہیں ہیں۔",
-			"chunkTransferFailure": "سرور بار بار ڈاؤن لوڈ درمیان میں کاٹتا رہا اور کئی بار کوشش کے بعد Arroxy نے ہار مان لی۔ یہ عموماً سب سے بڑے ویڈیو فارمیٹس (4K HDR / زیادہ بٹ ریٹ VP9) میں ہوتا ہے۔ دوبارہ کوشش کریں، نیٹ ورک/VPN تبدیل کریں، یا کم ریزولیوشن فارمیٹ چنیں۔",
-			"missingDependency": "Arroxy کو FFmpeg یا FFprobe نہیں ملا۔ سیٹ اپ دوبارہ چلائیں یا FFmpeg کا مقام مقرر کریں، پھر ڈاؤن لوڈ دوبارہ آزمائیں۔",
-			"postprocessFailure": "ڈاؤن لوڈ مکمل ہو گیا لیکن پوسٹ پروسیسنگ (مرج / mux / تبدیلی) ناکام رہی۔ اکثر یہ ffmpeg کا عارضی مسئلہ ہوتا ہے — دوبارہ کوشش کریں، اور اگر برقرار رہے تو مختلف فارمیٹ کا مجموعہ آزمائیں۔",
 			"parse": "سائٹ کا جواب پارس نہیں ہو سکا۔ ممکن ہے سائٹ نے ویڈیوز پیش کرنے کا طریقہ بدل دیا ہو۔ Arroxy لانچ پر اپنا ڈاؤن لوڈ انجن اپ ڈیٹ کرتا ہے — چند منٹ بعد دوبارہ کوشش کریں جب فکس آ جائے۔",
-			"network": "نیٹ ورک کی خرابی۔ اپنا کنکشن چیک کر کے دوبارہ کوشش کریں۔",
-			"drmProtected": "یہ ویڈیو DRM سے محفوظ ہے۔ Arroxy DRM نہیں ہٹا سکتا، اس لیے فائل ڈاؤن لوڈ نہیں ہو سکتی۔",
-			"loginRequired": "اس ویڈیو کے لیے سائن ان اکاؤنٹ درکار ہے۔",
-			"unknown": "ڈاؤن لوڈ ناکام ہو گیا۔ نیچے خام آؤٹ پٹ دیکھیں۔"
+			"postprocessFailure": "ڈاؤن لوڈ مکمل ہو گیا لیکن پوسٹ پروسیسنگ (مرج / mux / تبدیلی) ناکام رہی۔ اکثر یہ ffmpeg کا عارضی مسئلہ ہوتا ہے — دوبارہ کوشش کریں، اور اگر برقرار رہے تو مختلف فارمیٹ کا مجموعہ آزمائیں۔",
+			"rateLimit": "سائٹ اس کنکشن سے آنے والی درخواستیں محدود کر رہی ہے۔",
+			"unavailable": "یہ ویڈیو دستیاب نہیں — ہو سکتا ہے پرائیویٹ، ڈیلیٹ، یا ریجن لاکڈ ہو۔",
+			"unknown": "ڈاؤن لوڈ ناکام ہو گیا۔ نیچے خام آؤٹ پٹ دیکھیں۔",
+			"unsupportedUrl": "Arroxy اس URL کو سپورٹ نہیں کرتا۔ کسی دوسری سائٹ کا لنک آزمائیں۔"
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "اپنا کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔",
+			"loadTitle": "یہ صفحہ لوڈ نہیں ہوا",
+			"openSettings": "ترتیبات کھولیں",
+			"proxyBody": "ترتیبات میں پراکسی چیک کریں، پھر دوبارہ کوشش کریں۔",
+			"proxyTitle": "دریافت ٹیب آپ کی پراکسی کے ذریعے کنیکٹ نہیں ہو سکتا",
+			"retry": "دوبارہ کوشش کریں"
+		},
+		"linkCallout": {
+			"body": "صفحے پر کسی بھی ویڈیو، پلے لسٹ یا چینل کے لنک پر رائٹ کلک کریں تاکہ فعال پروفائل سے ڈاؤن لوڈ ہو، دوسرا پروفائل چنیں یا انٹرایکٹو ڈاؤن لوڈ کھولیں۔",
+			"title": "ڈاؤن لوڈ کے لیے لنک پر رائٹ کلک کریں"
+		},
+		"linkMenu": {
+			"copyLink": "لنک کاپی کریں",
+			"downloadWith": "پروفائل سے ڈاؤن لوڈ"
+		},
+		"newBadge": "نیا",
+		"notice": {
+			"body": "YouTube یا کسی بھی دوسری سائٹ پر ویڈیو تلاش کریں اور یہیں سے ڈاؤن لوڈ کریں — لنک کاپی کیے بغیر۔ اکاؤنٹ کی ضرورت والی ویڈیوز ڈاؤن لوڈ کرنے کے لیے یہاں کسی سائٹ میں سائن ان کریں۔",
+			"continue": "جاری رکھیں",
+			"riskBody": "YouTube جیسی سائٹس ان اکاؤنٹس کو فلیگ — اور کبھی کبھار بین — کر سکتی ہیں جو Arroxy جیسے ڈاؤن لوڈ ٹولز کے ساتھ استعمال ہوں۔ ایسا اکاؤنٹ استعمال کریں جسے کھونے کا نقصان نہ ہو، اپنا مرکزی اکاؤنٹ نہیں۔",
+			"riskTitle": "ثانوی اکاؤنٹ سے سائن ان کریں",
+			"title": "ویب کو Arroxy کے اندر ہی براؤز کریں"
+		},
+		"nudge": {
+			"browser": "ڈاؤن لوڈز آپ کے براؤزر کی cookies استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔",
+			"file": "ڈاؤن لوڈز آپ کی cookies فائل استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔",
+			"notNow": "ابھی نہیں",
+			"off": "Cookies بند ہیں، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔",
+			"useExplore": "دریافت کا سائن ان استعمال کریں"
+		},
+		"settings": {
+			"description": "YouTube یا کسی بھی دوسری سائٹ کو Arroxy کے اندر براؤز کریں اور اکاؤنٹ کی ضرورت والی ویڈیوز کے لیے سائن ان کریں۔",
+			"idleUnload": "غیر موجودگی میں میموری خالی کریں",
+			"idleUnloadDescription": "کسی دوسرے ٹیب پر 5 منٹ بعد YouTube کا ہوم یا تلاش صفحہ بند کر دیتا ہے۔ واپس آنے پر یہ دوبارہ لوڈ ہوتا ہے، جس میں چند سیکنڈ لگتے ہیں۔",
+			"searchEngine": "سرچ انجن",
+			"searchEngineDescription": "ایڈریس بار میں ٹائپ کیا گیا متن اسی میں تلاش کیا جاتا ہے۔ لنکس ویسے ہی کھلتے ہیں جیسے ٹائپ کیے جائیں۔",
+			"showTab": "دریافت ٹیب دکھائیں",
+			"showTabDescription": "اسے بند کرنے سے ڈاؤن لوڈز بھی دریافت کا سائن ان استعمال نہیں کریں گے۔",
+			"signOut": "دریافت سے سائن آؤٹ کریں",
+			"signOutConfirm": "سائن آؤٹ کریں",
+			"signOutConfirmBody": "اس سے دریافت میں آپ کے سائن ان اور براؤزنگ ڈیٹا ہر سائٹ پر صاف ہو جاتے ہیں۔ اکاؤنٹ کی ضرورت والے ڈاؤن لوڈز دوبارہ سائن ان کرنے تک ناکام رہیں گے۔",
+			"signOutConfirmTitle": "دریافت سے سائن آؤٹ کریں؟",
+			"signOutDescription": "دریافت میں آپ کے سائن ان اور براؤزنگ ڈیٹا کو ہر سائٹ پر صاف کرتا ہے۔",
+			"title": "دریافت"
+		},
+		"tabLabel": "دریافت",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube سائن ان اکاؤنٹس کے لیے اشتہار بلاکرز کی مزاحمت کر سکتا ہے۔",
+				"aria": "اشتہار بلاکر",
+				"off": "اشتہار بلاکر: بند — آن کرنے کے لیے کلک کریں",
+				"on": "اشتہار بلاکر: آن — بند کرنے کے لیے کلک کریں",
+				"starting": "اشتہار بلاکر: شروع ہو رہا ہے — بند کرنے کے لیے کلک کریں",
+				"unavailable": "اشتہار بلاکر: دستیاب نہیں، اس کی فلٹر فہرستیں ڈاؤن لوڈ نہ ہو سکیں — بند کرنے کے لیے کلک کریں"
+			},
+			"addressAria": "ایڈریس",
+			"addressPlaceholder": "{{engine}} پر تلاش کریں یا کوئی بھی سائٹ کھولیں (Vimeo, Instagram…)",
+			"aria": "دریافت براؤزر کنٹرولز",
+			"back": "واپس",
+			"compactLayout": "مختصر لے آؤٹ",
+			"downloadWithProfile": "ڈاؤن لوڈ · {{profileName}}",
+			"forward": "آگے",
+			"fullLayout": "مکمل لے آؤٹ دکھائیں",
+			"grabUnavailable": "ڈاؤن لوڈ کرنے کے لیے کوئی ویڈیو، پلے لسٹ یا چینل کھولیں",
+			"home": "YouTube ہوم",
+			"interactiveHint": "انٹرایکٹو ڈاؤن لوڈ: فارمیٹ، سب ٹائٹلز اور مزید چنیں…",
+			"refusedHint": "دریافت یہ پتا نہیں کھول سکتا۔",
+			"reload": "ری لوڈ",
+			"searchTooLong": "یہ تلاش بہت لمبی ہے۔",
+			"zoom": {
+				"hint": "صفحے کا زوم: {{percent}}%",
+				"in": "زوم اِن",
+				"label": "صفحے کا زوم",
+				"out": "زوم آؤٹ",
+				"percent": "زوم فیصد",
+				"reset": "زوم کو 100% پر ری سیٹ کریں"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "آٹو",
+		"autoValue": "آٹو (.{{ext}})",
+		"description": {
+			"auto": "منتخب اسٹریمز فائل کی قسم طے کرتی ہیں۔",
+			"mkv": "کوئی بھی کوڈیک رکھ سکتی ہے۔ کچھ ٹی وی اور فون اسے نہیں کھول سکتے۔",
+			"mp4": "تقریباً ہر جگہ چلتی ہے۔ MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔",
+			"webm": "براؤزرز کے لیے اوپن فارمیٹ۔ صرف Opus کے ساتھ VP9 یا AV1 رکھ سکتی ہے۔"
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4 میں AV1 کو QuickTime میں چلانے کے لیے نیا Mac چاہیے۔ H.264 ہر جگہ چلتا ہے۔",
+		"mp4CaveatVp9": "MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔ H.264 ہر جگہ چلتا ہے۔",
+		"profileMark": "پروفائل",
+		"smartTvNoWebm": "سمارٹ TV کے ساتھ WebM دستیاب نہیں: یہ H.264 نہیں رکھ سکتی۔",
+		"webm": "WebM",
+		"webmBlocked": "WebM میں {{codec}} نہیں آ سکتا۔ MKV یا MP4 منتخب کریں۔"
+	},
+	"filenameTemplate": {
+		"description": "منتخب کریں کہ ڈاؤن لوڈ کی گئی فائلوں کے نام کیسے رکھے جائیں۔ شامل کرنے کے لیے کسی ٹوکن پر کلک کریں۔ ڈاؤن لوڈز کو فولڈرز میں ترتیب دینے کے لیے / استعمال کریں۔",
+		"error": {
+			"empty": "فائل نام ٹیمپلیٹ درج کریں۔",
+			"empty-segment": "اضافی / ہٹائیں — ہر فولڈر کا نام ہونا چاہیے۔",
+			"forbidden-char": "وہ حروف ہٹائیں جو فائل کے ناموں میں اجازت یافتہ نہیں: \\ : * ? \" < > |",
+			"invalid-segment": "یہ فولڈر نام قابل قبول نہیں۔ . اور .. اور CON جیسے محفوظ ناموں سے گریز کریں۔",
+			"no-unique-token": "فائل کے نام میں {title} یا {id} شامل کریں تاکہ ہر ڈاؤن لوڈ کا اپنا نام ہو۔",
+			"resolution-in-dir": "{resolution} کسی فولڈر کا نام نہیں بن سکتا — معیار ڈاؤن لوڈ شروع ہونے پر ہی معلوم ہوتا ہے۔",
+			"stray-brace": "بغیر جوڑ کی { یا } — ٹوکن {title} کی طرح لکھیں۔",
+			"too-long": "ٹیمپلیٹ بہت طویل ہے۔",
+			"unknown-token": "نامعلوم ٹوکن {{token}}۔"
+		},
+		"idWarning": "{id} کے بغیر Arroxy پہلے سے ڈاؤن لوڈ شدہ پلے لسٹ آئٹمز کا پتہ نہیں لگا سکتا اور نہ .m3u پلے لسٹ بنا سکتا ہے۔",
+		"label": "فائل نام ٹیمپلیٹ",
+		"m3uDisabled": "دستیاب نہیں کیونکہ آپ کے فائل نام ٹیمپلیٹ میں یا تو {id} نہیں ہے یا وہ ڈاؤن لوڈز کو فولڈرز میں ترتیب دیتا ہے۔",
+		"previewPlaylist": "پلے لسٹ میں",
+		"previewSingle": "واحد ویڈیو",
+		"profileOverrideDescription": "عالمی ٹیمپلیٹ استعمال کرنے کے لیے خالی چھوڑ دیں۔",
+		"profileOverrideLabel": "فائل نام ٹیمپلیٹ"
+	},
+	"formatLabel": {
+		"audioFallback": "آڈیو",
+		"audioOnlyDot": "صرف آڈیو · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "آٹو",
+		"description": "اگر یہ اسکرین HDR دکھا سکے تو آٹو HDR چنتا ہے، ورنہ SDR۔ عام اسکرینوں پر HDR پھیکا دکھتا ہے۔",
+		"hdr": "HDR",
+		"label": "HDR ویڈیو",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "زبان"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "دریافت کے ذریعے سائن ان ہو گیا — 1 لنک دوبارہ آزمایا جا رہا ہے",
+		"exploreSignInRetrying_other": "دریافت کے ذریعے سائن ان ہو گیا — {{count}} لنکس دوبارہ آزمائے جا رہے ہیں",
+		"exploreSignOutFailed": "دریافت سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+		"filenameFolderTooDeep": "یہ فولڈر آپ کے سسٹم کے لیے بہت گہرا ہے۔ ڈاؤن لوڈ پھر بھی ناکام ہو سکتا ہے — چھوٹا فولڈر منتخب کریں۔",
+		"filenameTemplateCannotFit": "اس ویڈیو کا نام آپ کے ٹیمپلیٹ کے ہر حصے میں نہیں سماتا، اس لیے پہلے سے طے شدہ نام استعمال کیا گیا۔",
+		"folderSelectFailed": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔",
+		"hotkey": {
+			"alreadyQueued": "پہلے سے قطار میں ہے — کوئی کاپی شامل نہیں ہوئی",
+			"busy": "Arroxy ابھی شروع ہو رہا ہے — ذرا دیر بعد دوبارہ کوشش کریں",
+			"cookiesSetup": "Arroxy میں Cookies کی سیٹ اپ مکمل کریں، پھر دوبارہ کوشش کریں",
+			"invalidClipboard": "کلپ بورڈ میں کوئی لنک نہیں — پہلے ایک کاپی کریں",
+			"multipleUrls": "متعدد لنکس کاپی ہو گئے — Arroxy میں “متعدد URLs” استعمال کریں",
+			"needsReview": "اس لنک کے لیے آپ کا انتخاب درکار ہے — Arroxy میں Downloads دیکھیں",
+			"queued": "کلپ بورڈ سے ڈاؤن لوڈ شامل کر دیا گیا",
+			"submissionFailed": "یہ لنک شامل نہیں ہو سکا — Arroxy میں دوبارہ کوشش کریں"
+		},
+		"playlistFolderRejected": "یہ فولڈر اس پلے لسٹ کے لیے استعمال نہیں ہو سکتا۔",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} ویڈیو پہلے سے قطار میں ہے — چھوڑ دی گئی",
+			"skippedAlreadyQueued_other": "{{count}} ویڈیوز پہلے سے قطار میں ہیں — چھوڑ دی گئیں"
+		},
+		"quickDownload": {
+			"added": "شامل ہو گیا: {{title}}",
+			"alreadyQueued": "پہلے سے قطار میں ہے",
+			"chooseHowMany_one": "{{count}}+ ویڈیو — منتخب کریں کتنے",
+			"chooseHowMany_other": "{{count}}+ ویڈیوز — منتخب کریں کتنے",
+			"failed": "{{title}} تیار نہیں ہو سکا",
+			"notAdded": "یہ لنک شامل نہیں ہو سکا — دوبارہ کوشش کریں",
+			"reviewCapped_one": "اس فہرست میں {{count}}+ ویڈیو — چننے کے لیے جائزہ لیں",
+			"reviewCapped_other": "اس فہرست میں {{count}}+ ویڈیوز — چننے کے لیے جائزہ لیں",
+			"review_one": "اس فہرست میں {{count}} ویڈیو — چننے کے لیے جائزہ لیں",
+			"review_other": "اس فہرست میں {{count}} ویڈیوز — چننے کے لیے جائزہ لیں",
+			"view": "دیکھیں"
+		},
+		"settingsSaveFailed": "آپ کی ترتیبات محفوظ نہیں ہو سکیں۔",
+		"shellActionFailed": "اسے کھولا نہیں جا سکا۔",
+		"warmupFailed": "سیٹ اپ مکمل نہیں ہوا۔ مکمل ہونے تک کچھ ڈاؤن لوڈز ناکام ہو سکتے ہیں۔"
+	},
 	"playlistPresets": {
-		"type": {"video": "ویڈیو", "audio": "آڈیو", "subtitles": "سب ٹائٹلز"},
+		"audioFormat": {
+			"best": "آڈیو (بہترین)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "آڈیو ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "بہترین اصل آڈیو، دوبارہ encode نہیں",
+			"m4a": "M4A (AAC) میں تبدیل کریں",
+			"mp3": "MP3 میں تبدیل کریں",
+			"opus": "Opus میں تبدیل کریں"
+		},
+		"mp4Cap": "YouTube پر 1080p سے اوپر H.264 دستیاب نہیں — خودکار طور پر 1080p تک محدود",
 		"subtitles": {
-			"note": "ہر ویڈیو کے لیے صرف سب ٹائٹل فائلیں محفوظ ہوتی ہیں — کوئی ویڈیو یا آڈیو ڈاؤن لوڈ نہیں ہوتا۔",
+			"deliveryHeading": "محفوظ کریں بطور",
+			"deliveryLoose": "براہِ راست محفوظ کرنے والے فولڈر میں",
 			"languages": "زبانیں",
 			"languagesRequired": "جاری رکھنے کے لیے کم از کم ایک زبان منتخب کریں۔",
-			"source": "ماخذ",
-			"deliveryHeading": "محفوظ کریں بطور",
-			"deliveryLoose": "براہِ راست محفوظ کرنے والے فولڈر میں"
+			"note": "ہر ویڈیو کے لیے صرف سب ٹائٹل فائلیں محفوظ ہوتی ہیں — کوئی ویڈیو یا آڈیو ڈاؤن لوڈ نہیں ہوتا۔",
+			"source": "ماخذ"
 		},
-		"videoFormat": {"best": "بہترین اصل", "mp4": "سمارٹ TV H.264 MP4"},
-		"videoFormatDesc": {"best": "ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک", "mp4": "H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش"},
-		"tier": {"144": "144p تک", "240": "240p تک", "360": "360p تک", "480": "480p تک", "720": "720p تک", "1080": "1080p تک", "1440": "1440p تک", "2160": "4K تک", "best": "بہترین معیار"},
+		"tier": {
+			"144": "144p تک",
+			"240": "240p تک",
+			"360": "360p تک",
+			"480": "480p تک",
+			"720": "720p تک",
+			"1080": "1080p تک",
+			"1440": "1440p تک",
+			"2160": "4K تک",
+			"best": "بہترین معیار"
+		},
 		"tierDesc": {
 			"144": "سب سے چھوٹی ممکن فائلیں",
 			"240": "بہت چھوٹی فائلیں، کم معیار",
@@ -938,177 +311,1397 @@
 			"2160": "2160p تک محدود، ہر آئٹم پر ضرورت ہو تو کم",
 			"best": "ہر آئٹم کے لیے بہترین ویڈیو + آڈیو"
 		},
-		"audioFormat": {"best": "آڈیو (بہترین)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "بہترین اصل آڈیو، دوبارہ encode نہیں", "mp3": "MP3 میں تبدیل کریں", "m4a": "M4A (AAC) میں تبدیل کریں", "opus": "Opus میں تبدیل کریں"},
-		"audioFormatBitrate": "آڈیو ({{format}} {{kbps}}K)",
-		"mp4Cap": "YouTube پر 1080p سے اوپر H.264 دستیاب نہیں — خودکار طور پر 1080p تک محدود"
-	},
-	"formatLabel": {"audioFallback": "آڈیو", "audioOnlyDot": "صرف آڈیو · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "فارغ", "statusActive_one": "1 ڈاؤن لوڈ ہو رہا ہے · {{percent}}%", "statusActive_other": "{{count}} ڈاؤن لوڈ ہو رہے ہیں · {{percent}}%", "downloadFromClipboard": "کلپ بورڈ سے ڈاؤن لوڈ کریں", "open": "Arroxy کھولیں", "quit": "Arroxy بند کریں"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "{{count}} ڈاؤن لوڈ جاری ہے",
-			"message_other": "{{count}} ڈاؤن لوڈز جاری ہیں",
-			"detail": "بعد میں دوبارہ شروع کرنے کے لیے موقوف کریں، یا پیش رفت ضائع کرنے کے لیے منسوخ کریں۔",
-			"confirm": "ڈاؤن لوڈز منسوخ کریں اور بند کریں",
-			"pause": "ڈاؤن لوڈز روک کر بند کریں",
-			"keep": "ڈاؤن لوڈ جاری رکھیں"
+		"type": {
+			"audio": "آڈیو",
+			"subtitles": "سب ٹائٹلز",
+			"video": "ویڈیو"
 		},
-		"closeToTray": {"message": "بند کرتے وقت Arroxy کو سسٹم ٹرے میں چھپائیں؟", "detail": "Arroxy چلتا رہتا ہے اور ایکٹو ڈاؤن لوڈز مکمل کرتا ہے۔ یہ بعد میں ایڈوانسڈ سیٹنگز سے بدلیں۔", "hide": "ٹرے میں چھپائیں", "quit": "بند کریں", "remember": "دوبارہ مت پوچھیں"},
-		"rendererCrashed": {"message": "Arroxy کو ایک مسئلے کا سامنا ہوا", "detail": "رینڈرر پراسیس کریش ہو گیا ({{reason}})۔ دوبارہ کوشش کرنے کے لیے ری لوڈ کریں۔", "reload": "ری لوڈ", "quit": "بند کریں"}
-	},
-	"share": {
-		"title": "Arroxy شیئر کریں",
-		"description": "Arroxy مفت اور اوپن سورس ہے۔ شیئر کرنے سے زیادہ لوگ اسے دریافت کر سکتے ہیں۔",
-		"copyLink": "لنک کاپی کریں",
-		"copied": "کاپی ہو گیا!",
-		"defaultMessage": "Arroxy — Windows، macOS اور Linux کے لیے مفت اوپن سورس ویڈیو ڈاؤن لوڈر۔ YouTube، Vimeo، Twitch اور 2000+ سائٹس کے ساتھ کام کرتا ہے۔\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "Arroxy شیئر کریں",
-		"footerLabel": "شیئر کریں",
-		"shareAction": "Arroxy شیئر کریں"
-	},
-	"donate": {
-		"title": "Arroxy کی مدد کریں",
-		"description": "Arroxy مفت اور اوپن سورس ہے، اس میں کوئی اشتہار یا ادائیگی والا پلان نہیں۔ عطیات اختیاری ہیں اور روڈ میپ پر کوئی اثر نہیں دیتے۔",
-		"footerTooltip": "Arroxy کی مدد کریں",
-		"footerLabel": "عطیہ",
-		"copyAddress": "پتہ کاپی کریں",
-		"copied": "کاپی ہو گیا!",
-		"qrAlt": "{{coin}} عطیہ کے پتے کا QR کوڈ",
-		"warning": "کرپٹو ادائیگیاں واپس نہیں ہو سکتیں۔ صرف دکھائے گئے نیٹ ورک پر بھیجیں اور پورا پتہ ملا کر دیکھیں۔"
-	},
-	"filenameTemplate": {
-		"label": "فائل نام ٹیمپلیٹ",
-		"description": "منتخب کریں کہ ڈاؤن لوڈ کی گئی فائلوں کے نام کیسے رکھے جائیں۔ شامل کرنے کے لیے کسی ٹوکن پر کلک کریں۔ ڈاؤن لوڈز کو فولڈرز میں ترتیب دینے کے لیے / استعمال کریں۔",
-		"profileOverrideLabel": "فائل نام ٹیمپلیٹ",
-		"profileOverrideDescription": "عالمی ٹیمپلیٹ استعمال کرنے کے لیے خالی چھوڑ دیں۔",
-		"idWarning": "{id} کے بغیر Arroxy پہلے سے ڈاؤن لوڈ شدہ پلے لسٹ آئٹمز کا پتہ نہیں لگا سکتا اور نہ .m3u پلے لسٹ بنا سکتا ہے۔",
-		"m3uDisabled": "دستیاب نہیں کیونکہ آپ کے فائل نام ٹیمپلیٹ میں یا تو {id} نہیں ہے یا وہ ڈاؤن لوڈز کو فولڈرز میں ترتیب دیتا ہے۔",
-		"previewSingle": "واحد ویڈیو",
-		"previewPlaylist": "پلے لسٹ میں",
-		"error": {
-			"empty": "فائل نام ٹیمپلیٹ درج کریں۔",
-			"too-long": "ٹیمپلیٹ بہت طویل ہے۔",
-			"forbidden-char": "وہ حروف ہٹائیں جو فائل کے ناموں میں اجازت یافتہ نہیں: \\ : * ? \" < > |",
-			"stray-brace": "بغیر جوڑ کی { یا } — ٹوکن {title} کی طرح لکھیں۔",
-			"no-unique-token": "فائل کے نام میں {title} یا {id} شامل کریں تاکہ ہر ڈاؤن لوڈ کا اپنا نام ہو۔",
-			"unknown-token": "نامعلوم ٹوکن {{token}}۔",
-			"empty-segment": "اضافی / ہٹائیں — ہر فولڈر کا نام ہونا چاہیے۔",
-			"invalid-segment": "یہ فولڈر نام قابل قبول نہیں۔ . اور .. اور CON جیسے محفوظ ناموں سے گریز کریں۔",
-			"resolution-in-dir": "{resolution} کسی فولڈر کا نام نہیں بن سکتا — معیار ڈاؤن لوڈ شروع ہونے پر ہی معلوم ہوتا ہے۔"
+		"videoFormat": {
+			"best": "بہترین اصل",
+			"mp4": "سمارٹ TV H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک",
+			"mp4": "H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش"
 		}
 	},
-	"explore": {
-		"tabLabel": "دریافت",
-		"newBadge": "نیا",
-		"notice": {
-			"title": "ویب کو Arroxy کے اندر ہی براؤز کریں",
-			"body": "YouTube یا کسی بھی دوسری سائٹ پر ویڈیو تلاش کریں اور یہیں سے ڈاؤن لوڈ کریں — لنک کاپی کیے بغیر۔ اکاؤنٹ کی ضرورت والی ویڈیوز ڈاؤن لوڈ کرنے کے لیے یہاں کسی سائٹ میں سائن ان کریں۔",
-			"riskTitle": "ثانوی اکاؤنٹ سے سائن ان کریں",
-			"riskBody": "YouTube جیسی سائٹس ان اکاؤنٹس کو فلیگ — اور کبھی کبھار بین — کر سکتی ہیں جو Arroxy جیسے ڈاؤن لوڈ ٹولز کے ساتھ استعمال ہوں۔ ایسا اکاؤنٹ استعمال کریں جسے کھونے کا نقصان نہ ہو، اپنا مرکزی اکاؤنٹ نہیں۔",
-			"continue": "جاری رکھیں"
+	"queue": {
+		"artifact": {
+			"companion": "ساتھ والی فائل",
+			"description": "تفصیل",
+			"media": "میڈیا",
+			"missing": "غائب",
+			"subtitle": "سب ٹائٹل",
+			"thumbnail": "تھمب نیل",
+			"unknown": "فائل"
 		},
-		"nudge": {
-			"off": "Cookies بند ہیں، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔",
-			"file": "ڈاؤن لوڈز آپ کی cookies فائل استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔",
-			"browser": "ڈاؤن لوڈز آپ کے براؤزر کی cookies استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔",
-			"useExplore": "دریافت کا سائن ان استعمال کریں",
-			"notNow": "ابھی نہیں"
+		"attentionBadge_one": "{{count}} ڈاؤن لوڈ کو آپ کی توجہ چاہیے",
+		"attentionBadge_other": "{{count}} ڈاؤن لوڈز کو آپ کی توجہ چاہیے",
+		"autoRemoveCompleted": {
+			"hint": "ہر ڈاؤن لوڈ کو مکمل ہونے کے چند سیکنڈ بعد فہرست سے ہٹا دیتا ہے۔ فائلیں آپ کے فولڈر میں رہتی ہیں۔",
+			"label": "مکمل ہونے پر خودکار صاف"
 		},
-		"linkCallout": {"title": "ڈاؤن لوڈ کے لیے لنک پر رائٹ کلک کریں", "body": "صفحے پر کسی بھی ویڈیو، پلے لسٹ یا چینل کے لنک پر رائٹ کلک کریں تاکہ فعال پروفائل سے ڈاؤن لوڈ ہو، دوسرا پروفائل چنیں یا انٹرایکٹو ڈاؤن لوڈ کھولیں۔"},
-		"linkMenu": {"downloadWith": "پروفائل سے ڈاؤن لوڈ", "copyLink": "لنک کاپی کریں"},
-		"toolbar": {
-			"aria": "دریافت براؤزر کنٹرولز",
-			"back": "واپس",
-			"forward": "آگے",
-			"reload": "ری لوڈ",
-			"home": "YouTube ہوم",
-			"addressAria": "ایڈریس",
-			"addressPlaceholder": "{{engine}} پر تلاش کریں یا کوئی بھی سائٹ کھولیں (Vimeo, Instagram…)",
-			"refusedHint": "دریافت یہ پتا نہیں کھول سکتا۔",
-			"searchTooLong": "یہ تلاش بہت لمبی ہے۔",
-			"downloadWithProfile": "ڈاؤن لوڈ · {{profileName}}",
-			"interactiveHint": "انٹرایکٹو ڈاؤن لوڈ: فارمیٹ، سب ٹائٹلز اور مزید چنیں…",
-			"grabUnavailable": "ڈاؤن لوڈ کرنے کے لیے کوئی ویڈیو، پلے لسٹ یا چینل کھولیں",
-			"compactLayout": "مختصر لے آؤٹ",
-			"fullLayout": "مکمل لے آؤٹ دکھائیں",
-			"zoom": {"label": "صفحے کا زوم", "hint": "صفحے کا زوم: {{percent}}%", "in": "زوم اِن", "out": "زوم آؤٹ", "percent": "زوم فیصد", "reset": "زوم کو 100% پر ری سیٹ کریں"},
-			"adBlock": {
-				"aria": "اشتہار بلاکر",
-				"off": "اشتہار بلاکر: بند — آن کرنے کے لیے کلک کریں",
-				"starting": "اشتہار بلاکر: شروع ہو رہا ہے — بند کرنے کے لیے کلک کریں",
-				"on": "اشتہار بلاکر: آن — بند کرنے کے لیے کلک کریں",
-				"unavailable": "اشتہار بلاکر: دستیاب نہیں، اس کی فلٹر فہرستیں ڈاؤن لوڈ نہ ہو سکیں — بند کرنے کے لیے کلک کریں",
-				"accountNote": "YouTube سائن ان اکاؤنٹس کے لیے اشتہار بلاکرز کی مزاحمت کر سکتا ہے۔"
+		"cancelAllTitle": "تمام فعال اور زیر التواء ڈاؤن لوڈز منسوخ کریں",
+		"choice": {
+			"all": "تمام ویڈیوز",
+			"cappedBody_one": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیو ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
+			"cappedBody_other": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیوز ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
+			"first": "پہلے {{count}}",
+			"review": "جائزہ",
+			"reviewBody_one": "یہ لنک {{count}} ویڈیو کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔",
+			"reviewBody_other": "یہ لنک {{count}} ویڈیوز کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔"
+		},
+		"clearTitle": "مکمل ڈاؤن لوڈز صاف کریں",
+		"empty": "قطار میں شامل ڈاؤن لوڈز یہاں ظاہر ہوں گے",
+		"filterAll": "سب",
+		"filtersLabel": "قطار کی حالت کے فلٹرز",
+		"globalActionsLabel": "تمام آئٹمز",
+		"header": "ڈاؤن لوڈز",
+		"item": {
+			"audioKept": "آواز نہیں ہٹائی گئی",
+			"audioKeptSubtitlesFailed": "آواز نہیں ہٹائی گئی · کچھ سب ٹائٹلز ناکام",
+			"cancel": "منسوخ کریں",
+			"defaultError": "ڈاؤن لوڈ ناکام",
+			"openDestinationFolder": "منزل فولڈر کھولیں",
+			"pause": "روکیں",
+			"pendingOnly": "صرف زیرِ التوا",
+			"pullNow": "اب ڈاؤن لوڈ — قطار چھوڑیں",
+			"qualityLimited": "{{height}}p تک محدود",
+			"qualityLimitedSubtitlesFailed": "{{height}}p تک محدود · کچھ سب ٹائٹلز ناکام",
+			"remove": "ہٹائیں",
+			"resume": "دوبارہ شروع کریں",
+			"retry": "دوبارہ کوشش کریں",
+			"retryingSoon": "خود بخود دوبارہ کوشش جاری ہے (کوشش {{attempt}})",
+			"setLocation": "مقام مقرر کریں",
+			"setLocationHint": "مقام مقرر کرنے کے لیے زیرِ انتظار آئٹمز منتخب کریں۔",
+			"statusCancelled": "منسوخ",
+			"statusDone": "مکمل",
+			"statusError": "خرابی",
+			"statusHeld": "روکا گیا",
+			"statusNeedsChoice": "آپ کا انتخاب درکار ہے",
+			"statusPaused": "توقف شدہ",
+			"statusPending": "منتظر",
+			"statusProbing": "تفصیلات لی جا رہی ہیں",
+			"statusRunning": "ڈاؤن لوڈ ہو رہا ہے",
+			"subtitleLanguagesMissing": "{{languages}} میں سب ٹائٹلز موجود نہیں"
+		},
+		"pauseAllTitle": "تمام فعال ڈاؤن لوڈز کو عارضی طور پر روکیں",
+		"pausedBanner": "قطار موقوف ہے — منتظر ڈاؤن لوڈز قطار دوبارہ شروع ہونے تک شروع نہیں ہوں گے",
+		"resumeAllTitle": "رکے ہوئے ڈاؤن لوڈز جاری رکھیں اور قطار چلنے دیں",
+		"resumeQueueAction": "قطار دوبارہ شروع کریں",
+		"selectedActionsLabel": "منتخب آئٹمز",
+		"selectionSummary": "{{selected}} منتخب · کل {{total}}",
+		"tabLabel": "ڈاؤن لوڈز",
+		"tabTip": "ڈاؤن لوڈز اب Downloads ٹیب میں ہیں — پیش رفت دیکھنے کے لیے اسے کسی بھی وقت کھولیں۔",
+		"table": {
+			"added": "شامل کیا گیا",
+			"artifacts": "آؤٹ پٹ فائلیں",
+			"columnDropped": "{{column}} کالم چھوڑ دیا گیا۔",
+			"columnMoveCancelled": "{{column}} کالم کو منتقل کرنا منسوخ کر دیا گیا۔",
+			"columnMovedOver": "{{column}} کالم {{target}} کے اوپر ہے۔",
+			"columnPickedUp": "{{column}} کالم اٹھایا گیا۔",
+			"columns": "کالمز",
+			"finished": "مکمل ہوا",
+			"format": "فارمیٹ",
+			"hideArtifactsFor": "{{title}} کی فائلیں چھپائیں",
+			"movableColumn": "منتقل ہونے والا کالم",
+			"moveColumnInstructions": "کالم کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔",
+			"notAvailable": "—",
+			"outputTarget": "آؤٹ پٹ منزل",
+			"progress": "پیش رفت",
+			"resetColumns": "کالمز ری سیٹ کریں",
+			"resizeColumn": "{{column}} کالم کا سائز تبدیل کریں",
+			"showArtifactsFor": "{{title}} کی فائلیں دکھائیں",
+			"size": "سائز",
+			"sortBy": "{{label}} کے لحاظ سے ترتیب دیں",
+			"status": "حالت",
+			"title": "عنوان"
+		}
+	},
+	"releaseNotes": {
+		"continue": "جاری رکھیں",
+		"description": "آپ ایک تازہ اپ ڈیٹ استعمال کر رہے ہیں۔ اہم نکات یہ ہیں۔",
+		"fullNotes": "مکمل ریلیز نوٹس ↗",
+		"title": "Arroxy {{version}} میں نیا کیا ہے"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "منسوخ کریں",
+			"chooseExecutable": "فائل منتخب کریں",
+			"installWithHomebrew": "Homebrew سے انسٹال کریں",
+			"installWithWinget": "WinGet سے انسٹال کریں",
+			"openDependencyFolder": "ڈیپنڈینسی فولڈر کھولیں",
+			"resetToDefault": "ڈیفالٹ پر واپس جائیں",
+			"retrySetup": "دوبارہ کوشش کریں",
+			"viewSetupLog": "سیٹ اپ لاگ دیکھیں"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔",
+				"title": "ایک ٹول ٹھیک سے کام نہیں کر رہا"
+			},
+			"blockedOrQuarantined": {
+				"body": "اپنے اینٹی وائرس یا SmartScreen میں Arroxy کو اجازت دیں، پھر دوبارہ کوشش کریں۔",
+				"title": "آپ کے اینٹی وائرس نے ایک ٹول کو بلاک کر دیا"
+			},
+			"downloadFailed": {
+				"body": "اپنا انٹرنیٹ کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔",
+				"title": "Arroxy کو درکار چیز ڈاؤن لوڈ نہیں ہو سکی"
+			},
+			"extractFailed": {
+				"body": "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔",
+				"title": "ایک ڈاؤن لوڈ خراب حالت میں پہنچا"
+			},
+			"hashFailed": {
+				"body": "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔",
+				"title": "ایک ڈاؤن لوڈ اپنے چیک سم سے میل نہیں کھایا"
+			},
+			"pairIncomplete": {
+				"body": "نیچے سے دونوں منتخب کریں، یا انہیں ڈیفالٹ پر واپس لے جائیں۔",
+				"title": "FFmpeg اور FFprobe کو ایک ساتھ مقرر کرنا ضروری ہے"
+			},
+			"permissionDenied": {
+				"body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی قابلِ اعتماد کاپی منتخب کریں۔",
+				"title": "آپ کا سسٹم Arroxy کو ایک ٹول چلانے نہیں دے رہا"
+			},
+			"spawnFailed": {
+				"body": "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔",
+				"title": "ایک ٹول موجود نہیں یا شروع نہیں ہو رہا"
+			},
+			"timeout": {
+				"body": "پہلی بار چلانے پر اکثر یہ سکیورٹی اسکین کی وجہ سے ہوتا ہے۔ دوبارہ کوشش کریں۔",
+				"title": "ایک ٹول نے جواب دینے میں بہت دیر لگائی"
+			},
+			"unknown": {
+				"body": "دوبارہ کوشش کریں، یا تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔",
+				"title": "سیٹ اپ کے دوران کچھ غلط ہو گیا"
 			}
 		},
-		"settings": {
-			"title": "دریافت",
-			"description": "YouTube یا کسی بھی دوسری سائٹ کو Arroxy کے اندر براؤز کریں اور اکاؤنٹ کی ضرورت والی ویڈیوز کے لیے سائن ان کریں۔",
-			"showTab": "دریافت ٹیب دکھائیں",
-			"showTabDescription": "اسے بند کرنے سے ڈاؤن لوڈز بھی دریافت کا سائن ان استعمال نہیں کریں گے۔",
-			"idleUnload": "غیر موجودگی میں میموری خالی کریں",
-			"idleUnloadDescription": "کسی دوسرے ٹیب پر 5 منٹ بعد YouTube کا ہوم یا تلاش صفحہ بند کر دیتا ہے۔ واپس آنے پر یہ دوبارہ لوڈ ہوتا ہے، جس میں چند سیکنڈ لگتے ہیں۔",
-			"searchEngine": "سرچ انجن",
-			"searchEngineDescription": "ایڈریس بار میں ٹائپ کیا گیا متن اسی میں تلاش کیا جاتا ہے۔ لنکس ویسے ہی کھلتے ہیں جیسے ٹائپ کیے جائیں۔",
-			"signOut": "دریافت سے سائن آؤٹ کریں",
-			"signOutDescription": "دریافت میں آپ کے سائن ان اور براؤزنگ ڈیٹا کو ہر سائٹ پر صاف کرتا ہے۔",
-			"signOutConfirmTitle": "دریافت سے سائن آؤٹ کریں؟",
-			"signOutConfirmBody": "اس سے دریافت میں آپ کے سائن ان اور براؤزنگ ڈیٹا ہر سائٹ پر صاف ہو جاتے ہیں۔ اکاؤنٹ کی ضرورت والے ڈاؤن لوڈز دوبارہ سائن ان کرنے تک ناکام رہیں گے۔",
-			"signOutConfirm": "سائن آؤٹ کریں"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "دریافت ٹیب آپ کی پراکسی کے ذریعے کنیکٹ نہیں ہو سکتا", "proxyBody": "ترتیبات میں پراکسی چیک کریں، پھر دوبارہ کوشش کریں۔", "loadTitle": "یہ صفحہ لوڈ نہیں ہوا", "loadBody": "اپنا کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔", "retry": "دوبارہ کوشش کریں", "openSettings": "ترتیبات کھولیں"}
-	},
-	"fileType": {
-		"auto": "آٹو",
-		"autoValue": "آٹو (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "منتخب اسٹریمز فائل کی قسم طے کرتی ہیں۔", "mp4": "تقریباً ہر جگہ چلتی ہے۔ MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔", "mkv": "کوئی بھی کوڈیک رکھ سکتی ہے۔ کچھ ٹی وی اور فون اسے نہیں کھول سکتے۔", "webm": "براؤزرز کے لیے اوپن فارمیٹ۔ صرف Opus کے ساتھ VP9 یا AV1 رکھ سکتی ہے۔"},
-		"webmBlocked": "WebM میں {{codec}} نہیں آ سکتا۔ MKV یا MP4 منتخب کریں۔",
-		"profileMark": "پروفائل",
-		"smartTvNoWebm": "سمارٹ TV کے ساتھ WebM دستیاب نہیں: یہ H.264 نہیں رکھ سکتی۔",
-		"mp4CaveatVp9": "MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔ H.264 ہر جگہ چلتا ہے۔",
-		"mp4CaveatAv1": "MP4 میں AV1 کو QuickTime میں چلانے کے لیے نیا Mac چاہیے۔ H.264 ہر جگہ چلتا ہے۔"
+		"groups": {
+			"engine": "ڈاؤن لوڈ انجن",
+			"media": "میڈیا ٹولز"
+		},
+		"installing": {
+			"homebrew": "Homebrew کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔",
+			"winget": "WinGet کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔"
+		},
+		"manual": {
+			"intro": "Arroxy کو ان کاپیوں کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں، یا انہیں کسی اور طریقے سے انسٹال کریں۔",
+			"linuxHint": "آپ yt-dlp اور ffmpeg کو اپنے پیکج مینیجر سے بھی انسٹال کر سکتے ہیں، پھر «دوبارہ کوشش کریں» پر کلک کریں۔",
+			"toggle": "دستی طور پر سیٹ اپ کریں"
+		},
+		"stopped": {
+			"body": "دوبارہ کوشش کریں، یا نیچے Arroxy کو ان ٹولز کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں۔",
+			"title": "سیٹ اپ رک گیا"
+		},
+		"title": "سیٹ اپ کو آپ کی مدد چاہیے"
 	},
 	"selectionOrder": {
 		"editorTitle": "یہ پروفائل کیسے چنتی ہے",
-		"whyTitle": "پروفائل نے یہ کیوں چنا",
-		"whyLabel": "یہی کیوں؟",
 		"rank": {
-			"h264": {"label": "H.264 ویڈیو", "reason": "ہر ڈیوائس پر چلتی ہے"},
-			"mp4Streams": {"label": "MP4 اسٹریمز", "reason": "MP4 فائل کے لیے تیار"},
-			"resolutionBest": {"label": "سب سے زیادہ ریزولوشن", "reason": "کوئی حد مقرر نہیں"},
-			"resolution": {"label": "{{tier}}p تک", "reason": "آپ کی حد"},
-			"fps": {"label": "سب سے زیادہ فریم ریٹ", "reason": "زیادہ ہموار حرکت"},
-			"sitePreference": {"label": "وہ اسٹریمز جنہیں سائٹ کم درجہ نہیں دیتی", "reason": "خراب، واٹرمارک والی اور متبادل کاپیاں چھوڑ دیتا ہے"},
-			"original": {"label": "اصل اسٹریمز، AI سے اپ اسکیل شدہ نہیں", "reason": "اپ اسکیل شدہ کاپی اونچی ہوتی ہے مگر کوئی حقیقی تفصیل نہیں بڑھاتی"},
-			"source": {"label": "پہلے بہتر بٹ ریٹ والی اسٹریمز", "reason": "اسی ریزولوشن میں زیادہ تفصیل"},
-			"protocol": {"label": "پہلے براہِ راست ڈاؤن لوڈز، پھر اسٹریم شدہ کاپیاں", "reason": "وہی تصویر، زیادہ تیزی سے ڈاؤن لوڈ"},
-			"codec": {"label": "AV1، پھر VP9، پھر H.264", "reason": "ایک ہی سائز میں سب سے واضح"},
-			"codecVp9First": {"label": "VP9، پھر H.264، پھر AV1", "reason": "اس پروفائل کا کوڈیک"},
-			"codecH264First": {"label": "H.264، پھر VP9، پھر AV1", "reason": "اس پروفائل کا کوڈیک"},
-			"size": {"label": "بڑی فائل", "reason": "انہی ترتیبات میں زیادہ تفصیل"},
-			"aacSmartTv": {"label": "AAC آڈیو", "reason": "ہر جگہ چلتی ہے"},
-			"aacFileType": {"label": "AAC آڈیو", "reason": "MP4 پلیئرز کے لیے موزوں"},
-			"opus": {"label": "Opus آڈیو", "reason": "WebM کے لیے موزوں"},
-			"nativeCompatible": {"label": "اسٹیریو آڈیو"},
-			"nativeSurround": {"label": "دستیاب ہو تو سراؤنڈ آڈیو"},
-			"nativeSource": {"settings": "ترتیبات سے", "profile": "یہ پروفائل"},
-			"hdrSdrFirst": {"label": "HDR سے پہلے SDR", "reason": "ہر اسکرین پر درست دکھتی ہے", "reasonScreen": "یہ اسکرین HDR والی نہیں"},
-			"hdrFirst": {"label": "SDR سے پہلے HDR", "reason": "HDR اسکرینوں پر زیادہ بھرپور رنگ", "reasonScreen": "یہ اسکرین HDR دکھاتی ہے"}
+			"aacFileType": {
+				"label": "AAC آڈیو",
+				"reason": "MP4 پلیئرز کے لیے موزوں"
+			},
+			"aacSmartTv": {
+				"label": "AAC آڈیو",
+				"reason": "ہر جگہ چلتی ہے"
+			},
+			"codec": {
+				"label": "AV1، پھر VP9، پھر H.264",
+				"reason": "ایک ہی سائز میں سب سے واضح"
+			},
+			"codecH264First": {
+				"label": "H.264، پھر VP9، پھر AV1",
+				"reason": "اس پروفائل کا کوڈیک"
+			},
+			"codecVp9First": {
+				"label": "VP9، پھر H.264، پھر AV1",
+				"reason": "اس پروفائل کا کوڈیک"
+			},
+			"fps": {
+				"label": "سب سے زیادہ فریم ریٹ",
+				"reason": "زیادہ ہموار حرکت"
+			},
+			"h264": {
+				"label": "H.264 ویڈیو",
+				"reason": "ہر ڈیوائس پر چلتی ہے"
+			},
+			"hdrFirst": {
+				"label": "SDR سے پہلے HDR",
+				"reason": "HDR اسکرینوں پر زیادہ بھرپور رنگ",
+				"reasonScreen": "یہ اسکرین HDR دکھاتی ہے"
+			},
+			"hdrSdrFirst": {
+				"label": "HDR سے پہلے SDR",
+				"reason": "ہر اسکرین پر درست دکھتی ہے",
+				"reasonScreen": "یہ اسکرین HDR والی نہیں"
+			},
+			"mp4Streams": {
+				"label": "MP4 اسٹریمز",
+				"reason": "MP4 فائل کے لیے تیار"
+			},
+			"nativeCompatible": {
+				"label": "اسٹیریو آڈیو"
+			},
+			"nativeSource": {
+				"profile": "یہ پروفائل",
+				"settings": "ترتیبات سے"
+			},
+			"nativeSurround": {
+				"label": "دستیاب ہو تو سراؤنڈ آڈیو"
+			},
+			"opus": {
+				"label": "Opus آڈیو",
+				"reason": "WebM کے لیے موزوں"
+			},
+			"original": {
+				"label": "اصل اسٹریمز، AI سے اپ اسکیل شدہ نہیں",
+				"reason": "اپ اسکیل شدہ کاپی اونچی ہوتی ہے مگر کوئی حقیقی تفصیل نہیں بڑھاتی"
+			},
+			"protocol": {
+				"label": "پہلے براہِ راست ڈاؤن لوڈز، پھر اسٹریم شدہ کاپیاں",
+				"reason": "وہی تصویر، زیادہ تیزی سے ڈاؤن لوڈ"
+			},
+			"resolution": {
+				"label": "{{tier}}p تک",
+				"reason": "آپ کی حد"
+			},
+			"resolutionBest": {
+				"label": "سب سے زیادہ ریزولوشن",
+				"reason": "کوئی حد مقرر نہیں"
+			},
+			"sitePreference": {
+				"label": "وہ اسٹریمز جنہیں سائٹ کم درجہ نہیں دیتی",
+				"reason": "خراب، واٹرمارک والی اور متبادل کاپیاں چھوڑ دیتا ہے"
+			},
+			"size": {
+				"label": "بڑی فائل",
+				"reason": "انہی ترتیبات میں زیادہ تفصیل"
+			},
+			"source": {
+				"label": "پہلے بہتر بٹ ریٹ والی اسٹریمز",
+				"reason": "اسی ریزولوشن میں زیادہ تفصیل"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "بہترین تصویر", "smartTv": "ہر ڈیوائس پر چلتی ہے"}, "fileType": {"auto": "فائل کی قسم اسٹریمز سے", "explicit": ".{{ext}} کے طور پر محفوظ"}}
+		"summary": {
+			"fileType": {
+				"auto": "فائل کی قسم اسٹریمز سے",
+				"explicit": ".{{ext}} کے طور پر محفوظ"
+			},
+			"goal": {
+				"bestPicture": "بہترین تصویر",
+				"smartTv": "ہر ڈیوائس پر چلتی ہے"
+			}
+		},
+		"whyLabel": "یہی کیوں؟",
+		"whyTitle": "پروفائل نے یہ کیوں چنا"
 	},
-	"aiUpscaled": {"label": "AI سے اپ اسکیل شدہ اسٹریمز", "description": "YouTube کچھ پرانی ویڈیوز ایسے سائزز میں پیش کرتا ہے جو اس نے AI سے بنائے ہیں۔ “چھوڑ دیں” اصل اسٹریمز رکھتا ہے؛ آپ پھر بھی کوئی اپ اسکیل شدہ اسٹریم خود چن سکتے ہیں۔", "skip": "چھوڑ دیں", "allow": "اجازت دیں"},
+	"share": {
+		"copied": "کاپی ہو گیا!",
+		"copyLink": "لنک کاپی کریں",
+		"defaultMessage": "Arroxy — Windows، macOS اور Linux کے لیے مفت اوپن سورس ویڈیو ڈاؤن لوڈر۔ YouTube، Vimeo، Twitch اور 2000+ سائٹس کے ساتھ کام کرتا ہے۔\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy مفت اور اوپن سورس ہے۔ شیئر کرنے سے زیادہ لوگ اسے دریافت کر سکتے ہیں۔",
+		"footerLabel": "شیئر کریں",
+		"footerTooltip": "Arroxy شیئر کریں",
+		"shareAction": "Arroxy شیئر کریں",
+		"title": "Arroxy شیئر کریں"
+	},
+	"splash": {
+		"cancel": "مسئلہ ہو رہا ہے؟ دستی طور پر سیٹ اپ کریں",
+		"greeting": "ارے، خوش آمدید!",
+		"setup": {
+			"bytes": "{{total}} میں سے {{done}}",
+			"left": {
+				"minutes_one": "تقریباً {{count}} منٹ باقی",
+				"minutes_other": "تقریباً {{count}} منٹ باقی",
+				"underMinute": "ایک منٹ سے کم باقی"
+			},
+			"note": {
+				"engine": "سائٹس بدلنے پر بھی ڈاؤن لوڈز کو چلتا رکھتا ہے۔",
+				"firstRun": "یہ صرف ایک بار ہوتا ہے۔ Arroxy ان ٹولز کو رکھتا ہے اور خود اپ ڈیٹ کرتا ہے۔",
+				"media": "یہ صرف ایک بار ہوتا ہے۔ Arroxy انہیں آئندہ اپ ڈیٹس کے لیے رکھتا ہے۔"
+			},
+			"stage": {
+				"checking": "جانچ رہا ہے کہ سب کچھ کام کر رہا ہے",
+				"connecting": "منسلک ہو رہا ہے…",
+				"downloadingBoth": "ڈاؤن لوڈ انجن اور میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں",
+				"downloadingEngine": "ڈاؤن لوڈ انجن ڈاؤن لوڈ ہو رہا ہے",
+				"downloadingMedia": "میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں",
+				"unpacking": "میڈیا ٹولز کھولے جا رہے ہیں"
+			},
+			"title": {
+				"engine": "ڈاؤن لوڈ انجن اپ ڈیٹ ہو رہا ہے",
+				"firstRun": "پہلی بار کا سیٹ اپ",
+				"media": "میڈیا ٹولز اپ ڈیٹ ہو رہے ہیں"
+			}
+		},
+		"verifyFirstCheck": "اس ورژن کی پہلی جانچ — یہ سست ہے۔ عام طور پر تقریباً ایک منٹ۔",
+		"verifying": "{{binary}} کی جانچ ہو رہی ہے…",
+		"warmup": "ڈاؤن لوڈز تیار کیے جا رہے ہیں…",
+		"warmupFailedNoDiag": "سیٹ اپ ناکام ہوا۔ تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"
+	},
+	"status": {
+		"audioKept": "ویڈیو آواز کے ساتھ محفوظ ہو گئی — آواز ہٹائی نہ جا سکی",
+		"audioKeptSubtitlesFailed": "ویڈیو آواز کے ساتھ محفوظ ہو گئی — آواز ہٹائی نہ جا سکی، اور کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے",
+		"cancelled": "ڈاؤن لوڈ منسوخ",
+		"complete": "ڈاؤن لوڈ مکمل",
+		"convertingVideo": "ویڈیو کنورٹ ہو رہی ہے…",
+		"diskSpaceInsufficient": "ڈسک میں کافی جگہ نہیں — {{required}} درکار ہے، صرف {{free}} دستیاب ہے",
+		"downloadingBinary": "{{name}} بائنری ڈاؤن لوڈ ہو رہی ہے…",
+		"downloadingMedia": "ویڈیو اور آڈیو ڈاؤن لوڈ ہو رہی ہے…",
+		"embeddingMetadata": "میٹا ڈیٹا شامل ہو رہا ہے…",
+		"exploreSignedOut": "دریافت سے سائن آؤٹ ہو گیا — دوبارہ سائن ان کریں",
+		"extractingAudio": "آڈیو کنورٹ ہو رہی ہے…",
+		"fetchingSponsorBlock": "SponsorBlock سے رابطہ ہو رہا ہے…",
+		"fetchingSubtitles": "سب ٹائٹلز لائے جا رہے ہیں…",
+		"mergingFormats": "آڈیو اور ویڈیو ضم ہو رہی ہیں…",
+		"mintingToken": "YouTube ٹوکن بنایا جا رہا ہے…",
+		"movingFiles": "فائلیں منتقل ہو رہی ہیں…",
+		"noSubtitles": "{{languages}} میں سب ٹائٹلز موجود نہیں",
+		"outputNotWritable": "{{dir}} میں محفوظ نہیں کیا جا سکتا — Arroxy کو وہاں لکھنے کی اجازت نہیں",
+		"preparingBinaries": "بائنریز تیار کی جا رہی ہیں…",
+		"qualityLimited": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
+		"qualityLimitedSubtitlesFailed": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی، اور کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
+		"remintingToken": "ٹوکن دوبارہ بنایا جا رہا ہے…",
+		"retryingSponsorBlock": "SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…",
+		"retryingTransfer": "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "دریافت میں آپ کے اکاؤنٹ سے سائن ان ہو رہا ہے…",
+		"sleepingBetweenRequests": "ریٹ لمٹس سے بچنے کے لیے {{seconds}} سیکنڈ انتظار…",
+		"startingYtdlp": "ڈاؤن لوڈ انجن شروع ہو رہا ہے…",
+		"subtitleLanguagesMissing": "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ ویڈیو ان کے بغیر محفوظ کی گئی۔",
+		"subtitleLanguagesMissingOthersSaved": "اس ویڈیو میں {{languages}} میں سب ٹائٹلز موجود نہیں ہیں۔ باقی زبانیں محفوظ کر لی گئیں۔",
+		"subtitlesFailed": "ویڈیو محفوظ ہو گئی — کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے",
+		"unknownStartupFailure": "نامعلوم ڈاؤن لوڈ اسٹارٹ اپ ناکامی",
+		"usedExtractorFallback": "ریلیکسڈ ایکسٹریکٹر سے ڈاؤن لوڈ ہوا — زیادہ قابل اعتماد ڈاؤن لوڈز کے لیے cookies.txt سیٹ اپ کریں",
+		"ytdlpExitCode": "ڈاؤن لوڈ انجن کوڈ {{code}} کے ساتھ ختم ہوا",
+		"ytdlpProcessError": "ڈاؤن لوڈ انجن میں خرابی: {{error}}"
+	},
+	"theme": {
+		"dark": "ڈارک موڈ",
+		"light": "لائٹ موڈ",
+		"system": "سسٹم ڈیفالٹ"
+	},
+	"titleBar": {
+		"close": "بند کریں",
+		"maximize": "بڑا کریں",
+		"minimize": "چھوٹا کریں",
+		"restore": "بحال کریں"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "کلپ بورڈ سے ڈاؤن لوڈ کریں",
+			"open": "Arroxy کھولیں",
+			"quit": "Arroxy بند کریں",
+			"statusActive_one": "1 ڈاؤن لوڈ ہو رہا ہے · {{percent}}%",
+			"statusActive_other": "{{count}} ڈاؤن لوڈ ہو رہے ہیں · {{percent}}%",
+			"statusIdle": "فارغ"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "کمانڈ کلپ بورڈ پر کاپی ہو گئی",
+		"copy": "کمانڈ کلپ بورڈ پر کاپی کریں",
+		"dismiss": "اپ ڈیٹ بینر برخاست کریں",
+		"download": "ڈاؤن لوڈ ↗",
+		"downloadDmg": "DMG ڈاؤن لوڈ کریں ↗",
+		"downloading": "ڈاؤن لوڈ ہو رہا ہے…",
+		"install": "انسٹال اور ری اسٹارٹ",
+		"installFailed": "اپ ڈیٹ ناکام",
+		"message": {
+			"generic": "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔",
+			"homebrew": "Arroxy {{version}} دستیاب ہے — Homebrew سے اپ ڈیٹ کریں۔",
+			"macosDirect": "Arroxy {{version}} دستیاب ہے — نیا DMG ڈاؤن لوڈ کریں۔",
+			"macosDirectHomebrew": "Arroxy {{version}} دستیاب ہے — DMG ڈاؤن لوڈ کریں یا Homebrew پر منتقل ہوں۔",
+			"portable": "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ کریں۔"
+		},
+		"retry": "دوبارہ کوشش کریں",
+		"runAndRestart": "چلائیں اور ری اسٹارٹ کریں",
+		"upgrading": "اپ گریڈ ہو رہا ہے…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} چیپٹر",
+		"chapters_other": "{{count}} چیپٹرز",
+		"titlePlaceholder": "لوڈ ہو رہا ہے…"
+	},
 	"videoCodec": {
-		"label": "ویڈیو کوڈیک",
-		"description": "ایک ہی اونچائی کی سٹریمز میں سے پہلے کون سا کوڈیک لیا جائے۔ آٹو yt-dlp کی اپنی ترتیب برقرار رکھتا ہے، جو سب سے چھوٹے AV1 کو ترجیح دیتی ہے؛ H.264 پرانے TV اور فونز پر چلتا ہے۔",
-		"smartTv": "سمارٹ TV ہمیشہ H.264 لیتا ہے۔",
 		"auto": "آٹو",
-		"vp9": "پہلے VP9",
-		"h264": "پہلے H.264"
+		"description": "ایک ہی اونچائی کی سٹریمز میں سے پہلے کون سا کوڈیک لیا جائے۔ آٹو yt-dlp کی اپنی ترتیب برقرار رکھتا ہے، جو سب سے چھوٹے AV1 کو ترجیح دیتی ہے؛ H.264 پرانے TV اور فونز پر چلتا ہے۔",
+		"h264": "پہلے H.264",
+		"label": "ویڈیو کوڈیک",
+		"smartTv": "سمارٹ TV ہمیشہ H.264 لیتا ہے۔",
+		"vp9": "پہلے VP9"
 	},
-	"hdrPreference": {"label": "HDR ویڈیو", "description": "اگر یہ اسکرین HDR دکھا سکے تو آٹو HDR چنتا ہے، ورنہ SDR۔ عام اسکرینوں پر HDR پھیکا دکھتا ہے۔", "sdr": "SDR", "hdr": "HDR", "auto": "آٹو"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "تیار",
+			"description": "ویڈیو، پلے لسٹ، چینل، تلاش، یا آڈیو URLs پیسٹ کریں۔ Arroxy قطار میں شامل کرنے سے پہلے نقلیں صاف کرے گا۔",
+			"emptyPreview": "بیچ دیکھنے کے لیے ایک یا زیادہ URLs پیسٹ کریں۔",
+			"ignoredCount": "نظر انداز",
+			"needsAtLeastOne": "جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔",
+			"reject": {
+				"duplicate": "نقل"
+			},
+			"textareaLabel": "URL فہرست",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "متعدد URLs"
+		},
+		"confirm": {
+			"addToQueue": "+ قطار",
+			"addToQueueTooltip": "دوسرے ڈاؤن لوڈز ختم ہونے پر شروع ہو گا — مکمل بینڈوڈتھ ملے گی",
+			"audioOnly": "صرف آڈیو",
+			"itemsValueAudio_one": "{{total}} میں سے {{count}} ٹریک",
+			"itemsValueAudio_other": "{{total}} میں سے {{count}} ٹریکس",
+			"itemsValueBulk_one": "{{total}} میں سے {{count}} URL",
+			"itemsValueBulk_other": "{{total}} میں سے {{count}} URLs",
+			"itemsValue_one": "{{total}} میں سے {{count}} ویڈیو",
+			"itemsValue_other": "{{total}} میں سے {{count}} ویڈیوز",
+			"labelAudio": "آڈیو",
+			"labelBulk": "متعدد URLs",
+			"labelItems": "آئٹمز",
+			"labelPlaylist": "پلے لسٹ",
+			"labelPreset": "پریسیٹ",
+			"labelSaveTo": "محفوظ کریں",
+			"labelSize": "سائز",
+			"labelSubtitles": "سب ٹائٹلز",
+			"labelVideo": "ویڈیو",
+			"landIn": "آپ کی فائل یہاں پہنچے گی",
+			"landInMultiProfile_one": "یہ نیچے دی گئی منزل میں پہنچے گی",
+			"landInMultiProfile_other": "یہ نیچے دی گئی {{count}} منزلوں میں پہنچیں گی",
+			"nothingToDownload": "صرف سب ٹائٹلز پری سیٹ ایکٹیو ہے لیکن کوئی سب ٹائٹل زبان منتخب نہیں — کچھ ڈاؤن لوڈ نہیں ہو گا۔",
+			"profileBreakdownCount_one": "{{count}} آئٹم",
+			"profileBreakdownCount_other": "{{count}} آئٹمز",
+			"profileBreakdownHeading": "اس بیچ میں پروفائلز",
+			"pullIt": "لے آؤ! ↓",
+			"pullItTooltip": "فوراً شروع ہو گا — دوسرے ایکٹو ڈاؤن لوڈز کے ساتھ چلے گا",
+			"readyHeadline": "لانے کے لیے تیار!",
+			"sizeUnknown": "نامعلوم",
+			"subtitleEmbedAudioOnly": "Subtitle embed کو sidecar میں تبدیل کر دیا گیا — آڈیو ٹریکس اندرونی subtitle سٹریمز کو سپورٹ نہیں کرتے۔",
+			"subtitleEmbedForcesMkv": "ویڈیو کے اندر سب ٹائٹلز کے لیے MKV فائل چاہیے، اس لیے یہ ڈاؤن لوڈ .mkv کے طور پر محفوظ ہوگا۔",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Thumbnail embed چھوڑ دیا گیا — آؤٹ پٹ container اسے سپورٹ نہیں کرتا۔"
+		},
+		"folder": {
+			"custom": "حسب ضرورت…",
+			"desktop": "ڈیسک ٹاپ",
+			"documents": "دستاویزات",
+			"downloads": "ڈاؤن لوڈز",
+			"heading": "محفوظ کریں",
+			"home": "ہوم",
+			"music": "موسیقی",
+			"pictures": "تصاویر",
+			"subfolder": {
+				"invalid": "فولڈر کے نام میں غلط حروف ہیں",
+				"placeholder": "مثلاً lo-fi rips",
+				"toggle": "سب فولڈر میں محفوظ کریں"
+			},
+			"videos": "فلمیں"
+		},
+		"formats": {
+			"audio": "آڈیو",
+			"audioLanguage": "آڈیو کی زبان",
+			"audioLanguageCount_one": "{{count}} زبان",
+			"audioLanguageCount_other": "{{count}} زبانیں",
+			"audioOnly": "صرف آڈیو",
+			"bitrateValue": "بٹ ریٹ {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Cookies ترتیب دی گئی ہیں لیکن بند ہیں۔ مکمل فہرست کے لیے انہیں فعال کریں اور دوبارہ کوشش کریں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
+				"bodyEnabled": "Cookies کے ساتھ بھی YouTube نے یہ پروب محدود کی۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
+				"bodyExplore": "YouTube نے اس درخواست کو محدود کر دیا۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
+				"bodyUnconfigured": "فارمیٹ کی فہرست نامکمل ہو سکتی ہے۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
+				"enableRetryCta": "Cookies فعال کریں اور دوبارہ کوشش کریں",
+				"heading": "YouTube نے یہ پروب محدود کر دی",
+				"retryCta": "دوبارہ کوشش کریں"
+			},
+			"convert": {
+				"bitrate": "بٹ ریٹ",
+				"bitrateCopyHint": "جو ماخذ پہلے ہی {{target}} ہو وہ اپنی سٹریم اور بٹ ریٹ برقرار رکھتا ہے: اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا۔",
+				"copyLabel": "{{target}} {{bitrate}} kbps، دوبارہ encode نہیں",
+				"copyLabelNoBitrate": "{{target}}، دوبارہ encode نہیں",
+				"copyNote": "{{kbps}} kbps، جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"copyNoteNoBitrate": "جیسا ماخذ میں ہے: سٹریم پہلے ہی {{target}} ہے، اس لیے اسے کاپی کیا جاتا ہے، دوبارہ encode نہیں کیا جاتا",
+				"label": "کنورٹ کریں",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "ماخذ {{kbps}} kbps ہے",
+				"wavLabel": "WAV (غیر کمپریسڈ)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "براؤزر",
+				"currentModeExplore": "دریافت کا سائن ان",
+				"currentModeFile": "فائل",
+				"currentModeLabel": "Cookies کا ذریعہ",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp دستاویزات (issue #10927)",
+					"explanation": "Chrome 127 اور اس سے نئے ورژن cookies کو اس طرح انکرپٹ کرتے ہیں کہ دوسری ایپس Windows پر انہیں پڑھ نہیں سکتیں۔ نیچے دیے گئے حلوں میں سے ایک آزمائیں۔",
+					"fixFileBody": "کسی براؤزر ایکسٹینشن سے Chrome سے cookies ایکسپورٹ کریں، پھر اس ایپ کو فائل موڈ پر سوئچ کریں اور ایکسپورٹ کی گئی فائل منتخب کریں۔",
+					"fixFileLabel": "cookies.txt ایکسپورٹ کریں",
+					"fixFirefoxBody": "Firefox، App-Bound Encryption استعمال نہیں کرتا۔ Cookies سیٹنگز کھولیں اور براؤزر کی فہرست سے Firefox منتخب کریں۔",
+					"fixFirefoxLabel": "Firefox پر سوئچ کریں",
+					"fixUnsafeBody": "Chrome کی لانچ شارٹ کٹ میں --disable-features=LockProfileCookieDatabase شامل کریں۔ انتباہ: اس سے پہلے سے انکرپٹ cookies ختم ہو جاتی ہیں، اس لیے آپ ہر سائٹ سے لاگ آؤٹ ہو جائیں گے اور دوبارہ لاگ ان کرنا ہو گا۔",
+					"fixUnsafeLabel": "App-Bound Encryption غیر فعال کر کے Chrome لانچ کریں",
+					"heading": "Chrome cookies ونڈوز انکرپشن کے ذریعے بلاک ہیں"
+				},
+				"explanationBrowser": "Cookies براہ راست براؤزر سے پڑھی جاتی ہیں۔ اگر براؤزر ابھی چل رہا ہے تو اس کا cookie ڈیٹا بیس لاک ہو سکتا ہے (Chromium-family)۔ براؤزر کا YouTube میں سائن اِن ہونا بھی ضروری ہے۔ براؤزر بند کریں، کوئی مختلف براؤزر آزمائیں، فائل موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
+				"explanationFile": "آپ کی cookies فائل خالی، میعاد ختم، یا غلط فارمیٹ میں ہو سکتی ہے (Arroxy کو Netscape cookies.txt فائل درکار ہے)۔ cookies دوبارہ ایکسپورٹ کریں، مختلف فائل منتخب کریں، براؤزر موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
+				"exploreOffer": {
+					"body": "دریافت کے ذریعے سائن ان کریں اور Arroxy دوبارہ کوشش کرے گا۔",
+					"cta": "دریافت کے ذریعے سائن ان کریں",
+					"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے"
+				},
+				"exploreRefused": {
+					"body": "Arroxy پہلے ہی دریافت کے ذریعے سائن ان کے ساتھ کوشش کر چکا ہے، اس لیے دوبارہ سائن ان کرنے سے مدد نہیں ملے گی۔ ممکن ہے سائٹ میں مسئلہ ہو یا یہ اکاؤنٹ اسے نہ کھول سکتا ہو۔ بعد میں دوبارہ کوشش کریں۔",
+					"heading": "سائٹ نے دریافت میں آپ کے سائن ان کے باوجود اسے مسترد کر دیا"
+				},
+				"exploreReuse": {
+					"body": "آپ دریافت میں سائن ان ہیں، لیکن ڈاؤن لوڈز اس وقت اس سائن ان کو استعمال نہیں کر رہے۔",
+					"cta": "دریافت کا سائن ان استعمال کریں اور دوبارہ کوشش کریں",
+					"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے"
+				},
+				"exploreSignIn": {
+					"body": "اگر اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہے تو دریافت میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔",
+					"cta": "دریافت میں سائن ان کریں",
+					"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے"
+				},
+				"exploreSignedIn": {
+					"body": "اگر اس ویڈیو کے لیے اکاؤنٹ درکار ہے تو Arroxy خود بخود دریافت میں آپ کا سائن ان استعمال کرتا ہے۔ یہ کسی اور وجہ سے دستیاب نہیں ہو سکتی۔",
+					"heading": "دریافت میں سائن ان ہیں"
+				},
+				"exploreSite": {
+					"heading": "اس لنک کے لیے {{host}} پر اکاؤنٹ درکار ہو سکتا ہے",
+					"offerBody": "{{host}} پر دریافت کے ذریعے سائن ان کریں اور دوبارہ کوشش کریں۔",
+					"signInBody": "{{host}} پر دریافت میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔"
+				},
+				"heading": "Cookies وجہ ہو سکتی ہیں",
+				"needsCookies": {
+					"body": "Arroxy تصدیق کے بغیر اس ویڈیو تک رسائی حاصل نہیں کر سکا۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں — کسی ایسے براؤزر کی طرف اشارہ کریں جس میں آپ پہلے سے سائن اِن ہوں، یا cookies.txt فائل درآمد کریں۔",
+					"heading": "اس سائٹ کو سائن اِن ضروری ہے"
+				},
+				"openSettingsCta": "Cookies سیٹنگز کھولیں",
+				"otherCookiesCta": "اس کے بجائے Cookies فائل یا براؤزر استعمال کریں…"
+			},
+			"drc": {
+				"description": "اونچے حصوں کو دھیما اور دھیمے حصوں کو اونچا کرتا ہے، اسپیکرز اور شور والی جگہوں کے لیے۔",
+				"label": "آواز کی سطح برابر کریں (DRC)",
+				"tag": "برابر آواز"
+			},
+			"fit": {
+				"mp4Unavailable": "آپ کی پروفائل سمارٹ TV (H.264) ہے۔ یہ ویڈیو H.264 فراہم نہیں کرتی، اس لیے قریب ترین اسٹریم منتخب کی گئی ہے۔",
+				"noVideo": "اس لنک میں ویڈیو نہیں ہے، اس لیے آڈیو منتخب کی گئی ہے۔",
+				"subtitlesMissing": "آپ کا پروفائل {{languages}} میں سب ٹائٹلز مانگتا ہے۔ اس ویڈیو میں یہ موجود نہیں۔",
+				"tierAbove": "آپ کا پروفائل {{wanted}}p مانگتا ہے۔ اس ویڈیو میں اتنا چھوٹا کچھ نہیں، اس لیے {{picked}}p منتخب کیا گیا ہے۔",
+				"tierBelow": "آپ کا پروفائل {{wanted}}p مانگتا ہے۔ یہ ویڈیو صرف {{picked}}p تک جاتی ہے، اس لیے {{picked}}p منتخب کیا گیا ہے۔",
+				"webmUnavailable": "آپ کی پروفائل WebM مانگتی ہے۔ اس ویڈیو کی منتخب اسٹریمز میں {{codec}} شامل ہے، جو WebM میں نہیں آ سکتا، اس لیے فائل کی قسم آٹو ہے۔"
+			},
+			"footer": {
+				"addToQueue": "شروع کیے بغیر قطار میں شامل کریں",
+				"download": "ڈاؤن لوڈ",
+				"moreActions": "مزید ڈاؤن لوڈ اختیارات",
+				"subtitlesRequired": "کم از کم ایک سب ٹائٹل زبان منتخب کریں۔"
+			},
+			"keepAudio": "جیسا ہے ویسا رکھیں",
+			"keepAudioMeta": "بلٹ اِن آڈیو",
+			"kind": {
+				"audio": "صرف آڈیو",
+				"label": "کیا ڈاؤن لوڈ کرنا ہے",
+				"subtitles": "صرف سب ٹائٹلز",
+				"video": "ویڈیو + آڈیو",
+				"videoOnly": "ویڈیو، بغیر آڈیو"
+			},
+			"loadingAria": "فارمیٹس لوڈ ہو رہے ہیں",
+			"loadingHint": "براہ کرم پروبنگ مکمل ہونے تک انتظار کریں — پلے لسٹس اور تلاش میں کچھ وقت لگ سکتا ہے۔",
+			"marker": {
+				"aiDubbed": "AI ڈب شدہ",
+				"aiUpscaled": "AI اپ اسکیل شدہ",
+				"audioDescription": "صوتی وضاحت",
+				"damaged": "خراب",
+				"enhancedBitrate": "بہتر بٹ ریٹ",
+				"spatialAudio": "اسپیشل آڈیو",
+				"vr": "360° / VR",
+				"watermarked": "واٹرمارک والا"
+			},
+			"noAudio": "کوئی آڈیو نہیں",
+			"profile": {
+				"calloutBody": "آپ کا فعال پروفائل آپ کے لیے اسٹریمز پہلے سے منتخب کر دیتا ہے۔ مینو سے پروفائل بدلیں، یا اس ڈاؤن لوڈ سے نکلے بغیر پنسل سے کسی پروفائل کو ٹھیک کریں۔",
+				"calloutTitle": "فارمیٹس آپ کے پروفائل سے شروع ہوتے ہیں",
+				"closestTag": "پروفائل کے قریب ترین",
+				"edit": "{{name}} میں ترمیم کریں",
+				"keepEdits": "میری تبدیلیاں رکھیں",
+				"menuDescription": "صرف اس ڈاؤن لوڈ کے لیے۔ آپ کا ڈیفالٹ پروفائل جیسا ہے ویسا ہی رہے گا۔",
+				"preselected": "پہلے سے منتخب، ماخذ:",
+				"resetAll": "سب ری سیٹ کریں",
+				"switchBody": "آپ نے اس ڈاؤن لوڈ کے لیے {{areas}} تبدیل کیے۔ “{{profile}}” ہر صورت میں ویڈیو اور آڈیو چنتا ہے۔ اپنی باقی تبدیلیاں رکھیں، یا سب کچھ پروفائل پر ری سیٹ کریں؟",
+				"switchTitle": "پروفائل تبدیل کریں؟",
+				"tag": "پروفائل",
+				"updatedBody": "آپ نے اس ڈاؤن لوڈ کے لیے {{areas}} تبدیل کیے۔ اپ ڈیٹ شدہ پروفائل ہر صورت میں ویڈیو اور آڈیو چنتا ہے۔ اپنی باقی تبدیلیاں رکھیں، یا سب کچھ پروفائل پر ری سیٹ کریں؟",
+				"updatedTitle": "اپ ڈیٹ شدہ پروفائل استعمال کریں؟"
+			},
+			"quality": {
+				"high": "اعلیٰ معیار",
+				"low": "کم معیار",
+				"medium": "درمیانی معیار"
+			},
+			"rateLimit": {
+				"heading": "{{site}} اس کنکشن کی درخواستیں محدود کر رہا ہے",
+				"leadDegraded": "فارمیٹس کی فہرست نامکمل ہو سکتی ہے۔",
+				"leadFailed": "{{site}} نے فی الحال یہ درخواست واپس کر دی۔",
+				"retryCta": "دوبارہ کوشش کریں",
+				"sessionNote": "{{site}} یہ حد ایک گھنٹے تک برقرار رکھ سکتا ہے۔",
+				"tryNowCta": "ابھی آزمائیں",
+				"waitOver": "انتظار ختم ہو گیا، اب آپ دوبارہ کوشش کر سکتے ہیں۔",
+				"waitUntil": "حد ختم ہونے کے لیے Arroxy دوبارہ {{site}} سے پوچھنے سے پہلے {{time}} تک انتظار کرتا ہے۔"
+			},
+			"resolutionUnknown": "ریزولوشن نامعلوم",
+			"savesAs": {
+				"label": "بطور محفوظ",
+				"reset": "WebM میں {{codec}} نہیں آ سکتا، اس لیے فائل کی قسم واپس آٹو ہو گئی۔"
+			},
+			"sizeUnknown": "سائز نامعلوم",
+			"skipToConfirm": "تصدیق تک جائیں",
+			"skipToConfirmTooltip": "باقی تمام مراحل کے لیے آپ کی محفوظ ترجیحات استعمال کرتا ہے۔ کوئی ترتیب تبدیل کرنے کے لیے، قدم بہ قدم جاری رکھیں — آپ کا انتخاب اگلی بار کے لیے محفوظ ہو جائے گا۔",
+			"sniffing": "آپ کے لیے بہترین فارمیٹس ڈھونڈ رہا ہوں…",
+			"total": "کل",
+			"video": "ویڈیو",
+			"withAudio": "آڈیو کے ساتھ"
+		},
+		"mixedPrompt": {
+			"body": "کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔",
+			"pickFromPlaylist": "Playlist سے انتخاب",
+			"playlistLimit": "پلے لسٹ جانچ حد: {{count}} آئٹمز",
+			"playlistTooltip": "انتخاب دکھانے سے پہلے پلے لسٹ کو آپ کی مقرر کردہ حد تک لوڈ کرتا ہے۔",
+			"quickBody": "صرف یہ ویڈیو ڈاؤن لوڈ کریں، یا اپنی فعال فوری ڈاؤن لوڈ پروفائل کے ساتھ پوری پلے لسٹ کو قطار میں شامل کریں۔",
+			"quickLimitDescription": "پلے لسٹ، چینل یا تلاش کے نتیجے کو قطار میں شامل کرنے سے پہلے Arroxy جتنی زیادہ سے زیادہ آئٹمز اسکین کرتا ہے۔",
+			"quickPlaylistTooltip": "فعال فوری ڈاؤن لوڈ پروفائل کے ساتھ لوڈ کی گئی ہر پلے لسٹ آئٹم کو قطار میں شامل کرتا ہے۔ اگر اسکین آپ کی حد تک پہنچ جائے تو Arroxy قطار میں شامل کرنے سے پہلے پوچھے گا۔",
+			"quickSingleTooltip": "ایک ڈاؤن لوڈ کو قطار میں شامل کرتا ہے اور اس URL سے منسلک پلے لسٹ کو نظرانداز کرتا ہے۔",
+			"quickSingleVideo": "یہ ویڈیو ڈاؤن لوڈ کریں",
+			"quickWholePlaylist": "پوری پلے لسٹ ڈاؤن لوڈ کریں",
+			"singleTooltip": "صرف یہی ویڈیو لوڈ کرتا ہے۔ اس URL سے منسلک پلے لسٹ نظر انداز کر دی جاتی ہے۔",
+			"singleVideo": "صرف یہ ایک",
+			"title": "اس لنک میں Playlist ہے"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "چیپٹر مارکرز کسی بھی جدید پلیئر میں نیویگیٹ کیے جا سکتے ہیں۔",
+				"label": "چیپٹرز شامل کریں"
+			},
+			"embedMetadata": {
+				"description": "عنوان، فنکار، تفصیل، اور اپلوڈ کی تاریخ فائل میں لکھی جاتی ہے۔",
+				"label": "میٹا ڈیٹا شامل کریں"
+			},
+			"embedThumbnail": {
+				"description": "فائل میں کور آرٹ۔ WebM ویڈیو کو MKV میں ری مکس کیا جائے گا؛ جب سب ٹائٹلز شامل ہوں تو چھوڑ دیا جاتا ہے۔",
+				"label": "تھمب نیل شامل کریں"
+			},
+			"writeDescription": {
+				"description": "ویڈیو کی تفصیل کو ڈاؤن لوڈ کے ساتھ .description ٹیکسٹ فائل کے طور پر محفوظ کرتا ہے۔",
+				"label": "تفصیل محفوظ کریں"
+			},
+			"writeM3u": {
+				"description": "ویڈیوز کے ساتھ .m3u پلے لسٹ محفوظ کرتا ہے تاکہ وہ میڈیا پلیئر میں ترتیب سے کھلیں۔",
+				"label": ".m3u پلے لسٹ فائل بنائیں"
+			},
+			"writeThumbnail": {
+				"description": "تھمب نیل کو ڈاؤن لوڈ کے ساتھ .jpg امیج فائل کے طور پر محفوظ کرتا ہے۔",
+				"label": "تھمب نیل محفوظ کریں"
+			}
+		},
+		"part": {
+			"calloutBody": "ویڈیو کارڈ پر «حصہ» پر جائیں، آغاز اور اختتام یا ایک باب منتخب کریں، اور صرف وہی حصہ ڈاؤن لوڈ کریں۔",
+			"calloutTitle": "ویڈیو کا صرف ایک حصہ ڈاؤن لوڈ کریں",
+			"chapterUntitled": "چیپٹر {{number}}",
+			"chapters": "چیپٹرز",
+			"connectionsNote": "حصہ ffmpeg کے ذریعے ڈاؤن لوڈ ہوتا ہے، اس لیے آپ کے ڈاؤن لوڈ کنکشنز اور وقفے کی ترتیبات اس پر لاگو نہیں ہوتیں۔",
+			"downloadBlocked": "پہلے حصے کا آغاز اور اختتام درست کریں۔",
+			"end": "اختتام",
+			"error": {
+				"endBeyondDuration": "ویڈیو {{duration}} پر ختم ہوتی ہے۔",
+				"endInvalid": "اختتام کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔",
+				"startInvalid": "آغاز کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔",
+				"startNotBeforeEnd": "آغاز اختتام سے پہلے ہونا چاہیے۔"
+			},
+			"exactCut": {
+				"hint": "بند ہو تو ہر کٹ قریب ترین کی فریم پر لگتا ہے، جو آپ کے لکھے وقت سے چند سیکنڈ دور ہو سکتا ہے۔",
+				"label": "درست کٹ (دوبارہ انکوڈ ہوتا ہے، سست)"
+			},
+			"length": "{{duration}} میں سے {{length}}",
+			"part": "حصہ",
+			"rangeLabel": "ویڈیو کا حصہ",
+			"start": "آغاز",
+			"subtitlesFullLength": "پوری ویڈیو",
+			"summary": "حصہ {{start}}–{{end}}",
+			"switchLabel": "ویڈیو کا کتنا حصہ",
+			"timeHint": "h:mm:ss، m:ss یا سیکنڈ",
+			"totalEstimate": "حصہ، تخمینی",
+			"unavailableDuration": "یہ ویڈیو اپنا دورانیہ نہیں بتاتی، اس لیے اسے صرف پوری ڈاؤن لوڈ کیا جا سکتا ہے۔",
+			"unavailableSubtitles": "سب ٹائٹلز ہمیشہ پوری ویڈیو کے ہوتے ہیں۔",
+			"urlStart": "آپ کا لنک {{time}} سے شروع ہوتا ہے",
+			"useUrlStart": "آغاز کے طور پر استعمال کریں",
+			"whole": "پوری ویڈیو",
+			"wholeTrack": "پورا ٹریک"
+		},
+		"playlist": {
+			"allRemovedDescription": "جاری رکھنے کے لیے انہیں بحال کریں۔",
+			"allRemovedTitle": "تمام آئٹمز ہٹا دیے گئے",
+			"alreadyDownloaded": "پہلے سے ڈاؤن لوڈ شدہ",
+			"bulkHeading": "متعدد URLs",
+			"bulkMetadataOptional": "انتظار کی ضرورت نہیں — ابھی قطار میں لگائی گئی فائلوں کو ڈاؤن لوڈ کے وقت ان کے اصل نام ملیں گے۔",
+			"bulkMetadataResolving": "ویڈیو کی تفصیلات لی جا رہی ہیں… {{done}}/{{total}}",
+			"bulkRowFailed": "تفصیلات دستیاب نہیں",
+			"bulkRowResolving": "تفصیلات لی جا رہی ہیں",
+			"bulkRowWaiting": "انتظار میں",
+			"durationUnknown": "لائیو",
+			"heading": "Playlist آئٹمز",
+			"headingGeneric": "ڈاؤن لوڈ کے لیے ویڈیوز",
+			"itemCountAudio_one": "{{count}} ٹریک",
+			"itemCountAudio_other": "{{count}} ٹریکس",
+			"itemCountBulk_one": "{{count}} لنک",
+			"itemCountBulk_other": "{{count}} لنکس",
+			"itemCount_one": "{{count}} ویڈیو",
+			"itemCount_other": "{{count}} ویڈیوز",
+			"loadingItems": "Playlist لائی جا رہی ہے…",
+			"loadingItemsGeneric": "ویڈیوز حاصل ہو رہی ہیں…",
+			"loadingLimitHint": "پہلے {{count}} آئٹمز تک محدود",
+			"loadingPagesFound_one": "{{count}} صفحہ ملا",
+			"loadingPagesFound_other": "{{count}} صفحات ملے",
+			"loadingPhaseItems": "ویڈیوز جمع ہو رہی ہیں",
+			"loadingPhasePages": "چینل صفحات اسکین ہو رہے ہیں",
+			"multiProfileEntry": "فی آئٹم پروفائلز تفویض کریں",
+			"multiProfileEntryTooltip": "معیار, SponsorBlock, آؤٹ پٹ اور محفوظ کرنے کو نظرانداز کرتا ہے — اس کے بجائے فی آئٹم ڈاؤن لوڈ پروفائل تفویض کریں",
+			"nestedPlaylistBadge": "پلے لسٹ",
+			"nestedPlaylistHint_one": "ان میں سے {{count}} پلے لسٹ ہے، ویڈیو نہیں — اسے ڈاؤن لوڈ کرنے کے لیے اس کا لنک الگ سے پیسٹ کریں۔",
+			"nestedPlaylistHint_other": "ان میں سے {{count}} پلے لسٹیں ہیں، ویڈیوز نہیں — انہیں ڈاؤن لوڈ کرنے کے لیے ان کے لنک ایک ایک کر کے پیسٹ کریں۔",
+			"noSelection": "جاری رکھنے کے لیے کم از کم ایک ویڈیو منتخب کریں",
+			"probeLimitAlertDesc": "Arroxy نے {{count}} سے زیادہ آئٹمز دریافت کیے، اس لیے موجودہ اسکین لمٹ باقی آئٹمز چھپا رہی ہے۔",
+			"probeLimitAlertTitle": "Playlist اسکین محدود ہے",
+			"probeLimitAlertTitleGeneric": "اسکین محدود ہے",
+			"rangeApply": "رینج لگائیں",
+			"rangeFrom": "سے",
+			"rangeTo": "تک",
+			"removeFromListCount_one": "فہرست سے {{count}} ہٹائیں",
+			"removeFromListCount_other": "فہرست سے {{count}} ہٹائیں",
+			"removedCount_one": "{{count}} ہٹا دیے گئے",
+			"removedCount_other": "{{count}} ہٹا دیے گئے",
+			"restore": "بحال کریں",
+			"selectAll": "سب منتخب کریں",
+			"selectNone": "کوئی نہیں منتخب کریں",
+			"selectedCount_one": "{{count}} منتخب",
+			"selectedCount_other": "{{count}} منتخب",
+			"sortApi": "پلے لسٹ کی ترتیب",
+			"sortFetchingDates": "اپ لوڈ کی تاریخیں لائی جا رہی ہیں…",
+			"sortLabel": "ترتیب",
+			"sortUploadAsc": "سب سے پرانا پہلے",
+			"sortUploadDesc": "سب سے نیا پہلے",
+			"syncApply": "سنک لاگو کریں",
+			"syncChange": "فولڈر تبدیل کریں…",
+			"syncFoundDesc": "ان ویڈیوز میں سے {{n}} پہلے ہی {{dir}} میں موجود ہیں۔ صرف نئی ویڈیوز ڈاؤن لوڈ کرنے کے لیے سنک کریں؟",
+			"syncFoundTitle": "فولڈر میں پہلے سے موجود",
+			"syncNoneDesc": "اس پلے لسٹ کی کوئی ویڈیوز {{dir}} میں نہیں ملیں۔",
+			"syncNoneDescGeneric": "{{dir}} میں اس ماخذ کی کوئی ویڈیو نہیں ملی۔",
+			"syncNoneTitle": "ابھی تک کچھ ڈاؤن لوڈ نہیں ہوا",
+			"syncScanning": "فولڈر چیک ہو رہا ہے…",
+			"thumbnailAlt": "ویڈیو تھمب نیل"
+		},
+		"playlistPresets": {
+			"heading": "بیچ کے لیے کوالٹی منتخب کریں",
+			"itemCount_one": "{{count}} آئٹم",
+			"itemCount_other": "{{count}} آئٹمز",
+			"subhead": "ہر ویڈیو منتخب درجے کو آزادانہ طور پر حل کرتی ہے — مختلف قسم کی playlists بغیر کسی پریشانی کے کام کرتی ہیں۔"
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "پروفائل تفویض کریں",
+			"assignTrigger_one": "{{count}} ویڈیو کو تفویض کریں",
+			"assignTrigger_other": "{{count}} ویڈیوز کو تفویض کریں",
+			"columnDuration": "دورانیہ",
+			"columnProfile": "پروفائل",
+			"editProfile": "{{name}} میں ترمیم کریں",
+			"empty": "کوئی آئٹم اس فلٹر سے مماثل نہیں",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "پروفائل فلٹرز",
+			"heading": "ڈاؤن لوڈ پروفائلز تفویض کریں",
+			"menuDescription_one": "اس ویڈیو کے لیے پروفائل منتخب کریں۔",
+			"menuDescription_other": "ان {{count}} ویڈیوز کے لیے پروفائل منتخب کریں۔",
+			"selectedSummary": "{{total}} میں سے {{selected}} منتخب"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "عالمی تبدیل کریں",
+				"chooseFolder": "منزل فولڈر منتخب کریں",
+				"chooseIcon": "پروفائل آئیکن منتخب کریں",
+				"removeLanguage": "{{code}} ہٹائیں",
+				"reset": "پروفائل ری سیٹ کریں",
+				"resetDisabledHint": "یہ پروفائل پہلے سے بلٹ اِن ترتیبات استعمال کر رہا ہے",
+				"resetHint": "بلٹ اِن پروفائل ترتیبات بحال کریں",
+				"save": "پروفائل محفوظ کریں",
+				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
+				"setOverrideShort": "اووررائیڈ مقرر کریں",
+				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",
+				"useLanguageCode": "زبان کا کوڈ “{{code}}” استعمال کریں"
+			},
+			"advanced": "ایڈوانسڈ",
+			"appSetting": "ایپ کی ترتیب استعمال کریں ({{value}})",
+			"audioFormat": {
+				"best": "بہترین",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "128K تک",
+				"192": "192K تک",
+				"320": "320K تک",
+				"best": "بہترین معیار"
+			},
+			"destination": {
+				"defaultFolder": "ڈیفالٹ ڈاؤن لوڈز فولڈر",
+				"defaultFolderWithSubfolder": "ڈیفالٹ ڈاؤن لوڈز فولڈر / {{subfolder}}",
+				"global": "عالمی منزل",
+				"globalActive": "فعال",
+				"globalInherited": "وراثت میں ملا",
+				"override": "پروفائل اووررائیڈ",
+				"overrideChoosing": "فولڈر منتخب کریں",
+				"overrideNone": "کوئی اووررائیڈ مقرر نہیں",
+				"overrideNoneNote": "کوئی اووررائیڈ مقرر نہیں۔ یہ پروفائل اوپر والی عالمی منزل استعمال کرتا ہے۔",
+				"overrideSet": "عالمی کو اووررائیڈ کرتا ہے",
+				"overrideSetNote": "یہ پروفائل ذیلی فولڈر شامل ہونے سے پہلے اپنے ہی روٹ میں محفوظ کرتا ہے۔",
+				"resolved": "حتمی منزل"
+			},
+			"dialogDescription": "کوئیک ڈاؤن لوڈ، بلک URLs اور پلے لسٹس کے لیے ایک دوبارہ قابلِ استعمال سیٹ اپ۔",
+			"dialogTitle": "ڈاؤن لوڈ پروفائل",
+			"error": {
+				"changeGlobalDestination": "عالمی منزل تبدیل نہیں کی جا سکی۔",
+				"folderPicker": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔ راستہ خود درج کریں۔",
+				"reset": "پروفائل کی ترتیبات ری سیٹ نہیں ہو سکیں۔",
+				"save": "پروفائل کی ترتیبات محفوظ نہیں ہو سکیں۔"
+			},
+			"field": {
+				"delivery": "محفوظ کرنے کا طریقہ",
+				"fileType": "فائل کی قسم",
+				"goal": "مقصد",
+				"icon": "پروفائل آئیکن",
+				"languages": "زبانیں",
+				"name": "پروفائل کا نام",
+				"nameAndIcon": "پروفائل کا نام اور آئیکن",
+				"nativeAudio": "نیٹو آڈیو",
+				"overridePath": "پروفائل اووررائیڈ راستہ",
+				"quality": "معیار",
+				"resolution": "ریزولوشن",
+				"source": "ماخذ",
+				"subfolderName": "ذیلی فولڈر کا نام",
+				"subtitleDownloads": "سب ٹائٹل ڈاؤن لوڈز",
+				"subtitleDownloadsDescription": "پروفائلز زبان کے کوڈ طلب کرتے ہیں؛ دستیابی ہر URL کے لیے الگ طے ہوتی ہے۔"
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "ایک ہی سائز میں سب سے واضح۔ پرانے ٹی وی، QuickTime اور کچھ ایڈیٹرز اسے نہیں چلا سکتے۔",
+					"name": "بہترین تصویر",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "ٹی وی، فون، WhatsApp، QuickTime اور ویڈیو ایڈیٹرز پر چلتی ہے۔ YouTube صرف 1080p تک H.264 فراہم کرتا ہے۔",
+					"name": "سمارٹ TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "آرکائیو",
+				"audio": "آڈیو",
+				"captions": "کیپشنز",
+				"classes": "کلاسز",
+				"clip": "کلپ",
+				"controls": "کنٹرولز",
+				"download": "ڈاؤن لوڈ",
+				"music": "موسیقی",
+				"podcast": "پوڈکاسٹ",
+				"video": "ویڈیو"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "موسیقی یا پوڈکاسٹ",
+					"label": "صرف آڈیو"
+				},
+				"subtitlesOnly": {
+					"description": "صرف کیپشن فائلیں",
+					"label": "صرف سب ٹائٹلز"
+				},
+				"videoAudio": {
+					"description": "عام ویڈیو فائلیں",
+					"label": "ویڈیو + آڈیو"
+				},
+				"videoOnly": {
+					"description": "صرف بغیر آواز ویڈیو",
+					"label": "ویڈیو، بغیر آڈیو"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "خودکار کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے۔",
+				"noLanguageMatches": "کوئی مماثل زبان نہیں",
+				"noSubtitles": "اس پروفائل کے لیے نہ سب ٹائٹل فائلیں اور نہ ایمبیڈڈ سب ٹائٹل ٹریکس طلب کیے جائیں گے۔",
+				"searchLanguages": "زبان کے نام یا کوڈ سے تلاش کریں",
+				"skippedForOutputType": "اس آؤٹ پٹ قسم کے لیے چھوڑ دیا گیا۔",
+				"subtitleLanguagesRequired": "کم از کم ایک زبان منتخب کریں۔",
+				"subtitleLanguagesRequiredOrOff": "کم از کم ایک زبان منتخب کریں، یا سب ٹائٹل ڈاؤن لوڈز بند کریں۔",
+				"subtitlesOnly": "یہ پروفائل صرف سب ٹائٹل فائلیں قطار میں شامل کرتا ہے۔ ویڈیو، آڈیو، SponsorBlock اور میڈیا کنورژن چھوڑ دیے جاتے ہیں۔"
+			},
+			"panel": {
+				"advanced": {
+					"description": "جب تک آپ پروفائل اووررائیڈ مقرر نہ کریں، پروفائلز عالمی منزل ہی اپناتے ہیں۔",
+					"title": "اعلیٰ اختیارات"
+				},
+				"downloadType": {
+					"description": "منتخب کریں کہ آپ بنیادی طور پر کس طرح ڈاؤن لوڈ کرنا چاہتے ہیں۔",
+					"title": "ڈاؤن لوڈ کی قسم"
+				},
+				"identity": {
+					"description": "کوئیک ڈاؤن لوڈ، بلک URLs اور پروفائل فہرستوں میں دکھایا جانے والا نام اور آئیکن۔",
+					"title": "پروفائل شناخت"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} فعال",
+					"enabledCount_other": "{{count}} فعال",
+					"title": "آؤٹ پٹ اختیارات"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "اس پروفائل کے لیے ایک فولڈر منتخب کریں"
+			},
+			"skipped": "چھوڑ دیا گیا",
+			"sponsorBlockHint": {
+				"mark": "سپانسر حصوں کو ابواب کے طور پر نشان زد کرتا ہے (فائل تبدیل نہیں ہوتی)۔",
+				"off": "SponsorBlock نہیں — ویڈیو جیسے اپ لوڈ ہوئی ویسے ہی چلے گی۔",
+				"remove": "FFmpeg کے ذریعے ویڈیو سے سپانسر حصے کاٹ دیتا ہے۔"
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "صرف خودکار تیار کردہ",
+				"manualAndAuto": "دستی اور خودکار",
+				"manualFirst": "پہلے دستی، پھر خودکار",
+				"manualOnly": "صرف دستی"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}} مدد"
+		},
+		"quickProgress": {
+			"cancel": "تیاری منسوخ کریں",
+			"currentFallback": "موجودہ لنک",
+			"description": "Arroxy لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔",
+			"failedCount_one": "{{count}} ناکام",
+			"failedCount_other": "{{count}} ناکام",
+			"phase": {
+				"probing": "تفصیلات حاصل کی جا رہی ہیں",
+				"queueing": "قطار میں شامل کیا جا رہا ہے"
+			},
+			"title": "فوری ڈاؤن لوڈ کی تیاری",
+			"waitHint": "Arroxy قطار تیار کرے تب تک اسے کھلا رکھیں۔"
+		},
+		"review": {
+			"areas": {
+				"extras": "اضافی",
+				"fileName": "فائل نام",
+				"format": "فارمیٹ",
+				"saveTo": "فولڈر",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "سب ٹائٹلز"
+			},
+			"callout": {
+				"body": "سب ٹائٹلز، SponsorBlock، تھمب نیل جیسی اضافی چیزیں، فولڈر اور فائل نام پہلے الگ الگ مراحل تھے۔ تبدیل کرنے کے لیے کسی قطار پر کلک کریں۔",
+				"title": "باقی تمام ترتیبات اب اسی صفحے پر ہیں"
+			},
+			"changeFormat": "فارمیٹ تبدیل کریں",
+			"changed": "{{profile}} سے تبدیل: {{areas}}۔ صرف اس ڈاؤن لوڈ پر لاگو ہوتا ہے۔",
+			"changedFrom": "{{profile}} سے تبدیل:",
+			"fileNameHint": "ٹوکنز: {title}، {id}، {uploader}، {date}، {resolution}۔ ایکسٹینشن خود بخود شامل ہو جاتی ہے۔",
+			"nextTime": {
+				"action": "پروفائل کے طور پر محفوظ کریں",
+				"defaultName": "{{profile}} (ترمیم شدہ)",
+				"title": "اس ڈاؤن لوڈ میں ترمیم شدہ ترتیبات استعمال ہوئیں۔ کیا اگلی بار انہیں استعمال کریں؟"
+			},
+			"reset": "تبدیلیاں واپس لیں، “{{profile}}” پر واپس جائیں",
+			"rows": {
+				"extras": "اضافی",
+				"fileName": "فائل نام",
+				"saveTo": "محفوظ کریں",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "سب ٹائٹلز"
+			},
+			"rowsHeading": "باقی سب کچھ",
+			"save": {
+				"action": "پروفائل محفوظ کریں",
+				"description": "ان ترتیبات کو پروفائل کے طور پر محفوظ کرتا ہے جسے آپ اگلی بار منتخب کر سکتے ہیں۔ آپ کا فوری ڈاؤن لوڈ پروفائل جوں کا توں رہتا ہے۔",
+				"failed": "پروفائل محفوظ نہیں ہو سکا۔",
+				"nameLabel": "پروفائل کا نام",
+				"saved": "پروفائل “{{name}}” کے طور پر محفوظ ہو گیا",
+				"title": "پروفائل کے طور پر محفوظ کریں"
+			},
+			"saveAsProfile": "نئے پروفائل کے طور پر محفوظ کریں",
+			"update": {
+				"action": "پروفائل اپ ڈیٹ کریں",
+				"builtinNote": "یہ ایک بلٹ اِن پروفائل ہے۔ آپ اس کی اصل ترتیبات “پروفائلز” ٹیب میں بحال کر سکتے ہیں۔",
+				"description": "اب سے، اس پروفائل والا ہر ڈاؤن لوڈ نئی ترتیبات استعمال کرے گا۔",
+				"rows": {
+					"format": "فارمیٹ"
+				},
+				"title": "“{{profile}}” اپ ڈیٹ کریں؟",
+				"updated": "پروفائل “{{name}}” اپ ڈیٹ ہو گیا"
+			},
+			"updateProfile": "“{{profile}}” کو ان تبدیلیوں سے اپ ڈیٹ کریں",
+			"value": {
+				"extrasNone": "کوئی نہیں",
+				"sponsorBlockOff": "بند",
+				"subtitlesOff": "بند"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "فِلر",
+				"intro": "انٹرو",
+				"music_offtopic": "موسیقی غیر متعلقہ",
+				"outro": "آؤٹرو",
+				"preview": "پری ویو",
+				"selfpromo": "سیلف پرومو",
+				"sponsor": "سپانسر"
+			},
+			"categoriesHeading": "کیٹیگریز",
+			"mode": {
+				"mark": "چیپٹرز کے طور پر مارک کریں",
+				"off": "بند",
+				"remove": "سیگمنٹس ہٹائیں"
+			},
+			"modeHeading": "سپانسر فلٹرنگ",
+			"modeHint": {
+				"mark": "سپانسر سیگمنٹس کو چیپٹرز کے طور پر مارک کرتا ہے (نقصان رہت)۔",
+				"off": "کوئی SponsorBlock نہیں — ویڈیو ویسے ہی چلے گی جیسے اپلوڈ ہوئی۔",
+				"remove": "FFmpeg سے ویڈیو سے سپانسر سیگمنٹس کاٹ دیتا ہے۔"
+			}
+		},
+		"steps": {
+			"confirm": "تصدیق",
+			"folder": "محفوظ کریں",
+			"formats": "فارمیٹ",
+			"output": "آؤٹ پٹ",
+			"playlistItems": "پلے لسٹ",
+			"playlistItemsGeneric": "ویڈیوز",
+			"playlistPresets": "معیار",
+			"playlistProfiles": "پروفائلز",
+			"review": "جائزہ",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "سب ٹائٹلز",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "آٹو کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے — انہیں ہمیشہ YouTube کے رولنگ کیو ڈپلیکیشن سے صاف کیا جاتا ہے، جسے ہمارا ASS کنورٹر ابھی نقل نہیں کر سکتا۔",
+			"autoBadge": "آٹو",
+			"clearAll": "سب صاف کریں",
+			"embedNote": "Embed موڈ آؤٹ پٹ کو .mkv کے طور پر محفوظ کرتا ہے تاکہ سب ٹائٹل ٹریکس قابل اعتماد طور پر شامل ہوں۔",
+			"format": {
+				"heading": "فارمیٹ"
+			},
+			"noLanguages": "اس ویڈیو کے لیے کوئی سب ٹائٹلز دستیاب نہیں",
+			"noMatches": "کوئی زبان میچ نہیں ہوئی",
+			"noSelected": "کوئی سب ٹائٹل منتخب نہیں",
+			"removeLanguage": "{{name}} ہٹائیں",
+			"saveMode": {
+				"embed": "ویڈیو میں شامل کریں",
+				"heading": "محفوظ کریں بطور",
+				"sidecar": "ویڈیو کے ساتھ",
+				"subfolder": "subtitles/ سب فولڈر"
+			},
+			"searchPlaceholder": "زبانیں تلاش کریں…",
+			"sectionAuto": "خودکار",
+			"sectionManual": "دستی"
+		},
+		"tabsNavAria": "ڈاؤن لوڈ پروفائل نیویگیشن",
+		"url": {
+			"advanced": "ایڈوانسڈ",
+			"analytics": {
+				"toggle": "روزانہ سگنل بھیجیں",
+				"toggleDescription": "کوئی ٹیلی میٹری نہیں۔ دن میں ایک بار ایک گمنام سگنل ایپ ورژن، انسٹال چینل، OS، زبان، ملک اور تقریباً یہ کہ Arroxy کو انسٹال ہوئے کتنا عرصہ ہوا بھیجتا ہے تاکہ ہم فعال اور نئے صارفین گن سکیں۔ کوئی ID، URL، ویڈیو عنوان یا فائل نام نہیں۔"
+			},
+			"autoRemoveCompleted": {
+				"description": "ڈاؤن لوڈ مکمل ہونے کے چند سیکنڈ بعد اسے فہرست سے ہٹا دیتا ہے۔ فائلیں آپ کے فولڈر میں رہتی ہیں؛ ناکام اور منسوخ ڈاؤن لوڈز فہرست میں رہتی ہیں۔",
+				"label": "مکمل ڈاؤن لوڈز خودکار طور پر ہٹائیں"
+			},
+			"autoRetry": {
+				"description": "نیٹ ورک یا سرور کی خرابی کے بعد خود بخود دوبارہ کوشش کرتا ہے، ہر کوشش سے پہلے زیادہ انتظار کرتے ہوئے۔ سائٹ کی جانب سے بلاک کردہ ڈاؤن لوڈز کبھی خود بخود دوبارہ نہیں آزمائے جاتے۔",
+				"label": "ناکام ڈاؤن لوڈز دوبارہ آزمائیں",
+				"unit": "بار"
+			},
+			"bulkButton": "متعدد URLs",
+			"bulkTooltip": "متعدد URLs شامل کریں اور قطار میں ڈالیں۔",
+			"clearAria": "URL صاف کریں",
+			"clipboard": {
+				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
+				"bulkHint": "متعدد لنکس کاپی ہو گئے — شامل کرنے کے لیے “متعدد URLs” استعمال کریں",
+				"dialog": {
+					"cancelButton": "منسوخ کریں"
+				},
+				"replacedLink": "کاپی شدہ لنک سے بدل دیا گیا",
+				"toggle": "کلپ بورڈ پر نظر رکھیں",
+				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
+				"undo": "واپس کریں"
+			},
+			"closeToTray": {
+				"toggle": "بند کرنے پر ٹرے میں چھپائیں",
+				"toggleDescription": "ونڈو بند ہونے کے بعد بیک گراؤنڈ میں ڈاؤن لوڈز جاری رکھیں۔"
+			},
+			"concurrentDownloads": {
+				"description": "قطار کی کتنی اشیاء ایک ہی وقت میں ڈاؤن لوڈ ہوں۔ ایک ساتھ زیادہ سے لمبی قطار جلد مکمل ہوتی ہے، مگر سائٹ کی جانب سے محدود کیے جانے کا امکان بڑھتا ہے۔",
+				"label": "ایک وقت میں ڈاؤن لوڈز",
+				"unit": "ڈاؤن لوڈز"
+			},
+			"cookies": {
+				"banWarning": "YouTube جیسی سائٹس ان اکاؤنٹس کو فلیگ — اور کبھی کبھار بین — کر سکتی ہیں جن کے cookies Arroxy جیسے ڈاؤن لوڈ ٹولز کے ذریعے استعمال ہوں۔ ممکن ہو تو ٹمپریری اکاؤنٹ استعمال کریں۔",
+				"browserHelp": "براؤزر سے براہ راست cookies پڑھتا ہے۔ Chromium خاندان کے براؤزرز بند ہونے چاہئیں۔",
+				"browserLabel": "براؤزر",
+				"browserPlaceholder": "براؤزر منتخب کریں…",
+				"choose": "منتخب کریں…",
+				"clear": "صاف کریں",
+				"enabledButNoBrowser": "cookies استعمال کرنے کے لیے براؤزر منتخب کریں",
+				"enabledButNoFile": "cookies استعمال کرنے کے لیے فائل منتخب کریں",
+				"exploreDescription": "صرف تب دریافت کا سائن ان استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔",
+				"exploreDisabled": "دریافت ٹیب بند ہے، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔ اسے نیچے دریافت میں آن کریں۔",
+				"extensionChrome": "cookies.txt مقامی طور پر حاصل کریں (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Cookies فائل",
+				"helpLink": "cookies کیسے ایکسپورٹ کروں؟",
+				"openExplore": "دریافت کھولیں",
+				"placeholder": "کوئی فائل منتخب نہیں",
+				"recommended": "تجویز کردہ",
+				"risk": "خطرہ: cookies.txt میں اس براؤزر کے ہر لاگ اِن سیشن کی معلومات ہوتی ہیں — اسے پرائیویٹ رکھیں۔",
+				"sourceBrowser": "براؤزر",
+				"sourceExplore": "دریافت کا سائن ان",
+				"sourceFile": "فائل",
+				"sourceLabel": "Cookies کا ذریعہ",
+				"sourceOff": "بند",
+				"toggleDescription": "عمر کی پابندی والی، صرف ممبرز والی، اور اکاؤنٹ پرائیویٹ ویڈیوز کے لیے مددگار۔"
+			},
+			"downloadConnections": {
+				"description": "ایک ساتھ ویڈیو کے کئی حصے حاصل کر کے بڑی ڈاؤن لوڈز کو تیز کرتا ہے۔ زیادہ اقدار سے سائٹ کی جانب سے محدود کیے جانے کا امکان بڑھتا ہے۔",
+				"label": "ڈاؤن لوڈ کنکشنز",
+				"unit": "کنکشنز"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "صرف آڈیو",
+					"subtitles": "سب ٹائٹلز"
+				},
+				"anySite": {
+					"heading": "2000+ سائٹس",
+					"musicPlaylist": "میوزک پلے لسٹس",
+					"video": "ویڈیوز",
+					"videoPlaylist": "ویڈیو پلے لسٹس"
+				},
+				"heading": "Arroxy کیا لا سکتا ہے",
+				"youtube": {
+					"channel": "چینلز",
+					"heading": "YouTube",
+					"music": "موسیقی",
+					"playlist": "پلے لسٹس",
+					"podcast": "پوڈکاسٹ",
+					"short": "Shorts",
+					"video": "ویڈیوز"
+				}
+			},
+			"fetchFormatsTooltip": "مرحلہ وار وزرڈ۔ فارمیٹ، معیار اور مزید چیزیں منتخب کریں۔",
+			"heading": "URL سے ڈاؤن لوڈ کریں",
+			"hotkey": {
+				"changeShortcut": "شارٹ کٹ تبدیل کریں",
+				"conflict": "یہ شارٹ کٹ کسی اور ایپ کے پاس ہے — دوسری منتخب کریں۔",
+				"hintLabel": "یا دبائیں",
+				"hintTooltip": "کہیں بھی ویڈیو لنک کاپی کریں، یہ شارٹ کٹ دبائیں، اور Arroxy اسے آپ کے فعال پروفائل کے ساتھ قطار میں شامل کر دے گا — ونڈوز بدلنے کی ضرورت نہیں۔",
+				"hintTooltipSettings": "سیٹنگز میں اسے تبدیل کریں یا بند کریں۔",
+				"recording": "کلیدیں دبائیں…",
+				"reset": "ڈیفالٹ پر واپس جائیں",
+				"sectionDescription": "جو بھی لنک کاپی کریں، کسی بھی ایپ سے ڈاؤن لوڈ کریں — Arroxy کھلے بغیر۔",
+				"sectionTitle": "گلوبل ہاٹ کی",
+				"test": "جانچیں",
+				"toggle": "گلوبل ہاٹ کی چالو کریں",
+				"toggleDescription": "کلپ بورڈ میں ویڈیو لنک ہونے پر شارٹ کٹ دبائیں۔"
+			},
+			"interactiveDownload": "انٹرایکٹو ڈاؤن لوڈ",
+			"limitRate": {
+				"activeWarning": "فعال ڈاؤن لوڈز اپنی موجودہ حد رکھتے ہیں۔ لاگو کرنے کے لیے توقف + جاری رکھیں۔",
+				"custom": "حسب ضرورت…",
+				"customPlaceholder": "مثلاً 750K یا 1.5M",
+				"description": "میڈیا ڈاؤن لوڈز کے لیے بینڈوڈتھ محدود کریں۔ نیچے درخواستوں کی رفتار عام طور پر زیادہ مضبوط حد ہے۔",
+				"invalid": "K یا M کے ساتھ ایک نمبر استعمال کریں (مثلاً 500K، 1.5M)",
+				"label": "ڈاؤن لوڈ رفتار حد",
+				"off": "بند"
+			},
+			"mascotBusy": "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎",
+			"mascotCollection": "فوری ڈاؤن لوڈ لوڈ ہو چکی آئٹمز کو {{profileName}} کے ساتھ قطار میں لگاتا ہے۔ انٹرایکٹو ڈاؤن لوڈ آپ کو پہلے آئٹمز دیکھنے یا منتخب کرنے دیتا ہے۔",
+			"mascotIdle": "ایک لنک ڈالیں اور Arroxy کو اسے کھینچ لانے دیں ✨",
+			"mascotMixed": "یہ لنک کسی کلیکشن کی ایک ویڈیو کی طرف جاتا ہے۔ جانچ سے پہلے Arroxy پوچھے گا کہ آپ کون سی چاہتے ہیں۔",
+			"mascotPreparing": "{{quickDownload}} یہ لنک پڑھ رہا ہے اور {{profileName}} لاگو کر رہا ہے۔",
+			"mascotQueued": "قطار یہ ڈاؤن لوڈ سنبھال رہی ہے۔ اس دوران آپ دوسرا لنک پیسٹ کر سکتے ہیں۔",
+			"mascotSingle": "فوری ڈاؤن لوڈ {{profileName}} کے ساتھ ایک ڈاؤن لوڈ شروع کرتا ہے۔ ایک بار کی تبدیلیوں کے لیے انٹرایکٹو ڈاؤن لوڈ استعمال کریں۔",
+			"nativeAudioPreference": {
+				"compatible": "مطابقت پذیر اسٹیریو",
+				"description": "جب پروفائل نیٹو آڈیو چنے تو اسٹیریو یا سراؤنڈ۔ پروفائل اسے بدل سکتی ہے۔",
+				"label": "نیٹو آڈیو ترجیح",
+				"surround": "سراؤنڈ / Dolby کو ترجیح دیں"
+			},
+			"networkPacing": {
+				"description": "ہر ڈاؤن لوڈ کے دوران چھوٹے وقفے شامل کرتا ہے تاکہ Arroxy سائٹ پر زیادہ دباؤ نہ ڈالے۔ قدریں سیکنڈ میں ہیں۔",
+				"fields": {
+					"maxSleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: زیادہ سے زیادہ",
+					"sleepInterval": "میڈیا شروع ہونے سے پہلے وقفہ: کم از کم",
+					"sleepRequests": "میٹا ڈیٹا چیکس کے درمیان انتظار",
+					"sleepSubtitles": "سب ٹائٹل فائلوں سے پہلے انتظار"
+				},
+				"heading": "آہستہ ڈاؤن لوڈز",
+				"presetLabel": "Arroxy کتنی احتیاط کرے؟",
+				"presets": {
+					"balanced": "متوازن",
+					"careful": "محتاط",
+					"custom": "حسب ضرورت",
+					"off": "بند"
+				},
+				"summary": "انتظار: {{requests}} چیک کرنے کے درمیان، {{downloads}} میڈیا شروع ہونے سے پہلے، {{subtitles}} سب ٹائٹل فائلوں سے پہلے۔",
+				"tooltip": "یہ وقفے ہر ڈاؤن لوڈ کے اندر ہوتے ہیں۔ ایک وقت میں کتنے ڈاؤن لوڈز چلیں یہ «ایک وقت میں ڈاؤن لوڈز» میں الگ سے طے ہوتا ہے۔",
+				"tooltips": {
+					"balanced": "پہلے سے طے شدہ۔ درخواستوں کے درمیان اور میڈیا شروع ہونے سے پہلے مختصر وقفے شامل کرتا ہے۔",
+					"careful": "بڑی پلے لسٹس یا ان نیٹ ورکس کے لیے زیادہ وقفے شامل کرتا ہے جو اکثر حدود تک پہنچتے ہیں۔",
+					"custom": "فی ڈاؤن لوڈ ایڈوانسڈ کنٹرولز خود ترتیب دیں۔",
+					"off": "صرف وہ چھوٹے بنیادی وقفے استعمال کرتا ہے جو Arroxy میڈیا اور سب ٹائٹلز کے لیے رکھتا ہے۔"
+				},
+				"units": {
+					"seconds": "سیکنڈ"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "موجودہ لمٹ: {{count}} آئٹمز",
+				"custom": "حسب ضرورت…",
+				"customDialogCancel": "منسوخ کریں",
+				"customDialogDescription": "{{min}} سے {{max}} تک پورا عدد استعمال کریں۔",
+				"customDialogSave": "لمٹ محفوظ کریں",
+				"customDialogTitle": "حسب ضرورت Playlist اسکین لمٹ",
+				"customValue": "حسب ضرورت: {{count}} آئٹمز",
+				"description": "Arroxy کی زیادہ سے زیادہ اندراجات جو playlist، چینل، یا تلاش کا نتیجہ کھولنے پر لوڈ کرتا ہے۔",
+				"invalid": "1 سے 5000 تک پورا عدد استعمال کریں",
+				"label": "اسکین کرنے کے لیے Playlist آئٹمز",
+				"option": "{{count}} آئٹمز",
+				"tooltip": "Arroxy پِکر بناتے وقت صرف اتنے playlist، چینل، یا تلاش کے اندراجات مانگتا ہے۔"
+			},
+			"playlistScope": {
+				"appLimit": "ایپ کی حد استعمال کریں: {{count}}",
+				"apply": "لاگو کریں",
+				"applyError": "وہ پلے لسٹ دائرہ لاگو نہیں ہو سکا: {{message}}",
+				"applyReload": "لاگو کریں اور ری لوڈ کریں",
+				"cancel": "منسوخ کریں",
+				"change": "تبدیل کریں",
+				"dialogDescription": "منتخب کریں کہ Arroxy اس پلے لسٹ کے لیے کیا لوڈ کرے۔",
+				"dialogTitle": "پلے لسٹ کا دائرہ",
+				"emptyTitle": "اس دائرے میں کوئی ویڈیو نہیں",
+				"first": "پہلے",
+				"invalid": "1 سے {{max}} تک پورے آئٹم نمبر استعمال کریں، شروع کا نمبر آخر سے زیادہ نہ ہو۔",
+				"itemsLabel": "لوڈ کرنے کے آئٹمز",
+				"label": "پلے لسٹ کا دائرہ",
+				"range": "رینج",
+				"reloading": "ری لوڈ ہو رہا ہے...",
+				"reset": "ری سیٹ کریں",
+				"summaryAppLimit": "پہلے {{count}} آئٹمز لوڈ کریں",
+				"summaryFirst": "پہلے {{count}} آئٹمز لوڈ کریں",
+				"summaryRange": "آئٹمز {{from}}-{{to}} لوڈ کریں",
+				"to": "تا"
+			},
+			"profile": {
+				"activeLabel": "فعال پروفائل",
+				"badgeBuiltIn": "بلٹ اِن",
+				"badgeCustom": "حسب ضرورت",
+				"badgeDisabled": "پوشیدہ",
+				"badgeModified": "ترمیم شدہ",
+				"changeGlobalDestination": "عالمی منزل تبدیل کریں",
+				"destinationDetail": {
+					"global": "عالمی منزل استعمال ہو رہی ہے",
+					"globalSubfolder": "عالمی منزل + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے",
+					"override": "پروفائل اووررائیڈ استعمال ہو رہا ہے",
+					"overrideSubfolder": "پروفائل اووررائیڈ + پروفائل کا ذیلی فولڈر استعمال ہو رہا ہے"
+				},
+				"destinationFallback": "منزل",
+				"edit": "ترمیم کریں",
+				"editActive": "فعال پروفائل میں ترمیم کریں",
+				"enableHint": "پوشیدہ پروفائلز یہیں رہتے ہیں لیکن ہر چنندہ سے غائب ہو جاتے ہیں۔",
+				"enableToggleAria": "چنندہ میں پروفائل دکھائیں: {{profileName}}",
+				"lastEnabledHint": "کم از کم ایک پروفائل دستیاب رکھیں۔",
+				"manageProfiles": "پروفائلز کا نظم کریں",
+				"menuDescription": "Quick Download، متعدد URLs اور پلے لسٹس کے لیے فعال پروفائل تبدیل کریں۔",
+				"menuTitle": "پروفائل تبدیل کریں",
+				"movableProfile": "منتقل ہونے والا پروفائل",
+				"moveCancelled": "منتقلی منسوخ کر دی گئی۔ {{profileName}} پروفائل {{count}} میں سے {{position}} نمبر پر ہی رہتا ہے۔",
+				"moveDropped": "{{profileName}} پروفائل {{count}} میں سے {{position}} نمبر پر چھوڑ دیا گیا۔",
+				"moveHandleAria": "{{profileName}} کو منتقل کریں",
+				"moveInstructions": "پروفائل کو منتقل کرنے کے لیے اسپیس یا اینٹر دبائیں، تیر والی کیز سے اسے حرکت دیں، پھر چھوڑنے کے لیے دوبارہ اسپیس یا اینٹر دبائیں۔ منسوخ کرنے کے لیے Escape دبائیں۔",
+				"moveOver": "{{profileName}} پروفائل {{count}} میں سے {{position}} نمبر کے اوپر ہے۔",
+				"movePickedUp": "{{profileName}} پروفائل اٹھایا گیا۔ یہ {{count}} میں سے {{position}} نمبر پر ہے۔",
+				"newProfile": "نیا پروفائل",
+				"panelDescription": "دوبارہ استعمال ہونے والی ڈاؤن لوڈ ترتیبات بنائیں، منتخب کریں، ترمیم کریں، یا ہٹائیں۔",
+				"panelTitle": "ڈاؤن لوڈ پروفائلز",
+				"remove": "ہٹائیں",
+				"reorderHint": "کسی پروفائل کو منتقل کرنے کے لیے اسے گھسیٹیں۔ ہر پروفائل چنندہ اسی ترتیب کی پیروی کرتا ہے۔",
+				"reset": "ری سیٹ کریں",
+				"summary": {
+					"aacAudio": "AAC آڈیو",
+					"bestAudio": "بہترین آڈیو",
+					"bestVideo": "بہترین ویڈیو",
+					"noAudio": "کوئی آڈیو نہیں",
+					"subtitlesOnly": "صرف سب ٹائٹلز",
+					"wavAudio": "WAV آڈیو"
+				},
+				"switchAria": "ڈاؤن لوڈ پروفائل تبدیل کریں: {{profileName}}",
+				"switchTitle": "ڈاؤن لوڈ پروفائل تبدیل کریں"
+			},
+			"proxy": {
+				"clear": "صاف کریں",
+				"description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔",
+				"label": "پراکسی ایڈریس",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "ان URLs میں سے کوئی بھی تیار نہیں کیا جا سکا",
+			"quickDownload": "فوری ڈاؤن لوڈ",
+			"quickDownloadTooltip": "{{profileName}} استعمال کرتے ہوئے ڈاؤن لوڈ ہوگا",
+			"quickFailed": "یہ شامل نہیں ہو سکا: {{error}}",
+			"quickPartialFailed_one": "جو کام کر گیا اسے قطار میں شامل کر دیا گیا۔ {{count}} URL تیار نہیں ہو سکا۔",
+			"quickPartialFailed_other": "جو کام کر گئے انہیں قطار میں شامل کر دیا گیا۔ {{count}} URLs تیار نہیں ہو سکے۔",
+			"quickPrepareFailed": "قطار آئٹم تیار نہیں کیا جا سکا",
+			"quickPreparing": "تیاری ہو رہی ہے",
+			"quickProbeFailed": "جانچ ناکام ہوگئی",
+			"quickQueued": "قطار میں شامل ہو گیا",
+			"quickSingleOnly": "شروع کرنے کے لیے ویڈیو، پلے لسٹ، چینل یا تلاش کا URL پیسٹ کریں۔",
+			"settings": {
+				"behaviorDescription": "یہ عمومی ترتیب پروفائل کے ذریعے ہونے والی ڈاؤن لوڈ پر بھی اثر ڈالتی ہے۔",
+				"behaviorHeading": "ڈاؤن لوڈ کا رویہ",
+				"inputHeading": "اندراج"
+			},
+			"style": {
+				"aurora": {
+					"description": "حرکت کرتے آسمان پر شیشے جیسے پینل۔ گرافکس ایکسلریشن درکار ہے۔",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "ٹھوس، پرسکون سطحیں۔ ہر کمپیوٹر پر ہلکا چلتا ہے۔",
+					"label": "سادہ"
+				},
+				"modeDescription": "دونوں اسٹائل لائٹ اور ڈارک میں دستیاب ہیں۔",
+				"modeLabel": "اسٹائل",
+				"panelDescription": "Arroxy کیسا دکھتا ہے۔ نیچے والی پٹی میں لائٹ اور ڈارک کے درمیان بدلیں۔",
+				"panelTitle": "ظاہری شکل",
+				"unavailableNotice": "{{style}} کو گرافکس ایکسلریشن درکار ہے جو اس وقت دستیاب نہیں، اس لیے Arroxy {{fallback}} دکھا رہا ہے۔"
+			},
+			"tabs": {
+				"profiles": "پروفائلز",
+				"settings": "ترتیبات"
+			}
+		}
+	}
 }

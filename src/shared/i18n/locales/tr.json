@@ -1,927 +1,305 @@
 {
-	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "loading": "Yükleniyor…", "retry": "Tekrar dene", "dismiss": "Kapat", "startOver": "Baştan başla", "close": "Kapat"},
+	"about": {
+		"button": "Hakkında",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · Antonio Orionus tarafından",
+		"openTitle": "Arroxy Hakkında",
+		"tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.",
+		"thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle",
+		"websiteLink": "Web sitesi"
+	},
+	"aiUpscaled": {
+		"allow": "İzin ver",
+		"description": "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz.",
+		"label": "YZ ile büyütülmüş akışlar",
+		"skip": "Atla"
+	},
 	"app": {
 		"feedback": "Geri bildirim",
+		"feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬",
 		"logs": "Günlükler",
 		"saveDiagnostics": "Tanılama dosyasını kaydet",
 		"saveDiagnosticsDescription": "Günlükleri ve uygulama bilgilerini İndirilenler klasöründe tek bir dosyada toplar; dosya bir GitHub issue'suna eklenmeye hazırdır. Kullanıcı klasörünüzün adı kaldırılır; video bağlantıları ve başlıkları korunur.",
-		"feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬",
-		"zoomIn": "Yakınlaştır",
-		"zoomOut": "Uzaklaştır",
+		"styleHint": "Yeni: Aurora veya Minimal'i buradan seçin",
 		"theme": "Tema",
-		"styleHint": "Yeni: Aurora veya Minimal'i buradan seçin"
+		"zoomIn": "Yakınlaştır",
+		"zoomOut": "Uzaklaştır"
 	},
-	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "GPLv3 · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
-	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},
-	"splash": {
-		"greeting": "Selam, tekrar hoş geldin!",
-		"warmup": "İndirmeler hazırlanıyor…",
-		"verifying": "{{binary}} denetleniyor…",
-		"verifyFirstCheck": "Bu sürümün ilk denetimi — bu yavaş ilerler. Genellikle bir dakika kadar sürer.",
-		"cancel": "Sorun mu var? Elle kurun",
-		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç.",
-		"setup": {
-			"title": {"firstRun": "İlk kurulum", "media": "Medya araçları güncelleniyor", "engine": "İndirme motoru güncelleniyor"},
-			"stage": {"connecting": "Bağlanılıyor…", "downloadingBoth": "İndirme motoru ve medya araçları indiriliyor", "downloadingEngine": "İndirme motoru indiriliyor", "downloadingMedia": "Medya araçları indiriliyor", "unpacking": "Medya araçları açılıyor", "checking": "Her şeyin çalıştığı kontrol ediliyor"},
-			"bytes": "{{done}} / {{total}}",
-			"left": {"underMinute": "bir dakikadan az kaldı", "minutes_one": "yaklaşık {{count}} dk kaldı", "minutes_other": "yaklaşık {{count}} dk kaldı"},
-			"note": {"firstRun": "Bu yalnızca bir kez olur. Arroxy bu araçları saklar ve kendisi günceller.", "media": "Bu yalnızca bir kez olur. Arroxy bunları sonraki güncellemeler için saklar.", "engine": "Siteler değiştiğinde indirmelerin çalışmaya devam etmesini sağlar."}
+	"common": {
+		"back": "Geri",
+		"cancel": "İptal",
+		"close": "Kapat",
+		"continue": "Devam et",
+		"dismiss": "Kapat",
+		"loading": "Yükleniyor…",
+		"retry": "Tekrar dene",
+		"startOver": "Baştan başla"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "Arroxy çalışmaya devam eder ve etkin indirmeleri bitirir. Bunu daha sonra Gelişmiş ayarlardan değiştirebilirsin.",
+			"hide": "Tepsiye gizle",
+			"message": "Kapatırken Arroxy sistem tepsisine gizlensin mi?",
+			"quit": "Çık",
+			"remember": "Bir daha sorma"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "İndirmeleri İptal Et ve Çık",
+			"detail": "Daha sonra sürdürmek için duraklat veya ilerlemeyi silmek için iptal et.",
+			"keep": "İndirmeye Devam Et",
+			"message_one": "{{count}} indirme sürüyor",
+			"message_other": "{{count}} indirme sürüyor",
+			"pause": "İndirmeleri Duraklat ve Çık"
+		},
+		"rendererCrashed": {
+			"detail": "Renderer süreci çöktü ({{reason}}). Tekrar denemek için yeniden yükle.",
+			"message": "Arroxy bir sorunla karşılaştı",
+			"quit": "Çık",
+			"reload": "Yeniden yükle"
 		}
 	},
-	"repair": {
-		"title": "Kurulum yardımına ihtiyaç duyuyor",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "İndirme motoru", "media": "Medya araçları"},
-		"causes": {
-			"downloadFailed": {"title": "Arroxy'nin ihtiyacı olanlar indirilemedi", "body": "İnternet bağlantınızı kontrol edin, ardından tekrar deneyin."},
-			"extractFailed": {"title": "Bir indirme bozuk geldi", "body": "Yeniden indirmek için tekrar deneyin."},
-			"hashFailed": {"title": "Bir indirme sağlama toplamıyla eşleşmedi", "body": "Yeniden indirmek için tekrar deneyin."},
-			"spawnFailed": {"title": "Bir araç eksik ya da başlamıyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."},
-			"permissionDenied": {"title": "Sisteminiz Arroxy'nin bir aracı çalıştırmasına izin vermiyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan güvendiğiniz bir kopya seçin."},
-			"blockedOrQuarantined": {"title": "Virüsten koruma yazılımınız bir aracı engelledi", "body": "Virüsten koruma yazılımınızda veya SmartScreen'de Arroxy'ye izin verin, ardından tekrar deneyin."},
-			"badExitCode": {"title": "Bir araç düzgün çalışmıyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."},
-			"timeout": {"title": "Bir aracın yanıt vermesi çok uzun sürdü", "body": "Bu genellikle ilk çalıştırmadaki bir güvenlik taramasından kaynaklanır. Tekrar deneyin."},
-			"pairIncomplete": {"title": "FFmpeg ve FFprobe birlikte ayarlanmalı", "body": "Aşağıdan ikisini de seçin veya varsayılana sıfırlayın."},
-			"unknown": {"title": "Kurulum sırasında bir şeyler ters gitti", "body": "Tekrar deneyin veya ayrıntılar için kurulum günlüğünü açın."}
-		},
-		"installing": {"homebrew": "Homebrew ile kuruluyor… Bu birkaç dakika sürebilir.", "winget": "WinGet ile kuruluyor… Bu birkaç dakika sürebilir."},
-		"stopped": {"title": "Kurulum durduruldu", "body": "Tekrar deneyin veya aşağıdan Arroxy'yi zaten sahip olduğunuz araçlara yönlendirin."},
-		"manual": {"toggle": "Elle kur", "intro": "Arroxy'yi zaten sahip olduğunuz kopyalara yönlendirin veya başka bir yolla kurun.", "linuxHint": "yt-dlp ve ffmpeg'i paket yöneticinizle de kurabilir, ardından Tekrar dene'ye tıklayabilirsiniz."},
-		"actions": {
-			"chooseExecutable": "Yürütülebilir dosya seç",
-			"installWithHomebrew": "Homebrew ile yükle",
-			"installWithWinget": "WinGet ile yükle",
-			"resetToDefault": "Varsayılana sıfırla",
-			"retrySetup": "Tekrar dene",
-			"cancel": "İptal",
-			"openDependencyFolder": "Bağımlılık klasörünü aç",
-			"viewSetupLog": "Kurulum günlüğünü görüntüle"
-		}
-	},
-	"theme": {"light": "Açık mod", "dark": "Koyu mod", "system": "Sistem varsayılanı"},
-	"language": {"label": "Dil"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "Oynatma listesi",
-			"playlistItemsGeneric": "Videolar",
-			"playlistPresets": "Kalite",
-			"playlistProfiles": "Profiller",
-			"formats": "Biçim",
-			"subtitles": "Altyazılar",
-			"sponsorblock": "SponsorBlock",
-			"output": "Çıktı",
-			"folder": "Kaydet",
-			"confirm": "Onayla",
-			"review": "Gözden geçir"
-		},
-		"playlistPresets": {"heading": "Toplu indirme için kalite seç", "subhead": "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır.", "itemCount_one": "{{count}} öğe", "itemCount_other": "{{count}} öğe"},
-		"playlistProfiles": {
-			"heading": "İndirme profillerini ata",
-			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
-			"assignTriggerEmpty": "Profil ata",
-			"assignTrigger_one": "{{count}} videoya ata",
-			"assignTrigger_other": "{{count}} videoya ata",
-			"menuDescription_one": "Bu video için profili seçin.",
-			"menuDescription_other": "Bu {{count}} video için profili seçin.",
-			"editProfile": "{{name}} düzenle",
-			"filtersLabel": "Profil filtreleri",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "Profil",
-			"columnDuration": "Süre",
-			"empty": "Bu filtreyle eşleşen öğe yok"
-		},
-		"playlist": {
-			"heading": "Oynatma listesi öğeleri",
-			"headingGeneric": "İndirilecek videolar",
-			"bulkHeading": "Toplu URL’ler",
-			"itemCount_one": "{{count}} video",
-			"itemCount_other": "{{count}} video",
-			"itemCountAudio_one": "{{count}} parça",
-			"itemCountAudio_other": "{{count}} parça",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
-			"bulkMetadataResolving": "Video ayrıntıları alınıyor… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Beklemenize gerek yok — şimdi kuyruğa eklenen dosyalar indirilirken yine de gerçek adlarını alır.",
-			"bulkRowWaiting": "Bekliyor",
-			"bulkRowResolving": "Ayrıntılar alınıyor",
-			"bulkRowFailed": "Ayrıntılar kullanılamıyor",
-			"selectAll": "Tümünü seç",
-			"selectNone": "Hiçbirini seçme",
-			"sortLabel": "Sıralama",
-			"sortApi": "Oynatma listesi sırası",
-			"sortUploadAsc": "Önce en eskiler",
-			"sortUploadDesc": "Önce en yeniler",
-			"sortFetchingDates": "Yükleme tarihleri alınıyor…",
-			"rangeFrom": "Başlangıç",
-			"rangeTo": "Bitiş",
-			"rangeApply": "Aralığı uygula",
-			"selectedCount_one": "{{count}} seçildi",
-			"selectedCount_other": "{{count}} seçildi",
-			"noSelection": "Devam etmek için en az bir video seç",
-			"loadingItems": "Oynatma listesi alınıyor…",
-			"loadingItemsGeneric": "Videolar alınıyor…",
-			"loadingPhasePages": "Kanal sayfaları taranıyor",
-			"loadingPhaseItems": "Videolar toplanıyor",
-			"loadingPagesFound_one": "{{count}} sayfa bulundu",
-			"loadingPagesFound_other": "{{count}} sayfa bulundu",
-			"loadingLimitHint": "İlk {{count}} öğeyle sınırlandı",
-			"thumbnailAlt": "Video küçük resmi",
-			"durationUnknown": "canlı",
-			"syncChange": "Klasörü değiştir…",
-			"syncApply": "Eşitlemeyi uygula",
-			"syncScanning": "Klasör kontrol ediliyor…",
-			"syncFoundTitle": "Zaten klasörde",
-			"syncFoundDesc": "Bu videolardan {{n}} tanesi zaten {{dir}} içinde. Yalnızca yenileri indirmek için eşitlensin mi?",
-			"syncNoneTitle": "Henüz indirilmiş bir şey yok",
-			"syncNoneDesc": "{{dir}} içinde bu oynatma listesinden video bulunamadı.",
-			"syncNoneDescGeneric": "{{dir}} içinde bu kaynaktan video bulunamadı.",
-			"alreadyDownloaded": "Zaten indirildi",
-			"nestedPlaylistBadge": "Oynatma listesi",
-			"nestedPlaylistHint_one": "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantısını tek başına yapıştırın.",
-			"nestedPlaylistHint_other": "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantılarını teker teker yapıştırın.",
-			"probeLimitAlertTitle": "Oynatma listesi taraması sınırlandı",
-			"probeLimitAlertTitleGeneric": "Tarama sınırlandı",
-			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
-			"multiProfileEntry": "Öğe başına profil ata",
-			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar",
-			"removeFromListCount_one": "Listeden {{count}} öğe kaldır",
-			"removeFromListCount_other": "Listeden {{count}} öğe kaldır",
-			"restore": "Geri yükle",
-			"removedCount_one": "{{count}} kaldırıldı",
-			"removedCount_other": "{{count}} kaldırıldı",
-			"allRemovedTitle": "Tüm öğeler kaldırıldı",
-			"allRemovedDescription": "Devam etmek için onları geri yükleyin."
-		},
-		"bulk": {
-			"title": "Toplu URL’ler",
-			"description": "Video, oynatma listesi, kanal, arama veya ses URL’leri yapıştır. Arroxy kuyruğa almadan önce yinelenenleri temizler.",
-			"textareaLabel": "URL listesi",
-			"textareaPlaceholder": "https://ornek.com/video-1\nhttps://ornek.com/video-2\nhttps://ornek.com/video-3",
-			"acceptedCount": "Hazır",
-			"ignoredCount": "Yoksayıldı",
-			"emptyPreview": "Toplu listeyi önizlemek için bir veya daha fazla URL yapıştır.",
-			"needsAtLeastOne": "Devam etmek için en az bir desteklenen URL ekle.",
-			"reject": {"duplicate": "Yinelenen"}
-		},
-		"tabsNavAria": "İndirme profili gezinmesi",
-		"profileSwitchRow": {"helpAria": "{{label}} yardımı"},
-		"mixedPrompt": {
-			"title": "Bu bağlantıda bir oynatma listesi var",
-			"body": "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin.",
-			"quickBody": "Yalnızca bu videoyu indir veya etkin Hızlı İndirme profilinle tüm oynatma listesini kuyruğa al.",
-			"singleVideo": "Sadece bu",
-			"quickSingleVideo": "Bu videoyu indir",
-			"pickFromPlaylist": "Oynatma listesinden seç",
-			"quickWholePlaylist": "Tüm oynatma listesini indir",
-			"playlistLimit": "Oynatma listesi denetim sınırı: {{count}} öğe",
-			"quickLimitDescription": "Arroxy’nin bir oynatma listesini, kanalı veya arama sonucunu kuyruğa almadan önce taradığı en fazla kayıt sayısı.",
-			"singleTooltip": "Yalnızca bu videoyu yükler. Bu URL’ye bağlı oynatma listesi yoksayılır.",
-			"quickSingleTooltip": "Bir indirme kuyruğa alır ve bu URL’ye bağlı oynatma listesini yoksayar.",
-			"playlistTooltip": "Seçiciyi göstermeden önce oynatma listesini, oynatma listesi denetim sınırına kadar yükler.",
-			"quickPlaylistTooltip": "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "Oynatma listesi kapsamı",
-				"change": "Değiştir",
-				"summaryAppLimit": "İlk {{count}} öğeyi yükle",
-				"summaryFirst": "İlk {{count}} öğeyi yükle",
-				"summaryRange": "{{from}}-{{to}} arası öğeleri yükle",
-				"dialogTitle": "Oynatma listesi kapsamı",
-				"dialogDescription": "Arroxy’nin bu oynatma listesi için neyi yükleyeceğini seç.",
-				"itemsLabel": "Yüklenecek öğeler",
-				"appLimit": "Uygulama sınırını kullan: {{count}}",
-				"first": "İlk",
-				"range": "Aralık",
-				"to": "ile",
-				"invalid": "1 ile {{max}} arasında tam sayı öğe numaraları kullan; başlangıç bitişten büyük olmasın.",
-				"applyError": "Bu oynatma listesi kapsamı uygulanamadı: {{message}}",
-				"reset": "Sıfırla",
-				"cancel": "İptal",
-				"apply": "Uygula",
-				"applyReload": "Uygula ve yeniden yükle",
-				"reloading": "Yeniden yükleniyor...",
-				"emptyTitle": "Bu kapsamda video yok"
-			},
-			"heading": "URL’den indir",
-			"placeholder": "https://...",
-			"tabs": {"profiles": "Profiller", "settings": "Ayarlar"},
-			"interactiveDownload": "Etkileşimli İndirme",
-			"fetchFormatsTooltip": "Adım adım sihirbaz. Biçimi, kaliteyi ve daha fazlasını seç.",
-			"quickDownload": "Hızlı İndirme",
-			"quickDownloadTooltip": "Şununla indirilecek: {{profileName}}",
-			"quickPreparing": "Hazırlanıyor",
-			"quickQueued": "Kuyruğa eklendi",
-			"quickSingleOnly": "Başlamak için bir video, oynatma listesi, kanal veya arama URL’si yapıştır.",
-			"quickProbeFailed": "Denetim başarısız oldu",
-			"quickPrepareFailed": "Kuyruk öğesi hazırlanamadı",
-			"quickBulkAllFailed": "Bu URL’lerin hiçbiri hazırlanamadı",
-			"quickFailed": "Bu öğe eklenemedi: {{error}}",
-			"quickPartialFailed_one": "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı.",
-			"quickPartialFailed_other": "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı.",
-			"profile": {
-				"destinationFallback": "Hedef",
-				"switchAria": "İndirme profilini değiştir: {{profileName}}",
-				"switchTitle": "İndirme profilini değiştir",
-				"activeLabel": "Etkin profil",
-				"editActive": "Etkin profili düzenle",
-				"changeGlobalDestination": "Genel hedefi değiştir",
-				"destinationDetail": {"global": "Genel hedef kullanılıyor", "globalSubfolder": "Genel hedef + profil alt klasörü kullanılıyor", "override": "Profil geçersiz kılması kullanılıyor", "overrideSubfolder": "Profil geçersiz kılması + profil alt klasörü kullanılıyor"},
-				"summary": {"bestVideo": "en iyi video", "bestAudio": "en iyi ses", "aacAudio": "AAC ses", "wavAudio": "WAV ses", "noAudio": "ses yok", "subtitlesOnly": "yalnızca altyazılar"},
-				"menuTitle": "Profili değiştir",
-				"menuDescription": "Hızlı İndirme, Toplu URL’ler ve oynatma listeleri için etkin profili değiştir.",
-				"newProfile": "Yeni profil",
-				"manageProfiles": "Profilleri yönet",
-				"panelTitle": "İndirme Profilleri",
-				"panelDescription": "Yeniden kullanılabilir indirme kurulumları oluştur, seç, düzenle veya kaldır.",
-				"badgeCustom": "Özel",
-				"badgeModified": "Değiştirildi",
-				"badgeBuiltIn": "Yerleşik",
-				"badgeDisabled": "Gizli",
-				"enableToggleAria": "Profili seçicilerde göster: {{profileName}}",
-				"enableHint": "Gizli profiller burada kalır, ancak tüm seçicilerden kaybolur.",
-				"reorderHint": "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sırayı izler.",
-				"moveHandleAria": "{{profileName}} profilini taşı",
-				"movableProfile": "taşınabilir profil",
-				"moveInstructions": "Bir profili taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın.",
-				"movePickedUp": "{{profileName}} profili alındı. {{count}} içinde {{position}}. sırada.",
-				"moveOver": "{{profileName}} profili {{count}} içinde {{position}}. sıranın üzerinde.",
-				"moveDropped": "{{profileName}} profili {{count}} içinde {{position}}. sıraya bırakıldı.",
-				"moveCancelled": "Taşıma iptal edildi. {{profileName}} profili {{count}} içinde {{position}}. sırada kalıyor.",
-				"lastEnabledHint": "En az bir profili kullanılabilir tut.",
-				"edit": "Düzenle",
-				"remove": "Kaldır",
-				"reset": "Sıfırla"
-			},
-			"bulkButton": "Toplu URL’ler",
-			"bulkTooltip": "Birden fazla URL ekle ve kuyruğa al.",
-			"features": {
-				"heading": "Arroxy neleri çekebilir",
-				"youtube": {"heading": "YouTube", "video": "Videolar", "channel": "Kanallar", "playlist": "Oynatma listeleri", "short": "Shorts", "music": "Music", "podcast": "Podcast’ler"},
-				"anySite": {"heading": "2000+ site", "video": "Videolar", "videoPlaylist": "Video oynatma listeleri", "musicPlaylist": "Müzik oynatma listeleri"},
-				"always": {"audioOnly": "Yalnızca ses", "subtitles": "Altyazılar"}
-			},
-			"mascotIdle": "Bir bağlantı bırak, Arroxy onu çeksin ✨",
-			"mascotBusy": "Arka planda indiriliyor… Aynı anda birkaç işi halledebilirim 😎",
-			"mascotPreparing": "{{quickDownload}} bu bağlantıyı okuyor ve {{profileName}} profilini uyguluyor.",
-			"mascotQueued": "Kuyruk bu indirmeyi işliyor. O sürerken başka bir bağlantı yapıştırabilirsin.",
-			"mascotCollection": "Hızlı İndirme, yüklenen öğeleri {{profileName}} profiliyle kuyruğa ekler. Etkileşimli İndirme ise öğeleri önce incelemeni veya seçmeni sağlar.",
-			"mascotMixed": "Bu bağlantı bir koleksiyondaki tek bir videoyu işaret ediyor. Arroxy, inceleme öncesinde hangisini istediğini soracak.",
-			"mascotSingle": "Hızlı İndirme, {{profileName}} profiliyle tek bir indirme başlatır. Tek seferlik değişiklikler için Etkileşimli İndirme'yi kullan.",
-			"advanced": "Gelişmiş",
-			"settings": {"inputHeading": "Giriş", "behaviorHeading": "İndirme davranışı", "behaviorDescription": "Profil kaynaklı indirmeleri de etkileyen genel davranış."},
-			"clearAria": "URL’yi temizle",
-			"clipboard": {
-				"toggle": "Panoyu izle",
-				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
-				"autofilledLink": "Bağlantı panodan eklendi",
-				"bulkHint": "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın",
-				"replacedLink": "Kopyalanan bağlantıyla değiştirildi",
-				"undo": "Geri al",
-				"dialog": {"cancelButton": "İptal"}
-			},
-			"hotkey": {
-				"sectionTitle": "Genel kısayol",
-				"sectionDescription": "Kopyaladığınız bağlantıyı, Arroxy’yi açmadan herhangi bir uygulamadan indirin.",
-				"toggle": "Genel kısayolu etkinleştir",
-				"toggleDescription": "Panoda video bağlantısı varken kısayola basın.",
-				"changeShortcut": "Kısayolu değiştir",
-				"recording": "Tuşlara basın…",
-				"test": "Test et",
-				"conflict": "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin.",
-				"hintLabel": "Veya basın",
-				"hintTooltip": "Bir video bağlantısını istediğiniz yerde kopyalayın, bu kısayola basın; Arroxy onu etkin profilinizle sıraya ekler — pencereler arasında geçiş yapmanız gerekmez.",
-				"hintTooltipSettings": "Ayarlar'dan değiştirin veya kapatın.",
-				"reset": "Varsayılana sıfırla"
-			},
-			"cookies": {
-				"sourceLabel": "Çerez kaynağı",
-				"sourceOff": "Kapalı",
-				"sourceFile": "Dosya",
-				"sourceBrowser": "Tarayıcı",
-				"sourceExplore": "Keşfet oturumu",
-				"recommended": "Önerilen",
-				"exploreDescription": "Keşfet oturumunu yalnızca bir indirme gerektirdiğinde kullanır.",
-				"exploreDisabled": "Keşfet sekmesi kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz. Aşağıdaki Keşfet bölümünden aç.",
-				"openExplore": "Keşfet'i aç",
-				"toggleDescription": "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur.",
-				"risk": "Risk: cookies.txt, o tarayıcıdaki tüm oturum açmış oturumları içerir — gizli tut.",
-				"fileLabel": "Çerez dosyası",
-				"choose": "Seç…",
-				"clear": "Temizle",
-				"placeholder": "Dosya seçilmedi",
-				"helpLink": "Çerezleri nasıl dışa aktarırım?",
-				"enabledButNoFile": "Çerezleri kullanmak için bir dosya seç",
-				"browserLabel": "Tarayıcı",
-				"browserPlaceholder": "Bir tarayıcı seç…",
-				"browserHelp": "Çerezleri doğrudan tarayıcıdan okur. Chromium ailesi tarayıcılar için tarayıcı kapalı olmalıdır.",
-				"enabledButNoBrowser": "Çerezleri kullanmak için bir tarayıcı seç",
-				"banWarning": "YouTube gibi siteler, çerezleri Arroxy gibi indirme araçları tarafından kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Mümkünse geçici bir hesap kullan.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "cookies.txt dosyasını YEREL olarak al (Chrome)"
-			},
-			"proxy": {"label": "Proxy URL’si", "description": "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır.", "placeholder": "http://host:port", "clear": "Temizle"},
-			"style": {
-				"panelTitle": "Görünüm",
-				"panelDescription": "Arroxy'nin görünümü. Açık ve koyu mod arasında alt bilgi alanından geçiş yapabilirsiniz.",
-				"modeLabel": "Stil",
-				"modeDescription": "İki stil de açık ve koyu modda gelir.",
-				"aurora": {"label": "Aurora", "description": "Hareket eden bir gökyüzünün üzerinde cam paneller. Grafik hızlandırma gerekir."},
-				"minimal": {"label": "Minimal", "description": "Düz, sakin yüzeyler. Her bilgisayarda hafif çalışır."},
-				"unavailableNotice": "{{style}} grafik hızlandırma gerektirir, ama şu an kullanılamıyor; bu yüzden Arroxy {{fallback}} gösteriyor."
-			},
-			"limitRate": {
-				"label": "İndirme hızı sınırı",
-				"description": "Medya indirmeleri için bant genişliğini sınırla. Aşağıdaki istek aralığı genelde daha güçlü hız sınırlama aracıdır.",
-				"off": "Kapalı",
-				"custom": "Özel…",
-				"customPlaceholder": "örn. 750K veya 1.5M",
-				"invalid": "K veya M ile biten bir sayı kullan (örn. 500K, 1.5M)",
-				"activeWarning": "Etkin indirmeler mevcut sınırını korur. Değişiklikleri uygulamak için Duraklat + Sürdür."
-			},
-			"playlistProbeLimit": {
-				"label": "Taranacak oynatma listesi öğeleri",
-				"description": "Bir oynatma listesi, kanal veya arama sonucu açıldığında Arroxy’nin yükleyeceği en fazla kayıt sayısı.",
-				"option": "{{count}} öğe",
-				"current": "Geçerli sınır: {{count}} öğe",
-				"customValue": "Özel: {{count}} öğe",
-				"custom": "Özel…",
-				"customDialogTitle": "Özel oynatma listesi tarama sınırı",
-				"customDialogDescription": "{{min}} ile {{max}} arasında bir tam sayı kullan.",
-				"customDialogCancel": "İptal",
-				"customDialogSave": "Sınırı kaydet",
-				"invalid": "1 ile 5000 arasında bir tam sayı kullan",
-				"tooltip": "Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
-			},
-			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "Profil yerel sesi seçtiğinde stereo veya surround. Profil bunu değiştirebilir.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
-			"autoRetry": {"label": "Başarısız indirmeleri yeniden dene", "description": "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez.", "unit": "kez"},
-			"autoRemoveCompleted": {"label": "Biten indirmeleri otomatik kaldır", "description": "Bir indirmeyi bittikten birkaç saniye sonra İndirmeler listesinden kaldırır. Dosyalar klasörünüzde kalır; başarısız ve iptal edilen indirmeler listede kalır."},
-			"concurrentDownloads": {"label": "Aynı anda indirme", "description": "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır.", "unit": "indirme"},
-			"downloadConnections": {"label": "İndirme bağlantıları", "description": "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır.", "unit": "bağlantı"},
-			"networkPacing": {
-				"heading": "Nazik indirmeler",
-				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir.",
-				"presetLabel": "Arroxy ne kadar temkinli olsun?",
-				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Aynı anda kaç indirmenin çalışacağı ayrı olarak «Aynı anda indirme» altında ayarlanır.",
-				"summary": "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}.",
-				"presets": {"off": "Kapalı", "balanced": "Dengeli", "careful": "Temkinli", "custom": "Özel"},
-				"tooltips": {
-					"off": "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklamaları kullanır.",
-					"balanced": "Varsayılan. İstekler arasında ve medya başlamadan önce kısa duraklamalar ekler.",
-					"careful": "Büyük oynatma listeleri veya sık sınırla karşılaşan ağlar için daha uzun duraklamalar ekler.",
-					"custom": "Gelişmiş indirme başına kontrolleri kendin ayarla."
-				},
-				"fields": {"sleepRequests": "Meta veri kontrolleri arasında bekle", "sleepInterval": "Medya başlamadan önce duraklama: min", "maxSleepInterval": "Medya başlamadan önce duraklama: maks", "sleepSubtitles": "Altyazı dosyalarından önce bekle"},
-				"units": {"seconds": "sn"}
-			},
-			"closeToTray": {"toggle": "Kapatınca tepsiye gizle", "toggleDescription": "Pencere kapandıktan sonra indirmeleri arka planda sürdür."},
-			"analytics": {
-				"toggle": "Günlük sinyal gönder",
-				"toggleDescription": "Telemetri yok. Etkin ve yeni kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy'nin yaklaşık ne kadar önce kurulduğunu gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
-			}
-		},
-		"quickProgress": {
-			"title": "Hızlı İndirme hazırlanıyor",
-			"description": "Arroxy bağlantıyı okuyor ve {{profileName}} profilini uyguluyor.",
-			"currentFallback": "Geçerli bağlantı",
-			"waitHint": "Arroxy kuyruğu hazırlarken bunu açık tut.",
-			"failedCount_one": "{{count}} başarısız",
-			"failedCount_other": "{{count}} başarısız",
-			"cancel": "Hazırlığı iptal et",
-			"phase": {"probing": "Ayrıntılar alınıyor", "queueing": "Kuyruğa ekleniyor"}
-		},
-		"subtitles": {
-			"autoBadge": "Otomatik",
-			"noLanguages": "Bu video için altyazı yok",
-			"searchPlaceholder": "Dillerde ara…",
-			"noMatches": "Eşleşen dil yok",
-			"clearAll": "Tümünü temizle",
-			"noSelected": "Altyazı seçilmedi",
-			"removeLanguage": "{{name}} kaldır",
-			"sectionManual": "Manuel",
-			"sectionAuto": "Otomatik oluşturulan",
-			"saveMode": {"heading": "Kaydetme biçimi", "sidecar": "Videonun yanına", "embed": "Videoya göm", "subfolder": "subtitles/ alt klasörü"},
-			"format": {"heading": "Biçim"},
-			"embedNote": "Gömme modu çıktıyı .mkv olarak kaydeder, böylece altyazı parçaları güvenilir şekilde gömülür.",
-			"autoAssNote": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek — YouTube videolarında kayan ipucu yinelemeleri temizlenir; ASS dönüştürücümüz bunu henüz aynı şekilde yapamıyor."
-		},
-		"sponsorblock": {
-			"modeHeading": "Sponsor filtreleme",
-			"mode": {"off": "Kapalı", "mark": "Bölüm olarak işaretle", "remove": "Segmentleri kaldır"},
-			"modeHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynar.", "mark": "Sponsor segmentlerini bölüm olarak işaretler (yıkıcı değildir).", "remove": "FFmpeg kullanarak sponsor segmentlerini videodan keser."},
-			"categoriesHeading": "Kategoriler",
-			"cat": {"sponsor": "Sponsor", "intro": "Giriş", "outro": "Çıkış", "selfpromo": "Öz tanıtım", "music_offtopic": "Konu dışı müzik", "preview": "Önizleme", "filler": "Dolgu"}
-		},
-		"formats": {
-			"kind": {"label": "Ne indirilsin", "video": "Video + ses", "videoOnly": "Video, sessiz", "audio": "Yalnızca ses", "subtitles": "Yalnızca altyazılar"},
-			"profile": {
-				"calloutTitle": "Biçimler profilinle başlar",
-				"calloutBody": "Etkin profilin akışları senin için önceden seçer. Profilleri menüden değiştir ya da bu indirmeden çıkmadan bir profili ayarlamak için kalemi kullan.",
-				"preselected": "Şuradan önceden seçildi:",
-				"tag": "Profil",
-				"closestTag": "Profile en yakın",
-				"switchTitle": "Profil değiştirilsin mi?",
-				"switchBody": "Bu indirme için değiştirdikleriniz: {{areas}}. “{{profile}}” her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
-				"resetAll": "Tümünü sıfırla",
-				"edit": "Düzenle: {{name}}",
-				"updatedTitle": "Güncellenen profil kullanılsın mı?",
-				"updatedBody": "Bu indirme için değiştirdikleriniz: {{areas}}. Güncellenen profil her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
-				"keepEdits": "Değişikliklerimi koru",
-				"menuDescription": "Yalnızca bu indirme için. Varsayılan profiliniz olduğu gibi kalır."
-			},
-			"fit": {
-				"tierBelow": "Profiliniz {{wanted}}p istiyor. Bu video en fazla {{picked}}p sunuyor, bu yüzden {{picked}}p seçildi.",
-				"tierAbove": "Profiliniz {{wanted}}p istiyor. Bu videoda bu kadar düşük çözünürlük yok, bu yüzden {{picked}}p seçildi.",
-				"mp4Unavailable": "Profiliniz Akıllı TV (H.264). Bu videoda H.264 yok, bu yüzden en yakın akış seçildi.",
-				"noVideo": "Bu bağlantıda video yok, bu yüzden ses seçildi.",
-				"subtitlesMissing": "Profiliniz şu dillerde altyazı istiyor: {{languages}}. Bu videoda bunlar yok.",
-				"webmUnavailable": "Profiliniz WebM istiyor. Bu videoda seçilen akışlar WebM’in barındıramadığı {{codec}} içeriyor, bu yüzden dosya türü Otomatik."
-			},
-			"footer": {"download": "İndir", "moreActions": "Diğer indirme seçenekleri", "addToQueue": "Başlatmadan kuyruğa ekle", "subtitlesRequired": "En az bir altyazı dili seçin."},
-			"video": "Video",
-			"audio": "Ses",
-			"noAudio": "Ses yok",
-			"withAudio": "sesli",
-			"resolutionUnknown": "Boyut bilinmiyor",
-			"bitrateValue": "Bit hızı {{bitrate}}",
-			"marker": {"aiUpscaled": "YZ ile büyütüldü", "aiDubbed": "YZ dublajı", "audioDescription": "Sesli betimleme", "spatialAudio": "Uzamsal ses", "vr": "360° / VR", "enhancedBitrate": "Gelişmiş bit hızı", "damaged": "Hasarlı", "watermarked": "Filigranlı"},
-			"keepAudio": "Olduğu gibi tut",
-			"keepAudioMeta": "Yerleşik ses",
-			"audioOnly": "Yalnızca ses",
-			"sniffing": "Senin için en iyi biçimler aranıyor…",
-			"loadingHint": "Lütfen denetim bitene kadar bekle — oynatma listeleri ve aramalar biraz sürebilir.",
-			"loadingAria": "Biçimler yükleniyor",
-			"sizeUnknown": "Boyut bilinmiyor",
-			"total": "Toplam",
-			"skipToConfirm": "Onaya atla",
-			"skipToConfirmTooltip": "Kalan tüm adımlar için kayıtlı tercihlerini kullanır. Bir ayarı değiştirmek için adım adım devam et — seçimin bir sonraki sefer için kaydedilir.",
-			"quality": {"high": "Yüksek kalite", "medium": "Orta kalite", "low": "Düşük kalite"},
-			"drc": {"label": "Ses düzeyini eşitle (DRC)", "description": "Yüksek yerleri kısar, alçak yerleri açar; hoparlörler ve gürültülü ortamlar için.", "tag": "Eşit ses"},
-			"audioLanguage": "Ses dili",
-			"audioLanguageCount_one": "{{count}} dil",
-			"audioLanguageCount_other": "{{count}} dil",
-			"convert": {
-				"label": "Dönüştür",
-				"bitrate": "Bit hızı",
-				"wavLabel": "WAV (sıkıştırılmamış)",
-				"lossyLabel": "{{target}} {{bitrate}} kb/sn",
-				"copyLabel": "{{target}} {{bitrate}} kb/sn, yeniden kodlama yok",
-				"copyLabelNoBitrate": "{{target}}, yeniden kodlama yok",
-				"copyNote": "{{kbps}} kb/sn, kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
-				"copyNoteNoBitrate": "Kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
-				"bitrateCopyHint": "Zaten {{target}} olan bir kaynak kendi akışını ve bit hızını korur: yeniden kodlanmaz, kopyalanır.",
-				"sourceKbps": "Kaynak {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "Denetim sınırlandı",
-				"bodyUnconfigured": "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene.",
-				"bodyDisabled": "Çerezler yapılandırılmış ama kapalı. Tam listeyi almak için etkinleştirip tekrar dene ya da ağı değiştirip tekrar dene.",
-				"bodyEnabled": "Çerezlerle bile YouTube bu denetimi sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
-				"bodyExplore": "YouTube bu isteği sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
-				"retryCta": "Tekrar dene",
-				"enableRetryCta": "Çerezleri etkinleştir ve tekrar dene"
-			},
-			"rateLimit": {
-				"heading": "{{site}} bu bağlantıyı sınırlıyor",
-				"leadDegraded": "Biçim listesi eksik olabilir.",
-				"leadFailed": "{{site}} bu isteği şimdilik geri çevirdi.",
-				"waitUntil": "Arroxy, sınırın kalkması için {{site}} sitesine yeniden sormadan önce {{time}} saatine kadar bekler.",
-				"waitOver": "Bekleme bitti, yeniden deneyebilirsin.",
-				"sessionNote": "{{site}} bu sınırı bir saate kadar sürdürebilir.",
-				"tryNowCta": "Şimdi dene",
-				"retryCta": "Tekrar dene"
-			},
-			"cookiesError": {
-				"heading": "Neden çerezler olabilir",
-				"currentModeLabel": "Çerez kaynağı",
-				"currentModeFile": "Dosya",
-				"currentModeBrowser": "Tarayıcı",
-				"currentModeExplore": "Keşfet oturumu",
-				"explanationFile": "Çerez dosyan boş, süresi dolmuş veya yanlış biçimde olabilir (Arroxy bir Netscape cookies.txt dosyasına ihtiyaç duyar). Çerezleri yeniden dışa aktarmayı, farklı bir dosya seçmeyi, Tarayıcı moduna geçmeyi veya çerezleri kapatmayı dene.",
-				"explanationBrowser": "Çerezler doğrudan tarayıcıdan okunur. Tarayıcı şu anda çalışıyorsa çerez veritabanı kilitli olabilir (Chromium ailesi). Tarayıcıda YouTube oturumu da açık olmalıdır. Tarayıcıyı kapatmayı, farklı bir tarayıcıya geçmeyi, Dosya moduna geçmeyi veya çerezleri kapatmayı dene.",
-				"openSettingsCta": "Çerez ayarlarını aç",
-				"exploreSignIn": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Bu video bir YouTube hesabı gerektiriyorsa Keşfet'te oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır.", "cta": "Keşfet'te oturum aç"},
-				"exploreSignedIn": {"heading": "Keşfet'te oturum açıldı", "body": "Bu video hesap gerektiriyorsa Arroxy, Keşfet oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir."},
-				"exploreOffer": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Keşfet'te oturum aç, Arroxy yeniden denesin.", "cta": "Keşfet'te oturum aç"},
-				"exploreReuse": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Keşfet'te oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor.", "cta": "Keşfet oturumumu kullan ve yeniden dene"},
-				"exploreSite": {"heading": "Bu bağlantı {{host}} sitesinde bir hesap gerektirebilir", "signInBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır.", "offerBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene."},
-				"exploreRefused": {"heading": "Site, Keşfet'teki oturumunla bile bunu reddetti", "body": "Arroxy bunu Keşfet üzerinden oturum açmış halde zaten denedi, bu yüzden tekrar oturum açmak işe yaramaz. Sitede sorun olabilir ya da bu hesap içeriği açamıyor olabilir. Daha sonra tekrar dene."},
-				"otherCookiesCta": "Bunun yerine bir çerez dosyası veya tarayıcı kullan…",
-				"needsCookies": {"heading": "Bu site oturum açmayı gerektiriyor", "body": "Arroxy bu videoya kimlik doğrulaması olmadan erişemedi. Gelişmiş ayarlarda çerezleri yapılandır — zaten oturum açtığın bir tarayıcıyı göster veya bir cookies.txt dosyası içe aktar."},
-				"dpapi": {
-					"heading": "Chrome çerezleri Windows şifrelemesi tarafından engellendi",
-					"explanation": "Chrome 127 ve daha yenisi çerezleri Windows’ta diğer uygulamaların okuyamayacağı şekilde şifreler. Aşağıdaki geçici çözümlerden birini dene.",
-					"fixFirefoxLabel": "Firefox’a geç",
-					"fixFirefoxBody": "Firefox App-Bound Encryption kullanmaz. Çerez ayarlarını aç ve tarayıcı listesinden Firefox’u seç.",
-					"fixFileLabel": "cookies.txt dışa aktar",
-					"fixFileBody": "Chrome’dan bir tarayıcı uzantısıyla çerezleri dışa aktar, sonra bu uygulamayı Dosya moduna geçirip dışa aktarılan dosyayı seç.",
-					"fixUnsafeLabel": "Chrome’u App-Bound Encryption devre dışı başlat",
-					"fixUnsafeBody": "Chrome başlatma kısayoluna --disable-features=LockProfileCookieDatabase ekle. Uyarı: bu, daha önce şifrelenmiş çerezleri geçersiz kılar; tüm sitelerden çıkış yapılır ve yeniden giriş yapman gerekir.",
-					"docsLinkLabel": "yt-dlp belgeleri (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "Şu olarak kaydedilir", "reset": "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü."}
-		},
-		"folder": {
-			"heading": "Şuraya kaydet",
-			"downloads": "İndirilenler",
-			"videos": "Filmler",
-			"desktop": "Masaüstü",
-			"music": "Müzik",
-			"documents": "Belgeler",
-			"pictures": "Resimler",
-			"home": "Ev",
-			"custom": "Özel…",
-			"subfolder": {"toggle": "Alt klasör içine kaydet", "placeholder": "örn. lo-fi kayıtları", "invalid": "Klasör adında geçersiz karakterler var"}
-		},
-		"output": {
-			"embedChapters": {"label": "Bölümleri göm", "description": "Her modern oynatıcıda gezilebilir bölüm işaretleri."},
-			"embedMetadata": {"label": "Meta verileri göm", "description": "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır."},
-			"embedThumbnail": {"label": "Küçük resmi göm", "description": "Dosyanın içinde kapak görseli. WebM video MKV’ye yeniden paketlenir; altyazılar gömülüyse atlanır."},
-			"writeDescription": {"label": "Açıklamayı kaydet", "description": "Video açıklamasını indirmenin yanına .description metin dosyası olarak kaydeder."},
-			"writeThumbnail": {"label": "Küçük resmi kaydet", "description": "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kaydeder."},
-			"writeM3u": {"label": ".m3u oynatma listesi dosyası oluştur", "description": "Videoların medya oynatıcında sırayla açılması için yanlarına bir .m3u oynatma listesi kaydet."}
-		},
-		"review": {
-			"changeFormat": "Biçimi değiştir",
-			"rowsHeading": "Diğer her şey",
-			"rows": {"subtitles": "Altyazılar", "sponsorBlock": "SponsorBlock", "extras": "Ekstralar", "saveTo": "Şuraya kaydet", "fileName": "Dosya adı"},
-			"value": {"subtitlesOff": "Kapalı", "sponsorBlockOff": "Kapalı", "extrasNone": "Yok"},
-			"changed": "Değişenler ({{profile}} profiline göre): {{areas}}. Yalnızca bu indirme için geçerli.",
-			"areas": {"format": "biçim", "subtitles": "altyazılar", "sponsorBlock": "SponsorBlock", "extras": "ekstralar", "saveTo": "klasör", "fileName": "dosya adı"},
-			"updateProfile": "“{{profile}}” profilini bu değişikliklerle güncelle",
-			"saveAsProfile": "Yeni profil olarak kaydet",
-			"update": {
-				"title": "“{{profile}}” güncellensin mi?",
-				"description": "Bundan sonra bu profille yapılan her indirme yeni ayarları kullanır.",
-				"rows": {"format": "Biçim"},
-				"builtinNote": "Bu yerleşik bir profil. Orijinal ayarlarını Profiller sekmesinden geri yükleyebilirsiniz.",
-				"action": "Profili güncelle",
-				"updated": "“{{name}}” profili güncellendi"
-			},
-			"callout": {"title": "Diğer tüm ayarlar artık bu sayfada", "body": "Altyazılar, SponsorBlock, küçük resim gibi ekstralar, klasör ve dosya adı eskiden ayrı adımlardı. Değiştirmek için bir satıra tıklayın."},
-			"reset": "Değişiklikleri geri al, “{{profile}}” profiline dön",
-			"changedFrom": "Değişenler ({{profile}} profiline göre):",
-			"save": {"title": "Profil olarak kaydet", "description": "Bu ayarları bir dahaki sefere seçebileceğiniz bir profil olarak kaydeder. Hızlı İndirme profiliniz aynı kalır.", "nameLabel": "Profil adı", "action": "Profili kaydet", "saved": "“{{name}}” profili olarak kaydedildi", "failed": "Profil kaydedilemedi."},
-			"fileNameHint": "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir.",
-			"nextTime": {"title": "Bu indirme düzenlenmiş ayarları kullandı. Bir dahaki sefere de kullanılsın mı?", "action": "Profil olarak kaydet", "defaultName": "{{profile}} (düzenlendi)"}
-		},
-		"confirm": {
-			"readyHeadline": "Çekmeye hazır!",
-			"landIn": "Dosyan şuraya düşecek",
-			"landInMultiProfile_one": "Aşağıdaki hedefe inecek",
-			"landInMultiProfile_other": "Aşağıdaki {{count}} hedefe inecek",
-			"labelVideo": "Video",
-			"labelAudio": "Ses",
-			"labelSubtitles": "Altyazılar",
-			"subtitlesNone": "—",
-			"labelSaveTo": "Şuraya kaydet",
-			"labelSize": "Boyut",
-			"sizeUnknown": "Bilinmiyor",
-			"nothingToDownload": "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok.",
-			"thumbnailEmbedNotSupported": "Küçük resim gömme atlandı — çıktı kapsayıcısı bunu desteklemiyor.",
-			"subtitleEmbedAudioOnly": "Altyazı gömme yan dosyaya çevrildi — ses parçaları gömülü altyazı akışlarını desteklemez.",
-			"audioOnly": "Yalnızca ses",
-			"addToQueue": "+ Kuyruk",
-			"addToQueueTooltip": "Kuyruğa ekler — etkin indirme bittiğinde başlar",
-			"pullIt": "Çek! ↓",
-			"pullItTooltip": "Kuyruğu atlar — şimdi başlar, diğer etkin indirmelerle birlikte çalışır",
-			"labelPlaylist": "Oynatma listesi",
-			"labelBulk": "Toplu",
-			"labelPreset": "Ön ayar",
-			"labelItems": "Öğeler",
-			"itemsValue_one": "{{total}} videodan {{count}} tanesi",
-			"itemsValue_other": "{{total}} videodan {{count}} tanesi",
-			"itemsValueAudio_one": "{{total}} parçadan {{count}} tanesi",
-			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
-			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
-			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi",
-			"profileBreakdownHeading": "Bu gruptaki profiller",
-			"profileBreakdownCount_one": "{{count}} öğe",
-			"profileBreakdownCount_other": "{{count}} öğe",
-			"subtitleEmbedForcesMkv": "Video içindeki altyazılar MKV dosyası gerektirir, bu yüzden bu indirme .mkv olarak kaydedilir."
-		},
-		"profileEditor": {
-			"dialogTitle": "İndirme profili",
-			"dialogDescription": "Hızlı İndirme, Toplu URL ve oynatma listeleri için yeniden kullanılabilir tek bir yapılandırma.",
-			"skipped": "Atlandı",
-			"panel": {
-				"identity": {"title": "Profil kimliği", "description": "Hızlı İndirme, Toplu URL ve profil listelerinde görünen ad ve simge."},
-				"downloadType": {"title": "İndirme türü", "description": "Öncelikli olarak nasıl indirmek istediğinizi seçin."},
-				"advanced": {"title": "Gelişmiş seçenekler", "description": "Profil için bir geçersiz kılma ayarlamadığınız sürece profiller genel hedefi devralır."},
-				"output": {"title": "Çıktı seçenekleri", "enabledCount_one": "{{count}} etkin", "enabledCount_other": "{{count}} etkin"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "Profil adı ve simgesi",
-				"icon": "Profil simgesi",
-				"resolution": "Çözünürlük",
-				"quality": "Kalite",
-				"source": "Kaynak",
-				"subfolderName": "Alt klasör adı",
-				"name": "Profil adı",
-				"subtitleDownloads": "Altyazı indirmeleri",
-				"subtitleDownloadsDescription": "Profiller dil kodları ister; kullanılabilirlik her URL için ayrı belirlenir.",
-				"languages": "Diller",
-				"delivery": "Kaydetme biçimi",
-				"overridePath": "Profil geçersiz kılma yolu",
-				"goal": "Şunun için optimize et",
-				"fileType": "Dosya türü",
-				"nativeAudio": "Yerel ses"
-			},
-			"action": {
-				"chooseIcon": "Profil simgesini seç",
-				"setOverride": "Profil geçersiz kılmasını ayarla",
-				"chooseFolder": "Hedef klasörü seç",
-				"removeLanguage": "{{code}} kaldır",
-				"useLanguageCode": "“{{code}}” dil kodunu kullan",
-				"changeGlobalShort": "Geneli değiştir",
-				"setOverrideShort": "Geçersiz kılmayı ayarla",
-				"useGlobalDefault": "Genel varsayılanı kullan",
-				"reset": "Profili sıfırla",
-				"resetHint": "Yerleşik profil ayarlarını geri yükle",
-				"resetDisabledHint": "Bu profil zaten yerleşik ayarları kullanıyor",
-				"save": "Profili kaydet"
-			},
-			"placeholder": {"folder": "Bu profil için bir klasör seçin"},
-			"destination": {
-				"global": "Genel hedef",
-				"override": "Profil geçersiz kılma",
-				"resolved": "Sonuçlanan hedef",
-				"defaultFolder": "Varsayılan indirme klasörü",
-				"defaultFolderWithSubfolder": "Varsayılan indirme klasörü / {{subfolder}}",
-				"globalActive": "Etkin",
-				"globalInherited": "Devralındı",
-				"overrideSet": "Genel hedefi geçersiz kılar",
-				"overrideChoosing": "Klasör seç",
-				"overrideNone": "Geçersiz kılma yok",
-				"overrideSetNote": "Bu profil, alt klasör eklenmeden önce kendi kök klasörüne kaydeder.",
-				"overrideNoneNote": "Geçersiz kılma ayarlanmadı. Bu profil yukarıdaki genel hedefi kullanır."
-			},
-			"note": {
-				"subtitlesOnly": "Bu profil yalnızca altyazı dosyalarını kuyruğa alır. Video, ses, SponsorBlock ve medya dönüştürme atlanır.",
-				"noSubtitles": "Bu profil için altyazı dosyası veya gömülü altyazı izi istenmeyecek.",
-				"searchLanguages": "Dil adı veya koduna göre ara",
-				"noLanguageMatches": "Eşleşen dil yok",
-				"subtitleLanguagesRequired": "En az bir dil seçin.",
-				"subtitleLanguagesRequiredOrOff": "En az bir dil seçin veya altyazı indirmelerini kapatın.",
-				"autoCaptionsSrt": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek.",
-				"skippedForOutputType": "Bu çıktı türü için atlandı."
-			},
-			"error": {"save": "Profil ayarları kaydedilemedi.", "changeGlobalDestination": "Genel hedef değiştirilemedi.", "reset": "Profil ayarları sıfırlanamadı.", "folderPicker": "Klasör seçici açılamadı. Yolu elle girin."},
-			"mediaMode": {
-				"videoAudio": {"label": "Video + ses", "description": "Normal video dosyaları"},
-				"videoOnly": {"label": "Video, sessiz", "description": "Yalnızca sessiz video"},
-				"audioOnly": {"label": "Yalnızca ses", "description": "Müzik veya podcast"},
-				"subtitlesOnly": {"label": "Yalnızca altyazılar", "description": "Yalnızca altyazı dosyaları"}
-			},
-			"icon": {"controls": "Denetimler", "download": "İndirme", "video": "Video", "captions": "Altyazı", "audio": "Ses", "music": "Müzik", "podcast": "Podcast", "classes": "Dersler", "clip": "Klip", "archive": "Arşiv"},
-			"audioFormat": {"best": "En iyi", "wav": "WAV"},
-			"audioQuality": {"128": "128K'ya kadar", "192": "192K'ya kadar", "320": "320K'ya kadar", "best": "En iyi kalite"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "Önce elle, sonra otomatik", "manualAndAuto": "Elle ve otomatik", "manualOnly": "Yalnızca elle", "autoOnly": "Yalnızca otomatik oluşturulan"},
-			"sponsorBlockHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.", "mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).", "remove": "Sponsor bölümlerini FFmpeg ile videodan keser."},
-			"advanced": "Gelişmiş",
-			"goal": {
-				"bestPicture": {"name": "En iyi görüntü", "tag": "AV1 · VP9", "description": "Aynı boyutta en net olanı. Eski TV’ler, QuickTime ve bazı düzenleyiciler oynatamaz."},
-				"smartTv": {"name": "Akıllı TV", "tag": "MP4 · H.264", "description": "TV’lerde, telefonlarda, WhatsApp’ta, QuickTime’da ve video düzenleyicilerde oynar. YouTube H.264’ü yalnızca 1080p’ye kadar sunar."}
-			},
-			"appSetting": "Uygulama ayarını kullan ({{value}})"
-		},
-		"part": {
-			"switchLabel": "Videonun ne kadarı",
-			"whole": "Tüm video",
-			"wholeTrack": "Tüm parça",
-			"part": "Kısım",
-			"unavailableSubtitles": "Altyazılar her zaman videonun tamamını kapsar.",
-			"unavailableDuration": "Bu video süresini bildirmiyor, bu yüzden yalnızca tamamı indirilebilir.",
-			"rangeLabel": "Videonun bir kısmı",
-			"start": "Başlangıç",
-			"end": "Bitiş",
-			"timeHint": "h:mm:ss, m:ss veya saniye",
-			"length": "{{duration}} içinden {{length}}",
-			"chapters": "Bölümler",
-			"chapterUntitled": "Bölüm {{number}}",
-			"exactCut": {"label": "Tam kesim (yeniden kodlar, daha yavaş)", "hint": "Kapalı: her kesim en yakın anahtar kareye denk gelir; bu, yazdığın zamandan birkaç saniye farklı olabilir."},
-			"calloutTitle": "Videonun yalnızca bir kısmını indirin",
-			"calloutBody": "Video kartında «Kısım»a geçin, bir başlangıç ve bitiş ya da bir bölüm seçin ve yalnızca o aralığı indirin.",
-			"connectionsNote": "Bir kısım ffmpeg ile indirilir, bu yüzden indirme bağlantıların ve hız ayarların ona uygulanmaz.",
-			"urlStart": "Bağlantın {{time}} noktasında başlıyor",
-			"useUrlStart": "Başlangıç olarak kullan",
-			"error": {"startInvalid": "Başlangıcı h:mm:ss, m:ss veya saniye olarak gir.", "endInvalid": "Bitişi h:mm:ss, m:ss veya saniye olarak gir.", "startNotBeforeEnd": "Başlangıç, bitişten önce olmalı.", "endBeyondDuration": "Video {{duration}} noktasında bitiyor."},
-			"downloadBlocked": "Önce kısmın başlangıç ve bitişini düzelt.",
-			"totalEstimate": "Kısım, tahmini",
-			"summary": "Kısım {{start}}–{{end}}",
-			"subtitlesFullLength": "tüm video"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "Yükleniyor…", "chapters_one": "{{count}} bölüm", "chapters_other": "{{count}} bölüm"},
-	"queue": {
-		"header": "İndirmeler",
-		"tabLabel": "İndirmeler",
-		"attentionBadge_one": "{{count}} indirme dikkatini bekliyor",
-		"attentionBadge_other": "{{count}} indirme dikkatini bekliyor",
-		"choice": {
-			"cappedBody_one": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
-			"cappedBody_other": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
-			"reviewBody_one": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir.",
-			"reviewBody_other": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir.",
-			"all": "Tüm videolar",
-			"first": "İlk {{count}}",
-			"review": "Gözden geçir"
-		},
-		"tabTip": "İndirmeler artık İndirmeler sekmesinde — ilerlemeyi izlemek için istediğin zaman aç.",
-		"empty": "Kuyruktaki indirmeler burada görünecek",
-		"filtersLabel": "Kuyruk durumu filtreleri",
-		"filterAll": "Tümü",
-		"selectedActionsLabel": "Seçili öğeler",
-		"globalActionsLabel": "Tüm öğeler",
-		"selectionSummary": "{{selected}} seçili · {{total}} toplam",
-		"clearTitle": "Tamamlanan indirmeleri temizle",
-		"autoRemoveCompleted": {"label": "Bitenleri otomatik temizle", "hint": "Her indirmeyi bittikten birkaç saniye sonra listeden kaldırır. Dosyalar klasörünüzde kalır."},
-		"pauseAllTitle": "Tüm etkin indirmeleri duraklat ve yenilerinin başlamasını durdur",
-		"resumeAllTitle": "Duraklatılan indirmeleri sürdür ve kuyruğun devam etmesine izin ver",
-		"pausedBanner": "Kuyruk duraklatıldı — bekleyen indirmeler, kuyruğu sürdürene kadar başlamaz",
-		"resumeQueueAction": "Kuyruğu sürdür",
-		"cancelAllTitle": "Tüm etkin ve bekleyen indirmeleri iptal et",
-		"table": {
-			"columns": "Sütunlar",
-			"title": "Başlık",
-			"status": "Durum",
-			"progress": "İlerleme",
-			"format": "Biçim",
-			"outputTarget": "Çıktı hedefi",
-			"artifacts": "Çıktılar",
-			"size": "Boyut",
-			"added": "Eklendi",
-			"finished": "Bitti",
-			"notAvailable": "—",
-			"sortBy": "{{label}} ile sırala",
-			"showArtifactsFor": "{{title}} için çıktıları göster",
-			"hideArtifactsFor": "{{title}} için çıktıları gizle",
-			"resetColumns": "Sütunları sıfırla",
-			"resizeColumn": "{{column}} sütununu yeniden boyutlandır",
-			"movableColumn": "taşınabilir sütun",
-			"moveColumnInstructions": "Bir sütunu taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın.",
-			"columnPickedUp": "{{column}} sütunu alındı.",
-			"columnMovedOver": "{{column}} sütunu {{target}} sütununun üzerinde.",
-			"columnDropped": "{{column}} sütunu bırakıldı.",
-			"columnMoveCancelled": "{{column}} sütununu taşıma iptal edildi."
-		},
-		"artifact": {"media": "Medya", "subtitle": "Altyazı", "thumbnail": "Küçük resim", "description": "Açıklama", "companion": "Eşlikçi", "unknown": "Çıktı", "missing": "Eksik"},
-		"item": {
-			"defaultError": "İndirme başarısız oldu",
-			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
-			"qualityLimited": "{{height}}p ile sınırlı",
-			"qualityLimitedSubtitlesFailed": "{{height}}p ile sınırlı · bazı altyazılar indirilemedi",
-			"audioKept": "Ses kaldırılamadı",
-			"audioKeptSubtitlesFailed": "Ses kaldırılamadı · bazı altyazılar indirilemedi",
-			"subtitleLanguagesMissing": "{{languages}} altyazı yok",
-			"pause": "Duraklat",
-			"resume": "Sürdür",
-			"cancel": "İptal",
-			"retry": "Tekrar dene",
-			"setLocation": "Konum ayarla",
-			"setLocationHint": "Konum ayarlamak için bekleyen öğeleri seç.",
-			"pendingOnly": "Yalnızca bekleyenler",
-			"openDestinationFolder": "Hedef klasörü aç",
-			"remove": "Kaldır",
-			"pullNow": "Şimdi çek — kuyruğu atla",
-			"statusProbing": "Ayrıntılar alınıyor",
-			"statusNeedsChoice": "Seçimini bekliyor",
-			"statusPending": "Bekliyor",
-			"statusRunning": "İndiriliyor",
-			"statusHeld": "Bekletildi",
-			"statusPaused": "Duraklatıldı",
-			"statusDone": "Tamamlandı",
-			"statusError": "Hata",
-			"statusCancelled": "İptal edildi"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var.",
-			"homebrew": "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle.",
-			"macosDirect": "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir.",
-			"macosDirectHomebrew": "Arroxy {{version}} kullanılabilir — DMG’yi indir veya Homebrew’a geç.",
-			"portable": "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."
-		},
-		"install": "Yükle ve Yeniden Başlat",
-		"downloading": "İndiriliyor…",
-		"runAndRestart": "Çalıştır ve Yeniden Başlat",
-		"upgrading": "Yükseltiliyor…",
-		"download": "İndir ↗",
-		"downloadDmg": "DMG indir ↗",
-		"dismiss": "Güncelleme bandını kapat",
-		"copy": "Komutu panoya kopyala",
-		"copied": "Komut panoya kopyalandı",
-		"installFailed": "Güncelleme başarısız oldu",
-		"retry": "Tekrar dene"
-	},
-	"releaseNotes": {"title": "Arroxy {{version}} sürümündeki yenilikler", "description": "Yeni bir güncelleme kullanıyorsun. Öne çıkanlar burada.", "fullNotes": "Tam sürüm notları ↗", "continue": "Devam et"},
-	"status": {
-		"preparingBinaries": "İkili dosyalar hazırlanıyor…",
-		"mintingToken": "YouTube jetonu oluşturuluyor…",
-		"remintingToken": "Jeton yeniden oluşturuluyor…",
-		"startingYtdlp": "İndirme motoru başlatılıyor…",
-		"downloadingMedia": "Video ve ses indiriliyor…",
-		"mergingFormats": "Ses ve video birleştiriliyor…",
-		"extractingAudio": "Ses dönüştürülüyor…",
-		"convertingVideo": "Video dönüştürülüyor…",
-		"embeddingMetadata": "Meta veriler gömülüyor…",
-		"movingFiles": "Dosyalar taşınıyor…",
-		"fetchingSubtitles": "Altyazılar alınıyor…",
-		"sleepingBetweenRequests": "Hız sınırlarından kaçınmak için {{seconds}} sn bekleniyor…",
-		"subtitlesFailed": "Video kaydedildi — bazı altyazılar indirilemedi",
-		"qualityLimited": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
-		"qualityLimitedSubtitlesFailed": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
-		"audioKept": "Video sesiyle birlikte kaydedildi — ses kaldırılamadı",
-		"audioKeptSubtitlesFailed": "Video sesiyle birlikte kaydedildi — ses kaldırılamadı ve bazı altyazılar indirilemedi",
-		"subtitleLanguagesMissing": "Bu videoda {{languages}} altyazı yok. Video bunlar olmadan kaydedildi.",
-		"subtitleLanguagesMissingOthersSaved": "Bu videoda {{languages}} altyazı yok. Diğer diller kaydedildi.",
-		"noSubtitles": "{{languages}} altyazı yok",
-		"cancelled": "İndirme iptal edildi",
-		"complete": "İndirme tamamlandı",
-		"usedExtractorFallback": "Gevşetilmiş çıkarıcıyla indirildi — daha güvenilir indirmeler için cookies.txt kur",
-		"ytdlpProcessError": "İndirme motoru hatası: {{error}}",
-		"ytdlpExitCode": "İndirme motoru {{code}} koduyla çıktı",
-		"downloadingBinary": "{{name}} ikili dosyası indiriliyor…",
-		"unknownStartupFailure": "Bilinmeyen indirme başlatma hatası",
-		"diskSpaceInsufficient": "Yeterli disk alanı yok — {{required}} gerekiyor, yalnızca {{free}} kullanılabilir",
-		"outputNotWritable": "{{dir}} konumuna kaydedilemiyor — Arroxy'nin oraya yazma izni yok",
-		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
-		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Keşfet hesabınla oturum açılıyor…",
-		"exploreSignedOut": "Keşfet oturumu kapandı — yeniden oturum aç"
-	},
-	"notifications": {
-		"settingsSaveFailed": "Ayarların kaydedilemedi.",
-		"warmupFailed": "Kurulum tamamlanmadı. Tamamlanana kadar bazı indirmeler başarısız olabilir.",
-		"shellActionFailed": "Bu açılamadı.",
-		"folderSelectFailed": "Klasör seçici açılamadı.",
-		"exploreSignInRetrying_one": "Keşfet ile oturum açıldı — 1 bağlantı yeniden deneniyor",
-		"exploreSignInRetrying_other": "Keşfet ile oturum açıldı — {{count}} bağlantı yeniden deneniyor",
-		"exploreSignOutFailed": "Keşfet'ten çıkış yapılamadı. Tekrar dene.",
-		"playlistFolderRejected": "Bu klasör bu oynatma listesi için kullanılamaz.",
-		"filenameFolderTooDeep": "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin.",
-		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı.",
-		"hotkey": {
-			"queued": "İndirme panodan eklendi",
-			"alreadyQueued": "Zaten kuyrukta — kopya eklenmedi",
-			"invalidClipboard": "Panoda bağlantı yok — önce bir tane kopyalayın",
-			"multipleUrls": "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın",
-			"needsReview": "Bu bağlantı için seçim yapman gerekiyor — Arroxy'de İndirmeler'e bak",
-			"cookiesSetup": "Arroxy'de çerez kurulumunu bitir, sonra yeniden dene",
-			"busy": "Arroxy hâlâ başlıyor — birazdan yeniden dene",
-			"submissionFailed": "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
-		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video zaten kuyrukta — atlandı", "skippedAlreadyQueued_other": "{{count}} video zaten kuyrukta — atlandı"},
-		"quickDownload": {
-			"added": "Eklendi: {{title}}",
-			"alreadyQueued": "Zaten kuyrukta",
-			"failed": "{{title}} hazırlanamadı",
-			"notAdded": "Bu bağlantı eklenemedi — yeniden dene",
-			"chooseHowMany_one": "{{count}}+ video — kaç tane olacağını seç",
-			"chooseHowMany_other": "{{count}}+ video — kaç tane olacağını seç",
-			"review_one": "Bu listede {{count}} video var — seçmek için gözden geçir",
-			"review_other": "Bu listede {{count}} video var — seçmek için gözden geçir",
-			"reviewCapped_one": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
-			"reviewCapped_other": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
-			"view": "Görüntüle"
-		}
+	"donate": {
+		"copied": "Kopyalandı!",
+		"copyAddress": "Adresi kopyala",
+		"description": "Arroxy ücretsiz ve açık kaynaklıdır; reklam ve ücretli plan yoktur. Bağışlar isteğe bağlıdır ve yol haritası üzerinde etki sağlamaz.",
+		"footerLabel": "Bağış yap",
+		"footerTooltip": "Arroxy'yi destekle",
+		"qrAlt": "{{coin}} bağış adresi QR kodu",
+		"title": "Arroxy'yi destekle",
+		"warning": "Kripto ödemeleri geri alınamaz. Yalnızca gösterilen ağ üzerinden gönderin ve adresin tamamını karşılaştırın."
 	},
 	"errors": {
 		"noSubtitlesIn": "Bu videoda {{languages}} altyazı yok.",
 		"ytdlp": {
-			"botBlock": "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta indirme motorunu günceller, bu yüzden düzeltme yayınlandığında çözüm otomatik gelir.",
-			"ipBlock": "IP adresin engellenmiş görünüyor. Daha sonra tekrar dene veya VPN kullan.",
-			"rateLimit": "Site bu bağlantıdan gelen istekleri sınırlıyor.",
 			"ageRestricted": "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez.",
-			"unavailable": "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir.",
+			"botBlock": "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta indirme motorunu günceller, bu yüzden düzeltme yayınlandığında çözüm otomatik gelir.",
+			"chunkTransferFailure": "Sunucu indirmeyi akış ortasında kesmeye devam etti ve Arroxy tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç.",
+			"drmProtected": "Bu video DRM korumalı. Arroxy DRM’i kaldıramaz, bu yüzden dosya indirilemez.",
 			"formatUnavailable": "Bu video artık seçtiğin biçimi sunmuyor. Bağlantıyı tekrar yapıştır ve şu anda sunulan biçimlerden birini seç.",
 			"geoBlocked": "Bu video bölgenizde kullanılamıyor.",
+			"ipBlock": "IP adresin engellenmiş görünüyor. Daha sonra tekrar dene veya VPN kullan.",
+			"loginRequired": "Bu video, oturum açılmış bir hesap gerektiriyor.",
+			"missingDependency": "Arroxy, FFmpeg veya FFprobe’u bulamadı. Kurulumu yeniden çalıştır ya da bir FFmpeg konumu belirle, ardından indirmeyi tekrar dene.",
+			"network": "Ağ hatası. Bağlantını kontrol edip tekrar dene.",
+			"noSubtitles": "Bu videoda istenen dillerde altyazı yok.",
 			"outOfDiskSpace": "Yeterli disk alanı yok. Yer açıp tekrar dene.",
 			"outputNotWritable": "Arroxy indirme klasörüne yazamıyor. Klasör salt okunur olabilir, kilitli bir sürücüde olabilir ya da sisteminin gizlilik ayarları tarafından engelleniyor olabilir. Başka bir klasör seç veya erişime izin ver, sonra tekrar dene.",
-			"unsupportedUrl": "Arroxy bu URL’yi desteklemiyor. Farklı bir siteden bir bağlantı dene.",
-			"noSubtitles": "Bu videoda istenen dillerde altyazı yok.",
-			"chunkTransferFailure": "Sunucu indirmeyi akış ortasında kesmeye devam etti ve Arroxy tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç.",
-			"missingDependency": "Arroxy, FFmpeg veya FFprobe’u bulamadı. Kurulumu yeniden çalıştır ya da bir FFmpeg konumu belirle, ardından indirmeyi tekrar dene.",
-			"postprocessFailure": "İndirme tamamlandı ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene.",
 			"parse": "Siteden gelen yanıt ayrıştırılamadı. Site videoları sunma biçimini değiştirmiş olabilir. Arroxy açılışta indirme motorunu günceller — düzeltme yayınlandıktan birkaç dakika sonra tekrar dene.",
-			"network": "Ağ hatası. Bağlantını kontrol edip tekrar dene.",
-			"drmProtected": "Bu video DRM korumalı. Arroxy DRM’i kaldıramaz, bu yüzden dosya indirilemez.",
-			"loginRequired": "Bu video, oturum açılmış bir hesap gerektiriyor.",
-			"unknown": "İndirme başarısız oldu. Aşağıdaki ham çıktıya bak."
+			"postprocessFailure": "İndirme tamamlandı ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene.",
+			"rateLimit": "Site bu bağlantıdan gelen istekleri sınırlıyor.",
+			"unavailable": "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir.",
+			"unknown": "İndirme başarısız oldu. Aşağıdaki ham çıktıya bak.",
+			"unsupportedUrl": "Arroxy bu URL’yi desteklemiyor. Farklı bir siteden bir bağlantı dene."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "Bağlantını kontrol et, sonra tekrar dene.",
+			"loadTitle": "Bu sayfa yüklenmedi",
+			"openSettings": "Ayarları aç",
+			"proxyBody": "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene.",
+			"proxyTitle": "Keşfet, proxy'n üzerinden bağlanamıyor",
+			"retry": "Tekrar dene"
+		},
+		"linkCallout": {
+			"body": "Sayfadaki herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayarak etkin profilinle indirebilir, başka bir profil seçebilir veya Etkileşimli İndirme'yi açabilirsin.",
+			"title": "İndirmek için bir bağlantıya sağ tıkla"
+		},
+		"linkMenu": {
+			"copyLink": "Bağlantıyı kopyala",
+			"downloadWith": "Profille indir"
+		},
+		"newBadge": "Yeni",
+		"notice": {
+			"body": "YouTube'da veya başka herhangi bir sitede bir video bul ve buradan indir — bağlantı kopyalamadan. Hesap gerektiren videoları indirmek için burada bir sitede oturum aç.",
+			"continue": "Devam et",
+			"riskBody": "YouTube gibi siteler, Arroxy gibi indirme araçlarıyla kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Ana hesabını değil, kaybetmeyi göze alabileceğin bir hesap kullan.",
+			"riskTitle": "İkincil bir hesapla oturum aç",
+			"title": "Web'de doğrudan Arroxy içinde gez"
+		},
+		"nudge": {
+			"browser": "İndirmeler Keşfet oturumunu değil, tarayıcının çerezlerini kullanır.",
+			"file": "İndirmeler Keşfet oturumunu değil, çerez dosyanı kullanır.",
+			"notNow": "Şimdi değil",
+			"off": "Çerezler kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz.",
+			"useExplore": "Keşfet oturumunu kullan"
+		},
+		"settings": {
+			"description": "YouTube'da veya başka herhangi bir sitede Arroxy içinde gez ve hesap gerektiren videolar için oturum aç.",
+			"idleUnload": "Uzaktayken belleği boşalt",
+			"idleUnloadDescription": "Başka bir sekmede 5 dakika geçince YouTube ana sayfasını veya arama sayfasını kapatır. Geri döndüğünde yeniden yüklenir, bu birkaç saniye sürer.",
+			"searchEngine": "Arama motoru",
+			"searchEngineDescription": "Adres çubuğuna yazılan metin bu arama motorunda aranır. Bağlantılar yazıldığı gibi açılır.",
+			"showTab": "Keşfet sekmesini göster",
+			"showTabDescription": "Kapatmak, indirmelerin Keşfet oturumunu kullanmasını da durdurur.",
+			"signOut": "Keşfet'ten çıkış yap",
+			"signOutConfirm": "Çıkış yap",
+			"signOutConfirmBody": "Bu, Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur.",
+			"signOutConfirmTitle": "Keşfet'ten çıkış yapılsın mı?",
+			"signOutDescription": "Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler.",
+			"title": "Keşfet"
+		},
+		"tabLabel": "Keşfet",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir.",
+				"aria": "Reklam engelleyici",
+				"off": "Reklam engelleyici: kapalı — açmak için tıkla",
+				"on": "Reklam engelleyici: açık — kapatmak için tıkla",
+				"starting": "Reklam engelleyici: başlıyor — kapatmak için tıkla",
+				"unavailable": "Reklam engelleyici: kullanılamıyor, filtre listeleri indirilemedi — kapatmak için tıkla"
+			},
+			"addressAria": "Adres",
+			"addressPlaceholder": "{{engine}} ile ara veya herhangi bir siteyi aç (Vimeo, Instagram…)",
+			"aria": "Keşfet tarayıcı denetimleri",
+			"back": "Geri",
+			"compactLayout": "Kompakt düzen",
+			"downloadWithProfile": "İndir · {{profileName}}",
+			"forward": "İleri",
+			"fullLayout": "Tam düzeni göster",
+			"grabUnavailable": "İndirmek için bir video, oynatma listesi veya kanal aç",
+			"home": "YouTube ana sayfası",
+			"interactiveHint": "Etkileşimli İndirme: biçim, altyazı ve daha fazlasını seç…",
+			"refusedHint": "Keşfet bu adresi açamıyor.",
+			"reload": "Yeniden yükle",
+			"searchTooLong": "Bu arama çok uzun.",
+			"zoom": {
+				"hint": "Sayfa yakınlaştırma: {{percent}}%",
+				"in": "Yakınlaştır",
+				"label": "Sayfa yakınlaştırma",
+				"out": "Uzaklaştır",
+				"percent": "Yakınlaştırma yüzdesi",
+				"reset": "Yakınlaştırmayı %100'e sıfırla"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "Otomatik",
+		"autoValue": "Otomatik (.{{ext}})",
+		"description": {
+			"auto": "Dosya türünü seçilen akışlar belirler.",
+			"mkv": "Her kodeği barındırır. Bazı TV’ler ve telefonlar açamaz.",
+			"mp4": "Neredeyse her yerde oynatılır. MP4 içindeki VP9, QuickTime’da görüntü oynatmaz.",
+			"webm": "Tarayıcılar için açık biçim. Yalnızca VP9 veya AV1 ile Opus barındırır."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "MP4 içindeki AV1’i QuickTime’da oynatmak için yeni bir Mac gerekir. H.264 her yerde oynatılır.",
+		"mp4CaveatVp9": "MP4 içindeki VP9, QuickTime’da görüntü oynatmaz. H.264 her yerde oynatılır.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM, Akıllı TV ile sunulmaz: H.264’ü barındıramaz.",
+		"webm": "WebM",
+		"webmBlocked": "WebM, {{codec}} barındıramaz. MKV veya MP4 seçin."
+	},
+	"filenameTemplate": {
+		"description": "İndirilen dosyaların nasıl adlandırılacağını seç. Eklemek için bir simgeye tıkla. İndirmeleri klasörlere ayırmak için / kullan.",
+		"error": {
+			"empty": "Bir dosya adı şablonu girin.",
+			"empty-segment": "Fazladan / işaretini kaldır — her klasörün bir adı olmalı.",
+			"forbidden-char": "Dosya adlarında izin verilmeyen karakterleri kaldır: \\ : * ? \" < > |",
+			"invalid-segment": "Bu klasör adına izin verilmiyor. . ve .. ile CON gibi ayrılmış adlardan kaçın.",
+			"no-unique-token": "Her indirmenin kendi adı olması için dosya adına {title} veya {id} ekle.",
+			"resolution-in-dir": "{resolution} bir klasöre ad olamaz — kalite ancak indirme başlayınca belli olur.",
+			"stray-brace": "Eşleşmeyen { veya } — belirteçleri {title} gibi yazın.",
+			"too-long": "Şablon çok uzun.",
+			"unknown-token": "Bilinmeyen belirteç {{token}}."
+		},
+		"idWarning": "{id} olmadan Arroxy, daha önce indirilmiş oynatma listesi öğelerini algılayamaz ve .m3u oynatma listeleri oluşturamaz.",
+		"label": "Dosya adı şablonu",
+		"m3uDisabled": "Kullanılamıyor çünkü dosya adı şablonun ya {id} içermiyor ya da indirmeleri klasörlere ayırıyor.",
+		"previewPlaylist": "Oynatma listesinde",
+		"previewSingle": "Tek video",
+		"profileOverrideDescription": "Genel şablonu kullanmak için boş bırakın.",
+		"profileOverrideLabel": "Dosya adı şablonu"
+	},
+	"formatLabel": {
+		"audioFallback": "Ses",
+		"audioOnlyDot": "Yalnızca ses · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "Otomatik",
+		"description": "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür.",
+		"hdr": "HDR",
+		"label": "HDR video",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "Dil"
+	},
+	"notifications": {
+		"exploreSignInRetrying_one": "Keşfet ile oturum açıldı — 1 bağlantı yeniden deneniyor",
+		"exploreSignInRetrying_other": "Keşfet ile oturum açıldı — {{count}} bağlantı yeniden deneniyor",
+		"exploreSignOutFailed": "Keşfet'ten çıkış yapılamadı. Tekrar dene.",
+		"filenameFolderTooDeep": "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin.",
+		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı.",
+		"folderSelectFailed": "Klasör seçici açılamadı.",
+		"hotkey": {
+			"alreadyQueued": "Zaten kuyrukta — kopya eklenmedi",
+			"busy": "Arroxy hâlâ başlıyor — birazdan yeniden dene",
+			"cookiesSetup": "Arroxy'de çerez kurulumunu bitir, sonra yeniden dene",
+			"invalidClipboard": "Panoda bağlantı yok — önce bir tane kopyalayın",
+			"multipleUrls": "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın",
+			"needsReview": "Bu bağlantı için seçim yapman gerekiyor — Arroxy'de İndirmeler'e bak",
+			"queued": "İndirme panodan eklendi",
+			"submissionFailed": "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
+		},
+		"playlistFolderRejected": "Bu klasör bu oynatma listesi için kullanılamaz.",
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} video zaten kuyrukta — atlandı",
+			"skippedAlreadyQueued_other": "{{count}} video zaten kuyrukta — atlandı"
+		},
+		"quickDownload": {
+			"added": "Eklendi: {{title}}",
+			"alreadyQueued": "Zaten kuyrukta",
+			"chooseHowMany_one": "{{count}}+ video — kaç tane olacağını seç",
+			"chooseHowMany_other": "{{count}}+ video — kaç tane olacağını seç",
+			"failed": "{{title}} hazırlanamadı",
+			"notAdded": "Bu bağlantı eklenemedi — yeniden dene",
+			"reviewCapped_one": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
+			"reviewCapped_other": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
+			"review_one": "Bu listede {{count}} video var — seçmek için gözden geçir",
+			"review_other": "Bu listede {{count}} video var — seçmek için gözden geçir",
+			"view": "Görüntüle"
+		},
+		"settingsSaveFailed": "Ayarların kaydedilemedi.",
+		"shellActionFailed": "Bu açılamadı.",
+		"warmupFailed": "Kurulum tamamlanmadı. Tamamlanana kadar bazı indirmeler başarısız olabilir."
+	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Ses", "subtitles": "Altyazılar"},
-		"subtitles": {"note": "Her video için yalnızca altyazı dosyaları kaydedilir — video veya ses indirilmez.", "languages": "Diller", "languagesRequired": "Devam etmek için en az bir dil seçin.", "source": "Kaynak", "deliveryHeading": "Kaydetme biçimi", "deliveryLoose": "Doğrudan kayıt klasörüne"},
-		"videoFormat": {"best": "En iyi yerel", "mp4": "Akıllı TV H.264 MP4"},
-		"videoFormatDesc": {"best": "Her öğe için en iyi kullanılabilir kapsayıcı ve kodekler", "mp4": "Mümkün olduğunda MP4 içinde H.264 video + AAC ses tercih et"},
-		"tier": {"144": "144p’ye kadar", "240": "240p’ye kadar", "360": "360p’ye kadar", "480": "480p’ye kadar", "720": "720p’ye kadar", "1080": "1080p’ye kadar", "1440": "1440p’ye kadar", "2160": "4K’ya kadar", "best": "En iyi kalite"},
+		"audioFormat": {
+			"best": "Ses (en iyi)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "Ses ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "Yerel en iyi ses, yeniden kodlama yok",
+			"m4a": "M4A’ya (AAC) dönüştür",
+			"mp3": "MP3’e dönüştür",
+			"opus": "Opus’a dönüştür"
+		},
+		"mp4Cap": "YouTube’da 1080p üzeri H.264 kullanılamaz — otomatik olarak 1080p ile sınırlanır",
+		"subtitles": {
+			"deliveryHeading": "Kaydetme biçimi",
+			"deliveryLoose": "Doğrudan kayıt klasörüne",
+			"languages": "Diller",
+			"languagesRequired": "Devam etmek için en az bir dil seçin.",
+			"note": "Her video için yalnızca altyazı dosyaları kaydedilir — video veya ses indirilmez.",
+			"source": "Kaynak"
+		},
+		"tier": {
+			"144": "144p’ye kadar",
+			"240": "240p’ye kadar",
+			"360": "360p’ye kadar",
+			"480": "480p’ye kadar",
+			"720": "720p’ye kadar",
+			"1080": "1080p’ye kadar",
+			"1440": "1440p’ye kadar",
+			"2160": "4K’ya kadar",
+			"best": "En iyi kalite"
+		},
 		"tierDesc": {
 			"144": "Mümkün olan en küçük dosyalar",
 			"240": "Çok küçük dosyalar, düşük kalite",
@@ -933,164 +311,1397 @@
 			"2160": "2160p ile sınırlı, her öğede daha düşüğe düşebilir",
 			"best": "Her öğe için en yüksek kullanılabilir video + ses"
 		},
-		"audioFormat": {"best": "Ses (en iyi)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Yerel en iyi ses, yeniden kodlama yok", "mp3": "MP3’e dönüştür", "m4a": "M4A’ya (AAC) dönüştür", "opus": "Opus’a dönüştür"},
-		"audioFormatBitrate": "Ses ({{format}} {{kbps}}K)",
-		"mp4Cap": "YouTube’da 1080p üzeri H.264 kullanılamaz — otomatik olarak 1080p ile sınırlanır"
-	},
-	"formatLabel": {"audioFallback": "Ses", "audioOnlyDot": "Yalnızca ses · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boşta", "statusActive_one": "1 indiriliyor · {{percent}}%", "statusActive_other": "{{count}} indiriliyor · {{percent}}%", "downloadFromClipboard": "Panodan indir", "open": "Arroxy’yi aç", "quit": "Arroxy’den çık"}},
-	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} indirme sürüyor", "message_other": "{{count}} indirme sürüyor", "detail": "Daha sonra sürdürmek için duraklat veya ilerlemeyi silmek için iptal et.", "confirm": "İndirmeleri İptal Et ve Çık", "pause": "İndirmeleri Duraklat ve Çık", "keep": "İndirmeye Devam Et"},
-		"closeToTray": {"message": "Kapatırken Arroxy sistem tepsisine gizlensin mi?", "detail": "Arroxy çalışmaya devam eder ve etkin indirmeleri bitirir. Bunu daha sonra Gelişmiş ayarlardan değiştirebilirsin.", "hide": "Tepsiye gizle", "quit": "Çık", "remember": "Bir daha sorma"},
-		"rendererCrashed": {"message": "Arroxy bir sorunla karşılaştı", "detail": "Renderer süreci çöktü ({{reason}}). Tekrar denemek için yeniden yükle.", "reload": "Yeniden yükle", "quit": "Çık"}
-	},
-	"share": {
-		"title": "Arroxy’yi paylaş",
-		"description": "Arroxy ücretsiz ve açık kaynaklıdır. Paylaşmak daha fazla kişinin keşfetmesine yardımcı olur.",
-		"copyLink": "Bağlantıyı kopyala",
-		"copied": "Kopyalandı!",
-		"defaultMessage": "Arroxy — Windows, macOS ve Linux için ücretsiz, açık kaynaklı video indirici. YouTube, Vimeo, Twitch ve 2000+ siteyle çalışır.\n4K · HDR · MP3 · Shorts · Altyazılar · SponsorBlock",
-		"footerTooltip": "Arroxy’yi paylaş",
-		"footerLabel": "Paylaş",
-		"shareAction": "Arroxy’yi paylaş"
-	},
-	"donate": {
-		"title": "Arroxy'yi destekle",
-		"description": "Arroxy ücretsiz ve açık kaynaklıdır; reklam ve ücretli plan yoktur. Bağışlar isteğe bağlıdır ve yol haritası üzerinde etki sağlamaz.",
-		"footerTooltip": "Arroxy'yi destekle",
-		"footerLabel": "Bağış yap",
-		"copyAddress": "Adresi kopyala",
-		"copied": "Kopyalandı!",
-		"qrAlt": "{{coin}} bağış adresi QR kodu",
-		"warning": "Kripto ödemeleri geri alınamaz. Yalnızca gösterilen ağ üzerinden gönderin ve adresin tamamını karşılaştırın."
-	},
-	"filenameTemplate": {
-		"label": "Dosya adı şablonu",
-		"description": "İndirilen dosyaların nasıl adlandırılacağını seç. Eklemek için bir simgeye tıkla. İndirmeleri klasörlere ayırmak için / kullan.",
-		"profileOverrideLabel": "Dosya adı şablonu",
-		"profileOverrideDescription": "Genel şablonu kullanmak için boş bırakın.",
-		"idWarning": "{id} olmadan Arroxy, daha önce indirilmiş oynatma listesi öğelerini algılayamaz ve .m3u oynatma listeleri oluşturamaz.",
-		"m3uDisabled": "Kullanılamıyor çünkü dosya adı şablonun ya {id} içermiyor ya da indirmeleri klasörlere ayırıyor.",
-		"previewSingle": "Tek video",
-		"previewPlaylist": "Oynatma listesinde",
-		"error": {
-			"empty": "Bir dosya adı şablonu girin.",
-			"too-long": "Şablon çok uzun.",
-			"forbidden-char": "Dosya adlarında izin verilmeyen karakterleri kaldır: \\ : * ? \" < > |",
-			"stray-brace": "Eşleşmeyen { veya } — belirteçleri {title} gibi yazın.",
-			"no-unique-token": "Her indirmenin kendi adı olması için dosya adına {title} veya {id} ekle.",
-			"unknown-token": "Bilinmeyen belirteç {{token}}.",
-			"empty-segment": "Fazladan / işaretini kaldır — her klasörün bir adı olmalı.",
-			"invalid-segment": "Bu klasör adına izin verilmiyor. . ve .. ile CON gibi ayrılmış adlardan kaçın.",
-			"resolution-in-dir": "{resolution} bir klasöre ad olamaz — kalite ancak indirme başlayınca belli olur."
+		"type": {
+			"audio": "Ses",
+			"subtitles": "Altyazılar",
+			"video": "Video"
+		},
+		"videoFormat": {
+			"best": "En iyi yerel",
+			"mp4": "Akıllı TV H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "Her öğe için en iyi kullanılabilir kapsayıcı ve kodekler",
+			"mp4": "Mümkün olduğunda MP4 içinde H.264 video + AAC ses tercih et"
 		}
 	},
-	"explore": {
-		"tabLabel": "Keşfet",
-		"newBadge": "Yeni",
-		"notice": {
-			"title": "Web'de doğrudan Arroxy içinde gez",
-			"body": "YouTube'da veya başka herhangi bir sitede bir video bul ve buradan indir — bağlantı kopyalamadan. Hesap gerektiren videoları indirmek için burada bir sitede oturum aç.",
-			"riskTitle": "İkincil bir hesapla oturum aç",
-			"riskBody": "YouTube gibi siteler, Arroxy gibi indirme araçlarıyla kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Ana hesabını değil, kaybetmeyi göze alabileceğin bir hesap kullan.",
-			"continue": "Devam et"
+	"queue": {
+		"artifact": {
+			"companion": "Eşlikçi",
+			"description": "Açıklama",
+			"media": "Medya",
+			"missing": "Eksik",
+			"subtitle": "Altyazı",
+			"thumbnail": "Küçük resim",
+			"unknown": "Çıktı"
 		},
-		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz.", "file": "İndirmeler Keşfet oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Keşfet oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Keşfet oturumunu kullan", "notNow": "Şimdi değil"},
-		"linkCallout": {"title": "İndirmek için bir bağlantıya sağ tıkla", "body": "Sayfadaki herhangi bir video, oynatma listesi veya kanal bağlantısına sağ tıklayarak etkin profilinle indirebilir, başka bir profil seçebilir veya Etkileşimli İndirme'yi açabilirsin."},
-		"linkMenu": {"downloadWith": "Profille indir", "copyLink": "Bağlantıyı kopyala"},
-		"toolbar": {
-			"aria": "Keşfet tarayıcı denetimleri",
-			"back": "Geri",
-			"forward": "İleri",
-			"reload": "Yeniden yükle",
-			"home": "YouTube ana sayfası",
-			"addressAria": "Adres",
-			"addressPlaceholder": "{{engine}} ile ara veya herhangi bir siteyi aç (Vimeo, Instagram…)",
-			"refusedHint": "Keşfet bu adresi açamıyor.",
-			"searchTooLong": "Bu arama çok uzun.",
-			"downloadWithProfile": "İndir · {{profileName}}",
-			"interactiveHint": "Etkileşimli İndirme: biçim, altyazı ve daha fazlasını seç…",
-			"grabUnavailable": "İndirmek için bir video, oynatma listesi veya kanal aç",
-			"compactLayout": "Kompakt düzen",
-			"fullLayout": "Tam düzeni göster",
-			"zoom": {"label": "Sayfa yakınlaştırma", "hint": "Sayfa yakınlaştırma: {{percent}}%", "in": "Yakınlaştır", "out": "Uzaklaştır", "percent": "Yakınlaştırma yüzdesi", "reset": "Yakınlaştırmayı %100'e sıfırla"},
-			"adBlock": {
-				"aria": "Reklam engelleyici",
-				"off": "Reklam engelleyici: kapalı — açmak için tıkla",
-				"starting": "Reklam engelleyici: başlıyor — kapatmak için tıkla",
-				"on": "Reklam engelleyici: açık — kapatmak için tıkla",
-				"unavailable": "Reklam engelleyici: kullanılamıyor, filtre listeleri indirilemedi — kapatmak için tıkla",
-				"accountNote": "YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir."
+		"attentionBadge_one": "{{count}} indirme dikkatini bekliyor",
+		"attentionBadge_other": "{{count}} indirme dikkatini bekliyor",
+		"autoRemoveCompleted": {
+			"hint": "Her indirmeyi bittikten birkaç saniye sonra listeden kaldırır. Dosyalar klasörünüzde kalır.",
+			"label": "Bitenleri otomatik temizle"
+		},
+		"cancelAllTitle": "Tüm etkin ve bekleyen indirmeleri iptal et",
+		"choice": {
+			"all": "Tüm videolar",
+			"cappedBody_one": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
+			"cappedBody_other": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
+			"first": "İlk {{count}}",
+			"review": "Gözden geçir",
+			"reviewBody_one": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir.",
+			"reviewBody_other": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir."
+		},
+		"clearTitle": "Tamamlanan indirmeleri temizle",
+		"empty": "Kuyruktaki indirmeler burada görünecek",
+		"filterAll": "Tümü",
+		"filtersLabel": "Kuyruk durumu filtreleri",
+		"globalActionsLabel": "Tüm öğeler",
+		"header": "İndirmeler",
+		"item": {
+			"audioKept": "Ses kaldırılamadı",
+			"audioKeptSubtitlesFailed": "Ses kaldırılamadı · bazı altyazılar indirilemedi",
+			"cancel": "İptal",
+			"defaultError": "İndirme başarısız oldu",
+			"openDestinationFolder": "Hedef klasörü aç",
+			"pause": "Duraklat",
+			"pendingOnly": "Yalnızca bekleyenler",
+			"pullNow": "Şimdi çek — kuyruğu atla",
+			"qualityLimited": "{{height}}p ile sınırlı",
+			"qualityLimitedSubtitlesFailed": "{{height}}p ile sınırlı · bazı altyazılar indirilemedi",
+			"remove": "Kaldır",
+			"resume": "Sürdür",
+			"retry": "Tekrar dene",
+			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
+			"setLocation": "Konum ayarla",
+			"setLocationHint": "Konum ayarlamak için bekleyen öğeleri seç.",
+			"statusCancelled": "İptal edildi",
+			"statusDone": "Tamamlandı",
+			"statusError": "Hata",
+			"statusHeld": "Bekletildi",
+			"statusNeedsChoice": "Seçimini bekliyor",
+			"statusPaused": "Duraklatıldı",
+			"statusPending": "Bekliyor",
+			"statusProbing": "Ayrıntılar alınıyor",
+			"statusRunning": "İndiriliyor",
+			"subtitleLanguagesMissing": "{{languages}} altyazı yok"
+		},
+		"pauseAllTitle": "Tüm etkin indirmeleri duraklat ve yenilerinin başlamasını durdur",
+		"pausedBanner": "Kuyruk duraklatıldı — bekleyen indirmeler, kuyruğu sürdürene kadar başlamaz",
+		"resumeAllTitle": "Duraklatılan indirmeleri sürdür ve kuyruğun devam etmesine izin ver",
+		"resumeQueueAction": "Kuyruğu sürdür",
+		"selectedActionsLabel": "Seçili öğeler",
+		"selectionSummary": "{{selected}} seçili · {{total}} toplam",
+		"tabLabel": "İndirmeler",
+		"tabTip": "İndirmeler artık İndirmeler sekmesinde — ilerlemeyi izlemek için istediğin zaman aç.",
+		"table": {
+			"added": "Eklendi",
+			"artifacts": "Çıktılar",
+			"columnDropped": "{{column}} sütunu bırakıldı.",
+			"columnMoveCancelled": "{{column}} sütununu taşıma iptal edildi.",
+			"columnMovedOver": "{{column}} sütunu {{target}} sütununun üzerinde.",
+			"columnPickedUp": "{{column}} sütunu alındı.",
+			"columns": "Sütunlar",
+			"finished": "Bitti",
+			"format": "Biçim",
+			"hideArtifactsFor": "{{title}} için çıktıları gizle",
+			"movableColumn": "taşınabilir sütun",
+			"moveColumnInstructions": "Bir sütunu taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın.",
+			"notAvailable": "—",
+			"outputTarget": "Çıktı hedefi",
+			"progress": "İlerleme",
+			"resetColumns": "Sütunları sıfırla",
+			"resizeColumn": "{{column}} sütununu yeniden boyutlandır",
+			"showArtifactsFor": "{{title}} için çıktıları göster",
+			"size": "Boyut",
+			"sortBy": "{{label}} ile sırala",
+			"status": "Durum",
+			"title": "Başlık"
+		}
+	},
+	"releaseNotes": {
+		"continue": "Devam et",
+		"description": "Yeni bir güncelleme kullanıyorsun. Öne çıkanlar burada.",
+		"fullNotes": "Tam sürüm notları ↗",
+		"title": "Arroxy {{version}} sürümündeki yenilikler"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "İptal",
+			"chooseExecutable": "Yürütülebilir dosya seç",
+			"installWithHomebrew": "Homebrew ile yükle",
+			"installWithWinget": "WinGet ile yükle",
+			"openDependencyFolder": "Bağımlılık klasörünü aç",
+			"resetToDefault": "Varsayılana sıfırla",
+			"retrySetup": "Tekrar dene",
+			"viewSetupLog": "Kurulum günlüğünü görüntüle"
+		},
+		"causes": {
+			"badExitCode": {
+				"body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin.",
+				"title": "Bir araç düzgün çalışmıyor"
+			},
+			"blockedOrQuarantined": {
+				"body": "Virüsten koruma yazılımınızda veya SmartScreen'de Arroxy'ye izin verin, ardından tekrar deneyin.",
+				"title": "Virüsten koruma yazılımınız bir aracı engelledi"
+			},
+			"downloadFailed": {
+				"body": "İnternet bağlantınızı kontrol edin, ardından tekrar deneyin.",
+				"title": "Arroxy'nin ihtiyacı olanlar indirilemedi"
+			},
+			"extractFailed": {
+				"body": "Yeniden indirmek için tekrar deneyin.",
+				"title": "Bir indirme bozuk geldi"
+			},
+			"hashFailed": {
+				"body": "Yeniden indirmek için tekrar deneyin.",
+				"title": "Bir indirme sağlama toplamıyla eşleşmedi"
+			},
+			"pairIncomplete": {
+				"body": "Aşağıdan ikisini de seçin veya varsayılana sıfırlayın.",
+				"title": "FFmpeg ve FFprobe birlikte ayarlanmalı"
+			},
+			"permissionDenied": {
+				"body": "Tekrar deneyin. Yine olmazsa aşağıdan güvendiğiniz bir kopya seçin.",
+				"title": "Sisteminiz Arroxy'nin bir aracı çalıştırmasına izin vermiyor"
+			},
+			"spawnFailed": {
+				"body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin.",
+				"title": "Bir araç eksik ya da başlamıyor"
+			},
+			"timeout": {
+				"body": "Bu genellikle ilk çalıştırmadaki bir güvenlik taramasından kaynaklanır. Tekrar deneyin.",
+				"title": "Bir aracın yanıt vermesi çok uzun sürdü"
+			},
+			"unknown": {
+				"body": "Tekrar deneyin veya ayrıntılar için kurulum günlüğünü açın.",
+				"title": "Kurulum sırasında bir şeyler ters gitti"
 			}
 		},
-		"settings": {
-			"title": "Keşfet",
-			"description": "YouTube'da veya başka herhangi bir sitede Arroxy içinde gez ve hesap gerektiren videolar için oturum aç.",
-			"showTab": "Keşfet sekmesini göster",
-			"showTabDescription": "Kapatmak, indirmelerin Keşfet oturumunu kullanmasını da durdurur.",
-			"idleUnload": "Uzaktayken belleği boşalt",
-			"idleUnloadDescription": "Başka bir sekmede 5 dakika geçince YouTube ana sayfasını veya arama sayfasını kapatır. Geri döndüğünde yeniden yüklenir, bu birkaç saniye sürer.",
-			"searchEngine": "Arama motoru",
-			"searchEngineDescription": "Adres çubuğuna yazılan metin bu arama motorunda aranır. Bağlantılar yazıldığı gibi açılır.",
-			"signOut": "Keşfet'ten çıkış yap",
-			"signOutDescription": "Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler.",
-			"signOutConfirmTitle": "Keşfet'ten çıkış yapılsın mı?",
-			"signOutConfirmBody": "Bu, Keşfet'teki oturumlarını ve gezinme verilerini her sitede temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur.",
-			"signOutConfirm": "Çıkış yap"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "Keşfet, proxy'n üzerinden bağlanamıyor", "proxyBody": "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene.", "loadTitle": "Bu sayfa yüklenmedi", "loadBody": "Bağlantını kontrol et, sonra tekrar dene.", "retry": "Tekrar dene", "openSettings": "Ayarları aç"}
-	},
-	"fileType": {
-		"auto": "Otomatik",
-		"autoValue": "Otomatik (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "Dosya türünü seçilen akışlar belirler.", "mp4": "Neredeyse her yerde oynatılır. MP4 içindeki VP9, QuickTime’da görüntü oynatmaz.", "mkv": "Her kodeği barındırır. Bazı TV’ler ve telefonlar açamaz.", "webm": "Tarayıcılar için açık biçim. Yalnızca VP9 veya AV1 ile Opus barındırır."},
-		"webmBlocked": "WebM, {{codec}} barındıramaz. MKV veya MP4 seçin.",
-		"profileMark": "Profil",
-		"smartTvNoWebm": "WebM, Akıllı TV ile sunulmaz: H.264’ü barındıramaz.",
-		"mp4CaveatVp9": "MP4 içindeki VP9, QuickTime’da görüntü oynatmaz. H.264 her yerde oynatılır.",
-		"mp4CaveatAv1": "MP4 içindeki AV1’i QuickTime’da oynatmak için yeni bir Mac gerekir. H.264 her yerde oynatılır."
+		"groups": {
+			"engine": "İndirme motoru",
+			"media": "Medya araçları"
+		},
+		"installing": {
+			"homebrew": "Homebrew ile kuruluyor… Bu birkaç dakika sürebilir.",
+			"winget": "WinGet ile kuruluyor… Bu birkaç dakika sürebilir."
+		},
+		"manual": {
+			"intro": "Arroxy'yi zaten sahip olduğunuz kopyalara yönlendirin veya başka bir yolla kurun.",
+			"linuxHint": "yt-dlp ve ffmpeg'i paket yöneticinizle de kurabilir, ardından Tekrar dene'ye tıklayabilirsiniz.",
+			"toggle": "Elle kur"
+		},
+		"stopped": {
+			"body": "Tekrar deneyin veya aşağıdan Arroxy'yi zaten sahip olduğunuz araçlara yönlendirin.",
+			"title": "Kurulum durduruldu"
+		},
+		"title": "Kurulum yardımına ihtiyaç duyuyor"
 	},
 	"selectionOrder": {
 		"editorTitle": "Bu profil nasıl seçer",
-		"whyTitle": "Profil bunu neden seçti",
-		"whyLabel": "Neden bu?",
 		"rank": {
-			"h264": {"label": "H.264 video", "reason": "her cihazda oynar"},
-			"mp4Streams": {"label": "MP4 akışları", "reason": "MP4 dosyasına hazır"},
-			"resolutionBest": {"label": "En yüksek çözünürlük", "reason": "sınır yok"},
-			"resolution": {"label": "{{tier}}p’ye kadar", "reason": "sınırınız"},
-			"fps": {"label": "En yüksek kare hızı", "reason": "daha akıcı hareket"},
-			"sitePreference": {"label": "Sitenin geri plana atmadığı akışlar", "reason": "hasarlı, filigranlı ve yedek kopyaları atlar"},
-			"original": {"label": "YZ ile büyütülmüş değil, orijinal akışlar", "reason": "büyütülmüş kopya daha yüksektir ama gerçek ayrıntı eklemez"},
-			"source": {"label": "Gelişmiş bit hızlı akışlar önce", "reason": "aynı çözünürlükte daha fazla ayrıntı"},
-			"protocol": {"label": "Doğrudan indirmeler akış kopyalarından önce", "reason": "aynı görüntü, daha hızlı iner"},
-			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
-			"codecVp9First": {"label": "VP9, sonra H.264, sonra AV1", "reason": "bu profilin kodeği"},
-			"codecH264First": {"label": "H.264, sonra VP9, sonra AV1", "reason": "bu profilin kodeği"},
-			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
-			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},
-			"aacFileType": {"label": "AAC ses", "reason": "MP4 oynatıcılara uyar"},
-			"opus": {"label": "Opus ses", "reason": "WebM’e uyar"},
-			"nativeCompatible": {"label": "Stereo ses"},
-			"nativeSurround": {"label": "Varsa surround ses"},
-			"nativeSource": {"settings": "Ayarlar’dan", "profile": "bu profil"},
-			"hdrSdrFirst": {"label": "SDR, HDR’den önce", "reason": "her ekranda doğru görünür", "reasonScreen": "bu ekran HDR göstermiyor"},
-			"hdrFirst": {"label": "HDR, SDR’den önce", "reason": "HDR ekranlarda daha zengin renkler", "reasonScreen": "bu ekran HDR gösteriyor"}
+			"aacFileType": {
+				"label": "AAC ses",
+				"reason": "MP4 oynatıcılara uyar"
+			},
+			"aacSmartTv": {
+				"label": "AAC ses",
+				"reason": "her yerde oynar"
+			},
+			"codec": {
+				"label": "AV1, sonra VP9, sonra H.264",
+				"reason": "aynı boyutta en net"
+			},
+			"codecH264First": {
+				"label": "H.264, sonra VP9, sonra AV1",
+				"reason": "bu profilin kodeği"
+			},
+			"codecVp9First": {
+				"label": "VP9, sonra H.264, sonra AV1",
+				"reason": "bu profilin kodeği"
+			},
+			"fps": {
+				"label": "En yüksek kare hızı",
+				"reason": "daha akıcı hareket"
+			},
+			"h264": {
+				"label": "H.264 video",
+				"reason": "her cihazda oynar"
+			},
+			"hdrFirst": {
+				"label": "HDR, SDR’den önce",
+				"reason": "HDR ekranlarda daha zengin renkler",
+				"reasonScreen": "bu ekran HDR gösteriyor"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR, HDR’den önce",
+				"reason": "her ekranda doğru görünür",
+				"reasonScreen": "bu ekran HDR göstermiyor"
+			},
+			"mp4Streams": {
+				"label": "MP4 akışları",
+				"reason": "MP4 dosyasına hazır"
+			},
+			"nativeCompatible": {
+				"label": "Stereo ses"
+			},
+			"nativeSource": {
+				"profile": "bu profil",
+				"settings": "Ayarlar’dan"
+			},
+			"nativeSurround": {
+				"label": "Varsa surround ses"
+			},
+			"opus": {
+				"label": "Opus ses",
+				"reason": "WebM’e uyar"
+			},
+			"original": {
+				"label": "YZ ile büyütülmüş değil, orijinal akışlar",
+				"reason": "büyütülmüş kopya daha yüksektir ama gerçek ayrıntı eklemez"
+			},
+			"protocol": {
+				"label": "Doğrudan indirmeler akış kopyalarından önce",
+				"reason": "aynı görüntü, daha hızlı iner"
+			},
+			"resolution": {
+				"label": "{{tier}}p’ye kadar",
+				"reason": "sınırınız"
+			},
+			"resolutionBest": {
+				"label": "En yüksek çözünürlük",
+				"reason": "sınır yok"
+			},
+			"sitePreference": {
+				"label": "Sitenin geri plana atmadığı akışlar",
+				"reason": "hasarlı, filigranlı ve yedek kopyaları atlar"
+			},
+			"size": {
+				"label": "Daha büyük dosya",
+				"reason": "aynı ayarlarda daha fazla ayrıntı"
+			},
+			"source": {
+				"label": "Gelişmiş bit hızlı akışlar önce",
+				"reason": "aynı çözünürlükte daha fazla ayrıntı"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
+		"summary": {
+			"fileType": {
+				"auto": "akışlardan dosya türü",
+				"explicit": ".{{ext}} olarak kaydeder"
+			},
+			"goal": {
+				"bestPicture": "en iyi görüntü",
+				"smartTv": "her cihazda oynar"
+			}
+		},
+		"whyLabel": "Neden bu?",
+		"whyTitle": "Profil bunu neden seçti"
 	},
-	"aiUpscaled": {"label": "YZ ile büyütülmüş akışlar", "description": "YouTube bazı eski videoları yapay zekâyla oluşturduğu boyutlarda sunar. Atla, orijinal akışları korur; büyütülmüş bir akışı yine de elle seçebilirsiniz.", "skip": "Atla", "allow": "İzin ver"},
+	"share": {
+		"copied": "Kopyalandı!",
+		"copyLink": "Bağlantıyı kopyala",
+		"defaultMessage": "Arroxy — Windows, macOS ve Linux için ücretsiz, açık kaynaklı video indirici. YouTube, Vimeo, Twitch ve 2000+ siteyle çalışır.\n4K · HDR · MP3 · Shorts · Altyazılar · SponsorBlock",
+		"description": "Arroxy ücretsiz ve açık kaynaklıdır. Paylaşmak daha fazla kişinin keşfetmesine yardımcı olur.",
+		"footerLabel": "Paylaş",
+		"footerTooltip": "Arroxy’yi paylaş",
+		"shareAction": "Arroxy’yi paylaş",
+		"title": "Arroxy’yi paylaş"
+	},
+	"splash": {
+		"cancel": "Sorun mu var? Elle kurun",
+		"greeting": "Selam, tekrar hoş geldin!",
+		"setup": {
+			"bytes": "{{done}} / {{total}}",
+			"left": {
+				"minutes_one": "yaklaşık {{count}} dk kaldı",
+				"minutes_other": "yaklaşık {{count}} dk kaldı",
+				"underMinute": "bir dakikadan az kaldı"
+			},
+			"note": {
+				"engine": "Siteler değiştiğinde indirmelerin çalışmaya devam etmesini sağlar.",
+				"firstRun": "Bu yalnızca bir kez olur. Arroxy bu araçları saklar ve kendisi günceller.",
+				"media": "Bu yalnızca bir kez olur. Arroxy bunları sonraki güncellemeler için saklar."
+			},
+			"stage": {
+				"checking": "Her şeyin çalıştığı kontrol ediliyor",
+				"connecting": "Bağlanılıyor…",
+				"downloadingBoth": "İndirme motoru ve medya araçları indiriliyor",
+				"downloadingEngine": "İndirme motoru indiriliyor",
+				"downloadingMedia": "Medya araçları indiriliyor",
+				"unpacking": "Medya araçları açılıyor"
+			},
+			"title": {
+				"engine": "İndirme motoru güncelleniyor",
+				"firstRun": "İlk kurulum",
+				"media": "Medya araçları güncelleniyor"
+			}
+		},
+		"verifyFirstCheck": "Bu sürümün ilk denetimi — bu yavaş ilerler. Genellikle bir dakika kadar sürer.",
+		"verifying": "{{binary}} denetleniyor…",
+		"warmup": "İndirmeler hazırlanıyor…",
+		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
+	},
+	"status": {
+		"audioKept": "Video sesiyle birlikte kaydedildi — ses kaldırılamadı",
+		"audioKeptSubtitlesFailed": "Video sesiyle birlikte kaydedildi — ses kaldırılamadı ve bazı altyazılar indirilemedi",
+		"cancelled": "İndirme iptal edildi",
+		"complete": "İndirme tamamlandı",
+		"convertingVideo": "Video dönüştürülüyor…",
+		"diskSpaceInsufficient": "Yeterli disk alanı yok — {{required}} gerekiyor, yalnızca {{free}} kullanılabilir",
+		"downloadingBinary": "{{name}} ikili dosyası indiriliyor…",
+		"downloadingMedia": "Video ve ses indiriliyor…",
+		"embeddingMetadata": "Meta veriler gömülüyor…",
+		"exploreSignedOut": "Keşfet oturumu kapandı — yeniden oturum aç",
+		"extractingAudio": "Ses dönüştürülüyor…",
+		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
+		"fetchingSubtitles": "Altyazılar alınıyor…",
+		"mergingFormats": "Ses ve video birleştiriliyor…",
+		"mintingToken": "YouTube jetonu oluşturuluyor…",
+		"movingFiles": "Dosyalar taşınıyor…",
+		"noSubtitles": "{{languages}} altyazı yok",
+		"outputNotWritable": "{{dir}} konumuna kaydedilemiyor — Arroxy'nin oraya yazma izni yok",
+		"preparingBinaries": "İkili dosyalar hazırlanıyor…",
+		"qualityLimited": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
+		"remintingToken": "Jeton yeniden oluşturuluyor…",
+		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Keşfet hesabınla oturum açılıyor…",
+		"sleepingBetweenRequests": "Hız sınırlarından kaçınmak için {{seconds}} sn bekleniyor…",
+		"startingYtdlp": "İndirme motoru başlatılıyor…",
+		"subtitleLanguagesMissing": "Bu videoda {{languages}} altyazı yok. Video bunlar olmadan kaydedildi.",
+		"subtitleLanguagesMissingOthersSaved": "Bu videoda {{languages}} altyazı yok. Diğer diller kaydedildi.",
+		"subtitlesFailed": "Video kaydedildi — bazı altyazılar indirilemedi",
+		"unknownStartupFailure": "Bilinmeyen indirme başlatma hatası",
+		"usedExtractorFallback": "Gevşetilmiş çıkarıcıyla indirildi — daha güvenilir indirmeler için cookies.txt kur",
+		"ytdlpExitCode": "İndirme motoru {{code}} koduyla çıktı",
+		"ytdlpProcessError": "İndirme motoru hatası: {{error}}"
+	},
+	"theme": {
+		"dark": "Koyu mod",
+		"light": "Açık mod",
+		"system": "Sistem varsayılanı"
+	},
+	"titleBar": {
+		"close": "Kapat",
+		"maximize": "Büyüt",
+		"minimize": "Simge durumuna küçült",
+		"restore": "Geri yükle"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "Panodan indir",
+			"open": "Arroxy’yi aç",
+			"quit": "Arroxy’den çık",
+			"statusActive_one": "1 indiriliyor · {{percent}}%",
+			"statusActive_other": "{{count}} indiriliyor · {{percent}}%",
+			"statusIdle": "Boşta"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "Komut panoya kopyalandı",
+		"copy": "Komutu panoya kopyala",
+		"dismiss": "Güncelleme bandını kapat",
+		"download": "İndir ↗",
+		"downloadDmg": "DMG indir ↗",
+		"downloading": "İndiriliyor…",
+		"install": "Yükle ve Yeniden Başlat",
+		"installFailed": "Güncelleme başarısız oldu",
+		"message": {
+			"generic": "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var.",
+			"homebrew": "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle.",
+			"macosDirect": "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir.",
+			"macosDirectHomebrew": "Arroxy {{version}} kullanılabilir — DMG’yi indir veya Homebrew’a geç.",
+			"portable": "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."
+		},
+		"retry": "Tekrar dene",
+		"runAndRestart": "Çalıştır ve Yeniden Başlat",
+		"upgrading": "Yükseltiliyor…"
+	},
+	"videoCard": {
+		"chapters_one": "{{count}} bölüm",
+		"chapters_other": "{{count}} bölüm",
+		"titlePlaceholder": "Yükleniyor…"
+	},
 	"videoCodec": {
-		"label": "Video kodeği",
-		"description": "Aynı yükseklikteki akışlar arasında önce hangi kodeğin alınacağı. Otomatik, yt-dlp'nin kendi sırasını korur; bu sıra en küçük olan AV1'i tercih eder; H.264 eski TV'lerde ve telefonlarda oynatılır.",
-		"smartTv": "Akıllı TV her zaman H.264 alır.",
 		"auto": "Otomatik",
-		"vp9": "Önce VP9",
-		"h264": "Önce H.264"
+		"description": "Aynı yükseklikteki akışlar arasında önce hangi kodeğin alınacağı. Otomatik, yt-dlp'nin kendi sırasını korur; bu sıra en küçük olan AV1'i tercih eder; H.264 eski TV'lerde ve telefonlarda oynatılır.",
+		"h264": "Önce H.264",
+		"label": "Video kodeği",
+		"smartTv": "Akıllı TV her zaman H.264 alır.",
+		"vp9": "Önce VP9"
 	},
-	"hdrPreference": {"label": "HDR video", "description": "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatik"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "Hazır",
+			"description": "Video, oynatma listesi, kanal, arama veya ses URL’leri yapıştır. Arroxy kuyruğa almadan önce yinelenenleri temizler.",
+			"emptyPreview": "Toplu listeyi önizlemek için bir veya daha fazla URL yapıştır.",
+			"ignoredCount": "Yoksayıldı",
+			"needsAtLeastOne": "Devam etmek için en az bir desteklenen URL ekle.",
+			"reject": {
+				"duplicate": "Yinelenen"
+			},
+			"textareaLabel": "URL listesi",
+			"textareaPlaceholder": "https://ornek.com/video-1\nhttps://ornek.com/video-2\nhttps://ornek.com/video-3",
+			"title": "Toplu URL’ler"
+		},
+		"confirm": {
+			"addToQueue": "+ Kuyruk",
+			"addToQueueTooltip": "Kuyruğa ekler — etkin indirme bittiğinde başlar",
+			"audioOnly": "Yalnızca ses",
+			"itemsValueAudio_one": "{{total}} parçadan {{count}} tanesi",
+			"itemsValueAudio_other": "{{total}} parçadan {{count}} tanesi",
+			"itemsValueBulk_one": "{{total}} URL’den {{count}} tanesi",
+			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi",
+			"itemsValue_one": "{{total}} videodan {{count}} tanesi",
+			"itemsValue_other": "{{total}} videodan {{count}} tanesi",
+			"labelAudio": "Ses",
+			"labelBulk": "Toplu",
+			"labelItems": "Öğeler",
+			"labelPlaylist": "Oynatma listesi",
+			"labelPreset": "Ön ayar",
+			"labelSaveTo": "Şuraya kaydet",
+			"labelSize": "Boyut",
+			"labelSubtitles": "Altyazılar",
+			"labelVideo": "Video",
+			"landIn": "Dosyan şuraya düşecek",
+			"landInMultiProfile_one": "Aşağıdaki hedefe inecek",
+			"landInMultiProfile_other": "Aşağıdaki {{count}} hedefe inecek",
+			"nothingToDownload": "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok.",
+			"profileBreakdownCount_one": "{{count}} öğe",
+			"profileBreakdownCount_other": "{{count}} öğe",
+			"profileBreakdownHeading": "Bu gruptaki profiller",
+			"pullIt": "Çek! ↓",
+			"pullItTooltip": "Kuyruğu atlar — şimdi başlar, diğer etkin indirmelerle birlikte çalışır",
+			"readyHeadline": "Çekmeye hazır!",
+			"sizeUnknown": "Bilinmiyor",
+			"subtitleEmbedAudioOnly": "Altyazı gömme yan dosyaya çevrildi — ses parçaları gömülü altyazı akışlarını desteklemez.",
+			"subtitleEmbedForcesMkv": "Video içindeki altyazılar MKV dosyası gerektirir, bu yüzden bu indirme .mkv olarak kaydedilir.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "Küçük resim gömme atlandı — çıktı kapsayıcısı bunu desteklemiyor."
+		},
+		"folder": {
+			"custom": "Özel…",
+			"desktop": "Masaüstü",
+			"documents": "Belgeler",
+			"downloads": "İndirilenler",
+			"heading": "Şuraya kaydet",
+			"home": "Ev",
+			"music": "Müzik",
+			"pictures": "Resimler",
+			"subfolder": {
+				"invalid": "Klasör adında geçersiz karakterler var",
+				"placeholder": "örn. lo-fi kayıtları",
+				"toggle": "Alt klasör içine kaydet"
+			},
+			"videos": "Filmler"
+		},
+		"formats": {
+			"audio": "Ses",
+			"audioLanguage": "Ses dili",
+			"audioLanguageCount_one": "{{count}} dil",
+			"audioLanguageCount_other": "{{count}} dil",
+			"audioOnly": "Yalnızca ses",
+			"bitrateValue": "Bit hızı {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "Çerezler yapılandırılmış ama kapalı. Tam listeyi almak için etkinleştirip tekrar dene ya da ağı değiştirip tekrar dene.",
+				"bodyEnabled": "Çerezlerle bile YouTube bu denetimi sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
+				"bodyExplore": "YouTube bu isteği sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
+				"bodyUnconfigured": "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene.",
+				"enableRetryCta": "Çerezleri etkinleştir ve tekrar dene",
+				"heading": "Denetim sınırlandı",
+				"retryCta": "Tekrar dene"
+			},
+			"convert": {
+				"bitrate": "Bit hızı",
+				"bitrateCopyHint": "Zaten {{target}} olan bir kaynak kendi akışını ve bit hızını korur: yeniden kodlanmaz, kopyalanır.",
+				"copyLabel": "{{target}} {{bitrate}} kb/sn, yeniden kodlama yok",
+				"copyLabelNoBitrate": "{{target}}, yeniden kodlama yok",
+				"copyNote": "{{kbps}} kb/sn, kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
+				"copyNoteNoBitrate": "Kaynaktaki gibi: akış zaten {{target}}, bu yüzden yeniden kodlanmadan kopyalanır",
+				"label": "Dönüştür",
+				"lossyLabel": "{{target}} {{bitrate}} kb/sn",
+				"sourceKbps": "Kaynak {{kbps}} kbps",
+				"wavLabel": "WAV (sıkıştırılmamış)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "Tarayıcı",
+				"currentModeExplore": "Keşfet oturumu",
+				"currentModeFile": "Dosya",
+				"currentModeLabel": "Çerez kaynağı",
+				"dpapi": {
+					"docsLinkLabel": "yt-dlp belgeleri (issue #10927)",
+					"explanation": "Chrome 127 ve daha yenisi çerezleri Windows’ta diğer uygulamaların okuyamayacağı şekilde şifreler. Aşağıdaki geçici çözümlerden birini dene.",
+					"fixFileBody": "Chrome’dan bir tarayıcı uzantısıyla çerezleri dışa aktar, sonra bu uygulamayı Dosya moduna geçirip dışa aktarılan dosyayı seç.",
+					"fixFileLabel": "cookies.txt dışa aktar",
+					"fixFirefoxBody": "Firefox App-Bound Encryption kullanmaz. Çerez ayarlarını aç ve tarayıcı listesinden Firefox’u seç.",
+					"fixFirefoxLabel": "Firefox’a geç",
+					"fixUnsafeBody": "Chrome başlatma kısayoluna --disable-features=LockProfileCookieDatabase ekle. Uyarı: bu, daha önce şifrelenmiş çerezleri geçersiz kılar; tüm sitelerden çıkış yapılır ve yeniden giriş yapman gerekir.",
+					"fixUnsafeLabel": "Chrome’u App-Bound Encryption devre dışı başlat",
+					"heading": "Chrome çerezleri Windows şifrelemesi tarafından engellendi"
+				},
+				"explanationBrowser": "Çerezler doğrudan tarayıcıdan okunur. Tarayıcı şu anda çalışıyorsa çerez veritabanı kilitli olabilir (Chromium ailesi). Tarayıcıda YouTube oturumu da açık olmalıdır. Tarayıcıyı kapatmayı, farklı bir tarayıcıya geçmeyi, Dosya moduna geçmeyi veya çerezleri kapatmayı dene.",
+				"explanationFile": "Çerez dosyan boş, süresi dolmuş veya yanlış biçimde olabilir (Arroxy bir Netscape cookies.txt dosyasına ihtiyaç duyar). Çerezleri yeniden dışa aktarmayı, farklı bir dosya seçmeyi, Tarayıcı moduna geçmeyi veya çerezleri kapatmayı dene.",
+				"exploreOffer": {
+					"body": "Keşfet'te oturum aç, Arroxy yeniden denesin.",
+					"cta": "Keşfet'te oturum aç",
+					"heading": "Bu video bir YouTube hesabı gerektirebilir"
+				},
+				"exploreRefused": {
+					"body": "Arroxy bunu Keşfet üzerinden oturum açmış halde zaten denedi, bu yüzden tekrar oturum açmak işe yaramaz. Sitede sorun olabilir ya da bu hesap içeriği açamıyor olabilir. Daha sonra tekrar dene.",
+					"heading": "Site, Keşfet'teki oturumunla bile bunu reddetti"
+				},
+				"exploreReuse": {
+					"body": "Keşfet'te oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor.",
+					"cta": "Keşfet oturumumu kullan ve yeniden dene",
+					"heading": "Bu video bir YouTube hesabı gerektirebilir"
+				},
+				"exploreSignIn": {
+					"body": "Bu video bir YouTube hesabı gerektiriyorsa Keşfet'te oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır.",
+					"cta": "Keşfet'te oturum aç",
+					"heading": "Bu video bir YouTube hesabı gerektirebilir"
+				},
+				"exploreSignedIn": {
+					"body": "Bu video hesap gerektiriyorsa Arroxy, Keşfet oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir.",
+					"heading": "Keşfet'te oturum açıldı"
+				},
+				"exploreSite": {
+					"heading": "Bu bağlantı {{host}} sitesinde bir hesap gerektirebilir",
+					"offerBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene.",
+					"signInBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır."
+				},
+				"heading": "Neden çerezler olabilir",
+				"needsCookies": {
+					"body": "Arroxy bu videoya kimlik doğrulaması olmadan erişemedi. Gelişmiş ayarlarda çerezleri yapılandır — zaten oturum açtığın bir tarayıcıyı göster veya bir cookies.txt dosyası içe aktar.",
+					"heading": "Bu site oturum açmayı gerektiriyor"
+				},
+				"openSettingsCta": "Çerez ayarlarını aç",
+				"otherCookiesCta": "Bunun yerine bir çerez dosyası veya tarayıcı kullan…"
+			},
+			"drc": {
+				"description": "Yüksek yerleri kısar, alçak yerleri açar; hoparlörler ve gürültülü ortamlar için.",
+				"label": "Ses düzeyini eşitle (DRC)",
+				"tag": "Eşit ses"
+			},
+			"fit": {
+				"mp4Unavailable": "Profiliniz Akıllı TV (H.264). Bu videoda H.264 yok, bu yüzden en yakın akış seçildi.",
+				"noVideo": "Bu bağlantıda video yok, bu yüzden ses seçildi.",
+				"subtitlesMissing": "Profiliniz şu dillerde altyazı istiyor: {{languages}}. Bu videoda bunlar yok.",
+				"tierAbove": "Profiliniz {{wanted}}p istiyor. Bu videoda bu kadar düşük çözünürlük yok, bu yüzden {{picked}}p seçildi.",
+				"tierBelow": "Profiliniz {{wanted}}p istiyor. Bu video en fazla {{picked}}p sunuyor, bu yüzden {{picked}}p seçildi.",
+				"webmUnavailable": "Profiliniz WebM istiyor. Bu videoda seçilen akışlar WebM’in barındıramadığı {{codec}} içeriyor, bu yüzden dosya türü Otomatik."
+			},
+			"footer": {
+				"addToQueue": "Başlatmadan kuyruğa ekle",
+				"download": "İndir",
+				"moreActions": "Diğer indirme seçenekleri",
+				"subtitlesRequired": "En az bir altyazı dili seçin."
+			},
+			"keepAudio": "Olduğu gibi tut",
+			"keepAudioMeta": "Yerleşik ses",
+			"kind": {
+				"audio": "Yalnızca ses",
+				"label": "Ne indirilsin",
+				"subtitles": "Yalnızca altyazılar",
+				"video": "Video + ses",
+				"videoOnly": "Video, sessiz"
+			},
+			"loadingAria": "Biçimler yükleniyor",
+			"loadingHint": "Lütfen denetim bitene kadar bekle — oynatma listeleri ve aramalar biraz sürebilir.",
+			"marker": {
+				"aiDubbed": "YZ dublajı",
+				"aiUpscaled": "YZ ile büyütüldü",
+				"audioDescription": "Sesli betimleme",
+				"damaged": "Hasarlı",
+				"enhancedBitrate": "Gelişmiş bit hızı",
+				"spatialAudio": "Uzamsal ses",
+				"vr": "360° / VR",
+				"watermarked": "Filigranlı"
+			},
+			"noAudio": "Ses yok",
+			"profile": {
+				"calloutBody": "Etkin profilin akışları senin için önceden seçer. Profilleri menüden değiştir ya da bu indirmeden çıkmadan bir profili ayarlamak için kalemi kullan.",
+				"calloutTitle": "Biçimler profilinle başlar",
+				"closestTag": "Profile en yakın",
+				"edit": "Düzenle: {{name}}",
+				"keepEdits": "Değişikliklerimi koru",
+				"menuDescription": "Yalnızca bu indirme için. Varsayılan profiliniz olduğu gibi kalır.",
+				"preselected": "Şuradan önceden seçildi:",
+				"resetAll": "Tümünü sıfırla",
+				"switchBody": "Bu indirme için değiştirdikleriniz: {{areas}}. “{{profile}}” her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
+				"switchTitle": "Profil değiştirilsin mi?",
+				"tag": "Profil",
+				"updatedBody": "Bu indirme için değiştirdikleriniz: {{areas}}. Güncellenen profil her durumda videoyu ve sesi seçer. Diğer değişiklikleriniz korunsun mu, yoksa her şey profile göre sıfırlansın mı?",
+				"updatedTitle": "Güncellenen profil kullanılsın mı?"
+			},
+			"quality": {
+				"high": "Yüksek kalite",
+				"low": "Düşük kalite",
+				"medium": "Orta kalite"
+			},
+			"rateLimit": {
+				"heading": "{{site}} bu bağlantıyı sınırlıyor",
+				"leadDegraded": "Biçim listesi eksik olabilir.",
+				"leadFailed": "{{site}} bu isteği şimdilik geri çevirdi.",
+				"retryCta": "Tekrar dene",
+				"sessionNote": "{{site}} bu sınırı bir saate kadar sürdürebilir.",
+				"tryNowCta": "Şimdi dene",
+				"waitOver": "Bekleme bitti, yeniden deneyebilirsin.",
+				"waitUntil": "Arroxy, sınırın kalkması için {{site}} sitesine yeniden sormadan önce {{time}} saatine kadar bekler."
+			},
+			"resolutionUnknown": "Boyut bilinmiyor",
+			"savesAs": {
+				"label": "Şu olarak kaydedilir",
+				"reset": "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü."
+			},
+			"sizeUnknown": "Boyut bilinmiyor",
+			"skipToConfirm": "Onaya atla",
+			"skipToConfirmTooltip": "Kalan tüm adımlar için kayıtlı tercihlerini kullanır. Bir ayarı değiştirmek için adım adım devam et — seçimin bir sonraki sefer için kaydedilir.",
+			"sniffing": "Senin için en iyi biçimler aranıyor…",
+			"total": "Toplam",
+			"video": "Video",
+			"withAudio": "sesli"
+		},
+		"mixedPrompt": {
+			"body": "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin.",
+			"pickFromPlaylist": "Oynatma listesinden seç",
+			"playlistLimit": "Oynatma listesi denetim sınırı: {{count}} öğe",
+			"playlistTooltip": "Seçiciyi göstermeden önce oynatma listesini, oynatma listesi denetim sınırına kadar yükler.",
+			"quickBody": "Yalnızca bu videoyu indir veya etkin Hızlı İndirme profilinle tüm oynatma listesini kuyruğa al.",
+			"quickLimitDescription": "Arroxy’nin bir oynatma listesini, kanalı veya arama sonucunu kuyruğa almadan önce taradığı en fazla kayıt sayısı.",
+			"quickPlaylistTooltip": "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar.",
+			"quickSingleTooltip": "Bir indirme kuyruğa alır ve bu URL’ye bağlı oynatma listesini yoksayar.",
+			"quickSingleVideo": "Bu videoyu indir",
+			"quickWholePlaylist": "Tüm oynatma listesini indir",
+			"singleTooltip": "Yalnızca bu videoyu yükler. Bu URL’ye bağlı oynatma listesi yoksayılır.",
+			"singleVideo": "Sadece bu",
+			"title": "Bu bağlantıda bir oynatma listesi var"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "Her modern oynatıcıda gezilebilir bölüm işaretleri.",
+				"label": "Bölümleri göm"
+			},
+			"embedMetadata": {
+				"description": "Başlık, sanatçı, açıklama ve yükleme tarihi dosyaya yazılır.",
+				"label": "Meta verileri göm"
+			},
+			"embedThumbnail": {
+				"description": "Dosyanın içinde kapak görseli. WebM video MKV’ye yeniden paketlenir; altyazılar gömülüyse atlanır.",
+				"label": "Küçük resmi göm"
+			},
+			"writeDescription": {
+				"description": "Video açıklamasını indirmenin yanına .description metin dosyası olarak kaydeder.",
+				"label": "Açıklamayı kaydet"
+			},
+			"writeM3u": {
+				"description": "Videoların medya oynatıcında sırayla açılması için yanlarına bir .m3u oynatma listesi kaydet.",
+				"label": ".m3u oynatma listesi dosyası oluştur"
+			},
+			"writeThumbnail": {
+				"description": "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kaydeder.",
+				"label": "Küçük resmi kaydet"
+			}
+		},
+		"part": {
+			"calloutBody": "Video kartında «Kısım»a geçin, bir başlangıç ve bitiş ya da bir bölüm seçin ve yalnızca o aralığı indirin.",
+			"calloutTitle": "Videonun yalnızca bir kısmını indirin",
+			"chapterUntitled": "Bölüm {{number}}",
+			"chapters": "Bölümler",
+			"connectionsNote": "Bir kısım ffmpeg ile indirilir, bu yüzden indirme bağlantıların ve hız ayarların ona uygulanmaz.",
+			"downloadBlocked": "Önce kısmın başlangıç ve bitişini düzelt.",
+			"end": "Bitiş",
+			"error": {
+				"endBeyondDuration": "Video {{duration}} noktasında bitiyor.",
+				"endInvalid": "Bitişi h:mm:ss, m:ss veya saniye olarak gir.",
+				"startInvalid": "Başlangıcı h:mm:ss, m:ss veya saniye olarak gir.",
+				"startNotBeforeEnd": "Başlangıç, bitişten önce olmalı."
+			},
+			"exactCut": {
+				"hint": "Kapalı: her kesim en yakın anahtar kareye denk gelir; bu, yazdığın zamandan birkaç saniye farklı olabilir.",
+				"label": "Tam kesim (yeniden kodlar, daha yavaş)"
+			},
+			"length": "{{duration}} içinden {{length}}",
+			"part": "Kısım",
+			"rangeLabel": "Videonun bir kısmı",
+			"start": "Başlangıç",
+			"subtitlesFullLength": "tüm video",
+			"summary": "Kısım {{start}}–{{end}}",
+			"switchLabel": "Videonun ne kadarı",
+			"timeHint": "h:mm:ss, m:ss veya saniye",
+			"totalEstimate": "Kısım, tahmini",
+			"unavailableDuration": "Bu video süresini bildirmiyor, bu yüzden yalnızca tamamı indirilebilir.",
+			"unavailableSubtitles": "Altyazılar her zaman videonun tamamını kapsar.",
+			"urlStart": "Bağlantın {{time}} noktasında başlıyor",
+			"useUrlStart": "Başlangıç olarak kullan",
+			"whole": "Tüm video",
+			"wholeTrack": "Tüm parça"
+		},
+		"playlist": {
+			"allRemovedDescription": "Devam etmek için onları geri yükleyin.",
+			"allRemovedTitle": "Tüm öğeler kaldırıldı",
+			"alreadyDownloaded": "Zaten indirildi",
+			"bulkHeading": "Toplu URL’ler",
+			"bulkMetadataOptional": "Beklemenize gerek yok — şimdi kuyruğa eklenen dosyalar indirilirken yine de gerçek adlarını alır.",
+			"bulkMetadataResolving": "Video ayrıntıları alınıyor… {{done}}/{{total}}",
+			"bulkRowFailed": "Ayrıntılar kullanılamıyor",
+			"bulkRowResolving": "Ayrıntılar alınıyor",
+			"bulkRowWaiting": "Bekliyor",
+			"durationUnknown": "canlı",
+			"heading": "Oynatma listesi öğeleri",
+			"headingGeneric": "İndirilecek videolar",
+			"itemCountAudio_one": "{{count}} parça",
+			"itemCountAudio_other": "{{count}} parça",
+			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} URL",
+			"itemCount_one": "{{count}} video",
+			"itemCount_other": "{{count}} video",
+			"loadingItems": "Oynatma listesi alınıyor…",
+			"loadingItemsGeneric": "Videolar alınıyor…",
+			"loadingLimitHint": "İlk {{count}} öğeyle sınırlandı",
+			"loadingPagesFound_one": "{{count}} sayfa bulundu",
+			"loadingPagesFound_other": "{{count}} sayfa bulundu",
+			"loadingPhaseItems": "Videolar toplanıyor",
+			"loadingPhasePages": "Kanal sayfaları taranıyor",
+			"multiProfileEntry": "Öğe başına profil ata",
+			"multiProfileEntryTooltip": "Kalite, SponsorBlock, Çıktı ve Kaydet adımlarını atlar — bunun yerine öğe başına bir indirme profili atar",
+			"nestedPlaylistBadge": "Oynatma listesi",
+			"nestedPlaylistHint_one": "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantısını tek başına yapıştırın.",
+			"nestedPlaylistHint_other": "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantılarını teker teker yapıştırın.",
+			"noSelection": "Devam etmek için en az bir video seç",
+			"probeLimitAlertDesc": "İlk {{count}} öğe gösteriliyor. Daha fazlasını görmek için yükleme sınırını artır.",
+			"probeLimitAlertTitle": "Oynatma listesi taraması sınırlandı",
+			"probeLimitAlertTitleGeneric": "Tarama sınırlandı",
+			"rangeApply": "Aralığı uygula",
+			"rangeFrom": "Başlangıç",
+			"rangeTo": "Bitiş",
+			"removeFromListCount_one": "Listeden {{count}} öğe kaldır",
+			"removeFromListCount_other": "Listeden {{count}} öğe kaldır",
+			"removedCount_one": "{{count}} kaldırıldı",
+			"removedCount_other": "{{count}} kaldırıldı",
+			"restore": "Geri yükle",
+			"selectAll": "Tümünü seç",
+			"selectNone": "Hiçbirini seçme",
+			"selectedCount_one": "{{count}} seçildi",
+			"selectedCount_other": "{{count}} seçildi",
+			"sortApi": "Oynatma listesi sırası",
+			"sortFetchingDates": "Yükleme tarihleri alınıyor…",
+			"sortLabel": "Sıralama",
+			"sortUploadAsc": "Önce en eskiler",
+			"sortUploadDesc": "Önce en yeniler",
+			"syncApply": "Eşitlemeyi uygula",
+			"syncChange": "Klasörü değiştir…",
+			"syncFoundDesc": "Bu videolardan {{n}} tanesi zaten {{dir}} içinde. Yalnızca yenileri indirmek için eşitlensin mi?",
+			"syncFoundTitle": "Zaten klasörde",
+			"syncNoneDesc": "{{dir}} içinde bu oynatma listesinden video bulunamadı.",
+			"syncNoneDescGeneric": "{{dir}} içinde bu kaynaktan video bulunamadı.",
+			"syncNoneTitle": "Henüz indirilmiş bir şey yok",
+			"syncScanning": "Klasör kontrol ediliyor…",
+			"thumbnailAlt": "Video küçük resmi"
+		},
+		"playlistPresets": {
+			"heading": "Toplu indirme için kalite seç",
+			"itemCount_one": "{{count}} öğe",
+			"itemCount_other": "{{count}} öğe",
+			"subhead": "Her video seçilen kalite düzeyini bağımsız çözer — karışık oynatma listeleri sorunsuz çalışır."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "Profil ata",
+			"assignTrigger_one": "{{count}} videoya ata",
+			"assignTrigger_other": "{{count}} videoya ata",
+			"columnDuration": "Süre",
+			"columnProfile": "Profil",
+			"editProfile": "{{name}} düzenle",
+			"empty": "Bu filtreyle eşleşen öğe yok",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "Profil filtreleri",
+			"heading": "İndirme profillerini ata",
+			"menuDescription_one": "Bu video için profili seçin.",
+			"menuDescription_other": "Bu {{count}} video için profili seçin.",
+			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "Geneli değiştir",
+				"chooseFolder": "Hedef klasörü seç",
+				"chooseIcon": "Profil simgesini seç",
+				"removeLanguage": "{{code}} kaldır",
+				"reset": "Profili sıfırla",
+				"resetDisabledHint": "Bu profil zaten yerleşik ayarları kullanıyor",
+				"resetHint": "Yerleşik profil ayarlarını geri yükle",
+				"save": "Profili kaydet",
+				"setOverride": "Profil geçersiz kılmasını ayarla",
+				"setOverrideShort": "Geçersiz kılmayı ayarla",
+				"useGlobalDefault": "Genel varsayılanı kullan",
+				"useLanguageCode": "“{{code}}” dil kodunu kullan"
+			},
+			"advanced": "Gelişmiş",
+			"appSetting": "Uygulama ayarını kullan ({{value}})",
+			"audioFormat": {
+				"best": "En iyi",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "128K'ya kadar",
+				"192": "192K'ya kadar",
+				"320": "320K'ya kadar",
+				"best": "En iyi kalite"
+			},
+			"destination": {
+				"defaultFolder": "Varsayılan indirme klasörü",
+				"defaultFolderWithSubfolder": "Varsayılan indirme klasörü / {{subfolder}}",
+				"global": "Genel hedef",
+				"globalActive": "Etkin",
+				"globalInherited": "Devralındı",
+				"override": "Profil geçersiz kılma",
+				"overrideChoosing": "Klasör seç",
+				"overrideNone": "Geçersiz kılma yok",
+				"overrideNoneNote": "Geçersiz kılma ayarlanmadı. Bu profil yukarıdaki genel hedefi kullanır.",
+				"overrideSet": "Genel hedefi geçersiz kılar",
+				"overrideSetNote": "Bu profil, alt klasör eklenmeden önce kendi kök klasörüne kaydeder.",
+				"resolved": "Sonuçlanan hedef"
+			},
+			"dialogDescription": "Hızlı İndirme, Toplu URL ve oynatma listeleri için yeniden kullanılabilir tek bir yapılandırma.",
+			"dialogTitle": "İndirme profili",
+			"error": {
+				"changeGlobalDestination": "Genel hedef değiştirilemedi.",
+				"folderPicker": "Klasör seçici açılamadı. Yolu elle girin.",
+				"reset": "Profil ayarları sıfırlanamadı.",
+				"save": "Profil ayarları kaydedilemedi."
+			},
+			"field": {
+				"delivery": "Kaydetme biçimi",
+				"fileType": "Dosya türü",
+				"goal": "Şunun için optimize et",
+				"icon": "Profil simgesi",
+				"languages": "Diller",
+				"name": "Profil adı",
+				"nameAndIcon": "Profil adı ve simgesi",
+				"nativeAudio": "Yerel ses",
+				"overridePath": "Profil geçersiz kılma yolu",
+				"quality": "Kalite",
+				"resolution": "Çözünürlük",
+				"source": "Kaynak",
+				"subfolderName": "Alt klasör adı",
+				"subtitleDownloads": "Altyazı indirmeleri",
+				"subtitleDownloadsDescription": "Profiller dil kodları ister; kullanılabilirlik her URL için ayrı belirlenir."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "Aynı boyutta en net olanı. Eski TV’ler, QuickTime ve bazı düzenleyiciler oynatamaz.",
+					"name": "En iyi görüntü",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "TV’lerde, telefonlarda, WhatsApp’ta, QuickTime’da ve video düzenleyicilerde oynar. YouTube H.264’ü yalnızca 1080p’ye kadar sunar.",
+					"name": "Akıllı TV",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "Arşiv",
+				"audio": "Ses",
+				"captions": "Altyazı",
+				"classes": "Dersler",
+				"clip": "Klip",
+				"controls": "Denetimler",
+				"download": "İndirme",
+				"music": "Müzik",
+				"podcast": "Podcast",
+				"video": "Video"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "Müzik veya podcast",
+					"label": "Yalnızca ses"
+				},
+				"subtitlesOnly": {
+					"description": "Yalnızca altyazı dosyaları",
+					"label": "Yalnızca altyazılar"
+				},
+				"videoAudio": {
+					"description": "Normal video dosyaları",
+					"label": "Video + ses"
+				},
+				"videoOnly": {
+					"description": "Yalnızca sessiz video",
+					"label": "Video, sessiz"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek.",
+				"noLanguageMatches": "Eşleşen dil yok",
+				"noSubtitles": "Bu profil için altyazı dosyası veya gömülü altyazı izi istenmeyecek.",
+				"searchLanguages": "Dil adı veya koduna göre ara",
+				"skippedForOutputType": "Bu çıktı türü için atlandı.",
+				"subtitleLanguagesRequired": "En az bir dil seçin.",
+				"subtitleLanguagesRequiredOrOff": "En az bir dil seçin veya altyazı indirmelerini kapatın.",
+				"subtitlesOnly": "Bu profil yalnızca altyazı dosyalarını kuyruğa alır. Video, ses, SponsorBlock ve medya dönüştürme atlanır."
+			},
+			"panel": {
+				"advanced": {
+					"description": "Profil için bir geçersiz kılma ayarlamadığınız sürece profiller genel hedefi devralır.",
+					"title": "Gelişmiş seçenekler"
+				},
+				"downloadType": {
+					"description": "Öncelikli olarak nasıl indirmek istediğinizi seçin.",
+					"title": "İndirme türü"
+				},
+				"identity": {
+					"description": "Hızlı İndirme, Toplu URL ve profil listelerinde görünen ad ve simge.",
+					"title": "Profil kimliği"
+				},
+				"output": {
+					"enabledCount_one": "{{count}} etkin",
+					"enabledCount_other": "{{count}} etkin",
+					"title": "Çıktı seçenekleri"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "Bu profil için bir klasör seçin"
+			},
+			"skipped": "Atlandı",
+			"sponsorBlockHint": {
+				"mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).",
+				"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.",
+				"remove": "Sponsor bölümlerini FFmpeg ile videodan keser."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "Yalnızca otomatik oluşturulan",
+				"manualAndAuto": "Elle ve otomatik",
+				"manualFirst": "Önce elle, sonra otomatik",
+				"manualOnly": "Yalnızca elle"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "{{label}} yardımı"
+		},
+		"quickProgress": {
+			"cancel": "Hazırlığı iptal et",
+			"currentFallback": "Geçerli bağlantı",
+			"description": "Arroxy bağlantıyı okuyor ve {{profileName}} profilini uyguluyor.",
+			"failedCount_one": "{{count}} başarısız",
+			"failedCount_other": "{{count}} başarısız",
+			"phase": {
+				"probing": "Ayrıntılar alınıyor",
+				"queueing": "Kuyruğa ekleniyor"
+			},
+			"title": "Hızlı İndirme hazırlanıyor",
+			"waitHint": "Arroxy kuyruğu hazırlarken bunu açık tut."
+		},
+		"review": {
+			"areas": {
+				"extras": "ekstralar",
+				"fileName": "dosya adı",
+				"format": "biçim",
+				"saveTo": "klasör",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "altyazılar"
+			},
+			"callout": {
+				"body": "Altyazılar, SponsorBlock, küçük resim gibi ekstralar, klasör ve dosya adı eskiden ayrı adımlardı. Değiştirmek için bir satıra tıklayın.",
+				"title": "Diğer tüm ayarlar artık bu sayfada"
+			},
+			"changeFormat": "Biçimi değiştir",
+			"changed": "Değişenler ({{profile}} profiline göre): {{areas}}. Yalnızca bu indirme için geçerli.",
+			"changedFrom": "Değişenler ({{profile}} profiline göre):",
+			"fileNameHint": "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir.",
+			"nextTime": {
+				"action": "Profil olarak kaydet",
+				"defaultName": "{{profile}} (düzenlendi)",
+				"title": "Bu indirme düzenlenmiş ayarları kullandı. Bir dahaki sefere de kullanılsın mı?"
+			},
+			"reset": "Değişiklikleri geri al, “{{profile}}” profiline dön",
+			"rows": {
+				"extras": "Ekstralar",
+				"fileName": "Dosya adı",
+				"saveTo": "Şuraya kaydet",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "Altyazılar"
+			},
+			"rowsHeading": "Diğer her şey",
+			"save": {
+				"action": "Profili kaydet",
+				"description": "Bu ayarları bir dahaki sefere seçebileceğiniz bir profil olarak kaydeder. Hızlı İndirme profiliniz aynı kalır.",
+				"failed": "Profil kaydedilemedi.",
+				"nameLabel": "Profil adı",
+				"saved": "“{{name}}” profili olarak kaydedildi",
+				"title": "Profil olarak kaydet"
+			},
+			"saveAsProfile": "Yeni profil olarak kaydet",
+			"update": {
+				"action": "Profili güncelle",
+				"builtinNote": "Bu yerleşik bir profil. Orijinal ayarlarını Profiller sekmesinden geri yükleyebilirsiniz.",
+				"description": "Bundan sonra bu profille yapılan her indirme yeni ayarları kullanır.",
+				"rows": {
+					"format": "Biçim"
+				},
+				"title": "“{{profile}}” güncellensin mi?",
+				"updated": "“{{name}}” profili güncellendi"
+			},
+			"updateProfile": "“{{profile}}” profilini bu değişikliklerle güncelle",
+			"value": {
+				"extrasNone": "Yok",
+				"sponsorBlockOff": "Kapalı",
+				"subtitlesOff": "Kapalı"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "Dolgu",
+				"intro": "Giriş",
+				"music_offtopic": "Konu dışı müzik",
+				"outro": "Çıkış",
+				"preview": "Önizleme",
+				"selfpromo": "Öz tanıtım",
+				"sponsor": "Sponsor"
+			},
+			"categoriesHeading": "Kategoriler",
+			"mode": {
+				"mark": "Bölüm olarak işaretle",
+				"off": "Kapalı",
+				"remove": "Segmentleri kaldır"
+			},
+			"modeHeading": "Sponsor filtreleme",
+			"modeHint": {
+				"mark": "Sponsor segmentlerini bölüm olarak işaretler (yıkıcı değildir).",
+				"off": "SponsorBlock yok — video yüklendiği gibi oynar.",
+				"remove": "FFmpeg kullanarak sponsor segmentlerini videodan keser."
+			}
+		},
+		"steps": {
+			"confirm": "Onayla",
+			"folder": "Kaydet",
+			"formats": "Biçim",
+			"output": "Çıktı",
+			"playlistItems": "Oynatma listesi",
+			"playlistItemsGeneric": "Videolar",
+			"playlistPresets": "Kalite",
+			"playlistProfiles": "Profiller",
+			"review": "Gözden geçir",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "Altyazılar",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek — YouTube videolarında kayan ipucu yinelemeleri temizlenir; ASS dönüştürücümüz bunu henüz aynı şekilde yapamıyor.",
+			"autoBadge": "Otomatik",
+			"clearAll": "Tümünü temizle",
+			"embedNote": "Gömme modu çıktıyı .mkv olarak kaydeder, böylece altyazı parçaları güvenilir şekilde gömülür.",
+			"format": {
+				"heading": "Biçim"
+			},
+			"noLanguages": "Bu video için altyazı yok",
+			"noMatches": "Eşleşen dil yok",
+			"noSelected": "Altyazı seçilmedi",
+			"removeLanguage": "{{name}} kaldır",
+			"saveMode": {
+				"embed": "Videoya göm",
+				"heading": "Kaydetme biçimi",
+				"sidecar": "Videonun yanına",
+				"subfolder": "subtitles/ alt klasörü"
+			},
+			"searchPlaceholder": "Dillerde ara…",
+			"sectionAuto": "Otomatik oluşturulan",
+			"sectionManual": "Manuel"
+		},
+		"tabsNavAria": "İndirme profili gezinmesi",
+		"url": {
+			"advanced": "Gelişmiş",
+			"analytics": {
+				"toggle": "Günlük sinyal gönder",
+				"toggleDescription": "Telemetri yok. Etkin ve yeni kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy'nin yaklaşık ne kadar önce kurulduğunu gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
+			},
+			"autoRemoveCompleted": {
+				"description": "Bir indirmeyi bittikten birkaç saniye sonra İndirmeler listesinden kaldırır. Dosyalar klasörünüzde kalır; başarısız ve iptal edilen indirmeler listede kalır.",
+				"label": "Biten indirmeleri otomatik kaldır"
+			},
+			"autoRetry": {
+				"description": "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez.",
+				"label": "Başarısız indirmeleri yeniden dene",
+				"unit": "kez"
+			},
+			"bulkButton": "Toplu URL’ler",
+			"bulkTooltip": "Birden fazla URL ekle ve kuyruğa al.",
+			"clearAria": "URL’yi temizle",
+			"clipboard": {
+				"autofilledLink": "Bağlantı panodan eklendi",
+				"bulkHint": "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın",
+				"dialog": {
+					"cancelButton": "İptal"
+				},
+				"replacedLink": "Kopyalanan bağlantıyla değiştirildi",
+				"toggle": "Panoyu izle",
+				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
+				"undo": "Geri al"
+			},
+			"closeToTray": {
+				"toggle": "Kapatınca tepsiye gizle",
+				"toggleDescription": "Pencere kapandıktan sonra indirmeleri arka planda sürdür."
+			},
+			"concurrentDownloads": {
+				"description": "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır.",
+				"label": "Aynı anda indirme",
+				"unit": "indirme"
+			},
+			"cookies": {
+				"banWarning": "YouTube gibi siteler, çerezleri Arroxy gibi indirme araçları tarafından kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Mümkünse geçici bir hesap kullan.",
+				"browserHelp": "Çerezleri doğrudan tarayıcıdan okur. Chromium ailesi tarayıcılar için tarayıcı kapalı olmalıdır.",
+				"browserLabel": "Tarayıcı",
+				"browserPlaceholder": "Bir tarayıcı seç…",
+				"choose": "Seç…",
+				"clear": "Temizle",
+				"enabledButNoBrowser": "Çerezleri kullanmak için bir tarayıcı seç",
+				"enabledButNoFile": "Çerezleri kullanmak için bir dosya seç",
+				"exploreDescription": "Keşfet oturumunu yalnızca bir indirme gerektirdiğinde kullanır.",
+				"exploreDisabled": "Keşfet sekmesi kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz. Aşağıdaki Keşfet bölümünden aç.",
+				"extensionChrome": "cookies.txt dosyasını YEREL olarak al (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "Çerez dosyası",
+				"helpLink": "Çerezleri nasıl dışa aktarırım?",
+				"openExplore": "Keşfet'i aç",
+				"placeholder": "Dosya seçilmedi",
+				"recommended": "Önerilen",
+				"risk": "Risk: cookies.txt, o tarayıcıdaki tüm oturum açmış oturumları içerir — gizli tut.",
+				"sourceBrowser": "Tarayıcı",
+				"sourceExplore": "Keşfet oturumu",
+				"sourceFile": "Dosya",
+				"sourceLabel": "Çerez kaynağı",
+				"sourceOff": "Kapalı",
+				"toggleDescription": "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur."
+			},
+			"downloadConnections": {
+				"description": "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır.",
+				"label": "İndirme bağlantıları",
+				"unit": "bağlantı"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "Yalnızca ses",
+					"subtitles": "Altyazılar"
+				},
+				"anySite": {
+					"heading": "2000+ site",
+					"musicPlaylist": "Müzik oynatma listeleri",
+					"video": "Videolar",
+					"videoPlaylist": "Video oynatma listeleri"
+				},
+				"heading": "Arroxy neleri çekebilir",
+				"youtube": {
+					"channel": "Kanallar",
+					"heading": "YouTube",
+					"music": "Music",
+					"playlist": "Oynatma listeleri",
+					"podcast": "Podcast’ler",
+					"short": "Shorts",
+					"video": "Videolar"
+				}
+			},
+			"fetchFormatsTooltip": "Adım adım sihirbaz. Biçimi, kaliteyi ve daha fazlasını seç.",
+			"heading": "URL’den indir",
+			"hotkey": {
+				"changeShortcut": "Kısayolu değiştir",
+				"conflict": "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin.",
+				"hintLabel": "Veya basın",
+				"hintTooltip": "Bir video bağlantısını istediğiniz yerde kopyalayın, bu kısayola basın; Arroxy onu etkin profilinizle sıraya ekler — pencereler arasında geçiş yapmanız gerekmez.",
+				"hintTooltipSettings": "Ayarlar'dan değiştirin veya kapatın.",
+				"recording": "Tuşlara basın…",
+				"reset": "Varsayılana sıfırla",
+				"sectionDescription": "Kopyaladığınız bağlantıyı, Arroxy’yi açmadan herhangi bir uygulamadan indirin.",
+				"sectionTitle": "Genel kısayol",
+				"test": "Test et",
+				"toggle": "Genel kısayolu etkinleştir",
+				"toggleDescription": "Panoda video bağlantısı varken kısayola basın."
+			},
+			"interactiveDownload": "Etkileşimli İndirme",
+			"limitRate": {
+				"activeWarning": "Etkin indirmeler mevcut sınırını korur. Değişiklikleri uygulamak için Duraklat + Sürdür.",
+				"custom": "Özel…",
+				"customPlaceholder": "örn. 750K veya 1.5M",
+				"description": "Medya indirmeleri için bant genişliğini sınırla. Aşağıdaki istek aralığı genelde daha güçlü hız sınırlama aracıdır.",
+				"invalid": "K veya M ile biten bir sayı kullan (örn. 500K, 1.5M)",
+				"label": "İndirme hızı sınırı",
+				"off": "Kapalı"
+			},
+			"mascotBusy": "Arka planda indiriliyor… Aynı anda birkaç işi halledebilirim 😎",
+			"mascotCollection": "Hızlı İndirme, yüklenen öğeleri {{profileName}} profiliyle kuyruğa ekler. Etkileşimli İndirme ise öğeleri önce incelemeni veya seçmeni sağlar.",
+			"mascotIdle": "Bir bağlantı bırak, Arroxy onu çeksin ✨",
+			"mascotMixed": "Bu bağlantı bir koleksiyondaki tek bir videoyu işaret ediyor. Arroxy, inceleme öncesinde hangisini istediğini soracak.",
+			"mascotPreparing": "{{quickDownload}} bu bağlantıyı okuyor ve {{profileName}} profilini uyguluyor.",
+			"mascotQueued": "Kuyruk bu indirmeyi işliyor. O sürerken başka bir bağlantı yapıştırabilirsin.",
+			"mascotSingle": "Hızlı İndirme, {{profileName}} profiliyle tek bir indirme başlatır. Tek seferlik değişiklikler için Etkileşimli İndirme'yi kullan.",
+			"nativeAudioPreference": {
+				"compatible": "Uyumlu stereo",
+				"description": "Profil yerel sesi seçtiğinde stereo veya surround. Profil bunu değiştirebilir.",
+				"label": "Yerel ses tercihi",
+				"surround": "Surround / Dolby tercih et"
+			},
+			"networkPacing": {
+				"description": "Arroxy’nin siteye fazla agresif davranmaması için her indirme sırasında küçük beklemeler ekle. Değerler saniye cinsindendir.",
+				"fields": {
+					"maxSleepInterval": "Medya başlamadan önce duraklama: maks",
+					"sleepInterval": "Medya başlamadan önce duraklama: min",
+					"sleepRequests": "Meta veri kontrolleri arasında bekle",
+					"sleepSubtitles": "Altyazı dosyalarından önce bekle"
+				},
+				"heading": "Nazik indirmeler",
+				"presetLabel": "Arroxy ne kadar temkinli olsun?",
+				"presets": {
+					"balanced": "Dengeli",
+					"careful": "Temkinli",
+					"custom": "Özel",
+					"off": "Kapalı"
+				},
+				"summary": "Beklemeler: kontroller arasında {{requests}}, medya başlamadan önce {{downloads}}, altyazı dosyalarından önce {{subtitles}}.",
+				"tooltip": "Bu beklemeler her indirmenin içinde gerçekleşir. Aynı anda kaç indirmenin çalışacağı ayrı olarak «Aynı anda indirme» altında ayarlanır.",
+				"tooltips": {
+					"balanced": "Varsayılan. İstekler arasında ve medya başlamadan önce kısa duraklamalar ekler.",
+					"careful": "Büyük oynatma listeleri veya sık sınırla karşılaşan ağlar için daha uzun duraklamalar ekler.",
+					"custom": "Gelişmiş indirme başına kontrolleri kendin ayarla.",
+					"off": "Arroxy’nin medya ve altyazılar için tuttuğu küçük temel duraklamaları kullanır."
+				},
+				"units": {
+					"seconds": "sn"
+				}
+			},
+			"placeholder": "https://...",
+			"playlistProbeLimit": {
+				"current": "Geçerli sınır: {{count}} öğe",
+				"custom": "Özel…",
+				"customDialogCancel": "İptal",
+				"customDialogDescription": "{{min}} ile {{max}} arasında bir tam sayı kullan.",
+				"customDialogSave": "Sınırı kaydet",
+				"customDialogTitle": "Özel oynatma listesi tarama sınırı",
+				"customValue": "Özel: {{count}} öğe",
+				"description": "Bir oynatma listesi, kanal veya arama sonucu açıldığında Arroxy’nin yükleyeceği en fazla kayıt sayısı.",
+				"invalid": "1 ile 5000 arasında bir tam sayı kullan",
+				"label": "Taranacak oynatma listesi öğeleri",
+				"option": "{{count}} öğe",
+				"tooltip": "Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
+			},
+			"playlistScope": {
+				"appLimit": "Uygulama sınırını kullan: {{count}}",
+				"apply": "Uygula",
+				"applyError": "Bu oynatma listesi kapsamı uygulanamadı: {{message}}",
+				"applyReload": "Uygula ve yeniden yükle",
+				"cancel": "İptal",
+				"change": "Değiştir",
+				"dialogDescription": "Arroxy’nin bu oynatma listesi için neyi yükleyeceğini seç.",
+				"dialogTitle": "Oynatma listesi kapsamı",
+				"emptyTitle": "Bu kapsamda video yok",
+				"first": "İlk",
+				"invalid": "1 ile {{max}} arasında tam sayı öğe numaraları kullan; başlangıç bitişten büyük olmasın.",
+				"itemsLabel": "Yüklenecek öğeler",
+				"label": "Oynatma listesi kapsamı",
+				"range": "Aralık",
+				"reloading": "Yeniden yükleniyor...",
+				"reset": "Sıfırla",
+				"summaryAppLimit": "İlk {{count}} öğeyi yükle",
+				"summaryFirst": "İlk {{count}} öğeyi yükle",
+				"summaryRange": "{{from}}-{{to}} arası öğeleri yükle",
+				"to": "ile"
+			},
+			"profile": {
+				"activeLabel": "Etkin profil",
+				"badgeBuiltIn": "Yerleşik",
+				"badgeCustom": "Özel",
+				"badgeDisabled": "Gizli",
+				"badgeModified": "Değiştirildi",
+				"changeGlobalDestination": "Genel hedefi değiştir",
+				"destinationDetail": {
+					"global": "Genel hedef kullanılıyor",
+					"globalSubfolder": "Genel hedef + profil alt klasörü kullanılıyor",
+					"override": "Profil geçersiz kılması kullanılıyor",
+					"overrideSubfolder": "Profil geçersiz kılması + profil alt klasörü kullanılıyor"
+				},
+				"destinationFallback": "Hedef",
+				"edit": "Düzenle",
+				"editActive": "Etkin profili düzenle",
+				"enableHint": "Gizli profiller burada kalır, ancak tüm seçicilerden kaybolur.",
+				"enableToggleAria": "Profili seçicilerde göster: {{profileName}}",
+				"lastEnabledHint": "En az bir profili kullanılabilir tut.",
+				"manageProfiles": "Profilleri yönet",
+				"menuDescription": "Hızlı İndirme, Toplu URL’ler ve oynatma listeleri için etkin profili değiştir.",
+				"menuTitle": "Profili değiştir",
+				"movableProfile": "taşınabilir profil",
+				"moveCancelled": "Taşıma iptal edildi. {{profileName}} profili {{count}} içinde {{position}}. sırada kalıyor.",
+				"moveDropped": "{{profileName}} profili {{count}} içinde {{position}}. sıraya bırakıldı.",
+				"moveHandleAria": "{{profileName}} profilini taşı",
+				"moveInstructions": "Bir profili taşımak için Boşluk veya Enter tuşuna basın, ok tuşlarıyla taşıyın, ardından bırakmak için tekrar Boşluk veya Enter tuşuna basın. İptal etmek için Esc tuşuna basın.",
+				"moveOver": "{{profileName}} profili {{count}} içinde {{position}}. sıranın üzerinde.",
+				"movePickedUp": "{{profileName}} profili alındı. {{count}} içinde {{position}}. sırada.",
+				"newProfile": "Yeni profil",
+				"panelDescription": "Yeniden kullanılabilir indirme kurulumları oluştur, seç, düzenle veya kaldır.",
+				"panelTitle": "İndirme Profilleri",
+				"remove": "Kaldır",
+				"reorderHint": "Bir profili taşımak için sürükleyin. Tüm profil seçiciler bu sırayı izler.",
+				"reset": "Sıfırla",
+				"summary": {
+					"aacAudio": "AAC ses",
+					"bestAudio": "en iyi ses",
+					"bestVideo": "en iyi video",
+					"noAudio": "ses yok",
+					"subtitlesOnly": "yalnızca altyazılar",
+					"wavAudio": "WAV ses"
+				},
+				"switchAria": "İndirme profilini değiştir: {{profileName}}",
+				"switchTitle": "İndirme profilini değiştir"
+			},
+			"proxy": {
+				"clear": "Temizle",
+				"description": "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır.",
+				"label": "Proxy URL’si",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "Bu URL’lerin hiçbiri hazırlanamadı",
+			"quickDownload": "Hızlı İndirme",
+			"quickDownloadTooltip": "Şununla indirilecek: {{profileName}}",
+			"quickFailed": "Bu öğe eklenemedi: {{error}}",
+			"quickPartialFailed_one": "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı.",
+			"quickPartialFailed_other": "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı.",
+			"quickPrepareFailed": "Kuyruk öğesi hazırlanamadı",
+			"quickPreparing": "Hazırlanıyor",
+			"quickProbeFailed": "Denetim başarısız oldu",
+			"quickQueued": "Kuyruğa eklendi",
+			"quickSingleOnly": "Başlamak için bir video, oynatma listesi, kanal veya arama URL’si yapıştır.",
+			"settings": {
+				"behaviorDescription": "Profil kaynaklı indirmeleri de etkileyen genel davranış.",
+				"behaviorHeading": "İndirme davranışı",
+				"inputHeading": "Giriş"
+			},
+			"style": {
+				"aurora": {
+					"description": "Hareket eden bir gökyüzünün üzerinde cam paneller. Grafik hızlandırma gerekir.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "Düz, sakin yüzeyler. Her bilgisayarda hafif çalışır.",
+					"label": "Minimal"
+				},
+				"modeDescription": "İki stil de açık ve koyu modda gelir.",
+				"modeLabel": "Stil",
+				"panelDescription": "Arroxy'nin görünümü. Açık ve koyu mod arasında alt bilgi alanından geçiş yapabilirsiniz.",
+				"panelTitle": "Görünüm",
+				"unavailableNotice": "{{style}} grafik hızlandırma gerektirir, ama şu an kullanılamıyor; bu yüzden Arroxy {{fallback}} gösteriyor."
+			},
+			"tabs": {
+				"profiles": "Profiller",
+				"settings": "Ayarlar"
+			}
+		}
+	}
 }

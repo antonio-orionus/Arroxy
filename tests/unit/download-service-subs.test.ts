@@ -118,7 +118,7 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 		expect(artifacts.every(artifact => artifact.sizeBytes === undefined)).toBe(true)
 	})
 
-	it('emits subtitlesFailed and records the job as completed when sidecar subtitle fetch fails', async () => {
+	it('emits subtitlesFailed and records the job as completed when the sidecar subtitle listing fails', async () => {
 		let callIndex = 0
 		vi.mocked(spawnYtDlp).mockImplementation(() => {
 			const exitCode = callIndex === 0 ? 0 : 1
