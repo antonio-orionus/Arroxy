@@ -7,7 +7,7 @@ How the public READMEs are generated, translated, and illustrated. The public si
 | `readme-src/locales/{lang}.mjs` + `readme-src/template.md` | `README.md` + `docs/readme/README.{lang}.md` | `node readme-src/build.mjs` |
 
 - Each locale is its own file under `readme-src/locales/`. `readme-src/strings.mjs` only imports them and exports the ordered `LOCALES` array; edit the per-locale files, not the aggregator.
-- `build.mjs` stamps `Last updated:`; never hand-edit it. A README keeps the date of the last build that changed its content (the build compares its render with the file on disk, ignoring the stamp), so rebuilding an unchanged README is a no-op and a single-locale edit bumps only that locale. The staged-file rule for `readme-src/**` rebuilds and re-stamps the READMEs into the same commit.
+- `build.mjs` fills the date into the localized `last_updated` string (its `{{LAST_UPDATED}}`); never hand-edit it. A README keeps the date of the last build that changed its content (the build compares its render with the file on disk, ignoring the stamp), so rebuilding an unchanged README is a no-op and a single-locale edit bumps only that locale. The staged-file rule for `readme-src/**` rebuilds and re-stamps the READMEs into the same commit.
 - A locale missing a key that `en` has renders the English string. A PR adds new strings to `en.mjs` only; the release sync translates them (ADR 0017), and `--strict` (`bun run check:readme`, part of `check:i18n:complete`) fails on any missing or extra key.
 - `website_url` is each locale's link to the website: its own language page where arroxy.com has one, otherwise `https://arroxy.com/` (English).
 
