@@ -12,7 +12,20 @@ function topCodes(query: string, count = 1): string[] {
 describe('buildSubtitleLanguageOptions', () => {
 	it('labels YouTube codes in the UI language and keeps the native name', () => {
 		const ru = buildSubtitleLanguageOptions('uk').find(option => option.code === 'ru')
-		expect(ru).toMatchObject({code: 'ru', label: 'російська', nativeName: 'русский', englishName: 'Russian'})
+		expect(ru).toMatchObject({code: 'ru', label: 'Російська', nativeName: 'Русский', englishName: 'Russian'})
+	})
+
+	it('capitalizes names CLDR writes in lowercase, in the UI language and natively', () => {
+		const options = buildSubtitleLanguageOptions('ru')
+		expect(options.find(option => option.code === 'en')).toMatchObject({label: 'Английский', nativeName: 'English'})
+		expect(options.find(option => option.code === 'ru')).toMatchObject({label: 'Русский', nativeName: 'Русский'})
+		expect(EN_OPTIONS.find(option => option.code === 'uk')).toMatchObject({label: 'Ukrainian', nativeName: 'Українська'})
+	})
+
+	it('still finds a language by its lowercase name', () => {
+		const options = buildSubtitleLanguageOptions('ru')
+		expect(searchSubtitleLanguages(options, 'английский')[0]?.code).toBe('en')
+		expect(searchSubtitleLanguages(options, 'украинский')[0]?.code).toBe('uk')
 	})
 
 	it('uses YouTube codes, including legacy Hebrew and script-tagged Chinese', () => {

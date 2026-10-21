@@ -1,3 +1,5 @@
+import {languageLabel} from './languageName.js'
+
 // Language codes YouTube offers for uploaded subtitles and auto-translated
 // captions, as reported by `yt-dlp --list-subs`. YouTube keeps legacy codes
 // (`iw` for Hebrew) and script subtags for Chinese, so this is not plain ISO 639-1.
@@ -19,24 +21,13 @@ export interface SubtitleLanguageOption {
 	nativeName: string
 }
 
-function displayName(names: Intl.DisplayNames, code: string): string {
-	try {
-		return names.of(code) ?? code
-	} catch {
-		return code
-	}
-}
-
 export function buildSubtitleLanguageOptions(uiLanguage: string): SubtitleLanguageOption[] {
-	// react-doctor-disable-next-line react-doctor/js-hoist-intl -- built once per UI language; locale is runtime data
-	const uiNames = new Intl.DisplayNames([uiLanguage, 'en'], {type: 'language', fallback: 'code'})
-	// react-doctor-disable-next-line react-doctor/js-hoist-intl -- built once per UI language; locale is runtime data
-	const englishNames = new Intl.DisplayNames(['en'], {type: 'language', fallback: 'code'})
-	const options = YOUTUBE_SUBTITLE_LANGUAGE_CODES.map(code => {
-		// react-doctor-disable-next-line react-doctor/js-hoist-intl -- one formatter per language, in that language
-		const nativeName = displayName(new Intl.DisplayNames([code], {type: 'language', fallback: 'code'}), code)
-		return {code, label: displayName(uiNames, code), englishName: displayName(englishNames, code), nativeName}
-	})
+	const options = YOUTUBE_SUBTITLE_LANGUAGE_CODES.map(code => ({
+		code,
+		label: languageLabel(code, uiLanguage) ?? code,
+		englishName: languageLabel(code, 'en') ?? code,
+		nativeName: languageLabel(code, code) ?? code
+	}))
 	const collator = new Intl.Collator(uiLanguage)
 	return options.sort((a, b) => collator.compare(a.label, b.label))
 }
