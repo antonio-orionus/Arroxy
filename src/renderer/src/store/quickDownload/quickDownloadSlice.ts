@@ -135,7 +135,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId))
 				return
 			}
-			if (answer === 'first' && row.choice.kind !== 'playlist-cap') return
+			if (answer === 'first' && !row.choice.capped) return
 			await choosePlaceholder(itemId, answer, quickDownloadToasts('downloads', get))
 		}
 	}

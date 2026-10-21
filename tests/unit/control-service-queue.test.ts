@@ -14,7 +14,7 @@ import {errorOf, harness, resultOf, UNRESOLVED, type Harness} from '../helpers/c
 
 function row(id: string, status: QueueItemStatus): QueueItem {
 	if (status === 'probing') return makeItem({id, status, job: UNRESOLVED, probeMode: 'video'})
-	if (status === 'needs-choice') return makeItem({id, status, job: UNRESOLVED, probeMode: 'video', choice: {kind: 'playlist-cap', loaded: 3}})
+	if (status === 'needs-choice') return makeItem({id, status, job: UNRESOLVED, probeMode: 'video', choice: {kind: 'list-size', loaded: 3, capped: true}})
 	if (status === 'error') return makeItem({id, status, error: {kind: 'network', raw: 'x'}})
 	return makeItem({id, status})
 }

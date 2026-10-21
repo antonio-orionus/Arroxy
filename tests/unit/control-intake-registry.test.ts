@@ -36,7 +36,7 @@ function origin(intakeId: string, clientId = 'client-1'): IntakeOrigin {
 }
 
 function placeholderRow(id: string, from: IntakeOrigin, status: 'probing' | 'needs-choice' | 'error' = 'probing'): QueueItem {
-	return makeItem({id, status, url: `https://youtube.com/watch?v=${id}`, job: UNRESOLVED, probeMode: 'video', origin: from, ...(status === 'needs-choice' ? {choice: {kind: 'playlist-cap', loaded: 2}} : {}), ...(status === 'error' ? {error: {kind: 'network', raw: 'x'}} : {})})
+	return makeItem({id, status, url: `https://youtube.com/watch?v=${id}`, job: UNRESOLVED, probeMode: 'video', origin: from, ...(status === 'needs-choice' ? {choice: {kind: 'list-size', loaded: 2, capped: true}} : {}), ...(status === 'error' ? {error: {kind: 'network', raw: 'x'}} : {})})
 }
 
 function harness(): Harness {
@@ -106,7 +106,7 @@ describe('IntakeRegistry', () => {
 		expect(h.registry.probingCapReached('client-1')).toBe(true)
 		expect(h.registry.probingCapReached('client-2')).toBe(false)
 		// An intake waiting for a choice no longer probes.
-		h.outcome('i1', {kind: 'needs-choice', itemId: 'p1', choice: {kind: 'playlist-cap', loaded: 100}, capped: true})
+		h.outcome('i1', {kind: 'needs-choice', itemId: 'p1', choice: {kind: 'list-size', loaded: 100, capped: true}})
 		expect(h.registry.probingCapReached('client-1')).toBe(false)
 	})
 
@@ -174,16 +174,14 @@ describe('IntakeRegistry', () => {
 			expect(state(h, 'i1')).toEqual({state: 'probeFailed', ytdlpKind: null, retryable: false})
 		})
 
-		it('a load limit or a playlist review needs the client to choose', () => {
+		it('a list past the load limit or one to review needs the client to choose', () => {
 			h.place('p1', 'i1')
 			h.place('p2', 'i2')
-			h.place('p3', 'i3')
-			h.outcome('i1', {kind: 'needs-choice', itemId: 'p1', choice: {kind: 'playlist-cap', loaded: 100}, capped: true})
-			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'playlist-review', count: 7}, capped: false})
-			h.outcome('i3', {kind: 'needs-choice', itemId: 'p3', choice: {kind: 'playlist-review', count: 100}, capped: true})
+			h.outcome('i1', {kind: 'needs-choice', itemId: 'p1', choice: {kind: 'list-size', loaded: 100, capped: true}})
+			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'list-size', loaded: 7, capped: false}})
+			// Past the load limit the list's length is unknown.
 			expect(state(h, 'i1')).toEqual({state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: 100})
 			expect(state(h, 'i2')).toEqual({state: 'needsYourChoice', kind: 'playlistReview', total: 7, offered: 7})
-			expect(state(h, 'i3')).toEqual({state: 'needsYourChoice', kind: 'playlistReview', total: null, offered: 100})
 		})
 
 		it('ignores outcomes of intakes it does not follow', () => {
@@ -196,7 +194,7 @@ describe('IntakeRegistry', () => {
 		it('a placeholder cancelled or removed before its intake ended cancels the intake', () => {
 			h.place('p1', 'i1')
 			h.place('p2', 'i2')
-			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'playlist-cap', loaded: 100}, capped: true})
+			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'list-size', loaded: 100, capped: true}})
 			h.registry.hearRemoved('p1', 'cancelled')
 			h.registry.hearRemoved('p2', 'removed')
 			expect(state(h, 'i1')).toEqual({state: 'cancelled'})
@@ -253,7 +251,7 @@ describe('IntakeRegistry', () => {
 			h.place('p1', 'i1')
 			h.place('p2', 'i2')
 			h.outcome('i1', {kind: 'failed', itemId: 'p1', title: 't', probeError: YTDLP_RATE_LIMIT})
-			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'playlist-cap', loaded: 100}, capped: true})
+			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'list-size', loaded: 100, capped: true}})
 			h.registry.hearRows([placeholderRow('p1', origin('i1')), placeholderRow('p2', origin('i2'))])
 			expect(state(h, 'i1')).toEqual({state: 'probing'})
 			expect(state(h, 'i2')).toEqual({state: 'probing'})
@@ -403,7 +401,7 @@ describe('IntakeRegistry', () => {
 		it('keeps an intake probing or waiting for a choice for as long as its placeholder lives', () => {
 			h.place('p1', 'i1')
 			h.place('p2', 'i2')
-			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'playlist-cap', loaded: 100}, capped: true})
+			h.outcome('i2', {kind: 'needs-choice', itemId: 'p2', choice: {kind: 'list-size', loaded: 100, capped: true}})
 			h.clock.now += INTAKE_RETENTION_MS * 10
 			expect(state(h, 'i1')).toEqual({state: 'probing'})
 			expect(state(h, 'i2')).toMatchObject({state: 'needsYourChoice'})

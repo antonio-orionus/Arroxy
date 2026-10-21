@@ -86,7 +86,7 @@ describe('queue actions on probing items', () => {
 
 // A placeholder whose probe found something the user must decide (P2-R38).
 describe('needs-choice queue-item contract', () => {
-	const CAP_CHOICE = {kind: 'playlist-cap', loaded: 100} as const
+	const CAP_CHOICE = {kind: 'list-size', loaded: 100, capped: true} as const
 
 	function choiceItem(overrides: Partial<QueueItem> = {}): QueueItem {
 		return makeItem({id: 'c1', status: 'needs-choice', job: UNRESOLVED, probeMode: 'video', choice: CAP_CHOICE, ...overrides})
@@ -94,7 +94,7 @@ describe('needs-choice queue-item contract', () => {
 
 	it('schema accepts a needs-choice row with an unresolved job and its choice', () => {
 		expect(queueItemSchema.safeParse(choiceItem()).success).toBe(true)
-		expect(queueItemSchema.safeParse(choiceItem({choice: {kind: 'playlist-review', count: 12}})).success).toBe(true)
+		expect(queueItemSchema.safeParse(choiceItem({choice: {kind: 'list-size', loaded: 12, capped: false}})).success).toBe(true)
 	})
 
 	it('schema rejects a needs-choice row without a choice or with a real job', () => {

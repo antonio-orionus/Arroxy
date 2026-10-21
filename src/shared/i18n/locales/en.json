@@ -252,14 +252,12 @@
 		"quickDownload": {
 			"added": "Added: {{title}}",
 			"alreadyQueued": "Already in the queue",
+			"chooseFromList_one": "{{count}} video in this list — choose what to download",
+			"chooseFromList_other": "{{count}} videos in this list — choose what to download",
 			"chooseHowMany_one": "{{count}}+ video — choose how many",
 			"chooseHowMany_other": "{{count}}+ videos — choose how many",
 			"failed": "Couldn't prepare {{title}}",
 			"notAdded": "Couldn't add that link — try again",
-			"reviewCapped_one": "{{count}}+ video in this list — review to pick",
-			"reviewCapped_other": "{{count}}+ videos in this list — review to pick",
-			"review_one": "{{count}} video in this list — review to pick",
-			"review_other": "{{count}} videos in this list — review to pick",
 			"view": "View"
 		},
 		"settingsSaveFailed": "Could not save your settings.",
@@ -348,8 +346,8 @@
 			"cappedBody_other": "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review.",
 			"first": "First {{count}}",
 			"review": "Review",
-			"reviewBody_one": "This link is a list of {{count}} video. Review it to pick what to download.",
-			"reviewBody_other": "This link is a list of {{count}} videos. Review it to pick what to download."
+			"uncappedBody_one": "This link is a list of {{count}} video. Download it, or pick in a review.",
+			"uncappedBody_other": "This link is a list of {{count}} videos. Download them all, or pick in a review."
 		},
 		"clearTitle": "Clear completed downloads",
 		"empty": "Queued downloads will appear here",

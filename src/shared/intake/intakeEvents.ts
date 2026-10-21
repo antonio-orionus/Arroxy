@@ -17,7 +17,7 @@ export type QuickDownloadEvent =
 	// `overRowLimit`: the rows were refused as more than the caller may add
 	// from one link, which the same link would make again.
 	| {kind: 'failed'; itemId: string; title: string; probeError: ProbeError | null; overRowLimit?: true}
-	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice; capped: boolean}
+	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice}
 
 // Where a link landed the moment it was taken in, before its probe answers.
 export type IntakePlacement = Extract<QuickDownloadEvent, {kind: 'added' | 'already-queued' | 'not-added'}>

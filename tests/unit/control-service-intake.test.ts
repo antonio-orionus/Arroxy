@@ -196,30 +196,30 @@ describe('ControlService intake answers', () => {
 		const row = h.rows.find(candidate => candidate.id === added.placeholderId)
 		if (!row) throw new Error('no placeholder')
 		h.put({...row, status: 'needs-choice', choice})
-		h.outcome(added.intakeId, {kind: 'needs-choice', itemId: added.placeholderId, choice, capped: true})
+		h.outcome(added.intakeId, {kind: 'needs-choice', itemId: added.placeholderId, choice})
 		return added
 	}
 
 	it('takes every video of a playlist over the load limit', async () => {
-		const {intakeId, placeholderId} = await needingChoice({kind: 'playlist-cap', loaded: 100})
+		const {intakeId, placeholderId} = await needingChoice({kind: 'list-size', loaded: 100, capped: true})
 		resultOf('intake.choose', await h.send('intake.choose', {intakeId, take: 'all'}))
 		expect(h.intake.choose).toHaveBeenCalledWith(expect.objectContaining({itemId: placeholderId, take: 'all', origin: 'localClient'}))
 	})
 
 	it('takes the first videos when the count is what was offered', async () => {
-		const {intakeId, placeholderId} = await needingChoice({kind: 'playlist-cap', loaded: 100})
+		const {intakeId, placeholderId} = await needingChoice({kind: 'list-size', loaded: 100, capped: true})
 		resultOf('intake.choose', await h.send('intake.choose', {intakeId, take: 'first', count: 100}))
 		expect(h.intake.choose).toHaveBeenCalledWith(expect.objectContaining({itemId: placeholderId, take: 'first'}))
 	})
 
 	it('answers invalid_request for any other count', async () => {
-		const {intakeId} = await needingChoice({kind: 'playlist-cap', loaded: 100})
+		const {intakeId} = await needingChoice({kind: 'list-size', loaded: 100, capped: true})
 		expect(errorOf(await h.send('intake.choose', {intakeId, take: 'first', count: 10})).code).toBe('invalid_request')
 		expect(h.intake.choose).not.toHaveBeenCalled()
 	})
 
 	it('answers desktop_required for some videos of a playlist to review', async () => {
-		const {intakeId} = await needingChoice({kind: 'playlist-review', count: 12})
+		const {intakeId} = await needingChoice({kind: 'list-size', loaded: 12, capped: false})
 		expect(errorOf(await h.send('intake.choose', {intakeId, take: 'first', count: 12})).code).toBe('desktop_required')
 		resultOf('intake.choose', await h.send('intake.choose', {intakeId, take: 'all'}))
 	})
@@ -231,7 +231,7 @@ describe('ControlService intake answers', () => {
 	})
 
 	it("answers intake's refusal through the error table", async () => {
-		const {intakeId} = await needingChoice({kind: 'playlist-cap', loaded: 100})
+		const {intakeId} = await needingChoice({kind: 'list-size', loaded: 100, capped: true})
 		h.intake.choose.mockReturnValueOnce(fail(createAppError('validation', 'queue item row-1 is not waiting for a choice')))
 		expect(errorOf(await h.send('intake.choose', {intakeId, take: 'all'})).code).toBe('invalid_state')
 	})
@@ -264,7 +264,7 @@ describe('ControlService intake answers', () => {
 	})
 
 	it('cancels an intake waiting for a choice', async () => {
-		const {intakeId} = await needingChoice({kind: 'playlist-cap', loaded: 100})
+		const {intakeId} = await needingChoice({kind: 'list-size', loaded: 100, capped: true})
 		expect(resultOf('intake.cancel', await h.send('intake.cancel', {intakeId})).intake.state).toEqual({state: 'cancelled'})
 	})
 

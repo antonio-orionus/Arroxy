@@ -77,28 +77,29 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 	)
 }
 
+// The size question's body, by whether the list went past the load limit.
+const CHOICE_BODY = {capped: 'queue.choice.cappedBody', uncapped: 'queue.choice.uncappedBody'} as const satisfies Record<'capped' | 'uncapped', string>
+
+// All and Review always; First N only when the list went past the load limit.
 function ChoiceAnswers({item}: {item: QueueItem}): ReactNode {
 	const {t} = useTranslation()
 	const choose = useAppStore(state => state.chooseQuickDownloadRow)
 	const choice = item.status === QUEUE_STATUS.needsChoice ? item.choice : undefined
 	if (!choice) return null
-	const capped = choice.kind === 'playlist-cap'
-	const count = capped ? choice.loaded : choice.count
+	const count = choice.loaded
 	return (
 		<Alert variant="info" size="sm" data-testid="queue-choice">
 			<ListChecks aria-hidden />
 			<AlertDescription className="flex flex-col gap-2">
-				<span>{capped ? t('queue.choice.cappedBody', {count}) : t('queue.choice.reviewBody', {count})}</span>
+				<span>{t(CHOICE_BODY[choice.capped ? 'capped' : 'uncapped'], {count})}</span>
 				<div className="flex flex-wrap gap-2">
-					{capped ? (
-						<>
-							<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'all')} data-testid="queue-choice-all">
-								{t('queue.choice.all')}
-							</Button>
-							<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'first')} data-testid="queue-choice-first">
-								{t('queue.choice.first', {count})}
-							</Button>
-						</>
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'all')} data-testid="queue-choice-all">
+						{t('queue.choice.all')}
+					</Button>
+					{choice.capped ? (
+						<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'first')} data-testid="queue-choice-first">
+							{t('queue.choice.first', {count})}
+						</Button>
 					) : null}
 					<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'review')} data-testid="queue-choice-review">
 						{t('queue.choice.review')}

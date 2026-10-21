@@ -603,6 +603,12 @@ export function fixtureOverlapPlaylistUrl(): string {
 	return `https://www.youtube.com/playlist?list=${FIXTURE_OVERLAP_PLAYLIST_ID}`
 }
 
+// The fixture playlist on a site other than YouTube: its link does not say it
+// is a list, so Arroxy learns that only from the probe.
+export function fixtureOtherSiteListUrl(): string {
+	return `https://media.arroxy-fixture.test/lists/${FIXTURE_PLAYLIST_ID}`
+}
+
 async function canRunYtDlp(candidate: string): Promise<boolean> {
 	try {
 		const result = await runProcess(candidate, ['--version'], {timeoutMs: 20_000})

@@ -87,7 +87,7 @@ describe('DownloadProfilesHome downloads tab', () => {
 					makeItem({id: 'pending', status: 'pending'}),
 					makeItem({id: 'failed-download', status: 'error', error: {kind: 'network', raw: 'x'}}),
 					makeItem({id: 'probe-error', status: 'error', error: {kind: 'network', raw: 'x'}, job: unresolved, probeMode: 'video'}),
-					makeItem({id: 'choice', status: 'needs-choice', choice: {kind: 'playlist-review', count: 3}, job: unresolved, probeMode: 'video'}),
+					makeItem({id: 'choice', status: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: false}, job: unresolved, probeMode: 'video'}),
 					makeItem({id: 'probing', status: 'probing', job: unresolved, probeMode: 'video'})
 				]
 			})

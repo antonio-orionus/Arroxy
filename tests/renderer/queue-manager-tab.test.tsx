@@ -580,7 +580,7 @@ describe('QueueManagerTab', () => {
 	it('gives every queue status a filter, so the status counts add up to All', () => {
 		const statuses = queueItemStatusSchema.options
 		const unresolved: QueueItem['job'] = {kind: 'unresolved', extractor: '', extractorKey: ''}
-		const placeholder = {probing: {job: unresolved, probeMode: 'video'}, 'needs-choice': {job: unresolved, probeMode: 'playlist', choice: {kind: 'playlist-review', count: 3}}} as const
+		const placeholder = {probing: {job: unresolved, probeMode: 'video'}, 'needs-choice': {job: unresolved, probeMode: 'playlist', choice: {kind: 'list-size', loaded: 3, capped: false}}} as const
 		useAppStore.setState({queue: statuses.map(status => makeItem({id: status, title: `${status} video`, status, ...(status === 'probing' || status === 'needs-choice' ? placeholder[status] : {})}))})
 
 		render(<QueueManagerTab />)
@@ -591,6 +591,25 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('queue-filter-needs-choice')).toHaveTextContent('Needs your choice')
 		expect(screen.getByTestId('queue-manager-row-needs-choice')).toBeInTheDocument()
 		expect(screen.queryByTestId('queue-manager-row-pending')).not.toBeInTheDocument()
+	})
+
+	it('shows a chip only for a status with items, All always, and the chip in use even once it empties', () => {
+		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'}), makeItem({id: 'done', title: 'Finished video', status: 'done'})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-filter-all')).toHaveTextContent('2')
+		expect(screen.getByTestId('queue-filter-pending')).toHaveTextContent('1')
+		expect(screen.queryByTestId('queue-filter-running')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('queue-filter-error')).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('queue-filter-done'))
+		act(() => useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})]}))
+
+		// The selected chip stays, with no "0" on it; an empty All shows no count either.
+		expect(screen.getByTestId('queue-filter-done').textContent).toMatch(/^Done$/i)
+		act(() => useAppStore.setState({queue: []}))
+		expect(screen.getByTestId('queue-filter-all')).not.toHaveTextContent('0')
 	})
 
 	it('keeps filter, selection, expanded artifacts, and column preferences independent', () => {

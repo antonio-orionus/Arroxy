@@ -176,7 +176,7 @@ export class IntakeRegistry {
 			case 'failed':
 				return {state: 'probeFailed', ...(outcome.overRowLimit ? {ytdlpKind: null, retryable: false} : probeFailure(outcome.probeError))}
 			case 'needs-choice':
-				return needsYourChoice(outcome.choice, outcome.capped)
+				return needsYourChoice(outcome.choice)
 		}
 	}
 
@@ -312,12 +312,14 @@ function probeFailure(error: ProbeError | null): {ytdlpKind: string | null; retr
 // else a row that is queued.
 function liveState(row: QueueItem): IntakeState {
 	if (row.status === QUEUE_STATUS.probing) return {state: 'probing'}
-	if (row.status === QUEUE_STATUS.needsChoice && row.choice) return needsYourChoice(row.choice, false)
+	if (row.status === QUEUE_STATUS.needsChoice && row.choice) return needsYourChoice(row.choice)
 	return {state: 'queued', itemIds: [row.id]}
 }
 
-// `total` is known only when the probe saw the whole collection.
-function needsYourChoice(choice: QueueChoice, capped: boolean): IntakeState {
-	if (choice.kind === 'playlist-cap') return {state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: choice.loaded}
-	return {state: 'needsYourChoice', kind: 'playlistReview', total: capped ? null : choice.count, offered: choice.count}
+// A list past the load limit asks how much of it (loadLimit); one the probe
+// saw whole asks only to be reviewed (playlistReview). `total` is known only
+// when the probe saw the whole list.
+function needsYourChoice(choice: QueueChoice): IntakeState {
+	if (choice.capped) return {state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: choice.loaded}
+	return {state: 'needsYourChoice', kind: 'playlistReview', total: choice.loaded, offered: choice.loaded}
 }

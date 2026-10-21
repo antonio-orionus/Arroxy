@@ -83,15 +83,22 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 						const next = STATUS_FILTERS.find(statusFilter => statusFilter.id === value[0])
 						if (next) onFilterChange(next.id)
 					}}
-					className="max-w-full gap-1 overflow-x-auto"
+					className="max-w-full flex-wrap gap-1"
 					aria-label={t('queue.filtersLabel')}
 				>
-					{STATUS_FILTERS.map(statusFilter => (
-						<ToggleGroupItem key={statusFilter.id} value={statusFilter.id} shape="chip" className="uppercase" data-testid={`queue-filter-${statusFilter.id}`}>
-							{t(statusFilter.labelKey)}
-							<span className="font-mono opacity-70">{queueStatusFilterCount(statusFilter.id, queue)}</span>
-						</ToggleGroupItem>
-					))}
+					{STATUS_FILTERS.map(statusFilter => {
+						// An empty status has no chip: All always shows, and so does the chip
+						// in use, so a filter that empties out does not vanish under the user.
+						// No chip shows a "0".
+						const count = queueStatusFilterCount(statusFilter.id, queue)
+						if (count === 0 && statusFilter.id !== 'all' && statusFilter.id !== filter) return null
+						return (
+							<ToggleGroupItem key={statusFilter.id} value={statusFilter.id} shape="chip" className="uppercase" data-testid={`queue-filter-${statusFilter.id}`}>
+								{t(statusFilter.labelKey)}
+								{count > 0 ? <span className="font-mono opacity-70">{count}</span> : null}
+							</ToggleGroupItem>
+						)
+					})}
 				</ToggleGroup>
 				<div className="flex flex-wrap items-center gap-2">
 					<DropdownMenu>

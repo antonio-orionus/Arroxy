@@ -219,7 +219,7 @@ describe('IntakeService', () => {
 		await h.settled()
 		const itemId = h.queue.snapshot()[0]?.id ?? ''
 		expect(h.queue.snapshot()[0]?.status).toBe('needs-choice')
-		expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'needs-choice', itemId, choice: {kind: 'playlist-cap', loaded: 2}, capped: true}])
+		expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'needs-choice', itemId, choice: {kind: 'list-size', loaded: 2, capped: true}}])
 		expect(h.intake.keptProbe(itemId)?.entries).toHaveLength(3)
 
 		expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
@@ -280,7 +280,7 @@ describe('IntakeService', () => {
 			const itemId = h.queue.snapshot()[0]?.id ?? ''
 			// A needs-choice row restored after a restart: its kept probe is gone.
 			expect(h.queue.reprobe(itemId).ok).toBe(true)
-			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 2}, 'Road trip mix').ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'list-size', loaded: 2, capped: true}, 'Road trip mix').ok).toBe(true)
 			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
 
 			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
@@ -320,18 +320,38 @@ describe('IntakeService', () => {
 		expect(h.probes).toHaveLength(1)
 	})
 
-	it('First on a playlist-review row is refused and the row keeps waiting for its choice', async () => {
+	// A list from another site asks even under the load limit: All and Review,
+	// never a First N, since nothing was cut off.
+	describe("another site's list under the load limit", () => {
 		const url = 'https://media.example/watch/42'
-		h.answer(ok({...playlist(1), webpageUrl: url}))
-		await h.intake.add({requestId: 'r1', url, playlistMode: 'video', origin: WINDOW})
-		await h.settled()
-		const itemId = h.queue.snapshot()[0]?.id ?? ''
-		expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}})
 
-		expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'})).toMatchObject({ok: false, error: {code: 'validation'}})
-		await h.settled()
-		expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}})
-		expect(h.probes).toHaveLength(1)
+		async function waitingRow(): Promise<string> {
+			h.answer(ok({...playlist(3), webpageUrl: url}))
+			await h.intake.add({requestId: 'r1', url, playlistMode: 'video', origin: WINDOW})
+			await h.settled()
+			const itemId = h.queue.snapshot()[0]?.id ?? ''
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: false}})
+			expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'needs-choice', itemId, choice: {kind: 'list-size', loaded: 3, capped: false}}])
+			return itemId
+		}
+
+		it('All probes it again as wide as the load ceiling and queues every video', async () => {
+			const itemId = await waitingRow()
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'all'}).ok).toBe(true)
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url, playlistMode: 'video', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 5000}}})
+			expect(h.queue.snapshot()).toHaveLength(3)
+			expect(outcomes(h).at(-1)).toEqual({requestId: 'r2', kind: 'queued', itemId, skippedAlreadyQueued: 0})
+		})
+
+		it('First is refused and the row keeps waiting for its choice', async () => {
+			const itemId = await waitingRow()
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'})).toMatchObject({ok: false, error: {code: 'validation'}})
+			await h.settled()
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: false}})
+			expect(h.probes).toHaveLength(1)
+		})
 	})
 
 	it('a choice on a probe-error row is refused and the row stays a probe error', async () => {
@@ -450,7 +470,7 @@ describe('IntakeService', () => {
 			await h.settled()
 			const itemId = h.queue.snapshot()[0]?.id ?? ''
 			expect(h.queue.reprobe(itemId).ok).toBe(true)
-			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 4}, 'Road trip mix').ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'list-size', loaded: 4, capped: true}, 'Road trip mix').ok).toBe(true)
 
 			h.answer(ok(playlist(5)))
 			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'all'}).ok).toBe(true)
@@ -465,7 +485,7 @@ describe('IntakeService', () => {
 			await h.settled()
 			const itemId = h.queue.snapshot()[0]?.id ?? ''
 			expect(h.queue.reprobe(itemId).ok).toBe(true)
-			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 4}, 'Road trip mix').ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'list-size', loaded: 4, capped: true}, 'Road trip mix').ok).toBe(true)
 
 			h.answer(ok(playlist(5)))
 			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)

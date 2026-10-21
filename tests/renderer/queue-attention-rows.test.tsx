@@ -362,10 +362,15 @@ describe('a needs-choice row', () => {
 		return makeItem({id: 'choice', status: 'needs-choice', url: 'https://www.youtube.com/playlist?list=PLx', title: 'Road trip mix', choice, job: UNRESOLVED, probeMode: 'playlist'})
 	}
 
-	it('offers All, First N and Review for a playlist over the load limit', () => {
-		seed([choiceRow({kind: 'playlist-cap', loaded: 100})])
+	it('offers All, First N and Review for a list past the load limit', () => {
+		seed([choiceRow({kind: 'list-size', loaded: 100, capped: true})])
 		const panel = attention('choice')
 		expect(panel).toHaveTextContent('More than 100 videos')
+		expect(
+			within(panel)
+				.getAllByRole('button')
+				.map(button => button.textContent)
+		).toEqual(['All videos', 'First 100', 'Review'])
 		for (const [name, answer] of [
 			['All videos', 'all'],
 			['First 100', 'first'],
@@ -376,19 +381,27 @@ describe('a needs-choice row', () => {
 		}
 	})
 
-	it('offers Review alone for a link that turned out to be a list', () => {
-		seed([choiceRow({kind: 'playlist-review', count: 12})])
+	it('offers All and Review for a list under the load limit', () => {
+		seed([choiceRow({kind: 'list-size', loaded: 12, capped: false})])
 		const panel = attention('choice')
 		expect(panel).toHaveTextContent('12 videos')
+		expect(panel).not.toHaveTextContent('More than')
 		expect(
 			within(panel)
 				.getAllByRole('button')
 				.map(button => button.textContent)
-		).toEqual(['Review'])
+		).toEqual(['All videos', 'Review'])
+		for (const [name, answer] of [
+			['All videos', 'all'],
+			['Review', 'review']
+		] as const) {
+			fireEvent.click(within(panel).getByRole('button', {name}))
+			expect(actions.chooseQuickDownloadRow).toHaveBeenLastCalledWith('choice', answer)
+		}
 	})
 
 	it('reads "Needs your choice" in the status column', () => {
-		seed([choiceRow({kind: 'playlist-review', count: 12})])
+		seed([choiceRow({kind: 'list-size', loaded: 12, capped: false})])
 		expect(within(screen.getByTestId('queue-manager-row-choice')).getByText('Needs your choice')).toBeInTheDocument()
 	})
 })

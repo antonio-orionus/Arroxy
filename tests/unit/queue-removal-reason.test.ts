@@ -32,7 +32,7 @@ function makeService(): {qs: QueueService; removals: unknown[]} {
 }
 
 function placeholder(id: string, status: 'probing' | 'needs-choice' = 'probing'): QueueItem {
-	return makeItem({id, status, url: `https://youtube.com/playlist?list=${id}`, job: UNRESOLVED, probeMode: 'playlist', ...(status === 'needs-choice' ? {choice: {kind: 'playlist-cap', loaded: 2}} : {})})
+	return makeItem({id, status, url: `https://youtube.com/playlist?list=${id}`, job: UNRESOLVED, probeMode: 'playlist', ...(status === 'needs-choice' ? {choice: {kind: 'list-size', loaded: 2, capped: true}} : {})})
 }
 
 describe("QueueService 'removed' reasons", () => {

@@ -22,7 +22,7 @@ function view(item: QueueItem, projection: ItemProjection = PROJECTION) {
 
 function rowIn(status: InternalStatus): QueueItem {
 	if (status === 'probing') return makeItem({id: 'row', status, job: UNRESOLVED, probeMode: 'video'})
-	if (status === 'needs-choice') return makeItem({id: 'row', status, job: UNRESOLVED, probeMode: 'video', choice: {kind: 'playlist-cap', loaded: 3}})
+	if (status === 'needs-choice') return makeItem({id: 'row', status, job: UNRESOLVED, probeMode: 'video', choice: {kind: 'list-size', loaded: 3, capped: true}})
 	if (status === 'error') return makeItem({id: 'row', status, error: {kind: 'network', raw: 'boom'}})
 	return makeItem({id: 'row', status})
 }
