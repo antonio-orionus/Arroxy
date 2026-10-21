@@ -23,5 +23,5 @@ export function attachLinkInbox(inbox: LinkInbox, window: BrowserWindow, {clipbo
 		clipboard,
 		headless
 	})
-	inbox.attach({deliver: url => void deliver(url)})
+	inbox.attach({deliver})
 }

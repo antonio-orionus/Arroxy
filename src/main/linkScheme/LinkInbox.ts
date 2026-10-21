@@ -8,8 +8,10 @@ export interface LinkInboxLog {
 }
 
 export interface LinkInboxTarget {
-	// Brings the window forward and sends the link to the renderer.
-	deliver(url: string): void
+	// Brings the window forward and sends the link to the renderer. Resolves
+	// false when the renderer stopped listening first, so the link was not
+	// sent and must wait for the next listener.
+	deliver(url: string, rendererListening: () => boolean): Promise<boolean>
 }
 
 // Holds an `arroxy://` link until the renderer can take it. macOS sends the
@@ -21,6 +23,9 @@ export class LinkInbox {
 	private pending: string | null = null
 	private target: LinkInboxTarget | null = null
 	private ready = false
+	// Counts accepted links, so a delivery that comes back unsent knows whether a
+	// newer link arrived meanwhile, even one already on its way.
+	private received = 0
 
 	constructor(private readonly log: LinkInboxLog) {}
 
@@ -31,6 +36,7 @@ export class LinkInbox {
 			return
 		}
 		this.log.info('arroxy link received', {via})
+		this.received++
 		this.pending = parsed.url
 		this.flush()
 	}
@@ -63,7 +69,15 @@ export class LinkInbox {
 	private flush(): void {
 		if (this.pending === null || !this.target || !this.ready) return
 		const url = this.pending
+		const seq = this.received
 		this.pending = null
-		this.target.deliver(url)
+		void this.target
+			.deliver(url, () => this.ready)
+			.then(sent => {
+				// A link that arrived meanwhile is newer and keeps its place.
+				if (sent || seq !== this.received) return
+				this.pending = url
+				this.flush()
+			})
 	}
 }

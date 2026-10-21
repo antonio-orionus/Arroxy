@@ -108,6 +108,21 @@ describe('ClipboardWatcher', () => {
 		expect(win.send).not.toHaveBeenCalled()
 	})
 
+	it('ignoreCurrentClipboard still keeps an unseen copy out after its own read fails', async () => {
+		const reader = {readText: vi.fn().mockRejectedValueOnce(new Error('clipboard busy')).mockResolvedValue(yt('copiedEarlier'))}
+		const win = makeWindow()
+		const watcher = new ClipboardWatcher(win, 800, reader)
+		watcher.setEnabled(true)
+
+		await watcher.ignoreCurrentClipboard()
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).not.toHaveBeenCalled()
+
+		reader.readText.mockResolvedValue(yt('copiedAfter'))
+		await vi.advanceTimersByTimeAsync(800)
+		expect(win.send).toHaveBeenCalledExactlyOnceWith('events:clipboardUrl', yt('copiedAfter'))
+	})
+
 	it('does not poll when disabled by default', async () => {
 		const reader = {readText: vi.fn().mockResolvedValue('')}
 		const win = makeWindow()
