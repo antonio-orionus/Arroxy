@@ -629,7 +629,8 @@ export const menuActionSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('diagnostics')}),
 	z.object({kind: z.literal('speedLimit'), limitRate: limitRateSchema.optional()}),
 	z.object({kind: z.literal('style'), style: uiStyleSchema}),
-	z.object({kind: z.literal('theme'), theme: uiThemeSchema})
+	z.object({kind: z.literal('theme'), theme: uiThemeSchema}),
+	z.object({kind: z.literal('language'), language: supportedLangSchema})
 ])
 export type MenuAction = z.infer<typeof menuActionSchema>
 

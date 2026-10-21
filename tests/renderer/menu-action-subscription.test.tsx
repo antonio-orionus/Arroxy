@@ -24,7 +24,14 @@ describe('subscribeMenuActions', () => {
 		expect(onAction).toHaveBeenCalledWith({kind: 'speedLimit', limitRate: '500K'})
 	})
 
-	it.each([[null], ['about'], [{kind: 'unknown'}], [{kind: 'style', style: 'neon'}], [{kind: 'speedLimit', limitRate: 'fast'}]])('drops a malformed payload: %j', payload => {
+	it('forwards a language pick', () => {
+		const onAction = vi.fn()
+		subscribeMenuActions(onAction)
+		deliver({kind: 'language', language: 'fr'})
+		expect(onAction).toHaveBeenCalledWith({kind: 'language', language: 'fr'})
+	})
+
+	it.each([[null], ['about'], [{kind: 'unknown'}], [{kind: 'style', style: 'neon'}], [{kind: 'language', language: 'xx'}], [{kind: 'speedLimit', limitRate: 'fast'}]])('drops a malformed payload: %j', payload => {
 		const onAction = vi.fn()
 		subscribeMenuActions(onAction)
 		deliver(payload)

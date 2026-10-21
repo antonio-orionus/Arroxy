@@ -1,10 +1,12 @@
 import type {MenuItemConstructorOptions} from 'electron'
+import {LANGUAGE_NATIVE_NAMES, SUPPORTED_LANGS} from '@shared/i18n/types.js'
 import {formatLimitRateLabel, isLimitRatePreset, LIMIT_RATE_PRESETS} from '@shared/limitRate.js'
-import {UI_STYLES, type MenuAction, type UiStyle, type UiTheme} from '@shared/schemas.js'
+import {UI_STYLES, type MenuAction, type SupportedLang, type UiStyle, type UiTheme} from '@shared/schemas.js'
 
 export interface AppMenuDeps {
 	appName: string
 	t: (dottedKey: string) => string
+	language: SupportedLang
 	style: UiStyle
 	theme: UiTheme
 	// The saved speed limit (`500K`, `1.5M`); blank or absent means no limit.
@@ -21,7 +23,7 @@ const THEME_ORDER = ['light', 'system', 'dark'] as const satisfies readonly UiTh
 // The macOS application menu: the standard Edit and Window menus around the
 // app's own commands. The footer stays the source of truth on every platform;
 // this is the same set of controls where a Mac user looks first.
-export function buildAppMenuTemplate({appName, t, style, theme, limitRate, send, openDiscord}: AppMenuDeps): MenuItemConstructorOptions[] {
+export function buildAppMenuTemplate({appName, t, language, style, theme, limitRate, send, openDiscord}: AppMenuDeps): MenuItemConstructorOptions[] {
 	const trimmedLimit = limitRate?.trim()
 	const activeLimit = trimmedLimit === undefined || trimmedLimit === '' ? undefined : trimmedLimit
 	// A limit typed in Settings that is not a preset still shows, checked, so the
@@ -57,6 +59,8 @@ export function buildAppMenuTemplate({appName, t, style, theme, limitRate, send,
 			submenu: [
 				{label: t('wizard.url.style.modeLabel'), submenu: UI_STYLES.map(option => ({label: t(STYLE_LABEL_KEYS[option]), type: 'radio', checked: option === style, click: () => send({kind: 'style', style: option})}))},
 				{label: t('app.theme'), submenu: THEME_ORDER.map(option => ({label: t(THEME_LABEL_KEYS[option]), type: 'radio', checked: option === theme, click: () => send({kind: 'theme', theme: option})}))},
+				// Native names, like the footer picker, so a user stuck in a language they can't read still finds their own.
+				{label: t('language.label'), submenu: SUPPORTED_LANGS.map(code => ({label: LANGUAGE_NATIVE_NAMES[code], type: 'radio', checked: code === language, click: () => send({kind: 'language', language: code})}))},
 				{type: 'separator'},
 				{role: 'reload'},
 				{role: 'forceReload'},

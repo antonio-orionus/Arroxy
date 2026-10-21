@@ -29,7 +29,7 @@ export function installAppMenu({settingsStore, languageRef, getWindow}: AppMenuI
 	function refresh(): void {
 		if (process.platform !== 'darwin') return
 		const {common} = settingsStore.getSync()
-		const template = buildAppMenuTemplate({appName: app.getName(), t: key => mainT(languageRef.current, key), style: common.uiStyle ?? DEFAULTS.uiStyle, theme: common.uiTheme ?? DEFAULTS.uiTheme, limitRate: common.limitRate, send, openDiscord: () => void shell.openExternal(DISCORD_URL)})
+		const template = buildAppMenuTemplate({appName: app.getName(), t: key => mainT(languageRef.current, key), language: languageRef.current, style: common.uiStyle ?? DEFAULTS.uiStyle, theme: common.uiTheme ?? DEFAULTS.uiTheme, limitRate: common.limitRate, send, openDiscord: () => void shell.openExternal(DISCORD_URL)})
 		Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 	}
 

@@ -146,8 +146,18 @@ function useFeedbackNudge(): {showNudge: boolean; hideNudge: () => void} {
 
 // The native application menu (macOS) asks for the same things the footer does.
 function useNativeMenuActions(setFeedbackDialogOpen: Dispatch<SetStateAction<boolean>>): void {
-	const {setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings} = useAppStore(
-		useShallow(state => ({setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, setUiStyle: state.setUiStyle, setUiTheme: state.setUiTheme, openLogs: state.openLogs, saveDiagnostics: state.saveDiagnostics, setLimitRate: state.setLimitRate, openSettings: state.openSettings}))
+	const {setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, setLanguage, openLogs, saveDiagnostics, setLimitRate, openSettings} = useAppStore(
+		useShallow(state => ({
+			setAboutDialogOpen: state.setAboutDialogOpen,
+			openShareDialog: state.openShareDialog,
+			setUiStyle: state.setUiStyle,
+			setUiTheme: state.setUiTheme,
+			setLanguage: state.setLanguage,
+			openLogs: state.openLogs,
+			saveDiagnostics: state.saveDiagnostics,
+			setLimitRate: state.setLimitRate,
+			openSettings: state.openSettings
+		}))
 	)
 
 	useEffect(
@@ -181,9 +191,12 @@ function useNativeMenuActions(setFeedbackDialogOpen: Dispatch<SetStateAction<boo
 					case 'theme':
 						setUiTheme(action.theme)
 						break
+					case 'language':
+						setLanguage(action.language)
+						break
 				}
 			}),
-		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings, setFeedbackDialogOpen]
+		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, setLanguage, openLogs, saveDiagnostics, setLimitRate, openSettings, setFeedbackDialogOpen]
 	)
 }
 

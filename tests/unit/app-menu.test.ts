@@ -1,11 +1,12 @@
 import {describe, expect, it, vi} from 'vite-plus/test'
 import type {MenuItemConstructorOptions} from 'electron'
 import type {MenuAction} from '@shared/schemas.js'
+import {LANGUAGE_NATIVE_NAMES, SUPPORTED_LANGS} from '@shared/i18n/index.js'
 import {buildAppMenuTemplate, type AppMenuDeps} from '@main/appMenu.js'
 
 function makeDeps(overrides: Partial<AppMenuDeps> = {}): AppMenuDeps & {sent: MenuAction[]} {
 	const sent: MenuAction[] = []
-	return {appName: 'Arroxy', t: key => `«${key}»`, style: 'aurora', theme: 'system', limitRate: undefined, send: action => sent.push(action), openDiscord: vi.fn(), sent, ...overrides}
+	return {appName: 'Arroxy', t: key => `«${key}»`, language: 'en', style: 'aurora', theme: 'system', limitRate: undefined, send: action => sent.push(action), openDiscord: vi.fn(), sent, ...overrides}
 }
 
 function submenuOf(template: MenuItemConstructorOptions[], label: string): MenuItemConstructorOptions[] {
@@ -62,6 +63,20 @@ describe('buildAppMenuTemplate', () => {
 		const theme = submenuOf(submenuOf(buildAppMenuTemplate(deps), 'View'), '«app.theme»')
 		find(theme, '«theme.dark»').click?.({} as never, undefined, {})
 		expect(deps.sent).toEqual([{kind: 'theme', theme: 'dark'}])
+	})
+
+	it('lists every app language by its native name, with the current one checked', () => {
+		const items = submenuOf(submenuOf(buildAppMenuTemplate(makeDeps({language: 'de'})), 'View'), '«language.label»')
+		expect(items.map(item => item.label)).toEqual(SUPPORTED_LANGS.map(code => LANGUAGE_NATIVE_NAMES[code]))
+		expect(items.every(item => item.type === 'radio')).toBe(true)
+		expect(items.filter(item => item.checked).map(item => item.label)).toEqual(['Deutsch'])
+	})
+
+	it('sends the picked language to the renderer', () => {
+		const deps = makeDeps()
+		const language = submenuOf(submenuOf(buildAppMenuTemplate(deps), 'View'), '«language.label»')
+		find(language, 'Français').click?.({} as never, undefined, {})
+		expect(deps.sent).toEqual([{kind: 'language', language: 'fr'}])
 	})
 
 	it('puts the footer links in the Help menu', () => {
