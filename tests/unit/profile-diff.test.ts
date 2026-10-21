@@ -22,6 +22,13 @@ describe('profileDiffRows', () => {
 		expect(profileDiffRows(before, after, CTX)).toEqual([{area: 'format', before: 'Up to 1080p · Best picture', after: 'Up to 1080p · Best picture · H.264 first'}])
 	})
 
+	// Swapping a manual track for an automatic one changes only the source.
+	it('lists a change of the subtitle source alone', () => {
+		const before: DownloadProfile = {...builtin('hd-1080'), subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'}}
+		const after: DownloadProfile = {...before, subtitles: {...before.subtitles, source: 'auto-only'}}
+		expect(profileDiffRows(before, after, CTX).map(row => row.area)).toEqual(['subtitles'])
+	})
+
 	it('is empty for identical profiles', () => {
 		expect(profileDiffRows(builtin('hd-1080'), builtin('hd-1080'), CTX)).toEqual([])
 	})

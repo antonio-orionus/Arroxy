@@ -2,7 +2,7 @@ import type {TFunction} from 'i18next'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {EMBED_FIELDS, EMBED_OPTION_KEYS} from './outputLabels.js'
-import {formatList, resolveSubtitleLabel} from './subtitleLabel.js'
+import {formatList, resolveSubtitleLabel, SUBTITLE_SOURCE_LABEL_KEYS} from './subtitleLabel.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from './videoLabels.js'
 
@@ -26,7 +26,8 @@ function subtitleLanguages(languages: readonly string[], language: string): stri
 function subtitlesValue(profile: DownloadProfile, t: TFunction, language: string): string {
 	const {languages, format, mode} = profile.subtitles
 	if (languages.length === 0) return t('wizard.subtitles.noSelected')
-	return [subtitleLanguages(languages, language), mode === 'embed' ? null : format.toUpperCase()].filter(Boolean).join(' · ')
+	const {source} = profile.subtitles
+	return [subtitleLanguages(languages, language), mode === 'embed' ? null : format.toUpperCase(), source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[source])].filter(Boolean).join(' · ')
 }
 
 // What a profile downloads, without its kind: the video it picks, the audio it

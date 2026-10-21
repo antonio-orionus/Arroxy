@@ -5,7 +5,7 @@ import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import type {CommonSettings, DownloadProfile} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {formatList, resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {formatList, resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS, SUBTITLE_SOURCE_LABEL_KEYS} from '../../lib/subtitleLabel.js'
 import type {TranslationPort} from '../../lib/translation.js'
 import type {ChangedArea} from './profileApplication.js'
 import {EMBED_FIELDS, EMBED_OPTION_KEYS, SPONSOR_BLOCK_MODE_LABEL_KEYS} from '@renderer/lib/outputLabels.js'
@@ -43,7 +43,8 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 						'conjunction'
 					),
 					subtitles.mode === 'embed' ? null : subtitles.format.toUpperCase(),
-					t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode])
+					t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode]),
+					subtitles.source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[subtitles.source])
 				]
 					.filter(Boolean)
 					.join(' · ')
