@@ -1,5 +1,9 @@
+import {mkdtempSync, realpathSync, symlinkSync, writeFileSync} from 'node:fs'
+import {tmpdir} from 'node:os'
+import {join} from 'node:path'
+import {pathToFileURL} from 'node:url'
 import {describe, expect, it} from 'vite-plus/test'
-import {rebaseRelativeLinks} from '../../readme-src/build.mjs'
+import {isScriptEntry, rebaseRelativeLinks} from '../../readme-src/build.mjs'
 
 const TRANSLATED = 'docs/readme/README.de.md'
 
@@ -32,5 +36,21 @@ describe('rebaseRelativeLinks', () => {
 	it('changes nothing for the root README', () => {
 		const text = '<source srcset="build/Global-hotkey-dark.png" /> <img src="build/a.png" />'
 		expect(rebaseRelativeLinks(text, 'README.md')).toBe(text)
+	})
+})
+
+describe('isScriptEntry', () => {
+	it('recognises the script when it was launched through a symlink', () => {
+		const dir = realpathSync(mkdtempSync(join(tmpdir(), 'readme-build-')))
+		const real = join(dir, 'build.mjs')
+		const link = join(dir, 'link.mjs')
+		writeFileSync(real, '')
+		symlinkSync(real, link)
+		expect(isScriptEntry(link, pathToFileURL(real).href)).toBe(true)
+	})
+
+	it('is false when imported by another entry point', () => {
+		expect(isScriptEntry(undefined, import.meta.url)).toBe(false)
+		expect(isScriptEntry(process.execPath, import.meta.url)).toBe(false)
 	})
 })

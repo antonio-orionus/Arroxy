@@ -5,6 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
+import { realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -164,8 +165,15 @@ async function main() {
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
 }
 
-// Run only as a script, so tests can import `rebaseRelativeLinks`.
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+// Run only as a script, so tests can import `rebaseRelativeLinks`. Both sides
+// are realpaths: a module URL resolves symlinks, argv[1] does not, and a
+// mismatch would skip the build without a word.
+export function isScriptEntry(argv1, moduleUrl) {
+  if (!argv1) return false;
+  return realpathSync(argv1) === realpathSync(fileURLToPath(moduleUrl));
+}
+
+if (isScriptEntry(process.argv[1], import.meta.url)) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);
