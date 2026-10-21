@@ -4,13 +4,10 @@
 // only in how a link is taken in and how the user hears about it.
 
 import {classifyUrlIntent} from '@shared/urlIntent.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import type {QueueChoice, QuickProbeTake} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {preparePinnedProfileQueueSubmission, type PinnedDownloadProfile, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
-
-// The user's answer to a needs-choice row, applied to a fresh or kept probe.
-export type QuickProbeTake = {kind: 'first'; count: number} | {kind: 'all'}
 
 export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
@@ -31,6 +28,9 @@ export interface QuickProbeContext {
 	// The load limit the probe ran with. It fetches one entry past it, so a
 	// longer result means the collection goes on.
 	limit: number
+	// What the user chose to keep (their answer to a needs-choice row, or the
+	// count picked at intake): applied to a fresh or kept probe, and it
+	// settles the size question, so a collection that goes on is not asked about.
 	take?: QuickProbeTake
 	// The profile the row was placed with; the active one when it is unknown
 	// (a row restored after a restart).

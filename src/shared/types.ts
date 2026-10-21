@@ -66,7 +66,7 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
+import type {ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode, QuickProbeTake} from './schemas.js'
 export type {ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
@@ -359,6 +359,8 @@ export interface QueueItem {
 	artifacts: QueueArtifact[]
 	// Placeholder rows only: the probe's playlist mode, and the open decision.
 	probeMode?: ProbePlaylistMode
+	// The count the user chose for a placeholder's collection, kept through Retry and restart.
+	probeTake?: QuickProbeTake
 	choice?: import('./schemas.js').QueueChoice
 	job: PreparedJob
 }

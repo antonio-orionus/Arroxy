@@ -586,6 +586,12 @@ const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
 export const playlistScopeSchema = z.object({items: playlistScopeItemsSchema})
 export type PlaylistScope = z.infer<typeof playlistScopeSchema>
 
+// How much of a collection a quick download keeps: its first N entries, or all
+// of them. Chosen by the user (the intake dialog, or a needs-choice answer) and
+// kept on the placeholder row so every probe of that row honours it.
+export const quickProbeTakeSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('first'), count: playlistProbeLimitSchema}), z.object({kind: z.literal('all')})])
+export type QuickProbeTake = z.infer<typeof quickProbeTakeSchema>
+
 // Per-call probe budget override. 1s floors nonsense values, 5min caps a
 // hung-overridden probe; background hydration pins 180s. The interactive
 // default (180s) applies when the field is absent.
