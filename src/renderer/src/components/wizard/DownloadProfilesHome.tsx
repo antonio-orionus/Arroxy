@@ -1,11 +1,12 @@
 import {useRef, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {ChevronRight, Link2, ListPlus, Wand2, X, type LucideIcon} from 'lucide-react'
+import {ChevronRight, ClipboardPaste, Link2, ListPlus, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
+import {notify} from '@renderer/lib/notify.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useDownloadHomeView, type DownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -13,6 +14,7 @@ import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
 import {Tabs, TabsContent} from '../ui/tabs.js'
+import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
 import {ProfilesManageTab} from './DownloadProfilesManageTab.js'
@@ -24,6 +26,7 @@ import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
 import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip, type ProfilesTab} from './homeTabRoute.js'
 import {useBulkUrlDialog, useCopiedLinkIntake} from './downloadHomeIntake.js'
+import {resolvePastedClipboard} from './clipboardIntake.js'
 import {ProfileEditorDialog} from './ProfileEditorDialog.js'
 import {useProfileEditor} from './useProfileEditor.js'
 import hiImg from '../../assets/Hi.png'
@@ -112,7 +115,7 @@ export function DownloadProfilesHome(): ReactNode {
 				)}
 
 				<TabsContent value="download" className="flex flex-col gap-4">
-					<DownloadTabPanel view={view} initialBrowserMockScenario={initialBrowserMockScenario} onEditProfile={openEditor} onManageProfiles={manageProfiles} onOpenBulk={bulkDialog.openBulkDialog} />
+					<DownloadTabPanel view={view} initialBrowserMockScenario={initialBrowserMockScenario} onEditProfile={openEditor} onManageProfiles={manageProfiles} onOpenBulk={bulkDialog.openBulkDialog} onPasteBulk={bulkDialog.openBulkDialogWith} />
 				</TabsContent>
 
 				{exploreEnabled ? (
@@ -155,11 +158,12 @@ interface DownloadTabPanelProps {
 	onEditProfile: (profile: DownloadProfile | null) => void
 	onManageProfiles: () => void
 	onOpenBulk: () => void
+	onPasteBulk: (raw: string) => void
 }
 
 // The URL tab: paste a link, then download it with the active profile, review
 // it in the wizard, or open the bulk dialog.
-function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk}: DownloadTabPanelProps): ReactNode {
+function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk, onPasteBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const {activeProfileDestination, activeProfileDestinationDetailKey, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
 	const pickProfileRef = (ref: DownloadProfileRef): void => {
@@ -170,7 +174,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 			<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
 				<div className="min-w-0">
 					<DownloadMascotHeader view={view} />
-					<DownloadUrlInput view={view} />
+					<DownloadUrlInput view={view} onPasteBulk={onPasteBulk} />
 				</div>
 			</CardHeader>
 			<CardContent className="px-5 pb-4 md:px-6">
@@ -219,13 +223,33 @@ function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
 	)
 }
 
-function DownloadUrlInput({view}: {view: DownloadHomeView}): ReactNode {
+function DownloadUrlInput({view, onPasteBulk}: {view: DownloadHomeView; onPasteBulk: (raw: string) => void}): ReactNode {
 	const {t} = useTranslation()
 	const {hasInput, setWizardUrl, submitUrl, urlReady, wizardUrl} = view
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	function handleClearUrl(): void {
 		setWizardUrl('')
+		inputRef.current?.focus()
+	}
+
+	async function handlePasteFromClipboard(): Promise<void> {
+		let raw = ''
+		try {
+			raw = await navigator.clipboard.readText()
+		} catch (error) {
+			console.warn('[clipboard] paste button could not read the clipboard', error)
+		}
+		const pasted = resolvePastedClipboard(raw)
+		if (pasted.kind === 'none') {
+			notify.clipboard(t('wizard.url.clipboard.noLink'))
+			return
+		}
+		if (pasted.kind === 'bulk') {
+			onPasteBulk(pasted.raw)
+			return
+		}
+		setWizardUrl(pasted.url)
 		inputRef.current?.focus()
 	}
 
@@ -258,7 +282,16 @@ function DownloadUrlInput({view}: {view: DownloadHomeView}): ReactNode {
 						<X aria-hidden />
 					</InputGroupButton>
 				</InputGroupAddon>
-			) : null}
+			) : (
+				<InputGroupAddon align="inline-end">
+					<Tooltip>
+						<TooltipTrigger render={<InputGroupButton type="button" size="icon-sm" aria-label={t('wizard.url.pasteLink')} onClick={() => void handlePasteFromClipboard()} data-testid="url-paste" />}>
+							<ClipboardPaste aria-hidden />
+						</TooltipTrigger>
+						<TooltipContent>{t('wizard.url.pasteLink')}</TooltipContent>
+					</Tooltip>
+				</InputGroupAddon>
+			)}
 		</InputGroup>
 	)
 }

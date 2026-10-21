@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink} from '@renderer/components/wizard/clipboardIntake.js'
+import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink, resolvePastedClipboard} from '@renderer/components/wizard/clipboardIntake.js'
 
 const link = 'https://www.youtube.com/watch?v=one'
 const idle = {downloadTabActive: true, bulkOpen: false, formatsLoading: false, quickPreparing: false}
@@ -34,5 +34,23 @@ describe('copied link intake', () => {
 		expect(canApplyCopiedLink({...idle, bulkOpen: true})).toBe(false)
 		expect(canApplyCopiedLink({...idle, formatsLoading: true})).toBe(false)
 		expect(canApplyCopiedLink({...idle, quickPreparing: true})).toBe(false)
+	})
+})
+
+describe('Paste button', () => {
+	it('takes the one link out of whatever the clipboard holds', () => {
+		expect(resolvePastedClipboard(` ${link}\n`)).toEqual({kind: 'single', url: link})
+		expect(resolvePastedClipboard(`watch this ${link} later`)).toEqual({kind: 'single', url: link})
+	})
+
+	it('hands several links to Bulk URLs as copied', () => {
+		const raw = `${link}\nhttps://www.youtube.com/watch?v=two`
+		expect(resolvePastedClipboard(raw)).toEqual({kind: 'bulk', raw})
+	})
+
+	it('finds nothing in text without a media link', () => {
+		expect(resolvePastedClipboard('')).toEqual({kind: 'none'})
+		expect(resolvePastedClipboard('just some words')).toEqual({kind: 'none'})
+		expect(resolvePastedClipboard('https://example.com/report.pdf')).toEqual({kind: 'none'})
 	})
 })

@@ -39,6 +39,7 @@ export interface BulkUrlDialogState {
 	bulkOpen: boolean
 	bulkInitialRaw: string
 	openBulkDialog: () => void
+	openBulkDialogWith: (raw: string) => void
 	handleBulkOpenChange: (next: boolean) => void
 }
 
@@ -46,9 +47,13 @@ export function useBulkUrlDialog(initialBrowserMockScenario: string | null): Bul
 	const [bulkOpen, setBulkOpen] = useState(() => isBrowserMockBulkDialogScenario(initialBrowserMockScenario))
 	const [bulkInitialRaw, setBulkInitialRaw] = useState(() => browserMockBulkInitialRaw(initialBrowserMockScenario))
 
-	function openBulkDialog(): void {
-		setBulkInitialRaw('')
+	function openBulkDialogWith(raw: string): void {
+		setBulkInitialRaw(raw)
 		setBulkOpen(true)
+	}
+
+	function openBulkDialog(): void {
+		openBulkDialogWith('')
 	}
 
 	function handleBulkOpenChange(next: boolean): void {
@@ -56,7 +61,7 @@ export function useBulkUrlDialog(initialBrowserMockScenario: string | null): Bul
 		if (!next) setBulkInitialRaw('')
 	}
 
-	return {bulkOpen, bulkInitialRaw, openBulkDialog, handleBulkOpenChange}
+	return {bulkOpen, bulkInitialRaw, openBulkDialog, openBulkDialogWith, handleBulkOpenChange}
 }
 
 // The copied link reaches the URL field once the Download tab is idle: it

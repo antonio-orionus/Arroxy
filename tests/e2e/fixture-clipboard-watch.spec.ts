@@ -71,3 +71,57 @@ test('Electron clipboard watcher fills and replaces single links with undo, and 
 		})
 	)
 })
+
+test('Paste button takes the copied link again after the watcher used it, and sends several links to Bulk URLs', async () => {
+	test.setTimeout(90_000)
+	// Reading the clipboard from the page needs a focused document, so this
+	// shares the watcher test's visible-window requirement.
+	test.skip(process.env.ARROXY_E2E_HEADLESS === '1', 'reading the clipboard from the page needs a focused, visible window')
+
+	await withClipboardLock(async () =>
+		withClipboardWatchEnabled(async () => {
+			await withFixtureProductApp(
+				{
+					userDataPrefix: 'arroxy-fixture-paste-user-',
+					outputPrefix: 'arroxy-fixture-paste-out-',
+					settings: settings => {
+						settings.common.clipboardWatchEnabled = true
+					}
+				},
+				async ({app, page, urls}) => {
+					const input = page.locator('[data-testid="profiles-main-input"]')
+					const pasteButton = page.locator('[data-testid="url-paste"]')
+					const link = urls.video(FIXTURE_VIDEO_IDS[0])
+					await page.bringToFront()
+
+					// The watcher fills the field once; clearing it leaves the
+					// same link in the clipboard, which the watcher never offers again.
+					await writeClipboard(app, link)
+					await expect(input).toHaveValue(link, {timeout: 5_000})
+					await page.locator('[data-testid="url-clear"]').click()
+					await expect(input).toHaveValue('')
+					await pasteButton.click()
+					await expect(input).toHaveValue(link)
+
+					// A link inside other text still pastes on an explicit click.
+					await page.locator('[data-testid="url-clear"]').click()
+					await writeClipboard(app, `watch this ${link} later`)
+					await pasteButton.click()
+					await expect(input).toHaveValue(link)
+
+					await page.locator('[data-testid="url-clear"]').click()
+					await writeClipboard(app, 'nothing to download here')
+					await pasteButton.click()
+					await expect(page.locator('[data-sonner-toast]', {hasText: 'No link in the clipboard'})).toBeVisible()
+					await expect(input).toHaveValue('')
+
+					const bulkRaw = [FIXTURE_VIDEO_IDS[1], FIXTURE_VIDEO_IDS[2]].map(urls.video).join('\n')
+					await writeClipboard(app, bulkRaw)
+					await pasteButton.click()
+					await expect(page.locator('[data-testid="bulk-url-dialog"]')).toBeVisible()
+					await expect(page.locator('[data-testid="bulk-url-textarea"]')).toHaveValue(bulkRaw)
+				}
+			)
+		})
+	)
+})
