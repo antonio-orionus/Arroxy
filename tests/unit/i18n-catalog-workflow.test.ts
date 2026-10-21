@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, pluralCategoriesFor, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
+import {SUPPORTED_LANGS} from '../../src/shared/schemas.js'
+import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, parseCatalog, pluralCategoriesFor, usesLatinScript, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
 
 describe('i18n catalog workflow', () => {
 	const en = {common: {start: 'Start download', cancel: 'Cancel'}, progress: {done: '{{count}} file complete'}}
@@ -99,6 +100,39 @@ describe('i18n catalog workflow', () => {
 					.filter(i => i.kind === 'extra-entry')
 					.map(i => i.key)
 			).toEqual(['a.count_one', 'a.count_few', 'a.count_many'])
+		})
+	})
+	describe('Latin-only translations in non-Latin-script locales', () => {
+		const source = flattenStringLeaves({...en, repair: {deps: {ytDlp: 'yt-dlp'}}, format: {tag: 'H.264 · 4K'}})
+		const poFixture = (msgstrs: Record<string, string>): string => ['msgid ""', 'msgstr ""', '"Content-Type: text/plain; charset=UTF-8\\n"', ...source.map(leaf => ['', `msgctxt "${leaf.path}"`, `msgid "${leaf.value}"`, `msgstr "${msgstrs[leaf.path] ?? ''}"`].join('\n'))].join('\n')
+		const ru = {'common.start': 'Начать загрузку', 'common.cancel': 'Отмена', 'progress.done': '{{count}} файл завершён', 'repair.deps.ytDlp': 'yt-dlp', 'format.tag': 'H.264 · 4K'}
+
+		it('flags an entry whose translation is the English source copied over, but not allowlisted names or codec tokens', () => {
+			const catalog = parseCatalog(poFixture({...ru, 'common.start': 'Start download'}))
+
+			expect(validateLocaleCatalog('ru', source, catalog)).toEqual([{kind: 'latin-only', lang: 'ru', key: 'common.start', detail: 'Start download'}])
+		})
+
+		it('accepts native text around placeholders and Latin names', () => {
+			const catalog = parseCatalog(poFixture({...ru, 'common.start': 'Скачать {{name}} с YouTube'}))
+
+			expect(validateLocaleCatalog('ru', source, catalog)).toEqual([])
+		})
+
+		it('flags Serbian written in Latin script instead of Cyrillic', () => {
+			const catalog = parseCatalog(poFixture({...ru, 'common.cancel': 'Otkaži'}))
+
+			expect(validateLocaleCatalog('sr', source, catalog)).toContainEqual({kind: 'latin-only', lang: 'sr', key: 'common.cancel', detail: 'Otkaži'})
+		})
+
+		it('leaves Latin-script locales alone, where an English-looking word can be the translation', () => {
+			const catalog = parseCatalog(poFixture({'common.start': 'Start download', 'common.cancel': 'Abbrechen', 'progress.done': '{{count}} Datei fertig', 'repair.deps.ytDlp': 'yt-dlp', 'format.tag': 'H.264 · 4K'}))
+
+			expect(validateLocaleCatalog('de', source, catalog)).toEqual([])
+		})
+
+		it('reads the script of each supported locale from CLDR', () => {
+			expect(SUPPORTED_LANGS.filter(lang => !usesLatinScript(lang)).sort()).toEqual(['am', 'ar', 'bg', 'bn', 'el', 'fa', 'he', 'hi', 'ja', 'km', 'ko', 'my', 'ps', 'ru', 'sr', 'th', 'uk', 'ur', 'zh', 'zh-Hant'])
 		})
 	})
 })
