@@ -5,7 +5,6 @@ import type {
 	ExploreViewState,
 	HotkeyOutcomeEvent,
 	HotkeyTriggerPayload,
-	LocalizedError,
 	ProbeProgressEvent,
 	ProgressEvent,
 	QueueItem,
@@ -18,7 +17,7 @@ import type {
 	UpdateAvailablePayload,
 	WarmupProgressEvent
 } from '@shared/types.js'
-import type {JobAuth, QueueChoice} from '@shared/schemas.js'
+import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
 export interface PreloadIpcRenderer {
@@ -133,9 +132,6 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			cmd: {
 				add: (items: QueueItem[]) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdAdd, items),
 				getSnapshot: () => ipcRenderer.invoke(IPC_CHANNELS.queueCmdGetSnapshot),
-				probeFailed: (input: {itemId: string; error: LocalizedError; auth?: JobAuth}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdProbeFailed, input),
-				needsChoice: (input: {itemId: string; choice: QueueChoice; title: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdNeedsChoice, input),
-				reprobe: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdReprobe, input),
 				start: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdStart, input),
 				pause: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdPause, input),
 				resume: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdResume, input),
@@ -185,6 +181,20 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 					return () => {
 						ipcRenderer.removeListener(IPC_CHANNELS.queueEventScheduler, wrapped)
 					}
+				}
+			}
+		},
+		intake: {
+			add: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdAdd, input),
+			retry: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdRetry, input),
+			choose: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdChoose, input),
+			keptProbe: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdKeptProbe, input),
+			setWindowContext: context => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdSetWindowContext, context),
+			onEvent: listener => {
+				const wrapped = (_: unknown, event: IntakeEvent): void => listener(event)
+				ipcRenderer.on(IPC_CHANNELS.intakeEvent, wrapped)
+				return () => {
+					ipcRenderer.removeListener(IPC_CHANNELS.intakeEvent, wrapped)
 				}
 			}
 		},

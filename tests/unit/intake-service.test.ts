@@ -9,7 +9,7 @@ import type {QueueStore} from '@main/stores/QueueStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 import {fail, ok, type Result} from '@shared/result.js'
-import type {AppSettings, PlaylistEntry, ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
+import type {AppSettings, PlaylistEntry, ProbeError, ProbeResult} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 
 // Link intake in main: a link becomes a placeholder row pinned to the active

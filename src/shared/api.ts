@@ -18,7 +18,8 @@ import type {
 	HotkeyOutcomePayload,
 	HotkeyState,
 	HotkeyTriggerPayload,
-	LocalizedError,
+	PlaylistProbeResult,
+	ProbePlaylistMode,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -46,7 +47,8 @@ import type {
 	WizardStepSnapshot
 } from './types.js'
 import type {PlaylistManifest} from './playlistManifest.js'
-import type {JobAuth, QueueChoice} from './schemas.js'
+import type {IntakeTake, IntakeWindowContext} from './schemas.js'
+import type {IntakeEvent, IntakePlacement} from './intake/intakeEvents.js'
 
 export interface SettingsPatch {
 	common?: Partial<CommonSettings>
@@ -103,11 +105,6 @@ export interface AppApi {
 			// `skippedAlreadyQueued`: rows left out because their video is already live.
 			add(items: QueueItem[]): Promise<Result<{ids: string[]; skippedAlreadyQueued: number}>>
 			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
-			probeFailed(input: {itemId: string; error: LocalizedError; auth?: JobAuth}): Promise<Result<void>>
-			// A probing placeholder waits for the user's choice (see QueueProbeLifecycle).
-			needsChoice(input: {itemId: string; choice: QueueChoice; title: string}): Promise<Result<void>>
-			// A probe-error or needs-choice placeholder goes back to probing.
-			reprobe(input: {itemId: string}): Promise<Result<void>>
 			start(input: {itemId: string}): Promise<Result<void>>
 			pause(input: {itemId: string}): Promise<Result<void>>
 			resume(input: {itemId: string}): Promise<Result<void>>
@@ -133,6 +130,20 @@ export interface AppApi {
 			onRemoved(listener: (event: {itemId: string}) => void): () => void
 			onScheduler(listener: (event: QueueSchedulerEventPayload) => void): () => void
 		}
+	}
+	// Link intake runs in main. `requestId` names each call; the outcomes it
+	// causes come back through `onEvent` carrying it.
+	intake: {
+		// Places the link's row and starts its probe; answers once the row is placed.
+		add(input: {requestId: string; url: string; playlistMode: ProbePlaylistMode; title?: string}): Promise<Result<IntakePlacement>>
+		// A probe-error row probes again.
+		retry(input: {requestId: string; itemId: string}): Promise<Result<void>>
+		// A needs-choice row's answer: every video, or the first N it was offered.
+		choose(input: {requestId: string; itemId: string; take: IntakeTake}): Promise<Result<void>>
+		// The probe a needs-choice row asked about, kept for its review; null once gone.
+		keptProbe(input: {itemId: string}): Promise<Result<PlaylistProbeResult | null>>
+		setWindowContext(context: IntakeWindowContext): Promise<Result<void>>
+		onEvent(listener: (event: IntakeEvent) => void): () => void
 	}
 	explore: {
 		navigate(command: ExploreNavigateCommand): Promise<Result<void>>

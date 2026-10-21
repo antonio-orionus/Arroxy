@@ -48,6 +48,7 @@ import {collectLiveTempDirs, sweepStaleTempDirs} from '@main/services/download/s
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
+import {createIntakeService} from '@main/intake/createIntakeService.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
 import {applyUserDataOverride} from '@main/userDataOverride.js'
@@ -601,7 +602,8 @@ if (hasSingleInstanceLock) {
 
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, refreshAppMenu: appMenu.refresh})
+		const intakeService = createIntakeService({probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu: appMenu.refresh})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)

@@ -34,9 +34,6 @@ export const IPC_CHANNELS = {
 	// queue-of-record; renderer mutations are forbidden.
 	queueCmdAdd: 'queue:cmd:add',
 	queueCmdGetSnapshot: 'queue:cmd:getSnapshot',
-	queueCmdProbeFailed: 'queue:cmd:probeFailed',
-	queueCmdNeedsChoice: 'queue:cmd:needsChoice',
-	queueCmdReprobe: 'queue:cmd:reprobe',
 	queueCmdStart: 'queue:cmd:start',
 	queueCmdPause: 'queue:cmd:pause',
 	queueCmdResume: 'queue:cmd:resume',
@@ -91,5 +88,13 @@ export const IPC_CHANNELS = {
 	dialogChooseExecutable: 'dialog:chooseExecutable',
 	shellOpenBinariesDir: 'shell:openBinariesDir',
 	playlistScanFolder: 'playlist:scanFolder',
-	playlistRegisterManifest: 'playlist:registerManifest'
+	playlistRegisterManifest: 'playlist:registerManifest',
+	// Link intake runs in main: the window takes links in, answers needs-choice
+	// rows and retries probe errors through these, and hears the outcomes back.
+	intakeCmdAdd: 'intake:cmd:add',
+	intakeCmdRetry: 'intake:cmd:retry',
+	intakeCmdChoose: 'intake:cmd:choose',
+	intakeCmdKeptProbe: 'intake:cmd:keptProbe',
+	intakeCmdSetWindowContext: 'intake:cmd:setWindowContext',
+	intakeEvent: 'intake:event'
 } as const
