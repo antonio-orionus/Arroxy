@@ -36,7 +36,7 @@ class FakeDownloadService extends EventEmitter {
 	setMaxConcurrent = vi.fn()
 }
 
-function wired(options: {realFeed?: boolean; sink?: ControlSink} = {}) {
+function wired(options: {realFeed?: boolean; sink?: ControlSink; probe?: () => Promise<Result<ProbeResult, ProbeError>>} = {}) {
 	const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
 	const queueService = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 	void queueService.pauseAll()
@@ -44,7 +44,7 @@ function wired(options: {realFeed?: boolean; sink?: ControlSink} = {}) {
 	const settings = defaultAppSettings('/downloads')
 	const outcomes = new ControlOutcomes()
 	let id = 0
-	const probe = (): Promise<Result<ProbeResult, ProbeError>> => Promise.resolve(ok(VIDEO))
+	const probe = options.probe ?? ((): Promise<Result<ProbeResult, ProbeError>> => Promise.resolve(ok(VIDEO)))
 	const intake = new IntakeService({queue: queueService, probe, registerManifest: () => Promise.resolve(), settings: () => Promise.resolve(settings), text: key => key, profileFormatLabel: () => 'Best', emit: event => outcomes.hear(event), platform: 'linux', newId: () => `id-${++id}`})
 	const siteRequests = new SiteRequestState()
 	const feed: ControlFeed = {subscribe: vi.fn(() => ({close: vi.fn()}))}
@@ -86,6 +86,21 @@ describe('createControlService', () => {
 		const waited = await h.send('wait', {intakeId, until: 'settled', timeoutMs: 5000})
 		expect(waited).toMatchObject({reached: true, target: {kind: 'intake', intake: {state: {state: 'queued', itemIds: [placeholderId]}}}})
 		expect(await h.send('queue.get', {itemId: placeholderId})).toMatchObject({item: {status: 'pending', origin: {kind: 'localClient', clientId: 'client-1', label: 'Claude Code'}, intakeId}})
+	})
+
+	it('follows a placeholder row through its probe swap', async () => {
+		let finishProbe = (): void => undefined
+		const probed = new Promise<Result<ProbeResult, ProbeError>>(resolve => {
+			finishProbe = () => resolve(ok(VIDEO))
+		})
+		const h = wired({probe: () => probed})
+		const {placeholderId} = (await h.send('links.add', {requestId: 'r1', url: VIDEO_URL})) as {intakeId: string; placeholderId: string}
+		expect(await h.send('queue.get', {itemId: placeholderId})).toMatchObject({item: {status: 'probing'}})
+		const waiting = h.send('wait', {itemId: placeholderId, until: 'settled', timeoutMs: 200})
+		// The swap removes the placeholder and adds its row under the same id in one step.
+		finishProbe()
+		const waited = await waiting
+		expect(waited).toMatchObject({reached: false, target: {kind: 'item', item: {id: placeholderId, status: 'pending'}}})
 	})
 
 	it("reports the queue's scheduler and the sites cooling down", async () => {

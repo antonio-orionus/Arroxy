@@ -72,9 +72,19 @@ export function waitFor<T>(watch: WaitWatch<T>, timeoutMs: number, signal: Abort
 			if (target === undefined) end({kind: 'gone'})
 			else if (watch.reached(target)) end({kind: 'reached', target})
 		}
+		// The queue swaps a placeholder for its rows in one synchronous step,
+		// removing it before the row that keeps its id is added; a target that
+		// vanished on a change is read again once that turn is over.
+		const changed = (): void => {
+			if (watch.read() !== undefined) look()
+			else
+				queueMicrotask(() => {
+					if (!ended) look()
+				})
+		}
 		look()
 		if (ended) return
-		unsubscribe = watch.subscribe(look)
+		unsubscribe = watch.subscribe(changed)
 		signal.addEventListener('abort', onAbort, {once: true})
 		timer = setTimeout(() => {
 			const target = watch.read()

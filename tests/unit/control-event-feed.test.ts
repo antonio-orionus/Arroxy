@@ -64,6 +64,7 @@ function fakes() {
 	return {
 		rows,
 		queue,
+		status,
 		sink,
 		flow,
 		feed,
@@ -248,10 +249,15 @@ describe('ControlEventFeed', () => {
 			expect(events(f)).toEqual(['queue.removed', 'queue.item'])
 		})
 
-		it('skips an event whose data does not match its schema, leaving no gap', () => {
-			f.setStatus({...READY, cooldowns: [{site: 'youtube', until: Number.NaN}]})
+		it('tells the subscriber to resync rather than skip an event whose data does not match its schema', () => {
 			f.update(running('a', 30))
-			expect(f.written()).toEqual([{event: 'queue.progress', seq: 0, data: expect.objectContaining({itemId: 'a'})}])
+			f.setStatus({...READY, cooldowns: [{site: 'youtube', until: Number.NaN}]})
+			f.update(running('a', 40))
+			expect(f.written()).toEqual([
+				{event: 'queue.progress', seq: 0, data: expect.objectContaining({itemId: 'a'})},
+				{event: 'events.resync', seq: 1, data: {reason: 'lagging'}}
+			])
+			expect(f.listeners()).toBe(0)
 			expect(logged.error).toHaveBeenCalled()
 		})
 
@@ -312,11 +318,21 @@ describe('ControlEventFeed', () => {
 			expect(f.written().map(line => line.event)).toEqual(['queue.item', 'queue.item', 'queue.removed'])
 		})
 
-		it('never drops a status event, however many wait', () => {
+		it('never drops a status event, however many wait', async () => {
 			f.flow.full = true
-			for (let index = 0; index < 200; index++) f.update({...running('a', 0), title: `Title ${index}`})
+			for (let index = 0; index < 200; index++) {
+				f.update({...running('a', 0), title: `Title ${index}`})
+				f.setStatus({...READY, cooldowns: [{site: 'youtube', until: index}]})
+				f.intake({intakeId: `intake-${index}`, placeholderId: 'a', clientId: 'client-1', state: {state: 'probing'}, updatedAt: index})
+				f.update({...running('a', 1 + (index % 99)), title: `Title ${index}`})
+			}
+			await Promise.resolve()
 			f.drain()
-			expect(f.written()).toHaveLength(200)
+			const written = f.written()
+			expect(written.filter(line => line.event === 'queue.item')).toHaveLength(200)
+			expect(written.filter(line => line.event === 'app.status').map(line => (line.data.status as AppStatus).cooldowns[0]?.until)).toEqual(Array.from({length: 200}, (_, index) => index))
+			expect(written.filter(line => line.event === 'intake.updated').map(line => (line.data.intake as {intakeId: string}).intakeId)).toEqual(Array.from({length: 200}, (_, index) => `intake-${index}`))
+			expect(written.filter(line => line.event === 'queue.progress')).toHaveLength(1)
 			expectContinuous(f)
 		})
 
@@ -388,6 +404,16 @@ describe('ControlEventFeed', () => {
 			subscription.close()
 			await Promise.resolve()
 			expect(f.sink.write).not.toHaveBeenCalled()
+		})
+
+		it('releases the listeners it already holds when attaching one fails', () => {
+			vi.spyOn(f.status, 'onChange').mockImplementation(() => {
+				throw new Error('status source gone')
+			})
+			f.subscribe({snapshot: false})
+			turn()
+			expect(events(f)).toEqual(['events.resync'])
+			expect(f.listeners()).toBe(0)
 		})
 
 		it('tells the subscriber to resync and closes when starting fails', () => {

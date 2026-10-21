@@ -1,6 +1,7 @@
 // One subscriber's outgoing events. Each is checked against the package's
-// schema when queued, and numbered only when written, so what coalescing and
-// dropping take out leaves no gap in `seq` (the first event is seq 0). While
+// schema when queued (one that fails ends the subscription with a resync),
+// and numbered only when written, so what coalescing and dropping take out
+// leaves no gap in `seq` (the first event is seq 0). While
 // the sink is full, events wait here: progress coalesced per item (latest
 // wins), written after everything else waiting and dropped first; everything
 // else is kept in order until the backlog passes its cap, when the subscriber
@@ -69,7 +70,10 @@ export class ControlFeedOutbox {
 	push(event: ControlFeedEvent): void {
 		if (this.closed) return
 		const data = checked(event)
-		if (data === null) return
+		if (data === null) {
+			this.resync()
+			return
+		}
 		const waiting: Waiting = {event: event.event, data, bytes: Buffer.byteLength(JSON.stringify(data))}
 		if (event.event === 'queue.progress') {
 			this.dropProgress(event.data.itemId)
@@ -155,6 +159,8 @@ export class ControlFeedOutbox {
 			else {
 				const data = checked(page.value)
 				if (data !== null) return {event: page.value.event, data, bytes: 0}
+				this.resync()
+				return null
 			}
 		}
 		const waiting = this.ordered[this.head]
@@ -192,7 +198,8 @@ export class ControlFeedOutbox {
 }
 
 // The event's data as its schema parses it, or null (logged, never sent)
-// when it does not match: a bug answers nothing rather than an invalid event.
+// when it does not match. Skipping it would leave the client a silent gap,
+// or a snapshot without its final page, so the caller ends with a resync.
 function checked(event: ControlFeedEvent): unknown {
 	const parsed = CONTROL_EVENTS[event.event].safeParse(event.data)
 	if (parsed.success) return parsed.data

@@ -95,13 +95,12 @@ class Subscription implements ControlFeedSubscription {
 			const views = queue.snapshot().map(row => this.view(row))
 			for (const view of views) this.views.set(view.id, view)
 			this.status = JSON.stringify(status.current())
-			this.stops = [
-				queue.onAdded(guarded(items => this.added(items))),
-				queue.onUpdated(guarded(item => this.updated(item))),
-				queue.onRemoved(guarded((itemId, reason) => this.removed(itemId, reason))),
-				registry.onChange(guarded(record => this.intakeChanged(record))),
-				status.onChange(guarded(() => this.statusChanged()))
-			]
+			// Kept one by one, so a source that fails to attach leaves none behind.
+			this.stops.push(queue.onAdded(guarded(items => this.added(items))))
+			this.stops.push(queue.onUpdated(guarded(item => this.updated(item))))
+			this.stops.push(queue.onRemoved(guarded((itemId, reason) => this.removed(itemId, reason))))
+			this.stops.push(registry.onChange(guarded(record => this.intakeChanged(record))))
+			this.stops.push(status.onChange(guarded(() => this.statusChanged())))
 			if (this.options.snapshot) this.outbox.lead(snapshotPages(views))
 		} catch (error) {
 			logger.error('the Control API event feed failed to start', {error: error instanceof Error ? error.message : String(error)})
