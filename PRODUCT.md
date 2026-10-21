@@ -54,7 +54,7 @@ The one free, open-source, local-only downloader that is friendly enough for a n
 
 ## Evidence on Hand
 
-- Product screenshots in `build/` (`Main-screenshot.png`, `Download-profiles-screenshot.png`, `Per-item-playlist-profiles-screenshot.png`, `Global-hotkey.png` / `Global-hotkey-dark.png`, `Bulk-urls-mode-screenshot.png`, `Downloading-in-parallel-screenshot.png`, `Subtitles-screenshot.png`, `Multi-lang-audio-support-screenshot.png`, `Dolby-audio-support-screenshot.png`, and others).
+- Product screenshots in every UI language in `build/screenshots/<locale>/` (`Main-screenshot.webp`, `Download-profiles-screenshot.webp`, `Per-item-playlist-profiles-screenshot.webp`, `Bulk-urls-mode-screenshot.webp`, `Downloading-in-parallel-screenshot.webp`, `Subtitles-screenshot.webp`, `Multi-lang-audio-support-screenshot.webp`, `Dolby-audio-support-screenshot.webp`, and others), plus the `Global-hotkey.png` / `Global-hotkey-dark.png` illustration in `build/`.
 - The README's "Why Arroxy" comparison against 4K Video Downloader, JDownloader, online converters, and browser extensions (sourced from `readme-src/`).
 - A public Discord community; GPLv3 license; published `SHA256SUMS` and GitHub immutable releases.
 - **Absent, do not fabricate:** testimonials, user counts, download counts, star counts, press quotes, or benchmarks.

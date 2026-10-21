@@ -5,6 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
+import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -88,6 +89,20 @@ function rebaseRelativeLinks(text, filename) {
   return text.replace(RELATIVE_LINK_RE, (_, lead, target) => lead + posix.join(prefix, target));
 }
 
+// Screenshots are taken in every UI language (`bun run screenshots:readme`) into
+// build/screenshots/<locale>/. The template names the English shot; each README
+// shows its own language's shot instead, and keeps the English one where that
+// language has none. `exists` takes a repo-root-relative path.
+const SCREENSHOT_RE = /build\/screenshots\/en\/([^"'\s)]+)/g;
+
+export function localizeScreenshots(text, code, exists) {
+  if (code === "en") return text;
+  return text.replace(SCREENSHOT_RE, (shot, file) => {
+    const localized = `build/screenshots/${code}/${file}`;
+    return exists(localized) ? localized : shot;
+  });
+}
+
 function buildLangNav(currentLoc, locales) {
   const fromDir = posix.dirname(currentLoc.filename);
   return locales
@@ -127,6 +142,7 @@ async function main() {
 
   for (const loc of LOCALES) {
     let md = applyStrings(template, loc.strings, enStrings);
+    md = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
     md = rebaseRelativeLinks(md, loc.filename);
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
@@ -148,7 +164,10 @@ async function main() {
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Run only as a script, so tests can import `localizeScreenshots`.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

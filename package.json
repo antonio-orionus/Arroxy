@@ -206,6 +206,7 @@
 		"postcss": "8.5.30",
 		"react-doctor": "0.9.17",
 		"shadcn": "4.21.4",
+		"sharp": "0.35.5",
 		"tailwindcss": "4.3.3",
 		"typescript": "6.0.3",
 		"unplugin-icons": "24.0.0",
