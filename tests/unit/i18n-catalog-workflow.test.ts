@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {SUPPORTED_LANGS} from '../../src/shared/schemas.js'
-import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, parseCatalog, pluralCategoriesFor, usesLatinScript, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
+import {buildLocaleCatalog, buildSourceCatalog, canonicalLocaleJson, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, parseCatalog, pluralCategoriesFor, usesLatinScript, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
 
 describe('i18n catalog workflow', () => {
 	const en = {common: {start: 'Start download', cancel: 'Cancel'}, progress: {done: '{{count}} file complete'}}
@@ -133,6 +133,36 @@ describe('i18n catalog workflow', () => {
 
 		it('reads the script of each supported locale from CLDR', () => {
 			expect(SUPPORTED_LANGS.filter(lang => !usesLatinScript(lang)).sort()).toEqual(['am', 'ar', 'bg', 'bn', 'el', 'fa', 'he', 'hi', 'ja', 'km', 'ko', 'my', 'ps', 'ru', 'sr', 'th', 'uk', 'ur', 'zh', 'zh-Hant'])
+		})
+	})
+
+	describe('canonical locale JSON', () => {
+		it('sorts keys at every level and writes one key per line', () => {
+			const packed = '{"wizard": {"title": "Wizard", "steps": {"url": "URL", "format": "Format"}}, "common": {"cancel": "Cancel", "back": "Back"}}'
+
+			expect(canonicalLocaleJson(packed)).toBe('{\n\t"common": {\n\t\t"back": "Back",\n\t\t"cancel": "Cancel"\n\t},\n\t"wizard": {\n\t\t"steps": {\n\t\t\t"format": "Format",\n\t\t\t"url": "URL"\n\t\t},\n\t\t"title": "Wizard"\n\t}\n}\n')
+		})
+
+		it('keeps plural siblings together next to the keys that share their stem', () => {
+			const tree = JSON.parse(canonicalLocaleJson('{"files_other": "{{count}} files", "filesLabel": "Files", "files_one": "{{count}} file", "filter": "Filter"}')) as Record<string, string>
+
+			expect(Object.keys(tree)).toEqual(['filesLabel', 'files_one', 'files_other', 'filter'])
+		})
+
+		it('orders numeric keys by value, as JSON.parse returns them', () => {
+			const tree = JSON.parse(canonicalLocaleJson('{"tier": {"label": "Tier", "1080": "1080p", "144": "144p", "720": "720p"}}')) as {tier: Record<string, string>}
+
+			expect(Object.keys(tree.tier)).toEqual(['144', '720', '1080', 'label'])
+		})
+
+		it('is stable, so a canonical file passes through unchanged', () => {
+			const canonical = canonicalLocaleJson('{"b": {"y": "Y", "x": "X"}, "a": "A"}')
+
+			expect(canonicalLocaleJson(canonical)).toBe(canonical)
+		})
+
+		it('rejects a locale file that is not a JSON object', () => {
+			expect(() => canonicalLocaleJson('["a"]')).toThrow(/JSON object/)
 		})
 	})
 })

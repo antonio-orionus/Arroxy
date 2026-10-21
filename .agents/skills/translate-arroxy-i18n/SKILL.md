@@ -24,7 +24,7 @@ PO field meaning:
 
 ## Change Workflow
 
-1. Edit `src/shared/i18n/locales/en.json` only.
+1. Edit `src/shared/i18n/locales/en.json` only. Keys stay sorted, one per line; `bun run i18n:format` puts a new key in place.
 2. Stop and get explicit user approval for the English copy. Plan approval is not translation approval.
 3. Run `bun run i18n:sync` to update `i18n/app.pot` and merge English changes into `i18n/locales/*.po`.
 4. Translate only PO entries that are fuzzy, untranslated, or intentionally changed by the task. Hand the translating to subagents on a Sonnet-class model, never Opus: give each one a batch of locales and the exact entries to fill. The lead session reviews their output and runs the checks.

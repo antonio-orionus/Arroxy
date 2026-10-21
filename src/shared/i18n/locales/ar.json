@@ -1,1035 +1,329 @@
 {
-	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "loading": "جارٍ التحميل…", "retry": "إعادة المحاولة", "dismiss": "تجاهل", "startOver": "البدء من جديد", "close": "إغلاق"},
+	"about": {
+		"button": "حول",
+		"githubLink": "GitHub",
+		"licenseLine": "GPLv3 · بواسطة Antonio Orionus",
+		"openTitle": "حول Arroxy",
+		"tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.",
+		"thirdPartyNotices": "عرض إشعارات الطرف الثالث",
+		"websiteLink": "موقع الويب"
+	},
+	"aiUpscaled": {
+		"allow": "السماح",
+		"description": "يعرض YouTube بعض الفيديوهات القديمة بأحجام صنعها بالذكاء الاصطناعي. يُبقي «تخطي» على التدفقات الأصلية؛ ولا يزال بإمكانك اختيار تدفق مُكبَّر يدويًا.",
+		"label": "تدفقات مُكبَّرة بالذكاء الاصطناعي",
+		"skip": "تخطي"
+	},
 	"app": {
 		"feedback": "ملاحظات",
+		"feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬",
 		"logs": "السجلات",
 		"saveDiagnostics": "حفظ ملف التشخيص",
 		"saveDiagnosticsDescription": "يجمع السجلات وتفاصيل التطبيق في ملف واحد داخل مجلد التنزيلات، جاهز لإرفاقه ببلاغ على GitHub. يُحذف اسم مجلد المستخدم الخاص بك، وتبقى روابط الفيديوهات وعناوينها.",
-		"feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬",
-		"zoomIn": "تكبير",
-		"zoomOut": "تصغير",
+		"styleHint": "جديد: اختر Aurora أو بسيط من هنا",
 		"theme": "المظهر",
-		"styleHint": "جديد: اختر Aurora أو بسيط من هنا"
+		"zoomIn": "تكبير",
+		"zoomOut": "تصغير"
 	},
-	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "GPLv3 · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
-	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
-	"splash": {
-		"greeting": "مرحباً، أهلاً بعودتك!",
-		"warmup": "جارٍ تحضير التنزيلات…",
-		"verifying": "جارٍ فحص {{binary}}…",
-		"verifyFirstCheck": "أول فحص لهذا الإصدار — هذا الفحص بطيء. يستغرق عادةً حوالي دقيقة.",
-		"cancel": "هل تواجه مشكلة؟ قم بالإعداد يدويًا",
-		"warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل.",
-		"setup": {
-			"title": {"firstRun": "الإعداد لأول مرة", "media": "تحديث أدوات الوسائط", "engine": "تحديث محرّك التنزيل"},
-			"stage": {"connecting": "جارٍ الاتصال…", "downloadingBoth": "جارٍ تنزيل محرّك التنزيل وأدوات الوسائط", "downloadingEngine": "جارٍ تنزيل محرّك التنزيل", "downloadingMedia": "جارٍ تنزيل أدوات الوسائط", "unpacking": "جارٍ فك ضغط أدوات الوسائط", "checking": "جارٍ التحقق من أن كل شيء يعمل"},
-			"bytes": "{{done}} من {{total}}",
-			"left": {"underMinute": "تبقّى أقل من دقيقة", "minutes_zero": "تبقّى نحو {{count}} دقيقة", "minutes_one": "تبقّى نحو {{count}} دقيقة", "minutes_two": "تبقّى نحو {{count}} دقيقتين", "minutes_few": "تبقّى نحو {{count}} دقائق", "minutes_many": "تبقّى نحو {{count}} دقيقة", "minutes_other": "تبقّى نحو {{count}} دقيقة"},
-			"note": {"firstRun": "يحدث هذا مرة واحدة فقط. يحتفظ Arroxy بهذه الأدوات ويحدّثها بنفسه.", "media": "يحدث هذا مرة واحدة فقط. يحتفظ Arroxy بها للتحديثات القادمة.", "engine": "يُبقي التنزيلات تعمل عندما تتغير المواقع."}
+	"common": {
+		"back": "رجوع",
+		"cancel": "إلغاء",
+		"close": "إغلاق",
+		"continue": "متابعة",
+		"dismiss": "تجاهل",
+		"loading": "جارٍ التحميل…",
+		"retry": "إعادة المحاولة",
+		"startOver": "البدء من جديد"
+	},
+	"dialogs": {
+		"closeToTray": {
+			"detail": "يستمر Arroxy في العمل وينهي التنزيلات النشطة. يمكنك تغيير ذلك لاحقاً في الإعدادات المتقدمة.",
+			"hide": "الإخفاء في علبة النظام",
+			"message": "هل تريد إخفاء Arroxy في علبة النظام عند الإغلاق؟",
+			"quit": "الخروج",
+			"remember": "لا تسألني مجدداً"
+		},
+		"quitWithActiveDownloads": {
+			"confirm": "إلغاء التنزيلات والخروج",
+			"detail": "يمكنك الإيقاف مؤقتًا للاستئناف لاحقًا، أو الإلغاء للتخلي عن التقدم.",
+			"keep": "الاستمرار في التنزيل",
+			"message_few": "{{count}} تنزيلات قيد التقدم",
+			"message_many": "{{count}} تنزيلًا قيد التقدم",
+			"message_one": "{{count}} تنزيل قيد التقدم",
+			"message_other": "{{count}} تنزيل قيد التقدم",
+			"message_two": "تنزيلان قيد التقدم",
+			"message_zero": "لا توجد تنزيلات قيد التقدم",
+			"pause": "إيقاف التنزيلات مؤقتًا والخروج"
+		},
+		"rendererCrashed": {
+			"detail": "تعطّلت عملية العرض ({{reason}}). أعد التحميل للمحاولة مجدداً.",
+			"message": "واجه Arroxy مشكلة",
+			"quit": "الخروج",
+			"reload": "إعادة التحميل"
 		}
 	},
-	"repair": {
-		"title": "الإعداد يحتاج مساعدتك",
-		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"groups": {"engine": "محرّك التنزيل", "media": "أدوات الوسائط"},
-		"causes": {
-			"downloadFailed": {"title": "تعذّر تنزيل ما يحتاجه Arroxy", "body": "تحقّق من اتصالك بالإنترنت، ثم حاول مرة أخرى."},
-			"extractFailed": {"title": "وصل أحد التنزيلات تالفًا", "body": "حاول مرة أخرى لتنزيله من جديد."},
-			"hashFailed": {"title": "أحد التنزيلات لا يطابق رمز التحقق الخاص به", "body": "حاول مرة أخرى لتنزيله من جديد."},
-			"spawnFailed": {"title": "إحدى الأدوات مفقودة أو لا تبدأ", "body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تعمل من الأسفل."},
-			"permissionDenied": {"title": "نظامك لا يسمح لـ Arroxy بتشغيل إحدى الأدوات", "body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تثق بها من الأسفل."},
-			"blockedOrQuarantined": {"title": "حظر برنامج مكافحة الفيروسات إحدى الأدوات", "body": "اسمح لـ Arroxy في برنامج مكافحة الفيروسات أو SmartScreen، ثم حاول مرة أخرى."},
-			"badExitCode": {"title": "إحدى الأدوات لا تعمل بشكل صحيح", "body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تعمل من الأسفل."},
-			"timeout": {"title": "استغرقت إحدى الأدوات وقتًا طويلًا للاستجابة", "body": "غالبًا ما يكون السبب فحصًا أمنيًا عند أول تشغيل. حاول مرة أخرى."},
-			"pairIncomplete": {"title": "يجب تحديد FFmpeg وFFprobe معًا", "body": "اختر الاثنين من الأسفل، أو أعدهما إلى الافتراضي."},
-			"unknown": {"title": "حدث خطأ ما أثناء الإعداد", "body": "حاول مرة أخرى، أو افتح سجل الإعداد للاطلاع على التفاصيل."}
-		},
-		"installing": {"homebrew": "جارٍ التثبيت عبر Homebrew… قد يستغرق ذلك بضع دقائق.", "winget": "جارٍ التثبيت عبر WinGet… قد يستغرق ذلك بضع دقائق."},
-		"stopped": {"title": "توقّف الإعداد", "body": "حاول مرة أخرى، أو وجّه Arroxy إلى أدوات لديك بالفعل من الأسفل."},
-		"manual": {"toggle": "الإعداد اليدوي", "intro": "وجّه Arroxy إلى نسخ لديك بالفعل، أو ثبّتها بطريقة أخرى.", "linuxHint": "يمكنك أيضًا تثبيت yt-dlp وffmpeg عبر مدير الحزم لديك، ثم النقر على «حاول مرة أخرى»."},
-		"actions": {
-			"chooseExecutable": "اختر الملف القابل للتنفيذ",
-			"installWithHomebrew": "التثبيت عبر Homebrew",
-			"installWithWinget": "التثبيت عبر WinGet",
-			"resetToDefault": "إعادة إلى الافتراضي",
-			"retrySetup": "حاول مرة أخرى",
-			"cancel": "إلغاء",
-			"openDependencyFolder": "فتح مجلد التبعيات",
-			"viewSetupLog": "عرض سجل الإعداد"
-		}
-	},
-	"theme": {"light": "الوضع الفاتح", "dark": "الوضع الداكن", "system": "إعداد النظام الافتراضي"},
-	"language": {"label": "اللغة"},
-	"wizard": {
-		"steps": {
-			"url": "URL",
-			"playlistItems": "قائمة التشغيل",
-			"playlistItemsGeneric": "فيديوهات",
-			"playlistPresets": "الجودة",
-			"playlistProfiles": "الملفات الشخصية",
-			"formats": "الصيغة",
-			"subtitles": "الترجمات",
-			"sponsorblock": "SponsorBlock",
-			"output": "الإخراج",
-			"folder": "حفظ",
-			"confirm": "تأكيد",
-			"review": "مراجعة"
-		},
-		"playlistPresets": {
-			"heading": "اختر الجودة للدفعة",
-			"subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت.",
-			"itemCount_zero": "{{count}} عنصر",
-			"itemCount_one": "{{count}} عنصر",
-			"itemCount_two": "عنصران",
-			"itemCount_few": "{{count}} عناصر",
-			"itemCount_many": "{{count}} عنصرًا",
-			"itemCount_other": "{{count}} عنصر"
-		},
-		"playlistProfiles": {
-			"heading": "تعيين ملفات تنزيل",
-			"selectedSummary": "تم تحديد {{selected}} من {{total}}",
-			"assignTriggerEmpty": "تعيين ملف تعريف",
-			"assignTrigger_zero": "تعيين لمقاطع الفيديو ({{count}})",
-			"assignTrigger_one": "تعيين لـ {{count}} فيديو",
-			"assignTrigger_two": "تعيين لمقاطع الفيديو ({{count}})",
-			"assignTrigger_few": "تعيين لمقاطع الفيديو ({{count}})",
-			"assignTrigger_many": "تعيين لمقاطع الفيديو ({{count}})",
-			"assignTrigger_other": "تعيين لمقاطع الفيديو ({{count}})",
-			"menuDescription_zero": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"menuDescription_one": "اختر ملف التعريف لهذا الفيديو.",
-			"menuDescription_two": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"menuDescription_few": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"menuDescription_many": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"menuDescription_other": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
-			"editProfile": "تعديل {{name}}",
-			"filtersLabel": "عوامل تصفية الملف الشخصي",
-			"filterChip": "{{name}} · {{count}}",
-			"columnProfile": "الملف الشخصي",
-			"columnDuration": "المدة",
-			"empty": "لا توجد عناصر تطابق هذا الفلتر"
-		},
-		"playlist": {
-			"heading": "عناصر القائمة",
-			"headingGeneric": "الفيديوهات المراد تنزيلها",
-			"bulkHeading": "روابط متعددة",
-			"itemCount_zero": "{{count}} فيديو",
-			"itemCount_one": "{{count}} فيديو",
-			"itemCount_two": "فيديوهان",
-			"itemCount_few": "{{count}} مقاطع فيديو",
-			"itemCount_many": "{{count}} فيديو",
-			"itemCount_other": "{{count}} فيديو",
-			"itemCountAudio_zero": "{{count}} مقطع صوتي",
-			"itemCountAudio_one": "{{count}} مقطع صوتي",
-			"itemCountAudio_two": "مقطعان صوتيان",
-			"itemCountAudio_few": "{{count}} مقاطع صوتية",
-			"itemCountAudio_many": "{{count}} مقطعًا صوتيًا",
-			"itemCountAudio_other": "{{count}} مقطع صوتي",
-			"itemCountBulk_zero": "{{count}} رابط",
-			"itemCountBulk_one": "{{count}} رابط",
-			"itemCountBulk_two": "رابطان",
-			"itemCountBulk_few": "{{count}} روابط",
-			"itemCountBulk_many": "{{count}} رابطًا",
-			"itemCountBulk_other": "{{count}} رابط",
-			"bulkMetadataResolving": "جارٍ جلب تفاصيل الفيديو… {{done}}/{{total}}",
-			"bulkMetadataOptional": "لا داعي للانتظار — الملفات التي تضعها في قائمة الانتظار الآن ستحصل على أسمائها الحقيقية عند التنزيل.",
-			"bulkRowWaiting": "بانتظار",
-			"bulkRowResolving": "جارٍ جلب التفاصيل",
-			"bulkRowFailed": "التفاصيل غير متاحة",
-			"selectAll": "تحديد الكل",
-			"selectNone": "إلغاء تحديد الكل",
-			"sortLabel": "فرز",
-			"sortApi": "ترتيب قائمة التشغيل",
-			"sortUploadAsc": "الأقدم أولاً",
-			"sortUploadDesc": "الأحدث أولاً",
-			"sortFetchingDates": "جارٍ جلب تواريخ الرفع…",
-			"rangeFrom": "من",
-			"rangeTo": "إلى",
-			"rangeApply": "تطبيق النطاق",
-			"selectedCount_zero": "{{count}} محدد",
-			"selectedCount_one": "{{count}} محدد",
-			"selectedCount_two": "محدّدان",
-			"selectedCount_few": "{{count}} محددة",
-			"selectedCount_many": "{{count}} محدد",
-			"selectedCount_other": "{{count}} محدد",
-			"noSelection": "حدد فيديو واحداً على الأقل للمتابعة",
-			"loadingItems": "جارٍ جلب القائمة…",
-			"loadingItemsGeneric": "جارٍ جلب الفيديوهات…",
-			"loadingPhasePages": "جارٍ فحص صفحات القناة",
-			"loadingPhaseItems": "جارٍ جمع الفيديوهات",
-			"loadingPagesFound_zero": "تم العثور على {{count}} صفحة",
-			"loadingPagesFound_one": "تم العثور على {{count}} صفحة",
-			"loadingPagesFound_two": "تم العثور على صفحتين",
-			"loadingPagesFound_few": "تم العثور على {{count}} صفحات",
-			"loadingPagesFound_many": "تم العثور على {{count}} صفحة",
-			"loadingPagesFound_other": "تم العثور على {{count}} صفحة",
-			"loadingLimitHint": "محدود بأول {{count}} عنصر",
-			"thumbnailAlt": "صورة مصغرة للفيديو",
-			"durationUnknown": "مباشر",
-			"syncChange": "تغيير المجلد…",
-			"syncApply": "تطبيق المزامنة",
-			"syncScanning": "جارٍ فحص المجلد…",
-			"syncFoundTitle": "موجود بالفعل في المجلد",
-			"syncFoundDesc": "{{n}} من هذه الفيديوهات موجودة بالفعل في {{dir}}. هل تريد المزامنة لتنزيل الجديد فقط؟",
-			"syncNoneTitle": "لم يتم تنزيل شيء بعد",
-			"syncNoneDesc": "لم يتم العثور على أي فيديوهات من قائمة التشغيل هذه في {{dir}}.",
-			"syncNoneDescGeneric": "لم يتم العثور على فيديوهات من هذا المصدر في {{dir}}.",
-			"alreadyDownloaded": "تم تنزيله بالفعل",
-			"nestedPlaylistBadge": "قائمة التشغيل",
-			"nestedPlaylistHint_zero": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
-			"nestedPlaylistHint_one": "{{count}} من هذه قائمة تشغيل، وليست فيديو — الصق رابطها بمفرده لتنزيلها.",
-			"nestedPlaylistHint_two": "اثنتان من هذه قائمتا تشغيل، وليستا مقطعي فيديو — الصق رابطيهما واحدًا تلو الآخر لتنزيلهما.",
-			"nestedPlaylistHint_few": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
-			"nestedPlaylistHint_many": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
-			"nestedPlaylistHint_other": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
-			"probeLimitAlertTitle": "فحص قائمة التشغيل محدود",
-			"probeLimitAlertTitleGeneric": "الفحص محدود",
-			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
-			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
-			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر",
-			"removeFromListCount_zero": "إزالة {{count}} من القائمة",
-			"removeFromListCount_one": "إزالة {{count}} من القائمة",
-			"removeFromListCount_two": "إزالة {{count}} من القائمة",
-			"removeFromListCount_few": "إزالة {{count}} من القائمة",
-			"removeFromListCount_many": "إزالة {{count}} من القائمة",
-			"removeFromListCount_other": "إزالة {{count}} من القائمة",
-			"restore": "استعادة",
-			"removedCount_zero": "تمت إزالة {{count}}",
-			"removedCount_one": "تمت إزالة {{count}}",
-			"removedCount_two": "تمت إزالة اثنين",
-			"removedCount_few": "تمت إزالة {{count}}",
-			"removedCount_many": "تمت إزالة {{count}}",
-			"removedCount_other": "تمت إزالة {{count}}",
-			"allRemovedTitle": "تمت إزالة جميع العناصر",
-			"allRemovedDescription": "استعدها للمتابعة."
-		},
-		"bulk": {
-			"title": "روابط متعددة",
-			"description": "الصق روابط فيديو أو قائمة تشغيل أو قناة أو بحث أو صوت. سيزيل Arroxy التكرارات قبل إضافتها إلى الطابور.",
-			"textareaLabel": "قائمة الروابط",
-			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
-			"acceptedCount": "جاهزة",
-			"ignoredCount": "متجاهلة",
-			"emptyPreview": "الصق رابطًا واحدًا أو أكثر لمعاينة الدفعة.",
-			"needsAtLeastOne": "أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.",
-			"reject": {"duplicate": "مكرر"}
-		},
-		"tabsNavAria": "التنقل في ملفات التنزيل",
-		"profileSwitchRow": {"helpAria": "مساعدة {{label}}"},
-		"mixedPrompt": {
-			"title": "هذا الرابط يحتوي على Playlist",
-			"body": "هل تريد الفيديو الذي اخترته فقط، أم تفضّل الاختيار من الـ Playlist؟ ستختار فيديوهات بعينها أو نطاقاً في الخطوة التالية.",
-			"quickBody": "نزّل هذا الفيديو فقط، أو أضف قائمة التشغيل كاملة إلى قائمة الانتظار باستخدام ملف التنزيل السريع النشط.",
-			"singleVideo": "هذا الواحد فقط",
-			"quickSingleVideo": "نزّل هذا الفيديو",
-			"pickFromPlaylist": "اختر من الـ Playlist",
-			"quickWholePlaylist": "نزّل قائمة التشغيل كاملة",
-			"playlistLimit": "حد فحص قائمة التشغيل: {{count}} عنصرًا",
-			"quickLimitDescription": "الحد الأقصى للعناصر التي يفحصها Arroxy قبل إضافة قائمة تشغيل أو قناة أو نتيجة بحث إلى قائمة الانتظار.",
-			"singleTooltip": "يحمّل هذا الفيديو فقط. يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط.",
-			"quickSingleTooltip": "يضيف تنزيلًا واحدًا إلى قائمة الانتظار ويتجاهل قائمة التشغيل المرفقة بعنوان URL هذا.",
-			"playlistTooltip": "يحمّل قائمة التشغيل حتى حد الفحص الذي حددته قبل عرض أداة الاختيار.",
-			"quickPlaylistTooltip": "يضيف كل عنصر تم تحميله من قائمة التشغيل إلى قائمة الانتظار باستخدام ملف التنزيل السريع النشط. إذا وصل الفحص إلى حدك، فسيسألك Arroxy قبل الإضافة إلى قائمة الانتظار."
-		},
-		"url": {
-			"playlistScope": {
-				"label": "نطاق قائمة التشغيل",
-				"change": "تغيير",
-				"summaryAppLimit": "تحميل أول العناصر: {{count}}",
-				"summaryFirst": "تحميل أول العناصر: {{count}}",
-				"summaryRange": "تحميل العناصر {{from}}-{{to}}",
-				"dialogTitle": "نطاق قائمة التشغيل",
-				"dialogDescription": "اختر ما يحمّله Arroxy لقائمة التشغيل هذه.",
-				"itemsLabel": "العناصر المراد تحميلها",
-				"appLimit": "استخدام حد التطبيق: {{count}}",
-				"first": "الأول",
-				"range": "نطاق",
-				"to": "إلى",
-				"invalid": "استخدم أعدادًا صحيحة من 1 إلى {{max}}، على ألا تتجاوز البداية النهاية.",
-				"applyError": "تعذّر تطبيق نطاق قائمة التشغيل هذا: {{message}}",
-				"reset": "إعادة ضبط",
-				"cancel": "إلغاء",
-				"apply": "تطبيق",
-				"applyReload": "تطبيق وإعادة التحميل",
-				"reloading": "جارٍ إعادة التحميل...",
-				"emptyTitle": "لا توجد فيديوهات في هذا النطاق"
-			},
-			"heading": "تنزيل من رابط",
-			"placeholder": "https://www.youtube.com/watch?v=...",
-			"tabs": {"profiles": "الملفات الشخصية", "settings": "الإعدادات"},
-			"interactiveDownload": "تنزيل تفاعلي",
-			"fetchFormatsTooltip": "معالج خطوة بخطوة. اختر الصيغة والجودة والمزيد.",
-			"quickDownload": "تنزيل سريع",
-			"quickDownloadTooltip": "سيتم التنزيل باستخدام: {{profileName}}",
-			"quickPreparing": "جارٍ التحضير",
-			"quickQueued": "تمت الإضافة إلى قائمة الانتظار",
-			"quickSingleOnly": "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء.",
-			"quickProbeFailed": "فشل الفحص",
-			"quickPrepareFailed": "تعذر تحضير عنصر قائمة الانتظار",
-			"quickBulkAllFailed": "تعذّر تحضير أي من عناوين URL هذه",
-			"quickFailed": "تعذرت إضافة هذا العنصر: {{error}}",
-			"quickPartialFailed_zero": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
-			"quickPartialFailed_one": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنوان URL واحد.",
-			"quickPartialFailed_two": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنواني URL.",
-			"quickPartialFailed_few": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عناوين URL.",
-			"quickPartialFailed_many": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
-			"quickPartialFailed_other": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
-			"profile": {
-				"destinationFallback": "الوجهة",
-				"switchAria": "تبديل ملف تعريف التنزيل: {{profileName}}",
-				"switchTitle": "تبديل ملف تعريف التنزيل",
-				"activeLabel": "ملف التعريف النشط",
-				"editActive": "تعديل ملف التعريف النشط",
-				"changeGlobalDestination": "تغيير وجهة الحفظ العامة",
-				"destinationDetail": {"global": "استخدام الوجهة العامة", "globalSubfolder": "استخدام الوجهة العامة + المجلد الفرعي للملف", "override": "استخدام تجاوز الملف", "overrideSubfolder": "استخدام تجاوز الملف + المجلد الفرعي للملف"},
-				"summary": {"bestVideo": "أفضل فيديو", "bestAudio": "أفضل صوت", "aacAudio": "صوت AAC", "wavAudio": "صوت WAV", "noAudio": "بدون صوت", "subtitlesOnly": "ترجمات فقط"},
-				"menuTitle": "تبديل ملف التعريف",
-				"menuDescription": "غيّر ملف التعريف النشط للتنزيل السريع وعناوين URL المتعددة وقوائم التشغيل.",
-				"newProfile": "ملف تعريف جديد",
-				"manageProfiles": "إدارة ملفات التعريف",
-				"panelTitle": "ملفات التنزيل الشخصية",
-				"panelDescription": "أنشئ إعدادات تنزيل قابلة لإعادة الاستخدام أو اخترها أو عدّلها أو أزلها.",
-				"badgeCustom": "مخصص",
-				"badgeModified": "معدّل",
-				"badgeBuiltIn": "مدمج",
-				"badgeDisabled": "مخفي",
-				"enableToggleAria": "إظهار الملف في القوائم: {{profileName}}",
-				"enableHint": "تبقى الملفات المخفية هنا لكنها تختفي من كل القوائم.",
-				"reorderHint": "اسحب ملفًا لنقله. تتبع كل قوائم الملفات هذا الترتيب.",
-				"moveHandleAria": "نقل {{profileName}}",
-				"movableProfile": "ملف قابل للنقل",
-				"moveInstructions": "لنقل ملف، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء.",
-				"movePickedUp": "تم التقاط {{profileName}}. موضعه {{position}} من {{count}}.",
-				"moveOver": "{{profileName}} فوق الموضع {{position}} من {{count}}.",
-				"moveDropped": "تم إفلات {{profileName}} في الموضع {{position}} من {{count}}.",
-				"moveCancelled": "تم إلغاء النقل. يبقى {{profileName}} في الموضع {{position}} من {{count}}.",
-				"lastEnabledHint": "أبقِ ملفًا واحدًا متاحًا على الأقل.",
-				"edit": "تعديل",
-				"remove": "إزالة",
-				"reset": "إعادة ضبط"
-			},
-			"bulkButton": "روابط متعددة",
-			"bulkTooltip": "أضف روابط متعددة وضعها في قائمة الانتظار.",
-			"features": {
-				"heading": "ما الذي يستطيع Arroxy سحبه",
-				"youtube": {"heading": "YouTube", "video": "مقاطع فيديو", "channel": "القنوات", "playlist": "قوائم التشغيل", "short": "Shorts", "music": "الموسيقى", "podcast": "البودكاست"},
-				"anySite": {"heading": "2000+ موقع", "video": "مقاطع فيديو", "videoPlaylist": "قوائم تشغيل الفيديو", "musicPlaylist": "قوائم تشغيل الموسيقى"},
-				"always": {"audioOnly": "الصوت فقط", "subtitles": "الترجمات"}
-			},
-			"mascotIdle": "أرسل رابطًا ودع Arroxy يسحبه ✨",
-			"mascotBusy": "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎",
-			"mascotPreparing": "يقرأ {{quickDownload}} هذا الرابط ويطبّق {{profileName}}.",
-			"mascotQueued": "قائمة الانتظار تتولى هذا التنزيل. يمكنك لصق رابط آخر أثناء ذلك.",
-			"mascotCollection": "يضيف التنزيل السريع العناصر المحمّلة إلى قائمة الانتظار باستخدام {{profileName}}. أما التنزيل التفاعلي فيتيح لك فحص العناصر أو تحديدها أولًا.",
-			"mascotMixed": "يشير هذا الرابط إلى فيديو واحد داخل مجموعة. سيسألك Arroxy عن الفيديو الذي تريده قبل الفحص.",
-			"mascotSingle": "يبدأ التنزيل السريع تنزيلًا واحدًا باستخدام {{profileName}}. استخدم التنزيل التفاعلي لإجراء تغييرات لمرة واحدة.",
-			"advanced": "متقدم",
-			"settings": {"inputHeading": "إدخال", "behaviorHeading": "سلوك التنزيل", "behaviorDescription": "سلوك عام يؤثر أيضًا على التنزيلات المُدارة بواسطة الملفات الشخصية."},
-			"clearAria": "مسح الرابط",
-			"clipboard": {
-				"toggle": "مراقبة الحافظة",
-				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
-				"autofilledLink": "تمت إضافة الرابط من الحافظة",
-				"bulkHint": "تم نسخ روابط متعددة — استخدم «روابط متعددة» لإضافتها",
-				"replacedLink": "تم الاستبدال بالرابط المنسوخ",
-				"undo": "تراجع",
-				"dialog": {"cancelButton": "إلغاء"}
-			},
-			"hotkey": {
-				"sectionTitle": "اختصار عام",
-				"sectionDescription": "نزّل أي رابط تنسخه من أي تطبيق دون فتح Arroxy.",
-				"toggle": "تفعيل الاختصار العام",
-				"toggleDescription": "اضغط الاختصار مع وجود رابط فيديو في الحافظة.",
-				"changeShortcut": "تغيير الاختصار",
-				"recording": "اضغط المفاتيح…",
-				"test": "اختبار",
-				"conflict": "هذا الاختصار مستخدم من تطبيق آخر — اختر غيره.",
-				"hintLabel": "أو اضغط",
-				"hintTooltip": "انسخ رابط فيديو من أي مكان، واضغط هذا الاختصار، وسيضيفه Arroxy إلى قائمة الانتظار باستخدام ملفك الشخصي النشط — لا حاجة للتبديل بين النوافذ.",
-				"hintTooltipSettings": "غيّره أو عطّله من الإعدادات.",
-				"reset": "إعادة إلى الافتراضي"
-			},
-			"cookies": {
-				"sourceLabel": "مصدر الكوكيز",
-				"sourceOff": "إيقاف",
-				"sourceFile": "ملف",
-				"sourceBrowser": "متصفح",
-				"sourceExplore": "تسجيل الدخول في «استكشاف»",
-				"recommended": "موصى به",
-				"exploreDescription": "يستخدم تسجيل دخولك في «استكشاف» فقط عندما يحتاجه التنزيل.",
-				"exploreDisabled": "تبويب «استكشاف» متوقف، لذا لا تستخدم التنزيلات تسجيل دخولك في «استكشاف». فعّله من قسم «استكشاف» أدناه.",
-				"openExplore": "افتح «استكشاف»",
-				"toggleDescription": "يساعد مع مقاطع الفيديو المقيدة بالعمر والمخصصة للأعضاء والخاصة بالحساب.",
-				"risk": "تحذير: يحتوي cookies.txt على جميع جلسات تسجيل الدخول لذلك المتصفح — احتفظ به سرياً.",
-				"fileLabel": "ملف الكوكيز",
-				"choose": "اختيار…",
-				"clear": "مسح",
-				"placeholder": "لم يتم اختيار ملف",
-				"helpLink": "كيف أصدّر الكوكيز؟",
-				"enabledButNoFile": "اختر ملفاً لاستخدام الكوكيز",
-				"browserLabel": "المتصفح",
-				"browserPlaceholder": "اختر متصفحاً…",
-				"browserHelp": "يقرأ الكوكيز مباشرةً من المتصفح. يجب أن يكون المتصفح مغلقاً لمتصفحات عائلة Chromium.",
-				"enabledButNoBrowser": "اختر متصفحاً لاستخدام الكوكيز",
-				"banWarning": "قد تُعلّم مواقع مثل YouTube — وأحياناً تحظر — الحسابات التي تُستخدم كوكيزها بواسطة أدوات التنزيل مثل Arroxy. استخدم حساباً مؤقتاً إن أمكن.",
-				"extensionFirefox": "cookies.txt (Firefox)",
-				"extensionChrome": "احصل على cookies.txt محلياً (Chrome)"
-			},
-			"proxy": {"label": "عنوان الوكيل", "description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.", "placeholder": "http://host:port", "clear": "مسح"},
-			"style": {
-				"panelTitle": "المظهر",
-				"panelDescription": "هكذا يبدو Arroxy. بدّل بين الفاتح والداكن من أسفل النافذة.",
-				"modeLabel": "النمط",
-				"modeDescription": "كلا النمطين متاح بالوضع الفاتح والداكن.",
-				"aurora": {"label": "Aurora", "description": "ألواح زجاجية فوق سماء متحركة. تحتاج إلى تسريع الرسومات."},
-				"minimal": {"label": "بسيط", "description": "أسطح صلبة وهادئة. تعمل بخفة على أي جهاز كمبيوتر."},
-				"unavailableNotice": "يحتاج {{style}} إلى تسريع الرسومات وهو غير متاح الآن، لذلك يعرض Arroxy {{fallback}}."
-			},
-			"limitRate": {
-				"label": "حد سرعة التنزيل",
-				"description": "يحد من النطاق الترددي لتنزيلات الوسائط. إيقاع الطلبات أدناه غالبًا هو أداة الحد الأقوى.",
-				"off": "إيقاف",
-				"custom": "مخصص…",
-				"customPlaceholder": "مثل 750K أو 1.5M",
-				"invalid": "استخدم رقمًا متبوعًا بـ K أو M (مثل 500K، 1.5M)",
-				"activeWarning": "التنزيلات النشطة تحتفظ بحدها الحالي. استخدم إيقاف مؤقت + استئناف لتطبيق التغييرات."
-			},
-			"playlistProbeLimit": {
-				"label": "عدد عناصر القائمة للفحص",
-				"description": "الحد الأقصى للإدخالات التي يحمّلها Arroxy عند فتح قائمة تشغيل أو قناة أو نتيجة بحث.",
-				"option": "{{count}} عناصر",
-				"current": "الحد الحالي: {{count}} عناصر",
-				"customValue": "مخصص: {{count}} عناصر",
-				"custom": "مخصص…",
-				"customDialogTitle": "حد مخصص لفحص القائمة",
-				"customDialogDescription": "استخدم عدداً صحيحاً من {{min}} إلى {{max}}.",
-				"customDialogCancel": "إلغاء",
-				"customDialogSave": "حفظ الحد",
-				"invalid": "استخدم عدداً صحيحاً من 1 إلى 5000",
-				"tooltip": "يطلب Arroxy هذا العدد فقط من إدخالات قوائم التشغيل أو القنوات أو البحث أثناء بناء أداة الاختيار."
-			},
-			"nativeAudioPreference": {"label": "تفضيل الصوت الأصلي", "description": "ستيريو أو محيطي عندما يختار ملف التعريف الصوت الأصلي. يمكن لملف التعريف تجاوزه.", "compatible": "ستيريو متوافق", "surround": "تفضيل المحيطي / Dolby"},
-			"autoRetry": {"label": "إعادة محاولة التنزيلات الفاشلة", "description": "يحاول تلقائيًا مرة أخرى بعد عطل في الشبكة أو الخادم، مع انتظار أطول بين كل محاولة. التنزيلات التي يحظرها الموقع لا يُعاد محاولتها تلقائيًا أبدًا.", "unit": "مرات"},
-			"autoRemoveCompleted": {"label": "إزالة التنزيلات المكتملة تلقائيًا", "description": "يزيل التنزيل من قائمة التنزيلات بعد ثوانٍ قليلة من اكتماله. تبقى الملفات في مجلدك، وتبقى التنزيلات الفاشلة والملغاة في القائمة."},
-			"concurrentDownloads": {"label": "التنزيلات في وقت واحد", "description": "كم عدد العناصر في قائمة الانتظار التي تُنزَّل في الوقت نفسه. المزيد دفعة واحدة ينهي قائمة طويلة أسرع، لكنه يزيد احتمال أن يقيّدك الموقع.", "unit": "تنزيلات"},
-			"downloadConnections": {"label": "اتصالات التنزيل", "description": "يسرّع التنزيلات الكبيرة عبر جلب عدة أجزاء من الفيديو في وقت واحد. القيم الأعلى تزيد احتمال أن يقيّدك الموقع.", "unit": "اتصالات"},
-			"networkPacing": {
-				"heading": "تنزيلات هادئة",
-				"description": "يضيف توقفات صغيرة أثناء كل تنزيل حتى لا يضغط Arroxy على الموقع بشكل مفرط. القيم بالثواني.",
-				"presetLabel": "ما مدى حذر Arroxy؟",
-				"tooltip": "تحدث هذه الانتظارات داخل كل تنزيل. عدد التنزيلات التي تعمل في الوقت نفسه يُضبط بشكل منفصل ضمن «التنزيلات في وقت واحد».",
-				"summary": "انتظار: {{requests}} بين الفحوصات، {{downloads}} قبل بدء الوسائط، {{subtitles}} قبل ملفات الترجمة.",
-				"presets": {"off": "إيقاف", "balanced": "متوازن", "careful": "حذر", "custom": "مخصص"},
-				"tooltips": {
-					"off": "يستخدم فقط التوقفات الأساسية الصغيرة التي يحتفظ بها Arroxy للوسائط والترجمات.",
-					"balanced": "الافتراضي. يضيف توقفات قصيرة بين الطلبات وقبل بدء الوسائط.",
-					"careful": "يضيف توقفات أطول لقوائم التشغيل الكبيرة أو الشبكات التي تصل إلى الحدود بشكل متكرر.",
-					"custom": "اضبط بنفسك عناصر التحكم المتقدمة لكل تنزيل."
-				},
-				"fields": {"sleepRequests": "انتظار بين فحوصات البيانات الوصفية", "sleepInterval": "توقف قبل بدء الوسائط: الحد الأدنى", "maxSleepInterval": "توقف قبل بدء الوسائط: الحد الأقصى", "sleepSubtitles": "انتظار قبل ملفات الترجمة"},
-				"units": {"seconds": "ث"}
-			},
-			"closeToTray": {"toggle": "الإخفاء في علبة النظام عند الإغلاق", "toggleDescription": "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."},
-			"analytics": {"toggle": "إرسال نبضة يومية", "toggleDescription": "بلا قياس عن بُعد. مرة واحدة يوميًا، ترسل نبضة مجهولة إصدار التطبيق وقناة التثبيت ونظام التشغيل واللغة والبلد والمدة التقريبية منذ تثبيت Arroxy لنتمكن من عدّ المستخدمين النشطين والجدد. بلا معرّفات أو عناوين URL أو أسماء فيديوهات أو أسماء ملفات."}
-		},
-		"quickProgress": {
-			"title": "تحضير التنزيل السريع",
-			"description": "يقرأ Arroxy الرابط ويطبّق {{profileName}}.",
-			"currentFallback": "الرابط الحالي",
-			"waitHint": "أبقِ هذا مفتوحًا بينما يجهّز Arroxy قائمة الانتظار.",
-			"failedCount_zero": "فشل {{count}}",
-			"failedCount_one": "فشل {{count}}",
-			"failedCount_two": "فشل اثنان",
-			"failedCount_few": "فشل {{count}}",
-			"failedCount_many": "فشل {{count}}",
-			"failedCount_other": "فشل {{count}}",
-			"cancel": "إلغاء التحضير",
-			"phase": {"probing": "جارٍ جلب التفاصيل", "queueing": "جارٍ الإضافة إلى قائمة الانتظار"}
-		},
-		"subtitles": {
-			"autoBadge": "تلقائي",
-			"noLanguages": "لا توجد ترجمات متاحة لهذا الفيديو",
-			"searchPlaceholder": "البحث عن لغات…",
-			"noMatches": "لا توجد لغات مطابقة",
-			"clearAll": "مسح الكل",
-			"noSelected": "لم يتم اختيار أي ترجمة",
-			"removeLanguage": "إزالة {{name}}",
-			"sectionManual": "يدوي",
-			"sectionAuto": "مولّد تلقائياً",
-			"saveMode": {"heading": "حفظ بصيغة", "sidecar": "بجانب الفيديو", "embed": "تضمين في الفيديو", "subfolder": "مجلد فرعي subtitles/"},
-			"format": {"heading": "الصيغة"},
-			"embedNote": "يحفظ وضع التضمين المخرج بصيغة .mkv لضمان تضمين مسارات الترجمة بشكل موثوق.",
-			"autoAssNote": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS — يتم دائماً تنظيفها من تكرارات YouTube المتدحرجة التي لا يستطيع محوّل ASS لدينا إعادة إنتاجها بعد."
-		},
-		"sponsorblock": {
-			"modeHeading": "تصفية الرعاة",
-			"mode": {"off": "إيقاف", "mark": "تحديد كفصول", "remove": "إزالة المقاطع"},
-			"modeHint": {"off": "لا يوجد SponsorBlock — يُشغَّل الفيديو كما رُفع.", "mark": "يُحدد مقاطع الرعاة كفصول (غير تدميري).", "remove": "يحذف مقاطع الرعاة من الفيديو باستخدام FFmpeg."},
-			"categoriesHeading": "الفئات",
-			"cat": {"sponsor": "رعاية", "intro": "مقدمة", "outro": "خاتمة", "selfpromo": "ترويج ذاتي", "music_offtopic": "موسيقى خارج الموضوع", "preview": "معاينة", "filler": "حشو"}
-		},
-		"formats": {
-			"kind": {"label": "ما الذي تريد تنزيله", "video": "فيديو + صوت", "videoOnly": "فيديو، بدون صوت", "audio": "صوت فقط", "subtitles": "ترجمات فقط"},
-			"profile": {
-				"calloutTitle": "تبدأ الصيغ من ملف التعريف الخاص بك",
-				"calloutBody": "يحدد ملف التعريف النشط المسارات لك مسبقًا. بدّل ملفات التعريف من القائمة، أو استخدم القلم لتعديل أحدها دون مغادرة هذا التنزيل.",
-				"preselected": "محدد مسبقًا من",
-				"tag": "ملف التعريف",
-				"closestTag": "الأقرب إلى ملف التعريف",
-				"switchTitle": "تبديل ملف التعريف؟",
-				"switchBody": "لقد غيّرت {{areas}} لهذا التنزيل. يختار “{{profile}}” الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟",
-				"resetAll": "إعادة ضبط الكل",
-				"edit": "تعديل {{name}}",
-				"updatedTitle": "استخدام ملف التعريف المحدَّث؟",
-				"updatedBody": "لقد غيّرت {{areas}} لهذا التنزيل. يختار ملف التعريف المحدَّث الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟",
-				"keepEdits": "الإبقاء على تغييراتي",
-				"menuDescription": "لهذا التنزيل فقط. يبقى ملف التعريف الافتراضي كما هو."
-			},
-			"fit": {
-				"tierBelow": "يطلب ملف التعريف الخاص بك {{wanted}}p. يصل هذا الفيديو إلى {{picked}}p فقط، لذا تم اختيار {{picked}}p.",
-				"tierAbove": "يطلب ملف التعريف الخاص بك {{wanted}}p. لا يوجد في هذا الفيديو ما هو بهذا الحجم الصغير، لذا تم اختيار {{picked}}p.",
-				"mp4Unavailable": "ملف التعريف لديك هو التلفاز الذكي (H.264). لا يوفر هذا الفيديو H.264، لذا حُدد أقرب تدفق.",
-				"noVideo": "لا يحتوي هذا الرابط على فيديو، لذا تم اختيار الصوت.",
-				"subtitlesMissing": "يطلب ملف التعريف الخاص بك ترجمات بلغة {{languages}}. هذا الفيديو لا يحتويها.",
-				"webmUnavailable": "يطلب ملف التعريف لديك WebM. تتضمن التدفقات المختارة لهذا الفيديو {{codec}} ولا يدعمه WebM، لذا أصبح نوع الملف تلقائيًا."
-			},
-			"footer": {"download": "تنزيل", "moreActions": "المزيد من خيارات التنزيل", "addToQueue": "إضافة إلى قائمة الانتظار دون بدء", "subtitlesRequired": "اختر لغة ترجمة واحدة على الأقل."},
-			"video": "فيديو",
-			"audio": "صوت",
-			"noAudio": "بدون صوت",
-			"withAudio": "مع صوت",
-			"resolutionUnknown": "دقة غير معروفة",
-			"bitrateValue": "معدل البت {{bitrate}}",
-			"marker": {"aiUpscaled": "مُكبَّر بالذكاء الاصطناعي", "aiDubbed": "مدبلج بالذكاء الاصطناعي", "audioDescription": "وصف صوتي", "spatialAudio": "صوت مكاني", "vr": "360° / VR", "enhancedBitrate": "معدل بت محسّن", "damaged": "تالف", "watermarked": "بعلامة مائية"},
-			"keepAudio": "إبقاؤه كما هو",
-			"keepAudioMeta": "الصوت المضمّن",
-			"audioOnly": "صوت فقط",
-			"sniffing": "جارٍ البحث عن أفضل الصيغ لك…",
-			"loadingHint": "يُرجى الانتظار حتى تنتهي عملية الفحص — قوائم التشغيل والبحث قد تستغرق بعض الوقت.",
-			"loadingAria": "جارٍ تحميل الصيغ",
-			"sizeUnknown": "الحجم غير معروف",
-			"total": "الإجمالي",
-			"skipToConfirm": "تخطَّ إلى التأكيد",
-			"skipToConfirmTooltip": "يستخدم تفضيلاتك المحفوظة لجميع الخطوات المتبقية. لتغيير إعداد ما، تابع خطوةً بخطوة — وسيُحفظ اختيارك للمرة القادمة.",
-			"quality": {"high": "جودة عالية", "medium": "جودة متوسطة", "low": "جودة منخفضة"},
-			"drc": {"label": "توحيد مستوى الصوت (DRC)", "description": "يخفّض المقاطع العالية ويرفع الهادئة، لمكبرات الصوت والأماكن الصاخبة.", "tag": "صوت متوازن"},
-			"audioLanguage": "لغة الصوت",
-			"audioLanguageCount_zero": "عدد اللغات: {{count}}",
-			"audioLanguageCount_one": "عدد اللغات: {{count}}",
-			"audioLanguageCount_two": "عدد اللغات: {{count}}",
-			"audioLanguageCount_few": "عدد اللغات: {{count}}",
-			"audioLanguageCount_many": "عدد اللغات: {{count}}",
-			"audioLanguageCount_other": "عدد اللغات: {{count}}",
-			"convert": {
-				"label": "تحويل",
-				"bitrate": "معدل البت",
-				"wavLabel": "WAV (غير مضغوط)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"copyLabel": "{{target}} {{bitrate}} kbps، بلا إعادة ترميز",
-				"copyLabelNoBitrate": "{{target}}، بلا إعادة ترميز",
-				"copyNote": "{{kbps}} kbps كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
-				"copyNoteNoBitrate": "كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
-				"bitrateCopyHint": "المصدر الذي هو بصيغة {{target}} أصلًا يحتفظ بتدفقه ومعدل البت الخاص به: يُنسخ دون إعادة ترميز.",
-				"sourceKbps": "المصدر {{kbps}} kbps"
-			},
-			"botWall": {
-				"heading": "YouTube قيّد هذا الفحص",
-				"bodyUnconfigured": "قائمة الصيغ قد تكون غير مكتملة. أعدّ الكوكيز في الإعدادات المتقدمة، أو غيّر الشبكة وأعد المحاولة.",
-				"bodyDisabled": "الكوكيز مضبوطة لكنها معطّلة. فعّلها وأعد المحاولة للحصول على القائمة الكاملة، أو غيّر الشبكة وأعد المحاولة.",
-				"bodyEnabled": "حتى مع الكوكيز، قيّد YouTube هذا الفحص. حاول لاحقاً أو بدّل الشبكة.",
-				"bodyExplore": "قيّد YouTube هذا الطلب. حاول لاحقاً أو بدّل الشبكة.",
-				"retryCta": "إعادة المحاولة",
-				"enableRetryCta": "تفعيل الكوكيز وإعادة المحاولة"
-			},
-			"rateLimit": {
-				"heading": "يحدّ {{site}} من طلبات هذا الاتصال",
-				"leadDegraded": "قد تكون قائمة الصيغ غير مكتملة.",
-				"leadFailed": "رفض {{site}} هذا الطلب حاليًا.",
-				"waitUntil": "ينتظر Arroxy حتى {{time}} قبل أن يطلب من {{site}} مجددًا، حتى يزول الحد.",
-				"waitOver": "انتهى الانتظار، يمكنك المحاولة مجددًا.",
-				"sessionNote": "قد يُبقي {{site}} هذا الحد لمدة تصل إلى ساعة.",
-				"tryNowCta": "جرّب الآن",
-				"retryCta": "إعادة المحاولة"
-			},
-			"cookiesError": {
-				"heading": "ربما تكون الكوكيز هي السبب",
-				"currentModeLabel": "مصدر الكوكيز",
-				"currentModeFile": "ملف",
-				"currentModeBrowser": "متصفح",
-				"currentModeExplore": "تسجيل الدخول في «استكشاف»",
-				"explanationFile": "ملف الكوكيز قد يكون فارغاً أو منتهي الصلاحية أو بتنسيق خاطئ (يحتاج Arroxy إلى ملف Netscape cookies.txt). جرّب إعادة تصدير الكوكيز، أو اختيار ملف مختلف، أو التبديل إلى وضع المتصفح، أو إيقاف الكوكيز.",
-				"explanationBrowser": "تُقرأ الكوكيز مباشرةً من المتصفح. إذا كان المتصفح يعمل حالياً، فقد تكون قاعدة بيانات الكوكيز مقفلة (متصفحات عائلة Chromium). يجب أن يكون المتصفح مسجّل الدخول إلى YouTube. جرّب إغلاق المتصفح، أو التبديل إلى متصفح مختلف، أو التبديل إلى وضع الملف، أو إيقاف الكوكيز.",
-				"openSettingsCta": "فتح إعدادات الكوكيز",
-				"exploreSignIn": {"heading": "قد يتطلب هذا الفيديو حساب YouTube", "body": "إذا كان هذا الفيديو يتطلب حساب YouTube، سجّل الدخول في «استكشاف» وأعد المحاولة. يستخدم Arroxy هذا التسجيل فقط عندما يحتاجه التنزيل.", "cta": "سجّل الدخول في «استكشاف»"},
-				"exploreSignedIn": {"heading": "تم تسجيل الدخول إلى «استكشاف»", "body": "إذا كان هذا الفيديو يتطلب حساباً، يستخدم Arroxy تسجيل دخولك في «استكشاف» تلقائياً. قد يكون غير متاح لسبب آخر."},
-				"exploreOffer": {"heading": "قد يحتاج هذا الفيديو إلى حساب YouTube", "body": "سجّل الدخول عبر «استكشاف» وسيعيد Arroxy المحاولة.", "cta": "تسجيل الدخول عبر «استكشاف»"},
-				"exploreReuse": {"heading": "قد يحتاج هذا الفيديو إلى حساب YouTube", "body": "تم تسجيل دخولك إلى «استكشاف»، لكن التنزيلات لا تستخدم تسجيل الدخول هذا حاليًا.", "cta": "استخدم تسجيل دخولي في «استكشاف» وأعد المحاولة"},
-				"exploreSite": {"heading": "قد يحتاج هذا الرابط إلى حساب على {{host}}", "signInBody": "سجّل الدخول إلى {{host}} في «استكشاف» وأعد المحاولة. يستخدم Arroxy هذا التسجيل فقط عندما يحتاجه التنزيل.", "offerBody": "سجّل الدخول إلى {{host}} عبر «استكشاف» وأعد المحاولة."},
-				"exploreRefused": {"heading": "رفض الموقع هذا الطلب حتى مع تسجيل دخولك في «استكشاف»", "body": "جرّب Arroxy الطلب بالفعل بعد تسجيل الدخول عبر «استكشاف»، لذا لن يفيد تسجيل الدخول مرة أخرى. قد يواجه الموقع مشكلة، أو لا يستطيع هذا الحساب فتحه. حاول لاحقاً."},
-				"otherCookiesCta": "استخدم ملف كوكيز أو متصفحًا بدلًا من ذلك…",
-				"needsCookies": {"heading": "هذا الموقع يتطلب تسجيل الدخول", "body": "تعذّر على Arroxy الوصول إلى هذا الفيديو بدون مصادقة. أعدّ الكوكيز في الإعدادات المتقدمة — وجّهها نحو متصفح سجّلت الدخول إليه مسبقاً، أو استورد ملف cookies.txt."},
-				"dpapi": {
-					"heading": "كوكيز Chrome محجوبة بسبب تشفير Windows",
-					"explanation": "يُشفّر Chrome 127 والإصدارات الأحدث الكوكيز بطريقة لا تستطيع التطبيقات الأخرى قراءتها على Windows. جرّب أحد الحلول البديلة أدناه.",
-					"fixFirefoxLabel": "التبديل إلى Firefox",
-					"fixFirefoxBody": "لا يستخدم Firefox تشفير App-Bound Encryption. افتح إعدادات الكوكيز واختر Firefox من قائمة المتصفحات.",
-					"fixFileLabel": "تصدير cookies.txt",
-					"fixFileBody": "صدّر الكوكيز من Chrome باستخدام إضافة متصفح، ثم بدّل هذا التطبيق إلى وضع الملف واختر الملف المُصدَّر.",
-					"fixUnsafeLabel": "تشغيل Chrome مع تعطيل App-Bound Encryption",
-					"fixUnsafeBody": "أضف --disable-features=LockProfileCookieDatabase إلى اختصار تشغيل Chrome. تحذير: سيؤدي ذلك إلى إبطال الكوكيز المشفّرة مسبقاً، وستُسجَّل خارجاً من جميع المواقع وستحتاج إلى تسجيل الدخول من جديد.",
-					"docsLinkLabel": "وثائق yt-dlp (issue #10927)"
-				}
-			},
-			"savesAs": {"label": "يُحفظ كـ", "reset": "لا يدعم WebM الترميز {{codec}}، لذا عاد نوع الملف إلى تلقائي."}
-		},
-		"folder": {
-			"heading": "الحفظ في",
-			"downloads": "التنزيلات",
-			"videos": "الأفلام",
-			"desktop": "سطح المكتب",
-			"music": "الموسيقى",
-			"documents": "المستندات",
-			"pictures": "الصور",
-			"home": "الرئيسية",
-			"custom": "مخصص…",
-			"subfolder": {"toggle": "الحفظ داخل مجلد فرعي", "placeholder": "مثل lo-fi rips", "invalid": "اسم المجلد يحتوي على أحرف غير صالحة"}
-		},
-		"output": {
-			"embedChapters": {"label": "تضمين الفصول", "description": "علامات فصول قابلة للتنقل في أي مشغّل حديث."},
-			"embedMetadata": {"label": "تضمين البيانات الوصفية", "description": "كتابة العنوان والفنان والوصف وتاريخ الرفع في الملف."},
-			"embedThumbnail": {"label": "تضمين الصورة المصغرة", "description": "صورة الغلاف داخل الملف. سيُعاد تغليف فيديو WebM إلى MKV؛ يُتخطى عند تضمين الترجمات."},
-			"writeDescription": {"label": "حفظ الوصف", "description": "يحفظ وصف الفيديو كملف نصي .description بجانب التنزيل."},
-			"writeThumbnail": {"label": "حفظ الصورة المصغرة", "description": "يحفظ الصورة المصغرة كملف صورة .jpg بجانب التنزيل."},
-			"writeM3u": {"label": "إنشاء ملف قائمة تشغيل .m3u", "description": "يحفظ قائمة .m3u بجانب الفيديوهات كي تفتح بالترتيب في مشغل الوسائط."}
-		},
-		"review": {
-			"changeFormat": "تغيير الصيغة",
-			"rowsHeading": "كل شيء آخر",
-			"rows": {"subtitles": "الترجمات", "sponsorBlock": "SponsorBlock", "extras": "الإضافات", "saveTo": "الحفظ في", "fileName": "اسم الملف"},
-			"value": {"subtitlesOff": "إيقاف", "sponsorBlockOff": "إيقاف", "extrasNone": "لا شيء"},
-			"changed": "تغيّر عن {{profile}}: {{areas}}. ينطبق على هذا التنزيل فقط.",
-			"areas": {"format": "الصيغة", "subtitles": "الترجمات", "sponsorBlock": "SponsorBlock", "extras": "الإضافات", "saveTo": "المجلد", "fileName": "اسم الملف"},
-			"updateProfile": "تحديث “{{profile}}” بهذه التغييرات",
-			"saveAsProfile": "حفظ كملف تعريف جديد",
-			"update": {
-				"title": "تحديث “{{profile}}”؟",
-				"description": "من الآن فصاعدًا، سيستخدم كل تنزيل بملف التعريف هذا الإعدادات الجديدة.",
-				"rows": {"format": "الصيغة"},
-				"builtinNote": "هذا ملف تعريف مدمج. يمكنك استعادة إعداداته الأصلية من تبويب «الملفات الشخصية».",
-				"action": "تحديث ملف التعريف",
-				"updated": "تم تحديث ملف التعريف “{{name}}”"
-			},
-			"callout": {"title": "كل الإعدادات الأخرى موجودة في هذه الصفحة الآن", "body": "كانت الترجمات وSponsorBlock والإضافات مثل الصورة المصغرة والمجلد واسم الملف خطوات منفصلة. انقر على صف لتغييره."},
-			"reset": "التراجع عن التغييرات والعودة إلى “{{profile}}”",
-			"changedFrom": "تغيّر عن {{profile}}:",
-			"save": {"title": "حفظ كملف تعريف", "description": "يحفظ هذه الإعدادات كملف تعريف يمكنك اختياره في المرة القادمة. يبقى ملف التعريف الخاص بالتنزيل السريع كما هو.", "nameLabel": "اسم ملف التعريف", "action": "حفظ ملف التعريف", "saved": "تم الحفظ كملف تعريف “{{name}}”", "failed": "تعذّر حفظ ملف التعريف."},
-			"fileNameHint": "الرموز: {title}، {id}، {uploader}، {date}، {resolution}. تتم إضافة الامتداد تلقائيًا.",
-			"nextTime": {"title": "استخدم هذا التنزيل إعدادات معدّلة. هل تريد استخدامها في المرة القادمة؟", "action": "حفظ كملف تعريف", "defaultName": "{{profile}} (معدّل)"}
-		},
-		"confirm": {
-			"readyHeadline": "جاهز للتنزيل!",
-			"landIn": "سيُحفظ ملفك في",
-			"landInMultiProfile_zero": "سيُحفظ في {{count}} وجهة أدناه",
-			"landInMultiProfile_one": "سيُحفظ في الوجهة أدناه",
-			"landInMultiProfile_two": "سيُحفظ في الوجهتين أدناه",
-			"landInMultiProfile_few": "سيُحفظ في {{count}} وجهات أدناه",
-			"landInMultiProfile_many": "سيُحفظ في {{count}} وجهة أدناه",
-			"landInMultiProfile_other": "سيُحفظ في {{count}} وجهة أدناه",
-			"labelVideo": "فيديو",
-			"labelAudio": "صوت",
-			"labelSubtitles": "الترجمات",
-			"subtitlesNone": "—",
-			"labelSaveTo": "الحفظ في",
-			"labelSize": "الحجم",
-			"sizeUnknown": "غير معروف",
-			"nothingToDownload": "الإعداد المسبق \"ترجمات فقط\" مفعّل ولكن لم يتم اختيار أي لغة ترجمة — لن يتم تنزيل أي شيء.",
-			"thumbnailEmbedNotSupported": "تم تخطي Thumbnail embed — لا يدعمه container الإخراج.",
-			"subtitleEmbedAudioOnly": "تم تغيير Subtitle embed إلى sidecar — مسارات الصوت لا تدعم مسارات الترجمة المضمّنة.",
-			"audioOnly": "صوت فقط",
-			"addToQueue": "+ قائمة الانتظار",
-			"addToQueueTooltip": "يبدأ عند انتهاء التنزيلات الأخرى — يحصل على كامل عرض النطاق",
-			"pullIt": "اسحبه! ↓",
-			"pullItTooltip": "يبدأ فوراً — يعمل جنباً إلى جنب مع التنزيلات النشطة الأخرى",
-			"labelPlaylist": "قائمة التشغيل",
-			"labelBulk": "روابط متعددة",
-			"labelPreset": "الإعداد المسبق",
-			"labelItems": "العناصر",
-			"itemsValue_zero": "{{count}} من {{total}} فيديو",
-			"itemsValue_one": "{{count}} من {{total}} فيديو",
-			"itemsValue_two": "{{count}} من {{total}} فيديو",
-			"itemsValue_few": "{{count}} من {{total}} فيديو",
-			"itemsValue_many": "{{count}} من {{total}} فيديو",
-			"itemsValue_other": "{{count}} من {{total}} فيديو",
-			"itemsValueAudio_zero": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueAudio_one": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueAudio_two": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueAudio_few": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueAudio_many": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueAudio_other": "{{count}} من {{total}} مقطع صوتي",
-			"itemsValueBulk_zero": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_one": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_two": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_few": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_many": "{{count}} من {{total}} رابط",
-			"itemsValueBulk_other": "{{count}} من {{total}} رابط",
-			"profileBreakdownHeading": "ملفات التنزيل في هذه الدفعة",
-			"profileBreakdownCount_zero": "{{count}} عنصر",
-			"profileBreakdownCount_one": "{{count}} عنصر",
-			"profileBreakdownCount_two": "عنصران",
-			"profileBreakdownCount_few": "{{count}} عناصر",
-			"profileBreakdownCount_many": "{{count}} عنصرًا",
-			"profileBreakdownCount_other": "{{count}} عنصر",
-			"subtitleEmbedForcesMkv": "الترجمات داخل الفيديو تحتاج ملف MKV، لذا يُحفظ هذا التنزيل بصيغة .mkv."
-		},
-		"profileEditor": {
-			"dialogTitle": "ملف التنزيل",
-			"dialogDescription": "إعداد واحد قابل لإعادة الاستخدام للتنزيل السريع وروابط الدُفعات وقوائم التشغيل.",
-			"skipped": "تم التخطّي",
-			"panel": {
-				"identity": {"title": "هوية الملف", "description": "الاسم والأيقونة الظاهران في التنزيل السريع وروابط الدُفعات وقوائم الملفات."},
-				"downloadType": {"title": "نوع التنزيل", "description": "اختر الطريقة الأساسية التي تريد التنزيل بها."},
-				"advanced": {"title": "خيارات متقدمة", "description": "ترث الملفات الوجهة العامة ما لم تُعيّن تجاوزًا للملف."},
-				"output": {"title": "خيارات الإخراج", "enabledCount_zero": "{{count}} مفعّل", "enabledCount_one": "{{count}} مفعّل", "enabledCount_two": "مفعّلان", "enabledCount_few": "{{count}} مفعّلة", "enabledCount_many": "{{count}} مفعّل", "enabledCount_other": "{{count}} مفعّل"},
-				"sponsorBlock": {"title": "SponsorBlock"}
-			},
-			"field": {
-				"nameAndIcon": "اسم الملف وأيقونته",
-				"icon": "أيقونة الملف",
-				"resolution": "الدقة",
-				"quality": "الجودة",
-				"source": "المصدر",
-				"subfolderName": "اسم المجلد الفرعي",
-				"name": "اسم الملف",
-				"subtitleDownloads": "تنزيل الترجمات",
-				"subtitleDownloadsDescription": "تطلب الملفات الشخصية رموز اللغات؛ ويُحدَّد توفّرها لكل رابط على حدة.",
-				"languages": "اللغات",
-				"delivery": "طريقة الحفظ",
-				"overridePath": "مسار تجاوز الملف",
-				"goal": "تحسين من أجل",
-				"fileType": "نوع الملف",
-				"nativeAudio": "الصوت الأصلي"
-			},
-			"action": {
-				"chooseIcon": "اختيار أيقونة الملف",
-				"setOverride": "تعيين تجاوز الملف",
-				"chooseFolder": "اختيار مجلد الوجهة",
-				"removeLanguage": "إزالة {{code}}",
-				"useLanguageCode": "استخدام رمز اللغة “{{code}}”",
-				"changeGlobalShort": "تغيير العام",
-				"setOverrideShort": "تعيين تجاوز",
-				"useGlobalDefault": "استخدام الإعداد العام",
-				"reset": "إعادة تعيين الملف",
-				"resetHint": "استعادة إعدادات الملف المدمجة",
-				"resetDisabledHint": "يستخدم هذا الملف الإعدادات المدمجة بالفعل",
-				"save": "حفظ الملف"
-			},
-			"placeholder": {"folder": "اختر مجلدًا لهذا الملف"},
-			"destination": {
-				"global": "الوجهة العامة",
-				"override": "تجاوز الملف",
-				"resolved": "الوجهة النهائية",
-				"defaultFolder": "مجلد التنزيلات الافتراضي",
-				"defaultFolderWithSubfolder": "مجلد التنزيلات الافتراضي / {{subfolder}}",
-				"globalActive": "نشط",
-				"globalInherited": "موروث",
-				"overrideSet": "يتجاوز العام",
-				"overrideChoosing": "اختيار مجلد",
-				"overrideNone": "لا يوجد تجاوز",
-				"overrideSetNote": "يحفظ هذا الملف في جذره الخاص قبل إضافة المجلد الفرعي.",
-				"overrideNoneNote": "لم يتم تعيين تجاوز. يستخدم هذا الملف الوجهة العامة أعلاه."
-			},
-			"note": {
-				"subtitlesOnly": "يضيف هذا الملف ملفات الترجمة فقط إلى القائمة. ويتم تخطّي الفيديو والصوت وSponsorBlock وتحويل الوسائط.",
-				"noSubtitles": "لن يُطلب لهذا الملف أي ملفات ترجمة أو مسارات ترجمة مضمّنة.",
-				"searchLanguages": "البحث باسم اللغة أو رمزها",
-				"noLanguageMatches": "لا توجد لغات مطابقة",
-				"subtitleLanguagesRequired": "اختر لغة واحدة على الأقل.",
-				"subtitleLanguagesRequiredOrOff": "اختر لغة واحدة على الأقل، أو أوقف تنزيل الترجمات.",
-				"autoCaptionsSrt": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS.",
-				"skippedForOutputType": "تم تخطّيه لنوع الإخراج هذا."
-			},
-			"error": {"save": "تعذّر حفظ إعدادات الملف.", "changeGlobalDestination": "تعذّر تغيير الوجهة العامة.", "reset": "تعذّر إعادة تعيين إعدادات الملف.", "folderPicker": "تعذّر فتح مُحدِّد المجلدات. أدخل المسار يدويًا."},
-			"mediaMode": {"videoAudio": {"label": "فيديو + صوت", "description": "ملفات فيديو عادية"}, "videoOnly": {"label": "فيديو، بدون صوت", "description": "فيديو صامت فقط"}, "audioOnly": {"label": "صوت فقط", "description": "موسيقى أو بودكاست"}, "subtitlesOnly": {"label": "ترجمات فقط", "description": "ملفات ترجمة فقط"}},
-			"icon": {"controls": "أدوات التحكم", "download": "تنزيل", "video": "فيديو", "captions": "ترجمات", "audio": "صوت", "music": "موسيقى", "podcast": "بودكاست", "classes": "دروس", "clip": "مقطع", "archive": "أرشيف"},
-			"audioFormat": {"best": "الأفضل", "wav": "WAV"},
-			"audioQuality": {"128": "حتى 128K", "192": "حتى 192K", "320": "حتى 320K", "best": "أفضل جودة"},
-			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
-			"subtitleSource": {"manualFirst": "يدوية أولاً ثم تلقائية", "manualAndAuto": "يدوية وتلقائية", "manualOnly": "يدوية فقط", "autoOnly": "تلقائية فقط"},
-			"sponsorBlockHint": {"off": "بدون SponsorBlock — يُشغَّل الفيديو كما رُفع.", "mark": "يضع علامات على المقاطع الإعلانية كفصول (دون تعديل الملف).", "remove": "يقصّ المقاطع الإعلانية من الفيديو باستخدام FFmpeg."},
-			"advanced": "متقدم",
-			"goal": {
-				"bestPicture": {"name": "أفضل صورة", "tag": "AV1 · VP9", "description": "الأوضح عند الحجم نفسه. لا تشغّله أجهزة التلفاز الأقدم وQuickTime وبعض المحررات."},
-				"smartTv": {"name": "تلفاز ذكي", "tag": "MP4 · H.264", "description": "يعمل على أجهزة التلفاز والهواتف وWhatsApp وQuickTime ومحررات الفيديو. يوفر YouTube ترميز H.264 حتى 1080p فقط."}
-			},
-			"appSetting": "استخدم إعداد التطبيق ({{value}})"
-		},
-		"part": {
-			"switchLabel": "مقدار الفيديو",
-			"whole": "الفيديو كاملاً",
-			"wholeTrack": "المقطع الصوتي كاملاً",
-			"part": "جزء",
-			"unavailableSubtitles": "الترجمات تغطي الفيديو كاملاً دائمًا.",
-			"unavailableDuration": "لا يُبلغ هذا الفيديو عن مدته، لذا لا يمكن تنزيله إلا كاملاً.",
-			"rangeLabel": "جزء من الفيديو",
-			"start": "البداية",
-			"end": "النهاية",
-			"timeHint": "h:mm:ss, m:ss أو ثوانٍ",
-			"length": "{{length}} من {{duration}}",
-			"chapters": "الفصول",
-			"chapterUntitled": "الفصل {{number}}",
-			"exactCut": {"label": "قص دقيق (يعيد الترميز، أبطأ)", "hint": "متوقف: يقع كل قص عند أقرب إطار رئيسي (keyframe)، وقد يبعد بضع ثوانٍ عن الوقت الذي أدخلته."},
-			"calloutTitle": "نزّل جزءًا فقط من الفيديو",
-			"calloutBody": "بدّل إلى «جزء» في بطاقة الفيديو لتحديد البداية والنهاية أو فصل، ونزّل ذلك المقطع فقط.",
-			"connectionsNote": "يُنزَّل الجزء عبر ffmpeg، لذلك لا تنطبق عليه إعدادات اتصالات التنزيل وإيقاع الطلبات.",
-			"urlStart": "يبدأ رابطك عند {{time}}",
-			"useUrlStart": "استخدمه كبداية",
-			"error": {"startInvalid": "أدخل البداية بصيغة h:mm:ss, m:ss أو ثوانٍ.", "endInvalid": "أدخل النهاية بصيغة h:mm:ss, m:ss أو ثوانٍ.", "startNotBeforeEnd": "يجب أن تسبق البداية النهاية.", "endBeyondDuration": "ينتهي الفيديو عند {{duration}}."},
-			"downloadBlocked": "صحّح بداية الجزء ونهايته أولاً.",
-			"totalEstimate": "الجزء، تقديري",
-			"summary": "الجزء {{start}}–{{end}}",
-			"subtitlesFullLength": "الفيديو كاملاً"
-		}
-	},
-	"videoCard": {"titlePlaceholder": "جارٍ التحميل…", "chapters_zero": "{{count}} فصل", "chapters_one": "{{count}} فصل", "chapters_two": "فصلان", "chapters_few": "{{count}} فصول", "chapters_many": "{{count}} فصلًا", "chapters_other": "{{count}} فصل"},
-	"queue": {
-		"header": "التنزيلات",
-		"tabLabel": "التنزيلات",
-		"attentionBadge_zero": "يحتاج انتباهك: {{count}}",
-		"attentionBadge_one": "يحتاج انتباهك: {{count}}",
-		"attentionBadge_two": "يحتاج انتباهك: {{count}}",
-		"attentionBadge_few": "يحتاج انتباهك: {{count}}",
-		"attentionBadge_many": "يحتاج انتباهك: {{count}}",
-		"attentionBadge_other": "يحتاج انتباهك: {{count}}",
-		"choice": {
-			"cappedBody_zero": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"cappedBody_one": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"cappedBody_two": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"cappedBody_few": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"cappedBody_many": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"cappedBody_other": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
-			"reviewBody_zero": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"reviewBody_one": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"reviewBody_two": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"reviewBody_few": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"reviewBody_many": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"reviewBody_other": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
-			"all": "كل الفيديوهات",
-			"first": "أول {{count}}",
-			"review": "مراجعة"
-		},
-		"tabTip": "أصبحت التنزيلات في تبويب التنزيلات الآن — افتحه في أي وقت لمتابعة التقدّم.",
-		"empty": "ستظهر التنزيلات الموضوعة في قائمة الانتظار هنا",
-		"filtersLabel": "مرشحات حالة قائمة الانتظار",
-		"filterAll": "الكل",
-		"selectedActionsLabel": "العناصر المحددة",
-		"globalActionsLabel": "كل العناصر",
-		"selectionSummary": "{{selected}} محدد · {{total}} إجمالاً",
-		"clearTitle": "مسح التنزيلات المكتملة",
-		"autoRemoveCompleted": {"label": "مسح تلقائي عند الاكتمال", "hint": "يزيل كل تنزيل من القائمة بعد ثوانٍ قليلة من اكتماله. تبقى الملفات في مجلدك."},
-		"pauseAllTitle": "إيقاف جميع التنزيلات النشطة مؤقتاً",
-		"resumeAllTitle": "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة",
-		"pausedBanner": "القائمة متوقفة مؤقتًا — العناصر المنتظرة لن تبدأ حتى تستأنفها",
-		"resumeQueueAction": "استئناف القائمة",
-		"cancelAllTitle": "إلغاء جميع التنزيلات النشطة والمعلقة",
-		"table": {
-			"columns": "الأعمدة",
-			"title": "العنوان",
-			"status": "الحالة",
-			"progress": "التقدم",
-			"format": "التنسيق",
-			"outputTarget": "وجهة الإخراج",
-			"artifacts": "الملفات الناتجة",
-			"size": "الحجم",
-			"added": "أُضيف",
-			"finished": "انتهى",
-			"notAvailable": "—",
-			"sortBy": "فرز حسب {{label}}",
-			"showArtifactsFor": "إظهار ملفات {{title}}",
-			"hideArtifactsFor": "إخفاء ملفات {{title}}",
-			"resetColumns": "إعادة ضبط الأعمدة",
-			"resizeColumn": "تغيير حجم عمود {{column}}",
-			"movableColumn": "عمود قابل للنقل",
-			"moveColumnInstructions": "لنقل عمود، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء.",
-			"columnPickedUp": "تم التقاط عمود {{column}}.",
-			"columnMovedOver": "عمود {{column}} فوق {{target}}.",
-			"columnDropped": "تم إفلات عمود {{column}}.",
-			"columnMoveCancelled": "تم إلغاء نقل عمود {{column}}."
-		},
-		"artifact": {"media": "وسائط", "subtitle": "ترجمة", "thumbnail": "صورة مصغرة", "description": "الوصف", "companion": "ملف مرافق", "unknown": "ملف", "missing": "مفقود"},
-		"item": {
-			"defaultError": "فشل التنزيل",
-			"retryingSoon": "تتم إعادة المحاولة تلقائيًا (المحاولة {{attempt}})",
-			"qualityLimited": "محدود بدقة {{height}}p",
-			"qualityLimitedSubtitlesFailed": "محدود بدقة {{height}}p · تعذّر تنزيل بعض الترجمات",
-			"audioKept": "لم تتم إزالة الصوت",
-			"audioKeptSubtitlesFailed": "لم تتم إزالة الصوت · تعذّر تنزيل بعض الترجمات",
-			"subtitleLanguagesMissing": "لا توجد ترجمات باللغات: {{languages}}",
-			"pause": "إيقاف مؤقت",
-			"resume": "استئناف",
-			"cancel": "إلغاء",
-			"retry": "إعادة المحاولة",
-			"setLocation": "تعيين الموقع",
-			"setLocationHint": "حدّد العناصر المعلقة لتعيين الموقع.",
-			"pendingOnly": "المعلقة فقط",
-			"openDestinationFolder": "فتح مجلد الوجهة",
-			"remove": "إزالة",
-			"pullNow": "تنزيل الآن — تجاوز القائمة",
-			"statusProbing": "جارٍ جلب التفاصيل",
-			"statusNeedsChoice": "يحتاج إلى اختيارك",
-			"statusPending": "بانتظار",
-			"statusRunning": "جارٍ التنزيل",
-			"statusHeld": "معلّق",
-			"statusPaused": "متوقف مؤقتًا",
-			"statusDone": "تم",
-			"statusError": "خطأ",
-			"statusCancelled": "أُلغي"
-		}
-	},
-	"update": {
-		"message": {
-			"generic": "يتوفر Arroxy {{version}} — لديك {{currentVersion}}.",
-			"homebrew": "يتوفر Arroxy {{version}} — حدّث عبر Homebrew.",
-			"macosDirect": "يتوفر Arroxy {{version}} — نزّل ملف DMG الجديد.",
-			"macosDirectHomebrew": "يتوفر Arroxy {{version}} — نزّل ملف DMG أو انتقل إلى Homebrew.",
-			"portable": "يتوفر Arroxy {{version}} — نزّل البناء الجديد."
-		},
-		"install": "تثبيت وإعادة التشغيل",
-		"downloading": "جارٍ التنزيل…",
-		"runAndRestart": "تشغيل وإعادة التشغيل",
-		"upgrading": "جارٍ الترقية…",
-		"download": "تنزيل ↗",
-		"downloadDmg": "تنزيل DMG ↗",
-		"dismiss": "إخفاء شريط التحديث",
-		"copy": "نسخ الأمر إلى الحافظة",
-		"copied": "تم نسخ الأمر إلى الحافظة",
-		"installFailed": "فشل التحديث",
-		"retry": "إعادة المحاولة"
-	},
-	"releaseNotes": {"title": "ما الجديد في Arroxy {{version}}", "description": "أنت تستخدم تحديثًا جديدًا. إليك أبرز ما فيه.", "fullNotes": "ملاحظات الإصدار الكاملة ↗", "continue": "متابعة"},
-	"status": {
-		"preparingBinaries": "جارٍ تحضير الثنائيات…",
-		"mintingToken": "جارٍ إنشاء رمز YouTube…",
-		"remintingToken": "جارٍ إعادة إنشاء الرمز…",
-		"startingYtdlp": "جارٍ بدء محرّك التنزيل…",
-		"downloadingMedia": "جارٍ تنزيل الفيديو والصوت…",
-		"mergingFormats": "جارٍ دمج الصوت والفيديو…",
-		"extractingAudio": "جارٍ تحويل الصوت…",
-		"convertingVideo": "جارٍ تحويل الفيديو…",
-		"embeddingMetadata": "جارٍ تضمين البيانات الوصفية…",
-		"movingFiles": "جارٍ نقل الملفات…",
-		"fetchingSubtitles": "جارٍ جلب الترجمات…",
-		"sleepingBetweenRequests": "الانتظار {{seconds}} ثانية لتجنب تجاوز الحد…",
-		"subtitlesFailed": "تم حفظ الفيديو — تعذّر تنزيل بعض الترجمات",
-		"qualityLimited": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
-		"qualityLimitedSubtitlesFailed": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل، وتعذّر تنزيل بعض الترجمات. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
-		"audioKept": "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت",
-		"audioKeptSubtitlesFailed": "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت، وتعذّر تنزيل بعض الترجمات",
-		"subtitleLanguagesMissing": "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ الفيديو بدونها.",
-		"subtitleLanguagesMissingOthersSaved": "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ اللغات الأخرى.",
-		"noSubtitles": "لا توجد ترجمات باللغات: {{languages}}",
-		"cancelled": "تم إلغاء التنزيل",
-		"complete": "اكتمل التنزيل",
-		"usedExtractorFallback": "تم التنزيل باستخدام المستخرج المخفف — أعدّ cookies.txt لتنزيلات أكثر موثوقية",
-		"ytdlpProcessError": "خطأ في محرّك التنزيل: {{error}}",
-		"ytdlpExitCode": "خرج محرّك التنزيل بالرمز {{code}}",
-		"downloadingBinary": "جارٍ تنزيل ثنائي {{name}}…",
-		"unknownStartupFailure": "فشل غير معروف في بدء التنزيل",
-		"diskSpaceInsufficient": "مساحة القرص غير كافية — تحتاج {{required}}، والمتاح فقط {{free}}",
-		"outputNotWritable": "تعذّر الحفظ في {{dir}} — لا يُسمح لـ Arroxy بالكتابة هناك",
-		"fetchingSponsorBlock": "جارٍ الاتصال بـ SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…",
-		"retryingTransfer": "تعذّر الاتصال، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "جارٍ تسجيل الدخول بحسابك في «استكشاف»…",
-		"exploreSignedOut": "تم تسجيل الخروج من «استكشاف» — سجّل الدخول مجددًا"
-	},
-	"notifications": {
-		"settingsSaveFailed": "تعذّر حفظ إعداداتك.",
-		"warmupFailed": "لم يكتمل الإعداد. قد تفشل بعض التنزيلات حتى يكتمل.",
-		"shellActionFailed": "تعذّر فتح ذلك.",
-		"folderSelectFailed": "تعذّر فتح مُحدِّد المجلدات.",
-		"exploreSignInRetrying_zero": "تم تسجيل الدخول عبر Explore — لا روابط لإعادة المحاولة",
-		"exploreSignInRetrying_one": "تم تسجيل الدخول عبر «استكشاف» — إعادة محاولة رابط واحد",
-		"exploreSignInRetrying_two": "تم تسجيل الدخول عبر Explore — إعادة محاولة رابطين",
-		"exploreSignInRetrying_few": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} روابط",
-		"exploreSignInRetrying_many": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابطًا",
-		"exploreSignInRetrying_other": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابط",
-		"exploreSignOutFailed": "تعذّر تسجيل الخروج من «استكشاف». حاول مرة أخرى.",
-		"playlistFolderRejected": "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه.",
-		"filenameFolderTooDeep": "هذا المجلد عميق جدًا بالنسبة لنظامك. قد يفشل التنزيل رغم ذلك — اختر مجلدًا أقصر.",
-		"filenameTemplateCannotFit": "اسم هذا الفيديو لا يتّسع لكل أجزاء القالب، لذلك استُخدم الاسم الافتراضي.",
-		"hotkey": {
-			"queued": "تمت إضافة التنزيل من الحافظة",
-			"alreadyQueued": "في قائمة الانتظار بالفعل — لم تُضف نسخة",
-			"invalidClipboard": "لا يوجد رابط في الحافظة — انسخ رابطًا أولاً",
-			"multipleUrls": "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy",
-			"needsReview": "هذا الرابط يحتاج إلى اختيارك — راجع «التنزيلات» في Arroxy",
-			"cookiesSetup": "أكمل إعداد الكوكيز في Arroxy ثم حاول مجددًا",
-			"busy": "ما يزال Arroxy يبدأ التشغيل — حاول مجددًا بعد لحظة",
-			"submissionFailed": "تعذّر إضافة هذا الرابط — حاول مجددًا في Arroxy"
-		},
-		"queue": {
-			"skippedAlreadyQueued_zero": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
-			"skippedAlreadyQueued_one": "تم تخطي فيديو واحد موجود بالفعل في قائمة الانتظار",
-			"skippedAlreadyQueued_two": "تم تخطي فيديوهين موجودين بالفعل في قائمة الانتظار",
-			"skippedAlreadyQueued_few": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
-			"skippedAlreadyQueued_many": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
-			"skippedAlreadyQueued_other": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
-		},
-		"quickDownload": {
-			"added": "تمت الإضافة: {{title}}",
-			"alreadyQueued": "في قائمة الانتظار بالفعل",
-			"failed": "تعذّر تجهيز {{title}}",
-			"notAdded": "تعذّرت إضافة هذا الرابط — حاول مجددًا",
-			"chooseHowMany_zero": "{{count}}+ فيديو — اختر العدد",
-			"chooseHowMany_one": "{{count}}+ فيديو — اختر العدد",
-			"chooseHowMany_two": "{{count}}+ فيديو — اختر العدد",
-			"chooseHowMany_few": "{{count}}+ فيديو — اختر العدد",
-			"chooseHowMany_many": "{{count}}+ فيديو — اختر العدد",
-			"chooseHowMany_other": "{{count}}+ فيديو — اختر العدد",
-			"review_zero": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
-			"review_one": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
-			"review_two": "فيديوهان في هذه القائمة — راجعها للاختيار",
-			"review_few": "{{count}} مقاطع فيديو في هذه القائمة — راجعها للاختيار",
-			"review_many": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
-			"review_other": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_zero": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_one": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_two": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_few": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_many": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"reviewCapped_other": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
-			"view": "عرض"
-		}
+	"donate": {
+		"copied": "تم النسخ!",
+		"copyAddress": "نسخ العنوان",
+		"description": "Arroxy مجاني ومفتوح المصدر، بلا إعلانات ولا باقة مدفوعة. التبرعات اختيارية ولا تمنح أي تأثير على خارطة الطريق.",
+		"footerLabel": "تبرّع",
+		"footerTooltip": "ادعم Arroxy",
+		"qrAlt": "رمز QR لعنوان التبرع بعملة {{coin}}",
+		"title": "ادعم Arroxy",
+		"warning": "مدفوعات العملات المشفّرة لا يمكن التراجع عنها. أرسل فقط عبر الشبكة المعروضة وقارن العنوان بالكامل."
 	},
 	"errors": {
 		"noSubtitlesIn": "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}.",
 		"ytdlp": {
-			"botBlock": "تم تفعيل الحماية من الروبوتات. على الأرجح أن عنوان IP الذي تستخدمه مُعلَّم (نطاق مراكز البيانات أو نقطة خروج VPN مزدحمة). غيّر عنوان IP أو اختر نقطة اتصال VPN مختلفة وأعد المحاولة. إذا استمر الفشل، فقد يكون ذلك تغييراً مؤقتاً من جانب الموقع — يُحدّث Arroxy محرّك التنزيل عند التشغيل، لذا سيصل الإصلاح تلقائياً بمجرد صدوره.",
-			"ipBlock": "يبدو أن عنوان IP الخاص بك محظور من قِبل YouTube. حاول لاحقاً أو استخدم VPN.",
-			"rateLimit": "يحدّ الموقع من الطلبات القادمة من هذا الاتصال.",
 			"ageRestricted": "هذا الفيديو مقيّد بالعمر ولا يمكن تنزيله بدون حساب مسجّل الدخول.",
-			"unavailable": "هذا الفيديو غير متاح — قد يكون خاصاً أو محذوفاً أو مقيّداً بالمنطقة.",
+			"botBlock": "تم تفعيل الحماية من الروبوتات. على الأرجح أن عنوان IP الذي تستخدمه مُعلَّم (نطاق مراكز البيانات أو نقطة خروج VPN مزدحمة). غيّر عنوان IP أو اختر نقطة اتصال VPN مختلفة وأعد المحاولة. إذا استمر الفشل، فقد يكون ذلك تغييراً مؤقتاً من جانب الموقع — يُحدّث Arroxy محرّك التنزيل عند التشغيل، لذا سيصل الإصلاح تلقائياً بمجرد صدوره.",
+			"chunkTransferFailure": "ظل الخادم يقطع التنزيل في منتصفه، واستسلم Arroxy بعد إعادة المحاولة. يحدث هذا عادةً مع أكبر صيغ الفيديو (4K HDR / VP9 عالي معدل البت). أعد المحاولة، أو غيّر الشبكة/VPN، أو اختر صيغة بدقة أقل.",
+			"drmProtected": "هذا الفيديو محمي بـ DRM. لا يستطيع Arroxy إزالة DRM، لذا لا يمكن تنزيل الملف.",
 			"formatUnavailable": "لم يعد هذا الفيديو يوفّر الصيغة التي اخترتها. الصق الرابط مرة أخرى واختر من الصيغ المتاحة الآن.",
 			"geoBlocked": "هذا الفيديو غير متاح في منطقتك.",
+			"ipBlock": "يبدو أن عنوان IP الخاص بك محظور من قِبل YouTube. حاول لاحقاً أو استخدم VPN.",
+			"loginRequired": "يحتاج هذا الفيديو إلى حساب مسجَّل الدخول.",
+			"missingDependency": "تعذّر على Arroxy العثور على FFmpeg أو FFprobe. شغّل الإعداد مرة أخرى أو حدّد موقع FFmpeg، ثم أعد محاولة التنزيل.",
+			"network": "خطأ في الشبكة. تحقق من اتصالك وأعد المحاولة.",
+			"noSubtitles": "لا يحتوي هذا الفيديو على ترجمات باللغات المطلوبة.",
 			"outOfDiskSpace": "مساحة القرص غير كافية. أفرغ مساحة وأعد المحاولة.",
 			"outputNotWritable": "لا يستطيع Arroxy الكتابة في مجلد التنزيل. قد يكون للقراءة فقط، أو على محرك أقراص مقفل، أو محظورًا بإعدادات الخصوصية في نظامك. اختر مجلدًا آخر أو اسمح بالوصول، ثم أعد المحاولة.",
-			"unsupportedUrl": "لا يدعم Arroxy هذا الرابط. جرّب رابطاً من موقع آخر.",
-			"noSubtitles": "لا يحتوي هذا الفيديو على ترجمات باللغات المطلوبة.",
-			"chunkTransferFailure": "ظل الخادم يقطع التنزيل في منتصفه، واستسلم Arroxy بعد إعادة المحاولة. يحدث هذا عادةً مع أكبر صيغ الفيديو (4K HDR / VP9 عالي معدل البت). أعد المحاولة، أو غيّر الشبكة/VPN، أو اختر صيغة بدقة أقل.",
-			"missingDependency": "تعذّر على Arroxy العثور على FFmpeg أو FFprobe. شغّل الإعداد مرة أخرى أو حدّد موقع FFmpeg، ثم أعد محاولة التنزيل.",
-			"postprocessFailure": "اكتمل التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة.",
 			"parse": "تعذّر تحليل الاستجابة الواردة من الموقع. ربما غيّر الموقع طريقة تقديمه للفيديوهات. يُحدّث Arroxy محرّك التنزيل عند التشغيل — أعد المحاولة بعد بضع دقائق حالما يصدر الإصلاح.",
-			"network": "خطأ في الشبكة. تحقق من اتصالك وأعد المحاولة.",
-			"drmProtected": "هذا الفيديو محمي بـ DRM. لا يستطيع Arroxy إزالة DRM، لذا لا يمكن تنزيل الملف.",
-			"loginRequired": "يحتاج هذا الفيديو إلى حساب مسجَّل الدخول.",
-			"unknown": "فشل التنزيل. راجع الإخراج الخام أدناه."
+			"postprocessFailure": "اكتمل التنزيل لكن المعالجة اللاحقة (دمج / mux / تحويل) فشلت. غالبًا ما تكون مشكلة ffmpeg مؤقتة — أعد المحاولة، وإذا استمرت المشكلة جرّب توليفة صيغ مختلفة.",
+			"rateLimit": "يحدّ الموقع من الطلبات القادمة من هذا الاتصال.",
+			"unavailable": "هذا الفيديو غير متاح — قد يكون خاصاً أو محذوفاً أو مقيّداً بالمنطقة.",
+			"unknown": "فشل التنزيل. راجع الإخراج الخام أدناه.",
+			"unsupportedUrl": "لا يدعم Arroxy هذا الرابط. جرّب رابطاً من موقع آخر."
 		}
 	},
+	"explore": {
+		"error": {
+			"loadBody": "تحقق من اتصالك ثم حاول مرة أخرى.",
+			"loadTitle": "تعذّر تحميل هذه الصفحة",
+			"openSettings": "افتح الإعدادات",
+			"proxyBody": "تحقق من الوكيل في الإعدادات ثم حاول مرة أخرى.",
+			"proxyTitle": "يتعذّر على «استكشاف» الاتصال عبر الوكيل الخاص بك",
+			"retry": "إعادة المحاولة"
+		},
+		"linkCallout": {
+			"body": "انقر بزر الماوس الأيمن على أي رابط فيديو أو قائمة تشغيل أو قناة في الصفحة لتنزيله باستخدام ملف التعريف النشط، أو اختر ملف تعريف آخر، أو افتح التنزيل التفاعلي.",
+			"title": "انقر بزر الماوس الأيمن على رابط لتنزيله"
+		},
+		"linkMenu": {
+			"copyLink": "نسخ الرابط",
+			"downloadWith": "تنزيل باستخدام"
+		},
+		"newBadge": "جديد",
+		"notice": {
+			"body": "ابحث عن فيديو على YouTube أو أي موقع آخر ونزّله من هنا — دون نسخ الروابط. سجّل الدخول إلى موقع هنا لتنزيل الفيديوهات التي تتطلب حساباً.",
+			"continue": "متابعة",
+			"riskBody": "قد تُعلّم مواقع مثل YouTube — وأحياناً تحظر — الحسابات المستخدمة مع أدوات التنزيل مثل Arroxy. استخدم حساباً يمكنك التضحية به، لا حسابك الرئيسي.",
+			"riskTitle": "سجّل الدخول بحساب ثانوي",
+			"title": "تصفّح الويب داخل Arroxy مباشرةً"
+		},
+		"nudge": {
+			"browser": "تستخدم التنزيلات كوكيز متصفحك، وليس تسجيل دخولك في «استكشاف».",
+			"file": "تستخدم التنزيلات ملف الكوكيز الخاص بك، وليس تسجيل دخولك في «استكشاف».",
+			"notNow": "ليس الآن",
+			"off": "الكوكيز متوقفة، لذا لا تستخدم التنزيلات تسجيل دخولك في «استكشاف».",
+			"useExplore": "استخدم تسجيل الدخول في «استكشاف»"
+		},
+		"settings": {
+			"description": "تصفّح YouTube أو أي موقع آخر داخل Arroxy، وسجّل الدخول للفيديوهات التي تتطلب حساباً.",
+			"idleUnload": "تحرير الذاكرة أثناء الابتعاد",
+			"idleUnloadDescription": "بعد 5 دقائق في علامة تبويب أخرى، تُغلَق صفحة YouTube الرئيسية أو صفحة البحث. عند العودة يُعاد تحميلها، ويستغرق ذلك بضع ثوانٍ.",
+			"searchEngine": "محرك البحث",
+			"searchEngineDescription": "المحرك الذي يُبحث فيه عن النص المكتوب في شريط العنوان. تُفتح الروابط كما كُتبت.",
+			"showTab": "إظهار تبويب «استكشاف»",
+			"showTabDescription": "إيقافه يمنع أيضاً التنزيلات من استخدام تسجيل دخولك في «استكشاف».",
+			"signOut": "تسجيل الخروج من «استكشاف»",
+			"signOutConfirm": "تسجيل الخروج",
+			"signOutConfirmBody": "سيؤدي هذا إلى مسح عمليات تسجيل دخولك وبيانات التصفح في «استكشاف»، على كل المواقع. ستفشل التنزيلات التي تتطلب حساباً حتى تسجّل الدخول مجدداً.",
+			"signOutConfirmTitle": "تسجيل الخروج من «استكشاف»؟",
+			"signOutDescription": "يمسح عمليات تسجيل دخولك وبيانات التصفح في «استكشاف»، على كل المواقع.",
+			"title": "استكشاف"
+		},
+		"tabLabel": "استكشاف",
+		"toolbar": {
+			"adBlock": {
+				"accountNote": "قد يقاوم YouTube مانعات الإعلانات للحسابات المسجَّل دخولها.",
+				"aria": "مانع الإعلانات",
+				"off": "مانع الإعلانات: متوقف — انقر للتشغيل",
+				"on": "مانع الإعلانات: يعمل — انقر للإيقاف",
+				"starting": "مانع الإعلانات: قيد البدء — انقر للإيقاف",
+				"unavailable": "مانع الإعلانات: غير متاح، تعذّر تنزيل قوائم المرشحات الخاصة به — انقر للإيقاف"
+			},
+			"addressAria": "العنوان",
+			"addressPlaceholder": "ابحث في {{engine}} أو افتح أي موقع (Vimeo وInstagram…)",
+			"aria": "عناصر تحكم متصفح «استكشاف»",
+			"back": "رجوع",
+			"compactLayout": "تخطيط مضغوط",
+			"downloadWithProfile": "تنزيل · {{profileName}}",
+			"forward": "للأمام",
+			"fullLayout": "إظهار التخطيط الكامل",
+			"grabUnavailable": "افتح فيديو أو قائمة تشغيل أو قناة لتنزيلها",
+			"home": "الصفحة الرئيسية لـ YouTube",
+			"interactiveHint": "تنزيل تفاعلي: اختر الصيغة والترجمات وغير ذلك…",
+			"refusedHint": "لا يمكن لـ«استكشاف» فتح هذا العنوان.",
+			"reload": "إعادة التحميل",
+			"searchTooLong": "عبارة البحث هذه طويلة جدًا.",
+			"zoom": {
+				"hint": "تكبير الصفحة: {{percent}}%",
+				"in": "تكبير",
+				"label": "تكبير الصفحة",
+				"out": "تصغير",
+				"percent": "نسبة التكبير",
+				"reset": "إعادة التكبير إلى 100%"
+			}
+		}
+	},
+	"fileType": {
+		"auto": "تلقائي",
+		"autoValue": "تلقائي (.{{ext}})",
+		"description": {
+			"auto": "تحدد التدفقات المختارة نوع الملف.",
+			"mkv": "يدعم أي ترميز. قد لا تفتحه بعض أجهزة التلفاز والهواتف.",
+			"mp4": "يعمل تقريبًا في كل مكان. فيديو VP9 داخل MP4 لا يُعرض في QuickTime.",
+			"webm": "يناسب المتصفحات وهو صيغة مفتوحة. يدعم VP9 أو AV1 مع Opus فقط."
+		},
+		"mkv": "MKV",
+		"mp4": "MP4",
+		"mp4CaveatAv1": "يحتاج AV1 داخل MP4 إلى جهاز Mac حديث ليُعرض في QuickTime. أما H.264 فيعمل في كل مكان.",
+		"mp4CaveatVp9": "فيديو VP9 داخل MP4 لا يُعرض في QuickTime. أما H.264 فيعمل في كل مكان.",
+		"profileMark": "ملف التعريف",
+		"smartTvNoWebm": "لا يتوفر WebM مع التلفاز الذكي لأنه لا يدعم H.264.",
+		"webm": "WebM",
+		"webmBlocked": "لا يدعم WebM الترميز {{codec}}. اختر MKV أو MP4."
+	},
+	"filenameTemplate": {
+		"description": "اختر طريقة تسمية الملفات التي يتم تنزيلها. انقر على رمز لإدراجه. استخدم / لترتيب التنزيلات في مجلدات.",
+		"error": {
+			"empty": "أدخل قالب اسم ملف.",
+			"empty-segment": "أزل الشرطة / الزائدة — كل مجلد يحتاج إلى اسم.",
+			"forbidden-char": "أزل المحارف غير المسموح بها في أسماء الملفات: \\ : * ? \" < > |",
+			"invalid-segment": "اسم المجلد هذا غير مسموح به. تجنّب . و .. والأسماء المحجوزة مثل CON.",
+			"no-unique-token": "أضف {title} أو {id} إلى اسم الملف ليحصل كل تنزيل على اسم خاص به.",
+			"resolution-in-dir": "لا يمكن تسمية مجلد باستخدام {resolution} — الجودة غير معروفة حتى يبدأ التنزيل.",
+			"stray-brace": "{ أو } غير مغلقة — اكتب الرموز مثل {title}.",
+			"too-long": "القالب طويل جدًا.",
+			"unknown-token": "رمز غير معروف {{token}}."
+		},
+		"idWarning": "بدون {id} لا يستطيع Arroxy اكتشاف عناصر قائمة التشغيل التي جرى تنزيلها ولا إنشاء قوائم .m3u.",
+		"label": "قالب اسم الملف",
+		"m3uDisabled": "غير متاح لأن قالب اسم الملف لا يتضمن {id} أو لأنه يرتب التنزيلات في مجلدات.",
+		"previewPlaylist": "ضمن قائمة تشغيل",
+		"previewSingle": "مقطع واحد",
+		"profileOverrideDescription": "اتركه فارغًا لاستخدام القالب العام.",
+		"profileOverrideLabel": "قالب اسم الملف"
+	},
+	"formatLabel": {
+		"audioFallback": "صوت",
+		"audioOnlyDot": "صوت فقط · {{audio}}",
+		"videoDot": "{{resolution}} · {{audio}}"
+	},
+	"hdrPreference": {
+		"auto": "تلقائي",
+		"description": "يختار الوضع التلقائي HDR عندما تستطيع هذه الشاشة عرضه، وإلا يختار SDR. يبدو HDR باهتًا على الشاشات العادية.",
+		"hdr": "HDR",
+		"label": "فيديو HDR",
+		"sdr": "SDR"
+	},
+	"language": {
+		"label": "اللغة"
+	},
+	"notifications": {
+		"exploreSignInRetrying_few": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} روابط",
+		"exploreSignInRetrying_many": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابطًا",
+		"exploreSignInRetrying_one": "تم تسجيل الدخول عبر «استكشاف» — إعادة محاولة رابط واحد",
+		"exploreSignInRetrying_other": "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابط",
+		"exploreSignInRetrying_two": "تم تسجيل الدخول عبر Explore — إعادة محاولة رابطين",
+		"exploreSignInRetrying_zero": "تم تسجيل الدخول عبر Explore — لا روابط لإعادة المحاولة",
+		"exploreSignOutFailed": "تعذّر تسجيل الخروج من «استكشاف». حاول مرة أخرى.",
+		"filenameFolderTooDeep": "هذا المجلد عميق جدًا بالنسبة لنظامك. قد يفشل التنزيل رغم ذلك — اختر مجلدًا أقصر.",
+		"filenameTemplateCannotFit": "اسم هذا الفيديو لا يتّسع لكل أجزاء القالب، لذلك استُخدم الاسم الافتراضي.",
+		"folderSelectFailed": "تعذّر فتح مُحدِّد المجلدات.",
+		"hotkey": {
+			"alreadyQueued": "في قائمة الانتظار بالفعل — لم تُضف نسخة",
+			"busy": "ما يزال Arroxy يبدأ التشغيل — حاول مجددًا بعد لحظة",
+			"cookiesSetup": "أكمل إعداد الكوكيز في Arroxy ثم حاول مجددًا",
+			"invalidClipboard": "لا يوجد رابط في الحافظة — انسخ رابطًا أولاً",
+			"multipleUrls": "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy",
+			"needsReview": "هذا الرابط يحتاج إلى اختيارك — راجع «التنزيلات» في Arroxy",
+			"queued": "تمت إضافة التنزيل من الحافظة",
+			"submissionFailed": "تعذّر إضافة هذا الرابط — حاول مجددًا في Arroxy"
+		},
+		"playlistFolderRejected": "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه.",
+		"queue": {
+			"skippedAlreadyQueued_few": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
+			"skippedAlreadyQueued_many": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
+			"skippedAlreadyQueued_one": "تم تخطي فيديو واحد موجود بالفعل في قائمة الانتظار",
+			"skippedAlreadyQueued_other": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار",
+			"skippedAlreadyQueued_two": "تم تخطي فيديوهين موجودين بالفعل في قائمة الانتظار",
+			"skippedAlreadyQueued_zero": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+		},
+		"quickDownload": {
+			"added": "تمت الإضافة: {{title}}",
+			"alreadyQueued": "في قائمة الانتظار بالفعل",
+			"chooseHowMany_few": "{{count}}+ فيديو — اختر العدد",
+			"chooseHowMany_many": "{{count}}+ فيديو — اختر العدد",
+			"chooseHowMany_one": "{{count}}+ فيديو — اختر العدد",
+			"chooseHowMany_other": "{{count}}+ فيديو — اختر العدد",
+			"chooseHowMany_two": "{{count}}+ فيديو — اختر العدد",
+			"chooseHowMany_zero": "{{count}}+ فيديو — اختر العدد",
+			"failed": "تعذّر تجهيز {{title}}",
+			"notAdded": "تعذّرت إضافة هذا الرابط — حاول مجددًا",
+			"reviewCapped_few": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"reviewCapped_many": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"reviewCapped_one": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"reviewCapped_other": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"reviewCapped_two": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"reviewCapped_zero": "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار",
+			"review_few": "{{count}} مقاطع فيديو في هذه القائمة — راجعها للاختيار",
+			"review_many": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
+			"review_one": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
+			"review_other": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
+			"review_two": "فيديوهان في هذه القائمة — راجعها للاختيار",
+			"review_zero": "{{count}} فيديو في هذه القائمة — راجعها للاختيار",
+			"view": "عرض"
+		},
+		"settingsSaveFailed": "تعذّر حفظ إعداداتك.",
+		"shellActionFailed": "تعذّر فتح ذلك.",
+		"warmupFailed": "لم يكتمل الإعداد. قد تفشل بعض التنزيلات حتى يكتمل."
+	},
 	"playlistPresets": {
-		"type": {"video": "فيديو", "audio": "صوت", "subtitles": "الترجمات"},
-		"subtitles": {"note": "يتم حفظ ملفات الترجمة فقط لكل فيديو — لا يتم تنزيل أي فيديو أو صوت.", "languages": "اللغات", "languagesRequired": "اختر لغة واحدة على الأقل للمتابعة.", "source": "المصدر", "deliveryHeading": "حفظ بصيغة", "deliveryLoose": "مباشرةً في مجلد الحفظ"},
-		"videoFormat": {"best": "الأصلي الأفضل", "mp4": "تلفاز ذكي H.264 MP4"},
-		"videoFormatDesc": {"best": "أعلى ترميز متاح لكل عنصر", "mp4": "يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة"},
-		"tier": {"144": "حتى 144p", "240": "حتى 240p", "360": "حتى 360p", "480": "حتى 480p", "720": "حتى 720p", "1080": "حتى 1080p", "1440": "حتى 1440p", "2160": "حتى 4K", "best": "أفضل جودة"},
+		"audioFormat": {
+			"best": "صوت (الأفضل)",
+			"m4a": "M4A",
+			"mp3": "MP3",
+			"opus": "Opus"
+		},
+		"audioFormatBitrate": "صوت ({{format}} {{kbps}}K)",
+		"audioFormatDesc": {
+			"best": "أفضل صوت أصلي، بلا إعادة ترميز",
+			"m4a": "تحويل إلى M4A (AAC)",
+			"mp3": "تحويل إلى MP3",
+			"opus": "تحويل إلى Opus"
+		},
+		"mp4Cap": "H.264 أعلى من 1080p غير متاح على YouTube — يحد تلقائيًا إلى 1080p",
+		"subtitles": {
+			"deliveryHeading": "حفظ بصيغة",
+			"deliveryLoose": "مباشرةً في مجلد الحفظ",
+			"languages": "اللغات",
+			"languagesRequired": "اختر لغة واحدة على الأقل للمتابعة.",
+			"note": "يتم حفظ ملفات الترجمة فقط لكل فيديو — لا يتم تنزيل أي فيديو أو صوت.",
+			"source": "المصدر"
+		},
+		"tier": {
+			"144": "حتى 144p",
+			"240": "حتى 240p",
+			"360": "حتى 360p",
+			"480": "حتى 480p",
+			"720": "حتى 720p",
+			"1080": "حتى 1080p",
+			"1440": "حتى 1440p",
+			"2160": "حتى 4K",
+			"best": "أفضل جودة"
+		},
 		"tierDesc": {
 			"144": "أصغر الملفات الممكنة",
 			"240": "ملفات صغيرة جدًا، جودة منخفضة",
@@ -1041,189 +335,1501 @@
 			"2160": "محدود عند 2160p ويهبط لكل عنصر عند الحاجة",
 			"best": "أفضل فيديو + صوت متاح لكل عنصر"
 		},
-		"audioFormat": {"best": "صوت (الأفضل)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "أفضل صوت أصلي، بلا إعادة ترميز", "mp3": "تحويل إلى MP3", "m4a": "تحويل إلى M4A (AAC)", "opus": "تحويل إلى Opus"},
-		"audioFormatBitrate": "صوت ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 أعلى من 1080p غير متاح على YouTube — يحد تلقائيًا إلى 1080p"
-	},
-	"formatLabel": {"audioFallback": "صوت", "audioOnlyDot": "صوت فقط · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {
-		"tooltip": "Arroxy",
-		"menu": {
-			"statusIdle": "خامل",
-			"statusActive_zero": "{{count}} جارٍ التنزيل · {{percent}}%",
-			"statusActive_one": "1 جارٍ التنزيل · {{percent}}%",
-			"statusActive_two": "{{count}} جارٍ التنزيل · {{percent}}%",
-			"statusActive_few": "{{count}} جارٍ التنزيل · {{percent}}%",
-			"statusActive_many": "{{count}} جارٍ التنزيل · {{percent}}%",
-			"statusActive_other": "{{count}} جارٍ التنزيل · {{percent}}%",
-			"downloadFromClipboard": "تنزيل من الحافظة",
-			"open": "فتح Arroxy",
-			"quit": "الخروج من Arroxy"
+		"type": {
+			"audio": "صوت",
+			"subtitles": "الترجمات",
+			"video": "فيديو"
+		},
+		"videoFormat": {
+			"best": "الأصلي الأفضل",
+			"mp4": "تلفاز ذكي H.264 MP4"
+		},
+		"videoFormatDesc": {
+			"best": "أعلى ترميز متاح لكل عنصر",
+			"mp4": "يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة"
 		}
 	},
-	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_zero": "لا توجد تنزيلات قيد التقدم",
-			"message_one": "{{count}} تنزيل قيد التقدم",
-			"message_two": "تنزيلان قيد التقدم",
-			"message_few": "{{count}} تنزيلات قيد التقدم",
-			"message_many": "{{count}} تنزيلًا قيد التقدم",
-			"message_other": "{{count}} تنزيل قيد التقدم",
-			"detail": "يمكنك الإيقاف مؤقتًا للاستئناف لاحقًا، أو الإلغاء للتخلي عن التقدم.",
-			"confirm": "إلغاء التنزيلات والخروج",
-			"pause": "إيقاف التنزيلات مؤقتًا والخروج",
-			"keep": "الاستمرار في التنزيل"
+	"queue": {
+		"artifact": {
+			"companion": "ملف مرافق",
+			"description": "الوصف",
+			"media": "وسائط",
+			"missing": "مفقود",
+			"subtitle": "ترجمة",
+			"thumbnail": "صورة مصغرة",
+			"unknown": "ملف"
 		},
-		"closeToTray": {"message": "هل تريد إخفاء Arroxy في علبة النظام عند الإغلاق؟", "detail": "يستمر Arroxy في العمل وينهي التنزيلات النشطة. يمكنك تغيير ذلك لاحقاً في الإعدادات المتقدمة.", "hide": "الإخفاء في علبة النظام", "quit": "الخروج", "remember": "لا تسألني مجدداً"},
-		"rendererCrashed": {"message": "واجه Arroxy مشكلة", "detail": "تعطّلت عملية العرض ({{reason}}). أعد التحميل للمحاولة مجدداً.", "reload": "إعادة التحميل", "quit": "الخروج"}
-	},
-	"share": {
-		"title": "مشاركة Arroxy",
-		"description": "Arroxy مجاني ومفتوح المصدر. مشاركته تساعد المزيد من الأشخاص على اكتشافه.",
-		"copyLink": "نسخ الرابط",
-		"copied": "تم النسخ!",
-		"defaultMessage": "Arroxy — محمّل فيديوهات مجاني ومفتوح المصدر لنظام Windows وmacOS وLinux. يعمل مع YouTube وVimeo وTwitch وأكثر من 2000 موقع.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
-		"footerTooltip": "مشاركة Arroxy",
-		"footerLabel": "مشاركة",
-		"shareAction": "مشاركة Arroxy"
-	},
-	"donate": {
-		"title": "ادعم Arroxy",
-		"description": "Arroxy مجاني ومفتوح المصدر، بلا إعلانات ولا باقة مدفوعة. التبرعات اختيارية ولا تمنح أي تأثير على خارطة الطريق.",
-		"footerTooltip": "ادعم Arroxy",
-		"footerLabel": "تبرّع",
-		"copyAddress": "نسخ العنوان",
-		"copied": "تم النسخ!",
-		"qrAlt": "رمز QR لعنوان التبرع بعملة {{coin}}",
-		"warning": "مدفوعات العملات المشفّرة لا يمكن التراجع عنها. أرسل فقط عبر الشبكة المعروضة وقارن العنوان بالكامل."
-	},
-	"filenameTemplate": {
-		"label": "قالب اسم الملف",
-		"description": "اختر طريقة تسمية الملفات التي يتم تنزيلها. انقر على رمز لإدراجه. استخدم / لترتيب التنزيلات في مجلدات.",
-		"profileOverrideLabel": "قالب اسم الملف",
-		"profileOverrideDescription": "اتركه فارغًا لاستخدام القالب العام.",
-		"idWarning": "بدون {id} لا يستطيع Arroxy اكتشاف عناصر قائمة التشغيل التي جرى تنزيلها ولا إنشاء قوائم .m3u.",
-		"m3uDisabled": "غير متاح لأن قالب اسم الملف لا يتضمن {id} أو لأنه يرتب التنزيلات في مجلدات.",
-		"previewSingle": "مقطع واحد",
-		"previewPlaylist": "ضمن قائمة تشغيل",
-		"error": {
-			"empty": "أدخل قالب اسم ملف.",
-			"too-long": "القالب طويل جدًا.",
-			"forbidden-char": "أزل المحارف غير المسموح بها في أسماء الملفات: \\ : * ? \" < > |",
-			"stray-brace": "{ أو } غير مغلقة — اكتب الرموز مثل {title}.",
-			"no-unique-token": "أضف {title} أو {id} إلى اسم الملف ليحصل كل تنزيل على اسم خاص به.",
-			"unknown-token": "رمز غير معروف {{token}}.",
-			"empty-segment": "أزل الشرطة / الزائدة — كل مجلد يحتاج إلى اسم.",
-			"invalid-segment": "اسم المجلد هذا غير مسموح به. تجنّب . و .. والأسماء المحجوزة مثل CON.",
-			"resolution-in-dir": "لا يمكن تسمية مجلد باستخدام {resolution} — الجودة غير معروفة حتى يبدأ التنزيل."
+		"attentionBadge_few": "يحتاج انتباهك: {{count}}",
+		"attentionBadge_many": "يحتاج انتباهك: {{count}}",
+		"attentionBadge_one": "يحتاج انتباهك: {{count}}",
+		"attentionBadge_other": "يحتاج انتباهك: {{count}}",
+		"attentionBadge_two": "يحتاج انتباهك: {{count}}",
+		"attentionBadge_zero": "يحتاج انتباهك: {{count}}",
+		"autoRemoveCompleted": {
+			"hint": "يزيل كل تنزيل من القائمة بعد ثوانٍ قليلة من اكتماله. تبقى الملفات في مجلدك.",
+			"label": "مسح تلقائي عند الاكتمال"
+		},
+		"cancelAllTitle": "إلغاء جميع التنزيلات النشطة والمعلقة",
+		"choice": {
+			"all": "كل الفيديوهات",
+			"cappedBody_few": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"cappedBody_many": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"cappedBody_one": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"cappedBody_other": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"cappedBody_two": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"cappedBody_zero": "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة.",
+			"first": "أول {{count}}",
+			"review": "مراجعة",
+			"reviewBody_few": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
+			"reviewBody_many": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
+			"reviewBody_one": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
+			"reviewBody_other": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
+			"reviewBody_two": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله.",
+			"reviewBody_zero": "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+		},
+		"clearTitle": "مسح التنزيلات المكتملة",
+		"empty": "ستظهر التنزيلات الموضوعة في قائمة الانتظار هنا",
+		"filterAll": "الكل",
+		"filtersLabel": "مرشحات حالة قائمة الانتظار",
+		"globalActionsLabel": "كل العناصر",
+		"header": "التنزيلات",
+		"item": {
+			"audioKept": "لم تتم إزالة الصوت",
+			"audioKeptSubtitlesFailed": "لم تتم إزالة الصوت · تعذّر تنزيل بعض الترجمات",
+			"cancel": "إلغاء",
+			"defaultError": "فشل التنزيل",
+			"openDestinationFolder": "فتح مجلد الوجهة",
+			"pause": "إيقاف مؤقت",
+			"pendingOnly": "المعلقة فقط",
+			"pullNow": "تنزيل الآن — تجاوز القائمة",
+			"qualityLimited": "محدود بدقة {{height}}p",
+			"qualityLimitedSubtitlesFailed": "محدود بدقة {{height}}p · تعذّر تنزيل بعض الترجمات",
+			"remove": "إزالة",
+			"resume": "استئناف",
+			"retry": "إعادة المحاولة",
+			"retryingSoon": "تتم إعادة المحاولة تلقائيًا (المحاولة {{attempt}})",
+			"setLocation": "تعيين الموقع",
+			"setLocationHint": "حدّد العناصر المعلقة لتعيين الموقع.",
+			"statusCancelled": "أُلغي",
+			"statusDone": "تم",
+			"statusError": "خطأ",
+			"statusHeld": "معلّق",
+			"statusNeedsChoice": "يحتاج إلى اختيارك",
+			"statusPaused": "متوقف مؤقتًا",
+			"statusPending": "بانتظار",
+			"statusProbing": "جارٍ جلب التفاصيل",
+			"statusRunning": "جارٍ التنزيل",
+			"subtitleLanguagesMissing": "لا توجد ترجمات باللغات: {{languages}}"
+		},
+		"pauseAllTitle": "إيقاف جميع التنزيلات النشطة مؤقتاً",
+		"pausedBanner": "القائمة متوقفة مؤقتًا — العناصر المنتظرة لن تبدأ حتى تستأنفها",
+		"resumeAllTitle": "استئناف التنزيلات المتوقفة والسماح للقائمة بالمتابعة",
+		"resumeQueueAction": "استئناف القائمة",
+		"selectedActionsLabel": "العناصر المحددة",
+		"selectionSummary": "{{selected}} محدد · {{total}} إجمالاً",
+		"tabLabel": "التنزيلات",
+		"tabTip": "أصبحت التنزيلات في تبويب التنزيلات الآن — افتحه في أي وقت لمتابعة التقدّم.",
+		"table": {
+			"added": "أُضيف",
+			"artifacts": "الملفات الناتجة",
+			"columnDropped": "تم إفلات عمود {{column}}.",
+			"columnMoveCancelled": "تم إلغاء نقل عمود {{column}}.",
+			"columnMovedOver": "عمود {{column}} فوق {{target}}.",
+			"columnPickedUp": "تم التقاط عمود {{column}}.",
+			"columns": "الأعمدة",
+			"finished": "انتهى",
+			"format": "التنسيق",
+			"hideArtifactsFor": "إخفاء ملفات {{title}}",
+			"movableColumn": "عمود قابل للنقل",
+			"moveColumnInstructions": "لنقل عمود، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء.",
+			"notAvailable": "—",
+			"outputTarget": "وجهة الإخراج",
+			"progress": "التقدم",
+			"resetColumns": "إعادة ضبط الأعمدة",
+			"resizeColumn": "تغيير حجم عمود {{column}}",
+			"showArtifactsFor": "إظهار ملفات {{title}}",
+			"size": "الحجم",
+			"sortBy": "فرز حسب {{label}}",
+			"status": "الحالة",
+			"title": "العنوان"
 		}
 	},
-	"explore": {
-		"tabLabel": "استكشاف",
-		"newBadge": "جديد",
-		"notice": {
-			"title": "تصفّح الويب داخل Arroxy مباشرةً",
-			"body": "ابحث عن فيديو على YouTube أو أي موقع آخر ونزّله من هنا — دون نسخ الروابط. سجّل الدخول إلى موقع هنا لتنزيل الفيديوهات التي تتطلب حساباً.",
-			"riskTitle": "سجّل الدخول بحساب ثانوي",
-			"riskBody": "قد تُعلّم مواقع مثل YouTube — وأحياناً تحظر — الحسابات المستخدمة مع أدوات التنزيل مثل Arroxy. استخدم حساباً يمكنك التضحية به، لا حسابك الرئيسي.",
-			"continue": "متابعة"
+	"releaseNotes": {
+		"continue": "متابعة",
+		"description": "أنت تستخدم تحديثًا جديدًا. إليك أبرز ما فيه.",
+		"fullNotes": "ملاحظات الإصدار الكاملة ↗",
+		"title": "ما الجديد في Arroxy {{version}}"
+	},
+	"repair": {
+		"actions": {
+			"cancel": "إلغاء",
+			"chooseExecutable": "اختر الملف القابل للتنفيذ",
+			"installWithHomebrew": "التثبيت عبر Homebrew",
+			"installWithWinget": "التثبيت عبر WinGet",
+			"openDependencyFolder": "فتح مجلد التبعيات",
+			"resetToDefault": "إعادة إلى الافتراضي",
+			"retrySetup": "حاول مرة أخرى",
+			"viewSetupLog": "عرض سجل الإعداد"
 		},
-		"nudge": {"off": "الكوكيز متوقفة، لذا لا تستخدم التنزيلات تسجيل دخولك في «استكشاف».", "file": "تستخدم التنزيلات ملف الكوكيز الخاص بك، وليس تسجيل دخولك في «استكشاف».", "browser": "تستخدم التنزيلات كوكيز متصفحك، وليس تسجيل دخولك في «استكشاف».", "useExplore": "استخدم تسجيل الدخول في «استكشاف»", "notNow": "ليس الآن"},
-		"linkCallout": {"title": "انقر بزر الماوس الأيمن على رابط لتنزيله", "body": "انقر بزر الماوس الأيمن على أي رابط فيديو أو قائمة تشغيل أو قناة في الصفحة لتنزيله باستخدام ملف التعريف النشط، أو اختر ملف تعريف آخر، أو افتح التنزيل التفاعلي."},
-		"linkMenu": {"downloadWith": "تنزيل باستخدام", "copyLink": "نسخ الرابط"},
-		"toolbar": {
-			"aria": "عناصر تحكم متصفح «استكشاف»",
-			"back": "رجوع",
-			"forward": "للأمام",
-			"reload": "إعادة التحميل",
-			"home": "الصفحة الرئيسية لـ YouTube",
-			"addressAria": "العنوان",
-			"addressPlaceholder": "ابحث في {{engine}} أو افتح أي موقع (Vimeo وInstagram…)",
-			"refusedHint": "لا يمكن لـ«استكشاف» فتح هذا العنوان.",
-			"searchTooLong": "عبارة البحث هذه طويلة جدًا.",
-			"downloadWithProfile": "تنزيل · {{profileName}}",
-			"interactiveHint": "تنزيل تفاعلي: اختر الصيغة والترجمات وغير ذلك…",
-			"grabUnavailable": "افتح فيديو أو قائمة تشغيل أو قناة لتنزيلها",
-			"compactLayout": "تخطيط مضغوط",
-			"fullLayout": "إظهار التخطيط الكامل",
-			"zoom": {"label": "تكبير الصفحة", "hint": "تكبير الصفحة: {{percent}}%", "in": "تكبير", "out": "تصغير", "percent": "نسبة التكبير", "reset": "إعادة التكبير إلى 100%"},
-			"adBlock": {
-				"aria": "مانع الإعلانات",
-				"off": "مانع الإعلانات: متوقف — انقر للتشغيل",
-				"starting": "مانع الإعلانات: قيد البدء — انقر للإيقاف",
-				"on": "مانع الإعلانات: يعمل — انقر للإيقاف",
-				"unavailable": "مانع الإعلانات: غير متاح، تعذّر تنزيل قوائم المرشحات الخاصة به — انقر للإيقاف",
-				"accountNote": "قد يقاوم YouTube مانعات الإعلانات للحسابات المسجَّل دخولها."
+		"causes": {
+			"badExitCode": {
+				"body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تعمل من الأسفل.",
+				"title": "إحدى الأدوات لا تعمل بشكل صحيح"
+			},
+			"blockedOrQuarantined": {
+				"body": "اسمح لـ Arroxy في برنامج مكافحة الفيروسات أو SmartScreen، ثم حاول مرة أخرى.",
+				"title": "حظر برنامج مكافحة الفيروسات إحدى الأدوات"
+			},
+			"downloadFailed": {
+				"body": "تحقّق من اتصالك بالإنترنت، ثم حاول مرة أخرى.",
+				"title": "تعذّر تنزيل ما يحتاجه Arroxy"
+			},
+			"extractFailed": {
+				"body": "حاول مرة أخرى لتنزيله من جديد.",
+				"title": "وصل أحد التنزيلات تالفًا"
+			},
+			"hashFailed": {
+				"body": "حاول مرة أخرى لتنزيله من جديد.",
+				"title": "أحد التنزيلات لا يطابق رمز التحقق الخاص به"
+			},
+			"pairIncomplete": {
+				"body": "اختر الاثنين من الأسفل، أو أعدهما إلى الافتراضي.",
+				"title": "يجب تحديد FFmpeg وFFprobe معًا"
+			},
+			"permissionDenied": {
+				"body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تثق بها من الأسفل.",
+				"title": "نظامك لا يسمح لـ Arroxy بتشغيل إحدى الأدوات"
+			},
+			"spawnFailed": {
+				"body": "حاول مرة أخرى. إذا استمرت المشكلة، اختر نسخة تعمل من الأسفل.",
+				"title": "إحدى الأدوات مفقودة أو لا تبدأ"
+			},
+			"timeout": {
+				"body": "غالبًا ما يكون السبب فحصًا أمنيًا عند أول تشغيل. حاول مرة أخرى.",
+				"title": "استغرقت إحدى الأدوات وقتًا طويلًا للاستجابة"
+			},
+			"unknown": {
+				"body": "حاول مرة أخرى، أو افتح سجل الإعداد للاطلاع على التفاصيل.",
+				"title": "حدث خطأ ما أثناء الإعداد"
 			}
 		},
-		"settings": {
-			"title": "استكشاف",
-			"description": "تصفّح YouTube أو أي موقع آخر داخل Arroxy، وسجّل الدخول للفيديوهات التي تتطلب حساباً.",
-			"showTab": "إظهار تبويب «استكشاف»",
-			"showTabDescription": "إيقافه يمنع أيضاً التنزيلات من استخدام تسجيل دخولك في «استكشاف».",
-			"idleUnload": "تحرير الذاكرة أثناء الابتعاد",
-			"idleUnloadDescription": "بعد 5 دقائق في علامة تبويب أخرى، تُغلَق صفحة YouTube الرئيسية أو صفحة البحث. عند العودة يُعاد تحميلها، ويستغرق ذلك بضع ثوانٍ.",
-			"searchEngine": "محرك البحث",
-			"searchEngineDescription": "المحرك الذي يُبحث فيه عن النص المكتوب في شريط العنوان. تُفتح الروابط كما كُتبت.",
-			"signOut": "تسجيل الخروج من «استكشاف»",
-			"signOutDescription": "يمسح عمليات تسجيل دخولك وبيانات التصفح في «استكشاف»، على كل المواقع.",
-			"signOutConfirmTitle": "تسجيل الخروج من «استكشاف»؟",
-			"signOutConfirmBody": "سيؤدي هذا إلى مسح عمليات تسجيل دخولك وبيانات التصفح في «استكشاف»، على كل المواقع. ستفشل التنزيلات التي تتطلب حساباً حتى تسجّل الدخول مجدداً.",
-			"signOutConfirm": "تسجيل الخروج"
+		"deps": {
+			"ffmpeg": "FFmpeg",
+			"ffprobe": "FFprobe",
+			"ytDlp": "yt-dlp"
 		},
-		"error": {"proxyTitle": "يتعذّر على «استكشاف» الاتصال عبر الوكيل الخاص بك", "proxyBody": "تحقق من الوكيل في الإعدادات ثم حاول مرة أخرى.", "loadTitle": "تعذّر تحميل هذه الصفحة", "loadBody": "تحقق من اتصالك ثم حاول مرة أخرى.", "retry": "إعادة المحاولة", "openSettings": "افتح الإعدادات"}
-	},
-	"fileType": {
-		"auto": "تلقائي",
-		"autoValue": "تلقائي (.{{ext}})",
-		"mp4": "MP4",
-		"mkv": "MKV",
-		"webm": "WebM",
-		"description": {"auto": "تحدد التدفقات المختارة نوع الملف.", "mp4": "يعمل تقريبًا في كل مكان. فيديو VP9 داخل MP4 لا يُعرض في QuickTime.", "mkv": "يدعم أي ترميز. قد لا تفتحه بعض أجهزة التلفاز والهواتف.", "webm": "يناسب المتصفحات وهو صيغة مفتوحة. يدعم VP9 أو AV1 مع Opus فقط."},
-		"webmBlocked": "لا يدعم WebM الترميز {{codec}}. اختر MKV أو MP4.",
-		"profileMark": "ملف التعريف",
-		"smartTvNoWebm": "لا يتوفر WebM مع التلفاز الذكي لأنه لا يدعم H.264.",
-		"mp4CaveatVp9": "فيديو VP9 داخل MP4 لا يُعرض في QuickTime. أما H.264 فيعمل في كل مكان.",
-		"mp4CaveatAv1": "يحتاج AV1 داخل MP4 إلى جهاز Mac حديث ليُعرض في QuickTime. أما H.264 فيعمل في كل مكان."
+		"groups": {
+			"engine": "محرّك التنزيل",
+			"media": "أدوات الوسائط"
+		},
+		"installing": {
+			"homebrew": "جارٍ التثبيت عبر Homebrew… قد يستغرق ذلك بضع دقائق.",
+			"winget": "جارٍ التثبيت عبر WinGet… قد يستغرق ذلك بضع دقائق."
+		},
+		"manual": {
+			"intro": "وجّه Arroxy إلى نسخ لديك بالفعل، أو ثبّتها بطريقة أخرى.",
+			"linuxHint": "يمكنك أيضًا تثبيت yt-dlp وffmpeg عبر مدير الحزم لديك، ثم النقر على «حاول مرة أخرى».",
+			"toggle": "الإعداد اليدوي"
+		},
+		"stopped": {
+			"body": "حاول مرة أخرى، أو وجّه Arroxy إلى أدوات لديك بالفعل من الأسفل.",
+			"title": "توقّف الإعداد"
+		},
+		"title": "الإعداد يحتاج مساعدتك"
 	},
 	"selectionOrder": {
 		"editorTitle": "كيف يختار ملف التعريف هذا",
-		"whyTitle": "لماذا اختار ملف التعريف هذا",
-		"whyLabel": "لماذا هذا؟",
 		"rank": {
-			"h264": {"label": "فيديو H.264", "reason": "يعمل على كل الأجهزة"},
-			"mp4Streams": {"label": "تدفقات MP4", "reason": "جاهزة لملف MP4"},
-			"resolutionBest": {"label": "أعلى دقة", "reason": "بلا حد محدد"},
-			"resolution": {"label": "حتى {{tier}}p", "reason": "حدّك المحدد"},
-			"fps": {"label": "أعلى معدل إطارات", "reason": "حركة أكثر سلاسة"},
-			"sitePreference": {"label": "تدفقات لا يُخفّض الموقع أولويتها", "reason": "يتخطى النسخ التالفة وذات العلامة المائية والاحتياطية"},
-			"original": {"label": "التدفقات الأصلية، لا المُكبَّرة بالذكاء الاصطناعي", "reason": "النسخة المُكبَّرة أطول لكنها لا تضيف تفاصيل حقيقية"},
-			"source": {"label": "التدفقات ذات معدل بت محسّن أولاً", "reason": "تفاصيل أكثر بالدقة نفسها"},
-			"protocol": {"label": "التنزيلات المباشرة قبل النسخ المتدفقة", "reason": "الصورة نفسها، وتنزيل أسرع"},
-			"codec": {"label": "AV1، ثم VP9، ثم H.264", "reason": "الأوضح عند الحجم نفسه"},
-			"codecVp9First": {"label": "VP9، ثم H.264، ثم AV1", "reason": "ترميز ملف التعريف هذا"},
-			"codecH264First": {"label": "H.264، ثم VP9، ثم AV1", "reason": "ترميز ملف التعريف هذا"},
-			"size": {"label": "ملف أكبر", "reason": "تفاصيل أكثر بالإعدادات نفسها"},
-			"aacSmartTv": {"label": "صوت AAC", "reason": "يعمل في كل مكان"},
-			"aacFileType": {"label": "صوت AAC", "reason": "مناسب لمشغلات MP4"},
-			"opus": {"label": "صوت Opus", "reason": "مناسب لـ WebM"},
-			"nativeCompatible": {"label": "صوت ستيريو"},
-			"nativeSurround": {"label": "صوت محيطي عند توفره"},
-			"nativeSource": {"settings": "من الإعدادات", "profile": "ملف التعريف هذا"},
-			"hdrSdrFirst": {"label": "SDR قبل HDR", "reason": "يبدو سليمًا على أي شاشة", "reasonScreen": "هذه الشاشة لا تدعم HDR"},
-			"hdrFirst": {"label": "HDR قبل SDR", "reason": "ألوان أغنى على شاشات HDR", "reasonScreen": "هذه الشاشة تعرض HDR"}
+			"aacFileType": {
+				"label": "صوت AAC",
+				"reason": "مناسب لمشغلات MP4"
+			},
+			"aacSmartTv": {
+				"label": "صوت AAC",
+				"reason": "يعمل في كل مكان"
+			},
+			"codec": {
+				"label": "AV1، ثم VP9، ثم H.264",
+				"reason": "الأوضح عند الحجم نفسه"
+			},
+			"codecH264First": {
+				"label": "H.264، ثم VP9، ثم AV1",
+				"reason": "ترميز ملف التعريف هذا"
+			},
+			"codecVp9First": {
+				"label": "VP9، ثم H.264، ثم AV1",
+				"reason": "ترميز ملف التعريف هذا"
+			},
+			"fps": {
+				"label": "أعلى معدل إطارات",
+				"reason": "حركة أكثر سلاسة"
+			},
+			"h264": {
+				"label": "فيديو H.264",
+				"reason": "يعمل على كل الأجهزة"
+			},
+			"hdrFirst": {
+				"label": "HDR قبل SDR",
+				"reason": "ألوان أغنى على شاشات HDR",
+				"reasonScreen": "هذه الشاشة تعرض HDR"
+			},
+			"hdrSdrFirst": {
+				"label": "SDR قبل HDR",
+				"reason": "يبدو سليمًا على أي شاشة",
+				"reasonScreen": "هذه الشاشة لا تدعم HDR"
+			},
+			"mp4Streams": {
+				"label": "تدفقات MP4",
+				"reason": "جاهزة لملف MP4"
+			},
+			"nativeCompatible": {
+				"label": "صوت ستيريو"
+			},
+			"nativeSource": {
+				"profile": "ملف التعريف هذا",
+				"settings": "من الإعدادات"
+			},
+			"nativeSurround": {
+				"label": "صوت محيطي عند توفره"
+			},
+			"opus": {
+				"label": "صوت Opus",
+				"reason": "مناسب لـ WebM"
+			},
+			"original": {
+				"label": "التدفقات الأصلية، لا المُكبَّرة بالذكاء الاصطناعي",
+				"reason": "النسخة المُكبَّرة أطول لكنها لا تضيف تفاصيل حقيقية"
+			},
+			"protocol": {
+				"label": "التنزيلات المباشرة قبل النسخ المتدفقة",
+				"reason": "الصورة نفسها، وتنزيل أسرع"
+			},
+			"resolution": {
+				"label": "حتى {{tier}}p",
+				"reason": "حدّك المحدد"
+			},
+			"resolutionBest": {
+				"label": "أعلى دقة",
+				"reason": "بلا حد محدد"
+			},
+			"sitePreference": {
+				"label": "تدفقات لا يُخفّض الموقع أولويتها",
+				"reason": "يتخطى النسخ التالفة وذات العلامة المائية والاحتياطية"
+			},
+			"size": {
+				"label": "ملف أكبر",
+				"reason": "تفاصيل أكثر بالإعدادات نفسها"
+			},
+			"source": {
+				"label": "التدفقات ذات معدل بت محسّن أولاً",
+				"reason": "تفاصيل أكثر بالدقة نفسها"
+			}
 		},
-		"summary": {"goal": {"bestPicture": "أفضل صورة", "smartTv": "يعمل على أي جهاز"}, "fileType": {"auto": "نوع الملف حسب التدفقات", "explicit": "يُحفظ بصيغة .{{ext}}"}}
+		"summary": {
+			"fileType": {
+				"auto": "نوع الملف حسب التدفقات",
+				"explicit": "يُحفظ بصيغة .{{ext}}"
+			},
+			"goal": {
+				"bestPicture": "أفضل صورة",
+				"smartTv": "يعمل على أي جهاز"
+			}
+		},
+		"whyLabel": "لماذا هذا؟",
+		"whyTitle": "لماذا اختار ملف التعريف هذا"
 	},
-	"aiUpscaled": {"label": "تدفقات مُكبَّرة بالذكاء الاصطناعي", "description": "يعرض YouTube بعض الفيديوهات القديمة بأحجام صنعها بالذكاء الاصطناعي. يُبقي «تخطي» على التدفقات الأصلية؛ ولا يزال بإمكانك اختيار تدفق مُكبَّر يدويًا.", "skip": "تخطي", "allow": "السماح"},
+	"share": {
+		"copied": "تم النسخ!",
+		"copyLink": "نسخ الرابط",
+		"defaultMessage": "Arroxy — محمّل فيديوهات مجاني ومفتوح المصدر لنظام Windows وmacOS وLinux. يعمل مع YouTube وVimeo وTwitch وأكثر من 2000 موقع.\n4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock",
+		"description": "Arroxy مجاني ومفتوح المصدر. مشاركته تساعد المزيد من الأشخاص على اكتشافه.",
+		"footerLabel": "مشاركة",
+		"footerTooltip": "مشاركة Arroxy",
+		"shareAction": "مشاركة Arroxy",
+		"title": "مشاركة Arroxy"
+	},
+	"splash": {
+		"cancel": "هل تواجه مشكلة؟ قم بالإعداد يدويًا",
+		"greeting": "مرحباً، أهلاً بعودتك!",
+		"setup": {
+			"bytes": "{{done}} من {{total}}",
+			"left": {
+				"minutes_few": "تبقّى نحو {{count}} دقائق",
+				"minutes_many": "تبقّى نحو {{count}} دقيقة",
+				"minutes_one": "تبقّى نحو {{count}} دقيقة",
+				"minutes_other": "تبقّى نحو {{count}} دقيقة",
+				"minutes_two": "تبقّى نحو {{count}} دقيقتين",
+				"minutes_zero": "تبقّى نحو {{count}} دقيقة",
+				"underMinute": "تبقّى أقل من دقيقة"
+			},
+			"note": {
+				"engine": "يُبقي التنزيلات تعمل عندما تتغير المواقع.",
+				"firstRun": "يحدث هذا مرة واحدة فقط. يحتفظ Arroxy بهذه الأدوات ويحدّثها بنفسه.",
+				"media": "يحدث هذا مرة واحدة فقط. يحتفظ Arroxy بها للتحديثات القادمة."
+			},
+			"stage": {
+				"checking": "جارٍ التحقق من أن كل شيء يعمل",
+				"connecting": "جارٍ الاتصال…",
+				"downloadingBoth": "جارٍ تنزيل محرّك التنزيل وأدوات الوسائط",
+				"downloadingEngine": "جارٍ تنزيل محرّك التنزيل",
+				"downloadingMedia": "جارٍ تنزيل أدوات الوسائط",
+				"unpacking": "جارٍ فك ضغط أدوات الوسائط"
+			},
+			"title": {
+				"engine": "تحديث محرّك التنزيل",
+				"firstRun": "الإعداد لأول مرة",
+				"media": "تحديث أدوات الوسائط"
+			}
+		},
+		"verifyFirstCheck": "أول فحص لهذا الإصدار — هذا الفحص بطيء. يستغرق عادةً حوالي دقيقة.",
+		"verifying": "جارٍ فحص {{binary}}…",
+		"warmup": "جارٍ تحضير التنزيلات…",
+		"warmupFailedNoDiag": "فشل الإعداد. افتح سجل الإعداد للاطلاع على التفاصيل."
+	},
+	"status": {
+		"audioKept": "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت",
+		"audioKeptSubtitlesFailed": "تم حفظ الفيديو مع صوته — تعذّرت إزالة الصوت، وتعذّر تنزيل بعض الترجمات",
+		"cancelled": "تم إلغاء التنزيل",
+		"complete": "اكتمل التنزيل",
+		"convertingVideo": "جارٍ تحويل الفيديو…",
+		"diskSpaceInsufficient": "مساحة القرص غير كافية — تحتاج {{required}}، والمتاح فقط {{free}}",
+		"downloadingBinary": "جارٍ تنزيل ثنائي {{name}}…",
+		"downloadingMedia": "جارٍ تنزيل الفيديو والصوت…",
+		"embeddingMetadata": "جارٍ تضمين البيانات الوصفية…",
+		"exploreSignedOut": "تم تسجيل الخروج من «استكشاف» — سجّل الدخول مجددًا",
+		"extractingAudio": "جارٍ تحويل الصوت…",
+		"fetchingSponsorBlock": "جارٍ الاتصال بـ SponsorBlock…",
+		"fetchingSubtitles": "جارٍ جلب الترجمات…",
+		"mergingFormats": "جارٍ دمج الصوت والفيديو…",
+		"mintingToken": "جارٍ إنشاء رمز YouTube…",
+		"movingFiles": "جارٍ نقل الملفات…",
+		"noSubtitles": "لا توجد ترجمات باللغات: {{languages}}",
+		"outputNotWritable": "تعذّر الحفظ في {{dir}} — لا يُسمح لـ Arroxy بالكتابة هناك",
+		"preparingBinaries": "جارٍ تحضير الثنائيات…",
+		"qualityLimited": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
+		"qualityLimitedSubtitlesFailed": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل، وتعذّر تنزيل بعض الترجمات. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
+		"remintingToken": "جارٍ إعادة إنشاء الرمز…",
+		"retryingSponsorBlock": "SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…",
+		"retryingTransfer": "تعذّر الاتصال، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "جارٍ تسجيل الدخول بحسابك في «استكشاف»…",
+		"sleepingBetweenRequests": "الانتظار {{seconds}} ثانية لتجنب تجاوز الحد…",
+		"startingYtdlp": "جارٍ بدء محرّك التنزيل…",
+		"subtitleLanguagesMissing": "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ الفيديو بدونها.",
+		"subtitleLanguagesMissingOthersSaved": "لا يحتوي هذا الفيديو على ترجمات باللغات: {{languages}}. تم حفظ اللغات الأخرى.",
+		"subtitlesFailed": "تم حفظ الفيديو — تعذّر تنزيل بعض الترجمات",
+		"unknownStartupFailure": "فشل غير معروف في بدء التنزيل",
+		"usedExtractorFallback": "تم التنزيل باستخدام المستخرج المخفف — أعدّ cookies.txt لتنزيلات أكثر موثوقية",
+		"ytdlpExitCode": "خرج محرّك التنزيل بالرمز {{code}}",
+		"ytdlpProcessError": "خطأ في محرّك التنزيل: {{error}}"
+	},
+	"theme": {
+		"dark": "الوضع الداكن",
+		"light": "الوضع الفاتح",
+		"system": "إعداد النظام الافتراضي"
+	},
+	"titleBar": {
+		"close": "إغلاق",
+		"maximize": "تكبير",
+		"minimize": "تصغير",
+		"restore": "استعادة"
+	},
+	"tray": {
+		"menu": {
+			"downloadFromClipboard": "تنزيل من الحافظة",
+			"open": "فتح Arroxy",
+			"quit": "الخروج من Arroxy",
+			"statusActive_few": "{{count}} جارٍ التنزيل · {{percent}}%",
+			"statusActive_many": "{{count}} جارٍ التنزيل · {{percent}}%",
+			"statusActive_one": "1 جارٍ التنزيل · {{percent}}%",
+			"statusActive_other": "{{count}} جارٍ التنزيل · {{percent}}%",
+			"statusActive_two": "{{count}} جارٍ التنزيل · {{percent}}%",
+			"statusActive_zero": "{{count}} جارٍ التنزيل · {{percent}}%",
+			"statusIdle": "خامل"
+		},
+		"tooltip": "Arroxy"
+	},
+	"update": {
+		"copied": "تم نسخ الأمر إلى الحافظة",
+		"copy": "نسخ الأمر إلى الحافظة",
+		"dismiss": "إخفاء شريط التحديث",
+		"download": "تنزيل ↗",
+		"downloadDmg": "تنزيل DMG ↗",
+		"downloading": "جارٍ التنزيل…",
+		"install": "تثبيت وإعادة التشغيل",
+		"installFailed": "فشل التحديث",
+		"message": {
+			"generic": "يتوفر Arroxy {{version}} — لديك {{currentVersion}}.",
+			"homebrew": "يتوفر Arroxy {{version}} — حدّث عبر Homebrew.",
+			"macosDirect": "يتوفر Arroxy {{version}} — نزّل ملف DMG الجديد.",
+			"macosDirectHomebrew": "يتوفر Arroxy {{version}} — نزّل ملف DMG أو انتقل إلى Homebrew.",
+			"portable": "يتوفر Arroxy {{version}} — نزّل البناء الجديد."
+		},
+		"retry": "إعادة المحاولة",
+		"runAndRestart": "تشغيل وإعادة التشغيل",
+		"upgrading": "جارٍ الترقية…"
+	},
+	"videoCard": {
+		"chapters_few": "{{count}} فصول",
+		"chapters_many": "{{count}} فصلًا",
+		"chapters_one": "{{count}} فصل",
+		"chapters_other": "{{count}} فصل",
+		"chapters_two": "فصلان",
+		"chapters_zero": "{{count}} فصل",
+		"titlePlaceholder": "جارٍ التحميل…"
+	},
 	"videoCodec": {
-		"label": "ترميز الفيديو",
-		"description": "أي ترميز يُؤخذ أولاً بين التدفقات ذات الارتفاع نفسه. يُبقي «تلقائي» ترتيب yt-dlp الخاص، وهو يفضّل AV1 الأصغر حجماً، بينما يعمل H.264 على التلفزيونات والهواتف الأقدم.",
-		"smartTv": "يعتمد «تلفاز ذكي» ترميز H.264 دائماً.",
 		"auto": "تلقائي",
-		"vp9": "VP9 أولاً",
-		"h264": "H.264 أولاً"
+		"description": "أي ترميز يُؤخذ أولاً بين التدفقات ذات الارتفاع نفسه. يُبقي «تلقائي» ترتيب yt-dlp الخاص، وهو يفضّل AV1 الأصغر حجماً، بينما يعمل H.264 على التلفزيونات والهواتف الأقدم.",
+		"h264": "H.264 أولاً",
+		"label": "ترميز الفيديو",
+		"smartTv": "يعتمد «تلفاز ذكي» ترميز H.264 دائماً.",
+		"vp9": "VP9 أولاً"
 	},
-	"hdrPreference": {"label": "فيديو HDR", "description": "يختار الوضع التلقائي HDR عندما تستطيع هذه الشاشة عرضه، وإلا يختار SDR. يبدو HDR باهتًا على الشاشات العادية.", "sdr": "SDR", "hdr": "HDR", "auto": "تلقائي"}
+	"wizard": {
+		"bulk": {
+			"acceptedCount": "جاهزة",
+			"description": "الصق روابط فيديو أو قائمة تشغيل أو قناة أو بحث أو صوت. سيزيل Arroxy التكرارات قبل إضافتها إلى الطابور.",
+			"emptyPreview": "الصق رابطًا واحدًا أو أكثر لمعاينة الدفعة.",
+			"ignoredCount": "متجاهلة",
+			"needsAtLeastOne": "أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.",
+			"reject": {
+				"duplicate": "مكرر"
+			},
+			"textareaLabel": "قائمة الروابط",
+			"textareaPlaceholder": "https://video.example/one\nhttps://video.example/two\nhttps://video.example/three",
+			"title": "روابط متعددة"
+		},
+		"confirm": {
+			"addToQueue": "+ قائمة الانتظار",
+			"addToQueueTooltip": "يبدأ عند انتهاء التنزيلات الأخرى — يحصل على كامل عرض النطاق",
+			"audioOnly": "صوت فقط",
+			"itemsValueAudio_few": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueAudio_many": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueAudio_one": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueAudio_other": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueAudio_two": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueAudio_zero": "{{count}} من {{total}} مقطع صوتي",
+			"itemsValueBulk_few": "{{count}} من {{total}} رابط",
+			"itemsValueBulk_many": "{{count}} من {{total}} رابط",
+			"itemsValueBulk_one": "{{count}} من {{total}} رابط",
+			"itemsValueBulk_other": "{{count}} من {{total}} رابط",
+			"itemsValueBulk_two": "{{count}} من {{total}} رابط",
+			"itemsValueBulk_zero": "{{count}} من {{total}} رابط",
+			"itemsValue_few": "{{count}} من {{total}} فيديو",
+			"itemsValue_many": "{{count}} من {{total}} فيديو",
+			"itemsValue_one": "{{count}} من {{total}} فيديو",
+			"itemsValue_other": "{{count}} من {{total}} فيديو",
+			"itemsValue_two": "{{count}} من {{total}} فيديو",
+			"itemsValue_zero": "{{count}} من {{total}} فيديو",
+			"labelAudio": "صوت",
+			"labelBulk": "روابط متعددة",
+			"labelItems": "العناصر",
+			"labelPlaylist": "قائمة التشغيل",
+			"labelPreset": "الإعداد المسبق",
+			"labelSaveTo": "الحفظ في",
+			"labelSize": "الحجم",
+			"labelSubtitles": "الترجمات",
+			"labelVideo": "فيديو",
+			"landIn": "سيُحفظ ملفك في",
+			"landInMultiProfile_few": "سيُحفظ في {{count}} وجهات أدناه",
+			"landInMultiProfile_many": "سيُحفظ في {{count}} وجهة أدناه",
+			"landInMultiProfile_one": "سيُحفظ في الوجهة أدناه",
+			"landInMultiProfile_other": "سيُحفظ في {{count}} وجهة أدناه",
+			"landInMultiProfile_two": "سيُحفظ في الوجهتين أدناه",
+			"landInMultiProfile_zero": "سيُحفظ في {{count}} وجهة أدناه",
+			"nothingToDownload": "الإعداد المسبق \"ترجمات فقط\" مفعّل ولكن لم يتم اختيار أي لغة ترجمة — لن يتم تنزيل أي شيء.",
+			"profileBreakdownCount_few": "{{count}} عناصر",
+			"profileBreakdownCount_many": "{{count}} عنصرًا",
+			"profileBreakdownCount_one": "{{count}} عنصر",
+			"profileBreakdownCount_other": "{{count}} عنصر",
+			"profileBreakdownCount_two": "عنصران",
+			"profileBreakdownCount_zero": "{{count}} عنصر",
+			"profileBreakdownHeading": "ملفات التنزيل في هذه الدفعة",
+			"pullIt": "اسحبه! ↓",
+			"pullItTooltip": "يبدأ فوراً — يعمل جنباً إلى جنب مع التنزيلات النشطة الأخرى",
+			"readyHeadline": "جاهز للتنزيل!",
+			"sizeUnknown": "غير معروف",
+			"subtitleEmbedAudioOnly": "تم تغيير Subtitle embed إلى sidecar — مسارات الصوت لا تدعم مسارات الترجمة المضمّنة.",
+			"subtitleEmbedForcesMkv": "الترجمات داخل الفيديو تحتاج ملف MKV، لذا يُحفظ هذا التنزيل بصيغة .mkv.",
+			"subtitlesNone": "—",
+			"thumbnailEmbedNotSupported": "تم تخطي Thumbnail embed — لا يدعمه container الإخراج."
+		},
+		"folder": {
+			"custom": "مخصص…",
+			"desktop": "سطح المكتب",
+			"documents": "المستندات",
+			"downloads": "التنزيلات",
+			"heading": "الحفظ في",
+			"home": "الرئيسية",
+			"music": "الموسيقى",
+			"pictures": "الصور",
+			"subfolder": {
+				"invalid": "اسم المجلد يحتوي على أحرف غير صالحة",
+				"placeholder": "مثل lo-fi rips",
+				"toggle": "الحفظ داخل مجلد فرعي"
+			},
+			"videos": "الأفلام"
+		},
+		"formats": {
+			"audio": "صوت",
+			"audioLanguage": "لغة الصوت",
+			"audioLanguageCount_few": "عدد اللغات: {{count}}",
+			"audioLanguageCount_many": "عدد اللغات: {{count}}",
+			"audioLanguageCount_one": "عدد اللغات: {{count}}",
+			"audioLanguageCount_other": "عدد اللغات: {{count}}",
+			"audioLanguageCount_two": "عدد اللغات: {{count}}",
+			"audioLanguageCount_zero": "عدد اللغات: {{count}}",
+			"audioOnly": "صوت فقط",
+			"bitrateValue": "معدل البت {{bitrate}}",
+			"botWall": {
+				"bodyDisabled": "الكوكيز مضبوطة لكنها معطّلة. فعّلها وأعد المحاولة للحصول على القائمة الكاملة، أو غيّر الشبكة وأعد المحاولة.",
+				"bodyEnabled": "حتى مع الكوكيز، قيّد YouTube هذا الفحص. حاول لاحقاً أو بدّل الشبكة.",
+				"bodyExplore": "قيّد YouTube هذا الطلب. حاول لاحقاً أو بدّل الشبكة.",
+				"bodyUnconfigured": "قائمة الصيغ قد تكون غير مكتملة. أعدّ الكوكيز في الإعدادات المتقدمة، أو غيّر الشبكة وأعد المحاولة.",
+				"enableRetryCta": "تفعيل الكوكيز وإعادة المحاولة",
+				"heading": "YouTube قيّد هذا الفحص",
+				"retryCta": "إعادة المحاولة"
+			},
+			"convert": {
+				"bitrate": "معدل البت",
+				"bitrateCopyHint": "المصدر الذي هو بصيغة {{target}} أصلًا يحتفظ بتدفقه ومعدل البت الخاص به: يُنسخ دون إعادة ترميز.",
+				"copyLabel": "{{target}} {{bitrate}} kbps، بلا إعادة ترميز",
+				"copyLabelNoBitrate": "{{target}}، بلا إعادة ترميز",
+				"copyNote": "{{kbps}} kbps كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
+				"copyNoteNoBitrate": "كما في المصدر: التدفق بصيغة {{target}} أصلًا، لذا يُنسخ دون إعادة ترميز",
+				"label": "تحويل",
+				"lossyLabel": "{{target}} {{bitrate}} kbps",
+				"sourceKbps": "المصدر {{kbps}} kbps",
+				"wavLabel": "WAV (غير مضغوط)"
+			},
+			"cookiesError": {
+				"currentModeBrowser": "متصفح",
+				"currentModeExplore": "تسجيل الدخول في «استكشاف»",
+				"currentModeFile": "ملف",
+				"currentModeLabel": "مصدر الكوكيز",
+				"dpapi": {
+					"docsLinkLabel": "وثائق yt-dlp (issue #10927)",
+					"explanation": "يُشفّر Chrome 127 والإصدارات الأحدث الكوكيز بطريقة لا تستطيع التطبيقات الأخرى قراءتها على Windows. جرّب أحد الحلول البديلة أدناه.",
+					"fixFileBody": "صدّر الكوكيز من Chrome باستخدام إضافة متصفح، ثم بدّل هذا التطبيق إلى وضع الملف واختر الملف المُصدَّر.",
+					"fixFileLabel": "تصدير cookies.txt",
+					"fixFirefoxBody": "لا يستخدم Firefox تشفير App-Bound Encryption. افتح إعدادات الكوكيز واختر Firefox من قائمة المتصفحات.",
+					"fixFirefoxLabel": "التبديل إلى Firefox",
+					"fixUnsafeBody": "أضف --disable-features=LockProfileCookieDatabase إلى اختصار تشغيل Chrome. تحذير: سيؤدي ذلك إلى إبطال الكوكيز المشفّرة مسبقاً، وستُسجَّل خارجاً من جميع المواقع وستحتاج إلى تسجيل الدخول من جديد.",
+					"fixUnsafeLabel": "تشغيل Chrome مع تعطيل App-Bound Encryption",
+					"heading": "كوكيز Chrome محجوبة بسبب تشفير Windows"
+				},
+				"explanationBrowser": "تُقرأ الكوكيز مباشرةً من المتصفح. إذا كان المتصفح يعمل حالياً، فقد تكون قاعدة بيانات الكوكيز مقفلة (متصفحات عائلة Chromium). يجب أن يكون المتصفح مسجّل الدخول إلى YouTube. جرّب إغلاق المتصفح، أو التبديل إلى متصفح مختلف، أو التبديل إلى وضع الملف، أو إيقاف الكوكيز.",
+				"explanationFile": "ملف الكوكيز قد يكون فارغاً أو منتهي الصلاحية أو بتنسيق خاطئ (يحتاج Arroxy إلى ملف Netscape cookies.txt). جرّب إعادة تصدير الكوكيز، أو اختيار ملف مختلف، أو التبديل إلى وضع المتصفح، أو إيقاف الكوكيز.",
+				"exploreOffer": {
+					"body": "سجّل الدخول عبر «استكشاف» وسيعيد Arroxy المحاولة.",
+					"cta": "تسجيل الدخول عبر «استكشاف»",
+					"heading": "قد يحتاج هذا الفيديو إلى حساب YouTube"
+				},
+				"exploreRefused": {
+					"body": "جرّب Arroxy الطلب بالفعل بعد تسجيل الدخول عبر «استكشاف»، لذا لن يفيد تسجيل الدخول مرة أخرى. قد يواجه الموقع مشكلة، أو لا يستطيع هذا الحساب فتحه. حاول لاحقاً.",
+					"heading": "رفض الموقع هذا الطلب حتى مع تسجيل دخولك في «استكشاف»"
+				},
+				"exploreReuse": {
+					"body": "تم تسجيل دخولك إلى «استكشاف»، لكن التنزيلات لا تستخدم تسجيل الدخول هذا حاليًا.",
+					"cta": "استخدم تسجيل دخولي في «استكشاف» وأعد المحاولة",
+					"heading": "قد يحتاج هذا الفيديو إلى حساب YouTube"
+				},
+				"exploreSignIn": {
+					"body": "إذا كان هذا الفيديو يتطلب حساب YouTube، سجّل الدخول في «استكشاف» وأعد المحاولة. يستخدم Arroxy هذا التسجيل فقط عندما يحتاجه التنزيل.",
+					"cta": "سجّل الدخول في «استكشاف»",
+					"heading": "قد يتطلب هذا الفيديو حساب YouTube"
+				},
+				"exploreSignedIn": {
+					"body": "إذا كان هذا الفيديو يتطلب حساباً، يستخدم Arroxy تسجيل دخولك في «استكشاف» تلقائياً. قد يكون غير متاح لسبب آخر.",
+					"heading": "تم تسجيل الدخول إلى «استكشاف»"
+				},
+				"exploreSite": {
+					"heading": "قد يحتاج هذا الرابط إلى حساب على {{host}}",
+					"offerBody": "سجّل الدخول إلى {{host}} عبر «استكشاف» وأعد المحاولة.",
+					"signInBody": "سجّل الدخول إلى {{host}} في «استكشاف» وأعد المحاولة. يستخدم Arroxy هذا التسجيل فقط عندما يحتاجه التنزيل."
+				},
+				"heading": "ربما تكون الكوكيز هي السبب",
+				"needsCookies": {
+					"body": "تعذّر على Arroxy الوصول إلى هذا الفيديو بدون مصادقة. أعدّ الكوكيز في الإعدادات المتقدمة — وجّهها نحو متصفح سجّلت الدخول إليه مسبقاً، أو استورد ملف cookies.txt.",
+					"heading": "هذا الموقع يتطلب تسجيل الدخول"
+				},
+				"openSettingsCta": "فتح إعدادات الكوكيز",
+				"otherCookiesCta": "استخدم ملف كوكيز أو متصفحًا بدلًا من ذلك…"
+			},
+			"drc": {
+				"description": "يخفّض المقاطع العالية ويرفع الهادئة، لمكبرات الصوت والأماكن الصاخبة.",
+				"label": "توحيد مستوى الصوت (DRC)",
+				"tag": "صوت متوازن"
+			},
+			"fit": {
+				"mp4Unavailable": "ملف التعريف لديك هو التلفاز الذكي (H.264). لا يوفر هذا الفيديو H.264، لذا حُدد أقرب تدفق.",
+				"noVideo": "لا يحتوي هذا الرابط على فيديو، لذا تم اختيار الصوت.",
+				"subtitlesMissing": "يطلب ملف التعريف الخاص بك ترجمات بلغة {{languages}}. هذا الفيديو لا يحتويها.",
+				"tierAbove": "يطلب ملف التعريف الخاص بك {{wanted}}p. لا يوجد في هذا الفيديو ما هو بهذا الحجم الصغير، لذا تم اختيار {{picked}}p.",
+				"tierBelow": "يطلب ملف التعريف الخاص بك {{wanted}}p. يصل هذا الفيديو إلى {{picked}}p فقط، لذا تم اختيار {{picked}}p.",
+				"webmUnavailable": "يطلب ملف التعريف لديك WebM. تتضمن التدفقات المختارة لهذا الفيديو {{codec}} ولا يدعمه WebM، لذا أصبح نوع الملف تلقائيًا."
+			},
+			"footer": {
+				"addToQueue": "إضافة إلى قائمة الانتظار دون بدء",
+				"download": "تنزيل",
+				"moreActions": "المزيد من خيارات التنزيل",
+				"subtitlesRequired": "اختر لغة ترجمة واحدة على الأقل."
+			},
+			"keepAudio": "إبقاؤه كما هو",
+			"keepAudioMeta": "الصوت المضمّن",
+			"kind": {
+				"audio": "صوت فقط",
+				"label": "ما الذي تريد تنزيله",
+				"subtitles": "ترجمات فقط",
+				"video": "فيديو + صوت",
+				"videoOnly": "فيديو، بدون صوت"
+			},
+			"loadingAria": "جارٍ تحميل الصيغ",
+			"loadingHint": "يُرجى الانتظار حتى تنتهي عملية الفحص — قوائم التشغيل والبحث قد تستغرق بعض الوقت.",
+			"marker": {
+				"aiDubbed": "مدبلج بالذكاء الاصطناعي",
+				"aiUpscaled": "مُكبَّر بالذكاء الاصطناعي",
+				"audioDescription": "وصف صوتي",
+				"damaged": "تالف",
+				"enhancedBitrate": "معدل بت محسّن",
+				"spatialAudio": "صوت مكاني",
+				"vr": "360° / VR",
+				"watermarked": "بعلامة مائية"
+			},
+			"noAudio": "بدون صوت",
+			"profile": {
+				"calloutBody": "يحدد ملف التعريف النشط المسارات لك مسبقًا. بدّل ملفات التعريف من القائمة، أو استخدم القلم لتعديل أحدها دون مغادرة هذا التنزيل.",
+				"calloutTitle": "تبدأ الصيغ من ملف التعريف الخاص بك",
+				"closestTag": "الأقرب إلى ملف التعريف",
+				"edit": "تعديل {{name}}",
+				"keepEdits": "الإبقاء على تغييراتي",
+				"menuDescription": "لهذا التنزيل فقط. يبقى ملف التعريف الافتراضي كما هو.",
+				"preselected": "محدد مسبقًا من",
+				"resetAll": "إعادة ضبط الكل",
+				"switchBody": "لقد غيّرت {{areas}} لهذا التنزيل. يختار “{{profile}}” الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟",
+				"switchTitle": "تبديل ملف التعريف؟",
+				"tag": "ملف التعريف",
+				"updatedBody": "لقد غيّرت {{areas}} لهذا التنزيل. يختار ملف التعريف المحدَّث الفيديو والصوت في كلتا الحالتين. هل تُبقي على تغييراتك الأخرى، أم تعيد ضبط كل شيء وفق ملف التعريف؟",
+				"updatedTitle": "استخدام ملف التعريف المحدَّث؟"
+			},
+			"quality": {
+				"high": "جودة عالية",
+				"low": "جودة منخفضة",
+				"medium": "جودة متوسطة"
+			},
+			"rateLimit": {
+				"heading": "يحدّ {{site}} من طلبات هذا الاتصال",
+				"leadDegraded": "قد تكون قائمة الصيغ غير مكتملة.",
+				"leadFailed": "رفض {{site}} هذا الطلب حاليًا.",
+				"retryCta": "إعادة المحاولة",
+				"sessionNote": "قد يُبقي {{site}} هذا الحد لمدة تصل إلى ساعة.",
+				"tryNowCta": "جرّب الآن",
+				"waitOver": "انتهى الانتظار، يمكنك المحاولة مجددًا.",
+				"waitUntil": "ينتظر Arroxy حتى {{time}} قبل أن يطلب من {{site}} مجددًا، حتى يزول الحد."
+			},
+			"resolutionUnknown": "دقة غير معروفة",
+			"savesAs": {
+				"label": "يُحفظ كـ",
+				"reset": "لا يدعم WebM الترميز {{codec}}، لذا عاد نوع الملف إلى تلقائي."
+			},
+			"sizeUnknown": "الحجم غير معروف",
+			"skipToConfirm": "تخطَّ إلى التأكيد",
+			"skipToConfirmTooltip": "يستخدم تفضيلاتك المحفوظة لجميع الخطوات المتبقية. لتغيير إعداد ما، تابع خطوةً بخطوة — وسيُحفظ اختيارك للمرة القادمة.",
+			"sniffing": "جارٍ البحث عن أفضل الصيغ لك…",
+			"total": "الإجمالي",
+			"video": "فيديو",
+			"withAudio": "مع صوت"
+		},
+		"mixedPrompt": {
+			"body": "هل تريد الفيديو الذي اخترته فقط، أم تفضّل الاختيار من الـ Playlist؟ ستختار فيديوهات بعينها أو نطاقاً في الخطوة التالية.",
+			"pickFromPlaylist": "اختر من الـ Playlist",
+			"playlistLimit": "حد فحص قائمة التشغيل: {{count}} عنصرًا",
+			"playlistTooltip": "يحمّل قائمة التشغيل حتى حد الفحص الذي حددته قبل عرض أداة الاختيار.",
+			"quickBody": "نزّل هذا الفيديو فقط، أو أضف قائمة التشغيل كاملة إلى قائمة الانتظار باستخدام ملف التنزيل السريع النشط.",
+			"quickLimitDescription": "الحد الأقصى للعناصر التي يفحصها Arroxy قبل إضافة قائمة تشغيل أو قناة أو نتيجة بحث إلى قائمة الانتظار.",
+			"quickPlaylistTooltip": "يضيف كل عنصر تم تحميله من قائمة التشغيل إلى قائمة الانتظار باستخدام ملف التنزيل السريع النشط. إذا وصل الفحص إلى حدك، فسيسألك Arroxy قبل الإضافة إلى قائمة الانتظار.",
+			"quickSingleTooltip": "يضيف تنزيلًا واحدًا إلى قائمة الانتظار ويتجاهل قائمة التشغيل المرفقة بعنوان URL هذا.",
+			"quickSingleVideo": "نزّل هذا الفيديو",
+			"quickWholePlaylist": "نزّل قائمة التشغيل كاملة",
+			"singleTooltip": "يحمّل هذا الفيديو فقط. يتم تجاهل قائمة التشغيل المرتبطة بهذا الرابط.",
+			"singleVideo": "هذا الواحد فقط",
+			"title": "هذا الرابط يحتوي على Playlist"
+		},
+		"output": {
+			"embedChapters": {
+				"description": "علامات فصول قابلة للتنقل في أي مشغّل حديث.",
+				"label": "تضمين الفصول"
+			},
+			"embedMetadata": {
+				"description": "كتابة العنوان والفنان والوصف وتاريخ الرفع في الملف.",
+				"label": "تضمين البيانات الوصفية"
+			},
+			"embedThumbnail": {
+				"description": "صورة الغلاف داخل الملف. سيُعاد تغليف فيديو WebM إلى MKV؛ يُتخطى عند تضمين الترجمات.",
+				"label": "تضمين الصورة المصغرة"
+			},
+			"writeDescription": {
+				"description": "يحفظ وصف الفيديو كملف نصي .description بجانب التنزيل.",
+				"label": "حفظ الوصف"
+			},
+			"writeM3u": {
+				"description": "يحفظ قائمة .m3u بجانب الفيديوهات كي تفتح بالترتيب في مشغل الوسائط.",
+				"label": "إنشاء ملف قائمة تشغيل .m3u"
+			},
+			"writeThumbnail": {
+				"description": "يحفظ الصورة المصغرة كملف صورة .jpg بجانب التنزيل.",
+				"label": "حفظ الصورة المصغرة"
+			}
+		},
+		"part": {
+			"calloutBody": "بدّل إلى «جزء» في بطاقة الفيديو لتحديد البداية والنهاية أو فصل، ونزّل ذلك المقطع فقط.",
+			"calloutTitle": "نزّل جزءًا فقط من الفيديو",
+			"chapterUntitled": "الفصل {{number}}",
+			"chapters": "الفصول",
+			"connectionsNote": "يُنزَّل الجزء عبر ffmpeg، لذلك لا تنطبق عليه إعدادات اتصالات التنزيل وإيقاع الطلبات.",
+			"downloadBlocked": "صحّح بداية الجزء ونهايته أولاً.",
+			"end": "النهاية",
+			"error": {
+				"endBeyondDuration": "ينتهي الفيديو عند {{duration}}.",
+				"endInvalid": "أدخل النهاية بصيغة h:mm:ss, m:ss أو ثوانٍ.",
+				"startInvalid": "أدخل البداية بصيغة h:mm:ss, m:ss أو ثوانٍ.",
+				"startNotBeforeEnd": "يجب أن تسبق البداية النهاية."
+			},
+			"exactCut": {
+				"hint": "متوقف: يقع كل قص عند أقرب إطار رئيسي (keyframe)، وقد يبعد بضع ثوانٍ عن الوقت الذي أدخلته.",
+				"label": "قص دقيق (يعيد الترميز، أبطأ)"
+			},
+			"length": "{{length}} من {{duration}}",
+			"part": "جزء",
+			"rangeLabel": "جزء من الفيديو",
+			"start": "البداية",
+			"subtitlesFullLength": "الفيديو كاملاً",
+			"summary": "الجزء {{start}}–{{end}}",
+			"switchLabel": "مقدار الفيديو",
+			"timeHint": "h:mm:ss, m:ss أو ثوانٍ",
+			"totalEstimate": "الجزء، تقديري",
+			"unavailableDuration": "لا يُبلغ هذا الفيديو عن مدته، لذا لا يمكن تنزيله إلا كاملاً.",
+			"unavailableSubtitles": "الترجمات تغطي الفيديو كاملاً دائمًا.",
+			"urlStart": "يبدأ رابطك عند {{time}}",
+			"useUrlStart": "استخدمه كبداية",
+			"whole": "الفيديو كاملاً",
+			"wholeTrack": "المقطع الصوتي كاملاً"
+		},
+		"playlist": {
+			"allRemovedDescription": "استعدها للمتابعة.",
+			"allRemovedTitle": "تمت إزالة جميع العناصر",
+			"alreadyDownloaded": "تم تنزيله بالفعل",
+			"bulkHeading": "روابط متعددة",
+			"bulkMetadataOptional": "لا داعي للانتظار — الملفات التي تضعها في قائمة الانتظار الآن ستحصل على أسمائها الحقيقية عند التنزيل.",
+			"bulkMetadataResolving": "جارٍ جلب تفاصيل الفيديو… {{done}}/{{total}}",
+			"bulkRowFailed": "التفاصيل غير متاحة",
+			"bulkRowResolving": "جارٍ جلب التفاصيل",
+			"bulkRowWaiting": "بانتظار",
+			"durationUnknown": "مباشر",
+			"heading": "عناصر القائمة",
+			"headingGeneric": "الفيديوهات المراد تنزيلها",
+			"itemCountAudio_few": "{{count}} مقاطع صوتية",
+			"itemCountAudio_many": "{{count}} مقطعًا صوتيًا",
+			"itemCountAudio_one": "{{count}} مقطع صوتي",
+			"itemCountAudio_other": "{{count}} مقطع صوتي",
+			"itemCountAudio_two": "مقطعان صوتيان",
+			"itemCountAudio_zero": "{{count}} مقطع صوتي",
+			"itemCountBulk_few": "{{count}} روابط",
+			"itemCountBulk_many": "{{count}} رابطًا",
+			"itemCountBulk_one": "{{count}} رابط",
+			"itemCountBulk_other": "{{count}} رابط",
+			"itemCountBulk_two": "رابطان",
+			"itemCountBulk_zero": "{{count}} رابط",
+			"itemCount_few": "{{count}} مقاطع فيديو",
+			"itemCount_many": "{{count}} فيديو",
+			"itemCount_one": "{{count}} فيديو",
+			"itemCount_other": "{{count}} فيديو",
+			"itemCount_two": "فيديوهان",
+			"itemCount_zero": "{{count}} فيديو",
+			"loadingItems": "جارٍ جلب القائمة…",
+			"loadingItemsGeneric": "جارٍ جلب الفيديوهات…",
+			"loadingLimitHint": "محدود بأول {{count}} عنصر",
+			"loadingPagesFound_few": "تم العثور على {{count}} صفحات",
+			"loadingPagesFound_many": "تم العثور على {{count}} صفحة",
+			"loadingPagesFound_one": "تم العثور على {{count}} صفحة",
+			"loadingPagesFound_other": "تم العثور على {{count}} صفحة",
+			"loadingPagesFound_two": "تم العثور على صفحتين",
+			"loadingPagesFound_zero": "تم العثور على {{count}} صفحة",
+			"loadingPhaseItems": "جارٍ جمع الفيديوهات",
+			"loadingPhasePages": "جارٍ فحص صفحات القناة",
+			"multiProfileEntry": "تعيين ملفات تنزيل لكل عنصر",
+			"multiProfileEntryTooltip": "يتخطى الجودة وSponsorBlock والإخراج والحفظ — ويُعيّن بدلاً من ذلك ملف تنزيل لكل عنصر",
+			"nestedPlaylistBadge": "قائمة التشغيل",
+			"nestedPlaylistHint_few": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
+			"nestedPlaylistHint_many": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
+			"nestedPlaylistHint_one": "{{count}} من هذه قائمة تشغيل، وليست فيديو — الصق رابطها بمفرده لتنزيلها.",
+			"nestedPlaylistHint_other": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
+			"nestedPlaylistHint_two": "اثنتان من هذه قائمتا تشغيل، وليستا مقطعي فيديو — الصق رابطيهما واحدًا تلو الآخر لتنزيلهما.",
+			"nestedPlaylistHint_zero": "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها.",
+			"noSelection": "حدد فيديو واحداً على الأقل للمتابعة",
+			"probeLimitAlertDesc": "عثر Arroxy على أكثر من {{count}} عنصر، لذا يُخفي حد الفحص الحالي بقية العناصر.",
+			"probeLimitAlertTitle": "فحص قائمة التشغيل محدود",
+			"probeLimitAlertTitleGeneric": "الفحص محدود",
+			"rangeApply": "تطبيق النطاق",
+			"rangeFrom": "من",
+			"rangeTo": "إلى",
+			"removeFromListCount_few": "إزالة {{count}} من القائمة",
+			"removeFromListCount_many": "إزالة {{count}} من القائمة",
+			"removeFromListCount_one": "إزالة {{count}} من القائمة",
+			"removeFromListCount_other": "إزالة {{count}} من القائمة",
+			"removeFromListCount_two": "إزالة {{count}} من القائمة",
+			"removeFromListCount_zero": "إزالة {{count}} من القائمة",
+			"removedCount_few": "تمت إزالة {{count}}",
+			"removedCount_many": "تمت إزالة {{count}}",
+			"removedCount_one": "تمت إزالة {{count}}",
+			"removedCount_other": "تمت إزالة {{count}}",
+			"removedCount_two": "تمت إزالة اثنين",
+			"removedCount_zero": "تمت إزالة {{count}}",
+			"restore": "استعادة",
+			"selectAll": "تحديد الكل",
+			"selectNone": "إلغاء تحديد الكل",
+			"selectedCount_few": "{{count}} محددة",
+			"selectedCount_many": "{{count}} محدد",
+			"selectedCount_one": "{{count}} محدد",
+			"selectedCount_other": "{{count}} محدد",
+			"selectedCount_two": "محدّدان",
+			"selectedCount_zero": "{{count}} محدد",
+			"sortApi": "ترتيب قائمة التشغيل",
+			"sortFetchingDates": "جارٍ جلب تواريخ الرفع…",
+			"sortLabel": "فرز",
+			"sortUploadAsc": "الأقدم أولاً",
+			"sortUploadDesc": "الأحدث أولاً",
+			"syncApply": "تطبيق المزامنة",
+			"syncChange": "تغيير المجلد…",
+			"syncFoundDesc": "{{n}} من هذه الفيديوهات موجودة بالفعل في {{dir}}. هل تريد المزامنة لتنزيل الجديد فقط؟",
+			"syncFoundTitle": "موجود بالفعل في المجلد",
+			"syncNoneDesc": "لم يتم العثور على أي فيديوهات من قائمة التشغيل هذه في {{dir}}.",
+			"syncNoneDescGeneric": "لم يتم العثور على فيديوهات من هذا المصدر في {{dir}}.",
+			"syncNoneTitle": "لم يتم تنزيل شيء بعد",
+			"syncScanning": "جارٍ فحص المجلد…",
+			"thumbnailAlt": "صورة مصغرة للفيديو"
+		},
+		"playlistPresets": {
+			"heading": "اختر الجودة للدفعة",
+			"itemCount_few": "{{count}} عناصر",
+			"itemCount_many": "{{count}} عنصرًا",
+			"itemCount_one": "{{count}} عنصر",
+			"itemCount_other": "{{count}} عنصر",
+			"itemCount_two": "عنصران",
+			"itemCount_zero": "{{count}} عنصر",
+			"subhead": "يحل كل فيديو المستوى المختار بشكل مستقل — قوائم التشغيل غير المتجانسة تعمل بدون مفاجآت."
+		},
+		"playlistProfiles": {
+			"assignTriggerEmpty": "تعيين ملف تعريف",
+			"assignTrigger_few": "تعيين لمقاطع الفيديو ({{count}})",
+			"assignTrigger_many": "تعيين لمقاطع الفيديو ({{count}})",
+			"assignTrigger_one": "تعيين لـ {{count}} فيديو",
+			"assignTrigger_other": "تعيين لمقاطع الفيديو ({{count}})",
+			"assignTrigger_two": "تعيين لمقاطع الفيديو ({{count}})",
+			"assignTrigger_zero": "تعيين لمقاطع الفيديو ({{count}})",
+			"columnDuration": "المدة",
+			"columnProfile": "الملف الشخصي",
+			"editProfile": "تعديل {{name}}",
+			"empty": "لا توجد عناصر تطابق هذا الفلتر",
+			"filterChip": "{{name}} · {{count}}",
+			"filtersLabel": "عوامل تصفية الملف الشخصي",
+			"heading": "تعيين ملفات تنزيل",
+			"menuDescription_few": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
+			"menuDescription_many": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
+			"menuDescription_one": "اختر ملف التعريف لهذا الفيديو.",
+			"menuDescription_other": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
+			"menuDescription_two": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
+			"menuDescription_zero": "اختر ملف التعريف لمقاطع الفيديو المحددة ({{count}}).",
+			"selectedSummary": "تم تحديد {{selected}} من {{total}}"
+		},
+		"profileEditor": {
+			"action": {
+				"changeGlobalShort": "تغيير العام",
+				"chooseFolder": "اختيار مجلد الوجهة",
+				"chooseIcon": "اختيار أيقونة الملف",
+				"removeLanguage": "إزالة {{code}}",
+				"reset": "إعادة تعيين الملف",
+				"resetDisabledHint": "يستخدم هذا الملف الإعدادات المدمجة بالفعل",
+				"resetHint": "استعادة إعدادات الملف المدمجة",
+				"save": "حفظ الملف",
+				"setOverride": "تعيين تجاوز الملف",
+				"setOverrideShort": "تعيين تجاوز",
+				"useGlobalDefault": "استخدام الإعداد العام",
+				"useLanguageCode": "استخدام رمز اللغة “{{code}}”"
+			},
+			"advanced": "متقدم",
+			"appSetting": "استخدم إعداد التطبيق ({{value}})",
+			"audioFormat": {
+				"best": "الأفضل",
+				"wav": "WAV"
+			},
+			"audioQuality": {
+				"128": "حتى 128K",
+				"192": "حتى 192K",
+				"320": "حتى 320K",
+				"best": "أفضل جودة"
+			},
+			"destination": {
+				"defaultFolder": "مجلد التنزيلات الافتراضي",
+				"defaultFolderWithSubfolder": "مجلد التنزيلات الافتراضي / {{subfolder}}",
+				"global": "الوجهة العامة",
+				"globalActive": "نشط",
+				"globalInherited": "موروث",
+				"override": "تجاوز الملف",
+				"overrideChoosing": "اختيار مجلد",
+				"overrideNone": "لا يوجد تجاوز",
+				"overrideNoneNote": "لم يتم تعيين تجاوز. يستخدم هذا الملف الوجهة العامة أعلاه.",
+				"overrideSet": "يتجاوز العام",
+				"overrideSetNote": "يحفظ هذا الملف في جذره الخاص قبل إضافة المجلد الفرعي.",
+				"resolved": "الوجهة النهائية"
+			},
+			"dialogDescription": "إعداد واحد قابل لإعادة الاستخدام للتنزيل السريع وروابط الدُفعات وقوائم التشغيل.",
+			"dialogTitle": "ملف التنزيل",
+			"error": {
+				"changeGlobalDestination": "تعذّر تغيير الوجهة العامة.",
+				"folderPicker": "تعذّر فتح مُحدِّد المجلدات. أدخل المسار يدويًا.",
+				"reset": "تعذّر إعادة تعيين إعدادات الملف.",
+				"save": "تعذّر حفظ إعدادات الملف."
+			},
+			"field": {
+				"delivery": "طريقة الحفظ",
+				"fileType": "نوع الملف",
+				"goal": "تحسين من أجل",
+				"icon": "أيقونة الملف",
+				"languages": "اللغات",
+				"name": "اسم الملف",
+				"nameAndIcon": "اسم الملف وأيقونته",
+				"nativeAudio": "الصوت الأصلي",
+				"overridePath": "مسار تجاوز الملف",
+				"quality": "الجودة",
+				"resolution": "الدقة",
+				"source": "المصدر",
+				"subfolderName": "اسم المجلد الفرعي",
+				"subtitleDownloads": "تنزيل الترجمات",
+				"subtitleDownloadsDescription": "تطلب الملفات الشخصية رموز اللغات؛ ويُحدَّد توفّرها لكل رابط على حدة."
+			},
+			"goal": {
+				"bestPicture": {
+					"description": "الأوضح عند الحجم نفسه. لا تشغّله أجهزة التلفاز الأقدم وQuickTime وبعض المحررات.",
+					"name": "أفضل صورة",
+					"tag": "AV1 · VP9"
+				},
+				"smartTv": {
+					"description": "يعمل على أجهزة التلفاز والهواتف وWhatsApp وQuickTime ومحررات الفيديو. يوفر YouTube ترميز H.264 حتى 1080p فقط.",
+					"name": "تلفاز ذكي",
+					"tag": "MP4 · H.264"
+				}
+			},
+			"icon": {
+				"archive": "أرشيف",
+				"audio": "صوت",
+				"captions": "ترجمات",
+				"classes": "دروس",
+				"clip": "مقطع",
+				"controls": "أدوات التحكم",
+				"download": "تنزيل",
+				"music": "موسيقى",
+				"podcast": "بودكاست",
+				"video": "فيديو"
+			},
+			"mediaMode": {
+				"audioOnly": {
+					"description": "موسيقى أو بودكاست",
+					"label": "صوت فقط"
+				},
+				"subtitlesOnly": {
+					"description": "ملفات ترجمة فقط",
+					"label": "ترجمات فقط"
+				},
+				"videoAudio": {
+					"description": "ملفات فيديو عادية",
+					"label": "فيديو + صوت"
+				},
+				"videoOnly": {
+					"description": "فيديو صامت فقط",
+					"label": "فيديو، بدون صوت"
+				}
+			},
+			"note": {
+				"autoCaptionsSrt": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS.",
+				"noLanguageMatches": "لا توجد لغات مطابقة",
+				"noSubtitles": "لن يُطلب لهذا الملف أي ملفات ترجمة أو مسارات ترجمة مضمّنة.",
+				"searchLanguages": "البحث باسم اللغة أو رمزها",
+				"skippedForOutputType": "تم تخطّيه لنوع الإخراج هذا.",
+				"subtitleLanguagesRequired": "اختر لغة واحدة على الأقل.",
+				"subtitleLanguagesRequiredOrOff": "اختر لغة واحدة على الأقل، أو أوقف تنزيل الترجمات.",
+				"subtitlesOnly": "يضيف هذا الملف ملفات الترجمة فقط إلى القائمة. ويتم تخطّي الفيديو والصوت وSponsorBlock وتحويل الوسائط."
+			},
+			"panel": {
+				"advanced": {
+					"description": "ترث الملفات الوجهة العامة ما لم تُعيّن تجاوزًا للملف.",
+					"title": "خيارات متقدمة"
+				},
+				"downloadType": {
+					"description": "اختر الطريقة الأساسية التي تريد التنزيل بها.",
+					"title": "نوع التنزيل"
+				},
+				"identity": {
+					"description": "الاسم والأيقونة الظاهران في التنزيل السريع وروابط الدُفعات وقوائم الملفات.",
+					"title": "هوية الملف"
+				},
+				"output": {
+					"enabledCount_few": "{{count}} مفعّلة",
+					"enabledCount_many": "{{count}} مفعّل",
+					"enabledCount_one": "{{count}} مفعّل",
+					"enabledCount_other": "{{count}} مفعّل",
+					"enabledCount_two": "مفعّلان",
+					"enabledCount_zero": "{{count}} مفعّل",
+					"title": "خيارات الإخراج"
+				},
+				"sponsorBlock": {
+					"title": "SponsorBlock"
+				}
+			},
+			"placeholder": {
+				"folder": "اختر مجلدًا لهذا الملف"
+			},
+			"skipped": "تم التخطّي",
+			"sponsorBlockHint": {
+				"mark": "يضع علامات على المقاطع الإعلانية كفصول (دون تعديل الملف).",
+				"off": "بدون SponsorBlock — يُشغَّل الفيديو كما رُفع.",
+				"remove": "يقصّ المقاطع الإعلانية من الفيديو باستخدام FFmpeg."
+			},
+			"subtitleFormat": {
+				"ass": "ASS",
+				"srt": "SRT",
+				"vtt": "VTT"
+			},
+			"subtitleSource": {
+				"autoOnly": "تلقائية فقط",
+				"manualAndAuto": "يدوية وتلقائية",
+				"manualFirst": "يدوية أولاً ثم تلقائية",
+				"manualOnly": "يدوية فقط"
+			}
+		},
+		"profileSwitchRow": {
+			"helpAria": "مساعدة {{label}}"
+		},
+		"quickProgress": {
+			"cancel": "إلغاء التحضير",
+			"currentFallback": "الرابط الحالي",
+			"description": "يقرأ Arroxy الرابط ويطبّق {{profileName}}.",
+			"failedCount_few": "فشل {{count}}",
+			"failedCount_many": "فشل {{count}}",
+			"failedCount_one": "فشل {{count}}",
+			"failedCount_other": "فشل {{count}}",
+			"failedCount_two": "فشل اثنان",
+			"failedCount_zero": "فشل {{count}}",
+			"phase": {
+				"probing": "جارٍ جلب التفاصيل",
+				"queueing": "جارٍ الإضافة إلى قائمة الانتظار"
+			},
+			"title": "تحضير التنزيل السريع",
+			"waitHint": "أبقِ هذا مفتوحًا بينما يجهّز Arroxy قائمة الانتظار."
+		},
+		"review": {
+			"areas": {
+				"extras": "الإضافات",
+				"fileName": "اسم الملف",
+				"format": "الصيغة",
+				"saveTo": "المجلد",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "الترجمات"
+			},
+			"callout": {
+				"body": "كانت الترجمات وSponsorBlock والإضافات مثل الصورة المصغرة والمجلد واسم الملف خطوات منفصلة. انقر على صف لتغييره.",
+				"title": "كل الإعدادات الأخرى موجودة في هذه الصفحة الآن"
+			},
+			"changeFormat": "تغيير الصيغة",
+			"changed": "تغيّر عن {{profile}}: {{areas}}. ينطبق على هذا التنزيل فقط.",
+			"changedFrom": "تغيّر عن {{profile}}:",
+			"fileNameHint": "الرموز: {title}، {id}، {uploader}، {date}، {resolution}. تتم إضافة الامتداد تلقائيًا.",
+			"nextTime": {
+				"action": "حفظ كملف تعريف",
+				"defaultName": "{{profile}} (معدّل)",
+				"title": "استخدم هذا التنزيل إعدادات معدّلة. هل تريد استخدامها في المرة القادمة؟"
+			},
+			"reset": "التراجع عن التغييرات والعودة إلى “{{profile}}”",
+			"rows": {
+				"extras": "الإضافات",
+				"fileName": "اسم الملف",
+				"saveTo": "الحفظ في",
+				"sponsorBlock": "SponsorBlock",
+				"subtitles": "الترجمات"
+			},
+			"rowsHeading": "كل شيء آخر",
+			"save": {
+				"action": "حفظ ملف التعريف",
+				"description": "يحفظ هذه الإعدادات كملف تعريف يمكنك اختياره في المرة القادمة. يبقى ملف التعريف الخاص بالتنزيل السريع كما هو.",
+				"failed": "تعذّر حفظ ملف التعريف.",
+				"nameLabel": "اسم ملف التعريف",
+				"saved": "تم الحفظ كملف تعريف “{{name}}”",
+				"title": "حفظ كملف تعريف"
+			},
+			"saveAsProfile": "حفظ كملف تعريف جديد",
+			"update": {
+				"action": "تحديث ملف التعريف",
+				"builtinNote": "هذا ملف تعريف مدمج. يمكنك استعادة إعداداته الأصلية من تبويب «الملفات الشخصية».",
+				"description": "من الآن فصاعدًا، سيستخدم كل تنزيل بملف التعريف هذا الإعدادات الجديدة.",
+				"rows": {
+					"format": "الصيغة"
+				},
+				"title": "تحديث “{{profile}}”؟",
+				"updated": "تم تحديث ملف التعريف “{{name}}”"
+			},
+			"updateProfile": "تحديث “{{profile}}” بهذه التغييرات",
+			"value": {
+				"extrasNone": "لا شيء",
+				"sponsorBlockOff": "إيقاف",
+				"subtitlesOff": "إيقاف"
+			}
+		},
+		"sponsorblock": {
+			"cat": {
+				"filler": "حشو",
+				"intro": "مقدمة",
+				"music_offtopic": "موسيقى خارج الموضوع",
+				"outro": "خاتمة",
+				"preview": "معاينة",
+				"selfpromo": "ترويج ذاتي",
+				"sponsor": "رعاية"
+			},
+			"categoriesHeading": "الفئات",
+			"mode": {
+				"mark": "تحديد كفصول",
+				"off": "إيقاف",
+				"remove": "إزالة المقاطع"
+			},
+			"modeHeading": "تصفية الرعاة",
+			"modeHint": {
+				"mark": "يُحدد مقاطع الرعاة كفصول (غير تدميري).",
+				"off": "لا يوجد SponsorBlock — يُشغَّل الفيديو كما رُفع.",
+				"remove": "يحذف مقاطع الرعاة من الفيديو باستخدام FFmpeg."
+			}
+		},
+		"steps": {
+			"confirm": "تأكيد",
+			"folder": "حفظ",
+			"formats": "الصيغة",
+			"output": "الإخراج",
+			"playlistItems": "قائمة التشغيل",
+			"playlistItemsGeneric": "فيديوهات",
+			"playlistPresets": "الجودة",
+			"playlistProfiles": "الملفات الشخصية",
+			"review": "مراجعة",
+			"sponsorblock": "SponsorBlock",
+			"subtitles": "الترجمات",
+			"url": "URL"
+		},
+		"subtitles": {
+			"autoAssNote": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS — يتم دائماً تنظيفها من تكرارات YouTube المتدحرجة التي لا يستطيع محوّل ASS لدينا إعادة إنتاجها بعد.",
+			"autoBadge": "تلقائي",
+			"clearAll": "مسح الكل",
+			"embedNote": "يحفظ وضع التضمين المخرج بصيغة .mkv لضمان تضمين مسارات الترجمة بشكل موثوق.",
+			"format": {
+				"heading": "الصيغة"
+			},
+			"noLanguages": "لا توجد ترجمات متاحة لهذا الفيديو",
+			"noMatches": "لا توجد لغات مطابقة",
+			"noSelected": "لم يتم اختيار أي ترجمة",
+			"removeLanguage": "إزالة {{name}}",
+			"saveMode": {
+				"embed": "تضمين في الفيديو",
+				"heading": "حفظ بصيغة",
+				"sidecar": "بجانب الفيديو",
+				"subfolder": "مجلد فرعي subtitles/"
+			},
+			"searchPlaceholder": "البحث عن لغات…",
+			"sectionAuto": "مولّد تلقائياً",
+			"sectionManual": "يدوي"
+		},
+		"tabsNavAria": "التنقل في ملفات التنزيل",
+		"url": {
+			"advanced": "متقدم",
+			"analytics": {
+				"toggle": "إرسال نبضة يومية",
+				"toggleDescription": "بلا قياس عن بُعد. مرة واحدة يوميًا، ترسل نبضة مجهولة إصدار التطبيق وقناة التثبيت ونظام التشغيل واللغة والبلد والمدة التقريبية منذ تثبيت Arroxy لنتمكن من عدّ المستخدمين النشطين والجدد. بلا معرّفات أو عناوين URL أو أسماء فيديوهات أو أسماء ملفات."
+			},
+			"autoRemoveCompleted": {
+				"description": "يزيل التنزيل من قائمة التنزيلات بعد ثوانٍ قليلة من اكتماله. تبقى الملفات في مجلدك، وتبقى التنزيلات الفاشلة والملغاة في القائمة.",
+				"label": "إزالة التنزيلات المكتملة تلقائيًا"
+			},
+			"autoRetry": {
+				"description": "يحاول تلقائيًا مرة أخرى بعد عطل في الشبكة أو الخادم، مع انتظار أطول بين كل محاولة. التنزيلات التي يحظرها الموقع لا يُعاد محاولتها تلقائيًا أبدًا.",
+				"label": "إعادة محاولة التنزيلات الفاشلة",
+				"unit": "مرات"
+			},
+			"bulkButton": "روابط متعددة",
+			"bulkTooltip": "أضف روابط متعددة وضعها في قائمة الانتظار.",
+			"clearAria": "مسح الرابط",
+			"clipboard": {
+				"autofilledLink": "تمت إضافة الرابط من الحافظة",
+				"bulkHint": "تم نسخ روابط متعددة — استخدم «روابط متعددة» لإضافتها",
+				"dialog": {
+					"cancelButton": "إلغاء"
+				},
+				"replacedLink": "تم الاستبدال بالرابط المنسوخ",
+				"toggle": "مراقبة الحافظة",
+				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
+				"undo": "تراجع"
+			},
+			"closeToTray": {
+				"toggle": "الإخفاء في علبة النظام عند الإغلاق",
+				"toggleDescription": "تستمر التنزيلات في الخلفية بعد إغلاق النافذة."
+			},
+			"concurrentDownloads": {
+				"description": "كم عدد العناصر في قائمة الانتظار التي تُنزَّل في الوقت نفسه. المزيد دفعة واحدة ينهي قائمة طويلة أسرع، لكنه يزيد احتمال أن يقيّدك الموقع.",
+				"label": "التنزيلات في وقت واحد",
+				"unit": "تنزيلات"
+			},
+			"cookies": {
+				"banWarning": "قد تُعلّم مواقع مثل YouTube — وأحياناً تحظر — الحسابات التي تُستخدم كوكيزها بواسطة أدوات التنزيل مثل Arroxy. استخدم حساباً مؤقتاً إن أمكن.",
+				"browserHelp": "يقرأ الكوكيز مباشرةً من المتصفح. يجب أن يكون المتصفح مغلقاً لمتصفحات عائلة Chromium.",
+				"browserLabel": "المتصفح",
+				"browserPlaceholder": "اختر متصفحاً…",
+				"choose": "اختيار…",
+				"clear": "مسح",
+				"enabledButNoBrowser": "اختر متصفحاً لاستخدام الكوكيز",
+				"enabledButNoFile": "اختر ملفاً لاستخدام الكوكيز",
+				"exploreDescription": "يستخدم تسجيل دخولك في «استكشاف» فقط عندما يحتاجه التنزيل.",
+				"exploreDisabled": "تبويب «استكشاف» متوقف، لذا لا تستخدم التنزيلات تسجيل دخولك في «استكشاف». فعّله من قسم «استكشاف» أدناه.",
+				"extensionChrome": "احصل على cookies.txt محلياً (Chrome)",
+				"extensionFirefox": "cookies.txt (Firefox)",
+				"fileLabel": "ملف الكوكيز",
+				"helpLink": "كيف أصدّر الكوكيز؟",
+				"openExplore": "افتح «استكشاف»",
+				"placeholder": "لم يتم اختيار ملف",
+				"recommended": "موصى به",
+				"risk": "تحذير: يحتوي cookies.txt على جميع جلسات تسجيل الدخول لذلك المتصفح — احتفظ به سرياً.",
+				"sourceBrowser": "متصفح",
+				"sourceExplore": "تسجيل الدخول في «استكشاف»",
+				"sourceFile": "ملف",
+				"sourceLabel": "مصدر الكوكيز",
+				"sourceOff": "إيقاف",
+				"toggleDescription": "يساعد مع مقاطع الفيديو المقيدة بالعمر والمخصصة للأعضاء والخاصة بالحساب."
+			},
+			"downloadConnections": {
+				"description": "يسرّع التنزيلات الكبيرة عبر جلب عدة أجزاء من الفيديو في وقت واحد. القيم الأعلى تزيد احتمال أن يقيّدك الموقع.",
+				"label": "اتصالات التنزيل",
+				"unit": "اتصالات"
+			},
+			"features": {
+				"always": {
+					"audioOnly": "الصوت فقط",
+					"subtitles": "الترجمات"
+				},
+				"anySite": {
+					"heading": "2000+ موقع",
+					"musicPlaylist": "قوائم تشغيل الموسيقى",
+					"video": "مقاطع فيديو",
+					"videoPlaylist": "قوائم تشغيل الفيديو"
+				},
+				"heading": "ما الذي يستطيع Arroxy سحبه",
+				"youtube": {
+					"channel": "القنوات",
+					"heading": "YouTube",
+					"music": "الموسيقى",
+					"playlist": "قوائم التشغيل",
+					"podcast": "البودكاست",
+					"short": "Shorts",
+					"video": "مقاطع فيديو"
+				}
+			},
+			"fetchFormatsTooltip": "معالج خطوة بخطوة. اختر الصيغة والجودة والمزيد.",
+			"heading": "تنزيل من رابط",
+			"hotkey": {
+				"changeShortcut": "تغيير الاختصار",
+				"conflict": "هذا الاختصار مستخدم من تطبيق آخر — اختر غيره.",
+				"hintLabel": "أو اضغط",
+				"hintTooltip": "انسخ رابط فيديو من أي مكان، واضغط هذا الاختصار، وسيضيفه Arroxy إلى قائمة الانتظار باستخدام ملفك الشخصي النشط — لا حاجة للتبديل بين النوافذ.",
+				"hintTooltipSettings": "غيّره أو عطّله من الإعدادات.",
+				"recording": "اضغط المفاتيح…",
+				"reset": "إعادة إلى الافتراضي",
+				"sectionDescription": "نزّل أي رابط تنسخه من أي تطبيق دون فتح Arroxy.",
+				"sectionTitle": "اختصار عام",
+				"test": "اختبار",
+				"toggle": "تفعيل الاختصار العام",
+				"toggleDescription": "اضغط الاختصار مع وجود رابط فيديو في الحافظة."
+			},
+			"interactiveDownload": "تنزيل تفاعلي",
+			"limitRate": {
+				"activeWarning": "التنزيلات النشطة تحتفظ بحدها الحالي. استخدم إيقاف مؤقت + استئناف لتطبيق التغييرات.",
+				"custom": "مخصص…",
+				"customPlaceholder": "مثل 750K أو 1.5M",
+				"description": "يحد من النطاق الترددي لتنزيلات الوسائط. إيقاع الطلبات أدناه غالبًا هو أداة الحد الأقوى.",
+				"invalid": "استخدم رقمًا متبوعًا بـ K أو M (مثل 500K، 1.5M)",
+				"label": "حد سرعة التنزيل",
+				"off": "إيقاف"
+			},
+			"mascotBusy": "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎",
+			"mascotCollection": "يضيف التنزيل السريع العناصر المحمّلة إلى قائمة الانتظار باستخدام {{profileName}}. أما التنزيل التفاعلي فيتيح لك فحص العناصر أو تحديدها أولًا.",
+			"mascotIdle": "أرسل رابطًا ودع Arroxy يسحبه ✨",
+			"mascotMixed": "يشير هذا الرابط إلى فيديو واحد داخل مجموعة. سيسألك Arroxy عن الفيديو الذي تريده قبل الفحص.",
+			"mascotPreparing": "يقرأ {{quickDownload}} هذا الرابط ويطبّق {{profileName}}.",
+			"mascotQueued": "قائمة الانتظار تتولى هذا التنزيل. يمكنك لصق رابط آخر أثناء ذلك.",
+			"mascotSingle": "يبدأ التنزيل السريع تنزيلًا واحدًا باستخدام {{profileName}}. استخدم التنزيل التفاعلي لإجراء تغييرات لمرة واحدة.",
+			"nativeAudioPreference": {
+				"compatible": "ستيريو متوافق",
+				"description": "ستيريو أو محيطي عندما يختار ملف التعريف الصوت الأصلي. يمكن لملف التعريف تجاوزه.",
+				"label": "تفضيل الصوت الأصلي",
+				"surround": "تفضيل المحيطي / Dolby"
+			},
+			"networkPacing": {
+				"description": "يضيف توقفات صغيرة أثناء كل تنزيل حتى لا يضغط Arroxy على الموقع بشكل مفرط. القيم بالثواني.",
+				"fields": {
+					"maxSleepInterval": "توقف قبل بدء الوسائط: الحد الأقصى",
+					"sleepInterval": "توقف قبل بدء الوسائط: الحد الأدنى",
+					"sleepRequests": "انتظار بين فحوصات البيانات الوصفية",
+					"sleepSubtitles": "انتظار قبل ملفات الترجمة"
+				},
+				"heading": "تنزيلات هادئة",
+				"presetLabel": "ما مدى حذر Arroxy؟",
+				"presets": {
+					"balanced": "متوازن",
+					"careful": "حذر",
+					"custom": "مخصص",
+					"off": "إيقاف"
+				},
+				"summary": "انتظار: {{requests}} بين الفحوصات، {{downloads}} قبل بدء الوسائط، {{subtitles}} قبل ملفات الترجمة.",
+				"tooltip": "تحدث هذه الانتظارات داخل كل تنزيل. عدد التنزيلات التي تعمل في الوقت نفسه يُضبط بشكل منفصل ضمن «التنزيلات في وقت واحد».",
+				"tooltips": {
+					"balanced": "الافتراضي. يضيف توقفات قصيرة بين الطلبات وقبل بدء الوسائط.",
+					"careful": "يضيف توقفات أطول لقوائم التشغيل الكبيرة أو الشبكات التي تصل إلى الحدود بشكل متكرر.",
+					"custom": "اضبط بنفسك عناصر التحكم المتقدمة لكل تنزيل.",
+					"off": "يستخدم فقط التوقفات الأساسية الصغيرة التي يحتفظ بها Arroxy للوسائط والترجمات."
+				},
+				"units": {
+					"seconds": "ث"
+				}
+			},
+			"placeholder": "https://www.youtube.com/watch?v=...",
+			"playlistProbeLimit": {
+				"current": "الحد الحالي: {{count}} عناصر",
+				"custom": "مخصص…",
+				"customDialogCancel": "إلغاء",
+				"customDialogDescription": "استخدم عدداً صحيحاً من {{min}} إلى {{max}}.",
+				"customDialogSave": "حفظ الحد",
+				"customDialogTitle": "حد مخصص لفحص القائمة",
+				"customValue": "مخصص: {{count}} عناصر",
+				"description": "الحد الأقصى للإدخالات التي يحمّلها Arroxy عند فتح قائمة تشغيل أو قناة أو نتيجة بحث.",
+				"invalid": "استخدم عدداً صحيحاً من 1 إلى 5000",
+				"label": "عدد عناصر القائمة للفحص",
+				"option": "{{count}} عناصر",
+				"tooltip": "يطلب Arroxy هذا العدد فقط من إدخالات قوائم التشغيل أو القنوات أو البحث أثناء بناء أداة الاختيار."
+			},
+			"playlistScope": {
+				"appLimit": "استخدام حد التطبيق: {{count}}",
+				"apply": "تطبيق",
+				"applyError": "تعذّر تطبيق نطاق قائمة التشغيل هذا: {{message}}",
+				"applyReload": "تطبيق وإعادة التحميل",
+				"cancel": "إلغاء",
+				"change": "تغيير",
+				"dialogDescription": "اختر ما يحمّله Arroxy لقائمة التشغيل هذه.",
+				"dialogTitle": "نطاق قائمة التشغيل",
+				"emptyTitle": "لا توجد فيديوهات في هذا النطاق",
+				"first": "الأول",
+				"invalid": "استخدم أعدادًا صحيحة من 1 إلى {{max}}، على ألا تتجاوز البداية النهاية.",
+				"itemsLabel": "العناصر المراد تحميلها",
+				"label": "نطاق قائمة التشغيل",
+				"range": "نطاق",
+				"reloading": "جارٍ إعادة التحميل...",
+				"reset": "إعادة ضبط",
+				"summaryAppLimit": "تحميل أول العناصر: {{count}}",
+				"summaryFirst": "تحميل أول العناصر: {{count}}",
+				"summaryRange": "تحميل العناصر {{from}}-{{to}}",
+				"to": "إلى"
+			},
+			"profile": {
+				"activeLabel": "ملف التعريف النشط",
+				"badgeBuiltIn": "مدمج",
+				"badgeCustom": "مخصص",
+				"badgeDisabled": "مخفي",
+				"badgeModified": "معدّل",
+				"changeGlobalDestination": "تغيير وجهة الحفظ العامة",
+				"destinationDetail": {
+					"global": "استخدام الوجهة العامة",
+					"globalSubfolder": "استخدام الوجهة العامة + المجلد الفرعي للملف",
+					"override": "استخدام تجاوز الملف",
+					"overrideSubfolder": "استخدام تجاوز الملف + المجلد الفرعي للملف"
+				},
+				"destinationFallback": "الوجهة",
+				"edit": "تعديل",
+				"editActive": "تعديل ملف التعريف النشط",
+				"enableHint": "تبقى الملفات المخفية هنا لكنها تختفي من كل القوائم.",
+				"enableToggleAria": "إظهار الملف في القوائم: {{profileName}}",
+				"lastEnabledHint": "أبقِ ملفًا واحدًا متاحًا على الأقل.",
+				"manageProfiles": "إدارة ملفات التعريف",
+				"menuDescription": "غيّر ملف التعريف النشط للتنزيل السريع وعناوين URL المتعددة وقوائم التشغيل.",
+				"menuTitle": "تبديل ملف التعريف",
+				"movableProfile": "ملف قابل للنقل",
+				"moveCancelled": "تم إلغاء النقل. يبقى {{profileName}} في الموضع {{position}} من {{count}}.",
+				"moveDropped": "تم إفلات {{profileName}} في الموضع {{position}} من {{count}}.",
+				"moveHandleAria": "نقل {{profileName}}",
+				"moveInstructions": "لنقل ملف، اضغط على المسافة أو Enter، ثم حرّكه بمفاتيح الأسهم، ثم اضغط على المسافة أو Enter لإفلاته. اضغط على Esc للإلغاء.",
+				"moveOver": "{{profileName}} فوق الموضع {{position}} من {{count}}.",
+				"movePickedUp": "تم التقاط {{profileName}}. موضعه {{position}} من {{count}}.",
+				"newProfile": "ملف تعريف جديد",
+				"panelDescription": "أنشئ إعدادات تنزيل قابلة لإعادة الاستخدام أو اخترها أو عدّلها أو أزلها.",
+				"panelTitle": "ملفات التنزيل الشخصية",
+				"remove": "إزالة",
+				"reorderHint": "اسحب ملفًا لنقله. تتبع كل قوائم الملفات هذا الترتيب.",
+				"reset": "إعادة ضبط",
+				"summary": {
+					"aacAudio": "صوت AAC",
+					"bestAudio": "أفضل صوت",
+					"bestVideo": "أفضل فيديو",
+					"noAudio": "بدون صوت",
+					"subtitlesOnly": "ترجمات فقط",
+					"wavAudio": "صوت WAV"
+				},
+				"switchAria": "تبديل ملف تعريف التنزيل: {{profileName}}",
+				"switchTitle": "تبديل ملف تعريف التنزيل"
+			},
+			"proxy": {
+				"clear": "مسح",
+				"description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.",
+				"label": "عنوان الوكيل",
+				"placeholder": "http://host:port"
+			},
+			"quickBulkAllFailed": "تعذّر تحضير أي من عناوين URL هذه",
+			"quickDownload": "تنزيل سريع",
+			"quickDownloadTooltip": "سيتم التنزيل باستخدام: {{profileName}}",
+			"quickFailed": "تعذرت إضافة هذا العنصر: {{error}}",
+			"quickPartialFailed_few": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عناوين URL.",
+			"quickPartialFailed_many": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
+			"quickPartialFailed_one": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنوان URL واحد.",
+			"quickPartialFailed_other": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
+			"quickPartialFailed_two": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنواني URL.",
+			"quickPartialFailed_zero": "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL.",
+			"quickPrepareFailed": "تعذر تحضير عنصر قائمة الانتظار",
+			"quickPreparing": "جارٍ التحضير",
+			"quickProbeFailed": "فشل الفحص",
+			"quickQueued": "تمت الإضافة إلى قائمة الانتظار",
+			"quickSingleOnly": "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء.",
+			"settings": {
+				"behaviorDescription": "سلوك عام يؤثر أيضًا على التنزيلات المُدارة بواسطة الملفات الشخصية.",
+				"behaviorHeading": "سلوك التنزيل",
+				"inputHeading": "إدخال"
+			},
+			"style": {
+				"aurora": {
+					"description": "ألواح زجاجية فوق سماء متحركة. تحتاج إلى تسريع الرسومات.",
+					"label": "Aurora"
+				},
+				"minimal": {
+					"description": "أسطح صلبة وهادئة. تعمل بخفة على أي جهاز كمبيوتر.",
+					"label": "بسيط"
+				},
+				"modeDescription": "كلا النمطين متاح بالوضع الفاتح والداكن.",
+				"modeLabel": "النمط",
+				"panelDescription": "هكذا يبدو Arroxy. بدّل بين الفاتح والداكن من أسفل النافذة.",
+				"panelTitle": "المظهر",
+				"unavailableNotice": "يحتاج {{style}} إلى تسريع الرسومات وهو غير متاح الآن، لذلك يعرض Arroxy {{fallback}}."
+			},
+			"tabs": {
+				"profiles": "الملفات الشخصية",
+				"settings": "الإعدادات"
+			}
+		}
+	}
 }
