@@ -6,6 +6,7 @@
 #   - stable release before required GitHub checks passed on the tagged commit
 #   - version/mode mismatch (beta tag w/o -, stable tag with -)
 #   - duplicate tag (local or remote)
+#   - a locale left untranslated (the release starts with the i18n sync PR)
 #   - lightweight tag (always uses -a, annotated)
 #   - stale local tags riding along (pushes only the branch and this tag)
 #
@@ -123,6 +124,14 @@ if [[ -n "$REMOTE" && "$LOCAL" != "$REMOTE" ]]; then
   fi
 elif [[ -z "$REMOTE" && "$MODE" == "stable" ]]; then
   echo "ERR: could not resolve origin/main; stable releases must be cut from remote-tracked main." >&2
+  exit 1
+fi
+
+# 3b. every locale translated: PRs change English only (ADR 0017), and the
+#     release starts with the translation sync PR. release.yml checks it again.
+if ! bun run --silent check:i18n:complete >/dev/null 2>&1; then
+  echo "ERR: translations are incomplete. Run the i18n sync first (translate-arroxy-i18n skill), land its PR, then release." >&2
+  echo "     See what is open: bun run i18n:status; full report: bun run check:i18n:complete" >&2
   exit 1
 fi
 

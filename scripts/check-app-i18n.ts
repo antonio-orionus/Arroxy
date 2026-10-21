@@ -1,10 +1,13 @@
 #!/usr/bin/env bun
 // Reports key drift + placeholder leakage between en and every renderer i18n locale.
 //
-// Non-en locales are partial by design (DeepPartialStringLeaves in
-// src/shared/i18n/types.ts) — missing keys fall back to en at runtime.
+// Non-en locales are partial between releases (DeepPartialStringLeaves in
+// src/shared/i18n/types.ts): a PR changes English only, and missing keys fall
+// back to en at runtime until the release translation sync (ADR 0017).
 // Placeholder = a non-en value byte-equal to en, signaling unfinished translation.
-// Default: warn on all three (missing, extras, placeholders). --strict: fail on any.
+// Default (every PR): one summary line for drift. --strict (release completeness,
+// check:i18n:complete): list and fail on any missing, extra or placeholder key.
+// The JSX literal scan below fails in both modes.
 
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
@@ -43,6 +46,7 @@ const PREVIEW_LIMIT = 10
 let hadExtras = false
 let hadMissing = false
 let hadPlaceholders = false
+let driftedLocales = 0
 
 for (const lang of SUPPORTED_LANGS) {
 	if (lang === 'en') continue
@@ -72,9 +76,11 @@ for (const lang of SUPPORTED_LANGS) {
 	})
 
 	if (!missing.length && !extras.length && !placeholders.length) {
-		console.log(`  ✓ ${lang}`)
+		if (strict) console.log(`  ✓ ${lang}`)
 		continue
 	}
+	driftedLocales += 1
+	if (!strict) continue
 
 	console.log(`  ⚠ ${lang}: ${missing.length} missing, ${extras.length} extra, ${placeholders.length} placeholder`)
 	if (missing.length) {
@@ -94,17 +100,11 @@ for (const lang of SUPPORTED_LANGS) {
 }
 
 if (strict && (hadExtras || hadMissing || hadPlaceholders)) {
-	console.error('\nFAIL: --strict and drift/placeholders present.')
+	console.error('\nFAIL: --strict and drift/placeholders present. Run the translation sync (translate-arroxy-i18n skill) before releasing.')
 	process.exit(1)
 }
-if (hadExtras) {
-	console.warn("\nExtras: keys in non-en that don't exist in en. Stale — clean up via translate skill or hand-edit.")
-}
-if (hadMissing) {
-	console.warn('\nMissing: keys absent in non-en (fall back to en at runtime). Partial-by-design; run translate to localize.')
-}
-if (hadPlaceholders) {
-	console.warn(`\nPlaceholders: non-en values byte-equal to en (≥${PLACEHOLDER_MIN_WORDS} words). Likely untranslated copies — run translate skill.`)
+if (!strict) {
+	console.log(driftedLocales === 0 ? '✓ every locale has every en key.' : `✓ ${driftedLocales} locale(s) differ from en and fall back to it until the release translation sync (bun run i18n:status).`)
 }
 
 // JSX literal scan: hardcoded English in user-facing JSX attributes bypasses the

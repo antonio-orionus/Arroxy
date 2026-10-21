@@ -69,7 +69,7 @@ function checkParity(locales, { strict }) {
       `\n  ⚠ ${driftCount} locale(s) drift from en. Build continued with en fallback for missing keys; extras ignored.`,
     );
     console.warn(
-      `  Run \`bun run check:readme\` (or \`bun readme-src/build.mjs --strict\`) before pushing to fail on drift.\n`,
+      `  The release translation sync closes the gap; \`bun run check:readme\` (or \`bun readme-src/build.mjs --strict\`) fails on it.\n`,
     );
   }
 }
@@ -137,12 +137,21 @@ function buildLangNameList(locales) {
   return locales.map((l) => l.name).join(" · ");
 }
 
-function applyStrings(template, strings, fallback = {}) {
+// A locale's missing key renders the English string: a PR changes English only,
+// and the release translation sync fills the other locales (ADR 0017).
+export function applyStrings(template, strings, fallback = {}) {
   return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
     if (key in strings) return strings[key];
     if (key in fallback) return fallback[key];
     return match;
   });
+}
+
+// Template keys English itself lacks, which would reach every README as a raw
+// `{{key}}`. `macros` are the keys the build fills in itself.
+export function missingTemplateKeys(template, strings, macros) {
+  const keys = new Set([...template.matchAll(/\{\{(\w+)\}\}/g)].map((match) => match[1]));
+  return [...keys].filter((key) => !(key in strings) && !macros.includes(key));
 }
 
 function applyMacros(text, macros) {
@@ -152,6 +161,8 @@ function applyMacros(text, macros) {
   return text;
 }
 
+const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED"];
+
 async function main() {
   const strict = process.argv.includes("--strict");
   checkParity(LOCALES, { strict });
@@ -159,6 +170,10 @@ async function main() {
   const template = await readFile(TEMPLATE_PATH, "utf8");
   const en = LOCALES.find((l) => l.code === "en");
   const enStrings = en?.strings ?? {};
+  const undefinedKeys = missingTemplateKeys(template, enStrings, BUILD_MACROS);
+  if (undefinedKeys.length) {
+    throw new Error(`readme-src/template.md uses keys readme-src/locales/en.mjs does not define: ${undefinedKeys.join(", ")}`);
+  }
   let shotGaps = 0;
 
   for (const loc of LOCALES) {

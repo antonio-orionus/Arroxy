@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {SUPPORTED_LANGS} from '../../src/shared/schemas.js'
-import {buildLocaleCatalog, buildSourceCatalog, canonicalLocaleJson, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, parseCatalog, pluralCategoriesFor, usesLatinScript, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
+import {buildLocaleCatalog, buildSourceCatalog, canonicalLocaleJson, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, parseCatalog, placeholderDrift, pluralCategoriesFor, usesLatinScript, validateCatalogEntries, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
 
 describe('i18n catalog workflow', () => {
 	const en = {common: {start: 'Start download', cancel: 'Cancel'}, progress: {done: '{{count}} file complete'}}
@@ -22,7 +22,7 @@ describe('i18n catalog workflow', () => {
 		const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves(uk))
 
 		expect(validateLocaleCatalog('uk', source, catalog)).toEqual([])
-		expect(compileLocaleTree(source, catalog)).toEqual(uk)
+		expect(compileLocaleTree('uk', source, catalog)).toEqual(uk)
 	})
 
 	it('flags stale translations when the English source changes under an existing key', () => {
@@ -41,6 +41,88 @@ describe('i18n catalog workflow', () => {
 		entry.comments = {...entry.comments, flag: 'fuzzy'}
 
 		expect(validateLocaleCatalog('uk', source, catalog)).toContainEqual({kind: 'fuzzy', lang: 'uk', key: 'common.start'})
+	})
+
+	describe('compiling a locale that is behind the English source', () => {
+		const source = flattenStringLeaves({...en, common: {...en.common, retry: 'Retry'}})
+
+		it('leaves out entries the locale has not translated yet, so they fall back to English', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves(uk))
+
+			expect(compileLocaleTree('uk', source, catalog)).toEqual(uk)
+		})
+
+		it('leaves out fuzzy and stale entries instead of shipping a translation of older English', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves(uk))
+			const entry = catalog.translations['common.cancel']?.Cancel
+			if (!entry) throw new Error('fixture catalog missing common.cancel')
+			entry.comments = {...entry.comments, flag: 'fuzzy'}
+			const reworded = flattenStringLeaves({...en, progress: {done: '{{count}} file finished'}})
+
+			expect(compileLocaleTree('uk', reworded, catalog)).toEqual({common: {start: 'Почати завантаження'}})
+		})
+
+		it('writes a plural group whole or not at all, so one message never mixes languages across counts', () => {
+			const plural = flattenStringLeaves({files_one: '{{count}} file', files_other: '{{count}} files', title: 'Title'})
+			const ruSource = expandPluralLeaves('ru', plural)
+			const catalog = buildLocaleCatalog('ru', ruSource, flattenStringLeaves({files_one: '{{count}} файл', files_few: '{{count}} файла', files_other: '{{count}} файла', title: 'Заголовок'}))
+
+			expect(compileLocaleTree('ru', ruSource, catalog)).toEqual({title: 'Заголовок'})
+		})
+
+		it('leaves out a translation whose placeholders no longer match its English', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves({...uk, progress: {done: '{{total}} файл завершено'}}))
+
+			expect(compileLocaleTree('uk', flattenStringLeaves(en), catalog)).toEqual({common: uk.common})
+		})
+	})
+
+	describe('placeholders', () => {
+		it('flags a translation that drops or invents an interpolation token', () => {
+			const source = flattenStringLeaves({status: 'Downloading {{name}} to {{folder}}'})
+			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({status: 'Завантаження {{name}} до {{dir}}'}))
+
+			expect(validateLocaleCatalog('uk', source, catalog)).toEqual([{kind: 'placeholder-mismatch', lang: 'uk', key: 'status', detail: 'expected {{folder}} {{name}}, found {{dir}} {{name}}'}])
+		})
+
+		it('lets a plural form leave out {{count}}, which i18next always supplies', () => {
+			const source = expandPluralLeaves('ar', flattenStringLeaves({files_one: '{{count}} file', files_other: '{{count}} files'}))
+			const catalog = buildLocaleCatalog('ar', source, flattenStringLeaves({files_zero: 'لا ملفات', files_one: 'ملف واحد', files_two: 'ملفان', files_few: '{{count}} ملفات', files_many: '{{count}} ملفًا', files_other: '{{count}} ملف'}))
+
+			expect(validateLocaleCatalog('ar', source, catalog)).toEqual([])
+		})
+
+		it('reports runtime translations whose placeholders drifted from the current English', () => {
+			const source = flattenStringLeaves({status: 'Downloading {{file}}', title: 'Title'})
+
+			expect(placeholderDrift('uk', source, flattenStringLeaves({status: 'Завантаження {{name}}', title: 'Заголовок'}))).toEqual([{kind: 'placeholder-drift', lang: 'uk', key: 'status', detail: 'expected {{file}}, found {{name}}'}])
+		})
+	})
+
+	describe('checking the translations a catalog already has', () => {
+		it('accepts a catalog that is merely behind the English source', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves({common: {start: 'Почати завантаження'}}))
+
+			expect(validateCatalogEntries('uk', catalog)).toEqual([])
+		})
+
+		it('flags broken placeholders and English copied into a non-Latin-script locale', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves({common: {start: 'Start download', cancel: 'Скасувати'}, progress: {done: '{{total}} файл завершено'}}))
+
+			expect(validateCatalogEntries('uk', catalog)).toEqual([
+				{kind: 'latin-only', lang: 'uk', key: 'common.start', detail: 'Start download'},
+				{kind: 'placeholder-mismatch', lang: 'uk', key: 'progress.done', detail: 'expected {{count}}, found {{total}}'}
+			])
+		})
+
+		it('skips fuzzy entries, which the next sync re-checks', () => {
+			const catalog = buildLocaleCatalog('uk', flattenStringLeaves(en), flattenStringLeaves({...uk, progress: {done: '{{total}} файл завершено'}}))
+			const entry = catalog.translations['progress.done']?.['{{count}} file complete']
+			if (!entry) throw new Error('fixture catalog missing progress.done')
+			entry.comments = {...entry.comments, flag: 'fuzzy'}
+
+			expect(validateCatalogEntries('uk', catalog)).toEqual([])
+		})
 	})
 
 	describe('plural categories', () => {
@@ -87,7 +169,7 @@ describe('i18n catalog workflow', () => {
 			const catalog = buildLocaleCatalog('ru', ruSource, flattenStringLeaves(ru))
 
 			expect(validateLocaleCatalog('ru', ruSource, catalog)).toEqual([])
-			expect(compileLocaleTree(ruSource, catalog)).toEqual(ru)
+			expect(compileLocaleTree('ru', ruSource, catalog)).toEqual(ru)
 			expect(compileCatalog(catalog).toString('utf8')).toContain('#. ')
 		})
 
@@ -114,7 +196,7 @@ describe('i18n catalog workflow', () => {
 		})
 
 		it('accepts native text around placeholders and Latin names', () => {
-			const catalog = parseCatalog(poFixture({...ru, 'common.start': 'Скачать {{name}} с YouTube'}))
+			const catalog = parseCatalog(poFixture({...ru, 'progress.done': 'Скачано {{count}} файлов с YouTube'}))
 
 			expect(validateLocaleCatalog('ru', source, catalog)).toEqual([])
 		})

@@ -64,6 +64,11 @@ jobs:
       - name: Check
         run: bun run check
 
+      # PRs change English only (ADR 0017); the release starts with the translation
+      # sync PR, so by the tag every locale must be fully translated and compiled.
+      - name: Translation completeness
+        run: bun run check:i18n:complete
+
   # Blocks publication: `publish-release` needs it, so a red gate leaves the
   # release a draft and nothing reaches users or package managers. It gates
   # publish rather than `prepare-release` so the builds run alongside it and the

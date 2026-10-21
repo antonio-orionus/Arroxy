@@ -1,5 +1,5 @@
 import path from 'node:path'
-import {defineConfig} from 'vite-plus'
+import {configDefaults, defineConfig} from 'vite-plus'
 
 const testAliasObj = {
 	'@main': path.resolve('src/main'),
@@ -35,6 +35,10 @@ const testAlias = [...workspaceAlias, ...Object.entries(testAliasObj).map(([find
 // a genuinely hung test quickly enough to be useful.
 const TEST_TIMEOUT_MS = 20_000
 
+// Tests that need every locale fully translated. A PR changes English only, so they run in the
+// release completeness gate (`bun run check:i18n:complete`), not in `bun run test` (ADR 0017).
+const I18N_COMPLETE_TESTS = 'tests/i18n-complete/**'
+
 // Every gate `bun run check` runs in parallel. `quality-gate` runs packages:check
 // only after all of them pass, because the package gates rebuild shared outputs.
 const QUALITY_GATES = ['check:static', 'check:shell', 'check:tooling-parity', 'check:tooling-contract', 'knip', 'check:loc', 'check:selection-parity', 'check:filename-parity', 'check:pins', 'check:i18n', 'check:donation-addresses', 'test']
@@ -51,8 +55,9 @@ const STAGED_CHECK = `bash -lc 'set -e; args=(); for f in "$@"; do case "$f" in 
 export default defineConfig({
 	test: {
 		projects: [
-			{resolve: {alias: testAlias}, test: {name: 'node', globals: true, include: ['tests/**/*.test.ts'], environment: 'node', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}},
-			{resolve: {alias: testAlias}, test: {name: 'jsdom', globals: true, include: ['tests/**/*.test.tsx'], environment: 'jsdom', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}}
+			{resolve: {alias: testAlias}, test: {name: 'node', globals: true, include: ['tests/**/*.test.ts'], exclude: [...configDefaults.exclude, I18N_COMPLETE_TESTS], environment: 'node', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}},
+			{resolve: {alias: testAlias}, test: {name: 'jsdom', globals: true, include: ['tests/**/*.test.tsx'], exclude: [...configDefaults.exclude, I18N_COMPLETE_TESTS], environment: 'jsdom', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}},
+			{resolve: {alias: testAlias}, test: {name: 'i18n-complete', globals: true, include: [`${I18N_COMPLETE_TESTS}/*.test.{ts,tsx}`], environment: 'node', setupFiles: ['tests/setup.ts'], testTimeout: TEST_TIMEOUT_MS, hookTimeout: TEST_TIMEOUT_MS}}
 		]
 	},
 	run: {tasks: {'quality-gate': {command: 'bun run packages:check', dependsOn: CHECK_GATES, cache: false}}},
