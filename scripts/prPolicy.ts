@@ -1,6 +1,6 @@
 import gt from 'semver/functions/gt.js'
 import valid from 'semver/functions/valid.js'
-import {releaseSectionBody, versionHeadings} from './changelogFragments.js'
+import {releaseSectionBody} from './changelogFragments.js'
 
 // Pure rules for check-pr-policy.ts: what a pull request may contain, read from
 // its own diff against the merge base, its commits and its title and body.
@@ -108,6 +108,10 @@ function entryCount(section: string): number {
 	}
 	return count
 }
+
+// The versions CHANGELOG.md has a `## X` section for, read like changelogFragments.ts reads them.
+const VERSION_HEADING = /^##\s+v?(\d[0-9A-Za-z.+-]*)\s*$/
+const versionHeadings = (changelog: string): string[] => changelog.split(/\r?\n/).flatMap(line => VERSION_HEADING.exec(line.trim())?.[1] ?? [])
 
 // Wording fixes to a released section stay allowed (changelog.d/README.md), so
 // only a section that gains entries fails; a new fix belongs in a fragment.

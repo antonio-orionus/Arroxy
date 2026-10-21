@@ -72,8 +72,7 @@ export function assembleSection(version: string, fragments: readonly Fragment[])
 	return `${blocks.join('\n\n')}\n`
 }
 
-/** Every release version CHANGELOG.md has a `## X` section for, newest first. */
-export const versionHeadings = (changelog: string): string[] => changelog.split(/\r?\n/).flatMap(line => VERSION_HEADING.exec(line.trim())?.[1] ?? [])
+const versionHeadings = (changelog: string): string[] => changelog.split(/\r?\n/).flatMap(line => VERSION_HEADING.exec(line.trim())?.[1] ?? [])
 
 /**
  * The body of a version's section, without its heading; null when there is no
