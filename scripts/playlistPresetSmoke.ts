@@ -68,10 +68,14 @@ export function smokeCases(): SmokeCase[] {
 	return cases
 }
 
-// --dump-single-json writes one line; the plan's --no-quiet puts yt-dlp's
-// own log lines on stdout before it.
+// --dump-single-json writes one line; the plan's --no-quiet (or a user's
+// yt-dlp config) puts yt-dlp's own log lines on stdout before it.
+export function dumpedJsonLine(stdout: string): string | undefined {
+	return stdout.split('\n').findLast(line => line.startsWith('{'))
+}
+
 export function parseSelectedInfo(stdout: string): SelectedInfo | null {
-	const json = stdout.split('\n').findLast(line => line.startsWith('{'))
+	const json = dumpedJsonLine(stdout)
 	if (json === undefined) return null
 	try {
 		const parsed: unknown = JSON.parse(json)

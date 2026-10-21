@@ -16,9 +16,9 @@ import {spawn} from 'node:child_process'
 import {mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {existsSync} from 'node:fs'
 import {homedir, tmpdir} from 'node:os'
-import {join} from 'node:path'
+import {join, resolve} from 'node:path'
 import {planWorkflow} from 'yt-dlp-bridge'
-import {describeSelection, parseSelectedInfo, reqFor, smokeCases, validate} from './playlistPresetSmoke.js'
+import {describeSelection, dumpedJsonLine, parseSelectedInfo, reqFor, smokeCases, validate} from './playlistPresetSmoke.js'
 
 const DEFAULT_URL = 'https://www.youtube.com/watch?v=WO2b03Zdu4Q&pp=ygUCNGvSBwkJIwsBhyohjO8%3D'
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari'
@@ -79,7 +79,8 @@ function parseExtractorStrategy(value: string | undefined): ExtractorStrategy {
 function findBinary(name: 'yt-dlp' | 'node', override?: string): string {
 	if (override) {
 		if (!existsSync(override)) throw new Error(`${name} not found at ${override}`)
-		return override
+		// Absolute, as the dry-runs start in each plan's cwd.
+		return resolve(override)
 	}
 
 	const exeName = process.platform === 'win32' ? `${name}.exe` : name
@@ -160,8 +161,10 @@ async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, nodeP
 
 	for (const strategy of strategies) {
 		const result = await run(ytDlpPath, probeArgs(url, cli, nodePath, strategy))
-		if (result.exitCode === 0 && parseSelectedInfo(result.stdout)) {
-			return {json: result.stdout, strategy, durationMs: result.durationMs}
+		// Only the JSON line is cached: --load-info-json reads the whole file.
+		const json = dumpedJsonLine(result.stdout)
+		if (result.exitCode === 0 && json !== undefined && parseSelectedInfo(json)) {
+			return {json, strategy, durationMs: result.durationMs}
 		}
 		last = result
 	}
@@ -209,9 +212,11 @@ async function main(): Promise<void> {
 		console.log('')
 		if (failed > 0) {
 			console.log(`\x1b[31m${failed}/${cases.length} playlist preset dry-runs failed.\x1b[0m`)
-			process.exit(1)
+			// exitCode, not exit(): the finally below still removes the temp dir.
+			process.exitCode = 1
+		} else {
+			console.log(`\x1b[32mAll ${cases.length} playlist preset dry-runs passed.\x1b[0m`)
 		}
-		console.log(`\x1b[32mAll ${cases.length} playlist preset dry-runs passed.\x1b[0m`)
 	} finally {
 		if (cli.keepTemp) {
 			console.log(`  kept temp: ${tempDir}`)

@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {planWorkflow} from 'yt-dlp-bridge'
-import {parseSelectedInfo, reqFor, smokeCases, validate, type SelectedInfo, type SmokeCase} from '../../scripts/playlistPresetSmoke.js'
+import {dumpedJsonLine, parseSelectedInfo, reqFor, smokeCases, validate, type SelectedInfo, type SmokeCase} from '../../scripts/playlistPresetSmoke.js'
 
 function plannedArgs(caseDef: SmokeCase): string[] {
 	return planWorkflow(reqFor(caseDef.selection, '/out', '/out/info.json', 'https://www.youtube.com/watch?v=x')).args
@@ -51,5 +51,11 @@ describe('playlist preset smoke validation', () => {
 	it("reads the dumped JSON past the log lines the plan's --no-quiet leaves on stdout", () => {
 		const stdout = ['[info] abcdefghijk: Downloading 1 format(s): 251', JSON.stringify({title: 'Offline', format_id: '251', ext: 'webm', acodec: 'opus', vcodec: 'none'}), ''].join('\n')
 		expect(parseSelectedInfo(stdout)).toMatchObject({title: 'Offline', format_id: '251', acodec: 'opus'})
+	})
+
+	it('keeps only the dumped JSON line, so a cached probe loads back with --load-info-json', () => {
+		const json = JSON.stringify({id: 'abcdefghijk', title: 'Offline'})
+		expect(dumpedJsonLine(['[youtube] abcdefghijk: Downloading webpage', json, ''].join('\n'))).toBe(json)
+		expect(dumpedJsonLine('[youtube] abcdefghijk: Downloading webpage\n')).toBeUndefined()
 	})
 })
