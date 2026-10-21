@@ -183,7 +183,7 @@ describe('YtDlpDownloadProgressTracker', () => {
 	// Captured from `-f 160+234` of jNQXAC9IVRw with yt-dlp 2026.08.19: a 191 KiB
 	// DASH video, then a 302 KiB HLS audio whose size yt-dlp does not know.
 	it('replays a video with an audio of unknown size without going back', () => {
-		const lines = readFileSync(new URL('./fixtures/progress-dash-video-hls-audio.log', import.meta.url), 'utf8')
+		const lines = readFileSync(new URL('./fixtures/progress-dash-video-hls-audio.txt', import.meta.url), 'utf8')
 			.split('\n')
 			.filter(Boolean)
 		const tracker = new YtDlpDownloadProgressTracker()
