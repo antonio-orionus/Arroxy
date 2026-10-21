@@ -7,8 +7,8 @@ name: Issue policy
 #
 # An issue can't be blocked, so a failing one gets the needs-triage label and
 # one comment saying what to fix; the label comes off when an edit passes.
-# Each run reads the issue's labels fresh, so a queued run never re-flags or
-# leaves flagged an issue an earlier run already settled. Labels added with
+# Each run reads the issue fresh, so a queued run never re-flags or leaves
+# flagged an issue an earlier run already settled. Labels added with
 # GITHUB_TOKEN don't trigger workflows, so this never loops.
 on:
   issues:
@@ -42,24 +42,22 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      # The labels as they are now: a queued run's event payload may predate a
-      # label an earlier run added or removed.
-      - name: Read the current labels
-        id: labels
+      # The issue as it is now, not the event payload: a queued run's payload
+      # can predate a later edit or a label an earlier run set, and queued runs
+      # aren't guaranteed to keep their order. A plain redirect, so a failed
+      # lookup fails the job instead of judging an empty issue.
+      - name: Read the issue as it is now
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-        run: echo "labels=$(gh issue view "$NUMBER" --json labels --jq '[.labels[].name]')" >> "$GITHUB_OUTPUT"
+        run: gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"
 
-      # The checker has no dependencies, so no install. The issue's text
-      # reaches it through the environment, never the command line.
+      # The checker has no dependencies, so no install.
       - name: Check the issue
         id: check
         env:
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_LABELS: ${{ steps.labels.outputs.labels }}
+          ISSUE_FILE: ${{ runner.temp }}/issue.json
           ISSUE_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
           ISSUE_REPORT: ${{ runner.temp }}/issue-policy.md
         run: bun scripts/check-issue-policy.ts

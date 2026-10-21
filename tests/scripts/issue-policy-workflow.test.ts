@@ -45,19 +45,21 @@ describe('issue policy workflow', () => {
 		expect(record(steps[0]?.with, 'checkout.with')['persist-credentials']).toBe(false)
 	})
 
-	it("reads the issue's current labels, not the event's snapshot of them", () => {
-		const read = step('Read the current labels')
-		expect(String(read.run)).toContain('gh issue view "$NUMBER" --json labels')
-		expect(record(step('Check the issue').env, 'env').ISSUE_LABELS).toBe('${{ steps.labels.outputs.labels }}')
+	it('reads the current title, body and labels in one lookup that fails the job when it fails', () => {
+		const read = step('Read the issue as it is now')
+		expect(read.run).toBe('gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"')
+		expect(read.shell).toBeUndefined()
 	})
 
-	it('passes the issue text through the environment, not the command line', () => {
+	it('checks that snapshot, never the text or labels of the event payload', () => {
 		const check = step('Check the issue')
 		expect(check.run).toBe('bun scripts/check-issue-policy.ts')
 		const env = record(check.env, 'env')
-		expect(env.ISSUE_TITLE).toBe('${{ github.event.issue.title }}')
-		expect(env.ISSUE_BODY).toBe('${{ github.event.issue.body }}')
+		expect(env.ISSUE_FILE).toBe('${{ runner.temp }}/issue.json')
 		expect(env.ISSUE_AUTHOR_ASSOCIATION).toBe('${{ github.event.issue.author_association }}')
+		const workflow = readFileSync('.github/workflows/issue-policy.yml', 'utf8')
+		expect(workflow).not.toContain('github.event.issue.title')
+		expect(workflow).not.toContain('github.event.issue.body')
 	})
 
 	it('adds needs-triage with the report on a failing issue, once', () => {
