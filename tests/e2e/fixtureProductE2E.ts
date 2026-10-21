@@ -26,6 +26,7 @@ import {
 	type ProcessResult
 } from './fixtureHarness.js'
 import {applyQueueAction, expectMp4Count, expectNoMp4For, expectQueueStatus, launchFixtureApp, listFilesRecursive, mediaFiles, openQueueTab, prepareFixtureRuntime, queueCardByTitle, type QueueRowAction} from './fixtureWorkflow.js'
+import {makeFixtureOutputDir} from './outputRoot.js'
 
 interface FixtureProductOptions {
 	behavior?: FixtureServerBehavior
@@ -177,7 +178,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 	const fixtureServer = await startFixtureServer(options.behavior)
 	const denyProxy = await startDenyProxy()
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-user-'))
-	const outputDir = fs.mkdtempSync(path.join(os.tmpdir(), options.outputPrefix ?? 'arroxy-fixture-out-'))
+	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-out-')
 	writeE2eSettings(userDataDir, outputDir, options.settings)
 	const exploreCookiesPath = options.exploreCookies ? writeExploreCookies(userDataDir, options.exploreCookies) : undefined
 	if (options.restoredQueue) writeRestoredQueue(userDataDir, options.restoredQueue(outputDir))
@@ -222,7 +223,7 @@ export async function withFixtureYtDlp(options: FixtureYtDlpOptions, run: (ctx: 
 	const fixtureServer = await startFixtureServer(options.behavior)
 	const denyProxy = await startDenyProxy()
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-ytdlp-user-'))
-	const outputDir = fs.mkdtempSync(path.join(os.tmpdir(), options.outputPrefix ?? 'arroxy-fixture-ytdlp-out-'))
+	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-ytdlp-out-')
 	const env = buildFixtureEnv({userDataDir, fixtureServer, denyProxy, ytDlpPath})
 	const electronEnv = buildFixtureElectronEnv({userDataDir, fixtureServer, denyProxy, ytDlpPath})
 
