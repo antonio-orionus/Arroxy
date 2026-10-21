@@ -899,7 +899,7 @@ msgstr "Конвертуј у Opus"
 
 msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
-msgstr "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
+msgstr "H.264 изнад 1080p није доступан на YouTube-у — аутоматски се ограничава на 1080p"
 
 msgctxt "playlistPresets.subtitles.deliveryHeading"
 msgid "Save as"
@@ -963,19 +963,19 @@ msgstr "Најбољи квалитет"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
-msgstr "Ograničeno na 1080p, pada niže po stavci"
+msgstr "Ограничено на 1080p, пада ниже по ставци"
 
 msgctxt "playlistPresets.tierDesc.144"
 msgid "Smallest possible files"
-msgstr "Najmanji mogući fajlovi"
+msgstr "Најмањи могући фајлови"
 
 msgctxt "playlistPresets.tierDesc.1440"
 msgid "Capped at 2K, falls back to lower per item"
-msgstr "Ograničeno na 2K, pada niže po stavci"
+msgstr "Ограничено на 2K, пада ниже по ставци"
 
 msgctxt "playlistPresets.tierDesc.2160"
 msgid "Capped at 2160p, falls back to lower per item"
-msgstr "Ograničeno na 2160p, pada niže po stavci"
+msgstr "Ограничено на 2160p, пада ниже по ставци"
 
 msgctxt "playlistPresets.tierDesc.240"
 msgid "Very small files, low quality"
@@ -983,7 +983,7 @@ msgstr "Веома мали фајлови, низак квалитет"
 
 msgctxt "playlistPresets.tierDesc.360"
 msgid "Small files for tight bandwidth"
-msgstr "Mali fajlovi za ograničen protok"
+msgstr "Мали фајлови за ограничен проток"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
@@ -991,7 +991,7 @@ msgstr "Низак пропусни опсег"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
-msgstr "Manji fajlovi, široka kompatibilnost"
+msgstr "Мањи фајлови, широка компатибилност"
 
 msgctxt "playlistPresets.tierDesc.best"
 msgid "Highest available video + audio per item"
@@ -1019,11 +1019,11 @@ msgstr "Паметни TV H.264 MP4"
 
 msgctxt "playlistPresets.videoFormatDesc.best"
 msgid "Best available container and codecs per item"
-msgstr "Najviši dostupan kodek po stavci"
+msgstr "Највиши доступан кодек по ставци"
 
 msgctxt "playlistPresets.videoFormatDesc.mp4"
 msgid "Prefer H.264 video + AAC audio in MP4 when possible"
-msgstr "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"
+msgstr "Предност H.264 + AAC, MP4 контејнер · најбољи покушај"
 
 msgctxt "queue.artifact.companion"
 msgid "Companion"
@@ -3173,7 +3173,7 @@ msgstr "Групни URL-ови"
 
 msgctxt "wizard.playlist.bulkMetadataOptional"
 msgid "No need to wait — files queued now still get their real names when they download."
-msgstr "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena."
+msgstr "Нема потребе да чекате — датотеке које сада ставите у ред ће приликом преузимања ипак добити своја права имена."
 
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
@@ -3241,7 +3241,7 @@ msgstr "{{count}} URL-а"
 #. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} URL адреса"
 
 #. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCountBulk_other"
@@ -3977,7 +3977,7 @@ msgstr "Само ручни"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
-msgstr "Pomoć za {{label}}"
+msgstr "Помоћ за {{label}}"
 
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
@@ -4632,11 +4632,11 @@ msgstr "Или притисни"
 
 msgctxt "wizard.url.hotkey.hintTooltip"
 msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Kopiraj video-link bilo gde, pritisni ovu prečicu i Arroxy će ga staviti u red koristeći tvoj aktivni profil — nema potrebe da menjaš prozore."
+msgstr "Копирај видео-линк било где, притисни ову пречицу и Arroxy ће га ставити у ред користећи твој активни профил — нема потребе да мењаш прозоре."
 
 msgctxt "wizard.url.hotkey.hintTooltipSettings"
 msgid "Change or turn it off in Settings."
-msgstr "Promeni ga ili ga isključi u Podešavanjima."
+msgstr "Промени га или га искључи у Подешавањима."
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -5004,11 +5004,11 @@ msgstr "Скривени профили остају овде, али неста
 
 msgctxt "wizard.url.profile.enableToggleAria"
 msgid "Show profile in pickers: {{profileName}}"
-msgstr "Prikaži profil u izboru: {{profileName}}"
+msgstr "Прикажи профил у избору: {{profileName}}"
 
 msgctxt "wizard.url.profile.lastEnabledHint"
 msgid "Keep at least one profile available."
-msgstr "Zadrži bar jedan dostupan profil."
+msgstr "Задржи бар један доступан профил."
 
 msgctxt "wizard.url.profile.manageProfiles"
 msgid "Manage profiles"

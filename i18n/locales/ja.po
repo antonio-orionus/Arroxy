@@ -2130,7 +2130,7 @@ msgstr "全{{total}}曲中{{count}}曲"
 #. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
-msgstr "{{count}} / {{total}} URL"
+msgstr "{{total}} 件中 {{count}} 件の URL"
 
 msgctxt "wizard.confirm.labelAudio"
 msgid "Audio"
