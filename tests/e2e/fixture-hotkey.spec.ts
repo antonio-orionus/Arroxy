@@ -210,3 +210,60 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 		}
 	)
 })
+
+const countSinkLines = async (file: string, text: string): Promise<number> => (await readSinkLines(file)).filter(line => line.includes(text)).length
+
+// Risk: the window held the press and its follow-up, so a reload while the
+// link was prepared lost the follow-up (or could repeat it).
+// Fixtures: a catalog video whose probe is held open, then fails.
+// Actions: on a hidden window, press the hotkey; reload the renderer while the
+// probe is open; press again once the chord is back.
+// Milestones: the ack in the OS sink; the probe open at the fixture server
+// across the reload; the chord registered again.
+// Oracles: the failure follow-up reaches the OS sink exactly once, and the ack
+// is not repeated.
+test('hotkey follow-up survives a window reload while the link is prepared', async () => {
+	test.setTimeout(180_000)
+	const videoId = FIXTURE_VIDEO_IDS[0]
+	if (!videoId) throw new Error('fixture catalog needs a video')
+
+	await withFixtureProductApp(
+		{
+			// Held long enough to reload the renderer while the probe is open, then failed.
+			behavior: {metadataDelayMs: {[videoId]: 12_000}, metadataFailureIds: [videoId]},
+			userDataPrefix: 'arroxy-fixture-hotkey-reload-user-',
+			outputPrefix: 'arroxy-fixture-hotkey-reload-out-',
+			settings: settings => {
+				settings.common.hotkeyEnabled = true
+			}
+		},
+		async ({app, page, userDataDir, urls, fixtureServer}) => {
+			const sink = sinkPath(userDataDir)
+			const probeEvents = (kind: 'probe-start' | 'probe-end'): number => fixtureServer.telemetry().requests.filter(request => request.kind === kind && request.videoId === videoId).length
+
+			await expectHotkeyRegistered(app)
+			await app.evaluate(({BrowserWindow}) => BrowserWindow.getAllWindows()[0]?.hide())
+
+			// The ack lands at once; the probe is then open at the fixture server.
+			await writeClipboard(app, urls.video(videoId))
+			await pressHotkey(app)
+			await expectSinkLine(sink, 'Download queued from clipboard')
+			await expect.poll(() => probeEvents('probe-start'), {timeout: 30_000, message: 'the probe should reach the fixture server'}).toBe(1)
+
+			// The window reloads mid-probe: whatever it held about the press is gone.
+			await page.reload()
+			await expectHotkeyRegistered(app)
+			expect(probeEvents('probe-end'), 'the reload should land while the probe is still open').toBe(0)
+
+			// The follow-up still arrives, once, and the ack is not repeated.
+			await expectSinkLine(sink, 'Could not add that link')
+			// A later press settles after the follow-up: by then a duplicate of
+			// either notification would be in the sink too.
+			await writeClipboard(app, '   ')
+			await pressHotkey(app)
+			await expectSinkLine(sink, 'No link on your clipboard')
+			expect(await countSinkLines(sink, 'Could not add that link')).toBe(1)
+			expect(await countSinkLines(sink, 'Download queued from clipboard')).toBe(1)
+		}
+	)
+})
