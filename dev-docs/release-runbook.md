@@ -29,7 +29,7 @@ Before tagging:
 2. Read the section over: keep each entry to one or two user-facing sentences, put the highlights in the order you want, and cut polish of features new in the same release.
 3. Commit it alongside the `package.json` bump in the same `release: X.Y.Z` commit.
 
-`bun run release:stable` refuses to tag a release commit that still holds a fragment in `changelog.d/`, or whose `## <version>` section is missing or empty. It reads the release commit's tree, not your checkout. A beta skips that check: if it has no section, the workflow logs a `::warning::` and falls back to auto-generated notes (PR titles only).
+`bun run release:stable` refuses to tag a release commit that still holds a fragment in `changelog.d/`, or whose `## <version>` section is missing or empty. It reads the release commit's tree, not your checkout. The tag workflow's `quality-gate` runs the same check on a stable tag, so a tag pushed by hand without notes stops before anything is built. A beta skips that check: if it has no section, the workflow logs a `::warning::` and falls back to auto-generated notes (PR titles only).
 
 Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `publish-release` step runs late (after build + Windows artifact wait) and will overwrite manual edits. Fix `CHANGELOG.md`, push a fix-up commit, and re-run `publish-release`.
 

@@ -69,6 +69,13 @@ jobs:
       - name: Translation completeness
         run: bun run check:i18n:complete
 
+      # A stable tag publishes its CHANGELOG.md section as the release notes.
+      # release.sh checks it before tagging; a tag pushed by hand is caught here,
+      # before anything is built. A beta may go without a section.
+      - name: Release notes
+        if: ${{ !contains(github.ref_name, '-') }}
+        run: bun scripts/changelog.ts verify-release "${GITHUB_REF_NAME#v}"
+
   # Blocks publication: `publish-release` needs it, so a red gate leaves the
   # release a draft and nothing reaches users or package managers. It gates
   # publish rather than `prepare-release` so the builds run alongside it and the
@@ -285,11 +292,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Set release title and notes
         # Hand-written user-facing notes live in CHANGELOG.md, keyed by version
-        # (e.g. `## 0.3.5-beta.1`). Extract that section, then append the
+        # (e.g. `## 0.3.5`). Extract that section, then append the
         # auto-generated "What's Changed" PR list + Full Changelog link from
         # the GitHub API so the bottom half stays automatic.
-        # Falls back to pure auto-generated notes if no matching section is
-        # found (defensive — broken release is worse than ugly release).
+        # A beta with no matching section falls back to pure auto-generated
+        # notes; a stable tag without one fails (quality-gate checks it first).
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF_NAME: ${{ github.ref_name }}
@@ -317,6 +324,10 @@ jobs:
           if [ -n "$(echo "$MANUAL_NOTES" | tr -d '[:space:]')" ]; then
             NOTES="${DOWNLOAD_BADGES}"$'\n\n'"${MANUAL_NOTES}"$'\n\n---\n\n'"${AUTO_NOTES}"
           else
+            if [[ "$VERSION" != *-* ]]; then
+              echo "::error::No CHANGELOG.md section found for ${VERSION}; a stable release does not publish PR titles alone as its notes."
+              exit 1
+            fi
             echo "::warning::No CHANGELOG.md section found for ${VERSION}; using auto-generated notes only"
             NOTES="${DOWNLOAD_BADGES}"$'\n\n'"${AUTO_NOTES}"
           fi
