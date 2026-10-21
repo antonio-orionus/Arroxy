@@ -1,0 +1,53 @@
+import {describe, expect, it} from 'vite-plus/test'
+import {buildSubtitleList, formatLanguageList, languageName, resolveSubtitleLabel} from '@renderer/lib/subtitleLabel.js'
+
+// yt-dlp asks YouTube for English track names, whatever the UI language.
+const MANUAL = {en: [{ext: 'vtt', name: 'English'}], ar: [{ext: 'vtt', name: 'Arabic'}]}
+const AUTO = {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}
+
+describe('buildSubtitleList', () => {
+	it('names uploaded tracks and auto captions alike in the UI language, capitalized', () => {
+		expect(buildSubtitleList(MANUAL, AUTO, 'ru')).toEqual([
+			{code: 'en', displayName: 'Английский', isAuto: false},
+			{code: 'ar', displayName: 'Арабский', isAuto: false},
+			{code: 'en-orig', displayName: 'Английский', isAuto: true}
+		])
+	})
+
+	it('keeps English names in an English UI', () => {
+		expect(buildSubtitleList(MANUAL, AUTO, 'en').map(item => item.displayName)).toEqual(['English', 'Arabic', 'English'])
+	})
+})
+
+describe('resolveSubtitleLabel', () => {
+	it('falls back to the yt-dlp name for a key Intl cannot parse', () => {
+		expect(resolveSubtitleLabel('nb-ttv', {'nb-ttv': [{ext: 'vtt', name: 'Norsk - tekstet'}]}, {}, 'ru')).toBe('Norsk - tekstet')
+	})
+
+	it('falls back to the yt-dlp name for a code Intl has no name for', () => {
+		expect(resolveSubtitleLabel('qaa', {qaa: [{ext: 'vtt', name: 'Custom track'}]}, {}, 'ru')).toBe('Custom track')
+	})
+
+	it('falls back to the raw code when there is no name either', () => {
+		expect(resolveSubtitleLabel('nb-ttv', {}, {}, 'ru')).toBe('nb-ttv')
+	})
+
+	it('never shows yt-dlp\'s "(Original)" name for an -orig caption Intl cannot name', () => {
+		expect(resolveSubtitleLabel('qaa-orig', {}, {'qaa-orig': [{ext: 'vtt', name: 'Custom (Original)'}]}, 'ru')).toBe('qaa')
+	})
+
+	it('names a requested code with no probe data in the UI language', () => {
+		expect(resolveSubtitleLabel('de', {}, {}, 'ru')).toBe('Немецкий')
+	})
+})
+
+describe('names for running text', () => {
+	it('stay lowercase, since they fill sentences', () => {
+		expect(languageName('de', 'ru')).toBe('немецкий')
+		expect(formatLanguageList(['de'], 'ru')).toBe('немецкий')
+	})
+
+	it('fall back to the code Intl cannot name', () => {
+		expect(languageName('nb-ttv', 'ru')).toBe('nb-ttv')
+	})
+})

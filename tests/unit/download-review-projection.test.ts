@@ -3,6 +3,8 @@ import type {FormatOption, PlaylistEntry, PlaylistSelection} from '@shared/types
 import type {AppState} from '@renderer/store/types.js'
 import {buildDownloadReview, multiProfileBreakdown} from '@renderer/store/wizard/downloadReviewProjection.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {buildSingleSettingsSummary} from '@renderer/store/wizard/singleSettingsSummary.js'
+import {buildSubtitleList} from '@renderer/lib/subtitleLabel.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p', ext: 'webm', resolution: '1080p', fps: 30, isVideoOnly: true, isAudioOnly: false, filesize: 1024},
@@ -109,6 +111,20 @@ describe('DownloadReviewProjection', () => {
 
 		expect(review.hasNothingSelected).toBe(true)
 		expect(review.allowedActions).toEqual({addToQueue: false, downloadNow: false})
+	})
+})
+
+describe('subtitle language labels in a Russian UI', () => {
+	const ruState = state({wizardSubtitleLanguages: ['ar', 'en-orig'], wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}], ar: [{ext: 'vtt', name: 'Arabic'}]}, wizardAutomaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}})
+	const listLabels = buildSubtitleList(ruState.wizardSubtitles, ruState.wizardAutomaticCaptions, 'ru')
+		.filter(item => ruState.wizardSubtitleLanguages.includes(item.code))
+		.map(item => item.displayName)
+		.join(', ')
+
+	it('match the picker list in the review row and the section summary', () => {
+		expect(listLabels).toBe('Арабский, Английский')
+		expect(buildDownloadReview(ruState, {t, language: 'ru', commonPaths: ruState.commonPaths}).subtitleValue.startsWith(`${listLabels} · `)).toBe(true)
+		expect(buildSingleSettingsSummary(ruState, {t, language: 'ru'}).subtitles.startsWith(`${listLabels} · `)).toBe(true)
 	})
 })
 
