@@ -29,6 +29,15 @@ How to run Arroxy with any coding agent without the repo depending on one.
 
 3. **Harness plugins** — installed per machine, per tool, never tracked. The repo must work without them.
 
+## Memory
+
+Project memory lives in `.agents/memory/`, indexed by `MEMORY.md`; read the index before working. Write new memories there with the same frontmatter, never in a tool's own memory. Route a lesson by audience:
+
+- maintainer-only plans and notes → `.internal/` (then `bun run internal:save`);
+- how the maintainer runs Arroxy (reviews, merging, releasing) → `.internal/AGENTS.md`;
+- cross-repo personal preferences → `~/.agents/AGENTS.md`;
+- everything else, including deep-dive references → `.agents/memory/`.
+
 ## Harness plugins
 
 Plugins (Superpowers, a CodeGraph prompt hook) are installed per machine and per tool, each in that tool's own way, and never tracked. Nothing here may depend on one: write a rule the repo relies on into `AGENTS.md` or a project skill instead.

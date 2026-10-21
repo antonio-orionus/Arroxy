@@ -10,7 +10,7 @@ import type {DownloadProfile, QueueLane} from '@shared/types.js'
 import {i18next} from '@shared/i18n/index.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
-import {profileDisplayName} from '@renderer/lib/profileName.js'
+import {editedProfileName, profileDisplayName} from '@renderer/lib/profileName.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
@@ -28,8 +28,8 @@ function errorMessage(error: unknown): string {
 
 async function saveEditedProfile(get: GetState, profile: DownloadProfile): Promise<void> {
 	try {
-		await get().saveDownloadProfile(profile, false)
-		notify.profileSaved(profileDisplayName(profile))
+		// A failed write resolves false: the settings are rolled back and the user told, so no success here.
+		if (await get().saveDownloadProfile(profile, false)) notify.profileSaved(profileDisplayName(profile))
 	} catch (error) {
 		notify.profileSaveFailed(error)
 	}
@@ -79,7 +79,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 		if (skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(skippedAlreadyQueued)
 		await persistFormatPrefs(set, get)
 		const state = get()
-		const edited = state.wizardProfile ? editedProfileDraft(state, i18next.t('wizard.review.nextTime.defaultName', {profile: profileDisplayName(state.wizardProfile)})) : null
+		const edited = state.wizardProfile ? editedProfileDraft(state, editedProfileName(profileDisplayName(state.wizardProfile))) : null
 		get().reset()
 		if (edited) notify.offerSaveEdits(() => void saveEditedProfile(get, edited))
 	} catch (error) {

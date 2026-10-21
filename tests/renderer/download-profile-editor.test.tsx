@@ -571,6 +571,40 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('ignores a second Save while the first is still saving, and allows a retry after it fails', async () => {
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+		let rejectSave: (error: Error) => void = () => undefined
+		const onSave = vi.fn<(saved: DownloadProfile) => Promise<void>>().mockImplementationOnce(
+			() =>
+				new Promise<void>((_resolve, reject) => {
+					rejectSave = reject
+				})
+		)
+		const onOpenChange = vi.fn<(open: boolean) => void>()
+
+		try {
+			render(<DownloadProfileEditor initialProfile={null} open onOpenChange={onOpenChange} onSave={onSave} />)
+			const save = await screen.findByRole('button', {name: 'Save profile'})
+
+			fireEvent.click(save)
+			fireEvent.click(save)
+
+			expect(onSave).toHaveBeenCalledTimes(1)
+			await waitFor(() => expect(save).toBeDisabled())
+
+			rejectSave(new Error('write failed'))
+
+			expect(await screen.findByText('Could not save profile settings.')).toBeInTheDocument()
+			await waitFor(() => expect(save).toBeEnabled())
+			fireEvent.click(save)
+
+			await waitFor(() => expect(onSave).toHaveBeenCalledTimes(2))
+			await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false))
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
+
 	it('shows a recoverable error when resetting a profile fails', async () => {
 		const profile = {...BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!, name: 'Balanced Custom'}
 		const onReset = vi.fn<() => Promise<void>>().mockRejectedValue(new Error('reset unavailable'))

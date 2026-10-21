@@ -234,6 +234,7 @@ export const PLAYLIST_FILENAME_TOKENS = filenameTokenSchema.extract(['playlist_i
 // Templates are path expressions ({uploader}/{playlist_title}/{title}), so the
 // cap covers several segments rather than one filename.
 export const FILENAME_TEMPLATE_MAX = 200
+export const DOWNLOAD_PROFILE_NAME_MAX = 80
 
 // Mirrors downloadProfileOutputSchema: `default` inherits the global filename
 // template, `custom` overrides it for this profile only.
@@ -243,7 +244,7 @@ export const downloadProfileSchema = z.object({
 	id: z.string().min(1),
 	// Absent only on a built-in the user never renamed: it shows the built-in's
 	// own name in the app language. A custom profile always carries one.
-	name: z.string().trim().min(1).max(80).optional(),
+	name: z.string().trim().min(1).max(DOWNLOAD_PROFILE_NAME_MAX).optional(),
 	icon: downloadProfileIconSchema,
 	// `.default` so every profile persisted before the visibility switch existed
 	// keeps parsing and lands enabled — same migration lever as `filename` below.

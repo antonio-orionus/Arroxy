@@ -2,7 +2,7 @@ import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Headphones, Music, Scissors, SlidersHorizontal, type LucideIcon} from 'lucide-react'
-import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
+import {DOWNLOAD_PROFILE_ICONS, DOWNLOAD_PROFILE_NAME_MAX} from '@shared/schemas.js'
 import type {DownloadProfileIcon} from '@shared/types.js'
 import type {DownloadProfileDraftAction} from '../../store/wizard/downloadProfileDraft.js'
 import {Field, FieldLabel} from '../ui/field.js'
@@ -95,7 +95,7 @@ export function ProfileIdentityPanel({profileId, profileName, fallbackName, prof
 							</ToggleGroup>
 						</PopoverContent>
 					</Popover>
-					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName ?? fallbackName} maxLength={80} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
+					<InputGroupInput id="profile-name" value={profileName ?? ownName ?? ''} placeholder={ownName ?? fallbackName} maxLength={DOWNLOAD_PROFILE_NAME_MAX} onChange={event => onAction({type: 'set-profile-name', profileName: event.target.value})} data-testid="profiles-editor-name" />
 				</InputGroup>
 			</Field>
 		</Panel>

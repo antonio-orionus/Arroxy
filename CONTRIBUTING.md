@@ -31,6 +31,8 @@ Maintainers publish `yt-dlp-bridge` by bumping `packages/yt-dlp-bridge/package.j
 
 Maintainers publish `ytdlp-errors` by bumping `packages/ytdlp-errors/package.json`, merging to `main`, then pushing a tag named `ytdlp-errors-vX.Y.Z`.
 
+`arroxy-control` (the Control API schemas) publishes the same way on an `arroxy-control-vX.Y.Z` tag; no tag has been cut yet. Each publish workflow (`.github/workflows/publish-*.yml`) can also run by manual `workflow_dispatch`. Pushing to `main` publishes nothing.
+
 A package's changelog (`packages/ytdlp-errors/CHANGELOG.md`, the "What changed in X" sections of `packages/yt-dlp-bridge/README.md`) is written only by its `release(packages): <pkg> <version>` PR, from the commits since the last tag; feature PRs leave it alone.
 
 Both registry workflows build tarballs with Bun, then publish through registry trusted publishing. They do not use long-lived registry publish tokens.
@@ -119,6 +121,14 @@ bun run dev:mock
 ```
 
 The renderer's `browserMock.ts` stubs `window.appApi` only in explicit `browser-mock` mode so the wizard, queue, and update banner all simulate without a backend. Electron dev and packaged builds use the real preload bridge.
+
+Other dev starts and fixes:
+
+```bash
+bun run dev:fresh   # clear main.log then start (cross-platform)
+bun run dev:anon    # own profile (<userData>-anon): Explore signed out every launch, no first-run gates, no cookies
+bun run repair      # non-destructive fix for missing or stale dependencies, Electron payloads, Playwright browsers, embedded ffmpeg/ffprobe
+```
 
 If you use git worktrees, create them with your own tool or harness, then run `bun run bootstrap` inside the new worktree.
 

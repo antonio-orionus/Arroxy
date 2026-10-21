@@ -90,7 +90,9 @@ export function WizardProfileLine(): ReactNode {
 
 	// Saved without making it the app's active profile: this download is not the app's default.
 	async function save(profile: DownloadProfile): Promise<void> {
-		await saveDownloadProfile(profile, false)
+		// A failed write resolves false, already rolled back: rejecting keeps the
+		// editor open with its draft and its save error, and the profile as it was.
+		if (!(await saveDownloadProfile(profile, false))) throw new Error('Profile settings were not saved')
 		offer({profile, reason: editing?.profile ? 'updated' : 'switch'})
 	}
 

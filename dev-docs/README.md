@@ -7,7 +7,21 @@ Internal engineering docs — feature designs, architecture notes, system maps.
 - `readme-src/` — README source of truth (English plus every supported locale; see [readme-pipeline.md](readme-pipeline.md)).
 - `AGENTS.md` (with `CLAUDE.md` as a symlink) — agent operating notes (tracked, but keep detail here and link out).
 
-The public site (arroxy.com) lives in a separate repo, `arroxy-site`. Don't put site content here. The old `arroxy-web` repo is archived.
+Site content does not belong here: it lives in `arroxy-site` (see below).
+
+## Related repositories
+
+This repo is the hub: the others consume what it builds or publishes, and none of them is a source for app code. Each repo's own `AGENTS.md` covers its conventions, which differ from these.
+
+| Repository | Owns | Connection to this repo |
+| --- | --- | --- |
+| `arroxy-site` | The public site at arroxy.com: landing page and its copy in every site language | Its download links point at this repo's `releases/latest/download/<asset>`, so a release needs no step there; it deploys to Cloudflare with its own `bun run deploy` |
+| `arroxy-web` (archived) | The old landing site and blog, replaced by `arroxy-site` | None: nothing new goes there, and releases no longer notify it |
+| `arroxy-runtime-binaries` | Signed runtime manifests (yt-dlp, FFmpeg packages) and FFmpeg package releases | Its scheduled workflow checks out this repo and runs the manifest generator from `main`, so pin changes merged here ship without an app release |
+| `arroxy-internal` (private) | Unbuilt plans, research records, maintainer notes | Linked as a gitignored `.internal/` ([agent-setup.md](agent-setup.md)) |
+| `scoop-bucket`, `homebrew-arroxy`, `winget-pkgs` fork | Package-manager manifests | Written only by the release pipeline here; never edit them by hand |
+
+The Flatpak repo is not a separate repository: the release pipeline publishes it to this repo's GitHub Pages ([flatpak-repo.md](flatpak-repo.md)).
 
 ## Convention
 

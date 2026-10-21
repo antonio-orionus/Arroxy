@@ -31,11 +31,19 @@ bun run check:selection-parity  # Format-screen picks vs real yt-dlp (needs Pyth
 bun run check:filename-parity   # predicted download paths vs real yt-dlp (needs Python 3.10+)
 bun run packages:check          # registry package gates in dependency order
 bun run check                   # canonical local and CI gate
+bun run knip:test-only          # src/ files imported only from tests/: does the helper belong in tests/?
 ```
 
 `bun run check` is the single required pre-PR and CI command. CI should call it directly instead of duplicating its substeps.
 
 The two parity checks run the pinned yt-dlp zipapp (fetched once into `node_modules/.cache`, SHA-256 verified) under Python 3.10+. `check:filename-parity` takes about 15 s. Without Python 3.10+, or offline with no cached zipapp, it prints `SKIPPED` and exits 0 locally so a missing runtime does not block a contributor, and it never prints a pass. When `CI` is set the same gap fails the run, so the gate that enforces it cannot skip it. Every path change is compared with yt-dlp's own expansion of `$VAR`, `~`, `%VAR%` and `%(field)s` there; a unit test alone does not prove that. It also downloads a few streams that it serves itself on 127.0.0.1, and checks that every file yt-dlp writes on the way (`.f<format_id>`, `.part`, fragments) fits the reserve the name was budgeted with.
+
+## Tests
+
+- Run the suite with `bun run test` (Vitest), never `bun test`: Bun's built-in runner ignores the Vitest config and per-file `// @vitest-environment` directives.
+- One file: `bunx vp test run --project node <path>` or `--project jsdom <path>`, from the repo root.
+- Test files import from `vite-plus/test`, not `vitest`.
+- When code adds idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater.removeAllListeners()`), add that method as `vi.fn()` to the matching `vi.mock('electron')` / `vi.mock('electron-updater')` blocks, or tests fail at module load with `TypeError: X is not a function`.
 
 ## Pre-commit Hook
 

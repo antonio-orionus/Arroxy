@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {beforeEach, describe, expect, it, onTestFinished, vi} from 'vite-plus/test'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import * as downloadProfilesModule from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
@@ -367,6 +367,26 @@ describe('StepPlaylistProfiles', () => {
 			expect(profileCell('c')).toHaveTextContent('Shorts')
 			expect(profileCell('b')).toHaveTextContent('Archive 4K')
 			expect(save).toHaveBeenCalledWith(expect.objectContaining({name: 'Shorts'}), false)
+		})
+
+		// The settings write failed and was rolled back: the editor keeps its
+		// draft and says so, and no row points at the profile that wasn't saved.
+		it('keeps the editor open with its error, and the rows as they were, when saving fails', async () => {
+			const save = vi.fn(async () => false)
+			useAppStore.setState({saveDownloadProfile: save})
+			const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+			onTestFinished(() => consoleError.mockRestore())
+			renderStep()
+			check('a')
+			openToolbarMenu()
+			fireEvent.click(within(screen.getByTestId('playlist-profile-menu-actions')).getByRole('button', {name: 'New profile'}))
+			fireEvent.change(await screen.findByTestId('profiles-editor-name'), {target: {value: 'Shorts'}})
+			fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+			expect(await screen.findByText('Could not save profile settings.')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-dialog')).toBeInTheDocument()
+			expect(profileCell('a')).toHaveTextContent('Archive 4K')
+			expect(useAppStore.getState().playlistProfileAssignments).toEqual({})
 		})
 
 		it('wires the global-destination handler so the editor never shows a dead "Change" button', async () => {

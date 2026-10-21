@@ -36,7 +36,9 @@ export function ProfileEditorDialog({editor, view}: ProfileEditorDialogProps): R
 				open={editor.editorOpen}
 				onOpenChange={editor.setEditorOpen}
 				onSave={async profile => {
-					await view.saveDownloadProfile(profile)
+					// A failed write resolves false, already rolled back: rejecting keeps
+					// the editor open with its draft and its save error.
+					if (!(await view.saveDownloadProfile(profile))) throw new Error('Profile settings were not saved')
 				}}
 				resetProfile={editor.editorResetProfile}
 			/>

@@ -195,7 +195,9 @@ export function StepPlaylistProfiles(): ReactNode {
 	// save, since this render's settings predate it.
 	async function saveProfile(profile: DownloadProfile): Promise<void> {
 		const assignTo = editing?.profile ? [] : (editing?.assignTo ?? [])
-		await saveDownloadProfile(profile, false)
+		// A failed write resolves false, already rolled back: rejecting keeps the
+		// editor open with its draft and its save error, and no row on that profile.
+		if (!(await saveDownloadProfile(profile, false))) throw new Error('Profile settings were not saved')
 		assign(assignTo, downloadProfileRefFor(profile, useAppStore.getState().settings?.profiles))
 	}
 	const editProfile = useCallback((profile: DownloadProfile): void => setEditing({profile, assignTo: []}), [])

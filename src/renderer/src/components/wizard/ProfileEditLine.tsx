@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {CopyPlus, PenLine, RotateCcw, Save, type LucideIcon} from 'lucide-react'
 import {downloadProfileOrigin} from '@shared/downloadProfiles.js'
+import {DOWNLOAD_PROFILE_NAME_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {ChangedArea} from '../../store/wizard/profileApplication.js'
 import {profileDiffRows} from '../../store/wizard/profileDiff.js'
@@ -17,7 +18,7 @@ import {Input} from '../ui/input.js'
 import {Hint} from '../shared/Hint.js'
 import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
-import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {editedProfileName, useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {formatList} from '@shared/listFormat.js'
 
@@ -30,7 +31,7 @@ function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 	const saveWizardAsProfile = useAppStore(state => state.saveWizardAsProfile)
 	const [name, setName] = useState('')
 	const [saving, setSaving] = useState(false)
-	const value = name || t('wizard.review.nextTime.defaultName', {profile: profileName})
+	const value = name || editedProfileName(profileName)
 
 	async function save(): Promise<void> {
 		setSaving(true)
@@ -55,7 +56,7 @@ function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 				</DialogHeader>
 				<Field className="gap-1.5">
 					<FieldLabel htmlFor={id}>{t('wizard.review.save.nameLabel')}</FieldLabel>
-					<Input id={id} type="text" value={value} maxLength={80} onChange={event => setName(event.target.value)} data-testid="save-as-profile-name" />
+					<Input id={id} type="text" value={value} maxLength={DOWNLOAD_PROFILE_NAME_MAX} onChange={event => setName(event.target.value)} data-testid="save-as-profile-name" />
 				</Field>
 				<DialogFooter>
 					<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>

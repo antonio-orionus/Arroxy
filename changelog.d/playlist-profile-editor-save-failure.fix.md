@@ -1,0 +1,1 @@
+When a profile created or edited on the Profiles tab or in a playlist's per-item profiles step can't be saved, the profile editor stays open with your changes and says so, and no playlist item switches to it.

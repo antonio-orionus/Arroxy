@@ -7,7 +7,7 @@ import {i18next} from '@shared/i18n/index.js'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {BUILTIN_DOWNLOAD_PROFILES, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {ok} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import type {AppSettings} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {makeItem} from '../shared/fixtures.js'
@@ -274,6 +274,30 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledTimes(1))
 		const profiles = useAppStore.getState().settings!.profiles
 		expect(resolveActiveDownloadProfile(profiles).ref).toEqual({kind: 'builtin', id: 'audio-only'})
+	})
+
+	// The settings write failed and was rolled back (#557): the editor keeps the
+	// draft and says so, and the profile list stays as it was.
+	it('keeps the Profiles tab editor open with its error when saving fails', async () => {
+		vi.mocked(window.appApi.settings.update).mockResolvedValue(fail({code: 'unknown', message: 'disk full'}))
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+		useAppStore.setState({settings: defaultAppSettings('/tmp')})
+		try {
+			render(<DownloadProfilesHome />)
+
+			fireEvent.click(within(screen.getByTestId('profiles-manage-card-balanced')).getByRole('button', {name: 'Edit'}))
+			// Lazy editor: see the hidden-profile test above for the wide timeout.
+			const name = await screen.findByTestId('profiles-editor-name', undefined, {timeout: 15_000})
+			fireEvent.change(name, {target: {value: 'Lectures'}})
+			fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+			expect(await screen.findByText('Could not save profile settings.')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-dialog')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-name')).toHaveValue('Lectures')
+			expect(useAppStore.getState().settings?.profiles.overrides ?? []).toEqual([])
+		} finally {
+			consoleError.mockRestore()
+		}
 	})
 
 	it('toggling off the active profile switches active and persists once', async () => {

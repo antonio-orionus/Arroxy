@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {beforeEach, describe, expect, it, onTestFinished, vi} from 'vite-plus/test'
 import {FormatProfileCallout} from '@renderer/components/wizard/format/FormatProfileCallout.js'
 import {WizardProfileLine} from '@renderer/components/wizard/format/WizardProfileLine.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -71,6 +71,23 @@ describe('WizardProfileLine', () => {
 
 		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: 'hd-1080'}), false)
 		expect(chooseWizardProfile).toHaveBeenCalledWith({kind: 'builtin', id: 'hd-1080'}, false)
+	})
+
+	// The settings write failed and was rolled back: the editor keeps the draft
+	// and says so, and the download keeps the profile it had.
+	it('keeps the editor open with its error, and the profile as it was, when saving fails', async () => {
+		saveDownloadProfile.mockResolvedValue(false)
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+		onTestFinished(() => consoleError.mockRestore())
+		render(<WizardProfileLine />)
+
+		await saveFromEditor()
+
+		expect(await screen.findByText('Could not save profile settings.')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-dialog')).toBeInTheDocument()
+		expect(screen.queryByTestId('wizard-profile-switch-dialog')).toBeNull()
+		expect(chooseWizardProfile).not.toHaveBeenCalled()
+		expect(useAppStore.getState().wizardProfile?.id).toBe('hd-1080')
 	})
 
 	it('asks whether to keep edits beyond the streams, naming them, before an edited profile is applied', async () => {

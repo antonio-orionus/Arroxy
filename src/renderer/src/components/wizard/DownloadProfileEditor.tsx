@@ -1,4 +1,4 @@
-import {useState, type ReactNode} from 'react'
+import {useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {RotateCcw} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
@@ -60,6 +60,7 @@ interface ProfileEditorActionsOptions {
 interface ProfileEditorActions {
 	profileActionError: string | null
 	setProfileActionError: (error: string | null) => void
+	saving: boolean
 	saveProfile: () => Promise<void>
 	resetProfileOverride: () => Promise<void>
 }
@@ -69,8 +70,15 @@ interface ProfileEditorActions {
 function useProfileEditorActions({draft, onOpenChange, onSave, resetProfile}: ProfileEditorActionsOptions): ProfileEditorActions {
 	const {t} = useTranslation()
 	const [profileActionError, setProfileActionError] = useState<string | null>(null)
+	const [saving, setSaving] = useState(false)
+	// Each save makes a new profile id, so a second click while the first save
+	// is in flight would persist a duplicate. The ref sees it before a re-render.
+	const savingRef = useRef(false)
 
 	async function saveProfile(): Promise<void> {
+		if (savingRef.current) return
+		savingRef.current = true
+		setSaving(true)
 		setProfileActionError(null)
 		const now = new Date().toISOString()
 		const profile = downloadProfileFromDraft(draft, now, createProfileId)
@@ -80,6 +88,9 @@ function useProfileEditorActions({draft, onOpenChange, onSave, resetProfile}: Pr
 		} catch (error) {
 			console.error('Failed to save profile settings', error)
 			setProfileActionError(t('wizard.profileEditor.error.save'))
+		} finally {
+			savingRef.current = false
+			setSaving(false)
 		}
 	}
 
@@ -95,7 +106,7 @@ function useProfileEditorActions({draft, onOpenChange, onSave, resetProfile}: Pr
 		}
 	}
 
-	return {profileActionError, setProfileActionError, saveProfile, resetProfileOverride}
+	return {profileActionError, setProfileActionError, saving, saveProfile, resetProfileOverride}
 }
 
 export function DownloadProfileEditor({
@@ -121,7 +132,7 @@ export function DownloadProfileEditor({
 		setDraft(current => updateDownloadProfileDraft(current, action))
 	}
 
-	const {profileActionError, setProfileActionError, saveProfile, resetProfileOverride} = useProfileEditorActions({draft, onOpenChange, onSave, resetProfile})
+	const {profileActionError, setProfileActionError, saving, saveProfile, resetProfileOverride} = useProfileEditorActions({draft, onOpenChange, onSave, resetProfile})
 	const destinationControls = useProfileDestinationControls({initialProfile, destination: draft.destination, onAction: updateDraft, onActionError: setProfileActionError, onChangeGlobalDestination})
 
 	return (
@@ -151,7 +162,7 @@ export function DownloadProfileEditor({
 						<ProfileAdvancedPanel draft={draft} validation={validation} commonPaths={commonPaths} globalDestination={globalDestination} globalFilenameTemplate={globalFilenameTemplate} destinationControls={destinationControls} onAction={updateDraft} />
 					</div>
 				</ScrollArea>
-				<ProfileEditorFooter resetProfile={resetProfile} saveDisabled={subfolderInvalid || filenameTemplateError !== null || subtitleLanguagesMissing} onReset={resetProfileOverride} onCancel={() => onOpenChange(false)} onSave={saveProfile} />
+				<ProfileEditorFooter resetProfile={resetProfile} saveDisabled={saving || subfolderInvalid || filenameTemplateError !== null || subtitleLanguagesMissing} onReset={resetProfileOverride} onCancel={() => onOpenChange(false)} onSave={saveProfile} />
 			</DialogContent>
 		</Dialog>
 	)
