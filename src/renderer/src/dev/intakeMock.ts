@@ -87,7 +87,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			case 'needs-choice':
 				if (!(await deps.transition(itemId, {kind: 'needs-choice', choice: resolution.choice, title: resolution.title})).ok) return
 				kept.set(itemId, resolution.probe)
-				tell({kind: 'needs-choice', itemId, choice: resolution.choice, capped: resolution.capped})
+				tell({kind: 'needs-choice', itemId, choice: resolution.choice})
 				return
 			case 'failed':
 				if ((await deps.transition(itemId, {kind: 'probe-failed', error: resolution.error})).ok) tell({kind: 'failed', itemId, title, probeError: resolution.probeError})
@@ -168,7 +168,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			const {choice} = row
 			// The answer overrides any count the row was placed with.
 			if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
-			if (choice.kind !== 'playlist-cap') return Promise.resolve(fail({code: 'validation', message: 'only a playlist over the load limit offers its first videos'}))
+			if (!choice.capped) return Promise.resolve(fail({code: 'validation', message: 'only a list past the load limit offers its first videos'}))
 			const first = {kind: 'first', count: choice.loaded} as const
 			return restart(itemId, requestId, {scope: scopeForTake(first), take: first}, kept.get(itemId))
 		},

@@ -15,8 +15,7 @@ export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
 	// Every video was already live in the queue: nothing failed, nothing to add.
 	| {kind: 'nothing-new'; skippedAlreadyQueued: number}
-	// `capped`: the probe stopped at the load limit, so the count is a lower bound.
-	| {kind: 'needs-choice'; choice: QueueChoice; capped: boolean; title: string; probe: PlaylistProbeResult}
+	| {kind: 'needs-choice'; choice: QueueChoice; title: string; probe: PlaylistProbeResult}
 	// `probeError` is null when the probe succeeded and preparing the rows failed.
 	| {kind: 'failed'; error: LocalizedError; probeError: ProbeError | null}
 
@@ -27,7 +26,7 @@ export function scopeForTake(take: QuickProbeTake): PlaylistScope {
 
 export interface QuickProbeContext {
 	// The row's link: names the video when the probe gives no page, and with
-	// the mode decides whether a collection result needs a review.
+	// the mode decides whether a list under the load limit is asked about.
 	url: string
 	// The mode the probe ran with: `playlist` on a mixed link is the user's
 	// answer to "this video or the whole playlist?".
@@ -59,9 +58,10 @@ function localizedProbeError(error: ProbeError, env: QuickProbeEnv): LocalizedEr
 	return {kind: 'unknown', raw: raw === '' ? env.probeFailedText() : raw}
 }
 
-// A collection result is reviewed unless the link said it was a collection,
-// or the user answered "the whole playlist" on a mixed link.
-function reviewsCollection(context: QuickProbeContext): boolean {
+// A list the link did not announce is asked about whatever its size: a link
+// that was not obviously a collection (another site's list, a video link that
+// probed as one), unless the user answered "the whole playlist" on a mixed link.
+function asksWhateverItsSize(context: QuickProbeContext): boolean {
 	const intent = classifyUrlIntent(context.url)
 	if (intent.kind === 'obvious-collection') return false
 	return !(intent.kind === 'mixed' && context.playlistMode === 'playlist')
@@ -76,14 +76,15 @@ function takenEntries(probe: PlaylistProbeResult, context: QuickProbeContext): P
 	return probe.entries.slice(0, count)
 }
 
+// The one size question (All · Review, plus First N when capped). A row that
+// carries a take raises none, Review included: the count is part of the
+// user's answer, so nothing asks again, not after a Retry nor a restart.
 function needsChoice(probe: PlaylistProbeResult, context: QuickProbeContext): QuickProbeResolution | null {
 	if (context.take) return null
 	const capped = probe.entries.length > context.limit
+	if (!capped && !asksWhateverItsSize(context)) return null
 	const loaded = Math.min(probe.entries.length, context.limit)
-	const title = probe.playlistTitle || probe.webpageUrl
-	if (reviewsCollection(context)) return {kind: 'needs-choice', choice: {kind: 'playlist-review', count: loaded}, capped, title, probe}
-	if (capped) return {kind: 'needs-choice', choice: {kind: 'playlist-cap', loaded}, capped, title, probe}
-	return null
+	return {kind: 'needs-choice', choice: {kind: 'list-size', loaded, capped}, title: probe.playlistTitle || probe.webpageUrl, probe}
 }
 
 // The caller settles which profile prepares the rows before resolving.

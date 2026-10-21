@@ -157,21 +157,22 @@ describe('toasts with actions', () => {
 		expect(sink.mock.calls[1]?.[3]?.map((action: {label: string}) => action.label)).toEqual(['Retry'])
 	})
 
-	it('asks how many videos to queue for a playlist over the load limit', () => {
+	it('asks how many videos to queue for a list past the load limit', () => {
 		const sink = vi.fn()
 		setNotificationSink(sink)
-		notify.quickDownloadNeedsChoice('row-1', {kind: 'playlist-cap', count: 100, capped: true}, vi.fn())
+		notify.quickDownloadNeedsChoice('row-1', {kind: 'list-size', loaded: 100, capped: true}, vi.fn())
 		expect(sink.mock.calls[0]?.[1]).toBe('100+ videos — choose how many')
 		expect(sink.mock.calls[0]?.[3]?.[0]?.label).toBe('View')
 	})
 
-	// A review-only row offers no "how many": its toast says what it asks.
-	it('asks for a review of a link that turned out to be a list', () => {
+	// A list under the limit offers All and Review, so the toast asks what to
+	// download rather than offering only a review.
+	it('asks what to download from a list under the load limit', () => {
 		const sink = vi.fn()
 		setNotificationSink(sink)
-		notify.quickDownloadNeedsChoice('row-2', {kind: 'playlist-review', count: 12, capped: false}, vi.fn())
-		notify.quickDownloadNeedsChoice('row-3', {kind: 'playlist-review', count: 100, capped: true}, vi.fn())
-		expect(sink.mock.calls.map(call => call[1])).toEqual(['12 videos in this list — review to pick', '100+ videos in this list — review to pick'])
+		notify.quickDownloadNeedsChoice('row-2', {kind: 'list-size', loaded: 12, capped: false}, vi.fn())
+		notify.quickDownloadNeedsChoice('row-3', {kind: 'list-size', loaded: 1, capped: false}, vi.fn())
+		expect(sink.mock.calls.map(call => call[1])).toEqual(['12 videos in this list — choose what to download', '1 video in this list — choose what to download'])
 	})
 })
 

@@ -608,7 +608,7 @@ describe('a probe that needs the user’s choice', () => {
 	it('parks a playlist over the load limit as needs-choice, with a toast', async () => {
 		const probe = deferredProbe()
 		const id = await cappedRow(probe)
-		expect(row(id)).toMatchObject({title: 'Road trip mix', choice: {kind: 'playlist-cap', loaded: 2}})
+		expect(row(id)).toMatchObject({title: 'Road trip mix', choice: {kind: 'list-size', loaded: 2, capped: true}})
 		expect(toasts.at(-1)?.message).toBe('2+ videos — choose how many')
 		expect(toasts.at(-1)?.actions?.[0].label).toBe('View')
 	})
@@ -624,7 +624,7 @@ describe('a probe that needs the user’s choice', () => {
 		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 10}}})
 		probe.resolve(ok(playlist(3)))
 
-		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 2}}))
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: true}}))
 	})
 
 	it('First N queues the loaded videos without probing again', async () => {
@@ -639,7 +639,7 @@ describe('a probe that needs the user’s choice', () => {
 
 	it('First N probes again for exactly N once the kept probe is gone (after a restart)', async () => {
 		const probe = deferredProbe()
-		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', choice: {kind: 'playlist-cap', loaded: 2}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
+		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', choice: {kind: 'list-size', loaded: 2, capped: true}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
 		const choosing = useAppStore.getState().chooseQuickDownloadRow('restored', 'first')
 		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
 		expect(probe.calls[0]).toMatchObject({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: 'restored', playlistScope: {items: {kind: 'first', count: 2}}})
@@ -664,6 +664,45 @@ describe('a probe that needs the user’s choice', () => {
 		probe.resolve(ok(playlist(3)))
 		await choosing
 		await vi.waitFor(() => expect(queue()).toHaveLength(3))
+	})
+
+	// #534: the answer is kept on the row, so a reload that fails and is
+	// retried loads the same count again and asks nothing.
+	it('All whose reload fails: Retry reloads every video and asks nothing', async () => {
+		const probe = deferredProbe()
+		const id = await cappedRow(probe)
+		const choosing = useAppStore.getState().chooseQuickDownloadRow(id, 'all')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
+		probe.resolve(fail(BOT_BLOCK))
+		await choosing
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'error', probeTake: {kind: 'all'}}))
+
+		const retrying = useAppStore.getState().retryQuickDownloadRow(id)
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(3))
+		expect(probe.calls[2]).toMatchObject({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: id, playlistScope: {items: {kind: 'first', count: 5000}}})
+		probe.resolve(ok(playlist(3)))
+		await retrying
+		await vi.waitFor(() => expect(queue()).toHaveLength(3))
+		expect(queue().some(item => item.status === 'needs-choice')).toBe(false)
+	})
+
+	it('First N whose reload fails: Retry reloads those N and asks nothing', async () => {
+		const probe = deferredProbe()
+		// Restored after a restart: no kept probe, so First N loads again.
+		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', choice: {kind: 'list-size', loaded: 2, capped: true}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
+		const choosing = useAppStore.getState().chooseQuickDownloadRow('restored', 'first')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
+		probe.resolve(fail(BOT_BLOCK))
+		await choosing
+		await vi.waitFor(() => expect(row('restored')).toMatchObject({status: 'error', probeTake: {kind: 'first', count: 2}}))
+
+		const retrying = useAppStore.getState().retryQuickDownloadRow('restored')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
+		expect(probe.calls[1]).toMatchObject({ownerKey: 'restored', playlistScope: {items: {kind: 'first', count: 2}}})
+		probe.resolve(ok(playlist(3)))
+		await retrying
+		await vi.waitFor(() => expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2']))
+		expect(queue().some(item => item.status === 'needs-choice')).toBe(false)
 	})
 
 	// P2-R40: the row is the decision until the wizard actually queues.
@@ -752,7 +791,7 @@ describe('a probe that needs the user’s choice', () => {
 
 	it('a retry within the review run keeps the link to its row', async () => {
 		const probe = deferredProbe()
-		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', choice: {kind: 'playlist-cap', loaded: 2}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
+		useAppStore.setState({queue: [makeItem({id: 'restored', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', choice: {kind: 'list-size', loaded: 2, capped: true}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
 		const reviewing = useAppStore.getState().chooseQuickDownloadRow('restored', 'review')
 		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
 		probe.resolve(fail(BOT_BLOCK))
@@ -794,12 +833,32 @@ describe('a probe that needs the user’s choice', () => {
 		expect(queue()[0]?.id).toBe(id)
 	})
 
-	it('asks for a review when a link that did not look like a collection is one', async () => {
+	it("asks about another site's list under the load limit, and All queues every video", async () => {
 		const probe = deferredProbe()
 		const url = 'https://media.example/watch/42'
 		await useAppStore.getState().quickDownload({url, entry: 'explore'})
 		const id = queue()[0]?.id ?? ''
 		probe.resolve(ok({...playlist(1), webpageUrl: url}))
-		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}}))
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 1, capped: false}}))
+		expect(toasts.at(-1)?.message).toBe('1 video in this list — choose what to download')
+
+		const choosing = useAppStore.getState().chooseQuickDownloadRow(id, 'all')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
+		expect(probe.calls[1]).toMatchObject({url, ownerKey: id, playlistScope: {items: {kind: 'first', count: 5000}}})
+		probe.resolve(ok({...playlist(1), webpageUrl: url}))
+		await choosing
+		await vi.waitFor(() => expect(queue().map(item => item.status)).toEqual(['pending']))
+	})
+
+	it('ignores First on a list that did not go past the load limit', async () => {
+		const probe = deferredProbe()
+		const url = 'https://media.example/watch/42'
+		await useAppStore.getState().quickDownload({url, entry: 'explore'})
+		const id = queue()[0]?.id ?? ''
+		probe.resolve(ok({...playlist(1), webpageUrl: url}))
+		await vi.waitFor(() => expect(row(id)?.status).toBe('needs-choice'))
+		await useAppStore.getState().chooseQuickDownloadRow(id, 'first')
+		expect(api.intake.choose).not.toHaveBeenCalled()
+		expect(row(id)?.status).toBe('needs-choice')
 	})
 })

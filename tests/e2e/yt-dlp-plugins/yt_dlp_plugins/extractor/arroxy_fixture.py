@@ -5,6 +5,7 @@ import re
 import urllib.parse
 import urllib.request
 
+from yt_dlp.extractor.common import InfoExtractor
 from yt_dlp.extractor.youtube import YoutubeIE, YoutubeTabIE
 from yt_dlp.utils import ExtractorError
 
@@ -235,6 +236,44 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         return info
 
 
+def _fixture_playlist_result(extractor, playlist_id, url):
+    # A fixture playlist as yt-dlp's tab extractor returns one: flat entries.
+    catalog = _fixture_catalog()
+    playlist = next((candidate for candidate in _fixture_playlists(catalog) if candidate['id'] == playlist_id), None)
+    if playlist is None:
+        raise ExtractorError(f'Unknown Arroxy fixture playlist id: {playlist_id}')
+    base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL', '').rstrip('/')
+    if not base_url:
+        raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
+    # Recorded like a video extraction, under the playlist id, so the harness
+    # sees what a collection probe handed yt-dlp.
+    _notify_extraction(extractor, base_url, playlist_id, {})
+
+    entries = []
+    for index, video_id in enumerate(playlist['videoIds'], start=1):
+        entries.append({
+            '_type': 'url',
+            'ie_key': 'Youtube',
+            'id': video_id,
+            'title': _fixture_title(catalog, video_id),
+            'url': f'https://www.youtube.com/watch?v={video_id}',
+            'webpage_url': f'https://www.youtube.com/watch?v={video_id}',
+            'thumbnail': f'{base_url}/thumbnails/{video_id}.jpg',
+            'duration': 42,
+            'playlist_index': index,
+        })
+
+    return {
+        '_type': 'playlist',
+        'id': playlist_id,
+        'title': playlist['title'],
+        'playlist_id': playlist_id,
+        'playlist_title': playlist['title'],
+        'webpage_url': url,
+        'entries': entries,
+    }
+
+
 class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
     # Both a playlist page and a video opened inside one (`watch?v=…&list=…`):
     # yt-dlp's YouTube video extractor declines any link with a list, so the
@@ -250,37 +289,15 @@ class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
             if not self._yes_playlist(playlist_id, video_id):
                 return self.url_result(f'https://www.youtube.com/watch?v={video_id}', ArroxyFixtureYoutubeIE, video_id)
             url = f'https://www.youtube.com/playlist?list={playlist_id}'
-        catalog = _fixture_catalog()
-        playlist = next((candidate for candidate in _fixture_playlists(catalog) if candidate['id'] == playlist_id), None)
-        if playlist is None:
-            raise ExtractorError(f'Unknown Arroxy fixture playlist id: {playlist_id}')
-        base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL', '').rstrip('/')
-        if not base_url:
-            raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
-        # Recorded like a video extraction, under the playlist id, so the harness
-        # sees what a collection probe handed yt-dlp.
-        _notify_extraction(self, base_url, playlist_id, {})
+        return _fixture_playlist_result(self, playlist_id, url)
 
-        entries = []
-        for index, video_id in enumerate(playlist['videoIds'], start=1):
-            entries.append({
-                '_type': 'url',
-                'ie_key': 'Youtube',
-                'id': video_id,
-                'title': _fixture_title(catalog, video_id),
-                'url': f'https://www.youtube.com/watch?v={video_id}',
-                'webpage_url': f'https://www.youtube.com/watch?v={video_id}',
-                'thumbnail': f'{base_url}/thumbnails/{video_id}.jpg',
-                'duration': 42,
-                'playlist_index': index,
-            })
 
-        return {
-            '_type': 'playlist',
-            'id': playlist_id,
-            'title': playlist['title'],
-            'playlist_id': playlist_id,
-            'playlist_title': playlist['title'],
-            'webpage_url': url,
-            'entries': entries,
-        }
+class ArroxyFixtureOtherSiteListIE(InfoExtractor):
+    # A list on a site other than YouTube: nothing in its link says it is a
+    # list, so Arroxy learns it only from the probe. It serves the fixture
+    # playlists, under a host that never resolves.
+    IE_NAME = 'arroxyfixture:othersitelist'
+    _VALID_URL = rf'https?://media\.arroxy-fixture\.test/lists/(?P<id>{_fixture_playlist_id_pattern()})(?:[?#].*)?$'
+
+    def _real_extract(self, url):
+        return _fixture_playlist_result(self, self._match_id(url), url)

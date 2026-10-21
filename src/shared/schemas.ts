@@ -488,14 +488,15 @@ export const ffmpegPackageFormatSchema = z.enum(['tar.br'])
 // possibly across an app restart via persisted tempDir + lastJobId).
 // `probing` and `needs-choice` are a quick download's placeholder row before
 // it has a job: its probe is running, or its probe found something only the
-// user can decide (a playlist over the load limit, or one to review).
+// user can decide (how much of a list to download).
 export const queueItemStatusSchema = z.enum(['probing', 'needs-choice', 'pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
 export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>
 
-// What a needs-choice row asks. `playlist-cap`: the probe stopped at the load
-// limit with `loaded` videos (All / First N / Review). `playlist-review`: a link
-// that was not obviously a collection turned out to be one (Review).
-export const queueChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('playlist-cap'), loaded: z.number().int().positive()}), z.object({kind: z.literal('playlist-review'), count: z.number().int().nonnegative()})])
+// What a needs-choice row asks: how much of a list to download. `loaded`: the
+// videos the probe kept, up to the load limit. `capped`: the list goes on past
+// them, so `loaded` is a lower bound. Answers: All and Review always, First
+// `loaded` only when capped.
+export const queueChoiceSchema = z.object({kind: z.literal('list-size'), loaded: z.number().int().nonnegative(), capped: z.boolean()})
 export type QueueChoice = z.infer<typeof queueChoiceSchema>
 
 // Lane controls how the scheduler treats an item. `normal` items respect the

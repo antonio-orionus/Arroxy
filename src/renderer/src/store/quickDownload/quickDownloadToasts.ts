@@ -83,11 +83,9 @@ export function quickDownloadToasts(entry: InAppQuickDownloadEntry, get: GetStat
 				notify.quickDownloadFailed(event.itemId, event.title, failureAction(event.probeError, event.itemId, atHome, get), view(event.itemId))
 				return
 			}
-			case 'needs-choice': {
-				const count = event.choice.kind === 'playlist-cap' ? event.choice.loaded : event.choice.count
-				notify.quickDownloadNeedsChoice(event.itemId, {kind: event.choice.kind, count, capped: event.capped}, view(event.itemId))
+			case 'needs-choice':
+				notify.quickDownloadNeedsChoice(event.itemId, event.choice, view(event.itemId))
 				return
-			}
 		}
 	}
 }

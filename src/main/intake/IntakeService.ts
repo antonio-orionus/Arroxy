@@ -152,7 +152,7 @@ export class IntakeService {
 		return restarted
 	}
 
-	// A needs-choice row's answer: every video, or the first N it was offered.
+	// A needs-choice row's answer: every video, or the first N a capped list offered.
 	// The answer overrides any count the row was placed with, and is stored on
 	// the row before its probe starts, so a Retry and a restart keep to it.
 	choose(call: IntakeCall & {take: IntakeTake}): Result<void> {
@@ -163,7 +163,7 @@ export class IntakeService {
 		const kept = this.kept.get(call.itemId)
 		const probe = {url: row.url, playlistMode: row.probeMode, title: row.title}
 		if (call.take === 'all') return this.reprobe(row, {...probe, scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}}, call)
-		if (row.choice.kind !== 'playlist-cap') return fail(createAppError('validation', 'only a playlist over the load limit offers its first videos'))
+		if (!row.choice.capped) return fail(createAppError('validation', 'only a list past the load limit offers its first videos'))
 		const take = {kind: 'first', count: row.choice.loaded} as const
 		if (!kept) return this.reprobe(row, {...probe, scope: scopeForTake(take), take}, call)
 		// The kept probe already holds the first N: no second probe. The row
@@ -279,7 +279,7 @@ export class IntakeService {
 				const parked = this.deps.queue.needsChoice(itemId, resolution.choice, resolution.title)
 				if (!parked.ok) return
 				this.kept.keep(itemId, resolution.probe)
-				tell({kind: 'needs-choice', itemId, choice: resolution.choice, capped: resolution.capped})
+				tell({kind: 'needs-choice', itemId, choice: resolution.choice})
 				return
 			}
 			case 'failed': {

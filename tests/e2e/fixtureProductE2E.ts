@@ -13,6 +13,7 @@ import {
 	buildFixtureElectronEnv,
 	buildFixtureEnv,
 	electronExecutable,
+	fixtureOtherSiteListUrl,
 	fixtureOverlapPlaylistUrl,
 	fixturePlaylistUrl,
 	fixtureRepeatedPlaylistUrl,
@@ -61,6 +62,7 @@ interface UrlHelpers {
 	playlist: () => string
 	repeatedPlaylist: () => string
 	overlapPlaylist: () => string
+	otherSiteList: () => string
 	videos: (videoIds: readonly string[]) => string[]
 }
 
@@ -106,7 +108,7 @@ export interface FixtureYtDlpContext {
 }
 
 function urls(): UrlHelpers {
-	return {video: fixtureUrl, videoInPlaylist: fixtureVideoInPlaylistUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
+	return {video: fixtureUrl, videoInPlaylist: fixtureVideoInPlaylistUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, otherSiteList: fixtureOtherSiteListUrl, videos: videoIds => videoIds.map(fixtureUrl)}
 }
 
 function queue(page: Page): QueueHelpers {
