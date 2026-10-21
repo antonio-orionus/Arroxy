@@ -25,6 +25,7 @@
 Run from the repo root and confirm clean:
 
 - [ ] `bun run check`
+- [ ] A user-facing change adds a `changelog.d/` fragment ([how](../changelog.d/README.md)).
 
 ## Testing
 

@@ -78,6 +78,8 @@
 		"check:pins": "node scripts/check-dependency-pins.mjs",
 		"check:filename-parity": "bun scripts/check-filename-parity.ts",
 		"check:donation-addresses": "node scripts/check-donation-addresses.mjs",
+		"check:changelog": "bun scripts/changelog.ts check",
+		"changelog:assemble": "bun scripts/changelog.ts assemble",
 		"deps:vuln": "bun scripts/depsVuln.ts",
 		"deps:vuln:strict": "bun scripts/depsVuln.ts --threshold moderate",
 		"errors:build": "bun run --filter ytdlp-errors build",

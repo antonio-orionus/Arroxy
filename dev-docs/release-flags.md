@@ -45,6 +45,6 @@ The switch is build-time, not a packaged check: Vite replaces `import.meta.env.M
 
 - **Gate entry points only.** A flag hides the way in: a menu item, a button, a route or screen, a settings row, the IPC handler or preload method that exposes the feature. The logic behind it (services, stores, parsers) is unconditional and fully tested, so turning the flag on changes no behaviour except reachability.
 - **Tests run with the flag on.** Unit, component and Scenario Workbench coverage see the feature as it will ship. Never stub a flag off to test the shipped shape: off means the entry point is absent, nothing more.
-- **Turning it on is one tiny PR.** Set `inRelease: true` once the feature is ready to ship; that PR changes nothing else, and its release is the one that ships the feature.
+- **Turning it on is one tiny PR.** Set `inRelease: true` once the feature is ready to ship; that PR changes nothing else except adding the feature's changelog fragment, and its release is the one that ships the feature. PRs for flagged work add no fragment: users cannot reach it yet.
 - **Delete it in the release after.** In the next release cycle, remove the registry entry and every `isReleaseFlagOn` read. The type error at each read is the checklist.
 - **No user-facing setting.** A release flag is not a preference or an experiment toggle; users never see it.

@@ -51,7 +51,8 @@ runs:
         predicate-quantifier: some-with-excludes
         filters: |
           # Cannot reach the built, packaged or running app. CHANGELOG.md is
-          # missing on purpose: the renderer imports it.
+          # missing on purpose: the renderer imports it. Its fragments in
+          # changelog.d/ reach the app only once a release assembles them.
           base: &base
             - '**'
             - '!.agents/**'
@@ -71,6 +72,7 @@ runs:
             - '!GLOSSARY.md'
             - '!PRODUCT.md'
             - '!README.md'
+            - '!changelog.d/**'
             - '!dev-docs/**'
             - '!docs/**'
             - '!flatpak/**'

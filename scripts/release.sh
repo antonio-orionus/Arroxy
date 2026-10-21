@@ -7,6 +7,7 @@
 #     (it waits for checks still running, up to RELEASE_CHECKS_TIMEOUT_MINUTES)
 #   - version/mode mismatch (beta tag w/o -, stable tag with -)
 #   - duplicate tag (local or remote)
+#   - stable release whose changelog fragments were not assembled into CHANGELOG.md
 #   - a locale left untranslated (the release starts with the i18n sync PR)
 #   - lightweight tag (always uses -a, annotated)
 #   - stale local tags riding along (pushes only the branch and this tag)
@@ -124,6 +125,10 @@ if [[ "$MODE" == "stable" ]]; then
   TARGET=$(bun "$SCRIPT_DIR/release-gate.ts" release-commit --version "$VERSION" --ref "origin/$BRANCH")
   AFTER=$(git rev-list --count "$TARGET..origin/$BRANCH")
   echo "Release commit: $(git log -1 --format='%h %s' "$TARGET") ($AFTER commit(s) merged after it)"
+  # Release notes: the release commit assembled every changelog.d/ fragment
+  # into this version's CHANGELOG.md section. Judged on that commit's tree,
+  # not the checkout, which may be behind or carry later fragments.
+  bun "$SCRIPT_DIR/changelog.ts" verify-release "$VERSION" "$TARGET"
   # --verify-only looks once; a real release waits for checks still running.
   TIMEOUT="${RELEASE_CHECKS_TIMEOUT_MINUTES:-60}"
   if [[ "$VERIFY_ONLY" == true ]]; then TIMEOUT=0; fi

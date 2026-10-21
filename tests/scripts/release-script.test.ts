@@ -45,11 +45,23 @@ fi
 
 const GIT_ENV = {GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1', GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 'test@example.com', GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 'test@example.com'}
 
+// Every commit carries CHANGELOG.md with a section for its version, the way a
+// `release: X` commit assembles it, unless `notes` is false. `fragment` adds an
+// unassembled changelog.d/ fragment. `i18nComplete: false` makes its translation
+// completeness gate fail.
+interface CommitOptions {
+	version?: string
+	cwd?: string
+	notes?: boolean
+	fragment?: string
+	i18nComplete?: boolean
+}
+
 interface Fixture {
 	clone: string
 	origin: string
 	git: (cwd: string, ...args: string[]) => string
-	commit: (subject: string, options?: {version?: string; cwd?: string; i18nComplete?: boolean}) => Promise<string>
+	commit: (subject: string, options?: CommitOptions) => Promise<string>
 	cloneAgain: () => string
 	setCheck: (sha: string, status: string, conclusion: string) => Promise<void>
 	release: (mode: 'stable' | 'beta', args?: string[], env?: Record<string, string>) => {status: number | null; output: string}
@@ -78,11 +90,16 @@ async function fixture(): Promise<Fixture> {
 	const versions = new Map<string, string>()
 	// Each commit's package.json carries the translation completeness gate the
 	// release script runs on the commit it tags: passing unless told otherwise.
-	const commit = async (subject: string, options: {version?: string; cwd?: string; i18nComplete?: boolean} = {}): Promise<string> => {
+	const commit = async (subject: string, options: CommitOptions = {}): Promise<string> => {
 		const cwd = options.cwd ?? clone
 		const version = options.version ?? versions.get(cwd) ?? '1.2.2'
 		versions.set(cwd, version)
 		await fs.writeFile(path.join(cwd, 'package.json'), `${JSON.stringify({name: 'fixture', version, scripts: {'check:i18n:complete': options.i18nComplete === false ? 'echo open entries; exit 1' : 'true'}}, null, 2)}\n`)
+		await fs.writeFile(path.join(cwd, 'CHANGELOG.md'), options.notes === false ? '# Changelog\n' : `# Changelog\n\n---\n\n## ${version}\n\n## Fixes\n\n- A fix in ${version}.\n`)
+		if (options.fragment !== undefined) {
+			await fs.mkdir(path.join(cwd, 'changelog.d'), {recursive: true})
+			await fs.writeFile(path.join(cwd, 'changelog.d', options.fragment), 'A fix not released yet.\n')
+		}
 		await fs.appendFile(path.join(cwd, 'log.txt'), `${subject}\n`)
 		git(cwd, 'add', '.')
 		git(cwd, 'commit', '--quiet', '-m', subject)
@@ -143,6 +160,42 @@ describe.skipIf(process.platform === 'win32')('release.sh stable', () => {
 		expect(output).toContain('run the i18n sync first')
 		expect(f.git(f.origin, 'tag', '--list')).toBe('')
 		expect(f.git(f.clone, 'worktree', 'list').split('\n')).toHaveLength(1)
+	})
+
+	it('refuses a release commit whose fragments were not assembled, and tags nothing', async () => {
+		const f = await fixture()
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3', fragment: 'left-over.fix.md'})
+		await f.setCheck(releaseCommit, 'completed', 'success')
+
+		const {status, output} = f.release('stable')
+
+		expect(status).toBe(1)
+		expect(output).toContain('changelog:assemble')
+		expect(f.git(f.origin, 'tag', '--list')).toBe('')
+	})
+
+	it('refuses a release commit with no notes for its version', async () => {
+		const f = await fixture()
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3', notes: false})
+		await f.setCheck(releaseCommit, 'completed', 'success')
+
+		const {status, output} = f.release('stable')
+
+		expect(status).toBe(1)
+		expect(output).toContain('no ## 1.2.3 section')
+	})
+
+	it('ignores fragments merged after the release commit', async () => {
+		const f = await fixture()
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3'})
+		await f.commit('fix: merged after the release commit (#9)', {fragment: 'later.fix.md'})
+		await f.setCheck(releaseCommit, 'completed', 'success')
+
+		const {status, output} = f.release('stable')
+
+		expect(output).toContain('Release commit:')
+		expect(status).toBe(0)
+		expect(f.git(f.origin, 'rev-parse', 'v1.2.3^{commit}')).toBe(releaseCommit)
 	})
 
 	it('refuses while the release commit is still being checked, and tags nothing', async () => {

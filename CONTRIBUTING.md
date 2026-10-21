@@ -156,6 +156,7 @@ For a fresh-Windows-box bootstrap, see `scripts/build/build-windows.ps1`.
 
 - **Conventional Commits.** Subject ≤ ~70 chars: `fix(scope): …`, `feat(scope): …`, `refactor: …`, `build: …`, `docs: …`. Body explains the _why_, not the _what_.
 - **No AI attribution.** Do **not** add `Co-Authored-By: Claude …` trailers or `🤖 Generated with …` footers to commits or PR bodies. Write as if authored solely by yourself.
+- **A changelog fragment, not a `CHANGELOG.md` edit.** A user-facing change adds one `changelog.d/<slug>.<kind>.md` file ([`changelog.d/README.md`](changelog.d/README.md)); the release assembles them.
 - **Small, separable commits.** If your PR has two unrelated concerns, make them two commits — reviewers may take one and not the other.
 - **Sign your commits** if your Git identity is set up for it. Not required.
 
