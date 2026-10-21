@@ -17,6 +17,7 @@
     "buildResources": "build"
   },
   "files": ["out/**/*", "!node_modules/**/*"],
+  "protocols": [{"name": "Arroxy link", "schemes": ["arroxy"]}],
   "extraResources": [
     {
       "from": "build/icon-tray.png",

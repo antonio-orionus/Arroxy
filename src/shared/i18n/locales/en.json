@@ -1578,6 +1578,10 @@
 					"seconds": "sec"
 				}
 			},
+			"openedLink": {
+				"added": "Link opened in Arroxy",
+				"replaced": "Replaced with the link opened in Arroxy"
+			},
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Current limit: {{count}} items",

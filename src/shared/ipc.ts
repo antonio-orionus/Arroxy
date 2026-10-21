@@ -79,6 +79,9 @@ export const IPC_CHANNELS = {
 	updaterAvailable: 'updater:available',
 	updaterInstall: 'updater:install',
 	eventsClipboardUrl: 'events:clipboardUrl',
+	// An arroxy:// link main parsed; the renderer treats it as a copied link.
+	eventsOpenedLink: 'events:openedLink',
+	linksRendererReady: 'cmd:linksRendererReady',
 	eventsHotkeyTrigger: 'events:hotkeyTrigger',
 	eventsHotkeyOutcome: 'events:hotkeyOutcome',
 	eventsMenuAction: 'events:menuAction',

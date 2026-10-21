@@ -85,8 +85,9 @@ export async function writeClipboard(app: ElectronApplication, text: string): Pr
 	await app.evaluate(({clipboard}, value) => clipboard.writeText(value), text)
 }
 
-export async function launchFixtureApp(ytDlpPath: string, input: Omit<FixtureEnvInput, 'ytDlpPath'>): Promise<{app: ElectronApplication; page: Page}> {
-	const app = await electron.launch({args: [path.join(process.cwd(), 'out', 'main', 'index.js')], env: buildFixtureElectronEnv({...input, ytDlpPath})})
+// `extraArgs` follow the app's entry, the way the OS appends a link it opens with.
+export async function launchFixtureApp(ytDlpPath: string, input: Omit<FixtureEnvInput, 'ytDlpPath'>, extraArgs: readonly string[] = []): Promise<{app: ElectronApplication; page: Page}> {
+	const app = await electron.launch({args: [path.join(process.cwd(), 'out', 'main', 'index.js'), ...extraArgs], env: buildFixtureElectronEnv({...input, ytDlpPath})})
 	const page = await app.firstWindow()
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 60_000})
 	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()

@@ -64,6 +64,8 @@ import {applyNativeThemeSource, resolveMainWindowBackgroundColor, watchSystemThe
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {registerResponsivenessDiagnostics} from '@main/windowResponsiveness.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
+import {attachLinkInbox} from '@main/linkScheme/attachLinkInbox.js'
+import {registerLinkScheme} from '@main/linkScheme/registerLinkScheme.js'
 import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
 import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
 import contextMenu from 'electron-context-menu'
@@ -186,6 +188,19 @@ const hasSingleInstanceLock = app.requestSingleInstanceLock()
 if (!hasSingleInstanceLock) {
 	app.quit()
 }
+
+// Listens before `ready`: macOS sends the link that launched the app early.
+const linkInbox = hasSingleInstanceLock
+	? registerLinkScheme({
+			onOpenUrl: listener =>
+				app.on('open-url', (event, url) => {
+					event.preventDefault()
+					listener(url)
+				}),
+			argv: process.argv,
+			log
+		})
+	: null
 
 const GPU_INFO_BUDGET_MS = 2_500
 const HEARTBEAT_CHECK_INTERVAL_MS = 60 * 60 * 1000
@@ -464,11 +479,13 @@ if (hasSingleInstanceLock) {
 		probeService.onExploreVerifiedSignedOut(() => exploreView.markSignedOutAfterVerify())
 		exploreView.readSignedIn()
 
-		app.on('second-instance', () => {
+		app.on('second-instance', (_event, argv) => {
 			if (mainWindow.isDestroyed()) return
 			if (mainWindow.isMinimized()) mainWindow.restore()
 			mainWindow.focus()
+			linkInbox?.receiveArgv(argv, 'second-instance')
 		})
+		if (linkInbox) attachLinkInbox(linkInbox, mainWindow, {headless: isHeadlessWindowRequested(process.env)})
 
 		// Declare tray before the close handler so the handler can reference it.
 		let tray: TrayManager | null = null

@@ -482,6 +482,8 @@ export function installBrowserMock(): void {
 			rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)
 		},
 
+		links: {rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)},
+
 		shell: {
 			openFolder: path => {
 				console.log('[mock] openFolder', path)
@@ -546,6 +548,7 @@ export function installBrowserMock(): void {
 				clipboardUrlListeners.add(listener)
 				return () => clipboardUrlListeners.delete(listener)
 			},
+			onOpenedLink: () => () => undefined,
 			onHotkeyTrigger: listener => {
 				hotkeyTriggerListeners.add(listener)
 				return () => hotkeyTriggerListeners.delete(listener)

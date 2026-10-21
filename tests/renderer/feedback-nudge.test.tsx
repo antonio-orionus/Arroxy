@@ -29,6 +29,7 @@ const mockAppApi = {
 		resume: vi.fn().mockResolvedValue(ok({resumed: false}))
 	},
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
+	links: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 	hotkey: {reportOutcome: vi.fn().mockResolvedValue(ok(undefined)), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(ok(undefined)), rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 	logs: {
@@ -42,6 +43,7 @@ const mockAppApi = {
 		onProgress: vi.fn().mockReturnValue(() => undefined),
 		onProbeProgress: vi.fn().mockReturnValue(() => undefined),
 		onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+		onOpenedLink: vi.fn().mockReturnValue(() => undefined),
 		onHotkeyTrigger: vi.fn().mockReturnValue(() => undefined),
 		onMenuAction: vi.fn().mockReturnValue(() => undefined),
 		onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
