@@ -463,6 +463,8 @@ export function installBrowserMock(): void {
 
 		hotkey: hotkeyMock.api,
 
+		links: {rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)},
+
 		shell: {
 			openFolder: path => {
 				console.log('[mock] openFolder', path)
@@ -527,6 +529,7 @@ export function installBrowserMock(): void {
 				clipboardUrlListeners.add(listener)
 				return () => clipboardUrlListeners.delete(listener)
 			},
+			onOpenedLink: () => () => undefined,
 			onHotkeyOutcome: hotkeyMock.onOutcome,
 			onMenuAction: () => () => undefined,
 			onWarmupProgress: listener => {

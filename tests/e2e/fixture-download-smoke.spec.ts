@@ -1,7 +1,6 @@
-import {createRequire} from 'node:module'
 import path from 'node:path'
 import {expect, test} from '@playwright/test'
-import {FIXTURE_VIDEO_IDS, runProcess, writeE2eSettings} from './fixtureHarness.js'
+import {electronExecutable, FIXTURE_VIDEO_IDS, runProcess, writeE2eSettings} from './fixtureHarness.js'
 import {SABR_LIMITED_VIDEO_ID} from './fixtureMediaCatalog.js'
 import {withFixtureYtDlp} from './fixtureProductE2E.js'
 import {isRecord} from './fixtureWorkflow.js'
@@ -17,12 +16,6 @@ import {isRecord} from './fixtureWorkflow.js'
 // proxy log (checked by withFixtureYtDlp).
 
 const RESULT_PREFIX = 'ARROXY_DOWNLOAD_SMOKE_RESULT '
-
-function electronExecutable(): string {
-	const resolved: unknown = createRequire(path.join(process.cwd(), 'package.json'))('electron')
-	if (typeof resolved !== 'string') throw new Error('electron package did not resolve to an executable path')
-	return resolved
-}
 
 async function runDownloadSmoke(env: Record<string, string>, videoUrl: string): Promise<{exitCode: number | null; report: Record<string, unknown>}> {
 	// A bare Electron launch on a Linux CI runner aborts in Chromium's SUID

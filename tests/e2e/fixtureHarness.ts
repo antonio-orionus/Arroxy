@@ -1,5 +1,6 @@
 import {spawn, execFile} from 'node:child_process'
 import {randomUUID} from 'node:crypto'
+import {createRequire} from 'node:module'
 import {promisify} from 'node:util'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
@@ -838,6 +839,13 @@ export function assertNoExternalRequests(proxy: DenyProxy): void {
 	if (proxy.requests.length > 0) {
 		throw new Error(`Fixture E2E attempted external network through deny proxy: ${JSON.stringify(proxy.requests, null, 2)}`)
 	}
+}
+
+// The Electron binary the fixture specs launch the built app with.
+export function electronExecutable(): string {
+	const resolved: unknown = createRequire(path.join(process.cwd(), 'package.json'))('electron')
+	if (typeof resolved !== 'string') throw new Error('electron package did not resolve to an executable path')
+	return resolved
 }
 
 export function runProcess(file: string, args: string[], opts: {env?: Record<string, string>; cwd?: string; timeoutMs?: number} = {}): Promise<ProcessResult> {

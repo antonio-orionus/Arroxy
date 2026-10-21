@@ -6,7 +6,7 @@ import {i18next, isRtl} from '@shared/i18n/index.js'
 import {systemLanguage} from '../systemLanguage.js'
 import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
-import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
+import {bindCopiedLinks, bindOpenedLinks} from './wizard/copiedLinkIntake.js'
 import {bindIntakeEvents} from './quickDownload/quickDownloadPipeline.js'
 import {quickDownloadToasts} from './quickDownload/quickDownloadToasts.js'
 import {notify} from '../lib/notify.js'
@@ -17,6 +17,7 @@ let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
 let unbindCopiedLinks: (() => void) | null = null
 let unbindIntakeEvents: (() => void) | null = null
+let unbindOpenedLinks: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 let unbindExploreView: (() => void) | null = null
@@ -282,6 +283,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// Lifetime-bound: a link copied on any step waits for the Download tab.
 			unbindCopiedLinks?.()
 			unbindCopiedLinks = bindCopiedLinks(set)
+			unbindOpenedLinks?.()
+			unbindOpenedLinks = bindOpenedLinks(set)
 
 			get().bindExploreView()
 			get().bindSiteCooldowns()

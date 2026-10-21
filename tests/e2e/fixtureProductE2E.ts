@@ -12,6 +12,7 @@ import {
 	assertNoExternalRequests,
 	buildFixtureElectronEnv,
 	buildFixtureEnv,
+	electronExecutable,
 	fixtureOverlapPlaylistUrl,
 	fixturePlaylistUrl,
 	fixtureRepeatedPlaylistUrl,
@@ -42,6 +43,8 @@ interface FixtureProductOptions {
 	exploreIdleUnloadMs?: number
 	// A queue left by a previous session, restored at startup.
 	restoredQueue?: (outputDir: string) => QueueItem[]
+	// Arguments after the app's entry on the first launch, e.g. an arroxy:// link.
+	launchArgs?: readonly string[]
 	userDataPrefix?: string
 	outputPrefix?: string
 }
@@ -85,6 +88,9 @@ export interface FixtureProductContext {
 	queue: QueueHelpers
 	files: FileHelpers
 	relaunch: () => Promise<{app: ElectronApplication; page: Page; queue: QueueHelpers}>
+	// Starts Arroxy again on the same profile, as a second launch from the OS
+	// does: it hands its arguments to the running app and exits.
+	launchSecondInstance: (args: readonly string[]) => Promise<ProcessResult>
 }
 
 export interface FixtureYtDlpContext {
@@ -193,7 +199,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 
 	let app: ElectronApplication | null = null
 	try {
-		const launched = await launchFixtureApp(ytDlpPath, launchInput)
+		const launched = await launchFixtureApp(ytDlpPath, launchInput, options.launchArgs)
 		app = launched.app
 		await run({
 			app,
@@ -209,6 +215,11 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 				const next = await launchFixtureApp(ytDlpPath, launchInput)
 				app = next.app
 				return {app: next.app, page: next.page, queue: queue(next.page)}
+			},
+			launchSecondInstance: args => {
+				// Chromium's SUID sandbox check aborts a bare launch on a Linux CI runner.
+				const sandboxArgs = process.platform === 'linux' ? ['--no-sandbox'] : []
+				return runProcess(electronExecutable(), [...sandboxArgs, path.join(process.cwd(), 'out', 'main', 'index.js'), ...args], {env: buildFixtureElectronEnv({...launchInput, ytDlpPath}), timeoutMs: 30_000})
 			}
 		})
 		assertNoExternalRequests(denyProxy)

@@ -20,7 +20,7 @@ export type ReleaseFlagDefinition =
 // The one place flags are declared, e.g.
 // `batchRename: {summary: 'Batch rename in the queue', inRelease: false}`, then
 // `{summary: 'Batch rename in the queue', inRelease: true, shippedIn: '0.7.3'}`.
-const RELEASE_FLAG_DEFINITIONS = {} satisfies Record<string, ReleaseFlagDefinition>
+const RELEASE_FLAG_DEFINITIONS = {linkScheme: {summary: 'arroxy:// links fill the URL field', inRelease: false}} satisfies Record<string, ReleaseFlagDefinition>
 
 export type ReleaseFlag = keyof typeof RELEASE_FLAG_DEFINITIONS
 
@@ -42,7 +42,6 @@ export function releaseFlagOn(definition: ReleaseFlagDefinition | undefined, unr
 	return definition?.inRelease === true || unreleasedOn
 }
 
-/** @public Read by gated entry points; none exists while the registry is empty. */
 export function isReleaseFlagOn(flag: ReleaseFlag): boolean {
 	const name: string = flag
 	return releaseFlagOn(RELEASE_FLAGS[name], UNRELEASED_FLAGS_ON)

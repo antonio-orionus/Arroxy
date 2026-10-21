@@ -20,6 +20,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
 		hotkey: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
+		links: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: overrides.openExternal ?? vi.fn().mockResolvedValue(ok({opened: true}))},
 		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'}))},
@@ -28,6 +29,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			onProgress: vi.fn().mockReturnValue(() => undefined),
 			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
 			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+			onOpenedLink: vi.fn().mockReturnValue(() => undefined),
 			onMenuAction: vi.fn().mockReturnValue(() => undefined),
 			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
 			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)

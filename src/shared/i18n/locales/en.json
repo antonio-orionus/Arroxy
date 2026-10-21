@@ -1610,6 +1610,10 @@
 					"seconds": "sec"
 				}
 			},
+			"openedLink": {
+				"added": "Link opened in Arroxy",
+				"replaced": "Replaced with the link opened in Arroxy"
+			},
 			"pasteLink": "Paste link",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {

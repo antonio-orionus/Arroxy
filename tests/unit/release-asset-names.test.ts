@@ -53,6 +53,14 @@ describe('release asset names', () => {
 		expect(config).not.toContain('"artifactName": "${productName}-${version}.${ext}"')
 	})
 
+	it('registers arroxy:// links on every platform', () => {
+		const config = JSON.parse(read('electron-builder.json5')) as {protocols?: unknown}
+		// Info.plist on macOS and the .desktop MimeType on Linux; NSIS needs its own keys.
+		expect(config.protocols).toEqual([{name: 'Arroxy link', schemes: ['arroxy']}])
+		expect(read('build/installer.nsh')).toContain(`WriteRegStr HKCU "\${ARROXY_LINK_KEY}\\shell\\open\\command" "" '"$appExe" -- "%1"'`)
+		expect(read('flatpak/io.github.antonio_orionus.Arroxy.desktop')).toContain('MimeType=x-scheme-handler/arroxy;')
+	})
+
 	it('configures a branded drag-to-Applications DMG window', () => {
 		const config = JSON.parse(read('electron-builder.json5')) as ElectronBuilderConfig
 

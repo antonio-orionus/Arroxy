@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import {classifyClipboardText} from '@shared/clipboardLinks.js'
+import {isReleaseFlagOn} from '@shared/releaseFlags.js'
 import {notify} from '@renderer/lib/notify.js'
 import type {SetState} from '../types.js'
 
@@ -13,10 +14,23 @@ export function bindCopiedLinks(set: SetState): () => void {
 		const links = classifyClipboardText(payload)
 		if (links.kind === 'none') return
 		if (links.kind === 'single') {
-			set({copiedLink: links.url})
+			set({copiedLink: {url: links.url, from: 'clipboard'}})
 			return
 		}
 		set({copiedLink: null})
 		notify.clipboard(i18next.t('wizard.url.clipboard.bulkHint'))
 	})
+}
+
+// An arroxy:// link main accepted becomes the copied link: it fills the URL
+// field like a copy would, and nothing starts until the user acts. Main holds
+// links until this listener tells it the renderer is ready.
+export function bindOpenedLinks(set: SetState): () => void {
+	if (!isReleaseFlagOn('linkScheme')) return () => undefined
+	const unbind = window.appApi.events.onOpenedLink(payload => {
+		const links = classifyClipboardText(payload)
+		if (links.kind === 'single') set({copiedLink: {url: links.url, from: 'link'}})
+	})
+	void window.appApi.links.rendererReady()
+	return unbind
 }

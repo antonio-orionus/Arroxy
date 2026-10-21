@@ -75,6 +75,13 @@ export type WizardOrigin = 'download' | 'explore'
 // Explicit mode tag so consumers don't re-derive intent from
 // `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
 // flat-probe + preset flow. Set on probe entry, cleared on reset.
+// Where a copied link came from: the clipboard watcher, or an arroxy:// link
+// another app or a web page opened. Only the toast's wording differs.
+export interface CopiedLink {
+	url: string
+	from: 'clipboard' | 'link'
+}
+
 export type SetState = StoreApi<AppState>['setState']
 export type GetState = StoreApi<AppState>['getState']
 
@@ -485,8 +492,9 @@ export interface SystemSlice {
 	warmupStopped: boolean
 	// A package manager install the repair panel started and is waiting on.
 	packageInstall: 'homebrew' | 'winget' | null
-	// The latest link the clipboard watcher saw, until the Download tab takes it.
-	copiedLink: string | null
+	// The latest link the clipboard watcher saw or an arroxy:// link carried,
+	// until the Download tab takes it.
+	copiedLink: CopiedLink | null
 	settings: AppSettings | null
 	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null

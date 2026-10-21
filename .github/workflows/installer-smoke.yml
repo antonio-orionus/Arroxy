@@ -178,6 +178,12 @@ jobs:
 
           $appExe = "$env:LOCALAPPDATA\Programs\Arroxy\Arroxy.exe"
           if (-not (Test-Path $appExe)) { throw "Install reported success but $appExe missing" }
+
+          # arroxy:// links (build/installer.nsh): `--` keeps a link from passing Chromium switches.
+          $linkCommand = (Get-ItemProperty -Path 'HKCU:\Software\Classes\arroxy\shell\open\command' -ErrorAction Stop).'(default)'
+          $expectedLinkCommand = "`"$appExe`" -- `"%1`""
+          if ($linkCommand -ne $expectedLinkCommand) { throw "arroxy:// command is '$linkCommand', expected '$expectedLinkCommand'" }
+          if ($null -eq (Get-ItemProperty -Path 'HKCU:\Software\Classes\arroxy' -Name 'URL Protocol' -ErrorAction SilentlyContinue)) { throw "arroxy:// is not marked as a URL protocol" }
           Write-Host "Cold install passed"
 
       - name: Run installed app runtime smoke
@@ -244,6 +250,7 @@ jobs:
           if (Test-Path "$env:LOCALAPPDATA\Programs\Arroxy") {
             throw "Uninstall left files at $env:LOCALAPPDATA\Programs\Arroxy"
           }
+          if (Test-Path 'HKCU:\Software\Classes\arroxy') { throw "Uninstall left the arroxy:// registration" }
           Write-Host "Cold uninstall passed"
 
       - name: Auto-analyze crash dumps on failure

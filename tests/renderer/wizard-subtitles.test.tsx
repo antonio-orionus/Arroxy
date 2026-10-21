@@ -48,6 +48,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
 		settings: {get: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides))), update: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides)))},
 		hotkey: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)},
+		links: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		shell: {openFolder: vi.fn(), openExternal: vi.fn()},
 		logs: {openDir: vi.fn()},
 		dialog: {chooseFolder: vi.fn()},
@@ -56,6 +57,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
 			onProgress: vi.fn().mockReturnValue(() => undefined),
 			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
 			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+			onOpenedLink: vi.fn().mockReturnValue(() => undefined),
 			onMenuAction: vi.fn().mockReturnValue(() => undefined),
 			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
 			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
