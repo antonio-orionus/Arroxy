@@ -17,8 +17,8 @@ Last ned videoer, Shorts, musikk, kanaler, podkaster eller lydspor fra **YouTube
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Utforsk</b><br/>Surf på YouTube eller et hvilket som helst annet nettsted rett i Arroxy, og last ned siden du er på med den aktive profilen din</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Utforsk</b><br/>Surf på YouTube eller et hvilket som helst annet nettsted rett i Arroxy, og last ned siden du er på med den aktive profilen din</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Den første skjermen i Utforsk</b><br/>En rask titt på Utforsk, og hvorfor en sekundær konto er den tryggere påloggingen</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Nedlastinger sier fra om hva som trenger deg</b><br/>Lenker klargjøres i bakgrunnen; en som feiler, tilbyr løsningen sin, og en lang spilleliste venter på valget ditt</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Den første skjermen i Utforsk</b><br/>En rask titt på Utforsk, og hvorfor en sekundær konto er den tryggere påloggingen</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Nedlastinger sier fra om hva som trenger deg</b><br/>Lenker klargjøres i bakgrunnen; en som feiler, tilbyr løsningen sin, og en lang spilleliste venter på valget ditt</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Last ned bare en del av en video</b><br/>Velg start og slutt, eller et kapittel — Arroxy lagrer bare det området</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Last ned bare en del av en video</b><br/>Velg start og slutt, eller et kapittel — Arroxy lagrer bare det området</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR i 60 fps</b><br/>Hver oppløsning, kodek og HDR-strøm en video tilbyr, side om side</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR i 60 fps</b><br/>Hver oppløsning, kodek og HDR-strøm en video tilbyr, side om side</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilredigering</b><br/>Juster en profil: filtype, oppløsning, undertekster, målmappe, filnavnmal og mer</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilredigering</b><br/>Juster en profil: filtype, oppløsning, undertekster, målmappe, filnavnmal og mer</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Mørk eller lys, glass eller solid</b><br/>Fire utseender å velge mellom: glasspaneler over en himmel i bevegelse eller rolige solide flater, hver i mørk og lys variant</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Mørk eller lys, glass eller solid</b><br/>Fire utseender å velge mellom: glasspaneler over en himmel i bevegelse eller rolige solide flater, hver i mørk og lys variant</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxys globale hurtigtast for nedlasting — Ctrl+Shift+D på Windows og Linux, Cmd+Shift+D på macOS, sender den kopierte lenken rett inn i nedlastingskøen" width="760" /></picture><br/><sub><b>Global hurtigtast for nedlasting</b><br/>Kopier en lenke hvor som helst, trykk én gang — den havner i køen og begynner å laste ned</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profiler per spillelisteelement</b><br/>Gi hver video sin egen profil — arkiver noen i 4K, hent resten som MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nb/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profiler per spillelisteelement</b><br/>Gi hver video sin egen profil — arkiver noen i 4K, hent resten som MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Startsiden for Hurtignedlasting</b><br/>Lim inn en nettadresse og hent den umiddelbart med den aktive profilen din</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Gjenbrukbare nedlastingsprofiler</b><br/>Lagre format, kvalitet og utdata som forhåndsvalg — gjenbruk per nedlasting</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Startsiden for Hurtignedlasting</b><br/>Lim inn en nettadresse og hent den umiddelbart med den aktive profilen din</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Gjenbrukbare nedlastingsprofiler</b><br/>Lagre format, kvalitet og utdata som forhåndsvalg — gjenbruk per nedlasting</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Flerspråklige lydspor</b><br/>Velg nøyaktig det lydspråket en video kommer med</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround-/Dolby-lyd</b><br/>5.1- og Dolby-spor oppdages og bevares</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Flerspråklige lydspor</b><br/>Velg nøyaktig det lydspråket en video kommer med</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround-/Dolby-lyd</b><br/>5.1- og Dolby-spor oppdages og bevares</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modus for flere nettadresser</b><br/>Lim inn en liste, fjern duplikater automatisk, legg alle i køen på én gang</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallell nedlastingskø</b><br/>Flere nedlastinger samtidig med fremdrift i sanntid</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modus for flere nettadresser</b><br/>Lim inn en liste, fjern duplikater automatisk, legg alle i køen på én gang</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nb/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallell nedlastingskø</b><br/>Flere nedlastinger samtidig med fremdrift i sanntid</sub></td>
   </tr>
 </table>
 

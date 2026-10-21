@@ -17,8 +17,8 @@ Deskargatu bideoak, Shorts-ak, musika, kanalak, podcastak edo audio-pistak **You
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Arroxy-k denbora aurrezten badizu, ⭐ batek besteei aurkitzen laguntzen die.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Esploratu</b><br/>Arakatu YouTube edo beste edozein gune Arroxy-ren barruan eta deskargatu zauden orria zure profil aktiboarekin</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Esploratu</b><br/>Arakatu YouTube edo beste edozein gune Arroxy-ren barruan eta deskargatu zauden orria zure profil aktiboarekin</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Esploratu fitxaren lehen pantaila</b><br/>Esploratu fitxaren begirada azkar bat, eta zergatik den bigarren mailako kontu bat saio-hasiera seguruagoa</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Deskargak fitxak esaten dizu zerk behar zaituen</b><br/>Estekak atzeko planoan prestatzen dira; huts egin duen batek bere konponbidea eskaintzen du, erreprodukzio-zerrenda luze batek zure aukeraren zain egoten da</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Esploratu fitxaren lehen pantaila</b><br/>Esploratu fitxaren begirada azkar bat, eta zergatik den bigarren mailako kontu bat saio-hasiera seguruagoa</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Deskargak fitxak esaten dizu zerk behar zaituen</b><br/>Estekak atzeko planoan prestatzen dira; huts egin duen batek bere konponbidea eskaintzen du, erreprodukzio-zerrenda luze batek zure aukeraren zain egoten da</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Deskargatu bideoaren zati bat bakarrik</b><br/>Aukeratu hasiera eta amaiera, edo kapitulu bat — Arroxy-k tarte hori bakarrik gordetzen du</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Deskargatu bideoaren zati bat bakarrik</b><br/>Aukeratu hasiera eta amaiera, edo kapitulu bat — Arroxy-k tarte hori bakarrik gordetzen du</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 fps-ra</b><br/>Bideo batek eskaintzen dituen bereizmen, kodek eta HDR korronte guztiak, aldamenean</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 fps-ra</b><br/>Bideo batek eskaintzen dituen bereizmen, kodek eta HDR korronte guztiak, aldamenean</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil-editorea</b><br/>Doitu profil bat: fitxategi-mota, bereizmena, azpitituluak, helburua, fitxategi-izenaren txantiloia eta gehiago</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil-editorea</b><br/>Doitu profil bat: fitxategi-mota, bereizmena, azpitituluak, helburua, fitxategi-izenaren txantiloia eta gehiago</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Iluna edo argia, beira edo solidoa</b><br/>Lau itxura aukeran: beirazko panelak zeru higikor baten gainean edo gainazal solido lasaiak, bakoitza ilunean eta argian</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Iluna edo argia, beira edo solidoa</b><br/>Lau itxura aukeran: beirazko panelak zeru higikor baten gainean edo gainazal solido lasaiak, bakoitza ilunean eta argian</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy-ren deskarga-lasterbide globala — Ctrl+Shift+D Windows eta Linux-en, Cmd+Shift+D macOS-en, kopiatutako esteka zuzenean deskarga-ilarara bidaliz" width="760" /></picture><br/><sub><b>Deskarga-lasterbide globala</b><br/>Kopiatu esteka bat edonon, sakatu behin — ilaran sartzen da eta deskargatzen hasten da</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Erreprodukzio-zerrendako elementu bakoitzeko profilak</b><br/>Eman bideo bakoitzari bere profila — artxibatu batzuk 4K-n, hartu gainerakoak MP3 gisa</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/eu/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Erreprodukzio-zerrendako elementu bakoitzeko profilak</b><br/>Eman bideo bakoitzari bere profila — artxibatu batzuk 4K-n, hartu gainerakoak MP3 gisa</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Deskarga bizkorraren hasiera</b><br/>Itsatsi URL bat eta deskargatu berehala zure profil aktiboarekin</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Berrerabil daitezkeen deskarga-profilak</b><br/>Gorde formatu, kalitate eta irteera-aurrezarpenak — berrerabili deskarga bakoitzean</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Deskarga bizkorraren hasiera</b><br/>Itsatsi URL bat eta deskargatu berehala zure profil aktiboarekin</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Berrerabil daitezkeen deskarga-profilak</b><br/>Gorde formatu, kalitate eta irteera-aurrezarpenak — berrerabili deskarga bakoitzean</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Hizkuntza anitzeko audio-pistak</b><br/>Aukeratu bideo batek dakarren audio-hizkuntza zehatza</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Inguruko / Dolby audioa</b><br/>5.1 eta Dolby pistak detektatu eta mantentzen dira</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Hizkuntza anitzeko audio-pistak</b><br/>Aukeratu bideo batek dakarren audio-hizkuntza zehatza</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Inguruko / Dolby audioa</b><br/>5.1 eta Dolby pistak detektatu eta mantentzen dira</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL masiboen modua</b><br/>Itsatsi zerrenda bat, bikoizketak automatikoki kendu, jarri guztiak ilaran batera</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Deskarga-ilara paraleloa</b><br/>Hainbat deskarga aldi berean, aurrerapena zuzenean</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL masiboen modua</b><br/>Itsatsi zerrenda bat, bikoizketak automatikoki kendu, jarri guztiak ilaran batera</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/eu/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Deskarga-ilara paraleloa</b><br/>Hainbat deskarga aldi berean, aurrerapena zuzenean</sub></td>
   </tr>
 </table>
 

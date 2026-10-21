@@ -5,7 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
-import { realpathSync } from "node:fs";
+import { existsSync, realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -105,6 +105,24 @@ export function rebaseRelativeLinks(text, filename) {
     .replace(SRCSET_RE, (_, lead, list) => lead + rebaseSrcset(list, prefix));
 }
 
+// Screenshots are taken in every UI language (`bun run screenshots:readme`) into
+// build/screenshots/<locale>/. The template names the English shot; each README
+// shows its own language's shot instead, and keeps the English one where that
+// language has none, naming it in `missing`. `exists` takes a repo-root-relative path.
+const SCREENSHOT_RE = /build\/screenshots\/en\/([^"'\s)]+)/g;
+
+export function localizeScreenshots(text, code, exists) {
+  if (code === "en") return { text, missing: [] };
+  const missing = new Set();
+  const localized = text.replace(SCREENSHOT_RE, (shot, file) => {
+    const path = `build/screenshots/${code}/${file}`;
+    if (exists(path)) return path;
+    missing.add(file);
+    return shot;
+  });
+  return { text: localized, missing: [...missing] };
+}
+
 function buildLangNav(currentLoc, locales) {
   const fromDir = posix.dirname(currentLoc.filename);
   return locales
@@ -141,9 +159,16 @@ async function main() {
   const template = await readFile(TEMPLATE_PATH, "utf8");
   const en = LOCALES.find((l) => l.code === "en");
   const enStrings = en?.strings ?? {};
+  let shotGaps = 0;
 
   for (const loc of LOCALES) {
     let md = applyStrings(template, loc.strings, enStrings);
+    const shots = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
+    md = shots.text;
+    if (shots.missing.length) {
+      shotGaps++;
+      console.warn(`  ⚠ Locale "${loc.code}" shows English screenshots — missing: ${shots.missing.join(", ")}`);
+    }
     md = rebaseRelativeLinks(md, loc.filename);
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
@@ -162,10 +187,17 @@ async function main() {
     );
   }
 
+  // Like key drift: a warning while iterating, a failure under --strict (`bun run check`).
+  if (shotGaps) {
+    const msg = `${shotGaps} locale(s) lack screenshots and show English ones; retake them with \`bun run screenshots:readme\`.`;
+    if (strict) throw new Error(msg);
+    console.warn(`\n  ⚠ ${msg}`);
+  }
+
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
 }
 
-// Run only as a script, so tests can import `rebaseRelativeLinks`. Both sides
+// Run only as a script, so tests can import its helpers. Both sides
 // are realpaths: a module URL resolves symlinks, argv[1] does not, and a
 // mismatch would skip the build without a word.
 export function isScriptEntry(argv1, moduleUrl) {

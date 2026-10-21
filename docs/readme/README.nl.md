@@ -17,8 +17,8 @@ Download video’s, Shorts, muziek, kanalen, podcasts of audiotracks van **YouTu
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Verkennen</b><br/>Surf op YouTube of een andere site in Arroxy en download de pagina waar je bent met je actieve profiel</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Verkennen</b><br/>Surf op YouTube of een andere site in Arroxy en download de pagina waar je bent met je actieve profiel</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Eerste scherm van Verkennen</b><br/>Een kort overzicht van Verkennen, en waarom een tweede account de veiligere aanmelding is</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads laat zien wat jou nodig heeft</b><br/>Links worden op de achtergrond voorbereid; een mislukte biedt zijn oplossing aan, een lange afspeellijst wacht op jouw keuze</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Eerste scherm van Verkennen</b><br/>Een kort overzicht van Verkennen, en waarom een tweede account de veiligere aanmelding is</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads laat zien wat jou nodig heeft</b><br/>Links worden op de achtergrond voorbereid; een mislukte biedt zijn oplossing aan, een lange afspeellijst wacht op jouw keuze</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Download slechts een deel van een video</b><br/>Kies een begin en einde, of een hoofdstuk — Arroxy slaat alleen dat bereik op</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Download slechts een deel van een video</b><br/>Kies een begin en einde, of een hoofdstuk — Arroxy slaat alleen dat bereik op</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR met 60 fps</b><br/>Elke resolutie, codec en HDR-stream die een video biedt, naast elkaar</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR met 60 fps</b><br/>Elke resolutie, codec en HDR-stream die een video biedt, naast elkaar</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profieleditor</b><br/>Stem een profiel af: bestandstype, resolutie, ondertitels, bestemming, sjabloon voor bestandsnaam en meer</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profieleditor</b><br/>Stem een profiel af: bestandstype, resolutie, ondertitels, bestemming, sjabloon voor bestandsnaam en meer</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Donker of licht, glas of effen</b><br/>Vier uiterlijken om uit te kiezen: glazen panelen boven een bewegende hemel of rustige effen vlakken, elk in donker en licht</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Donker of licht, glas of effen</b><br/>Vier uiterlijken om uit te kiezen: glazen panelen boven een bewegende hemel of rustige effen vlakken, elk in donker en licht</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Algemene downloadsneltoets van Arroxy — Ctrl+Shift+D op Windows en Linux, Cmd+Shift+D op macOS, die de gekopieerde link direct in de downloadwachtrij zet" width="760" /></picture><br/><sub><b>Algemene downloadsneltoets</b><br/>Kopieer overal een link, druk één keer — hij komt in de wachtrij en begint met downloaden</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profielen per afspeellijstitem</b><br/>Geef elke video een eigen profiel — archiveer sommige in 4K, haal de rest binnen als MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/nl/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profielen per afspeellijstitem</b><br/>Geef elke video een eigen profiel — archiveer sommige in 4K, haal de rest binnen als MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Startscherm Snel downloaden</b><br/>Plak een URL en haal hem direct binnen met je actieve profiel</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Herbruikbare downloadprofielen</b><br/>Sla voorinstellingen voor formaat, kwaliteit en uitvoer op — hergebruik ze per download</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Startscherm Snel downloaden</b><br/>Plak een URL en haal hem direct binnen met je actieve profiel</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Herbruikbare downloadprofielen</b><br/>Sla voorinstellingen voor formaat, kwaliteit en uitvoer op — hergebruik ze per download</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Audiotracks in meerdere talen</b><br/>Kies de exacte audiotaal die een video meelevert</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround- / Dolby-audio</b><br/>5.1- en Dolby-tracks worden gedetecteerd en behouden</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Audiotracks in meerdere talen</b><br/>Kies de exacte audiotaal die een video meelevert</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround- / Dolby-audio</b><br/>5.1- en Dolby-tracks worden gedetecteerd en behouden</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modus Meerdere URL’s</b><br/>Plak een lijst, verwijder automatisch duplicaten en zet ze allemaal tegelijk in de wachtrij</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallelle downloadwachtrij</b><br/>Meerdere downloads tegelijk met live voortgang</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modus Meerdere URL’s</b><br/>Plak een lijst, verwijder automatisch duplicaten en zet ze allemaal tegelijk in de wachtrij</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/nl/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Parallelle downloadwachtrij</b><br/>Meerdere downloads tegelijk met live voortgang</sub></td>
   </tr>
 </table>
 

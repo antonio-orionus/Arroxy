@@ -143,16 +143,24 @@ A one-time card in the page flow that points to a capability people may not have
 _Avoid_: tip, hint, alert, nudge, onboarding, coach mark
 
 **URL intent**:
-The classification of a pasted URL as a single video, a playlist, a mix of both, or unknown.
+The classification of a pasted URL, from its shape alone, as a single video, a playlist, a mixed URL, or unknown. Arroxy recognises only YouTube's shapes, so a link from any other site is unknown until its probe shows what it holds.
 _Avoid_: URL type, URL kind
 
 **Playlist**:
 A source URL that expands into multiple videos queued together — including a channel or a search, which Arroxy treats as playlists. The URL classifier may still tag the source as playlist, channel, or search for routing.
 _Avoid_: collection, batch
 
+**Load limit**:
+The most entries Arroxy loads from one playlist before going on; a playlist that runs past it is capped, and its count is only a lower bound. The user sets it.
+_Avoid_: scan limit, probe limit, playlist cap
+
 **Mixed URL**:
-A URL that names one video and a playlist at once, so the user's intent is genuinely ambiguous.
+A URL that names one video and a playlist at once, so the user's intent is genuinely ambiguous. It is the only intent settled before anything is probed or queued; every other question waits for the probe.
 _Avoid_: combo URL, dual URL, video+playlist URL
+
+**Mixed URL prompt**:
+The question a mixed URL raises before its probe: this video, or the whole playlist. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
+_Avoid_: playlist prompt, video-or-playlist dialog
 
 **Placeholder title**:
 A fabricated row title (`Untitled · #N`) the probe emits when a flat listing gives no real title. It is a stand-in, never shown to the user as final, and is replaced the moment a real title is known.
@@ -217,7 +225,7 @@ A placeholder row whose probe failed. It carries the same guidance as any failed
 _Avoid_: failed download (nothing downloaded), broken row
 
 **Needs your choice**:
-A placeholder row waiting for a decision only the user can make once the link is probed: how much of a playlist that went past the load limit to queue (all, the first N, or a review), or whether to review a link that turned out to be a playlist. It keeps waiting across a restart.
+A placeholder row waiting for a decision only its probe could raise: how much of a playlist that ran past the load limit to queue (all, the first N, or review), or whether to review a link whose URL intent did not say playlist but which turned out to be one. Review opens the playlist picker, not the wizard's single-video Review screen. It keeps waiting across a restart.
 _Avoid_: pending decision, blocked row, needs review
 
 **Needs attention**:

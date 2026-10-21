@@ -77,6 +77,14 @@ describe('Explore link menu', () => {
 		expect(sent).toEqual([{kind: 'download', url: WATCH}])
 	})
 
+	it('Download sends a show link as the playlist it is', () => {
+		const {deps, sent} = harness()
+		const active = resolveActiveDownloadProfile(undefined).profile
+		click(item(exploreLinkMenuTemplate('https://www.youtube.com/show/VLPL1?sbp=abc', deps), `Download · ${active.name}`))
+
+		expect(sent).toEqual([{kind: 'download', url: 'https://www.youtube.com/playlist?list=PL1'}])
+	})
+
 	it('Download with lists every enabled profile by name and marks the active one', () => {
 		const prefs: DownloadProfilesPrefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [customProfile('Podcasts'), customProfile('Hidden', false)]}
 		const {deps} = harness(prefs)

@@ -17,8 +17,8 @@ Töltsön le videókat, Shortsokat, zenét, csatornákat, podcastokat vagy hangs
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Felfedezés</b><br/>Böngésszen a YouTube-on vagy bármely más webhelyen az Arroxyban, és töltse le az éppen nézett oldalt az aktív profillal</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Felfedezés</b><br/>Böngésszen a YouTube-on vagy bármely más webhelyen az Arroxyban, és töltse le az éppen nézett oldalt az aktív profillal</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>A Felfedezés első képernyője</b><br/>Rövid bemutató a Felfedezésről, és arról, miért biztonságosabb a másodlagos fiókkal való bejelentkezés</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>A Letöltések megmondja, mi igényli Önt</b><br/>A hivatkozások a háttérben készülnek elő; a sikertelen felajánlja a javítást, a hosszú lejátszási lista a választására vár</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>A Felfedezés első képernyője</b><br/>Rövid bemutató a Felfedezésről, és arról, miért biztonságosabb a másodlagos fiókkal való bejelentkezés</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>A Letöltések megmondja, mi igényli Önt</b><br/>A hivatkozások a háttérben készülnek elő; a sikertelen felajánlja a javítást, a hosszú lejátszási lista a választására vár</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Csak a videó egy részének letöltése</b><br/>Válasszon kezdetet és véget vagy egy fejezetet — az Arroxy csak azt a tartományt menti</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Csak a videó egy részének letöltése</b><br/>Válasszon kezdetet és véget vagy egy fejezetet — az Arroxy csak azt a tartományt menti</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 fps-sel</b><br/>A videó által kínált minden felbontás, kodek és HDR-adatfolyam egymás mellett</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR 60 fps-sel</b><br/>A videó által kínált minden felbontás, kodek és HDR-adatfolyam egymás mellett</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilszerkesztő</b><br/>Hangolja a profilt: fájltípus, felbontás, feliratok, célmappa, fájlnévsablon és egyebek</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilszerkesztő</b><br/>Hangolja a profilt: fájltípus, felbontás, feliratok, célmappa, fájlnévsablon és egyebek</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Sötét vagy világos, üveg vagy tömör</b><br/>Négy megjelenés közül választhat: üvegpanelek mozgó égbolt fölött vagy nyugodt, tömör felületek, mindegyik sötét és világos változatban</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Sötét vagy világos, üveg vagy tömör</b><br/>Négy megjelenés közül választhat: üvegpanelek mozgó égbolt fölött vagy nyugodt, tömör felületek, mindegyik sötét és világos változatban</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Az Arroxy globális letöltési gyorsbillentyűje — Ctrl+Shift+D Windowson és Linuxon, Cmd+Shift+D macOS-en, a kimásolt hivatkozást közvetlenül a letöltési sorba küldve" width="760" /></picture><br/><sub><b>Globális letöltési gyorsbillentyű</b><br/>Másoljon ki egy hivatkozást bárhol, nyomja meg egyszer — a sorba kerül, és elindul a letöltés</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Lejátszásilista-elemenkénti profilok</b><br/>Adjon minden videónak saját profilt — egyeseket archiváljon 4K-ban, a többit töltse le MP3-ként</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hu/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Lejátszásilista-elemenkénti profilok</b><br/>Adjon minden videónak saját profilt — egyeseket archiváljon 4K-ban, a többit töltse le MP3-ként</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Gyorsletöltés kezdőlap</b><br/>Illesszen be egy URL-t, és azonnal töltse le az aktív profillal</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Újrahasználható letöltési profilok</b><br/>Mentsen formátum-, minőség- és kimeneti előbeállításokat — használja újra letöltésenként</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Gyorsletöltés kezdőlap</b><br/>Illesszen be egy URL-t, és azonnal töltse le az aktív profillal</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Újrahasználható letöltési profilok</b><br/>Mentsen formátum-, minőség- és kimeneti előbeállításokat — használja újra letöltésenként</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Többnyelvű hangsávok</b><br/>Válassza ki a videóhoz tartozó pontos hangnyelvet</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Térhatású / Dolby hang</b><br/>Az 5.1-es és a Dolby hangsávok felismerve és megőrizve</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Többnyelvű hangsávok</b><br/>Válassza ki a videóhoz tartozó pontos hangnyelvet</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Térhatású / Dolby hang</b><br/>Az 5.1-es és a Dolby hangsávok felismerve és megőrizve</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Tömeges URL mód</b><br/>Illesszen be egy listát, automatikus ismétlődés-szűrés, és az összeset egyszerre sorba állíthatja</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Párhuzamos letöltési sor</b><br/>Több letöltés egyszerre, élő haladással</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Tömeges URL mód</b><br/>Illesszen be egy listát, automatikus ismétlődés-szűrés, és az összeset egyszerre sorba állíthatja</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hu/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Párhuzamos letöltési sor</b><br/>Több letöltés egyszerre, élő haladással</sub></td>
   </tr>
 </table>
 

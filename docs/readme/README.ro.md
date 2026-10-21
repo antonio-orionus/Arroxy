@@ -17,8 +17,8 @@ Descărcați videoclipuri, Shorts, muzică, canale, podcasturi sau piese audio d
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explorare</b><br/>Navigați pe YouTube sau pe orice alt site direct în Arroxy și descărcați pagina pe care o vizitați cu profilul activ</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explorare</b><br/>Navigați pe YouTube sau pe orice alt site direct în Arroxy și descărcați pagina pe care o vizitați cu profilul activ</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Primul ecran din Explorare</b><br/>O privire rapidă asupra Explorării și motivul pentru care un cont secundar este o conectare mai sigură</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descărcări vă spune ce are nevoie de dvs.</b><br/>Linkurile se pregătesc în fundal; unul eșuat oferă remedierea, o listă de redare lungă așteaptă alegerea dvs.</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Primul ecran din Explorare</b><br/>O privire rapidă asupra Explorării și motivul pentru care un cont secundar este o conectare mai sigură</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descărcări vă spune ce are nevoie de dvs.</b><br/>Linkurile se pregătesc în fundal; unul eșuat oferă remedierea, o listă de redare lungă așteaptă alegerea dvs.</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descărcați doar o parte dintr-un videoclip</b><br/>Alegeți un început și un sfârșit, sau un capitol — Arroxy salvează doar acel interval</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descărcați doar o parte dintr-un videoclip</b><br/>Alegeți un început și un sfârșit, sau un capitol — Arroxy salvează doar acel interval</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR la 60 fps</b><br/>Fiecare rezoluție, codec și flux HDR pe care le oferă un videoclip, unul lângă altul</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR la 60 fps</b><br/>Fiecare rezoluție, codec și flux HDR pe care le oferă un videoclip, unul lângă altul</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editorul de profil</b><br/>Reglați un profil: tipul de fișier, rezoluția, subtitrările, destinația, șablonul de nume de fișier și altele</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editorul de profil</b><br/>Reglați un profil: tipul de fișier, rezoluția, subtitrările, destinația, șablonul de nume de fișier și altele</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Întunecat sau luminos, sticlă sau plin</b><br/>Patru aspecte la alegere: panouri de sticlă peste un cer în mișcare sau suprafețe pline, discrete, fiecare în variantă întunecată și luminoasă</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Întunecat sau luminos, sticlă sau plin</b><br/>Patru aspecte la alegere: panouri de sticlă peste un cer în mișcare sau suprafețe pline, discrete, fiecare în variantă întunecată și luminoasă</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Comanda rapidă globală de descărcare Arroxy — Ctrl+Shift+D în Windows și Linux, Cmd+Shift+D în macOS, trimițând linkul copiat direct în coada de descărcare" width="760" /></picture><br/><sub><b>Comandă rapidă globală de descărcare</b><br/>Copiați un link oriunde, apăsați o dată — ajunge în coadă și începe să se descarce</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profiluri pe element în listele de redare</b><br/>Dați fiecărui videoclip propriul profil — arhivați unele în 4K, luați restul ca MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ro/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profiluri pe element în listele de redare</b><br/>Dați fiecărui videoclip propriul profil — arhivați unele în 4K, luați restul ca MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Pagina Descărcare rapidă</b><br/>Lipiți un URL și descărcați-l instant cu profilul activ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Profiluri de descărcare reutilizabile</b><br/>Salvați presetări de format, calitate și ieșire — reutilizați-le la fiecare descărcare</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Pagina Descărcare rapidă</b><br/>Lipiți un URL și descărcați-l instant cu profilul activ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Profiluri de descărcare reutilizabile</b><br/>Salvați presetări de format, calitate și ieșire — reutilizați-le la fiecare descărcare</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Piese audio în mai multe limbi</b><br/>Alegeți exact limba audio în care vine un videoclip</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Audio surround / Dolby</b><br/>Piste 5.1 și Dolby detectate și păstrate</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Piese audio în mai multe limbi</b><br/>Alegeți exact limba audio în care vine un videoclip</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Audio surround / Dolby</b><br/>Piste 5.1 și Dolby detectate și păstrate</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modul URL-uri în bloc</b><br/>Lipiți o listă, duplicatele se elimină automat, puneți-le pe toate în coadă deodată</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Coadă de descărcare paralelă</b><br/>Mai multe descărcări deodată, cu progres în timp real</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Modul URL-uri în bloc</b><br/>Lipiți o listă, duplicatele se elimină automat, puneți-le pe toate în coadă deodată</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ro/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Coadă de descărcare paralelă</b><br/>Mai multe descărcări deodată, cu progres în timp real</sub></td>
   </tr>
 </table>
 

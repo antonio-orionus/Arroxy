@@ -17,8 +17,8 @@ Atsisiųskite vaizdo įrašus, Shorts, muziką, kanalus, tinklalaides ar garso t
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Naršymas</b><br/>Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje ir atsisiųskite puslapį, kuriame esate, su savo aktyviu profiliu</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Naršymas</b><br/>Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje ir atsisiųskite puslapį, kuriame esate, su savo aktyviu profiliu</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pirmasis Naršymo ekranas</b><br/>Trumpa Naršymo apžvalga ir paaiškinimas, kodėl antrinė paskyra yra saugesnis prisijungimas</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Atsisiuntimai parodo, ko iš jūsų reikia</b><br/>Nuorodos ruošiamos fone; nepavykusi pasiūlo sprendimą, ilgas grojaraštis laukia jūsų pasirinkimo</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pirmasis Naršymo ekranas</b><br/>Trumpa Naršymo apžvalga ir paaiškinimas, kodėl antrinė paskyra yra saugesnis prisijungimas</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Atsisiuntimai parodo, ko iš jūsų reikia</b><br/>Nuorodos ruošiamos fone; nepavykusi pasiūlo sprendimą, ilgas grojaraštis laukia jūsų pasirinkimo</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Atsisiųskite tik vaizdo įrašo dalį</b><br/>Pasirinkite pradžią ir pabaigą arba skyrių — Arroxy įrašo tik tą intervalą</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Atsisiųskite tik vaizdo įrašo dalį</b><br/>Pasirinkite pradžią ir pabaigą arba skyrių — Arroxy įrašo tik tą intervalą</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR esant 60 kadrų/s</b><br/>Kiekviena skiriamoji geba, kodekas ir HDR srautas, kurį siūlo vaizdo įrašas, greta</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR esant 60 kadrų/s</b><br/>Kiekviena skiriamoji geba, kodekas ir HDR srautas, kurį siūlo vaizdo įrašas, greta</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilio redaktorius</b><br/>Sureguliuokite profilį: failo tipą, skiriamąją gebą, subtitrus, paskirtį, failo pavadinimo šabloną ir dar daugiau</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profilio redaktorius</b><br/>Sureguliuokite profilį: failo tipą, skiriamąją gebą, subtitrus, paskirtį, failo pavadinimo šabloną ir dar daugiau</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tamsus ar šviesus, stiklinis ar vientisas</b><br/>Keturi stiliai: stikliniai skydeliai virš judančio dangaus arba ramūs vientisi paviršiai, kiekvienas tamsus ir šviesus</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tamsus ar šviesus, stiklinis ar vientisas</b><br/>Keturi stiliai: stikliniai skydeliai virš judančio dangaus arba ramūs vientisi paviršiai, kiekvienas tamsus ir šviesus</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy visuotinis atsisiuntimo spartusis klavišas — Ctrl+Shift+D Windows ir Linux, Cmd+Shift+D macOS sistemoje, nukopijuotą nuorodą siunčia tiesiai į atsisiuntimų eilę" width="760" /></picture><br/><sub><b>Visuotinis atsisiuntimo spartusis klavišas</b><br/>Nukopijuokite nuorodą bet kur, paspauskite vieną kartą — ji patenka į eilę ir pradedama atsisiųsti</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Kiekvieno grojaraščio elemento profiliai</b><br/>Suteikite kiekvienam vaizdo įrašui savo profilį — kai kuriuos užarchyvuokite 4K, likusius atsisiųskite kaip MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lt/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Kiekvieno grojaraščio elemento profiliai</b><br/>Suteikite kiekvienam vaizdo įrašui savo profilį — kai kuriuos užarchyvuokite 4K, likusius atsisiųskite kaip MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Greitojo atsisiuntimo pradžia</b><br/>Įklijuokite URL ir iškart atsisiųskite su aktyviu profiliu</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Pakartotinai naudojami atsisiuntimo profiliai</b><br/>Įrašykite formato, kokybės ir išvesties šablonus — naudokite kiekvienam atsisiuntimui</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Greitojo atsisiuntimo pradžia</b><br/>Įklijuokite URL ir iškart atsisiųskite su aktyviu profiliu</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Pakartotinai naudojami atsisiuntimo profiliai</b><br/>Įrašykite formato, kokybės ir išvesties šablonus — naudokite kiekvienam atsisiuntimui</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Kelių kalbų garso takeliai</b><br/>Pasirinkite tikslią vaizdo įrašo garso kalbą</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Erdvinis / Dolby garsas</b><br/>5.1 ir Dolby takeliai aptinkami ir išsaugomi</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Kelių kalbų garso takeliai</b><br/>Pasirinkite tikslią vaizdo įrašo garso kalbą</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Erdvinis / Dolby garsas</b><br/>5.1 ir Dolby takeliai aptinkami ir išsaugomi</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Kelių URL režimas</b><br/>Įklijuokite sąrašą, automatiškai pašalinkite dublikatus, įtraukite viską į eilę vienu metu</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Lygiagreti atsisiuntimų eilė</b><br/>Keli atsisiuntimai vienu metu su gyva eiga</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Kelių URL režimas</b><br/>Įklijuokite sąrašą, automatiškai pašalinkite dublikatus, įtraukite viską į eilę vienu metu</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lt/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Lygiagreti atsisiuntimų eilė</b><br/>Keli atsisiuntimai vienu metu su gyva eiga</sub></td>
   </tr>
 </table>
 

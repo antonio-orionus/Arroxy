@@ -17,8 +17,8 @@ Preuzimajte videozapise, Shorts, glazbu, kanale, podcaste ili audiozapise s **Yo
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Istraži</b><br/>Pregledavajte YouTube ili bilo koje drugo web-mjesto unutar Arroxyja i preuzmite stranicu na kojoj se nalazite s aktivnim profilom</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Istraži</b><br/>Pregledavajte YouTube ili bilo koje drugo web-mjesto unutar Arroxyja i preuzmite stranicu na kojoj se nalazite s aktivnim profilom</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prvi zaslon Istraži</b><br/>Kratki pogled na Istraži i zašto je sporedni račun sigurnija prijava</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Preuzimanja vam kažu što treba vašu pažnju</b><br/>Poveznice se pripremaju u pozadini; neuspjela nudi svoje rješenje, dugačak popis za reprodukciju čeka vaš odabir</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Prvi zaslon Istraži</b><br/>Kratki pogled na Istraži i zašto je sporedni račun sigurnija prijava</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Preuzimanja vam kažu što treba vašu pažnju</b><br/>Poveznice se pripremaju u pozadini; neuspjela nudi svoje rješenje, dugačak popis za reprodukciju čeka vaš odabir</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Preuzmite samo dio videozapisa</b><br/>Odaberite početak i kraj ili poglavlje — Arroxy sprema samo taj raspon</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Preuzmite samo dio videozapisa</b><br/>Odaberite početak i kraj ili poglavlje — Arroxy sprema samo taj raspon</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR pri 60 sličica u sekundi</b><br/>Svaka razlučivost, kodek i HDR tok koje videozapis nudi, jedan pokraj drugoga</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR pri 60 sličica u sekundi</b><br/>Svaka razlučivost, kodek i HDR tok koje videozapis nudi, jedan pokraj drugoga</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Uređivač profila</b><br/>Podesite profil: vrstu datoteke, razlučivost, titlove, odredište, predložak naziva datoteke i više</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Uređivač profila</b><br/>Podesite profil: vrstu datoteke, razlučivost, titlove, odredište, predložak naziva datoteke i više</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tamno ili svijetlo, staklo ili čvrsto</b><br/>Četiri izgleda za izbor: staklene ploče nad pokretnim nebom ili mirne čvrste površine, svaka u tamnoj i svijetloj verziji</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tamno ili svijetlo, staklo ili čvrsto</b><br/>Četiri izgleda za izbor: staklene ploče nad pokretnim nebom ili mirne čvrste površine, svaka u tamnoj i svijetloj verziji</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxyjev globalni prečac za preuzimanje — Ctrl+Shift+D u sustavima Windows i Linux, Cmd+Shift+D na macOS-u, šalje kopiranu poveznicu izravno u red za preuzimanje" width="760" /></picture><br/><sub><b>Globalni prečac za preuzimanje</b><br/>Kopirajte poveznicu bilo gdje, pritisnite jednom — završit će u redu i počet će se preuzimati</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po stavci popisa za reprodukciju</b><br/>Dajte svakom videozapisu vlastiti profil — neke arhivirajte u 4K, ostale preuzmite kao MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po stavci popisa za reprodukciju</b><br/>Dajte svakom videozapisu vlastiti profil — neke arhivirajte u 4K, ostale preuzmite kao MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Početni zaslon brzog preuzimanja</b><br/>Zalijepite URL i odmah ga preuzmite s aktivnim profilom</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Višekratni profili preuzimanja</b><br/>Spremite predloške formata, kvalitete i izlaza — upotrijebite ih po preuzimanju</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Početni zaslon brzog preuzimanja</b><br/>Zalijepite URL i odmah ga preuzmite s aktivnim profilom</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Višekratni profili preuzimanja</b><br/>Spremite predloške formata, kvalitete i izlaza — upotrijebite ih po preuzimanju</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Audiozapisi na više jezika</b><br/>Odaberite točan jezik zvuka koji videozapis nudi</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby zvuk</b><br/>Zapisi 5.1 i Dolby prepoznaju se i čuvaju</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Audiozapisi na više jezika</b><br/>Odaberite točan jezik zvuka koji videozapis nudi</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby zvuk</b><br/>Zapisi 5.1 i Dolby prepoznaju se i čuvaju</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Način rada s više URL-ova</b><br/>Zalijepite popis, automatski uklonite duplikate i sve stavite u red odjednom</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralelni red za preuzimanje</b><br/>Više preuzimanja odjednom uz napredak uživo</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Način rada s više URL-ova</b><br/>Zalijepite popis, automatski uklonite duplikate i sve stavite u red odjednom</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralelni red za preuzimanje</b><br/>Više preuzimanja odjednom uz napredak uživo</sub></td>
   </tr>
 </table>
 

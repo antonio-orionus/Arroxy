@@ -1,16 +1,20 @@
+import {mkdir, writeFile} from 'node:fs/promises'
+import {dirname} from 'node:path'
 import {test} from '@playwright/test'
 import type {Page} from '@playwright/test'
+import sharp from 'sharp'
 import {SUPPORTED_LANGS} from '../../src/shared/schemas.js'
 import type {SupportedLang} from '../../src/shared/schemas.js'
 
-// Regenerates the README screenshots in build/ from the browser-mock renderer.
+// Regenerates the README screenshots from the browser-mock renderer.
 //
-//   bun run screenshots:readme                          every shot, English, into build/
-//   bun run screenshots:readme -g "Bulk URLs"            one shot
-//   bun run screenshots:readme --locales de,fr          every shot in German and French
+//   bun run screenshots:readme                          every shot in every UI language
+//   bun run screenshots:readme -g "Bulk URLs"            one shot, in every language
+//   bun run screenshots:readme --locales de,fr          every shot in German and French only
 //
-// English shots go to build/ (the README's); any other locale goes to the
-// gitignored build/localized/<locale>/, for the website to pick up. Steps find
+// Each shot is written as WebP to build/screenshots/<locale>/, where each README
+// shows its own language's shot. The shots the Flatpak metainfo lists are also
+// written in English as PNG to build/, since AppStream takes no WebP. Steps find
 // elements by test id, never by visible text, so every locale runs the same recipe.
 //
 // Each shot is a scenario from the Scenario Workbench rendered with showcase
@@ -19,11 +23,15 @@ import type {SupportedLang} from '../../src/shared/schemas.js'
 // Chromium shows the GPU look), at the default window size and 2x pixel
 // density, in the dark theme. Each shot waits for its own `ready` element.
 // To add a shot for a new feature: add a scenario if none shows it, add an entry
-// below, run the command, and reference build/<file> from readme-src/template.md.
+// below, run the command, and reference build/screenshots/en/<file>.webp from
+// readme-src/template.md.
 
 interface Shot {
 	name: string
+	// The file name without its extension.
 	file: string
+	// Listed in the Flatpak metainfo, which needs an English PNG in build/.
+	appstream?: true
 	query: string
 	// The element that proves the screen finished loading (after `prepare`, if any).
 	ready: string
@@ -39,11 +47,11 @@ interface Shot {
 const SAMPLE_URLS = ['https://www.youtube.com/watch?v=aurora4k01', 'https://www.youtube.com/watch?v=reefdoc002', 'https://www.youtube.com/watch?v=nighttrain3']
 
 const SHOTS: readonly Shot[] = [
-	{name: 'Quick Download home', file: 'Main-screenshot.png', query: 'scenario=profiles-home-clipboard-single', ready: '[data-testid="profiles-quick-download"]:not([disabled])'},
-	{name: 'Download profiles', file: 'Download-profiles-screenshot.png', query: 'scenario=default', ready: '[data-testid="profiles-manage-tab"]', prepare: page => openTab(page, 'profiles')},
+	{name: 'Quick Download home', file: 'Main-screenshot', appstream: true, query: 'scenario=profiles-home-clipboard-single', ready: '[data-testid="profiles-quick-download"]:not([disabled])'},
+	{name: 'Download profiles', file: 'Download-profiles-screenshot', query: 'scenario=default', ready: '[data-testid="profiles-manage-tab"]', prepare: page => openTab(page, 'profiles')},
 	{
 		name: 'Per-item playlist profiles',
-		file: 'Per-item-playlist-profiles-screenshot.png',
+		file: 'Per-item-playlist-profiles-screenshot',
 		query: 'scenario=playlist-multi-profile',
 		ready: '[data-testid^="profile-row-"][aria-selected="true"]',
 		prepare: async page => {
@@ -53,7 +61,7 @@ const SHOTS: readonly Shot[] = [
 	},
 	{
 		name: 'Multi-language audio',
-		file: 'Multi-lang-audio-support-screenshot.png',
+		file: 'Multi-lang-audio-support-screenshot',
 		query: 'scenario=probe-audio-multilingual',
 		height: 840,
 		ready: '[role="option"]',
@@ -65,7 +73,7 @@ const SHOTS: readonly Shot[] = [
 	},
 	{
 		name: 'Surround audio',
-		file: 'Dolby-audio-support-screenshot.png',
+		file: 'Dolby-audio-support-screenshot',
 		query: 'scenario=probe-audio-surround',
 		height: 840,
 		ready: '[data-slot="radio-group"] [data-checked]:has-text("E-AC-3")',
@@ -74,10 +82,11 @@ const SHOTS: readonly Shot[] = [
 		},
 		spotlight: ['[data-testid="audio-column"]']
 	},
-	{name: '8K HDR video', file: '8K-HDR-video-screenshot.png', query: 'scenario=single-8k-hdr', height: 840, ready: '[data-testid="video-column"] [data-checked]', spotlight: ['[data-testid="video-column"]']},
+	{name: '8K HDR video', file: '8K-HDR-video-screenshot', appstream: true, query: 'scenario=single-8k-hdr', height: 840, ready: '[data-testid="video-column"] [data-checked]', spotlight: ['[data-testid="video-column"]']},
 	{
 		name: 'Subtitles',
-		file: 'Subtitles-screenshot.png',
+		file: 'Subtitles-screenshot',
+		appstream: true,
 		query: 'scenario=single-review-subtitles',
 		height: 840,
 		ready: '[data-testid="review-row-subtitles"] [data-checked]',
@@ -89,7 +98,7 @@ const SHOTS: readonly Shot[] = [
 	},
 	{
 		name: 'Bulk URLs',
-		file: 'Bulk-urls-mode-screenshot.png',
+		file: 'Bulk-urls-mode-screenshot',
 		query: 'scenario=profiles-bulk',
 		ready: '[data-testid="bulk-url-rejected"]',
 		prepare: async page => {
@@ -97,12 +106,12 @@ const SHOTS: readonly Shot[] = [
 			await page.getByTestId('bulk-url-textarea').fill([...SAMPLE_URLS, SAMPLE_URLS[0]].join('\n'))
 		}
 	},
-	{name: 'Profile editor', file: 'Profile-editor-screenshot.png', query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByTestId('profiles-editor-video-advanced-toggle').click()},
-	{name: 'Part of video', file: 'Part-of-video-screenshot.png', query: 'scenario=single-part', height: 1100, ready: '[data-testid="video-part-panel"]', spotlight: ['[data-testid="video-part-panel"]']},
-	{name: 'Explore', file: 'Explore-screenshot.png', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
-	{name: 'Explore browsing', file: 'Explore-browsing-screenshot.png', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
-	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'queue')},
-	{name: 'Parallel downloads', file: 'Downloading-in-parallel-screenshot.png', query: 'scenario=queue-parallel', ready: '[data-testid="queue-manager-row-queue-parallel-6"]', prepare: page => openTab(page, 'queue')}
+	{name: 'Profile editor', file: 'Profile-editor-screenshot', appstream: true, query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByTestId('profiles-editor-video-advanced-toggle').click()},
+	{name: 'Part of video', file: 'Part-of-video-screenshot', query: 'scenario=single-part', height: 1100, ready: '[data-testid="video-part-panel"]', spotlight: ['[data-testid="video-part-panel"]']},
+	{name: 'Explore', file: 'Explore-screenshot', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
+	{name: 'Explore browsing', file: 'Explore-browsing-screenshot', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
+	{name: 'Downloads attention', file: 'Downloads-attention-screenshot', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'queue')},
+	{name: 'Parallel downloads', file: 'Downloading-in-parallel-screenshot', appstream: true, query: 'scenario=queue-parallel', ready: '[data-testid="queue-manager-row-queue-parallel-6"]', prepare: page => openTab(page, 'queue')}
 ]
 
 // Chrome that belongs to the workbench or to first-run moments, not to the feature being shown.
@@ -115,8 +124,7 @@ async function openTab(page: Page, tab: 'profiles' | 'queue'): Promise<void> {
 // `ARROXY_SHOT_LOCALES` (set by `--locales`): a comma-separated list, or `all`.
 function shotLocales(): SupportedLang[] {
 	const raw = process.env.ARROXY_SHOT_LOCALES?.trim() ?? ''
-	if (raw === '') return ['en']
-	if (raw === 'all') return [...SUPPORTED_LANGS]
+	if (raw === '' || raw === 'all') return [...SUPPORTED_LANGS]
 	return raw.split(',').map(code => {
 		const locale = SUPPORTED_LANGS.find(lang => lang === code.trim())
 		if (!locale) throw new Error(`Unknown locale "${code}". Supported: ${SUPPORTED_LANGS.join(', ')}`)
@@ -126,11 +134,17 @@ function shotLocales(): SupportedLang[] {
 
 const LOCALES = shotLocales()
 
-function shotPath(locale: SupportedLang, file: string): string {
-	return locale === 'en' ? `build/${file}` : `build/localized/${locale}/${file}`
+// Lossy WebP at 2x pixel density reads as sharp as the PNG for UI text, at about a fifteenth of the size.
+const WEBP = {quality: 80, effort: 6} as const
+
+async function save(locale: SupportedLang, file: string, png: Buffer, appstream = false): Promise<void> {
+	const path = `build/screenshots/${locale}/${file}.webp`
+	await mkdir(dirname(path), {recursive: true})
+	await sharp(png).webp(WEBP).toFile(path)
+	if (appstream && locale === 'en') await writeFile(`build/${file}.png`, png)
 }
 
-// English keeps the bare name, so `-g "Bulk URLs"` still picks the README shot.
+// English keeps the bare name; `-g "Bulk URLs"` matches every language's title.
 function titled(name: string, locale: SupportedLang): string {
 	return locale === 'en' ? name : `${name} [${locale}]`
 }
@@ -226,7 +240,7 @@ for (const locale of LOCALES) {
 				await settle(page, shot.query, shot.ready, {locale, prepare: shot.prepare})
 				if (shot.spotlight) await spotlight(page, shot.spotlight)
 			}
-			await capture(page, open, () => page.screenshot({path: shotPath(locale, shot.file)}), true)
+			await save(locale, shot.file, await capture(page, open, () => page.screenshot(), true), shot.appstream)
 		})
 	}
 }
@@ -252,6 +266,6 @@ for (const locale of LOCALES) {
 		await grid.setViewportSize({width: 1000, height: 800})
 		await grid.setContent(`<body style="margin:0;display:grid;grid-template-columns:repeat(2,480px);gap:20px;width:max-content;background:transparent">${frames.map(frame => `<img src="data:image/png;base64,${frame}" style="width:480px;display:block;border-radius:14px">`).join('')}</body>`)
 		await grid.waitForFunction(() => [...document.images].every(image => image.complete))
-		await grid.locator('body').screenshot({path: shotPath(locale, 'Themes-and-styles-screenshot.png'), omitBackground: true})
+		await save(locale, 'Themes-and-styles-screenshot', await grid.locator('body').screenshot({omitBackground: true}))
 	})
 }

@@ -48,6 +48,26 @@ export function isYouTubeContainerId(id: string): boolean {
 	return false
 }
 
+// A show page (`/show/VL<playlist id>`) is a playlist under another address,
+// and yt-dlp reads that address badly: a playlist titled "show", with no
+// channel and videos missing. Its `sbp` only records the video the link was
+// opened from. Null for any other URL, including shows with other id types.
+export function youtubeShowPlaylistUrl(url: string): string | null {
+	let parsed: URL
+	try {
+		parsed = new URL(url)
+	} catch {
+		return null
+	}
+	const host = parsed.hostname.toLowerCase()
+	if (host !== 'youtube.com' && !host.endsWith('.youtube.com')) return null
+	const [prefix, id, ...rest] = parsed.pathname.split('/').filter(Boolean)
+	if (prefix !== 'show' || rest.length > 0 || !id?.startsWith('VL') || id.length === 2) return null
+	const playlist = new URL('https://www.youtube.com/playlist')
+	playlist.searchParams.set('list', id.slice(2))
+	return playlist.toString()
+}
+
 // Used to filter heterogeneous flat-playlist results so the wizard's
 // "pick videos" model isn't broken by nested entries.
 function youtubeIsNested(entry: PlaylistEntryHint): boolean {

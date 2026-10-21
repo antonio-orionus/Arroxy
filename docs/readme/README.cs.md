@@ -17,8 +17,8 @@ Stahujte videa, Shorts, hudbu, kanály, podcasty nebo zvukové stopy z **YouTube
 
 <table>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Main-screenshot.webp" alt="Arroxy — Quick Download home" /></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing YouTube, with the Download button for the active profile" /></td>
   </tr>
 </table>
 
@@ -58,41 +58,41 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 
 <table align="center" width="100%">
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Procházení</b><br/>Procházejte YouTube i jakýkoli jiný web přímo v Arroxy a stáhněte stránku, na které jste, se svým aktivním profilem</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/Explore-browsing-screenshot.webp" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Procházení</b><br/>Procházejte YouTube i jakýkoli jiný web přímo v Arroxy a stáhněte stránku, na které jste, se svým aktivním profilem</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>První obrazovka Procházení</b><br/>Stručný pohled na Procházení a proč je vedlejší účet bezpečnější volbou přihlášení</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Stahování vám řekne, co vás potřebuje</b><br/>Odkazy se připravují na pozadí; neúspěšný nabídne řešení, dlouhý playlist čeká na vaši volbu</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Explore-screenshot.webp" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>První obrazovka Procházení</b><br/>Stručný pohled na Procházení a proč je vedlejší účet bezpečnější volbou přihlášení</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Downloads-attention-screenshot.webp" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Stahování vám řekne, co vás potřebuje</b><br/>Odkazy se připravují na pozadí; neúspěšný nabídne řešení, dlouhý playlist čeká na vaši volbu</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Stáhněte jen část videa</b><br/>Vyberte začátek a konec nebo kapitolu — Arroxy uloží jen tento úsek</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/Part-of-video-screenshot.webp" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Stáhněte jen část videa</b><br/>Vyberte začátek a konec nebo kapitolu — Arroxy uloží jen tento úsek</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/8K-HDR-video-screenshot.png" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR při 60 fps</b><br/>Každé rozlišení, kodek a stream HDR, které video nabízí, vedle sebe</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/8K-HDR-video-screenshot.webp" alt="Arroxy — Format screen for an 8K HDR 60 fps video: AV1 and VP9 in HDR10 and SDR, H.264 up to 1080p, Dolby, AAC and Opus audio" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>8K HDR při 60 fps</b><br/>Každé rozlišení, kodek a stream HDR, které video nabízí, vedle sebe</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor profilu</b><br/>Doladěte profil: typ souboru, rozlišení, titulky, cíl, šablonu názvu souboru a další</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/Profile-editor-screenshot.webp" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor profilu</b><br/>Doladěte profil: typ souboru, rozlišení, titulky, cíl, šablonu názvu souboru a další</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tmavý nebo světlý, sklo nebo plocha</b><br/>Čtyři vzhledy k výběru: skleněné panely nad pohyblivou oblohou nebo klidné plné plochy, každý v tmavé i světlé variantě</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/Themes-and-styles-screenshot.webp" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tmavý nebo světlý, sklo nebo plocha</b><br/>Čtyři vzhledy k výběru: skleněné panely nad pohyblivou oblohou nebo klidné plné plochy, každý v tmavé i světlé variantě</sub></td>
   </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Globální klávesová zkratka pro stahování v Arroxy — Ctrl+Shift+D ve Windows a Linuxu, Cmd+Shift+D v macOS, zařadí zkopírovaný odkaz přímo do fronty stahování" width="760" /></picture><br/><sub><b>Globální klávesová zkratka pro stahování</b><br/>Zkopírujte odkaz kdekoli, stiskněte jednou — skončí ve frontě a začne se stahovat</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profily playlistu pro jednotlivé položky</b><br/>Dejte každému videu vlastní profil — některá archivujte ve 4K, zbytek stáhněte jako MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/cs/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profily playlistu pro jednotlivé položky</b><br/>Dejte každému videu vlastní profil — některá archivujte ve 4K, zbytek stáhněte jako MP3</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Domovská obrazovka Rychlého stahování</b><br/>Vložte URL a stáhněte ji okamžitě s aktivním profilem</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Opakovaně použitelné profily stahování</b><br/>Uložte předvolby formátu, kvality a výstupu — použijte je při každém stahování</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Domovská obrazovka Rychlého stahování</b><br/>Vložte URL a stáhněte ji okamžitě s aktivním profilem</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Download-profiles-screenshot.webp" alt="Arroxy — Download profiles" /><br/><sub><b>Opakovaně použitelné profily stahování</b><br/>Uložte předvolby formátu, kvality a výstupu — použijte je při každém stahování</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Zvukové stopy ve více jazycích</b><br/>Vyberte přesný jazyk zvuku, ve kterém video vychází</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Prostorový zvuk / Dolby</b><br/>Stopy 5.1 a Dolby jsou rozpoznány a zachovány</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Multi-lang-audio-support-screenshot.webp" alt="Arroxy — Multi-language audio" /><br/><sub><b>Zvukové stopy ve více jazycích</b><br/>Vyberte přesný jazyk zvuku, ve kterém video vychází</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Dolby-audio-support-screenshot.webp" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Prostorový zvuk / Dolby</b><br/>Stopy 5.1 a Dolby jsou rozpoznány a zachovány</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top" align="center"><img src="../../build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Režim Hromadné URL</b><br/>Vložte seznam, duplicity se odstraní automaticky, všechny najednou zařaďte do fronty</sub></td>
-    <td width="50%" valign="top" align="center"><img src="../../build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralelní fronta stahování</b><br/>Několik stahování najednou s průběhem naživo</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Bulk-urls-mode-screenshot.webp" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Režim Hromadné URL</b><br/>Vložte seznam, duplicity se odstraní automaticky, všechny najednou zařaďte do fronty</sub></td>
+    <td width="50%" valign="top" align="center"><img src="../../build/screenshots/cs/Downloading-in-parallel-screenshot.webp" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralelní fronta stahování</b><br/>Několik stahování najednou s průběhem naživo</sub></td>
   </tr>
 </table>
 
