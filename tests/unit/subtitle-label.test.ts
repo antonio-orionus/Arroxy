@@ -59,4 +59,14 @@ describe('names for running text', () => {
 	it('fall back to the code Intl cannot name', () => {
 		expect(languageName('nb-ttv', 'ru')).toBe('nb-ttv')
 	})
+
+	// Every listed language is missing, so the list joins them with "and".
+	it.each([
+		['en', 'German, French, and Spanish'],
+		['ru', 'немецкий, французский и испанский'],
+		['ja', 'ドイツ語、フランス語、スペイン語'],
+		['zh-CN', '德语、法语和西班牙语']
+	])('join several names with the %s list separators', (uiLanguage, expected) => {
+		expect(formatLanguageList(['de', 'fr', 'es'], uiLanguage)).toBe(expected)
+	})
 })

@@ -38,12 +38,15 @@ export function languageName(code: string, uiLanguage: string): string {
 
 const listFormatByLanguage = new Map<string, Intl.ListFormat>()
 
-// Language codes as a list of names in the UI language ("German, French").
+// Language codes as a list of names in the UI language ("German and French").
+// Every message that lists them names languages that are all missing, so the
+// list is a conjunction; a unit list has no separator at all in Russian or
+// Japanese ("немецкий французский").
 export function formatLanguageList(codes: readonly string[], uiLanguage: string): string {
 	let list = listFormatByLanguage.get(uiLanguage)
 	if (!list) {
 		// react-doctor-disable-next-line react-doctor/js-hoist-intl -- cached per UI language; locale is runtime data
-		list = new Intl.ListFormat([uiLanguage, 'en'], {type: 'unit', style: 'short'})
+		list = new Intl.ListFormat([uiLanguage, 'en'], {type: 'conjunction'})
 		listFormatByLanguage.set(uiLanguage, list)
 	}
 	return list.format(codes.map(code => languageName(code, uiLanguage)))
