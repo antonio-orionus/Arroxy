@@ -78,8 +78,8 @@ export class ClipboardWatcher {
 	// held before it. Bringing the window forward restarts polling, which would
 	// otherwise offer that older copy and replace the opened link.
 	async ignoreCurrentClipboard(): Promise<void> {
-		// Watching is off, so the clipboard is not read; enabling it later starts
-		// from a fresh baseline.
+		// Watching is off, so the clipboard is not read. Turning it on later offers
+		// the clipboard as enabling always does: the user asked for that copy.
 		if (!this.enabled) return
 		// Drop a read already in flight: it may return the older copy.
 		this.generation++
