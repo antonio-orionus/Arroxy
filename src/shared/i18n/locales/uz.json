@@ -918,6 +918,7 @@
 			"rateLimit": "Sayt bu ulanishdan keladigan so‘rovlarni cheklayapti.",
 			"ageRestricted": "Bu video yosh cheklovli va tizimga kirgan hisob bo'lmasdan yuklab bo'lmaydi.",
 			"unavailable": "Bu video mavjud emas — u shaxsiy, o'chirilgan yoki mintaqa bilan cheklangan bo'lishi mumkin.",
+			"formatUnavailable": "Bu video endi siz tanlagan formatni taklif qilmaydi. Havolani qayta joylashtiring va hozir taklif qilinayotgan formatlardan tanlang.",
 			"geoBlocked": "Bu video sizning mintaqangizda mavjud emas.",
 			"outOfDiskSpace": "Disk xotirasi yetarli emas. Bo'sh joy ajrating va qayta urinib ko'ring.",
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",

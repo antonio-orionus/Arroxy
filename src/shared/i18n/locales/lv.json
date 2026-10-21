@@ -936,6 +936,7 @@
 			"rateLimit": "Vietne ierobežo pieprasījumu skaitu no šī savienojuma.",
 			"ageRestricted": "Šim videoklipam ir vecuma ierobežojums, un to nevar lejupielādēt bez pierakstīta konta.",
 			"unavailable": "Šis videoklips nav pieejams — tas var būt privāts, dzēsts vai bloķēts reģionā.",
+			"formatUnavailable": "Šim video vairs nav jūsu izvēlētā formāta. Vēlreiz ielīmējiet saiti un izvēlieties no formātiem, kas tiek piedāvāti tagad.",
 			"geoBlocked": "Šis videoklips jūsu reģionā nav pieejams.",
 			"outOfDiskSpace": "Nepietiek vietas diskā. Atbrīvojiet vietu un mēģiniet vēlreiz.",
 			"outputNotWritable": "Arroxy nevar rakstīt lejupielādes mapē. Tā var būt tikai lasāma, atrasties slēgtā diskā vai būt bloķēta ar sistēmas konfidencialitātes iestatījumiem. Izvēlieties citu mapi vai atļaujiet piekļuvi, tad mēģiniet vēlreiz.",

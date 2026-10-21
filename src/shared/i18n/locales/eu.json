@@ -922,6 +922,7 @@
 			"rateLimit": "Gunea konexio honen eskaerak mugatzen ari da.",
 			"ageRestricted": "Bideo honek adin-murrizketa du eta ezin da deskargatu saioa hasita duen konturik gabe.",
 			"unavailable": "Bideo hau ez dago eskuragarri — baliteke pribatua izatea, ezabatua izatea edo eskualdez blokeatuta egotea.",
+			"formatUnavailable": "Bideo honek jada ez du aukeratu duzun formatua eskaintzen. Itsatsi esteka berriro eta aukeratu orain eskaintzen dituen formatuen artean.",
 			"geoBlocked": "Bideo hau ez dago eskuragarri zure eskualdean.",
 			"outOfDiskSpace": "Ez dago diskoan leku nahikorik. Libratu lekua eta saiatu berriro.",
 			"outputNotWritable": "Arroxy-k ezin du deskargen karpetan idatzi. Baliteke irakurtzeko soilik izatea, blokeatutako unitate batean egotea edo sistemaren pribatutasun-ezarpenek blokeatuta egotea. Aukeratu beste karpeta bat edo baimendu sarbidea, eta saiatu berriro.",

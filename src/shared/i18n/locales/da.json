@@ -900,6 +900,7 @@
 			"rateLimit": "Webstedet begrænser antallet af anmodninger fra denne forbindelse.",
 			"ageRestricted": "Denne video er aldersbegrænset og kan ikke downloades uden en konto, du er logget ind på.",
 			"unavailable": "Denne video er ikke tilgængelig — den kan være privat, slettet eller låst til bestemte områder.",
+			"formatUnavailable": "Denne video tilbyder ikke længere det format, du valgte. Indsæt linket igen, og vælg blandt de formater, den tilbyder nu.",
 			"geoBlocked": "Denne video er ikke tilgængelig i dit område.",
 			"outOfDiskSpace": "Der er ikke nok diskplads. Frigør plads, og prøv igen.",
 			"outputNotWritable": "Arroxy kan ikke skrive til download-mappen. Den kan være skrivebeskyttet, ligge på et låst drev eller være blokeret af dit systems indstillinger for beskyttelse af personlige oplysninger. Vælg en anden mappe, eller giv adgang, og prøv igen.",

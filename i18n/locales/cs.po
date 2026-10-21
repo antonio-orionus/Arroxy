@@ -243,6 +243,10 @@ msgctxt "errors.ytdlp.drmProtected"
 msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
 msgstr "Toto video je chráněno DRM. Arroxy DRM odstranit neumí, proto soubor nelze stáhnout."
 
+msgctxt "errors.ytdlp.formatUnavailable"
+msgid "This video no longer offers the format you picked. Paste the link again and pick from the formats it offers now."
+msgstr "Toto video už nenabízí formát, který jste vybrali. Vložte odkaz znovu a vyberte z formátů, které nabízí nyní."
+
 msgctxt "errors.ytdlp.geoBlocked"
 msgid "This video is not available in your region."
 msgstr "Toto video není ve vaší oblasti dostupné."
