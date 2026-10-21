@@ -10,12 +10,17 @@ a workflow, step, or settings source changes.
 
 ## The two queue writes
 
-The renderer adds to the queue through exactly two IPC commands,
-`queue.cmd.add` and `queue.cmd.replaceProbing`, issued from
-`src/renderer/src/store/quickDownload/quickDownloadPipeline.ts` (background
-single-link path) and `src/renderer/src/store/wizard/queueSubmissionAdapter.ts`
-(wizard, bulk quick run, playlist cap dialog). Main admits, dedupes and
-commits them in `src/main/services/QueueService.ts`.
+Rows reach the queue through two commands, `add` and `replaceProbing`, in
+`src/main/services/QueueService.ts`, which admits, dedupes and commits them.
+Link intake (`src/main/intake/IntakeService.ts`) issues them in main for the
+background single-link path: the placeholder row, then the swap for the
+prepared rows. The renderer issues them over IPC (`queue.cmd.add`,
+`queue.cmd.replaceProbing`) only from
+`src/renderer/src/store/wizard/queueSubmissionAdapter.ts` (wizard, bulk quick
+run, playlist cap dialog, a needs-choice row's review). It reaches intake
+through `intake.cmd.*` (`src/renderer/src/store/quickDownload/quickDownloadPipeline.ts`)
+and hears outcomes back on `intake:event`, keyed by the request id of the call
+that caused them.
 
 ## Current map
 
@@ -80,8 +85,8 @@ picker edge sets the active profile that Quick Download uses.
 | EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |
 | HK | Hotkey chord, tray item, or Settings test press; a mixed URL is forced to its video | active profile | `HotkeyService`, `hotkeyTrigger.ts`, `src/shared/intake/urlIntentPolicy.ts` |
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks video-or-list for mixed URLs | — | `quickDownloadSlice.quickDownload` |
-| PLC → SWAP | Pins the active profile on a placeholder row, probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `quickDownloadPipeline.ts`, `src/shared/intake/probeResolution.ts` |
-| NC, PE | Rows that need the user: All / first N / Review; Retry / cookies / sign in | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice` |
+| PLC → SWAP | In main: places a placeholder row that stores the active profile and the window's folder (`pinnedProfile`) and who took it in (`origin`), probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `IntakeService`, `src/shared/intake/probeResolution.ts` |
+| NC, PE | Rows that need the user: All / first N / Review; Retry / cookies / sign in. All, first N and Retry run in main; the probe a needs-choice row asked about is kept there (bounded) for first N and the review | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice`, `IntakeService` |
 | BULK, BQ, CAP | Bulk dialog: quick runs a modal probe loop (no placeholder rows, own cap dialog); otherwise the bulk wizard | active profile / wizard | `BulkUrlDialog`, `quickDownloadPreparation.ts` |
 | DLR, BOOT | Retry on a resolved row re-runs its stored job; startup restores `queue.json`, stale probing rows become errors | the row's job | `queueSlice`, `QueueService`, `QueueProbeLifecycle`, `QueueAutoRetry` |
 
@@ -127,8 +132,11 @@ Step list: `wizardStepNameSchema` in `src/shared/schemas.ts`. Visibility:
 Five sources feed jobs, and which one applies depends on the path:
 
 1. **Active download profile:** Quick Download, Explore, hotkey, bulk quick.
-2. **Pinned profile:** the active profile captured on a placeholder row at
-   intake, so switching profiles later doesn't change queued work.
+2. **Pinned profile:** the active profile and the wizard's folder, stored on
+   a placeholder row at intake, so switching profiles later, a window
+   reload or a restart doesn't change queued work. A row saved before rows
+   stored it prepares with the active profile. Main learns the wizard's
+   folder and the screen's HDR from the window (`intake.cmd.setWindowContext`).
 3. **Per-item profiles:** multi-profile playlist mode.
 4. **Profile pick, then wizard edits (single video):** the active profile
    resolved against the probe (`resolveProfileSelection`,

@@ -21,7 +21,7 @@ export function watchIntakeWindowContext(store: Pick<StoreApi<AppState>, 'getSta
 		// Before settings load, the wizard has no folder yet.
 		if (!state.initialized) return
 		const next = {currentOutputDir: state.wizardOutputDir, displayShowsHdr: displayShowsHdr()}
-		if (reported?.currentOutputDir === next.currentOutputDir && reported.displayShowsHdr === next.displayShowsHdr) return
+		if (reported !== null && reported.currentOutputDir === next.currentOutputDir && reported.displayShowsHdr === next.displayShowsHdr) return
 		reported = next
 		report(next)
 	}

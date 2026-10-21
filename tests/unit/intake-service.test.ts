@@ -207,6 +207,17 @@ describe('IntakeService', () => {
 		expect(h.probes).toHaveLength(1)
 	})
 
+	// A write that throws is a broken queue port, not a refusal: the row must
+	// not stay stuck in probing.
+	it('settles the row as a probe error when recording the outcome throws', async () => {
+		const swap = vi.spyOn(h.queue, 'replaceProbing').mockRejectedValueOnce(new Error('disk full'))
+		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+		await h.settled()
+		await vi.waitFor(() => expect(h.queue.snapshot()[0]).toMatchObject({status: 'error', error: {kind: 'unknown', raw: 'disk full'}}))
+		expect(swap).toHaveBeenCalledOnce()
+		expect(outcomes(h).at(-1)).toMatchObject({requestId: 'r1', kind: 'failed'})
+	})
+
 	it('a failure with no words of its own reads the localized fallback', async () => {
 		h.answer(fail({kind: 'other', code: 'unknown', message: ''}))
 		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
