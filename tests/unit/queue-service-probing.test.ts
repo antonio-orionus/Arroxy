@@ -34,7 +34,7 @@ function probingItem(id: string, url = `https://youtube.com/watch?v=${id}`): Que
 }
 
 function choiceItem(id: string, url = `https://youtube.com/playlist?list=${id}`): QueueItem {
-	return makeItem({id, status: 'needs-choice', url, title: 'Playlist', job: UNRESOLVED, probeMode: 'video', choice: {kind: 'playlist-cap', loaded: 100}})
+	return makeItem({id, status: 'needs-choice', url, title: 'Playlist', job: UNRESOLVED, probeMode: 'video', choice: {kind: 'list-size', loaded: 100, capped: true}})
 }
 
 describe('QueueService — probing items', () => {
@@ -239,16 +239,16 @@ describe('QueueService — probing items', () => {
 	it('needsChoice parks a probing row with its choice and title', () => {
 		const {qs} = makeService()
 		qs.add([probingItem('p1')])
-		const result = qs.needsChoice('p1', {kind: 'playlist-cap', loaded: 100}, 'Road trip mix')
+		const result = qs.needsChoice('p1', {kind: 'list-size', loaded: 100, capped: true}, 'Road trip mix')
 		expect(result.ok).toBe(true)
-		expect(qs.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 100}, title: 'Road trip mix'})
+		expect(qs.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 100, capped: true}, title: 'Road trip mix'})
 	})
 
 	it('needsChoice is a stale signal once the placeholder is gone', async () => {
 		const {qs} = makeService()
 		qs.add([probingItem('p1')])
 		await qs.cancel('p1')
-		expect(qs.needsChoice('p1', {kind: 'playlist-review', count: 3}, 'x').ok).toBe(false)
+		expect(qs.needsChoice('p1', {kind: 'list-size', loaded: 3, capped: false}, 'x').ok).toBe(false)
 	})
 
 	it('reprobe returns a probe-error row to probing, and a needs-choice row too', () => {
@@ -261,6 +261,18 @@ describe('QueueService — probing items', () => {
 			['p1', 'probing', null],
 			['c1', 'probing', null]
 		])
+	})
+
+	// #534: a choice's answer is stored on the row with the restart; a plain
+	// Retry sends none and keeps the row's own.
+	it('reprobe stores a take on the row, and one without a take keeps it', () => {
+		const {qs} = makeService()
+		qs.add([choiceItem('c1')])
+		expect(qs.reprobe('c1', {kind: 'all'}).ok).toBe(true)
+		expect(qs.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
+		qs.probeFailed('c1', {kind: 'network', raw: 'offline'})
+		expect(qs.reprobe('c1').ok).toBe(true)
+		expect(qs.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
 	})
 
 	it('reprobe refuses a row that has a real job or is already probing', () => {
@@ -307,6 +319,6 @@ describe('QueueService — probing items', () => {
 		store.load = vi.fn().mockResolvedValue(ok({items: [choiceItem('kept')], schedulerPaused: false}))
 		const qs = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 		await qs.init()
-		expect(qs.snapshot()[0]).toMatchObject({id: 'kept', status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 100}})
+		expect(qs.snapshot()[0]).toMatchObject({id: 'kept', status: 'needs-choice', choice: {kind: 'list-size', loaded: 100, capped: true}})
 	})
 })

@@ -123,6 +123,19 @@ function migrateLegacySubtitleOptions(row: Record<string, unknown>): Record<stri
 	return {...row, job: {...jobRecord, subtitles: {...rest, request: legacySubtitleRequest(subtitles as Record<string, unknown>, languages)}}}
 }
 
+// Up to 0.7.3 a needs-choice row asked one of two things: how many of a
+// playlist past the load limit (`playlist-cap`), or whether to review a link
+// that turned out to be a list (`playlist-review`). Both are the one size
+// question now; anything else is left for validation to judge.
+function migrateLegacyChoice(row: Record<string, unknown>): Record<string, unknown> {
+	const {choice} = row
+	if (typeof choice !== 'object' || choice === null) return row
+	const legacy = choice as {kind?: unknown; loaded?: unknown; count?: unknown}
+	if (legacy.kind === 'playlist-cap') return {...row, choice: {kind: 'list-size', loaded: legacy.loaded, capped: true}}
+	if (legacy.kind === 'playlist-review') return {...row, choice: {kind: 'list-size', loaded: legacy.count, capped: false}}
+	return row
+}
+
 function migrateRow(raw: unknown): unknown {
 	if (typeof raw !== 'object' || raw === null) return raw
 	let out = raw as Record<string, unknown>
@@ -130,6 +143,7 @@ function migrateRow(raw: unknown): unknown {
 	out = migrateLegacyStatus(out)
 	out = migrateLegacyOutputTemplate(out)
 	out = migrateLegacySubtitleOptions(out)
+	out = migrateLegacyChoice(out)
 	return out
 }
 

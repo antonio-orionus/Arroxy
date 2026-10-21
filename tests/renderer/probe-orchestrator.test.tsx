@@ -357,7 +357,7 @@ describe('quickDownload', () => {
 		useAppStore.setState({wizardUrl: 'https://example.com/course', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
 		await useAppStore.getState().quickDownload({url: 'https://example.com/course', entry: 'url-tab'})
 
-		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'playlist-review', count: 2}, title: 'My Playlist'}]))
+		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, title: 'My Playlist'}]))
 		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickDownloadStatus: 'idle'})
 	})
@@ -372,7 +372,7 @@ describe('quickDownload', () => {
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: {...settings, common: {...settings.common, playlistProbeLimit: 100}}})
 		await useAppStore.getState().quickDownload({url: 'https://www.youtube.com/playlist?list=PLtest', entry: 'url-tab'})
 
-		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 100}}]))
+		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'list-size', loaded: 100, capped: true}}]))
 		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickPlaylistCapDialogOpen: false, playlistItems: []})
 	})

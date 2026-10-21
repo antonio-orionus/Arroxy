@@ -35,6 +35,9 @@ export interface QuickDownloadFailureAction {
 
 const FAILURE_ACTION_LABEL = {retry: 'common.retry', 'sign-in': 'wizard.formats.cookiesError.exploreSignIn.cta', 'explore-offer': 'wizard.formats.cookiesError.exploreOffer.cta', 'explore-reuse': 'wizard.formats.cookiesError.exploreReuse.cta'} as const satisfies Record<QuickDownloadFailureAction['kind'], string>
 
+// A list past the load limit asks how many; one under it, what to download.
+const NEEDS_CHOICE_TOAST = {capped: 'notifications.quickDownload.chooseHowMany', uncapped: 'notifications.quickDownload.chooseFromList'} as const satisfies Record<'capped' | 'uncapped', string>
+
 let sink: NotificationSink | null = null
 
 /** Register the UI that renders notifications. `null` unregisters (tests). */
@@ -143,12 +146,9 @@ export const notify = {
 		const main: NotificationAction = {label: i18next.t(FAILURE_ACTION_LABEL[action.kind]), onClick: action.run}
 		emit('error', i18next.t('notifications.quickDownload.failed', {title: toastItemName(title)}), `quick-download-failed-${itemId}`, onView ? [main, viewAction(onView)] : [main])
 	},
-	// `capped`: the probe stopped at the load limit, so `count` is a lower bound.
-	// A playlist over the limit asks how many; a link that turned out to be a
-	// list asks for a review.
-	quickDownloadNeedsChoice(itemId: string, choice: {kind: QueueChoice['kind']; count: number; capped: boolean}, onView?: () => void): void {
-		const key = choice.kind === 'playlist-cap' ? 'notifications.quickDownload.chooseHowMany' : choice.capped ? 'notifications.quickDownload.reviewCapped' : 'notifications.quickDownload.review'
-		emit('info', i18next.t(key, {count: choice.count}), `quick-download-choice-${itemId}`, viewOnly(onView))
+	// The size question: a capped list's count is a lower bound ("100+").
+	quickDownloadNeedsChoice(itemId: string, choice: QueueChoice, onView?: () => void): void {
+		emit('info', i18next.t(NEEDS_CHOICE_TOAST[choice.capped ? 'capped' : 'uncapped'], {count: choice.loaded}), `quick-download-choice-${itemId}`, viewOnly(onView))
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and

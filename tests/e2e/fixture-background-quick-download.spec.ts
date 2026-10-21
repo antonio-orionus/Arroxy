@@ -331,6 +331,7 @@ test('a playlist over the load limit waits for a choice on its row, and First N 
 			await expect(row).toContainText('Needs your choice')
 			const choice = page.getByTestId('queue-choice')
 			await expect(choice).toContainText(`More than ${limit} videos`)
+			await expect(choice.getByRole('button')).toHaveText(['All videos', `First ${limit}`, 'Review'])
 
 			await choice.getByRole('button', {name: `First ${limit}`}).click()
 			await expect(rows(page)).toHaveCount(limit, {timeout: 20_000})
@@ -341,6 +342,81 @@ test('a playlist over the load limit waits for a choice on its row, and First N 
 			for (const videoId of FIXTURE_PLAYLIST_VIDEO_IDS.slice(limit)) files.expectNoMp4For(videoId)
 		}
 	)
+})
+
+// Risk (#534): the count answered on a row lived only in that one reload, so
+// when it failed, Retry loaded with the default limit and asked again.
+// Actions: Quick Download a playlist past the load limit, answer All while
+// the playlist fails to load, then Retry once the failure is lifted.
+// Milestones: the needs-choice row; the error row; probing again after Retry.
+// Oracles: the saved row keeps the All answer; every video queued and done
+// with no second question.
+test('All answered on a row survives a failed reload, and Retry loads every video without asking again', async () => {
+	test.setTimeout(200_000)
+	const limit = 2
+	const count = FIXTURE_PLAYLIST_VIDEO_IDS.length
+	if (count <= limit) throw new Error('fixture playlist needs more videos than the limit')
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-bg-quick-answer-retry-user-',
+			outputPrefix: 'arroxy-fixture-bg-quick-answer-retry-out-',
+			settings: settings => {
+				settings.common.playlistProbeLimit = limit
+			}
+		},
+		async ({page, fixtureServer, userDataDir, urls, files}) => {
+			await quickDownloadFromUrlTab(page, urls.playlist())
+			await viewFromToast(page, `${limit}+ videos — choose how many`)
+			const rowTestId = (await rows(page).first().getAttribute('data-testid')) ?? ''
+			const itemId = rowTestId.replace('queue-manager-row-', '')
+			await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'needs-choice')
+
+			fixtureServer.setBehavior({metadataFailureIds: [FIXTURE_PLAYLIST_ID]})
+			await page.getByTestId('queue-choice').getByRole('button', {name: 'All videos'}).click()
+			await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'error', {timeout: 60_000})
+			await expect.poll(() => readPersistedQueue(userDataDir).find(item => item.id === itemId)?.probeTake, {timeout: 10_000}).toEqual({kind: 'all'})
+
+			fixtureServer.setBehavior({})
+			await page.getByTestId(`queue-attention-${itemId}`).getByRole('button', {name: 'Retry'}).click()
+			await expect(rows(page)).toHaveCount(count, {timeout: 60_000})
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="needs-choice"]')).toHaveCount(0)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(count, {timeout: 150_000})
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(count)
+		}
+	)
+})
+
+// Risk: a list on another site used to offer Review alone, so taking it all
+// meant the picker even when nothing was cut off.
+// Actions: Quick Download another site's list shorter than the load limit,
+// then All on its needs-choice row.
+// Milestones: the "choose what to download" toast; the needs-choice row with
+// All and Review and no First N; every video done.
+// Oracles: one mp4 per video on disk; the list was loaded once more for All.
+test("another site's list under the load limit offers All and Review, and All queues every video", async () => {
+	test.setTimeout(200_000)
+	const count = FIXTURE_PLAYLIST_VIDEO_IDS.length
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-bg-quick-other-list-user-', outputPrefix: 'arroxy-fixture-bg-quick-other-list-out-'}, async ({page, fixtureServer, urls, files}) => {
+		await quickDownloadFromUrlTab(page, urls.otherSiteList())
+
+		const asked = `${count} videos in this list — choose what to download`
+		await expect(toast(page, asked)).toBeVisible({timeout: 60_000})
+		await viewFromToast(page, asked)
+		const row = rows(page).first()
+		await expect(row).toHaveAttribute('data-status', 'needs-choice')
+		const choice = page.getByTestId('queue-choice')
+		await expect(choice).toContainText(`This link is a list of ${count} videos`)
+		await expect(choice.getByRole('button')).toHaveText(['All videos', 'Review'])
+		expect(playlistLoads(fixtureServer)).toBe(1)
+
+		await choice.getByRole('button', {name: 'All videos'}).click()
+		await expect(rows(page)).toHaveCount(count, {timeout: 60_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(count, {timeout: 150_000})
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(count)
+		expect(playlistLoads(fixtureServer)).toBe(2)
+	})
 })
 
 // A video opened inside a playlist (`watch?v=…&list=…`) is the one link Quick

@@ -93,21 +93,35 @@ describe('resolveQuickProbe', () => {
 		}
 	})
 
-	it('asks how many to queue when the probe stopped at the load limit', () => {
-		// The probe asks for one entry past the limit; seeing it means "more".
-		const resolution = resolveQuickProbe(ok(playlist(3)), {url: PLAYLIST_URL, playlistMode: 'playlist', limit: 2}, state())
-		expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 2}, capped: true, title: 'Road trip mix'})
-	})
+	// One size question (spec §3.7): it carries how many videos the probe kept
+	// and whether the list goes on past them. A plain list link asks only past
+	// the load limit; a list the link did not announce (another site's, or a
+	// video link that probed as a list) always asks, capped or not.
+	describe('the size question', () => {
+		const OTHER_SITE = 'https://media.example/course/42'
+		it.each([
+			{name: 'a plain list link under the limit queues', url: PLAYLIST_URL, mode: 'playlist', found: 3, limit: 100, expected: null},
+			{name: 'a plain list link past the limit asks, capped', url: PLAYLIST_URL, mode: 'playlist', found: 3, limit: 2, expected: {loaded: 2, capped: true}},
+			{name: "another site's list under the limit asks, uncapped", url: OTHER_SITE, mode: 'auto', found: 3, limit: 100, expected: {loaded: 3, capped: false}},
+			{name: "another site's list past the limit asks, capped", url: OTHER_SITE, mode: 'auto', found: 3, limit: 2, expected: {loaded: 2, capped: true}},
+			{name: 'a video link that probed as a list asks, uncapped', url: VIDEO_URL, mode: 'video', found: 3, limit: 100, expected: {loaded: 3, capped: false}}
+		] as const)('$name', ({url, mode, found, limit, expected}) => {
+			// The probe asks for one entry past the limit; seeing it means "more".
+			const resolution = resolveQuickProbe(ok(playlist(found)), {url, playlistMode: mode, limit}, state())
+			if (expected === null) expect(resolution.kind).toBe('queue')
+			else expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'list-size', ...expected}, title: 'Road trip mix'})
+		})
 
-	it('asks for a review when a link that was not a collection turned out to be one', () => {
-		const resolution = resolveQuickProbe(ok(playlist(3)), {url: 'https://media.example/course/42', playlistMode: 'auto', limit: 100}, state())
-		expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'playlist-review', count: 3}, capped: false})
-	})
-
-	// The old rule: a collection result is reviewed unless the link was an
-	// obvious collection or the user answered "whole playlist" to the mixed prompt.
-	it('asks for a review when a video link probes as a list', () => {
-		expect(resolveQuickProbe(ok(playlist(3)), {url: VIDEO_URL, playlistMode: 'video', limit: 100}, state())).toMatchObject({kind: 'needs-choice', choice: {kind: 'playlist-review'}})
+		// Rule 4: the count is part of the answer, so a row that carries one is
+		// never asked again, Review included.
+		it.each([
+			{name: 'a plain list link past the limit', url: PLAYLIST_URL, mode: 'playlist'},
+			{name: "another site's list", url: OTHER_SITE, mode: 'auto'},
+			{name: 'a video link that probed as a list', url: VIDEO_URL, mode: 'video'}
+		] as const)('$name with a take queues without asking', ({url, mode}) => {
+			expect(resolveQuickProbe(ok(playlist(5)), {url, playlistMode: mode, limit: 2, take: {kind: 'first', count: 2}}, state()).kind).toBe('queue')
+			expect(resolveQuickProbe(ok(playlist(5)), {url, playlistMode: mode, limit: 5000, take: {kind: 'all'}}, state()).kind).toBe('queue')
+		})
 	})
 
 	it('queues a mixed link answered "whole playlist" without a review', () => {

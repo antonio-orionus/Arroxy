@@ -385,3 +385,32 @@ describe('QueueStore — subtitle requests from 0.7.2', () => {
 		expect((await loadOk(store)).map(item => item.id)).toEqual(['kept'])
 	})
 })
+
+// Before one size question, a needs-choice row asked one of two things: how
+// many of a playlist past the load limit (`playlist-cap`), or whether to review
+// a link that turned out to be a list (`playlist-review`). Both load as the one
+// question, and the row keeps waiting.
+describe('QueueStore — needs-choice rows from 0.7.3', () => {
+	function waitingRow(id: string, choice: Record<string, unknown>) {
+		return {...makeItem({id, status: 'needs-choice', url: `https://media.example/${id}`, title: id, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'auto', choice: {kind: 'list-size', loaded: 1, capped: false}}), choice}
+	}
+
+	it('loads a playlist-cap row as a capped size question', async () => {
+		const [store, dir] = await tempStore()
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [waitingRow('cap', {kind: 'playlist-cap', loaded: 100})]}), 'utf-8')
+		expect(await loadOk(store)).toEqual([expect.objectContaining({id: 'cap', status: 'needs-choice', choice: {kind: 'list-size', loaded: 100, capped: true}})])
+	})
+
+	it('loads a playlist-review row as an uncapped size question', async () => {
+		const [store, dir] = await tempStore()
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [waitingRow('review', {kind: 'playlist-review', count: 12})]}), 'utf-8')
+		expect(await loadOk(store)).toEqual([expect.objectContaining({id: 'review', status: 'needs-choice', choice: {kind: 'list-size', loaded: 12, capped: false}})])
+	})
+
+	it('round-trips a size question unchanged', async () => {
+		const [store] = await tempStore()
+		const row = waitingRow('new', {kind: 'list-size', loaded: 40, capped: true}) as unknown as QueueItem
+		await store.save([row])
+		expect((await loadOk(store))[0]?.choice).toEqual({kind: 'list-size', loaded: 40, capped: true})
+	})
+})

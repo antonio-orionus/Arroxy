@@ -580,7 +580,7 @@ describe('QueueManagerTab', () => {
 	it('gives every queue status a filter, so the status counts add up to All', () => {
 		const statuses = queueItemStatusSchema.options
 		const unresolved: QueueItem['job'] = {kind: 'unresolved', extractor: '', extractorKey: ''}
-		const placeholder = {probing: {job: unresolved, probeMode: 'video'}, 'needs-choice': {job: unresolved, probeMode: 'playlist', choice: {kind: 'playlist-review', count: 3}}} as const
+		const placeholder = {probing: {job: unresolved, probeMode: 'video'}, 'needs-choice': {job: unresolved, probeMode: 'playlist', choice: {kind: 'list-size', loaded: 3, capped: false}}} as const
 		useAppStore.setState({queue: statuses.map(status => makeItem({id: status, title: `${status} video`, status, ...(status === 'probing' || status === 'needs-choice' ? placeholder[status] : {})}))})
 
 		render(<QueueManagerTab />)

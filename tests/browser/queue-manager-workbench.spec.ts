@@ -103,7 +103,7 @@ test('quick download rows carry their actions, the badge counts them, and the to
 	await expect(failed.getByRole('button', {name: 'Retry'})).toBeVisible()
 	const capped = page.getByTestId('queue-attention-qd-capped')
 	for (const name of ['All videos', 'First 100', 'Review']) await expect(capped.getByRole('button', {name})).toBeVisible()
-	await expect(page.getByTestId('queue-attention-qd-review').getByRole('button')).toHaveText(['Review'])
+	await expect(page.getByTestId('queue-attention-qd-listed').getByRole('button')).toHaveText(['All videos', 'Review'])
 
 	await page.getByTestId('queue-cancel-probing-qd-probing').click()
 	await expect(page.getByTestId('queue-manager-row-qd-probing')).toHaveCount(0)

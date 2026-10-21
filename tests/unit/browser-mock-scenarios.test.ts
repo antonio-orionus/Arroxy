@@ -443,7 +443,7 @@ describe('browser mock scenarios', () => {
 		const rows = buildScenarioAppApiState(getScenario('queue-quick-download')).queueItems
 		expect(rows.every(item => queueItemSchema.safeParse(item).success)).toBe(true)
 		expect(rows.map(item => item.status)).toEqual(['probing', 'error', 'needs-choice', 'needs-choice'])
-		expect(rows.map(item => item.choice?.kind ?? null)).toEqual([null, null, 'playlist-cap', 'playlist-review'])
+		expect(rows.map(item => item.choice ?? null)).toEqual([null, null, {kind: 'list-size', loaded: 100, capped: true}, {kind: 'list-size', loaded: 12, capped: false}])
 	})
 
 	it('raises the quick download toasts with their actions', async () => {

@@ -86,7 +86,7 @@ function buildLargeQueueItems(): QueueItem[] {
 }
 
 // A quick download's placeholder rows, one per state the Downloads tab resolves.
-export const QUICK_DOWNLOAD_SCENARIO_ROWS = {probing: 'qd-probing', failed: 'qd-failed', capped: 'qd-capped', review: 'qd-review'} as const
+export const QUICK_DOWNLOAD_SCENARIO_ROWS = {probing: 'qd-probing', failed: 'qd-failed', capped: 'qd-capped', listed: 'qd-listed'} as const
 
 function buildQuickDownloadItems(): QueueItem[] {
 	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
@@ -110,10 +110,10 @@ function buildQuickDownloadItems(): QueueItem[] {
 			title: 'Mock Browser Playlist - every lecture of the semester',
 			status: QUEUE_STATUS.needsChoice,
 			probeMode: 'playlist',
-			choice: {kind: 'playlist-cap', loaded: 100},
+			choice: {kind: 'list-size', loaded: 100, capped: true},
 			addedAt: '2026-05-31T12:01:00.000Z'
 		}),
-		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.review, url: 'https://media.example/course/42', title: 'Course 42 - all lessons', status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'playlist-review', count: 12}, addedAt: '2026-05-31T12:00:00.000Z'})
+		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.listed, url: 'https://media.example/course/42', title: 'Course 42 - all lessons', status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'list-size', loaded: 12, capped: false}, addedAt: '2026-05-31T12:00:00.000Z'})
 	]
 }
 
@@ -138,7 +138,16 @@ function buildAttentionItems(): QueueItem[] {
 			error: {kind: 'loginRequired', raw: "Private video. Sign in if you've been granted access to this video"},
 			addedAt: '2026-05-31T12:01:00.000Z'
 		}),
-		queueItem({...placeholder, id: ATTENTION_SCENARIO_ROWS.capped, url: 'https://www.youtube.com/playlist?list=PLsample_lectures', title: 'Every lecture of the semester', status: QUEUE_STATUS.needsChoice, probeMode: 'playlist', choice: {kind: 'playlist-cap', loaded: 100}, addedAt: '2026-05-31T12:00:00.000Z'})
+		queueItem({
+			...placeholder,
+			id: ATTENTION_SCENARIO_ROWS.capped,
+			url: 'https://www.youtube.com/playlist?list=PLsample_lectures',
+			title: 'Every lecture of the semester',
+			status: QUEUE_STATUS.needsChoice,
+			probeMode: 'playlist',
+			choice: {kind: 'list-size', loaded: 100, capped: true},
+			addedAt: '2026-05-31T12:00:00.000Z'
+		})
 	]
 }
 

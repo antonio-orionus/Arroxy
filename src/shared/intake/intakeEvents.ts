@@ -15,7 +15,7 @@ export type QuickDownloadEvent =
 	| {kind: 'queued'; itemId: string; skippedAlreadyQueued: number}
 	| {kind: 'nothing-new'; skippedAlreadyQueued: number}
 	| {kind: 'failed'; itemId: string; title: string; probeError: ProbeError | null}
-	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice; capped: boolean}
+	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice}
 
 // Where a link landed the moment it was taken in, before its probe answers.
 export type IntakePlacement = Extract<QuickDownloadEvent, {kind: 'added' | 'already-queued' | 'not-added'}>
