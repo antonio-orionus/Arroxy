@@ -77,4 +77,24 @@ describe('cleanUrl — ClearURLs ruleset port', () => {
 			expect(cleanUrl(input)).toBe(input)
 		})
 	})
+
+	// A YouTube "show" page is a playlist under another address. yt-dlp reads
+	// that address as a playlist titled "show", without its channel and with
+	// videos missing, so it goes in as the playlist it is.
+	describe('YouTube show pages', () => {
+		const PLAYLIST = 'https://www.youtube.com/playlist?list=PLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2'
+
+		it.each([
+			'https://www.youtube.com/show/VLPLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2?sbp=Kgt2OVF0TTZxbkc1MEAB',
+			'https://www.youtube.com/show/VLPLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2',
+			'https://m.youtube.com/show/VLPLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2/',
+			'https://youtube.com/show/VLPLoSWVnSA9vG_s-XT40oPKF0iWFGw8pOp2?si=tracker'
+		])('takes %s as its playlist', url => {
+			expect(cleanUrl(url)).toBe(PLAYLIST)
+		})
+
+		it.each(['https://www.youtube.com/show/SCabcdefghijklmnop', 'https://www.youtube.com/show/VL', 'https://www.youtube.com/show/VLPL1/extra', 'https://example.com/show/VLPL1'])('leaves %s alone', url => {
+			expect(cleanUrl(url)).toBe(url)
+		})
+	})
 })

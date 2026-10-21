@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 
 describe('isExploreGrabbable', () => {
-	it.each(['https://www.youtube.com/watch?v=abc12345678', 'https://www.youtube.com/watch?v=abc12345678&list=PL1', 'https://www.youtube.com/playlist?list=PL1', 'https://www.youtube.com/@channel', 'https://youtu.be/abc12345678'])('takes the YouTube page %s', url => {
+	it.each(['https://www.youtube.com/watch?v=abc12345678', 'https://www.youtube.com/watch?v=abc12345678&list=PL1', 'https://www.youtube.com/playlist?list=PL1', 'https://www.youtube.com/@channel', 'https://youtu.be/abc12345678', 'https://www.youtube.com/show/VLPL1?sbp=abc'])('takes the YouTube page %s', url => {
 		expect(isExploreGrabbable(url)).toBe(true)
 	})
 
