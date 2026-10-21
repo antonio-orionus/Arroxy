@@ -74,10 +74,13 @@ export function assembleSection(version: string, fragments: readonly Fragment[])
 
 const versionHeadings = (changelog: string): string[] => changelog.split(/\r?\n/).flatMap(line => VERSION_HEADING.exec(line.trim())?.[1] ?? [])
 
-/** The body of a version's section, without its heading; null when there is no such section. */
+/**
+ * The body of a version's section, without its heading; null when there is no
+ * such section. The heading must match exactly, as `publish-release` reads it.
+ */
 export function releaseSectionBody(changelog: string, version: string): string | null {
 	const lines = changelog.split(/\r?\n/)
-	const start = lines.findIndex(line => line.trim() === `## ${version}`)
+	const start = lines.findIndex(line => line === `## ${version}`)
 	if (start === -1) return null
 	const end = lines.findIndex((line, index) => index > start && VERSION_HEADING.test(line.trim()))
 	// The `---` between releases is no content of its own.

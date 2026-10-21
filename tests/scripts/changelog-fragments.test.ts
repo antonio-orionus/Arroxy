@@ -238,6 +238,11 @@ describe('changelog CLI', () => {
 		expect(separatorOnly('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/empty/)})
 	})
 
+	it('blocks a release whose heading the publish workflow would not match', async () => {
+		const {cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG.replace('## 1.2.2', '## 1.2.3 \n\n- Fix.\n\n## 1.2.2')})
+		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/no ## 1\.2\.3 section/)})
+	})
+
 	it('blocks a release with no section of its own', async () => {
 		const {cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG})
 		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/## 1\.2\.3/)})
