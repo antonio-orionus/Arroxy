@@ -2,7 +2,7 @@ import http from 'node:http'
 import {expect, test, type ElectronApplication, type Page} from '@playwright/test'
 import {toastItemName} from '../../src/renderer/src/lib/toastItemName.js'
 import type {AppSettings, ExploreLinkAction, ExploreViewState} from '../../src/shared/types.js'
-import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, type FixtureServer} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
 // Background quick download risk group (P2-R37/R38). A single link's Quick
@@ -296,6 +296,103 @@ test('a playlist over the load limit waits for a choice on its row, and First N 
 			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(limit)
 			files.expectMp4Count(limit)
 			for (const videoId of FIXTURE_PLAYLIST_VIDEO_IDS.slice(limit)) files.expectNoMp4For(videoId)
+		}
+	)
+})
+
+// A video opened inside a playlist (`watch?v=…&list=…`) is the one link Quick
+// Download asks about: just this video, or the playlist's first N. The answer
+// carries the count, so the list option never asks "how many?" again.
+// Fixtures: the video extractor follows the link's list only on
+// `--yes-playlist`, as yt-dlp's YouTube extractor does; the playlist extractor
+// records each load with the fixture server under the playlist id.
+
+function playlistLoads(fixtureServer: FixtureServer): number {
+	return fixtureServer.telemetry().requests.filter(request => request.kind === 'probe-start' && request.videoId === FIXTURE_PLAYLIST_ID).length
+}
+
+async function expectListPrompt(page: Page): Promise<void> {
+	await expect(page.getByTestId('mixed-prompt-title')).toHaveText('Download from this playlist', {timeout: 10_000})
+	await expect(page.getByTestId('mixed-single-choice')).toBeFocused()
+}
+
+// The watcher's record, kept in the renderer between evaluate calls.
+declare global {
+	var __arroxyE2eNeedsChoiceRows: Set<string> | undefined
+}
+
+// Counts every row that ever shows the "how many?" question, however briefly.
+async function watchForNeedsChoice(page: Page): Promise<() => Promise<number>> {
+	await page.evaluate(() => {
+		const seen = new Set<string>()
+		const scan = (): void => {
+			for (const row of document.querySelectorAll('[data-testid^="queue-manager-row-"][data-status="needs-choice"]')) seen.add(row.getAttribute('data-testid') ?? '')
+		}
+		new MutationObserver(scan).observe(document.body, {subtree: true, childList: true, attributes: true, attributeFilter: ['data-status']})
+		globalThis.__arroxyE2eNeedsChoiceRows = seen
+	})
+	return () => page.evaluate(() => globalThis.__arroxyE2eNeedsChoiceRows?.size ?? -1)
+}
+
+// Actions: Quick Download a video-in-a-playlist link, Enter in the dialog.
+// Milestones: the dialog with focus on Just this video; one row done.
+// Oracles: one mp4 on disk; the playlist was never loaded.
+test('a video inside a playlist: Enter in the dialog downloads just that video and never loads the playlist', async () => {
+	test.setTimeout(150_000)
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!videoId) throw new Error('fixture playlist needs a first video')
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-bg-quick-in-list-video-user-', outputPrefix: 'arroxy-fixture-bg-quick-in-list-video-out-'}, async ({page, fixtureServer, urls, files}) => {
+		await quickDownloadFromUrlTab(page, urls.videoInPlaylist(videoId))
+		await expectListPrompt(page)
+		await page.keyboard.press('Enter')
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+
+		await page.locator('.downloads-tab-trigger').click()
+		await expect(rows(page).first()).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+		await expect(rows(page)).toHaveCount(1)
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+		files.expectMp4Count(1)
+		expect(playlistLoads(fixtureServer)).toBe(0)
+	})
+})
+
+// Actions: Quick Download a video-in-a-playlist link with a load limit below
+// the playlist's length, then choose the playlist in the dialog.
+// Milestones: the dialog; N rows; N rows done.
+// Oracles: no row ever asks how many; exactly the first N videos on disk, the
+// rest never fetched.
+test('choosing the playlist queues the first N with no further question', async () => {
+	test.setTimeout(200_000)
+	const limit = 2
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!videoId || FIXTURE_PLAYLIST_VIDEO_IDS.length <= limit) throw new Error('fixture playlist needs more videos than the limit')
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-bg-quick-in-list-first-user-',
+			outputPrefix: 'arroxy-fixture-bg-quick-in-list-first-out-',
+			settings: settings => {
+				settings.common.playlistProbeLimit = limit
+			}
+		},
+		async ({page, fixtureServer, urls, files}) => {
+			const needsChoiceRows = await watchForNeedsChoice(page)
+			await quickDownloadFromUrlTab(page, urls.videoInPlaylist(videoId))
+			await expectListPrompt(page)
+			await expect(page.getByTestId('mixed-playlist-probe-limit-trigger')).toContainText(String(limit))
+			await page.getByTestId('mixed-playlist-choice').click()
+			await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+
+			await page.locator('.downloads-tab-trigger').click()
+			await expect(rows(page)).toHaveCount(limit, {timeout: 60_000})
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(limit, {timeout: 150_000})
+
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(limit)
+			files.expectMp4Count(limit)
+			for (const skipped of FIXTURE_PLAYLIST_VIDEO_IDS.slice(limit)) files.expectNoMp4For(skipped)
+			expect(await needsChoiceRows()).toBe(0)
+			expect(playlistLoads(fixtureServer)).toBeGreaterThan(0)
 		}
 	)
 })
