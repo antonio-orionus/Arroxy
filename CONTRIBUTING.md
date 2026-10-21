@@ -31,7 +31,7 @@ Maintainers publish `yt-dlp-bridge` by bumping `packages/yt-dlp-bridge/package.j
 
 Maintainers publish `ytdlp-errors` by bumping `packages/ytdlp-errors/package.json`, merging to `main`, then pushing a tag named `ytdlp-errors-vX.Y.Z`.
 
-`arroxy-control` (the Control API schemas) and `arroxy-mcp` (the MCP bridge and command line) publish the same way on `arroxy-control-vX.Y.Z` and `arroxy-mcp-vX.Y.Z` tags; no tag has been cut for either yet. Each publish workflow (`.github/workflows/publish-*.yml`) can also run by manual `workflow_dispatch`. Pushing to `main` publishes nothing.
+`arroxy-control` (the Control API schemas) and `arroxy-mcp` (the MCP bridge and command line) are private and never published; they stay in this repo as workspace packages. Each publish workflow (`.github/workflows/publish-*.yml`) can also run by manual `workflow_dispatch`. Pushing to `main` publishes nothing.
 
 A package's changelog (`packages/ytdlp-errors/CHANGELOG.md`, the "What changed in X" sections of `packages/yt-dlp-bridge/README.md`) is written only by its `release(packages): <pkg> <version>` PR, from the commits since the last tag; feature PRs leave it alone.
 

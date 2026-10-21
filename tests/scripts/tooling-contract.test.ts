@@ -77,9 +77,7 @@ async function createContractFixture(overrides: {gitignore?: string; mise?: stri
 		writeFixtureFile(root, '.gitignore', overrides.gitignore ?? 'mise.local.toml\n.mise.local.toml\n.playwright-browsers/\n'),
 		writeFixtureFile(root, '.github/workflows/ci.yml', 'steps:\n  - run: bun run check\n'),
 		writeFixtureFile(root, '.github/workflows/publish-ytdlp-errors.yml', publishWorkflow('bun run errors:check')),
-		writeFixtureFile(root, '.github/workflows/publish-yt-dlp-bridge.yml', publishWorkflow('bun run bridge:check')),
-		writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run control:check')),
-		writeFixtureFile(root, '.github/workflows/publish-arroxy-mcp.yml', publishWorkflow('bun run mcp:check'))
+		writeFixtureFile(root, '.github/workflows/publish-yt-dlp-bridge.yml', publishWorkflow('bun run bridge:check'))
 	])
 	return root
 }
@@ -108,16 +106,6 @@ describe('tooling contract', () => {
 		expect(result.output).toContain('packages:check must run errors:check, bridge:check, control:check and mcp:check, then packages:verify-metadata.')
 	})
 
-	it('fails when the arroxy-control publish workflow skips its gate', async () => {
-		const root = await createContractFixture()
-		await writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run errors:check'))
-
-		const result = runToolingContract(root)
-
-		expect(result.status).toBe(1)
-		expect(result.output).toContain('publish-arroxy-control.yml must call "bun run control:check"')
-	})
-
 	it('fails when packages:check skips the arroxy-mcp gate', async () => {
 		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run control:check && bun run packages:verify-metadata'})
 
@@ -134,16 +122,6 @@ describe('tooling contract', () => {
 
 		expect(result.status).toBe(1)
 		expect(result.output).toContain('packages:check must run errors:check, bridge:check, control:check and mcp:check, then packages:verify-metadata.')
-	})
-
-	it('fails when the arroxy-mcp publish workflow skips its gate', async () => {
-		const root = await createContractFixture()
-		await writeFixtureFile(root, '.github/workflows/publish-arroxy-mcp.yml', publishWorkflow('bun run control:check'))
-
-		const result = runToolingContract(root)
-
-		expect(result.status).toBe(1)
-		expect(result.output).toContain('publish-arroxy-mcp.yml must call "bun run mcp:check"')
 	})
 
 	it('fails when the plugin bridge drifts from the oxlint version vite-plus bundles', async () => {

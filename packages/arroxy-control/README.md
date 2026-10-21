@@ -6,9 +6,7 @@ The schemas of the Arroxy **Control API**: the small, versioned protocol that pr
 
 This package holds [zod](https://zod.dev) schemas for every request, result, event and error, their TypeScript types, and a JSON Schema export for clients that do not use zod. It has no state and does no I/O: connecting to the app is the client's job.
 
-```bash
-bun add arroxy-control
-```
+It is a private workspace package in the Arroxy repo, not published to npm; consumers in the repo depend on it as `"arroxy-control": "workspace:*"`.
 
 Node ≥ 20. ESM + CJS.
 

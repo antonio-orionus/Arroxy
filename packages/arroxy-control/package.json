@@ -1,37 +1,10 @@
 {
 	"name": "arroxy-control",
 	"version": "0.1.0",
+	"private": true,
 	"description": "Zod schemas and JSON Schema for the Arroxy Control API: the versioned, public protocol that phones, local AI agents and scripts use to drive the Arroxy desktop app.",
-	"keywords": [
-		"arroxy",
-		"control-api",
-		"downloader",
-		"esm",
-		"json-schema",
-		"mcp",
-		"protocol",
-		"remote-control",
-		"schema",
-		"typescript",
-		"yt-dlp",
-		"zod"
-	],
-	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/arroxy-control#readme",
-	"bugs": {
-		"url": "https://github.com/antonio-orionus/Arroxy/issues"
-	},
 	"license": "MIT",
 	"author": "Antonio Orionus",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/antonio-orionus/Arroxy.git",
-		"directory": "packages/arroxy-control"
-	},
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
 	"type": "module",
 	"sideEffects": false,
 	"main": "./dist/index.cjs",
@@ -50,15 +23,10 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
 		"test": "vp test run",
-		"build": "vp pack",
-		"prepack": "bun run typecheck && bun run test && bun run build",
-		"pack:dry-run": "bun pm pack --dry-run"
+		"build": "vp pack"
 	},
 	"dependencies": {
 		"zod": "4.6.7"

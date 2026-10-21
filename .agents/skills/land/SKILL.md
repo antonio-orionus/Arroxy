@@ -113,7 +113,7 @@ verify: `git worktree list` no longer shows the run's worktrees, and `git branch
 ## Stop and ask
 
 - The root cause is ambiguous or will not reproduce.
-- The fix needs a change in `packages/*`: those publish on their own tags.
+- The fix needs a change in `ytdlp-errors` or `yt-dlp-bridge`: those publish on their own tags.
 - A review finding would change the design agreed in phase 1.
 - A CI failure looks unrelated to the change.
 - Any step would rewrite published history (force push, tag deletion, amending a pushed commit).

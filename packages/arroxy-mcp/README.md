@@ -2,33 +2,35 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Lets local AI agents and scripts drive the [Arroxy](https://github.com/antonio-orionus/Arroxy) desktop app: add links, read the queue, wait for downloads, pause and resume. It is an [MCP](https://modelcontextprotocol.io) server on stdio and a command line in one binary, and it speaks the Arroxy **Control API** ([`arroxy-control`](https://www.npmjs.com/package/arroxy-control)) to the running app over a local socket (a named pipe on Windows).
+Lets local AI agents and scripts drive the [Arroxy](https://github.com/antonio-orionus/Arroxy) desktop app: add links, read the queue, wait for downloads, pause and resume. It is an [MCP](https://modelcontextprotocol.io) server on stdio and a command line in one binary, and it speaks the Arroxy **Control API** ([`arroxy-control`](../arroxy-control)) to the running app over a local socket (a named pipe on Windows).
 
 Arroxy has to be running on the same machine, as the same user. The server starts and lists its tools while Arroxy is closed; a tool call then answers "Arroxy is not running. Open Arroxy and try again."
 
 Node ≥ 20.
+
+It is a private workspace package in the Arroxy repo, not published to npm; it will ship inside Arroxy. Until then, build it and `arroxy-control` from a checkout (`bun run --filter arroxy-control build && bun run --filter arroxy-mcp build`) and run `node <checkout>/packages/arroxy-mcp/dist/cli.js`, written `arroxy-mcp` below.
 
 ## Add it to an agent
 
 Claude Code:
 
 ```bash
-claude mcp add arroxy -- bunx arroxy-mcp
+claude mcp add arroxy -- node <checkout>/packages/arroxy-mcp/dist/cli.js
 ```
 
 Codex:
 
 ```bash
-codex mcp add arroxy -- bunx arroxy-mcp
+codex mcp add arroxy -- node <checkout>/packages/arroxy-mcp/dist/cli.js
 ```
 
 VS Code:
 
 ```bash
-code --add-mcp '{"name":"arroxy","command":"bunx","args":["arroxy-mcp"]}'
+code --add-mcp '{"name":"arroxy","command":"node","args":["<checkout>/packages/arroxy-mcp/dist/cli.js"]}'
 ```
 
-Any other client: run `bunx arroxy-mcp` (or `arroxy-mcp serve`) as a stdio server.
+Any other client: run `arroxy-mcp` (or `arroxy-mcp serve`) as a stdio server.
 
 ## Allow it in Arroxy
 
@@ -60,18 +62,18 @@ Results come back as JSON text and as `structuredContent`. Errors come back with
 ## Command line
 
 ```bash
-bunx arroxy-mcp status
-bunx arroxy-mcp profiles
-bunx arroxy-mcp queue [--cursor <c>] [--limit <n>]
-bunx arroxy-mcp add <url> [--profile builtin:<id>|custom:<id>] [--playlist|--video] [--request-id <id>]
-bunx arroxy-mcp get <itemId>
-bunx arroxy-mcp get --intake <intakeId>
-bunx arroxy-mcp wait <itemId> [--until settled|done] [--timeout <ms>]
-bunx arroxy-mcp wait --intake <intakeId>
-bunx arroxy-mcp pause|resume|cancel|retry|remove <itemId>
-bunx arroxy-mcp pause-all
-bunx arroxy-mcp resume-all
-bunx arroxy-mcp serve
+arroxy-mcp status
+arroxy-mcp profiles
+arroxy-mcp queue [--cursor <c>] [--limit <n>]
+arroxy-mcp add <url> [--profile builtin:<id>|custom:<id>] [--playlist|--video] [--request-id <id>]
+arroxy-mcp get <itemId>
+arroxy-mcp get --intake <intakeId>
+arroxy-mcp wait <itemId> [--until settled|done] [--timeout <ms>]
+arroxy-mcp wait --intake <intakeId>
+arroxy-mcp pause|resume|cancel|retry|remove <itemId>
+arroxy-mcp pause-all
+arroxy-mcp resume-all
+arroxy-mcp serve
 ```
 
 Results print as JSON on stdout. An error prints its message and next step on stderr and exits 1; "Arroxy is not running" exits 2. That is reserved for no `control.json` at all, or one whose socket is gone: when Arroxy's socket exists but cannot be used (permissions, an unsafe folder, no answer), the error says why and exits 1. With no command, `arroxy-mcp` serves MCP.

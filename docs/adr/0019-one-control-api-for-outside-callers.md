@@ -41,10 +41,10 @@ or named pipe, never a local HTTP port, which no browser page can reach. An
 Undo, and queues nothing.
 
 **The schemas are an MIT package.** Requests, results, events and errors live
-in their own package, published from this repo like the other two (ADR 0012), so
+in their own MIT workspace package, kept in this repo and never published, so
 the phone app, the bridge and the GPL app share one contract without GPL code
-crossing into MIT code. A change to the public contract is a package release,
-which keeps it deliberate.
+crossing into MIT code. A change to the public contract is a reviewed change to
+that package, not a package release.
 
 **The desktop may authenticate its own clients.** The maintainer's dual-deploy
 plan keeps the desktop local-only (it never becomes a client of a remote engine,

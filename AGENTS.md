@@ -13,7 +13,7 @@ Arroxy's coding standards, commands and gotchas, for anyone working in this repo
 
 ## Monorepo
 
-`src/` is the Electron app. `packages/*` (`yt-dlp-bridge`, `ytdlp-errors`, `arroxy-control`, `arroxy-mcp`) are published to npmjs.com **from this repo**, never cloned separately, and consumed via `workspace:*`. After touching one, run its gate (`bun run errors:check`, `bridge:check`, `control:check`, `mcp:check`). Each publishes on its own `<pkg>-v*` tag, never with the app or a push to `main`, so keep a package change off the critical path of an app fix that doesn't need it. Only the `release(packages): <pkg> <version>` PR writes a package's changelog.
+`src/` is the Electron app. `packages/*` are consumed via `workspace:*`, never cloned separately: `yt-dlp-bridge` and `ytdlp-errors` are published to npmjs.com **from this repo**; `arroxy-control` and `arroxy-mcp` are private, in-repo only. After touching one, run its gate (`bun run errors:check`, `bridge:check`, `control:check`, `mcp:check`). Each published one publishes on its own `<pkg>-v*` tag, never with the app or a push to `main`, so keep a package change off the critical path of an app fix that doesn't need it. Only the `release(packages): <pkg> <version>` PR writes a package's changelog.
 
 Sibling repos (site, runtime binaries, private notes, package-manager manifests) consume what this hub builds and hold no app code: [`dev-docs/README.md`](dev-docs/README.md#related-repositories).
 

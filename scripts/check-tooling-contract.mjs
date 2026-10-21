@@ -23,7 +23,7 @@ const NPM_CLI_NAME = 'np' + 'm'
 const NPX_CLI_NAME = 'np' + 'x'
 const NPM_FAMILY_COMMAND_PATTERN = new RegExp(String.raw`\b(?:${NPM_CLI_NAME}|${NPX_CLI_NAME})[ \t]+`)
 const TRUSTED_NPM_PUBLISH_COMMAND = `${NPM_CLI_NAME} publish ./npm-artifacts/*.tgz --access public`
-const TRUSTED_NPM_PUBLISH_WORKFLOWS = new Set(['.github/workflows/publish-ytdlp-errors.yml', '.github/workflows/publish-yt-dlp-bridge.yml', '.github/workflows/publish-arroxy-control.yml', '.github/workflows/publish-arroxy-mcp.yml'])
+const TRUSTED_NPM_PUBLISH_WORKFLOWS = new Set(['.github/workflows/publish-ytdlp-errors.yml', '.github/workflows/publish-yt-dlp-bridge.yml'])
 
 function rootFromArgs(argv) {
 	const rootIndex = argv.indexOf('--root')
@@ -284,9 +284,7 @@ const ignoredEntries = gitignoreEntries(readText('.gitignore'))
 const ciWorkflow = readText('.github/workflows/ci.yml')
 const publishWorkflows = [
 	{path: '.github/workflows/publish-ytdlp-errors.yml', command: 'bun run errors:check'},
-	{path: '.github/workflows/publish-yt-dlp-bridge.yml', command: 'bun run bridge:check'},
-	{path: '.github/workflows/publish-arroxy-control.yml', command: 'bun run control:check'},
-	{path: '.github/workflows/publish-arroxy-mcp.yml', command: 'bun run mcp:check'}
+	{path: '.github/workflows/publish-yt-dlp-bridge.yml', command: 'bun run bridge:check'}
 ]
 const fmtConfig = stringMap(viteConfig.fmt)
 const fmtIgnorePatterns = Array.isArray(fmtConfig.ignorePatterns) ? fmtConfig.ignorePatterns : []
