@@ -9,3 +9,5 @@ export declare function readmeOpenKeys(enStrings: Readonly<Record<string, string
 export declare const TRANSLATED_FROM_PATH: string
 export declare function readTranslatedFrom(): Record<string, string>
 export declare function untranslatedEnglishChanges(enStrings: Readonly<Record<string, string>>, translatedFrom: Readonly<Record<string, string>>): {changed: string[]; added: string[]; removed: string[]}
+export declare const STAMP_TOKEN: string
+export declare function resolveStamp(rendered: string, previous: string | null, today?: string): {date: string; changed: boolean}

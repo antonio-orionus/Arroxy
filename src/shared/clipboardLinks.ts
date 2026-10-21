@@ -25,3 +25,15 @@ export function classifyClipboardText(raw: string): ClipboardLinks {
 	const [url] = urls
 	return url && BARE_WEB_LINK_RE.test(text) && isWebUrl(url) ? {kind: 'single', url} : {kind: 'none'}
 }
+
+export type PastedLinks = {kind: 'none'} | {kind: 'single'; url: string} | {kind: 'bulk'; raw: string}
+
+// What the Paste button acts on. A click is an explicit ask, so unlike the
+// watcher it takes a link out of any text. Several links go to Bulk URLs with
+// the text as copied.
+export function classifyPastedText(raw: string): PastedLinks {
+	const urls = parseBulkUrls(raw).accepted.map(item => item.url)
+	if (urls.length > 1) return {kind: 'bulk', raw}
+	const [url] = urls
+	return url ? {kind: 'single', url} : {kind: 'none'}
+}

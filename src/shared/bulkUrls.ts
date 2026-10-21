@@ -19,10 +19,13 @@ export interface BulkUrlParseResult {
 	rejected: BulkUrlRejected[]
 	duplicateCount: number
 	nonMediaCount: number
+	invalidCount: number
 	ignoredCount: number
 }
 
-const URL_RE = /https?:\/\/[^\s,;|<>"'`]+/gi
+// `,` and `;` are valid inside a URL, so they end a link only where the next
+// link starts; one that ends a link in prose is trimmed as trailing punctuation.
+const URL_RE = /https?:\/\/(?:[^\s,;|<>"'`]|[,;](?!\s*https?:\/\/))+/gi
 const TRAILING_PUNCTUATION_RE = /[)\].,;:!?]+$/
 const OBVIOUS_NON_MEDIA_FILE_EXTENSIONS = new Set([
 	'7z',
@@ -128,10 +131,16 @@ export function parseBulkUrls(raw: string): BulkUrlParseResult {
 	const seen = new Set<string>()
 	let duplicateCount = 0
 	let nonMediaCount = 0
+	let invalidCount = 0
 	let rejectedIndex = 0
 
 	for (const match of raw.matchAll(URL_RE)) {
 		const cleaned = cleanUrl(trimUrlToken(match[0]))
+
+		if (!URL.canParse(cleaned)) {
+			invalidCount++
+			continue
+		}
 
 		if (isObviouslyNonMediaUrl(cleaned)) {
 			nonMediaCount++
@@ -150,5 +159,5 @@ export function parseBulkUrls(raw: string): BulkUrlParseResult {
 		accepted.push({url: cleaned, kind: urlIntentBulkLabel(intent), intent})
 	}
 
-	return {accepted, rejected, duplicateCount, nonMediaCount, ignoredCount: rejected.length + nonMediaCount}
+	return {accepted, rejected, duplicateCount, nonMediaCount, invalidCount, ignoredCount: rejected.length + nonMediaCount + invalidCount}
 }

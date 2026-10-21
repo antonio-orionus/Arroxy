@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {applyStrings, missingTemplateKeys, readmeOpenKeys, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
+import {applyStrings, missingTemplateKeys, readmeOpenKeys, resolveStamp, STAMP_TOKEN, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
 
 const TEMPLATE = '# {{title}}\n{{intro}}\n{{LANG_NAV}}'
 
@@ -30,5 +30,25 @@ describe('README strings', () => {
 		expect(readmeOpenKeys(en, {title: 'Arroxy', intro: 'Lade fast alles herunter.', added: 'Neue Zeile'}, en)).toEqual([])
 		// Translated everywhere but not recorded yet: the sync still has to run --record-translated.
 		expect(readmeOpenKeys(en, {title: 'Arroxy', intro: 'Lade fast alles herunter.', added: 'Neue Zeile'}, {title: 'Arroxy', intro: 'Download almost anything.'})).toEqual(['added'])
+	})
+
+	it("keeps a README's stamp date while its content is unchanged, whatever language the label is in", () => {
+		const rendered = `# Arroxy\n> _Zuletzt aktualisiert: ${STAMP_TOKEN}._\n`
+		const previous = '# Arroxy\n> _Zuletzt aktualisiert: 2026-05-14._\n'
+
+		expect(resolveStamp(rendered, previous, '2026-10-21')).toEqual({date: '2026-05-14', changed: false})
+		expect(resolveStamp(rendered.replace('Arroxy', 'Arroxy 2'), previous, '2026-10-21')).toEqual({date: '2026-10-21', changed: true})
+		expect(resolveStamp(rendered, null, '2026-10-21')).toEqual({date: '2026-10-21', changed: true})
+	})
+
+	it('dates a README anew when its stamp label is translated', () => {
+		const rendered = `> _Zuletzt aktualisiert: ${STAMP_TOKEN}._\n`
+
+		expect(resolveStamp(rendered, '> _Last updated: 2026-05-14._\n', '2026-10-21')).toEqual({date: '2026-10-21', changed: true})
+	})
+
+	it('refuses a README whose stamp string lost its date placeholder', () => {
+		expect(() => resolveStamp('> _Zuletzt aktualisiert: {{LAST_UPDATED }}._\n', null, '2026-10-21')).toThrow(/LAST_UPDATED/)
+		expect(() => resolveStamp(`${STAMP_TOKEN} ${STAMP_TOKEN}`, null, '2026-10-21')).toThrow(/LAST_UPDATED/)
 	})
 })

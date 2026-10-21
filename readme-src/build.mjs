@@ -18,25 +18,32 @@ const TEMPLATE_PATH = resolve(HERE, "template.md");
 
 // The "Last updated" stamp is derived, never hand-written. Each README keeps the
 // date of the last build that actually changed its content: the freshly rendered
-// text carries STAMP_TOKEN where the date goes, and the file already on disk is
-// normalized the same way before comparison. Equal content -> reuse the old date,
-// so `bun run check` (which rebuilds every README) never churns the working tree.
-const STAMP_TOKEN = "__ARROXY_LAST_UPDATED__";
-const STAMP_SENTINEL = `_Last updated: ${STAMP_TOKEN}._`;
-const STAMP_RE = /_Last updated: ([^_]*)\._/;
+// text carries STAMP_TOKEN where the date goes, and the file already on disk
+// matches it when it reads the same around a date in that spot. Equal content ->
+// reuse the old date, so `bun run check` (which rebuilds every README) never
+// churns the working tree. The stamp's wording is a localized string, so only
+// the date's position is fixed.
+export const STAMP_TOKEN = "__ARROXY_LAST_UPDATED__";
+const STAMP_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function todayUtc() {
   return new Date().toISOString().slice(0, 10);
 }
 
 // Returns the date to stamp plus whether it moved, given the previous file (if any).
-function resolveStamp(rendered, previous) {
-  const prevDate = previous?.match(STAMP_RE)?.[1];
-  if (previous && prevDate) {
-    const prevNormalized = previous.replace(STAMP_RE, STAMP_SENTINEL);
-    if (prevNormalized === rendered) return { date: prevDate, changed: false };
+// Throws when the render does not carry the stamp exactly once: a translation of
+// `last_updated` that lost its {{LAST_UPDATED}} would otherwise ship without a date.
+export function resolveStamp(rendered, previous, today = todayUtc()) {
+  const parts = rendered.split(STAMP_TOKEN);
+  if (parts.length !== 2) {
+    throw new Error(`the README must show {{LAST_UPDATED}} exactly once (found ${parts.length - 1}); check its last_updated string`);
   }
-  return { date: todayUtc(), changed: true };
+  const [before, after] = parts;
+  if (previous && previous.startsWith(before) && previous.endsWith(after)) {
+    const prevDate = previous.slice(before.length, previous.length - after.length);
+    if (STAMP_DATE_RE.test(prevDate)) return { date: prevDate, changed: false };
+  }
+  return { date: today, changed: true };
 }
 
 // Reports drift per non-en locale. In strict mode any drift throws; otherwise
@@ -245,8 +252,14 @@ async function main() {
 
     const outPath = resolve(ROOT, loc.filename);
     const previous = await readFile(outPath, "utf8").catch(() => null);
-    const { date, changed } = resolveStamp(md, previous);
-    await writeFile(outPath, md.replace(STAMP_SENTINEL, `_Last updated: ${date}._`), "utf8");
+    let stamp;
+    try {
+      stamp = resolveStamp(md, previous);
+    } catch (error) {
+      throw new Error(`Locale "${loc.code}": ${error instanceof Error ? error.message : String(error)}`);
+    }
+    const { date, changed } = stamp;
+    await writeFile(outPath, md.replace(STAMP_TOKEN, date), "utf8");
     console.log(
       `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(30)} ${date}${changed ? " (updated)" : ""}`,
     );
