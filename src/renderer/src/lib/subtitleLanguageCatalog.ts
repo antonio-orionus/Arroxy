@@ -22,12 +22,7 @@ export interface SubtitleLanguageOption {
 }
 
 export function buildSubtitleLanguageOptions(uiLanguage: string): SubtitleLanguageOption[] {
-	const options = YOUTUBE_SUBTITLE_LANGUAGE_CODES.map(code => ({
-		code,
-		label: languageLabel(code, uiLanguage) ?? code,
-		englishName: languageLabel(code, 'en') ?? code,
-		nativeName: languageLabel(code, code) ?? code
-	}))
+	const options = YOUTUBE_SUBTITLE_LANGUAGE_CODES.map(code => ({code, label: languageLabel(code, uiLanguage) ?? code, englishName: languageLabel(code, 'en') ?? code, nativeName: languageLabel(code, code) ?? code}))
 	const collator = new Intl.Collator(uiLanguage)
 	return options.sort((a, b) => collator.compare(a.label, b.label))
 }
