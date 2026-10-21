@@ -17,8 +17,8 @@ export interface Lane {
 
 // Claude reviews in narrow lanes, Codex reviews the whole change at once, so the
 // two tools find bugs from different angles. When Codex is unavailable, a light
-// run puts the whole-change lane on Claude instead. Security is out of scope by the
-// owner's choice: Arroxy is a desktop app and the tokens are better spent here.
+// run puts the whole-change lane on Claude instead. What is out of scope, security
+// hardening among it, lives in review-learnings.md, which every prompt includes.
 export const CLAUDE_LANES: readonly Lane[] = [
 	{
 		id: 'regressions',
@@ -66,7 +66,6 @@ const SHARED_RULES = `What counts as a finding:
 - A bug that needs particular inputs still counts: name the inputs.
 
 Do not report:
-- Security hardening, threat models or attack scenarios. This is a desktop app; the owner has ruled security review out of scope.
 - Style, naming, formatting, comment wording, or anything oxlint, the TypeScript compiler, knip or \`bun run check\` would already catch.
 - Generated files: README.md at the root and docs/readme/README.*.md, non-English locale JSON and .po files.
 - Speculation that something "may break" elsewhere without naming the code that breaks.
@@ -119,7 +118,7 @@ ${findingsJson}
 
 For each id, open the cited code and the code it depends on, and try to disprove the claim:
 - "confirmed": you traced the failure scenario through the actual code and it happens.
-- "refuted": the premise is wrong: a guard, caller, type, test or earlier step prevents it, the cited code does not do what the finding says, or it is out of scope (security hardening, style, something the linter or compiler catches).
+- "refuted": the premise is wrong: a guard, caller, type, test or earlier step prevents it, the cited code does not do what the finding says, or it is out of scope (style, something the linter or compiler catches, or a lesson below that rules it out).
 - "uncertain": it depends on runtime behaviour you cannot establish from the code (a yt-dlp or OS behaviour, timing) and you could not settle it.
 Be skeptical: a plausible story is not a confirmation. The reason is one or two sentences citing the code that decided it.
 Also set "introduced": true only if this change created or exposed the defect, false if it predates the change.${learningsBlock(scope.learnings)}
