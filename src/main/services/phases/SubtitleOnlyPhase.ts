@@ -60,6 +60,8 @@ export const SubtitleOnlyPhase: Phase = {
 				result: await ytDlp.run(
 					req,
 					buildYtDlpSignal(ctx, active, {
+						// A listing's stdout is the info-json, read from the result: no progress to parse, nothing to log.
+						...(req.kind === 'subtitle-listing' ? {onStdout: () => undefined} : {}),
 						onMinting: attempt => {
 							ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
 						},

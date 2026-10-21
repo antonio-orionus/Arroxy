@@ -254,6 +254,16 @@ describe('SidecarSubsPhase: the listing run', () => {
 		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'de', auto: false}]}, loadInfoJsonPath: listing})
 	})
 
+	it("keeps the listing's JSON out of progress parsing and the job log", async () => {
+		const ctx = makeCtx({input: vimeo(codes(['de'])), fake: {listing: VIMEO_INFO}})
+		runMock(ctx).mockImplementationOnce(async (_req, signal) => {
+			signal?.onStdout?.(JSON.stringify(VIMEO_INFO))
+			return {...SUCCESS, stdout: JSON.stringify(VIMEO_INFO)}
+		})
+		await SidecarSubsPhase(false).run(ctx)
+		expect(ctx.safeConsume).not.toHaveBeenCalled()
+	})
+
 	it('lists them on YouTube too when no info-json is readable', async () => {
 		await rm(join(tempDir, '_arroxy.info.json'))
 		const ctx = makeCtx({input: input({job: job(codes(['ja']))})})

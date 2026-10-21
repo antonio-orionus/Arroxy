@@ -278,6 +278,16 @@ describe('SubtitleOnlyPhase: the listing run', () => {
 		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'de', auto: false}]}})
 	})
 
+	it("keeps the listing's JSON out of progress parsing and the job log", async () => {
+		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined, job: job(codes(['ja']))})})
+		runMock(ctx).mockImplementationOnce(async (_req, signal) => {
+			signal?.onStdout?.(JSON.stringify(YOUTUBE_INFO))
+			return {...SUCCESS, stdout: JSON.stringify(YOUTUBE_INFO)}
+		})
+		await SubtitleOnlyPhase.run(ctx)
+		expect(ctx.safeConsume).not.toHaveBeenCalled()
+	})
+
 	it('a failed listing is a hard failure and fetches nothing', async () => {
 		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined}), fake: {listingResult: EXIT_ERROR}})
 		expect((await SubtitleOnlyPhase.run(ctx)).kind).toBe('hard-failed')

@@ -107,7 +107,8 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 				const spawn = async (): Promise<{result: YtDlpResult}> => ({
 					result: await ytDlp.run(
 						req,
-						buildYtDlpSignal(ctx, active),
+						// A listing's stdout is the info-json, read from the result: no progress to parse, nothing to log.
+						buildYtDlpSignal(ctx, active, req.kind === 'subtitle-listing' ? {onStdout: () => undefined} : {}),
 						// The media is saved: the rest of this job goes ahead through a
 						// rate-limit cooldown its own media run may have started.
 						{identity: identityFor(input.auth), jobKey: job.id, honorCooldown: false}
