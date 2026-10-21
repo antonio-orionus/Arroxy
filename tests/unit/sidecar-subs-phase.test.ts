@@ -12,6 +12,7 @@ import type {PreparedJob, EmbedOptions, SponsorBlockOptions, SubtitleOptions} fr
 import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
+import {planWorkflow} from 'yt-dlp-bridge'
 import {explorePorts} from '../helpers/explorePorts.js'
 
 vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
@@ -262,6 +263,28 @@ describe('SidecarSubsPhase: the listing run', () => {
 		})
 		await SidecarSubsPhase(false).run(ctx)
 		expect(ctx.safeConsume).not.toHaveBeenCalled()
+	})
+
+	// The fallback to the probe's info-json, which lives in the app's cache: the
+	// fetch loads a copy in the temp folder, so a `$HOME` in the cache path never
+	// reaches yt-dlp, which would expand it.
+	it("falls back to a copy of the probe's info-json in the temp folder when the cache path holds a $HOME", async () => {
+		await rm(join(tempDir, '_arroxy.info.json'))
+		const cache = await mkdtemp(join(tmpdir(), 'arroxy-user$HOME-'))
+		try {
+			const probe = join(cache, 'probe.info.json')
+			await writeFile(probe, JSON.stringify(YOUTUBE_INFO))
+			const ctx = makeCtx({input: input({probeInfoJsonPath: probe, job: job(codes(['ja']))})})
+			expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+			expect(runs(ctx).map(([req]) => req.kind)).toEqual(['subtitles'])
+			const request = fetchRequest(ctx)
+			if (request?.kind !== 'subtitles') throw new Error('no subtitle fetch')
+			expect(request.loadInfoJsonPath).toBe(join(tempDir, '_arroxy.probe.info.json'))
+			const {args} = planWorkflow(request)
+			expect(args[args.indexOf('--load-info-json') + 1]).toBe(join('.arroxy-temp', 'job', '_arroxy.probe.info.json'))
+		} finally {
+			await rm(cache, {recursive: true, force: true})
+		}
 	})
 
 	it('lists them on YouTube too when no info-json is readable', async () => {

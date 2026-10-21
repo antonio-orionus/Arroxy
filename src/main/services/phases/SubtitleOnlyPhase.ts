@@ -6,7 +6,7 @@ import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {cleanupTempDirByPath} from '../download/cleanup.js'
 import {setupTempDir} from '../download/jobTempDir.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
 import {automaticCaptionPaths, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, clearSubtitleReport, saveSubtitleListing, subtitleFetchRequest, subtitleReportFile} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -89,7 +89,7 @@ export const SubtitleOnlyPhase: Phase = {
 			return {kind: 'done', result}
 		}
 
-		let lists = await eagerSubtitleLists([input.probeInfoJsonPath], site)
+		let lists = await eagerSubtitleLists([await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir, job.id)], site)
 		if (!lists) {
 			const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 			if (listed.kind === 'ended') return listed.outcome

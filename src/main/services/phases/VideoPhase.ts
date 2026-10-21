@@ -1,5 +1,5 @@
 import {readFileSync} from 'node:fs'
-import {copyFile, mkdir, readFile, rm, stat} from 'node:fs/promises'
+import {mkdir, readFile, rm, stat} from 'node:fs/promises'
 import log from 'electron-log/main.js'
 import {isAbsolute, join, relative, sep} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -13,7 +13,7 @@ import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {readInfoJsonTitle} from '../download/infoJsonTitle.js'
 import {setupTempDir} from '../download/jobTempDir.js'
 import type {ActiveDownload, Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut, INFO_JSON_NAME} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut, INFO_JSON_NAME, probeInfoJsonInTemp} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
 import {FINAL_PATH_FILE_NAME, clearFinalPathFile, readFinalPathFile} from '../ytDlpFinalPath.js'
 import {identityFor} from '../exploreGate.js'
@@ -26,24 +26,6 @@ const logger = log.scope('downloads')
 function insideOutputDir(outputDir: string, tempDir: string): boolean {
 	const inside = relative(outputDir, tempDir)
 	return inside !== '' && inside !== '..' && !inside.startsWith(`..${sep}`) && !isAbsolute(inside)
-}
-
-// The probe's info-json lives in the app's cache. yt-dlp expands a path it
-// reads like any other, so the run reads a copy in the job's temp folder, by a
-// path relative to the folder it runs in. Without a temp folder, or when the
-// copy fails, the cache path is used as before.
-const PROBE_INFO_JSON_NAME = '_arroxy.probe.info.json'
-
-async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined, tempDir: string | undefined, jobId: string): Promise<string | undefined> {
-	if (!probeInfoJsonPath || !tempDir) return probeInfoJsonPath
-	const copy = join(tempDir, PROBE_INFO_JSON_NAME)
-	return copyFile(probeInfoJsonPath, copy).then(
-		() => copy,
-		(error: unknown) => {
-			logger.warn("could not copy the probe's info-json into the temp folder; reading it from the cache", {jobId, code: error instanceof Error && 'code' in error ? String(error.code) : null})
-			return probeInfoJsonPath
-		}
-	)
 }
 
 async function clearTempDir(tempDir: string): Promise<void> {

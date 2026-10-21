@@ -4,7 +4,7 @@ import type {SubtitlePlan} from '@shared/subtitleTracks.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {join} from 'node:path'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
 import {automaticCaptionPaths, clearSubtitleReport, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, saveSubtitleListing, subtitleEmbedTracks, subtitleFetchRequest, subtitleReportFile, type ReportedSubtitle, type SubtitleLists} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {forgetOnExit} from '../download/processControl.js'
@@ -133,7 +133,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			// The media run's info-json first: same identity, and written moments ago.
-			let lists = await eagerSubtitleLists([join(tempDir, INFO_JSON_NAME), input.probeInfoJsonPath], site)
+			let lists = await eagerSubtitleLists([join(tempDir, INFO_JSON_NAME), await probeInfoJsonInTemp(input.probeInfoJsonPath, tempDir, job.id)], site)
 			if (!lists) {
 				const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 				if (listed.kind !== 'success') return listed
